@@ -421,3 +421,6 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['%d photos per page'] = '%d fotoj sur ĉiu paĝo';
 $lang['Theme'] = 'Temo';
 $lang['No results for'] = 'Neniu rezulto por';
+$lang['Apply on properties'] = 'Apliku al la ecoj';
+$lang['Photo description'] = 'Fotopriskribo';
+$lang['Photo title'] = 'Fototitolo';
