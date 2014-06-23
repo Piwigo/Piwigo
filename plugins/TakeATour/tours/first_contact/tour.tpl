@@ -17,7 +17,7 @@ tour.addSteps([
   {
     path: "{/literal}{$TAT_path}{literal}admin.php",
     placement: "right",
-    element: ".icon-plus-circled",
+    element: "a[href='./admin.php?page=photos_add']",
     reflex:true,
     title: "{/literal}{'first_contact_title2'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp2'|@translate|@escape:'javascript'}{literal}",
@@ -31,7 +31,7 @@ tour.addSteps([
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
-    placement: "left",
+    placement: "right",
     element: "#albumSelection",
     title: "{/literal}{'first_contact_title4'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp4'|@translate|@escape:'javascript'}{literal}"
@@ -39,31 +39,28 @@ tour.addSteps([
   {//5
     path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
     placement: "top",
-    element: "#uploadify",
+    element: ".plupload_add",
     title: "{/literal}{'first_contact_title5'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp5'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=photos_add/,
-    redirect:function (tour) {window.location = "admin.php?page=photos_add";},
-    placement: "left",
-    element: "#fileQueue",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
+    placement: "top",
+    element: ".plupload_start",
     title: "{/literal}{'first_contact_title6'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp6'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=photos_add/,
-    redirect:function (tour) {window.location = "admin.php?page=photos_add";},
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
     placement: "top",
-    element: "#photosAddContent legend",
+    element: "#afterUploadActions",
     title: "{/literal}{'first_contact_title7'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp7'|@translate|@escape:'javascript'}{literal}",
     prev:4
   },
   {
-    path: /admin\.php\?page=photos_add/,
-    redirect:function (tour) {window.location = "admin.php?page=photos_add";},
-    placement: "bottom",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
+    placement: "top",
     element: "#batchLink",
     reflex:true,
     title: "{/literal}{'first_contact_title8'|@translate|@escape:'javascript'}{literal}",
@@ -341,7 +338,7 @@ tour.init();
 // Start the tour
 tour.start();
 
-jQuery( "input[class='submit']" ).click(function() {
+jQuery( ".plupload_start" ).click(function() {
   if (tour.getCurrentStep()==5)
   {
     tour.goTo(6);

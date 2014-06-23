@@ -1,0 +1,43 @@
+--- E:/Program Files/EasyPHP/www/SITE/sandbox/pwg_test/piwigo_trunk/plugins/TakeATour/js/903.js	Mon Jun 23 21:44:59 2014
++++ E:/Program Files/EasyPHP/www/SITE/sandbox/pwg_test/piwigo_trunk/plugins/TakeATour/js/custom-bootstrap-tour-standalone.js	Sun Apr 13 19:05:42 2014
+@@ -849,9 +849,15 @@
+                 return step.path;
+             }
+           }).call(_this);
+-          current_path = [document.location.pathname, document.location.hash].join("");
++        current_path = document.location.href;
+           if (_this._isRedirect(path, current_path)) {
++          if (toString.call(path) === "[object RegExp]") {
+             _this._redirect(step, path);
++          }
++          else {
++            path = document.location.protocol+'//'+path;
++            _this._redirect(step, path);
++          }
+             return;
+           }
+           if (_this._isOrphan(step)) {
+@@ -866,6 +872,14 @@
+             }
+             _this._debug("Show the orphan step " + (_this._current + 1) + ". Orphans option is true.");
+           }
++        if (step.title  === "" & step.content  === "") {
++            if (skipToPrevious) {
++              _this._showPrevStep();
++            } else {
++              _this._showNextStep();
++            }
++            return;
++        }
+           if (step.backdrop) {
+             _this._showBackdrop(!_this._isOrphan(step) ? step.element : void 0);
+           }
+@@ -988,7 +1002,7 @@
+     };
+ 
+     Tour.prototype._isRedirect = function(path, currentPath) {
+-      return (path != null) && path !== "" && (({}.toString.call(path) === "[object RegExp]" && !path.test(currentPath)) || ({}.toString.call(path) === "[object String]" && path.replace(/\?.*$/, "").replace(/\/?$/, "") !== currentPath.replace(/\/?$/, "")));
++      return (path != null) && path !== "" && ((toString.call(path) === "[object RegExp]" && !path.test(currentPath)) || (toString.call(path) === "[object String]" && path !== currentPath.replace("http://", "").replace("https://", "")));
+     };
+ 
+     Tour.prototype._redirect = function(step, path) {
