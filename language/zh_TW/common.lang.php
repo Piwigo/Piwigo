@@ -420,3 +420,6 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['%d photos per page'] = '每頁 %d 相片';
 $lang['Theme'] = '主題';
 $lang['No results for'] = '沒有結果';
+$lang['Photo description'] = '圖片說明';
+$lang['Photo title'] = '圖片標題';
+$lang['Apply on properties'] = '適用於性能';
