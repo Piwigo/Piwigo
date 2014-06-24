@@ -419,3 +419,6 @@ $lang['Password is missing. Please enter the password.'] = 'Mankout a ra ar ger-
 $lang['%d photos per page'] = '%d luc\'hskeudenn e pep pajenn';
 $lang['Theme'] = 'Tem';
 $lang['No results for'] = 'Disoc\'h ebet evit';
+$lang['Apply on properties'] = 'Arloañ war ar perzhioù';
+$lang['Photo description'] = 'Deskrivadur al luc\'hskeudenn';
+$lang['Photo title'] = 'Titl al luc\'hskeudenn';
