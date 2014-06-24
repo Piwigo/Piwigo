@@ -1,8 +1,8 @@
 /*!
- * jQuery UI Autocomplete 1.10.1
+ * jQuery UI Autocomplete 1.10.4
  * http://jqueryui.com
  *
- * Copyright 2013 jQuery Foundation and other contributors
+ * Copyright 2014 jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
  *
@@ -16,11 +16,8 @@
  */
 (function( $, undefined ) {
 
-// used to prevent race conditions with remote data sources
-var requestIndex = 0;
-
 $.widget( "ui.autocomplete", {
-	version: "1.10.1",
+	version: "1.10.4",
 	defaultElement: "<input>",
 	options: {
 		appendTo: null,
@@ -44,6 +41,7 @@ $.widget( "ui.autocomplete", {
 		select: null
 	},
 
+	requestIndex: 0,
 	pending: 0,
 
 	_create: function() {
@@ -77,7 +75,6 @@ $.widget( "ui.autocomplete", {
 
 		this._on( this.element, {
 			keydown: function( event ) {
-				/*jshint maxcomplexity:15*/
 				if ( this.element.prop( "readOnly" ) ) {
 					suppressKeyPress = true;
 					suppressInput = true;
@@ -142,7 +139,9 @@ $.widget( "ui.autocomplete", {
 			keypress: function( event ) {
 				if ( suppressKeyPress ) {
 					suppressKeyPress = false;
-					event.preventDefault();
+					if ( !this.isMultiLine || this.menu.element.is( ":visible" ) ) {
+						event.preventDefault();
+					}
 					return;
 				}
 				if ( suppressKeyPressRepeat ) {
@@ -195,8 +194,6 @@ $.widget( "ui.autocomplete", {
 			.addClass( "ui-autocomplete ui-front" )
 			.appendTo( this._appendTo() )
 			.menu({
-				// custom key handling for now
-				input: $(),
 				// disable ARIA support, the live region takes care of that
 				role: null
 			})
@@ -234,7 +231,8 @@ $.widget( "ui.autocomplete", {
 				}
 			},
 			menufocus: function( event, ui ) {
-				// #7024 - Prevent accidental activation of menu items in Firefox
+				// support: Firefox
+				// Prevent accidental activation of menu items in Firefox (#7024 #9118)
 				if ( this.isNewMenu ) {
 					this.isNewMenu = false;
 					if ( event.originalEvent && /^mouse/.test( event.originalEvent.type ) ) {
@@ -297,7 +295,7 @@ $.widget( "ui.autocomplete", {
 				"aria-live": "polite"
 			})
 			.addClass( "ui-helper-hidden-accessible" )
-			.insertAfter( this.element );
+			.insertBefore( this.element );
 
 		// turning off autocomplete prevents the browser from remembering the
 		// value when navigating through history, so we re-enable autocomplete
@@ -419,19 +417,18 @@ $.widget( "ui.autocomplete", {
 	},
 
 	_response: function() {
-		var that = this,
-			index = ++requestIndex;
+		var index = ++this.requestIndex;
 
-		return function( content ) {
-			if ( index === requestIndex ) {
-				that.__response( content );
+		return $.proxy(function( content ) {
+			if ( index === this.requestIndex ) {
+				this.__response( content );
 			}
 
-			that.pending--;
-			if ( !that.pending ) {
-				that.element.removeClass( "ui-autocomplete-loading" );
+			this.pending--;
+			if ( !this.pending ) {
+				this.element.removeClass( "ui-autocomplete-loading" );
 			}
-		};
+		}, this );
 	},
 
 	__response: function( content ) {
@@ -490,6 +487,7 @@ $.widget( "ui.autocomplete", {
 	_suggest: function( items ) {
 		var ul = this.menu.element.empty();
 		this._renderMenu( ul, items );
+		this.isNewMenu = true;
 		this.menu.refresh();
 
 		// size and position menu

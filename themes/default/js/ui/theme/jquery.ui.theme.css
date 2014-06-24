@@ -1,12 +1,12 @@
 /*!
- * jQuery UI CSS Framework 1.10.1
+ * jQuery UI CSS Framework 1.10.4
  * http://jqueryui.com
  *
- * Copyright 2013 jQuery Foundation and other contributors
+ * Copyright 2014 jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
  *
- * http://docs.jquery.com/UI/Theming/API
+ * http://api.jqueryui.com/category/theming/
  *
  * To view and modify this theme, visit http://jqueryui.com/themeroller/
  */
@@ -76,7 +76,11 @@
 .ui-state-hover a,
 .ui-state-hover a:hover,
 .ui-state-hover a:link,
-.ui-state-hover a:visited {
+.ui-state-hover a:visited,
+.ui-state-focus a,
+.ui-state-focus a:hover,
+.ui-state-focus a:link,
+.ui-state-focus a:visited {
 	color: #212121/*{fcHover}*/;
 	text-decoration: none;
 }
@@ -156,7 +160,6 @@
 .ui-icon {
 	width: 16px;
 	height: 16px;
-	background-position: 16px 16px;
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
@@ -184,6 +187,7 @@
 }
 
 /* positioning */
+.ui-icon-blank { background-position: 16px 16px; }
 .ui-icon-carat-1-n { background-position: 0 0; }
 .ui-icon-carat-1-ne { background-position: -16px 0; }
 .ui-icon-carat-1-e { background-position: -32px 0; }
