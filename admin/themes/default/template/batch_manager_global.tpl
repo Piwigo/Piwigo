@@ -1,6 +1,5 @@
-{include file='include/tag_selection.inc.tpl'}
-{include file='include/datepicker.inc.tpl'}
-{include file='include/colorbox.inc.tpl'}
+{include file='include/datepicker.inc.tpl' load_mode='async'}
+{include file='include/colorbox.inc.tpl' load_mode='async'}
 {include file='include/add_album.inc.tpl'}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -14,63 +13,18 @@
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.`$selectizeTheme`.css"}
 
-{combine_script id='jquery.progressBar' load='footer' path='themes/default/js/plugins/jquery.progressbar.min.js'}
-{combine_script id='jquery.ajaxmanager' load='footer' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
+{combine_script id='jquery.progressBar' load='async' path='themes/default/js/plugins/jquery.progressbar.min.js'}
+{combine_script id='jquery.ajaxmanager' load='async' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
 
-{footer_script}{literal}
-/* Shift-click: select all photos between the click and the shift+click */
+{combine_script id='batchManagerGlobal' load='async' require='jquery,datepicker,jquery.colorbox,addAlbum' path='admin/themes/default/js/batchManagerGlobal.js'}
+
+{footer_script}
+var lang = {
+	Cancel: '{'Cancel'|translate|escape:'javascript'}'
+};
+
 jQuery(document).ready(function() {
-  var last_clicked=0;
-  var last_clickedstatus=true;
-  jQuery.fn.enableShiftClick = function() {
-    var inputs = [];
-    var count=0;
-    this.find('input[type=checkbox]').each(function() {
-      var pos=count;
-      inputs[count++]=this;
-      $(this).bind("shclick", function (dummy,event) {
-        if (event.shiftKey) {
-          var first = last_clicked;
-          var last = pos;
-          if (first > last) {
-            first=pos;
-            last=last_clicked;
-          }
 
-          for (var i=first; i<=last;i++) {
-            input = $(inputs[i]);
-            $(input).prop('checked', last_clickedstatus);
-            if (last_clickedstatus)
-            {
-              $(input).siblings("span.wrap2").addClass("thumbSelected");
-            }
-            else
-            {
-              $(input).siblings("span.wrap2").removeClass("thumbSelected");
-            }
-          }
-        }
-        else {
-          last_clicked = pos;
-          last_clickedstatus = this.checked;
-        }
-        return true;
-      });
-      $(this).click(function(event) { $(this).triggerHandler("shclick",event)});
-    });
-  }
-	$('ul.thumbnails').enableShiftClick();
-});
-{/literal}
-
-jQuery(document).ready(function() {ldelim}
-  jQuery('[data-datepicker]').pwgDatepicker({
-    showTimepicker: true,
-    cancelButton: '{'Cancel'|translate}'
-  });
-
-  jQuery("a.preview-box").colorbox();
-  
   {* <!-- TAGS --> *}
   var tagsCache = new TagsCache({
     serverKey: '{$CACHE_KEYS.tags}',
