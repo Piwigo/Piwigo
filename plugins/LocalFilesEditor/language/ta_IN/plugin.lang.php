@@ -38,4 +38,11 @@ $lang['locfiledit_model'] = 'மாதிரி';
 $lang['locfiledit_model_error'] = 'நீங்கள் ஒரு மாதிரி தேர்வு செய்ய வேண்டும்.';
 $lang['locfiledit_new_filename'] = 'கோப்பு பெயர்';
 $lang['locfiledit_new_tpl'] = 'புதிய கோப்பு உருவாக்க';
-?>
+$lang['locfiledit_save_config'] = 'கோப்பு வெற்றிகரமாக எழுதப்பட்டது.';
+$lang['locfiledit_save_file'] = 'கோப்பை இவ்வாறு சேமி';
+$lang['locfiledit_restore'] = 'கோப்பினை மீட்க மறுபிரதி';
+$lang['locfiledit_newfile'] = 'சில தகவல்கள் உள்ளிட்ட வரையில் கோப்பு இல்லை கீழே.
+ஒருமுறை தகவல்களை உள்ளிட்ட மற்றும் சேமிக்க 
+கோப்பு உருவாக்கப்படும்.';
+$lang['locfiledit_parent_directory'] = 'மூல  அடைவு';
+$lang['locfiledit_onglet_css'] = 'css';
