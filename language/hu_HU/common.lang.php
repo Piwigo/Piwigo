@@ -423,4 +423,6 @@ $lang['Password is missing. Please enter the password.'] = 'Jelszó hiányzik. K
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Jelszó megerősítése hiányzik. Kérem erősítse meg a választott jelszót.';
 $lang['%d photos per page'] = '%d kép/oldal';
 $lang['Theme'] = 'Téma';
-?>
+$lang['Apply on properties'] = 'Tulajdonságok alkalmazása';
+$lang['Photo description'] = 'Kép leírása';
+$lang['Photo title'] = 'Kép címe';
