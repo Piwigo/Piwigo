@@ -462,9 +462,7 @@ $lang['nothing'] = 'hiçbir şey';
 $lang['Notification'] = 'Bilgilendirme';
 $lang['Number of comments per page'] = 'Her sayfadaki yorum sayısı';
 $lang['Number of downloads'] = 'İndirme sayısı';
-$lang['number of miniaturized photos'] = 'oluşturulan küçük resim sayısı';
 $lang['Number of rates'] = 'Derecelendirme sayısı';
-$lang['Number of thumbnails to create'] = 'Yaratilacak pul resmi sayısı';
 $lang['Obsolete Plugins'] = 'Eski Eklentiler';
 $lang['on the %d selected photos'] = '%d resimler seçildi';
 $lang['on'] = 'üzerinde';
@@ -971,4 +969,4 @@ $lang['Close user details'] = 'Kullanıcı detaylarını kapat';
 $lang['Open user details'] = 'Kullanıcı detaylarını aç';
 $lang['close'] = 'kapat';
 $lang['Activate it now'] = 'Şimdi etkinleştir';
-?>
+$lang['Allow users to add a link to their website'] = 'Kullanıcılara, kendi sitelerine bağlantı eklemelerine olanak sağlar.';
