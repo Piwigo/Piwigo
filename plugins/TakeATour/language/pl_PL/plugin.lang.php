@@ -94,3 +94,40 @@ $lang['Next '] = 'Dalej';
 $lang['Prev'] = 'Wstecz';
 $lang['Start the Tour'] = 'Rozpocznij zwiedzanie';
 $lang['Visit your Piwigo!'] = 'Odwiedź swoje Piwigo!';
+$lang['2_7_0_stp3'] = 'Szybkie wyszukiwanie zostało usprawnione:<br>
+- dodaj operator OR (lub)<br>
+- pozwala na grupowania używając nawiasów ()<br>
+- zawęź zakres wyszukiwania:<br>
+ * #kot - przeszukuje tylko tagi pod kątm wystąpienia kot<br>
+ * ratio:0.9..1.1 - przeszukuje tylko zdjęcia których stosunek szerokości do wysokości mieści się w przedziale od 0.9 do 1.1 (prawie kwadraty)<br>
+ * hits:>10 - przeszukuje tylko obrazy odwiedzone > 10 razy<br>
+ * size:>10mp - przeszukuje tylko obrazy w których szerokość*wysokość jest > 10 megapikseli<br>
+ * file:.jpg - tylko obrazki jpg<br>
+- wyszukuje z użyciem liczby pojedyńczej i mnogiej (na razie tylko w języku angielskim/francuskim)<br>';
+$lang['2_7_0_title2'] = 'Pierwsza nowa cecha';
+$lang['first_contact_title15'] = 'Strona edycji zdjęcia.';
+$lang['first_contact_stp19_b'] = 'Wszystkie albumu są nazywane \'wirtualnymi\'. Tutaj wyświetlane są \'górne\' albumy, te w pierwszej gałęzi twojej galerii.';
+$lang['first_contact_stp27'] = 'Ważny fakt: webmastrzy i administratorzy nie są wszechwiedzący w trakcie przeglądania części publicznej, ale mają dostęp do każdego albumu i zdjęcia w sekcji administracyjnej.';
+$lang['first_contact_stp31'] = 'Teraz baner wyświetlany na górze każdej strony. Jak widzisz dozwolone są tu tagi HTML. Możesz także użyć tagu %gallery_title% aby wyświetlić tytuł wpisany wyżej.';
+$lang['first_contact_stp34'] = 'Skórki to jeden z trzech sposobów, obok Wtyczek i Szablonów aby dostosować Twoje Piwigo. Tutaj są wyświetlone zainstalowane Skórki.<br>Aktywować można więcej niż jedną skórkę: użytkownicy będą mogli wybierać jedną spośród aktywnych, jeżeli opcja \'Zezwól na personalizację\' jest zaznaczona w Opcjach.';
+$lang['first_contact_stp41'] = 'Na ostatniej zakładce możesz zobaczyć wszystkie wtyczki dostępne dla twojej wersji Piwigo. Znajdziesz tam setki wtyczek.';
+$lang['first_contact_stp40'] = 'To ja! Nie wyłączaj mnie teraz, ale jak widzisz możesz Wyłączyć lub Zresetować aktywną wtyczkę.';
+$lang['first_contact_stp8'] = 'Edytujmy je! Kliknij w odnośnik.';
+$lang['first_contact_title43'] = 'Świetnie się bawiliśmy';
+$lang['first_contact_title34'] = 'Skórki';
+$lang['first_contact_title35'] = 'Skórki';
+$lang['first_contact_title36'] = 'Skórki';
+$lang['first_contact_title37'] = 'Skórki';
+$lang['first_contact_title9'] = 'Menadżer wsadowy';
+$lang['first_contact_stp28'] = 'Teraz przyjrzymy się opcjom pozwalającym na dostosowanie Piwigo do Twoich potrzeb. Kliknij Configuracja->Opcje lub po prostu Dalej.';
+$lang['first_contact_stp29'] = 'Na tej pierwszej stronie ustawisz kluczową i podstawową konfigurację swojej galerii.';
+$lang['first_contact_descrp'] = 'Tę trasę polecamy szczególnie początkuącym, wprowadzi cię do Piwigo i zaprezentuje podstawowe cechy. Rozpocznie się od dodawania zdjęć i zarządzania nimi. Następnie przybliży zarządzanie albumami i uprawieniami do nich, a na koniec dostosowywanie przy uyżyciu konfiguracji, skórek i wtyczek.';
+$lang['first_contact_stp22'] = 'Analogicznie jak w przypadku zdjęcia, tu możesz edytować właściwości albumu.';
+$lang['first_contact_stp24'] = 'Oczywiście, jedną z najważniejszych stron jest strona uprawień dla prywatnego albumu. Kliknij na zakładce uprawienia, lub kliknij dalej.';
+$lang['first_contact_stp20'] = 'Kiedy najedziesz kursorem na album pojawią się linki i informacja. Kiedy przeciągniesz album (zaokrąglony obszar) zmienisz jego pozycję, a następnie możesz zapisać lub anulować ustawioną kolejność.';
+$lang['first_contact_stp13'] = 'Możesz edytować opisy i więcej w przetwarzaniu wsadowym w trybie jednostkowym, ale na razie zostańmy w trybie globalnym';
+$lang['first_contact_stp12'] = 'i edytować je używając akcji. Ale na tę chwilę, nie możesz (na razie) masowo zmodyfikować opisów, gdyż one są zazwyczaj unikalne.';
+$lang['first_contact_stp11'] = 'Tutaj możesz zaznaczyć jedno lub więcej zdjęć';
+$lang['First Contact'] = 'Pierwszy kontakt';
+$lang['2_7_0_stp2'] = 'Jak widzisz dodaliśmy nową domyślną wtyczkę: Zapoznaj się. Ta wtyczka pomaga Tobie w odkryciu możliwości Piwigo. Tu jest miejsce, gdzie wymienione są wszystkie dostępne wycieczki.<br>Ta strona jest dostępna w <em>Wtyczki » Zapoznaj się</em>';
+$lang['2_7_0_stp11'] = 'Wycieczka zakończona. <p style="text-align:center">Zapraszamy do Piwigo 2.7!</p>Jeżeli spodobało ci się Piwigo i chciałbyś nas wesprzec, możesz nam pomóc tłumaczeniami, dotacją itp. <a href="http://piwigo.org/basics/contribute" target="_blank">Kliknij tu, aby nas wesprzeć</a>';
