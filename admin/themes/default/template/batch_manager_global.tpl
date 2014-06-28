@@ -1,6 +1,6 @@
 {include file='include/datepicker.inc.tpl' load_mode='async'}
 {include file='include/colorbox.inc.tpl' load_mode='async'}
-{include file='include/add_album.inc.tpl'}
+{include file='include/add_album.inc.tpl' load_mode='async'}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
@@ -35,26 +35,26 @@ jQuery(document).ready(function() {
   tagsCache.selectize(jQuery('[data-selectize=tags]'), { lang: {
     'Add': '{'Create'|translate}'
   }});
-  
+
   {* <!-- CATEGORIES --> *}
-  var categoriesCache = new CategoriesCache({
+  window.categoriesCache = new CategoriesCache({
     serverKey: '{$CACHE_KEYS.categories}',
     serverId: '{$CACHE_KEYS._hash}',
     rootUrl: '{$ROOT_URL}'
   });
-  
+
   categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
     filter: function(categories, options) {
       if (this.name == 'dissociate') {
         var filtered = jQuery.grep(categories, function(cat) {
           return !cat.dir;
         });
-        
+
         if (filtered.length > 0) {
           jQuery('.albumDissociate').show();
           options.default = filtered[0].id;
         }
-        
+
         return filtered;
       }
       else {
@@ -62,8 +62,7 @@ jQuery(document).ready(function() {
       }
     }
   });
-  
-  jQuery('[data-add-album]').pwgAddAlbum({ cache: categoriesCache });
+
 });
 
 var nb_thumbs_page = {$nb_thumbs_page};
@@ -75,7 +74,7 @@ var derivatives = {ldelim}
 	elements: null,
 	done: 0,
 	total: 0,
-	
+
 	finished: function() {ldelim}
 		return derivatives.done == derivatives.total && derivatives.elements && derivatives.elements.length==0;
 	}
@@ -85,12 +84,7 @@ var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
 
-var width_str = '{'Width'|@translate}';
-var height_str = '{'Height'|@translate}';
-var max_width_str = '{'Maximum width'|@translate}';
-var max_height_str = '{'Maximum height'|@translate}';
 {literal}
-
 function progress(success) {
   jQuery('#progressBar').progressBar(derivatives.done, {
     max: derivatives.total,
@@ -192,10 +186,10 @@ $(document).ready(function() {
     checkbox.triggerHandler("shclick",event);
 
     if ($(checkbox).is(':checked')) {
-      $(wrap2).addClass("thumbSelected"); 
+      $(wrap2).addClass("thumbSelected");
     }
     else {
-      $(wrap2).removeClass('thumbSelected'); 
+      $(wrap2).removeClass('thumbSelected');
     }
 
     checkPermitAction();
@@ -214,7 +208,7 @@ $(document).ready(function() {
       var checkbox = $(this).children("input[type=checkbox]");
 
       $(checkbox).prop('checked', true);
-      $(wrap2).addClass("thumbSelected"); 
+      $(wrap2).addClass("thumbSelected");
     });
   }
 
@@ -226,7 +220,7 @@ $(document).ready(function() {
       var checkbox = $(this).children("input[type=checkbox]");
 
       $(checkbox).prop('checked', false);
-      $(wrap2).removeClass("thumbSelected"); 
+      $(wrap2).removeClass("thumbSelected");
     });
     checkPermitAction();
     return false;
@@ -242,10 +236,10 @@ $(document).ready(function() {
       $(checkbox).prop('checked', !$(checkbox).is(':checked'));
 
       if ($(checkbox).is(':checked')) {
-        $(wrap2).addClass("thumbSelected"); 
+        $(wrap2).addClass("thumbSelected");
       }
       else {
-        $(wrap2).removeClass('thumbSelected'); 
+        $(wrap2).removeClass('thumbSelected');
       }
     });
     checkPermitAction();
@@ -259,75 +253,6 @@ $(document).ready(function() {
     return false;
   });
 
-  $("input[name=remove_author]").click(function () {
-    if ($(this).is(':checked')) {
-      $("input[name=author]").hide();
-    }
-    else {
-      $("input[name=author]").show();
-    }
-  });
-
-  $("input[name=remove_title]").click(function () {
-    if ($(this).is(':checked')) {
-      $("input[name=title]").hide();
-    }
-    else {
-      $("input[name=title]").show();
-    }
-  });
-
-  $("input[name=remove_date_creation]").click(function () {
-    if ($(this).is(':checked')) {
-      $("#set_date_creation").hide();
-    }
-    else {
-      $("#set_date_creation").show();
-    }
-  });
-
-  $(".removeFilter").click(function () {
-    var filter = $(this).parent('li').attr("id");
-    filter_disable(filter);
-
-    return false;
-  });
-
-  function filter_enable(filter) {
-    /* show the filter*/
-    $("#"+filter).show();
-
-    /* check the checkbox to declare we use this filter */
-    $("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
-
-    /* forbid to select this filter in the addFilter list */
-    $("#addFilter").children("option[value="+filter+"]").attr("disabled", "disabled");
-  }
-
-  $("#addFilter").change(function () {
-    var filter = $(this).prop("value");
-    filter_enable(filter);
-    $(this).prop("value", -1);
-  });
-
-  function filter_disable(filter) {
-    /* hide the filter line */
-    $("#"+filter).hide();
-
-    /* uncheck the checkbox to declare we do not use this filter */
-    $("input[name="+filter+"_use]").prop("checked", false);
-
-    /* give the possibility to show it again */
-    $("#addFilter").children("option[value="+filter+"]").removeAttr("disabled");
-  }
-
-  $("#removeFilters").click(function() {
-    $("#filterList li").each(function() {
-      var filter = $(this).attr("id");
-      filter_disable(filter);
-    });
-    return false;
-  });
 
   jQuery('#applyAction').click(function() {
 		var action = jQuery('[name="selectAction"]').val();
@@ -337,7 +262,7 @@ $(document).ready(function() {
 			if (d_count*e_count > 500)
 				return confirm(are_you_sure);
 		}
-		
+
 		if (action != 'generate_derivatives'
 			|| derivatives.finished() )
 		{
@@ -346,8 +271,8 @@ $(document).ready(function() {
 
 		jQuery('.bulkAction').hide();
 
-		var queuedManager = jQuery.manageAjax.create('queued', { 
-			queue: true,  
+		var queuedManager = jQuery.manageAjax.create('queued', {
+			queue: true,
 			cacheResponse: false,
 			maxRequests: 1
 		});
@@ -365,7 +290,7 @@ $(document).ready(function() {
 		jQuery('#applyActionBlock').hide();
 		jQuery('select[name="selectAction"]').hide();
 		jQuery('#regenerationMsg').show();
-		
+
 		progress();
 		getDerivativeUrls();
 		return false;
@@ -392,8 +317,8 @@ $(document).ready(function() {
 				progress();
 				for (var i=0; i < data.result.urls.length; i++) {
 					jQuery.manageAjax.add("queued", {
-						type: 'GET', 
-						url: data.result.urls[i] + "&ajaxload=true", 
+						type: 'GET',
+						url: data.result.urls[i] + "&ajaxload=true",
 						dataType: 'json',
 						success: ( function(data) { derivatives.done++; progress(true) }),
 						error: ( function(data) { derivatives.done++; progress(false) })
@@ -406,7 +331,7 @@ $(document).ready(function() {
 	}
 
   checkPermitAction();
-  
+
   /* dimensions sliders */
   /**
    * find the key from a value in the startStopValues array
@@ -417,7 +342,7 @@ $(document).ready(function() {
         return key;
       }
     }
-  
+
     return 0;
   }
 
@@ -517,7 +442,7 @@ $(document).ready(function() {
       ));
     }
   });
-  
+
   $("a.dimensions-choice").click(function() {ldelim}
     var type = jQuery(this).data("type");
     var min = jQuery(this).data("min");
@@ -527,7 +452,7 @@ $(document).ready(function() {
       getSliderKeyFromValue(min, dimension_values[type])
     );
 
-    $("#filter_dimension_"+type+"_slider").slider("values", 1, 
+    $("#filter_dimension_"+type+"_slider").slider("values", 1,
       getSliderKeyFromValue(max, dimension_values[type])
     );
   });
@@ -556,7 +481,7 @@ $(document).ready(function() {
           {/foreach}
         </select>
       </li>
-      
+
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
@@ -565,7 +490,7 @@ $(document).ready(function() {
           data-default="first" name="filter_category" style="width:400px"></select>
         <label><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
       </li>
-      
+
       <li id="filter_tags" {if !isset($filter.tags)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
@@ -576,7 +501,7 @@ $(document).ready(function() {
         <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
         <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
       </li>
-      
+
       <li id="filter_level" {if !isset($filter.level)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_level_use" class="useFilterCheckbox" {if isset($filter.level)}checked="checked"{/if}>
@@ -586,21 +511,21 @@ $(document).ready(function() {
         </select>
         <label><input type="checkbox" name="filter_level_include_lower" {if isset($filter.level_include_lower)}checked="checked"{/if}> {'include photos with lower privacy level'|@translate}</label>
       </li>
-      
+
       <li id="filter_dimension" {if !isset($filter.dimension)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_dimension_use" class="useFilterCheckbox" {if isset($filter.dimension)}checked="checked"{/if}>
         {'Dimensions'|@translate}
-        
+
         <blockquote>
           {'Width'|@translate} <span id="filter_dimension_width_info">{'between %d and %d pixels'|@translate:$dimensions.selected.min_width:$dimensions.selected.max_width}</span>
           | <a class="dimensions-choice" data-type="width" data-min="{$dimensions.bounds.min_width}" data-max="{$dimensions.bounds.max_width}">{'Reset'|@translate}</a>
           <div id="filter_dimension_width_slider"></div>
-          
+
           {'Height'|@translate} <span id="filter_dimension_height_info">{'between %d and %d pixels'|@translate:$dimensions.selected.min_height:$dimensions.selected.max_height}</span>
           | <a class="dimensions-choice" data-type="height" data-min="{$dimensions.bounds.min_height}" data-max="{$dimensions.bounds.max_height}">{'Reset'|@translate}</a>
           <div id="filter_dimension_height_slider"></div>
-          
+
           {'Ratio'|@translate} ({'Width'|@translate}/{'Height'|@translate}) <span id="filter_dimension_ratio_info">{'between %.2f and %.2f'|@translate:$dimensions.selected.min_ratio:$dimensions.selected.max_ratio}</span>
 {if isset($dimensions.ratio_portrait)}
           | <a class="dimensions-choice" data-type="ratio" data-min="{$dimensions.ratio_portrait.min}" data-max="{$dimensions.ratio_portrait.max}">{'Portrait'|@translate}</a>
@@ -617,7 +542,7 @@ $(document).ready(function() {
           | <a class="dimensions-choice" data-type="ratio" data-min="{$dimensions.bounds.min_ratio}" data-max="{$dimensions.bounds.max_ratio}">{'Reset'|@translate}</a>
           <div id="filter_dimension_ratio_slider"></div>
         </blockquote>
-        
+
         <input type="hidden" name="filter_dimension_min_width" value="{$dimensions.selected.min_width}">
         <input type="hidden" name="filter_dimension_max_width" value="{$dimensions.selected.max_width}">
         <input type="hidden" name="filter_dimension_min_height" value="{$dimensions.selected.min_height}">
@@ -814,7 +739,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <label><input type="checkbox" name="remove_author"> {'remove author'|@translate}</label><br>
     {assign var='authorDefaultValue' value='Type here the author name'|@translate}
 <input type="text" class="large" name="author" value="{$authorDefaultValue}" onfocus="this.value=(this.value=='{$authorDefaultValue|@escape:javascript}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$authorDefaultValue|@escape:javascript}' : this.value;">
-    </div>    
+    </div>
 
     <!-- title -->
     <div id="action_title" class="bulkAction">
@@ -881,7 +806,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 			}
 			{/footer_script}
 		</div>
-		
+
     <!-- progress bar -->
     <div id="regenerationMsg" class="bulkAction" style="display:none">
       <p id="regenerationText" style="margin-bottom:10px;">{'Generate multiple size images'|@translate}</p>

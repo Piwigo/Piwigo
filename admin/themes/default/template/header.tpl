@@ -10,6 +10,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
 {strip}
+{combine_css path="admin/themes/default/fontello/css/fontello.css" order=-10}
 {foreach from=$themes item=theme}
   {if $theme.load_css}
   {combine_css path="admin/themes/`$theme.id`/theme.css" order=-10}
@@ -18,8 +19,6 @@
   {include file=$theme.local_head load_css=$theme.load_css}
   {/if}
 {/foreach}
-
-{combine_css path="admin/themes/default/fontello/css/fontello.css"}
 
 {combine_script id='jquery' path='themes/default/js/jquery.min.js'}
 {/strip}
