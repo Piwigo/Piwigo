@@ -343,9 +343,7 @@ $lang['No user to send notifications by mail.'] = 'Немає користува
 $lang['Notification'] = 'Оповіщення';
 $lang['Number of comments per page'] = 'Кількість коментарів на сторінку';
 $lang['Number of downloads'] = 'Кількість завантажень';
-$lang['number of miniaturized photos'] = 'кількість створених іконок';
 $lang['Number of rates'] = 'Кількість голосів';
-$lang['Number of thumbnails to create'] = 'Кількість іконок для створення';
 $lang['on the %d selected photos'] = 'на %d вибраних зображеннях';
 $lang['only directories'] = 'лише директорії';
 $lang['only perform a simulation (no change in database will be made)'] = 'виконати лише симуляцію (нічого не буде змінено в базі даних)';
@@ -971,4 +969,4 @@ $lang['close'] = 'Закрити';
 $lang['Close user details'] = 'Закрити деталі користувача';
 $lang['Open user details'] = 'Відкрити деталі користувача';
 $lang['Activate it now'] = 'Активувати його зараз';
-?>
+$lang['Allow users to add a link to their website'] = 'Дозволити користувачам додати посилання на свій сайт';
