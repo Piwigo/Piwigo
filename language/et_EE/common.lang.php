@@ -441,4 +441,7 @@ $lang['Password is missing. Please enter the password.'] = 'Parool puudub. Palun
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Parooli kinnitus puudub. Palun kinnita valitud parool.';
 $lang['%d photos per page'] = '%d pilte lehel';
 $lang['Theme'] = 'Teema';
-?>
+$lang['Apply on properties'] = 'Rakenda seadistustele';
+$lang['No results for'] = 'tulemusi pole';
+$lang['Photo description'] = 'Foto kirjeldus';
+$lang['Photo title'] = 'Foto pealkiri';
