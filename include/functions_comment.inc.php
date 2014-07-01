@@ -146,15 +146,23 @@ SELECT COUNT(*) AS user_exists
   // website
   if (!empty($comm['website_url']))
   {
-    $comm['website_url'] = strip_tags($comm['website_url']);
-    if (!preg_match('/^https?/i', $comm['website_url']))
-    {
-      $comm['website_url'] = 'http://'.$comm['website_url'];
-    }
-    if (!url_check_format($comm['website_url']))
-    {
-      $infos[] = l10n('Your website URL is invalid');
+    if (!$conf['comments_enable_website'])
+    { // honeypot: if the field is disabled, it should be empty !
       $comment_action='reject';
+      $_POST['cr'][] = 'website_url';
+    }
+    else
+    {
+      $comm['website_url'] = strip_tags($comm['website_url']);
+      if (!preg_match('/^https?/i', $comm['website_url']))
+      {
+        $comm['website_url'] = 'http://'.$comm['website_url'];
+      }
+      if (!url_check_format($comm['website_url']))
+      {
+        $infos[] = l10n('Your website URL is invalid');
+        $comment_action='reject';
+      }
     }
   }
 
@@ -206,6 +214,7 @@ SELECT count(1) FROM '.COMMENTS_TABLE.'
     {
       $infos[] = l10n('Anti-flood system : please wait for a moment before trying to post another comment');
       $comment_action='reject';
+      $_POST['cr'][] = 'flood_time';
     }
   }
 
