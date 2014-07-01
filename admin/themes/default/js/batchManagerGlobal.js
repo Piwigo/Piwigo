@@ -93,6 +93,11 @@ jQuery(document).ready(function() {
 
 jQuery("a.preview-box").colorbox();
 
+jQuery('.thumbnails img').tipTip({
+	'delay' : 0,
+	'fadeIn' : 200,
+	'fadeOut' : 200
+});
 
 
 /* ********** Actions*/
@@ -130,3 +135,79 @@ $("input[name=remove_date_creation]").click(function () {
 		$("#set_date_creation").show();
 	}
 });
+
+var derivatives = {
+	elements: null,
+	done: 0,
+	total: 0,
+
+	finished: function() {
+		return derivatives.done == derivatives.total && derivatives.elements && derivatives.elements.length==0;
+	}
+};
+
+function progress(success) {
+  jQuery('#progressBar').progressBar(derivatives.done, {
+    max: derivatives.total,
+    textFormat: 'fraction',
+    boxImage: 'themes/default/images/progressbar.gif',
+    barImage: 'themes/default/images/progressbg_orange.gif'
+  });
+	if (success !== undefined) {
+		var type = success ? 'regenerateSuccess': 'regenerateError',
+			s = jQuery('[name="'+type+'"]').val();
+		jQuery('[name="'+type+'"]').val(++s);
+	}
+
+	if (derivatives.finished()) {
+		jQuery('#applyAction').click();
+	}
+}
+
+function getDerivativeUrls() {
+	var ids = derivatives.elements.splice(0, 500);
+	var params = {max_urls: 100000, ids: ids, types: []};
+	jQuery("#action_generate_derivatives input").each( function(i, t) {
+		if ($(t).is(":checked"))
+			params.types.push( t.value );
+	} );
+
+	jQuery.ajax( {
+		type: "POST",
+		url: 'ws.php?format=json&method=pwg.getMissingDerivatives',
+		data: params,
+		dataType: "json",
+		success: function(data) {
+			if (!data.stat || data.stat != "ok") {
+				return;
+			}
+			derivatives.total += data.result.urls.length;
+			progress();
+			for (var i=0; i < data.result.urls.length; i++) {
+				jQuery.manageAjax.add("queued", {
+					type: 'GET',
+					url: data.result.urls[i] + "&ajaxload=true",
+					dataType: 'json',
+					success: ( function(data) { derivatives.done++; progress(true) }),
+					error: ( function(data) { derivatives.done++; progress(false) })
+				});
+			}
+			if (derivatives.elements.length)
+				setTimeout( getDerivativeUrls, 25 * (derivatives.total-derivatives.done));
+		}
+	} );
+}
+
+function selectGenerateDerivAll() {
+	$("#action_generate_derivatives input[type=checkbox]").prop("checked", true);
+}
+function selectGenerateDerivNone() {
+	$("#action_generate_derivatives input[type=checkbox]").prop("checked", false);
+}
+
+function selectDelDerivAll() {
+	$("#action_delete_derivatives input[type=checkbox]").prop("checked", true);
+}
+function selectDelDerivNone() {
+	$("#action_delete_derivatives input[type=checkbox]").prop("checked", false);
+}

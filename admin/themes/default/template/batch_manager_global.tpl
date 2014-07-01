@@ -20,7 +20,8 @@
 
 {footer_script}
 var lang = {
-	Cancel: '{'Cancel'|translate|escape:'javascript'}'
+	Cancel: '{'Cancel'|translate|escape:'javascript'}',
+	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}"
 };
 
 jQuery(document).ready(function() {
@@ -67,41 +68,12 @@ jQuery(document).ready(function() {
 
 var nb_thumbs_page = {$nb_thumbs_page};
 var nb_thumbs_set = {$nb_thumbs_set};
-var are_you_sure = "{'Are you sure?'|@translate|@escape:'javascript'}";
 var applyOnDetails_pattern = "{'on the %d selected photos'|@translate}";
 var all_elements = [{if !empty($all_elements)}{','|@implode:$all_elements}{/if}];
-var derivatives = {ldelim}
-	elements: null,
-	done: 0,
-	total: 0,
-
-	finished: function() {ldelim}
-		return derivatives.done == derivatives.total && derivatives.elements && derivatives.elements.length==0;
-	}
-};
 
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
-
-{literal}
-function progress(success) {
-  jQuery('#progressBar').progressBar(derivatives.done, {
-    max: derivatives.total,
-    textFormat: 'fraction',
-    boxImage: 'themes/default/images/progressbar.gif',
-    barImage: 'themes/default/images/progressbg_orange.gif'
-  });
-	if (success !== undefined) {
-		var type = success ? 'regenerateSuccess': 'regenerateError',
-			s = jQuery('[name="'+type+'"]').val();
-		jQuery('[name="'+type+'"]').val(++s);
-	}
-
-	if (derivatives.finished()) {
-		jQuery('#applyAction').click();
-	}
-}
 
 $(document).ready(function() {
   function checkPermitAction() {
@@ -156,12 +128,6 @@ $(document).ready(function() {
       );
     }
   }
-
-  $('.thumbnails img').tipTip({
-    'delay' : 0,
-    'fadeIn' : 200,
-    'fadeOut' : 200
-  });
 
   $("[id^=action_]").hide();
 
@@ -260,7 +226,7 @@ $(document).ready(function() {
 			var d_count = $('#action_delete_derivatives input[type=checkbox]').filter(':checked').length
 				, e_count = $('input[name="setSelected"]').is(':checked') ? nb_thumbs_set : $('.thumbnails input[type=checkbox]').filter(':checked').length;
 			if (d_count*e_count > 500)
-				return confirm(are_you_sure);
+				return confirm(lang.AreYouSure);
 		}
 
 		if (action != 'generate_derivatives'
@@ -296,46 +262,12 @@ $(document).ready(function() {
 		return false;
   });
 
-	function getDerivativeUrls() {
-		var ids = derivatives.elements.splice(0, 500);
-		var params = {max_urls: 100000, ids: ids, types: []};
-		jQuery("#action_generate_derivatives input").each( function(i, t) {
-			if ($(t).is(":checked"))
-				params.types.push( t.value );
-		} );
-
-		jQuery.ajax( {
-			type: "POST",
-			url: 'ws.php?format=json&method=pwg.getMissingDerivatives',
-			data: params,
-			dataType: "json",
-			success: function(data) {
-				if (!data.stat || data.stat != "ok") {
-					return;
-				}
-				derivatives.total += data.result.urls.length;
-				progress();
-				for (var i=0; i < data.result.urls.length; i++) {
-					jQuery.manageAjax.add("queued", {
-						type: 'GET',
-						url: data.result.urls[i] + "&ajaxload=true",
-						dataType: 'json',
-						success: ( function(data) { derivatives.done++; progress(true) }),
-						error: ( function(data) { derivatives.done++; progress(false) })
-					});
-				}
-				if (derivatives.elements.length)
-					setTimeout( getDerivativeUrls, 25 * (derivatives.total-derivatives.done));
-			}
-		} );
-	}
-
   checkPermitAction();
 
-  /* dimensions sliders */
-  /**
-   * find the key from a value in the startStopValues array
-   */
+	{* /* dimensions sliders */
+	/**
+	 * find the key from a value in the startStopValues array
+	 */ *}
   function getSliderKeyFromValue(value, values) {
     for (var key in values) {
       if (values[key] == value) {
@@ -346,14 +278,24 @@ $(document).ready(function() {
     return 0;
   }
 
-{/literal}
-  var dimension_values = {ldelim}
-    'width':[{$dimensions.widths}],
-    'height':[{$dimensions.heights}],
-    'ratio':[{$dimensions.ratios}]
+  var dimension_values = {
+    width:[{$dimensions.widths}],
+    height:[{$dimensions.heights}],
+    ratio:[{$dimensions.ratios}]
   };
 
-  $("#filter_dimension_width_slider").slider({ldelim}
+	function onSliderChange(type, ui, pattern) {
+		$("input[name='filter_dimension_min_"+type+"']").val(dimension_values[type][ui.values[0]]);
+		$("input[name='filter_dimension_max_"+type+"']").val(dimension_values[type][ui.values[1]]);
+
+		$("#filter_dimension_"+type+"_info").html(sprintf(
+			pattern,
+			dimension_values[type][ui.values[0]],
+			dimension_values[type][ui.values[1]]
+		));
+	}
+	
+  $("#filter_dimension_width_slider").slider({
     range: true,
     min: 0,
     max: dimension_values['width'].length - 1,
@@ -361,29 +303,15 @@ $(document).ready(function() {
       getSliderKeyFromValue({$dimensions.selected.min_width}, dimension_values['width']),
       getSliderKeyFromValue({$dimensions.selected.max_width}, dimension_values['width'])
     ],
-    slide: function(event, ui) {ldelim}
-      $("input[name='filter_dimension_min_width']").val(dimension_values['width'][ui.values[0]]);
-      $("input[name='filter_dimension_max_width']").val(dimension_values['width'][ui.values[1]]);
-
-      $("#filter_dimension_width_info").html(sprintf(
-        "{'between %d and %d pixels'|@translate}",
-        dimension_values['width'][ui.values[0]],
-        dimension_values['width'][ui.values[1]]
-      ));
-    },
-    change: function(event, ui) {ldelim}
-      $("input[name='filter_dimension_min_width']").val(dimension_values['width'][ui.values[0]]);
-      $("input[name='filter_dimension_max_width']").val(dimension_values['width'][ui.values[1]]);
-
-      $("#filter_dimension_width_info").html(sprintf(
-        "{'between %d and %d pixels'|@translate}",
-        dimension_values['width'][ui.values[0]],
-        dimension_values['width'][ui.values[1]]
-      ));
-    }
+		slide: function(event, ui) {
+			onSliderChange('width', ui, "{'between %d and %d pixels'|translate|escape:'javascript'}");
+		},
+		change: function(event, ui) {
+			onSliderChange('width', ui, "{'between %d and %d pixels'|translate|escape:'javascript'}");
+		}
   });
 
-  $("#filter_dimension_height_slider").slider({ldelim}
+  $("#filter_dimension_height_slider").slider({
     range: true,
     min: 0,
     max: dimension_values['height'].length - 1,
@@ -391,29 +319,15 @@ $(document).ready(function() {
       getSliderKeyFromValue({$dimensions.selected.min_height}, dimension_values['height']),
       getSliderKeyFromValue({$dimensions.selected.max_height}, dimension_values['height'])
     ],
-    slide: function(event, ui) {ldelim}
-      $("input[name='filter_dimension_min_height']").val(dimension_values['height'][ui.values[0]]);
-      $("input[name='filter_dimension_max_height']").val(dimension_values['height'][ui.values[1]]);
-
-      $("#filter_dimension_height_info").html(sprintf(
-        "{'between %d and %d pixels'|@translate}",
-        dimension_values['height'][ui.values[0]],
-        dimension_values['height'][ui.values[1]]
-      ));
-    },
-    change: function(event, ui) {ldelim}
-      $("input[name='filter_dimension_min_height']").val(dimension_values['height'][ui.values[0]]);
-      $("input[name='filter_dimension_max_height']").val(dimension_values['height'][ui.values[1]]);
-
-      $("#filter_dimension_height_info").html(sprintf(
-        "{'between %d and %d pixels'|@translate}",
-        dimension_values['height'][ui.values[0]],
-        dimension_values['height'][ui.values[1]]
-      ));
-    }
+		slide: function(event, ui) {
+			onSliderChange('height', ui, "{'between %d and %d pixels'|translate|escape:'javascript'}");
+		},
+		change: function(event, ui) {
+			onSliderChange('height', ui, "{'between %d and %d pixels'|translate|escape:'javascript'}");
+		}
   });
 
-  $("#filter_dimension_ratio_slider").slider({ldelim}
+  $("#filter_dimension_ratio_slider").slider({
     range: true,
     min: 0,
     max: dimension_values['ratio'].length - 1,
@@ -421,40 +335,22 @@ $(document).ready(function() {
       getSliderKeyFromValue({$dimensions.selected.min_ratio}, dimension_values['ratio']),
       getSliderKeyFromValue({$dimensions.selected.max_ratio}, dimension_values['ratio'])
     ],
-    slide: function(event, ui) {ldelim}
-      $("input[name='filter_dimension_min_ratio']").val(dimension_values['ratio'][ui.values[0]]);
-      $("input[name='filter_dimension_max_ratio']").val(dimension_values['ratio'][ui.values[1]]);
-
-      $("#filter_dimension_ratio_info").html(sprintf(
-        "{'between %.2f and %.2f'|@translate}",
-        dimension_values['ratio'][ui.values[0]],
-        dimension_values['ratio'][ui.values[1]]
-      ));
-    },
-    change: function(event, ui) {ldelim}
-      $("input[name='filter_dimension_min_ratio']").val(dimension_values['ratio'][ui.values[0]]);
-      $("input[name='filter_dimension_max_ratio']").val(dimension_values['ratio'][ui.values[1]]);
-
-      $("#filter_dimension_ratio_info").html(sprintf(
-        "{'between %.2f and %.2f'|@translate}",
-        dimension_values['ratio'][ui.values[0]],
-        dimension_values['ratio'][ui.values[1]]
-      ));
-    }
+		slide: function(event, ui) {
+			onSliderChange('ratio', ui, "{'between %.2f and %.2f'|translate|escape:'javascript'}");
+		},
+		change: function(event, ui) {
+			onSliderChange('ratio', ui, "{'between %.2f and %.2f'|translate|escape:'javascript'}");
+		}
   });
 
-  $("a.dimensions-choice").click(function() {ldelim}
+  $("a.dimensions-choice").click(function() {
     var type = jQuery(this).data("type");
     var min = jQuery(this).data("min");
     var max = jQuery(this).data("max");
 
-    $("#filter_dimension_"+ type +"_slider").slider("values", 0,
-      getSliderKeyFromValue(min, dimension_values[type])
-    );
-
-    $("#filter_dimension_"+type+"_slider").slider("values", 1,
-      getSliderKeyFromValue(max, dimension_values[type])
-    );
+		$("#filter_dimension_"+ type +"_slider")
+			.slider("values", 0, getSliderKeyFromValue(min, dimension_values[type]) )
+			.slider("values", 1, getSliderKeyFromValue(max, dimension_values[type]) );
   });
 });
 
@@ -572,7 +468,7 @@ $(document).ready(function() {
         <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
 				<option value="filter_search"{if isset($filter.search)} disabled="disabled"{/if}>{'Search'|@translate}</option>
       </select>
-      <a id="removeFilters" href="">{'Remove all filters'|@translate}</a>
+      <a id="removeFilters">{'Remove all filters'|@translate}</a>
     </p>
 
     <p class="actionButtons" id="applyFilterBlock">
@@ -779,14 +675,6 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 			{foreach from=$generate_derivatives_types key=type item=disp}
 				<label><input type="checkbox" name="generate_derivatives_type[]" value="{$type}"> {$disp}</label>
 			{/foreach}
-			{footer_script}
-			function selectGenerateDerivAll() {ldelim}
-				$("#action_generate_derivatives input[type=checkbox]").prop("checked", true);
-			}
-			function selectGenerateDerivNone() {ldelim}
-				$("#action_generate_derivatives input[type=checkbox]").prop("checked", false);
-			}
-			{/footer_script}
 		</div>
 
 		<!-- delete derivatives -->
@@ -797,14 +685,6 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 			{foreach from=$del_derivatives_types key=type item=disp}
 				<label><input type="checkbox" name="del_derivatives_type[]" value="{$type}"> {$disp}</label>
 			{/foreach}
-			{footer_script}
-			function selectDelDerivAll() {ldelim}
-				$("#action_delete_derivatives input[type=checkbox]").prop("checked", true);
-			}
-			function selectDelDerivNone() {ldelim}
-				$("#action_delete_derivatives input[type=checkbox]").prop("checked", false);
-			}
-			{/footer_script}
 		</div>
 
     <!-- progress bar -->
