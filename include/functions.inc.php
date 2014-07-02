@@ -1512,8 +1512,6 @@ function load_language($filename, $dirname = '', $options = array())
     }
   }
   
-  if ($dirname == GUESTBOOK_PATH.'language/') var_dump($languages);
-
   if (!empty($source_file))
   {
     if (!@$options['return'])
