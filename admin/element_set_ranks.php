@@ -156,7 +156,7 @@ SELECT *
 ;';
 $category = pwg_db_fetch_assoc(pwg_query($query));
 
-if ($category['image_order']=='rank')
+if ($category['image_order']=='rank ASC')
 {
   $image_order_choice = 'rank';
 }
