@@ -38,7 +38,7 @@ define('CDAY',  2);
 /**
  * Weekly calendar style (composed of years/week in years and days in week)
  */
-class Calendar extends CalendarBase
+class CalendarWeekly extends CalendarBase
 {
   /**
    * Initialize the calendar

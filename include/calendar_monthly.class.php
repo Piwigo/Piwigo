@@ -38,7 +38,7 @@ define('CDAY',   2);
 /**
  * Monthly calendar style (composed of years/months and days)
  */
-class Calendar extends CalendarBase
+class CalendarMonthly extends CalendarBase
 {
   /**
    * Initialize the calendar.

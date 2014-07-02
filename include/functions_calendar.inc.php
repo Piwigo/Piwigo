@@ -114,11 +114,13 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     'monthly' => array(
       'include'        => 'calendar_monthly.class.php',
       'view_calendar'  => true,
+      'classname'      => 'CalendarMonthly',
       ),
     // Weekly style
     'weekly' => array(
       'include'        => 'calendar_weekly.class.php',
       'view_calendar'  => false,
+      'classname'      => 'CalendarWeekly',
       ),
     );
 
@@ -133,9 +135,10 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     $page['chronology_style'] = 'monthly';
   }
   $cal_style = $page['chronology_style'];
+  $classname = $styles[$cal_style]['classname'];
+
   include(PHPWG_ROOT_PATH.'include/'. $styles[$cal_style]['include']);
-  // TODO : class name overlap, rename them in CalendarMonth and CalendarWeek
-  $calendar = new Calendar(); 
+  $calendar = new $classname();
 
   // Retrieve view
 
