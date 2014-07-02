@@ -33,6 +33,8 @@ $lang_info['language_name'] = 'Srpski';
 $lang_info['country'] = 'Srbija';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'sh';
+$lang_info['jquery_code'] = 'sr-SR';
+$lang_info['plupload_code'] = 'sr';
 $lang_info['zero_plural'] = true;
 
 $lang['%d Kb'] = '%d Kb';

@@ -33,6 +33,7 @@ $lang_info['language_name'] = '中文';
 $lang_info['country'] = '中國';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'cn';
+$lang_info['jquery_code'] = 'zh-TW';
 $lang_info['zero_plural'] = false;
 
 $lang['%d Kb'] = '%d KB';

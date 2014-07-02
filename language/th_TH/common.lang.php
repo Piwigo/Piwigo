@@ -32,6 +32,7 @@ $lang_info['language_name'] = "ภาษาไทย";
 $lang_info['country'] = "ประเทศไทย";
 $lang_info['direction'] = "ltr";
 $lang_info['code'] = "th";
+$lang_info['plupload_code'] = "th_TH";
 $lang_info['zero_plural'] = "1";
 
 

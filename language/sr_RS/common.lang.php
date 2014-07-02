@@ -33,6 +33,7 @@ $lang_info['language_name'] = 'Српски';
 $lang_info['country'] = 'Србија';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'sr';
+$lang_info['plupload_code'] = 'sr_RS';
 $lang_info['zero_plural'] = true;
 
 $lang['%d Kb'] = '%d Kb';

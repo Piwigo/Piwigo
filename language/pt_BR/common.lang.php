@@ -33,6 +33,7 @@ $lang_info['language_name'] = 'Português';
 $lang_info['country'] = 'Brasil';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'pt';
+$lang_info['jquery_code'] = 'pt-BR';
 $lang_info['zero_plural'] = false;
 
 $lang['%d Kb'] = '%d Kb';

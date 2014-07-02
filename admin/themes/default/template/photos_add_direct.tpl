@@ -7,6 +7,11 @@
 {combine_css path="themes/default/js/plugins/jquery.jgrowl.css"}
 {combine_css path="themes/default/js/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css"}
 
+{assign var="plupload_i18n" value="themes/default/js/plugins/plupload/i18n/`$lang_info.plupload_code`.js"}
+{if "PHPWG_ROOT_PATH"|@constant|@cat:$plupload_i18n|@file_exists}
+  {combine_script id="plupload_i18n-`$lang_info.plupload_code`" load="footer" path=$plupload_i18n require="jquery.plupload.queue"}
+{/if}
+
 {include file='include/colorbox.inc.tpl'}
 {include file='include/add_album.inc.tpl'}
 

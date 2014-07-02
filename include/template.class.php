@@ -149,6 +149,16 @@ class Template
     else
       $this->set_template_dir($root);
 
+    if (isset($lang_info['code']) and !isset($lang_info['jquery_code']))
+    {
+      $lang_info['jquery_code'] = $lang_info['code'];
+    }
+
+    if (isset($lang_info['jquery_code']) and !isset($lang_info['plupload_code']))
+    {
+      $lang_info['plupload_code'] = str_replace('-', '_', $lang_info['jquery_code']);
+    }
+    
     $this->smarty->assign('lang_info', $lang_info);
 
     if (!defined('IN_ADMIN') and isset($conf['extents_for_templates']))
