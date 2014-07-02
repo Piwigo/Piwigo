@@ -308,8 +308,13 @@ function switch_lang_to($language)
     if (!empty($language_files))
     {
       foreach ($language_files as $dirname => $files)
-        foreach ($files as $filename)
-          load_language($filename, $dirname, array('language'=>$language) );
+      {
+        foreach ($files as $filename => $options)
+        {
+          $options['language'] = $language;
+          load_language($filename, $dirname, $options);
+        }
+      }
     }
     
     trigger_notify('loading_lang');
@@ -330,6 +335,7 @@ function switch_lang_to($language)
 /**
  * Switch back language pushed with switch_lang_to() function.
  * @see switch_lang_to()
+ * Language files are not reloaded
  */
 function switch_lang_back()
 {

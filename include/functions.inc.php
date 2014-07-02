@@ -1435,6 +1435,8 @@ function get_parent_language($lang_id=null)
  *     @option string language - language to load
  *     @option bool return - if true the file content is returned
  *     @option bool no_fallback - if true do not load default language
+ *     @option bool|string force_fallback - force pre-loading of another language
+ *        default language if *true* or specified language
  *     @option bool local - if true load file from local directory
  * @return boolean|string
  */
@@ -1442,17 +1444,16 @@ function load_language($filename, $dirname = '', $options = array())
 {
   global $user, $language_files;
 
-  if ( !empty($dirname) and !empty($filename) )
+  // keep trace of plugins loaded files for switch_lang_to() function
+  if (!empty($dirname) && !empty($filename) && !@$options['return']
+    && !isset($language_files[$dirname][$filename]))
   {
-    if ( empty($language_files[$dirname]) or !in_array($filename,$language_files[$dirname]) )
-    {
-      $language_files[$dirname][] = $filename;
-    }
+    $language_files[$dirname][$filename] = $options;
   }
 
-  if (! @$options['return'] )
+  if (!@$options['return'])
   {
-    $filename .= '.php'; //MAYBE to do .. load .po and .mo localization files
+    $filename .= '.php';
   }
   if (empty($dirname))
   {
@@ -1460,40 +1461,41 @@ function load_language($filename, $dirname = '', $options = array())
   }
   $dirname .= 'language/';
 
+  $default_language = defined('PHPWG_INSTALLED') ?
+      get_default_language() : PHPWG_DEFAULT_LANGUAGE;
+
+  // construct list of potential languages
   $languages = array();
-  if ( !empty($options['language']) )
-  {
+  if (!empty($options['language']))
+  { // explicit language
     $languages[] = $options['language'];
   }
-  if ( !empty($user['language']) )
-  {
+  if (!empty($user['language']))
+  { // use language
     $languages[] = $user['language'];
   }
-  if ( ($parent = get_parent_language()) != null)
-  {
+  if (($parent = get_parent_language()) != null)
+  { // parent language
+    // this is only for when the "child" language is missing
     $languages[] = $parent;
   }
-  if ( ! @$options['no_fallback'] )
-  {
-    if ( defined('PHPWG_INSTALLED') )
+  if (isset($options['force_fallback']))
+  { // fallback language
+    // this is only for when the main language is missing
+    if ($options['force_fallback'] === true)
     {
-      $languages[] = get_default_language();
+      $options['force_fallback'] = $default_language;
     }
-    $languages[] = PHPWG_DEFAULT_LANGUAGE;
+    $languages[] = $options['force_fallback'];
+  }
+  if (!@$options['no_fallback'])
+  { // default language
+    $languages[] = $default_language;
   }
 
   $languages = array_unique($languages);
 
-  /*Note: target charset is always utf-8
-  if ( empty($options['target_charset']) )
-  {
-    $target_charset = get_pwg_charset();
-  }
-  else
-  {
-    $target_charset = $options['target_charset'];
-  }
-  $target_charset = strtolower($target_charset);*/
+  // find first existing
   $source_file       = '';
   $selected_language = '';
   foreach ($languages as $language)
@@ -1509,55 +1511,45 @@ function load_language($filename, $dirname = '', $options = array())
       break;
     }
   }
+  
+  if ($dirname == GUESTBOOK_PATH.'language/') var_dump($languages);
 
-  if ( !empty($source_file) )
+  if (!empty($source_file))
   {
-    if (! @$options['return'] )
+    if (!@$options['return'])
     {
+      // load forced fallback
+      if (isset($options['force_fallback']) && $options['force_fallback'] != $selected_language)
+      {
+        @include(str_replace($selected_language, $options['force_fallback'], $source_file));
+      }
+
+      // load language content
       @include($source_file);
       $load_lang = @$lang;
       $load_lang_info = @$lang_info;
 
+      // access already existing values
       global $lang, $lang_info;
-      if ( !isset($lang) ) $lang=array();
-      if ( !isset($lang_info) ) $lang_info=array();
+      if (!isset($lang)) $lang = array();
+      if (!isset($lang_info)) $lang_info = array();
 
-      $parent_language = !empty($load_lang_info['parent']) ? $load_lang_info['parent'] : (
-                            !empty($lang_info['parent']) ? $lang_info['parent'] : null );
-      if (!empty($parent_language) and $parent_language != $selected_language)
+      // load parent language content directly in global
+      if (!empty($load_lang_info['parent']))
+        $parent_language = $load_lang_info['parent'];
+      else if (!empty($lang_info['parent']))
+        $parent_language = $lang_info['parent'];
+      else 
+        $parent_language = null;
+
+      if (!empty($parent_language) && $parent_language != $selected_language)
       {
         @include(str_replace($selected_language, $parent_language, $source_file));
       }
 
-      /* Note: target charset is always utf-8
-      if ( 'utf-8'!=$target_charset)
-      {
-        if ( is_array($load_lang) )
-        {
-          foreach ($load_lang as $k => $v)
-          {
-            if ( is_array($v) )
-            {
-              $func = create_function('$v', 'return convert_charset($v, "utf-8", "'.$target_charset.'");' );
-              $lang[$k] = array_map($func, $v);
-            }
-            else
-              $lang[$k] = convert_charset($v, 'utf-8', $target_charset);
-          }
-        }
-        if ( is_array($load_lang_info) )
-        {
-          foreach ($load_lang_info as $k => $v)
-          {
-            $lang_info[$k] = convert_charset($v, 'utf-8', $target_charset);
-          }
-        }
-      }
-      else
-      {*/
-        $lang = array_merge( $lang, (array)$load_lang );
-        $lang_info = array_merge( $lang_info, (array)$load_lang_info );
-      //}
+      // merge contents
+      $lang = array_merge($lang, (array)$load_lang);
+      $lang_info = array_merge($lang_info, (array)$load_lang_info);
       return true;
     }
     else
@@ -1567,6 +1559,7 @@ function load_language($filename, $dirname = '', $options = array())
       return $content;
     }
   }
+
   return false;
 }
 
