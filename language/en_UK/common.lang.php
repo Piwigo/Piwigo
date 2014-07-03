@@ -422,4 +422,6 @@ $lang['No results for'] = 'No results for';
 $lang['Apply on properties'] = 'Apply on properties';
 $lang['Photo title'] = 'Photo title';
 $lang['Photo description'] = 'Photo description';
+$lang['Album name, A &rarr; Z'] = 'Album name, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Album name, Z &rarr; A';
 ?>

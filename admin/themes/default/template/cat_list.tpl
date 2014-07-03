@@ -85,8 +85,9 @@ jQuery(document).ready(function(){
     <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     
     <p><strong>{'Sort order'|@translate}</strong>
-      <br><label><input type="radio" value="asc" name="ascdesc" checked="checked">{'ascending'|@translate}</label>
-      <br><label><input type="radio" value="desc" name="ascdesc">{'descending'|@translate}</label>
+  {foreach from=$sort_orders key=sort_code item=sort_label}
+      <br><label><input type="radio" value="{$sort_code}" name="order_by" {if $sort_code eq $sort_order_checked}checked="checked"{/if}> {$sort_label}</label>
+  {/foreach}
     </p>
   
     <p>
