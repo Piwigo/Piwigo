@@ -202,7 +202,14 @@
     
     options.loader = function(callback) {
       $.getJSON(options.rootUrl + 'ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
-        callback(data.result.categories);
+        var cats = data.result.categories.map(function(c, i) {
+          c.pos = i;
+          delete c['comment'];
+          delete c['uppercats'];
+          return c;
+        });
+
+        callback(cats);
       });
     };
     
@@ -217,29 +224,6 @@
    */
   CategoriesCache.prototype.selectize = function($target, options) {
     options = options || {};
-
-    options.filter = function(cats) {
-      cats.map(function(c) {
-        c.pos = c.global_rank.split('.');
-      });
-
-      cats.sort(function(a, b) {
-        var i = 0;
-        while (a.pos[i] && b.pos[i]) {
-          if (a.pos[i] != b.pos[i]) {
-            return a.pos[i] - b.pos[i];
-          }
-          i++;
-        }
-        return (!a.pos[i] && b.pos[i]) ? -1 : 1;
-      });
-
-      cats.map(function(c, i) {
-        c.pos = i;
-      });
-
-      return cats;
-    };
 
     $target.selectize({
       valueField: 'id',
@@ -267,12 +251,13 @@
     
     options.loader = function(callback) {
       $.getJSON(options.rootUrl + 'ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
-        var tags = data.result.tags;
-        
-        for (var i=0, l=tags.length; i<l; i++) {
-          tags[i].id = '~~' + tags[i].id + '~~';
-        }
-        
+        var tags = data.result.tags.map(function(t) {
+          t.id = '~~' + t.id + '~~';
+          delete t['url_name'];
+          delete t['lastmodified'];
+          return t;
+        });
+
         callback(tags);
       });
     };
@@ -315,7 +300,12 @@
     
     options.loader = function(callback) {
       $.getJSON(options.rootUrl + 'ws.php?format=json&method=pwg.groups.getList&per_page=9999', function(data) {
-        callback(data.result.groups);
+        var groups = data.result.groups.map(function(g) {
+          delete g['lastmodified'];
+          return g;
+        });
+
+        callback(groups);
       });
     };
     
