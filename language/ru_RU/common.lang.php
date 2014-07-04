@@ -426,3 +426,5 @@ $lang['No results for'] = 'Нет результатов для';
 $lang['Apply on properties'] = 'Применить к свойствам';
 $lang['Photo description'] = 'Описание изображения';
 $lang['Photo title'] = 'Заголовок изображения';
+$lang['Album name, A &rarr; Z'] = 'По названиям альбомов, от A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'По названиям альбомов, от Z &rarr; A';
