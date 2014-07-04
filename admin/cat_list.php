@@ -325,13 +325,14 @@ if (isset($_GET['parent_id']))
 {
   $form_action.= '&amp;parent_id='.$_GET['parent_id'];
 }
+$sort_orders_checked = array_keys($sort_orders);
 
 $template->assign(array(
   'CATEGORIES_NAV'=>$navigation,
   'F_ACTION'=>$form_action,
   'PWG_TOKEN' => get_pwg_token(),
   'sort_orders' => $sort_orders,
-  'sort_order_checked' => array_shift(array_keys($sort_orders)),
+  'sort_order_checked' => array_shift($sort_orders_checked),
  ));
 
 // +-----------------------------------------------------------------------+
