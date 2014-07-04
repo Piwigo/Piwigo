@@ -218,10 +218,33 @@
   CategoriesCache.prototype.selectize = function($target, options) {
     options = options || {};
 
+    options.filter = function(cats) {
+      cats.map(function(c) {
+        c.pos = c.global_rank.split('.');
+      });
+
+      cats.sort(function(a, b) {
+        var i = 0;
+        while (a.pos[i] && b.pos[i]) {
+          if (a.pos[i] != b.pos[i]) {
+            return a.pos[i] - b.pos[i];
+          }
+          i++;
+        }
+        return (!a.pos[i] && b.pos[i]) ? -1 : 1;
+      });
+
+      cats.map(function(c, i) {
+        c.pos = i;
+      });
+
+      return cats;
+    };
+
     $target.selectize({
       valueField: 'id',
       labelField: 'fullname',
-      sortField: 'global_rank',
+      sortField: 'pos',
       searchField: ['fullname'],
       plugins: ['remove_button'],
       render: AbstractSelectizer.getRender('fullname', options.lang)
