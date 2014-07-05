@@ -422,3 +422,5 @@ $lang['No results for'] = 'Disoc\'h ebet evit';
 $lang['Apply on properties'] = 'Arloañ war ar perzhioù';
 $lang['Photo description'] = 'Deskrivadur al luc\'hskeudenn';
 $lang['Photo title'] = 'Titl al luc\'hskeudenn';
+$lang['Album name, A &rarr; Z'] = 'Anv ar rummad, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Anv ar rummad, Z &rarr; A';
