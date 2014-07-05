@@ -424,3 +424,5 @@ $lang['Theme'] = 'Teema';
 $lang['No results for'] = 'Ei tuloksia haulle';
 $lang['Photo description'] = 'Kuvan kuvaus';
 $lang['Photo title'] = 'Kuvan otsikko';
+$lang['Album name, A &rarr; Z'] = 'Albumin nimi, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Albumin nimi, Z &rarr; A';
