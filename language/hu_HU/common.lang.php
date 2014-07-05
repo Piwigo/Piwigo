@@ -426,3 +426,6 @@ $lang['Theme'] = 'Téma';
 $lang['Apply on properties'] = 'Tulajdonságok alkalmazása';
 $lang['Photo description'] = 'Kép leírása';
 $lang['Photo title'] = 'Kép címe';
+$lang['Album name, A &rarr; Z'] = 'Album név, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Album név, Z &rarr; A';
+$lang['No results for'] = 'Nincs eredmény';
