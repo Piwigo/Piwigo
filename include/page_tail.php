@@ -70,7 +70,7 @@ if ( !empty($conf['mobile_theme']) && (get_device() != 'desktop' || mobile_theme
 {
   $template->assign('TOGGLE_MOBILE_THEME_URL',
       add_url_params(
-        duplicate_index_url(),
+        htmlspecialchars($_SERVER['REQUEST_URI']),
         array('mobile' => mobile_theme() ? 'false' : 'true')
       )
     );
