@@ -29,16 +29,23 @@ tour.addSteps([
     content: "{/literal}{'2_7_0_stp3'|@translate|@escape:'javascript'}{literal}",
   },
   {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
+    path: "{/literal}{$TAT_path}{$TAT_search}{literal}",
+    placement: "left",
+    element: "#content",
+    title: "{/literal}{'2_7_0_title4'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp4'|@translate|@escape:'javascript'}{literal}"
   },
   {//5
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=photo-{/literal}{$TAT_image_id}{literal}",
+    placement: "top",
+    element: ".icon-calendar",
     title: "{/literal}{'2_7_0_title5'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp5'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=photo-{/literal}{$TAT_image_id}{literal}",
+    placement: "top",
+    element: "#catModify > fieldset:nth-child(2) > p:nth-child(5) > strong",
     title: "{/literal}{'2_7_0_title6'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp6'|@translate|@escape:'javascript'}{literal}"
   },

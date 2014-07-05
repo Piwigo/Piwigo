@@ -115,12 +115,12 @@ $lang['2_7_0_stp3'] = 'The quick search has been reworked:<br>
  * size:>10mp - searches photos where width*height > 10 mega pixels<br>
  * file:.jpg - only jpg images<br>
 - use singular/plural inflections (English/french only for now)<br>';
-$lang['2_7_0_title4'] = '';
-$lang['2_7_0_stp4'] = '';
-$lang['2_7_0_title5'] = '';
-$lang['2_7_0_stp5'] = '';
-$lang['2_7_0_title6'] = '';
-$lang['2_7_0_stp6'] = '';
+$lang['2_7_0_title4'] = 'Search Page';
+$lang['2_7_0_stp4'] = 'The Search page has been reworked: ability to select properties on which the word search applies, list of authors found in database, auto-complete list of tags, auto-complete list of albums...';
+$lang['2_7_0_title5'] = 'Time';
+$lang['2_7_0_stp5'] = 'You can set the time in addition to the date, using Hour and Minute sliders';
+$lang['2_7_0_title6'] = 'Select script';
+$lang['2_7_0_stp6'] = 'The selection script for picking albums, tags etc has changed to a new one more user-friendly. Test it below';
 $lang['2_7_0_title7'] = '';
 $lang['2_7_0_stp7'] = '';
 $lang['2_7_0_title8'] = '';

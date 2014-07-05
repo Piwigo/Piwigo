@@ -26,12 +26,14 @@ elseif ( isset($_GET['tour_ended']) and defined('IN_ADMIN') and IN_ADMIN )
 }
 
 /** Setup the tour **/
+/*
+ * REMOVE FOR RELEASE
 $version_=str_replace('.','_',PHPWG_VERSION);
 if (pwg_get_session_var('tour_to_launch')!=$version_ and isset($_GET['page']) and $_GET['page']=="plugin-TakeATour")
 { 
   pwg_unset_session_var('tour_to_launch');
 }
-elseif ( pwg_get_session_var('tour_to_launch') )
+else*/if ( pwg_get_session_var('tour_to_launch') )
 {
   add_event_handler('init', 'TAT_tour_setup');
   include('tours/'.pwg_get_session_var('tour_to_launch').'/config.inc.php');
