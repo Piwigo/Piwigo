@@ -257,15 +257,15 @@ DELETE FROM '. PLUGINS_TABLE .'
             );
           $plg_data = file_get_contents($path.'/main.inc.php', null, null, 0, 2048);
 
-          if ( preg_match("|Plugin Name: (.*)|", $plg_data, $val) )
+          if (preg_match("|Plugin Name:\\s*(.+)|", $plg_data, $val))
           {
             $plugin['name'] = trim( $val[1] );
           }
-          if (preg_match("|Version: (.*)|", $plg_data, $val))
+          if (preg_match("|Version:\\s*([\\w.-]+)|", $plg_data, $val))
           {
             $plugin['version'] = trim($val[1]);
           }
-          if ( preg_match("|Plugin URI: (.*)|", $plg_data, $val) )
+          if (preg_match("|Plugin URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
           {
             $plugin['uri'] = trim($val[1]);
           }
@@ -273,15 +273,15 @@ DELETE FROM '. PLUGINS_TABLE .'
           {
             $plugin['description'] = trim($desc);
           }
-          elseif ( preg_match("|Description: (.*)|", $plg_data, $val) )
+          elseif (preg_match("|Description:\\s*(.+)|", $plg_data, $val))
           {
             $plugin['description'] = trim($val[1]);
           }
-          if ( preg_match("|Author: (.*)|", $plg_data, $val) )
+          if (preg_match("|Author:\\s*(.+)|", $plg_data, $val))
           {
             $plugin['author'] = trim($val[1]);
           }
-          if ( preg_match("|Author URI: (.*)|", $plg_data, $val) )
+          if (preg_match("|Author URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
           {
             $plugin['author uri'] = trim($val[1]);
           }
@@ -290,6 +290,7 @@ DELETE FROM '. PLUGINS_TABLE .'
             list( , $extension) = explode('extension_view.php?eid=', $plugin['uri']);
             if (is_numeric($extension)) $plugin['extension'] = $extension;
           }
+
           // IMPORTANT SECURITY !
           $plugin = array_map('htmlspecialchars', $plugin);
           $this->fs_plugins[$file] = $plugin;

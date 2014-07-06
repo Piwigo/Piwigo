@@ -158,24 +158,24 @@ UPDATE '.USER_INFOS_TABLE.'
             );
           $plg_data = implode( '', file($path.'/common.lang.php') );
 
-          if ( preg_match("|Language Name: (.*)|", $plg_data, $val) )
+          if (preg_match("|Language Name:\\s*(.+)|", $plg_data, $val))
           {
             $language['name'] = trim( $val[1] );
             $language['name'] = convert_charset($language['name'], 'utf-8', $target_charset);
           }
-          if (preg_match("|Version: (.*)|", $plg_data, $val))
+          if (preg_match("|Version:\\s*([\\w.-]+)|", $plg_data, $val))
           {
             $language['version'] = trim($val[1]);
           }
-          if ( preg_match("|Language URI: (.*)|", $plg_data, $val) )
+          if (preg_match("|Language URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
           {
             $language['uri'] = trim($val[1]);
           }
-          if ( preg_match("|Author: (.*)|", $plg_data, $val) )
+          if (preg_match("|Author:\\s*(.+)|", $plg_data, $val))
           {
             $language['author'] = trim($val[1]);
           }
-          if ( preg_match("|Author URI: (.*)|", $plg_data, $val) )
+          if (preg_match("|Author URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
           {
             $language['author uri'] = trim($val[1]);
           }
@@ -184,6 +184,7 @@ UPDATE '.USER_INFOS_TABLE.'
             list( , $extension) = explode('extension_view.php?eid=', $language['uri']);
             if (is_numeric($extension)) $language['extension'] = $extension;
           }
+
           // IMPORTANT SECURITY !
           $language = array_map('htmlspecialchars', $language);
           $this->fs_languages[$file] = $language;

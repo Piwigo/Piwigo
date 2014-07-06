@@ -375,17 +375,17 @@ SELECT
             'author' => '',
             'mobile' => false,
             );
-          $theme_data = implode( '', file($path.'/themeconf.inc.php') );
+          $theme_data = implode('', file($path.'/themeconf.inc.php'));
 
-          if ( preg_match("|Theme Name: (.*)|", $theme_data, $val) )
+          if (preg_match("|Theme Name:\\s*(.+)|", $theme_data, $val))
           {
             $theme['name'] = trim( $val[1] );
           }
-          if (preg_match("|Version: (.*)|", $theme_data, $val))
+          if (preg_match("|Version:\\s*([\\w.-]+)|", $theme_data, $val))
           {
             $theme['version'] = trim($val[1]);
           }
-          if ( preg_match("|Theme URI: (.*)|", $theme_data, $val) )
+          if (preg_match("|Theme URI:\\s*(https?:\\/\\/.+)|", $theme_data, $val))
           {
             $theme['uri'] = trim($val[1]);
           }
@@ -393,15 +393,15 @@ SELECT
           {
             $theme['description'] = trim($desc);
           }
-          elseif ( preg_match("|Description: (.*)|", $theme_data, $val) )
+          elseif (preg_match("|Description:\\s*(.+)|", $theme_data, $val))
           {
             $theme['description'] = trim($val[1]);
           }
-          if ( preg_match("|Author: (.*)|", $theme_data, $val) )
+          if (preg_match("|Author:\\s*(.+)|", $theme_data, $val))
           {
             $theme['author'] = trim($val[1]);
           }
-          if ( preg_match("|Author URI: (.*)|", $theme_data, $val) )
+          if (preg_match("|Author URI:\\s*(https?:\\/\\/.+)|", $theme_data, $val))
           {
             $theme['author uri'] = trim($val[1]);
           }

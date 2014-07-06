@@ -380,7 +380,7 @@ function autoupdate_plugin(&$plugin)
       $i++;
       if ($i < 2) continue; // first lines are typically "<?php" and "/*"
 
-      if (preg_match('#Version: ([\\w.-]+)#', $line, $matches))
+      if (preg_match('/Version:\\s*([\\w.-]+)/', $line, $matches))
       {
         $fs_version = $matches[1];
       }
