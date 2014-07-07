@@ -414,6 +414,7 @@ $lang['Image Quality'] = 'Image quality';
 $lang['Images manual order was saved'] = "Images manual order saved";
 $lang['Impossible automatic correction'] = "Automatic correction impossible";
 $lang['Impossible to activate this theme, the parent theme is missing: %s'] = 'This theme could not be activated, as the parent theme is missing: %s';
+$lang['Impossible to deactivate the default theme.'] = 'Impossible to deactivate the default theme.';
 $lang['Impossible to deactivate this language, first set another language as default.'] = 'Impossible to deactivate this language, first set another language as default.';
 $lang['Impossible to deactivate this language, you need at least one language.'] = 'Impossible to deactivate this language, you need at least one language.';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Impossible to deactivate this theme, you need at least one theme.';
