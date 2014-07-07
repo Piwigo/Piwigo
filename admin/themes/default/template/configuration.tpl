@@ -138,7 +138,7 @@ updateFilters();
     <li>
       <label>
         <input type="checkbox" name="obligatory_user_mail_address" {if ($main.obligatory_user_mail_address)}checked="checked"{/if}>
-        {'Mail address is obligatory for all users'|@translate}
+        {'Mail address is mandatory for registration'|@translate}
       </label>
     </li>
   </ul>
