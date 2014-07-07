@@ -640,7 +640,6 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
       array_merge(
         $picture[$which_image],
         array(
-          'THUMB_SRC' => $picture[$which_image]['derivatives'][IMG_THUMB]->get_url(),
           // Params slideshow was transmit to navigation buttons
           'U_IMG' =>
             add_url_params(
