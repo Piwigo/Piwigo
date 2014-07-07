@@ -196,7 +196,7 @@ SELECT user_id, group_id
     {
       foreach ($users as $cur_user)
       {
-        $users[$cur_user['id']]['registration_date_string'] = format_date($cur_user['registration_date'], false, false);
+        $users[$cur_user['id']]['registration_date_string'] = format_date($cur_user['registration_date'], array('day', 'month', 'year'));
       }
     }
 
@@ -240,7 +240,7 @@ SELECT
         
         if (isset($params['display']['last_visit_string']))
         {
-          $users[ $row['user_id'] ]['last_visit_string'] = format_date($last_visit, false, false);
+          $users[ $row['user_id'] ]['last_visit_string'] = format_date($last_visit, array('day', 'month', 'year'));
         }
         
         if (isset($params['display']['last_visit_since']))

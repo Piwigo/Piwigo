@@ -549,6 +549,11 @@ function str2DateTime($original, $format=null)
   {
     return false;
   }
+  
+  if ($original instanceof DateTime)
+  {
+    return $original;
+  }
 
   if (!empty($format) && version_compare(PHP_VERSION, '5.3.0') >= 0)// from known date format
   {
@@ -588,12 +593,12 @@ function str2DateTime($original, $format=null)
  * returns a formatted and localized date for display
  *
  * @param int|string timestamp or datetime string
- * @param bool $show_time
- * @param bool $show_day_name
+ * @param array $show list of components displayed, default is ['day_name', 'day', 'month', 'year']
+ *    THIS PARAMETER IS PLANNED TO CHANGE
  * @param string $format input format respecting date() syntax
  * @return string
  */
-function format_date($original, $show_time=false, $show_day_name=true, $format=null)
+function format_date($original, $show=null, $format=null)
 {
   global $lang;
 
@@ -604,26 +609,72 @@ function format_date($original, $show_time=false, $show_day_name=true, $format=n
     return l10n('N/A');
   }
 
-  $print = '';
-  if ($show_day_name)
+  if ($show === null)
   {
-    $print.= $lang['day'][ $date->format('w') ].' ';
+    $show = array('day_name', 'day', 'month', 'year');
   }
 
-  $print.= $date->format('j');
-  $print.= ' '.$lang['month'][ $date->format('n') ];
-  $print.= ' '.$date->format('Y');
+  // TODO use IntlDateFormatter for proper i18n
 
-  if ($show_time)
+  $print = '';
+  if (in_array('day_name', $show))
+    $print.= $lang['day'][ $date->format('w') ].' ';
+
+  if (in_array('day', $show))
+    $print.= $date->format('j').' ';
+
+  if (in_array('month', $show))
+    $print.= $lang['month'][ $date->format('n') ].' ';
+
+  if (in_array('year', $show))
+    $print.= $date->format('Y').' ';
+
+  if (in_array('time', $show))
   {
     $temp = $date->format('H:i');
     if ($temp != '00:00')
     {
-      $print.= ' '.$temp;
+      $print.= $temp.' ';
     }
   }
 
   return trim($print);
+}
+
+/**
+ * Format a "From ... to ..." string from two dates
+ * @param string $from
+ * @param string $to
+ * @param boolean $full
+ * @return string
+ */
+function format_fromto($from, $to, $full=false)
+{
+  $from = str2DateTime($from);
+  $to = str2DateTime($to);
+
+  if ($from->format('Y-m-d') == $to->format('Y-m-d'))
+  {
+    return format_date($from);
+  }
+  else
+  {
+    if ($full || $from->format('Y') != $to->format('Y'))
+    {
+      $from_str = format_date($from);
+    }
+    else if ($from->format('m') != $to->format('m'))
+    {
+      $from_str = format_date($from, array('day_name', 'day', 'month'));
+    }
+    else
+    {
+      $from_str = format_date($from, array('day_name', 'day'));
+    }
+    $to_str = format_date($to);
+
+    return l10n('from %s to %s', $from_str, $to_str);
+  }
 }
 
 /**

@@ -336,24 +336,10 @@ if (count($categories) > 0)
 
         if (!empty($from))
         {
-          $info = '';
-
-          if (date('Y-m-d', strtotime($from)) == date('Y-m-d', strtotime($to)))
-          {
-            $info = format_date($from);
-          }
-          else
-          {
-            $info = l10n(
-              'from %s to %s',
-              format_date($from),
-              format_date($to)
-              );
-          }
-          $tpl_var['INFO_DATES'] = $info;
+          $tpl_var['INFO_DATES'] = format_fromto($from, $to);
         }
       }
-    }//fromto
+    }
 
     $tpl_thumbnails_var[] = $tpl_var;
   }
