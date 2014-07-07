@@ -1,5 +1,4 @@
 {include file='include/autosize.inc.tpl'}
-{include file='include/dbselect.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
