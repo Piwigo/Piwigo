@@ -419,3 +419,7 @@ $lang['%d photos per page'] = 'Нэг хуудасанд %d зураг';
 $lang['Theme'] = 'Загвар';
 $lang['Photo description'] = 'Зургийн тайлбар';
 $lang['Photo title'] = 'Зургийн нэр';
+$lang['Apply on properties'] = 'Тохиргоог хадгалах';
+$lang['No results for'] = 'Ийм үр дүн олдсонгүй';
+$lang['Album name, A &rarr; Z'] = 'Цомогын нэр, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Цомогын нэр, Z &rarr; A';
