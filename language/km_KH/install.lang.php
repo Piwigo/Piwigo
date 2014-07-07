@@ -37,3 +37,7 @@ $lang['Try to configure PHP 5'] = 'ព្យាយាម​កែកំណត់
 $lang['User'] = 'អ្នក​​ប្រើប្រាស់';
 $lang['Sorry!'] = 'សុំទោស!';
 $lang['Start Install'] = 'ចាប់ផ្តើម​បញ្ចូល';
+$lang['Welcome to your new installation of Piwigo!'] = 'ស្វាគមន៍​មកកាន់​​ការបញ្ចូល​ថ្មីរបស់​ភីវីហ្គូ!';
+$lang['Welcome to my photo gallery'] = 'ស្វាគមន៍​មកកាន់​វិចិត្រសាលរូបភាព​របស់​ខ្ញុំ';
+$lang['Just another Piwigo gallery'] = 'គ្រាន់តែជា​វិចិត្រសាលផ្សេងទៀតរបស់​ភីវីហ្គូ';
+$lang['Congratulations, Piwigo installation is completed'] = 'អប់​អរ​សាទរ, ការ​បញ្ចូល​ភីវីហ្គូ​បាន​សម្រេច';
