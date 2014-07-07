@@ -57,7 +57,7 @@ if (!empty($_POST))
   {
     include_once( PHPWG_ROOT_PATH .'include/functions_comment.inc.php' );
     check_input_parameter('comments', $_POST, true, PATTERN_ID);
-    
+
     if (isset($_POST['validate']))
     {
       validate_user_comment($_POST['comments']);
@@ -186,7 +186,7 @@ while ($row = pwg_db_fetch_assoc($result))
         'path'=>$row['path'],
         )
      );
-  if (empty($row['author_id'])) 
+  if (empty($row['author_id']))
   {
     $author_name = $row['author'];
   }
@@ -201,7 +201,7 @@ while ($row = pwg_db_fetch_assoc($result))
       'ID' => $row['id'],
       'TN_SRC' => $thumb,
       'AUTHOR' => trigger_change('render_comment_author', $author_name),
-      'DATE' => format_date($row['date'], true),
+      'DATE' => format_date($row['date']).' '.substr($row['date'],11,4),
       'CONTENT' => trigger_change('render_comment_content',$row['content']),
       'IS_PENDING' => ('false' == $row['validated']),
       )

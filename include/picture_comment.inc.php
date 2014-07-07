@@ -182,7 +182,7 @@ SELECT
         array(
           'ID' => $row['id'],
           'AUTHOR' => trigger_change('render_comment_author', $row['author']),
-          'DATE' => format_date($row['date'], true),
+          'DATE' => format_date($row['date']).' '.substr($row['date'],11,4),
           'CONTENT' => trigger_change('render_comment_content',$row['content']),
           'WEBSITE_URL' => $row['website_url'],
         );

@@ -485,7 +485,7 @@ SELECT *
       'ALT' => $name,
       'AUTHOR' => trigger_change('render_comment_author', $comment['author']),
       'WEBSITE_URL' => $comment['website_url'],
-      'DATE'=>format_date($comment['date'], true),
+      'DATE'=>format_date($comment['date']).' '.substr($comment['date'],11,4),
       'CONTENT'=>trigger_change('render_comment_content',$comment['content']),
       );
 
