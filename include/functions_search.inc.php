@@ -295,6 +295,11 @@ class QSearchScope
       return false;
     return true;
   }
+  
+  function process_char(&$ch, &$crt_token)
+  {
+    return false;
+  }
 }
 
 class QNumericRangeScope extends QSearchScope
@@ -309,12 +314,19 @@ class QNumericRangeScope extends QSearchScope
   function parse($token)
   {
     $str = $token->term;
+    $strict = array(0,0);
     if ( ($pos = strpos($str, '..')) !== false)
       $range = array( substr($str,0,$pos), substr($str, $pos+2));
     elseif ('>' == @$str[0])// ratio:>1
+    {
       $range = array( substr($str,1), '');
+      $strict[0] = 1;
+    }
     elseif ('<' == @$str[0]) // size:<5mp
+    {
       $range = array('', substr($str,1));
+      $strict[1] = 1;
+    }
     elseif( ($token->modifier & QST_WILDCARD_BEGIN) )
       $range = array('', $str);
     elseif( ($token->modifier & QST_WILDCARD_END) )
@@ -349,7 +361,7 @@ class QNumericRangeScope extends QSearchScope
         $val = '';
       if (is_numeric($val))
       {
-        if ($i)
+        if ($i ^ $strict[$i])
           $val += $this->epsilon;
         else
           $val -= $this->epsilon;
@@ -358,17 +370,17 @@ class QNumericRangeScope extends QSearchScope
 
     if (!$this->nullable && $range[0]=='' && $range[1] == '')
       return false;
-    $token->scope_data = $range;
+    $token->scope_data = array( 'range'=>$range, 'strict'=>$strict );
     return true;
   }
 
   function get_sql($field, $token)
   {
     $clauses = array();
-    if ($token->scope_data[0]!=='')
-      $clauses[] = $field.' >= ' .$token->scope_data[0].' ';
-    if ($token->scope_data[1]!=='')
-      $clauses[] = $field.' <= ' .$token->scope_data[1].' ';
+    if ($token->scope_data['range'][0]!=='')
+      $clauses[] = $field.' >'.($token->scope_data['strict'][0]?'':'=').$token->scope_data['range'][0].' ';
+    if ($token->scope_data['range'][1]!=='')
+      $clauses[] = $field.' <'.($token->scope_data['strict'][1]?'':'=').$token->scope_data['range'][1].' ';
 
     if (empty($clauses))
     {
@@ -392,12 +404,19 @@ class QDateRangeScope extends QSearchScope
   function parse($token)
   {
     $str = $token->term;
+    $strict = array(0,0);
     if ( ($pos = strpos($str, '..')) !== false)
       $range = array( substr($str,0,$pos), substr($str, $pos+2));
     elseif ('>' == @$str[0])
+    {
       $range = array( substr($str,1), '');
+      $strict[0] = 1;
+    }
     elseif ('<' == @$str[0])
+    {
       $range = array('', substr($str,1));
+      $strict[1] = 1;
+    }
     elseif( ($token->modifier & QST_WILDCARD_BEGIN) )
       $range = array('', $str);
     elseif( ($token->modifier & QST_WILDCARD_END) )
@@ -411,10 +430,12 @@ class QDateRangeScope extends QSearchScope
       {
         array_shift($matches);
         if (!isset($matches[1]))
-          $matches[1] = !$i ? 1 : 12;
+          $matches[1] = ($i ^ $strict[$i]) ? 12 : 1;
         if (!isset($matches[2]))
-          $matches[2] = !$i ? 1 : 31;
-        $val = $matches;
+          $matches[2] = ($i ^ $strict[$i]) ? 31 : 1;
+        $val = implode('-', $matches);
+        if ($i ^ $strict[$i])
+          $val .= ' 23:59:59';
       }
       elseif (strlen($val))
         return false;
@@ -431,9 +452,9 @@ class QDateRangeScope extends QSearchScope
   {
     $clauses = array();
     if ($token->scope_data[0]!=='')
-      $clauses[] = $field.' >= \'' . implode('-',$token->scope_data[0]).'\'';
+      $clauses[] = $field.' >= \'' . $token->scope_data[0].'\'';
     if ($token->scope_data[1]!=='')
-      $clauses[] = $field.' <= \'' . implode('-',$token->scope_data[1]).' 23:59:59\'';
+      $clauses[] = $field.' <= \'' . $token->scope_data[1].'\'';
 
     if (empty($clauses))
     {
@@ -578,7 +599,7 @@ class QMultiToken
               $stop = true;
             break;
           case ':':
-            $scope = @$root->scopes[$crt_token];
+            $scope = @$root->scopes[strtolower($crt_token)];
             if (!isset($scope) || isset($crt_scope))
             { // white space
               $this->push($crt_token, $crt_modifier, $crt_scope);
@@ -620,12 +641,15 @@ class QMultiToken
             }
             // else white space go on..
           default:
-            if (strpos(' ,.;!?', $ch)!==false)
-            { // white space
-              $this->push($crt_token, $crt_modifier, $crt_scope);
+            if (!$crt_scope || !$crt_scope->process_char($ch, $crt_token))
+            {
+              if (strpos(' ,.;!?', $ch)!==false)
+              { // white space
+                $this->push($crt_token, $crt_modifier, $crt_scope);
+              }
+              else
+                $crt_token .= $ch;
             }
-            else
-              $crt_token .= $ch;
             break;
         }
       }
@@ -1117,7 +1141,10 @@ function get_quick_search_results($q, $options)
 
   $res = get_quick_search_results_no_cache($q, $options);
 
-  $persistent_cache->set($cache_key, $res, 300);
+  if ( count($res['items']) )
+  {// cache the results only if not empty - otherwise it is useless
+    $persistent_cache->set($cache_key, $res, 300);
+  }
   return $res;
 }
 
@@ -1127,7 +1154,7 @@ function get_quick_search_results($q, $options)
 function get_quick_search_results_no_cache($q, $options)
 {
   global $conf;
-  //@TODO: maybe cache for 10 minutes the result set to avoid many expensive sql calls when navigating the pictures
+
   $q = trim(stripslashes($q));
   $search_results =
     array(
