@@ -201,7 +201,7 @@ while ($row = pwg_db_fetch_assoc($result))
       'ID' => $row['id'],
       'TN_SRC' => $thumb,
       'AUTHOR' => trigger_change('render_comment_author', $author_name),
-      'DATE' => format_date($row['date']).' '.substr($row['date'],11,4),
+      'DATE' => format_date($row['date'], array('day_name','day','month','year','time')),
       'CONTENT' => trigger_change('render_comment_content',$row['content']),
       'IS_PENDING' => ('false' == $row['validated']),
       )

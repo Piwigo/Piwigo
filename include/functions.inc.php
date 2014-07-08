@@ -609,7 +609,7 @@ function format_date($original, $show=null, $format=null)
     return l10n('N/A');
   }
 
-  if ($show === null)
+  if ($show === null || $show === true)
   {
     $show = array('day_name', 'day', 'month', 'year');
   }
