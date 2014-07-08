@@ -41,12 +41,16 @@ else*/if ( pwg_get_session_var('tour_to_launch') )
 
 function TAT_tour_setup()
 {
-  global $template, $TAT_restart;
+  global $template, $TAT_restart, $conf;
   $tour_to_launch=pwg_get_session_var('tour_to_launch');
-  load_language('plugin.lang', PHPWG_PLUGINS_PATH .'TakeATour/');
-  load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );
+  load_language('plugin.lang', PHPWG_PLUGINS_PATH .'TakeATour/', array('force_fallback'=>'en_UK'));
   $template->set_filename('TAT_js_css', PHPWG_PLUGINS_PATH.'TakeATour/tpl/js_css.tpl');
-  $template->parse('TAT_js_css');//http://piwigo.org/forum/viewtopic.php?id=23248
+  $template->assign(
+  array(
+    'ADMIN_THEME'    => $conf['admin_theme'],
+    )
+  );
+  $template->parse('TAT_js_css');
   if (isset($TAT_restart) and $TAT_restart)
   {
     $TAT_restart=false;

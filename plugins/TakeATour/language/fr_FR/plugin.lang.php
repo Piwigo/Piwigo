@@ -96,20 +96,6 @@ $lang['first_contact_stp26'] = 'Vous pouvez ici basculer l\'album courant comme 
 $lang['first_contact_stp27'] = 'Remarque importante : les webmestres et administrateurs n\'ont pas de passe-droits lorsqu\'ils naviguent dans la partie publique, mais ils peuvent accéder à tous les albums et photos dans la partie administration.';
 $lang['first_contact_stp28'] = 'Nous allons maintenant observer les options disponibles pour faire  fonctionner Piwigo à votre façon. Cliquez sur Configuration->Options juste sur Suivant.';
 $lang['first_contact_stp25'] = 'Comme vous pouvez le lire dans l\'aide de votre Piwigo (lien en haut à droite), les permissions sur les albums sont positionnées par groupe ou par utilisateur. Vous pouvez rendre publique/privé plusieurs albums simultanément en utilisant la page d\'administration des propriétés des albums.';
-$lang['2_7_0_stp10'] = '';
-$lang['2_7_0_stp4'] = '';
-$lang['2_7_0_stp5'] = '';
-$lang['2_7_0_stp6'] = '';
-$lang['2_7_0_stp7'] = '';
-$lang['2_7_0_stp8'] = '';
-$lang['2_7_0_stp9'] = '';
-$lang['2_7_0_title10'] = '';
-$lang['2_7_0_title4'] = '';
-$lang['2_7_0_title5'] = '';
-$lang['2_7_0_title6'] = '';
-$lang['2_7_0_title7'] = '';
-$lang['2_7_0_title8'] = '';
-$lang['2_7_0_title9'] = '';
 $lang['2_7_0_stp3'] = 'La recherche rapide a été retravaillée :<br/>
 - ajout de l\'opérateur OR<br/>
 - possibilité de grouper en utilisant les parenthèses ()<br/>
