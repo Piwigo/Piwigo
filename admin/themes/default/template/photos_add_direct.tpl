@@ -94,6 +94,12 @@ jQuery(document).ready(function(){
 		// Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
 		dragdrop: true,
 
+    preinit: {
+      Init: function (up, info) {
+        jQuery('#uploader_container').removeAttr("title"); //remove the "using runtime" text
+      }
+    },
+
     init : {
       BeforeUpload: function(up, file) {
         console.log('[BeforeUpload]', file);
