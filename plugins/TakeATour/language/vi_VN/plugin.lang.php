@@ -40,8 +40,6 @@ $lang['first_contact_title5'] = '';
 $lang['first_contact_title6'] = '';
 $lang['first_contact_title7'] = '';
 $lang['first_contact_title8'] = '';
-$lang['2_7_0_stp10'] = '
-';
 $lang['2_7_0_stp4'] = '
 ';
 $lang['2_7_0_stp5'] = '
@@ -52,15 +50,11 @@ $lang['2_7_0_stp7'] = '';
 $lang['2_7_0_stp8'] = '';
 $lang['2_7_0_stp9'] = '';
 $lang['2_7_0_title10'] = '';
-$lang['2_7_0_title4'] = '';
-$lang['2_7_0_title5'] = '';
+$lang['2_7_0_title4'] = 'Tìm trang';
+$lang['2_7_0_title5'] = 'Thời gian';
 $lang['2_7_0_title6'] = '
 ';
-$lang['2_7_0_title7'] = '
 ';
-$lang['2_7_0_title8'] = '
-';
-$lang['2_7_0_title9'] = '
 ';
 $lang['First Contact'] = 'Đầu mối đầu tiên';
 $lang['End tour'] = 'Kết thúc';
@@ -69,3 +63,7 @@ $lang['2_7_0_title3'] = 'Tìm nhanh';
 $lang['Prev'] = 'Trước đó';
 $lang['Next '] = 'Kế tiếp';
 $lang['2_7_0_stp1'] = 'Xin chào! Tôi sẽ là hướng dẫn viên để giúp bạn khám phá Piwigo. Vui lòng làm theo những hướng dẫn của tôi và ấn vào Tiếp tục (hoặc dùng các phím mũi tên trên bàn phím) để đi tiếp. Nếu đi đến trang khác, bạn sẽ bị quay lại trang hiện tại của Tour';
+$lang['2.7 Tour'] = 'Dạo phiên bản 2.7';
+$lang['Start the Tour'] = 'Khởi hành';
+$lang['2_7_0_title1'] = 'Chào mừng sử dụng Piwigo 2.7 ';
+$lang['2_7_0_title11'] = 'Hẹn gặp lại';
