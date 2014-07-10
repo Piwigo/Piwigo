@@ -420,4 +420,9 @@ $lang['Password is missing. Please enter the password.'] = 'Parola lipseşte. Te
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Lipseşte confirmarea parolei. Te rog să confirmi parola aleasă.';
 $lang['%d photos per page'] = '%d fotografii per pagină';
 $lang['Theme'] = 'Temă';
-?>
+$lang['Album name, Z &rarr; A'] = 'Nume album, Z &rarr; A';
+$lang['Photo title'] = 'Titlu fotografie';
+$lang['Photo description'] = 'Descriere fotografie';
+$lang['No results for'] = 'Nici un rezultat pentru';
+$lang['Apply on properties'] = 'Aplica la proprietati';
+$lang['Album name, A &rarr; Z'] = 'Nume album, A & rarr; Z';
