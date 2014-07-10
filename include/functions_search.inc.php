@@ -426,7 +426,7 @@ class QDateRangeScope extends QSearchScope
 
     foreach ($range as $i =>&$val)
     {
-      if (preg_match('/([0-9]{4})-?((?:0?[0-9])|(?:1[0-2]))?-?(((?:0?[0-9])|(?:[1-3][0-9])))?/', $val, $matches))
+      if (preg_match('/([0-9]{4})-?((?:1[0-2])|(?:0?[1-9]))?-?((?:(?:[1-3][0-9])|(?:0?[1-9])))?/', $val, $matches))
       {
         array_shift($matches);
         if (!isset($matches[1]))
