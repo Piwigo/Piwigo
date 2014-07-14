@@ -977,3 +977,4 @@ $lang['Showing %s to %s of %s users'] = '%s - %s felhasználó látható a %s k�
 $lang['close'] = 'bezárás';
 $lang['Impossible to deactivate the default theme.'] = 'Az alapértelmezett sablon nem kapcsolható ki';
 $lang['Mail address is mandatory for registration'] = 'Az e-mail cím kötelező a regisztrációhoz';
+$lang['Allow users to add a link to their website'] = 'Felhasználók tehessenek egy linket a honlapjukra';
