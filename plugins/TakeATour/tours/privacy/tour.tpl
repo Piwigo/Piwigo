@@ -3,7 +3,7 @@
 var tour = new Tour({
   name: "privacy",
   orphan: true,
-  onEnd: function (tour) {window.location = "admin.php?tour_ended=privacy";},
+  onEnd: function (tour) {window.location = "{/literal}{$ABS_U_ADMIN}{literal}admin.php?tour_ended=privacy";},
   template: "<div class='popover tour'>
   <div class='arrow'></div>
   <h3 class='popover-title'></h3>

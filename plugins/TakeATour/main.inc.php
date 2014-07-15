@@ -13,10 +13,10 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 /** Tour sended via $_POST or $_GET**/
-if ( isset($_REQUEST['submited_tour']) and defined('IN_ADMIN') and IN_ADMIN )
+if ( isset($_REQUEST['submited_tour_path']) and defined('IN_ADMIN') and IN_ADMIN )
 {
   check_pwg_token();
-  pwg_set_session_var('tour_to_launch', $_REQUEST['submited_tour']);
+  pwg_set_session_var('tour_to_launch', $_REQUEST['submited_tour_path']);
   global $TAT_restart;
   $TAT_restart=true;
 }
@@ -27,16 +27,17 @@ elseif ( isset($_GET['tour_ended']) and defined('IN_ADMIN') and IN_ADMIN )
 
 /** Setup the tour **/
 /*
- * REMOVE FOR RELEASE
-$version_=str_replace('.','_',PHPWG_VERSION);
-if (pwg_get_session_var('tour_to_launch')!=$version_ and isset($_GET['page']) and $_GET['page']=="plugin-TakeATour")
+ * CHANGE FOR RELEASE
+$version_=str_replace('.','_',PHPWG_VERSION);*/
+$version_="2_7_0";
+/***/
+if (pwg_get_session_var('tour_to_launch')!='tours/'.$version_ and isset($_GET['page']) and $_GET['page']=="plugin-TakeATour")
 { 
   pwg_unset_session_var('tour_to_launch');
 }
-else*/if ( pwg_get_session_var('tour_to_launch') )
+elseif ( pwg_get_session_var('tour_to_launch') )
 {
   add_event_handler('init', 'TAT_tour_setup');
-  include('tours/'.pwg_get_session_var('tour_to_launch').'/config.inc.php');
 }
 
 function TAT_tour_setup()
@@ -44,13 +45,11 @@ function TAT_tour_setup()
   global $template, $TAT_restart, $conf;
   $tour_to_launch=pwg_get_session_var('tour_to_launch');
   load_language('plugin.lang', PHPWG_PLUGINS_PATH .'TakeATour/', array('force_fallback'=>'en_UK'));
+
   $template->set_filename('TAT_js_css', PHPWG_PLUGINS_PATH.'TakeATour/tpl/js_css.tpl');
-  $template->assign(
-  array(
-    'ADMIN_THEME'    => $conf['admin_theme'],
-    )
-  );
+  $template->assign('ADMIN_THEME', $conf['admin_theme']);
   $template->parse('TAT_js_css');
+
   if (isset($TAT_restart) and $TAT_restart)
   {
     $TAT_restart=false;
@@ -58,8 +57,9 @@ function TAT_tour_setup()
   }
   $tat_path=str_replace(basename($_SERVER['SCRIPT_NAME']),'', $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']);
   $template->assign('TAT_path', $tat_path);
-  @include('tours/'.$tour_to_launch.'/config_preparse.inc.php');
-  $template->set_filename('TAT_tour_tpl', PHPWG_PLUGINS_PATH.'TakeATour/tours/'.$tour_to_launch.'/tour.tpl');
+  $template->assign('ABS_U_ADMIN', get_absolute_root_url());// absolute one due to public pages and $conf['question_mark_in_urls'] = false+$conf['php_extension_in_urls'] = false;
+  include($tour_to_launch.'/config.inc.php');
+  $template->set_filename('TAT_tour_tpl', $TOUR_PATH);
   $template->parse('TAT_tour_tpl');
 }
 
@@ -101,7 +101,7 @@ function TAT_no_photo_yet()
 function TAT_no_photo_yet_prefilter($content, &$smarty)
 {
   $search = '<div class="bigButton"><a href="{$next_step_url}">{\'I want to add photos\'|@translate}</a></div>';
-  $replacement = '<div class="bigButton"><a href="'.get_root_url().'admin.php?submited_tour=first_contact&pwg_token='.get_pwg_token().'">{\'I want to discover my gallery and add photos\'|@translate}</a></div>
+  $replacement = '<div class="bigButton"><a href="'.get_root_url().'admin.php?submited_tour_path=tours/first_contact&pwg_token='.get_pwg_token().'">{\'I want to discover my gallery and add photos\'|@translate}</a></div>
 <div class="bigButton"><a href="{$next_step_url}">{\'I want to add photos\'|@translate}</a></div>';
   return(str_replace($search, $replacement, $content));
 }
@@ -114,7 +114,7 @@ function TAT_prompt($c13y)
   $version_=str_replace('.','_',PHPWG_VERSION);
   if (file_exists('tours/'.$version_.'/config.inc.php'))
   {
-    $page['infos'][] = '<a href="'.get_root_url().'admin.php?submited_tour='.$version_.'&pwg_token='.get_pwg_token().'">'.l10n('Discover what is new in the version %s of Piwigo', PHPWG_VERSION).'</a>';
+    $page['infos'][] = '<a href="'.get_root_url().'admin.php?submited_tour_path=tours/'.$version_.'&pwg_token='.get_pwg_token().'">'.l10n('Discover what is new in the version %s of Piwigo', PHPWG_VERSION).'</a>';
   }
 }
 
