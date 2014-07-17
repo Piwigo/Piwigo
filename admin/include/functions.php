@@ -41,7 +41,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE site_id = '.$id.'
 ;';
-  $category_ids = array_from_query($query, 'id');
+  $category_ids = query2array($query, null, 'id');
   delete_categories($category_ids);
 
   // destruction of the site
@@ -83,7 +83,7 @@ SELECT id
   WHERE storage_category_id IN (
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
-  $element_ids = array_from_query($query, 'id');
+  $element_ids = query2array($query, null, 'id');
   delete_elements($element_ids);
 
   // now, should we delete photos that are virtually linked to the category?
@@ -95,7 +95,7 @@ SELECT
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id IN ('.implode(',', $ids).')
 ;';
-    $image_ids_linked = array_from_query($query, 'image_id');
+    $image_ids_linked = query2array($query, null, 'image_id');
 
     if (count($image_ids_linked) > 0)
     {
@@ -108,7 +108,7 @@ SELECT
   WHERE image_id IN ('.implode(',', $image_ids_linked).')
     AND category_id NOT IN ('.implode(',', $ids).')
 ;';
-        $image_ids_not_orphans = array_from_query($query, 'image_id');
+        $image_ids_not_orphans = query2array($query, null, 'image_id');
         $image_ids_to_delete = array_diff($image_ids_linked, $image_ids_not_orphans);
       }
 
@@ -260,7 +260,7 @@ function delete_elements($ids, $physical_deletion=false)
       return 0;
     }
   }
-  
+
   $ids_str = wordwrap(implode(', ', $ids), 80, "\n");
 
   // destruction of the comments on the image
@@ -319,7 +319,7 @@ SELECT
   FROM '.CATEGORIES_TABLE.'
   WHERE representative_picture_id IN ('. $ids_str .')
 ;';
-  $category_ids = array_from_query($query, 'id');
+  $category_ids = query2array($query, null, 'id');
   if (count($category_ids) > 0)
   {
     update_category($category_ids);
@@ -400,7 +400,7 @@ function delete_orphan_tags()
     {
       $orphan_tag_ids[] = $tag['id'];
     }
-    
+
     delete_tags($orphan_tag_ids);
   }
 }
@@ -418,7 +418,7 @@ SELECT
     LEFT JOIN '.IMAGE_TAG_TABLE.' ON id = tag_id
   WHERE tag_id IS NULL
 ;';
-  return array_from_query($query);
+  return query2array($query);
 }
 
 /**
@@ -458,7 +458,7 @@ SELECT DISTINCT c.id
     AND '.sprintf($where_cats, 'c.id').'
     AND i.id IS NULL
 ;';
-  $wrong_representant = array_from_query($query, 'id');
+  $wrong_representant = query2array($query, null, 'id');
 
   if (count($wrong_representant) > 0)
   {
@@ -483,7 +483,7 @@ SELECT DISTINCT id
   WHERE representative_picture_id IS NULL
     AND '.sprintf($where_cats, 'category_id').'
 ;';
-    $to_rand = array_from_query($query, 'id');
+    $to_rand = query2array($query, null, 'id');
     if (count($to_rand) > 0)
     {
       set_random_representant($to_rand);
@@ -505,7 +505,7 @@ SELECT
   WHERE id IS NULL
 ;';
   $result = pwg_query($query);
-  $orphan_image_ids = array_from_query($query, 'image_id');
+  $orphan_image_ids = query2array($query, null, 'image_id');
 
   if (count($orphan_image_ids) > 0)
   {
@@ -700,12 +700,12 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
     pwg_query($query);
   }
-  
+
   // make a category private => all its child categories become private
   if ($value == 'private')
   {
     $subcats = get_subcat_ids($categories);
-    
+
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET status = \'private\'
@@ -739,16 +739,15 @@ UPDATE '.CATEGORIES_TABLE.'
     // A5 permission removed to U2
     // A6 permission removed to U4
     // A7 no permission removed
-    // 
+    //
     // 1) we must extract "top albums": A2, A5 and A6
     // 2) for each top album, decide which album is the reference for permissions
     // 3) remove all inconsistant permissions from sub-albums of each top-album
 
     // step 1, search top albums
-    $all_categories = array();
     $top_categories = array();
     $parent_ids = array();
-    
+
     $query = '
 SELECT
     id,
@@ -759,18 +758,13 @@ SELECT
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $categories).')
 ;';
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $all_categories[] = $row;
-    }
-    
+    $all_categories = query2array($query);
     usort($all_categories, 'global_rank_compare');
 
     foreach ($all_categories as $cat)
     {
       $is_top = true;
-      
+
       if (!empty($cat['id_uppercat']))
       {
         foreach (explode(',', $cat['uppercats']) as $id_uppercat)
@@ -795,7 +789,7 @@ SELECT
     }
 
     // step 2, search the reference album for permissions
-    // 
+    //
     // to find the reference of each top album, we will need the parent albums
     $parent_cats = array();
 
@@ -808,11 +802,7 @@ SELECT
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $parent_ids).')
 ;';
-      $result = pwg_query($query);
-      while ($row = pwg_db_fetch_assoc($result))
-      {
-        $parent_cats[$row['id']] = $row;
-      }
+      $parent_cats= query2array($query, 'id');
     }
 
     $tables = array(
@@ -843,7 +833,7 @@ SELECT '.$field.'
   FROM '.$table.'
   WHERE cat_id = '.$ref_cat_id.'
 ;';
-        $ref_access = array_from_query($query, $field);
+        $ref_access = query2array($query, null, $field);
 
         if (count($ref_access) == 0)
         {
@@ -949,14 +939,14 @@ SELECT id, dir
   FROM '.CATEGORIES_TABLE.'
   WHERE dir IS NOT NULL
 ;';
-  $cat_dirs = simple_hash_from_query($query, 'id', 'dir');
+  $cat_dirs = query2array($query, 'id', 'dir');
 
   // caching galleries_url
   $query = '
 SELECT id, galleries_url
   FROM '.SITES_TABLE.'
 ;';
-  $galleries_url = simple_hash_from_query($query, 'id', 'galleries_url');
+  $galleries_url = query2array($query, 'id', 'galleries_url');
 
   // categories : id, site_id, uppercats
   $query = '
@@ -966,7 +956,7 @@ SELECT id, uppercats, site_id
     AND id IN (
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
 ;';
-  $categories = array_from_query($query);
+  $categories = query2array($query);
 
   // filling $cat_fulldirs
   $cat_dirs_callback = create_function('$m', 'global $cat_dirs; return $cat_dirs[$m[1]];');
@@ -1026,14 +1016,13 @@ function get_fs($path, $recursive = true)
         {
           $extension = get_extension($node);
 
-//          if (in_array($extension, $conf['picture_ext']))
           if (isset($conf['flip_picture_ext'][$extension]))
           {
             if (basename($path) == 'thumbnail')
             {
               $fs['thumbnails'][] = $path.'/'.$node;
             }
-            else if (basename($path) == 'pwg_representative')
+            elseif (basename($path) == 'pwg_representative')
             {
               $fs['representatives'][] = $path.'/'.$node;
             }
@@ -1042,13 +1031,12 @@ function get_fs($path, $recursive = true)
               $fs['elements'][] = $path.'/'.$node;
             }
           }
-//          else if (in_array($extension, $conf['file_ext']))
-          else if (isset($conf['flip_file_ext'][$extension]))
+          elseif (isset($conf['flip_file_ext'][$extension]))
           {
             $fs['elements'][] = $path.'/'.$node;
           }
         }
-        else if (is_dir($path.'/'.$node) and $node != 'pwg_high' and $recursive)
+        elseif (is_dir($path.'/'.$node) and $node != 'pwg_high' and $recursive)
         {
           $subdirs[] = $node;
         }
@@ -1089,13 +1077,13 @@ function sync_users()
 SELECT '.$conf['user_fields']['id'].' AS id
   FROM '.USERS_TABLE.'
 ;';
-  $base_users = array_from_query($query, 'id');
+  $base_users = query2array($query, null, 'id');
 
   $query = '
 SELECT user_id
   FROM '.USER_INFOS_TABLE.'
 ;';
-  $infos_users = array_from_query($query, 'user_id');
+  $infos_users = query2array($query, null, 'user_id');
 
   // users present in $base_users and not in $infos_users must be added
   $to_create = array_diff($base_users, $infos_users);
@@ -1124,7 +1112,7 @@ SELECT DISTINCT user_id
   FROM '.$table.'
 ;';
     $to_delete = array_diff(
-      array_from_query($query, 'user_id'),
+      query2array($query, null, 'user_id'),
       $base_users
       );
 
@@ -1149,7 +1137,7 @@ function update_uppercats()
 SELECT id, id_uppercat, uppercats
   FROM '.CATEGORIES_TABLE.'
 ;';
-  $cat_map = hash_from_query($query, 'id');
+  $cat_map = query2array($query, 'id');
 
   $datas = array();
   foreach ($cat_map as $id => $cat)
@@ -1186,7 +1174,7 @@ SELECT DISTINCT(storage_category_id)
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id IS NOT NULL
 ;';
-  $cat_ids = array_from_query($query, 'storage_category_id');
+  $cat_ids = query2aray($query, null, 'storage_category_id');
   $fulldirs = get_fulldirs($cat_ids);
 
   foreach ($cat_ids as $cat_id)
@@ -1423,7 +1411,7 @@ SELECT id, uppercats, global_rank, visible, status
       FROM '.GROUP_ACCESS_TABLE.'
       WHERE cat_id = '.$insert['id_uppercat'].'
     ;';
-    $granted_grps =  array_from_query($query, 'group_id');
+    $granted_grps =  query2array($query, null, 'group_id');
     $inserts = array();
     foreach ($granted_grps as $granted_grp)
     {
@@ -1439,10 +1427,10 @@ SELECT id, uppercats, global_rank, visible, status
       FROM '.USER_ACCESS_TABLE.'
       WHERE cat_id = '.$insert['id_uppercat'].'
     ;';
-    $granted_users =  array_from_query($query, 'user_id');
+    $granted_users =  query2array($query, null, 'user_id');
     add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']), $granted_users)));
   }
-  else if ('private' == $insert['status'])
+  elseif ('private' == $insert['status'])
   {
     add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']))));
   }
@@ -1563,7 +1551,7 @@ SELECT id
   FROM '.TAGS_TABLE.'
   WHERE name = \''.$tag_name.'\'
 ;';
-  if (count($existing_tags = array_from_query($query, 'id')) == 0)
+  if (count($existing_tags = query2array($query, null, 'id')) == 0)
   {
     // search existing by case insensitive name
     $query = '
@@ -1571,7 +1559,7 @@ SELECT id
   FROM '.TAGS_TABLE.'
   WHERE CONVERT(name, CHAR) = \''.$tag_name.'\'
 ;';
-    if (count($existing_tags = array_from_query($query, 'id')) == 0)
+    if (count($existing_tags = query2array($query, null, 'id')) == 0)
     {
       $url_name = trigger_change('render_tag_url', $tag_name);
       // search existing by url name
@@ -1580,7 +1568,7 @@ SELECT id
   FROM '.TAGS_TABLE.'
   WHERE url_name = \''.$url_name.'\'
 ;';
-      if (count($existing_tags = array_from_query($query, 'id')) == 0)
+      if (count($existing_tags = query2array($query, null, 'id')) == 0)
       {
         mass_inserts(
           TAGS_TABLE,
@@ -1691,7 +1679,7 @@ SELECT
   GROUP BY category_id
 ;';
 
-  $current_rank_of = simple_hash_from_query(
+  $current_rank_of = query2array(
     $query,
     'category_id',
     'max_rank'
@@ -1797,7 +1785,7 @@ SELECT image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id IN ('.implode(',', $sources).')
 ;';
-  $images = array_from_query($query, 'image_id');
+  $images = query2array($query, null, 'image_id');
 
   associate_images_to_categories($images, $destinations);
 }
@@ -1968,7 +1956,7 @@ SELECT id
   FROM '.TAGS_TABLE.'
   WHERE name = \''.$tag_name.'\'
 ;';
-  $existing_tags = array_from_query($query, 'id');
+  $existing_tags = query2array($query, null, 'id');
 
   if (count($existing_tags) == 0)
   {
@@ -2450,13 +2438,13 @@ SELECT id
   WHERE id IN ('.implode(',', $cat_ids).')
     AND status = \'private\'
 ;';
-  $private_cats = array_from_query($query, 'id');
+  $private_cats = query2array($query, null, 'id');
 
   if (count($private_cats) == 0)
   {
     return;
   }
-  
+
   $inserts = array();
   foreach ($private_cats as $cat_id)
   {
@@ -2468,7 +2456,7 @@ SELECT id
         );
     }
   }
-  
+
   mass_inserts(
     USER_ACCESS_TABLE,
     array('user_id','cat_id'),
@@ -2499,7 +2487,7 @@ SELECT
   WHERE status in (\''.implode("','", $status_list).'\')
 ;';
 
-  return array_from_query($query, 'user_id');
+  return query2array($query, null, 'user_id');
 }
 
 /**
@@ -2702,7 +2690,7 @@ function deltree($path, $trash_path=null)
       }
     }
     closedir($fh);
-    
+
     if (@rmdir($path))
     {
       return true;
@@ -2747,7 +2735,7 @@ function get_admin_client_cache_keys($requested=array())
     'tags' => TAGS_TABLE,
     'users' => USER_INFOS_TABLE
     );
-    
+
   if (!is_array($requested))
   {
     $requested = array($requested);
@@ -2760,11 +2748,11 @@ function get_admin_client_cache_keys($requested=array())
   {
     $requested = array_intersect($requested, array_keys($tables));
   }
-  
+
   $keys = array(
     '_hash' => md5(get_absolute_root_url()),
     );
-  
+
   foreach ($requested as $item)
   {
     $query = '
@@ -2777,6 +2765,6 @@ SELECT CONCAT(
 ;';
     list($keys[$item]) = pwg_db_fetch_row(pwg_query($query));
   }
-  
+
   return $keys;
 }
