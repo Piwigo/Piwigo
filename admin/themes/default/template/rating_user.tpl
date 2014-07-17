@@ -12,8 +12,29 @@
 
 .dtBar {
 	text-align:left;
-	padding-left: 20px;
+	padding: 10px 0 10px 20px
 }
+.dtBar DIV{
+	display:inline;
+	padding-right: 5px;
+}
+
+.dataTables_paginate A {
+	padding-left: 3px;
+}
+
+.ui-tooltip {
+	padding: 8px;
+	position: absolute;
+	z-index: 9999;
+	max-width: {3*$TN_WIDTH}px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+}
+body .ui-tooltip {
+	border-width: 2px;
+}
+
 {/html_style}
 
 <h2>{$ratings|@count} {'Users'|@translate}</h2>
@@ -42,103 +63,154 @@
 </form>
 
 {combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+{combine_script id='jquery.geoip' load='async' path='admin/themes/default/js/jquery.geoip.js'}
 {footer_script}
 var oTable = jQuery('#rateTable').dataTable({
-	sDom : '<"dtBar"f>rt',
-	bPaginate: false,
-	aaSorting: [[5,'desc']],
+	sDom : '<"dtBar"filp>rt<"dtBar"ilp>',
+	iDisplayLength: 100,
+	aLengthMenu: [ [25, 50, 100, 500, -1], [25, 50, 100, 500, "All"]],
+	aaSorting: [], //[[1,'desc']],
+	bAutoWidth: false,
+	bSortClasses: false,
 	aoColumnDefs: [
-		/*{
-			aTargets: ["dtc_user"]
-		},*/
+		{
+			aTargets: ["dtc_user"],
+			sType: "string",
+			sClass: null
+		},
 		{
 			aTargets: ["dtc_date"],
-			asSorting: ["desc","asc"]
+			asSorting: ["desc","asc"],
+			sType: "string",
+			sClass: null
 		},
 		{
 			aTargets: ["dtc_stat"],
 			asSorting: ["desc","asc"],
-			bSearchable: false
+			bSearchable: false,
+			sType: "numeric",
+			sClass: null
 		},
 		{
 			aTargets: ["dtc_rate"],
 			asSorting: ["desc","asc"],
-			bSearchable: false
+			bSearchable: false,
+			sType: "html",
+			sClass: null
 		},
 		{
 			aTargets: ["dtc_del"],
 			bSortable: false,
-			bSearchable: false
+			bSearchable: false,
+			sType: "string",
+			sClass: null
 		}
 	]
 });
 
-function del(elt,uid,aid){
-	if (!confirm('{'Are you sure?'|@translate|@escape:'javascript'}'))
-		return false;
-	var tr = elt;
-	while ( tr.nodeName != "TR") tr = tr.parentNode;
-	tr = jQuery(tr).fadeTo(1000, 0.4);
 
-	(new PwgWS('{$ROOT_URL|@escape:javascript}')).callService(
-		'pwg.rates.delete', { user_id:uid, anonymous_id:aid},
-		{
-			method: 'POST',
-			onFailure: function(num, text) { tr.stop(); tr.fadeTo(0,1); alert(num + " " + text); },
-			onSuccess: function(result){
-				if (result)
-					oTable.fnDeleteRow(tr[0]);
-				else 
-					alert(result); 
-			}
-		}
-	);
-	
-	return false;
+function uidFromCell(cell){
+	var tr = cell;
+	while ( tr.nodeName != "TR") tr = tr.parentNode;
+	return $(tr).data("usr");
 }
+
+{* -----DELETE----- *}
+$(document).ready( function(){
+	$("#rateTable").on( "click", ".del", function(e) {
+		e.preventDefault();
+		if (!confirm('{'Are you sure?'|@translate|@escape:'javascript'}'))
+			return;
+		var cell = e.target.parentNode,
+			tr = cell;
+		while ( tr.nodeName != "TR") tr = tr.parentNode;
+		tr = jQuery(tr).fadeTo(1000, 0.4);
+
+		var data=uidFromCell(cell);
+		
+		(new PwgWS('{$ROOT_URL|@escape:javascript}')).callService(
+			'pwg.rates.delete', { user_id:data.uid, anonymous_id:data.aid},
+			{
+				method: 'POST',
+				onFailure: function(num, text) { tr.stop(); tr.fadeTo(0,1); alert(num + " " + text); },
+				onSuccess: function(result){
+					if (result)
+						oTable.fnDeleteRow(tr[0]);
+					else 
+						alert(result); 
+				}
+			}
+		);
+
+	});
+});
+
 {/footer_script}
 <table id="rateTable">
 <thead>
 <tr class="throw">
-	<td class="dtc_user">{'Username'|@translate}</td>
-	<td class="dtc_date">{'Last'|@translate}</td>
-	<td class="dtc_stat">{'Number of rates'|@translate}</td>
-	<td class="dtc_stat">{'Average rate'|@translate}</td>
-	<td class="dtc_stat">{'Variation'|@translate}</td>
-	<td class="dtc_stat">{'Consensus deviation'|@translate|@replace:' ':'<br>'}</td>
-	<td class="dtc_stat">{'Consensus deviation'|@translate|@replace:' ':'<br>'} {$CONSENSUS_TOP_NUMBER}</td>
+	<th class="dtc_user">{'Username'|@translate}</th>
+	<th class="dtc_date">{'Last'|@translate}</th>
+	<th class="dtc_stat">{'Number of rates'|@translate}</th>
+	<th class="dtc_stat">{'Average rate'|@translate}</th>
+	<th class="dtc_stat">{'Variation'|@translate}</th>
+	<th class="dtc_stat">{'Consensus deviation'|@translate|@replace:' ':'<br>'}</th>
+	<th class="dtc_stat">{'Consensus deviation'|@translate|@replace:' ':'<br>'} {$CONSENSUS_TOP_NUMBER}</th>
 {foreach from=$available_rates item=rate}
-	<td class="dtc_rate">{$rate}</td>
+	<th class="dtc_rate">{$rate}</th>
 {/foreach}
-	<td class="dtc_del"></td>
+	<th class="dtc_del"></th>
 </tr>
 </thead>
 {foreach from=$ratings item=rating key=user}
-<tr>
-	<td>{$user}</td>
-	<td>{$rating.last_date}</td>
-	<td>{$rating.count}</td>
-	<td>{$rating.avg|@number_format:2}</td>
-	<td>{$rating.cv|@number_format:3}</td>
-	<td>{$rating.cd|@number_format:3}</td>
-	<td>{if !empty($rating.cdtop)}{$rating.cdtop|@number_format:3}{/if}</td>
-	{foreach from=$rating.rates item=rates key=rate}
-	<td>{if !empty($rates)}
-		{capture assign=rate_over}{foreach from=$rates item=rate_arr}<img src="{$image_urls[$rate_arr.id].tn}" alt="thumb-{$rate_arr.id}" title="{$rate_arr.date}"></img>
-		{/foreach}{/capture}
-		<a class="cluetip" title="|{$rate_over|@htmlspecialchars}">{$rates|@count}</a>
-		{/if}</td>
-	{/foreach}
-	<td><a onclick="return del(this,{$rating.uid},'{$rating.aid}');" class="icon-trash"></a></td>
+<tr data-usr='{ldelim}"uid":{$rating.uid},"aid":"{$rating.aid}"}'>
+{strip}
+<td class=usr>{$user}</td><td title="First: {$rating.first_date}">{$rating.last_date}</td>
+<td>{$rating.count}</td><td>{$rating.avg|@number_format:2}</td>
+<td>{$rating.cv|@number_format:3}</td><td>{$rating.cd|@number_format:3}</td><td>{if !empty($rating.cdtop)}{$rating.cdtop|@number_format:3}{/if}</td>
+{foreach from=$rating.rates item=rates key=rate}
+<td>{if !empty($rates)}
+{capture assign=rate_over}{foreach $rates as $rate_arr}{if $rate_arr@index>29}{break}{/if}<img src="{$image_urls[$rate_arr.id].tn}" alt="thumb-{$rate_arr.id}" width="{$TN_WIDTH}" height="{$TN_WIDTH}">{/foreach}{/capture}
+<a title="{$rate_over|@htmlspecialchars}">{$rates|@count}</a>
+{/if}</td>
+{/foreach}
+<td><a class="del icon-trash"></a></td>
 </tr>
+{/strip}
 {/foreach}
 </table>
 
-{combine_script id='jquery.cluetip' load='footer' require='jquery' path='themes/default/js/plugins/jquery.cluetip.js'}
-{footer_script require='jquery.cluetip'}
-jQuery(document).ready(function(){ldelim}
-	jQuery('.cluetip').cluetip({ldelim}
-		width: {$TN_WIDTH}, showTitle:false, splitTitle: '|'
+{combine_script id='jquery.ui.tooltip' load='footer'}
+{footer_script require='jquery.ui.tooltip'}
+jQuery(document).ready(function(){
+	jQuery("#rateTable").tooltip({
+		items: ".usr,[title]",
+		content: function(callback) {
+			var t = $(this).attr("title");
+			if (t)
+				return t;
+			var that = $(this),
+				udata = uidFromCell(this);
+			if (!udata.aid)
+				return;
+			that
+				.data("isOver", true)
+				.one("mouseleave", function() {
+					that.removeData("isOver");
+				});
+
+			GeoIp.get( udata.aid + ".1", function(data) {
+				if (!data.fullName) return;
+				var content = data.fullName;
+				if (data.latitude && data.region_name) {
+					content += "<br><img width=300 height=220 src=\"http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=300x220&zoom=6"
+						+ "&markers=size:tiny%7C" + data.latitude + "," + data.longitude
+						+ "\">";
+				}
+				if (that.data("isOver"))
+					callback(content);
+			});
+		}
 	});
 })
 {/footer_script}

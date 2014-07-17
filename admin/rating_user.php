@@ -93,8 +93,11 @@ while ($row = pwg_db_fetch_assoc($result))
     $rating = $by_user_rating_model;
     $rating['uid'] = (int)$row['user_id'];
     $rating['aid'] = $usr['anon'] ? $row['anonymous_id'] : '';
-    $rating['last_date'] = $row['date'];
+    $rating['last_date'] = $rating['first_date'] = $row['date'];
   }
+  else
+    $rating['first_date'] = $row['date'];
+
   $rating['rates'][$row['rate']][] = array(
     'id' => $row['element_id'],
     'date' => $row['date'],
@@ -107,14 +110,15 @@ while ($row = pwg_db_fetch_assoc($result))
 $image_urls = array();
 if (count($image_ids) > 0 )
 {
-  $query = 'SELECT id, name, file, path, representative_ext
+  $query = 'SELECT id, name, file, path, representative_ext, level
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', array_keys($image_ids)).')';
   $result = pwg_query($query);
+  $params = ImageStdParams::get_by_type(IMG_SQUARE);
   while ($row = pwg_db_fetch_assoc($result))
   {
     $image_urls[ $row['id'] ] = array(
-      'tn' => DerivativeImage::thumb_url($row),
+      'tn' => DerivativeImage::url($params, $row),
       'page' => make_picture_url( array('image_id'=>$row['id'], 'image_file'=>$row['file']) ),
     );
   }
@@ -171,7 +175,7 @@ foreach($by_user_ratings as $id => &$rating)
     'avg' => $s/$c,
     'cv'  => $s==0 ? -1 : sqrt($var)/($s/$c), // http://en.wikipedia.org/wiki/Coefficient_of_variation
     'cd'  => $consensus_dev,
-    'cdtop'  => $consensus_dev_top_count ? $consensus_dev_top : ''
+    'cdtop'  => $consensus_dev_top_count ? $consensus_dev_top : '',
   );
 }
 unset($rating);
@@ -210,7 +214,12 @@ function consensus_dev_compare($a, $b)
   return ($d==0) ? 0 : ($d<0 ? -1 : 1);
 }
 
-$order_by_index=3;
+function last_rate_compare($a, $b)
+{
+  return -strcmp( $a['last_date'], $b['last_date']);
+}
+
+$order_by_index=4;
 if (isset($_GET['order_by']) and is_numeric($_GET['order_by']))
 {
   $order_by_index = $_GET['order_by'];
@@ -221,6 +230,7 @@ $available_order_by= array(
     array(l10n('Number of rates'), 'count_compare'),
     array(l10n('Variation'), 'cv_compare'),
     array(l10n('Consensus deviation'), 'consensus_dev_compare'),
+    array(l10n('Last'), 'last_rate_compare'),
   );
 
 for ($i=0; $i<count($available_order_by); $i++)
@@ -241,7 +251,7 @@ $template->assign( array(
   'available_rates' => $conf['rate_items'],
   'ratings' => $by_user_ratings,
   'image_urls' => $image_urls,
-  'TN_WIDTH' => 28+2*ImageStdParams::get_by_type(IMG_THUMB)->sizing->ideal_size[0],
+  'TN_WIDTH' => ImageStdParams::get_by_type(IMG_SQUARE)->sizing->ideal_size[0],
   ) );
 $template->set_filename('rating', 'rating_user.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'rating');
