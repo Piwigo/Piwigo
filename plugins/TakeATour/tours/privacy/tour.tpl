@@ -3,19 +3,8 @@
 var tour = new Tour({
   name: "privacy",
   orphan: true,
-  onEnd: function (tour) {window.location = "{/literal}{$ABS_U_ADMIN}{literal}admin.php?tour_ended=privacy";},
-  template: "<div class='popover tour'>
-  <div class='arrow'></div>
-  <h3 class='popover-title'></h3>
-  <div class='popover-content'></div>
-  <div class='popover-navigation'>
-      <button class='btn btn-default' data-role='prev'>« {/literal}{'Prev'|@translate|@escape:'javascript'}{literal}</button>
-      <span data-role='separator'>|</span>
-      <button class='btn btn-default' data-role='next'>{/literal}{'Next '|@translate|@escape:'javascript'}{literal} »</button>
-  </div>
-  <button class='btn btn-default' data-role='end'>{/literal}{'End tour'|@translate|@escape:'javascript'}{literal}</button>
-  </nav>
-</div>",
+  onEnd: function (tour) {window.location = "{/literal}{$ABS_U_ADMIN}{literal}admin.php?page=plugin-TakeATour&tour_ended=privacy"},
+  template: "<div class='popover'>          <div class='arrow'></div>          <h3 class='popover-title'></h3>          <div class='popover-content'></div>          <div class='popover-navigation'>            <div class='btn-group'>              <button class='btn btn-sm btn-default' data-role='prev'>&laquo; {/literal}{'Prev'|@translate|@escape:'javascript'}{literal}</button>              <button class='btn btn-sm btn-default' data-role='next'>{/literal}{'Next '|@translate|@escape:'javascript'}{literal} &raquo;</button>            </div>            <button class='btn btn-sm btn-default' data-role='end'>{/literal}{'End tour'|@translate|@escape:'javascript'}{literal}</button>          </div>        </div>",
 });
 {/literal}{if $TAT_restart}tour.restart();{/if}{literal}
 
@@ -49,100 +38,90 @@ tour.addSteps([
   {//5
     path: "{/literal}{$TAT_path}{literal}admin.php?page=help&section=groups",
     placement: "top",
-    element: "#uploadify",
+    element: "#helpContent>p:first",
     title: "{/literal}{'privacy_title5'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp5'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=photos_add/,
-    redirect:function (tour) {window.location = "admin.php?page=photos_add";},
-    placement: "left",
-    element: "#fileQueue",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
+    placement: "top",
+    element: "#showPermissions",
     title: "{/literal}{'privacy_title6'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp6'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=photos_add/,
-    redirect:function (tour) {window.location = "admin.php?page=photos_add";},
-    placement: "top",
-    element: "#photosAddContent legend",
-    title: "{/literal}{'privacy_title7'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp7'|@translate|@escape:'javascript'}{literal}",
-    prev:4
-  },
-  {
-    path: /admin\.php\?page=photos_add/,
-    redirect:function (tour) {window.location = "admin.php?page=photos_add";},
-    placement: "bottom",
-    element: "#batchLink",
-    reflex:true,
-    title: "{/literal}{'privacy_title8'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp8'|@translate|@escape:'javascript'}{literal}",
-    prev:4
-  },
-  {
-    path: /admin\.php\?page=(photos_add|batch_manager&filter=prefilter-last_import|prefilter-caddie)/,
-    redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=batch_manager&filter=prefilter-last_import",
     placement: "top",
     element: "",
+    title: "{/literal}{'privacy_title7'|@translate|@escape:'javascript'}{literal}",
+    content: "{/literal}{'privacy_stp7'|@translate|@escape:'javascript'}{literal}",
+  },
+  {
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=batch_manager&filter=prefilter-last_import",
+    placement: "top",
+    element: ".thumbnails",
+    title: "{/literal}{'privacy_title8'|@translate|@escape:'javascript'}{literal}",
+    content: "{/literal}{'privacy_stp8'|@translate|@escape:'javascript'}{literal}",
+  },
+  {
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=batch_manager&filter=prefilter-last_import",
+    placement: "top",
+    element: "#action",
     title: "{/literal}{'privacy_title9'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp9'|@translate|@escape:'javascript'}{literal}"
   },
   {//10
-    path: /admin\.php\?page=batch_manager&filter=(prefilter-caddie|prefilter-last_import)/,
-    redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
-    placement: "right",
-    element: ".icon-flag",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_list",
+    placement: "left",
+    element: "#content",
     title: "{/literal}{'privacy_title10'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp10'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=batch_manager&filter=(prefilter-caddie|prefilter-last_import)/,
-    redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
-    placement: "left",
-    element: "#checkActions",
+    path: /admin\.php\?page=album-/,
+    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
+    placement: "bottom",
+    element: ".icon-lock",
     title: "{/literal}{'privacy_title11'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp11'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=batch_manager&filter=(prefilter-caddie|prefilter-last_import)/,
-    redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
+    path: /admin\.php\?page=album-[0-9]+-permissions/,
+    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
     placement: "top",
-    element: "#action",
+    element: "#categoryPermissions",
     title: "{/literal}{'privacy_title12'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp12'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=batch_manager&filter=(prefilter-caddie|prefilter-last_import)/,
-    redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
+    path: /admin\.php\?page=album-[0-9]+-permissions/,
+    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
     placement: "bottom",
-    element: "#tabsheet .normal_tab",
+    element: "input[value='private']",
+    reflex:true,
     title: "{/literal}{'privacy_title13'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp13'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=batch_manager&filter=(prefilter-caddie|prefilter-last_import)/,
-    redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
+    path: /admin\.php\?page=album-[0-9]+-permissions/,
+    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
     placement: "top",
-    element: "#TAT_FC_14",
-    reflex:true,
+    element: "#privateOptions",
     title: "{/literal}{'privacy_title14'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp14'|@translate|@escape:'javascript'}{literal}",
-    onNext:function (tour) {window.location = "admin.php?page=photo-{/literal}{$TAT_image_id}{literal}";}
   },
   {//15
-    path: /admin\.php\?page=photo-/,
-    redirect:function (tour) {window.location = "admin.php?page=photo-{/literal}{$TAT_image_id}{literal}";},
-    placement: "bottom",
-    element: ".selected_tab",
+    path: /admin\.php\?page=album-[0-9]+-permissions/,
+    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
+    element: "a[href='./admin.php?page=cat_options']",
+    reflex:true,
     title: "{/literal}{'privacy_title15'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp15'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=photo-/,
-    redirect:function (tour) {window.location = "admin.php?page=photo-{/literal}{$TAT_image_id}{literal}";},
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_options",
     placement: "top",
-    element: "#TAT_FC_16",
+    element: ".doubleSelect",
     title: "{/literal}{'privacy_title16'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp16'|@translate|@escape:'javascript'}{literal}"
   },

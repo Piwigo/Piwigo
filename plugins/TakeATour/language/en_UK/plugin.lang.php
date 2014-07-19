@@ -132,4 +132,47 @@ $lang['2_7_0_stp10'] = '';
 $lang['2_7_0_title11'] = 'See you soon!';
 $lang['2_7_0_stp11'] = 'This tour is over.<p style="text-align:center">Enjoy your Piwigo 2.7!</p>If you like Piwigo and want to support us, you can contribute by helping for translations, donating, etc. <a href="http://piwigo.org/basics/contribute" target="_blank">Click here to support us</a>';
 
+
+
+
+
+$lang['privacy_descrp'] = 'This tour present you all the ways to protect your photo from public access with the permission systems per album and per picture, and from copying using image protections';
+$lang['privacy_title1'] = 'Welcome in the Privacy Tour';
+$lang['privacy_stp1'] = 'Hello! I will be your guide to discover how to protect your pictures in Piwigo. Please follow my instructions, and click Next (or use the arrows of your keyboard) to navigate. If you go to an other page of the administration, you will be redirected to the current page of the Tour. If you are stuck and can\'t end the tour, going to <em>Plugins » Take A Tour</em> will end the tour.<br>Let\'s start!';
+$lang['privacy_title2'] = 'Help inside your Piwigo';
+$lang['privacy_stp2'] = 'You can access here to the Help integrated. Click Next to continue directly to the Help page about managing permissions';
+$lang['privacy_title3'] = 'Permissions';
+$lang['privacy_stp3'] = 'Take a moment to read the informations bellow.';
+$lang['privacy_title4'] = 'Permissions';
+$lang['privacy_stp4'] = 'So we have two systems for managing the permissions to access to the pictures. They are independent, so you can create a group called Family, but that group has nothing to do with the privacy level Family. <br><br>The levels of privacy are applied per picture, and the group/user permissions are applied per album. You can use both or only one system, that\'s flexible.<br><br>The next Tab is about group managment.';
+$lang['privacy_title5'] = 'Permissions > Groups';
+$lang['privacy_stp5'] = 'Bellow is explained how you can manage the Groups.<br>Those permissions are only for the access of the pictures and the albums, when browsing on the public part or for the external applications. We will see later other protections, but let\'s now practice!';
+$lang['privacy_title6'] = 'Privacy Level';
+$lang['privacy_stp6'] = 'When you upload the pictures, you can change the Privacy Level of the uploaded pictures right there...';
+$lang['privacy_title7'] = 'Privacy Level';
+$lang['privacy_stp7'] = '... or you can do that later one, here in the Batch Manager in Global Mode.<br><br>This is the page <em>Photos » Recent photos</em>, so the filter "Last Import" is set.';
+$lang['privacy_title8'] = 'Privacy Level';
+$lang['privacy_stp8'] = 'Select one or more pictures...';
+$lang['privacy_title9'] = 'Privacy Level';
+$lang['privacy_stp9'] = '... and select the action "Who can see the pictures?". Now you can change the privacy level of the selected pictures.<br><br>But you can also do that for a specific picture, on its edition page. You can access to it from the public part, or from here.<br><br>Now, I will show you the other system of permission per album based on the groups and users.';
+$lang['privacy_title10'] = 'Album permissions';
+$lang['privacy_stp10'] = 'We are in the Album list management available from the menu using <em>Albums » Manage</em><br><br>Edit on album by hovering it and then click on Edit.';
+$lang['privacy_title11'] = 'Album permissions';
+$lang['privacy_stp11'] = 'Now click on the Permissions tab';
+$lang['privacy_title12'] = 'Album permissions';
+$lang['privacy_stp12'] = 'On that page, you can choose if the album will be available for anyone or will be restricted to some users';
+$lang['privacy_title13'] = '';
+$lang['privacy_stp13'] = 'Now click on private.';
+$lang['privacy_title14'] = '';
+$lang['privacy_stp14'] = 'Then users and groups of users can be granted to access to the album.';
+$lang['privacy_title15'] = 'Tip';
+$lang['privacy_stp15'] = 'Just before explaining the groups, a pro tip: here is the link to a page to set as private/public several albums at once. Click on it';
+$lang['privacy_title16'] = '';
+$lang['privacy_stp16'] = 'Like on your computer, you can select several albums using the keys Maj and Control, then click on the arrow to switch them.';
+$lang['privacy_title17'] = '';
+$lang['privacy_stp17'] = '';
+$lang['privacy_title18'] = '';
+$lang['privacy_stp18'] = '';
+$lang['privacy_title19'] = '';
+$lang['privacy_stp19'] = '';
 ?>
