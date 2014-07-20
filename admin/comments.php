@@ -167,7 +167,8 @@ SELECT
     c.content,
     i.path,
     i.representative_ext,
-    validated
+    validated,
+    c.anonymous_id
   FROM '.COMMENTS_TABLE.' AS c
     INNER JOIN '.IMAGES_TABLE.' AS i
       ON i.id = c.image_id
@@ -204,6 +205,7 @@ while ($row = pwg_db_fetch_assoc($result))
       'DATE' => format_date($row['date'], array('day_name','day','month','year','time')),
       'CONTENT' => trigger_change('render_comment_content',$row['content']),
       'IS_PENDING' => ('false' == $row['validated']),
+      'IP' => $row['anonymous_id'],
       )
     );
 

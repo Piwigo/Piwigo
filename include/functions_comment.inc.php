@@ -173,13 +173,13 @@ SELECT COUNT(*) AS user_exists
     {
       $comm['email'] = $user['email'];
     }
-    else if ($conf['comments_email_mandatory'])
+    elseif ($conf['comments_email_mandatory'])
     {
       $infos[] = l10n('Email address is missing. Please specify an email address.');
       $comment_action='reject';
     }
   }
-  else if (!email_check_format($comm['email']))
+  elseif (!email_check_format($comm['email']))
   {
     $infos[] = l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)');
     $comment_action='reject';
@@ -191,7 +191,7 @@ SELECT COUNT(*) AS user_exists
   {
     array_pop($ip_components);
   }
-  $comm['anonymous_id'] = implode('.', $ip_components);
+  $anonymous_id = implode('.', $ip_components);
 
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 and !is_admin())
   { // anti-flood system
@@ -204,7 +204,7 @@ SELECT count(1) FROM '.COMMENTS_TABLE.'
     if (!is_classic_user())
     {
       $query.= '
-      AND anonymous_id = "'.$comm['anonymous_id'].'"';
+      AND anonymous_id LIKE "'.$anonymous_id.'.%"';
     }
     $query.= '
 ;';
@@ -231,7 +231,7 @@ INSERT INTO '.COMMENTS_TABLE.'
   VALUES (
     \''.$comm['author'].'\',
     '.$comm['author_id'].',
-    \''.$comm['anonymous_id'].'\',
+    \''.$comm['ip'].'\',
     \''.$comm['content'].'\',
     NOW(),
     \''.($comment_action=='validate' ? 'true':'false').'\',
