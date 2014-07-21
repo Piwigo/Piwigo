@@ -182,7 +182,7 @@ SELECT element_id
   FROM '.CADDIE_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
-    $filter_sets[] = array_from_query($query, 'element_id');
+    $filter_sets[] = query2array($query, null, 'element_id');
 
     break;
 
@@ -192,7 +192,7 @@ SELECT image_id
   FROM '.FAVORITES_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
-    $filter_sets[] = array_from_query($query, 'image_id');
+    $filter_sets[] = query2array($query, null, 'image_id');
 
     break;
 
@@ -209,7 +209,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE date_available BETWEEN '.pwg_db_get_recent_period_expression(1, $row['date']).' AND \''.$row['date'].'\'
 ;';
-      $filter_sets[] = array_from_query($query, 'id');
+      $filter_sets[] = query2array($query, null, 'id');
     }
 
     break;
@@ -220,14 +220,14 @@ SELECT id
  SELECT id
    FROM '.IMAGES_TABLE.'
  ;';
-    $all_elements = array_from_query($query, 'id');
+    $all_elements = query2array($query, null, 'id');
 
     $query = '
  SELECT id
    FROM '.CATEGORIES_TABLE.'
    WHERE dir IS NULL
  ;';
-    $virtual_categories = array_from_query($query, 'id');
+    $virtual_categories = query2array($query, null, 'id');
     if (!empty($virtual_categories))
     {
       $query = '
@@ -235,7 +235,7 @@ SELECT id
    FROM '.IMAGE_CATEGORY_TABLE.'
    WHERE category_id IN ('.implode(',', $virtual_categories).')
  ;';
-      $linked_to_virtual = array_from_query($query, 'image_id');
+      $linked_to_virtual = query2array($query, null, 'image_id');
     }
 
     $filter_sets[] = array_diff($all_elements, $linked_to_virtual);
@@ -250,7 +250,7 @@ SELECT
     LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   WHERE category_id is null
 ;';
-    $filter_sets[] = array_from_query($query, 'id');
+    $filter_sets[] = query2array($query, null, 'id');
 
     break;
 
@@ -262,7 +262,7 @@ SELECT
     LEFT JOIN '.IMAGE_TAG_TABLE.' ON id = image_id
   WHERE tag_id is null
 ;';
-    $filter_sets[] = array_from_query($query, 'id');
+    $filter_sets[] = query2array($query, null, 'id');
 
     break;
 
@@ -277,14 +277,14 @@ SELECT file
   GROUP BY file
   HAVING COUNT(*) > 1
 ;';
-    $duplicate_files = array_from_query($query, 'file');
+    $duplicate_files = query2array($query, null, 'file');
 
     $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE file IN (\''.implode("','", array_map('pwg_db_real_escape_string', $duplicate_files)).'\')
 ;';
-    $filter_sets[] = array_from_query($query, 'id');
+    $filter_sets[] = query2array($query, null, 'id');
 
     break;
 
@@ -296,7 +296,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   '.$conf['order_by'];
 
-      $filter_sets[] = array_from_query($query, 'id');
+      $filter_sets[] = query2array($query, null, 'id');
     }
     break;
   }
@@ -322,7 +322,7 @@ if (isset($_SESSION['bulk_manager_filter']['category']))
    FROM '.IMAGE_CATEGORY_TABLE.'
    WHERE category_id IN ('.implode(',', $categories).')
  ;';
-  $filter_sets[] = array_from_query($query, 'image_id');
+  $filter_sets[] = query2array($query, null, 'image_id');
 }
 
 if (isset($_SESSION['bulk_manager_filter']['level']))
@@ -339,7 +339,7 @@ SELECT id
   WHERE level '.$operator.' '.$_SESSION['bulk_manager_filter']['level'].'
   '.$conf['order_by'];
 
-  $filter_sets[] = array_from_query($query, 'id');
+  $filter_sets[] = query2array($query, null, 'id');
 }
 
 if (!empty($_SESSION['bulk_manager_filter']['tags']))
@@ -388,7 +388,7 @@ SELECT id
   WHERE '.implode(' AND ',$where_clause).'
   '.$conf['order_by'];
 
-  $filter_sets[] = array_from_query($query, 'id');
+  $filter_sets[] = query2array($query, null, 'id');
 }
 
 if (isset($_SESSION['bulk_manager_filter']['search']))
@@ -445,17 +445,6 @@ $tabsheet = new tabsheet();
 $tabsheet->set_id('batch_manager');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
-
-
-// +-----------------------------------------------------------------------+
-// |                              tags                                     |
-// +-----------------------------------------------------------------------+
-
-$query = '
-SELECT id, name
-  FROM '.TAGS_TABLE.'
-;';
-$template->assign('tags', get_taglist($query, false));
 
 
 // +-----------------------------------------------------------------------+
