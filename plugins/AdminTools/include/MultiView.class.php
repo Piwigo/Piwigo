@@ -121,6 +121,13 @@ class MultiView
     // inactive on ws.php to allow AJAX admin tasks
     if ($this->is_admin && script_basename() != 'ws')
     {
+      // show_queries
+      if (isset($_GET['ato_show_queries']))
+      {
+        $this->data['show_queries'] = (bool)$_GET['ato_show_queries'];
+      }
+      $conf['show_queries'] = $this->data['show_queries'];
+
       if ($this->data['view_as'] == 0)
       {
         $this->data['view_as'] = $user['id'];
@@ -165,13 +172,6 @@ class MultiView
         $this->data['lang'] = $_GET['ato_lang'];
       }
       $user['language'] = $this->data['lang'];
-
-      // show_queries
-      if (isset($_GET['ato_show_queries']))
-      {
-        $this->data['show_queries'] = (bool)$_GET['ato_show_queries'];
-      }
-      $conf['show_queries'] = $this->data['show_queries'];
 
       // debug_l10n
       if (isset($_GET['ato_debug_l10n']))
