@@ -1553,23 +1553,29 @@ SELECT id
 ;';
   if (count($existing_tags = query2array($query, null, 'id')) == 0)
   {
-    // search existing by case insensitive name
+    $url_name = trigger_change('render_tag_url', $tag_name);
+    // search existing by url name
     $query = '
-SELECT id
-  FROM '.TAGS_TABLE.'
-  WHERE CONVERT(name, CHAR) = \''.$tag_name.'\'
-;';
-    if (count($existing_tags = query2array($query, null, 'id')) == 0)
-    {
-      $url_name = trigger_change('render_tag_url', $tag_name);
-      // search existing by url name
-      $query = '
 SELECT id
   FROM '.TAGS_TABLE.'
   WHERE url_name = \''.$url_name.'\'
 ;';
-      if (count($existing_tags = query2array($query, null, 'id')) == 0)
+    if (count($existing_tags = query2array($query, null, 'id')) == 0)
+    {
+      // search by extended description (plugin sub name)
+      $sub_name_where = trigger_change('get_tag_name_like_where', array(), $tag_name);
+      if (count($sub_name_where))
       {
+        $query = '
+SELECT id
+  FROM '.TAGS_TABLE.'
+  WHERE '.implode(' OR ', $sub_name_where).'
+;';
+        $existing_tags = query2array($query, null, 'id');
+      }
+      
+      if (count($existing_tags) == 0)
+      {// finally create the tag
         mass_inserts(
           TAGS_TABLE,
           array('name', 'url_name'),

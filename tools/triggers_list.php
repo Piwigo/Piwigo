@@ -227,9 +227,16 @@ array(
 array(
   'name' => 'get_tag_alt_names',
   'type' => 'trigger_change',
-  'vars' => array('array', null, 'array', 'raw_name'),
+  'vars' => array('array', null, 'string', 'raw_name'),
   'files' => array('admin\tags.php', 'admin\include\functions.php (get_taglist)'),
   'infos' => 'New in 2.4',
+),
+array(
+  'name' => 'get_tag_name_like_where',
+  'type' => 'trigger_change',
+  'vars' => array('array', null, 'string', 'tag_name'),
+  'files' => array('admin\include\functions.php (tag_id_from_tag_name)'),
+  'infos' => 'New in 2.7',
 ),
 array(
   'name' => 'get_webmaster_mail_address',
