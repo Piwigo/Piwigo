@@ -1174,7 +1174,7 @@ SELECT DISTINCT(storage_category_id)
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id IS NOT NULL
 ;';
-  $cat_ids = query2aray($query, null, 'storage_category_id');
+  $cat_ids = query2array($query, null, 'storage_category_id');
   $fulldirs = get_fulldirs($cat_ids);
 
   foreach ($cat_ids as $cat_id)
