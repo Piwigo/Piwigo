@@ -10,7 +10,7 @@
 
 DROP TABLE IF EXISTS `piwigo_caddie`;
 CREATE TABLE `piwigo_caddie` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `element_id` mediumint(8) NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`element_id`)
 ) ENGINE=MyISAM;
@@ -54,7 +54,7 @@ CREATE TABLE `piwigo_comments` (
   `date` datetime NOT NULL default '0000-00-00 00:00:00',
   `author` varchar(255) default NULL,
   `email` varchar(255) default NULL,
-  `author_id` smallint(5) DEFAULT NULL,
+  `author_id` mediumint(8) unsigned DEFAULT NULL,
   `anonymous_id` varchar(45) NOT NULL,
   `website_url` varchar(255) DEFAULT NULL,
   `content` longtext,
@@ -83,7 +83,7 @@ CREATE TABLE `piwigo_config` (
 
 DROP TABLE IF EXISTS `piwigo_favorites`;
 CREATE TABLE `piwigo_favorites` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`image_id`)
 ) ENGINE=MyISAM;
@@ -123,7 +123,7 @@ CREATE TABLE `piwigo_history` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `date` date NOT NULL default '0000-00-00',
   `time` time NOT NULL default '00:00:00',
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `IP` varchar(15) NOT NULL default '',
   `section` enum('categories','tags','search','list','favorites','most_visited','best_rated','recent_pics','recent_cats') default NULL,
   `category_id` smallint(5) default NULL,
@@ -199,7 +199,7 @@ CREATE TABLE `piwigo_images` (
   `storage_category_id` smallint(5) unsigned default NULL,
   `level` tinyint unsigned NOT NULL default '0',
   `md5sum` char(32) default NULL,
-  `added_by` smallint(5) NOT NULL default '0',
+  `added_by` mediumint(8) unsigned NOT NULL default '0',
   `rotation` tinyint unsigned default NULL,
   `latitude` double(8, 6) default NULL,
   `longitude` double(9, 6) default NULL,
@@ -258,7 +258,7 @@ CREATE TABLE `piwigo_plugins` (
 
 DROP TABLE IF EXISTS `piwigo_rate`;
 CREATE TABLE `piwigo_rate` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `element_id` mediumint(8) unsigned NOT NULL default '0',
   `anonymous_id` varchar(45) NOT NULL default '',
   `rate` tinyint(2) unsigned NOT NULL default '0',
@@ -347,7 +347,7 @@ CREATE TABLE `piwigo_upgrade` (
 
 DROP TABLE IF EXISTS `piwigo_user_access`;
 CREATE TABLE `piwigo_user_access` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`cat_id`)
 ) ENGINE=MyISAM;
@@ -358,7 +358,7 @@ CREATE TABLE `piwigo_user_access` (
 
 DROP TABLE IF EXISTS `piwigo_user_cache`;
 CREATE TABLE `piwigo_user_cache` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `need_update` enum('true','false') NOT NULL default 'true',
   `cache_update_time` integer unsigned NOT NULL default 0,
   `forbidden_categories` mediumtext,
@@ -377,7 +377,7 @@ CREATE TABLE `piwigo_user_cache` (
 
 DROP TABLE IF EXISTS `piwigo_user_cache_categories`;
 CREATE TABLE `piwigo_user_cache_categories` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   `date_last` datetime default NULL,
   `max_date_last` datetime default NULL,
@@ -396,7 +396,7 @@ CREATE TABLE `piwigo_user_cache_categories` (
 DROP TABLE IF EXISTS `piwigo_user_feed`;
 CREATE TABLE `piwigo_user_feed` (
   `id` varchar(50) binary NOT NULL default '',
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `last_check` datetime default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
@@ -407,7 +407,7 @@ CREATE TABLE `piwigo_user_feed` (
 
 DROP TABLE IF EXISTS `piwigo_user_group`;
 CREATE TABLE `piwigo_user_group` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `group_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`group_id`,`user_id`)
 ) ENGINE=MyISAM;
@@ -418,7 +418,7 @@ CREATE TABLE `piwigo_user_group` (
 
 DROP TABLE IF EXISTS `piwigo_user_infos`;
 CREATE TABLE `piwigo_user_infos` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `nb_image_page` smallint(3) unsigned NOT NULL default '15',
   `status` enum('webmaster','admin','normal','generic','guest') NOT NULL default 'guest',
   `language` varchar(50) NOT NULL default 'en_UK',
@@ -442,7 +442,7 @@ CREATE TABLE `piwigo_user_infos` (
 
 DROP TABLE IF EXISTS `piwigo_user_mail_notification`;
 CREATE TABLE `piwigo_user_mail_notification` (
-  `user_id` smallint(5) NOT NULL default '0',
+  `user_id` mediumint(8) unsigned NOT NULL default '0',
   `check_key` varchar(16) binary NOT NULL default '',
   `enabled` enum('true','false') NOT NULL default 'false',
   `last_send` datetime default NULL,
@@ -456,7 +456,7 @@ CREATE TABLE `piwigo_user_mail_notification` (
 
 DROP TABLE IF EXISTS `piwigo_users`;
 CREATE TABLE `piwigo_users` (
-  `id` smallint(5) NOT NULL auto_increment,
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
   `username` varchar(100) binary NOT NULL default '',
   `password` varchar(255) default NULL,
   `mail_address` varchar(255) default NULL,
