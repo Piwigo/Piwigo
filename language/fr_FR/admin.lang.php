@@ -976,4 +976,5 @@ $lang['close'] = 'fermer';
 $lang['Activate it now'] = 'Activate it now';
 $lang['Allow users to add a link to their website'] = 'Autoriser les utilisateurs à donner un lien vers leur site web';
 $lang['Impossible to deactivate the default theme.'] = 'Impossible de désactiver le thème par défaut.';
+$lang['Empty caddie'] = 'Vider le panier';
 ?>

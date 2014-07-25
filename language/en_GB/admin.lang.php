@@ -160,3 +160,4 @@ $lang['Help Me'] = 'Help me';
 $lang['An error occured during extraction (%s).'] = 'An error occurred during the files (%s) extraction.';
 $lang['An error has occured during upgrade.'] = 'An error has occurred during upgrade.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'An error has occurred during extract. Please check file permissions of your Piwigo installation.<br><a href="%s">Click here to show log error</a>.';
+$lang['Empty caddie'] = 'Empty basket';

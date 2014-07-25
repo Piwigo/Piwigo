@@ -43,6 +43,27 @@ check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('selection', $_POST, true, PATTERN_ID);
 
+// +-----------------------------------------------------------------------+
+// | specific actions                                                      |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['action']))
+{
+  if ('empty_caddie' == $_GET['action'])
+  {
+    $query = '
+DELETE FROM '.CADDIE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+;';
+    pwg_query($query);
+
+    $_SESSION['page_infos'] = array(
+      l10n('Information data registered in database')
+      );
+    
+    redirect(get_root_url().'admin.php?page='.$_GET['page']);
+  }
+}
 
 // +-----------------------------------------------------------------------+
 // |                      initialize current set                           |

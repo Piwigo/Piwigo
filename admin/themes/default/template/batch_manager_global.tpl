@@ -352,6 +352,10 @@ $(document).ready(function() {
 			.slider("values", 0, getSliderKeyFromValue(min, dimension_values[type]) )
 			.slider("values", 1, getSliderKeyFromValue(max, dimension_values[type]) );
   });
+
+  jQuery("select[name=filter_prefilter]").change(function() {
+    jQuery("#empty_caddie").toggle(jQuery(this).val() == "caddie");
+  });
 });
 
 {/footer_script}
@@ -376,6 +380,7 @@ $(document).ready(function() {
           <option value="{$prefilter.ID}" {if isset($filter.prefilter) && $filter.prefilter eq $prefilter.ID}selected="selected"{/if}>{$prefilter.NAME}</option>
           {/foreach}
         </select>
+        <a id="empty_caddie" href="admin.php?page=batch_manager&amp;action=empty_caddie" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'caddie'}display:none{/if}">{'Empty caddie'|translate}</a>
       </li>
 
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>

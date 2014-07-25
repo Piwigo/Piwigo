@@ -973,4 +973,5 @@ $lang['Users modified'] = 'Users modified';
 $lang['close'] = 'close';
 $lang['Open user details'] = 'Open user details';
 $lang['Close user details'] = 'Close user details';
+$lang['Empty caddie'] = 'Empty caddie';
 ?>
