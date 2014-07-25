@@ -256,6 +256,8 @@ SELECT id
         get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
         get_l10n_args('', ''),
         get_l10n_args('Here are your connection settings', ''),
+        get_l10n_args('', ''),
+        get_l10n_args('Link: %s', get_absolute_root_url()),
         get_l10n_args('Username: %s', stripslashes($login)),
         get_l10n_args('Password: %s', stripslashes($password)),
         get_l10n_args('Email: %s', $mail_address),
