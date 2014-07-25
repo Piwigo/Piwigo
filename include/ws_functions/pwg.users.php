@@ -325,25 +325,39 @@ function ws_users_delete($params, &$service)
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
-  // protect some users
-  $params['user_id'] = array_diff(
-    $params['user_id'],
-    array(
-      $user['id'],
-      $conf['guest_id'],
-      $conf['default_user_id'],
-      $conf['webmaster_id'],
-      )
+  $protected_users = array(
+    $user['id'],
+    $conf['guest_id'],
+    $conf['default_user_id'],
+    $conf['webmaster_id'],
     );
 
+  // an admin can't delete other admin/webmaster
+  if ('admin' == $user['status'])
+  {
+    $query = '
+SELECT
+    user_id
+  FROM '.USER_INFOS_TABLE.'
+  WHERE status IN (\'webmaster\', \'admin\')
+;';
+    $protected_users = array_merge($protected_users, query2array($query, null, 'user_id'));
+  }
+  
+  // protect some users
+  $params['user_id'] = array_diff($params['user_id'], $protected_users);
+
+  $counter = 0;
+  
   foreach ($params['user_id'] as $user_id)
   {
     delete_user($user_id);
+    $counter++;
   }
 
   return l10n_dec(
     '%d user deleted', '%d users deleted',
-    count($params['user_id'])
+    $counter
     );
 }
 
@@ -418,25 +432,37 @@ function ws_users_setInfo($params, &$service)
 
   if (!empty($params['status']))
   {
-    if ( $params['status'] == 'webmaster' and !is_webmaster() )
+    if (in_array($params['status'], array('webmaster', 'admin')) and !is_webmaster() )
     {
-      return new PwgError(403, 'Only webmasters can grant "webmaster" status');
+      return new PwgError(403, 'Only webmasters can grant "webmaster/admin" status');
     }
+    
     if ( !in_array($params['status'], array('guest','generic','normal','admin','webmaster')) )
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid status');
     }
 
+    $protected_users = array(
+      $user['id'],
+      $conf['guest_id'],
+      $conf['webmaster_id'],
+      );
+
+    // an admin can't change status of other admin/webmaster
+    if ('admin' == $user['status'])
+    {
+      $query = '
+SELECT
+    user_id
+  FROM '.USER_INFOS_TABLE.'
+  WHERE status IN (\'webmaster\', \'admin\')
+;';
+      $protected_users = array_merge($protected_users, query2array($query, null, 'user_id'));
+    }
+
     // status update query is separated from the rest as not applying to the same
     // set of users (current, guest and webmaster can't be changed)
-    $params['user_id_for_status'] = array_diff(
-      $params['user_id'],
-      array(
-        $user['id'],
-        $conf['guest_id'],
-        $conf['webmaster_id'],
-        )
-      );
+    $params['user_id_for_status'] = array_diff($params['user_id'], $protected_users);
 
     $update_status = $params['status'];
   }

@@ -34,6 +34,12 @@ var truefalse = {
   'true':"{'Yes'|translate}",
   'false':"{'No'|translate}",
 };
+
+var statusLabels = {
+{foreach from=$label_of_status key=status item=label}
+  '{$status}' : '{$label|escape:javascript}',
+{/foreach}
+};
 {/footer_script}
 
 {footer_script}{literal}
@@ -260,11 +266,7 @@ jQuery(document).ready(function() {
           
           user.email = user.email || '';
           
-          jQuery("#action select[name=status] option").each(function() {
-            if (user.status == jQuery(this).val()) {
-              user.statusLabel = jQuery(this).html();
-            }
-          });
+          user.statusLabel = statusLabels[user.status];
           
 		      /* Render the underscore template */
           _.templateSettings.variable = "user";

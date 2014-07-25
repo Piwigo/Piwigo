@@ -99,6 +99,18 @@ $protected_users = array(
   $conf['webmaster_id'],
   );
 
+// an admin can't delete other admin/webmaster
+if ('admin' == $user['status'])
+{
+  $query = '
+SELECT
+    user_id
+  FROM '.USER_INFOS_TABLE.'
+  WHERE status IN (\'webmaster\', \'admin\')
+;';
+  $protected_users = array_merge($protected_users, query2array($query, null, 'user_id'));
+}
+
 $template->assign(
   array(
     'PWG_TOKEN' => get_pwg_token(),
@@ -117,12 +129,19 @@ $template->assign(
 // Status options
 foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {
-  // Only status <= can be assign
-  if (is_autorize_status(get_access_type_status($status)))
-  {
-    $pref_status_options[$status] = l10n('user_status_'.$status);
-  }
+  $label_of_status[$status] = l10n('user_status_'.$status);
 }
+
+$pref_status_options = $label_of_status;
+
+// a simple "admin" can set/remove statuses webmaster/admin
+if ('admin' == $user['status'])
+{
+  unset($pref_status_options['webmaster']);
+  unset($pref_status_options['admin']);
+}
+
+$template->assign('label_of_status', $label_of_status);
 $template->assign('pref_status_options', $pref_status_options);
 $template->assign('pref_status_selected', 'normal');
 
