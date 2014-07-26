@@ -130,13 +130,13 @@ $lang['2_7_0_stp9'] = '';
 $lang['2_7_0_title10'] = '';
 $lang['2_7_0_stp10'] = '';
 $lang['2_7_0_title11'] = 'See you soon!';
-$lang['2_7_0_stp11'] = 'This tour is over.<p style="text-align:center">Enjoy your Piwigo 2.7!</p>If you like Piwigo and want to support us, you can contribute by helping for translations, donating, etc. <a href="http://piwigo.org/basics/contribute" target="_blank">Click here to support us</a>';
+$lang['2_7_0_stp11'] = 'This tour is over.<p style="text-align:center">Enjoy your Piwigo 2.7!</p>If you like Piwigo and want to support us, you can contribute by helping for translations, donating, etc. <a href="http://piwigo.org/basics/contribute" target="_blank">Click here to support us</a> Thanks!';
 
 
 
 
 
-$lang['privacy_descrp'] = 'This tour present you all the ways to protect your photo from public access with the permission systems per album and per picture, and from copying using image protections';
+$lang['privacy_descrp'] = 'This tour present you all the ways to protect your photo from public access with the permission systems per album and per picture, and from copying using image protections.';
 $lang['privacy_title1'] = 'Welcome in the Privacy Tour';
 $lang['privacy_stp1'] = 'Hello! I will be your guide to discover how to protect your pictures in Piwigo. Please follow my instructions, and click Next (or use the arrows of your keyboard) to navigate. If you go to an other page of the administration, you will be redirected to the current page of the Tour. If you are stuck and can\'t end the tour, going to <em>Plugins » Take A Tour</em> will end the tour.<br>Let\'s start!';
 $lang['privacy_title2'] = 'Help inside your Piwigo';
@@ -168,11 +168,23 @@ $lang['privacy_stp14'] = 'Then users and groups of users can be granted to acces
 $lang['privacy_title15'] = 'Tip';
 $lang['privacy_stp15'] = 'Just before explaining the groups, a pro tip: here is the link to a page to set as private/public several albums at once. Click on it';
 $lang['privacy_title16'] = '';
-$lang['privacy_stp16'] = 'Like on your computer, you can select several albums using the keys Maj and Control, then click on the arrow to switch them.';
-$lang['privacy_title17'] = '';
-$lang['privacy_stp17'] = '';
-$lang['privacy_title18'] = '';
-$lang['privacy_stp18'] = '';
-$lang['privacy_title19'] = '';
-$lang['privacy_stp19'] = '';
+$lang['privacy_stp16'] = 'Like on your computer, you can select several albums using the keys Maj and Control, then click on the arrow to switch them.<br><br>Now, let me introduce the groups.';
+$lang['privacy_title17'] = 'Groups';
+$lang['privacy_stp17'] = 'A group in Piwigo is just a set of users: so groups make easier the management permissions of album, and the management users properties. Here is the page where you can manage groups to rename, merge, duplicate, delete them. You also can set one or more groups as "default group" which means that newly registered users will be affected to those groups set as default.';
+$lang['privacy_title18'] = 'Groups';
+$lang['privacy_stp18'] = 'To add or remove users to groups, go to the <em>Users » Manage</em> page';
+$lang['privacy_title19'] = 'Users';
+$lang['privacy_stp19'] = 'Here you can quickly edit a single user by hovering it and then click on the Edit link.<br><br>You can select multiple users and edit them at once by then choosing an Action to apply.';
+$lang['privacy_title20'] = 'Public photos';
+$lang['privacy_stp20'] = 'Now you know how to keep your photos private, but you can wonder how to protect your public photos. You might first think about blocking the visitor to download the photo: you can\'t, because the web has been created that way (the browser of the visitor download all the resources displayed and more). The right-click can be disabled, a blank layer can be put on top of the photo etc but it will not disable the download. Full webpages can be saved by any web browser.';
+$lang['privacy_title21'] = 'Public photos';
+$lang['privacy_stp21'] = 'Solutions are:<ul><li>put a watermark, at least on medium and high def photos.</li><li>and disable XL and XXL sizes.</li><li>and disable the High Definition (download and display of the original photo) for the concerned users.';
+$lang['privacy_title22'] = 'Local Config: Original protection';
+$lang['privacy_stp22'] = '<em>For Advanced Users</em><br><br>In Piwigo, you can protect the original photos using your local configuration. Use the variable $conf[\'original_url_protection\']: by default empty, you set the value to "images" to protect only the pictures or "all" to protect also all type of media, which can be ressource consumming or might simply don\'t work on your server.<br><br>This option works for public and private content. This option currently requires you to deny the acces to the folders /upload and /galleries, by using an .htaccess file (usually a text file with "Deny from all" for content) or the server configurations.<br><br>Please note that filenames of photos uploaded using other method than FTP are <b>randomized</b>, so they are impossible to guess: that filename and so the path to the original photo can be known only if the visitor has access to a resized picture of that photo, like the thumbnail. $conf[\'original_url_protection\'] and denying access to the folders /upload and /galleries are meant to avoid that case.';
+$lang['privacy_title23'] = 'Local Config: Privacy Level';
+$lang['privacy_stp23'] = '<em>For Advanced Users</em><br><br>Curently Privacy Levels are hard coded in the local configuration variable $conf[\'available_permission_levels\']. You can add a new level, by adding an intermediate number, but removing a level is highly inadvisable. You may want to translate your new level: use $lang[\'Level X\'] where X is your new number.';
+$lang['privacy_title24'] = 'It\'s been a great time';
+$lang['privacy_stp24'] = 'This tour is over.<p style="text-align:center">Enjoy your Piwigo!</p>If you like Piwigo and want to support us, you can contribute by helping for translations, donating, etc. <a href="http://piwigo.org/basics/contribute" target="_blank">Click here to support us</a> Thanks!';
+
+
 ?>

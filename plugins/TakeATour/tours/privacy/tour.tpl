@@ -126,201 +126,49 @@ tour.addSteps([
     content: "{/literal}{'privacy_stp16'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=photo-/,
-    redirect:function (tour) {window.location = "admin.php?page=photo-{/literal}{$TAT_image_id}{literal}";},
-    placement: "top",
-    element: "#TAT_FC_17",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=group_list",
     title: "{/literal}{'privacy_title17'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp17'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=photo-/,
-    redirect:function (tour) {window.location = "admin.php?page=photo-{/literal}{$TAT_image_id}{literal}";},
-    placement: "top",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=group_list",
+    placement: "right",
+    element: "a[href='./admin.php?page=user_list']",
     title: "{/literal}{'privacy_title18'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp18'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_list",
-    placement: "left",
-    element: "#content",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=user_list",
+    placement: "top",
+    element: "#userList",
     title: "{/literal}{'privacy_title19'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{if $TAT_FTP}{'privacy_stp19'|@translate|@escape:'javascript'}{else}{'privacy_stp19_b'|@translate|@escape:'javascript'}{/if}{literal}",
-    onPrev: function (tour) {window.location = "admin.php?page=photo-{/literal}{$TAT_image_id}{literal}";},
+    content: "{/literal}{'privacy_stp19'|@translate|@escape:'javascript'}{literal}",
 
   },
   {//20
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_list",
-    placement: "top",
-    element: "#categoryOrdering",
+    path: "{/literal}{$TAT_path}{literal}admin.php",
     title: "{/literal}{'privacy_title20'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp20'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_list",
-    placement: "left",
-    element: "#tabsheet:first-child",
+    path: "{/literal}{$TAT_path}{literal}admin.php",
     title: "{/literal}{'privacy_title21'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp21'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=album-/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
-    placement: "top",
-    element: ".selected_tab",
+    path: "{/literal}{$TAT_path}{literal}admin.php",
     title: "{/literal}{'privacy_title22'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp22'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=album-/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
-    placement: "top",
-    element: "#TAT_FC_23",
+    path: "{/literal}{$TAT_path}{literal}admin.php",
     title: "{/literal}{'privacy_title23'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp23'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=album-/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
-    placement: "bottom",
-    element: ".tabsheet",
+    path: "{/literal}{$TAT_path}{literal}admin.php",
     title: "{/literal}{'privacy_title24'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp24'|@translate|@escape:'javascript'}{literal}"
-  },
-  {//25
-    path: /admin\.php\?page=album-[0-9]+-permissions/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
-    placement: "left",
-    element: "#content",
-    title: "{/literal}{'privacy_title25'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp25'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: /admin\.php\?page=album-[0-9]+-permissions/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
-    placement: "top",
-    element: "#selectStatus",
-    title: "{/literal}{'privacy_title26'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp26'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: /admin\.php\?page=album-[0-9]+-permissions/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
-    placement: "top",
-    element: "#selectStatus",
-    title: "{/literal}{'privacy_title27'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp27'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: /admin\.php\?page=album-[0-9]+-permissions/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
-    placement: "top",
-    title: "{/literal}{'privacy_title28'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp28'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=configuration",
-    placement: "top",
-    element: "",
-    title: "{/literal}{'privacy_title29'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp29'|@translate|@escape:'javascript'}{literal}"
-  },
-  {//30
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=configuration",
-    placement: "right",
-    element: "#gallery_title",
-    title: "{/literal}{'privacy_title30'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp30'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=configuration",
-    placement: "right",
-    element: "#page_banner",
-    title: "{/literal}{'privacy_title31'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp31'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=configuration",
-    reflex: true,
-    placement: "top",
-    element: ".formButtons input",
-    title: "{/literal}{'privacy_title32'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp32'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=configuration",
-    placement: "top",
-    title: "{/literal}{'privacy_stp33'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp33'|@translate|@escape:'javascript'}{literal}",
-    prev:30
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=themes",
-    placement: "top",
-    element: "",
-    title: "{/literal}{'privacy_title34'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp34'|@translate|@escape:'javascript'}{literal}"
-  },
-  {//35
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=themes",
-    placement: "top",
-    element: "#TAT_FC_35",
-    title: "{/literal}{'privacy_title35'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp35'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=themes",
-    placement: "top",
-    element: "",
-    title: "{/literal}{'privacy_title36'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp36'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=themes",
-    placement: "right",
-    element: ".tabsheet",
-    title: "{/literal}{'privacy_title37'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp37'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugins",
-    placement: "left",
-    element: "",
-    title: "{/literal}{'privacy_title38'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp38'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugins",
-    placement: "left",
-    element: "#content",
-    title: "{/literal}{'privacy_title39'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp39'|@translate|@escape:'javascript'}{literal}"
-  },
-  {//40
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugins",
-    placement: "bottom",
-    element: "#TakeATour",
-    title: "{/literal}{'privacy_title40'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp40'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugins",
-    placement: "right",
-    element: ".tabsheet",
-    title: "{/literal}{'privacy_title41'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp41'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=languages",
-    title: "{/literal}{'privacy_title42'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp42'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
-    placement: "top",
-    element: "",
-    title: "{/literal}{'privacy_title43'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp43'|@translate|@escape:'javascript'}{literal}"
   }
 ]);
 
@@ -329,11 +177,12 @@ tour.init();
 
 // Start the tour
 tour.start();
-
-jQuery( "input[class='submit']" ).click(function() {
-  if (tour.getCurrentStep()==5)
-  {
-    tour.goTo(6);
-  }
-});
 {/literal}{/footer_script}
+{html_style}
+#step-21 {
+  max-width:476px;
+}
+#step-22 {
+  max-width:376px;
+}
+{/html_style}
