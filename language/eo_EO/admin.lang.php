@@ -951,7 +951,7 @@ $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %
 $lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'La tutan grandon de la alŝutitaj dosieroj transpasas la valoron de post_max_size en via dosiero php.ini: %sB';
 $lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'La versio de %s [%s] instalita ne kongruas kun la necesa versio [%s]';
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'La tempo por sendi mesaĝon estas limigita. Aliaj retmesaĝoj estis preterpasitaj.';
-$lang['Use the default photo sort order (defined in the configuration file)'] = 'Uzi la aprioran fotan ordigan ordon (difinita en la agorda dosiero)';
+$lang['Use the default photo sort order'] = 'Uzi la aprioran fotan ordigan ordon';
 $lang['You are running on development sources, no check possible.'] = 'Vi estas uzanta la disvolviĝajn fontojn, ne eblas kontroli la lastan version.';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Vi ne povas difini aprioran fotoordon ĉar estas tajlorita agordo en via loka agordaro.';
 $lang['for the file format'] = 'por la dosieroformato';

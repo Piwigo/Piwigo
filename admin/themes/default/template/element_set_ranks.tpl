@@ -64,7 +64,7 @@ jQuery('.thumbnail').tipTip({
     <legend>{'Sort order'|@translate}</legend>
     <p class="field">
       <input type="radio" name="image_order_choice" id="image_order_default" value="default"{if $image_order_choice=='default'} checked="checked"{/if}>
-      <label for="image_order_default">{'Use the default photo sort order (defined in the configuration file)'|@translate}</label>
+      <label for="image_order_default">{'Use the default photo sort order'|@translate}</label>
     </p>
     <p class="field">
       <input type="radio" name="image_order_choice" id="image_order_rank" value="rank"{if $image_order_choice=='rank'} checked="checked"{/if}>

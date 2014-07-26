@@ -803,7 +803,7 @@ $lang['Subscribers could be listed (available) only if there is new elements to 
 $lang['Permalink %s has been previously used by album %s. Delete from the permalink history first'] = 'Пермалинка %s е вече използван от албум %s. Изтрийте го първо от списъка с пермалинкове.';
 $lang['The Piwigo export plugin allows you to create albums and export photos.'] = ' Piwigo export плъгина ви позволява да създадете албуми и експортирате снимки.';
 $lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'Версията на %s [%s] която е инсталирана не е съвместима със заявената версия [%s]';
-$lang['Use the default photo sort order (defined in the configuration file)'] = 'Използвай сортиране на снимки по подръзбиране (зададено в конфигурационния файл)';
+$lang['Use the default photo sort order'] = 'Използвай сортиране на снимки по подръзбиране';
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Този е важен ъпдейт, с <a href="%s">нови важни елементи</a>.';
 $lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = 'Името на директориите и файловете трябва да съдържат само букви, цифри , "-", "_" или "."';
 $lang['The file or directory cannot be accessed (either it does not exist or the access is denied)'] = 'Файла или директорията не е достъпен (или липсва или е със забранен достъп)';

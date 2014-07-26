@@ -711,7 +711,7 @@ $lang['visitors need to login and have the appropriate permissions to see this a
 $lang['any visitor can see this album'] = 'энэ цомгийг дурийн хүн үзэх боломжтой';
 $lang['Manual order'] = 'Гараараа эрэмблэх';
 $lang['manual order'] = 'гараараа эрэмблэх';
-$lang['Use the default photo sort order (defined in the configuration file)'] = 'үндсэн тохиргоог ашиглах';
+$lang['Use the default photo sort order'] = 'үндсэн тохиргоог ашиглах';
 $lang['Add a virtual album'] = 'Хийсвэр цомог нэмэх';
 $lang['%d line filtered'] = '%d мөр мэдээлэл';
 $lang['%d lines filtered'] = '%d мөр мэдээлэл';
