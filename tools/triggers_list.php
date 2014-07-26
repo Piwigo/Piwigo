@@ -550,6 +550,12 @@ array(
   'files' => array('include\page_tail.php'),
 ),
 array(
+  'name' => 'loc_end_photo_add_direct',
+  'type' => 'trigger_notify',
+  'vars' => array(),
+  'files' => array('admin\photo_add_direct.php'),
+),
+array(
   'name' => 'loc_end_picture',
   'type' => 'trigger_notify',
   'vars' => array(),

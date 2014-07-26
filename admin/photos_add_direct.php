@@ -66,6 +66,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/photos_add_direct_prepare.inc.php');
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
+trigger_notify('loc_end_photo_add_direct');
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'photos_add');
 ?>

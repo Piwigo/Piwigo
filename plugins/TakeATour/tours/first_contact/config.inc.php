@@ -9,13 +9,49 @@ $TOUR_PATH = PHPWG_PLUGINS_PATH.'TakeATour/tours/first_contact/tour.tpl';
 if ( defined('IN_ADMIN') and IN_ADMIN )
 {
 /* first contact */
+add_event_handler('loc_end_photo_add_direct', 'TAT_FC_6');
+add_event_handler('loc_end_photo_add_direct', 'TAT_FC_7');
 add_event_handler('loc_end_element_set_global', 'TAT_FC_14');
 add_event_handler('loc_end_picture_modify', 'TAT_FC_16');
 add_event_handler('loc_end_picture_modify', 'TAT_FC_17');
 add_event_handler('loc_end_cat_modify', 'TAT_FC_23');
 add_event_handler('loc_end_themes_installed', 'TAT_FC_35');
 }
-
+      
+function TAT_FC_7()
+{
+  global $template;
+  $template->set_prefilter('photos_add', 'TAT_FC_7_prefilter');
+}
+function TAT_FC_7_prefilter ($content, &$smarty)
+{
+  $search = 'UploadComplete: function(up, files) {';
+  $replacement = 'UploadComplete: function(up, files) {
+  if (tour.getCurrentStep()==5)
+  {
+    tour.goTo(6);
+  }
+';
+  return str_replace($search, $replacement, $content);
+}
+function TAT_FC_6()
+{
+  global $template;
+  $template->set_prefilter('photos_add', 'TAT_FC_6_prefilter');
+}
+function TAT_FC_6_prefilter ($content, &$smarty)
+{
+  $search = 'BeforeUpload:';
+  $replacement = 'FilesAdded: function() {
+    if (tour.getCurrentStep()==4)
+    {
+      tour.goTo(5);
+    }
+  
+  },
+  BeforeUpload:';
+  return str_replace($search, $replacement, $content);
+}
 function TAT_FC_14()
 {
   global $template;

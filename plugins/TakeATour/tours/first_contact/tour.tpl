@@ -1,4 +1,4 @@
-{footer_script require='jquery.bootstrap-tour'}{literal}
+{footer_script require='jquery.bootstrap-tour'  load="async"}{literal}
 
 var tour = new Tour({
   name: "first_contact",
@@ -56,30 +56,32 @@ tour.addSteps([
     element: "#afterUploadActions",
     title: "{/literal}{'first_contact_title7'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp7'|@translate|@escape:'javascript'}{literal}",
-    prev:4
+    prev:3,
+    onPrev: function (tour) {window.location.reload()}
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
     placement: "top",
-    element: "#batchLink",
+    element: ".batchLink",
     reflex:true,
     title: "{/literal}{'first_contact_title8'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp8'|@translate|@escape:'javascript'}{literal}",
-    prev:4
   },
   {
-    path: /admin\.php\?page=(photos_add|batch_manager&filter=prefilter-last_import|prefilter-caddie)/,
+    path: /admin\.php\?page=(photos_add|batch_manager&filter=prefilter-last_import|batch_manager&filter=prefilter-caddie)/,
     redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
     placement: "top",
-    element: "",
+    element: "select[name='filter_prefilter']",
     title: "{/literal}{'first_contact_title9'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'first_contact_stp9'|@translate|@escape:'javascript'}{literal}"
-  },
+    content: "{/literal}{'first_contact_stp9'|@translate|@escape:'javascript'}{literal}",
+    prev:3,
+    onPrev: function (tour) {window.location = "{/literal}{$ABS_U_ADMIN}{literal}admin.php?page=photos_add"}
+ },
   {//10
     path: /admin\.php\?page=batch_manager&filter=(prefilter-caddie|prefilter-last_import)/,
     redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
     placement: "right",
-    element: ".icon-flag",
+    element: "a[href='./admin.php?page=batch_manager&filter=prefilter-caddie']",
     title: "{/literal}{'first_contact_title10'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp10'|@translate|@escape:'javascript'}{literal}"
   },
@@ -150,8 +152,6 @@ tour.addSteps([
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_list",
-    placement: "left",
-    element: "#content",
     title: "{/literal}{'first_contact_title19'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{if $TAT_FTP}{'first_contact_stp19'|@translate|@escape:'javascript'}{else}{'first_contact_stp19_b'|@translate|@escape:'javascript'}{/if}{literal}",
     onPrev: function (tour) {window.location = "admin.php?page=photo-{/literal}{$TAT_image_id}{literal}";},
@@ -172,7 +172,7 @@ tour.addSteps([
     content: "{/literal}{'first_contact_stp21'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=album-/,
+    path: /admin\.php\?page=album-[0-9]+(|-properties)$/,
     redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
     placement: "top",
     element: ".selected_tab",
@@ -180,7 +180,7 @@ tour.addSteps([
     content: "{/literal}{'first_contact_stp22'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=album-/,
+    path: /admin\.php\?page=album-[0-9]+(|-properties)$/,
     redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
     placement: "top",
     element: "#TAT_FC_23",
@@ -188,10 +188,11 @@ tour.addSteps([
     content: "{/literal}{'first_contact_stp23'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: /admin\.php\?page=album-/,
+    path: /admin\.php\?page=album-[0-9]+(|-properties)$/,
     redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
     placement: "bottom",
-    element: ".tabsheet",
+    element: "li.normal_tab:nth-child(3) > a:nth-child(1)",
+    reflex: true,
     title: "{/literal}{'first_contact_title24'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp24'|@translate|@escape:'javascript'}{literal}"
   },
@@ -257,8 +258,9 @@ tour.addSteps([
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php?page=configuration",
-    placement: "top",
-    title: "{/literal}{'first_contact_stp33'|@translate|@escape:'javascript'}{literal}",
+    placement: "bottom",
+    element: "li.normal_tab:nth-child(6) > a:nth-child(1)",
+    title: "{/literal}{'first_contact_title33'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp33'|@translate|@escape:'javascript'}{literal}",
     prev:30
   },
@@ -324,9 +326,7 @@ tour.addSteps([
     content: "{/literal}{'first_contact_stp42'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
-    placement: "top",
-    element: "",
+    path: "{/literal}{$TAT_path}{literal}admin.php",
     title: "{/literal}{'first_contact_title43'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp43'|@translate|@escape:'javascript'}{literal}"
   }
@@ -337,11 +337,4 @@ tour.init();
 
 // Start the tour
 tour.start();
-
-jQuery( ".plupload_start" ).click(function() {
-  if (tour.getCurrentStep()==5)
-  {
-    tour.goTo(6);
-  }
-});
 {/literal}{/footer_script}

@@ -56,7 +56,18 @@ fieldset[disabled] .btn-default.active {
 .popover {
   background-color: #222;
   border: 1px solid #333333;
-  box-shadow: 0 5px 10px rgba(170, 170, 170, 0.2);
+}
+.popover.right {
+  box-shadow: -5px 5px 10px rgba(170, 170, 170, 0.2);
+}
+.popover.left {
+  box-shadow: 5px 5px 10px rgba(170, 170, 170, 0.2);
+}
+.popover.top {
+  box-shadow: 0px 5px 10px rgba(170, 170, 170, 0.2);
+}
+.popover.bottom {
+  box-shadow: 0px -5px 10px rgba(170, 170, 170, 0.2);
 }
 .popover-title, .popover-content {
   color: #aaa;
