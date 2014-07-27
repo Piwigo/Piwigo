@@ -425,3 +425,4 @@ $lang['Apply on properties'] = 'Niteliklerine uygula';
 $lang['Album name, A &rarr; Z'] = 'Albüm adı, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = '
 Albüm adı, Z &rarr; A';
+$lang['Link: %s'] = 'Bağlantı: %s';
