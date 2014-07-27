@@ -425,3 +425,4 @@ $lang['Apply on properties'] = '套用於屬性';
 $lang['No results for'] = '沒有結果';
 $lang['Photo description'] = '相片描述';
 $lang['Photo title'] = '相片標題';
+$lang['Link: %s'] = '連結: %s';
