@@ -976,3 +976,4 @@ $lang['Activate it now'] = 'Активировать это сейчас';
 $lang['Allow users to add a link to their website'] = 'Разрешить пользователям добавлять ссылки на свои веб-сайты';
 $lang['Impossible to deactivate the default theme.'] = 'Невозможно отключить тему, назначенную по умолчанию.';
 $lang['Mail address is mandatory for registration'] = 'Адрес электронной почты является обязательным для регистрации';
+$lang['Empty caddie'] = 'Корзинка пустая';
