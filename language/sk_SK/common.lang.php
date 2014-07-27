@@ -434,3 +434,4 @@ $lang['Photo description'] = 'Popis fotky';
 $lang['Photo title'] = 'Názov fotky';
 $lang['Album name, Z &rarr; A'] = 'Názov albumu, Z &rarr; A';
 $lang['Album name, A &rarr; Z'] = 'Názov albumu, A &rarr; Z';
+$lang['Link: %s'] = 'Link: %s';
