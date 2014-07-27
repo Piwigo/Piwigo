@@ -426,3 +426,4 @@ $lang['Photo description'] = 'Descriere fotografie';
 $lang['No results for'] = 'Nici un rezultat pentru';
 $lang['Apply on properties'] = 'Aplica la proprietati';
 $lang['Album name, A &rarr; Z'] = 'Nume album, A & rarr; Z';
+$lang['Link: %s'] = 'Legatura: %s';
