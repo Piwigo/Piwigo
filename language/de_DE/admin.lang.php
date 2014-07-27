@@ -977,3 +977,4 @@ $lang['Activate it now'] = 'Jetzt aktivieren';
 $lang['Allow users to add a link to their website'] = 'Benutzer erlauben einen Link zu Ihrer Webseite einzufügen';
 $lang['Impossible to deactivate the default theme.'] = 'Es ist nicht mögliche das Default Thema zu deaktivieren';
 $lang['Mail address is mandatory for registration'] = 'E-Mail Adresse wird für die Registrierung benötigt';
+$lang['Empty caddie'] = 'Leerer Sammelkorb';
