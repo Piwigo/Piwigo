@@ -426,3 +426,4 @@ $lang['Photo description'] = 'Опис фотографії';
 $lang['Photo title'] = 'Назва фотографії';
 $lang['Album name, A &rarr; Z'] = 'Назва альбому, А &rarr; Я';
 $lang['Album name, Z &rarr; A'] = 'Назва альбому, Я &rarr; А';
+$lang['Link: %s'] = 'Посилання: %s';
