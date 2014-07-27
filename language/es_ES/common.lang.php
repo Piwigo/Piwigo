@@ -433,3 +433,4 @@ $lang['Photo description'] = 'Descripción de la foto';
 $lang['Photo title'] = 'Título de la foto';
 $lang['Album name, Z &rarr; A'] = 'Nombre del album, Z &rarr; A';
 $lang['Album name, A &rarr; Z'] = 'Nombre del album, A &rarr; Z';
+$lang['Link: %s'] = 'Enlace: %s';
