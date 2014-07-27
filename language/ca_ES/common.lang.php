@@ -422,3 +422,6 @@ $lang['No results for'] = 'No s\'ha trobat resultats per';
 $lang['Apply on properties'] = 'Aplicar a propietats';
 $lang['Photo description'] = 'Descripció de la foto';
 $lang['Photo title'] = 'Títol de la foto';
+$lang['Album name, A &rarr; Z'] = 'Nom de l\'àlbum, a &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Nom de l\'àlbum, Z &rarr; A';
+$lang['Link: %s'] = 'Enllaç: %s';
