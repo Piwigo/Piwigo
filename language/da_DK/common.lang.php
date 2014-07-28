@@ -427,3 +427,4 @@ $lang['Photo description'] = 'Fotobeskrivelse';
 $lang['Photo title'] = 'Fototitel';
 $lang['Album name, A &rarr; Z'] = 'Albumnavn, A &rarr; Å';
 $lang['Album name, Z &rarr; A'] = 'Albumnavn, Å &rarr; A';
+$lang['Link: %s'] = 'Link: %s';
