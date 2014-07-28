@@ -1466,28 +1466,4 @@ function get_recent_photos_sql($db_field)
     .pwg_db_get_recent_period_expression($user['recent_period'])
     .','.pwg_db_get_recent_period_expression(1,$user['last_photo_date']).')';
 }
-
-/**
- * Returns a unique activation key.
- *
- * @return string
- */
-function get_user_activation_key()
-{
-  while (true)
-  {
-    $key = generate_key(20);
-    $query = '
-SELECT COUNT(*)
-  FROM '.USER_INFOS_TABLE.'
-  WHERE activation_key = \''.$key.'\'
-;';
-    list($count) = pwg_db_fetch_row(pwg_query($query));
-    if (0 == $count)
-    {
-      return $key;
-    }
-  }
-}
-
 ?>

@@ -89,18 +89,20 @@ function process_password_request()
     return false;
   }
 
-  if (empty($userdata['activation_key']))
-  {
-    $activation_key = get_user_activation_key();
+  $activation_key = generate_key(20);
 
-    single_update(
-      USER_INFOS_TABLE,
-      array('activation_key' => $activation_key),
-      array('user_id' => $user_id)
-      );
+  list($expire) = pwg_db_fetch_row(pwg_query('SELECT ADDDATE(NOW(), INTERVAL 1 HOUR)'));
 
-    $userdata['activation_key'] = $activation_key;
-  }
+  single_update(
+    USER_INFOS_TABLE,
+    array(
+      'activation_key' => pwg_password_hash($activation_key),
+      'activation_key_expire' => $expire,
+      ),
+    array('user_id' => $user_id)
+    );
+  
+  $userdata['activation_key'] = $activation_key;
 
   set_make_full_url();
   
@@ -112,7 +114,8 @@ function process_password_request()
     );
   $message.= "\r\n\r\n";
   $message.= l10n('To reset your password, visit the following address:') . "\r\n";
-  $message.= get_gallery_home_url().'/password.php?key='.$userdata['activation_key']."\r\n\r\n";
+  $message.= get_gallery_home_url().'/password.php?key='.$activation_key.'-'.urlencode($userdata['email']);
+  $message.= "\r\n\r\n";
   $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
 
   unset_make_full_url();
@@ -143,40 +146,75 @@ function process_password_request()
  *
  * @return mixed (user_id if OK, false otherwise)
  */
-function check_password_reset_key($key)
+function check_password_reset_key($reset_key)
 {
-  global $page;
-  
+  global $page, $conf;
+
+  list($key, $email) = explode('-', $reset_key, 2);
+
   if (!preg_match('/^[a-z0-9]{20}$/i', $key))
   {
     $page['errors'][] = l10n('Invalid key');
     return false;
   }
 
+  $user_ids = array();
+  
+  $query = '
+SELECT
+  '.$conf['user_fields']['id'].' AS id
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['email'].' = \''.pwg_db_real_escape_string($email).'\'
+;';
+  $user_ids = query2array($query, null, 'id');
+
+  if (count($user_ids) == 0)
+  {
+    $page['errors'][] = l10n('Invalid username or email');
+    return false;
+  }
+
+  $user_id = null;
+  
   $query = '
 SELECT
     user_id,
-    status
+    status,
+    activation_key,
+    activation_key_expire,
+    NOW() AS dbnow
   FROM '.USER_INFOS_TABLE.'
-  WHERE activation_key = \''.$key.'\'
+  WHERE user_id IN ('.implode(',', $user_ids).')
 ;';
   $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if (pwg_password_verify($key, $row['activation_key']))
+    {
+      if (strtotime($row['dbnow']) > strtotime($row['activation_key_expire']))
+      {
+        // key has expired
+        $page['errors'][] = l10n('Invalid key');
+        return false;
+      }
 
-  if (pwg_db_num_rows($result) == 0)
+      if (is_a_guest($row['status']) or is_generic($row['status']))
+      {
+        $page['errors'][] = l10n('Password reset is not allowed for this user');
+        return false;
+      }
+
+      $user_id = $row['user_id'];
+    }
+  }
+
+  if (empty($user_id))
   {
     $page['errors'][] = l10n('Invalid key');
     return false;
   }
   
-  $userdata = pwg_db_fetch_assoc($result);
-
-  if (is_a_guest($userdata['status']) or is_generic($userdata['status']))
-  {
-    $page['errors'][] = l10n('Password reset is not allowed for this user');
-    return false;
-  }
-
-  return $userdata['user_id'];
+  return $user_id;
 }
 
 /**
@@ -187,7 +225,7 @@ SELECT
  */
 function reset_password()
 {
-  global $page, $user, $conf;
+  global $page, $conf;
 
   if ($_POST['use_new_pwd'] != $_POST['passwordConf'])
   {
@@ -195,25 +233,16 @@ function reset_password()
     return false;
   }
 
-  if (isset($_GET['key']))
+  if (!isset($_GET['key']))
   {
-    $user_id = check_password_reset_key($_GET['key']);
-    if (!is_numeric($user_id))
-    {
-      $page['errors'][] = l10n('Invalid key');
-      return false;
-    }
+    $page['errors'][] = l10n('Invalid key');
   }
-  else
+  
+  $user_id = check_password_reset_key($_GET['key']);
+  
+  if (!is_numeric($user_id))
   {
-    // we check the currently logged in user
-    if (is_a_guest() or is_generic())
-    {
-      $page['errors'][] = l10n('Password reset is not allowed for this user');
-      return false;
-    }
-
-    $user_id = $user['id'];
+    return false;
   }
     
   single_update(
@@ -222,16 +251,17 @@ function reset_password()
     array($conf['user_fields']['id'] => $user_id)
     );
 
-  $page['infos'][] = l10n('Your password has been reset');
+  single_update(
+    USER_INFOS_TABLE,
+    array(
+      'activation_key' => null,
+      'activation_key_expire' => null,
+      ),
+    array('user_id' => $user_id)
+    );
 
-  if (isset($_GET['key']))
-  {
-    $page['infos'][] = '<a href="'.get_root_url().'identification.php">'.l10n('Login').'</a>';
-  }
-  else
-  {
-    $page['infos'][] = '<a href="'.get_gallery_home_url().'">'.l10n('Return to home page').'</a>';
-  }
+  $page['infos'][] = l10n('Your password has been reset');
+  $page['infos'][] = '<a href="'.get_root_url().'identification.php">'.l10n('Login').'</a>';
 
   return true;
 }
@@ -270,7 +300,7 @@ if (isset($_GET['key']) and !is_a_guest())
   unset($_GET['key']);
 }
 
-if (isset($_GET['key']))
+if (isset($_GET['key']) and !isset($_POST['submit']))
 {
   $user_id = check_password_reset_key($_GET['key']);
   if (is_numeric($user_id))
