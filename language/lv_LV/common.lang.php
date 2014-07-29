@@ -425,3 +425,4 @@ $lang['Photo title'] = 'Foto nosaukums';
 $lang['Photo description'] = 'Foto apraksts';
 $lang['Album name, A &rarr; Z'] = 'Albūma nosaukums, A &rarr; Z ';
 $lang['Album name, Z &rarr; A'] = 'Albūma nosaukums, Z &rarr; A ';
+$lang['Link: %s'] = 'Saite: %s';
