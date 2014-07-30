@@ -53,15 +53,15 @@
 //
 // $conf['order_by_inside_category_custom'] = $conf['order_by_custom'];
 
-// file_ext : file extensions (case sensitive) authorized
-$conf['file_ext'] = array('jpg','JPG','jpeg','JPEG',
-                          'png','PNG','gif','GIF','mpg','zip',
-                          'avi','mp3','ogg');
-
 // picture_ext : file extensions for picture file, must be a subset of
 // file_ext
-$conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG',
-                             'png','PNG','gif','GIF');
+$conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG','png','PNG','gif','GIF');
+
+// file_ext : file extensions (case sensitive) authorized
+$conf['file_ext'] = array_merge(
+  $conf['picture_ext'],
+  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg')
+  );
 
 // top_number : number of element to display for "best rated" and "most
 // visited" categories
@@ -798,4 +798,14 @@ $conf['inheritance_by_default'] = false;
 // 'png' or 'jpg': your uploaded TIF photos will have a representative in
 // JPEG or PNG file format
 $conf['tiff_representative_ext'] = 'png';
+
+// in the upload form, let users upload only picture_exts or all file_exts?
+// for some file types, Piwigo will try to generate a pwg_representative
+// (TIFF, videos, PDF)
+$conf['upload_form_all_types'] = false;
+
+// If we try to generate a pwg_representative for a video we use ffmpeg. If
+// "ffmpeg" is not visible by the web user, you can define the full path of
+// the directory where "ffmpeg" executable is.
+$conf['ffmpeg_dir'] = '';
 ?>

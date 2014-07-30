@@ -219,6 +219,7 @@ SELECT
     $file_path = $upload_dir.'/'.$filename_wo_ext.'.';
 
     list($width, $height, $type) = getimagesize($source_filepath);
+    
     if (IMAGETYPE_PNG == $type)
     {
       $file_path.= 'png';
@@ -232,9 +233,26 @@ SELECT
       $is_tiff = true;
       $file_path.= 'tif';
     }
-    else
+    elseif (IMAGETYPE_JPEG == $type)
     {
       $file_path.= 'jpg';
+    }
+    elseif (isset($conf['upload_form_all_types']) and $conf['upload_form_all_types'])
+    {
+      $original_extension = strtolower(get_extension($original_filename));
+
+      if (in_array($original_extension, $conf['file_ext']))
+      {
+        $file_path.= $original_extension;
+      }
+      else
+      {
+        die('unexpected file type');
+      }
+    }
+    else
+    {
+      die('forbidden file type');
     }
 
     prepare_directory($upload_dir);
@@ -294,6 +312,62 @@ SELECT
     }
   }
 
+  //
+  // generate pwg_representative in case of video
+  //
+  $ffmpeg_video_exts = array( // extensions tested with FFmpeg
+    'wmv','mov','mkv','mp4','mpg','flv','asf','xvid','divx','mpeg',
+    'avi','rm',
+    );
+  
+  if (isset($original_extension) and in_array($original_extension, $ffmpeg_video_exts))
+  {
+    $representative_file_path = dirname($file_path).'/pwg_representative/';
+    $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+    
+    $representative_ext = 'jpg';
+    $representative_file_path.= $representative_ext;
+    
+    prepare_directory(dirname($representative_file_path));
+    
+    $second = 1;
+    
+    $ffmpeg = $conf['ffmpeg_dir'].'ffmpeg';
+    $ffmpeg.= ' -i "'.$file_path.'"';
+    $ffmpeg.= ' -an -ss '.$second;
+    $ffmpeg.= ' -t 1 -r 1 -y -vcodec mjpeg -f mjpeg';
+    $ffmpeg.= ' "'.$representative_file_path.'"';
+    
+    // file_put_contents('/tmp/ffmpeg.log', "\n==== ".date('c')."\n".__FUNCTION__.' : '.$ffmpeg."\n", FILE_APPEND);
+    
+    @exec($ffmpeg);
+
+    if (!file_exists($representative_file_path))
+    {
+      $representative_ext = null;
+    }
+  }
+
+  if (isset($original_extension) and 'pdf' == $original_extension and pwg_image::get_library() == 'ext_imagick')
+  {
+    $representative_file_path = dirname($file_path).'/pwg_representative/';
+    $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+    
+    $representative_ext = 'jpg';
+    $representative_file_path.= $representative_ext;
+
+    prepare_directory(dirname($representative_file_path));
+    
+    $exec = $conf['ext_imagick_dir'].'convert';
+    $exec.= ' -quality 98';
+    $exec.= ' "'.realpath($file_path).'"[0]';
+
+    $dest = pathinfo($representative_file_path);
+    $exec.= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
+    $exec.= ' 2>&1';
+    @exec($exec, $returnarray);
+  }
+  
   if (pwg_image::get_library() != 'gd')
   {
     if ($conf['original_resize'])
@@ -476,7 +550,18 @@ function pwg_image_infos($path)
 
 function is_valid_image_extension($extension)
 {
-  return in_array(strtolower($extension), array('jpg', 'jpeg', 'png', 'gif'));
+  global $conf;
+  
+  if (isset($conf['upload_form_all_types']) and $conf['upload_form_all_types'])
+  {
+    $extensions = $conf['file_ext'];
+  }
+  else
+  {
+    $extensions = $conf['picture_ext'];
+  }
+
+  return array_unique(array_map('strtolower', $extensions));
 }
 
 function file_upload_error_message($error_code)

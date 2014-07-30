@@ -93,21 +93,17 @@ $template->assign(
     )
   );
 
-$upload_file_types = 'jpeg, png, gif';
+$unique_exts = array_unique(
+  array_map(
+    'strtolower',
+    $conf['upload_form_all_types'] ? $conf['file_ext'] : $conf['picture_ext']
+    )
+  );
 
-if (pwg_image::get_library() == 'ext_imagick')
-{
-  $upload_file_types.= ', tiff';
-  $template->assign('tif_enabled', true);
-}
-
-if (false) // TODO manage zip files in pwg.images.upload
-{
-  $upload_file_types.= ', zip';
-}
 $template->assign(
   array(
-    'upload_file_types' => $upload_file_types,
+    'upload_file_types' => implode(', ', $unique_exts),
+    'file_exts' => implode(',', $unique_exts),
     )
   );
 

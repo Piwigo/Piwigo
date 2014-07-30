@@ -1359,6 +1359,7 @@ function ws_images_upload($params, $service)
 SELECT
     id,
     name,
+    representative_ext,
     path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'

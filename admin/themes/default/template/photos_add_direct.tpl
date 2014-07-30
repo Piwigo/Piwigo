@@ -80,8 +80,7 @@ jQuery(document).ready(function(){
 			max_file_size : '1000mb',
 			// Specify what files to browse for
 			mime_types: [
-				{title : "Image files", extensions : "jpeg,jpg,gif,png"},
-				{title : "Zip files", extensions : "zip"}
+				{title : "Image files", extensions : "{/literal}{$file_exts}{literal}"}
 			]
 		},
 
