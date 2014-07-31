@@ -977,3 +977,4 @@ $lang['Activate it now'] = 'Ενεργοποιήστε τώρα';
 $lang['Allow users to add a link to their website'] = 'Επιτρέπει στους χρήστες να προσθέτουν ένα σύνδεσμο για το website τους.';
 $lang['Mail address is mandatory for registration'] = 'Η διεύθυνση e-mail είναι υποχρεωτική για την εγγραφή';
 $lang['Impossible to deactivate the default theme.'] = 'Αδύνατο να απενεργοποιήσετε το προεπιλεγμένο θέμα.';
+$lang['Empty caddie'] = 'Άδειασμα Καλαθιού ';
