@@ -976,3 +976,4 @@ $lang['Activate it now'] = 'Aktivovať teraz';
 $lang['Allow users to add a link to their website'] = 'Povoliť používateľom pridať link na ich stránku';
 $lang['Mail address is mandatory for registration'] = 'Emailová adresa je povinná pre registráciu';
 $lang['Impossible to deactivate the default theme.'] = 'Nemožno deaktivovať predvolený motív.';
+$lang['Empty caddie'] = 'Prázdny nosič';
