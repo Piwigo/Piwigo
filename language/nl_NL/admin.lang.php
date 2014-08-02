@@ -975,3 +975,4 @@ $lang['Activate it now'] = 'Activeer het nu';
 $lang['Allow users to add a link to their website'] = 'Sta gebruikers toe om een link naar hun website toe te voegen';
 $lang['Mail address is mandatory for registration'] = 'Het email-adres is verplicht bij de registratie.';
 $lang['Impossible to deactivate the default theme.'] = 'Het standaard thema kan niet worden uitgeschakeld.';
+$lang['Empty caddie'] = 'Maak verzamelmandje leeg';
