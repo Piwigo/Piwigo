@@ -971,3 +971,4 @@ $lang['Activate it now'] = 'Активувати його зараз';
 $lang['Allow users to add a link to their website'] = 'Дозволити користувачам додати посилання на свій сайт';
 $lang['Impossible to deactivate the default theme.'] = 'Неможливо відключити тему за замовчуванням.';
 $lang['Mail address is mandatory for registration'] = 'Поштова адреса є обов’язковим для реєстрації';
+$lang['Empty caddie'] = 'Кошик порожній';
