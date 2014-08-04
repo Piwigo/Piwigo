@@ -38,6 +38,7 @@ if (!defined('IN_ADMIN'))
 }
 else
 {
+  add_event_handler('loc_begin_page_header', 'admintools_add_admin_controller');
   add_event_handler('get_admin_plugin_menu_links', 'admintools_admin_link');
 }
 

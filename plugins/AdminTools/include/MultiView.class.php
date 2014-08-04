@@ -101,6 +101,31 @@ class MultiView
 
     return $url;
   }
+  
+  /**
+   * Returns the current url minus MultiView params
+   *
+   * @param bool $with_amp - adds ? or & at the end of the url
+   * @return string
+   */
+  public function get_clean_admin_url($with_amp=false)
+  {
+    $url = PHPWG_ROOT_PATH.'admin.php';
+    
+    $get = $_GET;
+    unset($get['page'], $get['section'], $get['tag']);
+    if (count($get) == 0 and !empty($_SERVER['QUERY_STRING']))
+    {
+      $url.= '?' . str_replace('&', '&amp;', $_SERVER['QUERY_STRING']);
+    }
+    
+    if ($with_amp)
+    {
+      $url.= strpos($url, '?')!==false ? '&' : '?';
+    }
+    
+    return $url;
+  }
 
   /**
    * Triggered on "user_init", change current view depending of URL params.
@@ -277,8 +302,11 @@ class MultiView
     $query = '
 SELECT
   '.$conf['user_fields']['id'].' AS id,
-  '.$conf['user_fields']['username'].' AS username
-FROM '.USERS_TABLE.'
+  '.$conf['user_fields']['username'].' AS username,
+  status
+FROM '.USERS_TABLE.' AS u
+  INNER JOIN '.USER_INFOS_TABLE.' AS i
+    ON '.$conf['user_fields']['id'].' = user_id
   ORDER BY CONVERT('.$conf['user_fields']['username'].', CHAR)
 ;';
     $out['users'] = array_from_query($query);

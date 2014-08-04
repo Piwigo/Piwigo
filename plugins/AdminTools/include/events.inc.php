@@ -175,6 +175,50 @@ SELECT * FROM '.IMAGES_TABLE.'
 }
 
 /**
+ * Add main toolbar to current page
+ * @trigger loc_after_page_header
+ */
+function admintools_add_admin_controller()
+{
+  global $MultiView, $conf, $template, $page, $user;
+
+  $url_root = get_root_url();
+  $tpl_vars = array();
+
+  $tpl_vars['MULTIVIEW'] =     $MultiView->get_data();
+  $tpl_vars['DELETE_CACHE'] =  isset($conf['multiview_invalidate_cache']);
+  $tpl_vars['U_SELF'] =        $MultiView->get_clean_admin_url(true);
+  
+  if (($admin_lang = $MultiView->get_user_language()) !== false)
+  {
+    include_once(PHPWG_ROOT_PATH . 'include/functions_mail.inc.php');
+    switch_lang_to($admin_lang);
+  }
+
+  $template->assign(array(
+    'ADMINTOOLS_PATH' => './plugins/' . ADMINTOOLS_ID .'/',
+    'ato' => $tpl_vars,
+  ));
+
+  $template->set_filename('ato_admin_controller', realpath(ADMINTOOLS_PATH . 'template/admin_controller.tpl'));
+  $template->parse('ato_admin_controller');
+
+  if ($MultiView->is_admin() && @$admin_lang !== false)
+  {
+    switch_lang_back();
+  }
+  
+  $template->set_prefilter('header', 'admintools_admin_prefilter');
+}
+
+function admintools_admin_prefilter($content)
+{
+  $search = '<a class="icon-brush tiptip" href="{$U_CHANGE_THEME}" title="{\'Switch to clear or dark colors for administration\'|translate}">{\'Change Admin Colors\'|translate}</a>';
+  $replace = '<span id="ato_container"><a class="icon-cog-alt" href="#">{\'Tools\'|translate}</a></span>';
+  return str_replace($search, $replace, $content);
+}
+
+/**
  * Disable privacy level switchbox
  */
 function admintools_remove_privacy($content)
