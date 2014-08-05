@@ -377,3 +377,40 @@ $lang['Recent period must be a positive integer value'] = 'Aldiak zenbaki positi
 $lang['Recent photos'] = 'Argazki berriak';
 $lang['Redirection...'] = 'Birhelbidea...';
 $lang['RSS feed'] = 'RSS Kanala';
+$lang['Thumbnails'] = 'Diapositibak';
+$lang['created before %s (%s)'] = '%s(%s)-etatik baino lehenago sortuta';
+$lang['created between %s (%s) and %s (%s)'] = '%s(%s)-etatik eta %s(%s)-etara artean sortuta';
+$lang['created on %s'] = '%s sortuta';
+$lang['customize the appareance of the gallery'] = 'Itxura neurrira egitea';
+$lang['Username modification'] = 'Erabiltzaile izena aldatzea';
+$lang['Username'] = 'Eraibiltzaile izena';
+$lang['Username "%s" on gallery %s'] = 'Eraibiltzaile izena "%s" galerian %s';
+$lang['Username is mandatory'] = 'Eraibiltzaile izena nahitaezkoa da';
+$lang['Sent by'] = 'Mandataria';
+$lang['Show file metadata'] = 'Erakutsi / ezkutatu kamera gain (Exif metadatuak)';
+$lang['The passwords do not match'] = 'Pasahitzak ex datoz';
+$lang['Theme'] = 'Gaia';
+$lang['This author modified following comment:'] = 'Egile honek hurrengo iruzkina aldatu zuen:';
+$lang['This author removed the comment with id %d'] = 'Egile honek iruzkina  zenbakizko %d identifikatzailearekin ezabatu du';
+$lang['This login is already used by another user'] = 'Erabiltzaile izen hau beste batek du';
+$lang['The number of photos per page must be a not null scalar'] = 'Orrialdeagatik argazki kantitateak zero baino gehiagoko zenbaki osoa izan behar du';
+$lang['The gallery is locked for maintenance. Please, come back later.'] = 'Galeria mantenu-lanek aldi baterako itxita dago . Eragozpenak barka itzazu. Minutu batzuetan Galeria eraginkor berriro egongo da.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS-a formatuarekin birzabalkunde iturriak webgune honen berritasunen jakinarazpen automatikoak ematen ditu: argazki berriak, albumen gaurkotzeak, iruzkin berrien... RSS-a kanal irakurle bat erabili behar du.
+
+Feeds-ak zer diren eta erabil ditzakeenez gero?
+Un Feed da webguneko berrietako eguneratuta egon ahal izateko eguneratzen ari den laburpeneko sistema.
+
+Arreta: Feed batera harpidetzeko Feeds-eko irakurle bat beharrezkoa da. Feeds-eko irakurlerik gabeko Feed bat clicar-tzerakoan, nabigatzaileak formaturik gabeko testua erakutsiko du.
+
+RSS-a eta Atom zer dira?
+Feeds-en bi formatu dira. Feeds-irakurle askok bi formatuak jasaten dituzte.';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Zuzen erregistratu da. Email bat jasoko du laster bere kredentzialekin. Ongi etorria!';
+$lang['Since'] = 'Etatik';
+$lang['Show oldest comments first'] = 'Erakutsi lehen iruzkin zaharrak';
+$lang['Show number of hits'] = 'Ikusi-kopurua erakustea';
+$lang['Show number of comments'] = 'Iruzkin-kopurua erakustea';
+$lang['Show latest comments first'] = 'Erakutsi lehen iruzkin berriak';
+$lang['Send my connection settings by email'] = 'Kredentzialak nire posta elektronikora bidaltzea';
+$lang['Link: %s'] = 'Esteka: %s';
+$lang['Album name, A &rarr; Z'] = 'Albuma izena, A &rarr;Z';
+$lang['Album name, Z &rarr; A'] = 'Albuma izena, Z &rarr;A';
