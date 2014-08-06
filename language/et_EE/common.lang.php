@@ -445,3 +445,6 @@ $lang['Apply on properties'] = 'Rakenda seadistustele';
 $lang['No results for'] = 'tulemusi pole';
 $lang['Photo description'] = 'Foto kirjeldus';
 $lang['Photo title'] = 'Foto pealkiri';
+$lang['Album name, A &rarr; Z'] = 'Albumine nimed, A &rarr;Z';
+$lang['Album name, Z &rarr; A'] = 'Albumine nimed, Z &rarr;A';
+$lang['Link: %s'] = 'Link: %s';
