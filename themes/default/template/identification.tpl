@@ -25,7 +25,7 @@
         <span class="property">
           <label for="password">{'Password'|@translate}</label>
         </span>
-        <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25">
+        <input tabindex="2" class="login" type="password" name="password" id="password" size="25">
       </li>
 
       {if $authorize_remembering }
