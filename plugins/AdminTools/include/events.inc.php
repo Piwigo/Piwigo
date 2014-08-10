@@ -207,7 +207,11 @@ function admintools_add_admin_controller()
   {
     switch_lang_back();
   }
-  
+}
+
+function admintools_add_admin_controller_setprefilter()
+{
+  global $template;
   $template->set_prefilter('header', 'admintools_admin_prefilter');
 }
 
