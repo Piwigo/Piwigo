@@ -419,7 +419,8 @@ switch ($page['section'])
     load_profile_in_template(
       $action,
       '',
-      $edit_user
+      $edit_user,
+      'GUEST_'
       );
     $template->assign('default', array());
     break;

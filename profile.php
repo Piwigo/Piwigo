@@ -69,11 +69,14 @@ SELECT '.implode(',', $fields).'
   $title= l10n('Your Gallery Customization');
   $page['body_id'] = 'theProfilePage';
   $template->set_filename('profile', 'profile.tpl');
+  $template->set_filename('profile_content', 'profile_content.tpl');
 
   load_profile_in_template(
     get_root_url().'profile.php', // action
     make_index_url(), // for redirect
     $userdata );
+  $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');
+
 
   
   // include menubar
@@ -289,12 +292,17 @@ function save_profile_from_post($userdata, &$errors)
   return true;
 }
 
-
-function load_profile_in_template($url_action, $url_redirect, $userdata)
+/**
+ * Assign template variables, from arguments
+ * Used to build profile edition pages
+ * 
+ * @param string $url_action
+ * @param string $url_redirect
+ * @param array $userdata
+ */
+function load_profile_in_template($url_action, $url_redirect, $userdata, $template_prefixe=null)
 {
   global $template, $conf;
-
-  $template->set_filename('profile_content', 'profile_content.tpl');
 
   $template->assign('radio_options',
     array(
@@ -303,17 +311,17 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
 
   $template->assign(
     array(
-      'USERNAME'=>stripslashes($userdata['username']),
-      'EMAIL'=>@$userdata['email'],
-      'ALLOW_USER_CUSTOMIZATION'=>$conf['allow_user_customization'],
-      'ACTIVATE_COMMENTS'=>$conf['activate_comments'],
-      'NB_IMAGE_PAGE'=>$userdata['nb_image_page'],
-      'RECENT_PERIOD'=>$userdata['recent_period'],
-      'EXPAND' =>$userdata['expand'] ? 'true' : 'false',
-      'NB_COMMENTS'=>$userdata['show_nb_comments'] ? 'true' : 'false',
-      'NB_HITS'=>$userdata['show_nb_hits'] ? 'true' : 'false',
-      'REDIRECT' => $url_redirect,
-      'F_ACTION'=>$url_action,
+      $template_prefixe.'USERNAME'=>stripslashes($userdata['username']),
+      $template_prefixe.'EMAIL'=>@$userdata['email'],
+      $template_prefixe.'ALLOW_USER_CUSTOMIZATION'=>$conf['allow_user_customization'],
+      $template_prefixe.'ACTIVATE_COMMENTS'=>$conf['activate_comments'],
+      $template_prefixe.'NB_IMAGE_PAGE'=>$userdata['nb_image_page'],
+      $template_prefixe.'RECENT_PERIOD'=>$userdata['recent_period'],
+      $template_prefixe.'EXPAND' =>$userdata['expand'] ? 'true' : 'false',
+      $template_prefixe.'NB_COMMENTS'=>$userdata['show_nb_comments'] ? 'true' : 'false',
+      $template_prefixe.'NB_HITS'=>$userdata['show_nb_hits'] ? 'true' : 'false',
+      $template_prefixe.'REDIRECT' => $url_redirect,
+      $template_prefixe.'F_ACTION'=>$url_action,
       ));
 
   $template->assign('template_selection', $userdata['theme']);
@@ -338,6 +346,5 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
   trigger_notify( 'load_profile_in_template', $userdata );
 
   $template->assign('PWG_TOKEN', get_pwg_token());
-  $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');
 }
 ?>
