@@ -62,7 +62,7 @@ foreach ($pderivatives as $type => &$pderivative)
     $pderivative['minh'] = $pderivative['minw'] = $pderivative['w'];
     $pderivative['crop'] = 100;
   }
-  $pderivative['must_enable'] = ($type==IMG_SQUARE || $type==IMG_THUMB)? true : false;
+  $pderivative['must_enable'] = ($type==IMG_SQUARE || $type==IMG_THUMB || $type==$conf['derivative_default_size'])? true : false;
   $pderivative['enabled'] = isset($pderivative['enabled']) || $pderivative['must_enable'] ? true : false;
 
   if (isset($pderivative['crop']))

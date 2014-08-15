@@ -488,7 +488,7 @@ switch ($page['section'])
         $tpl_var = array();
 
         $tpl_var['must_square'] = ($type==IMG_SQUARE ? true : false);
-        $tpl_var['must_enable'] = ($type==IMG_SQUARE || $type==IMG_THUMB)? true : false;
+        $tpl_var['must_enable'] = ($type==IMG_SQUARE || $type==IMG_THUMB || $type==$conf['derivative_default_size'])? true : false;
 
         if ($params = @$enabled[$type])
         {
