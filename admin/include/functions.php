@@ -644,8 +644,9 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
  *
  * @param int[] $categories
  * @param boolean|string $value
+ * @param boolean $unlock_child optional   default false
  */
-function set_cat_visible($categories, $value)
+function set_cat_visible($categories, $value, $unlock_child = false)
 {
   if ( ($value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) === null )
   {
@@ -656,11 +657,14 @@ function set_cat_visible($categories, $value)
   // unlocking a category => all its parent categories become unlocked
   if ($value)
   {
-    $uppercats = get_uppercat_ids($categories);
+    $cats = get_uppercat_ids($categories);
+    if ($unlock_child) {
+      $cats = array_merge($cats, get_subcat_ids($categories));
+    }
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET visible = \'true\'
-  WHERE id IN ('.implode(',', $uppercats).')';
+  WHERE id IN ('.implode(',', $cats).')';
     pwg_query($query);
   }
   // locking a category   => all its child categories become locked

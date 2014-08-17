@@ -136,7 +136,11 @@ if (isset($_POST['submit']))
   // retrieve cat infos before continuing (following updates are expensive)
   $cat_info = get_cat_info($_GET['cat_id']);
 
-  if ($cat_info['visible'] != get_boolean( $_POST['visible'] ) )
+  if ($_POST['visible']=='true_sub')
+  {
+    set_cat_visible(array($_GET['cat_id']), true, true);
+  }
+  elseif ($cat_info['visible'] != get_boolean( $_POST['visible'] ) )
   {
     set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
   }

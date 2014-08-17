@@ -117,7 +117,7 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
   <p>
     <strong>{'Lock'|@translate}</strong>
     <br>
-		{html_radios name='visible' values=['true','false'] output=['No'|translate,'Yes'|translate] selected=$CAT_VISIBLE}
+		{html_radios name='visible' values=['true','true_sub','false'] output=['No'|translate,'No and unlock sub-albums'|translate,'Yes'|translate] selected=$CAT_VISIBLE}
   </p>
 
   {if isset($CAT_COMMENTABLE)}
