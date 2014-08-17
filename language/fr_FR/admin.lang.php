@@ -924,7 +924,6 @@ $lang['Name of the duplicate'] = "Nom du duplicata";
 $lang['Source tag'] = 'Tag source';
 $lang['Tag "%s" is now a duplicate of "%s"'] = "Le tag \"%s\" est désormais une copie de \"%s\"";
 $lang['Duplicate selected tags'] = 'Dupliquer les tags sélectionnés';
-$lang['Invalid dimension'] = 'Dimension invalide';
 $lang['Minimum width'] = 'Largeur minimale';
 $lang['Minimum height'] = 'Hauteur minimale';
 $lang['Portrait'] = 'Portrait';
@@ -977,4 +976,4 @@ $lang['Activate it now'] = 'Activate it now';
 $lang['Allow users to add a link to their website'] = 'Autoriser les utilisateurs à donner un lien vers leur site web';
 $lang['Impossible to deactivate the default theme.'] = 'Impossible de désactiver le thème par défaut.';
 $lang['Empty caddie'] = 'Vider le panier';
-?>
+$lang['The settings for the guest are from the %s user'] = 'Les préféreces des invités sont celles de l\'utilisateur %s';
