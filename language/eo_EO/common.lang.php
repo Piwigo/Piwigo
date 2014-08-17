@@ -424,3 +424,6 @@ $lang['No results for'] = 'Neniu rezulto por';
 $lang['Apply on properties'] = 'Apliku al la ecoj';
 $lang['Photo description'] = 'Fotopriskribo';
 $lang['Photo title'] = 'Fototitolo';
+$lang['Album name, A &rarr; Z'] = 'Fotara nomo, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Fotara nomo, Z &rarr; A';
+$lang['Link: %s'] = 'Ligilo: %s';
