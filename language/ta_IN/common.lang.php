@@ -426,3 +426,7 @@ $lang['No results for'] = 'க்கான முடிவுகள் இல்
 $lang['Photo title'] = 'புகைப்பட தலைப்பு';
 $lang['Photo description'] = 'புகைப்பட விளக்கம்';
 $lang['Apply on properties'] = 'பண்புகள் மீது விண்ணப்பிக்க';
+$lang['Album name, Z &rarr; A'] = 'ஆல்பத்தின் பெயர், இசட் & rarr; ஒரு';
+$lang['Album name, A &rarr; Z'] = 'ஆல்பத்தின் பெயர், ஒரு & rarr; Z';
+$lang['Link: %s'] = '
+இணைப்பு:%s';
