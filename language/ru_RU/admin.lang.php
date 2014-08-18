@@ -977,3 +977,4 @@ $lang['Allow users to add a link to their website'] = 'Разрешить пол
 $lang['Impossible to deactivate the default theme.'] = 'Невозможно отключить тему, назначенную по умолчанию.';
 $lang['Mail address is mandatory for registration'] = 'Адрес электронной почты является обязательным для регистрации';
 $lang['Empty caddie'] = 'Корзинка пустая';
+$lang['The settings for the guest are from the %s user'] = 'Параметры для "Гостя" от пользователя %s';
