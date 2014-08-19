@@ -978,3 +978,4 @@ $lang['Allow users to add a link to their website'] = 'Tillad at brugere kan til
 $lang['Impossible to deactivate the default theme.'] = 'Det er ikke muligt at deaktivere standardtemaet.';
 $lang['Mail address is mandatory for registration'] = 'En mailadresse skal angives ved registrering';
 $lang['Empty caddie'] = 'Tøm kurv';
+$lang['The settings for the guest are from the %s user'] = 'Indstillingerne for gæsten kommer fra brugeren %s';
