@@ -423,3 +423,6 @@ $lang['No results for'] = 'Няма резултати за';
 $lang['Apply on properties'] = 'Потвърди настройките';
 $lang['Photo title'] = 'Заглавие на снимка';
 $lang['Photo description'] = 'Описание на снимка';
+$lang['Link: %s'] = 'Линкове: %s';
+$lang['Album name, Z &rarr; A'] = 'Име на албум, Z &rarr; A';
+$lang['Album name, A &rarr; Z'] = 'Име на албум, A &rarr; Z';
