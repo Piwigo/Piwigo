@@ -294,7 +294,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 #batchManagerGlobal .thumbSelected {background-color:#C2F5C2 !important}
 #batchManagerGlobal #selectedMessage {background-color:#C2F5C2;}
-#filter_dimension_width_info, #filter_dimension_height_info, #filter_dimension_ratio_info {color:#ff7700;font-weight:bold;}
+#filter_dimension_width_info, #filter_dimension_height_info, #filter_dimension_ratio_info, #filter_filesize_info {color:#ff7700;font-weight:bold;}
 
 .selectedComment {background-color:#C2F5C2;}
 
