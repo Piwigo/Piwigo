@@ -977,3 +977,4 @@ $lang['Allow users to add a link to their website'] = 'Autoriser les utilisateur
 $lang['Impossible to deactivate the default theme.'] = 'Impossible de désactiver le thème par défaut.';
 $lang['Empty caddie'] = 'Vider le panier';
 $lang['The settings for the guest are from the %s user'] = 'Les préféreces des invités sont celles de l\'utilisateur %s';
+$lang['between %s and %s MB'] = 'entre %s et %s Mo';

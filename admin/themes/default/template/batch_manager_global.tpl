@@ -353,6 +353,43 @@ $(document).ready(function() {
 			.slider("values", 1, getSliderKeyFromValue(max, dimension_values[type]) );
   });
 
+  {* filesize, copied from dimensions filter and modified, to be moved in a plugin later *}
+  var filesize_values = [{$filesize.list}];
+
+  function filesize_onSliderChange(ui, pattern) {
+    $("input[name='filter_filesize_min']").val(filesize_values[ui.values[0]]);
+    $("input[name='filter_filesize_max']").val(filesize_values[ui.values[1]]);
+
+    $("#filter_filesize_info").html(sprintf(
+      pattern,
+      filesize_values[ui.values[0]],
+      filesize_values[ui.values[1]]
+    ));
+  }
+	
+  $("#filter_filesize_slider").slider({
+    range: true,
+    min: 0,
+    max: filesize_values.length - 1,
+    values: [
+      getSliderKeyFromValue({$filesize.selected.min}, filesize_values),
+      getSliderKeyFromValue({$filesize.selected.max}, filesize_values)
+    ],
+    slide: function(event, ui) {
+      filesize_onSliderChange(ui, "{'between %s and %s MB'|translate|escape:'javascript'}");
+    },
+    change: function(event, ui) {
+      filesize_onSliderChange(ui, "{'between %s and %s MB'|translate|escape:'javascript'}");
+    }
+  });
+
+  $("a.filesize-choice").click(function() {
+    $("#filter_filesize_slider")
+      .slider("values", 0, 0)
+      .slider("values", 1, filesize_values.length - 1);
+  });
+
+
   jQuery("select[name=filter_prefilter]").change(function() {
     jQuery("#empty_caddie").toggle(jQuery(this).val() == "caddie");
   });
@@ -460,6 +497,21 @@ $(document).ready(function() {
 				{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 				<a href="admin/popuphelp.php?page=quick_search" onclick="popuphelp(this.href);return false;" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
 			</li>
+
+      <li id="filter_filesize" {if !isset($filter.filesize)}style="display:none"{/if}>
+        <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
+        <input type="checkbox" name="filter_filesize_use" class="useFilterCheckbox" {if isset($filter.filesize)}checked="checked"{/if}>
+        {'Filesize'|@translate}
+
+        <blockquote>
+          <span id="filter_filesize_info">{'between %s and %s MB'|@translate:$filesize.selected.min:$filesize.selected.max}</span>
+          | <a class="filesize-choice">{'Reset'|@translate}</a>
+          <div id="filter_filesize_slider"></div>
+        </blockquote>
+
+        <input type="hidden" name="filter_filesize_min" value="{$filesize.selected.min}">
+        <input type="hidden" name="filter_filesize_max" value="{$filesize.selected.max}">
+      </li>
     </ul>
 
     <p class="actionButtons">
@@ -471,6 +523,7 @@ $(document).ready(function() {
         <option value="filter_tags" {if isset($filter.tags)}disabled="disabled"{/if}>{'Tags'|@translate}</option>
         <option value="filter_level" {if isset($filter.level)}disabled="disabled"{/if}>{'Privacy level'|@translate}</option>
         <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
+        <option value="filter_filesize" {if isset($filter.filesize)}disabled="disabled"{/if}>{'Filesize'|@translate}</option>
 				<option value="filter_search"{if isset($filter.search)} disabled="disabled"{/if}>{'Search'|@translate}</option>
       </select>
       <a id="removeFilters">{'Remove all filters'|@translate}</a>

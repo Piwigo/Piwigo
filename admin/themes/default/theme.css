@@ -978,8 +978,8 @@ LEGEND {
 #batchManagerGlobal #applyFilterBlock {margin-top:20px;}
 #batchManagerGlobal .useFilterCheckbox {display:none;}
 
-#batchManagerGlobal #filter_dimension blockquote {margin:5px 0 20px 15px;}
-#batchManagerGlobal #filter_dimension .ui-slider-horizontal {width:650px;margin:5px 0 10px 0;}
+#batchManagerGlobal blockquote {margin:5px 0 20px 15px;}
+#batchManagerGlobal .ui-slider-horizontal {width:650px;margin:5px 0 10px 0;}
 
 #order_filters a.addFilter {font-weight:normal;margin-left:20px;}
 #order_filters a.removeFilter {font-weight:normal;}

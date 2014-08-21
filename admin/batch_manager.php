@@ -132,6 +132,17 @@ if (isset($_POST['submitFilter']))
     }
   }
 
+  if (isset($_POST['filter_filesize_use']))
+  {
+    foreach (array('min','max') as $type)
+    {
+      if ( preg_match('#^[0-9\.]+$#', $_POST['filter_filesize_'. $type ]) )
+      {
+        $_SESSION['bulk_manager_filter']['filesize'][$type] = $_POST['filter_filesize_'. $type ];
+      }
+    }
+  }
+
   if (isset($_POST['filter_search_use']))
   {
     $_SESSION['bulk_manager_filter']['search']['q'] = $_POST['q'];
@@ -412,6 +423,29 @@ SELECT id
   $filter_sets[] = query2array($query, null, 'id');
 }
 
+if (isset($_SESSION['bulk_manager_filter']['filesize']))
+{
+  $where_clauses = array();
+  
+  if (isset($_SESSION['bulk_manager_filter']['filesize']['min']))
+  {
+    $where_clause[] = 'filesize >= '.$_SESSION['bulk_manager_filter']['filesize']['min']*1024;
+  }
+  
+  if (isset($_SESSION['bulk_manager_filter']['filesize']['max']))
+  {
+    $where_clause[] = 'filesize <= '.$_SESSION['bulk_manager_filter']['filesize']['max']*1024;
+  }
+
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE '.implode(' AND ',$where_clause).'
+  '.$conf['order_by'];
+
+  $filter_sets[] = query2array($query, null, 'id');
+}
+
 if (isset($_SESSION['bulk_manager_filter']['search']))
 {
   include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
@@ -579,6 +613,55 @@ foreach (array_keys($dimensions['bounds']) as $type)
 
 $template->assign('dimensions', $dimensions);
 
+// +-----------------------------------------------------------------------+
+// | filesize                                                              |
+// +-----------------------------------------------------------------------+
+
+$filesizes = array();
+
+$query = '
+SELECT
+  filesize
+  FROM '.IMAGES_TABLE.'
+  WHERE filesize IS NOT NULL
+  GROUP BY filesize
+;';
+$result = pwg_query($query);
+
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $filesizes[] = sprintf('%.1f', $row['filesize']/1024);
+}
+
+if (empty($filesizes))
+{ // arbitrary values, only used when no photos on the gallery
+  $filesizes = array(0, 1, 2, 5, 8, 15);
+}
+
+$filesizes = array_unique($filesizes);
+sort($filesizes);
+
+// add 0.1MB to the last value, to make sure the heavier photo will be in
+// the result
+$filesizes[count($filesizes)-1]+= 0.1;
+
+$filesize['list'] = implode(',', $filesizes);
+
+$filesize['bounds'] = array(
+  'min' => $filesizes[0],
+  'max' => $filesizes[count($filesizes)-1],
+  );
+
+// selected=bound if nothing selected
+foreach (array_keys($filesize['bounds']) as $type)
+{
+  $filesize['selected'][$type] = isset($_SESSION['bulk_manager_filter']['filesize'][$type])
+    ? $_SESSION['bulk_manager_filter']['filesize'][$type]
+    : $filesize['bounds'][$type]
+  ;
+}
+
+$template->assign('filesize', $filesize);
 
 // +-----------------------------------------------------------------------+
 // |                         open specific mode                            |

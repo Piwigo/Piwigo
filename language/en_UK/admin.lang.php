@@ -975,4 +975,5 @@ $lang['close'] = 'close';
 $lang['Open user details'] = 'Open user details';
 $lang['Close user details'] = 'Close user details';
 $lang['Empty caddie'] = 'Empty caddie';
+$lang['between %s and %s MB'] = 'between %s and %s MB';
 ?>
