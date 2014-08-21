@@ -971,3 +971,4 @@ $lang['Mail address is mandatory for registration'] = 'Lai reģistrētos, e-past
 $lang['Impossible to deactivate the default theme.'] = 'Neiespējami deaktivēt noklusējuma tēmu';
 $lang['Empty caddie'] = 'Iztukšot vāceli';
 $lang['Allow users to add a link to their website'] = 'Ļaut lietotājiem pievienot saiti uz savu m;ajas lapu';
+$lang['The settings for the guest are from the %s user'] = 'Viesa iestatījumi ir no %s lietotāja';
