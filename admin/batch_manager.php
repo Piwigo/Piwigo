@@ -295,7 +295,7 @@ SELECT
     $query = '
 SELECT file
   FROM '.IMAGES_TABLE.'
-  GROUP BY file
+  GROUP BY file, date_creation
   HAVING COUNT(*) > 1
 ;';
     $duplicate_files = query2array($query, null, 'file');
