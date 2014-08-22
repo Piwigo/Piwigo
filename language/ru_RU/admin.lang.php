@@ -978,3 +978,4 @@ $lang['Impossible to deactivate the default theme.'] = 'Невозможно о�
 $lang['Mail address is mandatory for registration'] = 'Адрес электронной почты является обязательным для регистрации';
 $lang['Empty caddie'] = 'Корзинка пустая';
 $lang['The settings for the guest are from the %s user'] = 'Параметры для "Гостя" от пользователя %s';
+$lang['between %s and %s MB'] = 'от %s до %s MB';
