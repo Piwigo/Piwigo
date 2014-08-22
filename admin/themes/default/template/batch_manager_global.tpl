@@ -392,6 +392,7 @@ $(document).ready(function() {
 
   jQuery("select[name=filter_prefilter]").change(function() {
     jQuery("#empty_caddie").toggle(jQuery(this).val() == "caddie");
+    jQuery("#duplicates_options").toggle(jQuery(this).val() == "duplicates");
   });
 });
 
@@ -418,6 +419,13 @@ $(document).ready(function() {
           {/foreach}
         </select>
         <a id="empty_caddie" href="admin.php?page=batch_manager&amp;action=empty_caddie" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'caddie'}display:none{/if}">{'Empty caddie'|translate}</a>
+
+        <span id="duplicates_options" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'duplicates'}display:none{/if}">
+          {'based on'|translate}
+          <input type="checkbox" checked="checked" disabled="disabled"> {'file name'|translate}
+          <label><input type="checkbox" name="filter_duplicates_date" {if isset($filter.duplicates_date) or (isset($filter.prefilter) and $filter.prefilter ne 'duplicates')}checked="checked"{/if}> {'date & time'|translate}</label>
+          <label><input type="checkbox" name="filter_duplicates_dimensions" {if isset($filter.duplicates_dimensions)}checked="checked"{/if}> {'width & height'|translate}</label>
+        </span>
       </li>
 
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>

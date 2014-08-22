@@ -981,6 +981,8 @@ LEGEND {
 #batchManagerGlobal blockquote {margin:5px 0 20px 15px;}
 #batchManagerGlobal .ui-slider-horizontal {width:650px;margin:5px 0 10px 0;}
 
+#batchManagerGlobal #duplicates_options label {margin-left:10px;}
+
 #order_filters a.addFilter {font-weight:normal;margin-left:20px;}
 #order_filters a.removeFilter {font-weight:normal;}
 #order_filters span.property span.filter:first-child a.removeFilter {display:none;} /* can't delete the first field */

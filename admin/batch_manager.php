@@ -79,6 +79,19 @@ if (isset($_POST['submitFilter']))
   if (isset($_POST['filter_prefilter_use']))
   {
     $_SESSION['bulk_manager_filter']['prefilter'] = $_POST['filter_prefilter'];
+
+    if ('duplicates' == $_POST['filter_prefilter'])
+    {
+      if (isset($_POST['filter_duplicates_date']))
+      {
+        $_SESSION['bulk_manager_filter']['duplicates_date'] = true;
+      }
+      
+      if (isset($_POST['filter_duplicates_dimensions']))
+      {
+        $_SESSION['bulk_manager_filter']['duplicates_dimensions'] = true;
+      }
+    }
   }
 
   if (isset($_POST['filter_category_use']))
@@ -300,23 +313,36 @@ SELECT
 
 
   case 'duplicates':
-    // we could use the group_concat MySQL function to retrieve the list of
-    // image_ids but it would not be compatible with PostgreSQL, so let's
-    // perform 2 queries instead. We hope there are not too many duplicates.
+    $duplicates_on_fields = array('file');
+
+    if (isset($_SESSION['bulk_manager_filter']['duplicates_date']))
+    {
+      $duplicates_on_fields[] = 'date_creation';
+    }
+    
+    if (isset($_SESSION['bulk_manager_filter']['duplicates_dimensions']))
+    {
+      $duplicates_on_fields[] = 'width';
+      $duplicates_on_fields[] = 'height';
+    }
+    
     $query = '
-SELECT file
+SELECT
+    GROUP_CONCAT(id) AS ids
   FROM '.IMAGES_TABLE.'
-  GROUP BY file, date_creation
+  GROUP BY '.implode(',', $duplicates_on_fields).'
   HAVING COUNT(*) > 1
 ;';
-    $duplicate_files = query2array($query, null, 'file');
+    $array_of_ids_string = query2array($query, null, 'ids');
 
-    $query = '
-SELECT id
-  FROM '.IMAGES_TABLE.'
-  WHERE file IN (\''.implode("','", array_map('pwg_db_real_escape_string', $duplicate_files)).'\')
-;';
-    $filter_sets[] = query2array($query, null, 'id');
+    $ids = array();
+    
+    foreach ($array_of_ids_string as $ids_string)
+    {
+      $ids = array_merge($ids, explode(',', $ids_string));
+    }
+    
+    $filter_sets[] = $ids;
 
     break;
 

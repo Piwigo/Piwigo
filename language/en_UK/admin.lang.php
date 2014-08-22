@@ -976,4 +976,8 @@ $lang['Open user details'] = 'Open user details';
 $lang['Close user details'] = 'Close user details';
 $lang['Empty caddie'] = 'Empty caddie';
 $lang['between %s and %s MB'] = 'between %s and %s MB';
+$lang['based on'] = 'based on';
+$lang['file name'] = 'file name';
+$lang['date & time'] = 'date & time';
+$lang['width & height'] = 'width & height';
 ?>
