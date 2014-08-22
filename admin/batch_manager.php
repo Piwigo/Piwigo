@@ -131,14 +131,14 @@ if (isset($_POST['submitFilter']))
   {
     foreach (array('min_width','max_width','min_height','max_height') as $type)
     {
-      if ( preg_match('#^[0-9]+$#', $_POST['filter_dimension_'. $type ]) )
+      if (filter_var($_POST['filter_dimension_'.$type], FILTER_VALIDATE_INT) !== false)
       {
         $_SESSION['bulk_manager_filter']['dimension'][$type] = $_POST['filter_dimension_'. $type ];
       }
     }
     foreach (array('min_ratio','max_ratio') as $type)
     {
-      if ( preg_match('#^[0-9\.]+$#', $_POST['filter_dimension_'. $type ]) )
+      if (filter_var($_POST['filter_dimension_'.$type], FILTER_VALIDATE_FLOAT) !== false)
       {
         $_SESSION['bulk_manager_filter']['dimension'][$type] = $_POST['filter_dimension_'. $type ];
       }
@@ -149,7 +149,7 @@ if (isset($_POST['submitFilter']))
   {
     foreach (array('min','max') as $type)
     {
-      if ( preg_match('#^[0-9\.]+$#', $_POST['filter_filesize_'. $type ]) )
+      if (filter_var($_POST['filter_filesize_'.$type], FILTER_VALIDATE_FLOAT) !== false)
       {
         $_SESSION['bulk_manager_filter']['filesize'][$type] = $_POST['filter_filesize_'. $type ];
       }
