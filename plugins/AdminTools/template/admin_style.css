@@ -7,6 +7,7 @@
 
 .multiview {
   display:none;
+  z-index:1000;
 }
 
 #ato_container>ul {

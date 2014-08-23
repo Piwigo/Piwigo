@@ -4,6 +4,9 @@
 {combine_css path=$ADMINTOOLS_PATH|cat:'template/fontello/css/fontello-ato.css'}
 
 {if isset($ato.QUICK_EDIT)}
+  {*<!-- mousetrap -->*}
+  {combine_script id='mousetrap' load='footer' path=$ADMINTOOLS_PATH|cat:'template/mousetrap.min.js'}
+  
   {*<!-- colorbox -->*}
   {combine_script id='jquery.colorbox' load='footer' require='jquery' path='themes/default/js/plugins/jquery.colorbox.min.js'}
   {combine_css id='colorbox' path='themes/default/js/plugins/colorbox/style2/colorbox.css'}

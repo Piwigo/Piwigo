@@ -241,7 +241,7 @@ var AdminTools = function($) {
 
     // try to find background color matching text color
     // there is a 1s delay to wait for jQuery Mobile initialization
-    setTimeout(function() {
+    function bgColor() {
       var bg_color = 'white';
       var selectors = ['#the_page #content', '[data-role="page"]', 'body'];
 
@@ -254,18 +254,12 @@ var AdminTools = function($) {
       }
 
       $ato_edit.css('background-color', bg_color);
-    }, 1000);
+    }
 
     $ato_edit.find('.close-edit').on('click', function(e) {
       $.colorbox.close()
       e.preventDefault();
     });
-
-    if (is_picture) {
-      $ato_edit.find('.datepicker').datepicker({
-        dateFormat: 'yy-mm-dd'
-      });
-    }
 
     $(".edit-quick").colorbox({
       inline: true,
@@ -275,43 +269,61 @@ var AdminTools = function($) {
       top: 50,
       title: $ato_edit.attr('title'),
 
+      onComplete: function() {
+        setTimeout(function() {
+          $('#quick_edit_name').focus();
+        }, 0);
+      },
+
       onOpen: function() {
-        if (!is_picture) return;
+        bgColor();
 
-        // fetch tags list on first open
-        if ($(this).data('tags-init')) return;
+        if (is_picture) {
+          $ato_edit.find('.datepicker').datepicker({
+            dateFormat: 'yy-mm-dd'
+          });
 
-        $.ajax({
-          method: 'POST',
-          url: __this.urlWS + 'pwg.tags.getList',
-          dataType: 'json',
-          success: function(data) {
-            var tags = [];
-            // convert to custom format
-            for (var i=0, l=data.result.tags.length; i<l; i++) {
-              tags.push({
-                id: '~~'+ data.result.tags[i].id +'~~',
-                name: data.result.tags[i].name
-              });
+          // fetch tags list on first open
+          if ($(this).data('tags-init')) return;
+
+          $.ajax({
+            method: 'POST',
+            url: __this.urlWS + 'pwg.tags.getList',
+            dataType: 'json',
+            success: function(data) {
+              var tags = [];
+              // convert to custom format
+              for (var i=0, l=data.result.tags.length; i<l; i++) {
+                tags.push({
+                  id: '~~'+ data.result.tags[i].id +'~~',
+                  name: data.result.tags[i].name
+                });
+              }
+
+              $ato_edit.find('.tags').tokenInput(
+                tags,
+                $.extend({
+                  animateDropdown: false,
+                  preventDuplicates: true,
+                  allowFreeTagging: true
+                }, tokeninput_lang)
+              );
+
+              $.colorbox.resize();
+              $(this).data('tags-init', true);
+            },
+            error: function(xhr, text, error) {
+              alert(text + ' ' + error);
             }
-
-            $ato_edit.find('.tags').tokenInput(
-              tags,
-              $.extend({
-                animateDropdown: false,
-                preventDuplicates: true,
-                allowFreeTagging: true
-              }, tokeninput_lang)
-            );
-
-            $.colorbox.resize();
-            $(this).data('tags-init', true);
-          },
-          error: function(xhr, text, error) {
-            alert(text + ' ' + error);
-          }
-        });
+          });
+        }
       }
+    });
+
+    // Ctrl+E opens the quick edit
+    Mousetrap.bind('mod+e', function(e) {
+      e.preventDefault();
+      $(".edit-quick").click();
     });
   };
 
