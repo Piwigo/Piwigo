@@ -22,6 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 define ('PHPWG_ROOT_PATH', './');
+define ('IN_WS', true);
 
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 check_status(ACCESS_FREE);
