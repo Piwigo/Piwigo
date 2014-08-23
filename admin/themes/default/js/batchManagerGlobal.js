@@ -43,6 +43,10 @@ $("#removeFilters").click(function() {
 	return false;
 });
 
+$('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
+$('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
+$('[data-slider=ratios]').pwgDoubleSlider(sliders.ratios);
+$('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
 
 
 /* ********** Thumbs */

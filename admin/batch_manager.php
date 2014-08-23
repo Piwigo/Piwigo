@@ -535,6 +535,7 @@ $tabsheet->assign();
 $widths = array();
 $heights = array();
 $ratios = array();
+$dimensions = array();
 
 // get all width, height and ratios
 $query = '
@@ -565,28 +566,20 @@ if (empty($widths))
   $ratios = array(1.25, 1.52, 1.78);
 }
 
-
-
-$widths = array_unique($widths);
-sort($widths);
-
-$heights = array_unique($heights);
-sort($heights);
-
-$ratios = array_unique($ratios);
-sort($ratios);
-
-$dimensions['widths'] = implode(',', $widths);
-$dimensions['heights'] = implode(',', $heights);
-$dimensions['ratios'] = implode(',', $ratios);
+foreach (array('widths','heights','ratios') as $type)
+{
+  ${$type} = array_unique(${$type});
+  sort(${$type});
+  $dimensions[$type] = implode(',', ${$type});
+}
 
 $dimensions['bounds'] = array(
   'min_width' => $widths[0],
-  'max_width' => $widths[count($widths)-1],
+  'max_width' => end($widths),
   'min_height' => $heights[0],
-  'max_height' => $heights[count($heights)-1],
+  'max_height' => end($heights),
   'min_ratio' => $ratios[0],
-  'max_ratio' => $ratios[count($ratios)-1],
+  'max_ratio' => end($ratios),
   );
 
 // find ratio categories
@@ -617,13 +610,13 @@ foreach ($ratios as $ratio)
   }
 }
 
-foreach (array_keys($ratio_categories) as $ratio_category)
+foreach (array_keys($ratio_categories) as $type)
 {
-  if (count($ratio_categories[$ratio_category]) > 0)
+  if (count($ratio_categories[$type]) > 0)
   {
-    $dimensions['ratio_'.$ratio_category] = array(
-      'min' => $ratio_categories[$ratio_category][0],
-      'max' => array_pop($ratio_categories[$ratio_category]),
+    $dimensions['ratio_'.$type] = array(
+      'min' => $ratio_categories[$type][0],
+      'max' => end($ratio_categories[$type]),
       );
   }
 }
@@ -644,6 +637,7 @@ $template->assign('dimensions', $dimensions);
 // +-----------------------------------------------------------------------+
 
 $filesizes = array();
+$filesize = array();
 
 $query = '
 SELECT
@@ -675,7 +669,7 @@ $filesize['list'] = implode(',', $filesizes);
 
 $filesize['bounds'] = array(
   'min' => $filesizes[0],
-  'max' => $filesizes[count($filesizes)-1],
+  'max' => end($filesizes),
   );
 
 // selected=bound if nothing selected
