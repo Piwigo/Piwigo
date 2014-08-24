@@ -31,11 +31,33 @@ jQuery(document).ready(function(){
     $('.pluginBox').sortElements(sortPlugins);
     $.get("admin.php?plugins_new_order="+sortOrder);
   });
+  
+  jQuery('#filter').keyup(function(){
+  var filter = $(this).val();
+  if (filter.length>2) {
+   $('.pluginBox').hide();
+    $('#availablePlugins .pluginBox input[name="name"]').each(function(){
+      if ($(this).val().toUpperCase().indexOf(filter.toUpperCase()) != -1) {
+       $(this).parents('div').show();
+      }
+    });
+  }
+  else {
+    $('.pluginBox').show();
+  }
+ });
+ jQuery("#filter").focus();
+ jQuery(".titrePage input[name='Clear']").click(function(){
+   $("#filter").val('');
+   $(".pluginBox").show();
+ });
 });
 {/literal}{/footer_script}
 
 <div class="titrePage">
 <span class="sort">
+{'Filter'|@translate} : <input type="text" id="filter">
+<input type="button" name="Clear" Value="{'Clear'|@translate}"> |
 {'Sort order'|@translate} : 
 {html_options name="selectOrder" options=$order_options selected=$order_selected}
 </span>
