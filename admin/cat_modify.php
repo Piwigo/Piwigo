@@ -132,6 +132,16 @@ if (isset($_POST['submit']))
     $data,
     array('id' => $data['id'])
     );
+  if ($_POST['apply_commentable_on_sub'])
+  {
+    $subcats = get_subcat_ids(array('id' => $data['id']));
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET commentable = \''.$data['commentable'].'\'
+  WHERE id IN ('.implode(',', $subcats).')
+;';
+    pwg_query($query);
+  }
 
   // retrieve cat infos before continuing (following updates are expensive)
   $cat_info = get_cat_info($_GET['cat_id']);

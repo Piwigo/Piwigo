@@ -125,6 +125,10 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
     <strong>{'Comments'|@translate}</strong>
     <br>
 		{html_radios name='commentable' values=['false','true'] output=['No'|translate,'Yes'|translate] selected=$CAT_COMMENTABLE}
+    <label id="applytoSubAction">
+      <input type="checkbox" name="apply_commentable_on_sub">
+      {'Apply to sub-albums'|@translate}
+    </label>
   </p>
   {/if}
 
