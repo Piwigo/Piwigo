@@ -979,3 +979,7 @@ $lang['Mail address is mandatory for registration'] = 'Адрес электро
 $lang['Empty caddie'] = 'Корзинка пустая';
 $lang['The settings for the guest are from the %s user'] = 'Параметры для "Гостя" от пользователя %s';
 $lang['between %s and %s MB'] = 'от %s до %s MB';
+$lang['based on'] = 'Основано на';
+$lang['date & time'] = 'дата и время';
+$lang['file name'] = 'имя файла';
+$lang['width & height'] = 'ширина и высота';
