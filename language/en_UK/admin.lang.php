@@ -523,6 +523,7 @@ $lang['New photos were added'] = "New photos have been added";
 $lang['New tag'] = "New tag";
 $lang['New Version'] = 'New Version';
 $lang['new'] = "new";
+$lang['No and unlock sub-albums'] = 'No and unlock sub-albums';
 $lang['No destination tag selected'] = 'No destination tag selected';
 $lang['No display'] = "No display";
 $lang['No file was uploaded'] = 'No file was uploaded';
