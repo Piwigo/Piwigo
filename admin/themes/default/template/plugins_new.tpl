@@ -57,7 +57,7 @@ jQuery(document).ready(function(){
 <div class="titrePage">
 <span class="sort">
 {'Filter'|@translate} : <input type="text" id="filter">
-<input type="button" name="Clear" Value="{'Clear'|@translate}"> |
+<input type="button" name="Clear" Value="{'Cancel'|@translate}"> |
 {'Sort order'|@translate} : 
 {html_options name="selectOrder" options=$order_options selected=$order_selected}
 </span>
