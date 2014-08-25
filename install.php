@@ -495,6 +495,8 @@ else
         get_l10n_args('Welcome to your new installation of Piwigo!', ''),
         get_l10n_args('', ''),
         get_l10n_args('Here are your connection settings', ''),
+        get_l10n_args('', ''),
+        get_l10n_args('Link: %s', get_absolute_root_url()),
         get_l10n_args('Username: %s', $admin_name),
         get_l10n_args('Password: %s', $admin_pass1),
         get_l10n_args('Email: %s', $admin_mail),
