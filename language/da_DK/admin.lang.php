@@ -984,3 +984,4 @@ $lang['between %s and %s MB'] = 'mellem %s og %s MB';
 $lang['date & time'] = 'dato og tid';
 $lang['file name'] = 'filnavn';
 $lang['width & height'] = 'bredde og højde';
+$lang['No and unlock sub-albums'] = 'Nej, og lås underalbummer op';
