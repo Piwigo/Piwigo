@@ -983,3 +983,4 @@ $lang['based on'] = 'Основано на';
 $lang['date & time'] = 'дата и время';
 $lang['file name'] = 'имя файла';
 $lang['width & height'] = 'ширина и высота';
+$lang['No and unlock sub-albums'] = 'Нет, и разблокировать вложенные альбомы';
