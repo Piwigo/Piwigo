@@ -70,6 +70,17 @@ class PluginMaintain
    * @param array &$errors - used to return error messages
    */
   function update($old_version, $new_version, &$errors=array()) {}
+  
+  /**
+   * @removed 2.7
+   */
+  function autoUpdate()
+  {
+    if (is_admin() && !defined('IN_WS'))
+    {
+      trigger_error('Function PluginMaintain::autoUpdate deprecated', E_USER_WARNING);
+    }
+  }
 }
 
 /**
