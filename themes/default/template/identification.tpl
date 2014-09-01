@@ -18,7 +18,7 @@
         <span class="property">
           <label for="username">{'Username'|@translate}</label>
         </span>
-        <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40">
+        <input tabindex="1" class="login" type="text" name="username" id="username" size="25">
       </li>
 
       <li>
