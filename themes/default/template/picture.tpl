@@ -82,7 +82,7 @@ function changeImgSrc(url,typeSave,typeMap)
 	</a>
 {/if}{/strip}
 {strip}{if isset($U_PHOTO_ADMIN)}
-	<a id="cmdEditPhoto" href="{$U_PHOTO_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+	<a id="cmdEditPhoto" href="{$U_PHOTO_ADMIN}" title="{'Edit photo'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-edit"></span><span class="pwg-button-text">{'Edit'|@translate}</span>
 	</a>
 {/if}{/strip}
