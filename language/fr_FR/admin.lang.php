@@ -982,4 +982,5 @@ $lang['based on'] = 'basé sur';
 $lang['file name'] = 'nom de fichier';
 $lang['date & time'] = 'date et heure';
 $lang['width & height'] = 'largeur et hauteur';
-$lang['No and unlock sub-albums'] = 'Déverrouiller ou non les sous-albums';
+$lang['No and unlock sub-albums'] = 'Non, et déverrouiller les sous-albums';
+$lang['Upload in progress'] = 'Transfert en cours...';

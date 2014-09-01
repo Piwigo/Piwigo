@@ -981,4 +981,5 @@ $lang['based on'] = 'based on';
 $lang['file name'] = 'file name';
 $lang['date & time'] = 'date & time';
 $lang['width & height'] = 'width & height';
+$lang['Upload in progress'] = 'Upload in progress';
 ?>

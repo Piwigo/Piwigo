@@ -103,6 +103,11 @@ jQuery(document).ready(function(){
       BeforeUpload: function(up, file) {
         console.log('[BeforeUpload]', file);
 
+        // warn user if she wants to leave page while upload is running
+        jQuery(window).bind('beforeunload', function() {
+          return "{/literal}{'Upload in progress'|translate|escape}{literal}";
+        });
+
         // no more change on category/level
         jQuery("select[name=level]").attr("disabled", "disabled");
 
@@ -165,10 +170,12 @@ jQuery(document).ready(function(){
         jQuery(".batchLink").html(sprintf(batch_Label, uploadedPhotos.length));
 
         jQuery(".afterUploadActions").show();
+
+        // user can safely leave page without warning
+        jQuery(window).unbind('beforeunload');
       }
     }
 	});
-
 {/literal}
 });
 {/footer_script}
