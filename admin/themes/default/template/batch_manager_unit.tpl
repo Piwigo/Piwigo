@@ -43,7 +43,6 @@ jQuery("a.preview-box").colorbox();
       <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
     | <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
     | <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
-    | <a href="{$U_ELEMENTS_PAGE}&amp;display=all">{'all'|@translate}</a>
   </p>
 
 </fieldset>

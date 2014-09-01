@@ -133,14 +133,7 @@ $template->assign(
 // how many items to display on this page
 if (!empty($_GET['display']))
 {
-  if ('all' == $_GET['display'])
-  {
-    $page['nb_images'] = count($page['cat_elements_id']);
-  }
-  else
-  {
-    $page['nb_images'] = intval($_GET['display']);
-  }
+  $page['nb_images'] = intval($_GET['display']);
 }
 else
 {
