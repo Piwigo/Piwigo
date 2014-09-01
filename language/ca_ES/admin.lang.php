@@ -307,7 +307,6 @@ $lang['Piwigo configuration'] = 'Configuració del Piwigo';
 $lang['Edit album'] = 'Edita l\'àlbum';
 $lang['Group management'] = 'Gestió de grups';
 $lang['User list'] = 'Llista d\'usuaris';
-$lang['Edit photo information'] = 'Edita la informació de la foto';
 $lang['Database synchronization with files'] = 'Sincronització d\'arxius amb la la base de dades';
 $lang['all'] = 'Totes';
 $lang['height must be a number superior to'] = 'l\'alçada ha de ser un número superior a';

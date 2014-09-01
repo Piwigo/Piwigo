@@ -477,7 +477,6 @@ $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 
 $lang['Edit album'] = 'Endre album';
 $lang['Edit album permissions'] = 'Endre ablumtilgang';
 $lang['Edit photo'] = 'Endre bilete';
-$lang['Edit photo information'] = 'Endre biletinformasjon';
 $lang['Edit ranks'] = 'Endre rangering';
 $lang['Edit selected tags'] = 'Endre valde stikkord';
 $lang['Edit tags'] = 'Endre stikkord';

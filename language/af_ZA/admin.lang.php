@@ -619,7 +619,6 @@ $lang['Dump Database'] = 'Stort databasis';
 $lang['Duplicates'] = 'Kopieë';
 $lang['Edit album permissions'] = 'Verander album toegang';
 $lang['Edit album'] = 'Verander album';
-$lang['Edit photo information'] = 'Verander foto inligting';
 $lang['Edit photo'] = 'Bewerk foto';
 $lang['Edit ranks'] = 'Verander range';
 $lang['Edit selected tags'] = 'Verander geselekteerde etikette';

@@ -331,7 +331,6 @@ $lang['Piwigo configuration'] = 'Piwigo postave';
 $lang['Edit album'] = 'Uredi skupinu';
 $lang['Group management'] = 'Upravljanje grupama';
 $lang['User list'] = 'Popis korisnika';
-$lang['Edit photo information'] = 'Promjena podataka o slici';
 $lang['Thumbnail creation'] = 'Izrada poveznij sličica';
 $lang['Database synchronization with files'] = 'Usklađivanje baze podataka sa zapisima';
 $lang['all'] = 'sve';

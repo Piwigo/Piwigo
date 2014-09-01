@@ -324,7 +324,6 @@ $lang['Piwigo configuration'] = 'Piwigo konfigurācija';
 $lang['Edit album'] = 'Rediģēt albūmu';
 $lang['Group management'] = 'Pārvaldīt grupas';
 $lang['User list'] = 'Lietotāju saraksts';
-$lang['Edit photo information'] = 'Rediģēt informāciju par foto';
 $lang['Database synchronization with files'] = 'Datu bāzes sinhronizācija ar failiem';
 $lang['all'] = 'viss';
 $lang['height must be a number superior to'] = 'augstuman jābūt skaitlim lielākam par';

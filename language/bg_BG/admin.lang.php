@@ -365,7 +365,6 @@ $lang['Drop into album'] = 'Избор на албум';
 $lang['ERROR'] = 'ГРЕШКА';
 $lang['Edit album permissions'] = 'Редактиране албумни разрешения';
 $lang['Edit album'] = 'Редакция на албум';
-$lang['Edit photo information'] = 'Редакция информацията на снимка';
 $lang['Edit selected tags'] = 'Редактиране на избраните тагове';
 $lang['Edit tags'] = 'Редактиране на тагове';
 $lang['Element'] = 'Елемент';

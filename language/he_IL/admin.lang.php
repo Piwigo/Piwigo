@@ -320,7 +320,6 @@ $lang['Piwigo configuration'] = 'תצורה Piwigo';
 $lang['Edit album'] = 'ערוך קטגוריה';
 $lang['Group management'] = 'ניהול קבוצות';
 $lang['User list'] = 'רשימת משתמשים';
-$lang['Edit photo information'] = 'שינוי פרטים בתמונה';
 $lang['Database synchronization with files'] = 'מסד נתונים לסינכרון עם קבצים';
 $lang['all'] = 'כל';
 $lang['height must be a number superior to'] = 'גובה חייב להיות מספר גדול יותר';

@@ -154,7 +154,6 @@ $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 
 $lang['Edit album'] = 'Modificar álbum';
 $lang['Edit album permissions'] = 'Modificar os permisos do álbum';
 $lang['Edit photo'] = 'Modificar foto';
-$lang['Edit photo information'] = 'Modificar a información da foto';
 $lang['Edit ranks'] = 'Modificar valoracións';
 $lang['Edit selected tags'] = 'Modificar as etiquetas seleccionadas';
 $lang['Edit tags'] = 'Modificar as etiquetas';

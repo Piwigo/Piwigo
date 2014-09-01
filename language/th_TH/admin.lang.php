@@ -241,7 +241,6 @@ $lang['Drag to re-order'] = "คลิก-และ-ลาก เพื่อก
 $lang['Drop into album'] = 'เลือกอัลบั้มรูป';
 $lang['Edit album permissions'] = "แก้ไขการเข้าถึงอัลบั้ม";
 $lang['Edit album'] = "แก้ไขอัลบั้ม";
-$lang['Edit photo information'] = "แก้ไขเพิ่มเติมข้อมูลรูปภาพ";
 $lang['Edit ranks'] = "แก้ไขอันดับ";
 $lang['Edit selected tags'] = "แก้ไขแท็กที่เลือก";
 $lang['Edit tags'] = "ไก้ไขแท็ก";

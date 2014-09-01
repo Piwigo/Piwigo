@@ -324,7 +324,6 @@ $lang['Piwigo configuration'] = "پیکربندی Piwigo";
 $lang['Edit album'] = 'ویرایش آلبوم';
 $lang['Group management'] = 'مدیریت گروه‌ها';
 $lang['User list'] = "لیست کاربران";
-$lang['Edit photo information'] = 'ویرایش اطلاعات عکس';
 $lang['Database synchronization with files'] = 'همگام‌ سازی پایگاه‌ داده با فایل‌ها';
 $lang['all'] = "همه";
 $lang['height must be a number superior to'] = 'بلندا باید بزرگتر باشد از';

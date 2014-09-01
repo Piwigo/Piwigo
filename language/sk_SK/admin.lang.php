@@ -323,7 +323,6 @@ $lang['Piwigo configuration'] = 'Nastavenie aplikácie Piwigo';
 $lang['Edit album'] = 'Editovať album';
 $lang['Group management'] = 'Správa skupín';
 $lang['User list'] = 'Zoznam používateľov';
-$lang['Edit photo information'] = 'Upraviť informácie o fotografii';
 $lang['Database synchronization with files'] = 'Synchronizácia databázy so súbormi';
 $lang['all'] = 'všetko';
 $lang['height must be a number superior to'] = 'výška musí byť väčšia ako';

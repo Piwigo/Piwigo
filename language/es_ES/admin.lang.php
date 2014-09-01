@@ -821,7 +821,6 @@ $lang['Cancel'] = 'Cancelar';
 $lang['Center of interest'] = 'Centro de interés';
 $lang['Edit album permissions'] = 'Editar permisos de un álbum';
 $lang['Edit album'] = 'Editar álbum';
-$lang['Edit photo information'] = 'Editar información de la foto';
 $lang['List'] = 'Lista';
 $lang['Move to album'] = 'Mover al álbum';
 $lang['Not cropped correctly?'] = '¿No se ha recortado correctamente?';

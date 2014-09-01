@@ -94,7 +94,6 @@ $lang['History'] = 'ಇತಿಹಾಸ';
 $lang['Hour'] = 'ಗಂಟೆ';
 $lang['Edit album permissions'] = 'ಸಂಪುಟದ ಅನುಮತಿಗಳನ್ನು ಸಂಪಾದಿಸಿ';
 $lang['Edit photo'] = 'ಚಿತ್ರವನ್ನು ಸಂಪಾದಿಸಿ';
-$lang['Edit photo information'] = 'ಚಿತ್ರದ ಮಾಹಿತಿಯ';
 $lang['Edit ranks'] = 'ದರ್ಜೆಗಳನ್ನು ಸಂಪಾದಿಸಿ';
 $lang['Edit selected tags'] = 'ಆರಿಸಿದ ಟ್ಯಾಗ್ ಗಳನ್ನು ಸಂಪಾದಿಸಿ';
 $lang['Edit tags'] = 'ಟ್ಯಾಗ್ ಗಳನ್ನು ಸಂಪಾದಿಸಿ';

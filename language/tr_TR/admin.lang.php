@@ -260,7 +260,6 @@ $lang['Dump Database'] = 'Vertitabanı Dökümü';
 $lang['Duplicates'] = 'Kopyalar';
 $lang['Edit album permissions'] = 'Albüm yetkilerini düzenle';
 $lang['Edit album'] = 'Albüm düzenle';
-$lang['Edit photo information'] = 'Fotoğraf bilgilerini düzenle';
 $lang['Edit ranks'] = 'Rütbeleri yönet';
 $lang['Edit selected tags'] = 'Seçilen etiketleri düzenle';
 $lang['Edit tags'] = 'Etiketleri düzenle';

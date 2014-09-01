@@ -318,7 +318,6 @@ $lang['Piwigo configuration'] = 'Piwigo konfiguráció';
 $lang['Edit album'] = 'Album szerkesztése';
 $lang['Group management'] = 'Csoportok kezelése';
 $lang['User list'] = 'Felhasználók listája';
-$lang['Edit photo information'] = 'Képinformációk módosítása';
 $lang['Database synchronization with files'] = 'Adatbázis szinkronizálása ezzel a mappával';
 $lang['all'] = 'összes';
 $lang['height must be a number superior to'] = 'a magasságnak ennél nagyobbnak kell lennie:';

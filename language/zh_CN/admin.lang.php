@@ -322,7 +322,6 @@ $lang['Piwigo configuration'] = 'Piwigo配置';
 $lang['Edit album'] = '编辑相册';
 $lang['Group management'] = '组管理';
 $lang['User list'] = '用户列表';
-$lang['Edit photo information'] = '修改图片信息';
 $lang['Database synchronization with files'] = '根据文件来同步数据库';
 $lang['all'] = '所有';
 $lang['height must be a number superior to'] = '图片高度必须大于(整数)';

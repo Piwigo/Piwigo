@@ -233,7 +233,6 @@ $lang['Drop into album'] = 'Вибрати альбом';
 $lang['Duplicates'] = 'дублікати';
 $lang['Edit album permissions'] = 'Редагувати права альбому';
 $lang['Edit album'] = 'Редагувати альбом';
-$lang['Edit photo information'] = 'Редагувати інформацію про фотографію';
 $lang['Edit ranks'] = 'Редагувати ряди';
 $lang['Edit selected tags'] = 'Редагувати виділені теґи';
 $lang['Edit tags'] = 'Редагувати теґи';

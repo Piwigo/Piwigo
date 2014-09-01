@@ -319,7 +319,6 @@ $lang['Piwigo configuration'] = 'Piwigo configuratie';
 $lang['Edit album'] = 'Bewerk album';
 $lang['Group management'] = 'Groepsbeheer';
 $lang['User list'] = 'Gebruikerslijst';
-$lang['Edit photo information'] = 'Verander de informatie van een foto';
 $lang['Database synchronization with files'] = 'Database synchronisatie met bestanden';
 $lang['all'] = 'Allen';
 $lang['height must be a number superior to'] = 'Hoogte moet groter zijn dan';

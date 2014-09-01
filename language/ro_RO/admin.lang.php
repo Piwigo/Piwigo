@@ -74,7 +74,6 @@ $lang['Description'] = 'Descriere';
 $lang['Display options'] = 'Opțiuni de afişare';
 $lang['Dissociated'] = 'Disociat de';
 $lang['Does not represent'] = 'Nu reprezintă';
-$lang['Edit photo information'] = 'Modifică informațiile legate de această imagine';
 $lang['Edit selected tags'] = 'Modifică etichetele selecționate';
 $lang['Edit tags'] = 'Modifică etichetele';
 $lang['Email admins when a new user registers'] = 'Anunță administratorii atunci cînd un nou utilizator se înregistrează';

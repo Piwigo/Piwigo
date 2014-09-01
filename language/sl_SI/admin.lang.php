@@ -409,7 +409,6 @@ $lang['Duplicates'] = 'Podvojeni';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'NAPAKA: TA VTIČNIK MANJKA VENDAR JE NAMEĹ ČEN! ODSTRANITE GA ZDAJ.';
 $lang['Edit album permissions'] = 'Uredi dovoljenja albuma';
 $lang['Edit photo'] = 'Uredi sliko';
-$lang['Edit photo information'] = 'Uredi informacije o sliki';
 $lang['Default comments order'] = 'Privzeti vrstni red komentarjev';
 $lang['Default display'] = 'Privzeti prikaz';
 $lang['Default photos order'] = 'Privzeti vrstni red slik';

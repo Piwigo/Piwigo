@@ -290,7 +290,6 @@ $lang['Deny selected users'] = 'Drausti pasirinktus vartotojus';
 $lang['Edit album'] = 'Redaguoti albumą';
 $lang['Edit album permissions'] = 'Redaguoti albumo leidimus';
 $lang['Edit photo'] = 'Redaguoti nuotrauką';
-$lang['Edit photo information'] = 'Redaguoti nuotraukos informaciją';
 $lang['Edit ranks'] = 'Redaguoti reitingus';
 $lang['Edit selected tags'] = 'Redaguoti pasirinktas žymas';
 $lang['Edit tags'] = 'Redaguoti žymas';

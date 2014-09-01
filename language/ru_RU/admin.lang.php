@@ -318,7 +318,6 @@ $lang['Piwigo configuration'] = 'Настройка Piwigo';
 $lang['Edit album'] = 'Редактирование альбома';
 $lang['Group management'] = 'Управление группами';
 $lang['User list'] = 'Список пользователей';
-$lang['Edit photo information'] = 'Редактировать всю информацию о фотографии';
 $lang['Database synchronization with files'] = 'Синхронизация базы данных с файлами';
 $lang['all'] = 'все';
 $lang['height must be a number superior to'] = 'высота должна быть числом больше, чем';

@@ -302,7 +302,6 @@ $lang['Dump Database'] = 'Εξαγωγή Βάσης Δεδομένων';
 $lang['Duplicates'] = 'Διπλα Αντίγραφα';
 $lang['Edit album permissions'] = 'Επεξεργασία δικαιωμάτων λευκώματος';
 $lang['Edit album'] = 'Επεξεργασία λευκώματος';
-$lang['Edit photo information'] = 'Επεξεργασία πληροφοριών φωτογραφίας';
 $lang['Edit ranks'] = 'Επεξεργασία αξιολογίσεων';
 $lang['Edit selected tags'] = 'Επεξεργασία επιλεγμένων ετικετών';
 $lang['Edit tags'] = 'Επεξεργασία ετικετών';

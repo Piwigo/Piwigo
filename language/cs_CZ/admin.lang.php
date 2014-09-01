@@ -326,7 +326,6 @@ $lang['Piwigo configuration'] = 'Nastavení aplikace Piwigo';
 $lang['Edit album'] = 'Edituj album';
 $lang['Group management'] = 'Správa skupin';
 $lang['User list'] = 'Seznam uživatelů';
-$lang['Edit photo information'] = 'Upravit informace o fotografii';
 $lang['Database synchronization with files'] = 'Synchronizace databáze se soubory';
 $lang['all'] = 'Vše';
 $lang['height must be a number superior to'] = 'Výška musí být větší než';

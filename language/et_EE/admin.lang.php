@@ -288,7 +288,6 @@ $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 
 $lang['ERROR'] = 'VIGA';
 $lang['Edit album permissions'] = 'Toimeta albumi ligipääsuluba';
 $lang['Edit album'] = 'Toimeta albumit';
-$lang['Edit photo information'] = 'Toimeta foto infot';
 $lang['Edit photo'] = 'Toimeta fotot';
 $lang['Edit ranks'] = 'Toimeta hinnanguid';
 $lang['Edit selected tags'] = 'Toimeta valitud märksõnu';

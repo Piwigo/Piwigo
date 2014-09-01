@@ -327,7 +327,6 @@ $lang['Piwigo configuration'] = ' PhpWebGallery მართვა';
 $lang['Edit album'] = 'კატეგორიების რედაქტირება';
 $lang['Group management'] = 'ჯგუფების მართვა';
 $lang['User list'] = 'მომხმარებლების სია';
-$lang['Edit photo information'] = 'შევცვალოთ ინფორმაცია ფოტოზე';
 $lang['Database synchronization with files'] = 'მონაცემთა ბაზის სინქრონიზაცია ფაილებთან';
 $lang['all'] = 'ყველა';
 $lang['height must be a number superior to'] = 'სიმაღლე უნდა იყოს მეტი რიცხვი';

@@ -116,7 +116,6 @@ $lang['File'] = 'Файл';
 $lang['Edit photo'] = 'Зургыг засах';
 $lang['Error list'] = 'Алдааны жагсаалт';
 $lang['Everybody'] = 'Бүх хүн';
-$lang['Edit photo information'] = 'Зурагны мэдээллийг засах';
 $lang['Edit album'] = 'Цомгийг засах';
 $lang['ERROR'] = 'АЛДАА';
 $lang['Correction'] = 'Засах арга';

@@ -248,7 +248,6 @@ $lang['Form'] = '表格';
 $lang['GD library is missing'] = '缺少GD庫';
 $lang['GD version'] = 'GD版本';
 $lang['Gallery title'] = '圖庫標題';
-$lang['Edit photo information'] = '編輯圖片信息';
 $lang['Edit ranks'] = '編輯排名';
 $lang['Edit selected tags'] = '編輯所選標籤';
 $lang['Edit tags'] = '編輯標籤';

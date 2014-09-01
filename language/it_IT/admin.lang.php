@@ -325,7 +325,6 @@ $lang['Piwigo configuration'] = 'Configurazione di Piwigo';
 $lang['Edit album'] = 'Modificare album';
 $lang['Group management'] = 'Gestione gruppi';
 $lang['User list'] = 'Elenco utenti';
-$lang['Edit photo information'] = 'Modificare informazioni della foto';
 $lang['Database synchronization with files'] = 'Sincronizzazione database con i files';
 $lang['all'] = 'tutto';
 $lang['height must be a number superior to'] = 'l\'altezza deve essere un numero superiore a';

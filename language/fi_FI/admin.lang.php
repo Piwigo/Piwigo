@@ -311,7 +311,6 @@ $lang['Downloads'] = 'Lataukset';
 $lang['Edit album'] = 'Muokkaa albumia';
 $lang['Edit album permissions'] = 'Muokkaa albumin oikeuksia';
 $lang['Edit photo'] = 'Muokkaa valokuvaa';
-$lang['Edit photo information'] = 'Muokkaa valokuvan tietoja';
 $lang['Edit selected tags'] = 'Muokkaa valittuja tägejä';
 $lang['Edit tags'] = 'Muokkaa tägejä';
 $lang['Element'] = 'Elementti';

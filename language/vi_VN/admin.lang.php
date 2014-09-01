@@ -321,7 +321,6 @@ $lang['Piwigo configuration'] = 'Cấu hình Piwigo';
 $lang['Edit album'] = 'Biên tập một đề mục';
 $lang['Group management'] = 'Quản lý nhóm';
 $lang['User list'] = 'Danh sách thành viên';
-$lang['Edit photo information'] = 'Chỉnh sửa thông tin của hình ảnh';
 $lang['Database synchronization with files'] = 'Đồng bộ hóa cơ sở dữ liệu với tệp tin';
 $lang['all'] = 'tất cả';
 $lang['height must be a number superior to'] = 'chiều cao hình phải là số lớn hơn';

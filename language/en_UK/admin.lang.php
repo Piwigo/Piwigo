@@ -316,7 +316,6 @@ $lang['Duplicate'] = 'Duplicate';
 $lang['Duplicates'] = 'Duplicates';
 $lang['Edit album permissions'] = "Edit album permissions";
 $lang['Edit album'] = "Edit album";
-$lang['Edit photo information'] = "Edit photo information";
 $lang['Edit photo'] = 'Edit photo';
 $lang['Edit ranks'] = "Edit ranks";
 $lang['Edit selected tags'] = "Edit selected tags";
