@@ -7,6 +7,20 @@ array(
   'files' => array('picture.php'),
 ),
 array(
+  'name' => 'batch_manager_perform_filters',
+  'type' => 'trigger_change',
+  'vars' => array('array', 'filter_sets'),
+  'files' => array('admin\batch_manager.php'),
+  'infos' => 'New in 2.7',
+),
+array(
+  'name' => 'batch_manager_register_filters',
+  'type' => 'trigger_notify',
+  'vars' => array(),
+  'files' => array('admin\batch_manager.php'),
+  'infos' => 'New in 2.7',
+),
+array(
   'name' => 'begin_delete_elements',
   'type' => 'trigger_notify',
   'vars' => array('array', 'ids'),
