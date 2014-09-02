@@ -152,3 +152,4 @@ $lang['2_7_0_stp3'] = 'Ātrā meklēšana ir pārstrādāta:<br>
  * file:.jpg - tikai jpg attēlus<br>
 - izmanto vienskaitļa / daudzskaitļa locījumus (angļu / franču tikai no šī brīža)<br>';
 $lang['2_7_0_stp11'] = 'Šī ekskursija nu ir galā.<p style="text-align:center">Baudiet savu Piwigo 2.7!</p>Ja jums palīk Piwigo un vēlaties mūs atbalstīt, to varat darīt palīdzot ar tulkojumiem, ziedojot, utt. <a href="http://piwigo.org/basics/contribute" target="_blank">Klikšķiniet lai atbalstītu mūs</a>';
+$lang['privacy_stp13'] = 'Tagad klikšķiniet uz ptivate.';
