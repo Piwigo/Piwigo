@@ -177,7 +177,7 @@ class Template
    * @param bool $load_css
    * @param bool $load_local_head
    */
-  function set_theme($root, $theme, $path, $load_css=true, $load_local_head=true)
+  function set_theme($root, $theme, $path, $load_css=true, $load_local_head=true, $colorscheme='dark')
   {
     $this->set_template_dir($root.'/'.$theme.'/'.$path);
 
@@ -203,6 +203,12 @@ class Template
       $tpl_var['local_head'] = realpath($root.'/'.$theme.'/'.$themeconf['local_head'] );
     }
     $themeconf['id'] = $theme;
+
+    if (!isset($themeconf['colorscheme']))
+    {
+      $themeconf['colorscheme'] = $colorscheme;
+    }
+    
     $this->smarty->append('themes', $tpl_var);
     $this->smarty->append('themeconf', $themeconf, true);
   }
