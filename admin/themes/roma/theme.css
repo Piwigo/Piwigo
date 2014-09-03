@@ -299,12 +299,14 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 .big-progressbar {
   background:#1a1e22;
   box-shadow:inset 0px 1px 1px 0px black, 0px 1px 1px 0px #36393F;
+  border-radius:0;
 }
 .big-progressbar .progressbar {
   background:#f70;
   background:#f70 linear-gradient(135deg, rgba(255,51,51,0) 44%,rgba(255,51,51,0.4) 44%,rgba(255,51,51,0.4) 57%,rgba(255,51,51,0) 57%);
   background-size:25px 25px;
   box-shadow:inset 0px 1px 3px 0px rgba(255,255,255,0.6);
+  border-radius:0;
 }
 
 /* Album Properties */

@@ -369,12 +369,14 @@ table.dataTable thead th {
 .userPrefs {border-color:#ddd;}
 
 .big-progressbar {
-  background:#DFDFDF;
-  border:1px solid #ccc;
+  background:#ccc;
+  border:1px solid #ddd;
+  border-radius:5px;
 }
 .big-progressbar .progressbar {
-  background:#005E89;
-  background:#42A4CE linear-gradient(135deg, rgba(14,114,158,0) 44%,rgba(14,114,158,0.4) 44%,rgba(14,114,158,0.4) 57%,rgba(14,114,158,0) 57%);
+  background:#FF8A23;
+  background:#FF8A23 linear-gradient(135deg, rgba(255,51,51,0) 44%,rgba(255,51,51,0.2) 44%,rgba(255,51,51,0.2) 57%,rgba(255,51,51,0) 57%);
   background-size:25px 25px;
   box-shadow:inset 0px 1px 3px 0px rgba(255,255,255,0.4);
+  border-radius:5px;
 }

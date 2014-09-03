@@ -1008,7 +1008,7 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 
 #photosAddContent p.showFieldset {text-align:left;margin: 1em;}
 
-#uploadForm .plupload_buttons, #uploadForm .plupload_progress { display:none; }
+#uploadForm .plupload_buttons, #uploadForm .plupload_progress { display:none !important; }
 #uploadForm #startUpload { margin:5px 0 15px 15px; padding:5px 10px; font-size:1.1em; }
 #uploadForm #startUpload:before { margin-right:0.5em; }
 #uploadForm #addFiles { margin-right:10px; float:left; }
@@ -1019,13 +1019,13 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   width:100%;
   max-width:600px;
   background:#DFDFDF;
-  padding:3px;
+  padding:2px;
   border-radius:16px;
   position:relative;
 }
 .big-progressbar .progressbar {
-  height:20px;
-  min-width:20px;
+  height:18px;
+  min-width:18px;
   background:#444;
   border-radius:10px;
 }
