@@ -1018,16 +1018,17 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 .big-progressbar {
   width:100%;
   max-width:600px;
-  background:#DFDFDF;
-  padding:2px;
-  border-radius:16px;
+  background:#fff;
+  padding:0;
+  border-radius:5px;
   position:relative;
+  height:18px;
 }
 .big-progressbar .progressbar {
   height:18px;
   min-width:18px;
   background:#444;
-  border-radius:10px;
+  border-radius:5px 0 0 5px;
 }
 
 

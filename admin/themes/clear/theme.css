@@ -369,8 +369,8 @@ table.dataTable thead th {
 .userPrefs {border-color:#ddd;}
 
 .big-progressbar {
-  background:#ccc;
-  border:1px solid #ddd;
+  background:#fff;
+  border:1px solid #aaa;
   border-radius:5px;
 }
 .big-progressbar .progressbar {
@@ -378,5 +378,4 @@ table.dataTable thead th {
   background:#FF8A23 linear-gradient(135deg, rgba(255,51,51,0) 44%,rgba(255,51,51,0.2) 44%,rgba(255,51,51,0.2) 57%,rgba(255,51,51,0) 57%);
   background-size:25px 25px;
   box-shadow:inset 0px 1px 3px 0px rgba(255,255,255,0.4);
-  border-radius:5px;
 }
