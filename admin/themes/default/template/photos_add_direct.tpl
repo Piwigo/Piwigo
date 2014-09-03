@@ -63,14 +63,13 @@ jQuery(document).ready(function(){
 
 	jQuery("#uploader").pluploadQueue({
 		// General settings
+    browse_button : 'addFiles',
+    
 		// runtimes : 'html5,flash,silverlight,html4',
 		runtimes : 'html5',
 
 		// url : '../upload.php',
 		url : 'ws.php?method=pwg.images.upload&format=json',
-
-		// User can upload no more then 20 files in one go (sets multiple_queues to false)
-		max_file_count: 100,
 		
 		chunk_size: '500kb',
 		
@@ -85,9 +84,6 @@ jQuery(document).ready(function(){
 
 		// Rename files by clicking on their titles
 		// rename: true,
-		
-		// Sort files
-		sortable: true,
 
 		// Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
 		dragdrop: true,
@@ -95,12 +91,25 @@ jQuery(document).ready(function(){
     preinit: {
       Init: function (up, info) {
         jQuery('#uploader_container').removeAttr("title"); //remove the "using runtime" text
+        
+        jQuery('#startUpload').on('click', function(e) {
+            e.preventDefault();
+            up.start();
+          });
       }
     },
 
     init : {
+      // update custom button state on queue change
+      QueueChanged : function(up) {
+        jQuery('#startUpload').prop('disabled', up.files.length == 0);
+      },
+      
       BeforeUpload: function(up, file) {
-        console.log('[BeforeUpload]', file);
+        //console.log('[BeforeUpload]', file);
+        
+        // hide buttons
+        jQuery('#startUpload, #addFiles').hide();
 
         // warn user if she wants to leave page while upload is running
         jQuery(window).bind('beforeunload', function() {
@@ -111,7 +120,6 @@ jQuery(document).ready(function(){
         jQuery("select[name=level]").attr("disabled", "disabled");
 
         // You can override settings before the file is uploaded
-        // up.setOption('url', 'upload.php?id=' + file.id);
         up.setOption(
           'multipart_params',
           {
@@ -125,7 +133,10 @@ jQuery(document).ready(function(){
 
       FileUploaded: function(up, file, info) {
         // Called when file has finished uploading
-        console.log('[FileUploaded] File:', file, "Info:", info);
+        //console.log('[FileUploaded] File:', file, "Info:", info);
+        
+        // hide item line
+        jQuery('#'+file.id).hide();
       
         var data = jQuery.parseJSON(info.response);
       
@@ -145,7 +156,7 @@ jQuery(document).ready(function(){
 
       UploadComplete: function(up, files) {
         // Called when all files are either uploaded or failed
-        console.log('[UploadComplete]');
+        //console.log('[UploadComplete]');
 
         jQuery(".selectAlbum, .selectFiles, #permissions, .showFieldset").hide();
 
@@ -234,23 +245,28 @@ jQuery(document).ready(function(){
 
     <fieldset class="selectFiles" style="display:none">
       <legend>{'Select files'|@translate}</legend>
+      
+      <button id="addFiles" class="buttonLike icon-plus-circled">{'Add Photos'|translate}</button>
  
-    {if isset($original_resize_maxheight)}<p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>{/if}
+    {if isset($original_resize_maxheight)}
+      <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
+    {/if}
 
-    <p id="uploadWarningsSummary">{$upload_max_filesize_shorthand}B. {$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="icon-info-circled-1 showInfo" title="{'Learn more'|@translate}"></a></p>
+      <p id="uploadWarningsSummary">{$upload_max_filesize_shorthand}B. {$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="icon-info-circled-1 showInfo" title="{'Learn more'|@translate}"></a></p>
 
-    <p id="uploadWarnings">
-{'Maximum file size: %sB.'|@translate:$upload_max_filesize_shorthand}
-{'Allowed file types: %s.'|@translate:$upload_file_types}
-  {if isset($max_upload_resolution)}
-{'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
-  {/if}
-    </p>
+      <p id="uploadWarnings">
+        {'Maximum file size: %sB.'|@translate:$upload_max_filesize_shorthand}
+        {'Allowed file types: %s.'|@translate:$upload_file_types}
+      {if isset($max_upload_resolution)}
+        {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
+      {/if}
+      </p>
 
-
-	<div id="uploader">
-		<p>Your browser doesn't have HTML5 support.</p>
-	</div>
+      <div id="uploader">
+        <p>Your browser doesn't have HTML5 support.</p>
+      </div>
+      
+      <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
 
     </fieldset>
 

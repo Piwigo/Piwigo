@@ -1008,6 +1008,11 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 
 #photosAddContent p.showFieldset {text-align:left;margin: 1em;}
 
+#uploadForm .plupload_buttons { display:none; }
+#startUpload { margin:10px 0; padding:5px 10px; font-size:1.1em; }
+#startUpload:before { margin-right:0.5em; }
+#addFiles { margin-bottom:10px; }
+
 #uploadProgress {width:650px; margin:10px auto;font-size:90%;}
 #progressbar {border:1px solid #ccc; background-color:#eee;}
 .ui-progressbar-value { background-image: url(images/pbar-ani.gif); height:10px;margin:-1px;border:1px solid #E78F08;}

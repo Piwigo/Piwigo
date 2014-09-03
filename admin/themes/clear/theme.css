@@ -305,7 +305,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   font-weight:bold;
   letter-spacing:1px;
   border:none;
-  background-color:#666666;
+  background-color:#666;
   color:#fff;
   padding:2px 5px;
   -moz-border-radius:5px;
@@ -319,6 +319,12 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   background-color: #ff7700;
   color: white;
 	text-decoration: none;
+}
+
+.buttonLike:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
+  background-color:#999;
+  color:#eee;
+  cursor:not-allowed;
 }
 
 p.albumTitle img {margin-bottom:-3px;}

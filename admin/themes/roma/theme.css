@@ -239,6 +239,12 @@ INPUT[type="text"].large  { width: 317px; }
 	text-decoration: none;
 }
 
+.buttonLike:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
+	color:#666; 
+	border-color:#666;
+  cursor:not-allowed;
+}
+
 .bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top; display: block;
 color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px;
 position:relative;  z-index: 50;}
