@@ -96,6 +96,12 @@ jQuery(document).ready(function(){
             e.preventDefault();
             up.start();
           });
+        
+        jQuery('#cancelUpload').on('click', function(e) {
+            e.preventDefault();
+            up.stop();
+            up.trigger('UploadComplete', up.files);
+          });
       }
     },
 
@@ -105,11 +111,16 @@ jQuery(document).ready(function(){
         jQuery('#startUpload').prop('disabled', up.files.length == 0);
       },
       
+      UploadProgress: function(up, file) {
+        jQuery('#uploadingActions .progressbar').width(up.total.percent+'%');
+      },
+      
       BeforeUpload: function(up, file) {
         //console.log('[BeforeUpload]', file);
         
         // hide buttons
         jQuery('#startUpload, #addFiles').hide();
+        jQuery('#uploadingActions').show();
 
         // warn user if she wants to leave page while upload is running
         jQuery(window).bind('beforeunload', function() {
@@ -180,6 +191,7 @@ jQuery(document).ready(function(){
         jQuery(".batchLink").html(sprintf(batch_Label, uploadedPhotos.length));
 
         jQuery(".afterUploadActions").show();
+        jQuery('#uploadingActions').hide();
 
         // user can safely leave page without warning
         jQuery(window).unbind('beforeunload');
@@ -265,10 +277,18 @@ jQuery(document).ready(function(){
       <div id="uploader">
         <p>Your browser doesn't have HTML5 support.</p>
       </div>
-      
-      <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
 
     </fieldset>
+    
+    <div id="uploadingActions" style="display:none">
+      <button id="cancelUpload" class="buttonLike icon-cancel-circled">{'Cancel'|translate}</button>
+      
+      <div class="big-progressbar">
+        <div class="progressbar" style="width:0%"></div>
+      </div>
+    </div>
+      
+    <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
 
 </form>
 

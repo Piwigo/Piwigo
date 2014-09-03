@@ -1008,14 +1008,28 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 
 #photosAddContent p.showFieldset {text-align:left;margin: 1em;}
 
-#uploadForm .plupload_buttons { display:none; }
-#startUpload { margin:10px 0; padding:5px 10px; font-size:1.1em; }
-#startUpload:before { margin-right:0.5em; }
-#addFiles { margin-bottom:10px; }
+#uploadForm .plupload_buttons, #uploadForm .plupload_progress { display:none; }
+#uploadForm #startUpload { margin:5px 0 15px 15px; padding:5px 10px; font-size:1.1em; }
+#uploadForm #startUpload:before { margin-right:0.5em; }
+#uploadForm #addFiles { margin-right:10px; float:left; }
+#uploadForm #uploadingActions { margin:10px 10px 10px 15px; }
+#uploadForm .big-progressbar { vertical-align:middle; display:inline-block; margin-left:10px; }
 
-#uploadProgress {width:650px; margin:10px auto;font-size:90%;}
-#progressbar {border:1px solid #ccc; background-color:#eee;}
-.ui-progressbar-value { background-image: url(images/pbar-ani.gif); height:10px;margin:-1px;border:1px solid #E78F08;}
+.big-progressbar {
+  width:100%;
+  max-width:600px;
+  background:#DFDFDF;
+  padding:3px;
+  border-radius:16px;
+  position:relative;
+}
+.big-progressbar .progressbar {
+  height:20px;
+  min-width:20px;
+  background:#444;
+  border-radius:10px;
+}
+
 
 /* Tag Manager */
 .warningDeletion {display:none;font-style:italic;}

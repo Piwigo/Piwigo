@@ -367,3 +367,14 @@ table.dataTable thead th {
 
 .userPropertiesContainer {border-color:#ddd;}
 .userPrefs {border-color:#ddd;}
+
+.big-progressbar {
+  background:#DFDFDF;
+  border:1px solid #ccc;
+}
+.big-progressbar .progressbar {
+  background:#005E89;
+  background:#42A4CE linear-gradient(135deg, rgba(14,114,158,0) 44%,rgba(14,114,158,0.4) 44%,rgba(14,114,158,0.4) 57%,rgba(14,114,158,0) 57%);
+  background-size:25px 25px;
+  box-shadow:inset 0px 1px 3px 0px rgba(255,255,255,0.4);
+}
