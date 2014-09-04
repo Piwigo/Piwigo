@@ -984,3 +984,4 @@ $lang['between %s and %s MB'] = 'zwischen %s und %s MB';
 $lang['date & time'] = 'Datum & Zeit';
 $lang['file name'] = 'Dateiname';
 $lang['width & height'] = 'Breite & Höhe';
+$lang['Upload in progress'] = 'Upload im Gange';
