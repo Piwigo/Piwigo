@@ -374,23 +374,10 @@ table.dataTable thead th {
   border-radius:5px;
 }
 
-@keyframes animatedBackground {
-	from { background-position: 0 0; }
-	to { background-position: 25px 0; }
-}
-
-@-webkit-keyframes animatedBackground {
-	from { background-position: 0 0; }
-	to { background-position: 25px 0; }
-}
-
 .big-progressbar .progressbar {
   background:#FF8A23;
-  background:#FF8A23 linear-gradient(135deg, rgba(255,51,51,0) 44%,rgba(255,51,51,0.2) 44%,rgba(255,51,51,0.2) 57%,rgba(255,51,51,0) 57%);
-  background-size:25px 25px;
+  background:#FF8A23 linear-gradient(135deg, rgba(255,255,255,0) 44%,rgba(255,255,255,0.2) 44%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0) 57%);
+  background-size:33px 25px;
   box-shadow:inset 0px 1px 3px 0px rgba(255,255,255,0.4);
-
-  animation: animatedBackground 1s linear infinite;
-  -webkit-animation: animatedBackground 1s linear infinite;
 }
 

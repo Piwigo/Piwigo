@@ -302,6 +302,8 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 }
 .big-progressbar .progressbar {
   background:#ff3363;
+  background:#ff3363 linear-gradient(135deg, rgba(0,0,0,0) 44%,rgba(0,0,0,0.2) 44%,rgba(0,0,0,0.2) 57%,rgba(0,0,0,0) 57%);
+  background-size:33px 25px;
 }
 
 /* Album Properties */

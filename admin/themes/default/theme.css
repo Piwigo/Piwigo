@@ -1024,11 +1024,25 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   position:relative;
   height:18px;
 }
+
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 33px 0; }
+}
+
+@-webkit-keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 33px 0; }
+}
+
 .big-progressbar .progressbar {
   height:18px;
-  min-width:18px;
+  min-width:5px;
   background:#444;
   border-radius:5px 0 0 5px;
+  background-size:33px 25px;
+  animation: animatedBackground 1s linear infinite;
+  -webkit-animation: animatedBackground 1s linear infinite;
 }
 
 
