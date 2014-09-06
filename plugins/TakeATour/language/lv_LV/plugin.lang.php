@@ -178,3 +178,8 @@ $lang['privacy_title15'] = 'padoms';
 $lang['privacy_title18'] = 'Grupas';
 $lang['privacy_title17'] = 'Grupas';
 $lang['privacy_stp11'] = 'Tagad klikšķiniet uz Permissions (atļaujas) cilnes';
+$lang['privacy_stp3'] = 'Veltiet laiku, lai izlasītu informāciju zemāk.';
+$lang['privacy_stp12'] = 'Šajā lapā varat izvēlēties vai albūms būs pieejams ikvienam, vai  tikai dažiem lietotājiem';
+$lang['privacy_stp14'] = '
+Tad lietotājiem un lietotāju grupām var piešķirt tiesības, lai piekļūtu albūmam.';
+$lang['privacy_descrp'] = 'Šis apskats iepazīstina ar visiem veidiem, kā aizsargāt savu foto no publiskas piekļuves, izmantojot atļauju sistēmu vienam albūmam un vienam attēlam, un pret kopēšanu, izmantojot attēlu aizsardzību.';
