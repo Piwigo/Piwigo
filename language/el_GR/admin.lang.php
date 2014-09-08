@@ -984,3 +984,4 @@ $lang['between %s and %s MB'] = 'μεταξύ %s και %s MB';
 $lang['based on'] = 'βασισμένο σε';
 $lang['The settings for the guest are from the %s user'] = 'Οι ρυθμίσεις για τους επισκέπτες είναι από το χρήστη %s';
 $lang['No and unlock sub-albums'] = 'Όχι και ξεκλείδωμα υπο-λευκώματα';
+$lang['Upload in progress'] = 'Μεταφόρτωση σε εξέλιξη ';
