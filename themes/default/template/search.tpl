@@ -48,7 +48,7 @@ jQuery(document).ready(function() {
 
 </fieldset>
 
-{if count($AUTHORS)>1}
+{if count($AUTHORS)>=1}
 <fieldset>
   <legend>{'Search for Author'|@translate}</legend>
   <p>
