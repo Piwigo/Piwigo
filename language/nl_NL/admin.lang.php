@@ -982,3 +982,4 @@ $lang['width & height'] = 'breedte & hoogte';
 $lang['date & time'] = 'datum & tijd';
 $lang['between %s and %s MB'] = 'tussen %s en %s MB';
 $lang['based on'] = 'gebaseerd op';
+$lang['Upload in progress'] = 'Bezig met uploaden';
