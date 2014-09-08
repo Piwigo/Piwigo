@@ -23,7 +23,7 @@
 $lang['2_7_0_stp10'] = '';
 $lang['2_7_0_stp4'] = 'Een aantal items in de Zoek-pagina zijn bewerkt zoals: een selectie van zoekwoord-eigenschappen, een auteurslijst in de database, een zelf-aanvullende lijst van tags, van albums ...';
 $lang['2_7_0_stp5'] = 'Je kunt een tijd toevoegen aan de datum met Uur- en Minuut-schuifjes.';
-$lang['2_7_0_stp6'] = '';
+$lang['2_7_0_stp6'] = 'Het selectie script voor selecteren albums, tags etc is veranderd naar een nieuwe gebruikersvriendelijke. Test het hier beneden.';
 $lang['2_7_0_stp7'] = '';
 $lang['2_7_0_stp8'] = '';
 $lang['2_7_0_stp9'] = '';
@@ -146,3 +146,7 @@ $lang['privacy_title18'] = 'Groepen';
 $lang['privacy_title17'] = 'Groepen';
 $lang['privacy_title15'] = 'Tip';
 $lang['privacy_stp3'] = 'Neem een ogenblik om onderstaande informatie te lezen.';
+$lang['privacy_stp13'] = 'Klik nu op prive.';
+$lang['privacy_stp12'] = 'Op die pagina, kunt u kiezen of deze beschikbaar is voor iedereen of slechts beschikbaar voor sommige gebruikers.';
+$lang['privacy_stp6'] = 'Het privacy level kan veranderd worden tijdens het uploaden van de afbeeldingen.';
+$lang['privacy_stp8'] = 'Selecteer een of meer afbeeldingen...';
