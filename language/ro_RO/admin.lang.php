@@ -985,3 +985,4 @@ $lang['based on'] = 'bazat pe';
 $lang['width & height'] = 'latime & inaltime';
 $lang['file name'] = 'numele fisierului';
 $lang['date & time'] = 'data & ora';
+$lang['Upload in progress'] = 'Incarcare in desfasurare';
