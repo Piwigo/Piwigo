@@ -86,7 +86,6 @@ $lang['first_contact_title37'] = 'Temas';
 $lang['first_contact_title38'] = 'Extensões';
 $lang['first_contact_title39'] = 'Extensões';
 $lang['first_contact_title4'] = 'Permitir adicionar foto!';
-$lang['first_contact_title42'] = 'Idiomas';
 $lang['first_contact_title43'] = 'Tem sido um momento aprazível';
 $lang['first_contact_title9'] = 'Administrar miniaturização';
 $lang['takeatour_configpage'] = 'Faça Uma Viagem » Lista de demonstrações';

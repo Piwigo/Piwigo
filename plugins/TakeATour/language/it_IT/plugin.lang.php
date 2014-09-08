@@ -44,7 +44,6 @@ $lang['first_contact_title38'] = 'Plugin';
 $lang['first_contact_title39'] = 'Plugin';
 $lang['first_contact_title20'] = 'Gestione Album';
 $lang['first_contact_title43'] = 'E\' stato un grande momento';
-$lang['first_contact_title42'] = 'Lingue';
 $lang['first_contact_title9'] = 'Il Batch Manager';
 $lang['first_contact_title21'] = 'Altre schede';
 $lang['first_contact_title25'] = 'Permessi Album';
