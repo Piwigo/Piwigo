@@ -70,7 +70,14 @@ function get_sql_search_clause($search)
       $local_clauses = array();
       foreach ($search['fields'][$textfield]['words'] as $word)
       {
-        $local_clauses[] = $textfield." LIKE '%".$word."%'";
+        if ('author' == $textfield)
+        {
+          $local_clauses[] = $textfield."='".$word."'";
+        }
+        else
+        {
+          $local_clauses[] = $textfield." LIKE '%".$word."%'";
+        }
       }
 
       // adds brackets around where clauses
