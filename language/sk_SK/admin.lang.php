@@ -983,3 +983,4 @@ $lang['file name'] = 'názov súboru';
 $lang['based on'] = 'na základe';
 $lang['The settings for the guest are from the %s user'] = 'Nastavenia pre hostí sú z %s používateľa';
 $lang['No and unlock sub-albums'] = 'Nie a odomknúť pod-albumy';
+$lang['Upload in progress'] = 'Prebieha nahrávanie';
