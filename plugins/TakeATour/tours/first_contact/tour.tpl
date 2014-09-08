@@ -39,14 +39,14 @@ tour.addSteps([
   {//5
     path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
     placement: "top",
-    element: ".plupload_add",
+    element: "#addFiles",
     title: "{/literal}{'first_contact_title5'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp5'|@translate|@escape:'javascript'}{literal}"
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
     placement: "top",
-    element: ".plupload_start",
+    element: "#startUpload",
     title: "{/literal}{'first_contact_title6'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp6'|@translate|@escape:'javascript'}{literal}"
   },
@@ -280,13 +280,6 @@ tour.addSteps([
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php?page=themes",
-    placement: "top",
-    element: "",
-    title: "{/literal}{'first_contact_title36'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'first_contact_stp36'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=themes",
     placement: "right",
     element: ".tabsheet",
     title: "{/literal}{'first_contact_title37'|@translate|@escape:'javascript'}{literal}",
@@ -319,11 +312,6 @@ tour.addSteps([
     element: ".tabsheet",
     title: "{/literal}{'first_contact_title41'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp41'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=languages",
-    title: "{/literal}{'first_contact_title42'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'first_contact_stp42'|@translate|@escape:'javascript'}{literal}"
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php",

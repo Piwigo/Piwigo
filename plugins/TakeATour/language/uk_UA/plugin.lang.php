@@ -93,7 +93,6 @@ $lang['first_contact_title3'] = 'Додати фото-сторінку';
 $lang['first_contact_title33'] = 'Налаштування гостя';
 $lang['first_contact_title34'] = 'Теми';
 $lang['first_contact_title35'] = 'Теми';
-$lang['first_contact_title36'] = 'Теми';
 $lang['first_contact_title37'] = 'Теми';
 $lang['first_contact_title38'] = 'Плагіни';
 $lang['first_contact_title11'] = 'Як редагувати фото';

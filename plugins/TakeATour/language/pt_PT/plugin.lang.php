@@ -82,7 +82,6 @@ $lang['first_contact_title3'] = 'Adicionar página da foto';
 $lang['first_contact_title33'] = 'Definições de visitantes';
 $lang['first_contact_title34'] = 'Temas';
 $lang['first_contact_title35'] = 'Temas';
-$lang['first_contact_title36'] = 'Temas';
 $lang['first_contact_title37'] = 'Temas';
 $lang['first_contact_title38'] = 'Extensões';
 $lang['first_contact_title39'] = 'Extensões';
