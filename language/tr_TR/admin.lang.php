@@ -978,3 +978,4 @@ $lang['between %s and %s MB'] = '%s ve %s MB arasında';
 $lang['date & time'] = 'tarih ve saat';
 $lang['file name'] = 'dosya adı';
 $lang['width & height'] = 'genişlik ve yükseklik';
+$lang['Upload in progress'] = 'Yükleme devam ediyor';
