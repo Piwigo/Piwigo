@@ -978,3 +978,4 @@ $lang['between %s and %s MB'] = 'між %s і %s МБ';
 $lang['date & time'] = 'дата і час';
 $lang['file name'] = 'ім’я файлу';
 $lang['width & height'] = 'ширина і висота';
+$lang['Upload in progress'] = 'Завантаження триває';
