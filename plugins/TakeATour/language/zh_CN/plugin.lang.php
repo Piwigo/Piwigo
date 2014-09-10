@@ -141,7 +141,6 @@ $lang['privacy_stp1'] = '你好！我将为您导览如何在 Piwigo 中保护�
 $lang['privacy_descrp'] = '本导览向您展示通过涵盖每个相册及每张图片的许可系统保护您的图片免于公共访问的各种方法，以及通过图片保护防止拷贝。';
 $lang['privacy_stp2'] = '在这里您可以进入综合帮助界面。点击 前进 直接进入关于权限管理的帮助页。';
 $lang['privacy_stp22'] = '<em>对高级用户</em><br><br>在 Piwigo 中，您可使用您的本地设置保护原图片。使用变量 $conf[\'original_url_protection\']: 默认为空，将值设为 "images" 来单独保护图片，或 "all" 来保护可能非常消耗资源或不能在服务器上运行的所有媒体类型。<br><br>此选项对公开与非公开的内容均适用。此选项目前需要您禁止对 /upload 和 /galleries 文件夹的访问，通过使用一个 .htaccess 文件（通常是一个内容带有 "Deny from all" 的文本文件）或使用服务器设置。<br><br>请注意，使用非FTP方式上传的图片，文件名是<b>随机的</b>，所以不可能猜测：仅当访问者拥有尺寸调整后的图片的访问权（比如缩略图）时，原始图片的文件名和路径才可能被发现。 $conf[\'original_url_protection\'] 和禁止对 /upload 和 /galleries 文件夹的访问就是为了规避那种情况。';
-$lang['privacy_stp23'] = '<em>对高级用户</em><br><br>目前隐私等级是在 local configuration 变量 $conf[\'available_permission_levels\'] 中被硬编码的。您可以通过增加一个中间数来添加一个等级，但删除一个等级则是高度明智的。若您需要翻译您的新等级：使用 $lang[\'Level X\'] ，X 是您的新数字。';
 $lang['privacy_stp24'] = '导览结束。<p style="text-align:center">开始享用您的 Piwigo 吧！</p>如果您喜欢 Piwigo 并希望支持我们，您可以通过帮助我们进行翻译、捐赠等方式贡献您的力量。<a href="http://piwigo.org/basics/contribute" target="_blank">点此支持我们</a>。谢谢！';
 $lang['privacy_stp4'] = '我们有两套管理图片访问权限的系统。它们是相互独立的，您可以创建一个名为"家人"的用户组，但这个组与隐私等级中预设的"家人"毫无关系。<br><br>隐私的等级会被应用到每一张图片，而 组/用户 的权限则会应用到每个相册。您可使用1个或同时使用这两个系统。<br><br>下一个标签页是关于用户组管理的。';
 $lang['privacy_stp5'] = '以下解释了怎样管理用户组。<br>那些权限仅应用于相册公开界面的浏览或外部应用程序对图片与相册的访问。我们稍后将看到其他方面的保护，但现在先让我们练习一下！';
@@ -163,7 +162,6 @@ $lang['privacy_title2'] = 'Piwigo内部帮助';
 $lang['privacy_title20'] = '公开图片';
 $lang['privacy_title21'] = '公开图片';
 $lang['privacy_title22'] = '本地设置：原图保护';
-$lang['privacy_title23'] = '本地设置：隐私等级';
 $lang['privacy_title3'] = '权限';
 $lang['privacy_title4'] = '权限';
 $lang['privacy_title5'] = '权限 > 组';

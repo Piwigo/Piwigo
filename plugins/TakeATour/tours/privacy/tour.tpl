@@ -167,11 +167,6 @@ tour.addSteps([
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php",
-    title: "{/literal}{'privacy_title23'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'privacy_stp23'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: "{/literal}{$TAT_path}{literal}admin.php",
     title: "{/literal}{'privacy_title24'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp24'|@translate|@escape:'javascript'}{literal}"
   }

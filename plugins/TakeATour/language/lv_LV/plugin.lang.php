@@ -145,7 +145,6 @@ $lang['privacy_title10'] = 'Albumu atļaujas';
 $lang['privacy_title1'] = '
 Laipni gaidīti Privātuma Tūrē';
 $lang['privacy_title22'] = 'Vietējā Konfigurācija: Oriģinālā aizsardzība';
-$lang['privacy_title23'] = '
 Vietējā Konfigurācija: Konfidencialitātes Līmenis';
 $lang['privacy_title2'] = 'Palīdzība jūsu Piwigo';
 $lang['privacy_title24'] = 'Tas bija lieliski';

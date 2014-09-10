@@ -140,7 +140,6 @@ $lang['privacy_stp12'] = 'På den side kan du vælge hvorvidt albummet skal vær
 $lang['privacy_stp13'] = 'Klik nu på privat.';
 $lang['privacy_stp14'] = 'Herefter kan brugere og brugergrupper få tildelt adgang til et album.';
 $lang['privacy_stp15'] = 'Før grupperne forklares, er her et professionelt tip: Her er linket til en side, som opsættes som privat/offentlig for flere albummer på en gang. Klik på det';
-$lang['privacy_stp23'] = '<em>For avancerede brugere</em><br><br>I øjeblikket er privatlivsniveauerne hårdkodet i den lokale opsætningsvariabel  $conf[\'available_permission_levels\']. Du kan tilføje et nyt niveau, ved at tilføje et mellemliggende nummer, men fjernelse af et niveau frarådes kraftigt. Hvis du ønsker det, kan det nye niveau oversættes: anvend $lang[\'Level X\'] hvor X er dit nye nummer.';
 $lang['privacy_stp24'] = 'Udflugten er færdig.<p style="text-align:center">God fornøjelse med din Piwigo!</p>Hvis du kan lide Piwigo, og ønsker at sætte os, kan du bidrage ved at hjælpe med oversættelser, økonomiske bidrag, osv. <a href="http://piwigo.org/basics/contribute" target="_blank">Klik her for at støtte os</a>. Tak!';
 $lang['privacy_stp22'] = '
 
@@ -151,7 +150,6 @@ $lang['privacy_stp4'] = 'Så vi har to systemer til håndtering af adgangsrettig
 $lang['privacy_stp5'] = 'Herunder forklares hvordan man håndterer grupper.<br>Disse rettigheder gælder kun adgang til billeder og albummer, når man kigger på den offentlige del eller ved hjælp af eksterne applikationer. Vi kigger senere på andre beskyttelsesmuligheder, men lad os nu øve os!';
 $lang['privacy_title21'] = 'Offentlige fotografier';
 $lang['privacy_title22'] = 'Lokal opsætning: Beskyttelse af original';
-$lang['privacy_title23'] = 'Lokal opsætning: Privatlivsniveau';
 $lang['privacy_title24'] = 'Det har været en hyggelig udflugt';
 $lang['privacy_title3'] = 'Rettigheder';
 $lang['privacy_title4'] = 'Rettigheder';
