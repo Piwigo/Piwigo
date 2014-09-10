@@ -80,7 +80,8 @@ tour.addSteps([
     path: /admin\.php\?page=album-/,
     redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
     placement: "bottom",
-    element: ".icon-lock",
+    element: ".normal_tab .icon-lock",
+    reflex:true,
     title: "{/literal}{'privacy_title11'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp11'|@translate|@escape:'javascript'}{literal}"
   },
@@ -177,6 +178,14 @@ tour.init();
 
 // Start the tour
 tour.start();
+
+jQuery( "p.albumActions a" ).click(function() {
+  if (tour.getCurrentStep()==9)
+  {
+    tour.goTo(10);
+  }
+});
+
 {/literal}{/footer_script}
 {html_style}
 #step-21 {
