@@ -64,9 +64,7 @@ $lang['first_contact_title2'] = '
 ';
 $lang['first_contact_title23'] = '
 ';
-$lang['first_contact_title24'] = '
 ';
-$lang['first_contact_title26'] = '
 ';
 $lang['first_contact_title27'] = '
 ';

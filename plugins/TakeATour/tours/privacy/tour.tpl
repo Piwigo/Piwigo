@@ -72,8 +72,7 @@ tour.addSteps([
   },
   {//10
     path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_list",
-    placement: "left",
-    element: "#content",
+    placement: "top",
     title: "{/literal}{'privacy_title10'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp10'|@translate|@escape:'javascript'}{literal}"
   },
@@ -109,6 +108,12 @@ tour.addSteps([
     element: "#privateOptions",
     title: "{/literal}{'privacy_title14'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp14'|@translate|@escape:'javascript'}{literal}",
+  },
+  {
+    path: /admin\.php\?page=album-[0-9]+-permissions/,
+    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
+    title: "{/literal}{'first_contact_title27'|@translate|@escape:'javascript'}{literal}",
+    content: "{/literal}{'first_contact_stp27'|@translate|@escape:'javascript'}{literal}",
   },
   {//15
     path: /admin\.php\?page=album-[0-9]+-permissions/,

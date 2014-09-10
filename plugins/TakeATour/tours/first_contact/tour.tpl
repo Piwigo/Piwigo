@@ -190,39 +190,6 @@ tour.addSteps([
   {
     path: /admin\.php\?page=album-[0-9]+(|-properties)$/,
     redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
-    placement: "bottom",
-    element: "li.normal_tab:nth-child(3) > a:nth-child(1)",
-    reflex: true,
-    title: "{/literal}{'first_contact_title24'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'first_contact_stp24'|@translate|@escape:'javascript'}{literal}"
-  },
-  {//25
-    path: /admin\.php\?page=album-[0-9]+-permissions/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
-    placement: "left",
-    element: "#content",
-    title: "{/literal}{'first_contact_title25'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'first_contact_stp25'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: /admin\.php\?page=album-[0-9]+-permissions/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
-    placement: "top",
-    element: "#selectStatus",
-    title: "{/literal}{'first_contact_title26'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'first_contact_stp26'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: /admin\.php\?page=album-[0-9]+-permissions/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
-    placement: "top",
-    element: "#selectStatus",
-    title: "{/literal}{'first_contact_title27'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'first_contact_stp27'|@translate|@escape:'javascript'}{literal}"
-  },
-  {
-    path: /admin\.php\?page=album-[0-9]+-permissions/,
-    redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
     placement: "top",
     title: "{/literal}{'first_contact_title28'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp28'|@translate|@escape:'javascript'}{literal}"
