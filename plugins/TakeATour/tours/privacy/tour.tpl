@@ -80,7 +80,7 @@ tour.addSteps([
     path: /admin\.php\?page=album-/,
     redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}";},
     placement: "bottom",
-    element: ".normal_tab .icon-lock",
+    element: "#tabsheet > ul > li:nth-child(3) > a",
     reflex:true,
     title: "{/literal}{'privacy_title11'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp11'|@translate|@escape:'javascript'}{literal}"
