@@ -51,6 +51,7 @@ tour.addSteps([
   {
     path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_list",
     element: "#autoOrderOpen",
+    onShown: function (tour) {jQuery("#autoOrderOpen").trigger("click");},
     title: "{/literal}{'2_7_0_title7'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp7'|@translate|@escape:'javascript'}{literal}",
   },
