@@ -1,14 +1,8 @@
 <?php
 $lang['2_7_0_title6'] = 'Selektu skripton';
-$lang['2_7_0_title7'] = '';
-$lang['2_7_0_title8'] = '';
-$lang['2_7_0_title9'] = '';
 $lang['2_7_0_stp4'] = '';
 $lang['2_7_0_stp5'] = 'Vi povas agordi la tempon kaj la daton, pere de la ŝoviloj Horo kaj Minuto.';
 $lang['2_7_0_stp6'] = 'La selektoskripto por elekti fotarojn, etikedojn, ktp. ŝanĝis al nova pli uz-afabla. Testu ĝin ĉisube. ';
-$lang['2_7_0_stp7'] = '';
-$lang['2_7_0_stp8'] = '';
-$lang['2_7_0_stp9'] = '';
 $lang['2_7_0_title10'] = '';
 $lang['2_7_0_title4'] = 'Serĉopaĝo';
 $lang['2_7_0_title5'] = 'Tempo';
@@ -18,4 +12,3 @@ $lang['2_7_0_stp11'] = 'Tiu travizito finiĝas.<p style="text-align:center">Ĝuu
 $lang['2_7_0_title1'] = 'Bonvenon al Piwigo 2.7';
 $lang['2_7_0_title11'] = 'Ĝis baldaŭ!';
 $lang['2_7_0_title2'] = 'Unua nova funkcio';
-$lang['2_7_0_title3'] = 'Rapida serĉo';

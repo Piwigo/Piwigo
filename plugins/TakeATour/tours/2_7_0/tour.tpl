@@ -22,11 +22,10 @@ tour.addSteps([
     content: "{/literal}{'2_7_0_stp2'|@translate|@escape:'javascript'}{literal}",
   },
   {
-    path: "{/literal}{$TAT_path}{$TAT_index}{literal}",
-    placement: "right",
-    element: "#qsearchInput",
-    title: "{/literal}{'2_7_0_title3'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'2_7_0_stp3'|@translate|@escape:'javascript'}{literal}",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=photos_add",
+    placement: "top",
+    title: "{/literal}{'2_7_0_title2b'|@translate|@escape:'javascript'}{literal}",
+    content: "{/literal}{'2_7_0_stp2b'|@translate|@escape:'javascript'}{literal}",
   },
   {
     path: "{/literal}{$TAT_path}{$TAT_search}{literal}",
@@ -50,19 +49,22 @@ tour.addSteps([
     content: "{/literal}{'2_7_0_stp6'|@translate|@escape:'javascript'}{literal}"
   },
   {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=cat_list",
+    element: "#autoOrderOpen",
     title: "{/literal}{'2_7_0_title7'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp7'|@translate|@escape:'javascript'}{literal}",
-    prev:4
   },
   {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=batch_manager&filter=prefilter-caddie",
+    element: "#empty_caddie",
+    placement: "right",
     title: "{/literal}{'2_7_0_title8'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp8'|@translate|@escape:'javascript'}{literal}",
     prev:4
   },
   {
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=batch_manager&filter=search-taken:2013..2015",
+    element: "#filter_search input[name=q]",
     title: "{/literal}{'2_7_0_title9'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp9'|@translate|@escape:'javascript'}{literal}"
   },
