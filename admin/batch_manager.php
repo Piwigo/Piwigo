@@ -204,6 +204,10 @@ elseif (isset($_GET['filter']))
         $_SESSION['bulk_manager_filter']['level'] = $value;
       }
       break;
+      
+    case 'search':
+      $_SESSION['bulk_manager_filter']['search']['q'] = $value;
+      break;
     }
   }
 }
