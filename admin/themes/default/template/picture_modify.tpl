@@ -1,5 +1,6 @@
 {include file='include/autosize.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
+{include file='include/colorbox.inc.tpl'}
 
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
@@ -35,6 +36,9 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
     cancelButton: '{'Cancel'|translate}'
   });
 });
+
+{* <!-- THUMBNAILS --> *}
+jQuery("a.preview-box").colorbox();
 }());
 {/footer_script}
 
@@ -49,7 +53,7 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
 
       <tr>
         <td id="albumThumbnail">
-          <img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" class="Thumbnail">
+          <a href="{$FILE_SRC}" class="preview-box icon-search" title="{$TITLE|htmlspecialchars}"><img src="{$TN_SRC}" alt="{'Thumbnail'|translate}"></a>
         </td>
         <td id="albumLinks" style="width:400px;vertical-align:top;">
           <ul style="padding-left:15px;margin:0;">

@@ -229,6 +229,8 @@ $template->set_filenames(
 $admin_url_start = $admin_photo_base_url.'-properties';
 $admin_url_start.= isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '';
 
+$src_image = new SrcImage($row);
+
 $template->assign(
   array(
     'tag_selection' => $tag_selection,
@@ -237,7 +239,8 @@ $template->assign(
 
     'PATH'=>$row['path'],
 
-    'TN_SRC' => DerivativeImage::thumb_url($row),
+    'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
+    'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
 
     'NAME' =>
       isset($_POST['name']) ?
