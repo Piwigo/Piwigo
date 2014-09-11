@@ -113,8 +113,8 @@ tour.addSteps([
   {
     path: /admin\.php\?page=album-[0-9]+-permissions/,
     redirect:function (tour) {window.location = "admin.php?page=album-{/literal}{$TAT_cat_id}{literal}-permissions";},
-    title: "{/literal}{'first_contact_title27'|@translate|@escape:'javascript'}{literal}",
-    content: "{/literal}{'first_contact_stp27'|@translate|@escape:'javascript'}{literal}",
+    title: "{/literal}{'privacy_title14b'|@translate|@escape:'javascript'}{literal}",
+    content: "{/literal}{'privacy_stp14b'|@translate|@escape:'javascript'}{literal}",
   },
   {//15
     path: /admin\.php\?page=album-[0-9]+-permissions/,

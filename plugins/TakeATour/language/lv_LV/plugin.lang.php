@@ -20,146 +20,19 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['first_contact_descrp'] = 'Ieteicams iesācējiem, šī tūre iepazīstina jūs ar Piwigo, tā pamatfunkcijām. Sākas, pievienojot bildes, tad tās pārvalda. Tūre turpinās ar albumu vadību un atļaujām, beidzas ar pielāgošanu, izmantojot konfigurāciju, tēmas un spraudņus.';
-$lang['first_contact_stp29'] = 'Šeit, pirmajā lapā, varat iestatīt svarīgāko un veikt savas galerijas pamatkonfigurāciju.';
-$lang['first_contact_title1'] = 'Laipni lūgti savā Piwigo galerijā';
-$lang['first_contact_title22'] = 'Albūma Izdevuma Lapa';
-$lang['first_contact_title21'] = 'Citas Cilnes';
-$lang['first_contact_title15'] = 'Attēla izdevuma lapa';
-$lang['first_contact_title19'] = 'Pārvaldīt Albūmus';
-$lang['first_contact_title20'] = 'Pārvaldīt Albūmus';
-$lang['first_contact_title18'] = 'Pārvaldīt albūmus';
-$lang['first_contact_title11'] = 'Kā rediģēt attēlus';
-$lang['takeatour_configpage'] = 'Izvēlies Ekskursu > Ekskursu saraksts';
-$lang['first_contact_title9'] = 'Virknes darbību pārvaldnieks';
-$lang['first_contact_title43'] = 'Pavadīts jauks laiks';
-$lang['first_contact_title29'] = 'Konfigurācija->Opcijas->Vispārēji';
-$lang['first_contact_title35'] = 'Tēmas';
-$lang['first_contact_title37'] = 'Tēmas';
-$lang['first_contact_title38'] = 'Spraudņi';
-$lang['first_contact_title39'] = 'Spraudņi';
-$lang['first_contact_title4'] = 'Pievienosim foto!';
-$lang['first_contact_title34'] = 'Tēmas';
-$lang['first_contact_title33'] = 'Viesa iestatījumi';
-$lang['first_contact_title3'] = 'Pievienot Foto Lapu';
-$lang['first_contact_title28'] = 'Konfigurācija';
-$lang['first_contact_stp4'] = 'Vispirms izvēlaties albūmu, ja nav izveidojiet to.';
-$lang['first_contact_stp30'] = 'Sāksim nomainot nosaukumu';
-$lang['first_contact_stp32'] = 'Tagad saglabājiet veiktās izmaiņas';
-$lang['first_contact_stp2'] = 'Saite ir šeit. Spiediet Next lai turpinātu';
-$lang['first_contact_stp11'] = 'Šeit Jūs varat izvēlēties vienu vai vairākus attēlus';
 $lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Izmantojiet ekskursu un atklājiet savas Piwigo galerijas iespējas, Ejiet uz pieejamajiem ekskursiem';
 $lang['Visit your Piwigo!'] = 'Apmeklējiet savu Piwigo!';
 $lang['Start the Tour'] = 'Sākt Iepazīšanos';
-$lang['First Contact'] = 'Pirmā Iepazīšanās';
-$lang['first_contact_stp14'] = 'Mēs redzēsim viena attēla redakcijas lapu. Šī lapa ir sasniedzama no šejienes, kā arī no publiskās attēla lapas, kad ielogojaties kā administrators. Noklikšķiniet uz Rediģēt vai doties tālāk';
-$lang['first_contact_stp3'] = 'Šī pirmā cilne ir vieta, kur var pievienot fotogrāfijas tieši no jūsu pārlūka. Pārējās cilnēs ir citi veidi, kā augšupielādēt fotogrāfijas';
-$lang['first_contact_stp22'] = '
-Līdzīgi kā attēlam, šeit varat rediģēt albūma īpašības';
-Iepriekšējais piemērs bija tikai neliels pārskats par iespējām un par to, cik spēcīgs ir Piwigo.Esmu stāstījis par privātiem albūmiem, bet kā mēs varam pārvaldīt albūmus? Noklikšķiniet uz albūma-> Manage vai klikšķiniet Next';
-$lang['first_contact_stp15'] = 'Šajā lapā jūs varat rediģēt visas foto īpašības, piemēram, ...';
-$lang['first_contact_stp38'] = 'Visērtāk pielēgot Piwigo var ar spraudiem. Ar to palīdzību var gandrīz visu, ko varat iedomāties no maziem teksta aprakstiem līdz pageigtiem elementiem, piemēram kā Kopienas spraudnis, kas ļauj neadministratorlietotājiem augšupielādēt neieejot administrācijas daļā.';
-$lang['first_contact_stp13'] = 'Jūs varat rediģēt aprakstus un vēl vairāk no virknes pārvaldītāja vienības režīmā. Bet tagad, paliksim vispārīgajā režīmā';
-$lang['first_contact_stp37'] = 'Lai uzstādītu jaunas tēmas, jūs to varat tieši lejupielādēt no cilnes "Pievienot tēmu". Tiek rādītas tikai ar jūsu Pivigo versiju saderīgas tēmas. <br> Tagad atklāsim šos spraudņus priekš sevis! Noklikšķiniet uz Plugin-> Pārvaldīt';
-$lang['first_contact_stp40'] = 'Lūk, tas es! Neatspējojiet mani tagad, bet jūs varat Atspējot vai Atjaunot un aktivizēt spraudni.';
-$lang['first_contact_stp20'] = 'Kad jūsu pele tiek vilkta pār albumu, parādās saites un informācija. Kad jūs velkat un nometat albūmu - noapaļots bloks-, jūs izmainīsiet tā atrašanās vietu un pēc tam varat saglabāt vai atcelt savu izkārtojumu.';
-$lang['first_contact_stp31'] = 'Tad baneris, kas tiks parādīts katras lapas augšpusē. Kā redzat, šeit ir atļauti HTML tagi. Jūs varat izmantot arī % gallery_title% tagu, lai parādītu jūsu tikko uzrakstīto virsrakstu.';
-$lang['first_contact_stp28'] = 'Tagad apskatīsim opcijas, lai liktu Piwigo strādāt pēc jūsu prāta. Noklikšķiniet uz Konfigurācija -> Opcijas vai vienkārši Tālāk (Next).';
-$lang['first_contact_stp41'] = 'Uz pēdējās cilnes Jūs varat redzēt visus jūsu Piwigo versijai pieejamos spraudņus. Tur atrodas simtiem spraudņu!';
-$lang['first_contact_stp6'] = 'Redzat, ka šie attēli ir sarakstā. Pievienojiet vismaz 2 attēlus un, kad esat gatavs, klikšķiniet pogu Sākt Augšupielādi (Start Upload). ';
-$lang['first_contact_stp9'] = 'Tagad esat virknes pārvaldniekā, kur varat vienlaicīki rediģēt vairākus attēlus. Šeit Grozs ir iestatīts kā filtrs, jo nākam no augšupielādes rezultātu lapas.';
-$lang['first_contact_stp8'] = 'Rediģēsim tos! Klikšķiniet uz saites. Ja to neredzat, klikšķiniet uz Prev (iepriekšējais), lai pievienotu vismaz 2 attēlus.';
-$lang['first_contact_stp7'] = 'Šeit ir kopsavilkums par jūsu augšupielādētajiem attēliem. Redzat, ka Piwigo pats ir izveidojis sīktēlus. Jūs varat pievienot vairāk fotogrāfijas ar saiti apakšā, rediģēt attēla rekvizītus, noklikšķinot uz tā, vai klikšķiniet, lai pārvaldītu visus augšupielādētos attēlus ar Batch Manager...';
-$lang['first_contact_stp16'] = 'Šeit pievieno vai dzēš foto no albūmiem. Saite ir virtuāla, fiziski netiek pārvietots neviens attēls.';
-$lang['first_contact_stp33'] = 'Tikai pēdējais vārds par iespējām, \'Viesu iestatījumi\' lapa ir lai iestatītu nereģistrētu apmeklētāju preferences. Katru reizi, kad Piwigo atsaucas uz "viesis", tas nozīmē, nereģistrētu apmeklētāju.<br> Turpināsim par Konfigurāciju: klikšķiniet uz Configuration-> Themes vai vienkārši nospiediet Next.';
-$lang['first_contact_stp43'] = 'Šis apskats bija diezgan garš, bet mēs tikai esam redzējuši nelielu daļu no tā, cik spēcīgs ir Piwigo. Visam ir beigas, šis pārskats ir pabeigts. <br>Jūs varat pamatīgāk iepazīties ar Piwigo, veicot kādu citu tūri vai lasot dokumentaciju piwigo.org mājas lapā.';
-$lang['first_contact_stp27'] = 'Svarīgs fakts: webmāsteri un administratori nav visvaroši publiskā daļā, bet tie var piekļūt ikvienam albūmam un fotogrāfijai administratora daļā.';
-$lang['first_contact_title27'] = '';
-$lang['first_contact_title30'] = '';
-$lang['first_contact_title31'] = '';
-$lang['first_contact_title32'] = '';
-$lang['first_contact_title40'] = '';
-$lang['first_contact_title41'] = '';
-$lang['first_contact_title5'] = '';
-$lang['first_contact_title6'] = '';
-$lang['first_contact_title7'] = '';
-$lang['first_contact_title8'] = '';
-$lang['first_contact_title10'] = '';
-$lang['first_contact_title12'] = '';
-$lang['first_contact_title13'] = '';
-$lang['first_contact_title14'] = '';
-$lang['first_contact_title16'] = '';
-$lang['first_contact_title17'] = '';
-$lang['first_contact_title2'] = '';
-$lang['first_contact_title23'] = '';
-$lang['first_contact_stp23'] = 'Slēgt albumu nozīmē, ka tikai administratori varēs redzēt šo albumu: to ir parasti izmanto, ja admins pārvalda albūma rekvizītus  vai ja nevēlas uzreiz publicēt albūmu.';
-$lang['first_contact_stp39'] = 'Šajā pirmajā lapā, tiek uzskaitīti uzinstalētie spraudņi. Pašā augšā ir novietoti aktivizētie spraudņi, kas pašlaik darbojas. Apakšā - spraudņi, kas instalēti spraudņu mapē, bet nav aktīvi. Izdzēšot spraudni nozīmē, ka jebkuras tā pēdas tiks likvidētas (faili, iespējas uc). Attiecībā uz spraudņu lielāko daļu, to atspējošana saglabās to reģistrētos datus.';
-$lang['first_contact_stp10'] = 'Šeit ir saite groza tiešai piekļuvei: tas ir instruments, lai administratori varētu viegli pievienot attēlus, laivarētu tos rediģēt ar partijas Menedžeri. Jūs varat pievienot fotoattēlus Grozam no attēla publiskās lapas, kad esat pieteicies kā administrators, vai izmantojot darbību "Pievienot Grozam" no partijas Menedžera';
+$lang['takeatour_configpage'] = 'Izvēlies Ekskursu > Ekskursu saraksts';
 $lang['TAT_descrp'] = 'Laipni lūdzam! Šeit ir apkopotas visas pieejamās ekskursijas, lai rastu ieskatu jūsu Piwigo galerijas iespējās. <br> Sākt apskatu zemāk, tad sekojiet instrukcijām. Noklikšķiniet uz Nākošais / Iepriekšējais (vai izmantojiet tastatūras bultas), lai virzītos apskates laikā. Apskates laikā, ja jūs ejat uz citu administrēšanas lapu, jūs tiksiet novirzīts uz pašreizēju apskates lapu. Ja esat iestrēdzis un nevarat pārtraukt apslati, dodoties uz <em> Spraudņi »Take Tour </ em> beigsiet apskati.';
 $lang['End tour'] = 'Apskata beigas';
 $lang['Prev'] = 'Iepriekšējais';
 $lang['Next '] = 'Nākamais';
-$lang['first_contact_stp1'] = 'Sveiki! Es būšu jūsu ceļvedis lai atklātu jums Piwigo. Lūdzu, sekojiet maniem norādījumiem un noklikšķiniet uz Tālāk (Next) (vai izmantojiet tastatūras bultas) lai navigētu. Ja iesiet uz citu administrēšanas lapu, jūs tiksiet novirzīts uz apskata tekošo lapu. Ja esat iestrēdzis un nevarat pārtraukt ceļojumu, dodieties uz <em> Spraudņi »Take Tour </ em> un apskats beigsies. <br>Sāksim, pievienojot bildes!';
-$lang['2_7_0_stp10'] = '';
-$lang['2_7_0_title6'] = 'Izvēlēties skriptu';
-$lang['2_7_0_title7'] = '';
-$lang['2_7_0_title8'] = '';
-$lang['2_7_0_title9'] = '';
-$lang['2_7_0_stp4'] = 'Meklēšanas lapa ir pārveidota: iespēja izvēlēties īpašības vārdu meklēšanas piemērošanai, datu bāzē atrodamo autoru sarakstu, tegu sarakstu auto-pabeigšanu, albūmu sarakstu auto-pabeigšanu ...';
-$lang['2_7_0_stp5'] = 'papildus datumam, Jūs varat iestatīt laiku, izmantojot stundu un minūšu slaiderus';
-$lang['2_7_0_stp6'] = 'Ir izmnainīts albumu, tegu uc. izvēles skripts uz jaunāku vēl lietotājam draudzīgāku. Pārbaudiet to ';
-$lang['2_7_0_stp7'] = '';
-$lang['2_7_0_stp8'] = '';
-$lang['2_7_0_stp9'] = '';
-$lang['2_7_0_title10'] = '';
-$lang['2_7_0_title4'] = 'Meklēt Lapu';
-$lang['2_7_0_title5'] = 'Laiks';
-$lang['2_7_0_stp1'] = 'Sveiki! Būšu jūsu ceļvedis ekskursijā pa Piwigo. Lūdzu sekojiet manām norādēm un noklikšķiniet uz Next (vai izmantojiet bultas uz tastatūras), lai pārvietotos. Ja ejat uz citu lapu, jūs tikiet novirzīti uz pašreizējo Ekskursijas lapu.';
-$lang['2_7_0_stp2'] = 'Kā redzat, pievienots jauns noklusējuma spraudnis: Iepazīsim to. Šis spraudnis ļauj jums atklāt Piwigo spējas. Šeit ir uzskaitītas visas pieejamās ekskursijas pa Piwigo.Šī lapa ir pieejama <em> Plugins »Take Tour </ em>';
-$lang['2_7_0_title11'] = 'Uz drīzu redzēšanos!';
-$lang['2_7_0_title3'] = 'Ātrā meklēšana';
-$lang['2_7_0_title2'] = 'Pirmais jaunums';
-$lang['2_7_0_title1'] = 'Sveicināti Piwigo 2.7';
+
+$lang['First Contact'] = 'Pirmā Iepazīšanās';
+$lang['first_contact_descrp'] = 'Ieteicams iesācējiem, šī tūre iepazīstina jūs ar Piwigo, tā pamatfunkcijām. Sākas, pievienojot bildes, tad tās pārvalda. Tūre turpinās ar albumu vadību un atļaujām, beidzas ar pielāgošanu, izmantojot konfigurāciju, tēmas un spraudņus.';
+
 $lang['2.7 Tour'] = '2.7 Apskats';
 $lang['2_7_0_descrp'] = 'Atklājiet, kas jauns Piwigo 2.7';
-$lang['2_7_0_stp3'] = 'Ātrā meklēšana ir pārstrādāta:<br>
-- pievienots operators OR<br>
-- atļauta grupēšana izmantojot iekavas ()<br>
-- pievienoti paraugi meklēšanā, tādi kā:<br>
- * #snow - meklē tikai tegus vārdam snow<br>
- * ratio:0.9..1.1 - meklē foto ar platuma/garuma attiecību no 0.9 līdz 1.1 (gandrīz kvadrāts)<br>
- * hits:>10 - meklē foto, kas apmeklētas vairāk par 10 reizēm<br>
- * size:>10mp - meklē foto kur platums*augstums > 10 mega pikselēm<br>
- * file:.jpg - tikai jpg attēlus<br>
-- izmanto vienskaitļa / daudzskaitļa locījumus (angļu / franču tikai no šī brīža)<br>';
-$lang['2_7_0_stp11'] = 'Šī ekskursija nu ir galā.<p style="text-align:center">Baudiet savu Piwigo 2.7!</p>Ja jums palīk Piwigo un vēlaties mūs atbalstīt, to varat darīt palīdzot ar tulkojumiem, ziedojot, utt. <a href="http://piwigo.org/basics/contribute" target="_blank">Klikšķiniet lai atbalstītu mūs</a>';
-$lang['privacy_stp13'] = 'Tagad klikšķiniet uz ptivate.';
-$lang['privacy_stp8'] = 'Atlasiet vienu vai vairākas bildes...';
-$lang['privacy_title6'] = 'Privātuma Līmenis';
-$lang['privacy_title7'] = 'Privātuma Līmenis';
-$lang['privacy_title8'] = 'Privātuma Līmenis';
-$lang['privacy_title9'] = 'Privātuma Līmenis';
-$lang['privacy_title12'] = 'Albumu atļaujas';
-$lang['privacy_title11'] = 'Albumu atļaujas';
-$lang['privacy_title10'] = 'Albumu atļaujas';
-$lang['privacy_title1'] = '
-Laipni gaidīti Privātuma Tūrē';
-$lang['privacy_title22'] = 'Vietējā Konfigurācija: Oriģinālā aizsardzība';
-Vietējā Konfigurācija: Konfidencialitātes Līmenis';
-$lang['privacy_title2'] = 'Palīdzība jūsu Piwigo';
-$lang['privacy_title24'] = 'Tas bija lieliski';
-$lang['privacy_title5'] = 'Atļaujas > Grupas';
-$lang['privacy_title4'] = 'Atļaujas';
-$lang['privacy_title3'] = 'Atļaujas';
-$lang['privacy_title21'] = 'Publiskie foto';
-$lang['privacy_title20'] = 'Publiskie foto';
-$lang['privacy_title19'] = 'Lietotāji';
-$lang['privacy_title15'] = 'padoms';
-$lang['privacy_title18'] = 'Grupas';
-$lang['privacy_title17'] = 'Grupas';
-$lang['privacy_stp11'] = 'Tagad klikšķiniet uz Permissions (atļaujas) cilnes';
-$lang['privacy_stp3'] = 'Veltiet laiku, lai izlasītu informāciju zemāk.';
-$lang['privacy_stp12'] = 'Šajā lapā varat izvēlēties vai albūms būs pieejams ikvienam, vai  tikai dažiem lietotājiem';
-$lang['privacy_stp14'] = '
-Tad lietotājiem un lietotāju grupām var piešķirt tiesības, lai piekļūtu albūmam.';
+
 $lang['privacy_descrp'] = 'Šis apskats iepazīstina ar visiem veidiem, kā aizsargāt savu foto no publiskas piekļuves, izmantojot atļauju sistēmu vienam albūmam un vienam attēlam, un pret kopēšanu, izmantojot attēlu aizsardzību.';
