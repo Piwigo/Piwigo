@@ -963,6 +963,9 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
       case 'posted':
         $clauses[] = $token->scope->get_sql('date_available', $token);
         break;
+      case 'id':
+        $clauses[] = $token->scope->get_sql($scope_id, $token);
+        break;
       default:
         // allow plugins to have their own scope with columns added in db by themselves
         $clauses = trigger_change('qsearch_get_images_sql_scopes', $clauses, $token, $expr);
@@ -1180,6 +1183,7 @@ function get_quick_search_results_no_cache($q, $options)
   $scopes[] = new QNumericRangeScope('filesize', array());
   $scopes[] = new QNumericRangeScope('hits', array('hit', 'visit', 'visits'));
   $scopes[] = new QNumericRangeScope('score', array('rating'), true);
+  $scopes[] = new QNumericRangeScope('id', array());
 
   $createdDateAliases = array('taken', 'shot');
   $postedDateAliases = array('added');
