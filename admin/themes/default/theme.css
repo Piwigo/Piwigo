@@ -1243,3 +1243,27 @@ a.group_perm {
 .preview-box.icon-search:hover img {
   opacity:0.5;
 }
+
+/* table in help/quick_search.html */
+table.qsearch_help_table {
+  border-collapse:collapse;
+  text-align:left;
+  margin:1em;
+}
+table.qsearch_help_table q {
+	font-family: Courier, Fixed;
+	font-weight: bold;
+}
+table.qsearch_help_table q:before {
+	content: '\'';
+	color: green;
+}
+table.qsearch_help_table q:after {
+	content: '\'';
+	color: green;
+}
+table.qsearch_help_table td {
+	border: 1px solid #ccc;
+  padding:5px;
+  vertical-align:top;
+}

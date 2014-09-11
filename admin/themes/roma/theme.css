@@ -353,3 +353,7 @@ table.dataTable thead th {
 
 .userPropertiesContainer {border-color:#333;}
 .userPrefs {border-color:#333;}
+
+table.qsearch_help_table td {
+	border-color: #444;
+}

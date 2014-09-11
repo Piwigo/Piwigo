@@ -1,26 +1,8 @@
 <h2>Search</h2>
-<style>
-q {
-	font-family: Courier, Fixed;
-	font-weight: bold;
-}
-q:before {
-	content: '\'';
-	color: green;
-}
-q:after {
-	content: '\'';
-	color: green;
-}
-TD {
-	border: 1px solid
-}
-</style>
 
+<p>By default all searched terms must match. Searches are case-insensitive.</p>
 
-<p>By default all searched terms must match. Searches are case-insesitive.</p>
-
-<table style="border-collapse:collapse;text-align:left">
+<table class="qsearch_help_table">
 <tr>
 <td>quoted phrase<br>
 <q>"search"</q>
@@ -60,7 +42,7 @@ TD {
 
 <br>
 
-<table style="border-collapse:collapse;text-align:left">
+<table class="qsearch_help_table">
 
 <tr>
 <td><q>tag:</q><br>
@@ -141,6 +123,12 @@ TD {
 </td>
 <td>Searches photos by file size<br>
 <q>filesize:1m..10m</q> finds files between 1MB and 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Searches photos by its numeric identifier in Piwigo<br>
+<q>id:123..126</q> finds photo 123 to 126 (it may find between 0 and 4 photos, because photos can be deleted).</td>
 </tr>
 
 </table>

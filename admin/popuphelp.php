@@ -47,16 +47,21 @@ if
     and preg_match('/^[a-z_]*$/', $_GET['page'])
   )
 {
-  $help_content =
-    load_language('help/'.$_GET['page'].'.html', '', array('return'=>true) );
+  $help_content = load_language(
+    'help/'.$_GET['page'].'.html',
+    '',
+    array(
+      'force_fallback' => 'en_UK',
+      'return' => true,
+      )
+    );
 
   if ($help_content == false)
   {
     $help_content = '';
   }
 
-  $help_content = trigger_change(
-    'get_popup_help_content', $help_content, $_GET['page']);
+  $help_content = trigger_change('get_popup_help_content', $help_content, $_GET['page']);
 }
 else
 {
