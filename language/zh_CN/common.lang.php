@@ -426,3 +426,6 @@ $lang['No results for'] = '没有结果';
 $lang['Apply on properties'] = '应用到属性';
 $lang['Photo description'] = '相片描述';
 $lang['Photo title'] = '相片标题';
+$lang['Album name, A &rarr; Z'] = '相册名称， A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = '相册名称， Z &rarr; A';
+$lang['Link: %s'] = '链接： %s';
