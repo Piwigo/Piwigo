@@ -1,9 +1,7 @@
 <?php
-$lang['2_7_0_stp10'] = '';
 $lang['2_7_0_stp4'] = '';
 $lang['2_7_0_stp5'] = '';
 $lang['2_7_0_stp6'] = '';
-$lang['2_7_0_title10'] = '';
 $lang['2_7_0_title4'] = '';
 $lang['2_7_0_title5'] = '';
 $lang['2_7_0_title6'] = '';

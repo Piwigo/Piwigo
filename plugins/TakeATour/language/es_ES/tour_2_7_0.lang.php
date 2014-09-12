@@ -1,9 +1,7 @@
 <?php
-$lang['2_7_0_stp10'] = '';
 $lang['2_7_0_stp4'] = 'La página de búsqueda se ha vuelto a trabajar: la capacidad para seleccionar las propiedades en las que se aplica la palabra de búsqueda, la lista de autores que se encuentra en la base de datos, la lista de autocompletado de etiquetas, lista de autocompletado de álbumes ...';
 $lang['2_7_0_stp5'] = 'Puede ajustar la hora, además de la fecha, utilizando los deslizadores de Hora y Minuto ';
 $lang['2_7_0_stp6'] = 'La secuencia de selección para escoger los álbumes, etiquetas etc ha cambiado a una interface mas amigable. Pruébelo abajo';
-$lang['2_7_0_title10'] = '';
 $lang['2_7_0_title4'] = 'Buscar pagina';
 $lang['2_7_0_title5'] = 'Tiempo';
 $lang['2_7_0_title6'] = 'Seleccione un script';

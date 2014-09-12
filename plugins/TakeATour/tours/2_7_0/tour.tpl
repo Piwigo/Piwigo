@@ -69,8 +69,10 @@ tour.addSteps([
     title: "{/literal}{'2_7_0_title9'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp9'|@translate|@escape:'javascript'}{literal}"
   },
-  {//10
-    path: "{/literal}{$TAT_path}{literal}admin.php?page=plugin-TakeATour",
+  {
+    path: "{/literal}{$TAT_path}{literal}admin.php?page=batch_manager&filter=filesize-1..5",
+    element: "#filter_filesize",
+    placement: "top",
     title: "{/literal}{'2_7_0_title10'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'2_7_0_stp10'|@translate|@escape:'javascript'}{literal}"
   },

@@ -1,10 +1,8 @@
 <?php
 $lang['2_7_0_title6'] = 'Wähle Skript';
-$lang['2_7_0_stp10'] = '';
 $lang['2_7_0_stp4'] = 'Die Suchseite wurde überarbeitet: Die Eigenschaften auf die die Volltextsuche angewendet wird können ausgewählt werden, die Liste der Autoren wird aus der Datenbank ausgelesen, Autvervollständigung von Schlagworten und Alben...';
 $lang['2_7_0_stp5'] = 'Zusätzlich zum Datum können Stunden und Minuten über den Schieberegler eingestellt werden.';
 $lang['2_7_0_stp6'] = 'Das Auswahl-Skript um Alben, Schlagworte usw. auszuwählen ist nun benutzerfreundlicher. Teste es weiter unten';
-$lang['2_7_0_title10'] = '';
 $lang['2_7_0_title4'] = 'Suchseite';
 $lang['2_7_0_title5'] = 'Zeit';
 $lang['2_7_0_title1'] = 'Willkommen bei Piwigo 2.7';

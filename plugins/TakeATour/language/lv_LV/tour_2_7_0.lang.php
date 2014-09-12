@@ -1,10 +1,8 @@
 <?php
-$lang['2_7_0_stp10'] = '';
 $lang['2_7_0_title6'] = 'Izvēlēties skriptu';
 $lang['2_7_0_stp4'] = 'Meklēšanas lapa ir pārveidota: iespēja izvēlēties īpašības vārdu meklēšanas piemērošanai, datu bāzē atrodamo autoru sarakstu, tegu sarakstu auto-pabeigšanu, albūmu sarakstu auto-pabeigšanu ...';
 $lang['2_7_0_stp5'] = 'papildus datumam, Jūs varat iestatīt laiku, izmantojot stundu un minūšu slaiderus';
 $lang['2_7_0_stp6'] = 'Ir izmnainīts albumu, tegu uc. izvēles skripts uz jaunāku vēl lietotājam draudzīgāku. Pārbaudiet to ';
-$lang['2_7_0_title10'] = '';
 $lang['2_7_0_title4'] = 'Meklēt Lapu';
 $lang['2_7_0_title5'] = 'Laiks';
 $lang['2_7_0_stp1'] = 'Sveiki! Būšu jūsu ceļvedis ekskursijā pa Piwigo. Lūdzu sekojiet manām norādēm un noklikšķiniet uz Next (vai izmantojiet bultas uz tastatūras), lai pārvietotos. Ja ejat uz citu lapu, jūs tikiet novirzīti uz pašreizējo Ekskursijas lapu.';
