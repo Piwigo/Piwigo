@@ -1,5 +1,4 @@
 <?php
-$lang['first_contact_descrp'] = 'Recommended for beginners, this tour introduce you Piwigo, its basic features. It will start by adding photos, then manage them. The tour continues with album management and permissions, and ends on the customization using the configuration, the themes and the plugins.';
 $lang['first_contact_title1'] = 'Welcome in your Piwigo gallery';
 $lang['first_contact_stp1'] = 'Hello! I will be your guide to discover Piwigo. Please follow my instructions, and click Next (or use the arrows of your keyboard) to navigate. If you go to an other page of the administration, you will be redirected to the current page of the Tour. If you are stuck and can\'t end the tour, going to <em>Plugins » Take A Tour</em> will end the tour.<br>Let\'s start by adding photos!';
 $lang['first_contact_title2'] = '';
