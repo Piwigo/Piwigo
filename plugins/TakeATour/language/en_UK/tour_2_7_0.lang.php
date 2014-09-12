@@ -20,4 +20,4 @@ $lang['2_7_0_stp10'] = '';
 $lang['2_7_0_title11'] = 'See you soon!';
 $lang['2_7_0_stp11'] = 'This tour is over.<p style="text-align:center">Enjoy your Piwigo 2.7!</p>If you like Piwigo and want to support us, you can contribute by helping for translations, donating, etc. <a href="http://piwigo.org/basics/contribute" target="_blank">Click here to support us</a> Thanks!';
 $lang['2_7_0_title2b'] = 'New upload form';
-$lang['2_7_0_stp2b'] = 'The new upload form in Piwigo 2.7 is based on HTML5 instead of Flash, it means a better compatibility with modern web browsers. Chunked uploads will increase reliability on slow connections. Drag & drop will make photo selection much easier from your file browser!';
+$lang['2_7_0_stp2b'] = 'The new upload form in Piwigo 2.7 is based on HTML5 instead of Flash, it means a better compatibility with modern web browsers as well as an increased reliability on slow connections. And drag & drop will make photos selection much easier from your file browser!';
