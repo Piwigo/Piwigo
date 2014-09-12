@@ -175,7 +175,7 @@ elseif (isset($_GET['filter']))
 
   foreach ($_GET['filter'] as $filter)
   {
-    list($type, $value) = explode('-', $filter);
+    list($type, $value) = explode('-', $filter, 2);
 
     switch ($type)
     {
@@ -183,7 +183,7 @@ elseif (isset($_GET['filter']))
       $_SESSION['bulk_manager_filter']['prefilter'] = $value;
       break;
 
-    case 'album':
+    case 'album': case 'category': case 'cat':
       if (is_numeric($value))
       {
         $_SESSION['bulk_manager_filter']['category'] = $value;
@@ -204,9 +204,37 @@ elseif (isset($_GET['filter']))
         $_SESSION['bulk_manager_filter']['level'] = $value;
       }
       break;
-      
+
     case 'search':
       $_SESSION['bulk_manager_filter']['search']['q'] = $value;
+      break;
+
+    case 'dimension':
+      $dim_map = array('w'=>'width','h'=>'height','r'=>'ratio');
+      foreach (explode('-', $value) as $part)
+      {
+        $values = explode('..', substr($part, 1));
+        if (isset($dim_map[$part[0]]))
+        {
+          $type = $dim_map[$part[0]];
+          list(
+            $_SESSION['bulk_manager_filter']['dimension']['min_'.$type],
+            $_SESSION['bulk_manager_filter']['dimension']['max_'.$type]
+          ) = $values;
+        }
+      }
+      break;
+
+    case 'filesize':
+      list(
+        $_SESSION['bulk_manager_filter']['filesize']['min'],
+        $_SESSION['bulk_manager_filter']['filesize']['max']
+      ) = explode('..', $value);
+      break;
+
+    default:
+      $_SESSION['bulk_manager_filter'] = trigger_change('batch_manager_url_filter',
+        $_SESSION['bulk_manager_filter'], $type, $value);
       break;
     }
   }

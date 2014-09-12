@@ -897,6 +897,13 @@ array(
   'files' => array('include\ws_functions\pwg.users.php'),
   'infos' => 'New in 2.6.2.',
 ),
+array(
+  'name' => 'batch_manager_url_filter',
+  'type' => 'trigger_change',
+  'vars' => array('array', 'bulk_manager_filter', 'string', 'type', 'string', 'value'),
+  'files' => array('admin\batch_manager.php'),
+  'infos' => 'New in 2.7.',
+),
 );
 ?>
 <!DOCTYPE html>
