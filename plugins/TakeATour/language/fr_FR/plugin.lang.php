@@ -14,4 +14,5 @@ $lang['first_contact_descrp'] = 'Cette visite est une introduction à Piwigo et 
 $lang['2_7_0_descrp'] = 'Découvrez ce qui est nouveau avec Piwigo 2.7';
 $lang['2.7 Tour'] = 'Visite 2.7';
 
+$lang['Privacy'] = 'Vie privée';
 $lang['privacy_descrp'] = 'Cette visite vous présente toutes les manières de protéger vos photos de l\'accès public avec des systèmes d\'autorisation par album et par image, et vous protège de la copie à l\'aide de protection d\'image.';
