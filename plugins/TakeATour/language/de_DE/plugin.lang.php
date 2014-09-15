@@ -36,3 +36,4 @@ $lang['privacy_descrp'] = 'Diese Tour beschreibt alle Möglichkeiten, deine Foto
 
 $lang['2.7 Tour'] = '2.7 Tour';
 $lang['2_7_0_descrp'] = 'Endecke die Neuigkeiten in Piwigo 2.7';
+$lang['Privacy'] = 'Privatsphäre';
