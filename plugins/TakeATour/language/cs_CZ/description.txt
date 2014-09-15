@@ -1,0 +1,1 @@
+Prozkoumejte vlastnosti vaší Piwigo fotogalerie. Tento plugin obsahuje mnoho ukázek pro začátečníky a pokročilé uživatele.
