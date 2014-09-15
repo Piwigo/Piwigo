@@ -19,3 +19,5 @@ $lang['2_7_0_stp8'] = 'Einfacher Aktionslink um den Sammelkorb mit nur einem Kli
 $lang['2_7_0_title8'] = 'Leere deinen Sammelkorb';
 $lang['2_7_0_title7'] = 'Sortiere Alben nach Datum';
 $lang['2_7_0_title9'] = 'Suchfilter';
+$lang['2_7_0_stp10'] = 'Ein Dateigröße-Filter wurde auch dem Batch Manager hinzugefügt. Man kann einen Bereich mit mindest und maximal Größen angeben.';
+$lang['2_7_0_title10'] = 'Dateigröße-Filter';
