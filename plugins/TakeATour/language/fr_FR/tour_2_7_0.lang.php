@@ -19,3 +19,5 @@ $lang['2_7_0_stp9'] = 'Un filtre de recherche a été ajouté au gestionnaire pa
 $lang['2_7_0_stp8'] = 'Lien tout simple pour vider votre panier en 1 clic.';
 $lang['2_7_0_stp7'] = 'Dorénavant vous pouvez trier vos albums selon la date de création ou la date d\'ajout des photos qu\'il contient.';
 $lang['2_7_0_stp2b'] = 'Le nouveau formulaire d\'ajout de photos de Piwigo 2.7 exploite le HTML5 en remplacement de Flash, ce qui signifie une meilleure compatibilité avec les navigateurs web modernes tout en augmentant la fiabilité des transferts sur les connexions internet les plus lentes. De plus, le glisser/déposer à partir de votre explorateur de fichiers va rendre la sélection de photos bien plus facile !';
+$lang['2_7_0_title10'] = 'Fichier "filtre de taille"';
+$lang['2_7_0_stp10'] = 'Un filtre sur la taille du fichier a également été ajouté au gestionnaire de batch. Vous pouvez sélectionner une plage avec une valeur minimum et maximum.';
