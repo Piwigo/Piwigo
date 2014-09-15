@@ -1267,3 +1267,16 @@ table.qsearch_help_table td {
   padding:5px;
   vertical-align:top;
 }
+
+.font-checkbox [class*=icon-check]:before {
+  font-size:16px;
+  line-height:16px;
+  margin-right:0;
+}
+.font-checkbox .icon-check-empty {
+  position:relative;
+  left:-1px;
+}
+.font-checkbox input[type=checkbox], .font-checkbox input[type=radio] {
+  display:none;
+}

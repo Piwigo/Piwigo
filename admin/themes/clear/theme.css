@@ -381,3 +381,4 @@ table.dataTable thead th {
   box-shadow:inset 0px 1px 3px 0px rgba(255,255,255,0.4);
 }
 
+.font-checkbox [class*=icon-check]:before { color:#444; }

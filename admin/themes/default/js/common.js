@@ -1,3 +1,21 @@
+jQuery.fn.fontCheckbox = function() {
+  this.find('input[type=checkbox], input[type=radio]').each(function() {
+    if (!jQuery(this).is(':checked')) {
+      jQuery(this).prev().toggleClass('icon-check icon-check-empty');
+    }
+  });
+  this.find('input[type=checkbox]').on('change', function() {
+    jQuery(this).prev().toggleClass('icon-check icon-check-empty');
+  });
+  this.find('input[type=radio]').on('change', function() {
+    jQuery(this).closest('.font-checkbox').find('input[type=radio][name='+ jQuery(this).attr('name') +']')
+      .prev().toggleClass('icon-check icon-check-empty');
+  });
+};
+
+// init fontChecbox everywhere
+jQuery('.font-checkbox').fontCheckbox();
+
 function array_delete(arr, item) {
   var i = arr.indexOf(item);
   if (i != -1) arr.splice(i, 1);

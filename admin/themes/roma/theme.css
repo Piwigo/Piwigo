@@ -16,7 +16,7 @@
 */
 /* text color */
 body, h3, dt, .throw, .content, label, LEGEND {
-	color:#666;
+	color:#777;
 }
 
 INPUT, select, textarea { color:#999; background-color: #444; }
@@ -357,3 +357,5 @@ table.dataTable thead th {
 table.qsearch_help_table td {
 	border-color: #444;
 }
+
+.font-checkbox [class*=icon-check]:before { color:#aaa; }
