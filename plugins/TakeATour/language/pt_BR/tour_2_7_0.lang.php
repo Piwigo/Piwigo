@@ -19,3 +19,5 @@ $lang['2_7_0_title9'] = 'Filtro de pesquisa';
 $lang['2_7_0_stp8'] = 'Fácil link de ação para esvaziar o seu armazenador em apenas um clique.';
 $lang['2_7_0_stp7'] = 'Agora você pode classificar seus álbuns com base na data de criação ou data das fotos postadas';
 $lang['2_7_0_stp2b'] = 'O novo formulário de envio do Piwigo 2.7 é baseado em HTML5 em vez do Flash, isso significa uma melhor compatibilidade com os navegadores modernos, bem como uma maior confiabilidade em conexões lentas. O segura & solta vai fazer a seleção de fotos muito mais fácil a partir do seu navegador de arquivos!';
+$lang['2_7_0_stp10'] = 'Um filtro do tamanho do arquivo também foi adicionado ao gerente de lote. Você pode selecionar um intervalo com um valor mínimo e máximo.';
+$lang['2_7_0_title10'] = 'Filtro de tamanho de arquivo';
