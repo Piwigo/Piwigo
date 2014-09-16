@@ -211,6 +211,8 @@ if (count($available_tags) > 0)
 }
 
 // authors
+$authors = array();
+
 $query = '
 SELECT
     author,
