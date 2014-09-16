@@ -53,3 +53,6 @@ $lang['first_contact_title8'] = '';
 $lang['first_contact_stp8'] = 'Cerchiamo di modificarle! Clicca sul link. Se non lo vedi clicca Prima per aggiungere almeno 2 foto.';
 $lang['first_contact_title15'] = 'La pagina di modifica di una foto';
 $lang['first_contact_title22'] = 'Pogina Modifica Album';
+$lang['first_contact_stp18'] = 'Vediamo ora come gestire gli album. Cliccas <em>Su album» Gestione</em> o premi Avanti';
+$lang['first_contact_stp12'] = 'poi modificali tramite un\'azione';
+$lang['first_contact_stp19_b'] = 'Qui sono elencati gli album \'root\'.';
