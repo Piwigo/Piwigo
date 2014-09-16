@@ -1214,11 +1214,11 @@ a.group_perm {
 .userProperty {width:340px;float:left;margin-bottom:15px;}
 .userActions {float:right;text-align:right;}
 
-.preview-box.icon-search {
+.preview-box.icon-zoom-in {
   display:block;
   position:relative;
 }
-.preview-box.icon-search:before {
+.preview-box.icon-zoom-in:before {
   opacity:0;
   position:absolute;
   margin:-22px 0 0 -22px;
@@ -1232,15 +1232,15 @@ a.group_perm {
   -webkit-transition:opacity 200ms ease;
   transition:opacity 200ms ease;
 }
-.preview-box.icon-search:hover:before {
+.preview-box.icon-zoom-in:hover:before {
   opacity:0.9;
 }
-.preview-box.icon-search img {
+.preview-box.icon-zoom-in img {
   opacity:1;
   -webkit-transition:opacity 200ms ease;
   transition:opacity 200ms ease;
 }
-.preview-box.icon-search:hover img {
+.preview-box.icon-zoom-in:hover img {
   opacity:0.5;
 }
 

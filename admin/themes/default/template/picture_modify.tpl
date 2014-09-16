@@ -53,7 +53,7 @@ jQuery("a.preview-box").colorbox();
 
       <tr>
         <td id="albumThumbnail">
-          <a href="{$FILE_SRC}" class="preview-box icon-search" title="{$TITLE|htmlspecialchars}"><img src="{$TN_SRC}" alt="{'Thumbnail'|translate}"></a>
+          <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}"><img src="{$TN_SRC}" alt="{'Thumbnail'|translate}"></a>
         </td>
         <td id="albumLinks" style="width:400px;vertical-align:top;">
           <ul style="padding-left:15px;margin:0;">

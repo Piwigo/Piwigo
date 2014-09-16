@@ -55,7 +55,7 @@ jQuery("a.preview-box").colorbox();
   <legend>{$element.LEGEND}</legend>
 
   <span class="thumb">
-    <a href="{$element.FILE_SRC}" class="preview-box icon-search" title="{$element.LEGEND|@htmlspecialchars}"><img src="{$element.TN_SRC}" alt=""></a>
+    <a href="{$element.FILE_SRC}" class="preview-box icon-zoom-in" title="{$element.LEGEND|@htmlspecialchars}"><img src="{$element.TN_SRC}" alt=""></a>
     <a href="{$element.U_EDIT}" class="icon-pencil">{'Edit'|@translate}</a>
   </span>
 

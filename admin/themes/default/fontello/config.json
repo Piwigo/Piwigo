@@ -49,9 +49,33 @@
       "src": "fontawesome"
     },
     {
+      "uid": "12f4ece88e46abd864e40b35e05b11cd",
+      "css": "ok",
+      "code": 59417,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "43ab845088317bd348dee1d975700c48",
+      "css": "ok-circled",
+      "code": 59428,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "5211af474d3a9848f67f945e2ccaf143",
+      "css": "cancel",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
       "uid": "0f4cae16f34ae243a6144c18a003f2d8",
       "css": "cancel-circled",
       "code": 59425,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "44e04715aecbca7f266a17d5a7863c68",
+      "css": "plus",
+      "code": 59427,
       "src": "fontawesome"
     },
     {
@@ -172,6 +196,18 @@
       "uid": "6605ee6441bf499ffa3c63d3c7409471",
       "css": "move",
       "code": 59410,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "0b2b66e526028a6972d51a6f10281b4b",
+      "css": "zoom-in",
+      "code": 59431,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d25d10efa900f529ad1d275657cfd30e",
+      "css": "zoom-out",
+      "code": 59432,
       "src": "fontawesome"
     },
     {

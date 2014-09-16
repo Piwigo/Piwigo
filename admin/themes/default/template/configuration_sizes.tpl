@@ -55,7 +55,7 @@
 
 {html_style}
 .sizeEnable { width:50px; }
-.sizeEnable .mustEnable { display:inline-block; width:13px; margin:0 3px; }
+.sizeEnable .icon-ok { position:relative; left:2px; }
 .sizeEditForm { margin:0 0 10px 20px; }
 .sizeEdit { display:none; }
 #sizesConf table { margin:0; }
@@ -129,7 +129,7 @@
           <label>
             {if $d.must_enable}
             <span class="sizeEnable">
-              <span class="mustEnable">&#x2714;</span>
+              <span class="icon-ok"></span>
             </span>
             {else}
             <span class="sizeEnable font-checkbox">
