@@ -417,6 +417,16 @@ var sliders = {
 				<input name="q" size=40 value="{$filter.search.q|stripslashes|htmlspecialchars}">
 				{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 				<a href="admin/popuphelp.php?page=quick_search" onclick="popuphelp(this.href);return false;" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
+{if (isset($no_search_results))}
+<div>{'No results for'|@translate} :
+	<em><strong>
+	{foreach $no_search_results as $res}
+	{if !$res@first} &mdash; {/if}
+	{$res}
+	{/foreach}
+	</strong></em>
+</div>
+{/if}
 			</li>
 
       <li id="filter_filesize" {if !isset($filter.filesize)}style="display:none"{/if}>
