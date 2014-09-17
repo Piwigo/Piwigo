@@ -30,8 +30,6 @@ tour.addSteps([
   },
   {
     path: "{/literal}{$TAT_path}{literal}admin.php?page=help&section=permissions",
-    placement: "top",
-    element: "#helpContent",
     title: "{/literal}{'privacy_title4'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'privacy_stp4'|@translate|@escape:'javascript'}{literal}"
   },

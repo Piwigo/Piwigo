@@ -70,8 +70,8 @@ tour.addSteps([
   {
     path: /admin\.php\?page=(photos_add|batch_manager&filter=prefilter-last_import|batch_manager&filter=prefilter-caddie)/,
     redirect:function (tour) {window.location = "admin.php?page=batch_manager&filter=prefilter-last_import";},
-    placement: "top",
-    element: "select[name='filter_prefilter']",
+    placement: "bottom",
+    element: "#filter_prefilter select",
     title: "{/literal}{'first_contact_title9'|@translate|@escape:'javascript'}{literal}",
     content: "{/literal}{'first_contact_stp9'|@translate|@escape:'javascript'}{literal}",
     prev:3,
