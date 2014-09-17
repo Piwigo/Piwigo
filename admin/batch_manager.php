@@ -508,7 +508,7 @@ SELECT id
 }
 
 if (isset($_SESSION['bulk_manager_filter']['search']) && 
-	strlen($_SESSION['bulk_manager_filter']['search']['q']))
+    strlen($_SESSION['bulk_manager_filter']['search']['q']))
 {
   include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
   $res = get_quick_search_results_no_cache($_SESSION['bulk_manager_filter']['search']['q'], array('permissions'=>false));
