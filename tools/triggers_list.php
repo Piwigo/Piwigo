@@ -9,16 +9,23 @@ array(
 array(
   'name' => 'batch_manager_perform_filters',
   'type' => 'trigger_change',
-  'vars' => array('array', 'filter_sets'),
+  'vars' => array('array', 'filter_sets', 'array', 'bulk_manager_filter'),
   'files' => array('admin\batch_manager.php'),
   'infos' => 'New in 2.7',
 ),
 array(
   'name' => 'batch_manager_register_filters',
-  'type' => 'trigger_notify',
-  'vars' => array(),
+  'type' => 'trigger_change',
+  'vars' => array('array', 'bulk_manager_filter'),
   'files' => array('admin\batch_manager.php'),
   'infos' => 'New in 2.7',
+),
+array(
+  'name' => 'batch_manager_url_filter',
+  'type' => 'trigger_change',
+  'vars' => array('array', 'bulk_manager_filter', 'string', 'filter'),
+  'files' => array('admin\batch_manager.php'),
+  'infos' => 'New in 2.7.',
 ),
 array(
   'name' => 'begin_delete_elements',
@@ -641,7 +648,7 @@ array(
 array(
   'name' => 'perform_batch_manager_prefilters',
   'type' => 'trigger_change',
-  'vars' => array('array', 'filter_sets', 'string', 'session_prefilter'),
+  'vars' => array('array', 'filter_sets', 'string', 'prefilter'),
   'files' => array('admin\batch_manager.php'),
 ),
 array(
@@ -896,13 +903,6 @@ array(
   'vars' => array('array', 'users'),
   'files' => array('include\ws_functions\pwg.users.php'),
   'infos' => 'New in 2.6.2.',
-),
-array(
-  'name' => 'batch_manager_url_filter',
-  'type' => 'trigger_change',
-  'vars' => array('array', 'bulk_manager_filter', 'string', 'type', 'string', 'value'),
-  'files' => array('admin\batch_manager.php'),
-  'infos' => 'New in 2.7.',
 ),
 );
 ?>

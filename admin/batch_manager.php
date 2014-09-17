@@ -161,7 +161,7 @@ if (isset($_POST['submitFilter']))
     $_SESSION['bulk_manager_filter']['search']['q'] = $_POST['q'];
   }
 
-  trigger_notify('batch_manager_register_filters');
+  $_SESSION['bulk_manager_filter'] = trigger_change('batch_manager_register_filters', $_SESSION['bulk_manager_filter']);
 }
 // filters from url
 elseif (isset($_GET['filter']))
@@ -233,8 +233,7 @@ elseif (isset($_GET['filter']))
       break;
 
     default:
-      $_SESSION['bulk_manager_filter'] = trigger_change('batch_manager_url_filter',
-        $_SESSION['bulk_manager_filter'], $type, $value);
+      $_SESSION['bulk_manager_filter'] = trigger_change('batch_manager_url_filter', $_SESSION['bulk_manager_filter'], $filter);
       break;
     }
   }
@@ -391,9 +390,11 @@ SELECT id
       $filter_sets[] = query2array($query, null, 'id');
     }
     break;
-  }
 
-  $filter_sets = trigger_change('perform_batch_manager_prefilters', $filter_sets, $_SESSION['bulk_manager_filter']['prefilter']);
+  default:
+    $filter_sets = trigger_change('perform_batch_manager_prefilters', $filter_sets, $_SESSION['bulk_manager_filter']['prefilter']);
+    break;
+  }
 }
 
 if (isset($_SESSION['bulk_manager_filter']['category']))
@@ -513,7 +514,7 @@ if (isset($_SESSION['bulk_manager_filter']['search']))
   $filter_sets[] = $res['items'];
 }
 
-$filter_sets = trigger_change('batch_manager_perform_filters', $filter_sets);
+$filter_sets = trigger_change('batch_manager_perform_filters', $filter_sets, $_SESSION['bulk_manager_filter']);
 
 $current_set = array_shift($filter_sets);
 foreach ($filter_sets as $set)
