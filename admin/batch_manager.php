@@ -1,4 +1,4 @@
-<?php
+res<?php
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
@@ -512,10 +512,10 @@ if (isset($_SESSION['bulk_manager_filter']['search']) &&
 {
   include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
   $res = get_quick_search_results_no_cache($_SESSION['bulk_manager_filter']['search']['q'], array('permissions'=>false));
-	if (!empty($res['items']) && !empty($res['qs']['unmatched_terms']))
-	{
-		$template->assign('no_search_results', $res['qs']['unmatched_terms']);
-	}
+  if (!empty($res['items']) && !empty($res['qs']['unmatched_terms']))
+  {
+    $template->assign('no_search_results', $res['qs']['unmatched_terms']);
+  }
   $filter_sets[] = $res['items'];
 }
 
