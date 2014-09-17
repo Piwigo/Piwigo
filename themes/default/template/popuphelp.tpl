@@ -5,15 +5,21 @@
 			<span class="pwg-icon pwg-icon-close">&nbsp;</span><span class="pwg-button-text">exit</span>
 		</a></li>
 	</ul>
-	<h2>{$PAGE_TITLE}</h2>
+	<h2><span id="homeLink"><a href="{$U_HOME}">{'Home'|@translate}</a>{$LEVEL_SEPARATOR}</span>{$PAGE_TITLE}</h2>
 	</div>
 
 {$HELP_CONTENT}
 
-<p>
+<p id="closeLink" style="display:none">
     <a href="#" onclick="window.close();">{'Close this window'|@translate}</a>
 </p>
 
+{footer_script require='jquery'}
+if (window.opener || window.name) {
+	jQuery("#closeLink").show();
+	jQuery("#homeLink").hide();
+}
+{/footer_script}
 </div> <!-- content -->
 
 
