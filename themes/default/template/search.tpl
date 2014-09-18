@@ -8,9 +8,12 @@
 
 {footer_script}
 jQuery(document).ready(function() {
-  jQuery("#authors, #tags, #categories").selectize({
-    plugins: ['remove_button']
-  });
+  jQuery("#authors, #tags, #categories").each(function() {
+    jQuery(this).selectize({
+      plugins: ['remove_button'],
+      maxOptions:jQuery(this).find("option").length
+    });
+  })
 });
 {/footer_script}
 
