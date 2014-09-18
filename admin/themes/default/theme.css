@@ -1039,6 +1039,10 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   -webkit-animation: animatedBackground 1s linear infinite;
 }
 
+/* Selectize */
+.selectize-dropdown [data-selectable], .selectize-dropdown .optgroup-header {
+    padding: 0px 5px !important;
+}
 
 /* Tag Manager */
 .warningDeletion {display:none;font-style:italic;}
@@ -1272,6 +1276,7 @@ table.qsearch_help_table td {
   font-size:16px;
   line-height:16px;
   margin-right:0;
+  margin-left:0;
 }
 .font-checkbox .icon-check-empty {
   position:relative;

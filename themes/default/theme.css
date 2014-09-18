@@ -773,3 +773,8 @@ LEGEND {
 .imageInfo {display:table-row; line-height:20px;}
 .imageInfo dt {display:table-cell; text-align:right; font-weight:bold; padding-right:0.5em;}
 .imageInfo dd {display:table-cell; text-align:left; font-weight:normal;}
+
+/* Selectize */
+.selectize-dropdown [data-selectable], .selectize-dropdown .optgroup-header {
+    padding: 0px 5px !important;
+}
