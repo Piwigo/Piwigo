@@ -33,3 +33,4 @@ $lang['First Contact'] = 'Prvý kontakt';
 $lang['End tour'] = 'Koniec prehliadky';
 $lang['2_7_0_descrp'] = 'Zistite, čo je nové v Piwigo 2.7';
 $lang['2.7 Tour'] = '2.7 Tour';
+$lang['Privacy'] = 'O ochrane osobných údajov';
