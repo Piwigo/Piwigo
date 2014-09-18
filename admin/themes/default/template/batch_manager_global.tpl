@@ -346,7 +346,7 @@ var sliders = {
         <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
         {'Album'|@translate}
         <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
-          data-default="first" name="filter_category" style="width:400px"></select>
+          data-default="first" name="filter_category" style="width:600px"></select>
         <label><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
       </li>
 
@@ -356,7 +356,7 @@ var sliders = {
         {'Tags'|@translate}
         <select data-selectize="tags" data-value="{$filter_tags|@json_encode|escape:html}"
           placeholder="{'Type in a search term'|translate}"
-          name="filter_tags[]" multiple style="width:400px;"></select>
+          name="filter_tags[]" multiple style="width:600px;"></select>
         <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
         <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
       </li>
