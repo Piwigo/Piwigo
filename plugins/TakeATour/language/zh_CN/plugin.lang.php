@@ -36,3 +36,4 @@ $lang['2.7 Tour'] = 'Piwigo 2.7 导览';
 $lang['2_7_0_descrp'] = '探索 Piwigo 2.7 的新特性';
 
 $lang['privacy_descrp'] = '本导览向您展示通过涵盖每个相册及每张图片的许可系统保护您的图片免于公共访问的各种方法，以及通过图片保护防止拷贝。';
+$lang['Privacy'] = '隐私';
