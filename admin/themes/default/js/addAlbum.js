@@ -114,7 +114,7 @@ jQuery.fn.pwgAddAlbum = function(options) {
   this.colorbox({
     inline: true,
     href: '#addAlbumForm',
-    width: 350, height: 300,
+    width: 650, height: 300,
     onComplete: function() {
       init();
       $popup.data('target', jQuery(this).data('addAlbum'));

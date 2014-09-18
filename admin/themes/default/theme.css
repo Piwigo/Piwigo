@@ -1090,7 +1090,10 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 #addAlbumForm .selectize-dropdown-content {
   max-height:170px;
 }
-#addAlbumForm input[name="category_name"], #formCreateAlbum input[name="virtual_name"] {
+#addAlbumForm input[name="category_name"] {
+  width:600px;
+}
+#formCreateAlbum input[name="virtual_name"] {
   width:300px;
 }
 

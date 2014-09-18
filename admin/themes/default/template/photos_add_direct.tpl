@@ -240,7 +240,7 @@ jQuery(document).ready(function(){
 
       <span id="albumSelection" style="display:none">
       <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
-        data-default="first" name="category" style="width:400px"></select>
+        data-default="first" name="category" style="width:600px"></select>
       <br>{'... or '|@translate}</span>
       <a href="#" data-add-album="category" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </fieldset>

@@ -109,7 +109,7 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
     <strong>{'Parent album'|@translate}</strong>
     <br>
     <select data-selectize="categories" data-value="{$parent_category|@json_encode|escape:html}"
-        name="parent" style="width:400px"></select>
+        name="parent" style="width:600px"></select>
   </p>
 {/if}
 

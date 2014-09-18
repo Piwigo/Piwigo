@@ -583,14 +583,14 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- associate -->
     <div id="action_associate" class="bulkAction">
-      <select data-selectize="categories" data-default="first" name="associate" style="width:400px"></select>
+      <select data-selectize="categories" data-default="first" name="associate" style="width:600px"></select>
       <br>{'... or '|@translate}
       <a href="#" data-add-album="associate" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
 
     <!-- move -->
     <div id="action_move" class="bulkAction">
-      <select data-selectize="categories" data-default="first" name="move" style="width:400px"></select>
+      <select data-selectize="categories" data-default="first" name="move" style="width:600px"></select>
       <br>{'... or '|@translate}
       <a href="#" data-add-album="move" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
@@ -599,7 +599,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <!-- dissociate -->
     <div id="action_dissociate" class="bulkAction albumDissociate" style="display:none">
       <select data-selectize="categories" placeholder="{'Type in a search term'|translate}"
-        name="dissociate" style="width:400px"></select>
+        name="dissociate" style="width:600px"></select>
     </div>
 
 
