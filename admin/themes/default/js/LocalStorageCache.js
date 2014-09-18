@@ -107,6 +107,8 @@
           filtered = data;
         }
         
+        this.selectize.settings.maxOptions = filtered.length + 100;
+
         // active creation mode
         if (this.hasAttribute('data-create')) {
           options.create = true;
