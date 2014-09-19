@@ -1915,12 +1915,14 @@ final class FileCombiner
       if ($force || !file_exists(PHPWG_ROOT_PATH.$file) )
       {
         $output = '';
+        $header = '';
         foreach ($pending as $combinable)
         {
           $output .= "/*BEGIN $combinable->path */\n";
-          $output .= $this->process_combinable($combinable, true, $force);
+          $output .= $this->process_combinable($combinable, true, $force, $header);
           $output .= "\n";
         }
+        $output = "/*BEGIN header */\n" . $header . "\n" . $output;
         mkgetdir( dirname(PHPWG_ROOT_PATH.$file) );
         file_put_contents( PHPWG_ROOT_PATH.$file, $output );
         @chmod(PHPWG_ROOT_PATH.$file, 0644);
@@ -1929,7 +1931,8 @@ final class FileCombiner
     }
     elseif ( count($pending)==1)
     {
-      $this->process_combinable($pending[0], false, $force);
+      $header = '';
+      $this->process_combinable($pending[0], false, $force, $header);
       $result[] = $pending[0];
     }
     $key = array();
@@ -1942,9 +1945,12 @@ final class FileCombiner
    * @param Combinable $combinable
    * @param bool $return_content
    * @param bool $force
+   * @param string $header CSS directives that must appear first in
+   *                       the minified file (only used when
+   *                       $return_content===true)
    * @return null|string
    */
-  private function process_combinable($combinable, $return_content, $force)
+  private function process_combinable($combinable, $return_content, $force, &$header)
   {
     global $conf;
     if ($combinable->is_template)
@@ -1970,7 +1976,7 @@ final class FileCombiner
       $content = $template->parse($handle, true);
 
       if ($this->is_css)
-        $content = self::process_css($content, $combinable->path );
+        $content = self::process_css($content, $combinable->path, $header );
       else
         $content = self::process_js($content, $combinable->path );
 
@@ -1983,7 +1989,7 @@ final class FileCombiner
     {
       $content = file_get_contents(PHPWG_ROOT_PATH . $combinable->path);
       if ($this->is_css)
-        $content = self::process_css($content, $combinable->path );
+        $content = self::process_css($content, $combinable->path, $header );
       else
         $content = self::process_js($content, $combinable->path );
       return $content;
@@ -2012,11 +2018,13 @@ final class FileCombiner
    *
    * @param string $css file content
    * @param string $file
+   * @param string $header CSS directives that must appear first in
+   *                       the minified file.
    * @return string
    */
-  private static function process_css($css, $file)
+  private static function process_css($css, $file, &$header)
   {
-    $css = self::process_css_rec($css, dirname($file));
+    $css = self::process_css_rec($css, dirname($file), $header);
     if (strpos($file, '.min')===false and version_compare(PHP_VERSION, '5.2.4', '>='))
     {
       require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
@@ -2031,9 +2039,11 @@ final class FileCombiner
    *
    * @param string $css file content
    * @param string $dir
+   * @param string $header CSS directives that must appear first in
+   *                       the minified file.
    * @return string
    */
-  private static function process_css_rec($css, $dir)
+  private static function process_css_rec($css, $dir, &$header)
   {
     static $PATTERN_URL = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
     static $PATTERN_IMPORT = "#@import\s*['|\"]{0,1}(.*?)['|\"]{0,1};#";
@@ -2056,11 +2066,29 @@ final class FileCombiner
     if (preg_match_all($PATTERN_IMPORT, $css, $matches, PREG_SET_ORDER))
     {
       $search = $replace = array();
+      
       foreach ($matches as $match)
       {
         $search[] = $match[0];
-        $sub_css = file_get_contents(PHPWG_ROOT_PATH . $dir . "/$match[1]");
-        $replace[] = self::process_css_rec($sub_css, dirname($dir . "/$match[1]") );
+        
+        if (
+          strpos($match[1], '..') !== false // Possible attempt to get out of Piwigo's dir
+          or strpos($match[1], '://') !== false // Remote URL
+          or !is_readable(PHPWG_ROOT_PATH . $dir . '/' . $match[1])
+          )
+        {
+          // If anything is suspicious, don't try to process the
+          // @import. Since @import need to be first and we are
+          // concatenating several CSS files, remove it from here and return
+          // it through $header.
+          $header .= $match[0];
+          $replace[] = '';
+        }
+        else
+        {
+          $sub_css = file_get_contents(PHPWG_ROOT_PATH . $dir . "/$match[1]");
+          $replace[] = self::process_css_rec($sub_css, dirname($dir . "/$match[1]"), $header);
+        }
       }
       $css = str_replace($search, $replace, $css);
     }
