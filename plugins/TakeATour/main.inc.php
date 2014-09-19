@@ -104,8 +104,7 @@ function TAT_no_photo_yet()
 function TAT_no_photo_yet_prefilter($content, &$smarty)
 {
   $search = '<div class="bigButton"><a href="{$next_step_url}">{\'I want to add photos\'|@translate}</a></div>';
-  $replacement = '<div class="bigButton"><a href="'.get_root_url().'admin.php?submited_tour_path=tours/first_contact&pwg_token='.get_pwg_token().'">{\'I want to discover my gallery and add photos\'|@translate}</a></div>
-<div class="bigButton"><a href="{$next_step_url}">{\'I want to add photos\'|@translate}</a></div>';
+  $replacement = '<div class="bigButton"><a href="'.get_root_url().'admin.php?submited_tour_path=tours/first_contact&pwg_token='.get_pwg_token().'">{\'Start the Tour\'|@translate}</a></div>';
   return(str_replace($search, $replacement, $content));
 }
 
