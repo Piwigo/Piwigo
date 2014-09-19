@@ -1,5 +1,5 @@
 <?php
-$lang['Start the Tour'] = 'Commencez la visite';
+$lang['Start the Tour'] = 'Commencer la visite';
 $lang['Visit your Piwigo!'] = 'Visiter votre Piwigo !';
 $lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Découvrez les fonctionnalités de votre galerie Piwigo » Voir les visites interactives disponibles';
 $lang['Prev'] = 'Préc';
