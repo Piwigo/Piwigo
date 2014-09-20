@@ -982,3 +982,6 @@ $lang['date & time'] = 'dátum és idő';
 $lang['file name'] = 'fájlnév';
 $lang['width & height'] = 'szélesség és magasság';
 $lang['Empty caddie'] = 'Üres kosár';
+$lang['The settings for the guest are from the %s user'] = 'A vendég beállításai a %s fekhasználótól';
+$lang['Upload in progress'] = 'Feltöltés folyamatban';
+$lang['based on'] = 'erre alapozva:';
