@@ -60,7 +60,7 @@ $lang['Albums authorized thanks to group associations'] = 'تم المصادقة
 $lang['Album manual order was saved'] = 'طلب الألبومات اليدوية تم حفظه';
 $lang['Check for upgrade failed for unknown reasons.'] = 'لم يتم التحدث لاسباب غير معروفه.';
 $lang['Check for upgrade'] = 'التأكد من التحديثات';
-$lang['Comments for all'] = 'يسمح للجميع بالتعليق دون استثناء و دون طائفية :)';
+$lang['Comments for all'] = 'يسمح للجميع بالتعليق دون استثناء :)';
 $lang['Current name'] = 'الاسم الحالي';
 $lang['Database'] = 'قاعدة البيانات';
 $lang['Deactivate'] = 'تعطيل';
@@ -299,7 +299,7 @@ $lang['test this remote site'] = 'اختبر هذا الموقع البعيد';
 $lang['remove tags'] = 'ازالة الكلمات الدلائلية';
 $lang['Repair and optimize database'] = 'اصلاح و تحسين قاعدة البيانات';
 $lang['selection'] = 'الاختيار';
-$lang['set to'] = 'أعـد لـ ';
+$lang['set to'] = 'تعيين إلى';
 $lang['singly represented'] = 'نوصيف او تمثيل منفرد';
 $lang['This site already exists'] = 'هذا الموقع موجود بالفعل';
 $lang['created'] = 'تم الانشاء';
@@ -417,7 +417,7 @@ $lang['Default user cannot be deleted'] = 'المستخدم الافتراضي �
 $lang['Purge history detail'] = 'معالجة تفاصيل السجل';
 $lang['Purge history summary'] = 'معالجة ملخص التفاصيل';
 $lang['Check integrity'] = 'فحص سلامة المراقبة';
-$lang['Anomaly'] = 'شـاذ';
+$lang['Anomaly'] = 'الوضع الشاذ';
 $lang['Correction'] = 'التصحيح';
 $lang['Automatic correction'] = 'تصحيح تلقائي';
 $lang['Impossible automatic correction'] = 'استحالة التصحيح التلقائي';
@@ -445,7 +445,6 @@ $lang['add new photos to caddie'] = 'اضف صور جديدة الى السلة'
 $lang['No display'] = 'لم يعرض';
 $lang['Classic display'] = 'عرض عادي';
 $lang['Hoverbox display'] = 'عرض مربعات عائمة';
-$lang['Mail address is obligatory for all users'] = 'عنوان البريد الإلكتروني إلزامي لجميع المستخدمين';
 $lang['Minimum privacy level'] = 'الحد الأدنى لمستوى الخصوصية';
 $lang['Privacy level'] = 'مستوى الخصوصية';
 $lang['Level 0'] = '---';
@@ -605,7 +604,7 @@ $lang['Guest Settings'] = 'اعدادت الضيوف';
 $lang['Main Page'] = 'صفحة رئيسية';
 $lang['Photo Page'] = 'صفحة الصورة';
 $lang['Activate Navigation Bar'] = 'اظهار لوح تبديل و اظهار الصور';
-$lang['Activate Navigation Thumbnails'] = 'تنشيط امكانية المشاهدة عن طريق المصغرات أسف صفحة الصورة';
+$lang['Activate Navigation Thumbnails'] = 'تنشيط التنقل بين الصور المصغرة';
 $lang['Activate icon "%s"'] = 'اظهار ايقونة  "%s"';
 $lang['Photo Properties'] = 'خصائص الصور';
 $lang['Allow user customization'] = 'السماح للمستخدم بتغيير خصائص العرض';
@@ -747,10 +746,10 @@ $lang['Width'] = 'العرض';
 $lang['Add to caddie'] = 'اضفها الي السلة';
 $lang['%s has been successfully updated.'] = '
 %s تم تحديثه بنجاح ';
-$lang['%s photos can not be regenerated'] = '%s لا يمكن تجديد الصور';
-$lang['%s photos have been regenerated'] = '%s تم تجديد الصور';
+$lang['%s photos can not be regenerated'] = '%s لا يمكن إعادة إنشاء الصور';
+$lang['%s photos have been regenerated'] = '%s تم إعادة إنشاء الصور';
 $lang['(this tag will be deleted)'] = '( الكلمه الدلاذليه سيتم حذفها )';
-$lang['... or '] = '..آو';
+$lang['... or '] = '..أو';
 $lang['Add a criteria'] = 'إضافة معايير';
 $lang['Add tags'] = 'إضافه كلمات دلائليه';
 $lang['Allowed file types: %s.'] = ' %s :انواع ملفات الصور المسموح بها ';
@@ -767,7 +766,7 @@ $lang['hide details'] = 'اخفاء التفاصيل';
 $lang['Ignore All'] = 'تجاهل الكل';
 $lang['Last import'] = 'الاستيراد الاخير';
 $lang['Manage Permissions'] = 'اداره التصاريح';
-$lang['Activate comments'] = 'فعل التعليقات';
+$lang['Activate comments'] = 'نشّط التعليقات';
 $lang['Activate icon "new" next to albums and pictures'] = 'فعل ايقونه "جديد" بجانب الالبومات و الصور';
 $lang['Default comments order'] = 'الوضع الافتراضي للتعليقات';
 $lang['Maximum file size: %sB.'] = 'الحد الآعلى لحجم الملف : %sB. ';
@@ -779,7 +778,7 @@ $lang['Photos generation in progress...'] = 'يتم معالجة  مجموعه �
 $lang['Restore'] = 'استعاده';
 $lang['Select an album'] = 'اختيار الالبوم';
 $lang['Select at least two tags for merging'] = 'اختر آخر كلمتين دلاليتين للدمج';
-$lang['A locked gallery is only visible to administrators'] = 'غلق المعرض متاح لمديرالمعرض فقط';
+$lang['A locked gallery is only visible to administrators'] = 'غلق المعرض متاح لمدير المعرض فقط';
 $lang['administrators'] = 'الأدارة';
 $lang['Applications'] = 'تطبيقات';
 $lang['apply automatic sort order'] = 'نفذ حسب الترتيب الآلي';
@@ -971,5 +970,16 @@ $lang['on the %d selected users'] = 'على %d المستخدمين المحدد
 $lang['Show %s users'] = 'أظهر المستخدم  %s';
 $lang['Showing %s to %s of %s users'] = 'إظهار%s  إلي %s من %s المستخدمين ';
 $lang['No user selected of %d users'] = 'لا يوجد مستخدم محدد من %d المستخدمين';
-$lang['Activate it now'] = 'تفعيل ذلك الآن';
+$lang['Activate it now'] = 'نشط ذلك الآن';
 $lang['Allow users to add a link to their website'] = 'السماح للمستخدمين بإضافة وصلة لموقعه على الإنترنت';
+$lang['Upload in progress'] = 'تحميل و معالجة';
+$lang['based on'] = 'استناداً إلى';
+$lang['between %s and %s MB'] = 'بين %s و %s ميغابايت';
+$lang['date & time'] = 'وقت و تاريخ';
+$lang['file name'] = 'أسم الملف';
+$lang['width & height'] = 'العرض و الطول';
+$lang['The settings for the guest are from the %s user'] = 'الإعدادات للضيف يتم من قبل المستخدم %s';
+$lang['No and unlock sub-albums'] = 'لا و إلغي اتاحة الإلبومات الفرعية ';
+$lang['Mail address is mandatory for registration'] = 'عنوان البريد إلزامية للتسجيل';
+$lang['Impossible to deactivate the default theme.'] = 'من المستحيل إلغاء تنشيط السمة الافتراضية.';
+$lang['Empty caddie'] = 'العلبة فارغة';
