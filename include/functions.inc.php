@@ -1512,7 +1512,7 @@ function load_language($filename, $dirname = '', $options = array())
   }
   $dirname .= 'language/';
 
-  $default_language = defined('PHPWG_INSTALLED') ?
+  $default_language = defined('PHPWG_INSTALLED') and !defined('UPGRADES_PATH') ?
       get_default_language() : PHPWG_DEFAULT_LANGUAGE;
 
   // construct list of potential languages

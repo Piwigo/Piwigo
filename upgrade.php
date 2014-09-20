@@ -138,7 +138,6 @@ function print_time($message)
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
 $languages = new languages('utf-8');
-
 if (isset($_GET['language']))
 {
   $language = strip_tags($_GET['language']);
@@ -207,7 +206,6 @@ load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=
 load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'install.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'upgrade.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
-
 // check php version
 if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
 {
@@ -339,6 +337,10 @@ else if (!in_array('website_url', $columns_of[PREFIX_TABLE.'comments']))
 {
   $current_release = '2.4.0';
 }
+else if (!in_array('nb_available_tags', $columns_of[PREFIX_TABLE.'user_cache']))
+{
+  $current_release = '2.5.0';
+}
 else
 {
   // retrieve already applied upgrades
@@ -348,9 +350,9 @@ SELECT id
 ;';
   $applied_upgrades = array_from_query($query, 'id');
 
-  if (!in_array(139, $applied_upgrades))
+  if (!in_array(144, $applied_upgrades))
   {
-    $current_release = '2.5.0';
+    $current_release = '2.6.0';
   }
   else
   {
@@ -379,6 +381,10 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
   $upgrade_file = PHPWG_ROOT_PATH.'install/upgrade_'.$current_release.'.php';
   if (is_file($upgrade_file))
   {
+    // reset SQL counters
+    $page['queries_time'] = 0;
+    $page['count_queries'] = 0;
+    
     $page['upgrade_start'] = get_moment();
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
@@ -438,20 +444,47 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     $page['infos_sav'] = $page['infos'];
     $page['infos'] = array();
 
-    /* might be usefull when we will have a real integrity checker
-    $query = '
-REPLACE INTO '.PLUGINS_TABLE.'
-  (id, state)
-  VALUES (\'c13y_upgrade\', \'active\')
-;';
-    pwg_query($query);*/
-
     $query = '
 REPLACE INTO '.PLUGINS_TABLE.'
   (id, state)
   VALUES (\'TakeATour\', \'active\')
 ;';
     pwg_query($query);
+
+    $template->assign(
+      array(
+        'button_label' => l10n('Home'),
+        'button_link' => 'index.php',
+        )
+      );
+
+    // if the webmaster has a session, let's give a link to discover new features
+    if (!empty($_SESSION['pwg_uid']))
+    {
+      $version_ = str_replace('.', '_', get_branch_from_version(PHPWG_VERSION).'.0');
+      
+      if (file_exists(PHPWG_PLUGINS_PATH .'TakeATour/tours/'.$version_.'/config.inc.php'))
+      {
+        load_language(
+          'plugin.lang',
+          PHPWG_PLUGINS_PATH.'TakeATour/',
+          array(
+            'language' => $language,
+            'force_fallback'=>'en_UK',
+            )
+          );
+
+        // we need the secret key for get_pwg_token()
+        load_conf_from_db();
+        
+        $template->assign(
+          array(
+            'button_label' => l10n('2_7_0_descrp'), // TODO avoid to update it on each release
+            'button_link' => 'admin.php?submited_tour_path=tours/'.$version_.'&amp;pwg_token='.get_pwg_token(),
+            )
+          );
+      }
+    }
 
     // Delete cache data
     invalidate_user_cache(true);

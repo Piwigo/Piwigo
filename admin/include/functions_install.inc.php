@@ -88,6 +88,24 @@ function activate_core_themes()
 }
 
 /**
+ * Automatically activate some core plugins
+ */
+function activate_core_plugins()
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+  
+  $plugins = new plugins();
+
+  foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
+  {
+    if (in_array($plugin_id, array('TakeATour')))
+    {
+      $plugins->perform_action('activate', $plugin_id);
+    }
+  }
+}
+
+/**
  * Connect to database during installation. Uses $_POST.
  *
  * @param array &$infos - populated with infos

@@ -366,6 +366,7 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
       define('PWG_CHARSET', 'utf-8');
     }
     activate_core_themes();
+    activate_core_plugins();
 
     $insert = array(
       'id' => 1,

@@ -40,6 +40,7 @@ body {
 #content {
   min-height:0;
   border:none;
+  margin:1em auto;
 }
 
 #theHeader {
@@ -103,6 +104,7 @@ input[type="submit"], input[type="button"], a.bigButton {
 input[type="submit"]:hover, input[type="button"]:hover, a.bigButton:hover {
   background-color:#ff7700;
   color:white;
+  text-decoration:none;
 }
 
 input[type="text"], input[type="password"], select {
@@ -214,7 +216,7 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus {
 </fieldset>
 
 <p>
-  <a class="bigButton" href="index.php">{'Home'|@translate}</a>
+  <a class="bigButton" href="{$button_link}">{$button_label}</a>
 </p>
 {/if}
 
