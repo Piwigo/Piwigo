@@ -1,1 +1,1 @@
-Visita per la galeria Piwigo tot descobrint les seves funcionalitats. Aquest connector té múltiples temàtiques, des de visites per a principiants fins a visites per a usuaris avançats. 
+Explora la galeria Piwigo tot descobrint les seves funcionalitats. Aquest connector té múltiples temàtiques, tant per usuaris principiants com per usuaris avançats.
