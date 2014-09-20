@@ -108,18 +108,6 @@ function TAT_no_photo_yet_prefilter($content, &$smarty)
   return(str_replace($search, $replacement, $content));
 }
 
-/** After a Piwigo Update **/
-add_event_handler('list_check_integrity', 'TAT_prompt'); 
-function TAT_prompt($c13y) 
-{ 
-  global $page;
-  $version_=str_replace('.','_',PHPWG_VERSION);
-  if (file_exists('tours/'.$version_.'/config.inc.php'))
-  {
-    $page['infos'][] = '<a href="'.get_root_url().'admin.php?submited_tour_path=tours/'.$version_.'&pwg_token='.get_pwg_token().'">'.l10n('Discover what is new in the version %s of Piwigo', PHPWG_VERSION).'</a>';
-  }
-}
-
 /** Add admin menu link **/
 add_event_handler('get_admin_plugin_menu_links', 'TAT_admin_menu' );
 function TAT_admin_menu($menu)
