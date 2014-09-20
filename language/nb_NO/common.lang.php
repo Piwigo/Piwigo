@@ -422,3 +422,6 @@ $lang['No results for'] = 'Ingen resultater for';
 $lang['Apply on properties'] = 'Angi egenskaper';
 $lang['Photo description'] = 'Bildebeskrivelse';
 $lang['Photo title'] = 'Bildetittel';
+$lang['Album name, A &rarr; Z'] = 'Albumnavn, A %rarr; Å';
+$lang['Album name, Z &rarr; A'] = 'Albumnavn, Å %rarr; A';
+$lang['Link: %s'] = 'Lenke: %s';
