@@ -31,3 +31,4 @@ $lang['First Contact'] = 'Перший контакт';
 
 $lang['2.7 Tour'] = 'Тур 2.7';
 $lang['2_7_0_descrp'] = 'Дізнайтеся що нового у Piwigo 2.7';
+$lang['Privacy'] = 'Конфіденційність';
