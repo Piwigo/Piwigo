@@ -430,7 +430,8 @@ CREATE TABLE `piwigo_user_infos` (
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `enabled_high` enum('true','false') NOT NULL default 'true',
   `level` tinyint unsigned NOT NULL default '0',
-  `activation_key` char(20) default NULL,
+  `activation_key` varchar(255) default NULL,
+  `activation_key_expire` datetime default NULL,
   `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   KEY `lastmodified` (`lastmodified`)
