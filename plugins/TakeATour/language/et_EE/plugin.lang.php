@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['TAT_descrp'] = 'Tervitus! Siin on nimekiri kõigist olemasolevatest ülevaadetest, mis aitavad Sul tundma õppida Piwigo galerii funktsioone. Vajuta Järgmine/Eelmine (või kasuta klaviatuuril noole klahve) ülevaate käigus navigeerimiseks. Ülevaatest mõnele teisele administreerimise lehele minnes suunatakse Sind tagasi samale Ülevaate leheküljele. Kui olete ummikus ja ei saa ülevaadet lõpetada, siis minnes <em>Plugins » Vaata Ülevaadet</em> lõpetab ülevaate';
-$lang['2.7 Tour'] = '2.7 ülevaade';
+$lang['2.7 Tour'] = '2.7 Ülevaade';
 $lang['2_7_0_descrp'] = 'Avasta mis on uut Piwigo 2.7';
 $lang['End tour'] = 'Ülevaate lõpp';
 $lang['First Contact'] = 'Esimene kontakt';
@@ -29,3 +29,8 @@ $lang['Next '] = 'Järgmine';
 $lang['Prev'] = 'Eelmine';
 $lang['Privacy'] = 'Privaatsus';
 $lang['Start the Tour'] = 'Alusta ülevaadet';
+$lang['privacy_descrp'] = 'See ülevaade tutvustab võimalusi kuidas kaitsta oma fotosid avaliku ligipääsu eest albumi kaupa ja foto haaval, ning kuidas kaitsta fotot kopeerimise eest.';
+$lang['takeatour_configpage'] = 'Vaata Ülevaadet » Ülevaadete nimekiri';
+$lang['first_contact_descrp'] = 'Soovituslikult alustajatele tutvustab see ülevaade Piwigo põhilisi funktsioone. Esmalt näidatakse, kuidas lisada fotosid ja seejärel kuidas neid hallata. Ülevaade jätkub albumite haldamisega ja lõpeb kohandamisega, kasutades kujundust, teemasid ja pluginaid';
+$lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Vaata ülevaadet ja avasta Piwigo galerii funktsioone » ava olemasolevad ülevaated';
+$lang['Visit your Piwigo!'] = 'Külasta oma Piwigot!';
