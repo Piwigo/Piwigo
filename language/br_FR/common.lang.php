@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Brezhoneg [FR]
-Version: 2.6.2
+Version: 2.7.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=698
 Author: Piwigo team
 Author URI: http://piwigo.org
