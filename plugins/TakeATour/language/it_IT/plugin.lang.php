@@ -33,3 +33,7 @@ $lang['First Contact'] = 'Primo Contatto';
 $lang['2.7 Tour'] = 'Tour 2.7';
 $lang['2_7_0_descrp'] = 'Scopri le Novità di Piwigo 2.7';
 
+$lang['TAT_descrp'] = 'Benvenuti! Ecco un elenco di tutti i tour disponibili per aiutarti a scoprire le caratteristiche della tua galleria Piwigo.<br><br>Avvia un tour qui sotto, quindi segui le istruzioni. Clicca  Avanti/Indietro (o utilizza le frecce della tastiera) per navigare durante un tour. Mentre si è in un tour, se vai in un\'altra pagina dell\'amministrazione, sarai reindirizzato alla pagina corrente del Tour. Se sei bloccato e non puoi terminare il giro, vai a <em>Plugins » Scegli un Tour</em> terminerai il tour.';
+$lang['first_contact_descrp'] = 'Consigliato per i principianti, questo tour ti introduce a Piwigo e alle sue caratteristiche di base. Esso si avvierà mostrando come aggiungere foto e quindi gestirle. Il tour prosegue con la gestione album e termina con la personalizzazione tramite configurazione, temi e plugin.';
+$lang['privacy_descrp'] = 'Questo tour presenta tutti i modi per proteggere le tue foto da pubblico accesso con autorizzazioni per album, foto e da copia utilizzando protezioni di immagine.';
+$lang['Privacy'] = 'Privacy';
