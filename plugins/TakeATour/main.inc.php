@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Take A Tour of Your Piwigo
-Version: 1.0
-Description: Plugin Personnel
-Plugin URI: http://piwigo.org
+Version: 2.7.0
+Description: Visit your Piwigo to discover its features. This plugin has multiple thematic tours for beginners and advanced users.
+Plugin URI: http://piwigo.org/ext/extension_view.php?eid=776
 Author:Piwigo Team
-Author URI:
+Author URI: http://piwigo.org
 */
 if (!defined('PHPWG_ROOT_PATH'))
 {
