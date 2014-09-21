@@ -422,3 +422,6 @@ $lang['No results for'] = 'Ikkje noko resultat for';
 $lang['Apply on properties'] = 'Gjer aktiv for eigneskapar';
 $lang['Photo description'] = 'Biletskildring';
 $lang['Photo title'] = 'Bilettittel';
+$lang['Album name, A &rarr; Z'] = 'Albumnamn, A &rarr; &Aring;';
+$lang['Album name, Z &rarr; A'] = 'Albumnamn, &Aring; &rarr; A';
+$lang['Link: %s'] = 'Lenke: %s';
