@@ -445,3 +445,6 @@ $lang['No results for'] = 'Brak wyników dla';
 $lang['Apply on properties'] = 'Akceptuj ustawienia';
 $lang['Photo description'] = 'Opis zdjęcia';
 $lang['Photo title'] = 'Tytuł zdjęcia';
+$lang['Album name, A &rarr; Z'] = 'Nazwa albumu, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Nazwa albumu, Z &rarr; A';
+$lang['Link: %s'] = 'Link: %s';
