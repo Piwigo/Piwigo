@@ -56,3 +56,5 @@ $lang['first_contact_title22'] = 'Pogina Modifica Album';
 $lang['first_contact_stp18'] = 'Vediamo ora come gestire gli album. Cliccas <em>Su album» Gestione</em> o premi Avanti';
 $lang['first_contact_stp12'] = 'poi modificali tramite un\'azione';
 $lang['first_contact_stp19_b'] = 'Qui sono elencati gli album \'root\'.';
+$lang['first_contact_stp19'] = 'Qui sono elencati gli album \'root\'. Se vedete un album con uno sfondo tratteggiato, significa che è un album fisico da una sincronizzazione FTP. Un album fisico non può essere spostato o eliminato da qui. Gli altri album sono chiamati album virtuali.';
+$lang['first_contact_stp5'] = 'Quindi clicca sul pulsante per selezionare le foto da inviare, o semplicemente trascina i file.';
