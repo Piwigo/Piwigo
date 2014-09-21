@@ -377,3 +377,5 @@ $lang['Delete orphan tags'] = 'Dilemel ar merkerioù emzivat';
 $lang['Delete selected tags'] = 'Dilemel ar merkerioù diuzet';
 $lang['Delete selected users'] = 'Dilemel an implijerien diuzet';
 $lang['Deletions'] = 'Dilamadurioù';
+$lang['Select the destination tag'] = 'Arveriañ ar merker pal';
+$lang['Source tag'] = 'Merker tarzh';
