@@ -23,3 +23,9 @@
 
 $lang['2.7 Tour'] = '2.7 Översikt';
 $lang['2_7_0_descrp'] = 'Upptäck nyheterna i Piwigo 2.7';
+$lang['Start the Tour'] = 'Starta rundtur';
+$lang['Privacy'] = 'Integritet';
+$lang['Prev'] = 'Föregående';
+$lang['Next '] = 'Nästa';
+$lang['First Contact'] = 'Inledning';
+$lang['End tour'] = 'Avsluta rundtur';
