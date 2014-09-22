@@ -279,8 +279,6 @@ if ($has_remote_site)
 // +-----------------------------------------------------------------------+
 
 $tables = get_tables();
-// echo '<pre>'; print_r($tables); echo '</pre>';
-// echo 'PREFIX_TABLE='.PREFIX_TABLE.'<br>';
 $columns_of = get_columns_of($tables);
 
 // find the current release
