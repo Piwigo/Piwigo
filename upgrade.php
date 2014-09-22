@@ -279,6 +279,8 @@ if ($has_remote_site)
 // +-----------------------------------------------------------------------+
 
 $tables = get_tables();
+// echo '<pre>'; print_r($tables); echo '</pre>';
+// echo 'PREFIX_TABLE='.PREFIX_TABLE.'<br>';
 $columns_of = get_columns_of($tables);
 
 // find the current release
@@ -409,12 +411,8 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
       }
     }
 
-    // Plugins deactivation
-    if (in_array(PREFIX_TABLE.'plugins', $tables))
-    {
-      deactivate_non_standard_plugins();
-    }
-
+    // Deactivate non standard extensions
+    deactivate_non_standard_plugins();
     deactivate_non_standard_themes();
     deactivate_templates();
 

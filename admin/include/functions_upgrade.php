@@ -77,7 +77,6 @@ function deactivate_non_standard_plugins()
   $standard_plugins = array(
     'AdminTools',
     'TakeATour',
-    'event_tracer',
     'language_switch',
     'LocalFilesEditor'
     );
