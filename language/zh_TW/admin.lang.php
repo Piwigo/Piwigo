@@ -978,3 +978,4 @@ $lang['between %s and %s MB'] = '介於 %s 到 %s MB';
 $lang['date & time'] = '日期和時間';
 $lang['file name'] = '檔案名稱';
 $lang['width & height'] = '寬度和高度';
+$lang['Upload in progress'] = '上傳正在進行中';
