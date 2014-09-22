@@ -977,3 +977,4 @@ $lang['between %s and %s MB'] = 'starp %s un %s MB';
 $lang['width & height'] = 'platums&augstums';
 $lang['file name'] = 'faila nosaukums';
 $lang['date & time'] = 'datums&laiks';
+$lang['Upload in progress'] = 'Notiek augšupielāde';
