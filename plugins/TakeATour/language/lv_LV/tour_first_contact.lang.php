@@ -70,3 +70,7 @@ $lang['first_contact_stp12'] = 'tad rediģējiet, pielietojot darbību';
 $lang['first_contact_stp18'] = 'Apskatīsim kā pārvaldīt albūmus. Klikšķiniet uz <em>On album » Manage</em> vai spiežiet Next';
 $lang['first_contact_stp22'] = 'Tāpat kā foto, šeit iespējams rediģēt albūma īpašības';
 $lang['first_contact_stp19_b'] = 'Šeit uzrādīti \'saknes\' albūmi';
+$lang['first_contact_stp17'] = 'Šeit iespējams iestatīt fotoattēlu kā sīktēlu priekš viena vai vairākiem albūmiem.Foto nav jāsaista ar albumu, lai tas būtu tā sīktēls. Ja foto ir sasaistīts ar albumu, tad ir pat vienkāršāk to uzstādīt kā albuma sīktēlu no sabiedrībai pieejamās foto lapas (Padoms: izmantojiet spraudni Admin Tools, lai būtu vēl vienkāršāk).';
+$lang['first_contact_stp34'] = 'Tēmas izvēle ir pirmais solis, lai pielāgotu jūsu Piwigo. Instalētās tēmas ir sakārtotas šeit.<br> Var iespējot vairāk kā vienu tēmu: lietotāji var mainīt savu tēmu, izvēloties vienu starp šeit iespējotajām, ja opcija \'Atļaut lietotāja pielāgošanu\' ir atzīmēta Option lapā.';
+$lang['first_contact_stp19'] = 'Šeit ir uzskaitīti \'saknes\' albūmi. Ja redzat albumu ar punktētu fonu, tas nozīmē, ka tas ir fizisks albums no FTP sinhronizācijas. Fiziskos albūmus no šejienes nevar pārvietot vai izdzēst. Pārējie albūmi ir tā saucamie virtuālie albūmi.';
+$lang['first_contact_stp21'] = 'Nākamā cilne ir lapa, kur var pārvietot jebkuru virtuālo albūmu.<br> Permalink cilne ir lai varētu ievadīt konkrētu url albūmam.<br> Bet rediģēsim albumu: noklikšķiniet uz Edit album';
