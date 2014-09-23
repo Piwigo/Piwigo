@@ -236,7 +236,7 @@ SELECT id
 
       $keyargs_content = array(
         get_l10n_args('User: %s', stripslashes($login) ),
-        get_l10n_args('Email: %s', $_POST['mail_address']),
+        get_l10n_args('Email: %s', $mail_address),
         get_l10n_args(''),
         get_l10n_args('Admin: %s', $admin_url),
         );
