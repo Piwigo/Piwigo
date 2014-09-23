@@ -529,6 +529,25 @@ SELECT category_id
 
 $template->assign('filter_category_selected', $selected_category);
 
+// Dissociate from a category : categories listed for dissociation can only
+// represent virtual links. We can't create orphans. Links to physical
+// categories can't be broken.
+if (count($page['cat_elements_id']) > 0)
+{
+  $query = '
+SELECT
+    DISTINCT(category_id) AS id
+  FROM '.IMAGE_CATEGORY_TABLE.' AS ic
+    JOIN '.IMAGES_TABLE.' AS i ON i.id = ic.image_id
+  WHERE ic.image_id IN ('.implode(',', $page['cat_elements_id']).')
+    AND (
+      ic.category_id != i.storage_category_id
+      OR i.storage_category_id IS NULL
+    )
+;';
+
+  $template->assign('associated_categories', query2array($query, 'id', 'id'));
+}
 
 if (count($page['cat_elements_id']) > 0)
 {

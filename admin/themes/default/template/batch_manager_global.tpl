@@ -43,16 +43,17 @@ jQuery(document).ready(function() {
     serverId: '{$CACHE_KEYS._hash}',
     rootUrl: '{$ROOT_URL}'
   });
+  
+  var associated_categories = {$associated_categories|@json_encode};
 
   categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
     filter: function(categories, options) {
       if (this.name == 'dissociate') {
         var filtered = jQuery.grep(categories, function(cat) {
-          return !cat.dir;
+          return !!associated_categories[cat.id];
         });
 
         if (filtered.length > 0) {
-          jQuery('.albumDissociate').show();
           options.default = filtered[0].id;
         }
 
@@ -552,7 +553,9 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       <option value="delete" class="icon-trash">{'Delete selected photos'|@translate}</option>
       <option value="associate">{'Associate to album'|@translate}</option>
       <option value="move">{'Move to album'|@translate}</option>
-      <option value="dissociate" class="albumDissociate" style="display:none">{'Dissociate from album'|@translate}</option>
+  {if !empty($associated_categories)}
+      <option value="dissociate">{'Dissociate from album'|@translate}</option>
+  {/if}
       <option value="add_tags">{'Add tags'|@translate}</option>
   {if !empty($associated_tags)}
       <option value="del_tags">{'remove tags'|@translate}</option>
@@ -597,7 +600,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
 
     <!-- dissociate -->
-    <div id="action_dissociate" class="bulkAction albumDissociate" style="display:none">
+    <div id="action_dissociate" class="bulkAction">
       <select data-selectize="categories" placeholder="{'Type in a search term'|translate}"
         name="dissociate" style="width:600px"></select>
     </div>
