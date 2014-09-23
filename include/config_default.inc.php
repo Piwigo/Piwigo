@@ -60,7 +60,7 @@ $conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG','png','PNG','gif','GIF');
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array_merge(
   $conf['picture_ext'],
-  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg')
+  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf')
   );
 
 // top_number : number of element to display for "best rated" and "most
