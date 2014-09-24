@@ -188,7 +188,7 @@ function ws_extensions_update($params, $service)
       );
     }
 
-    $upgrade_status = $extension->extract_plugin_files('upgrade', $revision, $extension_id);
+    $upgrade_status = $extension->perform_action('update', $extension_id, array('revision'=>$revision));
     $extension_name = $extension->fs_plugins[$extension_id]['name'];
 
     if (isset($params['reactivate']))
