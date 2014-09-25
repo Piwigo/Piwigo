@@ -152,17 +152,27 @@ INSERT INTO '. PLUGINS_TABLE .' (id,version)
 
       case 'update':
         $previous_version = $this->fs_plugins[$plugin_id]['version'];
-        $upgrade_status = $this->extract_plugin_files('upgrade', $options['revision'], $plugin_id);
+        $errors[0] = $this->extract_plugin_files('upgrade', $options['revision'], $plugin_id);
 
-        if ($upgrade_status === 'ok')
+        if ($errors[0] === 'ok')
         {
           $this->get_fs_plugin($plugin_id); // refresh plugins list
+          $new_version = $this->fs_plugins[$plugin_id]['version'];
 
           $plugin_maintain = self::build_maintain_class($plugin_id);
-          $plugin_maintain->update($previous_version, $this->fs_plugins[$plugin_id]['version']);
+          $plugin_maintain->update($previous_version, $new_version, $errors);
+
+          if ($new_version != 'auto')
+          {
+            $query = '
+UPDATE '. PLUGINS_TABLE .'
+  SET version=\''. $new_version .'\'
+  WHERE id=\''. $plugin_id .'\'
+;';
+            pwg_query($query);
+          }
         }
 
-        return $upgrade_status;
         break;
 
       case 'activate':
@@ -186,8 +196,7 @@ INSERT INTO '. PLUGINS_TABLE .' (id,version)
         {
           $query = '
 UPDATE '. PLUGINS_TABLE .'
-  SET state=\'active\',
-    version=\''. $this->fs_plugins[$plugin_id]['version'] .'\'
+  SET state=\'active\'
   WHERE id=\''. $plugin_id .'\'
 ;';
           pwg_query($query);
