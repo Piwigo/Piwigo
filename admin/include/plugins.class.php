@@ -123,7 +123,10 @@ class plugins
       $crt_db_plugin = $this->db_plugins_by_id[$plugin_id];
     }
 
-    $plugin_maintain = self::build_maintain_class($plugin_id);
+    if ($action !== 'update')
+    { // wait for files to be updated
+      $plugin_maintain = self::build_maintain_class($plugin_id);
+    }
 
     $errors = array();
 
@@ -154,6 +157,8 @@ INSERT INTO '. PLUGINS_TABLE .' (id,version)
         if ($upgrade_status === 'ok')
         {
           $this->get_fs_plugin($plugin_id); // refresh plugins list
+
+          $plugin_maintain = self::build_maintain_class($plugin_id);
           $plugin_maintain->update($previous_version, $this->fs_plugins[$plugin_id]['version']);
         }
 
