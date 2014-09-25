@@ -89,12 +89,14 @@ class plugins
     $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain';
     $classname = $plugin_id.'_maintain';
 
+    // 2.7 pattern (OO only)
     if (file_exists($file_to_include.'.class.php'))
     {
       include_once($file_to_include.'.class.php');
       return new $classname($plugin_id);
     }
 
+    // before 2.7 pattern (OO or procedural)
     if (file_exists($file_to_include.'.inc.php'))
     {
       include_once($file_to_include.'.inc.php');
@@ -114,14 +116,17 @@ class plugins
    * @param string - plugin id
    * @param array - errors
    */
-  function perform_action($action, $plugin_id)
+  function perform_action($action, $plugin_id, $options=array())
   {
     if (isset($this->db_plugins_by_id[$plugin_id]))
     {
       $crt_db_plugin = $this->db_plugins_by_id[$plugin_id];
     }
 
-    $plugin_maintain = self::build_maintain_class($plugin_id);
+    if ($action !== 'update')
+    { // wait for files to be updated
+      $plugin_maintain = self::build_maintain_class($plugin_id);
+    }
 
     $errors = array();
 
@@ -145,6 +150,31 @@ INSERT INTO '. PLUGINS_TABLE .' (id,version)
         }
         break;
 
+      case 'update':
+        $previous_version = $this->fs_plugins[$plugin_id]['version'];
+        $errors[0] = $this->extract_plugin_files('upgrade', $options['revision'], $plugin_id);
+
+        if ($errors[0] === 'ok')
+        {
+          $this->get_fs_plugin($plugin_id); // refresh plugins list
+          $new_version = $this->fs_plugins[$plugin_id]['version'];
+
+          $plugin_maintain = self::build_maintain_class($plugin_id);
+          $plugin_maintain->update($previous_version, $new_version, $errors);
+
+          if ($new_version != 'auto')
+          {
+            $query = '
+UPDATE '. PLUGINS_TABLE .'
+  SET version=\''. $new_version .'\'
+  WHERE id=\''. $plugin_id .'\'
+;';
+            pwg_query($query);
+          }
+        }
+
+        break;
+
       case 'activate':
         if (!isset($crt_db_plugin))
         {
@@ -166,8 +196,7 @@ INSERT INTO '. PLUGINS_TABLE .' (id,version)
         {
           $query = '
 UPDATE '. PLUGINS_TABLE .'
-  SET state=\'active\',
-    version=\''. $this->fs_plugins[$plugin_id]['version'] .'\'
+  SET state=\'active\'
   WHERE id=\''. $plugin_id .'\'
 ;';
           pwg_query($query);
@@ -242,62 +271,80 @@ DELETE FROM '. PLUGINS_TABLE .'
     {
       if ($file!='.' and $file!='..')
       {
-        $path = PHPWG_PLUGINS_PATH.$file;
-        if (is_dir($path) and !is_link($path)
-            and preg_match('/^[a-zA-Z0-9-_]+$/', $file )
-            and file_exists($path.'/main.inc.php')
-            )
+        if (preg_match('/^[a-zA-Z0-9-_]+$/', $file))
         {
-          $plugin = array(
-              'name'=>$file,
-              'version'=>'0',
-              'uri'=>'',
-              'description'=>'',
-              'author'=>'',
-            );
-          $plg_data = file_get_contents($path.'/main.inc.php', null, null, 0, 2048);
-
-          if (preg_match("|Plugin Name:\\s*(.+)|", $plg_data, $val))
-          {
-            $plugin['name'] = trim( $val[1] );
-          }
-          if (preg_match("|Version:\\s*([\\w.-]+)|", $plg_data, $val))
-          {
-            $plugin['version'] = trim($val[1]);
-          }
-          if (preg_match("|Plugin URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
-          {
-            $plugin['uri'] = trim($val[1]);
-          }
-          if ($desc = load_language('description.txt', $path.'/', array('return' => true)))
-          {
-            $plugin['description'] = trim($desc);
-          }
-          elseif (preg_match("|Description:\\s*(.+)|", $plg_data, $val))
-          {
-            $plugin['description'] = trim($val[1]);
-          }
-          if (preg_match("|Author:\\s*(.+)|", $plg_data, $val))
-          {
-            $plugin['author'] = trim($val[1]);
-          }
-          if (preg_match("|Author URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
-          {
-            $plugin['author uri'] = trim($val[1]);
-          }
-          if (!empty($plugin['uri']) and strpos($plugin['uri'] , 'extension_view.php?eid='))
-          {
-            list( , $extension) = explode('extension_view.php?eid=', $plugin['uri']);
-            if (is_numeric($extension)) $plugin['extension'] = $extension;
-          }
-
-          // IMPORTANT SECURITY !
-          $plugin = array_map('htmlspecialchars', $plugin);
-          $this->fs_plugins[$file] = $plugin;
+          $this->get_fs_plugin($file);
         }
       }
     }
     closedir($dir);
+  }
+
+  /**
+   * Load metadata of a plugin in `fs_plugins` array
+   * @from 2.7
+   * @param $plugin_id
+   * @return false|array
+   */
+  function get_fs_plugin($plugin_id)
+  {
+    $path = PHPWG_PLUGINS_PATH.$plugin_id;
+
+    if (is_dir($path) and !is_link($path)
+        and file_exists($path.'/main.inc.php')
+        )
+    {
+      $plugin = array(
+          'name'=>$plugin_id,
+          'version'=>'0',
+          'uri'=>'',
+          'description'=>'',
+          'author'=>'',
+        );
+      $plg_data = file_get_contents($path.'/main.inc.php', null, null, 0, 2048);
+
+      if (preg_match("|Plugin Name:\\s*(.+)|", $plg_data, $val))
+      {
+        $plugin['name'] = trim( $val[1] );
+      }
+      if (preg_match("|Version:\\s*([\\w.-]+)|", $plg_data, $val))
+      {
+        $plugin['version'] = trim($val[1]);
+      }
+      if (preg_match("|Plugin URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
+      {
+        $plugin['uri'] = trim($val[1]);
+      }
+      if ($desc = load_language('description.txt', $path.'/', array('return' => true)))
+      {
+        $plugin['description'] = trim($desc);
+      }
+      elseif (preg_match("|Description:\\s*(.+)|", $plg_data, $val))
+      {
+        $plugin['description'] = trim($val[1]);
+      }
+      if (preg_match("|Author:\\s*(.+)|", $plg_data, $val))
+      {
+        $plugin['author'] = trim($val[1]);
+      }
+      if (preg_match("|Author URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
+      {
+        $plugin['author uri'] = trim($val[1]);
+      }
+      if (!empty($plugin['uri']) and strpos($plugin['uri'] , 'extension_view.php?eid='))
+      {
+        list( , $extension) = explode('extension_view.php?eid=', $plugin['uri']);
+        if (is_numeric($extension)) $plugin['extension'] = $extension;
+      }
+
+      // IMPORTANT SECURITY !
+      $plugin = array_map('htmlspecialchars', $plugin);
+      $this->fs_plugins[$plugin_id] = $plugin;
+
+      return $plugin;
+    }
+
+    return false;
   }
 
   /**
