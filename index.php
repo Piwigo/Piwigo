@@ -245,7 +245,7 @@ if ( empty($page['is_external']) or !$page['is_external'] )
     }
     elseif (!empty($page['qsearch_details']['unmatched_terms']))
     {
-      $template->assign( 'no_search_results', $page['qsearch_details']['unmatched_terms']);
+      $template->assign( 'no_search_results', array_map($page['qsearch_details']['unmatched_terms'], 'htmlspecialchars'));
     }
   }
 
