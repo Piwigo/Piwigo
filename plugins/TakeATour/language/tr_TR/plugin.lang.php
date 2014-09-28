@@ -28,3 +28,10 @@ $lang['Prev'] = 'Önceki';
 $lang['Privacy'] = 'Gizlilik';
 $lang['Start the Tour'] = 'Turu Başlat';
 $lang['Visit your Piwigo!'] = 'Piwigonuzu ziyaret edin';
+$lang['TAT_descrp'] = 'Hoş geldiniz! Piwigo galerinizin özelliklerini keşfetmenizi sağlayacak tur listesi burada.<br><br>Aşağıdan bir turu başlatın ve yönergeleri takip edin. Tur boyunca Sonraki/Önceki bağlantılarına tıklayarak (veya klavyenizdeki yön tuşlarını kullanarak) gezinebilirsiniz. Turdayken, eğer yönetim araçlarının farklı bir sayfasına giderseniz turunuzun ilgili sayfasına yönlendirileceksiniz. Eğer takılırsanız ve turu tamamlayamıyorsanız
+<em>Eklentiler » Bir Tur At</em> \'a gitmek turu sonlandıracaktır.';
+$lang['first_contact_descrp'] = 'Piwigo ve onun temel özellikleri size tanıtacak olan bu tur özellikle yeni başlayanlara tavsiye edilmektedir. Fotoğrafların nasıl ekleneceğinin gösterilmesiyle başlayacak ve sonrasında nasıl yönetildiğiyle devam edecektir. Albüm yönetimi ile devam edecek ve tema, eklenti ve yapılandırmayla kişiselleştirme adımıyla bitecektir.';
+$lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Bir tur atın ve Piwigo galeri özelliklerini keşfedin » Mevcut turları git';
+$lang['privacy_descrp'] = 'Bu tur, albüme ve fotoğraflara verilen izinlerle genel erişime ve kopyalamaya karşın fotoğraflarınızın korunma yollarını sunar.';
+$lang['First Contact'] = 'İlk Karşılaşma';
+$lang['takeatour_configpage'] = 'Bir Tur Atın » Tur Listesi';
