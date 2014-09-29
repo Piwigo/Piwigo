@@ -222,6 +222,10 @@ SELECT id
     $override = null;
     if ($notify_admin and $conf['browser_language'])
     {
+      // if function get_browser_language finds a language in the browser
+      // which matches a language activated in Piwigo, then it sets
+      // $override['language'] to 'ru' (for example) and returns
+      // true. $override won't stay null
       if (!get_browser_language($override['language']))
       {
         $override=null;
