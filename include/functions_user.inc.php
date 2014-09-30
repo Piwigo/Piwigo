@@ -219,18 +219,12 @@ SELECT id
       mass_inserts(USER_GROUP_TABLE, array('user_id', 'group_id'), $inserts);
     }
 
-    $override = null;
-    if ($notify_admin and $conf['browser_language'])
+    $override = array();
+    if ($language = get_browser_language())
     {
-      // if function get_browser_language finds a language in the browser
-      // which matches a language activated in Piwigo, then it sets
-      // $override['language'] to 'ru' (for example) and returns
-      // true. $override won't stay null
-      if (!get_browser_language($override['language']))
-      {
-        $override=null;
-      }
+      $override['language'] = $language;
     }
+    
     create_user_infos($user_id, $override);
 
     if ($notify_admin and $conf['email_admin_on_new_user'])
@@ -813,18 +807,16 @@ function get_default_language()
  * Tries to find the browser language among available languages.
  * @todo : try to match 'fr_CA' before 'fr'
  *
- * @param string &$lang
- * @return bool
+ * @return string
  */
-function get_browser_language(&$lang)
+function get_browser_language()
 {
   $browser_language = substr(@$_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
   foreach (get_languages() as $language_code => $language_name)
   {
     if (substr($language_code, 0, 2) == $browser_language)
     {
-      $lang = $language_code;
-      return true;
+      return $language_code;
     }
   }
   return false;
