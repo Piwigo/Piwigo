@@ -132,7 +132,7 @@ if (isset($_POST['submit']))
     $data,
     array('id' => $data['id'])
     );
-  if ($_POST['apply_commentable_on_sub'])
+  if ($_POST['apply_commentable_on_sub'] and isset($_POST['apply_commentable_on_sub']))
   {
     $subcats = get_subcat_ids(array('id' => $data['id']));
     $query = '
