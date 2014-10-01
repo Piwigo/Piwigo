@@ -292,4 +292,19 @@ tour.init();
 
 // Start the tour
 tour.start();
+
+jQuery( "#menubar > dl:nth-child(3) > dd > ul > li:nth-child(1) > a" ).click(function() {
+  if (tour.getCurrentStep()==17)
+  {
+    tour.goTo(18);
+  }
+});
+jQuery( "p.albumActions > a:nth-child(1)" ).click(function() {
+  if (tour.getCurrentStep()==20)
+  {
+    tour.goTo(21);
+  }
+});
+
+
 {/literal}{/footer_script}
