@@ -32,3 +32,6 @@ $lang['Saved'] = 'Mentve';
 $lang['Show SQL queries'] = 'SQL lekérdezések mutatása';
 $lang['left'] = 'bal';
 $lang['right'] = 'jobb';
+$lang['Combine JS&CSS'] = 'Kombinált JS és CSS';
+$lang['Save visit in history'] = 'Látogatások archívumba mentése';
+$lang['View as'] = 'Megjelenítés mint:';
