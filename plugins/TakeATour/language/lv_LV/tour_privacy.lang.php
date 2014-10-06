@@ -27,3 +27,5 @@ $lang['privacy_stp12'] = 'Šajā lapā varat izvēlēties vai albūms būs pieej
 $lang['privacy_stp14'] = 'Tad lietotājiem un lietotāju grupām var piešķirt tiesības, lai piekļūtu albūmam.';
 $lang['privacy_stp14b'] = 'Svarīgs fakts: webmāsteri un administratori nav visvaroši publiskā daļā, bet tie var piekļūt ikvienam albūmam un fotogrāfijai administratora daļā.';
 $lang['privacy_title14b'] = '';
+$lang['privacy_stp16'] = 'Līdzīgi kā datorā, varat atlasīt vairākus albūmus, izmantojot Shift un Control taustiņus, tad klikšķināt uz bultām, lai tos mainītu.<br><br>Tagad ļaujiet man iepazīstināt ar grupām.';
+$lang['privacy_stp6'] = 'Kad esat augšupielādējuši fotogrāfijas, turpat varat izmainīt arī šo foto Privātuma Pakāpi';
