@@ -72,8 +72,10 @@ $header_msgs = array();
 $header_notes = array();
 $filter = array();
 
-foreach( array(
-  ) as $func)
+foreach(
+  array(
+    'gzopen'
+    ) as $func)
 {
   if (!function_exists($func))
   {
