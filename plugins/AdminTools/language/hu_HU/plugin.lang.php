@@ -35,3 +35,5 @@ $lang['right'] = 'jobb';
 $lang['Combine JS&CSS'] = 'Kombinált JS és CSS';
 $lang['Save visit in history'] = 'Látogatások archívumba mentése';
 $lang['View as'] = 'Megjelenítés mint:';
+$lang['Closed icon position'] = 'Zárt ikon hely';
+$lang['Viewing as <b>%s</b>.'] = 'Látható, mint <b>%s</b>.';
