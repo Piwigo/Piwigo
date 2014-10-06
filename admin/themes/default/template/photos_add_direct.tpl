@@ -64,6 +64,7 @@ jQuery(document).ready(function(){
 	jQuery("#uploader").pluploadQueue({
 		// General settings
     browse_button : 'addFiles',
+    container : 'uploadForm',
     
 		// runtimes : 'html5,flash,silverlight,html4',
 		runtimes : 'html5',
