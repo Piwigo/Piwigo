@@ -29,3 +29,7 @@ $lang['privacy_stp14b'] = 'Svarīgs fakts: webmāsteri un administratori nav vis
 $lang['privacy_title14b'] = '';
 $lang['privacy_stp16'] = 'Līdzīgi kā datorā, varat atlasīt vairākus albūmus, izmantojot Shift un Control taustiņus, tad klikšķināt uz bultām, lai tos mainītu.<br><br>Tagad ļaujiet man iepazīstināt ar grupām.';
 $lang['privacy_stp6'] = 'Kad esat augšupielādējuši fotogrāfijas, turpat varat izmainīt arī šo foto Privātuma Pakāpi';
+$lang['privacy_stp18'] = 'Lai pārvaldītu asociācijas starp lietotāju grupām, doties uz <em> Users »Manage</em> lapu';
+$lang['privacy_stp24'] = 'Šis apskats ir beidzies. <p style="text-align:center"></p> Izbaudiet Piwigo!</p> Ja jums patīk Piwigo un vēlaties mūs atbalstīt, jūs varat palīdzēt, palīdzot ar tulkojumiem, ziedojot u.c. <a href = "http://piwigo.org/basics/contribute" target = "_blank"> Klikšķiniet šeit, lai atbalstītu mūs </a>. Paldies!';
+$lang['privacy_stp15'] = 'Tieši pirms izskaidrot grupas, profesionāls padoms: šeit ir saite uz lapu, kur uzstādīt privāts/publisks vairākiem albūmiem uzreiz. Noklikšķiniet uz tās';
+$lang['privacy_stp10'] = 'Mēs esam Albūmu pārvaldības sarakstā pieejami no izvēlnes <em>Albums » Manage</em><br><br>Redīģēt uz albūma, tam pārvelkot ar peli un klikšķinot Edit.';
