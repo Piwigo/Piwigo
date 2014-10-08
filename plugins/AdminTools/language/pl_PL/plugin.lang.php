@@ -36,4 +36,4 @@ $lang['Give access to quick edit to photo owners even if they are not admin'] = 
 $lang['Open toolbar by default'] = 'Domyślnie otwieraj pasek narzędzi';
 $lang['left'] = 'lewo';
 $lang['right'] = 'prawo';
-?>
+$lang['Closed icon position'] = 'Stała pozycja ikony.';
