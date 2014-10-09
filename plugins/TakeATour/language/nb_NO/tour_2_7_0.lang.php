@@ -23,7 +23,7 @@
 $lang['2_7_0_stp2'] = 'Som du kan se, har det blitt lagt til et nytt standard tillegsprogram: Ta en Omvisning. Dette tillegsprogrammet hjelper deg å finne mer ut av din Piwigo. Her er det en listet med alle tilgjengelige omvisninger. Denne siden er tilgjengelig under Tillegsprogrammer » Ta en omvisning';
 $lang['2_7_0_stp11'] = 'Denne omvisningen er over <p style="text-align:center">. Nyt Piwigo 2.7!</p>Hvis du liker Piwigo og ønsker å støtte oss, kan du bidra ved å hjelpe med oversettelser, donere, etc.<a! href = "http://piwigo.org/basics/contribute"target="_blank"> Klikk her for å støtte oss</a>Takk!';
 $lang['2_7_0_stp10'] = 'Et filter på filstørrelse har også blitt lagt til batch manager. Du kan velge et område med et minimum og maksimum verdi.';
-$lang['2_7_0_stp1'] = 'Hei! Jeg vil være din guide på denne omvisningen når du skal oppdage Piwigo. Følg mine instruksjoner, og klikk på Neste (eller bruke pilene på tastaturet) for å navigere. Hvis du går til en annen side, vil du bli omdirigert til den gjeldende siden av omvisningen.';
+$lang['2_7_0_stp1'] = 'Hei! Jeg vil være din guide på denne omvisningen når du skal oppdage Piwigo. Følg mine instruksjoner, og klikk på Neste (eller bruk pilene på tastaturet) for å navigere. Hvis du går til en annen side, vil du bli omdirigert til den gjeldende siden av omvisningen.';
 $lang['2_7_0_title9'] = 'Søke filter';
 $lang['2_7_0_title8'] = 'Tømm din caddy';
 $lang['2_7_0_title6'] = 'Velg bokser';
