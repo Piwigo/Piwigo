@@ -71,3 +71,11 @@ $lang['first_contact_stp13'] = 'Du kan redigere beskrivelser og mer fra batch ma
 $lang['first_contact_stp14'] = 'Nå vil vi se på <b> rediger side </ b> av ett bilde. Den siden er tilgjengelig herfra, men også fra det offentlige fotoside når du er logget på som administrator.<br><br>Merk miniatyrbilde og klikk deretter på rediger.';
 $lang['first_contact_stp15'] = 'På denne siden kan du redigere alle egenskapene til et bilde, for eksempel...';
 $lang['first_contact_stp10'] = 'Her er en link som gir deg direkte tilgang til din caddy: dette er et verktøy for administratorer som enkelt kan velge bilder når de surfer på den offentlige delen og ønsker å redigere bildene i Batch Manager. <br><br> Du kan legge til bilder i caddy fra den offentlige fotoside når du er logget på som administrator, eller ved hjelp av handlingen "Legg til caddy" i Batch Manager.';
+$lang['first_contact_stp43'] = 'Denne turen var ganske lang, men vi har bare sett en liten del av hvor kraftig Piwigo er. Alt har en slutt, denne oversikten er ferdig.<br><br>Du kan undersøke funksjonene i Piwigo nærmere ved å ta en annen tur eller lese vår dokumentasjon, på piwigo.org nettstedet.<br><br>Ikke glem Hjelp-koblingen øverst til høyre på alle administrasjons sider.<p style="text-align:center">Nyt din Piwigo!</p>';
+$lang['first_contact_stp6'] = 'Du ser at bildene blir oppført. Når du er klar klikker på knappen Start Opplastingen';
+$lang['first_contact_stp7'] = 'Her en oppsummering av de opplastede bildene. Se at Piwigo har selv generert miniatyrene. Du kan:<ul><li>administrere alle de opplastede bildene i Batch Behandling</li><li>redigere egenskapene til et bilde ved å klikke på det</li><li>legge til flere bilder</li></ul>';
+$lang['first_contact_stp5'] = 'Deretter klikker du på knappen for å velge bilder å sende, eller bare dra og slipp filene dine.';
+$lang['first_contact_stp9'] = 'Du er nå i Batch Manager, der du kan batch redigere flere bilder.<br><br>Her forfilteret er allerede satt på "Caddie" fordi vi kommer fra opplastingssiden.';
+$lang['first_contact_stp8'] = 'La oss redigere dem! Klikk på linken.';
+$lang['first_contact_title1'] = 'Velkommen til ditt Piwigo galleri';
+$lang['first_contact_title11'] = 'Hvordan redigere et bilde';
