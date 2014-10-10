@@ -211,7 +211,7 @@ jQuery(document).ready(function(){
 
 <div class="infos" style="display:none"></div>
 
-<p class="afterUploadActions" style="margin:10px; display:none;"><a class="batchLink"></a> | <a href="">{'Add another set of photos'|@translate}</a></p>
+<p class="afterUploadActions" style="margin:10px; display:none;"><a class="batchLink"></a> | <a href="admin.php?page=photos_add">{'Add another set of photos'|@translate}</a></p>
 
 {if count($setup_errors) > 0}
 <div class="errors">
