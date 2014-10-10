@@ -981,3 +981,6 @@ $lang['between %s and %s MB'] = 'حجمِ بینِ %s و %s مگابایت';
 $lang['date & time'] = 'تاریخ و زمان';
 $lang['file name'] = 'نامِ فایل';
 $lang['width & height'] = 'بلندا و پهنا';
+$lang['Empty caddie'] = 'خالی کردنِ سبد';
+$lang['No and unlock sub-albums'] = 'خیر و زیرآلبوم‌ها را باز کن';
+$lang['The settings for the guest are from the %s user'] = 'تنظیماتِ مهمان‌ها از کاربر %s گرفته می‌شود';
