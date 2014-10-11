@@ -59,3 +59,13 @@
 #picture_page {
     text-align: center;
 }
+
+#colorbox, #cboxOverlay, #cboxWrapper {
+  display:none;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index:-1;
+  opacity:0 !important
+}
