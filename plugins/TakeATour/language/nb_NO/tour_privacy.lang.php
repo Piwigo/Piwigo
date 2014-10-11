@@ -48,3 +48,22 @@ $lang['privacy_stp12'] = 'På den siden kan du velge om albumet vil være tilgje
 $lang['privacy_stp11'] = 'Nå klikk på knappen Tillatelser';
 $lang['privacy_stp10'] = 'Vi er i Album listens administrasjon som er tilgjengelig fra menyen ved å klikke<em>Album »Behandle</em><br><br>Rediger albumet ved å holde musen over den, og klikk deretter på Endre.';
 $lang['privacy_stp1'] = 'Hei! Jeg vil være din guide som viser deg hvordan du kan beskytte dine bilder i Piwigo. Følg mine instruksjoner, og klikk på Neste (eller bruk pilene på tastaturet) for å navigere. Hvis du går til en annen side i administrasjonen, vil du bli omdirigert til den gjeldende siden av omvisningen. Hvis du står fast og ikke kan  avslutte turen, gå til <em>Tillegsprogrammer »ta en omvisning</ em> dette vil avslutte omvisningen. <br> La oss begynne!';
+$lang['privacy_title1'] = 'Velkommen til personvern omvisning';
+$lang['privacy_title10'] = '
+Album tillatelser';
+$lang['privacy_title11'] = '
+Album tillatelser';
+$lang['privacy_title12'] = '
+Album tillatelser';
+$lang['privacy_title15'] = 'Tips';
+$lang['privacy_title17'] = 'Grupper';
+$lang['privacy_title18'] = 'Grupper';
+$lang['privacy_title19'] = 'Bruker';
+$lang['privacy_title2'] = 'Hjelp inni din Piwigo';
+$lang['privacy_title20'] = 'Offentlige bilder';
+$lang['privacy_title21'] = 'Offentlige bilder';
+$lang['privacy_title22'] = 'Lokal Config: Original beskyttelse';
+$lang['privacy_title24'] = 'Det har vært en flott tid';
+$lang['privacy_title3'] = 'Tillatelser';
+$lang['privacy_title4'] = 'Tillatelser';
+$lang['privacy_title5'] = 'Tillatelser> Grupper';
