@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Combine JS&CSS'] = 'Kombiniraj JS&CSS';
+$lang['Combine JS&CSS'] = 'Kombiniraj JS&amp;CSS';
 $lang['Open toolbar by default'] = 'Privzeto odpri vrstico z orodji';
 $lang['Revert'] = 'Obratno';
 $lang['Properties page'] = 'Lastnosti strani';

@@ -35,5 +35,5 @@ $lang['Open toolbar by default'] = 'បើ​របារឧបករណ៍​�
 $lang['Give access to quick edit to photo owners even if they are not admin'] = 'ផ្តល់​សិទ្ធិចូល​ទៅ​ការកែ​ប្រែលឿនដល់​ម្ចាស់​រូបភាព បើទោះបី​ពួកគាត់​ពុំមែន​ជា​អ្នក​គ្រប់គ្រង​ក៏ដោយ';
 $lang['Debug template'] = 'ស្វែងរក​កំបុស​ពុម្ព';
 $lang['Debug languages'] = 'ស្វែង​រកកំហុស​ភាសា';
-$lang['Combine JS&CSS'] = 'បញ្ចូល JS&CSS';
+$lang['Combine JS&CSS'] = 'បញ្ចូល JS&amp;CSS';
 $lang['Closed icon position'] = 'ទីតាំ​ង​រូប​បិទ';

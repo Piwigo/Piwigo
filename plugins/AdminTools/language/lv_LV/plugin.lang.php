@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Combine JS&CSS'] = 'Apvienot JS & CSS';
+$lang['Combine JS&CSS'] = 'Apvienot JS &amp; CSS';
 $lang['Revert'] = 'Atgriezt';
 $lang['View as'] = 'Apskatīt kā';
 $lang['Viewing as <b>%s</b>.'] = 'Apskatīt kā <b>%s </ b>.';

@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Combine JS&CSS'] = 'Apjungti JS&CSS';
+$lang['Combine JS&CSS'] = 'Apjungti JS&amp;CSS';
 $lang['Debug languages'] = 'Debuginti kalbas';
 $lang['Debug template'] = 'Debuginti šablonus';
 $lang['Properties page'] = 'Nustatymų puslapis';

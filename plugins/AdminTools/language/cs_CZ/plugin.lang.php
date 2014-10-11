@@ -1,6 +1,6 @@
 <?php
 
-$lang['Combine JS&CSS'] = 'Kombinace JS&CSS';
+$lang['Combine JS&CSS'] = 'Kombinace JS&amp;CSS';
 $lang['Debug languages'] = 'Debug překladů';
 $lang['Debug template'] = 'Debug šablony vzhledu';
 $lang['Viewing as <b>%s</b>.'] = 'Zobrazení jako <b>%s</b>.';
