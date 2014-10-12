@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['Show SQL queries'] = 'Покажи SQL заявки';
-$lang['Combine JS&CSS'] = 'Комбиниране JS&CSS';
+$lang['Combine JS&CSS'] = 'Комбиниране JS&amp;CSS';
 $lang['Debug languages'] = 'Език за отстраняване на грешки';
 $lang['Debug template'] = 'Шаблон отстраняване на грешки';
 $lang['Properties page'] = 'Страница с настройки';

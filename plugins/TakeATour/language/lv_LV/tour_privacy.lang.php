@@ -27,3 +27,15 @@ $lang['privacy_stp12'] = 'Šajā lapā varat izvēlēties vai albūms būs pieej
 $lang['privacy_stp14'] = 'Tad lietotājiem un lietotāju grupām var piešķirt tiesības, lai piekļūtu albūmam.';
 $lang['privacy_stp14b'] = 'Svarīgs fakts: webmāsteri un administratori nav visvaroši publiskā daļā, bet tie var piekļūt ikvienam albūmam un fotogrāfijai administratora daļā.';
 $lang['privacy_title14b'] = '';
+$lang['privacy_stp16'] = 'Līdzīgi kā datorā, varat atlasīt vairākus albūmus, izmantojot Shift un Control taustiņus, tad klikšķināt uz bultām, lai tos mainītu.<br><br>Tagad ļaujiet man iepazīstināt ar grupām.';
+$lang['privacy_stp6'] = 'Kad esat augšupielādējuši fotogrāfijas, turpat varat izmainīt arī šo foto Privātuma Pakāpi';
+$lang['privacy_stp18'] = 'Lai pārvaldītu asociācijas starp lietotāju grupām, doties uz <em> Users »Manage</em> lapu';
+$lang['privacy_stp24'] = 'Šis apskats ir beidzies. <p style="text-align:center"></p> Izbaudiet Piwigo!</p> Ja jums patīk Piwigo un vēlaties mūs atbalstīt, jūs varat palīdzēt, palīdzot ar tulkojumiem, ziedojot u.c. <a href = "http://piwigo.org/basics/contribute" target = "_blank"> Klikšķiniet šeit, lai atbalstītu mūs </a>. Paldies!';
+$lang['privacy_stp15'] = 'Tieši pirms izskaidrot grupas, profesionāls padoms: šeit ir saite uz lapu, kur uzstādīt privāts/publisks vairākiem albūmiem uzreiz. Noklikšķiniet uz tās';
+$lang['privacy_stp10'] = 'Mēs esam Albūmu pārvaldības sarakstā pieejami no izvēlnes <em>Albums » Manage</em><br><br>Redīģēt uz albūma, tam pārvelkot ar peli un klikšķinot Edit.';
+$lang['privacy_stp19'] = 'Šeit var ātri rediģēt vienu lietotāju, velkot ar peli pār to un pēc tam noklikšķinot uz saites Edit. <br><br>Varat atlasīt vairākus lietotājus un rediģēt tos uzreiz pēc tam izvēloties Darbību, ko piemērot.';
+$lang['privacy_stp9'] = '...un izvēlieties darbību "Kas var redzēt fotogrāfijas?".Tagad var mainīt izvēlēto foto privātuma līmeni. <br><br> Bet to var darīt arī atsevišķiem foto to rediģēšanas lapās.Pie tā var piekļūt no publiskās daļas vai no šejienes. <br><br> Tagad es jums parādīšu citu albūma atļauju sistēmu, bāzētu uz grupām un lietotājiem.';
+$lang['privacy_stp5'] = 'Zemāk ir izskaidrots, kā jūs varat pārvaldīt Grupas. <br> Šīs atļaujas ir tikai fotogrāfiju un albumu piekļuvei, kad pārlūkošana notiek ārējo aplikāciju publiskajā daļā. Vēlāk redzēsim citus aizsardzības veidus, bet tagad papraktizēsimies ar šo!';
+$lang['privacy_stp7'] = '... vai varat darīt to vēlāk, šeit Sērijas pārvaldniekā Global Mode režīmā. <br><br> Šī ir lapa <em> Photos »Recent photos </ em>, tāpēc filtrs ir iestatīts "Last Import" stāvoklī.';
+$lang['privacy_stp21'] = 'Risinājumi ir:<ul><li> likt ūdenszīmi vismaz uz vidējas un augstas izšķirtspējas foto.</li><li>un atslēgt XL un XXL izmērus.</li><li>un atslēgt Augstu izšķirtspēju (lejuplādēt un attēlot foto patiesajā izmērā) bažīgiem lietotājiem.';
+$lang['privacy_stp2'] = 'Šeit var piekļūt integrētajai Palīdzībai. Noklikšķiniet uz tālāk, lai turpinātu tieši Palīdzības lapā ar atļauju pārvaldību';

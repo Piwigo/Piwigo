@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2013 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -20,21 +20,10 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Combine JS&CSS'] = 'Kombiniraj JS&amp;CSS';
-$lang['Open toolbar by default'] = 'Privzeto odpri vrstico z orodji';
-$lang['Revert'] = 'Obratno';
-$lang['Properties page'] = 'Lastnosti strani';
-$lang['Save visit in history'] = 'Shrani ogled zgodovine';
-$lang['Viewing as <b>%s</b>.'] = 'Ogled kot <b>%s</b>.';
-$lang['right'] = 'desno';
-$lang['left'] = 'levo';
-$lang['View as'] = 'Poglej kot';
-$lang['Show SQL queries'] = 'Prikaži SQL poizvedbe';
-$lang['Saved'] = 'Shranjeno';
-$lang['Save'] = 'Shrani';
-$lang['Closed icon position'] = 'Zaprta pozicija ikone';
-$lang['Debug languages'] = 'Razhroščevalni jeziki';
-$lang['Debug template'] = 'Razhroščevalna predloga';
-$lang['Give access to quick edit to photo owners even if they are not admin'] = 'Dovoli dostop do hitrega urejanja fotografij lastnikom tudi če nimajo administratorskih pravic';
-$lang['Quick edit'] = 'Hitro urejanje';
-?>
+$lang['2.7 Tour'] = '2.7 túra';
+$lang['2_7_0_descrp'] = 'Fedezze fel mi az új a Piwigo 2.7-ben';
+$lang['End tour'] = 'Túra vége';
+$lang['Next '] = 'Tovább';
+$lang['Prev'] = 'Vissza';
+$lang['Start the Tour'] = 'Túra indítása';
+$lang['takeatour_configpage'] = 'Felfedező túra » Túra lista';

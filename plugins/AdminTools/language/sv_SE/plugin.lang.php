@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 $lang['Give access to quick edit to photo owners even if they are not admin'] = 'Ge access för snabbändring till foto ägare även om dom inte är administratörer';
 $lang['Closed icon position'] = 'Stängd ikon position';
-$lang['Combine JS&CSS'] = 'Kombinera JS&CSS';
+$lang['Combine JS&CSS'] = 'Kombinera JS&amp;CSS';
 $lang['Debug languages'] = 'Felsökningsspråk';
 $lang['Debug template'] = 'Felsökningsmall';
 $lang['Open toolbar by default'] = 'Öppna verktygslisten som standard';

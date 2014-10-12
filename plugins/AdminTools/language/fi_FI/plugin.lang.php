@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Combine JS&CSS'] = 'Yhdistä JS&CSS';
+$lang['Combine JS&CSS'] = 'Yhdistä JS&amp;CSS';
 $lang['Debug languages'] = 'Debuggaa kielet';
 $lang['Quick edit'] = 'Pikamuokkaus';
 $lang['Revert'] = 'Palauta';

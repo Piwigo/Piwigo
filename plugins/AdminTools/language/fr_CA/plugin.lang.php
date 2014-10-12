@@ -1,6 +1,6 @@
 <?php
 
-$lang['Combine JS&CSS'] = 'Combiner JS&CSS';
+$lang['Combine JS&CSS'] = 'Combiner JS&amp;CSS';
 $lang['Debug languages'] = 'Déboguer les langues';
 $lang['Debug template'] = 'Déboguer le patron';
 $lang['Viewing as <b>%s</b>.'] = 'Vue simulée de <b>%s</b>.';

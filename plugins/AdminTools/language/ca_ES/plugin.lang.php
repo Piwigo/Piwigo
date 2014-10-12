@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['Closed icon position'] = 'Posició de la icona';
-$lang['Combine JS&CSS'] = 'Combina JS&CSS';
+$lang['Combine JS&CSS'] = 'Combina JS&amp;SS';
 $lang['Debug languages'] = 'Depura els idiomes';
 $lang['Debug template'] = 'Depura la plantilla';
 $lang['Give access to quick edit to photo owners even if they are not admin'] = 'Dóna accés als propietaris de les fotos (encara que no siguin administradors) per poder editar de forma ràpida ';

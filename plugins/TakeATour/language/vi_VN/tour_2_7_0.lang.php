@@ -16,3 +16,8 @@ $lang['2_7_0_title2b'] = 'Mẫu tải lên mới';
 $lang['2_7_0_title6'] = 'Các hộp chọn lựa';
 $lang['2_7_0_title7'] = 'Sắp xếp album theo ngày';
 $lang['2_7_0_title9'] = 'Bộ lọc tìm kiếm';
+$lang['2_7_0_stp11'] = 'Tour đến đây là kết thúc.<p style="text-align:center">Hãy tiếp tục khám phá Piwigo 2.7!</p>Nếu bạn thích Piwigo và muốn hỗ trợ chúng tôi, bạn có thể đóng góp bằng cách giúp đỡ việc chuyển ngữ hay tài trợ,vv. <a href="http://piwigo.org/basics/contribute" target="_blank">Bấm vào đây để hỗ trợ chúng tôi</a> Cám ơn!';
+$lang['2_7_0_stp4'] = 'Trang Tìm kiếm đã hoạt động trở lại: cho phép chọn các thuộc tính của từ khóa cần tìm, danh sách các tác giả tìm thấy trong cơ sở dữ liệu, tự điền danh sách các khóa, tự điền danh sách các album...';
+$lang['2_7_0_stp8'] = 'Dễ dàng xóa giỏ hình bằng một cú click chuột.';
+$lang['2_7_0_stp9'] = 'trình quản lý lô được bổ sung một bộ lọc có cú pháp tìm kiếm mạnh mẽ, giúp tìm kiếm ảnh theo ngày, từ khóa, kích thước, tên file hoặc tùy chọn tìm chính xác, VÀ/HOẶC, tạo nhóm và loại trừ. Bạn có thể đọc trong phần giúp đỡ để biết thêm chi tiết. Cú pháp này cũng được áp dụng cho phần Tìm kiếm nhanh trong menu tại Trang chủ.';
+$lang['2_7_0_title8'] = 'Xóa giỏ hình';

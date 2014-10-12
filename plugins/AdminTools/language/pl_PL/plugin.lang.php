@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Combine JS&CSS'] = 'Połącz JS&CSS';
+$lang['Combine JS&CSS'] = 'Połącz JS&amp;CSS';
 $lang['Debug languages'] = 'Języki debugowania';
 $lang['Debug template'] = 'Wzory debugowania';
 $lang['Properties page'] = 'Ustawienia';
@@ -36,4 +36,4 @@ $lang['Give access to quick edit to photo owners even if they are not admin'] = 
 $lang['Open toolbar by default'] = 'Domyślnie otwieraj pasek narzędzi';
 $lang['left'] = 'lewo';
 $lang['right'] = 'prawo';
-?>
+$lang['Closed icon position'] = 'Stała pozycja ikony.';

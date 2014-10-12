@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Combine JS&CSS'] = 'Combină JS&CSS';
+$lang['Combine JS&CSS'] = 'Combină JS&amp;CSS';
 $lang['Debug languages'] = 'Depanare limbă';
 $lang['Debug template'] = 'Depanare șablon';
 $lang['Properties page'] = 'Pagină de proprietăți';
