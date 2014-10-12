@@ -662,7 +662,7 @@ $lang['randomly represented'] = "random album thumbnail";
 $lang['ranks'] = "ranks";
 $lang['Rate date'] = "Rate date";
 $lang['Rate'] = "Rate";
-$lang['Rated %d times, score : %.2f'] = 'Rated %d times, score : %.2f';
+$lang['Rated %d times, score : %.2f'] = 'Rated %d times, score: %.2f';
 $lang['Ratio'] = "Ratio";
 $lang['Rating by guests'] = "Rating by guests";
 $lang['Rating'] = "Rating";
@@ -981,4 +981,3 @@ $lang['file name'] = 'file name';
 $lang['date & time'] = 'date & time';
 $lang['width & height'] = 'width & height';
 $lang['Upload in progress'] = 'Upload in progress';
-?>
