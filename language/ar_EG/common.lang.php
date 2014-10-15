@@ -36,4 +36,22 @@ $lang_info['zero_plural'] = true;
 
 
 
-?>
+$lang['%d comments to validate'] = '%d التعليقات للتأكيد';
+$lang['%d hit'] = '%d مشاهدة';
+$lang['%d hits'] = '%d مشاهدات';
+$lang['%d photos per page'] = '%d صور فى كل صفحة';
+$lang['%d photo is also linked to current tags'] = '%d الصورة مرتبطة ايضا بالمدونة الحالية';
+$lang['%d photos are also linked to current tags'] = '%d الصور مرتبطون ايضا بالمدونة الحالية';
+$lang['%d photos'] = '%d صور';
+$lang['%d photo'] = '%d صورة';
+$lang['%d new users'] = '%d مستخدمين جدد';
+$lang['%d new photos'] = '%d صور جدد';
+$lang['%d new user'] = '%d مستخدم جديج';
+$lang['%d new photo'] = '%d صورة جديدة';
+$lang['%d new comment'] = '%d تعليق جديد';
+$lang['%d new comments'] = '%d تعليقات جداد';
+$lang['%d comments'] = '%d التعليقات';
+$lang['%d comment to validate'] = '%d علق للتأكيد';
+$lang['%d comment'] = '%d تعليق';
+$lang['%d album updated'] = '%d تم تحديث الألبوم';
+$lang['%d albums updated'] = '%d تم تحديث الألبوم';
