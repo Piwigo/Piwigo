@@ -41,7 +41,7 @@ $lang['webmaster login can\'t contain characters \' or "'] = 'потребите
 $lang['Welcome to my photo gallery'] = 'Здравейте и добре дошли в моята фотогалерия';
 $lang['Welcome to your new installation of Piwigo!'] = 'Здравейте и добре дошли във вашата нова Piwigo инсталация! ';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Вие можете да изтеглите конфигурационния файл и да го качите в директорията  local/config на вашата инсталация';
-$lang['PHP 5 is required'] = 'Изисква се инсталиран PHP 5';
+$lang['PHP 5 is required'] = 'Изисква се инсталиран PHP 5.2';
 $lang['Start Install'] = 'Стартиране на инсталацията';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo не успя да конфигурира PHP5';
 $lang['Admin configuration'] = 'Администратор настройки';
@@ -50,7 +50,7 @@ $lang['Database table prefix'] = 'Префикс на базата с данни
 $lang['Hope to see you back soon.'] = 'Надяваме се да се видим скоро';
 $lang['Host'] = 'Доставчик';
 $lang['Sorry!'] = 'Съжаляваме!';
-$lang['Try to configure PHP 5'] = 'Опитайте да настройте PHP 5';
+$lang['Try to configure PHP 5'] = 'Опитайте да настройте PHP 5.2';
 $lang['user login given by your host provider'] = 'потребителско име за достъп до вашия доставчик';
 $lang['user password given by your host provider'] = 'парола за достъп до вашия доставчик';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Потребителите ще могат да използват този имейл за контакт с Администратора на сайта';
@@ -62,7 +62,6 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Алтернативно решение е да копирате текста от кутията горе и да го добавите ръчно във файла "local/config/database.inc.php" (ВНИМАНИЕ: database.inc.php трябва да съдържа само това от текстовото поле, без празни знаци)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Създаването на конфигурационен файл local/config/database.inc.php е неуспещно.';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Изглежда вашият уеб хост се изпълнява в PHP %s';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo може да се опита да превключите вашата конфигурация на PHP 5 като създаде или промени .htaccess файла.';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Обърнете се към вашия хостинг доставчик и вижте как можете да преминете към PHP 5 самостоятелно.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo може да се опита да превключите вашата конфигурация на PHP 5.2 като създаде или промени .htaccess файла.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Обърнете се към вашия хостинг доставчик и вижте как можете да преминете към PHP 5.2 самостоятелно.';
 $lang['localhost or other, supplied by your host provider'] = 'localhost или друг, предоставен от вашият хост провайдер';
-?>
