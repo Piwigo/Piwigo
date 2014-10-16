@@ -31,6 +31,5 @@ $lang['Hope to see you back soon.'] = 'Се надеваме дека ќе се 
 $lang['Installation'] = 'Инсталација';
 $lang['Sorry!'] = 'Извини !';
 $lang['Start Install'] = 'Стартувај ја инсталацијата';
-$lang['Try to configure PHP 5'] = 'Пробај да го сетираш PHP 5';
+$lang['Try to configure PHP 5'] = 'Пробај да го сетираш PHP 5.2';
 $lang['User'] = 'Корисник';
-?>
