@@ -30,14 +30,14 @@ $lang['Password [confirm]'] = "Κωδικός [επιβεβαίωση]";
 $lang['verification'] = "Επιβεβαίωση";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Χρειάζεστε βοήθεια; Ρωτήστε στο <a href=\"%s\">Πίνακα μηνυμάτων του Piwigo</a>.";
 $lang['Visitors will be able to contact site administrator with this mail'] = "Οι επισκέπτες θα μπορούν να χρησιμοποιήσουν αυτό το email για να επικοινωνήσουν με τον διαχειριστή του site";
-$lang['PHP 5 is required'] = "Aπαιτείτε PHP 5";
+$lang['PHP 5 is required'] = 'Aπαιτείτε PHP 5.2';
 $lang['It appears your webhost is currently running PHP %s.'] = "Φαίνετται ότι ο webhost τώρα τρέχει PHP %s.";
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = "Το Piwigo θα προσπαθήσει να αλλάξει την διαμόρφωση της PHP 5 δημιουργώντας ή τροποποιώντας ένα .htaccess αρχείο.";
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Το Piwigo θα προσπαθήσει να αλλάξει την διαμόρφωση της PHP 5.2 δημιουργώντας ή τροποποιώντας ένα .htaccess αρχείο.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = "Λάβε υπ' όψη ότι μπορείς να αλλάξεις την διαμόρφωση και να επανεκκινήσεις το Piwigo μετά από αυτό.";
-$lang['Try to configure PHP 5'] = "Προσπάθησε να διαμορφώσεις την PHP 5";
+$lang['Try to configure PHP 5'] = 'Προσπάθησε να διαμορφώσεις την PHP 5.2';
 $lang['Sorry!'] = "Συγγνώμη!";
-$lang['Piwigo was not able to configure PHP 5.'] = "Το Piwigo δεν είναι σε θέση να διαμορφώσει την PHP 5.";
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = "Πρέπει να αναφέρετε στην υποστήριξη του παροχέα ςσας για να διαπιστώσετε πως μπορείτε να αλλάξετε σε PHP 5 μόνοι σας.";
+$lang['Piwigo was not able to configure PHP 5.'] = 'Το Piwigo δεν είναι σε θέση να διαμορφώσει την PHP 5.2';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Πρέπει να αναφέρετε στην υποστήριξη του παροχέα ςσας για να διαπιστώσετε πως μπορείτε να αλλάξετε σε PHP 5.2 μόνοι σας.';
 $lang['Hope to see you back soon.'] = "Ελπίζουμε να σας δούμε πάλι σύντομα.";
 $lang['Congratulations, Piwigo installation is completed'] = 'Συγχαρητήρια, η εγκατάσταση του Piwigo ολοκληρώθηκε';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Μια εναλλακτική λύση είναι να αντιγράψετε το κείμενο σε στο πλαίσιο παρακάτω και να το επικολλήστε στο αρχείο "local/config/database.inc.php" (Προειδοποίηση : το database.inc.php πρέπει να περιέχει ότι είναι στην περιοχή κειμένου, χωρίς enter ή κενό)';
@@ -65,4 +65,3 @@ $lang['also given by your host provider'] = 'Επίσης, δίνεται από
 $lang['user login given by your host provider'] = 'Όνομα χρήστη που έχει λάβει από το φορέα υποδοχής σας';
 $lang['user password given by your host provider'] = 'Κωδικός προσβασης χρήστη που έχει λάβει από το φορέα υποδοχής σας';
 $lang['localhost or other, supplied by your host provider'] = 'localhost ή άλλο, που σας παρέχεται από τον πάροχο φιλοξενίας σας';
-?>
