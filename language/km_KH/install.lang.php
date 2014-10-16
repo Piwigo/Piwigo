@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['Password ']['confirm'] = 'ពាក្យ​សម្ងាត់​ [បញ្ជាក់]';
-$lang['PHP 5 is required'] = 'PHP 5 ត្រូវ​ការជា​ចាំបាច់';
+$lang['PHP 5 is required'] = 'PHP 5.2 ត្រូវ​ការជា​ចាំបាច់';
 $lang['Database configuration'] = 'ការ​កំណត់​លើ​មូលដ្ឋាន​ទិន្នន័យ';
 $lang['Download the config file'] = 'ទាញ​យក​ឯកសារកំណត់';
 $lang['Admin configuration'] = 'ការ​កំណត់​ផ្នែក​រដ្ឋបាល';
@@ -33,7 +33,7 @@ $lang['Default gallery language'] = 'ភាសាវិចិត្រសាល�
 $lang['Database table prefix'] = 'បុព្វបទតារាងមូលដ្ឋាន​ទិន្ន​ន័យ';
 $lang['Database name'] = 'ឈ្មោះ​មូលដ្ឋាន​ទិន្ន​ន័យ';
 $lang['Hope to see you back soon.'] = 'សង្ឃឹមថា​នឹងឃើញ​អ្នក​មកវិញឆាប់ៗ';
-$lang['Try to configure PHP 5'] = 'ព្យាយាម​កែកំណត់ PHP 5';
+$lang['Try to configure PHP 5'] = 'ព្យាយាម​កែកំណត់ PHP 5.2';
 $lang['User'] = 'អ្នក​​ប្រើប្រាស់';
 $lang['Sorry!'] = 'សុំទោស!';
 $lang['Start Install'] = 'ចាប់ផ្តើម​បញ្ចូល';
