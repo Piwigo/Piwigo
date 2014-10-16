@@ -21,13 +21,13 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['PHP 5 is required'] = 'Zahtevan je PHP 5';
+$lang['PHP 5 is required'] = 'Zahtevan je PHP 5.2';
 $lang['Password [confirm]'] = 'Geslo [potrdi]';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo bo poskušal preklopiti vaše nastavitve na PHP 5 z ustvarjanjem ali urejanjem .htacceess datoteke';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ni mogel nastaviti PHP 5.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo bo poskušal preklopiti vaše nastavitve na PHP 5.2 z ustvarjanjem ali urejanjem .htacceess datoteke';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ni mogel nastaviti PHP 5.2';
 $lang['Sorry!'] = 'Oprostite!';
 $lang['Start Install'] = 'Začni namestitev';
-$lang['Try to configure PHP 5'] = 'Poskušam nastaviti PHP 5';
+$lang['Try to configure PHP 5'] = 'Poskušam nastaviti PHP 5.2';
 $lang['User'] = 'Uporabnik';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Obiskovalci bodo lahko ta elektronski naslov uporabljali za kontakt s skrbnikom spletne strani ';
 $lang['Welcome to my photo gallery'] = 'Dobrodošli v moji foto galeriji';
@@ -58,11 +58,10 @@ $lang['user password given by your host provider'] = 'geslo uporabnika pridoblje
 $lang['verification'] = 'preverjanje';
 $lang['webmaster login can\'t contain characters \' or "'] = 'prijavno ime skrbnika ne sme vsebovati znakov \' ali "';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'imena tabel v podatkovni bazi bodo imela predpono. (omogoča lažje upravljanje tabel)';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Posvetujte se z vašim ponudnikom gostovanja kako bi lahko sami prešli na zahtevano PHP 5 različico.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Posvetujte se z vašim ponudnikom gostovanja kako bi lahko sami prešli na zahtevano PHP 5.2 različico.';
 $lang['also given by your host provider'] = 'tudi pridobljeno od vašega ponudnika gostovanja';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Potrebujete dodatno pomoč? Zastavite vprašanje na <a href="%s">Piwigo oglasni deski</a>.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Upoštevajte da lahko sami spremenite nastavitve in nato ponovno zaženete Piwigo.';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Druga rešitev je, da kopirate besedilo v polje zgoraj in ga prilepite v datoteko "local/config/database.inc.php" (Opozorilo: database.inc.php mora vsebovati le to kar je v besedilnem polju, brez znakov prehoda v novo vrstico(line return)ali znakov za presledke)';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Varno shranite, omogoča vam dostop do administratorske nadzorne plošče!';
 $lang['localhost or other, supplied by your host provider'] = 'localhost ali drug naslov ki ga imate pri svojem ponudniku gostovanja';
-?>
