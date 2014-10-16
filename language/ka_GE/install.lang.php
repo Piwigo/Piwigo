@@ -46,14 +46,14 @@ $lang['Password [confirm]'] = 'გაიმეორეთ პაროლი';
 $lang['verification'] = 'კიდევ ერთხელ,შეცდომის გამოსარიცხად';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'გჭირდებათ დახმარება?დასვით შეკითხვები <a href="%s">Piwigo–ს ფორუმზე</a>.';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'გამოყენებული იქნება მომხმარებლების მიერ ადმინისტრატორთან კავშირისათვის';
-$lang['PHP 5 is required'] = 'საჭიროა PHP 5';
+$lang['PHP 5 is required'] = 'საჭიროა PHP 5.2';
 $lang['It appears your webhost is currently running PHP %s.'] = 'სავარაუდოდ თქვენი ხოსტინგი ამჟამად იყენებს PHP %s.';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo–ს შეუძლია შეეცადოს გადართოს თქვენი კონფიგურაცია PHP 5, .htaccess ფაილს შექმნით ან შეცვლით.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo–ს შეუძლია შეეცადოს გადართოს თქვენი კონფიგურაცია PHP 5.2, .htaccess ფაილს შექმნით ან შეცვლით.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'აღნიშნეთ,რომ თქვენ შეგიძლიათ თქვენით შეცვალოთ კონფიგურაცია და ამის შემდეგ ახლიდან გაუშვით Piwigo.';
-$lang['Try to configure PHP 5'] = 'შვეცადოთ PHP 5 გადაკონფიგურირება';
+$lang['Try to configure PHP 5'] = 'შვეცადოთ PHP 5.2 გადაკონფიგურირება';
 $lang['Sorry!'] = 'ბოდიში!';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo–ს არ შეუძლია PHP 5 გადაკონფიგურირება.';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'თქვენ უნდა მიმართოთ პროვაიდერს დახმარებისა და განმარტებისათვის ტუ როგორ მოახერხოთ PHP 5 ზე გადართვა.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo–ს არ შეუძლია PHP 5.2 გადაკონფიგურირება.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'თქვენ უნდა მიმართოთ პროვაიდერს დახმარებისა და განმარტებისათვის ტუ როგორ მოახერხოთ PHP 5.2 ზე გადართვა.';
 $lang['Hope to see you back soon.'] = 'იმედი გავქვს მალე შემოგვიერთდებით.';
 $lang['Congratulations, Piwigo installation is completed'] = 'გილოცავთ,Piwigo–ს დაყენება დამთავრებულია';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'ალტერნატიული გადაწყვეტილება მდგომარეობს შემდეგში,შეგიძლიათ დააკოპიროთ ტექსტი მაღლა ბლოკიდან და ჩასვათ ამ ფაილში "local/config/database.inc.php"   (გაფრთხილება: database.inc.php უნდა შეიცავდეს მხოლოდ იმას რაც წერია textarea–ში, თავისუფალი ადგილების და დაბრუნების ხაზების გარეშე)';
@@ -64,4 +64,3 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'ნუ მ�
 $lang['Just another Piwigo gallery'] = 'Piwigo -ს კიდევ ერთი გალერეა';
 $lang['Welcome to my photo gallery'] = 'კეთილი იყოს ჩემს ფოტო გალერეაში თქვენი მობრძანება';
 $lang['Welcome to your new installation of Piwigo!'] = 'კეთილი იყოს თქვენს მიერ Piwigo -ს დაყენება!';
-?>
