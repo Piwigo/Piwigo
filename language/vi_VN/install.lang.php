@@ -46,13 +46,13 @@ $lang['Password [confirm]'] = 'Mật khẩu [xác nhận]';
 $lang['verification'] = 'xác nhận';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Cần trợ giúp ? Hãy gởi thắc mắc của bạn tại <a href="%s">diễn đàn của Piwigo</a>.';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Khách tham quan có thể liên lạc với Quản trị thông qua địa chỉ thư điện tử này.';
-$lang['PHP 5 is required'] = 'Phải có PHP 5 ';
+$lang['PHP 5 is required'] = 'Phải có PHP 5.2 ';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Do máy chủ web của bạn đang chạy phiên bản PHP  %s.';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo sẽ thử chuyển cấu hình của bạn sang PHP 5 bằng cách tạo ra hoặc biên tập một file .htaccess.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo sẽ thử chuyển cấu hình của bạn sang PHP 5.2 bằng cách tạo ra hoặc biên tập một file .htaccess.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Chú ý rằng bạn có thể tự thay đổi cấu hình và khởi động lại Piwigo sau đó.';
-$lang['Try to configure PHP 5'] = ' Thử cấu hình PHP 5';
+$lang['Try to configure PHP 5'] = ' Thử cấu hình PHP 5.2';
 $lang['Sorry!'] = 'Rất tiếc!';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo không thể cấu hình cho PHP 5.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo không thể cấu hình cho PHP 5.2';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Bạn nên yêu cầu hỗ trợ từ nhà cung cấp máy chủ và tìm hiểu xem nếu có thể tự chuyển được sang phiên bản PHP 5.";
 $lang['Hope to see you back soon.'] = 'Hi vọng nhận được phản hồi của bạn sớm.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Xin chúc mừng, việc cài đặt Piwigo đã hoàn tất';
@@ -65,4 +65,4 @@ $lang['Welcome to my photo gallery'] = 'Chào mừng bạn đến với thư vi�
 $lang['Welcome to your new installation of Piwigo!'] = 'Chào mừng bạn đến với bản cài đặt mới của Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Đừng do dự  thảo luận tại diễn đàn của chúng tôi để được trợ giúp: %s';
 $lang['localhost or other, supplied by your host provider'] = 'localhost hoặc tên máy chủ cấp bởi nhà cung cấp host';
-?>
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Bạn nên yêu cầu hỗ trợ từ nhà cung cấp máy chủ và tìm hiểu xem nếu có thể tự chuyển được sang phiên bản PHP 5.2';
