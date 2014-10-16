@@ -69,6 +69,7 @@ jQuery.fn.pwgDatepicker = function(settings) {
       autoSize: true,
       changeMonth : true,
       changeYear: true,
+      yearRange: 'c-80:c+20',
       altFieldTimeOnly: false,
       showSecond: false,
       alwaysSetTime: false
