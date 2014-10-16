@@ -46,14 +46,14 @@ $lang['Password [confirm]'] = 'Şifre [kabul]';
 $lang['verification'] = 'doğrulama';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Yardım ihtiyacınız var? Sorularınızı <a href="%s">Piwigo forumda sorabilirsiniz</a>.';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Ziyaretçilerin site yöneticisi ile bağlantıya geçmesi için bu e-posta adresini kullanabileceklerdir.';
-$lang['PHP 5 is required'] = 'PHP 5 gereklidir';
+$lang['PHP 5 is required'] = 'PHP 5.2 gereklidir';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Web sunucunuz şu anda PHP %s çalıştırıyor görünüyor.';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo .htaccess dosyası oluşturarak veya değiştirerek ayarlarınızı PHP 5 \'e geçirmeyi deneyebilir.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo .htaccess dosyası oluşturarak veya değiştirerek ayarlarınızı PHP 5.2 \'e geçirmeyi deneyebilir.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Not: Yapılandırmayı kendiniz değiştirip sonrasında Piwigo\'yu tekrar başlatabilirsiniz.';
-$lang['Try to configure PHP 5'] = 'PHP 5 yapılandırmasını dene';
+$lang['Try to configure PHP 5'] = 'PHP 5.2 yapılandırmasını dene';
 $lang['Sorry!'] = 'Üzgünüm!';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo, PHP 5 yapılandırmasını başaramadı.';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Barındırma sağlayıcınızın desteğini alarak, kendinizin PHP 5\'e nasıl geçebileceğinizi öğrenin.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo, PHP 5.2 yapılandırmasını başaramadı.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Barındırma sağlayıcınızın desteğini alarak, kendinizin PHP 5.2\'e nasıl geçebileceğinizi öğrenin.';
 $lang['Hope to see you back soon.'] = 'Yakında tekrar görüşmek dileğiyle.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Tebrikler, Piwigo kurulumu tamamlandı.';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Diğer çözüm aşağıdaki kutudaki yazıyı kopyalayın ve "local/config/database.inc.php" dosyası içine pasteleyin.(Uyarı : database.inc.php sadece yazı içermeli hiçbir ifade veya boşluk karakteri içermemelidir)';
@@ -66,4 +66,3 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Herhangi bir
 $lang['Welcome to your new installation of Piwigo!'] = 'Piwigo\'nunuzun yeni kurulumuna hoşgeldiniz!';
 $lang['Password ']['confirm'] = 'Şifre [doğrula]';
 $lang['localhost or other, supplied by your host provider'] = 'localhost veya diğer, bulundurma hizmeti sağlayıcınız tarafından verilen';
-?>
