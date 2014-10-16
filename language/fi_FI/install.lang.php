@@ -43,9 +43,9 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Älä epär�
 $lang['It appears your webhost is currently running PHP %s.'] = 'Näyttää että palveluntarjoajasi käyttää PHP %s.';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Tarvitsetko apua? Kysy asiasta <a href="%s">Piwigon keskustelupalstalla</a>';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Voit muokata asetuksia itse ja käynnistää Piwigon uudelleen tämän jälkeen.';
-$lang['PHP 5 is required'] = 'PHP 5 vaaditaan';
+$lang['PHP 5 is required'] = 'PHP 5.2 vaaditaan';
 $lang['Password ']['confirm'] = 'Salasana [hyväksy]';
-$lang['Try to configure PHP 5'] = 'Yritä määrittää PHP 5';
+$lang['Try to configure PHP 5'] = 'Yritä määrittää PHP 5.2';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Vierailijat voivat ottaa yhteyttä sivuston ylläpitäjään tätä sähköpostiosoitetta käyttäen';
 $lang['Welcome to my photo gallery'] = 'Tervetuloa kuvagalleriaani';
 $lang['enter a login for webmaster'] = 'Lisää käyttäjätunnus ylläpitäjälle';
@@ -57,12 +57,11 @@ $lang['Download the config file'] = 'Lataa konfigurointitiedosto';
 $lang['Hope to see you back soon.'] = 'Toivottavasti näemme pian';
 $lang['Just another Piwigo gallery'] = 'Yksi Piwigo -galleria lisää';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Pidä salassa, se mahdollistaa pääsyn pääkäyttäjän paneeliin';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo voi yrittää vaihtaa konfiguraation PHP 5 :seen luomalla tai muuttamalla .htaccess -tiedostoa.';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ei pystynyt konfiguroimaan PHP5 :sta.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo voi yrittää vaihtaa konfiguraation PHP 5.2 :seen luomalla tai muuttamalla .htaccess -tiedostoa.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ei pystynyt konfiguroimaan PHP5.2 :sta.';
 $lang['Sorry!'] = 'Anteeksi!';
 $lang['Welcome to your new installation of Piwigo!'] = 'Tervetuloa uuteen Piwigo -asennukseesi!';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Voit ladata konfiguraatiotiedoston ja siirtää sen asennuksesi local/config -hakemistoon. ';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Sinun tulee kääntyä hosting -palveluntarjoajasi puoleen ja kysyä kuinka voit vaihtaa PHP 5:seen itse.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Sinun tulee kääntyä hosting -palveluntarjoajasi puoleen ja kysyä kuinka voit vaihtaa PHP 5.2 :seen itse.';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'se tulee tietokannan taulun nimen etuliitteeksi (mahdollistaa taulujen helpomman hallinnan)';
 $lang['verification'] = 'vahvistus';
-?>
