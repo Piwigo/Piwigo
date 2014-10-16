@@ -22,10 +22,10 @@
 // +-----------------------------------------------------------------------+
 
 $lang['It appears your webhost is currently running PHP %s.'] = 'Таны вэбсервер PHP %s хувилбарыг ашиглаж байна';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo PHP 5-г тохиргоог өөрчилж чадсангүй';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo PHP 5.2-г тохиргоог өөрчилж чадсангүй';
 $lang['Congratulations, Piwigo installation is completed'] = 'Танд баяр хүргэе, Piwigo амжилттай сууж дууслаа.';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Сервертэй амжилттай холбогдсон боловч мэдээллийн сантай холбогдох үед алдаа гарлаа.';
-$lang['Try to configure PHP 5'] = 'PHP 5 тохиргоогоо өөрчилж үзнэ үү';
+$lang['Try to configure PHP 5'] = 'PHP 5.2 тохиргоогоо өөрчилж үзнэ үү';
 $lang['User'] = 'Хэрэглэгч';
 $lang['Just another Piwigo gallery'] = 'Piwigo-н галерей нэгээр нэмэгдлээ';
 $lang['Database configuration'] = 'Мэдээллийн сангийн тохиргоо';
@@ -37,7 +37,7 @@ $lang['Password ']['confirm'] = 'Нууц үгээ давтах';
 $lang['Can\'t connect to server'] = 'Сервертэй холбогдож чадахгүй байна';
 $lang['Database name'] = 'Мэдээллийн сангын нэр';
 $lang['Default gallery language'] = 'Үндсэн хэл';
-$lang['PHP 5 is required'] = 'PHP 5 шаардлагатай';
+$lang['PHP 5 is required'] = 'PHP 5.2 шаардлагатай';
 $lang['Download the config file'] = 'Тохиргооны файлыг татах';
 $lang['Admin configuration'] = 'Админий тохиргоо';
 $lang['Basic configuration'] = 'Үндсэн тохиргоо';
@@ -60,4 +60,3 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Тусламж хэрэгтэй бол манай онлайн форумд хандаарай: %s';
 $lang['Host'] = 'Байршуулах компьютер';
 $lang['Installation'] = 'Суулгац';
-?>
