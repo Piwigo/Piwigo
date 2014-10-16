@@ -23,7 +23,7 @@
 
 $lang['Database name'] = 'Databasenamn';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Du kan endre konfigurasjonen sjølv og ta omstart på Piwigo etterpå.';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Du bør sjekke med dei som leverar nett-tenaren om korleis du kan byte til PHP5.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Du bør sjekke med dei som leverar nett-tenaren om korleis du kan byte til PHP5.2';
 $lang['also given by your host provider'] = 'er og levera av den som leverar nett-tenaren';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'namna på databasetabellane vil verta prefiksa med dette (gjev deg mogleghet til å handtere databasetabellane betre)';
 $lang['enter a login for webmaster'] = 'skriv inn brukarnamn for webmaster';
@@ -33,13 +33,13 @@ $lang['user password given by your host provider'] = 'passord du har fått av de
 $lang['verification'] = 'sjekk';
 $lang['webmaster login can\'t contain characters \' or "'] = 'brukarnamn for webmaster kan ikkje innehalde tegna \' eller "';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Ikkje vent med å sjå på foruma våre for hjelp: %s';
-$lang['PHP 5 is required'] = 'PHP5 er påkrevd';
+$lang['PHP 5 is required'] = 'PHP5.2 er påkrevd';
 $lang['Password ']['confirm'] = 'Passord [stadfest]';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan prøve å byte din konfigurasjon til PHP5 ved å lage eller endre fila .htaccess.';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo greidde ikkje å konfigurere PHP5.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan prøve å byte din konfigurasjon til PHP5.2 ved å lage eller endre fila .htaccess.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo greidde ikkje å konfigurere PHP5.2';
 $lang['Sorry!'] = 'Orsak!';
 $lang['Start Install'] = 'Start installasjon';
-$lang['Try to configure PHP 5'] = 'Prøv å konfigurere PHP5';
+$lang['Try to configure PHP 5'] = 'Prøv å konfigurere PHP5.2';
 $lang['User'] = 'Brukar';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Dei som vitjar nettsida kan bruke denne e-postadressa for å kontakte administrator for nettsida';
 $lang['Welcome to my photo gallery'] = 'Velkomen til mitt biletgalleri';
@@ -65,4 +65,3 @@ $lang['Just another Piwigo gallery'] = 'Enda eit Piwigo galleri';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hald dette hemmeleg, det gjev deg tilgang til administrasjonspanelet';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Treng du hjelp? Still spørsmålet ditt på <a href="%s"> Piwigo sitt forum</a>.';
 $lang['localhost or other, supplied by your host provider'] = 'localhost eller servernamn gjeve av administrator for server';
-?>
