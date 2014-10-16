@@ -47,13 +47,13 @@ $lang['Keep it confidential, it enables you to access administration panel'] = '
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Потрібна допомога? Задайте питання на <a href="%s">форумі Piwigo</a>.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Зверніть увагу, ви можете змінити свою конфігурацію і перезавантажити собі Piwigo після цього.';
 $lang['Password [confirm]'] = 'Пароль [підтвердження]';
-$lang['PHP 5 is required'] = 'Потрібен PHP 5';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo можуть спробувати перемкнути конфігурацію PHP 5 шляхом створення або зміни .htaccess файлу.';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo не зміг налаштувати PHP 5.';
+$lang['PHP 5 is required'] = 'Потрібен PHP 5.2';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo можуть спробувати перемкнути конфігурацію PHP 5.2 шляхом створення або зміни .htaccess файлу.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo не зміг налаштувати PHP 5.2';
 $lang['please enter your password again'] = 'введіть пароль ще раз';
 $lang['Sorry!'] = 'Вибачте!';
 $lang['Start Install'] = 'Початок встановлення';
-$lang['Try to configure PHP 5'] = 'Спробуйте налаштувати PHP 5';
+$lang['Try to configure PHP 5'] = 'Спробуйте налаштувати PHP 5.2';
 $lang['user login given by your host provider'] = 'лоґін користувача дізнайтесь у вашого хостинг-провайдера';
 $lang['user password given by your host provider'] = 'лоґін користувача дізнайтесь у Вашого хостинг-провайдера';
 $lang['verification'] = 'перевірка';
@@ -62,7 +62,6 @@ $lang['webmaster login can\'t contain characters \' or "'] = 'лоґін веб-
 $lang['Welcome to my photo gallery'] = 'Ласкаво просимо в фотогалерею';
 $lang['Welcome to your new installation of Piwigo!'] = 'Ласкаво просимо у ваш новий встановлений Piwigo!';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Ви можете завантажити конфігураційний файл і завантажити його до local/config каталогу встановлення.';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Ви повинні звернутися в службу підтримки вашого хостинг-провайдера і подивитися, як ви можете переключитися на PHP 5 самостійно.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Ви повинні звернутися в службу підтримки вашого хостинг-провайдера і подивитися, як ви можете переключитися на PHP 5.2 самостійно.';
 $lang['User'] = 'Користувач';
 $lang['localhost or other, supplied by your host provider'] = 'локальний хост або будь-який інший, наданий вашим провайдером';
-?>
