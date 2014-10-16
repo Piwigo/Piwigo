@@ -614,7 +614,9 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
       str_replace(',', '.', $cat['uppercats'] )
       );
 
-    if ($cat['rank_changed'] or $new_global_rank !== $cat['global_rank'])
+    if ( $cat['rank_changed']
+      or $new_global_rank!=$cat['global_rank']
+      )
     {
       $datas[] = array(
           'id' => $id,
