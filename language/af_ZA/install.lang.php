@@ -29,7 +29,7 @@ $lang['Download the config file'] = 'Laai die konfigurasie lêer af';
 $lang['Installation'] = 'Installasie';
 $lang['Just another Piwigo gallery'] = 'Net nog \'n Piwigo gallery';
 $lang['Password [confirm]'] = 'Wagwoord [bevestig]';
-$lang['PHP 5 is required'] = 'PHP 5 word vereis';
+$lang['PHP 5 is required'] = 'PHP 5.2 word vereis';
 $lang['Sorry!'] = 'Jammer!';
 $lang['Start Install'] = 'Begin installasie';
 $lang['User'] = 'Gebruiker';
@@ -51,12 +51,12 @@ $lang['It will be shown to the visitors. It is necessary for website administrat
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hou dit geheim. Dit laat jou toe om administrasieblasye te sien';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Benodig hulp? Vra jou vraag op die <a href="%s">Piwigo aanplakbord</a>';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Let op dat jy self die opstelling kan verander en daarna Piwigo heruitvoer.';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan probeer om PHP 5 te gebruik deur \'n .htaccess-lêer te skep of te verander.';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo kon nie PHP 5 opstel nie.';
-$lang['Try to configure PHP 5'] = 'Probeer PHP 5 op te stel';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan probeer om PHP 5.2 te gebruik deur \'n .htaccess-lêer te skep of te verander.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo kon nie PHP 5.2 opstel nie.';
+$lang['Try to configure PHP 5'] = 'Probeer PHP 5.2 op te stel';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Besoekers sal hierdie adres kan gebruik om die webmeester te kontak';
 $lang['Welcome to your new installation of Piwigo!'] = 'Welkom by jou nuwe Piwigo webtuiste!';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Verwys na jou diensverskaffer om uit te vind hoe jy PHP 5 kan gebruik.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Verwys na jou diensverskaffer om uit te vind hoe jy PHP 5.2 kan gebruik.';
 $lang['also given by your host provider'] = 'ook deur diensverskaffer voorsien';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'dit sal vooraan tabelname geheg word om tabelle beter te bestuur';
 $lang['enter a login for webmaster'] = 'kies \'n gebruikersnaam vir die webmeester';
@@ -65,4 +65,3 @@ $lang['user login given by your host provider'] = 'gebruikersnaam deur diensvers
 $lang['user password given by your host provider'] = 'wagwoord deur diensverskaffer voorsien';
 $lang['webmaster login can\'t contain characters \' or "'] = 'gebruikersnaam kan nie die karakter \' en " bevat nie';
 $lang['localhost or other, supplied by your host provider'] = 'localhost of ander, voorsien deur jou diensverskaffer';
-?>
