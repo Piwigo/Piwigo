@@ -33,15 +33,15 @@ $lang['Visitors will be able to contact site administrator with this mail'] = '�
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = '데이터베이스 테이블 이름 앞에 추가됩니다 (데이터베이스 테이블을 잘 관리할 수 있도록 해 줍니다)';
 $lang['verification'] = '확인';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = '도움이 필요하신가요? <a href="%s">Piwigo message board</a>에 물어보세요.';
-$lang['Piwigo was not able to configure PHP 5.'] = 'PHP5 설정에 실패했습니다';
-$lang['Try to configure PHP 5'] = 'PHP5 설정 시도중';
+$lang['Piwigo was not able to configure PHP 5.'] = 'PHP5.2 설정에 실패했습니다';
+$lang['Try to configure PHP 5'] = 'PHP5.2 설정 시도중';
 $lang['Welcome to my photo gallery'] = '사진 갤러리에 오신 것을 환영합니다';
 $lang['please enter your password again'] = '암호를 다시 입력하십시오';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = '또다른 방법으로는 위의 텍스트 상자에 있는 문장을 복사하여 "local/config/database.inc.php"에 복사하는 방법입니다.
 (경고: database.inc.php는 줄바꿈이나 스페이스 없이 위 텍스트 상자에 있는 내용만 포함해야 합니다. ';
 $lang['Congratulations, Piwigo installation is completed'] = '축하합니다, Piwigo설치가 끝났습니다';
 $lang['Default gallery language'] = '기본 언어';
-$lang['PHP 5 is required'] = 'PHP5가 필요합니다';
+$lang['PHP 5 is required'] = 'PHP5.2가 필요합니다';
 $lang['Password ']['confirm'] = '암호 [확인]';
 $lang['Sorry!'] = '죄송합니다!';
 $lang['Start Install'] = '설치 시작';
@@ -57,4 +57,3 @@ $lang['Download the config file'] = '설정파일 다운로드';
 $lang['Host'] = '트명호스트';
 $lang['Installation'] = '설치';
 $lang['It appears your webhost is currently running PHP %s.'] = '웹서버가 PHP %s를 사용중입니다';
-?>
