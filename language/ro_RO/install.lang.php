@@ -47,13 +47,13 @@ $lang['Keep it confidential, it enables you to access administration panel'] = '
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Ai nevoie de ajutor? Intreaba pe <a href="%s">Forumul Piwigo</a>.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Poti sa schimbi configuratia manual si sa restartezi Piwigo dupa aceea.';
 $lang['Password [confirm]'] = 'Parola [confirma]';
-$lang['PHP 5 is required'] = 'PHP5 este necesar';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo va incerca sa treaca configuratia ta la PHP5 folosind o fila  .htaccess';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nu a putut sa configureze PHP5';
+$lang['PHP 5 is required'] = 'PHP5.2 este necesar';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo va incerca sa treaca configuratia ta la PHP5.2 folosind o fila  .htaccess';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nu a putut sa configureze PHP5.2';
 $lang['please enter your password again'] = 'Introduce parola inca o data';
 $lang['Sorry!'] = 'Imi pare rau!';
 $lang['Start Install'] = 'Incepe instalarea';
-$lang['Try to configure PHP 5'] = 'Incearca sa configurezi PHP5';
+$lang['Try to configure PHP 5'] = 'Incearca sa configurezi PHP5.2';
 $lang['user login given by your host provider'] = 'Userul oferit de providerul de host.';
 $lang['user password given by your host provider'] = 'Parola oferita de providerul de host';
 $lang['User'] = 'User';
@@ -63,6 +63,5 @@ $lang['webmaster login can\'t contain characters \' or "'] = 'Userul nu poate sa
 $lang['Welcome to my photo gallery'] = 'Bine ati venit la galeria mea foto';
 $lang['Welcome to your new installation of Piwigo!'] = 'Bine ai venit la noua instalare Piwigo!';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Poti sa descarci fila de configurare si sa o uploadezi in folderul local/config al instalarii.';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Ar trebui sa te adresezi hostului si sa intrebi cum poti sa treci la PHP5';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Ar trebui sa te adresezi hostului si sa intrebi cum poti sa treci la PHP5.2';
 $lang['localhost or other, supplied by your host provider'] = 'localhost sau alta, furnizat de furnizorul de găzduire';
-?>
