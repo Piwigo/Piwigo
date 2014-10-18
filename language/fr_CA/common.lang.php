@@ -423,4 +423,10 @@ $lang['Password is missing. Please enter the password.'] = "Le mot de passe manq
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = "La confirmation du mot de passe manque. Veuillez confirmer le mot de passe choisi.";
 $lang['%d photos per page'] = '%d photos par page';
 $lang['Theme'] = 'Thème';
-?>
+$lang['Album name, A &rarr; Z'] = 'Nom de l\'album, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Nom de l\'album, Z &rarr; A';
+$lang['Apply on properties'] = 'Appliquer sur les propriétés';
+$lang['Link: %s'] = 'Lien: %s';
+$lang['No results for'] = 'Aucun résultat pour';
+$lang['Photo description'] = 'Description de la photo';
+$lang['Photo title'] = 'Titre de la photo';
