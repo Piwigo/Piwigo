@@ -980,3 +980,4 @@ $lang['between %s and %s MB'] = 'giữa %s và %s MB';
 $lang['date & time'] = 'ngày tháng & thời gian';
 $lang['file name'] = 'tên file';
 $lang['width & height'] = 'chiều rộng & chiều cao';
+$lang['Upload in progress'] = 'Đang trong quá trình tải lên ';
