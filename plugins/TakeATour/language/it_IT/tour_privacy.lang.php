@@ -7,3 +7,7 @@ $lang['privacy_stp11'] = 'Ora clicca sulla scheda autorizzazioni';
 $lang['privacy_stp12'] = 'In quella pagina, puoi scegliere se l\'album sarà disponibile per chiunque o se sia limitato ad alcuni utenti';
 $lang['privacy_stp18'] = 'Per gestire le associazioni tra gli utenti e gruppi, vai alla pagina <em>Utenti » Gestione</em>';
 $lang['privacy_stp15'] = 'Prima di spiegare i gruppi, un suggerimento: questo è il link alla pagina per impostare come privato/pubblico diversi album contemporaneamente. Clicca su di esso';
+$lang['privacy_title17'] = 'Gruppi';
+$lang['privacy_title12'] = 'Permessi album';
+$lang['privacy_title10'] = 'Permessi album';
+$lang['privacy_title11'] = 'Permessi album';
