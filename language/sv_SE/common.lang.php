@@ -423,3 +423,6 @@ $lang['Apply on properties'] = 'Verkställ egenskaper';
 $lang['No results for'] = 'Inget resultat för';
 $lang['Photo description'] = 'Fotots beskrivning';
 $lang['Photo title'] = 'Fotots titel';
+$lang['Album name, A &rarr; Z'] = 'Albumnam, A &rarr; Ö';
+$lang['Album name, Z &rarr; A'] = 'Albumnamn, Ö &rarr; A';
+$lang['Link: %s'] = 'Länk: %s';
