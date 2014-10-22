@@ -425,3 +425,4 @@ $lang['Photo description'] = 'ពិពណ៌នារូបថត';
 $lang['Photo title'] = 'ឈ្មោះរូបថត';
 $lang['Album name, A &rarr; Z'] = 'ឈ្មោះអាល់ប៊ុម A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'ឈ្មោះអាល់ប៊ុម Z &rarr; A';
+$lang['Link: %s'] = 'តំណភ្ជាប់៖ %s';
