@@ -21,10 +21,10 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['takeatour_configpage'] = 'Mache eine Tour >> Liste der Touren';
-$lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Mache eine Tour und entdecke die Funktionen deiner Piwigo Galerie >> Gehe zu den Verfügbaren Touren ';
+$lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Mache eine Tour und entdecke die Funktionen deiner Piwigo Galerie >> Gehe zu den verfügbaren Touren ';
 $lang['Start the Tour'] = 'Tour starten';
 $lang['Visit your Piwigo!'] = 'Besuche dein Piwigo!';
-$lang['TAT_descrp'] = 'Herzlich Willkommen! Hier findest du die Liste aller verfügbaren Touren zu den Funktionen der Piwigo Galerie. <br> Starte unten eine Tour und folge den Anweisungen. Klicke auf Next / Prev (oder benutze die Pfeile auf der Tastatur) um in einer Tour zu navigieren. Wenn du beim Rundgang zur Verwaltungs-Seite gehst, wirst du danach auf die aktuelle Seite der Tour umgeleitet. Falls du stecken bleibst und die Tour nicht beenden kannst, gehe auf das Plugin <em> » Mache eine Tour </ em> um die Tour zu beenden.';
+$lang['TAT_descrp'] = 'Herzlich Willkommen! Hier findest du die Liste aller verfügbaren Touren zu den Funktionen der Piwigo Galerie. <br> Starte unten eine Tour und folge den Anweisungen. Klicke auf \"Vorhergehende\" / \"Nächste\" (oder benutze die Pfeile auf der Tastatur) um in einer Tour zu navigieren. Wenn du beim Rundgang zur Verwaltungs-Seite gehst, wirst du danach auf die aktuelle Seite der Tour umgeleitet. Falls du stecken bleibst und die Tour nicht beenden kannst, gehe auf das Plugin <em> » Mache eine Tour </ em> um die Tour zu beenden.';
 $lang['Prev'] = 'Vorhergehende';
 $lang['Next '] = 'Nächste';
 $lang['End tour'] = 'Tour beenden';
