@@ -71,3 +71,6 @@ $lang['first_contact_stp17'] = 'Tại đây bạn có thể thiết lập hình 
 $lang['first_contact_stp14'] = 'Giờ chúng ta thấy <b>chỉnh sửa</br> của một bức ảnh. Trang đó chúng ta có thể truy cập từ đây nhưng cũng có thể từ những trang hình công khai khi đăng nhập bằng tài khoản quản trị.<br><br>Đưa chuột đến hình thu nhỏ và ấn để chỉnh sửa.';
 $lang['first_contact_stp19_b'] = 'Đây là bản liệt kê các album \'root\'';
 $lang['first_contact_stp6'] = 'Hình đã được liệt kê. Khi đã sẵn sàng thì hãy ấn nút "Tải lên"';
+$lang['first_contact_stp38'] = 'Tiện ích sẽ giúp bạn quản lý Piwigo dễ dàng. Nó có thể làm được bất cứ điều gì bạn có thể tưởng tượng từ việcvăn bản nhỏ đến đến hoàn thành các tính năng. Như các tiện ích công cộng, nó chấp nhận người dùng bình thường tải lên mà ko cần quyền hạn quản lý';
+$lang['first_contact_stp37'] = 'Để cài đặt giao diện mới, bạn có thể tải xuống trực tiếp từ mục "thêm giao diện". Chỉ giao diện được đánh dấu tương thích với phiên bản Piwigo sẽ xuất hiện.<br><br> Hãy khám phá những tiện ích bây giờ! Ấn vào <em>Tiện ích»Quản lý</em>';
+$lang['first_contact_stp19'] = 'Tại đây liệt kê những tập ảnh \'gốc\'. Nếu bạn thấy một tập ảnh với hình nền gạch, nghĩa là nó được đồng bộ hoá bởi phương thức FTP. album vật lý không thể di chuyển hay xoá tại đây. Các tập ảnh khác được gọi là tập ảnh ảo.  ';
