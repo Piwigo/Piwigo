@@ -30,11 +30,10 @@ $lang['Save'] = 'Lưu';
 $lang['Save visit in history'] = 'Lưu lượt xem trong lịch sử';
 $lang['Show SQL queries'] = 'Hiển thị các truy vấn SQL';
 $lang['View as'] = 'Xem dưới dạng';
-$lang['Viewing as <b>%s</b>.'] = 'Xem dưới dạng <b>%s</b>.';
+$lang['Viewing as <b>%s</b>.'] = 'Đang xem dưới dạng <b>%s</b>.';
 $lang['Saved'] = 'Đã lưu';
 $lang['Closed icon position'] = 'Vị trí biểu tượng đã đóng';
 $lang['Give access to quick edit to photo owners even if they are not admin'] = 'Cho truy xuất để chỉnh sửa nhanh hình ảnh với cả người dùng không phải là quản trị viên';
 $lang['Open toolbar by default'] = 'Mở thanh công cụ một cách mặc định';
 $lang['left'] = 'trái';
 $lang['right'] = 'phải';
-?>
