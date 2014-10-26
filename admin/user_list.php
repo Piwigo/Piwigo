@@ -86,6 +86,7 @@ $template->assign(
   array(
     'users' => $users,
     'all_users' => join(',', $user_ids),
+    'ACTIVATE_COMMENTS' => $conf['activate_comments'],
     'Double_Password' => $conf['double_password_type_in_admin']
     )
   );
