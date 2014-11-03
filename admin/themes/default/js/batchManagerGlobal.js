@@ -95,7 +95,7 @@ jQuery(document).ready(function() {
 	$('ul.thumbnails').enableShiftClick();
 });
 
-jQuery("a.preview-box").colorbox();
+jQuery("a.preview-box").colorbox( {photo: true} );
 
 jQuery('.thumbnails img').tipTip({
 	'delay' : 0,

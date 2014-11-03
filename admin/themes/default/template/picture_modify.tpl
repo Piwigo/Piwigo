@@ -38,7 +38,9 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
 });
 
 {* <!-- THUMBNAILS --> *}
-jQuery("a.preview-box").colorbox();
+jQuery("a.preview-box").colorbox({
+	photo: true
+});
 }());
 {/footer_script}
 
