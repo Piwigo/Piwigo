@@ -1349,7 +1349,7 @@ function ws_images_upload($params, $service)
     
     $image_id = add_uploaded_file(
       $filePath,
-      $params['name'],
+      stripslashes($params['name']), // function add_uploaded_file will secure before insert
       $params['category'],
       $params['level'],
       null // image_id = not provided, this is a new photo
