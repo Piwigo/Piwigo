@@ -11,3 +11,6 @@ $lang['privacy_title17'] = 'Gruppi';
 $lang['privacy_title12'] = 'Permessi album';
 $lang['privacy_title10'] = 'Permessi album';
 $lang['privacy_title11'] = 'Permessi album';
+$lang['privacy_stp1'] = 'Ciao! Sarò la tua guida per scoprire come proteggere le tue foto in Piwigo. Sei pregato di seguire le mie istruzioni e cliccare su avanti (o utilizzare le frecce della tastiera) per navigare. Se vai in un\'altra pagina dell\'amministrazione, sarai reindirizzato alla pagina corrente del Tour. Se sei bloccato e non puoi terminare il tour, vai a <em>Plugin» Scegli un Tour</em> concluderai il tour.<br>Cominciamo!';
+$lang['privacy_title1'] = 'Benvenuto nel tour sulla Privacy';
+$lang['privacy_title18'] = 'Gruppi';
