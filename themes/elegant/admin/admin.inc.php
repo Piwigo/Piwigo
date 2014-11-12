@@ -14,8 +14,7 @@ if(isset($_POST['submit_elegant']))
   $config_send['p_pict_descr']=(isset($_POST['p_pict_descr']) and !empty($_POST['p_pict_descr'])) ? $_POST['p_pict_descr'] : 'on';
   $config_send['p_pict_comment']=(isset($_POST['p_pict_comment']) and !empty($_POST['p_pict_comment'])) ? $_POST['p_pict_comment'] : 'off';
   
-  $conf['elegant'] = serialize($config_send);
-  conf_update_param('elegant', pwg_db_real_escape_string($conf['elegant']));
+  conf_update_param('elegant', $config_send, true);
 
   array_push($page['infos'], l10n('Information data registered in database'));
 }
@@ -23,7 +22,7 @@ if(isset($_POST['submit_elegant']))
 $template->set_filenames(array(
     'theme_admin_content' => dirname(__FILE__) . '/admin.tpl'));
 
-$template->assign('options', unserialize($conf['elegant']));
+$template->assign('options', safe_unserialize($conf['elegant']));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'theme_admin_content');
   

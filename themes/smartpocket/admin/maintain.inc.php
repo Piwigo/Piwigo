@@ -14,27 +14,25 @@ class smartpocket_maintain extends ThemeMaintain
 
     if (empty($conf['smartpocket']))
     {
-      $conf['smartpocket'] = serialize($this->default_conf);
-      $query = "
-  INSERT INTO " . CONFIG_TABLE . " (param,value,comment)
-  VALUES ('smartpocket' , '".pwg_db_real_escape_string($conf['smartpocket'])."' , 'loop#autohide');";
-      pwg_query($query);
+      conf_update_param('smartpocket', $this->default_conf, true);
     }
-    elseif (count(unserialize( $conf['smartpocket'] ))!=2)
+    elseif (count(safe_unserialize($conf['smartpocket'])) != 2)
     {
-      $conff=unserialize($conf['smartpocket']);
+      $conff = safe_unserialize($conf['smartpocket']);
+      
       $config = array(
-        'loop'            => (!empty($conff['loop'])) ? $conff['loop'] :true,
-        'autohide'            => (!empty($conff['autohide'])) ? $conff['autohide'] :5000,
+        'loop' => (!empty($conff['loop'])) ? $conff['loop'] :true,
+        'autohide' => (!empty($conff['autohide'])) ? $conff['autohide'] :5000,
       );
-      conf_update_param('smartpocket', pwg_db_real_escape_string(serialize($config)));
-      load_conf_from_db();
+      
+      conf_update_param('smartpocket', $config, true);
     }
     $this->installed = true;
   }
 
   function deactivate()
-  { }
+  {
+  }
 
   function delete()
   {
