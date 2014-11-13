@@ -20,16 +20,16 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['first_contact_stp41'] = 'På den siste kategorien kan du se alle tilgjengelige tilleggsprogram for din versjon av Piwigo. Flere hundre tillegsprogrammer finnes det!';
+$lang['first_contact_stp41'] = 'På den siste fanen kan du se alle tilgjengelige tilleggsprogramer for din versjon av Piwigo. Flere hundre tillegsprogrammer finnes!';
 $lang['first_contact_stp40'] = 'Det er meg her! Ikke deaktivere meg nå, men du kan se at du kan Deaktivere eller Gjenopprett et aktivert tillegsprogram.';
 $lang['first_contact_stp4'] = 'Først velger du et album; opprette et hvis det ikke er noen album ennå.';
 $lang['first_contact_stp39'] = 'På den første siden, er alle tillegsprogrammene oppført.<br><br>Øverst, er alle tillegsprogrammene som er aktivert oppført, og som i dag kjører.<br><br>Nederst, er alle tillegsprogrammer som er installert i /tillegsprogram mappen, men deaktivert.<br><br> Å slette et tillegsprogram betyr at alle spor av programtillegget vil bli fjernet (filer, opsjoner etc). For de fleste av tillegsprogrammene, vil en deaktivering beholde dataene som er registrert av tillegsprogrammet.';
 $lang['first_contact_stp38'] = 'Bruk av tillegsprogrammer er en svært enkle måter å tilpasse din Piwigo. De kan gjøre nesten alt du kan tenke deg fra små tekst tillegg til å fullføre funksjoner, som tillegsprogrammet Fellesskapet som lar ikke-administrator brukere å laste opp uten å ta del i administrasjonen.';
 $lang['first_contact_stp37'] = 'Hvordan installere nye temaer, du kan direkte laste dem ned fra kategorien \'Legg til et tema\'. Bare temaene merket som kompatibel med din versjon av Piwigo vises.<br><br>La oss nå utforske tillegsprogrammer! Klikk på <em>Tillegsprogrammer »Behandle</em>';
 $lang['first_contact_stp35'] = 'Sett din favoritt tema som standard tema.';
-$lang['first_contact_stp34'] = 'Velge et tema er det første skrittet for å tilpasse Piwigo. Temaer som er installert, er oppført her<br>Mer enn ett tema kan aktiveres: brukere kan endre sitt tema ved å velge et blant de som er aktiverte her, hvis alternativet \'Tillat bruker tilpasning\' er krysset av på alternativ siden.';
+$lang['first_contact_stp34'] = 'Velge et tema er det første skrittet for å tilpasse Piwigo. Temaer som er installert, er oppført her<br>Mer enn ett tema kan aktiveres: brukere kan endre sitt tema ved å velge et blant de som er aktiverte her, hvis alternativet \'Godkjenn brukers egne innstillinger\' er krysset av på alternativ siden.';
 $lang['first_contact_stp32'] = 'Lagre endringen nå';
-$lang['first_contact_stp33'] = 'Bare et siste ord om alternativene, denne \'Gjeste innstillinger\' siden har som oppgave å sette preferansene til uregistrerte besøkende. Hver gang Piwigo refererer til "gjest" som betyr uregistrerte besøkende<br>La oss fortsette med Konfigurasjon: Klikk på <em> Konfigurasjon »Temaer</em> eller bare trykke Neste.';
+$lang['first_contact_stp33'] = 'Bare et siste ord om alternativene, denne \'Gjeste innstillinger\' siden har som oppgave å sette preferansene til uregistrerte besøkende. Hver gang Piwigo refererer til "gjest" som betyr uregistrerte besøkende.<br>La oss fortsette med Konfigurasjon: Klikk på <em> Konfigurasjon »Temaer</em> eller bare trykke Neste.';
 $lang['first_contact_stp31'] = 'Så banneren, som vil bli vist på toppen av hver side. Som du kan se, er HTML-tagger tillatt her. Du kan også bruke% galleri_tittel% tag for å vise tittelen du nettopp har skrevet ovenfor.';
 $lang['first_contact_stp30'] = 'La oss starte med å endre på tittelen';
 $lang['first_contact_title15'] = 'Redigerings siden til et bilde';
@@ -69,12 +69,12 @@ $lang['first_contact_stp12'] = 'deretter redigere dem ved hjelp av et tiltak';
 $lang['first_contact_stp13'] = 'Du kan redigere beskrivelser og mer fra batch behandler i singel modus. Men for nå, la oss bli i global modus';
 $lang['first_contact_stp14'] = 'Nå vil vi se på <b> redigerings siden </ b> til ett bilde. Denne siden er tilgjengelig herfra, men også fra den offentlige fotoside når du er pålogget som administrator.<br><br>Merk miniatyrbildet og klikk deretter på endre.';
 $lang['first_contact_stp15'] = 'På denne siden kan du endre alle egenskapene til et bilde, for eksempel...';
-$lang['first_contact_stp10'] = 'Her er en link som gir deg direkte tilgang til din caddy: dette er et verktøy for administratorer som enkelt kan velge bilder når de surfer på den offentlige delen og ønsker å redigere bildene i Batch Behandler. <br><br> Du kan legge til bilder i caddy fra den offentlige fotoside når du er logget på som administrator, eller ved hjelp av handlingen "Legg til caddy" i Batch Behandler.';
+$lang['first_contact_stp10'] = 'Her er en link som gir deg direkte tilgang til din kurv: dette er et verktøy for administratorer som enkelt kan velge bilder når de surfer på den offentlige delen og ønsker å redigere bildene i Batch Behandler. <br><br> Du kan legge til bilder i kurven fra den offentlige fotoside når du er logget på som administrator, eller ved hjelp av handlingen "Legg til i kurv" i Batch Behandler.';
 $lang['first_contact_stp43'] = 'Denne turen var ganske lang, men vi har bare sett en liten del av hvor kraftig Piwigo er. Alt har en slutt, denne oversikten er ferdig.<br><br>Du kan undersøke funksjonene i Piwigo nærmere ved å ta en annen tur eller lese vår dokumentasjon, på piwigo.org nettstedet.<br><br>Ikke glem Hjelp-koblingen øverst til høyre på alle administrasjons sider.<p style="text-align:center">Nyt din Piwigo!</p>';
 $lang['first_contact_stp6'] = 'Du ser at bildene blir oppført. Når du er klar klikk på knappen Start Opplastingen';
 $lang['first_contact_stp7'] = 'Her er en oppsummering av de opplastede bildene. Se at Piwigo har selv generert miniatyrbildene. Du kan:<ul><li>administrere alle de opplastede bildene i Batch Behandler</li><li>redigere egenskapene til et bilde ved å klikke på det</li><li>legge til flere bilder</li></ul>';
 $lang['first_contact_stp5'] = 'Deretter klikker du på knappen for å velge bilder å sende, eller bare dra og slipp filene dine.';
-$lang['first_contact_stp9'] = 'Du er nå i Batch Behandler, der du kan batch redigere flere bilder.<br><br>Her er forfilteret allerede satt på "Caddie" fordi vi kommer fra opplastingssiden.';
+$lang['first_contact_stp9'] = 'Du er nå i Batch Behandler, der du kan batch redigere flere bilder.<br><br>Her er forfilteret allerede satt på "Kurven" fordi vi kommer fra opplastingssiden.';
 $lang['first_contact_stp8'] = 'La oss redigere dem! Klikk på linken.';
 $lang['first_contact_title1'] = 'Velkommen til ditt Piwigo galleri';
 $lang['first_contact_title11'] = 'Hvordan redigere et bilde';
