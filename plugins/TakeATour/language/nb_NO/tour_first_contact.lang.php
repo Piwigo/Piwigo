@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['first_contact_stp41'] = 'Du kan se på den siste kategorien alle plugins tilgjengelig for din versjon av Piwigo. Flere hundre tillegsprogrammer finne det!';
+$lang['first_contact_stp41'] = 'På den siste kategorien kan du se alle tilgjengelige tilleggsprogram for din versjon av Piwigo. Flere hundre tillegsprogrammer finnes det!';
 $lang['first_contact_stp40'] = 'Det er meg her! Ikke deaktivere meg nå, men du kan se at du kan Deaktivere eller Gjenopprett et aktivert tillegsprogram.';
 $lang['first_contact_stp4'] = 'Først velger du et album; opprette et hvis det ikke er noen album ennå.';
 $lang['first_contact_stp39'] = 'På den første siden, er alle tillegsprogrammene oppført.<br><br>Øverst, er alle tillegsprogrammene som er aktivert oppført, og som i dag kjører.<br><br>Nederst, er alle tillegsprogrammer som er installert i /tillegsprogram mappen, men deaktivert.<br><br> Å slette et tillegsprogram betyr at alle spor av programtillegget vil bli fjernet (filer, opsjoner etc). For de fleste av tillegsprogrammene, vil en deaktivering beholde dataene som er registrert av tillegsprogrammet.';
@@ -37,12 +37,11 @@ $lang['first_contact_title18'] = 'Behandle album';
 $lang['first_contact_title19'] = 'Behandle Album';
 $lang['first_contact_title20'] = 'Behandle Album';
 $lang['first_contact_title21'] = 'Andre Tabs';
-$lang['first_contact_title22'] = 'Redigerings Siden til et Albums ';
-$lang['first_contact_title28'] = 'Konfigurasjon';
-$lang['first_contact_title29'] = '<em>Konfigurasjon » alternativer » Generelt</em>';
+$lang['first_contact_title22'] = 'Redigerings Siden til et Album';
+$lang['first_contact_title28'] = 'Innstillinger';
+$lang['first_contact_title29'] = '<em>Innstillinger » alternativer » Generelt</em>';
 $lang['first_contact_title3'] = 'Legg til en Bilde Side';
-$lang['first_contact_title33'] = '
-Gjeste innstillinger';
+$lang['first_contact_title33'] = 'Gjeste innstillinger';
 $lang['first_contact_title34'] = 'Tema';
 $lang['first_contact_title35'] = 'Tema';
 $lang['first_contact_title37'] = 'Tema';
@@ -50,7 +49,7 @@ $lang['first_contact_title38'] = 'Tillegsprogrammer';
 $lang['first_contact_title39'] = 'Tillegsprogrammer';
 $lang['first_contact_title4'] = 'La oss legge til et bilde!';
 $lang['first_contact_title43'] = 'Det har vært en flott tid';
-$lang['first_contact_title9'] = 'Batch Manager';
+$lang['first_contact_title9'] = 'Batch Behandler';
 $lang['first_contact_stp3'] = 'Denne første kategorien er der du legger til bilder direkte fra nettleseren. Den andre kategoriene er om de andre måtene å laste opp bilder på';
 $lang['first_contact_stp29'] = 'Her, på den første siden, kan du sette avgjørende og grunnleggende konfigurasjon i galleriet.';
 $lang['first_contact_stp28'] = 'Nå vil vi se på de mulighetene som er tilgjengelig for å få Piwigo til å virke slik du ønsker. Klikk på Configuration->Alternativer eller bare trykke Neste.';
@@ -66,16 +65,16 @@ $lang['first_contact_stp18'] = 'La oss nå se hvordan man behandler albumer. Kli
 $lang['first_contact_stp17'] = 'Her kan du velge bildet som et miniatyrbilde til en eller flere albumer. Bildet trenger ikke å være assosiert med albumet for å være albumets miniatyrbilde. Dersom bildet er assosiert med albumet, er det enda enklere å angi det som albums miniatyrbilde fra den offentlig side til bildet (tips: bruk tillegsprogrammet Admin Verktøy for å gjøre dette enklere).';
 $lang['first_contact_stp16'] = '...i hvilket album (er) er bildet.<br><br>Så her kan du legge til eller fjerne bildet fra albumer. Koblingen er virtuell, ingen bilder vil fysisk bli flyttet noensinne.';
 $lang['first_contact_stp11'] = 'Herfra kan du velge ett eller flere bilder';
-$lang['first_contact_stp12'] = 'deretter redigere dem ved hjelp av en handling';
-$lang['first_contact_stp13'] = 'Du kan redigere beskrivelser og mer fra batch manager i enkeltmodus. Men for nå, la oss bli i den globale modusen';
+$lang['first_contact_stp12'] = 'deretter redigere dem ved hjelp av et tiltak';
+$lang['first_contact_stp13'] = 'Du kan redigere beskrivelser og mer fra batch behandler i singel modus. Men for nå, la oss bli i global modus';
 $lang['first_contact_stp14'] = 'Nå vil vi se på <b> rediger side </ b> av ett bilde. Den siden er tilgjengelig herfra, men også fra det offentlige fotoside når du er logget på som administrator.<br><br>Merk miniatyrbilde og klikk deretter på rediger.';
 $lang['first_contact_stp15'] = 'På denne siden kan du redigere alle egenskapene til et bilde, for eksempel...';
-$lang['first_contact_stp10'] = 'Her er en link som gir deg direkte tilgang til din caddy: dette er et verktøy for administratorer som enkelt kan velge bilder når de surfer på den offentlige delen og ønsker å redigere bildene i Batch Manager. <br><br> Du kan legge til bilder i caddy fra den offentlige fotoside når du er logget på som administrator, eller ved hjelp av handlingen "Legg til caddy" i Batch Manager.';
+$lang['first_contact_stp10'] = 'Her er en link som gir deg direkte tilgang til din caddy: dette er et verktøy for administratorer som enkelt kan velge bilder når de surfer på den offentlige delen og ønsker å redigere bildene i Batch Behandler. <br><br> Du kan legge til bilder i caddy fra den offentlige fotoside når du er logget på som administrator, eller ved hjelp av handlingen "Legg til caddy" i Batch Behandler.';
 $lang['first_contact_stp43'] = 'Denne turen var ganske lang, men vi har bare sett en liten del av hvor kraftig Piwigo er. Alt har en slutt, denne oversikten er ferdig.<br><br>Du kan undersøke funksjonene i Piwigo nærmere ved å ta en annen tur eller lese vår dokumentasjon, på piwigo.org nettstedet.<br><br>Ikke glem Hjelp-koblingen øverst til høyre på alle administrasjons sider.<p style="text-align:center">Nyt din Piwigo!</p>';
-$lang['first_contact_stp6'] = 'Du ser at bildene blir oppført. Når du er klar klikker på knappen Start Opplastingen';
-$lang['first_contact_stp7'] = 'Her en oppsummering av de opplastede bildene. Se at Piwigo har selv generert miniatyrene. Du kan:<ul><li>administrere alle de opplastede bildene i Batch Behandling</li><li>redigere egenskapene til et bilde ved å klikke på det</li><li>legge til flere bilder</li></ul>';
+$lang['first_contact_stp6'] = 'Du ser at bildene blir oppført. Når du er klar klikk på knappen Start Opplastingen';
+$lang['first_contact_stp7'] = 'Her er en oppsummering av de opplastede bildene. Se at Piwigo har selv generert miniatyrbildene. Du kan:<ul><li>administrere alle de opplastede bildene i Batch Behandler</li><li>redigere egenskapene til et bilde ved å klikke på det</li><li>legge til flere bilder</li></ul>';
 $lang['first_contact_stp5'] = 'Deretter klikker du på knappen for å velge bilder å sende, eller bare dra og slipp filene dine.';
-$lang['first_contact_stp9'] = 'Du er nå i Batch Manager, der du kan batch redigere flere bilder.<br><br>Her forfilteret er allerede satt på "Caddie" fordi vi kommer fra opplastingssiden.';
+$lang['first_contact_stp9'] = 'Du er nå i Batch Behandler, der du kan batch redigere flere bilder.<br><br>Her er forfilteret allerede satt på "Caddie" fordi vi kommer fra opplastingssiden.';
 $lang['first_contact_stp8'] = 'La oss redigere dem! Klikk på linken.';
 $lang['first_contact_title1'] = 'Velkommen til ditt Piwigo galleri';
 $lang['first_contact_title11'] = 'Hvordan redigere et bilde';
