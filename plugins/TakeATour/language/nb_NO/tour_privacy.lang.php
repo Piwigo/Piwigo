@@ -51,9 +51,7 @@ $lang['privacy_stp1'] = 'Hei! Jeg vil være din guide som viser deg hvordan du k
 $lang['privacy_title1'] = 'Velkommen til personvern omvisning';
 $lang['privacy_title10'] = 'Album tillatelser';
 $lang['privacy_title11'] = 'Album tillatelser';
-Album tillatelser';
 $lang['privacy_title12'] = 'Album tillatelser';
-Album tillatelser';
 $lang['privacy_title15'] = 'Tips';
 $lang['privacy_title17'] = 'Grupper';
 $lang['privacy_title18'] = 'Grupper';
