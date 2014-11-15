@@ -27,4 +27,5 @@ $lang['Panels options'] = 'オプション';
 $lang['Main Menu Panel'] = 'メインメニュー';
 $lang['Hidden'] = '隠す';
 $lang['Displayed'] = '表示する';
-?>
+$lang['Choose what should be the default state for each panel, or disable the animation:'] = '各パネルのデフォルトでの状態、アニメーションの無効化などを選択して下さい';
+$lang['Elegant, Configuration Page'] = 'Elagant設定ページ';
