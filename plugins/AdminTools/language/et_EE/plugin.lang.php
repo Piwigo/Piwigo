@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 $lang['left'] = 'vasak';
 $lang['right'] = 'parem';
-$lang['Viewing as <b>%s</b>.'] = 'Näidetakse kui <b>%s</b>.';
+$lang['Viewing as <b>%s</b>.'] = 'Kuvatakse kui <b>%s</b>.';
 $lang['View as'] = 'Näita kui';
 $lang['Show SQL queries'] = 'Näita andmebaasi SQL-päringuid';
 $lang['Saved'] = 'Salvestatud';
@@ -37,4 +37,3 @@ $lang['Debug template'] = 'Silumise mall';
 $lang['Debug languages'] = 'Silumise keeled';
 $lang['Combine JS&CSS'] = 'Kasuta nii JavaScripti kui CSS-i';
 $lang['Closed icon position'] = 'Suletud ikooni asukoht';
-?>
