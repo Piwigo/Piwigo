@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Choose what should be the default state for each panel, or disable the animation:'] = 'Vali vaikimisi oleks igale paneelile või lülita animatsioon välja:';
+$lang['Choose what should be the default state for each panel, or disable the animation:'] = 'Vali igale paneelile vaikimis olek või lülita animatsioon välja:';
 $lang['Comments Panel'] = 'Kommentaaride paneel';
 $lang['Disable the animation'] = 'Lülita animatsioon välja';
 $lang['Displayed'] = 'Näidatakse';
@@ -29,4 +29,3 @@ $lang['Hidden'] = 'Peidetud';
 $lang['Main Menu Panel'] = 'Peamenüü paneel';
 $lang['Panels options'] = 'Paneeli seaded';
 $lang['Photo Description Panel'] = 'Pildi kirjelduste paneel';
-?>
