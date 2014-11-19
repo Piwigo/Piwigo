@@ -58,3 +58,4 @@ $lang['first_contact_title43'] = 'Це був прекрасний час';
 $lang['first_contact_title4'] = 'Давайте додамо фото!';
 $lang['first_contact_title39'] = 'Плагіни';
 $lang['first_contact_title9'] = 'Пакетний менеджер';
+$lang['first_contact_stp19_b'] = 'Тут перелічені "корневі" альбоми';
