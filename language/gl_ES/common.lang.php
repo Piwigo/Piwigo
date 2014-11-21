@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Galego [ES]
-Version: 2.7.0
+Version: 2.7.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=681
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -418,3 +418,9 @@ $lang['Go back to the album'] = 'Volver ó álbum';
 $lang['Last Page'] = 'Última páxina ';
 $lang['Theme'] = 'Tema';
 $lang['No results for'] = 'Non hai resultados para';
+$lang['Apply on properties'] = 'Aplicar propiedades';
+$lang['Link: %s'] = 'Ligazón: %s';
+$lang['Photo description'] = 'Descrición da foto';
+$lang['Photo title'] = 'Título da foto';
+$lang['Album name, A &rarr; Z'] = 'Nome do álbum, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Nome do álbum, A &rarr; Z';

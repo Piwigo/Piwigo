@@ -1,0 +1,26 @@
+<h2>Mantemento</h2>
+
+<p>Para optimizar o tempo de xeración da páxina Piwigo utiliza información almacenada en caché. Por exemplo, en vez de contar o número das fotos contidas en cada álbum en cada recarga de páxina, esta información é almacenada na base de datos. En teoría esta información sempre tería que ser correcta mais ás veces pode ocorrer un erro e a información da caché devén fóra de data.</p>
+
+<p>Algunha información pasa a ser menos útil co paso do tempo.  Eliminando esta información inútil da base de datos aforrará algún espazo no disco.</p>
+
+<ul>
+	<li><strong>Elimina etiquetas orfas</strong></li>
+</ul>
+<ul>
+  <li><strong>Actualizar informacións de álbums:</strong> para cada álbum, a información comprobada e actualizada se é necesario é: lista de álbums pai, número de fotos, última data de foto, posición entre álbums irmáns, posición entre todos os álbums. Esta acción tamén comproba a consistencia de fotos representativa.</li>
+  <li><strong>Actualizar información de fotos:</strong> para cada foto, a información actualizada é: ruta completa do ficheiro, valoración media. <em>Aviso</em>, non se confunda: a información de metadatos ten que ser sincronizada a partir de <span class="pwgScreen">Administración &raquo; Ferramentas &raquo; sincronización</span>, ou na pantalla de modificación dunha foto soa (a traveso de <span class="pwgScreen">Foto</span> por exemplo).</li>
+</ul>
+<ul>
+  <li><strong>Reparar e optimizar a base de datos:</strong> realiza operacións de reordenación, reparación e optimización en cada táboa da base de datos.</li>
+  <li><strong>Reinicializar a comprobación de integridade</strong></li>
+</ul>
+
+<ul>
+  <li><strong>Purgar histórico de detalles:</strong> elimina todas as liñas da da táboa de historia. Pantalla <span class="pwgScreen">Administración &raquo; Ferramentas &raquo; Historia</span> non vai volver amosar información da historia pasada. <em>Aviso:</em> todos os datos serán perdidos, sen xeito se recuperalos novamente.</li>
+  <li><strong>Purgar histórico de resumos:</strong> elimina toda a información de resumo sobre historia de visita. Este resumo é calculado a partir dos detalles de historia.</li>
+  <li><strong>Purgar sesións:</strong> elimina sesións de usuario que expiraron.</li>
+  <li><strong>Purgar as notificacións de semente nunca utilizadas.</strong></li>
+  <li><strong>Purgar o histórico de procuras.</strong></li>
+  <li><strong>Purgar modelos compilados.</strong></li>  
+</ul>
