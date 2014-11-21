@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: ภาษาไทย [TH]
-Version: 2.7.0
+Version: 2.7.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=519
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -420,4 +420,10 @@ $lang['Password is missing. Please enter the password.'] = "คุณยัง�
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = "คุณยังไม่ได้ยืนยันรหัสผ่าน. กรุณายืนยันรหัสผ่านเดิมอีกครั้ง.";
 $lang['%d photos per page'] = 'จำนวน %d รูปภาพต่อหน้า';
 $lang['Theme'] = 'ธีม';
-?>
+$lang['Album name, A &rarr; Z'] = 'ชื่ออัลบั้มe, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'ชื่ออัลบั้มe, Z &rarr; A';
+$lang['Apply on properties'] = 'นำไปใช้กับคุณสมบัติ';
+$lang['Link: %s'] = 'ลิ้งค์: %s';
+$lang['No results for'] = 'ไม่มีผลลัพธ์การค้นหาสำหรับ';
+$lang['Photo description'] = 'รายละเอียดรูปภาพ';
+$lang['Photo title'] = 'ชื่อรูปภาพ';

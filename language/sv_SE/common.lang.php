@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Svenska [SE]
-Version: 2.7.0
+Version: 2.7.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=451
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -423,3 +423,6 @@ $lang['Apply on properties'] = 'Verkställ egenskaper';
 $lang['No results for'] = 'Inget resultat för';
 $lang['Photo description'] = 'Fotots beskrivning';
 $lang['Photo title'] = 'Fotots titel';
+$lang['Album name, A &rarr; Z'] = 'Albumnam, A &rarr; Ö';
+$lang['Album name, Z &rarr; A'] = 'Albumnamn, Ö &rarr; A';
+$lang['Link: %s'] = 'Länk: %s';

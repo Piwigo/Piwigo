@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Монгол [MN]
-Version: 2.7.0
+Version: 2.7.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=696
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -292,7 +292,7 @@ $lang['Sort order'] = 'Дараалал';
 $lang['ascending'] = 'өгсөх';
 $lang['descending'] = 'уруудах';
 $lang['Date created, new &rarr; old'] = 'Авсан огноогоор, шинэ &rarr; хуучин';
-$lang['Created on'] = 'Авсан огноо';
+$lang['Created on'] = 'Үүсгэсэн огноо';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Таны вэб хөтөч "cookie" дэмжихгүй байна. Нэвтэрч орохын тулд вэб хөтөчийнхөө "cookie"-г идэвхжүүлнэ үү.';
 $lang['Any tag'] = 'Дурын түлхүүр үг';
 $lang['Album: %s'] = 'Цомог';
@@ -423,3 +423,4 @@ $lang['Apply on properties'] = 'Тохиргоог хадгалах';
 $lang['No results for'] = 'Ийм үр дүн олдсонгүй';
 $lang['Album name, A &rarr; Z'] = 'Цомогын нэр, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Цомогын нэр, Z &rarr; A';
+$lang['Link: %s'] = 'Холбоос: %s';
