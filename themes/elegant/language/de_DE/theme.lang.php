@@ -21,11 +21,11 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['Choose what should be the default state for each panel, or disable the animation:'] = 'Standard-Status für jedes Panel festlegen oder Animation deaktivieren';
-$lang['Comments Panel'] = 'Panel Kommentare';
+$lang['Comments Panel'] = 'Kommentarübersicht';
 $lang['Disable the animation'] = 'Animation deaktivieren';
 $lang['Displayed'] = 'Angezeigt';
 $lang['Elegant, Configuration Page'] = 'Elegant, Konfigurationsseite';
 $lang['Hidden'] = 'Ausgeblendet';
-$lang['Main Menu Panel'] = 'Panel Hauptmenü';
-$lang['Panels options'] = 'Panel Optionen';
-$lang['Photo Description Panel'] = 'Panel Fotobeschreibung';
+$lang['Main Menu Panel'] = 'Hauptmenü';
+$lang['Panels options'] = 'Optionen';
+$lang['Photo Description Panel'] = 'Fotobeschreibungen';
