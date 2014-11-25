@@ -23,18 +23,17 @@
 $lang['Combine JS&CSS'] = 'JS&amp;CSS kombinieren';
 $lang['Debug languages'] = 'Sprachen debuggen';
 $lang['Debug template'] = 'Vorlagen debuggen';
-$lang['Properties page'] = 'Eigenschafts-Seite';
-$lang['Quick edit'] = 'Schnell-Änderung';
+$lang['Properties page'] = 'Eigenschaften';
+$lang['Quick edit'] = 'Schnellbearbeitung';
 $lang['Revert'] = 'Zurücksetzen';
 $lang['Save'] = 'Speichern';
 $lang['Save visit in history'] = 'Zugriff in Historie speichern';
 $lang['Show SQL queries'] = 'SQL-Abfrage anzeigen';
 $lang['View as'] = 'Anzeigen als';
-$lang['Viewing as <b>%s</b>.'] = 'aktueller User: <b>%s</b>';
-$lang['Saved'] = 'gesichert';
+$lang['Viewing as <b>%s</b>.'] = 'Aktueller Benutzer: <b>%s</b>';
+$lang['Saved'] = 'Gespeichert';
 $lang['Closed icon position'] = 'Position des geschlossenen Icons';
 $lang['Give access to quick edit to photo owners even if they are not admin'] = 'Zugriff zum schnellen Editieren für Bildereigentümer erlauben, obwohl sie kein Administrator sind.';
-$lang['Open toolbar by default'] = 'Die Toolbar Per standard öffnen';
+$lang['Open toolbar by default'] = 'Die Werkzeugleiste standardmässig öffnen';
 $lang['left'] = 'links';
 $lang['right'] = 'rechts';
-?>
