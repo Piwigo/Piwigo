@@ -38,7 +38,11 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
   }
 });
 
-jQuery('[data-add-album]').pwgAddAlbum({ cache: categoriesCache });
+jQuery('[data-add-album]').pwgAddAlbum({
+  afterSelect: function() {
+    jQuery("#albumSelection, .selectFiles, .showFieldset").show();
+  }
+});
 
 var pwg_token = '{$pwg_token}';
 var photosUploaded_label = "{'%d photos uploaded'|translate}";

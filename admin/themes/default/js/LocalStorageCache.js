@@ -94,6 +94,8 @@
    *      must return new data
    */
   AbstractSelectizer.prototype._selectize = function($target, globalOptions) {
+    $target.data('cache', this);
+
     this.get(function(data) {
       $target.each(function() {
         var filtered, value, defaultValue,

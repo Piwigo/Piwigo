@@ -111,7 +111,7 @@ jQuery('[data-datepicker]').pwgDatepicker({
 	cancelButton: lang.Cancel
 });
 
-jQuery('[data-add-album]').pwgAddAlbum({ cache: categoriesCache });
+jQuery('[data-add-album]').pwgAddAlbum();
 
 $("input[name=remove_author]").click(function () {
 	if ($(this).is(':checked')) {
