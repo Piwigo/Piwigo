@@ -1,17 +1,23 @@
 jQuery.fn.pwgAddAlbum = function(options) {
-  if (!options.cache) {
+  options = options || {};
+
+  var $popup = jQuery('#addAlbumForm'),
+      $albumParent = $popup.find('[name="category_parent"]')
+      $button = jQuery(this),
+      $target = jQuery('[name="'+ $button.data('addAlbum') +'"]'),
+      cache = $target.data('cache');
+
+  if (!$target[0].selectize) {
+    jQuery.error('pwgAddAlbum: target must use selectize');
+  }
+  if (!cache) {
     jQuery.error('pwgAddAlbum: missing categories cache');
   }
-  
-  var $popup = jQuery('#addAlbumForm');
-  
+
   function init() {
-    if ($popup.data('init')) {
-      return;
-    }
     $popup.data('init', true);
-    
-    options.cache.selectize($popup.find('[name="category_parent"]'), {
+
+    cache.selectize($albumParent, {
       'default': 0,
       'filter': function(categories) {
         categories.push({
@@ -19,20 +25,25 @@ jQuery.fn.pwgAddAlbum = function(options) {
           fullname: '------------',
           global_rank: 0
         });
-        
+
+        if (options.filter) {
+          categories = options.filter.call(this, categories);
+        }
+
         return categories;
       }
     });
-    
+
     $popup.find('form').on('submit', function(e) {
       e.preventDefault();
-      
-      jQuery('#categoryNameError').text('');
-      
-      var albumParent = $popup.find('[name="category_parent"]'),
-          parent_id = albumParent.val(),
-          name = $popup.find('[name=category_name]').val(),
-          target = $popup.data('target');
+
+      var parent_id = $albumParent.val(),
+          name = $popup.find('[name=category_name]').val();
+          
+      jQuery('#categoryNameError').toggle(!name);
+      if (!name) {
+        return;
+      }
 
       jQuery.ajax({
         url: 'ws.php?format=json',
@@ -48,79 +59,59 @@ jQuery.fn.pwgAddAlbum = function(options) {
         },
         success: function(data) {
           jQuery('#albumCreationLoading').hide();
-          jQuery('[data-add-album="'+ target +'"]').colorbox.close();
+          $button.colorbox.close();
 
-          var newAlbum = data.result.id,
-              newAlbum_name = '',
-              newAlbum_rank = '0';
-              
+          var newAlbum = {
+            id: data.result.id,
+            name: name,
+            fullname: name,
+            global_rank: '0',
+            dir: null,
+            nb_images: 0,
+            pos: 0
+          };
+
+          var parentSelectize = $albumParent[0].selectize;
+
           if (parent_id != 0) {
-            newAlbum_name = albumParent[0].selectize.options[parent_id].fullname +' / ';
-            newAlbum_rank = albumParent[0].selectize.options[parent_id].global_rank +'.1';
-          }
-          newAlbum_name+= name;
-          
-          var $albumSelect = jQuery('[name="'+ target +'"]');
-          
-          // target is a normal select
-          if (!$albumSelect[0].selectize) {
-            var new_option = jQuery('<option/>')
-                .attr('value', newAlbum)
-                .attr('selected', 'selected')
-                .text(newAlbum_name);
-
-            $albumSelect.find('option').removeAttr('selected');
-            
-            if (parent_id==0) {
-              $albumSelect.prepend(new_option);
-            }
-            else {
-              $albumSelect.find('option[value='+ parent_id +']').after(new_option);
-            }
-          }
-          // target is selectize
-          else {
-            var selectize = $albumSelect[0].selectize;
-            
-            if (jQuery.isEmptyObject(selectize.options)) {
-              options.cache.clear();
-              options.cache.selectize($albumSelect, {
-                'default': newAlbum,
-                'value': newAlbum
-              });
-            }
-            else {
-              $albumSelect[0].selectize.addOption({
-                id: newAlbum,
-                fullname: newAlbum_name,
-                global_rank: newAlbum_rank
-              });
-              
-              $albumSelect[0].selectize.setValue(newAlbum);
-            }
+            var parent = parentSelectize.options[parent_id];
+            newAlbum.fullname = parent.fullname + ' / ' + newAlbum.fullname;
+            newAlbum.global_rank = parent.global_rank + '.1';
+            newAlbum.pos = parent.pos + 1;
           }
 
-          albumParent.val('');
-          jQuery('#albumSelection, .selectFiles, .showFieldset').show();
+          var targetSelectize = $target[0].selectize;
+          targetSelectize.addOption(newAlbum);
+          targetSelectize.setValue(newAlbum.id);
+
+          parentSelectize.addOption(newAlbum);
+
+          if (options.afterSelect) {
+            options.afterSelect();
+          }
         },
         error: function(XMLHttpRequest, textStatus, errorThrows) {
             jQuery('#albumCreationLoading').hide();
-            jQuery('#categoryNameError').text(errorThrows).css('color', 'red');
+            alert(errorThrows);
         }
       });
     });
   }
-  
+
   this.colorbox({
     inline: true,
     href: '#addAlbumForm',
     width: 650, height: 300,
     onComplete: function() {
-      init();
-      $popup.data('target', jQuery(this).data('addAlbum'));
-      $popup.find('[name=category_name]').focus();
+      if (!$popup.data('init')) {
+        init();
+      }
+
+      jQuery('#categoryNameError').hide();
+      $popup.find('[name=category_name]').val('').focus();
+      $albumParent[0].selectize.setValue($target.val() || 0);
     }
   });
-  
+
   return this;
 };

@@ -14,7 +14,8 @@
       <br><br>
       
       {'Album name'|@translate}<br>
-      <input name="category_name" type="text" maxlength="255"> <span id="categoryNameError"></span>
+      <input name="category_name" type="text" maxlength="255">
+      <span id="categoryNameError" style="color:red;">{'The name of an album must not be empty'|translate}</span>
       <br><br><br>
       
       <input type="submit" value="{'Create'|@translate}">
