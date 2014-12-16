@@ -1,8 +1,9 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+
 {combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js'}
+
 {combine_script id='jquery.plupload' load='footer' require='jquery' path='themes/default/js/plugins/plupload/plupload.full.min.js'}
 {combine_script id='jquery.plupload.queue' load='footer' require='jquery' path='themes/default/js/plugins/plupload/jquery.plupload.queue/jquery.plupload.queue.min.js'}
-{combine_script id='jquery.ui.progressbar' load='footer'}
 
 {combine_css path="themes/default/js/plugins/jquery.jgrowl.css"}
 {combine_css path="themes/default/js/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css"}
@@ -19,6 +20,8 @@
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
+
+{combine_script id='piecon' load='footer' path='themes/default/js/plugins/piecon.min.js'}
 
 {footer_script}
 {* <!-- CATEGORIES --> *}
@@ -42,6 +45,13 @@ jQuery('[data-add-album]').pwgAddAlbum({
   afterSelect: function() {
     jQuery("#albumSelection, .selectFiles, .showFieldset").show();
   }
+});
+
+Piecon.setOptions({
+  color: '#ff7700',
+  background: '#bbb',
+  shadow: '#fff',
+  fallback: 'force'
 });
 
 var pwg_token = '{$pwg_token}';
@@ -118,6 +128,7 @@ jQuery(document).ready(function(){
       
       UploadProgress: function(up, file) {
         jQuery('#uploadingActions .progressbar').width(up.total.percent+'%');
+        Piecon.setProgress(up.total.percent);
       },
       
       BeforeUpload: function(up, file) {
@@ -173,6 +184,8 @@ jQuery(document).ready(function(){
       UploadComplete: function(up, files) {
         // Called when all files are either uploaded or failed
         //console.log('[UploadComplete]');
+        
+        Piecon.reset();
 
         jQuery(".selectAlbum, .selectFiles, #permissions, .showFieldset").hide();
 
