@@ -932,3 +932,4 @@ $lang['Close user details'] = 'ユーザ詳細情報を閉じる';
 $lang['Mail address is mandatory for registration'] = '登録のために、メールアドレスは必須になります。';
 $lang['Empty caddie'] = '空のキャディ';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u ユーザは、承認されたグループに所属していますので、自動的にパーミッションが付与されます';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'このアルバムを見るために、ログインをして、パーミッションを得る必要があります。';
