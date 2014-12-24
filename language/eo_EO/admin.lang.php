@@ -418,7 +418,7 @@ $lang['By default, the center of interest is placed in the middle of the photo.'
 $lang['Automatic sort order'] = 'Aŭtomata ordiga ordo';
 $lang['Center of interest'] = 'Interesa punkto';
 $lang['Are you sure you want to install this plugin?'] = 'Ĉu vi certe deziras instali tiun kromaĵon?';
-$lang['Batch Manager'] = 'Stapla administrilo';
+$lang['Batch Manager'] = 'Staplilo';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Ĉirkaŭa maksimuma distingivo: %dM bilderoj (t.e. %dx%d bilderoj).';
 $lang['Apply watermark if width is bigger than'] = 'Apliki la filigranon se la larĝeco estas pli ol';
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Aperture estas desegnita por profesiaj fotistoj kun la simpleco de iPhoto.';
@@ -806,7 +806,7 @@ $lang['Password is missing. Please enter the password.'] = 'Mankas pasvorto. Bon
 $lang['Permission granted for groups'] = 'Atingo permesita por grupoj';
 $lang['Permission granted for users'] = 'Atingo permesita por uzantoj';
 $lang['Permission granted thanks to a group'] = 'Atingo permesita dank\' al grupo';
-$lang['Permission management'] = 'Administrado de permesoj';
+$lang['Permission management'] = 'Mastrumado de permesoj';
 $lang['Photo sizes with crop'] = 'Fotograndeco kun stuco';
 $lang['Photo unreachable or no support'] = 'Neatingebla foto aŭ neakceptita formato';
 $lang['Photos generation in progress...'] = 'Generado de fotoj okazanta...';
