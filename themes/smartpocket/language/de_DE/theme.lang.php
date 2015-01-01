@@ -20,9 +20,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Autohide the bar of the slideshow'] = 'Diashow Menüleiste autom. verstecken';
+$lang['Autohide the bar of the slideshow'] = 'Diashow-Menüleiste automatisch ausblenden';
 $lang['Loop the slideshow'] = 'Diashow in Endlosschleife';
 $lang['More Information'] = 'Mehr Informationen';
-$lang['Slideshow Options'] = 'Diashowoptionen';
+$lang['Slideshow Options'] = 'Diashow-Optionen';
 $lang['Smartpocket, Configuration Page'] = 'Smartpocket, Konfigurationsseite';
-?>
