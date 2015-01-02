@@ -53,3 +53,7 @@ $lang['first_contact_stp12'] = 'potom ich môžeš upravovať použitím akcie';
 $lang['first_contact_stp13'] = 'Môžeš upravovať popisy a iné pomocou manažéra skupín v samostatnom móde. Ale zatiaľ zostaneme v globálnom móde. ';
 $lang['first_contact_stp15'] = 'Na tejto stránke môžeš editovať všetky vlastnosti fotky, napríklad...';
 $lang['first_contact_stp16'] = '...v ktorom/ktorých albume/albumoch sa táto fotka nachádza.<br><br>Takže tu môžeš pridať alebo odobrať túto fotku z albumov. Táto linka je virtuálna, takže žiadne fotky sa v skutočnosti nepresúvajú.';
+$lang['first_contact_title43'] = 'Bude to nádherný čas';
+$lang['first_contact_title33'] = 'Nastavenie návštevníka';
+$lang['first_contact_title39'] = 'Doplnky';
+$lang['first_contact_title38'] = 'Doplnky';
