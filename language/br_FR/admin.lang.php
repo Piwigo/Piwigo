@@ -418,3 +418,15 @@ $lang['Execution time is out, treatment must be continue [Estimated time: %d sec
 $lang['Empty caddie'] = 'Goullonderiñ ar baner';
 $lang['Remove from caddie'] = 'Tennañ eus ar baner';
 $lang['add new photos to caddie'] = 'lakaat luc\'hskeudennoù ouzhpenn er baner';
+$lang['Features include gallery browsing, album creation and photo upload.'] = 'E-touesk an arc\'hweladurioù e vez merdeiñ ar palier, krouiñ rummadoù hag ezkargañ luc\'hskeudennoù.';
+$lang['Errors caption'] = 'Alc\'hwez ar fazioù';
+$lang['FTP + Synchronization'] = 'FTP + Sinkronelaat';
+$lang['Failed to write file to disk'] = 'C\'hwitadenn war skrivañ ar restr war ar bladenn';
+$lang['Environment'] = 'Amva';
+$lang['Error list'] = 'Listenn ar fazioù';
+$lang['Error on file "%s" : %s'] = 'Fazi er restr "%s" : %s';
+$lang['Error when sending email to %s [%s].'] = 'Fazi en ur gas ar bostel da %s [%s].';
+$lang['Email administrators when a comment is deleted'] = 'Kas ur bostel d\'ar merourien pa vez dilemet un evezhiadenn';
+$lang['Email administrators when a comment is modified'] = 'Kas ur bostel d\'ar merourien pa vez cheñchet un evezhiadenn';
+$lang['Email admins when a new user registers'] = 'Kas ur bostel d\'ar merourien pa vez enrollet un implijer nevez';
+$lang['Email admins when a valid comment is entered'] = 'Kas ur bostel d\'ar merourien pa vez graet un evezhiadenn';
