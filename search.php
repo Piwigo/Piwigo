@@ -105,6 +105,8 @@ if (isset($_POST['submit']))
   }
 
   // dates
+  check_input_parameter('date_type', $_POST, false, '/^date_(creation|available)$/');
+  
   $type_date = $_POST['date_type'];
 
   if (!empty($_POST['start_year']))
@@ -144,7 +146,7 @@ if (isset($_POST['submit']))
 INSERT INTO '.SEARCH_TABLE.'
   (rules, last_seen)
   VALUES
-  (\''.serialize($search).'\', NOW())
+  (\''.pwg_db_real_escape_string(serialize($search)).'\', NOW())
 ;';
     pwg_query($query);
 

@@ -1887,9 +1887,9 @@ function check_input_parameter($param_name, $param_array, $is_array, $pattern, $
       fatal_error('[Hacking attempt] the input parameter "'.$param_name.'" should be an array');
     }
 
-    foreach ($param_value as $item_to_check)
+    foreach ($param_value as $key => $item_to_check)
     {
-      if (!preg_match($pattern, $item_to_check))
+      if (!preg_match(PATTERN_ID, $key) or !preg_match($pattern, $item_to_check))
       {
         fatal_error('[Hacking attempt] an item is not valid in input parameter "'.$param_name.'"');
       }
