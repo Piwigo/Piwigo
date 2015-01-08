@@ -48,9 +48,8 @@ if (isset($_POST['submit']))
       and !preg_match('/^\s*$/', $_POST['search_allwords']))
   {
     check_input_parameter('mode', $_POST, false, '/^(OR|AND)$/');
+    check_input_parameter('fields', $_POST, true, '/^(name|comment|file)$/');
 
-    $fields = array_intersect($_POST['fields'], array('name', 'comment', 'file'));
-    
     $drop_char_match = array(
       '-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_',
       '?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
@@ -71,7 +70,7 @@ if (isset($_POST['submit']))
           )
         ),
       'mode' => $_POST['mode'],
-      'fields' => $fields,
+      'fields' => $_POST['fields'],
       );
   }
 
@@ -112,6 +111,8 @@ if (isset($_POST['submit']))
   }
 
   // dates
+  check_input_parameter('date_type', $_POST, false, '/^date_(creation|available)$/');
+  
   $type_date = $_POST['date_type'];
 
   if (!empty($_POST['start_year']))
@@ -151,7 +152,7 @@ if (isset($_POST['submit']))
 INSERT INTO '.SEARCH_TABLE.'
   (rules, last_seen)
   VALUES
-  (\''.serialize($search).'\', NOW())
+  (\''.pwg_db_real_escape_string(serialize($search)).'\', NOW())
 ;';
     pwg_query($query);
 
