@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '2.6.4');
+define('PHPWG_VERSION', '2.6.5');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 define('PHPWG_DEFAULT_TEMPLATE', 'elegant');
 
