@@ -281,7 +281,7 @@ SELECT id, name, id_uppercat
     }
     else
     {
-      $sort[] = $row['name'];
+      $sort[] = remove_accents($row['name']);
     }
     
     $categories[] = array(
