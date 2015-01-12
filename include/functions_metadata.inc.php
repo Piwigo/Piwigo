@@ -150,9 +150,16 @@ function get_exif_data($filename, $map)
   }
 
   // Read EXIF data
-  if ($exif = @read_exif_data($filename))
+  if ($exif = @read_exif_data($filename) or $exif2 = trigger_change('format_exif_data', $exif=null, $filename, $map))
   {
-    $exif = trigger_change('format_exif_data', $exif, $filename, $map);
+    if (!empty($exif2))
+    {
+      $exif = $exif2;
+    }
+    else
+    {
+      $exif = trigger_change('format_exif_data', $exif, $filename, $map);
+    }
 
     // configured fields
     foreach ($map as $key => $field)
