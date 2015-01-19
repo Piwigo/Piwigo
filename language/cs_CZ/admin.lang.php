@@ -983,3 +983,7 @@ $lang['Upload in progress'] = 'Probíhá nahrávání';
 $lang['date & time'] = 'datum & čas';
 $lang['file name'] = 'jméno souboru';
 $lang['width & height'] = 'šířka & výška';
+$lang['Empty caddie'] = 'Vyprázdnit košík';
+$lang['No and unlock sub-albums'] = 'Ne a odemknout podalba';
+$lang['The settings for the guest are from the %s user'] = 'Nastavení pro hosta je od uživatele %s';
+$lang['based on'] = 'založeno na';
