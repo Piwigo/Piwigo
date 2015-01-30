@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Hello'] = 'Здравей';
-$lang['Notification'] = 'RSS';
+$lang['Notification'] = 'Известяване';
 $lang['File'] = 'Файл';
 $lang['Preferences'] = 'Предпочитания';
 $lang['Rate'] = 'Оценка';
@@ -38,8 +38,8 @@ $lang['wrong filename'] = 'грешно име на файл';
 $lang['Year'] = 'Година';
 $lang['You are running on development sources, no check possible.'] = 'Вие сте стартирали разработващ се код, невъзможна проверка.';
 $lang['You are running the latest version of Piwigo.'] = 'Вие използвате последната версия на Piwigo.';
-$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Вие ползване качване през браузъра. Пробвайте <a href="%s">Флаш качване</a> като алтернатива.';
-$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Вие използвате Флаш качване. Проблеми? Пробвайте <a href="%s">качване през браузър</a> като алтернатива.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Вие използвате качване през браузер. Можете да превключите в режим <a href="%s">Едновременно бързо качване</a>.';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Вие използвате едновременно бързо качване. Имате проблем? Можете да превключите в режим <a href="%s">Качване през браузер</a>.';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Може да надстроите до Piwigo %s направо, без актуализация с Piwigo %s (recommended).';
 $lang['You cannot delete your account'] = 'Вие не може да изтриете акаунта си';
 $lang['You cannot move an album in its own sub album'] = 'Не може да преместите албум в негов собствен под-албум';
@@ -69,12 +69,12 @@ $lang['Who can see these photos?'] = 'Кой може да види тези с�
 $lang['Who can see this photo?'] = 'Кой може да види тази снимка?';
 $lang['width must be a number superior to'] = 'ширината трябва да бъде число, по-голямо от';
 $lang['Notification'] = "Съобщение";
-$lang['Upload Photos'] = 'Качи Снимки';
-$lang['Select an album'] = 'Избери Албум';
+$lang['Upload Photos'] = 'Качи снимки';
+$lang['Select an album'] = 'Избери албум';
 $lang['... or '] = '... или ';
 $lang['create a new album'] = 'създай нов албум';
-$lang['Select files'] = 'Избери файлове';
-$lang['Start Upload'] = 'Стартирай Качването';
+$lang['Select files'] = 'Избор на файлове';
+$lang['Start Upload'] = 'Стартирай качването';
 $lang['Learn more'] = 'Научи повече';
 $lang['Maximum file size: %sB.'] = 'Максимален размер за файл: %sB.';
 $lang['Allowed file types: %s.'] = 'Позволени файлови формати: %s.';
@@ -448,7 +448,7 @@ $lang['Lock gallery'] = 'Заключи галерията';
 $lang['Locked'] = 'Заключен';
 $lang['Local'] = 'Локален';
 $lang['Languages'] = 'Езици';
-$lang['Install'] = 'Инсталиране';
+$lang['Install'] = 'Инсталирай';
 $lang['Image id'] = 'Номер снимка';
 $lang['Image Quality'] = 'Качество на снимка';
 $lang['Ignore selected anomalies'] = 'Игнорирай избраните аномалии';
