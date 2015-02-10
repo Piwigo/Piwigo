@@ -16,3 +16,4 @@ $lang['first_contact_title5'] = '';
 $lang['first_contact_title6'] = '';
 $lang['first_contact_title7'] = '';
 $lang['first_contact_title8'] = '';
+$lang['first_contact_stp1'] = 'Hej! Jag är din Guide för att upptäcka Piwigo! Följ mina instruktioner och klicka på "Nästa"(eller använd piltangenterna på ditt tangentbord) för att navigera. Går du till en anna del av Administrationen så får du en annan sekvens av denna Guide, relevant för den sidan. Fastnar detta, kan du gå till <em>Plugins > Take a Tour</em>så stannar den. Låt oss börja med att lägga till några bilder!';
