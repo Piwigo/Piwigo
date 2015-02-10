@@ -851,7 +851,7 @@
         }).call(_this);
         current_path = document.location.href;
         if (_this._isRedirect(path, current_path)) {
-          if (toString.call(path) === "[object RegExp]") {
+          if ({}.toString.call(path) === "[object RegExp]") {
             _this._redirect(step, path);
           }
           else {
@@ -1002,7 +1002,7 @@
     };
 
     Tour.prototype._isRedirect = function(path, currentPath) {
-      return (path != null) && path !== "" && ((toString.call(path) === "[object RegExp]" && !path.test(currentPath)) || (toString.call(path) === "[object String]" && path !== currentPath.replace("http://", "").replace("https://", "")));
+      return (path != null) && path !== "" && (({}.toString.call(path) === "[object RegExp]" && !path.test(currentPath)) || ({}.toString.call(path) === "[object String]" && path !== currentPath.replace("http://", "").replace("https://", "")));
     };
 
     Tour.prototype._redirect = function(step, path) {
