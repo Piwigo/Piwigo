@@ -75,11 +75,15 @@ if (isset($_POST['submit']))
   // dates
   if (!empty($_POST['start']))
   {
+    $_POST['start'] = trim($_POST['start']);
+    check_input_parameter('start', $_POST, false, '/^\d{4}-\d{2}-\d{2}$/');
     $search['fields']['date-after'] = $_POST['start'];
   }
 
   if (!empty($_POST['end']))
   {
+    $_POST['end'] = trim($_POST['end']);
+    check_input_parameter('end', $_POST, false, '/^\d{4}-\d{2}-\d{2}$/');
     $search['fields']['date-before'] = $_POST['end'];
   }
 
@@ -89,10 +93,11 @@ if (isset($_POST['submit']))
   }
   else
   {
+    check_input_parameter('types', $_POST, true, '/^('.implode('|', $types).')$/');
     $search['fields']['types'] = $_POST['types'];
   }
 
-  $search['fields']['user'] = $_POST['user'];
+  $search['fields']['user'] = intval($_POST['user']);
 
   if (!empty($_POST['image_id']))
   {
@@ -117,6 +122,8 @@ if (isset($_POST['submit']))
       );
   }
 
+  check_input_parameter('display_thumbnail', $_POST, false, '/^('.implode('|', array_keys($display_thumbnails)).')$/');
+  
   $search['fields']['display_thumbnail'] = $_POST['display_thumbnail'];
   // Display choise are also save to one cookie
   if (!empty($_POST['display_thumbnail'])
@@ -142,8 +149,9 @@ if (isset($_POST['submit']))
 INSERT INTO '.SEARCH_TABLE.'
   (rules)
   VALUES
-  (\''.serialize($search).'\')
+  (\''.pwg_db_real_escape_string(serialize($search)).'\')
 ;';
+
     pwg_query($query);
 
     $search_id = pwg_db_insert_id(SEARCH_TABLE);
