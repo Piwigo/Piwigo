@@ -45,6 +45,12 @@ if (count($sections)<2)
 }
 
 $plugin_id = $sections[0];
+
+if (!preg_match('/^\w+$/', $plugin_id))
+{
+  die('Invalid plugin identifier');
+}
+
 if ( !isset($pwg_loaded_plugins[$plugin_id]) )
 {
   die('Invalid URL - plugin '.$plugin_id.' not active');
