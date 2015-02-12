@@ -116,6 +116,8 @@ if (isset($_POST['submitFilter']))
 
   if (isset($_POST['filter_level_use']))
   {
+    check_input_parameter('filter_level', $_POST, false, '/^\d+$/');
+    
     if (in_array($_POST['filter_level'], $conf['available_permission_levels']))
     {
       $_SESSION['bulk_manager_filter']['level'] = $_POST['filter_level'];
