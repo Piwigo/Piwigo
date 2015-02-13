@@ -75,14 +75,12 @@ if (isset($_POST['submit']))
   // dates
   if (!empty($_POST['start']))
   {
-    $_POST['start'] = trim($_POST['start']);
     check_input_parameter('start', $_POST, false, '/^\d{4}-\d{2}-\d{2}$/');
     $search['fields']['date-after'] = $_POST['start'];
   }
 
   if (!empty($_POST['end']))
   {
-    $_POST['end'] = trim($_POST['end']);
     check_input_parameter('end', $_POST, false, '/^\d{4}-\d{2}-\d{2}$/');
     $search['fields']['date-before'] = $_POST['end'];
   }

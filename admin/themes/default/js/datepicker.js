@@ -107,6 +107,7 @@ jQuery.fn.pwgDatepicker = function(settings) {
     $this.datetimepicker(jQuery.extend({
       dateFormat: linked ? 'DD d MM yy' : 'yy-mm-dd',
       timeFormat: 'HH:mm',
+      separator: options.showTimepicker ? ' ' : '',
 
       altField: linked ? $target : null,
       altFormat: 'yy-mm-dd',
