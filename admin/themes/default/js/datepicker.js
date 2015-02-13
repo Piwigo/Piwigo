@@ -30,16 +30,12 @@ $.datepicker._selectMonthYear = debounce(function(id, select, period) {
       inst['drawYear'] = '';
     }
     else {
-      var pos = getCursor($('.ui-datepicker-year')[0]);
-
       inst['selectedYear'] = inst['drawYear'] = val;
 
       this._notifyChange(inst);
       this._adjustDate(target);
 
       $('.ui-datepicker-year').focus();
-
-      setCursor($('.ui-datepicker-year')[0], pos);
     }
   }
 }, 500);
@@ -169,46 +165,6 @@ jQuery.fn.pwgDatepicker = function(settings) {
     }
   });
 };
-
-
-// functions for custom year input
-function setCursor(node,pos){
-  var node = (typeof node == "string" || node instanceof String) ? document.getElementById(node) : node;
-
-  if (!node) {
-    return false;
-  }
-  else if(node.createTextRange) {
-    var textRange = node.createTextRange();
-    textRange.collapse(true);
-    textRange.moveEnd(pos);
-    textRange.moveStart(pos);
-    textRange.select();
-    return true;
-  }
-  else if(node.setSelectionRange) {
-    node.setSelectionRange(pos,pos);
-    return true;
-  }
-
-  return false;
-}
-
-function getCursor(input) {
-    // Internet Explorer Caret Position (TextArea)
-    if (document.selection && document.selection.createRange) {
-      var range = document.selection.createRange();
-      var bookmark = range.getBookmark();
-      return bookmark.charCodeAt(2) - 2;
-    }
-    else {
-      // Firefox Caret Position (TextArea)
-      if (input.setSelectionRange)
-       return input.selectionStart;
-    }
-
-    return 0;
-}
 
 function debounce(func, wait, immediate) {
   var timeout;
