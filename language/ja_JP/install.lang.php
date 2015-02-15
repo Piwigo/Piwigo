@@ -46,14 +46,14 @@ $lang['Password [confirm]'] = 'パスワード [もう一度]';
 $lang['verification'] = '確認';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'ヘルプが必要ですか? <a href="%s">Piwigoメッセージボード</a>にて、あなたの質問を投稿してください。';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'ゲストは、このメールアドレスでサイト管理者に連絡することができます。';
-$lang['PHP 5 is required'] = 'PHP 5が必要です';
+$lang['PHP 5 is required'] = 'PHP 5.2が必要です';
 $lang['It appears your webhost is currently running PHP %s.'] = 'あなたのウェブホストは現在PHP %sを使っています。';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigoは.htaccess ファイルを作成するか変更して、PHP 5を設定してみます。';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigoは.htaccess ファイルを作成するか変更して、PHP 5.2を設定してみます。';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = '注：自分で設定を変更し、その後Piwigoを再起動もできます。';
-$lang['Try to configure PHP 5'] = 'PHP 5を設定してみます。';
+$lang['Try to configure PHP 5'] = 'PHP 5.2を設定してみます。';
 $lang['Sorry!'] = '申し訳ありません!';
-$lang['Piwigo was not able to configure PHP 5.'] = 'PiwigoはPHP 5を設定できませんでした。';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'あなたのホスティング業者のサポートに連絡し、どうやったらPHP 5を設定できるか確認すべきです。';
+$lang['Piwigo was not able to configure PHP 5.'] = 'PiwigoはPHP 5.2を設定できませんでした。';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'あなたのホスティング業者のサポートに連絡し、どうやったらPHP 5.2を設定できるか確認すべきです。';
 $lang['Hope to see you back soon.'] = 'またお越し下さい';
 $lang['Congratulations, Piwigo installation is completed'] = 'おめでとうございました。Piwigo のインストールが完了しました。';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'その他の解決は、上のボックスにあるテクストをコピーし、"local/config/database.inc.php"に貼り付けます。（注意：database.inc.php は上のテクスト内容以外のこと（エンターキーやスペースなど）を含まないでください。)';
@@ -64,4 +64,4 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'どうぞ、
 $lang['Just another Piwigo gallery'] = '他のPiwigoギャラリー';
 $lang['Welcome to your new installation of Piwigo!'] = '新しくPiwigoをインストールしていただき、ありがとうざいます!';
 $lang['Welcome to my photo gallery'] = '私のフォトギャラリーへようこそ';
-?>
+$lang['localhost or other, supplied by your host provider'] = 'localhost または、他のホスト、あるいは、あなたのホスティング業者から提供されたホスト名です。';

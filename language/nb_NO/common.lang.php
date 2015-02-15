@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Norsk bokmål [NO]
-Version: 2.7.1
+Version: 2.7.2
 Language URI: http://piwigo.org/ext/extension_view.php?eid=483
 Author: Piwigo team
 Author URI: http://piwigo.org

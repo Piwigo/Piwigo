@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Deutsch [DE]
-Version: 2.7.1
+Version: 2.7.2
 Language URI: http://piwigo.org/ext/extension_view.php?eid=416
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -170,10 +170,10 @@ $lang['descending'] = 'absteigend';
 $lang['Download'] = 'Herunterladen';
 $lang['Download this file'] = 'Datei herunterladen';
 $lang['edit'] = 'bearbeiten';
-$lang['wrong date'] = 'Datum falsch';
+$lang['wrong date'] = 'Falsches Datum';
 $lang['excluded'] = 'ausgeschlossen';
 $lang['Your favorites'] = 'Meine Favoriten';
-$lang['display your favorites photos'] = 'Lieblingsfotos anzeigen';
+$lang['display your favorites photos'] = 'Lieblingsbilder anzeigen';
 $lang['Favorites'] = 'Favoriten';
 $lang['First'] = 'Erste Seite';
 $lang['The gallery is locked for maintenance. Please, come back later.'] = 'Der Schreibzugriff auf die Datenbank ist wegen Wartungsarbeiten gesperrt. Bitte besuchen Sie uns später wieder.';
@@ -276,7 +276,7 @@ $lang['A comment on your site'] = 'Ein Kommentar auf Ihrer Website';
 $lang['today'] = 'heute';
 $lang['Update your rating'] = 'Ihre Bewertung aktualisieren';
 $lang['the username must be given'] = 'Benutzername fehlt';
-$lang['useful when password forgotten'] = 'Nützlich, wenn Sie ihr Passwort vergessen haben.';
+$lang['useful when password forgotten'] = 'Nützlich, wenn Sie ihr Passwort vergessen haben';
 $lang['Quick search'] = 'Schnellsuche';
 $lang['Connected user: %s'] = 'Angemeldete Benutzer: %s';
 $lang['IP: %s'] = 'IP: %s';
@@ -305,8 +305,8 @@ $lang['Yes'] = 'Ja';
 $lang['No'] = 'Nein';
 $lang['%d photo'] = '%d Foto';
 $lang['%d photos'] = '%d Fotos';
-$lang['%d photo is also linked to current tags'] = '%d Foto ist auch mit diesen Schlagwörtern verbunden';
-$lang['%d photos are also linked to current tags'] = '%d Fotos sind auch mit diesen Schlagwörtern verbunden';
+$lang['%d photo is also linked to current tags'] = '%d Foto ist auch mit diesen Schlagwörtern verknüpft';
+$lang['%d photos are also linked to current tags'] = '%d Fotos sind auch mit diesen Schlagwörtern verknüpft';
 $lang['display photos linked to this tag'] = 'Fotos mit diesem Schlagwort anzeigen';
 $lang['photos posted during the last %d days'] = 'Fotos eingestellt während der letzten %d Tage';
 $lang['Piwigo Help'] = 'Piwigo-Hilfe';
@@ -356,8 +356,8 @@ $lang['You will receive a link to create a new password via email.'] = 'Per E-Ma
 $lang['Your password has been reset'] = 'Ihr Passwort wurde zurückgesetzt.';
 $lang['Edit'] = 'Bearbeiten';
 $lang['Hello %s,'] = 'Hallo %s,';
-$lang['Here are your connection settings'] = 'Das sind Ihre Verbindungseinstellungen';
-$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Sollten Sie diese E-Mail irrtümlich erhalten haben, setzen Sie sich bitte mit uns in Verbindung %s.';
+$lang['Here are your connection settings'] = 'Das sind Ihre Verbindungseinstellungen:';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Sollten Sie diese E-Mail irrtümlich erhalten haben, setzen Sie sich bitte mit uns in Verbindung: %s.';
 $lang['large'] = 'groß';
 $lang['medium'] = 'mittel';
 $lang['Original'] = 'Original';
@@ -376,11 +376,11 @@ $lang['xlarge'] = 'besonders groß';
 $lang['xxlarge'] = 'sehr groß';
 $lang['Your username has been successfully changed to : %s'] = 'Ihr Benutzername lautet jetzt:';
 $lang['Photo sizes'] = 'Bildgrößen';
-$lang['Desktop'] = 'Desktop';
+$lang['Desktop'] = 'Standard';
 $lang['Mobile'] = 'Mobil';
 $lang['Show latest comments first'] = 'Den neuesten Kommentar zuerst anzeigen';
 $lang['Show oldest comments first'] = 'Den ältesten Kommentar zuerst anzeigen';
-$lang['View in'] = 'Anzeigen in';
+$lang['View in'] = 'Ansicht';
 $lang['2small'] = 'winzig';
 $lang['xsmall'] = 'ziemlich klein';
 $lang['Date created, new &rarr; old'] = 'Aufnahmedatum, neu &rarr; alt';
@@ -425,4 +425,4 @@ $lang['Photo title'] = 'Bildtitel';
 $lang['Album name, A &rarr; Z'] = 'Albumname, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Albumname, Z &rarr; A';
 $lang['Apply on properties'] = 'Eigenschaften übernehmen';
-$lang['Link: %s'] = 'link: %s';
+$lang['Link: %s'] = 'Adresse: %s';

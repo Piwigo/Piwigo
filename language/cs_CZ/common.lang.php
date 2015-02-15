@@ -25,7 +25,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Česky [CZ]
-Version: 2.7.0
+Version: 2.7.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=414
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -425,4 +425,10 @@ $lang['Password is missing. Please enter the password.'] = 'Chybí heslo. Prosí
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Chybí potvrzení hesla. Prosím potvrďte vybrané heslo.';
 $lang['%d photos per page'] = '%d fotek na stránce';
 $lang['Theme'] = 'Téma';
-?>
+$lang['Photo description'] = 'Popis fotky';
+$lang['Photo title'] = 'Název fotky';
+$lang['Album name, A &rarr; Z'] = 'Název alba, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Název alba, Z &rarr; A';
+$lang['Apply on properties'] = 'Aplikovat na vlastnosti';
+$lang['Link: %s'] = 'Odkaz: %s';
+$lang['No results for'] = 'Žádné výsledky pro';
