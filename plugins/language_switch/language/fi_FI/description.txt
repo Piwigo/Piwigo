@@ -1,1 +1,1 @@
-Vaihda toiselle kielelle klikkaamalla lippua gallerian etusivulta.
+Vaihda kieltä klikkaamalla lippua gallerian etusivulta.

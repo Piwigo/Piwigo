@@ -1,6 +1,6 @@
 <?php
 $lang['2_7_0_title6'] = 'Selektu skripton';
-$lang['2_7_0_stp4'] = '';
+$lang['2_7_0_stp4'] = 'Novaj eblecoj aldoniĝis al la serĉopaĝo: ebleco selekti ecojn al kiuj la vortserĉo aplikiĝas, listo de aŭtoroj trovitaj en la datumbazo, aŭtomate kompleta listo de fotaroj...';
 $lang['2_7_0_stp5'] = 'Vi povas agordi la tempon kaj la daton, pere de la ŝoviloj Horo kaj Minuto.';
 $lang['2_7_0_stp6'] = 'La selektoskripto por elekti fotarojn, etikedojn, ktp. ŝanĝis al nova pli uz-afabla. Testu ĝin ĉisube. ';
 $lang['2_7_0_title4'] = 'Serĉopaĝo';
@@ -10,3 +10,14 @@ $lang['2_7_0_stp11'] = 'Tiu travizito finiĝas.<p style="text-align:center">Ĝuu
 $lang['2_7_0_title1'] = 'Bonvenon al Piwigo 2.7';
 $lang['2_7_0_title11'] = 'Ĝis baldaŭ!';
 $lang['2_7_0_title2'] = 'Unua nova funkcio';
+$lang['2_7_0_stp9'] = 'Serĉofiltrilo aldoniĝis al la staplilo. Ĝi enhavas potencan sintakson por serĉi fotojn laŭ datoj, etikedoj, grandeco, dosieronomo kaj ankaŭ serĉopcioj kiel ekzaktaj kongruoj, KAJ/AŬ, arigi, ekskluzivo. Vi povas legi la detalan helpilon pli malfrue. La sama sintakso validas por la rapidserĉa kampo sur la publika flanka menuo.';
+$lang['2_7_0_stp2'] = 'Kiel videblas, nova apriora kromaprogramo aldoniĝis: Traviziti. Tiu kromaĵo helpas al vi malkovri vian Piwigo. Jen kie listiĝas ĉiuj disponeblaj travizitoj.<br>Tiu paĝo disponeblas en <em>Kromaĵoj » Traviziti</em>';
+$lang['2_7_0_stp2b'] = 'La nova elŝutada formularo en Piwigo 2.7 baziĝas sur HTML5 anstataŭ Flaŝo; tiu signifas pli bonan kongruecon kun modernaj retfoliumiloj, aldone al pligranda fidindo sur malrapidaj konektoj. Kaj ŝovi-demeti igos fotoselekton multe pli facila en via dosieresplorilo!';
+$lang['2_7_0_stp10'] = 'Filtrilo laŭ dosiera grandeco aldoniĝis al la staplilo. Eblas al vi selekti intervalon kun minimuma kaj maksimuma valoroj.';
+$lang['2_7_0_stp7'] = 'Nun eblas al vi ordigi viajn fotarojn laŭ la dato de fotokreado aŭ de enretigo.';
+$lang['2_7_0_stp8'] = 'Facila agoligilo por malplenigi vian aĉetokorbon per nur unu musklako.';
+$lang['2_7_0_title10'] = 'Filtrilo laŭ dosiera grandeco';
+$lang['2_7_0_title2b'] = 'Nova alŝutada formularo';
+$lang['2_7_0_title7'] = 'Ordigi la fotarojn laŭ dato';
+$lang['2_7_0_title8'] = 'Malplenigi vian aĉetkorbon';
+$lang['2_7_0_title9'] = 'Serĉofiltrilo';

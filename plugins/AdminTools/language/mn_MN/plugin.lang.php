@@ -28,4 +28,6 @@ $lang['Save'] = 'Хадгалах';
 $lang['Saved'] = 'Амжилттай хадгаллаа';
 $lang['left'] = 'зүүн';
 $lang['right'] = 'баруун';
-?>
+$lang['Closed icon position'] = 'Хаагдсан дүрслэлийн байршил';
+$lang['Show SQL queries'] = 'SQL query хүсэлтийг харуулах';
+$lang['Save visit in history'] = 'Хандалтыг бүртгэж хадгалах';

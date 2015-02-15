@@ -31,3 +31,7 @@ $lang['Next '] = 'Sekvanta';
 
 $lang['2.7 Tour'] = 'Travizito 2.7';
 $lang['2_7_0_descrp'] = 'Malkovru tion, kio novas en Piwigo 2.7';
+$lang['first_contact_descrp'] = 'Konsilita al komencantoj, tiu travizito konigas al vi na Piwigo kaj ĝia bazaj trajtoj. Ĝi komenciĝos montrante al vi kiel aldoni fotojn, kaj sekve mastrumi ilin. La travizito daŭras per fotara mastrumado kaj finas per tajlorado uzante konfiguradon, temojn kaj kromaĵojn.';
+$lang['privacy_descrp'] = 'Tiu travizito prezentas ĉiujn metodojn por protekti viajn fotojn el publika atingo kun fotaro- kaj foto-permesoj, kaj el kopiado uzante bildoprotektojn.';
+$lang['takeatour_configpage'] = 'Travizitu » Listo de Travizitoj';
+$lang['Privacy'] = 'Privateco';
