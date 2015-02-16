@@ -98,6 +98,8 @@ $template->assign(
 
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
+$my_base_url = get_root_url().'admin.php?page=';
+
 $tabsheet = new tabsheet();
 $tabsheet->set_id('comments');
 $tabsheet->select('');
