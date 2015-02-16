@@ -59,15 +59,18 @@ function add_core_tabs($sheets, $tab_id)
       break;
 
     case 'comments':
-      $sheets[''] = array('caption' => l10n('User comments'), 'url' => '');
+      global $my_base_url;
+      $sheets[''] = array('caption' => l10n('User comments'), 'url' => $my_base_url.'comments');
       break;
 
     case 'users':
-      $sheets[''] = array('caption' => '<span class="icon-users"> </span>'.l10n('User list'), 'url' => '');
+      global $my_base_url;
+      $sheets[''] = array('caption' => '<span class="icon-users"> </span>'.l10n('User list'), 'url' => $my_base_url.'user_list');
       break;
 
     case 'groups':
-      $sheets[''] = array('caption' => '<span class="icon-group"> </span>'.l10n('Groups'), 'url' => '');
+      global $my_base_url;
+      $sheets[''] = array('caption' => '<span class="icon-group"> </span>'.l10n('Groups'), 'url' => $my_base_url.'group_list');
       break;
 
     case 'configuration':
