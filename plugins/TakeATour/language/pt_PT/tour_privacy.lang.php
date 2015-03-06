@@ -27,3 +27,4 @@ $lang['privacy_stp12'] = 'Nesta página pode optar por tornar o Album acessível
 $lang['privacy_stp11'] = 'Agora clique na aba das permissões';
 $lang['privacy_stp10'] = 'Estamos na gestão da lista de Albuns disponíveis a partir do menu <em>Albums » Gerir</em><br><br>Edite no album passando por cima e, a seguir, faça clique em Editar.';
 $lang['privacy_stp14b'] = 'Nota importante: administradores e webmasters estão sujeitos ao mesmo sistema de permissões que um registado quando navegam na galeria. No espaço da administração, têm acesso a todos os albuns ou fotos.';
+$lang['privacy_stp15'] = 'Ainda antes de explicar os grupos, uma dica pro: aqui está o link para uma página para definir como público/privado vários álbuns em simultâneo. Clique nela';
