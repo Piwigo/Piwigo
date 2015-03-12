@@ -335,7 +335,7 @@ SELECT DISTINCT(id)
   }
   $query.= '
 ;';
-  return array_from_query($query, 'id');
+  return query2array($query, null, 'id');
 }
 
 /**
@@ -541,7 +541,7 @@ FROM '.CATEGORIES_TABLE.' as c
     // Piwigo before 2.5.3 may have generated inconsistent permissions, ie
     // private album A1/A2 permitted to user U1 but private album A1 not
     // permitted to U1.
-    // 
+    //
     // TODO 2.7: add an upgrade script to repair permissions and remove this
     // test
     if ( !isset($cats[ $cat['id_uppercat'] ]))

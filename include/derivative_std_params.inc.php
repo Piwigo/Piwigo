@@ -201,8 +201,6 @@ final class ImageStdParams
    */
   static function save()
   {
-    global $conf;
-
     $ser = serialize( array(
       'd' => self::$type_map,
       'q' => self::$quality,
