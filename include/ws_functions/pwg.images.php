@@ -82,7 +82,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $cat_ids).')
 ;';
-  $db_cat_ids = array_from_query($query, 'id');
+  $db_cat_ids = query2array($query, null, 'id');
 
   $unknown_cat_ids = array_diff($cat_ids, $db_cat_ids);
   if (count($unknown_cat_ids) != 0)
@@ -100,7 +100,7 @@ SELECT category_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$image_id.'
 ;';
-  $existing_cat_ids = array_from_query($query, 'category_id');
+  $existing_cat_ids = query2array($query, null, 'category_id');
 
   if ($replace_mode)
   {
@@ -133,7 +133,7 @@ SELECT category_id, MAX(rank) AS max_rank
     AND category_id IN ('.implode(',', $new_cat_ids).')
   GROUP BY category_id
 ;';
-    $current_rank_of = simple_hash_from_query(
+    $current_rank_of = query2array(
       $query,
       'category_id',
       'max_rank'
@@ -481,7 +481,7 @@ SELECT COUNT(id) AS nb_comments
   FROM '. COMMENTS_TABLE .'
   WHERE '. $where_comments .'
 ;';
-  list($nb_comments) = array_from_query($query, 'nb_comments');
+  list($nb_comments) = query2array($query, null, 'nb_comments');
   $nb_comments = (int)$nb_comments;
 
   if ($nb_comments>0 and $params['comments_per_page']>0)
@@ -1269,7 +1269,7 @@ function ws_images_upload($params, $service)
   // {
   //   return new PwgError(405, 'The image (file) is missing');
   // }
-  
+
   // file_put_contents('/tmp/plupload.log', "[".date('c')."] ".__FUNCTION__."\n\n", FILE_APPEND);
   // file_put_contents('/tmp/plupload.log', '$_FILES = '.var_export($_FILES, true)."\n", FILE_APPEND);
   // file_put_contents('/tmp/plupload.log', '$_POST = '.var_export($_POST, true)."\n", FILE_APPEND);
@@ -1342,11 +1342,11 @@ function ws_images_upload($params, $service)
   // Check if file has been uploaded
   if (!$chunks || $chunk == $chunks - 1)
   {
-    // Strip the temp .part suffix off 
+    // Strip the temp .part suffix off
     rename("{$filePath}.part", $filePath);
-  
+
     include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-    
+
     $image_id = add_uploaded_file(
       $filePath,
       stripslashes($params['name']), // function add_uploaded_file will secure before insert
@@ -1354,7 +1354,7 @@ function ws_images_upload($params, $service)
       $params['level'],
       null // image_id = not provided, this is a new photo
       );
-    
+
     $query = '
 SELECT
     id,
@@ -1375,7 +1375,7 @@ SELECT
     $category_infos = pwg_db_fetch_assoc(pwg_query($query));
 
     $category_name = get_cat_display_name_from_id($params['category'][0], null);
-    
+
     return array(
       'image_id' => $image_id,
       'src' => DerivativeImage::thumb_url($image_infos),
@@ -1420,7 +1420,7 @@ SELECT id, md5sum
   FROM '. IMAGES_TABLE .'
   WHERE md5sum IN (\''. implode("','", $md5sums) .'\')
 ;';
-    $id_of_md5 = simple_hash_from_query($query, 'md5sum', 'id');
+    $id_of_md5 = query2array($query, 'md5sum', 'id');
 
     foreach ($md5sums as $md5sum)
     {
@@ -1431,7 +1431,7 @@ SELECT id, md5sum
       }
     }
   }
-  else if ('filename' == $conf['uniqueness_mode'])
+  elseif ('filename' == $conf['uniqueness_mode'])
   {
     // search among photos the list of photos already added, based on
     // filename list
@@ -1447,7 +1447,7 @@ SELECT id, file
   FROM '.IMAGES_TABLE.'
   WHERE file IN (\''. implode("','", $filenames) .'\')
 ;';
-    $id_of_filename = simple_hash_from_query($query, 'file', 'id');
+    $id_of_filename = query2array($query, 'file', 'id');
 
     foreach ($filenames as $filename)
     {
@@ -1502,7 +1502,7 @@ SELECT path
     $ret['file'] = 'equals';
     $compare_type = 'high';
   }
-  else if (isset($params['file_sum']))
+  elseif (isset($params['file_sum']))
   {
     $compare_type = 'file';
   }
