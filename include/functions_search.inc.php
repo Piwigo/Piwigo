@@ -938,6 +938,14 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
       case 'file':
         $clauses[] = $file_like;
         break;
+      case 'author':
+        if ( strlen($token->term) )
+          $clauses = array_merge($clauses, qsearch_get_text_token_search_sql($token, array('author')));
+        elseif ($token->modifier & QST_WILDCARD)
+          $clauses[] = 'author IS NOT NULL';
+        else
+          $clauses[] = 'author IS NULL';
+        break;
       case 'width':
       case 'height':
         $clauses[] = $token->scope->get_sql($scope_id, $token);
@@ -1178,6 +1186,7 @@ function get_quick_search_results_no_cache($q, $options)
   $scopes[] = new QSearchScope('tag', array('tags'));
   $scopes[] = new QSearchScope('photo', array('photos'));
   $scopes[] = new QSearchScope('file', array('filename'));
+  $scopes[] = new QSearchScope('author', array(), true);
   $scopes[] = new QNumericRangeScope('width', array());
   $scopes[] = new QNumericRangeScope('height', array());
   $scopes[] = new QNumericRangeScope('ratio', array(), false, 0.001);
