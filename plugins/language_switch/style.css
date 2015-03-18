@@ -21,3 +21,9 @@
 #languageSwitchBox a:hover {
   color:#ddd;
 }
+
+[class*="langflag-"] {
+  overflow: hidden;
+  text-indent: -9999px;
+  vertical-align: bottom;
+}
