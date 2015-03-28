@@ -62,3 +62,5 @@ $lang['first_contact_title20'] = 'Mastrumi Fotarojn';
 $lang['first_contact_title21'] = 'Aliaj langetoj';
 $lang['first_contact_stp10'] = 'Jen la ligilo por rekte atingi vian korbon: estas ilo por ke la administrantoj facile kolektu fotojn dum foliumado de la publika parto, cele al redakti ilin en la Stapla Mastrumilo.
 <br><br>Vi povas aldoni fotojn al la korbon de la publikfoto-paĝo, post ensaluto kiel administranto, aŭ uzante la ago "Aldoni al korbo" de la Stapla Mastrumilo.';
+$lang['first_contact_stp14'] = 'Nun ni vidu la <b>redaktopaĝon</b> de iu foto. Tiu paĝo atingeblas de tie sed ankaŭ de la publika fotopaĝo, se vi ensalutas kiel administranto.<br><br>Musumu la miniaturon kaj poste musklaku na Redakti.';
+$lang['first_contact_stp17'] = 'Ĉitie eblas al vi estigi la foton kiel miniaturo de unu aŭ pluraj fotaroj. Ne nepras ke la foto estu asociita kun la fotaro, eĉ pli simplas estigi ĝin kiel fotara miniaturo de la publika paĝo de la foto (truko: uzu la kromprogramon Administradaj Iloj por eĉ pli da simpleco)';
