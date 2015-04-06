@@ -63,3 +63,5 @@ $lang['user password given by your host provider'] = 'ពាក្យសម្�
 $lang['verification'] = 'ការផ្ទៀងផ្ទាត់';
 $lang['enter a login for webmaster'] = 'សូមបញ្ចូលឈ្មោះអ្នកគ្រប់គ្រងបណ្ដាញ';
 $lang['please enter your password again'] = 'សូមបញ្ចូលលេខសម្ងាត់របស់អ្នកម្តងទៀត';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'ដំណោះស្រាយជំនួសគឺដើម្បីចម្លងអត្ថបទនៅក្នុងប្រអប់ខាងលើនិងបិទភ្ជាប់វាទៅក្នុងឯកសារ​ "local/config/database.inc.php" (ប្រុងប្រយ័ត្ន: database.inc.php ត្រូវតែមានតែមួយគត់នូវអ្វីដែលមានក្នុង textarea, គ្មានបន្ទាត់ត្រឡប់ ឬចន្លោះតួអក្សរ';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'អ្នកគួរតែយោងទៅលើជំនួយរបស់អ្នកផ្តល់សេវាបង្ហោះរបស់អ្នក និងរកមើលពីរបៀបដែលអ្នកអាចប្ដូរទៅកម្មវិធី PHP 5.2 បានដោយខ្លួនឯង';
