@@ -17,7 +17,7 @@
 			sbFunc(SwitchBox[i], SwitchBox[i+1]);
 	}
 
-	SwitchBox = {
+	window.SwitchBox = {
 		push: sbFunc
 	}
 })();
