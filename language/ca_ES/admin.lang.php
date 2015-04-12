@@ -771,7 +771,7 @@ $lang['Select an album'] = 'Seleccioneu un àlbum';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Per defecte, Piwigo crearà una nova mida per a la web a partir de les vostres fotos en versió HD (high definition) ';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Si no està disponible en alta definició i la mida actual es més gran que les dimensions del canvi de mida, es considerarà \'alta definició\' (HD) tot i què finalment caldrà reduir la mida de la imatge.';
 $lang['An error has occured during upgrade.'] = 'S\'ha produït un error durant el procés d\'actualització.';
-$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'S\'ha produït un error mentre l\'extracció. Reviseu els permisos dels fitxers de la instal·lació de piwigo. <br><a href="%s"> Cliqueu aquí per mostrar el registre de l\'error</a>.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'S\'ha produït un error durant l\'extracció. Reviseu els permisos dels fitxers de l\'instal·lació de piwigo. <br><a href="%s"> Cliqueu aquí per mostrar el registre de l\'error</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo no pot recuperar l\'arxiu d\'actualització del servidor';
 $lang['Updates'] = 'Actualitzacions';
 $lang['%s has been successfully updated.'] = '%s s\'ha actualitzat correctament.';
