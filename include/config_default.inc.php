@@ -371,6 +371,10 @@ $conf['use_exif_mapping'] = array(
 // javascript)
 $conf['allow_html_in_metadata'] = false;
 
+// decide which characters can be used as keyword separators (works in EXIF
+// and IPTC). Coma "," cannot be removed from this list.
+$conf['metadata_keyword_separator_regex'] = '/[.,;]/';
+
 // +-----------------------------------------------------------------------+
 // |                               sessions                                |
 // +-----------------------------------------------------------------------+

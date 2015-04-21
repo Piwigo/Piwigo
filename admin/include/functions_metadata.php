@@ -68,20 +68,7 @@ function get_sync_iptc_data($file)
 
   if (isset($iptc['keywords']))
   {
-    // official keywords separator is the comma
-    $iptc['keywords'] = preg_replace('/[.;]/', ',', $iptc['keywords']);
-    $iptc['keywords'] = preg_replace('/,+/', ',', $iptc['keywords']);
-    $iptc['keywords'] = preg_replace('/^,+|,+$/', '', $iptc['keywords']);
-
-    $iptc['keywords'] = implode(
-      ',',
-      array_unique(
-        explode(
-          ',',
-          $iptc['keywords']
-          )
-        )
-      );
+    $iptc['keywords'] = metadata_normalize_keywords_string($iptc['keywords']);
   }
 
   foreach ($iptc as $pwg_key => $value)
@@ -122,6 +109,12 @@ function get_sync_exif_data($file)
         continue;
       }
     }
+
+    if (in_array($pwg_key, array('keywords', 'tags')))
+    {
+      $exif[$pwg_key] = metadata_normalize_keywords_string($exif[$pwg_key]);
+    }
+    
     $exif[$pwg_key] = addslashes($exif[$pwg_key]);
   }
 
@@ -351,4 +344,31 @@ SELECT id, path, representative_ext
   return hash_from_query($query, 'id');
 }
 
+/**
+ * Returns the list of keywords (future tags) correctly separated with
+ * commas. Other separators are converted into commas.
+ *
+ * @param string $keywords_string
+ * @return string
+ */
+function metadata_normalize_keywords_string($keywords_string)
+{
+  global $conf;
+  
+  $keywords_string = preg_replace($conf['metadata_keyword_separator_regex'], ',', $keywords_string);
+  $keywords_string = preg_replace('/,+/', ',', $keywords_string);
+  $keywords_string = preg_replace('/^,+|,+$/', '', $keywords_string);
+      
+  $keywords_string = implode(
+    ',',
+    array_unique(
+      explode(
+        ',',
+        $keywords_string
+        )
+      )
+    );
+
+  return $keywords_string;
+}
 ?>
