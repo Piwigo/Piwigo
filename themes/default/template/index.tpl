@@ -26,7 +26,7 @@
 			{/if}
 			{/foreach}
 		</div>
-		{footer_script}(SwitchBox=window.SwitchBox||[]).push("#sortOrderLink", "#sortOrderBox");{/footer_script}
+		{footer_script}(window.SwitchBox=window.SwitchBox||[]).push("#sortOrderLink", "#sortOrderBox");{/footer_script}
 		{/strip}</li>
 {/if}
 {if !empty($image_derivatives)}
@@ -43,7 +43,7 @@
 			{/if}
 			{/foreach}
 		</div>
-		{footer_script}(SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");{/footer_script}
+		{footer_script}(window.SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");{/footer_script}
 		{/strip}</li>
 {/if}
 
@@ -109,7 +109,7 @@
 		<span{if !$view.SELECTED} style="visibility:hidden"{/if}>&#x2714; </span><a href="{$view.VALUE}">{$view.CONTENT}</a>
 		{/foreach}
 	</div>
-	{footer_script}(SwitchBox=window.SwitchBox||[]).push("#calendarViewSwitchLink", "#calendarViewSwitchBox");{/footer_script}
+	{footer_script}(window.SwitchBox=window.SwitchBox||[]).push("#calendarViewSwitchLink", "#calendarViewSwitchBox");{/footer_script}
 </div>
 {/if}
 

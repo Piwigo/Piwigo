@@ -34,7 +34,7 @@ function changeImgSrc(url,typeSave,typeMap)
 	jQuery('#derivativeChecked'+typeMap).css('visibility','visible');
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
-(SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");
+(window.SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");
 {/literal}{/footer_script}
 {strip}<a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
   <span class="pwg-icon pwg-icon-sizes"></span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
@@ -293,7 +293,7 @@ function setPrivacyLevel(id, level){
 	}
 	);
 }
-(SwitchBox=window.SwitchBox||[]).push("#privacyLevelLink", "#privacyLevelBox");
+(window.SwitchBox=window.SwitchBox||[]).push("#privacyLevelLink", "#privacyLevelBox");
 {/strip}{/footer_script}
 			<div id="privacyLevelBox" class="switchBox" style="display:none">
 				{foreach from=$available_permission_levels item=label key=level}
