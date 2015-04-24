@@ -614,9 +614,9 @@ $timing['send'] = time_step($step);
 
 $timing['total'] = time_step($begin);
 
-if ($logger->severity() >= Logger::INFO)
+if ($logger->severity() >= Logger::DEBUG)
 {
-  $logger->info('perf', 'i.php', array(
+  $logger->debug('', 'i.php', array(
     'src_path' => basename($page['src_path']),
     'derivative_path' => basename($page['derivative_path']),
     'o_size' => $o_size[0] . ' ' . $o_size[1] . ' ' . ($o_size[0]*$o_size[1]),

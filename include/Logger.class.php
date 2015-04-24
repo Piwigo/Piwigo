@@ -95,6 +95,7 @@ class Logger
    */
   private $_fileHandle = null;
 
+
   /**
    * Class constructor.
    *
@@ -105,42 +106,59 @@ class Logger
   {
     $this->options = array_merge($this->options, $options);
     
-    if (is_string($this->options['severity'])) {
+    if (is_string($this->options['severity']))
+    {
       $this->options['severity'] = self::codeToLevel($this->options['severity']);
     }
 
-    if ($this->options['severity'] === self::OFF) {
+    if ($this->options['severity'] === self::OFF)
+    {
       return;
     }
 
     $this->options['directory'] = rtrim($this->options['directory'], '\\/') . DIRECTORY_SEPARATOR;
 
-    if ($this->options['filename'] == null) {
+    if ($this->options['filename'] == null)
+    {
       $this->options['filename'] = 'log_' . date('Y-m-d') . '.txt';
     }
 
     $this->options['filePath'] = $this->options['directory'] . $this->options['filename'];
 
-    if (!file_exists($this->options['directory'])) {
-      mkgetdir($this->options['directory'], MKGETDIR_DEFAULT|MKGETDIR_PROTECT_HTACCESS);
-    }
-
-    if (file_exists($this->options['filePath']) && !is_writable($this->options['filePath'])) {
-      $this->_logStatus = self::STATUS_OPEN_FAILED;
-      throw new RuntimeException(self::$_messages['writefail']);
-      return;
-    }
-
-    if (($this->_fileHandle = fopen($this->options['filePath'], 'a'))) {
-      $this->_logStatus = self::STATUS_LOG_OPEN;
-    }
-    else {
-      $this->_logStatus = self::STATUS_OPEN_FAILED;
-      throw new RuntimeException(self::$_messages['openfail']);
-    }
-
-    if ($this->options['archiveDays'] != self::ARCHIVE_NO_PURGE && rand() % 97 == 0) {
+    if ($this->options['archiveDays'] != self::ARCHIVE_NO_PURGE && rand() % 97 == 0)
+    {
       $this->purge();
+    }
+  }
+  
+  /**
+   * Open the log file if not already oppenned
+   */
+  private function open()
+  {
+    if ($this->status() == self::STATUS_LOG_CLOSED)
+    {
+      if (!file_exists($this->options['directory']))
+      {
+        mkgetdir($this->options['directory'], MKGETDIR_DEFAULT|MKGETDIR_PROTECT_HTACCESS);
+      }
+
+      if (file_exists($this->options['filePath']) && !is_writable($this->options['filePath']))
+      {
+        $this->_logStatus = self::STATUS_OPEN_FAILED;
+        throw new RuntimeException(self::$_messages['writefail']);
+        return;
+      }
+
+      if (($this->_fileHandle = fopen($this->options['filePath'], 'a')) != false)
+      {
+        $this->_logStatus = self::STATUS_LOG_OPEN;
+      }
+      else
+      {
+        $this->_logStatus = self::STATUS_OPEN_FAILED;
+        throw new RuntimeException(self::$_messages['openfail']);
+      }
     }
   }
 
@@ -149,7 +167,8 @@ class Logger
    */
   public function __destruct()
   {
-    if ($this->_fileHandle) {
+    if ($this->_fileHandle)
+    {
       fclose($this->_fileHandle);
     }
   }
@@ -280,8 +299,10 @@ class Logger
    */
   public function log($severity, $message, $cat = null, $args = array())
   {
-    if ($this->severity() >= $severity) {
-      if (is_array($cat)) {
+    if ($this->severity() >= $severity)
+    {
+      if (is_array($cat))
+      {
         $args = $cat;
         $cat = null;
       }
@@ -297,8 +318,11 @@ class Logger
    */
   public function write($line)
   {
-    if ($this->_logStatus == self::STATUS_LOG_OPEN) {
-      if (fwrite($this->_fileHandle, $line) === false) {
+    $this->open();
+    if ($this->status() == self::STATUS_LOG_OPEN)
+    {
+      if (fwrite($this->_fileHandle, $line) === false)
+      {
         throw new RuntimeException(self::$_messages['writefail']);
       }
     }
@@ -307,12 +331,15 @@ class Logger
   /**
    * Purges files matching 'globPattern' older than 'archiveDays'.
    */
-  public function purge() {
+  public function purge()
+  {
     $files = glob($this->options['directory'] . $this->options['globPattern']);
     $limit = time() - $this->options['archiveDays'] * 86400;
 
-    foreach ($files as $file) {
-      if (@filemtime($file) < $limit) {
+    foreach ($files as $file)
+    {
+      if (@filemtime($file) < $limit)
+      {
         @unlink($file);
       }
     }
@@ -328,12 +355,14 @@ class Logger
    */
   private function formatMessage($level, $message, $cat, $context)
   {
-    if (!empty($context)) {
-      $message .= "\n" . $this->indent($this->contextToString($context));
+    if (!empty($context))
+    {
+      $message.= "\n" . $this->indent($this->contextToString($context));
     }
     $line = "[" . $this->getTimestamp() . "]\t[" . self::levelToCode($level) . "]\t";
-    if ($cat != null) {
-      $line .= "[" . $cat . "]\t";
+    if ($cat != null)
+    {
+      $line.= "[" . $cat . "]\t";
     }
     return $line . $message . "\n";
   }
@@ -349,7 +378,7 @@ class Logger
   private function getTimestamp()
   {
     $originalTime = microtime(true);
-    $micro = sprintf("%06d", ($originalTime - floor($originalTime)) * 1000000);
+    $micro = sprintf('%06d', ($originalTime - floor($originalTime)) * 1000000);
     $date = new DateTime(date('Y-m-d H:i:s.'.$micro, $originalTime));
     return $date->format($this->options['dateFormat']);
   }
@@ -363,18 +392,22 @@ class Logger
   private function contextToString($context)
   {
     $export = '';
-    foreach ($context as $key => $value) {
-      $export .= "{$key}: ";
-      $export .= preg_replace(array(
+    foreach ($context as $key => $value)
+    {
+      $export.= $key . ': ';
+      $export.= preg_replace(array(
         '/=>\s+([a-zA-Z])/im',
         '/array\(\s+\)/im',
         '/^  |\G  /m'
-      ), array(
+        ),
+        array(
         '=> $1',
         'array()',
         '  '
-      ), str_replace('array (', 'array(', var_export($value, true)));
-      $export .= PHP_EOL;
+        ),
+        str_replace('array (', 'array(', var_export($value, true))
+        );
+      $export.= PHP_EOL;
     }
     return str_replace(array('\\\\', '\\\''), array('\\', '\''), rtrim($export));
   }
@@ -388,7 +421,7 @@ class Logger
    */
   private function indent($string, $indent = '  ')
   {
-    return $indent.str_replace("\n", "\n".$indent, $string);
+    return $indent . str_replace("\n", "\n" . $indent, $string);
   }
 
   /**
@@ -399,7 +432,8 @@ class Logger
    */
   static function levelToCode($level)
   {
-    switch ($level) {
+    switch ($level)
+    {
       case self::EMERGENCY:
         return 'EMERGENCY';
       case self::ALERT:
@@ -429,7 +463,8 @@ class Logger
    */
   static function codeToLevel($code)
   {
-    switch (strtoupper($code)) {
+    switch (strtoupper($code))
+    {
       case 'EMERGENCY':
         return self::EMERGENCY;
       case 'ALERT':
