@@ -30,6 +30,17 @@ defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_locati
 
 @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
 
+include(PHPWG_ROOT_PATH . 'include/Logger.class.php');
+
+$logger = new Logger(array(
+  'directory' => PHPWG_ROOT_PATH . $conf['data_location'] . $conf['log_dir'],
+  'severity' => $conf['log_level'],
+  // we use an hashed filename to prevent direct file access, and we salt with
+  // the db_password instead of secret_key because the log must be usable in i.php
+  // (secret_key is in the database)
+  'filename' => 'log_' . date('Y-m-d') . '_' . sha1(date('Y-m-d') . $conf['db_password']) . '.txt',
+  ));
+
 
 function trigger_notify() {}
 function get_extension( $filename )
@@ -66,33 +77,9 @@ function mkgetdir($dir)
 
 // end fast bootstrap
 
-function ilog()
-{
-  global $conf;
-  if (!$conf['enable_i_log']) return;
-
-  $line = date("c");
-  foreach( func_get_args() as $arg)
-  {
-    $line .= ' ';
-    if (is_array($arg))
-    {
-      $line .= implode(' ', $arg);
-    }
-    else
-    {
-      $line .= $arg;
-    }
-  }
-	$file=PHPWG_ROOT_PATH.$conf['data_location'].'tmp/i.log';
-  if (false == file_put_contents($file, $line."\n", FILE_APPEND))
-	{
-		mkgetdir(dirname($file));
-	}
-}
-
 function ierror($msg, $code)
 {
+  global $logger;
   if ($code==301 || $code==302)
   {
     if (ob_get_length () !== FALSE)
@@ -101,10 +88,12 @@ function ierror($msg, $code)
     }
     // default url is on html format
     $url = html_entity_decode($msg);
+    $logger->warning($code . ' ' . $url, 'i.php', array(
+      'url' => $_SERVER['REQUEST_URI'],
+      ));
     header('Request-URI: '.$url);
     header('Content-Location: '.$url);
     header('Location: '.$url);
-    ilog('WARN', $code, $url, $_SERVER['REQUEST_URI']);
     exit;
   }
   if ($code>=400)
@@ -117,7 +106,9 @@ function ierror($msg, $code)
   }
   //todo improve
   echo $msg;
-  ilog('ERROR', $code, $msg, $_SERVER['REQUEST_URI']);
+  $logger->error($code . ' ' . $msg, 'i.php', array(
+      'url' => $_SERVER['REQUEST_URI'],
+      ));
   exit;
 }
 
@@ -404,7 +395,7 @@ try
 }
 catch (Exception $e)
 {
-  ilog("db error", $e->getMessage());
+  $logger->error($e->getMessage(), 'i.php');
 }
 pwg_db_check_charset();
 
@@ -501,7 +492,7 @@ SELECT *
   }
   catch (Exception $e)
   {
-    ilog("db error", $e->getMessage());
+    $logger->error($e->getMessage(), 'i.php');
   }
 }
 else
@@ -621,10 +612,16 @@ $timing['save'] = time_step($step);
 send_derivative($expires);
 $timing['send'] = time_step($step);
 
-ilog('perf',
-  basename($page['src_path']), $o_size, $o_size[0]*$o_size[1],
-  basename($page['derivative_path']), $d_size, $d_size[0]*$d_size[1],
-  function_exists('memory_get_peak_usage') ? round( memory_get_peak_usage()/(1024*1024), 1) : '',
-  time_step($begin),
-  '|', $timing);
-?>
+$timing['total'] = time_step($begin);
+
+if ($logger->severity() >= Logger::INFO)
+{
+  $logger->info('perf', 'i.php', array(
+    'src_path' => basename($page['src_path']),
+    'derivative_path' => basename($page['derivative_path']),
+    'o_size' => $o_size[0] . ' ' . $o_size[1] . ' ' . ($o_size[0]*$o_size[1]),
+    'd_size' => $d_size[0] . ' ' . $d_size[1] . ' ' . ($d_size[0]*$d_size[1]),
+    'mem_usage' => function_exists('memory_get_peak_usage') ? round( memory_get_peak_usage()/(1024*1024), 1) : '',
+    'timing' => $timing,
+    ));
+}

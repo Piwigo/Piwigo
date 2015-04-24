@@ -182,9 +182,9 @@ SELECT category_id, MAX(rank) AS max_rank
  */
 function merge_chunks($output_filepath, $original_sum, $type)
 {
-  global $conf;
+  global $conf, $logger;
 
-  ws_logfile('[merge_chunks] input parameter $output_filepath : '.$output_filepath);
+  $logger->debug('[merge_chunks] input parameter $output_filepath : '.$output_filepath, 'WS');
 
   if (is_file($output_filepath))
   {
@@ -206,7 +206,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
     {
       if (preg_match($pattern, $file))
       {
-        ws_logfile($file);
+        $logger->debug($file, 'WS');
         $chunks[] = $upload_dir.'/'.$file;
       }
     }
@@ -216,7 +216,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
   sort($chunks);
 
   if (function_exists('memory_get_usage')) {
-    ws_logfile('[merge_chunks] memory_get_usage before loading chunks: '.memory_get_usage());
+    $logger->debug('[merge_chunks] memory_get_usage before loading chunks: '.memory_get_usage(), 'WS');
   }
 
   $i = 0;
@@ -226,7 +226,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
     $string = file_get_contents($chunk);
 
     if (function_exists('memory_get_usage')) {
-      ws_logfile('[merge_chunks] memory_get_usage on chunk '.++$i.': '.memory_get_usage());
+      $logger->debug('[merge_chunks] memory_get_usage on chunk '.++$i.': '.memory_get_usage(), 'WS');
     }
 
     if (!file_put_contents($output_filepath, $string, FILE_APPEND))
@@ -238,7 +238,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
   }
 
   if (function_exists('memory_get_usage')) {
-    ws_logfile('[merge_chunks] memory_get_usage after loading chunks: '.memory_get_usage());
+    $logger->debug('[merge_chunks] memory_get_usage after loading chunks: '.memory_get_usage(), 'WS');
   }
 }
 
@@ -824,7 +824,7 @@ UPDATE '. IMAGE_CATEGORY_TABLE .'
  */
 function ws_images_add_chunk($params, $service)
 {
-  global $conf;
+  global $conf, $logger;
 
   foreach ($params as $param_key => $param_value)
   {
@@ -832,13 +832,12 @@ function ws_images_add_chunk($params, $service)
     {
       continue;
     }
-    ws_logfile(
-      sprintf(
-        '[ws_images_add_chunk] input param "%s" : "%s"',
-        $param_key,
-        is_null($param_value) ? 'NULL' : $param_value
-        )
-      );
+
+    $logger->debug(sprintf(
+      '[ws_images_add_chunk] input param "%s" : "%s"',
+      $param_key,
+      is_null($param_value) ? 'NULL' : $param_value
+      ), 'WS');
   }
 
   $upload_dir = $conf['upload_dir'].'/buffer';
@@ -856,7 +855,7 @@ function ws_images_add_chunk($params, $service)
     $params['position']
     );
 
-  ws_logfile('[ws_images_add_chunk] data length : '.strlen($params['data']));
+  $logger->debug('[ws_images_add_chunk] data length : '.strlen($params['data']), 'WS');
 
   $bytes_written = file_put_contents(
     $upload_dir.'/'.$filename,
@@ -881,9 +880,9 @@ function ws_images_add_chunk($params, $service)
  */
 function ws_images_addFile($params, $service)
 {
-  ws_logfile(__FUNCTION__.', input :  '.var_export($params, true));
+  global $conf, $logger;
 
-  global $conf;
+  $logger->debug(__FUNCTION__, 'WS', $params);
 
   // what is the path and other infos about the photo?
   $query = '
@@ -974,17 +973,15 @@ SELECT
  */
 function ws_images_add($params, $service)
 {
-  global $conf, $user;
+  global $conf, $user, $logger;
 
   foreach ($params as $param_key => $param_value)
   {
-    ws_logfile(
-      sprintf(
-        '[pwg.images.add] input param "%s" : "%s"',
-        $param_key,
-        is_null($param_value) ? 'NULL' : $param_value
-        )
-      );
+    $logger->debug(sprintf(
+      '[pwg.images.add] input param "%s" : "%s"',
+      $param_key,
+      is_null($param_value) ? 'NULL' : $param_value
+      ), 'WS');
   }
 
   if ($params['image_id'] > 0)
@@ -1398,9 +1395,9 @@ SELECT
  */
 function ws_images_exist($params, $service)
 {
-  ws_logfile(__FUNCTION__.' '.var_export($params, true));
+  global $conf, $logger;
 
-  global $conf;
+  $logger->debug(__FUNCTION__, 'WS', $params);
 
   $split_pattern = '/[\s,;\|]/';
   $result = array();
@@ -1471,7 +1468,9 @@ SELECT id, file
  */
 function ws_images_checkFiles($params, $service)
 {
-  ws_logfile(__FUNCTION__.', input :  '.var_export($params, true));
+  global $logger;
+
+  $logger->debug(__FUNCTION__, 'WS', $params);
 
   $query = '
 SELECT path
@@ -1509,7 +1508,7 @@ SELECT path
 
   if (isset($compare_type))
   {
-    ws_logfile(__FUNCTION__.', md5_file($path) = '.md5_file($path));
+    $logger->debug(__FUNCTION__.', md5_file($path) = '.md5_file($path), 'WS');
     if (md5_file($path) != $params[$compare_type.'_sum'])
     {
       $ret[$compare_type] = 'differs';
@@ -1520,7 +1519,7 @@ SELECT path
     }
   }
 
-  ws_logfile(__FUNCTION__.', output :  '.var_export($ret, true));
+  $logger->debug(__FUNCTION__, 'WS', $ret);
 
   return $ret;
 }

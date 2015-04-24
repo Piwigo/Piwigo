@@ -205,25 +205,6 @@ function ws_std_get_tag_xml_attributes()
 }
 
 /**
- * Writes info to the log file
- */
-function ws_logfile($string)
-{
-  global $conf;
-
-  if (!$conf['ws_enable_log'])
-  {
-    return true;
-  }
-
-  file_put_contents(
-    $conf['ws_log_filepath'],
-    '['.date('c').'] '.$string."\n",
-    FILE_APPEND
-    );
-}
-
-/**
  * create a tree from a flat list of categories, no recursivity for high speed
  */
 function categories_flatlist_to_tree($categories)

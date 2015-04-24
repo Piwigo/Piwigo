@@ -462,8 +462,6 @@ $conf['template_combine_files'] = true;
 // gives an empty value '' to deactivate
 $conf['show_php_errors'] = E_ALL;
 
-// enable log for i derivative script
-$conf['enable_i_log'] = false;
 
 // +-----------------------------------------------------------------------+
 // |                            authentication                             |
@@ -653,12 +651,6 @@ $conf['enable_plugins']=true;
 // Web services are allowed (true) or completely forbidden (false)
 $conf['allow_web_services'] = true;
 
-// enable log for web services
-$conf['ws_enable_log'] = false;
-
-// web services log file path
-$conf['ws_log_filepath'] = '/tmp/piwigo_ws.log';
-
 // Maximum number of images to be returned foreach call to the web service
 $conf['ws_max_images_per_page'] = 500;
 
@@ -812,4 +804,16 @@ $conf['upload_form_all_types'] = false;
 // "ffmpeg" is not visible by the web user, you can define the full path of
 // the directory where "ffmpeg" executable is.
 $conf['ffmpeg_dir'] = '';
-?>
+
+// +-----------------------------------------------------------------------+
+// |                                 log                                   |
+// +-----------------------------------------------------------------------+
+// Logs directory, relative to $conf['data_location']
+$conf['log_dir'] = '/logs';
+
+// Log level (OFF, CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG)
+// development = DEBUG, production = ERROR
+$conf['log_level'] = 'DEBUG';
+
+// Keep logs file during X days
+$conf['log_archive_days'] = 30;
