@@ -817,3 +817,4 @@ $conf['log_level'] = 'DEBUG';
 
 // Keep logs file during X days
 $conf['log_archive_days'] = 30;
+?>

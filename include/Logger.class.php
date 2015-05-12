@@ -486,3 +486,4 @@ class Logger
     }
   }
 }
+?>
