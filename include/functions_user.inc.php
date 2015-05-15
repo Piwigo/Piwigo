@@ -1120,7 +1120,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
 ;';
   $row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($conf['password_verify']($password, $row['password'], $row['id']))
+  if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
   {
     log_user($row['id'], $remember_me);
     trigger_notify('login_success', stripslashes($username));
