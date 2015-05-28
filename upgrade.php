@@ -486,9 +486,6 @@ REPLACE INTO '.PLUGINS_TABLE.'
     invalidate_user_cache(true);
     $template->delete_compiled_templates();
 
-    // Tables Maintenance
-    do_maintenance_all_tables();
-
     // Restore $page['infos'] in order to hide informations messages from functions calles
     // errors messages are not hide
     $page['infos'] = $page['infos_sav'];
