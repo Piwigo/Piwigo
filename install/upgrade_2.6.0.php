@@ -105,6 +105,7 @@ for ($upgrade_id = 140; $upgrade_id <= 144; $upgrade_id++) // TODO change on eac
   // include & execute upgrade script. Each upgrade script must contain
   // $upgrade_description variable which describe briefly what the upgrade
   // script does.
+  $up_start = get_moment();
   include(UPGRADES_PATH.'/'.$upgrade_id.'-database.php');
 
   // notify upgrade (TODO change on each release)
@@ -112,7 +113,7 @@ for ($upgrade_id = 140; $upgrade_id <= 144; $upgrade_id++) // TODO change on eac
 INSERT INTO `'.PREFIX_TABLE.'upgrade`
   (id, applied, description)
   VALUES
-  (\''.$upgrade_id.'\', NOW(), \'[migration from 2.6.0 to '.PHPWG_VERSION.'] '.$upgrade_description.'\')
+  (\''.$upgrade_id.'\', NOW(), \'[migration from 2.6.0 to '.PHPWG_VERSION.', '.get_elapsed_time($up_start, get_moment()).'] '.$upgrade_description.'\')
 ;';
   pwg_query($query);
 }
