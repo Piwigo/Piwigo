@@ -874,7 +874,6 @@ $lang['digiKam is designed for photographers who want to view, manage, edit, enh
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto הוא מנהל התמונת הברירת המחדל בMacOSX.תוסף יצוא Piwigo מאפשר לך ליצור אלבומים חדשים ולייצא את תמונות ישירות מ-iPhoto לגלריית תמונות Piwigo.';
 $lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam היא תוכנה מתקדמת לניהול תמונות דיגיטלית חופשיה עבור לינוקס, Windows ו MacOSX.';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'כדי לייצא את התמונות שלך מ-digiKam ל-Piwigo, פשוט התקן digiKam ו-kipi-plugins';
-כדי לייצא את התמונות שלך מ-digiKam ל-Piwigo, פשוט התקן digiKam ו-kipi-plugins';
 $lang['Web Form'] = 'טופס רשת';
 $lang['Piwigo Publish plugin for Lightroom'] = 'תוסף פירסום Piwigo עבור Lightroom';
 $lang['Piwigo export plugin for Aperture'] = 'תוסף יצוא Piwigo עבור Aperture';
