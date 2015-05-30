@@ -38,3 +38,4 @@ $lang['privacy_title15'] = 'İpucu';
 $lang['privacy_title17'] = 'Gruplar';
 $lang['privacy_title18'] = 'Gruplar';
 $lang['privacy_title19'] = 'Kullanıcılar';
+$lang['privacy_stp8'] = 'Bir veya daha fazla fotoğraf seç...';
