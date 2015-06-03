@@ -960,3 +960,6 @@ $lang['Update user'] = 'อัพเดตผู้ใช้';
 $lang['Upload in progress'] = 'การอัปโหลดอยู่ในระหว่างดำเนินการ';
 $lang['Activate it now'] = 'เปิดใช้งานตอนนี้';
 $lang['Mail theme'] = 'รูปแบบธีมอีเมล';
+$lang['file name'] = 'ชื่อไฟล์';
+$lang['date & time'] = 'วันที่ และ เวลา';
+$lang['based on'] = 'พื้นฐานระบบรันบน';
