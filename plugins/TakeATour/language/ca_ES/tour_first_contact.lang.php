@@ -52,3 +52,6 @@ $lang['first_contact_stp43'] = 'Aquesta exploració ha estat una mica llarga, pe
 $lang['first_contact_stp20'] = 'Quan el ratolí passa per sobre d\'un àlbum apareix la informació i els enllaços. Quan cliqueu i arrastreu un àlbum -un bloc arrodonit- podeu canviar la posició i més tard guardar o cancel·lar l\'ordre manual.';
 $lang['first_contact_stp19_b'] = 'Aquí hi ha un llistat dels àlbums \'arrel\'';
 $lang['first_contact_stp12'] = 'després podeu editar-les emprant una acció';
+$lang['first_contact_title15'] = 'La pàgina d\'edició d\'una foto';
+$lang['first_contact_title33'] = 'Configuració de l\'usuari visitant';
+$lang['first_contact_stp35'] = 'Indiqueu el tema que més us agradi com a tema predeterminat';
