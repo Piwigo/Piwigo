@@ -1,1 +1,0 @@
-Helyi fájlok szerkesztése az adminisztrációs felületen.
