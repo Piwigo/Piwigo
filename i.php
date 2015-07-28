@@ -313,6 +313,8 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
     }
     else
     {
+      if ($use_watermark && $candidate->use_watermark)
+        continue; //a square that requires watermark should not be generated from a larger derivative with watermark, because if the watermark is not centered on the large image, it will be cropped.
       if ($candidate->sizing->max_crop!=0)
         continue; // this could be optimized
       if ($candidate_size[0] < $params->sizing->min_size[0] || $candidate_size[1] < $params->sizing->min_size[1] )
