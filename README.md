@@ -5,15 +5,13 @@ Piwigo is photo gallery software for the web, built by an active community of us
 
 Extensions make Piwigo easily customizable. Icing on the cake, Piwigo is free and opensource.
 
-[Browse the demo](http://piwigo.org/demo) to discover Piwigo features on gallery side and change graphical theme on the fly.
-
 ![screenshot](http://piwigo.org/screenshots/github-screenshot.jpg)
 
  * [piwigo.org](http://piwigo.org)
  * [Demo](http://piwigo.org/demo)
- * [Latest release](http://piwigo.org/basics/downloads)
+ * [Downloads](http://piwigo.org/basics/downloads)
  * [User guide](http://piwigo.org/doc)
- * [Plugins](http://piwigo.org/ext)
+ * [Plugins and themes](http://piwigo.org/ext)
  * [Forum](http://piwigo.org/forum)
  * [News](http://piwigo.org/news)
  
