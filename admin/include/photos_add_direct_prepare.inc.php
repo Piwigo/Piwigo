@@ -44,6 +44,7 @@ $template->assign(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
       'upload_max_filesize' => $upload_max_filesize,
       'upload_max_filesize_shorthand' => $upload_max_filesize_shorthand,
+      'chunk_size' => $conf['upload_form_chunk_size'],
     )
   );
 

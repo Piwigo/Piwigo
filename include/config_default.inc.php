@@ -800,6 +800,10 @@ $conf['tiff_representative_ext'] = 'png';
 // (TIFF, videos, PDF)
 $conf['upload_form_all_types'] = false;
 
+// Size of chunks, in kilobytes. Fast connections will have better
+// performances with high values, such as 5000.
+$conf['upload_form_chunk_size'] = 500;
+
 // If we try to generate a pwg_representative for a video we use ffmpeg. If
 // "ffmpeg" is not visible by the web user, you can define the full path of
 // the directory where "ffmpeg" executable is.
