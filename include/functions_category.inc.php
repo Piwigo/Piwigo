@@ -491,6 +491,7 @@ SELECT image_id
 function get_computed_categories(&$userdata, $filter_days=null)
 {
   $query = 'SELECT c.id AS cat_id, id_uppercat';
+  $query.= ', global_rank';
   // Count by date_available to avoid count null
   $query .= ',
   MAX(date_available) AS date_last, COUNT(date_available) AS nb_images
@@ -532,6 +533,11 @@ FROM '.CATEGORIES_TABLE.' as c
 
     $cats[$row['cat_id']] = $row;
   }
+
+  // it is important to logically sort the albums because some operations
+  // (like removal) rely on this logical order. Child album doesn't always
+  // have a bigger id than its parent (if it was moved afterwards).
+  uasort($cats, 'global_rank_compare');
 
   foreach ($cats as $cat)
   {
