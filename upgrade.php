@@ -50,6 +50,7 @@ define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH . 'include/template.class.php');
 
 // +-----------------------------------------------------------------------+
 // |                              functions                                |
