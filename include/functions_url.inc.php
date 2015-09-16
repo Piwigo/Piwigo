@@ -62,7 +62,14 @@ function get_absolute_root_url($with_scheme=true)
     {
       $url .= 'http://';
     }
-    $url .= $_SERVER['HTTP_HOST'];
+    if (isset($_SERVER['HTTP_X_FORWARDED_HOST']))
+    {
+      $url .= $_SERVER['HTTP_X_FORWARDED_HOST'];
+    }
+    else
+    {
+      $url .= $_SERVER['HTTP_HOST'];
+    }
     if ( (!$is_https && $_SERVER['SERVER_PORT'] != 80)
           ||($is_https && $_SERVER['SERVER_PORT'] != 443))
     {
