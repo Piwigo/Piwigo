@@ -69,14 +69,14 @@ function get_absolute_root_url($with_scheme=true)
     else
     {
       $url .= $_SERVER['HTTP_HOST'];
-    }
-    if ( (!$is_https && $_SERVER['SERVER_PORT'] != 80)
-          ||($is_https && $_SERVER['SERVER_PORT'] != 443))
-    {
-      $url_port = ':'.$_SERVER['SERVER_PORT'];
-      if (strrchr($url, ':') != $url_port)
+      if ( (!$is_https && $_SERVER['SERVER_PORT'] != 80)
+            ||($is_https && $_SERVER['SERVER_PORT'] != 443))
       {
-        $url .= $url_port;
+        $url_port = ':'.$_SERVER['SERVER_PORT'];
+        if (strrchr($url, ':') != $url_port)
+        {
+          $url .= $url_port;
+        }
       }
     }
   }
