@@ -981,3 +981,5 @@ $lang['file name'] = 'file name';
 $lang['date & time'] = 'date & time';
 $lang['width & height'] = 'width & height';
 $lang['Upload in progress'] = 'Upload in progress';
+$lang['Orphans'] = 'Orphans';
+$lang['Delete %d orphan photos'] = 'Delete %d orphan photos';

@@ -430,7 +430,7 @@ $prefilters = array(
   array('ID' => 'caddie', 'NAME' => l10n('Caddie')),
   array('ID' => 'favorites', 'NAME' => l10n('Your favorites')),
   array('ID' => 'last_import', 'NAME' => l10n('Last import')),
-  array('ID' => 'no_album', 'NAME' => l10n('With no album')),
+  array('ID' => 'no_album', 'NAME' => l10n('With no album').' ('.l10n('Orphans').')'),
   array('ID' => 'no_tag', 'NAME' => l10n('With no tag')),
   array('ID' => 'duplicates', 'NAME' => l10n('Duplicates')),
   array('ID' => 'all_photos', 'NAME' => l10n('All'))
