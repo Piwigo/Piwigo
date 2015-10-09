@@ -42,6 +42,9 @@ $('#menubar').lightAccordion({
 {if $NB_PHOTOS_IN_CADDIE > 0}
 				<li><a href="{$U_CADDIE}"><i class="icon-flag"></i>{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
 {/if}
+{if $NB_ORPHANS > 0}
+				<li><a href="{$U_ORPHANS}"><i class="icon-heart-broken"></i>{'Orphans'|@translate}<span class="adminMenubarCounter">{$NB_ORPHANS}</span></a></li>
+{/if}
 			</ul>
 		</dd>
   </dl>

@@ -2776,3 +2776,21 @@ SELECT CONCAT(
 
   return $keys;
 }
+
+/**
+ * Return the list of image ids associated to no album
+ *
+ * @return int[] $image_ids
+ */
+function get_orphans()
+{
+  $query = '
+SELECT
+    id
+  FROM '.IMAGES_TABLE.'
+    LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+  WHERE category_id is null
+;';
+  
+  return query2array($query, null, 'id');
+}

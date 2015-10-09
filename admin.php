@@ -240,6 +240,19 @@ if ($nb_photos_in_caddie > 0)
     );
 }
 
+// any orphan photo?
+$nb_orphans = count(get_orphans());
+
+if ($nb_orphans > 0)
+{
+  $template->assign(
+    array(
+      'NB_ORPHANS' => $nb_orphans,
+      'U_ORPHANS' => $link_start.'batch_manager&amp;filter=prefilter-no_album',
+      )
+    );
+}
+
 // +-----------------------------------------------------------------------+
 // | Plugin menu                                                           |
 // +-----------------------------------------------------------------------+
