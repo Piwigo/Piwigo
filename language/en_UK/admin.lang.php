@@ -931,6 +931,7 @@ $lang['wrong filename'] = "wrong filename";
 $lang['X Position'] = 'X Position';
 $lang['X Repeat'] = 'X Repeat';
 $lang['Y Position'] = 'Y Position';
+$lang['Y Repeat'] = 'Y Repeat';
 $lang['Year'] = "Year";
 $lang['You are running on development sources, no check possible.'] = "You are running on development sources, no check possible.";
 $lang['You are running the latest version of Piwigo.'] = "You are running Piwigo latest version.";

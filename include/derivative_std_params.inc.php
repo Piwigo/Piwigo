@@ -52,6 +52,8 @@ final class WatermarkParams
   /** @var int */
   public $xrepeat = 0;
   /** @var int */
+  public $yrepeat = 0;
+  /** @var int */
   public $opacity = 100;
 }
 

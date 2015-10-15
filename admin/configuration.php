@@ -578,7 +578,7 @@ switch ($page['section'])
         $position = 'bottomright';
       }
 
-      if ($wm->xrepeat != 0)
+      if ($wm->xrepeat != 0 || $wm->yrepeat != 0)
       {
         $position = 'custom';
       }
@@ -592,6 +592,7 @@ switch ($page['section'])
           'xpos' => $wm->xpos,
           'ypos' => $wm->ypos,
           'xrepeat' => $wm->xrepeat,
+          'yrepeat' => $wm->yrepeat,
           'opacity' => $wm->opacity,
           'position' => $position,
           )

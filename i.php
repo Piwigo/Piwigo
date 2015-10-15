@@ -575,17 +575,23 @@ if ($params->will_watermark($d_size))
   if ($image->compose($wm_image, $x, $y, $wm->opacity))
   {
     $changes++;
-    if ($wm->xrepeat)
+    if ($wm->xrepeat || $wm->yrepeat)
     {
-      // todo
-      $pad = $wm_size[0] + max(30, round($wm_size[0]/4));
+      $xpad = $wm_size[0] + max(30, round($wm_size[0]/4));
+      $ypad = $wm_size[1] + max(30, round($wm_size[1]/4));
+
       for($i=-$wm->xrepeat; $i<=$wm->xrepeat; $i++)
       {
-        if (!$i) continue;
-        $x2 = $x + $i * $pad;
-        if ($x2>=0 && $x2+$wm_size[0]<$d_size[0])
-          if (!$image->compose($wm_image, $x2, $y, $wm->opacity))
-            break;
+        for($j=-$wm->yrepeat; $j<=$wm->yrepeat; $j++)
+        {
+          if (!$i && !$j) continue;
+          $x2 = $x + $i * $xpad;
+          $y2 = $y + $j * $ypad;
+          if ($x2>=0 && $x2+$wm_size[0]<$d_size[0] &&
+              $y2>=0 && $y2+$wm_size[1]<$d_size[1] )
+            if (!$image->compose($wm_image, $x2, $y2, $wm->opacity))
+              break;
+        }
       }
     }
   }

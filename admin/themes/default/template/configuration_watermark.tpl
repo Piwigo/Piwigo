@@ -111,6 +111,13 @@
             <input size="3" maxlength="3" type="text" name="w[xrepeat]" value="{$watermark.xrepeat}"{if isset($ferrors.watermark.xrepeat)} class="dError"{/if}>
             {if isset($ferrors.watermark.xrepeat)}<span class="dErrorDesc" title="{$ferrors.watermark.xrepeat}">!</span>{/if}
           </label>
+
+					<br>
+					<label>{'Y Repeat'|translate}
+						<input size="3" maxlength="3" type="text" name="w[yrepeat]" value="{$watermark.yrepeat}"{if isset($ferrors.watermark.yrepeat)} class="dError"{/if}>
+						{if isset($ferrors.watermark.yrepeat)}<span class="dErrorDesc" title="{$ferrors.watermark.yrepeat}">!</span>{/if}
+					</label>
+
         </div>
       </li>
 
