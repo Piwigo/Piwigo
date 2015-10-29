@@ -1631,7 +1631,7 @@ function convert_charset($str, $source_charset, $dest_charset)
   }
   if (function_exists('iconv'))
   {
-    return iconv($source_charset, $dest_charset, $str);
+    return iconv($source_charset, $dest_charset.'//TRANSLIT', $str);
   }
   if (function_exists('mb_convert_encoding'))
   {
