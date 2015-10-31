@@ -520,6 +520,11 @@ function parse_section_url( $tokens, &$next_token)
       {
         $requested_tag_ids[] = $matches[1];
       }
+      elseif ( $conf['tag_url_style'] == 'tag' and preg_match('/^(\d+)-(\d+)$/', $tokens[$i], $matches) )
+      {
+        // Workaround "id-tag" generated for numeric tags.
+        $requested_tag_url_names[] = $matches[2];
+      }
       else
       {
         $requested_tag_url_names[] = $tokens[$i];
