@@ -379,7 +379,7 @@ function make_section_in_url($params)
             $section_string.= '/'.$tag['id'];
             break;
           case 'tag':
-            if (isset($tag['url_name']) and !is_numeric($tag['url_name']) )
+            if (isset($tag['url_name']))
             {
               $section_string.= '/'.$tag['url_name'];
               break;
