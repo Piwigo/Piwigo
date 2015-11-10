@@ -71,7 +71,7 @@ function generate_key($size)
       str_replace(
         array('+', '/'),
         '',
-        base64_encode(openssl_random_pseudo_bytes($size))
+        base64_encode(openssl_random_pseudo_bytes($size+10))
         ),
       0,
       $size
