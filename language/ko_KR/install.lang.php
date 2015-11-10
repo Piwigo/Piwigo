@@ -64,3 +64,4 @@ $lang['Keep it confidential, it enables you to access administration panel'] = '
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo는 .htaccess 파일을 생성하거나 수정하여 PHP 5.2 구성으로 전환하려고 시도 할 수 있습니다.';
 $lang['Welcome to your new installation of Piwigo!'] = '새로 설치된 Piwigo에 오신 것을 환영합니다.';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = '호스팅 제공 업체의 지원 내용을 참고하여 직접 PHP 5.2로 전환하는 방법을 찾아야 합니다.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = '참고 : 직접 구성을 변경한 다음 Piwigo를 다시 시작할 수 있습니다.';
