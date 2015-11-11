@@ -36,3 +36,4 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = '예방을 위해서 다음의 플러그인들이 비활성화되었습니다. 플러그인들을 재활성화하기 전에 업그레이드할 수 있는지 확인해야 합니다:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '예방을 위해서 다음의 테마들이 비활성화되었습니다. 테마들을 재활성화하기 전에 업그레이드할 수 있는지 확인해야 합니다:';
 $lang['All sub-albums of private albums become private'] = '비공개 앨범의 모든 하위 앨범들은 비공개가 됩니다';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i>에서 <b>?></b>전에 입력:';
