@@ -649,7 +649,18 @@ class image_ext_imagick implements imageInterface
     }
 
     $dest = pathinfo($destination_filepath);
-    $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
+    $postscript_extension = array (
+            'eps',
+            'EPS'
+    );
+    if (in_array($dest['extension'], $postscript_extension))
+    {
+        $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['filename'].'.'.$conf['postscript_representative_ext'].'" 2>&1';
+    }
+    else
+    {
+        $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
+    }
     $logger->debug($exec, 'i.php');
     @exec($exec, $returnarray);
 
