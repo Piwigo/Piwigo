@@ -676,12 +676,12 @@ function ws_categories_deleteRepresentative($params, &$service)
   
   // does the category really exist?
   $query = '
-SELECT COUNT(*)
+SELECT id
   FROM '. CATEGORIES_TABLE .'
   WHERE id = '. $params['category_id'] .'
 ;';
-  list($count) = pwg_db_fetch_row(pwg_query($query));
-  if ($count == 0)
+  $result = pwg_query($query);
+  if (pwg_db_num_rows($result) == 0)
   {
     return new PwgError(404, 'category_id not found');
   }
@@ -713,12 +713,12 @@ function ws_categories_refreshRepresentative($params, &$service)
   
   // does the category really exist?
   $query = '
-SELECT COUNT(*)
+SELECT id
   FROM '. CATEGORIES_TABLE .'
   WHERE id = '. $params['category_id'] .'
 ;';
-  list($count) = pwg_db_fetch_row(pwg_query($query));
-  if ($count == 0)
+  $result = pwg_query($query);
+  if (pwg_db_num_rows($result) == 0)
   {
     return new PwgError(404, 'category_id not found');
   }
