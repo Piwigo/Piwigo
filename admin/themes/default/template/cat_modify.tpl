@@ -43,9 +43,11 @@ jQuery(document).ready(function() {
       success:function(data) {
         var data = jQuery.parseJSON(data);
         if (data.stat == 'ok') {
-          jQuery(".albumThumbnailImage").attr('href', data.result.url);
-          jQuery(".albumThumbnailImage img").attr('src', data.result.src);
-          jQuery(".albumThumbnailImage").show();
+          jQuery(".albumThumbnailImage")
+            .attr('href', data.result.url)
+            .find("img").attr('src', data.result.src)
+            .end().show();
+
           jQuery(".albumThumbnailRandom").hide();
         }
         else {
