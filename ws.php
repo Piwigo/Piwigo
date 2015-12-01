@@ -570,6 +570,28 @@ function ws_addDefaultMethods( $arr )
       $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+  
+  $service->addMethod(
+      'pwg.categories.deleteRepresentative',
+      'ws_categories_deleteRepresentative',
+      array(
+        'category_id' =>  array('type'=>WS_TYPE_ID),
+        ),
+      'Deletes the album thumbnail. Only possible if $conf[\'allow_random_representative\']',
+      $ws_functions_root . 'pwg.categories.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.categories.refreshRepresentative',
+      'ws_categories_refreshRepresentative',
+      array(
+        'category_id' =>  array('type'=>WS_TYPE_ID),
+        ),
+      'Find a new album thumbnail.',
+      $ws_functions_root . 'pwg.categories.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
 
   $service->addMethod(
       'pwg.tags.getAdminList',
