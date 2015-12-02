@@ -424,3 +424,4 @@ $lang['Album name, Z &rarr; A'] = '앨범 이름, Z &rarr; A';
 $lang['Link: %s'] = '링크: %s';
 $lang['Photo description'] = '사진 설명';
 $lang['Photo title'] = '사진 제목';
+$lang['No results for'] = '다음의 검색 결과가 없음';
