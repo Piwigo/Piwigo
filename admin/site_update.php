@@ -457,6 +457,7 @@ if (isset($_POST['submit']) and $_POST['sync'] == 'files'
   $start= $start_files;
 
   $fs = $site_reader->get_elements($basedir);
+
   $template->append('footer_elements', '<!-- get_elements: '
     . get_elapsed_time($start, get_moment())
     . ' -->' );
@@ -486,6 +487,7 @@ SELECT id, path
 
   $inserts = array();
   $insert_links = array();
+  $insert_formats = array();
 
   foreach (array_diff(array_keys($fs), $db_elements) as $path)
   {
@@ -535,6 +537,22 @@ SELECT id, path
       'info' => l10n('added')
       );
 
+    foreach ($fs[$path]['formats'] as $format)
+    {
+      list($ext, $filesize) = explode('/', $format);
+
+      $insert_formats[] = array(
+        'image_id' => $insert['id'],
+        'ext' => $ext,
+        'filesize' => $filesize,
+        );
+
+      $infos[] = array(
+        'path' => $insert['path'],
+        'info' => l10n('format %s added', $ext)
+        );
+    }
+
     $caddiables[] = $insert['id'];
   }
 
@@ -555,6 +573,16 @@ SELECT id, path
         array_keys($insert_links[0]),
         $insert_links
         );
+      
+      // inserts all formats
+      if (count($insert_formats) > 0)
+      {
+        mass_inserts(
+          IMAGE_FORMAT_TABLE,
+          array_keys($insert_formats[0]),
+          $insert_formats
+          );
+      }
 
       // add new photos to caddie
       if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)

@@ -163,6 +163,18 @@ CREATE TABLE `piwigo_image_category` (
 ) ENGINE=MyISAM;
 
 --
+-- Table structure for table `piwigo_image_format`
+--
+
+CREATE TABLE `piwigo_image_format` (
+  `format_id` int(11) unsigned NOT NULL auto_increment,
+  `image_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `ext` varchar(255) NOT NULL,
+  `filesize` mediumint(9) unsigned DEFAULT NULL,
+  PRIMARY KEY  (`format_id`)
+) ENGINE=MyISAM;
+
+--
 -- Table structure for table `piwigo_image_tag`
 --
 

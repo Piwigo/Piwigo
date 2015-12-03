@@ -953,6 +953,21 @@ function original_to_representative($path, $representative_ext)
 }
 
 /**
+ * Transforms an original path to its format
+ *
+ * @param string $path
+ * @param string $format_ext
+ * @return string
+ */
+function original_to_format($path, $format_ext)
+{
+  $pos = strrpos($path, '/');
+  $path = substr_replace($path, 'pwg_format/', $pos+1, 0);
+  $pos = strrpos($path, '.');
+  return substr_replace($path, $format_ext, $pos+1);
+}
+
+/**
  * get the full path of an image
  *
  * @param array $element_info element information from db (at least 'path')
