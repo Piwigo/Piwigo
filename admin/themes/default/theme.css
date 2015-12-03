@@ -213,12 +213,17 @@ LI.menuLi {
 }
 /* */
 
-FORM#catModify TABLE { width: auto; }
+#catModify TABLE { width: auto; }
 
 #catModify p {
   line-height: 20px;
   margin: 0 0 1.5em;
   text-align: left;
+}
+
+#catModify p.albumThumbnailActions {
+  text-align:center;
+  white-space:nowrap;
 }
 
 FIELDSET.elementEdit .thumb {

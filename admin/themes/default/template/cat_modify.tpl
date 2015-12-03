@@ -28,6 +28,69 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
     return filtered;
   }
 });
+
+jQuery(document).ready(function() {
+  jQuery(document).on('click', '.refreshRepresentative',  function(e) {
+    var $this = jQuery(this);
+    var method = 'pwg.categories.refreshRepresentative';
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method="+method,
+      type:"POST",
+      data: {
+        category_id: $this.data("category_id")
+      },
+      success:function(data) {
+        var data = jQuery.parseJSON(data);
+        if (data.stat == 'ok') {
+          jQuery(".albumThumbnailImage")
+            .attr('href', data.result.url)
+            .find("img").attr('src', data.result.src)
+            .end().show();
+
+          jQuery(".albumThumbnailRandom").hide();
+        }
+        else {
+          alert("error on "+method);
+        }
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        alert("serious error on "+method);
+      }
+    });
+
+    e.preventDefault();
+  });
+
+  jQuery(document).on('click', '.deleteRepresentative',  function(e) {
+    var $this = jQuery(this);
+    var method = 'pwg.categories.deleteRepresentative';
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method="+method,
+      type:"POST",
+      data: {
+        category_id: $this.data("category_id")
+      },
+      success:function(data) {
+        var data = jQuery.parseJSON(data);
+        if (data.stat == 'ok') {
+          jQuery(".albumThumbnailImage").hide();
+          jQuery(".albumThumbnailRandom").show();
+        }
+        else {
+          alert("error on "+method);
+        }
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        alert("serious error on "+method);
+      }
+    });
+
+    e.preventDefault();
+  });
+});
+
 {/footer_script}
 
 
@@ -35,7 +98,7 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
   <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
-<form action="{$F_ACTION}" method="POST" id="catModify">
+<div id="catModify">
 
 <fieldset>
   <legend>{'Informations'|@translate}</legend>
@@ -44,19 +107,18 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
     <tr>
       <td id="albumThumbnail">
 {if isset($representant) }
-  {if isset($representant.picture) }
-        <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt=""></a>
-  {else}
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
-  {/if}
+        <a class="albumThumbnailImage" style="{if !isset($representant.picture)}display:none{/if}" href="{$representant.picture.url}"><img src="{$representant.picture.src}"></a>
+        <img class="albumThumbnailRandom" style="{if isset($representant.picture)}display:none{/if}" src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
 
+<p class="albumThumbnailActions">
   {if $representant.ALLOW_SET_RANDOM }
-        <p style="text-align:center;"><input class="submit" type="submit" name="set_random_representant" value="{'Refresh'|@translate}" title="{'Find a new representant by random'|@translate}"></p>
+  <a href="#refresh" data-category_id="{$CAT_ID}" class="refreshRepresentative" title="{'Find a new representant by random'|@translate}">{'Refresh'|@translate}</a>
   {/if}
 
   {if isset($representant.ALLOW_DELETE) }
-        <p><input class="submit" type="submit" name="delete_representant" value="{'Delete Representant'|@translate}"></p>
+  | <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative" title="{'Delete Representant'|@translate}">{'Delete'|translate}</a>
   {/if}
+</p>
 {/if}
       </td>
 
@@ -90,6 +152,7 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
 
 </fieldset>
 
+<form action="{$F_ACTION}" method="POST">
 <fieldset>
   <legend>{'Properties'|@translate}</legend>
   <p>
@@ -137,3 +200,4 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
 </fieldset>
 
 </form>
+</div> {* #catModify *}
