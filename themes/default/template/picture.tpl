@@ -65,9 +65,39 @@ function changeImgSrc(url,typeSave,typeMap)
 	</a>
 {/if}{/strip}
 {strip}{if isset($current.U_DOWNLOAD)}
-	<a href="{$current.U_DOWNLOAD}" title="{'Download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+	<a id="downloadSwitchLink" href="{$current.U_DOWNLOAD}" title="{'Download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-save"></span><span class="pwg-button-text">{'Download'|@translate}</span>
 	</a>
+
+{if !empty($current.formats)}
+{footer_script require='jquery'}{literal}
+jQuery().ready(function() {
+  jQuery("#downloadSwitchLink").click(function() {
+    var elt = jQuery("#downloadSwitchBox");
+
+    elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
+      .css("top", jQuery(this).offset().top + jQuery(this).outerHeight(true))
+      .toggle();
+
+    return false;
+  });
+
+  jQuery("#downloadSwitchBox").on("mouseleave click", function() {
+    jQuery(this).hide();
+  });
+});
+{/literal}{/footer_script}
+
+<div id="downloadSwitchBox" class="switchBox">
+  <div class="switchBoxTitle">{'Download'|translate} - {'Formats'|translate}</div>
+  <ul>
+    <li><a href="{$current.U_DOWNLOAD}" rel="nofollow">{'Original'|@translate}</a></li>
+  {foreach from=$current.formats item=format}
+    <li><a href="{$format.download_url}" rel="nofollow">{$format.ext|upper}<span class="downloadformatDetails"> ({$format.filesize})</span></a></li>
+  {/foreach}
+  </ul>
+</div>
+{/if} {* has formats *}
 {/if}{/strip}
 {if isset($PLUGIN_PICTURE_BUTTONS)}{foreach from=$PLUGIN_PICTURE_BUTTONS item=button}{$button}{/foreach}{/if}
 {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}

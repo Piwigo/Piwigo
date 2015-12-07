@@ -131,6 +131,7 @@ CREATE TABLE `piwigo_history` (
   `image_id` mediumint(8) default NULL,
   `summarized` enum('true','false') default 'false',
   `image_type` enum('picture','high','other') default NULL,
+  `format_id` int(11) unsigned default NULL,
   PRIMARY KEY  (`id`),
   KEY `history_i1` (`summarized`)
 ) ENGINE=MyISAM;

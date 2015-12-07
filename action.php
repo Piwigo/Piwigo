@@ -57,11 +57,34 @@ function do_error( $code, $str )
   exit();
 }
 
+if (isset($_GET['format']))
+{
+  check_input_parameter('format', $_GET, false, PATTERN_ID);
+
+  $query = '
+SELECT
+    *
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE format_id = '.$_GET['format'].'
+;';
+  $formats = query2array($query);
+
+  if (count($formats) == 0)
+  {
+    do_error(400, 'Invalid request - format');
+  }
+
+  $format = $formats[0];
+
+  $_GET['id'] = $format['image_id'];
+  $_GET['part'] = 'f'; // "f" for "format"
+}
+
 
 if (!isset($_GET['id'])
     or !is_numeric($_GET['id'])
     or !isset($_GET['part'])
-    or !in_array($_GET['part'], array('e','r') ) )
+    or !in_array($_GET['part'], array('e','r','f') ) )
 {
   do_error(400, 'Invalid request - id/part');
 }
@@ -116,6 +139,10 @@ switch ($_GET['part'])
   case 'r':
     $file = original_to_representative( get_element_path($element_info), $element_info['representative_ext'] );
     break;
+  case 'f' :
+    $file = original_to_format(get_element_path($element_info), $format['ext']);
+    $element_info['file'] = get_filename_wo_extension($element_info['file']).'.'.$format['ext'];
+    break;
 }
 
 if ( empty($file) )
@@ -129,6 +156,10 @@ if ($_GET['part'] == 'e') {
 else if ($_GET['part'] == 'e')
 {
   pwg_log($_GET['id'], 'other');
+}
+else if ($_GET['part'] == 'f')
+{
+  pwg_log($_GET['id'], 'high', $format['format_id']);
 }
 
 $http_headers = array();

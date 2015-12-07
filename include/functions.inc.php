@@ -407,7 +407,7 @@ SELECT id, name
  * @param string $image_type
  * @return bool
  */
-function pwg_log($image_id = null, $image_type = null)
+function pwg_log($image_id = null, $image_type = null, $format_id = null)
 {
   global $conf, $user, $page;
 
@@ -445,6 +445,7 @@ INSERT INTO '.HISTORY_TABLE.'
     category_id,
     image_id,
     image_type,
+    format_id,
     tag_ids
   )
   VALUES
@@ -457,6 +458,7 @@ INSERT INTO '.HISTORY_TABLE.'
     '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
+    '.(isset($format_id) ? $format_id : 'NULL').',
     '.(isset($tags_string) ? "'".$tags_string."'" : 'NULL').'
   )
 ;';

@@ -662,6 +662,26 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
 if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']))
 {
   $template->append('current', array('U_DOWNLOAD' => $picture['current']['download_url']), true);
+
+  $query = '
+SELECT *
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id = '.$picture['current']['id'].'
+;';
+  $formats = query2array($query);
+  
+  if (!empty($formats))
+  {
+    foreach ($formats as &$format)
+    {
+      $format['download_url'] = 'action.php?format='.$format['format_id'];
+      $format['download_url'].= '&amp;download='.substr(md5(time()), 0, 6); // a random string to avoid browser cache
+      
+      $format['filesize'] = sprintf('%.1fMB', $format['filesize']/1024);
+    }
+  }
+
+  $template->append('current', array('formats' => $formats), true);
 }
 
 
