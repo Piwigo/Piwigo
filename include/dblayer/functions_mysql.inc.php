@@ -53,7 +53,7 @@ function pwg_db_check_charset()
   {
     $db_charset = DB_CHARSET;
   }
-  pwg_query('SET NAMES "'.$db_charset.'"');
+  mysql_set_charset($db_charset);
 }
 
 function pwg_db_check_version()

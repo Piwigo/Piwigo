@@ -80,12 +80,14 @@ function pwg_db_connect($host, $user, $password, $database)
  */
 function pwg_db_check_charset() 
 {
+  global $mysqli;
+
   $db_charset = 'utf8';
   if (defined('DB_CHARSET') and DB_CHARSET != '')
   {
     $db_charset = DB_CHARSET;
   }
-  pwg_query('SET NAMES "'.$db_charset.'"');
+  $mysqli->set_charset($db_charset);
 }
 
 /**
