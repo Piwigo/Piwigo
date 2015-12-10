@@ -199,7 +199,7 @@ Relative paths are available with {include file="..."} and
 $smarty->fetch('./foo.tpl') cannot be relative to a template, an
 exception is thrown.
 
-  Adressing a specific $template_dir
+  Addressing a specific $template_dir
 
 Smarty 3.1 introduces the $template_dir index notation.
 $smarty->fetch('[foo]bar.tpl') and {include file="[foo]bar.tpl"}
