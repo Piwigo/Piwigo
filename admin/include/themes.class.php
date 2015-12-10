@@ -60,7 +60,7 @@ class themes
   /**
    * Initialize $fs_themes and $db_themes_by_id
   */
-  function themes()
+  function __construct()
   {
     $this->get_fs_themes();
 

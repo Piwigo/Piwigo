@@ -23,7 +23,7 @@
 
 class c13y_internal
 {
-  function c13y_internal()
+  function __construct()
   {
     add_event_handler('list_check_integrity', array(&$this, 'c13y_version'));
     add_event_handler('list_check_integrity', array(&$this, 'c13y_exif'));

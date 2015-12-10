@@ -30,7 +30,7 @@ class languages
   /**
    * Initialize $fs_languages and $db_languages
   */
-  function languages($target_charset = null)
+  function __construct($target_charset = null)
   {
     $this->get_fs_languages($target_charset);
   }

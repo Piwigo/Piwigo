@@ -26,7 +26,7 @@ defined('PHPWG_ROOT_PATH') or trigger_error('Hacking attempt!', E_USER_ERROR);
 // determine the initial instant to indicate the generation time of this page
 $t2 = microtime(true);
 
-@set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
+// @set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 
 //
 // addslashes to vars if magic_quotes_gpc is off this is a security
