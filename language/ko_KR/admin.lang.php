@@ -494,3 +494,5 @@ $lang['directories + files'] = '디렉토리 + 파일';
 $lang['only directories'] = '디렉토리만';
 $lang['nothing'] = '없음';
 $lang['synchronize files structure with database'] = '파일 구조를 데이터베이스와 동기화';
+$lang['Environment'] = '환경';
+$lang['Show info'] = '정보 보기';
