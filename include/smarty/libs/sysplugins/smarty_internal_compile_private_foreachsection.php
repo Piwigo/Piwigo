@@ -206,16 +206,15 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      */
     public static function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        // make all lower case
-        $parameter = array_map('strtolower', $parameter);
-        $tag = trim($parameter[0], '"\'');
-        if (!isset($parameter[1]) || false === $name = $compiler->getId($parameter[1])) {
+        $tag = strtolower(trim($parameter[ 0 ], '"\''));
+        $name = isset($parameter[ 1 ]) ? $compiler->getId($parameter[ 1 ]) : false;
+        if (!$name) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
+        /* @var Smarty_Internal_Compile_Foreach|Smarty_Internal_Compile_Section $className */
         $className = 'Smarty_Internal_Compile_' . ucfirst($tag);
-        if ((!isset($parameter[2]) || false === $property = $compiler->getId($parameter[2])) ||
-            !in_array($property, $className::$nameProperties)
-        ) {
+        $property = isset($parameter[ 2 ]) ? strtolower($compiler->getId($parameter[ 2 ])) : false;
+        if (!$property || !in_array($property, $className::$nameProperties)) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} property attribute", null, true);
         }
         $tagVar = "'__smarty_{$tag}_{$name}'";

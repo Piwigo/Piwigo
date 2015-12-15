@@ -1,4 +1,9 @@
-﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+﻿ ===== 3.1.28 ===== (13.12.2015)
+ 13.12.2015
+  - bugfix {foreach} and {section} with uppercase characters in name attribute did not work (forum topic 25819)
+  - bugfix $smarty->debugging_ctrl = 'URL' did not work (forum topic 25811)
+  - bugfix Debug Console could display incorrect data when using subtemplates
+  
  09.12.2015
   - bugix Smarty did fail under PHP 7.0.0 with use_include_path = true;
   

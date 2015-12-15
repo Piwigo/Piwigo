@@ -399,31 +399,31 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     /**
      * handle 'URL' debugging mode
      *
-     * @param Smarty_Internal_Template $_template
+     * @param Smarty $smarty
      */
-    public function debugUrl(Smarty_Internal_Template $_template)
+    public function debugUrl(Smarty $smarty)
     {
         if (isset($_SERVER['QUERY_STRING'])) {
             $_query_string = $_SERVER['QUERY_STRING'];
         } else {
             $_query_string = '';
         }
-        if (false !== strpos($_query_string, $_template->smarty->smarty_debug_id)) {
-            if (false !== strpos($_query_string, $_template->smarty->smarty_debug_id . '=on')) {
+        if (false !== strpos($_query_string, $smarty->smarty_debug_id)) {
+            if (false !== strpos($_query_string, $smarty->smarty_debug_id . '=on')) {
                 // enable debugging for this browser session
                 setcookie('SMARTY_DEBUG', true);
-                $_template->smarty->debugging = true;
-            } elseif (false !== strpos($_query_string, $_template->smarty->smarty_debug_id . '=off')) {
+                $smarty->debugging = true;
+            } elseif (false !== strpos($_query_string, $smarty->smarty_debug_id . '=off')) {
                 // disable debugging for this browser session
                 setcookie('SMARTY_DEBUG', false);
-                $_template->smarty->debugging = false;
+                $smarty->debugging = false;
             } else {
                 // enable debugging for this page
-                $_template->smarty->debugging = true;
+                $smarty->debugging = true;
             }
         } else {
             if (isset($_COOKIE['SMARTY_DEBUG'])) {
-                $_template->smarty->debugging = true;
+                $smarty->debugging = true;
             }
         }
     }

@@ -27,7 +27,7 @@
  * @author    Uwe Tews
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1.28-dev
+ * @version   3.1.28
  */
 
 /**
@@ -118,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/79';
+    const SMARTY_VERSION = '3.1.28';
 
     /**
      * define variable scopes
@@ -1094,8 +1094,12 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $tpl->tpl_vars[$_key] = new Smarty_Variable($_val);
             }
         }
-        if ($this->debugging) {
+        if ($this->debugging || $this->debugging_ctrl == 'URL') {
             $tpl->smarty->_debug = new Smarty_Internal_Debug();
+            // check URL debugging control
+            if (!$this->debugging && $this->debugging_ctrl == 'URL') {
+                $tpl->smarty->_debug->debugUrl($tpl->smarty);
+            }
         }
         return $tpl;
     }

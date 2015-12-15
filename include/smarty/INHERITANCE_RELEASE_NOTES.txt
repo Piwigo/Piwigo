@@ -9,23 +9,23 @@ This does enable some new features:
 
 Any code outside root {block} tags in child templates is now executed but any output will be ignored.
 
-   {extends 'foo.tpl}
+   {extends 'foo.tpl'}
    {$bar = 'on'}           // assigns variable $bar seen in parent templates
    {block 'buh'}{/block}
 
-   {extends 'foo.tpl}
+   {extends 'foo.tpl'}
    {$bar}           // the output of variable bar is ignored
    {block 'buh'}{/block}
 
 {block} tags can be dynamically en/disabled by conditions.
 
-   {block 'root}
+   {block 'root'}
       {if $foo}
-         {block 'v1}
+         {block 'v1'}
              ....
          {/block}
       {else}
-         {block 'v1}
+         {block 'v1'}
              ....
          {/block}
       {/if}

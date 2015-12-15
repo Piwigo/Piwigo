@@ -12,7 +12,7 @@
  * Name:     strip_tags<br>
  * Purpose:  strip html tags from text
  *
- * @link   http://www.smarty.net/manual/en/language.modifier.strip.tags.php strip_tags (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.modifier.strip.tags.tpl strip_tags (Smarty online manual)
  * @author Uwe Tews
  *
  * @param array $params parameters

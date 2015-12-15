@@ -21,13 +21,18 @@ Smarty 3.1.28
     fetch() and display()
     =====================
     The fetch() and display() methods of the template object accept now optionally the same parameter
-    as the corresponding Smarty methods the get tne content of another template.
+    as the corresponding Smarty methods to get tne content of another template.
+    Example:
+        $template->display();           Does display template of template object
+        $template->dispaly('foo.tpl');  Does display template 'foo.bar' 
 
     File: resource
     ==============
     Multiple template_dir entries can now be selected  by a comma separated list of indices.
-    The template_dir array is searched in the order of the indices. (could be used to change the default search order)
-
+    The template_dir array is searched in the order of the indices. (Could be used to change the default search order)
+    Example:
+        $smarty->display([1],[0]foo.bar');
+        
     Filter support
     ==============
     Optional filter names
@@ -40,8 +45,8 @@ Smarty 3.1.28
       - $smarty->registerFilter('pre', function($source) {return $source;});
       If no optional filter name was specified it gets the default name 'closure'.
       If you register multiple closures register each with a unique filter name.
-      - $smarty->registerFilter('pre', function($source) {return $source;}, 'clousre_1');
-      - $smarty->registerFilter('pre', function($source) {return $source;}, 'clousre_2');
+      - $smarty->registerFilter('pre', function($source) {return $source;}, 'closure_1');
+      - $smarty->registerFilter('pre', function($source) {return $source;}, 'closure_2');
       
 
 Smarty 3.1.22

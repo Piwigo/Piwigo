@@ -79,7 +79,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         } else {
             $compiler->has_code = true;
             if (!($compiler->smarty instanceof SmartyBC)) {
-                $compiler->trigger_template_error('{php}[/php} tags not allowed. Use SmartyBC to enable them', null, true);
+                $compiler->trigger_template_error('{php}{/php} tags not allowed. Use SmartyBC to enable them', null, true);
             }
             $ldel = preg_quote($compiler->smarty->left_delimiter, '#');
             $rdel = preg_quote($compiler->smarty->right_delimiter, '#');

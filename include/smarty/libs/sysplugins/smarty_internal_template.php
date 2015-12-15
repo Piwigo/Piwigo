@@ -138,10 +138,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
             throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
         }
-        // check URL debugging control
-        if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
-            $this->smarty->_debug->debugUrl($this);
-        }
         // disable caching for evaluated code
         if ($this->source->handler->recompiled) {
             $this->caching = false;
@@ -188,7 +184,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         } else {
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->end_template($this);
-                if ($this->smarty->debugging == 2 and !$display) {
+                if ($this->smarty->debugging === 2 && $display === false) {
                     $this->smarty->_debug->display_debug($this, true);
                 }
             }
