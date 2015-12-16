@@ -537,61 +537,144 @@ SELECT id, path
       'info' => l10n('added')
       );
 
-    foreach ($fs[$path]['formats'] as $format)
+    if ($conf['enable_formats'])
     {
-      list($ext, $filesize) = explode('/', $format);
+      foreach ($fs[$path]['formats'] as $ext => $filesize)
+      {
+        $insert_formats[] = array(
+          'image_id' => $insert['id'],
+          'ext' => $ext,
+          'filesize' => $filesize,
+          );
 
-      $insert_formats[] = array(
-        'image_id' => $insert['id'],
-        'ext' => $ext,
-        'filesize' => $filesize,
-        );
-
-      $infos[] = array(
-        'path' => $insert['path'],
-        'info' => l10n('format %s added', $ext)
-        );
+        $infos[] = array(
+          'path' => $insert['path'],
+          'info' => l10n('format %s added', $ext)
+          );
+      }
     }
 
     $caddiables[] = $insert['id'];
   }
 
-  if (count($inserts) > 0)
+  // search new/removed formats on photos already registered in database
+  if ($conf['enable_formats'])
   {
-    if (!$simulate)
+    $db_elements_flip = array_flip($db_elements);
+
+    $existing_ids = array();
+  
+    foreach (array_intersect_key($fs, $db_elements_flip) as $path => $existing)
     {
-      // inserts all new elements
+      $existing_ids[] = $db_elements_flip[$path];
+    }
+
+    $logger->debug('existing_ids', 'sync', $existing_ids);
+
+  if (count($existing_ids) > 0)
+  {
+    $db_formats = array();
+    
+    // find formats for existing photos
+    $query = '
+SELECT *
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id IN ('.implode(',', $existing_ids).')
+;';
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      if (!isset($db_formats[$row['image_id']]))
+      {
+        $db_formats[$row['image_id']] = array();
+      }
+
+      $db_formats[$row['image_id']][$row['ext']] = $row['format_id'];
+    }
+
+    $formats_to_delete = array();
+    
+    foreach ($db_formats as $image_id => $formats)
+    {
+      $image_formats_to_delete = array_diff_key($formats, $fs[ $db_elements[$image_id] ]['formats']);
+      $logger->debug('image_formats_to_delete', 'sync', $image_formats_to_delete);
+      foreach ($image_formats_to_delete as $ext => $format_id)
+      {
+        $formats_to_delete[] = $format_id;
+        
+        $infos[] = array(
+          'path' => $db_elements[$image_id],
+          'info' => l10n('format %s removed', $ext)
+          );
+      }
+
+      $image_formats_to_insert = array_diff_key($fs[ $db_elements[$image_id] ]['formats'], $formats);
+      $logger->debug('image_formats_to_insert', 'sync', $image_formats_to_insert);
+      foreach ($image_formats_to_insert as $ext => $filesize)
+      {
+        $insert_formats[] = array(
+          'image_id' => $image_id,
+          'ext' => $ext,
+          'filesize' => $filesize,
+          );
+
+        $infos[] = array(
+          'path' => $db_elements[$image_id],
+          'info' => l10n('format %s added', $ext)
+          );
+      }
+    }
+  }
+  }
+
+  
+  if (!$simulate)
+  {
+    // inserts all new elements
+    if (count($inserts) > 0)
+    {
       mass_inserts(
         IMAGES_TABLE,
         array_keys($inserts[0]),
         $inserts
         );
-
+      
       // inserts all links between new elements and their storage category
       mass_inserts(
         IMAGE_CATEGORY_TABLE,
         array_keys($insert_links[0]),
         $insert_links
         );
-      
-      // inserts all formats
-      if (count($insert_formats) > 0)
-      {
-        mass_inserts(
-          IMAGE_FORMAT_TABLE,
-          array_keys($insert_formats[0]),
-          $insert_formats
-          );
-      }
-
-      // add new photos to caddie
-      if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)
-      {
-        fill_caddie($caddiables);
-      }
     }
-    $counts['new_elements'] = count($inserts);
+      
+    // inserts all formats
+    if (count($insert_formats) > 0)
+    {
+      mass_inserts(
+        IMAGE_FORMAT_TABLE,
+        array_keys($insert_formats[0]),
+        $insert_formats
+        );
+    }
+
+    if (count($formats_to_delete) > 0)
+    {
+      $query = '
+DELETE
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE format_id IN ('.implode(',', $formats_to_delete).')
+;';
+      pwg_query($query);
+    }
+
+    // add new photos to caddie
+    if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)
+    {
+      fill_caddie($caddiables);
+    }
   }
+
+  $counts['new_elements'] = count($inserts);
 
   // delete elements that are in database but not in the filesystem
   $to_delete_elements = array();

@@ -63,6 +63,9 @@ $conf['file_ext'] = array_merge(
   array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf')
   );
 
+// enable_formats: should Piwigo search for multiple formats?
+$conf['enable_formats'] = false;
+
 // format_ext : file extensions for formats, ie additional versions of a
 // photo (or nay other file). Formats are in sub-directory pwg_format.
 $conf['format_ext'] = array('cr2', 'tif', 'tiff', 'nef', 'dng', 'ai');

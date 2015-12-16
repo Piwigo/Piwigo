@@ -101,12 +101,12 @@ function get_elements($path)
             $representative_ext = $this->get_representative_ext($path, $filename_wo_ext);
           }
 
-          $formats = $this->get_formats($path, $filename_wo_ext);
-          
-          $fs[ $path.'/'.$node ] = array(
-            'representative_ext' => $representative_ext,
-            'formats' => $formats,
-            );
+          $fs[ $path.'/'.$node ] = array('representative_ext' => $representative_ext);
+
+          if ($conf['enable_formats'])
+          {
+            $fs[ $path.'/'.$node ]['formats'] = $this->get_formats($path, $filename_wo_ext);
+          }
         }
       }
       else if (is_dir($path.'/'.$node)
@@ -201,13 +201,7 @@ function get_formats($path, $filename_wo_ext)
     
     if (is_file($test))
     {
-      // $formats[] = array(
-      //   'ext' => $ext,
-      //   'filesize' => floor(filesize($file) / 1024),
-      //   );
-
-      // we return a "/" splitted string instead of an array with 2 keys, to reduce memory usage
-      $formats[] = $ext.'/'.floor(filesize($test) / 1024);
+      $formats[$ext] = floor(filesize($test) / 1024);
     }
   }
   
