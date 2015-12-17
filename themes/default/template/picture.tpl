@@ -72,6 +72,8 @@ function changeImgSrc(url,typeSave,typeMap)
 {if !empty($current.formats)}
 {footer_script require='jquery'}{literal}
 jQuery().ready(function() {
+  jQuery("#downloadSwitchLink").removeAttr("href");
+
   jQuery("#downloadSwitchLink").click(function() {
     var elt = jQuery("#downloadSwitchBox");
 
