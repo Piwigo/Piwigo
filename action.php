@@ -57,7 +57,7 @@ function do_error( $code, $str )
   exit();
 }
 
-if (isset($_GET['format']))
+if ($conf['enable_formats'] and isset($_GET['format']))
 {
   check_input_parameter('format', $_GET, false, PATTERN_ID);
 
