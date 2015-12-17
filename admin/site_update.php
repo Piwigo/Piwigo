@@ -571,60 +571,60 @@ SELECT id, path
 
     $logger->debug('existing_ids', 'sync', $existing_ids);
 
-  if (count($existing_ids) > 0)
-  {
-    $db_formats = array();
+    if (count($existing_ids) > 0)
+    {
+      $db_formats = array();
     
-    // find formats for existing photos
-    $query = '
+      // find formats for existing photos (already in database)
+      $query = '
 SELECT *
   FROM '.IMAGE_FORMAT_TABLE.'
   WHERE image_id IN ('.implode(',', $existing_ids).')
 ;';
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      if (!isset($db_formats[$row['image_id']]))
+      $result = pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($result))
       {
-        $db_formats[$row['image_id']] = array();
-      }
-
-      $db_formats[$row['image_id']][$row['ext']] = $row['format_id'];
-    }
-
-    $formats_to_delete = array();
-    
-    foreach ($db_formats as $image_id => $formats)
-    {
-      $image_formats_to_delete = array_diff_key($formats, $fs[ $db_elements[$image_id] ]['formats']);
-      $logger->debug('image_formats_to_delete', 'sync', $image_formats_to_delete);
-      foreach ($image_formats_to_delete as $ext => $format_id)
-      {
-        $formats_to_delete[] = $format_id;
+        if (!isset($db_formats[$row['image_id']]))
+        {
+          $db_formats[$row['image_id']] = array();
+        }
         
-        $infos[] = array(
-          'path' => $db_elements[$image_id],
-          'info' => l10n('format %s removed', $ext)
-          );
+        $db_formats[$row['image_id']][$row['ext']] = $row['format_id'];
       }
 
-      $image_formats_to_insert = array_diff_key($fs[ $db_elements[$image_id] ]['formats'], $formats);
-      $logger->debug('image_formats_to_insert', 'sync', $image_formats_to_insert);
-      foreach ($image_formats_to_insert as $ext => $filesize)
+      $formats_to_delete = array();
+    
+      foreach ($db_formats as $image_id => $formats)
       {
-        $insert_formats[] = array(
-          'image_id' => $image_id,
-          'ext' => $ext,
-          'filesize' => $filesize,
-          );
+        $image_formats_to_delete = array_diff_key($formats, $fs[ $db_elements[$image_id] ]['formats']);
+        $logger->debug('image_formats_to_delete', 'sync', $image_formats_to_delete);
+        foreach ($image_formats_to_delete as $ext => $format_id)
+        {
+          $formats_to_delete[] = $format_id;
+          
+          $infos[] = array(
+            'path' => $db_elements[$image_id],
+            'info' => l10n('format %s removed', $ext)
+            );
+        }
 
-        $infos[] = array(
-          'path' => $db_elements[$image_id],
-          'info' => l10n('format %s added', $ext)
-          );
+        $image_formats_to_insert = array_diff_key($fs[ $db_elements[$image_id] ]['formats'], $formats);
+        $logger->debug('image_formats_to_insert', 'sync', $image_formats_to_insert);
+        foreach ($image_formats_to_insert as $ext => $filesize)
+        {
+          $insert_formats[] = array(
+            'image_id' => $image_id,
+            'ext' => $ext,
+            'filesize' => $filesize,
+            );
+
+          $infos[] = array(
+            'path' => $db_elements[$image_id],
+            'info' => l10n('format %s added', $ext)
+            );
+        }
       }
     }
-  }
   }
 
   
