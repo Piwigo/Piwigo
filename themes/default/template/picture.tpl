@@ -74,19 +74,7 @@ function changeImgSrc(url,typeSave,typeMap)
 jQuery().ready(function() {
   jQuery("#downloadSwitchLink").removeAttr("href");
 
-  jQuery("#downloadSwitchLink").click(function() {
-    var elt = jQuery("#downloadSwitchBox");
-
-    elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
-      .css("top", jQuery(this).offset().top + jQuery(this).outerHeight(true))
-      .toggle();
-
-    return false;
-  });
-
-  jQuery("#downloadSwitchBox").on("mouseleave click", function() {
-    jQuery(this).hide();
-  });
+  (window.SwitchBox=window.SwitchBox||[]).push("#downloadSwitchLink", "#downloadSwitchBox");
 });
 {/literal}{/footer_script}
 
