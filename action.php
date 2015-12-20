@@ -186,7 +186,7 @@ if (!url_is_remote($file))
   // HTTP/1.1 only
   $http_headers[] = 'Cache-Control: private, must-revalidate, max-age='.$max_age;*/
 
-  if ( isset( $_SERVER['HTTP_IF_MODIFIED_SINCE'] ) )
+  if ('f' != $_GET['part'] and isset( $_SERVER['HTTP_IF_MODIFIED_SINCE'] ) )
   {
     set_status_header(304);
     foreach ($http_headers as $header)
