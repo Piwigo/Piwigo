@@ -95,7 +95,7 @@ jQuery().ready(function() {
   <ul>
     <li><a href="{$current.U_DOWNLOAD}" rel="nofollow">{'Original'|@translate}</a></li>
   {foreach from=$current.formats item=format}
-    <li><a href="{$format.download_url}" rel="nofollow">{$format.ext|upper}<span class="downloadformatDetails"> ({$format.filesize})</span></a></li>
+    <li><a href="{$format.download_url}" rel="nofollow">{$format.label}<span class="downloadformatDetails"> ({$format.filesize})</span></a></li>
   {/foreach}
   </ul>
 </div>

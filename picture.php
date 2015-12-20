@@ -679,6 +679,13 @@ SELECT *
         $format['download_url'] = 'action.php?format='.$format['format_id'];
         $format['download_url'].= '&amp;download='.substr(md5(time()), 0, 6); // a random string to avoid browser cache
         
+        $format['label'] = strtoupper($format['ext']);
+        $lang_key = 'format '.strtoupper($format['ext']);
+        if (isset($lang[$lang_key]))
+        {
+          $format['label'] = $lang[$lang_key];
+        }
+        
         $format['filesize'] = sprintf('%.1fMB', $format['filesize']/1024);
       }
     }
