@@ -339,6 +339,8 @@ function ws_session_getStatus($params, &$service)
           )
         )
       );
+
+    $res['upload_form_chunk_size'] = $conf['upload_form_chunk_size'];
   }
   
   return $res;
