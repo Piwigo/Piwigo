@@ -33,7 +33,7 @@ class PwgXmlWriter
 
   var $_encodedXml;
 
-  function PwgXmlWriter()
+  function __construct()
   {
     $this->_elementStack = array();
     $this->_lastTagOpen = false;
