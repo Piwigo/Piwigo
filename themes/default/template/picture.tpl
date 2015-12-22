@@ -81,7 +81,6 @@ jQuery().ready(function() {
 <div id="downloadSwitchBox" class="switchBox">
   <div class="switchBoxTitle">{'Download'|translate} - {'Formats'|translate}</div>
   <ul>
-    <li><a href="{$current.U_DOWNLOAD}" rel="nofollow">{'Original'|@translate}</a></li>
   {foreach from=$current.formats item=format}
     <li><a href="{$format.download_url}" rel="nofollow">{$format.label}<span class="downloadformatDetails"> ({$format.filesize})</span></a></li>
   {/foreach}

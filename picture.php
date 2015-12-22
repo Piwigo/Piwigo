@@ -674,10 +674,23 @@ SELECT *
   
     if (!empty($formats))
     {
+      // let's add the original as a format among others. It will just have
+      // a specific download URL
+      array_unshift(
+        $formats,
+        array(
+          'download_url' => $picture['current']['download_url'],
+          'ext' => get_extension($picture['current']['file']),
+          'filesize' => $picture['current']['filesize'],
+          )
+        );
+      
       foreach ($formats as &$format)
       {
-        $format['download_url'] = 'action.php?format='.$format['format_id'];
-        $format['download_url'].= '&amp;download';
+        if (!isset($format['download_url']))
+        {
+          $format['download_url'] = 'action.php?format='.$format['format_id'].'&amp;download';
+        }
         
         $format['label'] = strtoupper($format['ext']);
         $lang_key = 'format '.strtoupper($format['ext']);
