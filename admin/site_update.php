@@ -592,6 +592,7 @@ SELECT *
         $db_formats[$row['image_id']][$row['ext']] = $row['format_id'];
       }
 
+      // first we search the formats that were removed
       $formats_to_delete = array();
     
       foreach ($db_formats as $image_id => $formats)
@@ -607,8 +608,20 @@ SELECT *
             'info' => l10n('format %s removed', $ext)
             );
         }
+      }
 
-        $image_formats_to_insert = array_diff_key($fs[ $db_elements[$image_id] ]['formats'], $formats);
+      // then we search for new formats on existing photos
+      foreach ($existing_ids as $image_id)
+      {
+        $path = $db_elements[$image_id];
+        
+        $formats = array();
+        if (isset($db_formats[$image_id]))
+        {
+          $formats = $db_formats[$image_id];
+        }
+        
+        $image_formats_to_insert = array_diff_key($fs[$path]['formats'], $formats);
         $logger->debug('image_formats_to_insert', 'sync', $image_formats_to_insert);
         foreach ($image_formats_to_insert as $ext => $filesize)
         {
