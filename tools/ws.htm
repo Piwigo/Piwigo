@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Piwigo web API (web-services) explorer</title>
 
-  <link rel="stylesheet" href="http://cdn.jsdelivr.net/tiptip/1.3/tipTip.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/tiptip/1.3/tipTip.css">
 
   <style>
   /* BEGIN CSS RESET
@@ -245,13 +245,13 @@
   Copyright &copy; 2002-2013 <a href="http://piwigo.org">Piwigo Team</a>
 </div> <!-- the_footer -->
 
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/tiptip/1.3/jquery.tipTip.minified.js"></script>
 
 <script>
 // global vars
 var cachedMethods = new Array;
-var ws_url = "http://";
+var ws_url = document.location.protocol + "//";
 
 // automatic detection of ws_url
 match = document.location.toString().match(/^(https?.*\/)tools\/ws\.html?/);
