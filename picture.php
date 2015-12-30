@@ -671,36 +671,33 @@ SELECT *
   WHERE image_id = '.$picture['current']['id'].'
 ;';
     $formats = query2array($query);
+    
+    // let's add the original as a format among others. It will just have a
+    // specific download URL
+    array_unshift(
+      $formats,
+      array(
+        'download_url' => $picture['current']['download_url'],
+        'ext' => get_extension($picture['current']['file']),
+        'filesize' => $picture['current']['filesize'],
+        )
+      );
   
-    if (!empty($formats))
+    foreach ($formats as &$format)
     {
-      // let's add the original as a format among others. It will just have
-      // a specific download URL
-      array_unshift(
-        $formats,
-        array(
-          'download_url' => $picture['current']['download_url'],
-          'ext' => get_extension($picture['current']['file']),
-          'filesize' => $picture['current']['filesize'],
-          )
-        );
-      
-      foreach ($formats as &$format)
+      if (!isset($format['download_url']))
       {
-        if (!isset($format['download_url']))
-        {
-          $format['download_url'] = 'action.php?format='.$format['format_id'].'&amp;download';
-        }
-        
-        $format['label'] = strtoupper($format['ext']);
-        $lang_key = 'format '.strtoupper($format['ext']);
-        if (isset($lang[$lang_key]))
-        {
-          $format['label'] = $lang[$lang_key];
-        }
-        
-        $format['filesize'] = sprintf('%.1fMB', $format['filesize']/1024);
+        $format['download_url'] = 'action.php?format='.$format['format_id'].'&amp;download';
       }
+      
+      $format['label'] = strtoupper($format['ext']);
+      $lang_key = 'format '.strtoupper($format['ext']);
+      if (isset($lang[$lang_key]))
+      {
+        $format['label'] = $lang[$lang_key];
+      }
+      
+      $format['filesize'] = sprintf('%.1fMB', $format['filesize']/1024);
     }
 
     $template->append('current', array('formats' => $formats), true);
