@@ -33,7 +33,7 @@ class tabsheet
     $name is the tabsheet's name inside the template .tpl file
     $titlename in the template is affected by $titlename value
   */
-  function tabsheet($name = 'TABSHEET', $titlename = 'TABSHEET_TITLE')
+  function __construct($name = 'TABSHEET', $titlename = 'TABSHEET_TITLE')
   {
     $this->sheets = array();
     $this->uniqid = null;

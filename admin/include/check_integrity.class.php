@@ -27,7 +27,7 @@ class check_integrity
   var $retrieve_list;
   var $build_ignore_list;
 
-  function check_integrity()
+  function __construct()
   {
     $this->ignore_list = array();
     $this->retrieve_list = array();

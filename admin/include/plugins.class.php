@@ -69,7 +69,7 @@ class plugins
   /**
    * Initialize $fs_plugins and $db_plugins_by_id
    */
-  function plugins()
+  function __construct()
   {
     $this->get_fs_plugins();
 

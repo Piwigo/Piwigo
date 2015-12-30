@@ -1,4 +1,4 @@
-Smarty 3.1.13
+Smarty 3.x
 
 Author: Monte Ohrt <monte at ohrt dot com >
 Author: Uwe Tews
@@ -120,7 +120,7 @@ $smarty->unregisterObject($object_name)
 $smarty->unregisterFilter($type, $function_name)
 $smarty->unregisterResource($resource_type)
 
-$smarty->compileAllTemplates($extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+$smarty->compileAllTemplates($extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
 $smarty->clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
 $smarty->testInstall()
 
@@ -460,12 +460,13 @@ included template.
 PLUGINS
 =======
 
-Smarty3 are following the same coding rules as in Smarty2. 
-The only difference is that the template object is passed as additional third parameter.
+Smarty 3 plugins follow the same coding rules as in Smarty 2. 
+The main difference is that the template object is now passed in place of the smarty object. 
+The smarty object can be still be accessed through $template->smarty.
 
-smarty_plugintype_name (array $params, object $smarty, object $template)
+smarty_plugintype_name (array $params, Smarty_Internal_Template $template)
 
-The Smarty 2 plugins are still compatible as long as they do not make use of specific Smarty2 internals.
+The Smarty 2 plugins are still compatible as long as they do not make use of specific Smarty 2 internals.
 
 
 TEMPLATE INHERITANCE:
