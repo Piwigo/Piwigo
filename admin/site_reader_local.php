@@ -100,14 +100,19 @@ function get_elements($path)
           {
             $representative_ext = $this->get_representative_ext($path, $filename_wo_ext);
           }
-          $fs[ $path.'/'.$node ] = array(
-            'representative_ext' => $representative_ext,
-            );
+
+          $fs[ $path.'/'.$node ] = array('representative_ext' => $representative_ext);
+
+          if ($conf['enable_formats'])
+          {
+            $fs[ $path.'/'.$node ]['formats'] = $this->get_formats($path, $filename_wo_ext);
+          }
         }
       }
       else if (is_dir($path.'/'.$node)
                and $node != 'pwg_high'
                and $node != 'pwg_representative'
+               and $node != 'pwg_format'
                and $node != 'thumbnail' )
       {
         $subdirs[] = $node;
@@ -182,6 +187,26 @@ function get_representative_ext($path, $filename_wo_ext)
   return null;
 }
 
+function get_formats($path, $filename_wo_ext)
+{
+  global $conf;
+
+  $formats = array();
+  
+  $base_test = $path.'/pwg_format/'.$filename_wo_ext.'.';
+  
+  foreach ($conf['format_ext'] as $ext)
+  {
+    $test = $base_test.$ext;
+    
+    if (is_file($test))
+    {
+      $formats[$ext] = floor(filesize($test) / 1024);
+    }
+  }
+  
+  return $formats;
+}
 
 }
 ?>

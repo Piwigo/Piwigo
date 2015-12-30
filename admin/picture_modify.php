@@ -306,6 +306,25 @@ SELECT
   $intro_vars['stats'].= ', '.sprintf(l10n('Rated %d times, score : %.2f'), $row['nb_rates'], $row['rating_score']);
 }
 
+$query = '
+SELECT *
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id = '.$row['id'].'
+;';
+$formats = query2array($query);
+
+if (!empty($formats))
+{
+  $format_strings = array();
+  
+  foreach ($formats as $format)
+  {
+    $format_strings[] = sprintf('%s (%.2fMB)', $format['ext'], $format['filesize']/1024);
+  }
+
+  $intro_vars['formats'] = l10n('Formats: %s', implode(', ', $format_strings));
+}
+
 $template->assign('INTRO', $intro_vars);
 
 

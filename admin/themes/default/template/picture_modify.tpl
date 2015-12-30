@@ -63,6 +63,7 @@ jQuery("a.preview-box").colorbox({
             <li>{$INTRO.add_date}</li>
             <li>{$INTRO.added_by}</li>
             <li>{$INTRO.size}</li>
+            <li>{$INTRO.formats}</li>
             <li>{$INTRO.stats}</li>
             <li>{$INTRO.id}</li>
           </ul>

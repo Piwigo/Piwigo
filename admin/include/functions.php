@@ -180,6 +180,25 @@ function delete_element_files($ids)
   }
 
   $new_ids = array();
+  $formats_of = array();
+
+  $query = '
+SELECT
+    image_id,
+    ext
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id IN ('.implode(',', $ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if (!isset($formats_of[ $row['image_id'] ]))
+    {
+      $formats_of[ $row['image_id'] ] = array();
+    }
+
+    $formats_of[ $row['image_id'] ][] = $row['ext'];
+  }
 
   $query = '
 SELECT
@@ -203,6 +222,14 @@ SELECT
     if (!empty($row['representative_ext']))
     {
       $files[] = original_to_representative( $files[0], $row['representative_ext']);
+    }
+
+    if (isset($formats_of[ $row['id'] ]))
+    {
+      foreach ($formats_of[ $row['id'] ] as $format_ext)
+      {
+        $files[] = original_to_format($files[0], $format_ext);
+      }
     }
 
     $ok = true;
@@ -273,6 +300,13 @@ DELETE FROM '.COMMENTS_TABLE.'
   // destruction of the links between images and categories
   $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('. $ids_str .')
+;';
+  pwg_query($query);
+
+  // destruction of the formats
+  $query = '
+DELETE FROM '.IMAGE_FORMAT_TABLE.'
   WHERE image_id IN ('. $ids_str .')
 ;';
   pwg_query($query);
@@ -540,6 +574,7 @@ function get_fs_directories($path, $recursive = true)
       '.', '..', '.svn',
       'thumbnail', 'pwg_high',
       'pwg_representative',
+      'pwg_format',
       )
     );
   $exclude_folders = array_flip($exclude_folders);

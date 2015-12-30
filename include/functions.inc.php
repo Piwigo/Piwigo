@@ -407,7 +407,7 @@ SELECT id, name
  * @param string $image_type
  * @return bool
  */
-function pwg_log($image_id = null, $image_type = null)
+function pwg_log($image_id = null, $image_type = null, $format_id = null)
 {
   global $conf, $user, $page;
 
@@ -445,6 +445,7 @@ INSERT INTO '.HISTORY_TABLE.'
     category_id,
     image_id,
     image_type,
+    format_id,
     tag_ids
   )
   VALUES
@@ -457,6 +458,7 @@ INSERT INTO '.HISTORY_TABLE.'
     '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
+    '.(isset($format_id) ? $format_id : 'NULL').',
     '.(isset($tags_string) ? "'".$tags_string."'" : 'NULL').'
   )
 ;';
@@ -950,6 +952,21 @@ function original_to_representative($path, $representative_ext)
   $path = substr_replace($path, 'pwg_representative/', $pos+1, 0);
   $pos = strrpos($path, '.');
   return substr_replace($path, $representative_ext, $pos+1);
+}
+
+/**
+ * Transforms an original path to its format
+ *
+ * @param string $path
+ * @param string $format_ext
+ * @return string
+ */
+function original_to_format($path, $format_ext)
+{
+  $pos = strrpos($path, '/');
+  $path = substr_replace($path, 'pwg_format/', $pos+1, 0);
+  $pos = strrpos($path, '.');
+  return substr_replace($path, $format_ext, $pos+1);
 }
 
 /**
