@@ -646,6 +646,10 @@ $conf['recent_post_dates'] = array(
 // the author shown in the RSS feed <author> element
 $conf['rss_feed_author'] = 'Piwigo notifier';
 
+// how long does the authentication key stays valid, in seconds. 3 days by
+// default. 0 to disable.
+$conf['auth_key_duration'] = 3*24*60*60;
+
 // +-----------------------------------------------------------------------+
 // | Set admin layout                                                      |
 // +-----------------------------------------------------------------------+

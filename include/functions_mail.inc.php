@@ -514,6 +514,8 @@ SELECT DISTINCT language
     // get subset of users in this group for a specific language
     $query = '
 SELECT
+    ui.user_id,
+    ui.status,
     u.'.$conf['user_fields']['username'].' AS name,
     u.'.$conf['user_fields']['email'].' AS email
   FROM '.USER_GROUP_TABLE.' AS ug
@@ -534,13 +536,27 @@ SELECT
 
     switch_lang_to($language);
 
-    $return&= pwg_mail(null,
-      array_merge(
-        $args,
-        array('Bcc' => $users)
-        ),
-      $tpl
-      );
+    foreach ($users as $u)
+    {
+      $authkey = create_user_auth_key($u['user_id'], $u['status']);
+      
+      $user_tpl = $tpl;
+
+      if ($authkey !== false)
+      {
+        $user_tpl['assign']['LINK'] = add_url_params($tpl['assign']['LINK'], array('auth' => $authkey['auth_key']));
+
+        if (isset($user_tpl['assign']['IMG']['link']))
+        {
+          $user_tpl['assign']['IMG']['link'] = add_url_params(
+            $user_tpl['assign']['IMG']['link'],
+            array('auth' => $authkey['auth_key'])
+            );
+        }
+      }
+
+      $return &= pwg_mail($u['email'], $args, $user_tpl);
+    }
 
     switch_lang_back();
   }

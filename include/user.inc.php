@@ -65,6 +65,12 @@ if ($conf['apache_authentication'])
   }
 }
 
+// automatic login by authentication key
+if (isset($_GET['auth']))
+{
+  auth_key_login($_GET['auth']);
+}
+
 $user = build_user( $user['id'],
           ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
          );
