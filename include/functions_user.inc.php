@@ -1591,7 +1591,7 @@ SELECT
   }
   else
   {
-    return create_user_auth_key($user_id);
+    return create_user_auth_key($user_id, $user_status);
   }
 }
 ?>
