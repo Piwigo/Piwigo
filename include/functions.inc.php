@@ -446,6 +446,7 @@ INSERT INTO '.HISTORY_TABLE.'
     image_id,
     image_type,
     format_id,
+    auth_key_id,
     tag_ids
   )
   VALUES
@@ -459,6 +460,7 @@ INSERT INTO '.HISTORY_TABLE.'
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
     '.(isset($format_id) ? $format_id : 'NULL').',
+    '.(isset($page['auth_key_id']) ? $page['auth_key_id'] : 'NULL').',
     '.(isset($tags_string) ? "'".$tags_string."'" : 'NULL').'
   )
 ;';

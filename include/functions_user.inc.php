@@ -1472,7 +1472,7 @@ function get_recent_photos_sql($db_field)
  */
 function auth_key_login($auth_key)
 {
-  global $conf, $user;
+  global $conf, $user, $page;
 
   if ($user['id'] != $conf['guest_id'])
   {
@@ -1518,6 +1518,9 @@ SELECT
   $user['id'] = $key['user_id'];
   log_user($user['id'], false);
   trigger_notify('login_success', stripslashes($key['username']));
+
+  // to be registered in history table by pwg_log function
+  $page['auth_key_id'] = $key['auth_key_id'];
 
   return true;
 }
