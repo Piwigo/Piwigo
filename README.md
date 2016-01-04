@@ -3,7 +3,7 @@
 
 Piwigo is photo gallery software for the web, built by an active community of users and developers.
 
-Extensions make Piwigo easily customizable. Icing on the cake, Piwigo is free and opensource.
+Extensions make Piwigo easily customizable. Icing on the cake, Piwigo is free and open source.
 
 ![screenshot](http://piwigo.org/screenshots/github-screenshot.jpg)
 
@@ -27,7 +27,7 @@ Extensions make Piwigo easily customizable. Icing on the cake, Piwigo is free an
 ### NetInstall
 
  * Download the [NetInstall script](http://piwigo.org/download/dlcounter.php?code=netinstall)
- * Transfert the script to your web space with any FTP client
+ * Transfer the script to your web space with any FTP client
  * Open the script in you web browser (for example http://example.com/piwigo-netinstall.php) and follow the steps
 
 [More information](http://piwigo.org/basics/installation_netinstall)
@@ -35,7 +35,7 @@ Extensions make Piwigo easily customizable. Icing on the cake, Piwigo is free an
 ### Manual
 
  * Download the [latest stable version](http://piwigo.org/download/dlcounter.php?code=latest) and unzip it
- * Transfert everything to your webs pace with any FTP client
+ * Transfer everything to your web space with any FTP client
  * Open your website (for example http://example.com/piwigo) and follow the steps
 
 [More information](http://piwigo.org/basics/installation_manual)
@@ -44,7 +44,7 @@ If you do not have your own server, consider the [piwigo.com](http://piwigo.com/
 
 ## Contributing
 
-Piwigo is widely driven by it's community; if you want to improve the code, fork this repo and submit your changes to the `master` branch.
+Piwigo is widely driven by its community; if you want to improve the code, fork this repo and submit your changes to the `master` branch.
 
 ## License
 
