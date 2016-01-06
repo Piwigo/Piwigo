@@ -718,6 +718,10 @@ function pwg_mail($to, $args=array(), $tpl=array())
   {
     // key compose of indexes witch allow to cache mail data
     $cache_key = $content_type.'-'.$lang_info['code'];
+    if (!empty($args['auth_key']))
+    {
+      $cache_key.= '-'.$args['auth_key'];
+    }
 
     if (!isset($conf_mail[$cache_key]))
     {
