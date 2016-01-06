@@ -555,7 +555,13 @@ SELECT
         }
       }
 
-      $return &= pwg_mail($u['email'], $args, $user_tpl);
+      $user_args = $args;
+      if ($authkey !== false)
+      {
+        $user_args['auth_key'] = $authkey['auth_key'];
+      }
+
+      $return &= pwg_mail($u['email'], $user_args, $user_tpl);
     }
 
     switch_lang_back();
