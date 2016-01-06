@@ -984,3 +984,6 @@ $lang['width & height'] = 'width & height';
 $lang['Upload in progress'] = 'Upload in progress';
 $lang['Orphans'] = 'Orphans';
 $lang['Delete %d orphan photos'] = 'Delete %d orphan photos';
+$lang['Recipients'] = 'Recipients';
+$lang['No recipient selected'] = 'No recipient selected';
+$lang['No user is permitted to see this private album'] = 'No user is permitted to see this private album';

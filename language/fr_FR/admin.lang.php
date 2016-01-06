@@ -985,3 +985,6 @@ $lang['No and unlock sub-albums'] = 'Non, et déverrouiller les sous-albums';
 $lang['Upload in progress'] = 'Transfert en cours...';
 $lang['Orphans'] = 'Orphelines';
 $lang['Delete %d orphan photos'] = 'Supprimer les %d photos orphelines';
+$lang['Recipients'] = 'Destinataires';
+$lang['No recipient selected'] = 'Choisissez un destinataire';
+$lang['No user is permitted to see this private album'] = 'Aucun utilisateur n\'est autorisé à voir cet album privé';
