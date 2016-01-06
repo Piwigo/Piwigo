@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2015 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -21,62 +21,26 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// by default we start with guest
-$user['id'] = $conf['guest_id'];
-
-if (isset($_COOKIE[session_name()]))
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  if (isset($_GET['act']) and $_GET['act'] == 'logout')
-  { // logout
-    logout_user();
-    redirect(get_gallery_home_url());
-  }
-  elseif (!empty($_SESSION['pwg_uid']))
-  {
-    $user['id'] = $_SESSION['pwg_uid'];
-  }
+  die('Hacking attempt!');
 }
 
-// Now check the auto-login
-if ( $user['id']==$conf['guest_id'] )
-{
-  auto_login();
-}
+$upgrade_description = 'add user authentication keys table';
 
-// using Apache authentication override the above user search
-if ($conf['apache_authentication'])
-{
-  $remote_user = null;
-  foreach (array('REMOTE_USER', 'REDIRECT_REMOTE_USER') as $server_key)
-  {
-    if (isset($_SERVER[$server_key]))
-    {
-      $remote_user = $_SERVER[$server_key];
-      break;
-    }
-  }
+// we use PREFIX_TABLE, in case Piwigo uses an external user table
+pwg_query('
+CREATE TABLE `'.PREFIX_TABLE.'user_auth_keys` (
+  `auth_key_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `auth_key` varchar(255) NOT NULL,
+  `user_id` mediumint(8) unsigned NOT NULL,
+  `created_on` datetime NOT NULL,
+  `duration` int(11) unsigned DEFAULT NULL,
+  `expired_on` datetime NOT NULL,
+  PRIMARY KEY (`auth_key_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+;');
 
-  if (isset($remote_user))
-  {
-    if (!($user['id'] = get_userid($remote_user)))
-    {
-      $user['id'] = register_user($remote_user, '', '', false);
-    }
-  }
-}
+echo "\n".$upgrade_description."\n";
 
-// automatic login by authentication key
-if (isset($_GET['auth']))
-{
-  auth_key_login($_GET['auth']);
-}
-
-$user = build_user( $user['id'],
-          ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
-         );
-if ($conf['browser_language'] and (is_a_guest() or is_generic()) and $language = get_browser_language())
-{
-  $user['language'] = $language;
-}
-trigger_notify('user_init', $user);
 ?>

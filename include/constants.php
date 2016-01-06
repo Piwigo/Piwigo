@@ -81,6 +81,8 @@ if (!defined('USER_FEED_TABLE'))
   define('USER_FEED_TABLE', $prefixeTable.'user_feed');
 if (!defined('RATE_TABLE'))
   define('RATE_TABLE', $prefixeTable.'rate');
+if (!defined('USER_AUTH_KEYS_TABLE'))
+  define('USER_AUTH_KEYS_TABLE', $prefixeTable.'user_auth_keys');
 if (!defined('USER_CACHE_TABLE'))
   define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
 if (!defined('USER_CACHE_CATEGORIES_TABLE'))

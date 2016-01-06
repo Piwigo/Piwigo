@@ -54,6 +54,8 @@ if (isset($_POST['submitEmail']) and !empty($_POST['group']))
     is empty find child representative_picture_id */
   if (!empty($category['representative_picture_id']))
   {
+    $img = array();
+    
     $query = '
 SELECT id, file, path, representative_ext
   FROM '.IMAGES_TABLE.'
@@ -65,19 +67,17 @@ SELECT id, file, path, representative_ext
     {
       $element = pwg_db_fetch_assoc($result);
 
-      $img_url  = '<a href="'.
-                      make_picture_url(array(
-                          'image_id' => $element['id'],
-                          'image_file' => $element['file'],
-                          'category' => $category
-                        ))
-                      .'" class="thumblnk"><img src="'.DerivativeImage::url(IMG_THUMB, $element).'"></a>';
+      $img = array(
+        'link' => make_picture_url(
+          array(
+            'image_id' => $element['id'],
+            'image_file' => $element['file'],
+            'category' => $category
+            )
+          ),
+        'src' => DerivativeImage::url(IMG_THUMB, $element),
+        );
     }
-  }
-
-  if (!isset($img_url))
-  {
-    $img_url = '';
   }
 
   pwg_mail_group(
@@ -90,7 +90,7 @@ SELECT id, file, path, representative_ext
     array(
       'filename' => 'cat_group_info',
       'assign' => array(
-        'IMG_URL' => $img_url,
+        'IMG' => $img,
         'CAT_NAME' => trigger_change('render_category_name', $category['name'], 'admin_cat_list'),
         'LINK' => make_index_url(array(
             'category' => array(

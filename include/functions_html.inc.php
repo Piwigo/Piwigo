@@ -103,9 +103,16 @@ function get_cat_display_name($cat_informations, $url='')
 function get_cat_display_name_cache($uppercats,
                                     $url = '',
                                     $single_link = false,
-                                    $link_class = null)
+                                    $link_class = null,
+                                    $auth_key=null)
 {
   global $cache, $conf;
+
+  $add_url_params = array();
+  if (isset($auth_key))
+  {
+    $add_url_params['auth'] = $auth_key;
+  }
 
   if (!isset($cache['cat_names']))
   {
@@ -119,7 +126,7 @@ SELECT id, name, permalink
   $output = '';
   if ($single_link)
   {
-    $single_url = get_root_url().$url.array_pop(explode(',', $uppercats));
+    $single_url = add_url_params(get_root_url().$url.array_pop(explode(',', $uppercats)), $add_url_params);
     $output.= '<a href="'.$single_url.'"';
     if (isset($link_class))
     {
@@ -155,10 +162,13 @@ SELECT id, name, permalink
     {
       $output.= '
 <a href="'
-      .make_index_url(
+      .add_url_params(
+        make_index_url(
           array(
             'category' => $cat,
             )
+          ),
+        $add_url_params
         )
       .'">'.$cat['name'].'</a>';
     }

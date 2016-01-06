@@ -1462,4 +1462,139 @@ function get_recent_photos_sql($db_field)
     .pwg_db_get_recent_period_expression($user['recent_period'])
     .','.pwg_db_get_recent_period_expression(1,$user['last_photo_date']).')';
 }
+
+/**
+ * Performs auto-connection if authentication key is valid.
+ *
+ * @since 2.8
+ *
+ * @return bool
+ */
+function auth_key_login($auth_key)
+{
+  global $conf, $user, $page;
+
+  if ($user['id'] != $conf['guest_id'])
+  {
+    return false;
+  }
+  
+  if (!preg_match('/^[a-z0-9]{30}$/i', $auth_key))
+  {
+    return false;
+  }
+
+  $query = '
+SELECT
+    *,
+    '.$conf['user_fields']['username'].' AS username,
+    NOW() AS dbnow
+  FROM '.USER_AUTH_KEYS_TABLE.' AS uak
+    JOIN '.USER_INFOS_TABLE.' AS ui ON uak.user_id = ui.user_id
+    JOIN '.USERS_TABLE.' AS u ON u.'.$conf['user_fields']['id'].' = ui.user_id
+  WHERE auth_key = \''.$auth_key.'\'
+;';
+  $keys = query2array($query);
+
+  if (count($keys) == 0)
+  {
+    return false;
+  }
+  
+  $key = $keys[0];
+
+  // is the key still valid?
+  if (strtotime($key['expired_on']) < strtotime($key['dbnow']))
+  {
+    return false;
+  }
+
+  // admin/webmaster/guest can't get connected with authentication keys
+  if (!in_array($key['status'], array('normal','generic')))
+  {
+    return false;
+  }
+
+  $user['id'] = $key['user_id'];
+  log_user($user['id'], false);
+  trigger_notify('login_success', stripslashes($key['username']));
+
+  // to be registered in history table by pwg_log function
+  $page['auth_key_id'] = $key['auth_key_id'];
+
+  return true;
+}
+
+/**
+ * Creates an authentication key.
+ *
+ * @since 2.8
+ * @param int $user_id
+ * @return array
+ */
+function create_user_auth_key($user_id, $user_status=null)
+{
+  global $conf;
+
+  if (0 == $conf['auth_key_duration'])
+  {
+    return false;
+  }
+
+  if (!isset($user_status))
+  {
+    // we have to find the user status
+    $query = '
+SELECT
+    status
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+    $user_infos = query2array($query);
+
+    if (count($user_infos) == 0)
+    {
+      return false;
+    }
+
+    $user_status = $user_infos[0]['status'];
+  }
+
+  if (!in_array($user_status, array('normal','generic')))
+  {
+    return false;
+  }
+  
+  $candidate = generate_key(30);
+  
+  $query = '
+SELECT
+    COUNT(*),
+    NOW(),
+    ADDDATE(NOW(), INTERVAL '.$conf['auth_key_duration'].' SECOND)
+  FROM '.USER_AUTH_KEYS_TABLE.'
+  WHERE auth_key = \''.$candidate.'\'
+;';
+  list($counter, $now, $expiration) = pwg_db_fetch_row(pwg_query($query));
+  if (0 == $counter)
+  {
+    $key = array(
+      'auth_key' => $candidate,
+      'user_id' => $user_id,
+      'created_on' => $now,
+      'duration' => $conf['auth_key_duration'],
+      'expired_on' => $expiration,
+      );
+    
+    single_insert(USER_AUTH_KEYS_TABLE, $key);
+
+    $key['auth_key_id'] = pwg_db_insert_id();
+    
+    return $key;
+  }
+  else
+  {
+    return create_user_auth_key($user_id, $user_status);
+  }
+}
 ?>
