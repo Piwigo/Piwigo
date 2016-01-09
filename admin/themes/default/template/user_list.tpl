@@ -484,7 +484,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
         jQuery('#user'+userId+' .userDelete .loading').show();
       },
       success:function(data) {
-        oTable.fnDraw();
+        jQuery('.user_form_popin').colorbox.close();
         jQuery('#showAddUser .infos').html('&#x2714; User '+username+' deleted').show();
       },
       error:function(XMLHttpRequest, textStatus, errorThrows) {
