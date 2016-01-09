@@ -840,20 +840,6 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 .recent_period_infos {margin-left:10px;}
 .nb_image_page, .recent_period {width:340px;margin-top:5px;}
 #action_recent_period .recent_period {display:inline-block;}
-
-.user_form_popin {
-  width:750px;
-  height:430px;
-  padding:10px;
-}
-
-.userProperties form {
-  text-align:left;
-}
-
-.popinWait {
-  padding-top:200px;
-}
 {/literal}{/html_style}
 
 <div class="titrePage">

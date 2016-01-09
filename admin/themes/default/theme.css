@@ -1228,6 +1228,21 @@ a.group_perm {
 .userProperty {width:340px;float:left;margin-bottom:15px;}
 .userActions {float:right;text-align:right;}
 
+.user_form_popin {
+  width:750px;
+  height:430px;
+  padding:10px;
+}
+
+.userProperties form {
+  text-align:left;
+}
+
+.popinWait {
+  padding-top:200px;
+}
+
+
 .preview-box.icon-zoom-in {
   display:block;
   position:relative;
