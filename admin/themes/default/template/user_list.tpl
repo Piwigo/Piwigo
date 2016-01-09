@@ -551,7 +551,10 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
     jQuery.colorbox({
       inline:true,
       title:"{/literal}{'Edit user'|translate}{literal}",
-      href:".user_form_popin"
+      href:".user_form_popin",
+      onClosed: function() {
+        oTable.fnDraw();
+      }
     });
 
     fnFormatDetails(oTable, nTr);
