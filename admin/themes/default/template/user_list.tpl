@@ -1,3 +1,4 @@
+{include file='include/colorbox.inc.tpl'}
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
 {combine_script id='jquery.dataTables' load='footer' path='themes/default/js/plugins/jquery.dataTables.js'}
@@ -274,7 +275,7 @@ jQuery(document).ready(function() {
             jQuery("script.userDetails").html()
 		      );
           
-          jQuery("#user"+userId).append(template(user));
+          jQuery("#user"+userId).html(template(user));
 
           /* groups select */
           jQuery('[data-selectize=groups]').selectize({
@@ -339,9 +340,18 @@ jQuery(document).ready(function() {
         console.log('technical error loading user details');
       }
     });
-  
-    return '<div id="user'+userId+'" class="userProperties"><img class="loading" src="themes/default/images/ajax-loader-small.gif"></div>';
+
+    jQuery(".user_form_popin")
+      .attr("id", "user"+userId)
+      .html('<div class="popinWait"><span><img class="loading" src="themes/default/images/ajax-loader-small.gif"> {/literal}{'Loading...'|translate|escape:'javascript'}{literal}</span></div>')
+    ;
   }
+
+jQuery(document).on('click', '.close-user-details',  function(e) {
+  jQuery('.user_form_popin').colorbox.close();
+  e.preventDefault();
+});
+
 
   /* change password */
   jQuery(document).on('click', '.changePasswordOpen',  function() {
@@ -537,28 +547,14 @@ jQuery(document).ready(function() {
    */
   jQuery(document).on('click', '#userList tbody td .openUserDetails',  function() {
     var nTr = this.parentNode.parentNode;
-    if (jQuery(this).hasClass('icon-cancel-circled')) {
-      /* This row is already open - close it */
-      jQuery(this)
-        .removeClass('icon-cancel-circled')
-        .addClass('icon-pencil')
-        .attr('title', "{/literal}{'Open user details'|translate|escape:'javascript'}{literal}")
-        .html("{/literal}{'edit'|translate|escape:'javascript'}{literal}")
-      ;
 
-      oTable.fnClose( nTr );
-    }
-    else {
-      /* Open this row */
-      jQuery(this)
-        .removeClass('icon-pencil')
-        .addClass('icon-cancel-circled')
-        .attr('title', "{/literal}{'Close user details'|translate|escape:'javascript'}{literal}")
-        .html("{/literal}{'close'|translate|escape:'javascript'}{literal}")
-      ;
+    jQuery.colorbox({
+      inline:true,
+      title:"{/literal}{'Edit user'|translate}{literal}",
+      href:".user_form_popin"
+    });
 
-      oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
-    }
+    fnFormatDetails(oTable, nTr);
   });
 
 
@@ -841,6 +837,20 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 .recent_period_infos {margin-left:10px;}
 .nb_image_page, .recent_period {width:340px;margin-top:5px;}
 #action_recent_period .recent_period {display:inline-block;}
+
+.user_form_popin {
+  width:750px;
+  height:430px;
+  padding:10px;
+}
+
+.userProperties form {
+  text-align:left;
+}
+
+.popinWait {
+  padding-top:200px;
+}
 {/literal}{/html_style}
 
 <div class="titrePage">
@@ -1153,7 +1163,12 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 
   <span class="infos propertiesUpdateDone" style="display:none">&#x2714; <%- user.updateString %></span>
    
-  <input type="submit" value="{'Update user'|translate|escape:html}" style="display:none;" data-user_id="<%- user.id %>">
+  <input type="submit" value="{'Update user'|translate|escape:html}" data-user_id="<%- user.id %>">
   <img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">
+  <a href="#close" class="icon-cancel-circled close-user-details" title="{'Close user details'|translate}">{'close'|translate}</a>
 </form>
 </script>
+
+<div style="display:none">
+  <div class="user_form_popin userProperties"></div>
+</div>
