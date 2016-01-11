@@ -347,9 +347,8 @@ SELECT
       $representative_ext = null;
     }
   }
-
-  if (isset($original_extension) and 'pdf' == $original_extension and pwg_image::get_library() == 'ext_imagick')
-  {
+  if (isset ( $original_extension ) and 'pdf' == $original_extension or in_array($original_extension, $conf['postscript_extension']) and pwg_image::get_library () == 'ext_imagick')
+  {  
     $representative_file_path = dirname($file_path).'/pwg_representative/';
     $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
     

@@ -55,7 +55,11 @@ final class SrcImage
 
     $this->id = $infos['id'];
     $ext = get_extension($infos['path']);
-    if (in_array($ext, $conf['picture_ext']))
+    $postscript_extension = array (
+            'eps',
+            'EPS'
+    );
+    if (in_array($ext, $conf['picture_ext']) AND (!in_array($ext, $postscript_extension)))
     {
       $this->rel_path = $infos['path'];
       $this->flags |= self::IS_ORIGINAL;
