@@ -984,3 +984,4 @@ $lang['width & height'] = 'width & height';
 $lang['Upload in progress'] = 'Upload in progress';
 $lang['Orphans'] = 'Orphans';
 $lang['Delete %d orphan photos'] = 'Delete %d orphan photos';
+$lang['Edit user'] = 'Edit user';

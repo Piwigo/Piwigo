@@ -985,3 +985,4 @@ $lang['No and unlock sub-albums'] = 'Non, et déverrouiller les sous-albums';
 $lang['Upload in progress'] = 'Transfert en cours...';
 $lang['Orphans'] = 'Orphelines';
 $lang['Delete %d orphan photos'] = 'Supprimer les %d photos orphelines';
+$lang['Edit user'] = 'Éditer l\'utilisateur';
