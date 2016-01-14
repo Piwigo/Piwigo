@@ -1020,7 +1020,7 @@ array(
 </div> <!-- the_page -->
 
 <div id="the_footer">
-  Copyright &copy; 2002-2013 <a href="http://piwigo.org">Piwigo Team</a>
+  Copyright &copy; 2002-2016 <a href="http://piwigo.org">Piwigo Team</a>
 </div> <!-- the_footer -->
 
 
