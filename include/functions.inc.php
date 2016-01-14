@@ -1297,6 +1297,32 @@ DELETE FROM '.CONFIG_TABLE.'
 }
 
 /**
+ * Return a default value for a configuration parameter.
+ * @since 2.8
+ *
+ * @param string $param the configuration value to be extracted (if it exists)
+ * @param mixed $default_value the default value for the configuration value if it does not exist.
+ *
+ * @return mixed The configuration value if the variable exists, otherwise the default.
+ */
+function conf_get_param($param, $default_value=null)
+{
+  global $conf;
+  
+  if (isset($conf[$param]))
+  {
+    return $conf[$param];
+  }
+  elseif (isset($default_value))
+  {
+    return $default_value;
+  }
+
+  return null;
+}
+
+
+/**
  * Apply *unserialize* on a value only if it is a string
  * @since 2.7
  *

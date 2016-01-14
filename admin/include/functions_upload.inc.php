@@ -268,104 +268,19 @@ SELECT
   }
   @chmod($file_path, 0644);
 
-  if ($is_tiff and pwg_image::get_library() == 'ext_imagick')
-  {
-    // move the uploaded file to pwg_representative sub-directory
-    $representative_file_path = dirname($file_path).'/pwg_representative/';
-    $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+  // handle the uploaded file type by potentially making a
+  // pwg_representative file.
+  $representative_ext = trigger_change('upload_file', null, $file_path);
 
-    $representative_ext = $conf['tiff_representative_ext'];
-    $representative_file_path.= $representative_ext;
-
-    prepare_directory(dirname($representative_file_path));
-
-    $exec = $conf['ext_imagick_dir'].'convert';
-
-    if ('jpg' == $conf['tiff_representative_ext'])
-    {
-      $exec .= ' -quality 98';
-    }
-
-    $exec .= ' "'.realpath($file_path).'"';
-
-    $dest = pathinfo($representative_file_path);
-    $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
-
-    $exec .= ' 2>&1';
-    @exec($exec, $returnarray);
-
-    // sometimes ImageMagick creates file-0.jpg (full size) + file-1.jpg
-    // (thumbnail). I don't know how to avoid it.
-    $representative_file_abspath = realpath($dest['dirname']).'/'.$dest['basename'];
-    if (!file_exists($representative_file_abspath))
-    {
-      $first_file_abspath = preg_replace(
-        '/\.'.$representative_ext.'$/',
-        '-0.'.$representative_ext,
-        $representative_file_abspath
-        );
-
-      if (file_exists($first_file_abspath))
-      {
-        rename($first_file_abspath, $representative_file_abspath);
-      }
-    }
-  }
-
-  //
-  // generate pwg_representative in case of video
-  //
-  $ffmpeg_video_exts = array( // extensions tested with FFmpeg
-    'wmv','mov','mkv','mp4','mpg','flv','asf','xvid','divx','mpeg',
-    'avi','rm',
-    );
+  global $logger;
+  $logger->info("Handling " . (string)$file_path . " got " . (string)$representative_ext);
   
-  if (isset($original_extension) and in_array($original_extension, $ffmpeg_video_exts))
-  {
-    $representative_file_path = dirname($file_path).'/pwg_representative/';
-    $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
-    
-    $representative_ext = 'jpg';
-    $representative_file_path.= $representative_ext;
-    
-    prepare_directory(dirname($representative_file_path));
-    
-    $second = 1;
-    
-    $ffmpeg = $conf['ffmpeg_dir'].'ffmpeg';
-    $ffmpeg.= ' -i "'.$file_path.'"';
-    $ffmpeg.= ' -an -ss '.$second;
-    $ffmpeg.= ' -t 1 -r 1 -y -vcodec mjpeg -f mjpeg';
-    $ffmpeg.= ' "'.$representative_file_path.'"';
-    
-    // file_put_contents('/tmp/ffmpeg.log', "\n==== ".date('c')."\n".__FUNCTION__.' : '.$ffmpeg."\n", FILE_APPEND);
-    
-    @exec($ffmpeg);
-
-    if (!file_exists($representative_file_path))
-    {
-      $representative_ext = null;
-    }
-  }
-
-  if (isset($original_extension) and 'pdf' == $original_extension and pwg_image::get_library() == 'ext_imagick')
-  {
-    $representative_file_path = dirname($file_path).'/pwg_representative/';
-    $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
-    
-    $representative_ext = 'jpg';
-    $representative_file_path.= $representative_ext;
-
-    prepare_directory(dirname($representative_file_path));
-    
-    $exec = $conf['ext_imagick_dir'].'convert';
-    $exec.= ' -quality 98';
-    $exec.= ' "'.realpath($file_path).'"[0]';
-
-    $dest = pathinfo($representative_file_path);
-    $exec.= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
-    $exec.= ' 2>&1';
-    @exec($exec, $returnarray);
+  // If it is set to either true (the file didn't need a
+  // representative generated) or false (the generation of the
+  // representative failed), set it to null because we have no
+  // representative file.
+  if (is_bool($representative_ext)) {
+    $representative_ext = null;
   }
   
   if (pwg_image::get_library() != 'gd')
@@ -490,6 +405,168 @@ SELECT
 
 
   return $image_id;
+}
+
+add_event_handler('upload_file', 'upload_file_pdf');
+function upload_file_pdf($representative_ext, $file_path)
+{
+  global $logger, $conf;
+
+  $logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+  if (isset($representative_ext))
+  {
+    return $representative_ext;
+  }
+
+  if (pwg_image::get_library() != 'ext_imagick')
+  {
+    return $representative_ext;
+  }
+
+  if (!in_array(strtolower(get_extension($file_path)), array('pdf')))
+  {
+    return $representative_ext;
+  }
+
+  $ext = conf_get_param('pdf_representative_ext', 'jpg');
+  $jpg_quality = conf_get_param('pdf_jpg_quality', 90);
+
+  // move the uploaded file to pwg_representative sub-directory
+  $representative_file_path = original_to_representative($file_path, $ext);
+  prepare_directory(dirname($representative_file_path));
+
+  $exec = $conf['ext_imagick_dir'].'convert';
+  if ('jpg' == $ext)
+  {
+    $exec.= ' -quality '.$jpg_quality;
+  }
+  $exec.= ' "'.realpath($file_path).'"[0]';
+  $exec.= ' "'.$representative_file_path.'"';
+  $exec.= ' 2>&1';
+  @exec($exec, $returnarray);
+
+  // Return the extension (if successful) or false (if failed)
+  if (file_exists($representative_file_path))
+  {
+    $representative_ext = $ext;
+  }
+
+  return $representative_ext;
+}
+
+add_event_handler('upload_file', 'upload_file_tiff');
+function upload_file_tiff($representative_ext, $file_path)
+{
+  global $logger, $conf;
+
+  $logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+  if (isset($representative_ext))
+  {
+    return $representative_ext;
+  }
+
+  if (pwg_image::get_library() != 'ext_imagick')
+  {
+    return $representative_ext;
+  }
+
+  if (!in_array(strtolower(get_extension($file_path)), array('tif', 'tiff')))
+  {
+    return $representative_ext;
+  }
+
+  // move the uploaded file to pwg_representative sub-directory
+  $representative_file_path = dirname($file_path).'/pwg_representative/';
+  $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+
+  $representative_ext = $conf['tiff_representative_ext'];
+  $representative_file_path.= $representative_ext;
+
+  prepare_directory(dirname($representative_file_path));
+
+  $exec = $conf['ext_imagick_dir'].'convert';
+
+  if ('jpg' == $conf['tiff_representative_ext'])
+  {
+    $exec .= ' -quality 98';
+  }
+
+  $exec .= ' "'.realpath($file_path).'"';
+
+  $dest = pathinfo($representative_file_path);
+  $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
+
+  $exec .= ' 2>&1';
+  @exec($exec, $returnarray);
+
+  // sometimes ImageMagick creates file-0.jpg (full size) + file-1.jpg
+  // (thumbnail). I don't know how to avoid it.
+  $representative_file_abspath = realpath($dest['dirname']).'/'.$dest['basename'];
+  if (!file_exists($representative_file_abspath))
+  {
+    $first_file_abspath = preg_replace(
+      '/\.'.$representative_ext.'$/',
+      '-0.'.$representative_ext,
+      $representative_file_abspath
+      );
+
+    if (file_exists($first_file_abspath))
+    {
+      rename($first_file_abspath, $representative_file_abspath);
+    }
+  }
+
+  return get_extension($representative_file_abspath);
+}
+
+add_event_handler('upload_file', 'upload_file_video');
+function upload_file_video($representative_ext, $file_path)
+{
+  global $logger, $conf;
+
+  $logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+  if (isset($representative_ext))
+  {
+    return $representative_ext;
+  }
+
+  $ffmpeg_video_exts = array( // extensions tested with FFmpeg
+    'wmv','mov','mkv','mp4','mpg','flv','asf','xvid','divx','mpeg',
+    'avi','rm',
+    );
+
+  if (!in_array(strtolower(get_extension($file_path)), $ffmpeg_video_exts))
+  {
+    return $representative_ext;
+  }
+
+  $representative_file_path = dirname($file_path).'/pwg_representative/';
+  $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+
+  $representative_ext = 'jpg';
+  $representative_file_path.= $representative_ext;
+
+  prepare_directory(dirname($representative_file_path));
+
+  $second = 1;
+
+  $ffmpeg = $conf['ffmpeg_dir'].'ffmpeg';
+  $ffmpeg.= ' -i "'.$file_path.'"';
+  $ffmpeg.= ' -an -ss '.$second;
+  $ffmpeg.= ' -t 1 -r 1 -y -vcodec mjpeg -f mjpeg';
+  $ffmpeg.= ' "'.$representative_file_path.'"';
+
+  @exec($ffmpeg);
+
+  if (!file_exists($representative_file_path))
+  {
+    return null;
+  }
+
+  return $representative_ext;
 }
 
 function prepare_directory($directory)
