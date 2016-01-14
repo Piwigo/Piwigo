@@ -521,6 +521,54 @@ function upload_file_tiff($representative_ext, $file_path)
   return get_extension($representative_file_abspath);
 }
 
+add_event_handler('upload_file', 'upload_file_video');
+function upload_file_video($representative_ext, $file_path)
+{
+  global $logger, $conf;
+
+  $logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+  if (isset($representative_ext))
+  {
+    return $representative_ext;
+  }
+
+  $ffmpeg_video_exts = array( // extensions tested with FFmpeg
+    'wmv','mov','mkv','mp4','mpg','flv','asf','xvid','divx','mpeg',
+    'avi','rm',
+    );
+
+  if (!in_array(strtolower(get_extension($file_path)), $ffmpeg_video_exts))
+  {
+    return $representative_ext;
+  }
+
+  $representative_file_path = dirname($file_path).'/pwg_representative/';
+  $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+
+  $representative_ext = 'jpg';
+  $representative_file_path.= $representative_ext;
+
+  prepare_directory(dirname($representative_file_path));
+
+  $second = 1;
+
+  $ffmpeg = $conf['ffmpeg_dir'].'ffmpeg';
+  $ffmpeg.= ' -i "'.$file_path.'"';
+  $ffmpeg.= ' -an -ss '.$second;
+  $ffmpeg.= ' -t 1 -r 1 -y -vcodec mjpeg -f mjpeg';
+  $ffmpeg.= ' "'.$representative_file_path.'"';
+
+  @exec($ffmpeg);
+
+  if (!file_exists($representative_file_path))
+  {
+    return null;
+  }
+
+  return $representative_ext;
+}
+
 function prepare_directory($directory)
 {
   if (!is_dir($directory)) {
