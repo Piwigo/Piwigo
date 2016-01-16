@@ -392,6 +392,7 @@ function delete_user($user_id)
     CADDIE_TABLE,
     // deletion of piwigo specific informations
     USER_INFOS_TABLE,
+    USER_AUTH_KEYS_TABLE
     );
 
   foreach ($tables as $table)
