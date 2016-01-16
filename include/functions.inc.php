@@ -1159,9 +1159,7 @@ function l10n_args($key_args, $sep = "\n")
  */
 function get_themeconf($key)
 {
-  global $template;
-
-  return $template->get_themeconf($key);
+  return $GLOBALS['template']->get_themeconf($key);
 }
 
 /**
@@ -1313,12 +1311,7 @@ function conf_get_param($param, $default_value=null)
   {
     return $conf[$param];
   }
-  elseif (isset($default_value))
-  {
-    return $default_value;
-  }
-
-  return null;
+  return $default_value;
 }
 
 

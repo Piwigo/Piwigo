@@ -1517,7 +1517,7 @@ SELECT
 
   $user['id'] = $key['user_id'];
   log_user($user['id'], false);
-  trigger_notify('login_success', stripslashes($key['username']));
+  trigger_notify('login_success', $key['username']);
 
   // to be registered in history table by pwg_log function
   $page['auth_key_id'] = $key['auth_key_id'];
