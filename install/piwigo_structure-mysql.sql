@@ -132,6 +132,7 @@ CREATE TABLE `piwigo_history` (
   `summarized` enum('true','false') default 'false',
   `image_type` enum('picture','high','other') default NULL,
   `format_id` int(11) unsigned default NULL,
+  `auth_key_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY  (`id`),
   KEY `history_i1` (`summarized`)
 ) ENGINE=MyISAM;
@@ -363,6 +364,20 @@ CREATE TABLE `piwigo_user_access` (
   `user_id` mediumint(8) unsigned NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`cat_id`)
+) ENGINE=MyISAM;
+
+--
+-- Table structure for table `piwigo_user_auth_keys`
+--
+
+CREATE TABLE `piwigo_user_auth_keys` (
+  `auth_key_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `auth_key` varchar(255) NOT NULL,
+  `user_id` mediumint(8) unsigned NOT NULL,
+  `created_on` datetime NOT NULL,
+  `duration` int(11) unsigned DEFAULT NULL,
+  `expired_on` datetime NOT NULL,
+  PRIMARY KEY (`auth_key_id`)
 ) ENGINE=MyISAM;
 
 --
