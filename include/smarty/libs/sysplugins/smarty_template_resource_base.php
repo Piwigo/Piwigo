@@ -80,13 +80,6 @@ abstract class Smarty_Template_Resource_Base
     public $required_plugins = array();
 
     /**
-     * Known template functions
-     *
-     * @var array
-     */
-    public $tpl_function = array();
-
-    /**
      * Included subtemplates
      *
      * @var array

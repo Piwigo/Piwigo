@@ -114,14 +114,6 @@ class Smarty_Internal_Extension_Clear
                             }
                         }
                     }
-                    // remove from template cache
-                    if (isset($smarty->_cache['template_objects'])) {
-                        foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
-                            if (isset($tpl->cached) && $tpl->cached->filepath == (string) $_file) {
-                                unset($smarty->_cache['template_objects'][$key]);
-                            }
-                        }
-                    }
                     $_count += @unlink((string) $_file) ? 1 : 0;
                     if (function_exists('opcache_invalidate')) {
                         opcache_invalidate((string) $_file);

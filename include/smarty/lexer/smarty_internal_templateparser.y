@@ -352,26 +352,18 @@ tag(res)   ::= LDEL variable(e). {
     res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>e));
 }
 
-tag(res)   ::= LDEL variable(e) modifierlist(l) attributes(a). {
-    res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e, 'modifierlist'=>l));
-}
-
 tag(res)   ::= LDEL variable(e) attributes(a). {
     res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e));
 }
 tag(res)   ::= LDEL value(e). {
     res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>e));
 }
-tag(res)   ::= LDEL value(e) modifierlist(l) attributes(a). {
-    res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e, 'modifierlist'=>l));
-}
-
 tag(res)   ::= LDEL value(e) attributes(a). {
     res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e));
 }
 
-tag(res)   ::= LDEL expr(e) modifierlist(l) attributes(a). {
-    res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e,'modifierlist'=>l));
+tag(res)   ::= LDEL expr(e). {
+    res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>e));
 }
 
 tag(res)   ::= LDEL expr(e) attributes(a). {

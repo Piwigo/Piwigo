@@ -59,7 +59,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
      *
      * @var array
      */
-    public static $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total');
+    public $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total');
 
     /**
      * Valid properties of $item@xxx variable
@@ -183,8 +183,10 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         foreach ($saveVars as $k => $code) {
             $output .= "{$local}{$k} = {$code}\n";
         }
+        if (isset($itemAttr['show']) || isset($itemAttr['total']) || isset($namedAttr['total']) || isset($namedAttr['show']) || isset($itemAttr['last']) || isset($namedAttr['last'])) {
+            $output .= "{$local}total = \$_smarty_tpl->smarty->ext->_foreach->count(\$_from);\n";
+        }
         $output .= "{$itemVar} = new Smarty_Variable();\n";
-        $output .= "{$local}total = \$_smarty_tpl->smarty->ext->_foreach->count(\$_from);\n";
         if (isset($itemAttr['show'])) {
             $output .= "{$itemVar}->show = ({$local}total > 0);\n";
         }
@@ -210,7 +212,6 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
                 $output .= "{$foreachVar} = new Smarty_Variable({$_vars});\n";
             }
         }
-        $output .= "if ({$local}total) {\n";
         if (isset($attributes['key'])) {
             $output .= "\$_smarty_tpl->tpl_vars['{$key}'] = new Smarty_Variable();\n";
         }
@@ -226,7 +227,9 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         if ($needIteration) {
             $output .= "{$local}iteration=0;\n";
         }
+        $output .= "{$itemVar}->_loop = false;\n";
         $output .= "foreach (\$_from as {$keyTerm}{$itemVar}->value) {\n";
+        $output .= "{$itemVar}->_loop = true;\n";
         if (isset($attributes['key']) && isset($itemAttr['key'])) {
             $output .= "\$_smarty_tpl->tpl_vars['{$key}']->value = {$itemVar}->key;\n";
         }
@@ -296,7 +299,7 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
         $output = "<?php\n";
         $output .= "{$itemVar} = {$local}saved_local_item;\n";
         $output .= "}\n";
-        $output .= "} else {\n?>";
+        $output .= "if (!{$itemVar}->_loop) {\n?>";
         return $output;
     }
 }
@@ -332,7 +335,6 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
 
         if ($restore) {
             $output .= "{$itemVar} = {$local}saved_local_item;\n";
-            $output .= "}\n";
         }
         $output .= "}\n";
         foreach ($restoreVars as $restore) {

@@ -73,7 +73,7 @@ class Smarty_Internal_Runtime_UpdateCache
 
     /**
      * Cache was invalid , so render from compiled and write to cache
-     * 
+     *
      * @param \Smarty_Template_Cached   $cached
      * @param \Smarty_Internal_Template $_template
      * @param                           $no_output_filter
@@ -129,20 +129,6 @@ class Smarty_Internal_Runtime_UpdateCache
             return false;
         }
         $content = $_template->smarty->ext->_codeFrame->create($_template, $content, '', true);
-        if (!empty($_template->cached->tpl_function)) {
-            foreach ($_template->cached->tpl_function as $funcParam) {
-                if (is_file($funcParam['compiled_filepath'])) {
-                    // read compiled file
-                    $code = file_get_contents($funcParam['compiled_filepath']);
-                    // grab template function
-                    if (preg_match("/\/\* {$funcParam['call_name']} \*\/([\S\s]*?)\/\*\/ {$funcParam['call_name']} \*\//",
-                                   $code, $match)) {
-                        unset($code);
-                        $content .= "<?php " . $match[0] . "?>\n";
-                    }
-                }
-            }
-        }
         return $this->write($cached, $_template, $content);
     }
 

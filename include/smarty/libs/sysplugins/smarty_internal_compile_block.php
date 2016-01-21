@@ -142,7 +142,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         }
         $compiler->suppressNocacheProcessing = true;
         $compiler->has_code = true;
-        $output = "<?php \n\$_smarty_tpl->ext->_inheritance->processBlock(\$_smarty_tpl, 3, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, null, \$_blockParentStack);\n?>\n";
+        $output = "<?php \n\$_smarty_tpl->ext->_inheritance->processBlock(\$_smarty_tpl, 4, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, null, \$_blockParentStack);\n?>\n";
         return $output;
     }
 }

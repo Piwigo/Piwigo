@@ -44,7 +44,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
             if ($_s->type == 'php') {
                 throw new SmartyException("Resource type {$_s->type} cannot be used with the extends resource type");
             }
-            $sources[$_s->uid] = $_s;
+            $sources[ $_s->uid ] = $_s;
             $uid .= $_s->filepath;
             if ($_template) {
                 $exists = $exists && $_s->exists;
@@ -109,5 +109,16 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
     public function getBasename(Smarty_Template_Source $source)
     {
         return str_replace(':', '.', basename($source->filepath));
+    }
+
+    /*
+      * Disable timestamp checks for extends resource.
+      * The individual source components will be checked.
+      *
+      * @return bool
+      */
+    public function checkTimestamps()
+    {
+        return false;
     }
 }

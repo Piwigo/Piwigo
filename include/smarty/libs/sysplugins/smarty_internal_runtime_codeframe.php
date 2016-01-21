@@ -89,6 +89,6 @@ class Smarty_Internal_Runtime_CodeFrame
         $output .= $functions;
         $output .= "<?php }\n";
         // remove unneeded PHP tags
-        return preg_replace('/\s*\?>[\n]?<\?php\s*/', "\n", $output);
+        return preg_replace(array('/\s*\?>[\n]?<\?php\s*/', '/\?>\s*$/'), array("\n", ''), $output);
     }
 }

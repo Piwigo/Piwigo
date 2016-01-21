@@ -17,7 +17,7 @@ class Smarty_Internal_Runtime_Var
      * @param string                    $varName template variable name
      * @param bool                      $nocache cache mode of variable
      */
-    public function createLocalArrayVariable(\Smarty_Internal_Template $tpl, $varName, $nocache = false)
+    public function createLocalArrayVariable(Smarty_Internal_Template $tpl, $varName, $nocache = false)
     {
         if (!isset($tpl->tpl_vars[$varName])) {
             $tpl->tpl_vars[$varName] = new Smarty_Variable(array(), $nocache);

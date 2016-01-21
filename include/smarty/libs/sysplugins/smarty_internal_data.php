@@ -188,6 +188,21 @@ class Smarty_Internal_Data
     }
 
     /**
+     * gets the object of a Smarty variable
+     *
+     * @param  string  $variable       the name of the Smarty variable
+     * @param  Smarty_Internal_Data  $_ptr           optional pointer to data object
+     * @param  boolean $searchParents search also in parent data
+     * @param bool     $error_enable
+     *
+     * @return Smarty_Variable|Smarty_Undefined_Variable the object of the variable
+     * @deprecated since 3.1.28 please use Smarty_Internal_Data::getTemplateVars() instead.
+     */
+    public function getVariable($variable = null, Smarty_Internal_Data $_ptr = null, $searchParents = true, $error_enable = true){
+        return $this->ext->getTemplateVars->_getVariable($this, $variable, $_ptr, $searchParents, $error_enable);
+    }
+    
+    /**
      * Follow the parent chain an merge template and config variables
      *
      * @param \Smarty_Internal_Data|null $data

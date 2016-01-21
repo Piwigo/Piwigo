@@ -59,7 +59,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
      *
      * @var array
      */
-    public static $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total', 'rownum',
+    public $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total', 'rownum',
                                           'index_prev', 'index_next');
 
     /**
@@ -103,7 +103,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 
-        $initLocal = array('saved' => "isset(\$_smarty_tpl->tpl_vars['__smarty_section_{$attributes['name']}']) ? \$_smarty_tpl->tpl_vars['__section_{$attributes['name']}'] : false",);
+        $initLocal = array('saved' => "isset(\$_smarty_tpl->tpl_vars['__smarty_section_{$attributes['name']}']) ? \$_smarty_tpl->tpl_vars['__smarty_section_{$attributes['name']}'] : false",);
         $initNamedProperty = array();
         $initFor = array();
         $incFor = array();

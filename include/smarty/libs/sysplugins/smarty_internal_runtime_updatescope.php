@@ -17,7 +17,7 @@ class Smarty_Internal_Runtime_UpdateScope
      * @param string $varName variable name
      * @param int    $scope   scope to which bubble up variable value
      */
-    public function updateScope(\Smarty_Internal_Template $tpl, $varName, $scope = Smarty::SCOPE_LOCAL)
+    public function updateScope(Smarty_Internal_Template $tpl, $varName, $scope = Smarty::SCOPE_LOCAL)
     {
         if (!$scope && !$tpl->scope) {
             return;

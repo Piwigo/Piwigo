@@ -1,14 +1,50 @@
-﻿ ===== 3.1.28 ===== (13.12.2015)
+﻿ ===== 3.1.29 ===== (21.12.2015)
+ 21.12.2015
+  - optimization improve speed of filetime checks on extends and extendsall resource
+  
+ 20.12.2015
+  - bugfix failure when the default resource type was set to 'extendsall' https://github.com/smarty-php/smarty/issues/123
+  - update compilation of Smarty special variables
+  - bugfix add addition check for OS type on normalizaition of file path https://github.com/smarty-php/smarty/issues/134
+  - bugfix the source uid of the extendsall resource must contain $template_dir settings https://github.com/smarty-php/smarty/issues/123
+  
+ 19.12.2015
+  - bugfix using $smarty.capture.foo in expressions could fail https://github.com/smarty-php/smarty/pull/138
+  - bugfix broken PHP 5.2 compatibility https://github.com/smarty-php/smarty/issues/139
+  - remove no longer used code
+  - improvement make sure that compiled and cache templates never can contain a trailing '?>?
+    
+ 18.12.2015
+  - bugfix regression when modifier parameter was follow by math https://github.com/smarty-php/smarty/issues/132
+  
+ 17.12.2015
+  - bugfix {$smarty.capture.nameFail} did lowercase capture name https://github.com/smarty-php/smarty/issues/135
+  - bugfix using {block append/prepend} on same block in multiple levels of inheritance templates could fail (forum topic 25827)
+  - bugfix text content consisting of just a single '0' like in {if true}0{/if} was suppressed (forum topic 25834)
+  
+ 16.12.2015
+  - bugfix {foreach} did fail if from atrribute is a Generator class https://github.com/smarty-php/smarty/issues/128
+  - bugfix direct access $smarty->template_dir = 'foo'; should call Smarty::setTemplateDir() https://github.com/smarty-php/smarty/issues/121
+  
+ 15.12.2015
+  - bugfix  {$smarty.cookies.foo} did return the $_COOKIE array not the 'foo' value https://github.com/smarty-php/smarty/issues/122
+  - bugfix  a call to clearAllCache() and other should clear all internal template object caches (forum topic 25828)
+
+ 14.12.2015
+  - bugfix  {$smarty.config.foo} broken in 3.1.28 https://github.com/smarty-php/smarty/issues/120
+  - bugfix  multiple calls of {section} with same name droped E_NOTICE error https://github.com/smarty-php/smarty/issues/118
+ 
+ ===== 3.1.28 ===== (13.12.2015)
  13.12.2015
   - bugfix {foreach} and {section} with uppercase characters in name attribute did not work (forum topic 25819)
   - bugfix $smarty->debugging_ctrl = 'URL' did not work (forum topic 25811)
   - bugfix Debug Console could display incorrect data when using subtemplates
   
  09.12.2015
-  - bugix Smarty did fail under PHP 7.0.0 with use_include_path = true;
+  - bugfix Smarty did fail under PHP 7.0.0 with use_include_path = true;
   
  09.12.2015
-  -bugfix {strip} should exclude some html tags from stripping, related to fix for https://github.com/smarty-php/smarty/issues/111
+  - bugfix {strip} should exclude some html tags from stripping, related to fix for https://github.com/smarty-php/smarty/issues/111
  
  08.12.2015
   - bugfix internal template function data got stored in wrong compiled file https://github.com/smarty-php/smarty/issues/114

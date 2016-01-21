@@ -50,7 +50,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      *
      * @var array
      */
-    public static $nameProperties = array();
+    public $nameProperties = array();
 
     /**
      * {section} tag has no item properties
@@ -112,8 +112,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
         if ($named) {
             $this->resultOffsets['named'] = $this->startOffset + 3;
             $this->propertyPreg .= "([\$]smarty[.]{$this->tagName}[.]{$attributes['name']}[.](";
-            $className = get_class($this);
-            $properties = $className::$nameProperties;
+            $properties = $this->nameProperties;
         } else {
             $this->resultOffsets['item'] = $this->startOffset + 3;
             $this->propertyPreg .= "([\$]{$attributes['item']}[@](";
@@ -204,17 +203,15 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
-    public static function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
         $tag = strtolower(trim($parameter[ 0 ], '"\''));
         $name = isset($parameter[ 1 ]) ? $compiler->getId($parameter[ 1 ]) : false;
         if (!$name) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
-        /* @var Smarty_Internal_Compile_Foreach|Smarty_Internal_Compile_Section $className */
-        $className = 'Smarty_Internal_Compile_' . ucfirst($tag);
         $property = isset($parameter[ 2 ]) ? strtolower($compiler->getId($parameter[ 2 ])) : false;
-        if (!$property || !in_array($property, $className::$nameProperties)) {
+        if (!$property || !in_array($property, $this->nameProperties)) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} property attribute", null, true);
         }
         $tagVar = "'__smarty_{$tag}_{$name}'";

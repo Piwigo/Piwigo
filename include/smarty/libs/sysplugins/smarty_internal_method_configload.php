@@ -162,7 +162,7 @@ class Smarty_Internal_Method_ConfigLoad
      *
      * @return mixed  the value of the config variable
      */
-    public function _getConfigVariable(\Smarty_Internal_Template $tpl, $varName, $errorEnable = true)
+    public function _getConfigVariable(Smarty_Internal_Template $tpl, $varName, $errorEnable = true)
     {
         $_ptr = $tpl;
         while ($_ptr !== null) {

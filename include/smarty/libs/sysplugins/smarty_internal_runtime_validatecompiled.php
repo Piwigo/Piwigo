@@ -43,8 +43,13 @@ class Smarty_Internal_Runtime_ValidateCompiled
                 } elseif ($_file_to_check[2] == 'string') {
                     continue;
                 } else {
-                    $source = Smarty_Template_Source::load(null, $tpl->smarty, $_file_to_check[0]);
-                    $mtime = $source->getTimeStamp();
+                    $handler = Smarty_Resource::load($tpl->smarty, $_file_to_check[2]);
+                    if ($handler->checkTimestamps()) {
+                        $source = Smarty_Template_Source::load($tpl, $tpl->smarty, $_file_to_check[ 0 ]);
+                        $mtime = $source->getTimeStamp();
+                    } else {
+                        continue;
+                    }
                 }
                 if (!$mtime || $mtime > $_file_to_check[1]) {
                     $is_valid = false;

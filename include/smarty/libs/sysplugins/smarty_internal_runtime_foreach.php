@@ -27,6 +27,9 @@ class Smarty_Internal_Runtime_Foreach
             // thus rewind() and valid() methods may not be present
             return iterator_count($value->getIterator());
         } elseif ($value instanceof Iterator) {
+            if ($value instanceof Generator) {
+                return 1;
+            }
             return iterator_count($value);
         } elseif ($value instanceof PDOStatement) {
             return $value->rowCount();

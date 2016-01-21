@@ -240,6 +240,16 @@ abstract class Smarty_Resource
         return $resource->buildUniqueResourceName($smarty, $name);
     }
 
+    /*
+     * Check if resource must check time stamps when when loading complied or cached templates.
+     * Resources like 'extends' which use source components my disable timestamp checks on own resource.
+     *
+     * @return bool
+     */
+    public function checkTimestamps() {
+        return true;
+    }
+
     /**
      * initialize Source Object for given resource
      * wrapper for backward compatibility to versions < 3.1.22

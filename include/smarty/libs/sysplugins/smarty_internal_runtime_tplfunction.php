@@ -20,7 +20,7 @@ class Smarty_Internal_Runtime_TplFunction
      *
      * @throws \SmartyException
      */
-    public function callTemplateFunction(\Smarty_Internal_Template $tpl, $name, $params, $nocache)
+    public function callTemplateFunction(Smarty_Internal_Template $tpl, $name, $params, $nocache)
     {
         if (isset($tpl->tpl_function[$name])) {
             if (!$tpl->caching || ($tpl->caching && $nocache)) {
