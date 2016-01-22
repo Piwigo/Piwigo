@@ -1,4 +1,3 @@
-{strip}
 /* page */
 body {
   color:#fff;
@@ -84,4 +83,3 @@ blockquote {
 hr {
   border-color:#555;
 }
-{/strip}
