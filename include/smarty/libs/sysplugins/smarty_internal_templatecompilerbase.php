@@ -812,7 +812,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                          '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
                                          '#^\s+<#Ss'                                                               => '<',
                                          '#>\s+$#Ss'                                                               => '>',
-                                         $this->stripRegEx                                                         => ' ');
+                                         $this->stripRegEx                                                         => '');
 
                     $text = preg_replace(array_keys($expressions), array_values($expressions), $text);
                     $_offset = 0;
@@ -828,7 +828,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         }
                     }
                 } else {
-                    $text = preg_replace($this->stripRegEx, ' ', $text);
+                    $text = preg_replace($this->stripRegEx, '', $text);
                 }
             }
             return new Smarty_Internal_ParseTree_Text($text);
