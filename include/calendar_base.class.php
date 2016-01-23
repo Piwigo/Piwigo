@@ -360,7 +360,7 @@ GROUP BY period';
     if ( !empty($tpl_var) )
     {
       $existing = $template->smarty->getVariable('chronology_navigation_bars');
-      if (! ($existing instanceof Undefined_Smarty_Variable))
+      if (! ($existing instanceof Smarty_Undefined_Variable))
       {
         $existing->value[ sizeof($existing->value)-1 ] =
           array_merge( $existing->value[ sizeof($existing->value)-1 ], $tpl_var);
