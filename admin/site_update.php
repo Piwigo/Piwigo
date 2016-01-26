@@ -488,6 +488,7 @@ SELECT id, path
   $inserts = array();
   $insert_links = array();
   $insert_formats = array();
+  $formats_to_delete = array();
 
   foreach (array_diff(array_keys($fs), $db_elements) as $path)
   {
@@ -593,8 +594,6 @@ SELECT *
       }
 
       // first we search the formats that were removed
-      $formats_to_delete = array();
-    
       foreach ($db_formats as $image_id => $formats)
       {
         $image_formats_to_delete = array_diff_key($formats, $fs[ $db_elements[$image_id] ]['formats']);
@@ -658,6 +657,12 @@ SELECT *
         array_keys($insert_links[0]),
         $insert_links
         );
+
+      // add new photos to caddie
+      if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)
+      {
+        fill_caddie($caddiables);
+      }
     }
       
     // inserts all formats
@@ -678,12 +683,6 @@ DELETE
   WHERE format_id IN ('.implode(',', $formats_to_delete).')
 ;';
       pwg_query($query);
-    }
-
-    // add new photos to caddie
-    if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)
-    {
-      fill_caddie($caddiables);
     }
   }
 
