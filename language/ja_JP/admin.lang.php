@@ -940,3 +940,4 @@ $lang['digiKam is an advanced digital photo management free software for Linux, 
 $lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwellは、Linux上で動作するオープンソースな写真管理ソフトです。UbuntuやFedoraではデフォルトになっています。';
 $lang['Select at least two tags for merging'] = 'マージするタグを２つ以上選択して下さい';
 $lang['Select a zone with your mouse to define a new center of interest.'] = 'マウスを使って、必要な領域を選択して下さい';
+$lang['include photos with lower privacy level'] = 'プライバシーレベルの低い写真が、含まれています';
