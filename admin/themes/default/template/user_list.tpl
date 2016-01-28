@@ -259,11 +259,6 @@ jQuery(document).ready(function() {
             user.lastVisit_string = sprintf(lastVisit_pattern, user.last_visit_string, user.last_visit_since);
           }
           
-          user.updateString = sprintf(
-            "{/literal}{'User %s updated'|translate|escape:javascript}{literal}",
-            user.username
-          );
-          
           user.email = user.email || '';
           
           user.statusLabel = statusLabels[user.status];
@@ -530,8 +525,25 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
       },
       success:function(data) {
         jQuery('#user'+userId+' .submitWait').hide();
-        jQuery('#user'+userId+' input[type=submit]').hide();
-        jQuery('#user'+userId+' .propertiesUpdateDone').show();
+
+        var html_message;
+
+        var data = jQuery.parseJSON(data);
+        if (data.stat == 'ok') {
+          var message = sprintf(
+            "{/literal}{'User %s updated'|translate|escape:javascript}{literal}",
+            data.result.users[0].username
+          );
+
+          html_message = '<span class="infos">&#x2714; '+message+'</span>';
+        }
+        else {
+          html_message = '<span class="errors">&#x2718; '+data.message+'</span>';
+        }
+
+        jQuery('#user'+userId+' .propertiesUpdateDone')
+          .html(html_message)
+          .show();
       },
       error:function(XMLHttpRequest, textStatus, errorThrows) {
         jQuery('#user'+userId+' .submitWait').hide();
@@ -1150,11 +1162,13 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
     <div style="clear:both"></div>
   </div> {* userPropertiesContainer *}
 
-  <span class="infos propertiesUpdateDone" style="display:none">&#x2714; <%- user.updateString %></span>
-   
   <input type="submit" value="{'Update user'|translate|escape:html}" data-user_id="<%- user.id %>">
   <img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">
   <a href="#close" class="icon-cancel-circled close-user-details" title="{'Close user details'|translate}">{'close'|translate}</a>
+  <span class="propertiesUpdateDone" style="display:none">
+    <span class="infos">&#x2714; ...</span>
+    <span class="errors">&#x2718; ...</span>
+  </span>
 </form>
 </script>
 
