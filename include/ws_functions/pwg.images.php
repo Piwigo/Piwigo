@@ -740,7 +740,40 @@ UPDATE '. IMAGES_TABLE .'
  *    @option int rank
  */
 function ws_images_setRank($params, $service)
-{
+{  
+  if (count($params['image_id']) > 1)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+    save_images_order(
+      $params['category_id'],
+      $params['image_id']
+      );
+
+    $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category_id'].'
+  ORDER BY rank ASC
+;';
+    $image_ids = query2array($query, null, 'image_id');
+
+    // return data for client
+    return array(
+      'image_id' => $image_ids,
+      'category_id' => $params['category_id'],
+      );
+  }
+
+  // turns image_id into a simple int instead of array
+  $params['image_id'] = array_shift($params['image_id']);
+
+  if (empty($params['rank']))
+  {
+    return new PwgError(WS_ERR_MISSING_PARAM, 'rank is missing');
+  }
+  
   // does the image really exist?
   $query = '
 SELECT COUNT(*)

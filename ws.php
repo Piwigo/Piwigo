@@ -293,11 +293,16 @@ function ws_addDefaultMethods( $arr )
       'pwg.images.setRank',
       'ws_images_setRank',
       array(
-        'image_id'    => array('type'=>WS_TYPE_ID),
+        'image_id'    => array('type'=>WS_TYPE_ID,'flags'=>WS_PARAM_FORCE_ARRAY),
         'category_id' => array('type'=>WS_TYPE_ID),
-        'rank'        => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL)
+        'rank'        => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL, 'default'=>null)
         ),
-      'Sets the rank of a photo for a given album.',
+      'Sets the rank of a photo for a given album.
+<br><br>If you provide a list for image_id:
+<ul>
+<li>rank becomes useless, only the order of the image_id list matters</li>
+<li>you are supposed to provide the list of all image_ids belonging to the album.
+</ul>',
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );

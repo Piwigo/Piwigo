@@ -46,38 +46,6 @@ if (!isset($_GET['cat_id']) or !is_numeric($_GET['cat_id']))
 $page['category_id'] = $_GET['cat_id'];
 
 // +-----------------------------------------------------------------------+
-// |                               functions                               |
-// +-----------------------------------------------------------------------+
-
-/**
- * save the rank depending on given images order
- *
- * The list of ordered images id is supposed to be in the same parent
- * category
- *
- * @param array categories
- * @return void
- */
-function save_images_order($category_id, $images)
-{
-  $current_rank = 0;
-  $datas = array();
-  foreach ($images as $id)
-  {
-    $datas[] = array(
-      'category_id' => $category_id,
-      'image_id' => $id,
-      'rank' => ++$current_rank,
-      );
-  }
-  $fields = array(
-    'primary' => array('image_id', 'category_id'),
-    'update' => array('rank')
-    );
-  mass_updates(IMAGE_CATEGORY_TABLE, $fields, $datas);
-}
-
-// +-----------------------------------------------------------------------+
 // |                       global mode form submission                     |
 // +-----------------------------------------------------------------------+
 

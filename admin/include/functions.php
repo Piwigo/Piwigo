@@ -2849,3 +2849,32 @@ SELECT
   
   return query2array($query, null, 'id');
 }
+
+/**
+ * save the rank depending on given images order
+ *
+ * The list of ordered images id is supposed to be in the same parent
+ * category
+ *
+ * @param int category_id
+ * @param int[] images
+ * @return void
+ */
+function save_images_order($category_id, $images)
+{
+  $current_rank = 0;
+  $datas = array();
+  foreach ($images as $id)
+  {
+    $datas[] = array(
+      'category_id' => $category_id,
+      'image_id' => $id,
+      'rank' => ++$current_rank,
+      );
+  }
+  $fields = array(
+    'primary' => array('image_id', 'category_id'),
+    'update' => array('rank')
+    );
+  mass_updates(IMAGE_CATEGORY_TABLE, $fields, $datas);
+}
