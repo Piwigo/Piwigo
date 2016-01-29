@@ -101,6 +101,13 @@ span.errors {
     <textarea cols="50" rows="5" name="mail_content" id="mail_content" class="description">{$MAIL_CONTENT}</textarea>
   </p>
 
+{if isset($auth_key_duration)}
+  <p>
+  {'Each email sent will contain its own automatic authentication key on links, valid for %s.'|translate:$auth_key_duration}
+  <br>{'For security reason, authentication keys do not work for administrators.'|translate}
+  </p>
+{/if}
+
   <p class="actionButtons">
     <input class="submit" type="submit" value="{'Send'|@translate}" name="submitEmail">
     <span class="errors" style="display:none">&#x2718; {'No recipient selected'|translate}</span>

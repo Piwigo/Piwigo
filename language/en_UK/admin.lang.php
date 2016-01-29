@@ -988,3 +988,5 @@ $lang['Edit user'] = 'Edit user';
 $lang['Recipients'] = 'Recipients';
 $lang['No recipient selected'] = 'No recipient selected';
 $lang['No user is permitted to see this private album'] = 'No user is permitted to see this private album';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Each email sent will contain its own automatic authentication key on links, valid for %s.';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'For security reason, authentication keys do not work for administrators.';

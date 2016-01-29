@@ -127,6 +127,16 @@ jQuery(document).ready(function(){
       </table>
     </fieldset>
 
+{if isset($auth_key_duration)}
+    <fieldset>
+      <legend>{'Informations'|@translate}</legend>
+      <p>
+      {'Each email sent will contain its own automatic authentication key on links, valid for %s.'|translate:$auth_key_duration}
+      <br>{'For security reason, authentication keys do not work for administrators.'|translate}
+      </p>      
+    </fieldset>
+{/if}
+
     <p>
       <input type="submit" value="{'Send'|@translate}" name="send_submit">
     </p>

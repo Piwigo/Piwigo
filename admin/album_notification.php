@@ -205,6 +205,19 @@ $template->assign(
     )
   );
 
+if ($conf['auth_key_duration'] > 0)
+{
+  $template->assign(
+    'auth_key_duration',
+    time_since(
+      strtotime('now -'.$conf['auth_key_duration'].' second'),
+      'second',
+      null,
+      false
+      )
+    );
+}
+
 // +-----------------------------------------------------------------------+
 // |                          form construction                            |
 // +-----------------------------------------------------------------------+
