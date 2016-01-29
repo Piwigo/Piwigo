@@ -425,4 +425,5 @@ $lang['Photo description'] = 'Photo description';
 $lang['Album name, A &rarr; Z'] = 'Album name, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Album name, Z &rarr; A';
 $lang['Link: %s'] = 'Link: %s';
+$lang['Your authentication key is no longer valid.'] = 'Your authentication key is no longer valid.';
 ?>

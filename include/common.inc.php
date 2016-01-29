@@ -201,6 +201,16 @@ if (is_a_guest())
   $user['username'] = l10n('guest');
 }
 
+// in case an auth key was provided and is no longer valid, we must wait to
+// be here, with language loaded, to prepare the message
+if (isset($page['auth_key_invalid']) and $page['auth_key_invalid'])
+{
+  $page['errors'][] =
+    l10n('Your authentication key is no longer valid.')
+    .sprintf(' <a href="%s">%s</a>', get_root_url().'identification.php', l10n('Login'))
+    ;
+}
+
 // template instance
 if (defined('IN_ADMIN') and IN_ADMIN )
 {// Admin template

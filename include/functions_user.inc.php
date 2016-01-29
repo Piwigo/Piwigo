@@ -1506,6 +1506,7 @@ SELECT
   // is the key still valid?
   if (strtotime($key['expired_on']) < strtotime($key['dbnow']))
   {
+    $page['auth_key_invalid'] = true;
     return false;
   }
 
