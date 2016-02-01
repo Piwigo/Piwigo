@@ -1474,11 +1474,6 @@ function auth_key_login($auth_key)
 {
   global $conf, $user, $page;
 
-  if ($user['id'] != $conf['guest_id'])
-  {
-    return false;
-  }
-  
   if (!preg_match('/^[a-z0-9]{30}$/i', $auth_key))
   {
     return false;
