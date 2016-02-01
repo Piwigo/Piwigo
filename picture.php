@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -662,6 +662,46 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
 if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']))
 {
   $template->append('current', array('U_DOWNLOAD' => $picture['current']['download_url']), true);
+
+  if ($conf['enable_formats'])
+  {
+    $query = '
+SELECT *
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id = '.$picture['current']['id'].'
+;';
+    $formats = query2array($query);
+    
+    // let's add the original as a format among others. It will just have a
+    // specific download URL
+    array_unshift(
+      $formats,
+      array(
+        'download_url' => $picture['current']['download_url'],
+        'ext' => get_extension($picture['current']['file']),
+        'filesize' => $picture['current']['filesize'],
+        )
+      );
+  
+    foreach ($formats as &$format)
+    {
+      if (!isset($format['download_url']))
+      {
+        $format['download_url'] = 'action.php?format='.$format['format_id'].'&amp;download';
+      }
+      
+      $format['label'] = strtoupper($format['ext']);
+      $lang_key = 'format '.strtoupper($format['ext']);
+      if (isset($lang[$lang_key]))
+      {
+        $format['label'] = $lang[$lang_key];
+      }
+      
+      $format['filesize'] = sprintf('%.1fMB', $format['filesize']/1024);
+    }
+
+    $template->append('current', array('formats' => $formats), true);
+  }
 }
 
 

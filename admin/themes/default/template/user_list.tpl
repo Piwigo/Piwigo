@@ -1,3 +1,4 @@
+{include file='include/colorbox.inc.tpl'}
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
 {combine_script id='jquery.dataTables' load='footer' path='themes/default/js/plugins/jquery.dataTables.js'}
@@ -258,11 +259,6 @@ jQuery(document).ready(function() {
             user.lastVisit_string = sprintf(lastVisit_pattern, user.last_visit_string, user.last_visit_since);
           }
           
-          user.updateString = sprintf(
-            "{/literal}{'User %s updated'|translate|escape:javascript}{literal}",
-            user.username
-          );
-          
           user.email = user.email || '';
           
           user.statusLabel = statusLabels[user.status];
@@ -274,7 +270,7 @@ jQuery(document).ready(function() {
             jQuery("script.userDetails").html()
 		      );
           
-          jQuery("#user"+userId).append(template(user));
+          jQuery("#user"+userId).html(template(user));
 
           /* groups select */
           jQuery('[data-selectize=groups]').selectize({
@@ -339,9 +335,18 @@ jQuery(document).ready(function() {
         console.log('technical error loading user details');
       }
     });
-  
-    return '<div id="user'+userId+'" class="userProperties"><img class="loading" src="themes/default/images/ajax-loader-small.gif"></div>';
+
+    jQuery(".user_form_popin")
+      .attr("id", "user"+userId)
+      .html('<div class="popinWait"><span><img class="loading" src="themes/default/images/ajax-loader-small.gif"> {/literal}{'Loading...'|translate|escape:'javascript'}{literal}</span></div>')
+    ;
   }
+
+jQuery(document).on('click', '.close-user-details',  function(e) {
+  jQuery('.user_form_popin').colorbox.close();
+  e.preventDefault();
+});
+
 
   /* change password */
   jQuery(document).on('click', '.changePasswordOpen',  function() {
@@ -474,7 +479,7 @@ jQuery(document).ready(function() {
         jQuery('#user'+userId+' .userDelete .loading').show();
       },
       success:function(data) {
-        oTable.fnDraw();
+        jQuery('.user_form_popin').colorbox.close();
         jQuery('#showAddUser .infos').html('&#x2714; User '+username+' deleted').show();
       },
       error:function(XMLHttpRequest, textStatus, errorThrows) {
@@ -520,8 +525,25 @@ jQuery(document).ready(function() {
       },
       success:function(data) {
         jQuery('#user'+userId+' .submitWait').hide();
-        jQuery('#user'+userId+' input[type=submit]').hide();
-        jQuery('#user'+userId+' .propertiesUpdateDone').show();
+
+        var html_message;
+
+        var data = jQuery.parseJSON(data);
+        if (data.stat == 'ok') {
+          var message = sprintf(
+            "{/literal}{'User %s updated'|translate|escape:javascript}{literal}",
+            data.result.users[0].username
+          );
+
+          html_message = '<span class="infos">&#x2714; '+message+'</span>';
+        }
+        else {
+          html_message = '<span class="errors">&#x2718; '+data.message+'</span>';
+        }
+
+        jQuery('#user'+userId+' .propertiesUpdateDone')
+          .html(html_message)
+          .show();
       },
       error:function(XMLHttpRequest, textStatus, errorThrows) {
         jQuery('#user'+userId+' .submitWait').hide();
@@ -537,28 +559,17 @@ jQuery(document).ready(function() {
    */
   jQuery(document).on('click', '#userList tbody td .openUserDetails',  function() {
     var nTr = this.parentNode.parentNode;
-    if (jQuery(this).hasClass('icon-cancel-circled')) {
-      /* This row is already open - close it */
-      jQuery(this)
-        .removeClass('icon-cancel-circled')
-        .addClass('icon-pencil')
-        .attr('title', "{/literal}{'Open user details'|translate|escape:'javascript'}{literal}")
-        .html("{/literal}{'edit'|translate|escape:'javascript'}{literal}")
-      ;
 
-      oTable.fnClose( nTr );
-    }
-    else {
-      /* Open this row */
-      jQuery(this)
-        .removeClass('icon-pencil')
-        .addClass('icon-cancel-circled')
-        .attr('title', "{/literal}{'Close user details'|translate|escape:'javascript'}{literal}")
-        .html("{/literal}{'close'|translate|escape:'javascript'}{literal}")
-      ;
+    jQuery.colorbox({
+      inline:true,
+      title:"{/literal}{'Edit user'|translate}{literal}",
+      href:".user_form_popin",
+      onClosed: function() {
+        oTable.fnDraw();
+      }
+    });
 
-      oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
-    }
+    fnFormatDetails(oTable, nTr);
   });
 
 
@@ -1151,9 +1162,16 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
     <div style="clear:both"></div>
   </div> {* userPropertiesContainer *}
 
-  <span class="infos propertiesUpdateDone" style="display:none">&#x2714; <%- user.updateString %></span>
-   
-  <input type="submit" value="{'Update user'|translate|escape:html}" style="display:none;" data-user_id="<%- user.id %>">
+  <input type="submit" value="{'Update user'|translate|escape:html}" data-user_id="<%- user.id %>">
   <img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">
+  <a href="#close" class="icon-cancel-circled close-user-details" title="{'Close user details'|translate}">{'close'|translate}</a>
+  <span class="propertiesUpdateDone" style="display:none">
+    <span class="infos">&#x2714; ...</span>
+    <span class="errors">&#x2718; ...</span>
+  </span>
 </form>
 </script>
+
+<div style="display:none">
+  <div class="user_form_popin userProperties"></div>
+</div>

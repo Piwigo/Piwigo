@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -56,7 +56,7 @@ class PwgError
   private $_code;
   private $_codeText;
 
-  function PwgError($code, $codeText)
+  function __construct($code, $codeText)
   {
     if ($code>=400 and $code<600)
     {
@@ -89,7 +89,7 @@ class PwgNamedArray
    * @param xmlAttributes array of sub-item attributes that will be encoded as
    *      xml attributes instead of xml child elements
    */
-  function PwgNamedArray($arr, $itemName, $xmlAttributes=array() )
+  function __construct($arr, $itemName, $xmlAttributes=array() )
   {
     $this->_content = $arr;
     $this->_itemName = $itemName;
@@ -115,7 +115,7 @@ class PwgNamedStruct
    *    encoded as xml attributes (if null - automatically prefer xml attributes
    *    whenever possible)
    */
-  function PwgNamedStruct($content, $xmlAttributes=null, $xmlElements=null )
+  function __construct($content, $xmlAttributes=null, $xmlElements=null )
   {
     $this->_content = $content;
     if ( isset($xmlAttributes) )
@@ -236,7 +236,7 @@ class PwgServer
 
   var $_methods = array();
 
-  function PwgServer()
+  function __construct()
   {
   }
 

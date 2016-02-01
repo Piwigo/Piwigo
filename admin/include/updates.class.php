@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -135,15 +135,33 @@ class updates
       {
         return false;
       }
+
+      $servers = array();
+      
       foreach ($pem_exts as $ext)
       {
         if (isset($ext_to_check[$ext['extension_id']]))
         {
-          $server = 'server_'.$ext_to_check[$ext['extension_id']];
-          $this->$ext_to_check[$ext['extension_id']]->$server += array($ext['extension_id'] => $ext);
+          $type = $ext_to_check[$ext['extension_id']];
+          
+          if (!isset($servers[$type]))
+          {
+            $servers[$type] = array();
+          }
+
+          $servers[$type][ $ext['extension_id'] ] = $ext;
+          
           unset($ext_to_check[$ext['extension_id']]);
         }
       }
+
+      foreach ($servers as $server_type => $extension_list)
+      {
+        $server_string = 'server_'.$server_type;
+
+        $this->$server_type->$server_string = $extension_list;
+      }
+      
       $this->check_missing_extensions($ext_to_check);
       return true;
     }

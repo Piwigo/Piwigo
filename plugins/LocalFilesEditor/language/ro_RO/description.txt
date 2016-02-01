@@ -1,1 +1,0 @@
-Modifică fișierele locale din panoul de administrare.

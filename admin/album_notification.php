@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -46,7 +46,7 @@ $page['cat'] = $category['id'];
 // +-----------------------------------------------------------------------+
 
 // info by email to an access granted group of category informations
-if (isset($_POST['submitEmail']) and !empty($_POST['group']))
+if (isset($_POST['submitEmail']))
 {
   set_make_full_url();
 
@@ -54,6 +54,8 @@ if (isset($_POST['submitEmail']) and !empty($_POST['group']))
     is empty find child representative_picture_id */
   if (!empty($category['representative_picture_id']))
   {
+    $img = array();
+    
     $query = '
 SELECT id, file, path, representative_ext
   FROM '.IMAGES_TABLE.'
@@ -65,56 +67,124 @@ SELECT id, file, path, representative_ext
     {
       $element = pwg_db_fetch_assoc($result);
 
-      $img_url  = '<a href="'.
-                      make_picture_url(array(
-                          'image_id' => $element['id'],
-                          'image_file' => $element['file'],
-                          'category' => $category
-                        ))
-                      .'" class="thumblnk"><img src="'.DerivativeImage::url(IMG_THUMB, $element).'"></a>';
+      $img = array(
+        'link' => make_picture_url(
+          array(
+            'image_id' => $element['id'],
+            'image_file' => $element['file'],
+            'category' => $category
+            )
+          ),
+        'src' => DerivativeImage::url(IMG_THUMB, $element),
+        );
     }
   }
 
-  if (!isset($img_url))
-  {
-    $img_url = '';
-  }
-
-  pwg_mail_group(
-    $_POST['group'],
-    array(
-      'subject' => l10n('[%s] Visit album %s', $conf['gallery_title'], trigger_change('render_category_name', $category['name'], 'admin_cat_list')),
-      // TODO : change this language variable to 'Visit album %s'
-      // TODO : 'language_selected' => ....
-    ),
-    array(
-      'filename' => 'cat_group_info',
-      'assign' => array(
-        'IMG_URL' => $img_url,
-        'CAT_NAME' => trigger_change('render_category_name', $category['name'], 'admin_cat_list'),
-        'LINK' => make_index_url(array(
-            'category' => array(
-              'id' => $category['id'],
-              'name' => trigger_change('render_category_name', $category['name'], 'admin_cat_list'),
-              'permalink' => $category['permalink']
-              )
-            )),
-        'CPL_CONTENT' => empty($_POST['mail_content']) ? '' : stripslashes($_POST['mail_content']),
-        )
+  $args = array(
+    'subject' => l10n('[%s] Visit album %s', $conf['gallery_title'], trigger_change('render_category_name', $category['name'], 'admin_cat_list')),
+    // TODO : change this language variable to 'Visit album %s'
+    // TODO : 'language_selected' => ....
+    );
+    
+  $tpl = array(
+    'filename' => 'cat_group_info',
+    'assign' => array(
+      'IMG' => $img,
+      'CAT_NAME' => trigger_change('render_category_name', $category['name'], 'admin_cat_list'),
+      'LINK' => make_index_url(
+        array(
+          'category' => array(
+            'id' => $category['id'],
+            'name' => trigger_change('render_category_name', $category['name'], 'admin_cat_list'),
+            'permalink' => $category['permalink']
+            )
+          )
+        ),
+      'CPL_CONTENT' => empty($_POST['mail_content']) ? '' : stripslashes($_POST['mail_content']),
       )
     );
 
-  unset_make_full_url();
+  if ('users' == $_POST['who'] and isset($_POST['users']) and count($_POST['users']) > 0)
+  {
+    check_input_parameter('users', $_POST, true, PATTERN_ID);
 
-  $query = '
+    // TODO code very similar to function pwg_mail_group. We'd better create
+    // a function pwg_mail_users that could be called from here and from
+    // pwg_mail_group
+
+    // TODO to make checks even better, we should check that theses users
+    // have access to this album. No real privacy issue here, even if we
+    // send the email to a user without permission.
+
+    $query = '
+SELECT
+    ui.user_id,
+    ui.status,
+    ui.language,
+    u.'.$conf['user_fields']['email'].' AS email,
+    u.'.$conf['user_fields']['username'].' AS username
+  FROM '.USER_INFOS_TABLE.' AS ui
+    JOIN '.USERS_TABLE.' AS u ON u.'.$conf['user_fields']['id'].' = ui.user_id
+  WHERE ui.user_id IN ('.implode(',', $_POST['users']).')
+;';
+    $users = query2array($query);
+    $usernames = array();
+    
+    foreach ($users as $u)
+    {
+      $usernames[] = $u['username'];
+      
+      $authkey = create_user_auth_key($u['user_id'], $u['status']);
+      
+      $user_tpl = $tpl;
+
+      if ($authkey !== false)
+      {
+        $user_tpl['assign']['LINK'] = add_url_params($tpl['assign']['LINK'], array('auth' => $authkey['auth_key']));
+
+        if (isset($user_tpl['assign']['IMG']['link']))
+        {
+          $user_tpl['assign']['IMG']['link'] = add_url_params(
+            $user_tpl['assign']['IMG']['link'],
+            array('auth' => $authkey['auth_key'])
+            );
+        }
+      }
+
+      $user_args = $args;
+      if (isset($authkey))
+      {
+        $user_args['auth_key'] = $authkey['auth_key'];
+      }
+
+      switch_lang_to($u['language']);
+      pwg_mail($u['email'], $user_args, $user_tpl);
+      switch_lang_back();
+    }
+
+    $message = l10n_dec('%d mail was sent.', '%d mails were sent.', count($users));
+    $message.= ' ('.implode(', ', $usernames).')';
+    
+    $page['infos'][] = $message;
+  }
+  elseif ('group' == $_POST['who'] and !empty($_POST['group']))
+  {
+    check_input_parameter('group', $_POST, false, PATTERN_ID);
+    
+    pwg_mail_group($_POST['group'], $args, $tpl);
+
+    $query = '
 SELECT
     name
   FROM '.GROUPS_TABLE.'
   WHERE id = '.$_POST['group'].'
 ;';
-  list($group_name) = pwg_db_fetch_row(pwg_query($query));
+    list($group_name) = pwg_db_fetch_row(pwg_query($query));
 
-  $page['infos'][] = l10n('An information email was sent to group "%s"', $group_name);
+    $page['infos'][] = l10n('An information email was sent to group "%s"', $group_name);
+  }
+
+  unset_make_full_url();
 }
 
 // +-----------------------------------------------------------------------+
@@ -134,6 +204,19 @@ $template->assign(
     'PWG_TOKEN' => get_pwg_token(),
     )
   );
+
+if ($conf['auth_key_duration'] > 0)
+{
+  $template->assign(
+    'auth_key_duration',
+    time_since(
+      strtotime('now -'.$conf['auth_key_duration'].' second'),
+      'second',
+      null,
+      false
+      )
+    );
+}
 
 // +-----------------------------------------------------------------------+
 // |                          form construction                            |
@@ -187,6 +270,64 @@ SELECT
       simple_hash_from_query($query, 'id', 'name')
       );
   }
+}
+
+// all users with status != guest and permitted to this this album (for a
+// perfect search, we should also check that album is not only filled with
+// private photos)
+$query = '
+SELECT
+    user_id
+  FROM '.USER_INFOS_TABLE.'
+  WHERE status != \'guest\'
+;';
+$all_user_ids = query2array($query, null, 'user_id');
+
+if ('private' == $category['status'])
+{
+  $user_ids_access_indirect = array();
+  
+  if (isset($group_ids) and count($group_ids) > 0)
+  {
+    $query = '
+SELECT
+    user_id
+  FROM '.USER_GROUP_TABLE.'
+  WHERE group_id IN ('.implode(',', $group_ids).') 
+';
+    $user_ids_access_indirect = query2array($query, null, 'user_id');
+  }
+
+  $query = '
+SELECT
+    user_id
+  FROM '.USER_ACCESS_TABLE.'
+  WHERE cat_id = '.$category['id'].'
+;';
+  $user_ids_access_direct = query2array($query, null, 'user_id');
+
+  $user_ids_access = array_unique(array_merge($user_ids_access_direct, $user_ids_access_indirect));
+
+  $user_ids = array_intersect($user_ids_access, $all_user_ids);
+}
+else
+{
+  $user_ids = $all_user_ids;
+}
+
+if (count($user_ids) > 0)
+{
+  $query = '
+SELECT
+    '.$conf['user_fields']['id'].' AS id,
+    '.$conf['user_fields']['username'].' AS username
+  FROM '.USERS_TABLE.'
+  WHERE id IN ('.implode(',', $user_ids).')
+;';
+
+  $users = query2array($query, 'id', 'username');
+
+  $template->assign('user_options', $users);
 }
 
 // +-----------------------------------------------------------------------+

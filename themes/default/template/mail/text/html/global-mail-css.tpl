@@ -1,4 +1,3 @@
-{strip}
 /* page */
 body {
   font-family:"Verdana", "Helvetica", "Optima", sans-serif;
@@ -102,4 +101,3 @@ hr {
   border-style:solid;
   margin:1em;
 }
-{/strip}

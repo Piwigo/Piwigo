@@ -912,8 +912,8 @@ array(
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Piwigo Core Triggers</title>
   
-  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css">
+  <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css">
   
   <style type="text/css">
   /* BEGIN CSS RESET
@@ -1020,12 +1020,12 @@ array(
 </div> <!-- the_page -->
 
 <div id="the_footer">
-  Copyright &copy; 2002-2013 <a href="http://piwigo.org">Piwigo Team</a>
+  Copyright &copy; 2002-2016 <a href="http://piwigo.org">Piwigo Team</a>
 </div> <!-- the_footer -->
 
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   
 <script type="text/javascript">
 var oTable = $('#list').dataTable({

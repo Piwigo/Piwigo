@@ -213,12 +213,17 @@ LI.menuLi {
 }
 /* */
 
-FORM#catModify TABLE { width: auto; }
+#catModify TABLE { width: auto; }
 
 #catModify p {
   line-height: 20px;
   margin: 0 0 1.5em;
   text-align: left;
+}
+
+#catModify p.albumThumbnailActions {
+  text-align:center;
+  white-space:nowrap;
 }
 
 FIELDSET.elementEdit .thumb {
@@ -1222,6 +1227,21 @@ a.group_perm {
 .userPrefs {border-left:1px solid #ddd;padding-left:10px;}
 .userProperty {width:340px;float:left;margin-bottom:15px;}
 .userActions {float:right;text-align:right;}
+
+.user_form_popin {
+  width:750px;
+  height:430px;
+  padding:20px;
+}
+
+.userProperties form {
+  text-align:left;
+}
+
+.popinWait {
+  padding-top:200px;
+}
+
 
 .preview-box.icon-zoom-in {
   display:block;

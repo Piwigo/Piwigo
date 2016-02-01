@@ -363,6 +363,12 @@ TD.calDayCellFull, TD.calDayCellEmpty {
   margin-bottom:5px;
 }
 
+#downloadSwitchBox ul {
+  margin:0;
+  padding:0;
+  list-style-type:none;
+}
+
 #theImage {
 	text-align: center;
 }

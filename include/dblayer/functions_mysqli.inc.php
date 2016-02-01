@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -80,12 +80,14 @@ function pwg_db_connect($host, $user, $password, $database)
  */
 function pwg_db_check_charset() 
 {
+  global $mysqli;
+
   $db_charset = 'utf8';
   if (defined('DB_CHARSET') and DB_CHARSET != '')
   {
     $db_charset = DB_CHARSET;
   }
-  pwg_query('SET NAMES "'.$db_charset.'"');
+  $mysqli->set_charset($db_charset);
 }
 
 /**

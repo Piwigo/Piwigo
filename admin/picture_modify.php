@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -304,6 +304,25 @@ SELECT
   list($row['nb_rates']) = pwg_db_fetch_row(pwg_query($query));
 
   $intro_vars['stats'].= ', '.sprintf(l10n('Rated %d times, score : %.2f'), $row['nb_rates'], $row['rating_score']);
+}
+
+$query = '
+SELECT *
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id = '.$row['id'].'
+;';
+$formats = query2array($query);
+
+if (!empty($formats))
+{
+  $format_strings = array();
+  
+  foreach ($formats as $format)
+  {
+    $format_strings[] = sprintf('%s (%.2fMB)', $format['ext'], $format['filesize']/1024);
+  }
+
+  $intro_vars['formats'] = l10n('Formats: %s', implode(', ', $format_strings));
 }
 
 $template->assign('INTRO', $intro_vars);

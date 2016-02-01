@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -395,27 +395,45 @@ function add_news_line(&$news, $count, $singular_key, $plural_key, $url='', $add
  * @param bool $add_url add html link around news
  * @return array
  */
-function news($start=null, $end=null, $exclude_img_cats=false, $add_url=false)
+function news($start=null, $end=null, $exclude_img_cats=false, $add_url=false, $auth_key=null)
 {
   $news = array();
 
-  if (!$exclude_img_cats)
+  $add_url_params = array();
+  if (isset($auth_key))
   {
-    add_news_line( $news,
-      nb_new_elements($start, $end), '%d new photo', '%d new photos',
-      make_index_url(array('section'=>'recent_pics')), $add_url );
+    $add_url_params['auth'] = $auth_key;
   }
 
   if (!$exclude_img_cats)
   {
-    add_news_line( $news,
-      nb_updated_categories($start, $end), '%d album updated', '%d albums updated',
-      make_index_url(array('section'=>'recent_cats')), $add_url );
+    add_news_line(
+      $news,
+      nb_new_elements($start, $end),
+      '%d new photo',
+      '%d new photos',
+      add_url_params(make_index_url(array('section'=>'recent_pics')), $add_url_params),
+      $add_url
+      );
+    
+    add_news_line(
+      $news,
+      nb_updated_categories($start, $end),
+      '%d album updated',
+      '%d albums updated',
+      add_url_params(make_index_url(array('section'=>'recent_cats')), $add_url_params),
+      $add_url
+      );
   }
 
-  add_news_line( $news,
-      nb_new_comments($start, $end), '%d new comment', '%d new comments',
-      get_root_url().'comments.php', $add_url );
+  add_news_line(
+    $news,
+    nb_new_comments($start, $end),
+    '%d new comment',
+    '%d new comments',
+    add_url_params(get_root_url().'comments.php', $add_url_params),
+    $add_url
+    );
 
   if (is_admin())
   {
@@ -527,9 +545,15 @@ function get_recent_post_dates_array($args)
  * @param array $date_detail returned value of get_recent_post_dates()
  * @return string
  */
-function get_html_description_recent_post_date($date_detail)
+function get_html_description_recent_post_date($date_detail, $auth_key=null)
 {
   global $conf;
+
+  $add_url_params = array();
+  if (isset($auth_key))
+  {
+    $add_url_params['auth'] = $auth_key;
+  }
 
   $description = '<ul>';
 
@@ -537,7 +561,7 @@ function get_html_description_recent_post_date($date_detail)
         '<li>'
         .l10n_dec('%d new photo', '%d new photos', $date_detail['nb_elements'])
         .' ('
-        .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
+        .'<a href="'.add_url_params(make_index_url(array('section'=>'recent_pics')), $add_url_params).'">'
           .l10n('Recent photos').'</a>'
         .')'
         .'</li><br>';
@@ -546,11 +570,16 @@ function get_html_description_recent_post_date($date_detail)
   {
     $tn_src = DerivativeImage::thumb_url($element);
     $description .= '<a href="'.
-                    make_picture_url(array(
-                        'image_id' => $element['id'],
-                        'image_file' => $element['file'],
-                      ))
-                    .'"><img src="'.$tn_src.'"></a>';
+      add_url_params(
+        make_picture_url(
+          array(
+            'image_id' => $element['id'],
+            'image_file' => $element['file'],
+            )
+          ),
+        $add_url_params
+        )
+      .'"><img src="'.$tn_src.'"></a>';
   }
   $description .= '...<br>';
 
@@ -564,7 +593,7 @@ function get_html_description_recent_post_date($date_detail)
   {
     $description .=
           '<li>'
-          .get_cat_display_name_cache($cat['uppercats'])
+          .get_cat_display_name_cache($cat['uppercats'],'', false, null, $auth_key)
           .' ('.
           l10n_dec('%d new photo', '%d new photos', $cat['img_count']).')'
           .'</li>';

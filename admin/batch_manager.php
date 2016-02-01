@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -62,6 +62,21 @@ DELETE FROM '.CADDIE_TABLE.'
       );
     
     redirect(get_root_url().'admin.php?page='.$_GET['page']);
+  }
+
+  if ('delete_orphans' == $_GET['action'])
+  {
+    $deleted_count = delete_elements(get_orphans(), true);
+    
+    if ($deleted_count > 0)
+    {
+      $_SESSION['page_infos'][] = l10n_dec(
+        '%d photo was deleted', '%d photos were deleted',
+        $deleted_count
+        );
+
+      redirect(get_root_url().'admin.php?page='.$_GET['page']);
+    }
   }
 }
 
@@ -323,15 +338,7 @@ SELECT id
     break;
 
   case 'no_album':
-    $query = '
-SELECT
-    id
-  FROM '.IMAGES_TABLE.'
-    LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
-  WHERE category_id is null
-;';
-    $filter_sets[] = query2array($query, null, 'id');
-
+    $filter_sets[] = get_orphans();
     break;
 
   case 'no_tag':

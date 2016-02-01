@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -44,6 +44,7 @@ $template->assign(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
       'upload_max_filesize' => $upload_max_filesize,
       'upload_max_filesize_shorthand' => $upload_max_filesize_shorthand,
+      'chunk_size' => $conf['upload_form_chunk_size'],
     )
   );
 

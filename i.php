@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -313,6 +313,8 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
     }
     else
     {
+      if ($use_watermark && $candidate->use_watermark)
+        continue; //a square that requires watermark should not be generated from a larger derivative with watermark, because if the watermark is not centered on the large image, it will be cropped.
       if ($candidate->sizing->max_crop!=0)
         continue; // this could be optimized
       if ($candidate_size[0] < $params->sizing->min_size[0] || $candidate_size[1] < $params->sizing->min_size[1] )
@@ -573,17 +575,23 @@ if ($params->will_watermark($d_size))
   if ($image->compose($wm_image, $x, $y, $wm->opacity))
   {
     $changes++;
-    if ($wm->xrepeat)
+    if ($wm->xrepeat || $wm->yrepeat)
     {
-      // todo
-      $pad = $wm_size[0] + max(30, round($wm_size[0]/4));
+      $xpad = $wm_size[0] + max(30, round($wm_size[0]/4));
+      $ypad = $wm_size[1] + max(30, round($wm_size[1]/4));
+
       for($i=-$wm->xrepeat; $i<=$wm->xrepeat; $i++)
       {
-        if (!$i) continue;
-        $x2 = $x + $i * $pad;
-        if ($x2>=0 && $x2+$wm_size[0]<$d_size[0])
-          if (!$image->compose($wm_image, $x2, $y, $wm->opacity))
-            break;
+        for($j=-$wm->yrepeat; $j<=$wm->yrepeat; $j++)
+        {
+          if (!$i && !$j) continue;
+          $x2 = $x + $i * $xpad;
+          $y2 = $y + $j * $ypad;
+          if ($x2>=0 && $x2+$wm_size[0]<$d_size[0] &&
+              $y2>=0 && $y2+$wm_size[1]<$d_size[1] )
+            if (!$image->compose($wm_image, $x2, $y2, $wm->opacity))
+              break;
+        }
       }
     }
   }

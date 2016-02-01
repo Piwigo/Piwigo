@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -172,21 +172,6 @@ UPDATE '.CATEGORIES_TABLE.'
   $_SESSION['page_infos'][] = l10n('Album updated successfully');
   $redirect = true;
 }
-elseif (isset($_POST['set_random_representant']))
-{
-  set_random_representant(array($_GET['cat_id']));
-  $redirect = true;
-}
-elseif (isset($_POST['delete_representant']))
-{
-  $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET representative_picture_id = NULL
-  WHERE id = '.$_GET['cat_id'].'
-;';
-  pwg_query($query);
-  $redirect = true;
-}
 
 if (isset($redirect))
 {
@@ -336,8 +321,7 @@ else
 }
 
 // representant management
-if ($category['has_images']
-    or !empty($category['representative_picture_id']))
+if ($category['has_images'] or !empty($category['representative_picture_id']))
 {
   $tpl_representant = array();
 
@@ -345,20 +329,7 @@ if ($category['has_images']
   // representant ?
   if (!empty($category['representative_picture_id']))
   {
-    $query = '
-SELECT id,representative_ext,path
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$category['representative_picture_id'].'
-;';
-    $row = pwg_db_fetch_assoc(pwg_query($query));
-    $src = DerivativeImage::thumb_url($row);
-    $url = get_root_url().'admin.php?page=photo-'.$category['representative_picture_id'];
-
-    $tpl_representant['picture'] =
-      array(
-        'SRC' => $src,
-        'URL' => $url
-      );
+    $tpl_representant['picture'] = get_category_representant_properties($category['representative_picture_id']);
   }
 
   // can the admin choose to set a new random representant ?

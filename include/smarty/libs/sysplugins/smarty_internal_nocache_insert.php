@@ -1,31 +1,31 @@
 <?php
 /**
  * Smarty Internal Plugin Nocache Insert
- *
  * Compiles the {insert} tag into the cache file
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Insert Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Nocache_Insert {
-
+class Smarty_Internal_Nocache_Insert
+{
     /**
      * Compiles code for the {insert} tag into cache file
      *
-     * @param string                   $_function insert function name
-     * @param array                    $_attr     array with parameter
-     * @param Smarty_Internal_Template $_template template object
-     * @param string                   $_script   script name to load or 'null'
-     * @param string                   $_assign   optional variable name
-     * @return string compiled code
+     * @param  string                   $_function insert function name
+     * @param  array                    $_attr     array with parameter
+     * @param  Smarty_Internal_Template $_template template object
+     * @param  string                   $_script   script name to load or 'null'
+     * @param  string                   $_assign   optional variable name
+     *
+     * @return string                   compiled code
      */
     public static function compile($_function, $_attr, $_template, $_script, $_assign = null)
     {
@@ -42,12 +42,10 @@ class Smarty_Internal_Nocache_Insert {
             $_output .= "echo {$_function}(" . var_export($_attr, true) . ",\$_smarty_tpl);?>";
         }
         $_tpl = $_template;
-        while ($_tpl->parent instanceof Smarty_Internal_Template) {
+        while (isset($_tpl->parent) && $_tpl->parent->_objType == 2) {
             $_tpl = $_tpl->parent;
         }
-        return "/*%%SmartyNocache:{$_tpl->properties['nocache_hash']}%%*/" . $_output . "/*/%%SmartyNocache:{$_tpl->properties['nocache_hash']}%%*/";
+
+        return "/*%%SmartyNocache:{$_tpl->compiled->nocache_hash}%%*/" . $_output . "/*/%%SmartyNocache:{$_tpl->compiled->nocache_hash}%%*/";
     }
-
 }
-
-?>

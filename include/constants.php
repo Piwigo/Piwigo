@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '2.7.0');
+define('PHPWG_VERSION', '2.8.0RC1');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 define('PHPWG_DEFAULT_TEMPLATE', 'elegant');
 
@@ -81,6 +81,8 @@ if (!defined('USER_FEED_TABLE'))
   define('USER_FEED_TABLE', $prefixeTable.'user_feed');
 if (!defined('RATE_TABLE'))
   define('RATE_TABLE', $prefixeTable.'rate');
+if (!defined('USER_AUTH_KEYS_TABLE'))
+  define('USER_AUTH_KEYS_TABLE', $prefixeTable.'user_auth_keys');
 if (!defined('USER_CACHE_TABLE'))
   define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
 if (!defined('USER_CACHE_CATEGORIES_TABLE'))
@@ -105,5 +107,7 @@ if (!defined('THEMES_TABLE'))
   define('THEMES_TABLE', $prefixeTable.'themes');
 if (!defined('LANGUAGES_TABLE'))
   define('LANGUAGES_TABLE', $prefixeTable.'languages');
+if (!defined('IMAGE_FORMAT_TABLE'))
+  define('IMAGE_FORMAT_TABLE', $prefixeTable.'image_format');
 
 ?>

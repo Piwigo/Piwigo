@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -659,6 +659,98 @@ UPDATE '. USER_CACHE_CATEGORIES_TABLE .'
   WHERE cat_id = '. $params['category_id'] .'
 ;';
   pwg_query($query);
+}
+
+/**
+ * API method
+ *
+ * Deletes the album thumbnail. Only possible if
+ * $conf['allow_random_representative']
+ *
+ * @param mixed[] $params
+ *    @option int category_id
+ */
+function ws_categories_deleteRepresentative($params, &$service)
+{
+  global $conf;
+  
+  // does the category really exist?
+  $query = '
+SELECT id
+  FROM '. CATEGORIES_TABLE .'
+  WHERE id = '. $params['category_id'] .'
+;';
+  $result = pwg_query($query);
+  if (pwg_db_num_rows($result) == 0)
+  {
+    return new PwgError(404, 'category_id not found');
+  }
+
+  if (!$conf['allow_random_representative'])
+  {
+    return new PwgError(401, 'not permitted');
+  }
+
+  $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = NULL
+  WHERE id = '.$params['category_id'].'
+;';
+  pwg_query($query);
+}
+
+/**
+ * API method
+ *
+ * Find a new album thumbnail.
+ *
+ * @param mixed[] $params
+ *    @option int category_id
+ */
+function ws_categories_refreshRepresentative($params, &$service)
+{
+  global $conf;
+  
+  // does the category really exist?
+  $query = '
+SELECT id
+  FROM '. CATEGORIES_TABLE .'
+  WHERE id = '. $params['category_id'] .'
+;';
+  $result = pwg_query($query);
+  if (pwg_db_num_rows($result) == 0)
+  {
+    return new PwgError(404, 'category_id not found');
+  }
+
+  $query = '
+SELECT
+    DISTINCT category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category_id'].'
+  LIMIT 1
+;';
+  $result = pwg_query($query);
+  $has_images = pwg_db_num_rows($result) > 0 ? true : false;
+
+  if (!$has_images)
+  {
+    return new PwgError(401, 'not permitted');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  
+  set_random_representant(array($params['category_id']));
+
+  // return url of the new representative
+  $query = '
+SELECT *
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$params['category_id'].'
+;';
+  $category = pwg_db_fetch_assoc(pwg_query($query));
+
+  return get_category_representant_properties($category['representative_picture_id']);
 }
 
 /**

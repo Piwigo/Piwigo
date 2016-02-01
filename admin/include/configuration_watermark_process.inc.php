@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -126,6 +126,7 @@ if (count($errors) == 0)
   $watermark->xpos = intval($pwatermark['xpos']);
   $watermark->ypos = intval($pwatermark['ypos']);
   $watermark->xrepeat = intval($pwatermark['xrepeat']);
+  $watermark->yrepeat = intval($pwatermark['yrepeat']);
   $watermark->opacity = intval($pwatermark['opacity']);
   $watermark->min_size = array(intval($pwatermark['minw']),intval($pwatermark['minh']));
 
@@ -135,6 +136,7 @@ if (count($errors) == 0)
     || $watermark->xpos != $old_watermark->xpos
     || $watermark->ypos != $old_watermark->ypos
     || $watermark->xrepeat != $old_watermark->xrepeat
+    || $watermark->yrepeat != $old_watermark->yrepeat
     || $watermark->opacity != $old_watermark->opacity;
 
   // save the new watermark configuration

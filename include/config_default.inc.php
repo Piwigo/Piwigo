@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -62,6 +62,13 @@ $conf['file_ext'] = array_merge(
   $conf['picture_ext'],
   array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf')
   );
+
+// enable_formats: should Piwigo search for multiple formats?
+$conf['enable_formats'] = false;
+
+// format_ext : file extensions for formats, ie additional versions of a
+// photo (or nay other file). Formats are in sub-directory pwg_format.
+$conf['format_ext'] = array('cr2', 'tif', 'tiff', 'nef', 'dng', 'ai', 'psd');
 
 // top_number : number of element to display for "best rated" and "most
 // visited" categories
@@ -639,6 +646,10 @@ $conf['recent_post_dates'] = array(
 // the author shown in the RSS feed <author> element
 $conf['rss_feed_author'] = 'Piwigo notifier';
 
+// how long does the authentication key stays valid, in seconds. 3 days by
+// default. 0 to disable.
+$conf['auth_key_duration'] = 3*24*60*60;
+
 // +-----------------------------------------------------------------------+
 // | Set admin layout                                                      |
 // +-----------------------------------------------------------------------+
@@ -799,6 +810,10 @@ $conf['tiff_representative_ext'] = 'png';
 // for some file types, Piwigo will try to generate a pwg_representative
 // (TIFF, videos, PDF)
 $conf['upload_form_all_types'] = false;
+
+// Size of chunks, in kilobytes. Fast connections will have better
+// performances with high values, such as 5000.
+$conf['upload_form_chunk_size'] = 500;
 
 // If we try to generate a pwg_representative for a video we use ffmpeg. If
 // "ffmpeg" is not visible by the web user, you can define the full path of

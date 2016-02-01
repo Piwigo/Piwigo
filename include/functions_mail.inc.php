@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -514,6 +514,8 @@ SELECT DISTINCT language
     // get subset of users in this group for a specific language
     $query = '
 SELECT
+    ui.user_id,
+    ui.status,
     u.'.$conf['user_fields']['username'].' AS name,
     u.'.$conf['user_fields']['email'].' AS email
   FROM '.USER_GROUP_TABLE.' AS ug
@@ -534,13 +536,33 @@ SELECT
 
     switch_lang_to($language);
 
-    $return&= pwg_mail(null,
-      array_merge(
-        $args,
-        array('Bcc' => $users)
-        ),
-      $tpl
-      );
+    foreach ($users as $u)
+    {
+      $authkey = create_user_auth_key($u['user_id'], $u['status']);
+      
+      $user_tpl = $tpl;
+
+      if ($authkey !== false)
+      {
+        $user_tpl['assign']['LINK'] = add_url_params($tpl['assign']['LINK'], array('auth' => $authkey['auth_key']));
+
+        if (isset($user_tpl['assign']['IMG']['link']))
+        {
+          $user_tpl['assign']['IMG']['link'] = add_url_params(
+            $user_tpl['assign']['IMG']['link'],
+            array('auth' => $authkey['auth_key'])
+            );
+        }
+      }
+
+      $user_args = $args;
+      if ($authkey !== false)
+      {
+        $user_args['auth_key'] = $authkey['auth_key'];
+      }
+
+      $return &= pwg_mail($u['email'], $user_args, $user_tpl);
+    }
 
     switch_lang_back();
   }
@@ -563,6 +585,7 @@ SELECT
  *       o theme: theme to use [default value $conf_mail['mail_theme']]
  *       o mail_title: main title of the mail [default value $conf['gallery_title']]
  *       o mail_subtitle: subtitle of the mail [default value subject]
+ *       o auth_key: authentication key to add on footer link [default value null]
  * @param array $tpl - use these options to define a custom content template file
  *       o filename
  *       o dirname (optional)
@@ -695,6 +718,10 @@ function pwg_mail($to, $args=array(), $tpl=array())
   {
     // key compose of indexes witch allow to cache mail data
     $cache_key = $content_type.'-'.$lang_info['code'];
+    if (!empty($args['auth_key']))
+    {
+      $cache_key.= '-'.$args['auth_key'];
+    }
 
     if (!isset($conf_mail[$cache_key]))
     {
@@ -709,9 +736,15 @@ function pwg_mail($to, $args=array(), $tpl=array())
       $template->set_filename('mail_header', 'header.tpl');
       $template->set_filename('mail_footer', 'footer.tpl');
 
+      $add_url_params = array();
+      if (!empty($args['auth_key']))
+      {
+        $add_url_params['auth'] = $args['auth_key'];
+      }
+
       $template->assign(
         array(
-          'GALLERY_URL' => get_gallery_home_url(),
+          'GALLERY_URL' => add_url_params(get_gallery_home_url(), $add_url_params),
           'GALLERY_TITLE' => isset($page['gallery_title']) ? $page['gallery_title'] : $conf['gallery_title'],
           'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
           'PHPWG_URL' => defined('PHPWG_URL') ? PHPWG_URL : '',

@@ -86,7 +86,7 @@ jQuery(document).ready(function(){
 		// url : '../upload.php',
 		url : 'ws.php?method=pwg.images.upload&format=json',
 		
-		chunk_size: '500kb',
+		chunk_size: '{/literal}{$chunk_size}{literal}kb',
 		
 		filters : {
 			// Maximum file size

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -33,7 +33,7 @@ class tabsheet
     $name is the tabsheet's name inside the template .tpl file
     $titlename in the template is affected by $titlename value
   */
-  function tabsheet($name = 'TABSHEET', $titlename = 'TABSHEET_TITLE')
+  function __construct($name = 'TABSHEET', $titlename = 'TABSHEET_TITLE')
   {
     $this->sheets = array();
     $this->uniqid = null;

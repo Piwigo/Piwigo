@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -180,6 +180,25 @@ function delete_element_files($ids)
   }
 
   $new_ids = array();
+  $formats_of = array();
+
+  $query = '
+SELECT
+    image_id,
+    ext
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id IN ('.implode(',', $ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if (!isset($formats_of[ $row['image_id'] ]))
+    {
+      $formats_of[ $row['image_id'] ] = array();
+    }
+
+    $formats_of[ $row['image_id'] ][] = $row['ext'];
+  }
 
   $query = '
 SELECT
@@ -203,6 +222,14 @@ SELECT
     if (!empty($row['representative_ext']))
     {
       $files[] = original_to_representative( $files[0], $row['representative_ext']);
+    }
+
+    if (isset($formats_of[ $row['id'] ]))
+    {
+      foreach ($formats_of[ $row['id'] ] as $format_ext)
+      {
+        $files[] = original_to_format($files[0], $format_ext);
+      }
     }
 
     $ok = true;
@@ -273,6 +300,13 @@ DELETE FROM '.COMMENTS_TABLE.'
   // destruction of the links between images and categories
   $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('. $ids_str .')
+;';
+  pwg_query($query);
+
+  // destruction of the formats
+  $query = '
+DELETE FROM '.IMAGE_FORMAT_TABLE.'
   WHERE image_id IN ('. $ids_str .')
 ;';
   pwg_query($query);
@@ -358,6 +392,7 @@ function delete_user($user_id)
     CADDIE_TABLE,
     // deletion of piwigo specific informations
     USER_INFOS_TABLE,
+    USER_AUTH_KEYS_TABLE
     );
 
   foreach ($tables as $table)
@@ -540,6 +575,7 @@ function get_fs_directories($path, $recursive = true)
       '.', '..', '.svn',
       'thumbnail', 'pwg_high',
       'pwg_representative',
+      'pwg_format',
       )
     );
   $exclude_folders = array_flip($exclude_folders);
@@ -884,6 +920,25 @@ SELECT uppercats
   $uppercats = array_unique($uppercats);
 
   return $uppercats;
+}
+
+/**
+ */
+function get_category_representant_properties($image_id)
+{
+  $query = '
+SELECT id,representative_ext,path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+  $row = pwg_db_fetch_assoc(pwg_query($query));
+  $src = DerivativeImage::thumb_url($row);
+  $url = get_root_url().'admin.php?page=photo-'.$image_id;
+
+  return array(
+    'src' => $src,
+    'url' => $url
+    );
 }
 
 /**
@@ -2775,4 +2830,51 @@ SELECT CONCAT(
   }
 
   return $keys;
+}
+
+/**
+ * Return the list of image ids associated to no album
+ *
+ * @return int[] $image_ids
+ */
+function get_orphans()
+{
+  $query = '
+SELECT
+    id
+  FROM '.IMAGES_TABLE.'
+    LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+  WHERE category_id is null
+;';
+  
+  return query2array($query, null, 'id');
+}
+
+/**
+ * save the rank depending on given images order
+ *
+ * The list of ordered images id is supposed to be in the same parent
+ * category
+ *
+ * @param int category_id
+ * @param int[] images
+ * @return void
+ */
+function save_images_order($category_id, $images)
+{
+  $current_rank = 0;
+  $datas = array();
+  foreach ($images as $id)
+  {
+    $datas[] = array(
+      'category_id' => $category_id,
+      'image_id' => $id,
+      'rank' => ++$current_rank,
+      );
+  }
+  $fields = array(
+    'primary' => array('image_id', 'category_id'),
+    'update' => array('rank')
+    );
+  mass_updates(IMAGE_CATEGORY_TABLE, $fields, $datas);
 }

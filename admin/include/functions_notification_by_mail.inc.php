@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -125,12 +125,12 @@ select
   U.'.$conf['user_fields']['username'].' as username,
   U.'.$conf['user_fields']['email'].' as mail_address,
   N.enabled,
-  N.last_send
-from
-  '.USER_MAIL_NOTIFICATION_TABLE.' as N,
-  '.USERS_TABLE.' as U
-where
-  N.user_id =  U.'.$conf['user_fields']['id'];
+  N.last_send,
+  UI.status
+from '.USER_MAIL_NOTIFICATION_TABLE.' as N
+  JOIN '.USERS_TABLE.' as U on N.user_id =  U.'.$conf['user_fields']['id'].'
+  JOIN '.USER_INFOS_TABLE.' as UI on UI.user_id = N.user_id
+where 1=1';
 
     if ($action == 'send')
     {
@@ -159,7 +159,7 @@ order by';
     else
     {
       $query .= '
-  username;';
+  username';
     }
 
     $query .= ';';

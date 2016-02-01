@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -931,6 +931,7 @@ $lang['wrong filename'] = "wrong filename";
 $lang['X Position'] = 'X Position';
 $lang['X Repeat'] = 'X Repeat';
 $lang['Y Position'] = 'Y Position';
+$lang['Y Repeat'] = 'Y Repeat';
 $lang['Year'] = "Year";
 $lang['You are running on development sources, no check possible.'] = "You are running on development sources, no check possible.";
 $lang['You are running the latest version of Piwigo.'] = "You are running Piwigo latest version.";
@@ -981,3 +982,11 @@ $lang['file name'] = 'file name';
 $lang['date & time'] = 'date & time';
 $lang['width & height'] = 'width & height';
 $lang['Upload in progress'] = 'Upload in progress';
+$lang['Orphans'] = 'Orphans';
+$lang['Delete %d orphan photos'] = 'Delete %d orphan photos';
+$lang['Edit user'] = 'Edit user';
+$lang['Recipients'] = 'Recipients';
+$lang['No recipient selected'] = 'No recipient selected';
+$lang['No user is permitted to see this private album'] = 'No user is permitted to see this private album';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Each email sent will contain its own automatic authentication key on links, valid for %s.';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'For security reason, authentication keys do not work for administrators.';

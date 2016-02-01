@@ -1,1 +1,0 @@
-Tutvu oma Piwigoga avastamaks selle funktsioone. See plugin sisaldab erinevaid temaatilisi ülevaateid algajatele ja kogenud kasutajatele.

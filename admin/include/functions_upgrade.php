@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -174,10 +174,7 @@ UPDATE '.PREFIX_TABLE.'user_infos
 // Deactivate all templates
 function deactivate_templates()
 {
-  $query = '
-  UPDATE '.PREFIX_TABLE.'config
-    SET value = \''. array() .'\'
-  WHERE param = \'extents_for_templates\';';
+  conf_update_param('extents_for_templates', array());
 }
 
 // Check access rights

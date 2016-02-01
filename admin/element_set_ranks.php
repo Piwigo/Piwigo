@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -44,38 +44,6 @@ if (!isset($_GET['cat_id']) or !is_numeric($_GET['cat_id']))
 }
 
 $page['category_id'] = $_GET['cat_id'];
-
-// +-----------------------------------------------------------------------+
-// |                               functions                               |
-// +-----------------------------------------------------------------------+
-
-/**
- * save the rank depending on given images order
- *
- * The list of ordered images id is supposed to be in the same parent
- * category
- *
- * @param array categories
- * @return void
- */
-function save_images_order($category_id, $images)
-{
-  $current_rank = 0;
-  $datas = array();
-  foreach ($images as $id)
-  {
-    $datas[] = array(
-      'category_id' => $category_id,
-      'image_id' => $id,
-      'rank' => ++$current_rank,
-      );
-  }
-  $fields = array(
-    'primary' => array('image_id', 'category_id'),
-    'update' => array('rank')
-    );
-  mass_updates(IMAGE_CATEGORY_TABLE, $fields, $datas);
-}
 
 // +-----------------------------------------------------------------------+
 // |                       global mode form submission                     |

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -62,14 +62,21 @@ function get_absolute_root_url($with_scheme=true)
     {
       $url .= 'http://';
     }
-    $url .= $_SERVER['HTTP_HOST'];
-    if ( (!$is_https && $_SERVER['SERVER_PORT'] != 80)
-          ||($is_https && $_SERVER['SERVER_PORT'] != 443))
+    if (isset($_SERVER['HTTP_X_FORWARDED_HOST']))
     {
-      $url_port = ':'.$_SERVER['SERVER_PORT'];
-      if (strrchr($url, ':') != $url_port)
+      $url .= $_SERVER['HTTP_X_FORWARDED_HOST'];
+    }
+    else
+    {
+      $url .= $_SERVER['HTTP_HOST'];
+      if ( (!$is_https && $_SERVER['SERVER_PORT'] != 80)
+            ||($is_https && $_SERVER['SERVER_PORT'] != 443))
       {
-        $url .= $url_port;
+        $url_port = ':'.$_SERVER['SERVER_PORT'];
+        if (strrchr($url, ':') != $url_port)
+        {
+          $url .= $url_port;
+        }
       }
     }
   }
@@ -372,7 +379,7 @@ function make_section_in_url($params)
             $section_string.= '/'.$tag['id'];
             break;
           case 'tag':
-            if (isset($tag['url_name']) and !is_numeric($tag['url_name']) )
+            if (isset($tag['url_name']))
             {
               $section_string.= '/'.$tag['url_name'];
               break;

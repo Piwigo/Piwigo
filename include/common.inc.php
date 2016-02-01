@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -26,7 +26,7 @@ defined('PHPWG_ROOT_PATH') or trigger_error('Hacking attempt!', E_USER_ERROR);
 // determine the initial instant to indicate the generation time of this page
 $t2 = microtime(true);
 
-@set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
+// @set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 
 //
 // addslashes to vars if magic_quotes_gpc is off this is a security
@@ -199,6 +199,16 @@ load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 
 if (is_a_guest())
 {
   $user['username'] = l10n('guest');
+}
+
+// in case an auth key was provided and is no longer valid, we must wait to
+// be here, with language loaded, to prepare the message
+if (isset($page['auth_key_invalid']) and $page['auth_key_invalid'])
+{
+  $page['errors'][] =
+    l10n('Your authentication key is no longer valid.')
+    .sprintf(' <a href="%s">%s</a>', get_root_url().'identification.php', l10n('Login'))
+    ;
 }
 
 // template instance

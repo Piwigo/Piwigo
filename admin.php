@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -236,6 +236,19 @@ if ($nb_photos_in_caddie > 0)
     array(
       'NB_PHOTOS_IN_CADDIE' => $nb_photos_in_caddie,
       'U_CADDIE' => $link_start.'batch_manager&amp;filter=prefilter-caddie',
+      )
+    );
+}
+
+// any orphan photo?
+$nb_orphans = count(get_orphans());
+
+if ($nb_orphans > 0)
+{
+  $template->assign(
+    array(
+      'NB_ORPHANS' => $nb_orphans,
+      'U_ORPHANS' => $link_start.'batch_manager&amp;filter=prefilter-no_album',
       )
     );
 }

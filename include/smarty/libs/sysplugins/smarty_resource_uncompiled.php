@@ -2,29 +2,43 @@
 /**
  * Smarty Resource Plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage TemplateResources
- * @author Rodney Rehm
+ * @author     Rodney Rehm
  */
 
 /**
  * Smarty Resource Plugin
- *
  * Base implementation for resource plugins that don't use the compiler
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage TemplateResources
  */
-abstract class Smarty_Resource_Uncompiled extends Smarty_Resource {
+abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
+{
+    /**
+     * Flag that it's an uncompiled resource
+     *
+     * @var bool
+     */
+    public $uncompiled = true;
+
+    /**
+     * Resource does implement populateCompiledFilepath() method
+     *
+     * @var bool
+     */
+    public $hasCompiledHandler = true;
 
     /**
      * Render and output the template (without using the compiler)
      *
-     * @param Smarty_Template_Source   $source    source object
-     * @param Smarty_Internal_Template $_template template object
-     * @throws SmartyException on failure
+     * @param  Smarty_Template_Source   $source    source object
+     * @param  Smarty_Internal_Template $_template template object
+     *
+     * @throws SmartyException          on failure
      */
-    public abstract function renderUncompiled(Smarty_Template_Source $source, Smarty_Internal_Template $_template);
+    abstract public function renderUncompiled(Smarty_Template_Source $source, Smarty_Internal_Template $_template);
 
     /**
      * populate compiled object with compiled filepath
@@ -39,6 +53,27 @@ abstract class Smarty_Resource_Uncompiled extends Smarty_Resource {
         $compiled->exists = false;
     }
 
+    /**
+     * render compiled template code
+     *
+     * @param Smarty_Internal_Template $_template
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function render($_template)
+    {
+        $level = ob_get_level();
+        ob_start();
+        try {
+            $this->renderUncompiled($_template->source, $_template);
+            return ob_get_clean();
+        }
+        catch (Exception $e) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+            throw $e;
+        }
+    }
 }
-
-?>

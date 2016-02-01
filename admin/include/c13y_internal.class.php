@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -23,7 +23,7 @@
 
 class c13y_internal
 {
-  function c13y_internal()
+  function __construct()
   {
     add_event_handler('list_check_integrity', array(&$this, 'c13y_version'));
     add_event_handler('list_check_integrity', array(&$this, 'c13y_exif'));

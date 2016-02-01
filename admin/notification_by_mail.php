@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -289,13 +289,24 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
           if ($is_action_send)
           {
+            $auth = null;
+            $add_url_params = array();
+            
+            $auth_key = create_user_auth_key($nbm_user['user_id'], $nbm_user['status']);
+            
+            if ($auth_key !== false)
+            {
+              $auth = $auth_key['auth_key'];
+              $add_url_params['auth'] = $auth;
+            }
+            
             set_make_full_url();
             // Fill return list of "treated" check_key for 'send'
             $return_list[] = $nbm_user['check_key'];
 
             if ($conf['nbm_send_detailed_content'])
             {
-               $news = news($nbm_user['last_send'], $dbnow, false, $conf['nbm_send_html_mail']);
+              $news = news($nbm_user['last_send'], $dbnow, false, $conf['nbm_send_html_mail'], $auth);
                $exist_data = count($news) > 0;
             }
             else
@@ -362,7 +373,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                     array
                     (
                       'TITLE' => get_title_recent_post_date($date_detail),
-                      'HTML_DATA' => get_html_description_recent_post_date($date_detail)
+                      'HTML_DATA' => get_html_description_recent_post_date($date_detail, $auth)
                     )
                   );
                 }
@@ -373,7 +384,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                 array
                 (
                   'GOTO_GALLERY_TITLE' => $conf['gallery_title'],
-                  'GOTO_GALLERY_URL' => get_gallery_home_url(),
+                  'GOTO_GALLERY_URL' => add_url_params(get_gallery_home_url(), $add_url_params),
                   'SEND_AS_NAME'      => $env_nbm['send_as_name'],
                 )
               );
@@ -389,6 +400,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                   'email_format' => $env_nbm['email_format'],
                   'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
                   'content_format' => $env_nbm['email_format'],
+                  'auth_key' => $auth,
                   )
                 );
 
@@ -707,6 +719,20 @@ switch ($page['mode'])
       }
     }
     $template->assign($page['mode'], $tpl_var);
+
+    if ($conf['auth_key_duration'] > 0)
+    {
+      $template->assign(
+        'auth_key_duration',
+        time_since(
+          strtotime('now -'.$conf['auth_key_duration'].' second'),
+          'second',
+          null,
+          false
+          )
+        );
+    }
+
     break;
   }
 }
