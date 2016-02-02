@@ -977,3 +977,4 @@ $lang['date & time'] = 'data & hora';
 $lang['file name'] = 'nome de ficheiro';
 $lang['width & height'] = 'largo & alto';
 $lang['Allow users to add a link to their website'] = 'Permite ós usuarios engadir unha ligazón ó seu sitio web';
+$lang['Delete %d orphan photos'] = 'Eliminar %d fotos orfas';
