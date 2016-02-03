@@ -181,6 +181,11 @@ function ws_categories_getList($params, &$service)
 {
   global $user, $conf;
 
+  if (!in_array($params['thumbnail_size'], array_keys(ImageStdParams::get_defined_type_map())))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid thumbnail_size");
+  }
+
   $where = array('1=1');
   $join_type = 'INNER';
   $join_user = $user['id'];
@@ -366,7 +371,7 @@ SELECT id, path, representative_ext, level
     {
       if ($row['level'] <= $user['level'])
       {
-        $thumbnail_src_of[$row['id']] = DerivativeImage::thumb_url($row);
+        $thumbnail_src_of[$row['id']] = DerivativeImage::url($params['thumbnail_size'], $row);
       }
       else
       {
@@ -411,7 +416,7 @@ SELECT id, path, representative_ext
 
       while ($row = pwg_db_fetch_assoc($result))
       {
-        $thumbnail_src_of[ $row['id'] ] = DerivativeImage::thumb_url($row);
+        $thumbnail_src_of[ $row['id'] ] = DerivativeImage::url($params['thumbnail_size'], $row);
       }
     }
   }

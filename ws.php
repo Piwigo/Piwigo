@@ -193,6 +193,10 @@ function ws_addDefaultMethods( $arr )
                                 'type'=>WS_TYPE_BOOL),
         'fullname' =>     array('default'=>false,
                                 'type'=>WS_TYPE_BOOL),
+        'thumbnail_size' => array(
+          'default' => 'thumb',
+          'info' => 'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge'
+          ),
         ),
       'Returns a list of categories.',
       $ws_functions_root . 'pwg.categories.php'
