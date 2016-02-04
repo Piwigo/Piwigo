@@ -194,7 +194,7 @@ function ws_addDefaultMethods( $arr )
         'fullname' =>     array('default'=>false,
                                 'type'=>WS_TYPE_BOOL),
         'thumbnail_size' => array(
-          'default' => 'thumb',
+          'default' => IMG_THUMB,
           'info' => 'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge'
           ),
         ),
