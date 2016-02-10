@@ -945,10 +945,13 @@ function log_user($user_id, $remember_me)
   { // make sure we clean any remember me ...
     setcookie($conf['remember_me_name'], '', 0, cookie_path(),ini_get('session.cookie_domain'));
   }
-  if ( session_id()!="" and (version_compare(PHP_VERSION, '7') <= 0 or version_compare(PHP_VERSION, '7.0.3') >= 0))
+  if ( session_id()!="" )
   { // we regenerate the session for security reasons
     // see http://www.acros.si/papers/session_fixation.pdf
-    session_regenerate_id(true);
+    if (version_compare(PHP_VERSION, '7') <= 0)
+    {
+      session_regenerate_id(true);
+    }
   }
   else
   {
