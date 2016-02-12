@@ -260,6 +260,8 @@ function reset_password()
     array('user_id' => $user_id)
     );
 
+  deactivate_user_auth_keys($user_id);
+
   $page['infos'][] = l10n('Your password has been reset');
   $page['infos'][] = '<a href="'.get_root_url().'identification.php">'.l10n('Login').'</a>';
 

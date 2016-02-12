@@ -1596,4 +1596,22 @@ SELECT
     return create_user_auth_key($user_id, $user_status);
   }
 }
+
+/**
+ * Deletes authentication keys
+ *
+ * @since 2.8
+ * @param int $user_id
+ * @return null
+ */
+function deactivate_user_auth_keys($user_id)
+{
+  $query = '
+UPDATE '.USER_AUTH_KEYS_TABLE.'
+  SET expired_on = NOW()
+  WHERE user_id = '.$user_id.'
+    AND expired_on > NOW()
+;';
+  pwg_query($query);
+}
 ?>

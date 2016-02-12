@@ -552,6 +552,11 @@ SELECT
     array($conf['user_fields']['id'] => $params['user_id'][0])
     );
 
+  if (isset($updates[ $conf['user_fields']['password'] ]))
+  {
+    deactivate_user_auth_keys($params['user_id'][0]);
+  }
+
   if (isset($update_status) and count($params['user_id_for_status']) > 0)
   {
     $query = '
