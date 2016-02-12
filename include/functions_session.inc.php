@@ -260,4 +260,20 @@ function pwg_unset_session_var($var)
   return true;
 }
 
+/**
+ * delete all sessions for a given user (certainly deleted)
+ *
+ * @since 2.8
+ * @param int $user_id
+ * @return null
+ */
+function delete_user_sessions($user_id)
+{
+  $query = '
+DELETE
+  FROM '.SESSIONS_TABLE.'
+  WHERE data LIKE \'pwg_uid|i:'.(int)$user_id.';%\'
+;';
+  pwg_query($query);
+}
 ?>

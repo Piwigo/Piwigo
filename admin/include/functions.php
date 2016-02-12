@@ -405,11 +405,7 @@ DELETE FROM '.$table.'
   }
 
   // purge of sessions
-  $query = '
-DELETE FROM '.SESSIONS_TABLE.'
-  WHERE data LIKE \'%pwg_uid|i:'.(int)$user_id.';%\'
-;';
-  pwg_query($query);
+  delete_user_sessions($user_id);
 
   // destruction of the user
   $query = '
