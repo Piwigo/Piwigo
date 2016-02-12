@@ -28,6 +28,7 @@ var selection = [{$selection}];
 var pwg_token = "{$PWG_TOKEN}";
 
 var protectedUsers = [{$protected_users}];
+var passwordProtectedUsers = [{$password_protected_users}];
 var guestUser = {$guest_user};
 
 var truefalse = {
@@ -247,6 +248,7 @@ jQuery(document).ready(function() {
           
           user.isGuest = (parseInt(userId) == guestUser);
           user.isProtected = (protectedUsers.indexOf(parseInt(userId)) != -1);
+          user.isPasswordProtected = (passwordProtectedUsers.indexOf(parseInt(userId)) != -1);
           
           user.registeredOn_string = sprintf(
             registeredOn_pattern,
@@ -1051,7 +1053,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 <script type="text/template" class="userDetails">
 <form>
   <div class="userActions">
-<% if (!user.isGuest) { %>
+<% if (!user.isPasswordProtected) { %>
     <span class="changePasswordDone infos" style="display:none">&#x2714; {'Password updated'|translate}</span>
     <span class="changePassword" style="display:none">{'New password'|translate} <input type="text"> <a href="#" class="buttonLike updatePassword"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{'Submit'|translate}</span></a> <a href="#" class="cancel">{'Cancel'|translate}</a></span>
     <a class="icon-key changePasswordOpen" href="#">{'Change password'|translate}</a>
