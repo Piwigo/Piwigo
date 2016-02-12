@@ -1598,7 +1598,7 @@ SELECT
 }
 
 /**
- * Deletes authentication keys
+ * Deactivates authentication keys
  *
  * @since 2.8
  * @param int $user_id
