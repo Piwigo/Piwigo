@@ -282,10 +282,9 @@ jQuery(document).ready(function(){
       <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
     {/if}
 
-      <p id="uploadWarningsSummary">{$upload_max_filesize_shorthand}B. {$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="icon-info-circled-1 showInfo" title="{'Learn more'|@translate}"></a></p>
+      <p id="uploadWarningsSummary">{$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="icon-info-circled-1 showInfo" title="{'Learn more'|@translate}"></a></p>
 
       <p id="uploadWarnings">
-        {'Maximum file size: %sB.'|@translate:$upload_max_filesize_shorthand}
         {'Allowed file types: %s.'|@translate:$upload_file_types}
       {if isset($max_upload_resolution)}
         {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
