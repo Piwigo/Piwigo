@@ -199,8 +199,10 @@ function get_sql_search_clause($search)
  */
 function get_regular_search_results($search, $images_where='')
 {
-  // echo '<pre>'; print_r($search); echo '</pre>';
-  global $conf;
+  global $conf, $logger;
+
+  $logger->debug(__FUNCTION__, 'search', $search);
+  
   $forbidden = get_sql_condition_FandF(
         array
           (
@@ -228,21 +230,11 @@ SELECT
   FROM '.TAGS_TABLE.'
   WHERE '.implode(' OR ', $word_clauses).'
 ;';
-    // echo '<pre>'.$query.'</pre>';
     $tag_ids = query2array($query, null, 'id');
 
-    if (!isset($search['fields']['tags']))
-    {
-      $search['fields']['tags'] = array(
-        'words' => $tag_ids,
-        'mode' => 'OR',
-        );
-    }
-    else
-    {
-      $search['fields']['tags']['words'] = array_merge($search['fields']['tags']['words'], $tag_ids);
-    }
-    // echo '<pre>'; print_r($search); echo '</pre>';
+    $search_in_tags_items = get_image_ids_for_tags($tag_ids, 'OR');
+
+    $logger->debug(__FUNCTION__.' '.count($search_in_tags_items).' items in $search_in_tags_items');
   }
   
   if (isset($search['fields']['tags']))
@@ -251,6 +243,8 @@ SELECT
       $search['fields']['tags']['words'],
       $search['fields']['tags']['mode']
       );
+    
+    $logger->debug(__FUNCTION__.' '.count($tag_items).' items in $tag_items');
   }
 
   $search_clause = get_sql_search_clause($search);
@@ -269,6 +263,18 @@ SELECT DISTINCT(id)
     $query .= $forbidden.'
   '.$conf['order_by'];
     $items = array_from_query($query, 'id');
+    
+    $logger->debug(__FUNCTION__.' '.count($items).' items in $items');
+  }
+
+  if (isset($search_in_tags_items))
+  {
+    $items = array_unique(
+      array_merge(
+        $items,
+        $search_in_tags_items
+        )
+      );
   }
 
   if ( !empty($tag_items) )
@@ -276,7 +282,7 @@ SELECT DISTINCT(id)
     switch ($search['mode'])
     {
       case 'AND':
-        if (empty($search_clause))
+        if (empty($search_clause) and !isset($search_in_tags_items))
         {
           $items = $tag_items;
         }
@@ -286,7 +292,6 @@ SELECT DISTINCT(id)
         }
         break;
       case 'OR':
-        $before_count = count($items);
         $items = array_unique(
           array_merge(
             $items,
