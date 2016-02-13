@@ -72,6 +72,11 @@ if (isset($_POST['submit']))
       'mode' => $_POST['mode'],
       'fields' => $_POST['fields'],
       );
+
+    if (isset($_POST['search_in_tags']))
+    {
+      $search['fields']['search_in_tags'] = true;
+    }
   }
 
   if (isset($_POST['tags']))

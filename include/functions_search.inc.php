@@ -90,7 +90,7 @@ function get_sql_search_clause($search)
     }
   }
 
-  if (isset($search['fields']['allwords']))
+  if (isset($search['fields']['allwords']) and count($search['fields']['allwords']['fields']) > 0)
   {
     $fields = array('file', 'name', 'comment');
 
@@ -98,7 +98,7 @@ function get_sql_search_clause($search)
     {
       $fields = array_intersect($fields, $search['fields']['allwords']['fields']);
     }
-    
+
     // in the OR mode, request bust be :
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
     // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
@@ -199,6 +199,7 @@ function get_sql_search_clause($search)
  */
 function get_regular_search_results($search, $images_where='')
 {
+  // echo '<pre>'; print_r($search); echo '</pre>';
   global $conf;
   $forbidden = get_sql_condition_FandF(
         array
@@ -213,6 +214,37 @@ function get_regular_search_results($search, $images_where='')
   $items = array();
   $tag_items = array();
 
+  if (isset($search['fields']['search_in_tags']))
+  {
+    $word_clauses = array();
+    foreach ($search['fields']['allwords']['words'] as $word)
+    {
+      $word_clauses[] = "name LIKE '%".$word."%'";
+    }
+
+    $query = '
+SELECT
+    id
+  FROM '.TAGS_TABLE.'
+  WHERE '.implode(' OR ', $word_clauses).'
+;';
+    // echo '<pre>'.$query.'</pre>';
+    $tag_ids = query2array($query, null, 'id');
+
+    if (!isset($search['fields']['tags']))
+    {
+      $search['fields']['tags'] = array(
+        'words' => $tag_ids,
+        'mode' => 'OR',
+        );
+    }
+    else
+    {
+      $search['fields']['tags']['words'] = array_merge($search['fields']['tags']['words'], $tag_ids);
+    }
+    // echo '<pre>'; print_r($search); echo '</pre>';
+  }
+  
   if (isset($search['fields']['tags']))
   {
     $tag_items = get_image_ids_for_tags(
