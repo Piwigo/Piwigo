@@ -429,3 +429,4 @@ $lang['Photo title'] = '相片标题';
 $lang['Album name, A &rarr; Z'] = '相册名称， A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = '相册名称， Z &rarr; A';
 $lang['Link: %s'] = '链接： %s';
+$lang['Your authentication key is no longer valid.'] = '您的认证密钥已失效。';
