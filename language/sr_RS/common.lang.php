@@ -427,3 +427,4 @@ $lang['Apply on properties'] = 'Примени на особине';
 $lang['Album name, A &rarr; Z'] = 'Назив албума, А &rarr; Ш';
 $lang['Album name, Z &rarr; A'] = 'Назив албума, Ш &rarr; А';
 $lang['Link: %s'] = 'Веза: %s';
+$lang['Your authentication key is no longer valid.'] = 'Ваш кључ за проверу идентитета није више важећи.';
