@@ -445,3 +445,4 @@ $lang['month']['6'] = 'Juni';
 $lang['month']['7'] = 'Juli';
 $lang['month']['8'] = 'Augustus';
 $lang['month']['9'] = 'September';
+$lang['Your authentication key is no longer valid.'] = 'Uw authenticatie sleutel is niet langer geldig.';
