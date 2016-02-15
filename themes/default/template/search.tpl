@@ -47,6 +47,9 @@ jQuery(document).ready(function() {
     <label><input type="checkbox" name="fields[]" value="name" checked="checked"> {'Photo title'|translate}</label>
     <label><input type="checkbox" name="fields[]" value="comment" checked="checked"> {'Photo description'|translate}</label>
     <label><input type="checkbox" name="fields[]" value="file" checked="checked"> {'File name'|translate}</label>
+{if isset($TAGS)}
+    <label><input type="checkbox" name="search_in_tags" value="tags"> {'Tags'|translate}</label>
+{/if}
   </p>
 
 </fieldset>
