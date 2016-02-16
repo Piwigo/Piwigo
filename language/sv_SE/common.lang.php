@@ -426,3 +426,4 @@ $lang['Photo title'] = 'Fotots titel';
 $lang['Album name, A &rarr; Z'] = 'Albumnam, A &rarr; Ö';
 $lang['Album name, Z &rarr; A'] = 'Albumnamn, Ö &rarr; A';
 $lang['Link: %s'] = 'Länk: %s';
+$lang['Your authentication key is no longer valid.'] = 'Din autenticeringsnyckel är inte längre giltig.';
