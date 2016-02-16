@@ -434,6 +434,17 @@ function pwg_log($image_id = null, $image_type = null, $format_id = null)
     $tags_string = implode(',', $page['tag_ids']);
   }
 
+  $ip = $_SERVER['REMOTE_ADDR'];
+  // In case of "too long" ipv6 address, we take only the 15 first chars.
+  //
+  // It would be "cleaner" to increase length of history.IP to 50 chars, but
+  // the alter table is very long on such a big table. We should plan this
+  // for a future version, once history table is kept "smaller".
+  if (strpos($ip,':') !== false and strlen($ip) > 15)
+  {
+    $ip = substr($ip, 0, 15);
+  }
+
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (
@@ -454,7 +465,7 @@ INSERT INTO '.HISTORY_TABLE.'
     CURRENT_DATE,
     CURRENT_TIME,
     '.$user['id'].',
-    \''.$_SERVER['REMOTE_ADDR'].'\',
+    \''.$ip.'\',
     '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
     '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
