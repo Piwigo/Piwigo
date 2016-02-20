@@ -427,3 +427,4 @@ $lang['Photo title'] = 'Назва фотографії';
 $lang['Album name, A &rarr; Z'] = 'Назва альбому, А &rarr; Я';
 $lang['Album name, Z &rarr; A'] = 'Назва альбому, Я &rarr; А';
 $lang['Link: %s'] = 'Посилання: %s';
+$lang['Your authentication key is no longer valid.'] = 'Ваш ключ аутентифікації більше не дійсний.';
