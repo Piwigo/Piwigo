@@ -231,7 +231,7 @@ function ws_categories_getList($params, &$service)
 
   $query = '
 SELECT
-    id, name, comment, permalink,
+    id, name, comment, permalink, status,
     uppercats, global_rank, id_uppercat,
     nb_images, count_images AS total_nb_images,
     representative_picture_id, user_representative_picture_id, count_images, count_categories,
@@ -494,7 +494,7 @@ SELECT category_id, COUNT(*) AS counter
   $nb_images_of = query2array($query, 'category_id', 'counter');
 
   $query = '
-SELECT id, name, comment, uppercats, global_rank, dir
+SELECT id, name, comment, uppercats, global_rank, dir, status
   FROM '. CATEGORIES_TABLE .'
 ;';
   $result = pwg_query($query);
@@ -534,7 +534,7 @@ SELECT id, name, comment, uppercats, global_rank, dir
     'categories' => new PwgNamedArray(
       $cats,
       'category',
-      array('id', 'nb_images', 'name', 'uppercats', 'global_rank')
+      array('id', 'nb_images', 'name', 'uppercats', 'global_rank', 'status')
       )
     );
 }
