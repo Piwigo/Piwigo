@@ -535,7 +535,7 @@ function upload_file_video($representative_ext, $file_path)
 
   $ffmpeg_video_exts = array( // extensions tested with FFmpeg
     'wmv','mov','mkv','mp4','mpg','flv','asf','xvid','divx','mpeg',
-    'avi','rm',
+    'avi','rm', 'm4v', 'ogg', 'ogv', 'webm', 'webmv',
     );
 
   if (!in_array(strtolower(get_extension($file_path)), $ffmpeg_video_exts))
