@@ -591,6 +591,33 @@ function ws_categories_add($params, &$service)
  */
 function ws_categories_setInfo($params, &$service)
 {
+  // does the category really exist?
+  $query = '
+SELECT *
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$params['category_id'].'
+;';
+  $categories = query2array($query);
+  if (count($categories) == 0)
+  {
+    return new PwgError(404, 'category_id not found');
+  }
+
+  $category = $categories[0];
+
+  if (!empty($params['status']))
+  {
+    if (!in_array($params['status'], array('private','public')))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, "Invalid status, only public/private");
+    }
+
+    if ($params['status'] != $category['status'])
+    {
+      set_cat_status(array($params['category_id']), $params['status']);
+    }
+  }
+
   $update = array(
     'id' => $params['category_id'],
     );

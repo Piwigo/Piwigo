@@ -692,6 +692,8 @@ function ws_addDefaultMethods( $arr )
         'category_id' =>  array('type'=>WS_TYPE_ID),
         'name' =>         array('default'=>null),
         'comment' =>      array('default'=>null),
+        'status' =>       array('default'=>null,
+                                'info'=>'public, private'),
         ),
       'Changes properties of an album.',
       $ws_functions_root . 'pwg.categories.php',
