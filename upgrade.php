@@ -342,6 +342,10 @@ else if (!in_array('nb_available_tags', $columns_of[PREFIX_TABLE.'user_cache']))
 {
   $current_release = '2.5.0';
 }
+else if (!in_array('activation_key_expire', $columns_of[PREFIX_TABLE.'user_infos']))
+{
+  $current_release = '2.6.0';
+}
 else
 {
   // retrieve already applied upgrades
@@ -351,9 +355,9 @@ SELECT id
 ;';
   $applied_upgrades = array_from_query($query, 'id');
 
-  if (!in_array(144, $applied_upgrades))
+  if (!in_array(148, $applied_upgrades))
   {
-    $current_release = '2.6.0';
+    $current_release = '2.7.0';
   }
   else
   {
