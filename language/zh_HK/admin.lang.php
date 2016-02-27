@@ -978,3 +978,13 @@ $lang['between %s and %s MB'] = '
 $lang['date & time'] = '日期和時間';
 $lang['file name'] = '檔案名稱';
 $lang['width & height'] = '寬度和高度';
+$lang['Delete %d orphan photos'] = '刪除%d個孤兒照片';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = '每封電子郵件將包含自動認證密鑰的鏈接，有效%s。';
+$lang['Edit user'] = '編輯用戶';
+$lang['For security reason, authentication keys do not work for administrators.'] = '出於安全原因，認證密鑰對管理員工作不起作用。';
+$lang['No recipient selected'] = '
+沒有選擇收件人';
+$lang['No user is permitted to see this private album'] = '沒有用戶被允許看到這個私人相冊';
+$lang['Orphans'] = '孤兒';
+$lang['Recipients'] = '收件人';
+$lang['Y Repeat'] = 'Y 重複';
