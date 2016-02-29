@@ -435,3 +435,4 @@ $lang['Link: %s'] = 'الرابط: %s';
 $lang['No results for'] = 'لا يوجد نتائج';
 $lang['Photo description'] = 'وصف الصورة';
 $lang['Photo title'] = 'عنوان الصورة';
+$lang['Your authentication key is no longer valid.'] = 'مفتاح المصادقة الخاصة بك لم يعد صالحا.';
