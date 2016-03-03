@@ -982,3 +982,13 @@ $lang['Mail address is mandatory for registration'] = 'Имейл адресът
 $lang['Impossible to deactivate the default theme.'] = 'Невъзможно е деактивиране на темата по подразбиране.';
 $lang['Empty caddie'] = 'Изпразване на колекцията';
 $lang['Upload in progress'] = 'Качването е в ход';
+$lang['Recipients'] = 'Получатели';
+$lang['Orphans'] = 'Самотни';
+$lang['No user is permitted to see this private album'] = 'Никой потребител не е избран да вижда този личен албум';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'От съображения за сигурност, уникалните ключове няма да работят за администратори.';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Всеки изпратен имейл ще съдържа свой уникален ключ към линковете, валиден за %s.
+';
+$lang['Delete %d orphan photos'] = 'Изтриване %d самотни снимки';
+$lang['No recipient selected'] = 'Не е избран получател';
+$lang['Edit user'] = 'Редакция на потребител';
+$lang['Y Repeat'] = 'Y Повторение';
