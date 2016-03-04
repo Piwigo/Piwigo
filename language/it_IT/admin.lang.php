@@ -983,3 +983,13 @@ $lang['date & time'] = 'data e ora';
 $lang['width & height'] = 'larghezza e altezza';
 $lang['No and unlock sub-albums'] = 'No e sbloccare sub-albums';
 $lang['Upload in progress'] = 'Trasferimento in corso...';
+$lang['Delete %d orphan photos'] = 'Cancellazione di %d foto orfane';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Ogni Email inviata conterrà una propria chiave di autenticazione automatica, valida per %s.';
+$lang['Edit user'] = 'Modificare utente';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Per motivi di sicurezza, le chiavi di autenticazione non funzionano per gli amministratori.';
+$lang['No recipient selected'] = 'Nessun destinatario selezionato';
+$lang['No user is permitted to see this private album'] = 'Nessun utente è autorizzato a visualizzare questo album privato';
+$lang['Orphans'] = 'Orfane';
+$lang['Recipients'] = '
+Destinatari';
+$lang['Y Repeat'] = 'Y Ripeti';
