@@ -480,7 +480,8 @@ REPLACE INTO '.PLUGINS_TABLE.'
         
         $template->assign(
           array(
-            'button_label' => l10n('2_7_0_descrp'), // TODO avoid to update it on each release
+            // TODO find a better way to do that, with a core string in English
+            'button_label' => str_replace('2.7', get_branch_from_version(PHPWG_VERSION), l10n('2_7_0_descrp')),
             'button_link' => 'admin.php?submited_tour_path=tours/'.$version_.'&amp;pwg_token='.get_pwg_token(),
             )
           );
