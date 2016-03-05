@@ -444,3 +444,4 @@ $lang['day']['3'] = 'ar Merc\'her';
 $lang['day']['2'] = 'ar Meurzh';
 $lang['month']['3'] = 'a viz Meurzh';
 $lang['day']['1'] = 'al Lun';
+$lang['Your authentication key is no longer valid.'] = 'N\'eo ket gwiriek ken hoc\'h alc\'hwez dilesadur';
