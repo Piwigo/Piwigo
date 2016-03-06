@@ -994,3 +994,4 @@ $lang['No recipient selected'] = 'Nincs címzett kiválasztva';
 $lang['No user is permitted to see this private album'] = 'Nincs felhasználó, aki láthatná ezt a személyes albumot.';
 $lang['Orphans'] = 'Árvák';
 $lang['Recipients'] = 'Címzettek';
+$lang['Y Repeat'] = 'Y ismétlődés';
