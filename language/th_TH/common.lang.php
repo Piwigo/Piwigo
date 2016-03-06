@@ -427,3 +427,4 @@ $lang['Link: %s'] = 'ลิ้งค์: %s';
 $lang['No results for'] = 'ไม่มีผลลัพธ์การค้นหาสำหรับ';
 $lang['Photo description'] = 'รายละเอียดรูปภาพ';
 $lang['Photo title'] = 'ชื่อรูปภาพ';
+$lang['Your authentication key is no longer valid.'] = 'รหัสในการตรวจสอบสิทธิ์ของคุณไม่ถูกต้อง';
