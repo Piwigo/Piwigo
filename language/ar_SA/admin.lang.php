@@ -724,7 +724,7 @@ $lang['Extensions Update'] = 'ترقية الاضافات';
 $lang['Update in progress... Please wait.'] = 'يتم معالجة التحديثات ،لحظات الانتظار .. املئها بالاستغفار';
 $lang['Ignore this update'] = 'اهمال هذا التحديث';
 $lang['Reset ignored updates'] = 'اعادة تعييين التحديثات المهملة';
-$lang['Update All'] = 'تجديث الكل';
+$lang['Update All'] = 'تحديث الكل';
 $lang['ERROR'] = 'خطأ';
 $lang['All extensions are up to date.'] = 'كل الاضافة محدثة.';
 $lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'الادوات التالية يمكن ان تكون غير متوافقة مع الاصدار الجديد ل Piwigo :';
@@ -983,3 +983,12 @@ $lang['No and unlock sub-albums'] = 'لا و إلغي اتاحة الإلبوم�
 $lang['Mail address is mandatory for registration'] = 'عنوان البريد إلزامية للتسجيل';
 $lang['Impossible to deactivate the default theme.'] = 'من المستحيل إلغاء تنشيط السمة الافتراضية.';
 $lang['Empty caddie'] = 'العلبة فارغة';
+$lang['Delete %d orphan photos'] = 'حذف  %d الصور مجهولة المصدر';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'كل الرسائل ستتضمن  رابط مفتاح المصادقة التلقائي  %s.';
+$lang['Edit user'] = 'تحرير المستخدم';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'لأسباب أمنية، مفاتيح التوثيق لا تعمل للمسؤولين.';
+$lang['No recipient selected'] = 'لم يتم تحديد مستلم';
+$lang['No user is permitted to see this private album'] = 'لا يجوز للمستخدم أن يرى هذا الألبوم الخاص';
+$lang['Orphans'] = 'مجهول المصدر';
+$lang['Recipients'] = 'متلقي';
+$lang['Y Repeat'] = 'Y كرر';
