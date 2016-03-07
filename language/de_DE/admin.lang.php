@@ -254,7 +254,7 @@ $lang['Subscribers could be listed (available) only if there is new elements to 
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'Wenn niemand in der Mailingliste eingetragen ist, können keine E-Mails versendet werden. Nur der Webmaster erscheint bei Aktualisierungen in dieser Liste.';
 $lang['No user to send notifications by mail.'] = 'Keine Benutzer vorhanden, um Aktualisierungen zu senden.';
 $lang['New photos added'] = 'Neue Fotos hinzugefügt';
-$lang['Subscribe to notification by mail'] = 'Eintragen zur E-Mail-Benachrichtigung';
+$lang['Subscribe to notification by mail'] = 'E-Mail-Benachrichtigung abonnieren';
 $lang['Unsubscribe from notification by mail'] = 'Von der E-Mail-Benachrichtigung austragen';
 $lang['Parameter'] = 'Einstellungen';
 $lang['Continue processing treatment'] = 'Vorgang fortsetzen';
