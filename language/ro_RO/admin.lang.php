@@ -992,3 +992,4 @@ $lang['No recipient selected'] = 'Nu a fost selectat nici un destinatar';
 $lang['For security reason, authentication keys do not work for administrators.'] = 'Din motive de securitate, cheile de autentificare nu funcţionează pentru administratori';
 $lang['Recipients'] = 'Destinatari';
 $lang['Edit user'] = 'Editează utilizatorul';
+$lang['Y Repeat'] = 'Y Repetare';
