@@ -35,7 +35,6 @@ $lang_info['code'] = "th";
 $lang_info['plupload_code'] = "th_TH";
 $lang_info['zero_plural'] = "1";
 
-
 $lang['%d album updated'] = '%d อัลบั้มได้อัพเดตแล้ว';
 $lang['%d albums updated'] = '%d อัลบั้มที่ได้อัพเดตแล้ว';
 $lang['%d comment to validate'] = "%d ความเห็นรอการตรวจสอบ";
