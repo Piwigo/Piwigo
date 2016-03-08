@@ -430,3 +430,4 @@ $lang['Album name, A &rarr; Z'] = 'Album név, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Album név, Z &rarr; A';
 $lang['No results for'] = 'Nincs eredmény';
 $lang['Link: %s'] = 'Hivatkozás: %s';
+$lang['Your authentication key is no longer valid.'] = 'A hitelesítési kulcsod már nem érvényes.';

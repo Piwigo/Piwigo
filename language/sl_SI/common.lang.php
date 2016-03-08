@@ -424,3 +424,4 @@ $lang['Apply on properties'] = 'Uporabi v lastnostih';
 $lang['Link: %s'] = 'Povezava: %s';
 $lang['Photo description'] = 'Opis slike';
 $lang['Photo title'] = 'Ime slike';
+$lang['Your authentication key is no longer valid.'] = 'Vaš avtorizacijski ključ ni več veljaven.';

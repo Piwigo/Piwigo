@@ -424,3 +424,4 @@ $lang['Photo description'] = 'Descrición da foto';
 $lang['Photo title'] = 'Título da foto';
 $lang['Album name, A &rarr; Z'] = 'Nome do álbum, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Nome do álbum, A &rarr; Z';
+$lang['Your authentication key is no longer valid.'] = 'A túa chave de autenticación xa non é válida.';

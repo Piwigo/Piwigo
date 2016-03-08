@@ -428,3 +428,4 @@ $lang['Album name, A &rarr; Z'] = 'Albumin nimi, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Albumin nimi, Z &rarr; A';
 $lang['Apply on properties'] = 'Käytä asetuksia';
 $lang['Link: %s'] = 'Linkki: %s';
+$lang['Your authentication key is no longer valid.'] = 'Todennusavaimesi ei ole enää voimassa.';

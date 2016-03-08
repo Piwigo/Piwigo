@@ -982,3 +982,7 @@ $lang['between %s and %s MB'] = 'између %s и %s MB';
 $lang['date & time'] = 'датум и време';
 $lang['file name'] = 'назив датотеке';
 $lang['width & height'] = 'ширина и висина';
+$lang['Y Repeat'] = 'Понављање по y';
+$lang['No user is permitted to see this private album'] = 'Ниједном кориснику није дозвољено да види овај лични албум';
+$lang['No recipient selected'] = 'Није одабран прималац';
+$lang['Edit user'] = 'Измени корисника';

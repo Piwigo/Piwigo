@@ -430,3 +430,4 @@ $lang['Apply on properties'] = 'Aplicar nas propriedades';
 $lang['Link: %s'] = 'Link: %s';
 $lang['Photo description'] = 'Descrição da foto';
 $lang['Photo title'] = 'Título da foto';
+$lang['Your authentication key is no longer valid.'] = 'Sua chave de autenticação não é mais válida.';
