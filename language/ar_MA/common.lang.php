@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: العربية [MA]
-Version: 2.5.0
+Version: auto
 Language URI: http://piwigo.org/ext/extension_view.php?eid=
 Author: Piwigo team
 Author URI: http://piwigo.org
