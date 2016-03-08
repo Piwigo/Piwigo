@@ -193,6 +193,10 @@ function ws_addDefaultMethods( $arr )
                                 'type'=>WS_TYPE_BOOL),
         'fullname' =>     array('default'=>false,
                                 'type'=>WS_TYPE_BOOL),
+        'thumbnail_size' => array(
+          'default' => IMG_THUMB,
+          'info' => 'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge'
+          ),
         ),
       'Returns a list of categories.',
       $ws_functions_root . 'pwg.categories.php'
@@ -688,6 +692,8 @@ function ws_addDefaultMethods( $arr )
         'category_id' =>  array('type'=>WS_TYPE_ID),
         'name' =>         array('default'=>null),
         'comment' =>      array('default'=>null),
+        'status' =>       array('default'=>null,
+                                'info'=>'public, private'),
         ),
       'Changes properties of an album.',
       $ws_functions_root . 'pwg.categories.php',

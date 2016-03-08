@@ -832,4 +832,18 @@ $conf['log_level'] = 'DEBUG';
 
 // Keep logs file during X days
 $conf['log_archive_days'] = 30;
+
+// +-----------------------------------------------------------------------+
+// | Proxy Settings                                                        |
+// +-----------------------------------------------------------------------+
+
+// If piwigo needs a http-proxy to connect to the internet, set this to true
+$conf['use_proxy'] = false;
+
+// Connection string of the proxy
+$conf['proxy_server'] = 'proxy.domain.org:port';
+
+// If the http-proxy requires authentication, set username and password here
+// e.g. username:password
+$conf['proxy_auth'] = '';
 ?>

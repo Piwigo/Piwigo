@@ -405,11 +405,7 @@ DELETE FROM '.$table.'
   }
 
   // purge of sessions
-  $query = '
-DELETE FROM '.SESSIONS_TABLE.'
-  WHERE data LIKE \'pwg_uid|i:'.(int)$user_id.';%\'
-;';
-  pwg_query($query);
+  delete_user_sessions($user_id);
 
   // destruction of the user
   $query = '
@@ -2080,6 +2076,8 @@ function cat_admin_access($category_id)
  */
 function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_agent='Piwigo', $step=0)
 {
+  global $conf;
+
   // Try to retrieve data from local file?
   if (!url_is_remote($src))
   {
@@ -2115,6 +2113,17 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
   if (function_exists('curl_init') && function_exists('curl_exec'))
   {
     $ch = @curl_init();
+
+    if (isset($conf['use_proxy']) && $conf['use_proxy'])
+    {
+      @curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, 0);
+      @curl_setopt($ch, CURLOPT_PROXY, $conf['proxy_server']);
+      if (isset($conf['proxy_auth']) && !empty($conf['proxy_auth']))
+      {
+        @curl_setopt($ch, CURLOPT_PROXYUSERPWD, $conf['proxy_auth']);
+      }
+    }
+
     @curl_setopt($ch, CURLOPT_URL, $src);
     @curl_setopt($ch, CURLOPT_HEADER, 1);
     @curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);

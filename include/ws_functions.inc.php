@@ -193,7 +193,7 @@ function ws_std_get_image_xml_attributes()
 function ws_std_get_category_xml_attributes()
 {
   return array(
-    'id', 'url', 'nb_images', 'total_nb_images', 'nb_categories', 'date_last', 'max_date_last',
+    'id', 'url', 'nb_images', 'total_nb_images', 'nb_categories', 'date_last', 'max_date_last', 'status',
     );
 }
 

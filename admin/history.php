@@ -50,7 +50,7 @@ else
   $page['start'] = 0;
 }
 
-$types = array('none', 'picture', 'high', 'other');
+$types = array_merge(array('none'), get_enums(HISTORY_TABLE, 'image_type'));
 
 $display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
                             'display_thumbnail_classic' => l10n('Classic display'),

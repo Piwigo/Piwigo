@@ -173,8 +173,24 @@ function get_sync_metadata($infos)
 
   $infos['filesize'] = floor($fs/1024);
 
+  $is_tiff = false;
+
   if (isset($infos['representative_ext']))
   {
+    if ($image_size = @getimagesize($file))
+    {
+      $type = $image_size[2];
+
+      if (IMAGETYPE_TIFF_MM == $type or IMAGETYPE_TIFF_II == $type)
+      {
+        // in case of TIFF files, we want to use the original file and not
+        // the representative for EXIF/IPTC, but we need the representative
+        // for width/height (to compute the multiple size dimensions)
+        $is_tiff = true;
+      }
+
+    }
+
     $file = original_to_representative($file, $infos['representative_ext']);
   }
 
@@ -182,6 +198,12 @@ function get_sync_metadata($infos)
   {
     $infos['width'] = $image_size[0];
     $infos['height'] = $image_size[1];
+  }
+
+  if ($is_tiff)
+  {
+    // back to original file
+    $file = PHPWG_ROOT_PATH.$infos['path'];
   }
 
   if ($conf['use_exif'])

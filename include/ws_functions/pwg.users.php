@@ -426,6 +426,27 @@ function ws_users_setInfo($params, &$service)
 
     if (!empty($params['password']))
     {
+      if (!is_webmaster())
+      {
+        $password_protected_users = array($conf['guest_id']);
+
+        $query = '
+SELECT
+    user_id
+  FROM '.USER_INFOS_TABLE.'
+  WHERE status IN (\'webmaster\', \'admin\')
+;';
+        $admin_ids = query2array($query, null, 'user_id');
+
+        // we add all admin+webmaster users BUT the user herself
+        $password_protected_users = array_merge($password_protected_users, array_diff($admin_ids, array($user['id'])));
+
+        if (in_array($params['user_id'][0], $password_protected_users))
+        {
+          return new PwgError(403, 'Only webmasters can change password of other "webmaster/admin" users');
+        }
+      }
+
       $updates[ $conf['user_fields']['password'] ] = $conf['password_hash']($params['password']);
     }
   }
@@ -530,6 +551,11 @@ SELECT
     $updates,
     array($conf['user_fields']['id'] => $params['user_id'][0])
     );
+
+  if (isset($updates[ $conf['user_fields']['password'] ]))
+  {
+    deactivate_user_auth_keys($params['user_id'][0]);
+  }
 
   if (isset($update_status) and count($params['user_id_for_status']) > 0)
   {

@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: ગુજરાતી[IN]
-Version: 2.6.0
+Version: auto
 Language URI: http://piwigo.org/ext/extension_view.php?eid=767
 Author: Piwigo team
 Author URI: http://piwigo.org

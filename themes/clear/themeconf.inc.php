@@ -1,7 +1,7 @@
 <?php
 /*
 Theme Name: clear
-Version: 2.7.0
+Version: auto
 Description: White background, soft gray.
 Theme URI: http://piwigo.org/ext/extension_view.php?eid=9
 Author: Piwigo team

@@ -207,6 +207,8 @@ function save_profile_from_post($userdata, &$errors)
         $fields[] = $conf['user_fields']['password'];
         // password is hashed with function $conf['password_hash']
         $data{$conf['user_fields']['password']} = $conf['password_hash']($_POST['use_new_pwd']);
+
+        deactivate_user_auth_keys($userdata['id']);
       }
       
       // username is updated only if allowed

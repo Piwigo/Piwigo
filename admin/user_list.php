@@ -100,6 +100,8 @@ $protected_users = array(
   $conf['webmaster_id'],
   );
 
+$password_protected_users = array($conf['guest_id']);
+
 // an admin can't delete other admin/webmaster
 if ('admin' == $user['status'])
 {
@@ -109,7 +111,12 @@ SELECT
   FROM '.USER_INFOS_TABLE.'
   WHERE status IN (\'webmaster\', \'admin\')
 ;';
-  $protected_users = array_merge($protected_users, query2array($query, null, 'user_id'));
+  $admin_ids = query2array($query, null, 'user_id');
+  
+  $protected_users = array_merge($protected_users, $admin_ids);
+
+  // we add all admin+webmaster users BUT the user herself
+  $password_protected_users = array_merge($password_protected_users, array_diff($admin_ids, array($user['id'])));
 }
 
 $template->assign(
@@ -123,6 +130,7 @@ $template->assign(
     'language_selected' => get_default_language(),
     'association_options' => $groups,
     'protected_users' => implode(',', array_unique($protected_users)),
+    'password_protected_users' => implode(',', array_unique($password_protected_users)),
     'guest_user' => $conf['guest_id'],
     )
   );
@@ -135,7 +143,7 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 
 $pref_status_options = $label_of_status;
 
-// a simple "admin" can set/remove statuses webmaster/admin
+// a simple "admin" can't set/remove statuses webmaster/admin
 if ('admin' == $user['status'])
 {
   unset($pref_status_options['webmaster']);
