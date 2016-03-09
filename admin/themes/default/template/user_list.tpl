@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
         jQuery("#addUserForm .loading").show();
       },
       success:function(data) {
-        oTable.fnDraw();
+        oTable.draw();
         jQuery("#addUserForm .loading").hide();
 
         var data = jQuery.parseJSON(data);
@@ -172,7 +172,7 @@ jQuery(document).ready(function() {
 
   /* Formating function for row details */
   function fnFormatDetails(oTable, nTr) {
-    var userId = oTable.fnGetData(nTr)[0];
+		var userId = oTable.api().row(nTr).data()[0];
     console.log("userId = "+userId);
     var sOut = null;
 
@@ -567,7 +567,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
       title:"{/literal}{'Edit user'|translate}{literal}",
       href:".user_form_popin",
       onClosed: function() {
-        oTable.fnDraw();
+        oTable.draw();
       }
     });
 
@@ -578,10 +578,10 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
   /* first column must be prefixed with the open/close icon */
   var aoColumns = [
     {
-      'bVisible':false
+      visible:false
     },
     {
-      "mRender": function(data, type, full) {
+      render: function(data, type, full) {
         return '<label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label> <a title="{/literal}{'Open user details'|translate|escape:'javascript'}{literal}" class="icon-pencil openUserDetails">{/literal}{'edit'|translate}{literal}</a>';
       }
     }
@@ -592,35 +592,36 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
   }
 
   var oTable = jQuery('#userList').dataTable({
-    "iDisplayLength": 10,
-    "bDeferRender": true,
-    "bProcessing": true,
-    "bServerSide": true,
-		"sServerMethod": "POST",
-    "sAjaxSource": "admin/user_list_backend.php",
-    "oLanguage": {
-      "sProcessing": "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
-      "sLengthMenu": sprintf("{/literal}{'Show %s users'|translate|escape:'javascript'}{literal}", '_MENU_'),
-      "sZeroRecords": "{/literal}{'No matching user found'|translate|escape:'javascript'}{literal}",
-      "sInfo": sprintf("{/literal}{'Showing %s to %s of %s users'|translate|escape:'javascript'}{literal}", '_START_', '_END_', '_TOTAL_'),
-      "sInfoEmpty": "{/literal}{'No matching user found'|translate|escape:'javascript'}{literal}",
-      "sInfoFiltered": sprintf("{/literal}{'(filtered from %s total users)'|translate|escape:'javascript'}{literal}", '_MAX_'),
-      "sSearch": '<span class="icon-search"></span>'+"{/literal}{'Search'|translate|escape:'javascript'}{literal}",
-      "sLoadingRecords": "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
-      "oPaginate": {
-          "sFirst":    "{/literal}{'First'|translate|escape:'javascript'}{literal}",
-          "sPrevious": '← '+"{/literal}{'Previous'|translate|escape:'javascript'}{literal}",
-          "sNext":     "{/literal}{'Next'|translate|escape:'javascript'}{literal}"+' →',
-          "sLast":     "{/literal}{'Last'|translate|escape:'javascript'}{literal}",
+    pageLength: 10,
+    deferRender: true,
+    processing: true,
+    serverSide: true,
+		serverMethod: "POST",
+    ajaxSource: "admin/user_list_backend.php",
+		pagingType: "simple",
+    language: {
+      processing: "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
+      lengthMenu: sprintf("{/literal}{'Show %s users'|translate|escape:'javascript'}{literal}", '_MENU_'),
+      zeroRecords: "{/literal}{'No matching user found'|translate|escape:'javascript'}{literal}",
+      info: sprintf("{/literal}{'Showing %s to %s of %s users'|translate|escape:'javascript'}{literal}", '_START_', '_END_', '_TOTAL_'),
+      infoEmpty: "{/literal}{'No matching user found'|translate|escape:'javascript'}{literal}",
+      infoFiltered: sprintf("{/literal}{'(filtered from %s total users)'|translate|escape:'javascript'}{literal}", '_MAX_'),
+      search: '<span class="icon-search"></span>'+"{/literal}{'Search'|translate|escape:'javascript'}{literal}",
+      loadingRecords: "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
+      paginate: {
+          first:    "{/literal}{'First'|translate|escape:'javascript'}{literal}",
+          previous: '← '+"{/literal}{'Previous'|translate|escape:'javascript'}{literal}",
+          next:     "{/literal}{'Next'|translate|escape:'javascript'}{literal}"+' →',
+          last:     "{/literal}{'Last'|translate|escape:'javascript'}{literal}",
       }
     },
-    "fnDrawCallback": function( oSettings ) {
+    "drawCallback": function( oSettings ) {
       jQuery("#userList input[type=checkbox]").each(function() {
         var user_id = jQuery(this).data("user_id");
         jQuery(this).prop('checked', (selection.indexOf(user_id) != -1));
       });
     },
-    "aoColumns": aoColumns
+    columns: aoColumns
   });
 
   /**
@@ -807,7 +808,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
         jQuery("#applyActionLoading").show();
       },
       success:function(data) {
-        oTable.fnDraw();
+        oTable.draw();
         jQuery("#applyActionLoading").hide();
         jQuery("#applyActionBlock .infos").show();
 
@@ -840,11 +841,18 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 .dataTables_wrapper, .dataTables_info {clear:none;}
 table.dataTable {clear:right;padding-top:10px;}
 .dataTable td img {margin-bottom: -6px;margin-left: -6px;}
-.paginate_enabled_previous, .paginate_enabled_previous:hover, .paginate_disabled_previous, .paginate_enabled_next, .paginate_enabled_next:hover, .paginate_disabled_next {background:none;}
-.paginate_enabled_previous, .paginate_enabled_next {color:#005E89 !important;}
-.paginate_enabled_previous:hover, .paginate_enabled_next:hover {color:#D54E21 !important; text-decoration:underline !important;}
 
-.paginate_disabled_next, .paginate_enabled_next {padding-right:3px;}
+.paginate_button, .paginate_button:hover {background:none !important;}
+.dataTables_wrapper .dataTables_paginate .paginate_button {color:#005E89 !important;}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {color:#D54E21 !important; text-decoration:underline !important; border-color:transparent;}
+
+.paginate_button.next {padding-right:3px !important;}
+
+table.dataTable tbody th,
+table.dataTable tbody td {
+  padding: 3px 5px;
+}
+
 .bulkAction {margin-top:10px;}
 #addUserForm p {margin-left:0;}
 #applyActionBlock .actionButtons {margin-left:0;}
