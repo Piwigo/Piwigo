@@ -828,7 +828,7 @@ $conf['log_dir'] = '/logs';
 
 // Log level (OFF, CRITICAL, ERROR, WARNING, NOTICE, INFO, DEBUG)
 // development = DEBUG, production = ERROR
-$conf['log_level'] = 'DEBUG';
+$conf['log_level'] = 'ERROR';
 
 // Keep logs file during X days
 $conf['log_archive_days'] = 30;
