@@ -39,15 +39,24 @@ galleries
 |       |-- discours002.jpg
 |       +-- discours003.jpg
 +-- voyage-de-noces
-    |-- hotel.png
-    |-- video-decollage-avion.avi
-    +-- pwg_representative
-        +-- video-decollage-avion.jpg
+|   |-- hotel.png
+|   |-- video-decollage-avion.avi
+|   +-- pwg_representative
+|       +-- video-decollage-avion.jpg
++-- seance-photographe
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 
   </li>
   
-  <li>A l'exception de celui appelé "pwg_representative", chaque répertoire dans "galleries" génère un album. Le nombre de niveaux (profondeur) n'est pas limité.</li>
+  <li>A l'exception de "pwg_representative" et "pwg_format", chaque répertoire dans "galleries" génère un album. Le nombre de niveaux (profondeur) n'est pas limité.</li>
 
   <li>Fondamentalement, une photo est représentée par un fichier. Pour Piwigo, un fichier peut être une photo si son extension figure dans la liste du paramètre de configuration <code>file_ext</code> (voir
 fichier <span class="filename">include/config.inc.php</span>). Un fichier
@@ -59,6 +68,8 @@ voulez...) sont représentés par défaut par une icône correspondant à
 l'extension du nom du fichier. Optionnellement, un
 représentant peut être associé (voir le fichier <span
 class="filename">video-decollage-avion.avi</span> dans l'exemple).</li>
+
+  <li>Formats multiples : vous pouvez proposer une photo dans plusieurs formats. Dans cet exemple, il y a 3 formats supplémentaires pour img0001.jpg. Vous pouvez activer cette fonctionnalité en ajoutant <code>$conf['enable_formats'] = true;</code> à votre configuration locale et en définissant une liste de formats, comme <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
   <li><em>Attention</em> : le nom d'un répertoire ou d'un fichier ne doit
 être composé que de lettres, de chiffres, de "-", "_" ou ".". Pas d'espace
