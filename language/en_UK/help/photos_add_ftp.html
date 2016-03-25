@@ -39,15 +39,24 @@ galleries
 |       |-- dancers002.jpg
 |       +-- dancers003.jpg
 +-- honeymoon
-    |-- hotel.png
-    |-- video-from-plane.avi
-    +-- pwg_representative
-        +-- video-from-plane.jpg
+|   |-- hotel.png
+|   |-- video-from-plane.avi
+|   +-- pwg_representative
+|       +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 
   </li>
 
-  <li>Except for "pwg_representative" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
+  <li>Except for "pwg_representative" and "pwg_format" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
 
   <li>Basically, an element is represented by a file. A file can be a
   Piwigo element if its extension is among <code>file_ext</code>
@@ -56,9 +65,11 @@ galleries
   be a picture if its extension is among <code>picture_ext</code>
   configuration parameter possibilities.</li>
 
-  <li>No photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
+  <li>Non photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
   extension. Optionally, you can associate a thumbnail and a representative
   file (see video.avi in the example above).</li>
+
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
   <li><em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, nor accentuated characters.</li>
 

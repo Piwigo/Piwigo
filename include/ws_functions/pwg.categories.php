@@ -614,6 +614,7 @@ SELECT *
 
     if ($params['status'] != $category['status'])
     {
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
       set_cat_status(array($params['category_id']), $params['status']);
     }
   }

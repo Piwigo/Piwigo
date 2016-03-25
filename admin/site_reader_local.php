@@ -27,7 +27,7 @@ class LocalSiteReader
 
 var $site_url;
 
-function LocalSiteReader($url)
+function __construct($url)
 {
   $this->site_url = $url;
   global $conf;

@@ -88,7 +88,7 @@ function ierror($msg, $code)
     }
     // default url is on html format
     $url = html_entity_decode($msg);
-    $logger->warning($code . ' ' . $url, 'i.php', array(
+    $logger->debug($code . ' ' . $url, 'i.php', array(
       'url' => $_SERVER['REQUEST_URI'],
       ));
     header('Request-URI: '.$url);

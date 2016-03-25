@@ -65,14 +65,14 @@ body .ui-tooltip {
 {combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 {combine_script id='jquery.geoip' load='async' path='admin/themes/default/js/jquery.geoip.js'}
 {footer_script}
-var oTable = jQuery('#rateTable').dataTable({
-	sDom : '<"dtBar"filp>rt<"dtBar"ilp>',
-	iDisplayLength: 100,
-	aLengthMenu: [ [25, 50, 100, 500, -1], [25, 50, 100, 500, "All"]],
-	aaSorting: [], //[[1,'desc']],
-	bAutoWidth: false,
-	bSortClasses: false,
-	aoColumnDefs: [
+jQuery('#rateTable').dataTable({
+	dom : '<"dtBar"filp>rt<"dtBar"ilp>',
+	pageLength: 100,
+	lengthMenu: [ [25, 50, 100, 500, -1], [25, 50, 100, 500, "All"]],
+	sorting: [], //[[1,'desc']],
+	autoWidth: false,
+	sortClasses: false,
+	columnDefs: [
 		{
 			aTargets: ["dtc_user"],
 			sType: "string",
@@ -108,6 +108,7 @@ var oTable = jQuery('#rateTable').dataTable({
 	]
 });
 
+var oTable = jQuery('#rateTable').DataTable();
 
 function uidFromCell(cell){
 	var tr = cell;
@@ -135,7 +136,7 @@ $(document).ready( function(){
 				onFailure: function(num, text) { tr.stop(); tr.fadeTo(0,1); alert(num + " " + text); },
 				onSuccess: function(result){
 					if (result)
-						oTable.fnDeleteRow(tr[0]);
+						oTable.row(tr[0]).remove().draw();
 					else 
 						alert(result); 
 				}
