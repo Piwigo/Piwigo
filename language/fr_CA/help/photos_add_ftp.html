@@ -41,15 +41,24 @@ galleries
 |       |-- discours002.jpg
 |       +-- discours003.jpg
 +-- voyage-de-noces
-    |-- hotel.png
-    |-- video-decollage-avion.avi
-    +-- pwg_representative
-        +-- video-decollage-avion.jpg
+|   |-- hotel.png
+|   |-- video-decollage-avion.avi
+|   +-- pwg_representative
+|       +-- video-decollage-avion.jpg
++-- seance-photographe
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 
   </li>
   
-  <li>A l'exception de celui appelé "pwg_representative", chaque répertoire dans "galleries" génère un album. Le nombre de niveaux (profondeur) n'est pas limité.</li>
+  <li>A l'exception de celui appelé "pwg_representative" et "pwg_format", chaque répertoire dans "galleries" génère un album. Le nombre de niveaux (profondeur) n'est pas limité.</li>
 
   <li>Fondamentalement, un élément est représenté par un fichier. Pour Piwigo, un fichier peut être un élément si son extension figure dans la liste du paramètre de configuration <code>file_ext</code> (voir
 fichier <span class="filename">include/config.inc.php</span>). Un fichier
