@@ -26,28 +26,37 @@
     με πολλά χαρακτηριστικά γνωρίσματα):</p>
 
     <pre>
-Γκαλλερί
-|-- γάμος
-|   |-- εορτασμός
-|   |   |-- άφιξη
+galleries
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
 |   |   |   |-- paul-alone.jpg
 |   |   |   +-- sarah-alone.jpg
-|   |   +-- αναχώρηση
+|   |   +-- departure
 |   |       +-- paul-and-sarah.jpg
-|   +-- πάρτυ
+|   +-- party
 |       |-- dancers001.jpg
 |       |-- dancers002.jpg
 |       +-- dancers003.jpg
-+-- μήνας του μέλιτος
-    |-- hotel.png
-    |-- video-from-plane.avi
-    +-- pwg_representative
-        +-- video-from-plane.jpg
++-- honeymoon
+|   |-- hotel.png
+|   |-- video-from-plane.avi
+|   +-- pwg_representative
+|       +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 
   </li>
 
-  <li>Εκτός από "pwg_representative" (βλέπε τις εξηγήσεις παρακάτω), κάθε κατάλογο κάτω απο το "galleries" παράγει ένα λεύκωμα. Δεν υπάρχει όριο στο βάθος.</li>
+  <li>Εκτός από "pwg_representative" and "pwg_format" (βλέπε τις εξηγήσεις παρακάτω), κάθε κατάλογο κάτω απο το "galleries" παράγει ένα λεύκωμα. Δεν υπάρχει όριο στο βάθος.</li>
 
   <li>Βασικά, κάθε στοιχείο αντιπροσωπεύεται από ένα αρχείο. Ένα αρχείο μπορεί να είναι ένα
   στοιχείο Piwigo εάν η επέκταση της είναι μεταξύ <code>file_ext</code> των
