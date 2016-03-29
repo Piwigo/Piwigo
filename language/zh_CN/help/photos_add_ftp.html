@@ -65,6 +65,8 @@ galleries
 
   <li>非图片元素 (如视频，声频，文本文件，一切你想到的...) 均以文件扩展名的默认图标显示。或者，你可以用一张缩略图来代表这个文件 (参见 video.avi 的例子)。</li>
 
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
+
   <li><em>注意</em>: 文件名和文件夹必须以字母、数字、 "-"、 "_" 或者 "." 组成。没有空格，没有特别的符号。</li>
 
   <li>一旦文件、缩略图都放到其正确的位置后，进入 : <span class="pwgScreen">后台管理 &raquo; 工具 &raquo;
@@ -72,20 +74,4 @@ galleries
 
 </ul>
 
-</fieldset>
-<fieldset>
-  <legend>缩略图</legend>
-<ul>
-
-  <li>每个图片必须要有一张缩略图。</li>
-
-  <li>缩略图保存在相册文件夹里名为 "thumbnail" 的子文件夹。缩略图文件名与图片的文件名一致，将会以 <em>TN-</em> 为前缀</li>
-
-  <li><em>建议</em>: 使用外部工具来创建缩略图。</li>
-
-  <li>你可以使用<span class="pwgScreen">后台管理 &raquo; 图片 &raquo; 缩略图</span> 页面来创建缩略图。即使这是不被推荐的（考虑到图片品质，网络服务器资源读取等问题）。</li>
-
-  <li>分配给所有相册文件夹写权限。</li>
-
-</ul>
 </fieldset>

@@ -65,27 +65,12 @@ galleries
 
   <li>Outros itens (video, sons, arquivos de texto, o que voc&ecirc; quiser...) s&atilde;o por padr&atilde;o representados por um &iacute;cone correspondente &agrave; extens&atilde;o do nome de arquivo. Voc&ecirc; tem a op&ccedil;&atilde;o de associar uma miniatura e um ficheiro representativo (veja video.avi no exemplo acima).</li>
 
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
+
   <li><em>Aten&ccedil;&atilde;o</em>: o nome das pastas e dos ficheiros devem conter apenas letras, n&uacute;meros, "-", "_" ou ".". N&atilde;o use espa&ccedil;o em branco e nem caracteres acentuados.</li>
 
   <li>Uma vez que os ficheiros, as miniaturas e representativos estiverem corretamente alocados nas pastas,v&aacute; at&eacute; : <span class="pwgScreen">Ferramentas &raquo; Sincronizar</span></li>
 
 </ul>
 
-</fieldset>
-<fieldset>
-  <legend>Miniaturas (Thumbnails)</legend>
-<ul>
-
-  <li>Cada foto deve ter a sua miniatura.</li>
-
-  <li>As miniaturas est&atilde;o armazenadas na subpasta "thumbnail" na pasta das categorias. 
-      A miniatura tem o mesmo nome de ficheiro que a foto correspondente, com <em>TN-</em> como prefixo.</li>
-
-  <li><em>Aten&ccedil;&atilde;o</em>: use um m&oacute;dulo externo para a cria&ccedil;&atilde;o das miniaturas.</li>
-
-  <li>Embora n&atilde;o seja recomendado (qualidade da imagem, carga do servidor, etc), pode usar a p&aacute;gina <span class="pwgScreen">Ferramentas &raquo; Miniaturas</span> para criar as miniaturas.</li>
-
-  <li>D&ecirc; permiss&otilde;es de escrita para todas as pastas dos albums.</li>
-
-</ul>
 </fieldset>

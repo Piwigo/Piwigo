@@ -69,29 +69,12 @@ galleries
 
   <li>Elementy, ktoré nie sú obrázky (video, zvuk, textové súbory, čokoľvek chcete...) majú ako východzí náhľad ikonu, ktorá odpovedá ich prípone. Voliteľne môžete priradiť náhľad a reprezentatívny súbor (viď. video.avi v príklade vyššie).</li>
 
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
+
   <li><em>Varovanie</em>: názvy adresárov a súborov musia obsahovať len písmená, čísla, "-", "_" alebo ".". Žiadne medzery alebo znaky s diakritikou.</li>
 
   <li>Keď sú elementy, obrázky, náhľady a reprezentatívne súbory umiestnené v adresárovej štruktúre, prejdite na: <span class="pwgScreen">Administrácia &raquo; Kategória &raquo;
   Synchronizácia</span></li>
-
-</ul>
-</fieldset>
-
-<fieldset>
-  <legend>Náhľady</legend>
-<ul>
-
-  <li>Všetky obrázky (fotografie) musia mať priradený náhľad.</li>
-
-  <li>Náhľady sú umiestnené v podadresári "thumbnail", ktorý je v adresári kategórie. Náhľad má rovnaký názov ako jemu odpovídajúci obrázok s prefixom podľa konfiguračného parametra <code>prefix_thumbnail</code> (viď. <span class="filename">include/config.inc.php</span>).</li>
-
-  <li>Náhľad nemusí mať nutne rovnakú príponu ako jemu odpovedajúcí obrázok (napríklad ".jpg", obrázok môže mať náhľad s ".GIF" príponou).</li>
-
-  <li>Odporúčame použiť externú aplikáciu pre tvorbu náhľadov.</li>
-
-  <li>Vytváranie náhľadov pomocou Piwigo môže viesť k zlej kvalite vytvorených náhľadov, protože tá závisí na zdrojoch servra (a toto môže byť na zdielaných servroch (webhosting) problém).
-
-  <li>Pokiaľ budete aj tak vytvárať náhľady pomocou Piwigo na servri, tak musíte povoliť prístup pre zápis do všetkých adresárov "galleries" a všetkých podadresárov.</li>
 
 </ul>
 </fieldset>

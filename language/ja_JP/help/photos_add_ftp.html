@@ -70,6 +70,8 @@ galleries
   <li>デフォルトでは、写真エレメント (ビデオ、サウンド、テキスト等) に関して、ファイル名の拡張子に関連付けられるアイコンはありません。
   任意で、あなたはサムネイルおよび見本ファイルを関連付けることができます (上記例のvideo.aviをご覧ください)。</li>
 
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
+
   <li><em>警告</em>: ディレクトリおよびファイル名には、文字、「-」「_」「.」の記号のみ含んでください。空白、アクセント符号は含まないでください。</li>
 
   <li>ファイル、サムネイルおよび見本が正しくディレクトリに配置された場合、「<span class="pwgScreen">管理 > アルバム > 同期化</span>」に移動してください。</li>
