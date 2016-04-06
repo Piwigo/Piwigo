@@ -992,7 +992,7 @@ $lang['Each email sent will contain its own automatic authentication key on link
 $lang['For security reason, authentication keys do not work for administrators.'] = '出于安全原因，验证密钥对管理员不起作用。';
 $lang['Edit user'] = '编辑用户';
 $lang['No recipient selected'] = '未选择收件人';
-$lang['No user is permitted to see this private album'] = '没有用户被允许查看该私密相册';
+$lang['No user is permitted to see this private album'] = '没有用户被允许查看该非公开相册';
 $lang['Recipients'] = '收件人';
 $lang['Y Repeat'] = 'Y轴平铺';
 $lang['Delete %d orphan photos'] = '删除 %d 没有任何关联的图片';
