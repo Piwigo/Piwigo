@@ -48,23 +48,21 @@ define('DB_RANDOM_FUNCTION', 'RAND');
 function pwg_db_connect($host, $user, $password, $database)
 {
   global $mysqli;
-
-  $port = null;
-  $socket = null;
   
   if (strpos($host, '/') === 0)
   {
-    $socket = $host;
-    $host = null;
+    $mysqli = new mysqli(null, $user, $password, '', ini_get("mysqli.default_port"), $host);
   }
-  elseif (strpos($host, ':') !== false)
+  else if (strpos($host, ':') !== false)
   {
     list($host, $port) = explode(':', $host);
+    $mysqli = new mysqli($host, $user, $password, '', $port);
+  }
+  else
+  {
+    $mysqli = new mysqli($host, $user, $password);
   }
 
-  $dbname = null;
-  
-  $mysqli = new mysqli($host, $user, $password, $dbname, $port, $socket);
   if (mysqli_connect_error())
   {
     throw new Exception("Can't connect to server");
