@@ -51,7 +51,9 @@ function pwg_db_connect($host, $user, $password, $database)
   
   if (strpos($host, '/') === 0)
   {
-    $mysqli = new mysqli(null, $user, $password, '', ini_get("mysqli.default_port"), $host);
+    $socket = $host;
+    $host = null;
+    $mysqli = new mysqli($host, $user, $password, '', ini_get("mysqli.default_port"), $socket);
   }
   else if (strpos($host, ':') !== false)
   {
