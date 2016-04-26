@@ -62,32 +62,17 @@ if (isset($conf['session_save_handler'])
  */
 function generate_key($size)
 {
-  if (
-    is_callable('openssl_random_pseudo_bytes')
-    and !(version_compare(PHP_VERSION, '5.3.4') < 0 and defined('PHP_WINDOWS_VERSION_MAJOR'))
-    )
-  {
-    return substr(
-      str_replace(
-        array('+', '/'),
-        '',
-        base64_encode(openssl_random_pseudo_bytes($size+10))
-        ),
-      0,
-      $size
-      );
-  }
-  else
-  {
-    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $l = strlen($alphabet)-1;
-    $key = '';
-    for ($i=0; $i<$size; $i++)
-    {
-      $key.= $alphabet[mt_rand(0, $l)];
-    }
-    return $key;
-  }
+  include_once(PHPWG_ROOT_PATH.'include/random_compat/random.php');
+
+  return substr(
+    str_replace(
+      array('+', '/'),
+      '',
+      base64_encode(random_bytes($size+10))
+      ),
+    0,
+    $size
+    );
 }
 
 /**
