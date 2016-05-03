@@ -569,6 +569,52 @@ function upload_file_video($representative_ext, $file_path)
   return $representative_ext;
 }
 
+add_event_handler('upload_file', 'upload_file_eps');
+function upload_file_eps($representative_ext, $file_path)
+{
+  global $logger, $conf;
+  $logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+  if (isset($representative_ext))
+  {
+    return $representative_ext;
+  }
+
+  if (pwg_image::get_library() != 'ext_imagick')
+  {
+    return $representative_ext;
+  }
+
+  if (!in_array(strtolower(get_extension($file_path)), array('eps')))
+  {
+    return $representative_ext;
+  }
+	
+  $ext = conf_get_param('eps_representative_ext', 'jpg');
+  $jpg_quality = conf_get_param('eps_jpg_quality', 90);
+
+  // move the uploaded file to pwg_representative sub-directory
+  $representative_file_path = original_to_representative($file_path, $ext);
+  prepare_directory(dirname($representative_file_path));
+
+  $exec = $conf['ext_imagick_dir'].'convert';
+  if ('jpg' == $ext)
+  {
+    $exec.= ' -quality '.$jpg_quality;
+  }
+  $exec.= ' "'.realpath($file_path).'"[0]';
+  $exec.= ' "'.$representative_file_path.'"';
+  $exec.= ' 2>&1';
+  @exec($exec, $returnarray);
+
+  // Return the extension (if successful) or false (if failed)
+  if (file_exists($representative_file_path))
+  {
+    $representative_ext = $ext;
+  }
+  return $representative_ext;
+}
+
 function prepare_directory($directory)
 {
   if (!is_dir($directory)) {
