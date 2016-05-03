@@ -36,42 +36,36 @@ Gratulerer! Du har nå laget ditt første album i ditt foto galleri.
 galleri (men bruker mange muligheter):</p>
 
     <pre>
-.
-|-- admin
-|-- doc
-|-- gallerier
-|   |-- album-1
-|   |   |-- album-1.1
-|   |   |   |-- album-1.1.1
-|   |   |   |   |-- album-1.1.1.1
-|   |   |   |   |   |-- pwg_high
-|   |   |   |   |   |   +-- wedding.jpg
-|   |   |   |   |   |-- miniatyrbilder
-|   |   |   |   |   |   +-- TN-wedding.jpg
-|   |   |   |   |   +-- wedding.jpg
-|   |   |   |   +-- album-1.1.1.2
-|   |   |   +-- album-1.1.2
-|   |   |-- album-1.2
-|   |   |   |-- pookie.jpg
-|   |   |   +-- miniatyrbilder
-|   |   |       +-- TN-pookie.jpg
-|   |   +-- album-1.3
-|   +-- album-2
-|       |-- piglet.gif
-|       |-- pwg_representative
-|       |   +-- video.jpg
-|       |-- miniatyrbilder
-|       |   +-- TN-piglet.jpg
-|       +-- video.avi
-|-- include
-|-- install
-|-- language
-|-- template
-+-- tool</pre>
-
+galleries
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+|   |-- hotel.png
+|   |-- video-from-plane.avi
+|   +-- pwg_representative
+|       +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
+</pre>
   </li>
 
-  <li>Untagen de med navnet "miniatyrbilder", "pwg_high" eller "pwg_representative" (se forklaring
+  <li>Untagen de med navnet "pwg_representative" eller "pwg_format" (se forklaring
 
 under), vil hver mappe under "gallerier" representerer et album. Det er ingen begrensning på dybden
 
@@ -98,6 +92,8 @@ standard med et icon tillhørende fil endelsen. Valgfritt, kan du assosiere et m
 
 og en representativ fil (se video.avi i eksempelet over).</li>
 
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
+
   <li><em>Advarsel</em>: navnet på mapper og filer må kun inneholde bokstaver, figurer, "-", "_"
 
 eller ".". Ingen tomme mellomrom, ei heller opphøyde karakterer.</li>
@@ -106,38 +102,6 @@ eller ".". Ingen tomme mellomrom, ei heller opphøyde karakterer.</li>
 
 class="pwgScreen">Administrasjon &raquo; Verktøy &raquo;
   Synkroniser</span></li>
-
-</ul>
-</fieldset>
-
-<fieldset>
-  <legend>Miniatyr bilder</legend>
-<ul>
-
-  <li>Hvert bilde må ha sitt miniatyr bilde.</li>
-
-  <li>Miniatyr bilde blir lagret i "miniatyrbilde " under mappe i album
-  mappen. Miniatyr bildene har det samme filnavnet som bildet det passer opp mot, med konfigurasjons
-
-parametrene <code>prefix_thumbnail</code> som prefix (se <span
-
-class="filename">inkluder/config.inc.php</span>).</li>
-
-  <li>Miniatyr bilde filer bør ikke nødvendigvis ha samme fil endelse som det assosierte bildet (Eks
-
-".jpg" bilde kan ha ".GIF" endelse).</li>
-
-  <li>Det anbefales å bruker en ekstern modul for å lage miniatyr bilder.</li>
-
-  <li>Bruken av miniatyr bilde oprettelses verktøyet integrert i Piwigo er ikke anbefalt, Dette
-
-fordi den resulterte kvaliteten kan være skuffende og den vil bruke mye server ressurser (Dette kan
-
-være et stort problem på en delt server).
-
-  <li>Om du vleger å bruker web serveren til å lage miniatyr bilder, må du gi skrive rettigheter på
-
-alle album mappene.</li>
 
 </ul>
 </fieldset>

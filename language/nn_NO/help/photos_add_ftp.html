@@ -42,11 +42,20 @@ galleries
     |-- video-fraa-fly.avi
     +-- pwg_representative
         +-- video-fraa-fly.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 
   </li>
 
-  <li>Bortsett frå "pwg_representative" (sjå forklaring under), vil kvar mappe under "galleries" lage eit album. Det er ingen avgrensing på djubde.</li>
+  <li>Bortsett frå "pwg_representative" and "pwg_format" (sjå forklaring under), vil kvar mappe under "galleries" lage eit album. Det er ingen avgrensing på djubde.</li>
 
   <li>Som utgangspunkt er eit element representera av ei file. Ei fil kan vera eit
   Piwigo element om filtypa er blant <code>file_ext</code>
@@ -56,6 +65,8 @@ galleries
   konfigurasjons-eigenskapan.</li>
 
   <li>Ingen bilet-element (video, lyd, tekstfiler, eller kva som helst...) er som standard vist med eit ikon som samsvarar med filtypa. Valfritt, kan du knytte til ei miniatyrbilete og ein representatnt--fil til ei fil (sjå video.avi i dømet over).</li>
+
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
   <li><em>Varsel</em>: namn på mapper og filer kan bare innehalde bokstavar (a - z, A - Z), tal, "-", "_" or ".". Ikkje bruk mellomrom eller spesielle tegn.</li>
 

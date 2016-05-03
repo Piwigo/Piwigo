@@ -43,11 +43,20 @@
     |-- video-from-plane.avi
     +-- pwg_representative
         +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 
   </li>
 
-  <li>Except for "pwg_representative" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
+  <li>Except for "pwg_representative" and "pwg_format" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
 
   <li>Basically, an element is represented by a file. A file can be a
   Piwigo element if its extension is among <code>file_ext</code>
@@ -56,9 +65,11 @@
   be a picture if its extension is among <code>picture_ext</code>
   configuration parameter possibilities.</li>
 
-  <li>No photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
+  <li>Non photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
   extension. Optionally, you can associate a thumbnail and a representative
   file (see video.avi in the example above).</li>
+
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
   <li><em>警告</em>: ​​目錄和文件的名稱必須包含字母，數字，“ - ”，“_”或“.”。不能空白，及特殊字符。</li>
 
@@ -68,18 +79,3 @@
 
 </ul>
 </fieldset>
-
-
-
-  每個目錄下的“畫廊”除為“pwg_representative”（見下面的說明），<LI>產生一個專輯。有沒有深度的限制。</ LI>
-
-  <LI>基本上，一個元素表示的一個文件。一個文件就可以了
-  Piwigo的元素，如果其擴展名之間的<code> file_ext </代碼>
-  配置參數的可能性（請參閱<跨度
-  類=“文件名”> / config_default.inc.php </ SPAN>文件）。一個文件可以
-  是一個圖片，如果其擴展名之間的<code> picture_ext </代碼>
-  配置參數的可能性。</ LI>
-
-  <LI>沒有照片元素（視頻，聲音，文件文本，無論你想...）默認情況下，文件名對應一個圖標代表
-  擴展名。或者，您可以將一個縮略圖，並代表
-  文件（見video.avi在上面的例子）。</ LI>

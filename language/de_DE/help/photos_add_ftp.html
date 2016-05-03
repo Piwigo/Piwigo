@@ -35,29 +35,38 @@
       Die Albenverzeichnisse sind im Piwigo-Verzeichnis "galleries" untergebracht. 
       Im Folgenden ist der Verzeichnisbaum einer kleinen Galerie dargestellt: 
     </p>
-<pre>
+    <pre>
 galleries
-|-- Hochzeit
-|   |-- Trauung
-|   |   |-- Ankunft
-|   |   |   |-- Paul.jpg
-|   |   |   +-- Sarah.jpg
-|   |   +-- Abfahrt
-|   |       +-- Paul-und-Sarah.jpg
-|   +-- Feier
-|       |-- tanzen001.jpg
-|       |-- tanzen002.jpg
-|       +-- tanzen003.jpg
-+-- Flitterwochen
-    |-- Hotel.png
-    |-- Video-aus-dem-Flugzeug.avi
-    +-- pwg_representative
-        +-- Video-aus-dem-Flugzeug.jpg
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+|   |-- hotel.png
+|   |-- video-from-plane.avi
+|   +-- pwg_representative
+|       +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 </li>
 
 <li>
- Außer dem Verzeichnisse "pwg_representative" erzeugt jedes 
+ Außer dem Verzeichnisse "pwg_representative" und "pwg_format" erzeugt jedes 
  Unterverzeichnis ein neues Album in der Galerie.
  Es kann beliebig viele Unterverzeichnisse (Unteralben) geben.
 </li>
@@ -80,6 +89,8 @@ galleries
    dargestellt. Sie können auch selbst ein Vorschaubild erstellen (siehe die Datei <span
    class = "filename">Video-aus-dem-Flugzeug.jpg</span> im Beispiel oben).
 </li>
+
+<li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
 <li>
   <em>Achtung</em>: Der Name für ein Verzeichnis oder eine Datei darf

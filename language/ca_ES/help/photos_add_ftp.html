@@ -25,33 +25,44 @@
 
     <p>Els directoris que representen els &agrave;lbums estan en el directori "galleries". Heus aqu&iacute; la jerarquia d'una galeria molt petita (per&ograve; amb moltes caracter&iacute;stiques):</p>
   
-<pre>
+    <pre>
 galleries
-|-- casament
-|   |-- celebracio
-|   |   |-- sortida
-|   |   |   |-- pol-sol.jpg
-|   |   |   +-- sara-sola.jpg
-|   |   +-- arrivada
-|   |       +-- pol-i-sara.jpg
-|   +-- festa
-|       |-- ball001.jpg
-|       |-- ball002.jpg
-|       +-- ball003.jpg
-+-- llunademel
-    |-- hotel.png
-    |-- video-avio.avi
-    +-- pwg_representacio
-        +-- video-avio.jpg
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+|   |-- hotel.png
+|   |-- video-from-plane.avi
+|   +-- pwg_representative
+|       +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 
   </li>
   
-  <li>A excepci&oacute; de "pwg_representative" (vegeu les explicacions a sota), cada directori en "galleries" produeix un &agrave;lbum. No hi ha l&iacute;mit quan a profunditat, &eacute;s a dir, es poden crear &agrave;lbums i sub-&agrave;lbums a voluntat.</li>
+  <li>A excepci&oacute; de "pwg_representative" and "pwg_format" (vegeu les explicacions a sota), cada directori en "galleries" produeix un &agrave;lbum. No hi ha l&iacute;mit quan a profunditat, &eacute;s a dir, es poden crear &agrave;lbums i sub-&agrave;lbums a voluntat.</li>
 
   <li>B&agrave;sicament, un element est&agrave; representat per un arxiu. Un arxiu pot ser un element per a Piwigo si la seva extensi&oacute; &eacute;s entre la llista de par&agrave;metres de configuraci&oacute; <code>file_ext</code> (veure arxiu <span class="filename">include/config.inc.php</span>). Un arxiu pot ser una imatge si la seva extensi&oacute; &egrave;s entre el par&agrave;metre de configuraci&oacute; <code>picture_ext</code>.</li>
 
   <li>No es representen amb una icona per defecte elements com ara arxius de v&iacute;deo, sons, textos d'arxius, i altres extensions. Opcionalment, es pot associar una miniatura i un arxiu de representanci&oacute; (veure el video-avio.avi en l'exemple anterior).</li>
+
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
   <li>Una vegada que les fotos estan ben col &middot; locades en els directoris, aneu a: <span class="pwgScreen">Gestionar (al Tauler de control) &raquo; Eines &raquo; Sincronitzar</span></li>
 </ul>
