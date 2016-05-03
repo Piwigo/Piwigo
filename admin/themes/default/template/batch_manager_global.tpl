@@ -134,7 +134,13 @@ $(document).ready(function() {
 
   $("select[name=selectAction]").change(function () {
     $("[id^=action_]").hide();
-    $("#action_"+$(this).prop("value")).show();
+
+    var action = $(this).prop("value");
+    if (action == 'move') {
+      action = 'associate';
+    }
+
+    $("#action_"+action).show();
 
     if ($(this).val() != -1) {
       $("#applyActionBlock").show();
@@ -590,20 +596,12 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <p><label><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label></p>
     </div>
 
-    <!-- associate -->
+    <!-- associate -->{* also used for "move" action *}
     <div id="action_associate" class="bulkAction">
       <select data-selectize="categories" data-default="first" name="associate" style="width:600px"></select>
       <br>{'... or '|@translate}
       <a href="#" data-add-album="associate" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
-
-    <!-- move -->
-    <div id="action_move" class="bulkAction">
-      <select data-selectize="categories" data-default="first" name="move" style="width:600px"></select>
-      <br>{'... or '|@translate}
-      <a href="#" data-add-album="move" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
-    </div>
-
 
     <!-- dissociate -->
     <div id="action_dissociate" class="bulkAction">
