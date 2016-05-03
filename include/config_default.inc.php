@@ -806,6 +806,10 @@ $conf['inheritance_by_default'] = false;
 // JPEG or PNG file format
 $conf['tiff_representative_ext'] = 'png';
 
+// 'png' or 'jpg': your uploaded EPS photos will have a representative in
+// JPEG or PNG file format
+$conf['eps_representative_ext'] = 'png';
+
 // in the upload form, let users upload only picture_exts or all file_exts?
 // for some file types, Piwigo will try to generate a pwg_representative
 // (TIFF, videos, PDF)
