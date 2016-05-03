@@ -25,43 +25,39 @@
 
 <p>Kategoriju mapes atrodas Piwigo mapē "galleries". Tālāk seko ļoti mazas (bet ar ļoti daudz iespējām) galerijas mapju koks:</ p>
 
-<pre>
-.
-|-- admin
-|-- doc
-|-- galleries
-|   |-- category-1
-|   |   |-- category-1.1
-|   |   |   |-- category-1.1.1
-|   |   |   |   |-- category-1.1.1.1
-|   |   |   |   |   |-- pwg_high
-|   |   |   |   |   |   +-- wedding.jpg
-|   |   |   |   |   |-- thumbnail
-|   |   |   |   |   |   +-- TN-wedding.jpg
-|   |   |   |   |   +-- wedding.jpg
-|   |   |   |   +-- category-1.1.1.2
-|   |   |   +-- category-1.1.2
-|   |   |-- category-1.2
-|   |   |   |-- pookie.jpg
-|   |   |   +-- thumbnail
-|   |   |       +-- TN-pookie.jpg
-|   |   +-- category-1.3
-|   +-- category-2
-|       |-- piglet.gif
-|       |-- pwg_representative
-|       |   +-- video.jpg
-|       |-- thumbnail
-|       |   +-- TN-piglet.jpg
-|       +-- video.avi
-|-- include
-|-- install
-|-- language
-|-- template
-+-- tool</pre>
+
+    <pre>
+galleries
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+|   |-- hotel.png
+|   |-- video-from-plane.avi
+|   +-- pwg_representative
+|       +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
+</pre>
 
 </li>
 
-<li>Izņemot ar nosaukumu "thumbnail", "pwg_high" vai "pwg_representative" (skatīt skaidrojumu zemāk), katra mape zem "galleries" veido kategoriju. To dziļumam nav ierobežojumu.</li>
+<li>Izņemot ar nosaukumu "pwg_representative" vai "pwg_format (skatīt skaidrojumu zemāk), katra mape zem "galleries" veido kategoriju. To dziļumam nav ierobežojumu.</li>
 
 <li>Pamatā elementu pārstāv fails. Fails var būt Piwigo elements, ja tā paplašinājums ir starp <code>file_ext</code> konfigurācijas parametru iespējām (skatīt <span class="filename">include/config_default.inc.php</span> failu). Fails var būt attēls, ja tā paplašinājums ir starp <code>picture_ext</code> konfigurācijas parametru iespējām.</li>
 
@@ -70,6 +66,8 @@
 <li>Attēli var būt asociēti ar liela izmēra failiem augstai izšķirtsējai. Kā, piemēram, attēlam wedding.jpg augstāk. Bez prefiksa augstas izšķirtsējas attēlam.</li>
 
 <li>Pēc noklusējuma ikonai, kas pārstāv faila nosaukuma paplašinājumu, nav nekādu papildus attēla elementu (video, skaņu, tekstu, jebkas...) . Ar papildus izvēli, Jūs varat sasaistīt sīkbildi un pārstāvošo failu (skatīt video.avi augstāk piemērā).</li>
+
+<li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
 <li><em>Brīdinājums</em>: mapju un failu nosaukumi jāveido tikai no burtiem, cipariem, "-", "_" vai ".". Nav pieļaujami tukšumi vai apakšsvītras.</li>
 

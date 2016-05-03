@@ -33,39 +33,35 @@
     <p>კატეგორიის ფოლდერები განლაგებულია ფოლდერ "galleries" -ში.
     ქვევით ნახეთ პატარა გალერეის წყობა:</p>
 
+
     <pre>
-.
-|-- admin
-|-- doc
-|-- galleries
-|   |-- category-1
-|   |   |-- category-1.1
-|   |   |   |-- category-1.1.1
-|   |   |   |   |-- category-1.1.1.1
-|   |   |   |   |   |-- pwg_high
-|   |   |   |   |   |   +-- wedding.jpg
-|   |   |   |   |   |-- thumbnail
-|   |   |   |   |   |   +-- TN-wedding.jpg
-|   |   |   |   |   +-- wedding.jpg
-|   |   |   |   +-- category-1.1.1.2
-|   |   |   +-- category-1.1.2
-|   |   |-- category-1.2
-|   |   |   |-- pookie.jpg
-|   |   |   +-- thumbnail
-|   |   |       +-- TN-pookie.jpg
-|   |   +-- category-1.3
-|   +-- category-2
-|       |-- piglet.gif
-|       |-- pwg_representative
-|       |   +-- video.jpg
-|       |-- thumbnail
-|       |   +-- TN-piglet.jpg
-|       +-- video.avi
-|-- include
-|-- install
-|-- language
-|-- template
-+-- tool</pre>
+galleries
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+|   |-- hotel.png
+|   |-- video-from-plane.avi
+|   +-- pwg_representative
+|       +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
+</pre>
 
   </li>
 
@@ -79,6 +75,8 @@
   <li>ფოტოს შესაძლოა ქონდეს ვერსია დიდი გაფართოებით, როგორც wedding.jpg მაგალითში მაღლა. ფოტოს დიდი გაფართოებით არ აქვს პრეფიქსი.</li>
 
   <li>ელემენტები, რომლებიც არ არიან ფოტოები (ვიდეო, მუსიკა, ტექსტი და ა.შ.) წარმოდგენილი არიან ამ ფაილის შესაბამისი მინიატურებით. დამატებით, თქვენ შეგიძლიათ დაუკავშიროთ მინიატურა და წარმომადგენლობითი ფაილი (ნახე video.avi მაგალითში მაღლა).</li>
+
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
   <li><em>ყურადღება</em>: ფოლდერების და ფაილების სახელი უნდა შედგებოდეს ასოების, რიცხვების, "-", "_" ან "." -საგან. ნუ გამოიყენებთ დაშორებებს.</li>
 

@@ -41,6 +41,15 @@ galleries
     |-- video-from-plane.avi
     +-- pwg_representative
         +-- video-from-plane.jpg
++-- photoshoot
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_format
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
 </pre>
 
   </li>
@@ -57,6 +66,8 @@ galleries
   <li>Элементы, не являющиеся изображениями (видео, музыка, тексты и др.) по определению
   представлены иконками соответствующими расширению файла. Дополнительно, Вы можете
   связать миниатюру и представительный файл (см. video.avi в примере выше).</li>
+
+  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
   <li><em>Внимание</em>: имена папок и файлов должны содержать только латинские буквы,
   цифры, "-", "_" или ".". Не используйте пробелы и спецсимволы.</li>

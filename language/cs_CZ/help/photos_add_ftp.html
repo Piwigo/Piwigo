@@ -1,102 +1,53 @@
 <fieldset>
   <legend>Rychlý návod</legend>
-
-<ol>
-  <li>Vytvořte kategorii (adresář) na Vašem počítači.</li>  
-
-  <li>Zkopírujte nějaké fotografije do tohoto adresáře, změňte jejich velikost pro zobrazení na web. <em>Varování</em>: názvy adresářů a souborů musí obsahovat pouze písmena, čísla, "-", "_" or ".". Žádné mezery nebo znaky s diakritikou.</li>
-
-  <li>Pomocí FTP, zkopírujte Váš adresář do adresáře "galleries" vaší instalace  Piwigo.</li>
-
-  <li>Přihlašte se do Vaší Piwigo galerie a přejděte na <span class="pwgScreen">Administrace &raquo; Nástroje &raquo; Náhledy</span> abyste vytvořili chybějící náhledy.</li>
-
-  <li>Jděte na <span class="pwgScreen">Adminstrace</span> a stiskněte velké tlačítko Rychlá místní synchronizace.</li>
-</ol>
-
-Gratulujeme! Právě jste vytvořili vaší první galerii fotografií ve Vaší Piwigo galerii.
+  <ol>
+    <li>Vytvořte kategorii (adresář) na svém počítači.</li>
+    <li>Zkopírujte nějaké fotografije do tohoto adresáře, změňte jejich velikost pro zobrazení na web. <em>Varování</em>: název kteréhokoliv adresáře a souboru smí obsahovat pouze alfanumerické znaky, „-“, „_“ a „.“. Mezery nebo znaky s diakritikou nejsou povoleny.</li>
+    <li>Pomocí FTP zkopírujte tento adresář do adresáře "galleries" své instalace Piwigo.</li>
+    <li>Přihlašte se do administrace své galerie Piwigo a přejděte na <span class="pwgScreen">Administrace</span> a stiskněte velké tlačítko Rychlá místní synchronizace.</li>
+  </ol>
+  Gratulujeme! Právě jste vytvořili svou první galerii fotografií ve své galerii Piwigo.
 </fieldset>
-
 <fieldset>
-  <legend>Organizace souboru a adresářů</legend>
-
-<ul>
-
-  <li>
-
-    <p>Adresáře kategorií jsou v Piwigo adresáři 
-    "galleries". tady je ukázka malé adresářové struktury Piwigo (která ale využívá hodně vlastností Piwigo):</p>
-
-    <pre>
-.
-|-- admin
-|-- doc
-|-- galleries
-|   |-- kategorie-1
-|   |   |-- kategorie-1.1
-|   |   |   |-- kategorie-1.1.1
-|   |   |   |   |-- kategorie-1.1.1.1
-|   |   |   |   |   |-- pwg_high
-|   |   |   |   |   |   +-- svatba.jpg
-|   |   |   |   |   |-- thumbnail
-|   |   |   |   |   |   +-- TN-svatba.jpg
-|   |   |   |   |   +-- svatba.jpg
-|   |   |   |   +-- kategorie-1.1.1.2
-|   |   |   +-- kategorie-1.1.2
-|   |   |-- kategorie-1.2
-|   |   |   |-- slon.jpg
-|   |   |   +-- thumbnail
-|   |   |       +-- TN-slon.jpg
-|   |   +-- kategorie-1.3
-|   +-- kategorie-2
-|       |-- selatko.gif
-|       |-- pwg_representative
-|       |   +-- video.jpg
-|       |-- thumbnail
-|       |   +-- TN-selatko.jpg
-|       +-- video.avi
-|-- include
-|-- install
-|-- language
-|-- template
-+-- tool</pre>
-
-  </li>
-
-  <li>Kromě adreářů pojmenovaných "thumbnail", "pwg_high" nebo "pwg_representative" (čtěte vysvětlení níže), každý adresář v "galleries" vytvoří kategorii. Není zde omezení hloubky adresářů.</li>
-
-  <li>Každý element kategorie je reprezentován souborem. Soubor může být elementem Piwigo pokud jeho přípona odpovídá parametru konfigurace <code>file_ext</code>
-  (viz. soubor <span
-  class="filename">include/config_default.inc.php</span>). Soubor může být obrázek (fotografie) pokud jeho přípona je uvedena v parametru <code>picture_ext</code>.</li>
-
-  <li>Obrázky musí mít přiřazen náhled (viz. sekce o náhledech níže)</li>
-
-  <li>Obrázky mohou mít přiřazenu verzi ve vysoké kvalitě. Jako například svatba.jpg v příkladu výše. Verze ve vysoké kvalitě nemá, na rozdíl od náhledu, žádný prefix v názvu.</li>
-
-  <li>Elementy které nejsou obrázky (video, zvuky, textové sobubory, cokoli chcete...) mají jako výchozí náhled ikonu, které odpovídá jejich příponě. Volitelně můžete přiřadit náhled a reprezentativní soubor (viz. video.avi v příkladu výše).</li>
-
-  <li><em>Varování</em>: názvy adresářů a souborů musí obsahovat pouze písmena, čísla, "-", "_" or ".". Žádné mezery nebo znaky s diakritikou.</li>
-
-  <li>Když jsou elementy, obrázky, náhledy a reprezentativní soubory umístěny v adresářové struktuře přejděte na: <span class="pwgScreen">Administrace &raquo; Kategorie &raquo;
-  Synchronizace</span></li>
-
-</ul>
-</fieldset>
-
-<fieldset>
-  <legend>Náhledy</legend>
-<ul>
-
-  <li>Všechny obrázky (fotografie) musí mít přiřazen náhled.</li>
-
-  <li>Náhledy jsou umístěny v podadresáři "thumbnail", který je v adresáři kategorie. Náhled má stejný název jako jemu odpovídající obrázek, s prefixem podle konfiguračního parametru <code>prefix_thumbnail</code> (viz. <span class="filename">include/config.inc.php</span>).</li>
-
-  <li>Náhled nemusí mít nutně stejnou příponu jako jemu odpovídající obrázek (například ".jpg" obrázek může mít náhled s ".GIF" příponou).</li>
-
-  <li>Doporučujeme použít externí aplikaci protvorbu náhledů.</li>
-
-  <li>Vytvářená náhledů pomocí Piwigo může vést ke špatné kvalitě vytvořených náhledů, protože ta závisí na zdrojích serveru (a toto může být na sdílených serverech (webhosting) problém).
-
-  <li>Pokud budete přesto vytvářet náhledy pomocí Piwigo na serveru, tak musíte povolit přístup pro zápis pro všechny v adresáři "galleries" a všech podadresářích.</li>
-
-</ul>
+  <legend>Organizace souborů a adresářů</legend>
+  <ul>
+    <li>
+      <p>Adresáře kategorií jsou v adresáři
+      "galleries". Zde je ukázka adresářové struktury malé galerie Piwigo (která ale využívá hodně vlastností Piwigo):</p>
+      <pre>
+  galleries
+  |-- wedding
+  |   |-- celebration
+  |   |   |-- arrival
+  |   |   |   |-- paul-alone.jpg
+  |   |   |   +-- sarah-alone.jpg
+  |   |   +-- departure
+  |   |       +-- paul-and-sarah.jpg
+  |   +-- party
+  |       |-- dancers001.jpg
+  |       |-- dancers002.jpg
+  |       +-- dancers003.jpg
+  +-- honeymoon
+  |   |-- hotel.png
+  |   |-- video-from-plane.avi
+  |   +-- pwg_representative
+  |       +-- video-from-plane.jpg
+  +-- photoshoot
+      |-- img0001.jpg
+      |-- img0002.jpg
+      +-- pwg_format
+          |-- img0001.cr2
+          |-- img0001.cmyk.jpg
+          |-- img0001.zip
+          |-- img0002.cr2
+          +-- img0002.cmyk.jpg
+      </pre>
+    </li>
+    <li>Kromě adreářů pojmenovaných „thumbnail“, „pwg_high“, „pwg_format“ a „pwg_representative“ (jejich funkce vysvětleny níže) vytvoří každý adresář v „galleries“ kategorii. Není zde omezení hloubky adresářů.</li>
+    <li>Každý element kategorie je reprezentován souborem. Soubor může být elementem kategorie, pokud je jeho přípona mezi parametry konfigurace <code>file_ext</code> (vizte soubor <span class="filename">include/config_default.inc.php</span>). Soubor může být obrázek (fotografie), pokud je jeho přípona mezi parametry <code>picture_ext</code>.</li>
+    <li>Elementy, které nejsou obrázky (video, zvuky, textové soubory, cokoli chcete...), mají jako výchozí náhled ikonu, která odpovídá jejich příponě. Volitelně můžete neobrázkovému souboru přiřadit náhled a reprezentativní soubor (vizte „video-from-plane.avi“ a jeho reprezentační obrázek „video-from-plane.jpg“ ve složce „pwg_representative“ v příkladu výše).</li>
+    <li><em>Varování</em>: název kteréhokoliv adresáře a souboru smí obsahovat pouze alfanumerické znaky, „-“, „_“ a „.“. Mezery nebo znaky s diakritikou nejsou povoleny.</li>
+    <li>Více formátů: pro jeden obrázek je možné mít v galerii Piwigo více formátů. V příkladu výše jsou k obrázkům „img0001.jpg“ a „img0002.jpg“ k dispozici tři další formáty ve složce „pwg_formats“. Alternativní formáty je pak možné stáhnout přes tlačítko „Stáhnout“ na stránce daného obrázku. Tuto funkcionalitu můžete aktivovat ve své lokální konfiguraci (za použití doplňku „LocalFiles editor“) definováním seznamu povolených formátů, např.: <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code>.</li>
+    <li>Když jsou obrázky umístěny v adresářové struktuře, přejděte na: <span class="pwgScreen">Administrace &raquo; Nástroje &raquo; Synchronizace</span> a synchronizujte adresáře s databází.</li>
+  </ul>
 </fieldset>
