@@ -521,6 +521,72 @@ function upload_file_tiff($representative_ext, $file_path)
   return get_extension($representative_file_abspath);
 }
 
+add_event_handler('upload_file', 'upload_file_ai');
+function upload_file_ai($representative_ext, $file_path)
+{
+	global $logger, $conf;
+
+	$logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+	if (isset($representative_ext))
+	{
+		return $representative_ext;
+	}
+
+	if (pwg_image::get_library() != 'ext_imagick')
+	{
+		return $representative_ext;
+	}
+
+	if (!in_array(strtolower(get_extension($file_path)), array('ai')))
+	{
+		return $representative_ext;
+	}
+
+	// move the uploaded file to pwg_representative sub-directory
+	$representative_file_path = dirname($file_path).'/pwg_representative/';
+	$representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+
+	$representative_ext = $conf['ai_representative_ext'];
+	$representative_file_path.= $representative_ext;
+
+	prepare_directory(dirname($representative_file_path));
+
+	$exec = $conf['ext_imagick_dir'].'convert';
+
+	if ('jpg' == $conf['ai_representative_ext'])
+	{
+		$exec .= ' -quality 98';
+	}
+
+	$exec .= ' "'.realpath($file_path).'"';
+
+	$dest = pathinfo($representative_file_path);
+	$exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
+
+	$exec .= ' 2>&1';
+	@exec($exec, $returnarray);
+
+	// sometimes ImageMagick creates file-0.jpg (full size) + file-1.jpg
+	// (thumbnail). I don't know how to avoid it.
+	$representative_file_abspath = realpath($dest['dirname']).'/'.$dest['basename'];
+	if (!file_exists($representative_file_abspath))
+	{
+		$first_file_abspath = preg_replace(
+				'/\.'.$representative_ext.'$/',
+				'-0.'.$representative_ext,
+				$representative_file_abspath
+				);
+
+		if (file_exists($first_file_abspath))
+		{
+			rename($first_file_abspath, $representative_file_abspath);
+		}
+	}
+
+	return get_extension($representative_file_abspath);
+}
+
 add_event_handler('upload_file', 'upload_file_video');
 function upload_file_video($representative_ext, $file_path)
 {
