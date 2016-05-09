@@ -416,4 +416,15 @@ $lang['About'] = 'Tentang';
 $lang['About Piwigo'] = 'Tentang Piwigo';
 $lang['Accelerate diaporama speed'] = 'Tingkatkan kecepatan guliran gambar ';
 $lang['Add a comment'] = 'Tambahkan sebuah komentar';
-?>
+$lang['%d photos per page'] = '%d foto per halaman';
+$lang['Album name, A &rarr; Z'] = 'Nama album, A &arr; Z';
+$lang['Album name, Z &rarr; A'] = 'Nama album, Z &arr; A';
+$lang['Apply on properties'] = 'Terapkan ke properti';
+$lang['Link: %s'] = 'Tautan: %s';
+$lang['No results for'] = 'Tidak ada hasil untuk';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Konfirmasi kata sandi terlewatkan. Harap konfirmasi kata sandi yang dipilih.';
+$lang['Password is missing. Please enter the password.'] = 'Kata sandi terlewat. Harap masukkan kata sandi.';
+$lang['Photo description'] = 'Deskripsi Foto';
+$lang['Photo title'] = 'Judul foto';
+$lang['Theme'] = 'Tema';
+$lang['Your authentication key is no longer valid.'] = 'Kunci otentikasi tidak lagi berlaku.';
