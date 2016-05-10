@@ -532,7 +532,8 @@ while ($row = pwg_db_fetch_assoc($result))
     }
     else
     { // not a pic - need download link
-      $row['download_url'] = $row['element_url'] = get_element_url($row);;
+      $row['element_url'] = get_element_url($row);
+      $row['download_url'] = get_action_url($row['id'], 'e', true);
     }
   }
 

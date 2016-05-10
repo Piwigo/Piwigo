@@ -100,6 +100,8 @@ if ( empty($element_info) )
   do_error(404, 'Requested id not found');
 }
 
+$src_image = new SrcImage($element_info);
+
 // $filter['visible_categories'] and $filter['visible_images']
 // are not used because it's not necessary (filter <> restriction)
 $query='
@@ -126,9 +128,9 @@ $file='';
 switch ($_GET['part'])
 {
   case 'e':
-    if ( !$user['enabled_high'] )
-    {
-      $deriv = new DerivativeImage(IMG_XXLARGE, new SrcImage($element_info));
+    if ( $src_image->is_original() and !$user['enabled_high'] )
+    {// we have a photo and the user has no access to HD
+      $deriv = new DerivativeImage(IMG_XXLARGE, $src_image);
       if ( !$deriv->same_as_source() )
       {
         do_error(401, 'Access denied e');
