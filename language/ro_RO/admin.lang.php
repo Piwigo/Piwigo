@@ -993,3 +993,5 @@ $lang['For security reason, authentication keys do not work for administrators.'
 $lang['Recipients'] = 'Destinatari';
 $lang['Edit user'] = 'Editează utilizatorul';
 $lang['Y Repeat'] = 'Y Repetare';
+$lang['Delete %d orphan photos'] = 'Sterge %d fotografii orfane';
+$lang['Orphans'] = 'Orfane';
