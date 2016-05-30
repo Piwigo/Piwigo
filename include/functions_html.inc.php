@@ -273,7 +273,7 @@ function tag_alpha_compare($a, $b)
  */
 function access_denied()
 {
-  global $user;
+  global $user, $conf;
 
   $login_url =
       get_root_url().'identification.php?redirect='
@@ -288,6 +288,10 @@ function access_denied()
     echo '<a href="'.make_index_url().'">'.l10n('Home').'</a></div>';
     echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
+  }
+  elseif (!$conf['guest_access'] and is_a_guest())
+  {
+    redirect_http($login_url);
   }
   else
   {
