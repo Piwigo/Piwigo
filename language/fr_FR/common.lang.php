@@ -426,4 +426,4 @@ $lang['Album name, A &rarr; Z'] = 'Nom de l\'album, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Nom de l\'album, Z &rarr; A';
 $lang['Link: %s'] = 'Lien: %s';
 $lang['Your authentication key is no longer valid.'] = 'Votre clef d\'identification n\'est plus valide.';
-$lang['Invalid username or password!'] = 'Nom d\'utilisateur ou mot de passe invalide!';
+$lang['Invalid username or password!'] = 'Nom d\'utilisateur ou mot de passe invalide !';
