@@ -461,7 +461,7 @@ CREATE TABLE `piwigo_user_infos` (
   `activation_key` varchar(255) default NULL,
   `activation_key_expire` datetime default NULL,
   `last_visit` datetime default NULL,
-  `last_visit_from_history` enum('true','false') NOT NULL default 'false'
+  `last_visit_from_history` enum('true','false') NOT NULL default 'false',
   `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   KEY `lastmodified` (`lastmodified`)
