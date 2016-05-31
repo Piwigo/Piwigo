@@ -411,6 +411,20 @@ function pwg_log($image_id = null, $image_type = null, $format_id = null)
 {
   global $conf, $user, $page;
 
+  $update_last_visit = true;
+  $update_last_visit = trigger_change('pwg_log_update_last_visit', $update_last_visit);
+
+  if ($update_last_visit)
+  {
+    $query = '
+UPDATE '.USER_INFOS_TABLE.'
+  SET last_visit = NOW(),
+      lastmodified = lastmodified
+  WHERE user_id = '.$user['id'].'
+';
+    pwg_query($query);
+  }
+
   $do_log = $conf['log'];
   if (is_admin())
   {
