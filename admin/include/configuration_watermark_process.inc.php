@@ -26,6 +26,21 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+function get_watermark_filename($list, $candidate, $step = 0)
+{
+  global $change_name;
+  $change_name = $candidate;
+  if ($step != 0)
+  {
+    $change_name .= '-'.$step;
+  }
+  if (in_array($change_name, $list))
+  {
+    return get_watermark_filename($list, $candidate, $step+1);
+  }
+  return $change_name.'.png';
+}
+
 $errors = array();
 $pwatermark = $_POST['w'];
 
@@ -45,8 +60,22 @@ if (isset($_FILES['watermarkImage']) and !empty($_FILES['watermarkImage']['tmp_n
     $upload_dir = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks';
     if (mkgetdir($upload_dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR))
     {
-      $new_name = get_filename_wo_extension($_FILES['watermarkImage']['name']).'.png';
-      $file_path = $upload_dir.'/'.$new_name;
+      // file name may include exotic chars like single quote, we need a safe name 
+      $new_name = str2url(get_filename_wo_extension($_FILES['watermarkImage']['name']));
+
+      // we need existing watermarks to avoid overwritting one 
+      $watermark_files = array();
+      if ( ($glob=glob(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks/*.png')) !== false)
+      {
+        foreach ($glob as $file)
+        {
+          $watermark_files[] = get_filename_wo_extension(
+            substr($file, strlen(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks/'))
+          );
+        }
+      }
+
+      $file_path = $upload_dir.'/'.get_watermark_filename($watermark_files, $new_name);
 
       if (move_uploaded_file($_FILES['watermarkImage']['tmp_name'], $file_path))
       {
