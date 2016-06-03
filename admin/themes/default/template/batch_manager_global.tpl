@@ -631,13 +631,15 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <!-- author -->
     <div id="action_author" class="bulkAction">
     <label><input type="checkbox" name="remove_author"> {'remove author'|@translate}</label><br>
-		<input type="text" class="large" name="author" placeholder="{'Type here the author name'|@translate}">
+    {assign var='authorDefaultValue' value='Type here the author name'|@translate}
+<input type="text" class="large" name="author" value="{$authorDefaultValue}" onfocus="this.value=(this.value=='{$authorDefaultValue|@escape:javascript}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$authorDefaultValue|@escape:javascript}' : this.value;">
     </div>
 
     <!-- title -->
     <div id="action_title" class="bulkAction">
     <label><input type="checkbox" name="remove_title"> {'remove title'|@translate}</label><br>
-		<input type="text" class="large" name="title" placeholder="{'Type here the title'|@translate}">
+    {assign var='titleDefaultValue' value='Type here the title'|@translate}
+<input type="text" class="large" name="title" value="{$titleDefaultValue}" onfocus="this.value=(this.value=='{$titleDefaultValue|@escape:javascript}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$titleDefaultValue|@escape:javascript}' : this.value;">
     </div>
 
     <!-- date_creation -->
