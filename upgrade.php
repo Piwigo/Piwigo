@@ -471,7 +471,7 @@ REPLACE INTO '.PLUGINS_TABLE.'
         
         $template->assign(
           array(
-            // TODO find a better way to do that, with a core string in English
+            'button_label' => l10n('Discover what\'s new in Piwigo %s', get_branch_from_version(PHPWG_VERSION)),
             'button_link' => 'admin.php?submited_tour_path=tours/'.$version_.'&amp;pwg_token='.get_pwg_token(),
             )
           );
