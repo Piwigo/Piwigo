@@ -466,22 +466,12 @@ REPLACE INTO '.PLUGINS_TABLE.'
       
       if (file_exists(PHPWG_PLUGINS_PATH .'TakeATour/tours/'.$version_.'/config.inc.php'))
       {
-        load_language(
-          'plugin.lang',
-          PHPWG_PLUGINS_PATH.'TakeATour/',
-          array(
-            'language' => $language,
-            'force_fallback'=>'en_UK',
-            )
-          );
-
         // we need the secret key for get_pwg_token()
         load_conf_from_db();
         
         $template->assign(
           array(
-            // TODO find a better way to do that, with a core string in English
-            'button_label' => str_replace('2.7', get_branch_from_version(PHPWG_VERSION), l10n('2_7_0_descrp')),
+            'button_label' => l10n('Discover what\'s new in Piwigo %s', get_branch_from_version(PHPWG_VERSION)),
             'button_link' => 'admin.php?submited_tour_path=tours/'.$version_.'&amp;pwg_token='.get_pwg_token(),
             )
           );

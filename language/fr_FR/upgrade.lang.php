@@ -41,4 +41,5 @@ $lang['User permissions and group permissions have been erased'] = "Les permissi
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Seuls le préfixe des miniatures et l'adresse email du webmestre ont étés conservés de la précédente configuration";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Dans le fichier <i>%s</i>, avant <b>?></b>, insérez:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Par précaution, les thèmes suivants ont été désactivés. Vérifiez s\'il existe des mises à jour avant de les réactiver:';
+$lang['Discover what\'s new in Piwigo %s'] = 'Quoi de neuf dans cette version %s ?';
 ?>
