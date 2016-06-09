@@ -96,4 +96,3 @@ form fieldset p.actionButtons {margin-bottom:0}
 	</tr>
 {/foreach}
 </table>
-</fieldset>
