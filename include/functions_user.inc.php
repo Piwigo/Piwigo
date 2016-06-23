@@ -1614,4 +1614,46 @@ UPDATE '.USER_AUTH_KEYS_TABLE.'
 ;';
   pwg_query($query);
 }
+
+/**
+ * Gets the last visit (datetime) of a user, based on history table
+ *
+ * @since 2.9
+ * @param int $user_id
+ * @param boolean $save_in_user_infos to store result in user_infos.last_visit
+ * @return string date & time of last visit
+ */
+function get_user_last_visit_from_history($user_id, $save_in_user_infos=false)
+{
+  $last_visit = null;
+
+  $query = '
+SELECT
+    date,
+    time
+FROM '.HISTORY_TABLE.'
+  WHERE user_id = '.$user_id.'
+  ORDER BY id DESC
+  LIMIT 1
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $last_visit = $row['date'].' '.$row['time'];
+  }
+
+  if ($save_in_user_infos)
+  {
+    $query = '
+UPDATE '.USER_INFOS_TABLE.'
+  SET last_visit = '.(is_null($last_visit) ? 'NULL' : "'".$last_visit."'").',
+      last_visit_from_history = \'true\',
+      lastmodified = lastmodified
+  WHERE user_id = '.$user_id.'
+';
+    pwg_query($query);
+  }
+
+  return $last_visit;
+}
 ?>
