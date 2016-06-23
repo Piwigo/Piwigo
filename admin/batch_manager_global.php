@@ -123,6 +123,8 @@ DELETE
   {
     if (isset($_POST['del_tags']) and count($_POST['del_tags']) > 0)
     {
+      $taglist_before = get_image_tag_ids($collection);
+
       $query = '
 DELETE
   FROM '.IMAGE_TAG_TABLE.'
@@ -130,7 +132,11 @@ DELETE
     AND tag_id IN ('.implode(',', $_POST['del_tags']).')
 ;';
       pwg_query($query);
-      
+
+      $taglist_after = get_image_tag_ids($collection);
+      $images_to_update = compare_image_tag_lists($taglist_before, $taglist_after);
+      update_images_lastmodified($images_to_update);
+
       if (isset($_SESSION['bulk_manager_filter']['tags']) &&
         count(array_intersect($_SESSION['bulk_manager_filter']['tags'], $_POST['del_tags'])))
       {
