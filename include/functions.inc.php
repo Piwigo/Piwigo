@@ -411,7 +411,11 @@ function pwg_log($image_id = null, $image_type = null, $format_id = null)
 {
   global $conf, $user, $page;
 
-  $update_last_visit = true;
+  $update_last_visit = false;
+  if (empty($user['last_visit']) or strtotime($user['last_visit']) < time()-$conf['session_length'])
+  {
+    $update_last_visit = true;
+  }
   $update_last_visit = trigger_change('pwg_log_update_last_visit', $update_last_visit);
 
   if ($update_last_visit)
