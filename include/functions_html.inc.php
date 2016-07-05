@@ -279,9 +279,10 @@ function access_denied()
       get_root_url().'identification.php?redirect='
       .urlencode(urlencode($_SERVER['REQUEST_URI']));
 
-  set_status_header(401);
   if ( isset($user) and !is_a_guest() )
   {
+    set_status_header(401);
+
     echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
     echo '<div style="text-align:center;">'.l10n('You are not authorized to access the requested page').'<br>';
     echo '<a href="'.get_root_url().'identification.php">'.l10n('Identification').'</a>&nbsp;';
