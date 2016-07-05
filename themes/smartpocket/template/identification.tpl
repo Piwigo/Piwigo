@@ -28,14 +28,14 @@
 
 </form>
 
-	<div data-role="fieldcontain">
-{if isset($U_REGISTER)}
-		<a href="{$U_REGISTER}" data-role="button">{'Register'|@translate}</a>
-{/if}
-{*
+	<div data-role="fieldcontain" style="margin-top:2em">
 {if isset($U_LOST_PASSWORD)}
 		<a href="{$U_LOST_PASSWORD}" data-role="button">{'Forgot your password?'|@translate}</a>
 {/if}
-*}
+
+{if isset($U_REGISTER)}
+		<a href="{$U_REGISTER}" data-role="button">{'Register'|@translate}</a>
+{/if}
+
 	</div>
 </div>
