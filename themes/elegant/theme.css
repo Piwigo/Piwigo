@@ -264,6 +264,23 @@ a:hover 		{ border-bottom: none;}
 #pictureComments INPUT[type=submit]	{ margin: 0;}
 .commentElement .description 		{ padding: 5px;} 
 
+/* tag page */
+
+FIELDSET.tagLetter, LEGEND.tagLetterLegend, TR.tagLine {
+  border-color: #333;
+}
+
+FIELDSET.tagLetter {
+  width:250px;
+}
+
+TABLE.tagLetterContent {
+  font-size:inherit;
+}
+
+TD.nbEntries {
+  white-space: nowrap;
+}
 
 /* calendar */
 
