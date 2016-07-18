@@ -100,6 +100,14 @@ if ( empty($element_info) )
   do_error(404, 'Requested id not found');
 }
 
+// special download action for admins
+$is_admin_download = false;
+if (is_admin() and isset($_GET['pwg_token']) and get_pwg_token() == $_GET['pwg_token'])
+{
+  $is_admin_download = true;
+  $user['enabled_high'] = true;
+}
+
 $src_image = new SrcImage($element_info);
 
 // $filter['visible_categories'] and $filter['visible_images']
@@ -118,7 +126,7 @@ SELECT id
   ).'
   LIMIT 1
 ;';
-if ( pwg_db_num_rows(pwg_query($query))<1 )
+if (!$is_admin_download and pwg_db_num_rows(pwg_query($query))<1 )
 {
   do_error(401, 'Access denied');
 }

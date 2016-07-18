@@ -73,6 +73,7 @@ jQuery("a.preview-box").colorbox({
           {if isset($U_JUMPTO) }
             <li><a class="icon-eye" href="{$U_JUMPTO}">{'jump to photo'|@translate} →</a></li>
           {/if}
+          <li><a class="icon-download" href="{$U_DOWNLOAD}">{'Download'|translate}</a></li>
           {if !url_is_remote($PATH)}
             <li><a class="icon-arrows-cw" href="{$U_SYNC}">{'Synchronize metadata'|@translate}</a></li>
 

@@ -407,6 +407,12 @@
       "css": "asl",
       "code": 57517,
       "src": "elusive"
+    },
+    {
+      "uid": "b08cfe8039de2ce815686aced2caef06",
+      "css": "download",
+      "code": 59430,
+      "src": "entypo"
     }
   ]
 }
