@@ -75,7 +75,7 @@ function pwg_db_connect($host, $user, $password, $database)
   }
 
   // MySQL 5.7 default settings forbid to select a colum that is not in the
-  // group by. We've use that in Piwigo, for years. As an immediate solution
+  // group by. We've used that in Piwigo, for years. As an immediate solution
   // we can remove this constraint in the current MySQL session.
   list($sql_mode_current) = pwg_db_fetch_row(pwg_query('SELECT @@SESSION.sql_mode'));
 
