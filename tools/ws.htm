@@ -335,7 +335,7 @@ function askForUrl() {
 // parse Piwigo JSON
 function parsePwgJSON(json) {
   try {
-    resp = jQuery.parseJSON(json);
+    resp = json;
     if (resp==null | resp.result==null | resp.stat==null | resp.stat!='ok') {
       throw new Error();
     }
