@@ -47,7 +47,7 @@ if ( $user['id']==$conf['guest_id'] )
 if ($conf['apache_authentication'])
 {
   $remote_user = null;
-  foreach (array('REMOTE_USER', 'REDIRECT_REMOTE_USER') as $server_key)
+  foreach (array('PHP_AUTH_USER', 'REMOTE_USER', 'REDIRECT_REMOTE_USER') as $server_key)
   {
     if (isset($_SERVER[$server_key]))
     {
