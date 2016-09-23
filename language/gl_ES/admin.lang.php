@@ -985,3 +985,4 @@ $lang['No recipient selected'] = 'Non hai ningún destinatario seleccionado';
 $lang['No user is permitted to see this private album'] = 'O usuario non ten permitido ver este álbum privado';
 $lang['Orphans'] = 'Orfos';
 $lang['Recipients'] = 'Destinatarios';
+$lang['Y Repeat'] = 'Repetir Y';
