@@ -10,7 +10,7 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
 <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
 
 <form class="filter" method="post" name="filter" action="{$F_ACTION}">
-<fieldset>
+<fieldset class="with-border">
   <legend>{'Filter'|@translate}</legend>
   <ul>
     <li><label>{'Date'|@translate}</label></li>

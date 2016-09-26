@@ -63,7 +63,7 @@ jQuery(document).ready(function(){
   {if ($PARENT_EDIT)}| <a href="{$PARENT_EDIT}"></span>{'edit'|@translate}</a>{/if}
 </p>
 <form id="formCreateAlbum" action="{$F_ACTION}" method="post" style="display:none;">
-  <fieldset>
+  <fieldset class="with-border">
       <legend>{'create a new album'|@translate}</legend>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       
@@ -80,7 +80,7 @@ jQuery(document).ready(function(){
 </form>
 {if count($categories)}
 <form id="formAutoOrder" action="{$F_ACTION}" method="post" style="display:none;">
-  <fieldset>
+  <fieldset class="with-border">
     <legend>{'Automatic sort order'|@translate}</legend>
     <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     

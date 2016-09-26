@@ -69,7 +69,7 @@ h3, .throw, .row1 { background-color: #ddd; }
 
 #content {
 	background: #f1f1f1;
-  border: 1px solid #aaa;
+  border: 1px solid #f9f9f9;
 	min-height: 467px;
   margin-left:217px;
   margin-top: 7px;
@@ -91,7 +91,16 @@ UL.thumbnails span.wrap2 {
 
 
 /* borders */
-fieldset { border: 2px solid #ddd; }
+fieldset {
+  border: none;
+  border-top: 2px solid #ddd;
+}
+
+fieldset.with-border {
+  border: 2px solid #ddd;
+}
+
+
 TEXTAREA { cursor:text; font-size: 13px; }
 .tagSelection label { padding-right:12px; }
 .tagSelection LI.tagSelected {background-color:#dbe8f3;}
