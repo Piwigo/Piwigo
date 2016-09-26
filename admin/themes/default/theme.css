@@ -818,7 +818,7 @@ h2:lang(en) { text-transform:capitalize; }
 .eiw-icon {
   float: left;
   font-size: 40px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .infos {
@@ -839,7 +839,7 @@ h2:lang(en) { text-transform:capitalize; }
   border-left:4px solid #ee8800;
 }
 
-.infos li, .errors li, .warnings li { list-style-type:square; }
+.infos li, .errors li, .warnings li { list-style-type:none; }
 .infos .submit {margin-left:30px;}
 
 .checkActions {text-align:left;padding:0;margin:0;}
