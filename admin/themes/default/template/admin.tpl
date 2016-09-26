@@ -131,6 +131,7 @@ $('#menubar').lightAccordion({
 
   {if isset($errors)}
   <div class="errors">
+    <i class="eiw-icon icon-cancel"></i>
     <ul>
       {foreach from=$errors item=error}
       <li>{$error}</li>
@@ -141,6 +142,7 @@ $('#menubar').lightAccordion({
 
   {if isset($infos)}
   <div class="infos">
+    <i class="eiw-icon icon-ok"></i>
     <ul>
       {foreach from=$infos item=info}
       <li>{$info}</li>
@@ -151,6 +153,7 @@ $('#menubar').lightAccordion({
 
   {if isset($warnings)}
   <div class="warnings">
+    <i class="eiw-icon icon-attention"></i>
     <ul>
       {foreach from=$warnings item=warning}
       <li>{$warning}</li>

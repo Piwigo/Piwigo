@@ -23,7 +23,7 @@ jQuery().ready(function(){
       piwigo_update = data['result']['piwigo_need_update'];
       ext_update = data['result']['ext_need_update']
       if ((piwigo_update || ext_update) && !jQuery(".warnings").is('div'))
-        jQuery("#content").prepend('<div class="warnings"><ul></ul></div>');
+        jQuery("#content").prepend('<div class="warnings"><i class="eiw-icon icon-attention"></i><ul></ul></div>');
       if (piwigo_update)
         jQuery(".warnings ul").append('<li>'+piwigo_need_update_msg+'</li>');
       if (ext_update)

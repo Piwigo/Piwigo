@@ -805,31 +805,38 @@ h2:lang(en) { text-transform:capitalize; }
  */
 .infos, .errors, .warnings {
   text-align: left;
-  margin: 5px;
-  padding: 10px 50px 10px 10px;
+  margin: 15px 10px 15px 15px;
+  padding: 5px;
   font-weight:bold;
-  background-repeat: no-repeat;
-  background-position: 5px 5px;
-  padding:5px 70px 0pt 53px;
   min-height: 54px;
+}
+
+.infos ul, .errors ul, .warnings ul {
+  margin-top:18px;
+}
+
+.eiw-icon {
+  float: left;
+  font-size: 40px;
+  margin-right: 20px;
 }
 
 .infos {
   color: #0a0;
   background-color:#c2f5c2;
-  background-image: url(icon/infos.png);
+  border-left:4px solid #0a0;
 }
 
 .errors {
   color: #f22;
   background-color: #ffd5dc;
-  background-image: url(icon/errors.png);
+  border-left: 4px solid #f22;
 }
 
 .warnings {
   color: #ee8800;
   background-color:#ffdd99;
-  background-image: url(icon/warnings.png);
+  border-left:4px solid #ee8800;
 }
 
 .infos li, .errors li, .warnings li { list-style-type:square; }
