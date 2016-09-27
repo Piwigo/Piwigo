@@ -40,6 +40,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST))
+{
+  check_pwg_token();
+}
+
 trigger_notify('loc_begin_element_set_global');
 
 check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
@@ -456,6 +461,7 @@ $template->assign(
     'selection' => $collection,
     'all_elements' => $page['cat_elements_id'],
     'START' => $page['start'],
+    'PWG_TOKEN' => get_pwg_token(),
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
     'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag','filter')),
    )

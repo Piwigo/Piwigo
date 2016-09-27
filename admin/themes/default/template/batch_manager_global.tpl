@@ -325,6 +325,7 @@ var sliders = {
 
   <form action="{$F_ACTION}" method="post">
   <input type="hidden" name="start" value="{$START}">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   <fieldset>
     <legend>{'Filter'|@translate}</legend>
