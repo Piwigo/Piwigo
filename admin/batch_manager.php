@@ -66,6 +66,8 @@ DELETE FROM '.CADDIE_TABLE.'
 
   if ('delete_orphans' == $_GET['action'])
   {
+    check_pwg_token();
+
     $deleted_count = delete_elements(get_orphans(), true);
     
     if ($deleted_count > 0)

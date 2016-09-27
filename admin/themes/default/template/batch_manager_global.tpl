@@ -345,7 +345,7 @@ var sliders = {
           {/foreach}
         </select>
         <a id="empty_caddie" href="admin.php?page=batch_manager&amp;action=empty_caddie" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'caddie'}display:none{/if}">{'Empty caddie'|translate}</a>
-        <a id="delete_orphans" href="admin.php?page=batch_manager&amp;action=delete_orphans" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'no_album'}display:none{/if}">{'Delete %d orphan photos'|translate:$NB_ORPHANS}</a>
+        <a id="delete_orphans" href="admin.php?page=batch_manager&amp;action=delete_orphans&amp;pwg_token={$PWG_TOKEN}" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'no_album'}display:none{/if}">{'Delete %d orphan photos'|translate:$NB_ORPHANS}</a>
 
         <span id="duplicates_options" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'duplicates'}display:none{/if}">
           {'based on'|translate}
