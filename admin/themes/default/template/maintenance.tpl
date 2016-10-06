@@ -39,3 +39,15 @@
 	{foreach from=$purge_derivatives key=name item=url name=loop}{if !$smarty.foreach.loop.first}, {/if}<a href="{$url}"{if $smarty.foreach.loop.first} onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"{/if}>{$name}</a>{/foreach}
 	</li>
 </ul>
+
+<fieldset id="environment">
+  <legend><i class="icon-cog"></i> {'Environment'|@translate}</legend>
+  <ul>
+    <li>{'Operating system'|@translate}: {$OS}</li>
+    <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" class="externalLink">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
+    <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>
+    {if isset($GRAPHICS_LIBRARY)}
+    <li>{'Graphics Library'|@translate}: {$GRAPHICS_LIBRARY}</li>
+    {/if}
+  </ul>
+</fieldset>

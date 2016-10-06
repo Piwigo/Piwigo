@@ -1324,3 +1324,8 @@ table.qsearch_help_table td {
 .font-checkbox input[type=checkbox], .font-checkbox input[type=radio] {
   display:none;
 }
+
+/* icons */
+fieldset#environment legend i[class*="icon-"] {
+  font-size:14px;
+}
