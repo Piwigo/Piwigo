@@ -803,7 +803,7 @@ h2:lang(en) { text-transform:capitalize; }
 /**
  * Informations box in administration
  */
-.infos, .errors, .warnings {
+.infos, .errors, .warnings, .messages {
   text-align: left;
   margin: 15px 10px 15px 15px;
   padding: 5px;
@@ -811,7 +811,7 @@ h2:lang(en) { text-transform:capitalize; }
   min-height: 54px;
 }
 
-.infos ul, .errors ul, .warnings ul {
+.infos ul, .errors ul, .warnings ul, .messages ul {
   margin-top:18px;
 }
 
@@ -839,7 +839,14 @@ h2:lang(en) { text-transform:capitalize; }
   border-left:4px solid #ee8800;
 }
 
-.infos li, .errors li, .warnings li { list-style-type:none; }
+.messages {
+  color: #00529b;
+  background-color:#bde5f8;
+  border-left:4px solid #00529b;
+}
+
+
+.infos li, .errors li, .warnings li, .messages li { list-style-type:none; }
 .infos .submit {margin-left:30px;}
 
 .checkActions {text-align:left;padding:0;margin:0;}

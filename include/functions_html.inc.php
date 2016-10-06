@@ -637,7 +637,7 @@ function flush_page_messages()
   global $template, $page;
   if ($template->get_template_vars('page_refresh') === null)
   {
-    foreach (array('errors','infos','warnings') as $mode)
+    foreach (array('errors','infos','warnings', 'messages') as $mode)
     {
       if (isset($_SESSION['page_'.$mode]))
       {

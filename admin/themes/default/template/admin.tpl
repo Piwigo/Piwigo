@@ -28,7 +28,7 @@ $('#menubar').lightAccordion({
 
 /* in case we have several infos/errors/warnings display bullets */
 jQuery(document).ready(function() {
-  var eiw = ["infos","erros","warnings"];
+  var eiw = ["infos","erros","warnings", "messages"];
 
   for (var i = 0; i < eiw.length; i++) {
     var boxType = eiw[i];
@@ -143,6 +143,7 @@ jQuery(document).ready(function() {
   </ul>
   {/if}
 
+<div class="eiw">
   {if isset($errors)}
   <div class="errors">
     <i class="eiw-icon icon-cancel"></i>
@@ -175,6 +176,19 @@ jQuery(document).ready(function() {
     </ul>
   </div>
   {/if}
+
+  {if isset($messages)}
+  <div class="messages">
+    <i class="eiw-icon icon-info-circled-1"></i>
+    <ul>
+      {foreach from=$messages item=message}
+      <li>{$message}</li>
+      {/foreach}
+    </ul>
+  </div>
+  {/if}
+
+</div> {* .eiw *}
 
   {$ADMIN_CONTENT}
 </div>

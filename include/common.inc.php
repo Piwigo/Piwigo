@@ -65,6 +65,7 @@ $page = array(
   'infos' => array(),
   'errors' => array(),
   'warnings' => array(),
+  'messages' => array(),
   );
 $user = array();
 $lang = array();
