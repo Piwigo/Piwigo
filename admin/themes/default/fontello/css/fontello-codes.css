@@ -57,11 +57,14 @@
 .icon-zoom-in:before { content: '\e827'; } /* '' */
 .icon-zoom-out:before { content: '\e828'; } /* '' */
 .icon-attention:before { content: '\e829'; } /* '' */
+.icon-back-in-time:before { content: '\e82a'; } /* '' */
+.icon-hdd:before { content: '\f0a0'; } /* '' */
 .icon-tasks:before { content: '\f0ae'; } /* '' */
 .icon-filter:before { content: '\f0b0'; } /* '' */
 .icon-mail-alt:before { content: '\f0e0'; } /* '' */
 .icon-sitemap:before { content: '\f0e8'; } /* '' */
 .icon-crop:before { content: '\f125'; } /* '' */
+.icon-right:before { content: '\f178'; } /* '' */
 .icon-picture:before { content: '🌄'; } /* '\1f304' */
 .icon-user:before { content: '👤'; } /* '\1f464' */
 .icon-shuffle:before { content: '🔀'; } /* '\1f500' */
