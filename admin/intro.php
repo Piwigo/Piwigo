@@ -135,7 +135,7 @@ $query = '
 SELECT COUNT(*)
   FROM '.IMAGES_TABLE.'
 ;';
-list($nb_elements) = pwg_db_fetch_row(pwg_query($query));
+list($nb_photos) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
@@ -199,7 +199,7 @@ $disk_usage+= $formats_disk_usage;
 
 $template->assign(
   array(
-    'NB_PHOTOS' => number_format($nb_elements, 0, '.', ','),
+    'NB_PHOTOS' => number_format($nb_photos, 0, '.', ','),
     'NB_ALBUMS' => $nb_categories,
     'NB_TAGS' => $nb_tags,
     'NB_IMAGE_TAG' => $nb_image_tag,
@@ -224,7 +224,7 @@ SELECT COUNT(*)
   $template->assign('NB_COMMENTS', $nb_comments);
 }
 
-if ($nb_elements > 0)
+if ($nb_photos > 0)
 {
   $query = '
 SELECT MIN(date_available)

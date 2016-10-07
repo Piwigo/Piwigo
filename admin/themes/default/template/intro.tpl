@@ -83,60 +83,80 @@ jQuery().ready(function(){
 
 <div class="stat-boxes">
 
+{if $NB_PHOTOS > 1}
 <div class="stat-box">
 <i class="icon-picture"></i>
 <span class="number">{$NB_PHOTOS}</span><span class="caption">{'Photos'|translate}</span>
 </div>
+{/if}
 
+{if $NB_ALBUMS > 1}
 <div class="stat-box">
 <i class="icon-sitemap"></i>
 <span class="number">{$NB_ALBUMS}</span><span class="caption">{'Albums'|translate}</span>
 </div>
+{/if}
 
+{if $NB_TAGS > 1}
 <div class="stat-box">
 <i class="icon-tags"></i>
 <span class="number">{$NB_TAGS}</span><span class="caption" title="{'%d associations'|translate:$NB_IMAGE_TAG}">{'Tags'|translate}</span>
 </div>
+{/if}
 
+{if $NB_USERS > 2}
 <div class="stat-box">
 <i class="icon-users"></i>
 <span class="number">{$NB_USERS}</span><span class="caption">{'Users'|translate}</span>
 </div>
+{/if}
 
+{if $NB_GROUPS > 0}
 <div class="stat-box">
 <i class="icon-group"></i>
 <span class="number">{$NB_GROUPS}</span><span class="caption">{'Groups'|translate}</span>
 </div>
+{/if}
 
+{if $NB_COMMENTS > 1}
 <div class="stat-box">
 <i class="icon-chat"></i>
 <span class="number">{$NB_COMMENTS}</span><span class="caption">{'Comments'|translate}</span>
 </div>
+{/if}
 
+{if $NB_RATES > 0}
 <div class="stat-box">
 <i class="icon-star"></i>
 <span class="number">{$NB_RATES}</span><span class="caption">{'Rating'|translate}</span>
 </div>
+{/if}
 
+{if $NB_VIEWS > 0}
 <div class="stat-box">
 <i class="icon-signal"></i>
 <span class="number">{$NB_VIEWS}</span><span class="caption">{'Pages seen'|translate}</span>
 </div>
+{/if}
 
+{if $NB_PLUGINS > 0}
 <div class="stat-box">
 <i class="icon-puzzle"></i>
 <span class="number">{$NB_PLUGINS}</span><span class="caption">{'Plugins'|translate}</span>
 </div>
+{/if}
 
 <div class="stat-box">
 <i class="icon-hdd"></i>
 <span class="number">{$STORAGE_USED}</span><span class="caption">{'Storage used'|translate}</span>
 </div>
 
+{if $NB_PHOTOS > 1}
 <div class="stat-box">
 <i class="icon-back-in-time"></i>
 <span class="number">{$first_added_age}</span><span class="caption" title="{'first photo added on %s'|translate:$first_added_date}">{'First photo added'|translate}</span>
 </div>
+{/if}
 
 </div> {* .stat-boxes *}
 
