@@ -219,6 +219,7 @@ SELECT COUNT(*)
   if ($nb_comments > 0)
   {
     $template->assign('NB_PENDING_COMMENTS', $nb_comments);
+    $page['nb_pending_comments'] = $nb_comments;
   }
 }
 

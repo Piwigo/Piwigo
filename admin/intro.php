@@ -29,12 +29,25 @@ if (!defined('PHPWG_ROOT_PATH'))
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/check_integrity.class.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/c13y_internal.class.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+
 check_status(ACCESS_ADMINISTRATOR);
+
+// +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+
+$my_base_url = get_root_url().'admin.php?page=';
+
+$tabsheet = new tabsheet();
+$tabsheet->set_id('admin_home');
+$tabsheet->select('');
+$tabsheet->assign();
 
 // +-----------------------------------------------------------------------+
 // |                                actions                                |
@@ -91,11 +104,15 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
     }
   }
 }
-// Show phpinfo() output
-else if (isset($_GET['action']) and 'phpinfo' == $_GET['action'])
+
+if (isset($page['nb_pending_comments']))
 {
-  phpinfo();
-  exit();
+  $message = l10n('User comments').' <i class="icon-chat"></i> ';
+  $message.= '<a href="'.$link_start.'comments">';
+  $message.= l10n('%d waiting for validation', $page['nb_pending_comments']);
+  $message.= ' <i class="icon-right"></i></a>';
+  
+  $page['messages'][] = $message;
 }
 
 // +-----------------------------------------------------------------------+
@@ -113,9 +130,6 @@ if ($conf['show_newsletter_subscription']) {
     );
 }
 
-$php_current_timestamp = date("Y-m-d H:i:s");
-$db_version = pwg_get_db_version();
-list($db_current_date) = pwg_db_fetch_row(pwg_query('SELECT now();'));
 
 $query = '
 SELECT COUNT(*)
@@ -128,26 +142,6 @@ SELECT COUNT(*)
   FROM '.CATEGORIES_TABLE.'
 ;';
 list($nb_categories) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM '.CATEGORIES_TABLE.'
-  WHERE dir IS NULL
-;';
-list($nb_virtual) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM '.CATEGORIES_TABLE.'
-  WHERE dir IS NOT NULL
-;';
-list($nb_physical) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM '.IMAGE_CATEGORY_TABLE.'
-;';
-list($nb_image_category) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
@@ -179,32 +173,46 @@ SELECT COUNT(*)
 ;';
 list($nb_rates) = pwg_db_fetch_row(pwg_query($query));
 
+$query = '
+SELECT
+    SUM(nb_pages)
+  FROM '.HISTORY_SUMMARY_TABLE.'
+  WHERE month IS NULL
+;';
+list($nb_views) = pwg_db_fetch_row(pwg_query($query));
+
+$query = '
+SELECT
+    SUM(filesize)
+  FROM '.IMAGES_TABLE.'
+;';
+list($disk_usage) = pwg_db_fetch_row(pwg_query($query));
+
+$query = '
+SELECT
+    SUM(filesize)
+  FROM '.IMAGE_FORMAT_TABLE.'
+;';
+list($formats_disk_usage) = pwg_db_fetch_row(pwg_query($query));
+
+$disk_usage+= $formats_disk_usage;
+
 $template->assign(
   array(
-    'PHPWG_URL' => PHPWG_URL,
-    'PWG_VERSION' => PHPWG_VERSION,
-    'OS' => PHP_OS,
-    'PHP_VERSION' => phpversion(),
-    'DB_ENGINE' => 'MySQL',
-    'DB_VERSION' => $db_version,
-    'DB_ELEMENTS' => l10n_dec('%d photo', '%d photos', $nb_elements),
-    'DB_CATEGORIES' =>
-      l10n_dec('%d album including', '%d albums including', $nb_categories).
-      l10n_dec('%d physical', '%d physicals', $nb_physical).
-      l10n_dec(' and %d virtual', ' and %d virtuals', $nb_virtual),
-    'DB_IMAGE_CATEGORY' => l10n_dec('%d association', '%d associations', $nb_image_category),
-    'DB_TAGS' => l10n_dec('%d tag', '%d tags', $nb_tags),
-    'DB_IMAGE_TAG' => l10n_dec('%d association', '%d associations', $nb_image_tag),
-    'DB_USERS' => l10n_dec('%d user', '%d users', $nb_users),
-    'DB_GROUPS' => l10n_dec('%d group', '%d groups', $nb_groups),
-    'DB_RATES' => ($nb_rates == 0) ? l10n('no rate') : l10n('%d rates', $nb_rates),
+    'NB_PHOTOS' => number_format($nb_elements, 0, '.', ','),
+    'NB_ALBUMS' => $nb_categories,
+    'NB_TAGS' => $nb_tags,
+    'NB_IMAGE_TAG' => $nb_image_tag,
+    'NB_USERS' => $nb_users,
+    'NB_GROUPS' => $nb_groups,
+    'NB_RATES' => $nb_rates,
+    'NB_VIEWS' => number_format_human_readable($nb_views),
+    'NB_PLUGINS' => count($pwg_loaded_plugins),
+    'STORAGE_USED' => l10n('%sGB', number_format($disk_usage/(1024*1024), 1)),
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
-    'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo',
-    'PHP_DATATIME' => $php_current_timestamp,
-    'DB_DATATIME' => $db_current_date,
     )
   );
-  
+
 if ($conf['activate_comments'])
 {
   $query = '
@@ -212,7 +220,7 @@ SELECT COUNT(*)
   FROM '.COMMENTS_TABLE.'
 ;';
   list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
-  $template->assign('DB_COMMENTS', l10n_dec('%d comment', '%d comments', $nb_comments));
+  $template->assign('NB_COMMENTS', $nb_comments);
 }
 
 if ($nb_elements > 0)
@@ -224,42 +232,11 @@ SELECT MIN(date_available)
   list($first_date) = pwg_db_fetch_row(pwg_query($query));
 
   $template->assign(
-    'first_added',
     array(
-      'DB_DATE' =>
-      l10n('first photo added on %s', format_date($first_date))
+      'first_added_date' => format_date($first_date),
+      'first_added_age' => time_since($first_date, 'year', null, false, false),
       )
     );
-}
-
-// graphics library
-switch (pwg_image::get_library())
-{
-  case 'imagick':
-    $library = 'ImageMagick';
-    $img = new Imagick();
-    $version = $img->getVersion();
-    if (preg_match('/ImageMagick \d+\.\d+\.\d+-?\d*/', $version['versionString'], $match))
-    {
-      $library = $match[0];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
-  case 'ext_imagick':
-    $library = 'External ImageMagick';
-    exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
-    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
-    {
-      $library .= ' ' . $match[1];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
-  case 'gd':
-    $gd_info = gd_info();
-    $template->assign('GRAPHICS_LIBRARY', 'GD '.@$gd_info['GD Version']);
-    break;
 }
 
 // +-----------------------------------------------------------------------+

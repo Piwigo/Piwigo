@@ -3006,3 +3006,29 @@ UPDATE '.IMAGES_TABLE.'
 ;';
   pwg_query($query);
 }
+
+/**
+ * Get a more human friendly representation of big numbers. Like 17.8k instead of 17832
+ *
+ * @since 2.9
+ * @param float $numbers
+ */
+function number_format_human_readable($numbers)
+{
+  $readable = array("",  "k", "M");
+  $index = 0;
+
+  while ($numbers >= 1000)
+  {
+    $numbers /= 1000;
+    $index++;
+
+    if ($index > count($readable) - 1)
+    {
+      $index--;
+      break;
+    }
+  }
+
+  return number_format($numbers, 1).$readable[$index];
+}
