@@ -281,14 +281,16 @@ INPUT[type="text"].large  { width: 317px; }
 #pluginsMenuSeparator {border:1px solid #ddd;}
 
 #pwgHead, #footer {
-	background-color: #ddd;
-	color: #666;
+	background-color: #333;
+	color: #ccc;
 }
 
+#pwgHead h1 A:hover [class="icon-home"] {
+  color:#ff7700;
+}
 
-#pwgHead A, #footer A {color:#444;}
-#pwgHead A:hover, #footer A:hover {color:black;}
-#footer { background-image: url(images/piwigo_logo_small.png);}
+#pwgHead A, #footer A {color:#ccc;}
+#pwgHead A:hover, #footer A:hover {color:white;}
 
 .pluginBox, .pluginMiniBox, .groups li {background-color:#ddd;color:#353535;border-color:#ddd;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}

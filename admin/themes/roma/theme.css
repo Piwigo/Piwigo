@@ -275,7 +275,10 @@ color:transparent;}
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
 #pwgHead, #footer {background-color:#222;}
-#footer {background-image: url(images/piwigo_logo_small.png);}
+
+#pwgHead h1 A:hover [class="icon-home"] {
+  color:#f36;
+}
 
 .pluginBox, .pluginMiniBox, .groups li {background-color:#333;color:#999;border-color:#333;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#ddd;}

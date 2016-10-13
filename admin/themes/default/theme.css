@@ -299,7 +299,7 @@ text-align: left;
 font-size: 150%;
 font-weight: normal;
 font-style:italic;
-padding: 2px 0 0 10px;
+/* padding: 2px 0 0 10px; */
 margin: 0;
 float:left;
 }
@@ -310,10 +310,24 @@ float:left;
 	height: 36px;
 }
 
+#pwgHead H1 {
+  width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height:36px;
+}
+
+#pwgHead h1 [class="icon-home"] {
+  font-size:20px;
+  margin-right:5px;
+}
+
 #pwgHead A {color:#ccc;}
 #pwgHead A:hover {color:#fff}
 
 #headActions {float:right; height:36px; line-height:36px; margin-right:10px;}
+#headActions A {margin-left:5px;}
 
 A {
 	text-decoration: none;
@@ -613,6 +627,8 @@ html, body {height:100%; margin:0; padding:0;}
 	background-position: 7px 2px;
 	background-color:#464646;
   color:#aaa;
+  background-image: url(images/piwigo-logo-white-letters.svg);
+  background-size: 130px 30px;
 }
 
 #footer A {color:#ccc;}
@@ -1328,4 +1344,14 @@ table.qsearch_help_table td {
 /* icons */
 fieldset#environment legend i[class*="icon-"] {
   font-size:14px;
+}
+
+#headActions a span {
+  display:none;
+}
+
+@media all and (min-width: 800px) {
+  #headActions a span {
+    display:inline;
+  }
 }
