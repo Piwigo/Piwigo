@@ -61,7 +61,10 @@ define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 try
 {
   pwg_db_connect($conf['db_host'], $conf['db_user'],
-                 $conf['db_password'], $conf['db_base']);
+                 $conf['db_password'], $conf['db_base'],
+                 $conf['db_sslkey'], $conf['db_sslcert'],
+                 $conf['db_sslca'], $conf['db_sslcapath'],
+                 $conf['db_sslcipher']);
 }
 catch (Exception $e)
 {
