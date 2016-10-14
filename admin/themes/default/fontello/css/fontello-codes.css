@@ -64,6 +64,7 @@
 .icon-moon-inv:before { content: '\e82e'; } /* '' */
 .icon-sun-inv:before { content: '\e82f'; } /* '' */
 .icon-book:before { content: '\e830'; } /* '' */
+.icon-chart-bar:before { content: '\e831'; } /* '' */
 .icon-hdd:before { content: '\f0a0'; } /* '' */
 .icon-tasks:before { content: '\f0ae'; } /* '' */
 .icon-filter:before { content: '\f0b0'; } /* '' */
@@ -72,6 +73,7 @@
 .icon-crop:before { content: '\f125'; } /* '' */
 .icon-right:before { content: '\f178'; } /* '' */
 .icon-lifebuoy:before { content: '\f1cd'; } /* '' */
+.icon-television:before { content: '\f26c'; } /* '' */
 .icon-picture:before { content: '🌄'; } /* '\1f304' */
 .icon-shuffle:before { content: '🔀'; } /* '\1f500' */
 .icon-lock:before { content: '🔒'; } /* '\1f512' */
