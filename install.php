@@ -293,6 +293,11 @@ $conf[\'db_base\'] = \''.$dbname.'\';
 $conf[\'db_user\'] = \''.$dbuser.'\';
 $conf[\'db_password\'] = \''.$dbpasswd.'\';
 $conf[\'db_host\'] = \''.$dbhost.'\';
+$conf[\'db_sslkey\'] = NULL;
+$conf[\'db_sslcert\'] = NULL;
+$conf[\'db_sslca\'] = NULL;
+$conf[\'db_sslcapath\'] = NULL;
+$conf[\'db_sslcipher\'] = NULL;
 
 $prefixeTable = \''.$prefixeTable.'\';
 
