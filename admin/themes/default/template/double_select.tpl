@@ -1,6 +1,3 @@
-
-{include file='include/dbselect.inc.tpl'}
-
 <table class="doubleSelect">
   <tr>
     <td>
