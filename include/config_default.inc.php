@@ -88,7 +88,7 @@ $conf['comment_spam_max_links'] = 3;
 // catgory
 $conf['calendar_datefield'] = 'date_creation';
 
-// calendar_show_any : the calendar shows an aditional 'any' button in the
+// calendar_show_any : the calendar shows an additional 'any' button in the
 // year/month/week/day navigation bars
 $conf['calendar_show_any'] = true;
 
@@ -124,7 +124,7 @@ $conf['paginate_pages_around'] = 2;
 $conf['show_version'] = true;
 
 // meta_ref to reference multiple sets of incorporated pages or elements
-// Set it false to avoid referencing in google, and other search engines.
+// Set it false to avoid referencing in Google, and other search engines.
 $conf['meta_ref'] = true;
 
 // links : list of external links to add in the menu. An example is the best
@@ -137,7 +137,7 @@ $conf['meta_ref'] = true;
 //    'http://piwigo.org/forum' => 'PWG forum',
 //    );
 //
-// Advenced use:
+// Advanced use:
 //  You can also used special options. Instead to pass a string like parameter value
 //  you can pass a array with different optional parameter values
 //  $conf['links'] = array(
@@ -249,7 +249,7 @@ $conf['default_redirect_method'] = 'http';
 // Define using double password type in admin's users management panel
 $conf['double_password_type_in_admin'] = false;
 
-// Define if logins must be case sentitive or not at users registration. ie :
+// Define if logins must be case sensitive or not of user's registration. ie :
 // If set true, the login "user" will equal "User" or "USER" or "user",
 // etc. ... And it will be impossible to use such login variation to create a
 // new user account.
@@ -260,8 +260,8 @@ $conf['insensitive_case_logon'] = false;
 $conf['uniqueness_mode'] = 'md5sum';
 
 // Library used for image resizing. Value could be 'auto', 'imagick',
-// 'ext_imagick' or 'gd'. If value is 'auto', library will be choosen in this
-// order. If choosen library is not available, another one will be picked up.
+// 'ext_imagick' or 'gd'. If value is 'auto', library will be chosen in this
+// order. If chosen library is not available, another one will be picked up.
 $conf['graphics_library'] = 'auto';
 
 // If library used is external installation of ImageMagick ('ext_imagick'),
@@ -284,7 +284,7 @@ $conf['send_bcc_mail_webmaster'] = false;
 // define the name of sender mail: if value is empty, gallery title is used
 $conf['mail_sender_name'] = '';
 
-// define the email of sender mail: if valie is empty, webmaster email is used
+// define the email of sender mail: if value is empty, webmaster email is used
 $conf['mail_sender_email'] = '';
 
 // set true to allow text/html emails
@@ -295,7 +295,7 @@ $conf['mail_allow_html'] = true;
 //  if null, regular mail function is used
 //   format: hoststring[:port]
 //   exemple: smtp.pwg.net:21
-// smtp_user/smtp_password: user & password for smtp identication
+// smtp_user/smtp_password: user & password for smtp authentication
 $conf['smtp_host'] = '';
 $conf['smtp_user'] = '';
 $conf['smtp_password'] = '';
@@ -342,7 +342,7 @@ $conf['use_iptc_mapping'] = array(
   );
 
 // show_exif: Show EXIF metadata on picture.php (table or line presentation
-// avalaible)
+// available)
 $conf['show_exif'] = true;
 
 // show_exif_fields : in EXIF fields, you can choose to display fields in
@@ -574,13 +574,13 @@ $conf['question_mark_in_urls'] = true;
 $conf['php_extension_in_urls'] = true;
 
 // category_url_style : one of 'id' (default) or 'id-name'. 'id-name'
-// means that an simplified ascii represntation of the category name will
+// means that an simplified ascii representation of the category name will
 // appear in the url
 $conf['category_url_style'] = 'id';
 
 // picture_url_style : one of 'id' (default), 'id-file' or 'file'. 'id-file'
 // or 'file' mean that the file name (without extension will appear in the
-// url). Note that one aditionnal sql query will occur if 'file' is choosen.
+// url). Note that one additional sql query will occur if 'file' is chosen.
 // Note that you might experience navigation issues if you choose 'file'
 // and your file names are not unique
 $conf['picture_url_style'] = 'id';
@@ -633,7 +633,7 @@ $conf['nbm_list_all_enabled_users_to_send'] = false;
 // Timeout delay ratio.
 $conf['nbm_max_treatment_timeout_percent'] = 0.8;
 
-// If timeout cannot be compite with nbm_max_treatment_timeout_percent,
+// If timeout cannot be combined with nbm_max_treatment_timeout_percent,
 // nbm_treatment_timeout_default is used by default
 $conf['nbm_treatment_timeout_default'] = 20;
 
@@ -676,7 +676,7 @@ $conf['show_newsletter_subscription'] = true;
 // +-----------------------------------------------------------------------+
 // $conf['filter_pages'] contains configuration for each pages
 //   o If values are not defined for a specific page, default value are used
-//   o Array is composed by the basename of each page without extention
+//   o Array is composed by the basename of each page without extension
 //   o List of value names:
 //     - used: filter function are used
 //       (if false nothing is done [start, cancel, stop, ...]
@@ -759,10 +759,10 @@ $conf['ploader_download_linux'] = 'http://piwigo.org/ext/download.php?eid=269';
 // enable the synchronization method for adding photos
 $conf['enable_synchronization'] = true;
 
-// permitted characters for files/directoris during synchronization
+// permitted characters for files/directories during synchronization
 $conf['sync_chars_regex'] = '/^[a-zA-Z0-9-_.]+$/';
 
-// folders name exluded during synchronization
+// folders name excluded during synchronization
 $conf['sync_exclude_folders'] = array();
 
 // PEM url (default is http://piwigo.org/ext)
