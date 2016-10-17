@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
 {/footer_script}
 
 <div id="menubar">
-  <div id="adminHome"><a href="{$U_ADMIN}">{'Administration Home'|@translate}</a></div>
+  <div id="adminHome"><a href="{$U_ADMIN}"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
 
 	<dl>
 		<dt><i class="icon-picture"> </i><span>{'Photos'|@translate}&nbsp;</span></dt>
