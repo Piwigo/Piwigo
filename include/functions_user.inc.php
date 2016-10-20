@@ -220,7 +220,7 @@ SELECT id
     }
 
     $override = array();
-    if ($language = get_browser_language())
+    if ($conf['browser_language'] and $language = get_browser_language())
     {
       $override['language'] = $language;
     }
