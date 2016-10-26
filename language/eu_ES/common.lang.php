@@ -433,3 +433,4 @@ $lang['chronology_weekly_list'] = 'Asteroko zerrenda';
 $lang['cloud'] = 'hodeia';
 $lang['comment date'] = 'Iruzkinaren data';
 $lang['created after %s (%s)'] = '%s-aren (%s-en) ondoren sortuta';
+$lang['Your authentication key is no longer valid.'] = 'Zure autentifikazio gakoa ez da luzaroago baliozkoa';
