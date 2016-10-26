@@ -427,3 +427,4 @@ $lang['chronology_monthly_list'] = 'القائمة الشهرية';
 $lang['chronology_weekly_list'] = 'القائمة الأسبوعية';
 $lang['cloud'] = 'سحاب';
 $lang['comment date'] = 'تاريخ التعليق';
+$lang['Your authentication key is no longer valid.'] = '.مفتاح المصادقة الخاصة بك لم يعد صالحا';
