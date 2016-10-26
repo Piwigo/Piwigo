@@ -1,0 +1,244 @@
+<?php
+// +-----------------------------------------------------------------------+
+// | Piwigo - a PHP based photo gallery                                    |
+// +-----------------------------------------------------------------------+
+// | Copyright(C) 2008-2015 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
+// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation                                          |
+// |                                                                       |
+// | This program is distributed in the hope that it will be useful, but   |
+// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
+// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
+// | General Public License for more details.                              |
+// |                                                                       |
+// | You should have received a copy of the GNU General Public License     |
+// | along with this program; if not, write to the Free Software           |
+// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
+// | USA.                                                                  |
+// +-----------------------------------------------------------------------+
+$lang['Members'] = 'Partaideak';
+$lang['Menu Management'] = 'Menuak';
+$lang['Merge selected groups'] = 'Batu hautatutako taldeak';
+$lang['Merge selected tags'] = 'Batu hautatutako etiketak';
+$lang['Merge tags'] = 'Batu etiketak';
+$lang['Main Page'] = 'Orri nagusia';
+$lang['Maintenance'] = 'Mantenua';
+$lang['Manage'] = 'Kudeatu';
+$lang['Manage Permissions'] = 'Kudeatu baimenak';
+$lang['Manage photos'] = 'Kudeatu argazkiak';
+$lang['Manage tags'] = 'Kudeatu etiketak';
+$lang['List'] = 'Zerrenda';
+$lang['Loading...'] = 'Kargatzen...';
+$lang['Local'] = 'Lokala';
+$lang['Lock'] = 'Blokeatu';
+$lang['Lock albums'] = 'Blokeatu albumak';
+$lang['Lock gallery'] = 'Blokeatu galeria';
+$lang['Locked'] = 'Blokeatua';
+$lang['Mail address is mandatory for registration'] = 'Posta helbidea beharrezkoa da harpidetzeko';
+$lang['Mail content'] = 'Posta edukia';
+$lang['Mail sent to %s [%s].'] = 'Posta %s [%s]-ra bidalia';
+$lang['Mail theme'] = 'Posta gaia';
+$lang['Inactive Languages'] = 'Desgaitutako hizkuntzak';
+$lang['Inactive Plugins'] = 'Desgaitutako gehigarriak';
+$lang['Inactive Themes'] = 'Desgaitutako gaiak';
+$lang['Informations'] = 'Argibideak';
+$lang['Install'] = 'Instalatu';
+$lang['Install on your computer,'] = 'Instalatu zure ordenagailuan,';
+$lang['Installed Languages'] = 'Instalaturiko hizkuntzak';
+$lang['Installed Themes'] = 'Instalaturiko gaiak';
+$lang['Instructions to use Piwigo'] = 'Piwigo erabiltzeko argibideak';
+$lang['Language has been successfully installed'] = 'Hizkuntza behar bezala instalatu da';
+$lang['Languages'] = 'Hizkuntzak';
+$lang['IP'] = 'IP';
+$lang['Image Quality'] = 'Irudi kalitatea';
+$lang['Image id'] = 'Irudi Id-a';
+$lang['Graphics Library'] = 'Liburutegi grafikoa';
+$lang['Guests'] = 'Gobidatual';
+$lang['Height'] = 'Altuera';
+$lang['Hello'] = 'Kaixo';
+$lang['Hello,'] = 'Kaixo, ';
+$lang['Help Me'] = 'Lagundu Ni';
+$lang['Hide'] = 'Ezkutatu';
+$lang['High definition'] = 'Nabarmen Handia';
+$lang['High definition enabled'] = 'Nabarmen Handia gaitua';
+$lang['History'] = 'Historia';
+$lang['Hour'] = 'Ordu';
+$lang['GD version'] = 'GD bertsioa';
+$lang['Gallery title'] = 'Galeria izenburua';
+$lang['General'] = 'Orokorra';
+$lang['General statistics'] = 'Estatistika orokorrak';
+$lang['Generate multiple size images'] = 'Sortu irudi tamaina anitz';
+$lang['Get Support on Piwigo Forum'] = 'Laguntza eskuratu piwigo foroan';
+$lang['Group'] = 'Taldea';
+$lang['Group management'] = 'Talde kudeaketa';
+$lang['Group name'] = 'Talde izena';
+$lang['Groups'] = 'Taldeak';
+$lang['Groups and users'] = 'Talde eta erabiltzaileak';
+$lang['Guest Settings'] = 'Gonbidatu ezarpenak';
+$lang['Guest cannot be deleted'] = 'Ezin da gonbidatua ezabatu';
+$lang['Everybody'] = 'Guztiak';
+$lang['Check for upgrade failed for unknown reasons.'] = 'Eguneraketa egiaztapenak arrazoi ezezagun bategatik huts egin du.';
+$lang['Close user details'] = 'Itxi erabiltzaile xehetasunak';
+$lang['Create'] = 'Sortu';
+$lang['Delete Representant'] = 'Ezabatu album argazkitxoa';
+$lang['Available only with HTML format'] = 'HTML formatuaz bakarrik eskuragarro';
+$lang['Basic settings'] = 'Oinarrizko ezarpenak';
+$lang['By %s'] = '%s-(k)';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Lehenespenez, piwigokzure HD (nabarmen handiko) argzkien web-taimanako bertsio berri bat egingo du ';
+$lang['%d guest'] = 'gonbidatu %d';
+$lang['%d guests'] = '%d gonbidatu';
+$lang['%d hour'] = 'ordu %d';
+$lang['%d hours'] = '%d ordu';
+$lang['%d line filtered'] = 'lerro %d iragazi da';
+$lang['%d lines filtered'] = '%d lerro iragazi dira';
+$lang['%d mail was not sent.'] = 'posta %d ez da oraindik bidali';
+$lang['ERROR'] = 'ERROREA';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROREA: GEHIGARRIA EZ DA AURKITZEN NAHIZ INSTALATURIK EGON! DESINSTALATU EZAZU';
+$lang['Edit album'] = 'Editatu albuma';
+$lang['Edit album permissions'] = 'Editatu album baimenak';
+$lang['Edit photo'] = 'Editatu argazkia';
+$lang['Edit selected tags'] = 'Editatu hautatutako etiketak';
+$lang['Edit tags'] = 'Editatu etiketak';
+$lang['Edit user'] = 'Editatu erabiltzailea';
+$lang['Element'] = 'Elementua ';
+$lang['Element type'] = 'Elementu mota';
+$lang['Email administrators when a comment is deleted'] = 'Ohartu kudeatzailea iruzkin bat ezabatzean';
+$lang['Email administrators when a comment is modified'] = 'Ohartu kudeatzailea iruzkin bat eraldatzean';
+$lang['Email admins when a comment requires validation'] = 'Ohartu kudeatzailea iruzkin batek berrespena behar duenean';
+$lang['Email admins when a new user registers'] = 'Ohartu kudeatzailea erabiltzaile berriak harpidetzean';
+$lang['Description'] = 'Azalpena';
+$lang['Detailed informations'] = 'Xehetutako informazioa';
+$lang['Directory'] = 'Direktorioa';
+$lang['Directory does not exist'] = 'Direktorioa ez dago';
+$lang['Display options'] = 'Bistaratze aukerak';
+$lang['Dissociate from album'] = 'Atera albumetik';
+$lang['Do you want to activate anyway?'] = 'Ala ere gaitu nahi duzu ?';
+$lang['Documentation'] = 'Dokumentazioa';
+$lang['Download,'] = 'Deskarga,';
+$lang['Downloads'] = 'Deskargak';
+$lang['Drag to re-order'] = 'klikatu eta eraman berrordenatzeko';
+$lang['Drop into album'] = 'Hautatu album bat';
+$lang['Dump Database'] = 'Datu-basea irauli';
+$lang['Duplicate'] = 'Bikoiztu';
+$lang['Duplicate selected tags'] = 'Bikoiztu hautatutako etiketak';
+$lang['Duplicates'] = 'Bikoiztuak';
+$lang['Current name'] = 'Uneko izena';
+$lang['Database'] = 'Datu-basea';
+$lang['Date'] = 'Data';
+$lang['Day'] = 'Eguna';
+$lang['Deactivate'] = 'Desgaitu';
+$lang['Deactivate all'] = 'Desgaitu denak';
+$lang['Default comments order'] = 'Lehenetsitako iruzkin ordena';
+$lang['Default display'] = 'Lehenetsitako pantaila';
+$lang['Default photos order'] = 'Lehenetsitako argazki ordena';
+$lang['Default user cannot be deleted'] = 'Lehenetsitako erabiltzailea ezin da ezabatu';
+$lang['Default user does not exist'] = 'Ez dago lehenetsitako erabiltzailerik';
+$lang['Check for updates'] = 'Arakatu eguneraketak';
+$lang['Check for upgrade'] = 'Arakatu eguneraketa';
+$lang['Check integrity'] = 'Integritate egiaztapena';
+$lang['Choose an action'] = 'Hautatu ekintza bat';
+$lang['Choose an option'] = 'Hautatu aukera bat';
+$lang['Can\'t connect to server.'] = 'Ezin da zerbitzariarekin konektatu';
+$lang['Can\'t create temporary file.'] = 'Ezin da aldiroko fitxategia sortu';
+$lang['Can\'t download archive.'] = 'Ezin da fitxategia deskargatu';
+$lang['Cancel'] = 'Utzi';
+$lang['Change Admin Colors'] = 'Aldatu kudeaketa koloreak';
+$lang['Change password'] = 'Aldatu pasahitza';
+$lang['Change username'] = 'Aldatu erabiltzaile-izena';
+$lang['Applications'] = 'Aplikazioak';
+$lang['Are you sure you want to delete this plugin?'] = 'Ziur zaude gehigarri hau ezabatu nahi duzula?';
+$lang['Are you sure you want to install this plugin?'] = 'Ziur zaude gehigarri hau instalatu nahi duzula?';
+$lang['Associate to album'] = 'Batu album batetara';
+$lang['Associated'] = 'Batua';
+$lang['Authorize users to add comments on selected albums'] = 'Baimendu erabiltzaileek hautatutako albumetan iruzkinak sortzea';
+$lang['Authorized'] = 'Baimendua';
+$lang['Automatic correction'] = 'Konpontze automatikoa';
+$lang['%d member'] = 'partaide %d';
+$lang['%d members'] = '%d partaide';
+$lang['%d mail was sent.'] = 'posta %d bidalia izan da';
+$lang['%d mails were not sent.'] = '%d posta ez bidaliak izan';
+$lang['%d mails were sent.'] = '%d posta bidali dira';
+$lang['%d minute'] = 'minutu %d';
+$lang['%d minutes'] = '%d minutu';
+$lang['%d month'] = 'hilabete %d';
+$lang['%d months'] = '%d hilabete';
+$lang['%d physical'] = 'fisiko %d';
+$lang['%d physicals'] = '%d fisiko ';
+$lang['%d second'] = 'segundo %d';
+$lang['%d seconds'] = '%d segundo';
+$lang['You cannot delete your account'] = 'Ezin duzu zure kontua ezabatu';
+$lang['You need to confirm deletion'] = 'Ezabatzea berretsi behar duzu';
+$lang['Your configuration settings are saved'] = 'Zure konfigurazio ezarpenak gorde dira';
+$lang['Zoom'] = 'Zoom-a';
+$lang['add a new watermark'] = 'Gehitu ur-marka bat';
+$lang['all'] = 'denak';
+$lang['an error happened'] = 'errore bat gertatu da';
+$lang['and'] = 'eta';
+$lang['any visitor can see this album'] = 'edozein bisitarik album hau ikus dezake';
+$lang['between'] = 'tartean';
+$lang['between %.2f and %.2f'] = '%.2f eta %.2f tartean';
+$lang['unit mode'] = 'bakarkako modua';
+$lang['update the database from files'] = 'eguneratu datu-basea fitxategiekin';
+$lang['user "%s" added'] = '"%s" erabiltzailea gehitua izan da';
+$lang['user_status_admin'] = 'Kudeatzailea';
+$lang['user_status_generic'] = 'Generikoa';
+$lang['user_status_guest'] = 'Gonbidatua';
+$lang['user_status_normal'] = 'Erabiltzailea';
+$lang['user_status_webmaster'] = 'Webmasterra';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'Bisitariak saio hasi eta dagokion baimenak behar ditu album hau ikusteko';
+$lang['width & height'] = 'zabalera eta altuera';
+$lang['wrong filename'] = 'okerreko fitxategi-izena';
+$lang['selection'] = 'hautapena';
+$lang['show details'] = 'ikusi xehetasunak';
+$lang['singly represented'] = 'album argazkitxoa konpondua';
+$lang['status'] = 'egoera';
+$lang['sub-albums'] = 'azpi-albumak';
+$lang['synchronize files metadata with database photos informations'] = 'Datu-baseko argazkiak fitxategi metadatuekin sinkronizatu';
+$lang['synchronize files structure with database'] = 'Fitxategi egitura datu-basearekin sinkronizatu';
+$lang['target'] = 'helburua';
+$lang['test'] = 'proba';
+$lang['test this remote site'] = 'probatu urruneko gune hau';
+$lang['the forum'] = 'foroa';
+$lang['the wiki'] = 'wikia';
+$lang['unknown'] = 'ezezaguna';
+$lang['unset'] = 'ezarrigabea';
+$lang['Album list management'] = 'Album zerrenda kudeaketa';
+$lang['Album manual order was saved'] = 'Album eskuzko ordenatzea gorderik';
+$lang['Album name'] = 'Album izena';
+$lang['Albums automatically sorted'] = 'Albumak automatikoki ordenaturik';
+$lang['Advanced features'] = 'Ezaugarri aurreratuak';
+$lang['Album "%s" has been added'] = '"%s" albuma gehitua izan da';
+$lang['Album "%s" now contains %d photos'] = '"%s" albumak orain %d argazki ditu';
+$lang['Album updated successfully'] = 'Albuma egoki eguneratu da';
+$lang['All %d photos are selected'] = '%d argazki guztiak hautaturik daude';
+$lang['All %d users are selected'] = '%d erabiltzaile  guztiak hautaturik daude';
+$lang['All extensions are up to date.'] = 'Hedapen guztiak eguneratuak daude';
+$lang['All languages are up to date.'] = 'Hizkuntza guztiak eguneratuak daude';
+$lang['All plugins are up to date.'] = 'Gehigarri guztiak eguneratuak daude';
+$lang['All themes are up to date.'] = 'Gai guztiak eguneratuak daude';
+$lang['Allow rating'] = 'Gaitu baloratzea';
+$lang['+ Add an upload box'] = '+ gehitu igoera kutxa';
+$lang['%d tag'] = 'etiketa %d';
+$lang['%d tags'] = '%d etiketa';
+$lang['%d user'] = 'erabiltzaile %d';
+$lang['%d user comment rejected'] = '%d erabiltzailearen iruzkina ukatua izan da';
+$lang['%d user was updated.'] = '%d erabiltzaile eguneratuak';
+$lang['%d users'] = '%d erabiltzaile';
+$lang['%d users deleted'] = '%d erabiltzaile ezabatuak';
+$lang['%d week'] = 'aste %d';
+$lang['%d weeks'] = '%d hilabete';
+$lang['%d year'] = 'urte %d';
+$lang['%d years'] = '%d urte';
+$lang['%s ago'] = 'orain dela %s';
+$lang['%d day'] = 'egun %d';
+$lang['%d days'] = '%d egun ';
+$lang['%d group'] = 'talde %d';
+$lang['%d groups'] = '%d talde';
+$lang['%d album moved'] = 'album %d mugitua';
+$lang[' and %d virtuals'] = 'eta %d birtual
+';
+$lang[' and %d virtual'] = 'eta %d birtual';
