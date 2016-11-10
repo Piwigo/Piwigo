@@ -114,7 +114,7 @@ function process_password_request()
     );
   $message.= "\r\n\r\n";
   $message.= l10n('To reset your password, visit the following address:') . "\r\n";
-  $message.= get_gallery_home_url().'/password.php?key='.$activation_key.'-'.urlencode($userdata['email']);
+  $message.= get_root_url().'password.php?key='.$activation_key.'-'.urlencode($userdata['email']);
   $message.= "\r\n\r\n";
   $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
 
