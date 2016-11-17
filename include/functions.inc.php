@@ -2055,6 +2055,16 @@ function mobile_theme()
  */
 function url_check_format($url)
 {
+  if (strpos($url, '"') !== false)
+  {
+    return false;
+  }
+
+  if (strncmp($url, 'http://', 7) !== 0 and strncmp($url, 'https://', 8) !== 0)
+  {
+    return false;
+  }
+
   return filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED)!==false;
 }
 
