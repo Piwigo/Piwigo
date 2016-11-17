@@ -1284,13 +1284,13 @@ function get_quick_search_results_no_cache($q, $options)
 
   $ids = qsearch_eval($expression, $qsr, $tmp, $search_results['qs']['unmatched_terms']);
 
-  $debug[] = "<!--\nparsed: ".$expression;
+  $debug[] = "<!--\nparsed: ".htmlspecialchars($expression);
   $debug[] = count($expression->stokens).' tokens';
   for ($i=0; $i<count($expression->stokens); $i++)
   {
-    $debug[] = $expression->stokens[$i].': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids'
+    $debug[] = htmlspecialchars($expression->stokens[$i]).': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids'
       .' modifier:'.dechex($expression->stoken_modifiers[$i])
-      .( !empty($expression->stokens[$i]->variants) ? ' variants: '.implode(', ',$expression->stokens[$i]->variants): '');
+      .( !empty($expression->stokens[$i]->variants) ? ' variants: '.htmlspecialchars(implode(', ',$expression->stokens[$i]->variants)): '');
   }
   $debug[] = 'before perms '.count($ids);
 
