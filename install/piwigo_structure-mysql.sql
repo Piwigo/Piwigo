@@ -129,12 +129,10 @@ CREATE TABLE `piwigo_history` (
   `category_id` smallint(5) default NULL,
   `tag_ids` varchar(50) default NULL,
   `image_id` mediumint(8) default NULL,
-  `summarized` enum('true','false') default 'false',
   `image_type` enum('picture','high','other') default NULL,
   `format_id` int(11) unsigned default NULL,
   `auth_key_id` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `history_i1` (`summarized`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
 
 --
@@ -148,6 +146,8 @@ CREATE TABLE `piwigo_history_summary` (
   `day` tinyint(2) default NULL,
   `hour` tinyint(2) default NULL,
   `nb_pages` int(11) default NULL,
+  `history_id_from` int(10) unsigned default NULL,
+  `history_id_to` int(10) unsigned default NULL,
   UNIQUE KEY history_summary_ymdh (`year`,`month`,`day`,`hour`)
 ) ENGINE=MyISAM;
 
