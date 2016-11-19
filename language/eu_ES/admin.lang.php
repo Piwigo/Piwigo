@@ -522,3 +522,4 @@ $lang['Forbid this theme to users'] = 'Debekatu gaita erabiltzaileentzako';
 $lang['Forbidden'] = 'Debekatuta';
 $lang['Form'] = 'Formularioa';
 $lang['GD library is missing'] = 'GD liburutegia falta da';
+$lang['No user selected of %d users'] = '%d erabiltzailetatik ez da erabiltzailerik hautatu';
