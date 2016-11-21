@@ -560,7 +560,7 @@ $conf['history_autopurge_every'] = 1021;
 // How many lines to keep in history on autopurge? 0 to disable.
 $conf['history_autopurge_keep_lines'] = 1000000;
 
-// On history autopurge, how many lines should to deleted, maximum?
+// On history autopurge, how many lines should to deleted at once, maximum?
 $conf['history_autopurge_blocksize'] = 50000;
 
 // +-----------------------------------------------------------------------+
