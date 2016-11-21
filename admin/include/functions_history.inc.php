@@ -390,6 +390,96 @@ SELECT *
   }
 }
 
+/**
+ * Smart purge on history table. Keep some lines, purge only summarized lines
+ *
+ * @since 2.9
+ */
+function history_autopurge()
+{
+  global $conf, $logger;
+
+  if (0 == $conf['history_autopurge_keep_lines'])
+  {
+    return;
+  }
+
+  // we want to purge only if there are too many lines and if the lines are summarized
+
+  $query = '
+SELECT
+    COUNT(*)
+  FROM '.HISTORY_TABLE.'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+
+  if ($count <= $conf['history_autopurge_keep_lines'])
+  {
+    return; // no need to purge for now
+  }
+
+  // 1) find the last summarized history line
+  $query = '
+SELECT
+    *
+  FROM '.HISTORY_SUMMARY_TABLE.'
+  WHERE history_id_to IS NOT NULL
+  ORDER BY history_id_to DESC
+  LIMIT 1
+;';
+  $summary_lines = query2array($query);
+  if (count($summary_lines) == 0)
+  {
+    return; // lines not summarized, no purge
+  }
+
+  $history_id_last_summarized = $summary_lines[0]['history_id_to'];
+
+  // 2) find the latest history line (and substract the number of lines to keep)
+  $query = '
+SELECT
+    id
+  FROM '.HISTORY_TABLE.'
+  ORDER BY id DESC
+  LIMIT 1
+;';
+  $history_lines = query2array($query);
+  if (count($history_lines) == 0)
+  {
+    return;
+  }
+
+  $history_id_latest = $history_lines[0]['id'];
+
+  // 3) find the oldest history line (and add the number of lines to delete)
+  $query = '
+SELECT
+    id
+  FROM '.HISTORY_TABLE.'
+  ORDER BY id ASC
+  LIMIT 1
+;';
+  $history_lines = query2array($query);
+  $history_id_oldest = $history_lines[0]['id'];
+
+  $search_min = array(
+    $history_id_last_summarized,
+    $history_id_latest - $conf['history_autopurge_keep_lines'],
+    $history_id_oldest + $conf['history_autopurge_blocksize'],
+    );
+  
+  $history_id_delete_before = min($search_min);
+
+  $logger->debug(__FUNCTION__.', '.join('/', $search_min));
+
+  $query = '
+DELETE
+  FROM '.HISTORY_TABLE.'
+  WHERE id < '.$history_id_delete_before.'
+;';
+  pwg_query($query);
+}
+
 add_event_handler('get_history', 'get_history');
 trigger_notify('functions_history_included');
 

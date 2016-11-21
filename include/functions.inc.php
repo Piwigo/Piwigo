@@ -502,6 +502,12 @@ INSERT INTO '.HISTORY_TABLE.'
     history_summarize(50000);
   }
 
+  if ($conf['history_autopurge_every'] > 0 and $history_id % $conf['history_autopurge_every'] == 0)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
+    history_autopurge();
+  }
+
   return true;
 }
 
