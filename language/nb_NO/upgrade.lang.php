@@ -22,21 +22,19 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Oppgrader';
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Denne siden tilbyr å oppgradere databasen fra din gamle Piwigo versjonen til den gjeldende versjonen. Oppgraderings assistenten mener at du for tiden kjører <strong>Versjon %s</strong> (eller lignende).';
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Denne siden tilbyr Ã¥ oppgradere databasen fra din gamle Piwigo versjonen til den gjeldende versjonen. Oppgraderingsassistenten mener at du for tiden kjÃ¸rer <strong>Versjon %s</strong> (eller lignende).';
 $lang['Upgrade from version %s to %s'] = 'Oppgrader fra versjon %s til %s';
-$lang['Statistics'] = 'Statistisk';
-$lang['total upgrade time'] = 'total oppgraderings tid';
+$lang['Statistics'] = 'Statistikk';
+$lang['total upgrade time'] = 'total oppgraderingstid';
 $lang['total SQL time'] = 'total SQL tid';
-$lang['SQL queries'] = 'SQL spørringer';
-$lang['Upgrade informations'] = 'oppgraderings informasjon';
-$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Gjennomfør en vedlikeholds sjekk i [Administration>Tools>Maintenance] om du møter på problemer.';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'For å være sikker, følgende tilleggsprogrammer har blitt deaktivert. Du må sjekke for oppgradering på dine tilleggsverktøy før du reaktiverer dem:';
-$lang['Only administrator can run upgrade: please sign in below.'] = 'kun en administrator kan oppgradere: .Vennligst logg inn under';
-$lang['You do not have access rights to run upgrade'] = 'Du har ikke tilgangs rettigheter for å kunne oppgradere';
-$lang['All sub-albums of private albums become private'] = 'Alle grunn-album i privat album blir private';
-$lang['User permissions and group permissions have been erased'] = 'Bruker og gruppe rettigheter har blitt slettet';
-$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Kun miniatyr bliders prefix and webmasters mail addresse har blitt lagret fra forrige konfigurasjon';
-$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'I <i>%s</i>, før <b>?></b>, sett inn:';
-$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] =  'Som en sikkerhet har følgende temaer blitt deaktivert. Du må sjekke om det finnes oppgraderinger til dem før aktivering:';
-
-?>
+$lang['SQL queries'] = 'SQL spÃ¸rringer';
+$lang['Upgrade informations'] = 'Oppgraderingsinformasjon';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'GjennomfÃ¸r en vedlikeholds sjekk i [Administration>Tools>Maintenance] om du mÃ¸ter pÃ¥ problemer.';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'For Ã¥ vÃ¦re sikker, fÃ¸lgende tilleggsprogrammer har blitt deaktivert. Du mÃ¥ sjekke for oppgradering av dine tilleggsverktÃ¸y fÃ¸r du reaktiverer dem:';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'Kun en administrator kan oppgradere: vennligst logg inn lenger ned';
+$lang['You do not have access rights to run upgrade'] = 'Du har ikke tilgangsrettigheter for Ã¥ kunne oppgradere';
+$lang['All sub-albums of private albums become private'] = 'Alle under-album i private album blir private';
+$lang['User permissions and group permissions have been erased'] = 'Bruker- og grupperettigheter har blitt slettet';
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Kun miniatyrbliders prefiks og webmasters e-post addresse har blitt lagret fra forrige konfigurasjon';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'I <i>%s</i>, fÃ¸r <b>?></b>, sett inn:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Som en sikkerhet har fÃ¸lgende temaer blitt deaktivert. Du mÃ¥ sjekke om det finnes oppgraderinger til de fÃ¸r aktivering:';
