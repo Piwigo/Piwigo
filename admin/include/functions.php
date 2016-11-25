@@ -448,6 +448,7 @@ SELECT
   FROM '.TAGS_TABLE.'
     LEFT JOIN '.IMAGE_TAG_TABLE.' ON id = tag_id
   WHERE tag_id IS NULL
+    AND lastmodified < SUBDATE(NOW(), INTERVAL 1 DAY)
 ;';
   return query2array($query);
 }
