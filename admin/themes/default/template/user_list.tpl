@@ -55,6 +55,23 @@ jQuery(document).ready(function() {
     return false;
   });
 
+  jQuery("#genPass").click(function(e){
+    e.preventDefault();
+
+    var characterSet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+
+    var i;
+    var password;
+    var length = getRandomInt(8, 15);
+
+    password = '';
+    for (i = 0; i < length; i++) {
+      password += characterSet.charAt(Math.floor(Math.random() * characterSet.length));
+    }
+
+    jQuery('input[name=password]').val(password);
+  });
+
   jQuery("#addUserClose").click(function() {
     jQuery("#addUserForm").hide();
     return false;
@@ -885,6 +902,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
     <p>
       <strong>{'Password'|translate}</strong><br>
       <input type="{if $Double_Password}password{else}text{/if}" name="password">
+      <a id="genPass" href="#" class="icon-lock">{'generate random password'|translate}</a>
     </p>
     
 {if $Double_Password}

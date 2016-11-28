@@ -49,6 +49,12 @@ if (!Array.prototype.indexOf)
   };
 }
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function sprintf() {
   var i = 0, a, f = arguments[i++], o = [], m, p, c, x, s = '';
   while (f) {
