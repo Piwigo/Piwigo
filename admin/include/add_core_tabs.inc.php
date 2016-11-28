@@ -31,6 +31,11 @@ function add_core_tabs($sheets, $tab_id)
       $sheets[''] = array('caption' => l10n('Administration Home'), 'url' => 'admin.php');
       break;
 
+    case 'tags':
+      global $my_base_url;
+      $sheets[''] = array('caption' => '<span class="icon-tags"></span>'.l10n('Tags'), 'url' => $my_base_url.'tags');
+      break;
+
     case 'album':
       global $admin_album_base_url;
       $sheets['properties'] = array('caption' => '<span class="icon-pencil"></span>'.l10n('Properties'), 'url' => $admin_album_base_url.'-properties');
