@@ -364,7 +364,7 @@ foreach ($orphan_tags as $tag)
 if (count($orphan_tag_names) > 0)
 {
   $page['warnings'][] = sprintf(
-    l10n('You have %d orphan tags: %s.').' <a href="%s">'.l10n('Delete orphan tags').'</a>',
+    l10n('You have %d orphan tags: %s.').' <a href="%s" class="icon-trash">'.l10n('Delete orphan tags').'</a>',
     count($orphan_tag_names),
     implode(', ', $orphan_tag_names),
     get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token()
