@@ -40,13 +40,6 @@ jQuery("#mergeTags label").click(function() {
   displayDeletionWarnings();
 });
 
-jQuery("input[name=merge]").click(function() {
-  if (jQuery("ul.tagSelection input[type=checkbox]:checked").length < 2) {
-    alert("{'Select at least two tags for merging'|@translate}");
-    return false;
-  }
-});
-
 $("#searchInput").on("keydown", function(e) {
   var $this = $(this),
       timer = $this.data("timer");
@@ -133,6 +126,14 @@ jQuery("form").submit(function() {
       return false;
     }
   }
+
+  if (jQuery("select[name=selectAction]").val() == "merge") {
+    if (jQuery("ul.tagSelection input[type=checkbox]:checked").length < 2) {
+      alert("{'Select at least two tags for merging'|@translate}");
+      return false;
+    }
+  }
+
   /* return false; */
 });
 
