@@ -1,10 +1,45 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {include file='include/tag_selection.inc.tpl'}
 
 {html_style}
 .showInfo { text-indent:5px; }
+.buttonLike i { font-size:14px; }
 {/html_style}
 
 {footer_script require='jquery'}
+/**
+ * Add tag
+ */
+jQuery("#addTag").click(function() {
+  jQuery("#addTagForm").toggle();
+  jQuery("input[name=add_tag]").focus();
+  return false;
+});
+
+jQuery("#addTagClose").click(function() {
+  jQuery("#addTagForm").hide();
+  return false;
+});
+
+jQuery("#selectionMode").click(function() {
+  if (jQuery(this).hasClass("icon-check-empty")) {
+    jQuery("#selectionMode").removeClass("icon-check-empty").addClass("icon-check");
+    jQuery('label.font-checkbox span').show();
+    jQuery('ul.tagSelection a.showInfo').hide();
+    jQuery('fieldset#action').show();
+    jQuery('fieldset#selectTags legend').html("{'Tag selection'|translate|escape:javascript}");
+  }
+  else {
+    jQuery("#selectionMode").removeClass("icon-check").addClass("icon-check-empty");
+    jQuery('label.font-checkbox span').hide();
+    jQuery('ul.tagSelection a.showInfo').show();
+    jQuery('fieldset#action').hide();
+    jQuery('fieldset#selectTags legend').html("{'Tags'|translate|escape:javascript}");
+  }
+  return false;
+});
+
+
 jQuery('.showInfo').tipTip({
   'delay' : 0,
   'fadeIn' : 200,
@@ -23,13 +58,6 @@ displayDeletionWarnings();
 
 jQuery("#mergeTags label").click(function() {
   displayDeletionWarnings();
-});
-
-jQuery("input[name=merge]").click(function() {
-  if (jQuery("ul.tagSelection input[type=checkbox]:checked").length < 2) {
-    alert("{'Select at least two tags for merging'|@translate}");
-    return false;
-  }
 });
 
 $("#searchInput").on("keydown", function(e) {
@@ -62,6 +90,64 @@ $("#searchInput").on("keydown", function(e) {
     e.preventDefault();
   }
 });
+
+jQuery('input[name="tags[]"]').click(function() {
+  var nbSelected = 0;
+  nbSelected = jQuery('input[name="tags[]"]').filter(':checked').length;
+
+  if (nbSelected == 0) {
+    jQuery("#permitAction").hide();
+    jQuery("#forbidAction").show();
+  }
+  else {
+    jQuery("#permitAction").show();
+    jQuery("#forbidAction").hide();
+  }
+});
+
+jQuery("[id^=action_]").hide();
+
+jQuery("select[name=selectAction]").change(function () {
+  jQuery("[id^=action_]").hide();
+
+  jQuery("#action_"+jQuery(this).prop("value")).show();
+
+  jQuery("#displayFormBlock").hide();
+  jQuery("#applyActionBlock").hide();
+
+  if (jQuery(this).val() != -1 ) {
+    if (jQuery(this).val() == 'delete') {
+      jQuery("#applyActionBlock").show();
+      jQuery("#applyAction").attr("name", jQuery(this).val());
+    }
+    else {
+      jQuery("#displayForm").attr("name", jQuery(this).val());
+      jQuery("#displayFormBlock").show();
+    }
+  }
+  else {
+  }
+});
+
+jQuery("form").submit(function() {
+  if (jQuery("select[name=selectAction]").val() == "delete") {
+    if (!jQuery("input[name=confirm_deletion]").is(":checked")) {
+      jQuery("#action_delete .errors").show();
+      return false;
+    }
+  }
+
+  if (jQuery("select[name=selectAction]").val() == "merge") {
+    if (jQuery("ul.tagSelection input[type=checkbox]:checked").length < 2) {
+      alert("{'Select at least two tags for merging'|@translate}");
+      return false;
+    }
+  }
+});
+
+jQuery("input[name=confirm_deletion]").change(function() {
+  jQuery("#action_delete .errors").hide();
+});
 {/footer_script}
 
 
@@ -69,7 +155,32 @@ $("#searchInput").on("keydown", function(e) {
   <h2>{'Manage tags'|@translate}</h2>
 </div>
 
+<p class="showCreateAlbum" id="showAddTag">
+  <a class="icon-plus-circled" href="#" id="addTag">{'Add a tag'|translate}</a>
+  <a class="icon-check-empty" href="#" id="selectionMode">{'Select tags'|translate}</a>
+</p>
+
+<form method="post" style="display:none" id="addTagForm" name="add_user" action="{$F_ACTION}" class="properties">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
+  <fieldset class="with-border">
+    <legend>{'Add a tag'|@translate}</legend>
+
+    <label>
+      {'New tag'|@translate}
+      <input type="text" name="add_tag" size="50">
+    </label>
+
+    <p class="actionButtons">
+      <input class="submit" type="submit" name="add" value="{'Submit'|@translate}">
+      <a href="#" id="addTagClose">{'Cancel'|@translate}</a>
+    </p>
+  </fieldset>
+</form>
+
 <form action="{$F_ACTION}" method="post">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
   {if isset($EDIT_TAGS_LIST)}
   <fieldset>
     <legend>{'Edit tags'|@translate}</legend>
@@ -137,22 +248,13 @@ $("#searchInput").on("keydown", function(e) {
   </fieldset>
   {/if}
 
-  <fieldset>
-    <legend>{'Add a tag'|@translate}</legend>
+{if !isset($EDIT_TAGS_LIST) and !isset($DUPLIC_TAGS_LIST) and !isset($MERGE_TAGS_LIST)}
 
-    <label>
-      {'New tag'|@translate}
-      <input type="text" name="add_tag" size="50">
-    </label>
-
-    <p><input class="submit" type="submit" name="add" value="{'Submit'|@translate}"></p>
-  </fieldset>
-
-  <fieldset>
-    <legend>{'Tag selection'|@translate}</legend>
+  <fieldset id="selectTags">
+    <legend>{'Tags'|@translate}</legend>
 
     {if count($all_tags)}
-    <div><label><span class="icon-filter" style="visibility:hidden" id="filterIcon"></span>{'Search'|@translate}: <input id="searchInput" type="text" size="12"></label></div>
+    <div><label><span class="icon-filter" style="visibility:hidden" id="filterIcon"></span>{'Search'|@translate} <input id="searchInput" type="text" size="12"></label></div>
     {/if}
 
     <ul class="tagSelection">
@@ -165,20 +267,61 @@ $("#searchInput").on("keydown", function(e) {
           {if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}
         {/strip}{/capture}
         <a class="icon-info-circled-1 showInfo" title="{$smarty.capture.showInfo|@htmlspecialchars}"></a>
-        <label>
-          <input type="checkbox" name="tags[]" value="{$tag.id}"> {$tag.name}
+        <label class="font-checkbox no-bold">
+          <span class="icon-check" style="display:none"></span>
+          <input type="checkbox" name="tags[]" value="{$tag.id}">
+          {$tag.name}
         </label>
       </li>
     {/foreach}
     </ul>
 
-    <p>
-      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-      <input type="submit" name="edit" value="{'Edit selected tags'|@translate}">
-      <input type="submit" name="duplicate" value="{'Duplicate selected tags'|@translate}">
-      <input type="submit" name="merge" value="{'Merge selected tags'|@translate}">
-      <input type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
-    </p>
   </fieldset>
+
+  <fieldset id="action" style="display:none">
+    <legend>{'Action'|@translate}</legend>
+      <div id="forbidAction">{'No tag selected, no action possible.'|@translate}</div>
+      <div id="permitAction" style="display:none">
+
+        <select name="selectAction">
+          <option value="-1">{'Choose an action'|@translate}</option>
+          <option disabled="disabled">------------------</option>
+          <option value="edit">{'Edit selected tags'|@translate}</option>
+          <option value="duplicate">{'Duplicate selected tags'|@translate}</option>
+          <option value="merge">{'Merge selected tags'|@translate}</option>
+          <option value="delete">{'Delete selected tags'|@translate}</option>
+{if !empty($tag_manager_plugin_actions)}
+  {foreach from=$tag_manager_plugin_actions item=action}
+          <option value="{$action.ID}">{$action.NAME}</option>
+  {/foreach}
+{/if}
+        </select>
+
+        <!-- delete -->
+        <div id="action_delete" class="bulkAction">
+          <p>
+            <label><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label>
+            <span class="errors" style="display:none"><i class="icon-cancel"></i> we really need you to confirm</span>
+          </p>
+        </div>
+
+{* plugins *}
+{if !empty($tag_manage_plugin_actions)}
+  {foreach from=$element_set_groupe_plugins_actions item=action}
+        <div id="action_{$action.ID}" class="bulkAction">
+    {if !empty($action.CONTENT)}{$action.CONTENT}{/if}
+        </div>
+  {/foreach}
+{/if}
+        <span id="displayFormBlock" style="display:none">
+          <button id="displayForm" class="buttonLike" type="submit" name="">{'Display form'|translate} <i class="icon-right"></i></button>
+        </span>
+
+        <p id="applyActionBlock" style="display:none" class="actionButtons">
+          <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name=""> <span id="applyOnDetails"></span>
+        </p>
+      </div> {* #permitAction *}
+  </fieldset>
+{/if}
 
 </form>
