@@ -109,17 +109,7 @@ jQuery("select[name=selectAction]").change(function () {
   }
 });
 
-jQuery("input[name=delete]").click(function() {
-  console.log("salut");
-return false;
-  if (!jQuery("input[name=confirm_deletion]").is(":checked")) {
-    jQuery("#action_delete .errors").show();
-    return false;
-  }
-});
-
 jQuery("form").submit(function() {
-  console.log("hello");
   if (jQuery("select[name=selectAction]").val() == "delete") {
     if (!jQuery("input[name=confirm_deletion]").is(":checked")) {
       jQuery("#action_delete .errors").show();
@@ -133,8 +123,6 @@ jQuery("form").submit(function() {
       return false;
     }
   }
-
-  /* return false; */
 });
 
 jQuery("input[name=confirm_deletion]").change(function() {
