@@ -302,20 +302,27 @@ SELECT
 
 if (isset($_POST['delete']) and isset($_POST['tags']))
 {
-  $query = '
+  if (!isset($_POST['confirm_deletion']))
+  {
+    $page['errors'][] = l10n('You need to confirm deletion');
+  }
+  else
+  {
+    $query = '
 SELECT name
   FROM '.TAGS_TABLE.'
   WHERE id IN ('.implode(',', $_POST['tags']).')
 ;';
-  $tag_names = array_from_query($query, 'name');
+    $tag_names = array_from_query($query, 'name');
 
-  delete_tags($_POST['tags']);
+    delete_tags($_POST['tags']);
 
-  $page['infos'][] = l10n_dec(
-    'The following tag was deleted', 'The %d following tags were deleted',
-    count($tag_names)
-    )
-  .' : '.implode(', ', $tag_names);
+    $page['infos'][] = l10n_dec(
+      'The following tag was deleted', 'The %d following tags were deleted',
+      count($tag_names)
+      )
+      .' : '.implode(', ', $tag_names);
+  }
 }
 
 // +-----------------------------------------------------------------------+
