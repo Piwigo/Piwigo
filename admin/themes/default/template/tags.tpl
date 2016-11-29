@@ -1,3 +1,4 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {include file='include/tag_selection.inc.tpl'}
 
 {html_style}
@@ -19,6 +20,25 @@ jQuery("#addTagClose").click(function() {
   jQuery("#addTagForm").hide();
   return false;
 });
+
+jQuery("#selectionMode").click(function() {
+  if (jQuery(this).hasClass("icon-check-empty")) {
+    jQuery("#selectionMode").removeClass("icon-check-empty").addClass("icon-check");
+    jQuery('label.font-checkbox span').show();
+    jQuery('ul.tagSelection a.showInfo').hide();
+    jQuery('fieldset#action').show();
+    jQuery('fieldset#selectTags legend').html("{'Tag selection'|translate|escape:javascript}");
+  }
+  else {
+    jQuery("#selectionMode").removeClass("icon-check").addClass("icon-check-empty");
+    jQuery('label.font-checkbox span').hide();
+    jQuery('ul.tagSelection a.showInfo').show();
+    jQuery('fieldset#action').hide();
+    jQuery('fieldset#selectTags legend').html("{'Tags'|translate|escape:javascript}");
+  }
+  return false;
+});
+
 
 jQuery('.showInfo').tipTip({
   'delay' : 0,
@@ -137,6 +157,7 @@ jQuery("input[name=confirm_deletion]").change(function() {
 
 <p class="showCreateAlbum" id="showAddTag">
   <a class="icon-plus-circled" href="#" id="addTag">{'Add a tag'|translate}</a>
+  <a class="icon-check-empty" href="#" id="selectionMode">{'Select tags'|translate}</a>
 </p>
 
 <form method="post" style="display:none" id="addTagForm" name="add_user" action="{$F_ACTION}" class="properties">
@@ -229,8 +250,8 @@ jQuery("input[name=confirm_deletion]").change(function() {
 
 {if !isset($EDIT_TAGS_LIST) and !isset($DUPLIC_TAGS_LIST) and !isset($MERGE_TAGS_LIST)}
 
-  <fieldset>
-    <legend>{'Tag selection'|@translate}</legend>
+  <fieldset id="selectTags">
+    <legend>{'Tags'|@translate}</legend>
 
     {if count($all_tags)}
     <div><label><span class="icon-filter" style="visibility:hidden" id="filterIcon"></span>{'Search'|@translate} <input id="searchInput" type="text" size="12"></label></div>
@@ -246,8 +267,10 @@ jQuery("input[name=confirm_deletion]").change(function() {
           {if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}
         {/strip}{/capture}
         <a class="icon-info-circled-1 showInfo" title="{$smarty.capture.showInfo|@htmlspecialchars}"></a>
-        <label>
-          <input type="checkbox" name="tags[]" value="{$tag.id}"> {$tag.name}
+        <label class="font-checkbox no-bold">
+          <span class="icon-check" style="display:none"></span>
+          <input type="checkbox" name="tags[]" value="{$tag.id}">
+          {$tag.name}
         </label>
       </li>
     {/foreach}
@@ -255,7 +278,7 @@ jQuery("input[name=confirm_deletion]").change(function() {
 
   </fieldset>
 
-  <fieldset id="action">
+  <fieldset id="action" style="display:none">
     <legend>{'Action'|@translate}</legend>
       <div id="forbidAction">{'No tag selected, no action possible.'|@translate}</div>
       <div id="permitAction" style="display:none">
