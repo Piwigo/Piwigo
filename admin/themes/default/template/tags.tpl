@@ -155,6 +155,7 @@ jQuery("input[name=confirm_deletion]").change(function() {
   <h2>{'Manage tags'|@translate}</h2>
 </div>
 
+{if !isset($EDIT_TAGS_LIST) and !isset($DUPLIC_TAGS_LIST) and !isset($MERGE_TAGS_LIST)}
 <p class="showCreateAlbum" id="showAddTag">
   <a class="icon-plus-circled" href="#" id="addTag">{'Add a tag'|translate}</a>
   <a class="icon-check-empty" href="#" id="selectionMode">{'Select tags'|translate}</a>
@@ -177,6 +178,7 @@ jQuery("input[name=confirm_deletion]").change(function() {
     </p>
   </fieldset>
 </form>
+{/if}
 
 <form action="{$F_ACTION}" method="post">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
