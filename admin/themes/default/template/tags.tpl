@@ -6,6 +6,20 @@
 {/html_style}
 
 {footer_script require='jquery'}
+/**
+ * Add tag
+ */
+jQuery("#addTag").click(function() {
+  jQuery("#addTagForm").toggle();
+  jQuery("input[name=add_tag]").focus();
+  return false;
+});
+
+jQuery("#addTagClose").click(function() {
+  jQuery("#addTagForm").hide();
+  return false;
+});
+
 jQuery('.showInfo').tipTip({
   'delay' : 0,
   'fadeIn' : 200,
@@ -132,6 +146,28 @@ jQuery("input[name=confirm_deletion]").change(function() {
   <h2>{'Manage tags'|@translate}</h2>
 </div>
 
+<p class="showCreateAlbum" id="showAddTag">
+  <a class="icon-plus-circled" href="#" id="addTag">{'Add a tag'|translate}</a>
+</p>
+
+<form method="post" style="display:none" id="addTagForm" name="add_user" action="{$F_ACTION}" class="properties">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
+  <fieldset class="with-border">
+    <legend>{'Add a tag'|@translate}</legend>
+
+    <label>
+      {'New tag'|@translate}
+      <input type="text" name="add_tag" size="50">
+    </label>
+
+    <p class="actionButtons">
+      <input class="submit" type="submit" name="add" value="{'Submit'|@translate}">
+      <a href="#" id="addTagClose">{'Cancel'|@translate}</a>
+    </p>
+  </fieldset>
+</form>
+
 <form action="{$F_ACTION}" method="post">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
@@ -201,17 +237,6 @@ jQuery("input[name=confirm_deletion]").change(function() {
     </p>
   </fieldset>
   {/if}
-
-  <fieldset>
-    <legend>{'Add a tag'|@translate}</legend>
-
-    <label>
-      {'New tag'|@translate}
-      <input type="text" name="add_tag" size="50">
-    </label>
-
-    <p><input class="submit" type="submit" name="add" value="{'Submit'|@translate}"></p>
-  </fieldset>
 
 {if !isset($EDIT_TAGS_LIST) and !isset($DUPLIC_TAGS_LIST) and !isset($MERGE_TAGS_LIST)}
 
