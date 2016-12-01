@@ -284,16 +284,16 @@ jQuery(document).ready(function() {
 {if $NB_IMAGES_RECURSIVE > 0}
   <ul>
   {if $NB_IMAGES_ASSOCIATED_OUTSIDE > 0}
-    <li><label><input type="radio" name="photo_deletion_mode" value="force_delete"> delete album and all {$NB_IMAGES_RECURSIVE} photos, even the {$NB_IMAGES_ASSOCIATED_OUTSIDE} associated to other albums</label>
+    <li><label><input type="radio" name="photo_deletion_mode" value="force_delete"> {'delete album and all %d photos, even the %d associated to other albums'|translate:$NB_IMAGES_RECURSIVE:$NB_IMAGES_ASSOCIATED_OUTSIDE}</label>
   {/if}
-    <li><label><input type="radio" name="photo_deletion_mode" value="delete_orphans"> delete album and the {$NB_IMAGES_BECOMING_ORPHAN} orphan photos</li>
-    <li><label><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked"> delete only album, not photos</li>
+    <li><label><input type="radio" name="photo_deletion_mode" value="delete_orphans"> {'delete album and the %d orphan photos'|translate:$NB_IMAGES_BECOMING_ORPHAN}</li>
+    <li><label><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked"> {'delete only album, not photos'|translate}</li>
   </ul>
 {/if}
 
     <p class="popin-actions">
       <a id="deleteConfirm" class="buttonLike" type="submit" href="{$U_DELETE}"><i class="icon-trash"></i> {'Confirm deletion'|translate}</button>
-      <a class="icon-cancel-circled close-delete_popin" href="#">{'Cancel'}</a>
+      <a class="icon-cancel-circled close-delete_popin" href="#">{'Cancel'|translate}</a>
     </p>
 
 {* $U_DELETE *}

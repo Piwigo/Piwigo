@@ -993,3 +993,9 @@ $lang['For security reason, authentication keys do not work for administrators.'
 $lang['Select tags'] = 'Select tags';
 $lang['No tag selected, no action possible.'] = 'No tag selected, no action possible.';
 $lang['Display form'] = 'Display form';
+$lang['Delete album "%s".'] = 'Delete album "%s".';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Delete album "%s" and its %d sub-albums.';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'delete album and all %d photos, even the %d associated to other albums';
+$lang['delete album and the %d orphan photos'] = 'delete album and the %d orphan photos';
+$lang['delete only album, not photos'] = 'delete only album, not photos';
+$lang['Confirm deletion'] = 'Confirm deletion';
