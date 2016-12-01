@@ -1,3 +1,4 @@
+{include file='include/colorbox.inc.tpl'}
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
@@ -89,9 +90,77 @@ jQuery(document).ready(function() {
 
     e.preventDefault();
   });
+
+  jQuery(".deleteAlbum").click(function() {
+    jQuery.colorbox({
+      inline:true,
+      title:"{'delete album'|translate|escape:javascript}",
+      href:".delete_popin"
+    });
+
+    return false;
+  });
+
+  function set_photo_deletion_mode() {
+    if (jQuery("input[name=photo_deletion_mode]").length > 0) {
+      var $photo_deletion_mode = jQuery("input[name=photo_deletion_mode]:checked").val();
+      jQuery("#deleteConfirm").data("photo_deletion_mode", $photo_deletion_mode);
+    }
+  }
+
+  set_photo_deletion_mode();
+
+  jQuery("input[name=photo_deletion_mode]").change(function() {
+    set_photo_deletion_mode();
+  });
+
+  jQuery("#deleteConfirm").click(function() {
+    if (jQuery("input[name=photo_deletion_mode]").length > 0) {
+      var $href = jQuery(this).attr("href");
+      jQuery(this).attr("href", $href+"&photo_deletion_mode="+jQuery(this).data("photo_deletion_mode"));
+    }
+  });
+
+  jQuery(document).on('click', '.close-delete_popin',  function(e) {
+    jQuery('.delete_popin').colorbox.close();
+    e.preventDefault();
+  });
 });
 
 {/footer_script}
+
+{html_style}
+.delete_popin {
+  padding:20px 30px;
+}
+
+.delete_popin p {
+  margin:0;
+}
+
+.delete_popin ul {
+  padding:0;
+  margin:30px 0;
+}
+
+.delete_popin ul li {
+  list-style-type:none;
+  margin:10px 0;
+}
+
+.delete_popin .buttonLike i {
+  font-size:14px;
+}
+
+.delete_popin .buttonLike {
+  padding:5px;
+  margin-right:10px;
+}
+
+.delete_popin p.popin-actions {
+  margin-top:30px;
+}
+{/html_style}
 
 
 <div class="titrePage">
@@ -142,7 +211,7 @@ jQuery(document).ready(function() {
 {/if}
 
 {if isset($U_DELETE) }
-  <li><a class="icon-trash" href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a></li>
+  <li><a class="icon-trash deleteAlbum" href="#">{'delete album'|@translate}</a></li>
 {/if}
 
 </ul>
@@ -200,4 +269,35 @@ jQuery(document).ready(function() {
 </fieldset>
 
 </form>
+
+<div style="display:none">
+  <div class="delete_popin">
+
+    <p>
+{if $NB_SUBCATS == 0}
+      {'Delete album "%s".'|translate:$CATEGORY_FULLNAME}
+{else}
+      {'Delete album "%s" and its %d sub-albums.'|translate:$CATEGORIES_NAV:$NB_SUBCATS}
+{/if}
+    </p>
+
+{if $NB_IMAGES_RECURSIVE > 0}
+  <ul>
+  {if $NB_IMAGES_ASSOCIATED_OUTSIDE > 0}
+    <li><label><input type="radio" name="photo_deletion_mode" value="force_delete"> delete album and all {$NB_IMAGES_RECURSIVE} photos, even the {$NB_IMAGES_ASSOCIATED_OUTSIDE} associated to other albums</label>
+  {/if}
+    <li><label><input type="radio" name="photo_deletion_mode" value="delete_orphans"> delete album and the {$NB_IMAGES_BECOMING_ORPHAN} orphan photos</li>
+    <li><label><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked"> delete only album, not photos</li>
+  </ul>
+{/if}
+
+    <p class="popin-actions">
+      <a id="deleteConfirm" class="buttonLike" type="submit" href="{$U_DELETE}"><i class="icon-trash"></i> {'Confirm deletion'|translate}</button>
+      <a class="icon-cancel-circled close-delete_popin" href="#">{'Cancel'}</a>
+    </p>
+
+{* $U_DELETE *}
+  </div>
+</div>
+
 </div> {* #catModify *}

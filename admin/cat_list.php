@@ -192,7 +192,13 @@ include(PHPWG_ROOT_PATH.'admin/include/albums_tab.inc.php');
 // request to delete a virtual category
 if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 {
-  delete_categories(array($_GET['delete']));
+  $photo_deletion_mode = 'no_delete';
+  if (isset($_GET['photo_deletion_mode']))
+  {
+    $photo_deletion_mode = $_GET['photo_deletion_mode'];
+  }
+  delete_categories(array($_GET['delete']), $photo_deletion_mode);
+
   $_SESSION['page_infos'] = array(l10n('Virtual album deleted'));
   update_global_rank();
   invalidate_user_cache();

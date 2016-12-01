@@ -196,6 +196,42 @@ $query = 'SELECT DISTINCT category_id
 $result = pwg_query($query);
 $category['has_images'] = pwg_db_num_rows($result)>0 ? true : false;
 
+// number of sub-categories
+$subcat_ids = get_subcat_ids(array($category['id']));
+
+$category['nb_subcats'] = count($subcat_ids) - 1;
+
+// total number of images under this category (including sub-categories)
+$query = '
+SELECT
+    DISTINCT(image_id)
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',', $subcat_ids).')
+ ;';
+$image_ids_recursive = query2array($query, null, 'image_id');
+
+$category['nb_images_recursive'] = count($image_ids_recursive);
+
+// number of images that would become orphan on album deletion
+$category['nb_images_becoming_orphan'] = 0;
+$category['nb_images_associated_outside'] = 0;
+
+if ($category['nb_images_recursive'] > 0)
+{
+  $query = '
+SELECT
+    DISTINCT(image_id)
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id NOT IN ('.implode(',', $subcat_ids).')
+    AND image_id IN ('.implode(',', $image_ids_recursive).')
+;';
+  $image_ids_associated_outside = query2array($query, null, 'image_id');
+  $category['nb_images_associated_outside'] = count($image_ids_associated_outside);
+
+  $image_ids_becoming_orphan = array_diff($image_ids_recursive, $image_ids_associated_outside);
+  $category['nb_images_becoming_orphan'] = count($image_ids_becoming_orphan);
+}
+
 // Navigation path
 $navigation = get_cat_display_name_cache(
   $category['uppercats'],
@@ -284,6 +320,17 @@ else
 {
   $intro = l10n('This album contains no photo.');
 }
+
+// info for deletion
+$template->assign(
+  array(
+    'CATEGORY_FULLNAME' => trim(strip_tags($navigation)),
+    'NB_SUBCATS' => $category['nb_subcats'],
+    'NB_IMAGES_RECURSIVE' => $category['nb_images_recursive'],
+    'NB_IMAGES_BECOMING_ORPHAN' => $category['nb_images_becoming_orphan'],
+    'NB_IMAGES_ASSOCIATED_OUTSIDE' => $category['nb_images_associated_outside'],
+    )
+  );
 
 $intro.= '<br>'.l10n('Numeric identifier : %d', $category['id']);
 
