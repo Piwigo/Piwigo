@@ -80,7 +80,7 @@ jQuery(document).ready(function() {
   {if $theme.ACTIVABLE}
       <a href="{$activate_baseurl}{$theme.ID}" title="{'Make this theme available to users'|@translate}" class="tiptip">{'Activate'|@translate}</a>
   {else}
-      <span title="{$theme.ACTIVATE_TOOLTIP}" class="tiptip">{'Activate'|@translate}</span>
+      <span title="{$theme.ACTIVABLE_TOOLTIP}" class="tiptip">{'Activate'|@translate}</span>
   {/if}
       |
   {if $theme.DELETABLE}
