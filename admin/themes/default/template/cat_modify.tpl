@@ -149,7 +149,7 @@ jQuery(document).ready(function() {
   margin:10px 0;
 }
 
-.delete_popin .buttonLike i {
+.buttonLike i {
   font-size:14px;
 }
 
@@ -268,7 +268,9 @@ jQuery(document).ready(function() {
   {/if}
 
   <p style="margin:0">
-    <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
+    <button name="submit" type="submit" class="buttonLike">
+      <i class="icon-floppy"></i> {'Save Settings'|@translate}
+    </button>
   </p>
 </fieldset>
 
