@@ -258,9 +258,10 @@ jQuery(document).ready(function() {
   <p>
     <strong>{'Comments'|@translate}</strong>
     <br>
-		{html_radios name='commentable' values=['false','true'] output=['No'|translate,'Yes'|translate] selected=$CAT_COMMENTABLE}
+      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="commentable" value="false"{if $CAT_COMMENTABLE == "false"} checked="checked"{/if}>{'No'|translate}</label>
+      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="commentable" value="true"{if $CAT_COMMENTABLE == "true"} checked="checked"{/if}>{'Yes'|translate}</label>
     <label id="applytoSubAction">
-      <input type="checkbox" name="apply_commentable_on_sub">
+      <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="apply_commentable_on_sub"></label>
       {'Apply to sub-albums'|@translate}
     </label>
   </p>
