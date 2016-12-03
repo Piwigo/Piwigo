@@ -103,6 +103,12 @@ if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
   @ini_set('display_errors', true);
 }
 
+if ($conf['session_gc_probability'] > 0)
+{
+  @ini_set('session.gc_divisor', 100);
+  @ini_set('session.gc_probability', min((int)$conf['session_gc_probability'], 100));
+}
+
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.class.php');

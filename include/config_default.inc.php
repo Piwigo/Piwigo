@@ -422,6 +422,12 @@ $conf['session_length'] = 3600;
 // address
 $conf['session_use_ip_address'] = true;
 
+// Probability, on each page generated, to launch session garbage
+// collector. Integer value between 1 and 100, in %. 0 to disable and let
+// the system default behavior (on Debian-like, it's "never delete
+// session").
+$conf['session_gc_probability'] = 1;
+
 // +-----------------------------------------------------------------------+
 // |                            debug/performance                          |
 // +-----------------------------------------------------------------------+
