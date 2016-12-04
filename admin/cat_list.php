@@ -225,7 +225,8 @@ elseif (isset($_POST['submitAdd']))
   }
   else
   {
-    $page['infos'][] = $output_create['info'];
+    $edit_url = get_root_url().'admin.php?page=album-'.$output_create['id'];
+    $page['infos'][] = $output_create['info'].' <a class="icon-pencil" href="'.$edit_url.'">'.l10n('Edit album').'</a>';
   }
 }
 // save manual category ordering
