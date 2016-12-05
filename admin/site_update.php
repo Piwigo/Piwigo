@@ -424,6 +424,48 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
     $counts['new_categories'] = count($inserts);
   }
 
+  // Scan all directories for description file and insert its contents into name and comment field
+  // A directory description files contains a name and a comment for the directory
+  // which are inserted into the respective fields of the category table entires
+  // of Piwigo. The name is given in line 1. The comment is given in the lines 3
+  // and below. Line 2 must be empty. If only line 1 is given, the name is set and
+  // the comment is untouched.
+  // The index file is always named "00_index.txt".
+  foreach ($fs_fulldirs as $fulldir)
+  {
+    $dir = basename($fulldir);
+    if (preg_match($conf['sync_chars_regex'], $dir))
+    {
+      // read name and comment for directory from file
+      $dirdatafile=$fulldir.'/00_index.txt';
+      if (file_exists($dirdatafile))
+      {
+        $lines=file($dirdatafile);
+        if (count($lines)>0)
+          $explicitname = trim($lines[0]);
+        else
+          $explicitname = '';
+        if (count($lines)>2 && trim($lines[1])==false)
+          $comment=implode(array_slice($lines,2));
+        else
+          $comment='';
+        if (!(empty($explicitname) && empty($comment))) {
+          if (array_key_exists(dirname($fulldir),$db_fulldirs))
+            $parent=$db_fulldirs[dirname($fulldir)];
+          else
+            $parent='null';
+          $id_result=pwg_query('SELECT id from '.CATEGORIES_TABLE.' where dir=\''.$dir.'\' and id_uppercat'.($parent=='null'?' is ':'=').$parent);
+          if ($row = pwg_db_fetch_assoc($id_result)) {
+            if (!empty($explicitname))
+              pwg_query('UPDATE '.CATEGORIES_TABLE.' set name=\''.pwg_db_real_escape_string($explicitname).'\' where id='.$row['id']);
+            if (!empty($comment))
+              pwg_query('UPDATE '.CATEGORIES_TABLE.' set comment=\''.pwg_db_real_escape_string($comment).'\' where id='.$row['id']);
+          }
+        }
+      }
+    }
+  }
+
   // to delete categories
   $to_delete = array();
   $to_delete_derivative_dirs = array();
