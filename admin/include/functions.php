@@ -1365,9 +1365,26 @@ function create_virtual_category($category_name, $parent_id=null, $options=array
     return array('error' => l10n('The name of an album must not be empty'));
   }
 
+  $rank = 0;
+  if ('last' == $conf['newcat_default_position'])
+  {
+    //what is the current higher rank for this parent?
+    $query = '
+SELECT MAX(rank) AS max_rank
+  FROM '. CATEGORIES_TABLE .'
+  WHERE id_uppercat '.(empty($parent_id) ? 'IS NULL' : '= '.$parent_id).' 
+;';
+    $row = pwg_db_fetch_assoc(pwg_query($query));
+
+    if (is_numeric($row['max_rank']))
+    {
+      $rank = $row['max_rank'] + 1;
+    }
+  }
+
   $insert = array(
     'name' => $category_name,
-    'rank' => 0,
+    'rank' => $rank,
     'global_rank' => 0,
     );
 
