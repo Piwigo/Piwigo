@@ -195,7 +195,7 @@ function ws_addDefaultMethods( $arr )
                                 'type'=>WS_TYPE_BOOL),
         'thumbnail_size' => array(
           'default' => IMG_THUMB,
-          'info' => 'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge'
+          'info' => implode(',', array_keys(ImageStdParams::get_defined_type_map()))
           ),
         ),
       'Returns a list of categories.',
