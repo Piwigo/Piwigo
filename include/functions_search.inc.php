@@ -389,15 +389,21 @@ class QNumericRangeScope extends QSearchScope
         $val = floatval($matches[1]);
         if (isset($matches[2]))
         {
+          $mult = 1;
           if ($matches[2]=='k' || $matches[2]=='K')
-          {
-            $val *= 1000;
-            if ($i) $val += 999;
-          }
-          if ($matches[2]=='m' || $matches[2]=='M')
-          {
-            $val *= 1000000;
-            if ($i) $val += 999999;
+            $mult = 1000;
+          else
+            $mult = 1000000;
+          $val *= $mult;
+          if ($i && !$strict[1])
+          {// round up the upper limit if possible - e.g 6k goes up to 6999, but 6.12k goes only up to 6129
+            if ( ($dot_pos = strpos($matches[1], '.')) !== false )
+            {
+              $requested_precision = strlen($matches[1]) - $dot_pos - 1;
+              $mult /= pow(10, $requested_precision);
+            }
+            if ($mult>1)
+              $val += $mult-1;
           }
         }
       }
