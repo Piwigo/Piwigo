@@ -37,7 +37,7 @@ $redirect_to = '';
 if ( !empty($_GET['redirect']) )
 {
   $redirect_to = urldecode($_GET['redirect']);
-  if ( is_a_guest() )
+  if ( is_a_guest() and $conf['guest_access'] )
   {
     $page['errors'][] = l10n('You are not authorized to access the requested page');
   }
