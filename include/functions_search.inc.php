@@ -359,6 +359,7 @@ class QNumericRangeScope extends QSearchScope
   {
     $str = $token->term;
     $strict = array(0,0);
+    $range_requested = true;
     if ( ($pos = strpos($str, '..')) !== false)
       $range = array( substr($str,0,$pos), substr($str, $pos+2));
     elseif ('>' == @$str[0])// ratio:>1
@@ -376,7 +377,10 @@ class QNumericRangeScope extends QSearchScope
     elseif( ($token->modifier & QST_WILDCARD_END) )
       $range = array($str, '');
     else
+    {
       $range = array($str, $str);
+      $range_requested = false;
+    }
 
     foreach ($range as $i =>&$val)
     {
@@ -395,7 +399,7 @@ class QNumericRangeScope extends QSearchScope
           else
             $mult = 1000000;
           $val *= $mult;
-          if ($i && !$strict[1])
+          if ($i && !$range_requested)
           {// round up the upper limit if possible - e.g 6k goes up to 6999, but 6.12k goes only up to 6129
             if ( ($dot_pos = strpos($matches[1], '.')) !== false )
             {
