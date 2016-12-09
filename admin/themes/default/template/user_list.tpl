@@ -93,7 +93,7 @@ jQuery(document).ready(function() {
         jQuery("#addUserForm .loading").show();
       },
       success:function(data) {
-        oTable.draw();
+        oTable.api().draw();
         jQuery("#addUserForm .loading").hide();
 
         var data = jQuery.parseJSON(data);
@@ -584,7 +584,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
       title:"{/literal}{'Edit user'|translate}{literal}",
       href:".user_form_popin",
       onClosed: function() {
-        oTable.draw();
+        oTable.api().draw();
       }
     });
 
@@ -825,7 +825,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
         jQuery("#applyActionLoading").show();
       },
       success:function(data) {
-        oTable.draw();
+        oTable.api().draw();
         jQuery("#applyActionLoading").hide();
         jQuery("#applyActionBlock .infos").show();
 
