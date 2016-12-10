@@ -16,7 +16,7 @@ jQuery.fn.fontCheckbox = function() {
     }
   });
   this.find('input[type=radio]').on('change', function() {
-    jQuery('.font-checkbox input[type=radio][name='+ jQuery(this).attr('name') +']').each(function() {
+    jQuery('.font-checkbox input[type=radio][name="'+ jQuery(this).attr('name') +'"]').each(function() {
       jQuery(this).prev().removeClass();
       if (!jQuery(this).is(':checked')) {
         jQuery(this).prev().addClass('icon-circle-empty');
