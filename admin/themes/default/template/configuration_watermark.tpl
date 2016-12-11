@@ -85,14 +85,14 @@
         <label>{'Position'|translate}</label>
         <br>
         <div id="watermarkPositionBox">
-          <label class="right">{'top right corner'|translate} <input name="w[position]" type="radio" value="topright"{if $watermark.position eq 'topright'} checked="checked"{/if}></label>
-          <label><input name="w[position]" type="radio" value="topleft"{if $watermark.position eq 'topleft'} checked="checked"{/if}> {'top left corner'|translate}</label>
-          <label class="middle"><input name="w[position]" type="radio" value="middle"{if $watermark.position eq 'middle'} checked="checked"{/if}> {'middle'|translate}</label>
-          <label class="right">{'bottom right corner'|translate} <input name="w[position]" type="radio" value="bottomright"{if $watermark.position eq 'bottomright'} checked="checked"{/if}></label>
-          <label><input name="w[position]" type="radio" value="bottomleft"{if $watermark.position eq 'bottomleft'} checked="checked"{/if}> {'bottom left corner'|translate}</label>
+          <label class="right font-checkbox">{'top right corner'|translate} <span class="icon-dot-circled"></span><input name="w[position]" type="radio" value="topright"{if $watermark.position eq 'topright'} checked="checked"{/if}></label>
+          <label class="font-checkbox"><span class="icon-dot-circled"></span><input name="w[position]" type="radio" value="topleft"{if $watermark.position eq 'topleft'} checked="checked"{/if}> {'top left corner'|translate}</label>
+          <label class="middle font-checkbox"><span class="icon-dot-circled"></span><input name="w[position]" type="radio" value="middle"{if $watermark.position eq 'middle'} checked="checked"{/if}> {'middle'|translate}</label>
+          <label class="right font-checkbox">{'bottom right corner'|translate} <span class="icon-dot-circled"></span><input name="w[position]" type="radio" value="bottomright"{if $watermark.position eq 'bottomright'} checked="checked"{/if}></label>
+          <label class="font-checkbox"><span class="icon-dot-circled"></span><input name="w[position]" type="radio" value="bottomleft"{if $watermark.position eq 'bottomleft'} checked="checked"{/if}> {'bottom left corner'|translate}</label>
         </div>
 
-        <label style="display:block;margin-top:10px;font-weight:normal;"><input name="w[position]" type="radio" value="custom"{if $watermark.position eq 'custom'} checked="checked"{/if}> {'custom'|translate}</label>
+        <label class="font-checkbox" style="display:block;margin-top:10px;font-weight:normal;"><span class="icon-dot-circled"></span><input name="w[position]" type="radio" value="custom"{if $watermark.position eq 'custom'} checked="checked"{/if}> {'custom'|translate}</label>
 
         <div id="positionCustomDetails">
           <label>{'X Position'|translate}

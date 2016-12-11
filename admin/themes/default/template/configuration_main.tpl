@@ -189,9 +189,9 @@ jQuery("input[name='mail_theme']").change(function() {
         <div class="themeBoxes font-checkbox">
         {foreach from=$main.mail_theme_options item=name key=theme}
           <div class="themeBox {if $main.mail_theme==$theme}themeDefault{/if}">
-            <label>
+            <label class="font-checkbox">
               <div class="themeName">
-                <span class="icon-check"></span>
+                <span class="icon-dot-circled"></span>
                 <input type="radio" name="mail_theme" value="{$theme}" {if $main.mail_theme==$theme}checked{/if}>
                 {$name}
               </div>
@@ -199,7 +199,7 @@ jQuery("input[name='mail_theme']").change(function() {
                 <img src="{$ROOT_URL}themes/default/template/mail/screenshot-{$theme}.png" width="150"/>
               </div>
             </label>
-            <a href="{$ROOT_URL}themes/default/template/mail/screenshot-{$theme}.png">{'Preview'|translate}</a>
+            <a href="{$ROOT_URL}themes/default/template/mail/screenshot-{$theme}.png" class="icon-zoom-in">{'Preview'|translate}</a>
           </div>
         {/foreach}
         </div>
