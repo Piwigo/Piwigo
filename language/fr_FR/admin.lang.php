@@ -1001,3 +1001,4 @@ $lang['delete album and all %d photos, even the %d associated to other albums'] 
 $lang['delete album and the %d orphan photos'] = 'supprimer l\'album et les %d photos orphelines';
 $lang['delete only album, not photos'] = 'supprimer uniquement l\'album, pas les photos';
 $lang['Confirm deletion'] = 'Confirmer la suppression';
+$lang['checksum'] = 'somme de contrôle';

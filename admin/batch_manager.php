@@ -99,14 +99,29 @@ if (isset($_POST['submitFilter']))
 
     if ('duplicates' == $_POST['filter_prefilter'])
     {
+      $has_options = false;
+
+      if (isset($_POST['filter_duplicates_checksum']))
+      {
+        $_SESSION['bulk_manager_filter']['duplicates_checksum'] = true;
+        $has_options = true;
+      }
+
       if (isset($_POST['filter_duplicates_date']))
       {
         $_SESSION['bulk_manager_filter']['duplicates_date'] = true;
+        $has_options = true;
       }
       
       if (isset($_POST['filter_duplicates_dimensions']))
       {
         $_SESSION['bulk_manager_filter']['duplicates_dimensions'] = true;
+        $has_options = true;
+      }
+
+      if (!$has_options or isset($_POST['filter_duplicates_filename']))
+      {
+        $_SESSION['bulk_manager_filter']['duplicates_filename'] = true;
       }
     }
   }
@@ -357,7 +372,17 @@ SELECT
 
 
   case 'duplicates':
-    $duplicates_on_fields = array('file');
+    $duplicates_on_fields = array();
+
+    if (isset($_SESSION['bulk_manager_filter']['duplicates_filename']))
+    {
+      $duplicates_on_fields[] = 'file';
+    }
+
+    if (isset($_SESSION['bulk_manager_filter']['duplicates_checksum']))
+    {
+      $duplicates_on_fields[] = 'md5sum';
+    }
 
     if (isset($_SESSION['bulk_manager_filter']['duplicates_date']))
     {
