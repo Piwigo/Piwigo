@@ -288,8 +288,34 @@ color:transparent;}
 .languageName {color:#ccc;}
 .languageDefault {background-color:#555; color:#aaa;}
 
-#batchManagerGlobal .thumbSelected {background-color:#555 !important}
-#batchManagerGlobal #selectedMessage {background-color:#555; color:#ddd;}
+/* Batch Manager */
+#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {
+  color:#777;
+}
+
+#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before {
+  color:white;
+}
+
+#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
+  color:white;
+}
+
+#batchManagerGlobal UL.thumbnails li:hover .wrap2 {
+  background-color: #ff3363;
+  color: white;
+}
+
+#batchManagerGlobal .thumbSelected { background-color:transparent !important }
+
+#batchManagerGlobal .thumbSelected .wrap2 {
+  background-color: #555 !important;
+}
+
+#batchManagerGlobal #selectedMessage {
+  background-color: #555;
+  color:white;
+}
 
 /* TokenInput (with Facebook style for ROMA) */
 ul.token-input-list {border-color:#666 !important;background-color:#444 !important;}

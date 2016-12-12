@@ -153,16 +153,16 @@ $(document).ready(function() {
   $(".wrap1 label").click(function (event) {
     $("input[name=setSelected]").prop('checked', false);
 
-    var wrap2 = $(this).children(".wrap2");
+    var li = $(this).closest("li");
     var checkbox = $(this).children("input[type=checkbox]");
 
     checkbox.triggerHandler("shclick",event);
 
     if ($(checkbox).is(':checked')) {
-      $(wrap2).addClass("thumbSelected");
+      $(li).addClass("thumbSelected");
     }
     else {
-      $(wrap2).removeClass('thumbSelected');
+      $(li).removeClass('thumbSelected');
     }
 
     checkPermitAction();
@@ -177,11 +177,10 @@ $(document).ready(function() {
 
   function selectPageThumbnails() {
     $(".thumbnails label").each(function() {
-      var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).prop('checked', true);
-      $(wrap2).addClass("thumbSelected");
+      $(checkbox).prop('checked', true).trigger("change");
+      $(this).closest("li").addClass("thumbSelected");
     });
   }
 
@@ -189,11 +188,13 @@ $(document).ready(function() {
     $("input[name=setSelected]").prop('checked', false);
 
     $(".thumbnails label").each(function() {
-      var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).prop('checked', false);
-      $(wrap2).removeClass("thumbSelected");
+      if (jQuery(checkbox).is(':checked')) {
+        $(checkbox).prop('checked', false).trigger("change");
+      }
+
+      $(this).closest("li").removeClass("thumbSelected");
     });
     checkPermitAction();
     return false;
@@ -203,16 +204,15 @@ $(document).ready(function() {
     $("input[name=setSelected]").prop('checked', false);
 
     $(".thumbnails label").each(function() {
-      var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).prop('checked', !$(checkbox).is(':checked'));
+      $(checkbox).prop('checked', !$(checkbox).is(':checked')).trigger("change");
 
       if ($(checkbox).is(':checked')) {
-        $(wrap2).addClass("thumbSelected");
+        $(this).closest("li").addClass("thumbSelected");
       }
       else {
-        $(wrap2).removeClass('thumbSelected');
+        $(this).closest("li").removeClass('thumbSelected');
       }
     });
     checkPermitAction();
@@ -515,11 +515,11 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 		{/html_style}
 		{foreach from=$thumbnails item=thumbnail}
 		{assign var='isSelected' value=$thumbnail.id|@in_array:$selection}
-		<li>
+		<li{if $isSelected} class="thumbSelected"{/if}>
 			<span class="wrap1">
-				<label>
-					<input type="checkbox" name="selection[]" value="{$thumbnail.id}" {if $isSelected}checked="checked"{/if}>
-					<span class="wrap2{if $isSelected} thumbSelected{/if}">
+				<label class="font-checkbox">
+					<span class="icon-check"></span><input type="checkbox" name="selection[]" value="{$thumbnail.id}" {if $isSelected}checked="checked"{/if}>
+					<span class="wrap2">
 					<div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> &middot; <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
 						{if $thumbnail.level > 0}
 						<em class="levelIndicatorB">{'Level %d'|@sprintf:$thumbnail.level|@translate}</em>

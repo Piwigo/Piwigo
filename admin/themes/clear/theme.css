@@ -307,8 +307,36 @@ INPUT[type="text"].large  { width: 317px; }
 
 UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
-#batchManagerGlobal .thumbSelected {background-color:#C2F5C2 !important}
-#batchManagerGlobal #selectedMessage {background-color:#C2F5C2;}
+/* Batch Manager */
+#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {
+  color:#999;
+}
+
+#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before {
+  color:white;
+}
+
+#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
+  color:white;
+}
+
+#batchManagerGlobal UL.thumbnails li:hover .wrap2 {
+  background-color: #ff7700;
+  color: #999;
+}
+
+#batchManagerGlobal .thumbSelected { background-color:transparent !important }
+
+#batchManagerGlobal .thumbSelected .wrap2 {
+  background-color: #444 !important;
+}
+
+#batchManagerGlobal #selectedMessage {
+  background-color: #555;
+  color:white;
+}
+
+
 .slider-info {color:#ff7700;font-weight:bold;}
 
 .selectedComment {background-color:#C2F5C2;}
