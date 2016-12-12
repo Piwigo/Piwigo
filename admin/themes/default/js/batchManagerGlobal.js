@@ -72,14 +72,14 @@ jQuery(document).ready(function() {
 
 					for (var i=first; i<=last;i++) {
 						input = $(inputs[i]);
-						$(input).prop('checked', last_clickedstatus);
+						$(input).prop('checked', last_clickedstatus).trigger("change");
 						if (last_clickedstatus)
 						{
-							$(input).siblings("span.wrap2").addClass("thumbSelected");
+							$(input).closest("li").addClass("thumbSelected");
 						}
 						else
 						{
-							$(input).siblings("span.wrap2").removeClass("thumbSelected");
+							$(input).closest("li").removeClass("thumbSelected");
 						}
 					}
 				}
