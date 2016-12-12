@@ -6,7 +6,13 @@ jQuery.fn.fontCheckbox = function() {
     }
   });
   this.find('input[type=checkbox]').on('change', function() {
-    jQuery(this).prev().toggleClass('icon-check icon-check-empty');
+    jQuery(this).prev().removeClass();
+    if (!jQuery(this).is(':checked')) {
+      jQuery(this).prev().addClass('icon-check-empty');
+    }
+    else {
+      jQuery(this).prev().addClass('icon-check');
+    }
   });
 
   /* radio */
