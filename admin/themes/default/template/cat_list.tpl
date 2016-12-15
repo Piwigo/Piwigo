@@ -58,9 +58,9 @@ jQuery(document).ready(function(){
 
 <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Album list management'|@translate}</h2>
 <p class="showCreateAlbum" id="notManualOrder">
-  <a href="#" id="addAlbumOpen">{'create a new album'|@translate}</a>
-  {if count($categories)}| <a href="#" id="autoOrderOpen">{'apply automatic sort order'|@translate}</a>{/if}
-  {if ($PARENT_EDIT)}| <a href="{$PARENT_EDIT}"></span>{'edit'|@translate}</a>{/if}
+  <a href="#" id="addAlbumOpen" class="icon-plus-circled">{'create a new album'|@translate}</a>
+  {if count($categories)}<span class="userSeparator">&middot;</span><a href="#" id="autoOrderOpen" class="icon-sort-number-up">{'apply automatic sort order'|@translate}</a>{/if}
+  {if ($PARENT_EDIT)}<span class="userSeparator">&middot;</span><a href="{$PARENT_EDIT}" class="icon-pencil"></span>{'edit'|@translate}</a>{/if}
 </p>
 <form id="formCreateAlbum" action="{$F_ACTION}" method="post" style="display:none;">
   <fieldset class="with-border">
@@ -73,8 +73,11 @@ jQuery(document).ready(function(){
       </p>
       
       <p class="actionButtons">
-        <input class="submit" name="submitAdd" type="submit" value="{'Create'|@translate}">
-        <a href="#" id="addAlbumClose">{'Cancel'|@translate}</a>
+        <button name="submitAdd" type="submit" class="buttonLike">
+          <i class="icon-plus-circled"></i> {'Create'|translate}
+        </button>
+
+        <a href="#" id="addAlbumClose" class="icon-cancel-circled">{'Cancel'|@translate}</a>
       </p>
   </fieldset>
 </form>
@@ -95,8 +98,10 @@ jQuery(document).ready(function(){
     </p>
   
     <p class="actionButtons">
-      <input class="submit" name="submitAutoOrder" type="submit" value="{'Save order'|@translate}">
-      <a href="#" id="autoOrderClose">{'Cancel'|@translate}</a>
+      <button name="submitAutoOrder" type="submit" class="buttonLike">
+        <i class="icon-floppy"></i> {'Save order'|translate}
+      </button>
+      <a href="#" id="autoOrderClose" class="icon-cancel-circled">{'Cancel'|@translate}</a>
     </p>
   </fieldset>
 </form>

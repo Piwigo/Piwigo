@@ -95,7 +95,9 @@ jQuery('.thumbnail').tipTip({
       </div>
   </fieldset>
   <p>
-    <input type="submit" value="{'Submit'|@translate}" name="submit">
+    <button name="submit" type="submit" class="buttonLike">
+      <i class="icon-floppy"></i> {'Save Settings'|@translate}
+    </button>
 
     <label class="font-checkbox">
       <span class="icon-check"></span>

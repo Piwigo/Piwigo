@@ -23,10 +23,13 @@
       <input type="text" name="display" size="2" value="{$DISPLAY}">
     </label>
 
-    <label>
-      &nbsp;
-    <input class="submit" type="submit" value="{'Submit'|@translate}">
-    </label>
+    <div style="clear:both"></div>
+
+    <p style="margin:10px 0 0 0">
+      <button name="submit" type="submit" class="buttonLike">
+        <i class="icon-filter"></i> {'Submit'|translate}
+      </button>
+    </p>
     <input type="hidden" name="page" value="rating">
   </fieldset>
 </form>

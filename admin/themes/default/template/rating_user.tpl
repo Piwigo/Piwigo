@@ -54,10 +54,16 @@ body .ui-tooltip {
 	<label>{'Consensus deviation'|@translate}
 	<input type="text" size="5" name="consensus_top_number" value="{$CONSENSUS_TOP_NUMBER}">
 	{'Best rated'|@translate}
+
 	</label>
 
-	<input type="submit" value="{'Submit'|@translate}">
-	</label>
+  <div style="clear:both"></div>
+
+  <p style="margin:10px 0 0 0">
+    <button name="submit" type="submit" class="buttonLike">
+      <i class="icon-filter"></i> {'Submit'|translate}
+    </button>
+  </p>
 	<input type="hidden" name="page" value="rating_user">
 </fieldset>
 </form>

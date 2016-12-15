@@ -3,7 +3,7 @@
 
 {html_style}
 .showInfo { text-indent:5px; }
-.buttonLike i { font-size:14px; }
+form fieldset p { margin-left:0; }
 {/html_style}
 
 {footer_script require='jquery'}
@@ -320,7 +320,10 @@ jQuery("input[name=confirm_deletion]").change(function() {
         </span>
 
         <p id="applyActionBlock" style="display:none" class="actionButtons">
-          <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name=""> <span id="applyOnDetails"></span>
+          <button id="applyAction" name="submit" type="submit" class="buttonLike">
+            <i class="icon-trash"></i> {'Apply action'|translate} {* icon-trash because the only action is deletion *}
+          </button>
+          <span id="applyOnDetails"></span>
         </p>
       </div> {* #permitAction *}
   </fieldset>

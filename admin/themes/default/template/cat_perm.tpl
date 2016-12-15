@@ -171,7 +171,10 @@ jQuery("#selectStatus").change(function() {
 </fieldset>
 
   <p style="margin:12px;text-align:left;">
-    <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
+    <button name="submit" type="submit" class="buttonLike">
+      <i class="icon-floppy"></i> {'Save Settings'|@translate}
+    </button>
+
     <label id="applytoSubAction" style="display:none;" class="font-checkbox">
       <span class="icon-check"></span>
       <input type="checkbox" name="apply_on_sub" {if $INHERIT}checked="checked"{/if}>

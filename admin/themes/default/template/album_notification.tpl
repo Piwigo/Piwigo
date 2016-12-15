@@ -117,7 +117,9 @@ span.errors {
 {/if}
 
   <p class="actionButtons">
-    <input class="submit" type="submit" value="{'Send'|@translate}" name="submitEmail">
+    <button name="submitEmail" type="submit" class="buttonLike">
+      <i class="icon-mail"></i> {'Send'|translate}
+    </button>
     <span class="errors" style="display:none">&#x2718; {'No recipient selected'|translate}</span>
   </p>
 
