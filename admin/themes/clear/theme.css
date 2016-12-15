@@ -350,10 +350,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   border:none;
   background-color:#666;
   color:#fff;
-  padding:2px 5px;
-  -moz-border-radius:5px;
-  -webkit-border-radius:5px;
-  border-radius:5px;
+  padding:4px 7px;
   margin-left:0;
 }
 
@@ -362,6 +359,10 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   background-color: #ff7700;
   color: white;
 	text-decoration: none;
+}
+
+.buttonLike i {
+  font-size:14px;
 }
 
 .buttonLike:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
