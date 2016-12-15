@@ -478,7 +478,9 @@ var sliders = {
     </p>
 
     <p class="actionButtons" id="applyFilterBlock">
-      <input id="applyFilter" class="submit" type="submit" value="{'Refresh photo set'|@translate}" name="submitFilter">
+      <button id="applyFilter" name="submitFilter" type="submit" class="buttonLike">
+        <i class="icon-arrows-cw"></i> {'Refresh photo set'|@translate}
+      </button>
     </p>
 
   </fieldset>
@@ -703,7 +705,12 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 {/if}
 
     <p id="applyActionBlock" style="display:none" class="actionButtons">
-      <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit"> <span id="applyOnDetails"></span></p>
+      <button id="applyACtion" name="submit" type="submit" class="buttonLike">
+        <i class="icon-cog-alt"></i> {'Apply action'|translate}
+      </button>
+
+      <span id="applyOnDetails"></span>
+    </p>
 
     </div> <!-- #permitAction -->
   </fieldset>
