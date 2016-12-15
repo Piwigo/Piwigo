@@ -438,3 +438,20 @@ table.dataTable thead th {
 }
 
 .font-checkbox [class*=icon-check]:before { color:#444; }
+
+/* beta-test begins: specific changes on album edition page*/
+#catModify input[type="text"], #catModify textarea {
+  border: 2px solid #ddd;
+  background-color:#fff;
+  padding:5px;
+}
+
+#catModify input[type="text"].large, #catModify textarea.description {
+  width:590px;
+}
+
+#catModify input[type="text"]:focus, #catModify textarea:focus {
+  border-color: #ff7700;
+  background-color:#fff;
+}
+/* beta-test ends */
