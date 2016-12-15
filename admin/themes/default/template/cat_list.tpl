@@ -1,3 +1,5 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function(){
   jQuery(".drag_button").show();
@@ -89,12 +91,19 @@ jQuery(document).ready(function(){
     
     <p><strong>{'Sort order'|@translate}</strong>
   {foreach from=$sort_orders key=sort_code item=sort_label}
-      <br><label><input type="radio" value="{$sort_code}" name="order_by" {if $sort_code eq $sort_order_checked}checked="checked"{/if}> {$sort_label}</label>
+      <br>
+      <label class="font-checkbox">
+        <span class="icon-dot-circled"></span>
+        <input type="radio" value="{$sort_code}" name="order_by" {if $sort_code eq $sort_order_checked}checked="checked"{/if}> {$sort_label}
+      </label>
   {/foreach}
     </p>
   
     <p>
-      <label><input type="checkbox" name="recursive"> <strong>{'Apply to sub-albums'|@translate}</strong></label>
+      <label class="font-checkbox">
+        <span class="icon-check"></span>
+        <input type="checkbox" name="recursive"> <strong>{'Apply to sub-albums'|@translate}</strong>
+      </label>
     </p>
   
     <p class="actionButtons">
