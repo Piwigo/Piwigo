@@ -336,6 +336,18 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   color:white;
 }
 
+/* beta-test begins: specific changes on Batch Manager */
+#batchManagerGlobal legend {
+  background-color:#ddd;
+  color:#555;
+  padding:5px 10px;
+}
+
+#batchManagerGlobal fieldset {
+  margin-top:2em;
+}
+/* beta-test ends */
+
 
 .slider-info {color:#ff7700;font-weight:bold;}
 
