@@ -138,15 +138,15 @@ jQuery(document).ready(function(){
 
       <p class="albumActions">
         <a href="{$category.U_EDIT}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
-        | <a href="{$category.U_CHILDREN}"><span class="icon-sitemap"></span>{'manage sub-albums'|@translate}</a>
+        <span class="userSeparator">&middot;</span><a href="{$category.U_CHILDREN}"><span class="icon-sitemap"></span>{'manage sub-albums'|@translate}</a>
         {if isset($category.U_SYNC) }
-        | <a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>
+        <span class="userSeparator">&middot;</span><a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>
         {/if}
         {if isset($category.U_DELETE) }
-        | <a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><span class="icon-trash"></span>{'delete album'|@translate}</a>
+        <span class="userSeparator">&middot;</span><a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><span class="icon-trash"></span>{'delete album'|@translate}</a>
       {/if}
       {if cat_admin_access($category.ID)}
-        | <a href="{$category.U_JUMPTO}">{'jump to album'|@translate} →</a>
+        <span class="userSeparator">&middot;</span><a href="{$category.U_JUMPTO}">{'jump to album'|@translate} →</a>
       {/if}
       </p>
 
