@@ -149,10 +149,6 @@ jQuery(document).ready(function() {
   margin:10px 0;
 }
 
-.buttonLike i {
-  font-size:14px;
-}
-
 .delete_popin .buttonLike {
   padding:5px;
   margin-right:10px;
