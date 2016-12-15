@@ -1,3 +1,5 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function() {
   function checkOrderOptions() {
@@ -63,16 +65,25 @@ jQuery('.thumbnail').tipTip({
   <fieldset>
     <legend>{'Sort order'|@translate}</legend>
     <p class="field">
-      <input type="radio" name="image_order_choice" id="image_order_default" value="default"{if $image_order_choice=='default'} checked="checked"{/if}>
-      <label for="image_order_default">{'Use the default photo sort order'|@translate}</label>
+      <label class="font-checkbox">
+        <span class="icon-dot-circled"></span>
+        <input type="radio" name="image_order_choice" id="image_order_default" value="default"{if $image_order_choice=='default'} checked="checked"{/if}>
+        {'Use the default photo sort order'|@translate}
+      </label>
     </p>
     <p class="field">
-      <input type="radio" name="image_order_choice" id="image_order_rank" value="rank"{if $image_order_choice=='rank'} checked="checked"{/if}>
-      <label for="image_order_rank">{'manual order'|@translate}</label>
+      <label class="font-checkbox">
+        <span class="icon-dot-circled"></span>
+        <input type="radio" name="image_order_choice" id="image_order_rank" value="rank"{if $image_order_choice=='rank'} checked="checked"{/if}>
+        {'manual order'|translate}
+      </label>
     </p>
     <p class="field">
-      <input type="radio" name="image_order_choice" id="image_order_user_define" value="user_define"{if $image_order_choice=='user_define'} checked="checked"{/if}>
-      <label for="image_order_user_define">{'automatic order'|@translate}</label>
+      <label class="font-checkbox">
+        <span class="icon-dot-circled"></span>
+        <input type="radio" name="image_order_choice" id="image_order_user_define" value="user_define"{if $image_order_choice=='user_define'} checked="checked"{/if}>
+        {'automatic order'|@translate}
+      </label>
       <div id="image_order_user_define_options">
       {foreach from=$image_order item=order}
       <p class="field">
@@ -86,7 +97,8 @@ jQuery('.thumbnail').tipTip({
   <p>
     <input type="submit" value="{'Submit'|@translate}" name="submit">
 
-    <label>
+    <label class="font-checkbox">
+      <span class="icon-check"></span>
       <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
       {'Apply to sub-albums'|@translate}
     </label>
