@@ -1,16 +1,17 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 
 {footer_script}
 jQuery(document).ready(function() {
-  jQuery("select[name=who]").change(function () {
+  jQuery("input[name=who]").change(function () {
     checkWhoOptions();
   });
 
   checkWhoOptions();
 
   function checkWhoOptions() {
-    var option = jQuery("select[name=who] option:selected").val();
+    var option = jQuery("input[name=who]:checked").val();
     jQuery(".who_option").hide();
     jQuery(".who_" + option).show();
   }
@@ -21,7 +22,7 @@ jQuery(document).ready(function() {
 
   jQuery("form#categoryNotify").submit(function(e) {
     var who_selected = false;
-    var who_option = jQuery("select[name=who] option:selected").val();
+    var who_option = jQuery("input[name=who]:checked").val();
 
     if (jQuery(".who_" + who_option + " select").length > 0) {
       if (jQuery(".who_" + who_option + " select option:selected").length > 0) {
@@ -65,10 +66,17 @@ span.errors {
 
   <p>
     <strong>{'Recipients'|@translate}</strong>
-    <select name="who">
-      <option value="group">{'Group'|translate}</option>
-      <option value="users">{'Users'|translate}</option>
-    </select>
+    <label class="font-checkbox">
+      <span class="icon-dot-circled"></span>
+      <input type="radio" name="who" value="group" checked="checked">
+      {'Group'|translate}
+    </label>
+
+    <label class="font-checkbox">
+      <span class="icon-dot-circled"></span>
+      <input type="radio" name="who" value="users">
+      {'Users'|translate}
+    </label>
   </p>
 
   <p class="who_option who_group">
