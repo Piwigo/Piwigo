@@ -302,7 +302,11 @@ jQuery("input[name=confirm_deletion]").change(function() {
         <!-- delete -->
         <div id="action_delete" class="bulkAction">
           <p>
-            <label><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label>
+            <label class="font-checkbox">
+              <span class="icon-check"></span>
+              <input type="checkbox" name="confirm_deletion" value="1">
+              {'Are you sure?'|@translate}
+            </label>
             <span class="errors" style="display:none"><i class="icon-cancel"></i> we really need you to confirm</span>
           </p>
         </div>
