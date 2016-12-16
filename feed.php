@@ -65,8 +65,21 @@ check_input_parameter('feed', $_GET, false, '/^[0-9a-z]{50}$/i');
 
 $feed_id= isset($_GET['feed']) ? $_GET['feed'] : '';
 $image_only=isset($_GET['image_only']);
+$image_random=isset($_GET['random']);
 
-// echo '<pre>'.generate_key(50).'</pre>';
+if(isset($_GET['image_random']))
+{
+ $image_random=true;
+}
+
+$add_url_params = array();
+if (isset($auth_key))
+{
+  $add_url_params['auth'] = $auth_key;
+}
+
+
+//echo '<pre>'.generate_key(50).'</pre>';
 if ( !empty($feed_id) )
 {
   $query = '
@@ -106,7 +119,7 @@ set_make_full_url();
 $rss = new UniversalFeedCreator();
 $rss->encoding=get_pwg_charset();
 $rss->title = $conf['gallery_title'];
-$rss->title.= ' (as '.stripslashes($user['username']).')';
+//$rss->title.= ' (as '.stripslashes($user['username']).')';
 
 $rss->link = get_gallery_home_url();
 
@@ -114,6 +127,69 @@ $rss->link = get_gallery_home_url();
 // |                            Feed creation                              |
 // +-----------------------------------------------------------------------+
 
+if ($image_random)
+{
+
+// Get the number of random images using the "top_image_random" variable.
+//
+$query_random = '
+SELECT *
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+      '.get_sql_condition_FandF(
+        array(
+          'forbidden_categories' => 'category_id',
+          'visible_categories' => 'category_id',
+          'visible_images' => 'id'
+        ),
+        'WHERE'
+      ).'
+    ORDER BY '.DB_RANDOM_FUNCTION.'()
+    LIMIT '.$conf['top_image_random'].'
+    ;';
+
+$images_random = query2array($query_random);
+
+
+// Create a feed item for each random image selected
+//
+foreach($images_random as $date_detail)
+{
+//var_dump($images_random);
+
+  // Get the URL images
+  $link_url = add_url_params(
+        make_picture_url(
+          array(
+            'image_id' => $date_detail['id'],
+            'image_file' => $date_detail['file'],
+            )
+          ),
+        $add_url_params
+        );
+
+  // Get the thumb
+  //$tn_src = DerivativeImage::thumb_url($date_detail);
+  $tn_src = DerivativeImage::url(IMG_MEDIUM, $date_detail);
+ 
+  $item = new FeedItem();
+  $item->date = ts_to_iso8601(datetime_to_ts($dbnow));
+  $item->title = $date_detail['name'];
+  $item->link =  $link_url;
+  $item->description = '<a href="'.$link_url.'"><img src="'.$tn_src.'"></a>';
+  $item->description .= '<br>';
+  
+  $item->descriptionHtmlSyndicated = true;
+  $item->author = $conf['rss_feed_author'];
+
+  $rss->addItem($item);
+}
+
+
+}
+
+else
+{
 $news = array();
 if (!$image_only)
 {
@@ -191,6 +267,7 @@ foreach($dates as $date_detail)
   $item->guid= sprintf('%s', 'pics-'.$date);;
 
   $rss->addItem($item);
+}
 }
 
 $fileName= PHPWG_ROOT_PATH.$conf['data_location'].'tmp';

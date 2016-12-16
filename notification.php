@@ -76,13 +76,16 @@ pwg_query($query);
 $feed_url=PHPWG_ROOT_PATH.'feed.php';
 if (is_a_guest())
 {
-  $feed_image_only_url=$feed_url;
+  //$feed_image_only_url=$feed_url;
   $feed_url .= '?feed='.$page['feed'];
+  $feed_image_only_url=$feed_url.'&amp;image_only';
+  $feed_image_only_random_url=$feed_url.'&amp;random';
 }
 else
 {
   $feed_url .= '?feed='.$page['feed'];
   $feed_image_only_url=$feed_url.'&amp;image_only';
+  $feed_image_only_random_url=$feed_url.'&amp;random';
 }
 
 // +-----------------------------------------------------------------------+
@@ -100,6 +103,7 @@ $template->assign(
   array(
     'U_FEED' => $feed_url,
     'U_FEED_IMAGE_ONLY' => $feed_image_only_url,
+    'U_FEED_IMAGE_ONLY_RANDOM' => $feed_image_only_random_url,
     )
   );
   

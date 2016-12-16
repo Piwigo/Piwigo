@@ -274,6 +274,7 @@ $lang['Photo title, A &rarr; Z'] = 'Photo title, A &rarr; Z';
 $lang['Photo title, Z &rarr; A'] = 'Photo title, Z &rarr; A';
 $lang['photo'] = "photo";
 $lang['Photos only RSS feed'] = "Photos only RSS feed";
+$lang['Random Photos RSS feed'] = "Random Photos RSS feed";
 $lang['photos posted during the last %d days'] = "photos posted during the last %d days";
 $lang['Photos posted within the last %d day.'] = "Photos posted within the last %d day only.";
 $lang['Photos posted within the last %d days.'] = "Photos posted within the last %d days only.";
