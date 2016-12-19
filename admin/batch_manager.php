@@ -593,6 +593,7 @@ $manager_link = get_root_url().'admin.php?page=batch_manager&amp;mode=';
 
 if (isset($_GET['mode']))
 {
+  check_input_parameter('mode', $_GET, false, '/^(global|unit)$/');
   $page['tab'] = $_GET['mode'];
 }
 else
