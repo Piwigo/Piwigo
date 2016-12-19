@@ -31,9 +31,14 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 $my_base_url = get_root_url().'admin.php?page=languages';
 
 if (isset($_GET['tab']))
+{
+  check_input_parameter('tab', $_GET, false, '/^(installed|update|new)$/');
   $page['tab'] = $_GET['tab'];
+}
 else
+{
   $page['tab'] = 'installed';
+}
 
 $tabsheet = new tabsheet();
 $tabsheet->set_id('languages');
