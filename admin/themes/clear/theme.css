@@ -439,6 +439,15 @@ table.dataTable thead th {
 
 .font-checkbox [class*=icon-check]:before { color:#444; }
 
+#watermarkPositionBox {
+  border:2px solid #ccc;
+  background-color:#e5e5e5;
+}
+
+#watermarkPositionBox label {
+  color:#444;
+}
+
 /* beta-test begins: specific changes on album edition page*/
 #catModify input[type="text"], #catModify textarea {
   border: 2px solid #ddd;

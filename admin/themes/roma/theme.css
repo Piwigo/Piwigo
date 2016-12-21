@@ -395,3 +395,11 @@ table.qsearch_help_table td {
 .font-checkbox [class*=icon-check]:before { color:#aaa; }
 
 #cboxLoadedContent { background-color:#222 !important; }
+
+#watermarkPositionBox {
+  background-color:#333;
+}
+
+#watermarkPositionBox label {
+  color:#aaa;
+}

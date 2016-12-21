@@ -1173,16 +1173,13 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
 /* watermark configuration screen */
 #watermarkPositionBox {
-  border:2px solid #ccc;
   width:500px;
   padding:5px;
-  background-color:#e5e5e5;
 }
 
 #watermarkPositionBox label {
   font-weight:normal;
   display:block;
-  color:#444;
 }
 
 #watermarkPositionBox label.middle {
