@@ -3050,3 +3050,36 @@ function number_format_human_readable($numbers)
 
   return number_format($numbers, 1).$readable[$index];
 }
+
+/**
+ * Get infos related to an image
+ *
+ * @since 2.9
+ * @param int $image_id
+ * @param bool $die_on_missing
+ */
+function get_image_infos($image_id, $die_on_missing=false)
+{
+  if (!is_numeric($image_id))
+  {
+    fatal_error('['.__FUNCTION__.'] invalid image identifier '.htmlentities($image_id));
+  }
+
+  $query = '
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+  $images = query2array($query);
+  if (count($images) == 0)
+  {
+    if ($die_on_missing)
+    {
+      fatal_error("photo ".$image_id." does not exist");
+    }
+
+    return null;
+  }
+
+  return $images[0];
+}

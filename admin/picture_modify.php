@@ -36,6 +36,14 @@ check_status(ACCESS_ADMINISTRATOR);
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 
+// retrieving direct information about picture. This may have been already
+// done on admin/photo.php but this page can also be accessed without
+// photo.php as proxy.
+if (!isset($page['image']))
+{
+  $page['image'] = get_image_infos($_GET['image_id'], true);
+}
+
 // represent
 $query = '
 SELECT id
@@ -200,14 +208,7 @@ SELECT
 ;';
 $tag_selection = get_taglist($query);
 
-// retrieving direct information about picture
-$query = '
-SELECT *
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$_GET['image_id'].'
-;';
-$row = pwg_db_fetch_assoc(pwg_query($query));
-
+$row = $page['image'];
 $storage_category_id = null;
 if (!empty($row['storage_category_id']))
 {
