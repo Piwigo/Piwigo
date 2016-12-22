@@ -89,7 +89,7 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['watermark'] = array('caption' => l10n('Watermark'), 'url' => $conf_link.'watermark');
       $sheets['display'] = array('caption' => l10n('Display'), 'url' => $conf_link.'display');
       $sheets['comments'] = array('caption' => l10n('Comments'), 'url' => $conf_link.'comments');
-      $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
+      // $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
       break;
 
     case 'help':
