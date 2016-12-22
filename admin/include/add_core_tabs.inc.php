@@ -114,6 +114,11 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
       break;
 
+    case 'menus':
+      global $my_base_url;
+      $sheets[''] = array('caption' => '<span class="icon-menu"></span>'.l10n('Menu Management'), 'url' => $my_base_url.'menubar');
+      break;
+
     case 'nbm':
       global $base_url;
       $sheets['param'] = array('caption' => l10n('Parameter'), 'url' => $base_url.'?page=notification_by_mail&amp;mode=param');

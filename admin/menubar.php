@@ -43,10 +43,21 @@ function make_consecutive( &$orders, $step=50 )
   }
 }
 
-
-global $template;
-
 include_once(PHPWG_ROOT_PATH.'include/block.class.php');
+
+// +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+
+$my_base_url = get_root_url().'admin.php?page=';
+
+$tabsheet = new tabsheet();
+$tabsheet->set_id('menus');
+$tabsheet->select('');
+$tabsheet->assign();
+
 
 $menu = new BlockManager('menubar');
 $menu->load_registered_blocks();
@@ -63,18 +74,6 @@ foreach ($mb_conf as $id => $pos)
   if (!isset($reg_blocks[$id]))
     unset($mb_conf[$id]);
 }
-
-if ( isset($_POST['reset']))
-{
-  $mb_conf = array();
-  $query = '
-UPDATE '.CONFIG_TABLE.'
-  SET value=\'\'
-  WHERE param=\'blk_'.addslashes($menu->get_id()).'\'
-  LIMIT 1';
-  pwg_query($query);
-}
-
 
 $idx=1;
 foreach ($reg_blocks as $id => $block)

@@ -1,3 +1,5 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function(){
 	jQuery(".menuPos").hide();
@@ -25,6 +27,12 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
+{html_style}
+.font-checkbox i {
+  margin-left:5px;
+}
+{/html_style}
+
 <div class="titrePage">
   <h2>{'Menu Management'|@translate}</h2>
 </div>
@@ -35,7 +43,7 @@ jQuery(document).ready(function(){
     <li class="menuLi {if $block.pos<0}menuLi_hidden{/if}" id="menu_{$block.reg->get_id()}">
       <p>
         <span>
-          <strong>{'Hide'|@translate} <input type="checkbox" name="hide_{$block.reg->get_id()}" {if $block.pos<0}checked="checked"{/if}></strong>
+          <label class="font-checkbox"><strong>{'Hide'|@translate}</strong><i class="icon-check"></i><input type="checkbox" name="hide_{$block.reg->get_id()}" {if $block.pos<0}checked="checked"{/if}></label>
         </span>
 
         <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
@@ -58,8 +66,9 @@ jQuery(document).ready(function(){
     {/foreach}
   </ul>
   <p class="menuSubmit">
-    <input type="submit" name="submit" value="{'Submit'|@translate}">
-    <input type="submit" name="reset" value="{'Reset'|@translate}">
+    <button name="submit" type="submit" class="buttonLike">
+      <i class="icon-floppy"></i> {'Save Settings'|@translate}
+    </button>
   </p>
 
 </form>
