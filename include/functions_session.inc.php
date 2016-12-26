@@ -145,15 +145,11 @@ SELECT data
   WHERE id = \''.get_remote_addr_session_hash().$session_id.'\'
 ;';
   $result = pwg_query($query);
-  if ($result)
+  if ( ($row = pwg_db_fetch_assoc($result)) )
   {
-    $row = pwg_db_fetch_assoc($result);
     return $row['data'];
   }
-  else
-  {
-    return '';
-  }
+  return '';
 }
 
 /**
