@@ -705,7 +705,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 {/if}
 
     <p id="applyActionBlock" style="display:none" class="actionButtons">
-      <button id="applyACtion" name="submit" type="submit" class="buttonLike">
+      <button id="applyAction" name="submit" type="submit" class="buttonLike">
         <i class="icon-cog-alt"></i> {'Apply action'|translate}
       </button>
 
