@@ -361,12 +361,13 @@ DELETE
   {
     if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])
     {
-      $deleted_count = delete_elements($collection, true);
-      if ($deleted_count > 0)
+      // now done with ajax calls, with blocks
+      // $deleted_count = delete_elements($collection, true);
+      if (count($collection) > 0)
       {
         $_SESSION['page_infos'][] = l10n_dec(
           '%d photo was deleted', '%d photos were deleted',
-          $deleted_count
+          count($collection)
           );
 
         $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];

@@ -1739,6 +1739,20 @@ function ws_images_delete($params, $service)
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   delete_elements($image_ids, true);
   invalidate_user_cache();
+
+  if ($params['return_details'])
+  {
+    return array(
+      'success' => true,
+      'details' => array(
+        'nb_processed' => count($image_ids),
+      ),
+    );
+  }
+  else
+  {
+    return true;
+  }
 }
 
 /**

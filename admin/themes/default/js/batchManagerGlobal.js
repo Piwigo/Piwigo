@@ -215,3 +215,102 @@ function selectDelDerivAll() {
 function selectDelDerivNone() {
 	$("#action_delete_derivatives input[type=checkbox]").prop("checked", false);
 }
+
+/* delete photos by blocks, with progress bar */
+jQuery('#applyAction').click(function(e) {
+  if (typeof(elements) != "undefined") {
+    return true;
+  }
+
+  if (jQuery('[name="selectAction"]').val() == 'delete') {
+    if (!jQuery("#action_delete input[name=confirm_deletion]").is(':checked')) {
+      jQuery("#action_delete span.errors").show();
+      return false;
+    }
+    e.stopPropagation();
+  }
+  else {
+    return true;
+  }
+
+  jQuery('.bulkAction').hide();
+  jQuery('#regenerationText').html(lang.deleteProgressMessage);
+  var maxRequests=1;
+
+  var queuedManager = jQuery.manageAjax.create('queued', {
+    queue: true,
+    cacheResponse: false,
+    maxRequests: maxRequests
+  });
+
+  elements = Array();
+
+  if (jQuery('input[name=setSelected]').is(':checked')) {
+    elements = all_elements;
+  }
+  else {
+    jQuery('input[name="selection[]"]').filter(':checked').each(function() {
+      elements.push(jQuery(this).val());
+    });
+  }
+
+  progressBar_max = elements.length;
+  var todo = 0;
+  var deleteBlockSize = 100;
+  var image_ids = Array();
+
+  jQuery('#applyActionBlock').hide();
+  jQuery('select[name="selectAction"]').hide();
+  jQuery('#regenerationMsg').show();
+  jQuery('#progressBar').progressBar(0, {
+    max: progressBar_max,
+    textFormat: 'fraction',
+    boxImage: 'themes/default/images/progressbar.gif',
+    barImage: 'themes/default/images/progressbg_orange.gif'
+  });
+
+  for (i=0;i<elements.length;i++) {
+    image_ids.push(elements[i]);
+    if (i % deleteBlockSize != deleteBlockSize - 1 && i != elements.length - 1) {
+      continue;
+    }
+
+    queuedManager.add({
+      type: 'POST',
+      url: 'ws.php?format=json',
+      data: {
+        method: "pwg.images.delete",
+        pwg_token: wm_pwg_token,
+        return_details: true,
+        image_id: image_ids
+      },
+      dataType: 'json',
+      success: ( function(data) { todo += data.result.details.nb_processed; progressDelete(todo, progressBar_max, data.result.success) }),
+      error: ( function(data) { todo += data.result.details.nb_processed; progressDelete(todo, progressBar_max, false) })
+    });
+
+    image_ids = Array();
+  }
+  return false;
+});
+
+function progressDelete(val, max, success) {
+  jQuery('#progressBar').progressBar(val, {
+    max: max,
+    textFormat: 'fraction',
+    boxImage: 'themes/default/images/progressbar.gif',
+    barImage: 'themes/default/images/progressbg_orange.gif'
+  });
+  type = success ? 'regenerateSuccess': 'regenerateError'
+  s = jQuery('[name="'+type+'"]').val();
+  jQuery('[name="'+type+'"]').val(++s);
+
+  if (val == max) {
+    jQuery('#applyAction').click();
+  }
+}
+
+
+jQuery("#action_delete input[name=confirm_deletion]").change(function() {
+  jQuery("#action_delete span.errors").hide();
+});
