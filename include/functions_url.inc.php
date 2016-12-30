@@ -42,44 +42,86 @@ function get_root_url()
 }
 
 /**
+ * returns the scheme, host and port part of the server
+ * @param boolean with_proxy if true, analyze http headers used by proxy servers
+ */
+function get_scheme_host_port($with_proxy=true)
+{
+  $url = '';
+  $scheme = '';
+
+  // Fill the scheme
+  if ($with_proxy && isset($_SERVER['HTTP_X_FORWARDED_PROTO']))
+  {
+    $scheme = $_SERVER['HTTP_X_FORWARDED_PROTO'].'://';
+  }
+  else if (isset($_SERVER['HTTPS']) &&
+      ((strtolower($_SERVER['HTTPS']) == 'on') or ($_SERVER['HTTPS'] == 1)))
+  {
+    $scheme = 'https://';
+  }
+  else
+  {
+    $scheme = 'http://';
+  }
+  $url .= $scheme;
+
+  // Fill the host/port part
+  if ($with_proxy && isset($_SERVER['HTTP_X_FORWARDED_HOST']))
+  {
+    $url .= $_SERVER['HTTP_X_FORWARDED_HOST'];
+    if ( isset( $_SERVER['HTTP_X_FORWARDED_PORT']))
+    {
+      // If non-standard port is to be used as external one, proxy must
+      // explicitly provide this information
+      $url .= ':'.$_SERVER['HTTP_X_FORWARDED_PORT'];
+    }
+  }
+  else
+  {
+    $url .= $_SERVER['HTTP_HOST'];
+    if ( ($scheme=='http://'  && $_SERVER['SERVER_PORT'] != 80) ||
+         ($scheme=='https://' && $_SERVER['SERVER_PORT'] != 443) )
+    {
+      $url_port = ':'.$_SERVER['SERVER_PORT'];
+      if (strrchr($url, ':') != $url_port)
+      {
+        $url .= $url_port;
+      }
+    }
+  }
+
+  return $url;
+}
+
+/**
+ * returns true if current connection is comming from genuine proxy server
+ * this ensures that http headers such as 'X-Forwarded-Host' are safe to be
+ * used.
+ */
+function http_proxy_allowed()
+{
+  global $conf;
+
+  $cfg = $conf['allow_http_proxy_servers'];
+
+  if ($cfg === false || $cfg === true)
+  {
+      return $cfg;
+  }
+
+  return in_array($_SERVER['REMOTE_ADDR'], $cfg, TRUE);
+}
+
+/**
  * returns the absolute url to the root of PWG
  * @param boolean with_scheme if false - does not add http://toto.com
  */
 function get_absolute_root_url($with_scheme=true)
 {
   // TODO - add HERE the possibility to call PWG functions from external scripts
-  $url = '';
-  if ($with_scheme)
-  {
-    $is_https = false;
-    if (isset($_SERVER['HTTPS']) &&
-      ((strtolower($_SERVER['HTTPS']) == 'on') or ($_SERVER['HTTPS'] == 1)))
-    {
-      $is_https = true;
-      $url .= 'https://';
-    }
-    else
-    {
-      $url .= 'http://';
-    }
-    if (isset($_SERVER['HTTP_X_FORWARDED_HOST']))
-    {
-      $url .= $_SERVER['HTTP_X_FORWARDED_HOST'];
-    }
-    else
-    {
-      $url .= $_SERVER['HTTP_HOST'];
-      if ( (!$is_https && $_SERVER['SERVER_PORT'] != 80)
-            ||($is_https && $_SERVER['SERVER_PORT'] != 443))
-      {
-        $url_port = ':'.$_SERVER['SERVER_PORT'];
-        if (strrchr($url, ':') != $url_port)
-        {
-          $url .= $url_port;
-        }
-      }
-    }
-  }
+  $with_proxy = http_proxy_allowed();
+  $url = $with_scheme ? get_scheme_host_port($with_proxy) : '';
   $url .= cookie_path();
   return $url;
 }

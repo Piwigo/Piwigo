@@ -590,6 +590,15 @@ $conf['picture_url_style'] = 'id';
 // tags is not unique, all tags with the same url representation will be shown
 $conf['tag_url_style'] = 'id-tag';
 
+// allow_http_proxy_servers : this option configures front HTTP proxy server
+// support. If set to false, piwigo assumes it's not running behind http proxy.
+// If set to true, piwigo will assume it is running behind one and thus it will
+// consider 'X-Forwarder-Host', 'X-Forwarded-Port', 'X-Forwarded-Proto' HTTP
+// headers when building externally visible URLs. If this entry is an array,
+// it must be a list of proxy server IP addresses - traffic comming only from
+// those IP addresses will be allowed to use 'X-Forwarded-xxx' headers.
+$conf['allow_http_proxy_servers'] = false;
+
 // +-----------------------------------------------------------------------+
 // |                                 tags                                  |
 // +-----------------------------------------------------------------------+
