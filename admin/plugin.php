@@ -39,7 +39,7 @@ for ($i=0; $i<count($sections); $i++)
     continue;
   }
 
-  if ($sections[$i] == '..' or !preg_match('/^[a-zA-Z_\.-]+$/', $sections[$i]))
+  if ($sections[$i] == '..' or !preg_match('/^[a-zA-Z0-9_\.-]+$/', $sections[$i]))
   {
     die('invalid section token ['.htmlentities($sections[$i]).']');
   }
