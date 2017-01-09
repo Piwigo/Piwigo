@@ -288,8 +288,14 @@ jQuery('#applyAction').click(function(e) {
         image_id: image_ids.join(',')
       },
       dataType: 'json',
-      success: ( function(data) { todo += data.result.details.nb_processed; progressDelete(todo, progressBar_max, data.result.success) }),
-      error: ( function(data) { todo += data.result.details.nb_processed; progressDelete(todo, progressBar_max, false) })
+      success: ( function(data) {
+        todo += data.result.nb_processed;
+        progressDelete(todo, progressBar_max, true)
+      }),
+      error: ( function(data) {
+        todo += deleteBlockSize; // TODO: might be not exact, if last query
+        progressDelete(todo, progressBar_max, false)
+      })
     });
 
     image_ids = Array();
@@ -304,9 +310,6 @@ function progressDelete(val, max, success) {
     boxImage: 'themes/default/images/progressbar.gif',
     barImage: 'themes/default/images/progressbg_orange.gif'
   });
-  type = success ? 'regenerateSuccess': 'regenerateError'
-  s = jQuery('[name="'+type+'"]').val();
-  jQuery('[name="'+type+'"]').val(++s);
 
   if (val == max) {
     jQuery('#applyAction').click();

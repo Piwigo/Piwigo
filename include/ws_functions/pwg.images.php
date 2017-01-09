@@ -1743,15 +1743,8 @@ function ws_images_delete($params, $service)
   if ($params['return_details'])
   {
     return array(
-      'success' => true,
-      'details' => array(
-        'nb_processed' => count($image_ids),
-      ),
-    );
-  }
-  else
-  {
-    return true;
+      'nb_processed' => count($image_ids),
+      );
   }
 }
 
