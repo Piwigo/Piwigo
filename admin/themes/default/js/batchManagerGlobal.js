@@ -280,7 +280,7 @@ jQuery('#applyAction').click(function(e) {
       url: 'ws.php?format=json',
       data: {
         method: "pwg.images.delete",
-        pwg_token: wm_pwg_token,
+        pwg_token: jQuery("input[name=pwg_token").val(),
         return_details: true,
         image_id: image_ids
       },
