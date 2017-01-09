@@ -282,7 +282,7 @@ jQuery('#applyAction').click(function(e) {
         method: "pwg.images.delete",
         pwg_token: jQuery("input[name=pwg_token").val(),
         return_details: true,
-        image_id: image_ids
+        image_id: image_ids.join(',')
       },
       dataType: 'json',
       success: ( function(data) { todo += data.result.details.nb_processed; progressDelete(todo, progressBar_max, data.result.success) }),
