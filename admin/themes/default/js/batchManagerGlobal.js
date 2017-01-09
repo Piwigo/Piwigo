@@ -256,7 +256,10 @@ jQuery('#applyAction').click(function(e) {
 
   progressBar_max = elements.length;
   var todo = 0;
-  var deleteBlockSize = 100;
+  var deleteBlockSize = Math.min(
+    Number((elements.length/2).toFixed()),
+    1000
+  );
   var image_ids = Array();
 
   jQuery('#applyActionBlock').hide();
