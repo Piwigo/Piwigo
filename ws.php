@@ -504,7 +504,6 @@ function ws_addDefaultMethods( $arr )
       array(
         'image_id' =>   array('flags'=>WS_PARAM_ACCEPT_ARRAY),
         'pwg_token' =>  array(),
-        'return_details' => array('default'=>false, 'type'=>WS_TYPE_BOOL),
         ),
       'Deletes image(s).',
       $ws_functions_root . 'pwg.images.php',
