@@ -21,6 +21,7 @@
 {footer_script}
 var lang = {
 	Cancel: '{'Cancel'|translate|escape:'javascript'}',
+	deleteProgressMessage: "{'Deletion in progress'|translate|escape:'javascript'}",
 	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}"
 };
 
@@ -225,7 +226,6 @@ $(document).ready(function() {
     checkPermitAction();
     return false;
   });
-
 
   jQuery('#applyAction').click(function() {
 		var action = jQuery('[name="selectAction"]').val();
@@ -597,7 +597,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- delete -->
     <div id="action_delete" class="bulkAction">
-    <p><label><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label></p>
+    <p><label><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label><span class="errors" style="display:none">{"You need to confirm deletion"|translate}</span></p>
     </div>
 
     <!-- associate -->{* also used for "move" action *}
