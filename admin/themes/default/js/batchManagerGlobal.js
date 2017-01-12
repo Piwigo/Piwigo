@@ -286,7 +286,7 @@ jQuery('#applyAction').click(function(e) {
 				data: {
 					method: "pwg.images.delete",
 					pwg_token: jQuery("input[name=pwg_token").val(),
-					image_id: ids
+					image_id: ids.join(',')
 				},
 				dataType: 'json',
 				success: function(data) {
