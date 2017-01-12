@@ -278,32 +278,32 @@ jQuery('#applyAction').click(function(e) {
       continue;
     }
 
-		(function(ids) {
-			var thisBatchSize = ids.length;
-			queuedManager.add({
-				type: 'POST',
-				url: 'ws.php?format=json',
-				data: {
-					method: "pwg.images.delete",
-					pwg_token: jQuery("input[name=pwg_token").val(),
-					image_id: ids.join(',')
-				},
-				dataType: 'json',
-				success: function(data) {
-					todo += thisBatchSize;
-					var isOk = data.stat && "ok" == data.stat;
-					if (isOk && data.result != thisBatchSize)
-						/*TODO: user feedback only data.result images out of thisBatchSize were deleted*/;
-					/*TODO: user feedback if isError*/
-					progressDelete(todo, progressBar_max, isOk);
-				},
-				error: function(data) {
-					todo += thisBatchSize;
-					/*TODO: user feedback*/
-					progressDelete(todo, progressBar_max, false);
-				}
-			});
-		} )(image_ids);
+    (function(ids) {
+      var thisBatchSize = ids.length;
+      queuedManager.add({
+        type: 'POST',
+        url: 'ws.php?format=json',
+        data: {
+          method: "pwg.images.delete",
+          pwg_token: jQuery("input[name=pwg_token").val(),
+          image_id: ids.join(',')
+        },
+        dataType: 'json',
+        success: function(data) {
+          todo += thisBatchSize;
+          var isOk = data.stat && "ok" == data.stat;
+          if (isOk && data.result != thisBatchSize)
+            /*TODO: user feedback only data.result images out of thisBatchSize were deleted*/;
+          /*TODO: user feedback if isError*/
+          progressDelete(todo, progressBar_max, isOk);
+        },
+        error: function(data) {
+          todo += thisBatchSize;
+          /*TODO: user feedback*/
+          progressDelete(todo, progressBar_max, false);
+        }
+      });
+    } )(image_ids);
 
     image_ids = Array();
   }
