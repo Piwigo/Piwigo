@@ -422,7 +422,7 @@ class QNumericRangeScope extends QSearchScope
       }
     }
 
-    if (!$this->nullable && $range[0]=='' && $range[1] == '')
+    if (!$this->nullable && $range[0]==='' && $range[1]==='')
       return false;
     $token->scope_data = array( 'range'=>$range, 'strict'=>$strict );
     return true;
@@ -431,9 +431,9 @@ class QNumericRangeScope extends QSearchScope
   function get_sql($field, $token)
   {
     $clauses = array();
-    if ($token->scope_data['range'][0]!='')
+    if ($token->scope_data['range'][0]!=='')
       $clauses[] = $field.' >'.($token->scope_data['strict'][0]?'':'=').$token->scope_data['range'][0].' ';
-    if ($token->scope_data['range'][1]!='')
+    if ($token->scope_data['range'][1]!=='')
       $clauses[] = $field.' <'.($token->scope_data['strict'][1]?'':'=').$token->scope_data['range'][1].' ';
 
     if (empty($clauses))
