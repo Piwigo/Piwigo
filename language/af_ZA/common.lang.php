@@ -416,4 +416,13 @@ $lang['Go back to the album'] = 'Gaan terug na die album';
 $lang['Last Page'] = 'Laaste blad';
 $lang['Password is missing. Please enter the password.'] = 'Wagwoord nie ingevul nie. Vul asseblief die wagwoord in.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Wagwoord bevestiging nie gedoen. Bevestig asseblief die gekose wagwoord.';
-?>
+$lang['Your authentication key is no longer valid.'] = 'Jou herkenningskode is nie meer geldig nie.';
+$lang['Apply on properties'] = 'Pas toe op eienskappe';
+$lang['No results for'] = 'Geen resultate vir';
+$lang['Photo description'] = 'Foto beskrywing';
+$lang['Photo title'] = 'Foto titel';
+$lang['Theme'] = 'Tema';
+$lang['Album name, Z &rarr; A'] = 'Album naam, Z &rarr; A';
+$lang['Link: %s'] = 'Skakels: %s';
+$lang['%d photos per page'] = '%d fotos per blad';
+$lang['Album name, A &rarr; Z'] = 'Album naam, A &rarr; Z';
