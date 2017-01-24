@@ -1770,6 +1770,11 @@ function ws_images_checkUpload($params, $service)
  */
 function ws_images_deleteOrphans($params, $service)
 {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   $orphan_ids_to_delete = array_slice(get_orphans(), 0, $params['block_size']);

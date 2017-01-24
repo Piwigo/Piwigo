@@ -356,6 +356,8 @@ var sliders = {
           {'orphans to delete'|translate}
         </span>
 
+        <span id="orphans_deletion_error" class="errors" style="display:none"></span>
+
         <span id="duplicates_options" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'duplicates'}display:none{/if}">
           {'based on'|translate}
           <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_filename" {if isset($filter.duplicates_filename)}checked="checked"{/if}> {'file name'|translate}</label>

@@ -373,7 +373,9 @@ function delete_orphans_block(blockSize) {
         document.location = redirect_to;
       }
     },
-    error:function(XMLHttpRequest, textStatus, errorThrows) {
+    error:function(XMLHttpRequest) {
+      jQuery('#orphans_deletion').hide();
+      jQuery('#orphans_deletion_error').show().html('error '+XMLHttpRequest.status+' : '+XMLHttpRequest.statusText);
     }
   });
 }
