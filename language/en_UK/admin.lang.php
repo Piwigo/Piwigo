@@ -1000,3 +1000,4 @@ $lang['delete album and the %d orphan photos'] = 'delete album and the %d orphan
 $lang['delete only album, not photos'] = 'delete only album, not photos';
 $lang['Confirm deletion'] = 'Confirm deletion';
 $lang['checksum'] = 'checksum';
+$lang['orphans to delete'] = 'orphans to delete';
