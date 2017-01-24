@@ -511,6 +511,18 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.deleteOrphans',
+      'ws_images_deleteOrphans',
+      array(
+        'block_size' => array('default'=>1000, 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'pwg_token' =>  array(),
+        ),
+      'Deletes orphans, by blocks. Returns how many orphans were deleted and how many are remaining.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.categories.getAdminList',
       'ws_categories_getAdminList',
       null,

@@ -1762,4 +1762,22 @@ function ws_images_checkUpload($params, $service)
   return $ret;
 }
 
+/**
+ * API method
+ * Deletes orphan photos, by block. Returns how many orphans were deleted and how many are remaining.
+ * @param mixed[] $params
+ *    @option int block_size
+ */
+function ws_images_deleteOrphans($params, $service)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $orphan_ids_to_delete = array_slice(get_orphans(), 0, $params['block_size']);
+  $deleted_count = delete_elements($orphan_ids_to_delete, true);
+
+  return array(
+    'nb_deleted' => $deleted_count,
+    'nb_orphans' => count(get_orphans()),
+    );
+}
 ?>
