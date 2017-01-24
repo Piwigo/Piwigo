@@ -2964,6 +2964,7 @@ SELECT
   FROM '.IMAGES_TABLE.'
     LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   WHERE category_id is null
+  ORDER BY id ASC
 ;';
   
   return query2array($query, null, 'id');
