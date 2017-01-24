@@ -327,3 +327,53 @@ function progressDelete(val, max, success) {
 jQuery("#action_delete input[name=confirm_deletion]").change(function() {
   jQuery("#action_delete span.errors").hide();
 });
+
+
+jQuery('#delete_orphans').click(function(e) {
+  jQuery(this).hide();
+  jQuery('#orphans_deletion').show();
+
+  var deleteBlockSize = Math.min(
+    Number((jQuery('#orphans_to_delete').data('origin') / 2).toFixed()),
+    1000
+  );
+
+  delete_orphans_block(deleteBlockSize);
+
+  return false;
+});
+
+function delete_orphans_block(blockSize) {
+  jQuery.ajax({
+    url: "ws.php?format=json&method=pwg.images.deleteOrphans",
+    type:"POST",
+    dataType: "json",
+    data: {
+      pwg_token: jQuery("input[name=pwg_token").val(),
+      block_size: blockSize
+    },
+    success:function(data) {
+      jQuery('#orphans_to_delete').html(data.result.nb_orphans);
+
+      var percent_remaining = Number(
+        (data.result.nb_orphans * 100 / jQuery('#orphans_to_delete').data('origin')).toFixed()
+      );
+      var percent_done = 100 - percent_remaining;
+      jQuery('#orphans_deleted').html(percent_done);
+
+      if (data.result.nb_orphans > 0) {
+        delete_orphans_block();
+      }
+      else {
+        // time to refresh the whole page
+        var redirect_to = 'admin.php?page=batch_manager';
+        redirect_to += '&action=delete_orphans';
+        redirect_to += '&nb_orphans_deleted='+jQuery('#orphans_to_delete').data('origin');
+
+        document.location = redirect_to;
+      }
+    },
+    error:function(XMLHttpRequest, textStatus, errorThrows) {
+    }
+  });
+}

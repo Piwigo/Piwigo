@@ -64,17 +64,15 @@ DELETE FROM '.CADDIE_TABLE.'
     redirect(get_root_url().'admin.php?page='.$_GET['page']);
   }
 
-  if ('delete_orphans' == $_GET['action'])
+  if ('delete_orphans' == $_GET['action'] and isset($_GET['nb_orphans_deleted']))
   {
-    check_pwg_token();
+    check_input_parameter('nb_orphans_deleted', $_GET, false, '/^\d+$/');
 
-    $deleted_count = delete_elements(get_orphans(), true);
-    
-    if ($deleted_count > 0)
+    if ($_GET['nb_orphans_deleted'] > 0)
     {
       $_SESSION['page_infos'][] = l10n_dec(
         '%d photo was deleted', '%d photos were deleted',
-        $deleted_count
+        $_GET['nb_orphans_deleted']
         );
 
       redirect(get_root_url().'admin.php?page='.$_GET['page']);
