@@ -509,6 +509,18 @@
       "css": "sort-number-up",
       "code": 61794,
       "src": "fontawesome"
+    },
+    {
+      "uid": "b1887b423d2fd15c345e090320c91ca0",
+      "css": "th",
+      "code": 59443,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f805bb95d40c7ef2bc51b3d50d4f2e5c",
+      "css": "th-list",
+      "code": 59444,
+      "src": "fontawesome"
     }
   ]
 }

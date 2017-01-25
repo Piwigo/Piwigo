@@ -66,6 +66,8 @@
 .icon-book:before { content: '\e830'; } /* '' */
 .icon-chart-bar:before { content: '\e831'; } /* '' */
 .icon-floppy:before { content: '\e832'; } /* '' */
+.icon-th:before { content: '\e833'; } /* '' */
+.icon-th-list:before { content: '\e834'; } /* '' */
 .icon-hdd:before { content: '\f0a0'; } /* '' */
 .icon-tasks:before { content: '\f0ae'; } /* '' */
 .icon-filter:before { content: '\f0b0'; } /* '' */
