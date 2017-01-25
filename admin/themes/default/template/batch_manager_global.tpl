@@ -328,7 +328,7 @@ var sliders = {
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   <fieldset>
-    <legend>{'Filter'|@translate}</legend>
+    <legend><i class="icon-filter"></i>{'Filter'|@translate}</legend>
 
     <ul id="filterList">
       <li id="filter_prefilter" {if !isset($filter.prefilter)}style="display:none"{/if}>
@@ -485,7 +485,7 @@ var sliders = {
         <option value="filter_filesize" {if isset($filter.filesize)}disabled="disabled"{/if}>{'Filesize'|@translate}</option>
 				<option value="filter_search"{if isset($filter.search)} disabled="disabled"{/if}>{'Search'|@translate}</option>
       </select>
-      <a id="removeFilters">{'Remove all filters'|@translate}</a>
+      <a id="removeFilters" class="icon-cancel">{'Remove all filters'|@translate}</a>
     </p>
 
     <p class="actionButtons" id="applyFilterBlock">
@@ -498,7 +498,7 @@ var sliders = {
 
   <fieldset>
 
-    <legend>{'Selection'|@translate}</legend>
+    <legend><i class="icon-check"></i>{'Selection'|@translate}</legend>
 
   {if !empty($thumbnails)}
   <p id="checkActions">
@@ -570,7 +570,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
   <fieldset id="action">
 
-    <legend>{'Action'|@translate}</legend>
+    <legend><i class="icon-cog"></i>{'Action'|@translate}</legend>
       <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No photo selected, no action possible.'|@translate}</div>
       <div id="permitAction"{if count($selection) == 0} style="display:none"{/if}>
 

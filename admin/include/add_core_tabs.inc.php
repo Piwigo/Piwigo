@@ -53,8 +53,8 @@ function add_core_tabs($sheets, $tab_id)
 
     case 'batch_manager':
       global $manager_link;
-      $sheets['global'] = array('caption' => l10n('global mode'), 'url' => $manager_link.'global');
-      $sheets['unit'] = array('caption' => l10n('unit mode'), 'url' => $manager_link.'unit');
+      $sheets['global'] = array('caption' => '<span class="icon-th"></span>'.l10n('global mode'), 'url' => $manager_link.'global');
+      $sheets['unit'] = array('caption' => '<span class="icon-th-list"></span>'.l10n('unit mode'), 'url' => $manager_link.'unit');
       break;
 
     case 'cat_options':
