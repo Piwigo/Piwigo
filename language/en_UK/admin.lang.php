@@ -1001,3 +1001,6 @@ $lang['delete only album, not photos'] = 'delete only album, not photos';
 $lang['Confirm deletion'] = 'Confirm deletion';
 $lang['checksum'] = 'checksum';
 $lang['orphans to delete'] = 'orphans to delete';
+$lang['Dashboard'] = 'Dashboard';
+$lang['Storage used'] = 'Storage used';
+$lang['First photo added'] = 'First photo added';

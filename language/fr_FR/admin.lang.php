@@ -1003,3 +1003,6 @@ $lang['delete only album, not photos'] = 'supprimer uniquement l\'album, pas les
 $lang['Confirm deletion'] = 'Confirmer la suppression';
 $lang['checksum'] = 'somme de contrôle';
 $lang['orphans to delete'] = 'orphelines à supprimer';
+$lang['Dashboard'] = 'Tableau de bord';
+$lang['Storage used'] = 'Stockage utilisé';
+$lang['First photo added'] = 'Première photo';
