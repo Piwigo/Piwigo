@@ -161,6 +161,11 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
 
   global $conf, $user;
 
+  if (!is_null($original_filename))
+  {
+    $original_filename = htmlspecialchars($original_filename);
+  }
+
   if (isset($original_md5sum))
   {
     $md5sum = $original_md5sum;
