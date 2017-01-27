@@ -46,6 +46,10 @@ jQuery().ready(function(){
   display:inline-block;
   width:200px;
   margin:10px;
+  color:#777;
+}
+
+div.stat-box {
   cursor:help;
 }
 
@@ -84,66 +88,66 @@ jQuery().ready(function(){
 <div class="stat-boxes">
 
 {if $NB_PHOTOS > 1}
-<div class="stat-box">
+<a class="stat-box" href="{$U_ADD_PHOTOS}">
 <i class="icon-picture"></i>
 <span class="number">{$NB_PHOTOS}</span><span class="caption">{'Photos'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_ALBUMS > 1}
-<div class="stat-box">
+<a class="stat-box" href="{$U_CATEGORIES}">
 <i class="icon-sitemap"></i>
 <span class="number">{$NB_ALBUMS}</span><span class="caption">{'Albums'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_TAGS > 1}
-<div class="stat-box">
+<a class="stat-box" href="{$U_TAGS}">
 <i class="icon-tags"></i>
 <span class="number">{$NB_TAGS}</span><span class="caption" title="{'%d associations'|translate:$NB_IMAGE_TAG}">{'Tags'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_USERS > 2}
-<div class="stat-box">
+<a class="stat-box" href="{$U_USERS}">
 <i class="icon-users"></i>
 <span class="number">{$NB_USERS}</span><span class="caption">{'Users'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_GROUPS > 0}
-<div class="stat-box">
+<a class="stat-box" href="{$U_GROUPS}">
 <i class="icon-group"></i>
 <span class="number">{$NB_GROUPS}</span><span class="caption">{'Groups'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_COMMENTS > 1}
-<div class="stat-box">
+<a class="stat-box" href="{$U_COMMENTS}">
 <i class="icon-chat"></i>
 <span class="number">{$NB_COMMENTS}</span><span class="caption">{'Comments'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_RATES > 0}
-<div class="stat-box">
+<a class="stat-box" href="{$U_RATING}">
 <i class="icon-star"></i>
 <span class="number">{$NB_RATES}</span><span class="caption">{'Rating'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_VIEWS > 0}
-<div class="stat-box">
+<a class="stat-box" href="{$U_HISTORY_STAT}">
 <i class="icon-signal"></i>
 <span class="number">{$NB_VIEWS}</span><span class="caption">{'Pages seen'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_PLUGINS > 0}
-<div class="stat-box">
+<a class="stat-box" href="{$U_PLUGINS}">
 <i class="icon-puzzle"></i>
 <span class="number">{$NB_PLUGINS}</span><span class="caption">{'Plugins'|translate}</span>
-</div>
+</a>
 {/if}
 
 <div class="stat-box">
