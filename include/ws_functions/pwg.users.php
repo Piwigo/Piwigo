@@ -636,7 +636,7 @@ function ws_getFavorites($params, &$service)
   }
 
   $search_user = $user;
-  if (is_admin() && is_numeric($params['user_id']))
+  if (is_admin() && isset($params['user_id']) && is_numeric($params['user_id']))
   {
 
     // ensure the indicated user exists
