@@ -1041,7 +1041,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
                 'default'=>null,
                 'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random')
        ),
-      'Returns the favorite images of the current user',
+      'Returns the favorite images of the current user. If identified as an admin, you may fetch favorites from any user_id, otherwise user_id will be ignored',
       $ws_functions_root . 'pwg.users.php'
     );
 }
