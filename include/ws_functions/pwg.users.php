@@ -645,7 +645,7 @@ function ws_getFavorites($params, &$service)
       return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
     }
 
-    $search_user['id'] = $params['user_id'];
+    $search_user = array('id' => $params['user_id']);
     $search_user = array_merge( $search_user, getuserdata($search_user['id']) );
   }
 
