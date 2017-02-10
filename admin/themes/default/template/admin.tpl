@@ -87,8 +87,8 @@ jQuery(document).ready(function() {
       <ul>
         <li><a href="{$U_PLUGINS}"><i class="icon-equalizer"></i>{'Manage'|@translate}</a></li>
       </ul>
-      <div id="pluginsMenuSeparator"></div>
 {if !empty($plugin_menu_items)}
+      <div id="pluginsMenuSeparator"></div>
       <ul class="scroll">
   {foreach from=$plugin_menu_items item=menu_item}
         <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
