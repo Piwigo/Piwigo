@@ -381,8 +381,12 @@ table.dataTable tr.odd td.sorting_1 {
   background-color: #282828 !important;
 }
 
-table.dataTable thead th {
+table.dataTable thead th, table.dataTable.no-footer {
   border-color: #333 !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+  color:#777 !important;
 }
 
 .userPropertiesContainer {border-color:#333;}

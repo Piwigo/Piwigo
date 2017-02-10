@@ -1258,6 +1258,14 @@ a.group_perm {
 #userList_length {float:none;}
 #userList_filter {margin-top:-20px;}
 
+.dataTables_info, .dataTables_length {
+  padding-left:1em;
+}
+
+.dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_paginate {
+  margin-right:1em;
+}
+
 .userProperties {max-width:730px;}
 .userPropertiesContainer {border-top:1px solid #ddd;margin-top:1em;}
 .userPropertiesSet {width:350px;float:left;padding-top:5px}

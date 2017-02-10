@@ -856,6 +856,9 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 
 {html_style}{literal}
 .dataTables_wrapper, .dataTables_info {clear:none;}
+.dataTables_wrapper .dataTables_info {clear:none;}
+.dataTables_wrapper::after {clear:none;}
+
 table.dataTable {clear:right;padding-top:10px;}
 .dataTable td img {margin-bottom: -6px;margin-left: -6px;}
 
@@ -879,6 +882,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 .recent_period_infos {margin-left:10px;}
 .nb_image_page, .recent_period {width:340px;margin-top:5px;}
 #action_recent_period .recent_period {display:inline-block;}
+.checkActions {padding:0 1em;}
 {/literal}{/html_style}
 
 <div class="titrePage">
