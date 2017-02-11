@@ -1034,6 +1034,28 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       $ws_functions_root . 'pwg.permissions.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+
+  $service->addMethod(
+      'pwg.users.getFavorites',
+      'ws_getFavorites',
+      array(
+        'user_id' =>  array(
+                'flags'=>WS_PARAM_OPTIONAL,
+                'type'=>WS_TYPE_ID),
+        'per_page' => array(
+                'default'=>100,
+                'maxValue'=>$conf['ws_max_images_per_page'],
+                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'page' => array(
+                'default'=>0,
+                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'order' => array(
+                'default'=>null,
+                'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random')
+       ),
+      'Returns the favorite images of the current user',
+      $ws_functions_root . 'pwg.users.php'
+    );
 }
 
 ?>
