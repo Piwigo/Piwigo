@@ -589,7 +589,7 @@ class image_ext_imagick implements imageInterface
     $this->height = $height;
 
     $this->add_command('filter', 'Lanczos');
-    $this->add_command('resize', $width.'x'.$height.'!');
+    $this->add_command('thumbnail', $width.'x'.$height.'!');
     return true;
   }
 
