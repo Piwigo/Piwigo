@@ -515,7 +515,13 @@ function register_default_menubar_blocks($menu_ref_arr)
   $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));
-  $menu->register_block( new RegisteredBlock( 'mbIdentification', 'Identification', 'piwigo') );
+
+  // We hide the quick identification menu on the identification page. It
+  // would be confusing.
+  if (script_basename() != 'identification')
+  {
+    $menu->register_block( new RegisteredBlock( 'mbIdentification', 'Identification', 'piwigo') );
+  }
 }
 
 /**
