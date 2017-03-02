@@ -536,7 +536,6 @@ SELECT
     LEFT JOIN '.IMAGES_TABLE.' ON id = image_id
   WHERE id IS NULL
 ;';
-  $result = pwg_query($query);
   $orphan_image_ids = query2array($query, null, 'image_id');
 
   if (count($orphan_image_ids) > 0)
@@ -547,6 +546,45 @@ DELETE
   WHERE image_id IN ('.implode(',', $orphan_image_ids).')
 ;';
     pwg_query($query);
+  }
+}
+
+/**
+ * Checks and repairs integrity on categories.
+ * Removes all entries from related tables which correspond to a deleted category.
+ */
+function categories_integrity()
+{
+  $related_columns = array(
+    IMAGE_CATEGORY_TABLE.'.category_id',
+    USER_ACCESS_TABLE.'.cat_id',
+    GROUP_ACCESS_TABLE.'.cat_id',
+    OLD_PERMALINKS_TABLE.'.cat_id',
+    USER_CACHE_CATEGORIES_TABLE.'.cat_id',
+    );
+
+  foreach ($related_columns as $fullcol)
+  {
+    list($table, $column) = explode('.', $fullcol);
+
+    $query = '
+SELECT
+    '.$column.'
+  FROM '.$table.'
+    LEFT JOIN '.CATEGORIES_TABLE.' ON id = '.$column.'
+  WHERE id IS NULL
+;';
+    $orphans = array_unique(query2array($query, null, $column));
+
+    if (count($orphans) > 0)
+    {
+      $query = '
+DELETE
+  FROM '.$table.'
+  WHERE '.$column.' IN ('.implode(',', $orphans).')
+;';
+      pwg_query($query);
+    }
   }
 }
 

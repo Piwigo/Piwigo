@@ -69,6 +69,7 @@ switch ($action)
   case 'categories' :
   {
     images_integrity();
+    categories_integrity();
     update_uppercats();
     update_category('all');
     update_global_rank();
