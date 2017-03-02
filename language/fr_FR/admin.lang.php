@@ -1006,3 +1006,4 @@ $lang['orphans to delete'] = 'orphelines à supprimer';
 $lang['Dashboard'] = 'Tableau de bord';
 $lang['Storage used'] = 'Stockage utilisé';
 $lang['First photo added'] = 'Première photo';
+$lang['No filter on album. Select one or type to search'] = 'Aucun filtre. Tapez ici pour chercher un album.';
