@@ -610,6 +610,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 
   var oTable = jQuery('#userList').dataTable({
     pageLength: 10,
+    autoWidth: false,
     deferRender: true,
     processing: true,
     serverSide: true,
