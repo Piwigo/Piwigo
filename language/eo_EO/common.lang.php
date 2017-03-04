@@ -427,3 +427,4 @@ $lang['Photo title'] = 'Fototitolo';
 $lang['Album name, A &rarr; Z'] = 'Fotara nomo, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Fotara nomo, Z &rarr; A';
 $lang['Link: %s'] = 'Ligilo: %s';
+$lang['Your authentication key is no longer valid.'] = 'Via identigila ŝlosilo ne plu validas';
