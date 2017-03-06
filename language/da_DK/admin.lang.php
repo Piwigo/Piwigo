@@ -598,7 +598,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Skift til lyse ell
 $lang['Theme has been successfully installed'] = 'Temaet blev installeret';
 $lang['Visit Gallery']  =  'Besøg galleriet';
 $lang['Visit Piwigo project website'] = 'Besøg Piwigo-projektets hjemmeside';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står for <em>Piwigo Uploader</em>. På din computer forbereder pLoader dine fotografier og overfører dem til dit Piwigo-fotogalleri.';
 $lang['Guest Settings'] = 'Gæsteindstillinger ';
 $lang['Main Page']  =  'Forside';
 $lang['Photo Page'] = 'Fotoside ';
@@ -853,7 +852,6 @@ $lang['digiKam is designed for photographers who want to view, manage, edit, enh
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'App\'en <em>Piwigo for iOS</em> giver dig mulighed for at forbinde en iPhone, iPad eller iPod Touch til dit Piwigo-galleri, oprette albummer og uploade flere fotografier på én gang.';
 $lang['Applications'] = 'Applikationer';
 $lang['Available on'] = 'Tilgængelig på';
-$lang['Available versions for'] = 'Tilgængelige versioner for';
 $lang['Not cropped correctly?'] = 'Ikke beskåret korrekt?';
 $lang['Web Form'] = 'Webformular';
 $lang['You have %d orphan tags: %s.'] = 'Du har %d forældreløse tags: %s';

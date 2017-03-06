@@ -97,7 +97,6 @@ $lang['By default, the center of interest is placed in the middle of the photo.'
 $lang['Center of interest'] = 'Intereso centras';
 $lang['Available on'] = 'Prieinama';
 $lang['Available only with HTML format'] = 'Prieinama tik HTML formatu';
-$lang['Available versions for'] = 'Prieinamos versijos';
 $lang['Average rate'] = 'Vidutinis įvertinimas';
 $lang['By %s'] = 'Autorius %s';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Pagal nutylėjimą Piwigo sukurs nauja web dydį iš HD (didelės raiškos) jūsų nuotraukų versijų.';
@@ -598,7 +597,6 @@ $lang['only directories'] = 'tik katalogai';
 $lang['only perform a simulation (no change in database will be made)'] = 'tik simuliuoti (niekas nebus pakeista duomenų bazėje)';
 $lang['other'] = 'kitas';
 $lang['overrides existing values with empty ones'] = 'perrašyti esamas reikšmes tuščiomis';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader verčiamas kaip <em>Piwigo Uploader</em>. pLoader paruošia ir perkelia nuotraukas iš Jūsų kompiuterio į Jūsų Piwigo nuotraukų galeriją.';
 $lang['pending validation'] = 'laukia patvirtinimo';
 $lang['photos added in the database'] = 'nuotraukos pridėtos į duomenų bazę';
 $lang['photos candidates for metadata synchronization'] = 'nuotraukų kandidatai metaduomenų sinchronizacijai';

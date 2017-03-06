@@ -534,7 +534,6 @@ $lang['Added by %s'] = 'Adaugat de %s';
 $lang['Applications'] = 'Aplicatii';
 $lang['Automatic sort order'] = 'Sortare ordine automata';
 $lang['Available on'] = 'Disponibil in';
-$lang['Available versions for'] = 'Versiune disponibila pentru';
 $lang['Cancel'] = 'Anulare';
 $lang['Hit'] = 'Accesari';
 $lang['If you encounter problems or have any question, please send a message to'] = 'Daca intampini probleme sau au intrebari, trimite un mesaj la';
@@ -829,7 +828,6 @@ $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration
 $lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam este un administrator avansat sursă libera de fotografii digitale pentru Linux, Windows și MacOSX.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam este proiectat pentru fotografi care vor să vizualizeze, administreze, editeze, îmbunătățească, organizeze, eticheteze și partajeze fotografii.';
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto este administratorul implicit de fotografii digitale din MacOSX. Plugin-ul Piwigo de export iți permite să creezi albume noi și să exporți fotografiile tale din iPhoto direct în galeria ta Piwigo.';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader înseamnă <em>Piwigo Uploader</em>. Din calculatorul tău, pLoader îți pregătește fotografiile și le transferă în galeria ta Piwigo.';
 $lang['User %s [%s] was added to the subscription list.'] = 'Utilizatorul %s [%s] a fost adăugat la lista de abonați.';
 $lang['User %s [%s] was not added to the subscription list.'] = 'Utilizatorul %s [%s] nu a fost adăugat la lista de abonați.';
 $lang['User %s [%s] was not removed from the subscription list.'] = 'Utilizatorul %s [%s] nu a fost șters din lista de abonați.';

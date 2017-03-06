@@ -596,7 +596,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Bytt til lyse elle
 $lang['Theme has been successfully installed'] = 'Temaet er installert';
 $lang['Visit Gallery'] = 'Besøk galleriet';
 $lang['Visit Piwigo project website'] = 'Besøk Piwigo prosjektets webside';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står for <em>Piwigo Opplaster</em>. Fra din maskin, pLoader klargjør dine bilder og overfører dem til ditt Piwigo photo galleri.';
 $lang['Guest Settings'] = 'Instillinger for gjester';
 $lang['Main Page'] = 'Hovedside';
 $lang['Photo Page'] = 'Bilde side';
@@ -812,7 +811,6 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Du bruker nettleseropplasting. Prøv <a href="%s">Flashopplasting </a> isteden.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Du bruker Flashopplasting. Prøv <a href="%s">Nettleseropplasting </a> isteden.';
 $lang['Available on'] = 'Tilgjengelig på';
-$lang['Available versions for'] = 'Tilgjengelig versjon for';
 $lang['List'] = 'Vis';
 $lang['Not cropped correctly?'] = 'Ikke beskåret riktig?';
 $lang['Notify administrators when a comment is'] = 'Gi beskjed til administrator når en kommentar er';

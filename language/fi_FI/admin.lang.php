@@ -318,7 +318,6 @@ $lang['Element type'] = 'Elementin tyypppi';
 $lang['Caddie'] = 'Caddie';
 $lang['Caddie management'] = 'Caddien hallinta';
 $lang['Can\'t download archive.'] = 'Arkistoa ei voida ladata.';
-$lang['Available versions for'] = 'Saatavilla olevia versioita';
 $lang['Basic settings'] = 'Perusasetukset';
 $lang['Can\'t connect to server.'] = 'Palvelimeen ei saada yhteyttä.';
 $lang['remove author'] = 'poista luoja';

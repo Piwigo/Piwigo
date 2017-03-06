@@ -591,7 +591,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Contrasta escogien
 $lang['Theme has been successfully installed'] = 'El tema ha sido instalado con éxito';
 $lang['Visit Gallery'] = 'Volver a la galería';
 $lang['Visit Piwigo project website'] = 'Visitar el sitio web del proyecto Piwigo';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader significa <em>Piwigo Uploader</em>. Desde su ordenador, prepare sus fotos con pLoader y transfiéralas a su galería fotográfica Piwigo.';
 $lang['Guest Settings'] = 'Ajustes de los invitados';
 $lang['Main Page'] = 'Página principal';
 $lang['Photo Page'] = 'Página de la foto';
@@ -833,7 +832,6 @@ $lang['Adobe Photoshop Lightroom is a photography software designed to manage la
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture es una potente herramienta para editar imágenes y administrar grandes colecciones en Mac.';
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Aperture está diseñada para fotógrafos profesionales con la simplicidad de iPhoto.';
 $lang['Available on'] = 'Disponible en';
-$lang['Available versions for'] = 'Versión disponible para';
 $lang['Delete multiple size images'] = 'Eliminar imágenes con múltiples tamaños';
 $lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam es un avanzado gestor de fotos gratuito para Linux, Windows y MacOSX.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam está diseñado para fotógrafos que quieren ver, administrar, editar, mejorar, organizar, etiquetar y compartir sus fotos.';

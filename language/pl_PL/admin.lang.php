@@ -595,7 +595,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Przełącz pomięd
 $lang['Theme has been successfully installed'] = 'Szablon wyglądu został pomyślnie zainstalowany';
 $lang['Visit Gallery'] = 'Odwiedź galerię';
 $lang['Visit Piwigo project website'] = 'Odwiedź stronę projektu Piwigo';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader służy do <em>Piwigo Uploader</em>. pLoader przygotuje zdjęcia i prześle je do Twojej galerii Piwigo, z Twojego komputera.';
 $lang['Guest Settings'] = 'Ustawienia gości';
 $lang['Main Page'] = 'Strona główna';
 $lang['Photo Page'] = 'Strona zdjęć';
@@ -822,7 +821,6 @@ $lang['<em>Piwigo for Android</em> application empowers you to connect your Andr
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo na iOS</em> aplikacja daje możliwość połączenia Twojej galerii Piwigo z Twoim iPhonem, iPadem lub iPodem. Możesz tworzyć albumy i wysyłać wiele zdjęć jednocześnie.';
 $lang['Applications'] = 'Aplikacje';
 $lang['Available on'] = 'Dostępne na';
-$lang['Available versions for'] = 'Wersje dostępne na';
 $lang['Cancel'] = 'Anuluj';
 $lang['Piwigo for Android'] = 'Piwigo na Androida';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo na iOS (iPhone, iPad, iPod Touch)';

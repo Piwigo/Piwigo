@@ -639,7 +639,6 @@ $lang['Photos'] = 'Fotos';
 $lang['Piwigo Uploader'] = 'Carregar Piwigo';
 $lang['pixels'] = 'pixeis';
 $lang['Please wait...'] = 'Aguarde por favor...';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader significa <em>Carregador Piwigor</em>. Directamente do seu computador, pLoader prepara as suas fotos e transfere-as para a sua galeria de fotos Piwigo.';
 $lang['Privacy level set to "%s"'] = 'Nível de privacidade definido para "%s"';
 $lang['Read Piwigo Documentation'] = 'Ler Documentação Piwigo';
 $lang['Refresh photo set'] = 'Recarregar conjunto de fotos';
@@ -833,7 +832,6 @@ $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwig
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom é um software para fotografia desenhado para manusear larga quantidade de fotos digitais e para transferência depois de produzidas.';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Abertura é uma potente ferramenta destinada a refinar imagens e gerenciar massivas livrarias em Mac.';
 $lang['Available on'] = 'Existente em';
-$lang['Available versions for'] = 'Versões existentes para';
 $lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'DigiKam é um software grátis de tratamento foto-digital para Linux, Windows e MacOSX.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'Digikam é aconselhado para fotografos que querem ver, manusear, editar, tratar, organizar, atribuir tags e partilhar essas fotos.';
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'Iphoto é, por defeito, um software para MacOSX. A Extenção de exportação Piwigo permite-lhe criar novos albuns e exportar fotos directamente de Iphoto para a galeria Piwigo.';

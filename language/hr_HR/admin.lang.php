@@ -593,7 +593,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Prebaci na svijetl
 $lang['Theme has been successfully installed'] = 'Tema je uspješno ugrađena';
 $lang['Visit Gallery'] = 'Posjetite galeriju';
 $lang['Visit Piwigo project website'] = 'Posjetite web stranicu Piwigo projekta';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader znači <em>Piwigo Uploader</em>. Sa vašeg računala, pLoader priprema vaše slike i prebacuje ih u vašu Piwigo galeriju.';
 $lang['Guest Settings'] = 'Postavke Gost računa';
 $lang['Main Page'] = 'Glavna stranica';
 $lang['Photo Page'] = 'Stranica Slika';

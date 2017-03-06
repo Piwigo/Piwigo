@@ -18,20 +18,6 @@ fieldset p {text-align:left;margin-top:0}
 </div>
 
 <fieldset>
-  <legend>pLoader</legend>
-
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/ploader.png" title="pLoader"><img src="http://piwigo.org/screenshots/applications/thumbnail/ploader.jpg"></a></div>
-<p>{'pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'|@translate}</p>
-
-<p>{'Available versions for'|@translate}
-<a href="{$URL_DOWNLOAD_WINDOWS}">Windows</a>,
-<a href="{$URL_DOWNLOAD_MAC}">Mac</a>,
-<a href="{$URL_DOWNLOAD_LINUX}">Linux</a>
-</p>
-
-</fieldset>
-
-<fieldset>
   <legend>{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}</legend>
 <div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-ios.jpg" title="{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-ios.jpg"></a></div>
 <p>{'<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'|@translate}</p>

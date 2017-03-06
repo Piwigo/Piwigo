@@ -603,7 +603,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Promeni na svetle 
 $lang['Theme has been successfully installed'] = 'tema je uspešno instalirana';
 $lang['Visit Gallery'] = 'Poseti galeriju';
 $lang['Visit Piwigo project website'] = 'Poseti stranicu Piwigo projekta';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader označava <em>Piwigo Uploader</em>. Sa Vašeg racunara, pLoader priprema Vaše fotografije i šalje ih u  Piwigo foto galeriju.';
 $lang['Guest Settings'] = 'Podešenja za goste';
 $lang['Main Page'] = 'Glavna strana';
 $lang['Photo Page'] = 'Foto strana';
@@ -842,7 +841,6 @@ $lang['<em>Piwigo for Android</em> application empowers you to connect your Andr
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo za iOS</em> aplikacija omogućava Vam da se povežete sa Vašom Piwigo galerijom preko iPhone, iPad ili iPod Touch uređaja, možete da kreirate albume i pošaljete nekoliko slika odjednom.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom je softver za fotografije dizajniran da upravlja velikom količinom digitalnih slika i za postprodukciju.';
 $lang['Available on'] = 'Dostupno na';
-$lang['Available versions for'] = 'Dostupna verzija za';
 $lang['Delete selected users'] = 'Obriši odabrane korisnike';
 $lang['Piwigo for Android'] = 'Piwigo za Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo za iOs (iPhone, iPad, iPod Touch)';

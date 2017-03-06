@@ -231,9 +231,7 @@ $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwig
 $lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>안드로이드용 Piwigo</em> 앱은 안드로이드 폰과 태블릿에서 Piwigo 갤러리에 연결하고 앨범을 생성하고 한번에 여러 사진을 업로드 할 수 있도록 합니다.';
 $lang['Piwigo for Android'] = '안드로이드용 Piwigo';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS용 Piwigo (iPhone, iPad, iPod Touch)';
-$lang['Available versions for'] = '가능한 버전';
 $lang['Piwigo Uploader'] = 'Piwigo 업로더';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader는 <em>Piwigo 업로더</em>를 의미합니다. 컴퓨터에서 pLoader은 사진을 준비하고 Piwigo 사진 갤러리로 전송합니다.';
 $lang['Allowed file types: %s.'] = '가능한 파일 종류: %s.';
 $lang['Maximum file size: %sB.'] = '최대 파일 크기: %sB.';
 $lang['Select files'] = '파일 선택';

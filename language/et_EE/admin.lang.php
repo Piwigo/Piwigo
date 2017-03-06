@@ -226,7 +226,6 @@ $lang['Aperture is a powerful tool to refine images and manage massive libraries
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = '<em>Aperture</em> on mõeldud professionaalsetele fotograafidele ent <em>iPhoto</em> kasutajasõbralikkusega.';
 $lang['Available on'] = 'Saadaval';
 $lang['Available only with HTML format'] = 'Ainult saadaval HTML vormingus';
-$lang['Available versions for'] = 'Versioonid saadaval';
 $lang['Batch Manager'] = 'Pakktöötluse haldur';
 $lang['Bound Theme'] = 'Bound Theme';
 $lang['By %s'] = 'Autor: %s';
@@ -859,7 +858,6 @@ $lang['only directories'] = 'ainult kaustasid';
 $lang['only perform a simulation (no change in database will be made)'] = 'ainult simuleeri (midagi ei muudeta andmebaasis)';
 $lang['other'] = 'muu';
 $lang['overrides existing values with empty ones'] = 'tühistab praegused väärtused tühjadega';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader tähendab <em>Piwigo Uploader</em>. pLoader valmistab ette pildid su arvutis ning laadib need ülesse su Piwigo fotogaleriisse.';
 $lang['pending validation'] = 'kinnituse ootel';
 $lang['photos added in the database'] = 'fotosid lisatud andmebaasi';
 $lang['photos candidates for metadata synchronization'] = 'kandideerivad fotod metaandmete sünkroniseerimiseks';

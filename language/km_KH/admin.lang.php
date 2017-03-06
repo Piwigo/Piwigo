@@ -241,7 +241,6 @@ $lang['By %s'] = 'ដោយ %s';
 $lang['Batch Manager'] = 'កម្មវិធីគ្រប់គ្រងជាបាច់';
 $lang['Basic settings'] = 'ការកំណត់មូលដ្ឋាន';
 $lang['Average rate'] = 'អត្រាជាមធ្យម';
-$lang['Available versions for'] = 'ជំនាន់ដែល​មាន​សម្រាប់';
 $lang['Available only with HTML format'] = 'មាន​តែ​នៅលើ​ទម្រង់ HTML ទេ';
 $lang['Check all'] = 'ធីកទាំងអស់';
 $lang['Change username'] = 'ផ្តាស់ប្តូរឈ្មោះប្រើប្រាស់';

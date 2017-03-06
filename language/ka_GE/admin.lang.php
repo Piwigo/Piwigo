@@ -613,7 +613,6 @@ $lang['Switch to clear or dark colors for administration'] = 'ღია და �
 $lang['Theme has been successfully installed'] = 'თემა წარმატებით არის დაყენებული';
 $lang['Visit Gallery'] = 'ნახეთ გალერეა';
 $lang['Visit Piwigo project website'] = 'ნახეთ პროექტ Piwigo-ს საიტი ';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader ცვლის <em>Piwigo ამტვირთავს</em>. pLoader-ის მეშვეობით თქვენ შეგიძლიათ ლოკალურად მოამზადოთ ფოტოები და და ატვირთოთ თქვენს Piwigo ფოტო გალერეაში.';
 $lang['Guest Settings'] = 'სტუმრის პარამეტრები';
 $lang['Main Page'] = 'მთავარი გვერდი';
 $lang['Photo Page'] = 'ფოტოების გვერდი';

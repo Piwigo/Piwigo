@@ -600,7 +600,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Helle oder dunkle 
 $lang['Theme has been successfully installed'] = 'Thema wurde erfolgreich installiert';
 $lang['Visit Gallery'] = 'Galerie ansehen';
 $lang['Visit Piwigo project website'] = 'Piwigo-Projekt-Webseite besuchen';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader bedeutet <em>Piwigo-Uploader</em>. pLoader überträgt Fotos von Ihrem Computer in Ihre Piwigo-Fotogalerie.';
 $lang['Guest Settings'] = 'Einstellungen für Gäste';
 $lang['Main Page'] = 'Hauptseite';
 $lang['Photo Page'] = 'Fotoseite';
@@ -836,7 +835,6 @@ $lang['<em>Piwigo for Android</em> application empowers you to connect your Andr
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'Das App <em>Piwigo für iOS</em> ermöglicht es Ihnen, sich mit Ihrer Piwigo-Galerie zu verbinden, Alben zu erstellen und mehrere Fotos gleichzeitig hochzuladen.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom ist eine Bildbearbeitungssoftware, die entwickelt wurde, um eine grosse Anzahl von Bildern zu verwalten und zu bearbeiten.';
 $lang['Available on'] = 'Erhältlich bei ';
-$lang['Available versions for'] = 'Verfügbare Versionen für';
 $lang['Piwigo for Android'] = 'Piwigo für Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo für iOS (iPhone, iPad, iPod Touch)';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo-Publish-Plugin für Lightroom';
