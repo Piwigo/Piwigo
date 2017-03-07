@@ -18,6 +18,15 @@ fieldset p {text-align:left;margin-top:0}
 </div>
 
 <fieldset>
+  <legend>Piwigo Remote Sync</legend>
+
+<div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-remote-sync.png" title="Piwigo Remote Sync"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-remote-sync.jpg"></a></div>
+<p>{'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'|@translate}</p>
+
+<p><a href="http://yorba.org/shotwell/" target="_blank">{'Learn more'|@translate}</a></p>
+</fieldset>
+
+<fieldset>
   <legend>{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}</legend>
 <div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-ios.jpg" title="{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-ios.jpg"></a></div>
 <p>{'<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'|@translate}</p>
@@ -25,15 +34,6 @@ fieldset p {text-align:left;margin-top:0}
 <p>
 {'Available on'|@translate} <a target="_blank" href="http://itunes.apple.com/us/app/piwigo/id472225196">Apple AppStore</a>
 </p>
-</fieldset>
-
-<fieldset>
-  <legend>Piwigo Remote Sync</legend>
-
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-remote-sync.png" title="Piwigo Remote Sync"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-remote-sync.jpg"></a></div>
-<p>{'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'|@translate}</p>
-
-<p><a href="http://yorba.org/shotwell/" target="_blank">{'Learn more'|@translate}</a></p>
 </fieldset>
 
 <fieldset>
