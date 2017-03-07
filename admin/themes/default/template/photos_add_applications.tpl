@@ -23,7 +23,7 @@ fieldset p {text-align:left;margin-top:0}
 <div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-remote-sync.png" title="Piwigo Remote Sync"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-remote-sync.jpg"></a></div>
 <p>{'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'|@translate}</p>
 
-<p><a href="http://yorba.org/shotwell/" target="_blank">{'Learn more'|@translate}</a></p>
+<p><a href="http://piwigo.org/ext/extension_view.php?eid=851" target="_blank">{'Learn more'|@translate}</a></p>
 </fieldset>
 
 <fieldset>
