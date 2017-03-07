@@ -77,6 +77,17 @@ fieldset p {text-align:left;margin-top:0}
 </fieldset>
 
 <fieldset>
+  <legend>MacShareToPiwigo</legend>
+
+<div class="illustration"><a href="http://piwigo.org/screenshots/applications/macsharetopiwigo.jpg" title="MacShareToPiwigo"><img src="http://piwigo.org/screenshots/applications/thumbnail/macsharetopiwigo.jpg"></a></div>
+<p>{'Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'|@translate}</p>
+
+<p>
+<a target="_blank" href="http://piwigo.org/ext/extension_view.php?eid=804">{'Learn more'|@translate}</a>
+</p>
+</fieldset>
+
+<fieldset>
   <legend>iPhoto</legend>
 
 <div class="illustration"><a href="http://piwigo.org/screenshots/applications/iphoto.jpg" title="{'Piwigo export plugin for iPhoto'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/iphoto.jpg"></a></div>
