@@ -1001,3 +1001,5 @@ $lang['Dashboard'] = 'Dashboard';
 $lang['Storage used'] = 'Storage used';
 $lang['First photo added'] = 'First photo added';
 $lang['No filter on album. Select one or type to search'] = 'No filter on album. Select one or type to search';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo';
