@@ -28,6 +28,15 @@ fieldset p {text-align:left;margin-top:0}
 </fieldset>
 
 <fieldset>
+  <legend>Piwigo Remote Sync</legend>
+
+<div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-remote-sync.png" title="Piwigo Remote Sync"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-remote-sync.jpg"></a></div>
+<p>{'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'|@translate}</p>
+
+<p><a href="http://yorba.org/shotwell/" target="_blank">{'Learn more'|@translate}</a></p>
+</fieldset>
+
+<fieldset>
   <legend>Lightroom</legend>
 
 <div class="illustration"><a href="http://piwigo.org/screenshots/applications/lightroom.png" title="{'Piwigo Publish plugin for Lightroom'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/lightroom.jpg"></a></div>
