@@ -1000,8 +1000,9 @@ LEGEND {
 #batchManagerGlobal .actionButtons {text-align:left;}
 #batchManagerGlobal #filterList {padding-left:5px;}
 #batchManagerGlobal #filterList li {margin-bottom:5px; list-style-type:none;}
-#batchManagerGlobal a.removeFilter {background: url(icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block;}
-#batchManagerGlobal a.removeFilter:hover {background: url(icon/remove_filter_hover.png);}
+#batchManagerGlobal a.removeFilter {color:#666;}
+#batchManagerGlobal a.removeFilter::before {margin-right:0;}
+#batchManagerGlobal a.removeFilter:hover {color:red;}
 #batchManagerGlobal .removeFilter span {display:none}
 #batchManagerGlobal #applyFilterBlock {margin-top:20px;}
 #batchManagerGlobal .useFilterCheckbox {display:none;}

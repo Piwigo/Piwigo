@@ -22,6 +22,8 @@ function filter_disable(filter) {
 	$("#addFilter").children("option[value="+filter+"]").removeAttr("disabled");
 }
 
+$(".removeFilter").addClass("icon-cancel-circled");
+
 $(".removeFilter").click(function () {
 	var filter = $(this).parent('li').attr("id");
 	filter_disable(filter);
