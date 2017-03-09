@@ -1006,5 +1006,5 @@ $lang['Share / Send your photos directly from your Mac Os X (10.10 and following
 $lang['(determined from photos)'] = '(determined from photos)';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s is available, please update';
 $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Time has come to update your Piwigo with version %s, go to %s';
-$lang['It only takes a few clicks.'] 'It only takes a few clicks.';
+$lang['It only takes a few clicks.'] = 'It only takes a few clicks.';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Running on an up-to-date Piwigo is important for security.';
