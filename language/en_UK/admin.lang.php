@@ -1004,3 +1004,7 @@ $lang['No filter on album. Select one or type to search'] = 'No filter on album.
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.';
 $lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo';
 $lang['(determined from photos)'] = '(determined from photos)';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s is available, please update';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Time has come to update your Piwigo with version %s, go to %s';
+$lang['It only takes a few clicks.'] 'It only takes a few clicks.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Running on an up-to-date Piwigo is important for security.';
