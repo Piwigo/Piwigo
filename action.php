@@ -100,6 +100,16 @@ if ( empty($element_info) )
   do_error(404, 'Requested id not found');
 }
 
+// special download action for admins
+$is_admin_download = false;
+if (is_admin() and isset($_GET['pwg_token']) and get_pwg_token() == $_GET['pwg_token'])
+{
+  $is_admin_download = true;
+  $user['enabled_high'] = true;
+}
+
+$src_image = new SrcImage($element_info);
+
 // $filter['visible_categories'] and $filter['visible_images']
 // are not used because it's not necessary (filter <> restriction)
 $query='
@@ -116,7 +126,7 @@ SELECT id
   ).'
   LIMIT 1
 ;';
-if ( pwg_db_num_rows(pwg_query($query))<1 )
+if (!$is_admin_download and pwg_db_num_rows(pwg_query($query))<1 )
 {
   do_error(401, 'Access denied');
 }
@@ -126,9 +136,9 @@ $file='';
 switch ($_GET['part'])
 {
   case 'e':
-    if ( !$user['enabled_high'] )
-    {
-      $deriv = new DerivativeImage(IMG_XXLARGE, new SrcImage($element_info));
+    if ( $src_image->is_original() and !$user['enabled_high'] )
+    {// we have a photo and the user has no access to HD
+      $deriv = new DerivativeImage(IMG_XXLARGE, $src_image);
       if ( !$deriv->same_as_source() )
       {
         do_error(401, 'Access denied e');
@@ -206,7 +216,7 @@ $http_headers[] = 'Content-Type: '.$ctype;
 
 if (isset($_GET['download']))
 {
-  $http_headers[] = 'Content-Disposition: attachment; filename="'.$element_info['file'].'";';
+  $http_headers[] = 'Content-Disposition: attachment; filename="'.htmlspecialchars_decode($element_info['file']).'";';
   $http_headers[] = 'Content-Transfer-Encoding: binary';
 }
 else

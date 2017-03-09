@@ -503,7 +503,7 @@ INSERT INTO '.$table_name.'
         $is_first = false;
       }
       
-      if ($value === '')
+      if ($value === '' || is_null($value))
       {
         $query .= 'NULL';
       }

@@ -32,10 +32,16 @@ check_status(ACCESS_ADMINISTRATOR);
 $sections = explode('/', $_GET['section'] );
 for ($i=0; $i<count($sections); $i++)
 {
-  if (empty($sections[$i]) or $sections[$i]=='..')
+  if (empty($sections[$i]))
   {
     unset($sections[$i]);
     $i--;
+    continue;
+  }
+
+  if ($sections[$i] == '..' or !preg_match('/^[a-zA-Z0-9_\.-]+$/', $sections[$i]))
+  {
+    die('invalid section token ['.htmlentities($sections[$i]).']');
   }
 }
 
@@ -63,6 +69,6 @@ if (is_file($filename))
 }
 else
 {
-  die('Missing file '.$filename);
+  die('Missing file '.htmlentities($filename));
 }
 ?>

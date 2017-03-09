@@ -18,17 +18,12 @@ fieldset p {text-align:left;margin-top:0}
 </div>
 
 <fieldset>
-  <legend>pLoader</legend>
+  <legend>Piwigo Remote Sync</legend>
 
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/ploader.png" title="pLoader"><img src="http://piwigo.org/screenshots/applications/thumbnail/ploader.jpg"></a></div>
-<p>{'pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'|@translate}</p>
+<div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-remote-sync.png" title="Piwigo Remote Sync"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-remote-sync.jpg"></a></div>
+<p>{'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'|@translate}</p>
 
-<p>{'Available versions for'|@translate}
-<a href="{$URL_DOWNLOAD_WINDOWS}">Windows</a>,
-<a href="{$URL_DOWNLOAD_MAC}">Mac</a>,
-<a href="{$URL_DOWNLOAD_LINUX}">Linux</a>
-</p>
-
+<p><a href="http://piwigo.org/ext/extension_view.php?eid=851" target="_blank">{'Learn more'|@translate}</a></p>
 </fieldset>
 
 <fieldset>
@@ -38,16 +33,6 @@ fieldset p {text-align:left;margin-top:0}
 
 <p>
 {'Available on'|@translate} <a target="_blank" href="http://itunes.apple.com/us/app/piwigo/id472225196">Apple AppStore</a>
-</p>
-</fieldset>
-
-<fieldset>
-  <legend>{'Piwigo for Android'|@translate}</legend>
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-android.jpg" title="{'Piwigo for Android'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-android.jpg"></a></div>
-<p>{'<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'|@translate}</p>
-
-<p>
-{'Available on'|@translate} <a target="_blank" href="https://play.google.com/store/apps/details?id=org.piwigo">Google Play</a>
 </p>
 </fieldset>
 
@@ -88,6 +73,17 @@ fieldset p {text-align:left;margin-top:0}
 <p>
 {'To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'|@translate}
 <a href="http://digikam.org/" target="_blank">{'Learn more'|@translate}</a>
+</p>
+</fieldset>
+
+<fieldset>
+  <legend>MacShareToPiwigo</legend>
+
+<div class="illustration"><a href="http://piwigo.org/screenshots/applications/macsharetopiwigo.jpg" title="MacShareToPiwigo"><img src="http://piwigo.org/screenshots/applications/thumbnail/macsharetopiwigo.jpg"></a></div>
+<p>{'Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'|@translate}</p>
+
+<p>
+<a target="_blank" href="http://piwigo.org/ext/extension_view.php?eid=804">{'Learn more'|@translate}</a>
 </p>
 </fieldset>
 

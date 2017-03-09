@@ -82,6 +82,24 @@ else
   $site_reader = new LocalSiteReader($site_url);
 }
 
+// +-----------------------------------------------------------------------+
+// | Quick sync                                                            |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['quick_sync']))
+{
+  check_pwg_token();
+
+  $_POST['sync'] = 'files';
+  $_POST['display_info'] = '1';
+  $_POST['add_to_caddie'] = '1';
+  $_POST['privacy_level'] = '0';
+  $_POST['sync_meta'] = '1';
+  $_POST['simulate'] = '0';
+  $_POST['subcats-included'] = '1';
+  $_POST['submit'] = 'Quick Local Synchronization';
+}
+
 $general_failure = true;
 if (isset($_POST['submit']))
 {

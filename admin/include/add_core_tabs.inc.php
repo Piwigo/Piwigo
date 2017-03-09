@@ -27,6 +27,15 @@ function add_core_tabs($sheets, $tab_id)
 {
   switch($tab_id)
   {
+    case 'admin_home':
+      $sheets[''] = array('caption' => l10n('Administration Home'), 'url' => 'admin.php');
+      break;
+
+    case 'tags':
+      global $my_base_url;
+      $sheets[''] = array('caption' => '<span class="icon-tags"></span>'.l10n('Tags'), 'url' => $my_base_url.'tags');
+      break;
+
     case 'album':
       global $admin_album_base_url;
       $sheets['properties'] = array('caption' => '<span class="icon-pencil"></span>'.l10n('Properties'), 'url' => $admin_album_base_url.'-properties');
@@ -44,8 +53,8 @@ function add_core_tabs($sheets, $tab_id)
 
     case 'batch_manager':
       global $manager_link;
-      $sheets['global'] = array('caption' => l10n('global mode'), 'url' => $manager_link.'global');
-      $sheets['unit'] = array('caption' => l10n('unit mode'), 'url' => $manager_link.'unit');
+      $sheets['global'] = array('caption' => '<span class="icon-th"></span>'.l10n('global mode'), 'url' => $manager_link.'global');
+      $sheets['unit'] = array('caption' => '<span class="icon-th-list"></span>'.l10n('unit mode'), 'url' => $manager_link.'unit');
       break;
 
     case 'cat_options':
@@ -80,7 +89,7 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['watermark'] = array('caption' => l10n('Watermark'), 'url' => $conf_link.'watermark');
       $sheets['display'] = array('caption' => l10n('Display'), 'url' => $conf_link.'display');
       $sheets['comments'] = array('caption' => l10n('Comments'), 'url' => $conf_link.'comments');
-      $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
+      // $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
       break;
 
     case 'help':
@@ -103,6 +112,11 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['installed'] = array('caption' => '<span class="icon-language"></span>'.l10n('Installed Languages'), 'url' => $my_base_url.'&amp;tab=installed');
       $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
       $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
+      break;
+
+    case 'menus':
+      global $my_base_url;
+      $sheets[''] = array('caption' => '<span class="icon-menu"></span>'.l10n('Menu Management'), 'url' => $my_base_url.'menubar');
       break;
 
     case 'nbm':

@@ -35,6 +35,19 @@ if (!empty($_POST))
 }
 
 // +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+
+$my_base_url = get_root_url().'admin.php?page=';
+
+$tabsheet = new tabsheet();
+$tabsheet->set_id('tags');
+$tabsheet->select('');
+$tabsheet->assign();
+
+// +-----------------------------------------------------------------------+
 // |                                edit tags                              |
 // +-----------------------------------------------------------------------+
 
@@ -289,20 +302,27 @@ SELECT
 
 if (isset($_POST['delete']) and isset($_POST['tags']))
 {
-  $query = '
+  if (!isset($_POST['confirm_deletion']))
+  {
+    $page['errors'][] = l10n('You need to confirm deletion');
+  }
+  else
+  {
+    $query = '
 SELECT name
   FROM '.TAGS_TABLE.'
   WHERE id IN ('.implode(',', $_POST['tags']).')
 ;';
-  $tag_names = array_from_query($query, 'name');
+    $tag_names = array_from_query($query, 'name');
 
-  delete_tags($_POST['tags']);
+    delete_tags($_POST['tags']);
 
-  $page['infos'][] = l10n_dec(
-    'The following tag was deleted', 'The %d following tags were deleted',
-    count($tag_names)
-    )
-  .' : '.implode(', ', $tag_names);
+    $page['infos'][] = l10n_dec(
+      'The following tag was deleted', 'The %d following tags were deleted',
+      count($tag_names)
+      )
+      .' : '.implode(', ', $tag_names);
+  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -364,7 +384,7 @@ foreach ($orphan_tags as $tag)
 if (count($orphan_tag_names) > 0)
 {
   $page['warnings'][] = sprintf(
-    l10n('You have %d orphan tags: %s.').' <a href="%s">'.l10n('Delete orphan tags').'</a>',
+    l10n('You have %d orphan tags: %s.').' <a href="%s" class="icon-trash">'.l10n('Delete orphan tags').'</a>',
     count($orphan_tag_names),
     implode(', ', $orphan_tag_names),
     get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token()

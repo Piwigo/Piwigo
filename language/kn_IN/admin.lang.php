@@ -161,7 +161,6 @@ $lang['Automatic correction'] = 'ಸ್ವಯಂಚಾಲಿತ  ತಿದ್ದ
 $lang['Automatic sort order'] = 'ಸ್ವಯಂಚಾಲಿತ ಅನುಕ್ರಮಣಿಕೆ ಕ್ರಮ';
 $lang['Available on'] = 'ನಲ್ಲಿ ಲಭ್ಯವಿದೆ';
 $lang['Available only with HTML format'] = 'HTML ನಮೂನೆಯಲ್ಲಿ ಮಾತ್ರ ';
-$lang['Available versions for'] = 'ಗೆ ಲಭ್ಯವಿರುವ ಆವೃತ್ತಿಗಳು';
 $lang['Average rate'] = 'ಸಾಧಾರಣ ದರ್ಜೆ';
 $lang['Batch Manager'] = 'ಸಗಟು ನಿರ್ವಾಹಕ';
 $lang['Active Languages'] = 'ಸಕ್ರಿಯ ಭಾಷೆಗಳು';

@@ -61,7 +61,7 @@ $search = get_search_array($_GET['search_id']);
 
 if (isset($search['q']))
 {
-  $template->append( 'search_words', $search['q'] );
+  $template->append( 'search_words', htmlspecialchars($search['q']) );
 }
 else
 {

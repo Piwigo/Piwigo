@@ -207,7 +207,6 @@ UL.menuUl {
 
 LI.menuLi {
 	width: 100%;
-	border: 1px solid #666;
 	padding: 12px 0;
 	margin-bottom: 5px;
 }
@@ -299,7 +298,7 @@ text-align: left;
 font-size: 150%;
 font-weight: normal;
 font-style:italic;
-padding: 2px 0 0 10px;
+/* padding: 2px 0 0 10px; */
 margin: 0;
 float:left;
 }
@@ -310,10 +309,24 @@ float:left;
 	height: 36px;
 }
 
+#pwgHead H1 {
+  width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height:36px;
+}
+
+#pwgHead h1 [class="icon-home"] {
+  font-size:20px;
+  margin-right:5px;
+}
+
 #pwgHead A {color:#ccc;}
 #pwgHead A:hover {color:#fff}
 
 #headActions {float:right; height:36px; line-height:36px; margin-right:10px;}
+#headActions A {margin-left:5px;}
 
 A {
 	text-decoration: none;
@@ -613,6 +626,8 @@ html, body {height:100%; margin:0; padding:0;}
 	background-position: 7px 2px;
 	background-color:#464646;
   color:#aaa;
+  background-image: url(images/piwigo-logo-white-letters.svg);
+  background-size: 130px 30px;
 }
 
 #footer A {color:#ccc;}
@@ -803,36 +818,50 @@ h2:lang(en) { text-transform:capitalize; }
 /**
  * Informations box in administration
  */
-.infos, .errors, .warnings {
+.infos, .errors, .warnings, .messages {
   text-align: left;
-  margin: 5px;
-  padding: 10px 50px 10px 10px;
+  margin: 15px 10px 15px 15px;
+  padding: 5px;
   font-weight:bold;
-  background-repeat: no-repeat;
-  background-position: 5px 5px;
-  padding:5px 70px 0pt 53px;
   min-height: 54px;
+}
+
+.infos ul, .errors ul, .warnings ul, .messages ul {
+  margin-top:18px;
+}
+
+.eiw-icon {
+  float: left;
+  font-size: 40px;
+  margin-right: 10px;
 }
 
 .infos {
   color: #0a0;
   background-color:#c2f5c2;
-  background-image: url(icon/infos.png);
+  border-left:4px solid #0a0;
 }
 
 .errors {
   color: #f22;
   background-color: #ffd5dc;
-  background-image: url(icon/errors.png);
+  border-left: 4px solid #f22;
 }
 
 .warnings {
   color: #ee8800;
   background-color:#ffdd99;
-  background-image: url(icon/warnings.png);
+  border-left:4px solid #ee8800;
 }
 
-.infos li, .errors li, .warnings li { list-style-type:square; }
+.messages {
+  color: #00529b;
+  background-color:#bde5f8;
+  border-left:4px solid #00529b;
+}
+
+
+.infos li, .errors li, .warnings li, .messages li { list-style-type:none; }
 .infos .submit {margin-left:30px;}
 
 .checkActions {text-align:left;padding:0;margin:0;}
@@ -971,8 +1000,9 @@ LEGEND {
 #batchManagerGlobal .actionButtons {text-align:left;}
 #batchManagerGlobal #filterList {padding-left:5px;}
 #batchManagerGlobal #filterList li {margin-bottom:5px; list-style-type:none;}
-#batchManagerGlobal a.removeFilter {background: url(icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block;}
-#batchManagerGlobal a.removeFilter:hover {background: url(icon/remove_filter_hover.png);}
+#batchManagerGlobal a.removeFilter {color:#666;}
+#batchManagerGlobal a.removeFilter::before {margin-right:0;}
+#batchManagerGlobal a.removeFilter:hover {color:red;}
 #batchManagerGlobal .removeFilter span {display:none}
 #batchManagerGlobal #applyFilterBlock {margin-top:20px;}
 #batchManagerGlobal .useFilterCheckbox {display:none;}
@@ -981,6 +1011,15 @@ LEGEND {
 #batchManagerGlobal .ui-slider-horizontal {width:650px;margin:5px 0 10px 0;}
 
 #batchManagerGlobal #duplicates_options label {margin-left:10px;}
+
+#batchManagerGlobal .thumbnails span.icon-check,
+#batchManagerGlobal .thumbnails span.icon-check-empty {
+  position:absolute;
+  left:5px;
+  top:3px;
+  font-size:14px;
+}
+
 
 #order_filters a.addFilter {font-weight:normal;margin-left:20px;}
 #order_filters a.removeFilter {font-weight:normal;}
@@ -1121,8 +1160,11 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 FORM#categoryOrdering p.albumTitle {margin:0;}
 FORM#categoryOrdering p.albumActions, FORM#categoryOrdering span.albumInfos {visibility:hidden; margin:0}
 FORM#categoryOrdering .categoryLi:hover p.albumActions, FORM#categoryOrdering .categoryLi:hover span.albumInfos {visibility:visible;}
+FORM#categoryOrdering p.albumActions a {margin-right:0}
+FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
 .showCreateAlbum {text-align:left; margin:0 1em 1em 1em;line-height:22px;}
+.showCreateAlbum .userSeparator {margin:0 5px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
 #autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}
 
@@ -1131,16 +1173,13 @@ FORM#categoryOrdering .categoryLi:hover p.albumActions, FORM#categoryOrdering .c
 
 /* watermark configuration screen */
 #watermarkPositionBox {
-  border:2px solid #ccc;
   width:500px;
   padding:5px;
-  background-color:#e5e5e5;
 }
 
 #watermarkPositionBox label {
   font-weight:normal;
   display:block;
-  color:#444;
 }
 
 #watermarkPositionBox label.middle {
@@ -1219,6 +1258,14 @@ a.group_perm {
 #userList .icon-cancel-circled {visibility:visible;}
 #userList_length {float:none;}
 #userList_filter {margin-top:-20px;}
+
+.dataTables_info, .dataTables_length {
+  padding-left:1em;
+}
+
+.dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_paginate {
+  margin-right:1em;
+}
 
 .userProperties {max-width:730px;}
 .userPropertiesContainer {border-top:1px solid #ddd;margin-top:1em;}
@@ -1309,4 +1356,19 @@ table.qsearch_help_table td {
 }
 .font-checkbox input[type=checkbox], .font-checkbox input[type=radio] {
   display:none;
+}
+
+/* icons */
+fieldset#environment legend i[class*="icon-"] {
+  font-size:14px;
+}
+
+#headActions a span {
+  display:none;
+}
+
+@media all and (min-width: 800px) {
+  #headActions a span {
+    display:inline;
+  }
 }

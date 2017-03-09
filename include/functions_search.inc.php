@@ -359,6 +359,7 @@ class QNumericRangeScope extends QSearchScope
   {
     $str = $token->term;
     $strict = array(0,0);
+    $range_requested = true;
     if ( ($pos = strpos($str, '..')) !== false)
       $range = array( substr($str,0,$pos), substr($str, $pos+2));
     elseif ('>' == @$str[0])// ratio:>1
@@ -376,7 +377,10 @@ class QNumericRangeScope extends QSearchScope
     elseif( ($token->modifier & QST_WILDCARD_END) )
       $range = array($str, '');
     else
+    {
       $range = array($str, $str);
+      $range_requested = false;
+    }
 
     foreach ($range as $i =>&$val)
     {
@@ -389,15 +393,21 @@ class QNumericRangeScope extends QSearchScope
         $val = floatval($matches[1]);
         if (isset($matches[2]))
         {
+          $mult = 1;
           if ($matches[2]=='k' || $matches[2]=='K')
-          {
-            $val *= 1000;
-            if ($i) $val += 999;
-          }
-          if ($matches[2]=='m' || $matches[2]=='M')
-          {
-            $val *= 1000000;
-            if ($i) $val += 999999;
+            $mult = 1000;
+          else
+            $mult = 1000000;
+          $val *= $mult;
+          if ($i && !$range_requested)
+          {// round up the upper limit if possible - e.g 6k goes up to 6999, but 6.12k goes only up to 6129
+            if ( ($dot_pos = strpos($matches[1], '.')) !== false )
+            {
+              $requested_precision = strlen($matches[1]) - $dot_pos - 1;
+              $mult /= pow(10, $requested_precision);
+            }
+            if ($mult>1)
+              $val += $mult-1;
           }
         }
       }
@@ -412,7 +422,7 @@ class QNumericRangeScope extends QSearchScope
       }
     }
 
-    if (!$this->nullable && $range[0]=='' && $range[1] == '')
+    if (!$this->nullable && $range[0]==='' && $range[1]==='')
       return false;
     $token->scope_data = array( 'range'=>$range, 'strict'=>$strict );
     return true;
@@ -421,9 +431,9 @@ class QNumericRangeScope extends QSearchScope
   function get_sql($field, $token)
   {
     $clauses = array();
-    if ($token->scope_data['range'][0]!='')
+    if ($token->scope_data['range'][0]!=='')
       $clauses[] = $field.' >'.($token->scope_data['strict'][0]?'':'=').$token->scope_data['range'][0].' ';
-    if ($token->scope_data['range'][1]!='')
+    if ($token->scope_data['range'][1]!=='')
       $clauses[] = $field.' <'.($token->scope_data['strict'][1]?'':'=').$token->scope_data['range'][1].' ';
 
     if (empty($clauses))
@@ -1284,13 +1294,13 @@ function get_quick_search_results_no_cache($q, $options)
 
   $ids = qsearch_eval($expression, $qsr, $tmp, $search_results['qs']['unmatched_terms']);
 
-  $debug[] = "<!--\nparsed: ".$expression;
+  $debug[] = "<!--\nparsed: ".htmlspecialchars($expression);
   $debug[] = count($expression->stokens).' tokens';
   for ($i=0; $i<count($expression->stokens); $i++)
   {
-    $debug[] = $expression->stokens[$i].': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids'
+    $debug[] = htmlspecialchars($expression->stokens[$i]).': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids'
       .' modifier:'.dechex($expression->stoken_modifiers[$i])
-      .( !empty($expression->stokens[$i]->variants) ? ' variants: '.implode(', ',$expression->stokens[$i]->variants): '');
+      .( !empty($expression->stokens[$i]->variants) ? ' variants: '.htmlspecialchars(implode(', ',$expression->stokens[$i]->variants)): '');
   }
   $debug[] = 'before perms '.count($ids);
 

@@ -40,11 +40,15 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST))
+{
+  check_pwg_token();
+}
+
 trigger_notify('loc_begin_element_set_global');
 
 check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
 check_input_parameter('associate', $_POST, false, PATTERN_ID);
-check_input_parameter('move', $_POST, false, PATTERN_ID);
 check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
@@ -124,6 +128,8 @@ DELETE
   {
     if (isset($_POST['del_tags']) and count($_POST['del_tags']) > 0)
     {
+      $taglist_before = get_image_tag_ids($collection);
+
       $query = '
 DELETE
   FROM '.IMAGE_TAG_TABLE.'
@@ -131,7 +137,11 @@ DELETE
     AND tag_id IN ('.implode(',', $_POST['del_tags']).')
 ;';
       pwg_query($query);
-      
+
+      $taglist_after = get_image_tag_ids($collection);
+      $images_to_update = compare_image_tag_lists($taglist_before, $taglist_after);
+      update_images_lastmodified($images_to_update);
+
       if (isset($_SESSION['bulk_manager_filter']['tags']) &&
         count(array_intersect($_SESSION['bulk_manager_filter']['tags'], $_POST['del_tags'])))
       {
@@ -173,7 +183,7 @@ DELETE
 
   else if ('move' == $action)
   {
-    move_images_to_categories($collection, array($_POST['move']));
+    move_images_to_categories($collection, array($_POST['associate']));
 
     $_SESSION['page_infos'] = array(
       l10n('Information data registered in database')
@@ -187,7 +197,7 @@ DELETE
 
     else if ('no_virtual_album' == $page['prefilter'])
     {
-      $category_info = get_cat_info($_POST['move']);
+      $category_info = get_cat_info($_POST['associate']);
       if (empty($category_info['dir']))
       {
         $redirect = true;
@@ -351,12 +361,13 @@ DELETE
   {
     if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])
     {
-      $deleted_count = delete_elements($collection, true);
-      if ($deleted_count > 0)
+      // now done with ajax calls, with blocks
+      // $deleted_count = delete_elements($collection, true);
+      if (count($collection) > 0)
       {
         $_SESSION['page_infos'][] = l10n_dec(
           '%d photo was deleted', '%d photos were deleted',
-          $deleted_count
+          count($collection)
           );
 
         $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
@@ -451,6 +462,7 @@ $template->assign(
     'selection' => $collection,
     'all_elements' => $page['cat_elements_id'],
     'START' => $page['start'],
+    'PWG_TOKEN' => get_pwg_token(),
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
     'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag','filter')),
    )
@@ -685,6 +697,8 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
     {
       $ttitle.= ' ('.$row['file'].')';
     }
+
+    $ttitle.= '<br>'.$row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB';
 
     $template->append(
       'thumbnails', array_merge($row,

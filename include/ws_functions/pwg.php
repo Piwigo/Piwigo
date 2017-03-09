@@ -327,6 +327,7 @@ function ws_session_getStatus($params, &$service)
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   $res['current_datetime'] = $dbnow;
   $res['version'] = PHPWG_VERSION;
+  $res['available_sizes'] = array_keys(ImageStdParams::get_defined_type_map());
 
   if (is_admin())
   {

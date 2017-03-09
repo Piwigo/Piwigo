@@ -70,7 +70,7 @@ $(document).ready(function() {
 </p>
 
 <form method="post" style="display:none" id="addGroupForm" name="add_user" action="{$F_ADD_ACTION}" class="properties">
-  <fieldset>
+  <fieldset class="with-border">
     <legend>{'Add group'|@translate}</legend>
 
     <p>

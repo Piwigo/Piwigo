@@ -195,7 +195,7 @@ function ws_addDefaultMethods( $arr )
                                 'type'=>WS_TYPE_BOOL),
         'thumbnail_size' => array(
           'default' => IMG_THUMB,
-          'info' => 'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge'
+          'info' => implode(',', array_keys(ImageStdParams::get_defined_type_map()))
           ),
         ),
       'Returns a list of categories.',
@@ -506,6 +506,18 @@ function ws_addDefaultMethods( $arr )
         'pwg_token' =>  array(),
         ),
       'Deletes image(s).',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.images.deleteOrphans',
+      'ws_images_deleteOrphans',
+      array(
+        'block_size' => array('default'=>1000, 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'pwg_token' =>  array(),
+        ),
+      'Deletes orphans, by blocks. Returns how many orphans were deleted and how many are remaining.',
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );

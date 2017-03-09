@@ -1,3 +1,4 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
@@ -58,9 +59,17 @@ jQuery("#selectStatus").change(function() {
   <legend>{'Access type'|@translate}</legend>
 
   <p id="selectStatus">
-    <label><input type="radio" name="status" value="public" {if not $private}checked="checked"{/if}> <strong>{'public'|@translate}</strong> : <em>{'any visitor can see this album'|@translate}</em></label>
+    <label class="font-checkbox">
+      <span class="icon-dot-circled"></span>
+      <input type="radio" name="status" value="public" {if not $private}checked="checked"{/if}>
+      <strong>{'public'|@translate}</strong> : <em>{'any visitor can see this album'|@translate}</em>
+    </label>
     <br>
-    <label><input type="radio" name="status" value="private" {if $private}checked="checked"{/if}> <strong>{'private'|@translate}</strong> : <em>{'visitors need to login and have the appropriate permissions to see this album'|@translate}</em></label>
+    <label class="font-checkbox">
+      <span class="icon-dot-circled"></span>
+      <input type="radio" name="status" value="private" {if $private}checked="checked"{/if}>
+      <strong>{'private'|@translate}</strong> : <em>{'visitors need to login and have the appropriate permissions to see this album'|@translate}</em>
+    </label>
   </p>
 </fieldset>
 
@@ -162,8 +171,12 @@ jQuery("#selectStatus").change(function() {
 </fieldset>
 
   <p style="margin:12px;text-align:left;">
-    <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
-    <label id="applytoSubAction" style="display:none;">
+    <button name="submit" type="submit" class="buttonLike">
+      <i class="icon-floppy"></i> {'Save Settings'|@translate}
+    </button>
+
+    <label id="applytoSubAction" style="display:none;" class="font-checkbox">
+      <span class="icon-check"></span>
       <input type="checkbox" name="apply_on_sub" {if $INHERIT}checked="checked"{/if}>
       {'Apply to sub-albums'|@translate}
     </label>

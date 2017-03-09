@@ -21,8 +21,8 @@
   {'Powered by'|translate}
   <a class="externalLink tiptip" href="{$PHPWG_URL}" title="{'Visit Piwigo project website'|translate}"><span class="Piwigo">Piwigo</span></a>
   {$VERSION}
-  | <a class="externalLink tiptip" href="{$pwgmenu.WIKI}" title="{'Read Piwigo Documentation'|translate}">{'Documentation'|translate}</a>
-  | <a class="externalLink tiptip" href="{$pwgmenu.FORUM}" title="{'Get Support on Piwigo Forum'|translate}">{'Support'|translate}</a>
+  <a class="externalLink tiptip" href="{$pwgmenu.WIKI}" title="{'Read Piwigo Documentation'|translate}"><i class="icon-book"></i>{'Documentation'|translate}</a>
+  <a class="externalLink tiptip" href="{$pwgmenu.FORUM}" title="{'Get Support on Piwigo Forum'|translate}"><i class="icon-lifebuoy"></i>{'Support'|translate}</a>
   </div>
 
   <div id="pageInfos">

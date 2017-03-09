@@ -1,15 +1,36 @@
 jQuery.fn.fontCheckbox = function() {
-  this.find('input[type=checkbox], input[type=radio]').each(function() {
+  /* checkbox */
+  this.find('input[type=checkbox]').each(function() {
     if (!jQuery(this).is(':checked')) {
       jQuery(this).prev().toggleClass('icon-check icon-check-empty');
     }
   });
   this.find('input[type=checkbox]').on('change', function() {
-    jQuery(this).prev().toggleClass('icon-check icon-check-empty');
+    jQuery(this).prev().removeClass();
+    if (!jQuery(this).is(':checked')) {
+      jQuery(this).prev().addClass('icon-check-empty');
+    }
+    else {
+      jQuery(this).prev().addClass('icon-check');
+    }
+  });
+
+  /* radio */
+  this.find('input[type=radio]').each(function() {
+    if (!jQuery(this).is(':checked')) {
+      jQuery(this).prev().toggleClass('icon-dot-circled icon-circle-empty');
+    }
   });
   this.find('input[type=radio]').on('change', function() {
-    jQuery(this).closest('.font-checkbox').find('input[type=radio][name='+ jQuery(this).attr('name') +']')
-      .prev().toggleClass('icon-check icon-check-empty');
+    jQuery('.font-checkbox input[type=radio][name="'+ jQuery(this).attr('name') +'"]').each(function() {
+      jQuery(this).prev().removeClass();
+      if (!jQuery(this).is(':checked')) {
+        jQuery(this).prev().addClass('icon-circle-empty');
+      }
+      else {
+        jQuery(this).prev().addClass('icon-dot-circled');
+      }
+    })
   });
 };
 
@@ -47,6 +68,12 @@ if (!Array.prototype.indexOf)
     }
     return -1;
   };
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function sprintf() {

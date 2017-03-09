@@ -124,7 +124,7 @@ $template->set_filename('index', 'index.tpl');
 // +-----------------------------------------------------------------------+
 // |  index page (categories, thumbnails, search, calendar, random, etc.)  |
 // +-----------------------------------------------------------------------+
-if ( empty($page['is_external']) or !$page['is_external'] )
+if ( empty($page['is_external']) )
 {
   //----------------------------------------------------- template initialization
   $page['body_id'] = 'theCategoryPage';

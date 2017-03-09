@@ -1,3 +1,28 @@
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
+
+{footer_script}
+jQuery(document).ready(function() {
+  jQuery("#authors, #tags, #categories").each(function() {
+    jQuery(this).selectize({
+      plugins: ['remove_button'],
+      maxOptions:jQuery(this).find("option").length
+    });
+  })
+});
+{/footer_script}
+
+{html_style}
+.ui-checkbox, .ui-radio, .ui-btn-text {
+  z-index:0;
+}
+
+.form-actions {
+  margin-top:3em;
+  margin-bottom:3em;
+}
+{/html_style}
+
 {include file='infos_errors.tpl'}
 <div data-role="content">
   <ul data-role="listview" data-inset="true">
@@ -6,56 +31,78 @@
 
 
 <form class="filter" method="post" name="search" action="{$F_SEARCH_ACTION}">
-<fieldset data-role="controlgroup">
-  <legend>{'Filter'|@translate}</legend>
-  <div data-role="fieldcontain">
-    <label for="search_allwords">{'Search for words'|@translate}</label>
-    <input type="text" id="search_allwords" style="width: 300px" name="search_allwords" size="30">
-  </div>
-  
-  <input type="radio" name="mode" id="mode_and" value="AND" checked="checked">
-  <label for="mode_and">{'Search for all terms'|@translate}</label>
-  <input type="radio" name="mode" id="mode_or" value="OR">
-  <label for="mode_or">{'Search for any term'|@translate}</label>
-  <div data-role="fieldcontain">
-    <label for="search_author">{'Search for Author'|@translate}</label>
-    <input type="text" style="width: 300px" name="search_author" id="search_author" size="30">
-  </div>
-</fieldset>
+  <fieldset data-role="controlgroup">
+    <legend>{'Search for words'|@translate}</legend>
 
-{if isset($TAG_SELECTION)}
+    <input type="text" name="search_allwords">
+
+    <input type="radio" name="mode" id="mode_and" value="AND" checked="checked">
+    <label for="mode_and">{'Search for all terms'|@translate}</label>
+
+    <input type="radio" name="mode" id="mode_or" value="OR">
+    <label for="mode_or">{'Search for any term'|@translate}</label>
+  </fieldset>
+
+  <fieldset data-role="controlgroup">
+  <legend>{'Apply on properties'|translate}</legend>
+
+    <input type="checkbox" name="fields[]" value="name" checked="checked" id="field-name">
+    <label for="field-name">{'Photo title'|translate}</label>
+
+    <input type="checkbox" name="fields[]" value="comment" checked="checked" id="field-comment">
+    <label for="field-comment">{'Photo description'|translate}</label>
+
+    <input type="checkbox" name="fields[]" value="file" checked="checked" id="field-file">
+    <label for="field-file">{'File name'|translate}</label>
+
+{if isset($TAGS)}
+    <input type="checkbox" name="search_in_tags" value="tags" id="field-tags">
+    <label for="field-tags">{'Tags'|translate}</label>
+{/if}
+  </fieldset>
+
+{if count($AUTHORS)>=1}
+<fieldset  data-role="controlgroup">
+  <legend>{'Search for Author'|@translate}</legend>
+  <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
+{foreach from=$AUTHORS item=author}
+    <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
+{/foreach}
+  </select>
+</fieldset>
+{/if}
+
+{if isset($TAGS)}
 <fieldset data-role="controlgroup">
   <legend>{'Search tags'|@translate}</legend>
-  {$TAG_SELECTION}
-</fieldset>
-
-<fieldset data-role="controlgroup">
+  <select id="tags" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple>
+{foreach from=$TAGS item=tag}
+    <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
+{/foreach}
+  </select>
   <input type="radio" name="tag_mode" id="tag_mode_and" value="AND" checked="checked">
   <label for="tag_mode_and">{'All tags'|@translate}</label>
+
   <input type="radio" name="tag_mode" id="tag_mode_or" value="OR">
   <label for="tag_mode_or">{'Any tag'|@translate}</label>
 </fieldset>
 {/if}
 
-<div data-role="fieldcontain">
+<fieldset data-role="controlgroup">
   <legend>{'Search in albums'|@translate}</legend>
-  <label for="categoryList">{'Albums'|@translate}
-    <select class="categoryList" id="categoryList" name="cat[]" multiple="multiple" data-native-menu="false">
-      {html_options options=$category_options selected=$category_options_selected}
-    </select>
-  </label>
-  <fieldset data-role="controlgroup">
-  <legend>{'Search in sub-albums'|@translate}</legend>
-    <input type="radio" name="subcats-included" value="1" id="subcats-included-yes" checked="checked">
-    <label for="subcats-included-yes">{'Yes'|@translate}</label>
-    <input type="radio" name="subcats-included" id="subcats-included-no" value="0">
-    <label for="subcats-included-no">{'No'|@translate}</label>
-  </fieldset>
-</div>
-<p>
-  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
-  <input class="submit" type="reset" value="{'Reset'|@translate}">
-</p>
+  <select id="categories" placeholder="{'Type in a search term'|translate}" name="cat[]" multiple>
+    {html_options options=$category_options selected=$category_options_selected}
+  </select>
+
+  <input type="checkbox" name="subcats-included" value="1" checked="checked" id="subcats-included">
+  <label for="subcats-included">{'Search in sub-albums'|@translate}</label>
+</fieldset>
+
+
+  <div class="form-actions">
+    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
+  </div>
+
 </form>
 
 <script type="text/javascript"><!--

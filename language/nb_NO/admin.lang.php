@@ -596,7 +596,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Bytt til lyse elle
 $lang['Theme has been successfully installed'] = 'Temaet er installert';
 $lang['Visit Gallery'] = 'Besøk galleriet';
 $lang['Visit Piwigo project website'] = 'Besøk Piwigo prosjektets webside';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står for <em>Piwigo Opplaster</em>. Fra din maskin, pLoader klargjør dine bilder og overfører dem til ditt Piwigo photo galleri.';
 $lang['Guest Settings'] = 'Instillinger for gjester';
 $lang['Main Page'] = 'Hovedside';
 $lang['Photo Page'] = 'Bilde side';
@@ -812,11 +811,9 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Du bruker nettleseropplasting. Prøv <a href="%s">Flashopplasting </a> isteden.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Du bruker Flashopplasting. Prøv <a href="%s">Nettleseropplasting </a> isteden.';
 $lang['Available on'] = 'Tilgjengelig på';
-$lang['Available versions for'] = 'Tilgjengelig versjon for';
 $lang['List'] = 'Vis';
 $lang['Not cropped correctly?'] = 'Ikke beskåret riktig?';
 $lang['Notify administrators when a comment is'] = 'Gi beskjed til administrator når en kommentar er';
-$lang['Piwigo for Android'] = 'Piwigo for Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo for iOS (iPhone, iPad, iPod Touch)';
 $lang['Save visits in history for'] = 'Lagre besøkshistorie for ';
 $lang['Unable to dump database.'] = 'Kan ikke dumpe databasen';
@@ -824,7 +821,6 @@ $lang['You can activate only one mobile theme.'] = 'Du kan kun aktivere et mobil
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Du kan ikke definere standard bilderekkefølge, fordi du har eget oppsett i din lokale konfigurasjon.';
 $lang['simple visitors'] = 'vanlig besøkende';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u brukere har automatisk rettigheter fordi de tilhører en gruppe som allerede har rettigheter.';
-$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo for Android</em> applikasjonen gjør at du kan koble til ditt Piwigo-galleri fra din Android-telefon, opprette album og laste opp flere bilder samtidig.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em> applikasjonen gjør at du kan koble til ditt Piwigo-galleri fra din iPhone, iPad eller iPod Touch, opprette album og laste opp flere bilder samtidig.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom et et bildebehandlingsprogram, lagd for å å organisere svært mange bilder, samt etterbehandling av bilder.';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture er et kraftig verktøy for å avgrense bilder, og for å behandle store bildebibliotek på Mac.';

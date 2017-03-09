@@ -30,15 +30,6 @@ if (!defined('PHOTOS_ADD_BASE_URL'))
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->assign(
-    array(
-      'URL_DOWNLOAD_WINDOWS' => $conf['ploader_download_windows'],
-      'URL_DOWNLOAD_MAC' => $conf['ploader_download_mac'],
-      'URL_DOWNLOAD_LINUX' => $conf['ploader_download_linux'],
-    )
-  );
-
-
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+

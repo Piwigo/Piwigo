@@ -1,3 +1,4 @@
+{* was used in double_select.tpl until Piwigo 2.8, no longer used in Piwigo core *}
 {footer_script require='jquery.ui.resizable'}{literal}
 jQuery(document).ready(function(){
 	// Resize possible for double select list

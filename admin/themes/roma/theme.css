@@ -230,13 +230,18 @@ INPUT[type="text"].large  { width: 317px; }
 	color:#ff3363;
 	background-color:#222;
 	border-color: #ff3363;
-	padding: 1px 15px;
+	padding: 5px;
 }
 
 .buttonLike:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
 	color:#999; 
 	border-color: #666;
 	text-decoration: none;
+
+  background-color:#ff3363;
+  color:#fff;
+  border-color:#ff3363;
+  cursor:pointer;
 }
 
 .buttonLike:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
@@ -275,7 +280,10 @@ color:transparent;}
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
 #pwgHead, #footer {background-color:#222;}
-#footer {background-image: url(images/piwigo_logo_small.png);}
+
+#pwgHead h1 A:hover [class="icon-home"] {
+  color:#f36;
+}
 
 .pluginBox, .pluginMiniBox, .groups li {background-color:#333;color:#999;border-color:#333;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#ddd;}
@@ -285,8 +293,34 @@ color:transparent;}
 .languageName {color:#ccc;}
 .languageDefault {background-color:#555; color:#aaa;}
 
-#batchManagerGlobal .thumbSelected {background-color:#555 !important}
-#batchManagerGlobal #selectedMessage {background-color:#555; color:#ddd;}
+/* Batch Manager */
+#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {
+  color:#777;
+}
+
+#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before {
+  color:white;
+}
+
+#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
+  color:white;
+}
+
+#batchManagerGlobal UL.thumbnails li:hover .wrap2 {
+  background-color: #ff3363;
+  color: white;
+}
+
+#batchManagerGlobal .thumbSelected { background-color:transparent !important }
+
+#batchManagerGlobal .thumbSelected .wrap2 {
+  background-color: #555 !important;
+}
+
+#batchManagerGlobal #selectedMessage {
+  background-color: #555;
+  color:white;
+}
 
 /* TokenInput (with Facebook style for ROMA) */
 ul.token-input-list {border-color:#666 !important;background-color:#444 !important;}
@@ -347,8 +381,12 @@ table.dataTable tr.odd td.sorting_1 {
   background-color: #282828 !important;
 }
 
-table.dataTable thead th {
+table.dataTable thead th, table.dataTable.no-footer {
   border-color: #333 !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+  color:#777 !important;
 }
 
 .userPropertiesContainer {border-color:#333;}
@@ -361,3 +399,13 @@ table.qsearch_help_table td {
 .font-checkbox [class*=icon-check]:before { color:#aaa; }
 
 #cboxLoadedContent { background-color:#222 !important; }
+
+#watermarkPositionBox {
+  background-color:#333;
+}
+
+#watermarkPositionBox label {
+  color:#aaa;
+}
+
+#wImg {border-color:#555;}

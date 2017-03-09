@@ -30,6 +30,13 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_FREE);
 
+// but if the user is already identified, we redirect to gallery home
+// instead of displaying the log in form
+if (!is_a_guest())
+{
+  redirect(get_gallery_home_url());
+}
+
 trigger_notify('loc_begin_identification');
 
 //-------------------------------------------------------------- identification
@@ -37,7 +44,7 @@ $redirect_to = '';
 if ( !empty($_GET['redirect']) )
 {
   $redirect_to = urldecode($_GET['redirect']);
-  if ( is_a_guest() )
+  if ( is_a_guest() and $conf['guest_access'] )
   {
     $page['errors'][] = l10n('You are not authorized to access the requested page');
   }
@@ -50,7 +57,7 @@ if (isset($_POST['login']))
     $page['errors'][] = l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.');
   }
   else
-  { 
+  {
     if ($conf['insensitive_case_logon'] == true)
     {
       $_POST['username'] = search_case_username($_POST['username']);
@@ -58,14 +65,14 @@ if (isset($_POST['login']))
     
     $redirect_to = isset($_POST['redirect']) ? urldecode($_POST['redirect']) : '';
     $remember_me = isset($_POST['remember_me']) and $_POST['remember_me']==1;
-    
+
     if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
     {
       redirect(empty($redirect_to) ? get_gallery_home_url() : $redirect_to);
     }
     else
     {
-      $page['errors'][] = l10n('Invalid password!');
+      $page['errors'][] = l10n('Invalid username or password!');
     }
   }
 }

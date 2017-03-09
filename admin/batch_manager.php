@@ -64,15 +64,15 @@ DELETE FROM '.CADDIE_TABLE.'
     redirect(get_root_url().'admin.php?page='.$_GET['page']);
   }
 
-  if ('delete_orphans' == $_GET['action'])
+  if ('delete_orphans' == $_GET['action'] and isset($_GET['nb_orphans_deleted']))
   {
-    $deleted_count = delete_elements(get_orphans(), true);
-    
-    if ($deleted_count > 0)
+    check_input_parameter('nb_orphans_deleted', $_GET, false, '/^\d+$/');
+
+    if ($_GET['nb_orphans_deleted'] > 0)
     {
       $_SESSION['page_infos'][] = l10n_dec(
         '%d photo was deleted', '%d photos were deleted',
-        $deleted_count
+        $_GET['nb_orphans_deleted']
         );
 
       redirect(get_root_url().'admin.php?page='.$_GET['page']);
@@ -97,14 +97,29 @@ if (isset($_POST['submitFilter']))
 
     if ('duplicates' == $_POST['filter_prefilter'])
     {
+      $has_options = false;
+
+      if (isset($_POST['filter_duplicates_checksum']))
+      {
+        $_SESSION['bulk_manager_filter']['duplicates_checksum'] = true;
+        $has_options = true;
+      }
+
       if (isset($_POST['filter_duplicates_date']))
       {
         $_SESSION['bulk_manager_filter']['duplicates_date'] = true;
+        $has_options = true;
       }
       
       if (isset($_POST['filter_duplicates_dimensions']))
       {
         $_SESSION['bulk_manager_filter']['duplicates_dimensions'] = true;
+        $has_options = true;
+      }
+
+      if (!$has_options or isset($_POST['filter_duplicates_filename']))
+      {
+        $_SESSION['bulk_manager_filter']['duplicates_filename'] = true;
       }
     }
   }
@@ -355,7 +370,17 @@ SELECT
 
 
   case 'duplicates':
-    $duplicates_on_fields = array('file');
+    $duplicates_on_fields = array();
+
+    if (isset($_SESSION['bulk_manager_filter']['duplicates_filename']))
+    {
+      $duplicates_on_fields[] = 'file';
+    }
+
+    if (isset($_SESSION['bulk_manager_filter']['duplicates_checksum']))
+    {
+      $duplicates_on_fields[] = 'md5sum';
+    }
 
     if (isset($_SESSION['bulk_manager_filter']['duplicates_date']))
     {
@@ -566,6 +591,7 @@ $manager_link = get_root_url().'admin.php?page=batch_manager&amp;mode=';
 
 if (isset($_GET['mode']))
 {
+  check_input_parameter('mode', $_GET, false, '/^(global|unit)$/');
   $page['tab'] = $_GET['mode'];
 }
 else

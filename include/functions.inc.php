@@ -411,6 +411,24 @@ function pwg_log($image_id = null, $image_type = null, $format_id = null)
 {
   global $conf, $user, $page;
 
+  $update_last_visit = false;
+  if (empty($user['last_visit']) or strtotime($user['last_visit']) < time()-$conf['session_length'])
+  {
+    $update_last_visit = true;
+  }
+  $update_last_visit = trigger_change('pwg_log_update_last_visit', $update_last_visit);
+
+  if ($update_last_visit)
+  {
+    $query = '
+UPDATE '.USER_INFOS_TABLE.'
+  SET last_visit = NOW(),
+      lastmodified = lastmodified
+  WHERE user_id = '.$user['id'].'
+';
+    pwg_query($query);
+  }
+
   $do_log = $conf['log'];
   if (is_admin())
   {
@@ -476,6 +494,19 @@ INSERT INTO '.HISTORY_TABLE.'
   )
 ;';
   pwg_query($query);
+
+  $history_id = pwg_db_insert_id(HISTORY_TABLE);
+  if ($history_id % 1000 == 0)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
+    history_summarize(50000);
+  }
+
+  if ($conf['history_autopurge_every'] > 0 and $history_id % $conf['history_autopurge_every'] == 0)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
+    history_autopurge();
+  }
 
   return true;
 }
@@ -1559,7 +1590,7 @@ function load_language($filename, $dirname = '', $options = array())
   }
   $dirname .= 'language/';
 
-  $default_language = defined('PHPWG_INSTALLED') and !defined('UPGRADES_PATH') ?
+  $default_language = (defined('PHPWG_INSTALLED') and !defined('UPGRADES_PATH')) ?
       get_default_language() : PHPWG_DEFAULT_LANGUAGE;
 
   // construct list of potential languages
@@ -2055,6 +2086,16 @@ function mobile_theme()
  */
 function url_check_format($url)
 {
+  if (strpos($url, '"') !== false)
+  {
+    return false;
+  }
+
+  if (strncmp($url, 'http://', 7) !== 0 and strncmp($url, 'https://', 8) !== 0)
+  {
+    return false;
+  }
+
   return filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED)!==false;
 }
 

@@ -1,3 +1,39 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
+
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
+
+{footer_script}
+{* <!-- CATEGORIES --> *}
+var categoriesCache = new CategoriesCache({
+  serverKey: '{$CACHE_KEYS.categories}',
+  serverId: '{$CACHE_KEYS._hash}',
+  rootUrl: '{$ROOT_URL}'
+});
+
+categoriesCache.selectize(jQuery('[data-selectize=categories]'));
+
+jQuery("#removeAlbumFilter").click(function() {
+  jQuery("select[name=cat]")[0].selectize.setValue(null);
+  return false;
+});
+
+function checkCatFilter() {
+  if (jQuery("select[name=cat]").val() == "") {
+    jQuery("#removeAlbumFilter").hide();
+  }
+  else {
+    jQuery("#removeAlbumFilter").show();
+  }
+}
+
+checkCatFilter();
+jQuery("select[name=cat]").change(function(){
+  checkCatFilter();
+});
+{/footer_script}
+
 <h2>{$NB_ELEMENTS} {'Photos'|@translate}</h2>
 
 <form action="{$F_ACTION}" method="GET" class="filter">
@@ -24,9 +60,23 @@
     </label>
 
     <label>
-      &nbsp;
-    <input class="submit" type="submit" value="{'Submit'|@translate}">
+      {'Album'|translate}<a href="#" id="removeAlbumFilter" class="icon-cancel-circled"></a>
+      <select
+        data-selectize="categories"
+        data-value="{$category|@json_encode|escape:html}"
+        placeholder="{'No filter on album. Select one or type to search'|translate}"
+        name="cat"
+        style="width:400px"
+      ></select>
     </label>
+
+    <div style="clear:both"></div>
+
+    <p style="margin:10px 0 0 0">
+      <button name="submit" type="submit" class="buttonLike">
+        <i class="icon-filter"></i> {'Submit'|translate}
+      </button>
+    </p>
     <input type="hidden" name="page" value="rating">
   </fieldset>
 </form>

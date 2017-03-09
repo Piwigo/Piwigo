@@ -11,7 +11,10 @@
 
 {strip}
 {combine_css path="admin/themes/default/fontello/css/fontello.css" order=-10}
+{assign "theme_id" ""}
 {foreach from=$themes item=theme}
+  {assign "theme_id" $theme.id}
+
   {if $theme.load_css}
   {combine_css path="admin/themes/`$theme.id`/theme.css" order=-10}
   {/if}
@@ -49,19 +52,31 @@
 {/if}
 
 <div id="pwgHead">
+{strip}
   <h1>
     <a href="{$U_RETURN}" title="{'Visit Gallery'|translate}" class="tiptip">
-      <span class="icon-home" style="font-size:larger"></span>
+      <span class="icon-home"></span>
       {$GALLERY_TITLE}
     </a>
   </h1>
+{/strip}
 
   <div id="headActions">
-    {'Hello'|translate} {$USERNAME} |
-    <a class="icon-eye" href="{$U_RETURN}">{'Visit Gallery'|translate}</a> |
-    <a class="icon-brush tiptip" href="{$U_CHANGE_THEME}" title="{'Switch to clear or dark colors for administration'|translate}">{'Change Admin Colors'|translate}</a> |
-    <a class="icon-help-circled tiptip" href="{$U_FAQ}" title="{'Instructions to use Piwigo'|@translate}">{'Help Me'|translate}</a> |
-    <a class="icon-logout" href="{$U_LOGOUT}">{'Logout'|translate}</a>
+    <i class="icon-user"></i>{$USERNAME}
+    <a href="{$U_RETURN}" title="{'Visit Gallery'|translate}"><i class="icon-eye"></i><span>{'Visit Gallery'|translate}</span></a>
+
+{strip}
+    <a href="{$U_CHANGE_THEME}" class="tiptip" title="{'Switch to clear or dark colors for administration'|translate}">
+{if $theme_id eq "clear"}
+      <i class="icon-moon-inv"></i><span>Dark</span>
+{elseif $theme_id eq "roma"}
+      <i class="icon-sun-inv"></i><span>Light</span>
+{/if}
+</a>
+{/strip}
+
+    <a class="tiptip" href="{$U_FAQ}" title="{'Instructions to use Piwigo'|@translate}"><i class="icon-help-circled"></i><span>{'Help Me'|translate}</span></a>
+    <a href="{$U_LOGOUT}"><i class="icon-logout"></i><span>{'Logout'|translate}</span></a>
   </div>
 </div>
 

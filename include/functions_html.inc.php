@@ -273,21 +273,26 @@ function tag_alpha_compare($a, $b)
  */
 function access_denied()
 {
-  global $user;
+  global $user, $conf;
 
   $login_url =
       get_root_url().'identification.php?redirect='
       .urlencode(urlencode($_SERVER['REQUEST_URI']));
 
-  set_status_header(401);
   if ( isset($user) and !is_a_guest() )
   {
+    set_status_header(401);
+
     echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
     echo '<div style="text-align:center;">'.l10n('You are not authorized to access the requested page').'<br>';
     echo '<a href="'.get_root_url().'identification.php">'.l10n('Identification').'</a>&nbsp;';
     echo '<a href="'.make_index_url().'">'.l10n('Home').'</a></div>';
     echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
+  }
+  elseif (!$conf['guest_access'] and is_a_guest())
+  {
+    redirect_http($login_url);
   }
   else
   {
@@ -510,7 +515,13 @@ function register_default_menubar_blocks($menu_ref_arr)
   $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));
-  $menu->register_block( new RegisteredBlock( 'mbIdentification', 'Identification', 'piwigo') );
+
+  // We hide the quick identification menu on the identification page. It
+  // would be confusing.
+  if (script_basename() != 'identification')
+  {
+    $menu->register_block( new RegisteredBlock( 'mbIdentification', 'Identification', 'piwigo') );
+  }
 }
 
 /**
@@ -632,7 +643,7 @@ function flush_page_messages()
   global $template, $page;
   if ($template->get_template_vars('page_refresh') === null)
   {
-    foreach (array('errors','infos','warnings') as $mode)
+    foreach (array('errors','infos','warnings', 'messages') as $mode)
     {
       if (isset($_SESSION['page_'.$mode]))
       {

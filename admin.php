@@ -174,7 +174,7 @@ $template->assign(
     'USERNAME' => $user['username'],
     'ENABLE_SYNCHRONIZATION' => $conf['enable_synchronization'],
     'U_SITE_MANAGER'=> $link_start.'site_manager',
-    'U_HISTORY_STAT'=> $link_start.'stats',
+    'U_HISTORY_STAT'=> $link_start.'stats&amp;year='.date('Y').'&amp;month='.date('n'),
     'U_FAQ'=> $link_start.'help',
     'U_SITES'=> $link_start.'remote_site',
     'U_MAINTENANCE'=> $link_start.'maintenance',
@@ -219,6 +219,7 @@ SELECT COUNT(*)
   if ($nb_comments > 0)
   {
     $template->assign('NB_PENDING_COMMENTS', $nb_comments);
+    $page['nb_pending_comments'] = $nb_comments;
   }
 }
 

@@ -69,7 +69,7 @@ h3, .throw, .row1 { background-color: #ddd; }
 
 #content {
 	background: #f1f1f1;
-  border: 1px solid #aaa;
+  border: 1px solid #f9f9f9;
 	min-height: 467px;
   margin-left:217px;
   margin-top: 7px;
@@ -91,7 +91,16 @@ UL.thumbnails span.wrap2 {
 
 
 /* borders */
-fieldset { border: 2px solid #ddd; }
+fieldset {
+  border: none;
+  border-top: 2px solid #ddd;
+}
+
+fieldset.with-border {
+  border: 2px solid #ddd;
+}
+
+
 TEXTAREA { cursor:text; font-size: 13px; }
 .tagSelection label { padding-right:12px; }
 .tagSelection LI.tagSelected {background-color:#dbe8f3;}
@@ -168,23 +177,27 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 }
 
 #menubar ul.scroll { overflow-y:auto; max-height:500px; }
-#menubar dl { width: 200px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:1px solid #ddd; background-color:#f1f1f1; border-left:none; }
+#menubar dl { width: 200px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:0; background-color:#444; border-left:none; }
 #menubar dd { margin: 0; padding: 0; }
 #menubar dt {
-	background-color: #ddd; margin: 0; display: block; font-weight:bold;
-	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777;
+	background-color: #333; margin: 0; display: block; font-weight:bold;
+	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #aaa;
 	cursor:pointer;
 }
-#menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0 6px 0 0;  }
-#menubar dl:last-of-type { border-radius:0 0 6px 0;  }
+#menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0;  }
+#menubar dl:last-of-type { border-radius:0;  }
 #menubar li { margin: 0; padding-left:10px; }
-#menubar li A { display:block; }
-#menubar li A:hover {color:black; text-decoration:none}
-#menubar li:hover {background-color:#dbe8f3;}
+#menubar li A { display:block; color:#ccc }
+#menubar li A:hover {color:#eee; text-decoration:none}
+#menubar li:hover {background-color:#222;}
 #menubar ul { color: #ccc; margin:0; line-height: 25px;
   list-style-type: none; list-style-position: inside; padding: 0; }
-#adminHome       {background-color:#ddd;border-radius: 0 6px 6px 0;margin-left:0;margin-bottom:17px;}
-#adminHome:hover {background-color:#d0d0d0;}
+#adminHome       {background-color:#333;border-radius: 0;margin-left:0;margin-bottom:17px;}
+#adminHome:hover {background-color:#f70;}
+#adminHome A {color:#aaa}
+#adminHome:hover A {color:#fff}
+
+#menubar i {font-size:14px;}
 
 /* jQuery tooltips */
 .ui-tooltip {
@@ -269,17 +282,19 @@ INPUT[type="text"].large  { width: 317px; }
 #themesContent H3 {border-bottom:1px solid #aaa;}
 .themeDefault {background-color:#dbe8f3;}
 
-#pluginsMenuSeparator {border:1px solid #ddd;}
+#pluginsMenuSeparator {border:1px solid #555;}
 
 #pwgHead, #footer {
-	background-color: #ddd;
-	color: #666;
+	background-color: #333;
+	color: #ccc;
 }
 
+#pwgHead h1 A:hover [class="icon-home"] {
+  color:#ff7700;
+}
 
-#pwgHead A, #footer A {color:#444;}
-#pwgHead A:hover, #footer A:hover {color:black;}
-#footer { background-image: url(images/piwigo_logo_small.png);}
+#pwgHead A, #footer A {color:#ccc;}
+#pwgHead A:hover, #footer A:hover {color:white;}
 
 .pluginBox, .pluginMiniBox, .groups li {background-color:#ddd;color:#353535;border-color:#ddd;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
@@ -292,8 +307,48 @@ INPUT[type="text"].large  { width: 317px; }
 
 UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
-#batchManagerGlobal .thumbSelected {background-color:#C2F5C2 !important}
-#batchManagerGlobal #selectedMessage {background-color:#C2F5C2;}
+/* Batch Manager */
+#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {
+  color:#999;
+}
+
+#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before {
+  color:white;
+}
+
+#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
+  color:white;
+}
+
+#batchManagerGlobal UL.thumbnails li:hover .wrap2 {
+  background-color: #ff7700;
+  color: #999;
+}
+
+#batchManagerGlobal .thumbSelected { background-color:transparent !important }
+
+#batchManagerGlobal .thumbSelected .wrap2 {
+  background-color: #444 !important;
+}
+
+#batchManagerGlobal #selectedMessage {
+  background-color: #555;
+  color:white;
+}
+
+/* beta-test begins: specific changes on Batch Manager */
+#batchManagerGlobal legend {
+  background-color:#ddd;
+  color:#555;
+  padding:5px 10px;
+}
+
+#batchManagerGlobal fieldset {
+  margin-top:2em;
+}
+/* beta-test ends */
+
+
 .slider-info {color:#ff7700;font-weight:bold;}
 
 .selectedComment {background-color:#C2F5C2;}
@@ -307,10 +362,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   border:none;
   background-color:#666;
   color:#fff;
-  padding:2px 5px;
-  -moz-border-radius:5px;
-  -webkit-border-radius:5px;
-  border-radius:5px;
+  padding:4px 7px;
   margin-left:0;
 }
 
@@ -319,6 +371,10 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   background-color: #ff7700;
   color: white;
 	text-decoration: none;
+}
+
+.buttonLike i {
+  font-size:14px;
 }
 
 .buttonLike:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
@@ -361,8 +417,12 @@ table.dataTable tr.odd td.sorting_1 {
   color:#333;
 }
 
-table.dataTable thead th {
-  border-color: #aaa !important;
+table.dataTable thead th, table.dataTable.no-footer {
+  border-color: #ddd !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+  color:#777 !important;
 }
 
 .userPropertiesContainer {border-color:#ddd;}
@@ -382,3 +442,29 @@ table.dataTable thead th {
 }
 
 .font-checkbox [class*=icon-check]:before { color:#444; }
+
+#watermarkPositionBox {
+  border:2px solid #ccc;
+  background-color:#e5e5e5;
+}
+
+#watermarkPositionBox label {
+  color:#444;
+}
+
+/* beta-test begins: specific changes on album edition page*/
+#catModify input[type="text"], #catModify textarea {
+  border: 2px solid #ddd;
+  background-color:#fff;
+  padding:5px;
+}
+
+#catModify input[type="text"].large, #catModify textarea.description {
+  width:590px;
+}
+
+#catModify input[type="text"]:focus, #catModify textarea:focus {
+  border-color: #ff7700;
+  background-color:#fff;
+}
+/* beta-test ends */

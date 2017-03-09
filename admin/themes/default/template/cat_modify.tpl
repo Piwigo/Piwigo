@@ -1,3 +1,5 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{include file='include/colorbox.inc.tpl'}
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
@@ -89,9 +91,73 @@ jQuery(document).ready(function() {
 
     e.preventDefault();
   });
+
+  jQuery(".deleteAlbum").click(function() {
+    jQuery.colorbox({
+      inline:true,
+      title:"{'delete album'|translate|escape:javascript}",
+      href:".delete_popin"
+    });
+
+    return false;
+  });
+
+  function set_photo_deletion_mode() {
+    if (jQuery("input[name=photo_deletion_mode]").length > 0) {
+      var $photo_deletion_mode = jQuery("input[name=photo_deletion_mode]:checked").val();
+      jQuery("#deleteConfirm").data("photo_deletion_mode", $photo_deletion_mode);
+    }
+  }
+
+  set_photo_deletion_mode();
+
+  jQuery("input[name=photo_deletion_mode]").change(function() {
+    set_photo_deletion_mode();
+  });
+
+  jQuery("#deleteConfirm").click(function() {
+    if (jQuery("input[name=photo_deletion_mode]").length > 0) {
+      var $href = jQuery(this).attr("href");
+      jQuery(this).attr("href", $href+"&photo_deletion_mode="+jQuery(this).data("photo_deletion_mode"));
+    }
+  });
+
+  jQuery(document).on('click', '.close-delete_popin',  function(e) {
+    jQuery('.delete_popin').colorbox.close();
+    e.preventDefault();
+  });
 });
 
 {/footer_script}
+
+{html_style}
+.delete_popin {
+  padding:20px 30px;
+}
+
+.delete_popin p {
+  margin:0;
+}
+
+.delete_popin ul {
+  padding:0;
+  margin:30px 0;
+}
+
+.delete_popin ul li {
+  list-style-type:none;
+  margin:10px 0;
+}
+
+.delete_popin .buttonLike {
+  padding:5px;
+  margin-right:10px;
+}
+
+.delete_popin p.popin-actions {
+  margin-top:30px;
+}
+{/html_style}
 
 
 <div class="titrePage">
@@ -142,7 +208,7 @@ jQuery(document).ready(function() {
 {/if}
 
 {if isset($U_DELETE) }
-  <li><a class="icon-trash" href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a></li>
+  <li><a class="icon-trash deleteAlbum" href="#">{'delete album'|@translate}</a></li>
 {/if}
 
 </ul>
@@ -179,25 +245,61 @@ jQuery(document).ready(function() {
   <p>
     <strong>{'Lock'|@translate}</strong>
     <br>
-		{html_radios name='visible' values=['true','true_sub','false'] output=['No'|translate,'No and unlock sub-albums'|translate,'Yes'|translate] selected=$CAT_VISIBLE}
+      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="true"{if $CAT_VISIBLE == "true"} checked="checked"{/if}>{'No'|translate}</label>
+      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="true_sub">{'No and unlock sub-albums'|translate}</label>
+      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="false"{if $CAT_VISIBLE == "false"} checked="checked"{/if}>{'Yes'|translate}</label>
   </p>
 
   {if isset($CAT_COMMENTABLE)}
   <p>
     <strong>{'Comments'|@translate}</strong>
     <br>
-		{html_radios name='commentable' values=['false','true'] output=['No'|translate,'Yes'|translate] selected=$CAT_COMMENTABLE}
+      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="commentable" value="false"{if $CAT_COMMENTABLE == "false"} checked="checked"{/if}>{'No'|translate}</label>
+      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="commentable" value="true"{if $CAT_COMMENTABLE == "true"} checked="checked"{/if}>{'Yes'|translate}</label>
     <label id="applytoSubAction">
-      <input type="checkbox" name="apply_commentable_on_sub">
+      <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="apply_commentable_on_sub"></label>
       {'Apply to sub-albums'|@translate}
     </label>
   </p>
   {/if}
 
   <p style="margin:0">
-    <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
+    <button name="submit" type="submit" class="buttonLike">
+      <i class="icon-floppy"></i> {'Save Settings'|@translate}
+    </button>
   </p>
 </fieldset>
 
 </form>
+
+<div style="display:none">
+  <div class="delete_popin">
+
+    <p>
+{if $NB_SUBCATS == 0}
+      {'Delete album "%s".'|translate:$CATEGORY_FULLNAME}
+{else}
+      {'Delete album "%s" and its %d sub-albums.'|translate:$CATEGORIES_NAV:$NB_SUBCATS}
+{/if}
+    </p>
+
+{if $NB_IMAGES_RECURSIVE > 0}
+  <ul>
+  {if $NB_IMAGES_ASSOCIATED_OUTSIDE > 0}
+    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="force_delete"> {'delete album and all %d photos, even the %d associated to other albums'|translate:$NB_IMAGES_RECURSIVE:$NB_IMAGES_ASSOCIATED_OUTSIDE}</label></li>
+  {/if}
+    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="delete_orphans"> {'delete album and the %d orphan photos'|translate:$NB_IMAGES_BECOMING_ORPHAN}</label></li>
+    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked"> {'delete only album, not photos'|translate}</label></li>
+  </ul>
+{/if}
+
+    <p class="popin-actions">
+      <a id="deleteConfirm" class="buttonLike" type="submit" href="{$U_DELETE}"><i class="icon-trash"></i> {'Confirm deletion'|translate}</button>
+      <a class="icon-cancel-circled close-delete_popin" href="#">{'Cancel'|translate}</a>
+    </p>
+
+{* $U_DELETE *}
+  </div>
+</div>
+
 </div> {* #catModify *}

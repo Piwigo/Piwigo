@@ -43,10 +43,10 @@ if (!empty($_POST) or isset($_GET['delete']))
 $sort_orders = array(
   'name ASC' => l10n('Album name, A &rarr; Z'),
   'name DESC' => l10n('Album name, Z &rarr; A'),
-  'date_creation DESC' => l10n('Date created, new &rarr; old'),
-  'date_creation ASC' => l10n('Date created, old &rarr; new'),
-  'date_available DESC' => l10n('Date posted, new &rarr; old'),
-  'date_available ASC' => l10n('Date posted, old &rarr; new'),
+  'date_creation DESC' => l10n('Date created, new &rarr; old').' '.l10n('(determined from photos)'),
+  'date_creation ASC' => l10n('Date created, old &rarr; new').' '.l10n('(determined from photos)'),
+  'date_available DESC' => l10n('Date posted, new &rarr; old').' '.l10n('(determined from photos)'),
+  'date_available ASC' => l10n('Date posted, old &rarr; new').' '.l10n('(determined from photos)'),
   );
 
 // +-----------------------------------------------------------------------+
@@ -192,7 +192,13 @@ include(PHPWG_ROOT_PATH.'admin/include/albums_tab.inc.php');
 // request to delete a virtual category
 if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 {
-  delete_categories(array($_GET['delete']));
+  $photo_deletion_mode = 'no_delete';
+  if (isset($_GET['photo_deletion_mode']))
+  {
+    $photo_deletion_mode = $_GET['photo_deletion_mode'];
+  }
+  delete_categories(array($_GET['delete']), $photo_deletion_mode);
+
   $_SESSION['page_infos'] = array(l10n('Virtual album deleted'));
   update_global_rank();
   invalidate_user_cache();
@@ -219,7 +225,8 @@ elseif (isset($_POST['submitAdd']))
   }
   else
   {
-    $page['infos'][] = $output_create['info'];
+    $edit_url = get_root_url().'admin.php?page=album-'.$output_create['id'];
+    $page['infos'][] = $output_create['info'].' <a class="icon-pencil" href="'.$edit_url.'">'.l10n('Edit album').'</a>';
   }
 }
 // save manual category ordering

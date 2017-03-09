@@ -25,10 +25,24 @@ jQuery.fn.lightAccordion = function(options) {
 $('#menubar').lightAccordion({
   active: {$ACTIVE_MENU}
 });
+
+/* in case we have several infos/errors/warnings display bullets */
+jQuery(document).ready(function() {
+  var eiw = ["infos","erros","warnings", "messages"];
+
+  for (var i = 0; i < eiw.length; i++) {
+    var boxType = eiw[i];
+
+    if (jQuery("."+boxType+" ul li").length > 1) {
+      jQuery("."+boxType+" ul li").css("list-style-type", "square");
+      jQuery("."+boxType+" .eiw-icon").css("margin-right", "20px");
+    }
+  }
+});
 {/footer_script}
 
 <div id="menubar">
-  <div id="adminHome"><a href="{$U_ADMIN}">{'Administration Home'|@translate}</a></div>
+  <div id="adminHome"><a href="{$U_ADMIN}"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
 
 	<dl>
 		<dt><i class="icon-picture"> </i><span>{'Photos'|@translate}&nbsp;</span></dt>
@@ -73,8 +87,8 @@ $('#menubar').lightAccordion({
       <ul>
         <li><a href="{$U_PLUGINS}"><i class="icon-equalizer"></i>{'Manage'|@translate}</a></li>
       </ul>
-      <div id="pluginsMenuSeparator"></div>
 {if !empty($plugin_menu_items)}
+      <div id="pluginsMenuSeparator"></div>
       <ul class="scroll">
   {foreach from=$plugin_menu_items item=menu_item}
         <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
@@ -129,8 +143,10 @@ $('#menubar').lightAccordion({
   </ul>
   {/if}
 
+<div class="eiw">
   {if isset($errors)}
   <div class="errors">
+    <i class="eiw-icon icon-cancel"></i>
     <ul>
       {foreach from=$errors item=error}
       <li>{$error}</li>
@@ -141,6 +157,7 @@ $('#menubar').lightAccordion({
 
   {if isset($infos)}
   <div class="infos">
+    <i class="eiw-icon icon-ok"></i>
     <ul>
       {foreach from=$infos item=info}
       <li>{$info}</li>
@@ -151,6 +168,7 @@ $('#menubar').lightAccordion({
 
   {if isset($warnings)}
   <div class="warnings">
+    <i class="eiw-icon icon-attention"></i>
     <ul>
       {foreach from=$warnings item=warning}
       <li>{$warning}</li>
@@ -158,6 +176,19 @@ $('#menubar').lightAccordion({
     </ul>
   </div>
   {/if}
+
+  {if isset($messages)}
+  <div class="messages">
+    <i class="eiw-icon icon-info-circled-1"></i>
+    <ul>
+      {foreach from=$messages item=message}
+      <li>{$message}</li>
+      {/foreach}
+    </ul>
+  </div>
+  {/if}
+
+</div> {* .eiw *}
 
   {$ADMIN_CONTENT}
 </div>

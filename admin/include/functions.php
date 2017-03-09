@@ -448,6 +448,7 @@ SELECT
   FROM '.TAGS_TABLE.'
     LEFT JOIN '.IMAGE_TAG_TABLE.' ON id = tag_id
   WHERE tag_id IS NULL
+    AND lastmodified < SUBDATE(NOW(), INTERVAL 1 DAY)
 ;';
   return query2array($query);
 }
@@ -535,7 +536,6 @@ SELECT
     LEFT JOIN '.IMAGES_TABLE.' ON id = image_id
   WHERE id IS NULL
 ;';
-  $result = pwg_query($query);
   $orphan_image_ids = query2array($query, null, 'image_id');
 
   if (count($orphan_image_ids) > 0)
@@ -546,6 +546,45 @@ DELETE
   WHERE image_id IN ('.implode(',', $orphan_image_ids).')
 ;';
     pwg_query($query);
+  }
+}
+
+/**
+ * Checks and repairs integrity on categories.
+ * Removes all entries from related tables which correspond to a deleted category.
+ */
+function categories_integrity()
+{
+  $related_columns = array(
+    IMAGE_CATEGORY_TABLE.'.category_id',
+    USER_ACCESS_TABLE.'.cat_id',
+    GROUP_ACCESS_TABLE.'.cat_id',
+    OLD_PERMALINKS_TABLE.'.cat_id',
+    USER_CACHE_CATEGORIES_TABLE.'.cat_id',
+    );
+
+  foreach ($related_columns as $fullcol)
+  {
+    list($table, $column) = explode('.', $fullcol);
+
+    $query = '
+SELECT
+    '.$column.'
+  FROM '.$table.'
+    LEFT JOIN '.CATEGORIES_TABLE.' ON id = '.$column.'
+  WHERE id IS NULL
+;';
+    $orphans = array_unique(query2array($query, null, $column));
+
+    if (count($orphans) > 0)
+    {
+      $query = '
+DELETE
+  FROM '.$table.'
+  WHERE '.$column.' IN ('.implode(',', $orphans).')
+;';
+      pwg_query($query);
+    }
   }
 }
 
@@ -1364,9 +1403,26 @@ function create_virtual_category($category_name, $parent_id=null, $options=array
     return array('error' => l10n('The name of an album must not be empty'));
   }
 
+  $rank = 0;
+  if ('last' == $conf['newcat_default_position'])
+  {
+    //what is the current higher rank for this parent?
+    $query = '
+SELECT MAX(rank) AS max_rank
+  FROM '. CATEGORIES_TABLE .'
+  WHERE id_uppercat '.(empty($parent_id) ? 'IS NULL' : '= '.$parent_id).' 
+;';
+    $row = pwg_db_fetch_assoc(pwg_query($query));
+
+    if (is_numeric($row['max_rank']))
+    {
+      $rank = $row['max_rank'] + 1;
+    }
+  }
+
   $insert = array(
     'name' => $category_name,
-    'rank' => 0,
+    'rank' => $rank,
     'global_rank' => 0,
     );
 
@@ -1519,6 +1575,8 @@ function add_tags($tags, $images)
     return;
   }
 
+  $taglist_before = get_image_tag_ids($images);
+
   // we can't insert twice the same {image_id,tag_id} so we must first
   // delete lines we'll insert later
   $query = '
@@ -1545,6 +1603,11 @@ DELETE
     array_keys($inserts[0]),
     $inserts
     );
+
+  $taglist_after = get_image_tag_ids($images);
+  $images_to_update = compare_image_tag_lists($taglist_before, $taglist_after);
+  update_images_lastmodified($images_to_update);
+
   invalidate_user_cache_nb_tags();
 }
 
@@ -1565,6 +1628,15 @@ function delete_tags($tag_ids)
     return false;
   }
 
+  // we need the list of impacted images, to update their lastmodified
+  $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',', $tag_ids).')
+;';
+  $image_ids = query2array($query, null, 'image_id');
+
   $query = '
 DELETE
   FROM '.IMAGE_TAG_TABLE.'
@@ -1579,6 +1651,7 @@ DELETE
 ;';
   pwg_query($query);
 
+  update_images_lastmodified($image_ids);
   invalidate_user_cache_nb_tags();
 }
 
@@ -1662,6 +1735,9 @@ function set_tags_of($tags_of)
 {
   if (count($tags_of) > 0)
   {
+    $taglist_before = get_image_tag_ids(array_keys($tags_of));
+    global $logger; $logger->debug('taglist_before', $taglist_before);
+
     $query = '
 DELETE
   FROM '.IMAGE_TAG_TABLE.'
@@ -1691,8 +1767,80 @@ DELETE
         );
     }
 
+    $taglist_after = get_image_tag_ids(array_keys($tags_of));
+    global $logger; $logger->debug('taglist_after', $taglist_after);
+    $images_to_update = compare_image_tag_lists($taglist_before, $taglist_after);
+    global $logger; $logger->debug('$images_to_update', $images_to_update);
+
+    update_images_lastmodified($images_to_update);
     invalidate_user_cache_nb_tags();
   }
+}
+
+/**
+ * Get list of tag ids for each image. Returns an empty list if the image has
+ * no tags.
+ *
+ * @since 2.9
+ * @param array $image_ids
+ * @return associative array, image_id => list of tag ids
+ */
+function get_image_tag_ids($image_ids)
+{
+  if (!is_array($image_ids) and is_int($image_ids))
+  {
+    $images_ids = array($image_ids);
+  }
+  
+  if (count($image_ids) == 0)
+  {
+    return array();
+  }
+
+  $query = '
+SELECT
+    image_id,
+    tag_id
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id IN ('.implode(',', $image_ids).')
+;';
+
+  $tags_of = array_fill_keys($image_ids, array());
+  $image_tags = query2array($query);
+  foreach ($image_tags as $image_tag)
+  {
+    $tags_of[ $image_tag['image_id'] ][] = $image_tag['tag_id'];
+  }
+  
+  return $tags_of;
+}
+
+/**
+ * Compare the list of tags, for each image. Returns image_ids where tag list has changed.
+ *
+ * @since 2.9
+ * @param array $taglist_before - for each image_id (key), list of tag ids
+ * @param array $taglist_after - for each image_id (key), list of tag ids
+ * @return array - image_ids where the list has changed
+ */
+function compare_image_tag_lists($taglist_before, $taglist_after)
+{
+  $images_to_update = array();
+
+  foreach ($taglist_after as $image_id => $list_after)
+  {
+    sort($list_after);
+
+    $list_before = isset($taglist_before[$image_id]) ? $taglist_before[$image_id] : array();
+    sort($list_before);
+    
+    if ($list_after != $list_before)
+    {
+      $images_to_update[] = $image_id;
+    }
+  }
+
+  return $images_to_update;
 }
 
 /**
@@ -2854,6 +3002,7 @@ SELECT
   FROM '.IMAGES_TABLE.'
     LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   WHERE category_id is null
+  ORDER BY id ASC
 ;';
   
   return query2array($query, null, 'id');
@@ -2886,4 +3035,90 @@ function save_images_order($category_id, $images)
     'update' => array('rank')
     );
   mass_updates(IMAGE_CATEGORY_TABLE, $fields, $datas);
+}
+
+/**
+ * Force update on images.lastmodified column. Useful when modifying the tag
+ * list.
+ *
+ * @since 2.9
+ * @param array $image_ids
+ */
+function update_images_lastmodified($image_ids)
+{
+  if (!is_array($image_ids) and is_int($image_ids))
+  {
+    $images_ids = array($image_ids);
+  }
+  
+  if (count($image_ids) == 0)
+  {
+    return;
+  }
+
+  $query = '
+UPDATE '.IMAGES_TABLE.'
+  SET lastmodified = NOW()
+  WHERE id IN ('.implode(',', $image_ids).')
+;';
+  pwg_query($query);
+}
+
+/**
+ * Get a more human friendly representation of big numbers. Like 17.8k instead of 17832
+ *
+ * @since 2.9
+ * @param float $numbers
+ */
+function number_format_human_readable($numbers)
+{
+  $readable = array("",  "k", "M");
+  $index = 0;
+
+  while ($numbers >= 1000)
+  {
+    $numbers /= 1000;
+    $index++;
+
+    if ($index > count($readable) - 1)
+    {
+      $index--;
+      break;
+    }
+  }
+
+  return number_format($numbers, 1).$readable[$index];
+}
+
+/**
+ * Get infos related to an image
+ *
+ * @since 2.9
+ * @param int $image_id
+ * @param bool $die_on_missing
+ */
+function get_image_infos($image_id, $die_on_missing=false)
+{
+  if (!is_numeric($image_id))
+  {
+    fatal_error('['.__FUNCTION__.'] invalid image identifier '.htmlentities($image_id));
+  }
+
+  $query = '
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+  $images = query2array($query);
+  if (count($images) == 0)
+  {
+    if ($die_on_missing)
+    {
+      fatal_error("photo ".$image_id." does not exist");
+    }
+
+    return null;
+  }
+
+  return $images[0];
 }

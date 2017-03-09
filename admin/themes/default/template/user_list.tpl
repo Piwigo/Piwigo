@@ -55,6 +55,23 @@ jQuery(document).ready(function() {
     return false;
   });
 
+  jQuery("#genPass").click(function(e){
+    e.preventDefault();
+
+    var characterSet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+
+    var i;
+    var password;
+    var length = getRandomInt(8, 15);
+
+    password = '';
+    for (i = 0; i < length; i++) {
+      password += characterSet.charAt(Math.floor(Math.random() * characterSet.length));
+    }
+
+    jQuery('input[name=password]').val(password);
+  });
+
   jQuery("#addUserClose").click(function() {
     jQuery("#addUserForm").hide();
     return false;
@@ -76,7 +93,7 @@ jQuery(document).ready(function() {
         jQuery("#addUserForm .loading").show();
       },
       success:function(data) {
-        oTable.draw();
+        oTable.api().draw();
         jQuery("#addUserForm .loading").hide();
 
         var data = jQuery.parseJSON(data);
@@ -567,7 +584,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
       title:"{/literal}{'Edit user'|translate}{literal}",
       href:".user_form_popin",
       onClosed: function() {
-        oTable.draw();
+        oTable.api().draw();
       }
     });
 
@@ -593,6 +610,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 
   var oTable = jQuery('#userList').dataTable({
     pageLength: 10,
+    autoWidth: false,
     deferRender: true,
     processing: true,
     serverSide: true,
@@ -808,7 +826,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
         jQuery("#applyActionLoading").show();
       },
       success:function(data) {
-        oTable.draw();
+        oTable.api().draw();
         jQuery("#applyActionLoading").hide();
         jQuery("#applyActionBlock .infos").show();
 
@@ -839,6 +857,9 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 
 {html_style}{literal}
 .dataTables_wrapper, .dataTables_info {clear:none;}
+.dataTables_wrapper .dataTables_info {clear:none;}
+.dataTables_wrapper::after {clear:none;}
+
 table.dataTable {clear:right;padding-top:10px;}
 .dataTable td img {margin-bottom: -6px;margin-left: -6px;}
 
@@ -862,6 +883,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 .recent_period_infos {margin-left:10px;}
 .nb_image_page, .recent_period {width:340px;margin-top:5px;}
 #action_recent_period .recent_period {display:inline-block;}
+.checkActions {padding:0 1em;}
 {/literal}{/html_style}
 
 <div class="titrePage">
@@ -874,7 +896,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 </p>
 
 <form id="addUserForm" style="display:none" method="post" name="add_user" action="{$F_ADD_ACTION}">
-  <fieldset>
+  <fieldset class="with-border">
     <legend>{'Add a user'|@translate}</legend>
 
     <p>
@@ -885,6 +907,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
     <p>
       <strong>{'Password'|translate}</strong><br>
       <input type="{if $Double_Password}password{else}text{/if}" name="password">
+      <a id="genPass" href="#" class="icon-lock">{'generate random password'|translate}</a>
     </p>
     
 {if $Double_Password}

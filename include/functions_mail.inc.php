@@ -607,7 +607,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
     $conf_mail = get_mail_configuration();
   }
 
-  include_once(PHPWG_ROOT_PATH.'include/phpmailer/class.phpmailer.php');
+  include_once(PHPWG_ROOT_PATH.'include/phpmailer/PHPMailerAutoload.php');
 
   $mail = new PHPMailer;
 

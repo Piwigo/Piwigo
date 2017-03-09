@@ -20,6 +20,13 @@ form fieldset p.actionButtons {margin-bottom:0}
 </style>
 {/literal}
 
+{html_style}
+[name="permalink"] {
+  width : 100%;
+  max-width : 600px;
+}
+{/html_style}
+
 <div class="titrePage">
   <h2>{'Permalinks'|@translate}</h2>
 </div>

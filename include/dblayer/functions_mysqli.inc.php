@@ -73,6 +73,19 @@ function pwg_db_connect($host, $user, $password, $database)
   {
     throw new Exception('Connection to server succeed, but it was impossible to connect to database');
   }
+
+  // MySQL 5.7 default settings forbid to select a colum that is not in the
+  // group by. We've used that in Piwigo, for years. As an immediate solution
+  // we can remove this constraint in the current MySQL session.
+  list($sql_mode_current) = pwg_db_fetch_row(pwg_query('SELECT @@SESSION.sql_mode'));
+
+  // remove ONLY_FULL_GROUP_BY from the list
+  $sql_mode_altered = implode(',', array_diff(explode(',', $sql_mode_current), array('ONLY_FULL_GROUP_BY')));
+
+  if ($sql_mode_altered != $sql_mode_current)
+  {
+    pwg_query("SET SESSION sql_mode='".$sql_mode_altered."'");
+  }
 }
 
 /**
@@ -581,7 +594,7 @@ INSERT INTO '.$table_name.'
         $is_first = false;
       }
       
-      if ($value === '')
+      if ($value === '' || is_null($value))
       {
         $query .= 'NULL';
       }

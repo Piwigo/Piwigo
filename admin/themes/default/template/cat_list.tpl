@@ -1,3 +1,5 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function(){
   jQuery(".drag_button").show();
@@ -58,12 +60,12 @@ jQuery(document).ready(function(){
 
 <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Album list management'|@translate}</h2>
 <p class="showCreateAlbum" id="notManualOrder">
-  <a href="#" id="addAlbumOpen">{'create a new album'|@translate}</a>
-  {if count($categories)}| <a href="#" id="autoOrderOpen">{'apply automatic sort order'|@translate}</a>{/if}
-  {if ($PARENT_EDIT)}| <a href="{$PARENT_EDIT}"></span>{'edit'|@translate}</a>{/if}
+  <a href="#" id="addAlbumOpen" class="icon-plus-circled">{'create a new album'|@translate}</a>
+  {if count($categories)}<span class="userSeparator">&middot;</span><a href="#" id="autoOrderOpen" class="icon-sort-number-up">{'apply automatic sort order'|@translate}</a>{/if}
+  {if ($PARENT_EDIT)}<span class="userSeparator">&middot;</span><a href="{$PARENT_EDIT}" class="icon-pencil"></span>{'edit'|@translate}</a>{/if}
 </p>
 <form id="formCreateAlbum" action="{$F_ACTION}" method="post" style="display:none;">
-  <fieldset>
+  <fieldset class="with-border">
       <legend>{'create a new album'|@translate}</legend>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       
@@ -73,30 +75,42 @@ jQuery(document).ready(function(){
       </p>
       
       <p class="actionButtons">
-        <input class="submit" name="submitAdd" type="submit" value="{'Create'|@translate}">
-        <a href="#" id="addAlbumClose">{'Cancel'|@translate}</a>
+        <button name="submitAdd" type="submit" class="buttonLike">
+          <i class="icon-plus-circled"></i> {'Create'|translate}
+        </button>
+
+        <a href="#" id="addAlbumClose" class="icon-cancel-circled">{'Cancel'|@translate}</a>
       </p>
   </fieldset>
 </form>
 {if count($categories)}
 <form id="formAutoOrder" action="{$F_ACTION}" method="post" style="display:none;">
-  <fieldset>
+  <fieldset class="with-border">
     <legend>{'Automatic sort order'|@translate}</legend>
     <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     
     <p><strong>{'Sort order'|@translate}</strong>
   {foreach from=$sort_orders key=sort_code item=sort_label}
-      <br><label><input type="radio" value="{$sort_code}" name="order_by" {if $sort_code eq $sort_order_checked}checked="checked"{/if}> {$sort_label}</label>
+      <br>
+      <label class="font-checkbox">
+        <span class="icon-dot-circled"></span>
+        <input type="radio" value="{$sort_code}" name="order_by" {if $sort_code eq $sort_order_checked}checked="checked"{/if}> {$sort_label}
+      </label>
   {/foreach}
     </p>
   
     <p>
-      <label><input type="checkbox" name="recursive"> <strong>{'Apply to sub-albums'|@translate}</strong></label>
+      <label class="font-checkbox">
+        <span class="icon-check"></span>
+        <input type="checkbox" name="recursive"> <strong>{'Apply to sub-albums'|@translate}</strong>
+      </label>
     </p>
   
     <p class="actionButtons">
-      <input class="submit" name="submitAutoOrder" type="submit" value="{'Save order'|@translate}">
-      <a href="#" id="autoOrderClose">{'Cancel'|@translate}</a>
+      <button name="submitAutoOrder" type="submit" class="buttonLike">
+        <i class="icon-floppy"></i> {'Save order'|translate}
+      </button>
+      <a href="#" id="autoOrderClose" class="icon-cancel-circled">{'Cancel'|@translate}</a>
     </p>
   </fieldset>
 </form>
@@ -124,15 +138,15 @@ jQuery(document).ready(function(){
 
       <p class="albumActions">
         <a href="{$category.U_EDIT}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
-        | <a href="{$category.U_CHILDREN}"><span class="icon-sitemap"></span>{'manage sub-albums'|@translate}</a>
+        <span class="userSeparator">&middot;</span><a href="{$category.U_CHILDREN}"><span class="icon-sitemap"></span>{'manage sub-albums'|@translate}</a>
         {if isset($category.U_SYNC) }
-        | <a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>
+        <span class="userSeparator">&middot;</span><a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>
         {/if}
         {if isset($category.U_DELETE) }
-        | <a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><span class="icon-trash"></span>{'delete album'|@translate}</a>
+        <span class="userSeparator">&middot;</span><a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><span class="icon-trash"></span>{'delete album'|@translate}</a>
       {/if}
       {if cat_admin_access($category.ID)}
-        | <a href="{$category.U_JUMPTO}">{'jump to album'|@translate} →</a>
+        <span class="userSeparator">&middot;</span><a href="{$category.U_JUMPTO}">{'jump to album'|@translate} →</a>
       {/if}
       </p>
 

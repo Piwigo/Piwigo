@@ -62,32 +62,27 @@ if (isset($conf['session_save_handler'])
  */
 function generate_key($size)
 {
-  if (
-    is_callable('openssl_random_pseudo_bytes')
-    and !(version_compare(PHP_VERSION, '5.3.4') < 0 and defined('PHP_WINDOWS_VERSION_MAJOR'))
-    )
+  include_once(PHPWG_ROOT_PATH.'include/random_compat/random.php');
+
+  try
   {
-    return substr(
-      str_replace(
-        array('+', '/'),
-        '',
-        base64_encode(openssl_random_pseudo_bytes($size+10))
-        ),
-      0,
-      $size
-      );
+    $bytes = random_bytes($size+10);
   }
-  else
+  catch (Exception $ex)
   {
-    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $l = strlen($alphabet)-1;
-    $key = '';
-    for ($i=0; $i<$size; $i++)
-    {
-      $key.= $alphabet[mt_rand(0, $l)];
-    }
-    return $key;
+    include_once(PHPWG_ROOT_PATH.'include/srand.php');
+    $bytes = secure_random_bytes($size+10);
   }
+
+  return substr(
+    str_replace(
+      array('+', '/'),
+      '',
+      base64_encode($bytes)
+      ),
+    0,
+    $size
+    );
 }
 
 /**
@@ -150,15 +145,11 @@ SELECT data
   WHERE id = \''.get_remote_addr_session_hash().$session_id.'\'
 ;';
   $result = pwg_query($query);
-  if ($result)
+  if ( ($row = pwg_db_fetch_assoc($result)) )
   {
-    $row = pwg_db_fetch_assoc($result);
     return $row['data'];
   }
-  else
-  {
-    return '';
-  }
+  return '';
 }
 
 /**

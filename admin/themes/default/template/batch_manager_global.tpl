@@ -21,6 +21,7 @@
 {footer_script}
 var lang = {
 	Cancel: '{'Cancel'|translate|escape:'javascript'}',
+	deleteProgressMessage: "{'Deletion in progress'|translate|escape:'javascript'}",
 	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}"
 };
 
@@ -134,7 +135,13 @@ $(document).ready(function() {
 
   $("select[name=selectAction]").change(function () {
     $("[id^=action_]").hide();
-    $("#action_"+$(this).prop("value")).show();
+
+    var action = $(this).prop("value");
+    if (action == 'move') {
+      action = 'associate';
+    }
+
+    $("#action_"+action).show();
 
     if ($(this).val() != -1) {
       $("#applyActionBlock").show();
@@ -147,16 +154,16 @@ $(document).ready(function() {
   $(".wrap1 label").click(function (event) {
     $("input[name=setSelected]").prop('checked', false);
 
-    var wrap2 = $(this).children(".wrap2");
+    var li = $(this).closest("li");
     var checkbox = $(this).children("input[type=checkbox]");
 
     checkbox.triggerHandler("shclick",event);
 
     if ($(checkbox).is(':checked')) {
-      $(wrap2).addClass("thumbSelected");
+      $(li).addClass("thumbSelected");
     }
     else {
-      $(wrap2).removeClass('thumbSelected');
+      $(li).removeClass('thumbSelected');
     }
 
     checkPermitAction();
@@ -171,11 +178,10 @@ $(document).ready(function() {
 
   function selectPageThumbnails() {
     $(".thumbnails label").each(function() {
-      var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).prop('checked', true);
-      $(wrap2).addClass("thumbSelected");
+      $(checkbox).prop('checked', true).trigger("change");
+      $(this).closest("li").addClass("thumbSelected");
     });
   }
 
@@ -183,11 +189,13 @@ $(document).ready(function() {
     $("input[name=setSelected]").prop('checked', false);
 
     $(".thumbnails label").each(function() {
-      var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).prop('checked', false);
-      $(wrap2).removeClass("thumbSelected");
+      if (jQuery(checkbox).is(':checked')) {
+        $(checkbox).prop('checked', false).trigger("change");
+      }
+
+      $(this).closest("li").removeClass("thumbSelected");
     });
     checkPermitAction();
     return false;
@@ -197,16 +205,15 @@ $(document).ready(function() {
     $("input[name=setSelected]").prop('checked', false);
 
     $(".thumbnails label").each(function() {
-      var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).prop('checked', !$(checkbox).is(':checked'));
+      $(checkbox).prop('checked', !$(checkbox).is(':checked')).trigger("change");
 
       if ($(checkbox).is(':checked')) {
-        $(wrap2).addClass("thumbSelected");
+        $(this).closest("li").addClass("thumbSelected");
       }
       else {
-        $(wrap2).removeClass('thumbSelected');
+        $(this).closest("li").removeClass('thumbSelected');
       }
     });
     checkPermitAction();
@@ -219,7 +226,6 @@ $(document).ready(function() {
     checkPermitAction();
     return false;
   });
-
 
   jQuery('#applyAction').click(function() {
 		var action = jQuery('[name="selectAction"]').val();
@@ -319,9 +325,10 @@ var sliders = {
 
   <form action="{$F_ACTION}" method="post">
   <input type="hidden" name="start" value="{$START}">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   <fieldset>
-    <legend>{'Filter'|@translate}</legend>
+    <legend><i class="icon-filter"></i>{'Filter'|@translate}</legend>
 
     <ul id="filterList">
       <li id="filter_prefilter" {if !isset($filter.prefilter)}style="display:none"{/if}>
@@ -338,13 +345,25 @@ var sliders = {
           {/foreach}
         </select>
         <a id="empty_caddie" href="admin.php?page=batch_manager&amp;action=empty_caddie" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'caddie'}display:none{/if}">{'Empty caddie'|translate}</a>
-        <a id="delete_orphans" href="admin.php?page=batch_manager&amp;action=delete_orphans" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'no_album'}display:none{/if}">{'Delete %d orphan photos'|translate:$NB_ORPHANS}</a>
+{if $NB_ORPHANS > 0}
+        <a id="delete_orphans" href="#" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'no_album'}display:none{/if}" class="icon-trash">{'Delete %d orphan photos'|translate:$NB_ORPHANS}</a>
+{/if}
+
+        <span id="orphans_deletion" style="display:none">
+          <img class="loading" src="themes/default/images/ajax-loader-small.gif">
+          <span id="orphans_deleted">0</span>% -
+          <span id="orphans_to_delete" data-origin="{$NB_ORPHANS}">{$NB_ORPHANS}</span>
+          {'orphans to delete'|translate}
+        </span>
+
+        <span id="orphans_deletion_error" class="errors" style="display:none"></span>
 
         <span id="duplicates_options" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'duplicates'}display:none{/if}">
           {'based on'|translate}
-          <input type="checkbox" checked="checked" disabled="disabled"> {'file name'|translate}
-          <label><input type="checkbox" name="filter_duplicates_date" {if isset($filter.duplicates_date) or (isset($filter.prefilter) and $filter.prefilter ne 'duplicates')}checked="checked"{/if}> {'date & time'|translate}</label>
-          <label><input type="checkbox" name="filter_duplicates_dimensions" {if isset($filter.duplicates_dimensions)}checked="checked"{/if}> {'width & height'|translate}</label>
+          <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_filename" {if isset($filter.duplicates_filename)}checked="checked"{/if}> {'file name'|translate}</label>
+          <label class="font-checkbox" title="md5sum"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_checksum" {if isset($filter.duplicates_checksum)}checked="checked"{/if}> {'checksum'|translate}</label>
+          <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_date" {if isset($filter.duplicates_date) or (isset($filter.prefilter) and $filter.prefilter ne 'duplicates')}checked="checked"{/if}> {'date & time'|translate}</label>
+          <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_dimensions" {if isset($filter.duplicates_dimensions)}checked="checked"{/if}> {'width & height'|translate}</label>
         </span>
       </li>
 
@@ -466,18 +485,20 @@ var sliders = {
         <option value="filter_filesize" {if isset($filter.filesize)}disabled="disabled"{/if}>{'Filesize'|@translate}</option>
 				<option value="filter_search"{if isset($filter.search)} disabled="disabled"{/if}>{'Search'|@translate}</option>
       </select>
-      <a id="removeFilters">{'Remove all filters'|@translate}</a>
+      <a id="removeFilters" class="icon-cancel">{'Remove all filters'|@translate}</a>
     </p>
 
     <p class="actionButtons" id="applyFilterBlock">
-      <input id="applyFilter" class="submit" type="submit" value="{'Refresh photo set'|@translate}" name="submitFilter">
+      <button id="applyFilter" name="submitFilter" type="submit" class="buttonLike">
+        <i class="icon-arrows-cw"></i> {'Refresh photo set'|@translate}
+      </button>
     </p>
 
   </fieldset>
 
   <fieldset>
 
-    <legend>{'Selection'|@translate}</legend>
+    <legend><i class="icon-check"></i>{'Selection'|@translate}</legend>
 
   {if !empty($thumbnails)}
   <p id="checkActions">
@@ -507,11 +528,11 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 		{/html_style}
 		{foreach from=$thumbnails item=thumbnail}
 		{assign var='isSelected' value=$thumbnail.id|@in_array:$selection}
-		<li>
+		<li{if $isSelected} class="thumbSelected"{/if}>
 			<span class="wrap1">
-				<label>
-					<input type="checkbox" name="selection[]" value="{$thumbnail.id}" {if $isSelected}checked="checked"{/if}>
-					<span class="wrap2{if $isSelected} thumbSelected{/if}">
+				<label class="font-checkbox">
+					<span class="icon-check"></span><input type="checkbox" name="selection[]" value="{$thumbnail.id}" {if $isSelected}checked="checked"{/if}>
+					<span class="wrap2">
 					<div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> &middot; <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
 						{if $thumbnail.level > 0}
 						<em class="levelIndicatorB">{'Level %d'|@sprintf:$thumbnail.level|@translate}</em>
@@ -549,7 +570,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
   <fieldset id="action">
 
-    <legend>{'Action'|@translate}</legend>
+    <legend><i class="icon-cog"></i>{'Action'|@translate}</legend>
       <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No photo selected, no action possible.'|@translate}</div>
       <div id="permitAction"{if count($selection) == 0} style="display:none"{/if}>
 
@@ -587,23 +608,15 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- delete -->
     <div id="action_delete" class="bulkAction">
-    <p><label><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label></p>
+    <p><label><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label><span class="errors" style="display:none">{"You need to confirm deletion"|translate}</span></p>
     </div>
 
-    <!-- associate -->
+    <!-- associate -->{* also used for "move" action *}
     <div id="action_associate" class="bulkAction">
       <select data-selectize="categories" data-default="first" name="associate" style="width:600px"></select>
       <br>{'... or '|@translate}
       <a href="#" data-add-album="associate" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
-
-    <!-- move -->
-    <div id="action_move" class="bulkAction">
-      <select data-selectize="categories" data-default="first" name="move" style="width:600px"></select>
-      <br>{'... or '|@translate}
-      <a href="#" data-add-album="move" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
-    </div>
-
 
     <!-- dissociate -->
     <div id="action_dissociate" class="bulkAction">
@@ -633,15 +646,13 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <!-- author -->
     <div id="action_author" class="bulkAction">
     <label><input type="checkbox" name="remove_author"> {'remove author'|@translate}</label><br>
-    {assign var='authorDefaultValue' value='Type here the author name'|@translate}
-<input type="text" class="large" name="author" value="{$authorDefaultValue}" onfocus="this.value=(this.value=='{$authorDefaultValue|@escape:javascript}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$authorDefaultValue|@escape:javascript}' : this.value;">
+		<input type="text" class="large" name="author" placeholder="{'Type here the author name'|@translate}">
     </div>
 
     <!-- title -->
     <div id="action_title" class="bulkAction">
     <label><input type="checkbox" name="remove_title"> {'remove title'|@translate}</label><br>
-    {assign var='titleDefaultValue' value='Type here the title'|@translate}
-<input type="text" class="large" name="title" value="{$titleDefaultValue}" onfocus="this.value=(this.value=='{$titleDefaultValue|@escape:javascript}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$titleDefaultValue|@escape:javascript}' : this.value;">
+		<input type="text" class="large" name="title" placeholder="{'Type here the title'|@translate}">
     </div>
 
     <!-- date_creation -->
@@ -705,7 +716,12 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 {/if}
 
     <p id="applyActionBlock" style="display:none" class="actionButtons">
-      <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit"> <span id="applyOnDetails"></span></p>
+      <button id="applyAction" name="submit" type="submit" class="buttonLike">
+        <i class="icon-cog-alt"></i> {'Apply action'|translate}
+      </button>
+
+      <span id="applyOnDetails"></span>
+    </p>
 
     </div> <!-- #permitAction -->
   </fieldset>

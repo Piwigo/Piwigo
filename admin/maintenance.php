@@ -27,6 +27,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -47,6 +48,11 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($action)
 {
+  case 'phpinfo' :
+  {
+    phpinfo();
+    exit();
+  }
   case 'lock_gallery' :
   {
     conf_update_param('gallery_locked', 'true');
@@ -63,6 +69,7 @@ switch ($action)
   case 'categories' :
   {
     images_integrity();
+    categories_integrity();
     update_uppercats();
     update_category('all');
     update_global_rank();
@@ -200,6 +207,7 @@ DELETE
   }
 }
 
+
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
@@ -214,6 +222,10 @@ foreach(ImageStdParams::get_defined_type_map() as $params)
   $purge_urls[ l10n($params->type) ] = sprintf($url_format, 'derivatives').'&amp;type='.$params->type;
 }
 $purge_urls[ l10n(IMG_CUSTOM) ] = sprintf($url_format, 'derivatives').'&amp;type='.IMG_CUSTOM;
+
+$php_current_timestamp = date("Y-m-d H:i:s");
+$db_version = pwg_get_db_version();
+list($db_current_date) = pwg_db_fetch_row(pwg_query('SELECT now();'));
 
 $template->assign(
   array(
@@ -232,9 +244,48 @@ $template->assign(
     'U_MAINT_DERIVATIVES' => sprintf($url_format, 'derivatives'),
     'purge_derivatives' => $purge_urls,
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=maintenance',
+
+    'PHPWG_URL' => PHPWG_URL,
+    'PWG_VERSION' => PHPWG_VERSION,
+    'OS' => PHP_OS,
+    'PHP_VERSION' => phpversion(),
+    'DB_ENGINE' => 'MySQL',
+    'DB_VERSION' => $db_version,
+    'U_PHPINFO' => sprintf($url_format, 'phpinfo'),
+    'PHP_DATATIME' => $php_current_timestamp,
+    'DB_DATATIME' => $db_current_date,
     )
   );
 
+// graphics library
+switch (pwg_image::get_library())
+{
+  case 'imagick':
+    $library = 'ImageMagick';
+    $img = new Imagick();
+    $version = $img->getVersion();
+    if (preg_match('/ImageMagick \d+\.\d+\.\d+-?\d*/', $version['versionString'], $match))
+    {
+      $library = $match[0];
+    }
+    $template->assign('GRAPHICS_LIBRARY', $library);
+    break;
+
+  case 'ext_imagick':
+    $library = 'External ImageMagick';
+    exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
+    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
+    {
+      $library .= ' ' . $match[1];
+    }
+    $template->assign('GRAPHICS_LIBRARY', $library);
+    break;
+
+  case 'gd':
+    $gd_info = gd_info();
+    $template->assign('GRAPHICS_LIBRARY', 'GD '.@$gd_info['GD Version']);
+    break;
+}
 
 if ($conf['gallery_locked'])
 {

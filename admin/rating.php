@@ -77,6 +77,17 @@ if (isset($_GET['users']))
   }
 }
 
+$page['cat_filter'] = '';
+if (isset($_GET['cat']) and is_numeric($_GET['cat']))
+{
+  $cat_ids = get_subcat_ids(array($_GET['cat']));
+
+  if (count($cat_ids) > 0)
+  {
+    $page['cat_filter'] = ' AND ic.category_id IN ('.implode(',', $cat_ids).')';
+  }
+}
+
 $users = array();
 $query = '
 SELECT '.$conf['user_fields']['username'].' as username, '.$conf['user_fields']['id'].' as id
@@ -89,8 +100,19 @@ while ($row = pwg_db_fetch_assoc($result))
 }
 
 
-$query = 'SELECT COUNT(DISTINCT(r.element_id))
-FROM '.RATE_TABLE.' AS r
+$query = '
+SELECT
+    COUNT(DISTINCT(r.element_id))
+  FROM '.RATE_TABLE.' AS r';
+
+if (!empty($page['cat_filter']))
+{
+  $query.= '
+    JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id';
+}
+
+$query.= '
 WHERE 1=1'. $page['user_filter'];
 list($nb_images) = pwg_db_fetch_row(pwg_query($query));
 
@@ -112,6 +134,7 @@ $template->assign(
     'F_ACTION' => PHPWG_ROOT_PATH.'admin.php',
     'DISPLAY' => $elements_per_page,
     'NB_ELEMENTS' => $nb_images,
+    'category' => (isset($_GET['cat']) ? array($_GET['cat']) : array()),
     )
   );
 
@@ -159,8 +182,16 @@ SELECT i.id,
     COUNT(r.rate)        AS nb_rates,
     SUM(r.rate)          AS sum_rates
   FROM '.RATE_TABLE.' AS r
-    LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
-  WHERE 1 = 1 ' . $page['user_filter'] . '
+    LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id';
+
+if (!empty($page['cat_filter']))
+{
+  $query.= '
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id';
+}
+
+$query.= '
+  WHERE 1 = 1 ' . $page['user_filter'] . $page['cat_filter'] . '
   GROUP BY i.id,
         i.path,
         i.file,
