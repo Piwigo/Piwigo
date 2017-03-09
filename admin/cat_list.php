@@ -43,10 +43,10 @@ if (!empty($_POST) or isset($_GET['delete']))
 $sort_orders = array(
   'name ASC' => l10n('Album name, A &rarr; Z'),
   'name DESC' => l10n('Album name, Z &rarr; A'),
-  'date_creation DESC' => l10n('Date created, new &rarr; old'),
-  'date_creation ASC' => l10n('Date created, old &rarr; new'),
-  'date_available DESC' => l10n('Date posted, new &rarr; old'),
-  'date_available ASC' => l10n('Date posted, old &rarr; new'),
+  'date_creation DESC' => l10n('Date created, new &rarr; old').' '.l10n('(determined from photos)'),
+  'date_creation ASC' => l10n('Date created, old &rarr; new').' '.l10n('(determined from photos)'),
+  'date_available DESC' => l10n('Date posted, new &rarr; old').' '.l10n('(determined from photos)'),
+  'date_available ASC' => l10n('Date posted, old &rarr; new').' '.l10n('(determined from photos)'),
   );
 
 // +-----------------------------------------------------------------------+
