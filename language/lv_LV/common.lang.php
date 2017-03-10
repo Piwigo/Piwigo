@@ -427,3 +427,5 @@ $lang['Album name, A &rarr; Z'] = 'Albūma nosaukums, A &rarr; Z ';
 $lang['Album name, Z &rarr; A'] = 'Albūma nosaukums, Z &rarr; A ';
 $lang['Link: %s'] = 'Saite: %s';
 $lang['Your authentication key is no longer valid.'] = 'Jūsu autentifikācijas atslēga vairs nav derīga';
+$lang['generate random password'] = 'ģenerēt gadījumveida paroli';
+$lang['Invalid username or password!'] = 'Nepareizs lietotjvārds vai parole';
