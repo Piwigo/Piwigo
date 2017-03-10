@@ -425,3 +425,5 @@ $lang['Album name, A &rarr; Z'] = 'Цомогын нэр, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Цомогын нэр, Z &rarr; A';
 $lang['Link: %s'] = 'Холбоос: %s';
 $lang['Your authentication key is no longer valid.'] = 'Хүчингүй болсон баталгаажуулах код байна';
+$lang['Invalid username or password!'] = 'Хэрэглэгчийн нэр/ нууц үг буруу байна ';
+$lang['generate random password'] = 'Дурын нууц үг үүсгэх';
