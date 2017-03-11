@@ -427,3 +427,5 @@ $lang['Album name, Z &rarr; A'] = 'Όνομα Λευκώματος, Ω &rarr; Α
 $lang['Album name, A &rarr; Z'] = 'Όνομα Λευκώματος, Α &rarr; Ω';
 $lang['Link: %s'] = 'Σύνδεσμος: %s';
 $lang['Your authentication key is no longer valid.'] = 'Το κλειδί ταυτοποίησης σας δεν είναι πλέον έγκυρο.';
+$lang['generate random password'] = 'δημιουργήστε τυχαίο κωδικό πρόσβασης';
+$lang['Invalid username or password!'] = 'Μη έγκυρο όνομα ή κωδικός!';
