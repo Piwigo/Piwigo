@@ -446,3 +446,5 @@ $lang['month']['7'] = 'juli';
 $lang['month']['8'] = 'augustus';
 $lang['month']['9'] = 'september';
 $lang['Your authentication key is no longer valid.'] = 'Je sleutel is niet langer geldig.';
+$lang['Invalid username or password!'] = 'Ongeldige gebruikersnaam of wachtwoord!';
+$lang['generate random password'] = 'Genereer een willekeurig wachtwoord';
