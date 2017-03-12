@@ -449,3 +449,5 @@ $lang['Album name, A &rarr; Z'] = 'Albumine nimed, A &rarr;Z';
 $lang['Album name, Z &rarr; A'] = 'Albumine nimed, Z &rarr;A';
 $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Teie autentimise võti enam ei kehti';
+$lang['Invalid username or password!'] = 'Vale kasutajanimi või salasõna!';
+$lang['generate random password'] = 'Genereeri juhuslik salasõna';
