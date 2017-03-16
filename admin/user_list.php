@@ -135,6 +135,11 @@ $template->assign(
     )
   );
 
+if (isset($_GET['show_add_user']))
+{
+  $template->assign('show_add_user', true);
+}
+
 // Status options
 foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {

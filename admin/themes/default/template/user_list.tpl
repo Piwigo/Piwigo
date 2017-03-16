@@ -895,7 +895,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
   <span class="infos" style="display:none"></span>
 </p>
 
-<form id="addUserForm" style="display:none" method="post" name="add_user" action="{$F_ADD_ACTION}">
+<form id="addUserForm" style="{if !isset($show_add_user)}display:none{/if}" method="post" name="add_user" action="{$F_ADD_ACTION}">
   <fieldset class="with-border">
     <legend>{'Add a user'|@translate}</legend>
 
