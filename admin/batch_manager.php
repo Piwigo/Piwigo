@@ -212,7 +212,20 @@ elseif (isset($_GET['filter']))
     switch ($type)
     {
     case 'prefilter':
-      $_SESSION['bulk_manager_filter']['prefilter'] = $value;
+      if (preg_match('/^duplicates-?/', $value))
+      {
+        list(, $duplicate_field) = explode('-', $value, 2);
+        $_SESSION['bulk_manager_filter']['prefilter'] = 'duplicates';
+
+        if (in_array($duplicate_field, array('filename', 'checksum', 'date', 'dimensions')))
+        {
+          $_SESSION['bulk_manager_filter']['duplicates_'.$duplicate_field] = true;
+        }
+      }
+      else
+      {
+        $_SESSION['bulk_manager_filter']['prefilter'] = $value;
+      }
       break;
 
     case 'album': case 'category': case 'cat':
@@ -392,7 +405,7 @@ SELECT
       $duplicates_on_fields[] = 'width';
       $duplicates_on_fields[] = 'height';
     }
-    
+
     $query = '
 SELECT
     GROUP_CONCAT(id) AS ids
