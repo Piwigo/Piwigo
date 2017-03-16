@@ -39,3 +39,4 @@ $lang['User permissions and group permissions have been erased'] = 'Gebruikers- 
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Alleen het voorvoegsel (prefix) van de klikplaatjes en het e-mail-adres van de webbeheerder zijn bewaard gebleven van de vorige configuratie';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, voor <b>?></b>, voeg tussen:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Als voorzorgsmaatregel zijn de volgende thema\'s gedeactiveerd. Controleer of er nieuwe versies van deze thema\'s bestaan, voordat je ze reactiveert:';
+$lang['Discover what\'s new in Piwigo %s'] = 'Ontdek wat er nieuw is in Piwigo %s';
