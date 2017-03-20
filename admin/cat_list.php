@@ -390,14 +390,11 @@ SELECT
   $all_categories = query2array($query, 'id', 'uppercats');
   $subcats_of = array();
 
-  foreach (array_keys($categories) as $cat_id)
+  foreach ($all_categories as $id => $uppercats)
   {
-    foreach ($all_categories as $id => $uppercats)
+    foreach (array_slice(explode(',', $uppercats), 0, -1) as $uppercat_id)
     {
-      if (preg_match('/(^|,)'.$cat_id.',/', $uppercats))
-      {
-        @$subcats_of[$cat_id][] = $id;
-      }
+      @$subcats_of[$uppercat_id][] = $id;
     }
   }
 
