@@ -37,3 +37,4 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Направете проверка за профилактика в  [Администрация>Инструменти>Поддръжка] ако имате някакви проблеми.';
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Тази страница предлага да актуализира базата данни от стара версия към новата версия. Считаме, че в момента използвате <strong>версия %s</ strong> (или подобна).';
 $lang['User permissions and group permissions have been erased'] = 'Правата на потребителите и групите са изтрити';
+$lang['Discover what\'s new in Piwigo %s'] = 'Какви са новостите във Piwigo %s';
