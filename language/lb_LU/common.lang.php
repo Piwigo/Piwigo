@@ -424,3 +424,6 @@ $lang['This login is already used by another user'] = 'Dee Benotzernumm ass scho
 $lang['Thumbnails'] = 'Virschäibiller';
 $lang['To reset your password, visit the following address:'] = 'Fir d\'Passwuert ze reinitialiséieren, klickt w.e.g. op deen heite Link';
 $lang['User "%s" has no email address, password reset is not possible'] = 'De Benotzer »%s« huet keng Mailadress uginn. D\'Reinitialiséierung vum Passwuert ass net méiglech';
+$lang['Your authentication key is no longer valid.'] = 'Den Identifizéierungsschlëssel ass net méi gülteg';
+$lang['You are not authorized to access the requested page'] = 'Dir sidd net berechtëgt déi gewënschte Säit opzeruffen';
+$lang['display a calendar by creation date'] = 'Fotoen no Opnahmsdatum weisen';
