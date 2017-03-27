@@ -60,3 +60,8 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Тусламж хэрэгтэй бол манай онлайн форумд хандаарай: %s';
 $lang['Host'] = 'Байршуулах компьютер';
 $lang['Installation'] = 'Суулгац';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'PHP 5.2-д шилжүүлэхийг хүсвэл веб байршуулж буй компаниас тусламж авна уу.';
+$lang['also given by your host provider'] = 'веб байршуулж буй газраас үзүүлэх үйлчилгээ';
+$lang['It will be shown to the visitors. It is necessary for website administration'] = 'Хэрэглэгчдэд харагдана. Вебсайтын админд шаардлагатай.';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Өөр нэгэн арга бол тухайн текстийг "local/config/database.inc.php"-д хуулж буулгах юм.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo нь .htaccess файлыг үүсгэх/засах замаар Таны PHP 5.2-н тохиргоог өөрчлөхийг оролдлх болно.';
