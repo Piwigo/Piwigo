@@ -67,6 +67,72 @@ class updates
     }
   }
 
+  /**
+   * finds new versions of Piwigo on Piwigo.org.
+   *
+   * @since 2.9
+   * @return array (
+   *   'piwigo.org-checked' => has piwigo.org been checked?,
+   *   'is_dev' => are we on a dev version?,
+   *   'minor_version' => new minor version available,
+   *   'major_version' => new major version available,
+   * )
+   */
+  function get_piwigo_new_versions()
+  {
+    $new_versions = array(
+      'piwigo.org-checked' => false,
+      'is_dev' => true,
+      );
+    
+    if (preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION))
+    {
+      $new_versions['is_dev'] = false;
+      $actual_branch = get_branch_from_version(PHPWG_VERSION);
+
+      $url = PHPWG_URL.'/download/all_versions.php';
+      $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
+
+      if (@fetchRemote($url, $result)
+          and $all_versions = @explode("\n", $result)
+          and is_array($all_versions))
+      {
+        $new_versions['piwigo.org-checked'] = true;
+        $last_version = trim($all_versions[0]);
+
+        if (version_compare(PHPWG_VERSION, $last_version, '<'))
+        {
+          $last_branch = get_branch_from_version($last_version);
+
+          if ($last_branch == $actual_branch)
+          {
+            $new_versions['minor'] = $last_version;
+          }
+          else
+          {
+            $new_versions['major'] = $last_version;
+
+            // Check if new version exists in same branch
+            foreach ($all_versions as $version)
+            {
+              $branch = get_branch_from_version($version);
+
+              if ($branch == $actual_branch)
+              {
+                if (version_compare(PHPWG_VERSION, $version, '<'))
+                {
+                  $new_versions['minor'] = $version;
+                }
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+    return $new_versions;
+  }
+
   function get_server_extensions($version=PHPWG_VERSION)
   {
     global $user;
