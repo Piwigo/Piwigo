@@ -39,6 +39,31 @@ if (!is_a_guest())
     );
 }
 
+//--------------------------------------------------------- update notification
+if ($conf['update_notify_check_period'] > 0)
+{
+  $check_for_updates = false;
+  if (isset($conf['update_notify_last_check']))
+  {
+    if (strtotime($conf['update_notify_last_check']) < strtotime($conf['update_notify_check_period'].' seconds ago'))
+    {
+      $check_for_updates = true;
+    }
+  }
+  else
+  {
+    $check_for_updates = true;
+  }
+
+  if ($check_for_updates)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
+    $updates = new updates();
+    $updates->notify_piwigo_new_versions();
+  }
+}
+
 //------------------------------------------------------------- generation time
 $debug_vars = array();
 

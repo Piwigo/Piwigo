@@ -276,6 +276,16 @@ $conf['ext_imagick_dir'] = '';
 // are array(5,10,20,50,'all') but you can set any other numeric value.
 $conf['comments_page_nb_comments'] = 10;
 
+// how often should we check for new versions of Piwigo on piwigo.org? In
+// seconds. The check is made only if there are visits on Piwigo.
+// 0 to disable.
+$conf['update_notify_check_period'] = 24*60*60;
+
+// how often should be remind of new versions available? For example a first
+// notification was sent on May 5th 2017 for 2.9.1, after how many seconds
+// we send it again? 0 to disable.
+$conf['update_notify_reminder_period'] = 7*24*60*60;
+
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
 // +-----------------------------------------------------------------------+
