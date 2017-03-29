@@ -425,7 +425,7 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
  * @param array $tpl - as in pwg_mail()
  * @return boolean
  */
-function pwg_mail_admins($args=array(), $tpl=array())
+function pwg_mail_admins($args=array(), $tpl=array(), $exclude_current_user=true, $only_webmasters=false)
 {
   if (empty($args['content']) and empty($tpl))
   {
@@ -435,6 +435,12 @@ function pwg_mail_admins($args=array(), $tpl=array())
   global $conf, $user;
   $return = true;
 
+  $user_statuses = array('webmaster');
+  if (!$only_webmasters)
+  {
+    $user_statuses[] = 'admin';
+  }
+
   // get admins (except ourself)
   $query = '
 SELECT
@@ -443,9 +449,16 @@ SELECT
   FROM '.USERS_TABLE.' AS u
     JOIN '.USER_INFOS_TABLE.' AS i
     ON i.user_id =  u.'.$conf['user_fields']['id'].'
-  WHERE i.status in (\'webmaster\',  \'admin\')
-    AND u.'.$conf['user_fields']['email'].' IS NOT NULL
-    AND i.user_id <> '.$user['id'].'
+  WHERE i.status in (\''.implode("','", $user_statuses).'\')
+    AND u.'.$conf['user_fields']['email'].' IS NOT NULL';
+
+  if ($exclude_current_user)
+  {
+    $query.= '
+    AND i.user_id <> '.$user['id'];
+  }
+
+  $query.= '
   ORDER BY name
 ;';
   $admins = array_from_query($query);
