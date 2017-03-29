@@ -85,7 +85,7 @@ class updates
       'is_dev' => true,
       );
     
-    if (preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION))
+    if (preg_match('/^(\d+\.\d+)\.(\d+)$/', PHPWG_VERSION))
     {
       $new_versions['is_dev'] = false;
       $actual_branch = get_branch_from_version(PHPWG_VERSION);
