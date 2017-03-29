@@ -133,6 +133,107 @@ class updates
     return $new_versions;
   }
 
+  /**
+   * Checks for new versions of Piwigo. Notify webmasters if new versions are available, but not too often, see
+   * $conf['update_notify_reminder_period'] parameter.
+   *
+   * @since 2.9
+   */
+  function notify_piwigo_new_versions()
+  {
+    global $conf;
+
+    $new_versions = $this->get_piwigo_new_versions();
+    conf_update_param('update_notify_last_check', date('c'));
+
+    if ($new_versions['is_dev'])
+    {
+      return;
+    }
+
+    $new_versions_string = join(
+      ' & ',
+      array_intersect_key(
+        $new_versions,
+        array_fill_keys(array('minor', 'major'), 1)
+        )
+      );
+
+    if (empty($new_versions))
+    {
+      return;
+    }
+
+    // In which case should we notify?
+    // 1. never notified
+    // 2. new versions
+    // 3. no new versions but reminder needed
+
+    $notify = false;
+    if (!isset($conf['update_notify_last_notification']))
+    {
+      $notify = true;
+    }
+    else
+    {
+      $conf['update_notify_last_notification'] = safe_unserialize($conf['update_notify_last_notification']);
+      $last_notification = $conf['update_notify_last_notification']['notified_on'];
+
+      if ($new_versions_string != $conf['update_notify_last_notification']['version'])
+      {
+        $notify = true;
+      }
+      elseif (
+        $conf['update_notify_reminder_period'] > 0
+        and strtotime($last_notification) < strtotime($conf['update_notify_reminder_period'].' seconds ago')
+        )
+      {
+        $notify = true;
+      }
+    }
+
+    if ($notify)
+    {
+      // send email
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+
+      switch_lang_to(get_default_language());
+
+      $content = l10n('Hello,');
+      $content.= "\n\n".l10n(
+        'Time has come to update your Piwigo with version %s, go to %s',
+        $new_versions_string,
+        get_absolute_root_url().'admin.php?page=updates'
+        );
+      $content.= "\n\n".l10n('It only takes a few clicks.');
+      $content.= "\n\n".l10n('Running on an up-to-date Piwigo is important for security.');
+
+      switch_lang_back();
+
+      pwg_mail_admins(
+        array(
+          'subject' => l10n('Piwigo %s is available, please update', $new_versions_string),
+          'content' => $content,
+          'content_format' => 'text/plain',
+          ),
+        array(
+          'filename' => 'notification_admin',
+          ),
+        false, // do not exclude current user
+        true // only webmasters
+        );
+
+      // save notify
+      conf_update_param(
+        'update_notify_last_notification',
+        array(
+          'version' => $new_versions_string,
+          'notified_on' => date('c'),
+          )
+        );
+    }
+  }
+
   function get_server_extensions($version=PHPWG_VERSION)
   {
     global $user;
