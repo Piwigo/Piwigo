@@ -159,7 +159,7 @@ class updates
         )
       );
 
-    if (empty($new_versions))
+    if (empty($new_versions_string))
     {
       return;
     }
