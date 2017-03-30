@@ -427,3 +427,5 @@ $lang['Album name, A &rarr; Z'] = 'Tên album, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Tên album, Z &rarr; A';
 $lang['Link: %s'] = 'Liên kết: %s';
 $lang['Your authentication key is no longer valid.'] = 'Khóa xác thực của bạn không còn hợp lệ nữa.';
+$lang['generate random password'] = 'phát sinh mật khẩu ngẫu nhiên';
+$lang['Invalid username or password!'] = 'Sai tên người dùng hoặc mật khẩu';
