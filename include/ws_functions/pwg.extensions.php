@@ -309,12 +309,12 @@ function ws_extensions_checkupdates($params, $service)
   $update = new updates();
   $result = array();
 
-  if (!isset($_SESSION['need_update']))
+  if (!isset($_SESSION['need_update'.PHPWG_VERSION]))
   {
     $update->check_piwigo_upgrade();
   }
 
-  $result['piwigo_need_update'] = $_SESSION['need_update'];
+  $result['piwigo_need_update'] = $_SESSION['need_update'.PHPWG_VERSION];
 
   $conf['updates_ignored'] = unserialize($conf['updates_ignored']);
 

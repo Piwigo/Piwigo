@@ -56,14 +56,14 @@ class updates
 
   static function check_piwigo_upgrade()
   {
-    $_SESSION['need_update'] = null;
+    $_SESSION['need_update'.PHPWG_VERSION] = null;
 
     if (preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION, $matches)
       and @fetchRemote(PHPWG_URL.'/download/all_versions.php?rand='.md5(uniqid(rand(), true)), $result))
     {
       $all_versions = @explode("\n", $result);
       $new_version = trim($all_versions[0]);
-      $_SESSION['need_update'] = version_compare(PHPWG_VERSION, $new_version, '<');
+      $_SESSION['need_update'.PHPWG_VERSION] = version_compare(PHPWG_VERSION, $new_version, '<');
     }
   }
 
@@ -610,7 +610,6 @@ class updates
             deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
             invalidate_user_cache(true);
             $template->delete_compiled_templates();
-            unset($_SESSION['need_update']);
             if ($step == 2)
             {
               $page['infos'][] = l10n('Update Complete');
