@@ -1194,7 +1194,7 @@ SELECT image_id FROM '.IMAGE_CATEGORY_TABLE.'
       }
       else
       {// eg. 'category:' returns all orphan images
-        $qsr->tag_iids[$i] = query2array('SELECT id FROM '.IMAGES_TABLE.' LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id WHERE image_id IS NULL', null, 'id');
+        $qsr->cat_iids[$i] = query2array('SELECT id FROM '.IMAGES_TABLE.' LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id WHERE image_id IS NULL', null, 'id');
       }
     }
   }
