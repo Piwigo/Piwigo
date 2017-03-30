@@ -1125,6 +1125,8 @@ SELECT image_id FROM '.IMAGE_TAG_TABLE.'
 
 function qsearch_get_categories(QExpression $expr, QResults $qsr)
 {
+  global $user;
+
   $token_cat_ids = $qsr->cat_iids = array_fill(0, count($expr->stokens), array() );
   $all_cats = array();
 
@@ -1137,8 +1139,12 @@ function qsearch_get_categories(QExpression $expr, QResults $qsr)
       continue;
 
     $clauses = qsearch_get_text_token_search_sql( $token, array('name', 'comment'));
-    $query = 'SELECT * FROM '.CATEGORIES_TABLE.'
-WHERE ('. implode("\n OR ",$clauses) .')';
+    $query = '
+SELECT
+    *
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN piwigo_user_cache_categories ON id = cat_id and user_id = '.$user['id'].'
+  WHERE ('. implode("\n OR ",$clauses) .')';
     $result = pwg_query($query);
     while ($cat = pwg_db_fetch_assoc($result))
     {
