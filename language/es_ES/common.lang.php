@@ -435,3 +435,5 @@ $lang['Album name, Z &rarr; A'] = 'Nombre del album, Z &rarr; A';
 $lang['Album name, A &rarr; Z'] = 'Nombre del album, A &rarr; Z';
 $lang['Link: %s'] = 'Enlace: %s';
 $lang['Your authentication key is no longer valid.'] = 'Su clave de autenticación no es válida.';
+$lang['Invalid username or password!'] = '¡Nombre de usuario o contraseña incorrectos!';
+$lang['generate random password'] = 'Generar una contraseña aleatoria';
