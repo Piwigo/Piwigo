@@ -989,3 +989,6 @@ $lang['Orphans'] = '迷子';
 $lang['You have %d orphan tags: %s.'] = '%d個の使われていないタグがあります: %s';
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Apartureは、iPhotoのシンプルさを持ったプロの写真家用に設計されたソフトウェアです。';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Apartureは、Mac上で写真を調整し、大規模なライブラリーを管理するための強力なツールです。';
+$lang['Dashboard'] = 'ダッシュボード';
+$lang['Confirm deletion'] = '削除を確認';
+$lang['(determined from photos)'] = '(写真から決定する)';
