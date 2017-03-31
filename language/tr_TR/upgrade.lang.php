@@ -39,4 +39,4 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i> içine, <b>?></b> önce, ekleyin:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Bir önlem olarak, belirtilen temalar devre dışı bırakıldı. Tekrar etkinleştirmeden önce yükseltme seçeneklerini kontrol etmelisiniz.';
 
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Piwigo %s yeniliklerini keşfet';

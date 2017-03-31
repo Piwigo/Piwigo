@@ -39,4 +39,4 @@ $lang['User permissions and group permissions have been erased'] = "用户权限
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = '之前的设置只有缩略图前缀和站长电子邮件地址被保存';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '在<i>%s</i>中，<b>?></b>之前，插入：';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '保险起见，以下主题已被停用。您在重新启用它们之前，必须先检查主题的更新版本：';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = '了解 Piwigo %s 的新功能';

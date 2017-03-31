@@ -446,3 +446,5 @@ $lang['month']['7'] = 'юли';
 $lang['month']['8'] = 'август';
 $lang['month']['9'] = 'септември';
 $lang['Your authentication key is no longer valid.'] = 'Вашият ключ да верификация вече не е активен.';
+$lang['generate random password'] = 'генериране на произволна парола';
+$lang['Invalid username or password!'] = 'Невалидно име или парола!';
