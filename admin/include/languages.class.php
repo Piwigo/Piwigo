@@ -306,6 +306,8 @@ UPDATE '.USER_INFOS_TABLE.'
    */
   function extract_language_files($action, $revision, $dest='')
   {
+    global $logger;
+
     if ($archive = tempnam( PHPWG_ROOT_PATH.'language', 'zip'))
     {
       $url = PEM_URL . '/download.php';
@@ -331,6 +333,9 @@ UPDATE '.USER_INFOS_TABLE.'
               $main_filepath = $file['filename'];
             }
           }
+
+          $logger->debug(__FUNCTION__.', $main_filepath = '.$main_filepath);
+
           if (isset($main_filepath))
           {
             $root = basename(dirname($main_filepath)); // common.lang.php path in archive
@@ -341,6 +346,9 @@ UPDATE '.USER_INFOS_TABLE.'
                 $dest = $root;
               }
               $extract_path = PHPWG_ROOT_PATH.'language/'.$dest;
+
+              $logger->debug(__FUNCTION__.', $extract_path = '.$extract_path);
+
               if (
                 $result = $zip->extract(
                   PCLZIP_OPT_PATH, $extract_path,
@@ -370,9 +378,31 @@ UPDATE '.USER_INFOS_TABLE.'
                   and !empty($old_files))
                 {
                   $old_files[] = 'obsolete.list';
+                  $logger->debug(__FUNCTION__.', $old_files = {'.join('},{', $old_files).'}');
+
+                  $extract_path_realpath = realpath($extract_path);
+
                   foreach($old_files as $old_file)
                   {
+                    $old_file = trim($old_file);
+                    $old_file = trim($old_file, '/'); // prevent path starting with a "/"
+
+                    if (empty($old_file)) // empty here means the extension itself
+                    {
+                      continue;
+                    }
+
                     $path = $extract_path.'/'.$old_file;
+
+                    // make sure the obsolete file is withing the extension directory, prevent traversal path
+                    $realpath = realpath($path);
+                    if ($realpath === false or strpos($realpath, $extract_path_realpath) !== 0)
+                    {
+                      continue;
+                    }
+
+                    $logger->debug(__FUNCTION__.', to delete = '.$path);
+
                     if (is_file($path))
                     {
                       @unlink($path);

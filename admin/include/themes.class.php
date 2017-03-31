@@ -594,6 +594,8 @@ SELECT
    */
   function extract_theme_files($action, $revision, $dest)
   {
+    global $logger;
+
     if ($archive = tempnam( PHPWG_THEMES_PATH, 'zip'))
     {
       $url = PEM_URL . '/download.php';
@@ -619,6 +621,9 @@ SELECT
               $main_filepath = $file['filename'];
             }
           }
+
+          $logger->debug(__FUNCTION__.', $main_filepath = '.$main_filepath);
+
           if (isset($main_filepath))
           {
             $root = dirname($main_filepath); // main.inc.php path in archive
@@ -630,6 +635,9 @@ SELECT
             {
               $extract_path = PHPWG_THEMES_PATH . ($root == '.' ? 'extension_' . $dest : basename($root));
             }
+
+            $logger->debug(__FUNCTION__.', $extract_path = '.$extract_path);
+
             if (
               $result = $zip->extract(
                 PCLZIP_OPT_PATH, $extract_path,
@@ -651,9 +659,32 @@ SELECT
                 and !empty($old_files))
               {
                 $old_files[] = 'obsolete.list';
+
+                $logger->debug(__FUNCTION__.', $old_files = {'.join('},{', $old_files).'}');
+
+                $extract_path_realpath = realpath($extract_path);
+
                 foreach($old_files as $old_file)
                 {
+                  $old_file = trim($old_file);
+                  $old_file = trim($old_file, '/'); // prevent path starting with a "/"
+
+                  if (empty($old_file)) // empty here means the extension itself
+                  {
+                    continue;
+                  }
+
                   $path = $extract_path.'/'.$old_file;
+
+                  // make sure the obsolete file is withing the extension directory, prevent traversal path
+                  $realpath = realpath($path);
+                  if ($realpath === false or strpos($realpath, $extract_path_realpath) !== 0)
+                  {
+                    continue;
+                  }
+
+                  $logger->debug(__FUNCTION__.', to delete = '.$path);
+
                   if (is_file($path))
                   {
                     @unlink($path);
