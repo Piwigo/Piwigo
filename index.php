@@ -297,7 +297,7 @@ if ( empty($page['is_external']) )
   }
 
   // category comment
-  if ($page['start']==0 and !isset($page['chronology_field']) and !empty($page['comment']) )
+  if (($page['start']==0 or $conf['album_description_on_all_pages']) and !isset($page['chronology_field']) and !empty($page['comment']) )
   {
     $template->assign('CONTENT_DESCRIPTION', $page['comment'] );
   }
