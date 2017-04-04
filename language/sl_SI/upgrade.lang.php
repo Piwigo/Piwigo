@@ -37,3 +37,4 @@ $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'V <i>%s</i>, pred <b>?></b>,
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Nadgradnjo lahko opravi le Administrator. Prosimo prijavite se spodaj:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Kot previdnostni ukrep so sledeče preobleke onemogočene. Preveriti morate posodobitve za te preobleke in jih nato ponovno omogočiti:';
 $lang['All sub-albums of private albums become private'] = 'Vsi pod-albumi zasebnega albuma postanejo zasebni';
+$lang['Discover what\'s new in Piwigo %s'] = 'Odkrijte, kaj je novega v Piwigo %s';
