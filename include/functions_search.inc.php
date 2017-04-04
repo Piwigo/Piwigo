@@ -1143,7 +1143,7 @@ function qsearch_get_categories(QExpression $expr, QResults $qsr)
 SELECT
     *
   FROM '.CATEGORIES_TABLE.'
-    INNER JOIN piwigo_user_cache_categories ON id = cat_id and user_id = '.$user['id'].'
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id = cat_id and user_id = '.$user['id'].'
   WHERE ('. implode("\n OR ",$clauses) .')';
     $result = pwg_query($query);
     while ($cat = pwg_db_fetch_assoc($result))
