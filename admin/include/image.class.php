@@ -648,7 +648,15 @@ class image_ext_imagick implements imageInterface
     }
 
     $dest = pathinfo($destination_filepath);
-    $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
+    $tif_extension = array('tif', 'tiff', 'TIF', 'TIFF');
+    if (in_array($dest['extension'], $tif_extension))
+    {
+    	$exec .= ' "'.realpath($dest['dirname']).'/'.$dest['filename'].'.'.$conf['tiff_representative_ext'].'" 2>&1';
+    }
+    else
+    {
+    	$exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
+    }
     $logger->debug($exec, 'i.php');
     @exec($exec, $returnarray);
 

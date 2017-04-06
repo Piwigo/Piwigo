@@ -52,10 +52,11 @@ final class SrcImage
   function __construct($infos)
   {
     global $conf;
-
+    
     $this->id = $infos['id'];
     $ext = get_extension($infos['path']);
-    if (in_array($ext, $conf['picture_ext']))
+    $tif_ext = array('tif', 'tiff', 'TIF', 'TIFF');
+    if (in_array($ext, $conf['picture_ext']) AND (!in_array($ext, $tif_ext)))
     {
       $this->rel_path = $infos['path'];
       $this->flags |= self::IS_ORIGINAL;
