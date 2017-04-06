@@ -321,26 +321,30 @@ if ( empty($page['is_external']) )
   if ( !empty($page['items']) )
   {
     include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
-    $url = add_url_params(
-            duplicate_index_url(),
-            array('display' => '')
-          );
-    
-    $selected_type = $template->get_template_vars('derivative_params')->type;
-    $template->clear_assign( 'derivative_params' );
-    $type_map = ImageStdParams::get_defined_type_map();
-    unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
-    
-    foreach($type_map as $params)
+
+    if ($conf['index_sizes_icon'])
     {
-      $template->append(
-        'image_derivatives',
-        array(
-          'DISPLAY' => l10n($params->type),
-          'URL' => $url.$params->type,
-          'SELECTED' => ($params->type == $selected_type ? true:false),
-          )
+      $url = add_url_params(
+        duplicate_index_url(),
+        array('display' => '')
         );
+
+      $selected_type = $template->get_template_vars('derivative_params')->type;
+      $template->clear_assign( 'derivative_params' );
+      $type_map = ImageStdParams::get_defined_type_map();
+      unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
+
+      foreach($type_map as $params)
+      {
+        $template->append(
+          'image_derivatives',
+          array(
+            'DISPLAY' => l10n($params->type),
+            'URL' => $url.$params->type,
+            'SELECTED' => ($params->type == $selected_type ? true:false),
+            )
+          );
+      }
     }
   }
 

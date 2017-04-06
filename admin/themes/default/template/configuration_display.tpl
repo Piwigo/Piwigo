@@ -66,6 +66,14 @@
       </li>
 
       <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="index_sizes_icon" {if ($display.index_sizes_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Photo sizes'|translate|@ucfirst)}
+        </label>
+      </li>
+
+      <li>
         <label>
           {'Number of albums per page'|translate}
           <input type="text" size="3" maxlength="4" name="nb_categories_page" id="nb_categories_page" value="{$display.NB_CATEGORIES_PAGE}">
@@ -106,6 +114,14 @@
           <span class="icon-check"></span>
           <input type="checkbox" name="picture_favorite_icon" {if ($display.picture_favorite_icon)}checked="checked"{/if}>
           {'Activate icon "%s"'|translate:('add this photo to your favorites'|translate|@ucfirst)}
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="picture_sizes_icon" {if ($display.picture_sizes_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Photo sizes'|translate|@ucfirst)}
         </label>
       </li>
 

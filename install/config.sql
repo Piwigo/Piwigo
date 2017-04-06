@@ -65,3 +65,5 @@ INSERT INTO piwigo_config (param,value) VALUES ('original_resize_maxheight','201
 INSERT INTO piwigo_config (param,value) VALUES ('original_resize_quality','95');
 INSERT INTO piwigo_config (param,value) VALUES ('mobile_theme',null);
 INSERT INTO piwigo_config (param,value) VALUES ('mail_theme','clear');
+INSERT INTO piwigo_config (param,value) VALUES ('picture_sizes_icon','true');
+INSERT INTO piwigo_config (param,value) VALUES ('index_sizes_icon','true');

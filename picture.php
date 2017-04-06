@@ -186,7 +186,10 @@ function default_picture_content($content, $element_info)
       continue;
     $added[$url] = 1;
     $show_original &= !($derivative->same_as_source());
-    $unique_derivatives[$type]= $derivative;
+
+    // in case we do not display the sizes icon, we only add the selected size to unique_derivatives
+    if ($conf['picture_sizes_icon'] or $type == $deriv_type)
+      $unique_derivatives[$type]= $derivative;
   }
 
   global $page, $template;
