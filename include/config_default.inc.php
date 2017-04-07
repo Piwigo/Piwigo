@@ -55,7 +55,7 @@
 
 // picture_ext : file extensions for picture file, must be a subset of
 // file_ext
-$conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG','png','PNG','gif','GIF');
+$conf['picture_ext'] = array('jpg','jpeg','png','gif');
 
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array_merge(

@@ -54,7 +54,7 @@ final class SrcImage
     global $conf;
 
     $this->id = $infos['id'];
-    $ext = get_extension($infos['path']);
+    $ext = strtolower(get_extension($infos['path']));
     if (in_array($ext, $conf['picture_ext']))
     {
       $this->rel_path = $infos['path'];
@@ -66,7 +66,6 @@ final class SrcImage
     }
     else
     {
-      $ext = strtolower($ext);
       $this->rel_path = trigger_change('get_mimetype_location', get_themeconf('mime_icon_dir').$ext.'.png', $ext );
       $this->flags |= self::IS_MIMETYPE;
       if ( ($size=@getimagesize(PHPWG_ROOT_PATH.$this->rel_path)) === false)
