@@ -1073,6 +1073,8 @@ SELECT id, uppercats, site_id
 /**
  * Returns an array with all file system files according to $conf['file_ext']
  *
+ * @deprecated 2.4
+ *
  * @param string $path
  * @param bool $recursive
  * @return array
