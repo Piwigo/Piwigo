@@ -90,7 +90,7 @@ function get_elements($path)
 
       if (is_file($path.'/'.$node))
       {
-        $extension = get_extension($node);
+        $extension = strtolower(get_extension($node));
         $filename_wo_ext = get_filename_wo_extension($node);
 
         if ( isset($conf['flip_file_ext'][$extension]) )
