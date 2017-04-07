@@ -797,7 +797,7 @@ if ($conf['picture_metadata_icon'])
 // admin links
 if (is_admin())
 {
-  if (isset($page['category']))
+  if (isset($page['category']) and $conf['picture_representative_icon'])
   {
     $template->assign(
       array(
@@ -808,19 +808,23 @@ if (is_admin())
       );
   }
 
-  $url_admin =
-    get_root_url().'admin.php?page=photo-'.$page['image_id']
-    .(isset($page['category']) ? '&amp;cat_id='.$page['category']['id'] : '')
-    ;
+  if ($conf['picture_edit_icon'])
+  {
+    $url_admin =
+      get_root_url().'admin.php?page=photo-'.$page['image_id']
+      .(isset($page['category']) ? '&amp;cat_id='.$page['category']['id'] : '')
+      ;
 
-  $template->assign(
-    array(
-      'U_CADDIE' => add_url_params($url_self,
-                  array('action'=>'add_to_caddie')
-               ),
-      'U_PHOTO_ADMIN' => $url_admin,
-      )
-    );
+    $template->assign('U_PHOTO_ADMIN', $url_admin);
+  }
+
+  if ($conf['picture_caddie_icon'])
+  {
+    $template->assign(
+      'U_CADDIE',
+      add_url_params($url_self, array('action'=>'add_to_caddie'))
+      );
+  }
 
   $template->assign('available_permission_levels', get_privacy_level_options());
 }

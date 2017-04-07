@@ -199,7 +199,7 @@ if ( empty($page['is_external']) )
       );
   }
 
-  if (isset($page['category']) and is_admin())
+  if (isset($page['category']) and is_admin() and $conf['index_edit_icon'])
   {
     $template->assign(
       'U_EDIT',
@@ -207,7 +207,7 @@ if ( empty($page['is_external']) )
       );
   }
 
-  if (is_admin() and !empty($page['items']))
+  if (is_admin() and !empty($page['items']) and $conf['index_caddie_icon'])
   {
     $template->assign(
       'U_CADDIE',
