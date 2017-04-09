@@ -18,13 +18,19 @@ var SPThumbsOpts ={ hMargin:{$hmargin},rowHeight:{$row_height}};
 .thumbnails LI{ margin-left:{$hmargin}px; margin-bottom:{$vmargin}px}
 .thumbnails { margin:0 {$container_margin}px 0 {$container_margin-$hmargin}px}
 {/html_style}
-<ul class="thumbnails">
+{strip}
+<ul class="thumbnails"
+{if !empty($smartpocket_log_history.cat_id)}data-cat_id="{$smartpocket_log_history.cat_id}"{/if}
+{if !empty($smartpocket_log_history.section)}data-section="{$smartpocket_log_history.section}"{/if}
+{if !empty($smartpocket_log_history.tags_string)}data-tags_string="{$smartpocket_log_history.tags_string}"{/if}
+>
+{/strip}
 {foreach from=$thumbnails item=thumbnail}{strip}
 {$derivative=$thumb_picker->pick($thumbnail.src_image)}
 {if isset($page_selection[$thumbnail.id])}
 	<li class="liVisible">
 {if !isset($thumbnail.representative_ext)}
-		<a href="{$pwg->derivative_url($picture_derivative_params, $thumbnail.src_image)}" data-picture-url="{$thumbnail.URL}" rel="external">
+		<a href="{$pwg->derivative_url($picture_derivative_params, $thumbnail.src_image)}" data-picture-url="{$thumbnail.URL}" data-image-id="{$thumbnail.id}" rel="external">
 {else}
 		<a href="{$thumbnail.URL}" target="_blank" onClick="window.location='{$thumbnail.URL}'">
 {/if}
@@ -37,3 +43,4 @@ var SPThumbsOpts ={ hMargin:{$hmargin},rowHeight:{$row_height}};
 {/strip}{/foreach}
 </ul>
 {/if}
+{debug}

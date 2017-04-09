@@ -10,7 +10,8 @@
 return '<div class="ps-toolbar-close"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-play"><div class="ps-toolbar-content"></div></div><div id="more_link">'+var_trad+'</div><div class="ps-toolbar-previous"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-next"><div class="ps-toolbar-content"></div></div>';},
       getImageMetaData:function(el){
         return {
-            picture_url: $(el).attr('data-picture-url')
+            picture_url: $(el).attr('data-picture-url'),
+            image_id: $(el).attr('data-image-id'),
         };}
     };
     var myPhotoSwipe = $(".thumbnails a").photoSwipe(options);
@@ -27,7 +28,22 @@ return '<div class="ps-toolbar-close"><div class="ps-toolbar-content"></div></di
 				}
 			}
 		});
+
+    myPhotoSwipe.addEventHandler(PhotoSwipe.EventTypes.onDisplayImage, function(e) {
+      var currentImage = myPhotoSwipe.getCurrentImage();
+
+      jQuery.ajax({
+        type: "POST",
+        url: 'ws.php?format=json&method=smartpocket.images.logHistory',
+        data: {
+          image_id:currentImage.metaData.image_id,
+          cat_id:jQuery("ul.thumbnails").data("cat_id"),
+          section:jQuery("ul.thumbnails").data("section"),
+          tags_string:jQuery("ul.thumbnails").data("tags_string"),
+        }
+      });
+    });
+
 		var spThumbs = new SPThumbs(SPThumbsOpts);
   });
 }(window, window.jQuery, window.Code.PhotoSwipe));
-
