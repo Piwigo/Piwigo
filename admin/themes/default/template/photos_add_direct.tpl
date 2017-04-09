@@ -181,6 +181,15 @@ jQuery(document).ready(function(){
         uploadCategory = data.result.category;
       },
 
+      Error: function(up, error) {
+        // Called when file has finished uploading
+        //console.log('[Error] error: ', error);
+        var piwigoApiResponse = jQuery.parseJSON(error.response);
+
+        jQuery(".errors ul").append('<li>'+piwigoApiResponse.message+'</li>');
+        jQuery(".errors").show();
+      },
+
       UploadComplete: function(up, files) {
         // Called when all files are either uploaded or failed
         //console.log('[UploadComplete]');
@@ -226,7 +235,8 @@ jQuery(document).ready(function(){
 
 <div id="photosAddContent">
 
-<div class="infos" style="display:none"></div>
+<div class="infos" style="display:none"><i class="eiw-icon icon-ok"></i></div>
+<div class="errors" style="display:none"><i class="eiw-icon icon-cancel"></i><ul></ul></div>
 
 <p class="afterUploadActions" style="margin:10px; display:none;"><a class="batchLink"></a> | <a href="admin.php?page=photos_add">{'Add another set of photos'|@translate}</a></p>
 
