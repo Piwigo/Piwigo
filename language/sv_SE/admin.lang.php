@@ -1007,3 +1007,5 @@ $lang['First photo added'] = 'Första fotot tillagt';
 $lang['Delete album "%s".'] = 'Radera folder "%s"';
 $lang['Delete album "%s" and its %d sub-albums.'] = 'Radera folder "%s" och dess %d underfoldrar';
 $lang['Confirm deletion'] = 'Bekräfta radering';
+$lang['delete album and the %d orphan photos'] = 'radera album och de %d föräldralösa bilderna';
+$lang['orphans to delete'] = 'föräldralösa som ska raderas';
