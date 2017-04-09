@@ -43,4 +43,3 @@ var SPThumbsOpts ={ hMargin:{$hmargin},rowHeight:{$row_height}};
 {/strip}{/foreach}
 </ul>
 {/if}
-{debug}
