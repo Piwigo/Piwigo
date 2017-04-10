@@ -135,6 +135,10 @@ if (!empty($_GET['display']))
 {
   $page['nb_images'] = intval($_GET['display']);
 }
+elseif (in_array($conf['batch_manager_images_per_page_unit'], array(5, 10, 50)))
+{
+  $page['nb_images'] = $conf['batch_manager_images_per_page_unit'];
+}
 else
 {
   $page['nb_images'] = 5;

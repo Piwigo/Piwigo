@@ -844,6 +844,14 @@ $conf['upload_form_chunk_size'] = 500;
 // the directory where "ffmpeg" executable is.
 $conf['ffmpeg_dir'] = '';
 
+// batch manager: how many images should Piwigo display by default on the
+// global mode. Must be among values {20,50,100}
+$conf['batch_manager_images_per_page_global'] = 20;
+
+// batch manager: how many images should Piwigo display by default on the
+// unit mode. Must be among values {5, 10, 50}
+$conf['batch_manager_images_per_page_unit'] = 5;
+
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |
 // +-----------------------------------------------------------------------+
