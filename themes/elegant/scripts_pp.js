@@ -87,9 +87,6 @@
         e.preventDefault();
       });
     }
-    else if (menubar.length == 1 && p_main_menu=="disabled") {
-      showMenu(0);
-    }
 
     // info show/hide
     if (imageInfos.length == 1 && p_pict_descr!="disabled") {
