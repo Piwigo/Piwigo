@@ -997,3 +997,6 @@ $lang['Confirm deletion'] = 'Konfirmi forigon';
 $lang['Select tags'] = 'Elekti markojn';
 $lang['Storage used'] = 'Konservado uzata';
 $lang['checksum'] = 'kontrolsumo';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Pro sekurecaj kialoj, aŭtentiga ŝlosilo ne funkcias por administrantoj';
+$lang['No user is permitted to see this private album'] = 'Neniu uzanto rajtas vidi tiun privatan albumon';
+$lang['delete album and the %d orphan photos'] = 'Forigu albumon kaj la %d orfajn fotojn';
