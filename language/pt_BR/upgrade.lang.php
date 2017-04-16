@@ -41,4 +41,4 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Esta página se propõe a atualizar o banco de dados do seu Piwigo de uma versão antiga para uma nova versão. O assistente de atualização detectou que você está rodando uma <strong>distribuição %s</strong> (ou equivalente).'; 
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Por precaução, os temas abaixo foram desativados. Você deve verificar por atualizações dos temas antes de reativá-los:';
 
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Descubra o que há de novo no Piwigo %s';
