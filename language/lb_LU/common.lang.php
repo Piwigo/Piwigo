@@ -427,3 +427,5 @@ $lang['User "%s" has no email address, password reset is not possible'] = 'De Be
 $lang['Your authentication key is no longer valid.'] = 'Den Identifizéierungsschlëssel ass net méi gülteg';
 $lang['You are not authorized to access the requested page'] = 'Dir sidd net berechtëgt déi gewënschte Säit opzeruffen';
 $lang['display a calendar by creation date'] = 'Fotoen no Opnahmsdatum weisen';
+$lang['Invalid username or password!'] = 'Benotzernumm oder Passwuert si falsch';
+$lang['generate random password'] = 'Random-Passwuert generéieren';
