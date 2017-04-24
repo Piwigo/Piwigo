@@ -38,4 +38,4 @@ $lang['Upgrade informations'] = 'Informatiile pentru upgrade';
 $lang['Upgrade'] = 'Upgradeaza';
 $lang['User permissions and group permissions have been erased'] = 'Userii si permisiunile grupurilor au fost sterse';
 $lang['You do not have access rights to run upgrade'] = 'Nu ai acces pentru a face upgrade';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Descopera ce este nou in Piwigo %s';

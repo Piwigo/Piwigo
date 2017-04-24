@@ -427,3 +427,5 @@ $lang['Album name, Z &rarr; A'] = 'Albumname, Z &rarr; A';
 $lang['Apply on properties'] = 'Eigenschaften übernehmen';
 $lang['Link: %s'] = 'Adresse: %s';
 $lang['Your authentication key is no longer valid.'] = 'Ihr Authentifizierungs-Schlüssel ist nicht mehr gültig.';
+$lang['Invalid username or password!'] = 'Benutzername oder Passwort ungültig!';
+$lang['generate random password'] = 'Zufälliges Passwort generieren';

@@ -39,4 +39,4 @@ $lang['As a precaution, following plugins have been deactivated. You must check 
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Trong <i>%s</i>, trước <b>?></b>, chèn vào:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Như một biện pháp dự phòng lỗi, giao diện sau đây đã bị vô hiệu hóa. Bạn phải kiểm tra bản nâng cấp giao diện trước khi kích hoạt lại:';
 
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Khám phá những tính năng mới trong Piwigo %s';

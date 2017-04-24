@@ -430,3 +430,5 @@ $lang['Album name, A &rarr; Z'] = '相册名称， A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = '相册名称， Z &rarr; A';
 $lang['Link: %s'] = '链接： %s';
 $lang['Your authentication key is no longer valid.'] = '您的认证密钥已失效。';
+$lang['Invalid username or password!'] = '用户名或密码无效！';
+$lang['generate random password'] = '生成随机密码';
