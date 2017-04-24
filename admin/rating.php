@@ -135,6 +135,7 @@ $template->assign(
     'DISPLAY' => $elements_per_page,
     'NB_ELEMENTS' => $nb_images,
     'category' => (isset($_GET['cat']) ? array($_GET['cat']) : array()),
+    'CACHE_KEYS' => get_admin_client_cache_keys(array('categories')),
     )
   );
 
