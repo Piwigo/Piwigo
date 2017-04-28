@@ -426,3 +426,6 @@ $lang['Photo title'] = 'ឈ្មោះរូបថត';
 $lang['Album name, A &rarr; Z'] = 'ឈ្មោះអាល់ប៊ុម A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'ឈ្មោះអាល់ប៊ុម Z &rarr; A';
 $lang['Link: %s'] = 'តំណភ្ជាប់៖ %s';
+$lang['Invalid username or password!'] = 'ឈ្មោះ ឬលេខសម្ងាត់ខុស!';
+$lang['Your authentication key is no longer valid.'] = 'លេខគន្លឹះសិទ្ធិផ្ទៀងផ្ទាត់​មិនត្រឹមត្រូវ​ទៀតទេ។';
+$lang['generate random password'] = 'បង្កើតលេខសម្ងាត់ចៃដន្យ';
