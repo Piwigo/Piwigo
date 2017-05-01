@@ -434,3 +434,5 @@ $lang['cloud'] = 'hodeia';
 $lang['comment date'] = 'Iruzkinaren data';
 $lang['created after %s (%s)'] = '%s-aren (%s-en) ondoren sortuta';
 $lang['Your authentication key is no longer valid.'] = 'Zure autentifikazio gakoa ez da luzaroago baliozkoa';
+$lang['generate random password'] = 'Sortu ausazko pasahitza';
+$lang['Invalid username or password!'] = 'Erabiltzaile-izen edo pasahitz baliogabea!';
