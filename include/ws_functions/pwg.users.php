@@ -149,11 +149,6 @@ SELECT DISTINCT ';
     else $first = false;
     $query.= $field .' AS '. $name;
   }
-  if (isset($params['display']['groups']))
-  {
-    if (!$first) $query.= ', ';
-    $query.= '"" AS groups';
-  }
 
   if (isset($display['ui.last_visit']))
   {
@@ -179,6 +174,10 @@ SELECT DISTINCT ';
   while ($row = pwg_db_fetch_assoc($result))
   {
     $row['id'] = intval($row['id']);
+    if (isset($params['display']['groups']))
+    {
+      $row['groups'] = array(); // will be filled later
+    }
     $users[ $row['id'] ] = $row;
   }
 
