@@ -406,10 +406,24 @@ SELECT
       $duplicates_on_fields[] = 'height';
     }
 
+    // TODO improve this algorithm, because GROUP_CONCAT is truncated at
+    // 1024 chars. So if you have more than ~250 duplicates for a given
+    // combination of "duplicates_on_fields" you won't get all the
+    // duplicates.
+
     $query = '
 SELECT
     GROUP_CONCAT(id) AS ids
-  FROM '.IMAGES_TABLE.'
+  FROM '.IMAGES_TABLE;
+
+    if (in_array('md5sum', $duplicates_on_fields))
+    {
+      $query.= '
+  WHERE md5sum IS NOT NULL
+';
+    }
+
+    $query.= '
   GROUP BY '.implode(',', $duplicates_on_fields).'
   HAVING COUNT(*) > 1
 ;';
@@ -419,6 +433,7 @@ SELECT
     
     foreach ($array_of_ids_string as $ids_string)
     {
+      $ids_string = rtrim($ids_string,',');
       $ids = array_merge($ids, explode(',', $ids_string));
     }
     
