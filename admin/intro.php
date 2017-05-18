@@ -197,6 +197,13 @@ list($formats_disk_usage) = pwg_db_fetch_row(pwg_query($query));
 
 $disk_usage+= $formats_disk_usage;
 
+$du_decimals = 1;
+$du_gb = $disk_usage/(1024*1024);
+if ($du_gb > 100)
+{
+  $du_decimals = 0;
+}
+
 $template->assign(
   array(
     'NB_PHOTOS' => number_format($nb_photos, 0, '.', ','),
@@ -208,7 +215,7 @@ $template->assign(
     'NB_RATES' => $nb_rates,
     'NB_VIEWS' => number_format_human_readable($nb_views),
     'NB_PLUGINS' => count($pwg_loaded_plugins),
-    'STORAGE_USED' => l10n('%sGB', number_format($disk_usage/(1024*1024), 1)),
+    'STORAGE_USED' => l10n('%sGB', number_format($du_gb, $du_decimals)),
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
     'U_QUICK_SYNC' => PHPWG_ROOT_PATH.'admin.php?page=site_update&amp;site=1&amp;quick_sync=1&amp;pwg_token='.get_pwg_token(),
     )
