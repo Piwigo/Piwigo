@@ -317,6 +317,7 @@ function ws_session_getStatus($params, &$service)
   global $user, $conf;
 
   $res['username'] = is_a_guest() ? 'guest' : stripslashes($user['username']);
+  $res['user_id'] = is_a_guest() ? 'guest' : $user['id'];
   foreach ( array('status', 'theme', 'language') as $k )
   {
     $res[$k] = $user[$k];
