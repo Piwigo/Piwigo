@@ -1,6 +1,8 @@
 @import "jquery.mobile.css";
 @import "photoswipe.css";
 
+@-ms-viewport { width: device-width; }
+
 .title { margin: 10px; text-align: center; }
 .title .ui-btn { margin-top: -5px; }
 . { float: right; }
