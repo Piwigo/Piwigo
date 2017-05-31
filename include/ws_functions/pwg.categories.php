@@ -851,6 +851,7 @@ SELECT id
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   delete_categories($category_ids, $params['photo_deletion_mode']);
   update_global_rank();
+  invalidate_user_cache();
 }
 
 /**
