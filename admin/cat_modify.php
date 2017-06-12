@@ -361,7 +361,7 @@ else
   {
     $template->assign(
       'U_SYNC',
-      $base_url.'site_update&amp;site=1&amp;cat_id='.$category['id']
+      $base_url.'site_update&amp;site='.$category['site_id'].'&amp;cat_id='.$category['id']
       );
   }
 
