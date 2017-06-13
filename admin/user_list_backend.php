@@ -27,7 +27,10 @@ define('IN_ADMIN', true);
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
 check_status(ACCESS_ADMINISTRATOR);
-	
+
+check_input_parameter('iDisplayStart', $_REQUEST, false, PATTERN_ID);
+check_input_parameter('iDisplayLength', $_REQUEST, false, PATTERN_ID);
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
  */
