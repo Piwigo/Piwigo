@@ -3089,7 +3089,13 @@ function number_format_human_readable($numbers)
     }
   }
 
-  return number_format($numbers, 1).$readable[$index];
+  $decimals = 1;
+  if ('' == $readable[$index])
+  {
+    $decimals = 0;
+  }
+
+  return number_format($numbers, $decimals).$readable[$index];
 }
 
 /**
