@@ -77,7 +77,23 @@ if (isset($_POST['login']))
 
     if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
     {
-      redirect(empty($redirect_to) ? get_gallery_home_url() : $redirect_to);
+      // security (level 2): force redirect within Piwigo. We redirect to
+      // absolute root url, including http(s)://, without the cookie path,
+      // concatenated with $_POST['redirect'] param.
+      //
+      // example:
+      // {redirect (raw) = /piwigo/git/admin.php}
+      // {get_absolute_root_url = http://localhost/piwigo/git/}
+      // {cookie_path = /piwigo/git/}
+      // {host = http://localhost}
+      // {redirect (final) = http://localhost/piwigo/git/admin.php}
+      $root_url = get_absolute_root_url();
+
+      redirect(
+        empty($redirect_to)
+          ? get_gallery_home_url()
+          : substr($root_url, 0, strlen($root_url) - strlen(cookie_path())).$redirect_to
+        );
     }
     else
     {
