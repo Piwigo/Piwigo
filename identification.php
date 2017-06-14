@@ -40,6 +40,15 @@ if (!is_a_guest())
 trigger_notify('loc_begin_identification');
 
 //-------------------------------------------------------------- identification
+
+// security (level 1): the redirect must occur within Piwigo, so the
+// redirect param must start with the relative home url
+if (isset($_POST['redirect']))
+{
+  $_POST['redirect_decoded'] = urldecode($_POST['redirect']);
+}
+check_input_parameter('redirect_decoded', $_POST, false, '{^'.preg_quote(get_gallery_home_url()).'}');
+
 $redirect_to = '';
 if ( !empty($_GET['redirect']) )
 {
