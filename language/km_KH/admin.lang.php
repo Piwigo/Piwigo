@@ -256,3 +256,14 @@ $lang['By default, the center of interest is placed in the middle of the photo.'
 $lang['Caddie'] = 'Caddie';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'តាមការកំណត់ជាស្រេច Piwigo និងបង្កើត​វិបសាយ​ថ្មី​មួយ​ពី HD (high definition) version នៃរូបថត​របស់​អ្នក';
 $lang['Allow users to add a link to their website'] = 'អនុញ្ញាតឲ្យអ្នកប្រើប្រាស់​បន្ថែម​តំណភ្ជាប់​ទៅកាន់​វិបសាយ​របស់​គេ';
+$lang['Check for updates'] = 'ត្រួតពិនិត្យដើម្បីកំណែថ្មី';
+$lang['Comments for all'] = 'មតិសម្រាប់ទាំងអស់';
+$lang['Close user details'] = 'បិទព័ត៌មានលម្អិតអ្នកប្រើប្រាស់';
+$lang['Classic display'] = 'ផ្តាំងបញ្ចាំងសាមញ្ញ';
+$lang['Choose an option'] = 'ជ្រើសរើស​ជម្រើសមួយ';
+$lang['Choose an action'] = 'ជ្រើសរើសបញ្ជាមួយ';
+$lang['Check integrity'] = 'ត្រូតពិនិត្យការត្រួតគ្នា';
+$lang['Check for upgrade failed for unknown reasons.'] = 'ត្រួតពិនិត្យដើម្បីផ្លាស់កំណែថ្មី​បរាជ័យដោយគ្មានហេតុផល';
+$lang['Check for upgrade'] = 'ត្រួតពិនិត្យដើម្បីផ្លាស់កំណែថ្មី';
+$lang['Check automatic corrections'] = 'ពិនិត្យកំណែដោយ​ស្វ័យប្រវត្តិ';
+$lang['(determined from photos)'] = '(បានកំណត់ពីរូបភាព)';
