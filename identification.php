@@ -47,7 +47,7 @@ if (isset($_POST['redirect']))
 {
   $_POST['redirect_decoded'] = urldecode($_POST['redirect']);
 }
-check_input_parameter('redirect_decoded', $_POST, false, '{^'.preg_quote(get_gallery_home_url()).'}');
+check_input_parameter('redirect_decoded', $_POST, false, '{^'.preg_quote(cookie_path()).'}');
 
 $redirect_to = '';
 if ( !empty($_GET['redirect']) )
