@@ -208,8 +208,6 @@ class updates
       $content.= "\n\n".l10n('It only takes a few clicks.');
       $content.= "\n\n".l10n('Running on an up-to-date Piwigo is important for security.');
 
-      switch_lang_back();
-
       pwg_mail_admins(
         array(
           'subject' => l10n('Piwigo %s is available, please update', $new_versions_string),
@@ -222,6 +220,8 @@ class updates
         false, // do not exclude current user
         true // only webmasters
         );
+
+      switch_lang_back();
 
       // save notify
       conf_update_param(
