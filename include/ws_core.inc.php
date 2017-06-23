@@ -401,7 +401,10 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
 
   static function isPost()
   {
-    return isset($HTTP_RAW_POST_DATA) or !empty($_POST);
+    if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST') {
+      return true;
+    }
+    return false;
   }
 
   static function makeArrayParam(&$param)
