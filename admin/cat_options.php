@@ -83,6 +83,7 @@ else if (isset($_POST['trueify'])
          and isset($_POST['cat_false'])
          and count($_POST['cat_false']) > 0)
 {
+  check_pwg_token();
   check_input_parameter('cat_false', $_POST, true, PATTERN_ID);
   switch ($_GET['section'])
   {
