@@ -47,9 +47,14 @@ if (!empty($_POST))
 {
   check_pwg_token();
 
-  if ($category['status'] != $_POST['status'])
+  if ($category['status'] != $_POST['status'] or ($category['status'] != 'public' and isset($_POST['apply_on_sub'])))
   {
-    set_cat_status(array($page['cat']), $_POST['status']);
+    $cat_ids = array($page['cat']);
+    if (isset($_POST['apply_on_sub']))
+      {
+        $cat_ids = array_merge($cat_ids, get_subcat_ids(array($page['cat'])));
+      }
+    set_cat_status($cat_ids, $_POST['status']);
     $category['status'] = $_POST['status'];
   }
 
