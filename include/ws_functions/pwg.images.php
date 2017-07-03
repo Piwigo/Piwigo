@@ -1575,6 +1575,8 @@ SELECT path
  */
 function ws_images_setInfo($params, $service)
 {
+  global $conf;
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   $query='
@@ -1606,6 +1608,11 @@ SELECT *
   {
     if (isset($params[$key]))
     {
+      if (!$conf['allow_html_descriptions'])
+      {
+        $params[$key] = strip_tags($params[$key], '<b><strong><em><i>');
+      }
+
       if ('fill_if_empty' == $params['single_value_mode'])
       {
         if (empty($image_row[$key]))
