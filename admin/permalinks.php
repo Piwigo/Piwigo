@@ -85,6 +85,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_permalinks.php');
 $selected_cat = array();
 if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
 {
+  check_pwg_token();
   $permalink = $_POST['permalink'];
   if ( empty($permalink) )
     delete_cat_permalink($_POST['cat_id'], isset($_POST['save']) );
@@ -94,6 +95,7 @@ if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
 }
 elseif ( isset($_GET['delete_permanent']) )
 {
+  check_pwg_token();
   $query = '
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
   WHERE permalink=\''.$_GET['delete_permanent'].'\'
@@ -125,6 +127,7 @@ FROM '.CATEGORIES_TABLE;
 
 display_select_cat_wrapper( $query, $selected_cat, 'categories', false );
 
+$pwg_token = get_pwg_token();
 
 // --- generate display of active permalinks -----------------------------------
 $sort_by = parse_sort_variables(
@@ -178,12 +181,16 @@ while ( $row = pwg_db_fetch_assoc($result) )
   $row['U_DELETE'] =
       add_url_params(
         $url_del_base,
-        array( 'delete_permanent'=> $row['permalink'] )
+        array('delete_permanent'=> $row['permalink'],'pwg_token'=>$pwg_token)
       );
   $deleted_permalinks[] = $row;
 }
-$template->assign('deleted_permalinks', $deleted_permalinks);
-$template->assign('U_HELP', get_root_url().'admin/popuphelp.php?page=permalinks');
+
+$template->assign(array(
+  'PWG_TOKEN' => $pwg_token,
+  'U_HELP' => get_root_url().'admin/popuphelp.php?page=permalinks',
+  'deleted_permalinks' => $deleted_permalinks,
+  ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'permalinks');
 ?>

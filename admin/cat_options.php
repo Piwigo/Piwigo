@@ -38,13 +38,12 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                       modification registration                       |
 // +-----------------------------------------------------------------------+
 
-// print '<pre>';
-// print_r($_POST);
-// print '</pre>';
+
 if (isset($_POST['falsify'])
     and isset($_POST['cat_true'])
     and count($_POST['cat_true']) > 0)
 {
+  check_pwg_token();
   switch ($_GET['section'])
   {
     case 'comments' :
@@ -246,6 +245,7 @@ SELECT DISTINCT id,name,uppercats,global_rank
 }
 display_select_cat_wrapper($query_true,array(),'category_option_true');
 display_select_cat_wrapper($query_false,array(),'category_option_false');
+$template->assign('PWG_TOKEN',get_pwg_token());
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
