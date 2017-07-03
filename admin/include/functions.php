@@ -1546,6 +1546,8 @@ SELECT id, uppercats, global_rank, visible, status
     add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']))));
   }
 
+  trigger_notify('create_virtual_category', array_merge(array('id'=>$inserted_id), $insert));
+
   return array(
     'info' => l10n('Virtual album added'),
     'id'   => $inserted_id,
