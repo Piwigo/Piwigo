@@ -337,7 +337,7 @@ if (function_exists('mb_strtolower') && defined('PWG_CHARSET'))
    * @param string $term
    * @return string
    */
-  function transliterate($term)
+  function pwg_transliterate($term)
   {
     return remove_accents( mb_strtolower($term, PWG_CHARSET) );
   }
@@ -347,7 +347,7 @@ else
   /**
    * @ignore
    */
-  function transliterate($term)
+  function pwg_transliterate($term)
   {
     return remove_accents( strtolower($term) );
   }
@@ -361,7 +361,7 @@ else
  */
 function str2url($str)
 {
-  $str = $safe = transliterate($str);
+  $str = $safe = pwg_transliterate($str);
   $str = preg_replace('/[^\x80-\xffa-z0-9_\s\'\:\/\[\],-]/','',$str);
   $str = preg_replace('/[\s\'\:\/\[\],-]+/',' ',trim($str));
   $res = str_replace(' ','_',$str);
