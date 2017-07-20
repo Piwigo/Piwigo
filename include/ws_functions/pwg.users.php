@@ -298,6 +298,30 @@ function ws_users_add($params, &$service)
 
 /**
  * API method
+ * Get a new authentication key for a user.
+ * @param mixed[] $params
+ *    @option int[] user_id
+ *    @option string pwg_token
+ */
+function ws_users_getAuthKey($params, &$service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $authkey = create_user_auth_key($params['user_id']);
+
+  if ($authkey === false)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'invalid user_id');
+  }
+
+  return $authkey;
+}
+
+/**
+ * API method
  * Deletes users
  * @param mixed[] $params
  *    @option int[] user_id
