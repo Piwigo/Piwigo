@@ -37,4 +37,4 @@ $lang['Statistics'] = 'Statistikoj';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Nur administranto povas lanĉi ĝisdatigadon: bonvolu ensaluti ĉisube.';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'En <i>%s</i>, antaŭ <b>?></b>, enmetu:';
 $lang['All sub-albums of private albums become private'] = 'Ĉiuj sub-fotaroj el privataj fotaroj iĝas privataj';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Malkovru kion novas en Piwigo %s';
