@@ -269,10 +269,17 @@ SELECT DISTINCT(id)
 
   if (isset($search_in_tags_items))
   {
-    $items = array_unique(
-      array_merge(
-        $items,
-        $search_in_tags_items
+    // TODO the sorting order will not match $conf['order_by'], a solution would be
+    // to have a new SQL query 'where id in (merged ids) order by $conf[order_by]'
+    //
+    // array_values will reset the numeric keys, without changing the sorting order.
+    // picture.php relies on these keys to be sequential {0,1,2} and not {0,1,5}
+    $items = array_values(
+      array_unique(
+        array_merge(
+          $items,
+          $search_in_tags_items
+          )
         )
       );
   }
@@ -292,10 +299,12 @@ SELECT DISTINCT(id)
         }
         break;
       case 'OR':
-        $items = array_unique(
-          array_merge(
-            $items,
-            $tag_items
+        $items = array_values(
+          array_unique(
+            array_merge(
+              $items,
+              $tag_items
+              )
             )
           );
         break;
