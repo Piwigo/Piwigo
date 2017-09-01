@@ -299,7 +299,7 @@ if (isset($action))
 $title= l10n('User comments');
 $page['body_id'] = 'theCommentsPage';
 
-$template->set_filenames(array('comments'=>'comments.tpl'));
+$template->set_filenames(array('comments'=>'comments.tpl', 'comment_list'=>'comment_list.tpl'));
 $template->assign(
   array(
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
@@ -559,6 +559,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theCommentsPage', $themecon
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_notify('loc_end_comments');
 flush_page_messages();
+if (count($comments) > 0)  $template->assign_var_from_handle('COMMENT_LIST', 'comment_list');
 $template->pparse('comments');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

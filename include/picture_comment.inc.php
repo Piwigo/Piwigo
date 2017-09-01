@@ -274,6 +274,8 @@ SELECT
     }
     $template->assign('comment_add', $tpl_var);
   }
+  $template->set_filenames( array('comment_list' => 'comment_list.tpl'));
+  $template->assign_var_from_handle('COMMENT_LIST', 'comment_list');
 }
 
 ?>
