@@ -547,16 +547,47 @@ function upload_file_video($representative_ext, $file_path)
 
   prepare_directory(dirname($representative_file_path));
 
-  $second = 1;
+  // Get duration of video and determine time of poster
+  exec('ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1'." '$file_path'",$O,$S);
+  if(!empty($O[0]))
+    {
+        $second = min(floor($O[0]*10)/10, 2);
+    } 
+    else 
+    {
+    	$second = 0;		// Safest position of the poster
+  }
+  $logger->info(__FUNCTION__.', Poster at '.$second.'s');
 
+  // Generate poster
+  // See https://trac.ffmpeg.org/wiki/Seeking
   $ffmpeg = $conf['ffmpeg_dir'].'ffmpeg';
-  $ffmpeg.= ' -i "'.$file_path.'"';
-  $ffmpeg.= ' -an -ss '.$second;
-  $ffmpeg.= ' -t 1 -r 1 -y -vcodec mjpeg -f mjpeg';
-  $ffmpeg.= ' "'.$representative_file_path.'"';
+  $ffmpeg.= ' -ss '.$second;					// Fast seeking
+  $ffmpeg.= ' -i "'.$file_path.'"';				// Video file
+  $ffmpeg.= ' -frames:v 1';						// Extract one frame
+  $ffmpeg.= ' "'.$representative_file_path.'"';	// Output file
 
-  @exec($ffmpeg);
+  @exec($ffmpeg.' 2>&1',$FO,$FS);
+  if(!empty($FO[0]))
+    {
+  		$logger->debug(__FUNCTION__.', Tried '.$ffmpeg);
+        $logger->debug($FO[0]);
+    }
 
+  // Did we generate the file ?
+  if (!file_exists($representative_file_path))
+  {
+    // Let's try with avconv if ffmpeg unavailable
+    $avconv = str_replace('ffmpeg', 'avconv', $ffmpeg);
+    @exec($avconv.' 2>&1',$AO,$AS);
+	if(!empty($AO[0]))
+	{
+	    $logger->debug(__FUNCTION__.', Tried '.$avconv);
+		$logger->debug($AO[0]);
+	}
+  }
+
+  // Did we finally generate the file ?
   if (!file_exists($representative_file_path))
   {
     return null;
