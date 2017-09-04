@@ -206,7 +206,7 @@ if ($du_gb > 100)
 
 $template->assign(
   array(
-    'NB_PHOTOS' => number_format($nb_photos, 0, '.', ','),
+    'NB_PHOTOS' => $nb_photos,
     'NB_ALBUMS' => $nb_categories,
     'NB_TAGS' => $nb_tags,
     'NB_IMAGE_TAG' => $nb_image_tag,
