@@ -87,10 +87,10 @@ div.stat-box {
 
 <div class="stat-boxes">
 
-{if $NB_PHOTOS >= 1}
+{if $NB_PHOTOS > 1}
 <a class="stat-box" href="{$U_ADD_PHOTOS}">
 <i class="icon-picture"></i>
-<span class="number">{$NB_PHOTOS}</span><span class="caption">{'Photos'|translate}</span>
+<span class="number">{$NB_PHOTOS|number_format}</span><span class="caption">{'Photos'|translate}</span>
 </a>
 {/if}
 
