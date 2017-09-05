@@ -168,6 +168,7 @@ CREATE TABLE `piwigo_image_category` (
 -- Table structure for table `piwigo_image_format`
 --
 
+DROP TABLE IF EXISTS `piwigo_image_format`;
 CREATE TABLE `piwigo_image_format` (
   `format_id` int(11) unsigned NOT NULL auto_increment,
   `image_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -370,6 +371,7 @@ CREATE TABLE `piwigo_user_access` (
 -- Table structure for table `piwigo_user_auth_keys`
 --
 
+DROP TABLE IF EXISTS `piwigo_user_auth_keys`;
 CREATE TABLE `piwigo_user_auth_keys` (
   `auth_key_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `auth_key` varchar(255) NOT NULL,
