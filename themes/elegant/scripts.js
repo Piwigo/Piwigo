@@ -26,7 +26,7 @@
     if (menubar.length == 1 && p_main_menu!="disabled") {
       menuswitcher.html('<div class="switchArrow">&nbsp;</div>');
 
-      if (session_storage['page-menu'] == undefined && p_main_menu == 'off') {
+      if (session_storage['page-menu'] === undefined && p_main_menu == 'off') {
         session_storage['page-menu'] = 'hidden';
       }
 
