@@ -118,7 +118,7 @@ function initialize_menu()
 
 //------------------------------------------------------------------------ tags
   $block = $menu->get_block('mbTags');
-  if ( $block!=null and !empty($page['items']) and 'picture' != script_basename() )
+  if ( $block!=null and 'picture' != script_basename() )
   {
     if ('tags'==@$page['section'])
     {
@@ -147,9 +147,26 @@ function initialize_menu()
             )
           );
       }
+      $template->assign( 'IS_RELATED', false);
     }
-    else
+    //displays all tags available for the current user
+    else if ($conf['menubar_tag_cloud_content'] == 'always_all' or ($conf['menubar_tag_cloud_content'] == 'all_or_current' and empty($page['items'])) )
     {
+      $tags = get_available_tags();
+      foreach ($tags as $tag)
+      {
+        $block->data[] = array_merge(
+          $tag,
+          array(
+            'URL' => make_index_url( array( 'tags' => array($tag) ) ),
+          )
+        );
+      }
+      $template->assign( 'IS_RELATED', false);
+    }
+    //displays only the tags available from the current thumbnails displayed
+    else if ( !empty($page['items']) and ($conf['menubar_tag_cloud_content'] == 'current_only' or $conf['menubar_tag_cloud_content'] == 'all_or_current') )
+    {        
       $selection = array_slice( $page['items'], $page['start'], $page['nb_image_page'] );
       $tags = add_level_to_tags( get_common_tags($selection, $conf['content_tag_cloud_items_number']) );
       foreach ($tags as $tag)
@@ -161,6 +178,7 @@ function initialize_menu()
           )
         );
       }
+      $template->assign( 'IS_RELATED', true);
     }
     if ( !empty($block->data) )
     {

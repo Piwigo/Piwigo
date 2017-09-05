@@ -635,6 +635,14 @@ $conf['full_tag_cloud_items_number'] = 200;
 // cloud in the menubar. Only the most represented tags will be shown
 $conf['menubar_tag_cloud_items_number'] = 20;
 
+// menubar_tag_cloud_content: 'always_all', 'current_only' or 'all_or_current'
+// For the tag cloud in the menubar.
+// 'always_all': tag cloud always displays all tags available to the user
+// 'current_only': tag cloud always displays the tags from the current pictures
+// 'all_or_current': when pictures are displayed, tag cloud shows their tags, but 
+// when none are displayed, all the tags available to the user are shown.
+$conf['menubar_tag_cloud_content'] = 'all_or_current';
+
 // content_tag_cloud_items_number: number of related tags to show in the tag
 // cloud on the content page, when the current section is not a set of
 // tags. Only the most represented tags will be shown
