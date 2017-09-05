@@ -98,6 +98,10 @@ function get_sync_exif_data($file)
       if (preg_match('/^(\d{4}).(\d{2}).(\d{2}) (\d{2}).(\d{2}).(\d{2})/', $value, $matches))
       {
         $exif[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3].' '.$matches[4].':'.$matches[5].':'.$matches[6];
+        if ($exif[$pwg_key] == '0000-00-00 00:00:00')
+        {
+          $exif[$pwg_key] = Null;
+        }
       }
       elseif (preg_match('/^(\d{4}).(\d{2}).(\d{2})/', $value, $matches))
       {
@@ -274,7 +278,7 @@ SELECT id, path, representative_ext
     }
 
     $data['date_metadata_update'] = CURRENT_DATE;
-
+    
     $datas[] = $data;
   }
 
