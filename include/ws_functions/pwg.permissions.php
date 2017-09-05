@@ -101,7 +101,7 @@ SELECT group_id, cat_id
   // filter by group and user
   foreach ($perms as $cat_id => &$cat)
   {
-    if (isset($filters['group_id']))
+    if (isset($params['group_id']))
     {
       if (empty($cat['groups']) or count(array_intersect($cat['groups'], $params['group_id'])) == 0)
       {
@@ -109,7 +109,7 @@ SELECT group_id, cat_id
         continue;
       }
     }
-    if (isset($filters['user_id']))
+    if (isset($params['user_id']))
     {
       if (
         (empty($cat['users_indirect']) or count(array_intersect($cat['users_indirect'], $params['user_id'])) == 0)
