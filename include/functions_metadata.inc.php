@@ -131,6 +131,66 @@ function clean_iptc_value($value)
   return $value;
 }
 
+/*
+* returns an array of the fields
+*/
+
+function get_exif_field_array($field, $exif)
+{
+  $temp = array();
+
+  foreach ($field as $key_field => $second_field)
+  {
+    if (is_array($second_field))
+    {
+      $temp_third = array();
+      foreach ($second_field as $key_second_field => $third_field)
+      {
+        if (strpos($third_field, ';') === false)
+        {
+          if (isset($exif[$third_field]))
+          {
+            $temp_third[$key_second_field] = $exif[$third_field];
+          }
+        }
+        else
+        {
+          $third_tokens = explode(';', $third_field);
+          if (isset($exif[$third_tokens[0]][$third_tokens[1]]))
+          {
+            $temp_third[$key_second_field] = $exif[$third_tokens[0]][$third_tokens[1]];
+          }
+        }
+      }
+      $temp[$key_field] = implode(',', $temp_third);
+      unset($temp_third);
+      if (empty($temp[$key_field]))
+      {
+        unset($temp[$key_field]);
+      }
+    }
+    else
+    {
+      if (strpos($second_field, ';') === false)
+      {
+        if (isset($exif[$second_field]))
+        {
+          $temp[$key_field] = $exif[$second_field];
+        }
+      }
+      else
+      {
+        $second_tokens = explode(';', $second_field);
+        if (isset($exif[$second_tokens[0]][$second_tokens[1]]))
+        {
+          $temp[$key_field] = $exif[$second_tokens[0]][$second_tokens[1]];
+        }
+      }
+    }
+  }
+  return  $temp;
+}
+
 /**
  * returns informations from EXIF metadata, mapping is done in this function.
  *
@@ -164,19 +224,32 @@ function get_exif_data($filename, $map)
     // configured fields
     foreach ($map as $key => $field)
     {
-      if (strpos($field, ';') === false)
+      if (is_array($field))
       {
-        if (isset($exif[$field]))
+        $temp = get_exif_field_array($field, $exif);
+        $result[$key] = implode(',' , $temp);
+        unset($temp);
+        if (empty($result[$key]))
         {
-          $result[$key] = $exif[$field];
+          unset($result[$key]);
         }
       }
       else
       {
-        $tokens = explode(';', $field);
-        if (isset($exif[$tokens[0]][$tokens[1]]))
+        if (strpos($field, ';') === false)
         {
-          $result[$key] = $exif[$tokens[0]][$tokens[1]];
+          if (isset($exif[$field]))
+          {
+            $result[$key] = $exif[$field];
+          }
+        }
+        else
+        {
+          $tokens = explode(';', $field);
+          if (isset($exif[$tokens[0]][$tokens[1]]))
+          {
+            $result[$key] = $exif[$tokens[0]][$tokens[1]];
+          }
         }
       }
     }
