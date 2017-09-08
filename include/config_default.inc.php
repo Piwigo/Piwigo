@@ -350,6 +350,33 @@ $conf['use_iptc'] = false;
 // use_iptc_mapping : in which IPTC fields will Piwigo find image
 // information ? This setting is used during metadata synchronisation. It
 // associates a piwigo_images column name to a IPTC key
+//
+// $conf['use_iptc_mapping'] = array(
+//   'tags'          => '2#025',
+//   'author'        => '2#122',
+//   'name'          => '2#005',
+// ));
+//
+// We have a special case, you can associate "tags" or "keywords"
+// to an array of IPTC keys.
+//
+// $conf['use_iptc_mapping'] = array(
+//   'tags'   => array('2#025', '2#090', '2#101'),
+//   'author' => '2#122',
+//   'name'   => '2#005',
+// );
+//
+// Still in the "tags" mapping, you can prefix the IPTC value:
+//
+// $conf['use_iptc_mapping'] = array(
+//   'tags'  => array(
+//     '2#025',
+//     array('2#090', 'City : '),
+//     array('2#101', 'Country : '),
+//   ),
+//   'author'        => '2#122',
+//   'name'          => '2#005',
+// );
 $conf['use_iptc_mapping'] = array(
   'keywords'        => '2#025',
   'date_creation'   => '2#055',

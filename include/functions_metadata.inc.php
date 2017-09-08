@@ -50,37 +50,90 @@ function get_iptc_data($filename, $map, $array_sep=',')
     $iptc = iptcparse($imginfo['APP13']);
     if (is_array($iptc))
     {
-      $rmap = array_flip($map);
-      foreach (array_keys($rmap) as $iptc_key)
-      {
-        if (isset($iptc[$iptc_key][0]))
-        {
-          if ($iptc_key == '2#025')
-          {
-            $value = implode($array_sep,
-                             array_map('clean_iptc_value',$iptc[$iptc_key]));
-          }
-          else
-          {
-            $value = clean_iptc_value($iptc[$iptc_key][0]);
-          }
+      $rmap = array();
 
-          foreach (array_keys($map, $iptc_key) as $pwg_key)
+      foreach ($map as $pwgkey => $iptc_key)
+      {
+        if (is_array($iptc_key))
+        {
+          foreach ($iptc_key as $iptc_key_l2 => $iptc_value)
           {
-            $result[$pwg_key] = $value;
+            if (is_array($iptc_value))
+            {
+              if ($pwgkey != 'tags')
+              {
+                die('only tags can get values from several IPTC fields');
+              }
+              $rmap[$iptc_value[0]][] = array($pwgkey, $iptc_value[1]);
+            }
+            else
+            {
+              $rmap[$iptc_value][] = $pwgkey;
+            }
+          }
+        }
+        else
+        {
+          $rmap[$iptc_key][] = $pwgkey;
+        }
+      }
+
+      foreach ($iptc as $iptc_key => $iptc_value)
+      {
+        if (isset($rmap[$iptc_key]))
+        {
+          foreach ($rmap[$iptc_key] as $pwgkey)
+          {
+            $key = null;
+            $value = $iptc_value;
+
+            if (is_array($pwgkey))
+            {
+              $key = $pwgkey[0];
+              $value = $pwgkey[1].implode($iptc_value);
+            }
+            else
+            {
+              $key = $pwgkey;
+            }
+
+            if (is_array($value))
+            {
+              $value = implode($value);
+            }
+
+            if (!isset($result[$key]))
+            {
+              $result[$key] = '';
+            }
+            else
+            {
+              $result[$key] .= ',';
+            }
+            if ($iptc_key == '2#025')
+            {
+              $value = implode($array_sep,
+                               array_map('clean_iptc_value',$iptc[$iptc_key]));
+            }
+            else
+            {
+              $value = clean_iptc_value($value);
+            }
 
             if (!$conf['allow_html_in_metadata'])
             {
               // in case the origin of the photo is unsecure (user upload), we
               // remove HTML tags to avoid XSS (malicious execution of
               // javascript)
-              $result[$pwg_key] = strip_tags($result[$pwg_key]);
+              $result[$key] = strip_tags($result[$key]);
             }
+            $result[$key] .= $value;
           }
         }
       }
     }
   }
+
   return $result;
 }
 
