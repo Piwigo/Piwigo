@@ -188,7 +188,7 @@ function clean_iptc_value($value)
 * returns an array of the fields
 */
 
-function get_exif_field_array($field, $exif)
+function get_exif_field_array($field, $exif, $key)
 {
   $temp = array();
 
@@ -197,23 +197,17 @@ function get_exif_field_array($field, $exif)
     if (is_array($second_field))
     {
       $temp_third = array();
-      foreach ($second_field as $key_second_field => $third_field)
+      if ($key != 'tags')
       {
-        if (strpos($third_field, ';') === false)
-        {
-          if (isset($exif[$third_field]))
-          {
-            $temp_third[$key_second_field] = $exif[$third_field];
-          }
-        }
-        else
-        {
-          $third_tokens = explode(';', $third_field);
-          if (isset($exif[$third_tokens[0]][$third_tokens[1]]))
-          {
-            $temp_third[$key_second_field] = $exif[$third_tokens[0]][$third_tokens[1]];
-          }
-        }
+        die('only tags can get values from several EXIF fields');
+      }
+      if (isset($exif[$second_field[0]]) and isset($second_field[1]))
+      {
+        $temp_third[$key_field] = $second_field[1].$exif[$second_field[0]];
+      }
+      else if (isset($exif[$second_field[0]]))
+      {
+        $temp_third[$key_field] = $exif[$second_field[0]];
       }
       $temp[$key_field] = implode(',', $temp_third);
       unset($temp_third);
@@ -279,7 +273,7 @@ function get_exif_data($filename, $map)
     {
       if (is_array($field))
       {
-        $temp = get_exif_field_array($field, $exif);
+        $temp = get_exif_field_array($field, $exif, $key);
         $result[$key] = implode(',' , $temp);
         unset($temp);
         if (empty($result[$key]))

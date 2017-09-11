@@ -417,6 +417,26 @@ $conf['use_exif_mapping'] = array(
   'date_creation' => 'DateTimeOriginal'
   );
 
+// You can associate an EXIF fields to an array of EXIF key
+//
+// $conf['use_exif_mapping'] = array(
+//   'tags'   => array('Software', 'Sharpness', 'DocumentName'),
+//   'author' => array('Artist', 'Software'),
+//   'name'   => 'DocumentName',
+// );
+//
+// Still in the "tags" mapping, you can prefix the EXIF value:
+//
+// $conf['use_exif_mapping'] = array(
+//   'tags'  => array(
+//     'Software',
+//     array('Sharpness', 'Sharpness : '),
+//     array('DocumentName', 'DocName : '),
+//   ),
+//   'author'        => 'Artist',
+//   'name'          => 'InkNames',
+// );
+
 // allow_html_in_metadata: in case the origin of the photo is unsecure (user
 // upload), we remove HTML tags to avoid XSS (malicious execution of
 // javascript)
