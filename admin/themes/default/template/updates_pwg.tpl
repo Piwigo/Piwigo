@@ -1,11 +1,11 @@
 {footer_script}
 jQuery(document).ready(function() {ldelim}
-	jQuery('input[name="submit"]').click(function() {ldelim}
+  jQuery('input[name="submit"]').click(function() {ldelim}
     if(!confirm('{'Are you sure?'|@translate}'))
       return false;
     jQuery(this).hide();
     jQuery('.autoupdate_bar').show();
-	});
+  });
   jQuery('[name="understand"]').click(function() {ldelim}
     jQuery('[name="submit"]').attr('disabled', !this.checked);
   });
@@ -19,9 +19,30 @@ form { width: 750px; }
 fieldset { padding-bottom: 30px; }
 p, form p { text-align: left; margin-left:20px; }
 li { margin: 5px; }
+
+.eiw-icon {
+    float: left;
+    font-size: 50px;
+    padding: 5px 5px;
+}
+
 </style>
 {/literal}
 {/html_head}
+
+{if $CHECK_PHP != 0 or $CHECK_SQL != 0}
+<div class="warnings">
+  <i class="eiw-icon icon-attention"></i>
+    <ul>
+    {if $CHECK_PHP == 1}
+      <li> {'Please upgrade you\'re PHP version to '}{$UPDATE_PHP}{' before update.'} </li>
+    {/if}
+    {if $CHECK_SQL == 1}
+      <li> {'Please upgrade you\'re SQL version to '}{$UPDATE_SQL}{' before update.'} </li>
+    {/if}
+    </ul>
+</div>
+{/if}
 
 <div class="titrePage">
 <h2>{'Updates'|@translate}</h2>
@@ -53,11 +74,19 @@ li { margin: 5px; }
   {'A new version of Piwigo is available.'|@translate}<br>
   {'This is a minor update, with only bug corrections.'|@translate}
 </p>
+{if $CHECK_PHP == 0 and $CHECK_SQL == 0}
 <form action="" method="post">
 <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}"></p>
 <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
 <p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
 </form>
+{else}
+<form action="" method="post">
+<p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}" disabled="disabled"></p>
+<p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
+<p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
+</form>
+{/if}
 {/if}
 
 {if $STEP == 3}
@@ -89,9 +118,15 @@ li { margin: 5px; }
   {if !empty($missing.plugins) or !empty($missing.themes)}
   <p><label><input type="checkbox" name="understand"> &nbsp;{'I decide to update anyway'|@translate}</label></p>
   {/if}
+  {if $CHECK_PHP == 0 and $CHECK_SQL == 0}
   <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}" {if !empty($missing.plugins) or !empty($missing.themes)}disabled="disabled"{/if}>
   </p>
   <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
+  {else}
+  <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}" disabled="disabled" {if !empty($missing.plugins) or !empty($missing.themes)}disabled="disabled"{/if}>
+  </p>
+  <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
+  {/if}
 </fieldset>
 
 <p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
