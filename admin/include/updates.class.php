@@ -90,9 +90,8 @@ class updates
       $new_versions['is_dev'] = false;
       $actual_branch = get_branch_from_version(PHPWG_VERSION);
 
-      /*$url = PHPWG_URL.'/download/all_versions.php';
-      $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache*/
-      $url = 'http://localhost/Piwigo/all_versions.php?prerequisite=1';
+      $url = PHPWG_URL.'/download/all_versions.php?prerequisite=1';
+      $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
 
       if (@fetchRemote($url, $result)
           and $all_versions = @explode("\n", $result)
