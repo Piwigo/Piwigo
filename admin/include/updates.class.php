@@ -84,52 +84,56 @@ class updates
       'piwigo.org-checked' => false,
       'is_dev' => true,
       );
-    
+
     if (preg_match('/^(\d+\.\d+)\.(\d+)$/', PHPWG_VERSION))
     {
       $new_versions['is_dev'] = false;
       $actual_branch = get_branch_from_version(PHPWG_VERSION);
 
-      $url = PHPWG_URL.'/download/all_versions.php';
-      $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
+      /*$url = PHPWG_URL.'/download/all_versions.php';
+      $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache*/
+      $url = 'http://localhost/Piwigo/all_versions.php?prerequisite=1';
 
       if (@fetchRemote($url, $result)
           and $all_versions = @explode("\n", $result)
           and is_array($all_versions))
       {
         $new_versions['piwigo.org-checked'] = true;
-        $last_version = trim($all_versions[0]);
+        $last_version = explode('/', $all_versions[0]);
 
-        if (version_compare(PHPWG_VERSION, $last_version, '<'))
+        if (version_compare(PHPWG_VERSION, $last_version[0], '<'))
         {
-          $last_branch = get_branch_from_version($last_version);
+          $last_branch = get_branch_from_version($last_version[0]);
 
           if ($last_branch == $actual_branch)
           {
-            $new_versions['minor'] = $last_version;
+            $new_versions['minor'] = $last_version[0];
           }
           else
           {
-            $new_versions['major'] = $last_version;
-
+            $new_versions['major'] = $last_version[0];
             // Check if new version exists in same branch
-            foreach ($all_versions as $version)
+            foreach ($all_versions as $key => $version)
             {
-              $branch = get_branch_from_version($version);
+              $version = explode('/', $all_versions[$key]);
+              $branch = get_branch_from_version($version[0]);
 
               if ($branch == $actual_branch)
               {
-                if (version_compare(PHPWG_VERSION, $version, '<'))
+                if (version_compare(PHPWG_VERSION, $version[0], '<'))
                 {
-                  $new_versions['minor'] = $version;
+                  $new_versions['minor'] = $version[0];
                 }
                 break;
               }
             }
           }
+          $new_versions['php'] = $last_version[1];
+          $new_versions['mysql'] = $last_version[2];
         }
       }
     }
+
     return $new_versions;
   }
 

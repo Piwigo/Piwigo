@@ -40,27 +40,6 @@ $step = isset($_GET['step']) ? $_GET['step'] : 0;
 $upgrade_to = isset($_GET['to']) ? $_GET['to'] : '';
 $updates = new updates();
 
-//+-------------------------------------------------------------+
-//|                        Pre_Update check                     |
-//+-------------------------------------------------------------+
-
-$user_mysql_version = pwg_get_db_version();
-$user_php_version = phpversion();
-$update_mysql_version = '5.2';// ?? //
-$update_php_version = '7.1';/// ?? //
-$update_php = 0;
-$update_sql = 0;
-
-if (version_compare($user_php_version, $update_php_version, '<'))
-{
-  $update_php = 1;
-}
-
-if (version_compare($user_mysql_version, $update_mysql_version, '<'))
-{
-  $update_sql = 1;
-}
-
 // +-----------------------------------------------------------------------+
 // |                                Step 0                                 |
 // +-----------------------------------------------------------------------+
@@ -93,6 +72,29 @@ if ($step == 0)
 
   $template->assign('CHECK_VERSION', $new_versions['piwigo.org-checked']);
   $template->assign('DEV_VERSION', $new_versions['is_dev']);
+}
+
+//include_once(PHPWG_ROOT_PATH.'all_versions.php');
+
+//+-------------------------------------------------------------+
+//|                        Pre_Update check                     |
+//+-------------------------------------------------------------+
+
+$user_mysql_version = pwg_get_db_version();
+$user_php_version = phpversion();
+$update_php_version = $new_versions['php'];
+$update_mysql_version = $new_versions['mysql'];
+$update_php = 0;
+$update_sql = 0;
+
+if (version_compare($user_php_version, $update_php_version, '<'))
+{
+  $update_php = 1;
+}
+
+if (version_compare($user_mysql_version, $update_mysql_version, '<'))
+{
+  $update_sql = 1;
 }
 
 // +-----------------------------------------------------------------------+
