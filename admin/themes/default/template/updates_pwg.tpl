@@ -35,10 +35,10 @@ li { margin: 5px; }
   <i class="eiw-icon icon-attention"></i>
     <ul>
     {if $CHECK_PHP == 1}
-      <li> {'Please upgrade you\'re PHP version to '}{$UPDATE_PHP}{' before update.'} </li>
+      <li> {'Please upgrade you\'re PHP version to %s before update.'|translate:$UPDATE_PHP} </li>
     {/if}
     {if $CHECK_SQL == 1}
-      <li> {'Please upgrade you\'re SQL version to '}{$UPDATE_SQL}{' before update.'} </li>
+      <li> {'Please upgrade you\'re SQL version to %s before update.'|translate:$UPDATE_SQL} </li>
     {/if}
     </ul>
 </div>
