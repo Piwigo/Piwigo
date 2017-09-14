@@ -1199,7 +1199,7 @@ function ws_images_addSimple($params, $service)
       case UPLOAD_ERR_EXTENSION:
         $message = 'A PHP extension stopped the file upload. ' .
         'PHP does not provide a way to ascertain which extension caused the file ' .
-        'upload to stop; examining the list of loaded extensions with phpinfo() may help.',
+        'upload to stop; examining the list of loaded extensions with phpinfo() may help.';
         break;
       default:
         $message = "Error number {$_FILES['image']['error']} occurred while uploading a file."
