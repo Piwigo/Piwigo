@@ -1202,7 +1202,7 @@ function ws_images_addSimple($params, $service)
         'upload to stop; examining the list of loaded extensions with phpinfo() may help.';
         break;
       default:
-        $message = "Error number {$_FILES['image']['error']} occurred while uploading a file."
+        $message = "Error number {$_FILES['image']['error']} occurred while uploading a file.";
     }
 
     $logger->error(__FUNCTION__ . " " . $message);
