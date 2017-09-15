@@ -316,6 +316,7 @@ SELECT DISTINCT(image_id)
 ;';
 
       $page['items'] = query2array($query,null, 'image_id');
+      
       if ( isset($cache_key) )
         $persistent_cache->set($cache_key, $page['items']);
     }
