@@ -316,7 +316,7 @@ SELECT DISTINCT(image_id)
 ;';
 
       $page['items'] = query2array($query,null, 'image_id');
-      
+
       if ( isset($cache_key) )
         $persistent_cache->set($cache_key, $page['items']);
     }
@@ -623,7 +623,7 @@ if ( 'categories'==$page['section'] and isset($page['category']) )
     }
   }
 
-  if ($need_redirect)
+  if ($need_redirect and check_restrictions($page['category']['id']))
   {
     $redirect_url = script_basename()=='picture' ? duplicate_picture_url() : duplicate_index_url();
 
