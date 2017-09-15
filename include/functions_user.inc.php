@@ -1117,7 +1117,8 @@ SELECT '.$conf['user_fields']['id'].' AS id,
        '.$conf['user_fields']['password'].' AS password
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
-;';
+  OR '.$conf['user_fields']['email'].' = \''.pwg_db_real_escape_string($username).'\';';
+
   $row = pwg_db_fetch_assoc(pwg_query($query));
   if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
   {
