@@ -90,8 +90,9 @@ class updates
       $new_versions['is_dev'] = false;
       $actual_branch = get_branch_from_version(PHPWG_VERSION);
 
-      $url = PHPWG_URL.'/download/all_versions.php?prerequisite=1';
-      $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
+      /*$url = PHPWG_URL.'/download/all_versions.php?prerequisite=1';
+      $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache*/
+      $url = 'http://localhost/Piwigo/all_versions.php?prerequisite=1';
 
       if (@fetchRemote($url, $result)
           and $all_versions = @explode("\n", $result)
@@ -103,14 +104,17 @@ class updates
         if (version_compare(PHPWG_VERSION, $last_version[0], '<'))
         {
           $last_branch = get_branch_from_version($last_version[0]);
-
           if ($last_branch == $actual_branch)
           {
             $new_versions['minor'] = $last_version[0];
+            $new_versions['minor_php'] = $last_version[1];
+            $new_versions['minor_mysql'] = $last_version[2];
           }
           else
           {
             $new_versions['major'] = $last_version[0];
+            $new_versions['major_php'] = $last_version[1];
+            $new_versions['major_mysql'] = $last_version[2];
             // Check if new version exists in same branch
             foreach ($all_versions as $key => $version)
             {
@@ -122,13 +126,13 @@ class updates
                 if (version_compare(PHPWG_VERSION, $version[0], '<'))
                 {
                   $new_versions['minor'] = $version[0];
+                  $new_versions['minor_php'] = $version[1];
+                  $new_versions['minor_mysql'] = $version[2];
                 }
-                break;
+                //break;
               }
             }
           }
-          $new_versions['php'] = $last_version[1];
-          $new_versions['mysql'] = $last_version[2];
         }
       }
     }

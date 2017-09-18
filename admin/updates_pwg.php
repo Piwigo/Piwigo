@@ -40,12 +40,17 @@ $step = isset($_GET['step']) ? $_GET['step'] : 0;
 $upgrade_to = isset($_GET['to']) ? $_GET['to'] : '';
 $updates = new updates();
 
+$new_versions = $updates->get_piwigo_new_versions();
+$update_php_version_minor = '5.2.0';
+$update_mysql_version_minor = '5.0.0';
+$update_php_version_major = '5.2.0';
+$update_mysql_version_major = '5.0.0';
+
 // +-----------------------------------------------------------------------+
 // |                                Step 0                                 |
 // +-----------------------------------------------------------------------+
 if ($step == 0)
 {
-  $new_versions = $updates->get_piwigo_new_versions();
 
   if (isset($new_versions['minor']) and isset($new_versions['major']))
   {
@@ -74,29 +79,6 @@ if ($step == 0)
   $template->assign('DEV_VERSION', $new_versions['is_dev']);
 }
 
-//include_once(PHPWG_ROOT_PATH.'all_versions.php');
-
-//+-------------------------------------------------------------+
-//|                        Pre_Update check                     |
-//+-------------------------------------------------------------+
-
-$user_mysql_version = pwg_get_db_version();
-$user_php_version = phpversion();
-$update_php_version = $new_versions['php'];
-$update_mysql_version = $new_versions['mysql'];
-$update_php = 0;
-$update_sql = 0;
-
-if (version_compare($user_php_version, $update_php_version, '<'))
-{
-  $update_php = 1;
-}
-
-if (version_compare($user_mysql_version, $update_mysql_version, '<'))
-{
-  $update_sql = 1;
-}
-
 // +-----------------------------------------------------------------------+
 // |                                Step 1                                 |
 // +-----------------------------------------------------------------------+
@@ -114,6 +96,8 @@ if ($step == 2 and is_webmaster())
   {
     updates::upgrade_to($_POST['upgrade_to'], $step);
   }
+  $update_php_version_minor = $new_versions['minor_php'];
+  $update_mysql_version_minor = $new_versions['minor_mysql'];
 }
 
 // +-----------------------------------------------------------------------+
@@ -131,10 +115,44 @@ if ($step == 3 and is_webmaster())
     updates::upgrade_to($_POST['upgrade_to'], $step);
   }
 
+  $update_php_version_major = $new_versions['major_php'];
+  $update_mysql_version_major = $new_versions['major_mysql'];
   $updates->get_merged_extensions($upgrade_to);
   $updates->get_server_extensions($upgrade_to);
   $template->assign('missing', $updates->missing);
 }
+
+//+-------------------------------------------------------------+
+//|                        Pre_Update check                     |
+//+-------------------------------------------------------------+
+
+$user_mysql_version = pwg_get_db_version();
+$user_php_version = phpversion();
+$update_php_minor = false;
+$update_sql_minor = false;
+$update_php_major = false;
+$update_sql_major = false;
+
+if (version_compare($user_php_version, $update_php_version_minor, '<'))
+{
+  $update_php_minor = true;
+}
+
+if (version_compare($user_mysql_version, $update_mysql_version_minor, '<'))
+{
+  $update_sql_minor = true;
+}
+
+if (version_compare($user_php_version, $update_php_version_major, '<'))
+{
+  $update_php_major = true;
+}
+
+if (version_compare($user_mysql_version, $update_mysql_version_major, '<'))
+{
+  $update_sql_major = true;
+}
+
 
 // +-----------------------------------------------------------------------+
 // |                        Process template                               |
@@ -146,14 +164,18 @@ if (!is_webmaster())
 }
 
 $template->assign(array(
-  'STEP'          => $step,
-  'CHECK_PHP'     => $update_php,
-  'UPDATE_PHP'    => $update_php_version,
-  'CHECK_SQL'     => $update_sql,
-  'UPDATE_SQL'    => $update_mysql_version,
-  'PHPWG_VERSION' => PHPWG_VERSION,
-  'UPGRADE_TO'    => $upgrade_to,
-  'RELEASE_URL'   => PHPWG_URL.'/releases/'.$upgrade_to,
+  'STEP'                => $step,
+  'CHECK_PHP_MAJOR'     => $update_php_major,
+  'UPDATE_PHP_MAJOR'    => $update_php_version_major,
+  'CHECK_SQL_MAJOR'     => $update_sql_major,
+  'UPDATE_SQL_MAJOR'    => $update_mysql_version_major,
+  'CHECK_PHP_MINOR'     => $update_php_minor,
+  'UPDATE_PHP_MINOR'    => $update_php_version_minor,
+  'CHECK_SQL_MINOR'     => $update_sql_minor,
+  'UPDATE_SQL_MINOR'    => $update_mysql_version_minor,
+  'PHPWG_VERSION'       => PHPWG_VERSION,
+  'UPGRADE_TO'          => $upgrade_to,
+  'RELEASE_URL'         => PHPWG_URL.'/releases/'.$upgrade_to,
   )
 );
 

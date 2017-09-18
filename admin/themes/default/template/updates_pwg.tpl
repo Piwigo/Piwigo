@@ -30,15 +30,29 @@ li { margin: 5px; }
 {/literal}
 {/html_head}
 
-{if $CHECK_PHP != 0 or $CHECK_SQL != 0}
+{if ($CHECK_PHP_MINOR != 0 or $CHECK_SQL_MINOR != 0) and $STEP != 3 and $STEP != 1}
 <div class="warnings">
   <i class="eiw-icon icon-attention"></i>
     <ul>
-    {if $CHECK_PHP == 1}
-      <li> {'Please upgrade you\'re PHP version to %s before update.'|translate:$UPDATE_PHP} </li>
+    {if $CHECK_PHP_MINOR == 1}
+      <li> {'Please upgrade you\'re PHP version to %s before update.'|translate:$UPDATE_PHP_MINOR} </li>
     {/if}
-    {if $CHECK_SQL == 1}
-      <li> {'Please upgrade you\'re SQL version to %s before update.'|translate:$UPDATE_SQL} </li>
+    {if $CHECK_SQL_MINOR == 1}
+      <li> {'Please upgrade you\'re SQL version to %s before update.'|translate:$UPDATE_SQL_MINOR} </li>
+    {/if}
+    </ul>
+</div>
+{/if}
+
+{if ($CHECK_PHP_MAJOR != 0 or $CHECK_SQL_MAJOR != 0) and $STEP != 2 and $STEP != 1}
+<div class="warnings">
+  <i class="eiw-icon icon-attention"></i>
+    <ul>
+    {if $CHECK_PHP_MAJOR == 1}
+      <li> {'Please upgrade you\'re PHP version to %s before update.'|translate:$UPDATE_PHP_MAJOR} </li>
+    {/if}
+    {if $CHECK_SQL_MAJOR == 1}
+      <li> {'Please upgrade you\'re SQL version to %s before update.'|translate:$UPDATE_SQL_MAJOR} </li>
     {/if}
     </ul>
 </div>
@@ -74,7 +88,7 @@ li { margin: 5px; }
   {'A new version of Piwigo is available.'|@translate}<br>
   {'This is a minor update, with only bug corrections.'|@translate}
 </p>
-{if $CHECK_PHP == 0 and $CHECK_SQL == 0}
+{if $CHECK_PHP_MINOR == 0 and $CHECK_SQL_MINOR == 0}
 <form action="" method="post">
 <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}"></p>
 <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
@@ -118,7 +132,7 @@ li { margin: 5px; }
   {if !empty($missing.plugins) or !empty($missing.themes)}
   <p><label><input type="checkbox" name="understand"> &nbsp;{'I decide to update anyway'|@translate}</label></p>
   {/if}
-  {if $CHECK_PHP == 0 and $CHECK_SQL == 0}
+  {if $CHECK_PHP_MAJOR == 0 and $CHECK_SQL_MAJOR == 0}
   <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}" {if !empty($missing.plugins) or !empty($missing.themes)}disabled="disabled"{/if}>
   </p>
   <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
