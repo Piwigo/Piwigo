@@ -58,12 +58,14 @@ if (isset($_GET['plugins_new_order']))
 if (isset($_GET['change_theme']))
 {
   $admin_themes = array('roma', 'clear');
+  $admin_theme_array = array($conf['admin_theme']);
+  $result = array_diff(
+      $admin_themes,
+      $admin_theme_array
+    );
 
   $new_admin_theme = array_pop(
-    array_diff(
-      $admin_themes,
-      array($conf['admin_theme'])
-      )
+      $result,
     );
 
   conf_update_param('admin_theme', $new_admin_theme);
