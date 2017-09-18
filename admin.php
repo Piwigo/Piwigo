@@ -65,7 +65,7 @@ if (isset($_GET['change_theme']))
     );
 
   $new_admin_theme = array_pop(
-      $result,
+      $result
     );
 
   conf_update_param('admin_theme', $new_admin_theme);
