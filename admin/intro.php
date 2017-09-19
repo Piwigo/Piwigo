@@ -239,10 +239,20 @@ SELECT MIN(date_available)
 ;';
   list($first_date) = pwg_db_fetch_row(pwg_query($query));
 
+  $query = '
+SELECT path
+  FROM '.IMAGES_TABLE.'
+  ORDER BY date_available
+  ASC LIMIT 1
+;';
+
+  list($first_image_path) = pwg_db_fetch_row(pwg_query($query));
+
   $template->assign(
     array(
       'first_added_date' => format_date($first_date),
       'first_added_age' => time_since($first_date, 'year', null, false, false),
+      'first_added_path' => $first_image_path,
       )
     );
 }
