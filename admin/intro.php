@@ -240,19 +240,20 @@ SELECT MIN(date_available)
   list($first_date) = pwg_db_fetch_row(pwg_query($query));
 
   $query = '
-SELECT path
+SELECT *
   FROM '.IMAGES_TABLE.'
-  ORDER BY date_available
+  ORDER BY id
   ASC LIMIT 1
 ;';
 
-  list($first_image_path) = pwg_db_fetch_row(pwg_query($query));
+  $first_image = pwg_db_fetch_assoc(pwg_query($query));
+  $src_image = new SrcImage($first_image);
 
   $template->assign(
     array(
       'first_added_date' => format_date($first_date),
       'first_added_age' => time_since($first_date, 'year', null, false, false),
-      'first_added_path' => $first_image_path,
+      'first_added_path' => DerivativeImage::url(IMG_THUMB, $src_image),
       )
     );
 }

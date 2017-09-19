@@ -32,8 +32,9 @@ jQuery().ready(function(){
         jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
     }
   });
-  $( "#tiptip" ).tipTip({
-     content: '<img src="./upload/2017/09/18/20170918151501-4b081b02.png" style="height: 100%; width: 100%;"/>'
+  var imgSrc = $('.first_img').data('path');
+  $( ".first_img .tiptip" ).tipTip({
+    content: "<img src='"+imgSrc+"' style='height: 100%; width: 100%;'/>"
     });
 });
 {/literal}
@@ -159,9 +160,9 @@ div.stat-box {
 </div>
 
 {if $NB_PHOTOS > 1}
-<div class="stat-box">
-<span id="tiptip">
+<div class="stat-box first_img" data-path="{$first_added_path}">
 <i class="icon-back-in-time"></i>
+<span class="tiptip">
 <span class="number">{$first_added_age}</span><span class="caption" title="{'first photo added on %s'|translate:$first_added_date}">{'First photo added'|translate}</span>
 </span>
 </div>
