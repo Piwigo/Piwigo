@@ -234,12 +234,6 @@ SELECT COUNT(*)
 if ($nb_photos > 0)
 {
   $query = '
-SELECT MIN(date_available)
-  FROM '.IMAGES_TABLE.'
-;';
-  list($first_date) = pwg_db_fetch_row(pwg_query($query));
-
-  $query = '
 SELECT *
   FROM '.IMAGES_TABLE.'
   ORDER BY id
@@ -247,6 +241,7 @@ SELECT *
 ;';
 
   $first_image = pwg_db_fetch_assoc(pwg_query($query));
+  $first_date = $first_image['date_available'];
   $src_image = new SrcImage($first_image);
 
   $template->assign(
