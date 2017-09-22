@@ -133,7 +133,7 @@ jQuery(document).ready(function() {
   {/if}
    
   {if $show_details}
-    <div id="{$plugin.ID}" class="pluginBox {$plugin.STATE}">
+    <div id="{$plugin.ID}" class="pluginBox {$plugin.STATE} {if $plugin.DEACTIVATED == 'true'}previouslyActivated{/if}">
       <table>
         <tr>
           <td class="pluginBoxNameCell">
@@ -180,7 +180,7 @@ jQuery(document).ready(function() {
       {assign var='version' value=$plugin.VERSION}
     {/if}
           
-    <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}">
+    <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE} {if $plugin.DEACTIVATED == 'true'}previouslyActivated{/if}">
       <div class="pluginMiniBoxNameCell">
         {$plugin.NAME}
         <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}"></a>

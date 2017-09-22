@@ -884,6 +884,10 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBoxNameCell {width:180px; vertical-align:top;}
 .pluginBoxes .inactive, .pluginBoxes .uninstalled {opacity:0.8;filter:alpha(opacity=80);}
 
+.pluginBoxes .previouslyActivated {
+	border: 2px solid red;
+}
+
 .pluginMiniBox {
   display:inline-table;
   text-align:center;
