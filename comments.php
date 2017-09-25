@@ -91,9 +91,9 @@ $since_options = array(
 
 trigger_notify('loc_begin_comments');
 
-if (!empty($_GET['since']) && is_numeric($_GET['since']))
+if (!empty($_GET['since']))
 {
-  $page['since'] = $_GET['since'];
+  $page['since'] = intval($_GET['since']);
 }
 else
 {
@@ -363,9 +363,9 @@ $template->assign( 'item_number_options_selected', $page['items_number']);
 // |                            navigation bar                             |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['start']) and is_numeric($_GET['start']))
+if (isset($_GET['start']))
 {
-  $start = $_GET['start'];
+  $start = intval($_GET['start']);
 }
 else
 {
