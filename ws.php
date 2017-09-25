@@ -735,6 +735,18 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.plugins.previouslyActivated',
+      'ws_plugins_previouslyActivated',
+      array(
+        'action'    => array('info'=>'deactivate_all'),
+        'pwg_token' => array(),
+        ),
+      null,
+      $ws_functions_root . 'pwg.extensions.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.themes.performAction',
       'ws_themes_performAction',
       array(

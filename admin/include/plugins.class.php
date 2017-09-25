@@ -110,6 +110,27 @@ class plugins
     return new DummyPlugin_maintain($plugin_id);
   }
 
+  function perform_deactivationAfterUpdate($action)
+  {
+    if ($action !== 'deactivate_all')
+    {
+      return "KO action isn't right";
+    }
+
+    foreach ($this->db_plugins_by_id as $name => $plugins)
+    {
+      $deactivated[] = $name;
+    }
+
+    $query = '
+UPDATE '.PLUGINS_TABLE.'
+SET deactivated=\'false\'
+WHERE id IN (\'' . implode('\',\'', $deactivated) . '\')
+;';
+
+    pwg_query($query);
+  }
+
   /**
    * Perform requested actions
    * @param string - action
@@ -196,7 +217,7 @@ UPDATE '. PLUGINS_TABLE .'
         {
           $query = '
 UPDATE '. PLUGINS_TABLE .'
-  SET state=\'active\'
+  SET state=\'active\', deactivated=\'false\'
   WHERE id=\''. $plugin_id .'\'
 ;';
           pwg_query($query);

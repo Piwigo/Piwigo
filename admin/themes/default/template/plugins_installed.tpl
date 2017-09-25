@@ -25,6 +25,20 @@ jQuery(document).ready(function() {
       });
     }
   });
+
+  /* Warnings message - plugins deactivated */
+  jQuery('div.deleteMessage').click(function() {
+    jQuery.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: 'ws.php',
+      data: { method: 'pwg.plugins.previouslyActivated', action: 'deactivate_all', pwg_token: pwg_token, format: 'json' },
+      success: function(data) {
+        location.reload();
+      }
+    });
+  });
+
   function performPluginDeactivate(id) {
    queuedManager.add({
       type: 'GET',
@@ -85,6 +99,18 @@ jQuery(document).ready(function() {
 });
 {/literal}
 {/footer_script}
+
+{if $deactivated_msg == 'true'}
+<div class="deleteMessage">
+  <div class="warnings">
+    <i class="eiw-icon icon-attention"></i>
+      <div class="deactivatedAfterUpdate">
+        {'%s plugin(s) have been deactivated during upgrade: %s'|@translate:$nbr_deactivated:$deactivated_plugins}
+        <a class="icon-eye-off">Hide this message</a>
+      </div>
+    </div>
+</div>
+{/if}
 
 <div class="titrePage">
   <h2>{'Plugins'|@translate}</h2>

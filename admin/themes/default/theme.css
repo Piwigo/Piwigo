@@ -834,6 +834,7 @@ h2:lang(en) { text-transform:capitalize; }
   float: left;
   font-size: 40px;
   margin-right: 10px;
+  padding: 5px 5px;
 }
 
 .infos {
@@ -907,6 +908,12 @@ h2:lang(en) { text-transform:capitalize; }
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
 .deactivate_all {text-align:right;font-size:0.95em;}
+.deactivatedAfterUpdate {
+	text-align: left;
+	margin: auto;
+	padding: 5px 5px;
+}
+
 .showDetails {text-align:right; margin-bottom:-15px; margin-top:-10px; padding-right:1em;}
 
 .languageBoxes {min-height:0;text-align:left;}

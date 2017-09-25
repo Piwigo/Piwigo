@@ -197,10 +197,32 @@ function cmp($a, $b)
 }
 usort($tpl_plugins, 'cmp');
 
+$deactivated_plugins = null;
+$deactivated_msg = null;
+$nbr_deactivated = null;
+
+foreach($tpl_plugins as $key => $data)
+{
+  if ($data['DEACTIVATED'] == 'true' and $data['STATE'] != 'active')
+  {
+    $deactivated_plugins[] = $data['ID'];
+  }
+}
+
+if (isset($deactivated_plugins))
+{
+  $nbr_deactivated = count($deactivated_plugins);
+  $deactivated_plugins = implode(',' , $deactivated_plugins);
+  $deactivated_msg = 'true';
+}
+
 $template->assign(
   array(
     'plugins' => $tpl_plugins,
     'active_plugins' => $active_plugins,
+    'deactivated_plugins' => $deactivated_plugins,
+    'deactivated_msg' => $deactivated_msg,
+    'nbr_deactivated' => $nbr_deactivated,
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,

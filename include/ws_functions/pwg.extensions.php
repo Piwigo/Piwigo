@@ -95,6 +95,30 @@ function ws_plugins_performAction($params, $service)
 }
 
 /**
+* API method
+* Setting all plugins to false
+* @param mixed []
+*   @option string action
+*   @option string pwg_token
+*/
+function ws_plugins_previouslyActivated($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+
+  $plugins = new plugins();
+  $errors = $plugins->perform_deactivationAfterUpdate($params['action']);
+  if (!empty($errors))
+  {
+    return new PwgError(500, $errors);
+  }
+}
+
+/**
  * API method
  * Performs an action on a theme
  * @param mixed[] $params
