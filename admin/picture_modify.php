@@ -209,6 +209,12 @@ SELECT
 $tag_selection = get_taglist($query);
 
 $row = $page['image'];
+
+if (isset($data['date_creation']))
+{
+  $row['date_creation'] = $data['date_creation'];
+}
+
 $storage_category_id = null;
 if (!empty($row['storage_category_id']))
 {
