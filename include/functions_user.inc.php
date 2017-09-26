@@ -1111,29 +1111,39 @@ function pwg_login($success, $username, $password, $remember_me)
   pwg_session_gc();
 
   global $conf;
+
+  $bool = 'false';
   // retrieving the encrypted password of the login submitted
   $query = '
 SELECT '.$conf['user_fields']['id'].' AS id,
        '.$conf['user_fields']['password'].' AS password
   FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\';';
+  WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
+  ;';
 
   $row = pwg_db_fetch_assoc(pwg_query($query));
   if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
   {
-    log_user($row['id'], $remember_me);
-    trigger_notify('login_success', stripslashes($username));
-    return true;
+    $bool = 'true';
   }
 
-  $query = '
-SELECT '.$conf['user_fields']['id'].' AS id,
-       '.$conf['user_fields']['password'].' AS password
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['email'].' = \''.pwg_db_real_escape_string($username).'\';';
+  if ($bool == 'false')
+  {
+    $query = '
+  SELECT '.$conf['user_fields']['id'].' AS id,
+         '.$conf['user_fields']['password'].' AS password
+    FROM '.USERS_TABLE.'
+    WHERE '.$conf['user_fields']['email'].' = \''.pwg_db_real_escape_string($username).'\'
+    ;';
 
-  $row = pwg_db_fetch_assoc(pwg_query($query));
-  if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
+    $row = pwg_db_fetch_assoc(pwg_query($query));
+    if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
+    {
+      $bool = 'true';
+    }
+  }
+
+  if ($bool == 'true')
   {
     log_user($row['id'], $remember_me);
     trigger_notify('login_success', stripslashes($username));
