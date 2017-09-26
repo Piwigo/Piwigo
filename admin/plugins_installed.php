@@ -212,7 +212,6 @@ foreach($tpl_plugins as $key => $data)
 if (isset($deactivated_plugins))
 {
   $nbr_deactivated = count($deactivated_plugins);
-  $deactivated_plugins = implode(',' , $deactivated_plugins);
   $deactivated_msg = 'true';
 }
 

@@ -914,6 +914,12 @@ h2:lang(en) { text-transform:capitalize; }
 	padding: 5px 5px;
 }
 
+.deactivatedPluginsSquare {
+	border-radius: 5px;
+	border: 2px solid red;
+	padding: 3px 6px;
+}
+
 .showDetails {text-align:right; margin-bottom:-15px; margin-top:-10px; padding-right:1em;}
 
 .languageBoxes {min-height:0;text-align:left;}

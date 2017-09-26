@@ -105,7 +105,10 @@ jQuery(document).ready(function() {
   <div class="warnings">
     <i class="eiw-icon icon-attention"></i>
       <div class="deactivatedAfterUpdate">
-        {'%s plugin(s) have been deactivated during upgrade: %s'|@translate:$nbr_deactivated:$deactivated_plugins}
+        {'%s plugin(s) have been deactivated during upgrade: '|@translate:$nbr_deactivated}
+        {foreach from=$deactivated_plugins item=deactivate_plg name=plugins_deactivated_loop}
+        <span class="deactivatedPluginsSquare">{'%s'|@translate:$deactivate_plg}</span>
+        {/foreach}
         <a class="icon-eye-off">Hide this message</a>
       </div>
     </div>
