@@ -124,7 +124,7 @@ class plugins
 
     $query = '
 UPDATE '.PLUGINS_TABLE.'
-SET deactivated=\'false\'
+SET previouslyActivated=\'false\'
 WHERE id IN (\'' . implode('\',\'', $deactivated) . '\')
 ;';
 

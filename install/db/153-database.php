@@ -30,7 +30,7 @@ $upgrade_description = 'add an enum (true, false) for plugins and themes to know
 
 pwg_query('
 ALTER TABLE '.PREFIX_TABLE.'plugins
-ADD deactivated enum(\'true\', \'false\') NOT NULL default \'false\'
+ADD previouslyActivated enum(\'true\', \'false\') NOT NULL default \'false\'
 ;');
 
 echo "\n".$upgrade_description."\n";

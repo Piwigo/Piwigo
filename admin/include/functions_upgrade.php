@@ -99,15 +99,8 @@ AND id NOT IN (\'' . implode('\',\'', $standard_plugins) . '\')
   {
     $query = '
 UPDATE '.PREFIX_TABLE.'plugins
-SET state=\'inactive\', deactivated=\'true\'
+SET state=\'inactive\', previouslyActivated=\'true\'
 WHERE id IN (\'' . implode('\',\'', $plugins) . '\')
-;';
-    pwg_query($query);
-
-    $query = '
-UPDATE '.PREFIX_TABLE.'plugins
-SET deactivated=\'false\'
-WHERE id NOT IN (\'' . implode('\',\'', $plugins) . '\')
 ;';
     pwg_query($query);
 
