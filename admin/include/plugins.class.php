@@ -217,7 +217,7 @@ UPDATE '. PLUGINS_TABLE .'
         {
           $query = '
 UPDATE '. PLUGINS_TABLE .'
-  SET state=\'active\', deactivated=\'false\'
+  SET state=\'active\', previouslyActivated=\'false\'
   WHERE id=\''. $plugin_id .'\'
 ;';
           pwg_query($query);
