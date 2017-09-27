@@ -1112,22 +1112,23 @@ function pwg_login($success, $username, $password, $remember_me)
 
   global $conf;
 
-  $user_found = 'false';
+  $user_found = false;
   // retrieving the encrypted password of the login submitted
   $query = '
 SELECT '.$conf['user_fields']['id'].' AS id,
        '.$conf['user_fields']['password'].' AS password
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
-  ;';
+;';
 
   $row = pwg_db_fetch_assoc(pwg_query($query));
   if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
   {
-    $user_found = 'true';
+    $user_found = true;
   }
 
-  if ($user_found == 'false')
+  // If we didn't find a matching user name, we search for email address
+  if (!$user_found)
   {
     $query = '
   SELECT '.$conf['user_fields']['id'].' AS id,
@@ -1139,11 +1140,11 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     $row = pwg_db_fetch_assoc(pwg_query($query));
     if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
     {
-      $user_found = 'true';
+      $user_found = true;
     }
   }
 
-  if ($user_found == 'true')
+  if ($user_found)
   {
     log_user($row['id'], $remember_me);
     trigger_notify('login_success', stripslashes($username));
