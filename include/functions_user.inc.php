@@ -1112,7 +1112,7 @@ function pwg_login($success, $username, $password, $remember_me)
 
   global $conf;
 
-  $bool = 'false';
+  $user_found = 'false';
   // retrieving the encrypted password of the login submitted
   $query = '
 SELECT '.$conf['user_fields']['id'].' AS id,
@@ -1124,10 +1124,10 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   $row = pwg_db_fetch_assoc(pwg_query($query));
   if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
   {
-    $bool = 'true';
+    $user_found = 'true';
   }
 
-  if ($bool == 'false')
+  if ($user_found == 'false')
   {
     $query = '
   SELECT '.$conf['user_fields']['id'].' AS id,
@@ -1139,11 +1139,11 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     $row = pwg_db_fetch_assoc(pwg_query($query));
     if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
     {
-      $bool = 'true';
+      $user_found = 'true';
     }
   }
 
-  if ($bool == 'true')
+  if ($user_found == 'true')
   {
     log_user($row['id'], $remember_me);
     trigger_notify('login_success', stripslashes($username));
