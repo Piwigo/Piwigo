@@ -18,6 +18,26 @@
 {/if}
 {/if}
 
+{if isset($COMMENT_IMG)}
+<meta property="og:description" content="{$COMMENT_IMG|strip_tags:false|replace:'"':' '}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}" />
+<meta name="twitter:description" content="{$COMMENT_IMG|strip_tags:false|replace:'"':' '}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}" />
+{else}
+<meta property="og:description" content="{$PAGE_TITLE}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}" />
+<meta name="twitter:description" content="{$PAGE_TITLE}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}" />
+{/if}
+<meta property="og:title" content="{if $PAGE_TITLE!=l10n('Home') && $PAGE_TITLE!=$GALLERY_TITLE}{$PAGE_TITLE} | {/if}{$GALLERY_TITLE}" />
+<meta property="og:site_name" content="{$GALLERY_TITLE}" />
+<meta property="og:locale" content="{$lang_info.code}" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@piwigo" />
+<meta name="twitter:title" content="{$GALLERY_TITLE}" />
+{if isset($current)}
+<meta property="og:image" content="{get_absolute_root_url()}{$current.derivatives.thumb->get_url()}" />
+<meta name="twitter:image" content="{get_absolute_root_url()}{$current.derivatives.thumb->get_url()}" />
+<meta property="og:url" content="{get_absolute_root_url()}{$current.url}" />
+{/if}
+
 <title>{if $PAGE_TITLE!=l10n('Home') && $PAGE_TITLE!=$GALLERY_TITLE}{$PAGE_TITLE} | {/if}{$GALLERY_TITLE}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
