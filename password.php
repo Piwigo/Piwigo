@@ -37,6 +37,8 @@ check_status(ACCESS_FREE);
 
 trigger_notify('loc_begin_password');
 
+check_input_parameter('action', $_GET, false, '/^(lost|reset|none)$/');
+
 // +-----------------------------------------------------------------------+
 // | Functions                                                             |
 // +-----------------------------------------------------------------------+
