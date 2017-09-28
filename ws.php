@@ -735,13 +735,12 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
-      'pwg.plugins.previouslyActivated',
-      'ws_plugins_previouslyActivated',
+      'pwg.plugins.resetPreviouslyActivated',
+      'ws_plugins_resetPreviouslyActivated',
       array(
-        'action'    => array('info'=>'deactivate_all'),
         'pwg_token' => array(),
         ),
-      null,
+      'Reset previously activated plugins.',
       $ws_functions_root . 'pwg.extensions.php',
       array('admin_only'=>true)
     );

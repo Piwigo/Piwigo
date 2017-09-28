@@ -26,7 +26,7 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-$upgrade_description = 'add an enum (true, false) for plugins and themes to know if they are still active';
+$upgrade_description = 'Keep information about previously activated plugins before upgrading piwigo';
 
 pwg_query('
 ALTER TABLE '.PREFIX_TABLE.'plugins

@@ -101,7 +101,7 @@ function ws_plugins_performAction($params, $service)
 *   @option string action
 *   @option string pwg_token
 */
-function ws_plugins_previouslyActivated($params, $service)
+function ws_plugins_resetPreviouslyActivated($params, $service)
 {
   if (get_pwg_token() != $params['pwg_token'])
   {
@@ -111,7 +111,7 @@ function ws_plugins_previouslyActivated($params, $service)
   include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
   $plugins = new plugins();
-  $errors = $plugins->perform_deactivationAfterUpdate($params['action']);
+  $errors = $plugins->perform_resetPreviouslyActivated();
   if (!empty($errors))
   {
     return new PwgError(500, $errors);

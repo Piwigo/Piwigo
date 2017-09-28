@@ -122,7 +122,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     'NAME' => $fs_plugin['name'],
     'VISIT_URL' => $fs_plugin['uri'],
     'VERSION' => $fs_plugin['version'],
-    'DEACTIVATED' => isset($plugins->db_plugins_by_id[$plugin_id]['previouslyActivated']) ? $plugins->db_plugins_by_id[$plugin_id]['previouslyActivated'] : null,
+    'PREVIOUSLYACTIVATED' => isset($plugins->db_plugins_by_id[$plugin_id]['previouslyActivated']) ? $plugins->db_plugins_by_id[$plugin_id]['previouslyActivated'] : null,
     'DESC' => $fs_plugin['description'],
     'AUTHOR' => $fs_plugin['author'],
     'AUTHOR_URL' => @$fs_plugin['author uri'],
@@ -197,31 +197,35 @@ function cmp($a, $b)
 }
 usort($tpl_plugins, 'cmp');
 
-$deactivated_plugins = null;
-$deactivated_msg = null;
-$nbr_deactivated = null;
+$previouslyActivatedPlugins = array();
 
 foreach($tpl_plugins as $key => $data)
 {
-  if ($data['DEACTIVATED'] == 'true' and $data['STATE'] != 'active')
+  if ($data['PREVIOUSLYACTIVATED'] == 'true' and $data['STATE'] != 'active')
   {
-    $deactivated_plugins[] = $data['ID'];
+    $previouslyActivatedPlugins[] = $data['ID'];
   }
 }
 
-if (isset($deactivated_plugins))
+if (count($previouslyActivatedPlugins) > 0)
 {
-  $nbr_deactivated = count($deactivated_plugins);
-  $deactivated_msg = 'true';
+  $page['warnings'] = '<div class="deleteMessage">
+                        ' .count($previouslyActivatedPlugins). ' plugin(s) have been deactivated during upgrade:';
+
+  foreach($previouslyActivatedPlugins as $pluginsName)
+  {
+    $page['warnings'] .= '<span class="deactivatedPluginsSquare">'.$pluginsName.'</span>';
+  }
+
+  $page['warnings'] .= '<a class="icon-eye-off">Hide this message</a>
+                      </div>';
 }
 
 $template->assign(
   array(
     'plugins' => $tpl_plugins,
     'active_plugins' => $active_plugins,
-    'deactivated_plugins' => $deactivated_plugins,
-    'deactivated_msg' => $deactivated_msg,
-    'nbr_deactivated' => $nbr_deactivated,
+    'previouslyActivatedPlugins' => $previouslyActivatedPlugins,
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,

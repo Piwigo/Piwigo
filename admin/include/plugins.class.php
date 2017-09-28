@@ -110,22 +110,11 @@ class plugins
     return new DummyPlugin_maintain($plugin_id);
   }
 
-  function perform_deactivationAfterUpdate($action)
+  function perform_resetPreviouslyActivated()
   {
-    if ($action !== 'deactivate_all')
-    {
-      return "KO action isn't right";
-    }
-
-    foreach ($this->db_plugins_by_id as $name => $plugins)
-    {
-      $deactivated[] = $name;
-    }
-
     $query = '
 UPDATE '.PLUGINS_TABLE.'
 SET previouslyActivated=\'false\'
-WHERE id IN (\'' . implode('\',\'', $deactivated) . '\')
 ;';
 
     pwg_query($query);
