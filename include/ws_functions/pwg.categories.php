@@ -94,7 +94,7 @@ SELECT id, name, permalink, image_order
     $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
 
     $query = '
-SELECT i.*, GROUP_CONCAT(category_id) AS cat_ids
+SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
   FROM '. IMAGES_TABLE .' i
     INNER JOIN '. IMAGE_CATEGORY_TABLE .' ON i.id=image_id
   WHERE '. implode("\n    AND ", $where_clauses) .'
@@ -152,12 +152,14 @@ SELECT i.*, GROUP_CONCAT(category_id) AS cat_ids
     }
   }
 
+  list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+
   return array(
     'paging' => new PwgNamedStruct(
       array(
         'page' => $params['page'],
         'per_page' => $params['per_page'],
-        'count' => count($images)
+        'count' => $total_images
         )
       ),
     'images' => new PwgNamedArray(
