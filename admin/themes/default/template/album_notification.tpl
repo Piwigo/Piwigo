@@ -117,9 +117,15 @@ span.errors {
 {/if}
 
   <p class="actionButtons">
+    {if $NO_PICTURE == true}
+    <button name="submitEmail" type="submit" class="buttonLike" disabled="disabled">
+      <i class="icon-mail"></i> {'Send'|translate}
+    </button>
+    {else}
     <button name="submitEmail" type="submit" class="buttonLike">
       <i class="icon-mail"></i> {'Send'|translate}
     </button>
+    {/if}
     <span class="errors" style="display:none">&#x2718; {'No recipient selected'|translate}</span>
   </p>
 
