@@ -89,7 +89,7 @@ SELECT id, file, path, representative_ext
   $tpl = array(
     'filename' => 'cat_group_info',
     'assign' => array(
-      'IMG' => $img,
+      'IMG' => isset($img) ? $img : null,
       'CAT_NAME' => trigger_change('render_category_name', $category['name'], 'admin_cat_list'),
       'LINK' => make_index_url(
         array(
