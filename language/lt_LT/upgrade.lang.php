@@ -37,4 +37,4 @@ $lang['Upgrade from version %s to %s'] = 'Atnaujinti iš %s versijos į %s';
 $lang['Upgrade'] = 'Atnaujinimas';
 $lang['Statistics'] = 'Statistika';
 $lang['SQL queries'] = 'SQL Užklausos';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Atraskite kas naujo Piwigo %s';
