@@ -218,7 +218,8 @@ $template->assign(
     'STORAGE_USED' => l10n('%sGB', number_format($du_gb, $du_decimals)),
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
     'U_QUICK_SYNC' => PHPWG_ROOT_PATH.'admin.php?page=site_update&amp;site=1&amp;quick_sync=1&amp;pwg_token='.get_pwg_token(),
-    )
+    'U_CURRENT_VERSION' => PHPWG_VERSION,
+  )
   );
 
 if ($conf['activate_comments'])
