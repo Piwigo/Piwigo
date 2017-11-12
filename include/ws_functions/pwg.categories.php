@@ -159,7 +159,8 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
       array(
         'page' => $params['page'],
         'per_page' => $params['per_page'],
-        'count' => $total_images
+        'count' => count($images),
+        'total_count' => $total_images
         )
       ),
     'images' => new PwgNamedArray(
@@ -206,7 +207,7 @@ function ws_categories_getList($params, &$service)
       $where[] = 'id_uppercat IS NULL';
     }
   }
-  else if ($params['cat_id']>0)
+  elseif ($params['cat_id']>0)
   {
     $where[] = 'uppercats '. DB_REGEX_OPERATOR .' \'(^|,)'.
       (int)($params['cat_id']) .'(,|$)\'';
@@ -219,7 +220,7 @@ function ws_categories_getList($params, &$service)
 
     $join_user = $conf['guest_id'];
   }
-  else if (is_admin())
+  elseif (is_admin())
   {
     // in this very specific case, we don't want to hide empty
     // categories. Function calculate_permissions will only return
@@ -302,11 +303,11 @@ SELECT
     {
       $image_id = $row['user_representative_picture_id'];
     }
-    else if (!empty($row['representative_picture_id']))
+    elseif (!empty($row['representative_picture_id']))
     { // if a representative picture is set, it has priority
       $image_id = $row['representative_picture_id'];
     }
-    else if ($conf['allow_random_representative'])
+    elseif ($conf['allow_random_representative'])
     {
       // searching a random representant among elements in sub-categories
       $image_id = get_random_image_in_category($row);
