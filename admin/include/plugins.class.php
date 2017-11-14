@@ -87,7 +87,8 @@ class plugins
   private static function build_maintain_class($plugin_id)
   {
     $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain';
-    $classname = $plugin_id.'_maintain';
+    $sanitized = preg_replace('[^a-zA-Z0-9_\x7f-\xff]','_',$plugin_id);
+    $classname = $sanitized.'_maintain';
 
     // 2.7 pattern (OO only)
     if (file_exists($file_to_include.'.class.php'))
