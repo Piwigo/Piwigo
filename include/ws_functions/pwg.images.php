@@ -452,6 +452,7 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
     'score' => $image_row['rating_score'],
     'count' => 0,
     'average' => null,
+    'user_rating' => null,
     );
 	if (isset($rating['score']))
 	{
@@ -466,6 +467,31 @@ SELECT COUNT(rate) AS count, ROUND(AVG(rate),2) AS average
 		$rating['average'] = (float)$row['average'];
 		$rating['count'] = (int)$row['count'];
 	}
+
+  //------------------------------------------------------------- user rating
+  if ($rating['count']>0 && ($conf['rate_anonymous'] or is_autorize_status(ACCESS_CLASSIC)))
+  {
+    $query = 'SELECT rate
+    FROM '.RATE_TABLE.'
+    WHERE element_id = '.$params['image_id'] . '
+    AND user_id = '.$user['id'] ;
+    if ( !is_autorize_status(ACCESS_CLASSIC) )
+    {
+      $ip_components = explode('.', $_SERVER['REMOTE_ADDR']);
+      if ( count($ip_components)>3 )
+      {
+        array_pop($ip_components);
+      }
+      $anonymous_id = implode ('.', $ip_components);
+      $query .= ' AND anonymous_id = \''.$anonymous_id . '\'';
+    }
+    $result = pwg_query($query);
+    if (pwg_db_num_rows($result) > 0)
+    {
+      $row = pwg_db_fetch_assoc($result);
+      $rating['user_rating'] = (float)$row['rate'];
+    }
+  }
 
   //---------------------------------------------------------- related comments
   $related_comments = array();
