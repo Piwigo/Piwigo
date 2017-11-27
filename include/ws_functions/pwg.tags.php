@@ -99,7 +99,14 @@ function ws_tags_getImages($params, &$service)
 
   // if "null" was supplied as the first item in tag_id, get a list of untagged images
   if(isset($params['tag_id'][0]) && strtolower($params['tag_id'][0]) == "null") {
-    $query ='SELECT id FROM '.IMAGES_TABLE.' LEFT JOIN '.IMAGE_TAG_TABLE.' it ON id=it.image_id INNER JOIN '.IMAGE_CATEGORY_TABLE.' ic ON id=ic.image_id WHERE it.image_id IS NULL';
+    $query ='SELECT i.id FROM '.IMAGES_TABLE.' i LEFT JOIN '.IMAGE_TAG_TABLE.' it ON i.id=it.image_id INNER JOIN '.IMAGE_CATEGORY_TABLE.' ic ON i.id=ic.image_id WHERE it.image_id IS NULL';
+
+    $order_by = ws_std_image_sql_order($params, 'i.');
+    if (!empty($order_by))
+    {
+      $order_by = 'ORDER BY '.$order_by;
+    }
+    
     $query.= get_sql_condition_FandF(
       array(
         'forbidden_categories' => 'category_id',
@@ -108,6 +115,8 @@ function ws_tags_getImages($params, &$service)
         ),
       "\n  AND"
       );
+
+    $query.= $order_by;
 
     $image_ids = query2array($query, null, 'id');
     $tag_ids = array("null");
