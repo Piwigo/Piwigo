@@ -621,4 +621,57 @@ SELECT
     ));
 }
 
+/**
+ * API method
+ * Adds a favorite image for the current user
+ * @param mixed[] $params
+ */
+function ws_addFavorite($params, &$service)
+{
+  global $user;
+  if (is_a_guest())
+  {
+    return new PwgError(403, 'User must be logged in.');
+  }
+
+  $search_user = $user['id'];
+
+  $query = '
+INSERT INTO '.FAVORITES_TABLE.'
+  (image_id,user_id)
+  VALUES
+  ('.$params['image_id'].','.$user['id'].')
+;';
+
+  pwg_query($query);
+
+  return true;
+}
+
+/**
+ * API method
+ * Removes a favorite image for the current user
+ * @param mixed[] $params
+ */
+function ws_removeFavorite($params, &$service)
+{
+  global $user;
+  if (is_a_guest())
+  {
+    return new PwgError(403, 'User must be logged in.');
+  }
+
+  $search_user = $user['id'];
+
+  $query = '
+DELETE FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND image_id = '.$params['image_id'].'
+;';
+
+  pwg_query($query);
+
+  return true;
+}
+
 ?>
