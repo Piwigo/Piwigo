@@ -634,8 +634,6 @@ function ws_addFavorite($params, &$service)
     return new PwgError(403, 'User must be logged in.');
   }
 
-  $search_user = $user['id'];
-
   $query = '
 INSERT INTO '.FAVORITES_TABLE.'
   (image_id,user_id)
@@ -660,8 +658,6 @@ function ws_removeFavorite($params, &$service)
   {
     return new PwgError(403, 'User must be logged in.');
   }
-
-  $search_user = $user['id'];
 
   $query = '
 DELETE FROM '.FAVORITES_TABLE.'
