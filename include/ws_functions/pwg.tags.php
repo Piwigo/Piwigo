@@ -122,6 +122,8 @@ function ws_tags_getImages($params, &$service)
     $tag_ids = array("null");
     $untagged = true;
 
+    $image_ids = array_slice($image_ids, $params['per_page']*$params['page'], $params['per_page'] );
+
   // else build all the tag_ids we are interested in
   } else {
     $tags = find_tags($params['tag_id'], $params['tag_url_name'], $params['tag_name']);
