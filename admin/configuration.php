@@ -161,6 +161,8 @@ if (isset($_POST['submit']))
       {
         if ( !empty($_POST['order_by']) )
         {
+          check_input_parameter('order_by', $_POST, true, '/^('.implode('|', array_keys($sort_fields)).')$/');
+
           $used = array();
           foreach ($_POST['order_by'] as $i => $val)
           {
