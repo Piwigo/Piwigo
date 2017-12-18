@@ -47,6 +47,7 @@ trigger_notify('loc_begin_element_set_unit');
 
 if (isset($_POST['submit']))
 {
+  check_input_parameter('element_ids', $_POST, false, '/^\d+(,\d+)*$/');
   $collection = explode(',', $_POST['element_ids']);
 
   $datas = array();
