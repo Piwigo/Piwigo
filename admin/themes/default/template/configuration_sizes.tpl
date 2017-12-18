@@ -231,4 +231,5 @@
   </button>
 </p>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

@@ -150,6 +150,7 @@ $mail_themes = array(
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
   $int_pattern = '/^\d+$/';
 
   switch ($page['section'])
@@ -320,6 +321,7 @@ $action.= '&amp;section='.$page['section'];
 $template->assign(
   array(
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=configuration',
+    'PWG_TOKEN' => get_pwg_token(),
     'F_ACTION'=>$action
     ));
 

@@ -215,4 +215,5 @@ jQuery("input[name='mail_theme']").change(function() {
   </button>
 </p>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>
