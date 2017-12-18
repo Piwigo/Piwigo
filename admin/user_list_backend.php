@@ -67,8 +67,7 @@ $sTable = USERS_TABLE.' INNER JOIN '.USER_INFOS_TABLE.' AS ui ON '.$conf['user_f
 $sLimit = "";
 if ( isset( $_REQUEST['iDisplayStart'] ) && $_REQUEST['iDisplayLength'] != '-1' )
 {
-  $sLimit = "LIMIT ".pwg_db_real_escape_string( $_REQUEST['iDisplayStart'] ).", ".
-    pwg_db_real_escape_string( $_REQUEST['iDisplayLength'] );
+  $sLimit = "LIMIT ".$_REQUEST['iDisplayStart'].", ".$_REQUEST['iDisplayLength'];
 }
 	
 	
@@ -80,10 +79,13 @@ if ( isset( $_REQUEST['iSortCol_0'] ) )
   $sOrder = "ORDER BY  ";
   for ( $i=0 ; $i<intval( $_REQUEST['iSortingCols'] ) ; $i++ )
   {
-    if ( $_REQUEST[ 'bSortable_'.intval($_REQUEST['iSortCol_'.$i]) ] == "true" )
+    check_input_parameter('iSortCol_'.$i, $_REQUEST, false, PATTERN_ID);
+
+    if ( $_REQUEST[ 'bSortable_'.$_REQUEST['iSortCol_'.$i] ] == "true" )
     {
-      $sOrder .= $aColumns[ intval( $_REQUEST['iSortCol_'.$i] ) ]."
-				 	".pwg_db_real_escape_string( $_REQUEST['sSortDir_'.$i] ) .", ";
+      check_input_parameter('sSortDir_'.$i, $_REQUEST, false, '/^(asc|desc)$/');
+
+      $sOrder .= $aColumns[ $_REQUEST['iSortCol_'.$i] ].' '.$_REQUEST['sSortDir_'.$i].', ';
     }
   }
 		
