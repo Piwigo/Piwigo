@@ -690,9 +690,7 @@ function ws_getFavorites($params, &$service)
     INNER JOIN '.IMAGES_TABLE.' i ON image_id = i.id
     WHERE user_id = '.$search_user['id'].'
     '.$visible_images_cond.'
-    '.$order_by.'
-    LIMIT '. $params['per_page'] .'
-    OFFSET '. ($params['per_page']*$params['page']) .';';
+    '.$order_by.';';
   $images = array();
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
@@ -711,12 +709,14 @@ function ws_getFavorites($params, &$service)
       }
       $images[] = array_merge($image, ws_std_get_urls($row));
   }
+  $count = count($images);
+  $images = array_slice($images, $params['per_page']*$params['page'], $params['per_page']);
   return array(
     'paging' => new PwgNamedStruct(
       array(
         'page' => $params['page'],
         'per_page' => $params['per_page'],
-        'count' => count($images)
+        'count' => $count
       )
     ),
     'images' => new PwgNamedArray(
