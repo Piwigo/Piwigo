@@ -290,7 +290,7 @@ class Template
       return false;
     }
     reset($filename_array);
-    while(list($handle, $filename) = each($filename_array))
+    foreach ($filename_array as $handle => $filename) 
     {
       if (is_null($filename))
       {
