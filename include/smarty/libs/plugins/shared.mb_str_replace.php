@@ -26,7 +26,7 @@ if (!function_exists('smarty_mb_str_replace')) {
         if (is_array($subject)) {
             // call mb_replace for each single string in $subject
             foreach ($subject as &$string) {
-                $string = & smarty_mb_str_replace($search, $replace, $string, $c);
+                $string = smarty_mb_str_replace($search, $replace, $string, $c);
                 $count += $c;
             }
         } elseif (is_array($search)) {

@@ -17,6 +17,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
      * @var bool
      */
     public $uncompiled = true;
+
     /**
      * container for short_open_tag directive's value before executing PHP templates
      *
@@ -31,10 +32,8 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
      */
     public $hasCompiledHandler = true;
 
-
     /**
      * Create a new PHP Resource
-
      */
     public function __construct()
     {
@@ -72,12 +71,8 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
             throw new SmartyException("PHP templates are disabled");
         }
         if (!$source->exists) {
-            if (isset($_template->parent) && $_template->parent->_objType == 2) {
-                $parent_resource = " in '{$_template->parent->template_resource}'";
-            } else {
-                $parent_resource = '';
-            }
-            throw new SmartyException("Unable to load template {$source->type} '{$source->name}'{$parent_resource}");
+            throw new SmartyException("Unable to load template {$source->type} '{$source->name}'" .
+                                      ($_template->_isSubTpl() ? " in '{$_template->parent->template_resource}'" : ''));
         }
 
         // prepare variables
@@ -101,8 +96,11 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
      */
     public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
     {
-        $compiled->filepath = false;
-        $compiled->timestamp = false;
-        $compiled->exists = false;
+        $compiled->filepath = $_template->source->filepath;
+        $compiled->timestamp = $_template->source->timestamp;
+        $compiled->exists = $_template->source->exists;
+        $compiled->file_dependency[ $_template->source->uid ] =
+            array($compiled->filepath, $compiled->timestamp,
+                  $_template->source->type,);
     }
 }

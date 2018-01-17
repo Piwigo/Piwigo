@@ -62,7 +62,7 @@ function smarty_function_html_table($params)
     $caption = '';
     $loop = null;
 
-    if (!isset($params['loop'])) {
+    if (!isset($params[ 'loop' ])) {
         trigger_error("html_table: missing 'loop' parameter", E_USER_WARNING);
 
         return;
@@ -110,11 +110,11 @@ function smarty_function_html_table($params)
     }
 
     $loop_count = count($loop);
-    if (empty($params['rows'])) {
+    if (empty($params[ 'rows' ])) {
         /* no rows specified */
         $rows = ceil($loop_count / $cols_count);
-    } elseif (empty($params['cols'])) {
-        if (!empty($params['rows'])) {
+    } elseif (empty($params[ 'cols' ])) {
+        if (!empty($params[ 'rows' ])) {
             /* no cols specified, but rows */
             $cols_count = ceil($loop_count / $rows);
         }
@@ -132,7 +132,7 @@ function smarty_function_html_table($params)
 
         for ($r = 0; $r < $cols_count; $r ++) {
             $output .= '<th' . smarty_function_html_table_cycle('th', $th_attr, $r) . '>';
-            $output .= $cols[$r];
+            $output .= $cols[ $r ];
             $output .= "</th>\n";
         }
         $output .= "</tr></thead>\n";
@@ -151,7 +151,7 @@ function smarty_function_html_table($params)
             }
 
             if ($x < $loop_count) {
-                $output .= "<td" . smarty_function_html_table_cycle('td', $td_attr, $c) . ">" . $loop[$x] . "</td>\n";
+                $output .= "<td" . smarty_function_html_table_cycle('td', $td_attr, $c) . ">" . $loop[ $x ] . "</td>\n";
             } else {
                 $output .= "<td" . smarty_function_html_table_cycle('td', $td_attr, $c) . ">$trailpad</td>\n";
             }
@@ -169,7 +169,7 @@ function smarty_function_html_table_cycle($name, $var, $no)
     if (!is_array($var)) {
         $ret = $var;
     } else {
-        $ret = $var[$no % count($var)];
+        $ret = $var[ $no % count($var) ];
     }
 
     return ($ret) ? ' ' . $ret : '';

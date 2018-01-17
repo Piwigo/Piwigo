@@ -24,10 +24,7 @@
  */
 function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth = 0, $objects = array())
 {
-    $_replace = array("\n" => '\n',
-                      "\r" => '\r',
-                      "\t" => '\t'
-    );
+    $_replace = array("\n" => '\n', "\r" => '\r', "\t" => '\t');
     switch (gettype($var)) {
         case 'array' :
             $results = '<b>Array (' . count($var) . ')</b>';
@@ -35,9 +32,9 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
                 break;
             }
             foreach ($var as $curr_key => $curr_val) {
-                $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
-                    . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
-                    . smarty_modifier_debug_print_var($curr_val, $max, $length, ++ $depth, $objects);
+                $results .= '<br>' . str_repeat('&nbsp;', $depth * 2) . '<b>' . strtr($curr_key, $_replace) .
+                            '</b> =&gt; ' .
+                            smarty_modifier_debug_print_var($curr_val, $max, $length, ++ $depth, $objects);
                 $depth --;
             }
             break;
@@ -54,9 +51,8 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
             }
             $objects[] = $var;
             foreach ($object_vars as $curr_key => $curr_val) {
-                $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
-                    . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
-                    . smarty_modifier_debug_print_var($curr_val, $max, $length, ++ $depth, $objects);
+                $results .= '<br>' . str_repeat('&nbsp;', $depth * 2) . '<b> -&gt;' . strtr($curr_key, $_replace) .
+                            '</b> = ' . smarty_modifier_debug_print_var($curr_val, $max, $length, ++ $depth, $objects);
                 $depth --;
             }
             break;
@@ -88,12 +84,12 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
                     $results = mb_substr($var, 0, $length - 3, Smarty::$_CHARSET) . '...';
                 }
             } else {
-                if (isset($var[$length])) {
+                if (isset($var[ $length ])) {
                     $results = substr($var, 0, $length - 3) . '...';
                 }
             }
 
-            $results = htmlspecialchars('"' . $results . '"');
+            $results = htmlspecialchars('"' . $results . '"', ENT_QUOTES, Smarty::$_CHARSET);
             break;
 
         case 'unknown type' :
@@ -109,7 +105,7 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
                 }
             }
 
-            $results = htmlspecialchars($results);
+            $results = htmlspecialchars($results, ENT_QUOTES, Smarty::$_CHARSET);
     }
 
     return $results;

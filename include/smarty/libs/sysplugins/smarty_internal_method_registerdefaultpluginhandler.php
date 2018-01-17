@@ -32,7 +32,7 @@ class Smarty_Internal_Method_RegisterDefaultPluginHandler
      */
     public function registerDefaultPluginHandler(Smarty_Internal_TemplateBase $obj, $callback)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         if (is_callable($callback)) {
             $smarty->default_plugin_handler_func = $callback;
         } else {

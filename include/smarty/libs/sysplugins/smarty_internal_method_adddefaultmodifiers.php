@@ -31,9 +31,9 @@ class Smarty_Internal_Method_AddDefaultModifiers
      */
     public function addDefaultModifiers(Smarty_Internal_TemplateBase $obj, $modifiers)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         if (is_array($modifiers)) {
-            $this->default_modifiers = array_merge($smarty->default_modifiers, $modifiers);
+            $smarty->default_modifiers = array_merge($smarty->default_modifiers, $modifiers);
         } else {
             $smarty->default_modifiers[] = $modifiers;
         }

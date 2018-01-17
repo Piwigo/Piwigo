@@ -34,7 +34,7 @@ class Smarty_Internal_Runtime_UpdateCache
                                       $no_output_filter)
     {
         $content = ob_get_clean();
-        unset($cached->hashes[$_template->compiled->nocache_hash]);
+        unset($cached->hashes[ $_template->compiled->nocache_hash ]);
         if (!empty($cached->hashes)) {
             $hash_array = array();
             foreach ($cached->hashes as $hash => $foo) {
@@ -56,14 +56,14 @@ class Smarty_Internal_Runtime_UpdateCache
             // escape PHP tags in template content
             $content .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/',
                                      "<?php echo '\$1'; ?>\n", $curr_split);
-            if (isset($cache_parts[0][$curr_idx])) {
+            if (isset($cache_parts[ 0 ][ $curr_idx ])) {
                 $_template->cached->has_nocache_code = true;
-                $content .= $cache_parts[1][$curr_idx];
+                $content .= $cache_parts[ 1 ][ $curr_idx ];
             }
         }
-        if (!$no_output_filter && !$_template->compiled->has_nocache_code &&
-            (isset($_template->smarty->autoload_filters['output']) ||
-                isset($_template->smarty->registered_filters['output']))
+        if (!$no_output_filter && !$_template->cached->has_nocache_code &&
+            (isset($_template->smarty->autoload_filters[ 'output' ]) ||
+             isset($_template->smarty->registered_filters[ 'output' ]))
         ) {
             $content = $_template->smarty->ext->_filterHandler->runFilter('output', $content, $_template);
         }
@@ -82,23 +82,18 @@ class Smarty_Internal_Runtime_UpdateCache
      */
     public function updateCache(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $no_output_filter)
     {
-        if ($_template->source->handler->uncompiled) {
-            ob_start();
-            $_template->source->render($_template);
-        } else {
-            ob_start();
-            if (!isset($_template->compiled)) {
-                $_template->loadCompiled();
-            }
-            $_template->compiled->render($_template);
+        ob_start();
+        if (!isset($_template->compiled)) {
+            $_template->loadCompiled();
         }
+        $_template->compiled->render($_template);
         if ($_template->smarty->debugging) {
             $_template->smarty->_debug->start_cache($_template);
         }
         $this->removeNoCacheHash($cached, $_template, $no_output_filter);
         $compile_check = $_template->smarty->compile_check;
         $_template->smarty->compile_check = false;
-        if (isset($_template->parent) && $_template->parent->_objType == 2) {
+        if ($_template->_isSubTpl()) {
             $_template->compiled->unifunc = $_template->parent->compiled->unifunc;
         }
         if (!$_template->cached->processed) {
@@ -123,7 +118,7 @@ class Smarty_Internal_Runtime_UpdateCache
     public function writeCachedContent(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $content)
     {
         if ($_template->source->handler->recompiled || !($_template->caching == Smarty::CACHING_LIFETIME_CURRENT ||
-                $_template->caching == Smarty::CACHING_LIFETIME_SAVED)
+                                                         $_template->caching == Smarty::CACHING_LIFETIME_SAVED)
         ) {
             // don't write cache file
             return false;

@@ -36,8 +36,8 @@ class Smarty_Internal_Method_GetConfigVars
         $var_array = array();
         while ($_ptr !== null) {
             if (isset($varname)) {
-                if (isset($_ptr->config_vars[$varname])) {
-                    return $_ptr->config_vars[$varname];
+                if (isset($_ptr->config_vars[ $varname ])) {
+                    return $_ptr->config_vars[ $varname ];
                 }
             } else {
                 $var_array = array_merge($_ptr->config_vars, $var_array);

@@ -34,13 +34,13 @@ class Smarty_Internal_Method_RegisterClass
      */
     public function registerClass(Smarty_Internal_TemplateBase $obj, $class_name, $class_impl)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         // test if exists
         if (!class_exists($class_impl)) {
             throw new SmartyException("Undefined class '$class_impl' in register template class");
         }
         // register the class
-        $smarty->registered_classes[$class_name] = $class_impl;
+        $smarty->registered_classes[ $class_name ] = $class_impl;
         return $obj;
     }
 }

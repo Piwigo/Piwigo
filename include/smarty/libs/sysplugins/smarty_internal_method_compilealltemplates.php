@@ -23,7 +23,7 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @api  Smarty::compileAllTemplates()
      *
-     * @param \Smarty $smarty
+     * @param \Smarty $smarty        passed smarty object
      * @param  string $extension     file extension
      * @param  bool   $force_compile force all to recompile
      * @param  int    $time_limit
@@ -31,7 +31,8 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @return integer number of template files recompiled
      */
-    public function compileAllTemplates(Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+    public function compileAllTemplates(Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0,
+                                        $max_errors = null)
     {
         return $this->compileAll($smarty, $extension, $force_compile, $time_limit, $max_errors);
     }
@@ -48,7 +49,8 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @return int number of template files compiled
      */
-    protected function compileAll(Smarty $smarty, $extension, $force_compile, $time_limit, $max_errors, $isConfig = false)
+    protected function compileAll(Smarty $smarty, $extension, $force_compile, $time_limit, $max_errors,
+                                  $isConfig = false)
     {
         // switch off time limit
         if (function_exists('set_time_limit')) {
@@ -59,7 +61,8 @@ class Smarty_Internal_Method_CompileAllTemplates
         $sourceDir = $isConfig ? $smarty->getConfigDir() : $smarty->getTemplateDir();
         // loop over array of source directories
         foreach ($sourceDir as $_dir) {
-            $_dir_1 = new RecursiveDirectoryIterator($_dir);
+            $_dir_1 = new RecursiveDirectoryIterator($_dir, defined('FilesystemIterator::FOLLOW_SYMLINKS') ?
+                FilesystemIterator::FOLLOW_SYMLINKS : 0);
             $_dir_2 = new RecursiveIteratorIterator($_dir_1);
             foreach ($_dir_2 as $_fileinfo) {
                 $_file = $_fileinfo->getFilename();
@@ -69,19 +72,24 @@ class Smarty_Internal_Method_CompileAllTemplates
                 if (!substr_compare($_file, $extension, - strlen($extension)) == 0) {
                     continue;
                 }
-                if ($_fileinfo->getPath() == !substr($_dir, 0, - 1)) {
-                    $_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
+                if ($_fileinfo->getPath() !== substr($_dir, 0, - 1)) {
+                    $_file = substr($_fileinfo->getPath(), strlen($_dir)) . $smarty->ds . $_file;
                 }
                 echo "\n<br>", $_dir, '---', $_file;
                 flush();
                 $_start_time = microtime(true);
                 $_smarty = clone $smarty;
+                // 
+                $_smarty->_cache = array();
+                $_smarty->ext = new Smarty_Internal_Extension_Handler();
+                $_smarty->ext->objType = $_smarty->_objType;
                 $_smarty->force_compile = $force_compile;
                 try {
                     /* @var Smarty_Internal_Template $_tpl */
                     $_tpl = new $smarty->template_class($_file, $_smarty);
                     $_tpl->caching = Smarty::CACHING_OFF;
-                    $_tpl->source = $isConfig ? Smarty_Template_Config::load($_tpl) : Smarty_Template_Source::load($_tpl);
+                    $_tpl->source =
+                        $isConfig ? Smarty_Template_Config::load($_tpl) : Smarty_Template_Source::load($_tpl);
                     if ($_tpl->mustCompile()) {
                         $_tpl->compileTemplateSource();
                         $_count ++;
@@ -98,7 +106,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                 }
                 // free memory
                 unset($_tpl);
-                $_smarty->_cache['template_objects'] = array();
+                $_smarty->_clearTemplateCache();
                 if ($max_errors !== null && $_error_count == $max_errors) {
                     echo "\n<br><br>too many errors\n";
                     exit();

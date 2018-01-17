@@ -39,11 +39,11 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
             switch ($variable) {
                 case 'foreach':
                 case 'section':
-                    if (!isset($compiler->_tag_objects[ $variable ])) {
+                    if (!isset(Smarty_Internal_TemplateCompilerBase::$_tag_objects[ $variable ])) {
                         $class = 'Smarty_Internal_Compile_' . ucfirst($variable);
-                        $compiler->_tag_objects[ $variable ] = new $class;
+                        Smarty_Internal_TemplateCompilerBase::$_tag_objects[ $variable ] = new $class;
                     }
-                    return $compiler->_tag_objects[ $variable ]->compileSpecialVariable(array(), $compiler, $_index);
+                    return Smarty_Internal_TemplateCompilerBase::$_tag_objects[ $variable ]->compileSpecialVariable(array(), $compiler, $_index);
                 case 'capture':
                     if (class_exists('Smarty_Internal_Compile_Capture')) {
                         return Smarty_Internal_Compile_Capture::compileSpecialVariable(array(), $compiler, $_index);
@@ -85,7 +85,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     return 'dirname($_smarty_tpl->source->filepath)';
 
                 case 'version':
-                     return "Smarty::SMARTY_VERSION";
+                    return "Smarty::SMARTY_VERSION";
 
                 case 'const':
                     if (isset($compiler->smarty->security_policy) &&

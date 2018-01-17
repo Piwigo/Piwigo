@@ -33,10 +33,10 @@ class Smarty_Internal_Method_ClearAssign
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $curr_var) {
-                unset($data->tpl_vars[$curr_var]);
+                unset($data->tpl_vars[ $curr_var ]);
             }
         } else {
-            unset($data->tpl_vars[$tpl_var]);
+            unset($data->tpl_vars[ $tpl_var ]);
         }
 
         return $data;

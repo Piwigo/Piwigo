@@ -19,9 +19,9 @@ class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign
     /**
      * Compiles code for the {append} tag
      *
-     * @param  array                                       $args      array with attributes from parser
+     * @param  array                                $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                       $parameter array with compilation parameter
+     * @param  array                                $parameter array with compilation parameter
      *
      * @return string compiled code
      */
@@ -31,14 +31,15 @@ class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign
         $this->required_attributes = array('var', 'value');
         $this->shorttag_order = array('var', 'value');
         $this->optional_attributes = array('scope', 'index');
+        $this->mapCache = array();
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         // map to compile assign attributes
-        if (isset($_attr['index'])) {
-            $_params['smarty_internal_index'] = '[' . $_attr['index'] . ']';
-            unset($_attr['index']);
+        if (isset($_attr[ 'index' ])) {
+            $_params[ 'smarty_internal_index' ] = '[' . $_attr[ 'index' ] . ']';
+            unset($_attr[ 'index' ]);
         } else {
-            $_params['smarty_internal_index'] = '[]';
+            $_params[ 'smarty_internal_index' ] = '[]';
         }
         $_new_attr = array();
         foreach ($_attr as $key => $value) {

@@ -27,11 +27,11 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
     /**
      * Compiles code for the execution of function plugin
      *
-     * @param  array                                       $args      array with attributes from parser
+     * @param  array                                $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                       $parameter array with compilation parameter
-     * @param  string                                      $tag       name of function
-     * @param  string                                      $method    name of method to call
+     * @param  array                                $parameter array with compilation parameter
+     * @param  string                               $tag       name of function
+     * @param  string                               $method    name of method to call
      *
      * @return string compiled code
      */
@@ -39,19 +39,19 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        if ($_attr['nocache'] === true) {
-            $compiler->tag_nocache = true;
-        }
-        unset($_attr['nocache']);
+        //Does tag create output
+        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
+
+        unset($_attr[ 'nocache' ]);
         $_assign = null;
-        if (isset($_attr['assign'])) {
-            $_assign = $_attr['assign'];
-            unset($_attr['assign']);
+        if (isset($_attr[ 'assign' ])) {
+            $_assign = $_attr[ 'assign' ];
+            unset($_attr[ 'assign' ]);
         }
         // method or property ?
-        if (method_exists($compiler->smarty->registered_objects[$tag][0], $method)) {
+        if (is_callable(array($compiler->smarty->registered_objects[ $tag ][ 0 ], $method))) {
             // convert attributes into parameter array string
-            if ($compiler->smarty->registered_objects[$tag][2]) {
+            if ($compiler->smarty->registered_objects[ $tag ][ 2 ]) {
                 $_paramsArray = array();
                 foreach ($_attr as $_key => $_value) {
                     if (is_int($_key)) {
@@ -61,24 +61,26 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
                     }
                 }
                 $_params = 'array(' . implode(",", $_paramsArray) . ')';
-                $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params},\$_smarty_tpl)";
+                $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params},\$_smarty_tpl)";
             } else {
                 $_params = implode(",", $_attr);
-                $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params})";
+                $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params})";
             }
         } else {
             // object property
-            $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}";
+            $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}";
         }
+        if (!empty($parameter[ 'modifierlist' ])) {
+            $output = $compiler->compileTag('private_modifier', array(),
+                                            array('modifierlist' => $parameter[ 'modifierlist' ], 'value' => $output));
+        }
+        //Does tag create output
+        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
 
         if (empty($_assign)) {
-            // This tag does create output
-            $compiler->has_output = true;
-            $output = "<?php echo {$return};?>\n";
+            return "<?php echo {$output};?>\n";
         } else {
-            $output = "<?php \$_smarty_tpl->assign({$_assign},{$return});?>\n";
+            return "<?php \$_smarty_tpl->assign({$_assign},{$output});?>\n";
         }
-
-        return $output;
     }
 }

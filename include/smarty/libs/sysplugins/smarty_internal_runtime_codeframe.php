@@ -18,9 +18,9 @@ class Smarty_Internal_Runtime_CodeFrame
      * Create code frame for compiled and cached templates
      *
      * @param Smarty_Internal_Template              $_template
-     * @param string                                $content optional template content
+     * @param string                                $content   optional template content
      * @param string                                $functions compiled template function and block code
-     * @param bool                                  $cache   flag for cache file
+     * @param bool                                  $cache     flag for cache file
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
      *
      * @return string
@@ -29,30 +29,34 @@ class Smarty_Internal_Runtime_CodeFrame
                            Smarty_Internal_TemplateCompilerBase $compiler = null)
     {
         // build property code
-        $properties[ 'has_nocache_code' ] = $_template->compiled->has_nocache_code;
         $properties[ 'version' ] = Smarty::SMARTY_VERSION;
         $properties[ 'unifunc' ] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         if (!$cache) {
+            $properties[ 'has_nocache_code' ] = $_template->compiled->has_nocache_code;
             $properties[ 'file_dependency' ] = $_template->compiled->file_dependency;
             $properties[ 'includes' ] = $_template->compiled->includes;
-            if (!empty($compiler->tpl_function)) {
-                $properties[ 'tpl_function' ] = $compiler->tpl_function;
-            }
-        } else {
+         } else {
+            $properties[ 'has_nocache_code' ] = $_template->cached->has_nocache_code;
             $properties[ 'file_dependency' ] = $_template->cached->file_dependency;
             $properties[ 'cache_lifetime' ] = $_template->cache_lifetime;
-            if (!empty($_template->tpl_function)) {
-                $properties[ 'tpl_function' ] = $_template->tpl_function;
-            }
         }
         $output = "<?php\n";
         $output .= "/* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") .
-            "\n  from \"" . $_template->source->filepath . "\" */\n\n";
-
-        $dec = "\$_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties(\$_smarty_tpl, " .
-            var_export($properties, true) . ',' . ($cache ? 'true' : 'false') . ")";
+                   "\n  from \"" . $_template->source->filepath . "\" */\n\n";
+        $output .= "/* @var Smarty_Internal_Template \$_smarty_tpl */\n";
+        $dec = "\$_smarty_tpl->_decodeProperties(\$_smarty_tpl, " . var_export($properties, true) . ',' .
+               ($cache ? 'true' : 'false') . ")";
         $output .= "if ({$dec}) {\n";
-        $output .= "function {$properties['unifunc']} (\$_smarty_tpl) {\n";
+        $output .= "function {$properties['unifunc']} (Smarty_Internal_Template \$_smarty_tpl) {\n";
+        if (!$cache && !empty($compiler->tpl_function)) {
+            $output .= "\$_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions(\$_smarty_tpl, " .
+                       var_export($compiler->tpl_function, true) . ");\n";
+        }
+        if ($cache && isset($_template->smarty->ext->_tplFunction)) {
+            $output .= "\$_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions(\$_smarty_tpl, " .
+                       var_export($_template->smarty->ext->_tplFunction->getTplFunction($_template), true) . ");\n";
+
+        }
         // include code for plugins
         if (!$cache) {
             if (!empty($_template->compiled->required_plugins[ 'compiled' ])) {
@@ -73,7 +77,7 @@ class Smarty_Internal_Runtime_CodeFrame
                 foreach ($_template->compiled->required_plugins[ 'nocache' ] as $tmp) {
                     foreach ($tmp as $data) {
                         $file = addslashes($data[ 'file' ]);
-                        if (is_Array($data[ 'function' ])) {
+                        if (is_array($data[ 'function' ])) {
                             $output .= addslashes("if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) require_once '{$file}';\n");
                         } else {
                             $output .= addslashes("if (!is_callable('{$data['function']}')) require_once '{$file}';\n");
