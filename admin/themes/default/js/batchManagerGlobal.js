@@ -309,6 +309,10 @@ jQuery('#applyAction').click(function(e) {
 
     image_ids = Array();
   }
+
+  /* tell PHP how many photos were deleted */
+  jQuery('form').append('<input type="hidden" name="nb_photos_deleted" value="'+elements.length+'">');
+
   return false;
 });
 
