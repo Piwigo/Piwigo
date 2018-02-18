@@ -3,24 +3,41 @@ FROM php:7.1-apache
 ARG PIWIGO_VERSION=2.9.2
 ARG PIWIGO_SHA512=95714ea12d67e20e00bc03b221e5bb597d7be133fe676c3617c60845c55d73ef000a81f6d43289179193f826000748ba908b29cac60bcb70572ee96d9b3e44f9
 
+RUN apt-get update; \
+	apt-get install -y --no-install-recommends \
+		imagemagick \
+	; \
+	rm -rf /var/lib/apt/lists/*
+
 # Install required PHP extensions
-RUN buildDeps=" \
-    libjpeg62-turbo-dev \
-    libpng-dev" \
-  && apt-get -qq update \
-  && apt-get install -qq $buildDeps \
-    imagemagick \
-  && docker-php-ext-configure gd --with-png-dir=/usr/include --with-jpeg-dir=/usr/include/ \
-  && docker-php-ext-install -j$(nproc) \
-    exif \
-    gd \
-    mysqli \
-  && apt-mark manual \
-    libjpeg62-turbo \
-    libpng12-0 \
-  && apt-get purge -y --auto-remove $buildDeps \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+RUN set -ex; \
+	\
+	savedAptMark="$(apt-mark showmanual)"; \
+	\
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		libjpeg-dev \
+		libpng-dev \
+	; \
+	docker-php-ext-configure gd --with-png-dir=/usr/include --with-jpeg-dir=/usr/include/; \
+	docker-php-ext-install \
+		exif \
+		gd \
+		mysqli \
+	; \
+# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+	apt-mark auto '.*' > /dev/null; \
+	apt-mark manual $savedAptMark; \
+	ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
+		| awk '/=>/ { print $3 }' \
+		| sort -u \
+		| xargs -r dpkg-query -S \
+		| cut -d: -f1 \
+		| sort -u \
+		| xargs -rt apt-mark manual; \
+	\
+	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+	rm -rf /var/lib/apt/lists/*
 
 VOLUME /var/www/html
 
