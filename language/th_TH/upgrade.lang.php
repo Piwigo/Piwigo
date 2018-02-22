@@ -40,4 +40,4 @@ $lang['User permissions and group permissions have been erased'] = "การอ
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "รูปภาพขนาดย่อ คำนำหน้าของรูปภาพขนาดย่อ และที่อยู่เมลของเว็บมาสเตอร์เท่านั้นที่จะได้ถูกบันทึกจากการตั้งค่าครั้งก่อน";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'ใน <i>%s</i>, ก่อน <b>?></b>, ใส่:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'โปรดระมัดระวัง, ธีมที่คุณใช้งานอยู่ได้ถูกยกเลิกการใช้งานแล้ว. คุณจะต้องตรวจสอบก่อนการอัพเกรดธีม:';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'สำรวจดูว่ามีอะไรใหม่ใน Piwigo %s';
