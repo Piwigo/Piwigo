@@ -944,6 +944,18 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
   $service->addMethod(
+    'pwg.users.getAuthKey',
+    'ws_users_getAuthKey',
+    array(
+      'user_id' => array('type'=>WS_TYPE_ID),
+      'pwg_token' => array(),
+      ),
+    'Get a new authentication key for a user. Only works for normal/generic users (not admins)',
+    $ws_functions_root . 'pwg.users.php',
+    array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.users.setInfo',
       'ws_users_setInfo',
       array(

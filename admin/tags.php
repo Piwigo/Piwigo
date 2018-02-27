@@ -32,6 +32,11 @@ check_status(ACCESS_ADMINISTRATOR);
 if (!empty($_POST))
 {
   check_pwg_token();
+  check_input_parameter('tags', $_POST, true, PATTERN_ID);
+  check_input_parameter('selectAction', $_POST, false, '/^(edit|merge|duplicate|delete)$/');
+  check_input_parameter('edit_list', $_POST, false, '/^\d+(,\d+)*$/');
+  check_input_parameter('merge_list', $_POST, false, '/^\d+(,\d+)*$/');
+  check_input_parameter('destination_tag', $_POST, false, PATTERN_ID);
 }
 
 // +-----------------------------------------------------------------------+

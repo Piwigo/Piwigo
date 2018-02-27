@@ -56,7 +56,15 @@ check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 // +-----------------------------------------------------------------------+
 
 $collection = array();
-if (isset($_POST['setSelected']))
+if (isset($_POST['nb_photos_deleted']))
+{
+  check_input_parameter('nb_photos_deleted', $_POST, false, '/^\d+$/');
+
+  // let's fake a collection (we don't know the image_ids so we use "null", we only
+  // care about the number of items here)
+  $collection = array_fill(0, $_POST['nb_photos_deleted'], null);
+}
+else if (isset($_POST['setSelected']))
 {
   $collection = $page['cat_elements_id'];
 }

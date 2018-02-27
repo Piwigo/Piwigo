@@ -1788,7 +1788,7 @@ class ScriptLoader
    */
   private static function cmp_by_mode_and_order($s1, $s2)
   {
-    $ret = $s1->load_mode - $s2->load_mode;
+    $ret = intval($s1->load_mode) - intval($s2->load_mode);
     if ($ret) return $ret;
 
     $ret = $s1->extra['order'] - $s2->extra['order'];
