@@ -469,7 +469,8 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => l10n('Recent albums'),
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+                    .l10n('Recent albums').'</a>'
         )
       );
   }
