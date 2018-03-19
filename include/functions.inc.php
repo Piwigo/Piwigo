@@ -1404,8 +1404,8 @@ function prepend_append_array_items($array, $prepend_str, $append_str)
     create_function('&$s', '$s = "'.$prepend_str.'".$s."'.$append_str.'";')
     );
  */
-	//New PHP 7.2 code
-	array_walk($array, function(&$value, $key) use($prepend_str,$append_str) { $value = "$prepend_str$value$append_str"; } );
+  //New PHP 7.2 code
+  array_walk($array, function(&$value, $key) use($prepend_str,$append_str) { $value = "$prepend_str$value$append_str"; } );
   return $array;
 }
 
