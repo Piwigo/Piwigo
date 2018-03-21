@@ -40,11 +40,11 @@ v1.7	07-18-04
 	added a switch to select an external stylesheet (thanks to Pascal Van Hecke)
 	changed default content-type to application/xml
 	added character encoding setting
-	fixed numerous smaller bugs (thanks to Sören Fuhrmann of golem.de)
-	improved changing ATOM versions handling (thanks to August Trometer)
-	improved the UniversalFeedCreator's useCached method (thanks to Sören Fuhrmann of golem.de)
-	added charset output in HTTP headers (thanks to Sören Fuhrmann of golem.de)
-	added Slashdot namespace to RSS 1.0 (thanks to Sören Fuhrmann of golem.de)
+    fixed numerous smaller bugs (thanks to SÃ¶ren Fuhrmann of golem.de)
+    improved changing ATOM versions handling (thanks to August Trometer)
+	improved the UniversalFeedCreator's useCached method (thanks to S?en Fuhrmann of golem.de)
+	added charset output in HTTP headers (thanks to S?en Fuhrmann of golem.de)
+	added Slashdot namespace to RSS 1.0 (thanks to S?en Fuhrmann of golem.de)
 
 v1.6	05-10-04
 	added stylesheet to RSS 1.0 feeds
@@ -62,7 +62,7 @@ v1.6 beta	02-28-04
 	considered beta due to some internal changes
 
 v1.5.1	01-27-04
-	fixed some RSS 1.0 glitches (thanks to Stéphane Vanpoperynghe)
+	fixed some RSS 1.0 glitches (thanks to St?hane Vanpoperynghe)
 	fixed some inconsistencies between documentation and code (thanks to Timothy Martin)
 
 v1.5	01-06-04
@@ -1170,7 +1170,7 @@ class MBOXCreator extends FeedCreator {
 		$eol = "\r\n";
 		$escape = "=";
 		$output = "";
-		while( list(, $line) = each($lines) ) {
+        foreach($lines as $itt => $line){
 			//$line = rtrim($line); // remove trailing white space -> no =20\r\n necessary
 			$linlen = strlen($line);
 			$newline = "";
