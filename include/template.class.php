@@ -1102,7 +1102,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     // replaces echo PHP_STRING_LITERAL; with the string literal value
     $source = preg_replace_callback(
       '/\\<\\?php echo ((?:\'(?:(?:\\\\.)|[^\'])*\')|(?:"(?:(?:\\\\.)|[^"])*"));\\?\\>\\n/',
-      create_function('$matches', 'eval(\'$tmp=\'.$matches[1].\';\');return $tmp;'),
+      function($matches) { eval('$tmp='.$matches[1].';');return $tmp; }, 
       $source);
     return $source;
   }
