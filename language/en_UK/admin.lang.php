@@ -995,6 +995,7 @@ $lang['delete album and all %d photos, even the %d associated to other albums'] 
 $lang['delete album and the %d orphan photos'] = 'delete album and the %d orphan photos';
 $lang['delete only album, not photos'] = 'delete only album, not photos';
 $lang['Confirm deletion'] = 'Confirm deletion';
+$lang['Deletion in progress'] = 'Deletion in progress';
 $lang['checksum'] = 'checksum';
 $lang['orphans to delete'] = 'orphans to delete';
 $lang['Dashboard'] = 'Dashboard';
