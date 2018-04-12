@@ -987,3 +987,6 @@ $lang['between %s and %s MB'] = 'entre %s et %s Mo';
 $lang['date & time'] = 'date et heure';
 $lang['file name'] = 'nom de fichier';
 $lang['width & height'] = 'largeur et hauteur';
+$lang['Select tags'] = 'Sélectionner des mots clés';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Chaque courriel envoyé contiendra sa propre clef d\'identification automatique sur les liens, valide %s.';
+$lang['No tag selected, no action possible.'] = 'Aucun mot clé sélectionné, aucune action possible.';
