@@ -615,12 +615,12 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
     processing: true,
     serverSide: true,
 		serverMethod: "POST",
-    "ajax": {
-        "url" : "admin/user_list_backend.php",
-         "type" : "POST",
-         "data" : {
-            "pwg_token" : pwg_token
-         }
+    ajax: {
+        url : "admin/user_list_backend.php",
+        type : "POST",
+        data : {
+            pwg_token : pwg_token
+        }
     },
 		pagingType: "simple",
     language: {
