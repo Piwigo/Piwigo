@@ -1648,6 +1648,9 @@ SELECT *
         $params[$key] = strip_tags($params[$key], '<b><strong><em><i>');
       }
 
+      // TODO do not strip tags if pwg_token is provided (and valid)
+      $params[$key] = strip_tags($params[$key]);
+
       if ('fill_if_empty' == $params['single_value_mode'])
       {
         if (empty($image_row[$key]))
