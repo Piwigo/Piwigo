@@ -118,6 +118,8 @@ if (isset($_GET['sync_metadata']))
 //--------------------------------------------------------- update informations
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
+
   $data = array();
   $data['id'] = $_GET['image_id'];
   $data['name'] = $_POST['name'];
@@ -445,6 +447,7 @@ $template->assign(array(
   'represented_albums' => $represented_albums,
   'STORAGE_ALBUM' => $storage_category_id,
   'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
+  'PWG_TOKEN' => get_pwg_token(),
   ));
 
 trigger_notify('loc_end_picture_modify');
