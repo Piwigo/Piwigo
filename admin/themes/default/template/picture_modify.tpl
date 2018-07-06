@@ -151,6 +151,7 @@ jQuery("a.preview-box").colorbox({
    </p>
 
   <p style="margin:40px 0 0 0">
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
   </p>
 </fieldset>
