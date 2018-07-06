@@ -565,11 +565,12 @@ function ws_categories_add($params, &$service)
 
   if (!empty($params['comment']))
   {
-    $options['comment'] = $params['comment'];
+    // TODO do not strip tags if pwg_token is provided (and valid)
+    $options['comment'] = strip_tags($params['comment']);
   }
 
   $creation_output = create_virtual_category(
-    $params['name'],
+    strip_tags($params['name']), // TODO do not strip tags if pwg_token is provided (and valid)
     $params['parent'],
     $options
     );
@@ -634,7 +635,8 @@ SELECT *
     if (isset($params[$key]))
     {
       $perform_update = true;
-      $update[$key] = $params[$key];
+      // TODO do not strip tags if pwg_token is provided (and valid)
+      $update[$key] = strip_tags($params[$key]);
     }
   }
 
