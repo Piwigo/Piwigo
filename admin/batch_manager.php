@@ -463,6 +463,19 @@ if (isset($_SESSION['bulk_manager_filter']['category']))
 {
   $categories = array();
 
+  // we need to check the category still exists (it may have been deleted since it was added in the session)
+  $query = '
+SELECT COUNT(*)
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$_SESSION['bulk_manager_filter']['category'].'
+;';
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
+  if (0 == $counter)
+  {
+    unset($_SESSION['bulk_manager_filter']);
+    redirect(get_root_url().'admin.php?page='.$_GET['page']);
+  }
+
   if (isset($_SESSION['bulk_manager_filter']['category_recursive']))
   {
     $categories = get_subcat_ids(array($_SESSION['bulk_manager_filter']['category']));
