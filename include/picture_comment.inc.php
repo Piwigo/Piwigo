@@ -142,21 +142,21 @@ SELECT
     $query = '
 SELECT
     com.id,
-    author,
-    author_id,
+    com.author,
+    com.author_id,
     u.'.$conf['user_fields']['email'].' AS user_email,
-    date,
-    image_id,
-    website_url,
+    com.date,
+    com.image_id,
+    com.website_url,
     com.email,
-    content,
-    validated
+    com.content,
+    com.validated
   FROM '.COMMENTS_TABLE.' AS com
   LEFT JOIN '.USERS_TABLE.' AS u
     ON u.'.$conf['user_fields']['id'].' = author_id
-  WHERE image_id = '.$page['image_id'].'
+  WHERE com.image_id = '.$page['image_id'].'
     '.$validated_clause.'
-  ORDER BY date '.$comments_order.'
+  ORDER BY com.date '.$comments_order.'
   LIMIT '.$conf['nb_comment_page'].' OFFSET '.$page['start'].'
 ;';
     $result = pwg_query( $query );
