@@ -42,6 +42,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('selection', $_POST, true, PATTERN_ID);
+check_input_parameter('display', $_REQUEST, false, '/^(\d+|all)$/');
 
 // +-----------------------------------------------------------------------+
 // | specific actions                                                      |

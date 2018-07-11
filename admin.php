@@ -42,6 +42,7 @@ trigger_notify('loc_begin_admin');
 check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('page', $_GET, false, '/^[a-zA-Z\d_-]+$/');
+check_input_parameter('section', $_GET, false, '/^[a-z]+[a-z_\/-]*(\.php)?$/i');
 
 // +-----------------------------------------------------------------------+
 // | Direct actions                                                        |

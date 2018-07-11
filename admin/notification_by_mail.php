@@ -42,6 +42,8 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+check_input_parameter('mode', $_GET, false, '/^(param|subscribe|send)$/');
+
 // +-----------------------------------------------------------------------+
 // | Initialization                                                        |
 // +-----------------------------------------------------------------------+
