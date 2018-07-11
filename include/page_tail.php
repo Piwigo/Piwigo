@@ -27,7 +27,7 @@ trigger_notify('loc_begin_page_tail');
 $template->assign(
   array(
     'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
-    'PHPWG_URL' => defined('PHPWG_URL') ? PHPWG_URL : '',
+    'PHPWG_URL' => defined('PHPWG_URL') ? str_replace('http:', 'https:', PHPWG_URL) : '',
     ));
 
 //--------------------------------------------------------------------- contact
