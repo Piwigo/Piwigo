@@ -37,7 +37,10 @@ STEP:
 3 = upgrade on different branch
 */
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
+
+check_input_parameter('to', $_GET, false, '/^\d+\.\d+\.\d+$/');
 $upgrade_to = isset($_GET['to']) ? $_GET['to'] : '';
+
 $updates = new updates();
 
 // +-----------------------------------------------------------------------+
