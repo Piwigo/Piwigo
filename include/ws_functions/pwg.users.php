@@ -635,7 +635,7 @@ function ws_addFavorite($params, &$service)
   }
 
   $query = '
-INSERT INTO '.FAVORITES_TABLE.'
+INSERT IGNORE INTO '.FAVORITES_TABLE.'
   (image_id,user_id)
   VALUES
   ('.$params['image_id'].','.$user['id'].')
