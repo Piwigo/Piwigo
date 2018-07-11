@@ -20,7 +20,7 @@ fieldset p {text-align:left;margin-top:0}
 <fieldset>
   <legend>Piwigo Remote Sync</legend>
 
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-remote-sync.png" title="Piwigo Remote Sync"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-remote-sync.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-remote-sync.png" title="Piwigo Remote Sync"><img src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-remote-sync.jpg"></a></div>
 <p>{'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'|@translate}</p>
 
 <p><a href="http://piwigo.org/ext/extension_view.php?eid=851" target="_blank">{'Learn more'|@translate}</a></p>
@@ -28,7 +28,7 @@ fieldset p {text-align:left;margin-top:0}
 
 <fieldset>
   <legend>{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}</legend>
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/piwigo-ios.jpg" title="{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-ios.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-ios.jpg" title="{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-ios.jpg"></a></div>
 <p>{'<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'|@translate}</p>
 
 <p>
@@ -39,7 +39,7 @@ fieldset p {text-align:left;margin-top:0}
 <fieldset>
   <legend>Lightroom</legend>
 
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/lightroom.png" title="{'Piwigo Publish plugin for Lightroom'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/lightroom.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/lightroom.png" title="{'Piwigo Publish plugin for Lightroom'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/lightroom.jpg"></a></div>
 <p>
 {'Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'|@translate}
 {'The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'|@translate}
@@ -53,7 +53,7 @@ fieldset p {text-align:left;margin-top:0}
 <fieldset>
   <legend>Shotwell</legend>
 
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/shotwell.png" title="{'Piwigo publish plugin for Shotwell'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/shotwell.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/shotwell.png" title="{'Piwigo publish plugin for Shotwell'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/shotwell.jpg"></a></div>
 <p>{'Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'|@translate}</p>
 
 <p>
@@ -64,7 +64,7 @@ fieldset p {text-align:left;margin-top:0}
 
 <fieldset>
   <legend>digiKam</legend>
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/digikam.png" title="{'Piwigo publish plugin for digiKam'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/digikam.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/digikam.png" title="{'Piwigo publish plugin for digiKam'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/digikam.jpg"></a></div>
 <p>
 {'digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'|@translate}
 {'digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'|@translate}
@@ -79,7 +79,7 @@ fieldset p {text-align:left;margin-top:0}
 <fieldset>
   <legend>MacShareToPiwigo</legend>
 
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/macsharetopiwigo.jpg" title="MacShareToPiwigo"><img src="http://piwigo.org/screenshots/applications/thumbnail/macsharetopiwigo.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/macsharetopiwigo.jpg" title="MacShareToPiwigo"><img src="https://piwigo.org/screenshots/applications/thumbnail/macsharetopiwigo.jpg"></a></div>
 <p>{'Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'|@translate}</p>
 
 <p>
@@ -90,7 +90,7 @@ fieldset p {text-align:left;margin-top:0}
 <fieldset>
   <legend>iPhoto</legend>
 
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/iphoto.jpg" title="{'Piwigo export plugin for iPhoto'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/iphoto.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/iphoto.jpg" title="{'Piwigo export plugin for iPhoto'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/iphoto.jpg"></a></div>
 <p>{'iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'|@translate}</p>
 
 <p>
@@ -101,7 +101,7 @@ fieldset p {text-align:left;margin-top:0}
 <fieldset>
   <legend>Aperture</legend>
 
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/aperture.png" title="{'Piwigo export plugin for Aperture'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/aperture.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/aperture.png" title="{'Piwigo export plugin for Aperture'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/aperture.jpg"></a></div>
 <p>
 {'Aperture is a powerful tool to refine images and manage massive libraries on Mac.'|@translate}
 {'Aperture is designed for professional photographers with iPhoto simplicity.'|@translate}
@@ -116,7 +116,7 @@ fieldset p {text-align:left;margin-top:0}
 <fieldset>
   <legend>ReGalAndroid</legend>
 
-<div class="illustration"><a href="http://piwigo.org/screenshots/applications/regalandroid.png" title="ReGalAndroid"><img src="http://piwigo.org/screenshots/applications/thumbnail/regalandroid.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/regalandroid.png" title="ReGalAndroid"><img src="https://piwigo.org/screenshots/applications/thumbnail/regalandroid.jpg"></a></div>
 <p>
 {'ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'|@translate}
 {'Features include gallery browsing, album creation and photo upload.'|@translate}
