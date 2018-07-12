@@ -89,7 +89,7 @@ function check_sendmail_timeout()
  */
 function quote_check_key_list($check_key_list = array())
 {
-  return array_map(create_function('$s', 'return \'\\\'\'.$s.\'\\\'\';'), $check_key_list);
+  return array_map(function($s) { return  '\''.$s.'\'';   } , $check_key_list);
 }
 
 /*

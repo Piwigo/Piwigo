@@ -675,7 +675,7 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
 
   $datas = array();
 
-  $cat_map_callback = create_function('$m', 'global $cat_map; return $cat_map[$m[1]]["rank"];');
+  $cat_map_callback = function($m) use ($cat_map) {  return $cat_map[$m[1]]["rank"]; };
 
   foreach( $cat_map as $id=>$cat )
   {
@@ -1051,7 +1051,7 @@ SELECT id, uppercats, site_id
   $categories = query2array($query);
 
   // filling $cat_fulldirs
-  $cat_dirs_callback = create_function('$m', 'global $cat_dirs; return $cat_dirs[$m[1]];');
+  $cat_dirs_callback = function($m) use ($cat_dirs) { return $cat_dirs[$m[1]]; };
 
   $cat_fulldirs = array();
   foreach ($categories as $category)

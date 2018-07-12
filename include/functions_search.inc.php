@@ -123,7 +123,7 @@ function get_sql_search_clause($search)
 
     array_walk(
       $word_clauses,
-      create_function('&$s','$s="(".$s.")";')
+      function(&$s){ $s = "(".$s.")"; },
       );
 
     // make sure the "mode" is either OR or AND

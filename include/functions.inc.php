@@ -1399,11 +1399,7 @@ function safe_json_decode($value)
  */
 function prepend_append_array_items($array, $prepend_str, $append_str)
 {
-  array_walk(
-    $array,
-    create_function('&$s', '$s = "'.$prepend_str.'".$s."'.$append_str.'";')
-    );
-
+  array_walk($array, function(&$value, $key) use($prepend_str,$append_str) { $value = "$prepend_str$value$append_str"; } );
   return $array;
 }
 
@@ -2162,7 +2158,7 @@ SELECT COUNT(DISTINCT(com.id))
  */
 function safe_version_compare($a, $b, $op=null)
 {
-  $replace_chars = create_function('$m', 'return ord(strtolower($m[1]));');
+  $replace_chars   = function($m)  { return ord(strtolower($m[1])); };
 
   // add dot before groups of letters (version_compare does the same thing)
   $a = preg_replace('#([0-9]+)([a-z]+)#i', '$1.$2', $a);

@@ -290,7 +290,7 @@ class Template
       return false;
     }
     reset($filename_array);
-    while(list($handle, $filename) = each($filename_array))
+    foreach ($filename_array as $handle => $filename) 
     {
       if (is_null($filename))
       {
@@ -1102,7 +1102,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     // replaces echo PHP_STRING_LITERAL; with the string literal value
     $source = preg_replace_callback(
       '/\\<\\?php echo ((?:\'(?:(?:\\\\.)|[^\'])*\')|(?:"(?:(?:\\\\.)|[^"])*"));\\?\\>\\n/',
-      create_function('$matches', 'eval(\'$tmp=\'.$matches[1].\';\');return $tmp;'),
+      function($matches) { eval('$tmp='.$matches[1].';');return $tmp; }, 
       $source);
     return $source;
   }
