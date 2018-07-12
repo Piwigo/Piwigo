@@ -1004,3 +1004,6 @@ $lang['Orphans'] = 'Orvuks jäänud fotod';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s on saadaval, palun uuenda';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync saab üles laadida kogu kausta hierarhia. Kui käivitad selle uuesti, siis laetakse ainult uued fotod';
 $lang['Recipients'] = 'Saajad';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Värske Piwigo versiooni kasutamine on turvalisuse huvides oluline';
+$lang['No tag selected, no action possible.'] = 'Silti ei ole valitud, toiming ei ole võimalik';
+$lang['Select tags'] = 'Vali sildid';

@@ -41,3 +41,4 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = '予防措置として、次のプラグインは無効になりました。プラグインを有効にする前に、プラグインのアップグレードを確認してください。:';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i>に、 <b>?></b>の前に入力:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '予防措置として、次のテーマが無効になりました。テーマを有効にする前に、アップグレードを確認してください。：';
+$lang['Discover what\'s new in Piwigo %s'] = 'Piwigo %s の新しい点を見つける';

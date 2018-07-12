@@ -42,4 +42,4 @@ $lang['As a precaution, following plugins have been deactivated. You must check 
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'A(z) <i>%s</i>, elé <b>?></b>, beszúrni:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Elővigyázatosságból az alábbi témák kikapcsolásra kerültek. Frissítés előtt a témákat ellenőrizni kell, majd aktiválásra kerülhetnek:';
 
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Fedezze fel az újdonságokat a Piwigo-ban %s';
