@@ -1,0 +1,141 @@
+<h2>Wyszukiwanie</h2>
+
+<p>Domyślnie, wszystkie wyszukiwane terminy muszą wystąpić w tekście. Wyszukiwanie rozróżnia wielkość liter.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>cytowana fraza<br>
+<q>"szukaj"</q>
+</td>
+<td>Aby wyszukać zadaną frazę bez bez żadnych ingerencji, użyj cudzysłowowa.<br>
+<q>"Jerzy Waszyngton"</q></td>
+</tr>
+
+
+<tr>
+<td>którekolwiek z wyrażeń<br>
+<q>szukaj LUB (ang. "OR")</q><br>
+</td>
+<td>Aby wyszukać którąkolwiek z fraz, użyj dyrektywy OR.<br>
+<q>jan OR krzysztof</q></td>
+</tr>
+
+
+<tr>
+<td>wykluczenie<br>
+<q>NIE uwzględniaj (ang. "NOT")</q><br>
+<q>-fraza</q>
+</td>
+<td>Dodaj znak minusa lub określenie NOT przed frazą, którą nie chcesz by wystąpiła w wyszukiwanym tekście. Wyszukiwana fraza nie może składać się z samych wykluczeń oraz nie można łączyć określeń OR i NOT (<q>jan OR NOT krzysztof</q> jest niepoprawnym wyrażeniem)<br> 
+<q>Jerzy Waszyngton NOT Bush</q></td>
+</tr>
+
+<tr>
+<td>grupowanie<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(matka OR ojciec) AND (córka OR syn)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Wyszukaj tylko słowa kluczowe, bez uwzględniania tytułów i opisów zdjęć.<br>
+<q>tag:jan</q>, <q>tag:(jan OR krzysztof)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Wyszukaj tylko zdjęcia zawierające podane frazy w swoim tytule lub opisie.<br>
+<q>photo:Jan</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Wyszukaj po nazwie pliku.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Wyszukaj po autorze.<br>
+<q>author:Jan</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Przeszukaj zdjęcia po dacie ich utworzenia.<br>
+<q>taken:2003</q> zdjęcia z 2003 roku<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> zdjęcia z maja 2003 roku<br>
+<q>taken:2003..2008</q> zdjęcia zrobione pomiędzy 2003 a 2008 rokiem<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> zdjęcia zrobione po 1 stycznia 2008 roku<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Wyszukaj zdjęcia po dacie ich wysłania.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Wyszukaj zdjęcia po ich szerokości i wysokości.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Wyszukaj zdjęcia po ich rozmiarze w pikselach.<br>
+<q>size:5m</q> zwróci zdjęcia o rozmiarze 5 megapikseli<br>
+<q>size:>12m</q> zwróci zdjęcia o rozmiarze 12 megapikseli i więcej<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Wyszukaj zdjęcia na podstawie ich proporcji szerokości do wysokości.<br>
+<q>ratio:3/4 OR ratio:4/3</q> znajdź zdjęcia z aparatów kompaktowych w układzie pionowym lub poziomym<br>
+<q>ratio:>16/9</q> znajdź panoramy
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Hint: <q>score:*</q> wyszuka wszystkie zdjęcia z co najmniej jednym głosem. <q>score:</q> wyszuka zdjęcia bez żadnych głosów.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Wyszukaj zdjęcia po rozmiarze pliku<br>
+<q>filesize:1m..10m</q> znajdź pliki o rozmiarze od 1MB do 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Wyszukaj zdjęcia po ich indeksie w galerii Piwigo<br>
+<q>id:123..126</q> znajdzie zdjęcia o numerach od 123 do 126 (w rezultacie może to być od żadnego do czterech zdjęć, zależnie czy zostały jakieś pliki wcześniej usunięte).</td>
+</tr>
+
+</table>
