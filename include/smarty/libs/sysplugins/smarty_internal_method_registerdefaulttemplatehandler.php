@@ -31,7 +31,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
      */
     public function registerDefaultTemplateHandler(Smarty_Internal_TemplateBase $obj, $callback)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         if (is_callable($callback)) {
             $smarty->default_template_handler_func = $callback;
         } else {
@@ -44,6 +44,8 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
      * get default content from template or config resource handler
      *
      * @param Smarty_Template_Source $source
+     *
+     * @throws \SmartyException
      */
     public static function _getDefaultTemplate(Smarty_Template_Source $source)
     {
@@ -53,20 +55,28 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
             $default_handler = $source->smarty->default_template_handler_func;
         }
         $_content = $_timestamp = null;
-        $_return = call_user_func_array($default_handler, array($source->type, $source->name, &$_content, &$_timestamp,
-                                                                $source->smarty));
+        $_return = call_user_func_array($default_handler,
+                                        array($source->type, $source->name, &$_content, &$_timestamp, $source->smarty));
         if (is_string($_return)) {
             $source->exists = is_file($_return);
             if ($source->exists) {
                 $source->timestamp = filemtime($_return);
+            } else {
+                throw new SmartyException("Default handler: Unable to load " .
+                                          ($source->isConfig ? 'config' : 'template') .
+                                          " default file '{$_return}' for '{$source->type}:{$source->name}'");
             }
-            $source->filepath = $_return;
+            $source->name = $source->filepath = $_return;
+            $source->uid = sha1($source->filepath);
         } elseif ($_return === true) {
             $source->content = $_content;
-            $source->timestamp = $_timestamp;
             $source->exists = true;
-            $source->handler->recompiled = true;
-            $source->filepath = false;
+            $source->uid = $source->name = sha1($_content);
+            $source->handler = Smarty_Resource::load($source->smarty, 'eval');
+        } else {
+            $source->exists = false;
+            throw new SmartyException('Default handler: No ' . ($source->isConfig ? 'config' : 'template') .
+                                      " default content for '{$source->type}:{$source->name}'");
         }
     }
 }

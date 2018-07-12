@@ -36,9 +36,9 @@ class Smarty_Internal_Method_RegisterResource
      */
     public function registerResource(Smarty_Internal_TemplateBase $obj, $name, $resource_handler)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
-        $smarty->registered_resources[$name] = $resource_handler instanceof
-        Smarty_Resource ? $resource_handler : array($resource_handler, false);
+        $smarty = $obj->_getSmartyObj();
+        $smarty->registered_resources[ $name ] =
+            $resource_handler instanceof Smarty_Resource ? $resource_handler : array($resource_handler, false);
         return $obj;
     }
 }

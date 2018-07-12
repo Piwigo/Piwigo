@@ -64,7 +64,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
         $_smarty_tpl = $compiler->template;
         $_filepath = false;
         $_file = null;
-        eval('$_file = @' . $_attr['file'] . ';');
+        eval('$_file = @' . $_attr[ 'file' ] . ';');
         if (!isset($compiler->smarty->security_policy) && file_exists($_file)) {
             $_filepath = $compiler->smarty->_realpath($_file, true);
         } else {
@@ -75,7 +75,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
             }
             if (!empty($_dir)) {
                 foreach ((array) $_dir as $_script_dir) {
-                    $_path = $compiler->smarty->_realpath($_script_dir . DS . $_file, true);
+                    $_path = $compiler->smarty->_realpath($_script_dir . $compiler->smarty->ds . $_file, true);
                     if (file_exists($_path)) {
                         $_filepath = $_path;
                         break;
@@ -91,13 +91,13 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
             $compiler->smarty->security_policy->isTrustedPHPDir($_filepath);
         }
 
-        if (isset($_attr['assign'])) {
+        if (isset($_attr[ 'assign' ])) {
             // output will be stored in a smarty variable instead of being displayed
-            $_assign = $_attr['assign'];
+            $_assign = $_attr[ 'assign' ];
         }
         $_once = '_once';
-        if (isset($_attr['once'])) {
-            if ($_attr['once'] == 'false') {
+        if (isset($_attr[ 'once' ])) {
+            if ($_attr[ 'once' ] == 'false') {
                 $_once = '';
             }
         }

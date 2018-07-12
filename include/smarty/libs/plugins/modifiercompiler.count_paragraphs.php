@@ -23,5 +23,5 @@
 function smarty_modifiercompiler_count_paragraphs($params)
 {
     // count \r or \n characters
-    return '(preg_match_all(\'#[\r\n]+#\', ' . $params[0] . ', $tmp)+1)';
+    return '(preg_match_all(\'#[\r\n]+#\', ' . $params[ 0 ] . ', $tmp)+1)';
 }

@@ -14,13 +14,19 @@
  * @package    Smarty
  * @subpackage Template
  *
+ * @property int    $scope
+ * @property Smarty $smarty
+ * The following methods will be dynamically loaded by the extension handler when they are called.
+ * They are located in a corresponding Smarty_Internal_Method_xxxx class
+ *
+ * @method mixed getConfigVariable(string $varName, bool $errorEnable = true)
  * @method mixed getConfigVars(string $varName = null, bool $searchParents = true)
+ * @method mixed getGlobal(string $varName = null)
  * @method mixed getStreamVariable(string $variable)
  * @method Smarty_Internal_Data clearAssign(mixed $tpl_var)
  * @method Smarty_Internal_Data clearAllAssign()
  * @method Smarty_Internal_Data clearConfig(string $varName = null)
  * @method Smarty_Internal_Data configLoad(string $config_file, mixed $sections = null, string $scope = 'local')
- * @property int $scope
  */
 class Smarty_Internal_Data
 {
@@ -91,18 +97,15 @@ class Smarty_Internal_Data
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
-                if ($_key != '') {
-                    $this->tpl_vars[$_key] = new Smarty_Variable($_val, $nocache);
-                    if ($this->_objType == 2 && $this->scope) {
-                        $this->ext->_updateScope->updateScope($this, $_key);
-                    }
-                }
+                $this->assign($_key, $_val, $nocache);
             }
         } else {
             if ($tpl_var != '') {
-                $this->tpl_vars[$tpl_var] = new Smarty_Variable($value, $nocache);
-                if ($this->_objType == 2 && $this->scope) {
-                    $this->ext->_updateScope->updateScope($this, $tpl_var);
+                if ($this->_objType === 2) {
+                    /** @var  Smarty_Internal_Template $this */
+                    $this->_assignInScope($tpl_var, $value, $nocache);
+                } else {
+                    $this->tpl_vars[ $tpl_var ] = new Smarty_Variable($value, $nocache);
                 }
             }
         }
@@ -190,18 +193,20 @@ class Smarty_Internal_Data
     /**
      * gets the object of a Smarty variable
      *
-     * @param  string  $variable       the name of the Smarty variable
-     * @param  Smarty_Internal_Data  $_ptr           optional pointer to data object
-     * @param  boolean $searchParents search also in parent data
-     * @param bool     $error_enable
+     * @param  string               $variable      the name of the Smarty variable
+     * @param  Smarty_Internal_Data $_ptr          optional pointer to data object
+     * @param  boolean              $searchParents search also in parent data
+     * @param bool                  $error_enable
      *
      * @return Smarty_Variable|Smarty_Undefined_Variable the object of the variable
      * @deprecated since 3.1.28 please use Smarty_Internal_Data::getTemplateVars() instead.
      */
-    public function getVariable($variable = null, Smarty_Internal_Data $_ptr = null, $searchParents = true, $error_enable = true){
+    public function getVariable($variable = null, Smarty_Internal_Data $_ptr = null, $searchParents = true,
+                                $error_enable = true)
+    {
         return $this->ext->getTemplateVars->_getVariable($this, $variable, $_ptr, $searchParents, $error_enable);
     }
-    
+
     /**
      * Follow the parent chain an merge template and config variables
      *
@@ -222,6 +227,46 @@ class Smarty_Internal_Data
         if (isset($this->parent)) {
             $this->parent->_mergeVars($data);
         }
+    }
+
+    /**
+     * Return true if this instance is a Data obj
+     *
+     * @return bool
+     */
+    public function _isDataObj()
+    {
+        return $this->_objType === 4;
+    }
+
+    /**
+     * Return true if this instance is a template obj
+     *
+     * @return bool
+     */
+    public function _isTplObj()
+    {
+        return $this->_objType === 2;
+    }
+
+    /**
+     * Return true if this instance is a Smarty obj
+     *
+     * @return bool
+     */
+    public function _isSmartyObj()
+    {
+        return $this->_objType === 1;
+    }
+
+    /**
+     * Get Smarty object
+     *
+     * @return Smarty
+     */
+    public function _getSmartyObj()
+    {
+        return $this->smarty;
     }
 
     /**

@@ -109,7 +109,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         while ($this->parser->lex->yylex()) {
             if ($this->smarty->_parserdebug) {
                 echo "<pre>Line {$this->parser->lex->line} Parsing  {$this->parser->yyTokenName[$this->parser->lex->token]} Token " .
-                    htmlentities($this->parser->lex->value) . "</pre>";
+                     htmlentities($this->parser->lex->value) . "</pre>";
             }
             $this->parser->doParse($this->parser->lex->token, $this->parser->lex->value);
         }
@@ -129,8 +129,8 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         // call post compile callbacks
         foreach ($this->postCompileCallbacks as $cb) {
             $parameter = $cb;
-            $parameter[0] = $this;
-            call_user_func_array($cb[0], $parameter);
+            $parameter[ 0 ] = $this;
+            call_user_func_array($cb[ 0 ], $parameter);
         }
         // return compiled code
         return $this->prefixCompiledCode . $this->parser->retvalue . $this->postfixCompiledCode;
@@ -144,13 +144,14 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * @param array    $parameter optional parameter array
      * @param string   $key       optional key for callback
      * @param bool     $replace   if true replace existing keyed callback
+     *
      */
     public function registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
     {
         array_unshift($parameter, $callback);
         if (isset($key)) {
-            if ($replace || !isset($this->postCompileCallbacks[$key])) {
-                $this->postCompileCallbacks[$key] = $parameter;
+            if ($replace || !isset($this->postCompileCallbacks[ $key ])) {
+                $this->postCompileCallbacks[ $key ] = $parameter;
             }
         } else {
             $this->postCompileCallbacks[] = $parameter;
@@ -164,6 +165,6 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      */
     public function unregisterPostCompileCallback($key)
     {
-        unset($this->postCompileCallbacks[$key]);
+        unset($this->postCompileCallbacks[ $key ]);
     }
 }

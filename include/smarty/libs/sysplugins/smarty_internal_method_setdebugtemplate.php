@@ -31,7 +31,7 @@ class Smarty_Internal_Method_SetDebugTemplate
      */
     public function setDebugTemplate(Smarty_Internal_TemplateBase $obj, $tpl_name)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         if (!is_readable($tpl_name)) {
             throw new SmartyException("Unknown file '{$tpl_name}'");
         }

@@ -23,11 +23,11 @@
  *
  * @return string
  */
-function smarty_modifier_regex_replace($string, $search, $replace, $limit = -1)
+function smarty_modifier_regex_replace($string, $search, $replace, $limit = - 1)
 {
     if (is_array($search)) {
         foreach ($search as $idx => $s) {
-            $search[$idx] = _smarty_regex_replace_check($s);
+            $search[ $idx ] = _smarty_regex_replace_check($s);
         }
     } else {
         $search = _smarty_regex_replace_check($search);
@@ -50,8 +50,8 @@ function _smarty_regex_replace_check($search)
         $search = substr($search, 0, $pos);
     }
     // remove eval-modifier from $search
-    if (preg_match('!([a-zA-Z\s]+)$!s', $search, $match) && (strpos($match[1], 'e') !== false)) {
-        $search = substr($search, 0, - strlen($match[1])) . preg_replace('![e\s]+!', '', $match[1]);
+    if (preg_match('!([a-zA-Z\s]+)$!s', $search, $match) && (strpos($match[ 1 ], 'e') !== false)) {
+        $search = substr($search, 0, - strlen($match[ 1 ])) . preg_replace('![e\s]+!', '', $match[ 1 ]);
     }
 
     return $search;

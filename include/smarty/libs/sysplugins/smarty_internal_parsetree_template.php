@@ -88,15 +88,15 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
     {
         $code = '';
         for ($key = 0, $cnt = count($this->subtrees); $key < $cnt; $key ++) {
-            if ($this->subtrees[$key] instanceof Smarty_Internal_ParseTree_Text) {
-                $subtree = $this->subtrees[$key]->to_smarty_php($parser);
-                while ($key + 1 < $cnt && ($this->subtrees[$key + 1] instanceof Smarty_Internal_ParseTree_Text ||
-                        $this->subtrees[$key + 1]->data == '')) {
+            if ($this->subtrees[ $key ] instanceof Smarty_Internal_ParseTree_Text) {
+                $subtree = $this->subtrees[ $key ]->to_smarty_php($parser);
+                while ($key + 1 < $cnt && ($this->subtrees[ $key + 1 ] instanceof Smarty_Internal_ParseTree_Text ||
+                                           $this->subtrees[ $key + 1 ]->data == '')) {
                     $key ++;
-                    if ($this->subtrees[$key]->data == '') {
+                    if ($this->subtrees[ $key ]->data == '') {
                         continue;
                     }
-                    $subtree .= $this->subtrees[$key]->to_smarty_php($parser);
+                    $subtree .= $this->subtrees[ $key ]->to_smarty_php($parser);
                 }
                 if ($subtree == '') {
                     continue;
@@ -105,15 +105,15 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
                                       $subtree);
                 continue;
             }
-            if ($this->subtrees[$key] instanceof Smarty_Internal_ParseTree_Tag) {
-                $subtree = $this->subtrees[$key]->to_smarty_php($parser);
-                while ($key + 1 < $cnt && ($this->subtrees[$key + 1] instanceof Smarty_Internal_ParseTree_Tag ||
-                        $this->subtrees[$key + 1]->data == '')) {
+            if ($this->subtrees[ $key ] instanceof Smarty_Internal_ParseTree_Tag) {
+                $subtree = $this->subtrees[ $key ]->to_smarty_php($parser);
+                while ($key + 1 < $cnt && ($this->subtrees[ $key + 1 ] instanceof Smarty_Internal_ParseTree_Tag ||
+                                           $this->subtrees[ $key + 1 ]->data == '')) {
                     $key ++;
-                    if ($this->subtrees[$key]->data == '') {
+                    if ($this->subtrees[ $key ]->data == '') {
                         continue;
                     }
-                    $subtree = $parser->compiler->appendCode($subtree, $this->subtrees[$key]->to_smarty_php($parser));
+                    $subtree = $parser->compiler->appendCode($subtree, $this->subtrees[ $key ]->to_smarty_php($parser));
                 }
                 if ($subtree == '') {
                     continue;
@@ -121,7 +121,7 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
                 $code .= $subtree;
                 continue;
             }
-            $code .= $this->subtrees[$key]->to_smarty_php($parser);
+            $code .= $this->subtrees[ $key ]->to_smarty_php($parser);
         }
         return $code;
     }

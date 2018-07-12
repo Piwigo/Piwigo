@@ -15,6 +15,7 @@ class Smarty_Variable
      * @var mixed
      */
     public $value = null;
+
     /**
      * if true any output of this variable will be not cached
      *

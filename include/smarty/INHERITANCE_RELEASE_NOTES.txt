@@ -1,3 +1,14 @@
+3.1.31-dev
+New tags for inheritance parent and child
+{block_parent}  == {$smarty.block.parent}
+{block_child}  == {$smarty.block.child}
+
+Since 3.1.28 you can mix inheritance by extends resource with the {extends} tag.
+A template called by extends resource can extend a subtemplate or chain buy the {extends} tag.
+Since 3.1.31 this feature can be turned off by setting the new Smarty property Smarty::$extends_recursion to false.
+
+
+3.1.28
 Starting with version 3.1.28 template inheritance is no longer a compile time process.
 All {block} tag parent/child relations are resolved at run time.
 This does resolve all known existing restrictions (see below).
@@ -5,7 +16,7 @@ This does resolve all known existing restrictions (see below).
 The $smarty::$inheritance_merge_compiled_includes property has been removed.
 Any access to it is ignored.
 
-This does enable some new features:
+New features:
 
 Any code outside root {block} tags in child templates is now executed but any output will be ignored.
 
@@ -31,7 +42,16 @@ Any code outside root {block} tags in child templates is now executed but any ou
       {/if}
    {/block}
 
+{block} tags can have variable names.
 
+   {block $foo}
+        ....
+   {/block}
+
+Starting with 3.1.28 you can mix inheritance by extends resource with the {extends} tag.
+A template called by extends resource can extend a subtemplate or chain buy the {extends} tag.
+
+NOTE There is a BC break. If you used the extends resource {extends} tags have been ignored.
 
 THE FOLLOWING RESTRICTIONS ARE NO LONGER EXISTING:
 In Smarty 3.1 template inheritance is a compile time process. All the extending of {block} tags

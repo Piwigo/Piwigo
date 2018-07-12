@@ -40,59 +40,65 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         $compiler->has_code = false;
-        if ($_attr['type'] == 'xml') {
+        if ($_attr[ 'type' ] == 'xml') {
             $compiler->tag_nocache = true;
-            $save = $compiler->template->compiled->has_nocache_code;
-            $output = addcslashes($_attr['code'], "'\\");
-            $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" .
-                                                                                                                                                                    $output .
-                                                                                                                                                                    "';?>", $compiler, true)));
-            $compiler->template->compiled->has_nocache_code = $save;
+            $output = addcslashes($_attr[ 'code' ], "'\\");
+            $compiler->parser->current_buffer->append_subtree($compiler->parser,
+                                                              new Smarty_Internal_ParseTree_Tag($compiler->parser,
+                                                                                                $compiler->processNocacheCode("<?php echo '" .
+                                                                                                                              $output .
+                                                                                                                              "';?>",
+                                                                                                                              true)));
             return '';
         }
-        if ($_attr['type'] != 'tag') {
+        if ($_attr[ 'type' ] != 'tag') {
             if ($compiler->php_handling == Smarty::PHP_REMOVE) {
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_QUOTE) {
-                $output = preg_replace_callback('#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i', array($this,
-                                                                                                                                                              'quote'), $_attr['code']);
-                $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Text($output));
+                $output =
+                    preg_replace_callback('#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i',
+                                          array($this, 'quote'), $_attr[ 'code' ]);
+                $compiler->parser->current_buffer->append_subtree($compiler->parser,
+                                                                  new Smarty_Internal_ParseTree_Text($output));
                 return '';
-            } elseif ($compiler->php_handling == Smarty::PHP_PASSTHRU || $_attr['type'] == 'unmatched') {
+            } elseif ($compiler->php_handling == Smarty::PHP_PASSTHRU || $_attr[ 'type' ] == 'unmatched') {
                 $compiler->tag_nocache = true;
-                $save = $compiler->template->compiled->has_nocache_code;
-                $output = addcslashes($_attr['code'], "'\\");
-                $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" .
-                                                                                                                                                                        $output .
-                                                                                                                                                                        "';?>", $compiler, true)));
-                $compiler->template->compiled->has_nocache_code = $save;
+                $output = addcslashes($_attr[ 'code' ], "'\\");
+                $compiler->parser->current_buffer->append_subtree($compiler->parser,
+                                                                  new Smarty_Internal_ParseTree_Tag($compiler->parser,
+                                                                                                    $compiler->processNocacheCode("<?php echo '" .
+                                                                                                                                  $output .
+                                                                                                                                  "';?>",
+                                                                                                                                  true)));
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_ALLOW) {
                 if (!($compiler->smarty instanceof SmartyBC)) {
-                    $compiler->trigger_template_error('$smarty->php_handling PHP_ALLOW not allowed. Use SmartyBC to enable it', null, true);
+                    $compiler->trigger_template_error('$smarty->php_handling PHP_ALLOW not allowed. Use SmartyBC to enable it',
+                                                      null, true);
                 }
                 $compiler->has_code = true;
-                return $_attr['code'];
+                return $_attr[ 'code' ];
             } else {
                 $compiler->trigger_template_error('Illegal $smarty->php_handling value', null, true);
             }
         } else {
             $compiler->has_code = true;
             if (!($compiler->smarty instanceof SmartyBC)) {
-                $compiler->trigger_template_error('{php}{/php} tags not allowed. Use SmartyBC to enable them', null, true);
+                $compiler->trigger_template_error('{php}{/php} tags not allowed. Use SmartyBC to enable them', null,
+                                                  true);
             }
             $ldel = preg_quote($compiler->smarty->left_delimiter, '#');
             $rdel = preg_quote($compiler->smarty->right_delimiter, '#');
-            preg_match("#^({$ldel}php\\s*)((.)*?)({$rdel})#", $_attr['code'], $match);
-            if (!empty($match[2])) {
-                if ('nocache' == trim($match[2])) {
+            preg_match("#^({$ldel}php\\s*)((.)*?)({$rdel})#", $_attr[ 'code' ], $match);
+            if (!empty($match[ 2 ])) {
+                if ('nocache' == trim($match[ 2 ])) {
                     $compiler->tag_nocache = true;
                 } else {
                     $compiler->trigger_template_error("illegal value of option flag \"{$match[2]}\"", null, true);
                 }
             }
-            return preg_replace(array("#^{$ldel}\\s*php\\s*(.)*?{$rdel}#",
-                                      "#{$ldel}\\s*/\\s*php\\s*{$rdel}$#"), array('<?php ', '?>'), $_attr['code']);
+            return preg_replace(array("#^{$ldel}\\s*php\\s*(.)*?{$rdel}#", "#{$ldel}\\s*/\\s*php\\s*{$rdel}$#"),
+                                array('<?php ', '?>'), $_attr[ 'code' ]);
         }
     }
 
@@ -111,7 +117,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         $closeTag = '?>';
         if (strpos($lex->value, '<?xml') === 0) {
             $lex->is_xml = true;
-            $lex->token = Smarty_Internal_Templateparser::TP_NOCACHE;
+            $lex->phpType = 'xml';
             return;
         } elseif (strpos($lex->value, '<?') === 0) {
             $lex->phpType = 'php';
@@ -123,7 +129,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         } elseif (strpos($lex->value, '?>') === 0) {
             if ($lex->is_xml) {
                 $lex->is_xml = false;
-                $lex->token = Smarty_Internal_Templateparser::TP_NOCACHE;
+                $lex->phpType = 'xml';
                 return;
             }
             $lex->phpType = 'unmatched';
@@ -152,14 +158,15 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         $start = $lex->counter + strlen($lex->value);
         $body = true;
         if (preg_match('~' . preg_quote($closeTag, '~') . '~i', $lex->data, $match, PREG_OFFSET_CAPTURE, $start)) {
-            $close = $match[0][1];
+            $close = $match[ 0 ][ 1 ];
         } else {
             $lex->compiler->trigger_template_error("missing closing tag '{$closeTag}'");
         }
         while ($body) {
-            if (preg_match('~([/][*])|([/][/][^\n]*)|(\'[^\'\\\\]*(?:\\.[^\'\\\\]*)*\')|("[^"\\\\]*(?:\\.[^"\\\\]*)*")~', $lex->data, $match, PREG_OFFSET_CAPTURE, $start)) {
-                $value = $match[0][0];
-                $from = $pos = $match[0][1];
+            if (preg_match('~([/][*])|([/][/][^\n]*)|(\'[^\'\\\\]*(?:\\.[^\'\\\\]*)*\')|("[^"\\\\]*(?:\\.[^"\\\\]*)*")~',
+                           $lex->data, $match, PREG_OFFSET_CAPTURE, $start)) {
+                $value = $match[ 0 ][ 0 ];
+                $from = $pos = $match[ 0 ][ 1 ];
                 if ($pos > $close) {
                     $body = false;
                 } else {
@@ -168,15 +175,15 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                     if ($phpCommentStart) {
                         $phpCommentEnd = preg_match('~([*][/])~', $lex->data, $match, PREG_OFFSET_CAPTURE, $start);
                         if ($phpCommentEnd) {
-                            $pos2 = $match[0][1];
-                            $start = $pos2 + strlen($match[0][0]);
+                            $pos2 = $match[ 0 ][ 1 ];
+                            $start = $pos2 + strlen($match[ 0 ][ 0 ]);
                         }
                     }
                     while ($close > $pos && $close < $start) {
-                        if (preg_match('~' . preg_quote($closeTag, '~') .
-                                       '~i', $lex->data, $match, PREG_OFFSET_CAPTURE, $from)) {
-                            $close = $match[0][1];
-                            $from = $close + strlen($match[0][0]);
+                        if (preg_match('~' . preg_quote($closeTag, '~') . '~i', $lex->data, $match, PREG_OFFSET_CAPTURE,
+                                       $from)) {
+                            $close = $match[ 0 ][ 1 ];
+                            $from = $close + strlen($match[ 0 ][ 0 ]);
                         } else {
                             $lex->compiler->trigger_template_error("missing closing tag '{$closeTag}'");
                         }
@@ -204,6 +211,6 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
      */
     private function quote($match)
     {
-        return htmlspecialchars($match[0], ENT_QUOTES);
+        return htmlspecialchars($match[ 0 ], ENT_QUOTES);
     }
 }
