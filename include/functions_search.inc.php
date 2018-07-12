@@ -123,7 +123,7 @@ function get_sql_search_clause($search)
 
     array_walk(
       $word_clauses,
-      function(&$s){ $s = "(".$s.")"; },
+      function(&$s){ $s = "(".$s.")"; }
       );
 
     // make sure the "mode" is either OR or AND
@@ -202,7 +202,7 @@ function get_regular_search_results($search, $images_where='')
   global $conf, $logger;
 
   $logger->debug(__FUNCTION__, 'search', $search);
-  
+
   $forbidden = get_sql_condition_FandF(
         array
           (
@@ -236,14 +236,14 @@ SELECT
 
     $logger->debug(__FUNCTION__.' '.count($search_in_tags_items).' items in $search_in_tags_items');
   }
-  
+
   if (isset($search['fields']['tags']))
   {
     $tag_items = get_image_ids_for_tags(
       $search['fields']['tags']['words'],
       $search['fields']['tags']['mode']
       );
-    
+
     $logger->debug(__FUNCTION__.' '.count($tag_items).' items in $tag_items');
   }
 
@@ -263,7 +263,7 @@ SELECT DISTINCT(id)
     $query .= $forbidden.'
   '.$conf['order_by'];
     $items = array_from_query($query, 'id');
-    
+
     $logger->debug(__FUNCTION__.' '.count($items).' items in $items');
   }
 
@@ -348,7 +348,7 @@ class QSearchScope
       return false;
     return true;
   }
-  
+
   function process_char(&$ch, &$crt_token)
   {
     return false;
