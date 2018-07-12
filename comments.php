@@ -181,10 +181,7 @@ if (!empty($_GET['keyword']))
     '('.
     implode(' AND ',
             array_map(
-              create_function(
-                '$s',
-                'return "content LIKE \'%$s%\'";'
-                ),
+              function($s) {return "content LIKE \'%$s%\'"; } ,
               preg_split('/[\s,;]+/', $_GET['keyword'] )
               )
       ).

@@ -400,9 +400,9 @@ CREATE TABLE '.$temporary_tablename.'
     mass_inserts($temporary_tablename, $all_fields, $datas);
 
     if ($flags & MASS_UPDATES_SKIP_EMPTY)
-      $func_set = create_function('$s', 'return "t1.$s = IFNULL(t2.$s, t1.$s)";');
+      $func_set = function($s) { return "t1.$s = IFNULL(t2.$s, t1.$s)"; };
     else
-      $func_set = create_function('$s', 'return "t1.$s = t2.$s";');
+      $func_set = function($s) { return "t1.$s = t2.$s"; };
 
     // update of table by joining with temporary table
     $query = '
@@ -416,7 +416,7 @@ UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
       implode(
         "\n    AND ",
         array_map(
-          create_function('$s', 'return "t1.$s = t2.$s";'),
+          function($s) { return "t1.$s = t2.$s"; },
           $dbfields['primary']
           )
         );

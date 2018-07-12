@@ -377,7 +377,7 @@ SELECT
     {
       $tags_string = preg_replace_callback(
         '/(\d+)/',
-        create_function('$m', 'global $name_of_tag; return isset($name_of_tag[$m[1]]) ? $name_of_tag[$m[1]] : $m[1];'),
+        function($m) use ($name_of_tag) { return isset($name_of_tag[$m[1]]) ? $name_of_tag[$m[1]] : $m[1];} ,
         str_replace(
           ',',
           ', ',
