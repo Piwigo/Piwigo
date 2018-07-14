@@ -18,7 +18,7 @@ Extensions make Piwigo easily customizable. Icing on the cake, Piwigo is free an
 ## Requirements
 
  * A webserver (Apache or nginx recommended)
- * PHP 5.2 or greater
+ * PHP 5.3 or greater
  * MySQL 5 or greater or MariaDB equivalent
  * ImageMagick (recommended) or PHP GD
 
