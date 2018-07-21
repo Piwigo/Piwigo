@@ -1006,6 +1006,6 @@ $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run
 $lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Share / Send your photos directly from your macOS (10.10 and later) to Piwigo';
 $lang['(determined from photos)'] = '(determined from photos)';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s is available, please update';
-$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Time has come to update your Piwigo with version %s, go to %s';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'The time has come to update your Piwigo to version %s, go to %s';
 $lang['It only takes a few clicks.'] = 'It only takes a few clicks.';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Running on an up-to-date Piwigo is important for security.';
