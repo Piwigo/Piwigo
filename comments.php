@@ -541,7 +541,7 @@ SELECT *
 }
 
 $derivative_params = trigger_change('get_comments_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
-$template->assign( 'derivative_params', $derivative_params );
+$template->assign( 'comment_derivative_params', $derivative_params );
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
