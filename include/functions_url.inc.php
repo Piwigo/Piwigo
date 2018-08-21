@@ -53,8 +53,8 @@ function get_absolute_root_url($with_scheme=true)
   {
     $is_https = false;
     if (
-      (isset($_SERVER['HTTPS']) && ((strtolower($_SERVER['HTTPS']) == 'on') or ($_SERVER['HTTPS'] == 1)))
-      || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')
+      (isset($_SERVER['HTTPS']) and ((strtolower($_SERVER['HTTPS']) == 'on') or ($_SERVER['HTTPS'] == 1)))
+      or (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) and strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')
     ) {
       $is_https = true;
       $url .= 'https://';
@@ -70,8 +70,8 @@ function get_absolute_root_url($with_scheme=true)
     else
     {
       $url .= $_SERVER['HTTP_HOST'];
-      if ( (!$is_https && $_SERVER['SERVER_PORT'] != 80)
-            ||($is_https && $_SERVER['SERVER_PORT'] != 443))
+      if ( (!$is_https and $_SERVER['SERVER_PORT'] != 80)
+            or ($is_https and $_SERVER['SERVER_PORT'] != 443))
       {
         $url_port = ':'.$_SERVER['SERVER_PORT'];
         if (strrchr($url, ':') != $url_port)
