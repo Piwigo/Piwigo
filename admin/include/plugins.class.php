@@ -110,6 +110,16 @@ class plugins
     return new DummyPlugin_maintain($plugin_id);
   }
 
+  function perform_resetPreviouslyActivated()
+  {
+    $query = '
+UPDATE '.PLUGINS_TABLE.'
+SET previouslyActivated=\'false\'
+;';
+
+    pwg_query($query);
+  }
+
   /**
    * Perform requested actions
    * @param string - action
@@ -196,7 +206,7 @@ UPDATE '. PLUGINS_TABLE .'
         {
           $query = '
 UPDATE '. PLUGINS_TABLE .'
-  SET state=\'active\'
+  SET state=\'active\', previouslyActivated=\'false\'
   WHERE id=\''. $plugin_id .'\'
 ;';
           pwg_query($query);

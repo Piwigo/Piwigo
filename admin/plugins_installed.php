@@ -122,6 +122,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     'NAME' => $fs_plugin['name'],
     'VISIT_URL' => $fs_plugin['uri'],
     'VERSION' => $fs_plugin['version'],
+    'PREVIOUSLYACTIVATED' => isset($plugins->db_plugins_by_id[$plugin_id]['previouslyActivated']) ? $plugins->db_plugins_by_id[$plugin_id]['previouslyActivated'] : null,
     'DESC' => $fs_plugin['description'],
     'AUTHOR' => $fs_plugin['author'],
     'AUTHOR_URL' => @$fs_plugin['author uri'],
@@ -196,10 +197,35 @@ function cmp($a, $b)
 }
 usort($tpl_plugins, 'cmp');
 
+$previouslyActivatedPlugins = array();
+
+foreach($tpl_plugins as $key => $data)
+{
+  if ($data['PREVIOUSLYACTIVATED'] == 'true' and $data['STATE'] != 'active')
+  {
+    $previouslyActivatedPlugins[] = $data['ID'];
+  }
+}
+
+if (count($previouslyActivatedPlugins) > 0)
+{
+  $page['warnings'] = '<div class="deleteMessage">
+                        ' .count($previouslyActivatedPlugins). ' plugin(s) have been deactivated during upgrade:';
+
+  foreach($previouslyActivatedPlugins as $pluginsName)
+  {
+    $page['warnings'] .= '<span class="deactivatedPluginsSquare">'.$pluginsName.'</span>';
+  }
+
+  $page['warnings'] .= '<a class="icon-eye-off">Hide this message</a>
+                      </div>';
+}
+
 $template->assign(
   array(
     'plugins' => $tpl_plugins,
     'active_plugins' => $active_plugins,
+    'previouslyActivatedPlugins' => $previouslyActivatedPlugins,
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,
