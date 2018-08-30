@@ -674,9 +674,9 @@ function save_categories_order($categories)
 function update_global_rank()
 {
   $query = '
-SELECT id, id_uppercat, uppercats, rank, global_rank
+SELECT id, id_uppercat, uppercats, `rank`, global_rank
   FROM '.CATEGORIES_TABLE.'
-  ORDER BY id_uppercat,rank,name';
+  ORDER BY id_uppercat, `rank`, name';
 
   global $cat_map; // used in preg_replace callback
   $cat_map = array();
@@ -1442,7 +1442,7 @@ function create_virtual_category($category_name, $parent_id=null, $options=array
   {
     //what is the current higher rank for this parent?
     $query = '
-SELECT MAX(rank) AS max_rank
+SELECT MAX(`rank`) AS max_rank
   FROM '. CATEGORIES_TABLE .'
   WHERE id_uppercat '.(empty($parent_id) ? 'IS NULL' : '= '.$parent_id).' 
 ;';
@@ -1919,9 +1919,9 @@ SELECT
   $query = '
 SELECT
     category_id,
-    MAX(rank) AS max_rank
+    MAX(`rank`) AS max_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE rank IS NOT NULL
+  WHERE `rank` IS NOT NULL
     AND category_id IN ('.implode(',', $categories).')
   GROUP BY category_id
 ;';

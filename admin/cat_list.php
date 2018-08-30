@@ -295,7 +295,7 @@ $template->assign(array(
 $categories = array();
 
 $query = '
-SELECT id, name, permalink, dir, rank, status
+SELECT id, name, permalink, dir, `rank`, status
   FROM '.CATEGORIES_TABLE;
 if (!isset($_GET['parent_id']))
 {
@@ -308,7 +308,7 @@ else
   WHERE id_uppercat = '.$_GET['parent_id'];
 }
 $query.= '
-  ORDER BY rank ASC
+  ORDER BY `rank` ASC
 ;';
 $categories = hash_from_query($query, 'id');
 

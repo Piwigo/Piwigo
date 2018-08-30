@@ -143,11 +143,11 @@ SELECT
     representative_ext,
     width, height, rotation,
     name,
-    rank
+    `rank`
   FROM '.IMAGES_TABLE.'
     JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
   WHERE category_id = '.$page['category_id'].'
-  ORDER BY rank
+  ORDER BY `rank`
 ;';
 $result = pwg_query($query);
 if (pwg_db_num_rows($result) > 0)

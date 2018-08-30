@@ -178,7 +178,7 @@ SELECT id
 
   // let's see if some categories already have some sub-categories...
   $query = '
-SELECT id_uppercat, MAX(rank)+1 AS next_rank
+SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
   FROM '.CATEGORIES_TABLE.'
   GROUP BY id_uppercat';
   $result = pwg_query($query);
