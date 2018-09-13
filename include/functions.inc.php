@@ -373,6 +373,10 @@ function str2url($str)
     $res = str_replace(' ','_', $safe);
   }
 
+  if (mb_strlen($res) > 64) {
+    $res = mb_substr($res, 0, 64);
+  }
+
   return $res;
 }
 
