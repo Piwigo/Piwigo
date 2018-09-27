@@ -610,7 +610,7 @@ function get_fs_directories($path, $recursive = true)
       '.', '..', '.svn',
       'thumbnail', 'pwg_high',
       'pwg_representative',
-      'pwg_format',
+      $conf['format_dir'],
       )
     );
   $exclude_folders = array_flip($exclude_folders);
