@@ -343,6 +343,9 @@ function ws_images_getInfo($params, $service)
 {
   global $user, $conf;
 
+  # This is called to retrieve all details for an image, so is reasonable to assume the user is viewing the image.
+  pwg_log($params['image_id'], 'picture');
+
   $query='
 SELECT *
   FROM '. IMAGES_TABLE .'
@@ -1905,7 +1908,7 @@ function ws_images_listOrphans($params, $service)
 {
     global $conf, $logger;
 
-    $logger->debug(__FUNCTION__, 'WS', $params);
+    # $logger->debug(__FUNCTION__, 'WS', $params);
 
     $images = array();
 

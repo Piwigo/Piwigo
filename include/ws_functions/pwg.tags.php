@@ -78,6 +78,17 @@ function ws_tags_getAdminList($params, &$service)
  */
 function ws_tags_getImages($params, &$service)
 {
+  global $page;
+
+    if(count($params['tag_id']) == 1)
+    {
+       # This is called to retrieve all images in just one tag, so is reasonable to assume the user is viewing the tag contents
+       $page['section'] = 'tags';
+       $page['tag_ids'] = $params['tag_id'];
+       pwg_log();
+    }
+
+
   // first build all the tag_ids we are interested in
   $tags = find_tags($params['tag_id'], $params['tag_url_name'], $params['tag_name']);
   $tags_by_id = array();

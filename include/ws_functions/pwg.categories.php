@@ -18,7 +18,15 @@
  */
 function ws_categories_getImages($params, &$service)
 {
-  global $user, $conf;
+  global $user, $conf, $page;
+
+  if(count($params['cat_id']) == 1)
+  {
+     # This is called to retrieve all images in just one category, so is reasonable to assume the user is viewing the category contents
+     $page['section'] = 'categories';
+     $page['category']['id'] = $params['cat_id'][0];
+     pwg_log();
+  }
 
   $images = array();
 
