@@ -452,19 +452,29 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
     'score' => $image_row['rating_score'],
     'count' => 0,
     'average' => null,
+    'my_rating' => null,
     );
 	if (isset($rating['score']))
 	{
 		$query = '
-SELECT COUNT(rate) AS count, ROUND(AVG(rate),2) AS average
-  FROM '. RATE_TABLE .'
-  WHERE element_id = '. $image_row['id'] .'
-;';
+            SELECT COUNT(rate) AS count, ROUND(AVG(rate),2) AS average
+              FROM '. RATE_TABLE .'
+              WHERE element_id = '. $image_row['id'] .'
+            ;';
 		$row = pwg_db_fetch_assoc(pwg_query($query));
+
+		$query = '
+            SELECT rate as my_rating
+              FROM '. RATE_TABLE .'
+              WHERE element_id = '. $image_row['id'] .'
+              AND user_id = '.$user['id'].'
+            ;';
+        $rowB = pwg_db_fetch_assoc(pwg_query($query));
 
 		$rating['score'] = (float)$rating['score'];
 		$rating['average'] = (float)$row['average'];
 		$rating['count'] = (int)$row['count'];
+		$rating['my_rating'] = (int)$rowB['my_rating'];
 	}
 
   //---------------------------------------------------------- related comments
