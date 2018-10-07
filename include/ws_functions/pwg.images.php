@@ -1892,4 +1892,65 @@ function ws_images_deleteOrphans($params, $service)
     'nb_orphans' => count(get_orphans()),
     );
 }
+
+
+/**
+ * API method
+ * Returns all orphaned images
+ * @param mixed[] $params
+ *    @option int per_page
+ *    @option int page
+ */
+function ws_images_listOrphans($params, $service)
+{
+    global $conf, $logger;
+
+    $logger->debug(__FUNCTION__, 'WS', $params);
+
+    $images = array();
+
+    $query = '
+    SELECT
+        SQL_CALC_FOUND_ROWS id
+      FROM '.IMAGES_TABLE.'
+        LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+      WHERE category_id is null
+      ORDER BY id ASC
+      LIMIT '. $params['per_page'] .'
+          OFFSET '. ($params['per_page']*$params['page']) .'
+    ;';
+
+  $result = pwg_query($query);
+
+  while ($row = pwg_db_fetch_assoc($result))
+    {
+      $image = array();
+      foreach (array('id') as $k)
+      {
+        if (isset($row[$k]))
+        {
+          $image[$k] = (int)$row[$k];
+        }
+      }
+      $images[] = $image;
+    }
+
+  list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+
+  return array(
+    'paging' => new PwgNamedStruct(
+      array(
+        'page' => $params['page'],
+        'per_page' => $params['per_page'],
+        'count' => count($images),
+        'total_count' => $total_images
+        )
+      ),
+    'images' => new PwgNamedArray(
+      $images, 'image',
+      ws_std_get_image_xml_attributes()
+      )
+    );
+}
+
 ?>
