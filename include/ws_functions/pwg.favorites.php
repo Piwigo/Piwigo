@@ -78,6 +78,7 @@ function ws_favorites_list_contents($params, $service)
   $query = '
   SELECT SQL_CALC_FOUND_ROWS image_id FROM '.FAVORITES_TABLE.'
     WHERE user_id = '.$user['id'].'
+    ORDER BY image_id ASC
     LIMIT '. $params['per_page'] .'
     OFFSET '. ($params['per_page']*$params['page']) .'
   ;';
