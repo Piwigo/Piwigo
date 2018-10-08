@@ -333,8 +333,8 @@ function ws_addDefaultMethods( $arr )
       array('post_only'=>true)
     );
     $service->addMethod(
-      'pwg.favorites.list',
-      'ws_favorites_list_contents',
+      'pwg.favorites.getList',
+      'ws_favorites_get_list',
       array(
         'per_page' =>     array('default'=>100,
                                         'maxValue'=>$conf['ws_max_images_per_page'],
@@ -555,8 +555,8 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
-      'pwg.images.listOrphans',
-      'ws_images_listOrphans',
+      'pwg.images.getOrphans',
+      'ws_images_getOrphans',
       array(
           'per_page' =>     array('default'=>100,
                                   'maxValue'=>$conf['ws_max_images_per_page'],
