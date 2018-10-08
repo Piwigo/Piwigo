@@ -69,7 +69,7 @@ function ws_favorites_remove_image($params, $service)
  *    @option int per_page
  *    @option int page
  */
-function ws_favorites_list_contents($params, $service)
+function ws_favorites_get_list($params, $service)
 {
   global $user, $conf;
 

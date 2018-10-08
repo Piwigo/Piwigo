@@ -1904,7 +1904,7 @@ function ws_images_deleteOrphans($params, $service)
  *    @option int per_page
  *    @option int page
  */
-function ws_images_listOrphans($params, $service)
+function ws_images_getOrphans($params, $service)
 {
     global $conf, $logger;
 
