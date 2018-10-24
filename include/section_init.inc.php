@@ -224,7 +224,7 @@ $forbidden = get_sql_condition_FandF(
 // +-----------------------------------------------------------------------+
 // |                              category                                 |
 // +-----------------------------------------------------------------------+
-if ('categories' == $page['section'])
+if ($page['section'] == 'categories')
 {
   if (isset($page['category']))
   {
