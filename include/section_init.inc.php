@@ -180,7 +180,7 @@ $page['nb_image_page'] = $user['nb_image_page'];
 // if flat mode is active, we must consider the image set as a standard set
 // and not as a category set because we can't use the #image_category.rank :
 // displayed images are not directly linked to the displayed category
-if ('categories' == $page['section'] and !isset($page['flat']))
+if ($page['section'] == 'categories' and !isset($page['flat']))
 {
   $conf['order_by'] = $conf['order_by_inside_category'];
 }
