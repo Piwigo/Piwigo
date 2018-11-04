@@ -38,3 +38,4 @@ $lang['As a precaution, following themes have been deactivated. You must check f
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'בתוך <i>%s</i>, לפני <b>?></b>, הכנס:';
 $lang['All sub-albums of private albums become private'] = 'כל אלבומי משנה של אלבומים פרטיים יהפכו לפרטים';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'התוספים הבאים בוטלו כאמצעי זהירות, בדוק אפשרות לעדכונם טרם הפעלתם המחודשת:';
+$lang['Discover what\'s new in Piwigo %s'] = 'גלו מה התחדש בפיוויגו %s';
