@@ -1007,3 +1007,5 @@ $lang['Recipients'] = 'Saajad';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Värske Piwigo versiooni kasutamine on turvalisuse huvides oluline';
 $lang['No tag selected, no action possible.'] = 'Silti ei ole valitud, toiming ei ole võimalik';
 $lang['Select tags'] = 'Vali sildid';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Turvalisuse huvides autenteerimise võti administraatorite puhul ei toimi.';
+$lang['(determined from photos)'] = '(määratud fotode järgi)';
