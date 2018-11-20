@@ -569,19 +569,19 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
-      'pwg.images.getOrphans',
-      'ws_images_getOrphans',
+      'pwg.images.listOrphans',
+      'ws_images_listOrphans',
       array(
-          'per_page' =>     array('default'=>100,
-                                  'maxValue'=>$conf['ws_max_images_per_page'],
-                                  'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
-          'page' =>         array('default'=>0,
-                                  'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
-        ),
-      'Lists orphaned images',
+          'per_page' => array('default' => 100,
+                              'maxValue' => $conf['ws_max_images_per_page'],
+                              'type' => WS_TYPE_INT|WS_TYPE_POSITIVE),
+          'page' => array('default'=>0,
+                          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE),
+      ),
+      'Lists orphaned images.',
       $ws_functions_root . 'pwg.images.php',
-      array('admin_only'=>true, 'post_only'=>true)
-    );
+      array('admin_only'=>true, 'post_only'=>false)
+  );
 
   $service->addMethod(
       'pwg.images.deleteOrphans',
@@ -594,6 +594,8 @@ function ws_addDefaultMethods( $arr )
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+
+
 
   $service->addMethod(
       'pwg.categories.getAdminList',
