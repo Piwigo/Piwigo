@@ -119,6 +119,11 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
       {
         $image[$k] = $row[$k];
       }
+      foreach (array('latitude', 'longitude') as $k)
+      {
+        $image[$k] = (double)$row[$k];
+      }
+
       $image = array_merge($image, ws_std_get_urls($row));
 
       $image_cats = array();
