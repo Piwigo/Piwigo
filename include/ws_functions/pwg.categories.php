@@ -31,6 +31,7 @@
  *    @option int page
  *    @option string order (optional)
  *    @option bool derivatives (optional)
+ *    @option bool categories (optional)
  */
 function ws_categories_getImages($params, &$service)
 {
@@ -127,33 +128,36 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
 
       $image = array_merge($image, ws_std_get_urls($row, $params['derivatives']));
 
-      $image_cats = array();
-      foreach (explode(',', $row['cat_ids']) as $cat_id)
+      if ($params['categories']) 
       {
-        $url = make_index_url(
-          array(
-            'category' => $cats[$cat_id],
-            )
-          );
-        $page_url = make_picture_url(
-          array(
-            'category' => $cats[$cat_id],
-            'image_id' => $row['id'],
-            'image_file' => $row['file'],
-            )
-          );
-        $image_cats[] = array(
-          'id' => (int)$cat_id,
-          'url' => $url,
-          'page_url' => $page_url,
+          $image_cats = array();
+        foreach (explode(',', $row['cat_ids']) as $cat_id)
+        {
+          $url = make_index_url(
+            array(
+              'category' => $cats[$cat_id],
+              )
+            );
+          $page_url = make_picture_url(
+            array(
+              'category' => $cats[$cat_id],
+              'image_id' => $row['id'],
+              'image_file' => $row['file'],
+              )
+            );
+          $image_cats[] = array(
+            'id' => (int)$cat_id,
+            'url' => $url,
+            'page_url' => $page_url,
+            );
+        }
+
+        $image['categories'] = new PwgNamedArray(
+          $image_cats,
+          'category',
+          array('id', 'url', 'page_url')
           );
       }
-
-      $image['categories'] = new PwgNamedArray(
-        $image_cats,
-        'category',
-        array('id', 'url', 'page_url')
-        );
       $images[] = $image;
     }
   }
