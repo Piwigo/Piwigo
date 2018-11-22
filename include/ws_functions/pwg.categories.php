@@ -30,6 +30,7 @@
  *    @option int per_page
  *    @option int page
  *    @option string order (optional)
+ *    @option bool derivatives (optional)
  */
 function ws_categories_getImages($params, &$service)
 {
@@ -124,7 +125,7 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
         $image[$k] = (double)$row[$k];
       }
 
-      $image = array_merge($image, ws_std_get_urls($row));
+      $image = array_merge($image, ws_std_get_urls($row, $params['derivatives']));
 
       $image_cats = array();
       foreach (explode(',', $row['cat_ids']) as $cat_id)
