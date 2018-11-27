@@ -463,6 +463,31 @@ UPDATE '.USER_INFOS_TABLE.'
     $ip = substr($ip, 0, 15);
   }
 
+  // solves issue 945
+  // If plugin developers add their own sections, Piwigo tries to put them into history table. Since the section
+  // column is an enum, php issues a warning. It might be the server is configured to hide those warnings, so the
+  // user won't see it. Piwigo core should make a decision if it is better to refuse the insert at all if section is
+  // not valid, depending on possible future use of the history table
+  if(isset($page['section'])) {
+    //enum: 'categories','tags','search','list','favorites','most_visited','best_rated','recent_pics','recent_cats'
+    if(in_array(
+        $page['section'],
+        array('categories',
+          'tags',
+          'search',
+          'list',
+          'favorites',
+          'most_visited',
+          'best_rated',
+          'recent_pics',
+          'recent_cats'
+          )
+        )
+    ){
+      $mySection = $page['section'];
+    }
+  }
+  
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (
@@ -484,7 +509,7 @@ INSERT INTO '.HISTORY_TABLE.'
     CURRENT_TIME,
     '.$user['id'].',
     \''.$ip.'\',
-    '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
+    '.(isset($mySection) ? "'".$mySection."'" : 'NULL').',
     '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
