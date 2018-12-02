@@ -37,4 +37,4 @@ $lang['User permissions and group permissions have been erased'] = 'Käyttäjien
 $lang['You do not have access rights to run upgrade'] = 'Sinulla ei ole oikeutta ajaa päivitystä';
 $lang['total SQL time'] = 'Totaali SQL-aika';
 $lang['total upgrade time'] = 'Totaali päivitysaika';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Mitä uutta on Piwigo %s:ssä';
