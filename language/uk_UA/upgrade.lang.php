@@ -37,4 +37,4 @@ $lang['Upgrade from version %s to %s'] = 'Оновлення з версії %s 
 $lang['Upgrade informations'] = 'Інформація оновлення';
 $lang['User permissions and group permissions have been erased'] = 'Користувачі та групи дозволів було видалено';
 $lang['You do not have access rights to run upgrade'] = 'У вас немає прав доступу для запуску оновлення';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Дізнайтеся, що нового в Piwigo %s';
