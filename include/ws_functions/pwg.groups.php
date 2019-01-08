@@ -135,11 +135,12 @@ DELETE
   pwg_query($query);
 
   $query = '
-SELECT name
+SELECT id, name
   FROM '. GROUPS_TABLE .'
   WHERE id IN('. $group_id_string  .')
 ;';
   $groupnames = array_from_query($query, 'name');
+  $groupids = array_from_query($query, 'id');
 
   // destruction of the group
   $query = '
