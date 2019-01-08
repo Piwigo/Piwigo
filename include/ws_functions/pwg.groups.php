@@ -149,6 +149,8 @@ DELETE
 ;';
   pwg_query($query);
 
+  trigger_notify('delete_group', $groupids);
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   invalidate_user_cache();
 

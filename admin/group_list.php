@@ -157,14 +157,15 @@ SELECT name
       WHERE group_id = '.$group.'
     ;';
       pwg_query($query);
-    
+
       $query = '
-    SELECT name
+    SELECT id, name
       FROM '.GROUPS_TABLE.'
       WHERE id = '.$group.'
     ;';
       list($groupname) = pwg_db_fetch_row(pwg_query($query));
-      
+      $groupids = array_from_query($query, "id");
+
       // destruction of the group
       $query = '
     DELETE
@@ -172,7 +173,9 @@ SELECT name
       WHERE id = '.$group.'
     ;';
       pwg_query($query);
-    
+
+      trigger_notify('delete_group', $groupids);
+
       $page['infos'][] = l10n('group "%s" deleted', $groupname);
     }
   }
