@@ -139,8 +139,10 @@ SELECT id, name
   FROM '. GROUPS_TABLE .'
   WHERE id IN('. $group_id_string  .')
 ;';
-  $groupnames = array_from_query($query, 'name');
-  $groupids = array_from_query($query, 'id');
+
+  $groups = query2array($query, 'id', 'name');
+  $groupnames = array_values($groups);
+  $groupids = array_keys($groups);
 
   // destruction of the group
   $query = '

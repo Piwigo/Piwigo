@@ -163,8 +163,10 @@ SELECT name
       FROM '.GROUPS_TABLE.'
       WHERE id = '.$group.'
     ;';
-      list($groupname) = pwg_db_fetch_row(pwg_query($query));
-      $groupids = array_from_query($query, "id");
+
+      $ArrayGroups = query2array($query, 'id', 'name');
+      $groupids = array_keys($ArrayGroups);
+      list($groupname) = array_values($ArrayGroups);
 
       // destruction of the group
       $query = '
