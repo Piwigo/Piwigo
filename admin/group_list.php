@@ -164,9 +164,9 @@ SELECT name
       WHERE id = '.$group.'
     ;';
 
-      $ArrayGroups = query2array($query, 'id', 'name');
-      $groupids = array_keys($ArrayGroups);
-      list($groupname) = array_values($ArrayGroups);
+      $group_list = query2array($query, 'id', 'name');
+      $groupids = array_keys($group_list);
+      list($groupname) = array_values($group_list);
 
       // destruction of the group
       $query = '

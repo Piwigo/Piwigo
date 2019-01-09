@@ -140,9 +140,9 @@ SELECT id, name
   WHERE id IN('. $group_id_string  .')
 ;';
 
-  $groups = query2array($query, 'id', 'name');
-  $groupnames = array_values($groups);
-  $groupids = array_keys($groups);
+  $group_list = query2array($query, 'id', 'name');
+  $groupnames = array_values($group_list);
+  $groupids = array_keys($group_list);
 
   // destruction of the group
   $query = '
