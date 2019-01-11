@@ -711,7 +711,25 @@ function ws_addDefaultMethods( $arr )
       $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
-  
+
+    $service->addMethod(
+        'pwg.categories.setRank',
+        'ws_categories_setRank',
+        array(
+          'category_id' =>  array('type'=>WS_TYPE_ID),
+                                  //'flags'=>WS_PARAM_FORCE_ARRAY),
+          'rank' =>         array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL),
+          ),
+        'Changes the rank of an album
+        <br><br>If you provide a list for category_id:
+        <ul>
+        <li>rank becomes useless, only the order of the image_id list matters</li>
+        <li>you are supposed to provide the list of all categories_ids belonging to the album.
+        </ul>.',
+        $ws_functions_root . 'pwg.categories.php',
+        array('admin_only'=>true, 'post_only'=>true)
+      );
+
   $service->addMethod(
       'pwg.plugins.getList',
       'ws_plugins_getList',

@@ -587,6 +587,62 @@ function ws_categories_add($params, &$service)
 
 /**
  * API method
+ * Set the rank of a category
+ * @param mixed[] $params
+ *    @option int cat_id
+ *    @option int rank
+ */
+function ws_categories_setRank($params, &$service)
+{
+  global $logger;
+  // does the category really exist?
+  //$logger->info(count($params['category_id']));
+
+  $query = '
+   SELECT id, id_uppercat, rank
+   FROM '.CATEGORIES_TABLE.'
+   WHERE id = '.$params['category_id'].';';
+   $categories = query2array($query);
+
+   if (count($categories) == 0)
+   {
+     return new PwgError(404, 'category_id not found');
+   }
+
+   $category = $categories[0];
+   //$category['id_uppercat'];
+
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
+    AND id != '.$params['category_id'].'
+  ORDER BY `rank` ASC
+;';
+
+    $order_old = query2array($query, null, 'id');
+    $order_new = array();
+    $i = 1;
+    foreach ($order_old as $category_id)
+    {
+      if($i == $params['rank']){
+        $order_new[] = $params['category_id'];
+      }
+      $order_new[] = $category_id;
+      ++$i;
+    }
+    if(count($order_new) < count($order_old)+1)
+    {
+      $order_new[] = $params['category_id'];
+    }
+    //$logger->info('i : '.$i.', tableau 1 : '.implode(';',$order_old).', tableau 2 :'.implode(';',$order_new));
+    // include function to set the global rank
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    save_categories_order($order_new);
+}
+
+/**
+ * API method
  * Sets details of a category
  * @param mixed[] $params
  *    @option int cat_id
