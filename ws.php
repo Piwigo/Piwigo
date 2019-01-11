@@ -716,9 +716,10 @@ function ws_addDefaultMethods( $arr )
         'pwg.categories.setRank',
         'ws_categories_setRank',
         array(
-          'category_id' =>  array('type'=>WS_TYPE_ID),
-                                  //'flags'=>WS_PARAM_FORCE_ARRAY),
-          'rank' =>         array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL),
+          'category_id' =>  array('type'=>WS_TYPE_ID,
+                                  'flags'=>WS_PARAM_FORCE_ARRAY),
+          'rank' =>         array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL, 
+                                  'flags'=>WS_PARAM_OPTIONAL),
           ),
         'Changes the rank of an album
         <br><br>If you provide a list for category_id:
