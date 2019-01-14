@@ -594,7 +594,6 @@ function ws_categories_add($params, &$service)
  */
 function ws_categories_setRank($params, &$service)
 {
-  global $logger;
   // does the category really exist?
   $query = '
    SELECT id, id_uppercat, rank
@@ -607,7 +606,6 @@ function ws_categories_setRank($params, &$service)
      return new PwgError(404, 'category_id not found');
    }
 
-
    $category = $categories[0];
 
    //check the number of category given by the user
@@ -616,27 +614,26 @@ function ws_categories_setRank($params, &$service)
      $order_new = $params['category_id'];
      $order_new_by_id = $order_new;
      sort($order_new_by_id, SORT_NUMERIC);
-     $logger->info(implode(',',$order_new_by_id));
 
      $query = '
-     SELECT id
+  SELECT id
      FROM '.CATEGORIES_TABLE.'
      WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
-     ORDER BY `id` ASC;';
+     ORDER BY `id` ASC
+  ;';
 
      $cat_asc = query2array($query, null, 'id');
-     $logger->info(implode(',',$cat_asc));
+
      if(strcmp(implode(',',$cat_asc), implode(',',$order_new_by_id)) !==0)
      {
-        $logger->info(implode(',',$order_new_by_id));
         return new PwgError(WS_ERR_INVALID_PARAM, 'you need to provide all sub-category ids for a given category');
      }
+   }
+   else
+   {
+     $params['category_id'] = implode($params['category_id']);
 
-   }else{
-
-   $params['category_id'] = implode($params['category_id']);
-
-  $query = '
+     $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
@@ -646,16 +643,19 @@ SELECT id
 
     $order_old = query2array($query, null, 'id');
     $order_new = array();
+    $was_inserted = false;
     $i = 1;
     foreach ($order_old as $category_id)
     {
-      if($i == $params['rank']){
+      if($i == $params['rank'])
+      {
         $order_new[] = $params['category_id'];
+        $was_inserted = true;
       }
       $order_new[] = $category_id;
       ++$i;
     }
-    if(count($order_new) < count($order_old)+1)
+    if($was_inserted)
     {
       $order_new[] = $params['category_id'];
     }
