@@ -873,7 +873,7 @@ function create_user_infos($user_ids, $override_values=null)
       }
 
       $insert = array_merge(
-        $default_user,
+        array_map('pwg_db_real_escape_string', $default_user),
         array(
           'user_id' => $user_id,
           'status' => $status,
