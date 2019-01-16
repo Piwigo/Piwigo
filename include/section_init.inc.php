@@ -338,6 +338,15 @@ else
 
     $items = get_image_ids_for_tags($page['tag_ids']);
 
+    if (count($items) == 0)
+    {
+      $logger->info(
+        'attempt to see the name of the tag #'.implode(', #', $page['tag_ids'])
+        .' from the address : '.$_SERVER['REMOTE_ADDR']
+      );
+      access_denied();
+    }
+
     $page = array_merge(
       $page,
       array(
