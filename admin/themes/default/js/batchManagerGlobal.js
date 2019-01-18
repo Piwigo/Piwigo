@@ -334,7 +334,58 @@ jQuery("#action_delete input[name=confirm_deletion]").change(function() {
   jQuery("#action_delete span.errors").hide();
 });
 
+  jQuery('#sync_md5sum').click(function(e) {
+	jQuery(this).hide();
+  jQuery('#add_md5sum').show();
 
+	var deleteBlockSize = Math.min(
+    Number((jQuery('#md5sum_to_add').data('origin') / 2).toFixed()),
+    1000
+  );
+
+	add_md5sum_block(deleteBlockSize);
+
+	return false;
+});
+
+function add_md5sum_block(blockSize){
+	console.log('test');
+	jQuery.ajax({
+    url: "ws.php?format=json&method=pwg.images.setMd5sum",
+    type:"POST",
+    dataType: "json",
+    data: {
+      pwg_token: jQuery("input[name=pwg_token").val(),
+      block_size: blockSize
+    },
+    success:function(data) {
+      jQuery('#md5sum_to_add').html(data.result.nb_wihout_md5sum);
+
+      var percent_remaining = Number(
+        (data.result.nb_wihout_md5sum * 100 / jQuery('#md5sum_to_add').data('origin')).toFixed()
+      );
+      var percent_done = 100 - percent_remaining;
+      jQuery('#md5sum_added').html(percent_done);
+
+      if (data.result.nb_wihout_md5sum > 0) {
+        add_md5sum_block();
+      }
+      else {
+        // time to refresh the whole page
+        var redirect_to = 'admin.php?page=batch_manager';
+        redirect_to += '&action=sync_md5sum';
+        redirect_to += '&nb_md5sum_added='+jQuery('#md5sum_to_add').data('origin');
+
+        document.location = redirect_to;
+      }
+    },
+    error:function(XMLHttpRequest) {
+      jQuery('#add_md5sum').hide();
+      jQuery('#add_md5sum_error').show().html('error '+XMLHttpRequest.status+' : '+XMLHttpRequest.statusText);
+    }
+  });
+}
+//----------------------------------------------------
 jQuery('#delete_orphans').click(function(e) {
   jQuery(this).hide();
   jQuery('#orphans_deletion').show();

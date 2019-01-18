@@ -159,7 +159,7 @@ function ws_addDefaultMethods( $arr )
       'pwg.categories.getImages',
       'ws_categories_getImages',
       array_merge(array(
-        'cat_id' =>     array('default'=>null, 
+        'cat_id' =>     array('default'=>null,
                               'flags'=>WS_PARAM_FORCE_ARRAY,
                               'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'recursive' =>  array('default'=>false,
@@ -509,6 +509,18 @@ function ws_addDefaultMethods( $arr )
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+
+    $service->addMethod(
+        'pwg.images.setMd5sum',
+        'ws_images_setMd5sum',
+        array(
+          'block_size' => array('default'=>1000, 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+          'pwg_token' =>  array(),
+          ),
+        'Set md5sum column, by blocks. Returns how many md5sums were added and how many are remaining.',
+        $ws_functions_root . 'pwg.images.php',
+        array('admin_only'=>true, 'post_only'=>true)
+      );
 
   $service->addMethod(
       'pwg.images.deleteOrphans',

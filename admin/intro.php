@@ -53,6 +53,27 @@ $tabsheet->assign();
 // |                                actions                                |
 // +-----------------------------------------------------------------------+
 
+//check if images have no md5sum in database
+$query = '
+SELECT *
+  FROM '.CATEGORIES_TABLE.'
+  WHERE dir is not null
+;';
+
+if (count(query2array($query)) > 0)
+{
+  $query = '
+  SELECT *
+    FROM '.IMAGES_TABLE.'
+    WHERE storage_category_id is not null AND md5sum is null
+  ;';
+
+  if (count(query2array($query)) > 0)
+  {
+    $page['warnings'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('some md5sum are not set.').'<i class="icon-right"></i></a>';
+  }
+}
+
 // Check for upgrade : code inspired from punbb
 if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
 {

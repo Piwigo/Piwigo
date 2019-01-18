@@ -1809,6 +1809,30 @@ function ws_images_checkUpload($params, $service)
 
 /**
  * API method
+ * add md5sum at photos, by block. Returns how md5sum were added and how many are remaining.
+ * @param mixed[] $params
+ *    @option int block_size
+ */
+function ws_images_setMd5sum($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $md5sum_ids_to_add = get_photos_no_md5sum();
+  $added_count = add_md5sum($md5sum_ids_to_add);
+
+  return array(
+    'nb_added' => $added_count,
+    'nb_wihout_md5sum' => count(get_photos_no_md5sum()),
+    );
+}
+
+/**
+ * API method
  * Deletes orphan photos, by block. Returns how many orphans were deleted and how many are remaining.
  * @param mixed[] $params
  *    @option int block_size

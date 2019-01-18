@@ -275,6 +275,7 @@ $(document).ready(function() {
     jQuery("#empty_caddie").toggle(jQuery(this).val() == "caddie");
     jQuery("#duplicates_options").toggle(jQuery(this).val() == "duplicates");
     jQuery("#delete_orphans").toggle(jQuery(this).val() == "no_album");
+		jQuery("#sync_md5sum").toggle(jQuery(this).val() == "no_sync_md5sum");
   });
 });
 
@@ -348,6 +349,17 @@ var sliders = {
 {if $NB_ORPHANS > 0}
         <a id="delete_orphans" href="#" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'no_album'}display:none{/if}" class="icon-trash">{'Delete %d orphan photos'|translate:$NB_ORPHANS}</a>
 {/if}
+{if $NB_NO_MD5SUM > 0}
+<a id="sync_md5sum" href="#" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'no_sync_md5sum'}display:none{/if}" class="icon-arrows-cw">{'Compute %d mising check sums'|translate:{$NB_NO_MD5SUM}}</a>
+{/if}
+
+				<span id="add_md5sum" style="display:none">
+					<img class="loading" src="themes/default/images/ajax-loader-small.gif">
+					<span id="md5sum_added">0</span>% -
+					<span id="md5sum_to_add" data-origin="{$NB_NO_MD5SUM}">{$NB_NO_MD5SUM}</span>
+				</span>
+
+				<span id="add_md5sum_error" class="errors" style="display:none"></span>
 
         <span id="orphans_deletion" style="display:none">
           <img class="loading" src="themes/default/images/ajax-loader-small.gif">
