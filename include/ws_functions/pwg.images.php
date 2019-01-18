@@ -1822,12 +1822,12 @@ function ws_images_setMd5sum($params, $service)
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
-  $md5sum_ids_to_add = get_photos_no_md5sum();
+  $md5sum_ids_to_add = array_slice(get_photos_no_md5sum(), 0, $params['block_size']);
   $added_count = add_md5sum($md5sum_ids_to_add);
 
   return array(
     'nb_added' => $added_count,
-    'nb_wihout_md5sum' => count(get_photos_no_md5sum()),
+    'nb_no_md5sum' => count(get_photos_no_md5sum()),
     );
 }
 

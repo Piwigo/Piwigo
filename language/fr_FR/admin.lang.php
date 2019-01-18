@@ -794,6 +794,7 @@ $lang['Last import'] = 'Dernier import';
 $lang['With no album'] = 'Sans album';
 $lang['With no tag'] = 'Sans tag';
 $lang['With no virtual album'] = 'Sans album virtuel';
+$lang['No check sums'] = 'Sans somme de contrôle';
 $lang['Predefined filter'] = 'Filtre prédéfini';
 $lang['Add tags'] = "Ajouter les tags";
 $lang['Synchronize metadata'] = "Synchroniser les méta-données";

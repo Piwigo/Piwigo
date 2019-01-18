@@ -80,14 +80,18 @@ DELETE FROM '.CADDIE_TABLE.'
     }
   }
 
-  if ('sync_md5sum' == $_GET['action'])
+  if ('sync_md5sum' == $_GET['action'] and isset($_GET['nb_md5sum_added']))
   {
-    $_SESSION['page_infos'][] = l10n_dec(
-      '%d check sums was added', '%d check sums was added',
-      $_GET['nb_md5sum_added']
+    check_input_parameter('nb_md5sum_added', $_GET, false, '/^\d+$/');
+    if ($_GET['nb_md5sum_added'] > 0)
+    {
+      $_SESSION['page_infos'][] = l10n_dec(
+        '%d check sums were added', '%d check sums were added',
+        $_GET['nb_md5sum_added']
       );
 
-    redirect(get_root_url().'admin.php?page='.$_GET['page']);
+      redirect(get_root_url().'admin.php?page='.$_GET['page']);
+    }
   }
 }
 // +-----------------------------------------------------------------------+

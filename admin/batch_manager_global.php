@@ -458,7 +458,7 @@ $prefilters = array(
 if ($conf['enable_synchronization'])
 {
   $prefilters[] = array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'));
-  $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => 'No check sums');
+  $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => l10n('No check sums'));
 }
 
 $prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);

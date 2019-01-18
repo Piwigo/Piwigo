@@ -3022,8 +3022,8 @@ SELECT path
 ;';
   $paths = query2array($query, null, 'path');
   $imgs_ids_paths = array_combine($ids, $paths);
-  print_r($imgs_ids_paths);
-  foreach ($ids as $id) {
+  foreach ($ids as $id)
+  {
     $file = PHPWG_ROOT_PATH.$imgs_ids_paths[$id];
     $md5sum = md5_file($file);
     $query = '
@@ -3031,11 +3031,10 @@ SELECT path
     SET md5sum = "'.$md5sum.'"
     WHERE id = '.$id.'
   ;';
-  pwg_query($query);
-}
-  global $logger;
-  $logger->info(count($ids)-count(get_photos_no_md5sum()));
-  return count($ids)-count(get_photos_no_md5sum());
+    pwg_query($query);
+  }
+
+  return count($ids);
 }
 
 /**
