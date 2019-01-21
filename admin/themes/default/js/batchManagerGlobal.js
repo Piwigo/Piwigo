@@ -338,7 +338,7 @@ jQuery("#action_delete input[name=confirm_deletion]").change(function() {
     jQuery('#add_md5sum').show();
 
     var addBlockSize = Math.min(
-			Number((jQuery('#md5sum_to_add').data('origin') / 2).toFixed()),
+      Number((jQuery('#md5sum_to_add').data('origin') / 2).toFixed()),
       1000
     );
   add_md5sum_block(addBlockSize);
