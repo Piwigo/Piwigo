@@ -329,27 +329,25 @@ function progressDelete(val, max, success) {
   }
 }
 
-
 jQuery("#action_delete input[name=confirm_deletion]").change(function() {
   jQuery("#action_delete span.errors").hide();
 });
 
   jQuery('#sync_md5sum').click(function(e) {
-	jQuery(this).hide();
-  jQuery('#add_md5sum').show();
+    jQuery(this).hide();
+    jQuery('#add_md5sum').show();
 
-	var addBlockSize = Math.min(
+    var addBlockSize = Math.min(
     Number((jQuery('#md5sum_to_add').data('origin') / 2).toFixed()),
     1000
   );
-	add_md5sum_block(addBlockSize);
+  add_md5sum_block(addBlockSize);
 
 	return false;
 });
 
 function add_md5sum_block(blockSize){
-	console.log('add_md5sum_block : '+blockSize);
-	jQuery.ajax({
+  jQuery.ajax({
     url: "ws.php?format=json&method=pwg.images.setMd5sum",
     type:"POST",
     dataType: "json",

@@ -55,22 +55,23 @@ $tabsheet->assign();
 
 //check if images have no md5sum in database
 $query = '
-SELECT *
+SELECT COUNT(*)
   FROM '.CATEGORIES_TABLE.'
-  WHERE dir is not null
+  WHERE dir IS NOT NULL
 ;';
 
-if (count(query2array($query)) > 0)
+if (query2array($query) > 0)
 {
   $query = '
-  SELECT *
+  SELECT COUNT(*)
     FROM '.IMAGES_TABLE.'
-    WHERE storage_category_id is not null AND md5sum is null
+    WHERE storage_category_id IS NOT NULL
+      AND md5sum IS NULL
   ;';
 
-  if (count(query2array($query)) > 0)
+  if (query2array($query) > 0)
   {
-    $page['warnings'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('some md5sum are not set.').'<i class="icon-right"></i></a>';
+    $page['warnings'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('Some check sums are missing.').'<i class="icon-right"></i></a>';
   }
 }
 

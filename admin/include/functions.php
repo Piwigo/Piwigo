@@ -3022,18 +3022,24 @@ SELECT path
 ;';
   $paths = query2array($query, null, 'path');
   $imgs_ids_paths = array_combine($ids, $paths);
+  $updates = array();
   foreach ($ids as $id)
   {
     $file = PHPWG_ROOT_PATH.$imgs_ids_paths[$id];
     $md5sum = md5_file($file);
-    $query = '
-  UPDATE '.IMAGES_TABLE.'
-    SET md5sum = "'.$md5sum.'"
-    WHERE id = '.$id.'
-  ;';
-    pwg_query($query);
+    $updates[] = array(
+      'id' => $id,
+      'md5sum' => $md5sum,
+    );
   }
-
+  mass_updates(
+    IMAGES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array('md5sum')
+      ),
+    $updates
+  );
   return count($ids);
 }
 
