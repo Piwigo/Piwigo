@@ -86,7 +86,7 @@ DELETE FROM '.CADDIE_TABLE.'
     if ($_GET['nb_md5sum_added'] > 0)
     {
       $_SESSION['page_infos'][] = l10n_dec(
-        '%d check sums were added', '%d check sums were added',
+        '%d checksums were added', '%d checksums were added',
         $_GET['nb_md5sum_added']
       );
 

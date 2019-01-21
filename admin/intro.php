@@ -59,8 +59,8 @@ SELECT COUNT(*)
   FROM '.CATEGORIES_TABLE.'
   WHERE dir IS NOT NULL
 ;';
-
-if (query2array($query) > 0)
+list($counter) = pwg_db_fetch_row(pwg_query($query));
+if ($counter > 0)
 {
   $query = '
   SELECT COUNT(*)
@@ -68,10 +68,10 @@ if (query2array($query) > 0)
     WHERE storage_category_id IS NOT NULL
       AND md5sum IS NULL
   ;';
-
-  if (query2array($query) > 0)
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
+  if ($counter > 0)
   {
-    $page['warnings'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('Some check sums are missing.').'<i class="icon-right"></i></a>';
+    $page['warnings'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('Some checksums are missing.').'<i class="icon-right"></i></a>';
   }
 }
 
