@@ -70,7 +70,7 @@ if (count(query2array($query)) > 0)
 
   if (count(query2array($query)) > 0)
   {
-    $page['warnings'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('some md5sum are not set.').'<i class="icon-right"></i></a>';
+    $page['warnings'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('Some check sums are missing.').'<i class="icon-right"></i></a>';
   }
 }
 

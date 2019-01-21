@@ -329,7 +329,6 @@ function progressDelete(val, max, success) {
   }
 }
 
-
 jQuery("#action_delete input[name=confirm_deletion]").change(function() {
   jQuery("#action_delete span.errors").hide();
 });
