@@ -2994,6 +2994,56 @@ SELECT CONCAT(
 }
 
 /**
+ * Return the list of image ids where md5sum is null
+ *
+ * @return int[] image_ids
+ */
+function get_photos_no_md5sum()
+{
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE md5sum is null
+;';
+  return query2array($query, null, 'id');
+}
+
+/**
+ * Compute and add the md5sum of image ids (where md5sum is null)
+ * @param int[] list of image ids and there paths
+ * @return int number of md5sum added
+ */
+function add_md5sum($ids)
+{
+  $query = '
+SELECT path
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(', ',$ids).')
+;';
+  $paths = query2array($query, null, 'path');
+  $imgs_ids_paths = array_combine($ids, $paths);
+  $updates = array();
+  foreach ($ids as $id)
+  {
+    $file = PHPWG_ROOT_PATH.$imgs_ids_paths[$id];
+    $md5sum = md5_file($file);
+    $updates[] = array(
+      'id' => $id,
+      'md5sum' => $md5sum,
+    );
+  }
+  mass_updates(
+    IMAGES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array('md5sum')
+      ),
+    $updates
+  );
+  return count($ids);
+}
+
+/**
  * Return the list of image ids associated to no album
  *
  * @return int[] $image_ids

@@ -79,8 +79,21 @@ DELETE FROM '.CADDIE_TABLE.'
       redirect(get_root_url().'admin.php?page='.$_GET['page']);
     }
   }
-}
 
+  if ('sync_md5sum' == $_GET['action'] and isset($_GET['nb_md5sum_added']))
+  {
+    check_input_parameter('nb_md5sum_added', $_GET, false, '/^\d+$/');
+    if ($_GET['nb_md5sum_added'] > 0)
+    {
+      $_SESSION['page_infos'][] = l10n_dec(
+        '%d checksums were added', '%d checksums were added',
+        $_GET['nb_md5sum_added']
+      );
+
+      redirect(get_root_url().'admin.php?page='.$_GET['page']);
+    }
+  }
+}
 // +-----------------------------------------------------------------------+
 // |                      initialize current set                           |
 // +-----------------------------------------------------------------------+
@@ -368,6 +381,9 @@ SELECT id
 
   case 'no_album':
     $filter_sets[] = get_orphans();
+    break;
+  case 'no_sync_md5sum':
+    $filter_sets[] = get_photos_no_md5sum();
     break;
 
   case 'no_tag':
