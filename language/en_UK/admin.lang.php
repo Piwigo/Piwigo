@@ -1011,6 +1011,6 @@ $lang['It only takes a few clicks.'] = 'It only takes a few clicks.';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Running on an up-to-date Piwigo is important for security.';
 $lang['Some checksums are missing.'] = 'Some checksums are missing.';
 $lang['%d checksums were added'] = '%d checksums were added';
-$lang['No checksums'] = 'No checksums';
+$lang['With no checksum'] = 'With no checksum';
 $lang['Compute %d missing checksums'] = 'Compute %d missing checksums';
 $lang['checksums to add'] = 'checksums to add';
