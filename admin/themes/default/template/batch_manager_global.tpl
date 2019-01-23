@@ -22,6 +22,7 @@
 var lang = {
 	Cancel: '{'Cancel'|translate|escape:'javascript'}',
 	deleteProgressMessage: "{'Deletion in progress'|translate|escape:'javascript'}",
+	syncProgressMessage: "{'Synchronization in progress'|translate|escape:'javascript'}",
 	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}"
 };
 

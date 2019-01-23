@@ -395,7 +395,6 @@ DELETE
   // synchronize metadata
   else if ('metadata' == $action)
   {
-    sync_metadata($collection);
     $page['infos'][] = l10n('Metadata synchronized from file');
   }
 
