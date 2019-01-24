@@ -1844,11 +1844,11 @@ function ws_images_syncMetadata($params, $service)
     return new PwgError(403, 'Invalid security token');
   }
 
-    $query = '
-  SELECT id
-    FROM '.IMAGES_TABLE.'
-    WHERE id IN ('.implode(', ', $params['image_id']).')
-  ;';
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(', ', $params['image_id']).')
+;';
   $params['image_id'] = query2array($query, null, 'id');
 
   if (empty($params['image_id']))
