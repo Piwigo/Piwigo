@@ -362,6 +362,10 @@ $conf['use_iptc_mapping'] = array(
 // available)
 $conf['show_exif'] = true;
 
+// show_exif_default: Show EXIF metadata by default on picture.php (needs show
+// exif to be set to true)
+$conf['show_exif_default'] = false;
+
 // show_exif_fields : in EXIF fields, you can choose to display fields in
 // sub-arrays, for example ['COMPUTED']['ApertureFNumber']. for this, add
 // 'COMPUTED;ApertureFNumber' in $conf['show_exif_fields']

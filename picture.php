@@ -633,7 +633,7 @@ $metadata_showable = trigger_change(
   $picture['current']
   );
 
-if ( $metadata_showable and pwg_get_session_var('show_metadata') )
+if ( $metadata_showable and ( $conf['show_exif_default'] != pwg_get_session_var('show_metadata') ))
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
