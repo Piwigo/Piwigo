@@ -860,6 +860,15 @@ h2:lang(en) { text-transform:capitalize; }
   border-left:4px solid #00529b;
 }
 
+.badge {
+  background-color:#0a0;
+  color:white;
+  padding:1px 5px;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  margin-left:5px;
+}
 
 .infos li, .errors li, .warnings li, .messages li { list-style-type:none; }
 .infos .submit {margin-left:30px;}
