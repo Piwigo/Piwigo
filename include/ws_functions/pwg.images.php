@@ -1833,6 +1833,40 @@ function ws_images_setMd5sum($params, $service)
 
 /**
  * API method
+ * Synchronize metadatas photos. Returns how many metadatas were sync.
+ * @param mixed[] $params
+ *    @option int image_id
+ */
+function ws_images_syncMetadata($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(', ', $params['image_id']).')
+;';
+  $params['image_id'] = query2array($query, null, 'id');
+
+  if (empty($params['image_id']))
+  {
+    return new PwgError(403, 'No image found');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  sync_metadata($params['image_id']);
+
+  return array(
+    'nb_synchronized' => count($params['image_id'])
+  );
+}
+
+/**
+ * API method
  * Deletes orphan photos, by block. Returns how many orphans were deleted and how many are remaining.
  * @param mixed[] $params
  *    @option int block_size

@@ -395,8 +395,7 @@ DELETE
   // synchronize metadata
   else if ('metadata' == $action)
   {
-    sync_metadata($collection);
-    $page['infos'][] = l10n('Metadata synchronized from file');
+    $page['infos'][] = l10n('Metadata synchronized from file').' <span class="badge">'.count($collection).'</span>';
   }
 
   else if ('delete_derivatives' == $action && !empty($_POST['del_derivatives_type']))

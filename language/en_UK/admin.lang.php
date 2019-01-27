@@ -1014,3 +1014,4 @@ $lang['%d checksums were added'] = '%d checksums were added';
 $lang['With no checksum'] = 'With no checksum';
 $lang['Compute %d missing checksums'] = 'Compute %d missing checksums';
 $lang['checksums to add'] = 'checksums to add';
+$lang['Synchronization in progress'] = 'Synchronization in progress';
