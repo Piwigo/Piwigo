@@ -69,6 +69,7 @@ INSERT INTO piwigo_config (param,value) VALUES ('picture_sizes_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('index_sizes_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('index_edit_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('index_caddie_icon','true');
+INSERT INTO piwigo_config (param,value) VALUES ('display_fromto','false');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_edit_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_caddie_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_representative_icon','true');

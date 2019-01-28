@@ -199,10 +199,6 @@ $conf['header_notes']  = array();
 // show_thumbnail_caption : on thumbnails page, show thumbnail captions ?
 $conf['show_thumbnail_caption'] = true;
 
-// display_fromto: display the date creation bounds of a
-// category.
-$conf['display_fromto'] = false;
-
 // allow_random_representative : do you wish Piwigo to search among
 // categories elements a new representative at each reload ?
 //
