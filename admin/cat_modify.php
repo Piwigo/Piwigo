@@ -218,18 +218,49 @@ $category['nb_images_associated_outside'] = 0;
 
 if ($category['nb_images_recursive'] > 0)
 {
-  $query = '
+  // if we don't have "too many" photos, it's faster to compute the orphans with MySQL
+  if ($category['nb_images_recursive'] < 30000)
+  {
+    $query = '
 SELECT
     DISTINCT(image_id)
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id NOT IN ('.implode(',', $subcat_ids).')
     AND image_id IN ('.implode(',', $image_ids_recursive).')
 ;';
-  $image_ids_associated_outside = query2array($query, null, 'image_id');
-  $category['nb_images_associated_outside'] = count($image_ids_associated_outside);
 
-  $image_ids_becoming_orphan = array_diff($image_ids_recursive, $image_ids_associated_outside);
-  $category['nb_images_becoming_orphan'] = count($image_ids_becoming_orphan);
+    $image_ids_associated_outside = query2array($query, null, 'image_id');
+    $category['nb_images_associated_outside'] = count($image_ids_associated_outside);
+
+    $image_ids_becoming_orphan = array_diff($image_ids_recursive, $image_ids_associated_outside);
+    $category['nb_images_becoming_orphan'] = count($image_ids_becoming_orphan);
+  }
+  // else it's better to avoid sending a huge SQL request, we compute the orphan list with PHP
+  else
+  {
+    $image_ids_recursive_keys = array_flip($image_ids_recursive);
+
+    $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id NOT IN ('.implode(',', $subcat_ids).')
+;';
+    $image_ids_associated_outside = query2array($query, null, 'image_id');
+    $image_ids_not_orphan = array();
+
+    foreach ($image_ids_associated_outside as $image_id)
+    {
+      if (isset($image_ids_recursive_keys[$image_id]))
+      {
+        $image_ids_not_orphan[] = $image_id;
+      }
+    }
+
+    $category['nb_images_associated_outside'] = count(array_unique($image_ids_not_orphan));
+    $image_ids_becoming_orphan = array_diff($image_ids_recursive, $image_ids_not_orphan);
+    $category['nb_images_becoming_orphan'] = count($image_ids_becoming_orphan);
+  }
 }
 
 // Navigation path
