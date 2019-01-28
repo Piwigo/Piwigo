@@ -90,6 +90,7 @@ $display_checkboxes = array(
     'index_new_icon',
     'index_edit_icon',
     'index_caddie_icon',
+    'display_fromto',
     'picture_metadata_icon',
     'picture_slideshow_icon',
     'picture_favorite_icon',
