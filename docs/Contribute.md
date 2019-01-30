@@ -62,4 +62,14 @@ Then go on your branch where you did changes and enter:
 
 On GitHub you should see your commit that you pushed before like this :
 
-![Lien](HowToFork.png)
+![Lien](HowToPullRequest.png)
+
+Once you click the button "Compare & pull request", you have to give a name to the pull request. If you worked on a issue available on our issue section on GitHub, then you should specify *Fixes* and the GitHub tag of the original issue .
+
+![lien](Issue.png)
+
+Example name of a pull request : `Fixes #965 (Example of issue)`
+
+If you want to say more details about your pull request you can write in the comment.
+
+If you forget something, or that your have done is not working you can continue to do commits and this will add automatically your commits on the pull request.
