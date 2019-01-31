@@ -113,6 +113,19 @@
   padding:0 25px;
 }
 
+.nb_items {
+  background-color: #808080;
+  color: black;
+  padding: 1px 5px;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+.categories {
+  margin-top: 3px ;
+  margin-bottom: 3px;
+}
+
 /* category and tag results paragraphs on a quick search */
 .search_results {
   font-size: 16px;
