@@ -1655,6 +1655,8 @@ DELETE
 ;';
   pwg_query($query);
 
+  trigger_notify("delete_tags", $tag_ids);
+
   update_images_lastmodified($image_ids);
   invalidate_user_cache_nb_tags();
 }
