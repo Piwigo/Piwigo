@@ -703,7 +703,7 @@ UPDATE '. USER_CACHE_CATEGORIES_TABLE .'
  * API method
  *
  * Deletes the album thumbnail. Only possible if
- * $conf['allow_random_representative']
+ * $conf['allow_random_representative'] or if the album has no direct photos.
  *
  * @param mixed[] $params
  *    @option int category_id
@@ -724,7 +724,14 @@ SELECT id
     return new PwgError(404, 'category_id not found');
   }
 
-  if (!$conf['allow_random_representative'])
+  $query = '
+SELECT COUNT(*)
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category_id'].'
+;';
+  list($nb_images) = pwg_db_fetch_row(pwg_query($query));
+
+  if (!$conf['allow_random_representative'] and $nb_images != 0)
   {
     return new PwgError(401, 'not permitted');
   }
