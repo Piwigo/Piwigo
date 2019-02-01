@@ -596,44 +596,45 @@ function ws_categories_setRank($params, &$service)
 {
   // does the category really exist?
   $query = '
-   SELECT id, id_uppercat, rank
-   FROM '.CATEGORIES_TABLE.'
-   WHERE id IN ('.implode(',',$params['category_id']).');';
-   $categories = query2array($query);
+SELECT id, id_uppercat, rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',',$params['category_id']).')
+;';
+  $categories = query2array($query);
 
-   if (count($categories) == 0)
-   {
-     return new PwgError(404, 'category_id not found');
-   }
+  if (count($categories) == 0)
+  {
+    return new PwgError(404, 'category_id not found');
+  }
 
-   $category = $categories[0];
+  $category = $categories[0];
 
-   //check the number of category given by the user
-   if(count($params['category_id']) > 1)
-   {
-     $order_new = $params['category_id'];
-     $order_new_by_id = $order_new;
-     sort($order_new_by_id, SORT_NUMERIC);
+  //check the number of category given by the user
+  if(count($params['category_id']) > 1)
+  {
+    $order_new = $params['category_id'];
+    $order_new_by_id = $order_new;
+    sort($order_new_by_id, SORT_NUMERIC);
 
-     $query = '
-  SELECT id
-     FROM '.CATEGORIES_TABLE.'
-     WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
-     ORDER BY `id` ASC
-  ;';
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
+  ORDER BY `id` ASC
+;';
 
-     $cat_asc = query2array($query, null, 'id');
+    $cat_asc = query2array($query, null, 'id');
 
-     if(strcmp(implode(',',$cat_asc), implode(',',$order_new_by_id)) !==0)
-     {
-        return new PwgError(WS_ERR_INVALID_PARAM, 'you need to provide all sub-category ids for a given category');
-     }
-   }
-   else
-   {
-     $params['category_id'] = implode($params['category_id']);
+    if(strcmp(implode(',',$cat_asc), implode(',',$order_new_by_id)) !==0)
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'you need to provide all sub-category ids for a given category');
+    }
+  }
+  else
+  {
+    $params['category_id'] = implode($params['category_id']);
 
-     $query = '
+    $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
@@ -660,9 +661,9 @@ SELECT id
       $order_new[] = $params['category_id'];
     }
   }
-    // include function to set the global rank
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    save_categories_order($order_new);
+  // include function to set the global rank
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  save_categories_order($order_new);
 }
 
 /**
