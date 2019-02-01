@@ -90,6 +90,12 @@ array(
   'files' => array('admin\include\functions.inc.php (delete_elements)'),
 ),
 array(
+  'name' => 'delete_tags',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'tag_ids'),
+  'files' => array('admin\include\functions.inc.php (delete_tags)')
+),
+array(
   'name' => 'delete_user',
   'type' => 'trigger_notify',
   'vars' => array('int', 'user_id'),
