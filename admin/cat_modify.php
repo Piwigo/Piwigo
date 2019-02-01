@@ -411,7 +411,7 @@ if ($category['has_images'] or !empty($category['representative_picture_id']))
   }
 
   // can the admin choose to set a new random representant ?
-  $tpl_representant['ALLOW_SET_RANDOM'] = ($category['has_images']) ? true : false;
+  $tpl_representant['ALLOW_SET_RANDOM'] = ($category['has_images'] ? true : false);
 
   // can the admin delete the current representant ?
   if (
