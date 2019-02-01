@@ -235,7 +235,7 @@ function ws_categories_getList($params, &$service)
   $query = '
 SELECT
     id, name, comment, permalink, status,
-    uppercats, global_rank, id_uppercat,
+    uppercats, global_rank, rank, id_uppercat,
     nb_images, count_images AS total_nb_images,
     representative_picture_id, user_representative_picture_id, count_images, count_categories,
     date_last, max_date_last, count_categories AS nb_categories
