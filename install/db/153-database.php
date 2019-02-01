@@ -26,7 +26,7 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-$upgrade_description = 'Show date of a category';
+$upgrade_description = 'Show date period of an album';
 
 function value_display_fromto()
 {
