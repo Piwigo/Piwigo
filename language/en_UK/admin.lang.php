@@ -1016,3 +1016,4 @@ $lang['Compute %d missing checksums'] = 'Compute %d missing checksums';
 $lang['checksums to add'] = 'checksums to add';
 $lang['Synchronization in progress'] = 'Synchronization in progress';
 $lang['Display category date'] = 'Display category date';
+$lang['Display album date period'] = 'Show the date period associated with each album, eg « from July 12th to 15th, 2018 »';

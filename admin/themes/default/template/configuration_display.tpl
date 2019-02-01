@@ -110,7 +110,7 @@
         <label class="font-checkbox">
           <span class="icon-check"></span>
           <input type="checkbox" name="display_fromto" {if ($display.display_fromto)}checked="checked"{/if}>
-          {'Display category date'|translate}
+          {'Display album date period'|translate}
         </label>
       </li>
 
