@@ -25,10 +25,6 @@ Go where you want to work on the project (for example in your **www** folder) an
 
 `git clone https://github.com/username/Piwigo`
 
-Set up the link for git to say where the original Piwigo repositories comes from:
-
-`git remote add upstream https://github.com/Piwigo/Piwigo`
-
 ## Create a branch
 
 To avoid conflicts when updating your fork from the upstream, always work on a branch (from `master`).
@@ -63,8 +59,13 @@ Now the Piwigo team can review your pull request... and merge it!
 
 ## Tips
 
-If there is some changes on the upstream project and you tried to merge but it fail. Then you will need to update your local branch and try to resolve conflicts:
+##### #1
 
-`git pull upstream master`
+If you had to update your fork because there is activity on the upstream, you can go to this link:
+[syncing a fork](https://help.github.com/articles/syncing-a-fork/)
 
-When you finished your work and going to commit the final change. You can specify *Fixes* and the GitHub id of the original issue to help the Piwigo team.
+##### #2
+
+When you finished your work and going to commit the final change. You can specify *Fixes* and the GitHub id of the original issue to help the Piwigo team. This will close automatically the pull request when this will be merged on the upstream.
+
+Example of a last commit: `Fixes #965 Add a new column`
