@@ -44,9 +44,8 @@ If you do not have your own server, consider the [piwigo.com](http://piwigo.com/
 
 ## Contributing
 
-Piwigo is widely driven by its community; if you want to improve the code, go checkout the [wiki page](localhost/) to see how to do it.
+Piwigo is widely driven by its community; if you want to improve the code, fork this repo and submit your changes to the `master` branch.
 
 ## License
 
 Piwigo is released under the GPL v2 license.
-
