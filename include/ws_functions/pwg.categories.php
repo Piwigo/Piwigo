@@ -354,6 +354,9 @@ SELECT representative_picture_id
     unset($image_id);
     // management of the album thumbnail -- stops here
 
+    if(empty($row['image_order'])){
+      $row['image_order'] = str_replace('ORDER BY ', '', $conf['order_by']);
+    }
     $cats[] = $row;
   }
   usort($cats, 'global_rank_compare');
