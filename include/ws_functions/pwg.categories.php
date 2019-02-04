@@ -235,10 +235,11 @@ function ws_categories_getList($params, &$service)
   $query = '
 SELECT
     id, name, comment, permalink, status,
-    uppercats, global_rank, rank, id_uppercat,
+    uppercats, global_rank, id_uppercat,
     nb_images, count_images AS total_nb_images,
     representative_picture_id, user_representative_picture_id, count_images, count_categories,
-    date_last, max_date_last, count_categories AS nb_categories
+    date_last, max_date_last, count_categories AS nb_categories,
+    image_order
   FROM '. CATEGORIES_TABLE .'
     '.$join_type.' JOIN '. USER_CACHE_CATEGORIES_TABLE .'
     ON id=cat_id AND user_id='.$join_user.'
@@ -497,7 +498,7 @@ SELECT category_id, COUNT(*) AS counter
   $nb_images_of = query2array($query, 'category_id', 'counter');
 
   $query = '
-SELECT id, name, comment, uppercats, global_rank, rank, dir, status
+SELECT id, name, comment, uppercats, global_rank, dir, status, image_order
   FROM '. CATEGORIES_TABLE .'
 ;';
   $result = pwg_query($query);
