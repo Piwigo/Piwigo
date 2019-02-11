@@ -49,4 +49,3 @@ Piwigo is widely driven by its community; if you want to improve the code, fork 
 ## License
 
 Piwigo is released under the GPL v2 license.
-
