@@ -84,6 +84,12 @@ array(
   'files' => array('admin\include\functions.inc.php (delete_categories)'),
 ),
 array(
+  'name' => 'delete_group',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'groupids'),
+  'files' => array('admin\group_list.php','admin\include\functions.inc.php (delete_group)'),
+),
+array(
   'name' => 'delete_elements',
   'type' => 'trigger_notify',
   'vars' => array('array', 'ids'),

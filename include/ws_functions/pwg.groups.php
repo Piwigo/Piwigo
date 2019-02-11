@@ -135,11 +135,14 @@ DELETE
   pwg_query($query);
 
   $query = '
-SELECT name
+SELECT id, name
   FROM '. GROUPS_TABLE .'
   WHERE id IN('. $group_id_string  .')
 ;';
-  $groupnames = array_from_query($query, 'name');
+
+  $group_list = query2array($query, 'id', 'name');
+  $groupnames = array_values($group_list);
+  $groupids = array_keys($group_list);
 
   // destruction of the group
   $query = '
@@ -148,6 +151,8 @@ DELETE
   WHERE id IN('. $group_id_string  .')
 ;';
   pwg_query($query);
+
+  trigger_notify('delete_group', $groupids);
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   invalidate_user_cache();
