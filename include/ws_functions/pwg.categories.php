@@ -656,7 +656,8 @@ SELECT id
       $order_new[] = $category_id;
       ++$i;
     }
-    if($was_inserted)
+
+    if (!$was_inserted)
     {
       $order_new[] = $params['category_id'];
     }
