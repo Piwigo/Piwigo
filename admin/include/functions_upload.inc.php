@@ -408,8 +408,49 @@ SELECT
 
   fetchRemote($thumb_url, $dest);
 
+  trigger_notify('upload_file_end', $image_infos['id'], $image_infos['path']);
 
   return $image_id;
+}
+
+add_event_handler('upload_file_end', 'upload_file_video_format');
+function upload_file_video_format($video_id, $video_path){
+  global $conf;
+
+  $ffmpeg_video_exts = array( // video extensions
+    'wmv','mov','mkv','mp4','mpg','flv','asf','xvid','divx','mpeg',
+    'avi','rm', 'm4v', 'ogg', 'ogv', 'webm', 'webmv',
+    );
+
+    $extension_file = strtolower(get_extension($video_path));
+    if (in_array($extension_file, $ffmpeg_video_exts))
+    {
+      $representative_file_path = dirname($video_path).'/pwg_representative/';
+      $representative_file_path.= str_replace($extension_file,'jpg', basename($video_path));
+      if (file_exists($representative_file_path))
+      {
+        $image_size = getimagesize($representative_file_path);
+        $infos = array('width' => $image_size[0],
+                       'height' => $image_size[1]
+        );
+        //If the video have more than a 720p definition then it decrease the quality (1280x720) and save in the format table
+        if ($infos['width'] > 1280 and $infos['height'] > 720)
+        {
+          $lower_format_file_path = dirname($video_path).'/pwg_format/';
+          prepare_directory($lower_format_file_path);
+          $thumb_url_720p = str_replace('.'.$extension_file,'.720.'.$extension_file, $lower_format_file_path.basename($video_path));
+          $ffmpeg = $conf['ffmpeg_dir'].'ffmpeg';
+          $ffmpeg.= ' -i "'.$video_path.'" -vf scale=-1:720';
+          $ffmpeg.= ' "'.$thumb_url_720p.'"';
+          @exec($ffmpeg);
+          single_insert(IMAGE_FORMAT_TABLE,
+                        array('image_id' => $video_id,
+                              'ext' => '720.'.$extension_file,
+                              'filesize' =>pwg_image_infos($thumb_url_720p)['filesize'])
+          );
+        }
+      }
+    }
 }
 
 add_event_handler('upload_file', 'upload_file_pdf');
