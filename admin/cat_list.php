@@ -53,54 +53,14 @@ $sort_orders = array(
 // |                               functions                               |
 // +-----------------------------------------------------------------------+
 
-/**
- * save the rank depending on given categories order
- *
- * The list of ordered categories id is supposed to be in the same parent
- * category
- *
- * @param array categories
- * @return void
- */
-function save_categories_order($categories)
-{
-  $current_rank_for_id_uppercat = array();
-  $current_rank = 0;
-  
-  $datas = array();
-  foreach ($categories as $category)
-  {
-    if (is_array($category))
-    {
-      $id = $category['id'];
-      $id_uppercat = $category['id_uppercat'];
 
-      if (!isset($current_rank_for_id_uppercat[$id_uppercat]))
-      {
-        $current_rank_for_id_uppercat[$id_uppercat] = 0;
-      }
-      $current_rank = ++$current_rank_for_id_uppercat[$id_uppercat];
-    }
-    else
-    {
-      $id = $category;
-      $current_rank++;
-    }
-    
-    $datas[] = array('id' => $id, 'rank' => $current_rank);
-  }
-  $fields = array('primary' => array('id'), 'update' => array('rank'));
-  mass_updates(CATEGORIES_TABLE, $fields, $datas);
-
-  update_global_rank();
-}
 
 function get_categories_ref_date($ids, $field='date_available', $minmax='max')
 {
   // we need to work on the whole tree under each category, even if we don't
   // want to sort sub categories
   $category_ids = get_subcat_ids($ids);
-  
+
   // search for the reference date of each album
   $query = '
 SELECT

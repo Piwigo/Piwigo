@@ -587,6 +587,88 @@ function ws_categories_add($params, &$service)
 
 /**
  * API method
+ * Set the rank of a category
+ * @param mixed[] $params
+ *    @option int cat_id
+ *    @option int rank
+ */
+function ws_categories_setRank($params, &$service)
+{
+  // does the category really exist?
+  $query = '
+SELECT id, id_uppercat, rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',',$params['category_id']).')
+;';
+  $categories = query2array($query);
+
+  if (count($categories) == 0)
+  {
+    return new PwgError(404, 'category_id not found');
+  }
+
+  $category = $categories[0];
+
+  //check the number of category given by the user
+  if(count($params['category_id']) > 1)
+  {
+    $order_new = $params['category_id'];
+    $order_new_by_id = $order_new;
+    sort($order_new_by_id, SORT_NUMERIC);
+
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
+  ORDER BY `id` ASC
+;';
+
+    $cat_asc = query2array($query, null, 'id');
+
+    if(strcmp(implode(',',$cat_asc), implode(',',$order_new_by_id)) !==0)
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'you need to provide all sub-category ids for a given category');
+    }
+  }
+  else
+  {
+    $params['category_id'] = implode($params['category_id']);
+
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
+    AND id != '.$params['category_id'].'
+  ORDER BY `rank` ASC
+;';
+
+    $order_old = query2array($query, null, 'id');
+    $order_new = array();
+    $was_inserted = false;
+    $i = 1;
+    foreach ($order_old as $category_id)
+    {
+      if($i == $params['rank'])
+      {
+        $order_new[] = $params['category_id'];
+        $was_inserted = true;
+      }
+      $order_new[] = $category_id;
+      ++$i;
+    }
+
+    if (!$was_inserted)
+    {
+      $order_new[] = $params['category_id'];
+    }
+  }
+  // include function to set the global rank
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  save_categories_order($order_new);
+}
+
+/**
+ * API method
  * Sets details of a category
  * @param mixed[] $params
  *    @option int cat_id

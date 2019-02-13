@@ -638,6 +638,48 @@ function get_fs_directories($path, $recursive = true)
 }
 
 /**
+ * save the rank depending on given categories order
+ *
+ * The list of ordered categories id is supposed to be in the same parent
+ * category
+ *
+ * @param array categories
+ * @return void
+ */
+function save_categories_order($categories)
+{
+  $current_rank_for_id_uppercat = array();
+  $current_rank = 0;
+
+  $datas = array();
+  foreach ($categories as $category)
+  {
+    if (is_array($category))
+    {
+      $id = $category['id'];
+      $id_uppercat = $category['id_uppercat'];
+
+      if (!isset($current_rank_for_id_uppercat[$id_uppercat]))
+      {
+        $current_rank_for_id_uppercat[$id_uppercat] = 0;
+      }
+      $current_rank = ++$current_rank_for_id_uppercat[$id_uppercat];
+    }
+    else
+    {
+      $id = $category;
+      $current_rank++;
+    }
+
+    $datas[] = array('id' => $id, 'rank' => $current_rank);
+  }
+  $fields = array('primary' => array('id'), 'update' => array('rank'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
+
+  update_global_rank();
+}
+
+/**
  * Orders categories (update categories.rank and global_rank database fields)
  * so that rank field are consecutive integers starting at 1 for each child.
  */
