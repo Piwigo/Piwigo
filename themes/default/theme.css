@@ -113,17 +113,12 @@
   padding:0 25px;
 }
 
-.nb_items {
-  background-color: #808080;
-  color: black;
-  padding: 1px 5px;
-  border-radius: 10px;
-  font-size: 10px;
+.nb_items::before {
+  content: '[';
 }
 
-.categories {
-  margin-top: 3px ;
-  margin-bottom: 3px;
+.nb_items::after {
+  content: ']';
 }
 
 /* category and tag results paragraphs on a quick search */
