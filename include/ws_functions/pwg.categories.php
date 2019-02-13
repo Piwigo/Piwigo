@@ -354,9 +354,11 @@ SELECT representative_picture_id
     unset($image_id);
     // management of the album thumbnail -- stops here
 
-    if(empty($row['image_order'])){
+    if (empty($row['image_order']))
+    {
       $row['image_order'] = str_replace('ORDER BY ', '', $conf['order_by']);
     }
+
     $cats[] = $row;
   }
   usort($cats, 'global_rank_compare');
@@ -493,6 +495,8 @@ SELECT id, path, representative_ext
  */
 function ws_categories_getAdminList($params, &$service)
 {
+  global $conf;
+
   $query = '
 SELECT category_id, COUNT(*) AS counter
   FROM '. IMAGE_CATEGORY_TABLE .'
@@ -532,6 +536,11 @@ SELECT id, name, comment, uppercats, global_rank, dir, status, image_order
         'ws_categories_getAdminList'
         )
       );
+
+    if (empty($row['image_order']))
+    {
+      $row['image_order'] = str_replace('ORDER BY ', '', $conf['order_by']);
+    }
 
     $cats[] = $row;
   }
