@@ -110,11 +110,9 @@ $template->assign('U_CANONICAL', $canonical_url);
 //-------------------------------------------------------------- page title
 $title = $page['title'];
 $template_title = $page['section_title'];
-if (count($page['items']) > 0)
-{
-  $template_title.= ' ['.count($page['items']).']';
-}
+$nb_items = count($page['items']);
 $template->assign('TITLE', $template_title);
+$template->assign('NB_ITEMS', $nb_items);
 
 //-------------------------------------------------------------- menubar
 include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
