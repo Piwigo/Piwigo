@@ -113,11 +113,11 @@
   padding:0 25px;
 }
 
-.nb_items::before {
+.badge::before {
   content: '[';
 }
 
-.nb_items::after {
+.badge::after {
   content: ']';
 }
 
