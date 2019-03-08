@@ -391,23 +391,26 @@ SELECT
 
   invalidate_user_cache();
 
-  // cache thumbnail
+  // cache a derivative
   $query = '
 SELECT
     id,
-    path
+    path,
+    representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
   $image_infos = pwg_db_fetch_assoc(pwg_query($query));
+  $src_image = new SrcImage($image_infos);
 
   set_make_full_url();
   // in case we are on uploadify.php, we have to replace the false path
-  $thumb_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::thumb_url($image_infos));
+  $derivative_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::url(IMG_MEDIUM, $src_image));
   unset_make_full_url();
 
-  fetchRemote($thumb_url, $dest);
+  $logger->info(__FUNCTION__.' : force cache generation, derivative_url = '.$derivative_url);
 
+  fetchRemote($derivative_url, $dest);
 
   return $image_id;
 }
