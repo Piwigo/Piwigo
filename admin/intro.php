@@ -256,15 +256,21 @@ SELECT COUNT(*)
 if ($nb_photos > 0)
 {
   $query = '
-SELECT MIN(date_available)
+SELECT *
   FROM '.IMAGES_TABLE.'
+  ORDER BY id
+  ASC LIMIT 1
 ;';
-  list($first_date) = pwg_db_fetch_row(pwg_query($query));
+
+  $first_image = pwg_db_fetch_assoc(pwg_query($query));
+  $first_date = $first_image['date_available'];
+  $src_image = new SrcImage($first_image);
 
   $template->assign(
     array(
       'first_added_date' => format_date($first_date),
       'first_added_age' => time_since($first_date, 'year', null, false, false),
+      'first_added_path' => DerivativeImage::url(IMG_THUMB, $src_image),
       )
     );
 }
