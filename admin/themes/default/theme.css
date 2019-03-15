@@ -286,46 +286,50 @@ left: 60px; /*position where enlarged image should offset horizontally */
 
 BODY {
 	font-size: 0.8em;
-	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	text-align: center; /* be nice to IE5 */
 	min-width: 60em;  /* ~ 3* #menubar width */
 }
 
-H1 {
-color:#eee;
-letter-spacing:1px;
-text-align: left;
-font-size: 150%;
-font-weight: normal;
-font-style:italic;
-/* padding: 2px 0 0 10px; */
-margin: 0;
-float:left;
-}
-
 #pwgHead {
-	color: #aaa;
-  background-color: #464646;
-	height: 36px;
+  color: #d5d5d5;
+  background-color: #3c3c3c;
+  height: 50px;
 }
 
-#pwgHead H1 {
+#pwgHead .visit-gallery {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 205px;
+  background-color: #232323;
+  line-height: 50px;
+  font-size: 17px;
+}
+
+#pwgHead .visit-gallery i {
+  font-size: 14px;
+  color: #777;
+  margin-left: -20px;
+}
+
+#pwgHead .pwgHead-gallery-title {
+  color:#d5d5d5;
+  text-align: left;
+  font-size: 18px;
+  float:left;
   width: 50%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height:36px;
-}
-
-#pwgHead h1 [class="icon-home"] {
-  font-size:20px;
-  margin-right:5px;
+  line-height:50px;
+  margin: 0 0 0 220px;
 }
 
 #pwgHead A {color:#ccc;}
 #pwgHead A:hover {color:#fff}
 
-#headActions {float:right; height:36px; line-height:36px; margin-right:10px;}
+#headActions {float:right; line-height:50px; margin-right:10px;}
 #headActions A {margin-left:5px;}
 
 A {
@@ -613,40 +617,39 @@ html, body {height:100%; margin:0; padding:0;}
 #the_page {min-height:100%; position:absolute; width:100%; padding:0;margin:0;}
 
 #pwgMain {
-  padding: 10px 5px 60px;
+  padding: 0;
 }
 
-#footer {
-  position:absolute;
+#theAdminPage #footer {
+  position:fixed;
   bottom:0;
-  width:100%;
-	height: 34px;
-	line-height: 34px;
-	background-repeat: no-repeat;
-	background-position: 7px 2px;
-	background-color:#464646;
-  color:#aaa;
-  background-image: url(images/piwigo-logo-white-letters.svg);
-  background-size: 130px 30px;
+  left: 0;
+  width:205px;
+  height: 40px;
+  z-index: 99;
+  background-color: transparent;
+}
+
+#footer a.piwigo-logo img {
+  width: 120px;
+  margin-top: 7px;
 }
 
 #footer A {color:#ccc;}
 #footer A:hover {color:#fff}
 
 #adminHome {
-  text-align:center;
-  margin-bottom:15px;
+  margin-top:20px;
   line-height:30px;
   width:200px;
-  margin-left:5px;
-  -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;
+  margin-left:6px;
 }
 
-#adminHome A {display:block; font-size:1.1em; font-weight:bold;}
-#adminHome A {text-decoration:none;}
+#adminHome A {color:#aaa; display:block; font-size:1.1em; font-weight:bold; text-decoration:none;}
+#adminHome A:hover {color:#fff;}
 
 #piwigoInfos {float:left; margin-left:140px;}
-#pageInfos {float:right; margin-right:10px;}
+#pageInfos {display: none;}
 
 /* TipTip CSS - Version 1.2 */
 
@@ -764,24 +767,60 @@ html, body {height:100%; margin:0; padding:0;}
 
 /* Set the width of the menubar for the galery */
 #menubar {
-  width: 18em;
-  margin: 10px 0 50px 5px;
+  width: 205px;
+  margin: 0;
   display: inline;
-  float: left;
+  position: fixed;
+  top: 50px;
+  bottom: 0;
   left: 0;
+  background-color: #3c3c3c;
 }
 
-#menubar dt [class^=icon-] {
-  font-size:120%;
+#menubar i {font-size:20px;}
+
+#menubar dl dd ul li a i[class^=icon-] {
+  font-size:14px;
 }
 
 #menubar dd [class^="icon-"]:before {
     margin-right: 0.5em;
 }
 
+/* menubar is on all admin pages => No specific css file */
+#menubar {
+  padding:0; width:205px; z-index:99; text-align: left;
+  margin-left:0;
+}
+
+#menubar ul.scroll { overflow-y:auto; max-height:500px; }
+#menubar dl { width: 205px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:0; border-left:none; }
+#menubar dd { margin: 0; padding: 10px 0; }
+#menubar dt {
+	margin: 0; display: block; font-weight:bold;
+	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #aaa;
+	cursor:pointer;
+}
+#menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0;  }
+#menubar dl:last-of-type { border-radius:0;  }
+#menubar li { margin: 0; padding-left:20px; }
+#menubar li A { display:block; color:#ccc }
+#menubar li A:hover {color:#eee; text-decoration:none}
+#menubar li:hover {background-color:#222;}
+#menubar ul { color: #ccc; margin:0; line-height: 25px;
+  list-style-type: none; list-style-position: inside; padding: 0; }
+
+#menubar i.open-menu {
+  font-size: 14px;
+  color: #666;
+  float: right;
+  line-height: 37px;
+  margin-right: 5px;
+}
+
 .content {
-  padding:0 5px 0 0;
-  margin: 0 5px 0 227px;
+  padding:0;
+  margin: 0 0 0 205px;
   z-index:99;
 }
 
@@ -804,6 +843,15 @@ html, body {height:100%; margin:0; padding:0;}
 #themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
 .themeBoxes {min-height:0;text-align:left;}
 
+h1 {
+  background-color: #f3f3f3;
+  margin: 0;
+  padding: 20px;
+  text-align: left;
+  font-weight: normal;
+  color: #333;
+  font-size: 22px;
+}
 h2 { letter-spacing:1px; font-weight:bold;}
 h2:lang(en) { text-transform:capitalize; }
 

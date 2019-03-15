@@ -59,7 +59,7 @@ padding-bottom: 15px; }
 }
 html, body {
 	min-height: 100%;
-	background-color: #f9f9f9;
+	background-color: #fff;
 }
 
 /* #the_page { margin: 0; padding: 0; z-index: 1; top:0px; */
@@ -68,11 +68,11 @@ h3, .throw, .row1 { background-color: #ddd; }
 .row2 { background-color:#eeeeee; }
 
 #content {
-	background: #f1f1f1;
-  border: 1px solid #f9f9f9;
+	background: #fff;
+  border: none;
 	min-height: 467px;
-  margin-left:217px;
-  margin-top: 7px;
+  margin-left:205px;
+  margin-top: 0;
 }
 
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
@@ -147,57 +147,54 @@ ul.actions, .content form#waiting  {text-align:center;}
 }
 
 /* tabsheets are often used in admin  pages => No specific css files */
-#tabsheet { width:auto; margin:-1px; margin-right:-6px; padding:0;
-border:1px solid #f9f9f9; border-bottom:1px solid #aaa; background-color:#f9f9f9;margin-top:-7px;}
-.tabsheet { display:table; white-space:nowrap; padding-left:10px; margin:0; width:auto;
-font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
-list-style-type:none; list-style-image:none; text-decoration:none; }
-.tabsheet li { background:#f1f1f1; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #aaa; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;-webkit-border-top-left-radius:5px; -webkit-border-top-right-radius:5px;border-radius:5px 5px 0 0;}
+#tabsheet {
+  width:auto;
+  margin:0 0 20px 0;
+  padding:0 0 0 10px;
+  border:none;
+  border:none;
+  background-color:#f3f3f3;
+}
+.tabsheet {
+  display:table;
+  white-space:nowrap;
+  padding-left:10px;
+  margin:0;
+  width:auto;
+  list-style-type:none;
+  list-style-image:none;
+  text-decoration:none;
+}
+.tabsheet li {
+  background-color: transparent;
+  float:left;
+  margin:0 6px 0 0;
+  overflow:hidden;
+  text-align:right;
+  border:none;
+  position:relative;
+  top:11px;
+  border-radius:5px 5px 0 0;
+}
 .tabsheet a {
 display:block; font-size:11px; border:0;
-font-weight:bold; overflow:hidden; padding:6px;
+font-weight:bold; overflow:hidden; padding:10px 20px;
 text-align:right; text-decoration:none; margin: 0; }
 .tabsheet a:first-letter { text-transform:capitalize; }
 .tabsheet li.selected_tab  {
-  border-bottom:1px solid #f1f1f1;
+  border-bottom:none;
+  background-color: #fff;
 }
 .tabsheet li:hover, .tabsheet li.selected_tab  {
 margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
  }
 /* .tabsheet a:hover */
 .tabsheet li.selected_tab  a { color: #555; }
-.tabsheet a span { font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
+.tabsheet a span { font-size:14px; margin-right:2px; padding:0 3px 0 1px; }
 
 .sort { clear: none; }
 
-/* menubar is on all admin pages => No specific css file */
-#menubar {
-  padding:0; width:207px; z-index:99; text-align: left;margin-top:7px;
-  margin-left:0;
-}
 
-#menubar ul.scroll { overflow-y:auto; max-height:500px; }
-#menubar dl { width: 200px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:0; background-color:#444; border-left:none; }
-#menubar dd { margin: 0; padding: 0; }
-#menubar dt {
-	background-color: #333; margin: 0; display: block; font-weight:bold;
-	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #aaa;
-	cursor:pointer;
-}
-#menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0;  }
-#menubar dl:last-of-type { border-radius:0;  }
-#menubar li { margin: 0; padding-left:10px; }
-#menubar li A { display:block; color:#ccc }
-#menubar li A:hover {color:#eee; text-decoration:none}
-#menubar li:hover {background-color:#222;}
-#menubar ul { color: #ccc; margin:0; line-height: 25px;
-  list-style-type: none; list-style-position: inside; padding: 0; }
-#adminHome       {background-color:#333;border-radius: 0;margin-left:0;margin-bottom:17px;}
-#adminHome:hover {background-color:#f70;}
-#adminHome A {color:#aaa}
-#adminHome:hover A {color:#fff}
-
-#menubar i {font-size:14px;}
 
 /* jQuery tooltips */
 .ui-tooltip {
