@@ -13,7 +13,7 @@
     "font"
   ],
   "scripts": {
-    "prettysass": "prettier --write --print-width 120 --tab-width 4 --use-tabs --single-quote sass/*.scss",
+    "prettysass": "prettier --write --print-width 120 --tab-width 4 --use-tabs sass/*.scss",
     "sass": "node-sass --output-style expanded --precision 6 open-sans.scss open-sans.expanded.css",
     "sass_autoprefixer": "postcss open-sans.expanded.css -u autoprefixer -o open-sans.prefixed.css --no-map",
     "sass_minify": "cleancss --level 1 --output open-sans.css open-sans.prefixed.css"
@@ -22,7 +22,7 @@
     "type": "git",
     "url": "https://github.com/FontFaceKit/open-sans"
   },
-  "license": "Apache License version 2.0",
+  "license": "Apache-2.0",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -34,21 +34,22 @@
     "url": "https://github.com/FontFaceKit/open-sans/issues"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.4",
-    "clean-css-cli": "^4.1.10",
-    "node-sass": "^4.5.3",
-    "postcss-cli": "^4.1.1",
-    "prettier": "^1.7.0"
+    "autoprefixer": "^9.1.1",
+    "clean-css-cli": "^4.2.1",
+    "eslint": "^5.3.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "node-sass": "^4.9.3",
+    "postcss-cli": "^6.0.0",
+    "prettier": "^1.14.2",
+    "prettier-eslint": "^8.8.2"
   },
   "browserslist": [
-    "Chrome >= 35",
-    "Firefox >= 38",
-    "Edge >= 12",
-    "Explorer >= 10",
-    "iOS >= 8",
-    "Safari >= 8",
-    "Android 2.3",
-    "Android >= 4",
-    "Opera >= 12"
-  ]
+    "> 1%",
+    "last 1 version",
+    "not dead",
+    "IE 10",
+    "Firefox ESR"
+  ],
+  "dependencies": {}
 }
