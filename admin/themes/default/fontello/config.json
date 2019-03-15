@@ -521,6 +521,18 @@
       "css": "th-list",
       "code": 59444,
       "src": "fontawesome"
+    },
+    {
+      "uid": "ccddff8e8670dcd130e3cb55fdfc2fd0",
+      "css": "down-open",
+      "code": 59445,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d870630ff8f81e6de3958ecaeac532f2",
+      "css": "left-open",
+      "code": 59446,
+      "src": "fontawesome"
     }
   ]
 }
