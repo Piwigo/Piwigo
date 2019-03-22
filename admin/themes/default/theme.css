@@ -800,6 +800,7 @@ html, body {height:100%; margin:0; padding:0;}
 	margin: 0; display: block; font-weight:bold;
 	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #aaa;
 	cursor:pointer;
+  line-height: 25px;
 }
 #menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0;  }
 #menubar dl:last-of-type { border-radius:0;  }
@@ -814,8 +815,8 @@ html, body {height:100%; margin:0; padding:0;}
   font-size: 14px;
   color: #666;
   float: right;
-  line-height: 37px;
   margin-right: 5px;
+  margin-top: 2px;
 }
 
 /* tabsheets are often used in admin  pages => No specific css files */
