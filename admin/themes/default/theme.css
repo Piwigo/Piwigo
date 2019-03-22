@@ -116,7 +116,7 @@ TABLE.table2 TR {
 
 TABLE.table2 THEAD TD { padding:7px 10px 3px 10px; }
 TABLE.table2 TR.throw { text-align: center; }
-.sort { display:block; padding:8px 5px 0px 1px; clear: right; float:left; }
+.sort { display:block; padding:8px 5px 5px 15px; text-align: left;}
 
 
 .hour {
@@ -907,7 +907,7 @@ h1 {
   color: #333;
   font-size: 22px;
 }
-h2 { letter-spacing:1px; font-weight:bold;}
+h2 { letter-spacing:1px; font-weight:bold; display: none;}
 h2:lang(en) { text-transform:capitalize; }
 
 #pluginsMenuSeparator {width:80%; margin:5px auto;}

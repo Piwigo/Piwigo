@@ -41,7 +41,6 @@ jQuery(document).ready(function() {
 
   var page_title = jQuery('h2').html();
   jQuery('h1').html(page_title);
-  jQuery('h2, .titrePage').hide();
 });
 {/footer_script}
 
