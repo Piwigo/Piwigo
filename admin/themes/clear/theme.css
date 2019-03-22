@@ -69,10 +69,6 @@ h3, .throw, .row1 { background-color: #ddd; }
 
 #content {
 	background: #fff;
-  border: none;
-	min-height: 467px;
-  margin-left:205px;
-  margin-top: 0;
 }
 
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
@@ -145,56 +141,6 @@ ul.actions, .content form#waiting  {text-align:center;}
 	margin:0; padding:10px 0 0;
 	text-align:center; width:100%;
 }
-
-/* tabsheets are often used in admin  pages => No specific css files */
-#tabsheet {
-  width:auto;
-  margin:0 0 20px 0;
-  padding:0 0 0 10px;
-  border:none;
-  border:none;
-  background-color:#f3f3f3;
-}
-.tabsheet {
-  display:table;
-  white-space:nowrap;
-  padding-left:10px;
-  margin:0;
-  width:auto;
-  list-style-type:none;
-  list-style-image:none;
-  text-decoration:none;
-}
-.tabsheet li {
-  background-color: transparent;
-  float:left;
-  margin:0 6px 0 0;
-  overflow:hidden;
-  text-align:right;
-  border:none;
-  position:relative;
-  top:11px;
-  border-radius:5px 5px 0 0;
-}
-.tabsheet a {
-display:block; font-size:11px; border:0;
-font-weight:bold; overflow:hidden; padding:10px 20px;
-text-align:right; text-decoration:none; margin: 0; }
-.tabsheet a:first-letter { text-transform:capitalize; }
-.tabsheet li.selected_tab  {
-  border-bottom:none;
-  background-color: #fff;
-}
-.tabsheet li:hover, .tabsheet li.selected_tab  {
-margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
- }
-/* .tabsheet a:hover */
-.tabsheet li.selected_tab  a { color: #555; }
-.tabsheet a span { font-size:14px; margin-right:2px; padding:0 3px 0 1px; }
-
-.sort { clear: none; }
-
-
 
 /* jQuery tooltips */
 .ui-tooltip {

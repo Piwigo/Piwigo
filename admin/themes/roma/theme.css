@@ -1,19 +1,3 @@
-/* generic colors - roma
-.gcText { color: #666666; }                 used for text
-.gcText2 { color: #FF3366; }                used for table header
-.gcText3 { color: #FF3366; }                used for tabs text
-.gcTextInput { color:#999999; }             used for inputs
-.gcLink { color: #FF7700; }                 used for link
-.gcLinkHover { color: #FF3333; }            used for link
-.gcBgPage { background-color: #111111; }               used for page background
-.gcBgTabSheet { background-color: #222222; }           used inside tabsheet & menu
-.gcBgTableRow1 { background-color: #111111; }            used in for tables rows background
-.gcBgTableRow2 { background-color: #222222; }            used in tables rows & some widgets background
-.gcBgInput { background-color:#444444; }                      used for inputs
-.gcBorder    { border-color: #FF3363; }            used for borders
-.gcBorder2   { border-color: #666666; }            used for widgets borders
-.gcBorderInput { border-color:#666666; }           used for inputs
-*/
 /* text color */
 body, h3, dt, .throw, .content, label, LEGEND {
 	color:#777;
@@ -40,7 +24,7 @@ h2 { color: #ccc; }
 html, body { min-height: 100%; }
 
 body {
-	background-color:#111111;
+	background-color:#444;
 }
 
 /* #the_page { margin: 0; padding: 0; z-index: 1; top:0px; */
@@ -49,10 +33,36 @@ h3, .row2, .content { background-color: #222; }
 .throw, .row1 { background-color:#111; }
 .throw em { font-style: normal; color: #ff3363; }
 
+#menubar li:hover {
+  background-color: transparent;
+}
+
 #content {
-	border: 1px solid #222;
-	min-height: 466px; 
-	margin-top: 15px;
+  background-color: #444444;
+}
+
+h1 {
+  background-color: #565656;
+  color: #c1c1c1;
+}
+
+#tabsheet {
+  background-color:#565656;
+}
+
+.tabsheet li.selected_tab {
+  background-color: #444;
+}
+.tabsheet li.selected_tab a {
+  color: #c1c1c1;
+}
+.tabsheet a {
+  color: #7e7e7e;
+  font-weight: normal;
+}
+
+.tabsheet li:hover a {
+  color: #c1c1c1;
 }
 
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0; text-align:center; background:none; border: 0; }
@@ -107,8 +117,8 @@ a.Piwigo:hover  span.Piwigo  {
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 */
 
-a { color:#f70; }
-a:hover, a:active { color: #f33; cursor: pointer; }
+a { color:#bbb; }
+a:hover, a:active { color: #f70; cursor: pointer; }
 .content .navigationBar {color:#666;}
 ul.actions, .content form#waiting  {text-align:center;}
 
@@ -116,58 +126,8 @@ ul.actions, .content form#waiting  {text-align:center;}
 border:0; color:#333; font-size:24px; height:30px; margin:0; padding:10px 0 0;
 text-align:center; width:100%; }
 
-/* tabsheets are often used in admin  pages => No specific css files */
-#tabsheet { width:auto; margin:-1px; margin-right:-6px; padding:0;
-border:1px solid #111111; border-bottom:1px solid #ff3363; background-color:#111111;}
-.tabsheet { display:table; white-space:nowrap; padding-left:10px; margin:0; width:auto;
-font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
-list-style-type:none; list-style-image:none; text-decoration:none; }
-.tabsheet li { background:#222222; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #ff3363; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;-webkit-border-top-left-radius:5px; -webkit-border-top-right-radius:5px;border-radius:5px 5px 0 0;}
-.tabsheet a {
-outline:none; color:#666; display:block; font-size:11px; border:0;
-font-weight:bold; overflow:hidden; padding:6px;
-text-align:right; text-decoration:none; margin: 0; }
-.tabsheet a:first-letter { text-transform:capitalize; }
-.tabsheet li.selected_tab  {
-  border-bottom:1px solid #222222;
-}
-.tabsheet li:hover, .tabsheet li.selected_tab  {
-margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
- }
-.tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36; }
-.tabsheet a span { background-color:#222; font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
-
-/* menubar is on all admin pages => No specific css file */
-#menubar {
-background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
-border:0;
-padding:0; width:207px; z-index:99; text-align: left;
-}
-
-#menubar dd {
-background: #111 url(images/menubar-detail.png) repeat-y top left;
-margin: 0; padding: 0 0 10px 0; }
-#menubar dl {
-background:transparent url(images/menuBoxTop_new.png) no-repeat scroll left top;
-width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; }
-#menubar dl:first-of-type{
-background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
-#menubar dl:last-of-type { padding: 0 0 24px 0;}
-#menubar dt { 
-	margin: 0; display: block; background: none; left:10px; font-weight:bold;
-	position:relative; padding: 5px 1px 4px 5px; top:-8px; font-size: 13px; color: #666;  outline:none;
-	cursor:pointer;
-}
-#menubar dt * { background-color: #111; }
-#menubar li { margin: 0 0 0 12px; }
-#menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
-#menubar li.external:hover { list-style-image:url(images/external_active.png); }
-#menubar ul { color: #333; margin:0 9px 0 9px; line-height: 16px;
-  list-style-type: none; list-style-position: inside; padding: 0; }
-#menubar ul.scroll { overflow-y:auto; max-height:500px;}
-
-#menubar dd [class^="icon-"]:before {
-    color: #666;
+#adminHome A, #menubar li A, #menubar dt {
+  color: #8d8d8d;
 }
 
 /* jQuery tooltips */
@@ -227,20 +187,19 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 INPUT[type="text"].large  { width: 317px; }
 
 .buttonLike, input[type="button"], input[type="submit"], input[type="reset"] {
-	color:#ff3363;
-	background-color:#222;
-	border-color: #ff3363;
-	padding: 5px;
+	color: #000;
+	background-color: #ffa744;
+	border: none;
+	padding: 13px 20px;
+  font-size: 16px;
 }
 
 .buttonLike:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
-	color:#999; 
-	border-color: #666;
+	color:#000;
 	text-decoration: none;
 
-  background-color:#ff3363;
-  color:#fff;
-  border-color:#ff3363;
+  background-color:#f70;
+  color:#000;
   cursor:pointer;
 }
 
@@ -266,9 +225,6 @@ color:transparent;}
 
 * html .bigtext { margin-right: 300px; }
 
-#adminHome       {background-color:#222;}
-#adminHome:hover {background-color:#333;}
-
 .themeBox {background-color:#333;}
 .themeBox IMG {border:1px solid #666;}
 .themeName {color:#ccc;}
@@ -278,12 +234,6 @@ color:transparent;}
 #pluginsMenuSeparator {border:1px solid #333;}
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
-
-#pwgHead, #footer {background-color:#222;}
-
-#pwgHead h1 A:hover [class="icon-home"] {
-  color:#f36;
-}
 
 .pluginBox, .pluginMiniBox, .groups li {background-color:#333;color:#999;border-color:#333;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#ddd;}
