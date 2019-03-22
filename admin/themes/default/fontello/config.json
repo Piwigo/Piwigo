@@ -533,6 +533,12 @@
       "css": "left-open",
       "code": 59446,
       "src": "fontawesome"
+    },
+    {
+      "uid": "0a3192de65a73ca1501b073ad601f87d",
+      "css": "arrow-combo",
+      "code": 59447,
+      "src": "entypo"
     }
   ]
 }
