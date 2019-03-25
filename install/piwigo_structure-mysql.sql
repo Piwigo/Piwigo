@@ -5,6 +5,22 @@
 -- Server version	4.0.24_Debian-10-log
 
 --
+-- Table structure for table `piwigo_activity`
+--
+
+DROP TABLE IF EXISTS `piwigo_activity`;
+CREATE TABLE `piwigo_activity` (
+  `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `object` varchar(255) NOT NULL,
+  `object_id` int(11) unsigned NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `performed_by` mediumint(8) unsigned NOT NULL,
+  `occured_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `details` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`activity_id`)
+) ENGINE=MyISAM;
+
+--
 -- Table structure for table `piwigo_caddie`
 --
 

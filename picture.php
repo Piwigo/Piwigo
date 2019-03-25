@@ -316,6 +316,7 @@ UPDATE '.CATEGORIES_TABLE.'
   WHERE id = '.$page['category']['id'].'
 ;';
         pwg_query($query);
+        pwg_activity('album', $page['category']['id'], 'edit', 'script='.script_basename().' action='.$_GET['action'].' image_id='.$page['image_id']);
 
         include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
         invalidate_user_cache();

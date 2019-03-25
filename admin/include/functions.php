@@ -163,6 +163,7 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   pwg_query($query);
 
   trigger_notify('delete_categories', $ids);
+  pwg_activity('album', $ids, 'delete', 'photo_deletion_mode='.$photo_deletion_mode);
 }
 
 /**
@@ -1589,6 +1590,7 @@ SELECT id, uppercats, global_rank, visible, status
   }
 
   trigger_notify('create_virtual_category', array_merge(array('id'=>$inserted_id), $insert));
+  pwg_activity('album', $inserted_id, 'add');
 
   return array(
     'info' => l10n('Virtual album added'),

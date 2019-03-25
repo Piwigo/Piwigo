@@ -511,6 +511,31 @@ INSERT INTO '.HISTORY_TABLE.'
   return true;
 }
 
+function pwg_activity($object, $object_id, $action, $details=null)
+{
+  global $user;
+
+  $object_ids = $object_id;
+  if (!is_array($object_id))
+  {
+    $object_ids = array($object_id);
+  }
+
+  foreach ($object_ids as $loop_object_id)
+  {
+    single_insert(
+      ACTIVITY_TABLE,
+      array(
+        'object' => $object,
+        'object_id' => $loop_object_id,
+        'action' => $action,
+        'performed_by' => $user['id'],
+        'details' => pwg_db_real_escape_string($details),
+      )
+    );
+  }
+}
+
 /**
  * Computes the difference between two dates.
  * returns a DateInterval object or a stdClass with the same attributes

@@ -730,6 +730,8 @@ SELECT *
       array('id' => $update['id'])
       );
   }
+
+  pwg_activity('album', $params['category_id'], 'edit', 'method='.$_REQUEST['method'].' fields='.implode(',', array_keys($update)));
 }
 
 /**
@@ -779,6 +781,8 @@ UPDATE '. USER_CACHE_CATEGORIES_TABLE .'
   WHERE cat_id = '. $params['category_id'] .'
 ;';
   pwg_query($query);
+
+  pwg_activity('album', $params['category_id'], 'edit', 'method='.$_REQUEST['method'].' image_id='.$params['image_id']);
 }
 
 /**
@@ -824,6 +828,8 @@ UPDATE '.CATEGORIES_TABLE.'
   WHERE id = '.$params['category_id'].'
 ;';
   pwg_query($query);
+
+  pwg_activity('album', $params['category_id'], 'edit', 'method='.$_REQUEST['method']);
 }
 
 /**
@@ -868,6 +874,8 @@ SELECT
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   
   set_random_representant(array($params['category_id']));
+
+  pwg_activity('album', $params['category_id'], 'edit', 'method='.$_REQUEST['method']);
 
   // return url of the new representative
   $query = '

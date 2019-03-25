@@ -170,6 +170,7 @@ UPDATE '.CATEGORIES_TABLE.'
   }
 
   $_SESSION['page_infos'][] = l10n('Album updated successfully');
+  pwg_activity('album', $_GET['cat_id'], 'edit');
   $redirect = true;
 }
 

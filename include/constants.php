@@ -109,5 +109,7 @@ if (!defined('LANGUAGES_TABLE'))
   define('LANGUAGES_TABLE', $prefixeTable.'languages');
 if (!defined('IMAGE_FORMAT_TABLE'))
   define('IMAGE_FORMAT_TABLE', $prefixeTable.'image_format');
+if (!defined('ACTIVITY_TABLE'))
+  define('ACTIVITY_TABLE', $prefixeTable.'activity');
 
 ?>
