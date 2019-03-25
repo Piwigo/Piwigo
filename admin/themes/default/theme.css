@@ -1074,10 +1074,22 @@ INPUT[type="radio"], INPUT[type="checkbox"] {
 .header_msgs {
   text-align:center;
   font-weight: bold;
-  color:#333;
-  background-color: transparent;
-  margin: 1px;
-  padding: 1px;
+  color:#ff5252;
+  background-color: #ffcfcf;
+  margin: 0;
+  padding: 0 0 0 205px;
+  border:0;
+  font-size: 24px;
+  line-height: 50px;
+}
+.header_msgs a {
+  background-color: #ff5252;
+  color: white;
+  padding: 8px 20px;
+}
+.header_msgs a:hover {
+  color: white;
+  text-decoration: underline;
 }
 
 /**

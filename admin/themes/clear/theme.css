@@ -132,15 +132,6 @@ A:hover, A:active {
 .content .navigationBar {color:#999;}
 ul.actions, .content form#waiting  {text-align:center;}
 
-.header_msgs {
-	border:0;
-	color:#ccc;
-	font-size:24px;
-	height:30px;
-	margin:0; padding:10px 0 0;
-	text-align:center; width:100%;
-}
-
 /* jQuery tooltips */
 .ui-tooltip {
 	color: #000;

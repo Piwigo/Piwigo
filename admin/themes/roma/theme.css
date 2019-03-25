@@ -122,10 +122,6 @@ a:hover, a:active { color: #f70; cursor: pointer; }
 .content .navigationBar {color:#666;}
 ul.actions, .content form#waiting  {text-align:center;}
 
-.header_msgs { background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
-border:0; color:#333; font-size:24px; height:30px; margin:0; padding:10px 0 0;
-text-align:center; width:100%; }
-
 #adminHome A, #menubar li A, #menubar dt {
   color: #8d8d8d;
 }
