@@ -193,7 +193,7 @@ SELECT id
 
   // let's see if some categories already have some sub-categories...
   $query = '
-SELECT id_uppercat, MAX(rank)+1 AS next_rank
+SELECT id_uppercat, MAX(cat_rank)+1 AS next_rank
   FROM '.CATEGORIES_TABLE.'
   GROUP BY id_uppercat';
   $result = pwg_query($query);
@@ -252,9 +252,9 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
         $insert['id_uppercat'] = $parent;
         $insert['uppercats'] =
           $db_categories[$parent]['uppercats'].','.$insert['id'];
-        $insert['rank'] = $next_rank[$parent]++;
+        $insert['cat_rank'] = $next_rank[$parent]++;
         $insert['global_rank'] =
-          $db_categories[$parent]['global_rank'].'.'.$insert['rank'];
+          $db_categories[$parent]['global_rank'].'.'.$insert['cat_rank'];
         if ('private' == $db_categories[$parent]['status'])
         {
           $insert['status'] = 'private';
@@ -267,8 +267,8 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
       else
       {
         $insert['uppercats'] = $insert['id'];
-        $insert{'rank'} = $next_rank['NULL']++;
-        $insert['global_rank'] = $insert['rank'];
+        $insert{'cat_rank'} = $next_rank['NULL']++;
+        $insert['global_rank'] = $insert['cat_rank'];
       }
 
       $inserts[] = $insert;
@@ -305,7 +305,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
     {
       $dbfields = array(
         'id','dir','name','site_id','id_uppercat','uppercats','commentable',
-        'visible','status','rank','global_rank'
+        'visible','status','cat_rank','global_rank'
         );
       mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
 

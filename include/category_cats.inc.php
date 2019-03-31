@@ -64,7 +64,7 @@ $query.= '
 if ('recent_cats' != $page['section'])
 {
   $query.= '
-  ORDER BY rank';
+  ORDER BY cat_rank';
 }
 
 $result = pwg_query($query);

@@ -309,7 +309,7 @@ $template->assign(array(
 $categories = array();
 
 $query = '
-SELECT id, name, permalink, dir, rank, status
+SELECT id, name, permalink, dir, cat_rank, status
   FROM '.CATEGORIES_TABLE;
 if (!isset($_GET['parent_id']))
 {
@@ -322,7 +322,7 @@ else
   WHERE id_uppercat = '.$_GET['parent_id'];
 }
 $query.= '
-  ORDER BY rank ASC
+  ORDER BY cat_rank ASC
 ;';
 $categories = hash_from_query($query, 'id');
 
@@ -407,7 +407,7 @@ foreach ($categories as $category)
       'NB_SUB_PHOTOS' => isset($nb_sub_photos[$category['id']]) ? $nb_sub_photos[$category['id']] : 0,
       'NB_SUB_ALBUMS' => isset($subcats_of[$category['id']]) ? count($subcats_of[$category['id']]) : 0,
       'ID'         => $category['id'],
-      'RANK'       => $category['rank']*10,
+      'RANK'       => $category['cat_rank']*10,
 
       'U_JUMPTO'   => make_index_url(
         array(

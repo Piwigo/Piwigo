@@ -135,7 +135,7 @@ $sort_fields = array(
   'hit ASC'             => l10n('Visits, low &rarr; high'),
   'id ASC'              => l10n('Numeric identifier, 1 &rarr; 9'),
   'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
-  'rank ASC'            => l10n('Manual sort order'),
+  'ima_rank ASC'            => l10n('Manual sort order'),
   );
 
 $comments_order = array(
@@ -186,7 +186,7 @@ if (isset($_POST['submit']))
             $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
 
             // there is no rank outside categories
-            if ( ($i = array_search('rank ASC', $order_by)) !== false)
+            if ( ($i = array_search('ima_rank ASC', $order_by)) !== false)
             {
               unset($order_by[$i]);
             }
