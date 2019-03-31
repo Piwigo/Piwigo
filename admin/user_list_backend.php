@@ -218,7 +218,7 @@ if (count($user_ids) > 0)
   $query = '
 SELECT
     user_id,
-    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS groups
+    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS groups2
   FROM '.USER_GROUP_TABLE.'
     JOIN '.GROUPS_TABLE.' ON id = group_id
   WHERE user_id IN ('.implode(',', $user_ids).')
@@ -227,7 +227,7 @@ SELECT
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $groups_of_user[ $row['user_id'] ] = $row['groups'];
+    $groups_of_user[ $row['user_id'] ] = $row['groups2'];
   }
 
   $key_replace = array_search('recent_period', $aColumns);

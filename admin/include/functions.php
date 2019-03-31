@@ -687,9 +687,9 @@ function save_categories_order($categories)
 function update_global_rank()
 {
   $query = '
-SELECT id, id_uppercat, uppercats, rank, global_rank
+SELECT id, id_uppercat, uppercats, cat_rank, global_rank
   FROM '.CATEGORIES_TABLE.'
-  ORDER BY id_uppercat,rank,name';
+  ORDER BY id_uppercat,cat_rank,name';
 
   global $cat_map; // used in preg_replace callback
   $cat_map = array();
@@ -708,8 +708,8 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
     ++$current_rank;
     $cat =
       array(
-        'rank' =>        $current_rank,
-        'rank_changed' =>$current_rank!=$row['rank'],
+        'cat_rank' =>        $current_rank,
+        'rank_changed' =>$current_rank!=$row['cat_rank'],
         'global_rank' => $row['global_rank'],
         'uppercats' =>   $row['uppercats'],
         );
@@ -718,7 +718,7 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
 
   $datas = array();
 
-  $cat_map_callback = function($m) use ($cat_map) {  return $cat_map[$m[1]]["rank"]; };
+  $cat_map_callback = function($m) use ($cat_map) {  return $cat_map[$m[1]]["cat_rank"]; };
 
   foreach( $cat_map as $id=>$cat )
   {
@@ -732,7 +732,7 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
     {
       $datas[] = array(
           'id' => $id,
-          'rank' => $cat['rank'],
+          'cat_rank' => $cat['cat_rank'],
           'global_rank' => $new_global_rank,
         );
     }
@@ -744,7 +744,7 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
     CATEGORIES_TABLE,
     array(
       'primary' => array('id'),
-      'update'  => array('rank', 'global_rank')
+      'update'  => array('cat_rank', 'global_rank')
       ),
     $datas
     );
@@ -1453,7 +1453,7 @@ function create_virtual_category($category_name, $parent_id=null, $options=array
   {
     //what is the current higher rank for this parent?
     $query = '
-SELECT MAX(rank) AS max_rank
+SELECT MAX(cat_rank) AS max_rank
   FROM '. CATEGORIES_TABLE .'
   WHERE id_uppercat '.(empty($parent_id) ? 'IS NULL' : '= '.$parent_id).' 
 ;';
@@ -1467,7 +1467,7 @@ SELECT MAX(rank) AS max_rank
 
   $insert = array(
     'name' => $category_name,
-    'rank' => $rank,
+    'cat_rank' => $rank,
     'global_rank' => 0,
     );
 
@@ -1521,7 +1521,7 @@ SELECT id, uppercats, global_rank, visible, status
     $parent = pwg_db_fetch_assoc(pwg_query($query));
 
     $insert['id_uppercat'] = $parent['id'];
-    $insert['global_rank'] = $parent['global_rank'].'.'.$insert['rank'];
+    $insert['global_rank'] = $parent['global_rank'].'.'.$insert['cat_rank'];
 
     // at creation, must a category be visible or not ? Warning : if the
     // parent category is invisible, the category is automatically create
@@ -1929,9 +1929,9 @@ SELECT
   $query = '
 SELECT
     category_id,
-    MAX(rank) AS max_rank
+    MAX(ima_rank) AS max_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE rank IS NOT NULL
+  WHERE ima_rank IS NOT NULL
     AND category_id IN ('.implode(',', $categories).')
   GROUP BY category_id
 ;';
@@ -1964,7 +1964,7 @@ SELECT
         $inserts[] = array(
           'image_id' => $image_id,
           'category_id' => $category_id,
-          'rank' => $rank,
+          'ima_rank' => $rank,
           );
       }
     }
@@ -3127,12 +3127,12 @@ function save_images_order($category_id, $images)
     $datas[] = array(
       'category_id' => $category_id,
       'image_id' => $id,
-      'rank' => ++$current_rank,
+      'ima_rank' => ++$current_rank,
       );
   }
   $fields = array(
     'primary' => array('image_id', 'category_id'),
-    'update' => array('rank')
+    'update' => array('ima_rank')
     );
   mass_updates(IMAGE_CATEGORY_TABLE, $fields, $datas);
 }

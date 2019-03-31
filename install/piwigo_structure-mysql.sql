@@ -42,7 +42,7 @@ CREATE TABLE `piwigo_categories` (
   `id_uppercat` smallint(5) unsigned default NULL,
   `comment` text,
   `dir` varchar(255) default NULL,
-  `rank` smallint(5) unsigned default NULL,
+  `cat_rank` smallint(5) unsigned default NULL,
   `status` enum('public','private') NOT NULL default 'public',
   `site_id` tinyint(4) unsigned default NULL,
   `visible` enum('true','false') NOT NULL default 'true',
@@ -175,7 +175,7 @@ DROP TABLE IF EXISTS `piwigo_image_category`;
 CREATE TABLE `piwigo_image_category` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `category_id` smallint(5) unsigned NOT NULL default '0',
-  `rank` mediumint(8) unsigned default NULL,
+  `ima_rank` mediumint(8) unsigned default NULL,
   PRIMARY KEY  (`image_id`,`category_id`),
   KEY `image_category_i1` (`category_id`)
 ) ENGINE=MyISAM;
