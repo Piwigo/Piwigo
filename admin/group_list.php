@@ -86,6 +86,9 @@ INSERT INTO '.GROUPS_TABLE.'
     pwg_query($query);
 
     $page['infos'][] = l10n('group "%s" added', $_POST['groupname']);
+
+    $inserted_id = pwg_db_insert_id(GROUPS_TABLE);
+    pwg_activity('group', $inserted_id, 'add');
   }
 }
 
@@ -130,6 +133,7 @@ SELECT name
         WHERE id = '.$group.'
       ;';
         pwg_query($query);
+        pwg_activity('group', $group, 'edit', array('action'=>$action));
       }
     }
   }
@@ -177,6 +181,7 @@ SELECT name
       pwg_query($query);
 
       trigger_notify('delete_group', $groupids);
+      pwg_activity('group', $groupids, 'delete');
 
       $page['infos'][] = l10n('group "%s" deleted', $groupname);
     }
@@ -215,6 +220,7 @@ SELECT COUNT(*)
         WHERE name = \''.pwg_db_real_escape_string($_POST['merge']).'\'
       ;';
       list($groupid) = pwg_db_fetch_row(pwg_query($query));
+      pwg_activity('group', $groupid, 'add', array('action'=>$action, 'groups'=>implode(',', $groups)));
     }
     $grp_access = array();
     $usr_grp = array();
@@ -301,6 +307,7 @@ SELECT COUNT(*)
       ;';
       
       list($groupid) = pwg_db_fetch_row(pwg_query($query));
+      pwg_activity('group', $groupid, 'add', array('action'=>$action, 'group'=>$group));
       $query = '
     SELECT *
       FROM '.GROUP_ACCESS_TABLE.'
@@ -360,7 +367,9 @@ SELECT COUNT(*)
       WHERE id = '.$group.'
     ;';
       pwg_query($query);
-    
+
+      pwg_activity('group', $group, 'edit', array('action'=>$action));
+
       $page['infos'][] = l10n('group "%s" updated', $groupname);
     }
   }

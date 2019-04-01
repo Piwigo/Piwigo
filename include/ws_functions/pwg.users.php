@@ -639,6 +639,8 @@ SELECT
 
   invalidate_user_cache();
 
+  pwg_activity('user', $params['user_id'], 'edit');
+
   return $service->invoke('pwg.users.getList', array(
     'user_id' => $params['user_id'],
     'display' => 'basics,'.implode(',', array_keys($updates_infos)),

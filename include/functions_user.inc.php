@@ -282,6 +282,8 @@ SELECT id
         )
       );
 
+    pwg_activity('user', $user_id, 'add');
+
     return $user_id;
   }
   else
@@ -961,6 +963,7 @@ function log_user($user_id, $remember_me)
 
   $user['id'] = $_SESSION['pwg_uid'];
   trigger_notify('user_login', $user['id']);
+  pwg_activity('user', $user['id'], 'login');
 }
 
 /**
@@ -1137,6 +1140,7 @@ function logout_user()
   global $conf;
 
   trigger_notify('user_logout', @$_SESSION['pwg_uid']);
+  pwg_activity('user', @$_SESSION['pwg_uid'], 'logout');
 
   $_SESSION = array();
   session_unset();

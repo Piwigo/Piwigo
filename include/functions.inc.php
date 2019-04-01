@@ -511,7 +511,7 @@ INSERT INTO '.HISTORY_TABLE.'
   return true;
 }
 
-function pwg_activity($object, $object_id, $action, $details=null)
+function pwg_activity($object, $object_id, $action, $details=array())
 {
   global $user;
 
@@ -521,19 +521,64 @@ function pwg_activity($object, $object_id, $action, $details=null)
     $object_ids = array($object_id);
   }
 
+  if (isset($_REQUEST['method']))
+  {
+    $details['method'] = $_REQUEST['method'];
+  }
+  else
+  {
+    $details['script'] = script_basename();
+
+    if ('admin' == $details['script'] and isset($_GET['page']))
+    {
+      $details['script'].= '/'.$_GET['page'];
+    }
+  }
+
+  if ('user' == $object and 'login' == $action)
+  {
+    $details['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
+  }
+
+  if ('photo' == $object and 'add' == $action and !isset($details['sync']))
+  {
+    $details['added_with'] = 'app';
+    if (isset($_SERVER['HTTP_REFERER']) and preg_match('/page=photos_add/', $_SERVER['HTTP_REFERER']))
+    {
+      $details['added_with'] = 'browser';
+    }
+    $details['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
+  }
+
+  if (in_array($object, array('album', 'photo')) and 'delete' == $action and isset($_GET['page']) and 'site_update' == $_GET['page'])
+  {
+    $details['sync'] = true;
+  }
+
+  if ('tag' == $object and 'delete' == $action and isset($_POST['destination_tag']))
+  {
+    $details['action'] = 'merge';
+    $details['destination_tag'] = $_POST['destination_tag'];
+  }
+
+  $inserts = array();
+  $details_insert = pwg_db_real_escape_string(serialize($details));
+  $ip_address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+
   foreach ($object_ids as $loop_object_id)
   {
-    single_insert(
-      ACTIVITY_TABLE,
-      array(
-        'object' => $object,
-        'object_id' => $loop_object_id,
-        'action' => $action,
-        'performed_by' => $user['id'],
-        'details' => pwg_db_real_escape_string($details),
-      )
+    $inserts[] = array(
+      'object' => $object,
+      'object_id' => $loop_object_id,
+      'action' => $action,
+      'performed_by' => $user['id'],
+      'session_idx' => session_id(),
+      'ip_address' => $ip_address,
+      'details' => $details_insert,
     );
   }
+
+  mass_inserts(ACTIVITY_TABLE, array_keys($inserts[0]), $inserts);
 }
 
 /**

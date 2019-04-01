@@ -107,6 +107,8 @@ SELECT id, name
       ),
     $updates
     );
+
+  pwg_activity('tag', explode(',', $_POST['edit_list']), 'edit');
 }
 // +-----------------------------------------------------------------------+
 // |                            dulicate tags                              |
@@ -154,14 +156,9 @@ SELECT id, name
             'url_name' => trigger_change('render_tag_url', $tag_name),
             )
           );
+        $destination_tag_id = pwg_db_insert_id(TAGS_TABLE);
 
-        $query = '
-        SELECT id
-          FROM '.TAGS_TABLE.'
-          WHERE name = \''.$tag_name.'\'
-        ;';
-        $destination_tag = array_from_query($query, 'id');
-        $destination_tag_id = $destination_tag[0];
+        pwg_activity('tag', $destination_tag_id, 'add', array('action'=>'duplicate', 'source_tag'=>$tag_id));
 
         $query = '
         SELECT

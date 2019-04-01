@@ -197,6 +197,7 @@ UPDATE '.CATEGORIES_TABLE.'
   $represented_albums = $_POST['represent'];
 
   $page['infos'][] = l10n('Photo informations updated');
+  pwg_activity('photo', $_GET['image_id'], 'edit');
 }
 
 // tags

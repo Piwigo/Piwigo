@@ -320,6 +320,9 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
           $category_up[] = $category['id_uppercat'];
         }
       }
+
+      pwg_activity('album', $category_ids, 'add', array('sync'=>true));
+
       $category_up=implode(',',array_unique($category_up));
       if ($conf['inheritance_by_default'])
       {
@@ -675,6 +678,8 @@ SELECT *
         array_keys($insert_links[0]),
         $insert_links
         );
+
+      pwg_activity('photo', $caddiables, 'add', array('sync'=>true));
 
       // add new photos to caddie
       if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)

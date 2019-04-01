@@ -34,6 +34,14 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST))
+{
+  check_pwg_token();
+  check_input_parameter('cat_true', $_POST, true, PATTERN_ID);
+  check_input_parameter('cat_false', $_POST, true, PATTERN_ID);
+  check_input_parameter('section', $_GET, false, '/^[a-z0-9_-]+$/i');
+}
+
 // +-----------------------------------------------------------------------+
 // |                       modification registration                       |
 // +-----------------------------------------------------------------------+
@@ -43,8 +51,6 @@ if (isset($_POST['falsify'])
     and isset($_POST['cat_true'])
     and count($_POST['cat_true']) > 0)
 {
-  check_pwg_token();
-  check_input_parameter('cat_true', $_POST, true, PATTERN_ID);
   switch ($_GET['section'])
   {
     case 'comments' :
@@ -78,13 +84,13 @@ UPDATE '.CATEGORIES_TABLE.'
       break;
     }
   }
+
+  pwg_activity('album', $_POST['cat_true'], 'edit', array('section'=>$_GET['section'], 'action'=>'falsify'));
 }
 else if (isset($_POST['trueify'])
          and isset($_POST['cat_false'])
          and count($_POST['cat_false']) > 0)
 {
-  check_pwg_token();
-  check_input_parameter('cat_false', $_POST, true, PATTERN_ID);
   switch ($_GET['section'])
   {
     case 'comments' :
@@ -115,6 +121,8 @@ UPDATE '.CATEGORIES_TABLE.'
       break;
     }
   }
+
+  pwg_activity('album', $_POST['cat_false'], 'edit', array('section'=>$_GET['section'], 'action'=>'trueify'));
 }
 
 // +-----------------------------------------------------------------------+

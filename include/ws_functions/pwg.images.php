@@ -722,6 +722,8 @@ UPDATE '. IMAGES_TABLE .'
 ;';
   $result = pwg_query($query);
 
+  pwg_activity('photo', $params['image_id'], 'edit');
+
   $affected_rows = pwg_db_changes($result);
   if ($affected_rows)
   {
@@ -1694,6 +1696,8 @@ SELECT *
       $update,
       array('id' => $update['id'])
       );
+
+    pwg_activity('photo', $update['id'], 'edit');
   }
 
   if (isset($params['categories']))

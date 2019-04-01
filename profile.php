@@ -192,6 +192,8 @@ function save_profile_from_post($userdata, &$errors)
     // mass_updates function
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+    $activity_details_tables = array();
+
     if (isset($_POST['mail_address']))
     {
       // update common user informations
@@ -255,6 +257,8 @@ function save_profile_from_post($userdata, &$errors)
                     'update' => $fields
                     ),
                    array($data));
+
+      $activity_details_tables[] = 'users';
     }
 
     if ($conf['allow_user_customization'] or defined('IN_ADMIN'))
@@ -283,8 +287,11 @@ function save_profile_from_post($userdata, &$errors)
       mass_updates(USER_INFOS_TABLE,
                    array('primary' => array('user_id'), 'update' => $fields),
                    array($data));
+
+      $activity_details_tables[] = 'user_infos';
     }
     trigger_notify( 'save_profile_from_post', $userdata['id'] );
+    pwg_activity('user', $userdata['id'], 'edit', array('function'=>__FUNCTION__, 'tables'=>implode(',', $activity_details_tables)));
 
     if (!empty($_POST['redirect']))
     {

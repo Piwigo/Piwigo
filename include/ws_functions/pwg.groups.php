@@ -98,8 +98,11 @@ SELECT COUNT(*)
       'is_default' => boolean_to_string($params['is_default']),
       )
     );
+  $inserted_id = pwg_db_insert_id();
 
-  return $service->invoke('pwg.groups.getList', array('group_id' => pwg_db_insert_id()));
+  pwg_activity('group', $inserted_id, 'add');
+
+  return $service->invoke('pwg.groups.getList', array('group_id' => $inserted_id));
 }
 
 /**
@@ -153,6 +156,7 @@ DELETE
   pwg_query($query);
 
   trigger_notify('delete_group', $groupids);
+  pwg_activity('group', $groupids, 'delete');
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   invalidate_user_cache();
@@ -219,6 +223,8 @@ SELECT COUNT(*)
     array('id' => $params['group_id'])
     );
 
+  pwg_activity('group', $params['group_id'], 'edit');
+
   return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));
 }
 
@@ -267,6 +273,9 @@ SELECT COUNT(*)
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   invalidate_user_cache();
 
+  pwg_activity('group', $params['group_id'], 'edit');
+  pwg_activity('user', $params['user_id'], 'edit');
+
   return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));
 }
 
@@ -306,6 +315,9 @@ DELETE FROM '. USER_GROUP_TABLE .'
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   invalidate_user_cache();
+
+  pwg_activity('group', $params['group_id'], 'edit');
+  pwg_activity('user', $params['user_id'], 'edit');
 
   return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));
 }

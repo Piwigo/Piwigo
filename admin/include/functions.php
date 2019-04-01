@@ -163,7 +163,7 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   pwg_query($query);
 
   trigger_notify('delete_categories', $ids);
-  pwg_activity('album', $ids, 'delete', 'photo_deletion_mode='.$photo_deletion_mode);
+  pwg_activity('album', $ids, 'delete', array('photo_deletion_mode'=>$photo_deletion_mode));
 }
 
 /**
@@ -361,6 +361,7 @@ SELECT
   }
 
   trigger_notify('delete_elements', $ids);
+  pwg_activity('photo', $ids, 'delete');
   return count($ids);
 }
 
@@ -416,6 +417,7 @@ DELETE FROM '.USERS_TABLE.'
   pwg_query($query);
 
   trigger_notify('delete_user', $user_id);
+  pwg_activity('user', $user_id, 'delete');
 }
 
 /**
@@ -1423,6 +1425,8 @@ SELECT status
     '%d album moved', '%d albums moved',
     count($categories)
     );
+
+  pwg_activity('album', $category_ids, 'move', array('parent'=>$new_parent));
 }
 
 /**
@@ -1700,6 +1704,7 @@ DELETE
   pwg_query($query);
 
   trigger_notify("delete_tags", $tag_ids);
+  pwg_activity('tag', $tag_ids, 'delete');
 
   update_images_lastmodified($image_ids);
   invalidate_user_cache_nb_tags();
@@ -2226,6 +2231,7 @@ SELECT id
       );
 
     $inserted_id = pwg_db_insert_id(TAGS_TABLE);
+    pwg_activity('tag', $inserted_id, 'add');
 
     return array(
       'info' => l10n('Tag "%s" was added', stripslashes($tag_name)),

@@ -277,6 +277,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('author')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'author'));
   }
 
   // title
@@ -301,6 +303,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('name')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'title'));
   }
 
   // date_creation
@@ -329,6 +333,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('date_creation')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'date_creation'));
   }
 
   // privacy_level
@@ -348,6 +354,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('level')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'privacy_level'));
 
     if (isset($_SESSION['bulk_manager_filter']['level']))
     {

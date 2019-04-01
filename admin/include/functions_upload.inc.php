@@ -372,6 +372,7 @@ SELECT
     single_insert(IMAGES_TABLE, $insert);
 
     $image_id = pwg_db_insert_id(IMAGES_TABLE);
+    pwg_activity('photo', $image_id, 'add');
   }
 
   if (isset($categories) and count($categories) > 0)
