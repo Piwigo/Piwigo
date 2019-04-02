@@ -1,0 +1,141 @@
+<h2>Search</h2>
+
+<p>By default all searched terms must match. Searches are case-insensitive.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>quoted phrase<br>
+<q>"search"</q>
+</td>
+<td>Use quotes to search for an exact word or phrase.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>either term<br>
+<q>OR search</q><br>
+</td>
+<td>Add an OR between words.<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>exclude<br>
+<q>NOT search</q><br>
+<q>-search</q>
+</td>
+<td>Add a dash (-) or NOT before a word to exclude from search. Note that NOT acts as a filtering operator so you cannot have a search containing only NOT operators. You cannot combine OR with NOT (<q>john OR NOT bill</q> is not valid)<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>grouping<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mother OR father) AND (daugther OR son)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Searches only in tag names without looking at photo titles or descriptions.<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Searches only for photos with the given words in title or description.<br>
+<q>photo:John</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Searches by file name.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Searches by author.<br>
+<q>author:John</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Searches photos by taken date.<br>
+<q>taken:2003</q> photos taken in 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> photos from may 2003<br>
+<q>taken:2003..2008</q> photos from 2003 to 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> photos after Jan 1st 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Searches photos by posted date.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Searches photos with a given width or height.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Searches photos by size in pixels<br>
+<q>size:5m</q> returns photos of 5 megapixels<br>
+<q>size:>12m</q> returns photos of 12 megapixels or more<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Searches photos by width/height ratio.<br>
+<q>ratio:3/4 OR ratio:4/3</q> finds photos from compact cameras in portrait or landscape modes
+<q>ratio:>16/9</q> finds panoramas
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Hint: <q>score:*</q> will give you all photos with at least one vote. <q>score:</q> will give you photos without votes.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Searches photos by file size<br>
+<q>filesize:1m..10m</q> finds files between 1MB and 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Searches photos by its numeric identifier in Piwigo<br>
+<q>id:123..126</q> finds photo 123 to 126 (it may find between 0 and 4 photos, because photos can be deleted).</td>
+</tr>
+
+</table>
