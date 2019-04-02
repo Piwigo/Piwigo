@@ -463,28 +463,33 @@ UPDATE '.USER_INFOS_TABLE.'
     $ip = substr($ip, 0, 15);
   }
 
-  // solves issue 945
-  // If plugin developers add their own sections, Piwigo tries to put them into history table. Since the section
-  // column is an enum, php issues a warning. It might be the server is configured to hide those warnings, so the
-  // user won't see it. Piwigo core should make a decision if it is better to refuse the insert at all if section is
-  // not valid, depending on possible future use of the history table
-  if(isset($page['section'])) {
-    //enum: 'categories','tags','search','list','favorites','most_visited','best_rated','recent_pics','recent_cats'
-    if(in_array(
-        $page['section'],
-        array('categories',
-          'tags',
-          'search',
-          'list',
-          'favorites',
-          'most_visited',
-          'best_rated',
-          'recent_pics',
-          'recent_cats'
-          )
-        )
-    ){
-      $mySection = $page['section'];
+  // If plugin developers add their own sections, Piwigo will automatically add it in the history.section enum column
+  if (isset($page['section']))
+  {
+    // set cache if not available
+    if (!isset($conf['history_sections_cache']))
+    {
+      conf_update_param('history_sections_cache', get_enums(HISTORY_TABLE, 'section'), true);
+    }
+
+    $conf['history_sections_cache'] = safe_unserialize($conf['history_sections_cache']);
+
+    if (in_array($page['section'], $conf['history_sections_cache']))
+    {
+      $section = $page['section'];
+    }
+    elseif (preg_match('/^[a-zA-Z0-9_-]+$/', $page['section']))
+    {
+      $history_sections = get_enums(HISTORY_TABLE, 'section');
+      $history_sections[] = $page['section'];
+
+      // alter history table structure, to include a new section
+      pwg_query('ALTER TABLE '.HISTORY_TABLE.' CHANGE section section enum(\''.implode("','", array_unique($history_sections)).'\') DEFAULT NULL;');
+
+      // and refresh cache
+      conf_update_param('history_sections_cache', get_enums(HISTORY_TABLE, 'section'), true);
+
+      $section = $page['section'];
     }
   }
   
@@ -509,7 +514,7 @@ INSERT INTO '.HISTORY_TABLE.'
     CURRENT_TIME,
     '.$user['id'].',
     \''.$ip.'\',
-    '.(isset($mySection) ? "'".$mySection."'" : 'NULL').',
+    '.(isset($section) ? "'".$section."'" : 'NULL').',
     '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
