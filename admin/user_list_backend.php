@@ -70,8 +70,7 @@ if ( isset( $_REQUEST['iDisplayStart'] ) && $_REQUEST['iDisplayLength'] != '-1' 
   $sLimit = "LIMIT ".$_REQUEST['iDisplayStart'].", ".$_REQUEST['iDisplayLength'];
 }
 	
-$sOrder = "";
-
+	
 /*
  * Ordering
  */
@@ -105,7 +104,7 @@ if ( isset( $_REQUEST['iSortCol_0'] ) )
  * on very large tables, and MySQL's regex functionality is very limited
  */
 $sWhere = "";
-if ( isSet( $_REQUEST['sSearch']) && $_REQUEST['sSearch'] != "" )
+if ( $_REQUEST['sSearch'] != "" )
 {
   $sWhere = "WHERE (";
   for ( $i=0 ; $i<count($aColumns) ; $i++ )
@@ -162,13 +161,12 @@ $rResultTotal = pwg_query($sQuery);
 $aResultTotal = pwg_db_fetch_array($rResultTotal);
 $iTotal = $aResultTotal[0];
 	
-$sEcho = isSet($_REQUEST['sEcho']) ? intval($_REQUEST['sEcho']) : 0;
-
+	
 /*
  * Output
  */
 $output = array(
-  "sEcho" => $sEcho,
+  "sEcho" => intval($_REQUEST['sEcho']),
   "iTotalRecords" => $iTotal,
   "iTotalDisplayRecords" => $iFilteredTotal,
   "aaData" => array()
