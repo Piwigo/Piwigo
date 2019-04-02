@@ -327,7 +327,13 @@ function ws_session_getStatus($params, &$service)
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   $res['current_datetime'] = $dbnow;
   $res['version'] = PHPWG_VERSION;
-  $res['available_sizes'] = array_keys(ImageStdParams::get_defined_type_map());
+
+  // Piwigo Remote Sync does not support receiving the available sizes
+  $piwigo_remote_sync_agent = 'Apache-HttpClient/';
+  if (!isset($_SERVER['HTTP_USER_AGENT']) or substr($_SERVER['HTTP_USER_AGENT'], 0, strlen($piwigo_remote_sync_agent)) !== $piwigo_remote_sync_agent)
+  {
+    $res['available_sizes'] = array_keys(ImageStdParams::get_defined_type_map());
+  }
 
   if (is_admin())
   {
