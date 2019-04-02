@@ -614,14 +614,8 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
     deferRender: true,
     processing: true,
     serverSide: true,
-		serverMethod: "POST",
-    ajax: {
-        url : "admin/user_list_backend.php",
-        type : "POST",
-        data : {
-            pwg_token : pwg_token
-        }
-    },
+		serverMethod: "GET",
+    ajaxSource: "admin/user_list_backend.php",
 		pagingType: "simple",
     language: {
       processing: "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
