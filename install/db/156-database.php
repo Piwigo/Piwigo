@@ -26,20 +26,14 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-$upgrade_description = 'add activity table';
+$upgrade_description = 'bug fixing, change column type for activity.occured_on';
 
-pwg_query('
-CREATE TABLE `'.PREFIX_TABLE.'activity` (
-  `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `object` varchar(255) NOT NULL,
-  `object_id` int(11) unsigned NOT NULL,
-  `action` varchar(255) NOT NULL,
-  `performed_by` mediumint(8) unsigned NOT NULL,
-  `occured_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `details` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`activity_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
-;');
+$row = pwg_db_fetch_assoc(pwg_query('SHOW COLUMNS FROM `'.PREFIX_TABLE.'activity` LIKE "occured_on";'));
+if (!preg_match('/^TIMESTAMP/i', $row['Type']))
+{
+  $query = 'ALTER TABLE `'.PREFIX_TABLE.'activity` CHANGE `occured_on` `occured_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP;';
+  pwg_query($query);
+}
 
 echo "\n".$upgrade_description."\n";
 
