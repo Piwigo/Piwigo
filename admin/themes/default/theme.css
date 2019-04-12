@@ -491,6 +491,71 @@ FORM.properties SPAN.property {
 	padding: 0 0.5em 0 0;
 }
 
+/* Dashboard */
+.stat-boxes {
+  text-align:left;
+  margin:40px 10px;
+}
+
+.stat-box {
+  display:inline-block;
+  width:200px;
+  margin:10px 10px 40px 10px;
+  color:#3b3b3b;
+  text-align: center;
+}
+
+div.stat-box {
+  cursor:help;
+}
+
+.stat-box i {
+  display: inline-block;
+  background-color: #ffcfcf;
+  color: #ff5252;
+  border-radius: 50%;
+  font-size: 37px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.stat-box-yellow i {
+  color:#ffa744;
+  background-color: #ffe9cf;
+}
+.stat-box-red i {
+  background-color: #ffcfcf;
+  color: #ff5252;
+}
+.stat-box-purple i {
+  background-color: #e0daf4;
+  color: #896af3;
+}
+.stat-box-green i {
+  background-color: #d6ffcf;
+  color: #6ece5e;
+}
+.stat-box-blue i {
+  background-color: #cfebff;
+  color: #2883c3;
+}
+
+.stat-box .number, .stat-box .caption {
+  display:block;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.stat-box .number {
+  font-size: 29px;
+}
+
+a.stat-box:hover {
+  text-decoration: none;
+  color:#777;
+}
+
 #configContent fieldset {
   border:none;
   padding-left:20px;

@@ -214,6 +214,37 @@ position:relative;  z-index: 50;}
 display:block; height:85px; left:225px; position:relative; top:-42px; width:313px; z-index:99; padding:0;
 color:transparent;}
 .bigbutton input:hover { cursor:pointer; background:transparent url(images/transparent.gif) repeat scroll left top; border:0; padding:0;color:transparent;}
+
+/* dashboard */
+.stat-box {
+  color:#777;
+}
+
+a.stat-box:hover {
+  color:#aeaeae;
+}
+
+.stat-box-yellow i {
+  color:#9b5200;
+  background-color: #ffa744;
+}
+.stat-box-red i {
+  background-color: #c64444;
+  color: #650101;
+}
+.stat-box-purple i {
+  background-color: #ce4baa;
+  color: #52003b;
+}
+.stat-box-green i {
+  background-color: #4ac641;
+  color: #014400;
+}
+.stat-box-blue i {
+  background-color: #379bbc;
+  color: #003751;
+}
+
 /* hacks */
 * html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
 *+html  .bigtext { left: 70px; }
