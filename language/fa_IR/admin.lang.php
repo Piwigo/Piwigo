@@ -1011,3 +1011,4 @@ $lang['No filter on album. Select one or type to search'] = 'فیلتری روی
 $lang['No tag selected, no action possible.'] = 'هیچ برچسبی انتخاب نشده، کاری قابل انجام نیست';
 $lang['Piwigo %s is available, please update'] = 'ورژن %s از Piwigo آماده‌ی آپدیت کردن است
 ';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync قابلیت این را دارد که یک پوشه(فولدر) را با تمام زیر مجموعه هایش آپلود کند. اگر مجدد این عملیات را انجام دهید فقط موارد جدید آپلود میشود.';
