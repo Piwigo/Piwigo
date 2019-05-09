@@ -6,7 +6,7 @@
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
 .content h2 {margin: 0; padding: 5px 0.5em 5px 0.5em; text-align: right; font-size: 120%;}
 .content .navigationBar { margin: 10px 0; text-align: center; }
-.content form { text-align: left; }
+.content form { text-align: left; margin-left: 7px; margin-right: 9px;}
 .content dt { margin-bottom: 5px; font-style: italic;
   font-size: 110%; }
 ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
@@ -170,8 +170,7 @@ LI.categoryLi {
 /*
 	width: 100%;
 */
-	padding: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 20px;
   border-radius:5px;
 }
 
@@ -917,7 +916,8 @@ html, body {height:100%; margin:0; padding:0;}
 .tabsheet a {
 display:block; font-size:11px; border:0;
 font-weight:bold; overflow:hidden; padding:10px 20px;
-text-align:right; text-decoration:none; margin: 0; }
+text-align:right; text-decoration:none; margin: 0;
+color: #898989; }
 .tabsheet a:first-letter { text-transform:capitalize; }
 .tabsheet li.selected_tab  {
   border-bottom:none;
@@ -1173,7 +1173,6 @@ INPUT[type="radio"], INPUT[type="checkbox"] {
 
 LEGEND {
   font-weight: bold;
-  letter-spacing: 1px;
   padding: 0 10px;
 }
 
@@ -1234,7 +1233,6 @@ p#uploadWarningsSummary .showInfo {margin-left:3px;}
 p#uploadWarnings {display:none;text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
 p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 
-#photosAddContent p.showFieldset {text-align:left;margin: 1em;}
 
 #uploadForm .plupload_buttons, #uploadForm .plupload_progress { display:none !important; }
 #uploadForm #startUpload { margin:5px 0 15px 15px; padding:5px 10px; font-size:1.1em; }
@@ -1329,6 +1327,7 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 }
 #formCreateAlbum input[name="virtual_name"] {
   width:300px;
+  border-radius: 3px;
 }
 
 /* Pending Comments */
@@ -1347,14 +1346,32 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 .commentFilter {text-align:left;margin:5px 1em;}
 .commentFilter .navigationBar {float:right; margin:0;}
 
-FORM#categoryOrdering p.albumTitle {margin:0;}
-FORM#categoryOrdering p.albumActions, FORM#categoryOrdering span.albumInfos {visibility:hidden; margin:0}
-FORM#categoryOrdering .categoryLi:hover p.albumActions, FORM#categoryOrdering .categoryLi:hover span.albumInfos {visibility:visible;}
-FORM#categoryOrdering p.albumActions a {margin-right:0}
+FORM#categoryOrdering p.albumTitle {margin:0; margin-left: 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-bottom: 4px;}
+FORM#categoryOrdering p.albumTitle a {font-size: 14px; font-weight: 600;}
+FORM#categoryOrdering p.albumTitle i {display: none;}
+FORM#categoryOrdering p.albumActions {visibility:hidden; margin:0; height: 40px;}
+FORM#categoryOrdering .categoryLi:hover p.albumActions {visibility:visible;}
+FORM#categoryOrdering p.albumActions {display:flex;justify-content:center;align-items:center;}
+FORM#categoryOrdering p.albumActions a {
+	margin-right:0; 
+	font-weight: bold; 
+	height: 95%; 
+	padding: 0 15px;
+	padding-top: 22px;
+}
+
+.albumInfos { font-size: 12px; }
+.actionTitle span {text-transform: capitalize;}
+
+FORM#categoryOrdering p.albumActions a:hover {text-decoration: none;}
 FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
-.showCreateAlbum {text-align:left; margin:0 1em 1em 1em;line-height:22px;}
+.albumflex {display: flex; justify-content: space-between; padding: 10px 10px 0 10px;}
+.albumflex .albumflexblock {display: block; padding-left: 7px; max-width: 45%; height: 50px;}
+.showCreateAlbum {text-align:left; margin:0 1em 25px 20px; line-height:22px;}
 .showCreateAlbum .userSeparator {margin:0 5px;}
+#addAlbumOpen, #autoOrderOpen {padding: 7px 15px; font-weight: bold; font-size: 11px;}
+#addAlbumOpen::before ,#autoOrderOpen::before {margin-right: 10px; font-weight: bold; font-size: 15px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
 #autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}
 
@@ -1562,3 +1579,15 @@ fieldset#environment legend i[class*="icon-"] {
     display:inline;
   }
 }
+
+.buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
+  font-size:12px;
+  border:none;
+  padding:13px 20px;
+  margin-left:0;
+  font-weight: bold;
+  transition: all 125ms ease-out;
+}
+
+.selectAlbum {border: 0;}
+.selectAlbumflex {display: flex; margin-left: 10px; margin-top: 10px;}

@@ -104,7 +104,7 @@ TEXTAREA { cursor:text; font-size: 13px; }
 ul.thumbnails input { color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
-.categoryLi, .menuLi { background: #ddd }
+.categoryLi, .menuLi { background: #F3F3F3; }
 .menuLi_hidden { background: #ccc !important; }
 a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
@@ -121,7 +121,7 @@ TABLE.table2 { border: 2px solid #dddddd; }
 
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 A{
-	color:#005E89;
+	color:#3A3A3A;
 }
 
 A:hover, A:active {
@@ -289,14 +289,8 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 #pwgMain {padding-left:0}
 
 .buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:1px;
-  border:none;
   background-color:#666;
   color:#fff;
-  padding:4px 7px;
-  margin-left:0;
 }
 
 .buttonLike:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
@@ -316,6 +310,9 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   cursor:not-allowed;
 }
 
+#formCreateAlbum input[name="virtual_name"] {border: 1px solid #D5D5D5; transition: all 125ms ease-out;}
+#formCreateAlbum input[name="virtual_name"]:hover {border-color: #3C3C3C;}
+
 p.albumTitle img {margin-bottom:-3px;}
 
 .groups label>p {
@@ -329,7 +326,7 @@ label>p.group_select {
 }
 
 .userSeparator {
-  color:#999;
+  visibility: hidden;
 }
 
 table.dataTable tr.even {
@@ -400,4 +397,15 @@ table.dataTable thead th, table.dataTable.no-footer {
   border-color: #ff7700;
   background-color:#fff;
 }
+
+FORM#categoryOrdering p.albumTitle a { color: #5B5B5B; }
+FORM#categoryOrdering p.albumActions a { border-left:1px solid #D6D6D6; }
+.albumInfos {color: #999999;}
+FORM#categoryOrdering p.albumActions a:hover {background-color: #FFA844; color: #3A3A3A;}
+FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
+#addAlbumOpen, #autoOrderOpen {border: 1px solid #D6D6D6; color: #5B5B5B;}
+#addAlbumOpen:hover, #autoOrderOpen:hover {border: 1px solid #aaa; text-decoration: none;}
+.font-checkbox:hover {color: #FFA844;}
+.font-checkbox.selected {color: #ffa646;}
+
 /* beta-test ends */
