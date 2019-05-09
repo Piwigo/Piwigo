@@ -183,17 +183,13 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 INPUT[type="text"].large  { width: 317px; }
 
 .buttonLike, input[type="button"], input[type="submit"], input[type="reset"] {
-	color: #000;
+  color: #3c3c3c;
 	background-color: #ffa744;
-	border: none;
-	padding: 13px 20px;
-  font-size: 16px;
 }
 
 .buttonLike:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
 	color:#000;
 	text-decoration: none;
-
   background-color:#f70;
   color:#000;
   cursor:pointer;
@@ -386,3 +382,18 @@ table.qsearch_help_table td {
 }
 
 #wImg {border-color:#555;}
+
+FORM#categoryOrdering p.albumTitle a { color: #c0c0c0; }
+FORM#categoryOrdering p.albumActions a { border-left:1px solid #555; }
+.albumInfos {color: #808080;}
+FORM#categoryOrdering p.albumActions a:hover {background-color: #ffa646; color: #3A3A3A;}
+FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #d5d5d5;}
+#addAlbumOpen, #autoOrderOpen {border: 1px solid #777; color: #c0c0c0;}
+#addAlbumOpen:hover, #autoOrderOpen:hover {border: 1px solid #aaa; text-decoration: none;}
+.font-checkbox {color: #898888;}
+.font-checkbox:hover {color: #ffa646;}
+.with-border legend, .with-border strong {color: #c0c0c0;}
+.font-checkbox.selected {color: #ffa646;}
+#formCreateAlbum input[name="virtual_name"] {border: 1px solid #7e7e7e; color: #F8F8F8; transition: all 125ms ease-out;}
+#formCreateAlbum input[name="virtual_name"]:hover {border-color: #A5A5A5;}
+
