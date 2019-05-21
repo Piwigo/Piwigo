@@ -55,10 +55,12 @@ jQuery.fn.pwgAddAlbum = function(options) {
           name: name
         },
         beforeSend: function() {
-          jQuery('#albumCreationLoading').show();
+          jQuery('#albumCreationLoading').css('display', 'inline-block');
+          jQuery('.albumCreationButton').hide();
         },
         success: function(data) {
           jQuery('#albumCreationLoading').hide();
+          jQuery('.albumCreationButton').show();
           $button.colorbox.close();
 
           var newAlbum = {

@@ -288,15 +288,16 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 #pwgMain {padding-left:0}
 
+.buttonLike:hover {color: #3C3C3C;}
+
 .buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
-  background-color:#666;
-  color:#fff;
+  background-color:#FFA646;
+  color:#3C3C3C;
 }
 
 .buttonLike:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
 	cursor: pointer;
   background-color: #ff7700;
-  color: white;
 	text-decoration: none;
 }
 
@@ -305,8 +306,8 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 }
 
 .buttonLike:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
-  background-color:#999;
-  color:#eee;
+  background-color: #ECECEC;
+  color: #D5D5D5;
   cursor:not-allowed;
 }
 
@@ -359,16 +360,8 @@ table.dataTable thead th, table.dataTable.no-footer {
 .userPrefs {border-color:#ddd;}
 
 .big-progressbar {
-  background:#fff;
-  border:1px solid #aaa;
-  border-radius:5px;
-}
-
-.big-progressbar .progressbar {
-  background:#FF8A23;
-  background:#FF8A23 linear-gradient(135deg, rgba(255,255,255,0) 44%,rgba(255,255,255,0.2) 44%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0) 57%);
-  background-size:33px 25px;
-  box-shadow:inset 0px 1px 3px 0px rgba(255,255,255,0.4);
+  background: #3C3C3C;
+  border: 1px solid #A5A5A5;
 }
 
 .font-checkbox [class*=icon-check]:before { color:#444; }
@@ -405,7 +398,28 @@ FORM#categoryOrdering p.albumActions a:hover {background-color: #FFA844; color: 
 FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
 #addAlbumOpen, #autoOrderOpen {border: 1px solid #D6D6D6; color: #5B5B5B;}
 #addAlbumOpen:hover, #autoOrderOpen:hover {border: 1px solid #aaa; text-decoration: none;}
+.afterUploadActions a {color: #3C3C3C; font-weight: bold; background-color: #FFA646;}
+.afterUploadActions a:hover {text-decoration: none; background-color: #ff7700;}
 .font-checkbox:hover {color: #FFA844;}
 .font-checkbox.selected {color: #ffa646;}
+
+LEGEND {color: #3C3C3C;}
+a#showPermissions {color: #5B5B5B; border: 1px solid #D6D6D6; background-color: #FAFAFA;}
+a#showPermissions:hover {border-color: #A5A5A5;}
+.icon-plus.cboxElement {background-color: #F6F6F6;}
+.icon-plus.cboxElement:hover {background-color: #F2F2F2;}
+p#uploadWarningsSummary {color:#3C3C3C;}
+.selectize-control.single .selectize-input {border: 2px solid #FFA646!important; color: #3C3C3C;}
+.selectize-control.single .selectize-input:hover {border-color: #FAC17E!important;}
+.plupload_filelist {scrollbar-color: #CBCBCB #F5F5F5!important;}
+li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
+li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
+
+.addAlbumEmpty {color: #3C3C3C;}
+.addAlbumEmpty a {background-color: #FFA646; box-shadow: 0 1px 2px #0D0303;}
+.addAlbumEmpty a:hover{background-color: #ff7700; color: #3C3C3C; box-shadow: 0 2px 4px #0D0303;}
+#addAlbumForm input[name="category_name"] {border:none!important; margin-top: 5px!important;}
+#addAlbumForm input[name="category_name"]:focus {background-color: #DDDDDD;}
+.buttonSeparator {color: #3C3C3C;}
 
 /* beta-test ends */

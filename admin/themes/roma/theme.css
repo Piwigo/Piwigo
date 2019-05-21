@@ -196,9 +196,10 @@ INPUT[type="text"].large  { width: 317px; }
 }
 
 .buttonLike:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
-	color:#666; 
+	color:#555; 
 	border-color:#666;
   cursor:not-allowed;
+  background-color: #666;
 }
 
 .bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top; display: block;
@@ -304,13 +305,8 @@ div.token-input-dropdown ul li {background-color:#eee !important;}
 div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color:#FF7800 !important;}
 
 .big-progressbar {
-  background:#1a1e22;
-  box-shadow:inset 0px 1px 1px 0px black, 0px 1px 1px 0px #36393F;
-}
-.big-progressbar .progressbar {
-  background:#ff3363;
-  background:#ff3363 linear-gradient(135deg, rgba(0,0,0,0) 44%,rgba(0,0,0,0.2) 44%,rgba(0,0,0,0.2) 57%,rgba(0,0,0,0) 57%);
-  background-size:33px 25px;
+  background: #3c3939;
+  border: 1px solid #3C3C3C;
 }
 
 /* Album Properties */
@@ -332,6 +328,7 @@ label>p.group_select {
 
 .userSeparator {
   color:#666;
+  visibility: hidden;
 }
 
 #configContent fieldset:not(.no-border) {
@@ -371,7 +368,7 @@ table.qsearch_help_table td {
 
 .font-checkbox [class*=icon-check]:before { color:#aaa; }
 
-#cboxLoadedContent { background-color:#222 !important; }
+#cboxLoadedContent { background-color:#333 !important; }
 
 #watermarkPositionBox {
   background-color:#333;
@@ -390,6 +387,8 @@ FORM#categoryOrdering p.albumActions a:hover {background-color: #ffa646; color: 
 FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #d5d5d5;}
 #addAlbumOpen, #autoOrderOpen {border: 1px solid #777; color: #c0c0c0;}
 #addAlbumOpen:hover, #autoOrderOpen:hover {border: 1px solid #aaa; text-decoration: none;}
+.afterUploadActions a {color: #3C3C3C; font-weight: bold; background-color: #FFA646;}
+.afterUploadActions a:hover {text-decoration: none; background-color: #ff7700;}
 .font-checkbox {color: #898888;}
 .font-checkbox:hover {color: #ffa646;}
 .with-border legend, .with-border strong {color: #c0c0c0;}
@@ -397,3 +396,24 @@ FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #d5d5d5;}
 #formCreateAlbum input[name="virtual_name"] {border: 1px solid #7e7e7e; color: #F8F8F8; transition: all 125ms ease-out;}
 #formCreateAlbum input[name="virtual_name"]:hover {border-color: #A5A5A5;}
 
+LEGEND {color: #c1c1c1;}
+a#showPermissions {color: #D6D6D6; border: 1px solid #D6D6D6; background-color: #414141;}
+a#showPermissions:hover {border-color: #A5A5A5;}
+.icon-plus.cboxElement {border: 1px solid #777; color: #c0c0c0;}
+.icon-plus.cboxElement:hover {border: 1px solid #aaa;}
+p#uploadWarningsSummary {color:#999;}
+.selectize-control.single .selectize-input {border: 2px solid #FAC17E!important; color: #D5D5D5;}
+.selectize-control.single .selectize-input:hover {border-color: #FFA646!important;}
+.plupload_filelist {background-color: #414141!important; scrollbar-color: #D6D6D6 #444444!important;}
+.plupload_filelist li {border-bottom: 1px solid #707070!important; color: #A5A5A5!important;}
+.plupload_filelist_footer {background-color: #3c3939!important; border: 0!important; color: #A5A5A5!important}
+li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
+li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
+
+.addAlbumEmpty {color: #c1c1c1;}
+.addAlbumEmpty a {background-color: #FFA646; color: #3C3C3C;}
+.addAlbumEmpty a:hover{background-color: #ff7700; color: #3C3C3C;}
+.buttonSeparator {color: #c1c1c1;}
+#cboxTitle {color: #7f7f7f !important;}
+#addAlbumForm {color: #999;}
+.selectedAlbum span {background-color: #555; color: #999;}

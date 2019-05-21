@@ -989,7 +989,7 @@ h2:lang(en) { text-transform:capitalize; }
  */
 .infos, .errors, .warnings, .messages {
   text-align: left;
-  margin: 15px 10px 15px 15px;
+  margin: 15px 35px 50px 35px;
   padding: 5px;
   font-weight:bold;
   min-height: 54px;
@@ -998,6 +998,8 @@ h2:lang(en) { text-transform:capitalize; }
 .infos ul, .errors ul, .warnings ul, .messages ul {
   margin-top:18px;
 }
+
+.infos ul {color: #3C3C3C;}
 
 .eiw-icon {
   float: left;
@@ -1008,8 +1010,9 @@ h2:lang(en) { text-transform:capitalize; }
 .infos {
   color: #0a0;
   background-color:#c2f5c2;
-  border-left:4px solid #0a0;
 }
+
+.infos a {color: #3C3C3C;}
 
 .errors {
   color: #f22;
@@ -1228,27 +1231,29 @@ LEGEND {
 #addUploadBox {margin-bottom:2em;}
 
 p.uploadInfo {text-align:left;font-size:90%;color:#999;}
-p#uploadWarningsSummary {text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
+p#uploadWarningsSummary {text-align:left;margin-bottom:1em;font-size:100%;}
 p#uploadWarningsSummary .showInfo {margin-left:3px;}
 p#uploadWarnings {display:none;text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
 p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 
+#photosAddContent p.showFieldset {text-align:left; display: none!important;}
+a#showPermissions {padding: 5px 10px; font-size: 11px; font-weight: bold; margin-left: 35px;}
+a#showPermissions:hover {text-decoration: none;}
 
 #uploadForm .plupload_buttons, #uploadForm .plupload_progress { display:none !important; }
-#uploadForm #startUpload { margin:5px 0 15px 15px; padding:5px 10px; font-size:1.1em; }
-#uploadForm #startUpload:before { margin-right:0.5em; }
-#uploadForm #addFiles { margin-right:10px; float:left; }
+#uploadForm #startUpload { margin:5px 0 15px 25px; padding:8px 10px; font-size:1.1em; }
+#uploadForm #startUpload:before { margin-right:0.5em;} 
+#uploadForm #addFiles { margin-right:10px; float:left;}
 #uploadForm #uploadingActions { margin:10px 10px 10px 15px; }
 #uploadForm .big-progressbar { vertical-align:middle; display:inline-block; margin-left:10px; }
 
 .big-progressbar {
   width:100%;
-  max-width:600px;
-  background:#fff;
+  max-width:90%;
   padding:0;
-  border-radius:5px;
+  border-radius:15px;
   position:relative;
-  height:18px;
+  height:8px;
 }
 
 @keyframes animatedBackground {
@@ -1262,13 +1267,11 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 }
 
 .big-progressbar .progressbar {
-  height:18px;
-  min-width:5px;
-  background:#444;
-  border-radius:5px 0 0 5px;
-  background-size:33px 25px;
-  animation: animatedBackground 1s linear infinite;
-  -webkit-animation: animatedBackground 1s linear infinite;
+  height: 8px;
+  min-width: 5px;
+  background: #FFBD4D;
+  border-radius: 5px 0 0 5px;
+  background-size: 33px 25px;
 }
 
 /* Selectize */
@@ -1323,7 +1326,7 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   max-height:170px;
 }
 #addAlbumForm input[name="category_name"] {
-  width:600px;
+  width: 565px; padding: 8px 8px; 
 }
 #formCreateAlbum input[name="virtual_name"] {
   width:300px;
@@ -1366,11 +1369,13 @@ FORM#categoryOrdering p.albumActions a {
 FORM#categoryOrdering p.albumActions a:hover {text-decoration: none;}
 FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
-.albumflex {display: flex; justify-content: space-between; padding: 10px 10px 0 10px;}
-.albumflex .albumflexblock {display: block; padding-left: 7px; max-width: 45%; height: 50px;}
+.albumBlock {display: flex; justify-content: space-between; padding: 10px 10px 0 10px;}
+.albumBlock .albumLineBlock {display: block; padding-left: 7px; max-width: 45%; height: 50px;}
 .showCreateAlbum {text-align:left; margin:0 1em 25px 20px; line-height:22px;}
 .showCreateAlbum .userSeparator {margin:0 5px;}
 #addAlbumOpen, #autoOrderOpen {padding: 7px 15px; font-weight: bold; font-size: 11px;}
+.afterUploadActions {text-align: center; margin-bottom: 30px !important;}
+.afterUploadActions a {justify-content: center; margin: 35px; font-weight: bold; font-size: 14px; padding: 10px 20px;}
 #addAlbumOpen::before ,#autoOrderOpen::before {margin-right: 10px; font-weight: bold; font-size: 15px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
 #autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}
@@ -1589,5 +1594,69 @@ fieldset#environment legend i[class*="icon-"] {
   transition: all 125ms ease-out;
 }
 
-.selectAlbum {border: 0;}
-.selectAlbumflex {display: flex; margin-left: 10px; margin-top: 10px;}
+#cboxLoadedContent input[type="submit"] {margin-bottom: 30px; float: none;}
+
+.selectAlbum, #permissions, .selectFiles {border: 0;}
+#permissions {display: none!important;}
+#permissions, .selectFiles {margin-top: 35px; margin-bottom: 20px;}
+.selectAlbumBlock {display: flex; margin-left: 10px; margin-top: 10px;}
+.icon-plus.cboxElement {
+	padding: 8px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+	font-size: 15px;
+	margin-bottom: 8px;
+	transition: all 125ms ease-out;
+}
+.icon-plus.cboxElement:hover {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);}
+#albumSelection {margin-left: 25px;}
+.selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
+.buttonLike {padding: 8px 10px; margin-left: 5px;}
+.buttonLike i {font-size: 18px;}
+.selectFilesButtonBlock {display: flex; margin-top: 10px;}
+.selectFilesinfo {margin-top: 10px; margin-left: 15px;}
+#uploader {margin-top: 25px; font-weight: bold !important;}
+.plupload_filelist_header {display: none;}
+.plupload_filelist {scrollbar-width: thin!important;}
+.plupload_wrapper, .plupload_file_size {font-weight: bold;}
+.plupload_filelist li {background: none!important; font-weight: bold;}
+li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover !important;}
+li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover !important;}
+.plupload_file_status {margin-right: 45px;}
+.plupload_file_size {margin-right: 25px;}
+.plupload_total_file_size {margin-right: -8px;}
+.plupload_total_status {color: #707070!important; margin-right: -8px; font-weight: bold;}
+#photosAddContent .Addedphotos {border: none; margin-top: 35px;}
+.plupload_upload_status {}
+
+.addAlbumEmpty {text-align: center; margin-top: 10%;}
+.addAlbumEmptyTitle {font-size: 35px; font-weight: bold;}
+.addAlbumEmptyInfos {font-size: 14px; margin-bottom: 25px !important; margin-top: 5px !important;}
+.addAlbumEmpty a{display: inline-block; padding: 10px 15px;}
+.addAlbumEmpty a:hover{text-decoration: none;}
+.addAlbumEmpty a::first-letter {text-transform: capitalize;}
+.addAlbumFormParent {display: none;}
+#cboxLoadedContent {height: auto !important; padding: 20px 20px 30px 20px !important;}
+.buttonSeparator {font-weight: bold;}
+.popinButtons {text-align: right; padding-top: 24px;}
+.popinButtons input[type="submit"] {margin-right: 0;}
+#albumCreationLoading {
+	background-color: #ffa744;
+	color: #3c3c3c; font-size: 12px;
+	border: none;
+	padding: 12.2px 28.4px;
+	font-weight: bold; 
+	display: none;
+}
+.popinField {margin-top: 30px;}
+.popinField.addAlbumFormParent {margin-top: 0;}
+.popinFieldLabel {display: block; margin-bottom: 5px;}
+.selectedAlbum {margin-top: 10px; margin-left: 5px;}
+.selectedAlbum span {
+	padding: 10px 12px;
+	font-weight: bold;
+	background-color: #f5f5f5;
+	text-align: center;
+	margin-top: 20px;
+	border-radius: 7px;
+}
+.selectedAlbum span.icon-sitemap::before {margin-right: 12px;}

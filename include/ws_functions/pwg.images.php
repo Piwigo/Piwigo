@@ -1446,6 +1446,7 @@ SELECT
     return array(
       'image_id' => $image_id,
       'src' => DerivativeImage::thumb_url($image_infos),
+      'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image_infos),
       'name' => $image_infos['name'],
       'category' => array(
         'id' => $params['category'][0],
