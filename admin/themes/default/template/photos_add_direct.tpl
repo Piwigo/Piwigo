@@ -34,7 +34,9 @@ var categoriesCache = new CategoriesCache({
 categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
   filter: function(categories, options) {
     if (categories.length > 0) {
-      jQuery("#albumSelection, .selectFiles, .showFieldset").show();
+      jQuery("#albumSelection, .selectFiles, .showFieldset, .selectAlbum, .selectAlbumBlock, .addAlbumFormParent, #startUpload").show();
+      jQuery(".addAlbumEmpty, .addAlbumEmptyTitle, .addAlbumEmptyInfos").hide();
+      jQuery(".addAlbumFormParent").attr( "style", "display: block !important;" );
     }
     
     return categories;
@@ -43,7 +45,9 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
 
 jQuery('[data-add-album]').pwgAddAlbum({
   afterSelect: function() {
-    jQuery("#albumSelection, .selectFiles, .showFieldset").show();
+    jQuery("#albumSelection, .selectFiles, .showFieldset, .selectAlbum, .selectAlbumBlock, .addAlbumFormParent, #startUpload").show();
+    jQuery(".addAlbumEmpty, .addAlbumEmptyTitle, .addAlbumEmptyInfos").hide();
+    jQuery(".addAlbumFormParent").attr( "style", "display: block !important;" );
   }
 });
 
@@ -135,8 +139,11 @@ jQuery(document).ready(function(){
         //console.log('[BeforeUpload]', file);
         
         // hide buttons
-        jQuery('#startUpload, #addFiles').hide();
+        jQuery('#startUpload, .selectFilesButtonBlock, .selectAlbumBlock').hide();
         jQuery('#uploadingActions').show();
+        var categorySelectedId = jQuery("select[name=category] option:selected").val();
+        var categorySelectedPath = jQuery("select[name=category]")[0].selectize.getItem(categorySelectedId).text();
+        jQuery('.selectedAlbum').html(categorySelectedPath).show();
 
         // warn user if she wants to leave page while upload is running
         jQuery(window).bind('beforeunload', function() {
@@ -170,7 +177,7 @@ jQuery(document).ready(function(){
         jQuery("#uploadedPhotos").parent("fieldset").show();
       
         html = '<a href="admin.php?page=photo-'+data.result.image_id+'" target="_blank">';
-        html += '<img src="'+data.result.src+'" class="thumbnail" title="'+data.result.name+'">';
+        html += '<img src="'+data.result.square_src+'" class="thumbnail" title="'+data.result.name+'">';
         html += '</a> ';
       
         jQuery("#uploadedPhotos").prepend(html);
@@ -249,6 +256,11 @@ jQuery(document).ready(function(){
   </ul>
 </div>
 {else}
+  <div class="addAlbumEmpty">
+    <div class="addAlbumEmptyTitle">Bienvenue !</div>
+      <p class="addAlbumEmptyInfos">Commencez par créer votre premier album.</p>
+      <a href="#" data-add-album="category" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>  
+  </div>
 
   {if count($setup_warnings) > 0}
 <div class="warnings">
@@ -262,15 +274,17 @@ jQuery(document).ready(function(){
   {/if}
 
 
-<form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}">
-    <fieldset class="selectAlbum">
+  <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}">
+    <fieldset class="selectAlbum" style="display:none">
       <legend>{'Drop into album'|@translate}</legend>
-
-      <span id="albumSelection" style="display:none">
-      <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
-        data-default="first" name="category" style="width:600px"></select>
-      <br>{'... or '|@translate}</span>
-      <a href="#" data-add-album="category" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+      <div class="selectedAlbum" style="display: none"><span class="icon-sitemap"></span></div>
+      <div class="selectAlbumBlock" style="display:none">
+        <a href="#" data-add-album="category" title="{'create a new album'|@translate}" class="icon-plus"></a>
+        <span id="albumSelection" style="display:none">
+          <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
+          data-default="first" name="category" style="width:600px"></select>
+        </span>
+      </div>
     </fieldset>
 
     <p class="showFieldset" style="display:none"><a id="showPermissions" href="#">{'Manage Permissions'|@translate}</a></p>
@@ -285,22 +299,21 @@ jQuery(document).ready(function(){
 
     <fieldset class="selectFiles" style="display:none">
       <legend>{'Select files'|@translate}</legend>
-      
-      <button id="addFiles" class="buttonLike icon-plus-circled">{'Add Photos'|translate}</button>
- 
-    {if isset($original_resize_maxheight)}
-      <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
-    {/if}
-
-      <p id="uploadWarningsSummary">{$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="icon-info-circled-1 showInfo" title="{'Learn more'|@translate}"></a></p>
-
-      <p id="uploadWarnings">
-        {'Allowed file types: %s.'|@translate:$upload_file_types}
-      {if isset($max_upload_resolution)}
-        {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
-      {/if}
-      </p>
-
+      <div class="selectFilesButtonBlock">
+        <button id="addFiles" class="buttonLike">{'Add Photos'|translate}<i class="icon-download"></i></button>
+        <div class="selectFilesinfo">
+          {if isset($original_resize_maxheight)}
+          <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
+          {/if}
+          <p id="uploadWarningsSummary">{$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="icon-info-circled-1 showInfo" title="{'Learn more'|@translate}"></a></p>
+          <p id="uploadWarnings">
+            {'Allowed file types: %s.'|@translate:$upload_file_types}
+            {if isset($max_upload_resolution)}
+            {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
+            {/if}
+          </p>
+        </div>
+      </div>
       <div id="uploader">
         <p>Your browser doesn't have HTML5 support.</p>
       </div>
@@ -314,15 +327,14 @@ jQuery(document).ready(function(){
         <div class="progressbar" style="width:0%"></div>
       </div>
     </div>
-      
-    <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
 
-</form>
+    <button id="startUpload" class="buttonLike icon-upload" disabled style="display:none">{'Start Upload'|translate}</button>
 
-<fieldset style="display:none">
-  <legend>{'Uploaded Photos'|@translate}</legend>
-  <div id="uploadedPhotos"></div>
-</fieldset>
+  </form>
+
+  <fieldset style="display:none" class="Addedphotos">
+    <div id="uploadedPhotos"></div>
+  </fieldset>
 
 {/if} {* $setup_errors *}
 

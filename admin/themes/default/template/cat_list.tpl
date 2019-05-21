@@ -128,8 +128,8 @@ jQuery(document).ready(function(){
     {foreach from=$categories item=category}
     <li class="categoryLi{if $category.IS_VIRTUAL} virtual_cat{/if}" id="cat_{$category.ID}">
       <!-- category {$category.ID} -->
-      <div class="albumflex">
-        <div class="albumflexblock">
+      <div class="albumBlock">
+        <div class="albumLineBlock">
           <p class="albumTitle">
             <i class="icon-arrow-combo" title="{'Drag to re-order'|translate}"></i>
             <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}">{$category.NAME}</a></strong>
