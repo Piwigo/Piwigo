@@ -1017,3 +1017,6 @@ $lang['checksums to add'] = 'checksums to add';
 $lang['Synchronization in progress'] = 'Synchronization in progress';
 $lang['Display category date'] = 'Display category date';
 $lang['Display album date period'] = 'Show the date period associated with each album, eg « from July 12th to 15th, 2018 »';
+$lang['Welcome!'] = 'Welcome!';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo requires an album to add photos.';
+$lang['Create a first album'] = 'Create a first album';
