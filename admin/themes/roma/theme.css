@@ -404,8 +404,8 @@ a#showPermissions:hover {border-color: #A5A5A5;}
 p#uploadWarningsSummary {color:#999;}
 .selectize-control.single .selectize-input {border: 2px solid #FAC17E!important; color: #D5D5D5;}
 .selectize-control.single .selectize-input:hover {border-color: #FFA646!important;}
-.plupload_filelist {background-color: #414141!important; scrollbar-color: #D6D6D6 #444444!important;}
-.plupload_filelist li {border-bottom: 1px solid #707070!important; color: #A5A5A5!important;}
+.plupload_filelist {background-color: #444444 !important; scrollbar-color: #555 #444444!important;}
+.plupload_filelist li {border-bottom: 1px solid #343434 !important; color: #A5A5A5!important;}
 .plupload_filelist_footer {background-color: #3c3939!important; border: 0!important; color: #A5A5A5!important}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
@@ -417,3 +417,4 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #cboxTitle {color: #7f7f7f !important;}
 #addAlbumForm {color: #999;}
 .selectedAlbum span {background-color: #555; color: #999;}
+#uploadForm li.plupload_droptext {background-color: #343434!important; color: #777 !important;}

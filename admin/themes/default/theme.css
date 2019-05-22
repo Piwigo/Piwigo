@@ -1223,7 +1223,7 @@ LEGEND {
 /* Upload Form */
 .plupload_header {display:none;}
 #uploadForm .plupload_container {padding:0}
-#uploadForm .plupload_scroll .plupload_filelist {height:250px;}
+#uploadForm .plupload_scroll .plupload_filelist {height:250px; overflow-y: hidden;}
 #uploadForm li.plupload_droptext {line-height:230px;font-size:2em;}
 
 #uploadBoxes .file {margin-bottom:5px;text-align:left;}
@@ -1375,7 +1375,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 .showCreateAlbum .userSeparator {margin:0 5px;}
 #addAlbumOpen, #autoOrderOpen {padding: 7px 15px; font-weight: bold; font-size: 11px;}
 .afterUploadActions {text-align: center; margin-bottom: 30px !important;}
-.afterUploadActions a {justify-content: center; margin: 35px; font-weight: bold; font-size: 14px; padding: 10px 20px;}
+.afterUploadActions a {justify-content: center; margin: 35px; font-weight: bold; font-size: 14px; padding: 10px 12px;}
 #addAlbumOpen::before ,#autoOrderOpen::before {margin-right: 10px; font-weight: bold; font-size: 15px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
 #autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}
@@ -1611,7 +1611,6 @@ fieldset#environment legend i[class*="icon-"] {
 #albumSelection {margin-left: 25px;}
 .selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
 .buttonLike {padding: 8px 10px; margin-left: 5px;}
-.buttonLike i {font-size: 18px;}
 .selectFilesButtonBlock {display: flex; margin-top: 10px;}
 .selectFilesinfo {margin-top: 10px; margin-left: 15px;}
 #uploader {margin-top: 25px; font-weight: bold !important;}
@@ -1619,7 +1618,7 @@ fieldset#environment legend i[class*="icon-"] {
 .plupload_filelist {scrollbar-width: thin!important;}
 .plupload_wrapper, .plupload_file_size {font-weight: bold;}
 .plupload_filelist li {background: none!important; font-weight: bold;}
-li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover !important;}
+li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover !important; width: 10px; height: 10px; margin-top: 3px;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover !important;}
 .plupload_file_status {margin-right: 45px;}
 .plupload_file_size {margin-right: 25px;}
@@ -1631,7 +1630,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addAlbumEmpty {text-align: center; margin-top: 10%;}
 .addAlbumEmptyTitle {font-size: 35px; font-weight: bold;}
 .addAlbumEmptyInfos {font-size: 14px; margin-bottom: 25px !important; margin-top: 5px !important;}
-.addAlbumEmpty a{display: inline-block; padding: 10px 15px;}
+.addAlbumEmpty a{display: inline-block; padding: 10px 15px; font-weight: bold; font-size: 14px;}
 .addAlbumEmpty a:hover{text-decoration: none;}
 .addAlbumEmpty a::first-letter {text-transform: capitalize;}
 .addAlbumFormParent {display: none;}
@@ -1659,4 +1658,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 	margin-top: 20px;
 	border-radius: 7px;
 }
-.selectedAlbum span.icon-sitemap::before {margin-right: 12px;}
+.selectedAlbum span.icon-sitemap::before, .afterUploadActions a.batchLink.icon-pencil::before, .afterUploadActions a.icon-plus-circled::before {
+	margin-right: 12px;
+}
+#addFiles i::before {margin-left: 13px; font-size: 15px;}
+.plupload_filelist_footer {display: none;}

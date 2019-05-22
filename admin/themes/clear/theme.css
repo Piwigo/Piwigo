@@ -411,7 +411,8 @@ a#showPermissions:hover {border-color: #A5A5A5;}
 p#uploadWarningsSummary {color:#3C3C3C;}
 .selectize-control.single .selectize-input {border: 2px solid #FFA646!important; color: #3C3C3C;}
 .selectize-control.single .selectize-input:hover {border-color: #FAC17E!important;}
-.plupload_filelist {scrollbar-color: #CBCBCB #F5F5F5!important;}
+.plupload_filelist {scrollbar-color: #CBCBCB #ffffff!important; background-color: #ffffff!important;}
+.plupload_filelist_footer {background-color: #F5F5F5!important;}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
 
@@ -421,5 +422,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #addAlbumForm input[name="category_name"] {border:none!important; margin-top: 5px!important;}
 #addAlbumForm input[name="category_name"]:focus {background-color: #DDDDDD;}
 .buttonSeparator {color: #3C3C3C;}
+#uploadForm li.plupload_droptext {background-color: #F5F5F5!important;}
 
 /* beta-test ends */
