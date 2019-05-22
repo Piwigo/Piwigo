@@ -128,6 +128,11 @@ jQuery(document).ready(function(){
       // update custom button state on queue change
       QueueChanged : function(up) {
         jQuery('#startUpload').prop('disabled', up.files.length == 0);
+
+        if (up.files.length > 0) {
+          jQuery('.plupload_filelist_footer').show();
+          jQuery('.plupload_filelist').css("overflow-y", "scroll");
+        }
       },
       
       UploadProgress: function(up, file) {
@@ -245,7 +250,7 @@ jQuery(document).ready(function(){
 <div class="infos" style="display:none"><i class="eiw-icon icon-ok"></i></div>
 <div class="errors" style="display:none"><i class="eiw-icon icon-cancel"></i><ul></ul></div>
 
-<p class="afterUploadActions" style="margin:10px; display:none;"><a class="batchLink"></a> | <a href="admin.php?page=photos_add">{'Add another set of photos'|@translate}</a></p>
+  <p class="afterUploadActions" style="margin:10px; display:none;"> <a class="batchLink icon-pencil"></a><span class="buttonSeparator"> OU </span><a href="admin.php?page=photos_add" class="icon-plus-circled">{'Add another set of photos'|@translate}</a></p>
 
 {if count($setup_errors) > 0}
 <div class="errors">
@@ -300,7 +305,7 @@ jQuery(document).ready(function(){
     <fieldset class="selectFiles" style="display:none">
       <legend>{'Select files'|@translate}</legend>
       <div class="selectFilesButtonBlock">
-        <button id="addFiles" class="buttonLike">{'Add Photos'|translate}<i class="icon-download"></i></button>
+        <button id="addFiles" class="buttonLike">{'Add Photos'|translate}<i class="icon-plus-circled"></i></button>
         <div class="selectFilesinfo">
           {if isset($original_resize_maxheight)}
           <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
