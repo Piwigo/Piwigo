@@ -246,6 +246,11 @@ jQuery(document).ready(function(){
 </div>
 
 <div id="photosAddContent">
+  <div class="addAlbumEmpty">
+    <div class="addAlbumEmptyTitle">{'Welcome!'|translate}</div>
+      <p class="addAlbumEmptyInfos">{'Piwigo requires an album to add photos.'|translate}</p>
+      <a href="#" data-add-album="category" title="{'Create a first album'|translate}">{'Create a first album'|translate}</a>  
+  </div>
 
 <div class="infos" style="display:none"><i class="eiw-icon icon-ok"></i></div>
 <div class="errors" style="display:none"><i class="eiw-icon icon-cancel"></i><ul></ul></div>

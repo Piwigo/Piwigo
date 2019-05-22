@@ -1010,3 +1010,6 @@ $lang['It only takes a few clicks.'] = 'Cela se fait en quelques clics';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s est disponible, merci de mettre à jour';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Maintenir Piwigo à jour est important pour la sécurité.';
 $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Il est temps de mettre à jour votre Piwigo avec la version %s, allez sur %s';
+$lang['Welcome!'] = 'Bienvenue !';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo a besoin d\'un album pour y ajouter des photos.';
+$lang['Create a first album'] = 'Créer un premier album';
