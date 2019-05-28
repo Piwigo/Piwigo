@@ -21,7 +21,7 @@ h2 { color: #ccc; }
   right: 0;
   width: 550px;
 }
-html, body { min-height: 100%; }
+html, body { min-height: 100%; height: 100%;}
 
 body {
 	background-color:#444;
@@ -306,7 +306,6 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 
 .big-progressbar {
   background: #3c3939;
-  border: 1px solid #3C3C3C;
 }
 
 /* Album Properties */
@@ -401,7 +400,6 @@ a#showPermissions {color: #D6D6D6; border: 1px solid #D6D6D6; background-color: 
 a#showPermissions:hover {border-color: #A5A5A5;}
 .icon-plus.cboxElement {border: 1px solid #777; color: #c0c0c0;}
 .icon-plus.cboxElement:hover {border: 1px solid #aaa;}
-p#uploadWarningsSummary {color:#999;}
 .selectize-control.single .selectize-input {border: 2px solid #FAC17E!important; color: #D5D5D5;}
 .selectize-control.single .selectize-input:hover {border-color: #FFA646!important;}
 .plupload_filelist {background-color: #444444 !important; scrollbar-color: #555 #444444!important;}
@@ -418,3 +416,5 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #addAlbumForm {color: #999;}
 .selectedAlbum span {background-color: #555; color: #999;}
 #uploadForm li.plupload_droptext {background-color: #343434!important; color: #777 !important;}
+.addFilesButtonChanged {background-color: #888;}
+.addFilesButtonChanged:hover {background-color: #777;}
