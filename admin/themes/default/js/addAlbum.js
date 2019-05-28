@@ -38,12 +38,13 @@ jQuery.fn.pwgAddAlbum = function(options) {
       e.preventDefault();
 
       var parent_id = $albumParent.val(),
-          name = $popup.find('[name=category_name]').val();
-          
-      jQuery('#categoryNameError').toggle(!name);
+      name = $popup.find('[name=category_name]').val();
+
       if (!name) {
+        jQuery('#categoryNameError').css('visibility', 'visible');
         return;
       }
+      jQuery('#categoryNameError').css('visibility', 'hidden');
 
       jQuery.ajax({
         url: 'ws.php?format=json',
@@ -103,13 +104,13 @@ jQuery.fn.pwgAddAlbum = function(options) {
   this.colorbox({
     inline: true,
     href: '#addAlbumForm',
-    width: 650, height: 300,
+    width: 650, height: 'auto',
     onComplete: function() {
       if (!$popup.data('init')) {
         init();
       }
 
-      jQuery('#categoryNameError').hide();
+      jQuery('#categoryNameError').css('visibility','hidden');
       $popup.find('[name=category_name]').val('').focus();
       $albumParent[0].selectize.setValue($target.val() || 0);
     }
