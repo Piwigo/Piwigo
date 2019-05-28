@@ -211,6 +211,7 @@ $template->assign(
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => $change_theme_url,
     'U_UPDATES' => $link_start.'updates',
+    'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
     )
   );
   

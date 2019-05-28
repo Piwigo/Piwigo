@@ -136,7 +136,7 @@ jQuery(document).ready(function() {
 
 <div id="content" class="content">
 
-  <h1>Piwigo Administration Page</h1>
+  <h1>{$ADMIN_PAGE_TITLE}</h1>
 
   {if isset($TABSHEET)}
   {$TABSHEET}
