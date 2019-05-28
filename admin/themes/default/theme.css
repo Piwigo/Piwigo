@@ -661,7 +661,7 @@ img.ui-datepicker-trigger {
 }
 
 #photosAddContent P {
-  margin:0;
+  margin: 0;
 }
 
 #photosAddContent TH {
@@ -677,7 +677,7 @@ img.ui-datepicker-trigger {
   width:50%;
 }
 
-html, body {height:100%; margin:0; padding:0;}
+html, body {height:100; min-height: 100%; margin:0; padding:0;}
 #the_page {min-height:100%; position:absolute; width:100%; padding:0;margin:0;}
 
 #pwgMain {
@@ -1230,8 +1230,8 @@ LEGEND {
 #uploadBoxes {margin-top:20px;}
 #addUploadBox {margin-bottom:2em;}
 
-p.uploadInfo {text-align:left;font-size:90%;color:#999;}
-p#uploadWarningsSummary {text-align:left;margin-bottom:1em;font-size:100%;}
+p.uploadInfo {text-align:left;}
+p#uploadWarningsSummary {text-align:left;}
 p#uploadWarningsSummary .showInfo {margin-left:3px;}
 p#uploadWarnings {display:none;text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
 p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
@@ -1243,7 +1243,7 @@ a#showPermissions:hover {text-decoration: none;}
 #uploadForm .plupload_buttons, #uploadForm .plupload_progress { display:none !important; }
 #uploadForm #startUpload { margin:5px 0 15px 25px; padding:8px 10px; font-size:1.1em; }
 #uploadForm #startUpload:before { margin-right:0.5em;} 
-#uploadForm #addFiles { margin-right:10px; float:left;}
+#uploadForm #addFiles { margin-right:10px; float:left; height: 45.6px;}
 #uploadForm #uploadingActions { margin:10px 10px 10px 15px; }
 #uploadForm .big-progressbar { vertical-align:middle; display:inline-block; margin-left:10px; }
 
@@ -1594,7 +1594,7 @@ fieldset#environment legend i[class*="icon-"] {
   transition: all 125ms ease-out;
 }
 
-#cboxLoadedContent input[type="submit"] {margin-bottom: 30px; float: none;}
+#cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
 
 .selectAlbum, #permissions, .selectFiles {border: 0;}
 #permissions {display: none!important;}
@@ -1612,7 +1612,7 @@ fieldset#environment legend i[class*="icon-"] {
 .selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
 .buttonLike {padding: 8px 10px; margin-left: 5px;}
 .selectFilesButtonBlock {display: flex; margin-top: 10px;}
-.selectFilesinfo {margin-top: 10px; margin-left: 15px;}
+.selectFilesinfo {margin-left: 15px; font-size: 90%; color: #999; display: flex; flex-direction: column; justify-content: center;}
 #uploader {margin-top: 25px; font-weight: bold !important;}
 .plupload_filelist_header {display: none;}
 .plupload_filelist {scrollbar-width: thin!important;}
@@ -1627,16 +1627,16 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #photosAddContent .Addedphotos {border: none; margin-top: 35px;}
 .plupload_upload_status {}
 
-.addAlbumEmpty {text-align: center; margin-top: 10%;}
+.addAlbumEmpty {text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+.addAlbumEmptyCenter {position: relative; margin: auto; height: calc(100vh - 200px);}
 .addAlbumEmptyTitle {font-size: 35px; font-weight: bold;}
 .addAlbumEmptyInfos {font-size: 14px; margin-bottom: 25px !important; margin-top: 5px !important;}
 .addAlbumEmpty a{display: inline-block; padding: 10px 15px; font-weight: bold; font-size: 14px;}
 .addAlbumEmpty a:hover{text-decoration: none;}
 .addAlbumEmpty a::first-letter {text-transform: capitalize;}
-.addAlbumFormParent {display: none;}
-#cboxLoadedContent {height: auto !important; padding: 20px 20px 30px 20px !important;}
+#cboxLoadedContent {height: auto !important; padding: 20px 20px 20px 20px !important;}
 .buttonSeparator {font-weight: bold;}
-.popinButtons {text-align: right; padding-top: 24px;}
+.popinButtons {text-align: right; margin-top: 24px;}
 .popinButtons input[type="submit"] {margin-right: 0;}
 #albumCreationLoading {
 	background-color: #ffa744;
@@ -1646,7 +1646,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 	font-weight: bold; 
 	display: none;
 }
-.popinField {margin-top: 30px;}
+.popinField {margin-top: 30px; }
 .popinField.addAlbumFormParent {margin-top: 0;}
 .popinFieldLabel {display: block; margin-bottom: 5px;}
 .selectedAlbum {margin-top: 10px; margin-left: 5px;}
