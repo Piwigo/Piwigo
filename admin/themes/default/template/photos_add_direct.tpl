@@ -257,10 +257,6 @@ jQuery(document).ready(function(){
 });
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Upload Photos'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
-
 <div id="photosAddContent">
   <div class="addAlbumEmptyCenter">
     <div class="addAlbumEmpty"{if $NB_ALBUMS > 0} style="display:none;"{/if}>
@@ -299,8 +295,8 @@ jQuery(document).ready(function(){
   <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
     <fieldset class="selectAlbum">
       <legend>{'Drop into album'|@translate}</legend>
-      <div class="selectedAlbum" style="display: none"><span class="icon-sitemap"></span></div>
-      <div class="selectAlbumBlock">
+      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{$ADD_TO_ALBUM}</span></div>
+      <div class="selectAlbumBlock"{if isset($ADD_TO_ALBUM)} style="display: none"{/if}>
         <a href="#" data-add-album="category" title="{'create a new album'|@translate}" class="icon-plus"></a>
         <span id="albumSelection">
           <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"

@@ -29,6 +29,7 @@ $template->assign(
     array(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
       'chunk_size' => $conf['upload_form_chunk_size'],
+      'ADMIN_PAGE_TITLE' => l10n('Upload Photos'),
     )
   );
 
@@ -106,7 +107,7 @@ if (isset($_GET['album']))
   
   // test if album really exists
   $query = '
-SELECT id
+SELECT id, uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$_GET['album'].'
 ;';
@@ -117,6 +118,9 @@ SELECT id
     
     // lets put in the session to persist in case of upload method switch
     $_SESSION['selected_category'] = $selected_category;
+
+    $cat = pwg_db_fetch_assoc($result);
+    $template->assign('ADD_TO_ALBUM', get_cat_display_name_cache($cat['uppercats'], null));
   }
   else
   {
