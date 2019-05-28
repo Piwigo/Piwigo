@@ -39,8 +39,9 @@ jQuery(document).ready(function() {
     }
   }
 
-  var page_title = jQuery('h2').html();
-  jQuery('h1').html(page_title);
+  if (jQuery('h2').length > 0) {
+    jQuery('h1').html(jQuery('h2').html());
+  }
 });
 {/footer_script}
 
