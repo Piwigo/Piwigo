@@ -144,11 +144,6 @@ function get_exif_data($filename, $map)
   
   $result = array();
 
-  if (!function_exists('read_exif_data'))
-  {
-    die('Exif extension not available, admin should disable exif use');
-  }
-
   // Read EXIF data
   if ($exif = @read_exif_data($filename) or $exif2 = trigger_change('format_exif_data', $exif=null, $filename, $map))
   {
@@ -169,7 +164,11 @@ function get_exif_data($filename, $map)
         if (isset($exif[$field]))
         {
           $result[$key] = $exif[$field];
-        }
+	}
+	else if (isset($exif[$key]))
+	{
+	  $result[$key] = $exif[$key];
+	}
       }
       else
       {

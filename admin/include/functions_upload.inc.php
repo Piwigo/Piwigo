@@ -24,6 +24,8 @@
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
+set_time_limit(0);
+
 // add default event handler for image and thumbnail resize
 add_event_handler('upload_image_resize', 'pwg_image_resize');
 add_event_handler('upload_thumbnail_resize', 'pwg_image_resize');
@@ -407,7 +409,6 @@ SELECT
   unset_make_full_url();
 
   fetchRemote($thumb_url, $dest);
-
 
   return $image_id;
 }
