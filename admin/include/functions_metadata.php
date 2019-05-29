@@ -168,6 +168,7 @@ function get_sync_metadata($infos)
 {
   global $conf;
   $file = PHPWG_ROOT_PATH.$infos['path'];
+  $orig_file = $file;
   $fs = @filesize($file);
 
   if ($fs===false)
@@ -194,7 +195,6 @@ function get_sync_metadata($infos)
       }
 
     }
-
     $file = original_to_representative($file, $infos['representative_ext']);
   }
 
@@ -212,13 +212,13 @@ function get_sync_metadata($infos)
 
   if ($conf['use_exif'])
   {
-    $exif = get_sync_exif_data($file);
+    $exif = get_sync_exif_data($orig_file);
     $infos = array_merge($infos, $exif);
   }
 
   if ($conf['use_iptc'])
   {
-    $iptc = get_sync_iptc_data($file);
+    $iptc = get_sync_iptc_data($orig_file);
     $infos = array_merge($infos, $iptc);
   }
 
