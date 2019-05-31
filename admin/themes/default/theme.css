@@ -1635,7 +1635,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addAlbumEmpty a:hover{text-decoration: none;}
 .addAlbumEmpty a::first-letter {text-transform: capitalize;}
 #cboxLoadedContent {height: auto !important; padding: 20px 20px 20px 20px !important;}
-.buttonSeparator {font-weight: bold;}
+.buttonSeparator {font-weight: bold; text-transform: uppercase;}
 .popinButtons {text-align: right; margin-top: 24px;}
 .popinButtons input[type="submit"] {margin-right: 0;}
 #albumCreationLoading {
