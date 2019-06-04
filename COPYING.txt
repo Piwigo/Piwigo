@@ -9,7 +9,7 @@ COPYRIGHT
 
 SOFTWARE LICENSE
 
-    The free software license of Matomo is GNU General Public License v2
+    The free software license of Piwigo is GNU General Public License v2
     or later. See LICENSE.txt to get a full copy.
 
 
