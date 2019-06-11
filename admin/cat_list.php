@@ -280,6 +280,7 @@ if (isset($_GET['parent_id']))
 $sort_orders_checked = array_keys($sort_orders);
 
 $template->assign(array(
+  'ADMIN_PAGE_TITLE' => l10n('Album list management'),
   'CATEGORIES_NAV'=>$navigation,
   'F_ACTION'=>$form_action,
   'PWG_TOKEN' => get_pwg_token(),

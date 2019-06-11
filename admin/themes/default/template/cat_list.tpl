@@ -58,7 +58,7 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-<h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Album list management'|@translate}</h2>
+<div class="selectedAlbum cat-list-album-path"><span class="icon-sitemap">{$CATEGORIES_NAV}</span></div>
 <p class="showCreateAlbum" id="notManualOrder">
   <a href="#" id="addAlbumOpen" class="icon-plus">{'create a new album'|@translate}</a>
   {if count($categories)}<span class="userSeparator">&middot;</span><a href="#" id="autoOrderOpen" class="icon-sort-alt-down">{'apply automatic sort order'|@translate}</a>{/if}
