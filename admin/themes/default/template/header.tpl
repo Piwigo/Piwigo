@@ -53,7 +53,7 @@
 {/if}
 
 <div id="pwgHead">
-  <a href="{$U_RETURN}" class="visit-gallery tiptip" title="{'Visit Gallery'|translate}"><i class="icon-left-open"></i>Visit</a>
+  <a href="{$U_RETURN}" class="visit-gallery tiptip" title="{'Visit Gallery'|translate}"><i class="icon-left-open"></i>{'Visit'|translate}</a>
   <div class="pwgHead-gallery-title">{$GALLERY_TITLE}</div>
 
   <div id="headActions">

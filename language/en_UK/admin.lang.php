@@ -885,6 +885,7 @@ $lang['Virtual album name'] = "Virtual album name";
 $lang['Virtual album'] = "Virtual album";
 $lang['Virtual albums to move'] = "Virtual albums to move";
 $lang['Virtual Links'] = 'Virtual Links';
+$lang['Visit'] = 'Visit';
 $lang['Visit Gallery'] = 'Visit the gallery';
 $lang['Visit language site'] = 'Visit language site';
 $lang['Visit Piwigo project website'] = 'Visit Piwigo project website';

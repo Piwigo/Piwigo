@@ -586,6 +586,7 @@ $lang['Read Piwigo Documentation'] = 'Lire la documentation Piwigo';
 $lang['Start pLoader and add your photos.'] = 'Démarrez pLoader et ajoutez vos photos.';
 $lang['Switch to clear or dark colors for administration'] = 'Choisir des couleurs claires ou sombres pour l\'administration';
 $lang['Theme has been successfully installed'] = 'Le thème a été installé avec succès';
+$lang['Visit'] = 'Visiter';
 $lang['Visit Gallery'] = 'Visiter la galerie';
 $lang['Visit Piwigo project website'] = 'Visiter le site web du projet Piwigo';
 $lang['Guest Settings'] = 'Paramètres invité';
