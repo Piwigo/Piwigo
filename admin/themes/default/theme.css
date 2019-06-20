@@ -1668,3 +1668,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .selectedAlbum.cat-list-album-path {
   margin: 40px 0 30px 0;
 }
+.selectedAlbum.cat-list-album-path span {
+  background-color: transparent;
+}
