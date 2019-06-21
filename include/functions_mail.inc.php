@@ -605,7 +605,14 @@ function pwg_mail($to, $args=array(), $tpl=array())
     $conf_mail = get_mail_configuration();
   }
 
-  include_once(PHPWG_ROOT_PATH.'include/phpmailer/PHPMailerAutoload.php');
+  // PHPMailer autoloader shows warnings with PHP 7.2. Solution to upgrade to PHPMailer 6
+  // implies requiring PHP 5.5, which is bigger than current requirement for Piwigo.
+  //
+  // include_once(PHPWG_ROOT_PATH.'include/phpmailer/PHPMailerAutoload.php');
+  //
+  // replace by direct include of the classes:
+  include_once(PHPWG_ROOT_PATH.'include/phpmailer/class.smtp.php');
+  include_once(PHPWG_ROOT_PATH.'include/phpmailer/class.phpmailer.php');
 
   $mail = new PHPMailer;
 
