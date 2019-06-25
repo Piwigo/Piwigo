@@ -438,17 +438,17 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   text-decoration: none; background-color: #ffa646 !important; color: initial;
 }
 #forbidAction, .selectionEmptyBlock {background-color: #5a5757; color: #c1c1c1;}
-#batchManagerGlobal .navigationBar, #batchManagerGlobal .thumbnailsActionsNumber, #batchManagerGlobal .navigationBar a,
-#batchManagerGlobal .navigationBar span, #batchManagerGlobal .thumbnailsActionsNumber a, #batchManagerGlobal .thumbnailsActionsNumber span {
+.navigationBar, .thumbnailsActionsNumber, .navigationBar a,
+.navigationBar span, .thumbnailsActionsNumber a, .thumbnailsActionsNumber span {
   background-color: #555;  border-radius: 10px;
 }
 .pageNumberSelected {background-color: #b4b4b4;}
-#batchManagerGlobal .navigationBar a:hover, #batchManagerGlobal .thumbnailsActionsNumber a:hover {background-color: #888; color: #444;}
+.navigationBar a:hover, .thumbnailsActionsNumber a:hover {background-color: #888; color: #444;}
 #action_title .large, #action_author .large {background-color: #333; color: #fefefe;}
 #addFilter optgroup, #batchManagerGlobal option[disabled] {background-color: #555;}
 .dimension-cancel {background-color: #555 !important;}
 .pageNumberSelected {color: #777 !important; font-weight: bold;}
-#batchManagerGlobal .navigationBar span, #batchManagerGlobal .thumbnailsActionsNumber span {
+.navigationBar span, .thumbnailsActionsNumber span {
   color: #777;
 }
 #batchManagerGlobal .ui-state-default, #batchManagerGlobal .ui-widget-content .ui-state-default,#batchManagerGlobal .ui-widget-header .ui-state-default {

@@ -1717,22 +1717,21 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #action_add_tags .selectize-input.items.not-full.has-options.focus.input-active.dropdown-active, .selectize-input.items.not-full {
 	padding: 12px 10px; box-shadow: none; border-radius: 0px; border: 1px solid #787777a6;
 }
-#batchManagerGlobal .navigationBar, #batchManagerGlobal .thumbnailsActionsNumber {
+.navigationBar, .thumbnailsActionsNumber {
 	border-radius: 5px; display: flex; font-size: 12px; font-weight: 700;
 	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 }
 .pageNumberSelected {background-color: #ffaf58 !important; border: none !important; border-radius: 0 !important;}
 
-#batchManagerGlobal .navigationBar a, #batchManagerGlobal .navigationBar span, #batchManagerGlobal .thumbnailsActionsNumber a,
-#batchManagerGlobal .thumbnailsActionsNumber span {
+.navigationBar a, .navigationBar span, .thumbnailsActionsNumber a, .thumbnailsActionsNumber span {
 	padding: 8px 9px; border: none;
 }
-#batchManagerGlobal .navigationBar *:last-child, #batchManagerGlobal .thumbnailsActionsNumber *:last-child {padding-right: 17px;}
-#batchManagerGlobal .thumbnailsActionsNumber *:first-child, #batchManagerGlobal .navigationBar *:first-child{padding-left: 17px;}
-#batchManagerGlobal .navigationBar a:last-child:hover, #batchManagerGlobal .thumbnailsActionsNumber a:last-child:hover {
+.navigationBar *:last-child, .thumbnailsActionsNumber *:last-child {padding-right: 17px;}
+.thumbnailsActionsNumber *:first-child, .navigationBar *:first-child{padding-left: 17px;}
+.navigationBar a:last-child:hover, .thumbnailsActionsNumber a:last-child:hover {
 	border-bottom-right-radius: 10px; border-top-right-radius: 10px;  
 }
-#batchManagerGlobal .thumbnailsActionsNumber a:first-child:hover, #batchManagerGlobal .navigationBar a:first-child:hover {
+.thumbnailsActionsNumber a:first-child:hover, .navigationBar a:first-child:hover {
 	border-bottom-left-radius: 10px; border-top-left-radius: 10px;
 }
 #batchManagerGlobal UL.thumbnails {display: flex; flex-wrap: wrap; justify-content: flex-start; margin-left: 30px;}
@@ -1753,7 +1752,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .deleteDerivButtons a:hover, #batchManagerGlobal #checkActions a:hover {
 	background-color: #ffa646; color: initial; text-decoration: none;
 }
-#batchManagerGlobal .navigationBar a:hover, #batchManagerGlobal .thumbnailsActionsNumber a:hover {
+.navigationBar a:hover, .thumbnailsActionsNumber a:hover {
 	color: #666; text-decoration: none; border-radius: 0;
 }
 #batchManagerGlobal .thumbSelected img {opacity: 0.35; border: 1px solid #fea744 !important;}
@@ -1784,7 +1783,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .ui-slider-horizontal .ui-slider-handle {top: -.7em !important; width: 1.4em; height: 1.4em;}
 #batchManagerGlobal .ui-slider-handle.ui-state-default.ui-corner-all {border-radius: 10px;}
 #action_delete .errors {display: block; min-height: initial; margin: 10px 0px 0px 0px;}
-#batchManagerGlobal .navigationBar {margin-top: 30px;}
+.navigationBar {margin: auto !important;}
+.navigationBarRow .navigationBar {width: 35%;}
+#batchManagerGlobal .navigationBar {margin-top: 30px !important; width: 100%;}
 #batchManagerGlobal .ui-slider-horizontal .ui-slider-range {height: 2px;}
 #batchManagerGlobal .ui-slider-horizontal {height: 2px;}
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {margin-top: -1px;}
