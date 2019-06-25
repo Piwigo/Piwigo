@@ -1013,3 +1013,4 @@ $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Il est
 $lang['Welcome!'] = 'Bienvenue !';
 $lang['Piwigo requires an album to add photos.'] = 'Piwigo a besoin d\'un album pour y ajouter des photos.';
 $lang['Create a first album'] = 'Créer un premier album';
+$lang['Search tips'] = 'Conseils de recherche';

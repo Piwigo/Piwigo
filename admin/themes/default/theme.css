@@ -1181,35 +1181,48 @@ LEGEND {
 
 /* Batch Manager, global mode */
 #batchManagerGlobal #action p {text-align:left;}
-#batchManagerGlobal .bulkAction {text-align:left;margin:15px 0;padding:0;}
+#batchManagerGlobal .bulkAction {text-align:left; padding:0;}
 #batchManagerGlobal #action_del_tags ul.tagSelection {margin:0 !important; width:620px;}
 #batchManagerGlobal #checkActions {text-align:left; margin:0 0 20px 0;}
-#batchManagerGlobal ul.thumbnails div.actions {display:none;position:absolute;top:0;right:5px;color:#fff}
+#batchManagerGlobal ul.thumbnails div.actions {
+	display: none;
+	position: absolute;
+	top: 0;
+	color: #fff;
+	width: 98%;
+	justify-content: space-between;
+	background-color: #313234;
+	padding: 3px 0px;
+	margin-left: 1px;
+	z-index: 1;
+}
 #batchManagerGlobal ul.thumbnails div.actions a {color:#fff;}
-#batchManagerGlobal ul.thumbnails span.wrap1:hover div.actions {display:block;}
-#batchManagerGlobal #selectedMessage {padding:5px; border-radius:5px;}
-#batchManagerGlobal #applyOnDetails {font-style:italic;}
-#batchManagerGlobal .actionButtons {text-align:left;}
-#batchManagerGlobal #filterList {padding-left:5px;}
-#batchManagerGlobal #filterList li {margin-bottom:5px; list-style-type:none;}
+#batchManagerGlobal ul.thumbnails span.wrap1:hover div.actions {display:flex;}
+#batchManagerGlobal #selectedMessage {padding:5px; border-radius:5px; float: right;}
+#batchManagerGlobal #applyOnDetails {text-align: center; margin-top: 8px; color: #FFA646; font-weight: bold;}
+#batchManagerGlobal .actionButtons {text-align:left; margin: 0; display: flex; flex-direction: column;}
+#batchManagerGlobal #filterList {padding-left:5px; display: flex; flex-wrap: wrap; align-items: start; margin-top: -18px;}
+#batchManagerGlobal #filterList li {list-style-type:none;}
 #batchManagerGlobal a.removeFilter {color:#666;}
-#batchManagerGlobal a.removeFilter::before {margin-right:0;}
+#batchManagerGlobal a.removeFilter::before {margin-right:0; content: '\e822'; font-size: 9pt; color: #9f9f9f; margin-left: 6px;}
+#batchManagerGlobal a.removeFilter:hover::before {color: #ffa646;}
 #batchManagerGlobal a.removeFilter:hover {color:red;}
 #batchManagerGlobal .removeFilter span {display:none}
-#batchManagerGlobal #applyFilterBlock {margin-top:20px;}
+#batchManagerGlobal #applyFilterBlock {margin-top:20px; width: 200px;}
 #batchManagerGlobal .useFilterCheckbox {display:none;}
 
-#batchManagerGlobal blockquote {margin:5px 0 20px 15px;}
-#batchManagerGlobal .ui-slider-horizontal {width:650px;margin:5px 0 10px 0;}
+#batchManagerGlobal blockquote {margin:10px 0 0px 0;}
+#batchManagerGlobal .ui-slider-horizontal {width:280px; margin:10px 0 10px 9px;}
+#batchManagerGlobal #filter_dimension .ui-slider-horizontal {width:580px;}
 
 #batchManagerGlobal #duplicates_options label {margin-left:10px;}
 
-#batchManagerGlobal .thumbnails span.icon-check,
-#batchManagerGlobal .thumbnails span.icon-check-empty {
-  position:absolute;
-  left:5px;
-  top:3px;
-  font-size:14px;
+#batchManagerGlobal .thumbnails span.icon-check, #batchManagerGlobal .thumbnails span.icon-check-empty {
+  position: absolute;
+  left: 84px;
+  top: 84px;
+  font-size: 14px;
+  display: none;
 }
 
 
@@ -1369,7 +1382,7 @@ FORM#categoryOrdering p.albumActions a {
 FORM#categoryOrdering p.albumActions a:hover {text-decoration: none;}
 FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
-.albumBlock {display: flex; justify-content: space-between; padding: 10px 10px 0 10px;}
+.albumBlock {display: flex; justify-content: space-between; padding: 10px 0 0 10px;}
 .albumBlock .albumLineBlock {display: block; padding-left: 7px; max-width: 45%; height: 50px;}
 .showCreateAlbum {text-align:left; margin:0 1em 25px 20px; line-height:22px;}
 .showCreateAlbum .userSeparator {margin:0 5px;}
@@ -1586,12 +1599,7 @@ fieldset#environment legend i[class*="icon-"] {
 }
 
 .buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
-  font-size:12px;
-  border:none;
-  padding:13px 20px;
-  margin-left:0;
-  font-weight: bold;
-  transition: all 125ms ease-out;
+  font-size:12px; border:none; padding:13px 20px; margin-left:0; font-weight: bold; transition: all 125ms ease-out;
 }
 
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
@@ -1600,12 +1608,9 @@ fieldset#environment legend i[class*="icon-"] {
 #permissions {display: none!important;}
 #permissions, .selectFiles {margin-top: 35px; margin-bottom: 20px;}
 .selectAlbumBlock {display: flex; margin-left: 10px; margin-top: 10px;}
+.albumActions a:last-child {border-radius: 0 5px 5px 0;}
 .icon-plus.cboxElement {
-	padding: 8px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
-	font-size: 15px;
-	margin-bottom: 8px;
-	transition: all 125ms ease-out;
+	padding: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16); font-size: 15px; margin-bottom: 8px; transition: all 125ms ease-out;
 }
 .icon-plus.cboxElement:hover {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);}
 #albumSelection {margin-left: 25px;}
@@ -1625,7 +1630,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .plupload_total_file_size {margin-right: -8px;}
 .plupload_total_status {color: #707070!important; margin-right: -8px; font-weight: bold;}
 #photosAddContent .Addedphotos {border: none; margin-top: 35px;}
-.plupload_upload_status {}
 
 .addAlbumEmpty {text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
 .addAlbumEmptyCenter {position: relative; margin: auto; height: calc(100vh - 200px);}
@@ -1639,27 +1643,150 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .popinButtons {text-align: right; margin-top: 24px;}
 .popinButtons input[type="submit"] {margin-right: 0;}
 #albumCreationLoading {
-	background-color: #ffa744;
-	color: #3c3c3c; font-size: 12px;
-	border: none;
-	padding: 12.2px 28.4px;
-	font-weight: bold; 
-	display: none;
+	background-color: #ffa744; color: #3c3c3c; font-size: 12px; border: none; padding: 12.2px 28.4px; font-weight: bold; display: none;
 }
 .popinField {margin-top: 30px; }
 .popinField.addAlbumFormParent {margin-top: 0;}
 .popinFieldLabel {display: block; margin-bottom: 5px;}
 .selectedAlbum {margin-top: 10px; margin-left: 5px;}
 .selectedAlbum span {
-	padding: 10px 12px;
-	font-weight: bold;
-	background-color: #f5f5f5;
-	text-align: center;
-	margin-top: 20px;
-	border-radius: 7px;
+	padding: 10px 12px; font-weight: bold; background-color: #f5f5f5; text-align: center; margin-top: 20px; border-radius: 7px;
 }
 .selectedAlbum span.icon-sitemap::before, .afterUploadActions a.batchLink.icon-pencil::before, .afterUploadActions a.icon-plus-circled::before {
 	margin-right: 12px;
 }
 #addFiles i::before {margin-left: 13px; font-size: 15px;}
 .plupload_filelist_footer {display: none;}
+
+.permitActionListButton .actionButtons {display: flex; flex-direction: column;}
+.filterBlock {display: flex;}
+.filterBlock li {width: 300px; height: auto;}
+#filter_dimension {width: 600px;}
+#filter_dimension .slider-choice, #filter_filesize .slider-choice {border-radius: 4px; padding: 2px 8px; margin: 0 3px;}
+#checkActions a {border-radius: 4px; padding: 4px 10px; margin: 2px;}
+#filterList select {display: block; padding: 10px 18px; margin-bottom: 5px; width: 290px;}
+#filterList li {margin-left: 25px; margin-bottom: 15px;}
+#addFilter, #filter_tags .selectize-input.items.not-full.has-options, #filter_tags .selectize-input.items.not-full {padding: 10px 18px;}
+#filter_tags .selectize-input {width: 300px; box-shadow: none; border-radius: inherit;}
+#filter_tags .selectize-control.multi.plugin-remove_button {width: 300px !important;}
+#filter_category .selectize-input.items.full.has-options.has-items {padding: 10px 18px; width: 610px; margin-bottom: 5px;}
+#filterList .selectize-input.items.not-full.has-options {margin-bottom: 5px;}
+#applyFilter {padding: 15px 10px; margin-left: 0;}
+#applyFilter.activated {background-color: #FFA646; color: #3C3C3C;}
+#removeFilters {margin-top: 20px; margin-left: 13px;}
+.filter_search_input {padding: 10px 0px; width: 300px;}
+#permitAction {display: flex;}
+#permitAction select {padding: 12px 10px; width: 280px; margin-bottom: 25px; -webkit-appearance: none;}
+#applyAction {padding: 10px 18px; margin-left: 0;}
+.permitActionItem {margin-left: 30px; width: 225px;}
+.permitActionItem .selectize-control.single.plugin-remove_button {width: auto !important;}
+.permitActionItem .selectize-input.items.full.has-options.has-items {width: 500px !important; line-height: 23px;}
+#action_associate {display: flex;}
+#action_associate a:last-child {margin-left: 15px; padding: 10px;}
+#applyAction i {margin-right: 15px;}
+#action_delete_derivatives, #action_generate_derivatives {display: flex; flex-wrap: wrap; margin-top: -20px;}
+.deleteDerivButtons a {border-radius: 4px; padding: 4px 10px; margin: 5px;}
+.deleteDerivButtons {margin-bottom: 15px; margin-right: 51px; width: 100%; text-align: center;}
+#action_delete_derivatives label, #action_generate_derivatives label {display: flex; margin-top: 4px; width: 50%;}
+#action_delete_derivatives input[name="del_derivatives_type[]"], #action_generate_derivatives input[name="generate_derivatives_type[]"] {margin-right: 3px;}
+.actionButtonsBlock .actionButtons:first-child::after,#filter_prefilter::before,#filter_category::before,#filter_level::before,
+.permitActionListButton div::after, #action_level::after {
+  content: '\e835'; font-size: 17px; position: absolute; font-family: "fontello"; color: #6E6E6E; pointer-events: none;
+}
+.permitActionListButton div::after {margin-left: -26px; margin-top: 11px;}
+.permitActionListButton div.hidden::after {display: none;}
+.actionButtonsBlock {width: 200px;}
+.actionButtonsBlock .actionButtons:first-child::after {margin-left: 169px; margin-top: 11px;}
+#filter_prefilter::before {margin-left: 257px; margin-top: 28px;}
+#filter_category .selectize-control.single .selectize-input::after {content: none;}
+#filter_category {width: 600px;}
+#filter_category::before {margin-left: 579px; margin-top: 28px; z-index: 2;}
+#filter_level::before {margin-top: 28px; margin-left: 260px;}
+#action_level::after {margin-top: -56px; margin-left: 254px;}
+#filter_search input {width: 300px; box-sizing: border-box; padding: 11px 18px;}
+#addFilter, #filterList select, #filter_tags .selectize-input.items.not-full.has-options {
+	font-size: 12px;
+	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+	-webkit-appearance: none;
+	font-weight: 700;
+}
+#action_date_creation input, #action_title input, #action_author input {margin-right: 4px;}
+#set_date_creation {margin-top: 5px; margin-left: -2px;}
+#action_title .large, #action_author .large {padding: 12px 10px; border: 1px solid #787777a6;margin-bottom: 8px;}
+#action_add_tags .selectize-input.items.not-full.has-options, 
+#action_add_tags .selectize-input.items.not-full.has-options.focus.input-active.dropdown-active, .selectize-input.items.not-full {
+	padding: 12px 10px; box-shadow: none; border-radius: 0px; border: 1px solid #787777a6;
+}
+#batchManagerGlobal .navigationBar, #batchManagerGlobal .thumbnailsActionsNumber {
+	border-radius: 5px; display: flex; font-size: 12px; font-weight: 700;
+	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+}
+.pageNumberSelected {background-color: #ffaf58 !important; border: none !important; border-radius: 0 !important;}
+
+#batchManagerGlobal .navigationBar a, #batchManagerGlobal .navigationBar span, #batchManagerGlobal .thumbnailsActionsNumber a,
+#batchManagerGlobal .thumbnailsActionsNumber span {
+	padding: 8px 9px; border: none;
+}
+#batchManagerGlobal .navigationBar *:last-child, #batchManagerGlobal .thumbnailsActionsNumber *:last-child {padding-right: 17px;}
+#batchManagerGlobal .thumbnailsActionsNumber *:first-child, #batchManagerGlobal .navigationBar *:first-child{padding-left: 17px;}
+#batchManagerGlobal .navigationBar a:last-child:hover, #batchManagerGlobal .thumbnailsActionsNumber a:last-child:hover {
+	border-bottom-right-radius: 10px; border-top-right-radius: 10px;  
+}
+#batchManagerGlobal .thumbnailsActionsNumber a:first-child:hover, #batchManagerGlobal .navigationBar a:first-child:hover {
+	border-bottom-left-radius: 10px; border-top-left-radius: 10px;
+}
+#batchManagerGlobal UL.thumbnails {display: flex; flex-wrap: wrap; justify-content: flex-start; margin-left: 30px;}
+#batchManagerGlobal ul.thumbnails .actions .icon-plus.cboxElement {
+	background-color: transparent; padding: 0; box-shadow: none; font-size: initial; margin-bottom: 0;
+}
+#batchManagerGlobal UL.thumbnails .wrap2 {width: 110px !important; height: 110px !important;}
+#batchManagerGlobal UL.thumbnails IMG {margin-top: 0; width: 110px; height: 110px; border: 1px solid transparent;}
+#batchManagerGlobal UL.thumbnails .wrap2 .icon-pencil {font-size: 15px; margin-left: 4px;}
+#batchManagerGlobal UL.thumbnails .wrap2 .icon-plus {margin-right: 2px;}
+#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before,
+#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {border-radius: 10px; padding: 2px; content: '\E819'; display: none;}
+#batchManagerGlobal .thumbSelected span.icon-check {display: block; z-index: 1;}
+#batchManagerGlobal .thumbnails .wrap1:hover span.icon-check-empty {display: block;}
+#batchManagerGlobal .thumbnails .wrap1 .icon-check-empty:before {content: '\E823';}
+#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {font-size: 15px; line-height: normal;}
+#batchManagerGlobal UL.thumbnails .wrap2 .icon-pencil:hover, #batchManagerGlobal UL.thumbnails .wrap2 .icon-zoom-square:hover {color: #fea744;}
+#batchManagerGlobal .deleteDerivButtons a:hover, #batchManagerGlobal #checkActions a:hover {
+	background-color: #ffa646; color: initial; text-decoration: none;
+}
+#batchManagerGlobal .navigationBar a:hover, #batchManagerGlobal .thumbnailsActionsNumber a:hover {
+	color: #666; text-decoration: none; border-radius: 0;
+}
+#batchManagerGlobal .thumbSelected img {opacity: 0.35; border: 1px solid #fea744 !important;}
+#batchManagerGlobal li.thumbSelected:hover .font-checkbox [class*="icon-check"]::before {display: block;}
+#filter_category .selectize-input.items.full.has-options.has-items .item,
+#filter_category .selectize-input.items.not-full.has-options .item,
+#filter_category .selectize-input.items.not-full .item {width: 561px; text-overflow: ellipsis;}
+#filter_category .selectize-input.items.full.has-options.has-items,
+#filter_category .selectize-input.items.not-full.has-options,
+#filter_category .selectize-input.items.not-full {width: 610px;}
+#forbidAction {text-align: center; font-weight: 600; padding: 25px 0; background-color: #f3f3f3;}
+.selectionEmptyBlock {text-align: center; font-weight: 600; padding: 90px 0;}
+#duplicates_options {display: flex; flex-direction: column;}
+#batchManagerGlobal .thumbnails .wrap2 .icon-zoom-square::before {font-size: 15px; margin-top: 2.9px; margin-right: 7px;}
+#progressBar_pbImage {
+	width: 300px !important; border-radius: 15px; height: 8px !important; margin-top: 5px !important; background-size: cover; 
+ 	background-repeat: no-repeat; background-color: #f5f5f5; 
+ }
+#regenerationMsg {width: 360px;}
+#progressBar {display: flex;}
+#progressBar_pbText {margin-left: 15px;}
+#filter_search .icon-help-circled::before {margin-right: 5px; color: #777;}
+.dimensionSlidersBlocks {display: flex; flex-direction: column; margin-bottom: 8px;}
+.dimensionSlidersTitleButtons, .dimensionSlidersRatioButtons {display: flex; justify-content: space-between;}
+.dimensionSlidersTitleButtons {margin-bottom: 5px;}
+.dimensionSlidersRatioButtons {margin-bottom: 15px;}
+#filter_dimension blockquote div:last-child .ui-slider-horizontal {margin-top: 5px;}
+#batchManagerGlobal .ui-slider-horizontal .ui-slider-handle {top: -.7em !important; width: 1.4em; height: 1.4em;}
+#batchManagerGlobal .ui-slider-handle.ui-state-default.ui-corner-all {border-radius: 10px;}
+#action_delete .errors {display: block; min-height: initial; margin: 10px 0px 0px 0px;}
+#batchManagerGlobal .navigationBar {margin-top: 30px;}
+#batchManagerGlobal .ui-slider-horizontal .ui-slider-range {height: 2px;}
+#batchManagerGlobal .ui-slider-horizontal {height: 2px;}
+#batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {margin-top: -1px;}
+#batchManagerGlobal .font-checkbox.selected span:first-child::before {content: '\f192';}
+#action_generate_derivatives, #action_delete_derivatives {width: 320px;}

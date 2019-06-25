@@ -82,14 +82,13 @@ h3, .throw, .row1 { background-color: #ddd; }
 
 UL.thumbnails span.wrap2:hover { background-color:#7CBA0F; color:#999; }
 UL.thumbnails span.wrap2 {
-	background-color:#ddd;
+	background-color: transparent;
 }
 
 
 /* borders */
 fieldset {
   border: none;
-  border-top: 2px solid #ddd;
 }
 
 fieldset.with-border {
@@ -192,7 +191,7 @@ img.ui-datepicker-trigger{margin:-2px 10px 1px -2px;}
 .ui-slider .ui-slider-range { background:#aaa;border-radius:2px; }
 
 .ui-slider .ui-slider-handle {
-    background-color: #eee;
+    background-color: #DDD;
     border: 1px solid #aaa;
     border-radius: 3px;
 }
@@ -247,38 +246,37 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 }
 
 #batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before {
-  color:white;
+  color: #3C3C3C; background-color: #fea744; border: 2px solid #3C3C3C;
 }
 
 #batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
-  color:white;
+  color: #3C3C3C; background-color: #fea744; border: 2px solid #3C3C3C; display: block;
 }
 
 #batchManagerGlobal UL.thumbnails li:hover .wrap2 {
-  background-color: #ff7700;
+  background-color: transparent;
   color: #999;
 }
 
-#batchManagerGlobal .thumbSelected { background-color:transparent !important }
+#batchManagerGlobal .thumbSelected {background-color:transparent !important}
 
 #batchManagerGlobal .thumbSelected .wrap2 {
-  background-color: #444 !important;
+  background-color: transparent !important;
 }
 
 #batchManagerGlobal #selectedMessage {
-  background-color: #555;
-  color:white;
+  color: #FFA646;
+  font-weight: bold;
 }
 
 /* beta-test begins: specific changes on Batch Manager */
 #batchManagerGlobal legend {
-  background-color:#ddd;
   color:#555;
-  padding:5px 10px;
 }
 
 #batchManagerGlobal fieldset {
-  margin-top:2em;
+  margin: 0;
+  margin-top: 30px;
 }
 /* beta-test ends */
 
@@ -392,7 +390,7 @@ table.dataTable thead th, table.dataTable.no-footer {
 }
 
 FORM#categoryOrdering p.albumTitle a { color: #5B5B5B; }
-FORM#categoryOrdering p.albumActions a { border-left:1px solid #D6D6D6; }
+FORM#categoryOrdering p.albumActions a { border-left:1px solid #D6D6D6; background-color: #E8E8E8;}
 .albumInfos {color: #999999;}
 FORM#categoryOrdering p.albumActions a:hover {background-color: #FFA844; color: #3A3A3A;}
 FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
@@ -416,6 +414,7 @@ li.plupload_delete a {background: url("images/cancel.svg")!important; background
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
 
 .addAlbumEmpty {color: #3C3C3C;}
+#permitAction p {background: #FFF;}
 .addAlbumEmpty a {background-color: #FFA646; box-shadow: 0 1px 2px #0D0303;}
 .addAlbumEmpty a:hover{background-color: #ff7700; color: #3C3C3C; box-shadow: 0 2px 4px #0D0303;}
 #addAlbumForm input[name="category_name"] {border:none!important; margin-top: 5px!important;}
@@ -424,3 +423,45 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #uploadForm li.plupload_droptext {background-color: #F5F5F5!important;}
 .addFilesButtonChanged {background-color: #E5E5E5;}
 .addFilesButtonChanged:hover {background-color: #BBB;}
+
+#checkActions a, .deleteDerivButtons a {background-color: #E8E8E8;}
+#addFilter, #filterList select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important;}
+#filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options,
+#filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
+#action_dissociate .selectize-input.items.full.has-options.has-items {
+  border: 2px solid #7070704f !important;
+  background: #FFF;
+  color: #3C3C3CBD;
+}
+#permitAction select {background-color: #FFF; color: #4E4E4E; border: 1px solid #787777a6;}
+#action_associate a:last-child {background: #FFF; border: 1px solid #787777a6; box-shadow: none;}
+#forbidAction, .selectionEmptyBlock {background-color: #f3f3f3;}
+#action_title .large, #action_author .large {background-color: #FFF; color: #4E4E4E;}
+#filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #EEE; color: #777;}
+#filterList .ui-slider .ui-slider-range {background: rgba(255,166,70, 0.9); margin-top: -1px; border: 1px solid #ffaf58;}
+#filterList .ui-widget-content {border: 1px solid #EEE; background: #DDD;}
+#batchManagerGlobal .navigationBar, #batchManagerGlobal .thumbnailsActionsNumber, #batchManagerGlobal .navigationBar a,
+#batchManagerGlobal .navigationBar span, #batchManagerGlobal .thumbnailsActionsNumber a, #batchManagerGlobal .thumbnailsActionsNumber span {
+  background-color: #f9f9f9;  border-radius: 10px;
+}
+#batchManagerGlobal .navigationBar a:hover, #batchManagerGlobal .thumbnailsActionsNumber a:hover {background-color: #ffd2a1;}
+#batchManagerGlobal option[disabled] {background-color: #EEE;}
+.dimension-cancel {background-color: #F8F8F8 !important;}
+.pageNumberSelected {color: #FFF !important; font-weight: bold;}
+#batchManagerGlobal .navigationBar span, #batchManagerGlobal .thumbnailsActionsNumber span {
+  color: #BBB;
+}
+#batchManagerGlobal .ui-state-default, #batchManagerGlobal .ui-widget-content .ui-state-default,#batchManagerGlobal .ui-widget-header .ui-state-default {
+  border: 1px solid #ffaf58; background: #ffaf58;
+}
+#batchManagerGlobal .ui-state-hover,#batchManagerGlobal .ui-widget-content .ui-state-hover, #batchManagerGlobal .ui-widget-header .ui-state-hover {
+  background: #ffaf58;
+}
+#batchManagerGlobal .ui-state-focus, #batchManagerGlobal .ui-widget-content .ui-state-focus,#batchManagerGlobal .ui-widget-header .ui-state-focus {
+  border: 1px solid #ffaf58; background: #ffaf58;
+}
+#batchManagerGlobal .ui-state-active, #batchManagerGlobal .ui-widget-content .ui-state-active,#batchManagerGlobal .ui-widget-header .ui-state-active {
+  background: #ffaf58;
+}
+#batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58;}
+#batchManagerGlobal .font-checkbox.selected {color: #777;}

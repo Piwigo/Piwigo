@@ -705,7 +705,7 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
 ;';
   $result = pwg_query($query);
 
-  $thumb_params = ImageStdParams::get_by_type(IMG_THUMB);
+  $thumb_params = ImageStdParams::get_by_type(IMG_SQUARE);
   // template thumbnail initialization
   while ($row = pwg_db_fetch_assoc($result))
   {

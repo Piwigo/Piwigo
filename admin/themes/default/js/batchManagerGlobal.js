@@ -8,7 +8,7 @@ function filter_enable(filter) {
 	$("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
 
 	/* forbid to select this filter in the addFilter list */
-	$("#addFilter").children("option[value="+filter+"]").attr("disabled", "disabled");
+	$("#addFilter").find("option[value="+filter+"]").attr("disabled", "disabled");
 }
 
 function filter_disable(filter) {
@@ -19,7 +19,7 @@ function filter_disable(filter) {
 	$("input[name="+filter+"_use]").prop("checked", false);
 
 	/* give the possibility to show it again */
-	$("#addFilter").children("option[value="+filter+"]").removeAttr("disabled");
+	$("#addFilter").find("option[value="+filter+"]").removeAttr("disabled");
 }
 
 $(".removeFilter").addClass("icon-cancel-circled");
