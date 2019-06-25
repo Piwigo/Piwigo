@@ -132,8 +132,7 @@ $(document).ready(function() {
     }
   }
 
-  $('#filter_category .font-checkbox span:first-child, #filter_level .font-checkbox span:first-child, #action_delete .font-checkbox span:first-child')
-  .attr('class', 'icon-check-empty');
+
 
   $("[id^=action_]").hide();
 
@@ -416,7 +415,7 @@ var sliders = {
           <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
           <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
             data-default="first" name="filter_category" style="width:600px"></select>
-          <label class="font-checkbox"><span class="icon-check-empty"></span><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
+          <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
         </li>
 
         <li id="filter_tags" {if !isset($filter.tags)}style="display:none"{/if}>
@@ -437,7 +436,7 @@ var sliders = {
           <select name="filter_level" size="1">
             {html_options options=$filter_level_options selected=$filter_level_options_selected}
           </select>
-          <label class="font-checkbox"><span class="icon-check-empty"></span><input type="checkbox" name="filter_level_include_lower" {if isset($filter.level_include_lower)}checked="checked"{/if}> {'include photos with lower privacy level'|@translate}</label>
+          <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_level_include_lower" {if isset($filter.level_include_lower)}checked="checked"{/if}> {'include photos with lower privacy level'|@translate}</label>
         </li>
 
         <li id="filter_dimension" {if !isset($filter.dimension)}style="display:none"{/if}>
@@ -661,7 +660,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <div class="permitActionItem">
       <!-- delete -->
       <div id="action_delete" class="bulkAction">
-      <p><label class="font-checkbox"><span class="icon-check-empty"></span><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label><span class="errors" style="display:none">{"You need to confirm deletion"|translate}</span></p>
+      <p><label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label><span class="errors" style="display:none">{"You need to confirm deletion"|translate}</span></p>
       </div>
 
       <!-- associate -->{* also used for "move" action *}
@@ -698,18 +697,18 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       <!-- author -->
       <div id="action_author" class="bulkAction">
       <input type="text" class="large" name="author" placeholder="{'Type here the author name'|@translate}">
-      <label class="font-checkbox"><span class="icon-check-empty"><input type="checkbox" name="remove_author"> {'remove author'|@translate}</label>
+      <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="remove_author"> {'remove author'|@translate}</label>
       </div>
 
       <!-- title -->
       <div id="action_title" class="bulkAction">
       <input type="text" class="large" name="title" placeholder="{'Type here the title'|@translate}">
-      <label class="font-checkbox"><span class="icon-check-empty"><input type="checkbox" name="remove_title"> {'remove title'|@translate}</label>
+      <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="remove_title"> {'remove title'|@translate}</label>
       </div>
 
       <!-- date_creation -->
       <div id="action_date_creation" class="bulkAction">
-        <label class="font-checkbox"><span class="icon-check-empty"><input type="checkbox" name="remove_date_creation"> {'remove creation date'|@translate}</label><br>
+        <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="remove_date_creation"> {'remove creation date'|@translate}</label><br>
         <div id="set_date_creation">
           <input type="hidden" name="date_creation" value="{$DATE_CREATION}">
           <label>
@@ -738,7 +737,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
         </div>
         <br>
         {foreach from=$generate_derivatives_types key=type item=disp}
-          <label class="font-checkbox"><span class="icon-check-empty"><input type="checkbox" name="generate_derivatives_type[]" value="{$type}"> {$disp}</label>
+          <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="generate_derivatives_type[]" value="{$type}"> {$disp}</label>
         {/foreach}
       </div>
 
@@ -750,7 +749,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
         </div>
         <br>
         {foreach from=$del_derivatives_types key=type item=disp}
-          <label class="font-checkbox"><span class="icon-check-empty"><input type="checkbox" name="del_derivatives_type[]" value="{$type}"> {$disp}</label>
+          <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="del_derivatives_type[]" value="{$type}"> {$disp}</label>
         {/foreach}
       </div>
 

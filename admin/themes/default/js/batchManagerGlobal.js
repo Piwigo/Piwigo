@@ -205,17 +205,17 @@ function getDerivativeUrls() {
 }
 
 function selectGenerateDerivAll() {
-	$("#action_generate_derivatives input[type=checkbox]").prop("checked", true);
+	$("#action_generate_derivatives input[type=checkbox]").prop("checked", true).trigger("change");
 }
 function selectGenerateDerivNone() {
-	$("#action_generate_derivatives input[type=checkbox]").prop("checked", false);
+	$("#action_generate_derivatives input[type=checkbox]").prop("checked", false).trigger("change");
 }
 
 function selectDelDerivAll() {
-	$("#action_delete_derivatives input[type=checkbox]").prop("checked", true);
+	$("#action_delete_derivatives input[type=checkbox]").prop("checked", true).trigger("change");
 }
 function selectDelDerivNone() {
-	$("#action_delete_derivatives input[type=checkbox]").prop("checked", false);
+	$("#action_delete_derivatives input[type=checkbox]").prop("checked", false).trigger("change");
 }
 
 /* sync metadatas or delete photos by blocks, with progress bar */
