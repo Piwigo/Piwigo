@@ -354,7 +354,7 @@ var sliders = {
         </p>
 
         <p class="actionButtons" id="applyFilterBlock">
-          <button id="applyFilter" name="submitFilter" type="submit" class="buttonLike" disabled>
+          <button id="applyFilter" name="submitFilter" type="submit" class="buttonLike">
             <i class="icon-arrows-cw"></i> {'Refresh photo set'|@translate}
           </button>
         </p>

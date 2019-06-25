@@ -1,10 +1,10 @@
 <div class="navigationBar">
   {if isset($navbar.URL_FIRST)}
-  <span class="navFirstLast"><a href="{$navbar.URL_FIRST}" rel="first">{'First'|@translate}</a> </span>
-  <span class="navPrevNext"><a href="{$navbar.URL_PREV}" rel="prev">{'Previous'|@translate}</a> </span>
+  <a href="{$navbar.URL_FIRST}" rel="first">{'First'|@translate}</a> |
+  <a href="{$navbar.URL_PREV}" rel="prev">{'Previous'|@translate}</a> |
   {else}
-  <span class="navFirstLast">{'First'|@translate} </span>
-  <span class="navPrevNext">{'Previous'|@translate} </span>
+  {'First'|@translate} |
+  {'Previous'|@translate} |
   {/if}
 
   {assign var='prev_page' value=0}
@@ -19,10 +19,10 @@
   {/foreach}
 
   {if isset($navbar.URL_NEXT)}
-  <span class="navPrevNext"> <a href="{$navbar.URL_NEXT}" rel="next">{'Next'|@translate}</a></span>
-  <span class="navFirstLast"> <a href="{$navbar.URL_LAST}" rel="last">{'Last'|@translate}</a></span>
+  | <a href="{$navbar.URL_NEXT}" rel="next">{'Next'|@translate}</a>
+  | <a href="{$navbar.URL_LAST}" rel="last">{'Last'|@translate}</a>
   {else}
-  <span class="navPrevNext"> {'Next'|@translate}</span>
-  <span class="navFirstLast"> {'Last'|@translate}</span>
+  | {'Next'|@translate}
+  | {'Last'|@translate}
   {/if}
 </div>

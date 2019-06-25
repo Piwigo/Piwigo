@@ -433,7 +433,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #forbidAction, .selectionEmptyBlock {background-color: #f3f3f3;}
 #batchManagerGlobal .thumbSelected img {opacity: 1 !important;}
 #batchManagerGlobal UL.thumbnails IMG {opacity: 0.65;}
-#filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #7c7c7c;}
+#filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #393939;}
+#filter_dimension .slider-choice:hover, #filter_filesize .slider-choice:hover, .dimension-cancel:hover {
+  text-decoration: none; background-color: #ffa646 !important; color: initial;
+}
 #forbidAction, .selectionEmptyBlock {background-color: #5a5757; color: #c1c1c1;}
 #batchManagerGlobal .navigationBar, #batchManagerGlobal .thumbnailsActionsNumber, #batchManagerGlobal .navigationBar a,
 #batchManagerGlobal .navigationBar span, #batchManagerGlobal .thumbnailsActionsNumber a, #batchManagerGlobal .thumbnailsActionsNumber span {
@@ -462,4 +465,4 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #batchManagerGlobal .ui-widget-content {background: #666; border: 1px solid #666;}
 #batchManagerGlobal .ui-slider .ui-slider-range {background-color: #aaaaaa;}
-#batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #aaa;}
+#batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58; background-color: #ffaf58;}

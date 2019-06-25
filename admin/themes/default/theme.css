@@ -1690,10 +1690,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #action_delete_derivatives label, #action_generate_derivatives label {display: flex; margin-top: 4px; width: 50%;}
 #action_delete_derivatives input[name="del_derivatives_type[]"], #action_generate_derivatives input[name="generate_derivatives_type[]"] {margin-right: 3px;}
 .actionButtonsBlock .actionButtons:first-child::after,#filter_prefilter::before,#filter_category::before,#filter_level::before,
-.permitActionListButton div::after, #action_level::after {
+.permitActionListButton div::before, #action_level::after {
   content: '\e835'; font-size: 17px; position: absolute; font-family: "fontello"; color: #6E6E6E; pointer-events: none;
 }
-.permitActionListButton div::after {margin-left: -26px; margin-top: 11px;}
+.permitActionListButton div::before {margin-left: 250px; margin-top: 11px;}
 .permitActionListButton div.hidden::after {display: none;}
 .actionButtonsBlock {width: 200px;}
 .actionButtonsBlock .actionButtons:first-child::after {margin-left: 169px; margin-top: 11px;}
@@ -1789,4 +1789,5 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .ui-slider-horizontal {height: 2px;}
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {margin-top: -1px;}
 #batchManagerGlobal .font-checkbox.selected span:first-child::before {content: '\f192';}
+#action_delete_derivatives .font-checkbox span, #action_delete_derivatives .font-checkbox span {margin-right: 5px;}
 #action_generate_derivatives, #action_delete_derivatives {width: 320px;}

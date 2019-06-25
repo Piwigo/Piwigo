@@ -438,6 +438,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #forbidAction, .selectionEmptyBlock {background-color: #f3f3f3;}
 #action_title .large, #action_author .large {background-color: #FFF; color: #4E4E4E;}
 #filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #EEE; color: #777;}
+#filter_dimension .slider-choice:hover, #filter_filesize .slider-choice:hover, .dimension-cancel:hover {
+  text-decoration: none; background-color: #ffa646 !important; color: initial;
+}
 #filterList .ui-slider .ui-slider-range {background: rgba(255,166,70, 0.9); margin-top: -1px; border: 1px solid #ffaf58;}
 #filterList .ui-widget-content {border: 1px solid #EEE; background: #DDD;}
 #batchManagerGlobal .navigationBar, #batchManagerGlobal .thumbnailsActionsNumber, #batchManagerGlobal .navigationBar a,
