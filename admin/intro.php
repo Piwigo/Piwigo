@@ -60,58 +60,6 @@ if ($counter > 0)
   }
 }
 
-// Check for upgrade : code inspired from punbb
-if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
-{
-  if (!fetchRemote(PHPWG_URL.'/download/latest_version', $result))
-  {
-    $page['errors'][] = l10n('Unable to check for upgrade.');
-  }
-  else
-  {
-    $versions = array('current' => PHPWG_VERSION);
-    $lines = @explode("\r\n", $result);
-
-    // if the current version is a BSF (development branch) build, we check
-    // the first line, for stable versions, we check the second line
-    if (preg_match('/^BSF/', $versions['current']))
-    {
-      $versions['latest'] = trim($lines[0]);
-
-      // because integer are limited to 4,294,967,296 we need to split BSF
-      // versions in date.time
-      foreach ($versions as $key => $value)
-      {
-        $versions[$key] =
-          preg_replace('/BSF_(\d{8})(\d{4})/', '$1.$2', $value);
-      }
-    }
-    else
-    {
-      $versions['latest'] = trim($lines[1]);
-    }
-
-    if ('' == $versions['latest'])
-    {
-      $page['errors'][] = l10n('Check for upgrade failed for unknown reasons.');
-    }
-    // concatenation needed to avoid automatic transformation by release
-    // script generator
-    else if ('%'.'PWGVERSION'.'%' == $versions['current'])
-    {
-      $page['infos'][] = l10n('You are running on development sources, no check possible.');
-    }
-    else if (version_compare($versions['current'], $versions['latest']) < 0)
-    {
-      $page['infos'][] = l10n('A new version of Piwigo is available.');
-    }
-    else
-    {
-      $page['infos'][] = l10n('You are running the latest version of Piwigo.');
-    }
-  }
-}
-
 if (isset($page['nb_pending_comments']))
 {
   $message = l10n('User comments').' <i class="icon-chat"></i> ';
@@ -223,7 +171,6 @@ $template->assign(
     'NB_VIEWS' => number_format_human_readable($nb_views),
     'NB_PLUGINS' => count($pwg_loaded_plugins),
     'STORAGE_USED' => l10n('%sGB', number_format($du_gb, $du_decimals)),
-    'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
     'U_QUICK_SYNC' => PHPWG_ROOT_PATH.'admin.php?page=site_update&amp;site=1&amp;quick_sync=1&amp;pwg_token='.get_pwg_token(),
     )
   );
