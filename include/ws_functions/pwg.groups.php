@@ -30,7 +30,7 @@ function ws_groups_getList($params, &$service)
   $query = '
 SELECT
     g.*, COUNT(user_id) AS nb_users
-  FROM '. GROUPS_TABLE .' AS g
+  FROM `'. GROUPS_TABLE .'` AS g
     LEFT JOIN '. USER_GROUP_TABLE .' AS ug
     ON ug.group_id = g.id
   WHERE '. implode(' AND ', $where_clauses) .'
@@ -66,7 +66,7 @@ function ws_groups_add($params, &$service)
   // is the name not already used ?
   $query = '
 SELECT COUNT(*)
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE name = \''.$params['name'].'\'
 ;';
   list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -124,7 +124,7 @@ DELETE
 
   $query = '
 SELECT id, name
-  FROM '. GROUPS_TABLE .'
+  FROM `'. GROUPS_TABLE .'`
   WHERE id IN('. $group_id_string  .')
 ;';
 
@@ -135,7 +135,7 @@ SELECT id, name
   // destruction of the group
   $query = '
 DELETE
-  FROM '. GROUPS_TABLE .'
+  FROM `'. GROUPS_TABLE .'`
   WHERE id IN('. $group_id_string  .')
 ;';
   pwg_query($query);
@@ -169,7 +169,7 @@ function ws_groups_setInfo($params, &$service)
   // does the group exist ?
   $query = '
 SELECT COUNT(*)
-  FROM '. GROUPS_TABLE .'
+  FROM `'. GROUPS_TABLE .'`
   WHERE id = '. $params['group_id'] .'
 ;';
   list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -185,7 +185,7 @@ SELECT COUNT(*)
     // is the name not already used ?
     $query = '
 SELECT COUNT(*)
-  FROM '. GROUPS_TABLE .'
+  FROM `'. GROUPS_TABLE .'`
   WHERE name = \''. $params['name'] .'\'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -230,7 +230,7 @@ function ws_groups_addUser($params, &$service)
   // does the group exist ?
   $query = '
 SELECT COUNT(*)
-  FROM '. GROUPS_TABLE .'
+  FROM `'. GROUPS_TABLE .'`
   WHERE id = '. $params['group_id'] .'
 ;';
   list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -281,7 +281,7 @@ function ws_groups_deleteUser($params, &$service)
   // does the group exist ?
   $query = '
 SELECT COUNT(*)
-  FROM '. GROUPS_TABLE .'
+  FROM `'. GROUPS_TABLE .'`
   WHERE id = '. $params['group_id'] .'
 ;';
   list($count) = pwg_db_fetch_row(pwg_query($query));

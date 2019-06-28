@@ -184,7 +184,7 @@ function register_user($login, $password, $mail_address, $notify_admin=true, &$e
     // Assign by default groups
     $query = '
 SELECT id
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE is_default = \''.boolean_to_string(true).'\'
   ORDER BY id ASC
 ;';

@@ -286,6 +286,12 @@ function mass_updates($tablename, $dbfields, $datas, $flags=0)
     {
       $is_first = true;
 
+      // escape a reserved word
+      if ('groups' == $tablename)
+      {
+        $tablename = '`'.$tablename.'`';
+      }
+
       $query = '
 UPDATE '.$tablename.'
   SET ';
@@ -428,6 +434,12 @@ function single_update($tablename, $datas, $where, $flags=0)
 
   $is_first = true;
 
+  // escape a reserved word
+  if ('groups' == $tablename)
+  {
+    $tablename = '`'.$tablename.'`';
+  }
+
   $query = '
 UPDATE '.$tablename.'
   SET ';
@@ -515,6 +527,12 @@ function mass_inserts($table_name, $dbfields, $datas, $options=array())
 
       if ($first)
       {
+        // escape a reserved word
+        if ('groups' == $table_name)
+        {
+          $table_name = '`'.$table_name.'`';
+        }
+
         $query = '
 INSERT '.$ignore.' INTO '.$table_name.'
   ('.implode(',', $dbfields).')
@@ -561,6 +579,12 @@ function single_insert($table_name, $data)
 {
   if (count($data) != 0)
   {
+    // escape a reserved word
+    if ('groups' == $table_name)
+    {
+      $table_name = '`'.$table_name.'`';
+    }
+
     $query = '
 INSERT INTO '.$table_name.'
   ('.implode(',', array_keys($data)).')

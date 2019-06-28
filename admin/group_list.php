@@ -50,7 +50,7 @@ if (isset($_POST['submit_add']))
     // is the group not already existing ?
     $query = '
 SELECT COUNT(*)
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE name = \''.$_POST['groupname'].'\'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -63,7 +63,7 @@ SELECT COUNT(*)
   {
     // creating the group
     $query = '
-INSERT INTO '.GROUPS_TABLE.'
+INSERT INTO `'.GROUPS_TABLE.'`
   (name)
   VALUES
   (\''.pwg_db_real_escape_string($_POST['groupname']).'\')
@@ -101,20 +101,22 @@ if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['
     // is the group not already existing ?
     $query = '
 SELECT name
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
 ;';
     $group_names = array_from_query($query, 'name');
     foreach($groups as $group)
     {
-      if (  in_array($_POST['rename_'.$group.''], $group_names))
+      $_POST['rename_'.$group] = stripslashes($_POST['rename_'.$group]);
+
+      if (in_array($_POST['rename_'.$group], $group_names))
       {
-        $page['errors'][] = $_POST['rename_'.$group.''].' | '.l10n('This name is already used by another group.');
+        $page['errors'][] = $_POST['rename_'.$group].' | '.l10n('This name is already used by another group.');
       }
       elseif ( !empty($_POST['rename_'.$group.'']))
       {
         $query = '
-        UPDATE '.GROUPS_TABLE.'
-        SET name = \''.pwg_db_real_escape_string($_POST['rename_'.$group.'']).'\'
+        UPDATE `'.GROUPS_TABLE.'`
+        SET name = \''.pwg_db_real_escape_string($_POST['rename_'.$group]).'\'
         WHERE id = '.$group.'
       ;';
         pwg_query($query);
@@ -149,7 +151,7 @@ SELECT name
 
       $query = '
     SELECT id, name
-      FROM '.GROUPS_TABLE.'
+      FROM `'.GROUPS_TABLE.'`
       WHERE id = '.$group.'
     ;';
 
@@ -160,7 +162,7 @@ SELECT name
       // destruction of the group
       $query = '
     DELETE
-      FROM '.GROUPS_TABLE.'
+      FROM `'.GROUPS_TABLE.'`
       WHERE id = '.$group.'
     ;';
       pwg_query($query);
@@ -181,7 +183,7 @@ SELECT name
     // is the group not already existing ?
     $query = '
 SELECT COUNT(*)
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE name = \''.pwg_db_real_escape_string($_POST['merge']).'\'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -193,7 +195,7 @@ SELECT COUNT(*)
     {
       // creating the group
       $query = '
-  INSERT INTO '.GROUPS_TABLE.'
+  INSERT INTO `'.GROUPS_TABLE.'`
     (name)
     VALUES
     (\''.pwg_db_real_escape_string($_POST['merge']).'\')
@@ -201,7 +203,7 @@ SELECT COUNT(*)
       pwg_query($query);
       $query = '
       SELECT id
-        FROM '.GROUPS_TABLE.'
+        FROM `'.GROUPS_TABLE.'`
         WHERE name = \''.pwg_db_real_escape_string($_POST['merge']).'\'
       ;';
       list($groupid) = pwg_db_fetch_row(pwg_query($query));
@@ -268,7 +270,7 @@ SELECT COUNT(*)
       // is the group not already existing ?
       $query = '
   SELECT COUNT(*)
-    FROM '.GROUPS_TABLE.'
+    FROM `'.GROUPS_TABLE.'`
     WHERE name = \''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\'
   ;';
       list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -279,7 +281,7 @@ SELECT COUNT(*)
       }
       // creating the group
       $query = '
-  INSERT INTO '.GROUPS_TABLE.'
+  INSERT INTO `'.GROUPS_TABLE.'`
     (name)
     VALUES
     (\''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\')
@@ -287,7 +289,7 @@ SELECT COUNT(*)
       pwg_query($query);
       $query = '
       SELECT id
-        FROM '.GROUPS_TABLE.'
+        FROM `'.GROUPS_TABLE.'`
         WHERE name = \''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\'
       ;';
       
@@ -340,14 +342,14 @@ SELECT COUNT(*)
     {
       $query = '
     SELECT name, is_default
-      FROM '.GROUPS_TABLE.'
+      FROM `'.GROUPS_TABLE.'`
       WHERE id = '.$group.'
     ;';
       list($groupname, $is_default) = pwg_db_fetch_row(pwg_query($query));
       
       // update of the group
       $query = '
-    UPDATE '.GROUPS_TABLE.'
+    UPDATE `'.GROUPS_TABLE.'`
       SET is_default = \''.boolean_to_string(!get_boolean($is_default)).'\'
       WHERE id = '.$group.'
     ;';
@@ -380,7 +382,7 @@ $template->assign(
 
 $query = '
 SELECT id, name, is_default
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   ORDER BY name ASC
 ;';
 $result = pwg_query($query);

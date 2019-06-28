@@ -598,7 +598,7 @@ DELETE
     $query = '
 SELECT
     id
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE id IN ('.implode(',', $params['group_id']).')
 ;';
     $group_ids = array_from_query($query, 'id');

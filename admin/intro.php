@@ -124,7 +124,7 @@ list($nb_users) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
 ;';
 list($nb_groups) = pwg_db_fetch_row(pwg_query($query));
 

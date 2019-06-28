@@ -31,7 +31,7 @@ $groups = array();
 
 $query = '
 SELECT id, name
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   ORDER BY name ASC
 ;';
 $result = pwg_query($query);

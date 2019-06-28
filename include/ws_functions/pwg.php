@@ -160,7 +160,7 @@ function ws_getInfos($params, &$service)
   $query = 'SELECT COUNT(*) FROM '.USERS_TABLE.';';
   list($infos['nb_users']) = pwg_db_fetch_row(pwg_query($query));
 
-  $query = 'SELECT COUNT(*) FROM '.GROUPS_TABLE.';';
+  $query = 'SELECT COUNT(*) FROM `'.GROUPS_TABLE.'`;';
   list($infos['nb_groups']) = pwg_db_fetch_row(pwg_query($query));
 
   $query = 'SELECT COUNT(*) FROM '.COMMENTS_TABLE.';';

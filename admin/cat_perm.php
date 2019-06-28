@@ -192,7 +192,7 @@ $groups = array();
 
 $query = '
 SELECT id, name
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   ORDER BY name ASC
 ;';
 $groups = simple_hash_from_query($query, 'id', 'name');
