@@ -83,7 +83,7 @@ function activate_core_plugins()
 
   foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   {
-    if (in_array($plugin_id, array('TakeATour')))
+    if (in_array($plugin_id, array()))
     {
       $plugins->perform_action('activate', $plugin_id);
     }
