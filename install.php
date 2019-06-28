@@ -428,6 +428,8 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
         array(),
         array('origin' => 'installation')
         );
+
+      conf_update_param('show_newsletter_subscription', 'false');
     }
   }
 }

@@ -748,6 +748,7 @@ $lang['You can\'t define a default photo order because you have a custom setting
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Vous avez spécifié <i>$conf[\'order_by\']</i> dans votre fichier de configuration, ce paramètre est obsolète, veuillez le supprimer ou le renommer en <i>$conf[\'order_by_custom\']</i> !';
 $lang['Add a criteria'] = 'Ajouter un critère';
 $lang['... or '] = '... ou bien ';
+$lang['... or hide this link'] = '... ou bien cacher ce lien';
 $lang['Create'] = 'Créer';
 $lang['Start Upload'] = 'Démarrer le transfert';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Vous utilisez le formulaire Flash. Des problèmes ? Essayez le <a href="%s">formulaire HTML</a> à la place.';

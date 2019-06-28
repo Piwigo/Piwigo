@@ -32,6 +32,19 @@ jQuery().ready(function(){
         jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
     }
   });
+
+  jQuery('.newsletter-subscription a').click(function() {
+    jQuery('.newsletter-subscription').hide();
+
+    jQuery.ajax({
+      type: 'GET',
+      url: 'admin.php?action=hide_newsletter_subscription'
+    });
+
+    if (jQuery(this).hasClass('newsletter-hide')) {
+      return false;
+    }
+  });
 });
 {/literal}
 {/footer_script}
@@ -134,6 +147,6 @@ jQuery().ready(function(){
 
 
 {if isset($SUBSCRIBE_BASE_URL)}
-  <br><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" class="externalLink cluetip icon-mail-alt" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a>
+  <br><span class="newsletter-subscription"><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribe" class="externalLink cluetip icon-mail-alt" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a> <a href="#" class="newsletter-hide">{'... or hide this link'|translate}</a></span>
 {/if}
 </p>

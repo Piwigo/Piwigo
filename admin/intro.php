@@ -25,6 +25,12 @@ check_status(ACCESS_ADMINISTRATOR);
 // | tabs                                                                  |
 // +-----------------------------------------------------------------------+
 
+if (isset($_GET['action']) and 'hide_newsletter_subscription' == $_GET['action'])
+{
+  conf_update_param('show_newsletter_subscription', 'false', true);
+  exit();
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 $my_base_url = get_root_url().'admin.php?page=';

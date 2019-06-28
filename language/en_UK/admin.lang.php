@@ -85,6 +85,7 @@ $lang['(this tag will be deleted)'] = '(this tag will be deleted)';
 $lang['+ Add an upload box'] = '+ Add an upload box';
 $lang[', click on'] = ", click on";
 $lang['... or '] = '... or ';
+$lang['... or hide this link'] = '... or hide this link';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.';
 $lang['A locked gallery is only visible to administrators'] = 'A locked gallery is only visible to administrators';
 $lang['A new version of Piwigo is available.'] = "A new version of Piwigo is available.";
