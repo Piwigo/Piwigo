@@ -74,7 +74,9 @@
 .icon-th-1:before { content: '\e838'; } /* '' */
 .icon-flow-tree:before { content: '\e839'; } /* '' */
 .icon-link-1:before { content: '\e83a'; } /* '' */
+.icon-calendar-clock:before { content: '\e83b'; } /* '' */
 .icon-zoom-square:before { content: '\e83c'; } /* '' */
+.icon-trash-1:before { content: '\e83d'; } /* '' */
 .icon-hdd:before { content: '\f0a0'; } /* '' */
 .icon-tasks:before { content: '\f0ae'; } /* '' */
 .icon-filter:before { content: '\f0b0'; } /* '' */
