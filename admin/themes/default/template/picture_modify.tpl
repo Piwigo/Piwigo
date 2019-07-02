@@ -39,121 +39,109 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
 
 {* <!-- THUMBNAILS --> *}
 jQuery("a.preview-box").colorbox({
-	photo: true
+  photo: true
 });
 }());
+
+var file_height = jQuery(".pictureBlocsContainer #albumThumbnail .preview-box.cboxElement").height();
+var file_height_calc = (515 - file_height) / 2;
+console.log(file_height, file_height_calc);
+/*jQuery(".pictureBlocsContainer #albumThumbnail .preview-box.cboxElement").css("padding-top", file_height_calc);*/
+
 {/footer_script}
 
-<h2>{$TITLE} &#8250; {'Edit photo'|@translate} {$TABSHEET_TITLE}</h2>
-
 <form action="{$F_ACTION}" method="post" id="catModify">
+  <div class="pictureBlocsContainer">
+    <div id="albumThumbnail" style="width: 50%;">
+      <div style="position: relative;right: 0;">
+        <div class="albumThumbnailActions">
+          <a class="icon-download" href="{$U_DOWNLOAD}"title="{'Download'|translate}"></a>
+          <a class="icon-trash-1" href="{$U_DELETE}" title="{'delete photo'|@translate}" 
+          onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"></a>
+        </div>
+      </div>
+      <a href="{$FILE_SRC}" class="preview-box" title="{$TITLE|htmlspecialchars}" style="display: inline-block;"><img src="{$FILE_SRC}"
+      alt="{'Thumbnail'|translate}"></a>
+    </div>
 
-  <fieldset>
-    <legend>{'Informations'|@translate}</legend>
-
-    <table>
-
-      <tr>
-        <td id="albumThumbnail">
-          <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}"><img src="{$TN_SRC}" alt="{'Thumbnail'|translate}"></a>
-        </td>
-        <td id="albumLinks" style="width:400px;vertical-align:top;">
-          <ul style="padding-left:15px;margin:0;">
-            <li>{$INTRO.file}</li>
-            <li>{$INTRO.add_date}</li>
-            <li>{$INTRO.added_by}</li>
-            <li>{$INTRO.size}</li>
-            <li>{$INTRO.formats}</li>
-            <li>{$INTRO.stats}</li>
-            <li>{$INTRO.id}</li>
-          </ul>
-        </td>
-        <td class="photoLinks">
-          <ul>
-          {if isset($U_JUMPTO) }
-            <li><a class="icon-eye" href="{$U_JUMPTO}">{'jump to photo'|@translate} →</a></li>
-          {/if}
-          <li><a class="icon-download" href="{$U_DOWNLOAD}">{'Download'|translate}</a></li>
-          {if !url_is_remote($PATH)}
-            <li><a class="icon-arrows-cw" href="{$U_SYNC}">{'Synchronize metadata'|@translate}</a></li>
-
-            <li><a class="icon-trash" href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete photo'|@translate}</a></li>
-          {/if}
-          </ul>
-        </td>
-      </tr>
-    </table>
-
-  </fieldset>
-
-  <fieldset>
-    <legend>{'Properties'|@translate}</legend>
-
-    <p>
-      <strong>{'Title'|@translate}</strong>
-      <br>
-      <input type="text" class="large" name="name" value="{$NAME|@escape}">
-    </p>
-
-    <p>
-      <strong>{'Author'|@translate}</strong>
-      <br>
-      <input type="text" class="large" name="author" value="{$AUTHOR}">
-    </p>
-
-    <p>
-      <strong>{'Creation date'|@translate}</strong>
-      <br>
-      <input type="hidden" name="date_creation" value="{$DATE_CREATION}">
-      <label>
-        <i class="icon-calendar"></i>
-        <input type="text" data-datepicker="date_creation" data-datepicker-unset="date_creation_unset" readonly>
-      </label>
-      <a href="#" class="icon-cancel-circled" id="date_creation_unset">{'unset'|translate}</a>
-    </p>
-
-    <p>
-      <strong>{'Linked albums'|@translate}</strong>
-      <br>
-      <select data-selectize="categories" data-value="{$associated_albums|@json_encode|escape:html}"
-        placeholder="{'Type in a search term'|translate}"
-        data-default="{$STORAGE_ALBUM}" name="associate[]" multiple style="width:600px;"></select>
-    </p>
-
-    <p>
-      <strong>{'Representation of albums'|@translate}</strong>
-      <br>
-      <select data-selectize="categories" data-value="{$represented_albums|@json_encode|escape:html}"
-        placeholder="{'Type in a search term'|translate}"
-        name="represent[]" multiple style="width:600px;"></select>
-    </p>
-
-    <p>
-      <strong>{'Tags'|@translate}</strong>
-      <br>
-      <select data-selectize="tags" data-value="{$tag_selection|@json_encode|escape:html}"
-        placeholder="{'Type in a search term'|translate}"
-        data-create="true" name="tags[]" multiple style="width:600px;"></select>
-    </p>
-
-    <p>
-      <strong>{'Description'|@translate}</strong>
-      <br>
-      <textarea name="description" id="description" class="description">{$DESCRIPTION}</textarea>
-    </p>
-
-    <p>
-      <strong>{'Who can see this photo?'|@translate}</strong>
-      <br>
-      <select name="level" size="1">
-        {html_options options=$level_options selected=$level_options_selected}
-      </select>
-   </p>
-
-  <p style="margin:40px 0 0 0">
-    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-    <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
-  </p>
-</fieldset>
-
+    <div class="pictureInfoFormBlock" style="width: 50%;">
+      <div class="pictureInfoBlocks">
+        <div id="albumLinks" style="vertical-align:top;">
+          <div class="pictureInfoLeftBlock">
+            <i class="icon-picture"></i>
+            <div style="width: 100%;">
+              <div class="pictureInfoBlockTitle">{$INTRO.file}</div>
+              <div class="pictureInfoBlockInfos" style="display: flex; justify-content: space-between;">
+                <div>{$INTRO.dimensions}</div>
+                <div>{$INTRO.megapixel}</div>
+                <div>{$INTRO.filesize}</div>
+              </div>
+              <div class="pictureInfoBlockInfos">{$INTRO.formats}</div>
+              <div class="pictureInfoBlockInfos">{$INTRO.filetype}</div>
+            </div>
+          </div>
+          <div class="pictureInfoRightBlock">
+            <i class="icon-calendar-clock"></i>
+            <div>
+              <div class="pictureInfoBlockTitle">{$INTRO.add_date}</div>
+              <div class="pictureInfoBlockInfos">{$INTRO.add_date_since}</div>
+              <div class="pictureInfoBlockInfos">{$INTRO.added_by}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pictureInputsBlocks">
+        <p>
+          <strong class="pictureFormLabel">{'Title'|@translate}</strong>
+          <input type="text" class="large" name="name" value="{$NAME|@escape}">
+        </p>
+        <p>
+          <strong class="pictureFormLabel">{'Author'|@translate}</strong>
+          <input type="text" class="large" name="author" value="{$AUTHOR}">
+        </p>
+        <p>
+          <strong class="pictureFormLabel">{'Creation date'|@translate}</strong>
+          <input type="hidden" name="date_creation" value="{$DATE_CREATION}">
+          <label>
+            <i class="icon-calendar-clock"></i>
+            <input type="text" data-datepicker="date_creation" data-datepicker-unset="date_creation_unset" readonly> 
+          </label>
+        </p>
+        <p>
+          <strong class="pictureFormLabel">{'Linked albums'|@translate}</strong>
+          <select data-selectize="categories" data-value="{$associated_albums|@json_encode|escape:html}"
+          placeholder="{'Type in a search term'|translate}"
+          data-default="{$STORAGE_ALBUM}" name="associate[]" multiple style="width:97.3%;"></select>
+        </p>
+        <p>
+          <strong class="pictureFormLabel">{'Representation of albums'|@translate}</strong>
+          <select data-selectize="categories" data-value="{$represented_albums|@json_encode|escape:html}"
+          placeholder="{'Type in a search term'|translate}"
+          name="represent[]" multiple style="width:97.3%;"></select>
+        </p>
+        <p>
+          <strong class="pictureFormLabel">{'Tags'|@translate}</strong>
+          <select data-selectize="tags" data-value="{$tag_selection|@json_encode|escape:html}"
+          placeholder="{'Type in a search term'|translate}"
+          data-create="true" name="tags[]" multiple style="width:97.3%;"></select>
+        </p>
+        <p>
+          <strong class="pictureFormLabel">{'Description'|@translate}</strong>
+          <textarea name="description" id="description" class="description">{$DESCRIPTION}</textarea>
+        </p>
+        <p>
+          <strong class="pictureFormLabel">{'Who can see this photo?'|@translate}</strong>
+          <div class="pictureLevels">
+            <select name="level" size="1">
+              {html_options options=$level_options selected=$level_options_selected}
+            </select>
+          </div>
+        </p>
+        <p style="margin:40px 0 30px 0">
+          <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+          <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
+        </p>
+      </div>
+    </div>
+  </div>
 </form>

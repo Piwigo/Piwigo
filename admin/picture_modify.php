@@ -251,7 +251,7 @@ $template->assign(
     'PATH'=>$row['path'],
 
     'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
-    'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
+    'FILE_SRC' => DerivativeImage::url(IMG_XXLARGE, $src_image),
 
     'NAME' =>
       isset($_POST['name']) ?
@@ -296,10 +296,14 @@ while ($user_row = pwg_db_fetch_assoc($result))
 }
 
 $intro_vars = array(
-  'file' => l10n('Original file : %s', $row['file']),
-  'add_date' => l10n('Posted %s on %s', time_since($row['date_available'], 'year'), format_date($row['date_available'], array('day', 'month', 'year'))),
+  'file' => l10n($row['file']),
+  'add_date' => l10n(format_date($row['date_available'], array('day', 'month', 'year'))),
+  'add_date_since' => l10n('Posted %s', time_since($row['date_available'], 'year')),
   'added_by' => l10n('Added by %s', $row['added_by']),
-  'size' => $row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB',
+  'dimensions' => $row['width'].'&times;'.$row['height'],
+  'filesize' => sprintf('%.2f', $row['filesize']/1024).'MB',
+  'megapixel' => sprintf('%.0f', ($row['width'] * $row['height']) / 1000000).'Mpx',
+  'filetype' => l10n('File type: %s', strtoupper(get_extension($row['path']))),
   'stats' => l10n('Visited %d times', $row['hit']),
   'id' => l10n('Numeric identifier : %d', $row['id']),
   );
@@ -327,7 +331,7 @@ $formats = query2array($query);
 if (!empty($formats))
 {
   $format_strings = array();
-  
+    
   foreach ($formats as $format)
   {
     $format_strings[] = sprintf('%s (%.2fMB)', $format['ext'], $format['filesize']/1024);
@@ -444,6 +448,7 @@ SELECT id
 $associated_albums = query2array($query, null, 'id');
 
 $template->assign(array(
+  'ADMIN_PAGE_TITLE' => l10n('Edit photo').'<span class="photo-id">#'.$_GET['image_id'].'</span>',
   'associated_albums' => $associated_albums,
   'represented_albums' => $represented_albums,
   'STORAGE_ALBUM' => $storage_category_id,

@@ -1014,3 +1014,5 @@ $lang['Welcome!'] = 'Bienvenue !';
 $lang['Piwigo requires an album to add photos.'] = 'Piwigo a besoin d\'un album pour y ajouter des photos.';
 $lang['Create a first album'] = 'Créer un premier album';
 $lang['Search tips'] = 'Conseils de recherche';
+$lang['Posted %s'] = 'Postée %s';
+$lang['File type: %s'] = 'Type du fichier : %s';

@@ -1671,7 +1671,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_tags .selectize-control.multi.plugin-remove_button {width: 300px !important;}
 #filter_category .selectize-input.items.full.has-options.has-items {padding: 10px 18px; width: 610px; margin-bottom: 5px;}
 #filterList .selectize-input.items.not-full.has-options {margin-bottom: 5px;}
-#applyFilter {padding: 15px 10px; margin-left: 0;}
+#applyFilter {padding: 15px 0px; margin-left: 0;}
 #applyFilter.activated {background-color: #FFA646; color: #3C3C3C;}
 #removeFilters {margin-top: 20px; margin-left: 13px;}
 .filter_search_input {padding: 10px 0px; width: 300px;}
@@ -1690,10 +1690,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #action_delete_derivatives label, #action_generate_derivatives label {display: flex; margin-top: 4px; width: 50%;}
 #action_delete_derivatives input[name="del_derivatives_type[]"], #action_generate_derivatives input[name="generate_derivatives_type[]"] {margin-right: 3px;}
 .actionButtonsBlock .actionButtons:first-child::after,#filter_prefilter::before,#filter_category::before,#filter_level::before,
-.permitActionListButton div::before, #action_level::after {
+.permitActionListButton div::before, #action_level::after, .pictureLevels::before {
   content: '\e835'; font-size: 17px; position: absolute; font-family: "fontello"; color: #6E6E6E; pointer-events: none;
 }
 .permitActionListButton div::before {margin-left: 250px; margin-top: 11px;}
+.pictureLevels::before {margin-left: 216px; margin-top: 10px;}
 .permitActionListButton div.hidden::after {display: none;}
 .actionButtonsBlock {width: 200px;}
 .actionButtonsBlock .actionButtons:first-child::after {margin-left: 169px; margin-top: 11px;}
@@ -1704,7 +1705,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_level::before {margin-top: 28px; margin-left: 260px;}
 #action_level::after {margin-top: -56px; margin-left: 254px;}
 #filter_search input {width: 300px; box-sizing: border-box; padding: 11px 18px;}
-#addFilter, #filterList select, #filter_tags .selectize-input.items.not-full.has-options {
+#addFilter, #filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select {
 	font-size: 12px;
 	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	-webkit-appearance: none;
@@ -1743,11 +1744,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal UL.thumbnails .wrap2 .icon-pencil {font-size: 15px; margin-left: 4px;}
 #batchManagerGlobal UL.thumbnails .wrap2 .icon-plus {margin-right: 2px;}
 #batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before,
-#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {border-radius: 10px; padding: 2px; content: '\E819'; display: none;}
+#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {border-radius: 13px; padding: 1px; content: '\E819'; display: none;}
 #batchManagerGlobal .thumbSelected span.icon-check {display: block; z-index: 1;}
 #batchManagerGlobal .thumbnails .wrap1:hover span.icon-check-empty {display: block;}
 #batchManagerGlobal .thumbnails .wrap1 .icon-check-empty:before {content: '\E823';}
-#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {font-size: 15px; line-height: normal;}
+#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {font-size: 17px; line-height: normal;}
 #batchManagerGlobal UL.thumbnails .wrap2 .icon-pencil:hover, #batchManagerGlobal UL.thumbnails .wrap2 .icon-zoom-square:hover {color: #fea744;}
 #batchManagerGlobal .deleteDerivButtons a:hover, #batchManagerGlobal #checkActions a:hover {
 	background-color: #ffa646; color: initial; text-decoration: none;
@@ -1792,3 +1793,43 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .font-checkbox.selected span:first-child::before {content: '\f192';}
 #action_delete_derivatives .font-checkbox span, #action_delete_derivatives .font-checkbox span {margin-right: 5px;}
 #action_generate_derivatives, #action_delete_derivatives {width: 320px;}
+
+.pictureInfoBlocks, .pictureBlocsContainer, .pictureInfoLeftBlock, .pictureInfoRightBlock {display: flex;}
+.pictureBlocsContainer {margin-top: 35px;}
+.pictureInputsBlocks {margin-top: 25px;}
+.pictureInputsBlocks .icon-calendar-clock {position: absolute; right: 2%; margin-top: 4px; font-size: 20px;}
+.pictureInputsBlocks input, .pictureInputsBlocks .selectize-input.items.not-full.has-options,
+.pictureInputsBlocks .selectize-input.items.not-full {border-radius: 5px; padding: 5px;}
+.pictureInputsBlocks input, .pictureInputsBlocks #description {width: 95%!important;}
+.pictureInputsBlocks #description {border-radius: 5px;}
+.pictureInputsBlocks .hasDatepicker {width: 95%!important;}
+.pictureInputsBlocks p:last-child input {
+	padding: 15px 10px; background-color: #FFA646!important; color: #3C3C3C; font-size: 12px;
+	border: none!important; font-weight: bold; border-radius: 0!important; width: auto !important;
+}
+.pictureInputsBlocks p:last-child input:hover {background-color: #ff7700!important; text-decoration: none;}
+.pictureFormLabel {display: block;}
+.pictureLevels select {padding: 10px 30px 10px 10px;}
+.pictureInfoLeftBlock, .pictureInfoRightBlock {padding: 20px; width: 50%; padding-bottom: 10px;}
+.pictureInfoLeftBlock {margin-right: 10px;}
+.pictureInfoRightBlock {margin-left: 10px; margin-right: 20px;}
+.pictureInfoBlockTitle, .pictureInfoBlockInfos {font-weight: bold; margin-left: 24px;}
+.pictureInfoBlockInfos {font-size: 11px;}
+.pictureBlocsContainer #albumLinks i::before {font-size: 40px; margin-top: 8px;}
+.pictureBlocsContainer .albumThumbnailActions {
+	width: 15%; position: absolute;z-index: 1; padding: 15px 5px; display: flex; justify-content: space-around; right: 0;
+}
+.pictureBlocsContainer .albumThumbnailActions a {color: #FFF;}
+.pictureBlocsContainer .albumThumbnailActions a:hover {color: #fea744; text-decoration: none;}
+.pictureBlocsContainer .albumThumbnailActions a::before {font-size: 15px;}
+.pictureInputsBlocks .selectize-input.items.not-full.has-options.has-items input {width: auto!important;}
+.pictureBlocsContainer #albumThumbnail {text-align: center; height: 680px; margin: 0 40px 0 30px; padding-right: 0; max-height: 100%;}
+.pictureBlocsContainer #albumThumbnail img {width: auto; border: none !important; height: auto; max-height: 680px; max-width: 100%;}
+.pictureBlocsContainer #albumLinks {display: flex; width: 100%; border-left: none!important; padding-left: 0;}
+.photo-id {font-weight: 600;}
+.pictureInputsBlocks .selectize-control.multi .selectize-input [data-value] {background-color: #fea744!important; background-image: none!important;}
+.pictureInputsBlocks .selectize-control.multi .selectize-input > div {background: #fea744!important; border: 1px solid #ff8e0e!important;}
+.pictureInputsBlocks .selectize-control.plugin-remove_button [data-value] .remove {border-left: 1px solid #f28f1e;}
+.pictureInputsBlocks .selectize-control.plugin-remove_button [data-value].active .remove {border-left: 1px solid #e27d0b;}
+.pictureInputsBlocks .selectize-control.multi .selectize-input [data-value].active {background-image: none!important; background-color: #f28f1e!important;}
+.photo-id {margin-left: 10px;}

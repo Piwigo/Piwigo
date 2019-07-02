@@ -419,7 +419,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addFilesButtonChanged:hover {background-color: #777;}
 
 #checkActions a, .deleteDerivButtons a {background-color: #393939;}
-#addFilter, #filterList select {background-color: #444444; color: #BFBFBF}
+#addFilter, #filterList select, .pictureLevels select {background-color: #444444; color: #BFBFBF}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options, 
 #filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
@@ -466,3 +466,17 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .ui-widget-content {background: #666; border: 1px solid #666;}
 #batchManagerGlobal .ui-slider .ui-slider-range {background-color: #aaaaaa;}
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58; background-color: #ffaf58;}
+
+.pictureInputsBlocks input, .pictureInputsBlocks .selectize-input.items.not-full.has-options,
+.pictureInputsBlocks .selectize-input.items.not-full, .pictureInputsBlocks #description:hover, .pictureInputsBlocks #description {
+  background-color: #333333 !important;
+}
+.pictureInputsBlocks input:hover, .pictureInputsBlocks .selectize-input.items.not-full.has-options:hover,
+.pictureInputsBlocks .selectize-input.items.not-full:hover, .pictureInputsBlocks #description:hover {border-color: #999!important;}
+.pictureInputsBlocks .icon-calendar-clock {color: #AAA;}
+.pictureInfoLeftBlock, .pictureInfoRightBlock {border: 2px solid #666;}
+.pictureInfoBlockTitle, .pictureInfoLeftBlock i, .pictureInfoRightBlock i, .pictureFormLabel {color: #A5A5A5;}
+.pictureInfoBlockInfos {color: #777;}
+.pictureBlocsContainer .albumThumbnailActions {background-color: #313234;}
+.pictureBlocsContainer #albumThumbnail {background-color: #313234;}
+.photo-id {color: #888;}

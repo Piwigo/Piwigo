@@ -425,7 +425,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addFilesButtonChanged:hover {background-color: #BBB;}
 
 #checkActions a, .deleteDerivButtons a {background-color: #E8E8E8;}
-#addFilter, #filterList select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important;}
+#addFilter, #filterList select, .pictureLevels select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important;}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options,
 #filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
@@ -468,3 +468,17 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58;}
 #batchManagerGlobal .font-checkbox.selected {color: #777;}
+
+.pictureInputsBlocks input, .pictureInputsBlocks .selectize-input.items.not-full.has-options,
+.pictureInputsBlocks .selectize-input.items.not-full, .pictureInputsBlocks #description {
+  background-color: #f8f8f8!important; border: 2px solid #ddd!important;
+}
+.pictureInputsBlocks input:hover, .pictureInputsBlocks .selectize-input.items.not-full.has-options:hover,
+.pictureInputsBlocks .selectize-input.items.not-full:hover, .pictureInputsBlocks #description:hover {border-color: #999!important;}
+.pictureInputsBlocks .icon-calendar-clock {color: #AAA;}
+.pictureInfoLeftBlock, .pictureInfoRightBlock {border: 2px solid #f2f2f2;}
+.pictureInfoBlockTitle, .pictureInfoLeftBlock i, .pictureInfoRightBlock i, .pictureFormLabel {color: #555}
+.pictureInfoBlockInfos {color: #A5A5A5;}
+.pictureBlocsContainer .albumThumbnailActions {background-color: #313234;}
+.pictureBlocsContainer #albumThumbnail {background-color: #313234;}
+.photo-id {color: #aaa;}
