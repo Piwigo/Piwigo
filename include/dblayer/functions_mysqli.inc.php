@@ -302,7 +302,7 @@ UPDATE '.$tablename.'
 
         if (isset($data[$key]) and $data[$key] != '')
         {
-          $query.= $separator.$key.' = \''.$data[$key].'\'';
+          $query.= $separator.$key.' = \''.pwg_db_real_escape_string($data[$key]).'\'';
         }
         else
         {
@@ -329,7 +329,7 @@ UPDATE '.$tablename.'
           }
           if (isset($data[$key]))
           {
-            $query.= $key.' = \''.$data[$key].'\'';
+            $query.= $key.' = \''.pwg_db_real_escape_string($data[$key]).'\'';
           }
           else
           {
@@ -450,7 +450,7 @@ UPDATE '.$tablename.'
 
     if (isset($value) and $value !== '')
     {
-      $query.= $separator.$key.' = \''.$value.'\'';
+      $query.= $separator.$key.' = \''.pwg_db_real_escape_string($value).'\'';
     }
     else
     {
@@ -478,7 +478,7 @@ UPDATE '.$tablename.'
       }
       if (isset($value))
       {
-        $query.= $key.' = \''.$value.'\'';
+        $query.= $key.' = \''.pwg_db_real_escape_string($value).'\'';
       }
       else
       {
@@ -559,7 +559,7 @@ INSERT '.$ignore.' INTO '.$table_name.'
         }
         else
         {
-          $query .= "'".$insert[$dbfield]."'";
+          $query .= "'".pwg_db_real_escape_string($insert[$dbfield])."'";
         }
       }
       $query .= ')';
@@ -609,7 +609,7 @@ INSERT INTO '.$table_name.'
       }
       else
       {
-        $query .= "'".$value."'";
+        $query .= "'".pwg_db_real_escape_string($value)."'";
       }
     }
     $query .= ')';
