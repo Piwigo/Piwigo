@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -42,6 +27,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('selection', $_POST, true, PATTERN_ID);
+check_input_parameter('display', $_REQUEST, false, '/^(\d+|all)$/');
 
 // +-----------------------------------------------------------------------+
 // | specific actions                                                      |
@@ -78,8 +64,21 @@ DELETE FROM '.CADDIE_TABLE.'
       redirect(get_root_url().'admin.php?page='.$_GET['page']);
     }
   }
-}
 
+  if ('sync_md5sum' == $_GET['action'] and isset($_GET['nb_md5sum_added']))
+  {
+    check_input_parameter('nb_md5sum_added', $_GET, false, '/^\d+$/');
+    if ($_GET['nb_md5sum_added'] > 0)
+    {
+      $_SESSION['page_infos'][] = l10n_dec(
+        '%d checksums were added', '%d checksums were added',
+        $_GET['nb_md5sum_added']
+      );
+
+      redirect(get_root_url().'admin.php?page='.$_GET['page']);
+    }
+  }
+}
 // +-----------------------------------------------------------------------+
 // |                      initialize current set                           |
 // +-----------------------------------------------------------------------+
@@ -368,6 +367,9 @@ SELECT id
   case 'no_album':
     $filter_sets[] = get_orphans();
     break;
+  case 'no_sync_md5sum':
+    $filter_sets[] = get_photos_no_md5sum();
+    break;
 
   case 'no_tag':
     $query = '
@@ -462,6 +464,19 @@ SELECT id
 if (isset($_SESSION['bulk_manager_filter']['category']))
 {
   $categories = array();
+
+  // we need to check the category still exists (it may have been deleted since it was added in the session)
+  $query = '
+SELECT COUNT(*)
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$_SESSION['bulk_manager_filter']['category'].'
+;';
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
+  if (0 == $counter)
+  {
+    unset($_SESSION['bulk_manager_filter']);
+    redirect(get_root_url().'admin.php?page='.$_GET['page']);
+  }
 
   if (isset($_SESSION['bulk_manager_filter']['category_recursive']))
   {

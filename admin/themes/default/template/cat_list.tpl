@@ -58,10 +58,10 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-<h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Album list management'|@translate}</h2>
+<div class="selectedAlbum cat-list-album-path"><span class="icon-sitemap">{$CATEGORIES_NAV}</span></div>
 <p class="showCreateAlbum" id="notManualOrder">
-  <a href="#" id="addAlbumOpen" class="icon-plus-circled">{'create a new album'|@translate}</a>
-  {if count($categories)}<span class="userSeparator">&middot;</span><a href="#" id="autoOrderOpen" class="icon-sort-number-up">{'apply automatic sort order'|@translate}</a>{/if}
+  <a href="#" id="addAlbumOpen" class="icon-plus">{'create a new album'|@translate}</a>
+  {if count($categories)}<span class="userSeparator">&middot;</span><a href="#" id="autoOrderOpen" class="icon-sort-alt-down">{'apply automatic sort order'|@translate}</a>{/if}
   {if ($PARENT_EDIT)}<span class="userSeparator">&middot;</span><a href="{$PARENT_EDIT}" class="icon-pencil"></span>{'edit'|@translate}</a>{/if}
 </p>
 <form id="formCreateAlbum" action="{$F_ACTION}" method="post" style="display:none;">
@@ -128,27 +128,29 @@ jQuery(document).ready(function(){
     {foreach from=$categories item=category}
     <li class="categoryLi{if $category.IS_VIRTUAL} virtual_cat{/if}" id="cat_{$category.ID}">
       <!-- category {$category.ID} -->
-      <p class="albumTitle">
-        <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
-        <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}">{$category.NAME}</a></strong>
-        <span class="albumInfos"><span class="userSeparator">&middot;</span> {$category.NB_PHOTOS|translate_dec:'%d photo':'%d photos'} <span class="userSeparator">&middot;</span> {$category.NB_SUB_PHOTOS|translate_dec:'%d photo':'%d photos'} {$category.NB_SUB_ALBUMS|translate_dec:'in %d sub-album':'in %d sub-albums'}</span>
-      </p>
+      <div class="albumBlock">
+        <div class="albumLineBlock">
+          <p class="albumTitle">
+            <i class="icon-arrow-combo" title="{'Drag to re-order'|translate}"></i>
+            <strong>{$category.NAME}</strong>
+          </p>
+          <span class="albumInfos"><span class="userSeparator">&middot;</span> {$category.NB_PHOTOS|translate_dec:'%d photo':'%d photos'} <span class="userSeparator">&middot;</span> {$category.NB_SUB_PHOTOS|translate_dec:'%d photo':'%d photos'} {$category.NB_SUB_ALBUMS|translate_dec:'in %d sub-album':'in %d sub-albums'}</span>
+        </div>
+  
+        <input type="hidden" name="catOrd[{$category.ID}]" value="{$category.RANK}">
 
-      <input type="hidden" name="catOrd[{$category.ID}]" value="{$category.RANK}">
-
-      <p class="albumActions">
-        <a href="{$category.U_EDIT}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
-        <span class="userSeparator">&middot;</span><a href="{$category.U_CHILDREN}"><span class="icon-sitemap"></span>{'manage sub-albums'|@translate}</a>
-        {if isset($category.U_SYNC) }
-        <span class="userSeparator">&middot;</span><a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>
-        {/if}
-        {if isset($category.U_DELETE) }
-        <span class="userSeparator">&middot;</span><a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><span class="icon-trash"></span>{'delete album'|@translate}</a>
-      {/if}
-      {if cat_admin_access($category.ID)}
-        <span class="userSeparator">&middot;</span><a href="{$category.U_JUMPTO}">{'jump to album'|@translate} →</a>
-      {/if}
-      </p>
+        <p class="albumActions">
+          <a href="{$category.U_EDIT}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
+          <a href="{$category.U_CHILDREN}" class="actionTitle"><span class="icon-flow-tree"></span><span>{'sub-albums'|@translate}</span></a>
+          {if isset($category.U_SYNC) }
+          <a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>
+          {/if}
+          {if cat_admin_access($category.ID)}
+          <a href="{$category.U_JUMPTO}"><span class="icon-eye">{'Visit Gallery'|@translate} </a>
+          {/if}
+          <a href="{$category.U_ADD_PHOTOS_ALBUM}"><span class="icon-plus">{'Add Photos'|@translate} </a>
+        </p>
+      </div>
 
     </li>
     {/foreach}

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-scriptdir=$(dirname $(readlink -e $0))
+script_abspath=$(perl -e 'use Cwd "abs_path"; print abs_path(@ARGV[0])' -- "$0")
+scriptdir=$(dirname $script_abspath)
 
 # +--------------------------------------------------------------------------+
 # |                            pwg_rel_create.sh                             |

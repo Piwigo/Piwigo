@@ -97,7 +97,7 @@
 {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
 	</ul>
 
-<h2>{$TITLE}</h2>
+<h2>{$TITLE} {if $NB_ITEMS > 0}<span class="badge nb_items">{$NB_ITEMS}</span>{/if}</h2>
 
 {if isset($chronology_views)}
 <div class="calendarViews">{'View'|@translate}:

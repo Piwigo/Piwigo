@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if (!defined('PHPWG_ROOT_PATH'))
@@ -201,6 +186,58 @@ DELETE
     clear_derivative_cache($_GET['type']);
     break;
   }
+
+  case 'check_upgrade':
+  {
+    if (!fetchRemote(PHPWG_URL.'/download/latest_version', $result))
+    {
+      $page['errors'][] = l10n('Unable to check for upgrade.');
+    }
+    else
+    {
+      $versions = array('current' => PHPWG_VERSION);
+      $lines = @explode("\r\n", $result);
+  
+      // if the current version is a BSF (development branch) build, we check
+      // the first line, for stable versions, we check the second line
+      if (preg_match('/^BSF/', $versions['current']))
+      {
+        $versions['latest'] = trim($lines[0]);
+  
+        // because integer are limited to 4,294,967,296 we need to split BSF
+        // versions in date.time
+        foreach ($versions as $key => $value)
+        {
+          $versions[$key] =
+            preg_replace('/BSF_(\d{8})(\d{4})/', '$1.$2', $value);
+        }
+      }
+      else
+      {
+        $versions['latest'] = trim($lines[1]);
+      }
+  
+      if ('' == $versions['latest'])
+      {
+        $page['errors'][] = l10n('Check for upgrade failed for unknown reasons.');
+      }
+      // concatenation needed to avoid automatic transformation by release
+      // script generator
+      else if ('%'.'PWGVERSION'.'%' == $versions['current'])
+      {
+        $page['infos'][] = l10n('You are running on development sources, no check possible.');
+      }
+      else if (version_compare($versions['current'], $versions['latest']) < 0)
+      {
+        $page['infos'][] = l10n('A new version of Piwigo is available.');
+      }
+      else
+      {
+        $page['infos'][] = l10n('You are running the latest version of Piwigo.');
+      }
+    }
+  }
+
   default :
   {
     break;
@@ -247,6 +284,7 @@ $template->assign(
 
     'PHPWG_URL' => PHPWG_URL,
     'PWG_VERSION' => PHPWG_VERSION,
+    'U_CHECK_UPGRADE' => sprintf($url_format, 'check_upgrade'),
     'OS' => PHP_OS,
     'PHP_VERSION' => phpversion(),
     'DB_ENGINE' => 'MySQL',

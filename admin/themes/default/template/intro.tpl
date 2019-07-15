@@ -32,48 +32,24 @@ jQuery().ready(function(){
         jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
     }
   });
+
+  jQuery('.newsletter-subscription a').click(function() {
+    jQuery('.newsletter-subscription').hide();
+
+    jQuery.ajax({
+      type: 'GET',
+      url: 'admin.php?action=hide_newsletter_subscription'
+    });
+
+    if (jQuery(this).hasClass('newsletter-hide')) {
+      return false;
+    }
+  });
 });
 {/literal}
 {/footer_script}
 
 {html_style}
-.stat-boxes {
-  text-align:left;
-  margin:10px;
-}
-
-.stat-box {
-  display:inline-block;
-  width:200px;
-  margin:10px;
-  color:#777;
-}
-
-div.stat-box {
-  cursor:help;
-}
-
-.stat-box:hover {
-  color:#ff7700;
-}
-
-.stat-box i {
-  font-size:50px;
-  float:left;
-  margin-right:5px;
-}
-
-.stat-box .number, .stat-box .caption {
-  display:inline-block;
-  width:120px;
-  text-align:left;
-}
-
-.stat-box .number {
-  margin-top:10px;
-  font-size:20px;
-}
-
 .eiw .messages ul li {
   list-style-type:none !important;
 }
@@ -88,75 +64,75 @@ div.stat-box {
 <div class="stat-boxes">
 
 {if $NB_PHOTOS > 1}
-<a class="stat-box" href="{$U_ADD_PHOTOS}">
+<a class="stat-box stat-box-yellow" href="{$U_ADD_PHOTOS}">
 <i class="icon-picture"></i>
 <span class="number">{$NB_PHOTOS|number_format}</span><span class="caption">{'Photos'|translate}</span>
 </a>
 {/if}
 
 {if $NB_ALBUMS > 1}
-<a class="stat-box" href="{$U_CATEGORIES}">
+<a class="stat-box stat-box-red" href="{$U_CATEGORIES}">
 <i class="icon-sitemap"></i>
 <span class="number">{$NB_ALBUMS}</span><span class="caption">{'Albums'|translate}</span>
 </a>
 {/if}
 
 {if $NB_TAGS > 1}
-<a class="stat-box" href="{$U_TAGS}">
+<a class="stat-box stat-box-yellow" href="{$U_TAGS}">
 <i class="icon-tags"></i>
 <span class="number">{$NB_TAGS}</span><span class="caption" title="{'%d associations'|translate:$NB_IMAGE_TAG}">{'Tags'|translate}</span>
 </a>
 {/if}
 
 {if $NB_USERS > 2}
-<a class="stat-box" href="{$U_USERS}">
+<a class="stat-box stat-box-purple" href="{$U_USERS}">
 <i class="icon-users"></i>
 <span class="number">{$NB_USERS}</span><span class="caption">{'Users'|translate}</span>
 </a>
 {/if}
 
 {if $NB_GROUPS > 0}
-<a class="stat-box" href="{$U_GROUPS}">
+<a class="stat-box stat-box-purple" href="{$U_GROUPS}">
 <i class="icon-group"></i>
 <span class="number">{$NB_GROUPS}</span><span class="caption">{'Groups'|translate}</span>
 </a>
 {/if}
 
 {if $NB_COMMENTS > 1}
-<a class="stat-box" href="{$U_COMMENTS}">
+<a class="stat-box stat-box-blue" href="{$U_COMMENTS}">
 <i class="icon-chat"></i>
 <span class="number">{$NB_COMMENTS}</span><span class="caption">{'Comments'|translate}</span>
 </a>
 {/if}
 
 {if $NB_RATES > 0}
-<a class="stat-box" href="{$U_RATING}">
+<a class="stat-box stat-box-yellow" href="{$U_RATING}">
 <i class="icon-star"></i>
 <span class="number">{$NB_RATES}</span><span class="caption">{'Rating'|translate}</span>
 </a>
 {/if}
 
 {if $NB_VIEWS > 0}
-<a class="stat-box" href="{$U_HISTORY_STAT}">
+<a class="stat-box stat-box-blue" href="{$U_HISTORY_STAT}">
 <i class="icon-signal"></i>
 <span class="number">{$NB_VIEWS}</span><span class="caption">{'Pages seen'|translate}</span>
 </a>
 {/if}
 
 {if $NB_PLUGINS > 0}
-<a class="stat-box" href="{$U_PLUGINS}">
+<a class="stat-box stat-box-green" href="{$U_PLUGINS}">
 <i class="icon-puzzle"></i>
 <span class="number">{$NB_PLUGINS}</span><span class="caption">{'Plugins'|translate}</span>
 </a>
 {/if}
 
-<div class="stat-box">
+<div class="stat-box stat-box-blue">
 <i class="icon-hdd"></i>
 <span class="number">{$STORAGE_USED}</span><span class="caption">{'Storage used'|translate}</span>
 </div>
 
 {if $NB_PHOTOS > 1}
-<div class="stat-box">
+<div class="stat-box stat-box-yellow">
 <i class="icon-back-in-time"></i>
 <span class="number">{$first_added_age}</span><span class="caption" title="{'first photo added on %s'|translate:$first_added_date}">{'First photo added'|translate}</span>
 </div>
@@ -169,9 +145,8 @@ div.stat-box {
   <a href="{$U_QUICK_SYNC}" class="icon-exchange">{'Quick Local Synchronization'|translate}</a>
 {/if}
 
-  <br><a href="{$U_CHECK_UPGRADE}" class="icon-arrows-cw">{'Check for upgrade'|@translate}</a>
 
 {if isset($SUBSCRIBE_BASE_URL)}
-  <br><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" class="externalLink cluetip icon-mail-alt" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a>
+  <br><span class="newsletter-subscription"><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribe" class="externalLink cluetip icon-mail-alt" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a> <a href="#" class="newsletter-hide">{'... or hide this link'|translate}</a></span>
 {/if}
 </p>

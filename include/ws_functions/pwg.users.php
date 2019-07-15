@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -294,6 +279,30 @@ function ws_users_add($params, &$service)
   }
 
   return $service->invoke('pwg.users.getList', array('user_id'=>$user_id));
+}
+
+/**
+ * API method
+ * Get a new authentication key for a user.
+ * @param mixed[] $params
+ *    @option int[] user_id
+ *    @option string pwg_token
+ */
+function ws_users_getAuthKey($params, &$service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $authkey = create_user_auth_key($params['user_id']);
+
+  if ($authkey === false)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'invalid user_id');
+  }
+
+  return $authkey;
 }
 
 /**
@@ -589,7 +598,7 @@ DELETE
     $query = '
 SELECT
     id
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE id IN ('.implode(',', $params['group_id']).')
 ;';
     $group_ids = array_from_query($query, 'id');
@@ -614,6 +623,8 @@ SELECT
   }
 
   invalidate_user_cache();
+
+  pwg_activity('user', $params['user_id'], 'edit');
 
   return $service->invoke('pwg.users.getList', array(
     'user_id' => $params['user_id'],
@@ -668,6 +679,110 @@ DELETE FROM '.FAVORITES_TABLE.'
   pwg_query($query);
 
   return true;
+}
+
+/**
+ * API method
+ * Returns the favorite images of the current user
+ * @param mixed[] $params
+ */
+function ws_getFavorites($params, &$service)
+{
+  global $conf, $user;
+  if (is_a_guest())
+  {
+    return false;
+  }
+
+  $search_user = $user;
+  if (is_admin() && isset($params['user_id']) && is_numeric($params['user_id']))
+  {
+
+    // ensure the indicated user exists
+    if (get_username($params['user_id']) === false)
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
+    }
+
+    $search_user = array('id' => $params['user_id']);
+    $search_user = array_merge( $search_user, getuserdata($search_user['id']) );
+  }
+
+  if (!empty($search_user['forbidden_categories'])) 
+  {
+      $query = '
+        SELECT DISTINCT f.image_id
+          FROM '.FAVORITES_TABLE.' AS f INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
+            ON f.image_id = ic.image_id
+          WHERE f.user_id = '.$search_user['id'].'
+          AND ic.category_id NOT IN ('.$search_user['forbidden_categories'].')
+        ;';
+      $authorizeds = query2array($query,null, 'image_id');
+      $query = '
+        SELECT image_id
+          FROM '.FAVORITES_TABLE.'
+          WHERE user_id = '.$search_user['id'].'
+        ;';
+      $favorites = query2array($query,null, 'image_id');
+      $to_deletes = array_diff($favorites, $authorizeds);
+      if (count($to_deletes) > 0)
+      {
+        $query = '
+          DELETE FROM '.FAVORITES_TABLE.'
+            WHERE image_id IN ('.implode(',', $to_deletes).')
+              AND user_id = '.$search_user['id'].'
+          ;';
+        pwg_query($query);
+      }
+  }
+
+  $visible_images_cond = '';
+  if (!empty($filter['visible_images']))
+  {
+    $visible_images_cond = 'AND id IN ('.$filter['visible_images'].')';
+  }
+
+  $order_by = ws_std_image_sql_order($params, 'i.');
+  $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
+  $query = 'SELECT i.*
+    FROM '.FAVORITES_TABLE.'
+    INNER JOIN '.IMAGES_TABLE.' i ON image_id = i.id
+    WHERE user_id = '.$search_user['id'].'
+    '.$visible_images_cond.'
+    '.$order_by.';';
+  $images = array();
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+      $image = array();
+      foreach (array('id', 'width', 'height', 'hit') as $k)
+      {
+        if (isset($row[$k]))
+        {
+          $image[$k] = (int)$row[$k];
+        }
+      }
+      foreach (array('file', 'name', 'comment', 'date_creation', 'date_available') as $k)
+      {
+        $image[$k] = $row[$k];
+      }
+      $images[] = array_merge($image, ws_std_get_urls($row));
+  }
+  $count = count($images);
+  $images = array_slice($images, $params['per_page']*$params['page'], $params['per_page']);
+  return array(
+    'paging' => new PwgNamedStruct(
+      array(
+        'page' => $params['page'],
+        'per_page' => $params['per_page'],
+        'count' => $count
+      )
+    ),
+    'images' => new PwgNamedArray(
+      $images, 'image',
+      ws_std_get_image_xml_attributes()
+     )
+   );
 }
 
 ?>

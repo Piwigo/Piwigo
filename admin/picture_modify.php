@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if(!defined("PHPWG_ROOT_PATH"))
@@ -118,6 +103,8 @@ if (isset($_GET['sync_metadata']))
 //--------------------------------------------------------- update informations
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
+
   $data = array();
   $data['id'] = $_GET['image_id'];
   $data['name'] = $_POST['name'];
@@ -195,6 +182,7 @@ UPDATE '.CATEGORIES_TABLE.'
   $represented_albums = $_POST['represent'];
 
   $page['infos'][] = l10n('Photo informations updated');
+  pwg_activity('photo', $_GET['image_id'], 'edit');
 }
 
 // tags
@@ -445,6 +433,7 @@ $template->assign(array(
   'represented_albums' => $represented_albums,
   'STORAGE_ALBUM' => $storage_category_id,
   'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
+  'PWG_TOKEN' => get_pwg_token(),
   ));
 
 trigger_notify('loc_end_picture_modify');

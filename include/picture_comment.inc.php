@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -142,21 +127,21 @@ SELECT
     $query = '
 SELECT
     com.id,
-    author,
-    author_id,
+    com.author,
+    com.author_id,
     u.'.$conf['user_fields']['email'].' AS user_email,
-    date,
-    image_id,
-    website_url,
+    com.date,
+    com.image_id,
+    com.website_url,
     com.email,
-    content,
-    validated
+    com.content,
+    com.validated
   FROM '.COMMENTS_TABLE.' AS com
   LEFT JOIN '.USERS_TABLE.' AS u
     ON u.'.$conf['user_fields']['id'].' = author_id
-  WHERE image_id = '.$page['image_id'].'
+  WHERE com.image_id = '.$page['image_id'].'
     '.$validated_clause.'
-  ORDER BY date '.$comments_order.'
+  ORDER BY com.date '.$comments_order.'
   LIMIT '.$conf['nb_comment_page'].' OFFSET '.$page['start'].'
 ;';
     $result = pwg_query( $query );
