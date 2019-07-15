@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -56,7 +41,15 @@ check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 // +-----------------------------------------------------------------------+
 
 $collection = array();
-if (isset($_POST['setSelected']))
+if (isset($_POST['nb_photos_deleted']))
+{
+  check_input_parameter('nb_photos_deleted', $_POST, false, '/^\d+$/');
+
+  // let's fake a collection (we don't know the image_ids so we use "null", we only
+  // care about the number of items here)
+  $collection = array_fill(0, $_POST['nb_photos_deleted'], null);
+}
+else if (isset($_POST['setSelected']))
 {
   $collection = $page['cat_elements_id'];
 }
@@ -269,6 +262,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('author')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'author'));
   }
 
   // title
@@ -293,6 +288,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('name')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'title'));
   }
 
   // date_creation
@@ -321,6 +318,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('date_creation')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'date_creation'));
   }
 
   // privacy_level
@@ -340,6 +339,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('level')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'privacy_level'));
 
     if (isset($_SESSION['bulk_manager_filter']['level']))
     {
@@ -387,8 +388,7 @@ DELETE
   // synchronize metadata
   else if ('metadata' == $action)
   {
-    sync_metadata($collection);
-    $page['infos'][] = l10n('Metadata synchronized from file');
+    $page['infos'][] = l10n('Metadata synchronized from file').' <span class="badge">'.count($collection).'</span>';
   }
 
   else if ('delete_derivatives' == $action && !empty($_POST['del_derivatives_type']))
@@ -450,6 +450,7 @@ $prefilters = array(
 if ($conf['enable_synchronization'])
 {
   $prefilters[] = array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'));
+  $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => l10n('With no checksum'));
 }
 
 $prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);
@@ -621,6 +622,10 @@ if (!empty($_GET['display']))
   {
     $page['nb_images'] = intval($_GET['display']);
   }
+}
+elseif (in_array($conf['batch_manager_images_per_page_global'], array(20, 50, 100)))
+{
+  $page['nb_images'] = $conf['batch_manager_images_per_page_global'];
 }
 else
 {

@@ -153,7 +153,10 @@
 </div> <!-- configContent -->
 
 <p class="formButtons">
-  <input type="submit" name="submit" value="{'Save Settings'|translate}">
+  <button name="submit" type="submit" class="buttonLike">
+    <i class="icon-floppy"></i> {'Save Settings'|@translate}
+  </button>
 </p>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

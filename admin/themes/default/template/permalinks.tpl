@@ -59,6 +59,7 @@ form fieldset p.actionButtons {margin-bottom:0}
     <a href="#" id="addPermalinkClose">{'Cancel'|@translate}</a>
   </p>
 </fieldset>
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>
 
 <fieldset>

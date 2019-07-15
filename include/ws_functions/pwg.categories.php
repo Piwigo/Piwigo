@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -94,7 +79,7 @@ SELECT id, name, permalink, image_order
     $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
 
     $query = '
-SELECT i.*, GROUP_CONCAT(category_id) AS cat_ids
+SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
   FROM '. IMAGES_TABLE .' i
     INNER JOIN '. IMAGE_CATEGORY_TABLE .' ON i.id=image_id
   WHERE '. implode("\n    AND ", $where_clauses) .'
@@ -152,12 +137,15 @@ SELECT i.*, GROUP_CONCAT(category_id) AS cat_ids
     }
   }
 
+  list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+
   return array(
     'paging' => new PwgNamedStruct(
       array(
         'page' => $params['page'],
         'per_page' => $params['per_page'],
-        'count' => count($images)
+        'count' => count($images),
+        'total_count' => $total_images
         )
       ),
     'images' => new PwgNamedArray(
@@ -204,7 +192,7 @@ function ws_categories_getList($params, &$service)
       $where[] = 'id_uppercat IS NULL';
     }
   }
-  else if ($params['cat_id']>0)
+  elseif ($params['cat_id']>0)
   {
     $where[] = 'uppercats '. DB_REGEX_OPERATOR .' \'(^|,)'.
       (int)($params['cat_id']) .'(,|$)\'';
@@ -217,7 +205,7 @@ function ws_categories_getList($params, &$service)
 
     $join_user = $conf['guest_id'];
   }
-  else if (is_admin())
+  elseif (is_admin())
   {
     // in this very specific case, we don't want to hide empty
     // categories. Function calculate_permissions will only return
@@ -300,11 +288,11 @@ SELECT
     {
       $image_id = $row['user_representative_picture_id'];
     }
-    else if (!empty($row['representative_picture_id']))
+    elseif (!empty($row['representative_picture_id']))
     { // if a representative picture is set, it has priority
       $image_id = $row['representative_picture_id'];
     }
-    else if ($conf['allow_random_representative'])
+    elseif ($conf['allow_random_representative'])
     {
       // searching a random representant among elements in sub-categories
       $image_id = get_random_image_in_category($row);
@@ -562,11 +550,12 @@ function ws_categories_add($params, &$service)
 
   if (!empty($params['comment']))
   {
-    $options['comment'] = $params['comment'];
+    // TODO do not strip tags if pwg_token is provided (and valid)
+    $options['comment'] = strip_tags($params['comment']);
   }
 
   $creation_output = create_virtual_category(
-    $params['name'],
+    strip_tags($params['name']), // TODO do not strip tags if pwg_token is provided (and valid)
     $params['parent'],
     $options
     );
@@ -579,6 +568,88 @@ function ws_categories_add($params, &$service)
   invalidate_user_cache();
 
   return $creation_output;
+}
+
+/**
+ * API method
+ * Set the rank of a category
+ * @param mixed[] $params
+ *    @option int cat_id
+ *    @option int rank
+ */
+function ws_categories_setRank($params, &$service)
+{
+  // does the category really exist?
+  $query = '
+SELECT id, id_uppercat, rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',',$params['category_id']).')
+;';
+  $categories = query2array($query);
+
+  if (count($categories) == 0)
+  {
+    return new PwgError(404, 'category_id not found');
+  }
+
+  $category = $categories[0];
+
+  //check the number of category given by the user
+  if(count($params['category_id']) > 1)
+  {
+    $order_new = $params['category_id'];
+    $order_new_by_id = $order_new;
+    sort($order_new_by_id, SORT_NUMERIC);
+
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
+  ORDER BY `id` ASC
+;';
+
+    $cat_asc = query2array($query, null, 'id');
+
+    if(strcmp(implode(',',$cat_asc), implode(',',$order_new_by_id)) !==0)
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'you need to provide all sub-category ids for a given category');
+    }
+  }
+  else
+  {
+    $params['category_id'] = implode($params['category_id']);
+
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat '.(empty($category['id_uppercat']) ? "IS NULL" : "= ".$category['id_uppercat']).'
+    AND id != '.$params['category_id'].'
+  ORDER BY `rank` ASC
+;';
+
+    $order_old = query2array($query, null, 'id');
+    $order_new = array();
+    $was_inserted = false;
+    $i = 1;
+    foreach ($order_old as $category_id)
+    {
+      if($i == $params['rank'])
+      {
+        $order_new[] = $params['category_id'];
+        $was_inserted = true;
+      }
+      $order_new[] = $category_id;
+      ++$i;
+    }
+
+    if (!$was_inserted)
+    {
+      $order_new[] = $params['category_id'];
+    }
+  }
+  // include function to set the global rank
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  save_categories_order($order_new);
 }
 
 /**
@@ -631,7 +702,8 @@ SELECT *
     if (isset($params[$key]))
     {
       $perform_update = true;
-      $update[$key] = $params[$key];
+      // TODO do not strip tags if pwg_token is provided (and valid)
+      $update[$key] = strip_tags($params[$key]);
     }
   }
 
@@ -643,6 +715,8 @@ SELECT *
       array('id' => $update['id'])
       );
   }
+
+  pwg_activity('album', $params['category_id'], 'edit', array('fields' => implode(',', array_keys($update))));
 }
 
 /**
@@ -692,13 +766,15 @@ UPDATE '. USER_CACHE_CATEGORIES_TABLE .'
   WHERE cat_id = '. $params['category_id'] .'
 ;';
   pwg_query($query);
+
+  pwg_activity('album', $params['category_id'], 'edit', array('image_id'=>$params['image_id']));
 }
 
 /**
  * API method
  *
  * Deletes the album thumbnail. Only possible if
- * $conf['allow_random_representative']
+ * $conf['allow_random_representative'] or if the album has no direct photos.
  *
  * @param mixed[] $params
  *    @option int category_id
@@ -719,7 +795,14 @@ SELECT id
     return new PwgError(404, 'category_id not found');
   }
 
-  if (!$conf['allow_random_representative'])
+  $query = '
+SELECT COUNT(*)
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category_id'].'
+;';
+  list($nb_images) = pwg_db_fetch_row(pwg_query($query));
+
+  if (!$conf['allow_random_representative'] and $nb_images != 0)
   {
     return new PwgError(401, 'not permitted');
   }
@@ -730,6 +813,8 @@ UPDATE '.CATEGORIES_TABLE.'
   WHERE id = '.$params['category_id'].'
 ;';
   pwg_query($query);
+
+  pwg_activity('album', $params['category_id'], 'edit');
 }
 
 /**
@@ -774,6 +859,8 @@ SELECT
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   
   set_random_representant(array($params['category_id']));
+
+  pwg_activity('album', $params['category_id'], 'edit');
 
   // return url of the new representative
   $query = '
@@ -851,6 +938,7 @@ SELECT id
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   delete_categories($category_ids, $params['photo_deletion_mode']);
   update_global_rank();
+  invalidate_user_cache();
 }
 
 /**

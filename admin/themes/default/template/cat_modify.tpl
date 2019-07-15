@@ -78,7 +78,11 @@ jQuery(document).ready(function() {
         var data = jQuery.parseJSON(data);
         if (data.stat == 'ok') {
           jQuery(".albumThumbnailImage").hide();
-          jQuery(".albumThumbnailRandom").show();
+          if (jQuery(".albumThumbnailActions").data('random_allowed') == '') {
+            jQuery(".deleteRepresentative").hide();
+          } else {
+            jQuery(".albumThumbnailRandom").show();
+          }
         }
         else {
           alert("error on "+method);
@@ -176,13 +180,16 @@ jQuery(document).ready(function() {
         <a class="albumThumbnailImage" style="{if !isset($representant.picture)}display:none{/if}" href="{$representant.picture.url}"><img src="{$representant.picture.src}"></a>
         <img class="albumThumbnailRandom" style="{if isset($representant.picture)}display:none{/if}" src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
 
-<p class="albumThumbnailActions">
+<p class="albumThumbnailActions" data-random_allowed="{$representant.ALLOW_SET_RANDOM}">
+  {assign var="action_separator" value=""}
   {if $representant.ALLOW_SET_RANDOM }
   <a href="#refresh" data-category_id="{$CAT_ID}" class="refreshRepresentative" title="{'Find a new representant by random'|@translate}">{'Refresh'|@translate}</a>
+  {assign var="action_separator" value="|"}
   {/if}
 
   {if isset($representant.ALLOW_DELETE) }
-  | <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative" title="{'Delete Representant'|@translate}">{'Delete'|translate}</a>
+  {$action_separator}
+   <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative" title="{'Delete Representant'|@translate}">{'Delete'|translate}</a>
   {/if}
 </p>
 {/if}
@@ -288,7 +295,9 @@ jQuery(document).ready(function() {
   {if $NB_IMAGES_ASSOCIATED_OUTSIDE > 0}
     <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="force_delete"> {'delete album and all %d photos, even the %d associated to other albums'|translate:$NB_IMAGES_RECURSIVE:$NB_IMAGES_ASSOCIATED_OUTSIDE}</label></li>
   {/if}
+  {if $NB_IMAGES_BECOMING_ORPHAN > 0}
     <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="delete_orphans"> {'delete album and the %d orphan photos'|translate:$NB_IMAGES_BECOMING_ORPHAN}</label></li>
+  {/if}
     <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked"> {'delete only album, not photos'|translate}</label></li>
   </ul>
 {/if}

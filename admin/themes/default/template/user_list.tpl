@@ -24,7 +24,7 @@ var missingConfirm = "{'You need to confirm deletion'|translate|escape:javascrip
 var missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
 
 var allUsers = [{$all_users}];
-var selection = [{$selection}];
+var selection = [];
 var pwg_token = "{$PWG_TOKEN}";
 
 var protectedUsers = [{$protected_users}];
@@ -895,7 +895,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
   <span class="infos" style="display:none"></span>
 </p>
 
-<form id="addUserForm" style="display:none" method="post" name="add_user" action="{$F_ADD_ACTION}">
+<form id="addUserForm" style="{if !isset($show_add_user)}display:none{/if}" method="post" name="add_user" action="{$F_ADD_ACTION}">
   <fieldset class="with-border">
     <legend>{'Add a user'|@translate}</legend>
 
@@ -965,8 +965,8 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 <fieldset id="action">
   <legend>{'Action'|@translate}</legend>
 
-  <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No user selected, no action possible.'|@translate}</div>
-  <div id="permitAction"{if count($selection) == 0} style="display:none"{/if}>
+  <div id="forbidAction">{'No user selected, no action possible.'|@translate}</div>
+  <div id="permitAction" style="display:none">
 
     <select name="selectAction">
       <option value="-1">{'Choose an action'|@translate}</option>

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 define('PHPWG_ROOT_PATH','../');
@@ -27,7 +12,10 @@ define('IN_ADMIN', true);
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
 check_status(ACCESS_ADMINISTRATOR);
-	
+
+check_input_parameter('iDisplayStart', $_REQUEST, false, PATTERN_ID);
+check_input_parameter('iDisplayLength', $_REQUEST, false, PATTERN_ID);
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
  */
@@ -64,8 +52,7 @@ $sTable = USERS_TABLE.' INNER JOIN '.USER_INFOS_TABLE.' AS ui ON '.$conf['user_f
 $sLimit = "";
 if ( isset( $_REQUEST['iDisplayStart'] ) && $_REQUEST['iDisplayLength'] != '-1' )
 {
-  $sLimit = "LIMIT ".pwg_db_real_escape_string( $_REQUEST['iDisplayStart'] ).", ".
-    pwg_db_real_escape_string( $_REQUEST['iDisplayLength'] );
+  $sLimit = "LIMIT ".$_REQUEST['iDisplayStart'].", ".$_REQUEST['iDisplayLength'];
 }
 	
 	
@@ -77,10 +64,13 @@ if ( isset( $_REQUEST['iSortCol_0'] ) )
   $sOrder = "ORDER BY  ";
   for ( $i=0 ; $i<intval( $_REQUEST['iSortingCols'] ) ; $i++ )
   {
-    if ( $_REQUEST[ 'bSortable_'.intval($_REQUEST['iSortCol_'.$i]) ] == "true" )
+    check_input_parameter('iSortCol_'.$i, $_REQUEST, false, PATTERN_ID);
+
+    if ( $_REQUEST[ 'bSortable_'.$_REQUEST['iSortCol_'.$i] ] == "true" )
     {
-      $sOrder .= $aColumns[ intval( $_REQUEST['iSortCol_'.$i] ) ]."
-				 	".pwg_db_real_escape_string( $_REQUEST['sSortDir_'.$i] ) .", ";
+      check_input_parameter('sSortDir_'.$i, $_REQUEST, false, '/^(asc|desc)$/');
+
+      $sOrder .= $aColumns[ $_REQUEST['iSortCol_'.$i] ].' '.$_REQUEST['sSortDir_'.$i].', ';
     }
   }
 		
@@ -213,7 +203,7 @@ SELECT
     user_id,
     GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS groups
   FROM '.USER_GROUP_TABLE.'
-    JOIN '.GROUPS_TABLE.' ON id = group_id
+    JOIN `'.GROUPS_TABLE.'` ON id = group_id
   WHERE user_id IN ('.implode(',', $user_ids).')
   GROUP BY user_id
 ;';

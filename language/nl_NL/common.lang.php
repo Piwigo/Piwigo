@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Nederlands [NL]
@@ -106,7 +91,11 @@ $lang['Retrieve password'] = 'Herstel wachtwoord';
 $lang['Search rules'] = 'Zoekcriteria';
 $lang['Search tags'] = 'Zoeklabels';
 $lang['Search'] = 'Zoek';
+<<<<<<< HEAD
 $lang['display available tags'] = 'Toon alle beschikbare labels';
+=======
+$lang['display available tags'] = 'toon alle beschikbare labels';
+>>>>>>> master
 $lang['Since'] = 'Sinds';
 $lang['Sort by'] = 'Sorteer op';
 $lang['Sort order'] = 'Sorteervolgorde';
@@ -132,10 +121,17 @@ $lang['posted before %s (%s)'] = 'geplaatst voor %s(%s)';
 $lang['posted between %s (%s) and %s (%s)'] = 'geplaatst tussen %s(%s) en %s(%s)';
 $lang['posted on %s'] = 'geplaatst op %s';
 $lang['Best rated'] = 'Best gewaardeerd';
+<<<<<<< HEAD
 $lang['display best rated photos'] = 'Toon de best beoordeelde foto\'s';
 $lang['Calendar'] = 'Kalender';
 $lang['All'] = 'Alles';
 $lang['display each day with photos, month per month'] = 'Toon foto\'s van elke dag, maand per maand';
+=======
+$lang['display best rated photos'] = 'toon de best beoordeelde foto\'s';
+$lang['Calendar'] = 'Kalender';
+$lang['All'] = 'Alles';
+$lang['display each day with photos, month per month'] = 'toon foto\'s van elke dag, maand per maand';
+>>>>>>> master
 $lang['View'] = 'Toon';
 $lang['chronology_monthly_calendar'] = 'Maandkalender';
 $lang['chronology_monthly_list'] = 'Maandlijst';
@@ -173,7 +169,11 @@ $lang['edit'] = 'Wijzig';
 $lang['wrong date'] = 'verkeerde datum';
 $lang['excluded'] = 'Uitgesloten';
 $lang['Your favorites'] = 'Jouw favorieten';
+<<<<<<< HEAD
 $lang['display your favorites photos'] = 'Toon je favoriete foto\'s';
+=======
+$lang['display your favorites photos'] = 'toon je favoriete foto\'s';
+>>>>>>> master
 $lang['Favorites'] = 'Favorieten';
 $lang['First'] = 'Eerste';
 $lang['The gallery is locked for maintenance. Please, come back later.'] = 'De galerie is momenteel gesloten voor onderhoud. Probeer het later nog eens.';
@@ -181,8 +181,13 @@ $lang['Page generated in'] = 'Pagina geladen in';
 $lang['guest'] = 'Gast';
 $lang['Hello'] = 'Hallo';
 $lang['available for administrators only'] = 'Alleen toegankelijk voor beheerders';
+<<<<<<< HEAD
 $lang['display this album'] = 'Toon dit album';
 $lang['display last user comments'] = 'Toon de meest recente gebruikersreacties';
+=======
+$lang['display this album'] = 'toon dit album';
+$lang['display last user comments'] = 'toon de meest recente gebruikersreacties';
+>>>>>>> master
 $lang['customize the appareance of the gallery'] = 'pas de opmaak van de galerie aan';
 $lang['search'] = 'zoek';
 $lang['Home'] = 'Startpagina';
@@ -214,7 +219,11 @@ $lang['month'][7] = 'Juli';
 $lang['month'][8] = 'Augustus';
 $lang['month'][9] = 'September';
 $lang['Most visited'] = 'Meest bezocht';
+<<<<<<< HEAD
 $lang['display most visited photos'] = 'Toon de meest bezochte foto\'s';
+=======
+$lang['display most visited photos'] = 'toon de meest bezochte foto\'s';
+>>>>>>> master
 $lang['The number of photos per page must be a not null scalar'] = 'Het aantal foto\'s per pagina moet hoger dan 0 zijn.';
 $lang['Number of photos per page'] = 'Aantal foto\'s per pagina';
 $lang['Unknown identifier'] = 'Onbekende naam';
@@ -235,6 +244,7 @@ $lang['Previous'] = 'Vorige';
 $lang['Random photos'] = 'Willekeurige foto\'s';
 $lang['display a set of random photos'] = 'Toon een aantal willekeurig gekozen foto\'s';
 $lang['Recent albums'] = 'Recente albums';
+<<<<<<< HEAD
 $lang['display recently updated albums'] = 'Toon recent bijgewerkte albums';
 $lang['Recent period'] = 'Recente periode';
 $lang['Recent photos'] = 'Recente foto\'s';
@@ -245,6 +255,18 @@ $lang['login mustn\'t end with a space character'] = 'Gebruikersnaam mag niet ei
 $lang['login mustn\'t start with a space character'] = 'Gebruikersnaam mag niet beginnen met een spatie';
 $lang['this login is already used'] = 'deze gebruikersnaam is al in gebruik';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Nailadres moet conform de indeling xxx@yyy.eee worden opgegeven (bijvoorbeeld: jack@altern.org)';
+=======
+$lang['display recently updated albums'] = 'toon recent bijgewerkte albums';
+$lang['Recent period'] = 'Recente periode';
+$lang['Recent photos'] = 'Recente foto\'s';
+$lang['display most recent photos'] = 'toon de meest recente foto\'s';
+$lang['Redirection...'] = 'Doorsturen...';
+$lang['Please, enter a login'] = 'Vul alsjeblieft je aanmeldinsgegevens in';
+$lang['login mustn\'t end with a space character'] = 'gebruikersnaam mag niet eindigen met een spatie';
+$lang['login mustn\'t start with a space character'] = 'gebruikersnaam mag niet beginnen met een spatie';
+$lang['this login is already used'] = 'deze gebruikersnaam is al in gebruik';
+$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'mailadres moet conform de indeling xxx@yyy.eee worden opgegeven (bijvoorbeeld: jack@altern.org)';
+>>>>>>> master
 $lang['Auto login'] = 'Automatische aanmelding';
 $lang['remove this tag from the list'] = 'verwijder dit label';
 $lang['representative'] = 'album miniatuurweergave';
@@ -269,7 +291,11 @@ $lang['slideshow'] = 'diavoorstelling';
 $lang['stop the slideshow'] = 'stop de diavoorstelling';
 $lang['Specials'] = 'Uitgelicht';
 $lang['SQL queries in'] = 'SQL-query\'s in';
+<<<<<<< HEAD
 $lang['display only recently posted photos'] = 'Toon alleen recent geplaatste foto\'s';
+=======
+$lang['display only recently posted photos'] = 'toon alleen recent geplaatste foto\'s';
+>>>>>>> master
 $lang['return to the display of all photos'] = 'schakel terug naar het tonen van alle foto\'s';
 $lang['the beginning'] = 'het begin';
 $lang['Thumbnails'] = 'Miniatuurafbeeldingen';
@@ -309,15 +335,26 @@ $lang['%d photo'] = '%d foto';
 $lang['%d photos'] = '%d foto\'s';
 $lang['%d photo is also linked to current tags'] = '%d foto is ook gelinkt aan huidige labels';
 $lang['%d photos are also linked to current tags'] = '%d foto\'s zijn ook gelinkt aan huidige labels';
+<<<<<<< HEAD
 $lang['display photos linked to this tag'] = 'Toon foto\'s die dit label hebben';
+=======
+$lang['display photos linked to this tag'] = 'toon foto\'s die dit label hebben';
+>>>>>>> master
 $lang['photos posted during the last %d days'] = 'foto\'s die gedurende de laatste %d dagen geplaatst zijn';
 $lang['Piwigo Help'] = 'Piwigo help';
 $lang['Are you sure?'] = 'Weet je het zeker?';
 $lang['Rank'] = 'Rangorde';
+<<<<<<< HEAD
 $lang['group by letters'] = 'Groepeer op letters';
 $lang['letters'] = 'letters';
 $lang['show tag cloud'] = 'laat labelwolk zien';
 $lang['cloud'] = 'cloud';
+=======
+$lang['group by letters'] = 'groepeer op letters';
+$lang['letters'] = 'letters';
+$lang['show tag cloud'] = 'laat labelwolk zien';
+$lang['cloud'] = 'wolk';
+>>>>>>> master
 $lang['Reset to default values'] = 'Herstel de originele waarden';
 $lang['delete all photos from your favorites'] = 'Verwijder alle foto\'s uit je favorieten';
 $lang['Sent by'] = 'Verzonden door';

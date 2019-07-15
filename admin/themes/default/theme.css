@@ -6,7 +6,7 @@
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
 .content h2 {margin: 0; padding: 5px 0.5em 5px 0.5em; text-align: right; font-size: 120%;}
 .content .navigationBar { margin: 10px 0; text-align: center; }
-.content form { text-align: left; }
+.content form { text-align: left; margin-left: 7px; margin-right: 9px;}
 .content dt { margin-bottom: 5px; font-style: italic;
   font-size: 110%; }
 ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
@@ -116,7 +116,7 @@ TABLE.table2 TR {
 
 TABLE.table2 THEAD TD { padding:7px 10px 3px 10px; }
 TABLE.table2 TR.throw { text-align: center; }
-.sort { display:block; padding:8px 5px 0px 1px; clear: right; float:left; }
+.sort { display:block; padding:8px 5px 5px 15px; text-align: left;}
 
 
 .hour {
@@ -170,8 +170,7 @@ LI.categoryLi {
 /*
 	width: 100%;
 */
-	padding: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 20px;
   border-radius:5px;
 }
 
@@ -286,46 +285,50 @@ left: 60px; /*position where enlarged image should offset horizontally */
 
 BODY {
 	font-size: 0.8em;
-	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	text-align: center; /* be nice to IE5 */
 	min-width: 60em;  /* ~ 3* #menubar width */
 }
 
-H1 {
-color:#eee;
-letter-spacing:1px;
-text-align: left;
-font-size: 150%;
-font-weight: normal;
-font-style:italic;
-/* padding: 2px 0 0 10px; */
-margin: 0;
-float:left;
-}
-
 #pwgHead {
-	color: #aaa;
-  background-color: #464646;
-	height: 36px;
+  color: #d5d5d5;
+  background-color: #3c3c3c;
+  height: 50px;
 }
 
-#pwgHead H1 {
+#pwgHead .visit-gallery {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 205px;
+  background-color: #232323;
+  line-height: 50px;
+  font-size: 17px;
+}
+
+#pwgHead .visit-gallery i {
+  font-size: 14px;
+  color: #777;
+  margin-left: -20px;
+}
+
+#pwgHead .pwgHead-gallery-title {
+  color:#d5d5d5;
+  text-align: left;
+  font-size: 18px;
+  float:left;
   width: 50%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height:36px;
-}
-
-#pwgHead h1 [class="icon-home"] {
-  font-size:20px;
-  margin-right:5px;
+  line-height:50px;
+  margin: 0 0 0 220px;
 }
 
 #pwgHead A {color:#ccc;}
 #pwgHead A:hover {color:#fff}
 
-#headActions {float:right; height:36px; line-height:36px; margin-right:10px;}
+#headActions {float:right; line-height:50px; margin-right:10px;}
 #headActions A {margin-left:5px;}
 
 A {
@@ -487,6 +490,71 @@ FORM.properties SPAN.property {
 	padding: 0 0.5em 0 0;
 }
 
+/* Dashboard */
+.stat-boxes {
+  text-align:left;
+  margin:40px 10px;
+}
+
+.stat-box {
+  display:inline-block;
+  width:200px;
+  margin:10px 10px 40px 10px;
+  color:#3b3b3b;
+  text-align: center;
+}
+
+div.stat-box {
+  cursor:help;
+}
+
+.stat-box i {
+  display: inline-block;
+  background-color: #ffcfcf;
+  color: #ff5252;
+  border-radius: 50%;
+  font-size: 37px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.stat-box-yellow i {
+  color:#ffa744;
+  background-color: #ffe9cf;
+}
+.stat-box-red i {
+  background-color: #ffcfcf;
+  color: #ff5252;
+}
+.stat-box-purple i {
+  background-color: #e0daf4;
+  color: #896af3;
+}
+.stat-box-green i {
+  background-color: #d6ffcf;
+  color: #6ece5e;
+}
+.stat-box-blue i {
+  background-color: #cfebff;
+  color: #2883c3;
+}
+
+.stat-box .number, .stat-box .caption {
+  display:block;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.stat-box .number {
+  font-size: 29px;
+}
+
+a.stat-box:hover {
+  text-decoration: none;
+  color:#777;
+}
+
 #configContent fieldset {
   border:none;
   padding-left:20px;
@@ -593,7 +661,7 @@ img.ui-datepicker-trigger {
 }
 
 #photosAddContent P {
-  margin:0;
+  margin: 0;
 }
 
 #photosAddContent TH {
@@ -609,44 +677,43 @@ img.ui-datepicker-trigger {
   width:50%;
 }
 
-html, body {height:100%; margin:0; padding:0;}
+html, body {height:100; min-height: 100%; margin:0; padding:0;}
 #the_page {min-height:100%; position:absolute; width:100%; padding:0;margin:0;}
 
 #pwgMain {
-  padding: 10px 5px 60px;
+  padding: 0;
 }
 
-#footer {
-  position:absolute;
+#theAdminPage #footer {
+  position:fixed;
   bottom:0;
-  width:100%;
-	height: 34px;
-	line-height: 34px;
-	background-repeat: no-repeat;
-	background-position: 7px 2px;
-	background-color:#464646;
-  color:#aaa;
-  background-image: url(images/piwigo-logo-white-letters.svg);
-  background-size: 130px 30px;
+  left: 0;
+  width:205px;
+  height: 40px;
+  z-index: 99;
+  background-color: transparent;
+}
+
+#footer a.piwigo-logo img {
+  width: 120px;
+  margin-top: 7px;
 }
 
 #footer A {color:#ccc;}
 #footer A:hover {color:#fff}
 
 #adminHome {
-  text-align:center;
-  margin-bottom:15px;
+  margin-top:20px;
   line-height:30px;
   width:200px;
-  margin-left:5px;
-  -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;
+  margin-left:6px;
 }
 
-#adminHome A {display:block; font-size:1.1em; font-weight:bold;}
-#adminHome A {text-decoration:none;}
+#adminHome A {color:#aaa; display:block; font-size:1.1em; font-weight:bold; text-decoration:none;}
+#adminHome A:hover {color:#fff;}
 
 #piwigoInfos {float:left; margin-left:140px;}
-#pageInfos {float:right; margin-right:10px;}
+#pageInfos {display: none;}
 
 /* TipTip CSS - Version 1.2 */
 
@@ -764,25 +831,118 @@ html, body {height:100%; margin:0; padding:0;}
 
 /* Set the width of the menubar for the galery */
 #menubar {
-  width: 18em;
-  margin: 10px 0 50px 5px;
+  width: 205px;
+  margin: 0;
   display: inline;
-  float: left;
+  position: fixed;
+  top: 50px;
+  bottom: 0;
   left: 0;
+  background-color: #3c3c3c;
 }
 
-#menubar dt [class^=icon-] {
-  font-size:120%;
+#menubar i {font-size:20px;}
+
+#menubar dl dd ul li a i[class^=icon-] {
+  font-size:14px;
 }
 
 #menubar dd [class^="icon-"]:before {
     margin-right: 0.5em;
 }
 
+/* menubar is on all admin pages => No specific css file */
+#menubar {
+  padding:0; width:205px; z-index:99; text-align: left;
+  margin-left:0;
+}
+
+#menubar ul.scroll { overflow-y:auto; max-height:500px; }
+#menubar dl { width: 205px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:0; border-left:none; }
+#menubar dd { margin: 0; padding: 10px 0; }
+#menubar dt {
+	margin: 0; display: block; font-weight:bold;
+	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #aaa;
+	cursor:pointer;
+  line-height: 25px;
+}
+#menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0;  }
+#menubar dl:last-of-type { border-radius:0;  }
+#menubar li { margin: 0; padding-left:20px; }
+#menubar li A { display:block; color:#ccc }
+#menubar li A:hover {color:#eee; text-decoration:none}
+#menubar li:hover {background-color:#222;}
+#menubar ul { color: #ccc; margin:0; line-height: 25px;
+  list-style-type: none; list-style-position: inside; padding: 0; }
+
+#menubar i.open-menu {
+  font-size: 14px;
+  color: #666;
+  float: right;
+  margin-right: 5px;
+  margin-top: 2px;
+}
+
+/* tabsheets are often used in admin  pages => No specific css files */
+#tabsheet {
+  width:auto;
+  margin:0 0 20px 0;
+  padding:0 0 0 10px;
+  border:none;
+  border:none;
+  background-color:#f3f3f3;
+}
+.tabsheet {
+  display:table;
+  white-space:nowrap;
+  padding-left:10px;
+  margin:0;
+  width:auto;
+  list-style-type:none;
+  list-style-image:none;
+  text-decoration:none;
+}
+.tabsheet li {
+  background-color: transparent;
+  float:left;
+  margin:0 6px 0 0;
+  overflow:hidden;
+  text-align:right;
+  border:none;
+  position:relative;
+  top:11px;
+  border-radius:5px 5px 0 0;
+}
+.tabsheet a {
+display:block; font-size:11px; border:0;
+font-weight:bold; overflow:hidden; padding:10px 20px;
+text-align:right; text-decoration:none; margin: 0;
+color: #898989; }
+.tabsheet a:first-letter { text-transform:capitalize; }
+.tabsheet li.selected_tab  {
+  border-bottom:none;
+  background-color: #fff;
+}
+.tabsheet li:hover, .tabsheet li.selected_tab  {
+margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
+ }
+/* .tabsheet a:hover */
+.tabsheet li.selected_tab  a { color: #555; }
+.tabsheet a span { font-size:14px; margin-right:2px; padding:0 3px 0 1px; }
+
+.sort { clear: none; }
+
 .content {
-  padding:0 5px 0 0;
-  margin: 0 5px 0 227px;
+  padding:0;
+  margin: 0 0 0 205px;
   z-index:99;
+}
+
+#content {
+  border: none;
+  min-height: 467px;
+  margin-left:205px;
+  margin-top: 0;
 }
 
 #thePopuphelpPage {
@@ -804,7 +964,16 @@ html, body {height:100%; margin:0; padding:0;}
 #themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
 .themeBoxes {min-height:0;text-align:left;}
 
-h2 { letter-spacing:1px; font-weight:bold;}
+h1 {
+  background-color: #f3f3f3;
+  margin: 0;
+  padding: 20px;
+  text-align: left;
+  font-weight: normal;
+  color: #333;
+  font-size: 22px;
+}
+h2 { letter-spacing:1px; font-weight:bold; display: none;}
 h2:lang(en) { text-transform:capitalize; }
 
 #pluginsMenuSeparator {width:80%; margin:5px auto;}
@@ -820,7 +989,7 @@ h2:lang(en) { text-transform:capitalize; }
  */
 .infos, .errors, .warnings, .messages {
   text-align: left;
-  margin: 15px 10px 15px 15px;
+  margin: 15px 35px 50px 35px;
   padding: 5px;
   font-weight:bold;
   min-height: 54px;
@@ -829,6 +998,8 @@ h2:lang(en) { text-transform:capitalize; }
 .infos ul, .errors ul, .warnings ul, .messages ul {
   margin-top:18px;
 }
+
+.infos ul {color: #3C3C3C;}
 
 .eiw-icon {
   float: left;
@@ -839,8 +1010,9 @@ h2:lang(en) { text-transform:capitalize; }
 .infos {
   color: #0a0;
   background-color:#c2f5c2;
-  border-left:4px solid #0a0;
 }
+
+.infos a {color: #3C3C3C;}
 
 .errors {
   color: #f22;
@@ -860,6 +1032,15 @@ h2:lang(en) { text-transform:capitalize; }
   border-left:4px solid #00529b;
 }
 
+.badge {
+  background-color:#0a0;
+  color:white;
+  padding:1px 5px;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  margin-left:5px;
+}
 
 .infos li, .errors li, .warnings li, .messages li { list-style-type:none; }
 .infos .submit {margin-left:30px;}
@@ -961,10 +1142,22 @@ INPUT[type="radio"], INPUT[type="checkbox"] {
 .header_msgs {
   text-align:center;
   font-weight: bold;
-  color:#333;
-  background-color: transparent;
-  margin: 1px;
-  padding: 1px;
+  color:#ff5252;
+  background-color: #ffcfcf;
+  margin: 0;
+  padding: 0 0 0 205px;
+  border:0;
+  font-size: 24px;
+  line-height: 50px;
+}
+.header_msgs a {
+  background-color: #ff5252;
+  color: white;
+  padding: 8px 20px;
+}
+.header_msgs a:hover {
+  color: white;
+  text-decoration: underline;
 }
 
 /**
@@ -983,7 +1176,6 @@ INPUT[type="radio"], INPUT[type="checkbox"] {
 
 LEGEND {
   font-weight: bold;
-  letter-spacing: 1px;
   padding: 0 10px;
 }
 
@@ -1031,36 +1223,37 @@ LEGEND {
 /* Upload Form */
 .plupload_header {display:none;}
 #uploadForm .plupload_container {padding:0}
-#uploadForm .plupload_scroll .plupload_filelist {height:250px;}
+#uploadForm .plupload_scroll .plupload_filelist {height:250px; overflow-y: hidden;}
 #uploadForm li.plupload_droptext {line-height:230px;font-size:2em;}
 
 #uploadBoxes .file {margin-bottom:5px;text-align:left;}
 #uploadBoxes {margin-top:20px;}
 #addUploadBox {margin-bottom:2em;}
 
-p.uploadInfo {text-align:left;font-size:90%;color:#999;}
-p#uploadWarningsSummary {text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
+p.uploadInfo {text-align:left;}
+p#uploadWarningsSummary {text-align:left;}
 p#uploadWarningsSummary .showInfo {margin-left:3px;}
 p#uploadWarnings {display:none;text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
 p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 
-#photosAddContent p.showFieldset {text-align:left;margin: 1em;}
+#photosAddContent p.showFieldset {text-align:left; display: none!important;}
+a#showPermissions {padding: 5px 10px; font-size: 11px; font-weight: bold; margin-left: 35px;}
+a#showPermissions:hover {text-decoration: none;}
 
 #uploadForm .plupload_buttons, #uploadForm .plupload_progress { display:none !important; }
-#uploadForm #startUpload { margin:5px 0 15px 15px; padding:5px 10px; font-size:1.1em; }
-#uploadForm #startUpload:before { margin-right:0.5em; }
-#uploadForm #addFiles { margin-right:10px; float:left; }
+#uploadForm #startUpload { margin:5px 0 15px 25px; padding:8px 10px; font-size:1.1em; }
+#uploadForm #startUpload:before { margin-right:0.5em;} 
+#uploadForm #addFiles { margin-right:10px; float:left; height: 45.6px;}
 #uploadForm #uploadingActions { margin:10px 10px 10px 15px; }
 #uploadForm .big-progressbar { vertical-align:middle; display:inline-block; margin-left:10px; }
 
 .big-progressbar {
   width:100%;
-  max-width:600px;
-  background:#fff;
+  max-width:90%;
   padding:0;
-  border-radius:5px;
+  border-radius:15px;
   position:relative;
-  height:18px;
+  height:8px;
 }
 
 @keyframes animatedBackground {
@@ -1074,13 +1267,11 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 }
 
 .big-progressbar .progressbar {
-  height:18px;
-  min-width:5px;
-  background:#444;
-  border-radius:5px 0 0 5px;
-  background-size:33px 25px;
-  animation: animatedBackground 1s linear infinite;
-  -webkit-animation: animatedBackground 1s linear infinite;
+  height: 8px;
+  min-width: 5px;
+  background: #FFBD4D;
+  border-radius: 5px 0 0 5px;
+  background-size: 33px 25px;
 }
 
 /* Selectize */
@@ -1135,10 +1326,11 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   max-height:170px;
 }
 #addAlbumForm input[name="category_name"] {
-  width:600px;
+  width: 565px; padding: 8px 8px; 
 }
 #formCreateAlbum input[name="virtual_name"] {
   width:300px;
+  border-radius: 3px;
 }
 
 /* Pending Comments */
@@ -1157,14 +1349,34 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 .commentFilter {text-align:left;margin:5px 1em;}
 .commentFilter .navigationBar {float:right; margin:0;}
 
-FORM#categoryOrdering p.albumTitle {margin:0;}
-FORM#categoryOrdering p.albumActions, FORM#categoryOrdering span.albumInfos {visibility:hidden; margin:0}
-FORM#categoryOrdering .categoryLi:hover p.albumActions, FORM#categoryOrdering .categoryLi:hover span.albumInfos {visibility:visible;}
-FORM#categoryOrdering p.albumActions a {margin-right:0}
+FORM#categoryOrdering p.albumTitle {margin:0; margin-left: 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-bottom: 4px;}
+FORM#categoryOrdering p.albumTitle a {font-size: 14px; font-weight: 600;}
+FORM#categoryOrdering p.albumTitle i {display: none;}
+FORM#categoryOrdering p.albumActions {visibility:hidden; margin:0; height: 40px;}
+FORM#categoryOrdering .categoryLi:hover p.albumActions {visibility:visible;}
+FORM#categoryOrdering p.albumActions {display:flex;justify-content:center;align-items:center;}
+FORM#categoryOrdering p.albumActions a {
+	margin-right:0; 
+	font-weight: bold; 
+	height: 95%; 
+	padding: 0 15px;
+	padding-top: 22px;
+}
+
+.albumInfos { font-size: 12px; }
+.actionTitle span {text-transform: capitalize;}
+
+FORM#categoryOrdering p.albumActions a:hover {text-decoration: none;}
 FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
-.showCreateAlbum {text-align:left; margin:0 1em 1em 1em;line-height:22px;}
+.albumBlock {display: flex; justify-content: space-between; padding: 10px 10px 0 10px;}
+.albumBlock .albumLineBlock {display: block; padding-left: 7px; max-width: 45%; height: 50px;}
+.showCreateAlbum {text-align:left; margin:0 1em 25px 20px; line-height:22px;}
 .showCreateAlbum .userSeparator {margin:0 5px;}
+#addAlbumOpen, #autoOrderOpen {padding: 7px 15px; font-weight: bold; font-size: 11px;}
+.afterUploadActions {text-align: center; margin-bottom: 30px !important;}
+.afterUploadActions a {justify-content: center; margin: 35px; font-weight: bold; font-size: 14px; padding: 10px 12px;}
+#addAlbumOpen::before ,#autoOrderOpen::before {margin-right: 10px; font-weight: bold; font-size: 15px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
 #autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}
 
@@ -1371,4 +1583,91 @@ fieldset#environment legend i[class*="icon-"] {
   #headActions a span {
     display:inline;
   }
+}
+
+.buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
+  font-size:12px;
+  border:none;
+  padding:13px 20px;
+  margin-left:0;
+  font-weight: bold;
+  transition: all 125ms ease-out;
+}
+
+#cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
+
+.selectAlbum, #permissions, .selectFiles {border: 0;}
+#permissions {display: none!important;}
+#permissions, .selectFiles {margin-top: 35px; margin-bottom: 20px;}
+.selectAlbumBlock {display: flex; margin-left: 10px; margin-top: 10px;}
+.icon-plus.cboxElement {
+	padding: 8px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+	font-size: 15px;
+	margin-bottom: 8px;
+	transition: all 125ms ease-out;
+}
+.icon-plus.cboxElement:hover {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);}
+#albumSelection {margin-left: 25px;}
+.selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
+.buttonLike {padding: 8px 10px; margin-left: 5px;}
+.selectFilesButtonBlock {display: flex; margin-top: 10px;}
+.selectFilesinfo {margin-left: 15px; font-size: 90%; color: #999; display: flex; flex-direction: column; justify-content: center;}
+#uploader {margin-top: 25px; font-weight: bold !important;}
+.plupload_filelist_header {display: none;}
+.plupload_filelist {scrollbar-width: thin!important;}
+.plupload_wrapper, .plupload_file_size {font-weight: bold;}
+.plupload_filelist li {background: none!important; font-weight: bold;}
+li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover !important; width: 10px; height: 10px; margin-top: 3px;}
+li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover !important;}
+.plupload_file_status {margin-right: 45px;}
+.plupload_file_size {margin-right: 25px;}
+.plupload_total_file_size {margin-right: -8px;}
+.plupload_total_status {color: #707070!important; margin-right: -8px; font-weight: bold;}
+#photosAddContent .Addedphotos {border: none; margin-top: 35px;}
+.plupload_upload_status {}
+
+.addAlbumEmpty {text-align: center; position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%);}
+.addAlbumEmptyCenter {position: relative; margin: auto; height: calc(100vh - 200px);}
+.addAlbumEmptyTitle {font-size: 35px; font-weight: bold;}
+.addAlbumEmptyInfos {font-size: 14px; margin-bottom: 25px !important; margin-top: 5px !important;}
+.addAlbumEmpty a{display: inline-block; padding: 10px 15px; font-weight: bold; font-size: 14px;}
+.addAlbumEmpty a:hover{text-decoration: none;}
+.addAlbumEmpty a::first-letter {text-transform: capitalize;}
+#cboxLoadedContent {height: auto !important; padding: 20px 20px 20px 20px !important;}
+.buttonSeparator {font-weight: bold; text-transform: uppercase;}
+.popinButtons {text-align: right; margin-top: 24px;}
+.popinButtons input[type="submit"] {margin-right: 0;}
+#albumCreationLoading {
+	background-color: #ffa744;
+	color: #3c3c3c; font-size: 12px;
+	border: none;
+	padding: 12.2px 28.4px;
+	font-weight: bold; 
+	display: none;
+}
+.popinField {margin-top: 30px; }
+.popinField.addAlbumFormParent {margin-top: 0;}
+.popinFieldLabel {display: block; margin-bottom: 5px;}
+.selectedAlbum {margin-top: 10px; margin-left: 5px;}
+.selectedAlbum span {
+	padding: 10px 12px;
+	font-weight: bold;
+	background-color: #f5f5f5;
+	text-align: center;
+	margin-top: 20px;
+	border-radius: 7px;
+}
+.selectedAlbum span.icon-sitemap::before, .afterUploadActions a.batchLink.icon-pencil::before, .afterUploadActions a.icon-plus-circled::before {
+	margin-right: 12px;
+}
+#addFiles i::before {margin-left: 13px; font-size: 15px;}
+.plupload_filelist_footer {display: none;}
+
+/* album manager */
+.selectedAlbum.cat-list-album-path {
+  margin: 40px 0 30px 0;
+}
+.selectedAlbum.cat-list-album-path span {
+  background-color: transparent;
 }

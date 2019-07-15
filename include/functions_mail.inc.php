@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -425,7 +410,7 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
  * @param array $tpl - as in pwg_mail()
  * @return boolean
  */
-function pwg_mail_admins($args=array(), $tpl=array())
+function pwg_mail_admins($args=array(), $tpl=array(), $exclude_current_user=true, $only_webmasters=false)
 {
   if (empty($args['content']) and empty($tpl))
   {
@@ -435,6 +420,12 @@ function pwg_mail_admins($args=array(), $tpl=array())
   global $conf, $user;
   $return = true;
 
+  $user_statuses = array('webmaster');
+  if (!$only_webmasters)
+  {
+    $user_statuses[] = 'admin';
+  }
+
   // get admins (except ourself)
   $query = '
 SELECT
@@ -443,9 +434,16 @@ SELECT
   FROM '.USERS_TABLE.' AS u
     JOIN '.USER_INFOS_TABLE.' AS i
     ON i.user_id =  u.'.$conf['user_fields']['id'].'
-  WHERE i.status in (\'webmaster\',  \'admin\')
-    AND u.'.$conf['user_fields']['email'].' IS NOT NULL
-    AND i.user_id <> '.$user['id'].'
+  WHERE i.status in (\''.implode("','", $user_statuses).'\')
+    AND u.'.$conf['user_fields']['email'].' IS NOT NULL';
+
+  if ($exclude_current_user)
+  {
+    $query.= '
+    AND i.user_id <> '.$user['id'];
+  }
+
+  $query.= '
   ORDER BY name
 ;';
   $admins = array_from_query($query);
@@ -607,7 +605,14 @@ function pwg_mail($to, $args=array(), $tpl=array())
     $conf_mail = get_mail_configuration();
   }
 
-  include_once(PHPWG_ROOT_PATH.'include/phpmailer/PHPMailerAutoload.php');
+  // PHPMailer autoloader shows warnings with PHP 7.2. Solution to upgrade to PHPMailer 6
+  // implies requiring PHP 5.5, which is bigger than current requirement for Piwigo.
+  //
+  // include_once(PHPWG_ROOT_PATH.'include/phpmailer/PHPMailerAutoload.php');
+  //
+  // replace by direct include of the classes:
+  include_once(PHPWG_ROOT_PATH.'include/phpmailer/class.smtp.php');
+  include_once(PHPWG_ROOT_PATH.'include/phpmailer/class.phpmailer.php');
 
   $mail = new PHPMailer;
 

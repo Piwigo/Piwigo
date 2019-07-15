@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2015 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['Members'] = 'Partaideak';
 $lang['Menu Management'] = 'Menuak';
@@ -321,6 +306,10 @@ $lang['(filtered from %s total users)'] = '(guztizko %s erabiltzaileetatik iraga
 $lang['(this tag will be deleted)'] = '(etiketa hau ezabatu egingo da)';
 $lang[', click on'] = ', egin klik';
 $lang['... or '] = '… edo';
+<<<<<<< HEAD
+=======
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Androiderako Piwigo</em> aplikazioak ahalmena ematen dizu Android gailua zure Piwigo galeriarekin konektatzeko, albumak sortzeko edo hainbat argazki batera kargatzeko.';
+>>>>>>> master
 $lang['%d album including'] = 'Album %d barne';
 $lang['%d albums including'] = '%d album barne';
 $lang['%d albums moved'] = '%d album mugitu egin dira';
@@ -388,6 +377,10 @@ $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'G
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Ziur eguneraketa instalatu nahi duzula? Egiaztatu bertsio honek aurretik desinstalaziorik ez ote duen behar. ';
 $lang['Automatic sort order'] = 'Hurrenkera automatikoa';
 $lang['Available on'] = 'Hemen eskuragarri';
+<<<<<<< HEAD
+=======
+$lang['Available versions for'] = 'Bertsio eskuragarriak honentzako';
+>>>>>>> master
 $lang['Average rate'] = 'Batez besteko balorazioa';
 $lang['Batch Manager'] = 'Multzoko kudeatzailea';
 $lang['Bound Theme'] = 'Lotu gaia';
@@ -565,6 +558,10 @@ $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo argitaratze-plugina Light
 $lang['Please wait...'] = 'Itxaron…';
 $lang['Please select at least two groups'] = 'Hautatu gutxienez talde bi';
 $lang['Piwigo export plugin for iPhoto'] = 'Piwigo esportazio-plugina iPhotorako';
+<<<<<<< HEAD
+=======
+$lang['Piwigo for Android'] = 'Piwigo Androiderako';
+>>>>>>> master
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo iOSerako (iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo argitaratze-plugina Shotwellerako';
 $lang['Piwigo publish plugin for digiKam'] = 'Piwigo argitaratze-plugina digiKamerako';
@@ -943,6 +940,10 @@ $lang['only directories'] = 'direktorioak baino ez';
 $lang['only perform a simulation (no change in database will be made)'] = 'simulazioa baino ez burutu (ez da ezer aldatuko datu-basean)';
 $lang['other'] = 'besterik';
 $lang['overrides existing values with empty ones'] = 'gainidatzi baloreak balore hutsekin';
+<<<<<<< HEAD
+=======
+$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader <e>Piwigo Kargatzailea</em> esan nahi du. pLoaderrek argazkiak prestatzen ditu zure ordenagailutik eta Piwigo galeriara bidaltzen ditu.';
+>>>>>>> master
 $lang['middle'] = 'erdian';
 $lang['manual order'] = 'eskuzko hurrenkera';
 $lang['manage sub-albums'] = 'kudeatu azpi-albumak';

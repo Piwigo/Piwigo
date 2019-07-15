@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 //--------------------------------------------------------------------- include
@@ -40,11 +25,20 @@ if (!is_a_guest())
 trigger_notify('loc_begin_identification');
 
 //-------------------------------------------------------------- identification
+
+// security (level 1): the redirect must occur within Piwigo, so the
+// redirect param must start with the relative home url
+if (isset($_POST['redirect']))
+{
+  $_POST['redirect_decoded'] = urldecode($_POST['redirect']);
+}
+check_input_parameter('redirect_decoded', $_POST, false, '{^'.preg_quote(cookie_path()).'}');
+
 $redirect_to = '';
 if ( !empty($_GET['redirect']) )
 {
   $redirect_to = urldecode($_GET['redirect']);
-  if ( is_a_guest() and $conf['guest_access'] )
+  if ( $conf['guest_access'] and !isset($_GET['hide_redirect_error']))
   {
     $page['errors'][] = l10n('You are not authorized to access the requested page');
   }
@@ -68,7 +62,23 @@ if (isset($_POST['login']))
 
     if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
     {
-      redirect(empty($redirect_to) ? get_gallery_home_url() : $redirect_to);
+      // security (level 2): force redirect within Piwigo. We redirect to
+      // absolute root url, including http(s)://, without the cookie path,
+      // concatenated with $_POST['redirect'] param.
+      //
+      // example:
+      // {redirect (raw) = /piwigo/git/admin.php}
+      // {get_absolute_root_url = http://localhost/piwigo/git/}
+      // {cookie_path = /piwigo/git/}
+      // {host = http://localhost}
+      // {redirect (final) = http://localhost/piwigo/git/admin.php}
+      $root_url = get_absolute_root_url();
+
+      redirect(
+        empty($redirect_to)
+          ? get_gallery_home_url()
+          : substr($root_url, 0, strlen($root_url) - strlen(cookie_path())).$redirect_to
+        );
     }
     else
     {

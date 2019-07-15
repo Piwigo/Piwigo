@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if( !defined("PHPWG_ROOT_PATH") )
@@ -86,11 +71,19 @@ $display_checkboxes = array(
     'index_posted_date_icon',
     'index_created_date_icon',
     'index_slideshow_icon',
+    'index_sizes_icon',
     'index_new_icon',
+    'index_edit_icon',
+    'index_caddie_icon',
+    'display_fromto',
     'picture_metadata_icon',
     'picture_slideshow_icon',
     'picture_favorite_icon',
+    'picture_sizes_icon',
     'picture_download_icon',
+    'picture_edit_icon',
+    'picture_caddie_icon',
+    'picture_representative_icon',
     'picture_navigation_icons',
     'picture_navigation_thumb',
     'picture_menu',
@@ -143,6 +136,7 @@ $mail_themes = array(
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
   $int_pattern = '/^\d+$/';
 
   switch ($page['section'])
@@ -153,6 +147,8 @@ if (isset($_POST['submit']))
       {
         if ( !empty($_POST['order_by']) )
         {
+          check_input_parameter('order_by', $_POST, true, '/^('.implode('|', array_keys($sort_fields)).')$/');
+
           $used = array();
           foreach ($_POST['order_by'] as $i => $val)
           {
@@ -313,6 +309,7 @@ $action.= '&amp;section='.$page['section'];
 $template->assign(
   array(
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=configuration',
+    'PWG_TOKEN' => get_pwg_token(),
     'F_ACTION'=>$action
     ));
 

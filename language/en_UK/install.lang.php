@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['Installation'] = "Installation";
@@ -47,14 +32,14 @@ $lang['Password [confirm]'] = "Password [confirm]";
 $lang['verification'] = "verification";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Need help? Ask your question on the <a href="%s">Piwigo message board</a>.';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Visitors will be able to use this email to contact the site administrator';
-$lang['PHP 5 is required'] = 'PHP 5.2 is required';
+$lang['PHP 5 is required'] = 'PHP 5.3 is required';
 $lang['It appears your webhost is currently running PHP %s.'] = "It appears your webhost is currently running PHP %s.";
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo may try to switch your configuration to PHP 5.2 by creating or modifying a .htaccess file.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo may try to switch your configuration to PHP 5.3 by creating or modifying a .htaccess file.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Note you can change your configuration by yourself and then restart Piwigo.';
-$lang['Try to configure PHP 5'] = 'Try to configure PHP 5.2';
+$lang['Try to configure PHP 5'] = 'Try to configure PHP 5.3';
 $lang['Sorry!'] = "Sorry!";
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo was not able to configure PHP 5.2';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'You should refer to your hosting provider\'s support and see how you can switch to PHP 5.2 by yourself.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo was not able to configure PHP 5.3';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'You should refer to your hosting provider\'s support and see how you can switch to PHP 5.3 by yourself.';
 $lang['Hope to see you back soon.'] = "Hope to see you back soon.";
 $lang['Congratulations, Piwigo installation is completed'] = 'Congratulations, Piwigo installation is completed';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning: database.inc.php must only contain what is in the textarea, no line return or space character)';

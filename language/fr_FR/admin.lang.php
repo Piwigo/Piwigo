@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -601,6 +586,7 @@ $lang['Read Piwigo Documentation'] = 'Lire la documentation Piwigo';
 $lang['Start pLoader and add your photos.'] = 'Démarrez pLoader et ajoutez vos photos.';
 $lang['Switch to clear or dark colors for administration'] = 'Choisir des couleurs claires ou sombres pour l\'administration';
 $lang['Theme has been successfully installed'] = 'Le thème a été installé avec succès';
+$lang['Visit'] = 'Visiter';
 $lang['Visit Gallery'] = 'Visiter la galerie';
 $lang['Visit Piwigo project website'] = 'Visiter le site web du projet Piwigo';
 $lang['Guest Settings'] = 'Paramètres invité';
@@ -762,6 +748,7 @@ $lang['You can\'t define a default photo order because you have a custom setting
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Vous avez spécifié <i>$conf[\'order_by\']</i> dans votre fichier de configuration, ce paramètre est obsolète, veuillez le supprimer ou le renommer en <i>$conf[\'order_by_custom\']</i> !';
 $lang['Add a criteria'] = 'Ajouter un critère';
 $lang['... or '] = '... ou bien ';
+$lang['... or hide this link'] = '... ou bien cacher ce lien';
 $lang['Create'] = 'Créer';
 $lang['Start Upload'] = 'Démarrer le transfert';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Vous utilisez le formulaire Flash. Des problèmes ? Essayez le <a href="%s">formulaire HTML</a> à la place.';
@@ -1010,3 +997,7 @@ $lang['It only takes a few clicks.'] = 'Cela se fait en quelques clics';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s est disponible, merci de mettre à jour';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Maintenir Piwigo à jour est important pour la sécurité.';
 $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Il est temps de mettre à jour votre Piwigo avec la version %s, allez sur %s';
+$lang['Welcome!'] = 'Bienvenue !';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo a besoin d\'un album pour y ajouter des photos.';
+$lang['Create a first album'] = 'Créer un premier album';
+$lang['or'] = 'ou';

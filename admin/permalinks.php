@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 function parse_sort_variables(
@@ -85,6 +70,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_permalinks.php');
 $selected_cat = array();
 if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
 {
+  check_pwg_token();
   $permalink = $_POST['permalink'];
   if ( empty($permalink) )
     delete_cat_permalink($_POST['cat_id'], isset($_POST['save']) );
@@ -94,6 +80,7 @@ if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
 }
 elseif ( isset($_GET['delete_permanent']) )
 {
+  check_pwg_token();
   $query = '
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
   WHERE permalink=\''.$_GET['delete_permanent'].'\'
@@ -125,6 +112,7 @@ FROM '.CATEGORIES_TABLE;
 
 display_select_cat_wrapper( $query, $selected_cat, 'categories', false );
 
+$pwg_token = get_pwg_token();
 
 // --- generate display of active permalinks -----------------------------------
 $sort_by = parse_sort_variables(
@@ -178,12 +166,16 @@ while ( $row = pwg_db_fetch_assoc($result) )
   $row['U_DELETE'] =
       add_url_params(
         $url_del_base,
-        array( 'delete_permanent'=> $row['permalink'] )
+        array('delete_permanent'=> $row['permalink'],'pwg_token'=>$pwg_token)
       );
   $deleted_permalinks[] = $row;
 }
-$template->assign('deleted_permalinks', $deleted_permalinks);
-$template->assign('U_HELP', get_root_url().'admin/popuphelp.php?page=permalinks');
+
+$template->assign(array(
+  'PWG_TOKEN' => $pwg_token,
+  'U_HELP' => get_root_url().'admin/popuphelp.php?page=permalinks',
+  'deleted_permalinks' => $deleted_permalinks,
+  ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'permalinks');
 ?>

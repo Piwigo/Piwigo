@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -199,7 +184,7 @@ function register_user($login, $password, $mail_address, $notify_admin=true, &$e
     // Assign by default groups
     $query = '
 SELECT id
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE is_default = \''.boolean_to_string(true).'\'
   ORDER BY id ASC
 ;';
@@ -281,6 +266,8 @@ SELECT id
         'email'=>$mail_address,
         )
       );
+
+    pwg_activity('user', $user_id, 'add');
 
     return $user_id;
   }
@@ -873,7 +860,7 @@ function create_user_infos($user_ids, $override_values=null)
       }
 
       $insert = array_merge(
-        $default_user,
+        array_map('pwg_db_real_escape_string', $default_user),
         array(
           'user_id' => $user_id,
           'status' => $status,
@@ -961,6 +948,7 @@ function log_user($user_id, $remember_me)
 
   $user['id'] = $_SESSION['pwg_uid'];
   trigger_notify('user_login', $user['id']);
+  pwg_activity('user', $user['id'], 'login');
 }
 
 /**
@@ -1137,6 +1125,7 @@ function logout_user()
   global $conf;
 
   trigger_notify('user_logout', @$_SESSION['pwg_uid']);
+  pwg_activity('user', @$_SESSION['pwg_uid'], 'logout');
 
   $_SESSION = array();
   session_unset();

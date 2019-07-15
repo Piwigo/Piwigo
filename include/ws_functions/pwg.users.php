@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -149,11 +134,6 @@ SELECT DISTINCT ';
     else $first = false;
     $query.= $field .' AS '. $name;
   }
-  if (isset($params['display']['groups']))
-  {
-    if (!$first) $query.= ', ';
-    $query.= '"" AS groups';
-  }
 
   if (isset($display['ui.last_visit']))
   {
@@ -179,6 +159,10 @@ SELECT DISTINCT ';
   while ($row = pwg_db_fetch_assoc($result))
   {
     $row['id'] = intval($row['id']);
+    if (isset($params['display']['groups']))
+    {
+      $row['groups'] = array(); // will be filled later
+    }
     $users[ $row['id'] ] = $row;
   }
 
@@ -295,6 +279,30 @@ function ws_users_add($params, &$service)
   }
 
   return $service->invoke('pwg.users.getList', array('user_id'=>$user_id));
+}
+
+/**
+ * API method
+ * Get a new authentication key for a user.
+ * @param mixed[] $params
+ *    @option int[] user_id
+ *    @option string pwg_token
+ */
+function ws_users_getAuthKey($params, &$service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $authkey = create_user_auth_key($params['user_id']);
+
+  if ($authkey === false)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'invalid user_id');
+  }
+
+  return $authkey;
 }
 
 /**
@@ -590,7 +598,7 @@ DELETE
     $query = '
 SELECT
     id
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE id IN ('.implode(',', $params['group_id']).')
 ;';
     $group_ids = array_from_query($query, 'id');
@@ -615,6 +623,8 @@ SELECT
   }
 
   invalidate_user_cache();
+
+  pwg_activity('user', $params['user_id'], 'edit');
 
   return $service->invoke('pwg.users.getList', array(
     'user_id' => $params['user_id'],

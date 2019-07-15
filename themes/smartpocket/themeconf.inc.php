@@ -103,6 +103,60 @@ if (!empty($_COOKIE['screen_size']))
 $this->assign('picture_derivative_params', ImageStdParams::get_by_type($type));
 $this->assign('thumbnail_derivative_params', ImageStdParams::get_by_type(IMG_SQUARE));
 
+add_event_handler('loc_end_section_init', 'sp_end_section_init');
+function sp_end_section_init()
+{
+  global $page, $template;
+
+  // variables to log history
+  $template->assign(
+    'smartpocket_log_history',
+    array(
+      'cat_id' => @$page['category']['id'],
+      'section' => @$page['section'],
+      'tags_string' => @implode(',', @$page['tag_ids']),
+      )
+    );
+}
+
+add_event_handler('ws_add_methods', 'sp_add_methods');
+function sp_add_methods($arr)
+{
+  $service = &$arr[0];
+  $service->addMethod(
+    'smartpocket.images.logHistory',
+    'ws_sp_log_history',
+    array(
+      'image_id' => array('type'=>WS_TYPE_ID),
+      'cat_id' => array('type'=>WS_TYPE_ID, 'default'=>null),
+      'section' => array('default'=>null),
+      'tags_string' => array('default'=>null),
+      ),
+    'Log visit in history'
+    );
+}
+
+function ws_sp_log_history($params, &$service)
+{
+  global $logger, $page;
+
+  if (!empty($params['section']) and in_array($params['section'], get_enums(HISTORY_TABLE, 'section')))
+  {
+    $page['section'] = $params['section'];
+  }
+
+  if (!empty($params['cat_id']))
+  {
+    $page['category'] = array('id' => $params['cat_id']);
+  }
+
+  if (!empty($params['tags_string']) and preg_match('/^\d+(,\d+)*$/', $params['tags_string']))
+  {
+    $page['tag_ids'] = explode(',', $params['tags_string']);
+  }
+
+  pwg_log($params['image_id'], 'picture');
+}
 //------------------------------------------------------------- mobile version & theme config
 add_event_handler('init', 'mobile_link');
 

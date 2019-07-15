@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 // +-----------------------------------------------------------------------+
@@ -41,6 +26,9 @@ trigger_notify('loc_begin_admin');
 
 check_status(ACCESS_ADMINISTRATOR);
 
+check_input_parameter('page', $_GET, false, '/^[a-zA-Z\d_-]+$/');
+check_input_parameter('section', $_GET, false, '/^[a-z]+[a-z_\/-]*(\.php)?$/i');
+
 // +-----------------------------------------------------------------------+
 // | Direct actions                                                        |
 // +-----------------------------------------------------------------------+
@@ -56,12 +44,14 @@ if (isset($_GET['plugins_new_order']))
 if (isset($_GET['change_theme']))
 {
   $admin_themes = array('roma', 'clear');
+  $admin_theme_array = array($conf['admin_theme']);
+  $result = array_diff(
+      $admin_themes,
+      $admin_theme_array
+    );
 
   $new_admin_theme = array_pop(
-    array_diff(
-      $admin_themes,
-      array($conf['admin_theme'])
-      )
+      $result
     );
 
   conf_update_param('admin_theme', $new_admin_theme);
@@ -159,6 +149,11 @@ else
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
 
+// $_GET['tab'] is often used to perform and
+// include('admin_page_'.$_GET['tab'].'.php') : we need to protect it to
+// avoid any unexpected file inclusion
+check_input_parameter('tab', $_GET, false, '/^[a-zA-Z\d_-]+$/');
+
 // +-----------------------------------------------------------------------+
 // | Template init                                                         |
 // +-----------------------------------------------------------------------+
@@ -201,6 +196,7 @@ $template->assign(
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => $change_theme_url,
     'U_UPDATES' => $link_start.'updates',
+    'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
     )
   );
   
@@ -239,6 +235,18 @@ if ($nb_photos_in_caddie > 0)
       'U_CADDIE' => $link_start.'batch_manager&amp;filter=prefilter-caddie',
       )
     );
+}
+
+// any photos with no md5sum ?
+$nb_no_md5sum =  count(get_photos_no_md5sum());
+if ($nb_no_md5sum > 0)
+{
+  $template->assign(
+    array(
+      'NB_NO_MD5SUM' => $nb_no_md5sum,
+      'U_NO_MD5SUM' => $link_start.'batch_manager&amp;filter=prefilter-no_sync_md5sum',
+    )
+  );
 }
 
 // any orphan photo?

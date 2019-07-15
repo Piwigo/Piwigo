@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
@@ -56,14 +41,181 @@ class updates
 
   static function check_piwigo_upgrade()
   {
-    $_SESSION['need_update'] = null;
+    $_SESSION['need_update'.PHPWG_VERSION] = null;
 
     if (preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION, $matches)
       and @fetchRemote(PHPWG_URL.'/download/all_versions.php?rand='.md5(uniqid(rand(), true)), $result))
     {
       $all_versions = @explode("\n", $result);
       $new_version = trim($all_versions[0]);
-      $_SESSION['need_update'] = version_compare(PHPWG_VERSION, $new_version, '<');
+      $_SESSION['need_update'.PHPWG_VERSION] = version_compare(PHPWG_VERSION, $new_version, '<');
+    }
+  }
+
+  /**
+   * finds new versions of Piwigo on Piwigo.org.
+   *
+   * @since 2.9
+   * @return array (
+   *   'piwigo.org-checked' => has piwigo.org been checked?,
+   *   'is_dev' => are we on a dev version?,
+   *   'minor_version' => new minor version available,
+   *   'major_version' => new major version available,
+   * )
+   */
+  function get_piwigo_new_versions()
+  {
+    $new_versions = array(
+      'piwigo.org-checked' => false,
+      'is_dev' => true,
+      );
+    
+    if (preg_match('/^(\d+\.\d+)\.(\d+)$/', PHPWG_VERSION))
+    {
+      $new_versions['is_dev'] = false;
+      $actual_branch = get_branch_from_version(PHPWG_VERSION);
+
+      $url = PHPWG_URL.'/download/all_versions.php';
+      $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
+
+      if (@fetchRemote($url, $result)
+          and $all_versions = @explode("\n", $result)
+          and is_array($all_versions))
+      {
+        $new_versions['piwigo.org-checked'] = true;
+        $last_version = trim($all_versions[0]);
+
+        if (version_compare(PHPWG_VERSION, $last_version, '<'))
+        {
+          $last_branch = get_branch_from_version($last_version);
+
+          if ($last_branch == $actual_branch)
+          {
+            $new_versions['minor'] = $last_version;
+          }
+          else
+          {
+            $new_versions['major'] = $last_version;
+
+            // Check if new version exists in same branch
+            foreach ($all_versions as $version)
+            {
+              $branch = get_branch_from_version($version);
+
+              if ($branch == $actual_branch)
+              {
+                if (version_compare(PHPWG_VERSION, $version, '<'))
+                {
+                  $new_versions['minor'] = $version;
+                }
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+    return $new_versions;
+  }
+
+  /**
+   * Checks for new versions of Piwigo. Notify webmasters if new versions are available, but not too often, see
+   * $conf['update_notify_reminder_period'] parameter.
+   *
+   * @since 2.9
+   */
+  function notify_piwigo_new_versions()
+  {
+    global $conf;
+
+    $new_versions = $this->get_piwigo_new_versions();
+    conf_update_param('update_notify_last_check', date('c'));
+
+    if ($new_versions['is_dev'])
+    {
+      return;
+    }
+
+    $new_versions_string = join(
+      ' & ',
+      array_intersect_key(
+        $new_versions,
+        array_fill_keys(array('minor', 'major'), 1)
+        )
+      );
+
+    if (empty($new_versions_string))
+    {
+      return;
+    }
+
+    // In which case should we notify?
+    // 1. never notified
+    // 2. new versions
+    // 3. no new versions but reminder needed
+
+    $notify = false;
+    if (!isset($conf['update_notify_last_notification']))
+    {
+      $notify = true;
+    }
+    else
+    {
+      $conf['update_notify_last_notification'] = safe_unserialize($conf['update_notify_last_notification']);
+      $last_notification = $conf['update_notify_last_notification']['notified_on'];
+
+      if ($new_versions_string != $conf['update_notify_last_notification']['version'])
+      {
+        $notify = true;
+      }
+      elseif (
+        $conf['update_notify_reminder_period'] > 0
+        and strtotime($last_notification) < strtotime($conf['update_notify_reminder_period'].' seconds ago')
+        )
+      {
+        $notify = true;
+      }
+    }
+
+    if ($notify)
+    {
+      // send email
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+
+      switch_lang_to(get_default_language());
+
+      $content = l10n('Hello,');
+      $content.= "\n\n".l10n(
+        'Time has come to update your Piwigo with version %s, go to %s',
+        $new_versions_string,
+        get_absolute_root_url().'admin.php?page=updates'
+        );
+      $content.= "\n\n".l10n('It only takes a few clicks.');
+      $content.= "\n\n".l10n('Running on an up-to-date Piwigo is important for security.');
+
+      pwg_mail_admins(
+        array(
+          'subject' => l10n('Piwigo %s is available, please update', $new_versions_string),
+          'content' => $content,
+          'content_format' => 'text/plain',
+          ),
+        array(
+          'filename' => 'notification_admin',
+          ),
+        false, // do not exclude current user
+        true // only webmasters
+        );
+
+      switch_lang_back();
+
+      // save notify
+      conf_update_param(
+        'update_notify_last_notification',
+        array(
+          'version' => $new_versions_string,
+          'notified_on' => date('c'),
+          )
+        );
     }
   }
 
@@ -443,7 +595,6 @@ class updates
             deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
             invalidate_user_cache(true);
             $template->delete_compiled_templates();
-            unset($_SESSION['need_update']);
             if ($step == 2)
             {
               $page['infos'][] = l10n('Update Complete');
