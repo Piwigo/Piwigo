@@ -636,23 +636,37 @@ SELECT
  * API method
  * Adds a favorite image for the current user
  * @param mixed[] $params
+ *    @option int image_id
  */
-function ws_addFavorite($params, &$service)
+function ws_users_favorites_add($params, &$service)
 {
   global $user;
+
   if (is_a_guest())
   {
     return new PwgError(403, 'User must be logged in.');
   }
 
+  // does the image really exist?
   $query = '
-INSERT IGNORE INTO '.FAVORITES_TABLE.'
-  (image_id,user_id)
-  VALUES
-  ('.$params['image_id'].','.$user['id'].')
+SELECT COUNT(*)
+  FROM '. IMAGES_TABLE .'
+  WHERE id = '. $params['image_id'] .'
 ;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
+  {
+    return new PwgError(404, 'image_id not found');
+  }
 
-  pwg_query($query);
+  single_insert(
+    FAVORITES_TABLE,
+    array(
+      'image_id' => $params['image_id'],
+      'user_id' => $user['id'],
+    ),
+    array('ignore' => true)
+  );
 
   return true;
 }
@@ -661,17 +675,32 @@ INSERT IGNORE INTO '.FAVORITES_TABLE.'
  * API method
  * Removes a favorite image for the current user
  * @param mixed[] $params
+ *    @option int image_id
  */
-function ws_removeFavorite($params, &$service)
+function ws_users_favorites_remove($params, &$service)
 {
   global $user;
+
   if (is_a_guest())
   {
     return new PwgError(403, 'User must be logged in.');
   }
 
+  // does the image really exist?
   $query = '
-DELETE FROM '.FAVORITES_TABLE.'
+SELECT COUNT(*)
+  FROM '. IMAGES_TABLE .'
+  WHERE id = '. $params['image_id'] .'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
+  {
+    return new PwgError(404, 'image_id not found');
+  }
+
+  $query = '
+DELETE
+  FROM '.FAVORITES_TABLE.'
   WHERE user_id = '.$user['id'].'
     AND image_id = '.$params['image_id'].'
 ;';
@@ -685,91 +714,63 @@ DELETE FROM '.FAVORITES_TABLE.'
  * API method
  * Returns the favorite images of the current user
  * @param mixed[] $params
+ *    @option int per_page
+ *    @option int page
+ *    @option string order
  */
-function ws_getFavorites($params, &$service)
+function ws_users_favorites_getList($params, &$service)
 {
   global $conf, $user;
+
   if (is_a_guest())
   {
     return false;
   }
 
-  $search_user = $user;
-  if (is_admin() && isset($params['user_id']) && is_numeric($params['user_id']))
-  {
-
-    // ensure the indicated user exists
-    if (get_username($params['user_id']) === false)
-    {
-      return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
-    }
-
-    $search_user = array('id' => $params['user_id']);
-    $search_user = array_merge( $search_user, getuserdata($search_user['id']) );
-  }
-
-  if (!empty($search_user['forbidden_categories'])) 
-  {
-      $query = '
-        SELECT DISTINCT f.image_id
-          FROM '.FAVORITES_TABLE.' AS f INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
-            ON f.image_id = ic.image_id
-          WHERE f.user_id = '.$search_user['id'].'
-          AND ic.category_id NOT IN ('.$search_user['forbidden_categories'].')
-        ;';
-      $authorizeds = query2array($query,null, 'image_id');
-      $query = '
-        SELECT image_id
-          FROM '.FAVORITES_TABLE.'
-          WHERE user_id = '.$search_user['id'].'
-        ;';
-      $favorites = query2array($query,null, 'image_id');
-      $to_deletes = array_diff($favorites, $authorizeds);
-      if (count($to_deletes) > 0)
-      {
-        $query = '
-          DELETE FROM '.FAVORITES_TABLE.'
-            WHERE image_id IN ('.implode(',', $to_deletes).')
-              AND user_id = '.$search_user['id'].'
-          ;';
-        pwg_query($query);
-      }
-  }
-
-  $visible_images_cond = '';
-  if (!empty($filter['visible_images']))
-  {
-    $visible_images_cond = 'AND id IN ('.$filter['visible_images'].')';
-  }
+  check_user_favorites();
 
   $order_by = ws_std_image_sql_order($params, 'i.');
   $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
-  $query = 'SELECT i.*
-    FROM '.FAVORITES_TABLE.'
+
+  $query = '
+SELECT
+    i.*
+  FROM '.FAVORITES_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' i ON image_id = i.id
-    WHERE user_id = '.$search_user['id'].'
-    '.$visible_images_cond.'
-    '.$order_by.';';
+  WHERE user_id = '.$user['id'].'
+'.get_sql_condition_FandF(
+      array(
+        'visible_images' => 'id'
+        ),
+      'AND'
+      ).'
+    '.$order_by.'
+;';
   $images = array();
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-      $image = array();
-      foreach (array('id', 'width', 'height', 'hit') as $k)
+    $image = array();
+
+    foreach (array('id', 'width', 'height', 'hit') as $k)
+    {
+      if (isset($row[$k]))
       {
-        if (isset($row[$k]))
-        {
-          $image[$k] = (int)$row[$k];
-        }
+        $image[$k] = (int)$row[$k];
       }
-      foreach (array('file', 'name', 'comment', 'date_creation', 'date_available') as $k)
-      {
-        $image[$k] = $row[$k];
-      }
-      $images[] = array_merge($image, ws_std_get_urls($row));
+    }
+
+    foreach (array('file', 'name', 'comment', 'date_creation', 'date_available') as $k)
+    {
+      $image[$k] = $row[$k];
+    }
+
+    $images[] = array_merge($image, ws_std_get_urls($row));
   }
+
   $count = count($images);
   $images = array_slice($images, $params['per_page']*$params['page'], $params['per_page']);
+
   return array(
     'paging' => new PwgNamedStruct(
       array(

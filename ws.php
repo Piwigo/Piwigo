@@ -1078,44 +1078,44 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
   $service->addMethod(
-      'pwg.users.addFavorite',
-      'ws_addFavorite',
+      'pwg.users.favorites.add',
+      'ws_users_favorites_add',
       array(
         'image_id' =>  array('type'=>WS_TYPE_ID)
-       ),
+      ),
       'Adds the indicated image to the current user\'s favorite images.',
       $ws_functions_root . 'pwg.users.php'
     );
 
   $service->addMethod(
-      'pwg.users.removeFavorite',
-      'ws_removeFavorite',
+      'pwg.users.favorites.remove',
+      'ws_users_favorites_remove',
       array(
         'image_id' =>  array('type'=>WS_TYPE_ID)
-       ),
+      ),
       'Removes the indicated image from the current user\'s favorite images.',
       $ws_functions_root . 'pwg.users.php'
     );
 
   $service->addMethod(
-      'pwg.users.getFavorites',
-      'ws_getFavorites',
+      'pwg.users.favorites.getList',
+      'ws_users_favorites_getList',
       array(
-        'user_id' =>  array(
-                'flags'=>WS_PARAM_OPTIONAL,
-                'type'=>WS_TYPE_ID),
         'per_page' => array(
-                'default'=>100,
-                'maxValue'=>$conf['ws_max_images_per_page'],
-                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+          'default'=>100,
+          'maxValue'=>$conf['ws_max_images_per_page'],
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE
+        ),
         'page' => array(
-                'default'=>0,
-                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+          'default'=>0,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE
+        ),
         'order' => array(
-                'default'=>null,
-                'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random')
-       ),
-      'Returns the favorite images of the current user. If identified as an admin, you may fetch favorites from any user_id, otherwise user_id will be ignored',
+          'default'=>null,
+          'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random'
+        )
+      ),
+      'Returns the favorite images of the current user.',
       $ws_functions_root . 'pwg.users.php'
     );
 }
