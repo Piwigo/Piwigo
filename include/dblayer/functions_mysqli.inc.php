@@ -574,9 +574,17 @@ INSERT '.$ignore.' INTO '.$table_name.'
  *
  * @param string $table_name
  * @param array $data
+ * @param array $options
+ *    - boolean ignore - use "INSERT IGNORE"
  */
-function single_insert($table_name, $data)
+function single_insert($table_name, $data, $options=array())
 {
+  $ignore = '';
+  if (isset($options['ignore']) and $options['ignore'])
+  {
+    $ignore = 'IGNORE';
+  }
+
   if (count($data) != 0)
   {
     // escape a reserved word
@@ -586,7 +594,7 @@ function single_insert($table_name, $data)
     }
 
     $query = '
-INSERT INTO '.$table_name.'
+INSERT '.$ignore.' INTO '.$table_name.'
   ('.implode(',', array_keys($data)).')
   VALUES';
 
