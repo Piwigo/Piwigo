@@ -412,8 +412,6 @@ li.plupload_delete a {background: url("images/cancel.svg")!important; background
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
 
 .addAlbumEmpty {color: #3C3C3C;}
-.addAlbumEmpty a {background-color: #FFA646; box-shadow: 0 1px 2px #0D0303;}
-.addAlbumEmpty a:hover{background-color: #ff7700; color: #3C3C3C; box-shadow: 0 2px 4px #0D0303;}
 #addAlbumForm input[name="category_name"] {border:none!important; margin-top: 5px!important;}
 #addAlbumForm input[name="category_name"]:focus {background-color: #DDDDDD;}
 .buttonSeparator {color: #3C3C3C;}

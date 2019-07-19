@@ -82,7 +82,7 @@ UL.thumbnails span.wrap2 {
 /* borders */
 fieldset { border: 2px solid #333; }
 
-.buttonLike, INPUT, SELECT, TEXTAREA {
+INPUT, SELECT, TEXTAREA {
 	border: 1px solid #666;
 }
 input:focus, select:focus, textarea:focus {
@@ -409,8 +409,6 @@ li.plupload_delete a {background: url("images/cancel.svg")!important; background
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
 
 .addAlbumEmpty {color: #c1c1c1;}
-.addAlbumEmpty a {background-color: #FFA646; color: #3C3C3C;}
-.addAlbumEmpty a:hover{background-color: #ff7700; color: #3C3C3C;}
 .buttonSeparator {color: #c1c1c1;}
 #cboxTitle {color: #7f7f7f !important;}
 #addAlbumForm {color: #999;}
