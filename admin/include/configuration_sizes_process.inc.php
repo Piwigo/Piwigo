@@ -250,7 +250,7 @@ else
       $template->append(
         'sizes',
         array(
-          $field => $_POST[$field]
+          $field => strip_tags($_POST[$field]) // strip_tags prevents from XSS attempt
           ),
         true
         );
