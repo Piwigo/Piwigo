@@ -125,6 +125,8 @@ if (isset($_POST['submitFilter']))
 
   if (isset($_POST['filter_category_use']))
   {
+    check_input_parameter('filter_category', $_POST, false, PATTERN_ID);
+
     $_SESSION['bulk_manager_filter']['category'] = $_POST['filter_category'];
 
     if (isset($_POST['filter_category_recursive']))
