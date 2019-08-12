@@ -51,7 +51,7 @@ if (isset($_POST['submit_add']))
     $query = '
 SELECT COUNT(*)
   FROM `'.GROUPS_TABLE.'`
-  WHERE name = \''.$_POST['groupname'].'\'
+  WHERE name = \''.pwg_db_real_escape_string($_POST['groupname']).'\'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
@@ -82,6 +82,7 @@ INSERT INTO `'.GROUPS_TABLE.'`
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['group_selection']))
 {
+  check_input_parameter('group_selection', $_POST, true, PATTERN_ID);
   // if the user tries to apply an action, it means that there is at least 1
   // photo in the selection
   $groups = $_POST['group_selection'];
