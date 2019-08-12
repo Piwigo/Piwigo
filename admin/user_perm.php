@@ -18,6 +18,13 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST))
+{
+  check_pwg_token();
+  check_input_parameter('cat_true', $_POST, true, PATTERN_ID);
+  check_input_parameter('cat_false', $_POST, true, PATTERN_ID);
+}
+
 // +-----------------------------------------------------------------------+
 // |                            variables init                             |
 // +-----------------------------------------------------------------------+
@@ -157,6 +164,8 @@ if (count($group_authorized) > 0)
 $query_false.= '
 ;';
 display_select_cat_wrapper($query_false,array(),'category_option_false');
+
+$template->assign('PWG_TOKEN', get_pwg_token());
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
