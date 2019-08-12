@@ -145,7 +145,7 @@ jQuery(document).ready(function() {
   {if isset($U_HELP)}
 	{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
   <ul class="HelpActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/help.png" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" class="icon-help-circled"></a></li>
   </ul>
   {/if}
 
