@@ -31,7 +31,9 @@ if (isset($_POST['submit']))
 {
   if (count($_POST['selection']) > 0)
   {
-    // TODO: tests
+    check_input_parameter('selection', $_POST, true, PATTERN_ID);
+    check_input_parameter('parent', $_POST, false, PATTERN_ID);
+
     move_categories($_POST['selection'], $_POST['parent']);
   }
   else
