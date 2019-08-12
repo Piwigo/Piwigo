@@ -21,6 +21,8 @@ jQuery(document).ready(function(){
 </div>
 
 <form method="post" name="notification_by_mail" id="notification_by_mail" action="{$F_ACTION}">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
   {if isset($REPOST_SUBMIT_NAME)}
   <fieldset>
     <div class="infos">
