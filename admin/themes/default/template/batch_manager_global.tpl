@@ -1,5 +1,5 @@
 {include file='include/datepicker.inc.tpl' load_mode='async'}
-{include file='include/colorbox.inc.tpl' load_mode='async'}
+{include file='include/colorbox.inc.tpl' load_mode='footer'}
 {include file='include/add_album.inc.tpl' load_mode='async'}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -27,6 +27,8 @@ var lang = {
 };
 
 jQuery(document).ready(function() {
+
+  jQuery('.help-popin').colorbox({ width:"500px" });
 
   {* <!-- TAGS --> *}
   var tagsCache = new TagsCache({
@@ -456,7 +458,7 @@ var sliders = {
 				{'Search'|@translate}
 				<input name="q" size=40 value="{$filter.search.q|stripslashes|htmlspecialchars}">
 				{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
-				<a href="admin/popuphelp.php?page=quick_search" onclick="popuphelp(this.href);return false;" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
+				<a href="admin/popuphelp.php?page=quick_search&amp;output=content_only" class="help-popin" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
 {if (isset($no_search_results))}
 <div>{'No results for'|@translate} :
 	<em><strong>

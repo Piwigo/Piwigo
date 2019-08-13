@@ -61,6 +61,12 @@ $template->assign(
     'HELP_CONTENT' => $help_content
   ));
 
+if (isset($_GET['output']) and 'content_only' == $_GET['output'])
+{
+  echo $help_content;
+  exit();
+}
+
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+

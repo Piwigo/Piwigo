@@ -143,9 +143,12 @@ jQuery(document).ready(function() {
   {$TABSHEET}
   {/if}
   {if isset($U_HELP)}
-	{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+  {include file='include/colorbox.inc.tpl'}
+{footer_script}
+  jQuery('.help-popin').colorbox({ width:"500px" });
+{/footer_script}
   <ul class="HelpActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" class="icon-help-circled"></a></li>
+    <li><a href="{$U_HELP}&amp;output=content_only" title="{'Help'|@translate}" class="help-popin"><span class="icon-help-circled"></span></a></li>
   </ul>
   {/if}
 
