@@ -299,9 +299,10 @@ function build_user($user_id, $use_cache=true)
   }
 
   // Check user theme
-  if (!isset($user['theme_name']))
+  if (!isset($user['theme_name']) || !check_theme_installed($user['theme_name']))
   {
     $user['theme'] = get_default_theme();
+    $user['theme_name'] = $user['theme'];
   }
 
   return $user;
@@ -777,7 +778,7 @@ function get_default_theme()
 
   // let's find the first available theme
   $active_themes = array_keys(get_pwg_themes());
-  return $active_themes[0];
+  return isset($active_themes[0]) ? $active_themes[0] : 'default';
 }
 
 /**
