@@ -27,7 +27,7 @@ $query = '
 SELECT id
   FROM '.PREFIX_TABLE.'upgrade
 ;';
-$applied = array_from_query($query, 'id');
+$applied = query2array($query, null, 'id');
 
 // retrieve existing upgrades
 $existing = get_available_upgrade_ids();
@@ -37,7 +37,7 @@ $to_apply = array_diff($existing, $applied);
 $inserts = array();
 foreach ($to_apply as $upgrade_id)
 {
-  if ($upgrade_id >= 149) // TODO change on each release (first task to run)
+  if ($upgrade_id >= 153) // TODO change on each release (first task to run)
   {
     break;
   }
@@ -47,7 +47,7 @@ foreach ($to_apply as $upgrade_id)
     array(
       'id' => $upgrade_id,
       'applied' => CURRENT_DATE,
-      'description' => '[migration from 2.8.0 to '.PHPWG_VERSION.'] not applied', // TODO change on each release
+      'description' => '[migration from 2.9.0 to '.PHPWG_VERSION.'] not applied', // TODO change on each release
       )
     );
 }
@@ -68,7 +68,7 @@ if (!empty($inserts))
 ob_start();
 echo '<pre>';
 
-for ($upgrade_id = 149; $upgrade_id <= 152; $upgrade_id++) // TODO change on each release
+for ($upgrade_id = 153; $upgrade_id <= 156; $upgrade_id++) // TODO change on each release
 {
   if (!file_exists(UPGRADES_PATH.'/'.$upgrade_id.'-database.php'))
   {
@@ -98,7 +98,7 @@ for ($upgrade_id = 149; $upgrade_id <= 152; $upgrade_id++) // TODO change on eac
 INSERT INTO `'.PREFIX_TABLE.'upgrade`
   (id, applied, description)
   VALUES
-  (\''.$upgrade_id.'\', NOW(), \'[migration from 2.8.0 to '.PHPWG_VERSION.', '.get_elapsed_time($up_start, get_moment()).'] '.$upgrade_description.'\')
+  (\''.$upgrade_id.'\', NOW(), \'[migration from 2.9.0 to '.PHPWG_VERSION.', '.get_elapsed_time($up_start, get_moment()).'] '.$upgrade_description.'\')
 ;';
   pwg_query($query);
 }
@@ -106,6 +106,6 @@ INSERT INTO `'.PREFIX_TABLE.'upgrade`
 echo '</pre>';
 ob_end_clean();
 
-// now we upgrade from 2.9.0
-include_once(PHPWG_ROOT_PATH.'install/upgrade_2.9.0.php');
+// now we upgrade from 2.10.0
+// include_once(PHPWG_ROOT_PATH.'install/upgrade_2.10.0.php');
 ?>

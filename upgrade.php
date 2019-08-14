@@ -335,6 +335,10 @@ else if (!in_array('auth_key_id', $columns_of[PREFIX_TABLE.'history']))
 {
   $current_release = '2.7.0';
 }
+else if (!in_array('history_id_to', $columns_of[PREFIX_TABLE.'history_summary']))
+{
+  $current_release = '2.8.0';
+}
 else
 {
   // retrieve already applied upgrades
@@ -344,9 +348,9 @@ SELECT id
 ;';
   $applied_upgrades = array_from_query($query, 'id');
 
-  if (!in_array(152, $applied_upgrades))
+  if (!in_array(156, $applied_upgrades))
   {
-    $current_release = '2.8.0';
+    $current_release = '2.9.0';
   }
   else
   {
