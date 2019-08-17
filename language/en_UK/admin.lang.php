@@ -986,6 +986,7 @@ $lang['Deletion in progress'] = 'Deletion in progress';
 $lang['checksum'] = 'checksum';
 $lang['orphans to delete'] = 'orphans to delete';
 $lang['Dashboard'] = 'Dashboard';
+$lang['%sGB'] = '%sGB';
 $lang['Storage used'] = 'Storage used';
 $lang['First photo added'] = 'First photo added';
 $lang['No filter on album. Select one or type to search'] = 'No filter on album. Select one or type to search';
