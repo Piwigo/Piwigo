@@ -411,3 +411,5 @@ $lang['No results for'] = 'みつかりませんでした。';
 $lang['Photo description'] = '写真の説明';
 $lang['Photo title'] = '写真のタイトル';
 $lang['Your authentication key is no longer valid.'] = 'あなたの認証キーは既に有効ではありません。';
+$lang['generate random password'] = 'ランダムなパスワードを生成します';
+$lang['Invalid username or password!'] = 'ユーザ名かパスワードが違います!';

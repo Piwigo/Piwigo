@@ -412,3 +412,5 @@ $lang['Photo description'] = '相片描述';
 $lang['Photo title'] = '相片標題';
 $lang['Link: %s'] = '連結: %s';
 $lang['Your authentication key is no longer valid.'] = '您的認證密鑰已失效。';
+$lang['generate random password'] = '產生隨機密碼';
+$lang['Invalid username or password!'] = '無效的用戶名或密碼！';

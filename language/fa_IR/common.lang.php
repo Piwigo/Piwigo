@@ -418,3 +418,5 @@ $lang['Album name, Z &rarr; A'] = 'نام آلبوم، برعکسِ حروف ا�
 $lang['Apply on properties'] = 'تایید مشخصات';
 $lang['Link: %s'] = 'لینک: %s';
 $lang['Your authentication key is no longer valid.'] = 'کلید احراز هویت شما نامعتبر بوده و باید دوباره ارسال شود.';
+$lang['Invalid username or password!'] = 'رمز یا نام کاربری ناموجود است';
+$lang['generate random password'] = 'ساخت رمز اتفاقی';

@@ -415,3 +415,5 @@ $lang['Apply on properties'] = 'Aplikovat na vlastnosti';
 $lang['Link: %s'] = 'Odkaz: %s';
 $lang['No results for'] = 'Žádné výsledky pro';
 $lang['Your authentication key is no longer valid.'] = 'Váš autorizační klíč není nadále platný.';
+$lang['Invalid username or password!'] = 'Chybné uživatelské jméno nebo heslo!';
+$lang['generate random password'] = 'generovat náhodné heslo';

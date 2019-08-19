@@ -433,3 +433,6 @@ $lang['Photo title'] = 'Tytuł zdjęcia';
 $lang['Album name, A &rarr; Z'] = 'Nazwa albumu, A &rarr; Z';
 $lang['Album name, Z &rarr; A'] = 'Nazwa albumu, Z &rarr; A';
 $lang['Link: %s'] = 'Link: %s';
+$lang['Invalid username or password!'] = 'Niepoprawna nazwa użytkownika lub hasło!';
+$lang['Your authentication key is no longer valid.'] = 'Twój klucz autoryzacyjny jest już nieważny.';
+$lang['generate random password'] = 'wygeneruj losowe hasło';

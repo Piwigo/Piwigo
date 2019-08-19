@@ -418,3 +418,6 @@ $lang['day']['3'] = 'רביעי';
 $lang['day']['4'] = 'חמישי';
 $lang['day']['5'] = 'שישי';
 $lang['day']['6'] = 'שבת';
+$lang['Your authentication key is no longer valid.'] = 'מפתח האימות שלך אינו תקף יותר.';
+$lang['generate random password'] = 'ייצר סיסמא אקראית';
+$lang['Invalid username or password!'] = 'שם משתמש או סיסמא שגויים!';

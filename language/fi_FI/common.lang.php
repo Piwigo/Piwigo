@@ -414,3 +414,5 @@ $lang['Album name, Z &rarr; A'] = 'Albumin nimi, Z &rarr; A';
 $lang['Apply on properties'] = 'Käytä asetuksia';
 $lang['Link: %s'] = 'Linkki: %s';
 $lang['Your authentication key is no longer valid.'] = 'Todennusavaimesi ei ole enää voimassa.';
+$lang['Invalid username or password!'] = 'Väärä käyttäjänimi tai salasana!';
+$lang['generate random password'] = 'luo satunnainen salasana';

@@ -416,3 +416,5 @@ $lang['Link: %s'] = 'Link: %s';
 $lang['Photo description'] = 'Descrição da foto';
 $lang['Photo title'] = 'Título da foto';
 $lang['Your authentication key is no longer valid.'] = 'Sua chave de autenticação não é mais válida.';
+$lang['Invalid username or password!'] = 'Nome de usuário ou senha inválida!';
+$lang['generate random password'] = 'Criar senha aleatória';

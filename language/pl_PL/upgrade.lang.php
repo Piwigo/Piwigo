@@ -24,4 +24,4 @@ $lang['As a precaution, following plugins have been deactivated. You must check 
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'W <i>%s</i>, przed <b>?></b>, wstaw:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Na wszelki wypadek następujące motywy zostały dezaktywowane. Przed ich aktywacją, należy sprawdzić, czy nie ma nowszych wersji';
 
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Odkryj co jest nowego w Piwigo %s';
