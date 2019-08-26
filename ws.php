@@ -320,7 +320,10 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod(
       'pwg.session.login',
       'ws_session_login',
-      array('username', 'password'),
+      array(
+        'username' => array(),
+        'password' => array('default'=>null),
+      ),
       'Tries to login the user.',
       $ws_functions_root . 'pwg.php',
       array('post_only'=>true)
