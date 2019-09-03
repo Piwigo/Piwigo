@@ -224,10 +224,20 @@ jQuery('#applyAction').click(function(e) {
     return true;
   }
 
+  /* TODO "delete" and "metadata" algorithms are highly similar, they should be merged */
+
   if (jQuery('[name="selectAction"]').val() == 'metadata') {
     e.stopPropagation();
     jQuery('.bulkAction').hide();
     jQuery('#regenerationText').html(lang.syncProgressMessage);
+
+    var maxRequests=1;
+
+    var queuedManager = jQuery.manageAjax.create('queued', {
+      queue: true,
+      cacheResponse: false,
+      maxRequests: maxRequests
+    });
 
     elements = Array();
 
@@ -265,7 +275,7 @@ jQuery('#applyAction').click(function(e) {
 
       (function(ids) {
         var thisBatchSize = ids.length;
-        jQuery.ajax({
+        queuedManager.add({
           url: "ws.php?format=json&method=pwg.images.syncMetadata",
           type:"POST",
           dataType: "json",
@@ -291,6 +301,8 @@ jQuery('#applyAction').click(function(e) {
 
       image_ids = Array();
     }
+
+    return false;
   }
 
   if (jQuery('[name="selectAction"]').val() == 'delete') {
