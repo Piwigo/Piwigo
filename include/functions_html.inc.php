@@ -403,7 +403,7 @@ function get_tags_content_title()
 
   for ($i=0; $i<count($page['tags']); $i++)
   {
-    $title.= $i>0 ? ' + ' : '';
+    $title.= $i>0 ? ' ∩&#x202F;' : '';
 
     $title.=
       '<a href="'
