@@ -26,7 +26,7 @@ function parse_sort_variables(
     {
       $base_url .= $is_first ? '?' : '&amp;';
       $is_first = false;
-      $base_url .= $key.'='.urlencode($value);
+      $base_url .= urlencode($key).'='.urlencode($value);
     }
   }
 
