@@ -237,11 +237,13 @@ SELECT
       }
       else
       {
+        unlink($source_filepath);
         die('unexpected file type');
       }
     }
     else
     {
+      unlink($source_filepath);
       die('forbidden file type');
     }
 
