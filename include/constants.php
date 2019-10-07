@@ -7,7 +7,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '2.10.0RC1');
+define('PHPWG_VERSION', '2.10.0');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 // this constant is actually never used, the true default theme is the theme or user "guest",
 // which is initialized with column user_infos.theme default value
