@@ -116,8 +116,11 @@ TABLE.table2 TR {
 
 TABLE.table2 THEAD TD { padding:7px 10px 3px 10px; }
 TABLE.table2 TR.throw { text-align: center; }
-.sort { display:block; padding:8px 5px 5px 15px; text-align: left;}
+.sort { display:block; padding:1em 2em 0 2em; text-align: left;}
 
+.sort .icon-sort-number-up {
+    margin-left: 25px;
+}
 
 .hour {
 	white-space: pre;
