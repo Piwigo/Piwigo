@@ -100,9 +100,7 @@ function deactivate_non_standard_themes()
   global $page, $conf;
 
   $standard_themes = array(
-    'clear',
-    'Sylvia',
-    'dark',
+    'modus',
     'elegant',
     'smartpocket',
     );
@@ -146,9 +144,26 @@ SELECT theme
     // if the default theme has just been deactivated, let's set another core theme as default
     if (in_array($default_theme, $theme_ids))
     {
+      // make sure default Piwigo theme is active
+      $query = '
+SELECT
+    COUNT(*)
+  FROM '.PREFIX_TABLE.'themes
+  WHERE id = \''.PHPWG_DEFAULT_TEMPLATE.'\'
+;';
+      list($counter) = pwg_db_fetch_row(pwg_query($query));
+      if ($counter < 1)
+      {
+        // we need to activate theme first
+        include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
+        $themes = new themes();
+        $themes->perform_action('activate', PHPWG_DEFAULT_TEMPLATE);
+      }
+
+      // then associate it to default user
       $query = '
 UPDATE '.PREFIX_TABLE.'user_infos
-  SET theme = \'elegant\'
+  SET theme = \''.PHPWG_DEFAULT_TEMPLATE.'\'
   WHERE user_id = '.$conf['default_user_id'].'
 ;';
       pwg_query($query);

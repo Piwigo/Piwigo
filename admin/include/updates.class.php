@@ -29,7 +29,7 @@ class updates
     {
       $this->types = array($page);
     }
-    $this->default_themes = array('clear', 'dark', 'Sylvia', 'elegant', 'smartpocket');
+    $this->default_themes = array('modus', 'elegant', 'smartpocket');
     $this->default_plugins = array('AdminTools', 'TakeATour', 'language_switch', 'LocalFilesEditor');
 
     foreach ($this->types as $type)
