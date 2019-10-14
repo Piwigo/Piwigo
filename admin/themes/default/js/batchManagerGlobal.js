@@ -445,7 +445,7 @@ function add_md5sum_block(blockSize){
       var percent_done = 100 - percent_remaining;
       jQuery('#md5sum_added').html(percent_done);
       if (data.result.nb_no_md5sum > 0) {
-        add_md5sum_block();
+        add_md5sum_block(blockSize);
       }
       else {
         // time to refresh the whole page
