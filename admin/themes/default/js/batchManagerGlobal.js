@@ -280,7 +280,7 @@ jQuery('#applyAction').click(function(e) {
           type:"POST",
           dataType: "json",
           data: {
-            pwg_token: jQuery("input[name=pwg_token").val(),
+            pwg_token: jQuery("input[name=pwg_token]").val(),
             image_id: ids
           },
           success: function(data) {
@@ -433,7 +433,7 @@ function add_md5sum_block(blockSize){
     type:"POST",
     dataType: "json",
     data: {
-      pwg_token: jQuery("input[name=pwg_token").val(),
+      pwg_token: jQuery("input[name=pwg_token]").val(),
       block_size: blockSize
     },
     success:function(data) {
@@ -483,7 +483,7 @@ function delete_orphans_block(blockSize) {
     type:"POST",
     dataType: "json",
     data: {
-      pwg_token: jQuery("input[name=pwg_token").val(),
+      pwg_token: jQuery("input[name=pwg_token]").val(),
       block_size: blockSize
     },
     success:function(data) {
