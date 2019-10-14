@@ -546,6 +546,8 @@ $template->assign('filter_category_selected', $selected_category);
 // Dissociate from a category : categories listed for dissociation can only
 // represent virtual links. We can't create orphans. Links to physical
 // categories can't be broken.
+$associated_categories = array();
+
 if (count($page['cat_elements_id']) > 0)
 {
   $query = '
@@ -560,8 +562,10 @@ SELECT
     )
 ;';
 
-  $template->assign('associated_categories', query2array($query, 'id', 'id'));
+  $associated_categories = query2array($query, 'id', 'id');
 }
+
+$template->assign('associated_categories', $associated_categories);
 
 if (count($page['cat_elements_id']) > 0)
 {
