@@ -26,6 +26,10 @@ var lang = {
 	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}"
 };
 
+var conf = {
+  checksum_compute_blocksize: {$conf_checksum_compute_blocksize},
+};
+
 jQuery(document).ready(function() {
 
   jQuery('.help-popin').colorbox({ width:"500px" });
