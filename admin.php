@@ -238,15 +238,14 @@ if ($nb_photos_in_caddie > 0)
 }
 
 // any photos with no md5sum ?
-$nb_no_md5sum =  count(get_photos_no_md5sum());
-if ($nb_no_md5sum > 0)
+if (in_array($page['page'], array('site_update', 'batch_manager')))
 {
-  $template->assign(
-    array(
-      'NB_NO_MD5SUM' => $nb_no_md5sum,
-      'U_NO_MD5SUM' => $link_start.'batch_manager&amp;filter=prefilter-no_sync_md5sum',
-    )
-  );
+  $nb_no_md5sum = count(get_photos_no_md5sum());
+
+  if ($nb_no_md5sum > 0)
+  {
+    $page['no_md5sum_number'] = $nb_no_md5sum;
+  }
 }
 
 // any orphan photo?
