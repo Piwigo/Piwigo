@@ -458,6 +458,7 @@ usort($prefilters, 'UC_name_compare');
 
 $template->assign(
   array(
+    'conf_checksum_compute_blocksize' => $conf['checksum_compute_blocksize'],
     'prefilters' => $prefilters,
     'filter' => $_SESSION['bulk_manager_filter'],
     'selection' => $collection,

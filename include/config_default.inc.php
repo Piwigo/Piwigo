@@ -841,6 +841,9 @@ $conf['batch_manager_images_per_page_global'] = 20;
 // unit mode. Must be among values {5, 10, 50}
 $conf['batch_manager_images_per_page_unit'] = 5;
 
+// how many missing md5sum should Piwigo compute at once.
+$conf['checksum_compute_blocksize'] = 50;
+
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |
 // +-----------------------------------------------------------------------+

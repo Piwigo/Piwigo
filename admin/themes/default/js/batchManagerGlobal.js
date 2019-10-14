@@ -420,7 +420,7 @@ jQuery('#sync_md5sum').click(function(e) {
 
   var addBlockSize = Math.min(
     Number((jQuery('#md5sum_to_add').data('origin') / 2).toFixed()),
-    1000
+    conf.checksum_compute_blocksize
   );
   add_md5sum_block(addBlockSize);
 
