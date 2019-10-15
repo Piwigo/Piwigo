@@ -308,4 +308,18 @@ SELECT *
   return query2array($query);
 }
 
+function tags_id_compare($a, $b)
+{
+  return ($a['id'] < $b['id']) ? -1 : 1;
+}
+
+function tags_counter_compare($a, $b)
+{
+  if ($a['counter'] == $b['counter'])
+  {
+    return tags_id_compare($a, $b);
+  }
+
+  return ($a['counter'] < $b['counter']) ? +1 : -1;
+}
 ?>
