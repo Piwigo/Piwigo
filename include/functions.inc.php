@@ -5,7 +5,7 @@
 // | For copyright and license information, please view the COPYING.txt    |
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
-
+// @phan-file-suppress PhanUndeclaredVariable,PhanRedefineFunction
 /**
  * @package functions\___
  */
@@ -144,7 +144,7 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
 /**
  * finds out if a string is in ASCII, UTF-8 or other encoding
  *
- * @param string $str
+ * @param string $Str
  * @return int *0* if _$str_ is ASCII, *1* if UTF-8, *-1* otherwise
  */
 function qualify_utf8($Str)
@@ -510,7 +510,7 @@ INSERT INTO '.HISTORY_TABLE.'
 ;';
   pwg_query($query);
 
-  $history_id = pwg_db_insert_id(HISTORY_TABLE);
+  $history_id = pwg_db_insert_id();
   if ($history_id % 1000 == 0)
   {
     include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
@@ -668,8 +668,8 @@ function dateDiff($date1, $date2)
 /**
  * converts a string into a DateTime object
  *
- * @param int|string timestamp or datetime string
- * @param string $format input format respecting date() syntax
+ * @param int|string|DateTime $original timestamp or datetime string
+ * @param ?string $format input format respecting date() syntax
  * @return DateTime|false
  */
 function str2DateTime($original, $format=null)
@@ -721,10 +721,10 @@ function str2DateTime($original, $format=null)
 /**
  * returns a formatted and localized date for display
  *
- * @param int|string timestamp or datetime string
- * @param array $show list of components displayed, default is ['day_name', 'day', 'month', 'year']
+ * @param int|string|DateTime $original timestamp or datetime string
+ * @param ?array $show list of components displayed, default is ['day_name', 'day', 'month', 'year']
  *    THIS PARAMETER IS PLANNED TO CHANGE
- * @param string $format input format respecting date() syntax
+ * @param ?string $format input format respecting date() syntax
  * @return string
  */
 function format_date($original, $show=null, $format=null)
@@ -809,11 +809,11 @@ function format_fromto($from, $to, $full=false)
 /**
  * Works out the time since the given date
  *
- * @param int|string timestamp or datetime string
+ * @param int|string|DateTime $original timestamp or datetime string
  * @param string $stop year,month,week,day,hour,minute,second
- * @param string $format input format respecting date() syntax
+ * @param ?string $format input format respecting date() syntax
  * @param bool $with_text append "ago" or "in the future"
- * @param bool $with_weeks
+ * @param bool $with_week
  * @return string
  */
 function time_since($original, $stop='minute', $format=null, $with_text=true, $with_week=true)
@@ -881,10 +881,10 @@ function time_since($original, $stop='minute', $format=null, $with_text=true, $w
 /**
  * transform a date string from a format to another (MySQL to d/M/Y for instance)
  *
- * @param string $original
+ * @param int|string|DateTime $original
  * @param string $format_in respecting date() syntax
  * @param string $format_out respecting date() syntax
- * @param string $default if _$original_ is empty
+ * @param ?string $default if _$original_ is empty
  * @return string
  */
 function transform_date($original, $format_in, $format_out, $default=null)
@@ -1101,7 +1101,7 @@ function original_to_format($path, $format_ext)
 /**
  * get the full path of an image
  *
- * @param array $element_info element information from db (at least 'path')
+ * @param ?array $element_info element information from db (at least 'path')
  * @return string
  */
 function get_element_path($element_info)
@@ -1167,7 +1167,7 @@ function get_name_from_file($filename)
  * if more than one parameter is provided sprintf is applied
  *
  * @param string $key
- * @param mixed $args,... optional arguments
+ * param mixed ...$args optional arguments
  * @return string
  */
 function l10n($key)
@@ -1354,7 +1354,7 @@ SELECT param, value
  * Add or update a config parameter
  *
  * @param string $param
- * @param string $value
+ * @param mixed $value
  * @param boolean $updateGlobal update global *$conf* variable
  * @param callable $parser function to apply to the value before save in database
       (eg: serialize, json_encode) will not be applied to *$conf* if *$parser* is *true*
@@ -1641,7 +1641,7 @@ function get_parent_language($lang_id=null)
  *
  * @param string $filename
  * @param string $dirname
- * @param mixed options can contain
+ * @param mixed $options can contain
  *     @option string language - language to load
  *     @option bool return - if true the file content is returned
  *     @option bool no_fallback - if true do not load default language
@@ -1862,7 +1862,7 @@ function verify_ephemeral_key($key, $aditionnal_data_to_hash = '')
  * return an array which will be sent to template to display navigation bar
  *
  * @param string $url base url of all links
- * @param int $nb_elements
+ * @param int $nb_element
  * @param int $start
  * @param int $nb_element_page
  * @param bool $clean_url

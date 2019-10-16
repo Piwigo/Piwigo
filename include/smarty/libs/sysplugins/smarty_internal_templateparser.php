@@ -118,7 +118,7 @@ class Smarty_Internal_Templateparser
     public static $prefix_number = 0;
 
     /**
-     * @var
+     * @var int
      */
     public $yymajor;
 

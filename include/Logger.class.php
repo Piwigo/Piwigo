@@ -58,11 +58,11 @@ class Logger
 
   /**
    * Instance options.
-   * @var array
+   * @var array{directory:string,filename:string,globPattern:string,severity:int,dateFormat:string,archiveDays:int}
    */
   private $options = array(
-    'directory' => null, // Log files directory
-    'filename' => null, // Path to the log file
+    'directory' => '', // Log files directory
+    'filename' => '', // Path to the log file
     'globPattern' => 'log_*.txt', // Pattern to select all log files with glob()
     'severity' => self::DEBUG, // Current minimum logging threshold
     'dateFormat' => 'Y-m-d G:i:s', // Date format
@@ -117,13 +117,13 @@ class Logger
   }
   
   /**
-   * Open the log file if not already oppenned
+   * Open the log file if not already opened
    */
   private function open()
   {
     if ($this->status() == self::STATUS_LOG_CLOSED)
     {
-      if (!file_exists($this->options['directory']))
+      if ($this->options['directory'] && !file_exists($this->options['directory']))
       {
         mkgetdir($this->options['directory'], MKGETDIR_DEFAULT|MKGETDIR_PROTECT_HTACCESS);
       }
@@ -278,7 +278,7 @@ class Logger
    * Writes a $line to the log with the given severity.
    *
    * @param integer $severity
-   * @param string $line
+   * @param string $message
    * @param string $cat
    * @param array $args
    */
@@ -333,7 +333,7 @@ class Logger
   /**
    * Formats the message for logging.
    *
-   * @param  string $level
+   * @param  int $level
    * @param  string $message
    * @param  array  $context
    * @return string
@@ -364,7 +364,7 @@ class Logger
   {
     $originalTime = microtime(true);
     $micro = sprintf('%06d', ($originalTime - floor($originalTime)) * 1000000);
-    $date = new DateTime(date('Y-m-d H:i:s.'.$micro, $originalTime));
+    $date = new DateTime(date('Y-m-d H:i:s.'.$micro, (int)$originalTime));
     return $date->format($this->options['dateFormat']);
   }
 

@@ -7,7 +7,7 @@
 // +-----------------------------------------------------------------------+
 
 /** returns a category id that corresponds to the given permalink (or null)
- * @param string permalink
+ * @param string $permalink
  */
 function get_cat_id_from_permalink( $permalink )
 {
@@ -23,8 +23,8 @@ SELECT id FROM '.CATEGORIES_TABLE.'
 }
 
 /** returns a category id that has used before this permalink (or null)
- * @param string permalink
- * @param boolean is_hit if true update the usage counters on the old permalinks
+ * @param string $permalink
+ * @return ?int
  */
 function get_cat_id_from_old_permalink($permalink)
 {
@@ -44,8 +44,8 @@ SELECT c.id
 
 /** deletes the permalink associated with a category
  * returns true on success
- * @param int cat_id the target category id
- * @param boolean save if true, the current category-permalink association
+ * @param int $cat_id the target category id
+ * @param boolean $save if true, the current category-permalink association
  * is saved in the old permalinks table in case external links hit it
  */
 function delete_cat_permalink( $cat_id, $save )
@@ -110,9 +110,9 @@ VALUES
 
 /** sets a new permalink for a category
  * returns true on success
- * @param int cat_id the target category id
- * @param string permalink the new permalink
- * @param boolean save if true, the current category-permalink association
+ * @param int $cat_id the target category id
+ * @param string $permalink the new permalink
+ * @param boolean $save if true, the current category-permalink association
  * is saved in the old permalinks table in case external links hit it
  */
 function set_cat_permalink( $cat_id, $permalink, $save )

@@ -18,7 +18,7 @@ include_once(PHPWG_ROOT_PATH.'include/functions_notification.inc.php');
  * creates a Unix timestamp (number of seconds since 1970-01-01 00:00:00
  * GMT) from a MySQL datetime format (2005-07-14 23:01:37)
  *
- * @param string mysql datetime format
+ * @param string $datetime mysql datetime format
  * @return int timestamp
  */
 function datetime_to_ts($datetime)
@@ -32,7 +32,7 @@ function datetime_to_ts($datetime)
  *
  * function copied from Dotclear project http://dotclear.net
  *
- * @param int timestamp
+ * @param int $ts timestamp
  * @return string ISO 8601 date format
  */
 function ts_to_iso8601($ts)
@@ -67,7 +67,7 @@ SELECT user_id,
   }
   if ($feed_row['user_id']!=$user['id'])
   { // new user
-    $user = build_user( $feed_row['user_id'], true );
+    $user = build_user( (int)$feed_row['user_id'], true );
   }
 }
 else

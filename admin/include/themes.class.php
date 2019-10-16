@@ -9,6 +9,8 @@
 /**
  * class DummyTheme_maintain
  * used when a theme uses the old procedural declaration of maintenance methods
+ *
+ * @phan-file-suppress PhanUndeclaredFunction
  */
 class DummyTheme_maintain extends ThemeMaintain
 {
@@ -80,9 +82,9 @@ class themes
 
   /**
    * Perform requested actions
-   * @param string - action
-   * @param string - theme id
-   * @param array - errors
+   * @param string $action
+   * @param string $theme_id
+   * @return array of errors
    */
   function perform_action($action, $theme_id)
   {
@@ -573,9 +575,10 @@ SELECT
   /**
    * Extract theme files from archive
    *
-   * @param string - install or upgrade
-   * @param string - remote revision identifier (numeric)
-   * @param string - theme id or extension id
+   * @param string $action install or upgrade
+   * @param string $revision remote revision identifier (numeric)
+   * @param string $dest theme id or extension id
+   * @return string
    */
   function extract_theme_files($action, $revision, $dest)
   {

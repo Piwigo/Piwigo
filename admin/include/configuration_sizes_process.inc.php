@@ -145,7 +145,7 @@ if (count($errors) == 0)
       $new_params = new DerivativeParams(
         new SizingParams(
           array(intval($pderivative['w']), intval($pderivative['h'])),
-          round($pderivative['crop'] / 100, 2),
+          round((float)$pderivative['crop'] / 100, 2),
           array(intval($pderivative['minw']), intval($pderivative['minh']))
           )
         );

@@ -168,10 +168,10 @@ function add_level_to_tags($tags)
  * AND & OR mode supported.
  *
  * @param int[] $tag_ids
- * @param string mode
+ * @param string $mode
  * @param string $extra_images_where_sql - optionally apply a sql where filter to retrieved images
  * @param string $order_by - optionally overwrite default photo order
- * @param bool $user_permissions
+ * @param bool $use_permissions
  * @return array
  */
 function get_image_ids_for_tags($tag_ids, $mode='AND', $extra_images_where_sql='', $order_by='', $use_permissions=true)
@@ -224,7 +224,7 @@ SELECT id
 /**
  * Return a list of tags corresponding to given items.
  *
- * @param int[] $items
+ * @param array $items
  * @param int $max_tags
  * @param int[] $excluded_tag_ids
  * @return array [id, name, counter, url_name]

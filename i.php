@@ -5,6 +5,7 @@
 // | For copyright and license information, please view the COPYING.txt    |
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
+// @phan-file-suppress PhanTypeMismatchArgument,PhanTypeMismatchArgumentInternal,PhanTypeSuspiciousStringExpression
 
 define('PHPWG_ROOT_PATH','./');
 
@@ -30,11 +31,19 @@ $logger = new Logger(array(
 
 
 function trigger_notify() {}
+/**
+ * @param string $filename
+ * @return string
+ */
 function get_extension( $filename )
 {
   return substr( strrchr( $filename, '.' ), 1, strlen ( $filename ) );
 }
 
+/**
+ * @param string $dir
+ * @return bool
+ */
 function mkgetdir($dir)
 {
   if ( !is_dir($dir) )
@@ -64,6 +73,11 @@ function mkgetdir($dir)
 
 // end fast bootstrap
 
+/**
+ * @param string $msg
+ * @param int $code
+ * @return void
+ */
 function ierror($msg, $code)
 {
   global $logger;
@@ -396,6 +410,7 @@ parse_request();
 //var_export($page);
 
 $params = $page['derivative_params'];
+assert($params instanceof DerivativeParams);
 
 $src_mtime = @filemtime($page['src_path']);
 if ($src_mtime === false)
@@ -461,7 +476,7 @@ SELECT *
 
       if (!isset($row['rotation']))
       {
-        $page['rotation_angle'] = pwg_image::get_rotation_angle($page['src_path']);
+        $page['rotation_angle'] = pwg_image::get_rotation_angle((string)$page['src_path']);
 
         single_update(
           $prefixeTable.'images',

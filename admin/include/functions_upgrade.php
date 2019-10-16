@@ -15,7 +15,11 @@ function check_upgrade()
   return false;
 }
 
-// concerning upgrade, we use the default tables
+/**
+ * concerning upgrade, we use the default tables
+ *
+ * @suppress PhanUndeclaredVariable
+ */
 function prepare_conf_upgrade()
 {
   global $prefixeTable;

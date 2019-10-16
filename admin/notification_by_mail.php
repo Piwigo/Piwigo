@@ -105,7 +105,7 @@ function get_tab_status($mode)
  */
 function insert_new_data_user_mail_notification()
 {
-  global $conf, $page, $env_nbm;
+  global $conf, $page, $env_nbm, $base_url;
 
   // Set null mail_address empty
   $query = '
@@ -205,10 +205,12 @@ function render_global_customize_mail_content($customize_mail_content)
   }
 }
 
-/*
+/**
  * Send mail for notification to all users
  * Return list of "selected" users for 'list_to_send'
  * Return list of "treated" check_key for 'send'
+ *
+ * @suppress PhanNonClassMethodCall
  */
 function do_action_send_mail_notification($action = 'list_to_send', $check_key_list = array(), $customize_mail_content = '')
 {

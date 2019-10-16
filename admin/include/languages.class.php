@@ -22,9 +22,9 @@ class languages
 
   /**
    * Perform requested actions
-   * @param string - action
-   * @param string - language id
-   * @param array - errors
+   * @param string $action
+   * @param string $language_id
+   * @return array of errors
    */
   function perform_action($action, $language_id)
   {
@@ -285,9 +285,10 @@ UPDATE '.USER_INFOS_TABLE.'
   /**
    * Extract language files from archive
    *
-   * @param string - install or upgrade
-   * @param string - remote revision identifier (numeric)
-   * @param string - language id or extension id
+   * @param string $action install or upgrade
+   * @param string $revision remote revision identifier (numeric)
+   * @param string $dest language id or extension id
+   * @return string
    */
   function extract_language_files($action, $revision, $dest='')
   {
@@ -319,7 +320,7 @@ UPDATE '.USER_INFOS_TABLE.'
             }
           }
 
-          $logger->debug(__FUNCTION__.', $main_filepath = '.$main_filepath);
+          $logger->debug(__FUNCTION__.', $main_filepath = '.(string)$main_filepath);
 
           if (isset($main_filepath))
           {
@@ -412,7 +413,7 @@ UPDATE '.USER_INFOS_TABLE.'
     else $status = 'temp_path_error';
 
     @unlink($archive);
-    return $status;
+    return (string)$status;
   }
 
   /**

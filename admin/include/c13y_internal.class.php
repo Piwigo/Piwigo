@@ -18,7 +18,7 @@ class c13y_internal
   /**
    * Check version
    *
-   * @param c13y object
+   * @param check_integrity $c13y
    * @return void
    */
   function c13y_version($c13y)
@@ -57,7 +57,7 @@ class c13y_internal
   /**
    * Check exif
    *
-   * @param c13y object
+   * @param check_integrity $c13y
    * @return void
    */
   function c13y_exif($c13y)
@@ -82,7 +82,7 @@ class c13y_internal
   /**
    * Check user
    *
-   * @param c13y object
+   * @param check_integrity $c13y
    * @return void
    */
   function c13y_user($c13y)
@@ -144,8 +144,9 @@ class c13y_internal
   /**
    * Do correction user
    *
-   * @param user_id, action
-   * @return boolean true if ok else false
+   * @param int $id
+   * @param string $action
+   * @return bool true if ok else false
    */
   function c13y_correction_user($id, $action)
   {
@@ -197,7 +198,7 @@ class c13y_internal
 
             create_user_infos($id);
 
-            $page['infos'][] = sprintf(l10n('User "%s" created with "%s" like password'), $name, $password);
+            $page['infos'][] = sprintf(l10n('User "%s" created with "%s" like password'), $name, (string)$password);
 
             $result = true;
           }

@@ -79,10 +79,10 @@ if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
   check_pwg_token();
   $permalink = $_POST['permalink'];
   if ( empty($permalink) )
-    delete_cat_permalink($_POST['cat_id'], isset($_POST['save']) );
+    delete_cat_permalink((int)$_POST['cat_id'], isset($_POST['save']) );
   else
-    set_cat_permalink($_POST['cat_id'], $permalink, isset($_POST['save']) );
-  $selected_cat = array( $_POST['cat_id'] );
+    set_cat_permalink((int)$_POST['cat_id'], $permalink, isset($_POST['save']) );
+  $selected_cat = array((int)$_POST['cat_id'] );
 }
 elseif ( isset($_GET['delete_permanent']) )
 {
@@ -92,7 +92,7 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
   WHERE permalink=\''.$_GET['delete_permanent'].'\'
   LIMIT 1';
   $result = pwg_query($query);
-  if (pwg_db_changes($result)==0)
+  if (pwg_db_changes()==0)
   {
     $page['errors'][] = l10n('Cannot delete the old permalink !');
   }

@@ -722,7 +722,7 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
       $ttitle.= ' ('.$row['file'].')';
     }
 
-    $ttitle.= '<br>'.$row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB';
+    $ttitle.= '<br>'.$row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', ((int)$row['filesize'])/1024).'MB';
 
     $template->append(
       'thumbnails', array_merge($row,

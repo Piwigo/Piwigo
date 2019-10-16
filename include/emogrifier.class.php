@@ -88,7 +88,7 @@ class Emogrifier {
      * the styles to apply to the nodes with the XPath paths as array keys for the outer array and the attribute names/values
      * as key/value pairs for the inner array
      *
-     * @var array<array><string>
+     * @var string[]
      */
     private $styleAttributesForNodes = array();
 

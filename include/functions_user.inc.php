@@ -114,7 +114,7 @@ function search_case_username($username)
  *
  * @param string $login
  * @param string $password
- * @param string $mail_adress
+ * @param string $mail_address
  * @param bool $notify_admin
  * @param array &$errors populated with error messages
  * @param bool $notify_user
@@ -282,7 +282,7 @@ SELECT id
  * Same that getuserdata() but with additional tests for guest.
  *
  * @param int $user_id
- * @param boolean $user_cache
+ * @param boolean $use_cache
  * @return array
  */
 function build_user($user_id, $use_cache=true)
@@ -628,7 +628,7 @@ SELECT id
  * Returns user identifier thanks to his name.
  *
  * @param string $username
- * @param int|false
+ * @return int|false
  */
 function get_userid($username)
 {
@@ -658,7 +658,7 @@ SELECT '.$conf['user_fields']['id'].'
  * Returns user identifier thanks to his email.
  *
  * @param string $email
- * @param int|false
+ * @return int|false
  */
 function get_userid_by_email($email)
 {
@@ -688,7 +688,7 @@ SELECT
 /**
  * Returns a array with default user valuees.
  *
- * @param convert_str ceonferts 'true' and 'false' into booleans
+ * @param bool $convert_str ceonferts 'true' and 'false' into booleans
  * @return array
  */
 function get_default_user_info($convert_str=true)
@@ -1519,7 +1519,7 @@ SELECT
  *
  * @since 2.8
  * @param int $user_id
- * @return array
+ * @return array|false
  */
 function create_user_auth_key($user_id, $user_status=null)
 {

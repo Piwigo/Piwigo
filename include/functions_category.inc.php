@@ -235,7 +235,7 @@ function get_category_preferred_image_orders()
  * Assign a template var useable with {html_options} from a list of categories
  *
  * @param array[] $categories (at least id,name,global_rank,uppercats for each)
- * @param int[] $selected ids of selected items
+ * @param int[] $selecteds selected ids of selected items
  * @param string $blockname variable name in template
  * @param bool $fullname full breadcrumb or not
  */
@@ -295,7 +295,7 @@ function display_select_cat_wrapper($query,
 /**
  * Returns all subcategory identifiers of given category ids
  *
- * @param int[] $ids
+ * @param array $ids - an array of integers but stored as strings in the session
  * @return int[]
  */
 function get_subcat_ids($ids)

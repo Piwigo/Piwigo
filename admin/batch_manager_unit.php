@@ -79,7 +79,7 @@ SELECT id, date_creation
     {
       $tag_ids = get_tag_ids($_POST[ 'tags-'.$row['id'] ]);
     }
-    set_tags($tag_ids, $row['id']);
+    set_tags($tag_ids, (int)$row['id']);
   }
 
   mass_updates(

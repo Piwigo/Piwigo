@@ -17,6 +17,8 @@
 * @author  Daniele Viganò - CreativeFactory.it <daniele.vigano@creativefactory.it>
 * @version 2.20 - 02/11/2007
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+*
+*  @phan-file-suppress PhanDeprecatedFunctionInternal
 */
 
 class MySQLDump {
@@ -61,9 +63,8 @@ class MySQLDump {
 	*/
 	function __construct($db = null, $filepath = 'dump.sql', $compress = false, $hexValue = false){
 		$this->compress = $compress;
-		if ( !$this->setOutputFile($filepath) )
-			return false;
-		return $this->setDatabase($db);
+		$this->setOutputFile($filepath);
+		$this->setDatabase($db);
 	}
 
 	/**
@@ -154,7 +155,7 @@ class MySQLDump {
 				$structure .= ' '.$record['Extra'];
 			$structure .= ",\n";
 		}
-		$structure = @ereg_replace(",\n$", null, $structure);
+		$structure = @preg_replace(",\n$", '', $structure);
 
 		// Save all Column Indexes
 		$structure .= $this->getSqlKeysTable($table);

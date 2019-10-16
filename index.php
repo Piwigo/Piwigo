@@ -63,7 +63,7 @@ if (count($page['items']) > $page['nb_image_page'])
     duplicate_index_url(array(), array('start')),
     count($page['items']),
     $page['start'],
-    $page['nb_image_page'],
+    (int)$page['nb_image_page'],
     true, 'start'
     );
 }

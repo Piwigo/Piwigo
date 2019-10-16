@@ -102,7 +102,7 @@ SELECT galleries_url
   {
     case 'delete' :
     {
-      delete_site($page['site']);
+      delete_site((int)$page['site']);
       $page['infos'][] = $galleries_url.' '.l10n('deleted');
       break;
     }

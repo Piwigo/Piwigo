@@ -8,7 +8,8 @@
 
 /**
  * Retrieves an url for a plugin page.
- * @param string file - php script full name
+ * @param string $file - php script full name
+ * @return string
  */
 function get_admin_plugin_menu_link($file)
 {

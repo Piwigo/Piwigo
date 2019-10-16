@@ -72,7 +72,7 @@ INSERT INTO `'.GROUPS_TABLE.'`
 
     $page['infos'][] = l10n('group "%s" added', $_POST['groupname']);
 
-    $inserted_id = pwg_db_insert_id(GROUPS_TABLE);
+    $inserted_id = pwg_db_insert_id();
     pwg_activity('group', $inserted_id, 'add');
   }
 }

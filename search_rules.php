@@ -10,7 +10,7 @@
  * returns language value 'included' or 'excluded' depending on boolean
  * value. This function is useful only to make duplicate code shorter
  *
- * @param bool is_included
+ * @param bool $is_included
  * @return string
  */
 function inc_exc_str($is_included)
@@ -42,7 +42,7 @@ $template->set_filenames(array('search_rules' => 'search_rules.tpl'));
 // Rules are stored in database, serialized in an array. This array must be
 // transformed into a list of textual rules.
 
-$search = get_search_array($_GET['search_id']);
+$search = get_search_array((int)$_GET['search_id']);
 
 if (isset($search['q']))
 {

@@ -56,7 +56,7 @@ class Smarty_Internal_Templatelexer
     /**
      * tag start line
      *
-     * @var
+     * @var int
      */
     public $taglineno;
 
@@ -1131,5 +1131,3 @@ class Smarty_Internal_Templatelexer
     }
 
 }
-
-     

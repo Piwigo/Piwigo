@@ -64,7 +64,9 @@ if (isset($_POST['submit']))
     
     // log user and redirect
     $user_id = get_userid($_POST['login']);
-    log_user($user_id, false);
+    if ($user_id) {
+      log_user($user_id, false);
+    }
     redirect(make_index_url());
   }
 	$registration_post_key = get_ephemeral_key(2);

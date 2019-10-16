@@ -29,7 +29,7 @@ function __construct($url)
 /**
  * Is this local site ok ?
  *
- * @return true on success, false otherwise
+ * @return bool true on success, false otherwise
  */
 function open()
 {

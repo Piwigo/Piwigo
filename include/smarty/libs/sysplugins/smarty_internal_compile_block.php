@@ -108,8 +108,8 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
     /**
      * Compile saved child block source
      *
-     * @param \Smarty_Internal_TemplateCompilerBase compiler object
-     * @param string                                $_name   optional name of child block
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler object
+     * @param ?string                               $_name   optional name of child block
      *
      * @return string   compiled code of child block
      */

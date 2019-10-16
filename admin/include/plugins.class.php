@@ -9,6 +9,8 @@
 /**
  * class DummyPlugin_maintain
  * used when a plugin uses the old procedural declaration of maintenance methods
+ *
+ * @phan-file-suppress PhanUndeclaredFunction
  */
 class DummyPlugin_maintain extends PluginMaintain
 {
@@ -97,9 +99,10 @@ class plugins
 
   /**
    * Perform requested actions
-   * @param string - action
-   * @param string - plugin id
-   * @param array - errors
+   * @param string $action
+   * @param string $plugin_id
+   * @param array<string,string> $options
+   * @return array of errors
    */
   function perform_action($action, $plugin_id, $options=array())
   {
@@ -164,7 +167,7 @@ UPDATE '. PLUGINS_TABLE .'
         if (!isset($crt_db_plugin))
         {
           $errors = $this->perform_action('install', $plugin_id);
-          list($crt_db_plugin) = get_db_plugins(null, $plugin_id);
+          list($crt_db_plugin) = get_db_plugins('', $plugin_id);
           load_conf_from_db();
         }
         elseif ($crt_db_plugin['state'] == 'active')
@@ -286,7 +289,7 @@ DELETE FROM '. PLUGINS_TABLE .'
           'description'=>'',
           'author'=>'',
         );
-      $plg_data = file_get_contents($path.'/main.inc.php', null, null, 0, 2048);
+      $plg_data = file_get_contents($path.'/main.inc.php', false, null, 0, 2048);
 
       if (preg_match("|Plugin Name:\\s*(.+)|", $plg_data, $val))
       {
@@ -537,9 +540,11 @@ DELETE FROM '. PLUGINS_TABLE .'
 
   /**
    * Extract plugin files from archive
-   * @param string - install or upgrade
-   *  @param string - archive URL
-    * @param string - plugin id or extension id
+   * @param string $action install or upgrade
+   * @param ?string $revision archive URL
+   * @param string $dest
+   * @param ?string $plugin_id plugin id or extension id
+   * @return string
    */
   function extract_plugin_files($action, $revision, $dest, &$plugin_id=null)
   {

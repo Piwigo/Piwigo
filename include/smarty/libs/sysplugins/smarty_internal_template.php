@@ -115,7 +115,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * render template
      *
-     * @param  bool $merge_tpl_vars   if true parent template variables merged in to local scope
      * @param  bool $no_output_filter if true do not run output filter
      * @param  bool $display          true: display, false: fetch null: subtemplate
      *

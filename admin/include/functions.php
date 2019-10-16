@@ -102,7 +102,7 @@ SELECT
         $image_ids_to_delete = $image_ids_linked;
       }
 
-      delete_elements($image_ids_to_delete, true);
+      if ($image_ids_to_delete) delete_elements($image_ids_to_delete, true);
     }
   }
 
@@ -582,7 +582,8 @@ DELETE
  * Directories named ".svn", "thumbnail", "pwg_high" or "pwg_representative"
  * are omitted.
  *
- * @param string $basedir (eg: ./galleries)
+ * @param string $path (eg: ./galleries)
+ * @param bool $recursive
  * @return string[]
  */
 function get_fs_directories($path, $recursive = true)
@@ -631,7 +632,7 @@ function get_fs_directories($path, $recursive = true)
  * The list of ordered categories id is supposed to be in the same parent
  * category
  *
- * @param array categories
+ * @param array $categories
  * @return void
  */
 function save_categories_order($categories)
@@ -705,7 +706,7 @@ SELECT id, id_uppercat, uppercats, `rank`, global_rank
 
   $datas = array();
 
-  $cat_map_callback = function($m) use ($cat_map) {  return $cat_map[$m[1]]["rank"]; };
+  $cat_map_callback = function($m) use ($cat_map) {  return (string)$cat_map[$m[1]]["rank"]; };
 
   foreach( $cat_map as $id=>$cat )
   {
@@ -749,7 +750,7 @@ function set_cat_visible($categories, $value, $unlock_child = false)
 {
   if ( ($value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) === null )
   {
-    trigger_error("set_cat_visible invalid param $value", E_USER_WARNING);
+    trigger_error("set_cat_visible invalid param", E_USER_WARNING);
     return false;
   }
 
@@ -781,7 +782,7 @@ UPDATE '.CATEGORIES_TABLE.'
 /**
  * Change the **status** property on a set of categories : private or public.
  *
- * @param int[] $categories
+ * @param array $categories
  * @param string $value
  */
 function set_cat_status($categories, $value)
@@ -960,7 +961,7 @@ DELETE
  * Returns all uppercats category ids of the given category ids.
  *
  * @param int[] $cat_ids
- * @return int[]
+ * @return array
  */
 function get_uppercat_ids($cat_ids)
 {
@@ -1044,7 +1045,7 @@ SELECT image_id
 /**
  * Returns the fulldir for each given category id.
  *
- * @param int[] intcat_ids
+ * @param int[] $cat_ids
  * @return string[]
  */
 function get_fulldirs($cat_ids)
@@ -1316,7 +1317,7 @@ UPDATE '.IMAGES_TABLE.'
  * Change the parent category of the given categories. The categories are
  * supposed virtual.
  *
- * @param int[] $category_ids
+ * @param array $category_ids int[] but coming from $_POST as strings
  * @param int $new_parent (-1 for root)
  */
 function move_categories($category_ids, $new_parent = -1)
@@ -1537,7 +1538,7 @@ SELECT id, uppercats, global_rank, visible, status
 
   // we have then to add the virtual category
   single_insert(CATEGORIES_TABLE, $insert);
-  $inserted_id = pwg_db_insert_id(CATEGORIES_TABLE);
+  $inserted_id = pwg_db_insert_id();
 
   single_update(
     CATEGORIES_TABLE,
@@ -1651,7 +1652,7 @@ DELETE
 /**
  * Delete tags and tags associations.
  *
- * @param int[] $tag_ids
+ * @param array $tag_ids - really an int[] but stored as strings in $_POST
  */
 function delete_tags($tag_ids)
 {
@@ -1753,7 +1754,7 @@ SELECT id
             )
           );
 
-        $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id(TAGS_TABLE);
+        $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id();
 
         invalidate_user_cache_nb_tags();
 
@@ -1823,7 +1824,7 @@ DELETE
  *
  * @since 2.9
  * @param array $image_ids
- * @return associative array, image_id => list of tag ids
+ * @return array list of tag ids
  */
 function get_image_tag_ids($image_ids)
 {
@@ -2215,7 +2216,7 @@ SELECT id
         )
       );
 
-    $inserted_id = pwg_db_insert_id(TAGS_TABLE);
+    $inserted_id = pwg_db_insert_id();
     pwg_activity('tag', $inserted_id, 'add');
 
     return array(
@@ -2256,12 +2257,13 @@ function cat_admin_access($category_id)
  * Retrieve data from external URL.
  *
  * @param string $src
- * @param string|Ressource $dest - can be a file ressource or string
+ * @param string|Resource $dest - can be a file ressource or string
  * @param array $get_data - data added to request url
  * @param array $post_data - data transmitted with POST
  * @param string $user_agent
  * @param int $step (internal use)
  * @return bool
+ * @suppress PhanTypeMismatchArgumentNullable
  */
 function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_agent='Piwigo', $step=0)
 {
@@ -2647,7 +2649,7 @@ function get_tag_ids($raw_tags, $allow_create=true)
  * names. Sequence is not case sensitive.
  * Warning: By definition, this function breaks original keys.
  *
- * @param int[] $elements_ids
+ * @param int[] $element_ids
  * @param string[] $name - names of elements, indexed by ids
  * @return int[]
  */
@@ -2962,7 +2964,7 @@ function deltree($path, $trash_path=null)
       {
         @mkgetdir($trash_path, MKGETDIR_RECURSIVE|MKGETDIR_DIE_ON_ERROR|MKGETDIR_PROTECT_HTACCESS);
       }
-      while ($r = $trash_path . '/' . md5(uniqid(rand(), true)))
+      while ($r = $trash_path . '/' . md5(uniqid((string)rand(), true)))
       {
         if (!is_dir($r))
         {
@@ -2984,7 +2986,7 @@ function deltree($path, $trash_path=null)
  * Additionally returns the hash of root path.
  * Used to invalidate LocalStorage cache on admin pages.
  *
- * @param string|string[] list of keys to retrieve (categories,groups,images,tags,users)
+ * @param string|string[] $requested list of keys to retrieve (categories,groups,images,tags,users)
  * @return string[]
  */
 function get_admin_client_cache_keys($requested=array())
@@ -3047,7 +3049,7 @@ SELECT id
 
 /**
  * Compute and add the md5sum of image ids (where md5sum is null)
- * @param int[] list of image ids and there paths
+ * @param int[] $ids list of image ids and there paths
  * @return int number of md5sum added
  */
 function add_md5sum($ids)
@@ -3105,8 +3107,8 @@ SELECT
  * The list of ordered images id is supposed to be in the same parent
  * category
  *
- * @param int category_id
- * @param int[] images
+ * @param int $category_id
+ * @param int[] $images
  * @return void
  */
 function save_images_order($category_id, $images)

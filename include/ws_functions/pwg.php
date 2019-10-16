@@ -251,8 +251,8 @@ DELETE FROM '. RATE_TABLE .'
   {
     $query .= ' AND element_id='.$params['image_id'];
   }
-
-  $changes = pwg_db_changes(pwg_query($query));
+  pwg_query($query);
+  $changes = pwg_db_changes();
   if ($changes)
   {
     include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');

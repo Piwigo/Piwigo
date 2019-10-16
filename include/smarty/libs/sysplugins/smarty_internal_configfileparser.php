@@ -107,7 +107,7 @@ class Smarty_Internal_Configfileparser
     public $retvalue = 0;
 
     /**
-     * @var
+     * @var int
      */
     public $yymajor;
 

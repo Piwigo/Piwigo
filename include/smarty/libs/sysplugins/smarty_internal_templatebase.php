@@ -73,7 +73,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     /**
      * universal cache
      *
-     * @var array()
+     * @var array
      */
     public $_cache = array();
 

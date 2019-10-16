@@ -8,7 +8,7 @@
 
 if( !defined("PHPWG_ROOT_PATH") ) die ("Hacking attempt!");
 
-$edit_user = build_user( $_GET['user_id'], false );
+$edit_user = build_user( (int)$_GET['user_id'], false );
 
 if (!empty($_POST))
 {

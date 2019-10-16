@@ -25,7 +25,7 @@ class Smarty_Internal_Method_UnregisterCacheResource
      * @link http://www.smarty.net/docs/en/api.unregister.cacheresource.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $type     name of cache resource type
+     * @param string                                                          $name     name of cache resource type
       *
      * @return \Smarty|\Smarty_Internal_Template
      */

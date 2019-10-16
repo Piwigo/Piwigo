@@ -5,6 +5,7 @@
 // | For copyright and license information, please view the COPYING.txt    |
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
+// @phan-file-suppress PhanTypeSuspiciousStringExpression,PhanTypeMismatchArgumentInternal
 
 defined('PHPWG_ROOT_PATH') or trigger_error('Hacking attempt!', E_USER_ERROR);
 

@@ -39,7 +39,7 @@ function get_sync_iptc_data($file)
         $month = $matches[2];
         $day = $matches[3];
 
-        if (!checkdate($month, $day, $year))
+        if (!checkdate((int)$month, (int)$day, (int)$year))
         {
           // we suppose the year is correct
           $month = 1;
@@ -147,7 +147,7 @@ function get_sync_metadata_attributes()
  * Get all metadata of a file.
  *
  * @param array $infos - (path[, representative_ext])
- * @return array - includes data provided in $infos
+ * @return array|bool - includes data provided in $infos
  */
 function get_sync_metadata($infos)
 {
@@ -295,7 +295,7 @@ SELECT id, path, representative_ext
  * Returns an array associating element id (images.id) with its complete
  * path in the filesystem
  *
- * @param int $category_id
+ * @param string $category_id
  * @param int $site_id
  * @param boolean $recursive
  * @param boolean $only_new

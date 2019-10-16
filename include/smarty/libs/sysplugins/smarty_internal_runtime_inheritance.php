@@ -49,7 +49,7 @@ class Smarty_Internal_Runtime_Inheritance
      * - key template index
      * only used when caching is enabled
      *
-     * @var []string
+     * @var string[]
      */
     public $compiledFilePath = array();
 

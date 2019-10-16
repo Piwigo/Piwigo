@@ -709,7 +709,7 @@ UPDATE '. IMAGES_TABLE .'
 
   pwg_activity('photo', $params['image_id'], 'edit');
 
-  $affected_rows = pwg_db_changes($result);
+  $affected_rows = pwg_db_changes();
   if ($affected_rows)
   {
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');

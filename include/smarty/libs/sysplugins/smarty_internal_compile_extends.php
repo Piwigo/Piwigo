@@ -119,7 +119,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
     /**
      * Create source code for {extends} from source components array
      *
-     * @param []\Smarty_Internal_Template_Source $components
+     * @param \Smarty_Internal_Template_Source[] $components
      *
      * @return string
      */

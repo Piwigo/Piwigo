@@ -156,7 +156,7 @@ SELECT
   {
     check_input_parameter('group', $_POST, false, PATTERN_ID);
     
-    pwg_mail_group($_POST['group'], $args, $tpl);
+    pwg_mail_group((int)$_POST['group'], $args, $tpl);
 
     $query = '
 SELECT

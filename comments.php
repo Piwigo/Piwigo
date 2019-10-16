@@ -15,7 +15,7 @@ include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
 
 if (!$conf['activate_comments'])
 {
-  page_not_found(null);
+  page_not_found('');
 }
 
 // +-----------------------------------------------------------------------+
@@ -406,7 +406,7 @@ $navbar = create_navigation_bar($url,
                                 $counter,
                                 $start,
                                 $page['items_number'],
-                                '');
+                                false);
 
 $template->assign('navbar', $navbar);
 
@@ -476,7 +476,7 @@ SELECT *
       $tpl_comment['EMAIL'] = $email;
     }
 
-    if (can_manage_comment('delete', $comment['author_id']))
+    if (can_manage_comment('delete', (int)$comment['author_id']))
     {
       $tpl_comment['U_DELETE'] = add_url_params(
         $url_self,
@@ -487,7 +487,7 @@ SELECT *
         );
     }
 
-    if (can_manage_comment('edit', $comment['author_id']))
+    if (can_manage_comment('edit', (int)$comment['author_id']))
     {
       $tpl_comment['U_EDIT'] = add_url_params(
         $url_self,
@@ -508,7 +508,7 @@ SELECT *
       }
     }
 
-    if (can_manage_comment('validate', $comment['author_id']))
+    if (can_manage_comment('validate', (int)$comment['author_id']))
     {
       if ('true' != $comment['validated'])
       {

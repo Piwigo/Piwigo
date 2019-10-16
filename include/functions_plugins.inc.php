@@ -178,8 +178,8 @@ function remove_event_handler($event, $func,
  * @since 2.6
  *
  * @param string $event
- * @param mixed $data data to transmit to all handlers
- * @param mixed $args,... optional arguments
+ * @param ?mixed $data data to transmit to all handlers
+ * param mixed ...$args optional arguments
  * @return mixed $data
  */
 function trigger_change($event, $data=null)
@@ -232,7 +232,7 @@ function trigger_change($event, $data=null)
  * @since 2.6
  *
  * @param string $event
- * @param mixed $args,... optional arguments
+ * param mixed ...$args optional arguments
  */
 function trigger_notify($event)
 {

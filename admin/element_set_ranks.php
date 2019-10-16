@@ -44,7 +44,7 @@ if (isset($_POST['submit']))
     asort($_POST['rank_of_image'], SORT_NUMERIC);
 
     save_images_order(
-      $page['category_id'],
+      (int)$page['category_id'],
       array_keys($_POST['rank_of_image'])
       );
 
@@ -81,7 +81,7 @@ UPDATE '.CATEGORIES_TABLE.'
 
   if (isset($_POST['image_order_subcats']))
   {
-    $cat_info = get_cat_info($page['category_id']);
+    $cat_info = get_cat_info((int)$page['category_id']);
 
     $query = '
 UPDATE '.CATEGORIES_TABLE.'

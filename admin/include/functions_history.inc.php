@@ -42,7 +42,7 @@ function history_compare($a, $b)
  * @param array $data  - used in trigger_change
  * @param array $search
  * @param string[] $types
- * @param array
+ * @return array
  */
 function get_history($data, $search, $types)
 {

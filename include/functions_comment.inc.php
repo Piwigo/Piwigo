@@ -227,7 +227,7 @@ INSERT INTO '.COMMENTS_TABLE.'
   )
 ';
     pwg_query($query);
-    $comm['id'] = pwg_db_insert_id(COMMENTS_TABLE);
+    $comm['id'] = pwg_db_insert_id();
 
     invalidate_user_cache_nb_comments();
 
@@ -266,7 +266,7 @@ INSERT INTO '.COMMENTS_TABLE.'
  *    only admin can delete all comments
  *    other users can delete their own comments
  *
- * @param int|int[] $comment_id
+ * @param mixed $comment_id data from POST, so most likely string|string[] converted to int|int[] here
  * @return bool false if nothing deleted
  */
 function delete_user_comment($comment_id)
@@ -277,10 +277,13 @@ function delete_user_comment($comment_id)
     $user_where_clause = '   AND author_id = \''.$GLOBALS['user']['id'].'\'';
   }
 
-  if (is_array($comment_id))
+  if (is_array($comment_id)) {
+    foreach($comment_id as $i=>$id) {
+        $comment_id[$i] = (int)$id;
+    }
     $where_clause = 'id IN('.implode(',', $comment_id).')';
-  else
-    $where_clause = 'id = '.$comment_id;
+  } else
+    $where_clause = 'id = '.(int)$comment_id;
 
   $query = '
 DELETE FROM '.COMMENTS_TABLE.'
@@ -294,9 +297,9 @@ $user_where_clause.'
 
     email_admin('delete',
                 array('author' => $GLOBALS['user']['username'],
-                      'comment_id' => $comment_id
+                      'comment_id' => (int)$comment_id
                   ));
-    trigger_notify('user_comment_deletion', $comment_id);
+    trigger_notify('user_comment_deletion', (int)$comment_id);
 
     return true;
   }
@@ -484,14 +487,17 @@ SELECT
 /**
  * Tries to validate a user comment.
  *
- * @param int|int[] $comment_id
+ * @param mixed $comment_id string or array of string from POST, converted to int|int[] here
  */
 function validate_user_comment($comment_id)
 {
-  if (is_array($comment_id))
+  if (is_array($comment_id)) {
+    foreach($comment_id as $i=>$id) {
+        $comment_id[$i] = (int)$id;
+    }
     $where_clause = 'id IN('.implode(',', $comment_id).')';
-  else
-    $where_clause = 'id = '.$comment_id;
+  } else
+    $where_clause = 'id = '.(int)$comment_id;
 
   $query = '
 UPDATE '.COMMENTS_TABLE.'
@@ -502,7 +508,7 @@ UPDATE '.COMMENTS_TABLE.'
   pwg_query($query);
 
   invalidate_user_cache_nb_comments();
-  trigger_notify('user_comment_validation', $comment_id);
+  trigger_notify('user_comment_validation', (int)$comment_id);
 }
 
 /**

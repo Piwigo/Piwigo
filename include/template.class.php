@@ -942,7 +942,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
       $params['id'] = md5($params['path']);
     }
 
-    $this->cssLoader->add($params['id'], $params['path'], isset($params['version']) ? $params['version'] : 0, (int)@$params['order'], (bool)@$params['template']);
+    $this->cssLoader->add($params['id'], (string)$params['path'], isset($params['version']) ? $params['version'] : 0, (int)@$params['order'], (bool)@$params['template']);
   }
 
   /**
@@ -1050,7 +1050,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    *
    * @param string $source
    * @param Smarty $smarty
-   * @param return string
+   * @return string
    */
   static function prefilter_white_space($source, $smarty)
   {
@@ -1080,7 +1080,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    *
    * @param string $source
    * @param Smarty $smarty
-   * @param return string
+   * @return string
    */
   static function postfilter_language($source, $smarty)
   {
@@ -1097,7 +1097,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    *
    * @param string $source
    * @param Smarty $smarty
-   * @param return string
+   * @return string
    */
   static function prefilter_local_css($source, $smarty)
   {
@@ -1330,7 +1330,7 @@ final class Script extends Combinable
   public $extra;
 
   /**
-   * @param int 0,1,2
+   * @param int $load_mode 0,1,2
    * @param string $id
    * @param string $path
    * @param string $version
@@ -1372,9 +1372,9 @@ final class Css extends Combinable
  */
 class CssLoader
 {
-  /** @param Css[] */
+  /** @var Css[] */
   private $registered_css;
-  /** @param int used to keep declaration order */
+  /** @var int used to keep declaration order */
   private $counter;
 
   function __construct()
@@ -2006,6 +2006,7 @@ final class FileCombiner
    * @param string $header CSS directives that must appear first in
    *                       the minified file.
    * @return string
+   * @suppress PhanUndeclaredClassMethod
    */
   private static function process_css($css, $file, &$header)
   {

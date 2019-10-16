@@ -269,7 +269,7 @@ function inc_mail_sent_success($nbm_user)
   global $page, $env_nbm;
 
   $env_nbm['sent_mail_count'] += 1;
-  $page['infos'][] = sprintf($env_nbm['msg_info'], stripslashes($nbm_user['username']), $nbm_user['mail_address']);
+  $page['infos'][] = sprintf((string)$env_nbm['msg_info'], stripslashes($nbm_user['username']), $nbm_user['mail_address']);
 }
 
 /*
@@ -282,7 +282,7 @@ function inc_mail_sent_failed($nbm_user)
   global $page, $env_nbm;
 
   $env_nbm['error_on_mail_count'] += 1;
-  $page['errors'][] = sprintf($env_nbm['msg_error'], stripslashes($nbm_user['username']), $nbm_user['mail_address']);
+  $page['errors'][] = sprintf((string)$env_nbm['msg_error'], stripslashes($nbm_user['username']), $nbm_user['mail_address']);
 }
 
 /*
@@ -298,14 +298,14 @@ function display_counter_info()
   {
     $page['errors'][] = l10n_dec(
       '%d mail was not sent.', '%d mails were not sent.',
-      $env_nbm['error_on_mail_count']
+      (int)$env_nbm['error_on_mail_count']
       );
       
     if ($env_nbm['sent_mail_count'] != 0)
     {
       $page['infos'][] = l10n_dec(
         '%d mail was sent.', '%d mails were sent.',
-        $env_nbm['sent_mail_count']
+        (int)$env_nbm['sent_mail_count']
         );
     }
   }
@@ -319,12 +319,13 @@ function display_counter_info()
     {
       $page['infos'][] = l10n_dec(
         '%d mail was sent.', '%d mails were sent.',
-        $env_nbm['sent_mail_count']
+        (int)$env_nbm['sent_mail_count']
         );
     }
   }
 }
 
+/** @suppress PhanNonClassMethodCall */
 function assign_vars_nbm_mail_content($nbm_user)
 {
   global $env_nbm;
@@ -348,13 +349,17 @@ function assign_vars_nbm_mail_content($nbm_user)
   unset_make_full_url();
 }
 
-/*
+/**
  * Subscribe or unsubscribe notification by mail
  *
  * is_subscribe define if action=subscribe or unsubscribe
  * check_key list where action will be done
  *
- * @return check_key list treated
+ * @param bool $is_admin_request
+ * @param bool $is_subscribe
+ * @param array $check_key_list
+ * @return array check_key list treated
+ * @suppress PhanNonClassMethodCall
  */
 function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_subscribe = false, $check_key_list = array())
 {

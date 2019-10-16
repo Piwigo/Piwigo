@@ -228,12 +228,12 @@ function get_strict_email_list($email_list)
 /**
  * Return an new mail template.
  *
- * @param string $email_format - text/html or text/plain
+ * @param ?string $email_format - text/html or text/plain
  * @return Template
  */
 function &get_mail_template($email_format)
 {
-  $template = new Template(PHPWG_ROOT_PATH.'themes', 'default', 'template/mail/'.$email_format);
+  $template = new Template(PHPWG_ROOT_PATH.'themes', 'default', 'template/mail/'.(string)$email_format);
   return $template;
 }
 

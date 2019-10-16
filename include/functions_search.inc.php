@@ -956,6 +956,7 @@ function qsearch_get_text_token_search_sql($token, $fields)
   return $clauses;
 }
 
+/** @suppress PhanUndeclaredMethod */
 function qsearch_get_images(QExpression $expr, QResults $qsr)
 {
   $qsr->images_iids = array_fill(0, count($expr->stokens), array());
@@ -1278,8 +1279,7 @@ function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_t
  *    )
  *
  * @param string $q
- * @param bool $super_order_by
- * @param string $images_where optional additional restriction on images table
+ * @param array $options
  * @return array
  */
 function get_quick_search_results($q, $options)
@@ -1309,6 +1309,7 @@ function get_quick_search_results($q, $options)
 
 /**
  * @see get_quick_search_results but without result caching
+ * @return array
  */
 function get_quick_search_results_no_cache($q, $options)
 {

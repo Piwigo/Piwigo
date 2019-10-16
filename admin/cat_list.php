@@ -142,7 +142,7 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']))
   {
     $photo_deletion_mode = $_GET['photo_deletion_mode'];
   }
-  delete_categories(array($_GET['delete']), $photo_deletion_mode);
+  delete_categories(array((int)$_GET['delete']), $photo_deletion_mode);
 
   $_SESSION['page_infos'] = array(l10n('Virtual album deleted'));
   update_global_rank();
@@ -160,7 +160,7 @@ elseif (isset($_POST['submitAdd']))
 {
   $output_create = create_virtual_category(
     $_POST['virtual_name'],
-    @$_GET['parent_id']
+    (int)$_GET['parent_id']
     );
 
   invalidate_user_cache();

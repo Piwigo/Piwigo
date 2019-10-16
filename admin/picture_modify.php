@@ -26,7 +26,7 @@ check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 // photo.php as proxy.
 if (!isset($page['image']))
 {
-  $page['image'] = get_image_infos($_GET['image_id'], true);
+  $page['image'] = get_image_infos((int)$_GET['image_id'], true);
 }
 
 // represent
@@ -45,7 +45,7 @@ if (isset($_GET['delete']))
 {
   check_pwg_token();
 
-  delete_elements(array($_GET['image_id']), true);
+  delete_elements(array((int)$_GET['image_id']), true);
   invalidate_user_cache();
 
   // where to redirect the user now?
@@ -59,7 +59,7 @@ if (isset($_GET['delete']))
     redirect(
       make_index_url(
         array(
-          'category' => get_cat_info($_GET['cat_id'])
+          'category' => get_cat_info((int)$_GET['cat_id'])
           )
         )
       );

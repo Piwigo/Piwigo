@@ -58,7 +58,7 @@ DELETE FROM '.CADDIE_TABLE.'
     {
       $_SESSION['page_infos'][] = l10n_dec(
         '%d photo was deleted', '%d photos were deleted',
-        $_GET['nb_orphans_deleted']
+        (int)$_GET['nb_orphans_deleted']
         );
 
       redirect(get_root_url().'admin.php?page='.$_GET['page']);
@@ -72,7 +72,7 @@ DELETE FROM '.CADDIE_TABLE.'
     {
       $_SESSION['page_infos'][] = l10n_dec(
         '%d checksums were added', '%d checksums were added',
-        $_GET['nb_md5sum_added']
+        (int)$_GET['nb_md5sum_added']
       );
 
       redirect(get_root_url().'admin.php?page='.$_GET['page']);
@@ -519,15 +519,15 @@ if (!empty($_SESSION['bulk_manager_filter']['tags']))
   $filter_sets[] = get_image_ids_for_tags(
     $_SESSION['bulk_manager_filter']['tags'],
     $_SESSION['bulk_manager_filter']['tag_mode'],
-    null,
-    null,
+    '',
+    '',
     false // we don't apply permissions in administration screens
     );
 }
 
 if (isset($_SESSION['bulk_manager_filter']['dimension']))
 {
-  $where_clauses = array();
+  $where_clause = array();
   if (isset($_SESSION['bulk_manager_filter']['dimension']['min_width']))
   {
     $where_clause[] = 'width >= '.$_SESSION['bulk_manager_filter']['dimension']['min_width'];
@@ -565,16 +565,16 @@ SELECT id
 
 if (isset($_SESSION['bulk_manager_filter']['filesize']))
 {
-  $where_clauses = array();
+  $where_clause = array();
   
   if (isset($_SESSION['bulk_manager_filter']['filesize']['min']))
   {
-    $where_clause[] = 'filesize >= '.$_SESSION['bulk_manager_filter']['filesize']['min']*1024;
+    $where_clause[] = 'filesize >= '.(int)$_SESSION['bulk_manager_filter']['filesize']['min']*1024;
   }
   
   if (isset($_SESSION['bulk_manager_filter']['filesize']['max']))
   {
-    $where_clause[] = 'filesize <= '.$_SESSION['bulk_manager_filter']['filesize']['max']*1024;
+    $where_clause[] = 'filesize <= '.(int)$_SESSION['bulk_manager_filter']['filesize']['max']*1024;
   }
 
   $query = '
@@ -677,7 +677,7 @@ if (pwg_db_num_rows($result))
     {
       $widths[] = $row['width'];
       $heights[] = $row['height'];
-      $ratios[] = floor($row['width'] / $row['height'] * 100) / 100;
+      $ratios[] = floor((int)$row['width'] / (int)$row['height'] * 100) / 100;
     }
   }
 }
@@ -772,7 +772,7 @@ $result = pwg_query($query);
 
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $filesizes[] = sprintf('%.1f', $row['filesize']/1024);
+  $filesizes[] = sprintf('%.1f', ((int)$row['filesize'])/1024);
 }
 
 if (empty($filesizes))

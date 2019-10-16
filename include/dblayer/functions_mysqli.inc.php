@@ -186,7 +186,7 @@ function pwg_query($query)
  *
  * @param string $column
  * @param string $table
- * @param int
+ * @return int
  */
 function pwg_db_nextval($column, $table)
 {
@@ -679,13 +679,13 @@ function do_maintenance_all_tables()
 
 function pwg_db_concat($array)
 {
-  $string = implode($array, ',');
+  $string = implode(',', $array);
   return 'CONCAT('. $string.')';
 }
 
 function pwg_db_concat_ws($array, $separator)
 {
-  $string = implode($array, ',');
+  $string = implode(',', $array);
   return 'CONCAT_WS(\''.$separator.'\','. $string.')';
 }
 
@@ -888,8 +888,8 @@ function my_error($header, $die)
  * @since 2.6
  *
  * @param string $query
- * @param string $key_name
- * @param string $value_name
+ * @param ?string $key_name
+ * @param ?string $value_name
  * @return array
  */
 function query2array($query, $key_name=null, $value_name=null)

@@ -32,7 +32,7 @@ function size_to_url($s)
 {
   if ($s[0]==$s[1])
   {
-    return $s[0];
+    return (string)$s[0];
   }
   return $s[0].'x'.$s[1];
 }
@@ -50,7 +50,7 @@ function size_equals($s1, $s2)
 /**
  * Converts a char a-z into a float.
  *
- * @param string
+ * @param string $c
  * @return float
  */
 function char_to_fraction($c)
@@ -61,12 +61,12 @@ function char_to_fraction($c)
 /**
  * Converts a float into a char a-z.
  *
- * @param float
+ * @param float $f
  * @return string
  */
 function fraction_to_char($f)
 {
-	return chr(ord('a') + round($f*25));
+	return chr((int)(ord('a') + round($f*25)));
 }
 
 
@@ -113,7 +113,7 @@ final class ImageRect
    * Crops horizontally this rectangle by increasing left side and/or reducing the right side.
    *
    * @param int $pixels - the amount to substract from the width
-   * @param stirng $coi - a 4 character string (or null) containing the center of interest
+   * @param string $coi - a 4 character string (or null) containing the center of interest
    */
   function crop_h($pixels, $coi)
   {
@@ -220,7 +220,7 @@ final class SizingParams
   /**
    * Returns a square SizingParams object.
    *
-   * @param int $x
+   * @param int $w
    * @return SizingParams
    */
   static function square($w)
@@ -325,6 +325,7 @@ final class SizingParams
 
 /**
  * All needed parameters to generate a derivative image.
+ * @suppress PhanUndeclaredConstant
  */
 final class DerivativeParams
 {
@@ -366,11 +367,11 @@ final class DerivativeParams
   }
 
   /**
-   * @return int[]
+   * @return array{0:float,1:int}
    */
   function compute_final_size($in_size)
   {
-    $this->sizing->compute( $in_size, null, $crop_rect, $scale_size );
+    $this->sizing->compute( $in_size, '', $crop_rect, $scale_size );
     return $scale_size != null ? $scale_size : $in_size;
   }
 

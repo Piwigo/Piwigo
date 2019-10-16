@@ -45,6 +45,10 @@ class pwg_image
   var $source_filepath = '';
   static $ext_imagick_version = '';
 
+  /**
+   * @param string $source_filepath
+   * @param ?string $library
+   */
   function __construct($source_filepath, $library=null)
   {
     $this->source_filepath = $source_filepath;
@@ -211,6 +215,9 @@ class pwg_image
     return $result;
   }
 
+  /**
+   * @param string $source_filepath
+   */
   static function get_rotation_angle($source_filepath)
   {
     list($width, $height, $type) = getimagesize($source_filepath);
@@ -394,6 +401,9 @@ class image_imagick implements imageInterface
 {
   var $image;
 
+  /**
+   * @param string $source_filepath
+   */
   function __construct($source_filepath)
   {
     // A bug cause that Imagick class can not be extended

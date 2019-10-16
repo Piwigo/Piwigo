@@ -28,7 +28,7 @@ if (!is_numeric($_GET['site']))
 {
   die ('site param missing or invalid');
 }
-$site_id = $_GET['site'];
+$site_id = (int)$_GET['site'];
 
 $query='
 SELECT galleries_url

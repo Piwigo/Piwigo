@@ -27,10 +27,10 @@ if (isset($_POST['submit']))
   }
   else
   {
-    $coi = fraction_to_char($_POST['l'])
-      .fraction_to_char($_POST['t'])
-      .fraction_to_char($_POST['r'])
-      .fraction_to_char($_POST['b']);
+    $coi = fraction_to_char((float)$_POST['l'])
+      .fraction_to_char((float)$_POST['t'])
+      .fraction_to_char((float)$_POST['r'])
+      .fraction_to_char((float)$_POST['b']);
     $query .= ' SET coi=\''.$coi.'\'';
   }
   $query .= ' WHERE id='.$_GET['image_id'];

@@ -34,7 +34,7 @@ final class SrcImage
   private $flags=0;
 
   /**
-   * @param array $infos assoc array of data from images table
+   * @param ?array $infos assoc array of data from images table
    */
   function __construct($infos)
   {
@@ -93,7 +93,7 @@ final class SrcImage
    */
   function is_original()
   {
-    return $this->flags & self::IS_ORIGINAL;
+    return (bool)($this->flags & self::IS_ORIGINAL);
   }
 
   /**
@@ -101,7 +101,7 @@ final class SrcImage
    */
   function is_mimetype()
   {
-    return $this->flags & self::IS_MIMETYPE;
+    return (bool)($this->flags & self::IS_MIMETYPE);
   }
 
   /**
@@ -163,7 +163,7 @@ final class DerivativeImage
 {
   /** @var SrcImage */
   public $src_image;
-  /** @var array */
+  /** @var DerivativeParams */
   private $params;
   /** @var string */
   private $rel_path;
@@ -292,8 +292,15 @@ final class DerivativeImage
 
   /**
    * @todo : documentation of DerivativeImage::build
+   * @param SrcImage $src
+   * @param DerivativeParams $params
+   * @param string $rel_path
+   * @param string $rel_url
+   * @param bool $is_cached
+   * @return void
+   * @suppress PhanTypeExpectedObjectPropAccessButGotNull
    */
-  private static function build($src, &$params, &$rel_path, &$rel_url, &$is_cached=null)
+  private static function build($src, &$params, &$rel_path, &$rel_url, &$is_cached=false)
   {
     if ( $src->has_size() && $params->is_identity( $src->get_size() ) )
     {// the source image is smaller than what we should do - we do not upsample
@@ -416,7 +423,7 @@ final class DerivativeImage
   }
 
   /**
-   * @return int[]
+   * @return array{0:float,1:int}
    */
   function get_size()
   {
@@ -471,7 +478,7 @@ final class DerivativeImage
 
   /**
    * @param int $maxw
-   * @param int $mawh
+   * @param int $maxh
    * @return int[]
    */
   function get_scaled_size($maxw, $maxh)
@@ -502,7 +509,7 @@ final class DerivativeImage
    * Returns the scaled size as HTML attributes.
    *
    * @param int $maxw
-   * @param int $mawh
+   * @param int $maxh
    * @return string
    */
   function get_scaled_size_htm($maxw=9999, $maxh=9999)

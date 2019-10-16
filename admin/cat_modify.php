@@ -129,15 +129,15 @@ UPDATE '.CATEGORIES_TABLE.'
   }
 
   // retrieve cat infos before continuing (following updates are expensive)
-  $cat_info = get_cat_info($_GET['cat_id']);
+  $cat_info = get_cat_info((int)$_GET['cat_id']);
 
   if ($_POST['visible']=='true_sub')
   {
-    set_cat_visible(array($_GET['cat_id']), true, true);
+    set_cat_visible(array((int)$_GET['cat_id']), true, true);
   }
   elseif ($cat_info['visible'] != get_boolean( $_POST['visible'] ) )
   {
-    set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
+    set_cat_visible(array((int)$_GET['cat_id']), $_POST['visible']);
   }
 
   // in case the use moves his album to the gallery root, we force
@@ -151,7 +151,7 @@ UPDATE '.CATEGORIES_TABLE.'
   // only move virtual albums
   if (empty($cat_info['dir']) and $cat_info['id_uppercat'] != $_POST['parent'])
   {
-    move_categories( array($_GET['cat_id']), $_POST['parent'] );
+    move_categories(array((int)$_GET['cat_id']), (int)$_POST['parent'] );
   }
 
   $_SESSION['page_infos'][] = l10n('Album updated successfully');

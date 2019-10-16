@@ -5,6 +5,7 @@
 // | For copyright and license information, please view the COPYING.txt    |
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
+// @phan-file-suppress PhanDeprecatedFunctionInternal
 
 define('DB_ENGINE', 'MySQL');
 define('REQUIRED_MYSQL_VERSION', '5.0.0');
@@ -189,10 +190,10 @@ define('MASS_UPDATES_SKIP_EMPTY', 1);
 /**
  * updates multiple lines in a table
  *
- * @param string table_name
- * @param array dbfields
- * @param array datas
- * @param int flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
+ * @param string $tablename
+ * @param array $dbfields
+ * @param array $datas
+ * @param int $flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
  * @return void
  */
 function mass_updates($tablename, $dbfields, $datas, $flags=0)
@@ -329,10 +330,10 @@ DROP TABLE '.$temporary_tablename;
 /**
  * updates one line in a table
  *
- * @param string table_name
- * @param array set_fields
- * @param array where_fields
- * @param int flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
+ * @param string $tablename
+ * @param array $set_fields
+ * @param array $where_fields
+ * @param int $flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
  * @return void
  */
 function single_update($tablename, $set_fields, $where_fields, $flags=0)
@@ -391,9 +392,10 @@ UPDATE '.$tablename.'
 /**
  * inserts multiple lines in a table
  *
- * @param string table_name
- * @param array dbfields
- * @param array inserts
+ * @param string $table_name
+ * @param array $dbfields
+ * @param array $datas
+ * @param array $options
  * @return void
  */
 function mass_inserts($table_name, $dbfields, $datas, $options=array())
@@ -461,9 +463,8 @@ INSERT '.$ignore.' INTO '.$table_name.'
 /**
  * inserts one line in a table
  *
- * @param string table_name
- * @param array dbfields
- * @param array insert
+ * @param string $table_name
+ * @param array $data
  * @return void
  */
 function single_insert($table_name, $data)
@@ -506,7 +507,7 @@ INSERT INTO '.$table_name.'
 /**
  * Do maintenance on all PWG tables
  *
- * @return none
+ * @return void
  */
 function do_maintenance_all_tables()
 {
@@ -561,18 +562,31 @@ function do_maintenance_all_tables()
   }
 }
 
+/**
+ * @param string[] $array
+ * @return string
+ */
 function pwg_db_concat($array)
 {
   $string = implode($array, ',');
   return 'CONCAT('. $string.')';
 }
 
+/**
+ * @param string[] $array
+ * @param string $separator
+ * @return string
+ */
 function pwg_db_concat_ws($array, $separator)
 {
   $string = implode($array, ',');
   return 'CONCAT_WS(\''.$separator.'\','. $string.')';
 }
 
+/**
+ * @param string $string
+ * @return string
+ */
 function pwg_db_cast_to_text($string)
 {
   return $string;
@@ -581,8 +595,9 @@ function pwg_db_cast_to_text($string)
 /**
  * returns an array containing the possible values of an enum field
  *
- * @param string tablename
- * @param string fieldname
+ * @param string $table
+ * @param string $field
+ * @return array
  */
 function get_enums($table, $field)
 {
@@ -611,7 +626,7 @@ function get_enums($table, $field)
 /**
  * Smartly checks if a variable is equivalent to true or false
  *
- * @param mixed input
+ * @param mixed $input
  * @return bool
  */
 function get_boolean($input)
@@ -776,8 +791,8 @@ function my_error($header, $die)
  * @since 2.6
  *
  * @param string $query
- * @param string $key_name
- * @param string $value_name
+ * @param ?string $key_name
+ * @param ?string $value_name
  * @return array
  */
 function query2array($query, $key_name=null, $value_name=null)
