@@ -201,7 +201,7 @@ if (count($user_ids) > 0)
   $query = '
 SELECT
     user_id,
-    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS groups
+    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS `groups`
   FROM '.USER_GROUP_TABLE.'
     JOIN `'.GROUPS_TABLE.'` ON id = group_id
   WHERE user_id IN ('.implode(',', $user_ids).')
