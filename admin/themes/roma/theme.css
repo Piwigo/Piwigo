@@ -196,7 +196,7 @@ INPUT[type="text"].large  { width: 317px; }
 }
 
 .buttonLike:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
-	color:#555; 
+	color:#555;
 	border-color:#666;
   cursor:not-allowed;
   background-color: #666;
@@ -416,3 +416,67 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #uploadForm li.plupload_droptext {background-color: #343434!important; color: #777 !important;}
 .addFilesButtonChanged {background-color: #888;}
 .addFilesButtonChanged:hover {background-color: #777;}
+
+/*Error message*/
+
+.errors {
+    color: #ffc4bf;
+    background-color: #d31100;
+    border-left: 4px solid #ffc4bf;
+}
+
+.errors li{
+    color: #ff0303;
+}
+
+.errors a{
+    background-color: #ff4838;
+    padding: 2px 7px;
+    color: #ffe8e6;
+}
+
+/*Success message*/
+
+.infos {
+    color: #9bff92;
+    background-color: #10bb00;
+    border-left: 4px solid #9bff92;
+}
+
+.infos li{
+    color: #9bff92;
+}
+
+.infos a{
+    background-color: #12e100;
+    padding: 2px 7px;
+    color: #e3ffe1;
+}
+
+/*Warning message*/
+
+.warnings {
+    color: #ffc58c;
+    background-color: #ee6300;
+    border-left: 4px solid #ffc58c;
+}
+
+.warnings a{
+    background-color: #ff8e3d;
+    padding: 2px 7px;
+    color: #ffedda;
+}
+
+/*announcement message*/
+
+.messages {
+    color: #45a8ff;
+    background-color: #003360;
+    border-left: 4px solid #45a8ff;
+}
+
+.eiw .messages a {
+    background-color: #00529b;
+    color: #a7d6ff;
+    padding: 2px 7px;
+}
