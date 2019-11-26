@@ -320,12 +320,16 @@ BODY {
   text-align: left;
   font-size: 18px;
   float:left;
-  width: 50%;
+  width: calc(100% - 330px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height:50px;
   margin: 0 0 0 220px;
+}
+
+.admin-head-username {
+  display: none;
 }
 
 #pwgHead A {color:#ccc;}
@@ -1588,6 +1592,14 @@ fieldset#environment legend i[class*="icon-"] {
 @media all and (min-width: 800px) {
   #headActions a span {
     display:inline;
+  }
+
+  #pwgHead .pwgHead-gallery-title {
+    width: calc(100% - 650px);
+  }
+
+  .admin-head-username {
+    display: inline;
   }
 }
 

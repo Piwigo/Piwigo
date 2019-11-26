@@ -57,7 +57,7 @@
   <div class="pwgHead-gallery-title">{$GALLERY_TITLE}</div>
 
   <div id="headActions">
-    <i class="icon-user"></i>{$USERNAME}
+    <span class="admin-head-username"><i class="icon-user"></i>{$USERNAME}</span>
 {*
     <a href="{$U_RETURN}" title="{'Visit Gallery'|translate}"><i class="icon-eye"></i><span>{'Visit Gallery'|translate}</span></a>
 *}
