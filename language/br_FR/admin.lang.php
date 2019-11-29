@@ -1001,3 +1001,6 @@ $lang['checksums to add'] = 'sammadoù kontroll da ouzhpennañ';
 $lang['Create a first album'] = 'Krouiñ ur rummad kentañ';
 $lang['Welcome!'] = 'Degemer mat!';
 $lang['or'] = 'pe';
+$lang['Display album date period'] = 'Diskouez paderezh an deiziadoù e pep rummad, dre skouer « eus an 12 betek ar 15 a viz Gouere 2018 »';
+$lang['Piwigo requires an album to add photos.'] = 'Ur rummad en deus ezhom Piwigo da lakaat luc\'hskeudennoù ouzhpenn.';
+$lang['Display category date'] = 'Diskouez deiziat ar rummad';
