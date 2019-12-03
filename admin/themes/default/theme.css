@@ -864,7 +864,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   margin-left:0;
 }
 
-#menubar ul.scroll { overflow-y:auto; max-height:500px; }
+#menubar ul.scroll { overflow-y:auto; max-height:500px; scrollbar-color: #666 #3c3c3c;}
 #menubar dl { width: 205px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:0; border-left:none; }
 #menubar dd { margin: 0; padding: 10px 0; }
 #menubar dt {
@@ -888,6 +888,27 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   float: right;
   margin-right: 5px;
   margin-top: 2px;
+}
+
+@media all and (max-height: 920px) {
+  #menubar ul.scroll {
+    max-height: 400px;
+  }
+}
+
+@media all and (max-height: 830px) {
+  #menubar ul.scroll {
+    max-height: 300px;
+  }
+}
+
+@media all and (max-height: 700px) {
+  #menubar ul.scroll {
+    max-height: 200px;
+  }
+  #theAdminPage #footer {
+    display: none;
+  }
 }
 
 /* tabsheets are often used in admin  pages => No specific css files */
