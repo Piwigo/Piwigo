@@ -257,7 +257,7 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
       else
       {
         $insert['uppercats'] = $insert['id'];
-        $insert{'rank'} = $next_rank['NULL']++;
+        $insert['rank'] = $next_rank['NULL']++;
         $insert['global_rank'] = $insert['rank'];
       }
 
@@ -268,7 +268,7 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
           );
 
       // add the new category to $db_categories and $db_fulldirs array
-      $db_categories[$insert{'id'}] =
+      $db_categories[$insert['id']] =
         array(
           'id' => $insert['id'],
           'parent' => (isset($parent)) ? $parent : Null,
@@ -278,7 +278,7 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
           'global_rank' => $insert['global_rank']
           );
       $db_fulldirs[$fulldir] = $insert['id'];
-      $next_rank[$insert{'id'}] = 1;
+      $next_rank[$insert['id']] = 1;
     }
     else
     {
