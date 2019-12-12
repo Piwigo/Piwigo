@@ -170,7 +170,7 @@ function register_user($login, $password, $mail_address, $notify_admin=true, &$e
     );
 
   // if no error until here, registration of the user
-  if (count($errors) == 0)
+  if (empty($errors))
   {
     $insert = array(
       $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
