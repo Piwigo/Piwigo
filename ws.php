@@ -700,6 +700,8 @@ function ws_addDefaultMethods( $arr )
         'level' =>          array('default'=>null,
                                   'maxValue'=>max($conf['available_permission_levels']),
                                   'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'latitude' => array('default'=>null, 'type'=>WS_TYPE_FLOAT),
+        'longitude' => array('default'=>null, 'type'=>WS_TYPE_FLOAT),
         'single_value_mode' =>    array('default'=>'fill_if_empty'),
         'multiple_value_mode' =>  array('default'=>'append'),
         ),
