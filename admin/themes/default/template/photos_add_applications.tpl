@@ -9,6 +9,7 @@ jQuery().ready(function(){
 {html_head}{literal}
 <style type="text/css">
 .illustration {float:left; margin-right:10px;}
+.illustration img {max-width: 150px;}
 fieldset p {text-align:left;margin-top:0}
 </style>
 {/literal}{/html_head}
@@ -28,7 +29,7 @@ fieldset p {text-align:left;margin-top:0}
 
 <fieldset>
   <legend>{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}</legend>
-<div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-ios.jpg" title="{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-ios.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-ios.png" title="{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-ios.png"></a></div>
 <p>{'<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'|@translate}</p>
 
 <p>
@@ -39,7 +40,7 @@ fieldset p {text-align:left;margin-top:0}
 <fieldset>
   <legend>Lightroom</legend>
 
-<div class="illustration"><a href="https://piwigo.org/screenshots/applications/lightroom.png" title="{'Piwigo Publish plugin for Lightroom'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/lightroom.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/lightroom.png" title="{'Piwigo Publish plugin for Lightroom'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/lightroom.png"></a></div>
 <p>
 {'Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'|@translate}
 {'The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'|@translate}
@@ -113,6 +114,7 @@ fieldset p {text-align:left;margin-top:0}
 </p>
 </fieldset>
 
+{*
 <fieldset>
   <legend>ReGalAndroid</legend>
 
@@ -126,3 +128,4 @@ fieldset p {text-align:left;margin-top:0}
 {'Available on'|@translate} <a target="_blank" href="https://play.google.com/store/apps/details?id=net.dahanne.android.regalandroid">Google Play</a>
 </p>
 </fieldset>
+*}

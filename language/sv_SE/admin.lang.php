@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -1009,3 +994,18 @@ $lang['Delete album "%s" and its %d sub-albums.'] = 'Radera folder "%s" och dess
 $lang['Confirm deletion'] = 'Bekräfta radering';
 $lang['delete album and the %d orphan photos'] = 'radera album och de %d föräldralösa bilderna';
 $lang['orphans to delete'] = 'föräldralösa som ska raderas';
+$lang['or'] = 'eller';
+$lang['checksums to add'] = 'checksummor att lägga till';
+$lang['With no checksum'] = 'Med ingen checksumma';
+$lang['Welcome!'] = 'Välkommen!';
+$lang['Visit'] = 'Besök';
+$lang['Synchronization in progress'] = 'Synkronisering pågår';
+$lang['Some checksums are missing.'] = 'Vissa checksummor saknas.';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo behöver ett album för att lägga till foton.';
+$lang['Display category date'] = 'Visa datumkategori';
+$lang['Display album date period'] = 'Visa varje albums associerade datumperiod, t.ex. « från 12 till 15 juli 2018 »';
+$lang['Deletion in progress'] = 'Borttagning pågår';
+$lang['Create a first album'] = 'Skapa ett första album';
+$lang['Compute %d missing checksums'] = 'Fullborda %d saknade checksummor';
+$lang['... or hide this link'] = '... eller göm denna länk';
+$lang['%d checksums were added'] = '%d checksummor lades till';

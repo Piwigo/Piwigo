@@ -59,7 +59,8 @@ padding-bottom: 15px; }
 }
 html, body {
 	min-height: 100%;
-	background-color: #f9f9f9;
+  height: 100%;
+	background-color: #fff;
 }
 
 /* #the_page { margin: 0; padding: 0; z-index: 1; top:0px; */
@@ -68,11 +69,7 @@ h3, .throw, .row1 { background-color: #ddd; }
 .row2 { background-color:#eeeeee; }
 
 #content {
-	background: #f1f1f1;
-  border: 1px solid #f9f9f9;
-	min-height: 467px;
-  margin-left:217px;
-  margin-top: 7px;
+	background: #fff;
 }
 
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
@@ -81,7 +78,6 @@ h3, .throw, .row1 { background-color: #ddd; }
 .content h4 { color: #aaa; font-size:14px; text-align:center; padding:3px; margin-top: 0; margin-bottom: 10px;}
 
 .content dl, dd { margin:5px; }
-.content div.titrePage { height:40px; }
 
 
 UL.thumbnails span.wrap2:hover { background-color:#7CBA0F; color:#999; }
@@ -109,7 +105,7 @@ TEXTAREA { cursor:text; font-size: 13px; }
 ul.thumbnails input { color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
-.categoryLi, .menuLi { background: #ddd }
+.categoryLi, .menuLi { background: #F3F3F3; }
 .menuLi_hidden { background: #ccc !important; }
 a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
@@ -126,78 +122,16 @@ TABLE.table2 { border: 2px solid #dddddd; }
 
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 A{
-	color:#005E89;
+	color:#3A3A3A;
 }
 
 A:hover, A:active {
-	color: #d54e21;
+	color: #ffa646;
 	cursor: pointer; 
 }
 
 .content .navigationBar {color:#999;}
 ul.actions, .content form#waiting  {text-align:center;}
-
-.header_msgs {
-	border:0;
-	color:#ccc;
-	font-size:24px;
-	height:30px;
-	margin:0; padding:10px 0 0;
-	text-align:center; width:100%;
-}
-
-/* tabsheets are often used in admin  pages => No specific css files */
-#tabsheet { width:auto; margin:-1px; margin-right:-6px; padding:0;
-border:1px solid #f9f9f9; border-bottom:1px solid #aaa; background-color:#f9f9f9;margin-top:-7px;}
-.tabsheet { display:table; white-space:nowrap; padding-left:10px; margin:0; width:auto;
-font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
-list-style-type:none; list-style-image:none; text-decoration:none; }
-.tabsheet li { background:#f1f1f1; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #aaa; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;-webkit-border-top-left-radius:5px; -webkit-border-top-right-radius:5px;border-radius:5px 5px 0 0;}
-.tabsheet a {
-display:block; font-size:11px; border:0;
-font-weight:bold; overflow:hidden; padding:6px;
-text-align:right; text-decoration:none; margin: 0; }
-.tabsheet a:first-letter { text-transform:capitalize; }
-.tabsheet li.selected_tab  {
-  border-bottom:1px solid #f1f1f1;
-}
-.tabsheet li:hover, .tabsheet li.selected_tab  {
-margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
- }
-/* .tabsheet a:hover */
-.tabsheet li.selected_tab  a { color: #555; }
-.tabsheet a span { font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
-
-.sort { clear: none; }
-
-/* menubar is on all admin pages => No specific css file */
-#menubar {
-  padding:0; width:207px; z-index:99; text-align: left;margin-top:7px;
-  margin-left:0;
-}
-
-#menubar ul.scroll { overflow-y:auto; max-height:500px; }
-#menubar dl { width: 200px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:0; background-color:#444; border-left:none; }
-#menubar dd { margin: 0; padding: 0; }
-#menubar dt {
-	background-color: #333; margin: 0; display: block; font-weight:bold;
-	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #aaa;
-	cursor:pointer;
-}
-#menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0;  }
-#menubar dl:last-of-type { border-radius:0;  }
-#menubar li { margin: 0; padding-left:10px; }
-#menubar li A { display:block; color:#ccc }
-#menubar li A:hover {color:#eee; text-decoration:none}
-#menubar li:hover {background-color:#222;}
-#menubar ul { color: #ccc; margin:0; line-height: 25px;
-  list-style-type: none; list-style-position: inside; padding: 0; }
-#adminHome       {background-color:#333;border-radius: 0;margin-left:0;margin-bottom:17px;}
-#adminHome:hover {background-color:#f70;}
-#adminHome A {color:#aaa}
-#adminHome:hover A {color:#fff}
-
-#menubar i {font-size:14px;}
 
 /* jQuery tooltips */
 .ui-tooltip {
@@ -289,10 +223,6 @@ INPUT[type="text"].large  { width: 317px; }
 	color: #ccc;
 }
 
-#pwgHead h1 A:hover [class="icon-home"] {
-  color:#ff7700;
-}
-
 #pwgHead A, #footer A {color:#ccc;}
 #pwgHead A:hover, #footer A:hover {color:white;}
 
@@ -355,21 +285,16 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 #pwgMain {padding-left:0}
 
+.buttonLike:hover {color: #3C3C3C;}
+
 .buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:1px;
-  border:none;
-  background-color:#666;
-  color:#fff;
-  padding:4px 7px;
-  margin-left:0;
+  background-color:#FFA646;
+  color:#3C3C3C;
 }
 
 .buttonLike:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
 	cursor: pointer;
   background-color: #ff7700;
-  color: white;
 	text-decoration: none;
 }
 
@@ -378,10 +303,13 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 }
 
 .buttonLike:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
-  background-color:#999;
-  color:#eee;
+  background-color: #ECECEC;
+  color: #D5D5D5;
   cursor:not-allowed;
 }
+
+#formCreateAlbum input[name="virtual_name"] {border: 1px solid #D5D5D5; transition: all 125ms ease-out;}
+#formCreateAlbum input[name="virtual_name"]:hover {border-color: #3C3C3C;}
 
 p.albumTitle img {margin-bottom:-3px;}
 
@@ -396,7 +324,7 @@ label>p.group_select {
 }
 
 .userSeparator {
-  color:#999;
+  visibility: hidden;
 }
 
 table.dataTable tr.even {
@@ -429,16 +357,7 @@ table.dataTable thead th, table.dataTable.no-footer {
 .userPrefs {border-color:#ddd;}
 
 .big-progressbar {
-  background:#fff;
-  border:1px solid #aaa;
-  border-radius:5px;
-}
-
-.big-progressbar .progressbar {
-  background:#FF8A23;
-  background:#FF8A23 linear-gradient(135deg, rgba(255,255,255,0) 44%,rgba(255,255,255,0.2) 44%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0) 57%);
-  background-size:33px 25px;
-  box-shadow:inset 0px 1px 3px 0px rgba(255,255,255,0.4);
+  background: #3C3C3C;
 }
 
 .font-checkbox [class*=icon-check]:before { color:#444; }
@@ -467,4 +386,35 @@ table.dataTable thead th, table.dataTable.no-footer {
   border-color: #ff7700;
   background-color:#fff;
 }
-/* beta-test ends */
+
+FORM#categoryOrdering p.albumTitle a { color: #5B5B5B; }
+FORM#categoryOrdering p.albumActions a { border-left:1px solid #D6D6D6; }
+.albumInfos {color: #999999;}
+FORM#categoryOrdering p.albumActions a:hover {background-color: #FFA844; color: #3A3A3A;}
+FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
+#addAlbumOpen, #autoOrderOpen {border: 1px solid #D6D6D6; color: #5B5B5B;}
+#addAlbumOpen:hover, #autoOrderOpen:hover {border: 1px solid #aaa; text-decoration: none;}
+.afterUploadActions a {color: #3C3C3C; font-weight: bold; background-color: #FFA646;}
+.afterUploadActions a:hover {text-decoration: none; background-color: #ff7700;}
+.font-checkbox:hover {color: #FFA844;}
+.font-checkbox.selected {color: #ffa646;}
+
+LEGEND {color: #3C3C3C;}
+a#showPermissions {color: #5B5B5B; border: 1px solid #D6D6D6; background-color: #FAFAFA;}
+a#showPermissions:hover {border-color: #A5A5A5;}
+.icon-plus.cboxElement {background-color: #F6F6F6;}
+.icon-plus.cboxElement:hover {background-color: #F2F2F2;}
+.selectize-control.single .selectize-input {border: 2px solid #FFA646!important; color: #3C3C3C;}
+.selectize-control.single .selectize-input:hover {border-color: #FAC17E!important;}
+.plupload_filelist {scrollbar-color: #CBCBCB #ffffff!important; background-color: #ffffff!important;}
+.plupload_filelist_footer {background-color: #F5F5F5!important;}
+li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
+li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
+
+.addAlbumEmpty {color: #3C3C3C;}
+#addAlbumForm input[name="category_name"] {border:none!important; margin-top: 5px!important;}
+#addAlbumForm input[name="category_name"]:focus {background-color: #DDDDDD;}
+.buttonSeparator {color: #3C3C3C;}
+#uploadForm li.plupload_droptext {background-color: #F5F5F5!important;}
+.addFilesButtonChanged {background-color: #E5E5E5;}
+.addFilesButtonChanged:hover {background-color: #BBB;}

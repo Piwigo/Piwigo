@@ -1,0 +1,18 @@
+COPYRIGHT
+
+    Piwigo - a photo library manager
+
+    Copyright(C) 2008-2019 Piwigo Team                  https://piwigo.org
+    Copyright(C) 2003-2008 PhpWebGallery Team     http://phpwebgallery.net
+    Copyright(C) 2002-2003 Pierrick LE GALL    http://pierrick.le-gall.net
+
+
+SOFTWARE LICENSE
+
+    The free software license of Piwigo is GNU General Public License v2
+    or later. See LICENSE.txt to get a full copy.
+
+
+TRADEMARK
+
+    Piwigo is a registered trademark.

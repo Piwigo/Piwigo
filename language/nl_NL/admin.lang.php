@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d associatie';
@@ -421,7 +406,7 @@ $lang['Correction applied with success'] = 'Correctie die met succes is toegepas
 $lang['Correction applied with error'] = 'Correctie die met fout wordt toegepast';
 $lang['%d anomaly has been detected.'] = '%d onregelmatigheid ontdekt.';
 $lang['%d anomalies have been detected.'] = '%d onregelmatigheden ontdekt.';
-$lang['%d anomaly has been corrected.'] = '%d onregelmatigheid zijn gecorrigeerd.';
+$lang['%d anomaly has been corrected.'] = '%d onregelmatigheid is gecorrigeerd.';
 $lang['%d anomalies have been detected corrected.'] = '%d onregelmatigheden die zijn gecorrigeerd.';
 $lang['%d anomaly has not been corrected.'] = '%d onregelmatigheid is niet gecorrigeerd.';
 $lang['%d anomalies have not been corrected.'] = '%d onregelmatigheden zijn niet gecorrigeerd.';
@@ -1010,3 +995,18 @@ $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'De tij
 $lang['checksum'] = 'controletotaal (checksum)';
 $lang['delete album and all %d photos, even the %d associated to other albums'] = 'verwijder album en alle %d foto\'s, zelfs de %d gekoppeld aan andere albums';
 $lang['orphans to delete'] = 'te verwijderen "wees"-foto\'s';
+$lang['Display album date period'] = 'Toon periode van iedere album, bijv << van 12 juli tot 15 juli, 2018 >>';
+$lang['%d checksums were added'] = '%d checksums toegevoegd';
+$lang['... or hide this link'] = '.. of verberg deze link';
+$lang['Compute %d missing checksums'] = 'Bereken %d missende checksums';
+$lang['Create a first album'] = 'Creëer een eerste album';
+$lang['Deletion in progress'] = 'Verwijdering bezig';
+$lang['Display category date'] = 'Toon categorie datum';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo vereist een album om fotos in toe te voegen';
+$lang['Some checksums are missing.'] = 'Een aantal checksums ontbreken';
+$lang['Synchronization in progress'] = 'Synchronisatie bezig';
+$lang['Visit'] = 'Bezoek';
+$lang['Welcome!'] = 'Welkom!';
+$lang['With no checksum'] = 'Zonder checksum';
+$lang['checksums to add'] = 'checksums toe te voegen';
+$lang['or'] = 'of';

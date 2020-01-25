@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d associació';
@@ -1019,3 +1004,18 @@ $lang['No filter on album. Select one or type to search'] = 'No hi ha cap filtre
 $lang['No tag selected, no action possible.'] = 'No s\'ha seleccionat cap etiqueta i no es pot realitzar cap acció';
 $lang['Storage used'] = 'Emmagatzemament utilitzat';
 $lang['checksum'] = 'suma de verificació';
+$lang['%d checksums were added'] = 's\'han afegit %d checksums';
+$lang['... or hide this link'] = '...o amagueu aquest enllaç';
+$lang['Compute %d missing checksums'] = 'Calcula %d checksums que manquen';
+$lang['Create a first album'] = 'Creeu un primer àlbum';
+$lang['Deletion in progress'] = 'Supressió en curs';
+$lang['Display album date period'] = 'Mostra el periode de dates associat amb cada àlbum, p.ex. «del 12 de al 15 de juliol de 2018»';
+$lang['Display category date'] = 'Mostra la data de la categoria';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo necessita un àlbum per afegir-hi fotos.';
+$lang['Some checksums are missing.'] = 'Manquen alguns checksums.';
+$lang['Synchronization in progress'] = 'Sincronització en curs';
+$lang['Visit'] = 'Visiteu';
+$lang['Welcome!'] = 'Benvinguts!';
+$lang['With no checksum'] = 'Sense checksum';
+$lang['checksums to add'] = 'Checksums per afegir';
+$lang['or'] = 'o';

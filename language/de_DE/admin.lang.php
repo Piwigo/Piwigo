@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d Element wird angezeigt';
@@ -91,7 +76,7 @@ $lang['Group name'] = 'Gruppenname';
 $lang['Groups'] = 'Gruppen';
 $lang['Guests'] = 'Gäste';
 $lang['History'] = 'Statistik';
-$lang['Informations'] = 'Benachrichtigung';
+$lang['Informations'] = 'Es gibt Neuigkeiten!';
 $lang['Install'] = 'Installieren';
 $lang['Link all album photos to a new album'] = 'Alle Album-Fotos mit einem neuen Album verknüpfen';
 $lang['Link all album photos to some existing albums'] = 'Alle Album-Fotos mit einem existierenden Album verknüpfen';
@@ -396,7 +381,7 @@ $lang['Group'] = 'Gruppe';
 $lang['[%s] Visit album %s'] = '[%s] Album %s ansehen';
 $lang['Hello,'] = 'Guten Tag!';
 $lang['See you soon.'] = 'Bis bald!';
-$lang['Discover album:'] = 'Entdecken Sie dieses Album:';
+$lang['Discover album:'] = 'Entdecke dieses Album:';
 $lang['Mail content'] = 'Text der E-Mail';
 $lang['none'] = 'nichts';
 $lang['high'] = 'hoch';
@@ -1012,3 +997,18 @@ $lang['delete album and all %d photos, even the %d associated to other albums'] 
 $lang['delete album and the %d orphan photos'] = 'Lösche Album und %d verwaiste Fotos';
 $lang['delete only album, not photos'] = 'löscht nur Alben, keine Fotos';
 $lang['orphans to delete'] = 'verwaiste Daten zum löschen';
+$lang['Display album date period'] = 'Zeitspanne, die mit dem Album verknüpft anzeigen, z.B. << vom 12. bis 15. Juli 2018 ';
+$lang['checksums to add'] = 'Checksummen zum Hinzufügen';
+$lang['Deletion in progress'] = 'Löschprozess im Gange';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo benötigt ein Album um Fotos hinzuzufügen.';
+$lang['Some checksums are missing.'] = 'Einige Checksummen fehlen.';
+$lang['Synchronization in progress'] = 'Synchronisationsprozess im Gange';
+$lang['%d checksums were added'] = '%d Checksummen wurden hinzugefügt ';
+$lang['... or hide this link'] = '... oder verstecke den Link';
+$lang['Compute %d missing checksums'] = 'Berechne %d fehlende Checksummen';
+$lang['Create a first album'] = 'Erstes Album erstellen';
+$lang['Visit'] = 'Besuch';
+$lang['Welcome!'] = 'Willkommen!';
+$lang['With no checksum'] = 'Ohne Checksumme';
+$lang['or'] = 'oder';
+$lang['Display category date'] = 'Kategorie-Datum anzeigen';

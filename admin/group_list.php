@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if( !defined("PHPWG_ROOT_PATH") )
@@ -65,8 +50,8 @@ if (isset($_POST['submit_add']))
     // is the group not already existing ?
     $query = '
 SELECT COUNT(*)
-  FROM '.GROUPS_TABLE.'
-  WHERE name = \''.$_POST['groupname'].'\'
+  FROM `'.GROUPS_TABLE.'`
+  WHERE name = \''.pwg_db_real_escape_string($_POST['groupname']).'\'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
@@ -78,7 +63,7 @@ SELECT COUNT(*)
   {
     // creating the group
     $query = '
-INSERT INTO '.GROUPS_TABLE.'
+INSERT INTO `'.GROUPS_TABLE.'`
   (name)
   VALUES
   (\''.pwg_db_real_escape_string($_POST['groupname']).'\')
@@ -86,6 +71,9 @@ INSERT INTO '.GROUPS_TABLE.'
     pwg_query($query);
 
     $page['infos'][] = l10n('group "%s" added', $_POST['groupname']);
+
+    $inserted_id = pwg_db_insert_id(GROUPS_TABLE);
+    pwg_activity('group', $inserted_id, 'add');
   }
 }
 
@@ -94,6 +82,7 @@ INSERT INTO '.GROUPS_TABLE.'
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['group_selection']))
 {
+  check_input_parameter('group_selection', $_POST, true, PATTERN_ID);
   // if the user tries to apply an action, it means that there is at least 1
   // photo in the selection
   $groups = $_POST['group_selection'];
@@ -113,23 +102,26 @@ if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['
     // is the group not already existing ?
     $query = '
 SELECT name
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
 ;';
     $group_names = array_from_query($query, 'name');
     foreach($groups as $group)
     {
-      if (  in_array($_POST['rename_'.$group.''], $group_names))
+      $_POST['rename_'.$group] = stripslashes($_POST['rename_'.$group]);
+
+      if (in_array($_POST['rename_'.$group], $group_names))
       {
-        $page['errors'][] = $_POST['rename_'.$group.''].' | '.l10n('This name is already used by another group.');
+        $page['errors'][] = $_POST['rename_'.$group].' | '.l10n('This name is already used by another group.');
       }
       elseif ( !empty($_POST['rename_'.$group.'']))
       {
         $query = '
-        UPDATE '.GROUPS_TABLE.'
-        SET name = \''.pwg_db_real_escape_string($_POST['rename_'.$group.'']).'\'
+        UPDATE `'.GROUPS_TABLE.'`
+        SET name = \''.pwg_db_real_escape_string($_POST['rename_'.$group]).'\'
         WHERE id = '.$group.'
       ;';
         pwg_query($query);
+        pwg_activity('group', $group, 'edit', array('action'=>$action));
       }
     }
   }
@@ -157,22 +149,28 @@ SELECT name
       WHERE group_id = '.$group.'
     ;';
       pwg_query($query);
-    
+
       $query = '
-    SELECT name
-      FROM '.GROUPS_TABLE.'
+    SELECT id, name
+      FROM `'.GROUPS_TABLE.'`
       WHERE id = '.$group.'
     ;';
-      list($groupname) = pwg_db_fetch_row(pwg_query($query));
-      
+
+      $group_list = query2array($query, 'id', 'name');
+      $groupids = array_keys($group_list);
+      list($groupname) = array_values($group_list);
+
       // destruction of the group
       $query = '
     DELETE
-      FROM '.GROUPS_TABLE.'
+      FROM `'.GROUPS_TABLE.'`
       WHERE id = '.$group.'
     ;';
       pwg_query($query);
-    
+
+      trigger_notify('delete_group', $groupids);
+      pwg_activity('group', $groupids, 'delete');
+
       $page['infos'][] = l10n('group "%s" deleted', $groupname);
     }
   }
@@ -186,7 +184,7 @@ SELECT name
     // is the group not already existing ?
     $query = '
 SELECT COUNT(*)
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE name = \''.pwg_db_real_escape_string($_POST['merge']).'\'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -198,7 +196,7 @@ SELECT COUNT(*)
     {
       // creating the group
       $query = '
-  INSERT INTO '.GROUPS_TABLE.'
+  INSERT INTO `'.GROUPS_TABLE.'`
     (name)
     VALUES
     (\''.pwg_db_real_escape_string($_POST['merge']).'\')
@@ -206,10 +204,11 @@ SELECT COUNT(*)
       pwg_query($query);
       $query = '
       SELECT id
-        FROM '.GROUPS_TABLE.'
+        FROM `'.GROUPS_TABLE.'`
         WHERE name = \''.pwg_db_real_escape_string($_POST['merge']).'\'
       ;';
       list($groupid) = pwg_db_fetch_row(pwg_query($query));
+      pwg_activity('group', $groupid, 'add', array('action'=>$action, 'groups'=>implode(',', $groups)));
     }
     $grp_access = array();
     $usr_grp = array();
@@ -272,7 +271,7 @@ SELECT COUNT(*)
       // is the group not already existing ?
       $query = '
   SELECT COUNT(*)
-    FROM '.GROUPS_TABLE.'
+    FROM `'.GROUPS_TABLE.'`
     WHERE name = \''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\'
   ;';
       list($count) = pwg_db_fetch_row(pwg_query($query));
@@ -283,7 +282,7 @@ SELECT COUNT(*)
       }
       // creating the group
       $query = '
-  INSERT INTO '.GROUPS_TABLE.'
+  INSERT INTO `'.GROUPS_TABLE.'`
     (name)
     VALUES
     (\''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\')
@@ -291,11 +290,12 @@ SELECT COUNT(*)
       pwg_query($query);
       $query = '
       SELECT id
-        FROM '.GROUPS_TABLE.'
+        FROM `'.GROUPS_TABLE.'`
         WHERE name = \''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\'
       ;';
       
       list($groupid) = pwg_db_fetch_row(pwg_query($query));
+      pwg_activity('group', $groupid, 'add', array('action'=>$action, 'group'=>$group));
       $query = '
     SELECT *
       FROM '.GROUP_ACCESS_TABLE.'
@@ -343,19 +343,21 @@ SELECT COUNT(*)
     {
       $query = '
     SELECT name, is_default
-      FROM '.GROUPS_TABLE.'
+      FROM `'.GROUPS_TABLE.'`
       WHERE id = '.$group.'
     ;';
       list($groupname, $is_default) = pwg_db_fetch_row(pwg_query($query));
       
       // update of the group
       $query = '
-    UPDATE '.GROUPS_TABLE.'
+    UPDATE `'.GROUPS_TABLE.'`
       SET is_default = \''.boolean_to_string(!get_boolean($is_default)).'\'
       WHERE id = '.$group.'
     ;';
       pwg_query($query);
-    
+
+      pwg_activity('group', $group, 'edit', array('action'=>$action));
+
       $page['infos'][] = l10n('group "%s" updated', $groupname);
     }
   }
@@ -381,7 +383,7 @@ $template->assign(
 
 $query = '
 SELECT id, name, is_default
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   ORDER BY name ASC
 ;';
 $result = pwg_query($query);

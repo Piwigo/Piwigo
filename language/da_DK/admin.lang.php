@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -293,7 +278,7 @@ $lang['private'] = 'privat';
 $lang['public'] = 'offentlig';
 $lang['Purge never used notification feeds'] = 'Tøm aldrig anvendte notificeringsfeeds';
 $lang['Purge sessions'] = 'Tøm sessioner';
-$lang['randomly represented'] = 'tilfældigt albumminiaturebillede';
+$lang['randomly represented'] = 'album har tilfældigt miniaturebillede';
 $lang['registration date'] = 'registreringsdato';
 $lang['clean'] = 'oprydning';
 $lang['Create this site'] = 'Opret dette websted';
@@ -303,7 +288,7 @@ $lang['remove tags'] = 'Fjern tags';
 $lang['Repair and optimize database'] = 'Reparer og optimer database';
 $lang['selection'] = 'udvælgelse';
 $lang['set to'] = 'opsat til';
-$lang['singly represented'] = 'fast albumminiaturebillede';
+$lang['singly represented'] = 'album har fast miniaturebillede';
 $lang['This site already exists'] = 'Dette websted findes allerede';
 $lang['created'] = 'oprettet';
 $lang['delete'] = 'slet';
@@ -602,7 +587,7 @@ $lang['Guest Settings'] = 'Gæsteindstillinger ';
 $lang['Main Page']  =  'Forside';
 $lang['Photo Page'] = 'Fotoside ';
 $lang['Activate Navigation Bar'] = 'Aktiver navigationsbjælke';
-$lang['Activate Navigation Thumbnails'] = 'Aktiver navigeringsminiaturebilleder';
+$lang['Activate Navigation Thumbnails'] = 'Aktiver miniaturebilleder til navigering';
 $lang['Activate icon "%s"'] = 'Aktiver ikonen \'%s\'';
 $lang['Photo Properties'] = 'Fotografiegenskaber';
 $lang['Allow user customization']  =  'Tillad brugertilpasning';
@@ -949,8 +934,8 @@ $lang['Mail theme'] = 'Mailtema';
 $lang['%d of %d users selected'] = '%d af %d brugere valgt';
 $lang['(filtered from %s total users)'] = '(filtreret fra totalt %s brugere)';
 $lang['All %d users are selected'] = 'Alle %d brugere er valgt';
-$lang['Change password'] = 'Ændring af adgangskode';
-$lang['Change username'] = 'Ændring af brugernavn';
+$lang['Change password'] = 'Ret adgangskode';
+$lang['Change username'] = 'Ret brugernavn';
 $lang['Last visit on %s, %s.'] = 'Seneste besøg kl. %s den %s.';
 $lang['Loading...'] = 'Indlæser ...';
 $lang['No matching user found'] = 'Ingen brugere fundet som opfylder kriteriet';
@@ -960,7 +945,7 @@ $lang['Password updated'] = 'Adgangskoden er opdateret';
 $lang['Registered on %s, %s.'] = 'Registreret kl. %s den %s.';
 $lang['Show %s users'] = 'Vis %s brugere';
 $lang['Showing %s to %s of %s users'] = 'Viser %s til %s af %s brugere';
-$lang['Update user'] = 'Opdatering af bruger';
+$lang['Update user'] = 'Opdater bruger';
 $lang['User %s added'] = 'Brugeren %s er tilføjet';
 $lang['User %s updated'] = 'Brugeren %s er opdateret';
 $lang['Users modified'] = 'Brugere ændret';
@@ -1012,3 +997,18 @@ $lang['Storage used'] = 'Lagerplads anvendt';
 $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Det er blevet tid til at opdatere din Piwigo med version %s, gå til %s';
 $lang['checksum'] = 'kontrolsum';
 $lang['delete album and the %d orphan photos'] = 'slet album og de %d forældreløse fotografier';
+$lang['... or hide this link'] = '... eller skjul dette link';
+$lang['Compute %d missing checksums'] = 'Beregn %d manglende kontrolsummer';
+$lang['Create a first album'] = 'Opret et første album';
+$lang['Deletion in progress'] = 'Sletning i gang';
+$lang['Display album date period'] = 'Vis datointervallet som hvert album dækker, fx "fra 12. til 15. juli 2018"';
+$lang['Display category date'] = 'Vis albums dato';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo kræver et album for at der kan tilføjes fotografier.';
+$lang['Some checksums are missing.'] = 'Nogle kontrolsummer mangler.';
+$lang['Synchronization in progress'] = 'Synkronisering i gang';
+$lang['Visit'] = 'Besøg';
+$lang['Welcome!'] = 'Velkommen!';
+$lang['With no checksum'] = 'Uden kontrolsum';
+$lang['checksums to add'] = 'kontrolsummer at tilføje';
+$lang['or'] = 'eller';
+$lang['%d checksums were added'] = '%d kontrolsummer blev tilføjet';

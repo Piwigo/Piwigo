@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d associação';
@@ -1010,3 +995,18 @@ $lang['Delete album "%s" and its %d sub-albums.'] = 'Exclua o álbum "%s" e seus
 $lang['Dashboard'] = 'Painel de controle';
 $lang['Confirm deletion'] = 'Confirmar eliminação';
 $lang['(determined from photos)'] = '(determinado a partir de fotos)';
+$lang['%d checksums were added'] = '%d somas de verificação foram adicionadas';
+$lang['... or hide this link'] = '... ou ocultar este link';
+$lang['Compute %d missing checksums'] = 'Computar %d somas de verificação ausentes';
+$lang['Create a first album'] = 'Crie um primeiro álbum';
+$lang['Deletion in progress'] = 'Exclusão em andamento';
+$lang['Display album date period'] = 'Mostrar o período de datas associado a cada álbum, por exemplo, «de 12 a 15 de julho de 2018»';
+$lang['Display category date'] = 'Exibir a data da categoria';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo requer um álbum para adicionar fotos.';
+$lang['Some checksums are missing.'] = 'Algumas somas de verificação estão faltando.';
+$lang['Synchronization in progress'] = 'Sincronização em andamento';
+$lang['Visit'] = 'Visita';
+$lang['Welcome!'] = 'Bem vindo!';
+$lang['With no checksum'] = 'Sem soma de verificação';
+$lang['checksums to add'] = 'somas de verificação para adicionar';
+$lang['or'] = 'ou';

@@ -20,15 +20,20 @@ jQuery.fn.fontCheckbox = function() {
     if (!jQuery(this).is(':checked')) {
       jQuery(this).prev().toggleClass('icon-dot-circled icon-circle-empty');
     }
+    else {
+      jQuery(this).closest('label').addClass('selected');
+    }
   });
   this.find('input[type=radio]').on('change', function() {
     jQuery('.font-checkbox input[type=radio][name="'+ jQuery(this).attr('name') +'"]').each(function() {
       jQuery(this).prev().removeClass();
+      jQuery(this).closest('label').removeClass('selected');
       if (!jQuery(this).is(':checked')) {
         jQuery(this).prev().addClass('icon-circle-empty');
       }
       else {
         jQuery(this).prev().addClass('icon-dot-circled');
+        jQuery(this).closest('label').addClass('selected');
       }
     })
   });

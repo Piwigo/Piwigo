@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang[' and %d virtual'] = " และ %d";
@@ -988,3 +973,18 @@ $lang['Delete %d orphan photos'] = 'ลบ %d รูปออร์แฟนส�
 $lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'แต่ละอีเมลที่ส่งจะมีการตรวจสอบที่สำคัญของตัวเองโดยอัตโนมัติในการเชื่อมโยงที่ถูกต้อง,สำหรับ %s.';
 $lang['For security reason, authentication keys do not work for administrators.'] = 'ด้วยเหตุผลด้านความปลอดภัยปุ่มตรวจสอบไม่ทำงานสำหรับผู้ดูแลระบบ';
 $lang['Orphans'] = 'ออร์แฟนส์';
+$lang['First photo added'] = 'รูปแรกถูกเพิ่ม';
+$lang['checksum'] = 'ตรวจสอบความถูกต้อง';
+$lang['Storage used'] = 'พื้นที่ถูกใช้งาน';
+$lang['Select tags'] = 'เลือกแท็ก';
+$lang['Display form'] = 'แสดงจาก';
+$lang['Delete album "%s".'] = 'ลบอัลบั้ม "%s".';
+$lang['Confirm deletion'] = 'ยืนยันการลบ';
+$lang['Dashboard'] = 'แผงควบคุม';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'ใช้งาน Piwigo เวอร์ชั่นที่เป็นปัจจุบัน มันสำคัญมากสำหรับเรื่องความ';
+$lang['delete only album, not photos'] = 'ลบเฉพาะอัลบั้มเท่านั้น, (ไม่ลบรูปภาพ)';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s พร้อมใช้งานแล้ว, กรุณาอัปเดต';
+$lang['No tag selected, no action possible.'] = 'ไม่มีแท็กที่ถูกเลือก, ไม่มีการดำเนินการใดๆ';
+$lang['It only takes a few clicks.'] = 'เพียงไม่กี่คลิก';
+$lang['No filter on album. Select one or type to search'] = 'ไม่มีตัวกรองในอัลบั้ม. โปรดเลือกประเภทการค้นหา';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'ลบอัลบั้ม "%s" และ อัลบั้มย่อย %d .';

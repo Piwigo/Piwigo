@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if (!defined('PHPWG_ROOT_PATH'))
@@ -53,54 +38,14 @@ $sort_orders = array(
 // |                               functions                               |
 // +-----------------------------------------------------------------------+
 
-/**
- * save the rank depending on given categories order
- *
- * The list of ordered categories id is supposed to be in the same parent
- * category
- *
- * @param array categories
- * @return void
- */
-function save_categories_order($categories)
-{
-  $current_rank_for_id_uppercat = array();
-  $current_rank = 0;
-  
-  $datas = array();
-  foreach ($categories as $category)
-  {
-    if (is_array($category))
-    {
-      $id = $category['id'];
-      $id_uppercat = $category['id_uppercat'];
 
-      if (!isset($current_rank_for_id_uppercat[$id_uppercat]))
-      {
-        $current_rank_for_id_uppercat[$id_uppercat] = 0;
-      }
-      $current_rank = ++$current_rank_for_id_uppercat[$id_uppercat];
-    }
-    else
-    {
-      $id = $category;
-      $current_rank++;
-    }
-    
-    $datas[] = array('id' => $id, 'rank' => $current_rank);
-  }
-  $fields = array('primary' => array('id'), 'update' => array('rank'));
-  mass_updates(CATEGORIES_TABLE, $fields, $datas);
-
-  update_global_rank();
-}
 
 function get_categories_ref_date($ids, $field='date_available', $minmax='max')
 {
   // we need to work on the whole tree under each category, even if we don't
   // want to sort sub categories
   $category_ids = get_subcat_ids($ids);
-  
+
   // search for the reference date of each album
   $query = '
 SELECT
@@ -335,6 +280,7 @@ if (isset($_GET['parent_id']))
 $sort_orders_checked = array_keys($sort_orders);
 
 $template->assign(array(
+  'ADMIN_PAGE_TITLE' => l10n('Album list management'),
   'CATEGORIES_NAV'=>$navigation,
   'F_ACTION'=>$form_action,
   'PWG_TOKEN' => get_pwg_token(),
@@ -349,7 +295,7 @@ $template->assign(array(
 $categories = array();
 
 $query = '
-SELECT id, name, permalink, dir, rank, status
+SELECT id, name, permalink, dir, `rank`, status
   FROM '.CATEGORIES_TABLE;
 if (!isset($_GET['parent_id']))
 {
@@ -362,7 +308,7 @@ else
   WHERE id_uppercat = '.$_GET['parent_id'];
 }
 $query.= '
-  ORDER BY rank ASC
+  ORDER BY `rank` ASC
 ;';
 $categories = hash_from_query($query, 'id');
 
@@ -457,6 +403,7 @@ foreach ($categories as $category)
 
       'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
       'U_EDIT'     => $base_url.'album-'.$category['id'],
+      'U_ADD_PHOTOS_ALBUM' => $base_url.'photos_add&amp;album='.$category['id'],
 
       'IS_VIRTUAL' => empty($category['dir'])
     );

@@ -113,6 +113,14 @@
   padding:0 25px;
 }
 
+.badge::before {
+  content: '[';
+}
+
+.badge::after {
+  content: ']';
+}
+
 /* category and tag results paragraphs on a quick search */
 .search_results {
   font-size: 16px;

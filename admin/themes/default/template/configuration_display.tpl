@@ -107,6 +107,14 @@
       </li>
 
       <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="display_fromto" {if ($display.display_fromto)}checked="checked"{/if}>
+          {'Display album date period'|translate}
+        </label>
+      </li>
+
+      <li>
         <label>
           {'Number of albums per page'|translate}
           <input type="text" size="3" maxlength="4" name="nb_categories_page" id="nb_categories_page" value="{$display.NB_CATEGORIES_PAGE}">

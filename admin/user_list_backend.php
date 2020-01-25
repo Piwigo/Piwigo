@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 define('PHPWG_ROOT_PATH','../');
@@ -70,8 +55,7 @@ if ( isset( $_REQUEST['iDisplayStart'] ) && $_REQUEST['iDisplayLength'] != '-1' 
   $sLimit = "LIMIT ".$_REQUEST['iDisplayStart'].", ".$_REQUEST['iDisplayLength'];
 }
 	
-$sOrder = "";
-
+	
 /*
  * Ordering
  */
@@ -105,7 +89,7 @@ if ( isset( $_REQUEST['iSortCol_0'] ) )
  * on very large tables, and MySQL's regex functionality is very limited
  */
 $sWhere = "";
-if ( isSet( $_REQUEST['sSearch']) && $_REQUEST['sSearch'] != "" )
+if ( $_REQUEST['sSearch'] != "" )
 {
   $sWhere = "WHERE (";
   for ( $i=0 ; $i<count($aColumns) ; $i++ )
@@ -162,13 +146,12 @@ $rResultTotal = pwg_query($sQuery);
 $aResultTotal = pwg_db_fetch_array($rResultTotal);
 $iTotal = $aResultTotal[0];
 	
-$sEcho = isSet($_REQUEST['sEcho']) ? intval($_REQUEST['sEcho']) : 0;
-
+	
 /*
  * Output
  */
 $output = array(
-  "sEcho" => $sEcho,
+  "sEcho" => intval($_REQUEST['sEcho']),
   "iTotalRecords" => $iTotal,
   "iTotalDisplayRecords" => $iFilteredTotal,
   "aaData" => array()
@@ -218,9 +201,9 @@ if (count($user_ids) > 0)
   $query = '
 SELECT
     user_id,
-    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS groups
+    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS `groups`
   FROM '.USER_GROUP_TABLE.'
-    JOIN '.GROUPS_TABLE.' ON id = group_id
+    JOIN `'.GROUPS_TABLE.'` ON id = group_id
   WHERE user_id IN ('.implode(',', $user_ids).')
   GROUP BY user_id
 ;';

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -613,7 +598,7 @@ DELETE
     $query = '
 SELECT
     id
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE id IN ('.implode(',', $params['group_id']).')
 ;';
     $group_ids = array_from_query($query, 'id');
@@ -639,10 +624,166 @@ SELECT
 
   invalidate_user_cache();
 
+  pwg_activity('user', $params['user_id'], 'edit');
+
   return $service->invoke('pwg.users.getList', array(
     'user_id' => $params['user_id'],
     'display' => 'basics,'.implode(',', array_keys($updates_infos)),
     ));
+}
+
+/**
+ * API method
+ * Adds a favorite image for the current user
+ * @param mixed[] $params
+ *    @option int image_id
+ */
+function ws_users_favorites_add($params, &$service)
+{
+  global $user;
+
+  if (is_a_guest())
+  {
+    return new PwgError(403, 'User must be logged in.');
+  }
+
+  // does the image really exist?
+  $query = '
+SELECT COUNT(*)
+  FROM '. IMAGES_TABLE .'
+  WHERE id = '. $params['image_id'] .'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
+  {
+    return new PwgError(404, 'image_id not found');
+  }
+
+  single_insert(
+    FAVORITES_TABLE,
+    array(
+      'image_id' => $params['image_id'],
+      'user_id' => $user['id'],
+    ),
+    array('ignore' => true)
+  );
+
+  return true;
+}
+
+/**
+ * API method
+ * Removes a favorite image for the current user
+ * @param mixed[] $params
+ *    @option int image_id
+ */
+function ws_users_favorites_remove($params, &$service)
+{
+  global $user;
+
+  if (is_a_guest())
+  {
+    return new PwgError(403, 'User must be logged in.');
+  }
+
+  // does the image really exist?
+  $query = '
+SELECT COUNT(*)
+  FROM '. IMAGES_TABLE .'
+  WHERE id = '. $params['image_id'] .'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
+  {
+    return new PwgError(404, 'image_id not found');
+  }
+
+  $query = '
+DELETE
+  FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND image_id = '.$params['image_id'].'
+;';
+
+  pwg_query($query);
+
+  return true;
+}
+
+/**
+ * API method
+ * Returns the favorite images of the current user
+ * @param mixed[] $params
+ *    @option int per_page
+ *    @option int page
+ *    @option string order
+ */
+function ws_users_favorites_getList($params, &$service)
+{
+  global $conf, $user;
+
+  if (is_a_guest())
+  {
+    return false;
+  }
+
+  check_user_favorites();
+
+  $order_by = ws_std_image_sql_order($params, 'i.');
+  $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
+
+  $query = '
+SELECT
+    i.*
+  FROM '.FAVORITES_TABLE.'
+    INNER JOIN '.IMAGES_TABLE.' i ON image_id = i.id
+  WHERE user_id = '.$user['id'].'
+'.get_sql_condition_FandF(
+      array(
+        'visible_images' => 'id'
+        ),
+      'AND'
+      ).'
+    '.$order_by.'
+;';
+  $images = array();
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $image = array();
+
+    foreach (array('id', 'width', 'height', 'hit') as $k)
+    {
+      if (isset($row[$k]))
+      {
+        $image[$k] = (int)$row[$k];
+      }
+    }
+
+    foreach (array('file', 'name', 'comment', 'date_creation', 'date_available') as $k)
+    {
+      $image[$k] = $row[$k];
+    }
+
+    $images[] = array_merge($image, ws_std_get_urls($row));
+  }
+
+  $count = count($images);
+  $images = array_slice($images, $params['per_page']*$params['page'], $params['per_page']);
+
+  return array(
+    'paging' => new PwgNamedStruct(
+      array(
+        'page' => $params['page'],
+        'per_page' => $params['per_page'],
+        'count' => $count
+      )
+    ),
+    'images' => new PwgNamedArray(
+      $images, 'image',
+      ws_std_get_image_xml_attributes()
+     )
+   );
 }
 
 ?>

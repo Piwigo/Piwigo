@@ -1,27 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// | Czech language localization                                           |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2009     Pavel Budka & Petr Jirsa    http://pbudka.co.cc |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d spojení';
@@ -174,7 +156,7 @@ $lang['You are running on development sources, no check possible.'] = 'Jsou pou�
 $lang['You cannot delete your account'] = 'Nemůžete smazat svůj účet';
 $lang['You cannot move an album in its own sub album'] = 'Nemůžete přesunout album do jeho vlastního pod-alba';
 $lang['You need to confirm deletion'] = 'Je nutné potvrdit vymazání';
-$lang['Associate to album'] = 'přiřadit k albu';
+$lang['Associate to album'] = 'Přiřadit k albu';
 $lang['associate to group'] = 'Přiřadit ke skupině';
 $lang['Authorized'] = 'Autorizováno';
 $lang['Add a virtual album'] = 'Přidat virtuální album';
@@ -992,3 +974,25 @@ $lang['For security reason, authentication keys do not work for administrators.'
 $lang['Edit user'] = 'Upravit uživatele';
 $lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Každý odeslaný email bude obsahovat vlastní odkaz obsahující ověřovací klíč, který je platný po %s.';
 $lang['Delete %d orphan photos'] = 'Smazání %d fotografií bez rodiče';
+$lang['Display form'] = 'Formulář zobrazení';
+$lang['(determined from photos)'] = '(určeno z fotografií)';
+$lang['No filter on album. Select one or type to search'] = 'Žádný filtr na albu. Vyberte jeden, nebo pište pro vyhledávání';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Vzdálená synchronizace je schopna nahrát celou hierarchii složek. Pokud ji znovu spustíte, budou nahrány pouze nové fotografie.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Aktuální piwigo je důležité pro bezpečnost.';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Sdílejte / Odesílejte své fotografie přímo z macOS (10.10 a novější) do Piwigo';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Nastal čas aktualizovat Vaše Piwigo verze %s na %s';
+$lang['orphans to delete'] = 'sirotci, které chcete smazat';
+$lang['delete only album, not photos'] = 'smazat pouze album, fotografie ponechat';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'smazat album a všech %d fotografií, včetně %d přiřazených k jiným albům';
+$lang['delete album and the %d orphan photos'] = 'smazat album a %d osiřelé fotografie';
+$lang['checksum'] = 'kontrolní součet';
+$lang['Storage used'] = 'Využití úložiště';
+$lang['Select tags'] = 'Vyberte štítky';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s je k dispozici, prosím aktualizujte';
+$lang['No tag selected, no action possible.'] = 'Není vybrán žádný štítek, není možná žádná akce.';
+$lang['It only takes a few clicks.'] = 'Trvá to jen několik kliknutí.';
+$lang['First photo added'] = 'První fotka přidána';
+$lang['Delete album "%s".'] = 'Smazat album "%s".';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Smazat album "%s" a jeho %d pod-alba.';
+$lang['Dashboard'] = 'Nástěnka';
+$lang['Confirm deletion'] = 'Potvrďte smazání';

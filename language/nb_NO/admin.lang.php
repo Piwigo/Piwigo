@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d assosier';
@@ -1006,3 +991,18 @@ $lang['delete album and all %d photos, even the %d associated to other albums'] 
 $lang['delete album and the %d orphan photos'] = 'slett album og %d eierløse bilder';
 $lang['delete only album, not photos'] = 'slett kun album, ikke bilder';
 $lang['orphans to delete'] = 'eierløse bilder som skal slettes';
+$lang['%d checksums were added'] = '%d sjekksum ble lagt til';
+$lang['... or hide this link'] = '...eller skjul denne lenken';
+$lang['Compute %d missing checksums'] = 'Dataen %d mangler sjekksum';
+$lang['Create a first album'] = 'Lag første album';
+$lang['Deletion in progress'] = 'Sletting pågår';
+$lang['Display album date period'] = 'Vis datoperioden knyttet til hvert album, for eksempel «fra 12. juli til 15. januar 2018»';
+$lang['Display category date'] = 'Vis kategori dato';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo krever et album for å legge til bilder.';
+$lang['Some checksums are missing.'] = 'Noen sjekksummer mangler.';
+$lang['Synchronization in progress'] = 'Synkronisering pågår';
+$lang['Visit'] = 'Besøk';
+$lang['Welcome!'] = 'Velkommen!';
+$lang['With no checksum'] = 'Uten sjekksum';
+$lang['checksums to add'] = 'sjekksum som skal legges til';
+$lang['or'] = 'eller';

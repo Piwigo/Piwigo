@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -1004,3 +989,16 @@ $lang['Orphans'] = 'Orvuks jäänud fotod';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s on saadaval, palun uuenda';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync saab üles laadida kogu kausta hierarhia. Kui käivitad selle uuesti, siis laetakse ainult uued fotod';
 $lang['Recipients'] = 'Saajad';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Värske Piwigo versiooni kasutamine on turvalisuse huvides oluline';
+$lang['No tag selected, no action possible.'] = 'Silti ei ole valitud, toiming ei ole võimalik';
+$lang['Select tags'] = 'Vali sildid';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Turvalisuse huvides autenteerimise võti administraatorite puhul ei toimi.';
+$lang['(determined from photos)'] = '(määratud fotode järgi)';
+$lang['or'] = 'või';
+$lang['Welcome!'] = 'Tere tulemast!';
+$lang['Synchronization in progress'] = 'Toimub sünkroniseerimine';
+$lang['Piwigo requires an album to add photos.'] = 'Fotode lisamiseks on vaja luua album';
+$lang['Display category date'] = 'Näita kategooria kuupäeva';
+$lang['Deletion in progress'] = 'Toimub kustutamine';
+$lang['Create a first album'] = 'Loo esimene album';
+$lang['... or hide this link'] = '... või peida see link';

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -984,3 +969,40 @@ $lang['No user is permitted to see this private album'] = 'Жодному кор
 $lang['Orphans'] = 'Одиночні';
 $lang['Recipients'] = 'Одержувачі';
 $lang['Y Repeat'] = 'Повторення Y';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync може завантажувати всю ієрархію папок. Якщо ви запустите його знову, будуть завантажені лише нові фотографії.';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Поділіться/надсилайте свої фотографії безпосередньо з вашої MacOS (10.10 і пізніша) до Piwigo';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Настав час оновлювати свій Piwigo з версії %s, перейти до %s';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'видалити альбом і всі %d фотографії, навіть, %d пов\'язані з іншими альбомами';
+$lang['Piwigo %s is available, please update'] = 'Piwigo  %s доступний до оновлення, будь ласка, оновіться';
+$lang['No filter on album. Select one or type to search'] = 'Немає фільтрів на альбомі. Виберіть один або введіть для пошуку';
+$lang['No tag selected, no action possible.'] = 'Теґи не вибрано, ніякі дії неможливі.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Робота на сучасній Piwigo важлива для безпеки.';
+$lang['Select tags'] = 'Виберіть теги';
+$lang['Storage used'] = 'Використано пам\'яті';
+$lang['checksum'] = 'контрольна сума';
+$lang['delete album and the %d orphan photos'] = 'видалити альбом та %d поодинокі фотографії';
+$lang['delete only album, not photos'] = 'видалити лише альбом, а не фотографії';
+$lang['orphans to delete'] = 'поодинокі до видалення';
+$lang['(determined from photos)'] = '(визначається з фотографій)';
+$lang['Confirm deletion'] = 'Підтвердьте видалення';
+$lang['Dashboard'] = 'Дошка';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Видалити альбом "%s" та його %d суб-альбоми.';
+$lang['Delete album "%s".'] = 'Видалити альбом "%s".';
+$lang['Display form'] = 'Форма відображення';
+$lang['First photo added'] = 'Перша фотографія додана';
+$lang['It only takes a few clicks.'] = 'Це займає лише кілька кліків.';
+$lang['Display category date'] = 'Показати дату категорії';
+$lang['Display album date period'] = 'Показувати період, пов\'язаний з кожним альбомом, наприклад, «з 12 до 15 липня 2018 року»';
+$lang['Compute %d missing checksums'] = 'Вичислити %d відсутні контрольні суми';
+$lang['%d checksums were added'] = '%d контрольних сум було додано';
+$lang['... or hide this link'] = '... або приховати це посилання';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo потребує альбом для додавання фотографій.';
+$lang['Some checksums are missing.'] = 'Деякі контрольні суми відсутні.';
+$lang['Synchronization in progress'] = 'Виконується синхронізація';
+$lang['Visit'] = 'Відвідати';
+$lang['Welcome!'] = 'Ласкаво просимо!';
+$lang['With no checksum'] = 'Без контрольної суми';
+$lang['checksums to add'] = 'контрольні суми для додавання';
+$lang['or'] = 'чи';
+$lang['Deletion in progress'] = 'Виконується видалення';
+$lang['Create a first album'] = 'Створіть перший альбом';

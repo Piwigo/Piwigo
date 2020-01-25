@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -100,6 +85,7 @@ $lang['(this tag will be deleted)'] = '(this tag will be deleted)';
 $lang['+ Add an upload box'] = '+ Add an upload box';
 $lang[', click on'] = ", click on";
 $lang['... or '] = '... or ';
+$lang['... or hide this link'] = '... or hide this link';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.';
 $lang['A locked gallery is only visible to administrators'] = 'A locked gallery is only visible to administrators';
 $lang['A new version of Piwigo is available.'] = "A new version of Piwigo is available.";
@@ -900,6 +886,7 @@ $lang['Virtual album name'] = "Virtual album name";
 $lang['Virtual album'] = "Virtual album";
 $lang['Virtual albums to move'] = "Virtual albums to move";
 $lang['Virtual Links'] = 'Virtual Links';
+$lang['Visit'] = 'Visit';
 $lang['Visit Gallery'] = 'Visit the gallery';
 $lang['Visit language site'] = 'Visit language site';
 $lang['Visit Piwigo project website'] = 'Visit Piwigo project website';
@@ -1009,3 +996,15 @@ $lang['Piwigo %s is available, please update'] = 'Piwigo %s is available, please
 $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'The time has come to update your Piwigo to version %s, go to %s';
 $lang['It only takes a few clicks.'] = 'It only takes a few clicks.';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Running on an up-to-date Piwigo is important for security.';
+$lang['Some checksums are missing.'] = 'Some checksums are missing.';
+$lang['%d checksums were added'] = '%d checksums were added';
+$lang['With no checksum'] = 'With no checksum';
+$lang['Compute %d missing checksums'] = 'Compute %d missing checksums';
+$lang['checksums to add'] = 'checksums to add';
+$lang['Synchronization in progress'] = 'Synchronization in progress';
+$lang['Display category date'] = 'Display category date';
+$lang['Display album date period'] = 'Show the date period associated with each album, eg « from July 12th to 15th, 2018 »';
+$lang['Welcome!'] = 'Welcome!';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo requires an album to add photos.';
+$lang['Create a first album'] = 'Create a first album';
+$lang['or'] = 'or';

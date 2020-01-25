@@ -1,5 +1,5 @@
 {include file='include/datepicker.inc.tpl' load_mode='async'}
-{include file='include/colorbox.inc.tpl' load_mode='async'}
+{include file='include/colorbox.inc.tpl' load_mode='footer'}
 {include file='include/add_album.inc.tpl' load_mode='async'}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -22,10 +22,17 @@
 var lang = {
 	Cancel: '{'Cancel'|translate|escape:'javascript'}',
 	deleteProgressMessage: "{'Deletion in progress'|translate|escape:'javascript'}",
+	syncProgressMessage: "{'Synchronization in progress'|translate|escape:'javascript'}",
 	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}"
 };
 
+var conf = {
+  checksum_compute_blocksize: {$conf_checksum_compute_blocksize},
+};
+
 jQuery(document).ready(function() {
+
+  jQuery('.help-popin').colorbox({ width:"500px" });
 
   {* <!-- TAGS --> *}
   var tagsCache = new TagsCache({
@@ -275,6 +282,7 @@ $(document).ready(function() {
     jQuery("#empty_caddie").toggle(jQuery(this).val() == "caddie");
     jQuery("#duplicates_options").toggle(jQuery(this).val() == "duplicates");
     jQuery("#delete_orphans").toggle(jQuery(this).val() == "no_album");
+    jQuery("#sync_md5sum").toggle(jQuery(this).val() == "no_sync_md5sum");
   });
 });
 
@@ -348,6 +356,18 @@ var sliders = {
 {if $NB_ORPHANS > 0}
         <a id="delete_orphans" href="#" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'no_album'}display:none{/if}" class="icon-trash">{'Delete %d orphan photos'|translate:$NB_ORPHANS}</a>
 {/if}
+{if $NB_NO_MD5SUM > 0}
+<a id="sync_md5sum" href="#" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'no_sync_md5sum'}display:none{/if}" class="icon-arrows-cw">{'Compute %d missing checksums'|translate:{$NB_NO_MD5SUM}}</a>
+{/if}
+
+        <span id="add_md5sum" style="display:none">
+          <img class="loading" src="themes/default/images/ajax-loader-small.gif">
+          <span id="md5sum_added">0</span>% -
+          <span id="md5sum_to_add" data-origin="{$NB_NO_MD5SUM}">{$NB_NO_MD5SUM}</span>
+          {'checksums to add'|translate}
+        </span>
+
+        <span id="add_md5sum_error" class="errors" style="display:none"></span>
 
         <span id="orphans_deletion" style="display:none">
           <img class="loading" src="themes/default/images/ajax-loader-small.gif">
@@ -442,7 +462,7 @@ var sliders = {
 				{'Search'|@translate}
 				<input name="q" size=40 value="{$filter.search.q|stripslashes|htmlspecialchars}">
 				{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
-				<a href="admin/popuphelp.php?page=quick_search" onclick="popuphelp(this.href);return false;" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
+				<a href="admin/popuphelp.php?page=quick_search&amp;output=content_only" class="help-popin" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
 {if (isset($no_search_results))}
 <div>{'No results for'|@translate} :
 	<em><strong>

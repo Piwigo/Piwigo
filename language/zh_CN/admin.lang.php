@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d张关联图片';
@@ -1015,3 +1000,18 @@ $lang['Dashboard'] = '面板';
 $lang['delete album and the %d orphan photos'] = '删除相册和 %d 张无关联图片';
 $lang['orphans to delete'] = '要删除的无关联图片';
 $lang['delete only album, not photos'] = '仅删除相册，不删除图片';
+$lang['%d checksums were added'] = '%d 校验码已添加';
+$lang['Compute %d missing checksums'] = '计算 %d 缺失的校验码';
+$lang['Create a first album'] = '创建第一个相册';
+$lang['Deletion in progress'] = '正在删除';
+$lang['Display album date period'] = '显示与每个相册相关联的日期区间，如 « 2018年 7月12日 至 15日 »';
+$lang['Display category date'] = '显示分类日期';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo 需要一个相册来添加图片。';
+$lang['Some checksums are missing.'] = '部分校验码缺失。';
+$lang['Synchronization in progress'] = '正在同步';
+$lang['Visit'] = '访问';
+$lang['Welcome!'] = '欢迎！';
+$lang['With no checksum'] = '无校验码';
+$lang['checksums to add'] = '要添加的校验码';
+$lang['or'] = '或者';
+$lang['... or hide this link'] = '... 或隐藏本链接';

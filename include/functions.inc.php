@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -463,6 +448,36 @@ UPDATE '.USER_INFOS_TABLE.'
     $ip = substr($ip, 0, 15);
   }
 
+  // If plugin developers add their own sections, Piwigo will automatically add it in the history.section enum column
+  if (isset($page['section']))
+  {
+    // set cache if not available
+    if (!isset($conf['history_sections_cache']))
+    {
+      conf_update_param('history_sections_cache', get_enums(HISTORY_TABLE, 'section'), true);
+    }
+
+    $conf['history_sections_cache'] = safe_unserialize($conf['history_sections_cache']);
+
+    if (in_array($page['section'], $conf['history_sections_cache']))
+    {
+      $section = $page['section'];
+    }
+    elseif (preg_match('/^[a-zA-Z0-9_-]+$/', $page['section']))
+    {
+      $history_sections = get_enums(HISTORY_TABLE, 'section');
+      $history_sections[] = $page['section'];
+
+      // alter history table structure, to include a new section
+      pwg_query('ALTER TABLE '.HISTORY_TABLE.' CHANGE section section enum(\''.implode("','", array_unique($history_sections)).'\') DEFAULT NULL;');
+
+      // and refresh cache
+      conf_update_param('history_sections_cache', get_enums(HISTORY_TABLE, 'section'), true);
+
+      $section = $page['section'];
+    }
+  }
+  
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (
@@ -484,7 +499,7 @@ INSERT INTO '.HISTORY_TABLE.'
     CURRENT_TIME,
     '.$user['id'].',
     \''.$ip.'\',
-    '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
+    '.(isset($section) ? "'".$section."'" : 'NULL').',
     '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
@@ -509,6 +524,76 @@ INSERT INTO '.HISTORY_TABLE.'
   }
 
   return true;
+}
+
+function pwg_activity($object, $object_id, $action, $details=array())
+{
+  global $user;
+
+  $object_ids = $object_id;
+  if (!is_array($object_id))
+  {
+    $object_ids = array($object_id);
+  }
+
+  if (isset($_REQUEST['method']))
+  {
+    $details['method'] = $_REQUEST['method'];
+  }
+  else
+  {
+    $details['script'] = script_basename();
+
+    if ('admin' == $details['script'] and isset($_GET['page']))
+    {
+      $details['script'].= '/'.$_GET['page'];
+    }
+  }
+
+  if ('user' == $object and 'login' == $action)
+  {
+    $details['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
+  }
+
+  if ('photo' == $object and 'add' == $action and !isset($details['sync']))
+  {
+    $details['added_with'] = 'app';
+    if (isset($_SERVER['HTTP_REFERER']) and preg_match('/page=photos_add/', $_SERVER['HTTP_REFERER']))
+    {
+      $details['added_with'] = 'browser';
+    }
+    $details['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
+  }
+
+  if (in_array($object, array('album', 'photo')) and 'delete' == $action and isset($_GET['page']) and 'site_update' == $_GET['page'])
+  {
+    $details['sync'] = true;
+  }
+
+  if ('tag' == $object and 'delete' == $action and isset($_POST['destination_tag']))
+  {
+    $details['action'] = 'merge';
+    $details['destination_tag'] = $_POST['destination_tag'];
+  }
+
+  $inserts = array();
+  $details_insert = pwg_db_real_escape_string(serialize($details));
+  $ip_address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+
+  foreach ($object_ids as $loop_object_id)
+  {
+    $inserts[] = array(
+      'object' => $object,
+      'object_id' => $loop_object_id,
+      'action' => $action,
+      'performed_by' => $user['id'],
+      'session_idx' => session_id(),
+      'ip_address' => $ip_address,
+      'details' => $details_insert,
+    );
+  }
+
+  mass_inserts(ACTIVITY_TABLE, array_keys($inserts[0]), $inserts);
 }
 
 /**

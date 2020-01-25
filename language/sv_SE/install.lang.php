@@ -1,45 +1,30 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['Installation'] = 'Installation';
-$lang['Basic configuration'] = 'Grund Inställningar';
+$lang['Basic configuration'] = 'Grundinställningar';
 $lang['Default gallery language'] = 'Standard språk för galleriet';
-$lang['Database configuration'] = 'Databas konfiguration';
+$lang['Database configuration'] = 'Databaskonfiguration';
 $lang['Admin configuration'] = 'Admin konfiguration';
 $lang['Start Install'] = 'Påbörja installation';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Det kommer att visas för besökare. Det är nödvändigt för administrering av hemsidan.';
-$lang['Connection to server succeed, but it was impossible to connect to database'] = 'Ansluten till server, men kunde inte ansluta till databasen.';
+$lang['Connection to server succeed, but it was impossible to connect to database'] = 'Ansluten till servern, men kunde inte ansluta till databasen.';
 $lang['Can\'t connect to server'] = 'Kan inte ansluta till servern';
 $lang['Host'] = 'Värd';
 $lang['User'] = 'Användare';
-$lang['user login given by your host provider'] = 'användares inloggning given av ditt webbhotell';
-$lang['user password given by your host provider'] = 'användares lösenord given av ditt webbhotell';
-$lang['Database name'] = 'Databas namn';
+$lang['user login given by your host provider'] = 'användar-inloggning tilldelad av din webbhotells-leverantör';
+$lang['user password given by your host provider'] = 'användar-lösenord tilldelad av din webbhotells-leverantör';
+$lang['Database name'] = 'Databasnamn';
 $lang['also given by your host provider'] = 'också tilldelad av din webbhotell';
 $lang['Database table prefix'] = 'Prefix för tabeller i Databasen';
-$lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'tabellernas namn i databasen kommer att bli prefixerad med det (detta gör att du kan hantera dina tabeller bättre)';
-$lang['enter a login for webmaster'] = 'ange inloggning för webmaster';
-$lang['webmaster login can\'t contain characters \' or "'] = 'login för webmaster får inte innehålla symbolerna \' eller "';
+$lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'databastabellernas namn kommer att bli prefixerad med det (detta gör att du kan hantera dina tabeller bättre)';
+$lang['enter a login for webmaster'] = 'ange webbadministratörens användarnamn';
+$lang['webmaster login can\'t contain characters \' or "'] = 'webb-administratörens inloggning får inte innehålla symbolerna \' eller "';
 $lang['please enter your password again'] = 'ange ditt lösenord igen';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Håll det hemligt, lösenordet ger dig tillgång till administrationspanelen';
 $lang['Password [confirm]'] = 'Lösenord [bekräfta]';
@@ -55,13 +40,13 @@ $lang['Sorry!'] = 'Ursäkta!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo kunde inte konfigurera PHP 5.2';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Vi rekomenderar att du kontaktar leverantören för ditt webbhotell för att se hur du kan ändra till PHP 5.2';
 $lang['Hope to see you back soon.'] = 'Välkommen tillbaka snart igen.';
-$lang['Congratulations, Piwigo installation is completed'] = 'Gratulerar, Piwigo installationen är klar';
-$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'En alternativ lösning är att kopiera texten ovan och klistra in i filen "local/config/database.inc.php" (Varning : database.inc.php får enbart innehålla texten från textarean, inga radbrytare eller mellanrum)';
+$lang['Congratulations, Piwigo installation is completed'] = 'Gratulerar, Piwigoinstallationen är klar';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'En alternativ lösning är att kopiera texten ovan och klistra in i filen "local/config/database.inc.php" (Varning: database.inc.php får enbart innehålla texten från textarean, inga radbrytare eller mellanrum)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Kunde inte skapa filen local/config/database.inc.php .';
-$lang['Download the config file'] = 'Ladda ner konfigurations filen';
-$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Du kan ladda ner konfigurationsfilen och ladda upp den till local/config .';
+$lang['Download the config file'] = 'Ladda ner konfigurationsfilen';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Du kan ladda ner konfigurationsfilen och sedan ladda upp den till local/config-biblioteket i din installation .';
 $lang['Just another Piwigo gallery'] = 'Ännu ett Piwigo galleri';
 $lang['Welcome to my photo gallery'] = 'Välkommen till mitt fotogalleri';
-$lang['Welcome to your new installation of Piwigo!'] = 'Välkomment till din nya installation av Piwigo!';
+$lang['Welcome to your new installation of Piwigo!'] = 'Välkommen till din nya installation av Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Tveka inte att kontakta våra forum för hjälp: %s';
-$lang['localhost or other, supplied by your host provider'] = 'localhost eller det värdnams som du valt eller tilldelats av din webhotells leverantör/server';
+$lang['localhost or other, supplied by your host provider'] = 'localhost eller det värdnamn som du tilldelats av ditt webhotells leverantör/server';

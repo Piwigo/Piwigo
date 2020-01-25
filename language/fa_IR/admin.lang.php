@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -325,7 +310,7 @@ $lang['Group management'] = 'مدیریت گروه‌ها';
 $lang['User list'] = "لیست کاربران";
 $lang['Database synchronization with files'] = 'همگام‌ سازی پایگاه‌ داده با فایل‌ها';
 $lang['all'] = "همه";
-$lang['height must be a number superior to'] = 'بلندا باید بزرگتر باشد از';
+$lang['height must be a number superior to'] = 'طول باید بزرگتر باشد از';
 $lang['width must be a number superior to'] = 'پهنا باید عددی باشد بزرگتر از';
 $lang['for the file format'] = 'برای فرمت فایل';
 $lang['Photo unreachable or no support'] = 'عکس غیر قابل دسترسی یا با فرمت ناشناخته است';
@@ -369,7 +354,7 @@ $lang['synchronize files metadata with database photos informations'] = 'همگ�
 $lang['even already synchronized photos'] = 'حتی عکس های همگام شده';
 $lang['Used metadata'] = 'ابرداده (Metadata) استفاده شد';
 $lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = "نام دایرکتوری‌ها و فایل‌ها فقط می تواند شامل اعداد ، حروف و \"-\" ، \"_\" یا \".\" باشد.";
-$lang['wrong filename'] = 'نام فایل نا درست است';
+$lang['wrong filename'] = 'نام فایل نادرست است';
 $lang['Upload'] = "آپلود";
 $lang['user "%s" added'] = "کاربر \"%s\" افزوده شد";
 $lang['User status'] = "وضعیت کاربر";
@@ -442,7 +427,7 @@ $lang['Main "webmaster" user does not exist'] = '"مدیر کل" اصلی موج
 $lang['Main "webmaster" user status is incorrect'] = 'وضعیت "مدیر کل" درست نیست';
 $lang['User "%s" created with "%s" like password'] = "کاربر \"%s\" با گذرواژه \"%s\" ایجاد شد";
 $lang['Status of user "%s" updated'] = "وضعیت کاربر \"%s\" به روز شد";
-$lang['add new photos to caddie'] = 'افزودن عکس های تازه به سبد';
+$lang['add new photos to caddie'] = 'افزودن عکس‌های تازه به سبد';
 $lang['No display'] = "بدون نمایش";
 $lang['Classic display'] = "نمایش کلاسیک";
 $lang['Hoverbox display'] = 'نمایش جعبه‌ی شناور';
@@ -568,9 +553,9 @@ $lang['Who can see these photos?'] = 'چه کسی قادر به مشاهده ی 
 $lang['Who can see this photo?'] = 'چه کسی قادر به مشاهده ی این عکس باشد؟';
 $lang['Settings'] = 'تنظیمات';
 $lang['Resize'] = 'تغییر اندازه';
-$lang['Maximum width'] = 'بیشترین پهنا';
+$lang['Maximum width'] = 'حداکثر عرض';
 $lang['pixels'] = 'پیکسل';
-$lang['Maximum height'] = 'بیشترین بلندا';
+$lang['Maximum height'] = 'حداکثر طول';
 $lang['Image Quality'] = 'کیفیت عکس';
 $lang['Thumbnail'] = 'عکس ریزه (Thumbnail)';
 $lang['Save Settings'] = 'ذخیره ی تنظیمات';
@@ -725,7 +710,7 @@ $lang['Crop'] = 'بریدن';
 $lang['Deactivate all'] = 'از کار انداختن همه';
 $lang['ERROR'] = '<b>خطا</b>';
 $lang['Extensions Update'] = 'گسترش به روز رسانی‌ها';
-$lang['Height'] = 'بلندا';
+$lang['Height'] = 'طول';
 $lang['Ignore All'] = 'چشم پوشی از همه';
 $lang['Ignore this update'] = 'چشم پوشی از این به روز رسانی ';
 $lang['Manage Permissions'] = 'مدیریت مجوزها';
@@ -747,7 +732,7 @@ $lang['Update All'] = 'بروز رسانی همه';
 $lang['Update in progress... Please wait.'] = 'بروز رسانی در حال انجام است... شکیبا باشید.';
 $lang['Update to Piwigo %s'] = 'بروز رسانی به نگارش %s از Piwigo';
 $lang['Updates'] = 'بروز رسانی ها';
-$lang['Width'] = 'پهنا';
+$lang['Width'] = 'عرض';
 $lang['With no album'] = 'بدون آلبوم';
 $lang['With no tag'] = 'بدون برچسب';
 $lang['With no virtual album'] = 'بدون آلبوم مجازی';
@@ -799,8 +784,8 @@ $lang['Send connection settings by email'] = 'فرستادن تنظیمات ات
 $lang['Some themes and plugins may be not available yet.'] = 'در حال حاضر بعضی از قالب ها و افزونه ها ممکن است در دسترس نباشند.';
 $lang['Some upgrades are available for extensions.'] = 'تعدادی آپگرید برای توسعه دهنده ها (Extensions) موجود می باشد.';
 $lang['The original image quality must be a number between %d and %d'] = 'کیفیت اصلی عکس باید عددی بین %d و %d باشد';
-$lang['The original maximum height must be a number between %d and %d'] = 'بیشترین بلندای اصلی عکس باید عددی بین %d و %d باشد';
-$lang['The original maximum width must be a number between %d and %d'] = 'بیشترین پهنای اصلی عکس باید عددی بین %d و %d باشد';
+$lang['The original maximum height must be a number between %d and %d'] = 'حداکثر طول اصلی عکس باید عددی بین %d و %d باشد';
+$lang['The original maximum width must be a number between %d and %d'] = 'حداکثر عرض اصلی عکس باید عددی بین %d و %d باشد';
 $lang['This is a minor update, with only bug corrections.'] = 'این یک بروز رسانی کوچک است که در آن چند مشکل امنیتی اصلاح شده است.';
 $lang['Thumbnails generation in progress...'] = 'در حال تولید عکس ریزه...';
 $lang['Unlock gallery'] = 'باز کردن گالری';
@@ -849,8 +834,8 @@ $lang['%d years'] = '%d سال';
 $lang['%s ago'] = '%d پیش';
 $lang['%s in the future'] = '%s آینده';
 $lang['Applications'] = 'برنامه‌های کاربردی';
-$lang['Apply watermark if height is bigger than'] = 'استفاده از چاپ سپید تنها زمانی که بلندا بیشتر باشد از';
-$lang['Apply watermark if width is bigger than'] = 'استفاده از چاپ سپید تنها زمانی که پهنا بیشتر باشد از';
+$lang['Apply watermark if height is bigger than'] = 'عکس را فقط زمانی واترمارک کن که طولش بیشتر باشد از';
+$lang['Apply watermark if width is bigger than'] = 'عکس را فقط زمانی واترمارک کن که عرضش بیشتر باشد از';
 $lang['Automatic sort order'] = 'چیدمان خودکار';
 $lang['Edit photo'] = 'ویرایش عکس';
 $lang['Multiple Size'] = 'چند سایزه';
@@ -860,13 +845,13 @@ $lang['Permission management'] = 'مدیریت دسترسی‌ها';
 $lang['Rated %d times, score : %.2f'] = 'به تعداد %d بار رأی داده شده، امتیاز : %.2f';
 $lang['Save manual order'] = 'ذخیره ی ترتیب دستی';
 $lang['Sharpen'] = 'حالت تیز (Sharpen)';
-$lang['Watermark'] = 'چاپ سپید (Watermark)';
-$lang['Web Form'] = 'حالت ویژه ی وب';
+$lang['Watermark'] = 'واترمارک (Watermark)';
+$lang['Web Form'] = 'حالت وب';
 $lang['X Position'] = 'مکان در محور X';
 $lang['X Repeat'] = 'تعداد تکرار  در محور X';
 $lang['Y Position'] = 'مکان در محور Y';
 $lang['You can activate only one mobile theme.'] = 'شما فقط می توانید یک قالب برای موبایل فعال کنید.';
-$lang['add a new watermark'] = 'اضافه کردن یک چاپ سپید تازه';
+$lang['add a new watermark'] = 'اضافه کردن واترمارک تازه';
 $lang['apply automatic sort order'] = 'استفاده از ترتیب خودکار';
 $lang['bottom left corner'] = 'گوشه ی پایین سمت چپ';
 $lang['bottom right corner'] = 'گوشه ی پایین سمت راست';
@@ -919,8 +904,8 @@ $lang['Source tag'] = 'برچسب اصلی';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'برچسب "%s" از روی برچسب "%s" دوتایی شد';
 $lang['Landscape'] = 'چشم انداز';
 $lang['Manage photos'] = 'مدیریت عکس‌ها';
-$lang['Minimum height'] = 'کمترین بلندا';
-$lang['Minimum width'] = 'کمترین پهنا';
+$lang['Minimum height'] = 'حداقل طول';
+$lang['Minimum width'] = 'حداقل عرض';
 $lang['Number of albums per page'] = 'شمار آلبوم‌ها در هر برگه';
 $lang['Panorama'] = 'پانوراما';
 $lang['Portrait'] = 'پرتره';
@@ -989,3 +974,26 @@ $lang['Recipients'] = 'دریافت کنندگان';
 $lang['Y Repeat'] = 'تکرار در محور Y';
 $lang['Delete %d orphan photos'] = 'پاک کردنِ %d عکس بی‌ریشه';
 $lang['Orphans'] = 'بی‌ریشه‌ها';
+$lang['Delete album "%s".'] = 'حذف البوم"%s".';
+$lang['Display form'] = 'فرم نمایش ';
+$lang['It only takes a few clicks.'] = 'فقط با چند کلید ';
+$lang['Dashboard'] = 'میزکار';
+$lang['First photo added'] = 'افزودن اولین عکس';
+$lang['Select tags'] = 'انتخاب تگ ها';
+$lang['Storage used'] = 'فضای ذخیره سازی استفاده شده';
+$lang['checksum'] = 'چک سام';
+$lang['delete only album, not photos'] = 'فقط آلبوم بدون عکس پاک شود ';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'استفاده از Piwigo آپدیت شده برای امنیت گالری توصیه می‌شود.';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'وقتشه Piwigo را از ورژن %s به %s آپدیت کنید';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'عکس‌های خود را از macOS (ورژن 10.10 به بالا) به طور مستقیم در Piwigo به اشتراک بذارید / بفرستید';
+$lang['delete album and the %d orphan photos'] = 'آلبوم و همه‌ی %d عکس بی‌ریشه پاک شوند';
+$lang['orphans to delete'] = 'عکس‌های بی‌ریشه آماده‌ی پاک شدن';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'آلبوم و همه‌ی %d عکس آن پاک شوند، حتی %d عکسی که مربوط به آلبوم‌های دیگر هستند';
+$lang['(determined from photos)'] = '(تعیین شده از روی عکس‌ها)';
+$lang['Confirm deletion'] = 'تایید پاک کردن';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'آلبوم "%s" و همه‌ی %d زیرآلبوم آن پاک شوند.';
+$lang['No filter on album. Select one or type to search'] = 'فیلتری روی آلبوم اعمال نشده است. یک فیلتر انتخاب کرده و یا واژه‌ی مورد نظر خود را تایپ کنید';
+$lang['No tag selected, no action possible.'] = 'هیچ برچسبی انتخاب نشده، کاری قابل انجام نیست';
+$lang['Piwigo %s is available, please update'] = 'ورژن %s از Piwigo آماده‌ی آپدیت کردن است
+';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync قابلیت این را دارد که یک پوشه(فولدر) را با تمام زیر مجموعه هایش آپلود کند. اگر مجدد این عملیات را انجام دهید فقط موارد جدید آپلود میشود.';

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -1000,3 +985,11 @@ $lang['checksum'] = 'kontrolsumo';
 $lang['For security reason, authentication keys do not work for administrators.'] = 'Pro sekurecaj kialoj, aŭtentiga ŝlosilo ne funkcias por administrantoj';
 $lang['No user is permitted to see this private album'] = 'Neniu uzanto rajtas vidi tiun privatan albumon';
 $lang['delete album and the %d orphan photos'] = 'Forigu albumon kaj la %d orfajn fotojn';
+$lang['Y Repeat'] = 'Y ripetiĝas';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Tempo venis por ĝisdatigi vian Piwigo per verio %s, iru al %s';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Kunhavigi/Sendi fotojn rekte el via macOS (10.10 kaj poste) al Piwigo';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Ĝisdatigi Piwigo-n gravas por sekureco.';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync ebligas aldoni tutan hierarkion de dosierujoj. Se vi denove sinkronigas, nur novaj fotoj aldoniĝos.';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'Forigi albumon kaj ĉiujn %d fotojn, eĉ la %d ligitaj al aliaj albumoj';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Ĉiuj senditaj retmesaĝoj enhavas sian propran identigan ŝlosilon sur ligilo, validas por %s.';
+$lang['No filter on album. Select one or type to search'] = 'Neniu filtrilo. Entajpu ĉi-tie por serĉi albumon.';

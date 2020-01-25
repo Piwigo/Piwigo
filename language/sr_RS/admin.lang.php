@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d веза';
@@ -987,3 +972,40 @@ $lang['Each email sent will contain its own automatic authentication key on link
 $lang['For security reason, authentication keys do not work for administrators.'] = 'Из безбедоносних разлога, кључеви за пријаву не раде за администраторе.';
 $lang['Orphans'] = 'Без родитеља';
 $lang['Recipients'] = 'Примаоци';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'брише албум и свих %d фотографија, чак и %d њих које су повезане са другим албумима';
+$lang['delete album and the %d orphan photos'] = 'брише албум и %d фотографија без албума';
+$lang['delete only album, not photos'] = 'брише само албум, не и фотографије';
+$lang['orphans to delete'] = 'фотографије без албума за брисање';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Дошло је време да ажурирате Пивиго верзијом %s, идите на %s';
+$lang['checksum'] = 'сума за проверу';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Употреба најновије верзије Пивига је важна за сигурност података.';
+$lang['Select tags'] = 'Изаберите ознаке';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Поделите/пошаљите ваше фотографије директно са macOS (10.10 или новијег) на Пивиго';
+$lang['Storage used'] = 'Употребљено складиште';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Помоћу Пивогове удаљена синхронизација могуће је послати читаву фасциклу, а уколико поново покренете синхронизацију додаћете само нове фотографије.';
+$lang['(determined from photos)'] = '(одређено на основу фотографија)';
+$lang['Confirm deletion'] = 'Потврдите брисање';
+$lang['Dashboard'] = 'Сажети приказ';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Бришете албум „%s“ и његових %d подалбума.';
+$lang['Delete album "%s".'] = 'Бришете албум „%s“.';
+$lang['Display form'] = 'Форма приказа';
+$lang['First photo added'] = 'Додата прва фотографија';
+$lang['It only takes a few clicks.'] = 'Потребно је само неколико клика.';
+$lang['No filter on album. Select one or type to search'] = 'Нема филтера или албума. Изаберите један или унесите у претрагу.';
+$lang['No tag selected, no action possible.'] = 'Није изабрана ознака, није могућа ни једна радња.';
+$lang['Piwigo %s is available, please update'] = 'Доступан је Пивиго %s, ажурирајте вашу верзију.';
+$lang['Display album date period'] = 'Прикажи опсег датума из сваког албума, нпр. „од 12. до 15. јула 2018.“';
+$lang['Display category date'] = 'Прикажи датум за категорију';
+$lang['Piwigo requires an album to add photos.'] = 'Морате имати албум пре него што додате фотгорафије у Пивиго ';
+$lang['Some checksums are missing.'] = 'Недостају неке суме за проверу.';
+$lang['Synchronization in progress'] = 'Синхронизација је у току';
+$lang['Visit'] = 'Посетите';
+$lang['Welcome!'] = 'Добродошли!';
+$lang['With no checksum'] = 'Без суме за проверу';
+$lang['checksums to add'] = 'суме за проверу које ће бити додате';
+$lang['or'] = 'или';
+$lang['%d checksums were added'] = 'Додато је %d сума за проверу';
+$lang['... or hide this link'] = '… или сакриј ову везу';
+$lang['Compute %d missing checksums'] = 'Прорачунај %d недостајућих сума за проверу';
+$lang['Create a first album'] = 'Направите први албум';
+$lang['Deletion in progress'] = 'Брисање је у току';

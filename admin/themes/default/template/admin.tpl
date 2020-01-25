@@ -38,6 +38,10 @@ jQuery(document).ready(function() {
       jQuery("."+boxType+" .eiw-icon").css("margin-right", "20px");
     }
   }
+
+  if (jQuery('h2').length > 0) {
+    jQuery('h1').html(jQuery('h2').html());
+  }
 });
 {/footer_script}
 
@@ -45,7 +49,7 @@ jQuery(document).ready(function() {
   <div id="adminHome"><a href="{$U_ADMIN}"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
 
 	<dl>
-		<dt><i class="icon-picture"> </i><span>{'Photos'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-picture"> </i><span>{'Photos'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
 			<ul>
 				<li><a href="{$U_ADD_PHOTOS}"><i class="icon-plus-circled"></i>{'Add'|@translate}</a></li>
@@ -63,7 +67,7 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-sitemap"> </i><span>{'Albums'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-sitemap"> </i><span>{'Albums'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
     <dd>
       <ul>
         <li><a href="{$U_CATEGORIES}"><i class="icon-folder-open"></i>{'Manage'|@translate}</a></li>
@@ -72,7 +76,7 @@ jQuery(document).ready(function() {
     </dd>
   </dl>
   <dl>
-		<dt><i class="icon-users"> </i><span>{'Users'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-users"> </i><span>{'Users'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
       <ul>
         <li><a href="{$U_USERS}"><i class="icon-user-add"></i>{'Manage'|@translate}</a></li>
@@ -82,7 +86,7 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
       <ul>
         <li><a href="{$U_PLUGINS}"><i class="icon-equalizer"></i>{'Manage'|@translate}</a></li>
@@ -98,7 +102,7 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-wrench"> </i><span>{'Tools'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-wrench"> </i><span>{'Tools'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
       <ul>
 {if $ENABLE_SYNCHRONIZATION}
@@ -118,7 +122,7 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-cog"> </i><span>{'Configuration'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-cog"> </i><span>{'Configuration'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}"><i class="icon-cog-alt"></i>{'Options'|@translate}</a></li>
@@ -133,13 +137,18 @@ jQuery(document).ready(function() {
 
 <div id="content" class="content">
 
+  <h1>{$ADMIN_PAGE_TITLE}</h1>
+
   {if isset($TABSHEET)}
   {$TABSHEET}
   {/if}
   {if isset($U_HELP)}
-	{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+  {include file='include/colorbox.inc.tpl'}
+{footer_script}
+  jQuery('.help-popin').colorbox({ width:"500px" });
+{/footer_script}
   <ul class="HelpActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/help.png" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}&amp;output=content_only" title="{'Help'|@translate}" class="help-popin"><span class="icon-help-circled"></span></a></li>
   </ul>
   {/if}
 
