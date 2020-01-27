@@ -47,7 +47,9 @@ class Smarty_Internal_Runtime_UpdateScope
                     while (isset($ptr->parent)) {
                         $ptr = $ptr->parent;
                     }
-                    $ptr->tpl_vars[$varName] = $tpl->tpl_vars[$varName];
+                    if ($ptr) {
+                        $ptr->tpl_vars[$varName] = $tpl->tpl_vars[$varName];
+                    }
                 }
             }
         }

@@ -122,8 +122,8 @@ WHERE '.$where.'
           ),
         'URL' => make_index_url(array('category' => $row)),
         'LEVEL' => substr_count($row['global_rank'], '.') + 1,
-        'SELECTED' => $selected_category['id'] == $row['id'] ? true : false,
-        'IS_UPPERCAT' => $selected_category['id_uppercat'] == $row['id'] ? true : false,
+        'SELECTED' => ($selected_category!==null && $selected_category['id'] == $row['id']) ? true : false,
+        'IS_UPPERCAT' => ($selected_category!==null && $selected_category['id_uppercat'] == $row['id']) ? true : false,
         )
       );
     if ($conf['index_new_icon'])
