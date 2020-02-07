@@ -45,6 +45,11 @@ if (isset($_POST['submit_add']))
   {
     $page['errors'][] = l10n('The name of a group must not contain " or \' or be empty.');
   }
+  else
+  {
+    $_POST['groupname'] = strip_tags($_POST['groupname']);
+  }
+
   if (count($page['errors']) == 0)
   {
     // is the group not already existing ?
@@ -107,7 +112,7 @@ SELECT name
     $group_names = array_from_query($query, 'name');
     foreach($groups as $group)
     {
-      $_POST['rename_'.$group] = stripslashes($_POST['rename_'.$group]);
+      $_POST['rename_'.$group] = strip_tags(stripslashes($_POST['rename_'.$group]));
 
       if (in_array($_POST['rename_'.$group], $group_names))
       {
@@ -181,6 +186,8 @@ SELECT name
 
   if ($action=="merge" and count($groups) > 1)
   {
+    $_POST['merge'] = strip_tags($_POST['merge']);
+
     // is the group not already existing ?
     $query = '
 SELECT COUNT(*)
@@ -268,6 +275,11 @@ SELECT COUNT(*)
       {
         break;
       }
+      else
+      {
+        $_POST['duplicate_'.$group.''] = strip_tags(stripslashes($_POST['duplicate_'.$group.'']));
+      }
+
       // is the group not already existing ?
       $query = '
   SELECT COUNT(*)
