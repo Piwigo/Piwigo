@@ -61,7 +61,7 @@ SELECT
  */
 function ws_groups_add($params, &$service)
 {
-  $params['name'] = pwg_db_real_escape_string($params['name']);
+  $params['name'] = pwg_db_real_escape_string(strip_tags(stripslashes($params['name'])));
 
   // is the name not already used ?
   $query = '
@@ -180,7 +180,7 @@ SELECT COUNT(*)
 
   if (!empty($params['name']))
   {
-    $params['name'] = pwg_db_real_escape_string($params['name']);
+    $params['name'] = pwg_db_real_escape_string(strip_tags(stripslashes($params['name'])));
 
     // is the name not already used ?
     $query = '
