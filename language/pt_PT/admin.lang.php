@@ -812,6 +812,7 @@ $lang['Cancel'] = 'Cancelar';
 $lang['List'] = 'Lista';
 $lang['Web Form'] = 'Formulário web';
 $lang['Applications'] = 'Aplicações'; 
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'A aplicação <em>Piwigo for Android</em> permite-lhe ligar do seu telefone Android ou Tablet à galeria Piwigo, criar albuns e carregar diversas fotos simultâneamente.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'A aplicação <em>Piwigo for iOS</em> permite-lhe, ligação à sua galeria Piwigo a partir do seu IPhone,IPad ou IPod táctil, criar albuns e carregar fotos simultâneamente.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom é um software para fotografia desenhado para manusear larga quantidade de fotos digitais e para transferência depois de produzidas.';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Abertura é uma potente ferramenta destinada a refinar imagens e gerenciar massivas livrarias em Mac.';
@@ -822,6 +823,7 @@ $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin l
 $lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'Em Linux, instale o Shotwell com o pacote base e, depois terá de ativar a opção ativar publicação Piwigo.';
 $lang['Piwigo export plugin for Aperture'] = 'Exportar Extenção Piwigo para Aperture.';
 $lang['Piwigo export plugin for iPhoto'] = 'Extenção Piwigo de exportação para Iphoto.';
+$lang['Piwigo for Android'] = 'Piwigo para Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo para  iOS (iPhone, iPad, iPod táctil)';
 $lang['Piwigo publish plugin for digiKam'] = 'Extenção de publicação Piwigo para DigiKam.';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Extenção de publicação Piwigo para Lightroom.';

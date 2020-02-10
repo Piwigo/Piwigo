@@ -776,6 +776,7 @@ $lang['You need to upgrade your system to take full advantage of the application
 $lang['Your configuration settings are saved'] = 'Yapılandırma ayarları kaydedildi';
 $lang['Zoom'] = 'Yakınlaştırma';
 $lang['%u users have automatic permission because they belong to a granted group.'] = 'izin verilmiş bir gruba ait oldukları için %u kullanıcı otomatik izine sahip.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Android için Piwigo</em> uygulaması ile Android telefon veya tablet\'inizden Piwigo galerinize bağlanmaya, albümler yaratmanıza ve birden fazla fotoğraf birden aktarmanıza izin verir.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em> uygulaması ile iPhone, iPad veya iPod Touch\'ınızdan Piwigo galerinize bağlanmaya, albümler yaratmanıza ve birden fazla fotoğraf birden aktarmanıza izin verir. ';
 $lang['A locked gallery is only visible to administrators'] = 'Kilitli bir galeri sadece yöneticiler tarafından görülebilir';
 $lang['Activate comments'] = 'Yorumları etkinleştir';
@@ -812,6 +813,7 @@ $lang['Photo sizes with crop'] = 'Kırparak fotoğrafı boyutlandır';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Lightroom için Piwigo Publish eklentisi ';
 $lang['Piwigo export plugin for Aperture'] = 'Aperture için Piwigo aktarım eklentisi';
 $lang['Piwigo export plugin for iPhoto'] = 'iPhoto için Piwigo aktarım eklentisi';
+$lang['Piwigo for Android'] = 'Android için Piwigo';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS (iPhone, iPad, iPod Touch) için Piwigo';
 $lang['Piwigo publish plugin for Shotwell'] = 'Shotwell için Piwigo publish eklentisi';
 $lang['Piwigo publish plugin for digiKam'] = 'digiKam için Piwigo publish eklentisi';

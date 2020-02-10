@@ -608,6 +608,7 @@ $lang['Aperture is designed for professional photographers with iPhoto simplicit
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture este un instrument puternic proiectat pentru redefinirea imaginilor și pentru gestiunea de biblioteci mari pe un sistem Mac.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom este un program pentru fotografii proiectat pentru a gestiona și a prelucra mari cantități de imagini digitale.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo pentru iOS</em> programul vă permite să vă conectați iPhone-ul, iPad-ul sau iPad-ul Touch la galeria dvs. Piwigo, să creați unele albume și să transmiteți mai multe fotografii în același timp.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo pentru Android</em> programul vă permite să vă conectați telefonul sau tableta dvs. Android  la galeria dvs. Piwigo, să creați unele albume și să transmiteți mai multe fotografii în același timp.';
 $lang['%u users have automatic permission because they belong to a granted group.'] = 'u% de utilizatori  au permisiunea automată, deoarece aceștia aparțin unui grup cu permisii.';
 $lang['View in gallery'] = 'Vezi în galerie';
 $lang['Used metadata'] = 'Metadate utilizate';
@@ -672,6 +673,7 @@ $lang['Piwigo version'] = 'Versiune Piwigo';
 $lang['Please select at least two groups'] = 'Te rog alege cel puţin două grupuri';
 $lang['Permission granted for users'] = 'Permisiuni acordate pentru utilizator';
 $lang['Permission management'] = 'Management de permisiuni';
+$lang['Piwigo for Android'] = 'Piwigo pentru Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo pentru iOS (iPhone, iPad, iPod Touch=';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'Numele unui grup trebuie să nu conţină " sau \' sau sa fie gol.';
 $lang['The name of an album must not be empty'] = 'Numele unui album trebuie să nu fie gol';
