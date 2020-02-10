@@ -802,10 +802,12 @@ $lang['Not cropped correctly?'] = 'Rozmiar nie zmieniony poprawnie?';
 $lang['Center of interest'] = 'Centrum zainteresowania';
 $lang['Move to album'] = 'Przenieś do albumu';
 
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo na Androida</em> aplikacja daje możliwość połączenia Twojej galerii Piwigo z Twoim telefonem lub tabletem opartym na Androidzie. Możesz tworzyć albumy i wysyłać wiele zdjęć jednocześnie.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo na iOS</em> aplikacja daje możliwość połączenia Twojej galerii Piwigo z Twoim iPhonem, iPadem lub iPodem. Możesz tworzyć albumy i wysyłać wiele zdjęć jednocześnie.';
 $lang['Applications'] = 'Aplikacje';
 $lang['Available on'] = 'Dostępne na';
 $lang['Cancel'] = 'Anuluj';
+$lang['Piwigo for Android'] = 'Piwigo na Androida';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo na iOS (iPhone, iPad, iPod Touch)';
 $lang['any visitor can see this album'] = 'wszyscy odwiedzający galerię zobaczą ten album';
 $lang['apply automatic sort order'] = 'Zastosuj automatyczną kolejność sortowania';

@@ -317,6 +317,7 @@ $lang['Save order'] = 'Эрэмбийг хадгалах';
 $lang['Restore'] = 'Сэргээх';
 $lang['Restore default configuration. You will lose your plugin settings!'] = 'Үндсэн тохиргоог сэргээх. Тохиргоонууд алдагдах болно.';
 $lang['Repair and optimize database'] = 'Мэдээллийн санг засаж, цэгцэлэх';
+$lang['Piwigo for Android'] = 'Android-д зориулсан Piwigo';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS (iPhone, iPad, iPod Touch)-д зориулсан Piwigo';
 $lang['Permalink'] = 'Холбоос хаяг (permalink)';
 $lang['Permalinks'] = 'Холбоос хаяг (permalink)';

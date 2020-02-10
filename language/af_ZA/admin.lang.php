@@ -244,6 +244,7 @@ $lang['Notify administrators when a comment is'] = 'Stel administrateurs in kenn
 $lang['Opacity'] = 'Deursigtigheid';
 $lang['Original Size'] = 'Oorspronklike grootte';
 $lang['Original file : %s'] = 'Oorspronklike lêer: %s';
+$lang['Piwigo for Android'] = 'Piwigo vir Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo vir iOS (iPhone, iPad, iPod Touch)10217569';
 $lang['Posted %s on %s'] = 'Gepos %s op %s';
 $lang['Select a file'] = 'Kies \'n lêer';
@@ -805,6 +806,7 @@ $lang['Give write access (chmod 777) to "%s" directory at the root of your Piwig
 $lang['Information data registered in database'] = 'Inligting aangeteken in databasis';
 $lang['Invert'] = 'Keer om';
 $lang['Language has been successfully installed'] = 'Taal is suksesvol geïnstalleer';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo vir Android</em> toepassing stel jou in staat om met jou Android foon of tablet aan jou Piwigo gallery te verbind, albums te skep en fotos op te laai.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo vir iOS</em> toepassing stel jou in staat om met jou iPhone, iPad of iPad touch aan jou Piwigo gallery te verbind, albums te skep en fotos op te laai.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom is fotografie sagteware wat ontwerp is om groot hoeveelhede digitale beelde te administreer en postproduksie werk te doen.';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture is \'n kragtige pakket om beelde te verwerk en groot biblioteke op Mac te hanteer.';

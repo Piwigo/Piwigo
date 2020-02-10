@@ -811,6 +811,7 @@ $lang['Not cropped correctly?'] = '¿No se ha recortado correctamente?';
 $lang['Save manual order'] = 'Guardar orden manual';
 $lang['Web Form'] = 'Formulario web';
 $lang['You can activate only one mobile theme.'] = 'Sólo se puede activar un tema para dispositivos móviles.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'La aplicación <em>Piwigo para Android</em> te permite conectarte a tu galería Piwigo desde tu teléfono o tablet Android, crear álbumes y subir varias fotos a la vez.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'Las aplicación <em>Piwigo para iOS</em> te permite conectarte a tu galería Piwigo desde tu iPhone, iPad o iPod Touch, crear álbumes y subir varias fotos a la vez.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Lightroom es un software fotográfico diseñado para administrar grandes cantidades de imágenes y realizar el procesado de las mismas.';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture es una potente herramienta para editar imágenes y administrar grandes colecciones en Mac.';
@@ -826,6 +827,7 @@ $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin l
 $lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'Para Linux, simplemente instala Shotwell con el gestor de paquetes y activa la opción de publicación en Piwigo.';
 $lang['Piwigo export plugin for Aperture'] = 'Plugin de Piwigo para Aperture';
 $lang['Piwigo export plugin for iPhoto'] = 'Plugin de Piwigo para iPhoto';
+$lang['Piwigo for Android'] = 'Piwigo para Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo para iOS (iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for digiKam'] = 'Plugin de Piwigo para digiKam';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Plugin de publicación de Piwigo para Lightroom';

@@ -828,6 +828,7 @@ $lang['Automatic sort order'] = 'Automatisk sorteringsrækkefølge';
 $lang['List'] = 'Liste';
 $lang['Piwigo export plugin for Aperture'] = 'Piwigo-eksportplugin til Aperture';
 $lang['Piwigo export plugin for iPhoto'] = 'Piwigo-eksportplugin til iPhoto';
+$lang['Piwigo for Android'] = 'Piwigo for Android';
 $lang['You can activate only one mobile theme.'] = 'Du kan kun aktivere et mobiltema';
 $lang['apply automatic sort order'] = 'Aktiver automatisk sorteringsrækkefølge';
 $lang['cancel manual order'] = 'afbryd manuel rækkefølge';
@@ -843,6 +844,7 @@ $lang['visitors need to login and have the appropriate permissions to see this a
 $lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Filstørrelsen på den uploadede fil overstiger MAX_FILE_SIZE-definitionen, som er angivet i HTML-formularen';
 $lang['Multiple Size'] = 'Flere størrelser';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u brugere har automatisk tilladelse, fordi de tilhører en gruppe med tilladelser.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'App\'en <em>Piwigo for Android</em> giver dig mulighed for at forbinde en Android-mobiltelelfon eller -tablet med dit Piwigo-galleri, oprette albummer og uploade flere fotografier på én gang.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom er et fotografiprogram beregnet til at håndtere store mængder digitale billeder og foretage efterbehandling.';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture er et ydedygtigt værktøj til at forfine billeder og administrere store biblioteker på en Mac.';
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Aperture er udviklet til professionelle fotografer med iPhoto-enkelhed.';
