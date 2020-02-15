@@ -40,13 +40,13 @@
 
 // picture_ext : file extensions for picture file, must be a subset of
 // file_ext
-$conf['picture_ext'] = array('jpg','jpeg','png','gif');
+$conf['picture_ext'] = array('jpg', 'jpeg', 'png', 'gif');
 
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array_merge(
-  $conf['picture_ext'],
-  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf')
-  );
+    $conf['picture_ext'],
+    array('tiff', 'tif', 'mpg', 'zip', 'avi', 'mp3', 'ogg', 'pdf')
+);
 
 // enable_formats: should Piwigo search for multiple formats?
 $conf['enable_formats'] = false;
@@ -179,7 +179,7 @@ $conf['random_index_redirect'] = array();
 
 // List of notes to display on all header page
 // example $conf['header_notes']  = array('Test', 'Hello');
-$conf['header_notes']  = array();
+$conf['header_notes'] = array();
 
 // show_thumbnail_caption : on thumbnails page, show thumbnail captions ?
 $conf['show_thumbnail_caption'] = true;
@@ -214,7 +214,7 @@ $conf['representative_cache_on_subcats'] = true;
 $conf['allow_html_descriptions'] = true;
 
 // image level permissions available in the admin interface
-$conf['available_permission_levels'] = array(0,1,2,4,8);
+$conf['available_permission_levels'] = array(0, 1, 2, 4, 8);
 
 // check_upgrade_feed: check if there are database upgrade required. Set to
 // true, a message will strongly encourage you to upgrade your database if
@@ -225,7 +225,7 @@ $conf['available_permission_levels'] = array(0,1,2,4,8);
 $conf['check_upgrade_feed'] = true;
 
 // rate_items: available rates for a picture
-$conf['rate_items'] = array(0,1,2,3,4,5);
+$conf['rate_items'] = array(0, 1, 2, 3, 4, 5);
 
 // Define default method to use ('http' or 'html' in order to do redirect)
 $conf['default_redirect_method'] = 'http';
@@ -260,12 +260,12 @@ $conf['comments_page_nb_comments'] = 10;
 // how often should we check for new versions of Piwigo on piwigo.org? In
 // seconds. The check is made only if there are visits on Piwigo.
 // 0 to disable.
-$conf['update_notify_check_period'] = 24*60*60;
+$conf['update_notify_check_period'] = 24 * 60 * 60;
 
 // how often should be remind of new versions available? For example a first
 // notification was sent on May 5th 2017 for 2.9.1, after how many seconds
 // we send it again? 0 to disable.
-$conf['update_notify_reminder_period'] = 7*24*60*60;
+$conf['update_notify_reminder_period'] = 7 * 24 * 60 * 60;
 
 // should the album description be displayed on all pages (value=true) or
 // only the first page (value=false)
@@ -318,11 +318,11 @@ $conf['show_iptc'] = false;
 // To know how to associated iptc_field with their meaning, use
 // tools/metadata.php
 $conf['show_iptc_mapping'] = array(
-  'iptc_keywords'        => '2#025',
-  'iptc_caption_writer'  => '2#122',
-  'iptc_byline_title'    => '2#085',
-  'iptc_caption'         => '2#120'
-  );
+    'iptc_keywords' => '2#025',
+    'iptc_caption_writer' => '2#122',
+    'iptc_byline_title' => '2#085',
+    'iptc_caption' => '2#120'
+);
 
 // use_iptc: Use IPTC data during database synchronization with files
 // metadata
@@ -332,12 +332,12 @@ $conf['use_iptc'] = false;
 // information ? This setting is used during metadata synchronisation. It
 // associates a piwigo_images column name to a IPTC key
 $conf['use_iptc_mapping'] = array(
-  'keywords'        => '2#025',
-  'date_creation'   => '2#055',
-  'author'          => '2#122',
-  'name'            => '2#005',
-  'comment'         => '2#120'
-  );
+    'keywords' => '2#025',
+    'date_creation' => '2#055',
+    'author' => '2#122',
+    'name' => '2#005',
+    'comment' => '2#120'
+);
 
 // show_exif: Show EXIF metadata on picture.php (table or line presentation
 // available)
@@ -356,11 +356,11 @@ $conf['show_exif'] = true;
 // $conf['show_exif_fields'] = array('CameraMake','CameraModel','DateTime');
 //
 $conf['show_exif_fields'] = array(
-  'Make',
-  'Model',
-  'DateTimeOriginal',
-  'COMPUTED;ApertureFNumber'
-  );
+    'Make',
+    'Model',
+    'DateTimeOriginal',
+    'COMPUTED;ApertureFNumber'
+);
 
 // use_exif: Use EXIF data during database synchronization with files
 // metadata
@@ -368,8 +368,8 @@ $conf['use_exif'] = true;
 
 // use_exif_mapping: same behaviour as use_iptc_mapping
 $conf['use_exif_mapping'] = array(
-  'date_creation' => 'DateTimeOriginal'
-  );
+    'date_creation' => 'DateTimeOriginal'
+);
 
 // allow_html_in_metadata: in case the origin of the photo is unsecure (user
 // upload), we remove HTML tags to avoid XSS (malicious execution of
@@ -515,11 +515,11 @@ $conf['external_authentification'] = false;
 // field names. For example, in PWG, the mail address is names
 // "mail_address" and in punbb, it's called "email".
 $conf['user_fields'] = array(
-  'id' => 'id',
-  'username' => 'username',
-  'password' => 'password',
-  'email' => 'mail_address'
-  );
+    'id' => 'id',
+    'username' => 'username',
+    'password' => 'password',
+    'email' => 'mail_address'
+);
 
 // password_hash: function hash the clear user password to store it in the
 // database. The function takes only one parameter: the clear password.
@@ -637,6 +637,10 @@ $conf['tags_levels'] = 5;
 // default? 'letters' or 'cloud'.
 $conf['tags_default_display_mode'] = 'cloud';
 
+// tags_display_categories: controls the number of categories in the tag overview
+// default? array('cloud', 'letters').
+$conf['tags_display_categories'] = array('cloud', 'letters');
+
 // tag_letters_column_number: how many columns to display tags by letter
 $conf['tag_letters_column_number'] = 4;
 
@@ -661,16 +665,16 @@ $conf['nbm_treatment_timeout_default'] = 20;
 
 // Parameters used in get_recent_post_dates for the 2 kind of notification
 $conf['recent_post_dates'] = array(
-  'RSS' => array('max_dates' => 5, 'max_elements' => 6, 'max_cats' => 6),
-  'NBM' => array('max_dates' => 7, 'max_elements' => 3, 'max_cats' => 9)
-  );
+    'RSS' => array('max_dates' => 5, 'max_elements' => 6, 'max_cats' => 6),
+    'NBM' => array('max_dates' => 7, 'max_elements' => 3, 'max_cats' => 9)
+);
 
 // the author shown in the RSS feed <author> element
 $conf['rss_feed_author'] = 'Piwigo notifier';
 
 // how long does the authentication key stays valid, in seconds. 3 days by
 // default. 0 to disable.
-$conf['auth_key_duration'] = 3*24*60*60;
+$conf['auth_key_duration'] = 3 * 24 * 60 * 60;
 
 // +-----------------------------------------------------------------------+
 // | Set admin layout                                                      |
@@ -679,7 +683,7 @@ $conf['auth_key_duration'] = 3*24*60*60;
 $conf['admin_theme'] = 'clear';
 
 // should we load the active plugins ? true=Yes, false=No
-$conf['enable_plugins']=true;
+$conf['enable_plugins'] = true;
 
 // Web services are allowed (true) or completely forbidden (false)
 $conf['allow_web_services'] = true;
@@ -708,10 +712,10 @@ $conf['show_newsletter_subscription'] = true;
 //     No filter, No icon,...
 //     $conf['filter_pages'] = array();
 $conf['filter_pages'] = array
-  (
+(
     // Default page
     'default' => array(
-      'used' => true, 'cancel' => false, 'add_notes' => false),
+        'used' => true, 'cancel' => false, 'add_notes' => false),
     // Real pages
     'index' => array('add_notes' => true),
     'tags' => array('add_notes' => true),
@@ -728,7 +732,7 @@ $conf['filter_pages'] = array
     'install' => array('cancel' => true),
     'password' => array('cancel' => true),
     'register' => array('cancel' => true),
-  );
+);
 
 // +-----------------------------------------------------------------------+
 // | Slideshow                                                             |
@@ -767,7 +771,7 @@ $conf['upload_dir'] = './upload';
 $conf['no_photo_yet_url'] = 'admin.php?page=photos_add';
 
 // directory with themes inside
-$conf['themes_dir'] = PHPWG_ROOT_PATH.'themes';
+$conf['themes_dir'] = PHPWG_ROOT_PATH . 'themes';
 
 // enable the synchronization method for adding photos
 $conf['enable_synchronization'] = true;
@@ -791,9 +795,9 @@ $conf['pem_languages_category'] = 8;
 $conf['upload_form_automatic_rotation'] = true;
 
 // 0-'auto', 1-'derivative' 2-'script'
-$conf['derivative_url_style']=0;
+$conf['derivative_url_style'] = 0;
 
-$conf['chmod_value']= substr_compare(PHP_SAPI, 'apa', 0, 3)==0 ? 0777 : 0755;
+$conf['chmod_value'] = substr_compare(PHP_SAPI, 'apa', 0, 3) == 0 ? 0777 : 0755;
 
 // 'small', 'medium' or 'large'
 $conf['derivative_default_size'] = 'medium';
@@ -803,7 +807,7 @@ $conf['derivative_default_size'] = 'medium';
 $conf['derivatives_strip_metadata_threshold'] = 256000;
 
 //Maximum Ajax requests at once, for thumbnails on-the-fly generation
-$conf['max_requests']=3;
+$conf['max_requests'] = 3;
 
 // one of '', 'images', 'all'
 //TODO: Put this in admin and also manage .htaccess in #sites and upload folders
