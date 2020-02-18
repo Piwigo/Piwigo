@@ -97,7 +97,8 @@ $(document).ready(function() {
     <li>
       <label><p>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></p></label>
       <p class="list_user">{if $group.MEMBERS>0}{$group.MEMBERS}<br>{$group.L_MEMBERS}{else}{$group.MEMBERS}{/if}</p>
-      <a class="icon-lock group_perm" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Permissions'|translate}</a>
+      <a class="icon-group group_users" href="{$group.U_USERS}">{'Users'|translate}</a>
+      <a class="icon-lock group_perm" href="{$group.U_PERM}">{'Permissions'|translate}</a>
     </li>
     {/foreach}
     {/if}

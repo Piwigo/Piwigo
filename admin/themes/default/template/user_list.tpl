@@ -617,6 +617,9 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 		serverMethod: "POST",
     ajaxSource: "admin/user_list_backend.php",
 		pagingType: "simple",
+{/literal}{if (isset($filter_group))}{literal}
+    "oSearch": {"sSearch": "group:{/literal}{$filter_group}{literal}"},
+{/literal}{/if}{literal}
     language: {
       processing: "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
       lengthMenu: sprintf("{/literal}{'Show %s users'|translate|escape:'javascript'}{literal}", '_MENU_'),

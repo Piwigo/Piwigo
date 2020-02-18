@@ -1492,8 +1492,13 @@ p.list_user {
 }
 a.group_perm {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 10px;
+  right: 15px;
+}
+a.group_users {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
 }
 
 #userList .openUserDetails {visibility:hidden;}
