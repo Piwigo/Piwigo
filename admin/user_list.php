@@ -10,6 +10,8 @@
  * Add users and manage users list
  */
 
+check_input_parameter('group', $_GET, false, PATTERN_ID);
+
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
 // +-----------------------------------------------------------------------+
@@ -117,6 +119,7 @@ $template->assign(
     'protected_users' => implode(',', array_unique($protected_users)),
     'password_protected_users' => implode(',', array_unique($password_protected_users)),
     'guest_user' => $conf['guest_id'],
+    'filter_group' => (isset($_GET['group']) ? $_GET['group'] : null),
     )
   );
 
