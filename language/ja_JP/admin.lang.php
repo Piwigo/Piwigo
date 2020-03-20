@@ -542,7 +542,7 @@ $lang['Give write access (chmod 777) to "%s" directory at the root of your Piwig
 $lang['existing album'] = '存在しているアルバム';
 $lang['create a new album'] = '新しいアルバムを作成する';
 $lang['Album name'] = 'アルバム名';
-$lang['Album "%s" has been added'] = '"%s"のアルバムは追加されました。';
+$lang['Album "%s" has been added'] = 'アルバム"%s"が追加されました。';
 $lang['Uploaded Photos'] = 'アップロードされた写真';
 $lang['%d photos uploaded'] = '%d 枚の写真がアップロードされました';
 $lang['Privacy level set to "%s"'] = 'プライバシー設定: "%s"';
