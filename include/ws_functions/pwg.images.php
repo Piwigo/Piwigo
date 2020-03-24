@@ -1674,7 +1674,12 @@ SELECT *
         );
     }
 
-    $update['file'] = $params['file'];
+    // prevent XSS, remove HTML tags
+    $update['file'] = strip_tags($params['file']);
+    if (empty($update['file']))
+    {
+      unset($update['file']);
+    }
   }
 
   if (count(array_keys($update)) > 0)
