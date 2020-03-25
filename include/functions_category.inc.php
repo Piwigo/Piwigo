@@ -103,8 +103,6 @@ WHERE '.$where.'
   $result = pwg_query($query);
   $cats = array();
   $selected_category = isset($page['category']) ? $page['category'] : null;
-  $selected_category_id = isset($selected_category['id']) ? $selected_category['id'] : null;
-  $selected_category_id_uppercat = isset($selected_category['id_uppercat']) ? $selected_category['id_uppercat'] : null;
   while ($row = pwg_db_fetch_assoc($result))
   {
     $child_date_last = @$row['max_date_last']> @$row['date_last'];
@@ -124,8 +122,8 @@ WHERE '.$where.'
           ),
         'URL' => make_index_url(array('category' => $row)),
         'LEVEL' => substr_count($row['global_rank'], '.') + 1,
-        'SELECTED' => $selected_category_id == $row['id'] ? true : false,
-        'IS_UPPERCAT' => $selected_category_id_uppercat == $row['id'] ? true : false,
+        'SELECTED' => $selected_category['id'] == $row['id'] ? true : false,
+        'IS_UPPERCAT' => $selected_category['id_uppercat'] == $row['id'] ? true : false,
         )
       );
     if ($conf['index_new_icon'])
