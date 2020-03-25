@@ -39,7 +39,7 @@ fieldset p {text-align:left;margin-top:0}
 
 <fieldset>
   <legend>{'Piwigo for Android'|@translate}</legend>
-<div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-android.jpg" title="{'Piwigo for Android'|@translate}"><img src="http://piwigo.org/screenshots/applications/thumbnail/piwigo-android.jpg"></a></div>
+<div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-android.png" title="{'Piwigo for Android'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-android.png"></a></div>
 <p>{'<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'|@translate}</p>
 
 <p>
