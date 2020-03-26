@@ -7,7 +7,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '2.10.1');
+define('PHPWG_VERSION', '2.10.2');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 
 // this constant is only used in the upgrade process, the true default theme
