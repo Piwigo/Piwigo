@@ -502,7 +502,7 @@ function ws_addDefaultMethods( $arr )
       'pwg.images.setMd5sum',
       'ws_images_setMd5sum',
       array(
-        'block_size' => array('default'=>1000, 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'block_size' => array('default'=>$conf['checksum_compute_blocksize'], 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'pwg_token' =>  array(),
         ),
       'Set md5sum column, by blocks. Returns how many md5sums were added and how many are remaining.',

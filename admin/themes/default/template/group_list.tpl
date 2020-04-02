@@ -97,7 +97,8 @@ $(document).ready(function() {
     <li>
       <label><p>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></p></label>
       <p class="list_user">{if $group.MEMBERS>0}{$group.MEMBERS}<br>{$group.L_MEMBERS}{else}{$group.MEMBERS}{/if}</p>
-      <a class="icon-lock group_perm" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Permissions'|translate}</a>
+      <a class="icon-group group_users" href="{$group.U_USERS}">{'Users'|translate}</a>
+      <a class="icon-lock group_perm" href="{$group.U_PERM}">{'Permissions'|translate}</a>
     </li>
     {/foreach}
     {/if}
@@ -128,7 +129,7 @@ $(document).ready(function() {
         {if not empty($groups)}
         {foreach from=$groups item=group}
         <p group_id="{$group.ID}" class="grp_action">
-          <input type="text" class="large" name="rename_{$group.ID}" value="{$group.NAME}" onfocus="this.value=(this.value=='{$group.NAME}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$group.NAME}' : this.value;">
+          <input type="text" class="large" name="rename_{$group.ID}" value="{$group.NAME}">
         </p>
         {/foreach}
         {/if}
@@ -137,9 +138,8 @@ $(document).ready(function() {
         <!-- merge -->
         <div id="action_merge" class="bulkAction">
           <p id="two_to_select">{'Please select at least two groups'|@translate}</p>
-          {assign var='mergeDefaultValue' value='Type here the name of the new group'|@translate}
           <p id="two_atleast">
-            <input type="text" class="large" name="merge" value="{$mergeDefaultValue}" onfocus="this.value=(this.value=='{$mergeDefaultValue}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$mergeDefaultValue}' : this.value;">
+            <input type="text" class="large" name="merge" value="" placeholder="{'Type here the name of the new group'|translate}">
           </p>
         </div>
 
@@ -150,11 +150,10 @@ $(document).ready(function() {
 
         <!-- duplicate -->
         <div id="action_duplicate" class="bulkAction">
-        {assign var='duplicateDefaultValue' value='Type here the name of the new group'|@translate}
         {if not empty($groups)}
         {foreach from=$groups item=group}
         <p group_id="{$group.ID}" class="grp_action">
-          {$group.NAME} > <input type="text" class="large" name="duplicate_{$group.ID}" value="{$duplicateDefaultValue}" onfocus="this.value=(this.value=='{$duplicateDefaultValue}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$duplicateDefaultValue}' : this.value;">
+          {$group.NAME} > <input type="text" class="large" name="duplicate_{$group.ID}" value="" placeholder="{'Type here the name of the new group'|@translate}">
         </p>
         {/foreach}
         {/if}

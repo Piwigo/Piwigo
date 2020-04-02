@@ -175,6 +175,7 @@ $lang['Apply action'] = 'ដំណើរ​ការ​សកម្មភាព�
 $lang['Apply selected corrections'] = 'ដំណើរ​ការ​កំណែរ​ប្រែ​ដែល​បាន​ជ្រើស​រើស​';
 $lang['Apply to sub-albums'] = 'ដំណើរ​​ការ​ទៅ​កាន់​សៀវ​ភៅ​រូប​ថត​រង​';
 
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo សំរាប់​ Android</em> ធ្វើ​ឲ្យលោក​អ្នក​អាច​ភ្ជាប់​ទូរស័ព្វ​ Android របស់​អ្នក ឬ​ក៏ Table ទៅកាន់​ Piwigo gallery របស់​អ្នក​​ ដែលលោក​​អ្នក​អាច​បង្កើត​សៀវភៅ​រូប​ថត ហើយ​ ដាក់បញ្ចូល​នូវ​រូប​ថត​ជា​ច្រើន​ក្នុង​ពេល​តែ​មួយ។';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo សំរាប់​ iOS</em> ធ្វើ​ឲ្យលោក​​អ្នក​អាច​ភ្ជាប់ទៅកាន់​ Piwigo gallery របស់​អ្នក​ពី​ទូរស័ព្វ iPhone, iPad ឬ iPod Touch របស់​អ្នក ដែលលោក​អ្នក​អាច​បង្កើត​សៀវភៅ​រូប​ថត ហើយ​ ដាក់បញ្ចូល​នូវ​រូប​ថត​ជា​ច្រើន​ក្នុង​ពេល​តែ​មួយ។';
 $lang['%d day'] = '%d ថ្ងៃ';
 $lang['%d days'] = '%d ថ្ងៃ';

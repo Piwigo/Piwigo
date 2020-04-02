@@ -373,6 +373,7 @@ $lang['Are you sure to install this upgrade? You must verify if this version doe
 $lang['Are you sure you want to delete this plugin?'] = '確定要刪除此插件嗎?';
 $lang['%d of %d users selected'] = '%d到%d位用戶選擇';
 $lang['(filtered from %s total users)'] = '(共%s用戶被過濾）';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Android 版的Piwigo</em>允許從 Android 手機或平版連接到您的Piwigo畫廊，建立多個相冊並一次上傳多張相片。';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>iOS 版的Piwigo</em>允許您從iPhone, iPad 或 iPod Touch 連接到您的Piwigo畫廊，建立多個相冊並一次上傳多張相片。';
 $lang['Add a criteria'] = '增加准則';
 $lang['Add a filter'] = '增加篩選';
@@ -751,6 +752,7 @@ $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo 無法從伺�
 $lang['Piwigo configuration'] = 'Piwigo的設定';
 $lang['Piwigo export plugin for Aperture'] = 'Aperture的Piwigo匯出插件';
 $lang['Piwigo export plugin for iPhoto'] = 'iPhoto的Piwigo匯出插件';
+$lang['Piwigo for Android'] = 'Android 版的Piwigo';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS (iPhone, iPad, iPod Touch) 版的 Piwigo ';
 $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo 的 Shotwell 照片發布插件 ';
 $lang['Piwigo publish plugin for digiKam'] = 'Piwigo 的 ddgiKam 照片發布插件';

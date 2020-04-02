@@ -45,6 +45,11 @@ if (isset($_POST['submit_add']))
   {
     $page['errors'][] = l10n('The name of a group must not contain " or \' or be empty.');
   }
+  else
+  {
+    $_POST['groupname'] = strip_tags($_POST['groupname']);
+  }
+
   if (count($page['errors']) == 0)
   {
     // is the group not already existing ?
@@ -107,7 +112,7 @@ SELECT name
     $group_names = array_from_query($query, 'name');
     foreach($groups as $group)
     {
-      $_POST['rename_'.$group] = stripslashes($_POST['rename_'.$group]);
+      $_POST['rename_'.$group] = strip_tags(stripslashes($_POST['rename_'.$group]));
 
       if (in_array($_POST['rename_'.$group], $group_names))
       {
@@ -181,6 +186,8 @@ SELECT name
 
   if ($action=="merge" and count($groups) > 1)
   {
+    $_POST['merge'] = strip_tags($_POST['merge']);
+
     // is the group not already existing ?
     $query = '
 SELECT COUNT(*)
@@ -268,6 +275,11 @@ SELECT COUNT(*)
       {
         break;
       }
+      else
+      {
+        $_POST['duplicate_'.$group.''] = strip_tags(stripslashes($_POST['duplicate_'.$group.'']));
+      }
+
       // is the group not already existing ?
       $query = '
   SELECT COUNT(*)
@@ -390,6 +402,7 @@ $result = pwg_query($query);
 
 $admin_url = get_root_url().'admin.php?page=';
 $perm_url    = $admin_url.'group_perm&amp;group_id=';
+$users_url = $admin_url.'user_list&amp;group=';
 $del_url     = $admin_url.'group_list&amp;delete=';
 $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 
@@ -419,6 +432,7 @@ SELECT u.'. $conf['user_fields']['username'].' AS username
       'MEMBERS' => l10n_dec('%d member', '%d members', count($members)),
       'U_DELETE' => $del_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
       'U_PERM' => $perm_url.$row['id'],
+      'U_USERS' => $users_url.$row['id'],
       'U_ISDEFAULT' => $toggle_is_default_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
       )
     );

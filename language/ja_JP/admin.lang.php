@@ -792,6 +792,7 @@ $lang['Multiple Size'] = '複数のサイズ';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Lightroom 用 Piwigo エクスポートプラグイン';
 $lang['Piwigo export plugin for Aperture'] = 'Aperture 用 Piwigo エクスポートプラグイン';
 $lang['Piwigo export plugin for iPhoto'] = 'iPhoto 用 Piwigo エクスポートプラグイン';
+$lang['Piwigo for Android'] = 'Android用Piwigo';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS用Piwigo(iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for Shotwell'] = 'Shotwell 用 Piwigo 公開プラグイン';
 $lang['Piwigo publish plugin for digiKam'] = 'digiKam 用 Piwigo 公開プラグイン';
@@ -887,6 +888,7 @@ $lang['All %d users are selected'] = '全ての %d ユーザが選択されま�
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em>アプリは、iPhone、iPad、iPod Touchから、Piwigoギャラリーに接続し、アルバムを作成したり、複数の写真を一括でアップロードしたりできます。';
 $lang['Activate it now'] = '今すぐ有効にする';
 $lang['(filtered from %s total users)'] = '(%s ユーザから、フィルタリングされました)';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo for Android</em>アプリは、Androidスマートフォンやタブレットから、Piwigoギャラリーに接続し、アルバムを作成したり、複数の写真を一括でアップロードしたりできます。';
 $lang['%d of %d users selected'] = '%d 人（%d人中)のユーザが選択されました。';
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = '現在、Browser アップローダを使っています。代わりに、 <a href="%s">Flash アップローダ</a>をお試し下さい。';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Flash アップローダで問題がおきましたか? 代わりに <a href="%s">Browser アップローダ</a>をお試し下さい。';
