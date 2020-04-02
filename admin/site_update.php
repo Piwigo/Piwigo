@@ -870,7 +870,7 @@ if (isset($_POST['submit']) and isset($_POST['sync_meta'])
             $tags_of[$id] = array();
           }
 
-          foreach (explode(',', $data[$key]) as $tag_name)
+          foreach (explode($conf['metadata_keyword_separator_char'], $data[$key]) as $tag_name)
           {
             $tags_of[$id][] = tag_id_from_tag_name($tag_name);
           }

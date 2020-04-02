@@ -64,7 +64,7 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
 
 if ($conf['show_iptc'])
 {
-  $iptc = get_iptc_data($picture['current']['src_image']->get_path(), $conf['show_iptc_mapping'], ', ');
+  $iptc = get_iptc_data($picture['current']['src_image']->get_path(), $conf['show_iptc_mapping'], $conf['metadata_keyword_separator_char'].' ');
 
   if (count($iptc) > 0)
   {

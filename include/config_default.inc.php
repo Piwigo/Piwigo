@@ -380,6 +380,9 @@ $conf['allow_html_in_metadata'] = false;
 // and IPTC). Coma "," cannot be removed from this list.
 $conf['metadata_keyword_separator_regex'] = '/[.,;]/';
 
+// character to split keyword list on
+$conf['metadata_keyword_separator_char'] = ',';
+
 // +-----------------------------------------------------------------------+
 // |                               sessions                                |
 // +-----------------------------------------------------------------------+

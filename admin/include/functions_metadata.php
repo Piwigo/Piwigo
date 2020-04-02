@@ -27,7 +27,7 @@ function get_sync_iptc_data($file)
 
   $map = $conf['use_iptc_mapping'];
 
-  $iptc = get_iptc_data($file, $map);
+  $iptc = get_iptc_data($file, $map, $conf['metadata_keyword_separator_char']);
 
   foreach ($iptc as $pwg_key => $value)
   {
@@ -255,7 +255,7 @@ SELECT id, path, representative_ext
           $tags_of[$id] = array();
         }
 
-        foreach (explode(',', $data[$key]) as $tag_name)
+        foreach (explode($conf['metadata_keyword_separator_char'], $data[$key]) as $tag_name)
         {
           $tags_of[$id][] = tag_id_from_tag_name($tag_name);
         }
@@ -365,16 +365,19 @@ SELECT id, path, representative_ext
 function metadata_normalize_keywords_string($keywords_string)
 {
   global $conf;
+  $sep = $conf['metadata_keyword_separator_char'];
   
-  $keywords_string = preg_replace($conf['metadata_keyword_separator_regex'], ',', $keywords_string);
-  $keywords_string = preg_replace('/,+/', ',', $keywords_string);
-  $keywords_string = preg_replace('/^,+|,+$/', '', $keywords_string);
+  if ($conf['metadata_keyword_separator_regex'] != "") {
+      $keywords_string = preg_replace($conf['metadata_keyword_separator_regex'], $sep, $keywords_string);
+  }
+  $keywords_string = preg_replace('/'.preg_quote($sep).'+/', $sep, $keywords_string);
+  $keywords_string = preg_replace('/^'.preg_quote($sep).'+|'.preg_quote($sep).'+$/', '', $keywords_string);
       
   $keywords_string = implode(
-    ',',
+    $sep,
     array_unique(
       explode(
-        ',',
+        $sep,
         $keywords_string
         )
       )
