@@ -49,7 +49,7 @@ On GitHub you should see your branch (with commits) that you pushed before like 
 
 Once you clicked the button "Compare & pull request", you have to give a name to the pull request.
 
-![lien](Issue.png)
+![lien](Issue.PNG)
 
 Example name of a pull request: `Issue 965 manage group deletion`
 
