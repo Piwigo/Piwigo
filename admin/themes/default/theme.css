@@ -1078,6 +1078,9 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBoxes {
   text-align:left;
   position:relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
 }
 
 .pluginBox {
@@ -1094,24 +1097,61 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBoxes .inactive, .pluginBoxes .uninstalled {opacity:0.8;filter:alpha(opacity=80);}
 
 .pluginMiniBox {
-  display:inline-table;
-  text-align:center;
-  width:250px;
-  height:40px;
+  display:flex;
+  box-shadow: 3px 3px 5px 1px #d7d7d7;
+  width:300px;
+  height:130px;
   margin:5px;
-  border-width:1px;
-  border-style:solid;
   border-radius:5px;
   -moz-border-radius:5px;
   overflow:hidden;
  }
-.pluginMiniBoxNameCell {font-size:1.05em; margin:5px 0;position:relative;}
-.pluginActions {display: table-row; font-size:0.95em; color:#777;}
-.pluginActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
-.pluginMiniBox .showInfo, .themeBox .showInfo { display:block;position:absolute;top:0;right:5px;width:15px; }
+
+ .pluginBar {
+    width: 7px;
+ }
+
+ .pluginContent {
+   width: 293px;
+  text-align: left;
+  background-color: white;
+  padding: 7px;
+  padding-left: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pluginMiniBoxNameCell {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pluginDesc {
+  font-size: 15px;
+  color: grey;
+  line-height: 1.5em;
+  height: 3em; 
+  overflow: hidden;
+}
+
+.pluginActions {display: flex; font-size:12px; justify-content: space-between; margin-top: 7px;}
+.pluginActions > * {padding: 10px; text-align: center;}
+.pluginEmptyInput {width: 50px;}
+.pluginUnavailableInput {opacity: 0.5;}
+.pluginOrangeInput {background-color: #ffc17e}
+.pluginOrangeInput:hover {background-color: #ffa646; color: white; text-decoration: none;}
+.pluginGreyInput {background-color: #ececec}
+.pluginGreyInput:hover {background-color: #8b8b8b; color: white; text-decoration: none;}
+
+.pluginMiniBox .showInfo, .themeBox .showInfo { display:block;position:absolute;top:0;right:5px;width:15px; padding: 10px;}
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
-.deactivate_all {text-align:right;font-size:0.95em;}
+.deactivate_all {
+  text-align:right;
+  font-size:0.95em;
+  padding: 10px;
+  padding-right: 20px;
+}
 .showDetails {text-align:right; margin-bottom:-15px; margin-top:-10px; padding-right:1em;}
 
 .languageBoxes {min-height:0;text-align:left;}

@@ -111,6 +111,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     'AUTHOR' => $fs_plugin['author'],
     'AUTHOR_URL' => @$fs_plugin['author uri'],
     'U_ACTION' => sprintf($action_url, $plugin_id),
+    'HAS_SETTINGS' => $fs_plugin['hasSettings'],
     );
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
@@ -181,6 +182,22 @@ function cmp($a, $b)
 }
 usort($tpl_plugins, 'cmp');
 
+$plugin_menu_links_deprec = trigger_change('get_admin_plugin_menu_links', array());
+
+$settings_url_for_plugin = array();
+
+foreach ($plugin_menu_links_deprec as $value) 
+{
+  $setting_url = array();
+  if (preg_match('/^admin\.php\?page=plugin-(.*)$/', $value["URL"], $matches)) {
+    $setting_url['ID'] = $matches[1];
+  } elseif (preg_match('/^.*section=(.*)[\/&%].*$/', $value["URL"], $matches)) {
+    $setting_url['ID'] = $matches[1];
+  }
+  $setting_url["URL"] = $value["URL"];
+  array_push($settings_url_for_plugin,$setting_url);
+}
+
 $template->assign(
   array(
     'plugins' => $tpl_plugins,
@@ -188,6 +205,7 @@ $template->assign(
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,
+    'menu_links' => $settings_url_for_plugin
     )
   );
 
