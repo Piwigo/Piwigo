@@ -1100,7 +1100,7 @@ h2:lang(en) { text-transform:capitalize; }
   display:flex;
   box-shadow: 3px 3px 5px 1px #d7d7d7;
   width:300px;
-  height:130px;
+  height:140px;
   margin:5px;
   border-radius:5px;
   -moz-border-radius:5px;
@@ -1134,14 +1134,16 @@ h2:lang(en) { text-transform:capitalize; }
   overflow: hidden;
 }
 
-.pluginActions {display: flex; font-size:12px; justify-content: space-between; margin-top: 7px;}
+.pluginActions {display: flex; font-size:12px; justify-content: space-between; margin-top: 10px;}
 .pluginActions > * {padding: 10px; text-align: center;}
 .pluginEmptyInput {width: 50px;}
-.pluginUnavailableInput {opacity: 0.5;}
-.pluginOrangeInput {background-color: #ffc17e}
-.pluginOrangeInput:hover {background-color: #ffa646; color: white; text-decoration: none;}
-.pluginGreyInput {background-color: #ececec}
-.pluginGreyInput:hover {background-color: #8b8b8b; color: white; text-decoration: none;}
+.pluginUnavailableAction {opacity: 0.5;}
+.pluginActionLevel1 {background-color: #ffc17e}
+.pluginActionLevel1:hover {background-color: #ffa646; color: white; text-decoration: none;}
+.pluginActionLevel2 {background-color: #ececec}
+.pluginActionLevel2:hover {background-color: #8b8b8b; color: white; text-decoration: none;}
+.pluginBarActive {background-color: #ffa646}
+.pluginBarInactive {background-color: #8b8b8b}
 
 .pluginMiniBox .showInfo, .themeBox .showInfo { display:block;position:absolute;top:0;right:5px;width:15px; padding: 10px;}
 

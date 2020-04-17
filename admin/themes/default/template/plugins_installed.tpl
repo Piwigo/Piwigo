@@ -141,20 +141,9 @@ jQuery(document).ready(function() {
   {else}
     {assign var='version' value=$plugin.VERSION}
   {/if}
-
-  {assign var='menu_link' value=""}
-    {if $plugin.HAS_SETTINGS}
-      {assign var='menu_link' value="admin.php?page=plugin-%s"|@sprintf:$plugin.ID}
-    {else}
-      {foreach from=$menu_links item=menu_item}
-        {if $menu_item.ID == $plugin.ID}
-          {assign var='menu_link' value=$menu_item.URL}
-        {/if}
-      {/foreach}
-    {/if}
               
   <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}">
-    <div class="pluginBar" style="background-color:{if $plugin.STATE == 'active'}#ffa646{else}grey{/if}"></div>
+    <div class="pluginBar {if $plugin.STATE == 'active'}pluginBarActive{else}pluginBarInactive{/if}" {if $plugin.STATE == 'active'}#ffa646{else}grey{/if}></div>
     <div class="pluginContent">
       <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}"></a>
       <div class="pluginMiniBoxNameCell">
@@ -165,27 +154,27 @@ jQuery(document).ready(function() {
       </div>
       <div class="pluginActions">
         {if $plugin.STATE == 'active'}
-          {if $menu_link != ''}
-            <a href="{$menu_link}" class="pluginOrangeInput">{'Settings'|@translate}</a>
+          {if $plugin.SETTINGS_URL != ''}
+            <a href="{$plugin.SETTINGS_URL}" class="pluginActionLevel1">{'Settings'|@translate}</a>
           {else}
-            <div class="pluginUnavailableInput">{'Settings'|@translate}</div>
+            <div class="pluginUnavailableAction">{'Settings'|@translate}</div>
           {/if}
-          <a class="pluginGreyInput" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-          <a class="pluginSimpleInput" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>
+          <a class="pluginActionLevel2" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
+          <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>
             
         {elseif $plugin.STATE == 'inactive'}
           <div class="pluginEmptyInput"></div>
-          <a class="pluginOrangeInput" href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
-          <a class="pluginSimpleInput" href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
+          <a class="pluginActionLevel1" href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
+          <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
         {elseif $plugin.STATE == 'missing'}
           <div class="pluginEmptyInput"></div>
           <div class="pluginEmptyInput"></div>
-          <a class="pluginSimpleInput" href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm(confirmMsg);">{'Uninstall'|@translate}</a>
+          <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm(confirmMsg);">{'Uninstall'|@translate}</a>
 
         {elseif $plugin.STATE == 'merged'}
           <div class="pluginEmptyInput"></div>
           <div class="pluginEmptyInput"></div>
-          <a class="pluginSimpleInput" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
+          <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
         {/if}                     
       </div>
     </div>
