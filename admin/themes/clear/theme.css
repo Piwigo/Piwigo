@@ -112,7 +112,7 @@ a.Piwigo {
   font-size: 11px; font-weight: normal; letter-spacing: 0;
   color : #0cc; text-decoration: none; border: 0; }
 a.Piwigo:hover  span.Piwigo  {
-  border-bottom: 1px solid #0cc9c;
+  border-bottom: 1px solid #0cc;
 }
 TABLE.table2 { border: 2px solid #dddddd; }
 
@@ -180,7 +180,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-week-end-cell, #ui-datepicker-div .ui-datepicker-week-end-cell  a { background-color: #ddd; color: #0cc; border-color: #bbb; border-top-color: #ddd; border-left-color: #ddd;}
 #ui-datepicker-div .ui-datepicker-title-row { background-color: #eee;}
 #ui-datepicker-div .ui-datepicker-title-row .ui-datepicker-week-end-cell a { color: #0cc;}
-#ui-datepicker-div  a:hover { color: #0cccc !important; background-color: #eee !important;}
+#ui-datepicker-div  a:hover { color: #0cc !important; background-color: #eee !important;}
 #ui-datepicker-div .ui-datepicker-header select { background-color:#bbb; color:#666; font-weight:normal;}
 #ui-datepicker-div .ui-datepicker-links { background-color:#ddd;}
 #ui-datepicker-div .ui-datepicker-header { background-color:#bbb;}
@@ -226,7 +226,7 @@ INPUT[type="text"].large  { width: 317px; }
 #pwgHead A, #footer A {color:#ccc;}
 #pwgHead A:hover, #footer A:hover {color:white;}
 
-.pluginBox, .pluginMiniBox, .groups li {background-color:#ddd;color:#353535;border-color:#ddd;}
+.pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border-color:#ddd;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing  {background-color:#d99;border:1px solid #a00;}
@@ -313,15 +313,303 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 p.albumTitle img {margin-bottom:-3px;}
 
-.groups label>p {
+.groups li,
+.groups .showCreateAlbum,
+.groups .addGroupFormBlock{
   font-size: 1.2em;
-  color: #111;
-  background-color:#ccc;
+  background-color:#fafafa;
 }
+
+.groups label>p,
+.addGroupForm .addGroupFormTitle{
+  color:#3c3c3c;
+  font-size: 1.2em;
+}
+
+.groups li,
+.groups .showCreateAlbum,
+.groups .addGroupFormBlock{
+  box-shadow: -1px 1px 2px #e7e7e7;
+}
+
+.groups .showCreateAlbum:hover  #addGroup,
+.groups .addGroupFormTitle{
+  color:#3c3c3c;
+  text-decoration:none;
+}
+
+.groups #addGroup{
+  color:#d5d5d5;
+}
+
+.groups .group_number_users{
+  color:#d5d5d5;
+}
+
+.addGroupLabel{
+  color:#3c3c3c;
+}
+
+.addUserButton:hover{
+  text-decoration:none;
+  color:#3c3c3c;
+  background-color:#f3f3f3;
+}
+
+.groups p.list_user{
+  color:#3c3c3c;
+}
+
 label>p.group_select {
   color: #000;
   background-color:#C2F5C2;
 }
+
+.groups input[type="text"]{
+  background-color:white;
+  border:1px solid #d5d5d5;
+}
+
+.groups .AddUser .icon-user-add::before{
+  background-color:#f3f3f3;
+  color:#e0e0e0;
+}
+
+
+/*Edit group name*/
+
+.groups label{
+  color:#3c3c3c;
+}
+
+.groups label .Group-name-container p:focus{
+  border:1px solid #3c3c3c!important;
+  background-color:white;
+}
+
+/*Add Group */
+
+.groups fieldset INPUT[type="text"]::placeholder{
+  color:#d5d5d5;
+}
+
+.groups button.submit{
+  background-color:#ffa744;
+  color:#3c3c3c;
+}
+
+.groups button.submit:hover{
+  background-color:#ff7700;
+}
+
+/* Group Options*/
+
+#GroupOptions{
+  background-color:white;
+  box-shadow: -1px 1px 2px #e7e7e7;
+  color:#3c3c3c;
+}
+
+.groups #GroupPermission:hover,
+.groups #GroupDuplicate:hover,
+.groups #GroupDelete:hover{
+  background-color:#e7e7e7;
+}
+
+/*Group manager buttons*/
+
+.groups .manage-users,
+.groups .manage-permissions{
+  border:1px solid #e7e7e7;
+  background-color:transparent;
+}
+
+
+.groups .manage-users:hover,
+.groups .manage-permissions:hover{
+  background-color:#ffa744;
+  border:1px solid #ffa744;
+  cursor:pointer;
+}
+
+/*UserList Pop in*/
+
+
+.UserListPopInContainer{
+  background-color:#f3f3f3;
+  border-radius:10px;
+
+}
+
+#UserList .AddUserBlock button{
+  background-color:#ffa744;
+  color:#3c3c3c;
+}
+
+#UserList .AddUserBlock button:hover{
+  background-color:#ff7700;
+}
+
+#UserList .AddUserBlock input,
+#UserList .FilterUserBlock input{
+  background-color:white;
+}
+
+#UserList .AddUserBlock p,
+#UserList .FilterUserBlock{
+  color:#3c3c3c;
+}
+
+.UsersInGroupList span{
+  color:#d5d5d5;
+}
+
+.UsersInGroupList .icon-cancel:hover{
+  color:#ff7700;
+}
+
+.LinkUserManager{
+  color:#3c3c3c;
+}
+
+/* Selection mode */
+
+.slider {
+  background-color: #e0e0e0;
+}
+
+.slider:before {
+  background-color: white;
+  box-shadow:0 0 5px #777;
+}
+
+input:checked + .slider {
+  background-color: #ffa646;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #ffa646;
+}
+
+#selection-mode-block{
+  background-color: #FAFAFA;
+  border-left:1px solid #e6e6e6;
+}
+
+.OrangeBackground{
+  background-color:#ffd7ad!important;
+}
+
+.GreyBackground{
+  background-color:#e7e7e7!important;
+  color:#a0a0a0!important;
+}
+
+.GreyFont{
+  color:#a0a0a0!important;
+}
+
+/*Selection mode content*/
+
+.SelectionModeGroupList{
+  color:#a0a0a0;
+}
+
+.SelectionModeGroup button{
+  border: 1px solid #e7e7e7;
+}
+
+
+.SelectionModeGroup button:hover{
+  background-color: #ffa744;
+  border: 1px solid #ffa744;
+}
+
+#ConfirmGroupAction{
+  color:#3c3c3c;
+}
+
+#ConfirmGroupAction p{
+  color: #777;
+}
+
+.ConfirmDeleteButton{
+  background-color: #ffa744;
+}
+
+/*Merge Options*/
+
+
+#MergeOptionsBlock p{
+  color: #777;
+}
+
+#MergeOptionsBlock a{
+  color:#3c3c3c;
+}
+
+/*Merge options Radio buttons*/
+
+.ConfirmMergeButton{
+  background-color: #ffa744;
+}
+
+.MergeOptionsContainer select{
+  background-color: white;
+  box-shadow: 0 0 2px #c5c5c5;
+}
+
+/*Group checkbox*/
+
+.groups .group-checkmark {
+  border:2px solid #ffa646;
+}
+
+.groups .Group-checkbox-container:hover input ~ .group-checkmark {
+  background-color: #ffa646;
+}
+
+.groups .Group-checkbox-container input:checked ~ .group-checkmark {
+  background-color: #ffa646;
+}
+
+
+/*Group manager buttons*/
+
+.groups .manage-users,
+.groups .manage-users:hover,
+.groups .manage-permissions,
+.groups .manage-permissions:hover{
+  color:#3c3c3c;
+}
+
+/*UserList Pop in*/
+
+.CloseUserList{
+  color:white;
+}
+
+#UserList .group-name-block p{
+  color:#3c3c3c;
+}
+
+.UsernameBlock{
+  background-color:#f9f9f9;
+}
+
+.Tooltip p.TooltipText{
+
+  background-color:#f3f3f3;
+  color: #3c3c3c;
+  border:1px solid #3c3c3c;
+}
+
+.ValidationUserAssociated{
+  color:#00aa00;
+  background-color:#c2f5c2;
+}
+
+/*------*/
 
 .userSeparator {
   visibility: hidden;
