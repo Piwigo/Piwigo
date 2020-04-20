@@ -1477,8 +1477,6 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
 .albumBlock {display: flex; justify-content: space-between; padding: 10px 10px 0 10px;}
 .albumBlock .albumLineBlock {display: block; padding-left: 7px; max-width: 45%; height: 50px;}
-.showCreateAlbum {text-align:left; margin:0 1em 25px 20px; line-height:22px;}
-.showCreateAlbum .userSeparator {margin:0 5px;}
 #addAlbumOpen, #autoOrderOpen {padding: 7px 15px; font-weight: bold; font-size: 11px;}
 .afterUploadActions {text-align: center; margin-bottom: 30px !important;}
 .afterUploadActions a {justify-content: center; margin: 35px; font-weight: bold; font-size: 14px; padding: 10px 12px;}
@@ -1534,37 +1532,798 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   margin-left:5px;
 }
 
+.showCreateAlbum {
+  text-align: left;
+  margin: 0 1em 25px 20px;
+  line-height: 22px;
+}
+
+ .content .groups form{
+  margin:0;
+}
+
 .groups {
   text-align:center;
 }
-.groups li {
+
+.group-manager{
+  margin-right:224px;
+}
+
+.groups .GroupContainer{
+  display:inline-block;
+}
+
+.groups .list_user #text{
+  width:100%;
+}
+
+.groups li,
+.groups .addGroupFormBlock {
   vertical-align: middle;
   position: relative;
   display: inline-block;
   text-align: left;
-  height: 300px;
-  width: 250px;
-  margin: 5px;
-  border-radius: 5px;
+  height: 286px;
+  width: 220px;
+  margin: 15px;
+  border-radius: 10px;
 }
-.groups p {
-  text-align:left;
+
+.groups label .Group-name-container p{
+  margin: 0;
+  padding: 2px;
+  text-align: center;
+  font-weight:700;
 }
-.groups label>p {
+
+.groups label .Group-name-container p:focus{
+  margin:0 30px;
+}
+
+.addGroupLabel {
   margin: 0;
   border-radius: 5px 5px 0 0;
   padding: 2px;
   text-align: center;
 }
 
-.groups input {
-  float: right;
+.groups .icon-users-1{
+  text-align:center;
 }
-p.list_user {
+
+.groups .group_number_users{
+  font-weight: 700;
+  font-size: 1em;
+  margin:5px;
+}
+
+.groups .showCreateAlbum{
+  vertical-align: middle;
+  position: relative;
+  display: inline-block;
+  height: 286px;
+  width: 220px;
+  margin: 15px;
+  border-radius:10px;
+  margin-left:15px;
+}
+
+.groups .showCreateAlbum a:first-child{
+  position: absolute;
+  transform:translate(-50%,-50%);
+  top:50%;
+  left:50%;
+}
+
+.groups .showCreateAlbum .userSeparator{
+  margin:0 5px;
+}
+
+.groups .addGroupFormTitle{
+  font-size:1.2em;
+  font-weight:700;
+}
+
+.groups input[type="text"]{
+  padding:5px;
+}
+
+.groups .icon-users-1:first-child{
+  font-size: 19px;
+  color: rgb(44,132,195);
+  background-color: #CDE9FD;
+  width: 27px;
+  padding: 10px;
+  border-radius: 30px;
+  margin:15px auto;
+}
+
+.groups .showCreateAlbum:hover  #addGroup,
+.groups .addGroupFormTitle{
+  margin:0;
+}
+
+ FORM.properties .groups LI,
+ .groups FORM#update .groups UL {
+	margin-bottom: 15px;
+}
+
+/* Selection mode */
+
+.content div.titrePage{
+  padding-top:35px;
+}
+
+.selection-mode-group-manager{
+  position:absolute;
+  right:15px;
+  z-index:1;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 20px;
+  vertical-align:middle;
+}
+
+.selection-mode-group-manager p{
+  display:inline-block;
+  padding:0 5px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: s;
+  transition: 1s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 0px;
+  bottom: -1px;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(39px);
+  -ms-transform: translateX(39px);
+  transform: translateX(39px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+#selection-mode-block{
+  display:none;
+  position: absolute;
+  right: 0;
+  width: 223px;
+  min-height: 584px;
+  height:100%;
+  top: 169.5px;
+}
+
+.Selection-mode-content{
+  margin-top:110px;
+}
+
+/*Selection mode content*/
+
+#nothing-selected{
+  display:none;
+}
+
+.SelectionModeGroup{
+  display:block;
+  text-align:center;
+}
+
+.SelectionModeGroupList{
+  font-weight:700;
+  font-size:15px;
+}
+
+.SelectionModeGroupList div{
+  margin:10px;
+}
+
+.SelectionModeGroupList a,
+.SelectionModeGroupList p{
+  display:inline-block;
+  margin:0
+}
+
+.SelectionModeGroup button{
+  display:block;
+  margin:20px auto;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 13px 40px;
+  background-color:transparent;
+}
+
+.SelectionModeGroup button:hover{
+  cursor: pointer;
+}
+
+#ConfirmGroupAction{
+  font-size:12px;
+  font-weight:700;
+  padding:20px;
+  display:none;
+}
+
+#ConfirmGroupAction p{
+  margin: 20px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.ConfirmDeleteButton{
+  display: block;
+  margin: 20px auto;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 13px 40px;
+  background-color: #ffa744;
+  border:none;
+  margin-top:40px;
+}
+
+/*Merge Options*/
+
+#MergeOptionsBlock{
+  display:none;
+  position:relative;
+  margin-top:40px;
+}
+
+#MergeOptionsBlock p{
+  margin: 20px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+#MergeOptionsBlock .ItalicTextInfo{
+  font-weight:400;
+  font-style:italic;
+  margin-top:0px;
+  margin-bottom:40px;
+}
+
+#MergeOptionsBlock a{
+  font-size:12px;
+  font-weight:700;
+}
+
+.MergeOptionsChoice{
+  display:block;
+  font-size:15px;
+}
+
+.MergeOptionsChoice input{
+  margin:0 5px;
+}
+
+/*Merge options Radio buttons*/
+
+.MergeOptionsContainer {
+  display: block;
+  position: relative;
+}
+
+.MergeOptionsContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ConfirmMergeButton{
+  display: block;
+  margin: 20px auto;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 13px 40px;
+  border:none;
+  margin-top:40px;
+}
+
+.MergeOptionsContainer{
+  font-size:15px;
+}
+.MergeOptionsContainer label,
+.MergeOptionsContainer select{
+  display:block;
+  margin:10px auto;
+}
+
+.MergeOptionsContainer select,
+.MergeOptionsContainer option{
+  width:182px;
+}
+
+.MergeOptionsContainer select{
+  padding: 10px 5px;
+  border: none;
+  background-color: white;
+  box-shadow: 0 0 2px #c5c5c5;
+  border-radius: 5px;
+}
+
+/*Edit group name*/
+
+.groups label{
+  position:relative;
+}
+
+.groups label .icon-pencil{
+  position:absolute;
+  top: 2px;
+  left: 180px;
+}
+
+#EditGroupName{
+  text-align:center;
+  display:none;
+}
+
+@media (hover: hover){
+  .groups label .icon-pencil{
+  display:none;
+  }
+  .groups label:hover .icon-pencil{
+    display:block;
+  }
+}
+
+/* Options menu*/
+
+.icon-ellipsis-vert:before{
+  font-size:20px;
+  position:absolute;
+  top:10px;
+  right:0px;
+  padding:5px;
+}
+
+#GroupOptions{
+  display:none;
+  z-index:1;
+  position:absolute;
+  border-radius:10px;
+  right:-88px;
+  top:35px;
+  padding:5px 0;
+
+}
+
+.groups #GroupPermission,
+.groups #GroupDuplicate,
+.groups #GroupDelete{
+ padding:5px 10px;
+}
+
+/*Group checkbox*/
+
+.Group-checkbox{
+  display:none;
+  position: absolute;
+  top: 15px;
+  right: 45px;
+
+}
+
+.groups .Group-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.groups .group-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius:15px;
+}
+
+.groups .group-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.groups .Group-checkbox-container input:checked ~ .group-checkmark:after {
+  display: block;
+}
+
+.groups .Group-checkbox-container .group-checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Add group */
+
+.showCreateAlbum{
+  position:relative;
+}
+
+.addGroupBlock{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  margin:0 70px;
+}
+
+.groups .showCreateAlbum .icon-plus-circled{
+  font-size: 19px;
+  color: rgb(44,132,195);
+  background-color: #CDE9FD;
+  width: 27px;
+  height: 27px;
+  padding: 12px 10px 8px;
+  border-radius: 30px;
+  margin: 10px auto;
+}
+
+.groups #addGroup{
+  font-weight:700;
+}
+
+.groups #addGroupForm{
+  position: relative;
+  display: none;
+}
+
+.groups fieldset{
+  border:none;
+  margin:0;
+  padding:0;
+  text-align:center;
+}
+
+.groups fieldset p{
+  text-align:center;
+}
+
+.addGroupFormLabelAndInput{
+  margin:10px;
+  text-align:center;
+  margin-top:18px;
+}
+
+.groups fieldset INPUT[type="text"]{
+  margin:10px;
+  padding:10px;
+  display:inline-block;
+  width:159px;
+}
+
+.groups button.submit{
+  font-size:12px;
+  font-weight:700;
+  padding:13px 20px;
+  border:none;
+  display:inline-block;
+}
+
+.groups #addGroupForm .actionButtons{
+  text-align:center;
+}
+
+.groups #addGroupForm .actionButtons a{
+  font-size: 12px;
+  border: none;
+  padding: 13px 9px;
+  font-weight: bold;
+  transition: all 125ms ease-out;
+}
+
+/*Group manager buttons*/
+
+.groups .GroupManagerButtons{
+  text-align:center;
+  margin:15px 0;
+}
+
+.groups .manage-users,
+.groups .manage-permissions{
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6.5px 20px;
+  display: inline-block;
+}
+
+.groups .manage-users{
+  padding:6.5px 40px;
+}
+.groups .manage-users,
+.groups .manage-users:hover,
+.groups .manage-permissions,
+.groups .manage-permissions:hover{
+  text-decoration:none;
+}
+
+.groups .manage-permissions{
+  margin-top:20px;
+}
+
+
+@media (hover: hover){
+  .GroupContainer li .GroupManagerButtons{
+    display:none;
+  }
+  
+  .GroupContainer li:hover .GroupManagerButtons{
+    display:block;
+  }
+  
+}
+
+/*UserList Pop in*/
+
+.CloseUserList{
+  position:absolute;
+  right:-40px;
+  top:-40px;
+  font-size:30px;
+}
+
+#UserList{
+  visibility: hidden;
+}
+
+.UserListPopIn{
+  position: absolute;
+  z-index: 100;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.7);
+}
+
+.UserListPopInContainer{
+  display:block;
+  width:1100px;
+  height:520px;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:left;
+  padding:30px;
+}
+
+.group-name-block{
+  margin-bottom:20px;
+}
+
+#UserList .group-name-block span,
+#UserList .group-name-block p,
+#UserList .group-name-block .UserNumberBadge{
+  display:inline-block;
+}
+
+#UserList .group-name-block p{
+  color:#3c3c3c;
+  font-weight:700;
+  font-size:15px;
+  margin-left:10px;
+}
+
+#UserList .group-name-block span{
+  padding:7px;
+  color: rgb(44,132,195);
+  background-color: #CDE9FD;
+  border-radius:25px;
+  font-size:15px;
+}
+
+#UserList .group-name-block .UserNumberBadge{
+  padding:3px 9px;
+  border-radius:8px;
+  background-color: rgb(44,132,195);
+  color: #CDE9FD;
+  font-size:10px;
+  margin-left:10px;
+  font-weight:700;
+}
+
+#UserList .UserListAddFilterUsers{
+  Position:relative;
+}
+
+#UserList .AddUserBlock{
+  padding:10px 0;
+  margin-bottom:30px;
+}
+
+#UserList .FilterUserBlock{
+  position: absolute;
+  right: 0;
+  top: 2px;
+}
+
+#UserList .AddUserBlock p,
+#UserList .AddUserBlock input,
+#UserList .AddUserBlock button{
+  display:inline-block;
+  margin:0 5px;
+}
+
+#UserList .AddUserBlock input,
+#UserList .FilterUserBlock input{
+  padding:11px 10px;
+}
+
+#UserList .FilterUserBlock input{
+  width:60px;
+}
+
+#UserList .AddUserBlock button{
+  font-size: 12px;
+  font-weight: 700;
+  padding: 13px 10px;
+  border: none;
+}
+
+#UserList .AddUserBlock p{
+  font-size:15px;
+  margin-left:0;
+}
+
+#UserList .FilterUserBlock span,
+#UserList .FilterUserBlock p,
+#UserList .FilterUserBlock input{
+  display:inline-block;
+}
+
+#UserList .FilterUserBlock p{
+  font-size:15px;
+  margin-right:5px;
+}
+
+.UsersInGroupList{
+  text-align:center;
+}
+
+.UsernameBlock{
+  margin:5px 10px;
+  display:inline-block;
+  margin-left:0px;
+  position:relative;
+  padding:0 10px;
+  border-radius:25px;
+}
+
+.UsersInGroupListContainer{
+  max-height:315px;
+}
+
+.UsersInGroupList p,
+.UsersInGroupList span{
+  display:inline-block;
+}
+
+
+.UsersInGroupList span{
+  border-radius:25px;
+  padding:3px;
+  font-size:12px;
+}
+
+.UsersInGroupList .icon-cancel:hover{
+  cursor:pointer;
+}
+
+.Tooltip{
+  position:relative;
+  display:inline-block;
+ 
+}
+
+.Tooltip p.TooltipText{
+  visibility: hidden;
+  width: 157px;
+  background-color:#f3f3f3;
+  color: #3c3c3c;
   text-align: left;
-  max-height: 200px;
-  overflow: auto;  
+  padding: 2px 10px;
+  border-radius: 10px;
+  border:1px solid #3c3c3c;
+  font-weight:700;
+  font-size:10px;
+  position: absolute;
+  z-index: 4;
+  top:10px;
+  left:10px;
+  transition: opacity 0.3s;
+  z-index:101;
 }
+
+.Tooltip:hover p.TooltipText{
+  visibility: visible;
+}
+
+.ValidationUserAssociated{
+  display:inline-block;
+  font-size:12px;
+  width:110px;
+  text-align:left;
+  padding:2px;
+  border-radius:10px;
+  margin-left:-5px;
+  margin-right:10px;
+}
+
+.ValidationUserAssociated p{
+  margin:0;
+}
+
+
+#UserList .FilterUserBlock .AmountOfUsersShown {
+  display:inline-block;
+  font-style:italic;
+}
+
+#UserList .FilterUserBlock .AmountOfUsersShown p{
+  font-size:12px;
+}
+
+.LinkUserManager{
+  text-align:center;
+  font-weight:700;
+  padding:30px 0;
+}
+
+.DisableInSelectionMode{
+  display:none!important;
+}
+
+/********/
+
+p.list_user {
+  text-align: center;
+  max-height: 200px;
+  overflow: auto; 
+  margin: 0;
+}
+
 a.group_perm {
   position: absolute;
   bottom: 10px;
