@@ -1525,7 +1525,7 @@ a.group_users {
 
 .user_form_popin {
   width:750px;
-  height:430px;
+  height:450px;
   padding:20px;
 }
 
@@ -1566,6 +1566,27 @@ a.group_users {
 }
 .preview-box.icon-zoom-in:hover img {
   opacity:0.5;
+}
+
+/* Edit user popin*/
+
+
+.user_form_popin .ui-slider-horizontal .ui-slider-handle{
+  background-color:#FFA646;
+  border:none;
+  border-radius:25px;
+  border: 1px solid #818181;
+}
+
+.user_form_popin .ui-slider-horizontal .ui-slider-range-min{
+  background-color:#818181;
+  border-radius:25px;
+}
+
+.user_form_popin .ui-slider-horizontal{
+  background-color:#e3e3e3;
+  border:none;
+  border-radius:25px;
 }
 
 /* table in help/quick_search.html */

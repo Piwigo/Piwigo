@@ -330,6 +330,21 @@ label>p.group_select {
   visibility: hidden;
 }
 
+/*Edit user popin*/
+
+.user_form_popin .ui-slider-horizontal .ui-slider-handle{
+  background-color:#FFA646;
+  border:1px solid #5a5a5a;
+}
+
+.user_form_popin .ui-slider-horizontal .ui-slider-range-min{
+  background-color:#5a5a5a;
+}
+.user_form_popin .ui-slider-horizontal{
+  background-color:#151515;
+
+}
+
 #configContent fieldset:not(.no-border) {
   border-top-color:#444;
 }
