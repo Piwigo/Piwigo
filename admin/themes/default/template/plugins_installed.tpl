@@ -101,6 +101,9 @@ jQuery(document).ready(function() {
     jQuery('.pluginDesc').each(function () {
       var el = jQuery(this).context;
       var wordArray = el.innerHTML.split(' ');
+      if (el.scrollHeight > el.offsetHeight) {
+        jQuery(this).attr('title', jQuery(this).html())
+      }
       while(el.scrollHeight > el.offsetHeight) {
           wordArray.pop();
           el.innerHTML = wordArray.join(' ') + '...';
@@ -153,13 +156,7 @@ jQuery(document).ready(function() {
 
   /* Show Inactive plugins or button to show them*/
   jQuery( document ).ready(function () {
-    if (jQuery(".plugin-inactive").children(".pluginMiniBox").length >= 5) {
-      jQuery(".plugin-inactive").hide();
-      jQuery(".showInactivePlugins").show();
-      jQuery(".showInactivePlugins button").on('click', showInactivePlugins)
-    } else {
-      jQuery(".showInactivePlugins").hide();
-    }
+    jQuery(".showInactivePlugins button").on('click', showInactivePlugins)
   });
 });
 {/literal}
@@ -188,7 +185,7 @@ jQuery(document).ready(function() {
   </fieldset>
       {/if}
   
-  <fieldset class="pluginBoxes plugin-{$plugin.STATE}">
+  <fieldset class="pluginBoxes plugin-{$plugin.STATE}" {if $plugin.STATE == 'inactive'}{if $count_types_plugins["inactive"]>8}style="display:none"{/if}{/if}>
     <legend>
       <div class="pluginBoxesTitle">
         <p>
@@ -233,8 +230,8 @@ jQuery(document).ready(function() {
       <div class="pluginMiniBoxNameCell">
         {$plugin.NAME}
       </div>
-      <div class="pluginDesc fullInfo" title="{$plugin.DESC}">
-        {$plugin.DESC}<br />
+      <div class="pluginDesc">
+        {$plugin.DESC}
       </div>
       <div class="pluginActions">
         {if $plugin.STATE == 'active'}
@@ -244,7 +241,7 @@ jQuery(document).ready(function() {
             <div class="pluginUnavailableAction icon-cog">{'Settings'|@translate}</div>
           {/if}
           <a class="pluginActionLevel2 icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-          <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>
+          <a class="pluginActionLevel3 icon-back-in-time" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>
             
         {elseif $plugin.STATE == 'inactive'}
           <div class="pluginEmptyInput"></div>
@@ -269,7 +266,7 @@ jQuery(document).ready(function() {
   {/foreach}
   </fieldset>
 
-  <div class="showInactivePlugins">
+  <div class="showInactivePlugins" {if $count_types_plugins["inactive"]<=8}style="display:none"{/if} >
       <div class="showInactivePluginsInfo">
         {assign var='badge_inactive' value='<span class="pluginBoxesCount">%s</span>'|@sprintf:$count_types_plugins["inactive"]}
         <div>{'You have %s inactive plugins'|translate:$badge_inactive}</div>
