@@ -500,13 +500,13 @@ input:focus + .slider {
   background-color:#ffd7ad!important;
 }
 
-.GreyBackground{
-  background-color:#e7e7e7!important;
-  color:#a0a0a0!important;
+.OrangeIcon{
+  background-color:#f98100!important;
+  color:#ffe4c7!important;
 }
 
-.GreyFont{
-  color:#a0a0a0!important;
+.OrangeFont{
+  color:#ff7700!important;
 }
 
 /*Selection mode content*/

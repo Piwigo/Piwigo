@@ -496,7 +496,7 @@ label>p.group_select {
 }
 
 input:checked + .slider {
-  background-color: #FFC27F;
+  background-color: #ff8c27;
 }
 
 input:focus + .slider {
@@ -509,16 +509,20 @@ input:focus + .slider {
 }
 
 .OrangeBackground{
-  background-color:#ffa744!important;
+  background-color:#f9852c!important;
 }
 
-.GreyBackground{
-  background-color:#e7e7e7!important;
-  color:#a0a0a0!important;
+.OrangeIcon{
+  background-color:#ae5d1e !important;
+  color:#faa96b!important;
 }
 
-.GreyFont{
-  color:#3c3c3c!important;
+.OrangeFont{
+  color:#fddaba!important;
+}
+
+.BlackFont{
+  color:black!important;
 }
 
 /*Selection mode content*/
@@ -576,17 +580,21 @@ input:focus + .slider {
 /*Group checkbox*/
 
 .groups .group-checkmark {
-  border:2px solid #ff7700;
+  border:2px solid #c76a23;
 }
 
 .groups .Group-checkbox-container:hover input ~ .group-checkmark {
-  background-color: #ff7700;
+  background-color: #c76a23;
 }
 
 .groups .Group-checkbox-container input:checked ~ .group-checkmark {
-  background-color: #ff7700;
+  background-color: #c76a23;
 }
 
+.groups .Group-checkbox-container .group-checkmark:after {
+  border: solid #ebebeb;
+  border-width: 0 3px 3px 0;
+}
 
 /*Group manager buttons*/
 

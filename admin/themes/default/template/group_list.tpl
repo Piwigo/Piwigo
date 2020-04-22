@@ -132,11 +132,12 @@ $(function () {
                 $(".Group-checkbox").css('display','none');
                 $(".Group-checkbox-container input").prop("checked", false);
                 $('#group-1 li').removeClass("OrangeBackground"); 
-                $('.groups .icon-users-1:first-child').removeClass("GreyBackground"); 
+                $('.groups .icon-users-1:first-child').removeClass("OrangeIcon"); 
                 $(".GroupManagerButtons").removeClass("DisableInSelectionMode");
                 $("#group_name").attr('contenteditable', true);
                 $(".icon-pencil").removeClass("DisableInSelectionMode");
                 $("label").css("cursor","pointer")
+                $('.groups label').removeClass("BlackFont")
             }
         });
     });
@@ -149,11 +150,14 @@ Change background color of group block if checked in selection mode
 $(".Group-checkbox-container input[type='checkbox']").change(function(){
 if($(this).is(":checked")){
     $('#group-1 li').addClass("OrangeBackground"); 
-    $('.groups .icon-users-1:first-child').addClass("GreyBackground");
-    $('.groups .group_number_users').addClass("GreyFont");
+    $('.groups .icon-users-1:first-child').addClass("OrangeIcon");
+    $('.groups .group_number_users').addClass("OrangeFont");
+    $('.groups label').addClass("BlackFont")
 }else{
     $('#group-1 li').removeClass("OrangeBackground"); 
-    $('.groups .icon-users-1:first-child').removeClass("GreyBackground"); 
+    $('.groups .icon-users-1:first-child').removeClass("OrangeIcon"); 
+    $('.groups .group_number_users').removeClass("OrangeFont");
+     $('.groups label').removeClass("BlackFont")
 } });
 
 /*-------
