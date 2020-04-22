@@ -106,7 +106,7 @@ $plugins->sort_fs_plugins('name');
 $merged_extensions = $plugins->get_merged_extensions();
 $merged_plugins = false;
 $tpl_plugins = array();
-$active_plugins = 0;
+$count_types_plugins = array("active"=>0, "inactive"=>0, "missing"=>0, "merged"=>0);
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
@@ -156,10 +156,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $merged_plugins = true;
   }
   
-  if ($tpl_plugin['STATE'] == 'active')
-  {
-    $active_plugins++;
-  }
+  $count_types_plugins[$tpl_plugin['STATE']]++;
 
   $tpl_plugins[] = $tpl_plugin;
 }
@@ -207,7 +204,7 @@ usort($tpl_plugins, 'cmp');
 $template->assign(
   array(
     'plugins' => $tpl_plugins,
-    'active_plugins' => $active_plugins,
+    'count_types_plugins' => $count_types_plugins,
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,

@@ -5,6 +5,12 @@
 var incompatible_msg = '{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'javascript'}';
 var activate_msg = '\n{'Do you want to activate anyway?'|@translate|@escape:'javascript'}';
 
+var showInactivePlugins = function() {
+    jQuery(".showInactivePlugins").fadeOut(complete=function(){
+          jQuery(".plugin-inactive").fadeIn();
+        })
+  }
+
 /* group action */
 var pwg_token = '{$PWG_TOKEN}';
 var confirmMsg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
@@ -89,6 +95,72 @@ jQuery(document).ready(function() {
     'maxWidth':'300px',
     'keepAlive':false,
   });
+
+  /* Add the '...' for the overflow of the description line*/
+  jQuery( document ).ready(function () {
+    jQuery('.pluginDesc').each(function () {
+      var el = jQuery(this).context;
+      var wordArray = el.innerHTML.split(' ');
+      while(el.scrollHeight > el.offsetHeight) {
+          wordArray.pop();
+          el.innerHTML = wordArray.join(' ') + '...';
+      }
+    })
+  });
+
+  /*Add the filter research*/
+  jQuery( document ).ready(function () {
+    jQuery(".pluginFilter input").on("input", function() {
+      let text = jQuery(this).val().toLowerCase();
+      var searchNumber = 0;
+      jQuery('.pluginBoxes').each(function () {
+        let searchNumberInBox = 0;
+        let pluginBoxes = jQuery(this);
+        pluginBoxes.find(".pluginMiniBox").each(function() {
+          if (text == "") {
+            jQuery(this).fadeIn()
+            searchNumberInBox++;
+          } else {
+            let name = jQuery(this).find(".pluginMiniBoxNameCell").text().toLowerCase();
+            let description = jQuery(this).find(".pluginDesc").text().toLowerCase();
+            if (name.search(text) != -1 || description.search(text) != -1){
+              jQuery(this).fadeIn()
+              searchNumberInBox++;
+            } else {
+              jQuery(this).fadeOut()
+            }
+          }
+        })
+        if (searchNumberInBox == 0) {
+          pluginBoxes.fadeOut();
+        } else {
+          if (pluginBoxes.hasClass("plugin-inactive")) {
+            showInactivePlugins()
+          } else {
+            pluginBoxes.fadeIn();
+          }
+        }
+        searchNumber += searchNumberInBox;
+      });
+      console.log(searchNumber);
+      if (searchNumber == 0) {
+          jQuery(".emptyResearch").fadeIn();
+        } else {
+          jQuery(".emptyResearch").fadeOut();
+        }
+    });
+  });
+
+  /* Show Inactive plugins or button to show them*/
+  jQuery( document ).ready(function () {
+    if (jQuery(".plugin-inactive").children(".pluginMiniBox").length >= 5) {
+      jQuery(".plugin-inactive").hide();
+      jQuery(".showInactivePlugins").show();
+      jQuery(".showInactivePlugins button").on('click', showInactivePlugins)
+    } else {
+      jQuery(".showInactivePlugins").hide();
+    }
+  });
 });
 {/literal}
 {/footer_script}
@@ -101,29 +173,41 @@ jQuery(document).ready(function() {
 
 {assign var='field_name' value='null'} {* <!-- 'counter' for fieldset management --> *}
 {counter start=0 assign=i} {* <!-- counter for 'deactivate all' link --> *}
+
+<div class="pluginFilter"> 
+  <p class="icon-filter">{'Filter'|@translate}</p>
+  <input type="text" placeholder="{'Name'|@translate}, {'Description'|@translate}">
+</div>
+
+<div class="emptyResearch"> {'No plugins found'|@translate} </div>
+
 {foreach from=$plugins item=plugin name=plugins_loop}
     
 {if $field_name != $plugin.STATE}
   {if $field_name != 'null'}
   </fieldset>
-        {if $field_name == 'active'}
-          {counter}
-            <div class="deactivate_all"><a>{'Deactivate all'|@translate}</a></div>
-            {counter}
-        {/if}
       {/if}
   
-  <fieldset class="pluginBoxes">
+  <fieldset class="pluginBoxes plugin-{$plugin.STATE}">
     <legend>
-    {if $plugin.STATE == 'active'}
-      {'Active Plugins'|@translate}
-    {elseif $plugin.STATE == 'inactive'}
-      {'Inactive Plugins'|@translate}
-    {elseif $plugin.STATE == 'missing'}
-      {'Missing Plugins'|@translate}
-    {elseif $plugin.STATE == 'merged'}
-      {'Obsolete Plugins'|@translate}
-    {/if}
+      <div class="pluginBoxesTitle">
+        <p>
+        {if $plugin.STATE == 'active'}
+          {'Active Plugins'|@translate}
+        {elseif $plugin.STATE == 'inactive'}
+          {'Inactive Plugins'|@translate}
+        {elseif $plugin.STATE == 'missing'}
+          {'Missing Plugins'|@translate}
+        {elseif $plugin.STATE == 'merged'}
+          {'Obsolete Plugins'|@translate}
+        {/if}
+        </p>
+        <div class="pluginBoxesCount">{$count_types_plugins[$plugin.STATE]}</div>
+      </div>
+
+      {if $plugin.STATE == 'active'}
+        <div class="deactivate_all"><a>{'Deactivate all'|@translate}</a></div>
+      {/if}
     </legend>
   {assign var='field_name' value=$plugin.STATE}
 {/if}
@@ -150,21 +234,21 @@ jQuery(document).ready(function() {
         {$plugin.NAME}
       </div>
       <div class="pluginDesc fullInfo" title="{$plugin.DESC}">
-        {$plugin.DESC}
+        {$plugin.DESC}<br />
       </div>
       <div class="pluginActions">
         {if $plugin.STATE == 'active'}
           {if $plugin.SETTINGS_URL != ''}
-            <a href="{$plugin.SETTINGS_URL}" class="pluginActionLevel1">{'Settings'|@translate}</a>
+            <a href="{$plugin.SETTINGS_URL}" class="pluginActionLevel1 icon-cog">{'Settings'|@translate}</a>
           {else}
-            <div class="pluginUnavailableAction">{'Settings'|@translate}</div>
+            <div class="pluginUnavailableAction icon-cog">{'Settings'|@translate}</div>
           {/if}
-          <a class="pluginActionLevel2" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
+          <a class="pluginActionLevel2 icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
           <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>
             
         {elseif $plugin.STATE == 'inactive'}
           <div class="pluginEmptyInput"></div>
-          <a class="pluginActionLevel1" href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
+          <a class="pluginActionLevel1 icon-plus" href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
           <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
         {elseif $plugin.STATE == 'missing'}
           <div class="pluginEmptyInput"></div>
@@ -184,5 +268,13 @@ jQuery(document).ready(function() {
     
   {/foreach}
   </fieldset>
+
+  <div class="showInactivePlugins">
+      <div class="showInactivePluginsInfo">
+        {assign var='badge_inactive' value='<span class="pluginBoxesCount">%s</span>'|@sprintf:$count_types_plugins["inactive"]}
+        <div>{'You have %s inactive plugins'|translate:$badge_inactive}</div>
+      </div>
+      <button class="buttonLike" id="showInactivePluginsAction">{'Show inactive plugins'|@translate}</button>
+  </div>
 
 {/if}
