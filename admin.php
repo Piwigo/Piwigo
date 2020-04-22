@@ -262,19 +262,6 @@ if ($nb_orphans > 0)
 }
 
 // +-----------------------------------------------------------------------+
-// | Plugin menu                                                           |
-// +-----------------------------------------------------------------------+
-
-$plugin_menu_links = trigger_change('get_admin_plugin_menu_links', array() );
-
-function UC_name_compare($a, $b)
-{
-  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
-}
-usort($plugin_menu_links, 'UC_name_compare');
-$template->assign('plugin_menu_items', $plugin_menu_links);
-
-// +-----------------------------------------------------------------------+
 // | Refresh permissions                                                   |
 // +-----------------------------------------------------------------------+
 

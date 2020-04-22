@@ -72,7 +72,7 @@ h1 {
 .content dl, dd { margin:5px; }
 
 
-UL.thumbnails span.wrap2:hover { background-color#7CBA0F; color:#666; }
+UL.thumbnails span.wrap2:hover { background-color: #7CBA0F; color:#666; }
 UL.thumbnails span.wrap2 {
 	background-color:#333;
 }
@@ -259,10 +259,14 @@ a.stat-box:hover {
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
-.pluginBox, .pluginMiniBox, .groups li {background-color:#333;color:#999;border-color:#333;}
+.pluginBox, .pluginContent, .pluginMiniBox, .groups li {background-color:#333;color:#999;border-color:#333; box-shadow: none;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#ddd;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#800 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing {background-color:#422;border:1px solid #800;}
+.pluginActionLevel1, .pluginActionLevel2 {color: #333;}
+.pluginActionLevel2 {background-color: #bbbbbb;}
+.pluginFilter {color: #c1c1c1;}
+.pluginFilter input {border-color: #c1c1c1;}
 .languageBox {background-color:#333;}
 .languageName {color:#ccc;}
 .languageDefault {background-color:#555; color:#aaa;}

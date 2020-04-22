@@ -1076,8 +1076,36 @@ h2:lang(en) { text-transform:capitalize; }
 .checkActions {text-align:left;padding:0;margin:0;}
 
 .pluginBoxes {
+  border: none;
   text-align:left;
   position:relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding: 0;
+  min-height: 271px;
+}
+
+.pluginBoxesTitle {font-size: 16px;}
+.pluginBoxesTitle p {margin-right: 10px;}
+
+
+.pluginFilter,.pluginBoxesTitle {display: flex;align-items: center}
+.pluginFilter p{margin-right: 10px}
+.pluginFilter input {padding: 3px}
+.pluginFilter {justify-content: end;position: absolute;right: 20px}
+
+.pluginBoxesCount {
+  background-color: rgb(150, 150, 150);
+  color: white;
+  border-radius: 30%;
+  text-align: center;
+  padding-left: 3px;
+  padding-right: 3px;
+  height: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  width: 25px;
 }
 
 .pluginBox {
@@ -1092,27 +1120,69 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBox td.pluginDesc img {vertical-align:middle;}
 .pluginBoxNameCell {width:180px; vertical-align:top;}
 .pluginBoxes .inactive, .pluginBoxes .uninstalled {opacity:0.8;filter:alpha(opacity=80);}
+.emptyResearch {opacity: 0.3;text-align: center;left: 45%;font-weight: bold;font-size: 30px; position: absolute; display: none;}
 
 .pluginMiniBox {
-  display:inline-table;
-  text-align:center;
-  width:250px;
-  height:40px;
-  margin:5px;
-  border-width:1px;
-  border-style:solid;
-  border-radius:5px;
-  -moz-border-radius:5px;
+  display:flex;
+  box-shadow: 1px 1px 1px 1px #d7d7d7;
+  width:260px;
+  height:205px;
+  margin:10px;
+  border-radius:2px;
+  -moz-border-radius:2px;
   overflow:hidden;
  }
-.pluginMiniBoxNameCell {font-size:1.05em; margin:5px 0;position:relative;}
-.pluginActions {display: table-row; font-size:0.95em; color:#777;}
-.pluginActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
-.pluginMiniBox .showInfo, .themeBox .showInfo { display:block;position:absolute;top:0;right:5px;width:15px; }
+
+ .pluginBar {width: 1.5%;}
+
+ .pluginContent {
+  width: 98.5%;
+  text-align: left;
+  background-color: #fafafa;
+  padding: 7px;
+  padding-top: 10px;
+  padding-left: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pluginMiniBoxNameCell {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.pluginDesc {
+  margin-top: 5px;
+  font-size: 12px;
+  color: grey;
+  line-height: 1.5em;
+  height: 3em;
+  position: relative;
+  overflow: hidden;
+}
+
+.pluginActions {display: flex; font-size:11px; justify-content: space-between; margin-top: 1; bottom: 4px;position: absolute;flex-direction: column; align-items: center; width: 240px;}
+.pluginActions > * {padding: 8px; text-align: center; padding-left: 4px; padding-right: 4px; width: 96%; margin: 4px}
+.pluginEmptyInput {width: 90px;}
+.pluginUnavailableAction {opacity: 0.5;}
+.pluginActionLevel1 {background-color: #ffc17e; font-weight: bold;}
+.pluginActionLevel1:hover {background-color: #ff7700; color: white; text-decoration: none;}
+.pluginActionLevel2 {background-color: #ececec; font-weight: bold;}
+.pluginActionLevel2:hover {background-color: #8b8b8b; color: white; text-decoration: none; }
+.pluginActionLevel3 {padding-left: 10px; opacity: 0.9;}
+.pluginBarActive {background-color: #ffc17e}
+.pluginBarInactive {background-color: #8b8b8b}
+
+.pluginMiniBox .showInfo, .themeBox .showInfo { display:block;position:absolute;top:0;right:5px;width:15px; padding: 10px;}
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
-.deactivate_all {text-align:right;font-size:0.95em;}
+.deactivate_all {font-size: 11px;font-weight: normal; margin-top: -5px; margin-bottom: 5px; font-weight: bold;opacity: 0.6;}
 .showDetails {text-align:right; margin-bottom:-15px; margin-top:-10px; padding-right:1em;}
+
+.showInactivePlugins {margin-bottom: 40px;}
+.showInactivePluginsInfo {display: flex;justify-content: center;align-items: center; font-size: 18px;}
+.showInactivePluginsInfo > * {margin: 5px;}
+.showInactivePlugins button {font-size: 16px;}
 
 .languageBoxes {min-height:0;text-align:left;}
 .languageBox {display:inline-table; text-align:center; width:200px; height:40px; margin:5px; -moz-border-radius:5px;border-radius:5px; overflow:hidden; }
