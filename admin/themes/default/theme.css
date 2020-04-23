@@ -1077,13 +1077,19 @@ h2:lang(en) { text-transform:capitalize; }
 
 .pluginBoxes {
   border: none;
+  padding: 20px;
+  padding-top: 0;
+  min-height: 271px;
   text-align:left;
+}
+
+.pluginBoxesContainer {
+  
   position:relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  padding: 0;
-  min-height: 271px;
+
 }
 
 .pluginBoxesTitle {font-size: 16px;}
@@ -1093,7 +1099,7 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginFilter,.pluginBoxesTitle {display: flex;align-items: center}
 .pluginFilter p{margin-right: 10px}
 .pluginFilter input {padding: 3px}
-.pluginFilter {justify-content: end;position: absolute;right: 20px}
+.pluginFilter {justify-content: end;position: absolute;right: 20px; z-index: 2;}
 
 .pluginBoxesCount {
   background-color: rgb(150, 150, 150);
@@ -1131,6 +1137,7 @@ h2:lang(en) { text-transform:capitalize; }
   border-radius:2px;
   -moz-border-radius:2px;
   overflow:hidden;
+  margin-left: 0;
  }
 
  .pluginBar {width: 1.5%;}

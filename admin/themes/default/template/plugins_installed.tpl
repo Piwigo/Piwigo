@@ -182,11 +182,14 @@ jQuery(document).ready(function() {
     
 {if $field_name != $plugin.STATE}
   {if $field_name != 'null'}
-  </fieldset>
+  </div> {* PluginBoxes Container*}
+  </div> {* PluginBoxes*}
       {/if}
-  
-  <fieldset class="pluginBoxes plugin-{$plugin.STATE}" {if $plugin.STATE == 'inactive'}{if $count_types_plugins["inactive"]>8}style="display:none"{/if}{/if}>
-    <legend>
+
+  <div class="pluginBoxes plugin-{$plugin.STATE}" {if $plugin.STATE == 'inactive'}{if $count_types_plugins["inactive"]>8}style="display:none"{/if}{/if}>
+  {assign var='field_name' value=$plugin.STATE}
+
+  <div class="pluginBoxesHead">
       <div class="pluginBoxesTitle">
         <p>
         {if $plugin.STATE == 'active'}
@@ -205,8 +208,9 @@ jQuery(document).ready(function() {
       {if $plugin.STATE == 'active'}
         <div class="deactivate_all"><a>{'Deactivate all'|@translate}</a></div>
       {/if}
-    </legend>
-  {assign var='field_name' value=$plugin.STATE}
+    </div>
+
+  <div class="pluginBoxesContainer">
 {/if}
   
   {if not empty($plugin.AUTHOR)}
@@ -264,7 +268,8 @@ jQuery(document).ready(function() {
 
     
   {/foreach}
-  </fieldset>
+  </div> {* PluginBoxes Container*}
+  </div> {* PluginBoxes*}
 
   <div class="showInactivePlugins" {if $count_types_plugins["inactive"]<=8}style="display:none"{/if} >
       <div class="showInactivePluginsInfo">
