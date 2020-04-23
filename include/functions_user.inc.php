@@ -936,10 +936,7 @@ function log_user($user_id, $remember_me)
   if ( session_id()!="" )
   { // we regenerate the session for security reasons
     // see http://www.acros.si/papers/session_fixation.pdf
-    if (version_compare(PHP_VERSION, '7') <= 0)
-    {
-      session_regenerate_id(true);
-    }
+    session_regenerate_id(true);
   }
   else
   {
