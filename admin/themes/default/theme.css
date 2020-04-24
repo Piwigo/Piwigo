@@ -1532,7 +1532,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   margin-left:5px;
 }
 
-.showCreateAlbum {
+.showCreateGroup {
   text-align: left;
   margin: 0 1em 25px 20px;
   line-height: 22px;
@@ -1554,11 +1554,18 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   display:inline-block;
 }
 
+.remove-item {
+  flex: 1;
+  -webkit-animation: flexShrink 500ms ease forwards;
+  -o-animation: flexShrink 500ms ease forwards;
+  animation: flexShrink 500ms ease forwards;
+}
+
 .groups .list_user #text{
   width:100%;
 }
 
-.groups li,
+.groups .GroupContainer,
 .groups .addGroupFormBlock {
   vertical-align: middle;
   position: relative;
@@ -1570,14 +1577,14 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   border-radius: 10px;
 }
 
-.groups label .Group-name-container p{
+.groups .Group-name .Group-name-container p{
   margin: 0;
   padding: 2px;
   text-align: center;
   font-weight:700;
 }
 
-.groups label .Group-name-container p:focus{
+.groups .Group-name .Group-name-container p:focus{
   margin:0 30px;
 }
 
@@ -1593,12 +1600,13 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 }
 
 .groups .group_number_users{
+  text-align: center;
   font-weight: 700;
   font-size: 1em;
   margin:5px;
 }
 
-.groups .showCreateAlbum{
+.groups .showCreateGroup{
   vertical-align: middle;
   position: relative;
   display: inline-block;
@@ -1609,14 +1617,14 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   margin-left:15px;
 }
 
-.groups .showCreateAlbum a:first-child{
+.groups .showCreateGroup a:first-child{
   position: absolute;
   transform:translate(-50%,-50%);
   top:50%;
   left:50%;
 }
 
-.groups .showCreateAlbum .userSeparator{
+.groups .showCreateGroup .userSeparator{
   margin:0 5px;
 }
 
@@ -1639,14 +1647,17 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   margin:15px auto;
 }
 
-.groups .showCreateAlbum:hover  #addGroup,
 .groups .addGroupFormTitle{
   margin:0;
 }
 
- FORM.properties .groups LI,
+ FORM.properties .groups .GroupContainer,
  .groups FORM#update .groups UL {
 	margin-bottom: 15px;
+}
+
+#group-template {
+  display: none;
 }
 
 /* Selection mode */
@@ -1875,11 +1886,11 @@ input:checked + .slider:before {
 
 /*Edit group name*/
 
-.groups label{
+.groups .Group-name{
   position:relative;
 }
 
-.groups label .icon-pencil{
+.groups .Group-name .icon-pencil{
   position:absolute;
   top: 2px;
   left: 180px;
@@ -1891,10 +1902,10 @@ input:checked + .slider:before {
 }
 
 @media (hover: hover){
-  .groups label .icon-pencil{
+  .groups .Group-name .icon-pencil{
   display:none;
   }
-  .groups label:hover .icon-pencil{
+  .groups .Group-name:hover .icon-pencil{
     display:block;
   }
 }
@@ -1920,6 +1931,10 @@ input:checked + .slider:before {
 
 }
 
+.group-dropdown-options {
+  cursor: pointer;
+}
+
 .groups #GroupPermission,
 .groups #GroupDuplicate,
 .groups #GroupDelete{
@@ -1931,12 +1946,19 @@ input:checked + .slider:before {
 .Group-checkbox{
   display:none;
   position: absolute;
-  top: 15px;
-  right: 45px;
-
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
 
-.groups .Group-checkbox-container input {
+.Group-checkbox-label {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.groups .Group-checkbox input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -1947,10 +1969,12 @@ input:checked + .slider:before {
 .groups .group-checkmark {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
+  margin: 12px;
   height: 25px;
   width: 25px;
   border-radius:15px;
+  z-index: -1;
 }
 
 .groups .group-checkmark:after {
@@ -1959,11 +1983,11 @@ input:checked + .slider:before {
   display: none;
 }
 
-.groups .Group-checkbox-container input:checked ~ .group-checkmark:after {
+.groups .Group-checkbox input:checked ~ .group-checkmark:after {
   display: block;
 }
 
-.groups .Group-checkbox-container .group-checkmark:after {
+.groups .Group-checkbox .group-checkmark:after {
   left: 9px;
   top: 5px;
   width: 5px;
@@ -1977,8 +2001,9 @@ input:checked + .slider:before {
 
 /* Add group */
 
-.showCreateAlbum{
+.showCreateGroup{
   position:relative;
+  cursor: pointer;
 }
 
 .addGroupBlock{
@@ -1988,7 +2013,7 @@ input:checked + .slider:before {
   margin:0 70px;
 }
 
-.groups .showCreateAlbum .icon-plus-circled{
+.groups .showCreateGroup .icon-plus-circled{
   font-size: 19px;
   color: rgb(44,132,195);
   background-color: #CDE9FD;
@@ -2309,10 +2334,6 @@ input:checked + .slider:before {
   text-align:center;
   font-weight:700;
   padding:30px 0;
-}
-
-.DisableInSelectionMode{
-  display:none!important;
 }
 
 /********/

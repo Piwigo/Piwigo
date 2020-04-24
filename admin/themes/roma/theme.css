@@ -259,7 +259,7 @@ a.stat-box:hover {
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
-.pluginBox, .pluginContent, .pluginMiniBox, .groups li {background-color:#333;color:#999;border-color:#333; box-shadow: none;}
+.pluginBox, .pluginContent, .pluginMiniBox, .groups li, .groups .GroupContainer {background-color:#333;color:#999;border-color:#333; box-shadow: none;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#ddd;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#800 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing {background-color:#422;border:1px solid #800;}
@@ -319,7 +319,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 
 .selectedComment {background-color:#555; color:#fff;}
 
-.groups label>p {
+.groups .Group-name>p {
   color: #ccc;
   font-size: 1.2em;
   background-color:#111;
@@ -330,26 +330,26 @@ label>p.group_select {
   background-color:#555;
 }
 
-.groups li,
-.groups .showCreateAlbum,
+.groups .GroupContainer,
+.groups .showCreateGroup,
 .groups .addGroupFormBlock{
   font-size: 1.2em;
   background-color:#333;
 }
 
-.groups label>p,
+.groups .Group-name>p,
 .addGroupForm .addGroupFormTitle{
   color:#3c3c3c;
   font-size: 1.2em;
 }
 
-.groups li,
-.groups .showCreateAlbum,
+.groups .GroupContainer,
+.groups .showCreateGroup,
 .groups .addGroupFormBlock{
   box-shadow: -1px 1px 2px #1a1a1a;
 }
 
-.groups .showCreateAlbum:hover  #addGroup,
+.groups .showCreateGroup:hover  #addGroup,
 .groups .addGroupFormTitle{
   color:#c0c0c0;
   text-decoration:none;
@@ -390,11 +390,11 @@ label>p.group_select {
 
 /*Edit group name*/
 
-.groups label{
+.groups .Group-name{
   color:#777;
 }
 
-.groups label .Group-name-container p:focus{
+.groups .Group-name .Group-name-container p:focus{
   border:1px solid #303030!important;
   background-color:#1a1a1a;
 }
@@ -583,15 +583,15 @@ input:focus + .slider {
   border:2px solid #c76a23;
 }
 
-.groups .Group-checkbox-container:hover input ~ .group-checkmark {
+.groups .Group-checkbox:hover input ~ .group-checkmark {
   background-color: #c76a23;
 }
 
-.groups .Group-checkbox-container input:checked ~ .group-checkmark {
+.groups .Group-checkbox input:checked ~ .group-checkmark {
   background-color: #c76a23;
 }
 
-.groups .Group-checkbox-container .group-checkmark:after {
+.groups .Group-checkbox .group-checkmark:after {
   border: solid #ebebeb;
   border-width: 0 3px 3px 0;
 }
@@ -637,10 +637,10 @@ input:focus + .slider {
   color:#c2f5c2;
 }
 
-.groups .showCreateAlbum .icon-plus-circled,
+.groups .showCreateGroup .icon-plus-circled,
 #UserList .group-name-block span,
 .groups .icon-users-1:first-child,
-.groups .showCreateAlbum .icon-plus-circled{
+.groups .showCreateGroup .icon-plus-circled{
   color:#003751;
   background-color: #379bbc;
 }
