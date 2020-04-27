@@ -792,3 +792,8 @@ LEGEND {
 .selectize-dropdown [data-selectable], .selectize-dropdown .optgroup-header {
     padding: 0px 5px !important;
 }
+
+
+#TagsGroupRemoveTag span{
+  display:none;
+}
