@@ -1533,6 +1533,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 }
 
 .showCreateGroup {
+  order: -10000000000;
   text-align: left;
   margin: 0 1em 25px 20px;
   line-height: 22px;
@@ -1540,10 +1541,13 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 
  .content .groups form{
   margin:0;
+  margin-top: 40px;
 }
 
 .groups {
-  text-align:center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .group-manager{
@@ -1628,6 +1632,10 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   margin:0 5px;
 }
 
+.groups #addGroupForm {
+  order: -10000000000;
+}
+
 .groups .addGroupFormTitle{
   font-size:1.2em;
   font-weight:700;
@@ -1637,14 +1645,46 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   padding:5px;
 }
 
+.groupHeader {
+  margin:15px auto;
+}
+
 .groups .icon-users-1:first-child{
   font-size: 19px;
-  color: rgb(44,132,195);
-  background-color: #CDE9FD;
+  color: #4d4d4d;
+  background-color: #ffffff;
   width: 27px;
   padding: 10px;
   border-radius: 30px;
-  margin:15px auto;
+  margin: auto;
+  transition: 0.4s ease;
+}
+
+.groupMessage {
+  display: none;
+  position: absolute;
+  background-color: #d6ffcf;
+  min-height: 17px;
+  padding: 10px;
+  border-radius: 30px;
+  top: -17px;
+  font-size: 12px;
+  right: 50px;
+  width: 106px;
+}
+
+.groupError {
+  z-index: 2;
+  display: none;
+  position: absolute;
+  background-color: #ffcfcf;
+  min-height: 17px;
+  padding: 10px;
+  border-radius: 30px;
+  top: -17px;
+  font-size: 12px;
+  right: 29px;
+  width: 143px;
 }
 
 .groups .addGroupFormTitle{
@@ -1744,11 +1784,11 @@ input:checked + .slider:before {
 /*Selection mode content*/
 
 #nothing-selected{
-  display:none;
+  display:block;
 }
 
 .SelectionModeGroup{
-  display:block;
+  display:none;
   text-align:center;
 }
 
@@ -1802,6 +1842,7 @@ input:checked + .slider:before {
   background-color: #ffa744;
   border:none;
   margin-top:40px;
+  cursor: pointer;
 }
 
 /*Merge Options*/
@@ -2081,7 +2122,12 @@ input:checked + .slider:before {
 
 .groups .GroupManagerButtons{
   text-align:center;
-  margin:15px 0;
+  margin:18px 0;
+}
+
+.groups .GroupManagerButtons a {
+  padding-top :15px;
+  padding-bottom :15px;
 }
 
 .groups .manage-users,
@@ -2108,14 +2154,13 @@ input:checked + .slider:before {
 
 
 @media (hover: hover){
-  .GroupContainer li .GroupManagerButtons{
+  .GroupContainer .GroupManagerButtons{
     display:none;
   }
   
-  .GroupContainer li:hover .GroupManagerButtons{
+  .GroupContainer:hover .GroupManagerButtons.visible{
     display:block;
   }
-  
 }
 
 /*UserList Pop in*/
