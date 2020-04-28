@@ -1140,8 +1140,6 @@ h2:lang(en) { text-transform:capitalize; }
   margin-left: 0;
  }
 
- .pluginBar {width: 1.5%;}
-
  .pluginContent {
   width: 98.5%;
   text-align: left;
@@ -1151,6 +1149,7 @@ h2:lang(en) { text-transform:capitalize; }
   padding-left: 10px;
   overflow: hidden;
   position: relative;
+  border-left: solid 4px #ffc17e
 }
 
 .pluginMiniBoxNameCell {
@@ -1177,8 +1176,7 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginActionLevel2 {background-color: #ececec; font-weight: bold;}
 .pluginActionLevel2:hover {background-color: #8b8b8b; color: white; text-decoration: none; }
 .pluginActionLevel3 {padding-left: 10px; opacity: 0.9;}
-.pluginBarActive {background-color: #ffc17e}
-.pluginBarInactive {background-color: #8b8b8b}
+.plugin-inactive .pluginContent {border-color: #8b8b8b}
 
 .pluginMiniBox .showInfo, .themeBox .showInfo { display:block;position:absolute;top:0;right:5px;width:15px; padding: 10px;}
 

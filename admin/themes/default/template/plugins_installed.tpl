@@ -228,7 +228,6 @@ jQuery(document).ready(function() {
   {/if}
               
   <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}">
-    <div class="pluginBar {if $plugin.STATE == 'active'}pluginBarActive{else}pluginBarInactive{/if}" {if $plugin.STATE == 'active'}#ffa646{else}grey{/if}></div>
     <div class="pluginContent">
       <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}"></a>
       <div class="pluginMiniBoxNameCell">
