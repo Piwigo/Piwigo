@@ -159,6 +159,12 @@ jQuery(document).ready(function() {
     jQuery(".showInactivePlugins button").on('click', showInactivePlugins)
   });
 });
+
+  jQuery(".showOptions").click(function(){
+    jQuery("#PluginOptionsBlock").toggle();
+  });
+
+
 {/literal}
 {/footer_script}
 
@@ -229,7 +235,14 @@ jQuery(document).ready(function() {
               
   <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}">
     <div class="pluginContent">
-      <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}"></a>
+      <div class="PluginOptionsIcons">
+        <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}"></a>
+        <a class="icon-menu showOptions" ></a>
+      </div>
+      <div id="PluginOptionsBlock">
+        <a class="pluginActionLevel2 icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
+        <a class="pluginActionLevel3 icon-back-in-time" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>      
+      </div>
       <div class="pluginMiniBoxNameCell">
         {$plugin.NAME}
       </div>
@@ -243,9 +256,6 @@ jQuery(document).ready(function() {
           {else}
             <div class="pluginUnavailableAction icon-cog">{'Settings'|@translate}</div>
           {/if}
-          <a class="pluginActionLevel2 icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-          <a class="pluginActionLevel3 icon-back-in-time" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>
-            
         {elseif $plugin.STATE == 'inactive'}
           <div class="pluginEmptyInput"></div>
           <a class="pluginActionLevel1 icon-plus" href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
@@ -262,6 +272,7 @@ jQuery(document).ready(function() {
         {/if}                     
       </div>
     </div>
+    
   </div> {*<!-- pluginMiniBox -->*}
     
 
