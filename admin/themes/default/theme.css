@@ -1061,7 +1061,6 @@ h2:lang(en) { text-transform:capitalize; }
 }
 
 .pluginBoxesContainer {
-  
   position:relative;
   display: flex;
   flex-wrap: wrap;
@@ -1109,11 +1108,11 @@ h2:lang(en) { text-transform:capitalize; }
   display:flex;
   width:260px;
   margin:15px 30px;
-  border-top-right-radius:10px;
-  border-bottom-right-radius:10px;
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
   overflow:hidden;
   margin-left: 0;
-  box-shadow: 0px 0px 5px #d7d7d7;
+  box-shadow: 0px 0px 5px #acacac;
  }
 
  .pluginContent {
@@ -1124,6 +1123,7 @@ h2:lang(en) { text-transform:capitalize; }
   overflow: hidden;
   position: relative;
   border-left: solid 5px #ffc17e;
+  border-right:solid 5px #fafafa;
 
 }
 
@@ -1144,7 +1144,7 @@ h2:lang(en) { text-transform:capitalize; }
 
 .pluginActions a {
   margin-top:15px;
-  font-size:10px;
+  font-size:12px;
 }
 
 .pluginActions > * {
@@ -1155,9 +1155,11 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginEmptyInput {width: 90px;}
 .pluginUnavailableAction {
   opacity: 0.5;
-  font-size: 10px;
+  font-size: 12px;
   padding: 10px 4px;
   margin: 15px 0;
+  background-color:#ddd;
+  font-weight:700;
 }
 .pluginActionLevel1 {background-color: #ffc17e; font-weight: bold;}
 .pluginActionLevel1:hover {background-color: #ff7700; color: white; text-decoration: none;}
@@ -1169,7 +1171,7 @@ h2:lang(en) { text-transform:capitalize; }
 }
 
 .plugin-inactive .pluginMiniBox{
-  border-radius:10px;
+  border-radius:5px;
 }
 
 .plugin-inactive .pluginContent .pluginActionLevel1{
