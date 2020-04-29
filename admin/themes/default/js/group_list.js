@@ -35,20 +35,31 @@ $("#cancel").click(function () {
 /*-------
  Add Group toggle
  -------*/
+var isToggle = true;
+$(".addGroupBlock").on("click", function() {
+  if (isToggle) deployAddGroupForm()
+  else hideAddGroupForm();
+})
 
-$("#showAddGroup").click(function () {
-  $("#addGroupForm").css("display", "inline-block");
-  $("#showAddGroup").css("display", "none");
-});
+var deployAddGroupForm = function () {
+  $(".addGroupBlock").animate({
+    top: "20%",
+    padding: "0px"
+  }, 400, complete=function(){
+    $("#addGroupForm form").fadeIn();
+  });
+  isToggle = false;
+}
 
-var closeAddGroup = function () {
-  $("#addGroupForm").css("display", "none");
-  $("#showAddGroup").css("display", "inline-block");
-};
-
-$("#addGroupClose").click(closeAddGroup);
-
-$(".actionButtons input").click(closeAddGroup);
+var hideAddGroupForm = function () {
+  $("#addGroupForm form").fadeOut(function(){
+    $(".addGroupBlock").animate({
+      top: "50%",
+      padding: "100px 0"
+    }, 400)
+  });
+  isToggle = true;
+}
 
 /*-------
  Add Group Submit
@@ -76,7 +87,7 @@ jQuery(document).ready(function () {
           newgroup.find(".Group-checkbox input").attr("id", "Group-Checkbox-selection-" + id);
           newgroup.find(".input-edit-group-name").attr("placeholder", name);
           newgroup.find(".group_number_users").html("0 " + member_default);
-
+          hideAddGroupForm();
           //Setup the icon color
           var colors = [["#ffa744", "#ffe9cf"],["#896af3", "#e0daf4"], ["#6ece5e","#d6ffcf"],["#2883c3","#cfebff"]];
           var colorId = Number(id)%4;
@@ -93,7 +104,6 @@ jQuery(document).ready(function () {
           $("#showAddGroup .groupError").html(name_taken);
           $("#showAddGroup .groupError").fadeIn();
           $("#showAddGroup .groupError").delay(3000).fadeOut();
-          $("#showAddGroup .groupError").delay(10).html(contents);
         }
       },
       error: function (err) {
@@ -182,35 +192,39 @@ var setupGroupBox = function (groupBox) {
   });
 
   /* Set the rename action */
-  let contents = groupBox.find("#group_name").html();
-  groupBox.find("#group_name").blur(function() {
-    if (contents!=groupBox.find("#group_name").html()){
-      jQuery.ajax({
-        url: "ws.php?format=json&method=pwg.groups.setInfo",
-        type: "POST",
-        data: "group_id=" + id + "&pwg_token=" + pwg_token + "&name="+groupBox.find("#group_name").html(),
-        success: function (raw_data) {
-          data = jQuery.parseJSON(raw_data);
-          if (data.stat === "ok") {
-            groupBox.find(".groupMessage").html(renaming_done);
-            groupBox.find(".groupMessage").fadeIn();
-            groupBox.find(".groupMessage").delay(3000).fadeOut();
-            contents = groupBox.find("#group_name").html();
-          } else {
-            groupBox.find(".groupError").html(name_taken);
-            groupBox.find(".groupError").fadeIn();
-            groupBox.find(".groupError").delay(3000).fadeOut();
-            groupBox.find("#group_name").delay(10).html(contents);
-          }
-        },
-        error: function (err) {
-          console.log(err);
-        },
-      });
+  groupBox.find(".Group-name .icon-pencil").on("click", function () {
+    groupBox.find(".Group-name-container form").show();
+    groupBox.find(".Group-name-container .icon-pencil").hide();
+    groupBox.find(".Group-name-container .icon-ok").show();
+    groupBox.find(".Group-name-container p").css("opacity", 0)
+  });
+
+  groupBox.find(".Group-name-container .icon-ok").on("click", function () {
+    renameGroup(id, groupBox.find(".group_name-editable").val())
+  });
+
+  groupBox.find(".Group-name-container form").on("submit", function (e) {
+    e.preventDefault();
+    renameGroup(id, groupBox.find(".group_name-editable").val())
+  });
+
+  /* Hide group options and rename field on click on the screen */
+
+  $(document).mouseup(function (e) {
+    if ($(e.target).closest("#group-"+id+" #GroupOptions").length === 0) {
+      groupBox.find(".group-dropdown-options #GroupOptions").hide();
+    }
+    if ($(e.target).closest("#group-"+id+" .Group-name").length === 0) {
+      groupBox.find(".Group-name-container form").hide();
+      groupBox.find(".Group-name-container .icon-pencil").removeAttr("style");
+      groupBox.find(".Group-name-container .icon-ok").hide();
+      groupBox.find(".Group-name-container p").css("opacity", 1);
+      groupBox.find(".group_name-editable").val(groupBox.find(".Group-name-container p").html());
     }
   });
 };
 
+/* Group Ajax Functions */
 var deleteGroup = function (id) {
   jQuery.ajax({
     url: "ws.php?format=json&method=pwg.groups.delete",
@@ -228,6 +242,40 @@ var deleteGroup = function (id) {
   });
 };
 
+var renameGroup = function(id, newName) {
+  jQuery.ajax({
+    url: "ws.php?format=json&method=pwg.groups.setInfo",
+    type: "POST",
+    data: "group_id=" + id + "&pwg_token=" + pwg_token + "&name="+newName,
+    success: function (raw_data) {
+      data = jQuery.parseJSON(raw_data);
+      if (data.stat === "ok") {
+        newName = data.result.groups[0].name;
+        //Display message
+        $("#group-" + id).find(".groupMessage").html(renaming_done);
+        $("#group-" + id).find(".groupMessage").fadeIn();
+        $("#group-" + id).find(".groupMessage").delay(3000).fadeOut();
+        $("#group-" + id).find("#group_name").html(newName);
+
+        //Hide editable field
+        $("#group-" + id).find(".Group-name-container form").hide();
+        $("#group-" + id).find(".Group-name-container span").show();
+        $("#group-" + id).find(".Group-name-container .icon-ok").hide();
+        $("#group-" + id).find(".Group-name-container p").css("opacity", 1)
+      } else {
+        //Display error message
+        $("#group-" + id).find(".groupError").html(name_taken);
+        $("#group-" + id).find(".groupError").fadeIn();
+        $("#group-" + id).find(".groupError").delay(3000).fadeOut();
+      }
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+}
+
+
 /*-------
  Selection mode toggle actions,  
  changes "..." in group block to checkbox,
@@ -237,29 +285,18 @@ var deleteGroup = function (id) {
 $(function () {
   $("#toggleSelectionMode").click(function () {
     if ($(this).is(":checked")) {
-      $(".in-selection-mode").fadeIn();
-      $(".not-in-selection-mode").fadeOut();
+      $(".in-selection-mode").show();
+      $(".not-in-selection-mode").hide();
       $("#group_name").attr("contenteditable", false);
       $(".GroupManagerButtons").removeClass("visible");
     } else {
       $(".in-selection-mode").fadeOut();
-      $(".not-in-selection-mode").fadeIn();
-      $(".GroupManagerButtons").addClass("visible");
+      $(".not-in-selection-mode").removeAttr("style");
       $(".Group-checkbox input").attr("checked", false);
       $(".Group-checkbox input[type='checkbox']").trigger("change");
       $("#group_name").attr("contenteditable", true);
     }
   });
-});
-
-/*-------
- Hide group options on click on the screen
- -------*/
-
-$(document).mouseup(function (e) {
-  if ($(e.target).closest("#GroupOptions").length === 0) {
-    $(".group-dropdown-options #GroupOptions").hide();
-  }
 });
 
 /*-------
@@ -272,13 +309,19 @@ var updateSelectionPanel = function (changedState = "") {
   
   if (numSelect == 0) {
     updateStatePanel("NoSelection")
-  } else if (numSelect == 1 && (state == "OptionMerge" || state == "NoSelection" || state == "Selection")) {
-    updateStatePanel("OneSelected")
-  } else if (changedState != "") {
-    updateStatePanel(changedState)
-  } else if (numSelect > 1 && state == "OneSelected") {
-    updateStatePanel("Selection");
+  } else if (changedState == "") {
+    if (numSelect == 1 && state != "ConfirmDeletion")
+      updateStatePanel("OneSelected")
+    if (numSelect > 1 && state == "OneSelected")
+      updateStatePanel("Selection");
+  } else {
+    if (changedState == "Selection" && numSelect == 1)
+      updateStatePanel("OneSelected")
+    else 
+      updateStatePanel(changedState)
   }
+
+  console.log(state);
 
   $(".number-Selected").html(numSelect + "");
 };
@@ -291,7 +334,9 @@ var updateStatePanel = function (newState = "Selection") {
   switch (newState) {
     case "OneSelected":
     $("#DeleteSelectionMode").show();
-    $("#MergeSelectionMode").hide();
+    $("#MergeSelectionMode").show();
+    buttonUnavailable($("#MergeSelectionMode"));
+    buttonAvailable($("#DeleteSelectionMode"), "updateSelectionPanel('ConfirmDeletion')");
     $("#MergeOptionsBlock").hide();
     $("#ConfirmGroupAction").hide();
       break;
@@ -304,6 +349,8 @@ var updateStatePanel = function (newState = "Selection") {
     case "Selection":
     $("#DeleteSelectionMode").show();
     $("#MergeSelectionMode").show();
+    buttonAvailable($("#MergeSelectionMode"), "updateSelectionPanel('OptionMerge')");
+    buttonAvailable($("#DeleteSelectionMode"), "updateSelectionPanel('ConfirmDeletion')");
     $("#MergeOptionsBlock").hide();
     $("#ConfirmGroupAction").hide();
       break;
@@ -315,6 +362,10 @@ var updateStatePanel = function (newState = "Selection") {
       break;
   }
   if (newState == "NoSelection") {
+    $("#DeleteSelectionMode").show();
+    $("#MergeSelectionMode").show();
+    buttonUnavailable($("#MergeSelectionMode"));
+    buttonUnavailable($("#DeleteSelectionMode"));
     $(".SelectionModeGroup").hide();
     $("#nothing-selected").show();
     $("#MergeOptionsBlock").hide();
@@ -324,6 +375,16 @@ var updateStatePanel = function (newState = "Selection") {
     $("#nothing-selected").hide();
   }
 };
+
+var buttonAvailable = function(button, onClick) {
+  button.removeClass("unavailable");
+  button.attr("OnClick", onClick);
+}
+
+var buttonUnavailable = function(button) {
+  button.addClass("unavailable");
+  button.removeAttr("OnClick");
+}
 
 /*-------
  Delete function on button's pannel

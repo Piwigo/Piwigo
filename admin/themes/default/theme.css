@@ -1477,6 +1477,8 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
 .albumBlock {display: flex; justify-content: space-between; padding: 10px 10px 0 10px;}
 .albumBlock .albumLineBlock {display: block; padding-left: 7px; max-width: 45%; height: 50px;}
+.showCreateAlbum {text-align:left; margin:0 1em 25px 20px; line-height:22px;}
+.showCreateAlbum .userSeparator {margin:0 5px;}
 #addAlbumOpen, #autoOrderOpen {padding: 7px 15px; font-weight: bold; font-size: 11px;}
 .afterUploadActions {text-align: center; margin-bottom: 30px !important;}
 .afterUploadActions a {justify-content: center; margin: 35px; font-weight: bold; font-size: 14px; padding: 10px 12px;}
@@ -1532,16 +1534,9 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   margin-left:5px;
 }
 
-.showCreateGroup {
-  order: -10000000000;
-  text-align: left;
-  margin: 0 1em 25px 20px;
-  line-height: 22px;
-}
-
  .content .groups form{
   margin:0;
-  margin-top: 40px;
+  margin-top: 115px;
 }
 
 .groups {
@@ -1552,10 +1547,6 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 
 .group-manager{
   margin-right:224px;
-}
-
-.groups .GroupContainer{
-  display:inline-block;
 }
 
 .remove-item {
@@ -1569,34 +1560,78 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   width:100%;
 }
 
-.groups .GroupContainer,
-.groups .addGroupFormBlock {
+.groups .GroupContainer {
   vertical-align: middle;
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   text-align: left;
   height: 286px;
   width: 220px;
   margin: 15px;
   border-radius: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.groupHeader {
+  width: 100%;
 }
 
 .groups .Group-name .Group-name-container p{
-  margin: 0;
+  margin: auto;
   padding: 2px;
   text-align: center;
   font-weight:700;
+  max-width: 170px;
 }
 
 .groups .Group-name .Group-name-container p:focus{
   margin:0 30px;
 }
 
+.Group-name-container form{
+  margin: 0 !important;
+  position: absolute;
+  top : 0px;
+  transform: translate(-1px, -5px);
+  display: none;
+}
+
+.Group-name-container .icon-ok{
+  display: none;
+  position:absolute;
+  top: 2px;
+  left: 190px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.Group-name-container .icon-ok:hover{
+  color: #ffa744;
+}
+
+.Group-name-container form input{
+  text-align: center;
+  width: 200px;
+  margin: 4px;
+  margin-top: 0px;
+  background: none !important;
+  border-radius: 10px;
+  border: 2px solid #89a6ee !important;
+  font-weight: bold;
+  color: #3c3c3c;
+  font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+}
+
 .addGroupLabel {
   margin: 0;
   border-radius: 5px 5px 0 0;
   padding: 2px;
-  text-align: center;
+  position: absolute;
+  left: 11px;
+  top: -11px;
+  font-size: 14px;
 }
 
 .groups .icon-users-1{
@@ -1610,32 +1645,6 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   margin:5px;
 }
 
-.groups .showCreateGroup{
-  vertical-align: middle;
-  position: relative;
-  display: inline-block;
-  height: 286px;
-  width: 220px;
-  margin: 15px;
-  border-radius:10px;
-  margin-left:15px;
-}
-
-.groups .showCreateGroup a:first-child{
-  position: absolute;
-  transform:translate(-50%,-50%);
-  top:50%;
-  left:50%;
-}
-
-.groups .showCreateGroup .userSeparator{
-  margin:0 5px;
-}
-
-.groups #addGroupForm {
-  order: -10000000000;
-}
-
 .groups .addGroupFormTitle{
   font-size:1.2em;
   font-weight:700;
@@ -1645,7 +1654,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   padding:5px;
 }
 
-.groupHeader {
+.groupIcon {
   margin:15px auto;
 }
 
@@ -1663,21 +1672,23 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 .groupMessage {
   display: none;
   position: absolute;
-  background-color: #d6ffcf;
-  min-height: 17px;
+  min-height: 20px;
   padding: 10px;
   border-radius: 30px;
   top: -17px;
   font-size: 12px;
-  right: 50px;
-  width: 106px;
+  right: 52px;
+  width: 110px;
+  color: #0a0;
+  background-color:#c2f5c2;
 }
 
 .groupError {
   z-index: 2;
   display: none;
   position: absolute;
-  background-color: #ffcfcf;
+  color: #f22;
+  background-color: #ffd5dc;
   min-height: 17px;
   padding: 10px;
   border-radius: 30px;
@@ -1799,12 +1810,24 @@ input:checked + .slider:before {
 
 .SelectionModeGroupList div{
   margin:10px;
+  text-align: start;
+}
+
+.SelectionModeGroupList div div{
+  display: flex;
 }
 
 .SelectionModeGroupList a,
-.SelectionModeGroupList p{
+.SelectionModeGroupList p {
   display:inline-block;
   margin:0
+}
+
+.SelectionModeGroupList p {
+  width: 85%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .SelectionModeGroup button{
@@ -1818,6 +1841,13 @@ input:checked + .slider:before {
 
 .SelectionModeGroup button:hover{
   cursor: pointer;
+}
+
+.SelectionModeGroup button.unavailable{
+  opacity: 0.3;
+  background: none !important;
+  border: none !important;
+  cursor: auto;
 }
 
 #ConfirmGroupAction{
@@ -1934,7 +1964,12 @@ input:checked + .slider:before {
 .groups .Group-name .icon-pencil{
   position:absolute;
   top: 2px;
-  left: 180px;
+  left: 195px;
+  cursor: pointer;
+}
+
+.groups .Group-name .icon-pencil:hover{
+  color: #ffa744;
 }
 
 #EditGroupName{
@@ -1942,13 +1977,12 @@ input:checked + .slider:before {
   display:none;
 }
 
-@media (hover: hover){
-  .groups .Group-name .icon-pencil{
+.groups .Group-name .icon-pencil{
   display:none;
-  }
-  .groups .Group-name:hover .icon-pencil{
-    display:block;
-  }
+}
+  
+.Group-name:hover .icon-pencil{
+  display:block;
 }
 
 /* Options menu*/
@@ -1976,9 +2010,7 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
-.groups #GroupPermission,
-.groups #GroupDuplicate,
-.groups #GroupDelete{
+.group-dropdown-option{
  padding:5px 10px;
 }
 
@@ -2042,19 +2074,16 @@ input:checked + .slider:before {
 
 /* Add group */
 
-.showCreateGroup{
-  position:relative;
-  cursor: pointer;
-}
-
 .addGroupBlock{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  margin:0 70px;
+  margin: auto;
+  width: 100%;
+  padding: 100px 0;
 }
 
-.groups .showCreateGroup .icon-plus-circled{
+.groups .icon-plus-circled{
   font-size: 19px;
   color: rgb(44,132,195);
   background-color: #CDE9FD;
@@ -2067,10 +2096,17 @@ input:checked + .slider:before {
 
 .groups #addGroup{
   font-weight:700;
+  width: 145px;
+  margin: auto;
 }
 
 .groups #addGroupForm{
+  cursor: pointer;
   position: relative;
+  order: -10000000000;
+}
+
+.groups #addGroupForm form {
   display: none;
 }
 
@@ -2089,6 +2125,7 @@ input:checked + .slider:before {
   margin:10px;
   text-align:center;
   margin-top:18px;
+  position: relative;
 }
 
 .groups fieldset INPUT[type="text"]{
@@ -2122,34 +2159,23 @@ input:checked + .slider:before {
 
 .groups .GroupManagerButtons{
   text-align:center;
-  margin:18px 0;
-}
-
-.groups .GroupManagerButtons a {
-  padding-top :15px;
-  padding-bottom :15px;
+  width: 190px;
+  height: 50px;
+  line-height: 50px;
+  margin-bottom: 10px;
 }
 
 .groups .manage-users,
 .groups .manage-permissions{
-  font-size: 12px;
-  font-weight: 700;
-  padding: 6.5px 20px;
+  font-size: 15px;
   display: inline-block;
 }
 
-.groups .manage-users{
-  padding:6.5px 40px;
-}
 .groups .manage-users,
 .groups .manage-users:hover,
 .groups .manage-permissions,
 .groups .manage-permissions:hover{
   text-decoration:none;
-}
-
-.groups .manage-permissions{
-  margin-top:20px;
 }
 
 
@@ -2158,7 +2184,7 @@ input:checked + .slider:before {
     display:none;
   }
   
-  .GroupContainer:hover .GroupManagerButtons.visible{
+  .GroupContainer:hover .GroupManagerButtons{
     display:block;
   }
 }

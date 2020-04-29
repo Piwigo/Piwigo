@@ -329,17 +329,17 @@ p.albumTitle img {margin-bottom:-3px;}
 .groups .GroupContainer,
 .groups .showCreateGroup,
 .groups .addGroupFormBlock{
-  box-shadow: -1px 1px 2px #e7e7e7;
+  box-shadow: 0px 0px 5px #acacac;
 }
 
-.groups .showCreateGroup:hover  #addGroup,
+.groups #addGroupForm:hover  #addGroup,
 .groups .addGroupFormTitle{
   color:#3c3c3c;
   text-decoration:none;
 }
 
 .groups #addGroup{
-  color:#d5d5d5;
+  color:#777;
 }
 
 .groups .group_number_users{
@@ -410,9 +410,7 @@ label>p.group_select {
   color:#3c3c3c;
 }
 
-.groups #GroupPermission:hover,
-.groups #GroupDuplicate:hover,
-.groups #GroupDelete:hover{
+.group-dropdown-option:hover{
   background-color:#e7e7e7;
 }
 
