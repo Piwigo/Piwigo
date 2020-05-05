@@ -1584,44 +1584,56 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   text-align: center;
   font-weight:700;
   max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.groups .Group-name .Group-name-container p:focus{
-  margin:0 30px;
+.Group-name-container {
+  position: relative;
+  display: inline-flex;
+  transform: translate(10px, 0);
 }
 
-.Group-name-container form{
-  margin: 0 !important;
+.group-rename {
+  margin: 0;
   position: absolute;
-  top : 0px;
-  transform: translate(-1px, -5px);
+  top: 0px;
+  transform: translate(0,-8px);
   display: none;
+  opacity: 1;
 }
 
-.Group-name-container .icon-ok{
-  display: none;
-  position:absolute;
-  top: 2px;
-  left: 190px;
-  cursor: pointer;
-  z-index: 2;
+.group-rename span {
+  padding: 5px;
+  margin: auto;
 }
 
-.Group-name-container .icon-ok:hover{
+.group-rename .icon-ok {
+  background-color: #ffa744;
+}
+
+.group-rename .icon-ok:hover {
+  background-color: #3c3c3c;;
+}
+
+.group-rename form {
+  margin: 0 !important;
+}
+
+.Group-name span:hover{
   color: #ffa744;
+  cursor: pointer;
 }
 
-.Group-name-container form input{
-  text-align: center;
-  width: 200px;
+.group-rename input{
+  text-align: left;
+  width: 130px;
   margin: 4px;
-  margin-top: 0px;
-  background: none !important;
-  border-radius: 10px;
-  border: 2px solid #89a6ee !important;
   font-weight: bold;
   color: #3c3c3c;
   font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+  margin-left: 9px;
 }
 
 .addGroupLabel {
@@ -1837,6 +1849,7 @@ input:checked + .slider:before {
   font-weight: 700;
   padding: 13px 40px;
   background-color:transparent;
+  width: 180px;
 }
 
 .SelectionModeGroup button:hover{
@@ -1959,17 +1972,7 @@ input:checked + .slider:before {
 
 .groups .Group-name{
   position:relative;
-}
-
-.groups .Group-name .icon-pencil{
-  position:absolute;
-  top: 2px;
-  left: 195px;
-  cursor: pointer;
-}
-
-.groups .Group-name .icon-pencil:hover{
-  color: #ffa744;
+  text-align: center;
 }
 
 #EditGroupName{
@@ -1978,11 +1981,11 @@ input:checked + .slider:before {
 }
 
 .groups .Group-name .icon-pencil{
-  display:none;
+  opacity: 0;
 }
   
 .Group-name:hover .icon-pencil{
-  display:block;
+  opacity: 1;
 }
 
 /* Options menu*/
@@ -2006,12 +2009,36 @@ input:checked + .slider:before {
 
 }
 
+.is-default-token {
+  display: block;
+  z-index: 1;
+  position: absolute;
+  cursor: pointer;
+  right: 33px;
+  top: 4px;
+  padding: 5px 0;
+  font-size: 20px;
+  color: #777;
+  transition: 0.2s ease;
+}
+
+.is-default-token:hover {
+  transform: scale(1.2,1.2);
+}
+
+.is-default-token.deactivate {
+  display: none;
+}
+
+
+
 .group-dropdown-options {
   cursor: pointer;
 }
 
 .group-dropdown-option{
  padding:5px 10px;
+ font-size: 13px;
 }
 
 /*Group checkbox*/
@@ -2089,7 +2116,7 @@ input:checked + .slider:before {
   background-color: #CDE9FD;
   width: 27px;
   height: 27px;
-  padding: 12px 10px 8px;
+  padding: 10px;
   border-radius: 30px;
   margin: 10px auto;
 }
@@ -2098,6 +2125,7 @@ input:checked + .slider:before {
   font-weight:700;
   width: 145px;
   margin: auto;
+  text-align: center;
 }
 
 .groups #addGroupForm{
@@ -2162,12 +2190,15 @@ input:checked + .slider:before {
   width: 190px;
   height: 50px;
   line-height: 50px;
-  margin-bottom: 10px;
+}
+
+.manage-permissions {
+  margin-bottom: 15px;
 }
 
 .groups .manage-users,
 .groups .manage-permissions{
-  font-size: 15px;
+  font-size: 13px;
   display: inline-block;
 }
 
@@ -2199,11 +2230,16 @@ input:checked + .slider:before {
 }
 
 #UserList{
-  visibility: hidden;
+  display: none;
+}
+
+.UserSearch {
+  width: 220px;
+  margin-top: 4px;
 }
 
 .UserListPopIn{
-  position: absolute;
+  position: fixed;
   z-index: 100;
   padding-top: 100px;
   left: 0;
@@ -2217,7 +2253,6 @@ input:checked + .slider:before {
 .UserListPopInContainer{
   display:block;
   width:1100px;
-  height:520px;
   position:absolute;
   left:50%;
   transform:translateX(-50%);
@@ -2267,6 +2302,8 @@ input:checked + .slider:before {
 #UserList .AddUserBlock{
   padding:10px 0;
   margin-bottom:30px;
+  display: flex;
+  align-items: center;
 }
 
 #UserList .FilterUserBlock{
@@ -2325,6 +2362,31 @@ input:checked + .slider:before {
   position:relative;
   padding:0 10px;
   border-radius:25px;
+}
+
+.UsernameBlock .UserInfo {
+  display: none;
+  position: absolute;
+  top: 0;
+  
+  width: 100%;
+  left: 0px;
+  height: 100%;
+  border-radius: 25px;
+}
+
+.UsernameBlock .UserInfo-dissociated {
+  color: #f22;
+  background-color: #ffd5dc;
+}
+
+.UsernameBlock .UserInfo-associated {
+  color: #0a0;
+  background-color:#c2f5c2;
+}
+
+.UsernameBlock .UserInfo p {
+  margin: auto
 }
 
 .UsersInGroupListContainer{
