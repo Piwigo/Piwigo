@@ -1609,12 +1609,13 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   margin: auto;
 }
 
-.group-rename .icon-ok {
+.group-rename .validate {
   background-color: #ffa744;
 }
 
 .group-rename .icon-ok:hover {
-  background-color: #3c3c3c;;
+  background-color: #ff7700;
+  color: #3c3c3c;
 }
 
 .group-rename form {
@@ -1693,6 +1694,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   width: 110px;
   color: #0a0;
   background-color:#c2f5c2;
+  text-align: center;
 }
 
 .groupError {
@@ -1708,6 +1710,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   font-size: 12px;
   right: 29px;
   width: 143px;
+  text-align: center;
 }
 
 .groups .addGroupFormTitle{

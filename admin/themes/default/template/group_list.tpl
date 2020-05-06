@@ -22,6 +22,7 @@ var str_user_dissociated = "{"User Dissociated"|@translate}"
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+{combine_css path="admin/themes/default/fontello/css/animation.css"}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/group_list.js'}
 
@@ -61,7 +62,7 @@ var str_user_dissociated = "{"User Dissociated"|@translate}"
             <input type="text" class="group_name-editable" value="{$grp_name}">
             <input type="submit" hidden>
           </form>
-          <span class="icon-ok"></span>
+          <span class="icon-ok validate"></span>
           <span class="icon-cancel"></span>
         </div>
       </div>
@@ -101,7 +102,7 @@ var str_user_dissociated = "{"User Dissociated"|@translate}"
     <p>{'Your selection'|@translate}</p>
     <div class="SelectionModeGroupList">
 
-    <div class="DeleteGroupList"> {* TODO *}
+    <div class="DeleteGroupList">
       
     </div>
 
@@ -149,8 +150,11 @@ var str_user_dissociated = "{"User Dissociated"|@translate}"
             <label class="addGroupLabel" for="addGroupNameInput">{'Group name'|translate}</label>
             <input type="text" id="addGroupNameInput" name="groupname" maxlength="50" size="20" placeholder="Photographers...">
           </div>
-          <div class="actionButtons">   
-            <input class="icon-ok submit" name="submit_add" type="submit" value="{'Add'|translate}"><br/>
+          <div class="actionButtons">
+            <button name="submit" type="submit" class="buttonLike">
+              <i class='icon-plus'> </i> {'Add'|translate}
+            </button> 
+            <br/>
             <a id="addGroupClose" onclick="hideAddGroupForm()">{'Cancel'|@translate}</a>
           </div>
           <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">

@@ -71,11 +71,16 @@ jQuery(document).ready(function () {
   $("#addGroupForm form").on("submit", function (e) {
     e.preventDefault();
     let name = $("#addGroupForm input[type=text]").val();
+    let loadState = new TemporaryState();
+    loadState.changeHTML($(".actionButtons button"), "<i class='icon-spin6 animate-spin'> </i>Loading...");
+    loadState.changeAttribute($(".actionButtons button"), "style", "pointer-events: none");
+    loadState.changeAttribute($(".actionButtons a"), "style", "pointer-events: none");
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.groups.add",
       type: "POST",
       data: "name=" + name + "&pwg_token=" + pwg_token,
       success: function (raw_data) {
+        loadState.reverse();
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
           $(".addGroupFormLabelAndInput input").val('');
@@ -204,27 +209,24 @@ var setupGroupBox = function (groupBox) {
 
   /* Set the rename action */
   groupBox.find(".Group-name .icon-pencil").on("click", function () {
-    console.log("clic");
-    groupBox.find(".group-rename").css("display", "flex");
-    groupBox.find(".Group-name-container .icon-pencil").hide();
-    groupBox.find(".Group-name-container p").css("opacity", 0)
+    displayRenameForm(true, id);
   });
 
-  groupBox.find(".Group-name-container .icon-ok").on("click", function () {
-    if (groupBox.find(".group_name-editable").val() != groupBox.find("#group_name").html())
-      renameGroup(id, groupBox.find(".group_name-editable").val())
+  groupBox.find(".group-rename .validate").on("click", function () {
+      groupBox.find(".group-rename form").trigger("submit");
   });
 
-  groupBox.find(".Group-name-container form").on("submit", function (e) {
+  groupBox.find(".group-rename form").on("submit", function (e) {
+    console.log("submit");
     e.preventDefault();
     if (groupBox.find(".group_name-editable").val() != groupBox.find("#group_name").html())
       renameGroup(id, groupBox.find(".group_name-editable").val())
+    else 
+      displayRenameForm(false, id)
   });
 
   groupBox.find(".group-rename .icon-cancel").on('click', function() {
-    groupBox.find(".group-rename").hide();
-    groupBox.find(".Group-name-container .icon-pencil").removeAttr("style");
-    groupBox.find(".Group-name-container p").css("opacity", 1);
+    displayRenameForm(false, id)
     groupBox.find(".group_name-editable").val(groupBox.find(".Group-name-container p").html());
   })
 
@@ -248,7 +250,7 @@ var setupGroupBox = function (groupBox) {
 
 };
 
-/* Group Ajax Functions */
+/* Group Ajax and Display Functions */
 var deleteGroup = function (id) {
   jQuery.ajax({
     url: "ws.php?format=json&method=pwg.groups.delete",
@@ -273,12 +275,17 @@ var deleteGroup = function (id) {
 };
 
 var renameGroup = function(id, newName) {
+  let loadState = new TemporaryState();
+  loadState.changeHTML($("#group-" + id + " .group-rename .validate"), "<i class='animate-spin icon-spin6'></i>")
+  loadState.removeClass($("#group-" + id + " .group-rename .validate"), "icon-ok")
+  loadState.changeAttribute($("#group-" + id + " .group-rename span"), "style", "pointer-events: none");
   jQuery.ajax({
     url: "ws.php?format=json&method=pwg.groups.setInfo",
     type: "POST",
     data: "group_id=" + id + "&pwg_token=" + pwg_token + "&name="+newName,
     success: function (raw_data) {
       data = jQuery.parseJSON(raw_data);
+      loadState.reverse();
       if (data.stat === "ok") {
         newName = data.result.groups[0].name;
         //Display message
@@ -288,9 +295,7 @@ var renameGroup = function(id, newName) {
         $("#group-" + id).find("#group_name").html(newName);
 
         //Hide editable field
-        $("#group-" + id).find(".group-rename").hide();
-        $("#group-" + id).find(".Group-name-container .icon-pencil").removeAttr("style");
-        $("#group-" + id).find(".Group-name-container p").css("opacity", 1);
+        displayRenameForm(false, id);
       } else {
         //Display error message
         $("#group-" + id).find(".groupError").html(str_name_taken);
@@ -304,23 +309,43 @@ var renameGroup = function(id, newName) {
   });
 }
 
+// Hide or display rename form
+var displayRenameForm = function(doDisplay, grp_id) {
+  if (doDisplay) {
+    $("#group-" + grp_id).find(".group-rename").css("display", "flex");
+    $("#group-" + grp_id).find(".Group-name-container .icon-pencil").hide();
+    $("#group-" + grp_id).find(".Group-name-container p").css("opacity", 0)
+  } else {
+    $("#group-" + grp_id).find(".group-rename").hide();
+    $("#group-" + grp_id).find(".Group-name-container .icon-pencil").removeAttr("style");
+    $("#group-" + grp_id).find(".Group-name-container p").css("opacity", 1);
+  }
+}
+
 var setDefaultGroup = function (id, is_default) {
+  let loadState = new TemporaryState();
+  loadState.removeClass($("#group-" + id + " .is-default-token"), "icon-star");
+  loadState.addClass($("#group-" + id + " .is-default-token"), "icon-spin6");
+  loadState.addClass($("#group-" + id + " .is-default-token"), "animate-spin");
+  loadState.changeAttribute($("#group-" + id + " .is-default-token"), "style", "pointer-events: none; display:block")
+  loadState.changeAttribute($("#group-" + id + " #GroupDefault"), "style", "pointer-events: none")
   jQuery.ajax({
     url: "ws.php?format=json&method=pwg.groups.setInfo",
     type: "POST",
     data: "group_id=" + id + "&pwg_token=" + pwg_token + "&is_default="+is_default,
     success: function (raw_data) {
       data = jQuery.parseJSON(raw_data);
+      loadState.reverse();
       if (data.stat === "ok") {
         if (is_default) {
           setupDefaultActions(id,true)
-          $("#group-" + id).find(".groupMessage").html(str_set_default_state);
+          //$("#group-" + id).find(".groupMessage").html(str_set_default_state);
         } else {
           setupDefaultActions(id,false)
-          $("#group-" + id).find(".groupMessage").html(str_unset_default_state);
+          //$("#group-" + id).find(".groupMessage").html(str_unset_default_state);
         }
-        $("#group-" + id).find(".groupMessage").fadeIn();
-        $("#group-" + id).find(".groupMessage").delay(DELAY_FEEDBACK).fadeOut();
+        //$("#group-" + id).find(".groupMessage").fadeIn();
+        //$("#group-" + id).find(".groupMessage").delay(DELAY_FEEDBACK).fadeOut();
       }
     },
     error: function (err) {
@@ -532,11 +557,16 @@ $(function() {
 
 // Display the user manager for a specific group
 var openUserManager = function(grp_id) {
+  let loadState = new TemporaryState();
+  loadState.removeClass($("#group-" + grp_id + " #UserListTrigger"),'icon-user-1')
+  loadState.changeAttribute($("#group-" + grp_id + " #UserListTrigger"), "style", "pointer-events: none");
+  loadState.changeHTML($("#group-" + grp_id + " #UserListTrigger"), "<i class='icon-spin6 animate-spin'> </i>");
   jQuery.ajax({
     url: "ws.php?format=json&method=pwg.users.getList",
     type: "POST",
     data: "group_id=" + grp_id,
     success: function (raw_data) {
+      loadState.reverse();
       data = jQuery.parseJSON(raw_data);
       if (data.stat === "ok") {
         //Fill with user blocks
@@ -649,3 +679,93 @@ $(".AddUserBlock button").on("click", function () {
     }
   }); 
 });
+
+// Class to implement a temporary state and reverse it
+class TemporaryState {
+  //Arrays to reverse changes
+  attrChanges = []; //Attribute changes : {object(s), attribute, (old) value}
+  classChanges = []; //Class changes : {object(s), state(add:true/remove:false), class}
+  htmlChanges = []; //Html changes : {object(s), (old) html}
+
+  /**
+   * Change an attribute of an object
+   * @param {HTML Node} obj HTML Object(s)
+   * @param {String} attr Attribute
+   * @param {String} tempVal Temporary value of the attribute 
+   */
+  changeAttribute(obj, attr, tempVal) {
+    for (let i = 0; i < obj.length; i++) {
+      this.attrChanges.push({
+        object: $(obj[i]),
+        attribute: attr,
+        value: $(obj[i]).attr(attr)
+      })
+    }
+    obj.attr(attr, tempVal)
+  }
+
+  /**
+   * Add/remove a class temporarily
+   * @param {HTML Node} obj HTML Object
+   * @param {Boolean} st Add (true) or Remove (false) the class
+   * @param {String} loadclass Class Name
+   */
+  changeClass(obj, st, tempclass) {
+    for (let i = 0; i < obj.length; i++) {
+      if (!($(obj[i]).hasClass(tempclass) && st)) {
+        this.classChanges.push({
+          object: $(obj[i]),
+          state: !st,
+          class: tempclass
+        })
+        if (st) 
+          $(obj[i]).addClass(tempclass)
+        else
+          $(obj[i]).removeClass(tempclass)
+      }
+    }
+  }
+
+  addClass(obj, tempclass) {
+    this.changeClass(obj, true, tempclass);
+  }
+
+  removeClass(obj, tempclass) {
+    this.changeClass(obj, false, tempclass);
+  }
+
+  changeHTML(obj, temphtml) {
+    for (let i = 0; i < obj.length; i++) {
+      this.htmlChanges.push({
+        object:$(obj[i]),
+        html:$(obj[i]).html()
+      })
+    }
+    obj.html(temphtml);
+  }
+
+  /**
+   * Reverse all the changes and clear the history
+   */
+  reverse() {
+    this.attrChanges.forEach(function(change) {
+      if (change.value == undefined) {
+        change.object.removeAttr(change.attribute);
+      } else {
+        change.object.attr(change.attribute, change.value)
+      }
+    })
+    this.classChanges.forEach(function(change) {
+      if (change.state)
+        change.object.addClass(change.class)
+      else
+        change.object.removeClass(change.class)
+    })
+    this.htmlChanges.forEach(function(change) {
+      change.object.html(change.html);
+    })
+    this.attrChanges = [];
+    this.classChanges = [];
+    this.htmlChanges = [];
+  }
+}
