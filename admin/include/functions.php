@@ -1571,7 +1571,7 @@ SELECT id, uppercats, global_rank, visible, status
       WHERE cat_id = '.$insert['id_uppercat'].'
     ;';
     $granted_users =  query2array($query, null, 'user_id');
-    add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']), $granted_users)));
+    add_permission_on_category($inserted_id, $granted_users);
   }
   elseif ('private' == $insert['status'])
   {
