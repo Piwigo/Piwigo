@@ -15,10 +15,17 @@ var str_yes_delete_confirmation = "{'Yes, delete it'|@translate}"
 var str_no_delete_confirmation = "{"No, I've changed my mind"|@translate}"
 var str_user_associated = "{"User Associated"|@translate}"
 var str_user_dissociated = "{"User Dissociated"|@translate}"
+var str_user_list = "{"User List"|@translate}"
+
+var serverKey = '{$CACHE_KEYS.users}'
+var serverId = '{$CACHE_KEYS._hash}'
+var rootUrl = '{$ROOT_URL}'
 {/footer_script}
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
+
+{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
@@ -42,7 +49,7 @@ var str_user_dissociated = "{"User Dissociated"|@translate}"
         <div class="groupError icon-cancel"></div>
       </div>
 
-      <div class="icon-star is-default-token{if !$grp_is_default} deactivate{/if}" ></div> 
+      <div class="icon-star not-in-selection-mode is-default-token{if !$grp_is_default} deactivate{/if}" ></div> 
      
       <div class="icon-ellipsis-vert group-dropdown-options not-in-selection-mode">
         <div id="GroupOptions">
@@ -77,7 +84,7 @@ var str_user_dissociated = "{"User Dissociated"|@translate}"
     </div>
 
     <a id="UserListTrigger" class="icon-user-1 manage-users not-in-selection-mode GroupManagerButtons">Manage users</a>
-    <a class="icon-lock manage-permissions not-in-selection-mode GroupManagerButtons">Manage permissions</a>
+    <a class="icon-lock manage-permissions not-in-selection-mode GroupManagerButtons" href="admin.php?page=group_perm&group_id={$grp_id}">Manage permissions</a>
   </div>
 {/function}
 {/function}
@@ -191,15 +198,15 @@ var str_user_dissociated = "{"User Dissociated"|@translate}"
 
     <div class="group-name-block">
       <span class="icon-list-bullet"></span>
-      <p id="group_name" contenteditable="true">{$group.NAME} / User List</p>
+      <p></p>
       <span class="UserNumberBadge">25</span>
     </div>
 
     <div class="UserListAddFilterUsers">
       <div class="AddUserBlock">
         <p>Associate User</p>
-        <input type=text class="UserSearch" type="text" name="username" maxlength="50" size="20" placeholder="John Doe"></select>
-        <button class="icon-ok submit" name="submit_add" id="UserSubmit" type="submit">Select user(s)</button>
+        <select class="UserSearch" placeholder="John Doe"></select>
+        <button class="icon-user-add submit" name="submit_add" id="UserSubmit" type="submit"></button>
       </div>
       <div class="FilterUserBlock">
         <div class="AmountOfUsersShown">
@@ -215,9 +222,6 @@ var str_user_dissociated = "{"User Dissociated"|@translate}"
     
       <div class="UsersInGroupList row">
         
-        <div class='ValidationUserAssociated'>
-           <p class="icon-ok">User Associated</p>
-          </div>
       </div>
   
     </div>

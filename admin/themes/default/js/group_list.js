@@ -217,7 +217,6 @@ var setupGroupBox = function (groupBox) {
   });
 
   groupBox.find(".group-rename form").on("submit", function (e) {
-    console.log("submit");
     e.preventDefault();
     if (groupBox.find(".group_name-editable").val() != groupBox.find("#group_name").html())
       renameGroup(id, groupBox.find(".group_name-editable").val())
@@ -386,7 +385,7 @@ $(function () {
       $(".not-in-selection-mode").hide();
       $(".GroupManagerButtons").removeClass("visible");
     } else {
-      $(".in-selection-mode").fadeOut();
+      $(".in-selection-mode").hide();
       $(".not-in-selection-mode").removeAttr("style");
       $(".Group-checkbox input").attr("checked", false);
       $(".Group-checkbox input[type='checkbox']").trigger("change");
@@ -415,8 +414,6 @@ var updateSelectionPanel = function (changedState = "") {
     else 
       updateStatePanel(changedState)
   }
-
-  console.log(state);
 
   $(".number-Selected").html(numSelect + "");
 };
@@ -500,57 +497,51 @@ $('.ConfirmDeleteButton').on("click", function() {
 // Initialize the research user bar
 var selectize;
 
-// List of users
-var usersSearch = [];
+// Initialize the cache
+var usersCache = {};
+
+var usersInGroup = [];
+
+// Max offset of the user container (322 = 6 lines)
+var maxOffsetUserCont = 322;
+
+var infoUsers = $("<div class='ValidationUserAssociated'>"
+  + "<p class='icon-ok'></p>"
+  + "</div>")
 
 // Setup the user research bar
 $(function() {
 
   // initialize the Selectize control
-  $select = $('.AddUserBlock input').selectize({
-    delimiter: ',',
-    persist: false,
-    plugins: ['remove_button']
-  });
+  $select = $('.AddUserBlock select').selectize({});
 
   // fetch the instance
   selectize = $select[0].selectize;
 
+
   var idSearch = "";
   $('.UserSearch input').on("focus", function() {
-    // Import users if it is not already done
-    if (usersSearch.length == 0) {
-      jQuery.ajax({
-        url: "ws.php?format=json&method=pwg.users.getList",
-        type: "POST",
-        data: "",
-        success: function (raw_data) {
-          data = jQuery.parseJSON(raw_data);
-          if (data.stat === "ok") {
-            usersSearch = data.result.users;
-            updateUserSearch();
-            selectize.refreshOptions();
-          }
-        }
-      });
-    } else if (idSearch != $("#UserList").attr("data-group_id")) {
+    if (idSearch != $("#UserList").attr("data-group_id")) {
       updateUserSearch();
     }
   });
 
   // Update User search bar (remove group users in selection)
   updateUserSearch = function () {
+    selectize.clear();
+    if (usersCache = {}) {
+      usersCache = new UsersCache({
+        serverKey: serverKey,
+        serverId: serverId,
+        rootUrl: rootUrl
+      });
+    }
+    JSON.parse(usersCache.storage[usersCache.key]).data.forEach(function(u){
+      selectize.addOption({value:u.id, text:u.username})
+    })
     idSearch = $("#UserList").attr("data-group_id");
-    selectize.clearOptions();
-    usersSearch.forEach(function(u){
-      isInGroup = false;
-      $('.UsernameBlock').each(function(){
-        if ($(this).data("id")==u.id)
-          isInGroup = true;
-      })
-      if (!isInGroup) {
-        selectize.addOption({value:u.id, text:u.username})
-      }
+    $('.UsernameBlock').each(function(){
+      selectize.removeOption($(this).data("id"));
     })
   }
 });
@@ -569,18 +560,35 @@ var openUserManager = function(grp_id) {
       loadState.reverse();
       data = jQuery.parseJSON(raw_data);
       if (data.stat === "ok") {
-        //Fill with user blocks
-        let users = data.result.users;
-        $(".UsersInGroupList").html('');
-        $(".UserNumberBadge").html(''+users.length);
-        users.forEach(u => {
-          addUserDisplay(u.username, u.id, grp_id);
-        });
+        $(".group-name-block p").html(
+          $("#group-" + grp_id + " #group_name").html() + " / " + str_user_list
+        )
+        $(".UsersInGroupList").html("");
+
+        //Display the popin
         $('#UserList').fadeIn();
+
+        //Fill with user blocks
+        usersInGroup = data.result.users;
+        // Sort in alphabetic order
+        usersInGroup.sort(function( a, b ) {
+          if ( a.username.toLowerCase() < b.username.toLowerCase() ){
+            return 1;
+          } else return -1
+        });
+        let i = 0;
+        while ($(".UsersInGroupList").outerHeight() <= maxOffsetUserCont && usersInGroup[i] != undefined){
+          getUserDisplay(usersInGroup[i].username, usersInGroup[i].id, grp_id).prependTo(".UsersInGroupList");
+          i++;
+        };
+        while ($(".UsersInGroupList").height() > maxOffsetUserCont) {
+          $(".UsernameBlock").last().remove();
+        }
+        updateMembernumber(usersInGroup.length, grp_id);
         //Attribute the group id to the div
         $("#UserList").attr("data-group_id", grp_id);
-        //Clear the selection
-        selectize.clear();
+
+        $(".LinkUserManager a").attr("href","admin.php?page=user_list&group="+grp_id)
       }
     },
     error: function (err) {
@@ -590,7 +598,7 @@ var openUserManager = function(grp_id) {
 }
 
 //Add a user block
-var addUserDisplay = function(username, user_id, grp_id) {
+var getUserDisplay = function(username, user_id, grp_id) {
   let userBlock = $('<div class="UsernameBlock" data-id='+user_id+'>'+
       '<span class="icon-user-1"></span>'+
       '<p>'+username+'</p>'+
@@ -598,12 +606,18 @@ var addUserDisplay = function(username, user_id, grp_id) {
         '<span class="icon-cancel"></span>'+
         '<p class="TooltipText">Dissociate user from this group</p>'+
       '</div>'+
-      '<div class="UserInfo"><p>User Dissociated</p></div>'+
     '</div>');
-    userBlock.appendTo(".UsersInGroupList");
 
-    //Setup the delete action
-    userBlock.find(".icon-cancel").on("click", function () {
+  while ($(".UsersInGroupList")[0].offsetHeight > maxOffsetUserCont) {
+    $(".UsernameBlock").last().remove();
+  }
+
+  //Setup the delete action
+  userBlock.find(".icon-cancel").on("click", function () {
+    userBlock.find(".icon-cancel").addClass("icon-spin6")
+    userBlock.find(".icon-cancel").addClass("animate-spin")
+    userBlock.find(".icon-cancel").css("pointer-events", "none")
+    userBlock.find(".icon-cancel").removeClass("icon-cancel")
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.groups.deleteUser",
       type: "POST",
@@ -611,21 +625,23 @@ var addUserDisplay = function(username, user_id, grp_id) {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
-          //Setup User Info
-          userBlock.find(".UserInfo")
-            .css("display", "flex")
-            .addClass("UserInfo-dissociated").removeClass("UserInfo-associated")
-            .hide()
-            .find("p").html(str_user_dissociated);
-          userBlock.find(".UserInfo").fadeIn();
-          userBlock.delay(1000).fadeOut(function(){
-            userBlock.remove();
-            updateUserSearch();
-            //Update member number
-            $(".GroupContainer[data-id="+grp_id+"] .group_number_users")
-            .html(($(".UsernameBlock").length) + " " + str_member_default);
-            $(".UserNumberBadge").html(''+$(".UsernameBlock").length);
-          })
+          infoUsers.remove();
+          infoUsers.insertAfter(userBlock).hide();
+          infoUsers.find("p").html(str_user_dissociated);
+          infoUsers.fadeIn()
+
+          userBlock.remove()
+
+          updateUserSearch();
+
+          while ($(".UsersInGroupList").height() > maxOffsetUserCont) {
+            $(".UsernameBlock").last().remove();
+          }
+
+          usersInGroup = usersInGroup.filter(u => u.id != user_id)
+
+          //Update member number
+          updateMembernumber(parseInt($(".UserNumberBadge").html()) -1, grp_id);
         }
       }
     });
@@ -633,52 +649,100 @@ var addUserDisplay = function(username, user_id, grp_id) {
   return userBlock;
 } 
 
+//Update member number function
+function updateMembernumber(number, grp_id) {
+  $(".GroupContainer[data-id="+grp_id+"] .group_number_users")
+    .html(number + " " + str_member_default);
+  $(".UserNumberBadge").html(number);
+  $(".AmountOfUsersShown strong:nth-child(2)").html(number)
+  $(".AmountOfUsersShown strong:nth-child(1)").html($(".UsernameBlock").length)
+}
+
 // Close pop-up on cross click
 $(".CloseUserList").on("click", function() {$('#UserList').fadeOut();})
 
 // Adding Group Action
 $(".AddUserBlock button").on("click", function () {
-  let grp_id = $("#UserList").attr("data-group_id")
+  let grp_id = $("#UserList").attr("data-group_id");
   let usersString = ""
   // Get selected ids
-  let ids = selectize.getValue();
-  ids.split(',').forEach(function(id){
-    usersString += "&user_id[]="+id
-  });
-  jQuery.ajax({
-    url: "ws.php?format=json&method=pwg.groups.addUser",
-    type: "POST",
-    data: "group_id=" + grp_id+ usersString + "&pwg_token=" + pwg_token,
-    success: function (raw_data) {
-      data = jQuery.parseJSON(raw_data);
-      ids.split(',').forEach(function(id){
-        // Get the username
-        let username = "undefined";
-        usersSearch.forEach(function(u) {
-          if (u.id == id) {
-            username = u.username;
+  let id = selectize.getValue();
+
+  if (id != "") {
+    let loadState = new TemporaryState();
+    loadState.changeHTML($("#UserSubmit"),"<i class='icon-spin6 animate-spin'> </i>");
+    loadState.removeClass($("#UserSubmit"),"icon-user-add");
+    loadState.changeAttribute($("#UserSubmit"),"css","pointer-events:none")
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.groups.addUser",
+      type: "POST",
+      data: "group_id=" + grp_id+ "&user_id=" + id + "&pwg_token=" + pwg_token,
+      success: function (raw_data) {
+        loadState.reverse()
+        data = jQuery.parseJSON(raw_data);
+
+        if (data.stat === "ok") {
+          // Get the username
+          let username = "undefined";
+          JSON.parse(usersCache.storage[usersCache.key]).data.forEach(function(u) {
+            if (u.id == id) {
+              username = u.username;
+            }
+          })
+          let userBlock = getUserDisplay(username, id, grp_id).prependTo(".UsersInGroupList");
+    
+          infoUsers.remove();
+          infoUsers.insertAfter(userBlock).hide();
+          infoUsers.find("p").html(str_user_associated);
+          infoUsers.fadeIn()
+
+          updateUserSearch();
+
+          usersInGroup.push({username: username, id:id});
+          
+          while ($(".UsersInGroupList").height() > maxOffsetUserCont) {
+            $(".UsernameBlock").last().remove();
           }
-        })
-        let userBlock = addUserDisplay(username, id, grp_id)
 
-        //Setup User Info
-        userBlock.find(".UserInfo")
-          .css("display", "flex")
-          .addClass("UserInfo-associated").removeClass("UserInfo-dissociated")
-          .show()
-          .find("p").html(str_user_associated);
-        userBlock.delay(1000).fadeIn();
-        userBlock.find(".UserInfo").delay(1000).fadeOut();
-
-        updateUserSearch();
-        //Update member number
-        $(".GroupContainer[data-id="+grp_id+"] .group_number_users")
-        .html(($(".UsernameBlock").length) + " " + str_member_default);
-        $(".UserNumberBadge").html(''+$(".UsernameBlock").length);
-      })
-    }
-  }); 
+          //Update member number
+          updateMembernumber(parseInt($(".UserNumberBadge").html()) + 1, grp_id);
+        }
+      }
+    });
+  }
 });
+
+$(".input-user-name").on("input", function() {
+  searchString = $(this).val().toLowerCase();
+  grp_id = $(".UserListPopIn").data("group_id");
+  if (searchString != "") {
+    infoUsers.remove();
+    $(".UsersInGroupListContainer").css("min-height", $(".UsersInGroupListContainer").height())
+    usersInGroup.forEach(function(u) {
+      let isSearched = u.username.toLowerCase().includes(searchString)
+      if ($(".UsernameBlock[data-id="+u.id+"]").length != 0) {
+        if (!isSearched) {
+          $(".UsernameBlock[data-id="+u.id+"]").remove();
+        }
+      } else if (isSearched) {
+        getUserDisplay(u.username, u.id, grp_id)
+          .prependTo(".UsersInGroupList");
+      }
+    })
+  } else {
+    $(".UsersInGroupListContainer").css("min-height", "")
+    $(".UsersInGroupList").html("");
+    let i = 0;
+    while ($(".UsersInGroupList").outerHeight() <= maxOffsetUserCont && usersInGroup[i] != undefined){
+      getUserDisplay(usersInGroup[i].username, usersInGroup[i].id, grp_id)
+        .prependTo(".UsersInGroupList");
+      i++;
+    }
+  }
+  while ($(".UsersInGroupList").height() > maxOffsetUserCont) {
+    $(".UsernameBlock").last().remove();
+  }
+})
 
 // Class to implement a temporary state and reverse it
 class TemporaryState {
@@ -688,8 +752,8 @@ class TemporaryState {
   htmlChanges = []; //Html changes : {object(s), (old) html}
 
   /**
-   * Change an attribute of an object
-   * @param {HTML Node} obj HTML Object(s)
+   * Change temporaly an attribute of an object
+   * @param {Jquery Object(s)} obj HTML Object(s)
    * @param {String} attr Attribute
    * @param {String} tempVal Temporary value of the attribute 
    */
@@ -706,7 +770,7 @@ class TemporaryState {
 
   /**
    * Add/remove a class temporarily
-   * @param {HTML Node} obj HTML Object
+   * @param {Jquery Object(s)} obj HTML Object
    * @param {Boolean} st Add (true) or Remove (false) the class
    * @param {String} loadclass Class Name
    */
@@ -726,14 +790,29 @@ class TemporaryState {
     }
   }
 
+  /**
+   * Add temporarily a class to the object
+   * @param {Jquery Object(s)} obj 
+   * @param {string} tempclass 
+   */
   addClass(obj, tempclass) {
     this.changeClass(obj, true, tempclass);
   }
 
+  /**
+   * Remove temporarily a class to the object
+   * @param {Jquery Object(s)} obj 
+   * @param {string} tempclass 
+   */
   removeClass(obj, tempclass) {
     this.changeClass(obj, false, tempclass);
   }
 
+  /**
+   * Change temporaly the html of objects (remove event handlers on the actual content)
+   * @param {Jquery Object(s)} obj 
+   * @param {string} temphtml 
+   */
   changeHTML(obj, temphtml) {
     for (let i = 0; i < obj.length; i++) {
       this.htmlChanges.push({

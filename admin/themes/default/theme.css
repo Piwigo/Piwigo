@@ -2244,7 +2244,6 @@ input:checked + .slider:before {
 .UserListPopIn{
   position: fixed;
   z-index: 100;
-  padding-top: 100px;
   left: 0;
   top: 0;
   width: 100%; 
@@ -2258,7 +2257,8 @@ input:checked + .slider:before {
   width:1100px;
   position:absolute;
   left:50%;
-  transform:translateX(-50%);
+  top: 50%;
+  transform:translate(-50%, -48%);
   text-align:left;
   padding:30px;
 }
@@ -2316,13 +2316,13 @@ input:checked + .slider:before {
 }
 
 #UserList .AddUserBlock p,
-#UserList .AddUserBlock input,
+#UserList .AddUserBlock select,
 #UserList .AddUserBlock button{
   display:inline-block;
   margin:0 5px;
 }
 
-#UserList .AddUserBlock input,
+#UserList .AddUserBlock select,
 #UserList .FilterUserBlock input{
   padding:11px 10px;
 }
@@ -2367,30 +2367,6 @@ input:checked + .slider:before {
   border-radius:25px;
 }
 
-.UsernameBlock .UserInfo {
-  display: none;
-  position: absolute;
-  top: 0;
-  
-  width: 100%;
-  left: 0px;
-  height: 100%;
-  border-radius: 25px;
-}
-
-.UsernameBlock .UserInfo-dissociated {
-  color: #f22;
-  background-color: #ffd5dc;
-}
-
-.UsernameBlock .UserInfo-associated {
-  color: #0a0;
-  background-color:#c2f5c2;
-}
-
-.UsernameBlock .UserInfo p {
-  margin: auto
-}
 
 .UsersInGroupListContainer{
   max-height:315px;
@@ -2424,7 +2400,7 @@ input:checked + .slider:before {
   background-color:#f3f3f3;
   color: #3c3c3c;
   text-align: left;
-  padding: 2px 10px;
+  padding: 5px 10px;
   border-radius: 10px;
   border:1px solid #3c3c3c;
   font-weight:700;
@@ -2432,7 +2408,7 @@ input:checked + .slider:before {
   position: absolute;
   z-index: 4;
   top:10px;
-  left:10px;
+  left:20px;
   transition: opacity 0.3s;
   z-index:101;
 }
@@ -2444,7 +2420,6 @@ input:checked + .slider:before {
 .ValidationUserAssociated{
   display:inline-block;
   font-size:12px;
-  width:110px;
   text-align:left;
   padding:2px;
   border-radius:10px;
@@ -2469,7 +2444,7 @@ input:checked + .slider:before {
 .LinkUserManager{
   text-align:center;
   font-weight:700;
-  padding:30px 0;
+  padding-top:20px;
 }
 
 /********/
