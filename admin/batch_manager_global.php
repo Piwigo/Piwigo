@@ -55,6 +55,11 @@ check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 // |                            current selection                          |
 // +-----------------------------------------------------------------------+
 
+if (!isset($page['cat_elements_id'])) 
+{
+  $page['cat_elements_id'] = array();
+}
+
 $collection = array();
 if (isset($_POST['nb_photos_deleted']))
 {
