@@ -1,20 +1,19 @@
 {footer_script}
 var pwg_token = "{$PWG_TOKEN}";
 var str_member_default = "{'member'|@translate}"
+var str_members_default = "{'members'|@translate}"
 var str_group_created = "{'Group added'|@translate}"
 var str_renaming_done = "{'Group renamed'|@translate}"
 var str_name_taken = "{'Name is already taken'|@translate}"
-var str_group_deleted = "{'Group succesfully deleted'|@translate}"
+var str_group_deleted = '{'Group "%s" succesfully deleted'|@translate}'
+var str_groups_deleted = '{'Groups \{%s\} succesfully deleted'|@translate}'
 var str_set_default = "{'Set as group for new users'|@translate}"
 var str_unset_default = "{'Unset as group for new users'|@translate}"
-var str_set_default_state = "{'Group for new users set'|@translate}"
-var str_unset_default_state = "{'Group for new users unset'|@translate}"
-var str_delete = "{'Delete'|@translate}"
-var str_are_you_sure = "{'Are you sure ?'|@translate}"
-var str_yes_delete_confirmation = "{'Yes, delete it'|@translate}"
-var str_no_delete_confirmation = "{"No, I've changed my mind"|@translate}"
-var str_user_associated = "{"User Associated"|@translate}"
-var str_user_dissociated = "{"User Dissociated"|@translate}"
+var str_delete = '{'Delete group "%s"?'|@translate}'
+var str_yes_delete_confirmation = "{'Yes, delete'|@translate}"
+var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}"
+var str_user_associated = "{"User associated"|@translate}"
+var str_user_dissociated = '{'User "%s" Dissociated from this group'|@translate}'
 var str_user_list = "{"User List"|@translate}"
 
 var serverKey = '{$CACHE_KEYS.users}'
@@ -122,20 +121,19 @@ var rootUrl = '{$ROOT_URL}'
    <p>{'Choose which group to merge these groups into'|@translate}</p>
    <p class="ItalicTextInfo">{'The other groups will be removed'|@translate}</p>
     <div class="MergeOptionsContainer">
-      <label for="MergeOptionsChoices">{'The other groups will be removed'|@translate}</label>
-      <select id="MergeOptionsChoices"> {* TODO *}
+      <select id="MergeOptionsChoices"> 
       </select>
     </div>
     
-    <button class="icon-ok ConfirmMergeButton" onclick="updateSelectionPanel('Selection')">Confirm merge</button>
+    <button class="icon-ok ConfirmMergeButton">Confirm merge</button>
     <a id="CancelMerge" onclick="updateSelectionPanel('Selection')">Cancel</a>
    </div>
  
 
    <div id="ConfirmGroupAction">
     <p>You are about to delete <span class="number-Selected">0</span> groups, are you sure?</p>
-    <button class="icon-ok ConfirmDeleteButton" onclick="updateSelectionPanel('Selection')">Yes, delete</button>
-    <a id="CancelDelete" onclick="updateSelectionPanel('Selection')">No, I have changed my mind</a>
+    <button class="icon-ok ConfirmDeleteButton">{'Yes, delete'|@translate}</button>
+    <a id="CancelDelete" onclick="updateSelectionPanel('Selection')">{"No, I have changed my mind"|@translate}</a>
     </div>
   
   </div>

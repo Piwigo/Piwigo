@@ -2044,6 +2044,35 @@ input:checked + .slider:before {
  font-size: 13px;
 }
 
+.groupDeleteConfirm, .groupDeleteAlert {
+  padding-bottom: 0 !important;
+  color: #3c3c3c !important;
+  line-height: 28px !important;
+}
+
+.groupDeleteConfirm ~ .jconfirm-content-pane, .groupDeleteAlert ~ .jconfirm-content-pane {
+  height: 0px !important;
+  margin: 0px !important;
+}
+
+.groupDeleteConfirm ~ .jconfirm-buttons button {
+  text-transform: none !important;
+}
+
+.groupDeleteAlert .jconfirm-icon-c i {
+  color: #0a0 !important;
+  background-color:#c2f5c2 !important;
+  border-radius: 20px;
+  padding: 5px 3px;
+  border-radius: 60px;
+  padding: 2px;
+  font-size: 45px;
+}
+
+.groupDeleteAlert .jconfirm-icon-c {
+  margin-bottom: 20px !important;
+}
+
 /*Group checkbox*/
 
 .Group-checkbox{
@@ -2421,7 +2450,7 @@ input:checked + .slider:before {
   display:inline-block;
   font-size:12px;
   text-align:left;
-  padding:2px;
+  padding: 4px 6px;
   border-radius:10px;
   margin-left:-5px;
   margin-right:10px;
@@ -2429,6 +2458,20 @@ input:checked + .slider:before {
 
 .ValidationUserAssociated p{
   margin:0;
+}
+
+.ValidationUserDissociated{
+  display:inline-block;
+  text-align:left;
+  padding: 6px;
+  border-radius: 30px;
+  margin-left: 8px;
+}
+
+.ValidationUserDissociated p{
+  margin:0 !important;
+  font-size:12px !important;
+  font-weight: 500 !important;
 }
 
 

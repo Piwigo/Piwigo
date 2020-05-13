@@ -602,7 +602,7 @@ input:focus + .slider {
   border:1px solid #3c3c3c;
 }
 
-.ValidationUserAssociated{
+.ValidationUserAssociated, .ValidationUserDissociated{
   color:#00aa00;
   background-color:#c2f5c2;
 }

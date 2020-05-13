@@ -2454,6 +2454,50 @@ SELECT name
   return $groupname;
 }
 
+function delete_groups($group_ids) {
+
+  $group_id_string = implode(',', $group_ids);
+
+  // destruction of the access linked to the group
+  $query = '
+DELETE
+  FROM '. GROUP_ACCESS_TABLE .'
+  WHERE group_id IN('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  // destruction of the users links for this group
+  $query = '
+DELETE
+  FROM '. USER_GROUP_TABLE .'
+  WHERE group_id IN('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  $query = '
+SELECT id, name
+  FROM `'. GROUPS_TABLE .'`
+  WHERE id IN('. $group_id_string  .')
+;';
+
+  $group_list = query2array($query, 'id', 'name');
+  $groupids = array_keys($group_list);
+
+  // destruction of the group
+  $query = '
+DELETE
+  FROM `'. GROUPS_TABLE .'`
+  WHERE id IN('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  trigger_notify('delete_group', $groupids);
+  pwg_activity('group', $groupids, 'delete');
+
+
+  return $group_list;
+}
+
 /**
  * Returns the username corresponding to the given user identifier if exists.
  *

@@ -104,46 +104,9 @@ function ws_groups_delete($params, &$service)
     return new PwgError(403, 'Invalid security token');
   }
 
-  $group_id_string = implode(',', $params['group_id']);
-
-  // destruction of the access linked to the group
-  $query = '
-DELETE
-  FROM '. GROUP_ACCESS_TABLE .'
-  WHERE group_id IN('. $group_id_string  .')
-;';
-  pwg_query($query);
-
-  // destruction of the users links for this group
-  $query = '
-DELETE
-  FROM '. USER_GROUP_TABLE .'
-  WHERE group_id IN('. $group_id_string  .')
-;';
-  pwg_query($query);
-
-  $query = '
-SELECT id, name
-  FROM `'. GROUPS_TABLE .'`
-  WHERE id IN('. $group_id_string  .')
-;';
-
-  $group_list = query2array($query, 'id', 'name');
-  $groupnames = array_values($group_list);
-  $groupids = array_keys($group_list);
-
-  // destruction of the group
-  $query = '
-DELETE
-  FROM `'. GROUPS_TABLE .'`
-  WHERE id IN('. $group_id_string  .')
-;';
-  pwg_query($query);
-
-  trigger_notify('delete_group', $groupids);
-  pwg_activity('group', $groupids, 'delete');
-
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  $groupnames = array_values(delete_groups($params['group_id']));
+  
   invalidate_user_cache();
 
   return new PwgNamedArray($groupnames, 'group_deleted');
@@ -262,6 +225,92 @@ SELECT COUNT(*)
   pwg_activity('user', $params['user_id'], 'edit');
 
   return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));
+}
+
+/**
+ * API method
+ * Merge groups in one other group
+ * @param mixed[] $params
+ *    @option int destination_group_id
+ *    @option int[] merge_group_id
+ */
+function ws_groups_merge($params, &$service) {
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $all_groups = $params['merge_group_id'];
+  array_push($all_groups, $params['destination_group_id']);
+
+  $all_groups = array_unique($all_groups);
+  $merge_group = array_diff($params['merge_group_id'], array($params['destination_group_id']));
+
+  $query = '
+SELECT COUNT(*)
+  FROM `'. GROUPS_TABLE .'`
+  WHERE id in ('.implode(',', $all_groups) .')
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count != count($all_groups))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'All groups does not exist.');
+  }
+
+  $user_in_merge_groups = array();
+  $user_in_dest = array();
+  $user_to_add = array();
+
+  $query = '
+SELECT DISTINCT(user_id) 
+  FROM `'. USER_GROUP_TABLE .'` 
+  WHERE 
+    group_id in ('.implode(',', $merge_group) .')
+;';
+  $user_in_merge_groups = query2array($query, null, 'user_id');
+
+  $query = '
+SELECT user_id 
+  FROM `'. USER_GROUP_TABLE .'` 
+  WHERE group_id = '.$params['destination_group_id'].'
+;';
+
+  $user_in_dest = query2array($query, null, 'user_id');;
+
+  
+  $user_to_add = array_diff($user_in_merge_groups, $user_in_dest);
+
+  $inserts = array();
+  foreach ($user_to_add as $user)
+  {
+    $inserts[] = array(
+      'group_id' => $params['destination_group_id'],
+      'user_id' => $user,
+      );
+  }
+
+  mass_inserts(
+    USER_GROUP_TABLE,
+    array('group_id', 'user_id'),
+    $inserts,
+    array('ignore'=>true)
+    );
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  invalidate_user_cache();
+
+  pwg_activity('group', $params['destination_group_id'], 'edit');
+  foreach ($user_to_add as $user_id) 
+  {
+    pwg_activity('user', $user_id, 'edit');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  delete_groups($merge_group);
+
+  return $service->invoke('pwg.groups.getList', array('group_id' => $params['destination_group_id']));
 }
 
 /**

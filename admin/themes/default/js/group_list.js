@@ -90,6 +90,7 @@ jQuery(document).ready(function () {
           newgroup.css("order", -id);
           newgroup.attr("data-id", id);
           newgroup.find("#group_name").html(name);
+          newgroup.find(".group_name-editable").val(name);
           newgroup.find(".Group-checkbox label").attr("for", "Group-Checkbox-selection-" + id);
           newgroup.find(".Group-checkbox input").attr("id", "Group-Checkbox-selection-" + id);
           newgroup.find(".input-edit-group-name").attr("placeholder", name);
@@ -109,9 +110,9 @@ jQuery(document).ready(function () {
           newgroup.find(".groupMessage").fadeIn();
           newgroup.find(".groupMessage").delay(DELAY_FEEDBACK).fadeOut();
         } else {
-          $("#showAddGroup .groupError").html(str_name_taken);
-          $("#showAddGroup .groupError").fadeIn();
-          $("#showAddGroup .groupError").delay(DELAY_FEEDBACK).fadeOut();
+          $("#addGroupForm .groupError").html(str_name_taken);
+          $("#addGroupForm .groupError").fadeIn();
+          $("#addGroupForm .groupError").delay(DELAY_FEEDBACK).fadeOut();
         }
       },
       error: function (err) {
@@ -129,54 +130,14 @@ jQuery(document).ready(function () {
     setupGroupBox($(this));
   });
 });
-
 var setupGroupBox = function (groupBox) {
   var id = groupBox.data("id");
 
   /* Change background color of group block if checked in selection mode */
   groupBox.find(".Group-checkbox input[type='checkbox']").change(function () {
-    if ($(this).is(":checked")) {
-      groupBox.addClass("OrangeBackground");
-      groupBox.find(".icon-users-1").addClass("OrangeIcon");
-      groupBox.find(".group_number_users").addClass("OrangeFont");
-
-      //Display item selection on selection panel
-      item = $(
-        "<div data-id=" +
-          groupBox.data("id") +
-          ">" +
-          "<a class='icon-cancel'></a>" +
-          "<p>" +
-          groupBox.find("#group_name").html() +
-          "</p> </div>"
-      );
-      item.appendTo(".DeleteGroupList");
-      item.find("a").on("click", function () {
-        groupBox.find(".Group-checkbox input").attr("checked", false);
-        groupBox
-          .find(".Group-checkbox input[type='checkbox']")
-          .trigger("change");
-      });
-      updateSelectionPanel();
-      option = $('<option value="'+id+'">'+groupBox.find("#group_name").html()+'</option>')
-      option.appendTo("#MergeOptionsChoices");
-    } else {
-      groupBox.removeClass("OrangeBackground");
-      groupBox.find(".icon-users-1").removeClass("OrangeIcon");
-      groupBox.find(".group_number_users").removeClass("OrangeFont");
-      $(".DeleteGroupList div").each(function () {
-        if ($(this).data("id") == id) {
-          $(this).remove();
-        }
-      });
-      updateSelectionPanel();
-      $("#MergeOptionsChoices option").each(function () {
-        if ($(this).attr("value") == id) {
-          $(this).remove();
-        }
-      });
-    }
+    toogleSelection(id, groupBox.find(".Group-checkbox input[type='checkbox']").is(":checked"));
   });
+  groupBox.find(".Group-checkbox input[type='checkbox']").attr("checked", false)
 
   /* Display the option on the click on "..." */
   groupBox.find(".group-dropdown-options").click(function GroupOptions() {
@@ -186,18 +147,40 @@ var setupGroupBox = function (groupBox) {
   /* Set the delete action */
   groupBox.find("#GroupDelete").on("click", function () {
     $.confirm({
-      title: str_delete+' '+groupBox.find("#group_name").html(),
-      content: str_are_you_sure,
+      title: str_delete.replace("%s",groupBox.find("#group_name").html()),
+      draggable: false,
+      titleClass: "groupDeleteConfirm",
+      theme: "modern",
+      content: "",
+      animation: "zoom",
       boxWidth: '30%',
       useBootstrap: false,
       type: 'red',
-      typeAnimated: true,
+      animateFromElement: false,
+      backgroundDismiss: true,
+      typeAnimated: false,
       buttons: {
           confirm: {
             text: str_yes_delete_confirmation,
             btnClass: 'btn-red',
             action: function () {
-              deleteGroup(id);
+              let groupName = groupBox.find(".Group-name-container p").html();
+              deleteGroup(id).then(() => {
+                $.alert({
+                  title: str_group_deleted.replace("%s",groupName),
+                  icon: 'icon-ok',
+                  titleClass: "groupDeleteAlert",
+                  theme:"modern",
+                  closeIcon: true,
+                  content: "",
+                  animation: "zoom",
+                  boxWidth: '20%',
+                  useBootstrap: false,
+                  backgroundDismiss: true,
+                  animateFromElement: false,
+                  typeAnimated: false,
+                });
+              });
             }
           },
           cancel: {
@@ -249,28 +232,71 @@ var setupGroupBox = function (groupBox) {
 
 };
 
+var toogleSelection = function(group_id, toggle) {
+  groupBox = $("#group-"+group_id);
+  if (toggle) {
+    groupBox.find(".Group-checkbox input").attr("checked", true);
+    groupBox.addClass("OrangeBackground");
+    groupBox.find(".icon-users-1").addClass("OrangeIcon");
+    groupBox.find(".group_number_users").addClass("OrangeFont");
+
+    //Display item selection on selection panel
+    item = $(
+      "<div data-id=" +
+        group_id +
+        ">" +
+        "<a class='icon-cancel'></a>" +
+        "<p>" +
+        groupBox.find("#group_name").html() +
+        "</p> </div>"
+    );
+    item.appendTo(".DeleteGroupList");
+    item.find("a").on("click", function () {
+      groupBox.find(".Group-checkbox input").attr("checked", false);
+      toogleSelection(group_id);
+    });
+    updateSelectionPanel();
+    option = $('<option value="'+group_id+'">'+groupBox.find("#group_name").html()+'</option>')
+    option.appendTo("#MergeOptionsChoices");
+  } else {
+    groupBox.find(".Group-checkbox input").attr("checked", false);
+    groupBox.removeClass("OrangeBackground");
+    groupBox.find(".icon-users-1").removeClass("OrangeIcon");
+    groupBox.find(".group_number_users").removeClass("OrangeFont");
+    $(".DeleteGroupList div").each(function () {
+      if ($(this).data("id") == group_id) {
+        $(this).remove();
+      }
+    });
+    updateSelectionPanel();
+    $("#MergeOptionsChoices option").each(function () {
+      if ($(this).attr("value") == group_id) {
+        $(this).remove();
+      }
+    });
+  }
+}
+
 /* Group Ajax and Display Functions */
 var deleteGroup = function (id) {
-  jQuery.ajax({
-    url: "ws.php?format=json&method=pwg.groups.delete",
-    type: "POST",
-    data: "group_id=" + id + "&pwg_token=" + pwg_token,
-    success: function (raw_data) {
-      data = jQuery.parseJSON(raw_data);
-      if (data.stat === "ok") {
-        $.alert({
-          title: str_group_deleted,
-          content: "",
-          boxWidth: '20%',
-          useBootstrap: false
-        });
-        $("#group-" + id).remove();
-      }
-    },
-    error: function (err) {
-      console.log(err);
-    },
-  });
+  return new Promise((resolve, reject) => {
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.groups.delete",
+      type: "POST",
+      data: "group_id=" + id + "&pwg_token=" + pwg_token,
+      success: function (raw_data) {
+        data = jQuery.parseJSON(raw_data);
+        if (data.stat === "ok") {
+          $("#group-" + id).remove();
+          $(".DeleteGroupList div[data-id="+id+"]").remove()
+          resolve();
+        }
+      },
+      error: function (err) {
+        console.log(err);
+      },
+    });
+  })
 };
 
 var renameGroup = function(id, newName) {
@@ -338,13 +364,9 @@ var setDefaultGroup = function (id, is_default) {
       if (data.stat === "ok") {
         if (is_default) {
           setupDefaultActions(id,true)
-          //$("#group-" + id).find(".groupMessage").html(str_set_default_state);
         } else {
           setupDefaultActions(id,false)
-          //$("#group-" + id).find(".groupMessage").html(str_unset_default_state);
         }
-        //$("#group-" + id).find(".groupMessage").fadeIn();
-        //$("#group-" + id).find(".groupMessage").delay(DELAY_FEEDBACK).fadeOut();
       }
     },
     error: function (err) {
@@ -379,6 +401,7 @@ var setupDefaultActions = function(id, is_default) {
  -------*/
 
 $(function () {
+  $("#toggleSelectionMode").attr("checked", false)
   $("#toggleSelectionMode").click(function () {
     if ($(this).is(":checked")) {
       $(".in-selection-mode").show();
@@ -479,16 +502,97 @@ var buttonUnavailable = function(button) {
 }
 
 /*-------
+ Merge function on button's pannel
+ -------*/
+
+$('.ConfirmMergeButton').on("click", function() {
+  let loadState = new TemporaryState();
+  loadState.changeAttribute($('.ConfirmMergeButton'), "style", "pointer-events: none");
+  loadState.changeHTML($('.ConfirmMergeButton'), "<i class='icon-spin6 animate-spin'> </i>");
+  loadState.removeClass($('.ConfirmMergeButton'), "icon-ok");
+  merge_group = [];
+  str_merge_group = "";
+  dest_grp = $("#MergeOptionsChoices").val();
+
+  $(".DeleteGroupList div").each(function () {
+    if (dest_grp != $(this).attr("data-id")) {
+      str_merge_group += "&merge_group_id[]="+$(this).attr("data-id");
+      merge_group.push($(this).attr("data-id"));
+    }
+  })
+
+  jQuery.ajax({
+    url: "ws.php?format=json&method=pwg.groups.merge",
+    type: "POST",
+    data: "destination_group_id=" + dest_grp + str_merge_group + "&pwg_token=" + pwg_token,
+    success: function (raw_data) {
+      loadState.reverse();
+      data = jQuery.parseJSON(raw_data);
+      if (data.stat === "ok") {
+        updateSelectionPanel('Selection');
+        console.log(data);
+        merge_group.forEach(function(id) {
+          ($("#group-"+id).fadeOut(complete=function(){
+            $(this).remove();
+          }))
+        })
+        toogleSelection(dest_grp, false)
+
+        $("#group-"+dest_grp + " .group_number_users").html("<i class='icon-spin6 animate-spin'> </i>");
+        jQuery.ajax({
+          url: "ws.php?format=json&method=pwg.users.getList",
+          type: "POST",
+          data: "group_id=" + dest_grp,
+          success: function (raw_data) {
+            data = jQuery.parseJSON(raw_data);
+            let number = data.result.users.length;
+            $("#group-"+dest_grp + " .group_number_users").html(
+              number + " " + ((number > 1)? str_members_default:str_member_default)
+            );
+          }
+        })
+      };
+    }
+  })
+})
+
+/*-------
  Delete function on button's pannel
  -------*/
 
 $('.ConfirmDeleteButton').on("click", function() {
+  let names = [];
+  let promises = [];
   $('.DeleteGroupList div').each(function () {
-    deleteGroup($(this).data('id'));
-    $(this).remove();
+    let id = $(this).data('id');
+    names.push($("#group-"+id+" #group_name").html());
+    promises.push(deleteGroup(id));
+  });
+
+  let loadState = new TemporaryState;
+  loadState.changeAttribute($('.ConfirmDeleteButton'), "style", "pointer-events: none");
+  loadState.changeHTML($('.ConfirmDeleteButton'), "<i class='icon-spin6 animate-spin'> </i>");
+  loadState.removeClass($('.ConfirmDeleteButton'),"icon-ok");
+
+  Promise.all(promises).then(() => {
+    loadState.reverse();
     updateSelectionPanel("NoSelection");
+    $.alert({
+      title: str_groups_deleted.replace("%s",names.toString()),
+      titleClass: "groupDeleteAlert",
+      theme: "modern",
+      icon: 'icon-ok',
+      closeIcon: true,
+      content: "",
+      animation: "zoom",
+      boxWidth: '20%',
+      useBootstrap: false,
+      backgroundDismiss: true,
+      animateFromElement: false,
+      typeAnimated: false,
+      backgroundDismiss: true,
+    });
   })
-})
 
 /*-------
  Manage User Part
@@ -505,9 +609,13 @@ var usersInGroup = [];
 // Max offset of the user container (322 = 6 lines)
 var maxOffsetUserCont = 322;
 
-var infoUsers = $("<div class='ValidationUserAssociated'>"
+var dissociateUserInfo = $("<div class='ValidationUserDissociated'>"
   + "<p class='icon-ok'></p>"
-  + "</div>")
+  + "</div>").appendTo(".group-name-block").hide();
+
+var associateUserInfo = $("<div class='ValidationUserAssociated'>"
++ "<p class='icon-ok'></p>"
++ "</div>");
 
 // Setup the user research bar
 $(function() {
@@ -625,10 +733,10 @@ var getUserDisplay = function(username, user_id, grp_id) {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
-          infoUsers.remove();
-          infoUsers.insertAfter(userBlock).hide();
-          infoUsers.find("p").html(str_user_dissociated);
-          infoUsers.fadeIn()
+          let str = str_user_dissociated.replace("%s", username)
+          dissociateUserInfo.find("p").html(str);
+          dissociateUserInfo.fadeIn()
+          dissociateUserInfo.delay(DELAY_FEEDBACK).fadeOut()
 
           userBlock.remove()
 
@@ -652,7 +760,7 @@ var getUserDisplay = function(username, user_id, grp_id) {
 //Update member number function
 function updateMembernumber(number, grp_id) {
   $(".GroupContainer[data-id="+grp_id+"] .group_number_users")
-    .html(number + " " + str_member_default);
+    .html(number + " " + ((number > 1)? str_members_default:str_member_default));
   $(".UserNumberBadge").html(number);
   $(".AmountOfUsersShown strong:nth-child(2)").html(number)
   $(".AmountOfUsersShown strong:nth-child(1)").html($(".UsernameBlock").length)
@@ -691,10 +799,11 @@ $(".AddUserBlock button").on("click", function () {
           })
           let userBlock = getUserDisplay(username, id, grp_id).prependTo(".UsersInGroupList");
     
-          infoUsers.remove();
-          infoUsers.insertAfter(userBlock).hide();
-          infoUsers.find("p").html(str_user_associated);
-          infoUsers.fadeIn()
+          associateUserInfo.remove()
+          associateUserInfo.insertAfter(userBlock);
+          associateUserInfo.find("p").html(str_user_associated);
+          associateUserInfo.fadeIn()
+          associateUserInfo.delay(DELAY_FEEDBACK).fadeOut()
 
           updateUserSearch();
 
@@ -716,7 +825,6 @@ $(".input-user-name").on("input", function() {
   searchString = $(this).val().toLowerCase();
   grp_id = $(".UserListPopIn").data("group_id");
   if (searchString != "") {
-    infoUsers.remove();
     $(".UsersInGroupListContainer").css("min-height", $(".UsersInGroupListContainer").height())
     usersInGroup.forEach(function(u) {
       let isSearched = u.username.toLowerCase().includes(searchString)
@@ -739,6 +847,7 @@ $(".input-user-name").on("input", function() {
       i++;
     }
   }
+  $(".AmountOfUsersShown strong:nth-child(1)").html($(".UsernameBlock").length)
   while ($(".UsersInGroupList").height() > maxOffsetUserCont) {
     $(".UsernameBlock").last().remove();
   }

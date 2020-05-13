@@ -911,6 +911,21 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.groups.merge',
+      'ws_groups_merge',
+      array(
+        'destination_group_id' => array('type'=>WS_TYPE_ID,
+          'info'=>'Destination group (is not necessarily part of groups to merge)'),
+        'merge_group_id' => array('flags'=>WS_PARAM_FORCE_ARRAY,
+          'type'=>WS_TYPE_ID),
+        'pwg_token' => array(),
+        ),
+      'Merge groups in one other group',
+      $ws_functions_root . 'pwg.groups.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.users.getList',
       'ws_users_getList',
       array(
