@@ -2454,7 +2454,14 @@ SELECT name
   return $groupname;
 }
 
-function delete_groups($group_ids) {
+function delete_groups($group_ids) 
+{
+
+  if (count($group_ids) == 0)
+  {
+    trigger_error('There is no group to delete', E_USER_WARNING);
+    return false;
+  }
 
   $group_id_string = implode(',', $group_ids);
 
@@ -2462,7 +2469,7 @@ function delete_groups($group_ids) {
   $query = '
 DELETE
   FROM '. GROUP_ACCESS_TABLE .'
-  WHERE group_id IN('. $group_id_string  .')
+  WHERE group_id IN ('. $group_id_string  .')
 ;';
   pwg_query($query);
 
@@ -2470,14 +2477,14 @@ DELETE
   $query = '
 DELETE
   FROM '. USER_GROUP_TABLE .'
-  WHERE group_id IN('. $group_id_string  .')
+  WHERE group_id IN ('. $group_id_string  .')
 ;';
   pwg_query($query);
 
   $query = '
 SELECT id, name
   FROM `'. GROUPS_TABLE .'`
-  WHERE id IN('. $group_id_string  .')
+  WHERE id IN ('. $group_id_string  .')
 ;';
 
   $group_list = query2array($query, 'id', 'name');
@@ -2487,7 +2494,7 @@ SELECT id, name
   $query = '
 DELETE
   FROM `'. GROUPS_TABLE .'`
-  WHERE id IN('. $group_id_string  .')
+  WHERE id IN ('. $group_id_string  .')
 ;';
   pwg_query($query);
 

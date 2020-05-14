@@ -214,8 +214,7 @@ SELECT COUNT(*)
   mass_inserts(
     USER_GROUP_TABLE,
     array('group_id', 'user_id'),
-    $inserts,
-    array('ignore'=>true)
+    $inserts
     );
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -246,6 +245,7 @@ function ws_groups_merge($params, &$service) {
 
   $all_groups = array_unique($all_groups);
   $merge_group = array_diff($params['merge_group_id'], array($params['destination_group_id']));
+  $merge_group_object = $service->invoke('pwg.groups.getList', array('group_id' => $params['merge_group_id']));
 
   $query = '
 SELECT COUNT(*)
@@ -266,7 +266,7 @@ SELECT COUNT(*)
 SELECT DISTINCT(user_id) 
   FROM `'. USER_GROUP_TABLE .'` 
   WHERE 
-    group_id in ('.implode(',', $merge_group) .')
+    group_id IN ('.implode(',', $merge_group) .')
 ;';
   $user_in_merge_groups = query2array($query, null, 'user_id');
 
@@ -303,14 +303,17 @@ SELECT user_id
   pwg_activity('group', $params['destination_group_id'], 'edit');
   foreach ($user_to_add as $user_id) 
   {
-    pwg_activity('user', $user_id, 'edit');
+    pwg_activity('user', $user_id, 'edit', array("associated" => $params['destination_group_id']));
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   delete_groups($merge_group);
 
-  return $service->invoke('pwg.groups.getList', array('group_id' => $params['destination_group_id']));
+  return array(
+    "destination_group" => $service->invoke('pwg.groups.getList', array('group_id' => $params['destination_group_id'])),
+    "deleted_group" => $merge_group_object
+  );
 }
 
 /**

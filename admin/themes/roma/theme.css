@@ -508,7 +508,7 @@ input:focus + .slider {
   border-left:1px solid #1a1a1a;
 }
 
-.OrangeBackground{
+.GroupBackgroudSelected{
   background-color:#f9852c!important;
 }
 

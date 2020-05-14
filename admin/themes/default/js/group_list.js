@@ -236,7 +236,7 @@ var toogleSelection = function(group_id, toggle) {
   groupBox = $("#group-"+group_id);
   if (toggle) {
     groupBox.find(".Group-checkbox input").attr("checked", true);
-    groupBox.addClass("OrangeBackground");
+    groupBox.addClass("GroupBackgroudSelected");
     groupBox.find(".icon-users-1").addClass("OrangeIcon");
     groupBox.find(".group_number_users").addClass("OrangeFont");
 
@@ -260,7 +260,7 @@ var toogleSelection = function(group_id, toggle) {
     option.appendTo("#MergeOptionsChoices");
   } else {
     groupBox.find(".Group-checkbox input").attr("checked", false);
-    groupBox.removeClass("OrangeBackground");
+    groupBox.removeClass("GroupBackgroudSelected");
     groupBox.find(".icon-users-1").removeClass("OrangeIcon");
     groupBox.find(".group_number_users").removeClass("OrangeFont");
     $(".DeleteGroupList div").each(function () {
@@ -537,6 +537,8 @@ $('.ConfirmMergeButton').on("click", function() {
           }))
         })
         toogleSelection(dest_grp, false)
+        $(".DeleteGroupList").html("");
+        $("#MergeOptionsChoices").html("");
 
         $("#group-"+dest_grp + " .group_number_users").html("<i class='icon-spin6 animate-spin'> </i>");
         jQuery.ajax({
@@ -593,6 +595,7 @@ $('.ConfirmDeleteButton').on("click", function() {
       backgroundDismiss: true,
     });
   })
+});
 
 /*-------
  Manage User Part
