@@ -13,8 +13,11 @@ var str_delete = '{'Delete group "%s"?'|@translate}'
 var str_yes_delete_confirmation = "{'Yes, delete'|@translate}"
 var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}"
 var str_user_associated = "{"User associated"|@translate}"
-var str_user_dissociated = '{'User "%s" Dissociated from this group'|@translate}'
+var str_user_dissociated = '{'User "%s" dissociated from this group'|@translate}'
 var str_user_list = "{"User List"|@translate}"
+var str_merged_into = '{'Group(s) \{%s1\} succesfully merged into "%s2"'|@translate}'
+var str_copy = '{' (copy)'|@translate}'
+var str_other_copy = '{' (copy %s)'|@translate}'
 
 var serverKey = '{$CACHE_KEYS.users}'
 var serverId = '{$CACHE_KEYS._hash}'

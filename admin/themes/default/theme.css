@@ -2050,6 +2050,10 @@ input:checked + .slider:before {
   line-height: 28px !important;
 }
 
+.groupDeleteAlert {
+  margin-bottom: -2px !important;
+}
+
 .groupDeleteConfirm ~ .jconfirm-content-pane, .groupDeleteAlert ~ .jconfirm-content-pane {
   height: 0px !important;
   margin: 0px !important;
@@ -2070,7 +2074,7 @@ input:checked + .slider:before {
 }
 
 .groupDeleteAlert .jconfirm-icon-c {
-  margin-bottom: 20px !important;
+  margin-bottom: 25px !important;
 }
 
 /*Group checkbox*/

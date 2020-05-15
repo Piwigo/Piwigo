@@ -318,6 +318,97 @@ SELECT user_id
 
 /**
  * API method
+ * Create a copy of a group
+ * @param mixed[] $params
+ *    @option int group_id
+ *    @option string copy_name
+ */
+function ws_groups_duplicate($params, &$service) {
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $query = '
+SELECT COUNT(*)
+  FROM `'.GROUPS_TABLE.'`
+  WHERE name = \''.$params['copy_name'].'\'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count != 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This name is already used by another group.');
+  }
+
+  $query = '
+SELECT COUNT(*)
+  FROM `'. GROUPS_TABLE .'`
+  WHERE id = '.$params["group_id"].'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This group does not exist.');
+  }
+
+  $query = '
+SELECT is_default 
+  FROM `'. GROUPS_TABLE .'` 
+  WHERE id = '.$params['group_id'].'
+;';
+
+  $is_default = pwg_db_fetch_row(pwg_query($query))[0];
+
+  // creating the group
+  single_insert(
+    GROUPS_TABLE,
+    array(
+      'name' => $params['copy_name'],
+      'is_default' => boolean_to_string($is_default),
+      )
+    );
+  $inserted_id = pwg_db_insert_id();
+
+  pwg_activity('group', $inserted_id, 'add');
+
+  $query = '
+  SELECT user_id 
+    FROM `'. USER_GROUP_TABLE .'` 
+    WHERE group_id = '.$params['group_id'].'
+  ;';
+  
+  $users = query2array($query, null, 'user_id');
+
+  $inserts = array();
+  foreach ($users as $user)
+  {
+    $inserts[] = array(
+      'group_id' => $inserted_id,
+      'user_id' => $user,
+      );
+  }
+
+  mass_inserts(
+    USER_GROUP_TABLE,
+    array('group_id', 'user_id'),
+    $inserts,
+    array('ignore'=>true)
+  );
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  invalidate_user_cache();
+
+  foreach ($users as $user_id) 
+  {
+    pwg_activity('user', $user_id, 'edit', array("associated" => $params['group_id']));
+  }
+
+  return $service->invoke('pwg.groups.getList', array('group_id' => $inserted_id));
+}
+
+/**
+ * API method
  * Removes user(s) from a group
  * @param mixed[] $params
  *    @option int group_id

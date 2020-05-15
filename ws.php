@@ -915,12 +915,25 @@ function ws_addDefaultMethods( $arr )
       'ws_groups_merge',
       array(
         'destination_group_id' => array('type'=>WS_TYPE_ID,
-          'info'=>'Destination group (is not necessarily part of groups to merge)'),
+          'info'=>'Is not necessarily part of groups to merge'),
         'merge_group_id' => array('flags'=>WS_PARAM_FORCE_ARRAY,
           'type'=>WS_TYPE_ID),
         'pwg_token' => array(),
         ),
       'Merge groups in one other group',
+      $ws_functions_root . 'pwg.groups.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.groups.duplicate',
+      'ws_groups_duplicate',
+      array(
+        'group_id' => array('type'=>WS_TYPE_ID),
+        'copy_name' => array(),
+        'pwg_token' => array(),
+        ),
+      'Create a copy of a group',
       $ws_functions_root . 'pwg.groups.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
