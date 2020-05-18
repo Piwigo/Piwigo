@@ -38,7 +38,7 @@ var rootUrl = '{$ROOT_URL}'
 {* Define template function for the content of Groups*}
 {function name=groupContent}
 {function groupContent}
-  <div id="group-{$grp_id}" class="GroupContainer" data-id={$grp_id} {if $grp_is_default}data-default=1 {else}data-default=0 {/if} style="order: -{$grp_id}">
+  <div id="group-{$grp_id}" class="GroupContainer" data-id={$grp_id} {if $grp_is_default}data-default=1 {else}data-default=0 {/if}>
     <div class="Group-checkbox in-selection-mode">
       <label class="Group-checkbox-label" for="Group-Checkbox-selection-{$grp_id}"></label>
       <input type="checkbox" id="Group-Checkbox-selection-{$grp_id}">

@@ -85,7 +85,7 @@ jQuery(document).ready(function () {
         if (data.stat === "ok") {
           $(".addGroupFormLabelAndInput input").val('');
           group = data.result.groups[0];
-          createGroup(group)
+          createGroup(group).prependTo(".groups")
         } else {
           $("#addGroupForm .groupError").html(str_name_taken);
           $("#addGroupForm .groupError").fadeIn();
@@ -102,7 +102,6 @@ jQuery(document).ready(function () {
 var createGroup = function(group) {
   //Setup the group
   newgroup = $("#group-template").clone().attr("id", "group-" + group.id);
-  newgroup.css("order", -group.id);
   newgroup.attr("data-id", group.id);
   newgroup.find("#group_name").html(group.name);
   newgroup.find(".group_name-editable").val(group.name);
@@ -120,10 +119,10 @@ var createGroup = function(group) {
   setupGroupBox(newgroup);
   
   //Place group in first Place 
-  newgroup.appendTo(".groups");
   newgroup.find(".groupMessage").html(str_group_created);
   newgroup.find(".groupMessage").fadeIn();
   newgroup.find(".groupMessage").delay(DELAY_FEEDBACK).fadeOut();
+  return newgroup;
 }
 
 /*-------
@@ -361,6 +360,7 @@ var displayRenameForm = function(doDisplay, grp_id) {
 }
 
 var setDefaultGroup = function (id, is_default) {
+  $("#group-"+id+" #GroupOptions").hide();
   let loadState = new TemporaryState();
   loadState.removeClass($("#group-" + id + " .is-default-token"), "icon-star");
   loadState.addClass($("#group-" + id + " .is-default-token"), "icon-spin6");
@@ -437,8 +437,9 @@ var duplicateAction = function(id) {
       console.log(data);
       loadState.reverse();
       if (data.stat === "ok") {
+        $("#group-"+id+" #GroupOptions").hide();
         group = data.result.groups[0];
-        createGroup(group);
+        createGroup(group).insertAfter($("#group-"+id));
       }
     },
     error: function (err) {
