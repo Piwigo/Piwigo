@@ -253,6 +253,9 @@ a.stat-box:hover {
 .groupError {color: #ffd5dc;background-color: #f22;}
 .group-rename input {color: #999;}
 .GroupBackgroudSelected .Group-name {color: #333 !important;}
+.GroupContainer .group_name-editable {background-color: #323232 !important; border: 1px solid #666 !important;}
+.GroupContainer .group-rename .icon-ok {color: #222;}
+
 
 /* Batch Manager */
 #batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {

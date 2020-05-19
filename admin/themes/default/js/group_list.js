@@ -84,7 +84,7 @@ jQuery(document).ready(function () {
     e.preventDefault();
     let name = $("#addGroupForm input[type=text]").val();
     let loadState = new TemporaryState();
-    loadState.changeHTML($(".actionButtons button"), "<i class='icon-spin6 animate-spin'> </i>Loading...");
+    loadState.changeHTML($(".actionButtons button"), "<i class='icon-spin6 animate-spin'> </i>");
     loadState.changeAttribute($(".actionButtons button"), "style", "pointer-events: none");
     loadState.changeAttribute($(".actionButtons a"), "style", "pointer-events: none");
     jQuery.ajax({
@@ -371,6 +371,7 @@ var setDefaultGroup = function (id, is_default) {
     data: "group_id=" + id + "&pwg_token=" + pwg_token + "&is_default="+is_default,
     success: function (raw_data) {
       data = jQuery.parseJSON(raw_data);
+      $("#group-"+id+" #GroupOptions").hide();
       if (data.stat === "ok") {
         if (is_default) {
           setupDefaultActions(id,true)
