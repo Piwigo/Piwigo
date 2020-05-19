@@ -150,6 +150,7 @@ SELECT COUNT(*)
 SELECT COUNT(*)
   FROM `'. GROUPS_TABLE .'`
   WHERE name = \''. $params['name'] .'\'
+  AND id != '.$params['group_id'].'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)

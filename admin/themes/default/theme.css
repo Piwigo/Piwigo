@@ -517,33 +517,10 @@ div.stat-box {
 
 .stat-box i {
   display: inline-block;
-  background-color: #ffcfcf;
-  color: #ff5252;
   border-radius: 50%;
   font-size: 37px;
   padding: 20px;
   margin-bottom: 15px;
-}
-
-.stat-box-yellow i {
-  color:#ffa744;
-  background-color: #ffe9cf;
-}
-.stat-box-red i {
-  background-color: #ffcfcf;
-  color: #ff5252;
-}
-.stat-box-purple i {
-  background-color: #e0daf4;
-  color: #896af3;
-}
-.stat-box-green i {
-  background-color: #d6ffcf;
-  color: #6ece5e;
-}
-.stat-box-blue i {
-  background-color: #cfebff;
-  color: #2883c3;
 }
 
 .stat-box .number, .stat-box .caption {
@@ -1673,8 +1650,6 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 
 .groups .icon-users-1:first-child{
   font-size: 19px;
-  color: #4d4d4d;
-  background-color: #ffffff;
   width: 27px;
   padding: 10px;
   border-radius: 30px;
@@ -2044,17 +2019,17 @@ input:checked + .slider:before {
  font-size: 13px;
 }
 
-.groupDeleteConfirm, .groupDeleteAlert {
+.groupDeleteConfirm, .groupAlert {
   padding-bottom: 0 !important;
   color: #3c3c3c !important;
   line-height: 28px !important;
 }
 
-.groupDeleteAlert {
+.groupAlert {
   margin-bottom: -2px !important;
 }
 
-.groupDeleteConfirm ~ .jconfirm-content-pane, .groupDeleteAlert ~ .jconfirm-content-pane {
+.groupDeleteConfirm ~ .jconfirm-content-pane, .groupAlert ~ .jconfirm-content-pane {
   height: 0px !important;
   margin: 0px !important;
 }
@@ -2063,7 +2038,7 @@ input:checked + .slider:before {
   text-transform: none !important;
 }
 
-.groupDeleteAlert .jconfirm-icon-c i {
+.groupAlert .jconfirm-icon-c i {
   color: #0a0 !important;
   background-color:#c2f5c2 !important;
   border-radius: 20px;
@@ -2073,8 +2048,12 @@ input:checked + .slider:before {
   font-size: 45px;
 }
 
-.groupDeleteAlert .jconfirm-icon-c {
+.groupAlert .jconfirm-icon-c {
   margin-bottom: 25px !important;
+}
+
+.groupAlert .jconfirm-title {
+  font-size: 20px !important;
 }
 
 /*Group checkbox*/
@@ -2148,8 +2127,6 @@ input:checked + .slider:before {
 
 .groups .icon-plus-circled{
   font-size: 19px;
-  color: rgb(44,132,195);
-  background-color: #CDE9FD;
   width: 27px;
   height: 27px;
   padding: 10px;

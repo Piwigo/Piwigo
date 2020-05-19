@@ -221,27 +221,6 @@ a.stat-box:hover {
   color:#aeaeae;
 }
 
-.stat-box-yellow i {
-  color:#9b5200;
-  background-color: #ffa744;
-}
-.stat-box-red i {
-  background-color: #c64444;
-  color: #650101;
-}
-.stat-box-purple i {
-  background-color: #ce4baa;
-  color: #52003b;
-}
-.stat-box-green i {
-  background-color: #4ac641;
-  color: #014400;
-}
-.stat-box-blue i {
-  background-color: #379bbc;
-  color: #003751;
-}
-
 /* hacks */
 * html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
 *+html  .bigtext { left: 70px; }
@@ -270,6 +249,10 @@ a.stat-box:hover {
 .languageBox {background-color:#333;}
 .languageName {color:#ccc;}
 .languageDefault {background-color:#555; color:#aaa;}
+.groupMessage {color: #c2f5c2 ;background-color: #0a0;}
+.groupError {color: #ffd5dc;background-color: #f22;}
+.group-rename input {color: #999;}
+.GroupBackgroudSelected .Group-name {color: #333 !important;}
 
 /* Batch Manager */
 #batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {
@@ -360,7 +343,7 @@ label>p.group_select {
 }
 
 .groups .group_number_users{
-  color:#d5d5d5;
+  color:#777;
 }
 
 .addUserButton:hover{
@@ -423,8 +406,7 @@ label>p.group_select {
 }
 
 .groups #GroupPermission:hover,
-.groups #GroupDuplicate:hover,
-.groups #GroupDelete:hover{
+.group-dropdown-option:hover{
   background-color:#393939;
 }
 
@@ -510,6 +492,7 @@ input:focus + .slider {
 
 .GroupBackgroudSelected{
   background-color:#f9852c!important;
+  box-shadow: none !important;
 }
 
 .OrangeIcon{
@@ -634,12 +617,14 @@ input:focus + .slider {
 
 .ValidationUserAssociated, .ValidationUserDissociated{
   background-color:#00aa00;
-  color:#c2f5c2;
+}
+
+.ValidationUserAssociated p, .ValidationUserDissociated p{
+  color:#c2f5c2 !important;
 }
 
 .groups .showCreateGroup .icon-plus-circled,
 #UserList .group-name-block span,
-.groups .icon-users-1:first-child,
 .groups .showCreateGroup .icon-plus-circled{
   color:#003751;
   background-color: #379bbc;
@@ -821,4 +806,60 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
     background-color: #00529b;
     color: #a7d6ff;
     padding: 2px 7px;
+}
+
+/* Popin Jconfirm*/
+
+.jconfirm .jconfirm-box {
+  background-color: #333 !important;
+}
+
+.jconfirm-title {
+  color: #777 !important;
+}
+
+.groupAlert .jconfirm-icon-c i {
+  color:#c2f5c2 !important;
+  background-color:#0a0 !important;
+}
+
+.jconfirm .jconfirm-box .jconfirm-buttons button.btn-default {
+  color: #777 !important;
+  background-color: #222 !important;
+}
+
+.jconfirm .jconfirm-box .jconfirm-buttons button.btn-default:hover {
+  color: #222!important;
+  background-color: #777 !important;
+}
+
+.jconfirm .jconfirm-box.loading::before {
+  background: #333 !important;
+}
+
+/* Icon colors*/
+
+.icon-red {
+  background-color: #c64444;
+  color: #650101;
+}
+
+.icon-yellow {
+  color: #9b5200;
+  background-color: #ffa744;
+}
+
+.icon-purple {
+  background-color: #ce4baa;
+  color: #52003b;
+}
+
+.icon-blue {
+  background-color: #379bbc;
+  color: #003751;
+}
+
+.icon-green {
+  background-color: #4ac641;
+  color: #014400;
 }

@@ -1,5 +1,17 @@
 const DELAY_FEEDBACK = 3000;
-
+const jConfirm_alert_options = {
+  icon: 'icon-ok',
+  titleClass: "groupAlert",
+  theme:"modern",
+  closeIcon: true,
+  draggable: false,
+  animation: "zoom",
+  boxWidth: '20%',
+  useBootstrap: false,
+  backgroundDismiss: true,
+  animateFromElement: false,
+  typeAnimated: false,
+}
 /*-------
 Group Popin
 -------*/
@@ -85,7 +97,9 @@ jQuery(document).ready(function () {
         if (data.stat === "ok") {
           $(".addGroupFormLabelAndInput input").val('');
           group = data.result.groups[0];
-          createGroup(group).prependTo(".groups")
+          groupBox = createGroup(group)
+          groupBox.prependTo(".groups")
+          setupGroupBox(groupBox);
         } else {
           $("#addGroupForm .groupError").html(str_name_taken);
           $("#addGroupForm .groupError").fadeIn();
@@ -110,13 +124,13 @@ var createGroup = function(group) {
   newgroup.find(".input-edit-group-name").attr("placeholder", group.name);
   newgroup.find(".group_number_users").html(group.nb_users+" " + ((group.nb_users > 1)? str_members_default:str_member_default));
   newgroup.find(".group_name-editable").html(group.name);
+  newgroup.find(".manage-permissions").attr("href", "admin.php?page=group_perm&group_id="+group.id)
   hideAddGroupForm();
+
   //Setup the icon color
-  var colors = [["#ffa744", "#ffe9cf"],["#896af3", "#e0daf4"], ["#6ece5e","#d6ffcf"],["#2883c3","#cfebff"]];
-  var colorId = Number(group.id)%4;
-  newgroup.find(".icon-users-1").attr("style", "color:"+colors[colorId][0]+"; background-color:"+colors[colorId][1]);  
-  
-  setupGroupBox(newgroup);
+  var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
+  var colorId = Number(group.id)%5;
+  newgroup.find(".icon-users-1").addClass(colors[colorId]);  
   
   //Place group in first Place 
   newgroup.find(".groupMessage").html(str_group_created);
@@ -130,7 +144,8 @@ var createGroup = function(group) {
  -------*/
 jQuery(document).ready(function () {
   $(".GroupContainer").each(function () {
-    setupGroupBox($(this));
+    if ($(this).attr("id") != "group-template")
+      setupGroupBox($(this));
   });
 });
 var setupGroupBox = function (groupBox) {
@@ -149,48 +164,7 @@ var setupGroupBox = function (groupBox) {
 
   /* Set the delete action */
   groupBox.find("#GroupDelete").on("click", function () {
-    $.confirm({
-      title: str_delete.replace("%s",groupBox.find("#group_name").html()),
-      draggable: false,
-      titleClass: "groupDeleteConfirm",
-      theme: "modern",
-      content: "",
-      animation: "zoom",
-      boxWidth: '30%',
-      useBootstrap: false,
-      type: 'red',
-      animateFromElement: false,
-      backgroundDismiss: true,
-      typeAnimated: false,
-      buttons: {
-          confirm: {
-            text: str_yes_delete_confirmation,
-            btnClass: 'btn-red',
-            action: function () {
-              let groupName = groupBox.find(".Group-name-container p").html();
-              deleteGroup(id).then(() => {
-                $.alert({
-                  title: str_group_deleted.replace("%s",groupName),
-                  icon: 'icon-ok',
-                  titleClass: "groupDeleteAlert",
-                  theme:"modern",
-                  closeIcon: true,
-                  content: "",
-                  animation: "zoom",
-                  boxWidth: '20%',
-                  useBootstrap: false,
-                  backgroundDismiss: true,
-                  animateFromElement: false,
-                  typeAnimated: false,
-                });
-              });
-            }
-          },
-          cancel: {
-            text: str_no_delete_confirmation
-          }
-      }
-    });
+    deleteGroup(id);
   });
 
   /* Set the rename action */
@@ -204,10 +178,7 @@ var setupGroupBox = function (groupBox) {
 
   groupBox.find(".group-rename form").on("submit", function (e) {
     e.preventDefault();
-    if (groupBox.find(".group_name-editable").val() != groupBox.find("#group_name").html())
-      renameGroup(id, groupBox.find(".group_name-editable").val())
-    else 
-      displayRenameForm(false, id)
+    renameGroup(id, groupBox.find(".group_name-editable").val())
   });
 
   groupBox.find(".group-rename .icon-cancel").on('click', function() {
@@ -234,7 +205,7 @@ var setupGroupBox = function (groupBox) {
   if (groupBox.data("default") == 1) {
     setupDefaultActions(id, true);
   } else if (groupBox.data("default") == 0) {
-    setupDefaultActions(id, false);
+    setupDefaultActions(id, false);   
   }
 
   groupBox.find(".manage-users").on("click", function(){openUserManager(id)});
@@ -290,25 +261,54 @@ var toogleSelection = function(group_id, toggle) {
 
 /* Group Ajax and Display Functions */
 var deleteGroup = function (id) {
-  return new Promise((resolve, reject) => {
-    jQuery.ajax({
-      url: "ws.php?format=json&method=pwg.groups.delete",
-      type: "POST",
-      data: "group_id=" + id + "&pwg_token=" + pwg_token,
-      success: function (raw_data) {
-        data = jQuery.parseJSON(raw_data);
-        if (data.stat === "ok") {
-          $("#group-" + id).remove();
-          $(".DeleteGroupList div[data-id="+id+"]").remove()
-          $("#MergeOptionsChoices option[value="+ id +"]").remove()
-          resolve();
+  $.confirm({
+    title: str_delete.replace("%s",$("#group-"+id+" #group_name").html()),
+    draggable: false,
+    titleClass: "groupDeleteConfirm",
+    theme: "modern",
+    content: "",
+    animation: "zoom",
+    boxWidth: '30%',
+    useBootstrap: false,
+    type: 'red',
+    animateFromElement: false,
+    backgroundDismiss: true,
+    typeAnimated: false,
+    buttons: {
+        confirm: {
+          text: str_yes_delete_confirmation,
+          btnClass: 'btn-red',
+          action: function () {
+            let groupName = $("#group-"+id+" .Group-name-container p").html()
+            $.alert({
+              ...{title : str_group_deleted.replace("%s",groupName),
+                content: function() {
+                return jQuery.ajax({
+                  url: "ws.php?format=json&method=pwg.groups.delete",
+                  type: "POST",
+                  data: "group_id=" + id + "&pwg_token=" + pwg_token,
+                  success: function (raw_data) {
+                    data = jQuery.parseJSON(raw_data);
+                    if (data.stat === "ok") {
+                      $("#group-" + id).remove();
+                      $(".DeleteGroupList div[data-id="+id+"]").remove()
+                      $("#MergeOptionsChoices option[value="+ id +"]").remove()
+                    }
+                  },
+                  error: function (err) {
+                    console.log(err);
+                  },
+                })
+              }},
+              ...jConfirm_alert_options
+            });
+          }
+        },
+        cancel: {
+          text: str_no_delete_confirmation
         }
-      },
-      error: function (err) {
-        console.log(err);
-      },
-    });
-  })
+    }
+  });
 };
 
 var renameGroup = function(id, newName) {
@@ -360,20 +360,17 @@ var displayRenameForm = function(doDisplay, grp_id) {
 }
 
 var setDefaultGroup = function (id, is_default) {
-  $("#group-"+id+" #GroupOptions").hide();
-  let loadState = new TemporaryState();
-  loadState.removeClass($("#group-" + id + " .is-default-token"), "icon-star");
-  loadState.addClass($("#group-" + id + " .is-default-token"), "icon-spin6");
-  loadState.addClass($("#group-" + id + " .is-default-token"), "animate-spin");
-  loadState.changeAttribute($("#group-" + id + " .is-default-token"), "style", "pointer-events: none; display:block")
-  loadState.changeAttribute($("#group-" + id + " #GroupDefault"), "style", "pointer-events: none")
+  $("#group-" + id + " #GroupDefault").css("width", $("#group-" + id + " #GroupDefault").width())
+  $("#group-" + id + " #GroupDefault").html("<i class='icon-spin6 animate-spin'> </i>")
+  $("#group-" + id + " #GroupDefault").removeClass("icon-star");
+  $("#group-" + id + " #GroupDefault").attr("style", "pointer-events: none; text-align: center;")
+  $("#group-" + id).find(".is-default-token").addClass("icon-spin6").addClass("animate-spin").removeClass("icon-star")
   jQuery.ajax({
     url: "ws.php?format=json&method=pwg.groups.setInfo",
     type: "POST",
     data: "group_id=" + id + "&pwg_token=" + pwg_token + "&is_default="+is_default,
     success: function (raw_data) {
       data = jQuery.parseJSON(raw_data);
-      loadState.reverse();
       if (data.stat === "ok") {
         if (is_default) {
           setupDefaultActions(id,true)
@@ -389,18 +386,20 @@ var setDefaultGroup = function (id, is_default) {
 };
 
 var setupDefaultActions = function(id, is_default) {
+  $("#group-" + id + " #GroupDefault").attr("style", "");
+  $("#group-" + id + " #GroupDefault").addClass("icon-star")
+  $("#group-" + id).find(".is-default-token").removeClass("icon-spin6").removeClass("animate-spin").addClass("icon-star")
   if (is_default) {
     $("#group-" + id).find("#GroupDefault").html(str_unset_default);
     $("#group-" + id).find(".is-default-token").attr("title",str_unset_default)
-    $("#group-" + id).find(".is-default-token").removeClass("deactivate");
     $("#group-" + id).find("#GroupDefault").unbind("click");
+    $("#group-" + id).find(".is-default-token").removeClass("deactivate");
     $("#group-" + id).find("#GroupDefault").on("click", function(){setDefaultGroup(id, false)})
     $("#group-" + id).find(".is-default-token").on("click", function(){setDefaultGroup(id, false)})
   } else {
     $("#group-" + id).find("#GroupDefault").html(str_set_default);
     $("#group-" + id).find(".is-default-token").attr("title",str_set_default)
-    $("#group-" + id).find(".is-default-token").addClass("deactivate");;
-    $("#group-" + id).find("#GroupDefault").unbind("click");
+    $("#group-" + id).find(".is-default-token").addClass("deactivate");
     $("#group-" + id).find("#GroupDefault").on("click", function(){setDefaultGroup(id, true)})
     $("#group-" + id).find(".is-default-token").unbind("click");
   }
@@ -434,12 +433,13 @@ var duplicateAction = function(id) {
     data: "group_id=" + id + "&pwg_token=" + pwg_token + "&copy_name=" + copy_name,
     success: function (raw_data) {
       data = jQuery.parseJSON(raw_data);
-      console.log(data);
       loadState.reverse();
       if (data.stat === "ok") {
         $("#group-"+id+" #GroupOptions").hide();
         group = data.result.groups[0];
-        createGroup(group).insertAfter($("#group-"+id));
+        let groupbox = createGroup(group)
+        groupbox.insertAfter($("#group-"+id));
+        setupGroupBox(groupbox);
       }
     },
     error: function (err) {
@@ -591,7 +591,6 @@ $('.ConfirmMergeButton').on("click", function() {
       data = jQuery.parseJSON(raw_data);
       if (data.stat === "ok") {
         updateSelectionPanel('Selection');
-        console.log(data);
         merge_group.forEach(function(id) {
           ($("#group-"+id).fadeOut(complete=function(){
             $(this).remove();
@@ -602,20 +601,11 @@ $('.ConfirmMergeButton').on("click", function() {
         $("#MergeOptionsChoices").html("");
 
         $.alert({
-          title: str_merged_into
+          ...{title: str_merged_into
             .replace("%s1",name_merge.toString())
             .replace("%s2",name_dest),
-          icon: 'icon-ok',
-          titleClass: "groupDeleteAlert",
-          theme:"modern",
-          closeIcon: true,
-          content: "",
-          animation: "zoom",
-          boxWidth: '20%',
-          useBootstrap: false,
-          backgroundDismiss: true,
-          animateFromElement: false,
-          typeAnimated: false,
+            content: "",},
+          ...jConfirm_alert_options
         });
 
         $("#group-"+dest_grp + " .group_number_users").html("<i class='icon-spin6 animate-spin'> </i>");
@@ -675,19 +665,10 @@ $('.ConfirmDeleteButton').on("click", function() {
         loadState.reverse();
         updateSelectionPanel("NoSelection");
         $.alert({
-          title: str_groups_deleted.replace("%s",names.toString()),
-          titleClass: "groupDeleteAlert",
-          theme: "modern",
-          icon: 'icon-ok',
-          closeIcon: true,
-          content: "",
-          animation: "zoom",
-          boxWidth: '20%',
-          useBootstrap: false,
-          backgroundDismiss: true,
-          animateFromElement: false,
-          typeAnimated: false,
-          backgroundDismiss: true,
+          ...{title: str_groups_deleted.replace("%s",names.toString()),
+            content: "",
+          },
+          ...jConfirm_alert_options
         });
       }
     },
@@ -838,9 +819,9 @@ var getUserDisplay = function(username, user_id, grp_id) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
           let str = str_user_dissociated.replace("%s", username)
+          associateUserInfo.fadeOut();
           dissociateUserInfo.find("p").html(str);
           dissociateUserInfo.fadeIn()
-          dissociateUserInfo.delay(DELAY_FEEDBACK).fadeOut()
 
           userBlock.remove()
 
@@ -902,7 +883,9 @@ $(".AddUserBlock button").on("click", function () {
             }
           })
           let userBlock = getUserDisplay(username, id, grp_id).prependTo(".UsersInGroupList");
-    
+          
+          dissociateUserInfo.fadeOut()
+
           associateUserInfo.remove()
           associateUserInfo.insertAfter(userBlock);
           associateUserInfo.find("p").html(str_user_associated);

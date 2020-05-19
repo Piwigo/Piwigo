@@ -603,8 +603,12 @@ input:focus + .slider {
 }
 
 .ValidationUserAssociated, .ValidationUserDissociated{
-  color:#00aa00;
+  color:#00aa00 !important;
   background-color:#c2f5c2;
+}
+
+.ValidationUserAssociated p, .ValidationUserDissociated p {
+  color:#00aa00 !important;
 }
 
 /*------*/
@@ -704,3 +708,28 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #uploadForm li.plupload_droptext {background-color: #F5F5F5!important;}
 .addFilesButtonChanged {background-color: #E5E5E5;}
 .addFilesButtonChanged:hover {background-color: #BBB;}
+
+.icon-red {
+  background-color: #ffcfcf;
+  color: #ff5252;
+}
+
+.icon-yellow {
+  color: #ffa744;
+  background-color: #ffe9cf;
+}
+
+.icon-purple {
+  background-color: #e0daf4;
+  color: #896af3;
+}
+
+.icon-blue {
+  background-color: #cfebff;
+  color: #2883c3;
+}
+
+.icon-green {
+  background-color: #d6ffcf;
+  color: #6ece5e;
+}

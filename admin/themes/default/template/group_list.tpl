@@ -46,7 +46,7 @@ var rootUrl = '{$ROOT_URL}'
     </div>
     <div class="groupHeader">
       <div class="groupIcon"> 
-        <div class="icon-users-1" style="color:{$icon_color};background-color:{$icon_background_color}"></div>
+        <div class="icon-users-1 {$grp_color}"></div>
         <div class="groupMessage icon-ok"></div>
         <div class="groupError icon-cancel"></div>
       </div>
@@ -149,7 +149,7 @@ var rootUrl = '{$ROOT_URL}'
     <div id="addGroupForm" class="GroupContainer">
       <div class="groupError icon-cancel"></div>
       <div class="addGroupBlock">
-        <div class="icon-plus-circled"></div>
+        <div class="icon-plus-circled icon-blue"></div>
         <p id="addGroup">{'Add group'|translate}</p>
       </div>
       <form>
@@ -173,17 +173,16 @@ var rootUrl = '{$ROOT_URL}'
     {* Template Group (for js application) *}
     {groupContent grp_id="template" grp_name="Template" grp_members=0 grp_is_default=false}
 
-    {assign var='color_tab' value=[["#ffa744", "#ffe9cf"],["#896af3", "#e0daf4"], ["#6ece5e","#d6ffcf"],["#2883c3","#cfebff"]]}
+    {assign var='color_tab' value=["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"]}
 
     {if not empty($groups)}
     {foreach from=$groups item=group name=group_loop}
-      {assign var='color_id' value=$group.ID%4}
+      {assign var='color_id' value=$group.ID%5}
       {groupContent 
         grp_id=$group.ID 
         grp_name=$group.NAME 
         grp_members=$group.MEMBERS 
-        icon_color=$color_tab[$color_id][0]
-        icon_background_color=$color_tab[$color_id][1]
+        grp_color=$color_tab[$color_id]
         grp_is_default=$group.IS_DEFAULT
       }
       
