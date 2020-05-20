@@ -1170,6 +1170,14 @@ h2:lang(en) { text-transform:capitalize; }
   /*border-radius:10px;*/
 }
 
+.plugin-dropdown-action{
+ padding:5px 10px;
+ font-size: 13px;
+ color:#3A3A3A
+}
+
+.plugin-dropdown-action:hover {background-color: #e7e7e7; color:#3A3A3A; text-decoration: none;}
+
 .plugin-inactive .pluginMiniBox{
   border-radius:5px;
 }
@@ -1190,18 +1198,19 @@ h2:lang(en) { text-transform:capitalize; }
   padding: 13px;}
 
 
- #PluginOptionsBlock{
+ .PluginOptionsBlock{
     display:none;
     position:absolute;
     right: 0;
     top: 30px;
     background-color:white;
     z-index:2;
-    padding:5px 10px;
+    padding:5px 0px;
     box-shadow: 0px 0px 5px #d7d7d7;
+    border-radius: 10px;
   }
 
-  #PluginOptionsBlock a{
+  .PluginOptionsBlock a{
     display:block;
   }
 

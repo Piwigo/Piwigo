@@ -160,10 +160,21 @@ jQuery(document).ready(function() {
   });
 });
 
-  jQuery(".showOptions").click(function(){
-    jQuery("#PluginOptionsBlock").toggle();
-  });
+$(document).mouseup(function (e) {
+  e.stopPropagation();
+  $(".pluginMiniBox").each(function() {  
+    if ($(this).find(".showOptions").has(e.target).length === 0) {
+      $(this).find(".PluginOptionsBlock").hide();
+    }
+  })
+});
 
+jQuery(".pluginMiniBox").each(function(index){
+  let myplugin = jQuery(this);
+  myplugin.find(".showOptions").click(function(){
+    myplugin.find(".PluginOptionsBlock").toggle();
+  });
+})
 
 {/literal}
 {/footer_script}
@@ -237,11 +248,18 @@ jQuery(document).ready(function() {
     <div class="pluginContent">
       <div class="PluginOptionsIcons">
         <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}"></a>
-        <a class="icon-menu showOptions" ></a>
+        {if $plugin.STATE == 'active' || $plugin.STATE == 'inactive'}
+          <a class="icon-menu showOptions" ></a>
+        {/if}
       </div>
-      <div id="PluginOptionsBlock">
-        <a class="pluginActionLevel2 icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-        <a class="pluginActionLevel3 icon-back-in-time" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>      
+      
+      <div class="PluginOptionsBlock">
+        {if $plugin.STATE == 'active'}
+          <a class="plugin-dropdown-action icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
+          <a class="plugin-dropdown-action icon-back-in-time" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>   
+        {elseif $plugin.STATE == 'inactive'}
+          <a class="plugin-dropdown-action icon-trash" href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
+        {/if}      
       </div>
       <div class="pluginMiniBoxNameCell">
         {$plugin.NAME}
@@ -257,17 +275,10 @@ jQuery(document).ready(function() {
             <div class="pluginUnavailableAction icon-cog">{'Settings'|@translate}</div>
           {/if}
         {elseif $plugin.STATE == 'inactive'}
-          <div class="pluginEmptyInput"></div>
           <a class="pluginActionLevel1 icon-plus" href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
-          <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
         {elseif $plugin.STATE == 'missing'}
-          <div class="pluginEmptyInput"></div>
-          <div class="pluginEmptyInput"></div>
           <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm(confirmMsg);">{'Uninstall'|@translate}</a>
-
         {elseif $plugin.STATE == 'merged'}
-          <div class="pluginEmptyInput"></div>
-          <div class="pluginEmptyInput"></div>
           <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
         {/if}                     
       </div>
