@@ -249,7 +249,7 @@ jQuery(".pluginMiniBox").each(function(index){
       <div class="PluginOptionsIcons">
         <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}"></a>
         {if $plugin.STATE == 'active' || $plugin.STATE == 'inactive'}
-          <a class="icon-menu showOptions" ></a>
+          <a class="icon-ellipsis-vert showOptions" ></a>
         {/if}
       </div>
       

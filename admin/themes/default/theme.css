@@ -1157,7 +1157,7 @@ h2:lang(en) { text-transform:capitalize; }
   opacity: 0.5;
   font-size: 12px;
   padding: 10px 4px;
-  margin: 15px 0;
+  margin-top: 15px;
   background-color:#ddd;
   font-weight:700;
 }
@@ -1168,6 +1168,10 @@ h2:lang(en) { text-transform:capitalize; }
 .plugin-inactive .pluginContent{
   border:none;
   /*border-radius:10px;*/
+}
+
+.showOptions {
+  font-size: 16px;
 }
 
 .plugin-dropdown-action{
@@ -1194,7 +1198,7 @@ h2:lang(en) { text-transform:capitalize; }
   display:block;
   position:absolute;
   top:0;
-  right:0px;
+  right:-6px;
   padding: 13px;}
 
 
@@ -2025,7 +2029,7 @@ input:checked + .slider:before {
 
 /* Options menu*/
 
-.icon-ellipsis-vert:before{
+.group-dropdown-options:before{
   font-size:20px;
   position:absolute;
   top:10px;
