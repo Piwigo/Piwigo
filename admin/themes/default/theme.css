@@ -248,10 +248,43 @@ TABLE.doubleSelect SELECT.categoryList {
 	width: 100%; max-width: 100%; overflow-x: auto;
 }
 
-.statBar {
-	height: 10px;
-	background-color: #ff7700;
-	border: 1px solid #666;
+.stat-legend-container {
+  display: inline-block;
+}
+
+.stat-data-selector {
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.stat-data-selector label {
+  color: black;
+  padding: 10px;
+  background-color: #eee;
+  transition: 0.2s ease;
+}
+
+.stat-data-selector label:hover {
+  background-color: #ccc
+}
+
+.stat-data-selector input:checked + label {
+  background-color: #FFA646;
+  color: white;
+}
+
+.stat-data-selector input{
+  display: none;
+}
+
+.stat-graph-container {
+  margin: auto;
+  position: relative;
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .over{

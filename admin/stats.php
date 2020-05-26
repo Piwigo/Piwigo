@@ -6,9 +6,9 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
-if (!defined("PHPWG_ROOT_PATH"))
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  die ("Hacking attempt!");
+  die ('Hacking attempt!');
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -18,7 +18,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
 // | Functions                                                             |
 // +-----------------------------------------------------------------------+
 
-function get_summary($year = null, $month = null, $day = null)
+function get_last($last_number=60, $type='year')
 {
   $query = '
 SELECT
@@ -29,42 +29,45 @@ SELECT
     nb_pages
   FROM '.HISTORY_SUMMARY_TABLE;
 
-  if (isset($day))
+  if ($type === 'hour')
   {
     $query.= '
-  WHERE year = '.$year.'
-    AND month = '.$month.'
-    AND day = '.$day.'
+  WHERE year IS NOT NULL
+    AND month IS NOT NULL
+    AND day IS NOT NULL
     AND hour IS NOT NULL
   ORDER BY
-    year ASC,
-    month ASC,
-    day ASC,
-    hour ASC
+    year DESC,
+    month DESC,
+    day DESC,
+    hour DESC
+  LIMIT '.$last_number.'
 ;';
   }
-  elseif (isset($month))
+  elseif ($type === 'day')
   {
     $query.= '
-  WHERE year = '.$year.'
-    AND month = '.$month.'
+  WHERE year IS NOT NULL
+    AND month IS NOT NULL
     AND day IS NOT NULL
     AND hour IS NULL
   ORDER BY
-    year ASC,
-    month ASC,
-    day ASC
+    year DESC,
+    month DESC,
+    day DESC
+  LIMIT '.$last_number.'
 ;';
   }
-  elseif (isset($year))
+  elseif ($type === 'month')
   {
     $query.= '
-  WHERE year = '.$year.'
+  WHERE year IS NOT NULL
     AND month IS NOT NULL
     AND day IS NULL
   ORDER BY
-    year ASC,
-    month ASC
+    year DESC,
+    month DESC
+  LIMIT '.$last_number.'
 ;';
   }
   else
@@ -73,7 +76,8 @@ SELECT
   WHERE year IS NOT NULL
     AND month IS NULL
   ORDER BY
-    year ASC
+    year DESC
+  LIMIT '.$last_number.'
 ;';
   }
 
@@ -95,92 +99,8 @@ SELECT
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
-// | Refresh summary from details                                          |
-// +-----------------------------------------------------------------------+
-
-history_summarize();
-
-// +-----------------------------------------------------------------------+
-// | Page parameters check                                                 |
-// +-----------------------------------------------------------------------+
-
-foreach (array('day', 'month', 'year') as $key)
-{
-  if (isset($_GET[$key]))
-  {
-    $page[$key] = (int)$_GET[$key];
-  }
-}
-
-if (isset($page['day']))
-{
-  if (!isset($page['month']))
-  {
-    die('month is missing in URL');
-  }
-}
-
-if (isset($page['month']))
-{
-  if (!isset($page['year']))
-  {
-    die('year is missing in URL');
-  }
-}
-
-$summary_lines = get_summary(
-  @$page['year'],
-  @$page['month'],
-  @$page['day']
-  );
-
-// +-----------------------------------------------------------------------+
 // | Display statistics header                                             |
 // +-----------------------------------------------------------------------+
-
-// page title creation
-$title_parts = array();
-
-$url = PHPWG_ROOT_PATH.'admin.php?page=stats';
-
-$title_parts[] = '<a href="'.$url.'">'.l10n('Overall').'</a>';
-
-$period_label = l10n('Year');
-
-if (isset($page['year']))
-{
-  $url.= '&amp;year='.$page['year'];
-
-  $title_parts[] = '<a href="'.$url.'">'.$page['year'].'</a>';
-
-  $period_label = l10n('Month');
-}
-
-if (isset($page['month']))
-{
-  $url.= '&amp;month='.$page['month'];
-
-  $title_parts[] = '<a href="'.$url.'">'.$lang['month'][$page['month']].'</a>';
-
-  $period_label = l10n('Day');
-}
-
-if (isset($page['day']))
-{
-  $url.= '&amp;day='.$page['day'];
-
-  $time = mktime(12, 0, 0, $page['month'], $page['day'], $page['year']);
-
-  $day_title = sprintf(
-    '%u (%s)',
-    $page['day'],
-    $lang['day'][date('w', $time)]
-    );
-
-  $title_parts[] = '<a href="'.$url.'">'.$day_title.'</a>';
-
-  $period_label = l10n('Hour');
-}
 
 $template->set_filename('stats', 'stats.tpl');
 
@@ -191,131 +111,92 @@ $base_url = get_root_url().'admin.php?page=history';
 
 $template->assign(
   array(
-    'L_STAT_TITLE' => implode($conf['level_separator'], $title_parts),
-    'PERIOD_LABEL' => $period_label,
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=history',
     'F_ACTION' => $base_url,
     )
   );
 
 // +-----------------------------------------------------------------------+
+// | Set missing unit to 0                                                |
+// +-----------------------------------------------------------------------+
+
+function set_missing_value($unit, $data)
+{
+  $limit = count($data);
+  $result = array();
+  $date = get_date_object($data[count($data) - 1]);
+
+  if ($unit == 'year') 
+  {
+    $date_format = 'Y';
+    $date_add = 'P1Y';
+  } 
+  else if ($unit == 'month') 
+  {
+    $date_format = 'Y-m';
+    $date_add = 'P1M';
+  } 
+  else if ($unit == 'day') 
+  {
+    $date_format = 'Y-m-d';
+    $date_add = 'P1D';
+  } 
+  else if ($unit == 'hour') 
+  {
+    $date_format = 'Y-m-d\TH:00';
+    $date_add = 'PT1H';
+  }
+
+  for ($i=0; $i < $limit; $i++) 
+  { 
+    $result[$date->format($date_format)] = 0;
+    $date->add(new DateInterval($date_add));
+  }
+
+  foreach ($data as $value) 
+  {
+    $str = get_date_object($value)->format($date_format);
+    if (isset($result[$str])) 
+    {
+      $result[$str] += $value['nb_pages'];
+    }
+  }
+
+  return $result;
+}
+
+
+function get_date_object($row) {
+  $date_string = $row['year'];
+    if ($row['month'] != null) 
+    {
+      $date_string = $date_string.'-'.$row['month'] ;
+      if ($row['day'] != null) 
+      {
+        $date_string = $date_string.'-'.$row['day'];
+        if ($row['hour'] != null) 
+        {
+          $date_string = $date_string.' '.$row['hour'].':00';
+        }
+      }
+    } 
+    else 
+    {
+      $date_string .= '-1';
+    }
+
+  return new DateTime($date_string);
+}
+
+// +-----------------------------------------------------------------------+
 // | Display statistic rows                                                |
 // +-----------------------------------------------------------------------+
 
-$max_width = 400;
+$template->append('lastHours', set_missing_value('hour',get_last(72, 'hour')));
+$template->append('lastDays', set_missing_value('day',get_last(90, 'day')));
+$template->append('lastMonths', set_missing_value('month',get_last(24, 'month')));
+$template->append('lastYears', set_missing_value('year',get_last(60, 'year')));
 
-$datas = array();
-
-if (isset($page['day']))
-{
-  $key = 'hour';
-  $min_x = 0;
-  $max_x = 23;
-}
-elseif (isset($page['month']))
-{
-  $key = 'day';
-  $min_x = 1;
-  $max_x = date(
-    't',
-    mktime(12, 0, 0, $page['month'], 1, $page['year'])
-    );
-}
-elseif (isset($page['year']))
-{
-  $key = 'month';
-  $min_x = 1;
-  $max_x = 12;
-}
-else
-{
-  $key = 'year';
-}
-
-$max_pages = 1;
-foreach ($summary_lines as $line)
-{
-  if ($line['nb_pages'] > $max_pages)
-  {
-    $max_pages = $line['nb_pages'];
-  }
-
-  $datas[ $line[$key] ] = $line['nb_pages'];
-}
-
-if (!isset($min_x) and !isset($max_x) and count($datas) > 0)
-{
-  $min_x = min(array_keys($datas));
-  $max_x = max(array_keys($datas));
-}
-
-if (count($datas) > 0)
-{
-  for ($i = $min_x; $i <= $max_x; $i++)
-  {
-    if (!isset($datas[$i]))
-    {
-      $datas[$i] = 0;
-    }
-
-    $url = null;
-
-    if (isset($page['day']))
-    {
-      $value = sprintf('%02u', $i);
-    }
-    else if (isset($page['month']))
-    {
-      $url =
-        get_root_url().'admin.php'
-        .'?page=stats'
-        .'&amp;year='.$page['year']
-        .'&amp;month='.$page['month']
-        .'&amp;day='.$i
-        ;
-
-      $time = mktime(12, 0, 0, $page['month'], $i, $page['year']);
-
-      $value = $i.' ('.$lang['day'][date('w', $time)].')';
-    }
-    else if (isset($page['year']))
-    {
-      $url =
-        get_root_url().'admin.php'
-        .'?page=stats'
-        .'&amp;year='.$page['year']
-        .'&amp;month='.$i
-        ;
-
-      $value = $lang['month'][$i];
-    }
-    else
-    {
-      // at least the year is defined
-      $url =
-        get_root_url().'admin.php'
-        .'?page=stats'
-        .'&amp;year='.$i
-        ;
-
-      $value = $i;
-    }
-
-    if ($datas[$i] != 0 and isset($url))
-    {
-      $value = '<a href="'.$url.'">'.$value.'</a>';
-    }
-
-    $template->append(
-      'statrows',
-      array(
-        'VALUE' => $value,
-        'PAGES' => $datas[$i],
-        'WIDTH' => ceil(($datas[$i] * $max_width) / $max_pages ),
-        )
-      );
-  }
-}
 
 // +-----------------------------------------------------------------------+
 // | Sending html code                                                     |
