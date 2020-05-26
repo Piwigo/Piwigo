@@ -221,6 +221,17 @@ a.stat-box:hover {
   color:#aeaeae;
 }
 
+.stat-data-selector label {
+  color: #777;
+  padding: 10px;
+  background-color: #333;
+  transition: 0.2s ease;
+}
+
+.stat-data-selector label:hover {
+  background-color: #555
+}
+
 /* hacks */
 * html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
 *+html  .bigtext { left: 70px; }

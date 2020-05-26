@@ -18,6 +18,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
 // | Functions                                                             |
 // +-----------------------------------------------------------------------+
 
+//Get the last unit of time for years, months, days and hours
 function get_last($last_number=60, $type='year')
 {
   $query = '
@@ -117,15 +118,16 @@ $template->assign(
   );
 
 // +-----------------------------------------------------------------------+
-// | Set missing unit to 0                                                |
+// | Set missing rows to 0                                                  |
 // +-----------------------------------------------------------------------+
 
-function set_missing_value($unit, $data)
+function set_missing_values($unit, $data)
 {
   $limit = count($data);
   $result = array();
   $date = get_date_object($data[count($data) - 1]);
 
+  //Declare variable according the unit
   if ($unit == 'year') 
   {
     $date_format = 'Y';
@@ -147,12 +149,14 @@ function set_missing_value($unit, $data)
     $date_add = 'PT1H';
   }
 
+  //Fill an empty array with all the dates
   for ($i=0; $i < $limit; $i++) 
   { 
     $result[$date->format($date_format)] = 0;
     $date->add(new DateInterval($date_add));
   }
 
+  //Overload with database rows
   foreach ($data as $value) 
   {
     $str = get_date_object($value)->format($date_format);
@@ -165,8 +169,9 @@ function set_missing_value($unit, $data)
   return $result;
 }
 
-
-function get_date_object($row) {
+//Get a DateTime object for a database row
+function get_date_object($row) 
+{
   $date_string = $row['year'];
     if ($row['month'] != null) 
     {
@@ -189,18 +194,14 @@ function get_date_object($row) {
 }
 
 // +-----------------------------------------------------------------------+
-// | Display statistic rows                                                |
+// | Send data to template                                                 |
 // +-----------------------------------------------------------------------+
 
-$template->append('lastHours', set_missing_value('hour',get_last(72, 'hour')));
-$template->append('lastDays', set_missing_value('day',get_last(90, 'day')));
-$template->append('lastMonths', set_missing_value('month',get_last(24, 'month')));
-$template->append('lastYears', set_missing_value('year',get_last(60, 'year')));
-
-
-// +-----------------------------------------------------------------------+
-// | Sending html code                                                     |
-// +-----------------------------------------------------------------------+
+$template->append('lastHours', set_missing_values('hour',get_last(72, 'hour')));
+$template->append('lastDays', set_missing_values('day',get_last(90, 'day')));
+$template->append('lastMonths', set_missing_values('month',get_last(24, 'month')));
+$template->append('lastYears', set_missing_values('year',get_last(60, 'year')));
+$template->assign('langCode', strval($user['language']));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
 ?>

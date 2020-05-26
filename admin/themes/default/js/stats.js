@@ -18,31 +18,36 @@ data_unit = {
 Creating graph
 -------*/
 var ctx = document.getElementById('stat-graph').getContext('2d');
-
+//Create the gradient under the curve
 var gradient = ctx.createLinearGradient(0,400, 0,0);
 gradient.addColorStop(0, 'rgba(255,166,70,0)');
 gradient.addColorStop(1, '#FFA646');
 
+//Setup the graph
 Chart.defaults.global.elements.point.radius = 0.1;
 Chart.defaults.global.elements.point.hitRadius = 10
+Chart.defaults.global.defaultFontSize = 14;
+Chart.defaults.global.defaultFontColor = '#888'
+Chart.defaults.global.legend.onClick = null;
 var statGraph = new Chart(ctx, {
   type: 'line',
   maintainAspectRatio: false,
   options: {
-  scales: {
-    xAxes: [{
-    type: 'time',
-    time: {
-      tooltipFormat: 'll'
-    },
-    gridLines: {
+    scales: {
+        xAxes: [{
+        type: 'time',
+        time: {
+        tooltipFormat: 'll'
+      },
+      gridLines: {
       display: false
+      }
+      }],
     }
-    }],
-  }
   }
 });
 
+//Line options
 var displayOptions = {
   backgroundColor: gradient,
   borderColor: '#FFA646',
@@ -52,9 +57,9 @@ var displayOptions = {
 function changeData(dataType, label, options = displayOptions) {
   statGraph.data = {
   datasets: [{
-    label: label,
-    data: getValues(data[dataType]),
-    ...options
+  label: label,
+  data: getValues(data[dataType]),
+  ...options
   }]
   }
   statGraph.options.scales.xAxes.forEach(axe => {
@@ -65,24 +70,20 @@ function changeData(dataType, label, options = displayOptions) {
   statGraph.update();
 }
 
+//Make Data readable by Chart.js
 function getValues(data) {
   values = [];
   Object.keys(data).forEach(function(key) {
   var newPoint = {
-    x:new Date(key),
-    y:data[key]
+  x:new Date(key),
+  y:data[key]
   }
   values.push(newPoint)
   });
   return values;
 }
 
-function addAZero(number) {
-  if (number < 10)
-  return "0"+number;
-  return number;
-}
-
+//Event listener
 $(".stat-data-selector label").on("click", function(){
   let dataType = $(this).data("value");
   changeData(dataType, str_number_page_visited)

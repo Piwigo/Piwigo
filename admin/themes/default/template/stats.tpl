@@ -1,17 +1,16 @@
 {footer_script}
-var str_months_names = ["{'January'|@translate}","{'February'|@translate}","{'March'|@translate}","{'April'|@translate}","{'May'|@translate}","{'June'|@translate}","{'July'|@translate}","{'August'|@translate}","{'September'|@translate}","{'October'|@translate}","{'November'|@translate}","{'December'|@translate}"];
 var str_number_page_visited = "{'Number of visited pages'|@translate}";
 var str_tooltip_format = {
   "years":"YYYY",
   "months":"MMMM YYYY",
   "days":"DD MMM",
-  "hours":"H[h] - dddd"
+  "hours":"LT"
 };
 var str_unit_format = {
   "day":"dddd",
   "month":"MMM YYYY"
 }
-moment.locale({'en'|@translate});
+moment.locale("{$langCode}");
 {/footer_script}
 
 {combine_script id='chart.js' load='footer' path='themes/default/js/plugins/Chart.min.js'}
@@ -26,12 +25,11 @@ moment.locale({'en'|@translate});
 </div>
 
 <div id="data" data-hours='{json_encode($lastHours)}' data-days='{json_encode($lastDays)}' data-months='{json_encode($lastMonths)}' data-years='{json_encode($lastYears)}'></div>
-
 <div class="stat-legend-container">
   <div class="stat-data-selector">
-    <input type="radio" id="hours-selector" name="stat-data-type" checked>
-    <label for="hours-selector" data-value="hours">{"Hours"|@translate}</label>
-    <input type="radio" id="days-selector" name="stat-data-type">
+    <input type="radio" id="hours-selector" name="stat-data-type">
+    <label for="hours-selector" data-value="hours">{"Hour"|@translate}</label>
+    <input type="radio" id="days-selector" name="stat-data-type" checked>
     <label for="days-selector" data-value="days">{"Day"|@translate}</label>
     <input type="radio" id="months-selector" name="stat-data-type">
     <label for="months-selector" data-value="months">{"Month"|@translate}</label>
