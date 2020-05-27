@@ -20,8 +20,8 @@ Creating graph
 var ctx = document.getElementById('stat-graph').getContext('2d');
 //Create the gradient under the curve
 var gradient = ctx.createLinearGradient(0,400, 0,0);
-gradient.addColorStop(0, 'rgba(255,166,70,0)');
-gradient.addColorStop(1, '#FFA646');
+gradient.addColorStop(0, 'rgba(255,119,0,0)');
+gradient.addColorStop(1, 'rgba(255,119,0,1)');
 
 //Setup the graph
 Chart.defaults.global.elements.point.radius = 0.1;
@@ -50,7 +50,7 @@ var statGraph = new Chart(ctx, {
 //Line options
 var displayOptions = {
   backgroundColor: gradient,
-  borderColor: '#FFA646',
+  borderColor: 'rgba(255,119,0,1)',
   lineTension : 0.2
 }
 
