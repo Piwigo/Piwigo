@@ -545,14 +545,18 @@ FORM.properties SPAN.property {
 }
 
 /* Dashboard */
+.intro-page-container {
+  display: grid;
+  grid-template-columns: 41% 44%;
+}
+
 .stat-boxes {
-  text-align:left;
-  margin:40px 10px;
+  text-align:center;
 }
 
 .stat-box {
   display:inline-block;
-  width:200px;
+  width:150px;
   margin:10px 10px 40px 10px;
   color:#3b3b3b;
   text-align: center;
@@ -565,7 +569,7 @@ div.stat-box {
 .stat-box i {
   display: inline-block;
   border-radius: 50%;
-  font-size: 37px;
+  font-size: 30px;
   padding: 20px;
   margin-bottom: 15px;
 }
@@ -584,6 +588,212 @@ div.stat-box {
 a.stat-box:hover {
   text-decoration: none;
   color:#777;
+}
+
+.intro-charts {
+  width: 48vw;
+}
+
+.chart-title {
+  font-size: 18px;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #3b3b3b;
+  position: relative;
+}
+
+.chart-title-infos {
+  font-size: 14px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.activity-chart {
+  font-weight: bold;
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: repeat(8, 6vw) ;
+  grid-template-rows: repeat(4, 6vw);
+}
+
+.activity-chart .row-legend,.activity-chart .col-legend {
+  position: relative;
+}
+
+.activity-chart .row-legend {
+  display: flex;
+}
+
+.activity-chart .row-legend div{
+  margin: auto;
+}
+
+.activity-chart .col-legend {
+  line-height: 6vw;
+}
+
+.activity-chart .row-legend:after {
+  content: "";
+  border-top: 2px solid black;
+  opacity: 0.05;
+  position: absolute;
+  width: 700%;
+  transform: translate(6vw,3vw);
+}
+
+.activity-chart .col-legend .line-vertical {
+  border-left: 2px solid black;
+  opacity: 0.05;
+  position: absolute;
+  height: 250%;
+  left: 50%;
+  bottom: 100%;
+}
+
+.activity-chart span {
+  display: flex;
+  overflow: visible;
+  position: relative;
+}
+
+.activity-chart span div{
+  height: 0px;
+  width: 0px;
+  background-color: #ff5252;
+  opacity: 0.8;
+  display: block;
+  border-radius: 100%;
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.activity-chart span p {
+  position: absolute;
+  display: none;
+  opacity: 0;
+  z-index: 102;
+  font-size: 12px;
+  font-weight: normal;
+  background-color: white;
+  padding: 5px;
+  width: 150px;
+  box-shadow: 0px 0px 5px #acacac;
+  border-radius: 5px;
+  transform : translate(-50%, 5vw);
+  transition: ease 0.2s;
+  left: 50%;
+}
+
+.activity-chart span p::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%; /* At the bottom of the tooltip */
+  left: 51%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
+.activity-chart span div:hover{
+  padding: 0.5vw;
+}
+
+.activity-chart span div:hover + p{
+  display: block;
+  opacity: 1;
+}
+
+.activity-chart #week-1-legend ~ span div {
+  background-color: #2883c3;
+}
+
+.activity-chart #week-2-legend ~ span div {
+  background-color: #896af3 ;
+}
+
+.activity-chart #week-3-legend ~ span div {
+  background-color: #6ece5e ;
+}
+
+.activity-chart #week-4-legend ~ span div {
+  background-color: #ffa744 ;
+}
+
+.storage-chart {
+  border-radius: 5px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 30px;
+  display: flex;
+  background-color: #e8e8e8;
+}
+
+.storage-chart span{
+  opacity: 0.7;
+  transition: ease 0.2s;
+}
+
+.storage-chart span p{
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
+  opacity: 0;
+  line-height: 0;
+  transition: ease 0.2s;
+}
+
+.storage-chart span:hover{
+  opacity: 1;
+}
+
+.storage-chart span:hover p{
+  opacity: 0.4;
+}
+
+.storage-chart-legend {
+  display: flex
+}
+
+.storage-chart-legend div{
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.storage-chart-legend div span{
+  width: 15px;
+  height: 15px;
+  display: block;
+  margin: 5px;
+  opacity: 0.7;
+}
+
+.storage-chart span:nth-child(1), .storage-chart-legend div:nth-child(1) span{
+  background-color:#ffa744;
+}
+
+.storage-chart span:nth-child(2), .storage-chart-legend div:nth-child(2) span{
+  background-color:#6ece5e;
+}
+
+.storage-chart span:nth-child(3), .storage-chart-legend div:nth-child(3) span{
+  background-color:#896af3;
+}
+
+.storage-chart span:nth-child(4), .storage-chart-legend div:nth-child(4) span{
+  background-color:#2883c3;
+}
+
+.storage-chart span:nth-child(5), .storage-chart-legend div:nth-child(5) span{
+  background-color:#ff5252;
 }
 
 #configContent fieldset {

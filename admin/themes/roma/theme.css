@@ -232,6 +232,19 @@ a.stat-box:hover {
   background-color: #555
 }
 
+.chart-title {
+  color: #777;
+}
+
+.activity-chart span p {
+  background-color: #333333;
+  box-shadow: none;
+}
+
+.activity-chart span p::after {
+  border-color: transparent transparent #333333 transparent;
+}
+
 /* hacks */
 * html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
 *+html  .bigtext { left: 70px; }

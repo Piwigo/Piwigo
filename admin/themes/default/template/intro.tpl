@@ -7,7 +7,7 @@ var piwigo_need_update_msg = '<a href="admin.php?page=updates">{'A new version o
 var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
 
 {literal}
-jQuery().ready(function(){
+  jQuery().ready(function(){
 	jQuery('.cluetip').cluetip({
 		width: 300,
 		splitTitle: '|',
@@ -61,6 +61,7 @@ jQuery().ready(function(){
 
 <h2>{'Piwigo Administration'|@translate}</h2>
 
+<div class="intro-page-container">
 <div class="stat-boxes">
 
 {if $NB_PHOTOS > 1}
@@ -139,6 +140,52 @@ jQuery().ready(function(){
 {/if}
 
 </div> {* .stat-boxes *}
+
+<div class="intro-charts">
+
+  <div class="chart-title"> {"Activity peak in the last weeks"|@translate}</div>
+  <div class="activity-chart" style="grid-template-rows: repeat({count($ACTIVITY_CHART_DATA) + 1}, 6vw);">
+    {foreach from=$ACTIVITY_CHART_DATA item=WEEK_ACTIVITY key=WEEK_NUMBER}
+      <div id="week-{$WEEK_NUMBER}-legend" class="row-legend"><div>{"Week of %s/%s"|@translate:$ACTIVITY_MONDAYS_DATE[$WEEK_NUMBER]['d']:$ACTIVITY_MONDAYS_DATE[$WEEK_NUMBER]['m']}</div></div>
+      {foreach from=$WEEK_ACTIVITY item=SIZE key=DAY_NUMBER}
+        <span>
+          {if $SIZE != 0}
+          <div id="day{$WEEK_NUMBER}-{$DAY_NUMBER}" style="height:{$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 7 + 1}vw;width:{$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 7 + 1}vw;opacity:{$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 0.7 + 0.1}"></div>
+          {if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] != 0}
+          <p style="transform: translate(-50%, 50%) translate(0, {if $SIZE/2 >= 1}{$SIZE/2}{else}2{/if}vw)"> 
+            <b>{"%s Activities"|@translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}</b>
+            {foreach from=$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["details"] item=actions key=cat}
+              <br> {$cat} : {foreach from=$actions item=number key=action} ({$action}) {$number} {/foreach}
+            {/foreach}
+          </p>
+          {/if}
+          {/if}
+        </span>
+      {/foreach}
+    {/foreach}
+    <div></div>
+    {foreach from=array('Mon'|translate, 'Tue'|translate, 'Wed'|translate, 'Thu'|translate, 'Fri'|translate, 'Sat'|translate, 'Sun'|translate) item=day}
+      <div class="col-legend">{$day} <div class="line-vertical" style="height: {count($ACTIVITY_CHART_DATA)*100 - 50}%;"></div></div>
+    {/foreach}
+  </div>
+
+  <div class="chart-title"> {"Storage"|@translate} <span class="chart-title-infos"> {'%s MB used'|translate:$STORAGE_TOTAL} </span></div>
+
+  <div class="storage-chart">
+    {foreach from=$STORAGE_CHART_DATA item=value}
+      <span style="width:{$value}%"> <p>{round($value)}%</p> </span>  
+    {/foreach}
+  </div>
+
+  <div class="storage-chart-legend">
+    {foreach from=$STORAGE_CHART_DATA item=i key=type}
+      <div><span></span> <p>{$type|translate}</p></div>
+    {/foreach}
+  </div>
+
+</div> {* .intro-chart *}
+
+</div> {* .intro-page-container *}
 
 <p class="showCreateAlbum">
 {if $ENABLE_SYNCHRONIZATION}
