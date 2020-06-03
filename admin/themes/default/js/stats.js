@@ -24,10 +24,13 @@ gradient.addColorStop(0, 'rgba(255,119,0,0)');
 gradient.addColorStop(1, 'rgba(255,119,0,1)');
 
 //Setup the graph
+Chart.defaults.global.legend.display = false; 
 Chart.defaults.global.elements.point.radius = 0.1;
 Chart.defaults.global.elements.point.hitRadius = 10
 Chart.defaults.global.defaultFontSize = 14;
-Chart.defaults.global.defaultFontColor = '#888'
+Chart.defaults.global.defaultFontColor = '#888';
+Chart.defaults.global.tooltips.mode = 'index';
+Chart.defaults.global.tooltips.intersect = false;
 Chart.defaults.global.legend.onClick = null;
 var statGraph = new Chart(ctx, {
   type: 'line',

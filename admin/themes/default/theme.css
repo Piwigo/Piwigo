@@ -282,7 +282,7 @@ TABLE.doubleSelect SELECT.categoryList {
 .stat-graph-container {
   margin: auto;
   position: relative;
-  width: 80%;
+  width: calc(100% - 20px);
   margin-top: 20px;
   margin-bottom: 20px;
 }

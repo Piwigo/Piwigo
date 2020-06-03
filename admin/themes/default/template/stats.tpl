@@ -1,5 +1,5 @@
 {footer_script}
-var str_number_page_visited = "{'Number of visited pages'|@translate}";
+var str_number_page_visited = "{'Page Visited'|@translate}";
 var str_tooltip_format = {
   "years":"YYYY",
   "months":"MMMM YYYY",
