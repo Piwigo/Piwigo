@@ -46,6 +46,25 @@ var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some u
     }
   });
 });
+
+//Tooltip for the storage chart
+$('.storage-chart span').each(function () {
+  let tooltip = $('.storage-tooltips #'+$(this).data('type'));
+  let left = $(this).position().left + $(this).width()/2 - tooltip.innerWidth()/2;
+  tooltip.css('left', left+"px")
+  $(this).hover(function() {
+    tooltip.toggle();
+  });
+});
+
+$(window).on('resize', function(){
+  $('.storage-chart span').each(function () {
+    let tooltip = $('.storage-tooltips #'+$(this).data('type'));
+    let left = $(this).position().left + $(this).width()/2 - tooltip.innerWidth()/2;
+    tooltip.css('left', left+"px")
+  });
+});
+
 {/literal}
 {/footer_script}
 
@@ -144,18 +163,41 @@ var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some u
 <div class="intro-charts">
 
   <div class="chart-title"> {"Activity peak in the last weeks"|@translate}</div>
-  <div class="activity-chart" style="grid-template-rows: repeat({count($ACTIVITY_CHART_DATA) + 1}, 6vw);">
+  <div class="activity-chart" style="grid-template-rows: repeat({count($ACTIVITY_CHART_DATA) + 1}, 5vw);">
     {foreach from=$ACTIVITY_CHART_DATA item=WEEK_ACTIVITY key=WEEK_NUMBER}
-      <div id="week-{$WEEK_NUMBER}-legend" class="row-legend"><div>{"Week of %s/%s"|@translate:$ACTIVITY_MONDAYS_DATE[$WEEK_NUMBER]['d']:$ACTIVITY_MONDAYS_DATE[$WEEK_NUMBER]['m']}</div></div>
+      <div id="week-{$WEEK_NUMBER}-legend" class="row-legend"><div>{"Week %s"|@translate:$ACTIVITY_WEEK_NUMBER[$WEEK_NUMBER]}</div></div>
       {foreach from=$WEEK_ACTIVITY item=SIZE key=DAY_NUMBER}
         <span>
           {if $SIZE != 0}
-          <div id="day{$WEEK_NUMBER}-{$DAY_NUMBER}" style="height:{$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 7 + 1}vw;width:{$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 7 + 1}vw;opacity:{$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 0.7 + 0.1}"></div>
-          {if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] != 0}
-          <p style="transform: translate(-50%, 50%) translate(0, {if $SIZE/2 >= 1}{$SIZE/2}{else}2{/if}vw)"> 
-            <b>{"%s Activities"|@translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}</b>
+          {assign var='SIZE_IN_UNIT' value=$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 5 + 1}
+          {assign var='OPACITY_IN_UNIT' value=$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 0.6 + 0.2}
+          <div id="day{$WEEK_NUMBER}-{$DAY_NUMBER}" style="height:{$SIZE_IN_UNIT}vw;width:{$SIZE_IN_UNIT}vw;opacity:{$OPACITY_IN_UNIT}"></div>
+          {if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] != 0}     
+          <p class="tooltip" style="transform: translate(-50%,{$SIZE_IN_UNIT/2}vw);">
+            <span class="tooltip-header"> 
+              <span class="tooltip-title">{if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] > 1}{"%s Activities"|@translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}{else}{"%s Activity"|@translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}{/if}</span>
+              <span class="tooltip-date">{$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["date"]}</span>
+            </span>
+            <span class="tooltip-details">
             {foreach from=$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["details"] item=actions key=cat}
-              <br> {$cat} : {foreach from=$actions item=number key=action} ({$action}) {$number} {/foreach}
+              <span class="tooltip-details-cont">
+                {if $cat == "Group"} <span class="icon-group icon-purple tooltip-details-title">{$cat|@translate}</span>
+                {elseif $cat == "User"} <span class="icon-users icon-purple tooltip-details-title"> {$cat|@translate}</span>
+                {elseif $cat == "Album"} <span class="icon-sitemap icon-red tooltip-details-title">{$cat|@translate}</span>
+                {elseif $cat == "Photo"} <span class="icon-picture icon-yellow tooltip-details-title">{$cat|@translate} </span>
+                {elseif $cat == "Tag"} <span class="icon-tags icon-green tooltip-details-title">{$cat|@translate} </span>
+                {else} <span class="tooltip-details-title"> {$cat|@translate} </span> {/if}
+
+                {foreach from=$actions item=number key=action}
+                  {if $action == "Edit"} <span class="icon-pencil tooltip-detail" title="{"%s editions"|@translate:$number}">{$number}</span>
+                  {elseif $action == "Add"} <span class="icon-plus tooltip-detail" title="{"%s additions"|@translate:$number}">{$number}</span>
+                  {elseif $action == "Delete"} <span class="icon-trash tooltip-detail" title="{"%s deletions"|@translate:$number}">{$number}</span>
+                  {elseif $action == "Login"} <span class="icon-key tooltip-detail" title="{"%s login"|@translate:$number}">{$number}</span>
+                  {elseif $action == "Logout"} <span class="icon-logout tooltip-detail" title="{"%s logout"|@translate:$number}">{$number} </span>
+                  {else} <span> ({$action|@translate}) {$number} </span> 
+                  {/if}  
+                {/foreach}
+                </span>
             {/foreach}
           </p>
           {/if}
@@ -169,11 +211,19 @@ var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some u
     {/foreach}
   </div>
 
-  <div class="chart-title"> {"Storage"|@translate} <span class="chart-title-infos"> {'%s MB used'|translate:$STORAGE_TOTAL} </span></div>
+  <div class="chart-title"> {"Storage"|@translate} <span class="chart-title-infos"> {'%s MB used'|translate:($STORAGE_TOTAL/1000)} </span></div>
 
   <div class="storage-chart">
-    {foreach from=$STORAGE_CHART_DATA item=value}
-      <span style="width:{$value}%"> <p>{round($value)}%</p> </span>  
+    {foreach from=$STORAGE_CHART_DATA key=type item=value}
+      <span data-type="storage-{$type}" style="width:{$value/$STORAGE_TOTAL*100}%"> 
+        <p>{round($value/$STORAGE_TOTAL*100)}%</p>
+      </span>  
+    {/foreach}
+  </div>
+
+  <div class="storage-tooltips">
+    {foreach from=$STORAGE_CHART_DATA key=type item=value}
+      <p id="storage-{$type}" class="tooltip"><b>{$type}</b> : {$value/1000} MB</p>
     {/foreach}
   </div>
 

@@ -191,54 +191,70 @@ trigger_notify('loc_end_intro');
 // |                           get activity data                           |
 // +-----------------------------------------------------------------------+
 
-$number_week = 4;
+$nb_weeks = $conf['dashboard_activity_nb_weeks'];
 $date = new DateTime();
 //Array for the JS tooltip
 $activity_last_weeks = array();
 //Count mondays
 $mondays = 0;
-//Get mondays date (day + month) for the chart legend
-$mondays_date = array();
+//Get mondays number for the chart legend
+$week_number = array();
 //Array for sorting days in circle size
 $temp_data = array();
 
-//Get data from $number_week last weeks
-while ($mondays < $number_week) 
+//Get data from $nb_weeks last weeks
+while ($mondays < $nb_weeks) 
 {
-  $date_string = $date->format('Y-m-d');
-  $query = '
-SELECT *
-  FROM `'.ACTIVITY_TABLE.'`
-  WHERE occured_on LIKE "'.$date_string.'%"
-;';
+  $date->sub(new DateInterval('P1D'));
 
-  $result = query2array($query, null);
-
-  $this_day = array('number' => 0);
-  foreach ($result as $act) {
-    if(isset($this_day['details'][ucfirst($act['object'])][ucfirst($act['action'])]))
-    {
-      $this_day['details'][ucfirst($act['object'])][ucfirst($act['action'])] += 1;
-    } else {
-      $this_day['details'][ucfirst($act['object'])][ucfirst($act['action'])] = 1;
-    }
-    $this_day['number'] += 1;
-  }
-
-  if ($this_day['number'] > 0) 
+  if ($date->format('D') == 'Mon') 
   {
-    $temp_data[] = array('x' => $this_day['number'], 'd'=>$date->format('N'), 'w'=>$mondays); 
-  }
-
-
-  $activity_last_weeks[$mondays][intval($date->format('N'))] = $this_day;
-
-  if ($date->format('D') == 'Mon') {
-    $mondays_date[$mondays]['m'] = $date->format('m');
-    $mondays_date[$mondays]['d'] = $date->format('d');
+    $week_number[] = $date->format('W');
     $mondays += 1;
   }
-  $date->sub(new DateInterval('P1D'));
+}
+
+$week_number = array_reverse($week_number);
+
+$date_string = $date->format('Y-m-d');
+$query = '
+SELECT *
+  FROM `'.ACTIVITY_TABLE.'`
+  WHERE occured_on >= "'.$date_string.'%"
+;';
+
+$result = query2array($query, null);
+
+foreach ($result as $row) 
+{
+  $day_date = new DateTime($row['occured_on']);
+
+  $week = 0;
+  for ($i=0; $i < $nb_weeks; $i++) 
+  { 
+    if ($week_number[$i] == $day_date->format('W'))
+    {
+      $week = $i;
+    }
+  }
+  $day_nb = $day_date->format('N');
+
+  @$activity_last_weeks[$week][$day_nb]['details'][ucfirst($row['object'])][ucfirst($row['action'])] += 1;
+  @$activity_last_weeks[$week][$day_nb]['number'] += 1;
+  @$activity_last_weeks[$week][$day_nb]['date'] = format_date($day_date->getTimestamp());
+}
+
+//echo '<pre>'; print_r($activity_last_weeks); echo '</pre>';
+
+foreach($activity_last_weeks as $week => $i) 
+{
+  foreach($i as $day => $j) 
+  {
+    if ($j['number'] > 0) 
+    {
+      $temp_data[] = array('x' => $j['number'], 'd'=>$day, 'w'=>$week); 
+    }
+  }
 }
 
 // Algorithm to sort days in circle size :
@@ -249,7 +265,8 @@ SELECT *
 //Function to sort days by number of activity
 function cmp_day($a, $b)
 {
-  if ($a['x'] == $b['x']) {
+  if ($a['x'] == $b['x']) 
+  {
     return 0;
   }
   return ($a['x'] < $b['x']) ? -1 : 1;
@@ -267,15 +284,18 @@ for ($i=1; $i < count($temp_data); $i++)
 
 $split = 0;
 //Split (split represented by -1)
-while (max($diff_x) > 120) {
+while (max($diff_x) > 120) 
+{
   $diff_x[array_search(max($diff_x), $diff_x)] = -1;
   $split++;
 }
 
 //Fill empty chart data for the template
 $chart_data = array();
-for ($i=0; $i < $number_week; $i++) { 
-  for ($j=1; $j <= 7; $j++) { 
+for ($i=0; $i < $nb_weeks; $i++) 
+{ 
+  for ($j=1; $j <= 7; $j++) 
+  { 
     $chart_data[$i][$j] = 0;
   }
 }
@@ -283,17 +303,20 @@ for ($i=0; $i < $number_week; $i++) {
 $size = 1;
 $chart_data[$temp_data[0]['w']][$temp_data[0]['d']] = $size;
 //Set sizes in chart data
-for ($i=1; $i < count($temp_data); $i++) { 
-  if ($diff_x[$i-1] == -1) {$size++;}
+for ($i=1; $i < count($temp_data); $i++) 
+{ 
+  if ($diff_x[$i-1] == -1) 
+  {
+    $size++;
+  }
   $chart_data[$temp_data[$i]['w']][$temp_data[$i]['d']] = $size;
 }
 
 //Assign data for the template
-$template->assign('ACTIVITY_MONDAYS_DATE',array_reverse($mondays_date));
-$template->assign('ACTIVITY_LAST_WEEKS', array_reverse($activity_last_weeks));
-$template->assign('ACTIVITY_CHART_DATA',array_reverse($chart_data));
+$template->assign('ACTIVITY_WEEK_NUMBER',$week_number);
+$template->assign('ACTIVITY_LAST_WEEKS', $activity_last_weeks);
+$template->assign('ACTIVITY_CHART_DATA',$chart_data);
 $template->assign('ACTIVITY_CHART_NUMBER_SIZES',$size);
-
 
 // +-----------------------------------------------------------------------+
 // |                           get storage data                            |
@@ -350,7 +373,7 @@ $result = query2array($query);
 
 if (isset($result[0]['SUM(filesize)']))
 {
-  $data_storage['Format'] = $result[0]['SUM(filesize)'];
+  $data_storage['Formats'] = $result[0]['SUM(filesize)'];
 }
 
 //If the host is not windows, get the cache size
@@ -371,14 +394,8 @@ foreach ($data_storage as $value)
   $total_storage += $value;
 }
 
-//Get percentage of the total storage
-foreach ($data_storage as $key=>$value) 
-{
-  $data_storage[$key] = $value/$total_storage*100;
-}
-
 //Pass data to HTML
-$template->assign('STORAGE_TOTAL',$total_storage/1000);
+$template->assign('STORAGE_TOTAL',$total_storage);
 $template->assign('STORAGE_CHART_DATA',$data_storage);
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

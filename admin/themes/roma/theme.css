@@ -236,13 +236,17 @@ a.stat-box:hover {
   color: #777;
 }
 
-.activity-chart span p {
+.intro-charts .tooltip {
   background-color: #333333;
   box-shadow: none;
 }
 
-.activity-chart span p::after {
+.intro-charts .tooltip::after {
   border-color: transparent transparent #333333 transparent;
+}
+
+.intro-charts .tooltip .tooltip-details-title, .intro-charts .tooltip-title {
+  color:#aeaeae !important;
 }
 
 /* hacks */

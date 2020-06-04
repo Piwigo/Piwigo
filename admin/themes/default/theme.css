@@ -547,7 +547,7 @@ FORM.properties SPAN.property {
 /* Dashboard */
 .intro-page-container {
   display: grid;
-  grid-template-columns: 41% 44%;
+  grid-template-columns: 50% 49%;
 }
 
 .stat-boxes {
@@ -590,10 +590,6 @@ a.stat-box:hover {
   color:#777;
 }
 
-.intro-charts {
-  width: 48vw;
-}
-
 .chart-title {
   font-size: 18px;
   text-align: left;
@@ -614,8 +610,8 @@ a.stat-box:hover {
   font-weight: bold;
   font-size: 14px;
   display: grid;
-  grid-template-columns: repeat(8, 6vw) ;
-  grid-template-rows: repeat(4, 6vw);
+  grid-template-columns: repeat(8, 5vw) ;
+  grid-template-rows: repeat(4, 5vw);
 }
 
 .activity-chart .row-legend,.activity-chart .col-legend {
@@ -631,7 +627,7 @@ a.stat-box:hover {
 }
 
 .activity-chart .col-legend {
-  line-height: 6vw;
+  line-height: 5vw;
 }
 
 .activity-chart .row-legend:after {
@@ -640,7 +636,7 @@ a.stat-box:hover {
   opacity: 0.05;
   position: absolute;
   width: 700%;
-  transform: translate(6vw,3vw);
+  transform: translate(6vw,2.5vw);
 }
 
 .activity-chart .col-legend .line-vertical {
@@ -670,29 +666,87 @@ a.stat-box:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: ease 0.2s;
 }
 
-.activity-chart span p {
+.intro-charts .tooltip {
   position: absolute;
   display: none;
-  opacity: 0;
   z-index: 102;
   font-size: 12px;
   font-weight: normal;
   background-color: white;
-  padding: 5px;
-  width: 150px;
+  padding: 10px;
   box-shadow: 0px 0px 5px #acacac;
-  border-radius: 5px;
-  transform : translate(-50%, 5vw);
+  border-radius: 10px;
+  margin: 0px;
   transition: ease 0.2s;
-  left: 50%;
 }
 
-.activity-chart span p::after {
+.intro-charts .tooltip .tooltip-header {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.intro-charts .tooltip .tooltip-header span {
+  margin: 0px 5px
+}
+
+.intro-charts .tooltip .tooltip-title {
+  font-weight: bold;
+  color: #3b3b3b;
+}
+
+.intro-charts .tooltip .tooltip-date {
+  font-style: italic;
+}
+
+.intro-charts .tooltip span:before {
+  width: 1.2em;
+  font-size: 15px;
+}
+
+.intro-charts .tooltip .tooltip-details {
+  display: flex;
+  align-items: flex-start;
+}
+
+.intro-charts .tooltip .tooltip-details-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0px 3px;
+}
+
+.intro-charts .tooltip .tooltip-details-title {
+  font-weight: bold;
+  padding: 0px 5px;
+  margin-bottom: 8px;
+  border-radius: 15px;
+  background: none !important;
+}
+
+.intro-charts .tooltip .tooltip-detail {
+  margin: 1px;
+  padding-left: calc(50% - 20px);
+}
+
+.activity-chart .tooltip {
+  left: 50%;
+  top:45%
+}
+
+.intro-charts .tooltip span{
+  display: inline;
+  white-space: nowrap;
+}
+
+.intro-charts .tooltip::after {
   content: " ";
   position: absolute;
-  bottom: 100%; /* At the bottom of the tooltip */
+  bottom: 100%;
   left: 51%;
   margin-left: -5px;
   border-width: 5px;
@@ -704,8 +758,8 @@ a.stat-box:hover {
   padding: 0.5vw;
 }
 
-.activity-chart span div:hover + p{
-  display: block;
+.activity-chart span div:hover + .tooltip, .intro-charts .tooltip:hover{
+  display: inline-grid;
   opacity: 1;
 }
 
@@ -735,6 +789,10 @@ a.stat-box:hover {
   background-color: #e8e8e8;
 }
 
+.storage-tooltips {
+  position: relative;
+}
+
 .storage-chart span{
   opacity: 0.7;
   transition: ease 0.2s;
@@ -747,10 +805,16 @@ a.stat-box:hover {
   opacity: 0;
   line-height: 0;
   transition: ease 0.2s;
+  white-space: nowrap;
 }
 
 .storage-chart span:hover{
   opacity: 1;
+}
+
+.storage-chart span:hover .tooltip {
+  opacity: 1;
+  display: block;
 }
 
 .storage-chart span:hover p{

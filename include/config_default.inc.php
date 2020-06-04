@@ -696,6 +696,9 @@ $conf['ws_max_users_per_page'] = 1000;
 // Display a link to subscribe to Piwigo Announcements Newsletter
 $conf['show_newsletter_subscription'] = true;
 
+// Number Weeks displayed on activity chart on the dashboard
+$conf['dashboard_activity_nb_weeks'] = 4;
+
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
 // +-----------------------------------------------------------------------+
