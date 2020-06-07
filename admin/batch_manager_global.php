@@ -454,7 +454,11 @@ if ($conf['enable_synchronization'])
 }
 
 $prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);
-usort($prefilters, 'UC_name_compare');
+
+// Sort prefilters by localized name.
+usort($prefilters, function ($a, $b) {
+  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
+});
 
 $template->assign(
   array(
