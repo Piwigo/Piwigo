@@ -1,5 +1,6 @@
 {footer_script}
 var str_number_page_visited = "{'Page Visited'|@translate}";
+var str_number_page_visited_with_year = "{'Page Visited in %s'|@translate}";
 var str_tooltip_format = {
   "years":"YYYY",
   "months":"MMMM YYYY",
@@ -10,6 +11,8 @@ var str_unit_format = {
   "day":"dddd",
   "month":"MMM YYYY"
 }
+var str_avg = "{'Average last 12 months'|@translate}"
+var str_months = ["{'January'|@translate}", "{'February'|@translate}", "{'March'|@translate}", "{'April'|@translate}", "{'May'|@translate}", "{'June'|@translate}", "{'July'|@translate}", "{'August'|@translate}", "{'September'|@translate}", "{'Octobember'|@translate}", "{'November'|@translate}", "{'December'|@translate}"];
 moment.locale("{$langCode}");
 {/footer_script}
 
@@ -24,7 +27,22 @@ moment.locale("{$langCode}");
   <h2>{'History'|@translate}</h2>
 </div>
 
-<div id="data" data-hours='{json_encode($lastHours)}' data-days='{json_encode($lastDays)}' data-months='{json_encode($lastMonths)}' data-years='{json_encode($lastYears)}'></div>
+<div class="stat-compare-mode">
+  <label class="switch">
+      <input type="checkbox" id="toggleCompareMode">
+      <span class="slider round" checked="false"></span>
+  </label>
+  {'Compare mode'|@translate}
+</div>
+
+<div id="data" 
+  data-hours='{json_encode($lastHours)}' 
+  data-days='{json_encode($lastDays)}' 
+  data-months='{json_encode($lastMonths)}' 
+  data-years='{json_encode($lastYears)}'
+  data-compare-years='{json_encode($compareYears)}'
+  data-month-stats='{json_encode($monthStats)}' 
+  ></div>
 <div class="stat-legend-container">
   <div class="stat-data-selector">
     <input type="radio" id="hours-selector" name="stat-data-type">

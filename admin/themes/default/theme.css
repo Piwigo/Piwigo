@@ -266,6 +266,13 @@ TABLE.doubleSelect SELECT.categoryList {
   transition: 0.2s ease;
 }
 
+.stat-data-selector label.unavailable {
+  color: gray;
+  background-color: #aaa;
+  cursor: default;
+  pointer-events: none;
+}
+
 .stat-data-selector label:hover {
   background-color: #ccc
 }
@@ -273,6 +280,7 @@ TABLE.doubleSelect SELECT.categoryList {
 .stat-data-selector input:checked + label {
   background-color: #FFA646;
   color: white;
+  pointer-events: none;
 }
 
 .stat-data-selector input{
@@ -285,6 +293,12 @@ TABLE.doubleSelect SELECT.categoryList {
   width: calc(100% - 20px);
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.stat-compare-mode {
+  position: absolute;
+  right: 10px;
+  transform: translate(0, 10px);
 }
 
 .over{

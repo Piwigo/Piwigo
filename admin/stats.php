@@ -93,6 +93,97 @@ SELECT
   return $output;
 }
 
+function get_month_of_last_years ($last = 'all') 
+{
+
+  $query = '
+SELECT
+  year,
+  month,
+  day,
+  hour,
+  nb_pages
+FROM '.HISTORY_SUMMARY_TABLE.'
+WHERE month IS NOT NULL
+  AND day IS NULL
+ORDER BY
+  year DESC,
+  month DESC';
+
+  if ($last !== 'all') 
+  {
+    $date = new DateTime();
+    $limit = ($last - 1)*12+$date->format('n') - 1;
+    $query .= 
+' LIMIT '.$limit;
+  }
+
+  return query2array($query.';');
+}
+
+function get_month_stats() 
+{
+  $result = array();
+  $date = new DateTime();
+  $date_last_month = clone $date;
+  $date_last_year = clone $date;
+  $months = array();
+
+  $date_last_month->sub(new DateInterval('P1M'));
+  $date_last_year->sub(new DateInterval('P1Y'));
+  $query = '
+SELECT
+  year,
+  month,
+  day,
+  hour,
+  nb_pages
+FROM '.HISTORY_SUMMARY_TABLE.'
+WHERE 
+  (
+    (year = '.$date->format('Y').' AND month = '.$date->format('n').')
+    OR (year = '.$date_last_month->format('Y').' AND month = '.$date_last_month->format('n').')
+    OR (year = '.$date_last_year->format('Y').' AND month = '.$date_last_year->format('n').')
+  )
+  AND day IS NOT NULL
+  AND hour IS NULL
+ORDER BY
+  year DESC,
+  month DESC
+;';
+
+  foreach (query2array($query) as $value) 
+  {
+    $date = get_date_object($value);
+    @$months[$date->format('Y-m')][] = $value;
+  }
+
+  foreach ($months as $key => $val) 
+  {
+    $result['month'][] = set_missing_values('day',$val, false);
+  }
+
+  $query = '
+SELECT
+  AVG(nb_pages)
+FROM '.HISTORY_SUMMARY_TABLE.'
+WHERE 
+  (
+  year = '.$date->format('Y').' OR
+  (year = '.($date->format('Y')-1).' and month > '.$date->format('n').')
+  ) 
+  AND day IS NOT NULL
+  AND hour IS NULL
+ORDER BY
+  year DESC,
+  month DESC
+;';
+
+  $result['avg'] = query2array($query)[0]['AVG(nb_pages)'];
+  
+  return $result;
+}
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -100,7 +191,7 @@ SELECT
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
-// | Display statistics header                                             |
+// | Display statistics header                                             |                                                                                            
 // +-----------------------------------------------------------------------+
 
 $template->set_filename('stats', 'stats.tpl');
@@ -118,10 +209,10 @@ $template->assign(
   );
 
 // +-----------------------------------------------------------------------+
-// | Set missing rows to 0                                                  |
+// | Set missing rows to 0                                                 |
 // +-----------------------------------------------------------------------+
 
-function set_missing_values($unit, $data)
+function set_missing_values($unit, $data, $keep_size=true)
 {
   $limit = count($data);
   $result = array();
@@ -150,10 +241,19 @@ function set_missing_values($unit, $data)
   }
 
   //Fill an empty array with all the dates
-  for ($i=0; $i < $limit; $i++) 
-  { 
-    $result[$date->format($date_format)] = 0;
-    $date->add(new DateInterval($date_add));
+  if ($keep_size) 
+  {
+    for ($i=0; $i < $limit; $i++) 
+    { 
+      $result[$date->format($date_format)] = 0;
+      $date->add(new DateInterval($date_add));
+    }
+  } else {
+    $date_end = get_date_object($data[0]);
+    while ($date <= $date_end) {
+      $result[$date->format($date_format)] = 0;
+      $date->add(new DateInterval($date_add));
+    }
   }
 
   //Overload with database rows
@@ -197,6 +297,8 @@ function get_date_object($row)
 // | Send data to template                                                 |
 // +-----------------------------------------------------------------------+
 
+$template->append('compareYears', set_missing_values('month', get_month_of_last_years($conf['stat_compare_year_displayed']), false));
+$template->append('monthStats', get_month_stats());
 $template->append('lastHours', set_missing_values('hour',get_last(72, 'hour')));
 $template->append('lastDays', set_missing_values('day',get_last(90, 'day')));
 $template->append('lastMonths', set_missing_values('month',get_last(24, 'month')));

@@ -271,6 +271,9 @@ $conf['update_notify_reminder_period'] = 7*24*60*60;
 // only the first page (value=false)
 $conf['album_description_on_all_pages'] = false;
 
+// Number of years displayed in the history compare mode (for the years chart)
+$conf['stat_compare_year_displayed'] = 5;
+
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
 // +-----------------------------------------------------------------------+
