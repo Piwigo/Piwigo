@@ -331,6 +331,19 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   border-color:#333;
 }
 
+#picture-content input[type=text], #picture-content textarea {
+  background-color: #444444;
+  border: 1px solid #666;
+}
+
+.picture-infos-title, .picture-infos-icon {
+  color: #c1c1c1;
+}
+
+.picture-infos-category {
+  border-color: #333;
+}
+
 .selectedComment {background-color:#555; color:#fff;}
 
 .groups .Group-name>p {

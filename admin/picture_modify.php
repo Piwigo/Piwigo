@@ -235,7 +235,7 @@ $template->assign(
 
     'PATH'=>$row['path'],
 
-    'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
+    'TN_SRC' => DerivativeImage::url(IMG_MEDIUM, $src_image),
     'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
 
     'NAME' =>
@@ -245,6 +245,8 @@ $template->assign(
     'TITLE' => render_element_name($row),
 
     'DIMENSIONS' => @$row['width'].' * '.@$row['height'],
+
+    'FORMAT' => ($row['width'] >= $row['height'])? 1:0,//0:horizontal, 1:vertical
 
     'FILESIZE' => @$row['filesize'].' KB',
 
