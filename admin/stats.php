@@ -216,7 +216,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // | Refresh summary from details                                          |
 // +-----------------------------------------------------------------------+
 
-history_summarize();
+//history_summarize();
 
 // +-----------------------------------------------------------------------+
 // | Display statistics header                                             |                                                                                            
@@ -246,7 +246,8 @@ function set_missing_values($unit, $data, $keep_size=true, $firstDate = null, $l
   $result = array();
   if ($firstDate == null) 
   {
-    $date = get_date_object($data[count($data) - 1]);
+    //firstDate is actually the last date when keep_size is true because we want the most recent values first
+    $date = get_date_object($data[0]);
   } else {
     $date = $firstDate;
   }
@@ -279,7 +280,7 @@ function set_missing_values($unit, $data, $keep_size=true, $firstDate = null, $l
     for ($i=0; $i < $limit; $i++) 
     { 
       $result[$date->format($date_format)] = 0;
-      $date->add(new DateInterval($date_add));
+      $date->sub(new DateInterval($date_add));
     }
   } else {
     if ($lastDate == null) 
