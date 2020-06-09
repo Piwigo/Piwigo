@@ -57,5 +57,5 @@ moment.locale("{$langCode}");
 </div>
 
 <div class="stat-graph-container">
-  <canvas id="stat-graph" width="400" height="200" role="img"><p>Your browser does not support the canvas element.</p></canvas>
+  <canvas id="stat-graph" width="400" height="150" role="img"><p>Your browser does not support the canvas element.</p></canvas>
 </div>

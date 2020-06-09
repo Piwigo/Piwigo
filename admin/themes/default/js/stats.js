@@ -35,7 +35,6 @@ Chart.defaults.global.elements.point.radius = 0.1;
 Chart.defaults.global.elements.point.hitRadius = 10
 Chart.defaults.global.defaultFontSize = 14;
 Chart.defaults.global.defaultFontColor = '#888';
-Chart.defaults.global.tooltips.mode = 'index';
 Chart.defaults.global.tooltips.intersect = false;
 Chart.defaults.global.legend.onClick = null;
 
@@ -74,6 +73,13 @@ function changeData(dataType, options = displayOptions) {
       },
       legend: {
         display:false
+      },
+      tooltips: {
+        mode: 'index'
+      },
+      hover :
+      {
+        intersect : false,
       }
     }
     statGraph.options.scales.xAxes.forEach(axe => {
@@ -84,6 +90,12 @@ function changeData(dataType, options = displayOptions) {
     statGraph.update();
   } else {
     statGraph.options.legend.display = true;
+    statGraph.options.hover = {
+      intersect : true
+    }
+    statGraph.options.tooltips = {
+      mode : 'nearest'
+    }
     if (dataType == "years") {
       statGraph.data = {
         datasets: getComparedYearDataset()
@@ -91,7 +103,16 @@ function changeData(dataType, options = displayOptions) {
       statGraph.options.scales = {
         xAxes: [{
           type: 'category',
-          labels: str_months
+          labels: str_months,
+          gridLines: {
+            display: false
+          }
+        }],
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Page visited'
+          }
         }]
       }
     } else if (dataType == "months") {
@@ -105,7 +126,16 @@ function changeData(dataType, options = displayOptions) {
       statGraph.options.scales = {
         xAxes: [{
           type: 'category',
-          labels : days
+          labels : days,
+          gridLines: {
+            display: false
+          }
+        }],
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Page visited'
+          }
         }]
       }
     }
@@ -141,7 +171,7 @@ function getComparedYearDataset() {
 
   Object.keys(values).forEach(function(key) {
     dataset.push({
-      label : str_number_page_visited_with_year.replace('%s', key),
+      label : key,
       data : values[key],
       lineTension : 0.2,
       borderColor : colors[parseInt(key) % colors.length],
@@ -164,9 +194,8 @@ function getMonthStatsDataset() {
       date = new Date(key)
       days_data[parseInt(date.getUTCDate()) - 1] = values[key];
     });
-    console.log(days_data);
     dataset.push({
-      label : str_number_page_visited_with_year.replace('%s', str_months[date.getMonth()]+" "+date.getFullYear()),
+      label : str_months[date.getMonth()]+" "+date.getFullYear(),
       data : days_data,
       lineTension : 0.2,
       borderColor : colors[colorIndice % colors.length],
