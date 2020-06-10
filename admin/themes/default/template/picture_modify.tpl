@@ -84,14 +84,14 @@ $('#action-delete-picture').on('click', function() {
 }());
 {/footer_script}
 
-<h2>{$TITLE} &#8250; {'Edit photo'|@translate} {$TABSHEET_TITLE}</h2>
+<h2>{$TITLE} &#8250; {'Edit photo #%s'|@translate:$INTRO.id} {$TABSHEET_TITLE}</h2>
 
 <form action="{$F_ACTION}" method="post" id="pictureModify">
   <div id='picture-preview'>
     <div class='picture-preview-actions'>
       <a class="icon-eye" href="{$U_JUMPTO}" title="{'jump to photo'|@translate}"></a>
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
-      <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"</a>
+      <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
     </div>
     <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}" style="{if $FORMAT}width{else}height{/if}:35vw">
@@ -108,7 +108,7 @@ $('#action-delete-picture').on('click', function() {
           <div class='picture-infos-title'>{$INTRO.file}</div>
           <div>{$INTRO.size}</div>
           <div>{$INTRO.formats}</div>
-          <div>{$INTRO.id}</div>
+          <div>{$INTRO.ext}</div>
         </div>
       </div>
 
@@ -117,7 +117,8 @@ $('#action-delete-picture').on('click', function() {
           <span class='icon-calendar'></span>
         </div>
         <div class='picture-infos-container'>
-          <div class='picture-infos-title'>{$INTRO.add_date}</div>
+          <div class='picture-infos-title'>{$INTRO.date}</div>
+          <div>{$INTRO.age}</div>
           <div>{$INTRO.added_by}</div>
           <div>{$INTRO.stats}</div>
         </div>
@@ -153,7 +154,7 @@ $('#action-delete-picture').on('click', function() {
       <br>
       <select data-selectize="categories" data-value="{$associated_albums|@json_encode|escape:html}"
         placeholder="{'Type in a search term'|translate}"
-        data-default="{$STORAGE_ALBUM}" name="associate[]" multiple style="width:100%;"></select>
+        data-default="{$STORAGE_ALBUM}" name="associate[]" multiple style="width:103%;"></select>
     </p>
 
     <p>
@@ -161,7 +162,7 @@ $('#action-delete-picture').on('click', function() {
       <br>
       <select data-selectize="categories" data-value="{$represented_albums|@json_encode|escape:html}"
         placeholder="{'Type in a search term'|translate}"
-        name="represent[]" multiple style="width:100%;"></select>
+        name="represent[]" multiple style="width:103%;"></select>
     </p>
 
     <p>
@@ -169,7 +170,7 @@ $('#action-delete-picture').on('click', function() {
       <br>
       <select data-selectize="tags" data-value="{$tag_selection|@json_encode|escape:html}"
         placeholder="{'Type in a search term'|translate}"
-        data-create="true" name="tags[]" multiple style="width:100%;"></select>
+        data-create="true" name="tags[]" multiple style="width:103%;"></select>
     </p>
 
     <p>
