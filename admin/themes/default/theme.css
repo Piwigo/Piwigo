@@ -1835,7 +1835,7 @@ input:checked + .slider:before {
   right: 0;
   width: 223px;
   min-height: 584px;
-  height:100%;
+  height:calc(100% - 171px);
   top: 169.5px;
 }
 
