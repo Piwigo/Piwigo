@@ -84,7 +84,7 @@ $('#action-delete-picture').on('click', function() {
 }());
 {/footer_script}
 
-<h2>{$TITLE} &#8250; {'Edit photo #%s'|@translate:$INTRO.id} {$TABSHEET_TITLE}</h2>
+<h2>{'Edit photo #%s'|@translate:$INTRO.id}</h2>
 
 <form action="{$F_ACTION}" method="post" id="pictureModify">
   <div id='picture-preview'>
@@ -154,7 +154,7 @@ $('#action-delete-picture').on('click', function() {
       <br>
       <select data-selectize="categories" data-value="{$associated_albums|@json_encode|escape:html}"
         placeholder="{'Type in a search term'|translate}"
-        data-default="{$STORAGE_ALBUM}" name="associate[]" multiple style="width:103%;"></select>
+        data-default="{$STORAGE_ALBUM}" name="associate[]" multiple style="width:calc(100% + 2px);"></select>
     </p>
 
     <p>
@@ -162,7 +162,7 @@ $('#action-delete-picture').on('click', function() {
       <br>
       <select data-selectize="categories" data-value="{$represented_albums|@json_encode|escape:html}"
         placeholder="{'Type in a search term'|translate}"
-        name="represent[]" multiple style="width:103%;"></select>
+        name="represent[]" multiple style="width:calc(100% + 2px);"></select>
     </p>
 
     <p>
@@ -170,7 +170,7 @@ $('#action-delete-picture').on('click', function() {
       <br>
       <select data-selectize="tags" data-value="{$tag_selection|@json_encode|escape:html}"
         placeholder="{'Type in a search term'|translate}"
-        data-create="true" name="tags[]" multiple style="width:103%;"></select>
+        data-create="true" name="tags[]" multiple style="width:calc(100% + 2px);"></select>
     </p>
 
     <p>

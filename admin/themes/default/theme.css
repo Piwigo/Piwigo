@@ -1774,6 +1774,7 @@ a#showPermissions:hover {text-decoration: none;}
   height: 35vw;
   flex-shrink: 0;
   overflow: hidden;
+  margin-left: 10px;
 }
 
 #picture-preview .preview-box{
@@ -1793,6 +1794,7 @@ a#showPermissions:hover {text-decoration: none;}
   top: 0;
   font-size: 18px;
   z-index: 100;
+  background-color: #101010A0;
 }
 
 .picture-preview-actions a {
@@ -1804,12 +1806,12 @@ a#showPermissions:hover {text-decoration: none;}
   width: 50%;
 }
 
-#picture-content * {
+#picture-content p {
   text-align: left;
 }
 
 #picture-content input[type=text], #picture-content textarea {
-  width: 100%;
+  width: calc(100% - 15px);
   background-color: #f8f8f8;
   padding: 8px;
   border-radius: 4px;
@@ -1827,7 +1829,7 @@ a#showPermissions:hover {text-decoration: none;}
 
 #picture-content .date-input input{
   padding-left: 35px;
-  width: calc(100% - 28px);
+  width: calc(100% - 43px);
 }
 
 #picture-content .date-input i{
@@ -1852,7 +1854,7 @@ a#showPermissions:hover {text-decoration: none;}
   border: #EEE solid 2px;
   padding: 20px;
   border-radius: 5px;
-  margin: 5px 10px;
+  margin: 0px 10px;
   align-items: center;
 }
 
@@ -1874,6 +1876,7 @@ a#showPermissions:hover {text-decoration: none;}
 
 .picture-infos-container div {
   margin: 0;
+  word-wrap: anywhere;
 }
 
 .picture-infos-title {
