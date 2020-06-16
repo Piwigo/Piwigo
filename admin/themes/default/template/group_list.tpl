@@ -24,6 +24,9 @@ var serverId = '{$CACHE_KEYS._hash}'
 var rootUrl = '{$ROOT_URL}'
 {/footer_script}
 
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='group_list' load='footer' path='admin/themes/default/js/group_list.js'}
+
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 
@@ -32,8 +35,6 @@ var rootUrl = '{$ROOT_URL}'
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 {combine_css path="admin/themes/default/fontello/css/animation.css"}
-
-{combine_script id='common' load='footer' path='admin/themes/default/js/group_list.js'}
 
 {* Define template function for the content of Groups*}
 {function name=groupContent}

@@ -513,12 +513,12 @@ input:focus + .slider {
   color:#a0a0a0;
 }
 
-.SelectionModeGroup button{
+#selection-mode-block button{
   border: 1px solid #e7e7e7;
 }
 
 
-.SelectionModeGroup button:hover{
+#selection-mode-block button:hover{
   background-color: #ffa744;
   border: 1px solid #ffa744;
 }

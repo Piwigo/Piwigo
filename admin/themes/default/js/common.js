@@ -126,3 +126,136 @@ function sprintf() {
 
   return o.join('');
 }
+
+// Class to implement a temporary state and reverse it
+class TemporaryState {
+  //Arrays to reverse changes
+  attrChanges = []; //Attribute changes : {object(s), attribute, value}
+  classChanges = []; //Class changes : {object(s), state(add:true/remove:false), class}
+  htmlChanges = []; //Html changes : {object(s), html}
+
+  /**
+   * Change temporaly an attribute of an object
+   * @param {Jquery Object(s)} obj HTML Object(s)
+   * @param {String} attr Attribute
+   * @param {String} tempVal Temporary value of the attribute 
+   */
+  changeAttribute(obj, attr, tempVal) {
+    for (let i = 0; i < obj.length; i++) {
+      this.attrChanges.push({
+        object: $(obj[i]),
+        attribute: attr,
+        value: $(obj[i]).attr(attr)
+      })
+    }
+    obj.attr(attr, tempVal)
+  }
+
+  /**
+   * Add/remove a class temporarily
+   * @param {Jquery Object(s)} obj HTML Object
+   * @param {Boolean} st Add (true) or Remove (false) the class
+   * @param {String} loadclass Class Name
+   */
+  changeClass(obj, st, tempclass) {
+    for (let i = 0; i < obj.length; i++) {
+      if (!($(obj[i]).hasClass(tempclass) && st)) {
+        this.classChanges.push({
+          object: $(obj[i]),
+          state: !st,
+          class: tempclass
+        })
+        if (st) 
+          $(obj[i]).addClass(tempclass)
+        else
+          $(obj[i]).removeClass(tempclass)
+      }
+    }
+  }
+
+  /**
+   * Add temporarily a class to the object
+   * @param {Jquery Object(s)} obj 
+   * @param {string} tempclass 
+   */
+  addClass(obj, tempclass) {
+    this.changeClass(obj, true, tempclass);
+  }
+
+  /**
+   * Remove temporarily a class to the object
+   * @param {Jquery Object(s)} obj 
+   * @param {string} tempclass 
+   */
+  removeClass(obj, tempclass) {
+    this.changeClass(obj, false, tempclass);
+  }
+
+  /**
+   * Change temporaly the html of objects (remove event handlers on the actual content)
+   * @param {Jquery Object(s)} obj 
+   * @param {string} temphtml 
+   */
+  changeHTML(obj, temphtml) {
+    for (let i = 0; i < obj.length; i++) {
+      this.htmlChanges.push({
+        object:$(obj[i]),
+        html:$(obj[i]).html()
+      })
+    }
+    obj.html(temphtml);
+  }
+
+  /**
+   * Reverse all the changes and clear the history
+   */
+  reverse() {
+    this.attrChanges.forEach(function(change) {
+      if (change.value == undefined) {
+        change.object.removeAttr(change.attribute);
+      } else {
+        change.object.attr(change.attribute, change.value)
+      }
+    })
+    this.classChanges.forEach(function(change) {
+      if (change.state)
+        change.object.addClass(change.class)
+      else
+        change.object.removeClass(change.class)
+    })
+    this.htmlChanges.forEach(function(change) {
+      change.object.html(change.html);
+    })
+    this.attrChanges = [];
+    this.classChanges = [];
+    this.htmlChanges = [];
+  }
+}
+
+const jConfirm_alert_options = {
+  icon: 'icon-ok',
+  titleClass: "jconfirmAlert",
+  theme:"modern",
+  closeIcon: true,
+  draggable: false,
+  animation: "zoom",
+  boxWidth: '20%',
+  useBootstrap: false,
+  backgroundDismiss: true,
+  animateFromElement: false,
+  typeAnimated: false,
+}
+
+const jConfirm_confirm_options = {
+  draggable: false,
+  titleClass: "jconfirmDeleteConfirm",
+  theme: "modern",
+  content: "",
+  animation: "zoom",
+  boxWidth: '30%',
+  useBootstrap: false,
+  type: 'red',
+  animateFromElement: false,
+  backgroundDismiss: true,
+  typeAnimated: false,
+}

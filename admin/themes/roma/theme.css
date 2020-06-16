@@ -558,13 +558,13 @@ input:focus + .slider {
   color:#c0c0c0;
 }
 
-.SelectionModeGroup button{
+#selection-mode-block button{
   border: 1px solid #e7e7e7;
   color:#c0c0c0;
 }
 
 
-.SelectionModeGroup button:hover{
+#selection-mode-block button:hover{
   background-color: #ffa744;
   border: 1px solid #ffa744;
   color:#3c3c3c;
@@ -862,7 +862,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #777 !important;
 }
 
-.groupAlert .jconfirm-icon-c i {
+.jconfirmAlert .jconfirm-icon-c i {
   color:#c2f5c2 !important;
   background-color:#0a0 !important;
 }

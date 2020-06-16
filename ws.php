@@ -640,10 +640,67 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod( // TODO: create multiple tags
       'pwg.tags.add',
       'ws_tags_add',
-      array('name'),
+      array(
+        'name' => array(),
+        'pwg_token' =>  array(),
+      ),
       'Adds a new tag.',
       $ws_functions_root . 'pwg.tags.php',
       array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.tags.delete',
+      'ws_tags_delete',
+      array(
+        'tag_id' => array('type'=>WS_TYPE_ID,
+                      'flags'=>WS_PARAM_FORCE_ARRAY),
+        'pwg_token' =>  array(),
+        ),
+      'Delete tag(s) by ID.',
+      $ws_functions_root . 'pwg.tags.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.tags.rename',
+      'ws_tags_rename',
+      array(
+        'tag_id' => array('type'=>WS_TYPE_ID),
+        'new_name' => array(),
+        'pwg_token' =>  array(),
+        ),
+      'Rename tag',
+      $ws_functions_root . 'pwg.tags.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.tags.duplicate',
+      'ws_tags_duplicate',
+      array(
+        'tag_id' => array('type'=>WS_TYPE_ID),
+        'copy_name' => array(),
+        'pwg_token' => array(),
+        ),
+      'Create a copy of a tag',
+      $ws_functions_root . 'pwg.tags.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.tags.merge',
+      'ws_tags_merge',
+      array(
+        'destination_tag_id' => array('type'=>WS_TYPE_ID,
+          'info'=>'Is not necessarily part of groups to merge'),
+        'merge_tag_id' => array('flags'=>WS_PARAM_FORCE_ARRAY,
+          'type'=>WS_TYPE_ID),
+        'pwg_token' => array(),
+        ),
+      'Merge tags in one other group',
+      $ws_functions_root . 'pwg.tags.php',
+      array('admin_only'=>true, 'post_only'=>true)
     );
 
   $service->addMethod(

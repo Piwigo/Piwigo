@@ -14,16 +14,6 @@ if( !defined("PHPWG_ROOT_PATH") )
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
-if (!empty($_POST))
-{
-  check_pwg_token();
-  check_input_parameter('tags', $_POST, true, PATTERN_ID);
-  check_input_parameter('selectAction', $_POST, false, '/^[a-zA-Z0-9_-]+$/');
-  check_input_parameter('edit_list', $_POST, false, '/^\d+(,\d+)*$/');
-  check_input_parameter('merge_list', $_POST, false, '/^\d+(,\d+)*$/');
-  check_input_parameter('destination_tag', $_POST, false, PATTERN_ID);
-}
-
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
 // +-----------------------------------------------------------------------+
@@ -37,64 +27,6 @@ $tabsheet->set_id('tags');
 $tabsheet->select('');
 $tabsheet->assign();
 
-// +-----------------------------------------------------------------------+
-// |                                edit tags                              |
-// +-----------------------------------------------------------------------+
-
-if (isset($_POST['edit_submit']))
-{
-  $query = '
-SELECT name
-  FROM '.TAGS_TABLE.'
-;';
-  $existing_names = array_from_query($query, 'name');
-
-
-  $current_name_of = array();
-  $query = '
-SELECT id, name
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.$_POST['edit_list'].')
-;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $current_name_of[ $row['id'] ] = $row['name'];
-  }
-
-  $updates = array();
-  // we must not rename tag with an already existing name
-  foreach (explode(',', $_POST['edit_list']) as $tag_id)
-  {
-    $tag_name = stripslashes($_POST['tag_name-'.$tag_id]);
-
-    if ($tag_name != $current_name_of[$tag_id])
-    {
-      if (in_array($tag_name, $existing_names))
-      {
-        $page['errors'][] = l10n('Tag "%s" already exists', $tag_name);
-      }
-      else if (!empty($tag_name))
-      {
-        $updates[] = array(
-          'id' => $tag_id,
-          'name' => addslashes($tag_name),
-          'url_name' => trigger_change('render_tag_url', $tag_name),
-          );
-      }
-    }
-  }
-  mass_updates(
-    TAGS_TABLE,
-    array(
-      'primary' => array('id'),
-      'update' => array('name', 'url_name'),
-      ),
-    $updates
-    );
-
-  pwg_activity('tag', explode(',', $_POST['edit_list']), 'edit');
-}
 // +-----------------------------------------------------------------------+
 // |                            dulicate tags                              |
 // +-----------------------------------------------------------------------+
@@ -282,65 +214,19 @@ SELECT
   }
 }
 
-
-// +-----------------------------------------------------------------------+
-// |                               delete tags                             |
-// +-----------------------------------------------------------------------+
-
-if (isset($_POST['delete']) and isset($_POST['tags']))
-{
-  if (!isset($_POST['confirm_deletion']))
-  {
-    $page['errors'][] = l10n('You need to confirm deletion');
-  }
-  else
-  {
-    $query = '
-SELECT name
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['tags']).')
-;';
-    $tag_names = array_from_query($query, 'name');
-
-    delete_tags($_POST['tags']);
-
-    $page['infos'][] = l10n_dec(
-      'The following tag was deleted', 'The %d following tags were deleted',
-      count($tag_names)
-      )
-      .' : '.implode(', ', $tag_names);
-  }
-}
-
 // +-----------------------------------------------------------------------+
 // |                           delete orphan tags                          |
 // +-----------------------------------------------------------------------+
+
+$message_tags = "";
 
 if (isset($_GET['action']) and 'delete_orphans' == $_GET['action'])
 {
   check_pwg_token();
 
   delete_orphan_tags();
-  $_SESSION['page_infos'] = array(l10n('Orphan tags deleted'));
+  $message_tags = array(l10n('Orphan tags deleted'));
   redirect(get_root_url().'admin.php?page=tags');
-}
-
-// +-----------------------------------------------------------------------+
-// |                               add a tag                               |
-// +-----------------------------------------------------------------------+
-
-if (isset($_POST['add']) and !empty($_POST['add_tag']))
-{
-  $ret = create_tag($_POST['add_tag']);
-  
-  if (isset($ret['error']))
-  {
-    $page['errors'][] = $ret['error'];
-  }
-  else
-  {
-    $page['infos'][] = $ret['info'];
-  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -360,6 +246,8 @@ $template->assign(
 // |                              orphan tags                              |
 // +-----------------------------------------------------------------------+
 
+$warning_tags = "";
+
 $orphan_tags = get_orphan_tags();
 
 $orphan_tag_names = array();
@@ -370,13 +258,22 @@ foreach ($orphan_tags as $tag)
 
 if (count($orphan_tag_names) > 0)
 {
-  $page['warnings'][] = sprintf(
-    l10n('You have %d orphan tags: %s.').' <a href="%s" class="icon-trash">'.l10n('Delete orphan tags').'</a>',
+  $warning_tags = sprintf(
+    l10n('You have %d orphan tags: %s.'),
     count($orphan_tag_names),
-    implode(', ', $orphan_tag_names),
-    get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token()
+    '<a 
+      data-tags=\'["'.implode('" ,"', $orphan_tag_names).'"]\' 
+      data-url="'.get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token().'">'
+      .l10n('See details').'</a>'
     );
 }
+
+$template->assign(
+  array(
+    'warning_tags' => $warning_tags,
+    'message_tags' => $message_tags
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // |                             form creation                             |
@@ -422,38 +319,6 @@ $template->assign(
     'all_tags' => $all_tags,
     )
   );
-
-if ((isset($_POST['edit']) or isset($_POST['duplicate']) or isset($_POST['merge'])) and isset($_POST['tags']))
-{
-  $list_name = 'EDIT_TAGS_LIST';
-  if (isset($_POST['duplicate']))
-  {
-    $list_name = 'DUPLIC_TAGS_LIST';
-  }
-  elseif (isset($_POST['merge']))
-  {
-    $list_name = 'MERGE_TAGS_LIST';
-  }
-
-  $template->assign($list_name, implode(',', $_POST['tags']));
-
-  $query = '
-SELECT id, name
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['tags']).')
-;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $template->append(
-      'tags',
-      array(
-        'ID' => $row['id'],
-        'NAME' => $row['name'],
-        )
-      );
-  }
-}
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
