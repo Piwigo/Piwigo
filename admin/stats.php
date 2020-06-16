@@ -216,7 +216,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // | Refresh summary from details                                          |
 // +-----------------------------------------------------------------------+
 
-//history_summarize();
+history_summarize();
 
 // +-----------------------------------------------------------------------+
 // | Display statistics header                                             |                                                                                            
@@ -242,6 +242,11 @@ $template->assign(
 
 function set_missing_values($unit, $data, $keep_size=true, $firstDate = null, $lastDate = null)
 {
+  if (count($data) <= 1) 
+  {
+    return $data;
+  }
+
   $limit = count($data);
   $result = array();
   if ($firstDate == null) 

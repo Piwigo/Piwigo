@@ -453,6 +453,11 @@ if ($conf['enable_synchronization'])
   $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => l10n('With no checksum'));
 }
 
+function UC_name_compare($a, $b)
+{
+  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
+}
+
 $prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);
 usort($prefilters, 'UC_name_compare');
 

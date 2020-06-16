@@ -205,13 +205,13 @@ $temp_data = array();
 //Get data from $nb_weeks last weeks
 while ($mondays < $nb_weeks) 
 {
-  $date->sub(new DateInterval('P1D'));
-
   if ($date->format('D') == 'Mon') 
   {
     $week_number[] = $date->format('W');
     $mondays += 1;
   }
+
+  $date->sub(new DateInterval('P1D'));
 }
 
 $week_number = array_reverse($week_number);
@@ -284,10 +284,13 @@ for ($i=1; $i < count($temp_data); $i++)
 
 $split = 0;
 //Split (split represented by -1)
-while (max($diff_x) > 120) 
+if (count($diff_x) > 0) 
 {
-  $diff_x[array_search(max($diff_x), $diff_x)] = -1;
-  $split++;
+  while (max($diff_x) > 120) 
+  {
+    $diff_x[array_search(max($diff_x), $diff_x)] = -1;
+    $split++;
+  }
 }
 
 //Fill empty chart data for the template

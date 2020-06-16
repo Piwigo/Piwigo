@@ -137,6 +137,14 @@ function pwg_query($query)
     $query = preg_replace('/\brank\b/', '`rank`', $query);
   }
 
+  if (preg_match('/\bgroups\b/', $query))
+  {
+    // first we unescape what's already escaped (to avoid double escaping)
+    $query = preg_replace('/`groups`/', 'rank', $query);
+    // then we escape the keyword
+    $query = preg_replace('/\bgroups\b/', '`rank`', $query);
+  }
+
   $start = microtime(true);
   ($result = $mysqli->query($query)) or my_error($query, $conf['die_on_sql_error']);
 
