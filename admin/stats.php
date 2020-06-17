@@ -118,10 +118,21 @@ ORDER BY
 ' LIMIT '.$limit;
     $result = query2array($query.';');
     $lastDate = $date->sub(new DateInterval('P'.($last - 1).'Y'.($date->format('n') - 1).'M'));
-    return set_missing_values('month', $result, false, $lastDate, new DateTime());
+    return set_missing_values('month', $result, $lastDate, new DateTime());
   }
 
-  return set_missing_values('month', query2array($query.';'), false);
+  if (count(query2array($query.';')) > 1 ) 
+  {
+    return set_missing_values('month', query2array($query.';'));
+  } else {
+    $last_year_date = new DateTime();
+    return set_missing_values(
+      'month', 
+      query2array($query.';'),
+      $last_year_date->sub(new DateInterval('P1Y')),
+      new DateTime()
+    );
+  }
 }
 
 function get_month_stats() 
@@ -182,7 +193,7 @@ ORDER BY
     {
       $lastDate = new DateTime();
     }
-    $result['month'][] = set_missing_values('day',$val, false, new DateTime($key), $lastDate);
+    $result['month'][] = set_missing_values('day',$val, new DateTime($key), $lastDate);
   }
 
   $query = '
@@ -216,7 +227,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // | Refresh summary from details                                          |
 // +-----------------------------------------------------------------------+
 
-history_summarize();
+//history_summarize();
 
 // +-----------------------------------------------------------------------+
 // | Display statistics header                                             |                                                                                            
@@ -240,21 +251,22 @@ $template->assign(
 // | Set missing rows to 0                                                 |
 // +-----------------------------------------------------------------------+
 
-function set_missing_values($unit, $data, $keep_size=true, $firstDate = null, $lastDate = null)
+function set_missing_values($unit, $data, $firstDate = null, $lastDate = null)
 {
-  if (count($data) <= 1) 
-  {
-    return $data;
-  }
-
   $limit = count($data);
   $result = array();
+  
   if ($firstDate == null) 
   {
-    //firstDate is actually the last date when keep_size is true because we want the most recent values first
-    $date = get_date_object($data[0]);
+    $date = get_date_object($data[count($data) - 1]);
   } else {
     $date = $firstDate;
+  }
+  if ($lastDate == null) 
+  {
+    $date_end = get_date_object($data[0]);
+  } else {
+    $date_end = $lastDate;
   }
 
   //Declare variable according the unit
@@ -280,24 +292,9 @@ function set_missing_values($unit, $data, $keep_size=true, $firstDate = null, $l
   }
 
   //Fill an empty array with all the dates
-  if ($keep_size) 
-  {
-    for ($i=0; $i < $limit; $i++) 
-    { 
-      $result[$date->format($date_format)] = 0;
-      $date->sub(new DateInterval($date_add));
-    }
-  } else {
-    if ($lastDate == null) 
-    {
-      $date_end = get_date_object($data[0]);
-    } else {
-      $date_end = $lastDate;
-    }
-    while ($date <= $date_end) {
-      $result[$date->format($date_format)] = 0;
-      $date->add(new DateInterval($date_add));
-    }
+  while ($date <= $date_end) {
+    $result[$date->format($date_format)] = 0;
+    $date->add(new DateInterval($date_add));
   }
 
   //Overload with database rows
@@ -341,16 +338,58 @@ function get_date_object($row)
 // | Send data to template                                                 |
 // +-----------------------------------------------------------------------+
 
-$template->append(
-  'compareYears', 
-  get_month_of_last_years($conf['stat_compare_year_displayed'])
+$actual_date = new DateTime();
+$actual_date->add(new DateInterval('PT1S'));
+
+$first_date = new DateTime();
+$last_hours = set_missing_values(
+  'hour',
+  get_last(72, 'hour'), 
+  $first_date->sub(new DateInterval("P3D")),
+  $actual_date
 );
-$template->append('monthStats', get_month_stats());
-$template->append('lastHours', set_missing_values('hour',get_last(72, 'hour')));
-$template->append('lastDays', set_missing_values('day',get_last(90, 'day')));
-$template->append('lastMonths', set_missing_values('month',get_last(24, 'month')));
-$template->append('lastYears', set_missing_values('year',get_last(60, 'year')));
-$template->assign('langCode', strval($user['language']));
+
+$first_date = new DateTime();
+$last_days = set_missing_values(
+  'day',
+  get_last(90, 'day'), 
+  $first_date->sub(new DateInterval("P90D")),
+  $actual_date
+);
+
+$first_date = new DateTime();
+$last_months = set_missing_values(
+  'month',
+  get_last(60, 'month'), 
+  $first_date->sub(new DateInterval("P60M")),
+  $actual_date
+);
+
+if (count(get_last(60, 'year')) > 1 ) 
+{
+  $last_years = set_missing_values(
+    'year',
+    get_last(60, 'year')
+  );
+} else {
+  $last_year_date = new DateTime();
+  $last_years = set_missing_values(
+    'year', 
+    get_last(60, 'year'),
+    $last_year_date->sub(new DateInterval('P1Y')),
+    new DateTime()
+  );
+}
+
+$template->assign(array(
+  'compareYears' => get_month_of_last_years($conf['stat_compare_year_displayed']),
+  'monthStats' => get_month_stats(),
+  'lastHours' => $last_hours,
+  'lastDays' => $last_days,
+  'lastMonths' => $last_months,
+  'lastYears' => $last_years,
+  'langCode' => strval($user['language'])
+));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
 ?>

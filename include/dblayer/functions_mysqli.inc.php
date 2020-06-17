@@ -140,9 +140,9 @@ function pwg_query($query)
   if (preg_match('/\bgroups\b/', $query))
   {
     // first we unescape what's already escaped (to avoid double escaping)
-    $query = preg_replace('/`groups`/', 'rank', $query);
+    $query = preg_replace('/`groups`/', 'groups', $query);
     // then we escape the keyword
-    $query = preg_replace('/\bgroups\b/', '`rank`', $query);
+    $query = preg_replace('/\bgroups\b/', '`groups`', $query);
   }
 
   $start = microtime(true);

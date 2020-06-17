@@ -2,12 +2,12 @@
 Data Get
 -------*/
 data = {};
-data["hours"] = $("#data").data("hours")[0];
-data["days"] = $("#data").data("days")[0];
-data["months"] = $("#data").data("months")[0];
-data["years"] = $("#data").data("years")[0];
-data["compare-years"] = $("#data").data("compare-years")[0];
-data["month-stats"] = $("#data").data("month-stats")[0];
+data["hours"] = $("#data").data("hours");
+data["days"] = $("#data").data("days");
+data["months"] = $("#data").data("months");
+data["years"] = $("#data").data("years");
+data["compare-years"] = $("#data").data("compare-years");
+data["month-stats"] = $("#data").data("month-stats");
 
 data_unit = {
   "hours":"day",
@@ -70,6 +70,11 @@ function changeData(dataType, options = displayOptions) {
             display: false
           }
         }],
+        yAxes: [{
+          ticks: {
+            min: 0
+          }
+        }]
       },
       legend: {
         display:false
@@ -112,6 +117,9 @@ function changeData(dataType, options = displayOptions) {
           scaleLabel: {
             display: true,
             labelString: 'Page visited'
+          },
+          tick: {
+            min: 0
           }
         }]
       }
