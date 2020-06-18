@@ -227,7 +227,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // | Refresh summary from details                                          |
 // +-----------------------------------------------------------------------+
 
-//history_summarize();
+history_summarize();
 
 // +-----------------------------------------------------------------------+
 // | Display statistics header                                             |                                                                                            
