@@ -1,21 +1,22 @@
 {footer_script}
 var pwg_token = "{$PWG_TOKEN}";
-var str_delete = '{'Delete tag "%s"?'|@translate}'
-var str_delete_tags = '{'Delete tags \{%s\}?'|@translate}'
-var str_yes_delete_confirmation = "{'Yes, delete'|@translate}"
-var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}"
-var str_tag_deleted = '{'Tag "%s" succesfully deleted'|@translate}'
-var str_tags_deleted = '{'Tags \{%s\} succesfully deleted'|@translate}'
-var str_already_exist = '{'Tag "%s" already exists'|@translate}'
-var str_tag_created = '{'Tag "%s" created'|@translate}'
-var str_tag_renamed = '{'Tag "%s1" renamed in "%s2"'|@translate}'
-var str_delete_orphan_tags = '{'Delete orphan tags ?'|@translate}'
+var str_delete = '{'Delete tag "%s"?'|@translate}';
+var str_delete_tags = '{'Delete tags \{%s\}?'|@translate}';
+var str_yes_delete_confirmation = "{'Yes, delete'|@translate}";
+var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}";
+var str_tag_deleted = '{'Tag "%s" succesfully deleted'|@translate}';
+var str_tags_deleted = '{'Tags \{%s\} succesfully deleted'|@translate}';
+var str_already_exist = '{'Tag "%s" already exists'|@translate}';
+var str_tag_created = '{'Tag "%s" created'|@translate}';
+var str_tag_renamed = '{'Tag "%s1" renamed in "%s2"'|@translate}';
+var str_delete_orphan_tags = '{'Delete orphan tags ?'|@translate}';
 var str_orphan_tags = '{'You have %s1 orphan : %s2'|@translate}';
 var str_delete_them = '{'Delete them'|@translate}';
 var str_keep_them = '{'Keep them'|@translate}';
-var str_copy = '{' (copy)'|@translate}'
-var str_other_copy = '{' (copy %s)'|@translate}'
-var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translate}'
+var str_copy = '{' (copy)'|@translate}';
+var str_other_copy = '{' (copy %s)'|@translate}';
+var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translate}';
+var str_and_others_tags = '{'and %s others'|@translate}';
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -28,7 +29,7 @@ var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translat
 {function name=tagContent}
 {function tagContent}
     <p class='tag-name'>{$tag_name}</p>
-    <a class="icon-ellipsis-vert showOptions not-in-selection-mode"></a>
+    <a class="icon-ellipsis-vert showOptions"></a>
     <div class="tag-dropdown-block">
       <a class='tag-dropdown-action icon-eye view' href="{$tag_U_VIEW}" {if !$has_image} style='display:none' {/if}>{'View in gallery'|@translate}</a>
       <a class='tag-dropdown-action icon-picture manage' href="{$tag_U_EDIT}" {if !$has_image} style='display:none' {/if}>{'Manage photos'|@translate}</a>
@@ -41,7 +42,7 @@ var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translat
     </span>
     <div class="tag-rename">
       <form>
-        <input type="text" class="tag-name-editable" placeholder="{$tag_name}">
+        <input type="text" class="tag-name-editable" value="{$tag_name}">
         <input type="submit" hidden>
       </form>
       <span class="icon-ok validate"></span>
@@ -72,6 +73,7 @@ var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translat
       <div class="tag-list">
         
       </div>
+      <div class="selection-other-tags"></div>
       <button id="MergeSelectionMode" class="icon-object-group unavailable">{'Merge'|@translate}</button>
       <button id="DeleteSelectionMode" class="icon-trash-1">{'Delete selected tags'|@translate}</button>
     </div>
@@ -95,7 +97,7 @@ var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translat
     <span class='icon-filter'> </span>
     <input class='search-input' type='text' placeholder='{'Search'|@translate}'>
   </div>
-  <form id='add-tag'>
+  <form id='add-tag' class='not-in-selection-mode'>
     <span class='icon-cancel'></span>
     <span class='icon-plus-circled icon-validate'></span>
     <label class='add-tag-container'>
@@ -104,6 +106,12 @@ var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translat
       <input type='submit' hidden>
     </label>
   </form>
+  <div class='selection-controller in-selection-mode'>
+    <p>{'Select:'|@translate}</p>
+    <a id="selectAll" class="icon-star">{'All'|@translate}</a>
+    <a id="selectNone" class="icon-star-empty">{'None'|@translate}</a>
+    <a id="selectInvert" class="icon-exchange">{'Invert'|@translate}</a> 
+  </div>
   {if $warning_tags != ""}
   <div class='tag-warning tag-info icon-attention'><p> {$warning_tags} </p></div>
   {/if}

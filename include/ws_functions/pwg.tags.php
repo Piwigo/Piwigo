@@ -220,11 +220,6 @@ function ws_tags_add($params, &$service)
 {
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
-  if (get_pwg_token() != $params['pwg_token'])
-  {
-    return new PwgError(403, 'Invalid security token');
-  }
-
   $creation_output = create_tag($params['name']);
 
   if (isset($creation_output['error']))
@@ -264,9 +259,6 @@ SELECT COUNT(*)
   {
     delete_tags($params['tag_id']);
     return array('id' => $tag_ids);
-    foreach ($tag_ids as $ids) {
-      pwg_activity('tag', $creation_output['id'], 'delete');
-    }
   } else {
     return array('id' => array());
   }
@@ -334,7 +326,8 @@ SELECT name
 }
 
 
-function ws_tags_duplicate($params, &$service) {
+function ws_tags_duplicate($params, &$service)
+{
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
@@ -415,7 +408,8 @@ SELECT image_id
   );
 } 
 
-function ws_tags_merge($params, &$service) {
+function ws_tags_merge($params, &$service)
+{
 
   if (get_pwg_token() != $params['pwg_token'])
   {

@@ -78,7 +78,9 @@ function addTag(name) {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.tags.add",
       type: "POST",
-      data: "name=" + name + "&pwg_token=" + pwg_token,
+      data: {
+        name: name
+      },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
@@ -108,7 +110,6 @@ function createTagBox(id, name) {
   if ($("#toggleSelectionMode").is(":checked")) {
     newTag.addClass('selection');
     newTag.find(".in-selection-mode").show();
-    newTag.find(".not-in-selection-mode").hide();
   }
   return newTag;
 }
@@ -158,6 +159,7 @@ function setupTagbox(tagBox) {
 
   tagBox.find('.tag-rename .icon-cancel').on('click', function() {
     tagBox.removeClass('edit-name');
+    tagBox.find('.tag-name-editable').val(name);
   })
 
   tagBox.find('.tag-rename .validate').on('click', function() {
@@ -219,7 +221,10 @@ function removeTag(id, name) {
       return jQuery.ajax({
         url: "ws.php?format=json&method=pwg.tags.delete",
         type: "POST",
-        data: "tag_id=" + id + "&pwg_token=" + pwg_token,
+        data: {
+          tag_id: id,
+          pwg_token: pwg_token
+        },
         success: function (raw_data) {
           data = jQuery.parseJSON(raw_data);
           showMessage(str_tag_deleted.replace('%s', name));
@@ -238,12 +243,16 @@ function renameTag(id, new_name) {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.tags.rename",
       type: "POST",
-      data: "tag_id=" + id + "&new_name=" + new_name + "&pwg_token=" + pwg_token,
+      data: {
+        tag_id: id, 
+        new_name: new_name,
+        pwg_token: pwg_token
+      },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
           $('.tag-box[data-id='+id+'] p').html(data.result.name);
-          $('.tag-box[data-id='+id+'] .tag-name-editable').attr('placeholder', data.result.name);
+          $('.tag-box[data-id='+id+'] .tag-name-editable').attr('value', data.result.name);
           resolve(data);
         } else {
           reject(str_already_exist.replace('%s', new_name))
@@ -278,7 +287,11 @@ function duplicateTag(id, name) {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.tags.duplicate",
       type: "POST",
-      data: "tag_id=" + id + "&copy_name=" + copy_name + "&pwg_token=" + pwg_token,
+      data: {
+        tag_id : id,
+        copy_name: copy_name, 
+        pwg_token: pwg_token
+      },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
@@ -302,21 +315,27 @@ function duplicateTag(id, name) {
 /*-------
  Selection mode
 -------*/
+numberItemDisplayed = 5;
+
 $("#toggleSelectionMode").attr("checked", false)
 $("#toggleSelectionMode").click(function () {
-  if ($(this).is(":checked")) {
+  selectionMode($(this).is(":checked"))
+});
+
+function selectionMode(isSelection) {
+  if (isSelection) {
     $(".in-selection-mode").show();
-    $(".not-in-selection-mode").removeAttr('style');
+    $(".not-in-selection-mode").hide();
     $(".tag-box").addClass("selection");
     $(".tag-box").removeClass('edit-name');
   } else {
     $(".in-selection-mode").removeAttr('style');
-    $(".not-in-selection-mode").show();
+    $(".not-in-selection-mode").removeAttr('style');
     $(".tag-box").removeClass("selection");
     $(".tag-box").attr("data-selected", '0');
     updateListItem();
   }
-});
+}
 
 function updateListItem() {
 
@@ -362,6 +381,15 @@ function updateListItem() {
     )
   })
 
+  if (selected.length > 5) {
+    $('.selection-other-tags').show();
+    $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - 5))
+  } else {
+    $('.selection-other-tags').hide();
+  }
+
+  
+
   updateSelectionContent()
 }
 
@@ -402,6 +430,27 @@ $('#CancelMerge').on('click', function() {
   updateSelectionContent()
 });
 
+$('#selectAll').on('click', function() {
+  $('.tag-box').attr('data-selected', '1');
+  updateListItem();
+});
+
+$('#selectNone').on('click', function() {
+  $('.tag-box').attr('data-selected', '0');
+  updateListItem();
+});
+
+$('#selectInvert').on('click', function() {
+  $('.tag-box').each(function() {
+    if ($(this).attr('data-selected') == 1) {
+      $(this).attr('data-selected', '0');
+    } else {
+      $(this).attr('data-selected', '1');
+    }
+  });
+  updateListItem();
+});
+
 /*-------
  Actions in selection mode
 -------*/
@@ -415,7 +464,7 @@ $('#DeleteSelectionMode').on('click', function() {
   })
 
   $.confirm({
-    title: str_delete_tags.replace("%s",names.join(', ')),
+    title: str_delete_tags.replace("%s",tagListToString(names)),
     buttons: {
         confirm: {
           text: str_yes_delete_confirmation,
@@ -433,7 +482,6 @@ $('#DeleteSelectionMode').on('click', function() {
 })
 
 function removeSelectedTags() {
-  str_id = "";
   names = [];
   ids = [];
 
@@ -441,18 +489,18 @@ function removeSelectedTags() {
     id = $(this).data('id');
     ids.push(id);
     names.push($(this).find('.tag-name').html());
-    str_id += "tag_id[]=" + id + "&";
   })
 
-  console.log(names);
-
   $.alert({
-    title : str_tags_deleted.replace("%s",names.join(', ')),
+    title : str_tags_deleted.replace("%s",tagListToString(names)),
     content: function() {
       return jQuery.ajax({
         url: "ws.php?format=json&method=pwg.tags.delete",
         type: "POST",
-        data: str_id + "pwg_token=" + pwg_token,
+        data: {
+          tag_id: ids,
+          pwg_token: pwg_token
+        },
         success: function (raw_data) {
           data = jQuery.parseJSON(raw_data);
           if (data.stat === "ok") {
@@ -460,7 +508,6 @@ function removeSelectedTags() {
               $('.tag-box[data-id='+id+']').remove();
             })
             updateListItem();
-            showMessage(str_tags_deleted.replace('%s', names.join(', ')));
           }
         }
       })
@@ -489,7 +536,7 @@ function mergeGroups(destination_id, merge_ids) {
   })
   
   str_message = str_merged_into
-    .replace('%s1', merge_name.join(', '))
+    .replace('%s1', tagListToString(merge_name))
     .replace('%s2', destination_name)
 
   $.alert({
@@ -498,13 +545,14 @@ function mergeGroups(destination_id, merge_ids) {
       return jQuery.ajax({
         url: "ws.php?format=json&method=pwg.tags.merge",
         type: "POST",
-        data: "destination_tag_id=" + destination_id 
-          + "&merge_tag_id[]=" + merge_ids.join('&merge_tag_id[]=')
-          + "&pwg_token=" + pwg_token,
+        data: {
+          destination_tag_id: destination_id,
+          merge_tag_id: merge_ids,
+          pwg_token: pwg_token
+        },
         success: function (raw_data) {
           data = jQuery.parseJSON(raw_data);
           if (data.stat === "ok") {
-            console.log()
             data.result.deleted_tag.forEach((id) => {
               if (data.result.destination_tag != id)
                 $('.tag-box[data-id='+id+']').remove();
@@ -513,7 +561,6 @@ function mergeGroups(destination_id, merge_ids) {
               tagBox = $('.tag-box[data-id='+data.result.destination_tag+']')
               tagBox.find('.tag-dropdown-action.view, .tag-dropdown-action.manage').show();
             }
-            showMessage(str_message);
             $(".tag-box").attr("data-selected", '0');
             updateListItem();
           }
@@ -522,6 +569,16 @@ function mergeGroups(destination_id, merge_ids) {
     },
     ...jConfirm_alert_options
   });
+}
+
+function tagListToString(list) {
+  if (list.length > 5) {
+    return list.slice(0,5).join(', ') 
+      + ' '
+      + str_and_others_tags.replace('%s', list.length - 5);
+  } else {
+    return list.join(', ');
+  }
 }
 
 /*-------
@@ -533,22 +590,22 @@ $("#search-tag .search-input").on("input", function() {
   var searchNumber = 0;
   $('.tag-box').each(function () {
     if (text == "") {
-      $(this).fadeIn()
+      $(this).show()
       searchNumber++;
     } else {
       let name = $(this).find("p").text().toLowerCase();
       if (name.search(text) != -1){
-        $(this).delay(300).fadeIn()
+        $(this).delay(300).show()
         searchNumber++;
       } else {
-        $(this).fadeOut()
+        $(this).hide()
       }
     }
   })
   if (searchNumber == 0) {
-    $('.emptyResearch').delay(300).fadeIn();
+    $('.emptyResearch').show();
   } else {
-    $('.emptyResearch').fadeOut();
+    $('.emptyResearch').hide();
   }
 })
 

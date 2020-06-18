@@ -3244,6 +3244,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #fafafa;
   padding-left: 30px;
   width: 300px;
+  margin: 4px;
 }
 
 .tag-header #search-tag span {
@@ -3348,6 +3349,32 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   opacity: 1;
 }
 
+.tag-header .selection-controller {
+  display: none;
+  margin: 0px 7px;
+}
+
+.tag-header .selection-controller p {
+  position: absolute;
+  transform: translateY(-40px);
+}
+
+.tag-header .selection-controller a {
+  margin: 0;
+  background-color: #fafafa;
+  padding: 10px;
+  box-shadow: 0px 2px #00000024;
+  color: #777;
+  font-weight: bold;
+}
+
+.tag-header .selection-controller a:hover {
+  background-color: #f0f0f0;
+  color: #3A3A3A;
+  text-decoration: none;
+}
+
+
 .tag-info {
   height: 35px;
   overflow: hidden;
@@ -3360,6 +3387,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .tag-info p {
   margin: auto;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 300px;
+  text-align: initial;
 }
 
 .tag-info::before {
@@ -3431,7 +3462,16 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display: none;
 }
 
+.tag-container .tag-box .showOptions {
+  color: #777;
+}
+
 .tag-container .tag-box.edit-name .showOptions {
+  display: none;
+}
+
+
+.tag-container .tag-box.selection .showOptions {
   display: none;
 }
 
@@ -3453,6 +3493,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   text-align: initial;
   padding: 5px 10px;
   font-size: 13px;
+  padding-right: 15px;
 }
 
 .tag-container .tag-box .tag-dropdown-block .tag-dropdown-action:hover {
@@ -3502,7 +3543,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   }
 }
 
-
 .tag-container .tag-box .tag-rename {
   display: none;
 }
@@ -3548,6 +3588,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   text-align: start;
   font-weight: 700;
   font-size: 15px;
+  overflow: hidden;
+  max-height: 160px;
 }
 
 .selection-mode-tag .tag-list p {
@@ -3563,4 +3605,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display: flex;
   margin: 10px;
   text-align: start;
+}
+
+.selection-mode-tag .selection-other-tags {
+  color: #ffa646;
+  font-weight: bold;
 }

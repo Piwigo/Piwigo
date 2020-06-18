@@ -641,8 +641,7 @@ function ws_addDefaultMethods( $arr )
       'pwg.tags.add',
       'ws_tags_add',
       array(
-        'name' => array(),
-        'pwg_token' =>  array(),
+        'name' => array()
       ),
       'Adds a new tag.',
       $ws_functions_root . 'pwg.tags.php',
