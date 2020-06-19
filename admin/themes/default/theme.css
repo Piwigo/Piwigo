@@ -248,6 +248,23 @@ TABLE.doubleSelect SELECT.categoryList {
 	width: 100%; max-width: 100%; overflow-x: auto;
 }
 
+.search-input{
+  padding: 10px;
+  box-shadow: 0px 2px #00000024;
+  border: none;
+  background-color: #fafafa !important;
+  padding-left: 30px;
+  width: 200px;
+  margin: 4px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translate(4px, -50%);
+  font-size: 18px;
+}
+
 .stat-legend-container {
   display: inline-block;
 }
@@ -1393,13 +1410,8 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBoxesTitle p {margin-right: 10px;}
 
 
-.pluginFilter,.pluginBoxesTitle {display: flex;align-items: center}
-.pluginFilter p{margin-right: 10px}
-.pluginFilter INPUT[type="text"] {
-  padding: 5px;
-  background-color:#ffffff;
-}
-.pluginFilter {justify-content: end;position: absolute;right: 20px; z-index: 2;}
+.pluginBoxesTitle {display: flex;align-items: center}
+.pluginFilter {justify-content: end;position: absolute;right: 20px; z-index: 2; transform: translateY(6px);}
 
 .pluginBoxesCount {
   background-color: rgb(150, 150, 150);
@@ -2262,6 +2274,10 @@ input:checked + .slider:before {
   z-index: 10;
 }
 
+#selection-mode-block.show{
+  display: block;
+}
+
 .Selection-mode-content{
   margin-top:110px;
 }
@@ -2820,6 +2836,11 @@ input:checked + .slider:before {
   position: absolute;
   right: 0;
   top: 2px;
+  display: flex;
+}
+
+.FilterUserBlock .search-user{
+  position: relative;
 }
 
 #UserList .AddUserBlock p,
@@ -2829,13 +2850,8 @@ input:checked + .slider:before {
   margin:0 5px;
 }
 
-#UserList .AddUserBlock select,
-#UserList .FilterUserBlock input{
+#UserList .AddUserBlock select {
   padding:11px 10px;
-}
-
-#UserList .FilterUserBlock input{
-  width:60px;
 }
 
 #UserList .AddUserBlock button{
@@ -3229,33 +3245,21 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 30px;
 }
 
 .tag-header #search-tag{
-  position: relative;
-  margin-left: 10px;
-}
-
-.tag-header #search-tag .search-input{
-  padding: 10px;
-  box-shadow: 0px 2px #00000024;
-  border: none;
-  background-color: #fafafa;
-  padding-left: 30px;
-  width: 300px;
-  margin: 4px;
-}
-
-.tag-header #search-tag span {
   position: absolute;
-  top: 50%;
-  transform: translate(4px, -50%);
-  font-size: 18px;
+  right: 230px;
 }
 
 .tag-header #add-tag {
   position: relative;
+  margin: 0;
+}
+
+.tag-header #add-tag.hide {
+  display: none;
 }
 
 .tag-header #add-tag .add-tag-container {
@@ -3351,12 +3355,18 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-header .selection-controller {
   display: none;
-  margin: 0px 7px;
+  align-items: baseline;
+  height: 38px;
+  color: #777;
+  font-weight: bold;
+}
+
+.tag-header .selection-controller.show {
+  display: flex;
 }
 
 .tag-header .selection-controller p {
-  position: absolute;
-  transform: translateY(-40px);
+  margin-right: 10px;
 }
 
 .tag-header .selection-controller a {
@@ -3382,6 +3392,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display: flex;
   padding: 0px 10px;
   font-weight: bold;
+  margin-left: 10px;
 }
 
 .tag-info p {
@@ -3431,6 +3442,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   padding: 25px;
   flex-flow: wrap;
   padding-right: 223px;
+  padding-bottom: 10px;
 }
 
 .tag-container .tag-box{
@@ -3444,7 +3456,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   position: relative;
 }
 
-.tag-container .tag-box.selection {
+.tag-container.selection .tag-box {
   opacity: 0.6;
   cursor: pointer;
 }
@@ -3471,7 +3483,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 
-.tag-container .tag-box.selection .showOptions {
+.tag-container.selection .showOptions {
   display: none;
 }
 
@@ -3511,6 +3523,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   margin: 2px 0px;
   margin-left: 0px;
   margin-left: 4px;
+}
+
+.tag-container .tag-box .select-checkbox.show {
+  display: block;
 }
 
 .tag-container .tag-box[data-selected='1'] .select-checkbox {
@@ -3610,4 +3626,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .selection-mode-tag .selection-other-tags {
   color: #ffa646;
   font-weight: bold;
+}
+
+.moreTagMessage {
+  margin: auto;
+  font-weight: bold;
+  padding-right: 223px;
+  margin: 10px;
+  font-size: 16px;
+  opacity: 0.5;
 }

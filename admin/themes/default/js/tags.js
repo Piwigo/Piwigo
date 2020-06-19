@@ -142,7 +142,7 @@ function setupTagbox(tagBox) {
   });
 
   tagBox.on('click', function() {
-    if (tagBox.hasClass('selection')) {
+    if ($('.tag-container').hasClass('selection')) {
       if (tagBox.attr('data-selected') == '1') {
         tagBox.attr('data-selected', '0');
       } else {
@@ -315,7 +315,7 @@ function duplicateTag(id, name) {
 /*-------
  Selection mode
 -------*/
-numberItemDisplayed = 5;
+maxItemDisplayed = 5;
 
 $("#toggleSelectionMode").attr("checked", false)
 $("#toggleSelectionMode").click(function () {
@@ -324,14 +324,14 @@ $("#toggleSelectionMode").click(function () {
 
 function selectionMode(isSelection) {
   if (isSelection) {
-    $(".in-selection-mode").show();
-    $(".not-in-selection-mode").hide();
-    $(".tag-box").addClass("selection");
+    $(".in-selection-mode").addClass('show');
+    $(".not-in-selection-mode").addClass('hide');
+    $(".tag-container").addClass("selection");
     $(".tag-box").removeClass('edit-name');
   } else {
-    $(".in-selection-mode").removeAttr('style');
-    $(".not-in-selection-mode").removeAttr('style');
-    $(".tag-box").removeClass("selection");
+    $(".in-selection-mode").removeClass('show');
+    $(".not-in-selection-mode").removeClass('hide');
+    $(".tag-container").removeClass("selection");
     $(".tag-box").attr("data-selected", '0');
     updateListItem();
   }
@@ -341,7 +341,6 @@ function updateListItem() {
 
   let nowSelected = [];
   let selected = [];
-  let shouldBeItem = [];
   let shouldNotBeItem = [];
   let names = {};
   $('.tag-box[data-selected="1"]').each(function () {
@@ -350,47 +349,52 @@ function updateListItem() {
     names[id] = $(this).find('.tag-name').html();
   });
 
-  $('.selection-mode-tag .tag-list div').each(function () {
-    let id = $(this).attr('data-id');
-    selected.push(id);
-  });
+  selected = $('.selection-mode-tag .tag-list').data('list');
+  $('.selection-mode-tag .tag-list').attr('data-list', nowSelected);
 
   shouldNotBeItem = [...selected];
   shouldNotBeItem = shouldNotBeItem.filter(x => !nowSelected.includes(x));
-  shouldBeItem = [...nowSelected];
-  shouldBeItem = shouldBeItem.filter(x => !selected.includes(x));
-  selected = nowSelected;
-  
-  shouldBeItem.forEach(function(id) {
-    let newItemStructure = $('<div data-id="'+id+'"><a class="icon-cancel"></a><p>'+names[id]+'</p> </div>');
-    $('.selection-mode-tag .tag-list').prepend(newItemStructure);
-    $('.selection-mode-tag .tag-list div[data-id='+id+'] a').on('click', function () {
-      $('.tag-box[data-id='+id+']').attr('data-selected', '0');
-      updateListItem();
-    })
-  })
 
   shouldNotBeItem.forEach(function(id) {
     $('.selection-mode-tag .tag-list div[data-id='+id+']').remove();
   })
+  
+  $('.selection-mode-tag .tag-list').html('');
+  let i = 0;
+  while(i < nowSelected.length && $('.selection-mode-tag .tag-list div').length < maxItemDisplayed) {
+    let item = nowSelected[i++];
+    let newItemStructure = $('<div data-id="'+item+'"><a class="icon-cancel"></a><p>'+names[item]+'</p> </div>');
+    $('.selection-mode-tag .tag-list').prepend(newItemStructure);
+    $('.selection-mode-tag .tag-list div[data-id='+item+'] a').on('click', function () {
+      $('.tag-box[data-id='+item+']').attr('data-selected', '0');
+      updateListItem();
+    });
+  }
 
-  $('#MergeOptionsChoices').html('');
-  nowSelected.forEach(id => {
-    $('#MergeOptionsChoices').append(
-      $('<option value="'+id+'">'+names[id]+'</option>')
-    )
-  })
-
-  if (selected.length > 5) {
+  if (nowSelected.length > maxItemDisplayed) {
     $('.selection-other-tags').show();
-    $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - 5))
+    $('.selection-other-tags').html(str_and_others_tags.replace('%s', nowSelected.length - maxItemDisplayed))
   } else {
     $('.selection-other-tags').hide();
   }
 
-  
-
   updateSelectionContent()
+}
+
+function updateMergeItems () {
+  let ids = [];
+  let names = [];
+  $('.tag-box[data-selected="1"]').each(function () {
+    ids.push($(this).attr('data-id'));
+    names[$(this).attr('data-id')] = $(this).find('.tag-name').html();
+  })
+
+  $('#MergeOptionsChoices').html('');
+  ids.forEach(id => {
+    $('#MergeOptionsChoices').append(
+      $('<option value="'+id+'">'+names[id]+'</option>')
+    )
+  })
 }
 
 mergeOption = false;
@@ -398,6 +402,7 @@ mergeOption = false;
 function updateSelectionContent() {
   number = $('.tag-box[data-selected="1"]').length;
   if (number == 0) {
+    mergeOption = false;
     $('#nothing-selected').show();
     $('.selection-mode-tag').hide();
     $('#MergeOptionsBlock').hide();
@@ -408,10 +413,12 @@ function updateSelectionContent() {
     $('#MergeOptionsBlock').hide();
     $('#MergeSelectionMode').addClass('unavailable');
   } else if (number > 1) {
+    $('#nothing-selected').hide();
     $('#MergeSelectionMode').removeClass('unavailable');
     if (mergeOption) {
       $('#MergeOptionsBlock').show();
       $('.selection-mode-tag').hide();
+      updateMergeItems();
     } else {
     $('#MergeOptionsBlock').hide();
     $('.selection-mode-tag').show();
@@ -422,7 +429,7 @@ function updateSelectionContent() {
 
 $('#MergeSelectionMode').on('click', function() {
   mergeOption = true;
-  updateSelectionContent()
+  updateSelectionContent();
 });
 
 $('#CancelMerge').on('click', function() {
@@ -585,6 +592,8 @@ function tagListToString(list) {
  Filter research
 -------*/
 
+var maxShown = 100;
+
 $("#search-tag .search-input").on("input", function() {
   let text = $(this).val().toLowerCase();
   var searchNumber = 0;
@@ -607,6 +616,27 @@ $("#search-tag .search-input").on("input", function() {
   } else {
     $('.emptyResearch').hide();
   }
+  hideLastTags();
+});
+
+function hideLastTags () {
+  let tagBoxes = $('.tag-box:visible');
+  if (tagBoxes.length > maxShown) {
+    for (let i = maxShown; i < tagBoxes.length; i++) {
+      $(tagBoxes[i]).hide();
+    }
+
+    str = str_others_tags_available.replace('%s', tagBoxes.length -  maxShown);
+
+    $('.moreTagMessage').html(str);
+    $('.moreTagMessage').show();
+  } else {
+    $('.moreTagMessage').hide();
+  }
+}
+
+$(document).ready(function() {
+  hideLastTags();
 })
 
 /*-------

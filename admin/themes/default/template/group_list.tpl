@@ -214,9 +214,10 @@ var rootUrl = '{$ROOT_URL}'
         <div class="AmountOfUsersShown">
           <p>Showing <strong>39</strong> users out of <strong>251</strong></p>
         </div>
-        <span class="icon-filter"></span>
-        <p>Filter</p>
-        <input class="input-user-name" type="text" name="username" maxlength="50" size="20" placeholder="Username">
+        <div class='search-user'>
+          <span class="icon-filter search-icon"></span>
+          <input class="input-user-name search-input" type="text" name="username" maxlength="50" size="20" placeholder="{'Filter'|@translate}">
+        </div>
       </div>
     </div>
 

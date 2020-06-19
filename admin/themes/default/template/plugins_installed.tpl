@@ -189,8 +189,8 @@ jQuery(".pluginMiniBox").each(function(index){
 {counter start=0 assign=i} {* <!-- counter for 'deactivate all' link --> *}
 
 <div class="pluginFilter"> 
-  <p class="icon-filter">{'Filter'|@translate}</p>
-  <input type="text" placeholder="{'Name'|@translate}, {'Description'|@translate}">
+  <span class="icon-filter search-icon"></span>
+  <input class='search-input' type="text" placeholder="{'Filter'|@translate}">
 </div>
 
 <div class="emptyResearch"> {'No plugins found'|@translate} </div>

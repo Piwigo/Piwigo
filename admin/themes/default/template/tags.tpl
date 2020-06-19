@@ -17,6 +17,7 @@ var str_copy = '{' (copy)'|@translate}';
 var str_other_copy = '{' (copy %s)'|@translate}';
 var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translate}';
 var str_and_others_tags = '{'and %s others'|@translate}';
+var str_others_tags_available = '{'%s other tags available...'|@translate}'
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -70,12 +71,12 @@ var str_and_others_tags = '{'and %s others'|@translate}';
 
     <div class="selection-mode-tag">
       <p>{'Your selection'|@translate}</p>
-      <div class="tag-list">
+      <div class="tag-list" data-list='[]'>
         
       </div>
       <div class="selection-other-tags"></div>
       <button id="MergeSelectionMode" class="icon-object-group unavailable">{'Merge'|@translate}</button>
-      <button id="DeleteSelectionMode" class="icon-trash-1">{'Delete selected tags'|@translate}</button>
+      <button id="DeleteSelectionMode" class="icon-trash-1">{'Delete'|@translate}</button>
     </div>
 
     <div id="MergeOptionsBlock">
@@ -94,8 +95,8 @@ var str_and_others_tags = '{'and %s others'|@translate}';
 
 <div class='tag-header'>
   <div id='search-tag'>
-    <span class='icon-filter'> </span>
-    <input class='search-input' type='text' placeholder='{'Search'|@translate}'>
+    <span class='icon-filter search-icon'> </span>
+    <input class='search-input' type='text' placeholder='{'Filter'|@translate}'>
   </div>
   <form id='add-tag' class='not-in-selection-mode'>
     <span class='icon-cancel'></span>
@@ -132,6 +133,7 @@ var str_and_others_tags = '{'and %s others'|@translate}';
   {/foreach}
 </div>
 <div class="emptyResearch"> {'No tag found'|@translate} </div>
+<div class="moreTagMessage"> </div>
 
 <div class='tag-template' style='display:none'>
   {tagContent 
