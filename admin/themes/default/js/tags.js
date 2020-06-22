@@ -30,6 +30,11 @@ $('.tag-warning p a').on('click', () => {
   })
 })
 
+//Number On Badge
+function updateBadge() {
+  $('.badge-number').html($('.tag-box').length)
+}
+
 //Add a tag
 $('.add-tag-container').on('click', function() {
   $('#add-tag').addClass('input-mode');
@@ -87,6 +92,7 @@ function addTag(name) {
           newTag = createTagBox(data.result.id, name);
           $('.tag-container').prepend(newTag);
           setupTagbox(newTag);
+          updateBadge()
           resolve();
         } else {
           reject(str_already_exist.replace('%s', name));
@@ -231,6 +237,8 @@ function removeTag(id, name) {
           if (data.stat === "ok") {
             $('.tag-box[data-id='+id+']').remove();
           }
+          updateBadge()
+          hideLastTags()
         }
       })
     },
@@ -302,6 +310,8 @@ function duplicateTag(id, name) {
             newTag.find('.tag-dropdown-action.manage').show();
           }
           setupTagbox(newTag);
+          updateBadge()
+          hideLastTags()
           resolve(data);
         }
       },
@@ -505,8 +515,8 @@ function removeSelectedTags() {
         url: "ws.php?format=json&method=pwg.tags.delete",
         type: "POST",
         data: {
-          tag_id: ids,
-          pwg_token: pwg_token
+          'pwg_token': pwg_token,
+          'tag_id': ids
         },
         success: function (raw_data) {
           data = jQuery.parseJSON(raw_data);
@@ -515,6 +525,8 @@ function removeSelectedTags() {
               $('.tag-box[data-id='+id+']').remove();
             })
             updateListItem();
+            updateBadge()
+            hideLastTags()
           }
         }
       })
@@ -570,6 +582,8 @@ function mergeGroups(destination_id, merge_ids) {
             }
             $(".tag-box").attr("data-selected", '0');
             updateListItem();
+            updateBadge()
+            hideLastTags()
           }
         }
       })

@@ -11,6 +11,11 @@ $(".CloseGroupPopup").click(function () {
   $(".Group_details-popup-container").hide();
 });
 
+//Number On Badge
+function updateBadge() {
+  $('.badge-number').html($('.GroupContainer').length - 2) //Less the add group div and the template
+}
+
 /*-------
  Add User toggle and reduces height of user list when add user form is visible
  -------*/
@@ -87,6 +92,7 @@ jQuery(document).ready(function () {
           groupBox = createGroup(group)
           groupBox.prependTo(".groups")
           setupGroupBox(groupBox);
+          updateBadge();
         } else {
           $("#addGroupForm .groupError").html(str_name_taken);
           $("#addGroupForm .groupError").fadeIn();
@@ -282,6 +288,7 @@ var deleteGroup = function (id) {
                       $(".DeleteGroupList div[data-id="+id+"]").remove()
                       $("#MergeOptionsChoices option[value="+ id +"]").remove()
                     }
+                    updateBadge();
                   },
                   error: function (err) {
                     console.log(err);
@@ -429,6 +436,7 @@ var duplicateAction = function(id) {
         let groupbox = createGroup(group)
         groupbox.insertAfter($("#group-"+id));
         setupGroupBox(groupbox);
+        updateBadge();
       }
     },
     error: function (err) {
@@ -608,6 +616,7 @@ $('.ConfirmMergeButton').on("click", function() {
             $("#group-"+dest_grp + " .group_number_users").html(
               number + " " + ((number > 1)? str_members_default:str_member_default)
             );
+            updateBadge();
           }
         })
       };
@@ -659,6 +668,7 @@ $('.ConfirmDeleteButton').on("click", function() {
           },
           ...jConfirm_alert_options
         });
+        updateBadge();
       }
     },
     error: function (err) {

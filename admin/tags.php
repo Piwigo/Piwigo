@@ -72,12 +72,13 @@ foreach ($orphan_tags as $tag)
 if (count($orphan_tag_names) > 0)
 {
   $warning_tags = sprintf(
-    l10n('You have %d orphan tags: %s.'),
+    l10n('You have %d orphan tags %s.'),
     count($orphan_tag_names),
     '<a 
       data-tags=\'["'.implode('" ,"', $orphan_tag_names).'"]\' 
+      class="icon-eye"
       data-url="'.get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token().'">'
-      .l10n('See details').'</a>'
+      .l10n('Review').'</a>'
     );
 }
 

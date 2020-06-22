@@ -95,7 +95,7 @@ var rootUrl = '{$ROOT_URL}'
 
 
 <div class="titrePage">
-  <h2>{'Group manager'|@translate}</h2>
+  <h2>{'Group management'|@translate} <span class="badge-number"> {count($groups)}</span></h2>
 </div>
 
 <div class="selection-mode-group-manager">

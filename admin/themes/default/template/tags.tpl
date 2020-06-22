@@ -35,8 +35,8 @@ var str_others_tags_available = '{'%s other tags available...'|@translate}'
       <a class='tag-dropdown-action icon-eye view' href="{$tag_U_VIEW}" {if !$has_image} style='display:none' {/if}>{'View in gallery'|@translate}</a>
       <a class='tag-dropdown-action icon-picture manage' href="{$tag_U_EDIT}" {if !$has_image} style='display:none' {/if}>{'Manage photos'|@translate}</a>
       <a class='tag-dropdown-action icon-pencil edit'> {'Edit'|@translate}</a>
-      <a class='tag-dropdown-action icon-trash delete'> {'Delete'|@translate}</a>
       <a class='tag-dropdown-action icon-docs duplicate'> {'Duplicate'|@translate}</a>
+      <a class='tag-dropdown-action icon-trash delete'> {'Delete'|@translate}</a>
     </div>
     <span class="select-checkbox in-selection-mode">
       <i class="icon-ok"> </i>
@@ -53,7 +53,7 @@ var str_others_tags_available = '{'%s other tags available...'|@translate}'
 {/function}
 
 <div class="titrePage">
-  <h2>{'Manage tags'|@translate}</h2>
+  <h2>{'Tag Manager'|@translate} <span class="badge-number"> {count($all_tags)}</span> </h2>
 </div>
 
 <div class="selection-mode-group-manager">
@@ -75,7 +75,7 @@ var str_others_tags_available = '{'%s other tags available...'|@translate}'
         
       </div>
       <div class="selection-other-tags"></div>
-      <button id="MergeSelectionMode" class="icon-object-group unavailable">{'Merge'|@translate}</button>
+      <button id="MergeSelectionMode" class="icon-object-group unavailable" title="{'At least 2 selected tags are needed to merge'|@translate}">{'Merge'|@translate}</button>
       <button id="DeleteSelectionMode" class="icon-trash-1">{'Delete'|@translate}</button>
     </div>
 
@@ -100,24 +100,26 @@ var str_others_tags_available = '{'%s other tags available...'|@translate}'
   </div>
   <form id='add-tag' class='not-in-selection-mode'>
     <span class='icon-cancel'></span>
-    <span class='icon-plus-circled icon-validate'></span>
-    <label class='add-tag-container'>
+    <label class='add-tag-label icon-plus-circled'>
       <p>{'Add a tag'|@translate}</p>
-      <input type='text' id='add-tag-input' placeholder="{'Add a tag'|@translate}">
-      <input type='submit' hidden>
+      <div class='add-tag-container'>
+        <input type='text' id='add-tag-input' placeholder="{'New tag'|@translate}">
+        <input type='submit' hidden>
+        <span class='icon-plus-circled icon-validate'></span>
+      </div>
     </label>
   </form>
   <div class='selection-controller in-selection-mode'>
-    <p>{'Select:'|@translate}</p>
-    <a id="selectAll" class="icon-star">{'All'|@translate}</a>
-    <a id="selectNone" class="icon-star-empty">{'None'|@translate}</a>
-    <a id="selectInvert" class="icon-exchange">{'Invert'|@translate}</a> 
+    <p>{'Select'|@translate}</p>
+    <a id="selectAll">{'All'|@translate}</a>
+    <a id="selectNone">{'None'|@translate}</a>
+    <a id="selectInvert">{'Invert'|@translate}</a> 
   </div>
   {if $warning_tags != ""}
-  <div class='tag-warning tag-info icon-attention'><p> {$warning_tags} </p></div>
+  <div class='tag-warning tag-info icon-attention not-in-selection-mode'><p> {$warning_tags} </p></div>
   {/if}
-  <div class='tag-message tag-info icon-ok' {if $message_tags != ""}style='display:flex'{/if}> <p> {$message_tags} </p> </div>
-  <div class='tag-error tag-info icon-cancel'> <p> </p> </div>
+  <div class='tag-message tag-info icon-ok not-in-selection-mode' {if $message_tags != ""}style='display:flex'{/if}> <p> {$message_tags} </p> </div>
+  <div class='tag-error tag-info icon-cancel not-in-selection-mode'> <p> </p> </div>
 </div>
 
 <div class='tag-container'>
