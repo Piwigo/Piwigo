@@ -168,8 +168,9 @@ var setupGroupBox = function (groupBox) {
   });
 
   /* Set the rename action */
-  groupBox.find(".Group-name .icon-pencil").on("click", function () {
+  groupBox.find(".Group-name .icon-pencil, #GroupEdit").on("click", function () {
     displayRenameForm(true, id);
+    setTimeout(() => {groupBox.find("#GroupOptions").hide()}, 10)
   });
 
   groupBox.find(".group-rename .validate").on("click", function () {

@@ -2580,6 +2580,19 @@ input:checked + .slider:before {
   content: "";
   position: absolute;
   display: none;
+  animation: checkmark-appear 0.3s ease;
+}
+
+@keyframes checkmark-appear {
+  0% {
+    transform: rotate(45deg) scale(0);
+  }
+  75% {
+    transform: rotate(45deg) scale(1.5);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
 }
 
 .groups .Group-checkbox input:checked ~ .group-checkmark:after {
@@ -2784,7 +2797,7 @@ input:checked + .slider:before {
 
 #UserList .group-name-block .UserNumberBadge{
   padding:3px 9px;
-  border-radius:8px;
+  border-radius:15px;
   background-color: rgb(44,132,195);
   color: #CDE9FD;
   font-size:10px;
@@ -2828,7 +2841,7 @@ input:checked + .slider:before {
 #UserList .AddUserBlock button{
   font-size: 12px;
   font-weight: 700;
-  padding: 13px 10px;
+  padding: 12px 10px;
   border: none;
 }
 

@@ -55,9 +55,10 @@ var rootUrl = '{$ROOT_URL}'
      
       <div class="icon-ellipsis-vert group-dropdown-options not-in-selection-mode">
         <div id="GroupOptions">
-          <option class="icon-docs group-dropdown-option" id="GroupDuplicate" value="duplicate">{'Duplicate'|@translate}</option>
-          <option class="icon-trash group-dropdown-option" id="GroupDelete" value="delete">{'Delete'|@translate}</option>
-          <option class="icon-star group-dropdown-option" id="GroupDefault" value="delete"></option>
+          <option class="icon-pencil group-dropdown-option" id="GroupEdit">{'Edit'|@translate}</option>
+          <option class="icon-docs group-dropdown-option" id="GroupDuplicate">{'Duplicate'|@translate}</option>
+          <option class="icon-trash group-dropdown-option" id="GroupDelete">{'Delete'|@translate}</option>
+          <option class="icon-star group-dropdown-option" id="GroupDefault"></option>
         </div>
       </div>
 
@@ -93,7 +94,7 @@ var rootUrl = '{$ROOT_URL}'
 
 
 <div class="titrePage">
-  <h2>{'Group management'|@translate}</h2>
+  <h2>{'Group manager'|@translate}</h2>
 </div>
 
 <div class="selection-mode-group-manager">
@@ -116,7 +117,7 @@ var rootUrl = '{$ROOT_URL}'
     </div>
 
     </div>
-    <button id="MergeSelectionMode" class="icon-object-group unavailable">{'Merge'|@translate}</button>
+    <button id="MergeSelectionMode" class="icon-object-group unavailable" title="{'At least 2 selected groups are needed to merge'|@translate}">{'Merge'|@translate}</button>
     <button id="DeleteSelectionMode" class="icon-trash-1 unavailable">{'Delete'|@translate}</button>
    </div>
 
