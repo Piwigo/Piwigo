@@ -270,15 +270,16 @@ TABLE.doubleSelect SELECT.categoryList {
 }
 
 .badge-number {
-  padding: 3px 6px;
-  border-radius: 8px;
-  background-color: rgb(44,132,195);
-  color: #CDE9FD;
-  font-size: 12px;
+  border-radius: 20px;
+  background-color: #777;
+  font-size: 14px;
   margin-left: 10px;
   font-weight: 700;
   position: absolute;
-  transform: translateY(4px);
+  transform: translateY(3px);
+  text-align: center;
+  color: #ccc;
+  padding: 3px 7px;
 }
 
 .stat-legend-container {
@@ -3262,6 +3263,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   flex-wrap: nowrap;
   align-items: center;
   margin-left: 30px;
+  max-width: calc(100% - 530px);
+  overflow: hidden;
+  padding: 5px;
 }
 
 .tag-header #search-tag{
@@ -3280,7 +3284,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-header #add-tag .add-tag-label {
   position: relative;
-  padding: 10px;
+  padding: 10.5px;
   background-color: #fafafa;
   box-shadow: 0px 2px #00000024;
   border-radius: 5px;
@@ -3294,7 +3298,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background: none;
   box-shadow: none;
   cursor: auto;
-  padding: 5px 10px;
+  padding: 0px
 }
 
 .tag-header #add-tag .add-tag-label::before {
@@ -3309,6 +3313,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-header #add-tag .add-tag-label p{
   margin: 0;
+  white-space: nowrap;
 }
 
 .tag-header #add-tag .add-tag-container {
@@ -3320,9 +3325,14 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .tag-header #add-tag.input-mode .add-tag-container input {
-  padding: 5px;
-  border: none;
+  padding: 10px;
   margin-left: 10px;
+  border: solid 2px #ffa744;
+  background: none;
+}
+
+.tag-header #add-tag.input-mode .add-tag-container input:hover {
+  background-color: #f0f0f0 !important;
 }
 
 .tag-header #add-tag span.icon-cancel{
@@ -3330,14 +3340,16 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   position: absolute;
   right: 0;
   top: 50%;
-  transform: translate(50%, -50%);
+  transform: translate(30px, -53%);
+  z-index: 2;
 }
 
 .tag-header #add-tag.input-mode span{
   display: block;
-  margin: auto;
-  font-size: 20px;
+  margin: auto 5px;
+  font-size: 26px;
   cursor: pointer;
+  margin-right: 20px;
 }
 
 .tag-header #add-tag span.icon-plus-circled {
@@ -3545,7 +3557,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .tag-container .tag-box .select-checkbox i {
   display: none;
   font-size: 14px;
-  transform: translate(-9px , -3px);
+  transform: translate(-10px , -3px);
   position: absolute;
   color: #fafafa;
   animation-name: icon-check-animation;
@@ -3559,13 +3571,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 @keyframes icon-check-animation {
   0% {
-    transform: translate(-9px , -3px) scale(0);
+    transform: translate(-10px , -3px) scale(0);
   }
   75% {
-    transform: translate(-9px , -3px) scale(1.3);
+    transform: translate(-10px , -3px) scale(1.3);
   }
   100% {
-    transform: translate(-9px , -3px);
+    transform: translate(-10px , -3px);
   }
 }
 

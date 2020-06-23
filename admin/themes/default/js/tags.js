@@ -448,7 +448,16 @@ $('#CancelMerge').on('click', function() {
 });
 
 $('#selectAll').on('click', function() {
-  $('.tag-box').attr('data-selected', '1');
+  if ($('.search-input').val() == '') {
+    $('.tag-box').attr('data-selected', '1');
+  } else {
+    $('.tag-box').each(function() {
+      if (isSearched($(this), $('.search-input').val())) {
+        $(this).attr('data-selected', '1');
+      }
+    })
+  }
+
   updateListItem();
 });
 
@@ -519,15 +528,20 @@ function removeSelectedTags() {
           'tag_id': ids
         },
         success: function (raw_data) {
-          data = jQuery.parseJSON(raw_data);
-          if (data.stat === "ok") {
+          raw_data = raw_data.slice(raw_data.search('{'));
+          if (JSON.parse(raw_data).stat = 'ok') {
             ids.forEach(function(id) {
               $('.tag-box[data-id='+id+']').remove();
             })
             updateListItem();
             updateBadge()
             hideLastTags()
+          } else {
+            return raw_data;
           }
+        },
+        error: function(message) {
+          return message;
         }
       })
     },
@@ -565,11 +579,12 @@ function mergeGroups(destination_id, merge_ids) {
         url: "ws.php?format=json&method=pwg.tags.merge",
         type: "POST",
         data: {
-          destination_tag_id: destination_id,
-          merge_tag_id: merge_ids,
-          pwg_token: pwg_token
+          'pwg_token': pwg_token,
+          'destination_tag_id': destination_id,
+          'merge_tag_id': merge_ids
         },
         success: function (raw_data) {
+          raw_data = raw_data.slice(raw_data.search('{'));
           data = jQuery.parseJSON(raw_data);
           if (data.stat === "ok") {
             data.result.deleted_tag.forEach((id) => {
@@ -584,6 +599,8 @@ function mergeGroups(destination_id, merge_ids) {
             updateListItem();
             updateBadge()
             hideLastTags()
+          } else {
+            return raw_data;
           }
         }
       })
@@ -609,16 +626,15 @@ function tagListToString(list) {
 var maxShown = 100;
 
 $("#search-tag .search-input").on("input", function() {
-  let text = $(this).val().toLowerCase();
+  let text = $(this).val();
   var searchNumber = 0;
   $('.tag-box').each(function () {
     if (text == "") {
       $(this).show()
       searchNumber++;
     } else {
-      let name = $(this).find("p").text().toLowerCase();
-      if (name.search(text) != -1){
-        $(this).delay(300).show()
+      if (isSearched($(this), text)){
+        $(this).show()
         searchNumber++;
       } else {
         $(this).hide()
@@ -653,17 +669,28 @@ $(document).ready(function() {
   hideLastTags();
 })
 
+function isSearched(tagBox, stringSearch) {
+  let name = tagBox.find("p").text().toLowerCase();
+  if (name.startsWith(stringSearch.toLowerCase())) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /*-------
  Show Info
 -------*/
 function showError(message) {
   $('.tag-error p').html(message);
+  $('.tag-error').attr('title', message)
   $('.tag-info').hide()
   $('.tag-error').css('display', 'flex');
 }
 
 function showMessage(message) {
   $('.tag-message p').html(message);
+  $('.tag-message').attr('title', message)
   $('.tag-info').hide()
   $('.tag-message').css('display', 'flex');
 }
