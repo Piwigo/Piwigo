@@ -262,6 +262,20 @@ TABLE.doubleSelect SELECT.categoryList {
   background-color: #f0f0f0 !important;
 }
 
+.search-cancel {
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.4;
+  cursor: pointer;
+  position: absolute;
+  font-size: 18px;
+}
+
+.search-cancel:hover {
+  opacity: 1;
+}
+
 .search-icon {
   position: absolute;
   top: 50%;
@@ -3322,42 +3336,51 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-header #add-tag.input-mode .add-tag-container {
   display: flex;
+  margin-right: 35px;
 }
 
 .tag-header #add-tag.input-mode .add-tag-container input {
-  padding: 10px;
+  padding: 9.5px;
   margin-left: 10px;
   border: solid 2px #ffa744;
   background: none;
+  width: 100px;
 }
 
 .tag-header #add-tag.input-mode .add-tag-container input:hover {
   background-color: #f0f0f0 !important;
 }
 
-.tag-header #add-tag span.icon-cancel{
+.tag-header #add-tag span.icon-cancel-circled{
   display: none;
   position: absolute;
-  right: 0;
+  right: 15px;
   top: 50%;
-  transform: translate(30px, -53%);
+  transform: translate(15px, -53%);
   z-index: 2;
+  font-size: 25px !important;
+  cursor: pointer;
 }
 
-.tag-header #add-tag.input-mode span{
+.tag-header #add-tag.input-mode .icon-cancel-circled {
+  display: block;
+}
+
+.tag-header #add-tag span.icon-cancel-circled:hover {
+  color: #ff7700;
+}
+
+.tag-header #add-tag.input-mode .icon-validate{
   display: block;
   margin: auto 5px;
-  font-size: 26px;
+  font-size: 20px;
   cursor: pointer;
-  margin-right: 20px;
+  background-color: #ffa744;
+  padding: 5.5px;
 }
 
-.tag-header #add-tag span.icon-plus-circled {
-  color: #ffa744;
-}
-
-.tag-header #add-tag span:hover {
-  color: #ff7700;
+.tag-header #add-tag span.icon-validate:hover {
+  background-color: #ff7700;
 }
 
 .tag-header .selection-controller {
@@ -3412,7 +3435,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 300px;
   text-align: initial;
 }
 
@@ -3510,15 +3532,15 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-container .tag-box .tag-dropdown-block {
   display:none;
-  position:absolute;
+  position: absolute;
   right: 0;
-  top: 30px;
-  background-color:white;
-  z-index:2;
-  padding:5px 0px;
-  box-shadow: 0px 0px 5px #d7d7d7;
+  top: 25px;
+  z-index: 2;
+  padding: 5px 0px;
   border-radius: 10px;
   transform: translateX(85%);
+  background: linear-gradient(151.2deg, rgb(255, 31, 30) 0%, rgb(247, 104, 58) 32%, rgb(255, 166, 70) 100%);
+  color: white;
 }
 
 .tag-container .tag-box .tag-dropdown-block .tag-dropdown-action {
@@ -3527,12 +3549,32 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   padding: 5px 10px;
   font-size: 13px;
   padding-right: 15px;
+  color: white;
+  font-weight: bold;
 }
 
 .tag-container .tag-box .tag-dropdown-block .tag-dropdown-action:hover {
-  color: #3A3A3A;
   text-decoration: none;
-  background-color: #e7e7e7;
+  background-color: #ffffff4f;
+}
+
+.tag-container .tag-box .tag-dropdown-block .tag-dropdown-header {
+  white-space: nowrap;
+  width: 85%;
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+  color: white;
+  border-bottom: solid 1px #ffffff17;
+  padding: 3px;
+}
+
+.tag-container .tag-box .tag-dropdown-header b {
+  font-weight: bold;
+  margin-right: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .tag-container .tag-box .select-checkbox {

@@ -72,7 +72,7 @@ foreach ($orphan_tags as $tag)
 if (count($orphan_tag_names) > 0)
 {
   $warning_tags = sprintf(
-    l10n('You have %d orphan tags %s.'),
+    l10n('You have %d orphan tags %s'),
     count($orphan_tag_names),
     '<a 
       data-tags=\'["'.implode('" ,"', $orphan_tag_names).'"]\' 

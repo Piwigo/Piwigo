@@ -127,6 +127,11 @@ function sprintf() {
   return o.join('');
 }
 
+$('.search-cancel').on('click', function () {
+  $('.search-input').val('');
+  $('.search-input').trigger ("input");
+})
+
 // Class to implement a temporary state and reverse it
 class TemporaryState {
   //Arrays to reverse changes

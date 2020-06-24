@@ -1,4 +1,5 @@
 {combine_script id='jquery.ajaxmanager' load='footer' require='jquery' path='themes/default/js/plugins/jquery.ajaxmanager.js' }
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
 {footer_script require='jquery.ajaxmanager'}
 /* incompatible message */
@@ -190,6 +191,7 @@ jQuery(".pluginMiniBox").each(function(index){
 
 <div class="pluginFilter"> 
   <span class="icon-filter search-icon"></span>
+  <span class="icon-cancel search-cancel"></span>
   <input class='search-input' type="text" placeholder="{'Filter'|@translate}">
 </div>
 

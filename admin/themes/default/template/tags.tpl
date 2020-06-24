@@ -18,6 +18,7 @@ var str_other_copy = '{' (copy %s)'|@translate}';
 var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translate}';
 var str_and_others_tags = '{'and %s others'|@translate}';
 var str_others_tags_available = '{'%s other tags available...'|@translate}'
+var str_number_photos = '{'%d photos'}'
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -32,8 +33,12 @@ var str_others_tags_available = '{'%s other tags available...'|@translate}'
     <p class='tag-name'>{$tag_name}</p>
     <a class="icon-ellipsis-vert showOptions"></a>
     <div class="tag-dropdown-block">
-      <a class='tag-dropdown-action icon-eye view' href="{$tag_U_VIEW}" {if !$has_image} style='display:none' {/if}>{'View in gallery'|@translate}</a>
-      <a class='tag-dropdown-action icon-picture manage' href="{$tag_U_EDIT}" {if !$has_image} style='display:none' {/if}>{'Manage photos'|@translate}</a>
+      <div class='tag-dropdown-header'>
+        <b>{$tag_name}</b>
+        <i>{if !$has_image}{'no photo'|@translate}{else}{'%d photos'|@translate:$tag_count}{/if}</i>
+      </div>
+      <a class='tag-dropdown-action icon-eye view' href="{$tag_U_VIEW}" {if !$has_image} style='display:none' {/if}> {'View in gallery'|@translate}</a>
+      <a class='tag-dropdown-action icon-picture manage' href="{$tag_U_EDIT}" {if !$has_image} style='display:none' {/if}> {'Manage photos'|@translate}</a>
       <a class='tag-dropdown-action icon-pencil edit'> {'Edit'|@translate}</a>
       <a class='tag-dropdown-action icon-docs duplicate'> {'Duplicate'|@translate}</a>
       <a class='tag-dropdown-action icon-trash delete'> {'Delete'|@translate}</a>
@@ -96,16 +101,17 @@ var str_others_tags_available = '{'%s other tags available...'|@translate}'
 <div class='tag-header'>
   <div id='search-tag'>
     <span class='icon-filter search-icon'> </span>
+    <span class="icon-cancel search-cancel"></span>
     <input class='search-input' type='text' placeholder='{'Filter'|@translate}'>
   </div>
   <form id='add-tag' class='not-in-selection-mode'>
-    <span class='icon-cancel'></span>
+    <span class='icon-cancel-circled'></span>
     <label class='add-tag-label icon-plus-circled'>
       <p>{'Add a tag'|@translate}</p>
       <div class='add-tag-container'>
         <input type='text' id='add-tag-input' placeholder="{'New tag'|@translate}">
         <input type='submit' hidden>
-        <span class='icon-plus-circled icon-validate'></span>
+        <span class='icon-plus icon-validate'></span>
       </div>
     </label>
   </form>
@@ -130,6 +136,7 @@ var str_others_tags_available = '{'%s other tags available...'|@translate}'
         tag_U_VIEW=$tag.U_VIEW 
         tag_U_EDIT=$tag.U_EDIT
         has_image=($tag.counter > 0)
+        tag_count=$tag.counter
       }
   </div>
   {/foreach}
@@ -143,5 +150,6 @@ var str_others_tags_available = '{'%s other tags available...'|@translate}'
     tag_U_VIEW='%U_VIEW%' 
     tag_U_EDIT='%U_EDIT%'
     has_image=false
+    tag_count='%count%'
   }
 </div> 

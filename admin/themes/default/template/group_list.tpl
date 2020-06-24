@@ -216,6 +216,7 @@ var rootUrl = '{$ROOT_URL}'
         </div>
         <div class='search-user'>
           <span class="icon-filter search-icon"></span>
+          <span class="icon-cancel search-cancel"></span>
           <input class="input-user-name search-input" type="text" name="username" maxlength="50" size="20" placeholder="{'Filter'|@translate}">
         </div>
       </div>

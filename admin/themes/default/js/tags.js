@@ -25,6 +25,9 @@ $('.tag-warning p a').on('click', () => {
       },
       keep : {
         text:str_keep_them,
+        action: function() {
+          $('.tag-warning').hide();
+        }
       }
     }
   })
@@ -38,10 +41,12 @@ function updateBadge() {
 //Add a tag
 $('.add-tag-container').on('click', function() {
   $('#add-tag').addClass('input-mode');
+  $('.tag-info').hide();
 })
 
-$('#add-tag .icon-cancel').on('click', function() {
+$('#add-tag .icon-cancel-circled').on('click', function() {
   $('#add-tag').removeClass('input-mode');
+  $('.tag-info').hide();
 })
 
 //Display/Hide tag option
@@ -330,6 +335,7 @@ maxItemDisplayed = 5;
 $("#toggleSelectionMode").attr("checked", false)
 $("#toggleSelectionMode").click(function () {
   selectionMode($(this).is(":checked"))
+  $('.tag-info').hide()
 });
 
 function selectionMode(isSelection) {
@@ -593,7 +599,10 @@ function mergeGroups(destination_id, merge_ids) {
             })
             if (data.result.images_in_merged_tag.length > 0) {
               tagBox = $('.tag-box[data-id='+data.result.destination_tag+']')
-              tagBox.find('.tag-dropdown-action.view, .tag-dropdown-action.manage').show();
+              tagBox.find('.tag-dropdown-action.view,'+ 
+              '.tag-dropdown-action.manage,'+
+              '.tag-dropdown-header i').show();
+              $('.tag-dropdown-header i').html(str_number_photos.replace('%d', data.result.images_in_merged_tag.length))
             }
             $(".tag-box").attr("data-selected", '0');
             updateListItem();
