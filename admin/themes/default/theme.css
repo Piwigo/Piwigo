@@ -283,6 +283,33 @@ TABLE.doubleSelect SELECT.categoryList {
   font-size: 18px;
 }
 
+.dropdown {
+  z-index: 2;
+  padding: 5px 0px;
+  border-radius: 10px;
+  background: linear-gradient(151.2deg, rgb(255, 31, 30) 0%, rgb(247, 104, 58) 32%, rgb(255, 166, 70) 100%);
+  color: white;
+}
+
+.dropdown-option {
+  white-space: nowrap;
+  display: block;
+  text-align: initial;
+  padding: 5px 10px;
+  padding-right: 10px;
+  font-size: 13px;
+  padding-right: 15px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #ffffff4f;
+}
+
 .badge-number {
   border-radius: 20px;
   background-color: #777;
@@ -1538,14 +1565,6 @@ h2:lang(en) { text-transform:capitalize; }
   font-size: 16px;
 }
 
-.plugin-dropdown-action{
- padding:5px 10px;
- font-size: 13px;
- color:#3A3A3A
-}
-
-.plugin-dropdown-action:hover {background-color: #e7e7e7; color:#3A3A3A; text-decoration: none;}
-
 .plugin-inactive .pluginMiniBox{
   border-radius:5px;
 }
@@ -1571,15 +1590,7 @@ h2:lang(en) { text-transform:capitalize; }
     position:absolute;
     right: 0;
     top: 30px;
-    background-color:white;
     z-index:2;
-    padding:5px 0px;
-    box-shadow: 0px 0px 5px #d7d7d7;
-    border-radius: 10px;
-  }
-
-  .PluginOptionsBlock a{
-    display:block;
   }
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
@@ -2511,11 +2522,8 @@ input:checked + .slider:before {
   display:none;
   z-index:1;
   position:absolute;
-  border-radius:10px;
   right:-88px;
   top:35px;
-  padding:5px 0;
-
 }
 
 .is-default-token {
@@ -2537,17 +2545,6 @@ input:checked + .slider:before {
 
 .is-default-token.deactivate {
   display: none;
-}
-
-
-
-.group-dropdown-options {
-  cursor: pointer;
-}
-
-.group-dropdown-option{
- padding:5px 10px;
- font-size: 13px;
 }
 
 .jconfirmDeleteConfirm, .jconfirmAlert {

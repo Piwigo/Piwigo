@@ -55,11 +55,10 @@ var rootUrl = '{$ROOT_URL}'
       <div class="icon-star not-in-selection-mode is-default-token{if !$grp_is_default} deactivate{/if}" ></div> 
      
       <div class="icon-ellipsis-vert group-dropdown-options not-in-selection-mode">
-        <div id="GroupOptions">
-          <option class="icon-pencil group-dropdown-option" id="GroupEdit">{'Edit'|@translate}</option>
-          <option class="icon-docs group-dropdown-option" id="GroupDuplicate">{'Duplicate'|@translate}</option>
-          <option class="icon-trash group-dropdown-option" id="GroupDelete">{'Delete'|@translate}</option>
-          <option class="icon-star group-dropdown-option" id="GroupDefault"></option>
+        <div id="GroupOptions" class="dropdown">
+          <option class="icon-docs dropdown-option" id="GroupDuplicate" value="duplicate">{'Duplicate'|@translate}</option>
+          <option class="icon-trash dropdown-option" id="GroupDelete" value="delete">{'Delete'|@translate}</option>
+          <option class="icon-star dropdown-option" id="GroupDefault" value="delete"></option>
         </div>
       </div>
 

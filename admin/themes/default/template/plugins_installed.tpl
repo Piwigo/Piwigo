@@ -255,12 +255,12 @@ jQuery(".pluginMiniBox").each(function(index){
         {/if}
       </div>
       
-      <div class="PluginOptionsBlock">
+      <div class="PluginOptionsBlock dropdown">
         {if $plugin.STATE == 'active'}
-          <a class="plugin-dropdown-action icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-          <a class="plugin-dropdown-action icon-back-in-time" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>   
+          <a class="dropdown-option icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
+          <a class="dropdown-option icon-back-in-time" href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lose your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>   
         {elseif $plugin.STATE == 'inactive'}
-          <a class="plugin-dropdown-action icon-trash" href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
+          <a class="dropdown-option icon-trash" href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
         {/if}      
       </div>
       <div class="pluginMiniBoxNameCell">

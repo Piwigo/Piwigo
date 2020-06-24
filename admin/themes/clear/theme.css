@@ -402,18 +402,6 @@ label>p.group_select {
   background-color:#ff7700;
 }
 
-/* Group Options*/
-
-#GroupOptions{
-  background-color:white;
-  box-shadow: -1px 1px 2px #e7e7e7;
-  color:#3c3c3c;
-}
-
-.group-dropdown-option:hover{
-  background-color:#e7e7e7;
-}
-
 /*Group manager buttons*/
 
 .groups .manage-users,
