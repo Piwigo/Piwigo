@@ -229,7 +229,19 @@ function ws_tags_add($params, &$service)
 
   pwg_activity('tag', $creation_output['id'], 'add');
 
-  return $creation_output;
+  $query = '
+SELECT name, url_name 
+FROM `'.TAGS_TABLE.'`
+WHERE id = '.$creation_output['id'].';';
+
+$new_tag = query2array($query);
+
+  return array(
+    'info' => $creation_output['info'],
+    'id' => $creation_output['id'],
+    'name' => $new_tag[0]['name'],
+    'url_name' => $new_tag[0]['url_name']
+  );
 }
 
 function ws_tags_delete($params, &$service) 
@@ -405,6 +417,7 @@ SELECT image_id
     'id' => $destination_tag_id,
     'name' => $copy_name,
     'url_name' => trigger_change('render_tag_url', $copy_name),
+    'count' => count($inserts)
   );
 } 
 

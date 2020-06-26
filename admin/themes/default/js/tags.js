@@ -1,3 +1,6 @@
+//Get the data
+var dataTags = $('.tag-container').data('tags');
+
 //Orphan tags
 $('.tag-warning p a').on('click', () => {
   let url = $('.tag-warning p a').data('url');
@@ -33,9 +36,52 @@ $('.tag-warning p a').on('click', () => {
   })
 })
 
+
+//Create and recycle tag box
+function createTagBox(id, name, url_name, count) {
+  let u_edit = 'admin.php?page=batch_manager&filter=tag-'+id;
+  let u_view = 'index.php?/tags/'+id+'-'+url_name;
+  let html = $('.tag-template').html()
+    .replaceAll('%name%', unescape(name))
+    .replace('%U_VIEW%', u_view)
+    .replace('%U_EDIT%', u_edit)
+  newTag = $('<div class="tag-box" data-id='+id+' data-selected="0">'+html+'</div>');
+  if ($("#toggleSelectionMode").is(":checked")) {
+    newTag.addClass('selection');
+    newTag.find(".in-selection-mode").show();
+  }
+  if (count > 0) {
+    newTag.find('.dropdown-option.view, .dropdown-option.manage').css('display', 'block');
+    newTag.find('.tag-dropdown-header i').html(str_number_photos.replace('%d', count));
+  } else {
+    newTag.find('.tag-dropdown-header i').html(str_no_photos);
+  }
+  return newTag;
+}
+
+function recycleTagBox(tagBox, id, name, url_name, count) {
+  tagBox = tagBox.first();
+  tagBox.attr('data-id', id);
+  tagBox.find('.tag-name, .tag-dropdown-header b').html(name);
+  tagBox.find('.tag-name-editable').val(name)
+
+  //Dropdown
+  let u_edit = 'admin.php?page=batch_manager&filter=tag-'+id;
+  let u_view = 'index.php?/tags/'+id+'-'+url_name;
+  tagBox.find('.dropdown-option.view').attr('href', u_view);
+  tagBox.find('.dropdown-option.manage').attr('href', u_edit);
+  
+  if (count > 0) {
+    tagBox.find('.dropdown-option.view, .dropdown-option.manage').css('display', 'block');
+    tagBox.find('.tag-dropdown-header i').html(str_number_photos.replace('%d', count));
+  } else {
+    tagBox.find('.tag-dropdown-header i').html(str_no_photos);
+  }
+}
+
 //Number On Badge
 function updateBadge() {
-  $('.badge-number').html($('.tag-box').length)
+  $('.badge-number').html(dataTags.length)
 }
 
 //Add a tag
@@ -94,10 +140,18 @@ function addTag(name) {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
-          newTag = createTagBox(data.result.id, name);
+          newTag = createTagBox(data.result.id, data.result.name, data.result.url_name, 0);
           $('.tag-container').prepend(newTag);
           setupTagbox(newTag);
-          updateBadge()
+          updateBadge();
+
+          //Update the data
+          dataTags.unshift({
+            name:data.result.name,
+            id:data.result.id,
+            url_name:data.result.url_name
+          });
+
           resolve();
         } else {
           reject(str_already_exist.replace('%s', name));
@@ -109,30 +163,11 @@ function addTag(name) {
     })
   })
 }
-
-function createTagBox(id, name) {
-  let u_edit = 'admin.php?page=batch_manager&filter=tag-'+id;
-  let u_view = 'index.php?/tags/'+id+'-'+name.toLowerCase().replace(' ', '_');
-  let html = $('.tag-template').html()
-    .replaceAll('%name%', unescape(name))
-    .replace('%U_VIEW%', u_view)
-    .replace('%U_EDIT%', u_edit);
-  newTag = $('<div class="tag-box" data-id='+data.result.id+' data-selected="0">'+html+'</div>');
-  if ($("#toggleSelectionMode").is(":checked")) {
-    newTag.addClass('selection');
-    newTag.find(".in-selection-mode").show();
-  }
-  return newTag;
-}
-
 /*-------
  Setup Tag Box
 -------*/
 
 function setupTagbox(tagBox) {
-
-  let id = tagBox.data('id');
-  let name = tagBox.find('.tag-name').html();
   
   //Dropdown options
   tagBox.find('.showOptions').on('click', function () {
@@ -142,7 +177,7 @@ function setupTagbox(tagBox) {
   $(document).mouseup(function (e) {
     e.stopPropagation();
     let option_is_clicked = false
-    tagBox.find('.tag-dropdown-action').each(function () {
+    tagBox.find('.dropdown-option').each(function () {
       if (!($(this).has(e.target).length === 0)) {
         option_is_clicked = true;
       }
@@ -164,13 +199,13 @@ function setupTagbox(tagBox) {
   })
 
   //Edit Name
-  tagBox.find('.tag-dropdown-action.edit').on('click', function() {
+  tagBox.find('.dropdown-option.edit').on('click', function() {
     tagBox.addClass('edit-name');
   })
 
   tagBox.find('.tag-rename .icon-cancel').on('click', function() {
     tagBox.removeClass('edit-name');
-    tagBox.find('.tag-name-editable').val(name);
+    tagBox.find('.tag-name-editable').val(tagBox.find('.tag-name').html());
   })
 
   tagBox.find('.tag-rename .validate').on('click', function() {
@@ -178,17 +213,17 @@ function setupTagbox(tagBox) {
   })
 
   tagBox.find('.tag-rename form').submit(function (e) {
+    let name = tagBox.find('.tag-name').html();
     e.preventDefault();
     new_name = tagBox.find('.tag-rename .tag-name-editable').val();
     if (new_name != "") {
       let loadState = new TemporaryState();
       loadState.removeClass(tagBox.find('.tag-rename .validate'), 'icon-ok');
       loadState.changeHTML(tagBox.find('.tag-rename .validate'), "<i class='icon-spin6 animate-spin'> </i>");
-      renameTag(id, new_name).then(() => {
+      renameTag(tagBox.data('id'), new_name).then(() => {
         showMessage(str_tag_renamed.replace('%s1', name).replace('%s2', new_name));
         loadState.reverse();
         tagBox.removeClass('edit-name');
-        name = new_name;
       }).catch((message) => {
         loadState.reverse();
         showError(message);
@@ -197,15 +232,15 @@ function setupTagbox(tagBox) {
   })
 
   //Delete Tag
-  tagBox.find('.tag-dropdown-action.delete').on('click', function () {
+  tagBox.find('.dropdown-option.delete').on('click', function () {
     $.confirm({
-      title: str_delete.replace("%s",name),
+      title: str_delete.replace("%s",tagBox.find('.tag-name').html()),
       buttons: {
         confirm: {
           text: str_yes_delete_confirmation,
           btnClass: 'btn-red',
           action: function () {
-            removeTag(id, name);
+            removeTag(tagBox.data('id'), tagBox.find('.tag-name').html());
           },
         },
         cancel: {
@@ -217,8 +252,8 @@ function setupTagbox(tagBox) {
   })
 
   //Duplicate Tag
-  tagBox.find('.tag-dropdown-action.duplicate').on('click', function () {
-    duplicateTag(id, name).then((data) => {
+  tagBox.find('.dropdown-option.duplicate').on('click', function () {
+    duplicateTag(tagBox.data('id'), tagBox.find('.tag-name').html()).then((data) => {
       showMessage(str_tag_created.replace('%s',data.result.name))
     })
   })
@@ -238,12 +273,16 @@ function removeTag(id, name) {
         },
         success: function (raw_data) {
           data = jQuery.parseJSON(raw_data);
-          showMessage(str_tag_deleted.replace('%s', name));
+          
           if (data.stat === "ok") {
             $('.tag-box[data-id='+id+']').remove();
+            //Update data
+            dataTags = dataTags.filter((tag) => tag.id != id);
+            showMessage(str_tag_deleted.replace('%s', name));
+            updateBadge();
+          } else {
+            showError('A problem has occured')
           }
-          updateBadge()
-          hideLastTags()
         }
       })
     },
@@ -264,8 +303,16 @@ function renameTag(id, new_name) {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
-          $('.tag-box[data-id='+id+'] p').html(data.result.name);
+          $('.tag-box[data-id='+id+'] p, .tag-box[data-id='+id+'] .tag-dropdown-header b').html(data.result.name);
           $('.tag-box[data-id='+id+'] .tag-name-editable').attr('value', data.result.name);
+          let u_view = 'index.php?/tags/'+id+'-'+data.result.url_name;
+          $('.dropdown-option.view').attr('href', u_view);
+
+          //Update the data
+          index = dataTags.findIndex((tag) => tag.id == id);
+          dataTags[index].name = data.result.name;
+          dataTags[index].url_name = data.result.url_name;
+
           resolve(data);
         } else {
           reject(str_already_exist.replace('%s', new_name))
@@ -308,15 +355,19 @@ function duplicateTag(id, name) {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
-          newTag = createTagBox(data.result.id, data.result.name);
+          newTag = createTagBox(data.result.id, data.result.name, data.result.url_name, data.result.count);
           newTag.insertAfter($('.tag-box[data-id='+id+']'));
-          if ($('.tag-box[data-id='+id+'] .tag-dropdown-action.view').css('display') == 'inline') {
-            newTag.find('.tag-dropdown-action.view').show();
-            newTag.find('.tag-dropdown-action.manage').show();
-          }
           setupTagbox(newTag);
+
+          //Update Data
+          index = dataTags.findIndex((tag) => tag.id == id);
+          dataTags.splice(index+1, 0, {
+            name: data.result.name,
+            id: data.result.id,
+            url_name: data.result.url_name,
+            counter : data.result.count
+          });
           updateBadge()
-          hideLastTags()
           resolve(data);
         }
       },
@@ -540,8 +591,11 @@ function removeSelectedTags() {
               $('.tag-box[data-id='+id+']').remove();
             })
             updateListItem();
+
+            // Update Data
+            dataTags = dataTags.filter((tag) => !ids.includes(parseInt(tag.id)))
+
             updateBadge()
-            hideLastTags()
           } else {
             return raw_data;
           }
@@ -594,20 +648,27 @@ function mergeGroups(destination_id, merge_ids) {
           data = jQuery.parseJSON(raw_data);
           if (data.stat === "ok") {
             data.result.deleted_tag.forEach((id) => {
-              if (data.result.destination_tag != id)
+              if (data.result.destination_tag != id) {
                 $('.tag-box[data-id='+id+']').remove();
+                // Update data
+                dataTags = dataTags.filter((tag) => id != tag.id);
+              }
             })
             if (data.result.images_in_merged_tag.length > 0) {
               tagBox = $('.tag-box[data-id='+data.result.destination_tag+']')
-              tagBox.find('.tag-dropdown-action.view,'+ 
-              '.tag-dropdown-action.manage,'+
+              tagBox.find('.dropdown-option.view,'+ 
+              '.dropdown-option.manage,'+
               '.tag-dropdown-header i').show();
-              $('.tag-dropdown-header i').html(str_number_photos.replace('%d', data.result.images_in_merged_tag.length))
+              $('.tag-dropdown-header i').html(str_number_photos.replace('%d', data.result.images_in_merged_tag.length));
+
+              // Update data
+              index = dataTags.findIndex((tag) => tag.id == data.result.destination_tag);
+              dataTags[index].counter = data.result.images_in_merged_tag.length;
             }
             $(".tag-box").attr("data-selected", '0');
             updateListItem();
+
             updateBadge()
-            hideLastTags()
           } else {
             return raw_data;
           }
@@ -635,51 +696,28 @@ function tagListToString(list) {
 var maxShown = 100;
 
 $("#search-tag .search-input").on("input", function() {
-  let text = $(this).val();
-  var searchNumber = 0;
-  $('.tag-box').each(function () {
-    if (text == "") {
-      $(this).show()
-      searchNumber++;
-    } else {
-      if (isSearched($(this), text)){
-        $(this).show()
-        searchNumber++;
-      } else {
-        $(this).hide()
-      }
-    }
-  })
-  if (searchNumber == 0) {
+  updatePaginationMenu();
+  updatePage();
+
+  if (dataTags.filter(isDataSearched).length == 0) {
     $('.emptyResearch').show();
   } else {
     $('.emptyResearch').hide();
   }
-  hideLastTags();
 });
-
-function hideLastTags () {
-  let tagBoxes = $('.tag-box:visible');
-  if (tagBoxes.length > maxShown) {
-    for (let i = maxShown; i < tagBoxes.length; i++) {
-      $(tagBoxes[i]).hide();
-    }
-
-    str = str_others_tags_available.replace('%s', tagBoxes.length -  maxShown);
-
-    $('.moreTagMessage').html(str);
-    $('.moreTagMessage').show();
-  } else {
-    $('.moreTagMessage').hide();
-  }
-}
-
-$(document).ready(function() {
-  hideLastTags();
-})
 
 function isSearched(tagBox, stringSearch) {
   let name = tagBox.find("p").text().toLowerCase();
+  if (name.startsWith(stringSearch.toLowerCase())) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isDataSearched(tagObj) {
+  let name = tagObj.name;
+  let stringSearch = $("#search-tag .search-input").val();
   if (name.startsWith(stringSearch.toLowerCase())) {
     return true;
   } else {
@@ -703,3 +741,122 @@ function showMessage(message) {
   $('.tag-info').hide()
   $('.tag-message').css('display', 'flex');
 }
+
+
+/*-------
+ Pagination
+-------*/
+var per_page = $('.tag-container').data('per_page');
+var pageItem = '<input type="radio" name="page" id="page-%d" data-page="%d" checked>'
+  +'<label for="page-%d"></label>'
+
+function updatePaginationMenu() {
+  $('.tag-pagination-container').html('')
+  nbPage = getNumberPages();
+  for (let page = 1; page <= nbPage; page++) {
+    let newTag = $(pageItem.replaceAll('%d', page))
+    $('.tag-pagination-container').append(newTag);
+  }
+  $('#page-1').attr('checked', true);
+  updateArrows();
+
+  $('.tag-pagination-container input').change(() => {
+    updatePage();
+    updateArrows();
+  })
+
+  if (getNumberPages() == 1) {
+    $('.tag-pagination').hide();
+  } else {
+    $('.tag-pagination').fadeIn();
+  }
+}
+
+function updateArrows() {
+  if ($('#page-1').is(':checked')) {
+    $('.tag-pagination-arrow.left').addClass('unavailable');
+  } else {
+    $('.tag-pagination-arrow.left').removeClass('unavailable');
+  }
+
+  if ($('#page-'+getNumberPages()).is(':checked')) {
+    $('.tag-pagination-arrow.rigth').addClass('unavailable');
+  } else {
+    $('.tag-pagination-arrow.rigth').removeClass('unavailable');
+  }
+}
+
+function getNumberPages() {
+  dataVisible = dataTags.filter(isDataSearched).length;
+  return Math.floor(dataVisible / per_page) + 1;
+}
+
+function movePage(toRigth = true) {
+  let page = $('.tag-pagination-container input:checked').data('page');
+  if (toRigth) {
+    if ((page + 1) <= getNumberPages()) {
+      $('#page-'+page).attr('checked', false);
+      page++;
+      $('#page-'+page).prop("checked", true).trigger("click");
+    }
+  } else {
+    if ((page - 1) >= 1) {
+      $('#page-'+page).attr('checked', false);
+      page--;
+      $('#page-'+page).prop("checked", true).trigger("click");
+    }
+  }
+  updateArrows();
+}
+
+function updatePage() {
+  newPage = $('.tag-pagination-container input:checked').data('page');
+  dataToDisplay = dataTags.filter(isDataSearched)
+    .slice((newPage-1)*per_page, (newPage)*per_page);
+  tagBoxes = $('.tag-box');
+
+  $('.tag-box').animate({opacity:0}, 500).promise().then(() => {
+
+    let displayTags = new Promise((resolve, reject) => {
+      boxToRecycle = Math.min(dataToDisplay.length, tagBoxes.length);
+
+      for (let i = 0; i < boxToRecycle; i++) {
+        let tag = dataToDisplay[i];
+        recycleTagBox($(tagBoxes[i]), tag.id, tag.name, tag.url_name)
+      }
+
+      if (dataToDisplay.length < tagBoxes.length) {
+        for (let j = boxToRecycle; j < tagBoxes.length; j++) {
+          $(tagBoxes[j]).remove();
+        }
+      } else if (dataToDisplay.length > tagBoxes.length) {
+        for (let j = boxToRecycle; j < dataToDisplay.length; j++) {
+          let tag = dataToDisplay[j];
+          newTag = createTagBox(tag.id, tag.name, tag.url_name);
+          newTag.css('opacity', 0);
+          $('.tag-container').append(newTag);
+          setupTagbox(newTag);
+        }
+      }
+
+      resolve();
+    })
+
+    displayTags.then(() => {
+      $('.tag-box').animate({opacity:1}, 500)   
+    }) 
+  });
+}
+
+$('.tag-pagination-arrow.rigth').on('click', () => {
+  movePage();
+  updatePage();
+})
+
+$('.tag-pagination-arrow.left').on('click', () => {
+  movePage(false);
+  updatePage();
+})
+
+
+updatePaginationMenu();

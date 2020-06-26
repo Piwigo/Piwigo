@@ -19,6 +19,7 @@ var str_merged_into = '{'Tag(s) \{%s1\} succesfully merged into "%s2"'|@translat
 var str_and_others_tags = '{'and %s others'|@translate}';
 var str_others_tags_available = '{'%s other tags available...'|@translate}'
 var str_number_photos = '{'%d photos'}'
+var str_no_photos = '{'no photo'}'
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -32,16 +33,18 @@ var str_number_photos = '{'%d photos'}'
 {function tagContent}
     <p class='tag-name'>{$tag_name}</p>
     <a class="icon-ellipsis-vert showOptions"></a>
-    <div class="tag-dropdown-block">
-      <div class='tag-dropdown-header'>
-        <b>{$tag_name}</b>
-        <i>{if !$has_image}{'no photo'|@translate}{else}{'%d photos'|@translate:$tag_count}{/if}</i>
+    <div class="tag-dropdown-block dropdown">
+      <div class="dropdown-content">
+        <div class='tag-dropdown-header'>
+          <b>{$tag_name}</b>
+          <i>{if !$has_image}{'no photo'|@translate}{else}{'%d photos'|@translate:$tag_count}{/if}</i>
+        </div>
+        <a class='dropdown-option icon-eye view' href="{$tag_U_VIEW}" {if !$has_image} style='display:none' {/if}> {'View in gallery'|@translate}</a>
+        <a class='dropdown-option icon-picture manage' href="{$tag_U_EDIT}" {if !$has_image} style='display:none' {/if}> {'Manage photos'|@translate}</a>
+        <a class='dropdown-option icon-pencil edit'> {'Edit'|@translate}</a>
+        <a class='dropdown-option icon-docs duplicate'> {'Duplicate'|@translate}</a>
+        <a class='dropdown-option icon-trash delete'> {'Delete'|@translate}</a>
       </div>
-      <a class='tag-dropdown-action icon-eye view' href="{$tag_U_VIEW}" {if !$has_image} style='display:none' {/if}> {'View in gallery'|@translate}</a>
-      <a class='tag-dropdown-action icon-picture manage' href="{$tag_U_EDIT}" {if !$has_image} style='display:none' {/if}> {'Manage photos'|@translate}</a>
-      <a class='tag-dropdown-action icon-pencil edit'> {'Edit'|@translate}</a>
-      <a class='tag-dropdown-action icon-docs duplicate'> {'Duplicate'|@translate}</a>
-      <a class='tag-dropdown-action icon-trash delete'> {'Delete'|@translate}</a>
     </div>
     <span class="select-checkbox in-selection-mode">
       <i class="icon-ok"> </i>
@@ -58,7 +61,7 @@ var str_number_photos = '{'%d photos'}'
 {/function}
 
 <div class="titrePage">
-  <h2>{'Tag Manager'|@translate} <span class="badge-number"> {count($all_tags)}</span> </h2>
+  <h2>{'Tag Manager'|@translate} <span class="badge-number"> {$total}</span> </h2>
 </div>
 
 <div class="selection-mode-group-manager">
@@ -128,21 +131,32 @@ var str_number_photos = '{'%d photos'}'
   <div class='tag-error tag-info icon-cancel not-in-selection-mode'> <p> </p> </div>
 </div>
 
-<div class='tag-container'>
-  {foreach from=$all_tags item=tag}
+<div class='tag-container' data-tags='{json_encode($data)}' data-per_page={$per_page}>
+  {foreach from=$first_tags item=tag}
   <div class='tag-box' data-id='{$tag.id}' data-selected='0'>
     {tagContent 
-        tag_name=$tag.name
-        tag_U_VIEW=$tag.U_VIEW 
-        tag_U_EDIT=$tag.U_EDIT
-        has_image=($tag.counter > 0)
-        tag_count=$tag.counter
+        tag_name = $tag.name
+        tag_U_VIEW = 'index.php?/tags/%s-%s'|@sprintf:$tag['id']:$tag['url_name']
+        tag_U_EDIT = 'admin.php?page=batch_manager&amp;filter=tag-%s'|@sprintf:$tag['id']
+        has_image = ($tag.counter > 0)
+        tag_count = $tag.counter
       }
   </div>
   {/foreach}
 </div>
 <div class="emptyResearch"> {'No tag found'|@translate} </div>
-<div class="moreTagMessage"> </div>
+<div class="tag-pagination">
+  <div class="tag-pagination-arrow left">
+    <span class="icon-left-open"></span>
+    <p>{'Previous'|@translate}</p>
+  </div>
+  <div class="tag-pagination-container">
+  </div>
+  <div class="tag-pagination-arrow rigth">
+    <p>{'Next'|@translate}</p>
+    <span class="icon-left-open"></span>
+  </div>
+</div>
 
 <div class='tag-template' style='display:none'>
   {tagContent 

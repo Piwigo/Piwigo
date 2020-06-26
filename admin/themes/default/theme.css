@@ -287,8 +287,12 @@ TABLE.doubleSelect SELECT.categoryList {
   z-index: 2;
   padding: 5px 0px;
   border-radius: 10px;
-  background: linear-gradient(151.2deg, rgb(255, 31, 30) 0%, rgb(247, 104, 58) 32%, rgb(255, 166, 70) 100%);
+  background: linear-gradient(130deg, #ff7700 0%, #ffa744 100%);
   color: white;
+}
+
+.dropdown-content {
+  position: relative;
 }
 
 .dropdown-option {
@@ -3532,27 +3536,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   position: absolute;
   right: 0;
   top: 25px;
-  z-index: 2;
-  padding: 5px 0px;
-  border-radius: 10px;
   transform: translateX(85%);
-  background: linear-gradient(151.2deg, rgb(255, 31, 30) 0%, rgb(247, 104, 58) 32%, rgb(255, 166, 70) 100%);
-  color: white;
-}
-
-.tag-container .tag-box .tag-dropdown-block .tag-dropdown-action {
-  white-space: nowrap;
-  text-align: initial;
-  padding: 5px 10px;
-  font-size: 13px;
-  padding-right: 15px;
-  color: white;
-  font-weight: bold;
-}
-
-.tag-container .tag-box .tag-dropdown-block .tag-dropdown-action:hover {
-  text-decoration: none;
-  background-color: #ffffff4f;
 }
 
 .tag-container .tag-box .tag-dropdown-block .tag-dropdown-header {
@@ -3689,11 +3673,68 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   font-weight: bold;
 }
 
-.moreTagMessage {
+.tag-pagination {
   margin: auto;
-  font-weight: bold;
-  padding-right: 223px;
-  margin: 10px;
-  font-size: 16px;
-  opacity: 0.5;
+  height: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 223px;
+}
+
+.tag-pagination-container {
+  display: flex;
+}
+
+.tag-pagination-container label {
+  background-color: #ffa74496;
+  width: 15px;
+  height: 15px;
+  display: block;
+  margin: 5px;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.tag-pagination-container label:hover {
+  background-color: #ffa844;
+}
+
+.tag-pagination-container input:checked + label {
+  background-color: #ff7700;
+  width: 30px;
+}
+
+.tag-pagination-container input {
+  display: none;
+}
+
+.tag-pagination-arrow {
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.tag-pagination-arrow.unavailable {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.tag-pagination-arrow:hover {
+  color: #ffa744;
+}
+
+.tag-pagination-arrow span {
+  font-size: 20px;
+}
+
+.tag-pagination-arrow.rigth span {
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }

@@ -92,7 +92,7 @@ $template->assign(
 // +-----------------------------------------------------------------------+
 // |                             form creation                             |
 // +-----------------------------------------------------------------------+
-
+$per_page = 100;
 
 // tag counters
 $query = '
@@ -103,7 +103,7 @@ $tag_counters = simple_hash_from_query($query, 'tag_id', 'counter');
 
 // all tags
 $query = '
-SELECT *
+SELECT name, id, url_name
   FROM '.TAGS_TABLE.'
 ;';
 $result = pwg_query($query);
@@ -112,9 +112,11 @@ while ($tag = pwg_db_fetch_assoc($result))
 {
   $raw_name = $tag['name'];
   $tag['name'] = trigger_change('render_tag_name', $raw_name, $tag);
-  $tag['counter'] = intval(@$tag_counters[ $tag['id'] ]);
-  $tag['U_VIEW'] = make_index_url(array('tags'=>array($tag)));
-  $tag['U_EDIT'] = 'admin.php?page=batch_manager&amp;filter=tag-'.$tag['id'];
+  $counter = intval(@$tag_counters[ $tag['id'] ]);
+  if ($counter > 0) 
+  {
+    $tag['counter'] = intval(@$tag_counters[ $tag['id'] ]);
+  }
 
   $alt_names = trigger_change('get_tag_alt_names', array(), $raw_name);
   $alt_names = array_diff( array_unique($alt_names), array($tag['name']) );
@@ -126,11 +128,12 @@ while ($tag = pwg_db_fetch_assoc($result))
 }
 usort($all_tags, 'tag_alpha_compare');
 
-
-
 $template->assign(
   array(
-    'all_tags' => $all_tags,
+    'first_tags' => array_slice($all_tags, 0, $per_page),
+    'data' => $all_tags,
+    'total' => count($all_tags),
+    'per_page' => $per_page
     )
   );
 
