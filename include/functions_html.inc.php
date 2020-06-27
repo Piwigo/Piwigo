@@ -521,7 +521,7 @@ function render_element_name($info)
 {
   if (!empty($info['name']))
   {
-    return trigger_change('render_element_name', $info['name']);
+    return trigger_change('render_element_name', $info['name'], $info);
   }
   return get_name_from_file($info['file']);
 }
