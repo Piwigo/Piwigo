@@ -23,7 +23,7 @@ $('.tag-warning p a').on('click', () => {
         text:str_delete_them,
         btnClass: 'btn-red',
         action: function() {
-          window.location.href = url.replaceAll('amp;', '');
+          window.location.href = url.replace(/amp;/g, '');
         }
       },
       keep : {
@@ -42,7 +42,7 @@ function createTagBox(id, name, url_name, count) {
   let u_edit = 'admin.php?page=batch_manager&filter=tag-'+id;
   let u_view = 'index.php?/tags/'+id+'-'+url_name;
   let html = $('.tag-template').html()
-    .replaceAll('%name%', unescape(name))
+    .replace(/%name%/g, unescape(name))
     .replace('%U_VIEW%', u_view)
     .replace('%U_EDIT%', u_edit)
   newTag = $('<div class="tag-box" data-id='+id+' data-selected="0">'+html+'</div>');
@@ -64,6 +64,7 @@ function recycleTagBox(tagBox, id, name, url_name, count) {
   tagBox.attr('data-id', id);
   tagBox.find('.tag-name, .tag-dropdown-header b').html(name);
   tagBox.find('.tag-name-editable').val(name)
+  tagBox.attr('data-selected', 0)
 
   //Dropdown
   let u_edit = 'admin.php?page=batch_manager&filter=tag-'+id;
@@ -187,14 +188,17 @@ function setupTagbox(tagBox) {
     }
   });
 
+  // Selection behaviour
   tagBox.on('click', function() {
     if ($('.tag-container').hasClass('selection')) {
       if (tagBox.attr('data-selected') == '1') {
         tagBox.attr('data-selected', '0');
+        removeSelectedItem(tagBox.attr('data-id'));
       } else {
         tagBox.attr('data-selected', '1');
+        addSelectedItem(tagBox.attr('data-id'),tagBox.find('.tag-name').html());
       }
-      updateListItem();
+      updateSelectionContent();
     }
   })
 
@@ -381,6 +385,7 @@ function duplicateTag(id, name) {
 /*-------
  Selection mode
 -------*/
+var selected = [];
 maxItemDisplayed = 5;
 
 $("#toggleSelectionMode").attr("checked", false)
@@ -400,66 +405,75 @@ function selectionMode(isSelection) {
     $(".not-in-selection-mode").removeClass('hide');
     $(".tag-container").removeClass("selection");
     $(".tag-box").attr("data-selected", '0');
-    updateListItem();
+
+    clearSelection();
   }
 }
 
-function updateListItem() {
-
-  let nowSelected = [];
-  let selected = [];
-  let shouldNotBeItem = [];
-  let names = {};
-  $('.tag-box[data-selected="1"]').each(function () {
-    let id = $(this).attr('data-id');
-    nowSelected.push(id);
-    names[id] = $(this).find('.tag-name').html();
-  });
-
-  selected = $('.selection-mode-tag .tag-list').data('list');
-  $('.selection-mode-tag .tag-list').attr('data-list', nowSelected);
-
-  shouldNotBeItem = [...selected];
-  shouldNotBeItem = shouldNotBeItem.filter(x => !nowSelected.includes(x));
-
-  shouldNotBeItem.forEach(function(id) {
-    $('.selection-mode-tag .tag-list div[data-id='+id+']').remove();
-  })
-  
+function clearSelection() {
+  selected = [];
   $('.selection-mode-tag .tag-list').html('');
-  let i = 0;
-  while(i < nowSelected.length && $('.selection-mode-tag .tag-list div').length < maxItemDisplayed) {
-    let item = nowSelected[i++];
-    let newItemStructure = $('<div data-id="'+item+'"><a class="icon-cancel"></a><p>'+names[item]+'</p> </div>');
-    $('.selection-mode-tag .tag-list').prepend(newItemStructure);
-    $('.selection-mode-tag .tag-list div[data-id='+item+'] a').on('click', function () {
-      $('.tag-box[data-id='+item+']').attr('data-selected', '0');
-      updateListItem();
-    });
-  }
+  $('.selection-other-tags').hide();
+  updateSelectionContent();
+}
 
-  if (nowSelected.length > maxItemDisplayed) {
+function addSelectedItem(id, name) {
+  selected.push(id);
+
+  if (selected.length > maxItemDisplayed) {
     $('.selection-other-tags').show();
-    $('.selection-other-tags').html(str_and_others_tags.replace('%s', nowSelected.length - maxItemDisplayed))
+    let numberDisplayed = $('.selection-mode-tag .tag-list div').length;
+    $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - numberDisplayed))
   } else {
     $('.selection-other-tags').hide();
+    createSelectionItem(id, name);
+  }
+}
+
+function createSelectionItem(id, name) {
+  let newItemStructure = $('<div data-id="'+id+'"><a class="icon-cancel"></a><p>'+name+'</p> </div>');
+  $('.selection-mode-tag .tag-list').prepend(newItemStructure);
+  $('.selection-mode-tag .tag-list div[data-id='+id+'] a').on('click', function () {
+    removeSelectedItem(id);
+  });
+}
+
+function removeSelectedItem(id) {
+  let index = selected.indexOf(id);
+  if (index > -1) {
+    selected.splice(index, 1);
   }
 
-  updateSelectionContent()
+  $('.tag-box[data-id='+id+']').attr('data-selected', '0');
+  if ($('.selection-mode-tag .tag-list div[data-id='+id+']').length != 0) {
+    $('.selection-mode-tag .tag-list div[data-id='+id+']').remove();
+
+    if (selected.length >= maxItemDisplayed) {
+      let i = 0;
+      isNotCreate = true
+      while (i<selected.length && isNotCreate) {
+          if ($('.selection-mode-tag .tag-list div[data-id='+selected[i]+']').length == 0) {
+            isNotCreate = false;
+            indexOfTag = dataTags.findIndex(tag => tag.id == selected[i])
+            createSelectionItem(selected[i], dataTags[indexOfTag].name);
+          }
+          i++;
+      }
+    }
+  }
+
+  let numberDisplayed = $('.selection-mode-tag .tag-list div').length;
+  $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - numberDisplayed))
+  if (selected.length - numberDisplayed <= 0) {
+    $('.selection-other-tags').hide();
+  }
 }
 
 function updateMergeItems () {
-  let ids = [];
-  let names = [];
-  $('.tag-box[data-selected="1"]').each(function () {
-    ids.push($(this).attr('data-id'));
-    names[$(this).attr('data-id')] = $(this).find('.tag-name').html();
-  })
-
   $('#MergeOptionsChoices').html('');
-  ids.forEach(id => {
+  selected.forEach(id => {
     $('#MergeOptionsChoices').append(
-      $('<option value="'+id+'">'+names[id]+'</option>')
+      $('<option value="'+id+'">'+dataTags.find((tag) => tag.id == id).name+'</option>')
     )
   })
 }
@@ -467,7 +481,7 @@ function updateMergeItems () {
 mergeOption = false;
 
 function updateSelectionContent() {
-  number = $('.tag-box[data-selected="1"]').length;
+  number = selected.length;
   if (number == 0) {
     mergeOption = false;
     $('#nothing-selected').show();
@@ -505,33 +519,27 @@ $('#CancelMerge').on('click', function() {
 });
 
 $('#selectAll').on('click', function() {
-  if ($('.search-input').val() == '') {
-    $('.tag-box').attr('data-selected', '1');
-  } else {
-    $('.tag-box').each(function() {
-      if (isSearched($(this), $('.search-input').val())) {
-        $(this).attr('data-selected', '1');
-      }
-    })
-  }
-
-  updateListItem();
+  $('.tag-box[data-selected=0]').each(function () {
+    addSelectedItem($(this).data('id'))
+  })
 });
 
 $('#selectNone').on('click', function() {
-  $('.tag-box').attr('data-selected', '0');
-  updateListItem();
+  $('.tag-box[data-selected=1]').each(function () {
+    removeSelectedItem($(this).data('id'))
+  })
 });
 
 $('#selectInvert').on('click', function() {
   $('.tag-box').each(function() {
     if ($(this).attr('data-selected') == 1) {
       $(this).attr('data-selected', '0');
+      removeSelectedItem($(this).data('id'))
     } else {
       $(this).attr('data-selected', '1');
+      addSelectedItem($(this).data('id'))
     }
   });
-  updateListItem();
 });
 
 /*-------
@@ -540,10 +548,9 @@ $('#selectInvert').on('click', function() {
 
 //Remove tags
 $('#DeleteSelectionMode').on('click', function() {
-  names = [];
-
-  $('.tag-box[data-selected=1]').each(function() {
-    names.push($(this).find('.tag-name').html());
+  let names = [];
+  selected.forEach(function (id) {
+    names.push(dataTags.find((tag) => tag.id == id).name);
   })
 
   $.confirm({
@@ -565,13 +572,9 @@ $('#DeleteSelectionMode').on('click', function() {
 })
 
 function removeSelectedTags() {
-  names = [];
-  ids = [];
-
-  $('.tag-box[data-selected=1]').each(function() {
-    id = $(this).data('id');
-    ids.push(id);
-    names.push($(this).find('.tag-name').html());
+  let names = [];
+  selected.forEach(function (id) {
+    names.push(dataTags.find((tag) => tag.id == id).name);
   })
 
   $.alert({
@@ -582,18 +585,20 @@ function removeSelectedTags() {
         type: "POST",
         data: {
           'pwg_token': pwg_token,
-          'tag_id': ids
+          'tag_id': selected
         },
         success: function (raw_data) {
           raw_data = raw_data.slice(raw_data.search('{'));
           if (JSON.parse(raw_data).stat = 'ok') {
-            ids.forEach(function(id) {
+            selected.forEach(function(id) {
               $('.tag-box[data-id='+id+']').remove();
             })
-            updateListItem();
 
+            console.log(selected);
             // Update Data
-            dataTags = dataTags.filter((tag) => !ids.includes(parseInt(tag.id)))
+            dataTags = dataTags.filter((tag) => !selected.includes(tag.id))
+
+            clearSelection();
 
             updateBadge()
           } else {
@@ -611,12 +616,8 @@ function removeSelectedTags() {
 
 //Merge Tags
 $('.ConfirmMergeButton').on('click',() => {
-  merge_ids = [];
-  $('.tag-box[data-selected=1]').each(function() {
-    merge_ids.push($(this).data('id'))
-  })
   dest_id = $('#MergeOptionsChoices').val();
-  mergeGroups(dest_id, merge_ids)
+  mergeGroups(dest_id, selected)
 })
 
 function mergeGroups(destination_id, merge_ids) {
@@ -666,7 +667,7 @@ function mergeGroups(destination_id, merge_ids) {
               dataTags[index].counter = data.result.images_in_merged_tag.length;
             }
             $(".tag-box").attr("data-selected", '0');
-            updateListItem();
+            clearSelection();
 
             updateBadge()
           } else {
@@ -694,16 +695,21 @@ function tagListToString(list) {
 -------*/
 
 var maxShown = 100;
+var searchTimeOut;
+var delaySearchInput = 500;
 
 $("#search-tag .search-input").on("input", function() {
-  updatePaginationMenu();
-  updatePage();
+  actualPage = 1;
 
-  if (dataTags.filter(isDataSearched).length == 0) {
-    $('.emptyResearch').show();
-  } else {
-    $('.emptyResearch').hide();
-  }
+  clearTimeout(searchTimeOut);
+  searchTimeOut = setTimeout(() => {
+    updatePaginationMenu();
+    if (dataTags.filter(isDataSearched).length == 0) {
+      $('.emptyResearch').show();
+    } else {
+      $('.emptyResearch').hide();
+    }
+  }, delaySearchInput);
 });
 
 function isSearched(tagBox, stringSearch) {
@@ -747,39 +753,85 @@ function showMessage(message) {
  Pagination
 -------*/
 var per_page = $('.tag-container').data('per_page');
-var pageItem = '<input type="radio" name="page" id="page-%d" data-page="%d" checked>'
-  +'<label for="page-%d"></label>'
+var pageItem = '<a data-page="%d">%d</a>';
+var pageEllipsis = '<span>...</span>';
+var promisePending = false;
+var delay = 100;
+var updateAsk = false;
+
+var actualPage = 1;
+
+//Avoid 2 update at the same time
+function askUpdatePage() {
+  if (!promisePending) {
+    promisePending = true;
+    updatePage().then(promiseFinish);
+  } else {
+    updateAsk = true;
+  }
+}
+
+function promiseFinish() {
+  promisePending = false;
+  if (updateAsk) {
+    updateAsk = false;
+    askUpdatePage();
+  }
+} 
 
 function updatePaginationMenu() {
-  $('.tag-pagination-container').html('')
-  nbPage = getNumberPages();
-  for (let page = 1; page <= nbPage; page++) {
-    let newTag = $(pageItem.replaceAll('%d', page))
-    $('.tag-pagination-container').append(newTag);
-  }
-  $('#page-1').attr('checked', true);
+  $('.tag-pagination-container').html('');
+
+  createPaginationMenu();
+
   updateArrows();
+  askUpdatePage();
+}
 
-  $('.tag-pagination-container input').change(() => {
-    updatePage();
-    updateArrows();
-  })
+function createPaginationMenu() {
+  nbPage = getNumberPages();
 
-  if (getNumberPages() == 1) {
-    $('.tag-pagination').hide();
+  appendPaginationItem(1);
+
+  if (actualPage > 2) {
+    appendPaginationItem();
+  }
+
+  if (actualPage != 1 && actualPage != nbPage) {
+    appendPaginationItem(actualPage)
+  }
+
+  if (actualPage < (nbPage - 1)) {
+    appendPaginationItem();
+  }
+
+  appendPaginationItem(nbPage);
+}
+
+function appendPaginationItem(page = null) {
+  if (page != null) {
+    let newTag = $(pageItem.replace(/%d/g, page))
+    $('.tag-pagination-container').append(newTag);
+    if (actualPage == page) {
+      newTag.addClass('actual');
+    }
+    newTag.on('click', () => {
+      actualPage = newTag.data('page');
+      updatePaginationMenu();
+    })
   } else {
-    $('.tag-pagination').fadeIn();
+    $('.tag-pagination-container').append($(pageEllipsis));
   }
 }
 
 function updateArrows() {
-  if ($('#page-1').is(':checked')) {
+  if (actualPage == 1) {
     $('.tag-pagination-arrow.left').addClass('unavailable');
   } else {
     $('.tag-pagination-arrow.left').removeClass('unavailable');
   }
 
-  if ($('#page-'+getNumberPages()).is(':checked')) {
+  if (actualPage == getNumberPages()) {
     $('.tag-pagination-arrow.rigth').addClass('unavailable');
   } else {
     $('.tag-pagination-arrow.rigth').removeClass('unavailable');
@@ -792,71 +844,79 @@ function getNumberPages() {
 }
 
 function movePage(toRigth = true) {
-  let page = $('.tag-pagination-container input:checked').data('page');
+  let page = actualPage;
   if (toRigth) {
-    if ((page + 1) <= getNumberPages()) {
-      $('#page-'+page).attr('checked', false);
-      page++;
-      $('#page-'+page).prop("checked", true).trigger("click");
+    if (actualPage < getNumberPages()) {
+      actualPage++;
+      updatePaginationMenu();
     }
   } else {
-    if ((page - 1) >= 1) {
-      $('#page-'+page).attr('checked', false);
-      page--;
-      $('#page-'+page).prop("checked", true).trigger("click");
+    if (actualPage > 1) {
+      actualPage--;
+      updatePaginationMenu();
     }
   }
-  updateArrows();
 }
 
 function updatePage() {
-  newPage = $('.tag-pagination-container input:checked').data('page');
-  dataToDisplay = dataTags.filter(isDataSearched)
-    .slice((newPage-1)*per_page, (newPage)*per_page);
-  tagBoxes = $('.tag-box');
+  return new Promise((resolve, reject) => {
+    newPage = actualPage;
+    dataToDisplay = dataTags.filter(isDataSearched)
+      .slice((newPage-1)*per_page, (newPage)*per_page);
+    tagBoxes = $('.tag-box');
+    $('.pageLoad').animate({opacity:1}, 200);
+    $('.tag-box, .tag-pagination').animate({opacity:0}, 500).promise().then(() => {
 
-  $('.tag-box').animate({opacity:0}, 500).promise().then(() => {
+      let displayTags = new Promise((res, rej) => {
 
-    let displayTags = new Promise((resolve, reject) => {
-      boxToRecycle = Math.min(dataToDisplay.length, tagBoxes.length);
+        boxToRecycle = Math.min(dataToDisplay.length, tagBoxes.length);
 
-      for (let i = 0; i < boxToRecycle; i++) {
-        let tag = dataToDisplay[i];
-        recycleTagBox($(tagBoxes[i]), tag.id, tag.name, tag.url_name)
-      }
-
-      if (dataToDisplay.length < tagBoxes.length) {
-        for (let j = boxToRecycle; j < tagBoxes.length; j++) {
-          $(tagBoxes[j]).remove();
+        for (let i = 0; i < boxToRecycle; i++) {
+          let tag = dataToDisplay[i];
+          recycleTagBox($(tagBoxes[i]), tag.id, tag.name, tag.url_name)
         }
-      } else if (dataToDisplay.length > tagBoxes.length) {
-        for (let j = boxToRecycle; j < dataToDisplay.length; j++) {
-          let tag = dataToDisplay[j];
-          newTag = createTagBox(tag.id, tag.name, tag.url_name);
-          newTag.css('opacity', 0);
-          $('.tag-container').append(newTag);
-          setupTagbox(newTag);
+
+        if (dataToDisplay.length < tagBoxes.length) {
+          for (let j = boxToRecycle; j < tagBoxes.length; j++) {
+            $(tagBoxes[j]).remove();
+          }
+        } else if (dataToDisplay.length > tagBoxes.length) {
+          for (let j = boxToRecycle; j < dataToDisplay.length; j++) {
+            let tag = dataToDisplay[j];
+            newTag = createTagBox(tag.id, tag.name, tag.url_name);
+            newTag.css('opacity', 0);
+            $('.tag-container').append(newTag);
+            setupTagbox(newTag);
+          }
         }
-      }
 
-      resolve();
-    })
+        //Select selected tags
+        selected.forEach((id) => {
+          $('.tag-box[data-id='+id+']').attr('data-selected', 1);
+        })
 
-    displayTags.then(() => {
-      $('.tag-box').animate({opacity:1}, 500)   
-    }) 
-  });
+        res();
+      })
+
+      displayTags.then(() => {
+        $('.pageLoad').animate({opacity:0}, 200);
+        $('.tag-box').animate({opacity:1}, 500);
+        if (getNumberPages() > 1) {
+          $('.tag-pagination').animate({opacity:1}, 500);
+        }
+        resolve()
+      }) 
+    });
+  })
 }
 
 $('.tag-pagination-arrow.rigth').on('click', () => {
   movePage();
-  updatePage();
 })
 
 $('.tag-pagination-arrow.left').on('click', () => {
   movePage(false);
-  updatePage();
 })
 
-
-updatePaginationMenu();
+createPaginationMenu();
+updateArrows();

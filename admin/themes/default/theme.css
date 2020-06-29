@@ -263,6 +263,7 @@ TABLE.doubleSelect SELECT.categoryList {
 }
 
 .search-cancel {
+  display: none;
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
@@ -3359,7 +3360,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   top: 50%;
   transform: translate(15px, -53%);
   z-index: 2;
-  font-size: 25px !important;
+  font-size: 22px !important;
   cursor: pointer;
 }
 
@@ -3374,10 +3375,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .tag-header #add-tag.input-mode .icon-validate{
   display: block;
   margin: auto 5px;
-  font-size: 20px;
   cursor: pointer;
   background-color: #ffa744;
-  padding: 5.5px;
+  color: #3c3c3c;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 7.5px 5.5px;
 }
 
 .tag-header #add-tag span.icon-validate:hover {
@@ -3541,13 +3544,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-container .tag-box .tag-dropdown-block .tag-dropdown-header {
   white-space: nowrap;
-  width: 85%;
   display: flex;
   margin: auto;
   justify-content: space-between;
   color: white;
   border-bottom: solid 1px #ffffff17;
-  padding: 3px;
+  padding: 5px 10px; 
+  min-width: 150px;
 }
 
 .tag-container .tag-box .tag-dropdown-header b {
@@ -3566,6 +3569,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   margin: 2px 0px;
   margin-left: 3.4px;
   border: solid #ffa646 2px;
+}
+
+.tag-container.selection .tag-box .select-checkbox {
+  display: block;
 }
 
 .tag-container .tag-box:hover .select-checkbox, 
@@ -3685,29 +3692,29 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-pagination-container {
   display: flex;
+  align-items: baseline;
 }
 
-.tag-pagination-container label {
-  background-color: #ffa74496;
-  width: 15px;
-  height: 15px;
-  display: block;
-  margin: 5px;
-  border-radius: 10px;
-  transition: 0.3s ease;
-}
-
-.tag-pagination-container label:hover {
-  background-color: #ffa844;
-}
-
-.tag-pagination-container input:checked + label {
-  background-color: #ff7700;
+.tag-pagination-container *{
   width: 30px;
+  height: 30px;
+  line-height: 30px;
 }
 
-.tag-pagination-container input {
-  display: none;
+.tag-pagination-container a {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.tag-pagination-container a.actual {
+  background-color: #f8b038;
+  border-radius: 100%;
+  pointer-events: none;
+}
+
+.tag-pagination-container span{
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .tag-pagination-arrow {
@@ -3737,4 +3744,19 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   -o-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
   transform: scale(-1, 1);
+}
+
+.pageLoad {
+  text-align: center;
+  margin-right: 223px;
+  position: absolute;
+  opacity: 0;
+  left: 50%;
+  z-index: 100;
+  transform: translateY(50px);
+}
+
+.pageLoad i {
+  font-size: 40px;
+  color: rgba(29, 29, 29, 0.226);
 }

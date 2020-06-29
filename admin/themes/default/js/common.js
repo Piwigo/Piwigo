@@ -132,6 +132,14 @@ $('.search-cancel').on('click', function () {
   $('.search-input').trigger ("input");
 })
 
+$('.search-input').on('input', function() {
+  if ($('.search-input').val() == '') {
+    $('.search-cancel').hide();
+  } else {
+    $('.search-cancel').show();
+  }
+})
+
 // Class to implement a temporary state and reverse it
 class TemporaryState {
   //Arrays to reverse changes

@@ -46,7 +46,7 @@ var str_no_photos = '{'no photo'}'
         <a class='dropdown-option icon-trash delete'> {'Delete'|@translate}</a>
       </div>
     </div>
-    <span class="select-checkbox in-selection-mode">
+    <span class="select-checkbox">
       <i class="icon-ok"> </i>
     </span>
     <div class="tag-rename">
@@ -130,7 +130,9 @@ var str_no_photos = '{'no photo'}'
   <div class='tag-message tag-info icon-ok not-in-selection-mode' {if $message_tags != ""}style='display:flex'{/if}> <p> {$message_tags} </p> </div>
   <div class='tag-error tag-info icon-cancel not-in-selection-mode'> <p> </p> </div>
 </div>
-
+<div class="pageLoad">
+  <i class='icon-spin6 animate-spin'> </i>
+</div>
 <div class='tag-container' data-tags='{json_encode($data)}' data-per_page={$per_page}>
   {foreach from=$first_tags item=tag}
   <div class='tag-box' data-id='{$tag.id}' data-selected='0'>
@@ -148,12 +150,10 @@ var str_no_photos = '{'no photo'}'
 <div class="tag-pagination">
   <div class="tag-pagination-arrow left">
     <span class="icon-left-open"></span>
-    <p>{'Previous'|@translate}</p>
   </div>
   <div class="tag-pagination-container">
   </div>
   <div class="tag-pagination-arrow rigth">
-    <p>{'Next'|@translate}</p>
     <span class="icon-left-open"></span>
   </div>
 </div>
