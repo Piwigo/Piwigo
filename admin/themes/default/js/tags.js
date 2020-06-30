@@ -891,7 +891,7 @@ function updatePage() {
 
         for (let i = 0; i < boxToRecycle; i++) {
           let tag = dataToDisplay[i];
-          recycleTagBox($(tagBoxes[i]), tag.id, tag.name, tag.url_name)
+          recycleTagBox($(tagBoxes[i]), tag.id, tag.name, tag.url_name, tag.counter)
         }
 
         if (dataToDisplay.length < tagBoxes.length) {
