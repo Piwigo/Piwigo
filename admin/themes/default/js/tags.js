@@ -196,7 +196,7 @@ function setupTagbox(tagBox) {
         removeSelectedItem(tagBox.attr('data-id'));
       } else {
         tagBox.attr('data-selected', '1');
-        addSelectedItem(tagBox.attr('data-id'),tagBox.find('.tag-name').html());
+        addSelectedItem(tagBox.attr('data-id'));
       }
       updateSelectionContent();
     }
@@ -417,16 +417,18 @@ function clearSelection() {
   updateSelectionContent();
 }
 
-function addSelectedItem(id, name) {
-  selected.push(id);
+function addSelectedItem(id) {
+  if (!selected.includes(id)) {
+    selected.push(id);
 
-  if (selected.length > maxItemDisplayed) {
-    $('.selection-other-tags').show();
-    let numberDisplayed = $('.selection-mode-tag .tag-list div').length;
-    $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - numberDisplayed))
-  } else {
-    $('.selection-other-tags').hide();
-    createSelectionItem(id, name);
+    if (selected.length > maxItemDisplayed) {
+      $('.selection-other-tags').show();
+      let numberDisplayed = $('.selection-mode-tag .tag-list div').length;
+      $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - numberDisplayed))
+    } else {
+      $('.selection-other-tags').hide();
+      createSelectionItem(id, dataTags.find(tag => tag.id == id).name);
+    }
   }
 }
 
@@ -439,10 +441,9 @@ function createSelectionItem(id, name) {
 }
 
 function removeSelectedItem(id) {
-  let index = selected.indexOf(id);
-  if (index > -1) {
-    selected.splice(index, 1);
-  }
+  selected = selected.filter((tag) => {return parseInt(tag) != parseInt(id)});
+
+  console.log(selected);
 
   $('.tag-box[data-id='+id+']').attr('data-selected', '0');
   if ($('.selection-mode-tag .tag-list div[data-id='+id+']').length != 0) {
@@ -460,7 +461,7 @@ function removeSelectedItem(id) {
           i++;
       }
     }
-  }
+  } 
 
   let numberDisplayed = $('.selection-mode-tag .tag-list div').length;
   $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - numberDisplayed))
@@ -519,28 +520,46 @@ $('#CancelMerge').on('click', function() {
 });
 
 $('#selectAll').on('click', function() {
-  $('.tag-box[data-selected=0]').each(function () {
-    addSelectedItem($(this).data('id'))
-  })
+  selectAll();
 });
+
+function selectAll() {
+  tagToDisplay().forEach((tag) => {
+    $('.tag-box[data-id='+tag.id+']').attr('data-selected', 1);
+    addSelectedItem(tag.id)
+  })
+  updateSelectionContent();
+}
 
 $('#selectNone').on('click', function() {
-  $('.tag-box[data-selected=1]').each(function () {
-    removeSelectedItem($(this).data('id'))
-  })
+  selectNone()
 });
 
+function selectNone() {
+  tagToDisplay().forEach((tag) => {
+    $('.tag-box[data-id='+tag.id+']').attr('data-selected', 0);
+    removeSelectedItem(tag.id)
+  })
+  updateSelectionContent();
+}
+
 $('#selectInvert').on('click', function() {
-  $('.tag-box').each(function() {
-    if ($(this).attr('data-selected') == 1) {
-      $(this).attr('data-selected', '0');
-      removeSelectedItem($(this).data('id'))
-    } else {
-      $(this).attr('data-selected', '1');
-      addSelectedItem($(this).data('id'))
-    }
-  });
+  selectInvert();
 });
+
+function selectInvert() {
+  tagToDisplay().forEach((tag) => {
+    tagBox = $('.tag-box[data-id='+tag.id+']');
+    if (tagBox.attr('data-selected') == 1) {
+      tagBox.attr('data-selected', '0');
+      removeSelectedItem(tag.id)
+    } else {
+      tagBox.attr('data-selected', '1');
+      addSelectedItem(tag.id)
+    }
+  })
+  updateSelectionContent();
+}
 
 /*-------
  Actions in selection mode
@@ -861,8 +880,7 @@ function movePage(toRigth = true) {
 function updatePage() {
   return new Promise((resolve, reject) => {
     newPage = actualPage;
-    dataToDisplay = dataTags.filter(isDataSearched)
-      .slice((newPage-1)*per_page, (newPage)*per_page);
+    dataToDisplay = tagToDisplay();
     tagBoxes = $('.tag-box');
     $('.pageLoad').animate({opacity:1}, 200);
     $('.tag-box, .tag-pagination').animate({opacity:0}, 500).promise().then(() => {
@@ -909,6 +927,11 @@ function updatePage() {
     });
   })
 }
+
+function tagToDisplay() {
+  return dataTags.filter(isDataSearched)
+      .slice((actualPage-1)*per_page, (actualPage)*per_page);
+} 
 
 $('.tag-pagination-arrow.rigth').on('click', () => {
   movePage();
