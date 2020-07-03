@@ -3310,7 +3310,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-header #add-tag .add-tag-label {
   position: relative;
-  padding: 10.5px;
+  padding: 10px;
   background-color: #fafafa;
   box-shadow: 0px 2px #00000024;
   border-radius: 5px;
@@ -3703,6 +3703,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .tag-select-message a{
   font-weight: bold;
   color: #ffa646;
+  margin-left: 6px;
 }
 
 .tag-pagination {
@@ -3775,20 +3776,20 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display:flex;
   flex-direction: column-reverse;
   position:relative;
-  width:60px;
-  height:40px;
+  width: 74px;
+  height: 40px;
   margin: 10px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
   color: #3A3A3A;
 }
 
 .tag-pagination-select label {
-  padding: 0 30px 0 10px;
-  min-height: 40px;
+  padding: 0 20px 0 10px;
+  min-height: 35px;
   display: flex;
   align-items: center;
-  background: #fafafa;
+  background: #ddd;
   position: absolute;
   width: 100%;
   pointer-events: none;
@@ -3796,7 +3797,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   z-index: 1;
   transition: .2s ease-in-out;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .tag-pagination-select label:hover {
@@ -3816,11 +3817,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .tag-pagination-select input:checked + label {
   order: 1;
-  z-index:2;
-  background:#f8b038;
-  border-top:none;
-  position:relative;
-  color: white;
+  z-index: 2;
+  background: #fafafa;
+  position: relative;
+  box-shadow: 0px 2px 1px #00000024;
 }
 
 .tag-pagination-select input:checked + label:after {
@@ -3829,7 +3829,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 	height: 0; 
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
-	border-top: 5px solid white;
+	border-top: 5px solid #777;
   position:absolute;
   right:10px;
   top:calc(50% - 2.5px);
