@@ -109,7 +109,7 @@ $('#add-tag').submit(function (e) {
   e.preventDefault();
   if ($('#add-tag-input').val() != "") {
     loadState = new TemporaryState();
-    loadState.removeClass($('#add-tag .icon-validate'),'icon-plus-circled');
+    loadState.removeClass($('#add-tag .icon-validate'),'icon-plus');
     loadState.changeHTML($('#add-tag .icon-validate') , "<i class='icon-spin6 animate-spin'> </i>")
     loadState.changeAttribute($('#add-tag .icon-validate'), 'style','pointer-event:none')
     addTag($('#add-tag-input').val()).then(function () {
@@ -154,6 +154,7 @@ function addTag(name) {
           });
 
           resolve();
+          updatePaginationMenu();
         } else {
           reject(str_already_exist.replace('%s', name));
         }
@@ -284,6 +285,7 @@ function removeTag(id, name) {
             dataTags = dataTags.filter((tag) => tag.id != id);
             showMessage(str_tag_deleted.replace('%s', name));
             updateBadge();
+            updatePaginationMenu();
           } else {
             showError('A problem has occured')
           }
@@ -427,7 +429,9 @@ function addSelectedItem(id) {
       $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - numberDisplayed))
     } else {
       $('.selection-other-tags').hide();
-      createSelectionItem(id, dataTags.find(tag => tag.id == id).name);
+      if (dataTags.findIndex(tag => tag.id == id) > -1) {
+        createSelectionItem(id, dataTags.find(tag => tag.id == id).name);
+      }
     }
   }
 }
@@ -441,32 +445,36 @@ function createSelectionItem(id, name) {
 }
 
 function removeSelectedItem(id) {
-  selected = selected.filter((tag) => {return parseInt(tag) != parseInt(id)});
+  if (selected.findIndex((tag) => tag == id) > -1) {
 
-  console.log(selected);
+    selected = selected.filter((tag) => {return parseInt(tag) != parseInt(id)});
 
-  $('.tag-box[data-id='+id+']').attr('data-selected', '0');
-  if ($('.selection-mode-tag .tag-list div[data-id='+id+']').length != 0) {
-    $('.selection-mode-tag .tag-list div[data-id='+id+']').remove();
+    $('.tag-box[data-id='+id+']').attr('data-selected', '0');
+    if ($('.selection-mode-tag .tag-list div[data-id='+id+']').length != 0) {
+      $('.selection-mode-tag .tag-list div[data-id='+id+']').remove();
 
-    if (selected.length >= maxItemDisplayed) {
-      let i = 0;
-      isNotCreate = true
-      while (i<selected.length && isNotCreate) {
-          if ($('.selection-mode-tag .tag-list div[data-id='+selected[i]+']').length == 0) {
-            isNotCreate = false;
-            indexOfTag = dataTags.findIndex(tag => tag.id == selected[i])
-            createSelectionItem(selected[i], dataTags[indexOfTag].name);
-          }
-          i++;
+      if (selected.length >= maxItemDisplayed) {
+        let i = 0;
+        isNotCreate = true
+        while (i<selected.length && isNotCreate) {
+            if ($('.selection-mode-tag .tag-list div[data-id='+selected[i]+']').length == 0) {
+              isNotCreate = false;
+              indexOfTag = dataTags.findIndex(tag => tag.id == selected[i])
+              createSelectionItem(selected[i], dataTags[indexOfTag].name);
+            }
+            i++;
+        }
       }
-    }
-  } 
+    } 
 
-  let numberDisplayed = $('.selection-mode-tag .tag-list div').length;
-  $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - numberDisplayed))
-  if (selected.length - numberDisplayed <= 0) {
-    $('.selection-other-tags').hide();
+    let numberDisplayed = $('.selection-mode-tag .tag-list div').length;
+    $('.selection-other-tags').html(str_and_others_tags.replace('%s', selected.length - numberDisplayed))
+    if (selected.length - numberDisplayed <= 0) {
+      $('.selection-other-tags').hide();
+    }
+
+    //Remove the selection message
+    $('.tag-select-message').slideUp();
   }
 }
 
@@ -506,7 +514,6 @@ function updateSelectionContent() {
     $('.selection-mode-tag').show();
     }
   }
-    
 }
 
 $('#MergeSelectionMode').on('click', function() {
@@ -520,35 +527,44 @@ $('#CancelMerge').on('click', function() {
 });
 
 $('#selectAll').on('click', function() {
-  selectAll();
+  selectAll(tagToDisplay());
+  showSelectMessage(str_select_all_tag, function () {
+    selectAll(dataTags);
+  })
 });
 
-function selectAll() {
-  tagToDisplay().forEach((tag) => {
+function selectAll(data) {
+  data.forEach((tag) => {
     $('.tag-box[data-id='+tag.id+']').attr('data-selected', 1);
-    addSelectedItem(tag.id)
+    addSelectedItem(tag.id);
   })
   updateSelectionContent();
 }
 
 $('#selectNone').on('click', function() {
-  selectNone()
+  selectNone(tagToDisplay());
+  if (selected.length > 0) {
+    showSelectMessage(str_clear_selection, function () {
+      $('.tag-box[data-selected=1]').attr('data-selected', 0);
+      clearSelection();
+    })
+  }
 });
 
-function selectNone() {
-  tagToDisplay().forEach((tag) => {
+function selectNone(data) {
+  data.forEach((tag) => {
     $('.tag-box[data-id='+tag.id+']').attr('data-selected', 0);
-    removeSelectedItem(tag.id)
-  })
+    removeSelectedItem(tag.id);
+  });
   updateSelectionContent();
 }
 
 $('#selectInvert').on('click', function() {
-  selectInvert();
+  selectInvert(tagToDisplay());
 });
 
-function selectInvert() {
-  tagToDisplay().forEach((tag) => {
+function selectInvert(data) {
+  data.forEach((tag) => {
     tagBox = $('.tag-box[data-id='+tag.id+']');
     if (tagBox.attr('data-selected') == 1) {
       tagBox.attr('data-selected', '0');
@@ -560,6 +576,25 @@ function selectInvert() {
   })
   updateSelectionContent();
 }
+
+function showSelectMessage(str, callback) {
+  $('.tag-select-message').slideDown({
+    start: function () {
+      $(this).css({
+        display: "flex"
+      })
+    }
+  });
+
+  $('.tag-select-message a').html(str);
+  $('.tag-select-message a').off('click');
+  $('.tag-select-message a').on('click', () => {
+    $('.tag-select-message').slideUp();
+    callback()
+  });
+}
+
+
 
 /*-------
  Actions in selection mode
@@ -613,13 +648,12 @@ function removeSelectedTags() {
               $('.tag-box[data-id='+id+']').remove();
             })
 
-            console.log(selected);
             // Update Data
             dataTags = dataTags.filter((tag) => !selected.includes(tag.id))
 
             clearSelection();
-
-            updateBadge()
+            updatePaginationMenu();
+            updateBadge();
           } else {
             return raw_data;
           }
@@ -687,7 +721,7 @@ function mergeGroups(destination_id, merge_ids) {
             }
             $(".tag-box").attr("data-selected", '0');
             clearSelection();
-
+            updatePaginationMenu();
             updateBadge()
           } else {
             return raw_data;
@@ -801,10 +835,20 @@ function promiseFinish() {
 function updatePaginationMenu() {
   $('.tag-pagination-container').html('');
 
-  createPaginationMenu();
+  actualPage = Math.min(actualPage, getNumberPages());
+
+  if (getNumberPages() > 1) {
+    $('.tag-pagination').show();
+    createPaginationMenu();
+  } else {
+    $('.tag-pagination').hide();
+  }
 
   updateArrows();
   askUpdatePage();
+
+  //Remove the selection message
+  $('.tag-select-message').slideUp();
 }
 
 function createPaginationMenu() {
@@ -859,11 +903,10 @@ function updateArrows() {
 
 function getNumberPages() {
   dataVisible = dataTags.filter(isDataSearched).length;
-  return Math.floor(dataVisible / per_page) + 1;
+  return Math.floor((dataVisible - 1) / per_page) + 1;
 }
 
 function movePage(toRigth = true) {
-  let page = actualPage;
   if (toRigth) {
     if (actualPage < getNumberPages()) {
       actualPage++;
@@ -886,7 +929,6 @@ function updatePage() {
     $('.tag-box, .tag-pagination').animate({opacity:0}, 500).promise().then(() => {
 
       let displayTags = new Promise((res, rej) => {
-
         boxToRecycle = Math.min(dataToDisplay.length, tagBoxes.length);
 
         for (let i = 0; i < boxToRecycle; i++) {
@@ -941,5 +983,15 @@ $('.tag-pagination-arrow.left').on('click', () => {
   movePage(false);
 })
 
-createPaginationMenu();
-updateArrows();
+if (getNumberPages() > 1) {
+  $('.tag-pagination').show();
+  createPaginationMenu();
+  updateArrows();
+} else {
+  $('.tag-pagination').hide();
+}
+
+$('.tag-pagination-select input[type="radio"]').on('click',function () {
+  per_page = parseInt($(this).val());
+  updatePaginationMenu();
+})

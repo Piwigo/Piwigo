@@ -401,7 +401,7 @@ SELECT image_id
       'tag_id' => $destination_tag_id,
       'image_id' => $image_id
     );
-    pwg_activity('image', $image_id, 'edit', array("add-tag" => $destination_tag_id));
+    pwg_activity('photo', $image_id, 'edit', array("add-tag" => $destination_tag_id));
   }
 
   if (count($inserts) > 0)
@@ -488,7 +488,7 @@ SELECT image_id
   pwg_activity('tag', $params['destination_tag_id'], 'edit');
   foreach ($image_to_add as $image_id) 
   {
-    pwg_activity('image', $image_id, 'edit', array("tag-add" => $params['destination_tag_id']));
+    pwg_activity('photo', $image_id, 'edit', array("tag-add" => $params['destination_tag_id']));
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');

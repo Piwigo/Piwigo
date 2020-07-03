@@ -20,6 +20,8 @@ var str_and_others_tags = '{'and %s others'|@translate}';
 var str_others_tags_available = '{'%s other tags available...'|@translate}'
 var str_number_photos = '{'%d photos'}'
 var str_no_photos = '{'no photo'}'
+var str_select_all_tag = '{'Select all tags'|@translate}';
+var str_clear_selection = '{'Clear Selection'|@translate}';
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -133,6 +135,11 @@ var str_no_photos = '{'no photo'}'
 <div class="pageLoad">
   <i class='icon-spin6 animate-spin'> </i>
 </div>
+
+<div class="tag-select-message">
+  <div>{'Selection done in this page only'|@translate} <a> </a></div>
+</div>
+
 <div class='tag-container' data-tags='{json_encode($data)}' data-per_page={$per_page}>
   {foreach from=$first_tags item=tag}
   <div class='tag-box' data-id='{$tag.id}' data-selected='0'>
@@ -155,6 +162,17 @@ var str_no_photos = '{'no photo'}'
   </div>
   <div class="tag-pagination-arrow rigth">
     <span class="icon-left-open"></span>
+  </div>
+  <p> {'Tag per page'} </p>
+  <div class="tag-pagination-select" tabindex="1">
+    <input name="per-page" type="radio" id="select-25" value="25">
+    <label for="select-25">25</label>
+    <input name="per-page" type="radio" id="select-50" value="50">
+    <label for="select-50">50</label>
+    <input name="per-page" type="radio" id="select-100" checked value="100">
+    <label for="select-100">100</label>
+    <input name="per-page" type="radio" id="select-200" value="200">
+    <label for="select-200">200</label>
   </div>
 </div>
 
