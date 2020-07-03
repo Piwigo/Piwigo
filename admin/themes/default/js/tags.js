@@ -528,9 +528,11 @@ $('#CancelMerge').on('click', function() {
 
 $('#selectAll').on('click', function() {
   selectAll(tagToDisplay());
-  showSelectMessage(str_select_all_tag, function () {
-    selectAll(dataTags);
-  })
+  if (selected.length < dataTags.length) {
+    showSelectMessage(str_select_all_tag, function () {
+      selectAll(dataTags);
+    })
+  }
 });
 
 function selectAll(data) {
