@@ -244,12 +244,13 @@ foreach ($result as $row)
   @$activity_last_weeks[$week][$day_nb]['date'] = format_date($day_date->getTimestamp());
 }
 
-//echo '<pre>'; print_r($activity_last_weeks); echo '</pre>';
-
 foreach($activity_last_weeks as $week => $i) 
 {
   foreach($i as $day => $j) 
   {
+    $details = $j['details'];
+    ksort($details);
+    $activity_last_weeks[$week][$day]['details'] = $details;
     if ($j['number'] > 0) 
     {
       $temp_data[] = array('x' => $j['number'], 'd'=>$day, 'w'=>$week); 

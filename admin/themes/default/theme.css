@@ -547,7 +547,7 @@ FORM.properties SPAN.property {
 /* Dashboard */
 .intro-page-container {
   display: grid;
-  grid-template-columns: 50% 49%;
+  grid-template-columns: 48% 52%;
 }
 
 .stat-boxes {
