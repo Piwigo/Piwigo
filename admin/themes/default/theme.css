@@ -1,3 +1,8 @@
+/* Fix bold in MACOS */
+* {
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* content.css */
 [class*="icon-"]:before { text-decoration:none !important; }
 
@@ -2607,6 +2612,10 @@ input:checked + .slider:before {
   font-size: 20px !important;
 }
 
+
+.jconfirm-buttons .btn {
+  text-transform: none !important;
+}
 /*Group checkbox*/
 
 .Group-checkbox{
@@ -3539,7 +3548,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .tag-container .tag-box .showOptions {
-  color: #777;
+  color: #aaa;
 }
 
 .tag-container .tag-box.edit-name .showOptions {

@@ -515,6 +515,7 @@ function updateSelectionContent() {
     $('#MergeSelectionMode').removeClass('unavailable');
     if (mergeOption) {
       $('#MergeOptionsBlock').show();
+      $('.selection-mode-tag').hide();
       updateMergeItems();
     } else {
       $('#MergeOptionsBlock').hide();
@@ -1018,8 +1019,13 @@ $('.tag-pagination-select input[type="radio"]').on('click',function () {
 })
 
 function updateSearchInfo () {
-  if ($('.search-input').val() != '') {    
-    $('.search-info').html(str_filtered_on.replace('%d', dataTags.filter(isDataSearched).length));
+  if ($('.search-input').val() != '') { 
+    let number = dataTags.filter(isDataSearched).length;   
+    if (number > 1) {
+      $('.search-info').html(str_tags_found.replace('%d', number));
+    } else {
+      $('.search-info').html(str_tag_found.replace('%d', number));
+    }
   } else {
     $('.search-info').html('');
   }
