@@ -148,6 +148,7 @@ function addTag(name) {
           $('.tag-container').prepend(newTag);
           setupTagbox(newTag);
           updateBadge();
+          updateSearchInfo();
 
           //Update the data
           dataTags.unshift({
@@ -288,6 +289,7 @@ function removeTag(id, name) {
             dataTags = dataTags.filter((tag) => tag.id != id);
             showMessage(str_tag_deleted.replace('%s', name));
             updateBadge();
+            updateSearchInfo();
             updatePaginationMenu();
           } else {
             showError('A problem has occured')
@@ -300,6 +302,8 @@ function removeTag(id, name) {
 }
 
 function renameTag(id, new_name) {
+  console.log('problème');
+  
   return new Promise((resolve, reject) => {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.tags.rename",
@@ -376,7 +380,8 @@ function duplicateTag(id, name) {
             url_name: data.result.url_name,
             counter : data.result.count
           });
-          updateBadge()
+          updateBadge();
+          updateSearchInfo();
           resolve(data);
         }
       },
@@ -510,11 +515,10 @@ function updateSelectionContent() {
     $('#MergeSelectionMode').removeClass('unavailable');
     if (mergeOption) {
       $('#MergeOptionsBlock').show();
-      $('.selection-mode-tag').hide();
       updateMergeItems();
     } else {
-    $('#MergeOptionsBlock').hide();
-    $('.selection-mode-tag').show();
+      $('#MergeOptionsBlock').hide();
+      $('.selection-mode-tag').show();
     }
   }
 }
@@ -533,9 +537,12 @@ $('#selectAll').on('click', function() {
   selectAll(tagToDisplay())
   updateSelectionContent();
   if (selected.length < dataTags.length) {
-    showSelectMessage(str_selection_done, str_select_all_tag, function() {
-      $('.tag-select-message div').html("");
-      $('.tag-select-message a').html("<i class='icon-spin6 animate-spin'> </i>");
+    showSelectMessage(
+      str_selection_done.replace('%d', $('.tag-box').length), 
+      str_select_all_tag.replace('%d', dataTags.length), 
+      function() {
+      $('.tag-select-message a').html("");
+      $('.tag-select-message div').html("<i class='icon-spin6 animate-spin'> </i>");
       setTimeout(() => {
         selectAll(dataTags).then(() => {
           updateSelectionContent();
@@ -665,6 +672,7 @@ function removeSelectedTags() {
             clearSelection();
             updatePaginationMenu();
             updateBadge();
+            updateSearchInfo();
           } else {
             return raw_data;
           }
@@ -734,6 +742,7 @@ function mergeGroups(destination_id, merge_ids) {
             clearSelection();
             updatePaginationMenu();
             updateBadge()
+            updateSearchInfo()
           } else {
             return raw_data;
           }
@@ -936,7 +945,7 @@ function updatePage() {
     newPage = actualPage;
     dataToDisplay = tagToDisplay();
     tagBoxes = $('.tag-box');
-    $('.pageLoad').animate({opacity:1}, 200);
+    $('.pageLoad').fadeIn();;
     $('.tag-box, .tag-pagination').animate({opacity:0}, 500).promise().then(() => {
 
       let displayTags = new Promise((res, rej) => {
@@ -970,11 +979,12 @@ function updatePage() {
       })
 
       displayTags.then(() => {
-        $('.pageLoad').animate({opacity:0}, 200);
+        $('.pageLoad').fadeOut();
         $('.tag-box').animate({opacity:1}, 500);
         if (getNumberPages() > 1) {
           $('.tag-pagination').animate({opacity:1}, 500);
         }
+        updateSearchInfo();
         resolve()
       }) 
     });
@@ -1005,4 +1015,12 @@ if (getNumberPages() > 1) {
 $('.tag-pagination-select input[type="radio"]').on('click',function () {
   per_page = parseInt($(this).val());
   updatePaginationMenu();
+})
+
+function updateSearchInfo () {
+  $('.search-info').html(str_showing.replace('%d1', $('.tag-box').length).replace('%d2', dataTags.length));
+}
+
+$(function() {
+  updateSearchInfo();
 })

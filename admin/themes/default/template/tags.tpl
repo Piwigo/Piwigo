@@ -20,10 +20,12 @@ var str_and_others_tags = '{'and %s others'|@translate}';
 var str_others_tags_available = '{'%s other tags available...'|@translate}'
 var str_number_photos = '{'%d photos'}'
 var str_no_photos = '{'no photo'}'
-var str_select_all_tag = '{'Select all tags'|@translate}';
+var str_select_all_tag = '{'Select all %d tags'|@translate}';
 var str_clear_selection = '{'Clear Selection'|@translate}';
-var str_selection_done = '{'Selection done in this page only'|@translate}';
+var str_selection_done = '{'The %d tags on this page are selected'|@translate}';
 var str_tag_selected = '{'<b>%d</b> tag selected'|@translate}';
+var str_showing = '{'Showing <b>%d1</b> out of <b>%d2</b>'|@translate}';
+var str_filtered_on = '{'Filtered on <b>%d</b> tags'|@translate}';
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -32,6 +34,10 @@ var str_tag_selected = '{'<b>%d</b> tag selected'|@translate}';
 {combine_css path="admin/themes/default/fontello/css/animation.css"}
 {combine_script id='tiptip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 {combine_script id='tags' load='footer' path='admin/themes/default/js/tags.js'}
+
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
 
 {function name=tagContent}
 {function tagContent}
@@ -107,6 +113,7 @@ var str_tag_selected = '{'<b>%d</b> tag selected'|@translate}';
 
 <div class='tag-header'>
   <div id='search-tag'>
+    <div class='search-info'> </div>
     <span class='icon-filter search-icon'> </span>
     <span class="icon-cancel search-cancel"></span>
     <input class='search-input' type='text' placeholder='{'Filter'|@translate}'>

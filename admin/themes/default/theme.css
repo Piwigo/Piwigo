@@ -262,6 +262,14 @@ TABLE.doubleSelect SELECT.categoryList {
   background-color: #f0f0f0 !important;
 }
 
+.search-info {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translate(-100%,-50%);
+  font-style: italic;
+}
+
 .search-cancel {
   display: none;
   right: 5px;
@@ -3557,7 +3565,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   margin: auto;
   justify-content: space-between;
   color: white;
-  border-bottom: solid 1px #ffffff17;
+  border-bottom: solid 1px #00000017;
   padding: 5px 10px; 
   min-width: 150px;
 }
@@ -3691,20 +3699,31 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .tag-select-message {
-  margin-right: 223px;
-  background: #ffbf0042;
-  height: 40px;
+  background: #bce5f7;
+  height: 46px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 14px;
   display: none;
+  margin: 10px;
+  margin-right: 223px;
+  color: #0051a5;
+  font-weight: 600;
 }
 
 .tag-select-message a{
   font-weight: bold;
-  color: #ffa646;
   margin-left: 6px;
+  background-color: #0051a5;
+  color: white;
+  padding: 0px 4px;
+}
+
+.tag-select-message a:hover {
+  color: white;
+  text-decoration: none;
+  background-color: #002e5f;
 }
 
 .tag-pagination {
@@ -3839,10 +3858,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .pageLoad {
+  display: none;
   text-align: center;
   margin-right: 223px;
   position: absolute;
-  opacity: 0;
   left: 50%;
   z-index: 100;
   transform: translateY(50px);
