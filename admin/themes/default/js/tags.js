@@ -579,6 +579,7 @@ function showSelectMessage(str1, str2, callback) {
 }
 
 $('#selectNone').on('click', function() {
+  $('.tag-select-message').slideUp();
   selectNone();
 });
 
@@ -588,6 +589,7 @@ function selectNone() {
 }
 
 $('#selectInvert').on('click', function() {
+  $('.tag-select-message').slideUp();
   selectInvert(tagToDisplay());
 });
 

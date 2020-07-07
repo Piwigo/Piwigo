@@ -165,7 +165,7 @@ var str_tag_selected = '{'<b>%d</b> tag selected'|@translate}';
   <div class="tag-pagination-arrow rigth">
     <span class="icon-left-open"></span>
   </div>
-  <p> {'Tag per page'} </p>
+  <p> {'Tags per page'} </p>
   <div class="tag-pagination-select" tabindex="1">
     <input name="per-page" type="radio" id="select-100" checked value="100">
     <label for="select-100">100</label>

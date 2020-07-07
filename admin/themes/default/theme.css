@@ -2382,7 +2382,7 @@ input:checked + .slider:before {
   margin:20px auto;
   font-size: 12px;
   font-weight: 700;
-  padding: 13px 40px;
+  padding: 13px 30px;
   background-color:transparent;
   width: 180px;
 }
@@ -3687,6 +3687,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .selection-mode-tag .selection-other-tags {
   color: #ffa646;
   font-weight: bold;
+  font-size: 15px;
 }
 
 .tag-select-message {
@@ -3732,7 +3733,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .tag-pagination-container a.actual {
-  background-color: #f8b038;
+  background-color: #FFA646;
   border-radius: 15px;
   pointer-events: none;
   padding: 0px 10px;
