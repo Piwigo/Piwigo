@@ -264,7 +264,7 @@ TABLE.doubleSelect SELECT.categoryList {
 
 .search-info {
   position: absolute;
-  left: 0px;
+  left: -10px;
   top: 50%;
   transform: translate(-100%,-50%);
   font-style: italic;
@@ -3706,8 +3706,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   align-items: center;
   font-size: 14px;
   display: none;
-  margin: 10px;
-  margin-right: 223px;
+  margin: 10px 243px 10px 32px;
   color: #0051a5;
   font-weight: 600;
 }

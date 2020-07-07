@@ -24,8 +24,7 @@ var str_select_all_tag = '{'Select all %d tags'|@translate}';
 var str_clear_selection = '{'Clear Selection'|@translate}';
 var str_selection_done = '{'The %d tags on this page are selected'|@translate}';
 var str_tag_selected = '{'<b>%d</b> tag selected'|@translate}';
-var str_showing = '{'Showing <b>%d1</b> out of <b>%d2</b>'|@translate}';
-var str_filtered_on = '{'Filtered on <b>%d</b> tags'|@translate}';
+var str_filtered_on = '{'<b>%d</b> tags found'|@translate}';
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}

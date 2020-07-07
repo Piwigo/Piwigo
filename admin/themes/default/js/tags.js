@@ -769,7 +769,7 @@ function tagListToString(list) {
 
 var maxShown = 100;
 var searchTimeOut;
-var delaySearchInput = 500;
+var delaySearchInput = 300;
 
 $("#search-tag .search-input").on("input", function() {
   actualPage = 1;
@@ -1018,9 +1018,9 @@ $('.tag-pagination-select input[type="radio"]').on('click',function () {
 })
 
 function updateSearchInfo () {
-  $('.search-info').html(str_showing.replace('%d1', $('.tag-box').length).replace('%d2', dataTags.length));
+  if ($('.search-input').val() != '') {    
+    $('.search-info').html(str_filtered_on.replace('%d', dataTags.filter(isDataSearched).length));
+  } else {
+    $('.search-info').html('');
+  }
 }
-
-$(function() {
-  updateSearchInfo();
-})
