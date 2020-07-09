@@ -1009,4 +1009,7 @@ $lang['Display album date period'] = 'Show the date period associated with each 
 $lang['Welcome!'] = 'Welcome!';
 $lang['Piwigo requires an album to add photos.'] = 'Piwigo requires an album to add photos.';
 $lang['Create a first album'] = 'Create a first album';
+$lang['Search tips'] = 'Search tips';
+$lang['Posted %s'] = 'Posted %s';
+$lang['File type: %s'] = 'File type: %s';
 $lang['or'] = 'or';

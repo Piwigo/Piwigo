@@ -8,7 +8,7 @@ function filter_enable(filter) {
 	$("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
 
 	/* forbid to select this filter in the addFilter list */
-	$("#addFilter").children("option[value="+filter+"]").attr("disabled", "disabled");
+	$("#addFilter").find("option[value="+filter+"]").attr("disabled", "disabled");
 }
 
 function filter_disable(filter) {
@@ -19,7 +19,7 @@ function filter_disable(filter) {
 	$("input[name="+filter+"_use]").prop("checked", false);
 
 	/* give the possibility to show it again */
-	$("#addFilter").children("option[value="+filter+"]").removeAttr("disabled");
+	$("#addFilter").find("option[value="+filter+"]").removeAttr("disabled");
 }
 
 $(".removeFilter").addClass("icon-cancel-circled");
@@ -205,17 +205,17 @@ function getDerivativeUrls() {
 }
 
 function selectGenerateDerivAll() {
-	$("#action_generate_derivatives input[type=checkbox]").prop("checked", true);
+	$("#action_generate_derivatives input[type=checkbox]").prop("checked", true).trigger("change");
 }
 function selectGenerateDerivNone() {
-	$("#action_generate_derivatives input[type=checkbox]").prop("checked", false);
+	$("#action_generate_derivatives input[type=checkbox]").prop("checked", false).trigger("change");
 }
 
 function selectDelDerivAll() {
-	$("#action_delete_derivatives input[type=checkbox]").prop("checked", true);
+	$("#action_delete_derivatives input[type=checkbox]").prop("checked", true).trigger("change");
 }
 function selectDelDerivNone() {
-	$("#action_delete_derivatives input[type=checkbox]").prop("checked", false);
+	$("#action_delete_derivatives input[type=checkbox]").prop("checked", false).trigger("change");
 }
 
 /* sync metadatas or delete photos by blocks, with progress bar */
@@ -224,20 +224,10 @@ jQuery('#applyAction').click(function(e) {
     return true;
   }
 
-  /* TODO "delete" and "metadata" algorithms are highly similar, they should be merged */
-
   if (jQuery('[name="selectAction"]').val() == 'metadata') {
     e.stopPropagation();
     jQuery('.bulkAction').hide();
     jQuery('#regenerationText').html(lang.syncProgressMessage);
-
-    var maxRequests=1;
-
-    var queuedManager = jQuery.manageAjax.create('queued', {
-      queue: true,
-      cacheResponse: false,
-      maxRequests: maxRequests
-    });
 
     elements = Array();
 
@@ -275,12 +265,12 @@ jQuery('#applyAction').click(function(e) {
 
       (function(ids) {
         var thisBatchSize = ids.length;
-        queuedManager.add({
+        jQuery.ajax({
           url: "ws.php?format=json&method=pwg.images.syncMetadata",
           type:"POST",
           dataType: "json",
           data: {
-            pwg_token: jQuery("input[name=pwg_token]").val(),
+            pwg_token: jQuery("input[name=pwg_token").val(),
             image_id: ids
           },
           success: function(data) {
@@ -301,8 +291,6 @@ jQuery('#applyAction').click(function(e) {
 
       image_ids = Array();
     }
-
-    return false;
   }
 
   if (jQuery('[name="selectAction"]').val() == 'delete') {
@@ -420,7 +408,7 @@ jQuery('#sync_md5sum').click(function(e) {
 
   var addBlockSize = Math.min(
     Number((jQuery('#md5sum_to_add').data('origin') / 2).toFixed()),
-    conf.checksum_compute_blocksize
+    1000
   );
   add_md5sum_block(addBlockSize);
 
@@ -433,7 +421,7 @@ function add_md5sum_block(blockSize){
     type:"POST",
     dataType: "json",
     data: {
-      pwg_token: jQuery("input[name=pwg_token]").val(),
+      pwg_token: jQuery("input[name=pwg_token").val(),
       block_size: blockSize
     },
     success:function(data) {
@@ -445,7 +433,7 @@ function add_md5sum_block(blockSize){
       var percent_done = 100 - percent_remaining;
       jQuery('#md5sum_added').html(percent_done);
       if (data.result.nb_no_md5sum > 0) {
-        add_md5sum_block(blockSize);
+        add_md5sum_block();
       }
       else {
         // time to refresh the whole page
@@ -483,7 +471,7 @@ function delete_orphans_block(blockSize) {
     type:"POST",
     dataType: "json",
     data: {
-      pwg_token: jQuery("input[name=pwg_token]").val(),
+      pwg_token: jQuery("input[name=pwg_token").val(),
       block_size: blockSize
     },
     success:function(data) {
