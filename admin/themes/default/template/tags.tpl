@@ -164,24 +164,23 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 </div>
 <div class="emptyResearch"> {'No tag found'|@translate} </div>
 <div class="tag-pagination">
-  <div class="tag-pagination-arrow left">
-    <span class="icon-left-open"></span>
+
+  <div class="pagination-container">
+    <div class="pagination-arrow left">
+      <span class="icon-left-open"></span>
+    </div>
+    <div class="pagination-item-container">
+    </div>
+    <div class="pagination-arrow rigth">
+      <span class="icon-left-open"></span>
+    </div>
   </div>
-  <div class="tag-pagination-container">
-  </div>
-  <div class="tag-pagination-arrow rigth">
-    <span class="icon-left-open"></span>
-  </div>
-  <p> {'Tags per page'} </p>
-  <div class="tag-pagination-select" tabindex="1">
-    <input name="per-page" type="radio" id="select-100" checked value="100">
-    <label for="select-100">100</label>
-    <input name="per-page" type="radio" id="select-200" checked='false' value="200">
-    <label for="select-200">200</label>
-    <input name="per-page" type="radio" id="select-500" value="500">
-    <label for="select-500">500</label>
-    <input name="per-page" type="radio" id="select-1000" value="1000">
-    <label for="select-1000">1000</label>
+  <div class="pagination-per-page">
+    <span class="thumbnailsActionsShow" style="font-weight: bold;">Afficher</span>
+    <a>100</a>
+    <a>200</a>
+    <a>500</a>
+    <a>1000</a>
   </div>
 </div>
 

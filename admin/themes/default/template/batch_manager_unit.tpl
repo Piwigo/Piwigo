@@ -42,8 +42,8 @@ jQuery("a.preview-box").colorbox( {
     <div style="margin-left: 22px;">
       {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
     </div>
-    <div style="margin-right: 21px;" class="thumbnailsActionsNumber">
-      <span class="thumbnailsActionsShow" style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
+    <div style="margin-right: 21px;" class="pagination-per-page">
+      <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
       <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
       <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
       <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>

@@ -593,8 +593,8 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     {include file='navigation_bar.tpl'|@get_extent:'navbar'}
     </div>
 
-    <div style="float:right;margin-top:30px; margin-right: 46px;" class="thumbnailsActionsNumber">
-      <span class="thumbnailsActionsShow" style="font-weight: bold;">{'display'|@translate}</span>
+    <div style="float:right;margin-top:30px; margin-right: 46px;" class="pagination-per-page">
+      <span>{'display'|@translate}</span>
       <a href="{$U_DISPLAY}&amp;display=20">20</a>
       <a href="{$U_DISPLAY}&amp;display=50">50</a>
       <a href="{$U_DISPLAY}&amp;display=100">100</a>

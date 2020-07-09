@@ -854,7 +854,7 @@ function promiseFinish() {
 } 
 
 function updatePaginationMenu() {
-  $('.tag-pagination-container').html('');
+  $('.pagination-item-container').html('');
 
   actualPage = Math.min(actualPage, getNumberPages());
 
@@ -895,7 +895,7 @@ function createPaginationMenu() {
 function appendPaginationItem(page = null) {
   if (page != null) {
     let newTag = $(pageItem.replace(/%d/g, page))
-    $('.tag-pagination-container').append(newTag);
+    $('.pagination-item-container').append(newTag);
     if (actualPage == page) {
       newTag.addClass('actual');
     }
@@ -904,21 +904,21 @@ function appendPaginationItem(page = null) {
       updatePaginationMenu();
     })
   } else {
-    $('.tag-pagination-container').append($(pageEllipsis));
+    $('.pagination-item-container').append($(pageEllipsis));
   }
 }
 
 function updateArrows() {
   if (actualPage == 1) {
-    $('.tag-pagination-arrow.left').addClass('unavailable');
+    $('.pagination-arrow.left').addClass('unavailable');
   } else {
-    $('.tag-pagination-arrow.left').removeClass('unavailable');
+    $('.pagination-arrow.left').removeClass('unavailable');
   }
 
   if (actualPage == getNumberPages()) {
-    $('.tag-pagination-arrow.rigth').addClass('unavailable');
+    $('.pagination-arrow.rigth').addClass('unavailable');
   } else {
-    $('.tag-pagination-arrow.rigth').removeClass('unavailable');
+    $('.pagination-arrow.rigth').removeClass('unavailable');
   }
 }
 
@@ -997,11 +997,11 @@ function tagToDisplay() {
       .slice((actualPage-1)*per_page, (actualPage)*per_page);
 } 
 
-$('.tag-pagination-arrow.rigth').on('click', () => {
+$('.pagination-arrow.rigth').on('click', () => {
   movePage();
 })
 
-$('.tag-pagination-arrow.left').on('click', () => {
+$('.pagination-arrow.left').on('click', () => {
   movePage(false);
 })
 
@@ -1013,8 +1013,8 @@ if (getNumberPages() > 1) {
   $('.tag-pagination').hide();
 }
 
-$('.tag-pagination-select input[type="radio"]').on('click',function () {
-  per_page = parseInt($(this).val());
+$('.pagination-per-page a').on('click',function () {
+  per_page = parseInt($(this).html());
   updatePaginationMenu();
 })
 

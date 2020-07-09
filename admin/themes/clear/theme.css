@@ -279,6 +279,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 #batchManagerGlobal fieldset {
   margin: 0;
   margin-top: 30px;
+  border: none;
 }
 /* beta-test ends */
 
@@ -722,15 +723,15 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #filterList .ui-slider .ui-slider-range {background: rgba(255,166,70, 0.9); margin-top: -1px; border: 1px solid #ffaf58;}
 #filterList .ui-widget-content {border: 1px solid #EEE; background: #DDD;}
-.navigationBar, .thumbnailsActionsNumber, .navigationBar a,
-.navigationBar span, .thumbnailsActionsNumber a, .thumbnailsActionsNumber span {
+.navigationBar, .navigationBar a,
+.navigationBar span {
   background-color: #f9f9f9;  border-radius: 10px;
 }
-.navigationBar a:hover, .thumbnailsActionsNumber a:hover {background-color: #ffd2a1;}
+.navigationBar a:hover {background-color: #ffd2a1;}
 #batchManagerGlobal option[disabled] {background-color: #EEE;}
 .dimension-cancel {background-color: #F8F8F8 !important;}
 .pageNumberSelected {color: #FFF !important; font-weight: bold;}
-.navigationBar span, .thumbnailsActionsNumber span {
+.navigationBar span {
   color: #BBB;
 }
 #batchManagerGlobal .ui-state-default, #batchManagerGlobal .ui-widget-content .ui-state-default,#batchManagerGlobal .ui-widget-header .ui-state-default {
