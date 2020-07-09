@@ -336,7 +336,7 @@ TABLE.doubleSelect SELECT.categoryList {
 .dropdown-option:hover {
   text-decoration: none;
   color: white;
-  background-color: #ffffff4f;
+  background-color: #00000012;
 }
 
 .badge-number {
@@ -651,7 +651,7 @@ FORM.properties SPAN.property {
 /* Dashboard */
 .intro-page-container {
   display: grid;
-  grid-template-columns: 48% 52%;
+  grid-template-columns: 48% 48%;
 }
 
 .stat-boxes {
@@ -3574,7 +3574,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   margin: auto;
   justify-content: space-between;
   color: white;
-  border-bottom: solid 1px #00000017;
+  border-bottom: solid 1px #ffffff3d;
   padding: 5px 10px; 
   min-width: 150px;
 }
