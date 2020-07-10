@@ -2728,6 +2728,150 @@ FORM#categoryOrdering p.albumActions a {
 FORM#categoryOrdering p.albumActions a:hover {text-decoration: none;}
 FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
+.cat-move-header {
+  display: flex;
+  margin: 0px 30px;
+  align-items: center;
+  font-size: 14px;
+  justify-content: space-between;
+}
+
+.cat-move-header .order-root::before {
+  font-size: 16px;
+}
+
+.cat-move-header .cat-move-info::before {
+  color: grey;
+  font-size: 20px;
+}
+
+.tree {
+  margin: 20px;
+}
+
+.move-cat-container {
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 4px #acacac;
+  background-color: #fafafa;
+  border-radius: 5px;
+  color: #777;
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.move-cat-container .icon-ellipsis-vert {
+  font-size: 20px;
+  opacity: 0.5;
+  position: absolute;
+  left: -5px;
+}
+
+.move-cat-container .icon-folder-open, .move-cat-container .icon-flow-tree {
+  display: inline-block;
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 10px;
+  margin: 5px;
+}
+
+.move-cat-container .icon-lock {
+  font-size: 16px;
+  margin-left: 0px;
+}
+
+.move-cat-container .move-cat-title {
+  font-size: 20px;
+  margin: 10px;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.move-cat-container .move-cat-toogler {
+  display: flex;
+  color: #FFBD4D;
+  margin-left: 15px;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.move-cat-action-cont {
+  display: none;
+  position: absolute;
+  right: 50%;
+  top : 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  transform: translate(50%, -50%);
+  align-items: center;
+  flex-direction: row-reverse;
+  overflow: hidden;
+}
+
+.move-cat-container:hover .move-cat-action-cont {
+  display: flex;
+}
+
+.move-cat-action {
+  display: flex;
+  align-items: center;
+  max-width: 70%;
+}
+
+.move-cat-action a {
+  padding: 35px;
+  color: #777;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.move-cat-action a:hover {
+  color: #444;
+  text-decoration: none;
+  background-color: #FFA646;
+}
+
+/*Overwrite JQtree CSS*/
+
+.jqtree_common {
+  margin: 20px 2px !important;
+}
+
+li.jqtree-ghost {
+  display: flex !important;
+  margin: 0 !important;
+}
+
+ul.jqtree-tree ul.jqtree_common {
+  margin-left: 50px !important;
+}
+
+ul.jqtree-tree span.jqtree-border {
+  border: solid 2px #FFBD4D !important;
+  width: 98%;
+}
+
+ul.jqtree-tree li.jqtree-ghost span.jqtree-circle {
+  border: solid 2px #FFBD4D !important;
+  margin: 0 !important;
+}
+
+ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
+  background-color: #FFBD4D !important;
+  position: relative !important;
+  height: 2px !important;
+  margin: 0 !important;
+}
+
+ul.jqtree-tree .jqtree-element {
+  cursor: move !important;
+}
+
 .albumBlock {display: flex; justify-content: space-between; padding: 10px 10px 0 10px;}
 .albumBlock .albumLineBlock {display: block; padding-left: 7px; max-width: 45%; height: 50px;}
 .showCreateAlbum {text-align:left; margin:0 1em 25px 20px; line-height:22px;}

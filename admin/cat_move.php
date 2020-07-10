@@ -62,31 +62,30 @@ $page['tab'] = 'move';
 include(PHPWG_ROOT_PATH.'admin/include/albums_tab.inc.php');
 
 // +-----------------------------------------------------------------------+
-// |                          Categories display                           |
+// |                          Album display                                |
 // +-----------------------------------------------------------------------+
 
 $query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE dir IS NULL
-;';
-display_select_cat_wrapper(
-  $query,
-  array(),
-  'category_to_move_options'
-  );
-
-$query = '
-SELECT id,name,uppercats,global_rank
+SELECT id,name,global_rank,status
   FROM '.CATEGORIES_TABLE.'
 ;';
 
-display_select_cat_wrapper(
-  $query,
-  array(),
-  'category_parent_options'
-  );
+$allAlbum = query2array($query);
+$sortedAlbums = array();
 
+foreach ($allAlbum as $album) {
+  $parents = explode('.',$album['global_rank']);
+  $the_place = &$sortedAlbums[intval($parents[0])];
+  for ($i=1; $i < count($parents); $i++) { 
+    $the_place = &$the_place['children'][intval($parents[$i])];
+  }
+  $the_place['name'] = $album['name'];
+  $the_place['status'] = $album['status'];
+  $the_place['id'] = $album['id'];
+}
+
+$template->assign('album_data', $sortedAlbums);
+$template->assign('PWG_TOKEN', get_pwg_token());
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
 // +-----------------------------------------------------------------------+

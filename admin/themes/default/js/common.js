@@ -265,7 +265,7 @@ const jConfirm_confirm_options = {
   theme: "modern",
   content: "",
   animation: "zoom",
-  boxWidth: '30%',
+  boxWidth: '40%',
   useBootstrap: false,
   type: 'red',
   animateFromElement: false,
