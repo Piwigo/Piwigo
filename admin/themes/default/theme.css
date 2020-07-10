@@ -1864,6 +1864,9 @@ LEGEND {
 .batchManager-pagination {
   display: flex;
   align-items: center;
+  clear: both;
+  margin: 0px 20px;
+  justify-content: space-between;
 }
 
 #order_filters a.addFilter {font-weight:normal;margin-left:20px;}
