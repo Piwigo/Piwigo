@@ -79,8 +79,6 @@ h3, .throw, .row1 { background-color: #ddd; }
 
 .content dl, dd { margin:5px; }
 
-
-UL.thumbnails span.wrap2:hover { background-color:#7CBA0F; color:#999; }
 UL.thumbnails span.wrap2 {
 	background-color:transparent;
 }
@@ -130,7 +128,6 @@ A:hover, A:active {
 	cursor: pointer; 
 }
 
-.content .navigationBar {color:#999;}
 ul.actions, .content form#waiting  {text-align:center;}
 
 /* jQuery tooltips */
@@ -723,17 +720,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #filterList .ui-slider .ui-slider-range {background: rgba(255,166,70, 0.9); margin-top: -1px; border: 1px solid #ffaf58;}
 #filterList .ui-widget-content {border: 1px solid #EEE; background: #DDD;}
-.navigationBar, .navigationBar a,
-.navigationBar span {
-  background-color: #f9f9f9;  border-radius: 10px;
-}
-.navigationBar a:hover {background-color: #ffd2a1;}
+
 #batchManagerGlobal option[disabled] {background-color: #EEE;}
 .dimension-cancel {background-color: #F8F8F8 !important;}
 .pageNumberSelected {color: #FFF !important; font-weight: bold;}
-.navigationBar span {
-  color: #BBB;
-}
+
 #batchManagerGlobal .ui-state-default, #batchManagerGlobal .ui-widget-content .ui-state-default,#batchManagerGlobal .ui-widget-header .ui-state-default {
   border: 1px solid #ffaf58; background: #ffaf58;
 }

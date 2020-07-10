@@ -587,13 +587,11 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 	</ul>
 
   {if !empty($navbar) }
-  <div style="clear:both;">
+  <div class="batchManager-pagination">
 
-    <div style="float:left">
     {include file='navigation_bar.tpl'|@get_extent:'navbar'}
-    </div>
 
-    <div style="float:right;margin-top:30px; margin-right: 46px;" class="pagination-per-page">
+    <div class="pagination-per-page">
       <span>{'display'|@translate}</span>
       <a href="{$U_DISPLAY}&amp;display=20">20</a>
       <a href="{$U_DISPLAY}&amp;display=50">50</a>

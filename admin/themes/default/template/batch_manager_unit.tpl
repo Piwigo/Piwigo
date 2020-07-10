@@ -113,9 +113,7 @@ jQuery("a.preview-box").colorbox( {
 </fieldset>
 {/foreach}
 
-<div class="navigationBarRow">
 {if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
-</div>
 
 <p>
   <input type="submit" value="{'Submit'|@translate}" name="submit">

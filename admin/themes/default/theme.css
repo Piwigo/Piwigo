@@ -365,10 +365,6 @@ TABLE.doubleSelect SELECT.categoryList {
   justify-content: center;
 }
 
-.pagination-container * {
-  margin: 10px;
-}
-
 .pagination-arrow {
   font-size: 14px;
   cursor: pointer;
@@ -394,6 +390,10 @@ TABLE.doubleSelect SELECT.categoryList {
 .pagination-item-container {
   display: flex;
   align-items: baseline;
+}
+
+.pagination-item-container > *{
+  margin: 5px;
 }
 
 .pagination-item-container span {
@@ -1868,6 +1868,10 @@ LEGEND {
   display: none;
 }
 
+.batchManager-pagination {
+  display: flex;
+  align-items: center;
+}
 
 #order_filters a.addFilter {font-weight:normal;margin-left:20px;}
 #order_filters a.removeFilter {font-weight:normal;}
