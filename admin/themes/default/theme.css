@@ -10,7 +10,6 @@
 
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
 .content h2 {margin: 0; padding: 5px 0.5em 5px 0.5em; text-align: right; font-size: 120%;}
-.content .navigationBar { margin: 10px 0; text-align: center; }
 .content form { text-align: left; margin-left: 7px; margin-right: 9px;}
 .content dt { margin-bottom: 5px; font-style: italic;
   font-size: 110%; }
@@ -1756,12 +1755,6 @@ legend {text-align:left;}
 /* local-layout */
 /* You can modify this file */
 
-/* default-colors */
-/* So that non-links are slightly greyed out */
-.content .navigationBar {
-	color: #999;
-}
-
 /* Tables & forms */
 
 SELECT, TEXTAREA {
@@ -2569,7 +2562,6 @@ a#showPermissions:hover {text-decoration: none;}
 }
 
 .commentFilter {text-align:left;margin:5px 1em;}
-.commentFilter .navigationBar {float:right; margin:0;}
 
 FORM#categoryOrdering p.albumTitle {margin:0; margin-left: 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-bottom: 4px;}
 FORM#categoryOrdering p.albumTitle a {font-size: 14px; font-weight: 600;}
@@ -3913,23 +3905,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #action_add_tags .selectize-input.items.not-full.has-options.focus.input-active.dropdown-active, .selectize-input.items.not-full {
 	padding: 12px 10px; box-shadow: none; border-radius: 0px; border: 1px solid #787777a6;
 }
-.navigationBar {
-	border-radius: 5px; display: flex; font-size: 12px; font-weight: 700;
-	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
-}
+
 .pageNumberSelected {background-color: #ffaf58 !important; border: none !important; border-radius: 0 !important;}
 
-.navigationBar a, .navigationBar span{
-	padding: 8px 9px; border: none;
-}
-.navigationBar *:last-child {padding-right: 17px;}
-.navigationBar *:first-child{padding-left: 17px;}
-.navigationBar a:last-child:hover {
-	border-bottom-right-radius: 10px; border-top-right-radius: 10px;  
-}
-.navigationBar a:first-child:hover {
-	border-bottom-left-radius: 10px; border-top-left-radius: 10px;
-}
+
 #batchManagerGlobal UL.thumbnails {display: flex; flex-wrap: wrap; justify-content: flex-start; margin-left: 30px;}
 #batchManagerGlobal ul.thumbnails .actions .icon-plus.cboxElement {
 	background-color: transparent; padding: 0; box-shadow: none; font-size: initial; margin-bottom: 0;
@@ -3946,9 +3925,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {font-size: 17px; line-height: normal;}
 #batchManagerGlobal UL.thumbnails .wrap2 .icon-pencil:hover, #batchManagerGlobal UL.thumbnails .wrap2 .icon-zoom-square:hover {color: #fea744;}
 #batchManagerGlobal .deleteDerivButtons a:hover, #batchManagerGlobal #checkActions a:hover {background-color: #ddd;color: #3A3A3A;text-decoration: none;}
-.navigationBar a:hover {
-	color: #666; text-decoration: none; border-radius: 0;
-}
+
 #batchManagerGlobal .thumbSelected img {opacity: 0.35; border: 1px solid #fea744 !important;}
 #batchManagerGlobal li.thumbSelected:hover .font-checkbox [class*="icon-check"]::before {display: block;}
 #filter_category .selectize-input.items.full.has-options.has-items .item,
@@ -3977,9 +3954,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .ui-slider-horizontal .ui-slider-handle {top: -.7em !important; width: 1.4em; height: 1.4em;}
 #batchManagerGlobal .ui-slider-handle.ui-state-default.ui-corner-all {border-radius: 10px;}
 #action_delete .errors {display: block; min-height: initial; margin: 10px 0px 0px 0px;}
-.navigationBar {margin: auto !important;}
-.navigationBarRow .navigationBar {width: 35%;}
-#batchManagerGlobal .navigationBar {margin-top: 30px !important; width: 100%;}
+
 #batchManagerGlobal .ui-slider-horizontal .ui-slider-range {height: 2px;}
 #batchManagerGlobal .ui-slider-horizontal {height: 2px;}
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {margin-top: -1px;}
