@@ -697,6 +697,20 @@
       "search": [
         "user"
       ]
+    },
+    {
+      "uid": "1bad022b39d6d7c7a1c8a81be5193b67",
+      "css": "zoom-square",
+      "code": 59459,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M142.9 642.9H0V1000H357.1V857.1H142.9V642.9ZM0 357.1H142.9V142.9H357.1V0H0V357.1ZM857.1 857.1H642.9V1000H1000V642.9H857.1V857.1ZM642.9 0V142.9H857.1V357.1H1000V0H642.9Z",
+        "width": 1000
+      },
+      "search": [
+        "full-screen"
+      ]
     }
   ]
 }
