@@ -21,7 +21,7 @@ The [piwigo.org](https://piwigo.org) website introduces you to Piwigo. You'll fi
  * Transfer the script to your web space with any FTP client
  * Open the script in you web browser (for example http://example.com/piwigo-netinstall.php) and follow the steps
 
-[More information](https://piwigo.org/doc/doku.php?id=user_documentation:learn:install:netinstall)
+[More information](https://piwigo.org/guides/install/netinstall)
 
 ### Manual
 
@@ -29,7 +29,7 @@ The [piwigo.org](https://piwigo.org) website introduces you to Piwigo. You'll fi
  * Transfer everything to your web space with any FTP client
  * Open your website (for example http://example.com/piwigo) and follow the steps
 
-[More information](https://piwigo.org/doc/doku.php?id=user_documentation:learn:install:installation_manual)
+[More information](https://piwigo.org/guides/install/manual)
 
 If you do not have your own server, consider the [piwigo.com](https://piwigo.com/) hosting solution.
 
