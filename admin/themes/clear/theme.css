@@ -239,16 +239,8 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   color:#999;
 }
 
-#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before {
-  color: #3C3C3C; 
-  background-color: #fea744; 
-  border: 2px solid #3C3C3C;
-}
-
 #batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
-  color: #3C3C3C; 
-  background-color: #fea744; 
-  border: 2px solid #3C3C3C; 
+  color: white; 
   display: block;
 }
 
@@ -702,7 +694,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addFilesButtonChanged:hover {background-color: #BBB;}
 
 #checkActions a, .deleteDerivButtons a {background-color: #E8E8E8;}
-#addFilter, #filterList select, .pictureLevels select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important;}
+#addFilter, #filterList select, .pictureLevels select, #permitAction select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important; outline: none !important;}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options,
 #filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
@@ -710,7 +702,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background: #FFF;
   color: #3C3C3CBD;
 }
-#permitAction select {background-color: #FFF; color: #4E4E4E; border: 1px solid #787777a6;}
 #action_associate a:last-child {background: #FFF; border: 1px solid #787777a6; box-shadow: none;}
 #forbidAction, .selectionEmptyBlock {background-color: #f3f3f3;}
 #action_title .large, #action_author .large {background-color: #FFF; color: #4E4E4E;}

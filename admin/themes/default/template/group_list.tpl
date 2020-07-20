@@ -107,7 +107,7 @@ var rootUrl = '{$ROOT_URL}'
 
 <div id="selection-mode-block" class="in-selection-mode">
   <div class="Selection-mode-content">
-   <p id="nothing-selected">{'No group selected, no action possible.'|@translate}</p>
+   <p id="nothing-selected">{'No groups selected, no actions possible.'|@translate}</p>
    <div class="SelectionModeGroup">
     <p>{'Your selection'|@translate}</p>
     <div class="SelectionModeGroupList">

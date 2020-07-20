@@ -422,7 +422,7 @@ else
 
 if (isset($url_img))
 {
-  $template->assign( 'U_JUMPTO', $url_img );
+  $template->assign( 'U_JUMPTO', $url_img ); 
 }
 
 // associate to albums

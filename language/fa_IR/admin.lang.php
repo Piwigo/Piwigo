@@ -665,7 +665,7 @@ $lang['Refresh photo set'] = 'تازه کردن (Refresh) سِت عکس ها';
 $lang['The whole page'] = 'تمام صفحه';
 $lang['The whole set'] = 'تمامی عکس ها (کل سِت)';
 $lang['No photo in the current set.'] = 'هیچ عکسی در این سِت نیست.';
-$lang['No photo selected, no action possible.'] = 'هیچ عکسی انتخاب نشده است، هیچ کاری ممکن نیست.';
+$lang['No photos selected, no actions possible.'] = 'هیچ عکسی انتخاب نشده است، هیچ کاری ممکن نیست.';
 $lang['Choose an action'] = 'یک کار را انتخاب کنید';
 $lang['remove author'] = 'پاک کردن نویسنده';
 $lang['Type here the author name'] = 'نام نویسنده را اینجا تایپ نمایید';
@@ -915,7 +915,7 @@ $lang['View in gallery'] = 'نمایش در گالری';
 $lang['Duplicate'] = 'دوتایی کردن';
 $lang['Manage the members'] = 'مدیریت کاربران';
 $lang['Merge selected groups'] = 'ترکیب گروه‌های انتخاب شده';
-$lang['No group selected, no action possible.'] = 'گروهی انتخاب نشده است، هیچ کاری انجام نخواهد شد.';
+$lang['No groups selected, no actions possible.'] = 'گروهی انتخاب نشده است، هیچ کاری انجام نخواهد شد.';
 $lang['No members to manage'] = 'کاربری برای ترکیب وجود ندارد';
 $lang['Please select at least two groups'] = 'دست کم باید دو گروه را انتخاب کنید';
 $lang['Ratio'] = 'نسبت';
@@ -945,7 +945,7 @@ $lang['Showing %s to %s of %s users'] = 'نمايش از %s تا %s از بين 
 $lang['Show %s users'] = 'نمايش %s كاربر';
 $lang['Registered on %s, %s.'] = 'ثبت شده در %s, %s.';
 $lang['Open user details'] = 'باز كردن مشخصات كاربر';
-$lang['No user selected, no action possible.'] = 'هيچ كاربري انتخاب نشده است، هيچ كاري ممكن نيست.';
+$lang['No users selected, no actions possible.'] = 'هيچ كاربري انتخاب نشده است، هيچ كاري ممكن نيست.';
 $lang['No user selected of %d users'] = 'هيچ كاربري از بين %d كاربر انتخاب نشده است.';
 $lang['Last visit on %s, %s.'] = 'آخرين بازديد در %s, %s.';
 $lang['Close user details'] = 'بستن مشخصات كاربر';
@@ -995,7 +995,7 @@ $lang['(determined from photos)'] = '(تعیین شده از روی عکس‌ه�
 $lang['Confirm deletion'] = 'تایید پاک کردن';
 $lang['Delete album "%s" and its %d sub-albums.'] = 'آلبوم "%s" و همه‌ی %d زیرآلبوم آن پاک شوند.';
 $lang['No filter on album. Select one or type to search'] = 'فیلتری روی آلبوم اعمال نشده است. یک فیلتر انتخاب کرده و یا واژه‌ی مورد نظر خود را تایپ کنید';
-$lang['No tag selected, no action possible.'] = 'هیچ برچسبی انتخاب نشده، کاری قابل انجام نیست';
+$lang['No tags selected, no actions possible.'] = 'هیچ برچسبی انتخاب نشده، کاری قابل انجام نیست';
 $lang['Piwigo %s is available, please update'] = 'ورژن %s از Piwigo آماده‌ی آپدیت کردن است
 ';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync قابلیت این را دارد که یک پوشه(فولدر) را با تمام زیر مجموعه هایش آپلود کند. اگر مجدد این عملیات را انجام دهید فقط موارد جدید آپلود میشود.';

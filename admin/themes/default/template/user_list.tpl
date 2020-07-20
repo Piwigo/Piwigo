@@ -968,7 +968,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 <fieldset id="action">
   <legend>{'Action'|@translate}</legend>
 
-  <div id="forbidAction">{'No user selected, no action possible.'|@translate}</div>
+  <div id="forbidAction">{'No users selected, no actions possible.'|@translate}</div>
   <div id="permitAction" style="display:none">
 
     <select name="selectAction">

@@ -311,12 +311,8 @@ a.stat-box:hover {
   color:#777;
 }
 
-#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before {
-  color: #3C3C3C; background-color: #fea744; border: 2px solid #3C3C3C;
-}
-
 #batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
-  color: #3C3C3C; background-color: #fea744; border: 2px solid #3C3C3C; display: block;
+  color: #3C3C3C; display: block;
 }
 
 #batchManagerGlobal UL.thumbnails li:hover .wrap2 {
@@ -804,7 +800,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addFilesButtonChanged:hover {background-color: #777;}
 
 #checkActions a, .deleteDerivButtons a {background-color: #393939;}
-#addFilter, #filterList select, .pictureLevels select {background-color: #444444; color: #BFBFBF}
+#addFilter, #filterList select, .pictureLevels select, #permitAction select {background-color: #444444; color: #BFBFBF}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options, 
 #filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {

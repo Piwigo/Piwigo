@@ -664,7 +664,7 @@ $lang['Refresh photo set'] = 'حدث مجموعة الصور';
 $lang['The whole page'] = 'صفحة كاملة';
 $lang['The whole set'] = 'مجموعة كلمة';
 $lang['No photo in the current set.'] = 'لا صور في المجموعة الحالية';
-$lang['No photo selected, no action possible.'] = 'لا توجد صور محددة ، أي إجراء ممكن';
+$lang['No photos selected, no actions possible.'] = 'لا توجد صور محددة ، أي إجراء ممكن';
 $lang['Choose an action'] = 'اختر اجراء';
 $lang['remove author'] = 'احذف الكاتب';
 $lang['Type here the author name'] = 'أكتب هنا أسم الكاتب ';
@@ -917,7 +917,7 @@ $lang['This group will be unset to default'] = 'لم يتم استخدام هذ�
 $lang['Ratio'] = 'نبسة';
 $lang['Please select at least two groups'] = 'فضلا ً لا أمرا ٍ أختر فيما لا يقل عن مجموعتين ';
 $lang['No members to manage'] = 'لا يوجد أعضاد لإدارتهم';
-$lang['No group selected, no action possible.'] = 'لم يتم تحديد أي مجموعة  ، لا تتوقع التفاعل';
+$lang['No groups selected, no actions possible.'] = 'لم يتم تحديد أي مجموعة  ، لا تتوقع التفاعل';
 $lang['Merge selected groups'] = 'إدارة المجموعة المختارة';
 $lang['between %d and %d pixels'] = 'ما بين  %d و %d  بكسل';
 $lang['between %.2f and %.2f'] = 'ما بين %.2f  و %.2f ';
@@ -936,7 +936,7 @@ $lang['Registered on %s, %s.'] = 'سُجِّل في%s, %s';
 $lang['Change username'] = 'تغيير اسم المستخدم';
 $lang['Loading...'] = 'تحميل ...';
 $lang['No matching user found'] = 'لم يتم العثور على مستخدم مطابق';
-$lang['No user selected, no action possible.'] = 'لم يتم إختيار المستخدم، أي إجراء غير ممكن';
+$lang['No users selected, no actions possible.'] = 'لم يتم إختيار المستخدم، أي إجراء غير ممكن';
 $lang['Password updated'] = 'كلمة السر تم تحديثها';
 $lang['Update user'] = 'تحديث المستعمل';
 $lang['Users modified'] = 'المستخدمين تم تعديلهم';

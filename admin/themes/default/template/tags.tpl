@@ -85,7 +85,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div id="selection-mode-block" class="in-selection-mode tag-selection">
   <div class="tag-selection-content">
 
-    <p id="nothing-selected">{'No tag selected, no action possible.'|@translate}</p>
+    <p id="nothing-selected">{'No tags selected, no actions possible.'|@translate}</p>
 
     <div class="selection-mode-tag">
       <p>{'Your selection'|@translate}</p>
@@ -130,7 +130,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     </label>
   </form>
   <div class='selection-controller in-selection-mode'>
-    <p>{'Select'|@translate}</p>
+    <p>{'Selection'|@translate}</p>
     <a id="selectAll">{'All'|@translate}</a>
     <a id="selectNone">{'None'|@translate}</a>
     <a id="selectInvert">{'Invert'|@translate}</a> 
@@ -164,6 +164,13 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 </div>
 <div class="emptyResearch"> {'No tag found'|@translate} </div>
 <div class="tag-pagination">
+  <div class="pagination-per-page">
+    <span class="thumbnailsActionsShow" style="font-weight: bold;">Afficher</span>
+    <a>100</a>
+    <a>200</a>
+    <a>500</a>
+    <a>1000</a>
+  </div>
 
   <div class="pagination-container">
     <div class="pagination-arrow left">
@@ -174,13 +181,6 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     <div class="pagination-arrow rigth">
       <span class="icon-left-open"></span>
     </div>
-  </div>
-  <div class="pagination-per-page">
-    <span class="thumbnailsActionsShow" style="font-weight: bold;">Afficher</span>
-    <a>100</a>
-    <a>200</a>
-    <a>500</a>
-    <a>1000</a>
   </div>
 </div>
 

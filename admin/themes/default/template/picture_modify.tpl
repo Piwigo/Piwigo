@@ -89,7 +89,11 @@ $('#action-delete-picture').on('click', function() {
 <form action="{$F_ACTION}" method="post" id="pictureModify">
   <div id='picture-preview'>
     <div class='picture-preview-actions'>
-      <a class="icon-eye" href="{$U_JUMPTO}" title="{'jump to photo'|@translate}"></a>
+      {if isset($U_JUMPTO)}
+        <a class="icon-eye" href="{$U_JUMPTO}" title="{'jump to photo'|@translate}"></a>
+      {else}
+        <a class="icon-eye unavailable" title="{'Photo is in a private album'|@translate}"></a>
+      {/if}
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
       <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>

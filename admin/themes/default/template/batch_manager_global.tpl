@@ -340,7 +340,7 @@ var sliders = {
         <p class="actionButtons">
           <select id="addFilter">
             <option value="-1">{'Add a filter'|@translate}</option>
-            <optgroup>
+            <option disabled="disabled">------------------</option>
             <option value="filter_prefilter" {if isset($filter.prefilter)}disabled="disabled"{/if}>{'Predefined filter'|@translate}</option>
             <option value="filter_category" {if isset($filter.category)}disabled="disabled"{/if}>{'Album'|@translate}</option>
             <option value="filter_tags" {if isset($filter.tags)}disabled="disabled"{/if}>{'Tags'|@translate}</option>
@@ -348,7 +348,6 @@ var sliders = {
             <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
             <option value="filter_filesize" {if isset($filter.filesize)}disabled="disabled"{/if}>{'Filesize'|@translate}</option>
     				<option value="filter_search"{if isset($filter.search)} disabled="disabled"{/if}>{'Search'|@translate}</option>
-          </optgroup>
           </select>
           <a id="removeFilters" class="icon-cancel" style="display: none;">{'Remove all filters'|@translate}</a>
         </p>
@@ -363,7 +362,7 @@ var sliders = {
       <ul id="filterList">
         <li id="filter_prefilter" {if !isset($filter.prefilter)}style="display:none"{/if}>
           <input type="checkbox" name="filter_prefilter_use" class="useFilterCheckbox" {if isset($filter.prefilter)}checked="checked"{/if}>
-          {'Predefined filter'|@translate}
+          <p>{'Predefined filter'|@translate}</p>
           <a href="#" class="removeFilter" title="{'remove this filter'|@translate}"><span>[x]</span></a>
           <select name="filter_prefilter">
             {foreach from=$prefilters item=prefilter}
@@ -411,7 +410,7 @@ var sliders = {
 
         <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>
           <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
-          {'Album'|@translate}
+          <p>{'Album'|@translate}</p>
           <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
           <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
             data-default="first" name="filter_category" style="width:600px"></select>
@@ -420,7 +419,7 @@ var sliders = {
 
         <li id="filter_tags" {if !isset($filter.tags)}style="display:none"{/if}>
           <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
-          {'Tags'|@translate}
+          <p>{'Tags'|@translate}</p>
           <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
           <select data-selectize="tags" data-value="{$filter_tags|@json_encode|escape:html}"
             placeholder="{'Type in a search term'|translate}"
@@ -431,7 +430,7 @@ var sliders = {
 
         <li id="filter_level" {if !isset($filter.level)}style="display:none"{/if}>
           <input type="checkbox" name="filter_level_use" class="useFilterCheckbox" {if isset($filter.level)}checked="checked"{/if}>
-          {'Privacy level'|@translate}
+          <p>{'Privacy level'|@translate}</p>
           <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
           <select name="filter_level" size="1">
             {html_options options=$filter_level_options selected=$filter_level_options_selected}
@@ -441,7 +440,7 @@ var sliders = {
 
         <li id="filter_dimension" {if !isset($filter.dimension)}style="display:none"{/if}>
           <input type="checkbox" name="filter_dimension_use" class="useFilterCheckbox" {if isset($filter.dimension)}checked="checked"{/if}>
-          {'Dimensions'|translate}
+          <p>{'Dimensions'|translate}</p>
           <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
           <blockquote>
             <div data-slider="widths" class="dimensionSlidersBlocks">
@@ -497,7 +496,7 @@ var sliders = {
 
         <li id="filter_search"{if !isset($filter.search)} style="display:none"{/if}>
           <input type="checkbox" name="filter_search_use" class="useFilterCheckbox"{if isset($filter.search)} checked="checked"{/if}>
-          {'Search'|@translate}
+          <p>{'Search'|@translate}</p>
           <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
           <input name="q" size=40 value="{$filter.search.q|stripslashes|htmlspecialchars}">
           <a href="admin/popuphelp.php?page=quick_search" onclick="popuphelp(this.href);return false;" title="{'Help'|@translate}"><span class="icon-help-circled">{'Search tips'|translate}</span></a>
@@ -516,7 +515,7 @@ var sliders = {
 
         <li id="filter_filesize" {if !isset($filter.filesize)}style="display:none"{/if}>
           <input type="checkbox" name="filter_filesize_use" class="useFilterCheckbox" {if isset($filter.filesize)}checked="checked"{/if}>
-          {'Filesize'|translate}
+          <p>{'Filesize'|translate}</p>
           <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
           <blockquote>
             <div data-slider="filesizes">
@@ -588,9 +587,6 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
   {if !empty($navbar) }
   <div class="batchManager-pagination">
-
-    {include file='navigation_bar.tpl'|@get_extent:'navbar'}
-
     <div class="pagination-per-page">
       <span>{'display'|@translate}</span>
       <a href="{$U_DISPLAY}&amp;display=20">20</a>
@@ -598,6 +594,8 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       <a href="{$U_DISPLAY}&amp;display=100">100</a>
       <a href="{$U_DISPLAY}&amp;display=all">{'all'|@translate}</a>
     </div>
+
+    {include file='navigation_bar.tpl'|@get_extent:'navbar'}
   </div>
   {/if}
 
@@ -609,7 +607,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
   <fieldset id="action">
 
     <legend>{'Action'|@translate}</legend>
-      <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No photo selected, no action possible.'|@translate}</div>
+      <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No photos selected, no actions possible.'|@translate}</div>
       <div id="permitAction"{if count($selection) == 0} style="display:none"{/if}>
     
     <div class="permitActionListButton">

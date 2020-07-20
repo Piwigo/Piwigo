@@ -410,7 +410,7 @@ TABLE.doubleSelect SELECT.categoryList {
   background-color: #FFA646;
   border-radius: 15px;
   pointer-events: none;
-  padding: 0px 10px;
+  padding: 0px 6px;
   color: #333
 }
 
@@ -1638,6 +1638,7 @@ h2:lang(en) { text-transform:capitalize; }
   position: relative;
   border-left: solid 5px #ffc17e;
   border-right:solid 5px #fafafa;
+  border-radius: 5px;
 }
 
 .pluginMiniBoxNameCell {
@@ -1839,12 +1840,13 @@ LEGEND {
 #batchManagerGlobal .actionButtons {text-align:left; margin: 0; display: flex; flex-direction: column;}
 #batchManagerGlobal #filterList {padding-left:5px; display: flex; flex-wrap: wrap; align-items: start; margin-top: -18px;}
 #batchManagerGlobal #filterList li {list-style-type:none;}
+#batchManagerGlobal #filterList li p {font-weight: bold; display: contents;}
 #batchManagerGlobal a.removeFilter {color:#666;}
-#batchManagerGlobal a.removeFilter::before {margin-right:0; content: '\e822'; font-size: 9pt; color: #9f9f9f; margin-left: 6px;}
+#batchManagerGlobal a.removeFilter::before {margin-right:0; content: '\e822'; font-size: 11pt; color: #3C3C3C; margin-left: 6px;}
 #batchManagerGlobal a.removeFilter:hover::before {color: #ffa646;}
 #batchManagerGlobal a.removeFilter:hover {color:red;}
 #batchManagerGlobal .removeFilter span {display:none}
-#batchManagerGlobal #applyFilterBlock {margin-top:20px; width: 200px;}
+#batchManagerGlobal #applyFilterBlock {margin-top:30px; width: 200px;}
 #batchManagerGlobal .useFilterCheckbox {display:none;}
 
 #batchManagerGlobal blockquote {margin:10px 0 0px 0;}
@@ -1944,7 +1946,7 @@ a#showPermissions:hover {text-decoration: none;}
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  margin-left: 30px;
+  margin-left: 20px;
   max-width: calc(100% - 530px);
   overflow: hidden;
   padding: 10px;
@@ -2068,7 +2070,9 @@ a#showPermissions:hover {text-decoration: none;}
 }
 
 .tag-header .selection-controller p {
-  margin-right: 10px;
+  position: absolute;
+  transform: translate(10px,-36px);
+  color: #555;
 }
 
 .tag-header .selection-controller a {
@@ -2257,7 +2261,7 @@ a#showPermissions:hover {text-decoration: none;}
   transform: translate(-10px , -3px);
   position: absolute;
   color: #fafafa;
-  animation-name: icon-check-animation;
+  animation-name: icon-check-tag-animation;
   animation-duration: 0.4s;
   animation-timing-function: ease-out;
 }
@@ -2266,7 +2270,7 @@ a#showPermissions:hover {text-decoration: none;}
   display: inline;
 }
 
-@keyframes icon-check-animation {
+@keyframes icon-check-tag-animation {
   0% {
     transform: translate(-10px , -3px) scale(0);
   }
@@ -2376,7 +2380,7 @@ a#showPermissions:hover {text-decoration: none;}
 }
 
 .tag-pagination {
-  margin: auto;
+  margin: 0 20px;;
   display: flex;
   margin-bottom: 20px;
   margin-right: 223px;
@@ -2453,6 +2457,11 @@ a#showPermissions:hover {text-decoration: none;}
   padding: 5px;
 }
 
+.picture-preview-actions a.unavailable {
+  color: #ffffff48;
+  cursor: context-menu;
+}
+
 #picture-content {
   width: 50%;
 }
@@ -2468,6 +2477,7 @@ a#showPermissions:hover {text-decoration: none;}
   border-radius: 4px;
   border-color: #DDD;
   transition: ease 0.2s;
+  font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 }
 
 #picture-content input[type=text], #picture-content textarea, #picture-content .selectize-control {
@@ -3486,8 +3496,9 @@ input:checked + .slider:before {
 #UserList .AddUserBlock button{
   font-size: 12px;
   font-weight: 700;
-  padding: 12px 10px;
+  padding: 16px 10px;
   border: none;
+  margin-top: 1px;
 }
 
 #UserList .AddUserBlock p{
@@ -3861,7 +3872,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_tags .selectize-control.multi.plugin-remove_button {width: 300px !important;}
 #filter_category .selectize-input.items.full.has-options.has-items {padding: 10px 18px; width: 610px; margin-bottom: 5px;}
 #filterList .selectize-input.items.not-full.has-options {margin-bottom: 5px;}
-#applyFilter {padding: 15px 0px; margin-left: 0;}
+#applyFilter {padding: 15px 0px; margin-left: 0; margin-right: 10px; float: left; height: 45.6px;}
 #applyFilter.activated {background-color: #FFA646; color: #3C3C3C;}
 #removeFilters {margin-top: 20px; margin-left: 13px;}
 .filter_search_input {padding: 10px 0px; width: 300px;}
@@ -3895,8 +3906,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_level::before {margin-top: 28px; margin-left: 260px;}
 #action_level::after {margin-top: -56px; margin-left: 254px;}
 #filter_search input {width: 300px; box-sizing: border-box; padding: 11px 18px;}
-#addFilter, #filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select {
-	font-size: 12px;
+#addFilter, #filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select, #permitAction select{
 	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	-webkit-appearance: none;
 	font-weight: 700;
@@ -3920,12 +3930,23 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal UL.thumbnails IMG {margin-top: 0; width: 110px; height: 110px; border: 1px solid transparent;}
 #batchManagerGlobal UL.thumbnails .wrap2 .icon-pencil {font-size: 15px; margin-left: 4px;}
 #batchManagerGlobal UL.thumbnails .wrap2 .icon-plus {margin-right: 2px;}
-#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before,
-#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {border-radius: 13px; padding: 1px; content: '\E819'; display: none;}
+#batchManagerGlobal li .font-checkbox [class*="icon-check"] {height: 20px; width: 20px; border-radius: 100%}
+#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
+  content: '\E819'; 
+  display: none;
+  animation: icon-check-animation 0.4s ease-out;
+}
+
+@keyframes icon-check-animation {
+  0% {transform: translate(-50% , -50%) scale(0);}
+  75% {transform: translate(-50% , -50%) scale(1.3);}
+  100% {transform: translate(-50% , -50%);}
+}
+
+#batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"] {background-color: #fea744; border: solid 2px #fea744;}
 #batchManagerGlobal .thumbSelected span.icon-check {display: block; z-index: 1;}
-#batchManagerGlobal .thumbnails .wrap1:hover span.icon-check-empty {display: block;}
 #batchManagerGlobal .thumbnails .wrap1 .icon-check-empty:before {content: '\E823';}
-#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {font-size: 17px; line-height: normal;}
+#batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {font-size: 17px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);}
 #batchManagerGlobal UL.thumbnails .wrap2 .icon-pencil:hover, #batchManagerGlobal UL.thumbnails .wrap2 .icon-zoom-square:hover {color: #fea744;}
 #batchManagerGlobal .deleteDerivButtons a:hover, #batchManagerGlobal #checkActions a:hover {background-color: #ddd;color: #3A3A3A;text-decoration: none;}
 
