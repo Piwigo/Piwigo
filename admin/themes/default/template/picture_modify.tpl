@@ -186,6 +186,7 @@ $('#action-delete-picture').on('click', function() {
     <p>
       <strong>{'Who can see this photo?'|@translate}</strong>
       <br>
+      <div class='select-icon icon-down-open'> </div>
       <select name="level" size="1">
         {html_options options=$level_options selected=$level_options_selected}
       </select>

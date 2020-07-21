@@ -333,7 +333,7 @@ var sliders = {
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   <fieldset>
-    <legend>{'Filter'|@translate}</legend>
+    <legend><span class='icon-th icon-blue'></span>{'Filter'|@translate}</legend>
 
     <div class="filterBlock">
       <div class="actionButtonsBlock">
@@ -353,7 +353,7 @@ var sliders = {
         </p>
 
         <p class="actionButtons" id="applyFilterBlock">
-          <button id="applyFilter" name="submitFilter" type="submit" class="buttonLike">
+          <button id="applyFilter" name="submitFilter" type="submit">
             <i class="icon-arrows-cw"></i> {'Refresh photo set'|@translate}
           </button>
         </p>
@@ -413,7 +413,7 @@ var sliders = {
           <p>{'Album'|@translate}</p>
           <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
           <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
-            data-default="first" name="filter_category" style="width:600px"></select>
+            data-default="first" name="filter_category"></select>
           <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
         </li>
 
@@ -535,7 +535,7 @@ var sliders = {
 
   <fieldset>
 
-    <legend>{'Selection'|@translate}</legend>
+    <legend><span class='icon-filter icon-green'></span>{'Selection'|@translate}</legend>
 
   {if !empty($thumbnails)}
   <p id="checkActions">
@@ -606,7 +606,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
   <fieldset id="action">
 
-    <legend>{'Action'|@translate}</legend>
+    <legend><span class='icon-cog icon-red'></span>{'Action'|@translate}</legend>
       <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No photos selected, no actions possible.'|@translate}</div>
       <div id="permitAction"{if count($selection) == 0} style="display:none"{/if}>
     

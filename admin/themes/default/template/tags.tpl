@@ -130,7 +130,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     </label>
   </form>
   <div class='selection-controller in-selection-mode'>
-    <p>{'Selection'|@translate}</p>
+    <p>{'Select'|@translate}</p>
     <a id="selectAll">{'All'|@translate}</a>
     <a id="selectNone">{'None'|@translate}</a>
     <a id="selectInvert">{'Invert'|@translate}</a> 

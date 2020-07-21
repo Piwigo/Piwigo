@@ -330,6 +330,24 @@ a.stat-box:hover {
   font-weight: bold;
 }
 
+#batchManagerGlobal #applyFilter {
+  color: #3C3C3C;
+  background-color: #ececec;
+}
+
+#batchManagerGlobal #applyFilter:hover {
+  color: white;
+  background-color: #ffc17e;
+}
+
+#batchManagerGlobal #filterList li {
+  background-color: #3C3C3C;
+}
+
+#batchManagerGlobal legend {
+  color: #BFBFBF;
+}
+
 /* TokenInput (with Facebook style for ROMA) */
 ul.token-input-list {border-color:#666 !important;background-color:#444 !important;}
 ul.token-input-list li input {background-color:#444 !important;}
@@ -347,9 +365,10 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   border-color:#333;
 }
 
-#picture-content input[type=text], #picture-content textarea {
+#picture-content input[type=text], #picture-content textarea, #picture-content .selectize-input, #picture-content select {
   background-color: #444444;
   border: 1px solid #666;
+  color: #c1c1c1;
 }
 
 .picture-infos-title, .picture-infos-icon {
@@ -528,8 +547,7 @@ label>p.group_select {
 }
 
 .slider:before {
-  background-color: #f5f5f5;
-  box-shadow:0 0 2px #777;
+  background-color: #151515;
 }
 
 input:checked + .slider {
@@ -804,16 +822,18 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options, 
 #filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
+  background-color: #444444;
+  color: #BFBFBF;
+  border: 1px solid #666;
+  box-shadow: none;
+}
+#permitAction select {background: #3C3C3C; color: #C0C0C0;}
+#set_date_creation input {
   background: #3C3C3C;
   color: #C0C0C0;
-  border: none!important;
 }
-#batchManagerGlobal fieldset {margin: 0; margin-top: 30px; border:none}
-#permitAction select {background: #3C3C3C; color: #C0C0C0;}
 #action_associate a:last-child {color: #C0C0C0; background-color: #464646;}
 #forbidAction, .selectionEmptyBlock {background-color: #f3f3f3;}
-#batchManagerGlobal .thumbSelected img {opacity: 1 !important;}
-#batchManagerGlobal UL.thumbnails IMG {opacity: 0.65;}
 #filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #393939;}
 #filter_dimension .slider-choice:hover, #filter_filesize .slider-choice:hover, .dimension-cancel:hover {
   text-decoration: none; background-color: #ffa646 !important; color: initial;
@@ -943,13 +963,36 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #333 !important;
 }
 
+.tag-container .tag-box p {
+  color: #aaa;
+}
+
 .tag-header #add-tag.input-mode .add-tag-container input:hover {
   background-color: #222 !important;
+}
+
+.tag-header .selection-controller p {
+  color: #c1c1c1;
 }
 
 .tag-container.selection .tag-box[data-selected="1"] {
   background-color: #f9852c !important;
   box-shadow: none;
+}
+
+.tag-container .tag-box[data-selected="1"] .select-checkbox {
+  background-color: #c76a23;
+  border-color: #c76a23;
+}
+
+.tag-container .tag-box .tag-rename .tag-name-editable {
+  background-color: #666;
+  color: white;
+  border-color: #333;
+}
+
+.tag-container .tag-box .tag-rename span {
+  color: #D9D9D9;
 }
 
 .tag-select-message {
@@ -960,6 +1003,25 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .tag-select-message a {
   background-color: #bce5f7;
   color: #0051a5;
+}
+
+.tag-info.tag-warning {
+  color: #ffdd99;
+  background-color: #ee8800;
+}
+
+.tag-info.tag-warning a {
+  color: white;
+}
+
+.tag-info.tag-message {
+  color: #c2f5c2 ;
+  background-color:#0a0;
+}
+
+.tag-info.tag-error {
+  color: #ffd5dc;
+  background-color:#f22;
 }
 
 /* Icon colors*/

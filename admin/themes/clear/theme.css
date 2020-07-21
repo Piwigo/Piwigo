@@ -260,18 +260,15 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   font-weight: bold;
 }
 
-/* beta-test begins: specific changes on Batch Manager */
-#batchManagerGlobal legend {
-  color:#555;
+#batchManagerGlobal #applyFilter {
+  color: #3C3C3C;
+  background-color: #ececec;
 }
 
-#batchManagerGlobal fieldset {
-  margin: 0;
-  margin-top: 30px;
-  border: none;
+#batchManagerGlobal #applyFilter:hover {
+  color: white;
+  background-color: #ffc17e;
 }
-/* beta-test ends */
-
 
 .slider-info {color:#ff7700;font-weight:bold;}
 
@@ -460,7 +457,6 @@ label>p.group_select {
 
 .slider:before {
   background-color: white;
-  box-shadow:0 0 5px #777;
 }
 
 input:checked + .slider {
