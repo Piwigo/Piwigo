@@ -498,7 +498,7 @@ else
     log_user($user['id'], false);
     
     // email notification
-    if (isset($_POST['send_password_by_mail']))
+    if (isset($_POST['send_credentials_by_mail']))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
             
@@ -510,7 +510,7 @@ else
         get_l10n_args('', ''),
         get_l10n_args('Link: %s', get_absolute_root_url()),
         get_l10n_args('Username: %s', $admin_name),
-        get_l10n_args('Password: %s', $admin_pass1),
+        get_l10n_args('Password: ********** (no copy by email)', ''),
         get_l10n_args('Email: %s', $admin_mail),
         get_l10n_args('', ''),
         get_l10n_args('Don\'t hesitate to consult our forums for any help: %s', PHPWG_URL),

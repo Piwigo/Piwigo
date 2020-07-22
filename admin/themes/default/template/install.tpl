@@ -282,7 +282,7 @@ jQuery().ready(function(){ldelim}
         </label>
         <br>
         <label>
-          <input type="checkbox" name="send_password_by_mail" checked="checked">
+          <input type="checkbox" name="send_credentials_by_mail" checked="checked">
           {'Send my connection settings by email'|@translate}
         </label>
       </td>
