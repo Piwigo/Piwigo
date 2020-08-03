@@ -36,40 +36,40 @@ var openCat = {$open_cat};
     <form action="{$F_ACTION}" method="post">
       <input type="hidden" name="id" value="-1">
       <div class="choice-container">
-        <label>
-          {'Album name, A &rarr; Z'|@translate}
+        <label class="font-checkbox">
+          <span class="icon-dot-circled"> </span>
           <input type="radio" value="name ASC" name="order" checked>
-          <span class="order-checkmark"> 
+          {'Album name, A &rarr; Z'|@translate}
         </label>
 
-        <label>
-          {'Album name, Z &rarr; A'|@translate}
+        <label class="font-checkbox">
+          <span class="icon-dot-circled"> </span>
           <input type="radio" value="name DESC" name="order">
-          <span class="order-checkmark"> 
+          {'Album name, Z &rarr; A'|@translate}
         </label>
 
-        <label>
-          {'Date created, new &rarr; old'|@translate}
+        <label class="font-checkbox">
+          <span class="icon-dot-circled"> </span>
           <input type="radio" value="date_creation DESC" name="order">
-          <span class="order-checkmark"> 
+          {'Date created, new &rarr; old'|@translate}
         </label>
 
-        <label>
-          {'Date created, old &rarr; new'|@translate}
+        <label class="font-checkbox">
+          <span class="icon-dot-circled"> </span>
           <input type="radio" value="date_creation ASC" name="order">
-          <span class="order-checkmark"> 
+          {'Date created, old &rarr; new'|@translate}
         </label>
 
-        <label>
-          {'Date posted, new &rarr; old'|@translate}
+        <label class="font-checkbox">
+          <span class="icon-dot-circled"> </span>
           <input type="radio" value="date_available DESC" name="order">
-          <span class="order-checkmark"> 
+          {'Date posted, new &rarr; old'|@translate}
         </label>
 
-        <label>
-          {'Date posted, old &rarr; new'|@translate}
+        <label class="font-checkbox">
+          <span class="icon-dot-circled"> </span>
           <input type="radio" value="date_available ASC" name="order">
-          <span class="order-checkmark"> 
+          {'Date posted, old &rarr; new'|@translate}
         </label>
       </div>
       <input type="submit" name="simpleAutoOrder" value="{'Apply to direct sub-albums'|@translate}"/>

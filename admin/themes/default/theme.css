@@ -2887,7 +2887,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   background-color: #f3f3f3;
   border-radius: 10px;
   display: block;
-  width: 30%;
+  width: 25%;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -2910,40 +2910,6 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 .cat-move-order-popin label {
   position: relative;
   padding: 5px;
-  padding-left: 25px;
-}
-
-.cat-move-order-popin .order-checkmark {
-  width:16px;
-  height: 16px;
-  border-radius: 100%;
-  background-color: #d5d5d5;
-  position: absolute;
-  top: 50%;
-  left: 0px;
-  transform: translate(0, -50%);
-  transition: ease 0.3s;
-}
-
-.cat-move-order-popin .order-checkmark::before {
-  content: "";
-  padding: 0px;
-  background-color: #ffa646;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 100%; 
-  transition: ease 0.3s;
-  opacity: 0.15;
-}
-
-.cat-move-order-popin input:checked + .order-checkmark::before {
-  padding: 15px;
-}
-
-.cat-move-order-popin input:checked + .order-checkmark {
-  background-color: #ffa646;
 }
 
 .cat-move-order-popin input[type=radio] {

@@ -1035,6 +1035,15 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   box-shadow: none;
 }
 
+.cat-move-order-popin .order-popin-container {
+  background-color: #444;
+  color: white;
+}
+
+.cat-move-order-popin .album-name {
+  color: white;
+}
+
 /* Icon colors*/
 
 .icon-red {
