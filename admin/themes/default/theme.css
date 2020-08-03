@@ -446,6 +446,27 @@ TABLE.doubleSelect SELECT.categoryList {
   text-decoration: none;
 }
 
+/* Waiting Message */
+
+.waiting-message {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  margin: 10px;
+  z-index: 1000;
+  background-color: #FFBD4D;
+  color: white;
+  padding: 20px;
+  font-weight: bold;
+  border-radius: 34px;
+  transform: translateY(calc(-100% - 10px));
+  transition: 0.5s ease;
+}
+
+.waiting-message.visible {
+  transform: translateY(0%);
+}
+
 /* Statistic Page */
 
 .stat-legend-container {
@@ -2728,6 +2749,7 @@ FORM#categoryOrdering p.albumActions a {
 FORM#categoryOrdering p.albumActions a:hover {text-decoration: none;}
 FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
+/* Move Album */
 .cat-move-header {
   display: flex;
   margin: 0px 30px;
@@ -2740,9 +2762,20 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   font-size: 16px;
 }
 
+.cat-move-header .cat-move-info {
+  position: relative;
+}
+
 .cat-move-header .cat-move-info::before {
   color: grey;
   font-size: 20px;
+}
+
+.cat-move-header .cat-move-info .spinner {
+  position: absolute;
+  left: calc(100% + 6px);
+  font-size: 20px;
+  display: none;
 }
 
 .tree {
@@ -2752,11 +2785,11 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 .move-cat-container {
   display: flex;
   align-items: center;
-  box-shadow: 0px 0px 4px #acacac;
+  box-shadow: 0px 2px 3px #00000024;
   background-color: #fafafa;
   border-radius: 5px;
   color: #777;
-  padding: 10px;
+  padding: 5px 10px;
   padding-left: 20px;
 }
 
@@ -2771,7 +2804,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   display: inline-block;
   border-radius: 50%;
   font-size: 20px;
-  padding: 10px;
+  padding: 8px;
   margin: 5px;
 }
 
@@ -2781,7 +2814,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .move-cat-container .move-cat-title {
-  font-size: 20px;
+  font-size: 16px;
   margin: 10px;
   max-width: 200px;
   overflow: hidden;
@@ -2819,15 +2852,17 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 .move-cat-action {
   display: flex;
   align-items: center;
-  max-width: 70%;
+  max-width: 60%;
 }
 
 .move-cat-action a {
-  padding: 35px;
-  color: #777;
-  font-size: 12px;
+  padding: 30px 15px;
   font-weight: bold;
   cursor: pointer;
+  height: 100%;
+  border-left: 1px solid #00000012;
+  background-color: #00000003;
+  text-align: center;
 }
 
 .move-cat-action a:hover {
@@ -2835,6 +2870,108 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   text-decoration: none;
   background-color: #FFA646;
 }
+
+.cat-move-order-popin {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+  display: none;
+}
+
+.cat-move-order-popin .order-popin-container {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  display: block;
+  width: 30%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -48%);
+  text-align: left;
+  padding: 30px;
+}
+
+.cat-move-order-popin .album-name {
+  font-size: 20px;
+  color: #3C3C3C;
+}
+
+.cat-move-order-popin .choice-container {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 5px;
+}
+
+.cat-move-order-popin label {
+  position: relative;
+  padding: 5px;
+  padding-left: 25px;
+}
+
+.cat-move-order-popin .order-checkmark {
+  width:16px;
+  height: 16px;
+  border-radius: 100%;
+  background-color: #d5d5d5;
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translate(0, -50%);
+  transition: ease 0.3s;
+}
+
+.cat-move-order-popin .order-checkmark::before {
+  content: "";
+  padding: 0px;
+  background-color: #ffa646;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 100%; 
+  transition: ease 0.3s;
+  opacity: 0.15;
+}
+
+.cat-move-order-popin input:checked + .order-checkmark::before {
+  padding: 15px;
+}
+
+.cat-move-order-popin input:checked + .order-checkmark {
+  background-color: #ffa646;
+}
+
+.cat-move-order-popin input[type=radio] {
+  opacity: 0;
+}
+
+.cat-move-order-popin input[type=submit] {
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.cat-move-order-popin input[name=recursive] {
+  background-color: #d9d9d9;
+}
+
+.cat-move-order-popin input[name=recursive]:hover {
+  background-color: #ffc17e;
+}
+
+.cat-move-order-popin .close-popin {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  font-size: 30px;
+  color: white;
+}
+
+.cat-move-order-popin .close-popin:hover { color: #ffa646;}
 
 /*Overwrite JQtree CSS*/
 

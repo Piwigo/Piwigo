@@ -1,8 +1,6 @@
 $(document).ready(() => {
 
-  formatedData = $.map(data, function(value, index) {
-    return [formatInArray(value)];
-  });
+  formatedData = data;
 
   $('.tree').tree({
     data: formatedData,
@@ -23,11 +21,11 @@ $(document).ready(() => {
           +"<a class='move-cat-edit icon-pencil' href='admin.php?page=album-"+node.id+"'>"+str_edit+"</a>"
         +"</div>"
       +'</div>';
-    actions_tree ="<a class='move-cat-manage icon-cog'>"+str_manage_sub_album+"</a>"
-        +"<a class='move-cat-order icon-sort-alt-up'>"+str_apply_order+"</a>";
+    action_order = "<a data-id='"+node.id+"' class='move-cat-order icon-sort-alt-up'>"+str_apply_order+"</a>";
 
-    cont = li.find('.jqtree-element')
-    cont.addClass('move-cat-container')
+    cont = li.find('.jqtree-element');
+    cont.addClass('move-cat-container');
+    cont.attr('id', 'cat-'+node.id)
     cont.html('');
     cont.append($(icon.replace(/%icon%/g, 'icon-ellipsis-vert')));
 
@@ -37,9 +35,9 @@ $(document).ready(() => {
       cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
     }
     
-    cont.append($(title.replace(/%name%/g, node.name)))
+    cont.append($(title.replace(/%name%/g, node.name)));
     if (node.status == 'private') {
-      cont.append($(icon.replace(/%icon%/g, 'icon-lock')))
+      cont.append($(icon.replace(/%icon%/g, 'icon-lock')));
     }
 
     cont.append(actions);
@@ -55,10 +53,8 @@ $(document).ready(() => {
         .replace(/%content%/g, toggler)
         .replace(/%id%/g, node.id)));
 
-      cont.find('.move-cat-action').append(actions_tree);
+      cont.find('.move-cat-action').append(action_order);
     }
-
-
 
     var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
     var colorId = Number(node.id)%5;
@@ -66,7 +62,6 @@ $(document).ready(() => {
   }
 
   $('.tree').on( 'click', '.move-cat-toogler', function(e) {
-    console.log('clic');
     var node_id = $(this).attr('data-id');
     var node = $('.tree').tree('getNodeById', node_id);
     if (node) {
@@ -116,7 +111,7 @@ $(document).ready(() => {
                 text: str_yes_change_parent,
                 btnClass: 'btn-red',
                 action: function () {
-                  event.move_info.moved_node.status = 'private';
+                  makePrivateHierarchy(event.move_info.moved_node);
                   applyMove(event);
                 },
               },
@@ -134,16 +129,32 @@ $(document).ready(() => {
       }
     }
   );
-});
 
-function formatInArray(obj) {
-  if (obj['children'] != null) {
-    obj['children'] = $.map(obj['children'], function(value, index) {
-      return [formatInArray(value)];
-    });
+  $('.tree').on( 'click', '.move-cat-order', function(e) {
+    var node_id = $(this).attr('data-id');
+    var node = $('.tree').tree('getNodeById', node_id);
+    console.log(node);
+    if (node) {
+      $('.cat-move-order-popin').fadeIn();
+      $('.cat-move-order-popin .album-name').html(getPathNode(node));
+      $('.cat-move-order-popin input[name=id]').val(node_id);
+    }
+  });
+
+  $('.order-root').on( 'click', function() {
+    $('.cat-move-order-popin').fadeIn();
+    $('.cat-move-order-popin .album-name').html(str_root);
+    $('.cat-move-order-popin input[name=id]').val(-1);
+  });
+
+  if (openCat != -1) {
+    var node = $('.tree').tree('getNodeById', openCat);
+    $('.tree').tree('openNode', node);
+    $([document.documentElement, document.body]).animate({
+      scrollTop: $("#cat-"+openCat).offset().top
+    }, 500);
   }
-  return obj;
-}
+});
 
 function getId(parent) {
   if (parent.getLevel() == 0) {
@@ -170,6 +181,9 @@ function getRank(node, ignoreId = null) {
 }
 
 function applyMove(event) {
+  waitingTimeout = setTimeout(() => {
+    $('.waiting-message').addClass('visible');  
+  }, 500);
   id = event.move_info.moved_node.id;
   moveParent = null;
   moveRank = null;
@@ -186,7 +200,11 @@ function applyMove(event) {
     }
     moveRank = 1;
   }
-  moveNode(id, moveRank, moveParent).then(() => event.move_info.do_move())
+  moveNode(id, moveRank, moveParent).then(() => {
+    event.move_info.do_move();
+    clearTimeout(waitingTimeout);
+    $('.waiting-message').removeClass('visible');
+  })
     .catch((message) => console.log('An error has occured : ' + message ));
 }
 
@@ -198,7 +216,6 @@ function moveNode(node, rank, parent) {
       changeRank(node, rank).then(() => res()).catch(() => rej())
     }
   })
- 
 }
 
 function changeParent(node, parent) {
@@ -248,4 +265,19 @@ function changeRank(node, rank) {
       }
     });
   })
+}
+
+function makePrivateHierarchy (node) {
+  node.status = 'private';
+  node.children.forEach(node => {
+    makePrivateHierarchy(node);
+  });
+}
+
+function getPathNode(node) {
+  if (node.parent.getLevel() != 0) {
+    return getPathNode(node.parent) + ' / ' + node.name;
+  } else {
+    return node.name;
+  }
 }

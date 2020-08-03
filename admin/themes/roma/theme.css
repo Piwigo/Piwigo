@@ -1029,6 +1029,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color:#f22;
 }
 
+/* Album Move */
+.move-cat-container {
+  background-color: #333;
+  box-shadow: none;
+}
+
 /* Icon colors*/
 
 .icon-red {
