@@ -1841,7 +1841,7 @@ LEGEND {
 }
 
 #batchManagerGlobal legend {
-  font-size: 20px;
+  font-size: 14px;
   color: #444;
   margin: 10px 0;
   padding: 0;
@@ -1851,15 +1851,15 @@ LEGEND {
   padding: 5px;
   border-radius: 100%;
   margin-right: 6px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #batchManagerGlobal ul.thumbnails div.actions a {color:#fff;}
 #batchManagerGlobal ul.thumbnails span.wrap1:hover div.actions {display:flex;}
 #batchManagerGlobal #selectedMessage {padding:5px; border-radius:5px; float: right;}
 #batchManagerGlobal #applyOnDetails {text-align: center; margin-top: 8px; color: #FFA646; font-weight: bold;}
-#batchManagerGlobal .actionButtons {text-align:left; margin: 0; display: flex; flex-direction: column;}
-#batchManagerGlobal #filterList {padding-left:15px; display: flex; flex-wrap: wrap; align-items: start; margin-top: 0px;}
+#batchManagerGlobal .actionButtons {text-align:left; display: flex; flex-direction: column;}
+#batchManagerGlobal #filterList {padding-left:0px; display: flex; flex-wrap: wrap; align-items: start; margin-top: 0px;}
 #batchManagerGlobal #filterList li {
   list-style-type:none;
   background-color: #fafafa;
@@ -1879,7 +1879,7 @@ LEGEND {
 #batchManagerGlobal a.removeFilter:hover::before {color: #ffa646;}
 #batchManagerGlobal a.removeFilter:hover {color:red;}
 #batchManagerGlobal .removeFilter span {display:none}
-#batchManagerGlobal #applyFilterBlock {margin-top:20px; width: 200px;}
+#batchManagerGlobal #applyFilterBlock {width: 200px;}
 #batchManagerGlobal .useFilterCheckbox {display:none;}
 
 #batchManagerGlobal blockquote {margin:10px 0 0px 0;}
@@ -1904,7 +1904,79 @@ LEGEND {
   justify-content: space-between;
 }
 
-#order_filters a.addFilter {font-weight:normal;margin-left:20px;}
+.noFilter {
+  text-align: center;
+  font-weight: 600;
+  padding: 27px 0;
+  margin-bottom: 30px;
+  display: none;
+}
+
+.filterActions {
+  display: flex;
+}
+
+.filterActions #addFilter {
+  position: relative;
+  margin-right: 10px;
+}
+
+.filterActions .addFilter-button {
+  margin-left: 0;
+  float: left;
+  height: 45.6px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  transition: ease 0.2s;
+  background-color: #ff9b32;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 0px 8px;
+  color: white;
+  justify-content: center;
+}
+
+.filterActions .addFilter-button:hover {
+background-color: #ff7700
+}
+
+.addFilter-dropdown {
+  z-index: 100;
+  padding: 5px 0px;
+  border-radius: 10px 10px 0px 0px;
+  background: linear-gradient(130deg, #ff7700 0%, #ffa744 100%);
+  color: white;
+  position: absolute;
+  bottom:100%;
+  overflow: hidden;
+  width: 100%;
+  display: none;
+}
+
+.addFilter-dropdown a {
+  display: block;
+  text-align: initial;
+  padding: 5px 10px;
+  font-size: 12px;
+  padding-right: 15px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.addFilter-dropdown a:hover {
+  text-decoration: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.123)
+}
+
+.addFilter-dropdown a.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 #order_filters a.removeFilter {font-weight:normal;}
 #order_filters span.property span.filter:first-child a.removeFilter {display:none;} /* can't delete the first field */
 #order_filters span.filter {display:block;margin-left:20px;}
@@ -3851,9 +3923,19 @@ fieldset#environment legend i[class*="icon-"] {
   }
 }
 
-.buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
+.buttonLike, .buttonGradient, input[type="submit"], input[type="button"], input[type="reset"] {
  font-size:12px; border:none; padding:13px 20px; margin-left:0; font-weight: bold; transition: all 125ms ease-out;
 }
+
+.buttonGradient {
+  padding: 8px 10px; margin-left: 5px;
+  background: linear-gradient(135deg, rgba(255,119,0,1) 0%, rgba(249,76,93,1) 50%, rgba(201,74,140,1) 100%);
+  transition: 0.3s ease; 
+  cursor: pointer;
+  color: white !important;
+}
+
+.buttonGradient:hover {filter: brightness(1.2);}
 
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
 
@@ -3917,14 +3999,14 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .plupload_filelist_footer {display: none;}
 
 .permitActionListButton .actionButtons {display: flex; flex-direction: column;}
-.filterBlock {display: flex;}
+.filterBlock {display: flex; flex-direction: column;}
 .filterBlock li {width: 300px; height: auto;}
 #filter_dimension {width: 600px;}
 #filter_dimension .slider-choice, #filter_filesize .slider-choice {border-radius: 4px; padding: 2px 8px; margin: 0 3px;}
 #checkActions a {background-color: #f0f0f0;padding: 6px 10px;color: #777;font-weight: bold;margin: 4px;border-radius: 5px;}
 #filterList select {display: block; padding: 10px 18px; margin-bottom: 5px; width: 290px;}
 #filterList li {margin-left: 25px; margin-bottom: 15px;}
-#addFilter, #filter_tags .selectize-input.items.not-full.has-options, #filter_tags .selectize-input.items.not-full {padding: 10px 18px;}
+#filter_tags .selectize-input.items.not-full.has-options, #filter_tags .selectize-input.items.not-full {padding: 10px 18px;}
 #filter_tags .selectize-input {width: 300px; box-shadow: none; border-radius: inherit;}
 #filter_tags .selectize-control.multi.plugin-remove_button {width: 300px !important;}
 #filter_category .selectize-input.items.full.has-options.has-items {padding: 10px 18px; width: 610px; margin-bottom: 5px;}
@@ -3947,15 +4029,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .deleteDerivButtons {margin-bottom: 15px; margin-right: 51px; width: 100%; text-align: center;}
 #action_delete_derivatives label, #action_generate_derivatives label {display: flex; margin-top: 4px; width: 50%;}
 #action_delete_derivatives input[name="del_derivatives_type[]"], #action_generate_derivatives input[name="generate_derivatives_type[]"] {margin-right: 3px;}
-.actionButtonsBlock .actionButtons:first-child::after,#filter_prefilter::before,#filter_category::before,#filter_level::before,
+.actionButtons:first-child::after,#filter_prefilter::before,#filter_category::before,#filter_level::before,
 .permitActionListButton div::before, #action_level::after, .pictureLevels::before {
   content: '\e835'; font-size: 17px; position: absolute; font-family: "fontello"; color: #6E6E6E; pointer-events: none;
 }
 .permitActionListButton div::before {margin-left: 250px; margin-top: 11px;}
 .pictureLevels::before {margin-left: 216px; margin-top: 10px;}
 .permitActionListButton div.hidden::after {display: none;}
-.actionButtonsBlock {width: 200px;}
-.actionButtonsBlock .actionButtons:first-child::after {margin-left: 169px; margin-top: 11px;}
 #filter_prefilter::before {margin-left: 257px; margin-top: 35px;}
 #filter_category .selectize-control.single .selectize-input::after {content: none;}
 #filter_category {width: 600px;}
@@ -3963,7 +4043,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_level::before {margin-top: 34px; margin-left: 260px;}
 #action_level::after {margin-top: -56px; margin-left: 254px;}
 #filter_search input {width: 300px; box-sizing: border-box; padding: 11px 18px;}
-#addFilter, #applyFilter,#filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select, #permitAction select{
+#applyFilter,#filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select, #permitAction select{
 	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	-webkit-appearance: none;
 	font-weight: 700;

@@ -333,32 +333,9 @@ var sliders = {
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   <fieldset>
-    <legend><span class='icon-th icon-blue'></span>{'Filter'|@translate}</legend>
+    <legend><span class='icon-filter icon-green'></span>{'Filter'|@translate}</legend>
 
     <div class="filterBlock">
-      <div class="actionButtonsBlock">
-        <p class="actionButtons">
-          <select id="addFilter">
-            <option value="-1">{'Add a filter'|@translate}</option>
-            <option disabled="disabled">------------------</option>
-            <option value="filter_prefilter" {if isset($filter.prefilter)}disabled="disabled"{/if}>{'Predefined filter'|@translate}</option>
-            <option value="filter_category" {if isset($filter.category)}disabled="disabled"{/if}>{'Album'|@translate}</option>
-            <option value="filter_tags" {if isset($filter.tags)}disabled="disabled"{/if}>{'Tags'|@translate}</option>
-            <option value="filter_level" {if isset($filter.level)}disabled="disabled"{/if}>{'Privacy level'|@translate}</option>
-            <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
-            <option value="filter_filesize" {if isset($filter.filesize)}disabled="disabled"{/if}>{'Filesize'|@translate}</option>
-    				<option value="filter_search"{if isset($filter.search)} disabled="disabled"{/if}>{'Search'|@translate}</option>
-          </select>
-          <a id="removeFilters" class="icon-cancel" style="display: none;">{'Remove all filters'|@translate}</a>
-        </p>
-
-        <p class="actionButtons" id="applyFilterBlock">
-          <button id="applyFilter" name="submitFilter" type="submit">
-            <i class="icon-arrows-cw"></i> {'Refresh photo set'|@translate}
-          </button>
-        </p>
-      </div>
-
       <ul id="filterList">
         <li id="filter_prefilter" {if !isset($filter.prefilter)}style="display:none"{/if}>
           <input type="checkbox" name="filter_prefilter_use" class="useFilterCheckbox" {if isset($filter.prefilter)}checked="checked"{/if}>
@@ -529,13 +506,35 @@ var sliders = {
           </blockquote>
         </li>
       </ul>
+
+      <div class='noFilter'>{'No filter, add one'|@translate}</div>
+
+      <div class="filterActions">
+        <div id="addFilter">
+          <div class="addFilter-button icon-plus" onclick="$('.addFilter-dropdown').slideToggle()">{'Add a filter'|@translate}</div>
+          <div class="addFilter-dropdown">
+            <a data-value="filter_prefilter" {if isset($filter.prefilter)}class="disabled"{/if}>{'Predefined filter'|@translate}</a>
+            <a data-value="filter_category" {if isset($filter.category)}class="disabled"{/if}>{'Album'|@translate}</a>
+            <a data-value="filter_tags" {if isset($filter.tags)}class="disabled"{/if}>{'Tags'|@translate}</a>
+            <a data-value="filter_level" {if isset($filter.level)}class="disabled"{/if}>{'Privacy level'|@translate}</a>
+            <a data-value="filter_dimension" {if isset($filter.dimension)}class="disabled"{/if}>{'Dimensions'|@translate}</a>
+            <a data-value="filter_filesize" {if isset($filter.filesize)}class="disabled"{/if}>{'Filesize'|@translate}</a>
+            <a data-value="filter_search"{if isset($filter.search)} class="disabled"{/if}>{'Search'|@translate}</a>
+          </div>
+          <a id="removeFilters" class="icon-cancel" style="display: none;">{'Remove all filters'|@translate}</a>
+        </div>
+
+        <button id="applyFilter" name="submitFilter" type="submit">
+          <i class="icon-arrows-cw"></i> {'Refresh photo set'|@translate}
+        </button>
+      </div>
     </div>
 
   </fieldset>
 
   <fieldset>
 
-    <legend><span class='icon-filter icon-green'></span>{'Selection'|@translate}</legend>
+    <legend><span class='icon-check icon-blue '></span>{'Selection'|@translate}</legend>
 
   {if !empty($thumbnails)}
   <p id="checkActions">

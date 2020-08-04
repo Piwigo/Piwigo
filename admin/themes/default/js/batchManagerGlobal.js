@@ -8,7 +8,10 @@ function filter_enable(filter) {
 	$("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
 
 	/* forbid to select this filter in the addFilter list */
-	$("#addFilter").find("option[value="+filter+"]").attr("disabled", "disabled");
+  $("#addFilter").find("a[data-value="+filter+"]").addClass("disabled", "disabled");
+  
+  /* hide the no filter message */
+  $('.noFilter').hide();
 }
 
 function filter_disable(filter) {
@@ -19,7 +22,13 @@ function filter_disable(filter) {
 	$("input[name="+filter+"_use]").prop("checked", false);
 
 	/* give the possibility to show it again */
-	$("#addFilter").find("option[value="+filter+"]").removeAttr("disabled");
+  $("#addFilter").find("a[data-value="+filter+"]").removeClass("disabled");
+  
+  /* show the no filter message if no filter selected */
+  if ($('#filterList li:visible').length == 0) {
+    $('.noFilter').show();
+  }
+  
 }
 
 $(".removeFilter").addClass("icon-cancel-circled");
@@ -31,10 +40,9 @@ $(".removeFilter").click(function () {
 	return false;
 });
 
-$("#addFilter").change(function () {
-	var filter = $(this).prop("value");
+$("#addFilter a").on('click', function () {
+	var filter = $(this).attr("data-value");
 	filter_enable(filter);
-	$(this).prop("value", -1);
 });
 
 $("#removeFilters").click(function() {
@@ -50,6 +58,13 @@ $('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
 $('[data-slider=ratios]').pwgDoubleSlider(sliders.ratios);
 $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
 
+
+$(document).mouseup(function (e) {
+  e.stopPropagation();
+  if (!$(event.target).hasClass('addFilter-button')) {
+    $('.addFilter-dropdown').slideUp();
+  }
+});
 
 /* ********** Thumbs */
 
