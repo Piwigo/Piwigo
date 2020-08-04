@@ -83,6 +83,7 @@
 .icon-users-cog:before { content: '\e841'; } /* '' */
 .icon-trash-1:before { content: '\e842'; } /* '' */
 .icon-zoom-square:before { content: '\e843'; } /* '' */
+.icon-grip-vertical-solid:before { content: '\e844'; } /* '' */
 .icon-hdd:before { content: '\f0a0'; } /* '' */
 .icon-tasks:before { content: '\f0ae'; } /* '' */
 .icon-filter:before { content: '\f0b0'; } /* '' */
@@ -92,6 +93,7 @@
 .icon-sitemap:before { content: '\f0e8'; } /* '' */
 .icon-circle-empty:before { content: '\f10c'; } /* '' */
 .icon-crop:before { content: '\f125'; } /* '' */
+.icon-ellipsis:before { content: '\f141'; } /* '' */
 .icon-ellipsis-vert:before { content: '\f142'; } /* '' */
 .icon-sort-name-up:before { content: '\f15d'; } /* '' */
 .icon-sort-alt-up:before { content: '\f160'; } /* '' */
@@ -99,7 +101,10 @@
 .icon-sort-number-up:before { content: '\f162'; } /* '' */
 .icon-right:before { content: '\f178'; } /* '' */
 .icon-dot-circled:before { content: '\f192'; } /* '' */
+.icon-file-image:before { content: '\f1c5'; } /* '' */
 .icon-lifebuoy:before { content: '\f1cd'; } /* '' */
+.icon-toggle-off:before { content: '\f204'; } /* '' */
+.icon-toggle-on:before { content: '\f205'; } /* '' */
 .icon-television:before { content: '\f26c'; } /* '' */
 .icon-picture:before { content: '🌄'; } /* '\1f304' */
 .icon-shuffle:before { content: '🔀'; } /* '\1f500' */
