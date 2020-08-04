@@ -1064,9 +1064,7 @@ a.stat-box:hover {
   border:none;
   padding-left:20px;
 }
-#configContent fieldset:not(.no-border) {
-  border-top:1px solid #bbb;
-}
+
 #configContent legend {
   padding-left:0;
   margin-left:-20px;
@@ -1813,7 +1811,16 @@ INPUT[type="radio"], INPUT[type="checkbox"] {
 
 LEGEND {
   font-weight: bold;
-  padding: 0 10px;
+  font-size: 14px;
+  margin: 10px 0;
+  padding: 0;
+}
+
+LEGEND SPAN {
+  padding: 2px;
+  border-radius: 100%;
+  margin-right: 6px;
+  font-size: 18px;
 }
 
 /* Batch Manager, global mode */
@@ -1848,7 +1855,7 @@ LEGEND {
 }
 
 #batchManagerGlobal legend span {
-  padding: 5px;
+  padding: 3px;
   border-radius: 100%;
   margin-right: 6px;
   font-size: 16px;

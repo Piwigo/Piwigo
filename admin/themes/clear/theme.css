@@ -87,7 +87,6 @@ UL.thumbnails span.wrap2 {
 /* borders */
 fieldset {
   border: none;
-  border-top: 2px solid #ddd;
 }
 
 fieldset.with-border {

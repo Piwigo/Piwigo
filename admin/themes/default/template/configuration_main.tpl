@@ -69,7 +69,7 @@ jQuery("input[name='mail_theme']").change(function() {
 <div id="configContent">
 
   <fieldset class="mainConf">
-    <legend>{'Basic settings'|translate}</legend>
+    <legend><span class="icon-cog icon-purple"></span>{'Basic settings'|translate}</legend>
     <ul>
       <li>
         <label for="gallery_title">{'Gallery title'|translate}</label>
@@ -105,7 +105,7 @@ jQuery("input[name='mail_theme']").change(function() {
   </fieldset>
 
   <fieldset class="mainConf">
-    <legend>{'Permissions'|translate}</legend>
+    <legend><span class="icon-lock icon-yellow"></span>{'Permissions'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -154,7 +154,7 @@ jQuery("input[name='mail_theme']").change(function() {
   </fieldset>
 
   <fieldset class="mainConf">
-    <legend>{'Miscellaneous'|translate}</legend>
+    <legend><span class="icon-wrench icon-blue"></span>{'Miscellaneous'|translate}</legend>
     <ul>
       <li>
         <label>{'Week starts on'|translate}

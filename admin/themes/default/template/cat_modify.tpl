@@ -171,7 +171,7 @@ jQuery(document).ready(function() {
 <div id="catModify">
 
 <fieldset>
-  <legend>{'Informations'|@translate}</legend>
+  <legend><span class="icon-info-circled-1 icon-blue"></span>{'Informations'|@translate}</legend>
 
   <table style="width:100%">
     <tr>
@@ -227,7 +227,7 @@ jQuery(document).ready(function() {
 
 <form action="{$F_ACTION}" method="POST">
 <fieldset>
-  <legend>{'Properties'|@translate}</legend>
+  <legend><span class="icon-tools icon-red"></span>{'Properties'|@translate}</legend>
   <p>
     <strong>{'Name'|@translate}</strong>
     <br>

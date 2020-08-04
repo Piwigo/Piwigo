@@ -290,7 +290,7 @@ jQuery(document).ready(function(){
 
   <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
     <fieldset class="selectAlbum">
-      <legend>{'Drop into album'|@translate}</legend>
+      <legend><span class="icon-folder-open icon-red"></span>{'Drop into album'|@translate}</legend>
       <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{$ADD_TO_ALBUM}</span></div>
       <div class="selectAlbumBlock"{if isset($ADD_TO_ALBUM)} style="display: none"{/if}>
         <a href="#" data-add-album="category" title="{'create a new album'|@translate}" class="icon-plus"></a>
@@ -312,7 +312,7 @@ jQuery(document).ready(function(){
     </fieldset>
 *}
     <fieldset class="selectFiles">
-      <legend>{'Select files'|@translate}</legend>
+      <legend><span class="icon-docs icon-yellow"></span>{'Select files'|@translate}</legend>
       <div class="selectFilesButtonBlock">
         <button id="addFiles" class="buttonGradient">{'Add Photos'|translate}<i class="icon-plus-circled"></i></button>
         <div class="selectFilesinfo">

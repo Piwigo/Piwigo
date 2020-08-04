@@ -24,7 +24,7 @@
 <div id="configContent">
 
   <fieldset id="indexDisplayConf">
-    <legend>{'Main Page'|translate}</legend>
+    <legend><span class="icon-television icon-green"></span>{'Main Page'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -124,7 +124,7 @@
   </fieldset>
 
   <fieldset id="pictureDisplayConf">
-    <legend>{'Photo Page'|translate}</legend>
+    <legend><span class="icon-picture icon-blue"></span>{'Photo Page'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -217,7 +217,7 @@
   </fieldset>
 
   <fieldset id="pictureInfoConf">
-    <legend>{'Photo Properties'|translate}</legend>
+    <legend><span class="icon-cog icon-red"></span>{'Photo Properties'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">

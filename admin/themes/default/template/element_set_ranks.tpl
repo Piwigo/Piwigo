@@ -47,7 +47,7 @@ jQuery('.thumbnail').tipTip({
 {if !empty($thumbnails)}
   <p><input type="submit" value="{'Submit'|@translate}" name="submit"></p>
   <fieldset>
-    <legend>{'Manual order'|@translate}</legend>
+    <legend><span class="icon-sort-alt-down icon-blue"></span>{'Manual order'|@translate}</legend>
     {if !empty($thumbnails)}
     <p>{'Drag to re-order'|@translate}</p>
     <ul class="thumbnails">
@@ -63,7 +63,7 @@ jQuery('.thumbnail').tipTip({
 {/if}
 
   <fieldset>
-    <legend>{'Sort order'|@translate}</legend>
+    <legend><span class="icon-sort-name-up icon-red"></span>{'Sort order'|@translate}</legend>
     <p class="field">
       <label class="font-checkbox">
         <span class="icon-dot-circled"></span>
