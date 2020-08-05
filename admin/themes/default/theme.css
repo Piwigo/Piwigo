@@ -6,7 +6,7 @@
 /* content.css */
 [class*="icon-"]:before { text-decoration:none !important; }
 
-.showInfo { font-size:15px;cursor:pointer;line-height:15px; }
+.showInfo { font-size:15px;cursor:pointer;line-height:15px; display: flex; align-items: center;}
 
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
 .content h2 {margin: 0; padding: 5px 0.5em 5px 0.5em; text-align: right; font-size: 120%;}
@@ -1476,15 +1476,31 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 #thePopuphelpPage #pwgHead {display:none}
 #thePopuphelpPage #footer  {display:none}
 
-.themeBox {display:inline-table; text-align:center; height:192px; background-color:#eee; margin:5px; border-radius:5px; overflow:hidden; }
+.themeBox {display: inline-table;text-align: center;height: 192px;margin: 0px 0px 15px 15px;overflow: hidden; position: relative;}
+.themeShot a {height: 140px; width: 200px; position: relative; overflow: hidden; display: block;}
 
-.themeBox IMG {border:1px solid white; margin:0 15px;}
-.themeName {font-size:1em; margin:5px 0; position:relative; }
-.themeActions {display: table-row; font-size:12px; height: 43px; }
-.themeActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
-.themeActions A {}
+.themeBox IMG {margin:0px; 
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 100%;
+max-height: 100%;}
+.themeName {font-size:14px; margin:10px; position:relative; text-transform: capitalize; font-weight: bold; text-align: left; white-space: nowrap; max-width: 180px; overflow: hidden; text-overflow: ellipsis;}
+.themeName em {font-weight: normal;}
+.themeName .showInfo {position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
+.themeBox .showInfo-dropdown {position: absolute; right: 0px; transform: translateX(38%); display: none; text-align: left; padding-bottom: 0;}
+.showInfo-dropdown-header {padding: 5px 10px; white-space: nowrap; font-weight: bold; font-size: 12px;}
+.showInfo-dropdown-content {padding: 5px 10px}
+.showInfo-dropdown-action {padding: 8px 10px; border-top: 1px solid #ffffff45; color: white; text-decoration: none !important; display: block; margin-top: 5px; border-radius: 0px 0px 10px 10px; font-weight: bold;}
+.showInfo-dropdown-action:hover {background-color: rgba(0, 0, 0, 0.192); color: white;}
+.themeActions {display: flex;flex-direction: column; color: white;}
+.themeActions DIV {display: table-cell; vertical-align: middle; line-height:18px;}
+.themeActions span, .themeActions a {padding: 6px 5px; margin: 0px 10px 10px 10px; font-weight: bold; font-size: 12px;}
 
-#themesContent .themeBox IMG {width:150px; height:120px;}
+.themeActions a {background-color: #ffc17e; color: #222;}
+.themeActions a:hover {background-color: #ff7700; color: white; text-decoration: none;}
+
 #themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
 .themeBoxes {min-height:0;text-align:left;}
 
@@ -1699,11 +1715,12 @@ h2:lang(en) { text-transform:capitalize; }
 
 .pluginMiniBox .PluginOptionsIcons,
 .themeBox .PluginOptionsIcons{ 
-  display:block;
+  display:flex;
   position:absolute;
   top:0;
   right:-6px;
-  padding: 13px;}
+  padding: 13px;
+}
 
 
  .PluginOptionsBlock{
@@ -1817,10 +1834,10 @@ LEGEND {
 }
 
 LEGEND SPAN {
-  padding: 2px;
+  padding: 4px;
   border-radius: 100%;
   margin-right: 6px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 /* Batch Manager, global mode */

@@ -206,11 +206,13 @@ INPUT[type="text"].large  { width: 317px; }
 *+html  .bigbutton input, * html  .bigbutton input  { left:0px; position:relative; top:-40px; }
 * html .bigtext { margin-right: 300px; }
 
-.themeBox {background-color:#ddd;}
-.themeBox IMG {border:1px solid white;}
+.themeBox {background-color:#fafafa; box-shadow: 0px 0px 5px #acacac;}
 .themeName {color:black;}
+.themeActions span {background-color: #ddd;}
+.themeActions a {background-color: #ffc17e; color: #222;}
+.themeActions a:hover {background-color: #ff7700; color: white; text-decoration: none;}
 #themesContent H3 {border-bottom:1px solid #aaa;}
-.themeDefault {background-color:#dbe8f3;}
+.themeDefault {}
 
 #pluginsMenuSeparator {border:1px solid #555;}
 

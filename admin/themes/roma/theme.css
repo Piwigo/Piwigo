@@ -278,11 +278,10 @@ a.stat-box:hover {
 * html .bigtext { margin-right: 300px; }
 
 .themeBox {background-color:#333;}
-.themeBox IMG {border:1px solid #666;}
 .themeName {color:#ccc;}
 .themeActions A {border-bottom:none;}
-.themeDefault {background-color:#555;}
-
+.themeActions span {background-color: #888888;color: #666666;}
+.showInfo-dropdown-header a {color:#3A3A3A}
 #pluginsMenuSeparator {border:1px solid #333;}
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
@@ -728,10 +727,6 @@ input:focus + .slider {
 .user_form_popin .ui-slider-horizontal{
   background-color:#151515;
 
-}
-
-#configContent fieldset:not(.no-border) {
-  border-top-color:#444;
 }
 
 table.dataTable tr.even {
