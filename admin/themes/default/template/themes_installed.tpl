@@ -5,6 +5,21 @@ jQuery(document).ready(function() {
   $("a.preview-box").colorbox();
   
   $('.themeBox').each(function() {
+
+    let screenImage = $(this).find(".preview-box img");
+    let size = $(this).find(".preview-box").width();
+
+    let theImage = new Image();
+    theImage.src = screenImage.attr("src");
+
+    if (theImage.width > theImage.height) {
+      screenImage.css('height', size+'px');
+      screenImage.css('width', (theImage.width * size / theImage.height)+'px');
+    } else {
+      screenImage.css('width', size+'px');
+      screenImage.css('heigth', (theImage.height * size / theImage.width)+'px');
+    }
+
     let box = $(this);
     box.find('.showInfo').on('click', function() {
       console.log('click')
@@ -89,9 +104,9 @@ jQuery(document).ready(function() {
         <a href="{$theme.ADMIN_URI}" class="icon-cog">{'Configuration'|@translate}</a>
   {/if}
   {if not $theme.IS_DEFAULT}
-        <a href="{$set_default_baseurl}{$theme.ID}" class="tiptip" title="{'Set as default theme for unregistered and new users'|@translate}">{'Set default'|@translate}</a>
+        <a href="{$set_default_baseurl}{$theme.ID}" class="tiptip" title="{'Set as default theme for unregistered and new users'|@translate}">{'Set as default'|@translate}</a>
   {else}
-        <span class="tiptip" title="{'Theme is already set to default'|@translate}">{'Set default'|@translate}</span>
+        <span class="tiptip" title="{'Theme is already set to default'|@translate}">{'Set as default'|@translate}</span>
   {/if}
 {else}
   {if $theme.ACTIVABLE}

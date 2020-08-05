@@ -212,13 +212,13 @@ jQuery(".pluginMiniBox").each(function(index){
       <div class="pluginBoxesTitle">
         <p>
         {if $plugin.STATE == 'active'}
-          {'Active Plugins'|@translate}
+          <span class="icon-purple icon-toggle-on"></span>{'Active Plugins'|@translate}
         {elseif $plugin.STATE == 'inactive'}
-          {'Inactive Plugins'|@translate}
+          <span class="icon-red icon-toggle-off"></span>{'Inactive Plugins'|@translate}
         {elseif $plugin.STATE == 'missing'}
-          {'Missing Plugins'|@translate}
+          <span class="icon-green icon-toggle-off"></span>{'Missing Plugins'|@translate}
         {elseif $plugin.STATE == 'merged'}
-          {'Obsolete Plugins'|@translate}
+          <span class="icon-yellow icon-toggle-off"></span>{'Obsolete Plugins'|@translate}
         {/if}
         </p>
         <div class="pluginBoxesCount">{$count_types_plugins[$plugin.STATE]}</div>

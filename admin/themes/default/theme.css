@@ -1476,17 +1476,13 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 #thePopuphelpPage #pwgHead {display:none}
 #thePopuphelpPage #footer  {display:none}
 
-.themeBox {display: inline-table;text-align: center;height: 192px;margin: 0px 0px 15px 15px;overflow: hidden; position: relative;}
-.themeShot a {height: 140px; width: 200px; position: relative; overflow: hidden; display: block;}
+.themeBox {display: inline-table;text-align: center;height: 192px;margin: 0px 0px 15px 15px; position: relative;}
+.themeShot a {height: 200px; width: 200px; position: relative; overflow: hidden; display: block;}
+.add-theme .themeShot a {height: 140px !important; width: 140px !important;}
 
-.themeBox IMG {margin:0px; 
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 100%;
-max-height: 100%;}
+.themeBox IMG {margin:0px; position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);}
 .themeName {font-size:14px; margin:10px; position:relative; text-transform: capitalize; font-weight: bold; text-align: left; white-space: nowrap; max-width: 180px; overflow: hidden; text-overflow: ellipsis;}
+.add-theme .themeName {max-width: 120px}
 .themeName em {font-weight: normal;}
 .themeName .showInfo {position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
 .themeBox .showInfo-dropdown {position: absolute; right: 0px; transform: translateX(38%); display: none; text-align: left; padding-bottom: 0;}
@@ -1494,12 +1490,16 @@ max-height: 100%;}
 .showInfo-dropdown-content {padding: 5px 10px}
 .showInfo-dropdown-action {padding: 8px 10px; border-top: 1px solid #ffffff45; color: white; text-decoration: none !important; display: block; margin-top: 5px; border-radius: 0px 0px 10px 10px; font-weight: bold;}
 .showInfo-dropdown-action:hover {background-color: rgba(0, 0, 0, 0.192); color: white;}
-.themeActions {display: flex;flex-direction: column; color: white;}
+.themeActions {display: flex;flex-direction: column;}
 .themeActions DIV {display: table-cell; vertical-align: middle; line-height:18px;}
 .themeActions span, .themeActions a {padding: 6px 5px; margin: 0px 10px 10px 10px; font-weight: bold; font-size: 12px;}
+.themeActions span {font-size: 11px; background-color: #ddd; opacity: 0.5; color: ;}
 
-.themeActions a {background-color: #ffc17e; color: #222;}
-.themeActions a:hover {background-color: #ff7700; color: white; text-decoration: none;}
+.themeActions a:nth-child(1) {background-color: #ffc17e; color: #222;}
+.themeActions a:nth-child(1):hover {background-color: #ff7700; color: white; text-decoration: none;}
+
+.themeActions a:nth-child(2) {background-color: #ececec; color: #222;}
+.themeActions a:nth-child(2):hover {background-color: #ff9b32; color: #111; text-decoration: none;}
 
 #themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
 .themeBoxes {min-height:0;text-align:left;}
@@ -1605,7 +1605,7 @@ h2:lang(en) { text-transform:capitalize; }
 
 .pluginBoxesTitle {font-size: 16px;}
 .pluginBoxesTitle p {margin-right: 10px;}
-
+.pluginBoxesTitle span {border-radius: 50%; margin-right: 5px; padding: 4px}
 
 .pluginBoxesTitle {display: flex;align-items: center}
 .pluginFilter {justify-content: end;position: absolute;right: 20px; z-index: 2; transform: translateY(6px);}
@@ -1710,7 +1710,7 @@ h2:lang(en) { text-transform:capitalize; }
   background-color: #ececec;
 }
 .plugin-inactive .pluginContent .pluginActionLevel1:hover{
-  background-color:#ffc17e;
+  background-color:#ff9b32;
 }
 
 .pluginMiniBox .PluginOptionsIcons,
@@ -1888,7 +1888,7 @@ LEGEND SPAN {
   list-style-type:none;
   background-color: #fafafa;
   padding: 10px;
-  margin: 0px 5px 10px 5px;
+  margin: 0px 10px 10px 0px;
   box-shadow: 0px 2px 1px #00000024;
   border-radius: 5px;
   position: relative;
@@ -1943,27 +1943,6 @@ LEGEND SPAN {
 .filterActions #addFilter {
   position: relative;
   margin-right: 10px;
-}
-
-.filterActions .addFilter-button {
-  margin-left: 0;
-  float: left;
-  height: 45.6px;
-  font-size: 1em;
-  border: none;
-  cursor: pointer;
-  transition: ease 0.2s;
-  background-color: #ff9b32;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  padding: 0px 8px;
-  color: white;
-  justify-content: center;
-}
-
-.filterActions .addFilter-button:hover {
-background-color: #ff7700
 }
 
 .addFilter-dropdown {
@@ -4035,7 +4014,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_tags .selectize-control.multi.plugin-remove_button {width: 300px !important;}
 #filter_category .selectize-input.items.full.has-options.has-items {padding: 10px 18px; width: 610px; margin-bottom: 5px;}
 #filterList .selectize-input.items.not-full.has-options {margin-bottom: 5px;}
-#applyFilter {margin-left: 0;float: left;height: 45.6px;font-size: 1em;border: none;cursor: pointer;transition: ease 0.2s;display: flex;align-items: center;justify-content: center;}
+#applyFilter, .addFilter-button {margin-left: 0;float: left;height: 45.6px;font-size: 1em;border: none;cursor: pointer;transition: ease 0.2s;display: flex;align-items: center;justify-content: center; padding: 0px 10px;}
 #applyFilter.activated {background-color: #FFA646; color: #3C3C3C;}
 #removeFilters {margin-top: 20px; margin-left: 13px;}
 .filter_search_input {padding: 10px 0px; width: 300px;}
@@ -4067,7 +4046,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_level::before {margin-top: 34px; margin-left: 260px;}
 #action_level::after {margin-top: -56px; margin-left: 254px;}
 #filter_search input {width: 300px; box-sizing: border-box; padding: 11px 18px;}
-#applyFilter,#filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select, #permitAction select{
+#applyFilter, #addFilter,#filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select, #permitAction select{
 	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	-webkit-appearance: none;
 	font-weight: 700;

@@ -312,7 +312,7 @@ jQuery(document).ready(function(){
     </fieldset>
 *}
     <fieldset class="selectFiles">
-      <legend><span class="icon-docs icon-yellow"></span>{'Select files'|@translate}</legend>
+      <legend><span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}</legend>
       <div class="selectFilesButtonBlock">
         <button id="addFiles" class="buttonGradient">{'Add Photos'|translate}<i class="icon-plus-circled"></i></button>
         <div class="selectFilesinfo">

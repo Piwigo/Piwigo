@@ -209,8 +209,6 @@ INPUT[type="text"].large  { width: 317px; }
 .themeBox {background-color:#fafafa; box-shadow: 0px 0px 5px #acacac;}
 .themeName {color:black;}
 .themeActions span {background-color: #ddd;}
-.themeActions a {background-color: #ffc17e; color: #222;}
-.themeActions a:hover {background-color: #ff7700; color: white; text-decoration: none;}
 #themesContent H3 {border-bottom:1px solid #aaa;}
 .themeDefault {}
 
@@ -261,14 +259,25 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   font-weight: bold;
 }
 
-#batchManagerGlobal #applyFilter {
+#batchManagerGlobal #applyFilter,#batchManagerGlobal .addFilter-button {
   color: #3C3C3C;
   background-color: #ececec;
 }
 
-#batchManagerGlobal #applyFilter:hover {
-  color: white;
+#batchManagerGlobal #applyFilter:hover, #batchManagerGlobal .addFilter-button:hover {
+  color: #111;
+  background-color: #ff9b32 ;
+}
+
+#batchManagerGlobal .addFilter-button.highlight {
+  color: #3C3C3C;
   background-color: #ffc17e;
+}
+
+#batchManagerGlobal .addFilter-button.highlight:hover {
+  background-color: #ff7700;
+  color: white;
+  text-decoration: none;
 }
 
 .slider-info {color:#ff7700;font-weight:bold;}

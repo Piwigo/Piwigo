@@ -12,6 +12,7 @@ function filter_enable(filter) {
   
   /* hide the no filter message */
   $('.noFilter').hide();
+  $('.addFilter-button').removeClass('highlight');
 }
 
 function filter_disable(filter) {
@@ -27,6 +28,7 @@ function filter_disable(filter) {
   /* show the no filter message if no filter selected */
   if ($('#filterList li:visible').length == 0) {
     $('.noFilter').show();
+    $('.addFilter-button').addClass('highlight');
   }
   
 }
