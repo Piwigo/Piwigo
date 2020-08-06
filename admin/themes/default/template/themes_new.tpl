@@ -7,18 +7,21 @@ jQuery(document).ready(function() {
   $('.themeBox').each(function() {
 
     let screenImage = $(this).find(".preview-box img");
-    let size = $(this).find(".preview-box").width();
+    screenImage.on( 'load', () => {
+      let imageW = screenImage.innerWidth();
+      let imageH = screenImage.innerHeight();
+      let size = $(this).find(".preview-box").innerWidth();
 
-    let theImage = new Image();
-    theImage.src = screenImage.attr("src");
+      console.log(screenImage.innerHeight())
 
-    if (theImage.width > theImage.height) {
-      screenImage.css('height', size+'px');
-      screenImage.css('width', (theImage.width * size / theImage.height)+'px');
-    } else {
-      screenImage.css('width', size+'px');
-      screenImage.css('height', (theImage.height * size / theImage.width)+'px');
-    }
+      if (imageW > imageH) {
+        screenImage.css('height', size+'px');
+        screenImage.css('width', (imageW * size / imageH)+'px');
+      } else {
+        screenImage.css('width', size+'px');
+        screenImage.css('heigth', (imageH * size / imageW)+'px');
+      }
+    });
   })
 }); 
 {/literal}{/footer_script}
@@ -29,8 +32,8 @@ jQuery(document).ready(function() {
 {if not empty($new_themes)}
 <div class="themeBoxes">
 {foreach from=$new_themes item=theme name=themes_loop}
-<div class="themeBox add-theme">
-  <div class="themeShot"><a href="{$theme.screenshot}" class="preview-box" title="{$theme.name}"><img src="{$theme.thumbnail}" onerror="this.src='{$default_screenshot}'"></a></div>
+<div class="themeBox">
+  <div class="themeShot"><a href="{$theme.screenshot}" class="preview-box" title="{$theme.name}"><img src="{$theme.screenshot}" onerror="this.src='{$default_screenshot}'"></a></div>
   <div class="themeName" title="{$theme.name}">{$theme.name}</div>
   <div class="themeActions"><a href="{$theme.install_url}">{'Install'|@translate}</a></div>
 </div>

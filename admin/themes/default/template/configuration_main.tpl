@@ -57,8 +57,8 @@
 jQuery(".themeBoxes a").colorbox();
 
 jQuery("input[name='mail_theme']").change(function() {
-  jQuery("input[name='mail_theme']").parents(".themeBox").removeClass("themeDefault");
-  jQuery(this).parents(".themeBox").addClass("themeDefault");
+  jQuery("input[name='mail_theme']").parents(".themeSelect").removeClass("themeDefault");
+  jQuery(this).parents(".themeSelect").addClass("themeDefault");
 });
 {/footer_script}
 
@@ -188,7 +188,7 @@ jQuery("input[name='mail_theme']").change(function() {
 
         <div class="themeBoxes font-checkbox">
         {foreach from=$main.mail_theme_options item=name key=theme}
-          <div class="themeBox {if $main.mail_theme==$theme}themeDefault{/if}">
+          <div class="themeSelect {if $main.mail_theme==$theme}themeDefault{/if}">
             <label class="font-checkbox">
               <div class="themeName">
                 <span class="icon-dot-circled"></span>

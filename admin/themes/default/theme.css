@@ -1478,14 +1478,13 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 
 .themeBox {display: inline-table;text-align: center;height: 192px;margin: 0px 0px 15px 15px; position: relative;}
 .themeShot a {height: 200px; width: 200px; position: relative; overflow: hidden; display: block;}
-.add-theme .themeShot a {height: 140px !important; width: 140px !important;}
 
 .themeBox IMG {margin:0px; position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);}
 .themeName {font-size:14px; margin:10px; position:relative; text-transform: capitalize; font-weight: bold; text-align: left; white-space: nowrap; max-width: 180px; overflow: hidden; text-overflow: ellipsis;}
-.add-theme .themeName {max-width: 120px}
 .themeName em {font-weight: normal;}
 .themeName .showInfo {position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
 .themeBox .showInfo-dropdown {position: absolute; right: 0px; transform: translateX(38%); display: none; text-align: left; padding-bottom: 0;}
+.themeSelect {box-shadow: 0px 2px 1px #00000024; display: inline-block; text-align: center; padding: 0px 10px 8px 10px; margin-right: 10px; transition: 0.4s ease;}
 .showInfo-dropdown-header {padding: 5px 10px; white-space: nowrap; font-weight: bold; font-size: 12px;}
 .showInfo-dropdown-content {padding: 5px 10px}
 .showInfo-dropdown-action {padding: 8px 10px; border-top: 1px solid #ffffff45; color: white; text-decoration: none !important; display: block; margin-top: 5px; border-radius: 0px 0px 10px 10px; font-weight: bold;}

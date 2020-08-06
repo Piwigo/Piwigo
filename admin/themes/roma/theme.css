@@ -279,6 +279,9 @@ a.stat-box:hover {
 
 .themeBox {background-color:#333;}
 .themeName {color:#ccc;}
+.themeSelect {background-color: #333; box-shadow: none;}
+.themeDefault {background-color: #f9852c;}
+.themeDefault a, .themeDefault span, .themeDefault .themeName{ color:#333;}
 .themeActions A {border-bottom:none;}
 .themeActions span {background-color: #888888;color: #666666;}
 .showInfo-dropdown-header a {color:#3A3A3A}

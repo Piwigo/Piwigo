@@ -7,22 +7,24 @@ jQuery(document).ready(function() {
   $('.themeBox').each(function() {
 
     let screenImage = $(this).find(".preview-box img");
-    let size = $(this).find(".preview-box").width();
+    screenImage.on( 'load', () => {
+      let imageW = screenImage.innerWidth();
+      let imageH = screenImage.innerHeight();
+      let size = $(this).find(".preview-box").innerWidth();
 
-    let theImage = new Image();
-    theImage.src = screenImage.attr("src");
+      console.log(screenImage.innerHeight())
 
-    if (theImage.width > theImage.height) {
-      screenImage.css('height', size+'px');
-      screenImage.css('width', (theImage.width * size / theImage.height)+'px');
-    } else {
-      screenImage.css('width', size+'px');
-      screenImage.css('heigth', (theImage.height * size / theImage.width)+'px');
-    }
+      if (imageW > imageH) {
+        screenImage.css('height', size+'px');
+        screenImage.css('width', (imageW * size / imageH)+'px');
+      } else {
+        screenImage.css('width', size+'px');
+        screenImage.css('heigth', (imageH * size / imageW)+'px');
+      }
+    });
 
     let box = $(this);
     box.find('.showInfo').on('click', function() {
-      console.log('click')
       box.find('.showInfo-dropdown').fadeToggle();
     });
   })

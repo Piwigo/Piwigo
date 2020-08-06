@@ -210,7 +210,8 @@ INPUT[type="text"].large  { width: 317px; }
 .themeName {color:black;}
 .themeActions span {background-color: #ddd;}
 #themesContent H3 {border-bottom:1px solid #aaa;}
-.themeDefault {}
+.themeSelect {background-color: #fafafa;}
+.themeDefault {background-color: #ffd7ad;}
 
 #pluginsMenuSeparator {border:1px solid #555;}
 
