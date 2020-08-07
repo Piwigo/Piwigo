@@ -4,31 +4,6 @@
 jQuery(document).ready(function() {
   $("a.preview-box").colorbox();
   
-  $('.themeBox').each(function() {
-
-    let screenImage = $(this).find(".preview-box img");
-    screenImage.on( 'load', () => {
-      let imageW = screenImage.innerWidth();
-      let imageH = screenImage.innerHeight();
-      let size = $(this).find(".preview-box").innerWidth();
-
-      console.log(screenImage.innerHeight())
-
-      if (imageW > imageH) {
-        screenImage.css('height', size+'px');
-        screenImage.css('width', (imageW * size / imageH)+'px');
-      } else {
-        screenImage.css('width', size+'px');
-        screenImage.css('heigth', (imageH * size / imageW)+'px');
-      }
-    });
-
-    let box = $(this);
-    box.find('.showInfo').on('click', function() {
-      box.find('.showInfo-dropdown').fadeToggle();
-    });
-  })
-  
   $(document).mouseup(function (e) {
     e.stopPropagation();
     if (!$(event.target).hasClass('showInfo')) {
@@ -37,6 +12,35 @@ jQuery(document).ready(function() {
   });
   
 });
+
+$(window).bind("load", function() {
+  $('.themeBox').each(function() {
+
+    let box = $(this);
+    box.find('.showInfo').on('click', function() {
+      let dropdown = box.find('.showInfo-dropdown');
+      $('.showInfo-dropdown').each(function() {
+        if ($(this) !== dropdown) {
+          $(this).fadeOut();
+        }  
+      })
+      box.find('.showInfo-dropdown').fadeToggle();
+    });
+
+    let screenImage = $(this).find(".preview-box img");
+    let imageW = screenImage.innerWidth();
+    let imageH = screenImage.innerHeight();
+    let size = $(this).find(".preview-box").innerWidth();
+
+    if (imageW > imageH) {
+      screenImage.css('height', size+'px');
+      screenImage.css('width', (imageW * size / imageH)+'px');
+    } else {
+      screenImage.css('width', size+'px');
+      screenImage.css('heigth', (imageH * size / imageW)+'px');
+    }
+  })
+})
 
 {/literal}{/footer_script}
 

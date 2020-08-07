@@ -1,29 +1,23 @@
 {include file='include/colorbox.inc.tpl'} 
 {footer_script}{literal}
 
-jQuery(document).ready(function() {
-  $("a.preview-box").colorbox(); 
-
+$(window).bind("load", function() {
   $('.themeBox').each(function() {
 
     let screenImage = $(this).find(".preview-box img");
-    screenImage.on( 'load', () => {
-      let imageW = screenImage.innerWidth();
-      let imageH = screenImage.innerHeight();
-      let size = $(this).find(".preview-box").innerWidth();
+    let imageW = screenImage.innerWidth();
+    let imageH = screenImage.innerHeight();
+    let size = $(this).find(".preview-box").innerWidth();
 
-      console.log(screenImage.innerHeight())
-
-      if (imageW > imageH) {
-        screenImage.css('height', size+'px');
-        screenImage.css('width', (imageW * size / imageH)+'px');
-      } else {
-        screenImage.css('width', size+'px');
-        screenImage.css('heigth', (imageH * size / imageW)+'px');
-      }
-    });
+    if (imageW > imageH) {
+      screenImage.css('height', size+'px');
+      screenImage.css('width', (imageW * size / imageH)+'px');
+    } else {
+      screenImage.css('width', size+'px');
+      screenImage.css('heigth', (imageH * size / imageW)+'px');
+    }
   })
-}); 
+})
 {/literal}{/footer_script}
 <div class="titrePage">
   <h2>{'Add New Theme'|@translate}</h2>
