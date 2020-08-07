@@ -26,12 +26,13 @@ var openCat = {$open_cat};
   <h2>{'Move albums'|@translate}</h2>
 </div>
 
-<div class="waiting-message"> <i class='icon-spin6 animate-spin'> </i> Waiting for Piwigo response...</div>
+<div class="waiting-message"> <i class='icon-spin6 animate-spin'> </i> {"Waiting for a response from Piwigo"|@translate}</div>
 
 
 <div class="cat-move-order-popin">
   <div class="order-popin-container">
     <a class="close-popin icon-cancel" onClick="$('.cat-move-order-popin').fadeOut()"> </a>
+    <div class="popin-title"><span class="icon-sort-number-up icon-green"></span>{"Apply an automatic order"|@translate}</div>
     <div class="album-name icon-flow-tree"></div>
     <form action="{$F_ACTION}" method="post">
       <input type="hidden" name="id" value="-1">

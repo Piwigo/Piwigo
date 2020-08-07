@@ -464,7 +464,7 @@ TABLE.doubleSelect SELECT.categoryList {
 }
 
 .waiting-message.visible {
-  transform: translateY(0%);
+  transform: translateY(80%);
 }
 
 /* Statistic Page */
@@ -2897,14 +2897,14 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .cat-move-order-popin .album-name {
-  font-size: 20px;
+  font-size: 16px;
   color: #3C3C3C;
 }
 
 .cat-move-order-popin .choice-container {
   display: flex;
   flex-direction: column;
-  padding: 15px 5px;
+  padding: 10px 5px;
 }
 
 .cat-move-order-popin label {
@@ -2938,6 +2938,15 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .cat-move-order-popin .close-popin:hover { color: #ffa646;}
+
+.popin-title {font-weight: bold; font-size: 15px; margin-bottom: 15px; color: #3C3C3C;}
+
+.popin-title span {
+  padding: 7px;
+  border-radius: 25px;
+  font-size: 15px;
+  margin-right: 10px; 
+}
 
 /*Overwrite JQtree CSS*/
 
