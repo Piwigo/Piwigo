@@ -151,7 +151,7 @@ var setupGroupBox = function (groupBox) {
   groupBox.find(".Group-checkbox input[type='checkbox']").attr("checked", false)
 
   /* Display the option on the click on "..." */
-  groupBox.find(".dropdown-option").click(function GroupOptions() {
+  groupBox.find(".group-dropdown-options").click(function GroupOptions() {
     $(this).find("#GroupOptions").toggle();
   });
 

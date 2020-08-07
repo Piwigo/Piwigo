@@ -3250,6 +3250,7 @@ input:checked + .slider:before {
   top:10px;
   right:0px;
   padding:5px;
+  cursor: pointer;
 }
 
 #GroupOptions{
