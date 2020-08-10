@@ -152,36 +152,165 @@ TABLE.plugins TR TD { padding: 4px 10px; }
 TABLE.languages TR TD { padding: 7px 20px; }
 
 
-/* categoryOrdering */
-FORM#categoryOrdering .orderParams {
-  line-height:30px;
-  margin-bottom:10px;
+/* Category List */
+.categoryContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-SELECT.categoryList {
-	width: 100%;
+.categoryBox, .addAlbum {
+  position: relative;
+  text-align: left;
+  height: 300px;
+  width: 220px;
+  margin: 15px;
+  border-radius: 10px;
 }
 
-FORM#categoryOrdering p {
-	text-align: left;
-	/* margin-top: 1em; */
-	/* margin-bottom: 1em; */
-}
-UL.categoryUl {
-	list-style: none;
-	padding: 0;
-	margin: 1em;
+.albumIcon {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-LI.categoryLi {
-/*
-	width: 100%;
-*/
-	margin-bottom: 20px;
-  border-radius:5px;
+.albumIcon span{
+  font-size: 19px;
+  width: 27px;
+  padding: 10px;
+  border-radius: 30px;
 }
 
+.albumTitle {
+  font-size: 16px;
+  padding: 0px 15px;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+}
 
+.albumInfos {
+  text-align: center;
+  color: #aaa;
+  font-weight: 600;
+}
+
+.albumInfos p {
+  margin: 0;
+}
+
+.albumActions {
+  position: absolute;
+  bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.albumActions a, .albumActions span {
+  margin: 5px;
+  font-size: 14px;
+  text-transform: capitalize;
+  font-weight: bold;
+  transition: 0.2s ease;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.albumActions a span, .albumActions span span{
+  margin: 10px;
+}
+
+.addAlbum {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.addAlbum.input-mode {
+  cursor: auto;
+}
+
+.addAlbum label {
+  margin: 0;
+  border-radius: 5px 5px 0 0;
+  padding: 2px;
+  position: absolute;
+  left: 16px;
+  font-size: 14px;
+  color: #3C3C3C;
+}
+
+.addAlbumHead {
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -10px;
+  transform: translateY(75px);
+  transition: 0.4s ease;
+  transition-delay: 0.4s;
+  padding: 110px 0px;
+}
+
+.addAlbum.input-mode .addAlbumHead {
+  transition-delay: 0s;
+  padding: 0px;
+}
+
+.addAlbumHead span {
+  font-size: 19px;
+  width: 27px;
+  height: 27px;
+  padding: 10px;
+  border-radius: 30px;
+  margin: 10px auto;
+}
+
+.addAlbumHead p {
+  font-weight: 700;
+  margin: 0;
+}
+
+.addAlbum form {
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s ease;
+  transition-delay: 0s;
+}
+
+.addAlbum form input {
+  margin: 10px;
+  padding: 10px;
+  display: inline-block;
+  width: 159px;
+  margin-top: 20px;
+}
+
+.addAlbum button, .addAlbum a {
+  display: table;
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+.addAlbum.input-mode .addAlbumHead{
+ transform: translateY(0px);
+}
+
+.addAlbum.input-mode form {
+  opacity: 1;
+  pointer-events: all;
+  transition-delay: 0.4s;
+}
+ 
 /* menuOrdering */
 FORM#menuOrdering {
 	padding-left: 1em;
@@ -2995,7 +3124,6 @@ ul.jqtree-tree .jqtree-element {
 #addAlbumOpen, #autoOrderOpen {padding: 7px 15px; font-weight: bold; font-size: 11px;}
 .afterUploadActions {text-align: center; margin-bottom: 30px !important;}
 .afterUploadActions a {justify-content: center; margin: 35px; font-weight: bold; font-size: 14px; padding: 10px 12px;}
-#addAlbumOpen::before ,#autoOrderOpen::before {margin-right: 10px; font-weight: bold; font-size: 15px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
 #autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}
 
@@ -4202,7 +4330,6 @@ fieldset#environment legend i[class*="icon-"] {
 #permissions {display: none!important;}
 #permissions, .selectFiles {margin-top: 35px; margin-bottom: 20px;}
 .selectAlbumBlock {display: flex; margin-left: 10px; margin-top: 10px;}
-.albumActions a:last-child {border-radius: 0 5px 5px 0;}
 .icon-plus.cboxElement {
 	padding: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16); font-size: 15px; margin-bottom: 8px; transition: all 125ms ease-out;
 }
@@ -4389,9 +4516,5 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 /* album manager */
 .selectedAlbum.cat-list-album-path {
-  margin: 40px 0 30px 0;
+  margin: 30px 0 30px 0;
 }
-.selectedAlbum.cat-list-album-path span {
-  background-color: transparent;
-}
-

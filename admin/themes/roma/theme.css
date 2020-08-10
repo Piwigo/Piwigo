@@ -97,7 +97,7 @@ INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { cursor: pointer; }
 INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; color: #ff3363; }
 label { cursor:pointer }
-.categoryLi, .menuLi { background: #333 }
+.menuLi { background: #333 }
 .menuLi_hidden { background: #333 !important; }
 a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
@@ -105,10 +105,6 @@ a.Piwigo {
   color : #F33; text-decoration: none; border: 0; }
 a.Piwigo:hover  span.Piwigo  {
   border-bottom: 1px solid #FF3363;
-}
-
-.categoryUl>li:not(.virtual_cat) {
-  background:url(images/stripe-cat.png);
 }
 
 /* RADU - I comment this because it makes FF form controls activation very slow)
@@ -777,21 +773,12 @@ table.qsearch_help_table td {
 
 #wImg {border-color:#555;}
 
-FORM#categoryOrdering p.albumTitle a { color: #c0c0c0; }
-FORM#categoryOrdering p.albumActions a { border-left:1px solid #555; }
-.albumInfos {color: #808080;}
-FORM#categoryOrdering p.albumActions a:hover {background-color: #ffa646; color: #3A3A3A;}
-FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #d5d5d5;}
-#addAlbumOpen, #autoOrderOpen {border: 1px solid #777; color: #c0c0c0;}
-#addAlbumOpen:hover, #autoOrderOpen:hover {border: 1px solid #aaa; text-decoration: none;}
 .afterUploadActions a {color: #3C3C3C; font-weight: bold; background-color: #FFA646;}
 .afterUploadActions a:hover {text-decoration: none; background-color: #ff7700;}
 .font-checkbox {color: #898888;}
 .font-checkbox:hover {color: #ffa646;}
 .with-border legend, .with-border strong {color: #c0c0c0;}
 .font-checkbox.selected {color: #ffa646;}
-#formCreateAlbum input[name="virtual_name"] {border: 1px solid #7e7e7e; color: #F8F8F8; transition: all 125ms ease-out;}
-#formCreateAlbum input[name="virtual_name"]:hover {border-color: #A5A5A5;}
 
 LEGEND {color: #c1c1c1;}
 a#showPermissions {color: #D6D6D6; border: 1px solid #D6D6D6; background-color: #414141;}
