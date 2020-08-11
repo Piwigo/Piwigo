@@ -801,6 +801,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #uploadForm li.plupload_droptext {background-color: #343434!important; color: #777 !important;}
 .addFilesButtonChanged {background-color: #888;}
 .addFilesButtonChanged:hover {background-color: #777;}
+.categoryBox, .addAlbum {background-color: #333 !important; box-shadow: -1px 1px 2px #1a1a1a;}
 
 #checkActions a, .deleteDerivButtons a {background-color: #393939;}
 #addFilter, #filterList select, .pictureLevels select, #permitAction select {background-color: #444444; color: #BFBFBF}

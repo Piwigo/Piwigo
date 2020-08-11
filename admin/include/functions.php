@@ -1582,7 +1582,7 @@ SELECT id, uppercats, global_rank, visible, status
   pwg_activity('album', $inserted_id, 'add');
 
   return array(
-    'info' => l10n('Virtual album added'),
+    'info' => l10n('Album added'),
     'id'   => $inserted_id,
     );
 }

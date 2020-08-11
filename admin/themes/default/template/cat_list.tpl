@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-<div class="selectedAlbum cat-list-album-path"><span class="icon-red icon-sitemap">{$CATEGORIES_NAV}</span></div>
+<div class="selectedAlbum cat-list-album-path"><span class="icon-sitemap">{$CATEGORIES_NAV}</span></div>
 {assign var='color_tab' value=["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"]}
 <div class="categoryContainer">
   <div class="addAlbum">

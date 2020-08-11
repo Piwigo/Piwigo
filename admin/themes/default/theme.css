@@ -205,12 +205,16 @@ TABLE.languages TR TD { padding: 7px 20px; }
 .albumActions {
   position: absolute;
   bottom: 5px;
-  display: flex;
   flex-direction: column;
   width: 90%;
   overflow: hidden;
   margin-left: 20px;
   margin-bottom: 10px;
+  display: none;
+}
+
+.categoryBox:hover .albumActions {
+  display: flex;
 }
 
 .albumActions a, .albumActions span {
@@ -4373,7 +4377,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .selectedAlbum span {
 	padding: 10px 12px;
 	font-weight: bold;
-	background-color: #f5f5f5;
 	text-align: center;
 	margin-top: 20px;
 	border-radius: 7px;
