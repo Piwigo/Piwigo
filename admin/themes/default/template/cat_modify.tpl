@@ -45,11 +45,19 @@ jQuery(document).ready(function() {
       success:function(data) {
         var data = jQuery.parseJSON(data);
         if (data.stat == 'ok') {
-          jQuery(".albumThumbnailImage")
-            .attr('href', data.result.url)
-            .find("img").attr('src', data.result.src)
-            .end().show();
+          console.log('plouk');
+          
+          jQuery(".albumThumbailImage, .albumThumbnailRandom").on('load', function () {
+            cropImage();
+          })
 
+          jQuery(".albumThumbailImage, .albumThumbnailRandom")
+            .attr('src', data.result.src)
+            .end().show();
+          
+
+          jQuery(".albumThumbnailEdit")
+            .attr('href', data.result.url)
           jQuery(".albumThumbnailRandom").hide();
         }
         else {
@@ -132,6 +140,29 @@ jQuery(document).ready(function() {
   });
 });
 
+$(window).bind("load", function() {
+  cropImage();
+});
+
+$(window).resize(function() {
+  cropImage();
+});
+
+function cropImage() {
+  let image = $(".albumThumbailImage");
+  let imageW = image[0].naturalWidth;
+  let imageH = image[0].naturalHeight;
+  let size = $('.catThumbnail').innerWidth();
+
+  if (imageW > imageH) {
+    image.css('height', size+'px');
+    image.css('width', (imageW * size / imageH)+'px');
+  } else {
+    image.css('width', size+'px');
+    image.css('heigth', (imageH * size / imageW)+'px');
+  }
+}
+
 {/footer_script}
 
 {html_style}
@@ -170,62 +201,106 @@ jQuery(document).ready(function() {
 
 <div id="catModify">
 
+<form action="{$F_ACTION}" method="POST">
+
 <fieldset>
   <legend><span class="icon-info-circled-1 icon-blue"></span>{'Informations'|@translate}</legend>
 
-  <table style="width:100%">
-    <tr>
-      <td id="albumThumbnail">
-{if isset($representant) }
-        <a class="albumThumbnailImage" style="{if !isset($representant.picture)}display:none{/if}" href="{$representant.picture.url}"><img src="{$representant.picture.src}"></a>
+  <div id="catHeader">
+
+  {if isset($representant) }
+    <div class="catThumbnail">
+      <div class="thumbnailContainer">
+        <img class="albumThumbailImage" src="{$representant.picture.src}">
         <img class="albumThumbnailRandom" style="{if isset($representant.picture)}display:none{/if}" src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
 
-<p class="albumThumbnailActions" data-random_allowed="{$representant.ALLOW_SET_RANDOM}">
-  {assign var="action_separator" value=""}
-  {if $representant.ALLOW_SET_RANDOM }
-  <a href="#refresh" data-category_id="{$CAT_ID}" class="refreshRepresentative" title="{'Find a new representant by random'|@translate}">{'Refresh'|@translate}</a>
-  {assign var="action_separator" value="|"}
+        <div class="albumThumbnailActions" data-random_allowed="{$representant.ALLOW_SET_RANDOM}">
+          <div class="albumThumbnailActionContainer"> 
+            {if $representant.ALLOW_SET_RANDOM }
+            <a href="#refresh" data-category_id="{$CAT_ID}" class="refreshRepresentative icon-ccw" title="{'Find a new representant by random'|@translate}">{'Refresh'|@translate}</a>
+            {/if}
+            {if isset($representant.ALLOW_DELETE) }
+            <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative icon-cancel" title="{'Delete Representant'|@translate}">{'Delete'|translate}</a>
+            {/if}
+            <a class="albumThumbnailEdit icon-pencil" style="{if !isset($representant.picture)}display:none{/if}" href="{$representant.picture.url}">{'Edit photo'|@translate}</a>           
+          </div>
+        </div>
+      </div>
+
+    </div>
   {/if}
 
-  {if isset($representant.ALLOW_DELETE) }
-  {$action_separator}
-   <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative" title="{'Delete Representant'|@translate}">{'Delete'|translate}</a>
-  {/if}
-</p>
-{/if}
-      </td>
+    <div class="catInfo">
+      {if isset($INFO_CREATION)}
+        <span class="icon-green">{$INFO_CREATION}</span>
+      {/if}
+      <span class="icon-purple">{$INFO_LAST_MODIFIED}</span>
+      {if isset($INFO_PHOTO)}
+        <span class="icon-yellow" title="{$INFO_TITLE}">{$INFO_PHOTO}</span>
+      {/if}
+      {if isset($INFO_DIRECT_SUB)}
+        <span class="icon-blue">{$INFO_DIRECT_SUB}</span>
+      {/if}
+      <span class="icon-red" >{$INFO_ID}</span>
+    </div>
 
-      <td id="albumLinks">
-<p>{$INTRO}</p>
-<ul>
-{if cat_admin_access($CAT_ID)}
-  <li><a class="icon-eye" href="{$U_JUMPTO}">{'jump to album'|@translate} →</a></li>
-{/if}
+    <div class="catAction">
+      <div class="container">
+      <strong>{"Actions"|@translate}</strong>
+      {if cat_admin_access($CAT_ID)}
+        <a class="icon-eye" href="{$U_JUMPTO}">{'jump to album'|@translate}</a>
+      {/if}
 
-{if isset($U_MANAGE_ELEMENTS) }
-  <li><a class="icon-picture" href="{$U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a></li>
-{/if}
+      {if isset($U_MANAGE_ELEMENTS) }
+        <a class="icon-picture" href="{$U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a>
+      {/if}
 
-  <li style="text-transform:lowercase;"><a class="icon-plus-circled" href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a></li>
+        <a class="icon-plus-circled" href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a>
 
-  <li><a class="icon-sitemap" href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a></li>
+        <a class="icon-sitemap" href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a>
 
-{if isset($U_SYNC) }
-  <li><a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a> ({'Directory'|@translate} = {$CAT_FULL_DIR})</li>
-{/if}
+      {if isset($U_SYNC) }
+        <a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a> ({'Directory'|@translate} = {$CAT_FULL_DIR})
+      {/if}
 
-{if isset($U_DELETE) }
-  <li><a class="icon-trash deleteAlbum" href="#">{'delete album'|@translate}</a></li>
-{/if}
+      {if isset($U_DELETE) }
+        <a class="icon-trash deleteAlbum" href="#">{'delete album'|@translate}</a>
+      {/if} 
+      </div>
+    </div>
 
-</ul>
-      </td>
-    </tr>
-  </table>
-
+    <div class="catLock">
+    <div class="container">
+      <strong>{'Publication'|@translate}</strong>
+      <div>
+        <span class="label">{'Unlock'|@translate}</span>
+        <label class="switch">
+          <input type="checkbox" name="visible" id="toggleSelectionMode" value="true" {if $CAT_VISIBLE == "true"}checked{/if}>
+          <span class="slider round"></span>
+        </label>
+        <span class="label">{'Lock'|@translate}</span>    
+      </div>
+    {if isset($CAT_COMMENTABLE)}
+      <strong>{'Comments'|@translate}</strong>
+      <div>
+        <span class="label">{'Forbidden'|@translate}</span>
+        <label class="switch">
+          <input type="checkbox" name="commentable" id="commentable" value="true" {if $CAT_COMMENTABLE == "true"}checked{/if}>
+          <span class="slider round"></span>
+        </label>
+        <span class="label">{'Authorized'|@translate}</span>
+        <br>
+        <label id="applytoSubAction">
+        <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="apply_commentable_on_sub"></label>
+          {'Apply to sub-albums'|@translate}
+        </label>
+      </div>
+    {/if}
+      </div>
+    </div>
+  </div>
 </fieldset>
 
-<form action="{$F_ACTION}" method="POST">
 <fieldset>
   <legend><span class="icon-tools icon-red"></span>{'Properties'|@translate}</legend>
   <p>
@@ -248,27 +323,6 @@ jQuery(document).ready(function() {
         name="parent" style="width:600px"></select>
   </p>
 {/if}
-
-  <p>
-    <strong>{'Lock'|@translate}</strong>
-    <br>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="true"{if $CAT_VISIBLE == "true"} checked="checked"{/if}>{'No'|translate}</label>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="true_sub">{'No and unlock sub-albums'|translate}</label>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="false"{if $CAT_VISIBLE == "false"} checked="checked"{/if}>{'Yes'|translate}</label>
-  </p>
-
-  {if isset($CAT_COMMENTABLE)}
-  <p>
-    <strong>{'Comments'|@translate}</strong>
-    <br>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="commentable" value="false"{if $CAT_COMMENTABLE == "false"} checked="checked"{/if}>{'No'|translate}</label>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="commentable" value="true"{if $CAT_COMMENTABLE == "true"} checked="checked"{/if}>{'Yes'|translate}</label>
-    <label id="applytoSubAction">
-      <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="apply_commentable_on_sub"></label>
-      {'Apply to sub-albums'|@translate}
-    </label>
-  </p>
-  {/if}
 
   <p style="margin:0">
     <button name="submit" type="submit" class="buttonLike">

@@ -358,11 +358,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   background: #3c3939;
 }
 
-/* Album Properties */
-#albumThumbnail img, #albumLinks {
-  border-color:#333;
-}
-
+/* Picture edit */
 #picture-content input[type=text], #picture-content textarea, #picture-content .selectize-input, #picture-content select {
   background-color: #444444;
   border: 1px solid #666;
@@ -375,6 +371,22 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 
 .picture-infos-category {
   border-color: #333;
+}
+
+/* Album edit */
+
+#catModify input[type="text"], #catModify textarea{
+  background-color: #444444;
+  border: 1px solid #666;
+  color: #c1c1c1;
+}
+
+#catHeader .catAction strong, #catHeader .catLock strong {
+  color: #c1c1c1;
+}
+
+#catHeader .catAction a:hover {
+  color: white;
 }
 
 .selectedComment {background-color:#555; color:#fff;}

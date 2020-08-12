@@ -349,40 +349,158 @@ LI.menuLi {
 	padding: 12px 0;
 	margin-bottom: 5px;
 }
-/* */
 
-#catModify TABLE { width: auto; }
+/* Cat modify */
 
-#catModify p {
-  line-height: 20px;
-  margin: 0 0 1.5em;
-  text-align: left;
+#catHeader {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  min-height: 200px;
 }
 
-#catModify p.albumThumbnailActions {
-  text-align:center;
-  white-space:nowrap;
+#catHeader .catThumbnail {
+  position: relative;
+  overflow: hidden;
 }
 
-FIELDSET.elementEdit .thumb {
-	display: block;
-	float: right;
-	text-align: center;
+#catHeader .catThumbnail .thumbnailContainer {
+  width: 100%;
+  padding-top: 100%;
 }
 
-TABLE.doubleSelect {
-	text-align: center;
-	margin: 0 auto;
-	width: 100%;
+#catHeader .albumThumbailImage, #catHeader .albumThumbnailRandom, #catHeader .albumThumbnailActions, #catHeader .albumThumbnailActionContainer{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-TABLE.doubleSelect TD {
-	padding: 0 3px;
-	width: 50%;
+#catHeader .albumThumbnailActions {
+  width: 101%;
+  height: 100%;
+  background-color: #00000070;
+  opacity: 0;
 }
 
-TABLE.doubleSelect SELECT.categoryList {
-	width: 100%; max-width: 100%; overflow-x: auto;
+#catHeader .catThumbnail:hover .albumThumbnailActions {
+  opacity: 1;
+}
+
+#catHeader .albumThumbnailActionContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#catHeader .albumThumbnailActions a {
+  background-color: #ffffffbd;
+  margin: 10px;
+  padding: 10px 20px;
+  white-space: nowrap;
+  font-weight: bold;
+  color: #3C3C3C;
+}
+
+#catHeader .albumThumbnailActions a:hover {
+  color: #3C3C3C;
+  text-decoration: none;
+  background-color: #ff7700bd;
+}
+
+#catHeader .catInfo, #catHeader .catAction {
+  border-right: 1px solid #00000017;
+}
+
+#catHeader .catInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#catHeader .catInfo span {
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+#catHeader .catAction {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+#catHeader .catAction .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: baseline;
+  height: 100%;
+  padding-top: 30px;
+}
+
+#catHeader .catAction strong{
+  position: absolute;
+  top: 0;
+  color: #3C3C3C;
+  font-size: 16px;
+}
+
+#catHeader .catAction a {
+  text-transform: capitalize;
+  color: #888;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+#catHeader .catAction a:hover {
+  color: #3C3C3C;
+  text-decoration: none;
+}
+
+#catHeader .catAction a::before {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+#catHeader .catLock {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#catHeader .catLock .container{
+  position: relative;
+}
+
+#catHeader .catLock strong {
+  color: #3C3C3C;
+  font-size: 16px;
+}
+
+#catHeader .catLock .container > div {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+#catHeader .catLock > div .label {
+  font-size: 14px;
+}
+
+#catModify input[type="text"], #catModify textarea{
+  width: 50%;
+  background-color: #f8f8f8;
+  padding: 8px;
+  border-radius: 4px;
+  border-color: #DDD;
+  transition: ease 0.2s;
+  font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+}
+
+#catModify button[type="submit"] {
+  margin: 13px;
+  font-size: 14px;
 }
 
 /* Search bar */
@@ -2666,17 +2784,7 @@ a#showPermissions:hover {text-decoration: none;}
   color: rgba(29, 29, 29, 0.226);
 }
 
-/* Album Properties */
-#albumThumbnail {
-  width:1%;
-  padding-right:10px;
-  text-align:center;
-}
-
-#albumThumbnail img {
-  border:2px solid #ddd;
-}
-
+/* Picture Edit */
 #pictureModify {
   display: flex;
   margin: 0;

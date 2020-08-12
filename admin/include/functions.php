@@ -989,15 +989,20 @@ SELECT uppercats
 
 /**
  */
-function get_category_representant_properties($image_id)
+function get_category_representant_properties($image_id, $size = NULL)
 {
   $query = '
 SELECT id,representative_ext,path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
+
   $row = pwg_db_fetch_assoc(pwg_query($query));
-  $src = DerivativeImage::thumb_url($row);
+  if ($size == NULL) {
+    $src = DerivativeImage::thumb_url($row);
+  } else {
+    $src = DerivativeImage::url($size, $row);
+  }
   $url = get_root_url().'admin.php?page=photo-'.$image_id;
 
   return array(
