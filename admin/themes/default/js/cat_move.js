@@ -34,10 +34,11 @@ $(document).ready(() => {
     } else {
       cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
     }
-    
+
     cont.append($(title.replace(/%name%/g, node.name)));
+
     if (node.status == 'private') {
-      cont.append($(icon.replace(/%icon%/g, 'icon-lock')));
+      cont.find(".move-cat-title").addClass('icon-lock');
     }
 
     cont.append(actions);

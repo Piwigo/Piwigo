@@ -2820,6 +2820,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-weight: 600;
 }
 
 .move-cat-container .move-cat-toogler {
@@ -2829,6 +2830,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   align-items: center;
   cursor: pointer;
   z-index: 2;
+  font-weight: 600;
 }
 
 .move-cat-action-cont {
@@ -2897,8 +2899,10 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .cat-move-order-popin .album-name {
-  font-size: 16px;
+  font-size: 14px;
   color: #3C3C3C;
+  font-weight: 600;
+  text-align: center;
 }
 
 .cat-move-order-popin .choice-container {
@@ -2921,11 +2925,11 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   margin: 10px 0px;
 }
 
-.cat-move-order-popin input[name=recursive] {
+.cat-move-order-popin input[name=recursiveAutoOrder] {
   background-color: #d9d9d9;
 }
 
-.cat-move-order-popin input[name=recursive]:hover {
+.cat-move-order-popin input[name=recursiveAutoOrder]:hover {
   background-color: #ffc17e;
 }
 

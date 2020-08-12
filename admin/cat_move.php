@@ -115,7 +115,6 @@ $template->set_filename('cat_move', 'cat_move.tpl');
 
 $template->assign(
   array(
-    'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_move',
     'F_ACTION' => get_root_url().'admin.php?page=cat_move',
     )
   );

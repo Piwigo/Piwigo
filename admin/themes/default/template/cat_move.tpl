@@ -6,7 +6,7 @@ var str_hide_sub = "{'Hide sub-albums'|@translate}";
 var str_manage_sub_album = "{'Manage sub-albums'|@translate}";
 var str_apply_order = "{'Apply an automatic order to sub-albums'|@translate}";
 var str_edit = "{'Edit album'|@translate}";
-var str_are_you_sure = "{'Album \'%s\' status and his sub-albums will change to private. Are you sure ?'|@translate}";
+var str_are_you_sure = "{'The status of the album \'%s\' and its sub-albums will change to private. Are you sure?'|@translate}";
 var str_yes_change_parent = "{'Yes change parent anyway'|@translate}"
 var str_no_change_parent = "{'No, don\'t move this album here'|@translate}"
 var str_root = "{'Root'|@translate}"
@@ -26,14 +26,11 @@ var openCat = {$open_cat};
   <h2>{'Move albums'|@translate}</h2>
 </div>
 
-<div class="waiting-message"> <i class='icon-spin6 animate-spin'> </i> {"Waiting for a response from Piwigo"|@translate}</div>
-
-
 <div class="cat-move-order-popin">
   <div class="order-popin-container">
     <a class="close-popin icon-cancel" onClick="$('.cat-move-order-popin').fadeOut()"> </a>
-    <div class="popin-title"><span class="icon-sort-number-up icon-green"></span>{"Apply an automatic order"|@translate}</div>
-    <div class="album-name icon-flow-tree"></div>
+    <div class="popin-title"><span class="icon-sort-name-up icon-purple"></span>{"Apply an automatic order"|@translate}</div>
+    <div class="album-name icon-sitemap"></div>
     <form action="{$F_ACTION}" method="post">
       <input type="hidden" name="id" value="-1">
       <div class="choice-container">
