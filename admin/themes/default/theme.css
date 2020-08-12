@@ -403,7 +403,7 @@ LI.menuLi {
 #catHeader .albumThumbnailActions a:hover {
   color: #3C3C3C;
   text-decoration: none;
-  background-color: #ff7700bd;
+  background-color: #ff7700;
 }
 
 #catHeader .catInfo, #catHeader .catAction {
@@ -412,9 +412,15 @@ LI.menuLi {
 
 #catHeader .catInfo {
   display: flex;
+  justify-content: center;
+}
+
+#catHeader .catInfo .container{
+  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+  align-items: baseline;
+  justify-content: space-between;
+  height: 100%;
 }
 
 #catHeader .catInfo span {
@@ -428,6 +434,7 @@ LI.menuLi {
   position: relative;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 #catHeader .catAction .container {
@@ -454,7 +461,7 @@ LI.menuLi {
 }
 
 #catHeader .catAction a:hover {
-  color: #3C3C3C;
+  color: #ff7700;
   text-decoration: none;
 }
 
@@ -472,24 +479,30 @@ LI.menuLi {
 
 #catHeader .catLock .container{
   position: relative;
+  height: 100%;
 }
 
 #catHeader .catLock strong {
   color: #3C3C3C;
   font-size: 16px;
+  margin-bottom: 15px;
+  display: block;
 }
 
 #catHeader .catLock .container > div {
-  margin-top: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 #catHeader .catLock > div .label {
   font-size: 14px;
 }
 
+#catHeader .catLock .switch {
+  margin: 0 5px;
+}
+
 #catModify input[type="text"], #catModify textarea{
-  width: 50%;
+  width: 98%;
   background-color: #f8f8f8;
   padding: 8px;
   border-radius: 4px;

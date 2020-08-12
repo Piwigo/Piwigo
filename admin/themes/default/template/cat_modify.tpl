@@ -231,17 +231,19 @@ function cropImage() {
   {/if}
 
     <div class="catInfo">
-      {if isset($INFO_CREATION)}
-        <span class="icon-green">{$INFO_CREATION}</span>
-      {/if}
-      <span class="icon-purple">{$INFO_LAST_MODIFIED}</span>
-      {if isset($INFO_PHOTO)}
-        <span class="icon-yellow" title="{$INFO_TITLE}">{$INFO_PHOTO}</span>
-      {/if}
-      {if isset($INFO_DIRECT_SUB)}
-        <span class="icon-blue">{$INFO_DIRECT_SUB}</span>
-      {/if}
-      <span class="icon-red" >{$INFO_ID}</span>
+      <div class="container">
+        {if isset($INFO_CREATION)}
+          <span class="icon-yellow">{$INFO_CREATION}</span>
+        {/if}
+        <span class="icon-red">{$INFO_LAST_MODIFIED}</span>
+        {if isset($INFO_PHOTO)}
+          <span class="icon-purple" title="{$INFO_TITLE}">{$INFO_PHOTO}</span>
+        {/if}
+        {if isset($INFO_DIRECT_SUB)}
+          <span class="icon-blue">{$INFO_DIRECT_SUB}</span>
+        {/if}
+        <span class="icon-green" >{$INFO_ID}</span>
+      </div>
     </div>
 
     <div class="catAction">
@@ -271,25 +273,28 @@ function cropImage() {
 
     <div class="catLock">
     <div class="container">
-      <strong>{'Publication'|@translate}</strong>
       <div>
-        <span class="label">{'Unlock'|@translate}</span>
-        <label class="switch">
-          <input type="checkbox" name="visible" id="toggleSelectionMode" value="true" {if $CAT_VISIBLE == "true"}checked{/if}>
-          <span class="slider round"></span>
-        </label>
-        <span class="label">{'Lock'|@translate}</span>    
+        <strong>{'Publication'|@translate}</strong>
+        <div class="switch-input">
+          <span class="label">{'Unlock'|@translate}</span>
+          <label class="switch">
+            <input type="checkbox" name="visible" id="toggleSelectionMode" value="true" {if $CAT_VISIBLE == "true"}checked{/if}>
+            <span class="slider round"></span>
+          </label>
+          <span class="label">{'Lock'|@translate}</span>
+        </div>    
       </div>
     {if isset($CAT_COMMENTABLE)}
-      <strong>{'Comments'|@translate}</strong>
       <div>
-        <span class="label">{'Forbidden'|@translate}</span>
-        <label class="switch">
-          <input type="checkbox" name="commentable" id="commentable" value="true" {if $CAT_COMMENTABLE == "true"}checked{/if}>
-          <span class="slider round"></span>
-        </label>
-        <span class="label">{'Authorized'|@translate}</span>
-        <br>
+        <strong>{'Comments'|@translate}</strong>
+        <div class="switch-input">
+          <span class="label">{'Forbidden'|@translate}</span>
+          <label class="switch">
+            <input type="checkbox" name="commentable" id="commentable" value="true" {if $CAT_COMMENTABLE == "true"}checked{/if}>
+            <span class="slider round"></span>
+          </label>
+          <span class="label">{'Authorized'|@translate}</span>
+        <div>
         <label id="applytoSubAction">
         <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="apply_commentable_on_sub"></label>
           {'Apply to sub-albums'|@translate}
@@ -320,12 +325,12 @@ function cropImage() {
     <strong>{'Parent album'|@translate}</strong>
     <br>
     <select data-selectize="categories" data-value="{$parent_category|@json_encode|escape:html}"
-        name="parent" style="width:600px"></select>
+        name="parent" style="width:100%"></select>
   </p>
 {/if}
 
   <p style="margin:0">
-    <button name="submit" type="submit" class="buttonLike">
+    <button name="submit" type="submit" class="buttonGradient">
       <i class="icon-floppy"></i> {'Save Settings'|@translate}
     </button>
   </p>

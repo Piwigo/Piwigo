@@ -357,7 +357,7 @@ $result = query2array($query);
 if (count($result) > 0) {
   $template->assign(
     array(
-      'INFO_CREATION' => l10n('Created on %s',format_date($result[0]['occured_on']))
+      'INFO_CREATION' => l10n('Created on %s',format_date($result[0]['occured_on'], array('month','year')))
       )
     );
 }
@@ -380,7 +380,7 @@ if ($result[0]['COUNT(*)'] > 0) {
 
 $template->assign(array(
   'INFO_ID' => l10n('Numeric identifier : %d',$category['id']),
-  'INFO_LAST_MODIFIED'=> l10n('Edited on %s',format_date($category['lastmodified']))
+  'INFO_LAST_MODIFIED'=> l10n('Edited on %s',format_date($category['lastmodified'], array('month','year')))
     )
   );
 
