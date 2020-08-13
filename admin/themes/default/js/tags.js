@@ -302,8 +302,6 @@ function removeTag(id, name) {
 }
 
 function renameTag(id, new_name) {
-  console.log('problème');
-  
   return new Promise((resolve, reject) => {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.tags.rename",

@@ -327,7 +327,7 @@ p.albumTitle img {margin-bottom:-3px;}
 .groups .GroupContainer,
 .groups .showCreateGroup,
 .groups .addGroupFormBlock{
-  box-shadow: 0px 0px 5px #acacac;
+  box-shadow: 0px 2px 5px #00000024;
 }
 
 .groups #addGroupForm:hover  #addGroup,
@@ -648,7 +648,6 @@ table.dataTable thead th, table.dataTable.no-footer {
 
 FORM#categoryOrdering p.albumTitle a { color: #5B5B5B; }
 FORM#categoryOrdering p.albumActions a { border-left:1px solid #D6D6D6;  background-color: #E8E8E8;}
-.albumInfos {color: #999999;}
 FORM#categoryOrdering p.albumActions a:hover {background-color: #FFA844; color: #3A3A3A;}
 FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
 #addAlbumOpen, #autoOrderOpen {border: 1px solid #D6D6D6; color: #5B5B5B;}
@@ -742,7 +741,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .albumInfos {
-  color: #aaa;
+  color: #d5d5d5;
 }
 
 .albumActions a {
@@ -750,7 +749,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .albumActions a:hover {
-  color: #3c3c3c;
+  color: #FFA646;
   text-decoration: none;
 }
 

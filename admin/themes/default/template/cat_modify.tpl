@@ -45,7 +45,7 @@ jQuery(document).ready(function() {
       success:function(data) {
         var data = jQuery.parseJSON(data);
         if (data.stat == 'ok') {
-          console.log('plouk');
+          jQuery(".deleteRepresentative").show();
           
           jQuery(".albumThumbailImage, .albumThumbnailRandom").on('load', function () {
             cropImage();
@@ -55,9 +55,6 @@ jQuery(document).ready(function() {
             .attr('src', data.result.src)
             .end().show();
           
-
-          jQuery(".albumThumbnailEdit")
-            .attr('href', data.result.url)
           jQuery(".albumThumbnailRandom").hide();
         }
         else {
@@ -85,12 +82,9 @@ jQuery(document).ready(function() {
       success:function(data) {
         var data = jQuery.parseJSON(data);
         if (data.stat == 'ok') {
+          jQuery(".deleteRepresentative").hide();
           jQuery(".albumThumbnailImage").hide();
-          if (jQuery(".albumThumbnailActions").data('random_allowed') == '') {
-            jQuery(".deleteRepresentative").hide();
-          } else {
-            jQuery(".albumThumbnailRandom").show();
-          }
+          jQuery(".albumThumbnailRandom").show();
         }
         else {
           alert("error on "+method);
@@ -196,7 +190,7 @@ function cropImage() {
 
 
 <div class="titrePage">
-  <h2>{'Edit album'|@translate} #{$CAT_ID} <span style="letter-spacing:0">{$CATEGORIES_NAV}</span></h2>
+  <h2>{'Edit album'|@translate} <span title="{'Numeric identifier'|@translate}">#{$CAT_ID}</span> <span style="letter-spacing:0">{$CATEGORIES_NAV}</span></h2>
 </div>
 
 <div id="catModify">
@@ -208,27 +202,28 @@ function cropImage() {
 
   <div id="catHeader">
 
-  {if isset($representant) }
+  
     <div class="catThumbnail">
       <div class="thumbnailContainer">
+        {if isset($representant) }
         <img class="albumThumbailImage" src="{$representant.picture.src}">
-        <img class="albumThumbnailRandom" style="{if isset($representant.picture)}display:none{/if}" src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
+        <div class="albumThumbnailRandom" style="{if isset($representant.picture)}display:none{/if}"><span class="icon-dice-solid"></span></div>
 
         <div class="albumThumbnailActions" data-random_allowed="{$representant.ALLOW_SET_RANDOM}">
           <div class="albumThumbnailActionContainer"> 
             {if $representant.ALLOW_SET_RANDOM }
-            <a href="#refresh" data-category_id="{$CAT_ID}" class="refreshRepresentative icon-ccw" title="{'Find a new representant by random'|@translate}">{'Refresh'|@translate}</a>
+            <a href="#refresh" data-category_id="{$CAT_ID}" class="refreshRepresentative icon-ccw" title="{'Find a new representant by random'|@translate}">{'Refresh thumbnail'|@translate}</a>
             {/if}
-            {if isset($representant.ALLOW_DELETE) }
-            <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative icon-cancel" title="{'Delete Representant'|@translate}">{'Delete'|translate}</a>
+            {if isset($representant.ALLOW_DELETE)}
+            <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative icon-cancel" title="{'Delete Representant'|@translate}" style="{if !isset($representant.picture)}display:none{/if}">{'Remove thumbnail'|translate}</a>
             {/if}
-            <a class="albumThumbnailEdit icon-pencil" style="{if !isset($representant.picture)}display:none{/if}" href="{$representant.picture.url}">{'Edit photo'|@translate}</a>           
           </div>
         </div>
+        {else}
+          <div class="albumThumbnailNoPhoto" title="{'No photos in the current album, no thumbnail available'|@translate}"><span class="icon-file-image"></span></div>
+        {/if}
       </div>
-
     </div>
-  {/if}
 
     <div class="catInfo">
       <div class="container">
@@ -242,7 +237,9 @@ function cropImage() {
         {if isset($INFO_DIRECT_SUB)}
           <span class="icon-blue">{$INFO_DIRECT_SUB}</span>
         {/if}
-        <span class="icon-green" >{$INFO_ID}</span>
+        {if isset($U_SYNC) }
+        <span class="icon-green" >{'Directory'|@translate} : {$CAT_FULL_DIR}</span>
+        {/if}
       </div>
     </div>
 
@@ -262,7 +259,7 @@ function cropImage() {
         <a class="icon-sitemap" href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a>
 
       {if isset($U_SYNC) }
-        <a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a> ({'Directory'|@translate} = {$CAT_FULL_DIR})
+        <a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a>
       {/if}
 
       {if isset($U_DELETE) }
@@ -274,19 +271,22 @@ function cropImage() {
     <div class="catLock">
     <div class="container">
       <div>
-        <strong>{'Publication'|@translate}</strong>
+        <strong>
+          {'Publication'|@translate}
+          <span class="icon-help-circled" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></span>
+        </strong>
         <div class="switch-input">
-          <span class="label">{'Unlock'|@translate}</span>
+          <span class="label">{'Unlocked'|@translate}</span>
           <label class="switch">
-            <input type="checkbox" name="visible" id="toggleSelectionMode" value="true" {if $CAT_VISIBLE == "true"}checked{/if}>
+            <input type="checkbox" name="visible" id="toggleSelectionMode" value="true" {if $CAT_VISIBLE == "false"}checked{/if}>
             <span class="slider round"></span>
           </label>
-          <span class="label">{'Lock'|@translate}</span>
+          <span class="label">{'Locked'|@translate}</span>
         </div>    
       </div>
     {if isset($CAT_COMMENTABLE)}
       <div>
-        <strong>{'Comments'|@translate}</strong>
+        <strong>{'Comments'|@translate} <span class="icon-help-circled" title="{'A photo can receive comments from your visitors if it belongs to an album with comments activated.'|@translate}" style="cursor:help"></span></strong>
         <div class="switch-input">
           <span class="label">{'Forbidden'|@translate}</span>
           <label class="switch">
@@ -296,9 +296,11 @@ function cropImage() {
           <span class="label">{'Authorized'|@translate}</span>
         <div>
         <label id="applytoSubAction">
+        {if isset($INFO_DIRECT_SUB)}
         <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="apply_commentable_on_sub"></label>
           {'Apply to sub-albums'|@translate}
         </label>
+        {/if}
       </div>
     {/if}
       </div>

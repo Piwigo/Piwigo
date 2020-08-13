@@ -146,7 +146,6 @@ jQuery(document).ready(function() {
         }
         searchNumber += searchNumberInBox;
       });
-      console.log(searchNumber);
       if (searchNumber == 0) {
           jQuery(".emptyResearch").fadeIn();
         } else {

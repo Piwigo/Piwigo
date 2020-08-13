@@ -78,7 +78,7 @@ var openCat = {$open_cat};
 
 <div class="cat-move-header"> 
   <div class="cat-move-info icon-help-circled"> {'Drag and drop to reorder albums'|@translate}</div>
-  <a class="order-root icon-flow-tree"> {'Apply an automatic order to root albums'|@translate} </a>
+  <a class="order-root icon-sitemap"> {'Apply an automatic order to root albums'|@translate} </a>
 </div>
 
 <div class='tree'> </div>

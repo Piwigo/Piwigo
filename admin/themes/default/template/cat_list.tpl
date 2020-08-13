@@ -30,7 +30,7 @@ jQuery(document).ready(function(){
     
     <div class="albumIcon">
       <span class="
-      {if $category.NB_SUB_ALBUMS == 0}icon-flow-tree{else}icon-folder-open{/if} 
+      {if $category.NB_SUB_ALBUMS == 0}icon-folder-open{else}icon-sitemap{/if} 
       {$color_tab[$category.ID % 5]}
       "> </span>
     </div>
@@ -42,7 +42,7 @@ jQuery(document).ready(function(){
 
     <div class="albumActions">
       <a href="{$category.U_EDIT}" title="{'Edit'|@translate}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
-      <a href="{$category.U_CHILDREN}" class="actionTitle" title="{'sub-albums'|@translate}"><span class="icon-flow-tree"></span>{'sub-albums'|@translate}</a>
+      <a href="{$category.U_CHILDREN}" class="actionTitle" title="{'sub-albums'|@translate}"><span class="icon-sitemap"></span>{'sub-albums'|@translate}</a>
       {if cat_admin_access($category.ID)}
       <a href="{$category.U_JUMPTO}" title="{'Visit Gallery'|@translate}"><span class="icon-eye"></span>{'Visit Gallery'|@translate} </a>
       {else}

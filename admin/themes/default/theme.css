@@ -194,8 +194,10 @@ TABLE.languages TR TD { padding: 7px 20px; }
 
 .albumInfos {
   text-align: center;
-  color: #aaa;
   font-weight: 600;
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
 }
 
 .albumInfos p {
@@ -297,6 +299,11 @@ TABLE.languages TR TD { padding: 7px 20px; }
   display: inline-block;
   width: 159px;
   margin-top: 20px;
+  font-size: 15px;
+}
+
+.addAlbum form input::placeholder {
+  color: rgb(206, 206, 206);
 }
 
 .addAlbum button, .addAlbum a {
@@ -368,11 +375,25 @@ LI.menuLi {
   padding-top: 100%;
 }
 
-#catHeader .albumThumbailImage, #catHeader .albumThumbnailRandom, #catHeader .albumThumbnailActions, #catHeader .albumThumbnailActionContainer{
+#catHeader .albumThumbailImage, #catHeader .albumThumbnailRandom, #catHeader .albumThumbnailActions, #catHeader .albumThumbnailActionContainer, #catHeader .albumThumbnailNoPhoto{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+#catHeader .albumThumbnailRandom, #catHeader .albumThumbnailNoPhoto {
+  height: 100%;
+  width: 100%;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#catHeader .albumThumbnailRandom span, #catHeader .albumThumbnailNoPhoto span {
+  font-size: 100px;
+  opacity: 0.4;
 }
 
 #catHeader .albumThumbnailActions {
@@ -398,6 +419,7 @@ LI.menuLi {
   white-space: nowrap;
   font-weight: bold;
   color: #3C3C3C;
+  text-align: center;
 }
 
 #catHeader .albumThumbnailActions a:hover {
@@ -413,6 +435,7 @@ LI.menuLi {
 #catHeader .catInfo {
   display: flex;
   justify-content: center;
+  padding: 10px
 }
 
 #catHeader .catInfo .container{
@@ -3012,7 +3035,6 @@ FORM#categoryOrdering p.albumActions a {
 	padding-top: 22px;
 }
 
-.albumInfos { font-size: 12px; }
 .actionTitle span {text-transform: capitalize;}
 
 FORM#categoryOrdering p.albumActions a:hover {text-decoration: none;}
@@ -3050,6 +3072,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
 .tree {
   margin: 20px;
+  padding-top: 1px;
 }
 
 .move-cat-container {
@@ -3060,17 +3083,17 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   border-radius: 5px;
   color: #777;
   padding: 5px 10px;
-  padding-left: 20px;
+  padding-left: 28px;
 }
 
 .move-cat-container .icon-grip-vertical-solid {
   font-size: 16px;
   opacity: 0.5;
   position: absolute;
-  left: 0px;
+  left: 6px;
 }
 
-.move-cat-container .icon-folder-open, .move-cat-container .icon-flow-tree {
+.move-cat-container .icon-folder-open, .move-cat-container .icon-sitemap {
   display: inline-block;
   border-radius: 50%;
   font-size: 20px;
@@ -3101,6 +3124,10 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   cursor: pointer;
   z-index: 2;
   font-weight: 600;
+}
+
+.move-cat-container .move-cat-toogler .icon-left-open{
+  transform: rotate(90deg);
 }
 
 .move-cat-action-cont {

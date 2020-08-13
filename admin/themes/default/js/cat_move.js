@@ -30,7 +30,7 @@ $(document).ready(() => {
     cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
 
     if (node.children.length != 0) {
-      cont.append($(icon.replace(/%icon%/g, 'icon-flow-tree')));
+      cont.append($(icon.replace(/%icon%/g, 'icon-sitemap')));
     } else {
       cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
     }
@@ -59,7 +59,7 @@ $(document).ready(() => {
 
     var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
     var colorId = Number(node.id)%5;
-    cont.find(".icon-folder-open, .icon-flow-tree").addClass(colors[colorId]);  
+    cont.find(".icon-folder-open, .icon-sitemap").addClass(colors[colorId]);  
   }
 
   $('.tree').on( 'click', '.move-cat-toogler', function(e) {
@@ -134,7 +134,6 @@ $(document).ready(() => {
   $('.tree').on( 'click', '.move-cat-order', function(e) {
     var node_id = $(this).attr('data-id');
     var node = $('.tree').tree('getNodeById', node_id);
-    console.log(node);
     if (node) {
       $('.cat-move-order-popin').fadeIn();
       $('.cat-move-order-popin .album-name').html(getPathNode(node));
@@ -200,7 +199,9 @@ function applyMove(event) {
       moveParent = getId(target);
     }
     moveRank = 1;
-  }
+  } else if (event.move_info.position == 'before') {
+    moveRank = 1;
+  } 
   moveNode(id, moveRank, moveParent).then(() => {
     event.move_info.do_move();
     clearTimeout(waitingTimeout);
