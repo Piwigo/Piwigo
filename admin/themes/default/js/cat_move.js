@@ -27,7 +27,7 @@ $(document).ready(() => {
     cont.addClass('move-cat-container');
     cont.attr('id', 'cat-'+node.id)
     cont.html('');
-    cont.append($(icon.replace(/%icon%/g, 'icon-ellipsis-vert')));
+    cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
 
     if (node.children.length != 0) {
       cont.append($(icon.replace(/%icon%/g, 'icon-flow-tree')));

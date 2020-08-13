@@ -196,7 +196,7 @@ function cropImage() {
 
 
 <div class="titrePage">
-  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
+  <h2>{'Edit album'|@translate} #{$CAT_ID} <span style="letter-spacing:0">{$CATEGORIES_NAV}</span></h2>
 </div>
 
 <div id="catModify">

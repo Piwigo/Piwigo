@@ -646,22 +646,6 @@ table.dataTable thead th, table.dataTable.no-footer {
   color:#444;
 }
 
-/* beta-test begins: specific changes on album edition page*/
-#catModify input[type="text"], #catModify textarea {
-  border: 2px solid #ddd;
-  background-color:#fff;
-  padding:5px;
-}
-
-#catModify input[type="text"].large, #catModify textarea.description {
-  width:590px;
-}
-
-#catModify input[type="text"]:focus, #catModify textarea:focus {
-  border-color: #ff7700;
-  background-color:#fff;
-}
-
 FORM#categoryOrdering p.albumTitle a { color: #5B5B5B; }
 FORM#categoryOrdering p.albumActions a { border-left:1px solid #D6D6D6;  background-color: #E8E8E8;}
 .albumInfos {color: #999999;}

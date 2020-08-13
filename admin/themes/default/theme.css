@@ -516,6 +516,10 @@ LI.menuLi {
   font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 }
 
+#catModify input[type="text"]:focus, #catModify textarea:focus{
+  border-color: #888;
+}
+
 #catModify button[type="submit"] {
   margin: 13px;
   font-size: 12px;
@@ -3021,6 +3025,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   align-items: center;
   font-size: 14px;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .cat-move-header .order-root::before {
@@ -3058,11 +3063,11 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   padding-left: 20px;
 }
 
-.move-cat-container .icon-ellipsis-vert {
-  font-size: 20px;
+.move-cat-container .icon-grip-vertical-solid {
+  font-size: 16px;
   opacity: 0.5;
   position: absolute;
-  left: -5px;
+  left: 0px;
 }
 
 .move-cat-container .icon-folder-open, .move-cat-container .icon-flow-tree {
@@ -4452,13 +4457,13 @@ fieldset#environment legend i[class*="icon-"] {
 
 .buttonGradient {
   padding: 8px 10px; margin-left: 5px;
-  background: linear-gradient(135deg, rgba(255,119,0,1) 0%, rgba(249,76,93,1) 50%, rgba(201,74,140,1) 100%);
-  transition: 0.3s ease; 
+  background: linear-gradient(135deg, rgb(255, 119, 0) 0%, rgb(249, 76, 93) 25%, rgb(201, 74, 140) 50%, rgb(249, 76, 93) 100%);  transition: 0.3s ease; 
   cursor: pointer;
   color: white !important;
+  background-size: 200% 100%;
 }
 
-.buttonGradient:hover {filter: brightness(1.2);}
+.buttonGradient:hover {background-position-x: 100%;}
 
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
 
