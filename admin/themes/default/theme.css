@@ -497,6 +497,11 @@ LI.menuLi {
   font-size: 14px;
 }
 
+#catHeader label[id=applytoSubAction] {
+  margin-top: 10px;
+  display: block;
+}
+
 #catHeader .catLock .switch {
   margin: 0 5px;
 }
@@ -513,7 +518,13 @@ LI.menuLi {
 
 #catModify button[type="submit"] {
   margin: 13px;
-  font-size: 14px;
+  font-size: 12px;
+  padding: 12px;
+  margin-left: 0;
+}
+
+#catModify p {
+  margin-left: 0;
 }
 
 /* Search bar */
