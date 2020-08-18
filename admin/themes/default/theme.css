@@ -1,8 +1,3 @@
-/* Fix bold in MACOS */
-* {
-  -moz-osx-font-smoothing: grayscale;
-}
-
 /* content.css */
 [class*="icon-"]:before { text-decoration:none !important; }
 
@@ -608,6 +603,7 @@ LI.menuLi {
   border-radius: 10px;
   background: linear-gradient(130deg, #ff7700 0%, #ffa744 100%);
   color: white;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .dropdown::after {
@@ -1810,7 +1806,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 .themeSelect {box-shadow: 0px 2px 1px #00000024; display: inline-block; text-align: center; padding: 0px 10px 8px 10px; margin-right: 10px; transition: 0.4s ease;}
 .showInfo-dropdown-header {padding: 5px 10px; white-space: nowrap; font-weight: bold; font-size: 12px;}
 .showInfo-dropdown-header a:hover {color: white;}
-.showInfo-dropdown-content {padding: 5px 10px}
+.showInfo-dropdown-content {padding: 5px 10px; -moz-osx-font-smoothing: initial;}
 .showInfo-dropdown-action {padding: 8px 10px; border-top: 1px solid #ffffff45; color: white; text-decoration: none !important; display: block; margin-top: 5px; border-radius: 0px 0px 10px 10px; font-weight: bold;}
 .showInfo-dropdown-action:hover {background-color: rgba(0, 0, 0, 0.192); color: white;}
 .themeActions {display: flex;flex-direction: column;}
