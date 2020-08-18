@@ -247,7 +247,7 @@ function cropImage() {
       <div class="container">
       <strong>{"Actions"|@translate}</strong>
       {if cat_admin_access($CAT_ID)}
-        <a class="icon-eye" href="{$U_JUMPTO}">{'jump to album'|@translate}</a>
+        <a class="icon-eye" href="{$U_JUMPTO}">{'Open in gallery'|@translate}</a>
       {/if}
 
       {if isset($U_MANAGE_ELEMENTS) }

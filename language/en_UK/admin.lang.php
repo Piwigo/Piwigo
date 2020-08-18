@@ -1013,3 +1013,4 @@ $lang['Search tips'] = 'Search tips';
 $lang['Posted %s'] = 'Posted %s';
 $lang['File type: %s'] = 'File type: %s';
 $lang['or'] = 'or';
+$lang['Open in gallery'] = "Open in gallery";

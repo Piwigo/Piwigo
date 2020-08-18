@@ -90,7 +90,7 @@ $('#action-delete-picture').on('click', function() {
   <div id='picture-preview'>
     <div class='picture-preview-actions'>
       {if isset($U_JUMPTO)}
-        <a class="icon-eye" href="{$U_JUMPTO}" title="{'jump to photo'|@translate}"></a>
+        <a class="icon-eye" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
       {else}
         <a class="icon-eye unavailable" title="{'Photo is in a private album'|@translate}"></a>
       {/if}

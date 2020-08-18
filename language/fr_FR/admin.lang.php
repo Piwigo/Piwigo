@@ -1015,3 +1015,4 @@ $lang['Synchronization in progress'] = 'Synchronisation en cours';
 $lang['Some checksums are missing.'] = 'Il manque des sommes de contrôle';
 $lang['Display category date'] = 'Afficher la date de la catégorie';
 $lang['Deletion in progress'] = 'Suppression en cours';
+$lang['Open in gallery'] = "Ouvrir dans la galerie";
