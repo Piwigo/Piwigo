@@ -1070,3 +1070,40 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #4ac641;
   color: #014400;
 }
+
+.themeBox{
+  box-shadow: 0 0 5px #333;
+}
+
+.pluginActionLevel1,
+.themeActions a:nth-child(1) {
+  background-color: #ffa744; 
+}
+
+.themeActions a:nth-child(2),
+.plugin-inactive .pluginContent .pluginActionLevel1{
+  background-color:#999999;
+}
+
+.pluginUnavailableAction{
+  background-color:#888;
+  color:#666;
+}
+
+.addAlbum label{
+  color:#aaa;
+  margin:-5px 0;
+}
+
+.popin-title,
+.cat-move-order-popin .album-name{
+  color:#999;
+}
+
+.cat-move-order-popin .close-popin{
+  color:#ccc;
+}
+
+.move-cat-container .move-cat-toogler{
+  color:#ffa744;
+}
