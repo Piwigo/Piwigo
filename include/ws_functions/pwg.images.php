@@ -1348,6 +1348,10 @@ function ws_images_upload($params, $service)
     $fileName = uniqid("file_");
   }
 
+  // change the name of the file in the buffer to avoid any unexpected
+  // extension. Function add_uploaded_file will eventually clean the mess.
+  $fileName = md5($fileName);
+
   $filePath = $upload_dir.DIRECTORY_SEPARATOR.$fileName;
 
   // Chunking might be enabled
@@ -1670,7 +1674,12 @@ SELECT *
         );
     }
 
-    $update['file'] = $params['file'];
+    // prevent XSS, remove HTML tags
+    $update['file'] = strip_tags($params['file']);
+    if (empty($update['file']))
+    {
+      unset($update['file']);
+    }
   }
 
   if (count(array_keys($update)) > 0)

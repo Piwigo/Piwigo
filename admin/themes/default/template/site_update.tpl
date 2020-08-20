@@ -60,7 +60,7 @@
 <form action="" method="post" id="update">
 
 	<fieldset id="syncFiles">
-		<legend>{'synchronize files structure with database'|@translate}</legend>
+		<legend><span class="icon-docs icon-blue"></span>{'synchronize files structure with database'|@translate}</legend>
 		<ul>
 			<li><label><input type="radio" name="sync" value="" {if empty($introduction.sync)}checked="checked"{/if}> {'nothing'|@translate}</label></li>
 			<li><label><input type="radio" name="sync" value="dirs" {if 'dirs'==$introduction.sync}checked="checked"{/if}> {'only directories'|@translate}</label></li>
@@ -76,7 +76,7 @@
 	</fieldset>
 
 	<fieldset id="syncMetadata">
-		<legend>{'synchronize files metadata with database photos informations'|@translate}</legend>
+		<legend><span class="icon-hdd icon-red"></span>{'synchronize files metadata with database photos informations'|@translate}</legend>
 		<label><input type="checkbox" name="sync_meta" {if $introduction.sync_meta}checked="checked"{/if}> {'Synchronize metadata'|@translate} ({$METADATA_LIST})</label>
 		<ul style="padding-left:3em">
 	  		<li>
@@ -89,12 +89,12 @@
 	</fieldset>
 
   <fieldset id="syncSimulate">
-    <legend>{'Simulation'|@translate}</legend>
+    <legend><span class="icon-chart-bar icon-green"></span>{'Simulation'|@translate}</legend>
     <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked"> {'only perform a simulation (no change in database will be made)'|@translate}</label></li></ul>
   </fieldset>
 
   <fieldset id="catSubset">
-    <legend>{'reduce to single existing albums'|@translate}</legend>
+    <legend><span class="icon-filter icon-purple"></span>{'reduce to single existing albums'|@translate}</legend>
     <ul>
     <li>
     <select class="categoryList" name="cat" size="10">

@@ -170,7 +170,7 @@ function register_user($login, $password, $mail_address, $notify_admin=true, &$e
     );
 
   // if no error until here, registration of the user
-  if (count($errors) == 0)
+  if (empty($errors))
   {
     $insert = array(
       $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
@@ -298,8 +298,10 @@ function build_user($user_id, $use_cache=true)
     $user['internal_status']['guest_must_be_guest'] = true;
   }
 
-  // Check user theme
-  if (!isset($user['theme_name']) || !check_theme_installed($user['theme_name']))
+  // Check user theme. 2 possible problems:
+  // 1. the user_infos.theme was not found in the themes table, thus themes.name is null
+  // 2. the theme is not really installed on the filesystem
+  if (!isset($user['theme_name']) or !check_theme_installed($user['theme']))
   {
     $user['theme'] = get_default_theme();
     $user['theme_name'] = $user['theme'];
@@ -936,10 +938,7 @@ function log_user($user_id, $remember_me)
   if ( session_id()!="" )
   { // we regenerate the session for security reasons
     // see http://www.acros.si/papers/session_fixation.pdf
-    if (version_compare(PHP_VERSION, '7') <= 0)
-    {
-      session_regenerate_id(true);
-    }
+    session_regenerate_id(true);
   }
   else
   {

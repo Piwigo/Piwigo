@@ -16,6 +16,8 @@ check_status(ACCESS_ADMINISTRATOR);
 check_input_parameter('iDisplayStart', $_REQUEST, false, PATTERN_ID);
 check_input_parameter('iDisplayLength', $_REQUEST, false, PATTERN_ID);
 
+
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
  */
@@ -91,11 +93,39 @@ if ( isset( $_REQUEST['iSortCol_0'] ) )
 $sWhere = "";
 if ( $_REQUEST['sSearch'] != "" )
 {
-  $sWhere = "WHERE (";
-  for ( $i=0 ; $i<count($aColumns) ; $i++ )
+  $user_ids = null;
+
+  if (preg_match('/group:(\d+)/', $_REQUEST['sSearch'], $matches))
   {
-    $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string( $_REQUEST['sSearch'] )."%' OR ";
+    $group_id = $matches[1];
+
+    $query = '
+SELECT
+    `user_id`
+  FROM '.USER_GROUP_TABLE.'
+  WHERE `group_id` = '.$group_id.'
+';
+    $user_ids = query2array($query, null, 'user_id');
+    $user_ids[] = -1;
+
+    $_REQUEST['sSearch'] = preg_replace('/group:(\d+)/', '', $_REQUEST['sSearch']);
   }
+
+  $sWhere = "WHERE (";
+
+  if (is_array($user_ids))
+  {
+    $sWhere.= '`user_id` IN ('.implode(',', $user_ids).') OR ';
+  }
+
+  if ($_REQUEST['sSearch'] != "")
+  {
+    for ( $i=0 ; $i<count($aColumns) ; $i++ )
+    {
+      $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string( $_REQUEST['sSearch'] )."%' OR ";
+    }
+  }
+
   $sWhere = substr_replace( $sWhere, "", -3 );
   $sWhere .= ')';
 }
@@ -201,7 +231,7 @@ if (count($user_ids) > 0)
   $query = '
 SELECT
     user_id,
-    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS groups
+    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS `groups`
   FROM '.USER_GROUP_TABLE.'
     JOIN `'.GROUPS_TABLE.'` ON id = group_id
   WHERE user_id IN ('.implode(',', $user_ids).')

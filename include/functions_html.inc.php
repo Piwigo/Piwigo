@@ -418,7 +418,7 @@ function get_tags_content_title()
       .trigger_change('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
       .'</a>';
 
-    if (count($page['tags']) > 2)
+    if (count($page['tags']) > 1)
     {
       $other_tags = $page['tags'];
       unset($other_tags[$i]);
@@ -429,11 +429,12 @@ function get_tags_content_title()
         );
 
       $title.=
-        '<a href="'.$remove_url.'" style="border:none;" title="'
+        '<a id="TagsGroupRemoveTag" href="'.$remove_url.'" style="border:none;" title="'
         .l10n('remove this tag from the list')
         .'"><img src="'
           .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-        .'" alt="x" style="vertical-align:bottom;">'
+        .'" alt="x" style="vertical-align:bottom;" >'
+        .'<span class="pwg-icon pwg-icon-close" ></span>'
         .'</a>';
     }
   }

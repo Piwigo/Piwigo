@@ -424,3 +424,6 @@ $lang['Apply on properties'] = 'Taikyti pakeitimus';
 $lang['Link: %s'] = 'Nuoroda: %s';
 $lang['Photo description'] = 'Nuotraukos aprašymas';
 $lang['Photo title'] = 'Nuotraukos pavadinimas';
+$lang['Invalid username or password!'] = 'Neteisingas vartotojo vardas arba slaptažodis!';
+$lang['Your authentication key is no longer valid.'] = 'Jūsų prisijungimo raktas nebegalioja.';
+$lang['generate random password'] = 'generuoti slaptažodį';

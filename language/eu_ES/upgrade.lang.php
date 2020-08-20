@@ -22,3 +22,4 @@ $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i>(e)an, <b>?></b>(e)
 $lang['All sub-albums of private albums become private'] = 'Album pribatuetako azpi-album guztiak pribatu bihurtzen dira';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Hurrengo pluginak ezgaitu egin dira badaezpada. Egiaztatu eguneratu daiteken pluginik dagoen berriro gaitu baino lehen:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Hurrengo gaiak ezgaitu egin dira badaezpada. Egiaztatu eguneratu daiteken gairik dagoen berriro gaitu baino lehen:';
+$lang['Discover what\'s new in Piwigo %s'] = 'Aurkitu zer berri dagoen Piwigoren %s bertsioan';

@@ -26,4 +26,4 @@ $lang['User permissions and group permissions have been erased'] = "Корисн
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Само префиx за повезне сличице и адреса електронске поште уредника интернет страница су сачуване из претходне конфигурације";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'У <i>%s</i>, испред <b>?></b>, уметни:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Као мера предострожности, следеће теме су деактивиране. Ви треба да проверите да ли теме имају унапређење пре него што их поново активирате:'; 
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Откријте шта је ново у Пивигу %s';

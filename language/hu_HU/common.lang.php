@@ -416,3 +416,5 @@ $lang['Album name, Z &rarr; A'] = 'Album név, Z &rarr; A';
 $lang['No results for'] = 'Nincs eredmény';
 $lang['Link: %s'] = 'Hivatkozás: %s';
 $lang['Your authentication key is no longer valid.'] = 'A hitelesítési kulcsod már nem érvényes.';
+$lang['Invalid username or password!'] = 'A felhasználó-azonosító vagy a jelszó érvénytelen ';
+$lang['generate random password'] = 'Véletlenszerű jelszó generálása';

@@ -22,4 +22,4 @@ $lang['User permissions and group permissions have been erased'] = '使用者和
 $lang['You do not have access rights to run upgrade'] = '您沒有權限執行升級';
 $lang['total SQL time'] = '總SQL執行時間';
 $lang['total upgrade time'] = '總升級時間';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = '發現Piwigo %s的最新動態';

@@ -26,7 +26,13 @@ function parse_sort_variables(
     {
       $base_url .= $is_first ? '?' : '&amp;';
       $is_first = false;
-      $base_url .= $key.'='.urlencode($value);
+
+      if (!in_array($key, array('page', 'psf', 'dpsf', 'pwg_token')))
+      {
+        fatal_error('unexpected URL get key');
+      }
+
+      $base_url .= urlencode($key).'='.urlencode($value);
     }
   }
 

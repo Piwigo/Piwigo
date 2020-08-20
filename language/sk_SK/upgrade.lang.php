@@ -25,4 +25,4 @@ $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'V <i>%s</i>, pred <b>?></b>,
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Z opatrnosti boli nasledovné témy deaktivované. Musíte skontrolovať aktualizácie tém pred ich reaktiváciou:';
 
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Ako predbežné opatrenie boli deaktivované nasledujúce doplnky. Prosím skontrolujte aktualizácie týchto doplnkov predtým, než ich znovu aktivujete:';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = 'Objavte, čo je nové v Piwigo %s';

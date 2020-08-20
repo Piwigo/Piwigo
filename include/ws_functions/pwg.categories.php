@@ -870,7 +870,7 @@ SELECT *
 ;';
   $category = pwg_db_fetch_assoc(pwg_query($query));
 
-  return get_category_representant_properties($category['representative_picture_id']);
+  return get_category_representant_properties($category['representative_picture_id'], IMG_SMALL);
 }
 
 /**

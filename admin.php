@@ -181,6 +181,7 @@ $template->assign(
     'U_CONFIG_LANGUAGES' => $link_start.'languages',
     'U_CONFIG_THEMES'=> $link_start.'themes',
     'U_CATEGORIES'=> $link_start.'cat_list',
+    'U_CAT_MOVE'=> $link_start.'cat_move',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_RATING'=> $link_start.'rating',
@@ -238,15 +239,14 @@ if ($nb_photos_in_caddie > 0)
 }
 
 // any photos with no md5sum ?
-$nb_no_md5sum =  count(get_photos_no_md5sum());
-if ($nb_no_md5sum > 0)
+if (in_array($page['page'], array('site_update', 'batch_manager')))
 {
-  $template->assign(
-    array(
-      'NB_NO_MD5SUM' => $nb_no_md5sum,
-      'U_NO_MD5SUM' => $link_start.'batch_manager&amp;filter=prefilter-no_sync_md5sum',
-    )
-  );
+  $nb_no_md5sum = count(get_photos_no_md5sum());
+
+  if ($nb_no_md5sum > 0)
+  {
+    $page['no_md5sum_number'] = $nb_no_md5sum;
+  }
 }
 
 // any orphan photo?
@@ -261,19 +261,6 @@ if ($nb_orphans > 0)
       )
     );
 }
-
-// +-----------------------------------------------------------------------+
-// | Plugin menu                                                           |
-// +-----------------------------------------------------------------------+
-
-$plugin_menu_links = trigger_change('get_admin_plugin_menu_links', array() );
-
-function UC_name_compare($a, $b)
-{
-  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
-}
-usort($plugin_menu_links, 'UC_name_compare');
-$template->assign('plugin_menu_items', $plugin_menu_links);
 
 // +-----------------------------------------------------------------------+
 // | Refresh permissions                                                   |

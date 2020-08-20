@@ -235,7 +235,7 @@ $template->assign(
 
     'PATH'=>$row['path'],
 
-    'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
+    'TN_SRC' => DerivativeImage::url(IMG_MEDIUM, $src_image),
     'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
 
     'NAME' =>
@@ -245,6 +245,8 @@ $template->assign(
     'TITLE' => render_element_name($row),
 
     'DIMENSIONS' => @$row['width'].' * '.@$row['height'],
+
+    'FORMAT' => ($row['width'] >= $row['height'])? 1:0,//0:horizontal, 1:vertical
 
     'FILESIZE' => @$row['filesize'].' KB',
 
@@ -280,13 +282,17 @@ while ($user_row = pwg_db_fetch_assoc($result))
   $row['added_by'] = $user_row['username'];
 }
 
+$extTab = explode('.',$row['file']);
+
 $intro_vars = array(
-  'file' => l10n('Original file : %s', $row['file']),
-  'add_date' => l10n('Posted %s on %s', time_since($row['date_available'], 'year'), format_date($row['date_available'], array('day', 'month', 'year'))),
+  'file' => l10n('%s', $row['file']),
+  'date' => l10n('Posted the %s', format_date($row['date_available'], array('day', 'month', 'year'))),
+  'age' => l10n(ucfirst(time_since($row['date_available'], 'year'))),
   'added_by' => l10n('Added by %s', $row['added_by']),
   'size' => $row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB',
   'stats' => l10n('Visited %d times', $row['hit']),
-  'id' => l10n('Numeric identifier : %d', $row['id']),
+  'id' => l10n($row['id']),
+  'ext' => l10n('%s file type',strtoupper(end($extTab)))
   );
 
 if ($conf['rate'] and !empty($row['rating_score']))
@@ -416,7 +422,7 @@ else
 
 if (isset($url_img))
 {
-  $template->assign( 'U_JUMPTO', $url_img );
+  $template->assign( 'U_JUMPTO', $url_img ); 
 }
 
 // associate to albums

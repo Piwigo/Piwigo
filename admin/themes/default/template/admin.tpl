@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
 				<li><a href="{$U_RATING}"><i class="icon-star"></i>{'Rating'|@translate}</a></li>
 				<li><a href="{$U_TAGS}"><i class="icon-tags"></i>{'Tags'|@translate}</a></li>
 				<li><a href="{$U_RECENT_SET}"><i class="icon-clock"></i>{'Recent photos'|@translate}</a></li>
-				<li><a href="{$U_BATCH}"><i class="icon-pencil"></i>{'Batch Manager'|@translate}</a></li>
+				<li><a href="{$U_BATCH}"><i class="icon-th"></i>{'Batch Manager'|@translate}</a></li>
 {if $NB_PHOTOS_IN_CADDIE > 0}
 				<li><a href="{$U_CADDIE}"><i class="icon-flag"></i>{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
 {/if}
@@ -71,6 +71,7 @@ jQuery(document).ready(function() {
     <dd>
       <ul>
         <li><a href="{$U_CATEGORIES}"><i class="icon-folder-open"></i>{'Manage'|@translate}</a></li>
+        <li><a href="{$U_CAT_MOVE}"><i class="icon-move"></i>{'Move'|@translate}</a></li>
         <li><a href="{$U_CAT_OPTIONS}"><i class="icon-pencil"></i>{'Properties'|@translate}</a></li>
       </ul>
     </dd>
@@ -91,14 +92,6 @@ jQuery(document).ready(function() {
       <ul>
         <li><a href="{$U_PLUGINS}"><i class="icon-equalizer"></i>{'Manage'|@translate}</a></li>
       </ul>
-{if !empty($plugin_menu_items)}
-      <div id="pluginsMenuSeparator"></div>
-      <ul class="scroll">
-  {foreach from=$plugin_menu_items item=menu_item}
-        <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
-  {/foreach}
-      </ul>
-{/if}
 		</dd>
   </dl>
   <dl>

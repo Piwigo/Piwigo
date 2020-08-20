@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2015 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['Members'] = 'Partaideak';
 $lang['Menu Management'] = 'Menuak';
@@ -321,7 +306,6 @@ $lang['(filtered from %s total users)'] = '(guztizko %s erabiltzaileetatik iraga
 $lang['(this tag will be deleted)'] = '(etiketa hau ezabatu egingo da)';
 $lang[', click on'] = ', egin klik';
 $lang['... or '] = '… edo';
-$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Androiderako Piwigo</em> aplikazioak ahalmena ematen dizu Android gailua zure Piwigo galeriarekin konektatzeko, albumak sortzeko edo hainbat argazki batera kargatzeko.';
 $lang['%d album including'] = 'Album %d barne';
 $lang['%d albums including'] = '%d album barne';
 $lang['%d albums moved'] = '%d album mugitu egin dira';
@@ -389,7 +373,6 @@ $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'G
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Ziur eguneraketa instalatu nahi duzula? Egiaztatu bertsio honek aurretik desinstalaziorik ez ote duen behar. ';
 $lang['Automatic sort order'] = 'Hurrenkera automatikoa';
 $lang['Available on'] = 'Hemen eskuragarri';
-$lang['Available versions for'] = 'Bertsio eskuragarriak honentzako';
 $lang['Average rate'] = 'Batez besteko balorazioa';
 $lang['Batch Manager'] = 'Multzoko kudeatzailea';
 $lang['Bound Theme'] = 'Lotu gaia';
@@ -406,12 +389,12 @@ $lang['No user is permitted to see this private album'] = 'Ez da erabiltzailerik
 $lang['No results'] = 'Ez dago emaitzarik';
 $lang['No recipient selected'] = 'Ez da hartzailerik hautatu';
 $lang['No matching user found'] = 'Ez da aurkitu ba datorren erabiltzailerik';
-$lang['No photo selected, no action possible.'] = 'Ez da argazkirik hautatu, ez dago burutu daiteken ekintzarik.';
+$lang['No photos selected, no actions possible.'] = 'Ez da argazkirik hautatu, ez dago burutu daiteken ekintzarik.';
 $lang['No photo selected, %d photos in current set'] = 'Ez da argazkirik hautatu, %d argazki uneko multzoan';
 $lang['No photo in this album'] = 'Ez dago argazkirik albumean';
 $lang['No photo in the current set.'] = 'Ez dago argazkirik uneko multzoan.';
 $lang['No photo can be deleted'] = 'Ezin daiteke argazkirik ezabatu';
-$lang['No group selected, no action possible.'] = 'Ez da talderik hautatu, ez dago burutu daiteken ekintzarik.';
+$lang['No groups selected, no actions possible.'] = 'Ez da talderik hautatu, ez dago burutu daiteken ekintzarik.';
 $lang['No order field selected'] = 'Ez da hautatu ordena-eremurik ';
 $lang['No members to manage'] = 'Ez dago kudeatu beharreko kiderik';
 $lang['No mail to send.'] = 'Ez dago bidali beharreko posta elektronikorik.';
@@ -567,7 +550,6 @@ $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo argitaratze-plugina Light
 $lang['Please wait...'] = 'Itxaron…';
 $lang['Please select at least two groups'] = 'Hautatu gutxienez talde bi';
 $lang['Piwigo export plugin for iPhoto'] = 'Piwigo esportazio-plugina iPhotorako';
-$lang['Piwigo for Android'] = 'Piwigo Androiderako';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo iOSerako (iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo argitaratze-plugina Shotwellerako';
 $lang['Piwigo publish plugin for digiKam'] = 'Piwigo argitaratze-plugina digiKamerako';
@@ -642,7 +624,7 @@ $lang['Notification'] = 'Jakinarazpena';
 $lang['Not cropped correctly?'] = 'Ez al da behar bezala moztu?';
 $lang['None'] = 'Bat ere ez';
 $lang['No user to send notifications by mail.'] = 'Ez dago erabiltzailerik posta elektroniko bidez jakinarazteko.';
-$lang['No user selected, no action possible.'] = 'Ez da erabiltzailerik hautatu, ez dago burutu daiteken ekintzarik.';
+$lang['No users selected, no actions possible.'] = 'Ez da erabiltzailerik hautatu, ez dago burutu daiteken ekintzarik.';
 $lang['Support'] = 'Laguntza';
 $lang['Summary'] = 'Laburpena';
 $lang['Sum of rates'] = 'Balorazioen batuketa';
@@ -946,7 +928,6 @@ $lang['only directories'] = 'direktorioak baino ez';
 $lang['only perform a simulation (no change in database will be made)'] = 'simulazioa baino ez burutu (ez da ezer aldatuko datu-basean)';
 $lang['other'] = 'besterik';
 $lang['overrides existing values with empty ones'] = 'gainidatzi baloreak balore hutsekin';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader <e>Piwigo Kargatzailea</em> esan nahi du. pLoaderrek argazkiak prestatzen ditu zure ordenagailutik eta Piwigo galeriara bidaltzen ditu.';
 $lang['middle'] = 'erdian';
 $lang['manual order'] = 'eskuzko hurrenkera';
 $lang['manage sub-albums'] = 'kudeatu azpi-albumak';
@@ -987,3 +968,25 @@ $lang['default'] = 'lehenetsia';
 $lang['default values'] = 'lehenetsitako balioak';
 $lang['date & time'] = 'data eta ordua';
 $lang['custom'] = 'Pertsonalizatua';
+$lang['orphans to delete'] = 'ezabatuko diren umezurtzak';
+$lang['delete only album, not photos'] = 'ezabatu albuma bakarrik, ez argazkiak';
+$lang['delete album and the %d orphan photos'] = 'ezabatu albuma eta %d argazki umezurtzak';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'ezabatu albuma eta %d argazki guztiak, baita beste albumeetara lotutako %dak ere';
+$lang['checksum'] = 'Kontroleko batura (checksum)';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Heldu da zure Piwigo instalazioa %s bertsioarekin eguneratzeko garaia, joan %s(e)ra';
+$lang['Storage used'] = 'Erabilitako biltegiratzea';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Partekatu/Bidali argazkiak Piwigora zuzenean macOSetik (10.10 eta berriagoak)';
+$lang['Select tags'] = 'Hautatu etiketak';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Eguneratutako Piwigo bertsioa exekutatzea garrantzitsua da segurtasun kontuekaitik.';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync karpeta-hierarki osoa kargatzeko ahalmena du. Berriro exekutatzen baduzu, argazki berriak baino ez dira kargatuko.';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s eskuragarri, eguneratu mesedez';
+$lang['No tags selected, no actions possible.'] = 'Ez da etiketarik hautatu, ezin da ekintzarik aurrera eraman.';
+$lang['No filter on album. Select one or type to search'] = 'Ez dago iragazkirik albumerako. Hautatu edo bilatu bat';
+$lang['It only takes a few clicks.'] = 'Klik gutxi batzu baino ez da.';
+$lang['First photo added'] = 'Lehenengo argazkia gehitu egin da';
+$lang['Display form'] = 'Bistaratu inprimakia';
+$lang['Delete album "%s".'] = 'Ezabatu "%s" albuma.';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Ezabatu "%s" albuma eta bere %d azpi-albumak.';
+$lang['Dashboard'] = 'Panela';
+$lang['Confirm deletion'] = 'Berretsi ezabatzea';
+$lang['(determined from photos)'] = '(argazkiekaitik zehaztuta)';

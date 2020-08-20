@@ -79,17 +79,14 @@ h3, .throw, .row1 { background-color: #ddd; }
 
 .content dl, dd { margin:5px; }
 
-
-UL.thumbnails span.wrap2:hover { background-color:#7CBA0F; color:#999; }
 UL.thumbnails span.wrap2 {
-	background-color:#ddd;
+	background-color:transparent;
 }
 
 
 /* borders */
 fieldset {
   border: none;
-  border-top: 2px solid #ddd;
 }
 
 fieldset.with-border {
@@ -105,20 +102,16 @@ TEXTAREA { cursor:text; font-size: 13px; }
 ul.thumbnails input { color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
-.categoryLi, .menuLi { background: #F3F3F3; }
+.menuLi { background: #F3F3F3; }
 .menuLi_hidden { background: #ccc !important; }
 a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;
   color : #0cc; text-decoration: none; border: 0; }
 a.Piwigo:hover  span.Piwigo  {
-  border-bottom: 1px solid #0cc9c;
+  border-bottom: 1px solid #0cc;
 }
 TABLE.table2 { border: 2px solid #dddddd; }
-
-.categoryUl>li:not(.virtual_cat) {
-  background:url(images/stripe-cat.png);
-}
 
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 A{
@@ -130,7 +123,6 @@ A:hover, A:active {
 	cursor: pointer; 
 }
 
-.content .navigationBar {color:#999;}
 ul.actions, .content form#waiting  {text-align:center;}
 
 /* jQuery tooltips */
@@ -180,7 +172,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-week-end-cell, #ui-datepicker-div .ui-datepicker-week-end-cell  a { background-color: #ddd; color: #0cc; border-color: #bbb; border-top-color: #ddd; border-left-color: #ddd;}
 #ui-datepicker-div .ui-datepicker-title-row { background-color: #eee;}
 #ui-datepicker-div .ui-datepicker-title-row .ui-datepicker-week-end-cell a { color: #0cc;}
-#ui-datepicker-div  a:hover { color: #0cccc !important; background-color: #eee !important;}
+#ui-datepicker-div  a:hover { color: #0cc !important; background-color: #eee !important;}
 #ui-datepicker-div .ui-datepicker-header select { background-color:#bbb; color:#666; font-weight:normal;}
 #ui-datepicker-div .ui-datepicker-links { background-color:#ddd;}
 #ui-datepicker-div .ui-datepicker-header { background-color:#bbb;}
@@ -192,7 +184,7 @@ img.ui-datepicker-trigger{margin:-2px 10px 1px -2px;}
 .ui-slider .ui-slider-range { background:#aaa;border-radius:2px; }
 
 .ui-slider .ui-slider-handle {
-    background-color: #eee;
+    background-color: #ddd;
     border: 1px solid #aaa;
     border-radius: 3px;
 }
@@ -210,11 +202,12 @@ INPUT[type="text"].large  { width: 317px; }
 *+html  .bigbutton input, * html  .bigbutton input  { left:0px; position:relative; top:-40px; }
 * html .bigtext { margin-right: 300px; }
 
-.themeBox {background-color:#ddd;}
-.themeBox IMG {border:1px solid white;}
+.themeBox {background-color:#fafafa; box-shadow: 0px 0px 5px #acacac;}
 .themeName {color:black;}
+.themeActions span {background-color: #ddd;}
 #themesContent H3 {border-bottom:1px solid #aaa;}
-.themeDefault {background-color:#dbe8f3;}
+.themeSelect {background-color: #fafafa;}
+.themeSelect.themeDefault {background-color: #ffd7ad;}
 
 #pluginsMenuSeparator {border:1px solid #555;}
 
@@ -226,7 +219,7 @@ INPUT[type="text"].large  { width: 317px; }
 #pwgHead A, #footer A {color:#ccc;}
 #pwgHead A:hover, #footer A:hover {color:white;}
 
-.pluginBox, .pluginMiniBox, .groups li {background-color:#ddd;color:#353535;border-color:#ddd;}
+.pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border-color:#ddd;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing  {background-color:#d99;border:1px solid #a00;}
@@ -242,42 +235,47 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   color:#999;
 }
 
-#batchManagerGlobal .thumbnails li:hover .font-checkbox [class*="icon-check"]::before {
-  color:white;
-}
-
 #batchManagerGlobal li.thumbSelected .font-checkbox [class*="icon-check"]::before {
-  color:white;
+  color: white; 
+  display: block;
 }
 
 #batchManagerGlobal UL.thumbnails li:hover .wrap2 {
-  background-color: #ff7700;
+  background-color: transparent;
   color: #999;
 }
 
 #batchManagerGlobal .thumbSelected { background-color:transparent !important }
 
 #batchManagerGlobal .thumbSelected .wrap2 {
-  background-color: #444 !important;
+  background-color: transparent !important;
 }
 
 #batchManagerGlobal #selectedMessage {
-  background-color: #555;
-  color:white;
+  color: #FFA646;
+  font-weight: bold;
 }
 
-/* beta-test begins: specific changes on Batch Manager */
-#batchManagerGlobal legend {
-  background-color:#ddd;
-  color:#555;
-  padding:5px 10px;
+#batchManagerGlobal #applyFilter,#batchManagerGlobal .addFilter-button {
+  color: #3C3C3C;
+  background-color: #ececec;
 }
 
-#batchManagerGlobal fieldset {
-  margin-top:2em;
+#batchManagerGlobal #applyFilter:hover, #batchManagerGlobal .addFilter-button:hover {
+  color: #111;
+  background-color: #ff9b32 ;
 }
-/* beta-test ends */
 
+#batchManagerGlobal .addFilter-button.highlight {
+  color: #3C3C3C;
+  background-color: #ffc17e;
+}
+
+#batchManagerGlobal .addFilter-button.highlight:hover {
+  background-color: #ff7700;
+  color: white;
+  text-decoration: none;
+}
 
 .slider-info {color:#ff7700;font-weight:bold;}
 
@@ -313,15 +311,292 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 p.albumTitle img {margin-bottom:-3px;}
 
-.groups label>p {
+.groups .GroupContainer,
+.groups .showCreateGroup,
+.groups .addGroupFormBlock{
   font-size: 1.2em;
-  color: #111;
-  background-color:#ccc;
+  background-color:#fafafa;
 }
+
+.groups .Group-name>p,
+.addGroupForm .addGroupFormTitle{
+  color:#3c3c3c;
+  font-size: 1.2em;
+}
+
+.groups .GroupContainer,
+.groups .showCreateGroup,
+.groups .addGroupFormBlock{
+  box-shadow: 0px 2px 5px #00000024;
+}
+
+.groups #addGroupForm:hover  #addGroup,
+.groups .addGroupFormTitle{
+  color:#3c3c3c;
+  text-decoration:none;
+}
+
+.groups #addGroup{
+  color:#777;
+}
+
+.groups .group_number_users{
+  color:#d5d5d5;
+}
+
+.addGroupLabel{
+  color:#3c3c3c;
+}
+
+.addUserButton:hover{
+  text-decoration:none;
+  color:#3c3c3c;
+  background-color:#f3f3f3;
+}
+
+.groups p.list_user{
+  color:#3c3c3c;
+}
+
 label>p.group_select {
   color: #000;
   background-color:#C2F5C2;
 }
+
+.groups input[type="text"]{
+  background-color:white;
+  border:1px solid #d5d5d5;
+}
+
+.groups .AddUser .icon-user-add::before{
+  background-color:#f3f3f3;
+  color:#e0e0e0;
+}
+
+
+/*Edit group name*/
+
+.groups .Group-name{
+  color:#3c3c3c;
+}
+
+.groups .Group-name .Group-name-container p:focus{
+  border:1px solid #3c3c3c!important;
+  background-color:white;
+}
+
+/*Add Group */
+
+.groups fieldset INPUT[type="text"]::placeholder{
+  color:#d5d5d5;
+}
+
+.groups button.submit{
+  background-color:#ffa744;
+  color:#3c3c3c;
+}
+
+.groups button.submit:hover{
+  background-color:#ff7700;
+}
+
+/*Group manager buttons*/
+
+.groups .manage-users,
+.groups .manage-permissions{
+  border:1px solid #e7e7e7;
+  background-color:transparent;
+}
+
+
+.groups .manage-users:hover,
+.groups .manage-permissions:hover{
+  background-color:#ffa744;
+  border:1px solid #ffa744;
+  cursor:pointer;
+}
+
+/*UserList Pop in*/
+
+
+.UserListPopInContainer{
+  background-color:#f3f3f3;
+  border-radius:10px;
+
+}
+
+#UserList .AddUserBlock button{
+  background-color:#ffa744;
+  color:#3c3c3c;
+}
+
+#UserList .AddUserBlock button:hover{
+  background-color:#ff7700;
+}
+
+#UserList .AddUserBlock input,
+#UserList .FilterUserBlock input{
+  background-color:white;
+}
+
+#UserList .AddUserBlock p,
+#UserList .FilterUserBlock{
+  color:#3c3c3c;
+}
+
+.UsersInGroupList span{
+  color:#d5d5d5;
+}
+
+.UsersInGroupList .icon-cancel:hover{
+  color:#ff7700;
+}
+
+.LinkUserManager{
+  color:#3c3c3c;
+}
+
+/* Selection mode */
+
+.slider {
+  background-color: #e0e0e0;
+}
+
+.slider:before {
+  background-color: white;
+}
+
+input:checked + .slider {
+  background-color: #ffa646;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #ffa646;
+}
+
+#selection-mode-block{
+  background-color: #FAFAFA;
+  border-left:1px solid #e6e6e6;
+}
+
+.GroupBackgroudSelected{
+  background-color:#ffd7ad!important;
+}
+
+.OrangeIcon{
+  background-color:#f98100!important;
+  color:#ffe4c7!important;
+}
+
+.OrangeFont{
+  color:#ff7700!important;
+}
+
+/*Selection mode content*/
+
+.SelectionModeGroupList{
+  color:#a0a0a0;
+}
+
+#selection-mode-block button{
+  border: 1px solid #e7e7e7;
+}
+
+
+#selection-mode-block button:hover{
+  background-color: #ffa744;
+  border: 1px solid #ffa744;
+}
+
+#ConfirmGroupAction{
+  color:#3c3c3c;
+}
+
+#ConfirmGroupAction p{
+  color: #777;
+}
+
+.ConfirmDeleteButton{
+  background-color: #ffa744;
+}
+
+/*Merge Options*/
+
+
+#MergeOptionsBlock p{
+  color: #777;
+}
+
+#MergeOptionsBlock a{
+  color:#3c3c3c;
+}
+
+/*Merge options Radio buttons*/
+
+.ConfirmMergeButton{
+  background-color: #ffa744;
+}
+
+.MergeOptionsContainer select{
+  background-color: white;
+  box-shadow: 0 0 2px #c5c5c5;
+}
+
+/*Group checkbox*/
+
+.groups .group-checkmark {
+  border:2px solid #ffa646;
+}
+
+.groups .Group-checkbox:hover input ~ .group-checkmark {
+  background-color: #ffa646;
+}
+
+.groups .Group-checkbox input:checked ~ .group-checkmark {
+  background-color: #ffa646;
+}
+
+
+/*Group manager buttons*/
+
+.groups .manage-users,
+.groups .manage-users:hover,
+.groups .manage-permissions,
+.groups .manage-permissions:hover{
+  color:#3c3c3c;
+}
+
+/*UserList Pop in*/
+
+.CloseUserList{
+  color:white;
+}
+
+#UserList .group-name-block p{
+  color:#3c3c3c;
+}
+
+.UsernameBlock{
+  background-color:#f9f9f9;
+}
+
+.Tooltip p.TooltipText{
+
+  background-color:#f3f3f3;
+  color: #3c3c3c;
+  border:1px solid #3c3c3c;
+}
+
+.ValidationUserAssociated, .ValidationUserDissociated{
+  color:#00aa00 !important;
+  background-color:#c2f5c2;
+}
+
+.ValidationUserAssociated p, .ValidationUserDissociated p {
+  color:#00aa00 !important;
+}
+
+/*------*/
 
 .userSeparator {
   visibility: hidden;
@@ -371,25 +646,8 @@ table.dataTable thead th, table.dataTable.no-footer {
   color:#444;
 }
 
-/* beta-test begins: specific changes on album edition page*/
-#catModify input[type="text"], #catModify textarea {
-  border: 2px solid #ddd;
-  background-color:#fff;
-  padding:5px;
-}
-
-#catModify input[type="text"].large, #catModify textarea.description {
-  width:590px;
-}
-
-#catModify input[type="text"]:focus, #catModify textarea:focus {
-  border-color: #ff7700;
-  background-color:#fff;
-}
-
 FORM#categoryOrdering p.albumTitle a { color: #5B5B5B; }
-FORM#categoryOrdering p.albumActions a { border-left:1px solid #D6D6D6; }
-.albumInfos {color: #999999;}
+FORM#categoryOrdering p.albumActions a { border-left:1px solid #D6D6D6;  background-color: #E8E8E8;}
 FORM#categoryOrdering p.albumActions a:hover {background-color: #FFA844; color: #3A3A3A;}
 FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
 #addAlbumOpen, #autoOrderOpen {border: 1px solid #D6D6D6; color: #5B5B5B;}
@@ -412,9 +670,114 @@ li.plupload_delete a {background: url("images/cancel.svg")!important; background
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
 
 .addAlbumEmpty {color: #3C3C3C;}
+#permitAction p {background: #FFF;}
 #addAlbumForm input[name="category_name"] {border:none!important; margin-top: 5px!important;}
 #addAlbumForm input[name="category_name"]:focus {background-color: #DDDDDD;}
 .buttonSeparator {color: #3C3C3C;}
 #uploadForm li.plupload_droptext {background-color: #F5F5F5!important;}
 .addFilesButtonChanged {background-color: #E5E5E5;}
+
 .addFilesButtonChanged:hover {background-color: #BBB;}
+
+#checkActions a, .deleteDerivButtons a {background-color: #E8E8E8;}
+#filterList select, .pictureLevels select, #permitAction select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important; outline: none !important;}
+#filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options,
+#filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
+#action_dissociate .selectize-input.items.full.has-options.has-items {
+  border: 2px solid #7070704f !important;
+  background: #FFF;
+  color: #3C3C3CBD;
+}
+#action_associate a:last-child {background: #FFF; border: 1px solid #787777a6; box-shadow: none;}
+#forbidAction, .selectionEmptyBlock, .noFilter {background-color: #f3f3f3;}
+#action_title .large, #action_author .large {background-color: #FFF; color: #4E4E4E;}
+#filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #EEE; color: #777;}
+#filter_dimension .slider-choice:hover, #filter_filesize .slider-choice:hover, .dimension-cancel:hover {
+  text-decoration: none; background-color: #ffa646 !important; color: initial;
+}
+#filterList .ui-slider .ui-slider-range {background: rgba(255,166,70, 0.9); margin-top: -1px; border: 1px solid #ffaf58;}
+#filterList .ui-widget-content {border: 1px solid #EEE; background: #DDD;}
+
+#batchManagerGlobal option[disabled] {background-color: #EEE;}
+.dimension-cancel {background-color: #F8F8F8 !important;}
+.pageNumberSelected {color: #FFF !important; font-weight: bold;}
+
+#batchManagerGlobal .ui-state-default, #batchManagerGlobal .ui-widget-content .ui-state-default,#batchManagerGlobal .ui-widget-header .ui-state-default {
+  border: 1px solid #ffaf58; background: #ffaf58;
+}
+#batchManagerGlobal .ui-state-hover,#batchManagerGlobal .ui-widget-content .ui-state-hover, #batchManagerGlobal .ui-widget-header .ui-state-hover {
+  background: #ffaf58;
+}
+#batchManagerGlobal .ui-state-focus, #batchManagerGlobal .ui-widget-content .ui-state-focus,#batchManagerGlobal .ui-widget-header .ui-state-focus {
+  border: 1px solid #ffaf58; background: #ffaf58;
+}
+#batchManagerGlobal .ui-state-active, #batchManagerGlobal .ui-widget-content .ui-state-active,#batchManagerGlobal .ui-widget-header .ui-state-active {
+  background: #ffaf58;
+}
+#batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58;}
+#batchManagerGlobal .font-checkbox.selected {color: #777;}
+
+/* Category List */
+.categoryContainer {
+  margin: 0;
+}
+
+.categoryBox, .addAlbum{
+  background-color: #fafafa;
+  box-shadow: 0px 2px 5px #00000024;
+}
+
+.addAlbumHead p {
+  color: #3C3C3C;
+}
+
+.addAlbum form input {
+  background-color: white;
+  border: 1px solid #d5d5d5;
+}
+
+.albumTitle {
+  color: #3c3c3c;
+}
+
+.albumInfos {
+  color: #d5d5d5;
+}
+
+.albumActions a {
+  color: #848484;
+}
+
+.albumActions a:hover {
+  color: #FFA646;
+  text-decoration: none;
+}
+
+.albumActions > span {
+  color: #c6c6c6;
+}
+
+.icon-red {
+  background-color: #ffcfcf;
+  color: #ff5252;
+}
+
+.icon-yellow {
+  color: #ffa744;
+  background-color: #ffe9cf;
+}
+
+.icon-purple {
+  background-color: #e0daf4;
+  color: #896af3;
+}
+
+.icon-blue {
+  background-color: #cfebff;
+  color: #2883c3;
+}
+
+.icon-green {
+  background-color: #d6ffcf;
+  color: #6ece5e;
+}
