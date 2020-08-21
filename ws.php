@@ -354,7 +354,7 @@ function ws_addDefaultMethods( $arr )
       array_merge(array(
         'tag_id' =>       array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY,
-                                'type'=>WS_TYPE_ID),
+                                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'tag_url_name' => array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY),
         'tag_name' =>     array('default'=>null,
@@ -369,7 +369,7 @@ function ws_addDefaultMethods( $arr )
         'order' =>        array('default'=>null,
                                 'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random'),
         ), $f_params),
-      'Returns elements for the corresponding tags. Fill at least tag_id, tag_url_name or tag_name.',
+      'Returns elements for the corresponding tags. Fill at least tag_id, tag_url_name or tag_name. Use null in tag_id to return untagged images.',
       $ws_functions_root . 'pwg.tags.php'
     );
 
