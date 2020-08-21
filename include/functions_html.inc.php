@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -261,7 +246,7 @@ function tag_alpha_compare($a, $b)
   {
     if (!isset($cache[__FUNCTION__][ $tag['name'] ]))
     {
-      $cache[__FUNCTION__][ $tag['name'] ] = transliterate($tag['name']);
+      $cache[__FUNCTION__][ $tag['name'] ] = pwg_transliterate($tag['name']);
     }
   }
 
@@ -433,7 +418,7 @@ function get_tags_content_title()
       .trigger_change('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
       .'</a>';
 
-    if (count($page['tags']) > 2)
+    if (count($page['tags']) > 1)
     {
       $other_tags = $page['tags'];
       unset($other_tags[$i]);
@@ -444,11 +429,12 @@ function get_tags_content_title()
         );
 
       $title.=
-        '<a href="'.$remove_url.'" style="border:none;" title="'
+        '<a id="TagsGroupRemoveTag" href="'.$remove_url.'" style="border:none;" title="'
         .l10n('remove this tag from the list')
         .'"><img src="'
           .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-        .'" alt="x" style="vertical-align:bottom;">'
+        .'" alt="x" style="vertical-align:bottom;" >'
+        .'<span class="pwg-icon pwg-icon-close" ></span>'
         .'</a>';
     }
   }
@@ -515,7 +501,13 @@ function register_default_menubar_blocks($menu_ref_arr)
   $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));
-  $menu->register_block( new RegisteredBlock( 'mbIdentification', 'Identification', 'piwigo') );
+
+  // We hide the quick identification menu on the identification page. It
+  // would be confusing.
+  if (script_basename() != 'identification')
+  {
+    $menu->register_block( new RegisteredBlock( 'mbIdentification', 'Identification', 'piwigo') );
+  }
 }
 
 /**

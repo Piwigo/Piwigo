@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Dansk [DK]
@@ -70,8 +55,8 @@ $lang['Current password is wrong'] = 'Adgangskode er forkert';
 $lang['Dimensions'] = 'Dimensioner';
 $lang['Display'] = 'Visning';
 $lang['Each listed rule must be satisfied.'] = 'Hvert nævnt kriterium skal være opfyldt.';
-$lang['Email address is missing. Please specify an email address.'] = 'E-mail-adresse mangler. Angiv venligst en e-mail-adresse.';
-$lang['Email address'] = 'E-mail-adresse';
+$lang['Email address is missing. Please specify an email address.'] = 'E-mailadresse mangler. Angiv venligst en e-mailadresse.';
+$lang['Email address'] = 'E-mailadresse';
 $lang['Enter your personnal informations'] = 'Udfyld dine personlige oplysninger';
 $lang['Error sending email'] = 'Fejl ved afsendelse af e-mail';
 $lang['File name'] = 'Filnavn';
@@ -121,7 +106,7 @@ $lang['Webmaster'] = 'Webmaster';
 $lang['Week %d'] = 'Uge %d';
 $lang['About Piwigo'] = 'Om Piwigo';
 $lang['You are not authorized to access the requested page'] = 'Du har ikke tilladelse til at besøge denne side';
-$lang['add this photo to your favorites'] = 'tilføj dette foto til dine favoritter';
+$lang['add this photo to your favorites'] = 'tilføj dette fotografi til dine favoritter';
 $lang['Administration'] = 'Administration';
 $lang['all'] = 'alle';
 $lang['ascending'] = 'stigende';
@@ -146,7 +131,7 @@ $lang['Comment'] = 'Kommentar';
 $lang['Your comment has been registered'] = 'Din kommentar er gemt';
 $lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'Anti-oversvømmelsessystem: Vent et øjeblik før du prøver at oprette en kommentar mere';
 $lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'Din kommentar blev IKKE gemt, fordi den ikke opfyldte valideringsreglerne';
-$lang['An administrator must authorize your comment before it is visible.'] = 'En administrator skal godkende din kommentar, før den er synlig.';
+$lang['An administrator must authorize your comment before it is visible.'] = 'En administrator skal godkende din kommentar, før den bliver synlig.';
 $lang['This login is already used by another user'] = 'Dette login anvendes allerede af en anden bruger';
 $lang['Comments'] = 'Kommentarer';
 $lang['Add a comment'] = 'Tilføj en kommentar';
@@ -197,10 +182,10 @@ $lang['last %d days'] = 'seneste %d dage';
 $lang['Last'] = 'Sidste';
 $lang['Logout'] = 'Log af';
 $lang['obligatory'] = 'obligatorisk';
-$lang['display a calendar by creation date'] = 'viser en kalender over oprettelsesdatoer';
+$lang['display a calendar by creation date'] = 'viser en kalender med oprettelsesdatoer';
 $lang['display all photos in all sub-albums'] = 'vis alle fotografier i alle underalbummer';
 $lang['return to normal view mode'] = 'tilbage til normal visning';
-$lang['display a calendar by posted date'] = 'viser en kalender over tilføjelsesdatoer';
+$lang['display a calendar by posted date'] = 'viser en kalender med tilføjelsesdatoer';
 $lang['month'][10] = 'Oktober';
 $lang['month'][11] = 'November';
 $lang['month'][12] = 'December';
@@ -215,14 +200,14 @@ $lang['month'][8] = 'August';
 $lang['month'][9] = 'September';
 $lang['Most visited'] = 'Mest sete';
 $lang['display most visited photos'] = 'vis mest sete fotografier';
-$lang['The number of photos per page must be a not null scalar'] = 'Antallet af fotografier pr. side må ikke være nul';
+$lang['The number of photos per page must be a not null scalar'] = 'Antallet af fotografier pr. side skal være et heltal som ikke er nul';
 $lang['Number of photos per page'] = 'Antal fotografier pr. side';
 $lang['Unknown identifier'] = 'Ukendt identifikation';
 $lang['New password'] = 'Ny adgangskode';
 $lang['Rate this photo'] = 'Bedøm dette fotografi';
 $lang['Next'] = 'Næste';
 $lang['no rate'] = 'ingen bedømmelse';
-$lang['Photos posted within the last %d day.'] = 'Kun fotografier tilføjet inden for de seneste %d dag.';
+$lang['Photos posted within the last %d day.'] = 'Kun fotografier tilføjet inden for den seneste %d dag.';
 $lang['Photos posted within the last %d days.'] = 'Kun fotografier tilføjet inden for de seneste %d dage';
 $lang['password updated'] = 'adgangskode opdateret';
 $lang['Recent period must be a positive integer value'] = 'Seneste periode skal være en positiv heltalsværdi';
@@ -270,7 +255,7 @@ $lang['stop the slideshow'] = 'stop slideshow';
 $lang['Specials'] = 'Særligt';
 $lang['SQL queries in'] = 'SQL-forespørgsler på';
 $lang['display only recently posted photos'] = 'vis kun nyligt tilføjede fotografier';
-$lang['return to the display of all photos'] = 'tilbage til alle fotoer';
+$lang['return to the display of all photos'] = 'tilbage til alle fotografier';
 $lang['the beginning'] = 'begyndelsen';
 $lang['Thumbnails'] = 'Miniaturebilleder';
 $lang['Menu'] = 'Menu';
@@ -292,7 +277,7 @@ $lang['Admin: %s'] = 'Admin: %s';
 $lang['Registration of %s'] = 'Registrering af %s';
 $lang['Album: %s'] = 'Album: %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Forkert status på brugeren "guest", standardstatussen benyttes. Vær venlig at give webmaster besked.';
-$lang['this email address is already in use'] = 'e-mail-adressen anvendes af en anden bruger';
+$lang['this email address is already in use'] = 'e-mailadressen anvendes af en anden bruger';
 $lang['Album results for'] = 'Albumresultater for';
 $lang['Tag results for'] = 'Tagresultater for';
 $lang['from %s to %s'] = 'fra %s til %s';
@@ -313,7 +298,7 @@ $lang['display photos linked to this tag'] = 'Se fotografier knyttet til dette t
 $lang['photos posted during the last %d days'] = 'fotografier tilføjet de seneste %d dage';
 $lang['Piwigo Help'] = 'Hjælp til Piwigo';
 $lang['Rank'] = 'Karakter';
-$lang['group by letters'] = 'alfabetiske grupper';
+$lang['group by letters'] = 'alfabetisk gruppering';
 $lang['letters'] = 'bogstaver';
 $lang['show tag cloud'] = 'vis tag-sky';
 $lang['cloud'] = 'sky';
@@ -338,7 +323,7 @@ $lang['%d rates'] = '%d bedømmelser';
 $lang['Rating score'] = 'Bedømmelse';
 $lang['Invalid username or email'] = 'Forkert brugernavn eller e-mail';
 $lang['Password reset is not allowed for this user'] = 'Nulstilling af adgangskode er ikke tilladt for denne bruger';
-$lang['User "%s" has no email address, password reset is not possible'] = 'Brugeren "%s" har ingen e-mail-adresse, nulstilling af adgangskode er ikke mulig';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Brugeren "%s" har ingen e-mailadresse, nulstilling af adgangskode er ikke mulig';
 $lang['Someone requested that the password be reset for the following user account:'] = 'Nogen har anmodet om at nulstille adgangskoden til følgende brugerkonto:';
 $lang['Username "%s" on gallery %s'] = 'Brugernavnet "%s" i galleriet %s';
 $lang['To reset your password, visit the following address:'] = 'For at nulstille din adgangskode, skal du besøge følgende adresse:';
@@ -349,7 +334,7 @@ $lang['Invalid key'] = 'Forkert nøgle';
 $lang['The passwords do not match'] = 'Adgangskoderne stemmer ikke overens';
 $lang['Your password has been reset'] = 'Din adgangskode er nulstillet';
 $lang['Return to home page'] = 'Retur til forsiden';
-$lang['Please enter your username or email address.'] = 'Indtast dit brugernavn eller e-mail-adresse.';
+$lang['Please enter your username or email address.'] = 'Indtast dit brugernavn eller e-mailadresse.';
 $lang['You will receive a link to create a new password via email.'] = 'Du vil via e-mail modtage et link til dannelse af en ny adgangskode.';
 $lang['Username or email'] = 'Brugernavn eller e-mail';
 $lang['Change my password'] = 'Skift min adgangskode';
@@ -367,7 +352,7 @@ $lang['thumb'] = 'Miniaturebillede';
 $lang['small'] = 'S - lille';
 $lang['medium'] = 'M - medium';
 $lang['large'] = 'L - stor';
-$lang['xlarge'] = 'XL - ekstra stor';
+$lang['xlarge'] = 'XL - meget stor';
 $lang['xxlarge'] = 'XXL - ekstrem stor';
 $lang['Original'] = 'Original';
 $lang['Thank you for registering at %s!'] = 'Tak for din registrering hos %s!';
@@ -377,12 +362,12 @@ $lang['Username: %s'] = 'Brugernavn: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Hvis du mener, du har modtaget denne e-mail ved en fejl, så kontakt os på %s';
 $lang['Show oldest comments first'] = 'Vis ældste kommentarer først';
 $lang['Show latest comments first'] = 'Vis seneste kommnetarer først';
-$lang['Photo sizes'] = 'Fotografistørrelser';
+$lang['Photo sizes'] = 'Fotostørrelser';
 $lang['View in'] = 'Vis i';
 $lang['Mobile'] = 'Mobil';
 $lang['Desktop'] = 'Desktop';
-$lang['2small'] = 'XXS - meget lille';
-$lang['xsmall'] = 'XS - ekstra lille';
+$lang['2small'] = 'XXS - ekstrem lille';
+$lang['xsmall'] = 'XS - meget lille';
 $lang['File name, A &rarr; Z'] = 'Filnavn, A &rarr; Å';
 $lang['File name, Z &rarr; A'] = 'Filnavn, Å &rarr; A';
 $lang['Photo title, A &rarr; Z'] = 'Fototitel, A &rarr; Å';
@@ -391,10 +376,10 @@ $lang['Date created, new &rarr; old'] = 'Dato oprettet, ny &rarr; gammel';
 $lang['Date created, old &rarr; new'] = 'Dato oprettet, gammel &rarr; ny'; 
 $lang['Date posted, new &rarr; old'] = 'Dato tilføjet, ny &rarr; gammel';
 $lang['Date posted, old &rarr; new'] = 'Dato tilføjet, gammel &rarr; ny';
-$lang['Rating score, high &rarr; low'] = 'bedømmelsesscore, høj &rarr; lav';
-$lang['Rating score, low &rarr; high'] = 'bedømmelsesscore, lav &rarr; høj';
-$lang['Visits, high &rarr; low'] = 'Besøgende, høj &rarr; lav'; 
-$lang['Visits, low &rarr; high'] = 'Besøgende, lav &rarr; høj'; 
+$lang['Rating score, high &rarr; low'] = 'Bedømmelse, høj &rarr; lav';
+$lang['Rating score, low &rarr; high'] = 'Bedømmelse, lav &rarr; høj';
+$lang['Visits, high &rarr; low'] = 'Besøg, høj &rarr; lav';
+$lang['Visits, low &rarr; high'] = 'Besøg, lav &rarr; høj';
 $lang['Numeric identifier, 1 &rarr; 9'] = 'Numerisk identifikation, 1 &rarr; 9'; 
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Numerisk identifikation, 9 &rarr; 1'; 
 $lang['Manual sort order'] = 'Manuel sorteringsrækkefølge';
@@ -408,7 +393,7 @@ $lang['Piwigo encountered a non recoverable error'] = 'Piwigo stødte på en uop
 $lang['Requested album does not exist'] = 'Det valgte album findes ikke';
 $lang['Requested tag does not exist'] = 'Den valgte tag findes ikke';
 $lang['day']['1'] = 'Mandag';
-$lang['Email address is mandatory'] = 'E-mail-adresse er krævet';
+$lang['Email address is mandatory'] = 'E-mailadresse er krævet';
 $lang['Username is mandatory'] = 'Brugernavn er krævet';
 $lang['mandatory'] = 'krævet';
 $lang['Website'] = 'Websted';
@@ -429,3 +414,5 @@ $lang['Album name, A &rarr; Z'] = 'Albumnavn, A &rarr; Å';
 $lang['Album name, Z &rarr; A'] = 'Albumnavn, Å &rarr; A';
 $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Din autentifikationsnøgle er ikke længere gyldig.';
+$lang['Invalid username or password!'] = 'Ugyldigt brugernavn eller adgangskode!';
+$lang['generate random password'] = 'generer tilfældig adgangskode';

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -175,7 +160,7 @@ function ws_getInfos($params, &$service)
   $query = 'SELECT COUNT(*) FROM '.USERS_TABLE.';';
   list($infos['nb_users']) = pwg_db_fetch_row(pwg_query($query));
 
-  $query = 'SELECT COUNT(*) FROM '.GROUPS_TABLE.';';
+  $query = 'SELECT COUNT(*) FROM `'.GROUPS_TABLE.'`;';
   list($infos['nb_groups']) = pwg_db_fetch_row(pwg_query($query));
 
   $query = 'SELECT COUNT(*) FROM '.COMMENTS_TABLE.';';
@@ -327,7 +312,13 @@ function ws_session_getStatus($params, &$service)
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   $res['current_datetime'] = $dbnow;
   $res['version'] = PHPWG_VERSION;
-  $res['available_sizes'] = array_keys(ImageStdParams::get_defined_type_map());
+
+  // Piwigo Remote Sync does not support receiving the available sizes
+  $piwigo_remote_sync_agent = 'Apache-HttpClient/';
+  if (!isset($_SERVER['HTTP_USER_AGENT']) or substr($_SERVER['HTTP_USER_AGENT'], 0, strlen($piwigo_remote_sync_agent)) !== $piwigo_remote_sync_agent)
+  {
+    $res['available_sizes'] = array_keys(ImageStdParams::get_defined_type_map());
+  }
 
   if (is_admin())
   {

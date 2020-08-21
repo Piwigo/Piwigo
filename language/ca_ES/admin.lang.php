@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d associació';
@@ -585,7 +570,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Canvi de colors cl
 $lang['Theme has been successfully installed'] = 'El tema s\'ha instal·lat amb èxit.';
 $lang['Visit Gallery'] = 'Visiteu la galeria';
 $lang['Visit Piwigo project website'] = 'Visiteu el web del projecte Piwigo';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'PLoader representa a <em>Piwigo Uploader</em>. Des del seu ordinador pLoader prepara les seves fotos i les trasllada a la seva galeria Piwigo.';
 $lang['Guest Settings'] = 'Ajustos de l\'usuari visitant';
 $lang['Main Page'] = 'Pàgina principal';
 $lang['Photo Page'] = 'Pàgina de la foto';
@@ -669,7 +653,7 @@ $lang['Refresh photo set'] = 'Actualitza les fotos del conjunt';
 $lang['The whole page'] = 'La pàgina sencera';
 $lang['The whole set'] = 'Tot el conjunt';
 $lang['No photo in the current set.'] = 'No hi ha fotos en aquest conjunt.';
-$lang['No photo selected, no action possible.'] = 'No es pot realitzar cap acció ja que no hi ha cap foto seleccionada.';
+$lang['No photos selected, no actions possible.'] = 'No es pot realitzar cap acció ja que no hi ha cap foto seleccionada.';
 $lang['Choose an action'] = 'Seleccioneu una acció';
 $lang['remove author'] = 'elimina l\'autor';
 $lang['Type here the author name'] = 'Escriviu aquí el nom de l\'autor';
@@ -782,7 +766,6 @@ $lang['Add to caddie'] = 'Afegeix al carret';
 $lang['Applications'] = 'Aplicacions';
 $lang['Automatic sort order'] = 'Ordena de forma automàtica';
 $lang['Available on'] = 'Disponible en';
-$lang['Available versions for'] = 'Versions disponibles per';
 $lang['Cancel'] = 'Cancel·la';
 $lang['Center of interest'] = 'Punt d\'interès';
 $lang['Default comments order'] = 'Ordre dels comentaris per defecte';
@@ -942,7 +925,7 @@ $lang['between %.2f and %.2f'] = 'entre %.2f i %.2f';
 $lang['between %d and %d pixels'] = 'entre %d i %d píxels';
 $lang['Duplicate'] = 'Duplica';
 $lang['Merge selected groups'] = 'Fusiona els grups seleccionats';
-$lang['No group selected, no action possible.'] = 'No hi ha cap grup seleccionat, l\'acció no s\'ha pogut dur a terme.';
+$lang['No groups selected, no actions possible.'] = 'No hi ha cap grup seleccionat, l\'acció no s\'ha pogut dur a terme.';
 $lang['No members to manage'] = 'No existeixen membres per a gestionar';
 $lang['Please select at least two groups'] = 'Heu de selecciona almenys dos grups';
 $lang['Rename'] = 'Canvia de nom';
@@ -955,7 +938,7 @@ $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Es reduiran 
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Redimensionar després de penjar la foto al servidor deshabilitat degut a l\'ús de la llibreria gràfica GD';
 $lang['Select at least one tag'] = 'Seleccioneu almenys una etiqueta';
 $lang['Last visit on %s, %s.'] = 'L\'última visita el %s, %s.';
-$lang['No user selected, no action possible.'] = 'No hi ha usuaris seleccionats, l\'acció no ha estat possible';
+$lang['No users selected, no actions possible.'] = 'No hi ha usuaris seleccionats, l\'acció no ha estat possible';
 $lang['Registered on %s, %s.'] = 'Registrat el %s, %s';
 $lang['Show %s users'] = 'Mostra %s usuaris';
 $lang['Users modified'] = 'Usuaris que s\'han modificat';
@@ -1001,3 +984,40 @@ $lang['No user is permitted to see this private album'] = 'No s\'ha indicat cap 
 $lang['Orphans'] = 'Òrfenes';
 $lang['Recipients'] = 'Destinataris';
 $lang['Y Repeat'] = 'Repetició Y';
+$lang['Confirm deletion'] = 'Confirmeu que voleu elinar';
+$lang['Piwigo %s is available, please update'] = 'Està disponible La versió %s de Piwigo. Si us plau actualitzeu';
+$lang['(determined from photos)'] = '(determinat a partir de les fotos)';
+$lang['Delete album "%s".'] = 'Elimina l\'àlbum "%s".';
+$lang['First photo added'] = 'S\'ha afegit la primera foto';
+$lang['delete album and the %d orphan photos'] = 'elimina l\'àlbum i les %d fotos orfes';
+$lang['It only takes a few clicks.'] = 'Només comporta uns quants clics';
+$lang['Select tags'] = 'Etiquetes seleccionades';
+$lang['delete only album, not photos'] = 'elimina només l\'àlbum, no les fotos';
+$lang['orphans to delete'] = 'orfes per eliminar';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'El Piwigo Remote Sync és capaç de pujar una jerarquia de carpetes sencera. Si el torneu a executar, només es pujaran les noves fotos.';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Es hora que actualitzeu Piwigo amb la versió %s, aneu a %s';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Compartiu / Envieu les vostres fotos directament des del vostre Mac Os X (10.10 i següents) a Piwigo';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Executar-ho en una versió de Piwigo actualitzada és important per la seguretat. ';
+$lang['Display form'] = 'Visualitza a';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'elimina l\'àlbum i totes les %d fotos, incloent les %d fotos associades a altres àlbums';
+$lang['Dashboard'] = 'Consola';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Elimina l\'àlbum "%s" i els seus %d sub-àlbums';
+$lang['No filter on album. Select one or type to search'] = 'No hi ha cap filtre a l\'àlbum, Seleccioneu-ne un o escriviu per cercar-ne';
+$lang['No tags selected, no actions possible.'] = 'No s\'ha seleccionat cap etiqueta i no es pot realitzar cap acció';
+$lang['Storage used'] = 'Emmagatzemament utilitzat';
+$lang['checksum'] = 'suma de verificació';
+$lang['%d checksums were added'] = 's\'han afegit %d checksums';
+$lang['... or hide this link'] = '...o amagueu aquest enllaç';
+$lang['Compute %d missing checksums'] = 'Calcula %d checksums que manquen';
+$lang['Create a first album'] = 'Creeu un primer àlbum';
+$lang['Deletion in progress'] = 'Supressió en curs';
+$lang['Display album date period'] = 'Mostra el periode de dates associat amb cada àlbum, p.ex. «del 12 de al 15 de juliol de 2018»';
+$lang['Display category date'] = 'Mostra la data de la categoria';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo necessita un àlbum per afegir-hi fotos.';
+$lang['Some checksums are missing.'] = 'Manquen alguns checksums.';
+$lang['Synchronization in progress'] = 'Sincronització en curs';
+$lang['Visit'] = 'Visiteu';
+$lang['Welcome!'] = 'Benvinguts!';
+$lang['With no checksum'] = 'Sense checksum';
+$lang['checksums to add'] = 'Checksums per afegir';
+$lang['or'] = 'o';

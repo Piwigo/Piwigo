@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d associação';
@@ -677,7 +662,6 @@ $lang['Apply watermark if height is bigger than'] = 'Aplica marca d\'água se a 
 $lang['Apply watermark if width is bigger than'] = 'Aplica marca d\'água se a largura for maior do que';
 $lang['Automatic sort order'] = 'Ordena automaticamente';
 $lang['Available on'] = 'Disponível em';
-$lang['Available versions for'] = 'Versões disponíveis para';
 $lang['By default, the center of interest is placed in the middle of the photo.'] = 'Por padrão, o centro de interesse é colocado no meio da foto.';
 $lang['Cancel'] = 'Cancelar';
 $lang['Center of interest'] = 'Centro de interesse';
@@ -726,7 +710,7 @@ $lang['No group is permitted to see this private album'] = 'Nenhum grupo tem per
 $lang['No order field selected'] = 'Nenhum campo de ordenação selecionado';
 $lang['No photo in the current set.'] = 'Nenhuma foto no set atual';
 $lang['No photo selected, %d photos in current set'] = 'Nenhuma foto selecionada, %d fotos no set atual';
-$lang['No photo selected, no action possible.'] = 'Nenhuma fotos selecionada, nenhuma ação possível.';
+$lang['No photos selected, no actions possible.'] = 'Nenhuma fotos selecionada, nenhuma ação possível.';
 $lang['No results'] = 'Sem Resultados';
 $lang['None'] = 'Nenhum';
 $lang['Not cropped correctly?'] = 'Não recortado corretamente?';
@@ -905,7 +889,6 @@ $lang['middle'] = 'médio';
 $lang['modified'] = 'modificadon';
 $lang['new'] = 'novo';
 $lang['on the %d selected photos'] = 'nas %d fotos selecionadas';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader plataforma para <em>Envio de fotos do Piwigo</em>. Do seu computador, pLoader prepara suas fotos e as transfere para sua Galeria Piwigo.';
 $lang['pending validation'] = 'Validação pendente';
 $lang['pixels'] = 'pixels';
 $lang['registered users'] = 'Usuários Registrados';
@@ -933,7 +916,7 @@ $lang['between %d and %d pixels'] = 'Entre %d e %d pixels';
 $lang['Duplicate'] = 'Duplicado';
 $lang['Manage the members'] = 'Gerencie os membros';
 $lang['Merge selected groups'] = 'Junte os grupos selecionados';
-$lang['No group selected, no action possible.'] = 'Nenhum grupo selecionado. Nenhuma açao é possível.';
+$lang['No groups selected, no actions possible.'] = 'Nenhum grupo selecionado. Nenhuma açao é possível.';
 $lang['No members to manage'] = 'Sem membros para gerenciar';
 $lang['Please select at least two groups'] = 'Por favor, selecione ao menos dois grupos';
 $lang['Rename'] = 'Renomear';
@@ -955,7 +938,7 @@ $lang['Last visit on %s, %s.'] = 'Última visita em %s, %s.';
 $lang['Loading...'] = 'Carregando...';
 $lang['No matching user found'] = 'Nenhum usuário encontrado';
 $lang['No user selected of %d users'] = 'Nenhum usuário selecionado do total de %d usuários';
-$lang['No user selected, no action possible.'] = 'Nenhum usuário selecionado, nenhuma ação possível.';
+$lang['No users selected, no actions possible.'] = 'Nenhum usuário selecionado, nenhuma ação possível.';
 $lang['Password updated'] = 'Senha atualizada';
 $lang['Registered on %s, %s.'] = 'Registrado em %s, %s.';
 $lang['Show %s users'] = 'Mostra %s usuários';
@@ -992,3 +975,40 @@ $lang['No user is permitted to see this private album'] = 'Nenhum usuário tem p
 $lang['Orphans'] = 'Órfãos';
 $lang['Recipients'] = 'Recipiente';
 $lang['Y Repeat'] = 'Repetir Y';
+$lang['delete only album, not photos'] = 'excluir apenas álbum, não fotos';
+$lang['orphans to delete'] = 'órfãos para apagar';
+$lang['delete album and the %d orphan photos'] = 'excluir álbum e as fotos %d órfãs';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'excluir álbum e todas as fotos %d, mesmo o %d associado a outros álbuns';
+$lang['checksum'] = 'verificação';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Chegou a hora de atualizar o seu Piwigo para a versão %s, vá para %s';
+$lang['Storage used'] = 'Armazenamento usado';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Compartilhar / Enviar suas fotos diretamente do seu macOS (10.10 e posterior) para Piwigo';
+$lang['Select tags'] = 'Selecionar etiquetas';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Executar um Piwigo atualizado é importante para a segurança.';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync é capaz de enviar uma seleção inteira de pastas. Se você executá-lo novamente, apenas novas fotos serão enviadas.';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s está disponível, atualize';
+$lang['No tags selected, no actions possible.'] = 'Nenhuma etiqueta selecionada, nenhuma ação possível.';
+$lang['No filter on album. Select one or type to search'] = 'Nenhum filtro no álbum. Selecione um ou digite para pesquisar';
+$lang['It only takes a few clicks.'] = 'Demora apenas alguns cliques.';
+$lang['First photo added'] = 'Primeira foto adicionada';
+$lang['Display form'] = 'Formulário de exibição';
+$lang['Delete album "%s".'] = 'Excluir o álbum "%s".';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Exclua o álbum "%s" e seus sub-álbuns %d.';
+$lang['Dashboard'] = 'Painel de controle';
+$lang['Confirm deletion'] = 'Confirmar eliminação';
+$lang['(determined from photos)'] = '(determinado a partir de fotos)';
+$lang['%d checksums were added'] = '%d somas de verificação foram adicionadas';
+$lang['... or hide this link'] = '... ou ocultar este link';
+$lang['Compute %d missing checksums'] = 'Computar %d somas de verificação ausentes';
+$lang['Create a first album'] = 'Crie um primeiro álbum';
+$lang['Deletion in progress'] = 'Exclusão em andamento';
+$lang['Display album date period'] = 'Mostrar o período de datas associado a cada álbum, por exemplo, «de 12 a 15 de julho de 2018»';
+$lang['Display category date'] = 'Exibir a data da categoria';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo requer um álbum para adicionar fotos.';
+$lang['Some checksums are missing.'] = 'Algumas somas de verificação estão faltando.';
+$lang['Synchronization in progress'] = 'Sincronização em andamento';
+$lang['Visit'] = 'Visita';
+$lang['Welcome!'] = 'Bem vindo!';
+$lang['With no checksum'] = 'Sem soma de verificação';
+$lang['checksums to add'] = 'somas de verificação para adicionar';
+$lang['or'] = 'ou';

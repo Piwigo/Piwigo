@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -226,7 +211,6 @@ $lang['Aperture is a powerful tool to refine images and manage massive libraries
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = '<em>Aperture</em> on mõeldud professionaalsetele fotograafidele ent <em>iPhoto</em> kasutajasõbralikkusega.';
 $lang['Available on'] = 'Saadaval';
 $lang['Available only with HTML format'] = 'Ainult saadaval HTML vormingus';
-$lang['Available versions for'] = 'Versioonid saadaval';
 $lang['Batch Manager'] = 'Pakktöötluse haldur';
 $lang['Bound Theme'] = 'Bound Theme';
 $lang['By %s'] = 'Autor: %s';
@@ -463,7 +447,7 @@ $lang['No photo can be deleted'] = 'Ühtki fotot ei saa kustutada';
 $lang['No photo in the current set.'] = 'Fotod puuduvad valitud kogumikus.';
 $lang['No photo in this album'] = 'Selles albumis pole ühtki fotot';
 $lang['No photo selected, %d photos in current set'] = 'Ühtki fotot pole valitud, selles kogumikus on %d fotot.';
-$lang['No photo selected, no action possible.'] = 'Ühtki fotot pole valitud, ükski tegevus pole võimalik';
+$lang['No photos selected, no actions possible.'] = 'Ühtki fotot pole valitud, ükski tegevus pole võimalik';
 $lang['No results'] = 'Ei leidnud vasteid';
 $lang['No user to send notifications by mail.'] = 'Ühtki kasutajat pole, keda teavitada epostiga.';
 $lang['None'] = 'Mitte ükski';
@@ -859,7 +843,6 @@ $lang['only directories'] = 'ainult kaustasid';
 $lang['only perform a simulation (no change in database will be made)'] = 'ainult simuleeri (midagi ei muudeta andmebaasis)';
 $lang['other'] = 'muu';
 $lang['overrides existing values with empty ones'] = 'tühistab praegused väärtused tühjadega';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader tähendab <em>Piwigo Uploader</em>. pLoader valmistab ette pildid su arvutis ning laadib need ülesse su Piwigo fotogaleriisse.';
 $lang['pending validation'] = 'kinnituse ootel';
 $lang['photos added in the database'] = 'fotosid lisatud andmebaasi';
 $lang['photos candidates for metadata synchronization'] = 'kandideerivad fotod metaandmete sünkroniseerimiseks';
@@ -934,7 +917,7 @@ $lang['between %d and %d pixels'] = '%d ja %d pikslite vahel';
 $lang['This group will be unset to default'] = 'Seda rühma ei kasutata edaspidi vaikerühmana';
 $lang['Type here the name of the new group'] = 'Nimeta uus rühm';
 $lang['Merge selected groups'] = 'Liida valitud rühmad';
-$lang['No group selected, no action possible.'] = 'Ühtegi rühma pole valitud, seega ei saa midagi teha.';
+$lang['No groups selected, no actions possible.'] = 'Ühtegi rühma pole valitud, seega ei saa midagi teha.';
 $lang['No members to manage'] = 'Puudub liikmeid keda hallata';
 $lang['Please select at least two groups'] = 'Vali vähemalt kaks rühma';
 $lang['Rename'] = 'Nimeta ümber';
@@ -963,7 +946,7 @@ $lang['Last visit on %s, %s.'] = 'Viimane külastus %s, %s.';
 $lang['Loading...'] = 'Laadimine...';
 $lang['No matching user found'] = 'Vastet ei leitud';
 $lang['No user selected of %d users'] = 'Kasutajat ei valitud etteantud %d kasutajatest';
-$lang['No user selected, no action possible.'] = 'Kasutajaid pole valitud, ei saa midagi teha';
+$lang['No users selected, no actions possible.'] = 'Kasutajaid pole valitud, ei saa midagi teha';
 $lang['Password updated'] = 'Parool uuendatud';
 $lang['Registered on %s, %s.'] = 'Registreeritud %s, %s.';
 $lang['Show %s users'] = 'Näita %s kasutajaid';
@@ -983,3 +966,41 @@ $lang['between %s and %s MB'] = '%s ja %s MB vahel';
 $lang['date & time'] = 'kuupäev ja kellaaeg';
 $lang['file name'] = 'faili nimi';
 $lang['width & height'] = 'laius ja kõrgus';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Jaga / Saada oma fotod Piwigosse otse süsteemist MAC OS X (10.10 ja hilisemad) ';
+$lang['Storage used'] = 'Kasutatud maht';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'On tulnud aeg uuendada Piwigo versiooniga %s, liigu edasi %s';
+$lang['Y Repeat'] = 'Y Korda';
+$lang['checksum'] = 'kontrollsumma';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'kustuta album ja kõik %d fotot, isegi teiste albumitega seotud %d';
+$lang['delete album and the %d orphan photos'] = 'kustuta album ja %d orvuks jäänud fotot';
+$lang['delete only album, not photos'] = 'kustuta ainult album, kuid mitte fotod';
+$lang['orphans to delete'] = 'orvuks jäänud fotod kustutamiseks';
+$lang['Confirm deletion'] = 'Kinnita kustutamine';
+$lang['Dashboard'] = 'Töölaud';
+$lang['Delete %d orphan photos'] = 'Kustuta orvuks jäänud %d fotot';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Kustuta album "%s" ja tema %d all-album.';
+$lang['Delete album "%s".'] = 'Kustuta album "%s".';
+$lang['Display form'] = 'Näita vormi';
+$lang['Edit user'] = 'Muuda kasutaja andmeid';
+$lang['First photo added'] = 'Esimene foto lisatud';
+$lang['It only takes a few clicks.'] = 'vaid mõni klikk';
+$lang['No filter on album. Select one or type to search'] = 'Albumis puudub filter. Vali üks või kirjuta otsingureale';
+$lang['No recipient selected'] = 'Adressaate ei ole valitud';
+$lang['No user is permitted to see this private album'] = 'Ükski kasutaja ei näe seda privaat albumit';
+$lang['Orphans'] = 'Orvuks jäänud fotod';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s on saadaval, palun uuenda';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync saab üles laadida kogu kausta hierarhia. Kui käivitad selle uuesti, siis laetakse ainult uued fotod';
+$lang['Recipients'] = 'Saajad';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Värske Piwigo versiooni kasutamine on turvalisuse huvides oluline';
+$lang['No tags selected, no actions possible.'] = 'Silti ei ole valitud, toiming ei ole võimalik';
+$lang['Select tags'] = 'Vali sildid';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Turvalisuse huvides autenteerimise võti administraatorite puhul ei toimi.';
+$lang['(determined from photos)'] = '(määratud fotode järgi)';
+$lang['or'] = 'või';
+$lang['Welcome!'] = 'Tere tulemast!';
+$lang['Synchronization in progress'] = 'Toimub sünkroniseerimine';
+$lang['Piwigo requires an album to add photos.'] = 'Fotode lisamiseks on vaja luua album';
+$lang['Display category date'] = 'Näita kategooria kuupäeva';
+$lang['Deletion in progress'] = 'Toimub kustutamine';
+$lang['Create a first album'] = 'Loo esimene album';
+$lang['... or hide this link'] = '... või peida see link';

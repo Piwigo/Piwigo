@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['%d users were not updated.'] = '%d vartotojų neatnaujinta.';
 $lang['%d users were updated.'] = '%d vartotojų atnaujinta.';
@@ -97,7 +82,6 @@ $lang['By default, the center of interest is placed in the middle of the photo.'
 $lang['Center of interest'] = 'Intereso centras';
 $lang['Available on'] = 'Prieinama';
 $lang['Available only with HTML format'] = 'Prieinama tik HTML formatu';
-$lang['Available versions for'] = 'Prieinamos versijos';
 $lang['Average rate'] = 'Vidutinis įvertinimas';
 $lang['By %s'] = 'Autorius %s';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Pagal nutylėjimą Piwigo sukurs nauja web dydį iš HD (didelės raiškos) jūsų nuotraukų versijų.';
@@ -334,7 +318,7 @@ $lang['Default user cannot be deleted'] = 'Numatytasis vartotojas negali būti p
 $lang['Default user does not exist'] = 'Numatytasis vartotojas neegzistuoja';
 $lang['Delete Representant'] = 'Ištrinti albumo piktogramą';
 $lang['Delete multiple size images'] = 'Ištrinti kitų dydžių paveiksliukus';
-$lang['Delete orphan tags'] = 'Ištrinti nežinomas žymas';
+$lang['Delete orphan tags'] = 'Ištrinti nesusietas žymas';
 $lang['Delete selected photos'] = 'Ištrinti pažymėtas nuotraukas';
 $lang['Delete selected tags'] = 'Ištrinti pažymėtas žymes';
 $lang['Delete selected users'] = 'Ištrinti pažymėtus vartotojus';
@@ -468,14 +452,14 @@ $lang['New photos added'] = 'Naujos nuotraukos įkeltos';
 $lang['New tag'] = 'Nauja žyma';
 $lang['No file was uploaded'] = 'Nebuvo įkeltas joks failas';
 $lang['No group is permitted to see this private album'] = 'Jokiai grupei neleidžiama žiūrėti šio privataus albumo';
-$lang['No group selected, no action possible.'] = 'Nepasirinkta jokia grupė, todėl jokių veiksmų vykdyti neįmanoma.';
+$lang['No groups selected, no actions possible.'] = 'Nepasirinkta jokia grupė, todėl jokių veiksmų vykdyti neįmanoma.';
 $lang['No mail to send.'] = 'Nebus siunčiamas joks laiškas';
 $lang['No members to manage'] = 'Nėra jokių narių, kuriuos galima būtų tvarkyti';
 $lang['No photo can be deleted'] = 'Jokios nuotraukos negali būti ištrintos';
 $lang['No photo in the current set.'] = 'Šiuo metu rinkinyje nėra nuotraukų.';
 $lang['No photo in this album'] = 'Šiame albume nėra nuotraukų';
 $lang['No photo selected, %d photos in current set'] = 'Nepasirinkta jokia nuotrauka, šiame rinkinyje nuotraukų: %d';
-$lang['No photo selected, no action possible.'] = 'Nepasirinkta jokia nuotrauka, neįmanomas joks veiksmas.';
+$lang['No photos selected, no actions possible.'] = 'Nepasirinkta jokia nuotrauka, neįmanomas joks veiksmas.';
 $lang['No results'] = 'Nėra rezultatų';
 $lang['No user to send notifications by mail.'] = 'Nėra vartotojų, kurie galėtų būti informuoti paštu.';
 $lang['None'] = 'Nėra';
@@ -598,7 +582,6 @@ $lang['only directories'] = 'tik katalogai';
 $lang['only perform a simulation (no change in database will be made)'] = 'tik simuliuoti (niekas nebus pakeista duomenų bazėje)';
 $lang['other'] = 'kitas';
 $lang['overrides existing values with empty ones'] = 'perrašyti esamas reikšmes tuščiomis';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader verčiamas kaip <em>Piwigo Uploader</em>. pLoader paruošia ir perkelia nuotraukas iš Jūsų kompiuterio į Jūsų Piwigo nuotraukų galeriją.';
 $lang['pending validation'] = 'laukia patvirtinimo';
 $lang['photos added in the database'] = 'nuotraukos pridėtos į duomenų bazę';
 $lang['photos candidates for metadata synchronization'] = 'nuotraukų kandidatai metaduomenų sinchronizacijai';
@@ -665,7 +648,7 @@ $lang['directories + files'] = 'katalogai + failai';
 $lang['You are running on development sources, no check possible.'] = 'Veikia iš kūrėjų kodo, patikrinimas neįmanomas.';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Neįmanoma nustatyti numatytosios nuotraukų rūšiavimo tvarkos, nes tai padaryta jūsų vietinėje konfigūracijoje.';
 $lang['You cannot move an album in its own sub album'] = 'Negalima perkelti albumo į jo paties subalbumą';
-$lang['You have %d orphan tags: %s.'] = 'Jūs turite %d nepririštų žymų: %s.';
+$lang['You have %d orphan tags: %s.'] = 'Jūs turite %d nesusietų žymų: %s.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Jūs esate nurodęs <i>$conf[\'order_by\']</i> savo konfigūraciniame faile, šis parametras yra pasenęs, prašome jį pašalinti arba pervardinti į <i>$conf[\'order_by_custom\']</i> !';
 $lang['You have subscribed to receiving notifications by mail.'] = 'Jūs esate užsisakęs pranešimų prenumeratą paštu.';
 $lang['You have unsubscribed from receiving notifications by mail.'] = 'Jūs neužsisakęs pranešimų prenumeratos paštu.';
@@ -955,7 +938,7 @@ $lang['Change username'] = 'Keisti username';
 $lang['Loading...'] = 'Kraunasi...';
 $lang['No matching user found'] = 'Narių, atitinkančių kriterijus, nerasta';
 $lang['No user selected of %d users'] = 'Nepasirinktas nė vienas iš %d narių';
-$lang['No user selected, no action possible.'] = 'Nepasirinktas narys, negaliu tęsti veiksmų.';
+$lang['No users selected, no actions possible.'] = 'Nepasirinktas narys, negaliu tęsti veiksmų.';
 $lang['Password updated'] = 'Slaptažodis atnaujintas';
 $lang['Show %s users'] = 'Rodyti %s vartotojus';
 $lang['User %s added'] = 'Vartotojas %s pridėtas';
@@ -977,3 +960,34 @@ $lang['between %s and %s MB'] = 'tarp %s ir %s MB';
 $lang['date & time'] = 'data ir laikas';
 $lang['file name'] = 'failo pavadinimas';
 $lang['width & height'] = 'plotis ir dydis';
+$lang['Delete %d orphan photos'] = 'Ištrinti %d niekur nesusietas nuotraukas';
+$lang['Orphans'] = 'Niekur nesusieta';
+$lang['delete album and the %d orphan photos'] = 'trinti albumą ir nesusietas %d nuotraukas';
+$lang['orphans to delete'] = 'nesusietos nuotraukos, kurias trinti';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Dėl saugumo svarbu naudoti naujausią Piwigo versiją.';
+$lang['Select tags'] = 'Pasirinkite žymas';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Dalinktės / Siųskite savo nuotraukas tiesiai iš savo macOS (10.10 ir vėlesnių) į Piwigo';
+$lang['Storage used'] = 'Naudojama vietos';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Atėjo laikas atnaujinti savo Piwigo į versiją %s. Eikite į %s';
+$lang['Y Repeat'] = 'Y kartoti';
+$lang['checksum'] = 'kontrolinė suma';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'ištrinti albumą ir visas %d nuotraukas, tame tarpe ir %d priskirtas kitiems albumams.';
+$lang['delete only album, not photos'] = 'trinti tik albumą, bet ne nuotraukas.';
+$lang['(determined from photos)'] = '(nustatyta iš nuotraukų)';
+$lang['Confirm deletion'] = 'Patvirtinti pašalinimą';
+$lang['Dashboard'] = 'Skydelis';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Ištrinti albumą "%s" ir jo %d sub-albumus.';
+$lang['Delete album "%s".'] = 'Ištrinti albumą "%s".';
+$lang['Display form'] = 'Rodyti nuo';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Kiekvienas išsiųstas el. pranešimas turi unikalią nuorodą su automatinio prisijungimo raktu, galiojančią %s ';
+$lang['Edit user'] = 'Redaguoti lankytoją';
+$lang['First photo added'] = 'Pirma nuotrauka pridėta';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Dėl saugumo sumetimų autentifikacijos raktai administratoriams neveikia.';
+$lang['It only takes a few clicks.'] = 'Tai bus tik keli spragtelėjimai.';
+$lang['No filter on album. Select one or type to search'] = 'Albumas neturi filtrų. Pasirinkite vieną arba parašykite ką nors paieškai';
+$lang['No recipient selected'] = 'Gavėjas nepasirinktas';
+$lang['No tags selected, no actions possible.'] = 'Nepasirinkta jokia žyma, negalimas joks veiksmas.';
+$lang['No user is permitted to see this private album'] = 'Joks lankytojas negali matyti šio privataus albumo';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s prieinama, prašome atnaujinti';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync gali įkelti visą katalogų hierarchiją. Jei paleisite jį vėl, tai bus įkeltos tik naujos nuotraukos.';
+$lang['Recipients'] = 'Gavėjai';

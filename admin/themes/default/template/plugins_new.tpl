@@ -47,18 +47,13 @@ jQuery(document).ready(function(){
   }
  });
  jQuery("#filter").focus();
- jQuery(".titrePage input[name='Clear']").click(function(){
-   $("#filter").val('');
-   $(".pluginBox").show();
- });
 });
 {/literal}{/footer_script}
 
 <div class="titrePage">
 <span class="sort">
-{'Filter'|@translate} : <input type="text" id="filter">
-<input type="button" name="Clear" Value="{'Cancel'|@translate}"> |
-{'Sort order'|@translate} : 
+<i class="icon-filter"></i> {'Filter'|@translate} <input type="text" id="filter">
+<i class="icon-sort-number-up"></i> {'Sort order'|@translate}
 {html_options name="selectOrder" options=$order_options selected=$order_selected}
 </span>
   <h2>{'Plugins'|@translate}</h2>

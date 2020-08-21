@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d associations'] = '関連:%d';
@@ -597,7 +582,6 @@ $lang['Switch to clear or dark colors for administration'] = 'アドミニスト
 $lang['Theme has been successfully installed'] = 'テーマのインストールは成功しました';
 $lang['Visit Gallery'] = 'ギャラリーへ';
 $lang['Visit Piwigo project website'] = 'Piwigo のホームページへ';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader は <em>Piwigo Uploader</em>と言います。pLoaderはあなたの写真をパソコンからあなたのPiwigoフォト・ギャラリーまで簡単にアップロードできます。';
 $lang['Guest Settings'] = 'ゲストの設定';
 $lang['Main Page'] = 'メインページ';
 $lang['Photo Page'] = '写真のページ';
@@ -801,7 +785,6 @@ $lang['%s in the future'] = '%s 先';
 $lang['A locked gallery is only visible to administrators'] = 'ロックされたギャラリーは管理者にのみ表示されます。';
 $lang['Applications'] = 'アプリケーション';
 $lang['Available on'] = 'が利用可能';
-$lang['Available versions for'] = '利用可能なバージョンは';
 $lang['Edit photo'] = '写真を編集';
 $lang['Gallery unlocked'] = 'ギャラリーのロック解除';
 $lang['Groups and users'] = 'グループとユーザー';
@@ -862,11 +845,11 @@ $lang['simple visitors'] = '単ユーザー';
 $lang['Obsolete Plugins'] = 'サポートされないプラグイン';
 $lang['Opacity'] = '不透明度';
 $lang['No results'] = '結果なし';
-$lang['No photo selected, no action possible.'] = '写真が選択されていないので、なにもできません。';
+$lang['No photos selected, no actions possible.'] = '写真が選択されていないので、なにもできません。';
 $lang['Not cropped correctly?'] = '正しくトリミングできませんでしたか?';
 $lang['Notify administrators when a comment is'] = 'コメントがされた際に、管理者へ知らせる';
 $lang['Name of the duplicate'] = '重複の名前';
-$lang['No group selected, no action possible.'] = 'グループが選択されていないので、何もできません。';
+$lang['No groups selected, no actions possible.'] = 'グループが選択されていないので、何もできません。';
 $lang['No members to manage'] = '管理すべきメンバーがいません';
 $lang['No order field selected'] = '順序フィールドが選択されていません';
 $lang['Merge selected groups'] = '選択されたグループを統合する';
@@ -979,7 +962,7 @@ $lang['Recipients'] = '受信者';
 $lang['No recipient selected'] = '受信者が選ばれていません';
 $lang['No user is permitted to see this private album'] = 'このプライベートアルバムを見ることのできるユーザーはいません';
 $lang['No user selected of %d users'] = '%dのユーザーのからユーザーが選ばれていません';
-$lang['No user selected, no action possible.'] = 'ユーザーが選択されていないので、操作できません';
+$lang['No users selected, no actions possible.'] = 'ユーザーが選択されていないので、操作できません';
 $lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'Linuxでは、Shotwellをパッケージ管理ソフトウェアからインストールすることで、Piwigoに公開するオプションを使うことができます';
 $lang['No and unlock sub-albums'] = 'いいえ。サブアルバムのロックを解除します';
 $lang['Last visit on %s, %s.'] = '最新の訪問日: %s, %s';
@@ -993,3 +976,40 @@ $lang['Orphans'] = '迷子';
 $lang['You have %d orphan tags: %s.'] = '%d個の使われていないタグがあります: %s';
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Apartureは、iPhotoのシンプルさを持ったプロの写真家用に設計されたソフトウェアです。';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Apartureは、Mac上で写真を調整し、大規模なライブラリーを管理するための強力なツールです。';
+$lang['Dashboard'] = 'ダッシュボード';
+$lang['Confirm deletion'] = '削除を確認';
+$lang['(determined from photos)'] = '(写真から決定する)';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'アルバムと%d個の写真を削除する、%d個は他のアルバムに関連付けられているけれども。';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'アルバム "%s" と、%d個のサブアルバムを削除する。';
+$lang['delete album and the %d orphan photos'] = 'アルバムと %d個の使われていない写真を削除する';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Syncは、全フォルダ階層のアップロードが可能です。もしあなたがこれを再度実行した場合には、新しい写真だけがアップロードされるでしょう。';
+$lang['No filter on album. Select one or type to search'] = 'アルバムにフィルターがありません。検索するために、1つ選択するか、タイプして下さい';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'あなたの Piwigo をバージョン %s にアップデートすべき時です。%s にする';
+$lang['delete only album, not photos'] = '写真はそのままに、アルバムだけを削除する';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'あなたのmacOS(10.10以上)からPiwigoへ直接写真を共有・送信';
+$lang['Storage used'] = '使用ストレージ';
+$lang['orphans to delete'] = '削除する迷子';
+$lang['Display form'] = 'フォームを表示';
+$lang['First photo added'] = '最初の写真が追加されました';
+$lang['No tags selected, no actions possible.'] = 'タグが選択されていないと、アクションができません。';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s が利用可能なので、アップデートして下さい';
+$lang['Running on an up-to-date Piwigo is important for security.'] = '最新のPiwigoを実行することが安全のために重要です。';
+$lang['Select tags'] = 'タグを選択';
+$lang['checksum'] = 'チェックサム';
+$lang['Delete album "%s".'] = 'アルバム "%s" を削除する。';
+$lang['It only takes a few clicks.'] = '数クリックするだけです。';
+$lang['%d checksums were added'] = '%d 個のチェックサムが追加された';
+$lang['... or hide this link'] = '... またはこのリンクを隠す';
+$lang['Compute %d missing checksums'] = '%d 個の間違えているチェックサムを計算する';
+$lang['Create a first album'] = '最初のアルバムを作成する';
+$lang['Deletion in progress'] = '削除中';
+$lang['Display album date period'] = 'それぞれのアルバムに関する日付期間を表示する、例≪2018年7月12日から15日≫';
+$lang['Display category date'] = 'カテゴリ日を表示する';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigoは写真を追加するアルバムを要求しています';
+$lang['Some checksums are missing.'] = '幾つかのチェックサムが間違っています。';
+$lang['Synchronization in progress'] = '同期中';
+$lang['Visit'] = '訪問する';
+$lang['Welcome!'] = 'ようこそ！';
+$lang['With no checksum'] = 'チェックサムなし';
+$lang['checksums to add'] = '追加すべきチェックサム';
+$lang['or'] = 'または';

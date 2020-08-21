@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['Hello'] = 'Здравей';
@@ -183,7 +168,6 @@ $lang['Applications'] = 'Приложения';
 $lang['Apply action'] = 'Приложи действието';
 $lang['Apply selected corrections'] = 'Приложи избраните корекции';
 $lang['Available on'] = 'Налично на';
-$lang['Available versions for'] = 'Налични версии за';
 $lang['Cancel'] = 'Отказ';
 $lang['Groups and users'] = 'Групи и потребители';
 $lang['List'] = 'Списък';
@@ -745,9 +729,9 @@ $lang['Metadata synchronized from file'] = 'Метаданните синхро�
 $lang['Hoverbox display'] = 'Показване на каре при посочване с мишка';
 $lang['Impossible to activate this theme, the parent theme is missing: %s'] = 'Тази тема не може да бъде активирана, тъй като родителската тема липсва: %s';
 $lang['No user to send notifications by mail.'] = 'Няма потребител, който да бъде уведомен с имейл.';
-$lang['No photo selected, no action possible.'] = 'Не е избрана снимка, не може да бъде предприето действие';
+$lang['No photos selected, no actions possible.'] = 'Не е избрана снимка, не може да бъде предприето действие';
 $lang['No photo selected, %d photos in current set'] = 'Не е избрана снимка, %d снимки в текущия набор';
-$lang['No group selected, no action possible.'] = 'Не е избрана група, не може да бъде предприето действие.';
+$lang['No groups selected, no actions possible.'] = 'Не е избрана група, не може да бъде предприето действие.';
 $lang['Images manual order was saved'] = 'Ръчно избраният ред е запазен';
 $lang['New parent album'] = 'Нов родителски албум';
 $lang['No destination tag selected'] = 'Не е избран етикет';
@@ -794,7 +778,6 @@ $lang['Operation in progress'] = 'Обработка в процес на изп
 $lang['Notify administrators when a comment is'] = 'Уведомяване на администраторите когато коментар е';
 $lang['The permalink name must be composed of a-z, A-Z, 0-9, "-", "_" or "/". It must not be numeric or start with number followed by "-"'] = 'Името на пермалинка може да съдържа само a-z, A-Z, 0-9, "-", "_" или "/". Не трябва да е само число или да започва с "-"';
 $lang['Sum of rates'] = 'Обща оценка';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader означава <em>Piwigo Uploader</em>. От вашия компютър, pLoader подготвя вашите снимки и ги качва в Piwigo галерията.';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Piwigo разширението  за публикуване ви позволява да експортирате и синхронизирате снимки от Lightroom директно в Piwigo галерията.';
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Абонатите ще бъдат изброени (налични), само ако има нови позиции за уведомяване.';
 $lang['Permalink %s has been previously used by album %s. Delete from the permalink history first'] = 'Пермалинк %s вече се използва от албум %s. Изтрийте го първо от списъка с история на пермалинковете.';
@@ -956,7 +939,7 @@ $lang['Showing %s to %s of %s users'] = 'Показва %s до %s от %s по�
 $lang['Show %s users'] = 'Показани %s потребители';
 $lang['Registered on %s, %s.'] = 'Регистриран на %s, %s.';
 $lang['Password updated'] = 'Паролата е обновена';
-$lang['No user selected, no action possible.'] = 'Няма избран потребител, не е възможна операция.';
+$lang['No users selected, no actions possible.'] = 'Няма избран потребител, не е възможна операция.';
 $lang['No user selected of %d users'] = 'Няма избран потребител от %d потребители';
 $lang['No matching user found'] = 'Няма намерено съвпадение по потребител';
 $lang['Loading...'] = 'Зареждане...';
@@ -992,3 +975,25 @@ $lang['Delete %d orphan photos'] = 'Изтриване %d самотни сни�
 $lang['No recipient selected'] = 'Не е избран получател';
 $lang['Edit user'] = 'Редакция на потребител';
 $lang['Y Repeat'] = 'Y Повторение';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'изтриване на албума и всички %d снимки, дори и %d свързани в други албуми';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync ви дава възможност да качите цяла папка със снимки. Ако я качите отново, само новите снимки ще се добавят.';
+$lang['Display form'] = 'Дисплей форма';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Изтриване на албум  "%s" и на неговите %d под-албуми.';
+$lang['(determined from photos)'] = '(определени от снимки)';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Време е да ъпдейтвате вашата галерия Piwigo с версия %s, идете на %s';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Споделете/Изпратете снимки директно от вашия macOS (10.10 или по-нова) до Piwigo';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Ъпдейтване до последната версия на  Piwigo е нужно с цел сигурност.';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s е наличен, моля ъпдейтвайте.';
+$lang['No tags selected, no actions possible.'] = 'Няма избран етикет, невъзможно действие.';
+$lang['No filter on album. Select one or type to search'] = 'Не филтрай по албум. Избери само вид търсене';
+$lang['It only takes a few clicks.'] = 'Ще отнеме няколко клика.';
+$lang['delete album and the %d orphan photos'] = 'изтриване на албум и %d снимки без албум';
+$lang['delete only album, not photos'] = 'изтриване на албум, без снимките';
+$lang['orphans to delete'] = 'без албум за изтриване';
+$lang['Storage used'] = 'Използвано място';
+$lang['First photo added'] = 'Първа снимка добавена';
+$lang['Delete album "%s".'] = 'Изтриване на албум "%s".';
+$lang['Confirm deletion'] = 'Потвърдете изтриването';
+$lang['Dashboard'] = 'Табло';
+$lang['Select tags'] = 'Избор на етикети';
+$lang['checksum'] = 'контролно число';

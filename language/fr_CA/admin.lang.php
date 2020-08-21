@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -616,7 +601,6 @@ $lang['Activate Navigation Bar'] = 'Activer la barre de navigation';
 $lang['Activate Navigation Thumbnails'] = 'Activer les miniatures de navigation';
 $lang['Activate icon "%s"'] = 'Activer l\'icône "%s"';
 $lang['Photo Properties'] = 'Propriétés de la photo';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader signifie <em>Piwigo Uploader</em>. Depuis votre ordinateur, pLoader prépare vos photos et les transfert vers votre galerie photo Piwigo.';
 $lang['Languages'] = 'Langues';
 $lang['Installed Languages'] = 'Langues installées';
 $lang['Add New Language'] = 'Ajouter une langue';
@@ -681,7 +665,7 @@ $lang['Missing a temporary folder'] = 'Impossible de trouver le répertoire temp
 $lang['No file was uploaded'] = 'Aucun fichier n\'a été transféré';
 $lang['No photo in the current set.'] = 'Aucune photo dans le lot.';
 $lang['No photo selected, %d photos in current set'] = 'Aucune photo sélectionnée parmi les %d photos du lot';
-$lang['No photo selected, no action possible.'] = 'Aucune photo sélectionnée, aucune action possible.';
+$lang['No photos selected, no actions possible.'] = 'Aucune photo sélectionnée, aucune action possible.';
 $lang['on the %d selected photos'] = 'sur les %d photos sélectionnées';
 $lang['Orphan tags deleted'] = 'Mots clés orphelins supprimés';
 $lang['Refresh photo set'] = 'Rafraîchir le lot de photos';
@@ -839,7 +823,6 @@ $lang['Cancel'] = 'Annuler';
 $lang['List'] = 'Liste';
 $lang['Web Form'] = 'Formulaire web';
 $lang['Applications'] = 'Applications';
-$lang['Available versions for'] = 'Versions disponibles pour';
 $lang['Available on'] = 'Disponible sur';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo pour iOS (iPhone, iPad, iPod Touch)';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'L\'application <em>Piwigo pour iOS</em> vous permet de connecter votre iPhone, iPad ou iPod Touch à votre galerie Piwigo pour y créer des albums et envoyer plusieurs photos à la fois.';
@@ -930,7 +913,7 @@ $lang['Source tag'] = 'Source du mot clé';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Le mot clé "%s" est désormais une copie de "%s"';
 $lang['Manage the members'] = 'Gérer les membres';
 $lang['Type here the name of the new group'] = 'Inscrivez ici le nom du nouveau groupe';
-$lang['No group selected, no action possible.'] = 'Pas de groupes sélectionnés, pas d\'actions possibles.';
+$lang['No groups selected, no actions possible.'] = 'Pas de groupes sélectionnés, pas d\'actions possibles.';
 $lang['Please select at least two groups'] = 'Merci de sélectionner au moins deux groupes';
 $lang['Duplicate'] = 'Dupliquer';
 $lang['Merge selected groups'] = 'Fusionner les groupes sélectionnés';
@@ -965,7 +948,7 @@ $lang['Last visit on %s, %s.'] = 'Dernière visite le %s, %s.';
 $lang['Loading...'] = 'Chargement...';
 $lang['No matching user found'] = 'Aucun utilisateur à afficher';
 $lang['No user selected of %d users'] = 'Aucun utilisateur sélectionné sur les %d';
-$lang['No user selected, no action possible.'] = 'Aucun utilisateur sélectionné, aucune action possible.';
+$lang['No users selected, no actions possible.'] = 'Aucun utilisateur sélectionné, aucune action possible.';
 $lang['Password updated'] = 'Mot de passe mis à jour';
 $lang['Registered on %s, %s.'] = 'Enregistré depuis le %s, %s.';
 $lang['Show %s users'] = 'Afficher %s utilisateurs';
@@ -991,3 +974,11 @@ $lang['between %s and %s MB'] = 'entre %s et %s Mo';
 $lang['date & time'] = 'date et heure';
 $lang['file name'] = 'nom de fichier';
 $lang['width & height'] = 'largeur et hauteur';
+$lang['Select tags'] = 'Sélectionner des mots clés';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Chaque courriel envoyé contiendra sa propre clef d\'identification automatique sur les liens, valide %s.';
+$lang['No tags selected, no actions possible.'] = 'Aucun mot clé sélectionné, aucune action possible.';
+$lang['checksums to add'] = 'Checksums à ajouter';
+$lang['With no checksum'] = 'Sans checksums';
+$lang['Some checksums are missing.'] = 'Des checksums sont manquants';
+$lang['Compute %d missing checksums'] = 'Calcule %d des checksums manquants';
+$lang['%d checksums were added'] = '%d des checksums ont été ajoutés';

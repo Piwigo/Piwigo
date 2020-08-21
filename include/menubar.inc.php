@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -118,7 +103,7 @@ function initialize_menu()
 
 //------------------------------------------------------------------------ tags
   $block = $menu->get_block('mbTags');
-  if ( $block!=null and !empty($page['items']) and 'picture' != script_basename() )
+  if ( $block!=null and 'picture' != script_basename() )
   {
     if ('tags'==@$page['section'])
     {
@@ -147,9 +132,28 @@ function initialize_menu()
             )
           );
       }
+      $template->assign( 'IS_RELATED', false);
     }
-    else
+    //displays all tags available for the current user
+    else if ($conf['menubar_tag_cloud_content'] == 'always_all' or ($conf['menubar_tag_cloud_content'] == 'all_or_current' and empty($page['items'])) )
     {
+      $tags = get_available_tags();
+      usort($tags, 'tags_counter_compare');
+      $tags = array_slice($tags, 0, $conf['menubar_tag_cloud_items_number']);
+      foreach ($tags as $tag)
+      {
+        $block->data[] = array_merge(
+          $tag,
+          array(
+            'URL' => make_index_url( array( 'tags' => array($tag) ) ),
+          )
+        );
+      }
+      $template->assign( 'IS_RELATED', false);
+    }
+    //displays only the tags available from the current thumbnails displayed
+    else if ( !empty($page['items']) and ($conf['menubar_tag_cloud_content'] == 'current_only' or $conf['menubar_tag_cloud_content'] == 'all_or_current') )
+    {        
       $selection = array_slice( $page['items'], $page['start'], $page['nb_image_page'] );
       $tags = add_level_to_tags( get_common_tags($selection, $conf['content_tag_cloud_items_number']) );
       foreach ($tags as $tag)
@@ -161,6 +165,7 @@ function initialize_menu()
           )
         );
       }
+      $template->assign( 'IS_RELATED', true);
     }
     if ( !empty($block->data) )
     {

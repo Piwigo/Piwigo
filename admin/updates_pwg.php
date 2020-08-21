@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if( !defined("PHPWG_ROOT_PATH") )
@@ -37,68 +22,44 @@ STEP:
 3 = upgrade on different branch
 */
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
+
+check_input_parameter('to', $_GET, false, '/^\d+\.\d+\.\d+$/');
 $upgrade_to = isset($_GET['to']) ? $_GET['to'] : '';
+
+$updates = new updates();
 
 // +-----------------------------------------------------------------------+
 // |                                Step 0                                 |
 // +-----------------------------------------------------------------------+
 if ($step == 0)
 {
-  $template->assign(array(
-    'CHECK_VERSION' => false,
-    'DEV_VERSION' => false,
-    )
-  );
+  $new_versions = $updates->get_piwigo_new_versions();
 
-  if (preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION, $matches))
+  if (isset($new_versions['minor']) and isset($new_versions['major']))
   {
-    $url = PHPWG_URL.'/download/all_versions.php';
-    $url .= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
+    $step = 1;
+    $upgrade_to = $new_versions['major'];
 
-    if (@fetchRemote($url, $result)
-      and $all_versions = @explode("\n", $result)
-      and is_array($all_versions))
-    {
-      $template->assign('CHECK_VERSION', true);
-
-      $last_version = trim($all_versions[0]);
-      $upgrade_to = $last_version;
-
-      if (version_compare(PHPWG_VERSION, $last_version, '<'))
-      {
-        $new_branch = preg_replace('/(\d+\.\d+)\.\d+/', '$1', $last_version);
-        $actual_branch = $matches[1];
-
-        if ($new_branch == $actual_branch)
-        {
-          $step = 2;
-        }
-        else
-        {
-          $step = 3;
-
-          // Check if new version exists in same branch
-          foreach ($all_versions as $version)
-          {
-            $new_branch = preg_replace('/(\d+\.\d+)\.\d+/', '$1', $version);
-
-            if ($new_branch == $actual_branch)
-            {
-              if (version_compare(PHPWG_VERSION, $version, '<'))
-              {
-                $step = 1;
-              }
-              break;
-            }
-          }
-        }
-      }
-    }
+    $template->assign(
+      array(
+        'MINOR_VERSION' => $new_versions['minor'],
+        'MAJOR_VERSION' => $new_versions['major'],
+        )
+      );
   }
-  else
+  elseif (isset($new_versions['minor']))
   {
-    $template->assign('DEV_VERSION', true);
+    $step = 2;
+    $upgrade_to = $new_versions['minor'];
   }
+  elseif (isset($new_versions['major']))
+  {
+    $step = 3;
+    $upgrade_to = $new_versions['major'];
+  }
+
+  $template->assign('CHECK_VERSION', $new_versions['piwigo.org-checked']);
+  $template->assign('DEV_VERSION', $new_versions['is_dev']);
 }
 
 // +-----------------------------------------------------------------------+
@@ -106,11 +67,7 @@ if ($step == 0)
 // +-----------------------------------------------------------------------+
 if ($step == 1)
 {
-  $template->assign(array(
-    'MINOR_VERSION' => $version,
-    'MAJOR_VERSION' => $last_version,
-    )
-  );
+  // nothing to do here
 }
 
 // +-----------------------------------------------------------------------+
@@ -139,7 +96,6 @@ if ($step == 3 and is_webmaster())
     updates::upgrade_to($_POST['upgrade_to'], $step);
   }
 
-  $updates = new updates();
   $updates->get_merged_extensions($upgrade_to);
   $updates->get_server_extensions($upgrade_to);
   $template->assign('missing', $updates->missing);

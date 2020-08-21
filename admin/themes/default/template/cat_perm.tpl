@@ -27,10 +27,10 @@ usersCache.selectize(jQuery('[data-selectize=users]'));
 {* <!-- TOGGLES --> *}
 function checkStatusOptions() {
   if (jQuery("input[name=status]:checked").val() == "private") {
-    jQuery("#privateOptions, #applytoSubAction").show();
+    jQuery("#privateOptions").show();
   }
   else {
-    jQuery("#privateOptions, #applytoSubAction").hide();
+    jQuery("#privateOptions").hide();
   }
 }
 
@@ -56,7 +56,7 @@ jQuery("#selectStatus").change(function() {
 <form action="{$F_ACTION}" method="post" id="categoryPermissions">
 
 <fieldset>
-  <legend>{'Access type'|@translate}</legend>
+  <legend><span class="icon-lock icon-yellow"></span>{'Access type'|@translate}</legend>
 
   <p id="selectStatus">
     <label class="font-checkbox">
@@ -175,7 +175,7 @@ jQuery("#selectStatus").change(function() {
       <i class="icon-floppy"></i> {'Save Settings'|@translate}
     </button>
 
-    <label id="applytoSubAction" style="display:none;" class="font-checkbox">
+    <label id="applytoSubAction" class="font-checkbox">
       <span class="icon-check"></span>
       <input type="checkbox" name="apply_on_sub" {if $INHERIT}checked="checked"{/if}>
       {'Apply to sub-albums'|@translate}

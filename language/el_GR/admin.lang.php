@@ -1,28 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
-// +-----------------------------------------------------------------------+
-// +                                                                       +
-// + Revised by AM on 18/04/2011                                           +
-// +                                                                       +
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang[' and %d virtual'] = " και %d εικονικό";
@@ -495,7 +476,7 @@ $lang['No photo in the current set.'] = 'Καμιά φωτογραφία στο 
 $lang['No photo in this album'] = 'Καμιά φωτογραφία σ\' αυτό το λεύκωμα';
 $lang['new'] = 'νέο';
 $lang['No photo selected, %d photos in current set'] = 'Δεν έχει επιλεγεί φωτογραφία , %d φωτογραφίες στο τρέχον σύνολο';
-$lang['No photo selected, no action possible.'] = 'Δεν έχει επιλεγεί φωτογραφία , δεν είναι δυνατή ενέργεια';
+$lang['No photos selected, no actions possible.'] = 'Δεν έχει επιλεγεί φωτογραφία , δεν είναι δυνατή ενέργεια';
 $lang['No results'] = 'Δεν υπάρχουν αποτελέσματα';
 $lang['No user to send notifications by mail.'] = 'Κανένας χρήστης δεν θα ειδοποιηθεί μέσω ταχυδρομείου.';
 $lang['None'] = 'Κανένα';
@@ -578,7 +559,6 @@ $lang['only directories'] = 'Μόνο κατάλογοι';
 $lang['only perform a simulation (no change in database will be made)'] = 'μόνο εκτέλεση προσομοίωσης (τίποτα δεν θα αλλάξει στη βάση δεδομένων)';
 $lang['other'] = 'άλλα';
 $lang['overrides existing values with empty ones'] = 'παρακάμπτει τις υφιστάμενες τιμές με κενές';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader σημαίνει <em>Μεταφορτωτής Piwigo</em>. Από τον υπολογιστή σας, ο pLoader προετοιμάζει τις φωτογραφίες σας και τις μεταφέρει στο  γκαλερί φωτογραφιών του Piwigo σας.';
 $lang['photos added in the database'] = 'οι φωτογραφίες προστέθηκαν στη βάση δεδομένων';
 $lang['photos candidates for metadata synchronization'] = 'φωτογραφίες υποψήφιες για συγχρονισμό μετα-δεδομένων';
 $lang['photos deleted from the database'] = 'οι φωτογραφίες διαγράφτηκαν από τη βάση δεδομένων';
@@ -705,7 +685,6 @@ $lang['Apply watermark if height is bigger than'] = 'Εφαρμόστε υδατ
 $lang['Apply watermark if width is bigger than'] = 'Εφαρμόστε υδατογράφημα, εάν το πλάτος είναι μεγαλύτερο από';
 $lang['Automatic sort order'] = 'Αυτόματη σειρά ταξινόμησης';
 $lang['Available on'] = 'διαθέσιμο σε';
-$lang['Available versions for'] = 'Διαθέσιμες εκδόσεις για';
 $lang['By default, the center of interest is placed in the middle of the photo.'] = 'Από προεπιλογή, το κέντρο του ενδιαφέροντος βρίσκεται στη μέση της φωτογραφίας.';
 $lang['Cancel'] = 'Ακύρωση';
 $lang['Center of interest'] = 'Κέντρο του ενδιαφέροντος';
@@ -939,7 +918,7 @@ $lang['This group will be set to default'] = 'Η ομάδα αυτή θα ορι
 $lang['Rename'] = 'Μετονομασία';
 $lang['Please select at least two groups'] = 'Παρακαλώ επιλέξτε τουλάχιστον δύο ομάδες';
 $lang['No members to manage'] = 'Κανένα μέλος για διαχείριση';
-$lang['No group selected, no action possible.'] = 'Καμία ομάδα δεν επιλέχτηκε, δεν είναι δυνατή η συνέχεια.';
+$lang['No groups selected, no actions possible.'] = 'Καμία ομάδα δεν επιλέχτηκε, δεν είναι δυνατή η συνέχεια.';
 $lang['Merge selected groups'] = 'Συγχώνευση επιλεγμένων ομάδων';
 $lang['Duplicate'] = 'Διπλότυπο';
 $lang['Manage the members'] = 'Διαχειριστείτε τα μέλη';
@@ -959,7 +938,7 @@ $lang['Showing %s to %s of %s users'] = 'Εμφάνιση από %s ως %s τω
 $lang['Show %s users'] = 'Εμφάνιση %s χρηστών';
 $lang['Registered on %s, %s.'] = 'Εγγεγραμμένοι στις %s, %s.';
 $lang['Password updated'] = 'Ο κωδικό πρόσβασης ενημερώθηκε';
-$lang['No user selected, no action possible.'] = 'Κανένας χρήστης δεν επιλέχτηκε, καμία ενέργεια δεν είναι δυνατή.';
+$lang['No users selected, no actions possible.'] = 'Κανένας χρήστης δεν επιλέχτηκε, καμία ενέργεια δεν είναι δυνατή.';
 $lang['No user selected of %d users'] = 'Κανένας χρήστης δεν επιλέχτηκε από  %d χρήστες';
 $lang['No matching user found'] = 'Δεν βρέθηκε χρήστης';
 $lang['Loading...'] = 'Φόρτωση ...';
@@ -994,3 +973,25 @@ $lang['For security reason, authentication keys do not work for administrators.'
 $lang['Edit user'] = 'Επεξεργασία χρήστη';
 $lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Κάθε email που στέλνεται θα περιέχει το δικό του κλειδί για αυτόματο έλεγχο ταυτότητας της σε συνδέσμους, που ισχύει για το %s.';
 $lang['Delete %d orphan photos'] = 'Διαγραφή %d ορφανών φωτογραφιών';
+$lang['orphans to delete'] = 'ορφανές φωτογραφίες γι διαγραφή';
+$lang['delete only album, not photos'] = 'διαγράψετε μόνο λευκώματα, όχι φωτογραφίες';
+$lang['delete album and the %d orphan photos'] = 'διαγράψετε τα λευκώματα και τις %d ορφανές φωτογραφίες';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'διαγράψετε τα λευκώματα και όλες τις %d φωτογραφίες, ακόμα και αυτα %d που συνδέονται με άλλα λευκώματα.';
+$lang['checksum'] = 'άθροισμα ελέγχου';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Ήρθε η ώρα για να ενημερώσετε το Piwigo σας με την έκδοση %s, πηγαίνετε στο %s';
+$lang['Storage used'] = 'χώρος αποθήκευσης που χρησιμοποιείται';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Μοιραστείτε / Στείλτε τις φωτογραφίες σας απευθείας από το MacOS σας (10.10 και μετά) στο Piwigo';
+$lang['Select tags'] = 'Επιλέξτε ετικέτες';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Τρέχοντας σε ένα ενημερωμένο Piwigo είναι σημαντικό για την ασφάλεια.';
+$lang['No tags selected, no actions possible.'] = 'Δεν έχει επιλεγεί ετικέτα, καμία ενέργεια δεν είναι δυνατή.';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Το Piwigo Remote Sync είναι σε θέση να μεταφορτόσει μια ολόκληρη ιεραρχία φακέλων. Αν το εκτελέσετε ξανά, μόνο νέες φωτογραφίες θα μεταφορτοθούν.';
+$lang['Piwigo %s is available, please update'] = 'Το Piwigo %s είναι διαθέσιμο, παρακαλώ ενημερώστε';
+$lang['No filter on album. Select one or type to search'] = 'Χωρίς φίλτρο για λευκώματα. Επιλέξτε ένα ή πληκτρολογήστε για αναζήτηση';
+$lang['It only takes a few clicks.'] = 'Χρειάζονται μόνο λίγα κλικ.';
+$lang['First photo added'] = 'Η πρώτη φωτογραφία προστέθηκε';
+$lang['Display form'] = 'Εμφάνιση φόρμας';
+$lang['Delete album "%s".'] = 'Διαγραφή άλμπουμ "%s".';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Διαγραφή άλμπουμ "%s" και υπο-άλμπουμ της %d.';
+$lang['Dashboard'] = 'Πίνακας Ελέγχου';
+$lang['Confirm deletion'] = 'Επιβεβαίωση διαγραφής';
+$lang['(determined from photos)'] = '(Που καθορίζεται από τις φωτογραφίες)';

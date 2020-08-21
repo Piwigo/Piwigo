@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d kết hợp';
@@ -598,7 +583,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Chuyển sang màu
 $lang['Theme has been successfully installed'] = 'Giao diện đã được cài đặt thành công';
 $lang['Visit Gallery'] = 'Ghé xem thư viện hình';
 $lang['Visit Piwigo project website'] = 'Ghé vào trang chủ của Dự án Piwigo';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'Công cụ pLoader là một <em>công cụ gởi ảnh của Piwigo</em>. Từ máy tính của bạn, pLoader sẽ chuẩn bị các bước thiết lập cho những bức ảnh và chuyển chúng lên thư viện ảnh Piwigo của bạn.';
 $lang['Guest Settings'] = 'Thiết lập cho tài khoản khách';
 $lang['Main Page'] = 'Trang chính';
 $lang['Photo Page'] = 'Trang ảnh';
@@ -679,7 +663,7 @@ $lang['Refresh photo set'] = 'Cập nhật bộ hình';
 $lang['The whole page'] = 'Nguyên cả trang';
 $lang['The whole set'] = 'Nguyên cả bộ';
 $lang['No photo in the current set.'] = 'Không có hình nào trong bộ hiện tại.';
-$lang['No photo selected, no action possible.'] = 'Không có hình nào được chọn, không tác vụ nào được thực hiện.';
+$lang['No photos selected, no actions possible.'] = 'Không có hình nào được chọn, không tác vụ nào được thực hiện.';
 $lang['Choose an action'] = 'Chọn một tác vụ';
 $lang['remove author'] = 'bỏ tác giả';
 $lang['Type here the author name'] = 'Nhập tên tác giả vào đây';
@@ -826,7 +810,6 @@ $lang['Cancel'] = 'Hủy bỏ';
 $lang['List'] = 'Dach sách';
 $lang['Web Form'] = 'Mẫu Web';
 $lang['Applications'] = 'Các ứng dụng';
-$lang['Available versions for'] = 'Những phiên bản có thể dùng được cho';
 $lang['Available on'] = 'Có thể dùng được vào';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Phiên bản Piwigo cho iOS (iPhone, iPad, iPod Touch)';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Phiên bản Piwigo cho iOS</em> ứng dụng cho phép bạn kết nối Piwigo của mình từ iPhone, iPad hoặc iPod Touch, tạo albums ảnh và tải lên máy chủ lưu trữ ảnh ngay lập tức.';
@@ -889,7 +872,7 @@ $lang['Minimum height'] = 'Chiều cao tối thiểu';
 $lang['Multiple Size'] = 'Đa kích thước';
 $lang['Name of the duplicate'] = 'Tên của phần trùng lặp';
 $lang['No group is permitted to see this private album'] = 'Không nhóm nào được phép xem album loại riêng tư';
-$lang['No group selected, no action possible.'] = 'Không nhóm nào được chọn, không thể thực thi được tác vụ nào.';
+$lang['No groups selected, no actions possible.'] = 'Không nhóm nào được chọn, không thể thực thi được tác vụ nào.';
 $lang['No members to manage'] = 'Không có thành viên nào để quản lý';
 $lang['No order field selected'] = 'Không có tham số vị trí nào được chọn';
 $lang['Number of albums per page'] = 'Số album ảnh trên một trang';
@@ -955,7 +938,7 @@ $lang['Last visit on %s, %s.'] = 'Xem lần cuối vào lúc %s, %s.';
 $lang['Loading...'] = 'Đang tải...';
 $lang['No matching user found'] = 'Không tìm thấy người dùng nào phù hợp';
 $lang['No user selected of %d users'] = 'Không có người dùng nào được chọn trong số %d người dùng';
-$lang['No user selected, no action possible.'] = 'Không có người dùng nào được chọn nên không thể làm tiếp';
+$lang['No users selected, no actions possible.'] = 'Không có người dùng nào được chọn nên không thể làm tiếp';
 $lang['Password updated'] = 'Mật khẩu đã được cập nhật';
 $lang['Registered on %s, %s.'] = 'Đã đăng ký vào lúc %s, %s.';
 $lang['Show %s users'] = 'Hiển thị %s người dùng';
@@ -981,3 +964,34 @@ $lang['date & time'] = 'ngày tháng & thời gian';
 $lang['file name'] = 'tên file';
 $lang['width & height'] = 'chiều rộng & chiều cao';
 $lang['Upload in progress'] = 'Đang trong quá trình tải lên ';
+$lang['(determined from photos)'] = '(được quyết định bởi các ảnh)';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync được dùng để tải lên toàn bộ một thư mục. Nếu bạn thực hiện thêm lần nữa thì chỉ có các ảnh mới được tải lên.';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Gửi / Chia sẻ ảnh của bạn trực tiếp từ hđh macOS (10.10 hoặc mới hơn) đến Piwigo';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Mỗi email được gởi sẽ chứa khóa nhận dạng trong các đường link, hợp lệ cho %s.';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Vì lý do bảo mật, các khóa nhận dạng không hoạt động với các quản trị viên.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Vận hành Piwigo phiên bản mới nhất rất quan trọng đối với vấn đề bảo mật.';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Đã đến lúc cập nhật Piwigo %s của bạn lên phiên bản %s';
+$lang['Y Repeat'] = 'Lặp lại Y';
+$lang['Select tags'] = 'Chọn các từ khóa';
+$lang['Storage used'] = 'Dung lượng đã sử dụng';
+$lang['checksum'] = 'kiểm lỗi';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'xóa bộ ảnh và tất cả %d ảnh, bao gồm cả %d gắn với các bộ ảnh khác';
+$lang['delete album and the %d orphan photos'] = 'xóa bộ ảnh và %d ảnh mồ côi';
+$lang['delete only album, not photos'] = 'chỉ xóa bộ ảnh, không xóa ảnh';
+$lang['orphans to delete'] = 'các ảnh mồ côi cần xóa';
+$lang['Confirm deletion'] = 'Xác nhận xóa';
+$lang['Dashboard'] = 'Bảng điều khiển';
+$lang['Delete %d orphan photos'] = 'Xóa %d ảnh mồ côi';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Xóa bộ ảnh "%s" và các %d bộ ảnh con.';
+$lang['Delete album "%s".'] = 'Xóa bộ ảnh "%s".';
+$lang['Display form'] = 'Mẫu hiển thị';
+$lang['Edit user'] = 'Sửa người dùng';
+$lang['First photo added'] = 'Anhr đầu tiên đã được thêm';
+$lang['It only takes a few clicks.'] = 'Chỉ tốn vài cú click chuột.';
+$lang['No filter on album. Select one or type to search'] = 'Khong có bộ lọc bộ ảnh. Chọn một hoặc nhập để tìm kiếm';
+$lang['No recipient selected'] = 'Chưa chọn người nhận';
+$lang['No tags selected, no actions possible.'] = 'Chưa chọn từ khóa nên không thể  tiến hành';
+$lang['No user is permitted to see this private album'] = 'Không có người dùng nào được phép xem bộ ảnh riêng tư này';
+$lang['Orphans'] = 'Các ảnh mồ côi';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s đã có, vui lòng cập nhật';
+$lang['Recipients'] = 'Các người nhận';

@@ -12,7 +12,7 @@
 <form class="filter" action="{$F_ACTION}" method="get">
 
   <fieldset>
-    <legend>{'Filter'|@translate}</legend>
+    <legend><span class="icon-filter icon-green"></span>{'Filter'|@translate}</legend>
 
 		<ul>
 			<li>
@@ -102,9 +102,9 @@
 
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
-{if isset($comments)}
+{if isset($COMMENT_LIST)}
 <div id="comments">
-	{include file='comment_list.tpl' comment_derivative_params=$derivative_params}
+	{$COMMENT_LIST}
 </div>
 {/if}
 

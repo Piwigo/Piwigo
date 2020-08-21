@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -100,6 +85,7 @@ $lang['(this tag will be deleted)'] = '(this tag will be deleted)';
 $lang['+ Add an upload box'] = '+ Add an upload box';
 $lang[', click on'] = ", click on";
 $lang['... or '] = '... or ';
+$lang['... or hide this link'] = '... or hide this link';
 $lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo for Android</em> application empowers you to connect your Android phone or tablet to your Piwigo gallery, create some albums and upload several photos at once.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.';
 $lang['A locked gallery is only visible to administrators'] = 'A locked gallery is only visible to administrators';
@@ -204,7 +190,6 @@ $lang['automatic order'] = 'automatic order';
 $lang['Automatic sort order'] = 'Automatic sort order';
 $lang['Available on'] = 'Available on';
 $lang['Available only with HTML format'] = "Available only with HTML format";
-$lang['Available versions for'] = 'Available versions for';
 $lang['Average rate'] = "Average rate";
 $lang['average time'] = "average time";
 $lang['Basic settings'] = 'Basic settings';
@@ -291,7 +276,7 @@ $lang['Deny selected groups'] = "Deny selected groups";
 $lang['Deny selected users'] = "Deny selected users";
 $lang['Description'] = "Description";
 $lang['Detailed informations'] = 'Detailed information';
-$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam is an advanced digital photo management free software for Linux, Windows, and macOS.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.';
 $lang['directories + files'] = "directories + files";
 $lang['Directory does not exist'] = 'Directory does not exist';
@@ -435,7 +420,7 @@ $lang['Installed Themes'] = "Installed Themes";
 $lang['Instructions to use Piwigo'] = "Instructions to use Piwigo";
 $lang['Invert'] = 'Invert';
 $lang['IP'] = "IP";
-$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto is the default photo manager on MacOSX. The Piwigo export plugin lets you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.';
+$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto is the default photo manager on macOS. The Piwigo export plugin lets you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.';
 $lang['jump to album'] = "jump to album";
 $lang['jump to photo'] = "jump to photo";
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = "Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will be sent emails when a new release is available (sometimes including a security bug fix, it is important to know and upgrade) and when major events happen to the project. Only a few emails a year.";
@@ -527,15 +512,15 @@ $lang['No destination tag selected'] = 'No destination tag selected';
 $lang['No display'] = "No display";
 $lang['No file was uploaded'] = 'No file was uploaded';
 $lang['No group is permitted to see this private album'] = 'No group is permitted to see this private album';
-$lang['No group selected, no action possible.'] = 'No group selected, no action possible.';
+$lang['No groups selected, no actions possible.'] = 'No groups selected, no actions possible.';
 $lang['No mail to send.'] = "No mail to be sent.";
 $lang['No members to manage'] = "No members to manage";
 $lang['No order field selected'] = 'No order field selected';
 $lang['No photo can be deleted'] = "No photo can be deleted";
-$lang['No photo in the current set.'] = 'No photo in the current set.';
+$lang['No photo in the current set.'] = 'No photos in the current set.';
 $lang['No photo in this album'] = "No photo in this album";
-$lang['No photo selected, %d photos in current set'] = 'No photo selected, %d photos in current set';
-$lang['No photo selected, no action possible.'] = 'No photo selected, no action possible.';
+$lang['No photo selected, %d photos in current set'] = 'No photos selected, %d photos in current set';
+$lang['No photos selected, no actions possible.'] = 'No photos selected, no actions possible.';
 $lang['No results'] = "No results";
 $lang['No user to send notifications by mail.'] = "No user to be notified by mail.";
 $lang['no write access'] = "no write access";
@@ -631,7 +616,6 @@ $lang['pixels'] = 'pixels';
 $lang['Please select at least two groups'] = 'Please select at least two groups';
 $lang['Please check "plugins" folder and sub-folders permissions (CHMOD).'] = "Please check \"plugins\" folder and sub-folders permissions (CHMOD).";
 $lang['Please wait...'] = 'Please wait...';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.';
 $lang['Plugin has been successfully copied'] = "The plugin has been successfully copied";
 $lang['Plugin list'] = "Plugins list";
 $lang['Plugins which need upgrade'] = "Plugins to be upgraded";
@@ -904,6 +888,7 @@ $lang['Virtual album name'] = "Virtual album name";
 $lang['Virtual album'] = "Virtual album";
 $lang['Virtual albums to move'] = "Virtual albums to move";
 $lang['Virtual Links'] = 'Virtual Links';
+$lang['Visit'] = 'Visit';
 $lang['Visit Gallery'] = 'Visit the gallery';
 $lang['Visit language site'] = 'Visit language site';
 $lang['Visit Piwigo project website'] = 'Visit Piwigo project website';
@@ -958,7 +943,7 @@ $lang['Show %s users'] = 'Show %s users';
 $lang['No matching user found'] = 'No matching user found';
 $lang['Showing %s to %s of %s users'] = 'Showing %s to %s of %s users';
 $lang['(filtered from %s total users)'] = '(filtered from %s total users)';
-$lang['No user selected, no action possible.'] = 'No user selected, no action possible.';
+$lang['No users selected, no actions possible.'] = 'No users selected, no actions possible.';
 $lang['%d of %d users selected'] = '%d of %d users selected';
 $lang['No user selected of %d users'] = 'No user selected of %d users';
 $lang['All %d users are selected'] = 'All %d users are selected';
@@ -991,7 +976,7 @@ $lang['No user is permitted to see this private album'] = 'No user is permitted 
 $lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Each email sent will contain its own automatic authentication key on links, valid for %s.';
 $lang['For security reason, authentication keys do not work for administrators.'] = 'For security reason, authentication keys do not work for administrators.';
 $lang['Select tags'] = 'Select tags';
-$lang['No tag selected, no action possible.'] = 'No tag selected, no action possible.';
+$lang['No tags selected, no actions possible.'] = 'No tags selected, no actions possible.';
 $lang['Display form'] = 'Display form';
 $lang['Delete album "%s".'] = 'Delete album "%s".';
 $lang['Delete album "%s" and its %d sub-albums.'] = 'Delete album "%s" and its %d sub-albums.';
@@ -999,4 +984,33 @@ $lang['delete album and all %d photos, even the %d associated to other albums'] 
 $lang['delete album and the %d orphan photos'] = 'delete album and the %d orphan photos';
 $lang['delete only album, not photos'] = 'delete only album, not photos';
 $lang['Confirm deletion'] = 'Confirm deletion';
+$lang['Deletion in progress'] = 'Deletion in progress';
 $lang['checksum'] = 'checksum';
+$lang['orphans to delete'] = 'orphans to delete';
+$lang['Dashboard'] = 'Dashboard';
+$lang['Storage used'] = 'Storage used';
+$lang['First photo added'] = 'First photo added';
+$lang['No filter on album. Select one or type to search'] = 'No filter on album. Select one or type to search';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Share / Send your photos directly from your macOS (10.10 and later) to Piwigo';
+$lang['(determined from photos)'] = '(determined from photos)';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s is available, please update';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'The time has come to update your Piwigo to version %s, go to %s';
+$lang['It only takes a few clicks.'] = 'It only takes a few clicks.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Running on an up-to-date Piwigo is important for security.';
+$lang['Some checksums are missing.'] = 'Some checksums are missing.';
+$lang['%d checksums were added'] = '%d checksums were added';
+$lang['With no checksum'] = 'With no checksum';
+$lang['Compute %d missing checksums'] = 'Compute %d missing checksums';
+$lang['checksums to add'] = 'checksums to add';
+$lang['Synchronization in progress'] = 'Synchronization in progress';
+$lang['Display category date'] = 'Display category date';
+$lang['Display album date period'] = 'Show the date period associated with each album, eg « from July 12th to 15th, 2018 »';
+$lang['Welcome!'] = 'Welcome!';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo requires an album to add photos.';
+$lang['Create a first album'] = 'Create a first album';
+$lang['Search tips'] = 'Search tips';
+$lang['Posted %s'] = 'Posted %s';
+$lang['File type: %s'] = 'File type: %s';
+$lang['or'] = 'or';
+$lang['Open in gallery'] = "Open in gallery";

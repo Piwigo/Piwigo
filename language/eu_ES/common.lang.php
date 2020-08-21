@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Euskara [ES]
@@ -35,16 +20,16 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'eus';
 $lang_info['zero_plural'] = true;
 
-$lang['%d album updated'] = '%d eguneratutako albuma';
-$lang['%d albums updated'] = '%d eguneratutako albumak';
-$lang['%d comment to validate'] = '%d onartzeko iruzkina';
-$lang['%d comments to validate'] = '%d onartzeko iruzkinak';
-$lang['%d new comment'] = '%d iruzkina berria';
-$lang['%d new comments'] = '%d iruzkina berriak';
-$lang['%d comment'] = '%d iruzkina';
-$lang['%d comments'] = '%d iruzkinak';
-$lang['%d hit'] = '%d bisita';
-$lang['%d hits'] = '%d bisitak';
+$lang['%d album updated'] = 'eguneratutako album %d';
+$lang['%d albums updated'] = 'eguneratutako %d album';
+$lang['%d comment to validate'] = 'onartzeko iruzkin %d';
+$lang['%d comments to validate'] = 'onartzeko %d iruzkin';
+$lang['%d new comment'] = 'iruzkin berri %d';
+$lang['%d new comments'] = '%d iruzkin berri';
+$lang['%d comment'] = 'iruzkin %d';
+$lang['%d comments'] = '%d iruzkin';
+$lang['%d hit'] = 'bisita %d';
+$lang['%d hits'] = '%d bisita';
 $lang['day'][0] = 'Igandea';
 $lang['day'][1] = 'Astelehena';
 $lang['day'][2] = 'Asteartea';
@@ -69,12 +54,12 @@ $lang['Albums'] = 'Albumak';
 $lang['All'] = 'Dena';
 $lang['Album'] = 'Albuma';
 $lang['Album: %s'] = 'Albuma: %s';
-$lang['%d new user'] = '%d erabiltzaile berria';
-$lang['%d new users'] = '%d erabiltzaile berriak';
-$lang['%d photos'] = '%d argazkiak';
-$lang['%d photo'] = '%d argazki';
-$lang['%d new photos'] = '%d argazki berriak';
-$lang['%d new photo'] = '%d argazki berria';
+$lang['%d new user'] = 'erabiltzaile berri %d';
+$lang['%d new users'] = '%d erabiltzaile berri';
+$lang['%d photos'] = '%d argazki';
+$lang['%d photo'] = 'argazki %d ';
+$lang['%d new photos'] = '%d argazki berri';
+$lang['%d new photo'] = 'argazki berri %d';
 $lang['Comment by %s'] = '%s-ek Esanda';
 $lang['Change my password'] = 'Pasahitza lehengoratzea';
 $lang['Check your email for the confirmation link'] = 'Egiazta dezan baieztapenaren lotura hartu duen haren posta elektronikoan';
@@ -97,7 +82,7 @@ $lang['Bad status for user "guest", using default status. Please notify the webm
 $lang['Best rated'] = 'Hobeto balioetsita';
 $lang['Browser: %s'] = 'Nabigatzailea: %s';
 $lang['Calendar'] = 'Egutegia';
-$lang['%d rates'] = '%d balioespenak';
+$lang['%d rates'] = '%d balorazio';
 $lang['A comment on your site'] = 'Zure webgunearen iruzkina';
 $lang['About'] = 'Buruz';
 $lang['About Piwigo'] = 'Piwigo-ri buruz';
@@ -108,12 +93,12 @@ $lang['Administration'] = 'Administrazioa';
 $lang['Album results for'] = 'Albumen emaitzak';
 $lang['All tags'] = 'Etiketa guztiak';
 $lang['An administrator must authorize your comment before it is visible.'] = 'Administratzaile batek bere iruzkina ikusgaia izan baino lehen baliozkotu behar du.';
-$lang['%d rate'] = '%d balioespena';
+$lang['%d rate'] = 'balorazio %d';
 $lang['... or browse your empty gallery'] = '... edo nabiga ezazu galeriatik (momentu honetan hutsik)';
 $lang['... or please deactivate this message, I will find my way by myself'] = '... edo mesedez, mezu hau desaktiba ezazu hura nire kontura egiteko modua aurkitzeko';
-$lang['%d photo is also linked to current tags'] = '%d argazkia etiketa honekin lotuta egon da ere';
-$lang['%d photos are also linked to current tags'] = '%d argazkiak etiketa hauekin lotuta egon dira ere';
-$lang['%d photos per page'] = '%d orrialdeagatiko argazkiak';
+$lang['%d photo is also linked to current tags'] = 'argazki %d etiketa hauekin lotuta';
+$lang['%d photos are also linked to current tags'] = '%d argazki etiketa hauekin lotuta';
+$lang['%d photos per page'] = '%d argazki orrialdeko';
 $lang['Connected user: %s'] = 'Konektatutako erabiltzailea: %s';
 $lang['Date created, new &rarr; old'] = 'Kreazio data, berria &rarr; zaharra';
 $lang['Date created, old &rarr; new'] = 'Kreazio data, zaharra &rarr; berria';
@@ -149,7 +134,7 @@ $lang['Language'] = 'Hizkuntza';
 $lang['Last'] = 'Azkena';
 $lang['Last Page'] = 'Azken orrialdea';
 $lang['File name, Z &rarr; A'] = 'Artxibo izena, Z &rrar; A';
-$lang['I want to add photos'] = 'Argazkiak gehitu nahi dut';
+$lang['I want to add photos'] = 'Argazkiak gehitu nahi ditut';
 $lang['IP: %s'] = 'IP: %s';
 $lang['IPTC Metadata'] = 'IPTC Metadatak ';
 $lang['Identification'] = 'Autentifikazioa';
@@ -242,7 +227,7 @@ $lang['View in'] = 'Web diseinua egokituta';
 $lang['Visits, high &rarr; low'] = 'Bisitak, gehio &rarr; gutxi';
 $lang['Webmaster'] = 'Webmaster';
 $lang['Website'] = 'Web orria';
-$lang['Welcome to your Piwigo photo gallery!'] = '¡Ongi etorri Piwigoko argazki galeria!';
+$lang['Welcome to your Piwigo photo gallery!'] = '¡Ongi etorri zure Piwigo argazki galeriara!';
 $lang['Username or email'] = 'Erabiltzaile izena edo posta elektronikoa';
 $lang['View'] = 'Begiratu';
 $lang['Visits'] = 'Bisitak';
@@ -297,7 +282,7 @@ $lang['delete this photo from your favorites'] = 'Bere gustukoenen argazki hau e
 $lang['descending'] = 'Beheranzkoa';
 $lang['display a calendar by creation date'] = 'Sorrera-dataren arabera egutegia';
 $lang['display a calendar by posted date'] = 'Argitalpen-dataren arabera egutegia';
-$lang['display a set of random photos'] = 'Argazki aleatorioak ikustea';
+$lang['display a set of random photos'] = 'Ausazko argazki bilduma bat ikustea';
 $lang['display all photos in all sub-albums'] = 'Miniaturengatiko bista';
 $lang['display available tags'] = 'Etiketa libreak erakustea';
 $lang['display best rated photos'] = 'Hobeto balioetsitako argazkiak ikustea';
@@ -308,8 +293,8 @@ $lang['excluded'] = 'Bastertuen';
 $lang['from %s to %s'] = '%s-tik %s-ra';
 $lang['group by letters'] = 'Letrengatik elkartzea';
 $lang['html tags are not allowed in login'] = 'Html-a etiketarik saio hasiera datuetan ez da baimentzen';
-$lang['in %d sub-album'] = '%d-an sub-albuma';
-$lang['in %d sub-albums'] = '%d-an sub-albumak';
+$lang['in %d sub-album'] = 'azpi album %d-ean';
+$lang['in %d sub-albums'] = '%d azpi-albumetan';
 $lang['included'] = 'sartuta';
 $lang['login mustn\'t end with a space character'] = 'Erabiltzaile-izena \'espazio\' karaktereaz ezin da amaitu';
 $lang['login mustn\'t start with a space character'] = 'Erabiltzaile-izena \'espazio\' karaktereaz ezin da hasi';
@@ -353,7 +338,7 @@ $lang['Search for all terms'] = 'Termino guztiak bilatzea';
 $lang['Search for any term'] = 'Edozein terminoa bilatzea';
 $lang['Search for words'] = 'Hitzengatik bilatzea';
 $lang['Search in albums'] = 'Albumetan bilatzea';
-$lang['Search in sub-albums'] = 'Sub-albumetan bilatzea';
+$lang['Search in sub-albums'] = 'Azpi-albumetan bilatzea';
 $lang['Search results'] = 'Bilaketaren emaitzak';
 $lang['Search rules'] = 'Bilaketa irizpideak';
 $lang['Apply on properties'] = 'Jabetzak ematea';
@@ -365,7 +350,7 @@ $lang['Previous'] = 'Aurrekoa';
 $lang['Profile'] = 'Profila';
 $lang['Quick connect'] = 'Konexio azkarra';
 $lang['Quick search'] = 'Bilaketa azkarra';
-$lang['Random photos'] = 'Aletorio argazkiak';
+$lang['Random photos'] = 'Ausazko argazkiak';
 $lang['Rank'] = 'Hobeto balioetsitak';
 $lang['Rate this photo'] = 'Balioestea';
 $lang['Rating score'] = 'Kalifikazioa';
@@ -433,3 +418,6 @@ $lang['chronology_weekly_list'] = 'Asteroko zerrenda';
 $lang['cloud'] = 'hodeia';
 $lang['comment date'] = 'Iruzkinaren data';
 $lang['created after %s (%s)'] = '%s-aren (%s-en) ondoren sortuta';
+$lang['Your authentication key is no longer valid.'] = 'Zure autentifikazio gakoa ez da luzaroago baliozkoa';
+$lang['generate random password'] = 'Sortu ausazko pasahitza';
+$lang['Invalid username or password!'] = 'Erabiltzaile-izen edo pasahitz baliogabea!';

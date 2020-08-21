@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -598,7 +583,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Byt till klara ell
 $lang['Theme has been successfully installed'] = 'Temat har installerats';
 $lang['Visit Gallery'] = 'Besök galleriet';
 $lang['Visit Piwigo project website'] = 'Besök Piwigo projekts hemsida';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står för <em>Piwigo Uploader</em>. pLoader förbereder bilder från din dator och laddar upp dom i ditt Piwigo galleri.';
 $lang['Guest Settings'] = 'Gästinställningar';
 $lang['Main Page'] = 'Huvudsida';
 $lang['Photo Page'] = 'Fotosida';
@@ -680,7 +664,7 @@ $lang['Refresh photo set'] = 'Uppdatera bilder';
 $lang['The whole page'] = 'Hela sidan';
 $lang['The whole set'] = 'Hela markeringen';
 $lang['No photo in the current set.'] = 'inga bilder i den aktuella markeringen..';
-$lang['No photo selected, no action possible.'] = 'Inga foton är valda, inga åtgärder är möjlig.';
+$lang['No photos selected, no actions possible.'] = 'Inga foton är valda, inga åtgärder är möjlig.';
 $lang['Choose an action'] = 'Välj en åtgärd';
 $lang['remove author'] = 'ta bort författaren';
 $lang['Type here the author name'] = 'Skriv författarens namn här';
@@ -827,7 +811,6 @@ $lang['Cancel'] = 'Avbryt';
 $lang['List'] = 'Lista';
 $lang['Web Form'] = 'Webbformulär';
 $lang['Applications'] = 'Applikationer';
-$lang['Available versions for'] = 'Tillgängliga versioner för';
 $lang['Available on'] = 'Tillgängliga på';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo för iOS (iPhone, iPad, iPod Touch)';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo för iOS</em> applikationer tillåter dig ansluta till ditt Piwigo galleri från din iPhone, iPad eller iPod Touch, skapa några album och ladda upp flera bilder på en gång.';
@@ -935,7 +918,7 @@ $lang['Please select at least two groups'] = 'Vänligen välj minst två grupper
 $lang['Panorama'] = 'Panorama';
 $lang['Number of albums per page'] = 'Antal album per sida';
 $lang['No members to manage'] = 'Inga medlemmar att hantera';
-$lang['No group selected, no action possible.'] = 'Ingen grupp vald, ingen åtgärd möjlig';
+$lang['No groups selected, no actions possible.'] = 'Ingen grupp vald, ingen åtgärd möjlig';
 $lang['Name of the duplicate'] = 'Namn på kopia';
 $lang['Minimum width'] = 'Minsta bredd';
 $lang['Minimum height'] = 'Minsta höjd';
@@ -945,7 +928,7 @@ $lang['Resize after upload disabled due to the use of GD as graphic library'] = 
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Bildens dimension kommer att reduceras till %dx%d pixlar.';
 $lang['Select at least one tag'] = 'Välj minst en etikett';
 $lang['(filtered from %s total users)'] = '(filtrerat från totalt %s användare)';
-$lang['No user selected, no action possible.'] = 'Ingen användare vald, ingen åtgärd möjlig.';
+$lang['No users selected, no actions possible.'] = 'Ingen användare vald, ingen åtgärd möjlig.';
 $lang['No matching user found'] = 'Ingen matchande användare funnen';
 $lang['Registered on %s, %s.'] = 'Registrerad %s, %s.';
 $lang['Users modified'] = 'Användare modifierade';
@@ -991,3 +974,40 @@ $lang['For security reason, authentication keys do not work for administrators.'
 $lang['Edit user'] = 'Ändra användare';
 $lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Varje epost som sänds kommer att innehålla sina egna automatiska autentiseringsnycklar som länkar, giltiga i %s.';
 $lang['Delete %d orphan photos'] = 'Radera %d övergivna foton';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Det är dags att uppdatera din Piwigo version %s, gå till %s';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Dela och sänd dina foton direkt från din Mac OS X (10.10 och senare) till Piwigo';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Att köra en uppdaterad version av Piwigo är viktigt för säkerheten.';
+$lang['(determined from photos)'] = '(bestäms från foton)';
+$lang['Display form'] = 'Visningsforumlär';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigi Fjärrsynk kan ladda upp en hel folderhierarki. Om du kör den igen, kommer bara nya foton att laddas upp.';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s är tillgänglig, vänligen uppdatera';
+$lang['No tags selected, no actions possible.'] = 'Ingen tagg vald, ingen åtgärd är möjlig';
+$lang['No filter on album. Select one or type to search'] = 'Inga filter på foldrarna. Välj en eller skriv för att söka';
+$lang['delete only album, not photos'] = 'Radera bara folder, inte foton';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'Radera folder och alla %d foton, även %d associerade med andra foldrar';
+$lang['checksum'] = 'Checksumma';
+$lang['Storage used'] = 'Använt utrumme';
+$lang['Select tags'] = 'Välj taggar';
+$lang['It only takes a few clicks.'] = 'Det behövs bara några klick.';
+$lang['Dashboard'] = 'Kontrollpanel';
+$lang['First photo added'] = 'Första fotot tillagt';
+$lang['Delete album "%s".'] = 'Radera folder "%s"';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Radera folder "%s" och dess %d underfoldrar';
+$lang['Confirm deletion'] = 'Bekräfta radering';
+$lang['delete album and the %d orphan photos'] = 'radera album och de %d föräldralösa bilderna';
+$lang['orphans to delete'] = 'föräldralösa som ska raderas';
+$lang['or'] = 'eller';
+$lang['checksums to add'] = 'checksummor att lägga till';
+$lang['With no checksum'] = 'Med ingen checksumma';
+$lang['Welcome!'] = 'Välkommen!';
+$lang['Visit'] = 'Besök';
+$lang['Synchronization in progress'] = 'Synkronisering pågår';
+$lang['Some checksums are missing.'] = 'Vissa checksummor saknas.';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo behöver ett album för att lägga till foton.';
+$lang['Display category date'] = 'Visa datumkategori';
+$lang['Display album date period'] = 'Visa varje albums associerade datumperiod, t.ex. « från 12 till 15 juli 2018 »';
+$lang['Deletion in progress'] = 'Borttagning pågår';
+$lang['Create a first album'] = 'Skapa ett första album';
+$lang['Compute %d missing checksums'] = 'Fullborda %d saknade checksummor';
+$lang['... or hide this link'] = '... eller göm denna länk';
+$lang['%d checksums were added'] = '%d checksummor lades till';

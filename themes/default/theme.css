@@ -113,6 +113,14 @@
   padding:0 25px;
 }
 
+.badge::before {
+  content: '[';
+}
+
+.badge::after {
+  content: ']';
+}
+
 /* category and tag results paragraphs on a quick search */
 .search_results {
   font-size: 16px;
@@ -783,4 +791,9 @@ LEGEND {
 /* Selectize */
 .selectize-dropdown [data-selectable], .selectize-dropdown .optgroup-header {
     padding: 0px 5px !important;
+}
+
+
+#TagsGroupRemoveTag span{
+  display:none;
 }

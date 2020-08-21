@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 // +-----------------------------------------------------------------------+
@@ -722,6 +707,8 @@ UPDATE '. IMAGES_TABLE .'
 ;';
   $result = pwg_query($query);
 
+  pwg_activity('photo', $params['image_id'], 'edit');
+
   $affected_rows = pwg_db_changes($result);
   if ($affected_rows)
   {
@@ -740,7 +727,7 @@ UPDATE '. IMAGES_TABLE .'
  *    @option int rank
  */
 function ws_images_setRank($params, $service)
-{  
+{
   if (count($params['image_id']) > 1)
   {
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -773,7 +760,7 @@ SELECT
   {
     return new PwgError(WS_ERR_MISSING_PARAM, 'rank is missing');
   }
-  
+
   // does the image really exist?
   $query = '
 SELECT COUNT(*)
@@ -1167,11 +1154,46 @@ SELECT id, name, permalink
  */
 function ws_images_addSimple($params, $service)
 {
-  global $conf;
+  global $conf, $logger;
 
   if (!isset($_FILES['image']))
   {
     return new PwgError(405, 'The image (file) is missing');
+  }
+
+  if (isset($_FILES['image']['error']) && $_FILES['image']['error'] != 0)
+  {
+    switch($_FILES['image']['error'])
+    {
+      case UPLOAD_ERR_INI_SIZE:
+        $message = 'The uploaded file exceeds the upload_max_filesize directive in php.ini.';
+        break;
+      case UPLOAD_ERR_FORM_SIZE:
+        $message = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
+        break;
+      case UPLOAD_ERR_PARTIAL:
+        $message = 'The uploaded file was only partially uploaded.';
+        break;
+      case UPLOAD_ERR_NO_FILE:
+        $message = 'No file was uploaded.';
+        break;
+      case UPLOAD_ERR_NO_TMP_DIR:
+        $message = 'Missing a temporary folder.';
+        break;
+      case UPLOAD_ERR_CANT_WRITE:
+        $message = 'Failed to write file to disk.';
+        break;
+      case UPLOAD_ERR_EXTENSION:
+        $message = 'A PHP extension stopped the file upload. ' .
+        'PHP does not provide a way to ascertain which extension caused the file ' .
+        'upload to stop; examining the list of loaded extensions with phpinfo() may help.';
+        break;
+      default:
+        $message = "Error number {$_FILES['image']['error']} occurred while uploading a file.";
+    }
+
+    $logger->error(__FUNCTION__ . " " . $message);
+    return new PwgError(500, $message);
   }
 
   if ($params['image_id'] > 0)
@@ -1326,6 +1348,10 @@ function ws_images_upload($params, $service)
     $fileName = uniqid("file_");
   }
 
+  // change the name of the file in the buffer to avoid any unexpected
+  // extension. Function add_uploaded_file will eventually clean the mess.
+  $fileName = md5($fileName);
+
   $filePath = $upload_dir.DIRECTORY_SEPARATOR.$fileName;
 
   // Chunking might be enabled
@@ -1409,6 +1435,7 @@ SELECT
     return array(
       'image_id' => $image_id,
       'src' => DerivativeImage::thumb_url($image_infos),
+      'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image_infos),
       'name' => $image_infos['name'],
       'category' => array(
         'id' => $params['category'][0],
@@ -1575,6 +1602,8 @@ SELECT path
  */
 function ws_images_setInfo($params, $service)
 {
+  global $conf;
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   $query='
@@ -1606,6 +1635,14 @@ SELECT *
   {
     if (isset($params[$key]))
     {
+      if (!$conf['allow_html_descriptions'])
+      {
+        $params[$key] = strip_tags($params[$key], '<b><strong><em><i>');
+      }
+
+      // TODO do not strip tags if pwg_token is provided (and valid)
+      $params[$key] = strip_tags($params[$key]);
+
       if ('fill_if_empty' == $params['single_value_mode'])
       {
         if (empty($image_row[$key]))
@@ -1637,7 +1674,12 @@ SELECT *
         );
     }
 
-    $update['file'] = $params['file'];
+    // prevent XSS, remove HTML tags
+    $update['file'] = strip_tags($params['file']);
+    if (empty($update['file']))
+    {
+      unset($update['file']);
+    }
   }
 
   if (count(array_keys($update)) > 0)
@@ -1649,6 +1691,8 @@ SELECT *
       $update,
       array('id' => $update['id'])
       );
+
+    pwg_activity('photo', $update['id'], 'edit');
   }
 
   if (isset($params['categories']))
@@ -1737,8 +1781,10 @@ function ws_images_delete($params, $service)
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  delete_elements($image_ids, true);
+  $ret = delete_elements($image_ids, true);
   invalidate_user_cache();
+
+  return $ret;
 }
 
 /**
@@ -1760,4 +1806,85 @@ function ws_images_checkUpload($params, $service)
   return $ret;
 }
 
+/**
+ * API method
+ * add md5sum at photos, by block. Returns how md5sum were added and how many are remaining.
+ * @param mixed[] $params
+ *    @option int block_size
+ */
+function ws_images_setMd5sum($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $md5sum_ids_to_add = array_slice(get_photos_no_md5sum(), 0, $params['block_size']);
+  $added_count = add_md5sum($md5sum_ids_to_add);
+
+  return array(
+    'nb_added' => $added_count,
+    'nb_no_md5sum' => count(get_photos_no_md5sum()),
+    );
+}
+
+/**
+ * API method
+ * Synchronize metadatas photos. Returns how many metadatas were sync.
+ * @param mixed[] $params
+ *    @option int image_id
+ */
+function ws_images_syncMetadata($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(', ', $params['image_id']).')
+;';
+  $params['image_id'] = query2array($query, null, 'id');
+
+  if (empty($params['image_id']))
+  {
+    return new PwgError(403, 'No image found');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  sync_metadata($params['image_id']);
+
+  return array(
+    'nb_synchronized' => count($params['image_id'])
+  );
+}
+
+/**
+ * API method
+ * Deletes orphan photos, by block. Returns how many orphans were deleted and how many are remaining.
+ * @param mixed[] $params
+ *    @option int block_size
+ */
+function ws_images_deleteOrphans($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $orphan_ids_to_delete = array_slice(get_orphans(), 0, $params['block_size']);
+  $deleted_count = delete_elements($orphan_ids_to_delete, true);
+
+  return array(
+    'nb_deleted' => $deleted_count,
+    'nb_orphans' => count(get_orphans()),
+    );
+}
 ?>

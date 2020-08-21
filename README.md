@@ -1,24 +1,15 @@
-[![Piwigo](http://piwigo.org/screenshots/logos/piwigo@280.png)](http://piwigo.org)
----------
+<img src="https://piwigo.org/plugins/piwigo-piwigodotorg/images/piwigo.org.svg" width="200" alt="Piwigo logo">
 
-Piwigo is photo gallery software for the web, built by an active community of users and developers.
+Manage your photo library. Piwigo is open source photo gallery software for the web. Designed for organisations, teams and individuals.
 
-Extensions make Piwigo easily customizable. Icing on the cake, Piwigo is free and open source.
+![screenshot](https://piwigo.org/screenshots/github-screenshot-2.10.jpg)
 
-![screenshot](http://piwigo.org/screenshots/github-screenshot.jpg)
-
- * [piwigo.org](http://piwigo.org)
- * [Demo](http://piwigo.org/demo)
- * [Downloads](http://piwigo.org/basics/downloads)
- * [User guide](http://piwigo.org/doc)
- * [Plugins and themes](http://piwigo.org/ext)
- * [Forum](http://piwigo.org/forum)
- * [News](http://piwigo.org/news)
+The [piwigo.org](https://piwigo.org) website introduces you to Piwigo. You'll find a demo, forums, wiki and news.
  
 ## Requirements
 
  * A webserver (Apache or nginx recommended)
- * PHP 5.2 or greater
+ * PHP 5.3 or greater (7+ recommended)
  * MySQL 5 or greater or MariaDB equivalent
  * ImageMagick (recommended) or PHP GD
 
@@ -26,27 +17,26 @@ Extensions make Piwigo easily customizable. Icing on the cake, Piwigo is free an
 
 ### NetInstall
 
- * Download the [NetInstall script](http://piwigo.org/download/dlcounter.php?code=netinstall)
+ * Download the [NetInstall script](https://piwigo.org/download/dlcounter.php?code=netinstall)
  * Transfer the script to your web space with any FTP client
  * Open the script in you web browser (for example http://example.com/piwigo-netinstall.php) and follow the steps
 
-[More information](http://piwigo.org/basics/installation_netinstall)
+[More information](https://piwigo.org/guides/install/netinstall)
 
 ### Manual
 
- * Download the [latest stable version](http://piwigo.org/download/dlcounter.php?code=latest) and unzip it
+ * Download the [latest stable version](https://piwigo.org/download/dlcounter.php?code=latest) and unzip it
  * Transfer everything to your web space with any FTP client
  * Open your website (for example http://example.com/piwigo) and follow the steps
 
-[More information](http://piwigo.org/basics/installation_manual)
+[More information](https://piwigo.org/guides/install/manual)
 
-If you do not have your own server, consider the [piwigo.com](http://piwigo.com/) hosting solution.
+If you do not have your own server, consider the [piwigo.com](https://piwigo.com/) hosting solution.
 
 ## Contributing
 
-Piwigo is widely driven by its community; if you want to improve the code, fork this repo and submit your changes to the `master` branch.
+Piwigo is widely driven by its community; if you want to improve the code, fork this repo and submit your changes to the `master` branch. See our [Contribution guide](https://github.com/Piwigo/Piwigo/blob/master/docs/CONTRIBUTING.md).
 
 ## License
 
-Piwigo is released under the GPL v2 license.
-
+Piwigo is released under the GPL v2 license. See our [Copying details](https://github.com/Piwigo/Piwigo/blob/master/COPYING.txt).

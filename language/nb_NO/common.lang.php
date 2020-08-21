@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Norsk bokmål [NO]
@@ -61,8 +46,8 @@ $lang['Yes'] = "Ja";
 $lang['No'] = "Nei";
 $lang['%d photo'] = "%d bilde";
 $lang['%d photos'] = "%d bilder";
-$lang['%d photo is also linked to current tags'] = '%d bilde er også linket til gjeldende stikkord';
-$lang['%d photos are also linked to current tags'] = '%d bilder er også linket til gjeldende stikkord';
+$lang['%d photo is also linked to current tags'] = '%d bilde er også lenket til gjeldende stikkord';
+$lang['%d photos are also linked to current tags'] = '%d bilder er også lenket til gjeldende stikkord';
 $lang['display photos linked to this tag'] = 'Se kun bilder linket til gjeldende stikkord';
 $lang['photos posted during the last %d days'] = 'opplastede bilder de siste %d dager';
 $lang['Piwigo Help'] = "Piwigo hjelp";
@@ -147,7 +132,7 @@ $lang['At least one listed rule must be satisfied.'] = 'Minst en listet regel m�
 $lang['Author'] = 'Forfatter';
 $lang['Notification'] = 'Til informasjon';
 $lang['Number of items'] = 'Antall poster';
-$lang['Original dimensions'] = 'Original dimensjoner';
+$lang['Original dimensions'] = 'Originale dimensjoner';
 $lang['Password forgotten'] = 'Glemt passord';
 $lang['Password'] = 'Passord';
 $lang['Post date'] = 'Post dato';
@@ -196,7 +181,7 @@ $lang['View'] = 'Vis';
 $lang['chronology_monthly_calendar'] = 'Månedlig kalender';
 $lang['chronology_monthly_list'] = 'Månedlig liste';
 $lang['chronology_weekly_list'] = 'Ukentlig liste';
-$lang['Click here if your browser does not automatically forward you'] = 'Klikk her om din nettleser ikke automatisk sender deg viderer.';
+$lang['Click here if your browser does not automatically forward you'] = 'Klikk her om din nettleser ikke automatisk sender deg videre.';
 $lang['comment date'] = 'Kommentert dato';
 $lang['Comment'] = 'kommentar';
 $lang['Your comment has been registered'] = 'Din kommentar er registrert';
@@ -282,7 +267,7 @@ $lang['login mustn\'t start with a space character'] = 'brukernavn kan ikke star
 $lang['this login is already used'] = 'denne innloggingen er allerede i bruk';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'mailaddresse må være tilsvarende xxx@yyy.eee (eksempel : jack@altern.org)';
 $lang['Auto login'] = 'Auto innlogging';
-$lang['%d Kb'] = '%d Kb';
+$lang['%d Kb'] = '%d KB';
 $lang['Week %d'] = 'Uke %d';
 $lang['remove this tag from the list'] = 'fjern stikkord fra denne listen';
 $lang['representative'] = 'representative';
@@ -335,7 +320,7 @@ $lang['Change my password'] = 'Bytt mitt passord';
 $lang['Check your email for the confirmation link'] = 'Bekreftelseslink er sent til deg på epost';
 $lang['Edit'] = 'Endre';
 $lang['Enter your new password below.'] = 'Skriv inn ditt nye passord.';
-$lang['EXIF Metadata'] = 'Avansert bildedata';
+$lang['EXIF Metadata'] = 'EXIF bildedata';
 $lang['Hello %s,'] = 'Hei %s,';
 $lang['html tags are not allowed in login'] = 'html-kode er ikke lov i brukernavn/passord';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Hvis dette var en feiltagelse, bare ignorer denne epost, ingenting vil skje.';
@@ -410,12 +395,12 @@ $lang['Username is mandatory'] = 'Brukernavn er obligatorisk';
 $lang['mandatory'] = 'obligatorisk';
 $lang['Website'] = 'Nettside';
 $lang['Your website URL is invalid'] = 'Adressen til nettsiden er feil';
-$lang['Email'] = 'Epost';
+$lang['Email'] = 'E-post';
 $lang['First Page'] = 'Første side';
 $lang['Go back to the album'] = 'Tilbake til albumet';
 $lang['Last Page'] = 'Siste side';
 $lang['Password is missing. Please enter the password.'] = 'Passord mangler. Vennligst skriv passord.';
-$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Passord bekreftelse mangler. Vennligst bekreft det valgte passord.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Bekreftelse av passord mangler. Vennligst bekreft det valgte passord.';
 $lang['%d photos per page'] = '%d bilder pr side';
 $lang['Theme'] = 'Tema';
 $lang['No results for'] = 'Ingen resultater for';
@@ -426,3 +411,5 @@ $lang['Album name, A &rarr; Z'] = 'Albumnavn, A %rarr; Å';
 $lang['Album name, Z &rarr; A'] = 'Albumnavn, Å %rarr; A';
 $lang['Link: %s'] = 'Lenke: %s';
 $lang['Your authentication key is no longer valid.'] = 'Din autentiseringsnøkkel er ikke lenger gyldig.';
+$lang['Invalid username or password!'] = 'Ugyldig brukernavn eller passord!';
+$lang['generate random password'] = 'Lag et vilkårlig passord';

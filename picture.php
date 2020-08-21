@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 define('PHPWG_ROOT_PATH','./');
@@ -186,7 +171,10 @@ function default_picture_content($content, $element_info)
       continue;
     $added[$url] = 1;
     $show_original &= !($derivative->same_as_source());
-    $unique_derivatives[$type]= $derivative;
+
+    // in case we do not display the sizes icon, we only add the selected size to unique_derivatives
+    if ($conf['picture_sizes_icon'] or $type == $deriv_type)
+      $unique_derivatives[$type]= $derivative;
   }
 
   global $page, $template;
@@ -313,6 +301,7 @@ UPDATE '.CATEGORIES_TABLE.'
   WHERE id = '.$page['category']['id'].'
 ;';
         pwg_query($query);
+        pwg_activity('album', $page['category']['id'], 'edit', array('action'=>$_GET['action'], 'image_id'=>$page['image_id']));
 
         include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
         invalidate_user_cache();
@@ -794,7 +783,7 @@ if ($conf['picture_metadata_icon'])
 // admin links
 if (is_admin())
 {
-  if (isset($page['category']))
+  if (isset($page['category']) and $conf['picture_representative_icon'])
   {
     $template->assign(
       array(
@@ -805,19 +794,23 @@ if (is_admin())
       );
   }
 
-  $url_admin =
-    get_root_url().'admin.php?page=photo-'.$page['image_id']
-    .(isset($page['category']) ? '&amp;cat_id='.$page['category']['id'] : '')
-    ;
+  if ($conf['picture_edit_icon'])
+  {
+    $url_admin =
+      get_root_url().'admin.php?page=photo-'.$page['image_id']
+      .(isset($page['category']) ? '&amp;cat_id='.$page['category']['id'] : '')
+      ;
 
-  $template->assign(
-    array(
-      'U_CADDIE' => add_url_params($url_self,
-                  array('action'=>'add_to_caddie')
-               ),
-      'U_PHOTO_ADMIN' => $url_admin,
-      )
-    );
+    $template->assign('U_PHOTO_ADMIN', $url_admin);
+  }
+
+  if ($conf['picture_caddie_icon'])
+  {
+    $template->assign(
+      'U_CADDIE',
+      add_url_params($url_self, array('action'=>'add_to_caddie'))
+      );
+  }
 
   $template->assign('available_permission_levels', get_privacy_level_options());
 }

@@ -24,7 +24,7 @@ var missingConfirm = "{'You need to confirm deletion'|translate|escape:javascrip
 var missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
 
 var allUsers = [{$all_users}];
-var selection = [{$selection}];
+var selection = [];
 var pwg_token = "{$PWG_TOKEN}";
 
 var protectedUsers = [{$protected_users}];
@@ -610,12 +610,16 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 
   var oTable = jQuery('#userList').dataTable({
     pageLength: 10,
+    autoWidth: false,
     deferRender: true,
     processing: true,
     serverSide: true,
 		serverMethod: "POST",
     ajaxSource: "admin/user_list_backend.php",
 		pagingType: "simple",
+{/literal}{if (isset($filter_group))}{literal}
+    "oSearch": {"sSearch": "group:{/literal}{$filter_group}{literal}"},
+{/literal}{/if}{literal}
     language: {
       processing: "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
       lengthMenu: sprintf("{/literal}{'Show %s users'|translate|escape:'javascript'}{literal}", '_MENU_'),
@@ -856,6 +860,9 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 
 {html_style}{literal}
 .dataTables_wrapper, .dataTables_info {clear:none;}
+.dataTables_wrapper .dataTables_info {clear:none;}
+.dataTables_wrapper::after {clear:none;}
+
 table.dataTable {clear:right;padding-top:10px;}
 .dataTable td img {margin-bottom: -6px;margin-left: -6px;}
 
@@ -879,6 +886,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 .recent_period_infos {margin-left:10px;}
 .nb_image_page, .recent_period {width:340px;margin-top:5px;}
 #action_recent_period .recent_period {display:inline-block;}
+.checkActions {padding:0 1em;}
 {/literal}{/html_style}
 
 <div class="titrePage">
@@ -890,7 +898,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
   <span class="infos" style="display:none"></span>
 </p>
 
-<form id="addUserForm" style="display:none" method="post" name="add_user" action="{$F_ADD_ACTION}">
+<form id="addUserForm" style="{if !isset($show_add_user)}display:none{/if}" method="post" name="add_user" action="{$F_ADD_ACTION}">
   <fieldset class="with-border">
     <legend>{'Add a user'|@translate}</legend>
 
@@ -960,8 +968,8 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 <fieldset id="action">
   <legend>{'Action'|@translate}</legend>
 
-  <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No user selected, no action possible.'|@translate}</div>
-  <div id="permitAction"{if count($selection) == 0} style="display:none"{/if}>
+  <div id="forbidAction">{'No users selected, no actions possible.'|@translate}</div>
+  <div id="permitAction" style="display:none">
 
     <select name="selectAction">
       <option value="-1">{'Choose an action'|@translate}</option>

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if(!defined("PHPWG_ROOT_PATH"))
@@ -35,6 +20,14 @@ check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
+
+// retrieving direct information about picture. This may have been already
+// done on admin/photo.php but this page can also be accessed without
+// photo.php as proxy.
+if (!isset($page['image']))
+{
+  $page['image'] = get_image_infos($_GET['image_id'], true);
+}
 
 // represent
 $query = '
@@ -110,6 +103,8 @@ if (isset($_GET['sync_metadata']))
 //--------------------------------------------------------- update informations
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
+
   $data = array();
   $data['id'] = $_GET['image_id'];
   $data['name'] = $_POST['name'];
@@ -187,6 +182,7 @@ UPDATE '.CATEGORIES_TABLE.'
   $represented_albums = $_POST['represent'];
 
   $page['infos'][] = l10n('Photo informations updated');
+  pwg_activity('photo', $_GET['image_id'], 'edit');
 }
 
 // tags
@@ -200,13 +196,12 @@ SELECT
 ;';
 $tag_selection = get_taglist($query);
 
-// retrieving direct information about picture
-$query = '
-SELECT *
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$_GET['image_id'].'
-;';
-$row = pwg_db_fetch_assoc(pwg_query($query));
+$row = $page['image'];
+
+if (isset($data['date_creation']))
+{
+  $row['date_creation'] = $data['date_creation'];
+}
 
 $storage_category_id = null;
 if (!empty($row['storage_category_id']))
@@ -240,7 +235,7 @@ $template->assign(
 
     'PATH'=>$row['path'],
 
-    'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
+    'TN_SRC' => DerivativeImage::url(IMG_MEDIUM, $src_image),
     'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
 
     'NAME' =>
@@ -250,6 +245,8 @@ $template->assign(
     'TITLE' => render_element_name($row),
 
     'DIMENSIONS' => @$row['width'].' * '.@$row['height'],
+
+    'FORMAT' => ($row['width'] >= $row['height'])? 1:0,//0:horizontal, 1:vertical
 
     'FILESIZE' => @$row['filesize'].' KB',
 
@@ -285,13 +282,17 @@ while ($user_row = pwg_db_fetch_assoc($result))
   $row['added_by'] = $user_row['username'];
 }
 
+$extTab = explode('.',$row['file']);
+
 $intro_vars = array(
-  'file' => l10n('Original file : %s', $row['file']),
-  'add_date' => l10n('Posted %s on %s', time_since($row['date_available'], 'year'), format_date($row['date_available'], array('day', 'month', 'year'))),
+  'file' => l10n('%s', $row['file']),
+  'date' => l10n('Posted the %s', format_date($row['date_available'], array('day', 'month', 'year'))),
+  'age' => l10n(ucfirst(time_since($row['date_available'], 'year'))),
   'added_by' => l10n('Added by %s', $row['added_by']),
   'size' => $row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB',
   'stats' => l10n('Visited %d times', $row['hit']),
-  'id' => l10n('Numeric identifier : %d', $row['id']),
+  'id' => l10n($row['id']),
+  'ext' => l10n('%s file type',strtoupper(end($extTab)))
   );
 
 if ($conf['rate'] and !empty($row['rating_score']))
@@ -421,7 +422,7 @@ else
 
 if (isset($url_img))
 {
-  $template->assign( 'U_JUMPTO', $url_img );
+  $template->assign( 'U_JUMPTO', $url_img ); 
 }
 
 // associate to albums
@@ -438,6 +439,7 @@ $template->assign(array(
   'represented_albums' => $represented_albums,
   'STORAGE_ALBUM' => $storage_category_id,
   'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
+  'PWG_TOKEN' => get_pwg_token(),
   ));
 
 trigger_notify('loc_end_picture_modify');

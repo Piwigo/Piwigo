@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d poveznica';
@@ -593,7 +578,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Prebaci na svijetl
 $lang['Theme has been successfully installed'] = 'Tema je uspješno ugrađena';
 $lang['Visit Gallery'] = 'Posjetite galeriju';
 $lang['Visit Piwigo project website'] = 'Posjetite web stranicu Piwigo projekta';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader znači <em>Piwigo Uploader</em>. Sa vašeg računala, pLoader priprema vaše slike i prebacuje ih u vašu Piwigo galeriju.';
 $lang['Guest Settings'] = 'Postavke Gost računa';
 $lang['Main Page'] = 'Glavna stranica';
 $lang['Photo Page'] = 'Stranica Slika';
@@ -669,7 +653,7 @@ $lang['new'] = 'novo';
 $lang['No file was uploaded'] = 'Datoteka nije poslana';
 $lang['No photo in the current set.'] = 'U trenutnoj grupi nema fotografija.';
 $lang['No photo selected, %d photos in current set'] = 'Fotografije nisu označene, %d fotografija u trenutnoj grupi';
-$lang['No photo selected, no action possible.'] = 'Nijedna fotografija nije označena.';
+$lang['No photos selected, no actions possible.'] = 'Nijedna fotografija nije označena.';
 $lang['No results'] = 'Nema rezultata';
 $lang['on the %d selected photos'] = 'na %d označenih fotografija';
 $lang['Orphan tags deleted'] = 'Nekorištene oznake su izbrisane';

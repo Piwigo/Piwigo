@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 //----------------------------------------------------------- include
@@ -33,11 +18,11 @@ if( !@get_magic_quotes_gpc() )
 {
   if( is_array($_POST) )
   {
-    while( list($k, $v) = each($_POST) )
+    foreach($_POST as $k => $v)
     {
       if( is_array($_POST[$k]) )
       {
-        while( list($k2, $v2) = each($_POST[$k]) )
+        foreach($_POST[$k] as $k2 => $v2)
         {
           $_POST[$k][$k2] = addslashes($v2);
         }
@@ -53,11 +38,11 @@ if( !@get_magic_quotes_gpc() )
 
   if( is_array($_GET) )
   {
-    while( list($k, $v) = each($_GET) )
+    foreach($_GET as $k => $v )
     {
       if( is_array($_GET[$k]) )
       {
-        while( list($k2, $v2) = each($_GET[$k]) )
+        foreach($_GET[$k] as $k2 => $v2)
         {
           $_GET[$k][$k2] = addslashes($v2);
         }
@@ -73,11 +58,11 @@ if( !@get_magic_quotes_gpc() )
 
   if( is_array($_COOKIE) )
   {
-    while( list($k, $v) = each($_COOKIE) )
+    foreach($_COOKIE as $k => $v)
     {
       if( is_array($_COOKIE[$k]) )
       {
-        while( list($k2, $v2) = each($_COOKIE[$k]) )
+        foreach($_COOKIE[$k] as $k2 => $v2)
         {
           $_COOKIE[$k][$k2] = addslashes($v2);
         }
@@ -443,6 +428,8 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
         array(),
         array('origin' => 'installation')
         );
+
+      conf_update_param('show_newsletter_subscription', 'false');
     }
   }
 }
@@ -511,7 +498,7 @@ else
     log_user($user['id'], false);
     
     // email notification
-    if (isset($_POST['send_password_by_mail']))
+    if (isset($_POST['send_credentials_by_mail']))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
             
@@ -523,7 +510,7 @@ else
         get_l10n_args('', ''),
         get_l10n_args('Link: %s', get_absolute_root_url()),
         get_l10n_args('Username: %s', $admin_name),
-        get_l10n_args('Password: %s', $admin_pass1),
+        get_l10n_args('Password: ********** (no copy by email)', ''),
         get_l10n_args('Email: %s', $admin_mail),
         get_l10n_args('', ''),
         get_l10n_args('Don\'t hesitate to consult our forums for any help: %s', PHPWG_URL),

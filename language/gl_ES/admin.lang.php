@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['%d albums including'] = '%d álbums incluídos';
 $lang['%d albums moved'] = '%d álbums movidos';
@@ -232,7 +217,6 @@ $lang['Can\'t connect to server.'] = 'Non está dispoñible a conexión co servi
 $lang['Can\'t create temporary file.'] = 'Non se pode crear o ficheiro temporal.';
 $lang['Can\'t download archive.'] = 'O arquivo non se pode descargar.';
 $lang['Can\'t read or extract archive.'] = 'O arquivo non se pode ler ou extraer.';
-$lang['Available versions for'] = 'Versión dispoñible para';
 $lang['Authorize users to add comments on selected albums'] = 'Autorizar ós usuarios a engadir comentarios nos álbums seleccionados';
 $lang['Authorized'] = 'Autorizado';
 $lang['Automatic correction'] = 'Corrección automática';
@@ -378,7 +362,7 @@ $lang['No results'] = 'Non hai resultados';
 $lang['No user to send notifications by mail.'] = 'Non hai usuario para ser notificado por correo.';
 $lang['No photo in this album'] = 'Non hai fotos neste álbum';
 $lang['No photo selected, %d photos in current set'] = 'Non hai fotos seleccionadas, hai %d fotos no actual conxunto';
-$lang['No photo selected, no action possible.'] = 'Non hai fotos seleccionadas, non hai acción posible.';
+$lang['No photos selected, no actions possible.'] = 'Non hai fotos seleccionadas, non hai acción posible.';
 $lang['No mail to send.'] = 'Non hai ningún correo para ser enviado.';
 $lang['No members to manage'] = 'Non hai ningún membro para ser xestionado';
 $lang['No order field selected'] = 'Non hai seleccionado ningún campo a ordenar';
@@ -386,7 +370,7 @@ $lang['No photo can be deleted'] = 'Non pode ser borrada ningunha foto';
 $lang['No photo in the current set.'] = 'Non hai ningunha foto no actual conxunto.';
 $lang['New photos were added'] = 'Foron engadidas novas fotos';
 $lang['No file was uploaded'] = 'Non se enviou ningún ficheiro';
-$lang['No group selected, no action possible.'] = 'Non hai ningún grupo seleccionado. Non hai acción posible.';
+$lang['No groups selected, no actions possible.'] = 'Non hai ningún grupo seleccionado. Non hai acción posible.';
 $lang['No group is permitted to see this private album'] = 'Ningún grupo ten permiso para ver este álbum privado';
 $lang['New photos added'] = 'Novas fotos engadidas';
 $lang['Move to album'] = 'Mover ó álbum';
@@ -905,7 +889,6 @@ $lang['photos informations synchronized with files metadata'] = 'información de
 $lang['photos per page'] = 'fotos por páxina';
 $lang['photos updated in the database'] = 'fotos actualizadas na base de datos';
 $lang['photos candidates for metadata synchronization'] = 'fotos candidatas para a sincronización de metadatos';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader significa <em>Piwigo Uploader</em>. No teu computador, pLoader prepara túas fotos e transfíreas a túa galería de fotos Piwigo.';
 $lang['pending validation'] = 'pendente de validación';
 $lang['photos added in the database'] = 'fotos engadidas na base de datos';
 $lang['other'] = 'outro';
@@ -942,7 +925,7 @@ $lang['All %d users are selected'] = 'Seleccionados %d usuarios (todos)';
 $lang['No matching user found'] = 'Non se atopou ningún usuario que coincida';
 $lang['No user selected of %d users'] = 'Non está seleccinado nugún dos %d usuarios';
 $lang['Showing %s to %s of %s users'] = 'Amosando de %s a %s de %s usuarios';
-$lang['No user selected, no action possible.'] = 'Sen usuario seleccionado non hai acción posible.';
+$lang['No users selected, no actions possible.'] = 'Sen usuario seleccionado non hai acción posible.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Mudar tamaño despois de enviar está desactivado debido ó uso da biblioteca gráfica GD.';
 $lang['Show %s users'] = 'Amosar %s usuarios';
 $lang['Last visit on %s, %s.'] = 'Última visita o %s, %s.';
@@ -985,3 +968,4 @@ $lang['No recipient selected'] = 'Non hai ningún destinatario seleccionado';
 $lang['No user is permitted to see this private album'] = 'O usuario non ten permitido ver este álbum privado';
 $lang['Orphans'] = 'Orfos';
 $lang['Recipients'] = 'Destinatarios';
+$lang['Y Repeat'] = 'Repetir Y';

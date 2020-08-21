@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 //--------------------------------------------------------------------- include
@@ -110,11 +95,9 @@ $template->assign('U_CANONICAL', $canonical_url);
 //-------------------------------------------------------------- page title
 $title = $page['title'];
 $template_title = $page['section_title'];
-if (count($page['items']) > 0)
-{
-  $template_title.= ' ['.count($page['items']).']';
-}
+$nb_items = count($page['items']);
 $template->assign('TITLE', $template_title);
+$template->assign('NB_ITEMS', $nb_items);
 
 //-------------------------------------------------------------- menubar
 include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
@@ -199,7 +182,7 @@ if ( empty($page['is_external']) )
       );
   }
 
-  if (isset($page['category']) and is_admin())
+  if (isset($page['category']) and is_admin() and $conf['index_edit_icon'])
   {
     $template->assign(
       'U_EDIT',
@@ -207,7 +190,7 @@ if ( empty($page['is_external']) )
       );
   }
 
-  if (is_admin() and !empty($page['items']))
+  if (is_admin() and !empty($page['items']) and $conf['index_caddie_icon'])
   {
     $template->assign(
       'U_CADDIE',
@@ -297,7 +280,7 @@ if ( empty($page['is_external']) )
   }
 
   // category comment
-  if ($page['start']==0 and !isset($page['chronology_field']) and !empty($page['comment']) )
+  if (($page['start']==0 or $conf['album_description_on_all_pages']) and !isset($page['chronology_field']) and !empty($page['comment']) )
   {
     $template->assign('CONTENT_DESCRIPTION', $page['comment'] );
   }
@@ -321,26 +304,30 @@ if ( empty($page['is_external']) )
   if ( !empty($page['items']) )
   {
     include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
-    $url = add_url_params(
-            duplicate_index_url(),
-            array('display' => '')
-          );
-    
-    $selected_type = $template->get_template_vars('derivative_params')->type;
-    $template->clear_assign( 'derivative_params' );
-    $type_map = ImageStdParams::get_defined_type_map();
-    unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
-    
-    foreach($type_map as $params)
+
+    if ($conf['index_sizes_icon'])
     {
-      $template->append(
-        'image_derivatives',
-        array(
-          'DISPLAY' => l10n($params->type),
-          'URL' => $url.$params->type,
-          'SELECTED' => ($params->type == $selected_type ? true:false),
-          )
+      $url = add_url_params(
+        duplicate_index_url(),
+        array('display' => '')
         );
+
+      $selected_type = $template->get_template_vars('derivative_params')->type;
+      $template->clear_assign( 'derivative_params' );
+      $type_map = ImageStdParams::get_defined_type_map();
+      unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
+
+      foreach($type_map as $params)
+      {
+        $template->append(
+          'image_derivatives',
+          array(
+            'DISPLAY' => l10n($params->type),
+            'URL' => $url.$params->type,
+            'SELECTED' => ($params->type == $selected_type ? true:false),
+            )
+          );
+      }
     }
   }
 
