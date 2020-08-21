@@ -71,6 +71,7 @@ function ws_tags_getAdminList($params, &$service)
  *    @option int[] tag_id (optional)
  *    @option string[] tag_url_name (optional)
  *    @option string[] tag_name (optional)
+ *    @option bool untagged_only (optional)
  *    @option bool tag_mode_and
  *    @option int per_page
  *    @option int page
@@ -82,8 +83,7 @@ function ws_tags_getImages($params, &$service)
   $image_ids = array();
   $image_tag_map = array();
 
-  // if "null" was supplied as the first item in tag_id, get a list of untagged images
-  if(isset($params['tag_id'][0]) && strtolower($params['tag_id'][0]) == "null") {
+  if($params['untagged_only']) {
     $query ='SELECT i.id FROM '.IMAGES_TABLE.' i LEFT JOIN '.IMAGE_TAG_TABLE.' it ON i.id=it.image_id INNER JOIN '.IMAGE_CATEGORY_TABLE.' ic ON i.id=ic.image_id WHERE it.image_id IS NULL';
 
     $order_by = ws_std_image_sql_order($params, 'i.');
