@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 // +-----------------------------------------------------------------------+
@@ -41,6 +26,9 @@ trigger_notify('loc_begin_admin');
 
 check_status(ACCESS_ADMINISTRATOR);
 
+check_input_parameter('page', $_GET, false, '/^[a-zA-Z\d_-]+$/');
+check_input_parameter('section', $_GET, false, '/^[a-z]+[a-z_\/-]*(\.php)?$/i');
+
 // +-----------------------------------------------------------------------+
 // | Direct actions                                                        |
 // +-----------------------------------------------------------------------+
@@ -56,12 +44,14 @@ if (isset($_GET['plugins_new_order']))
 if (isset($_GET['change_theme']))
 {
   $admin_themes = array('roma', 'clear');
+  $admin_theme_array = array($conf['admin_theme']);
+  $result = array_diff(
+      $admin_themes,
+      $admin_theme_array
+    );
 
   $new_admin_theme = array_pop(
-    array_diff(
-      $admin_themes,
-      array($conf['admin_theme'])
-      )
+      $result
     );
 
   conf_update_param('admin_theme', $new_admin_theme);
@@ -159,6 +149,11 @@ else
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
 
+// $_GET['tab'] is often used to perform and
+// include('admin_page_'.$_GET['tab'].'.php') : we need to protect it to
+// avoid any unexpected file inclusion
+check_input_parameter('tab', $_GET, false, '/^[a-zA-Z\d_-]+$/');
+
 // +-----------------------------------------------------------------------+
 // | Template init                                                         |
 // +-----------------------------------------------------------------------+
@@ -174,7 +169,7 @@ $template->assign(
     'USERNAME' => $user['username'],
     'ENABLE_SYNCHRONIZATION' => $conf['enable_synchronization'],
     'U_SITE_MANAGER'=> $link_start.'site_manager',
-    'U_HISTORY_STAT'=> $link_start.'stats',
+    'U_HISTORY_STAT'=> $link_start.'stats&amp;year='.date('Y').'&amp;month='.date('n'),
     'U_FAQ'=> $link_start.'help',
     'U_SITES'=> $link_start.'remote_site',
     'U_MAINTENANCE'=> $link_start.'maintenance',
@@ -186,6 +181,7 @@ $template->assign(
     'U_CONFIG_LANGUAGES' => $link_start.'languages',
     'U_CONFIG_THEMES'=> $link_start.'themes',
     'U_CATEGORIES'=> $link_start.'cat_list',
+    'U_CAT_MOVE'=> $link_start.'cat_move',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_RATING'=> $link_start.'rating',
@@ -201,6 +197,7 @@ $template->assign(
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => $change_theme_url,
     'U_UPDATES' => $link_start.'updates',
+    'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
     )
   );
   
@@ -241,6 +238,17 @@ if ($nb_photos_in_caddie > 0)
     );
 }
 
+// any photos with no md5sum ?
+if (in_array($page['page'], array('site_update', 'batch_manager')))
+{
+  $nb_no_md5sum = count(get_photos_no_md5sum());
+
+  if ($nb_no_md5sum > 0)
+  {
+    $page['no_md5sum_number'] = $nb_no_md5sum;
+  }
+}
+
 // any orphan photo?
 $nb_orphans = count(get_orphans());
 
@@ -253,19 +261,6 @@ if ($nb_orphans > 0)
       )
     );
 }
-
-// +-----------------------------------------------------------------------+
-// | Plugin menu                                                           |
-// +-----------------------------------------------------------------------+
-
-$plugin_menu_links = trigger_change('get_admin_plugin_menu_links', array() );
-
-function UC_name_compare($a, $b)
-{
-  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
-}
-usort($plugin_menu_links, 'UC_name_compare');
-$template->assign('plugin_menu_items', $plugin_menu_links);
 
 // +-----------------------------------------------------------------------+
 // | Refresh permissions                                                   |

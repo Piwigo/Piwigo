@@ -1,0 +1,141 @@
+<h2>Sök</h2>
+
+<p>Som standard måste alla sökord matcha. Sökningar är inte skiftlägeskänsliga.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>citerad fras<br>
+<q>"sök"</q>
+</td>
+<td>Använd citationstecken för att söka efter ett exakt ord eller fras.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>antingen uttryck<br>
+<q>ELLER sök</q><br>
+</td>
+<td>Sätt in OR mellan orden.<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>uteslut<br>
+<q>INTE sök</q><br>
+<q>-sök</q>
+</td>
+<td>Lägg till ett bindestreck(-) eller NOT före ett ord som skall uteslutas från sökningen. Observera att INTE fungerar som en filtreringsoperatör, så du kan inte ha en sökning som bara innehåller INTE operatörer. Du kan inte kombinera ELLER med INTE (<q>john OR NOT bill</q> är inte giltigt)<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>gruppering<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mor OR far) AND (dotter OR son)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>taggar:</q>
+</td>
+<td>Söker endast i tagg-namn utan att titta på bildtitlar eller beskrivningar.<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>bilder:</q>
+</td>
+<td>Söker endast efter bilder med de angivna orden i bildtitlar eller beskrivningar.<br>
+<q>photo:John</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Söker efter filnamn.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Söker efter författare.<br>
+<q>author:John</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Söker bilder efter datum de är tagna.<br>
+<q>taken:2003</q> bilder tagna 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> bilder tagna från maj 2003<br>
+<q>taken:2003..2008</q> photos from 2003 to 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> bilder tagna efter den 1 januari 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Söker bilder efter postat datum.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Söker bilder med en given bredd (width) eller höjd (height).</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Söker bilder efter storlek i pixlar<br>
+<q>size:5m</q> returnerar bilder som är 5 megapixlar<br>
+<q>size:>12m</q> returnerar bilder som är 12 megapixlar eller mer<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Söker bilder enligt bredd/höjd förhållande.<br>
+<q>ratio:3/4 OR ratio:4/3</q> hittar bilder från kompaktkameror i porträtt ellet landskapsläge
+<q>ratio:>16/9</q> hittar panoramabilder
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Tips: <q>score:*</q> visar alla bilder med minst en röst. <q>score:</q> ger dig bilder som inte har några röster.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Söker bilder enligt filstorlek<br>
+<q>filesize:1m..10m</q> hittar filer mellan 1MB och 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Söker bilder enligt deras numeriska id. i Piwigo<br>
+<q>id:123..126</q> hittar bild 123 till 126 (kan hitta mellan 0 och 4 bilder, eftersom bilder kan ha blivit raderade).</td>
+</tr>
+
+</table>

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['%d photos uploaded'] = '%d 相片已被上傳';
 $lang['%d photos were deleted'] = '%d 相片已被上傳';
@@ -356,7 +341,6 @@ $lang['Automatic correction'] = '自動修改';
 $lang['Automatic sort order'] = '自動排序';
 $lang['Available on'] = '可用的';
 $lang['Available only with HTML format'] = '僅適用於HTML格式';
-$lang['Available versions for'] = '可用的版本是';
 $lang['Average rate'] = '平均分';
 $lang['Basic settings'] = '基本設置';
 $lang['Batch Manager'] = '批量管理';
@@ -444,7 +428,6 @@ $lang['only directories'] = '僅目錄';
 $lang['only perform a simulation (no change in database will be made)'] = '只進行模擬操作(不會改變資料庫中的任何內容)';
 $lang['other'] = '另外';
 $lang['overrides existing values with empty ones'] = '用空數據來刪除已存在的數據';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader 是 <em>Piwigo 上傳者</em> 的官方標準軟件。pLoader 可將您電腦裡的相片傳送到 Piwigo 的相片畫廊裡。';
 $lang['display maximum informations (added albums and photos, deleted albums and photos)'] = '顯示最大量的信息(增加相冊和相片,刪除的相冊和照片)';
 $lang['dissociate from group'] = '取消群組關聯';
 $lang['errors during synchronization'] = '同步期間發生錯誤';
@@ -845,7 +828,7 @@ $lang['Original templates'] = '原模板';
 $lang['No display'] = '不顯示';
 $lang['No file was uploaded'] = '沒有文件被上傳';
 $lang['No group is permitted to see this private album'] = '沒有群組別有權限觀看此私人相冊';
-$lang['No group selected, no action possible.'] = '尚未選取群組別，無法動作';
+$lang['No groups selected, no actions possible.'] = '尚未選取群組別，無法動作';
 $lang['No mail to send.'] = '沒有郵件要發送.';
 $lang['No matching user found'] = '沒有發現匹配的用戶';
 $lang['No members to manage'] = '沒有會員可以管理';
@@ -854,10 +837,10 @@ $lang['No photo can be deleted'] = '沒有圖片可以刪除';
 $lang['No photo in the current set.'] = '當前集合沒有相片.';
 $lang['No photo in this album'] = '沒有相片在此相冊裡';
 $lang['No photo selected, %d photos in current set'] = '沒有選擇相片, 當前集合有%d張相片';
-$lang['No photo selected, no action possible.'] = '沒有選擇相片，不會有動作執行';
+$lang['No photos selected, no actions possible.'] = '沒有選擇相片，不會有動作執行';
 $lang['No results'] = '沒有結果';
 $lang['No user selected of %d users'] = '%d個用戶沒有用戶選擇';
-$lang['No user selected, no action possible.'] = '沒有用戶選擇，沒有行動的可能。';
+$lang['No users selected, no actions possible.'] = '沒有用戶選擇，沒有行動的可能。';
 $lang['No user to send notifications by mail.'] = '沒有郵件通知用戶.';
 $lang['None'] = '沒有';
 $lang['Not cropped correctly?'] = '不正確的裁剪?';
@@ -988,3 +971,8 @@ $lang['No user is permitted to see this private album'] = '沒有用戶被允許
 $lang['Orphans'] = '孤兒';
 $lang['Recipients'] = '收件人';
 $lang['Y Repeat'] = 'Y 重複';
+$lang['Confirm deletion'] = '確定刪除';
+$lang['First photo added'] = '已加入第一張相片';
+$lang['It only takes a few clicks.'] = '只需簡單幾個步驟。';
+$lang['Dashboard'] = '儀表板';
+$lang['checksum'] = '驗證碼';

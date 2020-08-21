@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['Average rate'] = 'Gemiddelde tempo';
@@ -165,7 +150,6 @@ $lang['Level 1'] = 'Vlak 1';
 $lang['Level 2'] = 'Vlak 2';
 $lang['Level 4'] = 'Vlak 4';
 $lang['Level 8'] = 'Vlak 8';
-$lang['Main'] = 'Hoof';
 $lang['Main Page'] = 'Hoofblad';
 $lang['Width'] = 'Wydte';
 $lang['Add to caddie'] = "plaas in mandjie";
@@ -551,10 +535,9 @@ $lang['Number of comments per page'] = 'Aantal opmerkings per blad';
 $lang['new'] = 'nuut';
 $lang['none'] = 'geen';
 $lang['nothing'] = 'niks';
-$lang['number of miniaturized photos'] = 'aantal duimnaels geskep';
 $lang['Modify information'] = 'Verander inligting';
 $lang['No photo selected, %d photos in current set'] = 'Geen foto gekies, %d fotos in huidige stel';
-$lang['No photo selected, no action possible.'] = 'Geen foto gekies, geen aksie moontlik.';
+$lang['                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           '] = 'Geen foto gekies, geen aksie moontlik.';
 $lang['No results'] = 'Geen resultate';
 $lang['Notification'] = 'Kennisgewing';
 $lang['Obsolete Plugins'] = 'Verouderde invoegsels';
@@ -689,7 +672,6 @@ $lang['hide details'] = 'steek details weg';
 $lang['include photos with lower privacy level'] = 'sluit foto\'s met laer toegangsregte in';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'besoekers moet aanteken en voldoende regte hê om hierdie album te kan sien';
 $lang['Applications'] = 'Toepassings';
-$lang['Available versions for'] = 'Beskikbare weergawes vir';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo Publiseer hegstuk vir Lightroom';
 $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo Publiseer hegstuk vir Shotwell';
 $lang['Piwigo publish plugin for digiKam'] = 'Piwigo Publiseer hegstuk vir digiKam';
@@ -803,7 +785,6 @@ $lang['Uninstalled Plugins'] = 'Verwyder uitbreidings';
 $lang['Use the default photo sort order'] = 'Gebruik die standaard fotovolgorde';
 $lang['You have subscribed to receiving notifications by mail.'] = 'Jy is ingeskryf vir kennisgewings per e-pos.';
 $lang['You have unsubscribed from receiving notifications by mail.'] = 'Jou inskrywing vir kennisgewings per e-pos is gekanselleer.';
-$lang['You might go to plugin list to install and activate it.'] = 'Gaan na die uitbreidingslys om dit te installeer en te aktiveer.';
 $lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'Jy moet verkieslik jou stelsel opdateer om die program ten volle te kan gebruik, anders kan daar nie probleme voorkom nie.';
 $lang['apply automatic sort order'] = 'Sorteer outomaties';
 $lang['cancel manual order'] = 'Kanselleer handmatige volgorde';
@@ -841,7 +822,6 @@ $lang['Link all album photos to a new album'] = 'Koppel alle album fotos aan \'n
 $lang['Link all album photos to some existing albums'] = 'Koppel alle album fotos aan sommige bestaande albums';
 $lang['Linked albums'] = 'Gekoppelde albums';
 $lang['Local'] = 'Plaaslik';
-$lang['Mail address is obligatory for all users'] = 'Epos adres is verpligtend vir alle gebruikers';
 $lang['Manage authorizations for selected albums'] = 'Beheer regte vir gekose albums';
 $lang['Manage permissions for group "%s"'] = 'Bheer regte vir die groep "%s"';
 $lang['Manage permissions for user "%s"'] = 'Bheer regte vir die gebruiker "%s"';
@@ -856,7 +836,6 @@ $lang['No destination tag selected'] = 'Geen bestemming etiket gekies nie';
 $lang['No user to send notifications by mail.'] = 'Geen gebruikers vir epos inkennisstelling';
 $lang['Number of downloads'] = 'Aantal aflaaie';
 $lang['Number of rates'] = 'Aantal graderings';
-$lang['Number of thumbnails to create'] = 'Aantal duimnaels om te skep';
 $lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'Op jou Linux, installeer eenvoudig Shotwell met jou pakketbeheerder en aktiveer die Piwigo publikasie opsie.';
 $lang['Operating system'] = 'Bedryfstelsel';
 $lang['Operation in progress'] = 'Behandeling onderweg.';
@@ -911,7 +890,6 @@ $lang['manage album photos'] = 'beheer album fotos';
 $lang['no write access'] = 'geen skryf regte';
 $lang['on the %d selected photos'] = 'op die %d gekose fotos';
 $lang['only perform a simulation (no change in database will be made)'] = 'doen net \'n simulasie (niks sal in die databasis verander word nie)';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader is kort vir <em>Piwigo Uploader</em>. pLoader berei fotos voor op jou rekenaar en dra dit oor na jou Piwigo fotogallery.';
 $lang['photos candidates for metadata synchronization'] = 'foto kandidate vir metadata sinchronisasie';
 $lang['photos informations synchronized with files metadata'] = 'foto inligting gesinchroniseerd met lêer metadata';
 $lang['reduce to single existing albums'] = 'verminder na enkel bestaande albums';
@@ -929,7 +907,7 @@ $lang['Manage the members'] = 'Administreer lede';
 $lang['Merge selected groups'] = 'Versmelt gekose groepe';
 $lang['Minimum height'] = 'Minimum hoogte';
 $lang['Minimum width'] = 'Minimum wydte';
-$lang['No group selected, no action possible.'] = 'Geen groep gekies, geen aksies moontlik';
+$lang['No groups selected, no actions possible.'] = 'Geen groep gekies, geen aksies moontlik';
 $lang['No members to manage'] = 'Geen lede';
 $lang['Number of albums per page'] = 'Aantal albums per blad';
 $lang['Panorama'] = 'Panorama';
@@ -945,4 +923,51 @@ $lang['between %.2f and %.2f'] = 'tussen %.2f en %.2f';
 $lang['Purge user cache'] = 'Maak pakstoor leeg';
 $lang['Select at least one tag'] = 'Kies ten minste een etiket';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Die beeld se grootte sal verminder word tot %dx%d piksels.';
-?>
+$lang['User %s updated'] = 'Gebruiker %s opgedateer';
+$lang['between %s and %s MB'] = 'tussen %s en %s MB';
+$lang['on the %d selected users'] = 'op die %d gekose gebruikers';
+$lang['Show %s users'] = 'Wys %s gebruikers';
+$lang['Showing %s to %s of %s users'] = 'Wys %s tot %s van %s gebruikers';
+$lang['The settings for the guest are from the %s user'] = 'Die verstellings vir die gas is van die %s gebruiker';
+$lang['Update user'] = 'Opdateer gebruiker';
+$lang['Upload in progress'] = 'Besig met oplaai';
+$lang['User %s added'] = 'Gebruiker %s bygevoeg';
+$lang['Users modified'] = 'Gebruikers aangepas';
+$lang['Y Repeat'] = 'Y herhaling';
+$lang['based on'] = 'gebaseer op';
+$lang['close'] = 'sluit';
+$lang['date & time'] = 'datum en tyd';
+$lang['file name'] = 'leêrnaam';
+$lang['width & height'] = 'wydte & hoogte';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Verstelling na oplaai nie beskikbaar as gevolg van gebruik van GD as grafiese biblioteek';
+$lang['Loading...'] = 'Laai...';
+$lang['No and unlock sub-albums'] = 'Nee en ontsluit sub-albums';
+$lang['No matching user found'] = 'Geen passende gebruiker gevind';
+$lang['No recipient selected'] = 'Geen ontvanger gekies';
+$lang['No user is permitted to see this private album'] = 'Geen gebruiker word toegelaat om \'n privaat album te sien nie';
+$lang['No user selected of %d users'] = 'Geen gebruiker uit %d gebruikers gekies';
+$lang['No users selected, no actions possible.'] = 'Geen gebuiker gekies, geen aksie moontlik.';
+$lang['Open user details'] = 'Vertoon gebruikersinligting';
+$lang['Orphans'] = 'Wese';
+$lang['Password updated'] = 'Wagwoord opgedateer';
+$lang['Recipients'] = 'Ontvangers';
+$lang['Registered on %s, %s.'] = 'Geregistreer op %s, %s.';
+$lang['Empty caddie'] = 'Maak mandjie leeg';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Vir sekuriteitsredes, werk bekragtigingsleutels nie vir administrateurs nie.';
+$lang['Impossible to deactivate the default theme.'] = 'Onmoontlik om die verstek tema te onaktiveer.';
+$lang['(filtered from %s total users)'] = '(gefilter uit %s totale gebruikers)';
+$lang['Activate it now'] = 'Aktiveer dit nou';
+$lang['All %d users are selected'] = 'Al %d gebruikers is gekies';
+$lang['Allow users to add a link to their website'] = 'Laat gebruikers to om \'n skakel na hul webblad by te voeg';
+$lang['Basic settings'] = 'Basiese verstellings';
+$lang['Change password'] = 'Verander wagwoord';
+$lang['Change username'] = 'Verander gebruikersnaam';
+$lang['Close user details'] = 'Sluit gebruikersinligting';
+$lang['Delete %d orphan photos'] = 'Skrap %d wees fotos';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Elke epos gestuur sal sy eie bekragtigingsleutel bevat op skakels, geldig vir %s.';
+$lang['Edit user'] = 'Redigeer gebruiker';
+$lang['General'] = 'Algemeen';
+$lang['Last visit on %s, %s.'] = 'Laaste besoek op %s, %s.';
+$lang['Mail address is mandatory for registration'] = 'Posadres is verpligtend vir registrasie';
+$lang['Mail theme'] = 'Postema';
+$lang['%d of %d users selected'] = '%d van %d gebruikers gekies';

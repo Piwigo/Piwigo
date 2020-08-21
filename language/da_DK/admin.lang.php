@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -293,7 +278,7 @@ $lang['private'] = 'privat';
 $lang['public'] = 'offentlig';
 $lang['Purge never used notification feeds'] = 'Tøm aldrig anvendte notificeringsfeeds';
 $lang['Purge sessions'] = 'Tøm sessioner';
-$lang['randomly represented'] = 'tilfældigt albumminiaturebillede';
+$lang['randomly represented'] = 'album har tilfældigt miniaturebillede';
 $lang['registration date'] = 'registreringsdato';
 $lang['clean'] = 'oprydning';
 $lang['Create this site'] = 'Opret dette websted';
@@ -303,7 +288,7 @@ $lang['remove tags'] = 'Fjern tags';
 $lang['Repair and optimize database'] = 'Reparer og optimer database';
 $lang['selection'] = 'udvælgelse';
 $lang['set to'] = 'opsat til';
-$lang['singly represented'] = 'fast albumminiaturebillede';
+$lang['singly represented'] = 'album har fast miniaturebillede';
 $lang['This site already exists'] = 'Dette websted findes allerede';
 $lang['created'] = 'oprettet';
 $lang['delete'] = 'slet';
@@ -455,9 +440,9 @@ $lang['Level 2']  =  'Venner';
 $lang['Level 4']  =  'Familie';
 $lang['Level 8']  =  'Admins';
 $lang['Reinitialize check integrity'] = 'Geninitialiser integritetskontrol';
-$lang['Check all']  =  'Check alle';
+$lang['Check all'] = 'Tjek alle';
 $lang['Uncheck all'] = 'Fravælg alle';
-$lang['Check automatic corrections']  =  'Check automatiske rettelser';
+$lang['Check automatic corrections'] = 'Tjek automatiske rettelser';
 $lang['Apply selected corrections']  =  'Anvend udvalgte korrektioner';
 $lang['Ignore selected anomalies'] = 'Ignorer valgte afvigelser';
 $lang['Refresh'] = 'Opfrisk';
@@ -598,12 +583,11 @@ $lang['Switch to clear or dark colors for administration'] = 'Skift til lyse ell
 $lang['Theme has been successfully installed'] = 'Temaet blev installeret';
 $lang['Visit Gallery']  =  'Besøg galleriet';
 $lang['Visit Piwigo project website'] = 'Besøg Piwigo-projektets hjemmeside';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står for <em>Piwigo Uploader</em>. På din computer forbereder pLoader dine fotografier og overfører dem til dit Piwigo-fotogalleri.';
 $lang['Guest Settings'] = 'Gæsteindstillinger ';
 $lang['Main Page']  =  'Forside';
 $lang['Photo Page'] = 'Fotoside ';
 $lang['Activate Navigation Bar'] = 'Aktiver navigationsbjælke';
-$lang['Activate Navigation Thumbnails'] = 'Aktiver navigeringsminiaturebilleder';
+$lang['Activate Navigation Thumbnails'] = 'Aktiver miniaturebilleder til navigering';
 $lang['Activate icon "%s"'] = 'Aktiver ikonen \'%s\'';
 $lang['Photo Properties'] = 'Fotografiegenskaber';
 $lang['Allow user customization']  =  'Tillad brugertilpasning';
@@ -652,7 +636,7 @@ $lang['new'] = 'ny';
 $lang['No file was uploaded'] = 'Ingen filer blev uploadet';
 $lang['No photo in the current set.'] = 'Ingen fotografier i det aktuelle sæt.';
 $lang['No photo selected, %d photos in current set'] = 'Ingen fotografier valgt, %d fotografier i nuværende sæt';
-$lang['No photo selected, no action possible.'] = 'Ingen fotografier valgt, ingen mulige handlinger.';
+$lang['No photos selected, no actions possible.'] = 'Ingen fotografier valgt, ingen mulige handlinger.';
 $lang['No results'] = 'Ingen resultater';
 $lang['on the %d selected photos'] = 'på de %d valgte fotografier';
 $lang['Predefined filter'] = 'Foruddefineret filter';
@@ -848,12 +832,11 @@ $lang['Piwigo for Android'] = 'Piwigo for Android';
 $lang['You can activate only one mobile theme.'] = 'Du kan kun aktivere et mobiltema';
 $lang['apply automatic sort order'] = 'Aktiver automatisk sorteringsrækkefølge';
 $lang['cancel manual order'] = 'afbryd manuel rækkefølge';
-$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam er et avanceret fri software-program til organisering af digitale fotografier til Linux, Windows og Mac OS X.';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam er et avanceret fri software-program til organisering af digitale fotografier til Linux, Windows og macOS.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam er designet til fotografer, der ønsker at se, organisere, redigere, optimere, indeksere og dele fotografier.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'App\'en <em>Piwigo for iOS</em> giver dig mulighed for at forbinde en iPhone, iPad eller iPod Touch til dit Piwigo-galleri, oprette albummer og uploade flere fotografier på én gang.';
 $lang['Applications'] = 'Applikationer';
 $lang['Available on'] = 'Tilgængelig på';
-$lang['Available versions for'] = 'Tilgængelige versioner for';
 $lang['Not cropped correctly?'] = 'Ikke beskåret korrekt?';
 $lang['Web Form'] = 'Webformular';
 $lang['You have %d orphan tags: %s.'] = 'Du har %d forældreløse tags: %s';
@@ -886,7 +869,7 @@ $lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] =
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'For at eksportere dine fotografier fra digiKam til Piwigo, skal du blot installere digiKam og KIPI-plugin\'en.';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Du kan ikke definere en standardrækkefølge for fotografier, fordi du har en tilpasset indstilling i din lokale opsætning.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Du har angivet <i>$conf[\'order_by\']</i> i din lokale opsætningsfil, parameteret er forældet, du skal derfor fjerne det eller omdøbe det til <i>$conf[\'order_by_custom\']</i>!';
-$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto er standardprogram til håndtering af fotografier under Mac OS X. Ved hjælp af eksportplugin\'en kan du oprette nye albummer og eksportere dine fotografier direkte fra iPhoto til dit Piwigo-fotogalleri.';
+$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto er standardprogram til håndtering af fotografier under macOS. Ved hjælp af eksportplugin\'en kan du oprette nye albummer og eksportere dine fotografier direkte fra iPhoto til dit Piwigo-fotogalleri.';
 $lang['include photos with lower privacy level'] = 'medtag fotografier med lavere privatlivsniveau';
 $lang['%d day'] = '%d dag';
 $lang['%d days'] = '%d dage';
@@ -936,7 +919,7 @@ $lang['between %d and %d pixels'] = 'mellem %d og %d pixels';
 $lang['Duplicate'] = 'Kopier';
 $lang['Manage the members'] = 'Medlemshåndtering';
 $lang['Merge selected groups'] = 'Læg valgte grupper sammen';
-$lang['No group selected, no action possible.'] = 'Ingen grupper valgt, handling ikke mulig.';
+$lang['No groups selected, no actions possible.'] = 'Ingen grupper valgt, handling ikke mulig.';
 $lang['No members to manage'] = 'Der er ingen medlemmer at håndtere';
 $lang['Please select at least two groups'] = 'Vælg mindst to grupper';
 $lang['Rename'] = 'Omdøb';
@@ -953,18 +936,18 @@ $lang['Mail theme'] = 'Mailtema';
 $lang['%d of %d users selected'] = '%d af %d brugere valgt';
 $lang['(filtered from %s total users)'] = '(filtreret fra totalt %s brugere)';
 $lang['All %d users are selected'] = 'Alle %d brugere er valgt';
-$lang['Change password'] = 'Ændring af adgangskode';
-$lang['Change username'] = 'Ændring af brugernavn';
+$lang['Change password'] = 'Ret adgangskode';
+$lang['Change username'] = 'Ret brugernavn';
 $lang['Last visit on %s, %s.'] = 'Seneste besøg kl. %s den %s.';
 $lang['Loading...'] = 'Indlæser ...';
 $lang['No matching user found'] = 'Ingen brugere fundet som opfylder kriteriet';
 $lang['No user selected of %d users'] = 'Ingen bruger valgt ud af %d brugere';
-$lang['No user selected, no action possible.'] = 'Ingen bruger valgt, ingen handling er mulig.';
+$lang['No users selected, no actions possible.'] = 'Ingen bruger valgt, ingen handling er mulig.';
 $lang['Password updated'] = 'Adgangskoden er opdateret';
 $lang['Registered on %s, %s.'] = 'Registreret kl. %s den %s.';
 $lang['Show %s users'] = 'Vis %s brugere';
 $lang['Showing %s to %s of %s users'] = 'Viser %s til %s af %s brugere';
-$lang['Update user'] = 'Opdatering af bruger';
+$lang['Update user'] = 'Opdater bruger';
 $lang['User %s added'] = 'Brugeren %s er tilføjet';
 $lang['User %s updated'] = 'Brugeren %s er opdateret';
 $lang['Users modified'] = 'Brugere ændret';
@@ -994,3 +977,40 @@ $lang['No user is permitted to see this private album'] = 'Ingen bruger har rett
 $lang['Orphans'] = 'Forældreløse';
 $lang['Recipients'] = 'Modtagere';
 $lang['Y Repeat'] = 'Y-gentagelse';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync er tilgængelig for upload af et komplet mappehierarki. Hvis du kører den igen, vil kun nye fotografier blive tilføjet.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Det er af sikkerhedsgrunde vigtigt at benytte en opdateret Piwigo.';
+$lang['Select tags'] = 'Vælg tags';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Del/send dine fotografier direkte fra macOS (10.10 og nyere) til Piwigo';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'slet album og alle %d fotografier, selv de %d tilknyttet andre albummer';
+$lang['No tags selected, no actions possible.'] = 'Intet tag valgt, ingen handling mulig.';
+$lang['Dashboard'] = 'Instrumentbræt';
+$lang['delete only album, not photos'] = 'slet kun album, ikke fotografier';
+$lang['orphans to delete'] = 'forældreløse der skal slettes';
+$lang['(determined from photos)'] = '(fastlagt ud fra fotografier)';
+$lang['Confirm deletion'] = 'Bekræft sletning';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Slet album "%s" og dets %d underalbummer.';
+$lang['Delete album "%s".'] = 'Slet album "%s".';
+$lang['Display form'] = 'Vis formular';
+$lang['First photo added'] = 'Første fotografi tilføjet';
+$lang['It only takes a few clicks.'] = 'Det kræver kun et par klik.';
+$lang['No filter on album. Select one or type to search'] = 'Intet filter på album. Vælg et eller skriv for at søge';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s er tilgængelig, vær venlig at opdatere';
+$lang['Storage used'] = 'Lagerplads anvendt';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Det er blevet tid til at opdatere din Piwigo med version %s, gå til %s';
+$lang['checksum'] = 'kontrolsum';
+$lang['delete album and the %d orphan photos'] = 'slet album og de %d forældreløse fotografier';
+$lang['... or hide this link'] = '... eller skjul dette link';
+$lang['Compute %d missing checksums'] = 'Beregn %d manglende kontrolsummer';
+$lang['Create a first album'] = 'Opret et første album';
+$lang['Deletion in progress'] = 'Sletning i gang';
+$lang['Display album date period'] = 'Vis datointervallet som hvert album dækker, fx "fra 12. til 15. juli 2018"';
+$lang['Display category date'] = 'Vis albums dato';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo kræver et album for at der kan tilføjes fotografier.';
+$lang['Some checksums are missing.'] = 'Nogle kontrolsummer mangler.';
+$lang['Synchronization in progress'] = 'Synkronisering i gang';
+$lang['Visit'] = 'Besøg';
+$lang['Welcome!'] = 'Velkommen!';
+$lang['With no checksum'] = 'Uden kontrolsum';
+$lang['checksums to add'] = 'kontrolsummer at tilføje';
+$lang['or'] = 'eller';
+$lang['%d checksums were added'] = '%d kontrolsummer blev tilføjet';

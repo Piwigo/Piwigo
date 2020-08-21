@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -290,7 +275,7 @@ class Template
       return false;
     }
     reset($filename_array);
-    while(list($handle, $filename) = each($filename_array))
+    foreach ($filename_array as $handle => $filename) 
     {
       if (is_null($filename))
       {
@@ -1102,7 +1087,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     // replaces echo PHP_STRING_LITERAL; with the string literal value
     $source = preg_replace_callback(
       '/\\<\\?php echo ((?:\'(?:(?:\\\\.)|[^\'])*\')|(?:"(?:(?:\\\\.)|[^"])*"));\\?\\>\\n/',
-      create_function('$matches', 'eval(\'$tmp=\'.$matches[1].\';\');return $tmp;'),
+      function($matches) { eval('$tmp='.$matches[1].';');return $tmp; }, 
       $source);
     return $source;
   }
@@ -1788,7 +1773,7 @@ class ScriptLoader
    */
   private static function cmp_by_mode_and_order($s1, $s2)
   {
-    $ret = $s1->load_mode - $s2->load_mode;
+    $ret = intval($s1->load_mode) - intval($s2->load_mode);
     if ($ret) return $ret;
 
     $ret = $s1->extra['order'] - $s2->extra['order'];

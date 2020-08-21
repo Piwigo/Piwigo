@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -56,7 +41,15 @@ check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 // +-----------------------------------------------------------------------+
 
 $collection = array();
-if (isset($_POST['setSelected']))
+if (isset($_POST['nb_photos_deleted']))
+{
+  check_input_parameter('nb_photos_deleted', $_POST, false, '/^\d+$/');
+
+  // let's fake a collection (we don't know the image_ids so we use "null", we only
+  // care about the number of items here)
+  $collection = array_fill(0, $_POST['nb_photos_deleted'], null);
+}
+else if (isset($_POST['setSelected']))
 {
   $collection = $page['cat_elements_id'];
 }
@@ -269,6 +262,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('author')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'author'));
   }
 
   // title
@@ -293,6 +288,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('name')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'title'));
   }
 
   // date_creation
@@ -321,6 +318,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('date_creation')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'date_creation'));
   }
 
   // privacy_level
@@ -340,6 +339,8 @@ DELETE
       array('primary' => array('id'), 'update' => array('level')),
       $datas
       );
+
+    pwg_activity('photo', $collection, 'edit', array('action'=>'privacy_level'));
 
     if (isset($_SESSION['bulk_manager_filter']['level']))
     {
@@ -361,12 +362,13 @@ DELETE
   {
     if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])
     {
-      $deleted_count = delete_elements($collection, true);
-      if ($deleted_count > 0)
+      // now done with ajax calls, with blocks
+      // $deleted_count = delete_elements($collection, true);
+      if (count($collection) > 0)
       {
         $_SESSION['page_infos'][] = l10n_dec(
           '%d photo was deleted', '%d photos were deleted',
-          $deleted_count
+          count($collection)
           );
 
         $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
@@ -386,8 +388,7 @@ DELETE
   // synchronize metadata
   else if ('metadata' == $action)
   {
-    sync_metadata($collection);
-    $page['infos'][] = l10n('Metadata synchronized from file');
+    $page['infos'][] = l10n('Metadata synchronized from file').' <span class="badge">'.count($collection).'</span>';
   }
 
   else if ('delete_derivatives' == $action && !empty($_POST['del_derivatives_type']))
@@ -449,6 +450,12 @@ $prefilters = array(
 if ($conf['enable_synchronization'])
 {
   $prefilters[] = array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'));
+  $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => l10n('With no checksum'));
+}
+
+function UC_name_compare($a, $b)
+{
+  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
 }
 
 $prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);
@@ -456,6 +463,7 @@ usort($prefilters, 'UC_name_compare');
 
 $template->assign(
   array(
+    'conf_checksum_compute_blocksize' => $conf['checksum_compute_blocksize'],
     'prefilters' => $prefilters,
     'filter' => $_SESSION['bulk_manager_filter'],
     'selection' => $collection,
@@ -466,6 +474,15 @@ $template->assign(
     'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag','filter')),
    )
  );
+
+if (isset($page['no_md5sum_number']))
+{
+  $template->assign(
+    array(
+      'NB_NO_MD5SUM' => $page['no_md5sum_number'],
+    )
+  );
+}
 
 // +-----------------------------------------------------------------------+
 // |                            caddie options                             |
@@ -543,6 +560,8 @@ $template->assign('filter_category_selected', $selected_category);
 // Dissociate from a category : categories listed for dissociation can only
 // represent virtual links. We can't create orphans. Links to physical
 // categories can't be broken.
+$associated_categories = array();
+
 if (count($page['cat_elements_id']) > 0)
 {
   $query = '
@@ -557,8 +576,10 @@ SELECT
     )
 ;';
 
-  $template->assign('associated_categories', query2array($query, 'id', 'id'));
+  $associated_categories = query2array($query, 'id', 'id');
 }
+
+$template->assign('associated_categories', $associated_categories);
 
 if (count($page['cat_elements_id']) > 0)
 {
@@ -621,6 +642,10 @@ if (!empty($_GET['display']))
     $page['nb_images'] = intval($_GET['display']);
   }
 }
+elseif (in_array($conf['batch_manager_images_per_page_global'], array(20, 50, 100)))
+{
+  $page['nb_images'] = $conf['batch_manager_images_per_page_global'];
+}
 else
 {
   $page['nb_images'] = 20;
@@ -645,10 +670,15 @@ if (count($page['cat_elements_id']) > 0)
     $is_category = true;
   }
 
+  // If using the 'duplicates' filter,
+  // order by the fields that are used to find duplicates.
   if (isset($_SESSION['bulk_manager_filter']['prefilter'])
-      and 'duplicates' == $_SESSION['bulk_manager_filter']['prefilter'])
+      and 'duplicates' === $_SESSION['bulk_manager_filter']['prefilter']
+      and isset($duplicates_on_fields))
   {
-    $conf['order_by'] = ' ORDER BY file, id';
+    // The $duplicates_on_fields variable is defined in ./batch_manager.php
+    $order_by_fields = array_merge( $duplicates_on_fields, array( 'id' ) );
+    $conf['order_by'] = ' ORDER BY '.join(', ', $order_by_fields);
   }
 
   $query = '
@@ -684,7 +714,7 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
 ;';
   $result = pwg_query($query);
 
-  $thumb_params = ImageStdParams::get_by_type(IMG_THUMB);
+  $thumb_params = ImageStdParams::get_by_type(IMG_SQUARE);
   // template thumbnail initialization
   while ($row = pwg_db_fetch_assoc($result))
   {

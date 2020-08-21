@@ -380,7 +380,7 @@ function setPrivacyLevel(id, level){
 					{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 				</div>
 			{/if}
-			{include file='comment_list.tpl'}
+			{$COMMENT_LIST}
 		</div>
 		{/if}
 		<div style="clear:both"></div>

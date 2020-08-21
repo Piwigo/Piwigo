@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang[' and %d virtual'] = 'ha %d galloudel';
 $lang[' and %d virtuals'] = 'ha %d galloudel';
@@ -151,7 +136,6 @@ $lang['Upload Photos'] = 'Ezkargañ luc\'hskeudennoù';
 $lang['Uploaded Photos'] = 'Luc\'hskeudennoù ezkarget';
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Oc\'h implij an ezkarger er merdeer emaoc\'h. Esaeit an <a href="%s">ezkarger Flash</a> kentoc\'h.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Oc\'h implij an ezkarger Flash emaoc\'h. Kudennoù ? Esaeit an <a href="%s">ezkarger er merdeer</a> kentoc\'h.';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader a zo un <em>ezkarger Piwigo</em>. pLoader a brient hol luc\'hskeudennoù ha treuzkas anezho eus hoc\'h urzhiater d\'ho palier luc\'hskeudennoù Piwigo.';
 $lang['%s must be to set to false in your local/config/config.inc.php file'] = 'Ret eo arventennañ %s da false en ho restr local/config/config.inc.php';
 $lang['Add'] = 'Ouzhpennañ';
 $lang['Add New Language'] = 'Lakaat ur yezh nevez ouzhpenn';
@@ -286,7 +270,6 @@ $lang['Choose an action'] = 'Dibabit un obererezh';
 $lang['Center of interest'] = 'Darn talvoudus';
 $lang['Change Admin Colors'] = 'Cheñch livioù ar mererezh';
 $lang['Change username'] = 'Cheñch anv implijer';
-$lang['Available versions for'] = 'Stummoù hegerz evit';
 $lang['Basic settings'] = 'Arventennoù diazez';
 $lang['By default, the center of interest is placed in the middle of the photo.'] = 'An darn talvoudus e-barzh al luc\'hskeudenn a vez en he c\'hreiz dre ziouer.';
 $lang['Can\'t connect to server.'] = 'Ne oa ket posubl kevreañ ouzh ar servijer';
@@ -388,7 +371,7 @@ $lang['Duplicate'] = 'Eilad';
 $lang['Duplicate selected tags'] = 'Eiladiñ ar merkerioù diujet';
 $lang['Duplicates'] = 'Eiladoù';
 $lang['Discover album:'] = 'Dizoleiñ ar rummad:';
-$lang['Dissociate from album'] = 'Distaget eus ar rummad';
+$lang['Dissociate from album'] = 'Distagañ eus ar rummad';
 $lang['Dissociated'] = 'Distaget';
 $lang['Documentation'] = 'Teuliadur';
 $lang['ERROR'] = 'FAZI';
@@ -538,7 +521,7 @@ $lang['Install on your computer,'] = 'Staliañ war hoc\'h urzhiataer,';
 $lang['Installed Languages'] = 'Yezhoù staliet';
 $lang['Installed Themes'] = 'Temoù staliet';
 $lang['Uninstall'] = 'Distaliañ';
-$lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'N\'haller ket gweredekaat an tem-se peogwir temoù-all a zo e dalc\'h anezhañ: %s';
+$lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'N\'haller ket dilemel an tem-se peogwir temoù-all a zo e dalc\'h anezhañ: %s';
 $lang['Impossible to activate this theme, the parent theme is missing: %s'] = 'N\'haller ket gweredekaat an tem-se peogwir e vank an tem-tad: %s';
 $lang['Impossible to deactivate the default theme.'] = 'N\'haller ket diweredekaat an tem dre ziouer.';
 $lang['Impossible to deactivate this language, you need at least one language.'] = 'N\'haller ket diweredekaat ar yezh-se, ur yezh ho po ezhom d\'an neubeutañ.';
@@ -716,7 +699,7 @@ $lang['Themes'] = 'Temoù';
 $lang['Title'] = 'Titl';
 $lang['No recipient selected'] = 'Resever ebet diuzet';
 $lang['Recipients'] = 'Reseverien';
-$lang['Select recipients'] = 'Diuzañ ar reseverien';
+$lang['Select recipients'] = 'Diuzit ar reseverien';
 $lang['No photo in this album'] = 'Luc\'hskeudenn ebet er rummad-se';
 $lang['No photo in the current set.'] = 'Luc\'hskeudenn ebet er stroll a-vremañ';
 $lang['No photo selected, %d photos in current set'] = 'Luc\'hskeudenn ebet diuzet, %d luc\'hskeudenn er stroll a-vremañ';
@@ -728,9 +711,9 @@ $lang['No group is permitted to see this private album'] = 'Ne c\'hell strollad 
 $lang['No user is permitted to see this private album'] = 'Ne c\'hell implijer ebet gwelet ar rummad prevez-se.';
 $lang['No file was uploaded'] = 'Restr ebet pellkarget';
 $lang['Upload in progress'] = 'Oc\'h ezkargañ';
-$lang['No group selected, no action possible.'] = 'Strollad ebet diuzet, obererezh ebet d\'ober.';
-$lang['No photo selected, no action possible.'] = 'Luc\'hskeudenn ebet diuzet, obererezh ebet d\'ober.';
-$lang['No user selected, no action possible.'] = 'Implijer ebet diuzet, obererezh ebet d\'ober.';
+$lang['No groups selected, no actions possible.'] = 'Strollad ebet diuzet, obererezh ebet d\'ober.';
+$lang['No photos selected, no actions possible.'] = 'Luc\'hskeudenn ebet diuzet, obererezh ebet d\'ober.';
+$lang['No users selected, no actions possible.'] = 'Implijer ebet diuzet, obererezh ebet d\'ober.';
 $lang['No destination tag selected'] = 'Merker pal ebet diuzet';
 $lang['No and unlock sub-albums'] = 'Ket ha dibrennañ iz-rummadoù';
 $lang['Unlocked'] = 'Dibrennet';
@@ -893,7 +876,7 @@ $lang['synchronize files structure with database'] = 'Sinkronelaat framm ar rest
 $lang['Predefined filter'] = 'Sil raktermenet';
 $lang['custom'] = 'Personelaet';
 $lang['Waiting'] = 'O c\'hortoz';
-$lang['Time'] = 'Eur';
+$lang['Time'] = 'Eurvezh';
 $lang['With no album'] = 'Hep rummad';
 $lang['With no tag'] = 'Hep merker';
 $lang['The %d following tags were deleted'] = 'An %d merkerioù-se a zo bet dilemet';
@@ -937,3 +920,74 @@ $lang['Simulation'] = 'Darvanerezh';
 $lang['Statistics'] = 'Stadegoù';
 $lang['Repair and optimize database'] = 'Ratreañ ha gwellekaat an diaz roadennoù';
 $lang['Ratio'] = 'Parenn an neuz';
+$lang['Webmaster cannot be deleted'] = 'N\'haller ket dilemel ar mestr-gwiad';
+$lang['You cannot delete your account'] = 'N\'haller ket dilemel ho kont';
+$lang['delete this site and all its attached elements'] = 'dilemel al lec\'hienn-mañ hag an holl titouroù';
+$lang['Users modified'] = 'Implijerien cheñchet';
+$lang['only perform a simulation (no change in database will be made)'] = 'darvanañ hepken (nentra ne vo cheñchet en diaz roadennoù)';
+$lang['Unable to dump database.'] = 'N\'haller ket diskargañ an diaz roadennoù.';
+$lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Evit ezporzhiañ ho luc\'hskeudennoù eus digiKam da Piwigo, ret e vo deoc\'h staliañ digiKam hag al lugantoù Kipi.';
+$lang['Time to send mail is limited. Others mails are skipped.'] = 'Ur bevenn-amzer ez eus evit kas ar posteloù. Ar posteloù-all n\'int ket bet kaset.';
+$lang['This theme was not designed to be directly activated'] = 'An tem-se ne oa ket neuziet evit bezañ gweredekaet war eeun';
+$lang['You can activate only one mobile theme.'] = 'Un tem hezoug hepken e c\'hellit gweredekaat.';
+$lang['This name is already used by another group.'] = 'An anv-se a zo implijet gant ur strollad-all dija.';
+$lang['This group will be set to default'] = 'Ar strollad-mañ a vo implijet dre ziouer.';
+$lang['This group will be unset to default'] = 'Ne vo ket implijet ken ar strollad-mañ dre ziouer.';
+$lang['default values'] = 'talvoudoù dre ziouer';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Ment al luc\'hskeudenn a vo bihanaet da %dx%d piksel.';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'AL LUGANT-SE A ZO BREMAÑ E-BARZH KRAOÑELL PIWIGO! RET EO DISTALIAÑ ANEZHAÑ DIOUZHTU.';
+$lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Koumananterien a zo bet listennet nemet ma vez elfennoù nevez da gemenn dezho.';
+$lang['To subscribe'] = 'Koumanantiñ';
+$lang['Summary'] = 'Taolenn';
+$lang['Start pLoader and add your photos.'] = 'Loc\'hañ pLoader evit ouzhpennañ ho luc\'hskeudennoù';
+$lang['Sharpen'] = 'Lemmaat';
+$lang['Send an information email to group members'] = 'Kas izili ar strollad ur bostel titouroù';
+$lang['Section'] = 'Rannskrid';
+$lang['Search for new images in the directories'] = 'Klask skeudennoù e kavlec\'hioù';
+$lang['only directories'] = 'nemet ar c\'havlec\'hioù';
+$lang['Released on'] = 'Embannet';
+$lang['test this remote site'] = 'prouadiñ al lec\'hienn-bell-se';
+$lang['remove creation date'] = 'tennañ deiziat ar c\'hrouadur';
+$lang['overrides existing values with empty ones'] = 'erlec\'hiañ talvoudoù a zo gant re goullo';
+$lang['on'] = 'war';
+$lang['no write access'] = 'gwirioù da skrivañ ebet';
+$lang['global mode'] = 'mod hollek';
+$lang['unit mode'] = 'mod unan hag unan';
+$lang['for the file format'] = 'evit furmad ar restr';
+$lang['for this file format'] = 'evit furmad ar restr-se';
+$lang['dissociate from group'] = 'distagañ eus ar strollad';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam a zo graet evit sellout, merañ, aozañ, gwellaat, renkañ, merkañ ha rannañ luc\'hskeudennoù.';
+$lang['create a new site'] = 'krouiñ ul lec\'hienn nevez';
+$lang['created'] = 'krouet';
+$lang['confirm'] = 'kadarnait';
+$lang['clean'] = 'naetaat';
+$lang['based on'] = 'diazezet war';
+$lang['between %.2f and %.2f'] = 'etre %.2f ha %.2f';
+$lang['between %d and %d pixels'] = 'etre %d ha %d piksel';
+$lang['between %s and %s MB'] = 'etre %s ha %s Mo';
+$lang['average time'] = 'pad keitat';
+$lang['date & time'] = 'deiziad & eurvezh';
+$lang['associate to group'] = 'liammañ ouzh ar strollad';
+$lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'Mat e vefe hizivaat ho reizhiad evit korvoiñ eus an arload, pe marteze an arload ne zaio ket mat, pe tamm ebet.';
+$lang['Delete album "%s".'] = 'Dilemel ar rummad "%s".';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Dilemel ar rummad "%s" hag e %d iz-rummad.';
+$lang['delete only album, not photos'] = 'Dilemel ar rummad hepken, ket al luc\'hskeudennoù';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'Dilemel ar rummad hag ar %d luc\'hskeudenn, memes ar %d liammet da rummadoù all';
+$lang['delete album and the %d orphan photos'] = 'Dilemel ar rummad hag ar %d luc\'hskeudenn emzivaded';
+$lang['orphans to delete'] = 'emzivaded da zilemel';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Rannit / Kasit ho luc\'hskeudennoù eus ho Mac Os X da Piwigo war-eeun (10.10 ha war-lec\'h)';
+$lang['Storage used'] = 'Plas-klenkañ implijet';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync a c\'hell ezkargañ gwezennadur ur kavlec\'h a-bezh. Ma lakait anezhañ da vont en-dro, al luc\'hskeudennoù nevez a vo ezkarget hepken.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Pouezus evit ar surentez eo implijout ur stumm Piwigo hizivaet.';
+$lang['(determined from photos)'] = '(resisaet eus luc\'hskeudennoù)';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Poent eo hizivaat ho Piwigo gant stumm %s, kit da %s';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s a zo hegerzh, hizivait mar plij';
+$lang['No tags selected, no actions possible.'] = 'Merker ebet diuzet, obererezh ebet d\'ober.';
+$lang['Select tags'] = 'Diuzit ar merkerioù';
+$lang['No filter on album. Select one or type to search'] = 'Sil ebet war ar rummad, diuzit unan pe skrivit evit klask';
+$lang['checksum'] = 'sammad kontroll';
+$lang['It only takes a few clicks.'] = 'Kemer a ra un nebeut klikoù hepken.';
+$lang['First photo added'] = 'Luc\'hskeudenn gentañ ouzhpennet';
+$lang['Display form'] = 'Diskouez ar furmskrid';
+$lang['Dashboard'] = 'Taolenn-stur';
+$lang['Confirm deletion'] = 'Kadarnaat an dilamadur';

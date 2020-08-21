@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d assosier';
@@ -227,7 +212,7 @@ $lang['Complementary mail content'] = 'Kompletterende mail innhold';
 $lang['See you soon,'] = 'På gjensyn,';
 $lang['Go to'] = 'Gå til';
 $lang['Hello'] = 'Hallo';
-$lang['New photos were added'] = 'Nye elementer har blitt lagt til';
+$lang['New photos were added'] = 'Nye bilder har blitt lagt til';
 $lang['on'] = 'på';
 $lang['between'] = 'mellom';
 $lang['and'] = 'og';
@@ -253,7 +238,7 @@ $lang['There is no available subscribers to mail.'] = 'Det er ingen abonnenter �
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Abonnenter kan bli listet (tilgjengelige) kun om det er nye meldinger.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'Uansett kun webmastere ser denne fanen, ingen administratorer.';
 $lang['No user to send notifications by mail.'] = 'Ingen brukere å medele via mail.';
-$lang['New photos added'] = 'Nye elementer lagt til';
+$lang['New photos added'] = 'Nye bilder er lagt til';
 $lang['Subscribe to notification by mail'] = 'Abonner for varsling via e-mail';
 $lang['Unsubscribe from notification by mail'] = 'Fjern abonnent på varsling via e-mail';
 $lang['Parameter'] = 'Settings';
@@ -596,7 +581,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Bytt til lyse elle
 $lang['Theme has been successfully installed'] = 'Temaet er installert';
 $lang['Visit Gallery'] = 'Besøk galleriet';
 $lang['Visit Piwigo project website'] = 'Besøk Piwigo prosjektets webside';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står for <em>Piwigo Opplaster</em>. Fra din maskin, pLoader klargjør dine bilder og overfører dem til ditt Piwigo photo galleri.';
 $lang['Guest Settings'] = 'Instillinger for gjester';
 $lang['Main Page'] = 'Hovedside';
 $lang['Photo Page'] = 'Bilde side';
@@ -681,7 +665,7 @@ $lang['Refresh photo set'] = 'Oppdater bilde sesjonen';
 $lang['The whole page'] = 'Hele siden';
 $lang['The whole set'] = 'Hele sesjonen';
 $lang['No photo in the current set.'] = 'Ingen foto i gjeldende sesjon.';
-$lang['No photo selected, no action possible.'] = 'Ingne bilder valgt, ingen tilltak mulig.';
+$lang['No photos selected, no actions possible.'] = 'Ingne bilder valgt, ingen tilltak mulig.';
 $lang['Choose an action'] = 'Velg et tilltak';
 $lang['remove author'] = 'fjern forfatter';
 $lang['Type here the author name'] = 'Skriv forfatter navn her';
@@ -812,7 +796,6 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Du bruker nettleseropplasting. Prøv <a href="%s">Flashopplasting </a> isteden.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Du bruker Flashopplasting. Prøv <a href="%s">Nettleseropplasting </a> isteden.';
 $lang['Available on'] = 'Tilgjengelig på';
-$lang['Available versions for'] = 'Tilgjengelig versjon for';
 $lang['List'] = 'Vis';
 $lang['Not cropped correctly?'] = 'Ikke beskåret riktig?';
 $lang['Notify administrators when a comment is'] = 'Gi beskjed til administrator når en kommentar er';
@@ -928,7 +911,7 @@ $lang['Ratio'] = 'Ratio';
 $lang['Duplicate'] = 'Duplikat';
 $lang['Manage the members'] = 'Administrer medlemmer';
 $lang['Merge selected groups'] = 'Flett markerte grupper';
-$lang['No group selected, no action possible.'] = 'Ingen gruppe markert, kan ikke gjøre noe.';
+$lang['No groups selected, no actions possible.'] = 'Ingen gruppe markert, kan ikke gjøre noe.';
 $lang['No members to manage'] = 'Ingen medlemmer å behandle';
 $lang['Please select at least two groups'] = 'Vennligst marker minst to grupper';
 $lang['Rename'] = 'Gi nytt navn';
@@ -953,7 +936,7 @@ $lang['Change username'] = 'Bytt brukernavn';
 $lang['Loading...'] = 'Laster...';
 $lang['No matching user found'] = 'Ingen treff';
 $lang['No user selected of %d users'] = 'Ingen av %d brukere valgt';
-$lang['No user selected, no action possible.'] = 'Ingen bruker valgt, kan ikke gjøre noe.';
+$lang['No users selected, no actions possible.'] = 'Ingen bruker valgt, kan ikke gjøre noe.';
 $lang['Password updated'] = 'Passord oppdatert';
 $lang['Registered on %s, %s.'] = 'Registrert den %s, %s.';
 $lang['Show %s users'] = 'Vis %s brukere';
@@ -988,3 +971,40 @@ $lang['No user is permitted to see this private album'] = 'Ingen brukeren har ti
 $lang['Orphans'] = 'Eierløs';
 $lang['Recipients'] = 'Mottakere';
 $lang['Y Repeat'] = 'Y Gjenta';
+$lang['Display form'] = 'Visningstype';
+$lang['No tags selected, no actions possible.'] = 'Ikke noe merke valgt, ingen aksjon mulig';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo fjernsynkronisering kan laste opp en hel katalogstruktur.  Kjøres den igjen, blir bare ny bilder lastet opp';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'En oppdatert versjon av Piwigo er viktig for sikkerheten';
+$lang['Select tags'] = 'Velg merker';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s er tilgjengelig, vennligst oppdater';
+$lang['(determined from photos)'] = '(bestemt fra bilder)';
+$lang['Confirm deletion'] = 'Bekreft sletting';
+$lang['Dashboard'] = 'Oversikt';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Slett album "%s" og alle  %d underalbumer.';
+$lang['Delete album "%s".'] = 'Slett album "%s".';
+$lang['First photo added'] = 'Første bilde lagt til';
+$lang['It only takes a few clicks.'] = 'Det er bare noen tastetrykk';
+$lang['No filter on album. Select one or type to search'] = 'Ingen filter på album. Velg en eller skriv for å søke';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Del/Send ditt bilde direkte fra din macOS(10.10 og senere) til Piwigo';
+$lang['Storage used'] = 'Lagringsplass brukt';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Tiden er kommet for å oppdatere Piwigo til versjon %s, gå til %s';
+$lang['checksum'] = 'sjekksum';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'slett album og alle %d bilder, til og med %d de som er forbundet med andre album';
+$lang['delete album and the %d orphan photos'] = 'slett album og %d eierløse bilder';
+$lang['delete only album, not photos'] = 'slett kun album, ikke bilder';
+$lang['orphans to delete'] = 'eierløse bilder som skal slettes';
+$lang['%d checksums were added'] = '%d sjekksum ble lagt til';
+$lang['... or hide this link'] = '...eller skjul denne lenken';
+$lang['Compute %d missing checksums'] = 'Dataen %d mangler sjekksum';
+$lang['Create a first album'] = 'Lag første album';
+$lang['Deletion in progress'] = 'Sletting pågår';
+$lang['Display album date period'] = 'Vis datoperioden knyttet til hvert album, for eksempel «fra 12. juli til 15. januar 2018»';
+$lang['Display category date'] = 'Vis kategori dato';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo krever et album for å legge til bilder.';
+$lang['Some checksums are missing.'] = 'Noen sjekksummer mangler.';
+$lang['Synchronization in progress'] = 'Synkronisering pågår';
+$lang['Visit'] = 'Besøk';
+$lang['Welcome!'] = 'Velkommen!';
+$lang['With no checksum'] = 'Uten sjekksum';
+$lang['checksums to add'] = 'sjekksum som skal legges til';
+$lang['or'] = 'eller';

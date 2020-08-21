@@ -21,6 +21,8 @@ jQuery(document).ready(function(){
 </div>
 
 <form method="post" name="notification_by_mail" id="notification_by_mail" action="{$F_ACTION}">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
   {if isset($REPOST_SUBMIT_NAME)}
   <fieldset>
     <div class="infos">
@@ -129,7 +131,7 @@ jQuery(document).ready(function(){
 
 {if isset($auth_key_duration)}
     <fieldset>
-      <legend>{'Informations'|@translate}</legend>
+      <legend><span class="icon-info-circled-1 icon-blue"></span>{'Informations'|@translate}</legend>
       <p>
       {'Each email sent will contain its own automatic authentication key on links, valid for %s.'|translate:$auth_key_duration}
       <br>{'For security reason, authentication keys do not work for administrators.'|translate}

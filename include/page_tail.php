@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('tail'=>'footer.tpl'));
 
@@ -27,7 +12,7 @@ trigger_notify('loc_begin_page_tail');
 $template->assign(
   array(
     'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
-    'PHPWG_URL' => defined('PHPWG_URL') ? PHPWG_URL : '',
+    'PHPWG_URL' => defined('PHPWG_URL') ? str_replace('http:', 'https:', PHPWG_URL) : '',
     ));
 
 //--------------------------------------------------------------------- contact
@@ -37,6 +22,31 @@ if (!is_a_guest())
   $template->assign(
     'CONTACT_MAIL', get_webmaster_mail_address()
     );
+}
+
+//--------------------------------------------------------- update notification
+if ($conf['update_notify_check_period'] > 0)
+{
+  $check_for_updates = false;
+  if (isset($conf['update_notify_last_check']))
+  {
+    if (strtotime($conf['update_notify_last_check']) < strtotime($conf['update_notify_check_period'].' seconds ago'))
+    {
+      $check_for_updates = true;
+    }
+  }
+  else
+  {
+    $check_for_updates = true;
+  }
+
+  if ($check_for_updates)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
+    $updates = new updates();
+    $updates->notify_piwigo_new_versions();
+  }
 }
 
 //------------------------------------------------------------- generation time

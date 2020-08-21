@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -123,7 +108,7 @@ function get_sql_search_clause($search)
 
     array_walk(
       $word_clauses,
-      create_function('&$s','$s="(".$s.")";')
+      function(&$s){ $s = "(".$s.")"; }
       );
 
     // make sure the "mode" is either OR or AND
@@ -202,7 +187,7 @@ function get_regular_search_results($search, $images_where='')
   global $conf, $logger;
 
   $logger->debug(__FUNCTION__, 'search', $search);
-  
+
   $forbidden = get_sql_condition_FandF(
         array
           (
@@ -236,14 +221,14 @@ SELECT
 
     $logger->debug(__FUNCTION__.' '.count($search_in_tags_items).' items in $search_in_tags_items');
   }
-  
+
   if (isset($search['fields']['tags']))
   {
     $tag_items = get_image_ids_for_tags(
       $search['fields']['tags']['words'],
       $search['fields']['tags']['mode']
       );
-    
+
     $logger->debug(__FUNCTION__.' '.count($tag_items).' items in $tag_items');
   }
 
@@ -263,16 +248,23 @@ SELECT DISTINCT(id)
     $query .= $forbidden.'
   '.$conf['order_by'];
     $items = array_from_query($query, 'id');
-    
+
     $logger->debug(__FUNCTION__.' '.count($items).' items in $items');
   }
 
   if (isset($search_in_tags_items))
   {
-    $items = array_unique(
-      array_merge(
-        $items,
-        $search_in_tags_items
+    // TODO the sorting order will not match $conf['order_by'], a solution would be
+    // to have a new SQL query 'where id in (merged ids) order by $conf[order_by]'
+    //
+    // array_values will reset the numeric keys, without changing the sorting order.
+    // picture.php relies on these keys to be sequential {0,1,2} and not {0,1,5}
+    $items = array_values(
+      array_unique(
+        array_merge(
+          $items,
+          $search_in_tags_items
+          )
         )
       );
   }
@@ -292,10 +284,12 @@ SELECT DISTINCT(id)
         }
         break;
       case 'OR':
-        $items = array_unique(
-          array_merge(
-            $items,
-            $tag_items
+        $items = array_values(
+          array_unique(
+            array_merge(
+              $items,
+              $tag_items
+              )
             )
           );
         break;
@@ -339,7 +333,7 @@ class QSearchScope
       return false;
     return true;
   }
-  
+
   function process_char(&$ch, &$crt_token)
   {
     return false;
@@ -422,7 +416,7 @@ class QNumericRangeScope extends QSearchScope
       }
     }
 
-    if (!$this->nullable && $range[0]=='' && $range[1] == '')
+    if (!$this->nullable && $range[0]==='' && $range[1]==='')
       return false;
     $token->scope_data = array( 'range'=>$range, 'strict'=>$strict );
     return true;
@@ -431,9 +425,9 @@ class QNumericRangeScope extends QSearchScope
   function get_sql($field, $token)
   {
     $clauses = array();
-    if ($token->scope_data['range'][0]!='')
+    if ($token->scope_data['range'][0]!=='')
       $clauses[] = $field.' >'.($token->scope_data['strict'][0]?'':'=').$token->scope_data['range'][0].' ';
-    if ($token->scope_data['range'][1]!='')
+    if ($token->scope_data['range'][1]!=='')
       $clauses[] = $field.' <'.($token->scope_data['strict'][1]?'':'=').$token->scope_data['range'][1].' ';
 
     if (empty($clauses))
@@ -908,6 +902,9 @@ class QResults
   var $all_tags;
   var $tag_ids;
   var $tag_iids;
+  var $all_cats;
+  var $cat_ids;
+  var $cat_iids;
   var $images_iids;
   var $iids;
 }
@@ -1120,6 +1117,97 @@ SELECT image_id FROM '.IMAGE_TAG_TABLE.'
   $qsr->tag_ids = $token_tag_ids;
 }
 
+function qsearch_get_categories(QExpression $expr, QResults $qsr)
+{
+  global $user;
+
+  $token_cat_ids = $qsr->cat_iids = array_fill(0, count($expr->stokens), array() );
+  $all_cats = array();
+
+  for ($i=0; $i<count($expr->stokens); $i++)
+  {
+    $token = $expr->stokens[$i];
+    if (isset($token->scope) && 'category' != $token->scope->id) // not relevant yet
+      continue;
+    if (empty($token->term))
+      continue;
+
+    $clauses = qsearch_get_text_token_search_sql( $token, array('name', 'comment'));
+    $query = '
+SELECT
+    *
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id = cat_id and user_id = '.$user['id'].'
+  WHERE ('. implode("\n OR ",$clauses) .')';
+    $result = pwg_query($query);
+    while ($cat = pwg_db_fetch_assoc($result))
+    {
+      $token_cat_ids[$i][] = $cat['id'];
+      $all_cats[$cat['id']] = $cat;
+    }
+  }
+
+  // check adjacent short words
+  for ($i=0; $i<count($expr->stokens)-1; $i++)
+  {
+    if ( (strlen($expr->stokens[$i]->term)<=3 || strlen($expr->stokens[$i+1]->term)<=3)
+      && (($expr->stoken_modifiers[$i] & (QST_QUOTED|QST_WILDCARD)) == 0)
+      && (($expr->stoken_modifiers[$i+1] & (QST_BREAK|QST_QUOTED|QST_WILDCARD)) == 0) )
+    {
+      $common = array_intersect( $token_cat_ids[$i], $token_cat_ids[$i+1] );
+      if (count($common))
+      {
+        $token_cat_ids[$i] = $token_cat_ids[$i+1] = $common;
+      }
+    }
+  }
+
+  // get images
+  $positive_ids = $not_ids = array();
+  for ($i=0; $i<count($expr->stokens); $i++)
+  {
+    $cat_ids = $token_cat_ids[$i];
+    $token = $expr->stokens[$i];
+
+    if (!empty($cat_ids))
+    {
+      $query = '
+SELECT image_id FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',',$cat_ids).')
+  GROUP BY image_id';
+      $qsr->cat_iids[$i] = query2array($query, null, 'image_id');
+      if ($expr->stoken_modifiers[$i]&QST_NOT)
+        $not_ids = array_merge($not_ids, $cat_ids);
+      else
+      {
+        if (strlen($token->term)>2 || count($expr->stokens)==1 || isset($token->scope) || ($token->modifier&(QST_WILDCARD|QST_QUOTED)) )
+        {// add cat ids to list only if the word is not too short (such as de / la /les ...)
+          $positive_ids = array_merge($positive_ids, $cat_ids);
+        }
+      }
+    }
+    elseif (isset($token->scope) && 'category' == $token->scope->id && strlen($token->term)==0)
+    {
+      if ($token->modifier & QST_WILDCARD)
+      {// eg. 'category:*' returns all images associated to an album
+        $qsr->cat_iids[$i] = query2array('SELECT DISTINCT image_id FROM '.IMAGE_CATEGORY_TABLE, null, 'image_id');
+      }
+      else
+      {// eg. 'category:' returns all orphan images
+        $qsr->cat_iids[$i] = query2array('SELECT id FROM '.IMAGES_TABLE.' LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id WHERE image_id IS NULL', null, 'id');
+      }
+    }
+  }
+
+  $all_cats = array_intersect_key($all_cats, array_flip( array_diff($positive_ids, $not_ids) ) );
+  usort($all_cats, 'tag_alpha_compare');
+  foreach ( $all_cats as &$cat )
+  {
+    $cat['name'] = trigger_change('render_category_name', $cat['name'], $cat);
+  }
+  $qsr->all_cats = $all_cats;
+  $qsr->cat_ids = $token_cat_ids;
+}
 
 
 function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_terms)
@@ -1134,7 +1222,13 @@ function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_t
     $crt = $expr->tokens[$i];
     if ($crt->is_single)
     {
-      $crt_ids = $qsr->iids[$crt->idx] = array_unique( array_merge($qsr->images_iids[$crt->idx], $qsr->tag_iids[$crt->idx]) );
+      $crt_ids = $qsr->iids[$crt->idx] = array_unique(
+        array_merge(
+          $qsr->images_iids[$crt->idx],
+          $qsr->cat_iids[$crt->idx],
+          $qsr->tag_iids[$crt->idx]
+          )
+        );
       $crt_qualifies = count($crt_ids)>0 || count($qsr->tag_ids[$crt->idx])>0;
       $crt_ignored_terms = $crt_qualifies ? array() : array((string)$crt);
     }
@@ -1287,6 +1381,7 @@ function get_quick_search_results_no_cache($q, $options)
   }
   $qsr = new QResults;
   qsearch_get_tags($expression, $qsr);
+  qsearch_get_categories($expression, $qsr);
   qsearch_get_images($expression, $qsr);
 
   // allow plugins to evaluate their own scopes
@@ -1305,6 +1400,7 @@ function get_quick_search_results_no_cache($q, $options)
   $debug[] = 'before perms '.count($ids);
 
   $search_results['qs']['matching_tags'] = $qsr->all_tags;
+  $search_results['qs']['matching_cats'] = $qsr->all_cats;
   $search_results = trigger_change('qsearch_results', $search_results, $expression, $qsr);
 
   global $template;

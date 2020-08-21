@@ -1,6 +1,7 @@
 #!/bin/bash
 
-scriptdir=$(dirname $(readlink -e $0))
+script_abspath=$(perl -e 'use Cwd "abs_path"; print abs_path(@ARGV[0])' -- "$0")
+scriptdir=$(dirname $script_abspath)
 
 # +--------------------------------------------------------------------------+
 # |                            pwg_rel_create.sh                             |
@@ -78,11 +79,27 @@ done
 # | themes                                                                   |
 # +--------------------------------------------------------------------------+
 
-cd /tmp/$version/piwigo/themes
-for themefile in $(ls */themeconf.inc.php)
+for theme in modus elegant smartpocket
 do
+  cd /tmp/$version/piwigo/themes
+
+  git_url=https://github.com/Piwigo/piwigo-${theme}.git
+
+  # clone repo
+  git clone $git_url $theme
+
+  # enter theme directory for next actions
+  cd $theme
+
   # change version
-  perl $scriptdir/replace_version.pl --file=$themefile --version=$version
+  perl $scriptdir/replace_version.pl --file=themeconf.inc.php --version=$version
+
+  # register metadata in dedicated file
+  echo $git_url > pem_metadata.txt
+  git log -n 1 --pretty=format:"%H %ad" --date=iso8601 >> pem_metadata.txt
+
+  # remove Git metadata
+  rm -rf .git
 done
 
 # +--------------------------------------------------------------------------+

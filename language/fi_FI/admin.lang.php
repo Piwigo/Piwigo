@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['%s ago'] = '%s sitten';
 $lang['... or '] = '... tai';
@@ -37,7 +22,7 @@ $lang['%d photos were deleted'] = '%d kuvat poistettu';
 $lang['%d month'] = '%d kuukausi';
 $lang['%d months'] = '%d kuukausia';
 $lang['%d minute'] = '%d minuutti';
-$lang['%d minutes'] = '%d minuutteja';
+$lang['%d minutes'] = '%d minuuttia';
 $lang['%d groups'] = '%d ryhmät';
 $lang['%d days'] = '%d päivät';
 $lang['%d group'] = '%d ryhmä';
@@ -175,7 +160,7 @@ $lang['Gallery title'] = 'Gallerian otsikko';
 $lang['Default photos order'] = 'Kuvien oletusjärjestys';
 $lang['Default user cannot be deleted'] = 'Oletuskäyttäjää ei voi poistaa';
 $lang['Delete orphan tags'] = 'Poista käyttämättömät tägit';
-$lang['Delete selected photos'] = 'Poista valitut kuvat';
+$lang['Delete selected photos'] = 'Poista valitut valokuvat';
 $lang['Delete selected tags'] = 'Poista valitut tägit';
 $lang['Delete this theme'] = 'Poista tämä teema';
 $lang['Add a criteria'] = 'Lisää kriteeri';
@@ -288,7 +273,7 @@ $lang['Waiting'] = 'Odottava';
 $lang['Width'] = 'Leveys';
 $lang['Year'] = 'Vuosi';
 $lang['photos per page'] = 'valokuvia per sivu';
-$lang['pixels'] = 'pikseleitä';
+$lang['pixels'] = 'pikseliä';
 $lang['private'] = 'yksityinen';
 $lang['public'] = 'julkinen';
 $lang['registered users'] = 'rekisteröityneet käyttäjät';
@@ -318,7 +303,6 @@ $lang['Element type'] = 'Elementin tyypppi';
 $lang['Caddie'] = 'Caddie';
 $lang['Caddie management'] = 'Caddien hallinta';
 $lang['Can\'t download archive.'] = 'Arkistoa ei voida ladata.';
-$lang['Available versions for'] = 'Saatavilla olevia versioita';
 $lang['Basic settings'] = 'Perusasetukset';
 $lang['Can\'t connect to server.'] = 'Palvelimeen ei saada yhteyttä.';
 $lang['remove author'] = 'poista luoja';
@@ -521,7 +505,7 @@ $lang['Inactive Themes'] = 'Inaktiiviset teemat';
 $lang['Failed to write file to disk'] = 'Levylle kirjoittaminen epäonnistui';
 $lang['Features include gallery browsing, album creation and photo upload.'] = 'Toiminnallisuuksiin kuuluu gallerian selaaminen, albumien luominen ja kuvien siirtäminen';
 $lang['File/directory read error'] = 'Tiedoston tai hakemiston lukuvirhe';
-$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'Seuraavat laajennokset eivät välttämättä ole yhteensopivia uuden Piwigo version kanssa:';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'Seuraavat liitännäiset eivät välttämättä ole yhteensopivia uuden Piwigo version kanssa:';
 $lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Seuraavat teemat eivät välttämättä ole yhteensopivia uuden Piwigo version kanssa:';
 $lang['Forbid this theme to users'] = 'Estä tämän teeman käyttö käyttäjiltä';
 $lang['Forbidden'] = 'Estetty';
@@ -568,3 +552,50 @@ $lang['Impossible automatic correction'] = 'Automaattinen korjaus ei onnistu';
 $lang['Impossible to activate this theme, the parent theme is missing: %s'] = 'Tämän teeman aktivointi ei onnistu, sillä alemman tason teemasta puuttuu: %s';
 $lang['Impossible to deactivate the default theme.'] = 'Oletus teeman poistaminen käytöstä ei onnistu.';
 $lang['Impossible to deactivate this language, first set another language as default.'] = 'Kielen poistaminen käytöstä ei onnistu, valitse ensin toinen kieli oletukseksi.';
+$lang['Some upgrades are available for extensions.'] = 'Joihinkin lisäosiin on saativilla päivityksiä.';
+$lang['Purge search history'] = 'Tyhjennä hakuhistoria';
+$lang['Search for new images in the directories'] = 'Etsi uusia kuvia hakemistoista';
+$lang['Searching...'] = 'Etsii...';
+$lang['Type in a search term'] = 'Kirjoita hakusana';
+$lang['Permissions'] = 'Oikeudet';
+$lang['No photos selected, no actions possible.'] = 'Ei valittua valokuvaa, ei mahdollisia toimintoja.';
+$lang['Select:'] = 'Valitse:';
+$lang['Selection'] = 'Valinta';
+$lang['Delete %d orphan photos'] = 'Poista %d orpoa valokuvaa';
+$lang['No photo selected, %d photos in current set'] = 'Ei valokuvaa valittuna, %d valokuvaa nykyisessä setissä.';
+$lang['Photos'] = 'Valokuvat';
+$lang['Page banner'] = 'Sivubanneri';
+$lang['Piwigo configuration'] = 'Piwigon asetukset';
+$lang['Show menubar'] = 'Näytä valikkopalkki';
+$lang['Images manual order was saved'] = 'Kuvien manuaalinen järjestys tallennettu';
+$lang['Save manual order'] = 'Tallenna manuaalinen järjestys';
+$lang['administrators'] = 'ylläpitäjät';
+$lang['Piwigo Administration'] = 'Piwigon ylläpito';
+$lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'Tätä teemaa ei voida poistaa, koska seuraavat teemat tarvitsevat sitä: %s';
+$lang['Set as default theme for unregistered and new users'] = 'Aseta oletusteema rekisteröimättömille ja uusille käyttäjille';
+$lang['Theme has been successfully installed'] = 'Teeman asentaminen onnistui';
+$lang['Themes which need upgrade'] = 'Päivityksiä vaativat teemat';
+$lang['Themes'] = 'Teemat';
+$lang['apply automatic sort order'] = 'Käytä automaattista järjestystä';
+$lang['Plugins'] = 'Liitännäiset';
+$lang['first photo added on %s'] = 'Ensimmäinen kuva lisätty %s';
+$lang['New parent album'] = 'Uusi isäntäalbumi';
+$lang['Parent album'] = 'Isäntäalbumi';
+$lang['manage sub-albums'] = 'Hallinnoi alialbumeja';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Lisää %s Piwigo uutisten jakelulistalle.';
+$lang['Select files'] = 'Valitse tiedostot';
+$lang['Posted %s on %s'] = 'Lähetetty %s, %s';
+$lang['Save Settings'] = 'Tallenna asetukset';
+$lang['Save order'] = 'Tallenna järjestys';
+$lang['unset'] = 'Poista tieto';
+$lang['Numeric identifier : %d'] = 'Numerotunniste : %d';
+$lang['Visited %d times'] = 'Vierailtu %d kertaa';
+$lang['Metadata synchronized from file'] = 'Metatiedot synkronoitu tiedostosta';
+$lang['Synchronize metadata'] = 'Synkronoi metatiedot';
+$lang['Title'] = 'Otsikko';
+$lang['Photo Properties'] = 'Valokuvan ominaisuudet';
+$lang['Properties'] = 'Ominaisuudet';
+$lang['Manage this set of %d photos'] = 'Hallitse tätä %d:n kuvan sarjaa.';
+$lang['Empty caddie'] = 'Tyhjennä caddie';
+$lang['Remove from caddie'] = 'Poista caddiesta';
+$lang['add new photos to caddie'] = 'Lisää uusia kuvia caddiesta';

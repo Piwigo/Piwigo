@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -55,7 +40,7 @@
 
 // picture_ext : file extensions for picture file, must be a subset of
 // file_ext
-$conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG','png','PNG','gif','GIF');
+$conf['picture_ext'] = array('jpg','jpeg','png','gif');
 
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array_merge(
@@ -199,10 +184,6 @@ $conf['header_notes']  = array();
 // show_thumbnail_caption : on thumbnails page, show thumbnail captions ?
 $conf['show_thumbnail_caption'] = true;
 
-// display_fromto: display the date creation bounds of a
-// category.
-$conf['display_fromto'] = false;
-
 // allow_random_representative : do you wish Piwigo to search among
 // categories elements a new representative at each reload ?
 //
@@ -275,6 +256,23 @@ $conf['ext_imagick_dir'] = '';
 // to display all user comments without pagination. Default available values
 // are array(5,10,20,50,'all') but you can set any other numeric value.
 $conf['comments_page_nb_comments'] = 10;
+
+// how often should we check for new versions of Piwigo on piwigo.org? In
+// seconds. The check is made only if there are visits on Piwigo.
+// 0 to disable.
+$conf['update_notify_check_period'] = 24*60*60;
+
+// how often should be remind of new versions available? For example a first
+// notification was sent on May 5th 2017 for 2.9.1, after how many seconds
+// we send it again? 0 to disable.
+$conf['update_notify_reminder_period'] = 7*24*60*60;
+
+// should the album description be displayed on all pages (value=true) or
+// only the first page (value=false)
+$conf['album_description_on_all_pages'] = false;
+
+// Number of years displayed in the history compare mode (for the years chart)
+$conf['stat_compare_year_displayed'] = 5;
 
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
@@ -621,6 +619,14 @@ $conf['full_tag_cloud_items_number'] = 200;
 // cloud in the menubar. Only the most represented tags will be shown
 $conf['menubar_tag_cloud_items_number'] = 20;
 
+// menubar_tag_cloud_content: 'always_all', 'current_only' or 'all_or_current'
+// For the tag cloud in the menubar.
+// 'always_all': tag cloud always displays all tags available to the user
+// 'current_only': tag cloud always displays the tags from the current pictures
+// 'all_or_current': when pictures are displayed, tag cloud shows their tags, but 
+// when none are displayed, all the tags available to the user are shown.
+$conf['menubar_tag_cloud_content'] = 'all_or_current';
+
 // content_tag_cloud_items_number: number of related tags to show in the tag
 // cloud on the content page, when the current section is not a set of
 // tags. Only the most represented tags will be shown
@@ -689,6 +695,9 @@ $conf['ws_max_users_per_page'] = 1000;
 
 // Display a link to subscribe to Piwigo Announcements Newsletter
 $conf['show_newsletter_subscription'] = true;
+
+// Number Weeks displayed on activity chart on the dashboard
+$conf['dashboard_activity_nb_weeks'] = 4;
 
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
@@ -766,15 +775,6 @@ $conf['no_photo_yet_url'] = 'admin.php?page=photos_add';
 // directory with themes inside
 $conf['themes_dir'] = PHPWG_ROOT_PATH.'themes';
 
-// pLoader direct download url for windows
-$conf['ploader_download_windows'] = 'http://piwigo.org/ext/download.php?eid=270';
-
-// pLoader direct download url for mac
-$conf['ploader_download_mac'] = 'http://piwigo.org/ext/download.php?eid=353';
-
-// pLoader direct download url for linux
-$conf['ploader_download_linux'] = 'http://piwigo.org/ext/download.php?eid=269';
-
 // enable the synchronization method for adding photos
 $conf['enable_synchronization'] = true;
 
@@ -838,6 +838,17 @@ $conf['upload_form_chunk_size'] = 500;
 // "ffmpeg" is not visible by the web user, you can define the full path of
 // the directory where "ffmpeg" executable is.
 $conf['ffmpeg_dir'] = '';
+
+// batch manager: how many images should Piwigo display by default on the
+// global mode. Must be among values {20,50,100}
+$conf['batch_manager_images_per_page_global'] = 20;
+
+// batch manager: how many images should Piwigo display by default on the
+// unit mode. Must be among values {5, 10, 50}
+$conf['batch_manager_images_per_page_unit'] = 5;
+
+// how many missing md5sum should Piwigo compute at once.
+$conf['checksum_compute_blocksize'] = 50;
 
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |

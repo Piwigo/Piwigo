@@ -71,7 +71,7 @@
 <div id="configContent">
 
   <fieldset id="sizesConf">
-    <legend>{'Original Size'|translate}</legend>
+    <legend><span class="icon-picture icon-red"></span>{'Original Size'|translate}</legend>
   {if $is_gd}
     <div>
       {'Resize after upload disabled due to the use of GD as graphic library'|translate}
@@ -116,7 +116,7 @@
   </fieldset>
 
   <fieldset id="multiSizesConf">
-    <legend>{'Multiple Size'|translate}</legend>
+    <legend><span class="icon-th icon-purple"></span>{'Multiple Size'|translate}</legend>
 
     <div class="showDetails">
       <a href="#" id="showDetails"{if isset($ferrors)} style="display:none"{/if}>{'show details'|translate}</a>
@@ -226,7 +226,10 @@
 </div> <!-- configContent -->
 
 <p class="formButtons">
-  <input type="submit" name="submit" value="{'Save Settings'|translate}">
+  <button name="submit" type="submit" class="buttonLike">
+    <i class="icon-floppy"></i> {'Save Settings'|@translate}
+  </button>
 </p>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

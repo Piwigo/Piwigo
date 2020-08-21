@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d 相關';
@@ -590,7 +575,6 @@ $lang['Switch to clear or dark colors for administration'] = '切換管理員後
 $lang['Theme has been successfully installed'] = '主題已成功安裝';
 $lang['Visit Gallery'] = '瀏覽畫廊';
 $lang['Visit Piwigo project website'] = '瀏覽 Piwigo 項目網站';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader 是 <em>Piwigo 上傳者</em> 的官方標準軟件。pLoader 可將您電腦裡的相片傳送到 Piwigo 的相片畫廊裡。';
 $lang['Guest Settings'] = '訪客設定';
 $lang['Main Page'] = '主頁';
 $lang['Photo Page'] = '相片頁';
@@ -674,7 +658,7 @@ $lang['include child albums'] = '包含子相冊';
 $lang['manual order'] = '手工排序';
 $lang['No photo in the current set.'] = '當前集合沒有相片.';
 $lang['No photo selected, %d photos in current set'] = '沒有選擇相片, 當前集合有 %d 張相片';
-$lang['No photo selected, no action possible.'] = '沒有選擇相片，不會有動作執行.';
+$lang['No photos selected, no actions possible.'] = '沒有選擇相片，不會有動作執行.';
 $lang['on the %d selected photos'] = '在 %d 張已選相片上';
 $lang['Orphan tags deleted'] = '無關聯標籤已被刪除';
 $lang['Refresh photo set'] = '刷新相片集';
@@ -827,7 +811,6 @@ $lang['Cancel'] = '取消';
 $lang['List'] = '清單';
 $lang['Web Form'] = '網頁表格';
 $lang['Applications'] = '申請';
-$lang['Available versions for'] = '可用的版本是';
 $lang['Available on'] = '可用的';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS (iPhone, iPad, iPod Touch) 版的 Piwigo ';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>iOS 版的Piwigo</em>允許您從iPhone, iPad 或 iPod Touch 連接到您的Piwigo畫廊，建立多個相冊並一次上傳多張相片。';
@@ -925,7 +908,7 @@ $lang['Manage the members'] = '會員管理';
 $lang['Merge selected groups'] = '合併選擇群組';
 $lang['Minimum width'] = '最小寬度'; 
 $lang['Minimum height'] = '最小高度'; 
-$lang['No group selected, no action possible.'] = '尚未選取群組別，無法動作';
+$lang['No groups selected, no actions possible.'] = '尚未選取群組別，無法動作';
 $lang['No members to manage'] = '沒有會員可以管理'; 
 $lang['Number of albums per page'] = '每頁相本數量'; 
 $lang['Panorama'] = '全景'; 
@@ -953,7 +936,7 @@ $lang['Last visit on %s, %s.'] = '最後的訪問在%s, %s。';
 $lang['Loading...'] = '加載中...';
 $lang['No matching user found'] = '沒有發現匹配的用戶';
 $lang['No user selected of %d users'] = '%d個用戶沒有用戶選擇';
-$lang['No user selected, no action possible.'] = '沒有用戶選擇，沒有行動的可能。';
+$lang['No users selected, no actions possible.'] = '沒有用戶選擇，沒有行動的可能。';
 $lang['Password updated'] = '更新密碼';
 $lang['Registered on %s, %s.'] = '註冊在%s, %s。';
 $lang['Show %s users'] = '顯示%s用戶';

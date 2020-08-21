@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -39,4 +24,4 @@ $lang['User permissions and group permissions have been erased'] = "用户权限
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = '之前的设置只有缩略图前缀和站长电子邮件地址被保存';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '在<i>%s</i>中，<b>?></b>之前，插入：';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '保险起见，以下主题已被停用。您在重新启用它们之前，必须先检查主题的更新版本：';
-?>
+$lang['Discover what\'s new in Piwigo %s'] = '了解 Piwigo %s 的新功能';

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d مجموعه';
@@ -599,7 +584,6 @@ $lang['Switch to clear or dark colors for administration'] = 'تغير لون ل
 $lang['Theme has been successfully installed'] = 'تم تثبيت واجهة المعرض بنجاح';
 $lang['Visit Gallery'] = 'معاينة المعرض';
 $lang['Visit Piwigo project website'] = 'زيارة الموقع الرئيسي لمشروع Piwigo ';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader اعتمد على <em>Piwigo Uploader</em>. من الكمبيوتر ، pLoader تستعد صورك وتحويلها الى معرض الصور الخاص بك Piwigo.';
 $lang['Guest Settings'] = 'اعدادت الضيوف';
 $lang['Main Page'] = 'صفحة رئيسية';
 $lang['Photo Page'] = 'صفحة الصورة';
@@ -680,7 +664,7 @@ $lang['Refresh photo set'] = 'حدث مجموعة الصور';
 $lang['The whole page'] = 'صفحة كاملة';
 $lang['The whole set'] = 'مجموعة كلمة';
 $lang['No photo in the current set.'] = 'لا صور في المجموعة الحالية';
-$lang['No photo selected, no action possible.'] = 'لا توجد صور محددة ، أي إجراء ممكن';
+$lang['No photos selected, no actions possible.'] = 'لا توجد صور محددة ، أي إجراء ممكن';
 $lang['Choose an action'] = 'اختر اجراء';
 $lang['remove author'] = 'احذف الكاتب';
 $lang['Type here the author name'] = 'أكتب هنا أسم الكاتب ';
@@ -784,7 +768,6 @@ $lang['Applications'] = 'تطبيقات';
 $lang['apply automatic sort order'] = 'نفذ حسب الترتيب الآلي';
 $lang['Automatic sort order'] = 'ترتيب آلي ';
 $lang['Available on'] = 'متاح لـ';
-$lang['Available versions for'] = 'الإصدارات المتاحه لـ';
 $lang['cancel manual order'] = 'إلغي الأمر اليدوي';
 $lang['Cancel'] = 'إلغي';
 $lang['Center of interest'] = 'مركز الإهتمام';
@@ -934,7 +917,7 @@ $lang['This group will be unset to default'] = 'لم يتم استخدام هذ�
 $lang['Ratio'] = 'نبسة';
 $lang['Please select at least two groups'] = 'فضلا ً لا أمرا ٍ أختر فيما لا يقل عن مجموعتين ';
 $lang['No members to manage'] = 'لا يوجد أعضاد لإدارتهم';
-$lang['No group selected, no action possible.'] = 'لم يتم تحديد أي مجموعة  ، لا تتوقع التفاعل';
+$lang['No groups selected, no actions possible.'] = 'لم يتم تحديد أي مجموعة  ، لا تتوقع التفاعل';
 $lang['Merge selected groups'] = 'إدارة المجموعة المختارة';
 $lang['between %d and %d pixels'] = 'ما بين  %d و %d  بكسل';
 $lang['between %.2f and %.2f'] = 'ما بين %.2f  و %.2f ';
@@ -953,7 +936,7 @@ $lang['Registered on %s, %s.'] = 'سُجِّل في%s, %s';
 $lang['Change username'] = 'تغيير اسم المستخدم';
 $lang['Loading...'] = 'تحميل ...';
 $lang['No matching user found'] = 'لم يتم العثور على مستخدم مطابق';
-$lang['No user selected, no action possible.'] = 'لم يتم إختيار المستخدم، أي إجراء غير ممكن';
+$lang['No users selected, no actions possible.'] = 'لم يتم إختيار المستخدم، أي إجراء غير ممكن';
 $lang['Password updated'] = 'كلمة السر تم تحديثها';
 $lang['Update user'] = 'تحديث المستعمل';
 $lang['Users modified'] = 'المستخدمين تم تعديلهم';

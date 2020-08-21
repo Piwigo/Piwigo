@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -378,7 +363,7 @@ $lang['delete photo'] = 'șterge imagine';
 $lang['delete this site and all its attached elements'] = 'Șterge acest sit și toată informația asociată';
 $lang['deleted'] = 'șters';
 $lang['delete'] = 'șterge';
-$lang['directories + files'] = 'diurectoare + fișiere';
+$lang['directories + files'] = 'directoare + fișiere';
 $lang['display'] = 'vizualizează';
 $lang['errors during synchronization'] = 'erori în timpul sincronizării';
 $lang['even already synchronized photos'] = 'chiar și imaginile deja sincronizate';
@@ -534,7 +519,6 @@ $lang['Added by %s'] = 'Adaugat de %s';
 $lang['Applications'] = 'Aplicatii';
 $lang['Automatic sort order'] = 'Sortare ordine automata';
 $lang['Available on'] = 'Disponibil in';
-$lang['Available versions for'] = 'Versiune disponibila pentru';
 $lang['Cancel'] = 'Anulare';
 $lang['Hit'] = 'Accesari';
 $lang['If you encounter problems or have any question, please send a message to'] = 'Daca intampini probleme sau au intrebari, trimite un mesaj la';
@@ -753,7 +737,7 @@ $lang['Restore'] = 'Restaurează';
 $lang['Save manual order'] = 'Salvează ordinea manuală';
 $lang['Save visits in history for'] = 'Salvează vizitele în istoric pentru';
 $lang['Search for new images in the directories'] = 'Caută imagini noi în dosarele';
-$lang['No group selected, no action possible.'] = 'Niciun grup ales, nicio acţiune posibilă.';
+$lang['No groups selected, no actions possible.'] = 'Niciun grup ales, nicio acţiune posibilă.';
 $lang['No mail to send.'] = 'Niciun mesaj electronic de trimis.';
 $lang['No members to manage'] = 'Niciun membru de administrat';
 $lang['Merge selected groups'] = 'Îmbină grupurile alese';
@@ -829,7 +813,6 @@ $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration
 $lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam este un administrator avansat sursă libera de fotografii digitale pentru Linux, Windows și MacOSX.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam este proiectat pentru fotografi care vor să vizualizeze, administreze, editeze, îmbunătățească, organizeze, eticheteze și partajeze fotografii.';
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto este administratorul implicit de fotografii digitale din MacOSX. Plugin-ul Piwigo de export iți permite să creezi albume noi și să exporți fotografiile tale din iPhoto direct în galeria ta Piwigo.';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader înseamnă <em>Piwigo Uploader</em>. Din calculatorul tău, pLoader îți pregătește fotografiile și le transferă în galeria ta Piwigo.';
 $lang['User %s [%s] was added to the subscription list.'] = 'Utilizatorul %s [%s] a fost adăugat la lista de abonați.';
 $lang['User %s [%s] was not added to the subscription list.'] = 'Utilizatorul %s [%s] nu a fost adăugat la lista de abonați.';
 $lang['User %s [%s] was not removed from the subscription list.'] = 'Utilizatorul %s [%s] nu a fost șters din lista de abonați.';
@@ -939,7 +922,7 @@ $lang['Hoverbox display'] = 'Afișaj în fereastră flotantă';
 $lang['No display'] = 'Niciu';
 $lang['No order field selected'] = 'Nicio ordine a cămpurilor aleasă';
 $lang['No photo selected, %d photos in current set'] = 'Nicio fotografie aleasă, %d fotografii în setul curent';
-$lang['No photo selected, no action possible.'] = 'Nicio fotografie aleasă, nicio acțiune posibilă.';
+$lang['No photos selected, no actions possible.'] = 'Nicio fotografie aleasă, nicio acțiune posibilă.';
 $lang['No user to send notifications by mail.'] = 'Niciun utilizator petnru a fi înștiințat prin e-mail.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Pwigo nu poate aduce fotografiile de pe server';
 $lang['Webmaster status is required.'] = 'Este necesar statutul de webmaster.';
@@ -950,7 +933,7 @@ $lang['The webmaster has unsubscribed you from receiving notifications by mail.'
 $lang['Basic settings'] = 'Setări de bază';
 $lang['No matching user found'] = 'Niciun utilizator nu corespunde';
 $lang['No user selected of %d users'] = 'Niciun utilizator selectat din %d utilizatori';
-$lang['No user selected, no action possible.'] = 'Niciun utilizator selectat, nicio acțiune posibilă';
+$lang['No users selected, no actions possible.'] = 'Niciun utilizator selectat, nicio acțiune posibilă';
 $lang['Password updated'] = 'Parolă adusă la zi';
 $lang['Showing %s to %s of %s users'] = 'Arăt de la %s la %s din %s utilizatori';
 $lang['Update user'] = 'Adu la zi utilizator';
@@ -995,3 +978,25 @@ $lang['Edit user'] = 'Editează utilizatorul';
 $lang['Y Repeat'] = 'Y Repetare';
 $lang['Delete %d orphan photos'] = 'Sterge %d fotografii orfane';
 $lang['Orphans'] = 'Orfane';
+$lang['Display form'] = 'Format de afișare';
+$lang['Storage used'] = 'Spațiu de stocare utilizat';
+$lang['(determined from photos)'] = '(determinat din fotografii)';
+$lang['It only takes a few clicks.'] = 'Sunt necesare doar câteva click-uri.';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'A venit vremea sa actualizezi Piwigo la versiunea %s, mergi la %s';
+$lang['orphans to delete'] = 'orfane de șters ';
+$lang['delete album and the %d orphan photos'] = 'șterge albumul și cele %d fotografii orfane';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Folosirea unei versiuni actualizate a Piwigo este importantă pentru securitate. ';
+$lang['Select tags'] = 'Selectează toate etichetele';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync poate sa încarce o întreaga ierarhie de directoare. Dacă îl vei rula din nou, doar fotografiile noi vor fi încărcate.';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'Șterge albumul și toate cele %d fotografii, chiar și cele %d asociate altor albume ';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Distribuie/Trimite fotografiile tale direct din macOS (10.10 sau ulterior) către Piwigo ';
+$lang['checksum'] = 'sumă de control';
+$lang['delete only album, not photos'] = 'sterge doar albumul, nu si fotografiile';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s este disponibil, te rugăm să actualizezi';
+$lang['First photo added'] = 'Prima fotografie adaugată';
+$lang['No filter on album. Select one or type to search'] = 'Niciun filtru pe album. Selectează unul sau tastează pentru a căuta';
+$lang['No tags selected, no actions possible.'] = 'Nicio eticheta selectată, nicio acţiune posibilă';
+$lang['Confirm deletion'] = 'Confirma stergerea';
+$lang['Dashboard'] = 'Panou de control';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Şterge albumul "%s" şi  %d subalbumele ale sale';
+$lang['Delete album "%s".'] = 'Şterge albumul "%s".';

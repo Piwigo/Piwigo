@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if (!defined('PHPWG_ROOT_PATH'))
@@ -33,6 +18,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+check_input_parameter('display', $_GET, false, PATTERN_ID);
 
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 $tabsheet = new tabsheet();
@@ -77,6 +63,17 @@ if (isset($_GET['users']))
   }
 }
 
+$page['cat_filter'] = '';
+if (isset($_GET['cat']) and is_numeric($_GET['cat']))
+{
+  $cat_ids = get_subcat_ids(array($_GET['cat']));
+
+  if (count($cat_ids) > 0)
+  {
+    $page['cat_filter'] = ' AND ic.category_id IN ('.implode(',', $cat_ids).')';
+  }
+}
+
 $users = array();
 $query = '
 SELECT '.$conf['user_fields']['username'].' as username, '.$conf['user_fields']['id'].' as id
@@ -89,8 +86,19 @@ while ($row = pwg_db_fetch_assoc($result))
 }
 
 
-$query = 'SELECT COUNT(DISTINCT(r.element_id))
-FROM '.RATE_TABLE.' AS r
+$query = '
+SELECT
+    COUNT(DISTINCT(r.element_id))
+  FROM '.RATE_TABLE.' AS r';
+
+if (!empty($page['cat_filter']))
+{
+  $query.= '
+    JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id';
+}
+
+$query.= '
 WHERE 1=1'. $page['user_filter'];
 list($nb_images) = pwg_db_fetch_row(pwg_query($query));
 
@@ -112,6 +120,8 @@ $template->assign(
     'F_ACTION' => PHPWG_ROOT_PATH.'admin.php',
     'DISPLAY' => $elements_per_page,
     'NB_ELEMENTS' => $nb_images,
+    'category' => (isset($_GET['cat']) ? array($_GET['cat']) : array()),
+    'CACHE_KEYS' => get_admin_client_cache_keys(array('categories')),
     )
   );
 
@@ -159,8 +169,16 @@ SELECT i.id,
     COUNT(r.rate)        AS nb_rates,
     SUM(r.rate)          AS sum_rates
   FROM '.RATE_TABLE.' AS r
-    LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
-  WHERE 1 = 1 ' . $page['user_filter'] . '
+    LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id';
+
+if (!empty($page['cat_filter']))
+{
+  $query.= '
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id';
+}
+
+$query.= '
+  WHERE 1 = 1 ' . $page['user_filter'] . $page['cat_filter'] . '
   GROUP BY i.id,
         i.path,
         i.file,

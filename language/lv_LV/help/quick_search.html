@@ -1,0 +1,141 @@
+<h2>Search</h2>
+
+<p>Pēc noklusējuma visiem meklējamiem terminiem ir jāsakrīt. Meklēšana ir reģistrjutīga.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>quoted phrase<br>
+<q>"search"</q>
+</td>
+<td>Lietojiet pēdiņas, lai meklētu precīzu vārdu vai frāzi.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>either term<br>
+<q>OR search</q><br>
+</td>
+<td>Pievienojiet OR starp vārdiem.<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>exclude<br>
+<q>NOT search</q><br>
+<q>-search</q>
+</td>
+<td>Pievienojiet domuzīmi (-) vai NOT pirms vārda, lai izslēgtu no meklēšanas. Ņemiet vērā, ka NOT darbojas kā filtrēšanas operators, tā ka meklēšanu tikai ar NOT operatoriem vien nevar veikt. Nevar kombinēt OR ar NOT (<q>john OR NOT bill</q> nav derīgs)<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>grouping<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mother OR father) AND (daugther OR son)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Meklē tikai tagu nosaukumos, neskatot foto nosaukumus vai aprakstus.<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Meklē foto tikai pēc dotajiem vārdiem foto nosaukumos vai aprakstos.<br>
+<q>photo:John</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Meklē pēc faila nosaukuma.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Meklē pēc autora.<br>
+<q>author:John</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Meklē foto pēc uzņemšanas datuma.<br>
+<q>taken:2003</q> foto uzņemti 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> foto sākot ar 2003.gada maiju <br>
+<q>taken:2003..2008</q> foto no 2003 līdz 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> foto pēc 2008.gada 1.janvāra<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Meklē foto pēc tā publicēšanas datuma.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Meklē foto pēc uzdotā platuma vai augstuma.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Meklē foto pēc izmēra pikseļos<br>
+<q>size:5m</q> atrod 5 megapikseļu foto<br>
+<q>size:>12m</q> atrod 12 vai vairāk megapikseļu foto<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Meklē foto pēc platuma/augstuma attiecības.<br>
+<q>ratio:3/4 OR ratio:4/3</q> atrod portrait  vai landscap kompaktkameru uzņemtos foto
+<q>ratio:>16/9</q> atrod panorāmuzņēmumus
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Hint: <q>score:*</q> sniegs jums visas fotogrāfijas ar vismaz vienu vērtējuma punktu. <q>score:</q> sniegs jums fotogrāfijas bez vērtējuma.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Meklē foto pēc faila izmēra<br>
+<q>filesize:1m..10m</q> finds files between 1MB and 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Meklē foto pēc tā Piwigo skaitliskā identifikatora<br>
+<q>id:123..126</q> atrod foto no 123 līdz 126 ( var tikt atrasta no 0 līdz 4 foto, jo foto var būt dzēstas).</td>
+</tr>
+
+</table>

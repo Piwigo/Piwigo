@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 add_event_handler('tabsheet_before_select', 'add_core_tabs', 0);
@@ -47,14 +32,13 @@ function add_core_tabs($sheets, $tab_id)
     case 'albums':
       global $my_base_url;
       $sheets['list'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'cat_list');
-      $sheets['move'] = array('caption' => '<span class="icon-move"></span>'.l10n('Move'), 'url' => $my_base_url.'cat_move');
-      $sheets['permalinks'] = array('caption' => '<span class="icon-link"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
+      $sheets['permalinks'] = array('caption' => '<span class="icon-link-1"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
       break;
 
     case 'batch_manager':
       global $manager_link;
-      $sheets['global'] = array('caption' => l10n('global mode'), 'url' => $manager_link.'global');
-      $sheets['unit'] = array('caption' => l10n('unit mode'), 'url' => $manager_link.'unit');
+      $sheets['global'] = array('caption' => '<span class="icon-th"></span>'.l10n('global mode'), 'url' => $manager_link.'global');
+      $sheets['unit'] = array('caption' => '<span class="icon-th-list"></span>'.l10n('unit mode'), 'url' => $manager_link.'unit');
       break;
 
     case 'cat_options':
@@ -89,7 +73,7 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['watermark'] = array('caption' => l10n('Watermark'), 'url' => $conf_link.'watermark');
       $sheets['display'] = array('caption' => l10n('Display'), 'url' => $conf_link.'display');
       $sheets['comments'] = array('caption' => l10n('Comments'), 'url' => $conf_link.'comments');
-      $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
+      // $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
       break;
 
     case 'help':
@@ -112,6 +96,11 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['installed'] = array('caption' => '<span class="icon-language"></span>'.l10n('Installed Languages'), 'url' => $my_base_url.'&amp;tab=installed');
       $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
       $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
+      break;
+
+    case 'menus':
+      global $my_base_url;
+      $sheets[''] = array('caption' => '<span class="icon-menu"></span>'.l10n('Menu Management'), 'url' => $my_base_url.'menubar');
       break;
 
     case 'nbm':

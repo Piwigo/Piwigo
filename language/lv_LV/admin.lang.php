@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d kopa';
@@ -597,7 +582,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Izvēlieties vadī
 $lang['Theme has been successfully installed'] = 'Tēma sekmīgi uzinstalēta';
 $lang['Visit Gallery'] = 'Apmeklējiet Galeriju';
 $lang['Visit Piwigo project website'] = 'Apmeklējiet Piwigo projekta mājas lapu';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader aizvieto <em>Piwigo Augšupielādētāju</em>.Ar PLoader jūsu lokāli sagatavos attēlus var pārvietot uz jūsu Piwigo foto galeriju.';
 $lang['Guest Settings'] = 'Lietotāja Viesis iestatījumi';
 $lang['Main Page'] = 'Galvenā Lapa';
 $lang['Photo Page'] = 'Attēla Lapa';
@@ -679,7 +663,7 @@ $lang['Refresh photo set'] = 'Atjaunināt foto sēriju';
 $lang['The whole page'] = 'Visa lapa';
 $lang['The whole set'] = 'Visa sērija';
 $lang['No photo in the current set.'] = 'Nav fotoattēlu esošajā sērijā.';
-$lang['No photo selected, no action possible.'] = 'Nav atlasītu fotoattēlu, nekādas darbības nav iespējamas.';
+$lang['No photos selected, no actions possible.'] = 'Nav atlasītu fotoattēlu, nekādas darbības nav iespējamas.';
 $lang['Choose an action'] = 'Izvēlēties darbību';
 $lang['remove author'] = 'izdzēst autoru';
 $lang['Type here the author name'] = 'Ievadīt autora vārdu šeit';
@@ -826,7 +810,6 @@ $lang['Cancel'] = 'Atcelt';
 $lang['List'] = 'Saraksts';
 $lang['Web Form'] = 'Web Forma';
 $lang['Applications'] = 'Aplikācijas';
-$lang['Available versions for'] = 'Pieejamās versijas priekš';
 $lang['Available on'] = 'Pieejams uz';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo priekš iOS (iPhone, iPad, iPod Touch)';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo priekš iOS</em> aplikācijas, kas ļauj piekļūt jūsu  Piwigo galerijai no iPhone, iPad vai iPod Touch, un bez pūlēm  izveidot jaunus albūmus un ielādēt jaunas fotogrāfijas.';
@@ -932,7 +915,7 @@ $lang['This group will be set to default'] = 'Šī grupa tiks izmantots pēc nok
 $lang['Rename'] = 'Pārdēvēt';
 $lang['Please select at least two groups'] = 'Lūdzu atlasiet vismaz divas grupas';
 $lang['No members to manage'] = 'Nav biedru, ko pārvaldīt';
-$lang['No group selected, no action possible.'] = 'Nav izvēlēta neviena grupa, nekādas darbības nav iespējamas.';
+$lang['No groups selected, no actions possible.'] = 'Nav izvēlēta neviena grupa, nekādas darbības nav iespējamas.';
 $lang['Manage the members'] = 'Pārvaldīt biedrus';
 $lang['Merge selected groups'] = 'Sapludināt atlasītās grupas';
 $lang['Duplicate'] = 'Dublikāts';
@@ -949,7 +932,7 @@ $lang['Registered on %s, %s.'] = 'Reģistrēts %s, %s.';
 $lang['User %s updated'] = '%s lietotājs atjaunināts';
 $lang['Update user'] = 'Atjaunināt lietotāju';
 $lang['Show %s users'] = 'Parādīt %s lietotājus';
-$lang['No user selected, no action possible.'] = 'Neviens lietotāja nav atlasīts, darbība nav iespējama.';
+$lang['No users selected, no actions possible.'] = 'Neviens lietotāja nav atlasīts, darbība nav iespējama.';
 $lang['No user selected of %d users'] = 'Neviens no %d lietotājiem nav atlasīts';
 $lang['No matching user found'] = 'Nav atrasti atbilstoši lietotāji';
 $lang['Users modified'] = 'Lietotāji modoficēti';
@@ -987,3 +970,25 @@ $lang['Orphans'] = 'Nezināmie';
 $lang['No recipient selected'] = 'Nav izvēlēts neviens saņēmējs';
 $lang['Edit user'] = 'Rediģēt lietotāju';
 $lang['Delete %d orphan photos'] = 'Dzēst %d nezināmos foto ';
+$lang['orphans to delete'] = 'nepiesaistītie dzēšanai';
+$lang['No tags selected, no actions possible.'] = 'Nav izvēlētu tegu, nekādas darbības nav iespējamas.';
+$lang['Select tags'] = 'Izvēlieties tegus';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s ir pieejams, lūdzu atjauniniet';
+$lang['Storage used'] = 'Izmantotā krātuve';
+$lang['No filter on album. Select one or type to search'] = 'Nav albuma filtra. Izvēlieties vienu vai ievadiet, lai meklētu';
+$lang['Dashboard'] = 'Informācijas panelis';
+$lang['(determined from photos)'] = '(noteikts no fotogrāfijas)';
+$lang['delete album and the %d orphan photos'] = 'dzēst albūmu un %d nepiesaistītos foto';
+$lang['checksum'] = 'kontrolsumma';
+$lang['delete only album, not photos'] = 'dzēst tikai albūmu, ne fotogrāfijas';
+$lang['Display form'] = 'Rādīt no';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Dzēst albūmu "%s" and tā %d apakš-albūmus.';
+$lang['It only takes a few clicks.'] = 'Tas parasa tikai dažus klikšķus';
+$lang['First photo added'] = 'Pirmā pievienotā forogrāfija';
+$lang['Delete album "%s".'] = 'Dzēst albūmu "%s".';
+$lang['Confirm deletion'] = 'Apstiprināt dzēšanu';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'izdzēst albumu un visas %d fotogrāfijas, pat %d tās, kas saistītas ar citiem albūmiem';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Dalieties / Nosūtiet savas fotogrāfijas tieši no jūsu Mac OS X (10.10 un pēc) uz Piwigo';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync var augšupielādēt visu mapes hierarhiju. Ja jūs palaistu to vēlreiz, tikai jaunas fotogrāfijas tiktu augšupielādētas.';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Ir pienācis laiks atjaunināt savu Piwigo uz versiju %s, dodieties uz%s';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Darboties ar vienmēr jauninātu Piwigo ir svarīgi drošībai.';

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -303,7 +288,6 @@ $lang['Can\'t read or extract archive.'] = 'Arhiva ni bilo mogoče prebrati ali 
 $lang['Can\'t download archive.'] = 'Arhiva ni bilo mogoče naložiti.';
 $lang['Caddie management'] = 'Upravljanje košarice';
 $lang['Caddie'] = 'Košarica';
-$lang['Available versions for'] = 'Na voljo različice za';
 $lang['Available on'] = 'Na voljo na';
 $lang['Automatic sort order'] = 'Avtomatsko razvrščanje';
 $lang['Languages which need upgrade'] = 'Jeziki, ki potrebujejo posodobitev';
@@ -418,7 +402,7 @@ $lang['No photo selected, %d photos in current set'] = 'Označene ni nobene foto
 $lang['No photo can be deleted'] = 'Ni fotografij, ki bi jih bilo mogoče izbrisati';
 $lang['No photo in the current set.'] = 'V tem nizu ni fotografij';
 $lang['No mail to send.'] = 'Ni maila, ki bi ga lahko poslali';
-$lang['No group selected, no action possible.'] = 'Označena ni nobena skupina, izvesti ni mogoče nobenega ukaza';
+$lang['No groups selected, no actions possible.'] = 'Označena ni nobena skupina, izvesti ni mogoče nobenega ukaza';
 $lang['No group is permitted to see this private album'] = 'Nobena skupina nima dovoljenja za ogled tega privatnega albuma';
 $lang['No members to manage'] = 'Ni članov za upravljanje';
 $lang['No order field selected'] = 'Ni označenega vrstnega reda polj';
@@ -540,7 +524,6 @@ $lang['only directories'] = 'samo direktoriji';
 $lang['only perform a simulation (no change in database will be made)'] = 'izvedi le simulacijo (v podatkovni bazi ne bo prišlo do sprememb)';
 $lang['other'] = 'ostalo';
 $lang['overrides existing values with empty ones'] = 'prepiše obstoječe vrednosti s praznimi';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader je ime za <em>Piwigo prenašalnik</em>. Na vašem računalniku pLoader pripravi vaše slike in jih prenese v vašo Piwigo foto galerijo.';
 $lang['pending validation'] = 'na čakanju odobritve';
 $lang['photos added in the database'] = 'slike dodate v podatkovno bazo';
 $lang['photos candidates for metadata synchronization'] = 'možne slike za sinhronizacijo metapodatkov';
@@ -936,7 +919,7 @@ $lang['Optimizations have been completed with some errors.'] = 'Optimizacija se 
 $lang['Optional URL keyword'] = 'Opcijska URL ključna beseda';
 $lang['Options'] = 'Možnosti';
 $lang['Order of menubar items has been updated successfully.'] = 'Razvrstitev elementov menijske vrstice je bila uspešno posodobljena';
-$lang['No photo selected, no action possible.'] = 'Ker ni izbrana nobena slika, ni možno nobeno dejanje.';
+$lang['No photos selected, no actions possible.'] = 'Ker ni izbrana nobena slika, ni možno nobeno dejanje.';
 $lang['No results'] = 'Ni rezultatov';
 $lang['No user to send notifications by mail.'] = 'Noben uporabnik ne bo obveščen preko e-pošte.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Stiskanje fotografij pred nalaganjem je onemogočeno zaradi uporabe GD grafične knjižnice.';
@@ -953,7 +936,7 @@ $lang['Last visit on %s, %s.'] = 'Zadnji obisk  %s, %s.';
 $lang['Loading...'] = 'Nalaganje...';
 $lang['No matching user found'] = 'Ne najdem ustreznih uporabnikov';
 $lang['No user selected of %d users'] = 'Izbran ni noben uporabnik od %d uporabnikov';
-$lang['No user selected, no action possible.'] = 'Izbran ni noben uporabnik, nobeno dejanje ni mogoče';
+$lang['No users selected, no actions possible.'] = 'Izbran ni noben uporabnik, nobeno dejanje ni mogoče';
 $lang['Password updated'] = 'Geslo posodobljeno';
 $lang['Registered on %s, %s.'] = 'Registrirani  %s, %s.';
 $lang['Show %s users'] = 'Prikaži %s uporabnikov';
@@ -988,3 +971,25 @@ $lang['No user is permitted to see this private album'] = 'Noben uporabnik nima 
 $lang['Orphans'] = 'Sirote';
 $lang['Recipients'] = 'Prejemniki';
 $lang['Y Repeat'] = 'Y ponavljanje';
+$lang['delete only album, not photos'] = 'izbriši le album, ne tudi slik';
+$lang['orphans to delete'] = 'osirotele slike za izbris';
+$lang['(determined from photos)'] = '(določeno na podlagi fotografij)';
+$lang['Confirm deletion'] = 'Potrdi izbris';
+$lang['Dashboard'] = 'Nadzorna plošča';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Izbriši album "%s" in %d pod-albume';
+$lang['Delete album "%s".'] = 'Izbriši album  "%s".';
+$lang['Display form'] = 'Prikazna oblika';
+$lang['First photo added'] = 'Prva slika dodana';
+$lang['It only takes a few clicks.'] = 'Potrebno je le nekaj klikov';
+$lang['No filter on album. Select one or type to search'] = 'Ni filtra za album. Izberite enega ali tipkajte za izbiro';
+$lang['No tags selected, no actions possible.'] = 'Ni izbranih oznak, nobena akcija ni možna.';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s je na voljo, prosimo posodobite namestitev';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Oddaljena Sinhronizacija je sposobna prenesti celotno hirearhijo folderjev. Če jo izvedete ponovno se prenesejo le nove fotografije.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Uporaba posodobljene Piwigo namestitve je pomembna zaradi varnosti.';
+$lang['Select tags'] = 'Izberi oznake';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Deli / Pošlji svoje fotografije neposredno iz Mac Os X (10.10 in novejši) v Piwigo';
+$lang['Storage used'] = 'Uporabljen prostor';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Čas je da posodobite vaš Piwigo na različico %s, pojdite na %s ';
+$lang['checksum'] = 'Kontrolna vsota (checksum)';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'izbriši album in vse %d slike, čeprav so %d povezane z drugimi albumi';
+$lang['delete album and the %d orphan photos'] = 'izbriši album in %d osirotele slike';

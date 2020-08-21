@@ -43,7 +43,7 @@
 <fieldset id="environment">
   <legend><i class="icon-cog"></i> {'Environment'|@translate}</legend>
   <ul>
-    <li><a href="{$PHPWG_URL}" class="externalLink">Piwigo</a> {$PWG_VERSION}</li>
+    <li><a href="{$PHPWG_URL}" class="externalLink">Piwigo</a> {$PWG_VERSION} <a href="{$U_CHECK_UPGRADE}" class="icon-arrows-cw">{'Check for upgrade'|@translate}</a></li>
     <li>{'Operating system'|@translate}: {$OS}</li>
     <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" class="externalLink">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
     <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>

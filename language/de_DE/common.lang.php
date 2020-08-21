@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Deutsch [DE]
@@ -42,7 +27,7 @@ $lang['%d comment to validate'] = '%d Kommentar zu moderieren';
 $lang['%d comments to validate'] = '%d Kommentare zu moderieren';
 $lang['%d new comment'] = '%d neuer Kommentar';
 $lang['%d new comments'] = '%d neue Kommentare';
-$lang['%d comment'] = '%d Kommentar';
+$lang['%d comment'] = 'Kein Kommentar (%d)';
 $lang['%d comments'] = '%d Kommentare';
 $lang['%d hit'] = '%d Aufruf';
 $lang['%d hits'] = '%d Aufrufe';
@@ -145,7 +130,7 @@ $lang['comment date'] = 'Datum des Kommentars';
 $lang['Comment'] = 'Kommentar';
 $lang['Your comment has been registered'] = 'Ihr Kommentar wurde gespeichert.';
 $lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'Anti-Flood-Sperre: Vor dem Absenden eines weiteren Kommentars bitte einen Moment warten.';
-$lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'Ihr Kommentar wurde abgelehnt, da er den Validierungsregeln nicht entspricht.';
+$lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'Ihr Kommentar wurde abgelehnt, da die Mindestanforderungen nicht erfüllt sind.';
 $lang['An administrator must authorize your comment before it is visible.'] = 'Ein Administrator muss Ihren Beitrag freigeben, bevor er sichtbar wird.';
 $lang['This login is already used by another user'] = 'Dieser Benutzername ist bereits vergeben.';
 $lang['Comments'] = 'Kommentare';
@@ -427,3 +412,5 @@ $lang['Album name, Z &rarr; A'] = 'Albumname, Z &rarr; A';
 $lang['Apply on properties'] = 'Eigenschaften übernehmen';
 $lang['Link: %s'] = 'Adresse: %s';
 $lang['Your authentication key is no longer valid.'] = 'Ihr Authentifizierungs-Schlüssel ist nicht mehr gültig.';
+$lang['Invalid username or password!'] = 'Benutzername oder Passwort ungültig!';
+$lang['generate random password'] = 'Zufälliges Passwort generieren';

@@ -1,0 +1,141 @@
+<h2>Ricerca</h2>
+
+<p>Di default, la ricerca si applica a tutte le parole chiavi. Notare che la ricerca non distingue le maiuscole dalle minuscole.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>Parole chiavi tra virgolette<br>
+<q>"Parola_chiave"</q>
+</td>
+<td>Usare le virgolette per cercare una parola o una frase esatta.<br>
+<q>"capitan uncino"</q></td>
+</tr>
+
+
+<tr>
+<td>OR inclusivo<br>
+<q>OR parola_chiave</q><br>
+</td>
+<td>Aggiungere un OR tra le parole chiave<br>
+<q>luca OR marco</q></td>
+</tr>
+
+
+<tr>
+<td>esclusione<br>
+<q>NOT parola_chiave</q><br>
+<q>-parola_chiave</q>
+</td>
+<td>Aggiungete un trattino (-) o NOT prima di una parola da escludere dalla ricerca. Si noti che NOT funge da operatore di filtraggio in modo che non sia possibile eseguire una ricerca contenente solo operatori NOT. Non è possibile combinare OR e NOT (<q>luca OR NOT marco</q> non è valido)<br>
+<q>capitan NOT uncino</q></td>
+</tr>
+
+<tr>
+<td>grouping<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mamma OR papa) AND (figlia OR figlio)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Cerca le foto solo nei tag senza guardare titoli o descrizioni di foto<br>
+<q>tag:luca</q>, <q>tag:(luca OR marco)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Cerca le foto con le parole chiavi unicamente nel titolo o la descrizione.<br>
+<q>photo:luca</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Cerca le foto per nome file.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Cerca le foto per autore.<br>
+<q>author:carlo</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Cerca le foto per data in cui è stata scattata.<br>
+<q>taken:2003</q> foto scattate nel 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> foto scattate dal maggio 2003<br>
+<q>taken:2003..2008</q> foto scattate dal 2003 al 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> foto scattate dopo il 1 gennaio 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Cerca le foto per data di pubblicazione.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Cerca le foto con una determinata larghezza o altezza in pixel.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Cerca le foto per dimensione in pixel<br>
+<q>size:5m</q> restituisce le foto di 5 megapixel<br>
+<q>size:>12m</q> restituisce foto di 12 megapixel o più<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Cerca le foto con un certo rapporto larghezza/altezza.<br>
+<q>ratio:3/4 OR ratio:4/3</q> trova le foto da fotocamere compatte in modalità ritratto o orizzontale
+<q>ratio:>16/9</q> trova le foto panoramiche
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Suggerimento: <q>score:*</q> troverà tutte le foto con almeno un voto. <q>score:</q> troverà le foto senza voti.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Cerca le foto per dimensione del file<br>
+<q>filesize:1m..10m</q> troverà i file di qui le dimension sono tra 1 MB e 10 MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Cerca le foto tramite il suo numero di ID Piwigo<br>
+<q>id:123..126</q> trova le foto tra la 123 e la 126 (il numero di foto varia tra 0 e 4 foto, visto che certe foto possono essere state cancellate).</td>
+</tr>
+
+</table>

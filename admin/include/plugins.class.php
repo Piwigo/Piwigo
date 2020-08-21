@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -300,6 +285,7 @@ DELETE FROM '. PLUGINS_TABLE .'
           'uri'=>'',
           'description'=>'',
           'author'=>'',
+          'hasSettings'=>false,
         );
       $plg_data = file_get_contents($path.'/main.inc.php', null, null, 0, 2048);
 
@@ -330,6 +316,10 @@ DELETE FROM '. PLUGINS_TABLE .'
       if (preg_match("|Author URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
       {
         $plugin['author uri'] = trim($val[1]);
+      }
+      if (preg_match("/Has Settings:\\s*(true|True)/", $plg_data, $val))
+      {
+        $plugin['hasSettings'] = true;
       }
       if (!empty($plugin['uri']) and strpos($plugin['uri'] , 'extension_view.php?eid='))
       {
@@ -558,6 +548,8 @@ DELETE FROM '. PLUGINS_TABLE .'
    */
   function extract_plugin_files($action, $revision, $dest, &$plugin_id=null)
   {
+    global $logger;
+
     if ($archive = tempnam( PHPWG_PLUGINS_PATH, 'zip'))
     {
       $url = PEM_URL . '/download.php';
@@ -583,6 +575,9 @@ DELETE FROM '. PLUGINS_TABLE .'
               $main_filepath = $file['filename'];
             }
           }
+
+          $logger->debug(__FUNCTION__.', $main_filepath = '.$main_filepath);
+
           if (isset($main_filepath))
           {
             $root = dirname($main_filepath); // main.inc.php path in archive
@@ -595,6 +590,7 @@ DELETE FROM '. PLUGINS_TABLE .'
               $plugin_id = ($root == '.' ? 'extension_' . $dest : basename($root));
             }
             $extract_path = PHPWG_PLUGINS_PATH . $plugin_id;
+            $logger->debug(__FUNCTION__.', $extract_path = '.$extract_path);
 
             if($result = $zip->extract(PCLZIP_OPT_PATH, $extract_path,
                                        PCLZIP_OPT_REMOVE_PATH, $root,
@@ -613,9 +609,31 @@ DELETE FROM '. PLUGINS_TABLE .'
                 and !empty($old_files))
               {
                 $old_files[] = 'obsolete.list';
+                $logger->debug(__FUNCTION__.', $old_files = {'.join('},{', $old_files).'}');
+
+                $extract_path_realpath = realpath($extract_path);
+
                 foreach($old_files as $old_file)
                 {
+                  $old_file = trim($old_file);
+                  $old_file = trim($old_file, '/'); // prevent path starting with a "/"
+
+                  if (empty($old_file)) // empty here means the extension itself
+                  {
+                    continue;
+                  }
+
                   $path = $extract_path.'/'.$old_file;
+
+                  // make sure the obsolete file is withing the extension directory, prevent traversal path
+                  $realpath = realpath($path);
+                  if ($realpath === false or strpos($realpath, $extract_path_realpath) !== 0)
+                  {
+                    continue;
+                  }
+
+                  $logger->debug(__FUNCTION__.', to delete = '.$path);
+
                   if (is_file($path))
                   {
                     @unlink($path);

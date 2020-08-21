@@ -1,5 +1,22 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
+{html_style}
+/*
+.adminOnlyIcon::before {
+  content:"(";
+}
+.adminOnlyIcon::after {
+  content:")";
+}
+*/
+.adminOnlyIcon {
+  background-color:#ddd;
+  padding:2px 5px;
+  border-radius:5px;
+  font-size:90%;
+}
+{/html_style}
+
 <h2>{'Piwigo configuration'|translate} {$TABSHEET_TITLE}</h2>
 
 <form method="post" action="{$F_ACTION}" class="properties">
@@ -7,7 +24,7 @@
 <div id="configContent">
 
   <fieldset id="indexDisplayConf">
-    <legend>{'Main Page'|translate}</legend>
+    <legend><span class="icon-television icon-green"></span>{'Main Page'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -66,6 +83,38 @@
       </li>
 
       <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="index_sizes_icon" {if ($display.index_sizes_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Photo sizes'|translate|@ucfirst)}
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="index_edit_icon" {if ($display.index_edit_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Edit album'|translate|@ucfirst)} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="index_caddie_icon" {if ($display.index_caddie_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Add to caddie'|translate|@ucfirst)} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="display_fromto" {if ($display.display_fromto)}checked="checked"{/if}>
+          {'Display album date period'|translate}
+        </label>
+      </li>
+
+      <li>
         <label>
           {'Number of albums per page'|translate}
           <input type="text" size="3" maxlength="4" name="nb_categories_page" id="nb_categories_page" value="{$display.NB_CATEGORIES_PAGE}">
@@ -75,7 +124,7 @@
   </fieldset>
 
   <fieldset id="pictureDisplayConf">
-    <legend>{'Photo Page'|translate}</legend>
+    <legend><span class="icon-picture icon-blue"></span>{'Photo Page'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -112,6 +161,38 @@
       <li>
         <label class="font-checkbox">
           <span class="icon-check"></span>
+          <input type="checkbox" name="picture_sizes_icon" {if ($display.picture_sizes_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Photo sizes'|translate|@ucfirst)}
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="picture_edit_icon" {if ($display.picture_edit_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Edit photo'|translate|@ucfirst)} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="picture_caddie_icon" {if ($display.picture_caddie_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Add to caddie'|translate|@ucfirst)} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="picture_representative_icon" {if ($display.picture_representative_icon)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('set as album representative'|translate|@ucfirst)} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
           <input type="checkbox" name="picture_navigation_icons" {if ($display.picture_navigation_icons)}checked="checked"{/if}>
           {'Activate Navigation Bar'|translate}
         </label>
@@ -136,7 +217,7 @@
   </fieldset>
 
   <fieldset id="pictureInfoConf">
-    <legend>{'Photo Properties'|translate}</legend>
+    <legend><span class="icon-cog icon-red"></span>{'Photo Properties'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -222,7 +303,7 @@
         <label class="font-checkbox">
           <span class="icon-check"></span>
           <input type="checkbox" name="picture_informations[privacy_level]" {if ($display.picture_informations.privacy_level)}checked="checked"{/if}>
-          {'Who can see this photo?'|translate} ({'available for administrators only'|translate})
+          {'Who can see this photo?'|translate} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
         </label>
       </li>
     </ul>
@@ -231,7 +312,10 @@
 </div> <!-- configContent -->
 
 <p class="formButtons">
-  <input type="submit" name="submit" value="{'Save Settings'|translate}">
+  <button name="submit" type="submit" class="buttonLike">
+    <i class="icon-floppy"></i> {'Save Settings'|@translate}
+  </button>
 </p>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

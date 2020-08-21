@@ -11,7 +11,7 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
 
 <form class="filter" method="post" name="filter" action="{$F_ACTION}">
 <fieldset class="with-border">
-  <legend>{'Filter'|@translate}</legend>
+  <legend><span class="icon-filter icon-green"></span>{'Filter'|@translate}</legend>
   <ul>
     <li><label>{'Date'|@translate}</label></li>
     <li>

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d张关联图片';
@@ -592,7 +577,6 @@ $lang['Switch to clear or dark colors for administration'] = '更改管理界面
 $lang['Theme has been successfully installed'] = '主题已成功安装';
 $lang['Visit Gallery'] = '浏览图库';
 $lang['Visit Piwigo project website'] = '浏览 Piwigo 项目网站';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader代表<em>Piwigo Uploader</em>。pLoader可将您电脑里的图片上传到Piwigo图库里。';
 $lang['Guest Settings'] = '游客设置';
 $lang['Main Page'] = '主页';
 $lang['Photo Page'] = '图片页';
@@ -676,7 +660,7 @@ $lang['include child albums'] = '包含子相册';
 $lang['manual order'] = '手动排序';
 $lang['No photo in the current set.'] = '当前集合没有图片。';
 $lang['No photo selected, %d photos in current set'] = '没有图片被选中，当前集合中有 %d 张图片';
-$lang['No photo selected, no action possible.'] = '没有图片被选中，不能执行任何操作。';
+$lang['No photos selected, no actions possible.'] = '没有图片被选中，不能执行任何操作。';
 $lang['on the %d selected photos'] = '于此 %d 张所选图片';
 $lang['Orphan tags deleted'] = '未关联任何图片的标签已被删除';
 $lang['Refresh photo set'] = '刷新图片集';
@@ -832,7 +816,6 @@ $lang['Applications'] = '应用程序';
 $lang['apply automatic sort order'] = '应用自动排序';
 $lang['Automatic sort order'] = '自动排序';
 $lang['Available on'] = '可用在';
-$lang['Available versions for'] = '可用版本';
 $lang['cancel manual order'] = '取消手动排序';
 $lang['Cancel'] = '取消';
 $lang['List'] = '列表';
@@ -945,7 +928,7 @@ $lang['Type here the name of the new group'] = '在此输入新组的名称';
 $lang['Duplicate'] = '复制';
 $lang['Manage the members'] = '管理用户';
 $lang['Merge selected groups'] = '合并所选组';
-$lang['No group selected, no action possible.'] = '没有组被选中，不能执行任何操作。';
+$lang['No groups selected, no actions possible.'] = '没有组被选中，不能执行任何操作。';
 $lang['Purge user cache'] = '清除用户缓存';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = '相片的分辨率将会被减少到 %dx%d 象素.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = '由于使用 GD 图形库，因此禁用上传后调整大小';
@@ -954,7 +937,7 @@ $lang['Basic settings'] = '基本设置';
 $lang['General'] = '总体';
 $lang['Mail theme'] = '邮件主题';
 $lang['No user selected of %d users'] = '%d 个用户中无用户被选中';
-$lang['No user selected, no action possible.'] = '无用户被选中，无法执行。';
+$lang['No users selected, no actions possible.'] = '无用户被选中，无法执行。';
 $lang['Password updated'] = '密码已更新';
 $lang['Registered on %s, %s.'] = '注册于 %s, %s。';
 $lang['Show %s users'] = '显示 %s 个用户';
@@ -997,3 +980,40 @@ $lang['Recipients'] = '收件人';
 $lang['Y Repeat'] = 'Y轴平铺';
 $lang['Delete %d orphan photos'] = '删除 %d 没有任何关联的图片';
 $lang['Orphans'] = '没有任何关联';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = '删除相册以及全部 %d 张图片，包括 %d 张已关联到其他相册的图片';
+$lang['checksum'] = '校验码';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = '将您的 Piwigo 升级到 %s 的时候到了，前往 %s';
+$lang['Storage used'] = '已使用的储存空间';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = '将您的图片从您的 macOS (10.10及以上版本) 直接分享 / 发送到 Piwigo';
+$lang['Select tags'] = '选择标签';
+$lang['Running on an up-to-date Piwigo is important for security.'] = '使用最新版的 Piwigo 对于安全是很重要的。';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo 远程同步能够上传整个目录层级。如果您再次运行，只有新的图片会被上传。';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s 已准备就绪，请升级';
+$lang['No tags selected, no actions possible.'] = '未选择标签，无法执行操作。';
+$lang['No filter on album. Select one or type to search'] = '没有相册过滤器。选择一个或输入以进行搜索';
+$lang['It only takes a few clicks.'] = '这仅需数次点击。';
+$lang['First photo added'] = '首张图片已添加';
+$lang['Display form'] = '显示表单';
+$lang['Delete album "%s".'] = '删除相册 "%s"。';
+$lang['Delete album "%s" and its %d sub-albums.'] = '删除相册 "%s" 及其 %d 个子相册。';
+$lang['(determined from photos)'] = '（取决于图片）';
+$lang['Confirm deletion'] = '确认删除';
+$lang['Dashboard'] = '面板';
+$lang['delete album and the %d orphan photos'] = '删除相册和 %d 张无关联图片';
+$lang['orphans to delete'] = '要删除的无关联图片';
+$lang['delete only album, not photos'] = '仅删除相册，不删除图片';
+$lang['%d checksums were added'] = '%d 校验码已添加';
+$lang['Compute %d missing checksums'] = '计算 %d 缺失的校验码';
+$lang['Create a first album'] = '创建第一个相册';
+$lang['Deletion in progress'] = '正在删除';
+$lang['Display album date period'] = '显示与每个相册相关联的日期区间，如 « 2018年 7月12日 至 15日 »';
+$lang['Display category date'] = '显示分类日期';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo 需要一个相册来添加图片。';
+$lang['Some checksums are missing.'] = '部分校验码缺失。';
+$lang['Synchronization in progress'] = '正在同步';
+$lang['Visit'] = '访问';
+$lang['Welcome!'] = '欢迎！';
+$lang['With no checksum'] = '无校验码';
+$lang['checksums to add'] = '要添加的校验码';
+$lang['or'] = '或者';
+$lang['... or hide this link'] = '... 或隐藏本链接';

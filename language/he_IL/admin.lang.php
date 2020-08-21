@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d שיוך';
@@ -597,7 +582,6 @@ $lang['Switch to clear or dark colors for administration'] = 'מעבר צבעי�
 $lang['Theme has been successfully installed'] = 'ערכת הנושא הותקנה בהצלחה.';
 $lang['Visit Gallery'] = 'בקר בגלריה';
 $lang['Visit Piwigo project website'] = 'בקר באתר פרוייקט Piwigo';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'PLoader יטען <em> Piwigo Uploader </em>. מהמחשב שלך, pLoader יכין את התמונות שלך ןיעביר אותם אל גלרית ה Piwigo שלך';
 $lang['Guest Settings'] = 'הגדרות אורחים';
 $lang['Main Page'] = 'דף ראשי';
 $lang['Photo Page'] = 'דף תמונה';
@@ -679,7 +663,7 @@ $lang['Refresh photo set'] = 'רענן את סט התמונות';
 $lang['The whole page'] = 'העמוד המלא';
 $lang['The whole set'] = 'הסט המלא';
 $lang['No photo in the current set.'] = 'אין תמונות בסט הנוכחי.';
-$lang['No photo selected, no action possible.'] = 'אף תמונה לא נבחרה, אין פעולות אפשריות.';
+$lang['No photos selected, no actions possible.'] = 'אף תמונה לא נבחרה, אין פעולות אפשריות.';
 $lang['Choose an action'] = 'בחר פעולה';
 $lang['remove author'] = 'הסר יוצר';
 $lang['Type here the author name'] = 'כתוב כאן את שם היוצר';
@@ -810,7 +794,6 @@ $lang['Apply watermark if height is bigger than'] = 'הוסף חותמת מים(
 $lang['Apply watermark if width is bigger than'] = 'הוסף חותמת מים(watermark) אם הרוחב גדול מ';
 $lang['Automatic sort order'] = 'מיון אוטומטי';
 $lang['Available on'] = 'זמין על';
-$lang['Available versions for'] = 'גרסאות זמינות עבור';
 $lang['%d physicals'] = '%d פיזי';
 $lang['Piwigo for Android'] = 'piwigo לאנדרואיד';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'piwigo לios (איפון, איפד, איפוד ואיפוד טאצ)';
@@ -912,7 +895,7 @@ $lang['Rename'] = 'שנה שם';
 $lang['Duplicate'] = 'שכפל';
 $lang['Manage the members'] = 'נהל את החברים';
 $lang['Merge selected groups'] = 'מזג את הקבוצות שנבחרו';
-$lang['No group selected, no action possible.'] = 'אף קבוצה לא נבחרה, אין פעולות אפשריות.';
+$lang['No groups selected, no actions possible.'] = 'אף קבוצה לא נבחרה, אין פעולות אפשריות.';
 $lang['No members to manage'] = 'אין חברים לנהל';
 $lang['Notify administrators when a comment is'] = 'עדכן אדמינים כאשר תגובה היא';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo לא יכולה לטעון את קבצי השדרוג מהשרת';
@@ -948,7 +931,7 @@ $lang['Open user details'] = 'פתח פרטי משתמש';
 $lang['Numeric identifier : %d'] = 'מזהה מספרי: %d';
 $lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'במערכת הלינוקס שלך, פשוט התקן Shotwell עם מנהל החבילות ואז את הפעל את אפשרות הפרסום של Piwigo.';
 $lang['No user selected of %d users'] = 'לא נבחר משתמש מתוך %d משתמשים';
-$lang['No user selected, no action possible.'] = 'לא נבחר משתמש, אין אפשרות לבצע אף פעולה.';
+$lang['No users selected, no actions possible.'] = 'לא נבחר משתמש, אין אפשרות לבצע אף פעולה.';
 $lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em> אפליקציית Piwigo עבור אנדרואיד</em>  מאפשרת לך להתחבר מטלפון האנדרואיד או הטאבלט שלך לגלריית Piwigo, ליצור אלבומים ולהעלות מספר תמונות בו זמנית ';
 $lang['Last visit on %s, %s.'] = 'ביקור אחרון ב- %s, %s.';
 $lang['Mail theme'] = 'ערכת נושא דואר';
@@ -986,3 +969,49 @@ $lang['Can\'t connect to server.'] = 'לא ניתן להתחבר לשרת.';
 $lang['Can\'t create temporary file.'] = 'לא ניתן ליצור קובץ זמני.';
 $lang['Can\'t download archive.'] = 'לא ניתן להוריד את הארכיון.';
 $lang['Can\'t read or extract archive.'] = 'לא ניתן לקרוא או לחלץ את הארכיון.';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync מסוגל להעלות היררכיית תיקיות שלמה. אם תריץ אותו שוב, רק תמונות חדשות יועלו.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'הרצת פיוויגו מעודכן חשובה לאבטחה.';
+$lang['No recipient selected'] = 'לא נבחרו נמענים';
+$lang['Recipients'] = 'נמענים';
+$lang['Select tags'] = 'בחר תגיות';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'שתף/שלח את התמונות שלך ישירות ממערכת ה-macOS שלך (גירסא 10.10 ומעלה) לפיוויגו';
+$lang['Storage used'] = 'אכסון בשימוש';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'הגיע הזמן לעדכן את פיוויגו לגירסא %s, עבור אל %s';
+$lang['Y Repeat'] = 'חזרה בציר Y';
+$lang['checksum'] = 'צ׳קסאם';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'מחק אלבום וכל %d התמונות, אפילו את ה-%d המשויכות לאלבומים אחרים.';
+$lang['delete album and the %d orphan photos'] = 'מחק אלבום ואת %d התמונות המיותמות';
+$lang['delete only album, not photos'] = 'מחק רק את האלבום, לא את התמונות';
+$lang['orphans to delete'] = 'יתומים למחיקה';
+$lang['(determined from photos)'] = '(נקבע מתמונות)';
+$lang['Confirm deletion'] = 'אשר מחיקה';
+$lang['Dashboard'] = 'דשבורד';
+$lang['Delete %d orphan photos'] = 'מחק %d תמונות מיותמות';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'מחק אלבום ״%s״ ואת %d תתי האלבומים שלו.';
+$lang['Delete album "%s".'] = 'מחק אלבום ״%s״.';
+$lang['Display form'] = 'הצג טופס';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'כל דואל שיישלח יכיל את מפתח האימות האוטומטי האישי שלו על קישורים, תקף ל%s.';
+$lang['Edit user'] = 'ערוך משתמש';
+$lang['First photo added'] = 'תמונה ראשונה נוספה';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'מפתחות אימות לא עובדים עבור אדמינים מסיבות אבטחה.';
+$lang['It only takes a few clicks.'] = 'זה רק מצריך מספר לחיצות.';
+$lang['No filter on album. Select one or type to search'] = 'אין סינון על האלבום. בחר אחד או הקלד לחיפוש';
+$lang['No tags selected, no actions possible.'] = 'לא נבחרה תגית, לא ניתן לבצע שום פעולה.';
+$lang['No user is permitted to see this private album'] = 'לאף משתמש אין הרשאה לצפות באלבום פרטי זה';
+$lang['Orphans'] = 'יתומים';
+$lang['Piwigo %s is available, please update'] = 'פיוויגו %s זמין, אנא עדכן';
+$lang['%d checksums were added'] = 'התווספו %d צ\'קסאמים';
+$lang['... or hide this link'] = '... או הסתירו קישור זה';
+$lang['Compute %d missing checksums'] = 'חשבו %d צ\'קסאמים חסרים';
+$lang['Create a first album'] = 'צרו אלבום ראשון';
+$lang['Deletion in progress'] = 'מתבצעת מחיקה';
+$lang['Display album date period'] = 'הציגו את התקופה המשוייכת לכל אלבום, לדוגמא: "מ-12 עד ה-15 ליולי, 2018"';
+$lang['Display category date'] = 'הציגו את תאריך הקטגוריה';
+$lang['Piwigo requires an album to add photos.'] = 'פיוויגו זקוק לאלבום כדי להוסיף תמונות';
+$lang['Some checksums are missing.'] = 'מספר צ\'קסאמים חסרים.';
+$lang['Synchronization in progress'] = 'מתבצע סינכרון';
+$lang['Visit'] = 'ביקור';
+$lang['Welcome!'] = 'ברוכים הבאים!';
+$lang['With no checksum'] = 'ללא צ\'קסאם';
+$lang['checksums to add'] = 'צ\'קסאמים להוספה';
+$lang['or'] = 'או';

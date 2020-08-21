@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Lëtzebuergesch [LU]
@@ -382,3 +367,50 @@ $lang['End-Date'] = 'Enddatum';
 $lang['Apply on properties'] = 'Eegenschaften iwerhuelen';
 $lang['Album name, Z &rarr; A'] = 'Albumnumm, Z &rarr; A';
 $lang['Album name, A &rarr; Z'] = 'Albumnumm, A &rarr; Z';
+$lang['Your Gallery Customization'] = 'Upasse vun der Galerie';
+$lang['add this photo to your favorites'] = 'Eng Fotto bei d\'Favoritte bäisetzen';
+$lang['display a calendar by posted date'] = 'Fottoe no Publikatiounsdatum uweisen';
+$lang['display only recently posted photos'] = 'Nëmmen déi Fottoe weisen, déi viru kuerzem presentéiert goufen';
+$lang['display photos linked to this tag'] = 'Fottoe mat dësem Mot-clé weisen';
+$lang['display recently updated albums'] = 'Déi Albume weisen, déi viru kuerzem aktualiséiert goufen';
+$lang['login mustn\'t start with a space character'] = 'De Benotzernumm däerf net mat engem Leerschrëtt ophalen';
+$lang['searched words : %s'] = 'Sichbegrëffer %s';
+$lang['set as album representative'] = 'Als Virschäibild vum Album definéieren';
+$lang['show tag cloud'] = 'Wollek mat Mot-clée weisen';
+$lang['stop the slideshow'] = 'D\'Diashow verloossen';
+$lang['this email address is already in use'] = 'Dës Mailadress ass schonns am Gebrauch';
+$lang['this login is already used'] = 'Dee Benotzernumm ass schonns verginn';
+$lang['thumb'] = 'Virschäibild';
+$lang['useful when password forgotten'] = 'Hëlleft Iech, wann Dir Äert Passwuert vergiess hutt';
+$lang['available for administrators only'] = 'Nëmmen disponibel fir d\'Administrateuren';
+$lang['display your favorites photos'] = 'Liiblingsbiller weisen';
+$lang['group by letters'] = 'No Ufanksbuschtaf gruppéieren';
+$lang['html tags are not allowed in login'] = 'HTML-Tagge sinn am Benotzernumm net erlaabt';
+$lang['login mustn\'t end with a space character'] = 'De Benotzernumm däerf net mat engem Leerschrëtt ophalen';
+$lang['photos posted during the last %d days'] = 'Fottoen, déi an deene leschten %d Deeg presentéiert goufen';
+$lang['posted between %s (%s) and %s (%s)'] = 'presentéiert tëschent %s (%s) an %s (%s)';
+$lang['remove this tag from the list'] = 'Dëse Mot-clé aus der Lëscht eraushuelen';
+$lang['representative'] = 'Virschäibild vum Album';
+$lang['return to normal view mode'] = 'Zréck bei den normalen Affichage';
+$lang['customize the appareance of the gallery'] = 'Upasse vum initiale Bild vun der Galerie';
+$lang['display a set of random photos'] = 'Fotoe am Zoufallsmodus uweisen';
+$lang['display available tags'] = 'All déi disponibel Mot-clée weisen';
+$lang['display each day with photos, month per month'] = 'All Dag mat de Fottoe weisen, opgelëscht no Mount';
+$lang['This author removed the comment with id %d'] = 'Dësen Auteur huet de Commentaire geläscht mat der ID %d';
+$lang['Username "%s" on gallery %s'] = 'Benotzernumm "%s" bei der Galerie %s';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookië gi geblockt oder vun Ärem Browser net ënnerstëtzt. Dir musst d\'Cookien acceptéieren, fir Iech unzemellen.';
+$lang['Dimensions'] = 'Ofmiessung';
+$lang['Original dimensions'] = 'Ursprongdatum';
+$lang['Post date'] = 'Publikatiounsdatum';
+$lang['The number of photos per page must be a not null scalar'] = 'D\'Unzuel vun de Fottoe pro Säit muss eng ganz Zuel sinn, déi méi grouss wéi Null ass';
+$lang['The passwords do not match'] = 'D\'Passwierder stëmmen net iwwerteneen';
+$lang['This author modified following comment:'] = 'Dësen Auteur huet deen heite Commentaire verännert';
+$lang['This login is already used by another user'] = 'Dee Benotzernumm ass schonns verginn';
+$lang['Thumbnails'] = 'Virschäibiller';
+$lang['To reset your password, visit the following address:'] = 'Fir d\'Passwuert ze reinitialiséieren, klickt w.e.g. op deen heite Link';
+$lang['User "%s" has no email address, password reset is not possible'] = 'De Benotzer »%s« huet keng Mailadress uginn. D\'Reinitialiséierung vum Passwuert ass net méiglech';
+$lang['Your authentication key is no longer valid.'] = 'Den Identifizéierungsschlëssel ass net méi gülteg';
+$lang['You are not authorized to access the requested page'] = 'Dir sidd net berechtëgt déi gewënschte Säit opzeruffen';
+$lang['display a calendar by creation date'] = 'Fotoen no Opnahmsdatum weisen';
+$lang['Invalid username or password!'] = 'Benotzernumm oder Passwuert si falsch';
+$lang['generate random password'] = 'Random-Passwuert generéieren';

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['... or '] = '... eller';
 $lang['ACCESS_0'] = 'Fri tilgang';
@@ -296,7 +281,6 @@ $lang['Automatic correction'] = 'Automatisk korrigering';
 $lang['Automatic sort order'] = 'Automatisk sorteringsrekkefylgje';
 $lang['Available on'] = 'Tilgjengeleg';
 $lang['Available only with HTML format'] = 'Kun tilgjengeleg med HTML-format';
-$lang['Available versions for'] = 'Tilgjengelege versjonar for';
 $lang['associate to group'] = 'kople til gruppe';
 $lang['Update to Piwigo %s'] = 'Oppdatera til Piwigo %s';
 $lang['Updates'] = 'Oppdateringar';
@@ -305,7 +289,7 @@ $lang['Week starts on'] = 'Veka startar på';
 $lang['Who can see these photos?'] = 'Kven kan sjå desse bileta?';
 $lang['New parent album'] = 'Nytt foreldrealbum';
 $lang['No display'] = 'Ingen vising';
-$lang['No group selected, no action possible.'] = 'Ingen gruppe er vald, ingen handling mogleg.';
+$lang['No groups selected, no actions possible.'] = 'Ingen gruppe er vald, ingen handling mogleg.';
 $lang['Not cropped correctly?'] = 'Ikkje kutta rett?';
 $lang['Notification'] = 'Melding';
 $lang['Notify administrators when a comment is'] = 'Send melding til administratorar når ein kommentar er';
@@ -501,7 +485,7 @@ $lang['No photo can be deleted'] = 'Ingen bilete kan slettast';
 $lang['No photo in the current set.'] = 'Ingen bilete i gjeldande samling';
 $lang['No photo in this album'] = 'Ingen bilete i dette albumet';
 $lang['No photo selected, %d photos in current set'] = 'Ingen bilete vald, %d bilete i gjeldande samling';
-$lang['No photo selected, no action possible.'] = 'Ingen bilete vald, ingen handling er mogleg.';
+$lang['No photos selected, no actions possible.'] = 'Ingen bilete vald, ingen handling er mogleg.';
 $lang['No results'] = 'Ingen resultat';
 $lang['No user to send notifications by mail.'] = 'Ingen brukar som kan informerast via e-post.';
 $lang['None'] = 'Ingen';
@@ -935,7 +919,6 @@ $lang['Reinitialize check integrity'] = 'Start integritetssjekk på nytt';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Du kan ikkje definere standard biletrekkefylgje fordi du har ei tilpassa instilling i din lokal konfigurasjon.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Du har spesifisera <i>$conf[\'order_by\']</i> i di lokal konfigurasjonfil, denne parameteren er utdatera. Du må fjerne den eller endre namn til <i>$conf[\'order_by_custom\']</i> !';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam er laga for fotografar som vil sjå, handtere, endre, forbetre, organisere, merke og dele bilete.';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står for <em>Piwigo Uploader</em>. Frå datamaskina di kan pLoader tilrettelegge bileta dine og overføre dei til ditt Piwigo biletgalleri.';
 $lang['photos candidates for metadata synchronization'] = 'bilete som er kanditatar for synkronisering av metadata';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Endring av storleik etter opplasting er ikkje tilgjengeleg avdi GD vert bruka som grafikkbibliotek';
 $lang['Select at least one tag'] = 'Vel minst eitt nøkkelord';
@@ -956,7 +939,7 @@ $lang['No matching user found'] = 'Ingen brukarar vart funne';
 $lang['Password updated'] = 'Passordet er endra';
 $lang['Show %s users'] = 'Vis %s brukarar';
 $lang['No user selected of %d users'] = 'Ingen brukarar valde (totalt %d brukarar)';
-$lang['No user selected, no action possible.'] = 'Ingen brukarar valde - ingen aksjon mogleg';
+$lang['No users selected, no actions possible.'] = 'Ingen brukarar valde - ingen aksjon mogleg';
 $lang['Registered on %s, %s.'] = 'Registrera %s, %s.';
 $lang['Showing %s to %s of %s users'] = 'Viser %s til %s av %s brukarar';
 $lang['Update user'] = 'Endre brukar';

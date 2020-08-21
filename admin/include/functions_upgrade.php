@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 function check_upgrade()
@@ -115,9 +100,7 @@ function deactivate_non_standard_themes()
   global $page, $conf;
 
   $standard_themes = array(
-    'clear',
-    'Sylvia',
-    'dark',
+    'modus',
     'elegant',
     'smartpocket',
     );
@@ -161,9 +144,26 @@ SELECT theme
     // if the default theme has just been deactivated, let's set another core theme as default
     if (in_array($default_theme, $theme_ids))
     {
+      // make sure default Piwigo theme is active
+      $query = '
+SELECT
+    COUNT(*)
+  FROM '.PREFIX_TABLE.'themes
+  WHERE id = \''.PHPWG_DEFAULT_TEMPLATE.'\'
+;';
+      list($counter) = pwg_db_fetch_row(pwg_query($query));
+      if ($counter < 1)
+      {
+        // we need to activate theme first
+        include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
+        $themes = new themes();
+        $themes->perform_action('activate', PHPWG_DEFAULT_TEMPLATE);
+      }
+
+      // then associate it to default user
       $query = '
 UPDATE '.PREFIX_TABLE.'user_infos
-  SET theme = \'elegant\'
+  SET theme = \''.PHPWG_DEFAULT_TEMPLATE.'\'
   WHERE user_id = '.$conf['default_user_id'].'
 ;';
       pwg_query($query);

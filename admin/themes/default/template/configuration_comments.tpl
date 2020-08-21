@@ -19,6 +19,14 @@
       });
     })(target);
   };
+
+  function check_activate_comments() {
+    jQuery("#comments_param_container").toggle(jQuery("input[name=activate_comments]").is(":checked"));
+  }
+  check_activate_comments();
+  jQuery("input[name=activate_comments]").on("change", function() {
+    check_activate_comments();
+  });
 }());
 {/footer_script}
 
@@ -39,7 +47,7 @@
       </li>
     </ul>
 
-    <ul id="comments_param_warp"{if not ($comments.activate_comments)} style="display:none;"{/if}>
+    <ul id="comments_param_container">
       <li>
         <label class="font-checkbox">
           <span class="icon-check"></span>
@@ -145,7 +153,10 @@
 </div> <!-- configContent -->
 
 <p class="formButtons">
-  <input type="submit" name="submit" value="{'Save Settings'|translate}">
+  <button name="submit" type="submit" class="buttonLike">
+    <i class="icon-floppy"></i> {'Save Settings'|@translate}
+  </button>
 </p>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

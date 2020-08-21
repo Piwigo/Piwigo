@@ -7,7 +7,7 @@ var piwigo_need_update_msg = '<a href="admin.php?page=updates">{'A new version o
 var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
 
 {literal}
-jQuery().ready(function(){
+  jQuery().ready(function(){
 	jQuery('.cluetip').cluetip({
 		width: 300,
 		splitTitle: '|',
@@ -32,44 +32,43 @@ jQuery().ready(function(){
         jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
     }
   });
+
+  jQuery('.newsletter-subscription a').click(function() {
+    jQuery('.newsletter-subscription').hide();
+
+    jQuery.ajax({
+      type: 'GET',
+      url: 'admin.php?action=hide_newsletter_subscription'
+    });
+
+    if (jQuery(this).hasClass('newsletter-hide')) {
+      return false;
+    }
+  });
 });
+
+//Tooltip for the storage chart
+$('.storage-chart span').each(function () {
+  let tooltip = $('.storage-tooltips #'+$(this).data('type'));
+  let left = $(this).position().left + $(this).width()/2 - tooltip.innerWidth()/2;
+  tooltip.css('left', left+"px")
+  $(this).hover(function() {
+    tooltip.toggle();
+  });
+});
+
+$(window).on('resize', function(){
+  $('.storage-chart span').each(function () {
+    let tooltip = $('.storage-tooltips #'+$(this).data('type'));
+    let left = $(this).position().left + $(this).width()/2 - tooltip.innerWidth()/2;
+    tooltip.css('left', left+"px")
+  });
+});
+
 {/literal}
 {/footer_script}
 
 {html_style}
-.stat-boxes {
-  text-align:left;
-  margin:10px;
-}
-
-.stat-box {
-  display:inline-block;
-  width:200px;
-  margin:10px;
-  cursor:help;
-}
-
-.stat-box:hover {
-  color:#ff7700;
-}
-
-.stat-box i {
-  font-size:50px;
-  float:left;
-  margin-right:5px;
-}
-
-.stat-box .number, .stat-box .caption {
-  display:inline-block;
-  width:120px;
-  text-align:left;
-}
-
-.stat-box .number {
-  margin-top:10px;
-  font-size:20px;
-}
-
 .eiw .messages ul li {
   list-style-type:none !important;
 }
@@ -81,93 +80,171 @@ jQuery().ready(function(){
 
 <h2>{'Piwigo Administration'|@translate}</h2>
 
+<div class="intro-page-container">
 <div class="stat-boxes">
 
 {if $NB_PHOTOS > 1}
-<div class="stat-box">
-<i class="icon-picture"></i>
-<span class="number">{$NB_PHOTOS}</span><span class="caption">{'Photos'|translate}</span>
-</div>
+<a class="stat-box" href="{$U_ADD_PHOTOS}">
+<i class="icon-picture icon-yellow"></i>
+<span class="number">{$NB_PHOTOS|number_format}</span><span class="caption">{'Photos'|translate}</span>
+</a>
 {/if}
 
 {if $NB_ALBUMS > 1}
-<div class="stat-box">
-<i class="icon-sitemap"></i>
+<a class="stat-box" href="{$U_CATEGORIES}">
+<i class="icon-sitemap icon-red"></i>
 <span class="number">{$NB_ALBUMS}</span><span class="caption">{'Albums'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_TAGS > 1}
-<div class="stat-box">
-<i class="icon-tags"></i>
+<a class="stat-box" href="{$U_TAGS}">
+<i class="icon-tags icon-yellow"></i>
 <span class="number">{$NB_TAGS}</span><span class="caption" title="{'%d associations'|translate:$NB_IMAGE_TAG}">{'Tags'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_USERS > 2}
-<div class="stat-box">
-<i class="icon-users"></i>
+<a class="stat-box" href="{$U_USERS}">
+<i class="icon-users icon-purple"></i>
 <span class="number">{$NB_USERS}</span><span class="caption">{'Users'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_GROUPS > 0}
-<div class="stat-box">
-<i class="icon-group"></i>
+<a class="stat-box" href="{$U_GROUPS}">
+<i class="icon-group icon-purple"></i>
 <span class="number">{$NB_GROUPS}</span><span class="caption">{'Groups'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_COMMENTS > 1}
-<div class="stat-box">
-<i class="icon-chat"></i>
+<a class="stat-box" href="{$U_COMMENTS}">
+<i class="icon-chat icon-blue"></i>
 <span class="number">{$NB_COMMENTS}</span><span class="caption">{'Comments'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_RATES > 0}
-<div class="stat-box">
-<i class="icon-star"></i>
+<a class="stat-box" href="{$U_RATING}">
+<i class="icon-star icon-yellow"></i>
 <span class="number">{$NB_RATES}</span><span class="caption">{'Rating'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_VIEWS > 0}
-<div class="stat-box">
-<i class="icon-signal"></i>
+<a class="stat-box" href="{$U_HISTORY_STAT}">
+<i class="icon-signal icon-blue"></i>
 <span class="number">{$NB_VIEWS}</span><span class="caption">{'Pages seen'|translate}</span>
-</div>
+</a>
 {/if}
 
 {if $NB_PLUGINS > 0}
-<div class="stat-box">
-<i class="icon-puzzle"></i>
+<a class="stat-box" href="{$U_PLUGINS}">
+<i class="icon-puzzle icon-green"></i>
 <span class="number">{$NB_PLUGINS}</span><span class="caption">{'Plugins'|translate}</span>
-</div>
+</a>
 {/if}
 
 <div class="stat-box">
-<i class="icon-hdd"></i>
+<i class="icon-hdd icon-blue"></i>
 <span class="number">{$STORAGE_USED}</span><span class="caption">{'Storage used'|translate}</span>
 </div>
 
 {if $NB_PHOTOS > 1}
 <div class="stat-box">
-<i class="icon-back-in-time"></i>
+<i class="icon-back-in-time icon-yellow"></i>
 <span class="number">{$first_added_age}</span><span class="caption" title="{'first photo added on %s'|translate:$first_added_date}">{'First photo added'|translate}</span>
 </div>
 {/if}
 
 </div> {* .stat-boxes *}
 
+<div class="intro-charts">
+
+  <div class="chart-title"> {"Activity peak in the last weeks"|@translate}</div>
+  <div class="activity-chart" style="grid-template-rows: repeat({count($ACTIVITY_CHART_DATA) + 1}, 5vw);">
+    {foreach from=$ACTIVITY_CHART_DATA item=WEEK_ACTIVITY key=WEEK_NUMBER}
+      <div id="week-{$WEEK_NUMBER}-legend" class="row-legend"><div>{"Week %s"|@translate:$ACTIVITY_WEEK_NUMBER[$WEEK_NUMBER]}</div></div>
+      {foreach from=$WEEK_ACTIVITY item=SIZE key=DAY_NUMBER}
+        <span>
+          {if $SIZE != 0}
+          {assign var='SIZE_IN_UNIT' value=$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 5 + 1}
+          {assign var='OPACITY_IN_UNIT' value=$SIZE/$ACTIVITY_CHART_NUMBER_SIZES * 0.6 + 0.2}
+          <div id="day{$WEEK_NUMBER}-{$DAY_NUMBER}" style="height:{$SIZE_IN_UNIT}vw;width:{$SIZE_IN_UNIT}vw;opacity:{$OPACITY_IN_UNIT}"></div>
+          {if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] != 0}     
+          <p class="tooltip" style="transform: translate(-50%,{$SIZE_IN_UNIT/2}vw);">
+            <span class="tooltip-header"> 
+              <span class="tooltip-title">{if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] > 1}{"%s Activities"|@translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}{else}{"%s Activity"|@translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}{/if}</span>
+              <span class="tooltip-date">{$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["date"]}</span>
+            </span>
+            <span class="tooltip-details">
+            {foreach from=$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["details"] item=actions key=cat}
+              <span class="tooltip-details-cont">
+                {if $cat == "Group"} <span class="icon-group icon-purple tooltip-details-title">{$cat|@translate}</span>
+                {elseif $cat == "User"} <span class="icon-users icon-purple tooltip-details-title"> {$cat|@translate}</span>
+                {elseif $cat == "Album"} <span class="icon-sitemap icon-red tooltip-details-title">{$cat|@translate}</span>
+                {elseif $cat == "Photo"} <span class="icon-picture icon-yellow tooltip-details-title">{$cat|@translate} </span>
+                {elseif $cat == "Tag"} <span class="icon-tags icon-green tooltip-details-title">{$cat|@translate} </span>
+                {else} <span class="tooltip-details-title"> {$cat|@translate} </span> {/if}
+
+                {foreach from=$actions item=number key=action}
+                  {if $action == "Edit"} <span class="icon-pencil tooltip-detail" title="{"%s editions"|@translate:$number}">{$number}</span>
+                  {elseif $action == "Add"} <span class="icon-plus tooltip-detail" title="{"%s additions"|@translate:$number}">{$number}</span>
+                  {elseif $action == "Delete"} <span class="icon-trash tooltip-detail" title="{"%s deletions"|@translate:$number}">{$number}</span>
+                  {elseif $action == "Login"} <span class="icon-key tooltip-detail" title="{"%s login"|@translate:$number}">{$number}</span>
+                  {elseif $action == "Logout"} <span class="icon-logout tooltip-detail" title="{"%s logout"|@translate:$number}">{$number} </span>
+                  {elseif $action == "Move"} <span class="icon-move tooltip-detail" title="{"%s movement"|@translate:$number}">{$number} </span>
+                  {else} <span> ({$action|@translate}) {$number} </span> 
+                  {/if}  
+                {/foreach}
+                </span>
+            {/foreach}
+          </p>
+          {/if}
+          {/if}
+        </span>
+      {/foreach}
+    {/foreach}
+    <div></div>
+    {foreach from=array('Mon'|translate, 'Tue'|translate, 'Wed'|translate, 'Thu'|translate, 'Fri'|translate, 'Sat'|translate, 'Sun'|translate) item=day}
+      <div class="col-legend">{$day} <div class="line-vertical" style="height: {count($ACTIVITY_CHART_DATA)*100 - 50}%;"></div></div>
+    {/foreach}
+  </div>
+
+  <div class="chart-title"> {"Storage"|@translate} <span class="chart-title-infos"> {'%s MB used'|translate:($STORAGE_TOTAL/1000)} </span></div>
+
+  <div class="storage-chart">
+    {foreach from=$STORAGE_CHART_DATA key=type item=value}
+      <span data-type="storage-{$type}" style="width:{$value/$STORAGE_TOTAL*100}%"> 
+        <p>{round($value/$STORAGE_TOTAL*100)}%</p>
+      </span>  
+    {/foreach}
+  </div>
+
+  <div class="storage-tooltips">
+    {foreach from=$STORAGE_CHART_DATA key=type item=value}
+      <p id="storage-{$type}" class="tooltip"><b>{$type}</b> : {$value/1000} MB</p>
+    {/foreach}
+  </div>
+
+  <div class="storage-chart-legend">
+    {foreach from=$STORAGE_CHART_DATA item=i key=type}
+      <div><span></span> <p>{$type|translate}</p></div>
+    {/foreach}
+  </div>
+
+</div> {* .intro-chart *}
+
+</div> {* .intro-page-container *}
+
 <p class="showCreateAlbum">
 {if $ENABLE_SYNCHRONIZATION}
   <a href="{$U_QUICK_SYNC}" class="icon-exchange">{'Quick Local Synchronization'|translate}</a>
 {/if}
 
-  <br><a href="{$U_CHECK_UPGRADE}" class="icon-arrows-cw">{'Check for upgrade'|@translate}</a>
 
 {if isset($SUBSCRIBE_BASE_URL)}
-  <br><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" class="externalLink cluetip icon-mail-alt" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a>
+  <br><span class="newsletter-subscription"><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribe" class="externalLink cluetip icon-mail-alt" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a> <a href="#" class="newsletter-hide">{'... or hide this link'|translate}</a></span>
 {/if}
 </p>
