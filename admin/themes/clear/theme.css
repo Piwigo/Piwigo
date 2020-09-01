@@ -300,10 +300,10 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   font-size:14px;
 }
 
-.buttonLike:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
-  background-color: #ECECEC;
-  color: #D5D5D5;
-  cursor:not-allowed;
+.buttonLike:disabled, .buttonGradient:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
+  background: #ECECEC !important;
+  color: #D5D5D5 !important;
+  cursor: not-allowed;
 }
 
 #formCreateAlbum input[name="virtual_name"] {border: 1px solid #D5D5D5; transition: all 125ms ease-out;}

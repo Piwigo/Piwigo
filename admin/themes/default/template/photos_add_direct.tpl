@@ -134,6 +134,7 @@ jQuery(document).ready(function(){
       QueueChanged : function(up) {
         jQuery('#addFiles').addClass("addFilesButtonChanged");
         jQuery('#startUpload').prop('disabled', up.files.length == 0);
+        jQuery("#addFiles").removeClass('buttonGradient').addClass('buttonLike');
 
         if (up.files.length > 0) {
           jQuery('.plupload_filelist_footer').show();
@@ -341,7 +342,7 @@ jQuery(document).ready(function(){
       </div>
     </div>
 
-    <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
+    <button id="startUpload" class="buttonGradient icon-upload" disabled>{'Start Upload'|translate}</button>
 
   </form>
 
