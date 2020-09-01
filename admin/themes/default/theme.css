@@ -89,11 +89,15 @@ UL.thumbnails INPUT {
   position: absolute;
   left: 2px; top: 2px;
 }
-UL.thumbnails .levelIndicatorB {
-display:block; position:absolute; z-index:100; padding:7px 0 0 2px; color:black; font-weight:bold; font-size:120%;
-}
 UL.thumbnails .levelIndicatorF {
-display:block; position:absolute; z-index:101; padding:8px 0 0 3px; color:white; font-weight:bold; font-size:120%;
+  display:block;
+  position:absolute;
+  bottom: 0;
+  text-shadow: 0px 0px 1px #000;
+  padding:0 0 2px 5px;
+  color:white;
+  font-weight:bold;
+  z-index: 10;
 }
 
 /* default-layout.css */
