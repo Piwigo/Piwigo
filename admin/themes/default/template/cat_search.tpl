@@ -87,6 +87,7 @@ function resultAppear(result) {
 }
 
 updateSearch();
+$('.search-input').focus();
 {/literal}
 {/footer_script}
 
@@ -95,14 +96,14 @@ updateSearch();
 </div>
 
 <div class="search-album">
-  <div class="search-album-label">{'Search'|@translate}</div>
+  <div class="search-album-label">{'Search albums'|@translate}</div>
   <div class="search-album-input-container" style="position:relative">
     <span class="icon-search search-icon"></span>
     <span class="icon-cancel search-cancel"></span>
-    <input class='search-input' type="text" placeholder="{'Portraits...'|@translate}">
+    <input class='search-input' type="text" placeholder="{'Portraits'|@translate}">
   </div>
+  <span class="search-album-help  icon-help-circled" title="{' Enter a term to search for album'|@translate}"></span>
 </div>
-<div class="search-album-help  icon-help-circled">{' Enter a term to search from album'|@translate}</div>
 
 <div class="search-album-ghost">
   <div></div>

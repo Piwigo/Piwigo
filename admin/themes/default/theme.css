@@ -4696,6 +4696,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px;
+  margin-bottom: 25px
 }
 
 .search-album-label {
@@ -4714,9 +4716,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .search-album-help {
-  text-align: center;
-  margin: 10px;
-  font-size: 14px;
+  cursor: help;
+  margin: 5px;
+  font-size: 20px;
 }
 
 .search-album-ghost, .search-album-result {
@@ -4806,5 +4808,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   font-weight: bold;
   font-size: 30px;
   position: absolute;
+  top: calc(50% + 200px / 2);
   display: none;
 }
