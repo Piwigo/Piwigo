@@ -2,7 +2,19 @@
 
 {footer_script}
 var data = {json_encode($data_cat)};
-var categories = Object.values(data)
+/* 
+  Here data is an associative array id => category under this form 
+  [0] : name
+  [1] : array of id, path to find this album (root to album)
+  [2] : 1 = private or 0 = public
+*/
+
+// Numeric array of all categories
+var categories = Object.values(data);
+
+var str_albums_found = '{"<b>%d</b> albums found"}';
+var str_album_found = '{"<b>1</b> album found"}';
+var str_title_page = '{'Album search tool'|@translate}'
 {literal}
 var editLink = "admin.php?page=album-";
 var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
@@ -11,14 +23,21 @@ $('.search-input').on('input', () => {
   updateSearch();
 })
 
+// Update the page according to the search field
 function updateSearch () {
   string = $('.search-input').val();
   $('.search-album-result').html("");
   $('.search-album-noresult').hide();
   if (string == '') {
-    $('.search-album-ghost').fadeIn();
+    $('.search-album-help').show();
+    $('.search-album-ghost').show();
+    $('.search-album-num-result').hide();
+    $('.titrePage h2, h1').html(str_title_page);
   } else {
     $('.search-album-ghost').hide();
+    $('.search-album-help').hide();
+    $('.search-album-num-result').show();
+    $('.titrePage h2, h1').html(str_title_page + ' [' + string + ']');
 
     nbResult = 0;
     categories.forEach((c) => {
@@ -28,6 +47,12 @@ function updateSearch () {
       }
     })
 
+    if (nbResult != 1) {
+      $('.search-album-num-result').html(str_albums_found.replace('%d', nbResult));
+    } else {
+      $('.search-album-num-result').html(str_album_found);
+    }
+
     if (nbResult != 0) {
       resultAppear($('.search-album-result .search-album-elem').first());
     } else {
@@ -36,6 +61,7 @@ function updateSearch () {
   }
 }
 
+// Add an album as a result in the page
 function addAlbumResult (cat) {
   id = cat[1][cat[1].length - 1];
   template = $('.search-album-elem-template').html();
@@ -67,6 +93,7 @@ function addAlbumResult (cat) {
   $('.search-album-result').append(newCatNode);
 }
 
+// Get the path "PARENT / parent / album" with link to the edition of all albums
 function getHtmlPath (cat) {
   html = '';
   for (let i = 0; i < cat[1].length - 1; i++) {
@@ -79,6 +106,7 @@ function getHtmlPath (cat) {
   return html
 }
 
+// Make the results appear one after one
 function resultAppear(result) {
   result.fadeIn();
   if (result.next().length != 0) {
@@ -102,7 +130,8 @@ $('.search-input').focus();
     <span class="icon-cancel search-cancel"></span>
     <input class='search-input' type="text" placeholder="{'Portraits'|@translate}">
   </div>
-  <span class="search-album-help  icon-help-circled" title="{' Enter a term to search for album'|@translate}"></span>
+  <span class="search-album-help icon-help-circled" title="{'Enter a term to search for album'|@translate}"></span>
+  <span class="search-album-num-result"></span>
 </div>
 
 <div class="search-album-ghost">

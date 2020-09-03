@@ -4702,8 +4702,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .search-album-label {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   padding: 10px;
+}
+
+.search-album-num-result {
+  margin-left: 10px;
 }
 
 .search-album-input-container {
