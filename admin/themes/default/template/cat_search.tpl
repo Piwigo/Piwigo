@@ -14,7 +14,6 @@ var categories = Object.values(data);
 
 var str_albums_found = '{"<b>%d</b> albums found"}';
 var str_album_found = '{"<b>1</b> album found"}';
-var str_title_page = '{'Album search tool'|@translate}'
 {literal}
 var editLink = "admin.php?page=album-";
 var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
@@ -32,12 +31,10 @@ function updateSearch () {
     $('.search-album-help').show();
     $('.search-album-ghost').show();
     $('.search-album-num-result').hide();
-    $('.titrePage h2, h1').html(str_title_page);
   } else {
     $('.search-album-ghost').hide();
     $('.search-album-help').hide();
     $('.search-album-num-result').show();
-    $('.titrePage h2, h1').html(str_title_page + ' [' + string + ']');
 
     nbResult = 0;
     categories.forEach((c) => {
@@ -124,14 +121,16 @@ $('.search-input').focus();
 </div>
 
 <div class="search-album">
-  <div class="search-album-label">{'Search albums'|@translate}</div>
-  <div class="search-album-input-container" style="position:relative">
-    <span class="icon-search search-icon"></span>
-    <span class="icon-cancel search-cancel"></span>
-    <input class='search-input' type="text" placeholder="{'Portraits'|@translate}">
+  <div class="search-album-cont">
+    <div class="search-album-label">{'Search albums'|@translate}</div>
+    <div class="search-album-input-container" style="position:relative">
+      <span class="icon-search search-icon"></span>
+      <span class="icon-cancel search-cancel"></span>
+      <input class='search-input' type="text" placeholder="{'Portraits'|@translate}">
+    </div>
+    <span class="search-album-help icon-help-circled" title="{'Enter a term to search for album'|@translate}"></span>
+    <span class="search-album-num-result"></span>
   </div>
-  <span class="search-album-help icon-help-circled" title="{'Enter a term to search for album'|@translate}"></span>
-  <span class="search-album-num-result"></span>
 </div>
 
 <div class="search-album-ghost">
