@@ -2577,6 +2577,7 @@ function get_active_menu($menu_page)
     case 'cat_list':
     case 'cat_move':
     case 'cat_options':
+    case 'cat_search':
     case 'permalinks':
       return 1;
 

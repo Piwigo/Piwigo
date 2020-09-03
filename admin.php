@@ -183,6 +183,7 @@ $template->assign(
     'U_CATEGORIES'=> $link_start.'cat_list',
     'U_CAT_MOVE'=> $link_start.'cat_move',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
+    'U_CAT_SEARCH'=> $link_start.'cat_search',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_RATING'=> $link_start.'rating',
     'U_RECENT_SET'=> $link_start.'batch_manager&amp;filter=prefilter-last_import',

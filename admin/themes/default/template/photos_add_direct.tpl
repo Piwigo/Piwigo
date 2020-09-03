@@ -143,6 +143,7 @@ jQuery(document).ready(function(){
 
         if (up.files.length == 0) {
           jQuery('#addFiles').removeClass("addFilesButtonChanged");
+          jQuery("#addFiles").removeClass('buttonLike').addClass('buttonGradient');
           jQuery('.plupload_filelist_footer').hide();
           jQuery('.plupload_filelist').css("overflow-y", "hidden");
         }

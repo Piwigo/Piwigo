@@ -4685,3 +4685,122 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .icon-toggle-off:before{
   font-weight:600;
 }
+
+/* album search */
+
+.search-album {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-album-label {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px;
+}
+
+.search-album-input-container {
+  position: relative;
+  display: inline;
+}
+
+.search-album-input-container .search-icon{
+  font-size: 20px;
+}
+
+.search-album-help {
+  text-align: center;
+  margin: 10px;
+  font-size: 14px;
+}
+
+.search-album-ghost, .search-album-result {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-album-elem, .search-album-ghost div {
+  height: 64px;
+  border-radius: 5px;
+  margin: 10px 20px;
+  overflow: hidden;
+}
+
+.search-album-ghost div {
+  background: #f3f3f3;
+  background-image: linear-gradient(#eee, #fff);
+  background-attachment: fixed;
+}
+
+.search-album-elem {
+  box-shadow: 0px 2px 3px #00000024;
+  background-color: #fafafa;
+  border-radius: 5px;
+  color: #777;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-album-elem span{
+  font-size: 20px;
+  padding: 8px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.search-album-elem p{
+  font-size: 16px;
+  margin: 10px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.search-album-action-cont {
+  display: none;
+  position: absolute;
+  right: 0%;
+  top : 50%;
+  height: 100%;
+  transform: translate(0, -50%);
+  align-items: center;
+  flex-direction: row-reverse;
+  overflow: hidden;
+}
+
+.search-album-elem:hover .search-album-action-cont {
+  display: flex;
+}
+
+.search-album-action {
+  display: flex;
+  align-items: center;
+}
+
+.search-album-action a {
+  padding: 30px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 100%;
+  border-left: 1px solid #00000012;
+  background-color: #00000003;
+  text-align: center;
+}
+
+.search-album-action a:hover {
+  color: #444;
+  text-decoration: none;
+  background-color: #FFA646;
+}
+
+.search-album-noresult {
+  opacity: 0.3;
+  text-align: center;
+  width: calc(100% - 205px);
+  font-weight: bold;
+  font-size: 30px;
+  position: absolute;
+  display: none;
+}
