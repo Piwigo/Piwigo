@@ -102,7 +102,7 @@ if (isset($_POST['submit']))
 
   $data = array(
     'id' => $_GET['cat_id'],
-    'name' => @$_POST['name'],
+    'name' => strip_tags(@$_POST['name']),
     'comment' =>
       $conf['allow_html_descriptions'] ?
         @$_POST['comment'] : strip_tags(@$_POST['comment']),

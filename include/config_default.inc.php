@@ -211,7 +211,7 @@ $conf['representative_cache_on_subcats'] = true;
 
 // allow_html_descriptions : authorize administrators to use HTML in
 // category and element description.
-$conf['allow_html_descriptions'] = true;
+$conf['allow_html_descriptions'] = false;
 
 // image level permissions available in the admin interface
 $conf['available_permission_levels'] = array(0,1,2,4,8);
