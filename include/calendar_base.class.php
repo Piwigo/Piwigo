@@ -10,6 +10,14 @@
  * @package functions\calendar
  */
 
+/** level of year view */
+define('CYEAR', 0);
+/** level of week view in weekly view */
+define('CWEEK', 1);
+/** level of month view in monthly view */
+define('CMONTH', 1);
+/** level of day view */
+define('CDAY',  2);
 
 /**
  * Base class for monthly and weekly calendar styles
