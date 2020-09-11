@@ -12,14 +12,6 @@
 
 include_once(PHPWG_ROOT_PATH.'include/calendar_base.class.php');
 
-/** level of year view */
-define('CYEAR',  0);
-/** level of month view */
-define('CMONTH', 1);
-/** level of day view */
-define('CDAY',   2);
-
-
 /**
  * Monthly calendar style (composed of years/months and days)
  */
