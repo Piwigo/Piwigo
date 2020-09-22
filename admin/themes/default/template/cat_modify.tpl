@@ -278,7 +278,7 @@ function cropImage() {
         <div class="switch-input">
           <span class="label">{'Unlocked'|@translate}</span>
           <label class="switch">
-            <input type="checkbox" name="visible" id="toggleSelectionMode" value="true" {if $CAT_VISIBLE == "false"}checked{/if}>
+            <input type="checkbox" name="locked" id="toggleSelectionMode" value="true" {if $IS_LOCKED}checked{/if}>
             <span class="slider round"></span>
           </label>
           <span class="label">{'Locked'|@translate}</span>
