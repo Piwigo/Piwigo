@@ -448,60 +448,6 @@ class updates
     }
   }
 
-  static function dump_database($include_history=false)
-  {
-    global $page, $conf, $cfgBase;
-
-    if (version_compare(PHPWG_VERSION, '2.1', '<'))
-    {
-      $conf['db_base'] = $cfgBase;
-    }
-
-    include(PHPWG_ROOT_PATH.'admin/include/mysqldump.php');
-
-    $path = PHPWG_ROOT_PATH.$conf['data_location'].'update';
-
-    if (@mkgetdir($path)
-      and ($backupFile = tempnam($path, 'sql'))
-      and ($dumper = new MySQLDump($conf['db_base'],$backupFile,false,false)))
-    {
-      foreach (get_defined_constants() as $constant => $value)
-      {
-        if (preg_match('/_TABLE$/', $constant))
-        {
-          $dumper->getTableStructure($value);
-          if ($constant == 'HISTORY_TABLE' and !$include_history)
-          {
-            continue;
-          }
-          $dumper->getTableData($value);
-        }
-      }
-    }
-
-    if (@filesize($backupFile))
-    {
-      $http_headers = array(
-        'Content-Length: '.@filesize($backupFile),
-        'Content-Type: text/x-sql',
-        'Content-Disposition: attachment; filename="database.sql";',
-        'Content-Transfer-Encoding: binary',
-        );
-
-      foreach ($http_headers as $header) {
-        header($header);
-      }
-
-      @readfile($backupFile);
-      deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
-      exit();
-    }
-    else
-    {
-      $page['errors'][] = l10n('Unable to dump database.');
-    }
-  }
-
   static function upgrade_to($upgrade_to, &$step, $check_current_version=true)
   {
     global $page, $conf, $template;

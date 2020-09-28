@@ -86,11 +86,6 @@ if ($step == 2 and is_webmaster())
 // +-----------------------------------------------------------------------+
 if ($step == 3 and is_webmaster())
 {
-  if (isset($_POST['dumpDatabase']))
-  {
-    updates::dump_database(isset($_POST['includeHistory']));
-  }
-
   if (isset($_POST['submit']) and isset($_POST['upgrade_to']))
   {
     updates::upgrade_to($_POST['upgrade_to'], $step);

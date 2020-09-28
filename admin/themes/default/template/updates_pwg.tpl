@@ -69,9 +69,12 @@ li { margin: 5px; }
 
 {counter assign=i}
 <fieldset>
-  <legend>{'Dump Database'|@translate}</legend>
-  <p><input type="checkbox" name="includeHistory"> &nbsp; {'Include history data (Warning: server memory limit may be exceeded)'|@translate}</p>
-  <p><input type="submit" name="dumpDatabase" value="{'Dump Database'|@translate}"></p>
+  <legend>{'Backup'|@translate}</legend>
+  <p>
+    {'Always have a backup of your database and files.'|translate}
+    {'The best is to have them made automatically on a regular basis.'|translate}
+    {'If anything bad happens during the update, you would be able to restore a backup.'|translate}
+  </p>
 </fieldset>
 
 {counter assign=i}
