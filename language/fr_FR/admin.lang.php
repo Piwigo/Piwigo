@@ -1016,3 +1016,7 @@ $lang['Some checksums are missing.'] = 'Il manque des sommes de contrôle';
 $lang['Display category date'] = 'Afficher la date de la catégorie';
 $lang['Deletion in progress'] = 'Suppression en cours';
 $lang['Open in gallery'] = "Ouvrir dans la galerie";
+$lang['Promote mobile app on mobile devices'] = 'Promouvoir l\'application mobile sur les smartphones et tablettes';
+$lang['in gallery'] = 'dans la galerie';
+$lang['in administration'] = 'dans l\'administration';
+$lang['Displays a banner to install or open the official Piwigo app'] = 'Affiche une bannière pour installer et/ou ouvrir l\'application mobile officielle Piwigo';

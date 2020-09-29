@@ -1011,3 +1011,7 @@ $lang['Posted %s'] = 'Posted %s';
 $lang['File type: %s'] = 'File type: %s';
 $lang['or'] = 'or';
 $lang['Open in gallery'] = "Open in gallery";
+$lang['Promote mobile app on mobile devices'] = 'Promote mobile app on mobile devices';
+$lang['in gallery'] = 'in gallery';
+$lang['in administration'] = 'in administration';
+$lang['Displays a banner to install or open the official Piwigo app'] = 'Displays a banner to install or open the official Piwigo app';

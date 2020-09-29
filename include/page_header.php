@@ -13,6 +13,12 @@ $template->set_filenames(array('header'=>'header.tpl'));
 
 trigger_notify('loc_begin_page_header');
 
+$show_mobile_app_banner = conf_get_param('show_mobile_app_banner_in_gallery', false);
+if (defined('IN_ADMIN') and IN_ADMIN)
+{
+  $show_mobile_app_banner = conf_get_param('show_mobile_app_banner_in_admin', true);
+}
+
 $template->assign(
   array(
     'GALLERY_TITLE' =>
@@ -39,6 +45,8 @@ $template->assign(
     'U_HOME' => get_gallery_home_url(),
 
     'LEVEL_SEPARATOR' => $conf['level_separator'],
+
+    'SHOW_MOBILE_APP_BANNER' => $show_mobile_app_banner,
     ));
 
 
