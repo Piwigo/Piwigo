@@ -1020,3 +1020,4 @@ $lang['Promote mobile app on mobile devices'] = 'Promouvoir l\'application mobil
 $lang['in gallery'] = 'dans la galerie';
 $lang['in administration'] = 'dans l\'administration';
 $lang['Displays a banner to install or open the official Piwigo app'] = 'Affiche une bannière pour installer et/ou ouvrir l\'application mobile officielle Piwigo';
+$lang['Search albums'] = 'Rechercher des albums';

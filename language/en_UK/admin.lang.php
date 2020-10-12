@@ -1015,3 +1015,5 @@ $lang['Promote mobile app on mobile devices'] = 'Promote mobile app on mobile de
 $lang['in gallery'] = 'in gallery';
 $lang['in administration'] = 'in administration';
 $lang['Displays a banner to install or open the official Piwigo app'] = 'Displays a banner to install or open the official Piwigo app';
+$lang['Search albums'] = 'Search albums';
+$lang['Portraits'] = 'Portraits';
