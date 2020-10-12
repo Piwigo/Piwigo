@@ -4751,7 +4751,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .search-album-ghost div {
   background: #f3f3f3;
-  background-image: linear-gradient(#eee, #fff);
+  background-image: linear-gradient(0.25turn, #eee, rgb(250, 250, 250));
   background-attachment: fixed;
 }
 

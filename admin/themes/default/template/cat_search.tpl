@@ -112,6 +112,15 @@ function resultAppear(result) {
   }
 }
 
+function prepare_skeleton() {
+  while (!($(document).height() > $(window).height())) {
+    $(".search-album-ghost").append("<div></div>");
+  }
+  $(".search-album-ghost div:last").remove();
+};
+
+prepare_skeleton();
+
 updateSearch();
 $('.search-input').focus();
 {/literal}
@@ -135,7 +144,6 @@ $('.search-input').focus();
 </div>
 
 <div class="search-album-ghost">
-  <div></div>
   <div></div>
   <div></div>
   <div></div>
