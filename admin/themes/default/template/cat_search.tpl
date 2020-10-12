@@ -28,7 +28,8 @@ function updateSearch () {
   $('.search-album-result').html("");
   $('.search-album-noresult').hide();
   if (string == '') {
-    $('.search-album-help').show();
+    // help button unnecessary so do not show
+    // $('.search-album-help').show();
     $('.search-album-ghost').show();
     $('.search-album-num-result').hide();
   } else {

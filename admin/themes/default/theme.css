@@ -4726,6 +4726,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .search-album-help {
+  display: none;
   cursor: help;
   font-size: 20px;
 }
