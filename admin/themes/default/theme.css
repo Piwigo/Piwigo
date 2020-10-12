@@ -964,7 +964,7 @@ TEXTAREA.description {
 
 SELECT.categoryList {
 	height: 20em;
-	width: auto;
+	width: 100%;
 }
 
 DIV.comment BLOCKQUOTE {
@@ -4825,4 +4825,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   position: absolute;
   top: calc(50% + 200px / 2);
   display: none;
+}
+
+.doubleSelect {
+  width: 100%;
+}
+
+.doubleSelect td {
+  width: 50%;
 }
