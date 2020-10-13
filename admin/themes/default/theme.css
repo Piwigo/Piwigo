@@ -476,7 +476,6 @@ LI.menuLi {
 }
 
 #catHeader .catAction a {
-  text-transform: capitalize;
   color: #888;
   font-size: 14px;
   white-space: nowrap;
