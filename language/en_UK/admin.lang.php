@@ -1052,3 +1052,7 @@ $lang['The other tags will be removed'] = 'The other tags will be removed';
 $lang['Display'] = 'Display';
 $lang['Select'] = 'Select';
 $lang['Tag Manager'] = 'Tag Manager';
+$lang['No tag found'] = 'No tag found';
+$lang['Manage album photos'] = 'Manage album photos';
+$lang['Manage sub-albums'] = 'Manage sub-albums';
+$lang['Delete album'] = 'Delete album';
