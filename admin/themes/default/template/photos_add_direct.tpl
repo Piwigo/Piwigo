@@ -260,7 +260,7 @@ jQuery(document).ready(function(){
     <div class="addAlbumEmpty"{if $NB_ALBUMS > 0} style="display:none;"{/if}>
       <div class="addAlbumEmptyTitle">{'Welcome!'|translate}</div>
       <p class="addAlbumEmptyInfos">{'Piwigo requires an album to add photos.'|translate}</p>
-      <a href="#" data-add-album="category" title="{'Create a first album'|translate}" class="buttonLike">{'Create a first album'|translate}</a>
+      <a href="#" data-add-album="category" class="buttonLike">{'Create a first album'|translate}</a>
     </div>
   </div>
 
