@@ -2440,7 +2440,7 @@ a#showPermissions:hover {text-decoration: none;}
 }
 
 .tag-header #add-tag.input-mode .add-tag-container input {
-  padding: 9.5px;
+  padding: 9px;
   margin-left: 10px;
   border: solid 2px #ffa744;
   background: none;
@@ -2478,7 +2478,7 @@ a#showPermissions:hover {text-decoration: none;}
   color: #3c3c3c;
   font-size: 17px;
   font-weight: 700;
-  padding: 7.5px 5.5px;
+  padding: 7px 5.5px;
 }
 
 .tag-header #add-tag span.icon-validate:hover {
