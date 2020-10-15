@@ -91,6 +91,7 @@ function updateBadge() {
 //Add a tag
 $('.add-tag-container').on('click', function() {
   $('#add-tag').addClass('input-mode');
+  $('#add-tag-input').focus();
   $('.tag-info').hide();
 })
 
@@ -116,10 +117,11 @@ $('#add-tag').submit(function (e) {
     loadState.changeHTML($('#add-tag .icon-validate') , "<i class='icon-spin6 animate-spin'> </i>")
     loadState.changeAttribute($('#add-tag .icon-validate'), 'style','pointer-event:none')
     addTag($('#add-tag-input').val()).then(function () {
-      showMessage(str_tag_created.replace('%s', $('#add-tag-input').val()))
-      loadState.reverse();
+      showMessage(str_tag_created.replace('%s', $('#add-tag-input').val()));
       $('#add-tag-input').val("");
       $('#add-tag').removeClass('input-mode');
+      $("#search-tag .search-input").trigger("input");
+      loadState.reverse();
     }).catch(message => {
       loadState.reverse();
       showError(message)

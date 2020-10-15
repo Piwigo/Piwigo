@@ -1054,7 +1054,6 @@ $lang['At least 2 selected tags are needed to merge'] = 'Au moins 2 tags doivent
 $lang['Merge'] = 'Fusionner';
 $lang['Choose which tag to merge these tags into'] = 'Choisissez dans quel tag vont être fusionné les tags';
 $lang['The other tags will be removed'] = 'Les autres tags seront supprimés';
-$lang['Display'] = 'Afficher';
 $lang['Select'] = 'Sélectionner';
 $lang['Tag Manager'] = 'Gestionnaire de tags';
 $lang['No tag found'] = 'Pas de tag trouvé';

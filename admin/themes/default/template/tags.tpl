@@ -98,7 +98,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     </div>
 
     <div id="MergeOptionsBlock">
-       <p>{'Choose which tag to merge these tags into'|@translate}</p>
+      <p>{'Choose which tag to merge these tags into'|@translate}</p>
       <p class="ItalicTextInfo">{'The other tags will be removed'|@translate}</p>
       <div class="MergeOptionsContainer">
         <select id="MergeOptionsChoices"> 
@@ -165,7 +165,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div class="emptyResearch"> {'No tag found'|@translate} </div>
 <div class="tag-pagination">
   <div class="pagination-per-page">
-    <span class="thumbnailsActionsShow" style="font-weight: bold;">Afficher</span>
+    <span class="thumbnailsActionsShow" style="font-weight: bold;">{'Display'|@translate}</span>
     <a>100</a>
     <a>200</a>
     <a>500</a>
