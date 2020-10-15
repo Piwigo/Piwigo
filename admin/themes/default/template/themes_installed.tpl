@@ -1,5 +1,23 @@
 {include file='include/colorbox.inc.tpl'} 
 
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+{footer_script}
+const title_msg = '{'Are you sure you want to delete this theme?'|@translate|@escape:'javascript'}';
+const confirm_msg = '{"Yes, I am sure"|@translate}';
+const cancel_msg = "{"No, I have changed my mind"|@translate}";
+$(".delete-theme-button").each(function() {
+  let theme_name = $(this).closest(".themeBox").find(".themeName").attr("title");
+  let title = '{'Are you sure you want to delete the theme "%s"?'|@translate|@escape:'javascript'}';
+  $(this).pwg_jconfirm_follow_href({
+    alert_title: title.replace("%s", theme_name),
+    alert_confirm: confirm_msg,
+    alert_cancel: cancel_msg
+  });
+});
+{/footer_script}
+
 {footer_script}{literal}
 jQuery(document).ready(function() {
   $("a.preview-box").colorbox();
@@ -100,6 +118,11 @@ $(window).bind("load", function() {
       <div class="showInfo-dropdown-content">
         {$theme.DESC|@escape:'html'}
       </div>
+      {if $theme.DELETABLE}
+          <a class="dropdown-option icon-trash delete-plugin-button delete-theme-button" href="{$delete_baseurl}{$theme.ID}">{'Delete'|@translate}</a>
+      {else}
+          <span class="dropdown-option icon-trash delete-plugin-button"title="{$theme.DELETE_TOOLTIP}">{'Delete'|@translate}</span>
+      {/if}
       {if $theme.DEACTIVABLE}
         <a href="{$deactivate_baseurl}{$theme.ID}" class="showInfo-dropdown-action tiptip icon-cancel-circled" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
       {/if}
@@ -116,14 +139,9 @@ $(window).bind("load", function() {
   {/if}
 {else}
   {if $theme.ACTIVABLE}
-      <a href="{$activate_baseurl}{$theme.ID}" title="{'Make this theme available to users'|@translate}" class="tiptip">{'Activate'|@translate}</a>
+      <a href="{$activate_baseurl}{$theme.ID}" title="{'Make this theme available to users'|@translate}" class="icon-plus tiptip">{'Activate'|@translate}</a>
   {else}
-      <span title="{$theme.ACTIVABLE_TOOLTIP}" class="tiptip">{'Activate'|@translate}</span>
-  {/if}
-  {if $theme.DELETABLE}
-      <a href="{$delete_baseurl}{$theme.ID}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'Delete'|@translate}</a>
-  {else}
-      <span title="{$theme.DELETE_TOOLTIP}">{'Delete'|@translate}</span>
+      <span title="{$theme.ACTIVABLE_TOOLTIP}" class="icon-plus tiptip">{'Activate'|@translate}</span>
   {/if}
 {/if}
     </div> <!-- themeActions -->

@@ -1,6 +1,15 @@
 {combine_script id='jquery.sort' load='footer' path='themes/default/js/plugins/jquery.sort.js'}
 
-{footer_script require='jquery.ui.effect-blind,jquery.sort'}{literal}
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+
+{footer_script require='jquery.ui.effect-blind,jquery.sort'}
+const install_title = '{'Are you sure you want to install this plugin?'|@translate|@escape:'javascript'}';
+const confirm_msg = '{"Yes, I am sure"|@translate}';
+const cancel_msg = "{"No, I have changed my mind"|@translate}";
+let title = '{'Are you sure you want to install the plugin "%s"?'|@translate|@escape:'javascript'}';
+{literal}
 var sortOrder = 'date';
 var sortPlugins = (function(a, b) {
   if (sortOrder == 'downloads' || sortOrder == 'revision' || sortOrder == 'date')
@@ -33,20 +42,27 @@ jQuery(document).ready(function(){
   });
   
   jQuery('#filter').keyup(function(){
-  var filter = $(this).val();
-  if (filter.length>2) {
-   $('.pluginBox').hide();
-    $('#availablePlugins .pluginBox input[name="name"]').each(function(){
-      if ($(this).val().toUpperCase().indexOf(filter.toUpperCase()) != -1) {
-       $(this).parents('div').show();
-      }
+    var filter = $(this).val();
+    if (filter.length>2) {
+      $('.pluginBox').hide();
+      $('#availablePlugins .pluginBox input[name="name"]').each(function(){
+        if ($(this).val().toUpperCase().indexOf(filter.toUpperCase()) != -1) {
+          $(this).parents('div').show();
+        }
+      });
+    } else {
+      $('.pluginBox').show();
+    }
+  jQuery("#filter").focus();
+  });
+  $(".install-plugin-button").each(function() {
+    let plugin_name = $(this).closest(".pluginBox").find("input[name=\"name\"]").val();
+    $(this).pwg_jconfirm_follow_href({
+      alert_title: title.replace("%s", plugin_name),
+      alert_confirm: confirm_msg,
+      alert_cancel: cancel_msg
     });
-  }
-  else {
-    $('.pluginBox').show();
-  }
- });
- jQuery("#filter").focus();
+  });
 });
 {/literal}{/footer_script}
 
@@ -88,7 +104,7 @@ jQuery(document).ready(function(){
     </tr>
     <tr>
       <td>
-        <a href="{$plugin.URL_INSTALL}" onclick="return confirm('{'Are you sure you want to install this plugin?'|@translate|@escape:javascript}');">{'Install'|@translate}</a>
+        <a href="{$plugin.URL_INSTALL}" class="install-plugin-button">{'Install'|@translate}</a>
         |  <a href="{$plugin.URL_DOWNLOAD}">{'Download'|@translate}</a>
       </td>
       <td>

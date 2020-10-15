@@ -263,7 +263,6 @@ const jConfirm_confirm_options = {
   draggable: false,
   titleClass: "jconfirmDeleteConfirm",
   theme: "modern",
-  content: "",
   animation: "zoom",
   boxWidth: '40%',
   useBootstrap: false,
@@ -271,4 +270,48 @@ const jConfirm_confirm_options = {
   animateFromElement: false,
   backgroundDismiss: true,
   typeAnimated: false,
+}
+
+const jConfirm_confirm_with_content_options = {
+  draggable: false,
+  theme: "modern",
+  animation: "zoom",
+  boxWidth: '40%',
+  useBootstrap: false,
+  type: 'red',
+  animateFromElement: false,
+  backgroundDismiss: true,
+  typeAnimated: false,
+}
+
+
+
+jQuery.fn.pwg_jconfirm_follow_href = function({
+  alert_title = "TITLE", 
+  alert_confirm = "CONFIRM",
+  alert_cancel = "CANCEL",
+  alert_content = ""
+} = {}) {
+  let button_href = $(this).attr('href');
+  const options = alert_content === "" ? jConfirm_confirm_options : jConfirm_confirm_with_content_options
+  $(this).click(function() {
+    $.confirm({
+      content: alert_content,
+      title: alert_title,
+      buttons: {
+        confirm: {
+          text: alert_confirm,
+          btnClass: 'btn-red',
+          action: function () {
+            window.location.href = button_href;
+          }
+        },
+        cancel: {
+          text: alert_cancel
+        }
+      },
+      ...options
+    });
+    return (false);
+  });
 }

@@ -6,8 +6,21 @@ jQuery(document).ready(function(){
   });
 });
 {/literal}{/footer_script}
-
-
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+{footer_script}
+const title_msg = '{'Are you sure you want to delete this site?'|@translate|@escape:'javascript'}';
+const confirm_msg = '{"Yes, I am sure"|@translate}';
+const cancel_msg = "{"No, I have changed my mind"|@translate}";
+$(".delete-site-button").each(function() {
+  $(this).pwg_jconfirm_follow_href({
+    alert_title: title_msg,
+    alert_confirm: confirm_msg,
+    alert_cancel: cancel_msg
+  });
+});
+{/footer_script}
 <div class="titrePage">
   <h2>{'Site manager'|@translate}</h2>
 </div>
@@ -34,8 +47,7 @@ jQuery(document).ready(function(){
   </td><td>
     [<a href="{$site.U_SYNCHRONIZE}" title="{'update the database from files'|@translate}">{'Synchronize'|@translate}</a>]
     {if isset($site.U_DELETE)}
-      [<a href="{$site.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|escape:'javascript'}');"
-                title="{'delete this site and all its attached elements'|@translate}">{'delete'|@translate}</a>]
+      [<a class="delete-site-button" href="{$site.U_DELETE}" title="{'delete this site and all its attached elements'|@translate}">{'delete'|@translate}</a>]
     {/if}
     {if not empty($site.plugin_links)}
         <br>

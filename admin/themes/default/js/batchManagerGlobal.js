@@ -229,10 +229,10 @@ function selectGenerateDerivNone() {
 }
 
 function selectDelDerivAll() {
-	$("#action_delete_derivatives input[type=checkbox]").prop("checked", true).trigger("change");
+	$('#action_delete_derivatives input[name="del_derivatives_type[]"]').prop("checked", true).trigger("change");
 }
 function selectDelDerivNone() {
-	$("#action_delete_derivatives input[type=checkbox]").prop("checked", false).trigger("change");
+	$('#action_delete_derivatives input[name="del_derivatives_type[]"]').prop("checked", false).trigger("change");
 }
 
 /* sync metadatas or delete photos by blocks, with progress bar */

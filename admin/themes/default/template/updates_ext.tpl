@@ -21,12 +21,10 @@ var queuedManager = $.manageAjax.create('queued', {
 });
 
 function updateAll() {
-  if (confirm(confirmMsg)) {
-    jQuery('.updateExtension').each( function() {
-      if (jQuery(this).parents('div').css('display') == 'block')
-        jQuery(this).click();
-    });
-  }
+  jQuery('.updateExtension').each( function() {
+    if (jQuery(this).parents('div').css('display') == 'block')
+      jQuery(this).click();
+  });
 };
 
 function ignoreAll() {
@@ -129,8 +127,9 @@ function autoupdate_bar_toggle(i) {
 jQuery(document).ready(function() {
 	jQuery("td[id^='desc_'], p[id^='revdesc_']").click(function() {
 		id = this.id.split('_');
-		jQuery("#revdesc_"+id[1]).toggle('blind');
+		jQuery("#revdesc_"+id[1]).toggle();
     jQuery(".button_"+id[1]).toggle();
+    jQuery("#revdesc_"+id[1]).closest('tr').toggle();
 		return false;
 	});
 });
@@ -138,13 +137,41 @@ jQuery(document).ready(function() {
 checkFieldsets();
 {/literal}
 {/footer_script}
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+{footer_script}
+
+const are_you_sure_msg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
+const confirm_msg = '{"Yes, I am sure"|@translate}';
+const cancel_msg = "{"No, I have changed my mind"|@translate}";
+$("#update_all").click(function() {
+  const title_msg = "{'Are you sure you want to update all extensions?'|@translate}";
+  $.confirm({
+      title: title_msg,
+      buttons: {
+        confirm: {
+          text: confirm_msg,
+          btnClass: 'btn-red',
+          action: function () {
+            updateAll();
+          }
+        },
+        cancel: {
+          text: cancel_msg
+        }
+      },
+      ...jConfirm_confirm_options
+    });
+})
+{/footer_script}
 
 <div class="titrePage">
   <h2>{'Updates'|@translate}</h2>
 </div>
 
 <div class="autoupdate_bar">
-<input type="submit" id="update_all" value="{'Update All'|@translate}" onClick="updateAll(); return false;">
+<input type="submit" id="update_all" value="{'Update All'|@translate}">
 <input type="submit" id="ignore_all" value="{'Ignore All'|@translate}" onClick="ignoreAll(); return false;">
 <input type="submit" id="reset_ignore" value="{'Reset ignored updates'|@translate}" onClick="resetIgnored(); return false;" {if !$SHOW_RESET}style="display:none;"{/if}>
 </div>
@@ -183,7 +210,7 @@ checkFieldsets();
         | {'By %s'|@translate:$plugin.AUTHOR}
       </td>
     </tr>
-    <tr>
+    <tr style="display:none;">
       <td></td>
       <td class="pluginDesc">
         <p id="revdesc_{$plugin.ID}" style="display:none;">{$plugin.REV_DESC|@htmlspecialchars|@nl2br}</p>
@@ -213,7 +240,7 @@ checkFieldsets();
         | <a href="#" onClick="ignoreExtension('themes', '{$theme.EXT_ID}'); return false;" class="ignoreExtension">{'Ignore this update'|@translate}</a>
       </td>
     </tr>
-    <tr>
+    <tr style="display:none;">
       <td>
         {'Version'|@translate} {$theme.CURRENT_VERSION}
       </td>
@@ -267,7 +294,7 @@ checkFieldsets();
         | {'By %s'|@translate:$language.AUTHOR}
       </td>
     </tr>
-    <tr>
+    <tr style="display:none;">
       <td></td>
       <td class="pluginDesc">
         <p id="revdesc_{$language.ID}" style="display:none;">{$language.REV_DESC|@htmlspecialchars|@nl2br}</p>

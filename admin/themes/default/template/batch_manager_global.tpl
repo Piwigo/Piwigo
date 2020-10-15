@@ -230,14 +230,23 @@ $(document).ready(function() {
     return false;
   });
 
+
+  jQuery("#action_delete_derivatives input[name=confirm_deletion]").change(function() {
+    jQuery("#action_delete_derivatives span.errors").hide();
+  });
+
   jQuery('#applyAction').click(function() {
 		var action = jQuery('[name="selectAction"]').val();
 		if (action == 'delete_derivatives') {
-			var d_count = $('#action_delete_derivatives input[type=checkbox]').filter(':checked').length
-				, e_count = $('input[name="setSelected"]').is(':checked') ? nb_thumbs_set : $('.thumbnails input[type=checkbox]').filter(':checked').length;
-			if (d_count*e_count > 500)
-				return confirm(lang.AreYouSure);
-		}
+			let d_count = $('#action_delete_derivatives input[type=checkbox]').filter(':checked').length
+			let e_count = $('input[name="setSelected"]').is(':checked') ? nb_thumbs_set : $('.thumbnails input[type=checkbox]').filter(':checked').length;
+      if (!jQuery("#action_delete_derivatives input[name=confirm_deletion]").is(':checked')) {
+        jQuery("#action_delete_derivatives span.errors").show();
+        return false;
+      } else {
+        return true;
+      }
+    }
 
 		if (action != 'generate_derivatives'
 			|| derivatives.finished() )
@@ -323,6 +332,10 @@ var sliders = {
 };
 
 {/footer_script}
+
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+{combine_css path="admin/themes/default/fontello/css/animation.css"}
 
 <div id="batchManagerGlobal">
 
@@ -737,6 +750,11 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
       <!-- delete derivatives -->
       <div id="action_delete_derivatives" class="bulkAction">
+        <label class="font-checkbox" style="margin-bottom:15px">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}
+        </label>
+        <span class="errors" style="display:none">{"You need to confirm deletion"|translate}</span>
         <div class="deleteDerivButtons">
           <a href="javascript:selectDelDerivAll()">{'All'|@translate}</a>
           <a href="javascript:selectDelDerivNone()">{'None'|@translate}</a>

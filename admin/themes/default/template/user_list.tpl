@@ -12,6 +12,9 @@
 {combine_script id='jquery.ui.slider' require='jquery.ui' load='footer' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
 {combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
 
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+
 {footer_script}
 var selectedMessage_pattern = "{'%d of %d users selected'|translate|escape:javascript}";
 var selectedMessage_none = "{'No user selected of %d users'|translate|escape:javascript}";
@@ -22,6 +25,7 @@ var registeredOn_pattern = "{'Registered on %s, %s.'|translate|escape:javascript
 var lastVisit_pattern = "{'Last visit on %s, %s.'|translate|escape:javascript}";
 var missingConfirm = "{'You need to confirm deletion'|translate|escape:javascript}";
 var missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
+let title_msg = '{'Are you sure you want to delete the user "%s"?'|@translate|escape:'javascript'}';
 
 var allUsers = [{$all_users}];
 var selection = [];
@@ -30,6 +34,11 @@ var pwg_token = "{$PWG_TOKEN}";
 var protectedUsers = [{$protected_users}];
 var passwordProtectedUsers = [{$password_protected_users}];
 var guestUser = {$guest_user};
+
+
+const are_you_sure_msg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
+const confirm_msg = '{'Yes, I am sure'|@translate|@escape}';
+const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
 
 var truefalse = {
   'true':"{'Yes'|translate}",
@@ -479,36 +488,44 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
   });
 
   /* delete user */
-  jQuery(document).on('click', '.userDelete a',  function() {
-    if (!confirm("{/literal}{'Are you sure?'|translate|escape:javascript}{literal}")) {
-      return false;
-    }
-
+  
+  $(document).on('click', '.userDelete a', function () {
     var userId = jQuery(this).data('user_id');
     var username = jQuery('#user'+userId+' .username').html();
-
-    jQuery.ajax({
-      url: "ws.php?format=json&method=pwg.users.delete",
-      type:"POST",
-      data: {
-        user_id:userId,
-        pwg_token:pwg_token
+    $.confirm({
+      title: title_msg.replace('%s', username),
+      buttons: {
+        confirm: {
+          text: confirm_msg,
+          btnClass: 'btn-red',
+          action: function () {
+            jQuery.ajax({
+              url: "ws.php?format=json&method=pwg.users.delete",
+              type:"POST",
+              data: {
+                user_id:userId,
+                pwg_token:pwg_token
+              },
+              beforeSend: function() {
+                jQuery('#user'+userId+' .userDelete .loading').show();
+              },
+              success:function(data) {
+                jQuery('.user_form_popin').colorbox.close();
+                jQuery('#showAddUser .infos').html('&#x2714; User '+username+' deleted').show();
+              },
+              error:function(XMLHttpRequest, textStatus, errorThrows) {
+                jQuery('#user'+userId+' .userDelete .loading').hide();
+              }
+            })
+          }
+        },
+        cancel: {
+          text: cancel_msg
+        }
       },
-      beforeSend: function() {
-        jQuery('#user'+userId+' .userDelete .loading').show();
-      },
-      success:function(data) {
-        jQuery('.user_form_popin').colorbox.close();
-        jQuery('#showAddUser .infos').html('&#x2714; User '+username+' deleted').show();
-      },
-      error:function(XMLHttpRequest, textStatus, errorThrows) {
-        jQuery('#user'+userId+' .userDelete .loading').hide();
-      }
+      ...jConfirm_confirm_options
     });
-
-    return false;
   });
-
   jQuery(document).on('click', '.userProperties input[type=submit]',  function() {
     var userId = jQuery(this).data('user_id');
 
