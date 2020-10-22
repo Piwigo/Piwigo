@@ -2588,10 +2588,6 @@ function get_active_menu($menu_page)
     case 'notification_by_mail':
       return 2;
 
-    case 'plugins':
-    case 'plugin':
-      return 3;
-
     case 'site_manager':
     case 'site_update':
     case 'stats':
@@ -2599,7 +2595,7 @@ function get_active_menu($menu_page)
     case 'maintenance':
     case 'comments':
     case 'updates':
-      return 4;
+      return 3;
 
     case 'configuration':
     case 'derivatives':
@@ -2608,10 +2604,10 @@ function get_active_menu($menu_page)
     case 'themes':
     case 'theme':
     case 'languages':
-      return 5;
+      return 4;
 
     default:
-      return 0;
+      return -1;
   }
 }
 
