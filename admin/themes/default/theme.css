@@ -4268,7 +4268,8 @@ input:checked + .slider:before {
   font-size:12px;
   text-align:left;
   padding: 4px 6px;
-  border-radius:10px;
+  border-top-right-radius:10px;
+  border-bottom-right-radius:10px;
   margin-left:-5px;
   margin-right:10px;
 }

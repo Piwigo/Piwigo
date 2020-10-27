@@ -22,6 +22,17 @@ var str_other_copy = '{' (copy %s)'|@translate}'
 var serverKey = '{$CACHE_KEYS.users}'
 var serverId = '{$CACHE_KEYS._hash}'
 var rootUrl = '{$ROOT_URL}'
+
+$(document).on('keydown', function (e) {
+  if ( e.keyCode === 27) { // ESC button
+    $("#UserList").fadeOut();
+  }
+})
+$(document).on('click', function (e) {
+  if ($(e.target).closest(".UserListPopInContainer").length === 0) {
+    $("#UserList").fadeOut();
+  }
+});
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
