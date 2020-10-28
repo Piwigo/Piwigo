@@ -153,7 +153,7 @@ if (isset($conf['order_by_inside_category_custom']))
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
-if (in_array( substr($user['language'],0,2), array('fr','it','de','es','pl','hu','ru','nl','tr','da') ) )
+if (in_array( substr($user['language'],0,2), array('fr','it','de','es','pl','ru','nl','tr','da') ) )
 {
   define('PHPWG_DOMAIN', substr($user['language'],0,2).'.piwigo.org');
 }
