@@ -359,11 +359,8 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
       '<h1>%gallery_title%</h1>'."\n\n<p>".pwg_db_real_escape_string(l10n('Welcome to my photo gallery')).'</p>'
       );
 
-    // fill languages table
-    foreach ($languages->fs_languages as $language_code => $fs_language)
-    {
-      $languages->perform_action('activate', $language_code);
-    }
+    // fill languages table, only activate the current language
+    $languages->perform_action('activate', $language);
 
     // fill $conf global array
     load_conf_from_db();
