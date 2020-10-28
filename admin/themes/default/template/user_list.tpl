@@ -27,7 +27,9 @@ var missingConfirm = "{'You need to confirm deletion'|translate|escape:javascrip
 var missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
 let title_msg = '{'Are you sure you want to delete the user "%s"?'|@translate|escape:'javascript'}';
 
-var allUsers = [{$all_users}];
+var filteredUsers = [];
+var nb_all_users = 0;
+//var allUsers = [{$all_users}];
 var selection = [];
 var pwg_token = "{$PWG_TOKEN}";
 
@@ -110,7 +112,8 @@ jQuery(document).ready(function() {
           jQuery("#addUserForm input[type=text], #addUserForm input[type=password]").val("");
 
           var new_user = data.result.users[0];
-          allUsers.push(parseInt(new_user.id));
+          nb_all_users += 1;
+          //allUsers.push(parseInt(new_user.id));
           jQuery("#showAddUser .infos").html(sprintf(newUser_pattern, new_user.username)).show();
           checkSelection();
 
@@ -199,7 +202,6 @@ jQuery(document).ready(function() {
   /* Formating function for row details */
   function fnFormatDetails(oTable, nTr) {
 		var userId = oTable.api().row(nTr).data()[0];
-    console.log("userId = "+userId);
     var sOut = null;
 
     jQuery.ajax({
@@ -296,7 +298,7 @@ jQuery(document).ready(function() {
           
           var template = _.template(
             jQuery("script.userDetails").html()
-		      );
+	        );
           
           jQuery("#user"+userId).html(template(user));
 
@@ -632,7 +634,13 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
     processing: true,
     serverSide: true,
 		serverMethod: "POST",
-    ajaxSource: "admin/user_list_backend.php",
+    ajax: {
+      url: "admin/user_list_backend.php",
+      type: "POST",
+      data: {
+        pwg_token: pwg_token
+      }
+    },
 		pagingType: "simple",
 {/literal}{if (isset($filter_group))}{literal}
     "oSearch": {"sSearch": "group:{/literal}{$filter_group}{literal}"},
@@ -654,10 +662,12 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
       }
     },
     "drawCallback": function( oSettings ) {
+      nb_all_users = parseInt(oTable.api().ajax.json().iTotalRecords);
       jQuery("#userList input[type=checkbox]").each(function() {
         var user_id = jQuery(this).data("user_id");
         jQuery(this).prop('checked', (selection.indexOf(user_id) != -1));
       });
+      checkSelection();
     },
     columns: aoColumns
   });
@@ -668,7 +678,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
   function checkSelection() {
     if (selection.length > 0) {
       jQuery("#forbidAction").hide();
-      jQuery("#permitAction").show();
+      jQuery("#permitActionUserList").show();
 
       jQuery("#applyOnDetails").text(
         sprintf(
@@ -677,11 +687,11 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
         )
       );
 
-      if (selection.length == allUsers.length) {
+      if (selection.length == nb_all_users) {
         jQuery("#selectedMessage").text(
           sprintf(
             selectedMessage_all,
-            allUsers.length
+            nb_all_users
           )
         );
       }
@@ -690,19 +700,19 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
           sprintf(
             selectedMessage_pattern,
             selection.length,
-            allUsers.length
+            nb_all_users
           )
         );
       }
     }
     else {
       jQuery("#forbidAction").show();
-      jQuery("#permitAction").hide();
+      jQuery("#permitActionUserList").hide();
 
       jQuery("#selectedMessage").text(
         sprintf(
           selectedMessage_none,
-          allUsers.length
+          nb_all_users
         )
       );
     }
@@ -721,9 +731,50 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 
     checkSelection();
   });
+  
+  jQuery("#selectSet").click(function () {
+    let api = oTable.api();
+    let info = api.page.info();
+    let search_term = api.search();
+    jQuery.ajax({
+      url: "admin/user_list_backend.php",
+      type:"POST",
+      data: {
+        search: {
+          value: search_term,
+          regex: false
+        },
+        start: info.start,
+        length: info.length,
+        get_set_uids: true
+      },
+      beforeSend: function() {
+        $("#checkActions .loading").show();
+      },
+      success:function(data) {
+        data = jQuery.parseJSON(data);
+        filtered_users = data.filtered_uids.map(x=>+x);
+        selection = filtered_users;
+        checkSelection();
+        $("#checkActions .loading").hide();
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        $("#checkActions .loading").hide();
+      }
+    });
+    jQuery("#userList input[type=checkbox]").prop('checked', true);
+    checkSelection();
+    return false;
+  });
+  
 
-  jQuery("#selectAll").click(function () {
-    selection = allUsers;
+  jQuery("#selectAllPage").click(function () {
+    let tab = []
+    let sel = $("tr td").find("label").each(function() {
+      let val = $(this).find("input").attr('data-user_id');
+      tab.push(parseInt(val));
+    });
+    selection = tab;
     jQuery("#userList input[type=checkbox]").prop('checked', true);
     checkSelection();
     return false;
@@ -737,20 +788,17 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
   });
 
   jQuery("#selectInvert").click(function () {
-    var newSelection = [];
-    for(var i in allUsers)
-    {
-      if (selection.indexOf(allUsers[i]) == -1) {
-        newSelection.push(allUsers[i]);
+    let tab = []
+    let sel = $("tr td").find("label").each(function() {
+      let val = parseInt($(this).find("input").attr('data-user_id'));
+      $(this).find("input[type=checkbox]").prop('checked', false);
+      if (selection.includes(val) == false) {
+        tab.push(val);
+        $(this).find("input[type=checkbox]").prop('checked', true);
       }
-    }
-    selection = newSelection;
-
-    jQuery("#userList input[type=checkbox]").each(function() {
-      var user_id = jQuery(this).data("user_id");
-      jQuery(this).prop('checked', (selection.indexOf(user_id) != -1));
     });
-
+    selection = tab;
+    //jQuery("#userList input[type=checkbox]").prop('checked', true);
     checkSelection();
     return false;
   });
@@ -775,7 +823,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
     }
   });
 
-  jQuery("#permitAction input, #permitAction select").click(function() {
+  jQuery("#permitActionUserList input, #permitActionUserList select").click(function() {
     jQuery("#applyActionBlock .infos").hide();
   });
 
@@ -851,15 +899,7 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
         jQuery("#applyActionBlock .infos").show();
 
         if (action == 'delete') {
-          var allUsers_new = [];
-          for(var i in allUsers)
-          {
-            if (selection.indexOf(allUsers[i]) == -1) {
-              allUsers_new.push(allUsers[i]);
-            }
-          }
-          allUsers = allUsers_new;
-          console.log('allUsers_new.length = '+allUsers_new.length);
+          nb_all_users -= 1;
           selection = [];
           checkSelection();
         }
@@ -871,7 +911,6 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
 
     return false;
   });
-
 });
 {/literal}{/footer_script}
 
@@ -903,7 +942,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 .recent_period_infos {margin-left:10px;}
 .nb_image_page, .recent_period {width:340px;margin-top:5px;}
 #action_recent_period .recent_period {display:inline-block;}
-.checkActions {padding:0 1em;}
+#checkActions {padding:0 1em;}
 {/literal}{/html_style}
 
 <div class="titrePage">
@@ -973,20 +1012,23 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 
 <div style="clear:right"></div>
 
-<p class="checkActions">
-  {'Select:'|@translate}
-  <a href="#" id="selectAll">{'All'|@translate}</a>,
-  <a href="#" id="selectNone">{'None'|@translate}</a>,
-  <a href="#" id="selectInvert">{'Invert'|@translate}</a>
+<div style='margin: 1em; padding: 1em;' class="ActionUserList">
+  <legend></span>{'Selection'|@translate}</legend>
+  <p id="checkActions">
+    <a href="#" id="selectAllPage">{'The whole page'|@translate}</a>
+    <a href="#" id="selectSet">{'The whole set'|@translate}</a><span class="loading" style="display:none"><img src="themes/default/images/ajax-loader-small.gif"></span>
+    <a href="#" id="selectNone">{'None'|@translate}</a>
+    <a href="#" id="selectInvert">{'Invert'|@translate}</a>
 
-  <span id="selectedMessage"></span>
-</p>
+    <span id="selectedMessage"></span>
+  </p>
+</div>
 
 <fieldset id="action">
   <legend>{'Action'|@translate}</legend>
 
   <div id="forbidAction">{'No users selected, no actions possible.'|@translate}</div>
-  <div id="permitAction" style="display:none">
+  <div id="permitActionUserList" style="display:block">
 
     <select name="selectAction">
       <option value="-1">{'Choose an action'|@translate}</option>
@@ -1095,7 +1137,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
       <span class="infos" style="display:none">&#x2714; {'Users modified'|translate}</span>
     </p>
 
-  </div> {* #permitAction *}
+  </div> {* #permitActionUserList *}
 </fieldset>
 
 </form> 
