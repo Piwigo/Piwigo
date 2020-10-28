@@ -183,7 +183,7 @@ else if ('pt_BR' == $language) {
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
-define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+define('PHPWG_URL', 'https://'.PHPWG_DOMAIN);
 
 load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
