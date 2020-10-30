@@ -47,7 +47,7 @@ jQuery("a.preview-box").colorbox({
 
 str_are_you_sure = '{'Are you sure?'|translate}';
 str_yes = '{'Yes, delete'|translate}';
-str_no = '{'No, I have changed my mind'|translate}';
+str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
 url_delete = '{$U_DELETE}';
 
 {literal}
