@@ -77,6 +77,7 @@ class updates
 
       $url = PHPWG_URL.'/download/all_versions.php';
       $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
+      $url.= '&show_requirements';
 
       if (@fetchRemote($url, $result)
           and $all_versions = @explode("\n", $result)
@@ -84,29 +85,34 @@ class updates
       {
         $new_versions['piwigo.org-checked'] = true;
         $last_version = trim($all_versions[0]);
+        list($last_version_number, $last_version_php) = explode('/', trim($all_versions[0]));
 
-        if (version_compare(PHPWG_VERSION, $last_version, '<'))
+        if (version_compare(PHPWG_VERSION, $last_version_number, '<'))
         {
-          $last_branch = get_branch_from_version($last_version);
+          $last_branch = get_branch_from_version($last_version_number);
 
           if ($last_branch == $actual_branch)
           {
-            $new_versions['minor'] = $last_version;
+            $new_versions['minor'] = $last_version_number;
+            $new_versions['minor_php'] = $last_version_php;
           }
           else
           {
-            $new_versions['major'] = $last_version;
+            $new_versions['major'] = $last_version_number;
+            $new_versions['major_php'] = $last_version_php;
 
             // Check if new version exists in same branch
             foreach ($all_versions as $version)
             {
-              $branch = get_branch_from_version($version);
+              list($version_number, $version_php) = explode('/', trim($version));
+              $branch = get_branch_from_version($version_number);
 
               if ($branch == $actual_branch)
               {
-                if (version_compare(PHPWG_VERSION, $version, '<'))
+                if (version_compare(PHPWG_VERSION, $version_number, '<'))
                 {
-                  $new_versions['minor'] = $version;
+                  $new_versions['minor'] = $version_number;
+                  $new_versions['minor_php'] = $version_php;
                 }
                 break;
               }

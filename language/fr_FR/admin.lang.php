@@ -1074,3 +1074,6 @@ $lang['Are you sure you want to delete the language "%s"?'] = 'Êtes-vous sûr d
 $lang['Are you sure you want to delete the theme "%s"?'] = 'Êtes-vous sûr de vouloir supprimer le thème "%s"&nbsp?';
 $lang['Are you sure you want to update all extensions?'] = 'Êtes-vous sûr de vouloir mettre à jour toutes les extensions&nbsp?';
 $lang['Are you sure you want to delete the user "%s"?'] = 'Êtes-vous sûr de vouloir supprimer l\'utilisateur "%s"&nbsp?';
+$lang['Please upgrade your PHP version before any update.'] = 'Il faudra mettre à jour votre PHP avant de pouvoir mettre à jour Piwigo.';
+$lang['Requires PHP %s'] = 'Requiert PHP %s';
+
