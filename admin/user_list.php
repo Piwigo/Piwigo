@@ -46,6 +46,12 @@ while ($row = pwg_db_fetch_assoc($result))
 // +-----------------------------------------------------------------------+
 // | template                                                              |
 // +-----------------------------------------------------------------------+
+$template->assign(
+  array(
+    'ACTIVATE_COMMENTS' => $conf['activate_comments'],
+    'Double_Password' => $conf['double_password_type_in_admin']
+  )
+);
 
 $template->set_filenames(array('user_list'=>'user_list.tpl'));
 
