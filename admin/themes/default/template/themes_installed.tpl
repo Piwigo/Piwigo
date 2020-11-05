@@ -118,10 +118,12 @@ $(window).bind("load", function() {
       <div class="showInfo-dropdown-content">
         {$theme.DESC|@escape:'html'}
       </div>
-      {if $theme.DELETABLE}
-          <a class="dropdown-option icon-trash delete-plugin-button delete-theme-button" href="{$delete_baseurl}{$theme.ID}">{'Delete'|@translate}</a>
-      {else}
-          <span class="dropdown-option icon-trash delete-plugin-button"title="{$theme.DELETE_TOOLTIP}">{'Delete'|@translate}</span>
+      {if $theme.STATE != "active"}
+        {if $theme.DELETABLE}
+            <a class="dropdown-option icon-trash delete-plugin-button delete-theme-button" href="{$delete_baseurl}{$theme.ID}">{'Delete'|@translate}</a>
+        {else}
+            <span class="dropdown-option icon-trash delete-plugin-button"title="{$theme.DELETE_TOOLTIP}">{'Delete'|@translate}</span>
+        {/if}
       {/if}
       {if $theme.DEACTIVABLE}
         <a href="{$deactivate_baseurl}{$theme.ID}" class="showInfo-dropdown-action tiptip icon-cancel-circled" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>

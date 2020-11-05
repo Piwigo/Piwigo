@@ -296,7 +296,7 @@ jQuery(".pluginMiniBox").each(function(index){
     <div class="pluginContent">
       <div class="PluginOptionsIcons">
         {if $plugin.STATE == 'active' || $plugin.STATE == 'inactive'}
-          <a class="icon-ellipsis-vert showOptions" ></a>
+          <a class="icon-ellipsis-vert showOptions showInfo" ></a>
         {/if}
       </div>
       

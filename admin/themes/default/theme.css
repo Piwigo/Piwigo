@@ -1978,7 +1978,7 @@ h2:lang(en) { text-transform:capitalize; }
   margin-left: 0;
   box-shadow: 0px 0px 5px #acacac;
 }
-.pluginMiniBox a:hover { color: white ;}
+.PluginOptionsBlock a:hover { color: white ;}
 .pluginContent {
   width: 100%;
   text-align: left;
