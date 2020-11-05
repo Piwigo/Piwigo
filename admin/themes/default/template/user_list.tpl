@@ -29,7 +29,6 @@ let title_msg = '{'Are you sure you want to delete the user "%s"?'|@translate|es
 
 var filteredUsers = [];
 var nb_all_users = 0;
-//var allUsers = [{$all_users}];
 var selection = [];
 var pwg_token = "{$PWG_TOKEN}";
 
