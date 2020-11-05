@@ -124,14 +124,6 @@ jQuery(document).ready(function() {
       }
     });
   });
-  jQuery('.showInfo').tipTip({
-    'delay' : 0,
-    'fadeIn' : 200,
-    'fadeOut' : 200,
-    'maxWidth':'300px',
-    'keepAlive':true,
-    'activation':'click'
-  });
   jQuery('.fullInfo').tipTip({
     'delay' : 500,
     'fadeIn' : 200,

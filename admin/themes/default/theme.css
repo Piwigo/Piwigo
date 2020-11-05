@@ -2,7 +2,7 @@
 [class*="icon-"]:before { text-decoration:none !important; }
 
 .showInfo { font-size:15px;cursor:pointer;line-height:15px; display: flex; align-items: center;}
-
+.showInfo:hover { text-decoration: none;}
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
 .content h2 {margin: 0; padding: 5px 0.5em 5px 0.5em; text-align: right; font-size: 120%;}
 .content form { text-align: left; margin-left: 7px; margin-right: 9px;}
