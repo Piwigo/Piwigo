@@ -212,6 +212,7 @@ function setupTagbox(tagBox) {
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
     tagBox.addClass('edit-name');
+    tagBox.find(".tag-name-editable").focus();
   })
 
   tagBox.find('.tag-rename .icon-cancel').on('click', function() {
