@@ -2,7 +2,9 @@
 
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function(){
-
+  $(".addAlbumHead").click(function () {
+    $(".addAlbum input[name=virtual_name]").focus();
+  })
 });
 {/literal}{/footer_script}
 
