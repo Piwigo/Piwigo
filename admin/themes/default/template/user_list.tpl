@@ -112,7 +112,6 @@ jQuery(document).ready(function() {
 
           var new_user = data.result.users[0];
           nb_all_users += 1;
-          //allUsers.push(parseInt(new_user.id));
           jQuery("#showAddUser .infos").html(sprintf(newUser_pattern, new_user.username)).show();
           checkSelection();
 
@@ -797,7 +796,6 @@ jQuery(document).on('click', '.close-user-details',  function(e) {
       }
     });
     selection = tab;
-    //jQuery("#userList input[type=checkbox]").prop('checked', true);
     checkSelection();
     return false;
   });
