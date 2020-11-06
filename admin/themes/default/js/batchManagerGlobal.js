@@ -351,7 +351,8 @@ jQuery('#applyAction').click(function(e) {
   var image_ids = Array();
 
   jQuery('#applyActionBlock').hide();
-  jQuery('select[name="selectAction"]').hide();
+  jQuery('.permitActionListButton').hide();
+  jQuery('#confirmDel').hide();
   jQuery('#regenerationMsg').show();
   jQuery('#progressBar').progressBar(0, {
     max: progressBar_max,
