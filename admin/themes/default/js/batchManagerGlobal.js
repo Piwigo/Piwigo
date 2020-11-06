@@ -311,8 +311,8 @@ jQuery('#applyAction').click(function(e) {
   }
 
   if (jQuery('[name="selectAction"]').val() == 'delete') {
-    if (!jQuery("#action_delete input[name=confirm_deletion]").is(':checked')) {
-      jQuery("#action_delete span.errors").show();
+    if (!jQuery("#confirmDel input[name=confirm_deletion]").is(':checked')) {
+      jQuery("#confirmDel span.errors").css("visibility", "visible");
       return false;
     }
     e.stopPropagation();
@@ -415,8 +415,8 @@ function progressionBar(val, max, success) {
   }
 }
 
-jQuery("#action_delete input[name=confirm_deletion]").change(function() {
-  jQuery("#action_delete span.errors").hide();
+jQuery("#confirmDel input[name=confirm_deletion]").change(function() {
+  jQuery("#confirmDel span.errors").css("visiblity", "hidden");
 });
 
 jQuery('#sync_md5sum').click(function(e) {

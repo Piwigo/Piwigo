@@ -4587,7 +4587,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #removeFilters {margin-top: 20px; margin-left: 13px;}
 .filter_search_input {padding: 10px 0px; width: 300px;}
 #permitAction {display: flex;}
-#permitAction select {padding: 12px 10px; width: 280px; margin-bottom: 25px; -webkit-appearance: none;}
+#permitAction select {padding: 12px 10px; width: 280px; -webkit-appearance: none;}
+.permitActionItem select { margin-bottom: 25px;}
 #applyAction {padding: 10px 18px; margin-left: 0;}
 .permitActionItem {margin-left: 30px; width: 225px;}
 .permitActionItem .selectize-control.single.plugin-remove_button {width: auto !important;}

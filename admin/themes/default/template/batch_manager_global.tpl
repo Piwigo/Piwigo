@@ -152,6 +152,11 @@ $(document).ready(function() {
     else {
       $("#applyActionBlock").hide();
     }
+    if ($(this).val() == "delete" || $(this).val() == "delete_derivatives") {
+      $("#confirmDel").css("visibility", "visible");
+    } else {
+      $("#confirmDel").css("visibility", "hidden");  
+    }
   });
 
   $(".wrap1 label").click(function (event) {
@@ -231,17 +236,17 @@ $(document).ready(function() {
   });
 
 
-  jQuery("#action_delete_derivatives input[name=confirm_deletion]").change(function() {
-    jQuery("#action_delete_derivatives span.errors").hide();
+  jQuery("input[name=confirm_deletion]").change(function() {
+    jQuery("#confirmDel span.errors").css("visibility", "hidden");
   });
 
   jQuery('#applyAction').click(function() {
 		var action = jQuery('[name="selectAction"]').val();
 		if (action == 'delete_derivatives') {
-			let d_count = $('#action_delete_derivatives input[type=checkbox]').filter(':checked').length
+			let d_count = $('#confirmDel input[type=checkbox]').filter(':checked').length
 			let e_count = $('input[name="setSelected"]').is(':checked') ? nb_thumbs_set : $('.thumbnails input[type=checkbox]').filter(':checked').length;
-      if (!jQuery("#action_delete_derivatives input[name=confirm_deletion]").is(':checked')) {
-        jQuery("#action_delete_derivatives span.errors").show();
+      if (!jQuery("#confirmDel input[name=confirm_deletion]").is(':checked')) {
+        jQuery("#confirmDel span.errors").css("visibility", "visible");
         return false;
       } else {
         return true;
@@ -655,8 +660,14 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       {/if}
         </select>
       </div>
-      
-      <p id="applyActionBlock" style="display:none" class="actionButtons">
+      <p id="confirmDel" style="visibility:hidden">
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</input>
+        </label><br/><br/>
+        <span class="errors" style="visibility:hidden;margin:0;">{"You need to confirm deletion"|translate}</span>
+      </p>
+      <p id="applyActionBlock" style="display:none;margin:1em 0 0 0;" class="actionButtons">
         <button id="applyAction" name="submit" type="submit" class="buttonLike">
           <i class="icon-cog-alt"></i> {'Apply action'|translate}
         </button>
@@ -667,7 +678,6 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <div class="permitActionItem">
       <!-- delete -->
       <div id="action_delete" class="bulkAction">
-      <p><label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label><span class="errors" style="display:none">{"You need to confirm deletion"|translate}</span></p>
       </div>
 
       <!-- associate -->{* also used for "move" action *}
@@ -750,11 +760,6 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
       <!-- delete derivatives -->
       <div id="action_delete_derivatives" class="bulkAction">
-        <label class="font-checkbox" style="margin-bottom:15px">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}
-        </label>
-        <span class="errors" style="display:none">{"You need to confirm deletion"|translate}</span>
         <div class="deleteDerivButtons">
           <a href="javascript:selectDelDerivAll()">{'All'|@translate}</a>
           <a href="javascript:selectDelDerivNone()">{'None'|@translate}</a>
