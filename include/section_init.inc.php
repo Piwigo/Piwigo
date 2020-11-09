@@ -211,7 +211,11 @@ $forbidden = get_sql_condition_FandF(
 // +-----------------------------------------------------------------------+
 if ('categories' == $page['section'])
 {
-  if (isset($page['category']))
+  if (isset($page['combined_categories']))
+  {
+    $page['title'] = get_combined_categories_content_title();
+  }
+  elseif (isset($page['category']))
   {
     $page = array_merge(
       $page,
@@ -231,7 +235,17 @@ if ('categories' == $page['section'])
   }
 
   // GET IMAGES LIST
-  if
+  if (isset($page['combined_categories']))
+  {
+    $cat_ids = array($page['category']['id']);
+    foreach ($page['combined_categories'] as $category)
+    {
+      $cat_ids[] = $category['id'];
+    }
+
+    $page['items'] = get_image_ids_for_categories($cat_ids);
+  }
+  elseif
     (
       $page['startcat'] == 0 and
       (!isset($page['chronology_field'])) and // otherwise the calendar will requery all subitems

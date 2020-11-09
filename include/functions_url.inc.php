@@ -348,6 +348,18 @@ function make_section_in_url($params)
         {
           $section_string.= $params['category']['permalink'];
         }
+
+        if (isset($params['combined_categories']))
+        {
+          foreach ($params['combined_categories'] as $category)
+          {
+            $section_string.= '/'.$category['id'];
+            if ( $conf['category_url_style']=='id-name' )
+            {
+              $section_string.= '-'.str2url($category['name']);
+            }
+          }
+        }
       }
 
       break;
@@ -421,13 +433,23 @@ function parse_section_url( $tokens, &$next_token)
     $page['section'] = 'categories';
     $next_token++;
 
-    if (isset($tokens[$next_token]) )
+    $i = $next_token;
+
+    while (isset($tokens[$next_token]))
     {
       if (preg_match('/^(\d+)(?:-(.+))?$/', $tokens[$next_token], $matches))
       {
         if ( isset($matches[2]) )
           $page['hit_by']['cat_url_name'] = $matches[2];
-        $page['category'] = $matches[1];
+
+        if (!isset($page['category']))
+        {
+          $page['category'] = $matches[1];
+        }
+        else
+        {
+          $page['combined_categories'][] = $matches[1];
+        }
         $next_token++;
       }
       else
@@ -479,6 +501,24 @@ function parse_section_url( $tokens, &$next_token)
          page_not_found(l10n('Requested album does not exist'));
       }
       $page['category']=$result;
+    }
+
+    if (isset($page['combined_categories']))
+    {
+      $combined_categories = array();
+
+      foreach ($page['combined_categories'] as $cat_id)
+      {
+        $result = get_cat_info($cat_id);
+        if (empty($result))
+        {
+          page_not_found(l10n('Requested album does not exist'));
+        }
+
+        $combined_categories[] = $result;
+      }
+
+      $page['combined_categories'] = $combined_categories;
     }
   }
   elseif ( 'tags' == @$tokens[$next_token] )
