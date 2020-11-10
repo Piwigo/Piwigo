@@ -336,11 +336,10 @@ jQuery(document).ready(function(){
     </fieldset>
     
     <div id="uploadingActions" style="display:none">
-      <button id="cancelUpload" class="buttonLike icon-cancel-circled">{'Cancel'|translate}</button>
-      
-      <div class="big-progressbar">
+      <div class="big-progressbar" style="max-width:98%;margin-bottom: 10px;">
         <div class="progressbar" style="width:0%"></div>
       </div>
+      <button id="cancelUpload" class="buttonLike icon-cancel-circled">{'Cancel'|translate}</button>
     </div>
 
     <button id="startUpload" class="buttonGradient icon-upload" disabled>{'Start Upload'|translate}</button>

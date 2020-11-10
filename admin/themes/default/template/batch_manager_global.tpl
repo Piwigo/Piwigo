@@ -282,7 +282,8 @@ $(document).ready(function() {
     jQuery('.permitActionListButton div').addClass('hidden');
 		jQuery('#regenerationMsg').show();
 
-		progress();
+		progress_start();
+    progress();
 		getDerivativeUrls();
 		return false;
   });
@@ -770,10 +771,8 @@ UL.thumbnails SPAN.wrap2 {ldelim}
         {/foreach}
       </div>
 
-      <!-- progress bar -->
       <div id="regenerationMsg" class="bulkAction" style="display:none">
         <p id="regenerationText" style="margin-bottom:10px;">{'Generate multiple size images'|@translate}</p>
-        <span class="progressBar" id="progressBar"></span>
         <input type="hidden" name="regenerateSuccess" value="0">
         <input type="hidden" name="regenerateError" value="0">
       </div>
@@ -788,6 +787,13 @@ UL.thumbnails SPAN.wrap2 {ldelim}
   {/if}
       </div>
     </div> <!-- #permitAction -->
+
+    <!-- progress bar -->
+    <div id="uploadingActions" style="display:none">
+      <div class="big-progressbar" style="max-width:100%;margin-bottom: 10px;">
+        <div class="progressbar" style="width:0%"></div>
+      </div>
+    </div>
   </fieldset>
 
   </form>
