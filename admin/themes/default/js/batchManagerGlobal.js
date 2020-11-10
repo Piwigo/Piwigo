@@ -205,6 +205,7 @@ function getDerivativeUrls() {
   jQuery('.permitActionListButton').hide();
   jQuery('#confirmDel').hide();
   jQuery('#regenerationMsg').show();
+  jQuery('#regenerationText').html(lang.generateMsg);
   progress_start();
 	jQuery.ajax( {
 		type: "POST",
@@ -215,7 +216,8 @@ function getDerivativeUrls() {
 			if (!data.stat || data.stat != "ok") {
 				return;
 			}
-			derivatives.total += data.result.urls.length;
+      derivatives.total += data.result.urls.length;
+      jQuery('#regenerationText').html(lang.generateMsg + " " + derivatives.done.toString() + "/" + derivatives.total.toString());
 			progress();
 			for (var i=0; i < data.result.urls.length; i++) {
 				jQuery.manageAjax.add("queued", {
@@ -224,10 +226,12 @@ function getDerivativeUrls() {
 					dataType: 'json',
 					success: ( function(data) {
             derivatives.done++;
+            jQuery('#regenerationText').html(lang.generateMsg + " " + derivatives.done.toString() + "/" + derivatives.total.toString());
             progress(true)
           }),
 					error: ( function(data) {
             derivatives.done++;
+            jQuery('#regenerationText').html(lang.generateMsg + " " + derivatives.done.toString() + "/" + derivatives.total.toString());
             progress(false)
           })
 				});
@@ -262,7 +266,6 @@ jQuery('#applyAction').click(function(e) {
     e.stopPropagation();
     jQuery('.bulkAction').hide();
     jQuery('#regenerationText').html(lang.syncProgressMessage);
-
     elements = Array();
 
     if (jQuery('input[name=setSelected]').is(':checked')) {
@@ -309,16 +312,17 @@ jQuery('#applyAction').click(function(e) {
             if (isOk && data.result.nb_synchronized != thisBatchSize)
             /*TODO: user feedback only data.nb_synchronized images out of thisBatchSize were sync*/;
             /*TODO: user feedback if isError*/
+            jQuery('#regenerationText').html(lang.syncProgressMessage + " " + todo.toString() + "/" + progressBar_max.toString());
             progress_bar(todo, progressBar_max, false);
           },
           error: function(data) {
             todo += thisBatchSize;
             /*TODO: user feedback*/
+            jQuery('#regenerationText').html(lang.syncProgressMessage + " " + todo.toString() + "/" + progressBar_max.toString());
             progress_bar(todo, progressBar_max, false);
           }
         });
       } )(image_ids);
-
       image_ids = Array();
     }
   }
@@ -335,7 +339,6 @@ jQuery('#applyAction').click(function(e) {
   }
 
   jQuery('.bulkAction').hide();
-  jQuery('#regenerationText').html(lang.deleteProgressMessage);
   var maxRequests=1;
 
   var queuedManager = jQuery.manageAjax.create('queued', {
@@ -366,6 +369,7 @@ jQuery('#applyAction').click(function(e) {
   jQuery('#applyActionBlock').hide();
   jQuery('.permitActionListButton').hide();
   jQuery('#confirmDel').hide();
+  jQuery('#regenerationText').html(lang.deleteProgressMessage);
   jQuery('#regenerationMsg').show();
   progress_bar_start();
   for (i=0;i<elements.length;i++) {
@@ -391,11 +395,13 @@ jQuery('#applyAction').click(function(e) {
           if (isOk && data.result != thisBatchSize);
             /*TODO: user feedback only data.result images out of thisBatchSize were deleted*/;
           /*TODO: user feedback if isError*/
+          jQuery('#regenerationText').html(lang.deleteProgressMessage + " " + todo.toString() + "/" + progressBar_max.toString());
           progress_bar(todo, progressBar_max, false);
         },
         error: function(data) {
           todo += thisBatchSize;
           /*TODO: user feedback*/
+          jQuery('#regenerationText').html(lang.deleteProgressMessage + " " + todo.toString() + "/" + progressBar_max.toString());
           progress_bar(todo, progressBar_max, false);
         }
       });
