@@ -772,12 +772,6 @@ UL.thumbnails SPAN.wrap2 {ldelim}
         {/foreach}
       </div>
 
-      <div id="regenerationMsg" class="bulkAction" style="display:none">
-        <p id="regenerationText" style="margin-bottom:10px;">{'Generate multiple size images'|@translate}</p>
-        <input type="hidden" name="regenerateSuccess" value="0">
-        <input type="hidden" name="regenerateError" value="0">
-      </div>
-
       <!-- plugins -->
   {if !empty($element_set_global_plugins_actions)}
     {foreach from=$element_set_global_plugins_actions item=action}
@@ -788,7 +782,14 @@ UL.thumbnails SPAN.wrap2 {ldelim}
   {/if}
       </div>
     </div> <!-- #permitAction -->
-
+    <div id="regenerationMsg" class="bulkAction" style="display:none;margin-left:0;">
+        <div id="regenerationStatus" style="margin-bottom:10px;">
+          <span id="regenerationText">{'Generate multiple size images'|@translate}</span>
+          <span class="badge-number" style="font-size:12.8px"></span>
+        </div>
+        <input type="hidden" name="regenerateSuccess" value="0">
+        <input type="hidden" name="regenerateError" value="0">
+      </div>
     <!-- progress bar -->
     <div id="uploadingActions" style="display:none">
       <div class="big-progressbar" style="max-width:100%;margin-bottom: 10px;">

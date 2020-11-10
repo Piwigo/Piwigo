@@ -217,7 +217,7 @@ function getDerivativeUrls() {
 				return;
 			}
       derivatives.total += data.result.urls.length;
-      jQuery('#regenerationText').html(lang.generateMsg + " " + derivatives.done.toString() + "/" + derivatives.total.toString());
+      jQuery('#regenerationStatus .badge-number').html(derivatives.done.toString() + "/" + derivatives.total.toString());
 			progress();
 			for (var i=0; i < data.result.urls.length; i++) {
 				jQuery.manageAjax.add("queued", {
@@ -226,12 +226,12 @@ function getDerivativeUrls() {
 					dataType: 'json',
 					success: ( function(data) {
             derivatives.done++;
-            jQuery('#regenerationText').html(lang.generateMsg + " " + derivatives.done.toString() + "/" + derivatives.total.toString());
+            jQuery('#regenerationStatus .badge-number').html(derivatives.done.toString() + "/" + derivatives.total.toString());
             progress(true)
           }),
 					error: ( function(data) {
             derivatives.done++;
-            jQuery('#regenerationText').html(lang.generateMsg + " " + derivatives.done.toString() + "/" + derivatives.total.toString());
+            jQuery('#regenerationStatus .badge-number').html(derivatives.done.toString() + "/" + derivatives.total.toString());
             progress(false)
           })
 				});
@@ -312,13 +312,13 @@ jQuery('#applyAction').click(function(e) {
             if (isOk && data.result.nb_synchronized != thisBatchSize)
             /*TODO: user feedback only data.nb_synchronized images out of thisBatchSize were sync*/;
             /*TODO: user feedback if isError*/
-            jQuery('#regenerationText').html(lang.syncProgressMessage + " " + todo.toString() + "/" + progressBar_max.toString());
+            jQuery('#regenerationStatus .badge-number').html(todo.toString() + "/" + progressBar_max.toString());
             progress_bar(todo, progressBar_max, false);
           },
           error: function(data) {
             todo += thisBatchSize;
             /*TODO: user feedback*/
-            jQuery('#regenerationText').html(lang.syncProgressMessage + " " + todo.toString() + "/" + progressBar_max.toString());
+            jQuery('#regenerationStatus .badge-number').html(todo.toString() + "/" + progressBar_max.toString());
             progress_bar(todo, progressBar_max, false);
           }
         });
@@ -395,13 +395,13 @@ jQuery('#applyAction').click(function(e) {
           if (isOk && data.result != thisBatchSize);
             /*TODO: user feedback only data.result images out of thisBatchSize were deleted*/;
           /*TODO: user feedback if isError*/
-          jQuery('#regenerationText').html(lang.deleteProgressMessage + " " + todo.toString() + "/" + progressBar_max.toString());
+          jQuery('#regenerationStatus .badge-number').html(todo.toString() + "/" + progressBar_max.toString());
           progress_bar(todo, progressBar_max, false);
         },
         error: function(data) {
           todo += thisBatchSize;
           /*TODO: user feedback*/
-          jQuery('#regenerationText').html(lang.deleteProgressMessage + " " + todo.toString() + "/" + progressBar_max.toString());
+          jQuery('#regenerationStatus .badge-number').html(todo.toString() + "/" + progressBar_max.toString());
           progress_bar(todo, progressBar_max, false);
         }
       });
