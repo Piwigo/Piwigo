@@ -4854,3 +4854,14 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .doubleSelect td {
   width: 50%;
 }
+
+#cancelUpload {
+  margin-left:10px;
+  background-color: #999999;
+}
+
+#cancelUpload:hover {
+  background-color: #ff9b32;
+  color: white;
+  text-decoration: none;
+}
