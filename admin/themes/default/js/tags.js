@@ -158,9 +158,7 @@ function addTag(name) {
             id:data.result.id,
             url_name:data.result.url_name
           });
-
           resolve();
-          updatePaginationMenu();
         } else {
           reject(str_already_exist.replace('%s', name));
         }
