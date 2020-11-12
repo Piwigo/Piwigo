@@ -1076,4 +1076,7 @@ $lang['Are you sure you want to update all extensions?'] = 'Êtes-vous sûr de v
 $lang['Are you sure you want to delete the user "%s"?'] = 'Êtes-vous sûr de vouloir supprimer l\'utilisateur "%s"&nbsp?';
 $lang['Please upgrade your PHP version before any update.'] = 'Il faudra mettre à jour votre PHP avant de pouvoir mettre à jour Piwigo.';
 $lang['Requires PHP %s'] = 'Requiert PHP %s';
+$lang['%s MB used'] = '%s MB utilisés';
+$lang['%s GB used'] = '%s GB utilisés';
+
 

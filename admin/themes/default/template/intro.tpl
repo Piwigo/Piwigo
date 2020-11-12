@@ -5,9 +5,11 @@
 {footer_script require='jquery.cluetip'}
 var piwigo_need_update_msg = '<a href="admin.php?page=updates">{'A new version of Piwigo is available.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
 var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
-
+const str_gb_used = "{'%s GB used'|translate}";
+const str_mb_used = "{'%s MB used'|translate}";
+const storage_total = {$STORAGE_TOTAL};
 {literal}
-  jQuery().ready(function(){
+jQuery().ready(function(){
 	jQuery('.cluetip').cluetip({
 		width: 300,
 		splitTitle: '|',
@@ -45,6 +47,9 @@ var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some u
       return false;
     }
   });
+  let size_info = storage_total > 1000000 ? str_gb_used : str_mb_used;
+  let size_nb = storage_total > 1000000 ? (storage_total / 1000000).toFixed(2) : (storage_total / 1000).toFixed(0);
+  $(".chart-title-infos").html(size_info.replace("%s", size_nb));
 });
 
 //Tooltip for the storage chart
@@ -212,7 +217,7 @@ $(window).on('resize', function(){
     {/foreach}
   </div>
 
-  <div class="chart-title"> {"Storage"|@translate} <span class="chart-title-infos"> {'%s MB used'|translate:($STORAGE_TOTAL/1000)} </span></div>
+  <div class="chart-title"> {"Storage"|@translate} <span class="chart-title-infos"> {'%s MB used'|translate:(round($STORAGE_TOTAL/1000, 0))} </span></div>
 
   <div class="storage-chart">
     {foreach from=$STORAGE_CHART_DATA key=type item=value}

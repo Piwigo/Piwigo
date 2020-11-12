@@ -1074,3 +1074,5 @@ $lang['Are you sure you want to update all extensions?'] = 'Are you sure you wan
 $lang['Are you sure you want to delete the user "%s"?'] = 'Are you sure you want to delete the user "%s"?';
 $lang['Please upgrade your PHP version before any update.'] = 'Please upgrade your PHP version before any update.';
 $lang['Requires PHP %s'] = 'Requires PHP %s';
+$lang['%s MB used'] = '%s MB used';
+$lang['%s GB used'] = '%s GB used';
