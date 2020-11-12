@@ -149,6 +149,10 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['pwg'] = array('caption' => l10n('Piwigo Update'), 'url' => $my_base_url);
       $sheets['ext'] = array('caption' => l10n('Extensions Update'), 'url' => $my_base_url.'&amp;tab=ext');
       break;
+    case 'site_update':
+      global $my_base_url;
+      $sheets['synchronization'] = array('caption' => l10n('Database synchronization with files'), 'url' => $my_base_url.'site_update&site=1');
+      break;
   }
 
   return $sheets;
