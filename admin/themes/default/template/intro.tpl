@@ -69,8 +69,19 @@ $(window).on('resize', function(){
     tooltip.css('left', left+"px")
   });
 });
-
+let size = 0;
+let str_size_type = "MB";
+let size_nb = 0;
+let str_size = "";
 {/literal}
+{foreach from=$STORAGE_CHART_DATA key=type item=value}
+  size = {$value};
+  str_size_type = size > 1000000 ? "GB" : "MB";
+  size_nb = size > 1000000 ? (size / 1000000).toFixed(2) : (size / 1000).toFixed(0);
+  str_size = " : " + size_nb.toString() + " " + str_size_type;
+  $("#storage-{$type}").html("<b></b>" + str_size);
+  $("#storage-{$type} b").html("{$type}");
+{/foreach}
 {/footer_script}
 
 {html_style}
@@ -229,7 +240,7 @@ $(window).on('resize', function(){
 
   <div class="storage-tooltips">
     {foreach from=$STORAGE_CHART_DATA key=type item=value}
-      <p id="storage-{$type}" class="tooltip"><b>{$type}</b> : {$value/1000} MB</p>
+      <p id="storage-{$type}" class="tooltip"><b>{$type}</b></p>
     {/foreach}
   </div>
 
