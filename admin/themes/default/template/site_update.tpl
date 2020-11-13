@@ -1,6 +1,3 @@
-
-{include file='include/resize.inc.tpl'}
-
 {footer_script}
 $('#syncFiles label').click(function () {
   if ($("input[value='files']:checked").val()) {
