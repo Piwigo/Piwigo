@@ -293,7 +293,7 @@ jQuery(document).ready(function(){
   <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
     <fieldset class="selectAlbum">
       <legend><span class="icon-folder-open icon-red"></span>{'Drop into album'|@translate}</legend>
-      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{$ADD_TO_ALBUM}</span></div>
+      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap" style="background-color:#f5f5f5">{$ADD_TO_ALBUM}</span></div>
       <div class="selectAlbumBlock"{if isset($ADD_TO_ALBUM)} style="display: none"{/if}>
         <a href="#" data-add-album="category" title="{'create a new album'|@translate}" class="icon-plus"></a>
         <span id="albumSelection">
