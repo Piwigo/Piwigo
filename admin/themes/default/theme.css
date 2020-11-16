@@ -4523,6 +4523,8 @@ fieldset#environment legend i[class*="icon-"] {
 #albumSelection {margin-left: 25px;}
 .selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
 .buttonLike {padding: 8px 10px; margin-left: 5px;}
+.changeUsername .buttonLike {padding: 1px 10px;}
+.changePassword .buttonLike {padding: 1px 10px;}
 .selectFilesButtonBlock {display: flex; margin-top: 10px;}
 .selectFilesinfo {margin-left: 15px; font-size: 90%; color: #999; display: flex; flex-direction: column; justify-content: center;}
 #uploader {margin-top: 25px; font-weight: bold !important;}
