@@ -991,7 +991,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   box-shadow: none;
 }
 
-.tag-container .tag-box[data-selected="1"] .select-checkbox {
+.tag-container .tag-box[data-selected="1"] .select-checkbox,
+.delete-size-check[data-selected="1"] .select-checkbox {
   background-color: #c76a23;
   border-color: #c76a23;
 }

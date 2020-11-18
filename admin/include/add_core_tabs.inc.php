@@ -153,6 +153,11 @@ function add_core_tabs($sheets, $tab_id)
       global $my_base_url;
       $sheets['synchronization'] = array('caption' => l10n('Database synchronization with files'), 'url' => $my_base_url.'site_update&site=1');
       break;
+    case 'maintenance':
+      global $my_base_url;
+      $sheets['actions'] = array('caption' => '<span class="icon-tools"></span>'.l10n('Actions'), 'url' => $my_base_url.'maintenance&tab=actions');
+      $sheets['env'] = array('caption' => '<span class="icon-television"></span>'.l10n('Environment'), 'url' => $my_base_url.'maintenance&tab=env');
+      break;
   }
 
   return $sheets;
