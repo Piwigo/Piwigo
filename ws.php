@@ -485,6 +485,36 @@ function ws_addDefaultMethods( $arr )
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+
+  $service->addMethod(
+    'pwg.images.uploadAsync',
+    'ws_images_uploadAsync',
+    array(
+        'username' => array(),
+        'password' => array('default'=>null),
+        'chunk' => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'chunk_sum' => array(),
+        'chunks' => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'original_sum' => array(),
+        'category' => array('default'=>null, 'flags'=>WS_PARAM_FORCE_ARRAY, 'type'=>WS_TYPE_ID),
+        'filename' => array(),
+        'name' => array('default'=>null),
+        'author' => array('default'=>null),
+        'comment' => array('default'=>null),
+        'date_creation' => array('default'=>null),
+        'level' => array('default'=>0, 'maxValue'=>max($conf['available_permission_levels']), 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'tag_ids' => array('default'=>null, 'info'=>'Comma separated ids'),
+        'image_id' => array('default'=>null, 'type'=>WS_TYPE_ID),
+    ),
+    'Upload photo by chunks in a random order.
+<br>Use the <b>$_FILES[file]</b> field for uploading file.
+<br>Start with chunk 0 (zero).
+<br>Set the form encoding to "form-data".
+<br>You can update an existing photo if you define an existing image_id.
+<br>Requires <b>admin</b> credentials.',
+      $ws_functions_root . 'pwg.images.php',
+      array('post_only'=>true)
+    );
   
   $service->addMethod(
       'pwg.images.delete',
