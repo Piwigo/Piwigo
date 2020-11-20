@@ -94,11 +94,6 @@ $(".delete-size-check").change(function() {
 })
 
 {/footer_script}
-
-<div class="titrePage">
-  <h2>{'Maintenance'|@translate}</h2>
-</div>
-
 <fieldset class="">
   <legend><span class="icon-globe icon-blue"></span>Global Gallery Actions</legend>
   <div style="display:flex;flex-wrap: wrap;">
@@ -128,7 +123,7 @@ $(".delete-size-check").change(function() {
 </fieldset>
 
 <div class="delete-size-checks">
-  <span style="font-weight:bold">{'Delete multiple size images'|@translate}</span>
+  <span id="label-delete-size-checkbox">{'Delete multiple size images'|@translate}</span>
   <div class="delete-check-container">
     {foreach from=$purge_derivatives key=name item=url name=loop}
     <div class="delete-size-check" data-selected="0" name="{$url}">
@@ -140,10 +135,20 @@ $(".delete-size-check").change(function() {
 <a class="icon-ok maintenance-action delete-sizes">Delete these sizes</a>
 
 <style>
+#label-delete-size-checkbox {
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.maintenance-action:hover {
+  background-color: #ffa744;
+  color: #3c3c3c;
+}
+
 .maintenance-action {
   border:solid 1px;
   padding:8px 30px;
-  margin-right: 50px;
+  margin-right: 20px;
   margin-bottom: 20px;
 }
 

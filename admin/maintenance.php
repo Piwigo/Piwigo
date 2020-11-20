@@ -49,3 +49,7 @@ $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
 include(PHPWG_ROOT_PATH.'admin/maintenance_'.$page['tab'].'.php');
+
+$template->assign(
+  array('ADMIN_PAGE_TITLE' => l10n('Maintenance'))
+);

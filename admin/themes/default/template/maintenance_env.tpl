@@ -1,7 +1,3 @@
-<div class="titrePage">
-  <h2>{'Maintenance'|@translate}</h2>
-</div>
-
 <fieldset id="environment">
   <legend><span class="icon-television icon-red"></span> {'Environment'|@translate}</legend>
   <ul style="font-weight:bold">
