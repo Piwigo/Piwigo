@@ -778,7 +778,16 @@ $conf['themes_dir'] = PHPWG_ROOT_PATH.'themes';
 // enable the synchronization method for adding photos
 $conf['enable_synchronization'] = true;
 
-// permitted characters for files/directories during synchronization
+// Permitted characters for files/directories during synchronization.
+// Do not add the ' U+0027 single quote apostrophe character, it WILL make some
+// SQL queries fail. URI reserved characters (see
+// https://tools.ietf.org/html/rfc3986#section-2.2 ) MAY make things fail, this
+// is known for example for the & character leading to a query parameter
+// separator if the resulting URI path is not urlencoded. Adding accented
+// characters or characters of Unicode letter or digit classes in the basic
+// plane *usually* are fine iff the file system's names *and* the config file
+// content are both UTF-8 encoded, as is the MySQL database table, and the file
+// system does not use decomposed Unicode characters for accented characters.
 $conf['sync_chars_regex'] = '/^[a-zA-Z0-9-_.]+$/';
 
 // folders name excluded during synchronization
