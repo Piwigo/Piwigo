@@ -353,10 +353,19 @@ function make_section_in_url($params)
         {
           foreach ($params['combined_categories'] as $category)
           {
-            $section_string.= '/'.$category['id'];
-            if ( $conf['category_url_style']=='id-name' )
+            $section_string.= '/';
+
+            if ( empty($category['permalink']) )
             {
-              $section_string.= '-'.str2url($category['name']);
+              $section_string.= $category['id'];
+              if ( $conf['category_url_style']=='id-name' )
+              {
+                $section_string.= '-'.str2url($category['name']);
+              }
+            }
+            else
+            {
+              $section_string.= $category['permalink'];
             }
           }
         }
@@ -434,9 +443,21 @@ function parse_section_url( $tokens, &$next_token)
     $next_token++;
 
     $i = $next_token;
+    $loop_counter = 0;
 
     while (isset($tokens[$next_token]))
     {
+      if ($loop_counter++ > count($tokens)+10){die('infinite loop?');}
+
+      if (
+        strpos($tokens[$next_token], 'created-')===0
+        or strpos($tokens[$next_token], 'posted-')===0
+        or strpos($tokens[$next_token], 'start-')===0
+      )
+      {
+        break;
+      }
+
       if (preg_match('/^(\d+)(?:-(.+))?$/', $tokens[$next_token], $matches))
       {
         if ( isset($matches[2]) )
@@ -482,8 +503,16 @@ function parse_section_url( $tokens, &$next_token)
           if ( isset($cat_id) )
           {
             $next_token += $perma_index+1;
-            $page['category'] = $cat_id;
-            $page['hit_by']['cat_permalink'] = $maybe_permalinks[$perma_index];
+
+            if (!isset($page['category']))
+            {
+              $page['category'] = $cat_id;
+              $page['hit_by']['cat_permalink'] = $maybe_permalinks[$perma_index];
+            }
+            else
+            {
+              $page['combined_categories'][] = $cat_id;
+            }
           }
           else
           {

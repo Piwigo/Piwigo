@@ -614,7 +614,7 @@ if ( $filter['enabled'] )
 }
 
 // see if we need a redirect because of a permalink
-if ( 'categories'==$page['section'] and isset($page['category']) )
+if ( 'categories'==$page['section'] and isset($page['category']) and !isset($page['combined_categories']))
 {
   $need_redirect=false;
   if ( empty($page['category']['permalink']) )
