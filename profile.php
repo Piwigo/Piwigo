@@ -243,6 +243,11 @@ function save_profile_from_post($userdata, &$errors)
                     ),
                    array($data));
 
+      if ($_POST['mail_address'] != $userdata['email'])
+      {
+        deactivate_password_reset_key($userdata['id']);
+      }
+
       $activity_details_tables[] = 'users';
     }
 

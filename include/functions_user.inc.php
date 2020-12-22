@@ -1630,6 +1630,25 @@ UPDATE '.USER_AUTH_KEYS_TABLE.'
 }
 
 /**
+ * Deactivates password reset key
+ *
+ * @since 11
+ * @param int $user_id
+ * @return null
+ */
+function deactivate_password_reset_key($user_id)
+{
+  single_update(
+    USER_INFOS_TABLE,
+    array(
+      'activation_key' => null,
+      'activation_key_expire' => null,
+      ),
+    array('user_id' => $user_id)
+    );
+}
+
+/**
  * Gets the last visit (datetime) of a user, based on history table
  *
  * @since 2.9
