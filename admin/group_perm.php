@@ -18,18 +18,25 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST))
+{
+  check_pwg_token();
+  check_input_parameter('cat_true', $_POST, true, PATTERN_ID);
+  check_input_parameter('cat_false', $_POST, true, PATTERN_ID);
+}
+
 // +-----------------------------------------------------------------------+
 // |                            variables init                             |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['group_id']) and is_numeric($_GET['group_id']))
+if (!isset($_GET['group_id']))
 {
-  $page['group'] = $_GET['group_id'];
+  fatal_error('group_id URL parameter is missing');
 }
-else
-{
-  die('group_id URL parameter is missing');
-}
+
+check_input_parameter('group_id', $_GET, false, PATTERN_ID);
+
+$page['group'] = $_GET['group_id'];
 
 // +-----------------------------------------------------------------------+
 // |                                updates                                |
@@ -156,6 +163,8 @@ if (count($authorized_ids) > 0)
 $query_false.= '
 ;';
 display_select_cat_wrapper($query_false,array(),'category_option_false');
+
+$template->assign('PWG_TOKEN', get_pwg_token());
 
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |

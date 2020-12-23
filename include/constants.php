@@ -7,11 +7,12 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '2.10.0beta2');
+define('PHPWG_VERSION', '11.0.0beta5');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
-// this constant is actually never used, the true default theme is the theme or user "guest",
-// which is initialized with column user_infos.theme default value
-// (see file install/piwigo_structure-mysql.sql)
+
+// this constant is only used in the upgrade process, the true default theme
+// is the theme of user "guest", which is initialized with column user_infos.theme
+// default value (see file install/piwigo_structure-mysql.sql)
 define('PHPWG_DEFAULT_TEMPLATE', 'modus');
 
 define('PHPWG_THEMES_PATH', $conf['themes_dir'].'/');

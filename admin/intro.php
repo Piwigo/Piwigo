@@ -44,28 +44,6 @@ $tabsheet->assign();
 // |                                actions                                |
 // +-----------------------------------------------------------------------+
 
-//check if images have no md5sum in database
-$query = '
-SELECT COUNT(*)
-  FROM '.CATEGORIES_TABLE.'
-  WHERE dir IS NOT NULL
-;';
-list($counter) = pwg_db_fetch_row(pwg_query($query));
-if ($counter > 0)
-{
-  $query = '
-  SELECT COUNT(*)
-    FROM '.IMAGES_TABLE.'
-    WHERE storage_category_id IS NOT NULL
-      AND md5sum IS NULL
-  ;';
-  list($counter) = pwg_db_fetch_row(pwg_query($query));
-  if ($counter > 0)
-  {
-    $page['warnings'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('Some checksums are missing.').'<i class="icon-right"></i></a>';
-  }
-}
-
 if (isset($page['nb_pending_comments']))
 {
   $message = l10n('User comments').' <i class="icon-chat"></i> ';
@@ -209,6 +187,220 @@ SELECT MIN(date_available)
 
 trigger_notify('loc_end_intro');
 
+// +-----------------------------------------------------------------------+
+// |                           get activity data                           |
+// +-----------------------------------------------------------------------+
+
+$nb_weeks = $conf['dashboard_activity_nb_weeks'];
+$date = new DateTime();
+//Array for the JS tooltip
+$activity_last_weeks = array();
+//Count mondays
+$mondays = 0;
+//Get mondays number for the chart legend
+$week_number = array();
+//Array for sorting days in circle size
+$temp_data = array();
+
+//Get data from $nb_weeks last weeks
+while ($mondays < $nb_weeks) 
+{
+  if ($date->format('D') == 'Mon') 
+  {
+    $week_number[] = $date->format('W');
+    $mondays += 1;
+  }
+
+  $date->sub(new DateInterval('P1D'));
+}
+
+$week_number = array_reverse($week_number);
+
+$date_string = $date->format('Y-m-d');
+$query = '
+SELECT *
+  FROM `'.ACTIVITY_TABLE.'`
+  WHERE occured_on >= "'.$date_string.'%"
+;';
+
+$result = query2array($query, null);
+
+foreach ($result as $row) 
+{
+  $day_date = new DateTime($row['occured_on']);
+
+  $week = 0;
+  for ($i=0; $i < $nb_weeks; $i++) 
+  { 
+    if ($week_number[$i] == $day_date->format('W'))
+    {
+      $week = $i;
+    }
+  }
+  $day_nb = $day_date->format('N');
+
+  @$activity_last_weeks[$week][$day_nb]['details'][ucfirst($row['object'])][ucfirst($row['action'])] += 1;
+  @$activity_last_weeks[$week][$day_nb]['number'] += 1;
+  @$activity_last_weeks[$week][$day_nb]['date'] = format_date($day_date->getTimestamp());
+}
+
+foreach($activity_last_weeks as $week => $i) 
+{
+  foreach($i as $day => $j) 
+  {
+    $details = $j['details'];
+    ksort($details);
+    $activity_last_weeks[$week][$day]['details'] = $details;
+    if ($j['number'] > 0) 
+    {
+      $temp_data[] = array('x' => $j['number'], 'd'=>$day, 'w'=>$week); 
+    }
+  }
+}
+
+// Algorithm to sort days in circle size :
+//  * Get the difference between sorted numbers of activity per day (only not null numbers)
+//  * Split days max $circle_sizes time on the biggest difference (but not below 120%)
+//  * Set the sizes according to the groups created
+
+//Function to sort days by number of activity
+function cmp_day($a, $b)
+{
+  if ($a['x'] == $b['x']) 
+  {
+    return 0;
+  }
+  return ($a['x'] < $b['x']) ? -1 : 1;
+}
+
+usort($temp_data, 'cmp_day');
+
+//Get the percent difference
+$diff_x = array();
+
+for ($i=1; $i < count($temp_data); $i++) 
+{ 
+  $diff_x[] = $temp_data[$i]['x']/$temp_data[$i-1]['x']*100;
+}
+
+$split = 0;
+//Split (split represented by -1)
+if (count($diff_x) > 0) 
+{
+  while (max($diff_x) > 120) 
+  {
+    $diff_x[array_search(max($diff_x), $diff_x)] = -1;
+    $split++;
+  }
+}
+
+//Fill empty chart data for the template
+$chart_data = array();
+for ($i=0; $i < $nb_weeks; $i++) 
+{ 
+  for ($j=1; $j <= 7; $j++) 
+  { 
+    $chart_data[$i][$j] = 0;
+  }
+}
+
+$size = 1;
+$chart_data[$temp_data[0]['w']][$temp_data[0]['d']] = $size;
+//Set sizes in chart data
+for ($i=1; $i < count($temp_data); $i++) 
+{ 
+  if ($diff_x[$i-1] == -1) 
+  {
+    $size++;
+  }
+  $chart_data[$temp_data[$i]['w']][$temp_data[$i]['d']] = $size;
+}
+
+//Assign data for the template
+$template->assign('ACTIVITY_WEEK_NUMBER',$week_number);
+$template->assign('ACTIVITY_LAST_WEEKS', $activity_last_weeks);
+$template->assign('ACTIVITY_CHART_DATA',$chart_data);
+$template->assign('ACTIVITY_CHART_NUMBER_SIZES',$size);
+
+// +-----------------------------------------------------------------------+
+// |                           get storage data                            |
+// +-----------------------------------------------------------------------+
+
+$video_format = array('webm','webmv','ogg','ogv','mp4','m4v');
+$data_storage = array();
+
+//Select files in Image_Table
+$query = '
+SELECT file, filesize
+  FROM `'.IMAGES_TABLE.'`
+;';
+
+$result = query2array($query, null);
+
+foreach ($result as $file) 
+{
+  $tabString = explode('.',$file['file']);
+  $ext = $tabString[count($tabString) -1];
+  $size = $file['filesize'];
+  if (in_array($ext, $conf['picture_ext'])) 
+  {
+    if (isset($data_storage['Photos'])) 
+    {
+      $data_storage['Photos'] += $size;
+    } else {
+      $data_storage['Photos'] = $size;
+    }
+  } elseif (in_array($ext, $video_format)) {
+    if (isset($data_storage['Videos'])) 
+    {
+      $data_storage['Videos'] += $size;
+    } else {
+      $data_storage['Videos'] = $size;
+    }
+  } else {
+    if (isset($data_storage['Others'])) 
+    {
+      $data_storage['Others'] += $size;
+    } else {
+      $data_storage['Others'] = $size;
+    }
+  }
+}
+
+//Select files from format table
+$query = '
+SELECT SUM(filesize)
+  FROM `'.IMAGE_FORMAT_TABLE.'`
+;';
+
+$result = query2array($query);
+
+if (isset($result[0]['SUM(filesize)']))
+{
+  $data_storage['Formats'] = $result[0]['SUM(filesize)'];
+}
+
+//If the host is not windows, get the cache size
+if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') 
+{
+  $f = './_data';
+  $io = popen ( '/usr/bin/du -sk ' . $f, 'r' );
+  $size = fgets ($io, 4096);
+  $size = substr ( $size, 0, strpos ( $size, "\t" ) );
+  pclose ( $io );
+  $data_storage['Cache'] = $size;
+}
+
+//Calculate total storage
+$total_storage = 0;
+foreach ($data_storage as $value) 
+{
+  $total_storage += $value;
+}
+
+//Pass data to HTML
+$template->assign('STORAGE_TOTAL',$total_storage);
+$template->assign('STORAGE_CHART_DATA',$data_storage);
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+

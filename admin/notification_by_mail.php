@@ -496,12 +496,24 @@ if (!isset($_POST) or (count($_POST) ==0))
 // +-----------------------------------------------------------------------+
 // | Treatment of tab post                                                 |
 // +-----------------------------------------------------------------------+
+
+if (!empty($_POST))
+{
+  check_pwg_token();
+}
+
 switch ($page['mode'])
 {
   case 'param' :
   {
     if (isset($_POST['param_submit']))
     {
+      $_POST['nbm_send_mail_as'] = strip_tags($_POST['nbm_send_mail_as']);
+
+      check_input_parameter('nbm_send_html_mail', $_POST, false, '/^(true|false)$/');
+      check_input_parameter('nbm_send_detailed_content', $_POST, false, '/^(true|false)$/');
+      check_input_parameter('nbm_send_recent_post_dates', $_POST, false, '/^(true|false)$/');
+
       $updated_param_count = 0;
       // Update param
       $result = pwg_query('select param, value from '.CONFIG_TABLE.' where param like \'nbm\\_%\'');
@@ -509,17 +521,8 @@ switch ($page['mode'])
       {
         if (isset($_POST[$nbm_user['param']]))
         {
-          $value = $_POST[$nbm_user['param']];
-
-          $query = '
-update
-'.CONFIG_TABLE.'
-set
-  value = \''. str_replace("\'", "''", $value).'\'
-where
-  param = \''.$nbm_user['param'].'\';';
-          pwg_query($query);
-          $updated_param_count += 1;
+          conf_update_param($nbm_user['param'], $_POST[$nbm_user['param']], true);
+          $updated_param_count++;
         }
       }
 
@@ -527,9 +530,6 @@ where
         '%d parameter was updated.', '%d parameters were updated.',
         $updated_param_count
         );
-
-      // Reload conf with new values
-      load_conf_from_db('param like \'nbm\\_%\'');
     }
   }
   case 'subscribe' :
@@ -574,6 +574,7 @@ $template->assign
 (
   array
   (
+    'PWG_TOKEN' => get_pwg_token(),
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=notification_by_mail',
     'F_ACTION'=> $base_url.get_query_string_diff(array())
   )

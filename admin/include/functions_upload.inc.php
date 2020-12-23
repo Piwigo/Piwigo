@@ -237,11 +237,13 @@ SELECT
       }
       else
       {
+        unlink($source_filepath);
         die('unexpected file type');
       }
     }
     else
     {
+      unlink($source_filepath);
       die('forbidden file type');
     }
 
@@ -397,6 +399,8 @@ SELECT
   $logger->info(__FUNCTION__.' : force cache generation, derivative_url = '.$derivative_url);
 
   fetchRemote($derivative_url, $dest);
+
+  trigger_notify('loc_end_add_uploaded_file', $image_infos);
 
   return $image_id;
 }

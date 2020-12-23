@@ -400,6 +400,7 @@ SELECT
 
   if ($count <= $conf['history_autopurge_keep_lines'])
   {
+    history_remove_summarized_column();
     return; // no need to purge for now
   }
 
@@ -463,6 +464,39 @@ DELETE
   WHERE id < '.$history_id_delete_before.'
 ;';
   pwg_query($query);
+
+  history_remove_summarized_column();
+}
+
+function history_remove_summarized_column()
+{
+  global $conf;
+
+  if (isset($conf['history_summarized_dropped']) and $conf['history_summarized_dropped'])
+  {
+    return;
+  }
+
+  $query = '
+SELECT
+    COUNT(*)
+  FROM '.HISTORY_TABLE.'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+
+  if ($count > $conf['history_autopurge_keep_lines']+$conf['history_autopurge_blocksize'])
+  {
+    // it's not yet time to remove history.summarized
+    return;
+  }
+
+  $result = pwg_query('SHOW COLUMNS FROM `'.HISTORY_TABLE.'` LIKE "summarized";');
+  if (pwg_db_num_rows($result))
+  {
+    pwg_query('ALTER TABLE `'.HISTORY_TABLE.'` DROP COLUMN `summarized`;');
+  }
+
+  conf_update_param('history_summarized_dropped', true);
 }
 
 add_event_handler('get_history', 'get_history');

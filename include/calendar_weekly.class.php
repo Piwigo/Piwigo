@@ -12,14 +12,6 @@
 
 include_once(PHPWG_ROOT_PATH.'include/calendar_base.class.php');
 
-/** level of year view */
-define('CYEAR', 0);
-/** level of week view */
-define('CWEEK', 1);
-/** level of day view */
-define('CDAY',  2);
-
-
 /**
  * Weekly calendar style (composed of years/week in years and days in week)
  */

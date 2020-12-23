@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
+{if $SHOW_MOBILE_APP_BANNER}
+<meta name="apple-itunes-app" content="app-id=472225196">
+{/if}
 <meta charset="{$CONTENT_ENCODING}">
 <title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
@@ -57,7 +60,7 @@
   <div class="pwgHead-gallery-title">{$GALLERY_TITLE}</div>
 
   <div id="headActions">
-    <i class="icon-user"></i>{$USERNAME}
+    <span class="admin-head-username"><i class="icon-user"></i>{$USERNAME}</span>
 {*
     <a href="{$U_RETURN}" title="{'Visit Gallery'|translate}"><i class="icon-eye"></i><span>{'Visit Gallery'|translate}</span></a>
 *}

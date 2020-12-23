@@ -56,7 +56,7 @@ jQuery("#selectStatus").change(function() {
 <form action="{$F_ACTION}" method="post" id="categoryPermissions">
 
 <fieldset>
-  <legend>{'Access type'|@translate}</legend>
+  <legend><span class="icon-lock icon-yellow"></span>{'Access type'|@translate}</legend>
 
   <p id="selectStatus">
     <label class="font-checkbox">

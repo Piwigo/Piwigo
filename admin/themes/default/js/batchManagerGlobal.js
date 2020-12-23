@@ -8,7 +8,11 @@ function filter_enable(filter) {
 	$("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
 
 	/* forbid to select this filter in the addFilter list */
-	$("#addFilter").children("option[value="+filter+"]").attr("disabled", "disabled");
+  $("#addFilter").find("a[data-value="+filter+"]").addClass("disabled", "disabled");
+  
+  /* hide the no filter message */
+  $('.noFilter').hide();
+  $('.addFilter-button').removeClass('highlight');
 }
 
 function filter_disable(filter) {
@@ -19,7 +23,14 @@ function filter_disable(filter) {
 	$("input[name="+filter+"_use]").prop("checked", false);
 
 	/* give the possibility to show it again */
-	$("#addFilter").children("option[value="+filter+"]").removeAttr("disabled");
+  $("#addFilter").find("a[data-value="+filter+"]").removeClass("disabled");
+  
+  /* show the no filter message if no filter selected */
+  if ($('#filterList li:visible').length == 0) {
+    $('.noFilter').show();
+    $('.addFilter-button').addClass('highlight');
+  }
+  
 }
 
 $(".removeFilter").addClass("icon-cancel-circled");
@@ -31,10 +42,9 @@ $(".removeFilter").click(function () {
 	return false;
 });
 
-$("#addFilter").change(function () {
-	var filter = $(this).prop("value");
+$("#addFilter a").on('click', function () {
+	var filter = $(this).attr("data-value");
 	filter_enable(filter);
-	$(this).prop("value", -1);
 });
 
 $("#removeFilters").click(function() {
@@ -50,6 +60,13 @@ $('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
 $('[data-slider=ratios]').pwgDoubleSlider(sliders.ratios);
 $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
 
+
+$(document).mouseup(function (e) {
+  e.stopPropagation();
+  if (!$(event.target).hasClass('addFilter-button')) {
+    $('.addFilter-dropdown').slideUp();
+  }
+});
 
 /* ********** Thumbs */
 
@@ -152,13 +169,19 @@ var derivatives = {
 	}
 };
 
+function progress_start() {
+  jQuery('#uploadingActions').show();
+  jQuery('#uploadingActions .progress-bar').width("0%");
+}
+
+function progress_end() {
+  jQuery('#uploadingActions').hide();
+}
+
 function progress(success) {
-  jQuery('#progressBar').progressBar(derivatives.done, {
-    max: derivatives.total,
-    textFormat: 'fraction',
-    boxImage: 'themes/default/images/progressbar.gif',
-    barImage: 'themes/default/images/progressbg_orange.gif'
-  });
+
+  percent = parseInt(derivatives.done / derivatives.total * 100);
+  jQuery('#uploadingActions .progressbar').width(percent.toString()+'%');
 	if (success !== undefined) {
 		var type = success ? 'regenerateSuccess': 'regenerateError',
 			s = jQuery('[name="'+type+'"]').val();
@@ -166,6 +189,7 @@ function progress(success) {
 	}
 
 	if (derivatives.finished()) {
+    progress_end();
 		jQuery('#applyAction').click();
 	}
 }
@@ -176,8 +200,13 @@ function getDerivativeUrls() {
 	jQuery("#action_generate_derivatives input").each( function(i, t) {
 		if ($(t).is(":checked"))
 			params.types.push( t.value );
-	} );
-
+  } );
+  jQuery('#applyActionBlock').hide();
+  jQuery('.permitActionListButton').hide();
+  jQuery('#confirmDel').hide();
+  jQuery('#regenerationMsg').show();
+  jQuery('#regenerationText').html(lang.generateMsg);
+  progress_start();
 	jQuery.ajax( {
 		type: "POST",
 		url: 'ws.php?format=json&method=pwg.getMissingDerivatives',
@@ -187,15 +216,24 @@ function getDerivativeUrls() {
 			if (!data.stat || data.stat != "ok") {
 				return;
 			}
-			derivatives.total += data.result.urls.length;
+      derivatives.total += data.result.urls.length;
+      jQuery('#regenerationStatus .badge-number').html(derivatives.done.toString() + "/" + derivatives.total.toString());
 			progress();
 			for (var i=0; i < data.result.urls.length; i++) {
 				jQuery.manageAjax.add("queued", {
 					type: 'GET',
 					url: data.result.urls[i] + "&ajaxload=true",
 					dataType: 'json',
-					success: ( function(data) { derivatives.done++; progress(true) }),
-					error: ( function(data) { derivatives.done++; progress(false) })
+					success: ( function(data) {
+            derivatives.done++;
+            jQuery('#regenerationStatus .badge-number').html(derivatives.done.toString() + "/" + derivatives.total.toString());
+            progress(true)
+          }),
+					error: ( function(data) {
+            derivatives.done++;
+            jQuery('#regenerationStatus .badge-number').html(derivatives.done.toString() + "/" + derivatives.total.toString());
+            progress(false)
+          })
 				});
 			}
 			if (derivatives.elements.length)
@@ -205,17 +243,17 @@ function getDerivativeUrls() {
 }
 
 function selectGenerateDerivAll() {
-	$("#action_generate_derivatives input[type=checkbox]").prop("checked", true);
+	$("#action_generate_derivatives input[type=checkbox]").prop("checked", true).trigger("change");
 }
 function selectGenerateDerivNone() {
-	$("#action_generate_derivatives input[type=checkbox]").prop("checked", false);
+	$("#action_generate_derivatives input[type=checkbox]").prop("checked", false).trigger("change");
 }
 
 function selectDelDerivAll() {
-	$("#action_delete_derivatives input[type=checkbox]").prop("checked", true);
+	$('#action_delete_derivatives input[name="del_derivatives_type[]"]').prop("checked", true).trigger("change");
 }
 function selectDelDerivNone() {
-	$("#action_delete_derivatives input[type=checkbox]").prop("checked", false);
+	$('#action_delete_derivatives input[name="del_derivatives_type[]"]').prop("checked", false).trigger("change");
 }
 
 /* sync metadatas or delete photos by blocks, with progress bar */
@@ -228,7 +266,6 @@ jQuery('#applyAction').click(function(e) {
     e.stopPropagation();
     jQuery('.bulkAction').hide();
     jQuery('#regenerationText').html(lang.syncProgressMessage);
-
     elements = Array();
 
     if (jQuery('input[name=setSelected]').is(':checked')) {
@@ -249,14 +286,10 @@ jQuery('#applyAction').click(function(e) {
     var image_ids = Array();
 
     jQuery('#applyActionBlock').hide();
-    jQuery('select[name="selectAction"]').hide();
+    jQuery('.permitActionListButton').hide();
+    jQuery('#confirmDel').hide();
     jQuery('#regenerationMsg').show();
-    jQuery('#progressBar').progressBar(0, {
-      max: progressBar_max,
-      textFormat: 'fraction',
-      boxImage: 'themes/default/images/progressbar.gif',
-      barImage: 'themes/default/images/progressbg_orange.gif'
-    });
+    progress_bar_start();
     for (i=0;i<elements.length;i++) {
       image_ids.push(elements[i]);
       if (i % syncBlockSize != syncBlockSize - 1 && i != elements.length - 1) {
@@ -279,23 +312,24 @@ jQuery('#applyAction').click(function(e) {
             if (isOk && data.result.nb_synchronized != thisBatchSize)
             /*TODO: user feedback only data.nb_synchronized images out of thisBatchSize were sync*/;
             /*TODO: user feedback if isError*/
-            progressionBar(todo, progressBar_max, isOk);
+            jQuery('#regenerationStatus .badge-number').html(todo.toString() + "/" + progressBar_max.toString());
+            progress_bar(todo, progressBar_max, false);
           },
           error: function(data) {
             todo += thisBatchSize;
             /*TODO: user feedback*/
-            progressionBar(todo, progressBar_max, false);
+            jQuery('#regenerationStatus .badge-number').html(todo.toString() + "/" + progressBar_max.toString());
+            progress_bar(todo, progressBar_max, false);
           }
         });
       } )(image_ids);
-
       image_ids = Array();
     }
   }
 
   if (jQuery('[name="selectAction"]').val() == 'delete') {
-    if (!jQuery("#action_delete input[name=confirm_deletion]").is(':checked')) {
-      jQuery("#action_delete span.errors").show();
+    if (!jQuery("#confirmDel input[name=confirm_deletion]").is(':checked')) {
+      jQuery("#confirmDel span.errors").css("visibility", "visible");
       return false;
     }
     e.stopPropagation();
@@ -305,7 +339,6 @@ jQuery('#applyAction').click(function(e) {
   }
 
   jQuery('.bulkAction').hide();
-  jQuery('#regenerationText').html(lang.deleteProgressMessage);
   var maxRequests=1;
 
   var queuedManager = jQuery.manageAjax.create('queued', {
@@ -334,15 +367,11 @@ jQuery('#applyAction').click(function(e) {
   var image_ids = Array();
 
   jQuery('#applyActionBlock').hide();
-  jQuery('select[name="selectAction"]').hide();
+  jQuery('.permitActionListButton').hide();
+  jQuery('#confirmDel').hide();
+  jQuery('#regenerationText').html(lang.deleteProgressMessage);
   jQuery('#regenerationMsg').show();
-  jQuery('#progressBar').progressBar(0, {
-    max: progressBar_max,
-    textFormat: 'fraction',
-    boxImage: 'themes/default/images/progressbar.gif',
-    barImage: 'themes/default/images/progressbg_orange.gif'
-  });
-
+  progress_bar_start();
   for (i=0;i<elements.length;i++) {
     image_ids.push(elements[i]);
     if (i % deleteBlockSize != deleteBlockSize - 1 && i != elements.length - 1) {
@@ -363,15 +392,17 @@ jQuery('#applyAction').click(function(e) {
         success: function(data) {
           todo += thisBatchSize;
           var isOk = data.stat && "ok" == data.stat;
-          if (isOk && data.result != thisBatchSize)
+          if (isOk && data.result != thisBatchSize);
             /*TODO: user feedback only data.result images out of thisBatchSize were deleted*/;
           /*TODO: user feedback if isError*/
-          progressionBar(todo, progressBar_max, isOk);
+          jQuery('#regenerationStatus .badge-number').html(todo.toString() + "/" + progressBar_max.toString());
+          progress_bar(todo, progressBar_max, false);
         },
         error: function(data) {
           todo += thisBatchSize;
           /*TODO: user feedback*/
-          progressionBar(todo, progressBar_max, false);
+          jQuery('#regenerationStatus .badge-number').html(todo.toString() + "/" + progressBar_max.toString());
+          progress_bar(todo, progressBar_max, false);
         }
       });
     } )(image_ids);
@@ -385,21 +416,24 @@ jQuery('#applyAction').click(function(e) {
   return false;
 });
 
-function progressionBar(val, max, success) {
-  jQuery('#progressBar').progressBar(val, {
-    max: max,
-    textFormat: 'fraction',
-    boxImage: 'themes/default/images/progressbar.gif',
-    barImage: 'themes/default/images/progressbg_orange.gif'
-  });
-
-  if (val == max) {
-    jQuery('#applyAction').click();
-  }
+function progress_bar_start() {
+  jQuery('#uploadingActions').show();
+  jQuery('#uploadingActions .progress-bar').width("0%");
 }
 
-jQuery("#action_delete input[name=confirm_deletion]").change(function() {
-  jQuery("#action_delete span.errors").hide();
+function progress_bar_end() {
+  jQuery('#uploadingActions').hide();
+}
+
+function progress_bar(val, max, success) {
+  percent = parseInt(val / max * 100);
+  jQuery('#uploadingActions .progressbar').width(percent.toString()+'%');
+  if (val == max)
+    jQuery('#applyAction').click();
+}
+
+jQuery("#confirmDel input[name=confirm_deletion]").change(function() {
+  jQuery("#confirmDel span.errors").css("visiblity", "hidden");
 });
 
 jQuery('#sync_md5sum').click(function(e) {

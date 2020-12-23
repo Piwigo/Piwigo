@@ -252,6 +252,7 @@ $lang['Password Reset'] = 'Password Reset';
 $lang['password updated'] = "password updated";
 $lang['Password'] = "Password";
 $lang['Password: %s'] = 'Password: %s';
+$lang['Password: ********** (no copy by email)'] = 'Password: ********** (no copy by email)';
 $lang['Pause of slideshow'] = "Pause slideshow";
 $lang['Permalink for album not found'] = 'Permalink for album not found';
 $lang['Photo sizes'] = 'Photo sizes';
@@ -413,4 +414,5 @@ $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Your authentication key is no longer valid.';
 $lang['Invalid username or password!'] = 'Invalid username or password!';
 $lang['generate random password'] = 'generate random password';
+$lang['Related albums'] = 'Related albums';
 ?>

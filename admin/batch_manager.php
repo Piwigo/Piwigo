@@ -125,6 +125,8 @@ if (isset($_POST['submitFilter']))
 
   if (isset($_POST['filter_category_use']))
   {
+    check_input_parameter('filter_category', $_POST, false, PATTERN_ID);
+
     $_SESSION['bulk_manager_filter']['category'] = $_POST['filter_category'];
 
     if (isset($_POST['filter_category_recursive']))
@@ -603,7 +605,7 @@ foreach ($filter_sets as $set)
 {
   $current_set = array_intersect($current_set, $set);
 }
-$page['cat_elements_id'] = $current_set;
+$page['cat_elements_id'] = empty($current_set) ? [] : $current_set;
 
 
 // +-----------------------------------------------------------------------+

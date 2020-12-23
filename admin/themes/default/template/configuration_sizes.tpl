@@ -1,6 +1,21 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
-
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 {footer_script}
+
+
+const title_msg = '{'Are you sure you want to restore to default settings?'|@translate|@escape}';
+const confirm_msg = '{'Yes, I am sure'|@translate|@escape}';
+const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
+
+$(".restore-settings-button").each(function() {
+  $(this).pwg_jconfirm_follow_href({
+    alert_title: title_msg,
+    alert_confirm: confirm_msg,
+    alert_cancel: cancel_msg
+  });
+});
+
 (function(){
   var labelMaxWidth = "{'Maximum width'|translate}",
       labelWidth = "{'Width'|translate}",
@@ -50,7 +65,7 @@
     jQuery(this).css("visibility", "hidden");
 		return false;
   });
-}());
+})();
 {/footer_script}
 
 {html_style}
@@ -71,7 +86,7 @@
 <div id="configContent">
 
   <fieldset id="sizesConf">
-    <legend>{'Original Size'|translate}</legend>
+    <legend><span class="icon-picture icon-red"></span>{'Original Size'|translate}</legend>
   {if $is_gd}
     <div>
       {'Resize after upload disabled due to the use of GD as graphic library'|translate}
@@ -116,7 +131,7 @@
   </fieldset>
 
   <fieldset id="multiSizesConf">
-    <legend>{'Multiple Size'|translate}</legend>
+    <legend><span class="icon-th icon-purple"></span>{'Multiple Size'|translate}</legend>
 
     <div class="showDetails">
       <a href="#" id="showDetails"{if isset($ferrors)} style="display:none"{/if}>{'show details'|translate}</a>
@@ -201,7 +216,7 @@
       {if isset($ferrors.resize_quality)}<span class="dErrorDesc" title="{$ferrors.resize_quality}">!</span>{/if}
     </p>
     <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
-      <a href="{$F_ACTION}&action=restore_settings" onclick="return confirm('{'Are you sure?'|translate|@escape:javascript}');">{'Reset to default values'|translate}</a>
+      <a href="{$F_ACTION}&action=restore_settings" class="restore-settings-button">{'Reset to default values'|translate}</a>
     </p>
 
   {if !empty($custom_derivatives)}

@@ -101,6 +101,34 @@ function initialize_menu()
     $block->template = 'menubar_categories.tpl';
   }
 
+//------------------------------------------------------------ related categories
+  $block = $menu->get_block('mbRelatedCategories');
+
+  if ($block != null and !empty($page['items']))
+  {
+    $exclude_cat_ids = array();
+    if (isset($page['category']))
+    {
+      $exclude_cat_ids = array($page['category']['id']);
+      if (isset($page['combined_categories']))
+      {
+        foreach ($page['combined_categories'] as $cat)
+        {
+          $exclude_cat_ids[] = $cat['id'];
+        }
+      }
+    }
+
+    $block->data = array(
+      'MENU_CATEGORIES' => get_related_categories_menu($page['items'], $exclude_cat_ids),
+    );
+
+    if (!empty($block->data['MENU_CATEGORIES']) )
+    {
+      $block->template = 'menubar_related_categories.tpl';
+    }
+  }
+
 //------------------------------------------------------------------------ tags
   $block = $menu->get_block('mbTags');
   if ( $block!=null and 'picture' != script_basename() )
@@ -138,6 +166,8 @@ function initialize_menu()
     else if ($conf['menubar_tag_cloud_content'] == 'always_all' or ($conf['menubar_tag_cloud_content'] == 'all_or_current' and empty($page['items'])) )
     {
       $tags = get_available_tags();
+      usort($tags, 'tags_counter_compare');
+      $tags = array_slice($tags, 0, $conf['menubar_tag_cloud_items_number']);
       foreach ($tags as $tag)
       {
         $block->data[] = array_merge(

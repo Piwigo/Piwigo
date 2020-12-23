@@ -418,7 +418,7 @@ function get_tags_content_title()
       .trigger_change('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
       .'</a>';
 
-    if (count($page['tags']) > 2)
+    if (count($page['tags']) > 1)
     {
       $other_tags = $page['tags'];
       unset($other_tags[$i]);
@@ -429,14 +429,64 @@ function get_tags_content_title()
         );
 
       $title.=
-        '<a href="'.$remove_url.'" style="border:none;" title="'
+        '<a id="TagsGroupRemoveTag" href="'.$remove_url.'" style="border:none;" title="'
         .l10n('remove this tag from the list')
         .'"><img src="'
           .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-        .'" alt="x" style="vertical-align:bottom;">'
+        .'" alt="x" style="vertical-align:bottom;" >'
+        .'<span class="pwg-icon pwg-icon-close" ></span>'
         .'</a>';
     }
   }
+  return $title;
+}
+
+/**
+ * Returns the breadcrumb to be displayed above thumbnails on combined categories page.
+ *
+ * @return string
+ */
+function get_combined_categories_content_title()
+{
+  global $page;
+
+  $title = l10n('Albums').' ';
+
+  $is_first = true;
+  $all_categories = array_merge(array($page['category']), $page['combined_categories']);
+  foreach ($all_categories as $idx => $category)
+  {
+    $title.= $is_first ? '' : ' + ';
+    $is_first = false;
+
+    $title.= get_cat_display_name(array($category));
+
+    if (count($all_categories) > 1) // should be always the case
+    {
+      $other_cats = $all_categories;
+      unset($other_cats[$idx]);
+
+      $params = array(
+        'category' => array_shift($other_cats),
+        );
+
+      if (count($other_cats) > 0)
+      {
+        $params['combined_categories'] = $other_cats;
+      }
+      $remove_url = make_index_url($params);
+
+      $title.=
+        '<a id="TagsGroupRemoveTag" href="'.$remove_url.'" style="border:none;" title="'
+        .l10n('remove this tag from the list')
+        .'"><img src="'
+          .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
+        .'" alt="x" style="vertical-align:bottom;" >'
+        .'<span class="pwg-icon pwg-icon-close" ></span>'
+        .'</a>';
+    }
+  }
+
   return $title;
 }
 
@@ -500,6 +550,7 @@ function register_default_menubar_blocks($menu_ref_arr)
   $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbRelatedCategories', 'Related albums', 'piwigo') );
 
   // We hide the quick identification menu on the identification page. It
   // would be confusing.

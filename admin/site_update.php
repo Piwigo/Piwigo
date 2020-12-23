@@ -67,6 +67,23 @@ else
   $site_reader = new LocalSiteReader($site_url);
 }
 
+if (isset($page['no_md5sum_number']))
+{
+  $page['messages'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('Some checksums are missing.').'<i class="icon-right"></i></a>';
+}
+
+// +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+$my_base_url = get_root_url().'admin.php?page=';
+
+$tabsheet = new tabsheet();
+$tabsheet->set_id('site_update');
+$tabsheet->select('synchronization');
+$tabsheet->assign();
+
 // +-----------------------------------------------------------------------+
 // | Quick sync                                                            |
 // +-----------------------------------------------------------------------+
@@ -252,7 +269,7 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
       else
       {
         $insert['uppercats'] = $insert['id'];
-        $insert{'rank'} = $next_rank['NULL']++;
+        $insert['rank'] = $next_rank['NULL']++;
         $insert['global_rank'] = $insert['rank'];
       }
 
@@ -263,7 +280,7 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
           );
 
       // add the new category to $db_categories and $db_fulldirs array
-      $db_categories[$insert{'id'}] =
+      $db_categories[$insert['id']] =
         array(
           'id' => $insert['id'],
           'parent' => (isset($parent)) ? $parent : Null,
@@ -273,7 +290,7 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
           'global_rank' => $insert['global_rank']
           );
       $db_fulldirs[$fulldir] = $insert['id'];
-      $next_rank[$insert{'id'}] = 1;
+      $next_rank[$insert['id']] = 1;
     }
     else
     {
@@ -309,7 +326,7 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
       pwg_activity('album', $category_ids, 'add', array('sync'=>true));
 
       $category_up=implode(',',array_unique($category_up));
-      if ($conf['inheritance_by_default'])
+      if ($conf['inheritance_by_default'] and !empty($category_up))
       {
         $query = '
           SELECT *
@@ -389,13 +406,6 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
                   'cat_id' => $ids
                   );
               }
-            }
-            foreach (get_admins() as $granted_user)
-            {
-              $insert_granted_users[] = array(
-                'user_id' => $granted_user,
-                'cat_id' => $ids
-                );
             }
           }
         }

@@ -113,6 +113,10 @@
   padding:0 25px;
 }
 
+#menubar .badge {
+  margin-left:5px;
+}
+
 .badge::before {
   content: '[';
 }
@@ -120,6 +124,34 @@
 .badge::after {
   content: ']';
 }
+
+.badge.badgeCategories::before {
+  content:"(";
+}
+.badge.badgeCategories::after {
+  content:")";
+}
+
+/* A nicer (more modern) way to present badge, with a background color and no brackets */
+
+/*
+.badge::before, .badge::after {
+  content:none;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 5px;
+  padding: 3px 7px;
+  color: #eee;
+  line-height: 1;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  background-color: #666;
+  border-radius: 10px;
+}
+*/
 
 /* category and tag results paragraphs on a quick search */
 .search_results {
@@ -791,4 +823,9 @@ LEGEND {
 /* Selectize */
 .selectize-dropdown [data-selectable], .selectize-dropdown .optgroup-header {
     padding: 0px 5px !important;
+}
+
+
+#TagsGroupRemoveTag span{
+  display:none;
 }

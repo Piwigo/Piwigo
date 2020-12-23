@@ -46,7 +46,7 @@ jQuery(document).ready(function() {
 {/footer_script}
 
 <div id="menubar">
-  <div id="adminHome"><a href="{$U_ADMIN}"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
+  <div id="adminHome"><a href="{$U_ADMIN}" class="admin-main"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
 
 	<dl>
 		<dt><i class="icon-picture"> </i><span>{'Photos'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
 				<li><a href="{$U_RATING}"><i class="icon-star"></i>{'Rating'|@translate}</a></li>
 				<li><a href="{$U_TAGS}"><i class="icon-tags"></i>{'Tags'|@translate}</a></li>
 				<li><a href="{$U_RECENT_SET}"><i class="icon-clock"></i>{'Recent photos'|@translate}</a></li>
-				<li><a href="{$U_BATCH}"><i class="icon-pencil"></i>{'Batch Manager'|@translate}</a></li>
+				<li><a href="{$U_BATCH}"><i class="icon-th"></i>{'Batch Manager'|@translate}</a></li>
 {if $NB_PHOTOS_IN_CADDIE > 0}
 				<li><a href="{$U_CADDIE}"><i class="icon-flag"></i>{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
 {/if}
@@ -71,6 +71,7 @@ jQuery(document).ready(function() {
     <dd>
       <ul>
         <li><a href="{$U_CATEGORIES}"><i class="icon-folder-open"></i>{'Manage'|@translate}</a></li>
+        <li><a href="{$U_CAT_MOVE}"><i class="icon-move"></i>{'Move'|@translate}</a></li>
         <li><a href="{$U_CAT_OPTIONS}"><i class="icon-pencil"></i>{'Properties'|@translate}</a></li>
       </ul>
     </dd>
@@ -86,20 +87,7 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
-		<dd>
-      <ul>
-        <li><a href="{$U_PLUGINS}"><i class="icon-equalizer"></i>{'Manage'|@translate}</a></li>
-      </ul>
-{if !empty($plugin_menu_items)}
-      <div id="pluginsMenuSeparator"></div>
-      <ul class="scroll">
-  {foreach from=$plugin_menu_items item=menu_item}
-        <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
-  {/foreach}
-      </ul>
-{/if}
-		</dd>
+		<dt><a href="{$U_PLUGINS}" class="admin-main"><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span></a></dt>
   </dl>
   <dl>
 		<dt><i class="icon-wrench"> </i><span>{'Tools'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
@@ -143,9 +131,12 @@ jQuery(document).ready(function() {
   {$TABSHEET}
   {/if}
   {if isset($U_HELP)}
-	{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+  {include file='include/colorbox.inc.tpl'}
+{footer_script}
+  jQuery('.help-popin').colorbox({ width:"500px" });
+{/footer_script}
   <ul class="HelpActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/help.png" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}&amp;output=content_only" title="{'Help'|@translate}" class="help-popin"><span class="icon-help-circled"></span></a></li>
   </ul>
   {/if}
 

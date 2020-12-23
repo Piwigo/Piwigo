@@ -153,7 +153,7 @@ if (isset($conf['order_by_inside_category_custom']))
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
-if (in_array( substr($user['language'],0,2), array('fr','it','de','es','pl','hu','ru','nl','tr','da') ) )
+if (in_array( substr($user['language'],0,2), array('fr','it','de','es','pl','ru','nl','tr','da') ) )
 {
   define('PHPWG_DOMAIN', substr($user['language'],0,2).'.piwigo.org');
 }
@@ -166,7 +166,7 @@ elseif ('pt_BR' == $user['language']) {
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
-define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+define('PHPWG_URL', 'https://'.PHPWG_DOMAIN);
 
 if(isset($conf['alternative_pem_url']) and $conf['alternative_pem_url']!='')
 {
@@ -174,7 +174,7 @@ if(isset($conf['alternative_pem_url']) and $conf['alternative_pem_url']!='')
 }
 else
 {
-  define('PEM_URL', 'http://'.PHPWG_DOMAIN.'/ext');
+  define('PEM_URL', 'https://'.PHPWG_DOMAIN.'/ext');
 }
 
 // language files

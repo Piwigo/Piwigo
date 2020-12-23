@@ -161,7 +161,7 @@ elseif (isset($_POST['submitAdd']))
   $output_create = create_virtual_category(
     $_POST['virtual_name'],
     @$_GET['parent_id']
-    );
+  );
 
   invalidate_user_cache();
   if (isset($output_create['error']))
@@ -174,86 +174,6 @@ elseif (isset($_POST['submitAdd']))
     $page['infos'][] = $output_create['info'].' <a class="icon-pencil" href="'.$edit_url.'">'.l10n('Edit album').'</a>';
   }
 }
-// save manual category ordering
-elseif (isset($_POST['submitManualOrder']))
-{
-  asort($_POST['catOrd'], SORT_NUMERIC);
-  save_categories_order(array_keys($_POST['catOrd']));
-
-  $page['infos'][] = l10n('Album manual order was saved');
-}
-elseif (isset($_POST['submitAutoOrder']))
-{
-  if (!isset($sort_orders[ $_POST['order_by'] ]))
-  {
-    die('Invalid sort order');
-  }
-
-  $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id_uppercat '.
-    (!isset($_GET['parent_id']) ? 'IS NULL' : '= '.$_GET['parent_id']).'
-;';
-  $category_ids = array_from_query($query, 'id');
-
-  if (isset($_POST['recursive']))
-  {
-    $category_ids = get_subcat_ids($category_ids);
-  }
-  
-  $categories = array();
-  $sort = array();
-
-  list($order_by_field, $order_by_asc) = explode(' ', $_POST['order_by']);
-  
-  $order_by_date = false;
-  if (strpos($order_by_field, 'date_') === 0)
-  {
-    $order_by_date = true;
-    
-    $ref_dates = get_categories_ref_date(
-      $category_ids,
-      $order_by_field,
-      'ASC' == $order_by_asc ? 'min' : 'max'
-      );
-  }
-
-  $query = '
-SELECT id, name, id_uppercat
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $category_ids).')
-;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    if ($order_by_date)
-    {
-      $sort[] = $ref_dates[ $row['id'] ];
-    }
-    else
-    {
-      $sort[] = remove_accents($row['name']);
-    }
-    
-    $categories[] = array(
-      'id' => $row['id'],
-      'id_uppercat' => $row['id_uppercat'],
-      );
-  }
-
-  array_multisort(
-    $sort,
-    SORT_REGULAR,
-    'ASC' == $order_by_asc ? SORT_ASC : SORT_DESC,
-    $categories
-    );
-  
-  save_categories_order($categories);
-
-  $page['infos'][] = l10n('Albums automatically sorted');
-}
-
 // +-----------------------------------------------------------------------+
 // |                            Navigation path                            |
 // +-----------------------------------------------------------------------+

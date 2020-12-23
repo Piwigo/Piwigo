@@ -453,11 +453,21 @@ if ($conf['enable_synchronization'])
   $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => l10n('With no checksum'));
 }
 
+function UC_name_compare($a, $b)
+{
+  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
+}
+
 $prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);
-usort($prefilters, 'UC_name_compare');
+
+// Sort prefilters by localized name.
+usort($prefilters, function ($a, $b) {
+  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
+});
 
 $template->assign(
   array(
+    'conf_checksum_compute_blocksize' => $conf['checksum_compute_blocksize'],
     'prefilters' => $prefilters,
     'filter' => $_SESSION['bulk_manager_filter'],
     'selection' => $collection,
@@ -468,6 +478,15 @@ $template->assign(
     'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag','filter')),
    )
  );
+
+if (isset($page['no_md5sum_number']))
+{
+  $template->assign(
+    array(
+      'NB_NO_MD5SUM' => $page['no_md5sum_number'],
+    )
+  );
+}
 
 // +-----------------------------------------------------------------------+
 // |                            caddie options                             |
@@ -545,6 +564,8 @@ $template->assign('filter_category_selected', $selected_category);
 // Dissociate from a category : categories listed for dissociation can only
 // represent virtual links. We can't create orphans. Links to physical
 // categories can't be broken.
+$associated_categories = array();
+
 if (count($page['cat_elements_id']) > 0)
 {
   $query = '
@@ -559,8 +580,10 @@ SELECT
     )
 ;';
 
-  $template->assign('associated_categories', query2array($query, 'id', 'id'));
+  $associated_categories = query2array($query, 'id', 'id');
 }
+
+$template->assign('associated_categories', $associated_categories);
 
 if (count($page['cat_elements_id']) > 0)
 {
@@ -651,10 +674,15 @@ if (count($page['cat_elements_id']) > 0)
     $is_category = true;
   }
 
+  // If using the 'duplicates' filter,
+  // order by the fields that are used to find duplicates.
   if (isset($_SESSION['bulk_manager_filter']['prefilter'])
-      and 'duplicates' == $_SESSION['bulk_manager_filter']['prefilter'])
+      and 'duplicates' === $_SESSION['bulk_manager_filter']['prefilter']
+      and isset($duplicates_on_fields))
   {
-    $conf['order_by'] = ' ORDER BY file, id';
+    // The $duplicates_on_fields variable is defined in ./batch_manager.php
+    $order_by_fields = array_merge( $duplicates_on_fields, array( 'id' ) );
+    $conf['order_by'] = ' ORDER BY '.join(', ', $order_by_fields);
   }
 
   $query = '
@@ -690,7 +718,7 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
 ;';
   $result = pwg_query($query);
 
-  $thumb_params = ImageStdParams::get_by_type(IMG_THUMB);
+  $thumb_params = ImageStdParams::get_by_type(IMG_SQUARE);
   // template thumbnail initialization
   while ($row = pwg_db_fetch_assoc($result))
   {

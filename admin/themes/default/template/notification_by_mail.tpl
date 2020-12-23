@@ -21,6 +21,8 @@ jQuery(document).ready(function(){
 </div>
 
 <form method="post" name="notification_by_mail" id="notification_by_mail" action="{$F_ACTION}">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
   {if isset($REPOST_SUBMIT_NAME)}
   <fieldset>
     <div class="infos">
@@ -37,7 +39,7 @@ jQuery(document).ready(function(){
         <td><label>{'Send mail on HTML format'|@translate}</label></td>
         <td>
           <label><input type="radio" name="nbm_send_html_mail" value="true"  {if $param.SEND_HTML_MAIL}checked="checked"{/if}>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_html_mail" value="false" {if not $param.SEND_HTML_MAIL}checked="checked"{/if}>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_html_mail" value="false" {if $param.SEND_HTML_MAIL === "false" || !$param.SEND_HTML_MAIL}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
       <tr>
@@ -51,7 +53,7 @@ jQuery(document).ready(function(){
         <td><label>{'Add detailed content'|@translate}</label></td>
         <td>
           <label><input type="radio" name="nbm_send_detailed_content" value="true"  {if $param.SEND_DETAILED_CONTENT}checked="checked"{/if}>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_detailed_content" value="false" {if not $param.SEND_DETAILED_CONTENT}checked="checked"{/if}>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_detailed_content" value="false" {if !$param.SEND_DETAILED_CONTENT || $param.SEND_DETAILED_CONTENT === "false"}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
      <tr>
@@ -65,7 +67,7 @@ jQuery(document).ready(function(){
         </td>
         <td>
           <label><input type="radio" name="nbm_send_recent_post_dates" value="true" {if $param.SEND_RECENT_POST_DATES}checked="checked"{/if}>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {if not $param.SEND_RECENT_POST_DATES}checked="checked"{/if}>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {if !$param.SEND_RECENT_POST_DATES || $param.SEND_RECENT_POST_DATES === "false"}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
     </table>
@@ -129,7 +131,7 @@ jQuery(document).ready(function(){
 
 {if isset($auth_key_duration)}
     <fieldset>
-      <legend>{'Informations'|@translate}</legend>
+      <legend><span class="icon-info-circled-1 icon-blue"></span>{'Informations'|@translate}</legend>
       <p>
       {'Each email sent will contain its own automatic authentication key on links, valid for %s.'|translate:$auth_key_duration}
       <br>{'For security reason, authentication keys do not work for administrators.'|translate}

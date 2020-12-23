@@ -989,15 +989,20 @@ SELECT uppercats
 
 /**
  */
-function get_category_representant_properties($image_id)
+function get_category_representant_properties($image_id, $size = NULL)
 {
   $query = '
 SELECT id,representative_ext,path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
+
   $row = pwg_db_fetch_assoc(pwg_query($query));
-  $src = DerivativeImage::thumb_url($row);
+  if ($size == NULL) {
+    $src = DerivativeImage::thumb_url($row);
+  } else {
+    $src = DerivativeImage::url($size, $row);
+  }
   $url = get_root_url().'admin.php?page=photo-'.$image_id;
 
   return array(
@@ -1571,7 +1576,7 @@ SELECT id, uppercats, global_rank, visible, status
       WHERE cat_id = '.$insert['id_uppercat'].'
     ;';
     $granted_users =  query2array($query, null, 'user_id');
-    add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']), $granted_users)));
+    add_permission_on_category($inserted_id, $granted_users);
   }
   elseif ('private' == $insert['status'])
   {
@@ -1582,7 +1587,7 @@ SELECT id, uppercats, global_rank, visible, status
   pwg_activity('album', $inserted_id, 'add');
 
   return array(
-    'info' => l10n('Virtual album added'),
+    'info' => l10n('Album added'),
     'id'   => $inserted_id,
     );
 }
@@ -2454,6 +2459,57 @@ SELECT name
   return $groupname;
 }
 
+function delete_groups($group_ids) 
+{
+
+  if (count($group_ids) == 0)
+  {
+    trigger_error('There is no group to delete', E_USER_WARNING);
+    return false;
+  }
+
+  $group_id_string = implode(',', $group_ids);
+
+  // destruction of the access linked to the group
+  $query = '
+DELETE
+  FROM '. GROUP_ACCESS_TABLE .'
+  WHERE group_id IN ('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  // destruction of the users links for this group
+  $query = '
+DELETE
+  FROM '. USER_GROUP_TABLE .'
+  WHERE group_id IN ('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  $query = '
+SELECT id, name
+  FROM `'. GROUPS_TABLE .'`
+  WHERE id IN ('. $group_id_string  .')
+;';
+
+  $group_list = query2array($query, 'id', 'name');
+  $groupids = array_keys($group_list);
+
+  // destruction of the group
+  $query = '
+DELETE
+  FROM `'. GROUPS_TABLE .'`
+  WHERE id IN ('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  trigger_notify('delete_group', $groupids);
+  pwg_activity('group', $groupids, 'delete');
+
+
+  return $group_list;
+}
+
 /**
  * Returns the username corresponding to the given user identifier if exists.
  *
@@ -2521,6 +2577,7 @@ function get_active_menu($menu_page)
     case 'cat_list':
     case 'cat_move':
     case 'cat_options':
+    case 'cat_search':
     case 'permalinks':
       return 1;
 
@@ -2531,10 +2588,6 @@ function get_active_menu($menu_page)
     case 'notification_by_mail':
       return 2;
 
-    case 'plugins':
-    case 'plugin':
-      return 3;
-
     case 'site_manager':
     case 'site_update':
     case 'stats':
@@ -2542,7 +2595,7 @@ function get_active_menu($menu_page)
     case 'maintenance':
     case 'comments':
     case 'updates':
-      return 4;
+      return 3;
 
     case 'configuration':
     case 'derivatives':
@@ -2551,10 +2604,10 @@ function get_active_menu($menu_page)
     case 'themes':
     case 'theme':
     case 'languages':
-      return 5;
+      return 4;
 
     default:
-      return 0;
+      return -1;
   }
 }
 

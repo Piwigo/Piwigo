@@ -32,8 +32,8 @@ function add_core_tabs($sheets, $tab_id)
     case 'albums':
       global $my_base_url;
       $sheets['list'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'cat_list');
-      $sheets['move'] = array('caption' => '<span class="icon-move"></span>'.l10n('Move'), 'url' => $my_base_url.'cat_move');
       $sheets['permalinks'] = array('caption' => '<span class="icon-link-1"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
+      $sheets['search'] = array('caption' => '<span class="icon-search"></span>'.l10n('Search'), 'url' => $my_base_url.'cat_search');
       break;
 
     case 'batch_manager':
@@ -148,6 +148,10 @@ function add_core_tabs($sheets, $tab_id)
       global $my_base_url;
       $sheets['pwg'] = array('caption' => l10n('Piwigo Update'), 'url' => $my_base_url);
       $sheets['ext'] = array('caption' => l10n('Extensions Update'), 'url' => $my_base_url.'&amp;tab=ext');
+      break;
+    case 'site_update':
+      global $my_base_url;
+      $sheets['synchronization'] = array('caption' => l10n('Database synchronization with files'), 'url' => $my_base_url.'site_update&site=1');
       break;
   }
 
