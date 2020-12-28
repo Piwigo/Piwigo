@@ -413,3 +413,5 @@ $lang['Photo title'] = '写真のタイトル';
 $lang['Your authentication key is no longer valid.'] = 'あなたの認証キーは既に無効になっています。';
 $lang['generate random password'] = 'ランダムなパスワードを生成します';
 $lang['Invalid username or password!'] = 'ユーザ名かパスワードが違います!';
+$lang['Password: ********** (no copy by email)'] = 'パスワード: ********** (電子メールにはコピーされません)';
+$lang['Related albums'] = '関連するアルバム';
