@@ -414,3 +414,5 @@ $lang['Link: %s'] = 'Saite: %s';
 $lang['Your authentication key is no longer valid.'] = 'Jūsu autentifikācijas atslēga vairs nav derīga';
 $lang['generate random password'] = 'ģenerēt gadījumveida paroli';
 $lang['Invalid username or password!'] = 'Nepareizs lietotjvārds vai parole';
+$lang['Password: ********** (no copy by email)'] = 'Parole: ********** (ne e-pasta kopija)';
+$lang['Related albums'] = 'Saistītie albūmi';
