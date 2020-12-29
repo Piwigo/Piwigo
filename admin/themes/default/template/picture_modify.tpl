@@ -84,8 +84,6 @@ $('#action-delete-picture').on('click', function() {
 }());
 {/footer_script}
 
-<h2>{'Edit photo #%s'|@translate:$INTRO.id}</h2>
-
 <form action="{$F_ACTION}" method="post" id="pictureModify">
   <div id='picture-preview'>
     <div class='picture-preview-actions'>
