@@ -418,3 +418,5 @@ $lang['Link: %s'] = 'Hivatkozás: %s';
 $lang['Your authentication key is no longer valid.'] = 'A hitelesítési kulcsod már nem érvényes.';
 $lang['Invalid username or password!'] = 'A felhasználó-azonosító vagy a jelszó érvénytelen ';
 $lang['generate random password'] = 'Véletlenszerű jelszó generálása';
+$lang['Password: ********** (no copy by email)'] = 'Jelszó: ********** (nincs email másolat)';
+$lang['Related albums'] = 'Kapcsolódó albumok';
