@@ -416,3 +416,5 @@ $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Din autentifikationsnøgle er ikke længere gyldig.';
 $lang['Invalid username or password!'] = 'Ugyldigt brugernavn eller adgangskode!';
 $lang['generate random password'] = 'generer tilfældig adgangskode';
+$lang['Password: ********** (no copy by email)'] = 'Adgangskode: ********** (ingen kopi via mail)';
+$lang['Related albums'] = 'Relaterede albummer';
