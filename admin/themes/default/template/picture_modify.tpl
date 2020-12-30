@@ -93,8 +93,10 @@ $('#action-delete-picture').on('click', function() {
         <a class="icon-eye unavailable" title="{'Photo is in a private album'|@translate}"></a>
       {/if}
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
+      {if !url_is_remote($PATH)}
       <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
+      {/if}
     </div>
     <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}" style="{if $FORMAT}width{else}height{/if}:35vw">
       <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" style="{if $FORMAT}width{else}height{/if}:100%">
