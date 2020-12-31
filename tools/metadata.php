@@ -79,4 +79,40 @@ $exif = exif_read_data($filename);
 echo '<pre>';
 print_r($exif);
 echo '</pre>';
+
+#
+#        Display XMP metadata using ImageMagick PHP extension
+#
+
+print "<h3>XMP data in '{$filename}'</h3><br />" ;
+print ' (Requires Imagemagick PHP extension)<br />' ;
+print '<pre>' ;
+
+if( extension_loaded('imagick') && class_exists("Imagick") ){ //Check ImageMagick is installed
+
+  //  create new Imagick object from image
+  $sampleIM = new imagick($filename) ;
+
+  //  get the XMP data
+  $sampleXMP = $sampleIM -> getImageProperties("xmp:*") ;
+
+  //  If there's data, then loop through the XMP array
+  if ( count($sampleXMP) ) {
+    foreach ($sampleXMP as $XMPname => $XMPproperty) {
+      print "{$XMPname} => {$XMPproperty} <br />\n" ; 
+    }
+  }else{
+    print 'No data <br /> ';
+  }
+  print '[end of XMP]' ;
+
+}else{
+
+  print 'ImageMagick not detected or disabled' ;
+  
+}
+
+print '</pre>' ;
+
+
 ?>
