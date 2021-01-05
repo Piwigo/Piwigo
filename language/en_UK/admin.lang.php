@@ -1117,3 +1117,4 @@ $lang['%s file type'] = '%s file type';
 $lang['Created on %s'] = 'Created on %s';
 $lang['Edited on %s'] = 'Edited on %s';
 $lang['%d sub-albums'] = '%d sub-albums';
+$lang['Refresh thumbnail'] = 'Refresh thumbnail';
