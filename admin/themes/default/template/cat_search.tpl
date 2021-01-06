@@ -12,8 +12,8 @@ var data = {json_encode($data_cat)};
 // Numeric array of all categories
 var categories = Object.values(data);
 
-var str_albums_found = '{"<b>%d</b> albums found"}';
-var str_album_found = '{"<b>1</b> album found"}';
+var str_albums_found = '{"<b>%d</b> albums found"|translate}';
+var str_album_found = '{"<b>1</b> album found"|translate}';
 {literal}
 var editLink = "admin.php?page=album-";
 var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
@@ -151,7 +151,7 @@ $('.search-input').focus();
     <p class='search-album-name'></p>
     <div class="search-album-action-cont">
       <div class="search-album-action">
-        <a class="icon-pencil search-album-edit">Edit album</a>
+        <a class="icon-pencil search-album-edit">{'Edit album'|translate}</a>
       </div>
     </div>
   </div>
@@ -162,6 +162,6 @@ $('.search-input').focus();
 </div>
 
 <div class="search-album-noresult">
-  {"No album found"|@translate}
+  {'No albums found'|translate}
 </div>
 
