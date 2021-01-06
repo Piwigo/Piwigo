@@ -322,6 +322,14 @@ $template->assign('ACTIVITY_LAST_WEEKS', $activity_last_weeks);
 $template->assign('ACTIVITY_CHART_DATA',$chart_data);
 $template->assign('ACTIVITY_CHART_NUMBER_SIZES',$size);
 
+$day_labels = array();
+for ($i=0; $i<=6; $i++)
+{
+  // first 3 letters of day name
+  $day_labels[] = mb_substr($lang['day'][($i+1)%7], 0, 3);
+}
+$template->assign('DAY_LABELS', $day_labels);
+
 // +-----------------------------------------------------------------------+
 // |                           get storage data                            |
 // +-----------------------------------------------------------------------+
@@ -358,11 +366,11 @@ foreach ($result as $file)
       $data_storage['Videos'] = $size;
     }
   } else {
-    if (isset($data_storage['Others'])) 
+    if (isset($data_storage['Other']))
     {
-      $data_storage['Others'] += $size;
+      $data_storage['Other'] += $size;
     } else {
-      $data_storage['Others'] = $size;
+      $data_storage['Other'] = $size;
     }
   }
 }
