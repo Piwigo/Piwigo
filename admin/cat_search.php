@@ -53,6 +53,7 @@ foreach ($result as $cat)
 // +-----------------------------------------------------------------------+
 $template->set_filename('cat_search', 'cat_search.tpl');
 $template->assign('data_cat', $categories);
+$template->assign('ADMIN_PAGE_TITLE', l10n('Album search tool'));
 
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |

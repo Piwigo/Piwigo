@@ -126,10 +126,6 @@ $('.search-input').focus();
 {/literal}
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Album search tool'|@translate}</h2>
-</div>
-
 <div class="search-album">
   <div class="search-album-cont">
     <div class="search-album-label">{'Search albums'|@translate}</div>
