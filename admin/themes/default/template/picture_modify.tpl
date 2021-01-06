@@ -90,7 +90,7 @@ $('#action-delete-picture').on('click', function() {
       {if isset($U_JUMPTO)}
         <a class="icon-eye" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
       {else}
-        <a class="icon-eye unavailable" title="{'Photo is in a private album'|@translate}"></a>
+        <a class="icon-eye unavailable" title="{'You don\'t have access to this photo'|translate}"></a>
       {/if}
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
       {if !url_is_remote($PATH)}
