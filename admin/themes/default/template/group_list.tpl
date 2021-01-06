@@ -10,12 +10,13 @@ var str_group_deleted = '{'Group "%s" succesfully deleted'|@translate}'
 var str_groups_deleted = '{'Groups \{%s\} succesfully deleted'|@translate}'
 var str_set_default = "{'Set as group for new users'|@translate}"
 var str_unset_default = "{'Unset as group for new users'|@translate}"
-var str_delete = '{'Delete group "%s"?'|@translate}'
+var str_delete = '{'Are you sure you want to delete group "%s"?'|@translate}'
 var str_yes_delete_confirmation = "{'Yes, delete'|@translate}"
 var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}"
 var str_user_associated = "{"User associated"|@translate}"
+var str_user_dissociate = "{'Dissociate user from this group'|translate}"
 var str_user_dissociated = '{'User "%s" dissociated from this group'|@translate}'
-var str_user_list = "{"User List"|@translate}"
+var str_user_list = "{'Manage the members'|translate}"
 var str_merged_into = '{'Group(s) \{%s1\} succesfully merged into "%s2"'|@translate}'
 var str_copy = '{' (copy)'|@translate}'
 var str_other_copy = '{' (copy %s)'|@translate}'
@@ -98,8 +99,8 @@ $(document).on('click', function (e) {
       <p class="group_number_users">{$grp_members}</p>
     </div>
 
-    <a id="UserListTrigger" class="icon-user-1 manage-users not-in-selection-mode GroupManagerButtons">Manage users</a>
-    <a class="icon-lock manage-permissions not-in-selection-mode GroupManagerButtons" href="admin.php?page=group_perm&group_id={$grp_id}">Manage permissions</a>
+    <a id="UserListTrigger" class="icon-user-1 manage-users not-in-selection-mode GroupManagerButtons">{'Manage the members'|translate}</a>
+    <a class="icon-lock manage-permissions not-in-selection-mode GroupManagerButtons" href="admin.php?page=group_perm&group_id={$grp_id}">{'Manage Permissions'|translate}</a>
   </div>
 {/function}
 {/function}
@@ -217,13 +218,13 @@ $(document).on('click', function (e) {
 
     <div class="UserListAddFilterUsers">
       <div class="AddUserBlock">
-        <p>Associate User</p>
+        <p>{'Associate User'|translate}</p>
         <select class="UserSearch" placeholder="John Doe"></select>
         <button class="icon-user-add submit" name="submit_add" id="UserSubmit" type="submit"></button>
       </div>
       <div class="FilterUserBlock">
         <div class="AmountOfUsersShown">
-          <p>Showing <strong>39</strong> users out of <strong>251</strong></p>
+          <p>{'Showing %s users out of %s'|translate:'<strong>39</strong>':'<strong>251</strong>'}</p>
         </div>
         <div class='search-user'>
           <span class="icon-filter search-icon"></span>
@@ -245,7 +246,7 @@ $(document).on('click', function (e) {
     <div class="LinkUserManager">
       <a>
       <span class="icon-users-cog"></span>
-      Manage users with user manager</a>
+      {'Manage users with user manager'|translate}</a>
     </div>
       
   </div>

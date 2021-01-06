@@ -796,7 +796,7 @@ var getUserDisplay = function(username, user_id, grp_id) {
       '<p>'+username+'</p>'+
       '<div class="Tooltip">'+
         '<span class="icon-cancel"></span>'+
-        '<p class="TooltipText">Dissociate user from this group</p>'+
+        '<p class="TooltipText">'+str_user_dissociate+'</p>'+
       '</div>'+
     '</div>');
 
