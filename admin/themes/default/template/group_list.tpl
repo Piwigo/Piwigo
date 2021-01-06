@@ -106,10 +106,6 @@ $(document).on('click', function (e) {
 {/function}
 
 
-<div class="titrePage">
-  <h2>{'Group management'|@translate} <span class="badge-number">{(empty($groups)) ? 0 :count($groups)}</span></h2>
-</div>
-
 <div class="selection-mode-group-manager">
   <label class="switch">
     <input type="checkbox" id="toggleSelectionMode">

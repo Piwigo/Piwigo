@@ -69,6 +69,8 @@ $users_url = $admin_url.'user_list&amp;group=';
 $del_url     = $admin_url.'group_list&amp;delete=';
 $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 
+$group_counter = 0;
+
 while ($row = pwg_db_fetch_assoc($result))
 {
   $query = '
@@ -99,7 +101,11 @@ SELECT u.'. $conf['user_fields']['username'].' AS username
       'U_ISDEFAULT' => $toggle_is_default_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
       )
     );
+
+  $group_counter++;
 }
+
+$template->assign('ADMIN_PAGE_TITLE', l10n('Group management').' <span class="badge-number">'.$group_counter.'</span>');
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
