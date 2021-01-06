@@ -1159,6 +1159,7 @@ a.stat-box:hover {
 
 .activity-chart .row-legend div{
   margin: auto;
+  white-space: nowrap;
 }
 
 .activity-chart .col-legend {
