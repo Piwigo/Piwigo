@@ -381,6 +381,8 @@ if (count(get_last(60, 'year')) > 1 )
   );
 }
 
+ksort($lang['month']);
+
 $template->assign(array(
   'compareYears' => get_month_of_last_years($conf['stat_compare_year_displayed']),
   'monthStats' => get_month_stats(),
@@ -388,7 +390,9 @@ $template->assign(array(
   'lastDays' => $last_days,
   'lastMonths' => $last_months,
   'lastYears' => $last_years,
-  'langCode' => strval($user['language'])
+  'langCode' => strval($user['language']),
+  'month_labels' => join('~', $lang['month']),
+  'ADMIN_PAGE_TITLE' => l10n('History'),
 ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
