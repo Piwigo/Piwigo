@@ -105,7 +105,7 @@ $(window).bind("load", function() {
   <div class="themeBox{if $theme.IS_DEFAULT} themeDefault{/if}">
     <div class="themeShot"><a href="{$theme.SCREENSHOT}" class="preview-box" title="{$theme.NAME}"><img src="{$theme.SCREENSHOT}" alt=""></a></div>
     <div class="themeName" title="{$theme.NAME}">
-      {$theme.NAME} {if $theme.IS_DEFAULT}<em>({'default'|@translate})</em>{/if} {if $theme.IS_MOBILE}<em>({'Mobile'|@translate})</em>{/if}
+      {$theme.NAME} {if $theme.IS_DEFAULT}<i class="icon-star" title="{'default'|@translate}"></i>{/if} {if $theme.IS_MOBILE}<i class="icon-mobile" title="{'Mobile'|translate}"></i>{/if}
       <a class="icon-ellipsis-v showInfo"></a>
     </div>
     <div class="showInfo-dropdown dropdown">
@@ -135,9 +135,9 @@ $(window).bind("load", function() {
         <a href="{$theme.ADMIN_URI}" class="icon-cog">{'Configuration'|@translate}</a>
   {/if}
   {if not $theme.IS_DEFAULT}
-        <a href="{$set_default_baseurl}{$theme.ID}" class="tiptip" title="{'Set as default theme for unregistered and new users'|@translate}">{'Set as default'|@translate}</a>
+        <a href="{$set_default_baseurl}{$theme.ID}" class="tiptip icon-star" title="{'Set as default theme for unregistered and new users'|@translate}">{'Set as default'|@translate}</a>
   {else}
-        <span class="tiptip" title="{'Theme is already set to default'|@translate}">{'Set as default'|@translate}</span>
+        <span class="tiptip icon-star" title="{'This is already the default theme'|@translate}">{'Set as default'|@translate}</span>
   {/if}
 {else}
   {if $theme.ACTIVABLE}
