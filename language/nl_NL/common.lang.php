@@ -433,3 +433,5 @@ $lang['month']['9'] = 'september';
 $lang['Your authentication key is no longer valid.'] = 'Je sleutel is niet langer geldig.';
 $lang['Invalid username or password!'] = 'Ongeldige gebruikersnaam of wachtwoord!';
 $lang['generate random password'] = 'Genereer een willekeurig wachtwoord';
+$lang['Related albums'] = 'Gerelateerde albums';
+$lang['Password: ********** (no copy by email)'] = 'Wachtwoord ********** (geen kopie via email)';
