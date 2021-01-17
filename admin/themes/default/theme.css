@@ -1865,7 +1865,7 @@ h2:lang(en) { text-transform:capitalize; }
  */
 .infos, .errors, .warnings, .messages {
   text-align: left;
-  margin: 15px 35px 50px 35px;
+  margin: 20px;
   padding: 5px;
   font-weight:bold;
   min-height: 54px;
