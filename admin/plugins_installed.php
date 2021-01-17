@@ -93,7 +93,7 @@ foreach ($plugin_menu_links_deprec as $value)
 {
   if (preg_match('/^admin\.php\?page=plugin-(.*)$/', $value["URL"], $matches)) {
     $settings_url_for_plugin_deprec[$matches[1]] = $value["URL"];
-  } elseif (preg_match('/^.*section=(.*)[\/&%].*$/', $value["URL"], $matches)) {
+  } elseif (preg_match('/^.*section=(.*?)[\/&%].*$/', $value["URL"], $matches)) {
     $settings_url_for_plugin_deprec[$matches[1]] = $value["URL"];
   }
 }
