@@ -371,7 +371,7 @@ SELECT
   }
 
   // update metadata from the uploaded file (exif/iptc)
-  if ($conf['use_exif'] and !function_exists('read_exif_data'))
+  if ($conf['use_exif'] and !function_exists('exif_read_data'))
   {
     $conf['use_exif'] = false;
   }
