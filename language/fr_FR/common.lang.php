@@ -414,3 +414,4 @@ $lang['Your authentication key is no longer valid.'] = 'Votre clef d\'identifica
 $lang['Invalid username or password!'] = 'Nom d\'utilisateur ou mot de passe invalide !';
 $lang['generate random password'] = 'générer un mot de passe aléatoire';
 $lang['Related albums'] = 'Albums liés';
+$lang['Password: ********** (no copy by email)'] = 'Mot de passe : ********** (pas de copie par email)';

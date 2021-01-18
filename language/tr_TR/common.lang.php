@@ -414,3 +414,5 @@ $lang['Link: %s'] = 'Bağlantı: %s';
 $lang['Your authentication key is no longer valid.'] = 'Kimlik doğrulama anahtarınız artık geçerli değil.';
 $lang['Invalid username or password!'] = 'Geçersiz kullanıcı adı veya şifre!';
 $lang['generate random password'] = 'rastgele şifre oluştur';
+$lang['Password: ********** (no copy by email)'] = 'Şifre: ********** (not edin, eposta ile kopyası gönderilmiyor)';
+$lang['Related albums'] = 'İlgili albümler';
