@@ -13,7 +13,7 @@
 
 
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
-if (($conf['show_exif']) and (function_exists('read_exif_data')))
+if (($conf['show_exif']) and (function_exists('exif_read_data')))
 {
   $exif_mapping = array();
   foreach ($conf['show_exif_fields'] as $field)
