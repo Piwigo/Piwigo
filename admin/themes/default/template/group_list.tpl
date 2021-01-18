@@ -35,6 +35,16 @@ $(document).on('click', function (e) {
     $("#UserList").fadeOut();
   }
 });
+
+{* temporary fix for #1283 (begin) : force user local storage cache on page load. *}
+var usersCache = new UsersCache({
+  serverKey: '{$CACHE_KEYS.users}',
+  serverId: '{$CACHE_KEYS._hash}',
+  rootUrl: '{$ROOT_URL}'
+});
+
+usersCache.selectize(jQuery('select.UserSearch'));
+{* temporary fix for #1283 (end) *}
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
