@@ -414,3 +414,5 @@ $lang['Link: %s'] = 'Adresse: %s';
 $lang['Your authentication key is no longer valid.'] = 'Ihr Authentifizierungs-Schlüssel ist nicht mehr gültig.';
 $lang['Invalid username or password!'] = 'Benutzername oder Passwort ungültig!';
 $lang['generate random password'] = 'Zufälliges Passwort generieren';
+$lang['Password: ********** (no copy by email)'] = 'Passwort: ********** (keine Kopie per E-Mail)';
+$lang['Related albums'] = 'Verwandte Alben';

@@ -420,3 +420,5 @@ $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Váš autentifikačný kľúč nie je viac platný.';
 $lang['generate random password'] = 'generovanie náhodného hesla';
 $lang['Invalid username or password!'] = 'Neplatné meno alebo heslo!';
+$lang['Password: ********** (no copy by email)'] = 'Heslo: ********** (žiadna kópia e-mailom)';
+$lang['Related albums'] = 'Súvisiace albumy';
