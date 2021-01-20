@@ -453,6 +453,7 @@ function parse_section_url( $tokens, &$next_token)
         strpos($tokens[$next_token], 'created-')===0
         or strpos($tokens[$next_token], 'posted-')===0
         or strpos($tokens[$next_token], 'start-')===0
+        or strpos($tokens[$next_token], 'startcat-')===0
       )
       {
         break;
