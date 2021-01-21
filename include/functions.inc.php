@@ -1381,7 +1381,7 @@ INSERT INTO
   ON DUPLICATE KEY UPDATE value = \''.$dbValue.'\'
 ;';
 
-  pwg_query($query);
+  pwg_query($query, false);
 
   if ($updateGlobal)
   {
