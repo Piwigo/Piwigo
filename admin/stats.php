@@ -212,7 +212,7 @@ ORDER BY
   month DESC
 ;';
 
-  $result['avg'] = query2array($query)[0]['AVG(nb_pages)'];
+  list($result['avg']) = pwg_db_fetch_row(pwg_query($query));
   
   return $result;
 }

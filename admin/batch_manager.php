@@ -605,7 +605,7 @@ foreach ($filter_sets as $set)
 {
   $current_set = array_intersect($current_set, $set);
 }
-$page['cat_elements_id'] = empty($current_set) ? [] : $current_set;
+$page['cat_elements_id'] = empty($current_set) ? array() : $current_set;
 
 
 // +-----------------------------------------------------------------------+
