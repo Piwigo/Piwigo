@@ -124,12 +124,12 @@ function pwg_get_db_version()
  * @param string $query
  * @return mysqli_result|bool
  */
-function pwg_query($query)
+function pwg_query($query, $escape_reserved_words=true)
 {
   global $mysqli, $conf, $page, $debug, $t2;
 
   // starting with MySQL 8, rank becomes a reserved keyword, we need to escape it
-  if (preg_match('/\brank\b/', $query))
+  if ($escape_reserved_words and preg_match('/\brank\b/', $query))
   {
     // first we unescape what's already escaped (to avoid double escaping)
     $query = preg_replace('/`rank`/', 'rank', $query);
@@ -137,7 +137,7 @@ function pwg_query($query)
     $query = preg_replace('/\brank\b/', '`rank`', $query);
   }
 
-  if (preg_match('/\bgroups\b/', $query))
+  if ($escape_reserved_words and preg_match('/\bgroups\b/', $query))
   {
     // first we unescape what's already escaped (to avoid double escaping)
     $query = preg_replace('/`groups`/', 'groups', $query);
