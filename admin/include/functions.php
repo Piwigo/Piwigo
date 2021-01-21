@@ -626,6 +626,28 @@ function get_fs_directories($path, $recursive = true)
 }
 
 /**
+ * returns the size (in bytes) of a filesystem directory
+ *
+ * @since 11
+ * @param string path
+ * @return int
+ */
+function get_fs_directory_size($path)
+{
+  $bytestotal = 0;
+  $path = realpath($path);
+
+  if ($path !== false && $path != '' && file_exists($path))
+  {
+    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object)
+    {
+      $bytestotal += $object->getSize();
+    }
+  }
+  return $bytestotal;
+}
+
+/**
  * save the rank depending on given categories order
  *
  * The list of ordered categories id is supposed to be in the same parent
