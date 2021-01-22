@@ -465,8 +465,7 @@ class updates
 
     if ($step == 2)
     {
-      preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION, $matches);
-      $code =  $matches[1].'.x_to_'.$upgrade_to;
+      $code = get_branch_from_version(PHPWG_VERSION).'.x_to_'.$upgrade_to;
       $dl_code = str_replace(array('.', '_'), '', $code);
       $remove_path = $code;
       $obsolete_list = 'obsolete.list';
