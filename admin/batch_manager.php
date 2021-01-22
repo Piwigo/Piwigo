@@ -346,6 +346,8 @@ SELECT id
  ;';
     $all_elements = query2array($query, null, 'id');
 
+    $linked_to_virtual = array();
+
     $query = '
  SELECT id
    FROM '.CATEGORIES_TABLE.'
