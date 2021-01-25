@@ -1,7 +1,7 @@
-FROM php:7.1-fpm-alpine
+FROM php:7.4-fpm-alpine
 
-ARG PIWIGO_VERSION=2.9.2
-ARG PIWIGO_SHA512=95714ea12d67e20e00bc03b221e5bb597d7be133fe676c3617c60845c55d73ef000a81f6d43289179193f826000748ba908b29cac60bcb70572ee96d9b3e44f9
+ARG PIWIGO_VERSION=11.1.0
+ARG PIWIGO_SHA512=0ad7561ea69fd6942c8e958d3de9ab993626fd66b06a4d23883732924a5bf66314099db540ede73b0769c210cac35542d9b601abf5e932a9e6118870175d6d2c
 
 RUN set -ex; \
 	apk add --no-cache \
@@ -16,7 +16,7 @@ RUN set -ex; \
 		libpng-dev \
 	; \
 	\
-	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
+	docker-php-ext-configure gd --with-jpeg; \
 	docker-php-ext-install \
 		exif \
 		gd \
