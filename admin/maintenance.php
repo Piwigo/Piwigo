@@ -179,11 +179,13 @@ DELETE
     $template->delete_compiled_templates();
     FileCombiner::clear_combined_files();
     $persistent_cache->purge(true);
+    unset($_SESSION['cachedir_info']);
     break;
   }
   case 'derivatives':
   {
     clear_derivative_cache($_GET['type']);
+    unset($_SESSION['cachedir_info']);
     break;
   }
 
