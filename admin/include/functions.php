@@ -637,13 +637,17 @@ function get_fs_directory_size($path)
   $bytestotal = 0;
   $path = realpath($path);
 
-  if ($path !== false && $path != '' && file_exists($path))
+  if (!function_exists('exec'))
   {
-    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object)
-    {
-      $bytestotal += $object->getSize();
-    }
+    return false;
   }
+
+  @exec('du -sk '.$path, $returnarray);
+  if (is_array($returnarray) and !empty($returnarray[0]) and preg_match('/^(\d+)\s/', $returnarray[0], $matches))
+  {
+    $bytestotal = $matches[1] * 1024;
+  }
+
   return $bytestotal;
 }
 
