@@ -404,8 +404,8 @@ if (isset($result[0]['SUM(filesize)']))
   $data_storage['Formats'] = $result[0]['SUM(filesize)'];
 }
 
-// PHP 5.5.19 is the oldest version get_fs_directory_size was tested on
-if (version_compare(PHP_VERSION, '5.5.19') >= 0)
+// Windows can't execute get_fs_directory_size correctly
+if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN')
 {
   if (!isset($_SESSION['cachedir_info']) or $_SESSION['cachedir_info']['calculated_on'] < strtotime('5 minutes ago'))
   {
