@@ -312,7 +312,7 @@ jQuery(".pluginMiniBox").each(function(index){
           {if $plugin.SETTINGS_URL != ''}
             <a href="{$plugin.SETTINGS_URL}" class="pluginActionLevel1 icon-cog">{'Settings'|@translate}</a>
           {else}
-            <div class="pluginUnavailableAction icon-cog">{'Settings'|@translate}</div>
+            <div class="pluginUnavailableAction icon-cog tiptip" title="{'N/A'|translate}">{'Settings'|@translate}</div>
           {/if}
         {elseif $plugin.STATE == 'inactive'}
           <a class="pluginActionLevel1 icon-plus" href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
