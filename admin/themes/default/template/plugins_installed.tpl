@@ -149,6 +149,13 @@ jQuery(document).ready(function() {
 
   /*Add the filter research*/
   jQuery( document ).ready(function () {
+    document.onkeydown = function(e) {
+      if (e.keyCode == 58) {
+        jQuery(".pluginFilter input.search-input").focus();
+        return false;
+      }
+    }
+
     jQuery(".pluginFilter input").on("input", function() {
       let text = jQuery(this).val().toLowerCase();
       var searchNumber = 0;
