@@ -64,7 +64,14 @@ if (isset($_GET['action']) and isset($_GET['plugin']))
         $template->delete_compiled_templates();
         $persistent_cache->purge(true);
       }
-      redirect($base_url);
+
+      $redirect_url = $base_url;
+      if ('activate' == $_GET['action'])
+      {
+        $redirect_url.= '&show_inactive';
+      }
+
+      redirect($redirect_url);
     }
   }
 }
@@ -208,6 +215,7 @@ $template->assign(
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,
+    'max_inactive_before_hide' => isset($_GET['show_inactive']) ? 999 : 8,
     )
   );
 

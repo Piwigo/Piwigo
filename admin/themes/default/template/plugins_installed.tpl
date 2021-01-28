@@ -243,7 +243,7 @@ jQuery(".pluginMiniBox").each(function(index){
   </div> {* PluginBoxes*}
       {/if}
 
-  <div class="pluginBoxes plugin-{$plugin.STATE}" {if $plugin.STATE == 'inactive'}{if $count_types_plugins["inactive"]>8}style="display:none"{/if}{/if}>
+  <div class="pluginBoxes plugin-{$plugin.STATE}" {if $plugin.STATE == 'inactive'}{if $count_types_plugins["inactive"]>$max_inactive_before_hide}style="display:none"{/if}{/if}>
   {assign var='field_name' value=$plugin.STATE}
 
   <div class="pluginBoxesHead">
@@ -332,7 +332,7 @@ jQuery(".pluginMiniBox").each(function(index){
   </div> {* PluginBoxes Container*}
   </div> {* PluginBoxes*}
 
-  <div class="showInactivePlugins" {if $count_types_plugins["inactive"]<=8}style="display:none"{/if} >
+  <div class="showInactivePlugins" {if $count_types_plugins["inactive"]<=$max_inactive_before_hide}style="display:none"{/if} >
       <div class="showInactivePluginsInfo">
         {assign var='badge_inactive' value='<span class="pluginBoxesCount">%s</span>'|@sprintf:$count_types_plugins["inactive"]}
         <div>{'You have %s inactive plugins'|translate:$badge_inactive}</div>
