@@ -200,26 +200,26 @@ $week_number = array();
 //Array for sorting days in circle size
 $temp_data = array();
 
-if (!isset($_SESSION['cache_activity_last_weeks']) or $_SESSION['cache_activity_last_weeks']['calculated_on'] < strtotime('5 minutes ago'))
+$activity_last_weeks = array();
+$date = new DateTime();
+
+//Get data from $nb_weeks last weeks
+while ($mondays < $nb_weeks)
 {
-  $activity_last_weeks = array();
-  $date = new DateTime();
-
-  //Get data from $nb_weeks last weeks
-  while ($mondays < $nb_weeks)
+  if ($date->format('D') == 'Mon')
   {
-    if ($date->format('D') == 'Mon')
-    {
-      $week_number[] = $date->format('W');
-      $mondays += 1;
-    }
-
-    $date->sub(new DateInterval('P1D'));
+    $week_number[] = $date->format('W');
+    $mondays += 1;
   }
 
-  $week_number = array_reverse($week_number);
+  $date->sub(new DateInterval('P1D'));
+}
 
-  $date_string = $date->format('Y-m-d');
+$week_number = array_reverse($week_number);
+$date_string = $date->format('Y-m-d');
+
+if (!isset($_SESSION['cache_activity_last_weeks']) or $_SESSION['cache_activity_last_weeks']['calculated_on'] < strtotime('5 minutes ago'))
+{
   $query = '
   SELECT
       DATE_FORMAT(occured_on , \'%Y-%m-%d\') AS activity_day,
