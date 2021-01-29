@@ -321,7 +321,12 @@ for ($i=0; $i < $nb_weeks; $i++)
 }
 
 $size = 1;
-$chart_data[$temp_data[0]['w']][$temp_data[0]['d']] = $size;
+
+if (isset($temp_data[0]))
+{
+  $chart_data[$temp_data[0]['w']][$temp_data[0]['d']] = $size;
+}
+
 //Set sizes in chart data
 for ($i=1; $i < count($temp_data); $i++) 
 { 
