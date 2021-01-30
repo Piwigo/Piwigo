@@ -19,6 +19,13 @@
       });
     })(target);
   };
+
+  jQuery('.tiptip-with-img').tipTip({
+    maxWidth: "300px",
+    delay: 0,
+    fadeIn: 200,
+    fadeOut: 200
+  });
 }());
 
 {if !isset($ORDER_BY_IS_CUSTOM)}
@@ -57,8 +64,8 @@
 jQuery(".themeBoxes a").colorbox();
 
 jQuery("input[name='mail_theme']").change(function() {
-  jQuery("input[name='mail_theme']").parents(".themeBox").removeClass("themeDefault");
-  jQuery(this).parents(".themeBox").addClass("themeDefault");
+  jQuery("input[name='mail_theme']").parents(".themeSelect").removeClass("themeDefault");
+  jQuery(this).parents(".themeSelect").addClass("themeDefault");
 });
 {/footer_script}
 
@@ -69,7 +76,7 @@ jQuery("input[name='mail_theme']").change(function() {
 <div id="configContent">
 
   <fieldset class="mainConf">
-    <legend>{'Basic settings'|translate}</legend>
+    <legend><span class="icon-cog icon-purple"></span>{'Basic settings'|translate}</legend>
     <ul>
       <li>
         <label for="gallery_title">{'Gallery title'|translate}</label>
@@ -105,7 +112,7 @@ jQuery("input[name='mail_theme']").change(function() {
   </fieldset>
 
   <fieldset class="mainConf">
-    <legend>{'Permissions'|translate}</legend>
+    <legend><span class="icon-lock icon-yellow"></span>{'Permissions'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -154,7 +161,7 @@ jQuery("input[name='mail_theme']").change(function() {
   </fieldset>
 
   <fieldset class="mainConf">
-    <legend>{'Miscellaneous'|translate}</legend>
+    <legend><span class="icon-wrench icon-blue"></span>{'Miscellaneous'|translate}</legend>
     <ul>
       <li>
         <label>{'Week starts on'|translate}
@@ -184,11 +191,29 @@ jQuery("input[name='mail_theme']").change(function() {
       </li>
 
       <li>
+        <strong>{'Promote mobile app on mobile devices'|translate}</strong>
+
+        <label class="font-checkbox no-bold">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="show_mobile_app_banner_in_gallery" {if ($main.show_mobile_app_banner_in_gallery)}checked="checked"{/if}>
+          {'in gallery'|translate}
+        </label>
+
+        <label class="font-checkbox no-bold">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="show_mobile_app_banner_in_admin" {if ($main.show_mobile_app_banner_in_admin)}checked="checked"{/if}>
+          {'in administration'|translate}
+        </label>
+
+        <span class="icon-help-circled tiptip-with-img show-mobile-app-banner-tooltip" title="{'Displays a banner to install or open the official Piwigo app'|translate}<br><img src='admin/themes/default/images/piwigo_app_banner.jpg' style='width:100%;margin-top:5px;'>" style="cursor:help"></span>
+      </li>
+
+      <li>
         <label>{'Mail theme'|translate}</label>
 
         <div class="themeBoxes font-checkbox">
         {foreach from=$main.mail_theme_options item=name key=theme}
-          <div class="themeBox {if $main.mail_theme==$theme}themeDefault{/if}">
+          <div class="themeSelect {if $main.mail_theme==$theme}themeDefault{/if}">
             <label class="font-checkbox">
               <div class="themeName">
                 <span class="icon-dot-circled"></span>
@@ -204,6 +229,7 @@ jQuery("input[name='mail_theme']").change(function() {
         {/foreach}
         </div>
       </li>
+
     </ul>
   </fieldset>
 

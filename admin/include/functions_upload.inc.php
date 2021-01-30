@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -252,11 +237,13 @@ SELECT
       }
       else
       {
+        unlink($source_filepath);
         die('unexpected file type');
       }
     }
     else
     {
+      unlink($source_filepath);
       die('forbidden file type');
     }
 
@@ -372,6 +359,7 @@ SELECT
     single_insert(IMAGES_TABLE, $insert);
 
     $image_id = pwg_db_insert_id(IMAGES_TABLE);
+    pwg_activity('photo', $image_id, 'add');
   }
 
   if (isset($categories) and count($categories) > 0)
@@ -391,23 +379,28 @@ SELECT
 
   invalidate_user_cache();
 
-  // cache thumbnail
+  // cache a derivative
   $query = '
 SELECT
     id,
-    path
+    path,
+    representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
   $image_infos = pwg_db_fetch_assoc(pwg_query($query));
+  $src_image = new SrcImage($image_infos);
 
   set_make_full_url();
   // in case we are on uploadify.php, we have to replace the false path
-  $thumb_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::thumb_url($image_infos));
+  $derivative_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::url(IMG_MEDIUM, $src_image));
   unset_make_full_url();
 
-  fetchRemote($thumb_url, $dest);
+  $logger->info(__FUNCTION__.' : force cache generation, derivative_url = '.$derivative_url);
 
+  fetchRemote($derivative_url, $dest);
+
+  trigger_notify('loc_end_add_uploaded_file', $image_infos);
 
   return $image_id;
 }

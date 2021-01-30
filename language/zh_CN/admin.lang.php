@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d张关联图片';
@@ -675,7 +660,7 @@ $lang['include child albums'] = '包含子相册';
 $lang['manual order'] = '手动排序';
 $lang['No photo in the current set.'] = '当前集合没有图片。';
 $lang['No photo selected, %d photos in current set'] = '没有图片被选中，当前集合中有 %d 张图片';
-$lang['No photo selected, no action possible.'] = '没有图片被选中，不能执行任何操作。';
+$lang['No photos selected, no actions possible.'] = '没有图片被选中，不能执行任何操作。';
 $lang['on the %d selected photos'] = '于此 %d 张所选图片';
 $lang['Orphan tags deleted'] = '未关联任何图片的标签已被删除';
 $lang['Refresh photo set'] = '刷新图片集';
@@ -825,6 +810,7 @@ $lang['This album contains %d photos, added between %s and %s.'] = '此相册包
 $lang['This album contains %d photos, added on %s.'] = '此相册包含%d张图片，添加于%s。';
 $lang['This album contains no photo.'] = '此相册中没有图片。';
 $lang['Unlock gallery'] = '解锁图库';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo Android版</em> 使您能够从Android手机或平板电脑连接到您的Piwigo图库，方便您随时随地创建相册和上传图片。';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo iOS版</em> 使您能够从iPhone、iPad或iPod Touch连接到您的Piwigo图库，方便您随时随地创建相册和上传图片。';
 $lang['Applications'] = '应用程序';
 $lang['apply automatic sort order'] = '应用自动排序';
@@ -833,6 +819,7 @@ $lang['Available on'] = '可用在';
 $lang['cancel manual order'] = '取消手动排序';
 $lang['Cancel'] = '取消';
 $lang['List'] = '列表';
+$lang['Piwigo for Android'] = 'Piwigo Android版';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo iOS版 (iPhone, iPad, iPod Touch)';
 $lang['Save manual order'] = '保存手动排序';
 $lang['Web Form'] = '浏览器';
@@ -941,7 +928,7 @@ $lang['Type here the name of the new group'] = '在此输入新组的名称';
 $lang['Duplicate'] = '复制';
 $lang['Manage the members'] = '管理用户';
 $lang['Merge selected groups'] = '合并所选组';
-$lang['No group selected, no action possible.'] = '没有组被选中，不能执行任何操作。';
+$lang['No groups selected, no actions possible.'] = '没有组被选中，不能执行任何操作。';
 $lang['Purge user cache'] = '清除用户缓存';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = '相片的分辨率将会被减少到 %dx%d 象素.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = '由于使用 GD 图形库，因此禁用上传后调整大小';
@@ -950,7 +937,7 @@ $lang['Basic settings'] = '基本设置';
 $lang['General'] = '总体';
 $lang['Mail theme'] = '邮件主题';
 $lang['No user selected of %d users'] = '%d 个用户中无用户被选中';
-$lang['No user selected, no action possible.'] = '无用户被选中，无法执行。';
+$lang['No users selected, no actions possible.'] = '无用户被选中，无法执行。';
 $lang['Password updated'] = '密码已更新';
 $lang['Registered on %s, %s.'] = '注册于 %s, %s。';
 $lang['Show %s users'] = '显示 %s 个用户';
@@ -1002,7 +989,7 @@ $lang['Select tags'] = '选择标签';
 $lang['Running on an up-to-date Piwigo is important for security.'] = '使用最新版的 Piwigo 对于安全是很重要的。';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo 远程同步能够上传整个目录层级。如果您再次运行，只有新的图片会被上传。';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s 已准备就绪，请升级';
-$lang['No tag selected, no action possible.'] = '未选择标签，无法执行操作。';
+$lang['No tags selected, no actions possible.'] = '未选择标签，无法执行操作。';
 $lang['No filter on album. Select one or type to search'] = '没有相册过滤器。选择一个或输入以进行搜索';
 $lang['It only takes a few clicks.'] = '这仅需数次点击。';
 $lang['First photo added'] = '首张图片已添加';
@@ -1015,3 +1002,18 @@ $lang['Dashboard'] = '面板';
 $lang['delete album and the %d orphan photos'] = '删除相册和 %d 张无关联图片';
 $lang['orphans to delete'] = '要删除的无关联图片';
 $lang['delete only album, not photos'] = '仅删除相册，不删除图片';
+$lang['%d checksums were added'] = '%d 校验码已添加';
+$lang['Compute %d missing checksums'] = '计算 %d 缺失的校验码';
+$lang['Create a first album'] = '创建第一个相册';
+$lang['Deletion in progress'] = '正在删除';
+$lang['Display album date period'] = '显示与每个相册相关联的日期区间，如 « 2018年 7月12日 至 15日 »';
+$lang['Display category date'] = '显示分类日期';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo 需要一个相册来添加图片。';
+$lang['Some checksums are missing.'] = '部分校验码缺失。';
+$lang['Synchronization in progress'] = '正在同步';
+$lang['Visit'] = '访问';
+$lang['Welcome!'] = '欢迎！';
+$lang['With no checksum'] = '无校验码';
+$lang['checksums to add'] = '要添加的校验码';
+$lang['or'] = '或者';
+$lang['... or hide this link'] = '... 或隐藏本链接';

@@ -24,7 +24,7 @@
 <div id="configContent">
 
   <fieldset id="indexDisplayConf">
-    <legend>{'Main Page'|translate}</legend>
+    <legend><span class="icon-television icon-green"></span>{'Main Page'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -107,6 +107,14 @@
       </li>
 
       <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="display_fromto" {if ($display.display_fromto)}checked="checked"{/if}>
+          {'Display album date period'|translate}
+        </label>
+      </li>
+
+      <li>
         <label>
           {'Number of albums per page'|translate}
           <input type="text" size="3" maxlength="4" name="nb_categories_page" id="nb_categories_page" value="{$display.NB_CATEGORIES_PAGE}">
@@ -116,7 +124,7 @@
   </fieldset>
 
   <fieldset id="pictureDisplayConf">
-    <legend>{'Photo Page'|translate}</legend>
+    <legend><span class="icon-picture icon-blue"></span>{'Photo Page'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -209,7 +217,7 @@
   </fieldset>
 
   <fieldset id="pictureInfoConf">
-    <legend>{'Photo Properties'|translate}</legend>
+    <legend><span class="icon-cog icon-red"></span>{'Photo Properties'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">

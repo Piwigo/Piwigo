@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d hozzárendelés (fizikai és virtuális)';
@@ -679,7 +664,7 @@ $lang['Refresh photo set'] = 'Képek frissítése';
 $lang['The whole page'] = 'Összes kép az oldalon';
 $lang['The whole set'] = 'A teljes képkészlet';
 $lang['No photo in the current set.'] = 'Nem található a feltételnek megfelelő kép.';
-$lang['No photo selected, no action possible.'] = 'Nincs kép kiválasztva, nem lehet műveletet végezni.';
+$lang['No photos selected, no actions possible.'] = 'Nincs kép kiválasztva, nem lehet műveletet végezni.';
 $lang['Choose an action'] = 'Művelet kiválasztása';
 $lang['remove author'] = 'szerző törlése';
 $lang['Type here the author name'] = 'Írja be a szerző nevét';
@@ -851,6 +836,7 @@ $lang['X Repeat'] = 'X ismétlődés';
 $lang['Y Position'] = 'Y pozíció';
 $lang['Available on'] = 'Elérhető';
 $lang['add a new watermark'] = 'új vízjel hozzáadása';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'A <em>Piwigo for Android</em> alkalmazás segítségével csatlakozhat Piwigo galériájához telefonjával vagy táblagépével, létrehozhat új albumokat, feltölthet képeket (egyszerre akár többet is) képgalériájába.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'A <em>Piwigo for iOS</em> alkalmazás segítségével csatlakozhat Piwigo galériájához iPhone, iPad vagy iPod Touch eszközével, létrehozhat új albumokat, feltölthet képeket (egyszerre akár többet is) képgalériájába.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Az Adobe Photoshop Lightroom egy képkezelő program, melyet nagy mennyiségű digitális kép utómunkálataihoz és kezeléséhez terveztek.';
 $lang['Features include gallery browsing, album creation and photo upload.'] = 'Jellemzői: galéria böngészés, album létrehozás, képek feltöltése.';
@@ -859,6 +845,7 @@ $lang['No group is permitted to see this private album'] = 'Nincs engedélyezett
 $lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'Egyszerűen telepítheti a Linux csomagkezelője segítségével, majd könnyedén beállíthatja Piwigo galériájának eléréséhez.';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo Lightroom feltöltő';
 $lang['Piwigo export plugin for iPhoto'] = 'Piwigo iPhoto feltöltő';
+$lang['Piwigo for Android'] = 'Piwigo Androidon';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo iOS-en (iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo Shotwell feltöltő';
 $lang['Piwigo publish plugin for digiKam'] = 'Piwigo digiKam feltöltő';
@@ -931,7 +918,7 @@ $lang['between %d and %d pixels'] = '%d és %d pixel között';
 $lang['Duplicate'] = 'Másolat';
 $lang['Manage the members'] = 'Tagok kezelése';
 $lang['Merge selected groups'] = 'Kiválasztott csoportok egyesítése';
-$lang['No group selected, no action possible.'] = 'Nincs kiválasztott csoport, művelet nem lehetséges.';
+$lang['No groups selected, no actions possible.'] = 'Nincs kiválasztott csoport, művelet nem lehetséges.';
 $lang['No members to manage'] = 'Nem tagok kezelése';
 $lang['Please select at least two groups'] = 'Jelöljön ki legalább két csoport';
 $lang['Rename'] = 'Átnevezés';
@@ -953,7 +940,7 @@ $lang['Change password'] = 'Jelszó módosítása';
 $lang['Change username'] = 'Felhasználónév módosítása';
 $lang['Loading...'] = 'Töltés...';
 $lang['No matching user found'] = 'Felhasználó nem található';
-$lang['No user selected, no action possible.'] = 'Választott felhasználó nem található, művelet nem lehetséges';
+$lang['No users selected, no actions possible.'] = 'Választott felhasználó nem található, művelet nem lehetséges';
 $lang['Password updated'] = 'Jelszó frissítve';
 $lang['Update user'] = 'Felhasználó frissítése';
 $lang['User %s added'] = '%s felhasználó hozzáadva';
@@ -991,3 +978,25 @@ $lang['No user is permitted to see this private album'] = 'Nincs felhasználó, 
 $lang['Orphans'] = 'Árvák';
 $lang['Recipients'] = 'Címzettek';
 $lang['Y Repeat'] = 'Y ismétlődés';
+$lang['Dashboard'] = 'Vezérlőpult';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync képes egy egész dosszié-struktúra feltöltésére. Ha újra futtatod, csak új képek kerülnek feltöltésre. ';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Osszed meg / köldjed el fotóidat egyenesen a macOS gépedről (10.10 and later) a Piwigo-nak.';
+$lang['Storage used'] = 'Tár használva';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Itt az idő, hogy frissítsd a Piwigo-t a %s verzióra, menj ide: %s';
+$lang['checksum'] = 'checksum (ellenörzőszám)';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'Töröld az albumot az összes %d fotóval, sőt a %d, más albumban lévőket is.';
+$lang['delete album and the %d orphan photos'] = 'Töröld az albumot és a %d árva fotót';
+$lang['delete only album, not photos'] = 'csak az albumot töröld, a képeket ne';
+$lang['orphans to delete'] = 'törlendő árvák';
+$lang['(determined from photos)'] = '(a fotók határozzák meg)';
+$lang['Confirm deletion'] = 'Törlés megerősítése';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Az album "%s" és %d al-albumok törlése.';
+$lang['Delete album "%s".'] = 'A(z) "%s" album törlése.';
+$lang['Display form'] = 'kérdőív megjelenítése';
+$lang['First photo added'] = 'Az első fotó hozzáadva';
+$lang['It only takes a few clicks.'] = 'Csak néhány kattintás.';
+$lang['No filter on album. Select one or type to search'] = 'Nincs az albumon szűrő. Válassz egyet, vagy írj be valamit, a kereséshez';
+$lang['No tags selected, no actions possible.'] = 'Nincs cimke választva, nincs mit tenni.';
+$lang['Piwigo %s is available, please update'] = 'Piwigo %s már elérhető, kérlek, frissíts';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'A legfrisebb Piwigo-t futtatni biztonsági okok miatt fontos.';
+$lang['Select tags'] = 'Válassz cimkéket';

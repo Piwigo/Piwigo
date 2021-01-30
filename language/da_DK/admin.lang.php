@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -293,7 +278,7 @@ $lang['private'] = 'privat';
 $lang['public'] = 'offentlig';
 $lang['Purge never used notification feeds'] = 'Tøm aldrig anvendte notificeringsfeeds';
 $lang['Purge sessions'] = 'Tøm sessioner';
-$lang['randomly represented'] = 'tilfældigt albumminiaturebillede';
+$lang['randomly represented'] = 'album har tilfældigt miniaturebillede';
 $lang['registration date'] = 'registreringsdato';
 $lang['clean'] = 'oprydning';
 $lang['Create this site'] = 'Opret dette websted';
@@ -303,7 +288,7 @@ $lang['remove tags'] = 'Fjern tags';
 $lang['Repair and optimize database'] = 'Reparer og optimer database';
 $lang['selection'] = 'udvælgelse';
 $lang['set to'] = 'opsat til';
-$lang['singly represented'] = 'fast albumminiaturebillede';
+$lang['singly represented'] = 'album har fast miniaturebillede';
 $lang['This site already exists'] = 'Dette websted findes allerede';
 $lang['created'] = 'oprettet';
 $lang['delete'] = 'slet';
@@ -602,7 +587,7 @@ $lang['Guest Settings'] = 'Gæsteindstillinger ';
 $lang['Main Page']  =  'Forside';
 $lang['Photo Page'] = 'Fotoside ';
 $lang['Activate Navigation Bar'] = 'Aktiver navigationsbjælke';
-$lang['Activate Navigation Thumbnails'] = 'Aktiver navigeringsminiaturebilleder';
+$lang['Activate Navigation Thumbnails'] = 'Aktiver miniaturebilleder til navigering';
 $lang['Activate icon "%s"'] = 'Aktiver ikonen \'%s\'';
 $lang['Photo Properties'] = 'Fotografiegenskaber';
 $lang['Allow user customization']  =  'Tillad brugertilpasning';
@@ -651,7 +636,7 @@ $lang['new'] = 'ny';
 $lang['No file was uploaded'] = 'Ingen filer blev uploadet';
 $lang['No photo in the current set.'] = 'Ingen fotografier i det aktuelle sæt.';
 $lang['No photo selected, %d photos in current set'] = 'Ingen fotografier valgt, %d fotografier i nuværende sæt';
-$lang['No photo selected, no action possible.'] = 'Ingen fotografier valgt, ingen mulige handlinger.';
+$lang['No photos selected, no actions possible.'] = 'Ingen fotografier valgt, ingen mulige handlinger.';
 $lang['No results'] = 'Ingen resultater';
 $lang['on the %d selected photos'] = 'på de %d valgte fotografier';
 $lang['Predefined filter'] = 'Foruddefineret filter';
@@ -843,6 +828,7 @@ $lang['Automatic sort order'] = 'Automatisk sorteringsrækkefølge';
 $lang['List'] = 'Liste';
 $lang['Piwigo export plugin for Aperture'] = 'Piwigo-eksportplugin til Aperture';
 $lang['Piwigo export plugin for iPhoto'] = 'Piwigo-eksportplugin til iPhoto';
+$lang['Piwigo for Android'] = 'Piwigo for Android';
 $lang['You can activate only one mobile theme.'] = 'Du kan kun aktivere et mobiltema';
 $lang['apply automatic sort order'] = 'Aktiver automatisk sorteringsrækkefølge';
 $lang['cancel manual order'] = 'afbryd manuel rækkefølge';
@@ -858,6 +844,7 @@ $lang['visitors need to login and have the appropriate permissions to see this a
 $lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Filstørrelsen på den uploadede fil overstiger MAX_FILE_SIZE-definitionen, som er angivet i HTML-formularen';
 $lang['Multiple Size'] = 'Flere størrelser';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u brugere har automatisk tilladelse, fordi de tilhører en gruppe med tilladelser.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'App\'en <em>Piwigo for Android</em> giver dig mulighed for at forbinde en Android-mobiltelelfon eller -tablet med dit Piwigo-galleri, oprette albummer og uploade flere fotografier på én gang.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom er et fotografiprogram beregnet til at håndtere store mængder digitale billeder og foretage efterbehandling.';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture er et ydedygtigt værktøj til at forfine billeder og administrere store biblioteker på en Mac.';
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Aperture er udviklet til professionelle fotografer med iPhoto-enkelhed.';
@@ -932,7 +919,7 @@ $lang['between %d and %d pixels'] = 'mellem %d og %d pixels';
 $lang['Duplicate'] = 'Kopier';
 $lang['Manage the members'] = 'Medlemshåndtering';
 $lang['Merge selected groups'] = 'Læg valgte grupper sammen';
-$lang['No group selected, no action possible.'] = 'Ingen grupper valgt, handling ikke mulig.';
+$lang['No groups selected, no actions possible.'] = 'Ingen grupper valgt, handling ikke mulig.';
 $lang['No members to manage'] = 'Der er ingen medlemmer at håndtere';
 $lang['Please select at least two groups'] = 'Vælg mindst to grupper';
 $lang['Rename'] = 'Omdøb';
@@ -949,18 +936,18 @@ $lang['Mail theme'] = 'Mailtema';
 $lang['%d of %d users selected'] = '%d af %d brugere valgt';
 $lang['(filtered from %s total users)'] = '(filtreret fra totalt %s brugere)';
 $lang['All %d users are selected'] = 'Alle %d brugere er valgt';
-$lang['Change password'] = 'Ændring af adgangskode';
-$lang['Change username'] = 'Ændring af brugernavn';
+$lang['Change password'] = 'Ret adgangskode';
+$lang['Change username'] = 'Ret brugernavn';
 $lang['Last visit on %s, %s.'] = 'Seneste besøg kl. %s den %s.';
 $lang['Loading...'] = 'Indlæser ...';
 $lang['No matching user found'] = 'Ingen brugere fundet som opfylder kriteriet';
 $lang['No user selected of %d users'] = 'Ingen bruger valgt ud af %d brugere';
-$lang['No user selected, no action possible.'] = 'Ingen bruger valgt, ingen handling er mulig.';
+$lang['No users selected, no actions possible.'] = 'Ingen bruger valgt, ingen handling er mulig.';
 $lang['Password updated'] = 'Adgangskoden er opdateret';
 $lang['Registered on %s, %s.'] = 'Registreret kl. %s den %s.';
 $lang['Show %s users'] = 'Vis %s brugere';
 $lang['Showing %s to %s of %s users'] = 'Viser %s til %s af %s brugere';
-$lang['Update user'] = 'Opdatering af bruger';
+$lang['Update user'] = 'Opdater bruger';
 $lang['User %s added'] = 'Brugeren %s er tilføjet';
 $lang['User %s updated'] = 'Brugeren %s er opdateret';
 $lang['Users modified'] = 'Brugere ændret';
@@ -995,7 +982,7 @@ $lang['Running on an up-to-date Piwigo is important for security.'] = 'Det er af
 $lang['Select tags'] = 'Vælg tags';
 $lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Del/send dine fotografier direkte fra macOS (10.10 og nyere) til Piwigo';
 $lang['delete album and all %d photos, even the %d associated to other albums'] = 'slet album og alle %d fotografier, selv de %d tilknyttet andre albummer';
-$lang['No tag selected, no action possible.'] = 'Intet tag valgt, ingen handling mulig.';
+$lang['No tags selected, no actions possible.'] = 'Intet tag valgt, ingen handling mulig.';
 $lang['Dashboard'] = 'Instrumentbræt';
 $lang['delete only album, not photos'] = 'slet kun album, ikke fotografier';
 $lang['orphans to delete'] = 'forældreløse der skal slettes';
@@ -1012,3 +999,18 @@ $lang['Storage used'] = 'Lagerplads anvendt';
 $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Det er blevet tid til at opdatere din Piwigo med version %s, gå til %s';
 $lang['checksum'] = 'kontrolsum';
 $lang['delete album and the %d orphan photos'] = 'slet album og de %d forældreløse fotografier';
+$lang['... or hide this link'] = '... eller skjul dette link';
+$lang['Compute %d missing checksums'] = 'Beregn %d manglende kontrolsummer';
+$lang['Create a first album'] = 'Opret et første album';
+$lang['Deletion in progress'] = 'Sletning i gang';
+$lang['Display album date period'] = 'Vis datointervallet som hvert album dækker, fx "fra 12. til 15. juli 2018"';
+$lang['Display category date'] = 'Vis albums dato';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo kræver et album for at der kan tilføjes fotografier.';
+$lang['Some checksums are missing.'] = 'Nogle kontrolsummer mangler.';
+$lang['Synchronization in progress'] = 'Synkronisering i gang';
+$lang['Visit'] = 'Besøg';
+$lang['Welcome!'] = 'Velkommen!';
+$lang['With no checksum'] = 'Uden kontrolsum';
+$lang['checksums to add'] = 'kontrolsummer at tilføje';
+$lang['or'] = 'eller';
+$lang['%d checksums were added'] = '%d kontrolsummer blev tilføjet';

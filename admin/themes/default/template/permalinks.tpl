@@ -63,7 +63,7 @@ form fieldset p.actionButtons {margin-bottom:0}
 </form>
 
 <fieldset>
-  <legend>{'Permalinks'|@translate}</legend>
+  <legend><span class="icon-lock icon-blue"></span>{'Permalinks'|@translate}</legend>
 <table class="table2" style="margin:0">
 	<tr class="throw">
 		<td>Id {$SORT_ID}</td>
@@ -81,7 +81,7 @@ form fieldset p.actionButtons {margin-bottom:0}
 </fieldset>
 
 <fieldset>
-  <legend>{'Permalink history'|@translate} <a name="old_permalinks"></a></legend>
+  <legend><span class="icon-lock icon-red"></span>{'Permalink history'|@translate} <a name="old_permalinks"></a></legend>
 <table class="table2" style="margin:0">
 	<tr class="throw">
 		<td>Id {$SORT_OLD_CAT_ID}</td>

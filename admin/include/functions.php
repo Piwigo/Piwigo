@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -163,6 +148,7 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   pwg_query($query);
 
   trigger_notify('delete_categories', $ids);
+  pwg_activity('album', $ids, 'delete', array('photo_deletion_mode'=>$photo_deletion_mode));
 }
 
 /**
@@ -360,6 +346,7 @@ SELECT
   }
 
   trigger_notify('delete_elements', $ids);
+  pwg_activity('photo', $ids, 'delete');
   return count($ids);
 }
 
@@ -415,6 +402,7 @@ DELETE FROM '.USERS_TABLE.'
   pwg_query($query);
 
   trigger_notify('delete_user', $user_id);
+  pwg_activity('user', $user_id, 'delete');
 }
 
 /**
@@ -638,15 +626,83 @@ function get_fs_directories($path, $recursive = true)
 }
 
 /**
+ * returns the size (in bytes) of a filesystem directory
+ *
+ * @since 11
+ * @param string path
+ * @return int
+ */
+function get_fs_directory_size($path)
+{
+  $bytestotal = 0;
+  $path = realpath($path);
+
+  if (!function_exists('exec'))
+  {
+    return false;
+  }
+
+  @exec('du -sk '.$path, $returnarray);
+  if (is_array($returnarray) and !empty($returnarray[0]) and preg_match('/^(\d+)\s/', $returnarray[0], $matches))
+  {
+    $bytestotal = $matches[1] * 1024;
+  }
+
+  return $bytestotal;
+}
+
+/**
+ * save the rank depending on given categories order
+ *
+ * The list of ordered categories id is supposed to be in the same parent
+ * category
+ *
+ * @param array categories
+ * @return void
+ */
+function save_categories_order($categories)
+{
+  $current_rank_for_id_uppercat = array();
+  $current_rank = 0;
+
+  $datas = array();
+  foreach ($categories as $category)
+  {
+    if (is_array($category))
+    {
+      $id = $category['id'];
+      $id_uppercat = $category['id_uppercat'];
+
+      if (!isset($current_rank_for_id_uppercat[$id_uppercat]))
+      {
+        $current_rank_for_id_uppercat[$id_uppercat] = 0;
+      }
+      $current_rank = ++$current_rank_for_id_uppercat[$id_uppercat];
+    }
+    else
+    {
+      $id = $category;
+      $current_rank++;
+    }
+
+    $datas[] = array('id' => $id, 'rank' => $current_rank);
+  }
+  $fields = array('primary' => array('id'), 'update' => array('rank'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
+
+  update_global_rank();
+}
+
+/**
  * Orders categories (update categories.rank and global_rank database fields)
  * so that rank field are consecutive integers starting at 1 for each child.
  */
 function update_global_rank()
 {
   $query = '
-SELECT id, id_uppercat, uppercats, rank, global_rank
+SELECT id, id_uppercat, uppercats, `rank`, global_rank
   FROM '.CATEGORIES_TABLE.'
-  ORDER BY id_uppercat,rank,name';
+  ORDER BY id_uppercat, `rank`, name';
 
   global $cat_map; // used in preg_replace callback
   $cat_map = array();
@@ -959,15 +1015,20 @@ SELECT uppercats
 
 /**
  */
-function get_category_representant_properties($image_id)
+function get_category_representant_properties($image_id, $size = NULL)
 {
   $query = '
 SELECT id,representative_ext,path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
+
   $row = pwg_db_fetch_assoc(pwg_query($query));
-  $src = DerivativeImage::thumb_url($row);
+  if ($size == NULL) {
+    $src = DerivativeImage::thumb_url($row);
+  } else {
+    $src = DerivativeImage::url($size, $row);
+  }
   $url = get_root_url().'admin.php?page=photo-'.$image_id;
 
   return array(
@@ -1380,6 +1441,8 @@ SELECT status
     '%d album moved', '%d albums moved',
     count($categories)
     );
+
+  pwg_activity('album', $category_ids, 'move', array('parent'=>$new_parent));
 }
 
 /**
@@ -1410,7 +1473,7 @@ function create_virtual_category($category_name, $parent_id=null, $options=array
   {
     //what is the current higher rank for this parent?
     $query = '
-SELECT MAX(rank) AS max_rank
+SELECT MAX(`rank`) AS max_rank
   FROM '. CATEGORIES_TABLE .'
   WHERE id_uppercat '.(empty($parent_id) ? 'IS NULL' : '= '.$parent_id).' 
 ;';
@@ -1539,7 +1602,7 @@ SELECT id, uppercats, global_rank, visible, status
       WHERE cat_id = '.$insert['id_uppercat'].'
     ;';
     $granted_users =  query2array($query, null, 'user_id');
-    add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']), $granted_users)));
+    add_permission_on_category($inserted_id, $granted_users);
   }
   elseif ('private' == $insert['status'])
   {
@@ -1547,9 +1610,10 @@ SELECT id, uppercats, global_rank, visible, status
   }
 
   trigger_notify('create_virtual_category', array_merge(array('id'=>$inserted_id), $insert));
+  pwg_activity('album', $inserted_id, 'add');
 
   return array(
-    'info' => l10n('Virtual album added'),
+    'info' => l10n('Album added'),
     'id'   => $inserted_id,
     );
 }
@@ -1654,6 +1718,9 @@ DELETE
   WHERE id IN ('.implode(',', $tag_ids).')
 ;';
   pwg_query($query);
+
+  trigger_notify("delete_tags", $tag_ids);
+  pwg_activity('tag', $tag_ids, 'delete');
 
   update_images_lastmodified($image_ids);
   invalidate_user_cache_nb_tags();
@@ -1883,9 +1950,9 @@ SELECT
   $query = '
 SELECT
     category_id,
-    MAX(rank) AS max_rank
+    MAX(`rank`) AS max_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE rank IS NOT NULL
+  WHERE `rank` IS NOT NULL
     AND category_id IN ('.implode(',', $categories).')
   GROUP BY category_id
 ;';
@@ -2180,6 +2247,7 @@ SELECT id
       );
 
     $inserted_id = pwg_db_insert_id(TAGS_TABLE);
+    pwg_activity('tag', $inserted_id, 'add');
 
     return array(
       'info' => l10n('Tag "%s" was added', stripslashes($tag_name)),
@@ -2401,7 +2469,7 @@ function get_groupname($group_id)
 {
   $query = '
 SELECT name
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE id = '.intval($group_id).'
 ;';
   $result = pwg_query($query);
@@ -2415,6 +2483,57 @@ SELECT name
   }
 
   return $groupname;
+}
+
+function delete_groups($group_ids) 
+{
+
+  if (count($group_ids) == 0)
+  {
+    trigger_error('There is no group to delete', E_USER_WARNING);
+    return false;
+  }
+
+  $group_id_string = implode(',', $group_ids);
+
+  // destruction of the access linked to the group
+  $query = '
+DELETE
+  FROM '. GROUP_ACCESS_TABLE .'
+  WHERE group_id IN ('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  // destruction of the users links for this group
+  $query = '
+DELETE
+  FROM '. USER_GROUP_TABLE .'
+  WHERE group_id IN ('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  $query = '
+SELECT id, name
+  FROM `'. GROUPS_TABLE .'`
+  WHERE id IN ('. $group_id_string  .')
+;';
+
+  $group_list = query2array($query, 'id', 'name');
+  $groupids = array_keys($group_list);
+
+  // destruction of the group
+  $query = '
+DELETE
+  FROM `'. GROUPS_TABLE .'`
+  WHERE id IN ('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  trigger_notify('delete_group', $groupids);
+  pwg_activity('group', $groupids, 'delete');
+
+
+  return $group_list;
 }
 
 /**
@@ -2484,6 +2603,7 @@ function get_active_menu($menu_page)
     case 'cat_list':
     case 'cat_move':
     case 'cat_options':
+    case 'cat_search':
     case 'permalinks':
       return 1;
 
@@ -2494,10 +2614,6 @@ function get_active_menu($menu_page)
     case 'notification_by_mail':
       return 2;
 
-    case 'plugins':
-    case 'plugin':
-      return 3;
-
     case 'site_manager':
     case 'site_update':
     case 'stats':
@@ -2505,7 +2621,7 @@ function get_active_menu($menu_page)
     case 'maintenance':
     case 'comments':
     case 'updates':
-      return 4;
+      return 3;
 
     case 'configuration':
     case 'derivatives':
@@ -2514,10 +2630,10 @@ function get_active_menu($menu_page)
     case 'themes':
     case 'theme':
     case 'languages':
-      return 5;
+      return 4;
 
     default:
-      return 0;
+      return -1;
   }
 }
 
@@ -2985,12 +3101,62 @@ SELECT CONCAT(
     "_",
     COUNT(*)
   )
-  FROM '. $tables[$item] .'
+  FROM `'. $tables[$item] .'`
 ;';
     list($keys[$item]) = pwg_db_fetch_row(pwg_query($query));
   }
 
   return $keys;
+}
+
+/**
+ * Return the list of image ids where md5sum is null
+ *
+ * @return int[] image_ids
+ */
+function get_photos_no_md5sum()
+{
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE md5sum is null
+;';
+  return query2array($query, null, 'id');
+}
+
+/**
+ * Compute and add the md5sum of image ids (where md5sum is null)
+ * @param int[] list of image ids and there paths
+ * @return int number of md5sum added
+ */
+function add_md5sum($ids)
+{
+  $query = '
+SELECT path
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(', ',$ids).')
+;';
+  $paths = query2array($query, null, 'path');
+  $imgs_ids_paths = array_combine($ids, $paths);
+  $updates = array();
+  foreach ($ids as $id)
+  {
+    $file = PHPWG_ROOT_PATH.$imgs_ids_paths[$id];
+    $md5sum = md5_file($file);
+    $updates[] = array(
+      'id' => $id,
+      'md5sum' => $md5sum,
+    );
+  }
+  mass_updates(
+    IMAGES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array('md5sum')
+      ),
+    $updates
+  );
+  return count($ids);
 }
 
 /**

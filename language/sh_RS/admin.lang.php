@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d veza';
@@ -740,7 +725,7 @@ $lang['No destination tag selected'] = 'Nije odabrana odredišna oznaka';
 $lang['No file was uploaded'] = 'Nije poslat ni jedan fajl';
 $lang['No photo in the current set.'] = 'Nema fotografija u trenutnom skupu';
 $lang['No photo selected, %d photos in current set'] = 'Nema odabranih fotografija, %d fotografija u trenutnom skupu';
-$lang['No photo selected, no action possible.'] = 'Nema odabranih fotografija, nema dozvoljenih akcija';
+$lang['No photos selected, no actions possible.'] = 'Nema odabranih fotografija, nema dozvoljenih akcija';
 $lang['No results'] = 'Nema rezultata';
 $lang['Not cropped correctly?'] = 'Pogrešno isečeno?';
 $lang['Notify administrators when a comment is'] = 'Obavesti administratore kada je komentar';
@@ -837,10 +822,12 @@ $lang['You have %d orphan tags: %s.'] = 'Imate %d napuštenih oznaka: %s.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Označili ste  <i>$conf[\'order_by\']</i> u svom lokalnom podešavanju, ovaj parametar je zastareo, molimo uklonite ga ili ga preimenujte u <i>$conf[\'order_by_custom\']</i>!';
 $lang['Zoom'] = 'Uvećaj';
 $lang['Delete selected tags'] = 'Obriši odabrane oznake';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo for Android</em> aplikacija omogućava Vam da se povežete sa Vašom Piwigo galerijom preko Adroid telefona ili tablet računara, možete da kreirate albume i pošaljete nekoliko slika odjednom.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo za iOS</em> aplikacija omogućava Vam da se povežete sa Vašom Piwigo galerijom preko iPhone, iPad ili iPod Touch uređaja, možete da kreirate albume i pošaljete nekoliko slika odjednom.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom je softver za fotografije dizajniran da upravlja velikom količinom digitalnih slika i za postprodukciju.';
 $lang['Available on'] = 'Dostupno na';
 $lang['Delete selected users'] = 'Obriši odabrane korisnike';
+$lang['Piwigo for Android'] = 'Piwigo za Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo za iOs (iPhone, iPad, iPod Touch)';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo Publish plagin za Ligtroom';
 $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo publish plagin za Shotwell';

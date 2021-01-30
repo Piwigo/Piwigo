@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['%s ago'] = '%s sitten';
 $lang['... or '] = '... tai';
@@ -497,6 +482,7 @@ $lang['Automatic sort order'] = 'Automaattinen järjestys';
 $lang['Available on'] = 'Saatavilla';
 $lang['Average rate'] = 'Pisteiden keskiarvo';
 $lang['Batch Manager'] = 'Massahallintatyökalu';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo Androidille</em> applikaatio mahdollistaa yhdistämisen Android laitteestasi Piwigo galleriaan albumeiden luontia ja kuvien lisäämistä varten.';
 $lang['Options'] = 'Valinnat';
 $lang['Original Size'] = 'Alkuperäinen koko';
 $lang['No photo in the current set.'] = 'Ei kuvaa tässä setissä';
@@ -572,7 +558,7 @@ $lang['Search for new images in the directories'] = 'Etsi uusia kuvia hakemistoi
 $lang['Searching...'] = 'Etsii...';
 $lang['Type in a search term'] = 'Kirjoita hakusana';
 $lang['Permissions'] = 'Oikeudet';
-$lang['No photo selected, no action possible.'] = 'Ei valittua valokuvaa, ei mahdollisia toimintoja.';
+$lang['No photos selected, no actions possible.'] = 'Ei valittua valokuvaa, ei mahdollisia toimintoja.';
 $lang['Select:'] = 'Valitse:';
 $lang['Selection'] = 'Valinta';
 $lang['Delete %d orphan photos'] = 'Poista %d orpoa valokuvaa';

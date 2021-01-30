@@ -1,0 +1,141 @@
+<h2>Tìm kiếm</h2>
+
+<p>Mặc định tất cả các từ khóa được tìm phải phù hợp. Có phân biệt chữ hoa - thường.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>nhóm từ trong nháy kép<br>
+<q>"search"</q>
+</td>
+<td>Sử dụng dấu nháy kép để tìm chính xác từ hay một nhóm từ.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>either term<br>
+<q>OR search</q><br>
+</td>
+<td>Thêm từ khóa OR giữa các từ.<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>exclude<br>
+<q>tìm kiếm NOT</q><br>
+<q>-search</q>
+</td>
+<td>Thêm dấu (-) hoặc NOT trước một từ để loại trừ khỏi tìm kiếm. Chú ý là NOT hoạt động như một toán tử lọc vì vậy không thể tìm kiếm mà chỉ có toán tử NOT. Bạn cũng không thể kết hợp OR với NOT (<q>john OR NOT bill</q> là không hợp lệ)<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>nhóm<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mother OR father) AND (daugther OR son)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Tìm kiếm chỉ trong các tag mà không tìm trong tiêu đề hoặc mô tả.<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Tìm kiếm chỉ những hình ảnh với các từ trong tiêu đề hoặc mô tả.<br>
+<q>photo:John</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Tìm kiếm theo tên file.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Tìm kiếm theo tác giả.<br>
+<q>author:John</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Tìm kiếm hình ảnh theo theo ngày chụp.<br>
+<q>taken:2003</q> photos taken in 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> các hình ảnh từ tháng 5-2003<br>
+<q>taken:2003..2008</q> các hình ảnh từ 2003 đến 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> các hình ảnh sau 1-1-2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Tìm kiếm hình ảnh theo theo ngày gửi.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Tìm kiếm hình ảnh với chiều rộng hoặc chiều cao cố định.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Tìm kiếm hình ảnh theo kích thước điểm ảnh<br>
+<q>size:5m</q> trả về hình ảnh có độ phân giải 5 megapixels<br>
+<q>size:>12m</q> trả về hình ảnh có độ phân giải 12 megapixels hoặc lớn hơn<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Tìm kiếm hình ảnh theo tỉ lệ chiều rộng/chiều cao.<br>
+<q>ratio:3/4 OR ratio:4/3</q> tìm hình ảnh ở chế độ chụp chân dung hoặc phong cảnh
+<q>ratio:>16/9</q> tìm hình ảnh chế độ chụp panoramas
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Hint: <q>score:*</q> sẽ trả về tất cả hình ảnh có tối thiểu một lượt bình chọn. <q>score:</q> sẽ trả về tất cả hình ảnh không có  lượt bình chọn.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Tìm kiếm hình ảnh theo kích thước<br>
+<q>filesize:1m..10m</q> tìm kiếm file có kích thước từ 1MB đến 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Tìm kiếm hình ảnh theo số định danh trong Piwigo<br>
+<q>id:123..126</q> tìm các hình ảnh từ 123 tới 126 (nó cũng có thể tìm các ảnh giữa 0 và 4 vì các hình ảnh có thể đã bị xóa).</td>
+</tr>
+
+</table>

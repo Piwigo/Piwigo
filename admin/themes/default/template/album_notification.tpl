@@ -62,7 +62,7 @@ span.errors {
 <form action="{$F_ACTION}" method="post" id="categoryNotify">
 
 <fieldset id="emailCatInfo">
-  <legend>{'Send mail to users'|@translate}</legend>
+  <legend><span class="icon-mail-1 icon-green"></span>{'Send mail to users'|@translate}</legend>
 
   <p>
     <strong>{'Recipients'|@translate}</strong>

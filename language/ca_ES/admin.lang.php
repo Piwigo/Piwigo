@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d associació';
@@ -668,7 +653,7 @@ $lang['Refresh photo set'] = 'Actualitza les fotos del conjunt';
 $lang['The whole page'] = 'La pàgina sencera';
 $lang['The whole set'] = 'Tot el conjunt';
 $lang['No photo in the current set.'] = 'No hi ha fotos en aquest conjunt.';
-$lang['No photo selected, no action possible.'] = 'No es pot realitzar cap acció ja que no hi ha cap foto seleccionada.';
+$lang['No photos selected, no actions possible.'] = 'No es pot realitzar cap acció ja que no hi ha cap foto seleccionada.';
 $lang['Choose an action'] = 'Seleccioneu una acció';
 $lang['remove author'] = 'elimina l\'autor';
 $lang['Type here the author name'] = 'Escriviu aquí el nom de l\'autor';
@@ -798,6 +783,7 @@ $lang['Original Size'] = 'Mida original';
 $lang['Permission granted for groups'] = 'Permisos atorgats a grups';
 $lang['Permission granted for users'] = 'Permís atorgat a usuaris';
 $lang['Photo name'] = 'Nom de la foto';
+$lang['Piwigo for Android'] = 'Piwigo per Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo per iOS (iPhone, iPad, iPod Touch)';
 $lang['Predefined filter'] = 'Filtre predeterminat';
 $lang['Resize after upload'] = 'Redimensionar després de penjar la foto al servidor';
@@ -830,6 +816,7 @@ $lang['registered users'] = 'usuaris registrats';
 $lang['%d group'] = '%d grup';
 $lang['%d groups'] = '%d grups';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u usuaris han obtingut permisos automàticament perquè pertanyen a un grup que li han atorgat el permís.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo per Android</em> Aquesta aplicació us permet connectar a la vostra galeria Piwigo des d\'un dispositiu Android, crear nous àlbums i penjar vàries fotos a la vegada.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo per iOS</em> Aquesta aplicació us permet connectar a la vostra galeria Piwigo des d\'un iPhone, iPad o iPod Touch, crear àlbums i penjar vàries fotos a la vegada.';
 $lang['Add group'] = 'Afegeix grup';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom és un programari de fotografia dissenyat per a gestionar grans quantitats d\'imatges digitals i realitzar tasques de postproducció.';
@@ -938,7 +925,7 @@ $lang['between %.2f and %.2f'] = 'entre %.2f i %.2f';
 $lang['between %d and %d pixels'] = 'entre %d i %d píxels';
 $lang['Duplicate'] = 'Duplica';
 $lang['Merge selected groups'] = 'Fusiona els grups seleccionats';
-$lang['No group selected, no action possible.'] = 'No hi ha cap grup seleccionat, l\'acció no s\'ha pogut dur a terme.';
+$lang['No groups selected, no actions possible.'] = 'No hi ha cap grup seleccionat, l\'acció no s\'ha pogut dur a terme.';
 $lang['No members to manage'] = 'No existeixen membres per a gestionar';
 $lang['Please select at least two groups'] = 'Heu de selecciona almenys dos grups';
 $lang['Rename'] = 'Canvia de nom';
@@ -951,7 +938,7 @@ $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Es reduiran 
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Redimensionar després de penjar la foto al servidor deshabilitat degut a l\'ús de la llibreria gràfica GD';
 $lang['Select at least one tag'] = 'Seleccioneu almenys una etiqueta';
 $lang['Last visit on %s, %s.'] = 'L\'última visita el %s, %s.';
-$lang['No user selected, no action possible.'] = 'No hi ha usuaris seleccionats, l\'acció no ha estat possible';
+$lang['No users selected, no actions possible.'] = 'No hi ha usuaris seleccionats, l\'acció no ha estat possible';
 $lang['Registered on %s, %s.'] = 'Registrat el %s, %s';
 $lang['Show %s users'] = 'Mostra %s usuaris';
 $lang['Users modified'] = 'Usuaris que s\'han modificat';
@@ -1016,6 +1003,21 @@ $lang['delete album and all %d photos, even the %d associated to other albums'] 
 $lang['Dashboard'] = 'Consola';
 $lang['Delete album "%s" and its %d sub-albums.'] = 'Elimina l\'àlbum "%s" i els seus %d sub-àlbums';
 $lang['No filter on album. Select one or type to search'] = 'No hi ha cap filtre a l\'àlbum, Seleccioneu-ne un o escriviu per cercar-ne';
-$lang['No tag selected, no action possible.'] = 'No s\'ha seleccionat cap etiqueta i no es pot realitzar cap acció';
+$lang['No tags selected, no actions possible.'] = 'No s\'ha seleccionat cap etiqueta i no es pot realitzar cap acció';
 $lang['Storage used'] = 'Emmagatzemament utilitzat';
 $lang['checksum'] = 'suma de verificació';
+$lang['%d checksums were added'] = 's\'han afegit %d checksums';
+$lang['... or hide this link'] = '...o amagueu aquest enllaç';
+$lang['Compute %d missing checksums'] = 'Calcula %d checksums que manquen';
+$lang['Create a first album'] = 'Creeu un primer àlbum';
+$lang['Deletion in progress'] = 'Supressió en curs';
+$lang['Display album date period'] = 'Mostra el periode de dates associat amb cada àlbum, p.ex. «del 12 de al 15 de juliol de 2018»';
+$lang['Display category date'] = 'Mostra la data de la categoria';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo necessita un àlbum per afegir-hi fotos.';
+$lang['Some checksums are missing.'] = 'Manquen alguns checksums.';
+$lang['Synchronization in progress'] = 'Sincronització en curs';
+$lang['Visit'] = 'Visiteu';
+$lang['Welcome!'] = 'Benvinguts!';
+$lang['With no checksum'] = 'Sense checksum';
+$lang['checksums to add'] = 'Checksums per afegir';
+$lang['or'] = 'o';

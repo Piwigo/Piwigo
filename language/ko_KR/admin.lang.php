@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['Add group'] = '그룹 추가';
 $lang['Add tags'] = '태그 추가';
@@ -90,7 +75,7 @@ $lang['Password is missing. Please enter the password.'] = '비밀번호란이 �
 $lang['Password updated'] = '비밀번호가 변경됨';
 $lang['User "%s" created with "%s" like password'] = '"%s" 비밀번호를 사용하는 "%s" 사용자가 생성됨';
 $lang['No user selected of %d users'] = '%d 사용자 중 선택된 사용자가 없음';
-$lang['No user selected, no action possible.'] = '선택된 사용자가 없어서 사용 가능한 동작이 없습니다.';
+$lang['No users selected, no actions possible.'] = '선택된 사용자가 없어서 사용 가능한 동작이 없습니다.';
 $lang['%d members'] = '%d 구성원';
 $lang['Members'] = '구성원';
 $lang['No members to manage'] = '관리할 구성원이 없습니다';
@@ -228,6 +213,8 @@ $lang['Piwigo export plugin for Aperture'] = 'Aperture용 Piwigo 익스포트 �
 $lang['Piwigo publish plugin for digiKam'] = 'dikiKam용 Piwigo 배포 플러그인';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'digiKam에서 Piwigo로 사진을 내보내려면, digiKam 및 Kipi 플러그인을 설치하면 됩니다.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>iOS용 Piwigo</em> 앱은 iPhone, iPad 또는 iPod Touch에서 Piwigo 갤러리에 연결하고 앨범을 생성하고 한번에 여러 사진을 업로드 할 수 있도록 합니다.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>안드로이드용 Piwigo</em> 앱은 안드로이드 폰과 태블릿에서 Piwigo 갤러리에 연결하고 앨범을 생성하고 한번에 여러 사진을 업로드 할 수 있도록 합니다.';
+$lang['Piwigo for Android'] = '안드로이드용 Piwigo';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS용 Piwigo (iPhone, iPad, iPod Touch)';
 $lang['Piwigo Uploader'] = 'Piwigo 업로더';
 $lang['Allowed file types: %s.'] = '가능한 파일 종류: %s.';
@@ -372,7 +359,7 @@ $lang['Save visits in history for'] = '방문기록 저장: ';
 $lang['Week starts on'] = '한 주의 시작';
 $lang['Miscellaneous'] = '기타';
 $lang['simple visitors'] = '단순 방문자';
-$lang['No photo selected, no action possible.'] = '선택된 사진이 없어서 사용 가능한 동작이 없습니다.';
+$lang['No photos selected, no actions possible.'] = '선택된 사진이 없어서 사용 가능한 동작이 없습니다.';
 $lang['Apply action'] = '동작 적용';
 $lang['Tools'] = '도구';
 $lang['Searching...'] = '검색중...';
@@ -456,7 +443,7 @@ $lang['%d parameter was updated.'] = '%d 파라미터가 변경됨.';
 $lang['%d parameters were updated.'] = '%d 파라미터가 변경됨.';
 $lang['Parameters'] = '파라미터';
 $lang['There is no available subscribers to mail.'] = '메일로 공지를 받는 사용자가 없습니다.';
-$lang['No group selected, no action possible.'] = '선택된 그룹이 없어서 사용 가능한 동작이 없습니다.';
+$lang['No groups selected, no actions possible.'] = '선택된 그룹이 없어서 사용 가능한 동작이 없습니다.';
 $lang['Group'] = '그룹';
 $lang['Group name'] = '그룹 이름';
 $lang['Groups'] = '그룹';

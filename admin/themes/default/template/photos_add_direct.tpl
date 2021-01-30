@@ -1,11 +1,7 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
-
-{combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js'}
-
 {combine_script id='jquery.plupload' load='footer' require='jquery' path='themes/default/js/plugins/plupload/plupload.full.min.js'}
 {combine_script id='jquery.plupload.queue' load='footer' require='jquery' path='themes/default/js/plugins/plupload/jquery.plupload.queue/jquery.plupload.queue.min.js'}
 
-{combine_css path="themes/default/js/plugins/jquery.jgrowl.css"}
 {combine_css path="themes/default/js/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css"}
 
 {assign var="plupload_i18n" value="themes/default/js/plugins/plupload/i18n/`$lang_info.plupload_code`.js"}
@@ -23,6 +19,10 @@
 
 {combine_script id='piecon' load='footer' path='themes/default/js/plugins/piecon.js'}
 
+{html_style}
+.addAlbumFormParent { display: none; } /* specific to this page, do not move in theme.css */
+{/html_style}
+
 {footer_script}
 {* <!-- CATEGORIES --> *}
 var categoriesCache = new CategoriesCache({
@@ -34,7 +34,8 @@ var categoriesCache = new CategoriesCache({
 categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
   filter: function(categories, options) {
     if (categories.length > 0) {
-      jQuery("#albumSelection, .selectFiles, .showFieldset").show();
+      jQuery(".addAlbumEmptyCenter").css( "height", "auto" );
+      jQuery(".addAlbumFormParent").attr( "style", "display: block !important;" );
     }
     
     return categories;
@@ -43,7 +44,15 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
 
 jQuery('[data-add-album]').pwgAddAlbum({
   afterSelect: function() {
-    jQuery("#albumSelection, .selectFiles, .showFieldset").show();
+    jQuery("#uploadForm").show();
+    jQuery(".addAlbumEmptyCenter").hide();
+    jQuery(".addAlbumEmptyCenter").css( "height", "auto" );
+    jQuery(".addAlbumFormParent").attr( "style", "display: block !important;" );
+
+    var categorySelectedId = jQuery("select[name=category] option:selected").val();
+    var categorySelectedPath = jQuery("select[name=category]")[0].selectize.getItem(categorySelectedId).text();
+    jQuery('.selectedAlbum').show().find('span').html(categorySelectedPath);
+    jQuery('.selectAlbumBlock').hide();
   }
 });
 
@@ -123,9 +132,23 @@ jQuery(document).ready(function(){
     init : {
       // update custom button state on queue change
       QueueChanged : function(up) {
+        jQuery('#addFiles').addClass("addFilesButtonChanged");
         jQuery('#startUpload').prop('disabled', up.files.length == 0);
+        jQuery("#addFiles").removeClass('buttonGradient').addClass('buttonLike');
+
+        if (up.files.length > 0) {
+          jQuery('.plupload_filelist_footer').show();
+          jQuery('.plupload_filelist').css("overflow-y", "scroll");
+        }
+
+        if (up.files.length == 0) {
+          jQuery('#addFiles').removeClass("addFilesButtonChanged");
+          jQuery("#addFiles").removeClass('buttonLike').addClass('buttonGradient');
+          jQuery('.plupload_filelist_footer').hide();
+          jQuery('.plupload_filelist').css("overflow-y", "hidden");
+        }
       },
-      
+
       UploadProgress: function(up, file) {
         jQuery('#uploadingActions .progressbar').width(up.total.percent+'%');
         Piecon.setProgress(up.total.percent);
@@ -135,8 +158,11 @@ jQuery(document).ready(function(){
         //console.log('[BeforeUpload]', file);
         
         // hide buttons
-        jQuery('#startUpload, #addFiles').hide();
+        jQuery('#startUpload, .selectFilesButtonBlock, .selectAlbumBlock').hide();
         jQuery('#uploadingActions').show();
+        var categorySelectedId = jQuery("select[name=category] option:selected").val();
+        var categorySelectedPath = jQuery("select[name=category]")[0].selectize.getItem(categorySelectedId).text();
+        jQuery('.selectedAlbum').show().find('span').html(categorySelectedPath);
 
         // warn user if she wants to leave page while upload is running
         jQuery(window).bind('beforeunload', function() {
@@ -170,7 +196,7 @@ jQuery(document).ready(function(){
         jQuery("#uploadedPhotos").parent("fieldset").show();
       
         html = '<a href="admin.php?page=photo-'+data.result.image_id+'" target="_blank">';
-        html += '<img src="'+data.result.src+'" class="thumbnail" title="'+data.result.name+'">';
+        html += '<img src="'+data.result.square_src+'" class="thumbnail" title="'+data.result.name+'">';
         html += '</a> ';
       
         jQuery("#uploadedPhotos").prepend(html);
@@ -229,16 +255,19 @@ jQuery(document).ready(function(){
 });
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Upload Photos'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
-
 <div id="photosAddContent">
+  <div class="addAlbumEmptyCenter">
+    <div class="addAlbumEmpty"{if $NB_ALBUMS > 0} style="display:none;"{/if}>
+      <div class="addAlbumEmptyTitle">{'Welcome!'|translate}</div>
+      <p class="addAlbumEmptyInfos">{'Piwigo requires an album to add photos.'|translate}</p>
+      <a href="#" data-add-album="category" class="buttonLike">{'Create a first album'|translate}</a>
+    </div>
+  </div>
 
 <div class="infos" style="display:none"><i class="eiw-icon icon-ok"></i></div>
 <div class="errors" style="display:none"><i class="eiw-icon icon-cancel"></i><ul></ul></div>
 
-<p class="afterUploadActions" style="margin:10px; display:none;"><a class="batchLink"></a> | <a href="admin.php?page=photos_add">{'Add another set of photos'|@translate}</a></p>
+  <p class="afterUploadActions" style="margin:10px; display:none;"> <a class="batchLink icon-pencil"></a><span class="buttonSeparator">{'or'|translate}</span><a href="admin.php?page=photos_add" class="icon-plus-circled">{'Add another set of photos'|@translate}</a></p>
 
 {if count($setup_errors) > 0}
 <div class="errors">
@@ -249,7 +278,6 @@ jQuery(document).ready(function(){
   </ul>
 </div>
 {else}
-
   {if count($setup_warnings) > 0}
 <div class="warnings">
   <ul>
@@ -262,18 +290,20 @@ jQuery(document).ready(function(){
   {/if}
 
 
-<form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}">
+  <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
     <fieldset class="selectAlbum">
-      <legend>{'Drop into album'|@translate}</legend>
-
-      <span id="albumSelection" style="display:none">
-      <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
-        data-default="first" name="category" style="width:600px"></select>
-      <br>{'... or '|@translate}</span>
-      <a href="#" data-add-album="category" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+      <legend><span class="icon-folder-open icon-red"></span>{'Drop into album'|@translate}</legend>
+      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap" style="background-color:#f5f5f5">{$ADD_TO_ALBUM}</span></div>
+      <div class="selectAlbumBlock"{if isset($ADD_TO_ALBUM)} style="display: none"{/if}>
+        <a href="#" data-add-album="category" title="{'create a new album'|@translate}" class="icon-plus"></a>
+        <span id="albumSelection">
+          <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
+          data-default="first" name="category" style="width:600px"></select>
+        </span>
+      </div>
     </fieldset>
-
-    <p class="showFieldset" style="display:none"><a id="showPermissions" href="#">{'Manage Permissions'|@translate}</a></p>
+{*
+    <p class="showFieldset"><a id="showPermissions" href="#">{'Manage Permissions'|@translate}</a></p>
 
     <fieldset id="permissions" style="display:none">
       <legend>{'Who can see these photos?'|@translate}</legend>
@@ -282,25 +312,23 @@ jQuery(document).ready(function(){
         {html_options options=$level_options selected=$level_options_selected}
       </select>
     </fieldset>
-
-    <fieldset class="selectFiles" style="display:none">
-      <legend>{'Select files'|@translate}</legend>
-      
-      <button id="addFiles" class="buttonLike icon-plus-circled">{'Add Photos'|translate}</button>
- 
-    {if isset($original_resize_maxheight)}
-      <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
-    {/if}
-
-      <p id="uploadWarningsSummary">{$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="icon-info-circled-1 showInfo" title="{'Learn more'|@translate}"></a></p>
-
-      <p id="uploadWarnings">
-        {'Allowed file types: %s.'|@translate:$upload_file_types}
-      {if isset($max_upload_resolution)}
-        {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
-      {/if}
-      </p>
-
+*}
+    <fieldset class="selectFiles">
+      <legend><span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}</legend>
+      <div class="selectFilesButtonBlock">
+        <button id="addFiles" class="buttonGradient">{'Add Photos'|translate}<i class="icon-plus-circled"></i></button>
+        <div class="selectFilesinfo">
+          {if isset($original_resize_maxheight)}
+          <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
+          {/if}
+          <p id="uploadWarningsSummary">{'Allowed file types: %s.'|@translate:$upload_file_types}</p>
+          <p>
+            {if isset($max_upload_resolution)}
+            {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
+            {/if}
+          </p>
+        </div>
+      </div>
       <div id="uploader">
         <p>Your browser doesn't have HTML5 support.</p>
       </div>
@@ -308,21 +336,19 @@ jQuery(document).ready(function(){
     </fieldset>
     
     <div id="uploadingActions" style="display:none">
-      <button id="cancelUpload" class="buttonLike icon-cancel-circled">{'Cancel'|translate}</button>
-      
-      <div class="big-progressbar">
+      <div class="big-progressbar" style="max-width:98%;margin-bottom: 10px;">
         <div class="progressbar" style="width:0%"></div>
       </div>
+      <button id="cancelUpload" class="buttonLike icon-cancel-circled">{'Cancel'|translate}</button>
     </div>
-      
-    <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
 
-</form>
+    <button id="startUpload" class="buttonGradient icon-upload" disabled>{'Start Upload'|translate}</button>
 
-<fieldset style="display:none">
-  <legend>{'Uploaded Photos'|@translate}</legend>
-  <div id="uploadedPhotos"></div>
-</fieldset>
+  </form>
+
+  <fieldset style="display:none" class="Addedphotos">
+    <div id="uploadedPhotos"></div>
+  </fieldset>
 
 {/if} {* $setup_errors *}
 

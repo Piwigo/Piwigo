@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if( !defined("PHPWG_ROOT_PATH") )
@@ -79,7 +64,14 @@ if (isset($_GET['action']) and isset($_GET['plugin']))
         $template->delete_compiled_templates();
         $persistent_cache->purge(true);
       }
-      redirect($base_url);
+
+      $redirect_url = $base_url;
+      if ('activate' == $_GET['action'])
+      {
+        $redirect_url.= '&show_inactive';
+      }
+
+      redirect($redirect_url);
     }
   }
 }
@@ -98,6 +90,21 @@ if (isset($_GET['incompatible_plugins']))
   exit;
 }
 
+//--------------------------------------------------------Get the menu with the depreciated version
+
+$plugin_menu_links_deprec = trigger_change('get_admin_plugin_menu_links', array());
+
+$settings_url_for_plugin_deprec = array();
+
+foreach ($plugin_menu_links_deprec as $value) 
+{
+  if (preg_match('/^admin\.php\?page=plugin-(.*)$/', $value["URL"], $matches)) {
+    $settings_url_for_plugin_deprec[$matches[1]] = $value["URL"];
+  } elseif (preg_match('/^.*section=(.*?)[\/&%].*$/', $value["URL"], $matches)) {
+    $settings_url_for_plugin_deprec[$matches[1]] = $value["URL"];
+  }
+}
+
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
@@ -106,7 +113,7 @@ $plugins->sort_fs_plugins('name');
 $merged_extensions = $plugins->get_merged_extensions();
 $merged_plugins = false;
 $tpl_plugins = array();
-$active_plugins = 0;
+$count_types_plugins = array("active"=>0, "inactive"=>0, "missing"=>0, "merged"=>0);
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
@@ -115,6 +122,13 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   {
     // Incompatible plugins must be reinitilized
     unset($_SESSION['incompatible_plugins']);
+  }
+
+  $setting_url = '';
+  if (isset($settings_url_for_plugin_deprec[$plugin_id])) { //old version
+    $setting_url = $settings_url_for_plugin_deprec[$plugin_id];
+  } else if ($fs_plugin['hasSettings']) { // new version
+    $setting_url = "admin.php?page=plugin-".$plugin_id;
   }
 
   $tpl_plugin = array(
@@ -126,6 +140,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     'AUTHOR' => $fs_plugin['author'],
     'AUTHOR_URL' => @$fs_plugin['author uri'],
     'U_ACTION' => sprintf($action_url, $plugin_id),
+    'SETTINGS_URL' => $setting_url,
     );
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
@@ -148,10 +163,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $merged_plugins = true;
   }
   
-  if ($tpl_plugin['STATE'] == 'active')
-  {
-    $active_plugins++;
-  }
+  $count_types_plugins[$tpl_plugin['STATE']]++;
 
   $tpl_plugins[] = $tpl_plugin;
 }
@@ -199,10 +211,11 @@ usort($tpl_plugins, 'cmp');
 $template->assign(
   array(
     'plugins' => $tpl_plugins,
-    'active_plugins' => $active_plugins,
+    'count_types_plugins' => $count_types_plugins,
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,
+    'max_inactive_before_hide' => isset($_GET['show_inactive']) ? 999 : 8,
     )
   );
 

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 add_event_handler('tabsheet_before_select', 'add_core_tabs', 0);
@@ -47,8 +32,8 @@ function add_core_tabs($sheets, $tab_id)
     case 'albums':
       global $my_base_url;
       $sheets['list'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'cat_list');
-      $sheets['move'] = array('caption' => '<span class="icon-move"></span>'.l10n('Move'), 'url' => $my_base_url.'cat_move');
-      $sheets['permalinks'] = array('caption' => '<span class="icon-link"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
+      $sheets['permalinks'] = array('caption' => '<span class="icon-link-1"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
+      $sheets['search'] = array('caption' => '<span class="icon-search"></span>'.l10n('Search'), 'url' => $my_base_url.'cat_search');
       break;
 
     case 'batch_manager':
@@ -163,6 +148,10 @@ function add_core_tabs($sheets, $tab_id)
       global $my_base_url;
       $sheets['pwg'] = array('caption' => l10n('Piwigo Update'), 'url' => $my_base_url);
       $sheets['ext'] = array('caption' => l10n('Extensions Update'), 'url' => $my_base_url.'&amp;tab=ext');
+      break;
+    case 'site_update':
+      global $my_base_url;
+      $sheets['synchronization'] = array('caption' => l10n('Database synchronization with files'), 'url' => $my_base_url.'site_update&site=1');
       break;
   }
 

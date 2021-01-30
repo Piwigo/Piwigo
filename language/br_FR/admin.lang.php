@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang[' and %d virtual'] = 'ha %d galloudel';
 $lang[' and %d virtuals'] = 'ha %d galloudel';
@@ -162,6 +147,7 @@ $lang['Add tags'] = 'Lakaat merkerioù ouzhpenn';
 $lang['Add to caddie'] = 'Lakaat er baner';
 $lang['%s value is not correct file because exif are not supported'] = 'N\'eo ket reizh talvoud %s peogwir n\'eo ket skoret exif';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'Gant arload <em>Piwigo evit iOS</em> e vo posubl deoc\'h kevreañ hoc\'h iPhone, iPad pe iPod Touch ouzh ho palier Piwigo, krouiñ rummadoù hag ezkargañ ur bern luc\'hskeudennoù en ur wech.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'Gant arload <em>Piwigo evit Android</em> e vo posubl deoc\'h kevreañ ho pellgomzer pe tablezenn ouzh ho palier Piwigo, krouiñ rummadoù hag ezkargañ ur bern luc\'hskeudennoù en ur wech.';
 $lang['+ Add an upload box'] = '+ Lakaat ur voest-ezkargañ';
 $lang[', click on'] = ', klikit war';
 $lang['(this tag will be deleted)'] = '(ar merker-mañ a vo dilemet)';
@@ -471,6 +457,7 @@ $lang['Instructions to use Piwigo'] = 'Kemennoù evit implij Piwigo';
 $lang['Piwigo Uploader'] = 'Ezkarger Piwigo';
 $lang['Piwigo export plugin for Aperture'] = 'Lugant ezporzhiañ Piwigo evit Aperture';
 $lang['Piwigo export plugin for iPhoto'] = 'Lugant ezporzhiañ Piwigo evit iPhoto';
+$lang['Piwigo for Android'] = 'Piwigo evit Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo evit iOS (iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for Shotwell'] = 'Lugant embann Piwigo evit Shotwell';
 $lang['Piwigo publish plugin for digiKam'] = 'Lugant embann Piwigo evit digiKam';
@@ -724,9 +711,9 @@ $lang['No group is permitted to see this private album'] = 'Ne c\'hell strollad 
 $lang['No user is permitted to see this private album'] = 'Ne c\'hell implijer ebet gwelet ar rummad prevez-se.';
 $lang['No file was uploaded'] = 'Restr ebet pellkarget';
 $lang['Upload in progress'] = 'Oc\'h ezkargañ';
-$lang['No group selected, no action possible.'] = 'Strollad ebet diuzet, obererezh ebet d\'ober.';
-$lang['No photo selected, no action possible.'] = 'Luc\'hskeudenn ebet diuzet, obererezh ebet d\'ober.';
-$lang['No user selected, no action possible.'] = 'Implijer ebet diuzet, obererezh ebet d\'ober.';
+$lang['No groups selected, no actions possible.'] = 'Strollad ebet diuzet, obererezh ebet d\'ober.';
+$lang['No photos selected, no actions possible.'] = 'Luc\'hskeudenn ebet diuzet, obererezh ebet d\'ober.';
+$lang['No users selected, no actions possible.'] = 'Implijer ebet diuzet, obererezh ebet d\'ober.';
 $lang['No destination tag selected'] = 'Merker pal ebet diuzet';
 $lang['No and unlock sub-albums'] = 'Ket ha dibrennañ iz-rummadoù';
 $lang['Unlocked'] = 'Dibrennet';
@@ -995,7 +982,7 @@ $lang['Running on an up-to-date Piwigo is important for security.'] = 'Pouezus e
 $lang['(determined from photos)'] = '(resisaet eus luc\'hskeudennoù)';
 $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Poent eo hizivaat ho Piwigo gant stumm %s, kit da %s';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s a zo hegerzh, hizivait mar plij';
-$lang['No tag selected, no action possible.'] = 'Merker ebet diuzet, obererezh ebet d\'ober.';
+$lang['No tags selected, no actions possible.'] = 'Merker ebet diuzet, obererezh ebet d\'ober.';
 $lang['Select tags'] = 'Diuzit ar merkerioù';
 $lang['No filter on album. Select one or type to search'] = 'Sil ebet war ar rummad, diuzit unan pe skrivit evit klask';
 $lang['checksum'] = 'sammad kontroll';

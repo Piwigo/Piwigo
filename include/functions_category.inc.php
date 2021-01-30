@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -137,8 +122,8 @@ WHERE '.$where.'
           ),
         'URL' => make_index_url(array('category' => $row)),
         'LEVEL' => substr_count($row['global_rank'], '.') + 1,
-        'SELECTED' => $selected_category['id'] == $row['id'] ? true : false,
-        'IS_UPPERCAT' => $selected_category['id_uppercat'] == $row['id'] ? true : false,
+        'SELECTED' => ($selected_category!==null && $selected_category['id'] == $row['id']) ? true : false,
+        'IS_UPPERCAT' => ($selected_category!==null && $selected_category['id_uppercat'] == $row['id']) ? true : false,
         )
       );
     if ($conf['index_new_icon'])
@@ -617,4 +602,192 @@ function remove_computed_category(&$cats, $cat)
   unset($cats[$cat['cat_id']]);
 }
 
+/**
+ * Return the list of image ids corresponding to given categories.
+ * AND & OR mode supported.
+ *
+ * @param int[] $cat_ids
+ * @param string mode
+ * @param string $extra_images_where_sql - optionally apply a sql where filter to retrieved images
+ * @param string $order_by - optionally overwrite default photo order
+ * @param bool $user_permissions
+ * @return array
+ */
+function get_image_ids_for_categories($cat_ids, $mode='AND', $extra_images_where_sql='', $order_by='', $use_permissions=true)
+{
+  global $conf;
+
+  if (empty($cat_ids))
+  {
+    return array();
+  }
+
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.' i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ic ON id=ic.image_id
+  WHERE category_id IN ('.implode(',', $cat_ids).')';
+
+  if ($use_permissions)
+  {
+    $query.= get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'id'
+        ),
+      "\n  AND"
+      );
+  }
+
+  $query.= (empty($extra_images_where_sql) ? '' : " \nAND (".$extra_images_where_sql.')').'
+  GROUP BY id';
+
+  if ($mode=='AND' and count($cat_ids)>1)
+  {
+    $query .= '
+  HAVING COUNT(DISTINCT category_id)='.count($cat_ids);
+  }
+  $query .= "\n".(empty($order_by) ? $conf['order_by'] : $order_by);
+
+  return query2array($query, null, 'id');
+}
+
+/**
+ * Return a list of categories corresponding to given items.
+ *
+ * @param int[] $items
+ * @param int $max
+ * @param int[] $excluded_cat_ids
+ * @return array [id, name, counter, url_name]
+ */
+function get_common_categories($items, $max=null, $excluded_cat_ids=array())
+{
+  if (empty($items))
+  {
+    return array();
+  }
+
+  $query = '
+SELECT
+    c.id,
+    c.uppercats,
+    count(*) AS counter
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.CATEGORIES_TABLE.' c ON category_id = id
+  WHERE image_id IN ('.implode(',', $items).')';
+
+  if (!empty($excluded_cat_ids))
+  {
+    $query.='
+    AND category_id NOT IN ('.implode(',', $excluded_cat_ids).')';
+  }
+
+  $query .='
+  GROUP BY c.id
+  ORDER BY ';
+  if (isset($max))
+  {
+    $query .= 'counter DESC
+  LIMIT '.$max;
+  }
+  else
+  {
+    $query .= 'NULL';
+  }
+
+  $result = pwg_query($query);
+  $cats = array();
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $cats[ $row['id'] ] = $row;
+  }
+
+  return $cats;
+}
+
+function get_related_categories_menu($items, $excluded_cat_ids=array())
+{
+  global $page;
+
+  $common_cats = get_common_categories($items, null, $excluded_cat_ids);
+  // echo '<pre>'; print_r($common_cats); echo '</pre>';
+
+  if (count($common_cats) == 0)
+  {
+    return array();
+  }
+
+  $cat_ids = array();
+  // now we add the upper categories and useful values such as depth level and url
+  foreach ($common_cats as $cat)
+  {
+    foreach (explode(',', $cat['uppercats']) as $uppercat)
+    {
+      @$cat_ids[$uppercat]++;
+    }
+  }
+
+  $query = '
+SELECT
+    id,
+    name,
+    permalink,
+    id_uppercat,
+    uppercats,
+    global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', array_keys($cat_ids)).')
+;';
+  $cats = query2array($query);
+  usort($cats, 'global_rank_compare');
+
+  $index_of_cat = array();
+
+  foreach ($cats as $idx => $cat)
+  {
+    $index_of_cat[ $cat['id'] ] = $idx;
+    $cats[$idx]['LEVEL'] = substr_count($cat['global_rank'], '.') + 1;
+
+    // if the category is directly linked to the items, we add an URL + counter
+    if (isset($common_cats[ $cat['id'] ]))
+    {
+      $cats[$idx]['count_images'] = $common_cats[ $cat['id'] ]['counter'];
+
+      $url_params = array();
+      if (isset($page['category']))
+      {
+        $url_params['category'] = $page['category'];
+
+        $url_params['combined_categories'] = array($cat);
+        if (isset($page['combined_categories']))
+        {
+          $url_params['combined_categories'] = array_merge($page['combined_categories'], array($cat));
+        }
+      }
+      else
+      {
+        $url_params['category'] = $cat;
+      }
+
+      $cats[$idx]['url'] = make_index_url($url_params);
+    }
+
+    // let's find how many sub-categories we have for each category. 3 options:
+    // 1. direct sub-albums
+    // 2. total indirect sub-albums
+    // 3. number of sub-albums containing photos
+    //
+    // Option 3 seems more appropriate here.
+    if (!empty($cat['id_uppercat']) and @$cats[$idx]['count_images'] > 0)
+    {
+      foreach (array_slice(explode(',', $cat['uppercats']), 0, -1) as $uppercat_id)
+      {
+        @$cats[ $index_of_cat[ $uppercat_id ] ]['count_categories']++;
+      }
+    }
+  }
+
+  return $cats;
+}
 ?>

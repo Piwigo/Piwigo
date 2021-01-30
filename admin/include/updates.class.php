@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
@@ -44,7 +29,7 @@ class updates
     {
       $this->types = array($page);
     }
-    $this->default_themes = array('clear', 'dark', 'Sylvia', 'elegant', 'smartpocket');
+    $this->default_themes = array('modus', 'elegant', 'smartpocket');
     $this->default_plugins = array('AdminTools', 'TakeATour', 'language_switch', 'LocalFilesEditor');
 
     foreach ($this->types as $type)
@@ -92,6 +77,7 @@ class updates
 
       $url = PHPWG_URL.'/download/all_versions.php';
       $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
+      $url.= '&show_requirements';
 
       if (@fetchRemote($url, $result)
           and $all_versions = @explode("\n", $result)
@@ -99,29 +85,34 @@ class updates
       {
         $new_versions['piwigo.org-checked'] = true;
         $last_version = trim($all_versions[0]);
+        list($last_version_number, $last_version_php) = explode('/', trim($all_versions[0]));
 
-        if (version_compare(PHPWG_VERSION, $last_version, '<'))
+        if (version_compare(PHPWG_VERSION, $last_version_number, '<'))
         {
-          $last_branch = get_branch_from_version($last_version);
+          $last_branch = get_branch_from_version($last_version_number);
 
           if ($last_branch == $actual_branch)
           {
-            $new_versions['minor'] = $last_version;
+            $new_versions['minor'] = $last_version_number;
+            $new_versions['minor_php'] = $last_version_php;
           }
           else
           {
-            $new_versions['major'] = $last_version;
+            $new_versions['major'] = $last_version_number;
+            $new_versions['major_php'] = $last_version_php;
 
             // Check if new version exists in same branch
             foreach ($all_versions as $version)
             {
-              $branch = get_branch_from_version($version);
+              list($version_number, $version_php) = explode('/', trim($version));
+              $branch = get_branch_from_version($version_number);
 
               if ($branch == $actual_branch)
               {
-                if (version_compare(PHPWG_VERSION, $version, '<'))
+                if (version_compare(PHPWG_VERSION, $version_number, '<'))
                 {
-                  $new_versions['minor'] = $version;
+                  $new_versions['minor'] = $version_number;
+                  $new_versions['minor_php'] = $version_php;
                 }
                 break;
               }
@@ -463,60 +454,6 @@ class updates
     }
   }
 
-  static function dump_database($include_history=false)
-  {
-    global $page, $conf, $cfgBase;
-
-    if (version_compare(PHPWG_VERSION, '2.1', '<'))
-    {
-      $conf['db_base'] = $cfgBase;
-    }
-
-    include(PHPWG_ROOT_PATH.'admin/include/mysqldump.php');
-
-    $path = PHPWG_ROOT_PATH.$conf['data_location'].'update';
-
-    if (@mkgetdir($path)
-      and ($backupFile = tempnam($path, 'sql'))
-      and ($dumper = new MySQLDump($conf['db_base'],$backupFile,false,false)))
-    {
-      foreach (get_defined_constants() as $constant => $value)
-      {
-        if (preg_match('/_TABLE$/', $constant))
-        {
-          $dumper->getTableStructure($value);
-          if ($constant == 'HISTORY_TABLE' and !$include_history)
-          {
-            continue;
-          }
-          $dumper->getTableData($value);
-        }
-      }
-    }
-
-    if (@filesize($backupFile))
-    {
-      $http_headers = array(
-        'Content-Length: '.@filesize($backupFile),
-        'Content-Type: text/x-sql',
-        'Content-Disposition: attachment; filename="database.sql";',
-        'Content-Transfer-Encoding: binary',
-        );
-
-      foreach ($http_headers as $header) {
-        header($header);
-      }
-
-      @readfile($backupFile);
-      deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
-      exit();
-    }
-    else
-    {
-      $page['errors'][] = l10n('Unable to dump database.');
-    }
-  }
-
   static function upgrade_to($upgrade_to, &$step, $check_current_version=true)
   {
     global $page, $conf, $template;
@@ -528,8 +465,7 @@ class updates
 
     if ($step == 2)
     {
-      preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION, $matches);
-      $code =  $matches[1].'.x_to_'.$upgrade_to;
+      $code = get_branch_from_version(PHPWG_VERSION).'.x_to_'.$upgrade_to;
       $dl_code = str_replace(array('.', '_'), '', $code);
       $remove_path = $code;
       $obsolete_list = 'obsolete.list';

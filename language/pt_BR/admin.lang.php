@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d associação';
@@ -667,6 +652,7 @@ $lang['%d years'] = '%d anos';
 $lang['%s ago'] = '%s atrás';
 $lang['%s in the future'] = '%s no futuro';
 $lang['%u users have automatic permission because they belong to a granted group.'] = 'usuários %u tem permissão automática porque pertencem a um grupo que possui essa permissão';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'O aplicativo <em>Piwigo para Android</em> capacita você a conectar o seu celular ou tablet Android à sua galeria Piwigo, criando álbuns e colocando várias fotos ao mesmo tempo.';
 $lang['A locked gallery is only visible to administrators'] = 'Uma galeria trancada é somente visível pelos administradores';
 $lang['Added by %s'] = 'Adicionado por %s';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'O Adobe Photoshop Lightroom é um software de fotografia feito para gerenciar grandes quantidades de imagens digitais e fazer o trabalho de pós-produção';
@@ -724,7 +710,7 @@ $lang['No group is permitted to see this private album'] = 'Nenhum grupo tem per
 $lang['No order field selected'] = 'Nenhum campo de ordenação selecionado';
 $lang['No photo in the current set.'] = 'Nenhuma foto no set atual';
 $lang['No photo selected, %d photos in current set'] = 'Nenhuma foto selecionada, %d fotos no set atual';
-$lang['No photo selected, no action possible.'] = 'Nenhuma fotos selecionada, nenhuma ação possível.';
+$lang['No photos selected, no actions possible.'] = 'Nenhuma fotos selecionada, nenhuma ação possível.';
 $lang['No results'] = 'Sem Resultados';
 $lang['None'] = 'Nenhum';
 $lang['Not cropped correctly?'] = 'Não recortado corretamente?';
@@ -758,6 +744,7 @@ $lang['Piwigo Uploader'] = 'Envio de Fotos do Piwigo';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo não pode receber arquivos de atualização do servidor';
 $lang['Piwigo export plugin for Aperture'] = 'Plugin de Exportação do Piwigo para Aperture';
 $lang['Piwigo export plugin for iPhoto'] = 'Plugin de Exportação do Piwigo para iPhoto';
+$lang['Piwigo for Android'] = 'Piwigo para Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo para iOS (iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for Shotwell'] = 'Plugin de publicação do Piwigo para Shortwell';
 $lang['Piwigo publish plugin for digiKam'] = 'Plugin de publicação do Piwigo para digiKam';
@@ -929,7 +916,7 @@ $lang['between %d and %d pixels'] = 'Entre %d e %d pixels';
 $lang['Duplicate'] = 'Duplicado';
 $lang['Manage the members'] = 'Gerencie os membros';
 $lang['Merge selected groups'] = 'Junte os grupos selecionados';
-$lang['No group selected, no action possible.'] = 'Nenhum grupo selecionado. Nenhuma açao é possível.';
+$lang['No groups selected, no actions possible.'] = 'Nenhum grupo selecionado. Nenhuma açao é possível.';
 $lang['No members to manage'] = 'Sem membros para gerenciar';
 $lang['Please select at least two groups'] = 'Por favor, selecione ao menos dois grupos';
 $lang['Rename'] = 'Renomear';
@@ -951,7 +938,7 @@ $lang['Last visit on %s, %s.'] = 'Última visita em %s, %s.';
 $lang['Loading...'] = 'Carregando...';
 $lang['No matching user found'] = 'Nenhum usuário encontrado';
 $lang['No user selected of %d users'] = 'Nenhum usuário selecionado do total de %d usuários';
-$lang['No user selected, no action possible.'] = 'Nenhum usuário selecionado, nenhuma ação possível.';
+$lang['No users selected, no actions possible.'] = 'Nenhum usuário selecionado, nenhuma ação possível.';
 $lang['Password updated'] = 'Senha atualizada';
 $lang['Registered on %s, %s.'] = 'Registrado em %s, %s.';
 $lang['Show %s users'] = 'Mostra %s usuários';
@@ -1000,7 +987,7 @@ $lang['Select tags'] = 'Selecionar etiquetas';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Executar um Piwigo atualizado é importante para a segurança.';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync é capaz de enviar uma seleção inteira de pastas. Se você executá-lo novamente, apenas novas fotos serão enviadas.';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s está disponível, atualize';
-$lang['No tag selected, no action possible.'] = 'Nenhuma etiqueta selecionada, nenhuma ação possível.';
+$lang['No tags selected, no actions possible.'] = 'Nenhuma etiqueta selecionada, nenhuma ação possível.';
 $lang['No filter on album. Select one or type to search'] = 'Nenhum filtro no álbum. Selecione um ou digite para pesquisar';
 $lang['It only takes a few clicks.'] = 'Demora apenas alguns cliques.';
 $lang['First photo added'] = 'Primeira foto adicionada';
@@ -1010,3 +997,18 @@ $lang['Delete album "%s" and its %d sub-albums.'] = 'Exclua o álbum "%s" e seus
 $lang['Dashboard'] = 'Painel de controle';
 $lang['Confirm deletion'] = 'Confirmar eliminação';
 $lang['(determined from photos)'] = '(determinado a partir de fotos)';
+$lang['%d checksums were added'] = '%d somas de verificação foram adicionadas';
+$lang['... or hide this link'] = '... ou ocultar este link';
+$lang['Compute %d missing checksums'] = 'Computar %d somas de verificação ausentes';
+$lang['Create a first album'] = 'Crie um primeiro álbum';
+$lang['Deletion in progress'] = 'Exclusão em andamento';
+$lang['Display album date period'] = 'Mostrar o período de datas associado a cada álbum, por exemplo, «de 12 a 15 de julho de 2018»';
+$lang['Display category date'] = 'Exibir a data da categoria';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo requer um álbum para adicionar fotos.';
+$lang['Some checksums are missing.'] = 'Algumas somas de verificação estão faltando.';
+$lang['Synchronization in progress'] = 'Sincronização em andamento';
+$lang['Visit'] = 'Visita';
+$lang['Welcome!'] = 'Bem vindo!';
+$lang['With no checksum'] = 'Sem soma de verificação';
+$lang['checksums to add'] = 'somas de verificação para adicionar';
+$lang['or'] = 'ou';

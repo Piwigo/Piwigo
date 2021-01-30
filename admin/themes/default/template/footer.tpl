@@ -17,14 +17,7 @@
 {/if}
 
 <div id="footer">
-  <div id="piwigoInfos">
-  {'Powered by'|translate}
-  <a class="externalLink tiptip" href="{$PHPWG_URL}" title="{'Visit Piwigo project website'|translate}"><span class="Piwigo">Piwigo</span></a>
-  {$VERSION}
-  <a class="externalLink tiptip" href="{$pwgmenu.WIKI}" title="{'Read Piwigo Documentation'|translate}"><i class="icon-book"></i>{'Documentation'|translate}</a>
-  <a class="externalLink tiptip" href="{$pwgmenu.FORUM}" title="{'Get Support on Piwigo Forum'|translate}"><i class="icon-lifebuoy"></i>{'Support'|translate}</a>
-  </div>
-
+  <a class="externalLink tiptip piwigo-logo" href="{$PHPWG_URL}" title="{'Visit Piwigo project website'|translate}"><img src="admin/themes/default/images/piwigo-grey.svg"></a>
   <div id="pageInfos">
     {if isset($debug.TIME) }
     {'Page generated in'|translate} {$debug.TIME} ({$debug.NB_QUERIES} {'SQL queries in'|translate} {$debug.SQL_TIME}) -
