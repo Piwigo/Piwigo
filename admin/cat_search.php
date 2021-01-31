@@ -39,7 +39,9 @@ SELECT id, name, status, uppercats
 $result = query2array($query);
 
 foreach ($result as $cat) 
-{ 
+{
+  $cat['name'] = trigger_change('render_category_name', $cat['name'], 'admin_cat_list');
+
   $private = ($cat['status'] == 'private')? 1:0;
 
   $parents = explode(',', $cat['uppercats']);

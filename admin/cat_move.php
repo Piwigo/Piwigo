@@ -79,6 +79,8 @@ SELECT id, name, id_uppercat
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
+    $row['name'] = trigger_change('render_category_name', $row['name'], 'admin_cat_list');
+
     if ($order_by_date)
     {
       $sort[] = $ref_dates[ $row['id'] ];
@@ -136,6 +138,8 @@ $associatedTree = array();
 
 foreach ($allAlbum as $album) 
 {
+  $album['name'] = trigger_change('render_category_name', $album['name'], 'admin_cat_list');
+
   $parents = explode(',',$album['uppercats']);
   $the_place = &$associatedTree[strval($parents[0])];
   for ($i=1; $i < count($parents); $i++) 
