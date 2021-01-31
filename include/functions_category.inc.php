@@ -752,6 +752,7 @@ SELECT
     // if the category is directly linked to the items, we add an URL + counter
     if (isset($common_cats[ $cat['id'] ]))
     {
+      $cats[$idx]['name'] = trigger_change('render_category_name', $cat['name'], $cat);
       $cats[$idx]['count_images'] = $common_cats[ $cat['id'] ]['counter'];
 
       $url_params = array();
