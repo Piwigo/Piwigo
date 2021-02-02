@@ -63,6 +63,7 @@ $warning_tags = "";
 
 $orphan_tags = get_orphan_tags();
 
+$orphan_tag_names_array = '[]';
 $orphan_tag_names = array();
 foreach ($orphan_tags as $tag)
 {
@@ -75,15 +76,26 @@ if (count($orphan_tag_names) > 0)
     l10n('You have %d orphan tags %s'),
     count($orphan_tag_names),
     '<a 
-      data-tags=\'["'.implode('" ,"', $orphan_tag_names).'"]\' 
       class="icon-eye"
       data-url="'.get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token().'">'
       .l10n('Review').'</a>'
     );
+
+  $orphan_tag_names_array = '["';
+  $orphan_tag_names_array.= implode(
+    '" ,"',
+    array_map(
+      'htmlentities',
+      $orphan_tag_names,
+      array_fill(0 , count($orphan_tag_names) , ENT_QUOTES)
+    )
+  );
+  $orphan_tag_names_array.= '"]';
 }
 
 $template->assign(
   array(
+    'orphan_tag_names_array' => $orphan_tag_names_array,
     'warning_tags' => $warning_tags,
     'message_tags' => $message_tags
     )

@@ -1,5 +1,6 @@
 {footer_script}
 var pwg_token = "{$PWG_TOKEN}";
+var orphan_tag_names = {$orphan_tag_names_array};
 var str_delete = '{'Delete tag "%s"?'|@translate}';
 var str_delete_tags = '{'Delete tags \{%s\}?'|@translate}';
 var str_yes_delete_confirmation = "{'Yes, delete'|@translate}";
@@ -149,7 +150,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
   <div></div> <a></a>
 </div>
 
-<div class='tag-container' data-tags='{json_encode($data)}' data-per_page={$per_page}>
+<div class='tag-container' data-tags='{$data|@json_encode|escape:html}' data-per_page={$per_page}>
   {foreach from=$first_tags item=tag}
   <div class='tag-box' data-id='{$tag.id}' data-selected='0'>
     {tagContent 

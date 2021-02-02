@@ -7,7 +7,7 @@ $('#select-100').prop('checked', true)
 //Orphan tags
 $('.tag-warning p a').on('click', () => {
   let url = $('.tag-warning p a').data('url');
-  let tags = $('.tag-warning p a').data('tags');
+  let tags = orphan_tag_names;
   let str_orphans = str_orphan_tags.replace('%s1', tags.length).replace('%s2', tags.join(', '));
   $.confirm({
     content : str_orphans,
