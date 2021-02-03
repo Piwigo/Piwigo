@@ -417,3 +417,5 @@ $lang['No results for'] = 'Žádné výsledky pro';
 $lang['Your authentication key is no longer valid.'] = 'Váš autorizační klíč není nadále platný.';
 $lang['Invalid username or password!'] = 'Chybné uživatelské jméno nebo heslo!';
 $lang['generate random password'] = 'generovat náhodné heslo';
+$lang['Related albums'] = 'Související alba';
+$lang['Password: ********** (no copy by email)'] = 'Heslo: ********** (ne zasláno e-mailem)';
