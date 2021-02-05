@@ -220,6 +220,8 @@ $date_string = $date->format('Y-m-d');
 
 if (!isset($_SESSION['cache_activity_last_weeks']) or $_SESSION['cache_activity_last_weeks']['calculated_on'] < strtotime('5 minutes ago'))
 {
+  $start_time = get_moment();
+
   $query = '
   SELECT
       DATE_FORMAT(occured_on , \'%Y-%m-%d\') AS activity_day,
@@ -250,6 +252,8 @@ if (!isset($_SESSION['cache_activity_last_weeks']) or $_SESSION['cache_activity_
     @$activity_last_weeks[$week][$day_nb]['number'] += $action['activity_counter'];
     @$activity_last_weeks[$week][$day_nb]['date'] = format_date($day_date->getTimestamp());
   }
+
+  $logger->debug('[admin/intro::'.__LINE__.'] recent activity calculated in '.get_elapsed_time($start_time, get_moment()));
 
   $_SESSION['cache_activity_last_weeks'] = array(
     'calculated_on' => time(),
