@@ -200,6 +200,9 @@ function applyMove(event) {
     }
     moveRank = 1;
   } else if (event.move_info.position == 'before') {
+    if (moveParent == null) {
+      moveParent = 0
+    }
     moveRank = 1;
   } 
   moveNode(id, moveRank, moveParent).then(() => {
