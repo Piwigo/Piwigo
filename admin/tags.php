@@ -31,14 +31,12 @@ $tabsheet->assign();
 // |                           delete orphan tags                          |
 // +-----------------------------------------------------------------------+
 
-$message_tags = "";
-
 if (isset($_GET['action']) and 'delete_orphans' == $_GET['action'])
 {
   check_pwg_token();
 
   delete_orphan_tags();
-  $message_tags = array(l10n('Orphan tags deleted'));
+  $_SESSION['message_tags'] = l10n('Orphan tags deleted');
   redirect(get_root_url().'admin.php?page=tags');
 }
 
@@ -97,9 +95,16 @@ $template->assign(
   array(
     'orphan_tag_names_array' => $orphan_tag_names_array,
     'warning_tags' => $warning_tags,
-    'message_tags' => $message_tags
     )
   );
+
+$message_tags = '';
+if (isset($_SESSION['message_tags']))
+{
+  $message_tags = $_SESSION['message_tags'];
+  unset($_SESSION['message_tags']);
+}
+$template->assign('message_tags', $message_tags);
 
 // +-----------------------------------------------------------------------+
 // |                             form creation                             |
