@@ -185,7 +185,7 @@ function applyMove(event) {
     $('.waiting-message').addClass('visible');  
   }, 500);
   id = event.move_info.moved_node.id;
-  moveParent = null;
+  moveParent = 0;
   moveRank = null;
   previous_parent = event.move_info.previous_parent;
   target = event.move_info.target_node;
