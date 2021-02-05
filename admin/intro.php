@@ -409,24 +409,6 @@ if (isset($result[0]['SUM(filesize)']))
   $data_storage['Formats'] = $result[0]['SUM(filesize)'];
 }
 
-// Windows can't execute get_fs_directory_size correctly
-if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN')
-{
-  if (!isset($_SESSION['cachedir_info']) or $_SESSION['cachedir_info']['calculated_on'] < strtotime('5 minutes ago'))
-  {
-    $start_time = get_moment();
-
-    $_SESSION['cachedir_info'] = array(
-      'size' => get_fs_directory_size($conf['data_location']),
-      'calculated_on' => time(),
-    );
-
-    $logger->debug('[admin/intro::'.__LINE__.'] cache size calculated in '.get_elapsed_time($start_time, get_moment()).' ('.$_SESSION['cachedir_info']['size'].' bytes)');
- }
-
-  $data_storage['Cache'] = $_SESSION['cachedir_info']['size'] / 1000;
-}
-
 //Calculate total storage
 $total_storage = 0;
 foreach ($data_storage as $value) 
