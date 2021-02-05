@@ -185,15 +185,15 @@ function save_profile_from_post($userdata, &$errors)
       $fields = array($conf['user_fields']['email']);
 
       $data = array();
-      $data{$conf['user_fields']['id']} = $userdata['id'];
-      $data{$conf['user_fields']['email']} = $_POST['mail_address'];
+      $data[ $conf['user_fields']['id'] ] = $userdata['id'];
+      $data[ $conf['user_fields']['email'] ] = $_POST['mail_address'];
 
       // password is updated only if filled
       if (!empty($_POST['use_new_pwd']))
       {
         $fields[] = $conf['user_fields']['password'];
         // password is hashed with function $conf['password_hash']
-        $data{$conf['user_fields']['password']} = $conf['password_hash']($_POST['use_new_pwd']);
+        $data[ $conf['user_fields']['password'] ] = $conf['password_hash']($_POST['use_new_pwd']);
 
         deactivate_user_auth_keys($userdata['id']);
       }
@@ -209,7 +209,7 @@ function save_profile_from_post($userdata, &$errors)
         else
         {
           $fields[] = $conf['user_fields']['username'];
-          $data{$conf['user_fields']['username']} = $_POST['username'];
+          $data[ $conf['user_fields']['username'] ] = $_POST['username'];
           
           // send email to the user
           if ($_POST['username'] != $userdata['username'])
