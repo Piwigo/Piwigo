@@ -795,9 +795,9 @@ function isSearched(tagBox, stringSearch) {
 }
 
 function isDataSearched(tagObj) {
-  let name = tagObj.name;
+  let name = tagObj.name.toLowerCase();
   let stringSearch = $("#search-tag .search-input").val();
-  if (name.startsWith(stringSearch.toLowerCase())) {
+  if (name.includes(stringSearch.toLowerCase())) {
     return true;
   } else {
     return false;
