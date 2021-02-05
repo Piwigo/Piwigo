@@ -185,7 +185,7 @@ function applyMove(event) {
     $('.waiting-message').addClass('visible');  
   }, 500);
   id = event.move_info.moved_node.id;
-  moveParent = 0;
+  moveParent = null;
   moveRank = null;
   previous_parent = event.move_info.previous_parent;
   target = event.move_info.target_node;
@@ -200,6 +200,9 @@ function applyMove(event) {
     }
     moveRank = 1;
   } else if (event.move_info.position == 'before') {
+    if (moveParent == null) {
+      moveParent = 0
+    }
     moveRank = 1;
   } 
   moveNode(id, moveRank, moveParent).then(() => {
