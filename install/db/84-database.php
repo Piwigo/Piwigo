@@ -57,9 +57,10 @@ while ($row = pwg_db_fetch_assoc($result))
       $user_theme = 'Sylvia';
   }
 
-  $users[] = array(
-      'user_id' => $row['user_id'],
-      'theme' => $user_theme
+  array_push($users, array(
+    'user_id' => $row['user_id'],
+    'theme' => $user_theme
+    )
   );
 }
 

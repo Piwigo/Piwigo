@@ -86,15 +86,15 @@ foreach (array_keys($id_uppercats) as $id)
   $data['id'] = $id;
   $uppercats = array();
   
-  $uppercats[] = $id;
+  array_push($uppercats, $id);
   while (isset($id_uppercats[$id]) and $id_uppercats[$id] != 'NULL')
   {
-    $uppercats[] = $id_uppercats[$id];
+    array_push($uppercats, $id_uppercats[$id]);
     $id = $id_uppercats[$id];
   }
   $data['uppercats'] = implode(',', array_reverse($uppercats));
 
-  $datas[] = $data;
+  array_push($datas, $data);
 }
 
 mass_updates(

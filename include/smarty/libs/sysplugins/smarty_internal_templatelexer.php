@@ -249,7 +249,7 @@ class Smarty_Internal_Templatelexer
                     isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] :
                         $this->_yy_state);
         }
-        $this->_yy_stack[] = $this->_yy_state;
+        array_push($this->_yy_stack, $this->_yy_state);
         $this->_yy_state = $state;
         if ($this->yyTraceFILE) {
             fprintf($this->yyTraceFILE, "%snew State %s\n", $this->yyTracePrompt,

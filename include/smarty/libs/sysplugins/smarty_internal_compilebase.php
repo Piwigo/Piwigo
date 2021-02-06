@@ -155,7 +155,7 @@ abstract class Smarty_Internal_CompileBase
      */
     public function openTag($compiler, $openTag, $data = null)
     {
-        $compiler->_tag_stack[] = array($openTag, $data);
+        array_push($compiler->_tag_stack, array($openTag, $data));
     }
 
     /**

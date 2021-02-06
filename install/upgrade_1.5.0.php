@@ -78,18 +78,24 @@ SELECT id, keywords
         $tag_images[ $tag_id[$keyword] ] = array();
       }
 
-      $tag_images[$tag_id[$keyword]][] = $row['id'];
+      array_push(
+        $tag_images[ $tag_id[$keyword] ],
+        $row['id']
+        );
     }
   }
 
   $datas = array();
   foreach ($tag_id as $tag_name => $tag_id)
   {
-    $datas[] = array(
-        'id' => $tag_id,
-        'name' => $tag_name,
+    array_push(
+      $datas,
+      array(
+        'id'       => $tag_id,
+        'name'     => $tag_name,
         'url_name' => str2url($tag_name),
-    );
+        )
+      );
   }
   
   if (!empty($datas))
@@ -106,10 +112,13 @@ SELECT id, keywords
   {
     foreach (array_unique($images) as $image_id)
     {
-      $datas[] = array(
-          'tag_id' => $tag_id,
+      array_push(
+        $datas,
+        array(
+          'tag_id'   => $tag_id,
           'image_id' => $image_id,
-      );
+          )
+        );
     }
   }
   

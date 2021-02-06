@@ -343,7 +343,7 @@ ALTER TABLE '.PREFIX_TABLE.$table.'
       }
       else
       {
-        $existing_indexes[] = $row['Key_name'];
+        array_push($existing_indexes, $row['Key_name']);
       }
     }
   }
@@ -523,7 +523,7 @@ SELECT DISTINCT(storage_category_id) AS unique_storage_category_id
 $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $cat_ids[] = $row['unique_storage_category_id'];
+  array_push($cat_ids, $row['unique_storage_category_id']);
 }
 $fulldirs = get_fulldirs($cat_ids);
 
@@ -548,7 +548,7 @@ SELECT id
 $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $cat_ids[] = $row['id'];
+  array_push($cat_ids, $row['id']);
 }
 
 if (count($cat_ids) > 0)
@@ -581,7 +581,7 @@ if (!is_writable($config_file))
 }
 
 // changes to write in database.inc.php
-$mysql_changes[] = 'define(\'PHPWG_INSTALLED\', true);';
+array_push($mysql_changes, 'define(\'PHPWG_INSTALLED\', true);');
 
 // Send infos
 $page['infos'] = array_merge(
