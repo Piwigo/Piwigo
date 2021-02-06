@@ -432,7 +432,7 @@ class Smarty_Security
     public function isTrustedModifier($modifier_name, $compiler)
     {
         // check for internal always allowed modifier
-        if ($modifier_name === 'default') {
+        if (in_array($modifier_name, array('default'))) {
             return true;
         }
         // check security settings

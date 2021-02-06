@@ -333,7 +333,7 @@ SHOW INDEX
   {
     if ($row['Key_name'] != 'PRIMARY')
     {
-      if (!array_key_exists($row['Key_name'], $indexes_of[$table]))
+      if (!in_array($row['Key_name'], array_keys($indexes_of[$table])))
       {
         $query = '
 ALTER TABLE '.PREFIX_TABLE.$table.'
