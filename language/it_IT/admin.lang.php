@@ -725,9 +725,6 @@ $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 
 $lang['Some themes and plugins may be not available yet.'] = 'Alcuni temi e plugin possono non essere ancora disponibili.';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'E\' possibile aggiornare direttamente a Piwigo %s, senza passare per Piwigo %s (consigliato).';
 $lang['Save Template Directory'] = 'Salvare la template directory';
-$lang['Dump Database'] = 'Salvare il database';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Includere la cronologia (Attenzione: può essere superato il limite di memoria del server)';
-$lang['Unable to dump database.'] = 'Impossibile eseguire il salvataggio del database.';
 $lang['Some upgrades are available for extensions.'] = 'Degli aggiornamenti sono disponibili per le estensioni.';
 $lang['Please wait...'] = 'Attendere prego...';
 $lang['Ignore All'] = 'Ignorare tutto';
@@ -1013,3 +1010,4 @@ $lang['Deletion in progress'] = 'Cancellazione in corso';
 $lang['Display album date period'] = 'Visualizza la data del periodo associato a ciascun album, ad es. "dal 12 al 15 luglio 2018"';
 $lang['Display category date'] = 'Visualizza la data della categoria';
 $lang['Piwigo requires an album to add photos.'] = 'Piwigo ha bisogno di un album per aggiungere delle foto.';
+$lang[' (copy)'] = '(copia)';

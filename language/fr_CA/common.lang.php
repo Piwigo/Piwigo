@@ -418,3 +418,4 @@ $lang['Photo title'] = 'Titre de la photo';
 $lang['generate random password'] = 'générer un mot de passe aléatoire';
 $lang['Your authentication key is no longer valid.'] = 'Voter clef d\'identification n\'est plus valide';
 $lang['Invalid username or password!'] = 'Nom d\'utilisateur ou mot de passe invalide !';
+$lang['Password: ********** (no copy by email)'] = 'Mot de passe : ********** (pas de copie par email)';
