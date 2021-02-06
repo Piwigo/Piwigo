@@ -304,7 +304,7 @@ final class DerivativeImage
         return;
       }
       $defined_types = array_keys(ImageStdParams::get_defined_type_map());
-      for ($i=0; $i<count($defined_types); $i++)
+      for ($i=0, $iMax = count($defined_types); $i< $iMax; $i++)
       {
         if ($defined_types[$i] == $params->type)
         {

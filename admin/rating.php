@@ -138,7 +138,7 @@ $available_order_by= array(
     array(l10n('Post date'), 'date_available DESC'),
   );
 
-for ($i=0; $i<count($available_order_by); $i++)
+for ($i=0, $iMax = count($available_order_by); $i< $iMax; $i++)
 {
   $template->append(
     'order_by_options',

@@ -95,7 +95,7 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
   $matches = array();
   preg_match_all('/([a-z_]+) *(?:(asc|desc)(?:ending)?)? *(?:, *|$)/i',
     $params['order'], $matches);
-  for ($i=0; $i<count($matches[1]); $i++)
+  for ($i=0, $iMax = count($matches[1]); $i< $iMax; $i++)
   {
     switch ($matches[1][$i])
     {

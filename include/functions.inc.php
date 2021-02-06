@@ -150,7 +150,7 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
 function qualify_utf8($Str)
 {
   $ret = 0;
-  for ($i=0; $i<strlen($Str); $i++)
+  for ($i=0, $iMax = strlen($Str); $i< $iMax; $i++)
   {
     if (ord($Str[$i]) < 0x80) continue; # 0bbbbbbb
     $ret = 1;

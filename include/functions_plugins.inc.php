@@ -147,7 +147,7 @@ function remove_event_handler($event, $func,
   {
     return false;
   }
-  for ($i=0; $i<count($pwg_event_handlers[$event][$priority]); $i++)
+  for ($i=0, $iMax = count($pwg_event_handlers[$event][$priority]); $i< $iMax; $i++)
   {
     if ($pwg_event_handlers[$event][$priority][$i]['function']==$func)
     {

@@ -571,7 +571,7 @@ class QMultiToken
   function __toString()
   {
     $s = '';
-    for ($i=0; $i<count($this->tokens); $i++)
+    for ($i=0, $iMax = count($this->tokens); $i< $iMax; $i++)
     {
       $modifier = $this->tokens[$i]->modifier;
       if ($i)
@@ -719,7 +719,7 @@ class QMultiToken
 
     $this->push($crt_token, $crt_modifier, $crt_scope);
 
-    for ($i=0; $i<count($this->tokens); $i++)
+    for ($i=0, $iMax = count($this->tokens); $i< $iMax; $i++)
     {
       $token = $this->tokens[$i];
       $remove = false;
@@ -790,7 +790,7 @@ class QMultiToken
   */
   private function apply_scope(QSearchScope $scope)
   {
-    for ($i=0; $i<count($this->tokens); $i++)
+    for ($i=0, $iMax = count($this->tokens); $i< $iMax; $i++)
     {
       if ($this->tokens[$i]->is_single)
       {
@@ -810,7 +810,7 @@ class QMultiToken
   /* because evaluations occur left to right, we ensure that 'a OR b c d' is interpreted as 'a OR (b c d)'*/
   protected function check_operator_priority()
   {
-    for ($i=0; $i<count($this->tokens); $i++)
+    for ($i=0, $iMax = count($this->tokens); $i< $iMax; $i++)
     {
       if (!$this->tokens[$i]->is_single)
         $this->tokens[$i]->check_operator_priority();
@@ -822,7 +822,7 @@ class QMultiToken
       if ($prio > $crt_prio)
       {// e.g. 'a OR b c d' i=2, operator(c)=AND -> prio(AND) > prio(OR) = operator(b)
         $term_count = 2; // at least b and c to be regrouped
-        for ($j=$i+1; $j<count($this->tokens); $j++)
+        for ($j=$i+1, $jMax = count($this->tokens); $j< $jMax; $j++)
         {
           if (self::priority($this->tokens[$j]->modifier) >= $prio)
             $term_count++; // also take d
@@ -871,7 +871,7 @@ class QExpression extends QMultiToken
 
   private function build_single_tokens(QMultiToken $expr, $this_is_not)
   {
-    for ($i=0; $i<count($expr->tokens); $i++)
+    for ($i=0, $iMax = count($expr->tokens); $i< $iMax; $i++)
     {
       $token = $expr->tokens[$i];
       $crt_is_not = ($token->modifier ^ $this_is_not) & QST_NOT; // no negation OR double negation -> no negation;
@@ -962,7 +962,7 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
 
   $query_base = 'SELECT id from '.IMAGES_TABLE.' i WHERE
 ';
-  for ($i=0; $i<count($expr->stokens); $i++)
+  for ($i=0, $iMax = count($expr->stokens); $i< $iMax; $i++)
   {
     $token = $expr->stokens[$i];
     $scope_id = isset($token->scope) ? $token->scope->id : 'photo';
@@ -1036,7 +1036,7 @@ function qsearch_get_tags(QExpression $expr, QResults $qsr)
   $token_tag_ids = $qsr->tag_iids = array_fill(0, count($expr->stokens), array() );
   $all_tags = array();
 
-  for ($i=0; $i<count($expr->stokens); $i++)
+  for ($i=0, $iMax = count($expr->stokens); $i< $iMax; $i++)
   {
     $token = $expr->stokens[$i];
     if (isset($token->scope) && 'tag' != $token->scope->id)
@@ -1072,7 +1072,7 @@ WHERE ('. implode("\n OR ",$clauses) .')';
 
   // get images
   $positive_ids = $not_ids = array();
-  for ($i=0; $i<count($expr->stokens); $i++)
+  for ($i=0, $iMax = count($expr->stokens); $i< $iMax; $i++)
   {
     $tag_ids = $token_tag_ids[$i];
     $token = $expr->stokens[$i];
@@ -1124,7 +1124,7 @@ function qsearch_get_categories(QExpression $expr, QResults $qsr)
   $token_cat_ids = $qsr->cat_iids = array_fill(0, count($expr->stokens), array() );
   $all_cats = array();
 
-  for ($i=0; $i<count($expr->stokens); $i++)
+  for ($i=0, $iMax = count($expr->stokens); $i< $iMax; $i++)
   {
     $token = $expr->stokens[$i];
     if (isset($token->scope) && 'category' != $token->scope->id) // not relevant yet
@@ -1164,7 +1164,7 @@ SELECT
 
   // get images
   $positive_ids = $not_ids = array();
-  for ($i=0; $i<count($expr->stokens); $i++)
+  for ($i=0, $iMax = count($expr->stokens); $i< $iMax; $i++)
   {
     $cat_ids = $token_cat_ids[$i];
     $token = $expr->stokens[$i];
@@ -1229,7 +1229,7 @@ function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_t
 
   $ids = $not_ids = array();
 
-  for ($i=0; $i<count($expr->tokens); $i++)
+  for ($i=0, $iMax = count($expr->tokens); $i< $iMax; $i++)
   {
     $crt = $expr->tokens[$i];
     if ($crt->is_single)
@@ -1403,7 +1403,7 @@ function get_quick_search_results_no_cache($q, $options)
 
   $debug[] = "<!--\nparsed: ".htmlspecialchars($expression);
   $debug[] = count($expression->stokens).' tokens';
-  for ($i=0; $i<count($expression->stokens); $i++)
+  for ($i=0, $iMax = count($expression->stokens); $i< $iMax; $i++)
   {
     $debug[] = htmlspecialchars($expression->stokens[$i]).': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids'
       .' modifier:'.dechex($expression->stoken_modifiers[$i])

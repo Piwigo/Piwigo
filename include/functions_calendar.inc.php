@@ -151,7 +151,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   }
 
   $any_count = 0;
-  for ($i = 0; $i < count($page['chronology_date']); $i++)
+  for ($i = 0, $iMax = count($page['chronology_date']); $i < $iMax; $i++)
   {
     if ($page['chronology_date'][$i] == 'any')
     {

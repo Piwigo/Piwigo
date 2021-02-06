@@ -298,7 +298,7 @@ usort($temp_data, 'cmp_day');
 //Get the percent difference
 $diff_x = array();
 
-for ($i=1; $i < count($temp_data); $i++) 
+for ($i=1, $iMax = count($temp_data); $i < $iMax; $i++)
 { 
   $diff_x[] = $temp_data[$i]['x']/$temp_data[$i-1]['x']*100;
 }
@@ -332,7 +332,7 @@ if (isset($temp_data[0]))
 }
 
 //Set sizes in chart data
-for ($i=1; $i < count($temp_data); $i++) 
+for ($i=1, $iMax = count($temp_data); $i < $iMax; $i++)
 { 
   if ($diff_x[$i-1] == -1) 
   {
