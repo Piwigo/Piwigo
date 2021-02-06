@@ -42,7 +42,7 @@ foreach($languages->fs_languages as $language_id => $language)
 {
   $language['u_action'] = add_url_params($base_url, array('language' => $language_id));
 
-  if (in_array($language_id, array_keys($languages->db_languages)))
+  if (array_key_exists($language_id, $languages->db_languages))
   {
     $language['state'] = 'active';
     $language['deactivable'] = true;

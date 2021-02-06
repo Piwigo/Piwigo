@@ -422,7 +422,7 @@ function upload_file_pdf($representative_ext, $file_path)
     return $representative_ext;
   }
 
-  if (!in_array(strtolower(get_extension($file_path)), array('pdf')))
+  if (strtolower(get_extension($file_path)) !== 'pdf')
   {
     return $representative_ext;
   }
