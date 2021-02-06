@@ -53,7 +53,7 @@ if (!empty($gallery_url))
     {
       $error = 'Cannot load '.$local_conf.', add by hand: '.$conf_line;
       
-      array_push($page['errors'], $error);
+      $page['errors'][] = $error;
       echo $error;
     }
     else
@@ -81,7 +81,7 @@ if (!empty($gallery_url))
     {
       $error = 'Cannot write into local configuration file '.$local_conf.', add by hand: '.$conf_line;
       
-      array_push($page['errors'], $error);
+      $page['errors'][] = $error;
       echo $error;
     }
   }

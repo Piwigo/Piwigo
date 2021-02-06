@@ -152,7 +152,7 @@ SELECT language FROM '.USER_INFOS_TABLE.'
   $result = pwg_query($query);
   while ( $row=pwg_db_fetch_row($result) )
   {
-    array_push($all_tables, $row[0]);
+    $all_tables[] = $row[0];
   }
 
   $all_tables_definition = array();
@@ -165,7 +165,7 @@ SELECT language FROM '.USER_INFOS_TABLE.'
     {
       if ( !isset($row['Collation']) or $row['Collation']=='NULL' )
         continue;
-      array_push($field_definitions, $row);
+      $field_definitions[] = $row;
     }
     $all_tables_definition[$table] = $field_definitions;
   }
@@ -241,11 +241,9 @@ ALTER TABLE t1 CHANGE c1 c1 TEXT CHARACTER SET utf8;
 
 // +-----------------------------------------------------------------------+
 // changes to write in database.inc.php
-  array_push($mysql_changes,
-'define(\'PWG_CHARSET\', \''.$pwg_charset.'\');
-define(\'DB_CHARSET\',  \''.$db_charset.'\');
-define(\'DB_COLLATE\',  \'\');'
-  );
+  $mysql_changes[] = 'define(\'PWG_CHARSET\', \'' . $pwg_charset . '\');
+define(\'DB_CHARSET\',  \'' . $db_charset . '\');
+define(\'DB_COLLATE\',  \'\');';
 
   foreach ($all_langs as $old_lang=>$lang_data)
   {

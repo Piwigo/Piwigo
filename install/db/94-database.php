@@ -29,7 +29,7 @@ SELECT *
 $result = pwg_query($query);
 $user_upload_conf['waiting_rows'] = array();
 while ($row = pwg_db_fetch_assoc($result)) {
-  array_push($user_upload_conf['waiting_rows'], $row);
+  $user_upload_conf['waiting_rows'][] = $row;
 }
 
 // uploadable categories
@@ -41,7 +41,7 @@ SELECT id
 $result = pwg_query($query);
 $user_upload_conf['uploadable_categories'] = array();
 while ($row = pwg_db_fetch_assoc($result)) {
-  array_push($user_upload_conf['uploadable_categories'], $row['id']);
+  $user_upload_conf['uploadable_categories'][] = $row['id'];
 }
 
 // save configuration for a future use by the Community plugin

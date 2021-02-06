@@ -42,14 +42,11 @@ foreach ($to_apply as $upgrade_id)
     break;
   }
   
-  array_push(
-    $inserts,
-    array(
+  $inserts[] = array(
       'id' => $upgrade_id,
       'applied' => CURRENT_DATE,
-      'description' => '[migration from 2.2.0 to '.PHPWG_VERSION.'] not applied',
-      )
-    );
+      'description' => '[migration from 2.2.0 to ' . PHPWG_VERSION . '] not applied',
+  );
 }
 
 if (!empty($inserts))
