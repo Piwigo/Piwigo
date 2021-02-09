@@ -13,10 +13,8 @@ include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
 check_status(ACCESS_ADMINISTRATOR);
 
-check_input_parameter('iDisplayStart', $_REQUEST, false, PATTERN_ID);
-check_input_parameter('iDisplayLength', $_REQUEST, false, PATTERN_ID);
-
-
+check_input_parameter('start', $_REQUEST, false, PATTERN_ID);
+check_input_parameter('length', $_REQUEST, false, PATTERN_ID);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
@@ -52,38 +50,32 @@ $sTable = USERS_TABLE.' INNER JOIN '.USER_INFOS_TABLE.' AS ui ON '.$conf['user_f
  * Paging
  */
 $sLimit = "";
-if ( isset( $_REQUEST['iDisplayStart'] ) && $_REQUEST['iDisplayLength'] != '-1' )
+if ( isset( $_REQUEST['start'] ) && $_REQUEST['length'] != '-1' )
 {
-  $sLimit = "LIMIT ".$_REQUEST['iDisplayStart'].", ".$_REQUEST['iDisplayLength'];
+  $sLimit = "LIMIT ".$_REQUEST['start'].", ".$_REQUEST['length'];
 }
 	
-	
+
+$sOrder = "";
 /*
  * Ordering
  */
-if ( isset( $_REQUEST['iSortCol_0'] ) )
+if ( isset( $_REQUEST["order"][0]["column"] ) )
 {
   $sOrder = "ORDER BY  ";
-  for ( $i=0 ; $i<intval( $_REQUEST['iSortingCols'] ) ; $i++ )
+  $i = 0;
+  $col = $_REQUEST["order"][0]["column"];
+  if ( $_REQUEST['columns'][$col]["searchable"] == "true" )
   {
-    check_input_parameter('iSortCol_'.$i, $_REQUEST, false, PATTERN_ID);
-
-    if ( $_REQUEST[ 'bSortable_'.$_REQUEST['iSortCol_'.$i] ] == "true" )
-    {
-      check_input_parameter('sSortDir_'.$i, $_REQUEST, false, '/^(asc|desc)$/');
-
-      $sOrder .= $aColumns[ $_REQUEST['iSortCol_'.$i] ].' '.$_REQUEST['sSortDir_'.$i].', ';
-    }
+    $sOrder .= $aColumns[ $col ].' '.$_REQUEST["order"][0]["dir"].', ';
   }
-		
   $sOrder = substr_replace( $sOrder, "", -2 );
   if ( $sOrder == "ORDER BY" )
   {
     $sOrder = "";
   }
 }
-	
-	
+
 /* 
  * Filtering
  * NOTE this does not match the built-in DataTables filtering which does it
@@ -91,11 +83,11 @@ if ( isset( $_REQUEST['iSortCol_0'] ) )
  * on very large tables, and MySQL's regex functionality is very limited
  */
 $sWhere = "";
-if ( $_REQUEST['sSearch'] != "" )
+if ( isSet( $_REQUEST['search']["value"]) && $_REQUEST['search']["value"] != "" )
 {
   $user_ids = null;
 
-  if (preg_match('/group:(\d+)/', $_REQUEST['sSearch'], $matches))
+  if (preg_match('/group:(\d+)/', $_REQUEST['search']["value"], $matches))
   {
     $group_id = $matches[1];
 
@@ -108,7 +100,7 @@ SELECT
     $user_ids = query2array($query, null, 'user_id');
     $user_ids[] = -1;
 
-    $_REQUEST['sSearch'] = preg_replace('/group:(\d+)/', '', $_REQUEST['sSearch']);
+    $_REQUEST['search']["value"] = preg_replace('/group:(\d+)/', '', $_REQUEST['search']["value"]);
   }
 
   $sWhere = "WHERE (";
@@ -118,11 +110,11 @@ SELECT
     $sWhere.= '`user_id` IN ('.implode(',', $user_ids).') OR ';
   }
 
-  if ($_REQUEST['sSearch'] != "")
+  if ($_REQUEST['search']["value"] != "")
   {
     for ( $i=0 ; $i<count($aColumns) ; $i++ )
     {
-      $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string( $_REQUEST['sSearch'] )."%' OR ";
+      $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string( $_REQUEST['search']["value"] )."%' OR ";
     }
   }
 
@@ -133,8 +125,8 @@ SELECT
 /* Individual column filtering */
 for ( $i=0 ; $i<count($aColumns) ; $i++ )
 {
-  if (isset($_REQUEST['bSearchable_'.$i]) && isset($_REQUEST['sSearch_'.$i])
-      &&$_REQUEST['bSearchable_'.$i] == "true" && $_REQUEST['sSearch_'.$i] != ''
+  if (isset($_REQUEST['columns'][$i]["searchable"]) && isset($_REQUEST['columns'][$i]['search']['value'])
+      && $_REQUEST['columns'][$i]["searchable"] == "true" && $_REQUEST['columns'][$i]['search']['value'] != ''
     )
   {
     if ( $sWhere == "" )
@@ -145,7 +137,7 @@ for ( $i=0 ; $i<count($aColumns) ; $i++ )
     {
       $sWhere .= " AND ";
     }
-    $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string($_REQUEST['sSearch_'.$i])."%' ";
+    $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string($_REQUEST['columns'][$i]['search']['value'])."%' ";
   }
 }
 	
@@ -154,19 +146,29 @@ for ( $i=0 ; $i<count($aColumns) ; $i++ )
  * SQL queries
  * Get data to display
  */
-$sQuery = "
+
+if (isSet($_REQUEST['get_set_uids'])) {
+  $sQuery = "
+    SELECT SQL_CALC_FOUND_ROWS ".str_replace(" , ", " ", implode(", ", $aColumns))."
+    FROM   $sTable
+    $sWhere
+    $sOrder ;
+    ";
+} else {
+  $sQuery = "
 		SELECT SQL_CALC_FOUND_ROWS ".str_replace(" , ", " ", implode(", ", $aColumns))."
 		FROM   $sTable
 		$sWhere
 		$sOrder
 		$sLimit
-	";
+  ";
+}
 $rResult = pwg_query($sQuery);
 	
 /* Data set length after filtering */
 $rResultFilterTotal = pwg_query('SELECT FOUND_ROWS();');
 list($iFilteredTotal) = pwg_db_fetch_row($rResultFilterTotal);
-	
+
 /* Total data set length */
 $sQuery = "
 		SELECT COUNT(".$sIndexColumn.")
@@ -175,53 +177,64 @@ $sQuery = "
 $rResultTotal = pwg_query($sQuery);
 $aResultTotal = pwg_db_fetch_array($rResultTotal);
 $iTotal = $aResultTotal[0];
-	
-	
+
+
+$sEcho = isSet($_REQUEST['sEcho']) ? intval($_REQUEST['sEcho']) : 0;
 /*
  * Output
  */
+
 $output = array(
-  "sEcho" => intval($_REQUEST['sEcho']),
+  "sEcho" => $sEcho,
   "iTotalRecords" => $iTotal,
   "iTotalDisplayRecords" => $iFilteredTotal,
-  "aaData" => array()
+  "aaData" => array(),
+  "filtered_uids" => array()
 	);
 
 $user_ids = array();
+$filtered_uids = array();
 
-while ( $aRow = pwg_db_fetch_array( $rResult ) )
-{
-  $user_ids[] = $aRow[ $conf['user_fields']['id'] ];
-  
-  $row = array();
-  for ( $i=0 ; $i<count($aColumns) ; $i++ )
+if (isSet($_REQUEST['get_set_uids'])) {
+  while ( $aRow = pwg_db_fetch_array( $rResult ) )
   {
-    if ( $aColumns[$i] == "status" )
-    {
-      $row[] = l10n('user_status_'.$aRow[ $aColumns[$i] ]);
-    }
-    else if ( $aColumns[$i] == "level" )
-    {
-      $row[] = $aRow[ $aColumns[$i] ] == 0 ? '' : l10n(sprintf('Level %d', $aRow[ $aColumns[$i] ]));
-    }
-    else if ( $aColumns[$i] != ' ' )
-    {
-      /* General output */
-      $colname = $aColumns[$i];
-      foreach ($conf['user_fields'] as $real_name => $alias)
-      {
-        if ($aColumns[$i] == $real_name)
-        {
-          $colname = $alias;
-        }
-      }
-      
-      $row[] = $aRow[$colname];
-    }
-
+  $filtered_uids[] = $aRow[ $conf['user_fields']['id'] ];
   }
-  $output['aaData'][] = $row;
+} else {
+  while ( $aRow = pwg_db_fetch_array( $rResult ) )
+  {
+    $user_ids[] = $aRow[ $conf['user_fields']['id'] ];
+
+    $row = array();
+    for ( $i=0 ; $i<count($aColumns) ; $i++ )
+    {
+      if ( $aColumns[$i] == "status" )
+      {
+        $row[] = l10n('user_status_'.$aRow[ $aColumns[$i] ]);
+      }
+      else if ( $aColumns[$i] == "level" )
+      {
+        $row[] = $aRow[ $aColumns[$i] ] == 0 ? '' : l10n(sprintf('Level %d', $aRow[ $aColumns[$i] ]));
+      }
+      else if ( $aColumns[$i] != ' ' )
+      {
+        /* General output */
+        $colname = $aColumns[$i];
+        foreach ($conf['user_fields'] as $real_name => $alias)
+        {
+          if ($aColumns[$i] == $real_name)
+          {
+            $colname = $alias;
+          }
+        }
+        $row[] = $aRow[$colname];
+      }
+    }
+    $output['aaData'][] = $row;
+  }
 }
+
+$output["filtered_uids"] = $filtered_uids;
 
 // replace "recent_period" by the list of groups
 if (count($user_ids) > 0)
@@ -254,6 +267,6 @@ SELECT
 }
 
 $output = trigger_change('after_render_user_list', $output);
-	
+
 echo json_encode( $output );
 ?>

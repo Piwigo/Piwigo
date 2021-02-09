@@ -2,7 +2,7 @@
 [class*="icon-"]:before { text-decoration:none !important; }
 
 .showInfo { font-size:15px;cursor:pointer;line-height:15px; display: flex; align-items: center;}
-
+.showInfo:hover { text-decoration: none;}
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
 .content h2 {margin: 0; padding: 5px 0.5em 5px 0.5em; text-align: right; font-size: 120%;}
 .content form { text-align: left; margin-left: 7px; margin-right: 9px;}
@@ -89,11 +89,15 @@ UL.thumbnails INPUT {
   position: absolute;
   left: 2px; top: 2px;
 }
-UL.thumbnails .levelIndicatorB {
-display:block; position:absolute; z-index:100; padding:7px 0 0 2px; color:black; font-weight:bold; font-size:120%;
-}
 UL.thumbnails .levelIndicatorF {
-display:block; position:absolute; z-index:101; padding:8px 0 0 3px; color:white; font-weight:bold; font-size:120%;
+  display:block;
+  position:absolute;
+  bottom: 0;
+  text-shadow: 0px 0px 1px #000;
+  padding:0 0 2px 5px;
+  color:white;
+  font-weight:bold;
+  z-index: 10;
 }
 
 /* default-layout.css */
@@ -472,7 +476,6 @@ LI.menuLi {
 }
 
 #catHeader .catAction a {
-  text-transform: capitalize;
   color: #888;
   font-size: 14px;
   white-space: nowrap;
@@ -622,6 +625,19 @@ LI.menuLi {
 }
 
 .dropdown-option {
+  white-space: nowrap;
+  display: block;
+  text-align: initial;
+  padding: 5px 10px;
+  padding-right: 10px;
+  font-size: 13px;
+  padding-right: 15px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dropdown-option-content {
   white-space: nowrap;
   display: block;
   text-align: initial;
@@ -960,7 +976,7 @@ TEXTAREA.description {
 
 SELECT.categoryList {
 	height: 20em;
-	width: auto;
+	width: 100%;
 }
 
 DIV.comment BLOCKQUOTE {
@@ -1143,6 +1159,7 @@ a.stat-box:hover {
 
 .activity-chart .row-legend div{
   margin: auto;
+  white-space: nowrap;
 }
 
 .activity-chart .col-legend {
@@ -1531,8 +1548,8 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   margin-left:6px;
 }
 
-#adminHome A {color:#aaa; display:block; font-size:1.1em; font-weight:bold; text-decoration:none;}
-#adminHome A:hover {color:#fff;}
+a.admin-main {color:#aaa; display:block; font-size: 13px; font-weight:bold; text-decoration:none;}
+a.admin-main:hover {color:#fff;}
 
 #piwigoInfos {float:left; margin-left:140px;}
 #pageInfos {display: none;}
@@ -1814,6 +1831,8 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 .themeActions span, .themeActions a {padding: 10px; margin: 0px 10px 10px 10px; font-weight: bold; font-size: 12px;}
 .themeActions span {font-size: 11px; background-color: #ddd; opacity: 0.5; color: ;}
 
+.themeActions .pluginUnavailableAction {margin:0 10px 10px 10px;}
+
 .themeActions a:nth-child(1) {background-color: #ffc17e; color: #222;}
 .themeActions a:nth-child(1):hover {background-color: #ff7700; color: white; text-decoration: none;}
 
@@ -1848,7 +1867,7 @@ h2:lang(en) { text-transform:capitalize; }
  */
 .infos, .errors, .warnings, .messages {
   text-align: left;
-  margin: 15px 35px 50px 35px;
+  margin: 20px;
   padding: 5px;
   font-weight:bold;
   min-height: 54px;
@@ -1905,6 +1924,8 @@ h2:lang(en) { text-transform:capitalize; }
 .infos .submit {margin-left:30px;}
 
 .checkActions {text-align:left;padding:0;margin:0;}
+#checkActions {text-align:left; margin:0 0 20px 0;}
+.ActionUserList #checkActions {margin: 20px 0 20px 0;}
 
 .pluginBoxes {
   border: none;
@@ -1961,9 +1982,9 @@ h2:lang(en) { text-transform:capitalize; }
   border-bottom-right-radius:5px;
   margin-left: 0;
   box-shadow: 0px 0px 5px #acacac;
- }
-
- .pluginContent {
+}
+.PluginOptionsBlock a:hover { color: white ;}
+.pluginContent {
   width: 100%;
   text-align: left;
   background-color: #fafafa;
@@ -2437,7 +2458,7 @@ a#showPermissions:hover {text-decoration: none;}
 }
 
 .tag-header #add-tag.input-mode .add-tag-container input {
-  padding: 9.5px;
+  padding: 9px;
   margin-left: 10px;
   border: solid 2px #ffa744;
   background: none;
@@ -2475,7 +2496,7 @@ a#showPermissions:hover {text-decoration: none;}
   color: #3c3c3c;
   font-size: 17px;
   font-weight: 700;
-  padding: 7.5px 5.5px;
+  padding: 7px 5.5px;
 }
 
 .tag-header #add-tag span.icon-validate:hover {
@@ -3286,7 +3307,7 @@ ul.jqtree-tree .jqtree-element {
 .showCreateAlbum {text-align:left; margin:0 1em 25px 20px; line-height:22px;}
 .showCreateAlbum .userSeparator {margin:0 5px;}
 #addAlbumOpen, #autoOrderOpen {padding: 7px 15px; font-weight: bold; font-size: 11px;}
-.afterUploadActions {text-align: center; margin-bottom: 30px !important;}
+.afterUploadActions {text-align: center; margin-bottom: 30px !important; margin-top: 45px !important;}
 .afterUploadActions a {justify-content: center; margin: 35px; font-weight: bold; font-size: 14px; padding: 10px 12px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
 #autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}
@@ -3871,6 +3892,9 @@ input:checked + .slider:before {
   font-size: 20px !important;
 }
 
+.jconfirm-title {
+  line-height: 1.5em;
+}
 
 .jconfirm-buttons .btn {
   text-transform: none !important;
@@ -4265,7 +4289,8 @@ input:checked + .slider:before {
   font-size:12px;
   text-align:left;
   padding: 4px 6px;
-  border-radius:10px;
+  border-top-right-radius:10px;
+  border-bottom-right-radius:10px;
   margin-left:-5px;
   margin-right:10px;
 }
@@ -4501,6 +4526,8 @@ fieldset#environment legend i[class*="icon-"] {
 #albumSelection {margin-left: 25px;}
 .selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
 .buttonLike {padding: 8px 10px; margin-left: 5px;}
+.changeUsername .buttonLike {padding: 1px 10px;}
+.changePassword .buttonLike {padding: 1px 10px;}
 .selectFilesButtonBlock {display: flex; margin-top: 10px;}
 .selectFilesinfo {margin-left: 15px; font-size: 90%; color: #999; display: flex; flex-direction: column; justify-content: center;}
 #uploader {margin-top: 25px; font-weight: bold !important;}
@@ -4565,7 +4592,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #removeFilters {margin-top: 20px; margin-left: 13px;}
 .filter_search_input {padding: 10px 0px; width: 300px;}
 #permitAction {display: flex;}
-#permitAction select {padding: 12px 10px; width: 280px; margin-bottom: 25px; -webkit-appearance: none;}
+#permitAction select {padding: 12px 10px; width: 280px; -webkit-appearance: none;}
+.permitActionItem select { margin-bottom: 25px;}
 #applyAction {padding: 10px 18px; margin-left: 0;}
 .permitActionItem {margin-left: 30px; width: 225px;}
 .permitActionItem .selectize-control.single.plugin-remove_button {width: auto !important;}
@@ -4604,7 +4632,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #set_date_creation {margin-top: 5px; margin-left: -2px;}
 #action_title .large, #action_author .large {padding: 12px 10px; border: 1px solid #787777a6;margin-bottom: 8px;}
 #action_add_tags .selectize-input.items.not-full.has-options, 
-#action_add_tags .selectize-input.items.not-full.has-options.focus.input-active.dropdown-active, .selectize-input.items.not-full {
+#action_add_tags .selectize-input.items.not-full.has-options.focus.input-active.dropdown-active, .selectize-input.items.not-full, .selectize-input.items.full {
 	padding: 12px 10px; box-shadow: none; border-radius: 0px; border: 1px solid #787777a6;
 }
 
@@ -4685,3 +4713,162 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .icon-toggle-off:before{
   font-weight:600;
 }
+
+/* album search */
+
+.search-album {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  margin-bottom: 25px
+}
+
+.search-album-cont {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-album-label {
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.search-album-num-result {
+  margin-left: 10px;
+}
+
+.search-album-input-container {
+  position: relative;
+  display: inline;
+}
+
+.search-album-input-container .search-icon{
+  font-size: 20px;
+}
+
+.search-album-help {
+  display: none;
+  cursor: help;
+  font-size: 20px;
+}
+
+.search-album-help, .search-album-num-result {
+  position: absolute;
+  right: 0;
+  transform: translateX(calc(100% + 10px));
+}
+
+.search-album-ghost, .search-album-result {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-album-elem, .search-album-ghost div {
+  height: 64px;
+  border-radius: 5px;
+  margin: 10px 20px;
+  overflow: hidden;
+}
+
+.search-album-ghost div {
+  background: #f3f3f3;
+  background-image: linear-gradient(0.25turn, #eee, rgb(250, 250, 250));
+  background-attachment: fixed;
+}
+
+.search-album-elem {
+  box-shadow: 0px 2px 3px #00000024;
+  background-color: #fafafa;
+  border-radius: 5px;
+  color: #777;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-album-elem span{
+  font-size: 20px;
+  padding: 8px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.search-album-elem p{
+  font-size: 16px;
+  margin: 10px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.search-album-action-cont {
+  display: none;
+  position: absolute;
+  right: 0%;
+  top : 50%;
+  height: 100%;
+  transform: translate(0, -50%);
+  align-items: center;
+  flex-direction: row-reverse;
+  overflow: hidden;
+}
+
+.search-album-elem:hover .search-album-action-cont {
+  display: flex;
+}
+
+.search-album-action {
+  display: flex;
+  align-items: center;
+}
+
+.search-album-action a {
+  padding: 30px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 100%;
+  border-left: 1px solid #00000012;
+  background-color: #00000003;
+  text-align: center;
+}
+
+.search-album-action a:hover {
+  color: #444;
+  text-decoration: none;
+  background-color: #FFA646;
+}
+
+.search-album-noresult {
+  opacity: 0.3;
+  text-align: center;
+  width: calc(100% - 205px);
+  font-weight: bold;
+  font-size: 30px;
+  position: absolute;
+  top: calc(50% + 200px / 2);
+  display: none;
+}
+
+.doubleSelect {
+  width: 100%;
+}
+
+.doubleSelect td {
+  width: 50%;
+}
+
+#cancelUpload {
+  margin-left:10px;
+  background-color: #999999;
+}
+
+#cancelUpload:hover {
+  background-color: #ff9b32;
+  color: white;
+  text-decoration: none;
+}
+
+.doubleSelect p {display:flex; justify-content: center;}

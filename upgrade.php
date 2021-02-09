@@ -165,9 +165,6 @@ else if ('pl_PL' == $language) {
 else if ('zh_CN' == $language) {
   define('PHPWG_DOMAIN', 'cn.piwigo.org');
 }
-else if ('hu_HU' == $language) {
-  define('PHPWG_DOMAIN', 'hu.piwigo.org');
-}
 else if ('ru_RU' == $language) {
   define('PHPWG_DOMAIN', 'ru.piwigo.org');
 }
@@ -186,7 +183,7 @@ else if ('pt_BR' == $language) {
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
-define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+define('PHPWG_URL', 'https://'.PHPWG_DOMAIN);
 
 load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
@@ -339,6 +336,10 @@ else if (!in_array('history_id_to', $columns_of[PREFIX_TABLE.'history_summary'])
 {
   $current_release = '2.8.0';
 }
+else if (!in_array(PREFIX_TABLE.'activity', $tables))
+{
+  $current_release = '2.9.0';
+}
 else
 {
   // retrieve already applied upgrades
@@ -348,9 +349,9 @@ SELECT id
 ;';
   $applied_upgrades = array_from_query($query, 'id');
 
-  if (!in_array(156, $applied_upgrades))
+  if (!in_array(159, $applied_upgrades))
   {
-    $current_release = '2.9.0';
+    $current_release = '2.10.0';
   }
   else
   {

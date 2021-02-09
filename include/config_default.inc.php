@@ -850,6 +850,12 @@ $conf['batch_manager_images_per_page_unit'] = 5;
 // how many missing md5sum should Piwigo compute at once.
 $conf['checksum_compute_blocksize'] = 50;
 
+// quicksearch engine: include all photos from sub-albums of any matching
+// album. For example, if search is "bear", then we display photos from
+// "bear/grizzly". When value changed, delete database cache files in
+// _data/cache directory
+$conf['quick_search_include_sub_albums'] = false;
+
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |
 // +-----------------------------------------------------------------------+

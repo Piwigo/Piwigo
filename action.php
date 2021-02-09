@@ -220,6 +220,12 @@ if (ini_get('safe_mode') == 0)
 {
   @set_time_limit(0);
 }
+// Without clean and flush there may be some image download problems, or image can be corrupted after download
+if (ob_get_length() !== FALSE)
+{
+  ob_clean();
+  flush();
+}
 
 @readfile($file);
 

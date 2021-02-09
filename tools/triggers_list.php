@@ -462,6 +462,13 @@ array(
   'infos' => 'New in 2.5',
 ),
 array(
+  'name' => 'loc_end_add_uploaded_file',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'image_infos'),
+  'files' => array('admin\include\functions_upload.inc.php (add_uploaded_file)'),
+  'infos' => 'New in 2.11',
+),
+array(
   'name' => 'loc_end_password',
   'type' => 'trigger_notify',
   'vars' => array(),

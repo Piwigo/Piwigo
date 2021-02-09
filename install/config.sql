@@ -73,3 +73,5 @@ INSERT INTO piwigo_config (param,value) VALUES ('display_fromto','false');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_edit_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_caddie_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_representative_icon','true');
+INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_admin','true');
+INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_gallery','false');

@@ -134,6 +134,7 @@ jQuery(document).ready(function(){
       QueueChanged : function(up) {
         jQuery('#addFiles').addClass("addFilesButtonChanged");
         jQuery('#startUpload').prop('disabled', up.files.length == 0);
+        jQuery("#addFiles").removeClass('buttonGradient').addClass('buttonLike');
 
         if (up.files.length > 0) {
           jQuery('.plupload_filelist_footer').show();
@@ -142,6 +143,7 @@ jQuery(document).ready(function(){
 
         if (up.files.length == 0) {
           jQuery('#addFiles').removeClass("addFilesButtonChanged");
+          jQuery("#addFiles").removeClass('buttonLike').addClass('buttonGradient');
           jQuery('.plupload_filelist_footer').hide();
           jQuery('.plupload_filelist').css("overflow-y", "hidden");
         }
@@ -258,7 +260,7 @@ jQuery(document).ready(function(){
     <div class="addAlbumEmpty"{if $NB_ALBUMS > 0} style="display:none;"{/if}>
       <div class="addAlbumEmptyTitle">{'Welcome!'|translate}</div>
       <p class="addAlbumEmptyInfos">{'Piwigo requires an album to add photos.'|translate}</p>
-      <a href="#" data-add-album="category" title="{'Create a first album'|translate}" class="buttonLike">{'Create a first album'|translate}</a>
+      <a href="#" data-add-album="category" class="buttonLike">{'Create a first album'|translate}</a>
     </div>
   </div>
 
@@ -291,7 +293,7 @@ jQuery(document).ready(function(){
   <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
     <fieldset class="selectAlbum">
       <legend><span class="icon-folder-open icon-red"></span>{'Drop into album'|@translate}</legend>
-      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{$ADD_TO_ALBUM}</span></div>
+      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap" style="background-color:#f5f5f5">{$ADD_TO_ALBUM}</span></div>
       <div class="selectAlbumBlock"{if isset($ADD_TO_ALBUM)} style="display: none"{/if}>
         <a href="#" data-add-album="category" title="{'create a new album'|@translate}" class="icon-plus"></a>
         <span id="albumSelection">
@@ -334,14 +336,13 @@ jQuery(document).ready(function(){
     </fieldset>
     
     <div id="uploadingActions" style="display:none">
-      <button id="cancelUpload" class="buttonLike icon-cancel-circled">{'Cancel'|translate}</button>
-      
-      <div class="big-progressbar">
+      <div class="big-progressbar" style="max-width:98%;margin-bottom: 10px;">
         <div class="progressbar" style="width:0%"></div>
       </div>
+      <button id="cancelUpload" class="buttonLike icon-cancel-circled">{'Cancel'|translate}</button>
     </div>
 
-    <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
+    <button id="startUpload" class="buttonGradient icon-upload" disabled>{'Start Upload'|translate}</button>
 
   </form>
 

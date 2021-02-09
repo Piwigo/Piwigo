@@ -7,7 +7,7 @@ $('#select-100').prop('checked', true)
 //Orphan tags
 $('.tag-warning p a').on('click', () => {
   let url = $('.tag-warning p a').data('url');
-  let tags = $('.tag-warning p a').data('tags');
+  let tags = orphan_tag_names;
   let str_orphans = str_orphan_tags.replace('%s1', tags.length).replace('%s2', tags.join(', '));
   $.confirm({
     content : str_orphans,
@@ -91,6 +91,7 @@ function updateBadge() {
 //Add a tag
 $('.add-tag-container').on('click', function() {
   $('#add-tag').addClass('input-mode');
+  $('#add-tag-input').focus();
   $('.tag-info').hide();
 })
 
@@ -116,10 +117,11 @@ $('#add-tag').submit(function (e) {
     loadState.changeHTML($('#add-tag .icon-validate') , "<i class='icon-spin6 animate-spin'> </i>")
     loadState.changeAttribute($('#add-tag .icon-validate'), 'style','pointer-event:none')
     addTag($('#add-tag-input').val()).then(function () {
-      showMessage(str_tag_created.replace('%s', $('#add-tag-input').val()))
-      loadState.reverse();
+      showMessage(str_tag_created.replace('%s', $('#add-tag-input').val()));
       $('#add-tag-input').val("");
       $('#add-tag').removeClass('input-mode');
+      $("#search-tag .search-input").trigger("input");
+      loadState.reverse();
     }).catch(message => {
       loadState.reverse();
       showError(message)
@@ -156,9 +158,7 @@ function addTag(name) {
             id:data.result.id,
             url_name:data.result.url_name
           });
-
           resolve();
-          updatePaginationMenu();
         } else {
           reject(str_already_exist.replace('%s', name));
         }
@@ -210,6 +210,7 @@ function setupTagbox(tagBox) {
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
     tagBox.addClass('edit-name');
+    tagBox.find(".tag-name-editable").focus();
   })
 
   tagBox.find('.tag-rename .icon-cancel').on('click', function() {
@@ -794,9 +795,9 @@ function isSearched(tagBox, stringSearch) {
 }
 
 function isDataSearched(tagObj) {
-  let name = tagObj.name;
+  let name = tagObj.name.toLowerCase();
   let stringSearch = $("#search-tag .search-input").val();
-  if (name.startsWith(stringSearch.toLowerCase())) {
+  if (name.includes(stringSearch.toLowerCase())) {
     return true;
   } else {
     return false;

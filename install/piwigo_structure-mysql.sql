@@ -244,6 +244,7 @@ CREATE TABLE `piwigo_images` (
   KEY `images_i5` (`date_creation`),
   KEY `images_i1` (`storage_category_id`),
   KEY `images_i6` (`latitude`),
+  KEY `images_i7` (`path`),
   KEY `lastmodified` (`lastmodified`)
 ) ENGINE=MyISAM;
 

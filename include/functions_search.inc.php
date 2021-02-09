@@ -1119,7 +1119,7 @@ SELECT image_id FROM '.IMAGE_TAG_TABLE.'
 
 function qsearch_get_categories(QExpression $expr, QResults $qsr)
 {
-  global $user;
+  global $user, $conf;
 
   $token_cat_ids = $qsr->cat_iids = array_fill(0, count($expr->stokens), array() );
   $all_cats = array();
@@ -1171,6 +1171,18 @@ SELECT
 
     if (!empty($cat_ids))
     {
+      if ($conf['quick_search_include_sub_albums'])
+      {
+        $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id = cat_id and user_id = '.$user['id'].'
+  WHERE id IN ('.implode(',', get_subcat_ids($cat_ids)) .')
+;';
+        $cat_ids = query2array($query, null, 'id');
+      }
+
       $query = '
 SELECT image_id FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id IN ('.implode(',',$cat_ids).')

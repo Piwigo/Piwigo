@@ -1381,7 +1381,7 @@ INSERT INTO
   ON DUPLICATE KEY UPDATE value = \''.$dbValue.'\'
 ;';
 
-  pwg_query($query);
+  pwg_query($query, false);
 
   if ($updateGlobal)
   {
@@ -2085,14 +2085,17 @@ function get_privacy_level_options()
 
 
 /**
- * return the branch from the version. For example version 2.2.4 is for branch 2.2
+ * return the branch from the version. For example version 11.1.2 is on branch 11
  *
  * @param string $version
  * @return string
  */
 function get_branch_from_version($version)
 {
-  return implode('.', array_slice(explode('.', $version), 0, 2));
+  // the algorithm is a bit complicated to just retrieve the first digits before
+  // the first ".". It's because before version 11.0.0, we used to take the 2 first
+  // digits, ie version 2.2.4 was on branch 2.2
+  return implode('.', array_slice(explode('.', $version), 0, 1));
 }
 
 /**

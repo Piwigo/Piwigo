@@ -64,7 +64,14 @@ if (isset($_GET['action']) and isset($_GET['plugin']))
         $template->delete_compiled_templates();
         $persistent_cache->purge(true);
       }
-      redirect($base_url);
+
+      $redirect_url = $base_url;
+      if ('activate' == $_GET['action'])
+      {
+        $redirect_url.= '&show_inactive';
+      }
+
+      redirect($redirect_url);
     }
   }
 }
@@ -93,7 +100,7 @@ foreach ($plugin_menu_links_deprec as $value)
 {
   if (preg_match('/^admin\.php\?page=plugin-(.*)$/', $value["URL"], $matches)) {
     $settings_url_for_plugin_deprec[$matches[1]] = $value["URL"];
-  } elseif (preg_match('/^.*section=(.*)[\/&%].*$/', $value["URL"], $matches)) {
+  } elseif (preg_match('/^.*section=(.*?)[\/&%].*$/', $value["URL"], $matches)) {
     $settings_url_for_plugin_deprec[$matches[1]] = $value["URL"];
   }
 }
@@ -208,6 +215,7 @@ $template->assign(
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,
+    'max_inactive_before_hide' => isset($_GET['show_inactive']) ? 999 : 8,
     )
   );
 

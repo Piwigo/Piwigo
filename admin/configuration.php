@@ -43,6 +43,8 @@ $main_checkboxes = array(
     'log',
     'history_admin',
     'history_guest',
+    'show_mobile_app_banner_in_gallery',
+    'show_mobile_app_banner_in_admin',
    );
 
 $sizes_checkboxes = array(

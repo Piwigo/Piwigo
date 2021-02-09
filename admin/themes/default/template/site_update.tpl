@@ -1,8 +1,16 @@
+{footer_script}
+$('#syncFiles label').click(function () {
+  if ($("input[value='files']:checked").val()) {
+    $("input[value='files']").closest("li").find("ul").show();
+  } else {
+    $("input[value='files']").closest("li").find("ul").hide();
+  }
+})
 
-{include file='include/resize.inc.tpl'}
+{/footer_script}
 
 <div class="titrePage">
-  <h2>{'Database synchronization with files'|@translate}: <a href="{$SITE_URL}">{$SITE_URL}</a></h2>
+  <h2>{'Synchronize'|@translate}<a href="{$SITE_URL}"><span class="badge-number">{$SITE_URL}</span></a></h2>
 </div>
 
 {if isset($update_result)}
@@ -66,7 +74,7 @@
 			<li><label><input type="radio" name="sync" value="dirs" {if 'dirs'==$introduction.sync}checked="checked"{/if}> {'only directories'|@translate}</label></li>
 
 			<li><label><input type="radio" name="sync" value="files" {if 'files'==$introduction.sync}checked="checked"{/if}> {'directories + files'|@translate}</label>
-				<ul style="padding-left:3em">
+				<ul style="display:none;padding-left:3em">
 					<li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}> {'display maximum informations (added albums and photos, deleted albums and photos)'|@translate}</label></li>
 					<li><label><input type="checkbox" name="add_to_caddie" value="1" {if $introduction.add_to_caddie}checked="checked"{/if}> {'add new photos to caddie'|@translate}</label></li>
 					<li><label>{'Who can see these photos?'|@translate} <select name="privacy_level">{html_options options=$introduction.privacy_level_options selected=$introduction.privacy_level_selected}</select></label></li>

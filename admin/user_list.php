@@ -46,37 +46,14 @@ while ($row = pwg_db_fetch_assoc($result))
 // +-----------------------------------------------------------------------+
 // | template                                                              |
 // +-----------------------------------------------------------------------+
-
-$template->set_filenames(array('user_list'=>'user_list.tpl'));
-
-$query = '
-SELECT
-    DISTINCT u.'.$conf['user_fields']['id'].' AS id,
-    u.'.$conf['user_fields']['username'].' AS username,
-    u.'.$conf['user_fields']['email'].' AS email,
-    ui.status,
-    ui.enabled_high,
-    ui.level
-  FROM '.USERS_TABLE.' AS u
-    INNER JOIN '.USER_INFOS_TABLE.' AS ui ON u.'.$conf['user_fields']['id'].' = ui.user_id
-  WHERE u.'.$conf['user_fields']['id'].' > 0
-;';
-
-$result = pwg_query($query);
-while ($row = pwg_db_fetch_assoc($result))
-{
-  $users[] = $row;
-  $user_ids[] = $row['id'];
-}
-
 $template->assign(
   array(
-    'users' => $users,
-    'all_users' => join(',', $user_ids),
     'ACTIVATE_COMMENTS' => $conf['activate_comments'],
     'Double_Password' => $conf['double_password_type_in_admin']
-    )
-  );
+  )
+);
+
+$template->set_filenames(array('user_list'=>'user_list.tpl'));
 
 $default_user = get_default_user_info(true);
 

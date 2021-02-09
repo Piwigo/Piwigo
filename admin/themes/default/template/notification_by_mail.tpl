@@ -39,7 +39,7 @@ jQuery(document).ready(function(){
         <td><label>{'Send mail on HTML format'|@translate}</label></td>
         <td>
           <label><input type="radio" name="nbm_send_html_mail" value="true"  {if $param.SEND_HTML_MAIL}checked="checked"{/if}>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_html_mail" value="false" {if not $param.SEND_HTML_MAIL}checked="checked"{/if}>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_html_mail" value="false" {if $param.SEND_HTML_MAIL === "false" || !$param.SEND_HTML_MAIL}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
       <tr>
@@ -53,7 +53,7 @@ jQuery(document).ready(function(){
         <td><label>{'Add detailed content'|@translate}</label></td>
         <td>
           <label><input type="radio" name="nbm_send_detailed_content" value="true"  {if $param.SEND_DETAILED_CONTENT}checked="checked"{/if}>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_detailed_content" value="false" {if not $param.SEND_DETAILED_CONTENT}checked="checked"{/if}>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_detailed_content" value="false" {if !$param.SEND_DETAILED_CONTENT || $param.SEND_DETAILED_CONTENT === "false"}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
      <tr>
@@ -67,7 +67,7 @@ jQuery(document).ready(function(){
         </td>
         <td>
           <label><input type="radio" name="nbm_send_recent_post_dates" value="true" {if $param.SEND_RECENT_POST_DATES}checked="checked"{/if}>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {if not $param.SEND_RECENT_POST_DATES}checked="checked"{/if}>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {if !$param.SEND_RECENT_POST_DATES || $param.SEND_RECENT_POST_DATES === "false"}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
     </table>

@@ -53,6 +53,12 @@ $tabsheet->set_id('photo');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
+$template->assign(
+  array(
+    'ADMIN_PAGE_TITLE' => l10n('Edit photo #%s', $_GET['image_id']),
+    )
+  );
+
 // +-----------------------------------------------------------------------+
 // | Load the tab                                                          |
 // +-----------------------------------------------------------------------+

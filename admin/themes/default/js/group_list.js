@@ -796,7 +796,7 @@ var getUserDisplay = function(username, user_id, grp_id) {
       '<p>'+username+'</p>'+
       '<div class="Tooltip">'+
         '<span class="icon-cancel"></span>'+
-        '<p class="TooltipText">Dissociate user from this group</p>'+
+        '<p class="TooltipText">'+str_user_dissociate+'</p>'+
       '</div>'+
     '</div>');
 
@@ -822,6 +822,7 @@ var getUserDisplay = function(username, user_id, grp_id) {
           dissociateUserInfo.find("p").html(str);
           dissociateUserInfo.fadeIn()
 
+          $(".UsernameBlock").css("margin-right", "10px").css("border", "none");
           userBlock.remove()
 
           updateUserSearch();
@@ -884,7 +885,9 @@ $(".AddUserBlock button").on("click", function () {
           let userBlock = getUserDisplay(username, id, grp_id).prependTo(".UsersInGroupList");
           
           dissociateUserInfo.fadeOut()
-
+          
+          $(".UsernameBlock:first").css("margin-right", "0px").css("border", "2px solid #c2f5c2");
+          $(".UsernameBlock").slice(1).css("margin-right", "10px").css("border", "none");
           associateUserInfo.remove()
           associateUserInfo.insertAfter(userBlock);
           associateUserInfo.find("p").html(str_user_associated);

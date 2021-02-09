@@ -251,19 +251,19 @@ function cropImage() {
       {/if}
 
       {if isset($U_MANAGE_ELEMENTS) }
-        <a class="icon-picture" href="{$U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a>
+        <a class="icon-picture" href="{$U_MANAGE_ELEMENTS}">{'Manage album photos'|@translate}</a>
       {/if}
 
         <a class="icon-plus-circled" href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a>
 
-        <a class="icon-sitemap" href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a>
+        <a class="icon-sitemap" href="{$U_CHILDREN}">{'Manage sub-albums'|@translate}</a>
 
       {if isset($U_SYNC) }
         <a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a>
       {/if}
 
       {if isset($U_DELETE) }
-        <a class="icon-trash deleteAlbum" href="#">{'delete album'|@translate}</a>
+        <a class="icon-trash deleteAlbum" href="#">{'Delete album'|@translate}</a>
       {/if} 
       </div>
     </div>
@@ -278,7 +278,7 @@ function cropImage() {
         <div class="switch-input">
           <span class="label">{'Unlocked'|@translate}</span>
           <label class="switch">
-            <input type="checkbox" name="visible" id="toggleSelectionMode" value="true" {if $CAT_VISIBLE == "false"}checked{/if}>
+            <input type="checkbox" name="locked" id="toggleSelectionMode" value="true" {if $IS_LOCKED}checked{/if}>
             <span class="slider round"></span>
           </label>
           <span class="label">{'Locked'|@translate}</span>

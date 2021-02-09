@@ -46,7 +46,7 @@ jQuery(document).ready(function() {
 {/footer_script}
 
 <div id="menubar">
-  <div id="adminHome"><a href="{$U_ADMIN}"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
+  <div id="adminHome"><a href="{$U_ADMIN}" class="admin-main"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
 
 	<dl>
 		<dt><i class="icon-picture"> </i><span>{'Photos'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
@@ -87,12 +87,7 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
-		<dd>
-      <ul>
-        <li><a href="{$U_PLUGINS}"><i class="icon-equalizer"></i>{'Manage'|@translate}</a></li>
-      </ul>
-		</dd>
+		<dt><a href="{$U_PLUGINS}" class="admin-main"><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span></a></dt>
   </dl>
   <dl>
 		<dt><i class="icon-wrench"> </i><span>{'Tools'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>

@@ -99,7 +99,6 @@ if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
 //--------------------------------------------------------- form criteria check
 if (isset($_POST['submit']))
 {
-
   $data = array(
     'id' => $_GET['cat_id'],
     'name' => @$_POST['name'],
@@ -132,13 +131,15 @@ UPDATE '.CATEGORIES_TABLE.'
   // retrieve cat infos before continuing (following updates are expensive)
   $cat_info = get_cat_info($_GET['cat_id']);
 
-  if (isset($_POST['visible']))
+  $visible = false;
+  if (!isset($_POST['locked']))
   {
-    set_cat_visible(array($_GET['cat_id']), true, true);
+    $visible = true;
   }
-  elseif ($cat_info['visible'] != isset($_POST['visible']))
+
+  if ($visible !== $cat_info['visible'])
   {
-    set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
+    set_cat_visible(array($_GET['cat_id']), $visible);
   }
 
   // in case the use moves his album to the gallery root, we force
@@ -276,7 +277,7 @@ $template->assign(
     'CAT_ID'             => $category['id'],
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
-    'CAT_VISIBLE'       => boolean_to_string($category['visible']),
+    'IS_LOCKED' => !get_boolean($category['visible']),
 
     'U_JUMPTO' => make_index_url(
       array(
