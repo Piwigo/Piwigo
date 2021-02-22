@@ -1041,3 +1041,7 @@ $lang['Are you sure you want to delete this theme?'] = 'Sei sicuro di aver elimi
 $lang['Are you sure you want to delete this?'] = 'Sei sicuro di rimuovere questo&nbsp?';
 $lang['Are you sure you want to install the plugin "%s"?'] = 'Sei sicuro di voler installare il plugin "%s"&nbsp?';
 $lang['Are you sure you want to lock the gallery?'] = 'Sei sicuro di voler bloccare la galleria&nbsp?';
+$lang['Delete album'] = 'Eliminare l\'album';
+$lang['Delete orphan tags ?'] = 'Rimuovere i tag orfani?';
+$lang['Delete tag "%s"?'] = 'Rimuovere il tag "%s" ?';
+$lang['Delete tags \{%s\}?'] = 'Rimuovere i tag \{%s\}?';
