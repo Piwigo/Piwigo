@@ -200,8 +200,8 @@ function applyMove(event) {
     }
     moveRank = 1;
   } else if (event.move_info.position == 'before') {
-    if (moveParent == null) {
-      moveParent = 0
+    if (getId(previous_parent) != getId(target.parent)) {
+      moveParent = getId(target.parent);
     }
     moveRank = 1;
   } 
