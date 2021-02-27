@@ -737,9 +737,6 @@ $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 
 $lang['Some themes and plugins may be not available yet.'] = '一些主题和插件可能还不能使用。';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = '您可以直接更新到 Piwigo %s，不需先更新到 Piwigo %s（推荐）。';
 $lang['Save Template Directory'] = '保存模板目录';
-$lang['Dump Database'] = '转存数据库';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = '包括历史数据(警告：可能会超出服务器内存限制)';
-$lang['Unable to dump database.'] = '无法转存数据库。';
 $lang['Some upgrades are available for extensions.'] = '有已更新的扩展。';
 $lang['Ignore All'] = '忽略所有';
 $lang['Width'] = '宽度';
@@ -1017,3 +1014,5 @@ $lang['With no checksum'] = '无校验码';
 $lang['checksums to add'] = '要添加的校验码';
 $lang['or'] = '或者';
 $lang['... or hide this link'] = '... 或隐藏本链接';
+$lang['%d sub-albums'] = '%d个子相册';
+$lang['%d photos'] = '%d 相册';
