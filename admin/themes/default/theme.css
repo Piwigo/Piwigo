@@ -1949,7 +1949,7 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBoxesTitle span {border-radius: 50%; margin-right: 5px; padding: 4px}
 
 .pluginBoxesTitle {display: flex;align-items: center}
-.pluginFilter {justify-content: end;position: absolute;right: 20px; z-index: 2; transform: translateY(6px);}
+.pluginFilter {justify-content: end;position: absolute;right: 130px; z-index: 2; transform: translateY(6px);}
 
 .pluginBoxesCount {
   background-color: rgb(150, 150, 150);
@@ -2001,6 +2001,13 @@ h2:lang(en) { text-transform:capitalize; }
   font-weight: bold;
 }
 
+.pluginMiniBoxNameCellCompact {
+  width: min-content;
+  max-width: 170px;
+  white-space: nowrap;
+  cursor: default;
+}
+
 .pluginDesc {
   margin-top: 5px;
   font-size: 12px;
@@ -2036,6 +2043,7 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginActionLevel3 {/*padding-left: 10px; opacity: 0.9;*/padding:5px 0}
 .plugin-inactive .pluginContent{
   border:none;
+  border-left: solid 5px #999999;
   /*border-radius:10px;*/
 }
 
