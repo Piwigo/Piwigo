@@ -1115,9 +1115,12 @@ $lang['Created on %s'] = 'Créé le %s';
 $lang['Edited on %s'] = 'Modifié le %s';
 $lang['%d sub-albums'] = '%d sous-albums';
 $lang['Refresh thumbnail'] = 'Changer de miniature';
-
 $lang['Display'] = 'Afficher';
 $lang['Posted %s on %s'] = 'Posté %s sur %s';
 $lang['Portraits'] = 'Portraits';
 $lang['Edit photo'] = 'Éditer la photo';
 $lang['Delete tag "%s"?'] = 'Supprimer le tag "%s" ?';
+$lang['Compact View'] = 'Affichage compact';
+$lang['Tile View'] = 'Affichage tuiles';
+$lang['Line View'] = 'Affichage lignes';
+$lang['Add Album'] = 'Ajouter un Album';
