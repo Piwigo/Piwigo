@@ -195,7 +195,6 @@ TABLE.languages TR TD { padding: 7px 20px; }
   text-align: center;
   font-weight: 600;
   font-size: 14px;
-  margin-top: 10px;
   display: block;
 }
 
@@ -204,13 +203,10 @@ TABLE.languages TR TD { padding: 7px 20px; }
 }
 
 .albumActions {
-  position: absolute;
   bottom: 5px;
   flex-direction: column;
   width: 90%;
   overflow: hidden;
-  margin-left: 20px;
-  margin-bottom: 10px;
   display: none;
 }
 
@@ -236,12 +232,16 @@ TABLE.languages TR TD { padding: 7px 20px; }
 .addAlbum {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   cursor: pointer;
 }
 
 .addAlbum.input-mode {
   cursor: auto;
+}
+
+.addAlbum.input-mode form {
+  display: flex;
 }
 
 .addAlbum label {
@@ -312,7 +312,8 @@ TABLE.languages TR TD { padding: 7px 20px; }
 }
 
 .addAlbum.input-mode .addAlbumHead{
- transform: translateY(0px);
+ transform: translateY(0px) !important;
+ margin-top: 0;
 }
 
 .addAlbum.input-mode form {

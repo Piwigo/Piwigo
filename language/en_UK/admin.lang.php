@@ -1118,3 +1118,7 @@ $lang['Created on %s'] = 'Created on %s';
 $lang['Edited on %s'] = 'Edited on %s';
 $lang['%d sub-albums'] = '%d sub-albums';
 $lang['Refresh thumbnail'] = 'Refresh thumbnail';
+$lang['Compact View'] = 'Compact View';
+$lang['Tile View'] = 'Tile View';
+$lang['Line View'] = 'Line View';
+$lang['Add Album'] = 'Add Album';
