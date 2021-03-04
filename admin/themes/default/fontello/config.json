@@ -765,10 +765,22 @@
       ]
     },
     {
-      "uid": "767fede84586366cd7d6c835be745454",
-      "css": "mobile",
+      "uid": "0b28050bac9d3facf2f0226db643ece0",
+      "css": "pause",
       "code": 59482,
-      "src": "entypo"
+      "src": "fontawesome"
+    },
+    {
+      "uid": "76f961b11f65300838a5a78856aca30f",
+      "css": "th-large",
+      "code": 59483,
+      "src": "elusive"
+    },
+    {
+      "uid": "50e664a6f12199784c02600b2ccfd60a",
+      "css": "th-list-1",
+      "code": 59484,
+      "src": "elusive"
     },
     {
       "uid": "7411608e7611ffd477aeec7d239f87e9",

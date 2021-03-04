@@ -90,7 +90,9 @@
 .icon-block:before { content: '\e857'; } /* '' */
 .icon-shuffle:before { content: '\e858'; } /* '' */
 .icon-asl:before { content: '\e859'; } /* '' */
-.icon-mobile:before { content: '\e85a'; } /* '' */
+.icon-pause:before { content: '\e85a'; } /* '' */
+.icon-th-large:before { content: '\e85b'; } /* '' */
+.icon-th-list-1:before { content: '\e85c'; } /* '' */
 .icon-hdd:before { content: '\f0a0'; } /* '' */
 .icon-tasks:before { content: '\f0ae'; } /* '' */
 .icon-filter:before { content: '\f0b0'; } /* '' */
