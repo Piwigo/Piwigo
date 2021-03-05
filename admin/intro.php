@@ -236,7 +236,8 @@ if (!isset($_SESSION['cache_activity_last_weeks']) or $_SESSION['cache_activity_
 
   foreach ($activity_actions as $action)
   {
-    $day_date = new DateTime($action['activity_day']);
+    // set the time to 12:00 (midday) so that it doesn't goes to previous/next day due to timezone offset
+    $day_date = new DateTime($action['activity_day'].' 12:00:00');
 
     $week = 0;
     for ($i=0; $i < $nb_weeks; $i++)
