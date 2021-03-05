@@ -364,18 +364,18 @@ $data_storage = array();
 
 //Select files in Image_Table
 $query = '
-SELECT file, filesize
+SELECT
+   SUBSTRING_INDEX(path,".",-1) AS ext,
+   SUM(filesize) AS filesize
   FROM `'.IMAGES_TABLE.'`
+  GROUP BY ext
 ;';
 
-$result = query2array($query, null);
+$file_extensions = query2array($query, 'ext', 'filesize');
 
-foreach ($result as $file) 
+foreach ($file_extensions as $ext => $size)
 {
-  $tabString = explode('.',$file['file']);
-  $ext = $tabString[count($tabString) -1];
-  $size = $file['filesize'];
-  if (in_array($ext, $conf['picture_ext'])) 
+  if (in_array(strtolower($ext), $conf['picture_ext']))
   {
     if (isset($data_storage['Photos'])) 
     {
@@ -383,18 +383,24 @@ foreach ($result as $file)
     } else {
       $data_storage['Photos'] = $size;
     }
-  } elseif (in_array($ext, $video_format)) {
+  }
+  elseif (in_array(strtolower($ext), $video_format))
+  {
     if (isset($data_storage['Videos'])) 
     {
       $data_storage['Videos'] += $size;
     } else {
       $data_storage['Videos'] = $size;
     }
-  } else {
+  }
+  else
+  {
     if (isset($data_storage['Other']))
     {
       $data_storage['Other'] += $size;
-    } else {
+    }
+    else
+    {
       $data_storage['Other'] = $size;
     }
   }
