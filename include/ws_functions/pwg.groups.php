@@ -334,7 +334,7 @@ function ws_groups_duplicate($params, &$service) {
   $query = '
 SELECT COUNT(*)
   FROM `'.GROUPS_TABLE.'`
-  WHERE name = \''.$params['copy_name'].'\'
+  WHERE name = \''.pwg_db_real_escape_string($params['copy_name']).'\'
 ;';
   list($count) = pwg_db_fetch_row(pwg_query($query));
   if ($count != 0)
@@ -359,7 +359,7 @@ SELECT is_default
   WHERE id = '.$params['group_id'].'
 ;';
 
-  $is_default = pwg_db_fetch_row(pwg_query($query))[0];
+  list($is_default) = pwg_db_fetch_row(pwg_query($query));
 
   // creating the group
   single_insert(
