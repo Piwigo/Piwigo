@@ -911,6 +911,8 @@ class QResults
 
 function qsearch_get_text_token_search_sql($token, $fields)
 {
+  global $page;
+
   $clauses = array();
   $variants = array_merge(array($token->term), $token->variants);
   $fts = array();
