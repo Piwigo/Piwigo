@@ -9,11 +9,11 @@
     <li>{'Graphics Library'|@translate}: {$GRAPHICS_LIBRARY}</li>
     {/if}
     <li>     
-      <span class="cache-size-text">Taille du cache: </span>
+      <span class="cache-size-text">{'Cache size'|@translate}</span>
       <span class="cache-size-value">999 Go</span>
-      <span class="cache-lastCalculated-text">calculé il y a</span>
-      <span class="cache-lastCalculated-value">42 mois</span>
-      <a><span class="icon-arrows-cw"></span>Actulaliser</a>
+      <span class="cache-lastCalculated-text">{'calculated'|@translate}</span>
+      <span class="cache-lastCalculated-value">{'42 months ago'|@translate}</span>
+      <a><span class="icon-arrows-cw"></span>{'Refresh'|@translate}</a>
     </li>
   </ul>
 </fieldset>

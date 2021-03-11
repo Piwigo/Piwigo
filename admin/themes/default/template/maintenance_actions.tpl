@@ -126,11 +126,11 @@ $(".delete-size-check").change(function() {
 
   <div class="template-purge"> 
     <div class="cache-infos"> 
-      <span class="cache-size-text">Taille du cache</span>
+      <span class="cache-size-text">{'Cache size'|@translate}</span>
       <span class="cache-size-value">999 Go</span>
-      <span class="cache-lastCalculated-text">calculé il y a</span>
-      <span class="cache-lastCalculated-value">42 mois</span>
-      <a><span class="icon-arrows-cw"></span>Actulaliser</a>
+      <span class="cache-lastCalculated-text">{'calculated'|@translate}</span>
+      <span class="cache-lastCalculated-value">42 {'months ago'|@translate}</span>
+      <a><span class="icon-arrows-cw"></span>{'Refresh'|@translate}</a>
     </div>
     <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="icon-doc maintenance-action">{'Purge compiled templates'|@translate} <span class="multiple-compiledTemplate-sizes"> 999 Go </span></a> 
   </div>
@@ -147,7 +147,7 @@ $(".delete-size-check").change(function() {
     </div>
   </div>
 
-  <a class="icon-ok maintenance-action delete-sizes">Delete these sizes</a>
+  <a class="icon-ok maintenance-action delete-sizes">{'Delete these sizes'|@translate}</a>
 </fieldset>
 
 <style>
