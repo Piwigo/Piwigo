@@ -118,21 +118,37 @@ $(".delete-size-check").change(function() {
     <a href="{$U_MAINT_SESSIONS}" class="icon-th-list maintenance-action">{'Purge sessions'|@translate}</a>
     <a href="{$U_MAINT_FEEDS}" class="icon-bell maintenance-action">{'Purge never used notification feeds'|@translate}</a>
     <a href="{$U_MAINT_SEARCH}" class="icon-search maintenance-action purge-search-history-button">{'Purge search history'|@translate}</a>
-    <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="icon-doc maintenance-action">{'Purge compiled templates'|@translate}</a>
   </div>
 </fieldset>
 
-<div class="delete-size-checks">
-  <span id="label-delete-size-checkbox">{'Delete multiple size images'|@translate}</span>
-  <div class="delete-check-container">
-    {foreach from=$purge_derivatives key=name item=url name=loop}
-    <div class="delete-size-check" data-selected="0" name="{$url}">
-      <span class="select-checkbox"><i class="icon-ok" style="margin-left:8px"></i></span><span style="font-size:14px;margin-left:5px;padding-top:2px;">{$name}</span>
+<fieldset class="">
+<legend><span class="icon-trash-1 icon-red"></span>Purge Cache</legend>
+
+  <div class="template-purge"> 
+    <div class="cache-infos"> 
+      <span class="cache-size-text">Taille du cache</span>
+      <span class="cache-size-value">999 Go</span>
+      <span class="cache-lastCalculated-text">calculé il y a</span>
+      <span class="cache-lastCalculated-value">42 mois</span>
+      <a><span class="icon-arrows-cw"></span>Actulaliser</a>
     </div>
-    {/foreach}
+    <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="icon-doc maintenance-action">{'Purge compiled templates'|@translate} <span class="multiple-compiledTemplate-sizes"> 999 Go </span></a> 
   </div>
-</div>
-<a class="icon-ok maintenance-action delete-sizes">Delete these sizes</a>
+
+
+  <div class="delete-size-checks">
+  <span id="label-delete-size-checkbox">{'Delete multiple size images'|@translate} <span class="multiple-pictures-sizes"> 999 Go </span></span>
+    <div class="delete-check-container">
+      {foreach from=$purge_derivatives key=name item=url name=loop}
+      <div class="delete-size-check" data-selected="0" name="{$url}">
+        <span class="select-checkbox"><i class="icon-ok" style="margin-left:8px"></i></span><span class="picture-deletion-size" title="Poids : 999Go" style="font-size:14px;margin-left:5px;padding-top:2px;">{$name}</span>
+      </div>
+      {/foreach}
+    </div>
+  </div>
+
+  <a class="icon-ok maintenance-action delete-sizes">Delete these sizes</a>
+</fieldset>
 
 <style>
 #label-delete-size-checkbox {
@@ -155,7 +171,6 @@ $(".delete-size-check").change(function() {
 .delete-size-checks {
   display:flex;
   text-align:left;
-  margin-left:20px;
   margin-bottom:20px;
 }
 
@@ -179,7 +194,5 @@ $(".delete-size-check").change(function() {
   display:block;
   width:max-content;
   text-align:left;
-  margin-left:20px
 }
-
 </style>

@@ -1317,3 +1317,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .storage-chart span{
   opacity:1;
 }
+
+
+.multiple-pictures-sizes, .multiple-compiledTemplate-sizes, .cache-size-value {
+  background: #555555;
+  color: #c1c1c1;
+}
+
+.cache-lastCalculated-value, .cache-lastCalculated-text, .cache-size-text, .picture-deletion-size, #label-delete-size-checkbox {
+  color: #c1c1c1;
+}
