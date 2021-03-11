@@ -8,5 +8,29 @@
     {if isset($GRAPHICS_LIBRARY)}
     <li>{'Graphics Library'|@translate}: {$GRAPHICS_LIBRARY}</li>
     {/if}
+    <li>     
+      <span class="cache-size-text">Taille du cache: </span>
+      <span class="cache-size-value">999 Go</span>
+      <span class="cache-lastCalculated-text">calculé il y a</span>
+      <span class="cache-lastCalculated-value">42 mois</span>
+      <a><span class="icon-arrows-cw"></span>Actulaliser</a>
+    </li>
   </ul>
 </fieldset>
+
+<style>
+
+.cache-size-value {
+  background: transparent;
+  padding: 0;
+}
+
+.cache-size-text, .cache-size-value {
+  font-size: 13px;
+}
+
+.cache-lastCalculated-text, .cache-lastCalculated-value {
+  font-size: 10px;
+}
+
+</style>
