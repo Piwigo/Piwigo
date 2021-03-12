@@ -142,6 +142,10 @@ function ws_getInfos($params, &$service)
   $query = 'SELECT COUNT(*) FROM '.CATEGORIES_TABLE.';';
   list($infos['nb_categories']) = pwg_db_fetch_row(pwg_query($query));
 
+  // Cache size
+  // TODO for real later
+  $infos['cache_size'] = 4242;
+
   $query = 'SELECT COUNT(*) FROM '.CATEGORIES_TABLE.' WHERE dir IS NULL;';
   list($infos['nb_virtual']) = pwg_db_fetch_row(pwg_query($query));
 
@@ -187,7 +191,6 @@ function ws_getInfos($params, &$service)
       'value' => $value,
     );
   }
-
   return array('infos' => new PwgNamedArray($output, 'item'));
 }
 

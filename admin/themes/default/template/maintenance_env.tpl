@@ -1,3 +1,5 @@
+{combine_script id='ajax' load='footer' path='admin/themes/default/js/maintenance.js'}
+
 <fieldset id="environment">
   <legend><span class="icon-television icon-red"></span> {'Environment'|@translate}</legend>
   <ul style="font-weight:bold">
@@ -13,7 +15,7 @@
       <span class="cache-size-value">999 Go</span>
       <span class="cache-lastCalculated-text">{'calculated'|@translate}</span>
       <span class="cache-lastCalculated-value">{'42 months ago'|@translate}</span>
-      <a><span class="icon-arrows-cw"></span>{'Refresh'|@translate}</a>
+      <a class="refresh-cache-size"><span class="refresh-icon icon-arrows-cw"></span>{'Refresh'|@translate}</a>
     </li>
   </ul>
 </fieldset>

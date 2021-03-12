@@ -94,6 +94,9 @@ $(".delete-size-check").change(function() {
 })
 
 {/footer_script}
+
+{combine_script id='ajax' load='footer' path='admin/themes/default/js/maintenance.js'}
+
 <fieldset class="">
   <legend><span class="icon-globe icon-blue"></span>Global Gallery Actions</legend>
   <div style="display:flex;flex-wrap: wrap;">
@@ -130,7 +133,7 @@ $(".delete-size-check").change(function() {
       <span class="cache-size-value">999 Go</span>
       <span class="cache-lastCalculated-text">{'calculated'|@translate}</span>
       <span class="cache-lastCalculated-value">42 {'months ago'|@translate}</span>
-      <a><span class="icon-arrows-cw"></span>{'Refresh'|@translate}</a>
+      <a class="refresh-cache-size"><span class="refresh-icon icon-arrows-cw"></span>{'Refresh'|@translate}</a>
     </div>
     <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="icon-doc maintenance-action">{'Purge compiled templates'|@translate} <span class="multiple-compiledTemplate-sizes"> 999 Go </span></a> 
   </div>
@@ -140,8 +143,8 @@ $(".delete-size-check").change(function() {
   <span id="label-delete-size-checkbox">{'Delete multiple size images'|@translate} <span class="multiple-pictures-sizes"> 999 Go </span></span>
     <div class="delete-check-container">
       {foreach from=$purge_derivatives key=name item=url name=loop}
-      <div class="delete-size-check" data-selected="0" name="{$url}">
-        <span class="select-checkbox"><i class="icon-ok" style="margin-left:8px"></i></span><span class="picture-deletion-size" title="Poids : 999Go" style="font-size:14px;margin-left:5px;padding-top:2px;">{$name}</span>
+      <div class="delete-size-check" title="Poids : 999Go" data-selected="0" name="{$url}">
+        <span class="select-checkbox"><i class="icon-ok" style="margin-left:8px"></i></span><span class="picture-deletion-size" style="font-size:14px;margin-left:5px;padding-top:2px;">{$name}</span>
       </div>
       {/foreach}
     </div>
@@ -195,4 +198,16 @@ $(".delete-size-check").change(function() {
   width:max-content;
   text-align:left;
 }
+
+.rotate-anim {
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin { 
+  100% { 
+    -webkit-transform: rotate(360deg);
+    transform:rotate(360deg); 
+  }
+}
+
 </style>
