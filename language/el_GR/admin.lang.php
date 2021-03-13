@@ -1042,3 +1042,5 @@ $lang['%s file type'] = '%s τύπος αρχείου';
 $lang['%d Activity'] = '%d Δραστηριότητα';
 $lang['%d sub-albums'] = '%d υπο-λευκώματα';
 $lang['%d Activities'] = '%d Δραστηριότητες';
+$lang['Are you sure you want to update all extensions?'] = 'Είστε βέβαιοι ότι θέλετε να ενημερώσετε όλες τις επεκτάσεις;';
+$lang['Are you sure you want to restore to default settings?'] = 'Είστε βέβαιοι ότι θέλετε να επαναφέρετε τις προεπιλεγμένες ρυθμίσεις;';
