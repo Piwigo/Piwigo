@@ -27,9 +27,12 @@ $(document).ready(function () {
                     if (data.stat === "ok") {
                         res();
 
+                        console.log(data);
+
                         var domElemToRefresh = [$(".cache-size-value"), $(".multiple-pictures-sizes"), $(".multiple-compiledTemplate-sizes")];
+                        var domElemValues = [data.result.infos[12].value, 69, 42];
+
                         var multipleSizes = $(".delete-check-container").children(".delete-size-check");
-                        var domElemValues = [data.result.infos[3].value, 69, 42];
                         var multipleSizesValues = [11, 10, 9, 8, 7, 6, 4, 3, 2, 1, 0]
 
                         displayResponse(domElemToRefresh , domElemValues, multipleSizes,  multipleSizesValues);
