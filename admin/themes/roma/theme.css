@@ -277,7 +277,10 @@ a.stat-box:hover {
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
-.pluginBox, .pluginContent, .pluginMiniBox, .groups li, .groups .GroupContainer {background-color:#333;color:#999;border-color:#333; box-shadow: none;}
+.AlbumViewSelector {background: #555555;}
+.AlbumViewSelector input:checked + label span {color: #999999;}
+.pluginBox, .pluginContent, .pluginMiniBox, .groups li, .groups .GroupContainer {background-color:#333;color:#999;border-right-color:#333; box-shadow: none;}
+.pluginMiniBox {border-left: none;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#aaa;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#800 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing {background-color:#422;border:1px solid #800;}

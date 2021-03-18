@@ -211,6 +211,7 @@ INPUT[type="text"].large  { width: 317px; }
 #pwgHead A, #footer A {color:#ccc;}
 #pwgHead A:hover, #footer A:hover {color:white;}
 
+.AlbumViewSelector {background: #fafafa;}
 .pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border-color:#ddd;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}

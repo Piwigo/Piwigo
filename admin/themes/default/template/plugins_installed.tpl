@@ -1,5 +1,6 @@
 {combine_script id='jquery.ajaxmanager' load='footer' require='jquery' path='themes/default/js/plugins/jquery.ajaxmanager.js' }
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='jquery.cookie' path='themes/default/js/jquery.cookie.js' load='footer'}
 
 {footer_script require='jquery.ajaxmanager'}
 /* incompatible message */
@@ -225,6 +226,8 @@ jQuery(".pluginMiniBox").each(function(index){
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 {combine_script id='tiptip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 
+{combine_script id='pluginInstallated' load='footer' path='admin/themes/default/js/plugins_installated.js'}
+
 <div class="titrePage">
   <h2>{'Plugins'|@translate}</h2>
 </div>
@@ -238,6 +241,10 @@ jQuery(".pluginMiniBox").each(function(index){
   <span class="icon-filter search-icon"></span>
   <span class="icon-cancel search-cancel"></span>
   <input class='search-input' type="text" placeholder="{'Filter'|@translate}">
+</div>
+
+<div class="AlbumViewSelector">
+    <input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_plugin_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-pause firstIcon tiptip" title="{'Tile View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayTile" {if $smarty.cookies.pwg_plugin_manager_view == 'tile'}checked{/if}/><label for="displayTile"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
 </div>
 
 <div class="emptyResearch"> {'No plugins found'|@translate} </div>
@@ -295,20 +302,49 @@ jQuery(".pluginMiniBox").each(function(index){
     <div class="pluginContent">
       <div class="PluginOptionsIcons">
         {if $plugin.STATE == 'active' || $plugin.STATE == 'inactive'}
-          <a class="icon-ellipsis-vert showOptions showInfo" ></a>
+          <a class="icon-ellipsis-v showOptions showInfo" ></a>
         {/if}
+      </div>
+
+      <div class="pluginActionsSmallIcons">
+        {if $plugin.STATE == 'active'}
+          {if $plugin.SETTINGS_URL != ''}
+            <div class="tiptip" title="{'Settings'|@translate}"> 
+              <a href="{$plugin.SETTINGS_URL}"><span class="icon-cog"></span></a>
+            </div>
+          {else}
+            <div class="tiptip" title="{'N/A'|translate}">
+              <a class="icon-cog unavailablePlugin"></a>
+            </div>
+          {/if}
+        {elseif $plugin.STATE == 'inactive'}
+          <div class="tiptip" title="{'Activate'|@translate}">
+            <a class="icon-plus-circled" href="{$plugin.U_ACTION}&amp;action=activate" class="activate"></a>
+          </div>
+        {elseif $plugin.STATE == 'missing'}
+          <div class="tiptip" title="{'Uninstall'|@translate}">
+            <a class="uninstall-plugin-button" href="{$plugin.U_ACTION}&amp;action=uninstall"></a>
+          </div>
+        {elseif $plugin.STATE == 'merged'}
+          <div class="tiptip" title="{'Delete'|@translate}">
+            <a class="" href="{$plugin.U_ACTION}&amp;action=delete"></a>
+          </div>
+        {/if}                     
       </div>
       
       <div class="PluginOptionsBlock dropdown">
-        <div class="dropdown-option-content"> {if !empty($author)}{'By %s'|@translate:$author}<br>{/if}{'Version'|@translate} {$version}</div>
+        <div class="dropdown-option-content"> {if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}</div>
+        <div class="pluginDescCompact">
+          {$plugin.DESC}
+        </div>
         {if $plugin.STATE == 'active'}
+          <a class="dropdown-option icon-back-in-time plugin-restore separator-top" href="{$plugin.U_ACTION}&amp;action=restore">{'Restore'|@translate}</a>  
           <a class="dropdown-option icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-          <a class="dropdown-option icon-back-in-time plugin-restore" href="{$plugin.U_ACTION}&amp;action=restore">{'Restore'|@translate}</a>   
         {elseif $plugin.STATE == 'inactive'}
           <a class="dropdown-option icon-trash delete-plugin-button" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
         {/if}      
       </div>
-      <div class="pluginMiniBoxNameCell">
+      <div class="pluginMiniBoxNameCell" data-title="{$plugin.NAME}">
         {$plugin.NAME}
       </div>
       <div class="pluginDesc">
@@ -348,3 +384,143 @@ jQuery(".pluginMiniBox").each(function(index){
   </div>
 
 {/if}
+
+
+<style>
+
+.AlbumViewSelector {
+  position: absolute;
+
+  right: 20px;
+  z-index: 2;
+
+  height: 43px;
+  display: flex;
+  align-items: center;
+
+  transform: translateY(6px);
+}
+
+.AlbumViewSelector {
+  padding: 0px;
+  margin-right: 0px;
+  border-radius: 7px;
+  {* background: #fafafa !important; *}
+}
+
+.AlbumViewSelector span {
+  border-radius: 0;
+  padding: 8px;
+}
+
+/* Should be done with :first-child and :last-child but doesn't work */
+
+.AlbumViewSelector label span.firstIcon{
+  border-radius: 7px 0 0 7px;
+}
+
+.AlbumViewSelector label span.lastIcon{
+  border-radius: 0 7px 7px 0;
+}
+
+.icon-th-large, .icon-th-list, .icon-pause {
+  padding: 10px;
+  font-size: 19px;
+
+  transition: 0.3s;
+}
+
+.AlbumViewSelector input:checked + label{
+  background: transparent;
+  color: white;
+}
+
+.AlbumViewSelector input:checked + label span{
+  background: orange;
+}
+
+.switchLayout {
+  display: none;
+}
+
+/****************************************/
+
+.pluginActionsSmallIcons a, .PluginOptionsIcons a{
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #7f7f7f;
+}
+
+.pluginActionsSmallIcons a:hover, .PluginOptionsIcons a:hover {
+  color: #000000;
+  transition: 0.2s;
+}
+
+.biggerIcon {
+  transform: scale(1.5) !important;
+}
+
+.pluginActionsSmallIcons {
+  position: absolute;
+  right: 20px;
+  padding: 13px;
+  top: 0px;
+  display: flex;
+}
+
+.pluginActionsSmallIcons a {
+  transform: scale(1.3);
+}
+
+.pluginActionsSmallIcons a span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pluginActionsSmallIcons a:hover {
+  text-decoration: none;
+}
+
+.pluginMiniBox {
+  transition: 0.5s;
+}
+
+.unavailablePlugin {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.unavailablePlugin:hover {
+  cursor: default;
+  color: #7f7f7f !important;
+  opacity: 0.5;
+}
+
+.pluginDescCompact {
+  max-width: 200px;
+  padding: 5px 10px;
+}
+
+.dropdown-option-content {
+  font-weight: bold;
+}
+
+.separator-top {
+  border-top: 1px solid #ffffff45;
+}
+
+.dropdown-option.icon-cancel-circled {
+  margin-bottom: -5px;
+}
+
+.dropdown-option {
+  font-weight: bold;
+}
+
+</style>
