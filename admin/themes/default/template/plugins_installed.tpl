@@ -244,7 +244,7 @@ jQuery(".pluginMiniBox").each(function(index){
 </div>
 
 <div class="AlbumViewSelector">
-    <input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_plugin_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-pause firstIcon tiptip" title="{'Tile View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayTile" {if $smarty.cookies.pwg_plugin_manager_view == 'tile'}checked{/if}/><label for="displayTile"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
+    <input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_plugin_manager_view == 'compact' || !$smarty.cookies.pwg_plugin_manager_view}checked{/if}/><label for="displayCompact"><span class="icon-pause firstIcon tiptip" title="{'Tile View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayTile" {if $smarty.cookies.pwg_plugin_manager_view == 'tile'}checked{/if}/><label for="displayTile"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
 </div>
 
 <div class="emptyResearch"> {'No plugins found'|@translate} </div>
