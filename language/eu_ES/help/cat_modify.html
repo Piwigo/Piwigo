@@ -1,0 +1,107 @@
+<h2>Editatu albuma</h2>
+
+<h3>Informazioak</h3>
+
+<ul>
+
+  <li><strong>izendatu</strong>: albumaren izena aldatu (izen-aldatze birtuala albuma fisikoa baldin bada).</li>
+
+  <li><strong>deskribapena</strong>: edukiaren ideia orokorra emango digun testu laburra. Testu hau koadro txikien orriaren behealdean bistaratzen da.</li>
+
+</ul>
+
+<h3>Mugitu</h3>
+
+<p>Album birtual mugi ditzakezu. Albuma mugitzeak bere album nagusia aldatzean datza.</p>
+
+<h3>Aukerak</h3>
+
+<ul>
+
+  <li><strong>Sarbide-mota</strong>: Baimenen kudeaketa. Albuma pribatu bihurtzen baduzu bere bigarren mailako azpi-album guztiak pribatu bihurtuko dira baita ere. Alderantziz, albuma publiko bihurtzen baduzu, bere bigarren mailako azpi-album guztiak publiko bihurtuko dira.</li>
+
+  <li><strong>Blokeatu</strong>: Albuma eta bere bigarren mailako azpi-albumak behin-behinean desgaitu dira mantentze-lanak burutzeko.</li>
+
+  <li><strong>Iruzkinak</strong>: Album honetako argazkiei iruzkinak gehitzeko baimena emon erabiltzaileei.</li>
+
+</ul>
+
+<p>Aukera hauek "Propietateak" pantailan kudea ditzakezu baita ere (<span
+class="pwgScreen">Iruzkinak</span>, <span class="pwgScreen">Blokeatu</span>,
+<span class="pwgScreen">Publikoa/Pribatua</span>, <span
+class="pwgScreen">Ordezkaria</span> pantailak <span
+class="pwgScreen">Administrazioa &raquo; Albumak &raquo; Propietateak</span>) helbidean eskuragarri.</p>
+
+<h3>Ordenatzeko irizpidea</h3>
+
+<p>Erabili irudiak ordenatzeko lehenetsitako irizpidea.</p>
+
+<p>Adierazi ordenatzeko irizpidea azpi-albumetara ere aplikatuko den.</p>
+
+<p>Hautatu ordenatzeko zein irizpide erabiliko den albumean.</p>
+<ul>
+<li><strong>Sortze-data</strong>: Argazkia ateratako data.</li>
+<li><strong>Bidaltze-data</strong>: Sinkronizazio data.</li>
+<li><strong>Balorazioa (*)</strong>: Bisitariek batezbesteko balorazioa alda dezakete.</li>
+<li><strong>Gehien ikusitakoa (*)</strong>: Uneko bisitariak gehien ikusitakoen ordena alda dezake.</li>
+<li><strong>Fitxategi-izena</strong>: Informazio-eremuan emandako izenaren arabera.</li>
+<li><strong>Id</strong>: Barruko Id (kategoria berriek id nagusiagoa izango dute aurrekoek baino).</li>
+
+</ul>
+<p><strong>(*)</strong>Oharra: Probatu lehenik ordenatzeko irizpide hauek ez ditzaten ustekabeko emaitzik eman.</p>
+
+
+<h3>Ordezkaria</h3>
+
+<p>Orri nagusian bistaratuko den koadro txikia izango da album ordezkariarena. (<span class="pwgScreen">category.php</span>) Horrela gertatuko da albumak azpi-albumak baino ez dituenean eta ez dagoenean bistaratzeko argazkirik (album-erroa balitz bezala)</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Argazki-orria</span>: uneko argazkia bistaratutako albumaren ordezkari gisa erabiltzeko. Aukera hau adminstratzaileentzako baino ez dago eskuragarri.</li>
+
+  <li><span class="pwgScreen">Aldatu argazkiaren inguruko informazioa</span> administrazioan. Pantaila honetara heltzeko: <span
+  class="pwgScreen">picture.php</span>-etik edo <em>unitate-modua</em>-an dagoen <span class="pwgScreen">Multzo kudeaketa</span> aukeran. Pantaila honen laguntza atalera jo informazio gehiagorako.</li>
+
+  <li><span class="pwgScreen">Administrazioa &raquo; Albumak &raquo; Propietateak,
+  Ordezkaria</span>. Pantaila honen laguntza atalera jo informazio gehiagorako.</li>
+
+  <li><span class="pwgScreen">Editatu albuma</span> (uneko pantaila).</li>
+
+</ul>
+
+<p>Ordezkariaren aukera <code>allow_random_representative</code>-ren konfigurazioaren arabera gaitzen da (ikusi <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>Lehentsitako moduan (<code>allow_random_representative</code> false moduan ezarrita), gutxienez elementu bat duen album bakoitza elementu finko batekin ordezkatzen da. Behin elementu hori ezarrita (albuma sortzerakoan) administratzaileak baino ezin du ordezkaria aldatu. Ez baduzu ordezkaria egokitzat jotzen <strong>Bilatu ausazko ordezkari berria</strong> aukera erabil dezakezu.</p>
+
+<p><code>allow_random_representative</code> parametroa true moduan ezarrita baldin badago, argazki-kategoriak ez du ordezkari finkorik. Ez baduzu ordezkaria egokitzat jotzen <strong>Ezabatu ordezkaria</strong> botoia erabili. </p>
+
+<p>Albumak ez badu argazkirik zuzenean kargaturik eta azpi-albumak baino ez baditu, beste edozein elementu erabil dezake ordezkari gisa <span class="pwgScreen">Aldatu argazkiaren inguruko informazioa</span> pantailari esker. Pantaila honetako aukera bakarra <strong>Ezabatu ordezkaria</strong> botoia baino ez duzu.</p>
+
+<h3>Estekatu albumaren argazki guztiak album berri batera</h3>
+
+<ul>
+
+<li><strong>Album birtualaren izena</strong>: Sortuko den album berriaren izena. Uneko kategoriaren argazki guztiak album berrira estekatuko dira.</li>
+
+<li><strong>Album nagusia</strong>: Album berria kokatuko den lekua. Utzi eremua hutsik erroan sortu nahi baduzu.</li>
+
+</ul>
+
+<h3>Estekatu albumaren aragazki guztiak badagoen album batera</h3>
+
+<ul>
+
+<li><strong>Albumak</strong>: Aukeratu helburu albuma.</li>
+
+</ul>
+
+<h3>Bidali informazio emaila taldeko kideei</h3>
+
+<ul>
+
+<li><strong>Taldea</strong>: jasotzaileen taldea</li>
+
+<li><strong>Emailaren edukia</strong>: Bidaliko zaien testua.</li>
+
+</ul>  

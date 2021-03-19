@@ -415,3 +415,5 @@ $lang['Link: %s'] = 'Веза: %s';
 $lang['Your authentication key is no longer valid.'] = 'Ваш кључ за проверу идентитета није више важећи.';
 $lang['Invalid username or password!'] = 'Погрешно корисничко име или лозинка!';
 $lang['generate random password'] = 'направи насумичну лозинку';
+$lang['Password: ********** (no copy by email)'] = 'Лозинка: ********** (без копирања из е-поште)';
+$lang['Related albums'] = 'Повезани албуми';
