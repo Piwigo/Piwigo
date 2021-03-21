@@ -148,6 +148,14 @@ INSERT INTO '.THEMES_TABLE.'
           {
             conf_update_param('mobile_theme', $theme_id);
           }
+
+          // Trigger event with new theme list.
+          $this->db_themes_by_id[$theme_id] = [
+            'id' => $theme_id,
+            'version' => $this->fs_themes[$theme_id]['version'],
+            'name' => $this->fs_themes[$theme_id]['name'],
+          ];
+          trigger_change('get_pwg_themes', $this->db_themes_by_id);
         }
         break;
 
@@ -201,6 +209,11 @@ DELETE
         {
           conf_update_param('mobile_theme', '');
         }
+
+        // Trigger event with new theme list.
+        unset($this->db_themes_by_id[$theme_id]);
+        trigger_change('get_pwg_themes', $this->db_themes_by_id);
+
         break;
 
       case 'delete':
