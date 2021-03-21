@@ -186,6 +186,8 @@ $template->assign(
         'admin.php?page=album-'
         ),
     'F_ACTION' => $admin_album_base_url.'-notification',
+    'NO_PICTURE'  => (!empty($category['representative_picture_id']) ? false : true) ?
+    $page['warnings'] = 'You have no picture in this album, your unable to notify' : null,
     'PWG_TOKEN' => get_pwg_token(),
     )
   );
