@@ -1088,8 +1088,7 @@ $lang['Groups \{%s\} succesfully deleted'] = 'Groups \{%s\} succesvol verwijderd
 $lang['Group(s) \{%s1\} succesfully merged into "%s2"'] = 'Groep(en) \{%s1\} succesvol samengevoegd in "%s2"';
 $lang['Group renamed'] = 'Groep hernoemd';
 $lang['Group added'] = 'Toegevoegde groep';
-$lang['Group "%s" succesfully deleted'] = '
-Groep "%s" succesvol verwijderd';
+$lang['Group "%s" succesfully deleted'] = 'Groep "%s" succesvol verwijderd';
 $lang['Formats'] = 'Formaten';
 $lang['File type: %s'] = 'Bestandstype: %s';
 $lang['Edited on %s'] = 'Bewerkt op %s';
