@@ -1044,3 +1044,6 @@ $lang['%d sub-albums'] = '%d υπο-λευκώματα';
 $lang['%d Activities'] = '%d Δραστηριότητες';
 $lang['Are you sure you want to update all extensions?'] = 'Είστε βέβαιοι ότι θέλετε να ενημερώσετε όλες τις επεκτάσεις;';
 $lang['Are you sure you want to restore to default settings?'] = 'Είστε βέβαιοι ότι θέλετε να επαναφέρετε τις προεπιλεγμένες ρυθμίσεις;';
+$lang['Cache'] = 'Λανθάνουσα Μνήμη';
+$lang['Average last 12 months'] = 'Μέσος όρος τους τελευταίους 12 μήνες';
+$lang['At least 2 selected tags are needed to merge'] = 'Τουλάχιστον δύο επιλέξιμες ετικέτες χρειάζονται για συγχώνευση.';
