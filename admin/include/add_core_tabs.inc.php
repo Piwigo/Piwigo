@@ -35,6 +35,12 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['permalinks'] = array('caption' => '<span class="icon-link-1"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
       $sheets['search'] = array('caption' => '<span class="icon-search"></span>'.l10n('Search'), 'url' => $my_base_url.'cat_search');
       break;
+    
+    case 'users':
+      global $my_base_url;
+      $sheets['user_list'] = array('caption' => '<span class="icon-users"></span>'.l10n('User list'), 'url' => $my_base_url.'user_list');
+      $sheets['user_activity'] = array('caption' => '<span class="icon-eye"></span>'.l10n('Activity'), 'url' => $my_base_url.'user_activity');
+      break;
 
     case 'batch_manager':
       global $manager_link;

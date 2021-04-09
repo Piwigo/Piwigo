@@ -1327,3 +1327,89 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .cache-lastCalculated-value, .cache-lastCalculated-text, .cache-size-text, .picture-deletion-size, #label-delete-size-checkbox {
   color: #c1c1c1;
 }
+
+/* Activity Tab in user manager */
+
+.select-user {
+  background: #555555;
+  height: 50%;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 20px;
+
+  box-shadow: 0px 2px 4px #00000024;
+  border-radius: 5px;
+}
+
+.select-user-title {
+  color: #bbbbbb;
+}
+
+.start-date, 
+.end-date {
+    padding: 5px 10px;
+    background: #555555;
+    border-radius: 50px;
+    margin: 5px;
+    color: #bbbbbb;
+}
+
+.acivity-time-text {
+  font-size: 13px;
+  font-weight: bold;
+  color: #bbbbbb;
+}
+
+.line {
+  background: #333333;
+  box-shadow: 0px 2px 4px #00000024;
+
+  display: flex;
+  flex-direction: row;
+
+  height: 40px;
+
+  align-items: center;
+
+  margin-bottom: 10px;
+  color: #bbbbbb;
+}
+
+.line .detail-item {
+  background: #555555;
+  margin: 0 10px 0 0;
+  padding: 3px 6px;
+  border-radius: 20px;
+
+  min-width: 50px; 
+  max-width: 150px;
+
+  text-align: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+
+  white-space: nowrap;
+}
+
+.download_csv {
+  margin-left: auto;
+  height: 25px;
+  width: 30px;
+  background: #555555;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color:#b8b8b8;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.download_csv:hover {
+  background: #777777;
+  color: #dddddd;
+}
