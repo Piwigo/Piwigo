@@ -729,7 +729,7 @@ function str2DateTime($original, $format=null)
  */
 function format_date($original, $show=null, $format=null)
 {
-  global $lang;
+  global $lang, $user;
 
   $date = str2DateTime($original, $format);
 
@@ -743,28 +743,66 @@ function format_date($original, $show=null, $format=null)
     $show = array('day_name', 'day', 'month', 'year');
   }
 
-  // TODO use IntlDateFormatter for proper i18n
-
-  $print = '';
-  if (in_array('day_name', $show))
-    $print.= $lang['day'][ $date->format('w') ].' ';
-
-  if (in_array('day', $show))
-    $print.= $date->format('j').' ';
-
-  if (in_array('month', $show))
-    $print.= $lang['month'][ $date->format('n') ].' ';
-
-  if (in_array('year', $show))
-    $print.= $date->format('Y').' ';
-
-  if (in_array('time', $show))
+  /* legacy format style */
+  if (!extension_loaded('intl')) 
   {
-    $temp = $date->format('H:i');
-    if ($temp != '00:00')
-    {
-      $print.= $temp.' ';
+    $print = '';
+    if (in_array('day_name', $show))
+      $print .= $lang['day'][$date->format('w')] . ' ';
+
+    if (in_array('day', $show))
+      $print .= $date->format('j') . ' ';
+
+    if (in_array('month', $show))
+      $print .= $lang['month'][$date->format('n')] . ' ';
+
+    if (in_array('year', $show))
+      $print .= $date->format('Y') . ' ';
+
+    if (in_array('time', $show)) {
+      $temp = $date->format('H:i');
+      if ($temp != '00:00') {
+        $print .= $temp . ' ';
+      }
     }
+  }
+  else  /* Intl extension format style */
+  {
+    /* Display date is incremental: if you select month, you will have the month + year;
+      if you select day_name, you will have complete date
+  */
+    if (in_array('year', $show)) 
+    {
+      $dateType = IntlDateFormatter::LONG;
+      $pattern = "yyyy";
+    }
+    if (in_array('month', $show)) 
+    {
+      $dateType = IntlDateFormatter::LONG;
+      $pattern = "MMMM yyyy";
+    }
+    if (in_array('day', $show)) 
+    {
+      $dateType = IntlDateFormatter::LONG;
+      $pattern = null;
+    }
+    if (in_array('day_name', $show)) 
+    {
+      $dateType = IntlDateFormatter::FULL;
+      $pattern = null;
+    }
+    $timeType = (in_array('time', $show)) ? IntlDateFormatter::SHORT : IntlDateFormatter::NONE;
+
+    $fmt = datefmt_create(
+      $user['language'],
+      $dateType,
+      $timeType,
+      date_timezone_get($date),
+      null,
+      $pattern
+    );
+
+    $print = datefmt_format($fmt, $date);
   }
 
   return trim($print);
