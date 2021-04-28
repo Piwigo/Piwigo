@@ -32,7 +32,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
-{combine_css path="admin/themes/default/fontello/css/animation.css"}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 {combine_script id='tiptip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 {combine_script id='tags' load='footer' path='admin/themes/default/js/tags.js'}
 
