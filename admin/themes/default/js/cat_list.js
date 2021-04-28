@@ -207,7 +207,7 @@ function setDisplayLine() {
     });
 
     $(".albumTop").css({
-        width: "25%",
+        width: "35%",
         justifyContent: "flex-start",
         flexDirection: "row",
         alignItems : "baseline",
