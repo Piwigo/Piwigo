@@ -621,6 +621,7 @@ $lang['Plugins'] = "Plugins";
 $lang['Portrait'] = 'Portrait';
 $lang['Position'] = "Position";
 $lang['Posted %s on %s'] = 'Posted %s on %s';
+$lang['Posted the %s'] = "Posted on %s";
 $lang['Predefined filter'] = 'Predefined filter';
 $lang['Preferences'] = "Preferences";
 $lang['Prepared time for list of users to send mail is limited. Others users are not listed.'] = 'The time to prepare the list of users who will be sent mail is limited. Other users are not listed.';
