@@ -644,6 +644,19 @@ $conf['tags_default_display_mode'] = 'cloud';
 $conf['tag_letters_column_number'] = 4;
 
 // +-----------------------------------------------------------------------+
+// | Related albums                                                        |
+// +-----------------------------------------------------------------------+
+
+// beyond this limit, do not try to find related albums. If there are too
+// many items, the SQL query will be slow and the results irrelevant,
+// because showing too many related albums.
+$conf['related_albums_maximum_items_to_compute'] = 1000;
+
+// once found the related albums, how many to show in the menubar? We take
+// the heaviest (with more relations).
+$conf['related_albums_display_limit'] = 20;
+
+// +-----------------------------------------------------------------------+
 // | Notification by mail                                                  |
 // +-----------------------------------------------------------------------+
 
