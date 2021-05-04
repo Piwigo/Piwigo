@@ -718,9 +718,9 @@ SELECT
 
 function get_related_categories_menu($items, $excluded_cat_ids=array())
 {
-  global $page;
+  global $page, $conf;
 
-  $common_cats = get_common_categories($items, null, $excluded_cat_ids);
+  $common_cats = get_common_categories($items, $conf['related_albums_display_limit'], $excluded_cat_ids);
   // echo '<pre>'; print_r($common_cats); echo '</pre>';
 
   if (count($common_cats) == 0)
