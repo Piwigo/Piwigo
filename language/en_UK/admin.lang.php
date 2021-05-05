@@ -1158,3 +1158,4 @@ $lang['Compact View'] = 'Compact View';
 $lang['Tile View'] = 'Tile View';
 $lang['Line View'] = 'Line View';
 $lang['Add Album'] = 'Add Album';
+$lang['Name field must not be empty'] = 'Name field must not be empty';

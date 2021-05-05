@@ -99,7 +99,7 @@ jQuery(document).ready(function () {
           setupGroupBox(groupBox);
           updateBadge();
         } else {
-          $("#addGroupForm .groupError").html(str_name_taken);
+          $("#addGroupForm .groupError").html(str_name_not_empty);
           $("#addGroupForm .groupError").fadeIn();
           $("#addGroupForm .groupError").delay(DELAY_FEEDBACK).fadeOut();
         }
