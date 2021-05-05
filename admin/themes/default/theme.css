@@ -3135,7 +3135,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 .move-cat-container .move-cat-title {
   font-size: 16px;
   margin: 10px;
-  max-width: 200px;
+  max-width: 600px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
