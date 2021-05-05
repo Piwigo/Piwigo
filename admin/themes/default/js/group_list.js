@@ -43,8 +43,12 @@ $("#cancel").click(function () {
  -------*/
 var isToggle = true;
 $(".addGroupBlock").on("click", function() {
-  if (isToggle) deployAddGroupForm()
-  else hideAddGroupForm();
+  if (isToggle) {
+    deployAddGroupForm();
+  } 
+  else {
+    hideAddGroupForm();
+  } 
 })
 
 var deployAddGroupForm = function () {
@@ -53,6 +57,7 @@ var deployAddGroupForm = function () {
     padding: "0px"
   }, 400, complete=function(){
     $("#addGroupForm form").fadeIn();
+    $("#addGroupNameInput").focus();  
   });
   isToggle = false;
 }
