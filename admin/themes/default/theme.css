@@ -4811,6 +4811,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   margin: 10px;
   white-space: nowrap;
   font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 75%;
+  direction: rtl;
+  text-align: left;
 }
 
 .search-album-action-cont {
