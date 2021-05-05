@@ -207,7 +207,7 @@ $category['nb_images_associated_outside'] = 0;
 if ($category['nb_images_recursive'] > 0)
 {
   // if we don't have "too many" photos, it's faster to compute the orphans with MySQL
-  if ($category['nb_images_recursive'] < 30000)
+  if ($category['nb_images_recursive'] < 1000)
   {
     $query = '
 SELECT
