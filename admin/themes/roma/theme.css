@@ -1137,3 +1137,23 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .icon-th-large, .icon-th-list, .icon-pause {
   color: #c1c1c1;
 }
+
+.user-header-button-label {
+  background-color: #333;
+}
+
+.user-container {
+  background-color:#333;
+}
+
+#advanced_filter_button, #advanced-filter-container {
+  background-color:#333;
+}
+
+.advanced-filter-label, .advanced-filter-title, .advanced-filter-close {
+  color:#777;
+}
+
+.user-action-select {
+  background: transparent;
+}

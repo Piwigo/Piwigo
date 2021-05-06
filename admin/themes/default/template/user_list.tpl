@@ -935,7 +935,6 @@ update_selection_content();
 .user-header-button-label {
 	position: relative;
 	padding: 10px;
-	background-color: #fafafa;
 	box-shadow: 0px 2px #00000024;
 	border-radius: 5px;
 	font-weight: bold;
@@ -1036,7 +1035,7 @@ update_selection_content();
     display:flex;
     width:100%;
     height:50px;
-    background-color:#F3F3F3;
+
     font-weight:bold;
     border-radius:10px;
     margin-bottom:10px;
@@ -1897,7 +1896,6 @@ update_selection_content();
 }
 
 .user-action-select {
-	background: white;
 	-webkit-appearance: none;
 	padding: 5px 10px;
   width:100%;
@@ -1931,7 +1929,6 @@ Advanced filter
 
   cursor:pointer;
   padding:10px;
-  background-color:#F3F3F3;
   margin-right:10px;
 }
 
@@ -1948,7 +1945,6 @@ Advanced filter
 
 #advanced-filter-container {
   display:none;
-  background-color:#F3F3F3;
   padding:15px;
   font-size:1em;
 }
@@ -1961,7 +1957,6 @@ Advanced filter
 
 .advanced-filter-title {
   font-weight:bold;
-  color:#3e3e3e;
 }
 
 .advanced-filters {
@@ -2015,7 +2010,6 @@ Advanced filter
 .advanced-filter-label {
   text-align:left;
   display:block;
-  color: #3f3f3f;
   margin-bottom:5px;
 }
 
