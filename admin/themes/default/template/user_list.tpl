@@ -2077,7 +2077,6 @@ Advanced filter
   padding: 6px 0px;
   margin-right: 0px;
   border-radius: 10px;
-  background: #fafafa !important;
 
   position: absolute;
   z-index: 2;
@@ -2104,15 +2103,6 @@ Advanced filter
   font-size: 19px;
 
   transition: 0.3s;
-}
-
-.UserViewSelector input:checked + label{
-  background: transparent;
-  color: white !important;
-}
-
-.UserViewSelector input:checked + label span{
-  background: orange;
 }
 
 .switchLayout {

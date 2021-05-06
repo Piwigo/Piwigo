@@ -4904,3 +4904,21 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .doubleSelect p {display:flex; justify-content: center;}
+
+/* View selectors css (colors)*/
+
+.AlbumViewSelector, .UserViewSelector {
+  background: #fafafa !important;
+}
+
+.AlbumViewSelector input:checked + label,
+.UserViewSelector input:checked + label{
+  background: transparent;
+  color: white;
+}
+
+.AlbumViewSelector input:checked + label span,
+.UserViewSelector input:checked + label span{
+  background: orange;
+}
+

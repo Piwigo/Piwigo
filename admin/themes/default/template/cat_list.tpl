@@ -97,7 +97,6 @@ jQuery(document).ready(function(){
   padding: 7px 0px;
   margin-right: 0px;
   border-radius: 10px;
-  background: #fafafa !important;
 }
 
 .AlbumViewSelector span {
@@ -126,15 +125,6 @@ jQuery(document).ready(function(){
   transition: 0.3s;
 }
 
-.AlbumViewSelector input:checked + label{
-  background: transparent;
-  color: white !important;
-}
-
-.AlbumViewSelector input:checked + label span{
-  background: orange;
-}
-
 .switchLayout {
   display: none;
 }
@@ -142,7 +132,6 @@ jQuery(document).ready(function(){
 .albumActions a span.iconLegend {
   font-size: 14px;
 }
-
 
 .categoryContainer {
   padding: 0 20px 0 20px;
