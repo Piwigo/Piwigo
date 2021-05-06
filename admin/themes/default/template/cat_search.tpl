@@ -12,8 +12,12 @@ var data = {json_encode($data_cat)};
 // Numeric array of all categories
 var categories = Object.values(data);
 
+const RESULT_LIMIT = 100;
+
 var str_albums_found = '{"<b>%d</b> albums found"|translate}';
 var str_album_found = '{"<b>1</b> album found"|translate}';
+var str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate}';
+
 {literal}
 var editLink = "admin.php?page=album-";
 var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
@@ -39,14 +43,18 @@ function updateSearch () {
 
     nbResult = 0;
     categories.forEach((c) => {
-      if (c[0].toString().toLowerCase().search(string.toLowerCase()) != -1) {
+      if (c[0].toString().toLowerCase().search(string.toLowerCase()) != -1 && nbResult < RESULT_LIMIT) {
         addAlbumResult(c);
         nbResult++;
       }
     })
 
     if (nbResult != 1) {
-      $('.search-album-num-result').html(str_albums_found.replace('%d', nbResult));
+      if (nbResult >= RESULT_LIMIT) {
+        $('.search-album-num-result').html(str_result_limit.replace('%d', nbResult));
+      } else {
+        $('.search-album-num-result').html(str_albums_found.replace('%d', nbResult));
+      }
     } else {
       $('.search-album-num-result').html(str_album_found);
     }
@@ -104,7 +112,7 @@ function getHtmlPath (cat) {
   return html
 }
 
-// Make the results appear one after one
+// Make the results appear one after one [and limit results to 100]
 function resultAppear(result) {
   result.fadeIn();
   if (result.next().length != 0) {
