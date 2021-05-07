@@ -1464,7 +1464,7 @@ function add_user() {
         pwg_token: pwg_token,
     }
     ajax_data.username = $('.AddUserLabelUsername .AddUserInput').val();
-    ajax_data.password = $('.AddUserLabelPassword .AddUserInput').val();
+    ajax_data.password = $('#AddUserPassword').val();
     ajax_data.email = $(".AddUserLabelEmail .AddUserInput").val();
     ajax_data.send_password_by_mail = $('.user-list-checkbox[name="send_by_email"]').attr("data-selected") == "1" ? true : false;
     jQuery.ajax({
