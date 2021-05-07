@@ -45,6 +45,10 @@ var usersCache = new UsersCache({
 });
 
 usersCache.selectize(jQuery('select.UserSearch'));
+
+{* Removes the 'gest' user from the list *}
+jQuery('select.UserSearch')[0].selectize.removeOption(2);
+
 {* temporary fix for #1283 (end) *}
 {/footer_script}
 
