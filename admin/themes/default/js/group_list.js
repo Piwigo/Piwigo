@@ -442,6 +442,12 @@ var duplicateAction = function(id) {
         groupbox.insertAfter($("#group-"+id));
         setupGroupBox(groupbox);
         updateBadge();
+
+        /* data.result.groups[0].is_default is a string */
+        if(data.result.groups[0].is_default == "true") {
+          console.log('here: ' +id);
+          setupDefaultActions(data.result.groups[0].id, true);
+        }
       }
     },
     error: function (err) {
