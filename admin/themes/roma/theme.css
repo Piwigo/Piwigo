@@ -1209,3 +1209,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .update-container {
   border-top:solid 1px #333;
 }
+
+.user-property-input.user-property-input-username:hover {
+  background-color: #333;
+}
+.user-property-input.user-property-input-password:hover {
+  background-color: #333;
+}

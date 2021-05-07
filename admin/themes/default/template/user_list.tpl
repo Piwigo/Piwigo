@@ -1505,12 +1505,7 @@ update_selection_content();
 
 .user-property-input.user-property-input-username {
     border: solid 2px #ffa744;
-    background: none;
     padding: 9px;
-}
-
-.user-property-input.user-property-input-username:hover {
-    background-color: #f0f0f0 !important;
 }
 
 .user-property-password-container {
@@ -1553,12 +1548,7 @@ update_selection_content();
 
 .user-property-input.user-property-input-password {
     border: solid 2px #ffa744;
-    background: none;
     padding: 9px;
-}
-
-.user-property-input.user-property-input-password:hover {
-    background-color: #f0f0f0 !important;
 }
 
 .user-property-register-visit {

@@ -4997,3 +4997,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .update-container {
   border-top:solid 1px #ddd;
 }
+
+.user-property-input.user-property-input-username:hover {
+  background-color: #f0f0f0;
+}
+.user-property-input.user-property-input-password:hover {
+  background-color: #f0f0f0;
+}
