@@ -1287,7 +1287,6 @@ update_selection_content();
     text-align:left;
     padding:20px;
     display:flex;
-    background-color:white;
     width:870px
 }
 
@@ -1313,12 +1312,10 @@ update_selection_content();
 
 .properties-container {
     width:250px;
-    border-left:solid 1px #ddd;
     padding: 0 20px
 }
 
 .update-container {
-    border-top:solid 1px #ddd;
     padding-right:20px;
     padding-top:30px;
 }
@@ -1326,12 +1323,10 @@ update_selection_content();
 .preferences-container {
     width:250px;
     padding-left:20px;
-    border-left: solid 1px #ddd;
 }
 
 /* general pop in rules */
 .user-property-column-title {
-    color:#353535;
     font-weight:bold;
     margin-bottom:15px;
     font-size:1.4em;
@@ -1363,31 +1358,19 @@ update_selection_content();
     font-size:1.1em;
     padding:8px 16px;
     border:none;
-    color:#353535;
-    background-color:#F3F3F3;
 }
-
-.user-property-input[type="text"] {
-    background-color:#F3F3F3;
-}
-
 
 .user-property-button {
     margin-top:0;
     font-size:1.1em;
-    color:#353535;
     margin-bottom:15px;
     cursor:pointer;
     padding:8px;
     border:none;
-    color:#353535;
-    background-color:#F3F3F3;
 }
 
 .user-property-select {
     box-sizing: border-box;
-    background-color:#F3F3F3;
-    color:#353535;
     -webkit-appearance:none;
     border:none;
     width:100%;
@@ -1439,7 +1422,6 @@ update_selection_content();
 }
 
 .select-bar-wrapper .ui-slider-horizontal{
-    background-color:#e3e3e3;
     border:none;
     border-radius:25px;
 }
@@ -1514,7 +1496,6 @@ update_selection_content();
 
 .edit-username-title {
     font-size:1.4em;
-    color:#353535;
 }
 
 .edit-username-specifier {
@@ -1602,7 +1583,6 @@ update_selection_content();
 .user-property-register-visit .icon-calendar {
     margin:0;
     font-size:1.8em;
-    color: #4C4C4C;
 }
 
 /* properties */
@@ -1618,7 +1598,6 @@ update_selection_content();
 
 .user-property-group .selectize-input.items {
     border:none;
-    background-color: #F3F3F3;
 }
 
 
@@ -1670,9 +1649,7 @@ update_selection_content();
 
 .delete-user-button {
     cursor:pointer;
-    color:#353535;
     padding:10px 20px;
-    background-color: #F3F3F3;
     font-size:1.1em;
     font-weight:bold;
 }

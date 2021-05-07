@@ -4945,3 +4945,55 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .user-action-select {
   background: white;
 }
+
+.user-property-select {
+  background-color:#F3F3F3; 
+  color:#353535;
+}
+
+.UserListPopInContainer {
+  background-color:white;
+}
+
+.user-property-column-title, .edit-username-title {
+  color:#353535;
+}
+
+.user-property-button {
+  color:#353535;
+  background-color:#F3F3F3;
+}
+
+.user-property-input {
+  color:#353535;
+  background-color:#F3F3F3;
+}
+
+.user-property-input[type="text"] {
+  background-color:#F3F3F3;
+}
+
+.user-property-group .selectize-input.items {
+  background-color: #F3F3F3;
+}
+
+.user-property-register-visit .icon-calendar {
+  color: #4c4c4c
+}
+
+.delete-user-button {
+  color:#353535;
+  background-color: #F3F3F3;
+}
+
+.select-bar-wrapper .ui-slider-horizontal{
+  background-color:#e3e3e3;
+}
+
+.preferences-container, .properties-container {
+  border-left: solid 1px #ddd;
+}
+
+.update-container {
+  border-top:solid 1px #ddd;
+}
