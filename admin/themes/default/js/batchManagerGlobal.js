@@ -303,7 +303,7 @@ jQuery('#applyAction').click(function(e) {
           type:"POST",
           dataType: "json",
           data: {
-            pwg_token: jQuery("input[name=pwg_token").val(),
+            pwg_token: jQuery("input[name=pwg_token]").val(),
             image_id: ids
           },
           success: function(data) {
