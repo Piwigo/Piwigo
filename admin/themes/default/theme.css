@@ -3232,6 +3232,16 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   padding: 30px;
 }
 
+.cat-move-order-popin .popin-title .icon-sort-name-up::before {
+  display:inline !important;
+}
+.cat-move-order-popin .popin-title .icon-sort-name-up, .cat-move-order-popin .popin-title-text {
+  display:inline-block;
+}
+.cat-move-order-popin .popin-title-text::first-letter {
+  text-transform: capitalize;
+}
+
 .cat-move-order-popin .album-name {
   font-size: 14px;
   color: #3C3C3C;
