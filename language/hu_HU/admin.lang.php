@@ -1034,3 +1034,7 @@ $lang[' (copy)'] = '(másold)';
 $lang['%d Activities'] = '%d Események';
 $lang['%d Activity'] = '%d Esemény';
 $lang['%d photos'] = '%d fotók';
+$lang['Are you sure you want to delete the ratings of the user "%s"?'] = 'Biztosan törölni akarod "%s" fejeznek felhasználó értékeléseit?';
+$lang['Are you sure you want to delete the theme "%s"?'] = 'Biztosan törölni akarod "%s" sablont?';
+$lang['Are you sure you want to install the plugin "%s"?'] = 'Biztosan telepíteni akarod "%s" bővítményt?';
+$lang['Are you sure you want to lock the gallery?'] = 'Biztosan blokkolni akarod a galériát?';
