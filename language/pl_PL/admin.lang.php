@@ -1118,3 +1118,6 @@ $lang['Are you sure you want to delete the theme "%s"?'] = 'Czy na pewno chcesz 
 $lang['Are you sure you want to delete this theme?'] = 'Czy na pewno chcesz usunąć ten szablon wyglądu?';
 $lang['This is already the default theme'] = 'Ten szablon wyglądu jest już domyślnym';
 $lang['Are you sure you want to delete the plugin "%s"?'] = 'Czy na pewno chcesz usunąć wtyczkę "%s"?';
+$lang['Add Album'] = 'Dodaj album';
+$lang['Hide sub-albums'] = 'Ukryj podalbumy';
+$lang['Name field must not be empty'] = 'Pole "nazwa" nie może być puste';
