@@ -6,7 +6,7 @@ $(document).ready(() => {
     data: formatedData,
     autoOpen : false,
     dragAndDrop: true,
-    openFolderDelay: 1010010001010101,
+    openFolderDelay: delay_autoOpen,
     onCreateLi : createAlbumNode,
     onCanSelectNode: function(node) {return false}
   });

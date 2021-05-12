@@ -12,6 +12,10 @@ var str_yes_change_parent = "{'Yes change parent anyway'|@translate}"
 var str_no_change_parent = "{'No, don\'t move this album here'|@translate}"
 var str_root = "{'Root'|@translate}"
 var openCat = {$open_cat};
+
+var delay_autoOpen = {$delay_before_autoOpen}
+
+console.log(delay_autoOpen)
 {/footer_script}
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
