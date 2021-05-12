@@ -1134,4 +1134,4 @@ $lang['Name field must not be empty'] = 'Naamveld mag niet leeg zijn';
 $lang['Root'] = 'Root';
 $lang['Select an album... or type it!'] = 'Selecteer een album ... of typ het!';
 $lang['Show sub-albums'] = 'Toon sub-album';
-$lang['Tile View'] = 'Tegel weergave';
+$lang['Tile View'] = 'Tegelweergave';
