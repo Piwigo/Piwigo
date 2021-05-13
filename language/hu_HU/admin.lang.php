@@ -1038,3 +1038,6 @@ $lang['Are you sure you want to delete the ratings of the user "%s"?'] = 'Biztos
 $lang['Are you sure you want to delete the theme "%s"?'] = 'Biztosan törölni akarod "%s" sablont?';
 $lang['Are you sure you want to install the plugin "%s"?'] = 'Biztosan telepíteni akarod "%s" bővítményt?';
 $lang['Are you sure you want to lock the gallery?'] = 'Biztosan blokkolni akarod a galériát?';
+$lang['<b>%d</b> tag found'] = '<b>%d</b> címkét találtunk';
+$lang['<b>%d</b> tag selected'] = '<b>%d</b> címke van kiválasztva';
+$lang['<b>%d</b> tags found'] = '<b>%d</b> címkét találtunk';
