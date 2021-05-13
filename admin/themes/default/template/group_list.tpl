@@ -6,6 +6,7 @@ var str_members_default = "{'members'|@translate}"
 var str_group_created = "{'Group added'|@translate}"
 var str_renaming_done = "{'Group renamed'|@translate}"
 var str_name_taken = "{'Name is already taken'|@translate}"
+var str_name_not_empty = "{'Name field must not be empty'|@translate}"
 var str_group_deleted = '{'Group "%s" succesfully deleted'|@translate}'
 var str_groups_deleted = '{'Groups \{%s\} succesfully deleted'|@translate}'
 var str_set_default = "{'Set as group for new users'|@translate}"

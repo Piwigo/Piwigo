@@ -1124,3 +1124,4 @@ $lang['Compact View'] = 'Affichage compact';
 $lang['Tile View'] = 'Affichage tuiles';
 $lang['Line View'] = 'Affichage lignes';
 $lang['Add Album'] = 'Ajouter un Album';
+$lang['Name field must not be empty'] = 'Le nom ne dois pas être vide';
