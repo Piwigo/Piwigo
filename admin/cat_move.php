@@ -121,6 +121,8 @@ $template->assign(
     )
   );
 
+$template->assign('delay_before_autoOpen', $conf['delay_before_auto_openning']);
+
 // +-----------------------------------------------------------------------+
 // |                          Album display                                |
 // +-----------------------------------------------------------------------+
