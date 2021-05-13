@@ -1131,3 +1131,4 @@ $lang['Apply an automatic order'] = 'Apply an automatic order';
 $lang['Root'] = 'Root';
 $lang['Apply to direct sub-albums'] = 'Apply to direct sub-albums';
 $lang['Apply to the whole hierarchy'] = 'Apply to the whole hierarchy';
+$lang['<b>%d+</b> albums found, try to refine the search'] = '<b>%d+</b> albums found, try to refine the search';
