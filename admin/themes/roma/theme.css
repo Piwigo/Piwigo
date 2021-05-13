@@ -277,8 +277,6 @@ a.stat-box:hover {
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
-.AlbumViewSelector {background: #555555;}
-.AlbumViewSelector input:checked + label span {color: #999999;}
 .pluginBox, .pluginContent, .pluginMiniBox, .groups li, .groups .GroupContainer {background-color:#333;color:#999;border-right-color:#333; box-shadow: none;}
 .pluginMiniBox {border-left: none;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#aaa;}
@@ -804,7 +802,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .buttonSeparator {color: #c1c1c1;}
 #cboxTitle {color: #7f7f7f !important;}
 #addAlbumForm {color: #999;}
-.selectedAlbum span {background-color: #555; color: #999;}
 #uploadForm li.plupload_droptext {background-color: #343434!important; color: #777 !important;}
 .addFilesButtonChanged {background-color: #888;}
 .addFilesButtonChanged:hover {background-color: #777;}
@@ -1106,4 +1103,37 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .move-cat-container .move-cat-toogler{
   color:#ffa744;
+}
+
+/*Album view selector css*/
+
+.AlbumViewSelector, .UserViewSelector {
+  background:#555 !important;
+}
+
+.AlbumViewSelector input:checked + label,
+.UserViewSelector input:checked + label{
+  background: transparent;
+  color: white;
+}
+
+.AlbumViewSelector input:checked + label span,
+.UserViewSelector input:checked + label span{
+  background: orange;
+}
+
+.AlbumViewSelector input:checked + label .icon-th-large, 
+.AlbumViewSelector input:checked + label .icon-th-list,
+.AlbumViewSelector input:checked + label .icon-pause {
+  color: #444;
+}
+
+.UserViewSelector input:checked + label .icon-th-large, 
+.UserViewSelector input:checked + label .icon-th-list,
+.UserViewSelector input:checked + label .icon-pause {
+  color: #444;
+}
+
+.icon-th-large, .icon-th-list, .icon-pause {
+  color: #c1c1c1;
 }

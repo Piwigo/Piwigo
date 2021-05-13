@@ -405,7 +405,6 @@ jQuery(".pluginMiniBox").each(function(index){
   padding: 0px;
   margin-right: 0px;
   border-radius: 7px;
-  {* background: #fafafa !important; *}
 }
 
 .AlbumViewSelector span {
@@ -428,15 +427,6 @@ jQuery(".pluginMiniBox").each(function(index){
   font-size: 19px;
 
   transition: 0.3s;
-}
-
-.AlbumViewSelector input:checked + label{
-  background: transparent;
-  color: white;
-}
-
-.AlbumViewSelector input:checked + label span{
-  background: orange;
 }
 
 .switchLayout {
