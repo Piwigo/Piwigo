@@ -963,7 +963,7 @@ function updatePage() {
         } else if (dataToDisplay.length > tagBoxes.length) {
           for (let j = boxToRecycle; j < dataToDisplay.length; j++) {
             let tag = dataToDisplay[j];
-            newTag = createTagBox(tag.id, tag.name, tag.url_name);
+            newTag = createTagBox(tag.id, tag.name, tag.url_name, tag.counter);
             newTag.css('opacity', 0);
             $('.tag-container').append(newTag);
             setupTagbox(newTag);
