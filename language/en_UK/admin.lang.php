@@ -1132,3 +1132,4 @@ $lang['Root'] = 'Root';
 $lang['Apply to direct sub-albums'] = 'Apply to direct sub-albums';
 $lang['Apply to the whole hierarchy'] = 'Apply to the whole hierarchy';
 $lang['<b>%d+</b> albums found, try to refine the search'] = '<b>%d+</b> albums found, try to refine the search';
+$lang['Select an album... or type it!'] = 'Select an album... or type it!';
