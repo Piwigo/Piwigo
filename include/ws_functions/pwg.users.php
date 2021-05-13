@@ -568,6 +568,16 @@ UPDATE '. USER_INFOS_TABLE .' SET
   WHERE user_id IN('. implode(',', $params['user_id_for_status']) .')
 ;';
     pwg_query($query);
+
+    // we delete sessions, ie disconnect, for users if status becomes "guest".
+    // It's like deactivating the user.
+    if ('guest' == $update_status)
+    {
+      foreach ($params['user_id_for_status'] as $user_id_for_status)
+      {
+        delete_user_sessions($user_id_for_status);
+      }
+    }
   }
 
   if (count($updates_infos) > 0)
