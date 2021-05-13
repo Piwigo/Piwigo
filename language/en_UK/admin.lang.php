@@ -1127,7 +1127,6 @@ $lang['Drag and drop to reorder albums'] = 'Drag and drop to reorder albums';
 $lang['Apply an automatic order to root albums'] = 'Apply an automatic order to root albums';
 $lang['Show sub-albums'] = 'Show sub-albums';
 $lang['Hide sub-albums'] = 'Hide sub-albums';
-$lang['Apply an automatic order'] = 'Apply an automatic order';
 $lang['Root'] = 'Root';
 $lang['Apply to direct sub-albums'] = 'Apply to direct sub-albums';
 $lang['Apply to the whole hierarchy'] = 'Apply to the whole hierarchy';
