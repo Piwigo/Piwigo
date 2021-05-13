@@ -1134,9 +1134,28 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 
   if ($user_found)
   {
-    log_user($row['id'], $remember_me);
-    trigger_notify('login_success', stripslashes($username));
-    return true;
+    // if user status is "guest" then she should not be granted to log in.
+    // The user may not exist in the user_infos table, so we consider it's a "normal" user by default
+    $status = 'normal';
+
+    $query = '
+SELECT
+    *
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$row['id'].'
+;';
+    $result = pwg_query($query);
+    while ($user_infos_row = pwg_db_fetch_assoc($result))
+    {
+      $status = $user_infos_row['status'];
+    }
+
+    if ('guest' != $status)
+    {
+      log_user($row['id'], $remember_me);
+      trigger_notify('login_success', stripslashes($username));
+      return true;
+    }
   }
   trigger_notify('login_failure', stripslashes($username));
   return false;
