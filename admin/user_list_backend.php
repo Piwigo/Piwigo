@@ -65,7 +65,7 @@ if ( isset( $_REQUEST["order"][0]["column"] ) )
   $sOrder = "ORDER BY  ";
   $i = 0;
   $col = $_REQUEST["order"][0]["column"];
-  if ( $_REQUEST['columns'][$col]["searchable"] == "true" )
+  if ( $_REQUEST['columns'][$col]["searchable"] == "true" and preg_match('/^(asc|desc)$/i', $_REQUEST["order"][0]["dir"]))
   {
     $sOrder .= $aColumns[ $col ].' '.$_REQUEST["order"][0]["dir"].', ';
   }
