@@ -4,8 +4,6 @@ function setDisplayCompact() {
     $(".pluginActions").show();
     $(".pluginActionsSmallIcons").hide();
 
-    $(".PluginOptionsIcons a").removeClass("biggerIcon");
-    $(".pluginActionsSmallIcons a").removeClass("biggerIcon");
     $(".pluginMiniBoxNameCell").removeClass("pluginMiniBoxNameCellCompact");
 
     normalTitle();
@@ -16,9 +14,6 @@ function setDisplayTile() {
     $(".pluginDescCompact").show();
     $(".pluginActions").hide();
     $(".pluginActionsSmallIcons").show();
-
-    $(".PluginOptionsIcons a").addClass("biggerIcon");
-    $(".pluginActionsSmallIcons a").addClass("biggerIcon");
 
     $(".pluginMiniBoxNameCell").addClass("pluginMiniBoxNameCellCompact");
 

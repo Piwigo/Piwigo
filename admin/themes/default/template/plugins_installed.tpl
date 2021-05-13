@@ -461,10 +461,6 @@ jQuery(".pluginMiniBox").each(function(index){
   transition: 0.2s;
 }
 
-.biggerIcon {
-  transform: scale(1.5) !important;
-}
-
 .pluginActionsSmallIcons {
   position: absolute;
   right: 20px;
