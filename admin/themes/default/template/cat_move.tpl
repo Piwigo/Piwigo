@@ -14,8 +14,6 @@ var str_root = "{'Root'|@translate}"
 var openCat = {$open_cat};
 
 var delay_autoOpen = {$delay_before_autoOpen}
-
-console.log(delay_autoOpen)
 {/footer_script}
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}

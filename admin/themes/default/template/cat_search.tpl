@@ -16,11 +16,13 @@ const RESULT_LIMIT = 100;
 
 var str_albums_found = '{"<b>%d</b> albums found"|translate}';
 var str_album_found = '{"<b>1</b> album found"|translate}';
-var str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate}';
+var str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
 
 {literal}
 var editLink = "admin.php?page=album-";
 var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
+
+$(".limit-album-reached").hide();
 
 $('.search-input').on('input', () => {
   updateSearch();
@@ -31,6 +33,7 @@ function updateSearch () {
   string = $('.search-input').val();
   $('.search-album-result').html("");
   $('.search-album-noresult').hide();
+  $(".limit-album-reached").hide();
   if (string == '') {
     // help button unnecessary so do not show
     // $('.search-album-help').show();
@@ -44,8 +47,8 @@ function updateSearch () {
     nbResult = 0;
     categories.forEach((c) => {
       if (c[0].toString().toLowerCase().search(string.toLowerCase()) != -1 && nbResult < RESULT_LIMIT) {
-        addAlbumResult(c);
         nbResult++;
+        addAlbumResult(c, nbResult);
       }
     })
 
@@ -68,7 +71,7 @@ function updateSearch () {
 }
 
 // Add an album as a result in the page
-function addAlbumResult (cat) {
+function addAlbumResult (cat, nbResult) {
   id = cat[1][cat[1].length - 1];
   template = $('.search-album-elem-template').html();
   newCatNode = $(template);
@@ -97,6 +100,11 @@ function addAlbumResult (cat) {
   newCatNode.find('.search-album-edit').attr('href', href);
 
   $('.search-album-result').append(newCatNode);
+
+  if(nbResult >= RESULT_LIMIT) {
+    $(".limit-album-reached").show(1000);
+    $('.limit-album-reached').html(str_result_limit.replace('%d', nbResult));
+  }
 }
 
 // Get the path "PARENT / parent / album" with link to the edition of all albums
@@ -168,8 +176,17 @@ $('.search-input').focus();
 <div class="search-album-result">
 
 </div>
+<div class="search-album-elem limit-album-reached"></div>
 
 <div class="search-album-noresult">
   {'No albums found'|translate}
 </div>
+
+<style>
+.limit-album-reached {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
 

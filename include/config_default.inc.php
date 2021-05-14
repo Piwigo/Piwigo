@@ -716,8 +716,9 @@ $conf['dashboard_check_for_updates'] = true;
 // Number Weeks displayed on activity chart on the dashboard
 $conf['dashboard_activity_nb_weeks'] = 4;
 
-// Number of seconds before auto openning when dragging albums in milliseconds : 3 seconds by default
-$conf['delay_before_auto_openning'] = 3*1000;
+// On album mover page, number of seconds before auto openning album when
+// dragging an album. In milliseconds. 3 seconds by default.
+$conf['album_move_delay_before_auto_opening'] = 3*1000;
 
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
