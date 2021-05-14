@@ -1118,3 +1118,7 @@ $lang['Associate User'] = 'Saistītais Lietātājs';
 $lang['%s file type'] = '%s faila tipu';
 $lang['%d sub-albums'] = '%d apakšalbūmu';
 $lang['%d Activities'] = '%d Activitāšu';
+$lang['Show sub-albums'] = 'Parādīt apakšalbūmus';
+$lang['Hide sub-albums'] = 'Paslēpt apakšalbūmus';
+$lang['Compact View'] = 'Kompakts Skats';
+$lang['Add Album'] = 'Pievienot Albūmu';
