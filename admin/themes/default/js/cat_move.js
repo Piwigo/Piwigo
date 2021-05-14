@@ -217,14 +217,14 @@ function applyMove(event) {
 function moveNode(node, rank, parent) {
   return new Promise ((res, rej) => {
     if (parent != null) {
-      changeParent(node, parent).then(changeRank(node, rank)).then(() => res()).catch(() => rej())
+      changeParent(node, parent, rank).then(() => res()).catch(() => rej())
     } else if (rank != null) {
       changeRank(node, rank).then(() => res()).catch(() => rej())
     }
   })
 }
 
-function changeParent(node, parent) {
+function changeParent(node, parent, rank) {
   return new Promise((res, rej) => {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.categories.move",
@@ -237,6 +237,7 @@ function changeParent(node, parent) {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
+          changeRank(node, rank)
           res();
         } else {
           rej(raw_data);
