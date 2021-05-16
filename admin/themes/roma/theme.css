@@ -1044,29 +1044,30 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 /* Icon colors*/
 
 .icon-red {
-  background-color: #c64444;
-  color: #650101;
+  border:2px solid #c64444;
+  color: #c64444
 }
 
 .icon-yellow {
-  color: #9b5200;
-  background-color: #ffa744;
+  color: #ffa744;
+  border:2px solid #ffa744;
 }
 
 .icon-purple {
-  background-color: #ce4baa;
-  color: #52003b;
+  border:2px solid #ce4baa;
+  color: #ce4baa;
 }
 
 .icon-blue {
-  background-color: #379bbc;
-  color: #003751;
+  border:2px solid #379bbc;
+  color: #379bbc;
 }
 
 .icon-green {
-  background-color: #4ac641;
-  color: #014400;
+  border:2px solid #4ac641;
+  color: #4ac641;
 }
+
 
 .themeBox{
   box-shadow: 0 0 5px #333;
