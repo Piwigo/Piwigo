@@ -1132,6 +1132,6 @@ $lang['Hide sub-albums'] = 'Verberg sub-albums';
 $lang['Line View'] = 'Lijnweergave';
 $lang['Name field must not be empty'] = 'Naamveld mag niet leeg zijn';
 $lang['Root'] = 'Root';
-$lang['Select an album... or type it!'] = 'Selecteer een album ... of typ het!';
+$lang['Select an album... or type it!'] = 'Selecteer een album ... of type het!';
 $lang['Show sub-albums'] = 'Toon sub-album';
 $lang['Tile View'] = 'Tegelweergave';
