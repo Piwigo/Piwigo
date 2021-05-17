@@ -741,6 +741,11 @@ $(function() {
       selectize.addOption({value:u.id, text:u.username})
     })
     idSearch = $("#UserList").attr("data-group_id");
+    for (const [key, value] of Object.entries(selectize.options)) {
+      if (value.username === "guest") {
+        selectize.removeOption(value.id);
+      }
+    }
     $('.UsernameBlock').each(function(){
       selectize.removeOption($(this).data("id"));
     })
