@@ -1147,6 +1147,25 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color:#333;
 }
 
+.user-first-col:hover {
+  border: solid #ffa646 2px;
+  box-sizing: border-box;
+
+  background-color:transparent;
+}
+
+.user-first-col:hover .icon-pencil {
+  color: #ffa646;
+}
+.user-first-col:hover .select-checkbox {
+  border: solid #ffa646 2px !important;
+  background-color: #ffa646 !important;
+}
+.user-first-col .select-checkbox {
+  border: solid #ffa646 2px !important;
+  background-color: transparent !important;
+}
+
 #advanced_filter_button, #advanced-filter-container {
   background-color:#333;
 }

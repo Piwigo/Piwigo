@@ -4941,6 +4941,17 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color:#F3F3F3;
 }
 
+.user-first-col:hover {
+  background-color:#FFC276;
+}
+
+.user-first-col:hover .icon-pencil {
+  color: #000;
+}
+.user-first-col:hover .select-checkbox {
+  color: #000;
+}
+
 #advanced_filter_button, #advanced-filter-container {
   background-color:#F3F3F3;
 }

@@ -911,7 +911,7 @@ update_selection_content();
   display:none;
   position: relative;
   width: 223px;
-  top: -20px;
+  top: -30px;
   min-height: 100%;
 }
 
@@ -1124,14 +1124,6 @@ update_selection_content();
     border-top-left-radius: 15%;
     border-bottom-left-radius: 15%;
     cursor:pointer;
-}
-
-.user-first-col:hover {
-    background-color:#FFC276;
-}
-
-.user-first-col:hover span{
-    color: #000;
 }
 
 .user-container-checkbox.user-list-checkbox {
