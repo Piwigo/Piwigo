@@ -1136,12 +1136,6 @@ update_selection_content();
   background-color: #F3F3F3;
 }
 
-
-.user-container.container-selected .user-container-checkbox.user-list-checkbox .select-checkbox {
-  background-color: #ffa646;
-  border: solid #ffa646 2px;
-}
-
 .user-container-checkbox.user-list-checkbox i {
     margin-left:7px;
 }
@@ -1228,30 +1222,6 @@ update_selection_content();
     text-overflow: ellipsis;
     overflow:hidden;
     white-space:nowrap;
-}
-
-/* User container selected */
-
-.user-container.container-selected {
-    display:flex;
-    width:100%;
-    height:80px;
-    background-color:#FFD9A7;
-    font-weight:bold;
-    border-radius:10px;
-    margin-bottom:20px;
-}
-
-
-.user-container.container-selected .user-container-initials-wrapper > span {
-  background-color: #FF7B00;
-  color:#FEE7BD;
-}
-
-.user-container.container-selected .user-groups,
-.user-container.container-selected .registration-clock {
-  background-color: #FEE7C8;
-  color:#FF7B00;
 }
 
 /* User Edit Pop-in */
@@ -2013,11 +1983,6 @@ Advanced filter
 
 .user-header-initials {
   width: 10px;
-}
-
-.group-bonus {
-  color: #000;
-  background: #DDDDDD;
 }
 
 /*View Selector*/

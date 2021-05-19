@@ -4951,6 +4951,39 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .user-first-col:hover .select-checkbox {
   color: #000;
 }
+/* Selected container in userManager*/
+
+.user-container.container-selected .user-container-checkbox.user-list-checkbox .select-checkbox {
+  background-color: #ffa646;
+  border: solid #ffa646 2px;
+}
+
+.user-container.container-selected {
+  display:flex;
+  width:100%;
+  height:80px;
+  background-color:#FFD9A7;
+  font-weight:bold;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+.user-container.container-selected .user-container-initials-wrapper > span {
+background-color: #FF7B00;
+color:#FEE7BD;
+}
+
+.user-container.container-selected .user-groups,
+.user-container.container-selected .registration-clock {
+background-color: #FEE7C8;
+color:#FF7B00;
+}
+
+/*****/
+.group-bonus {
+  color: #000;
+  background: #DDDDDD;
+}
 
 #advanced_filter_button, #advanced-filter-container {
   background-color:#F3F3F3;
