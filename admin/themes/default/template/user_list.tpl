@@ -1051,12 +1051,12 @@ update_selection_content();
 
 .user-header-initials,
 .user-container-initials {
-    width:60px;
+    width:70px;
 }
 
 .user-header-username{
   width: 20%;
-  max-width: 200px;
+  max-width: 210px;
 }
 .user-container-username {
   width: 20%;
@@ -1787,14 +1787,24 @@ update_selection_content();
 #GuestUserList .item,
 #GuestUserList .item.active {
   background-image:none;
-  background-color: #ffa744;
-  border-color: black;
-}
+  background-color: #ffd2a1;
+  border-color: transparent;
 
+  border-radius: 20px;
+}
 
 #UserList .item .remove,
 #GuestUserList .item .remove {
-  border-color: black;
+  background-color: transparent;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  border-left: 1px solid transparent;
+
+}
+#UserList .item .remove:hover,
+#GuestUserList .item .remove:hover {
+  background-color: #ffaf58;
 }
 
 /* selection panel */
@@ -2161,6 +2171,12 @@ Advanced filter
   margin-bottom: 35px;
 }
 
+.compactView .user-container-initials-wrapper > span {
+  height: 36px;
+  width: 36px;
+}
+
+
 .compactView .user-container {
   height: 50px;
   padding: 0 50px 0 0;
@@ -2234,8 +2250,8 @@ Advanced filter
 
 .lineView .user-container-initials-wrapper > span {
   padding: 0px;
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
 
   display: flex;
   justify-content: center;
