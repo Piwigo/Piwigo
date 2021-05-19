@@ -871,13 +871,11 @@ function selectionMode(isSelection) {
             $(".user-container-email").show();
         }
 
-        if ($.cookie("pwg_user_manager_view") === "tile" || $.cookie("pwg_user_manager_view") === "line") {
+        if ($.cookie("pwg_user_manager_view") !== "tile" || $.cookie("pwg_user_manager_view") === "line") {
             $(".user-container-email").css({
-                display: "flex"
+                display: "none"
             })
         }
-        
-        
     } else {
         $(".container-selected").removeClass("container-selected");
         $(".in-selection-mode").hide();
