@@ -206,7 +206,9 @@ function cmp($a, $b)
   else
     return $s[$a['STATE']] >= $s[$b['STATE']]; 
 }
-usort($tpl_plugins, 'cmp');
+
+// Stoped plugin sorting for new plugin manager
+// usort($tpl_plugins, 'cmp');
 
 $template->assign(
   array(

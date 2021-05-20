@@ -1951,7 +1951,7 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBoxesTitle span {border-radius: 50%; margin-right: 5px; padding: 4px}
 
 .pluginBoxesTitle {display: flex;align-items: center}
-.pluginFilter {justify-content: end;position: absolute;right: 130px; z-index: 2; transform: translateY(6px);}
+.pluginFilter {justify-content: end;position: absolute;right: 160px; z-index: 2; transform: translateY(6px);}
 
 .pluginBoxesCount {
   background-color: rgb(150, 150, 150);
@@ -1980,11 +1980,12 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginMiniBox {
   display:flex;
   width:260px;
-  margin:15px 30px;
+  margin:15px;
   border-top-right-radius:5px;
   border-bottom-right-radius:5px;
   margin-left: 0;
-  box-shadow: 0px 0px 5px #acacac;
+  /* box-shadow: 0px 0px 5px #acacac; */
+  box-shadow: 1px 1px 0px 1px #e0e0e0;
 }
 .PluginOptionsBlock a:hover { color: white ;}
 .pluginContent {
@@ -1994,8 +1995,10 @@ h2:lang(en) { text-transform:capitalize; }
   padding: 15px;
   position: relative;
   border-left: solid 5px #ffc17e;
-  border-right:solid 5px #fafafa;
-  border-radius: 5px;
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+  /* border-right:solid 5px #fafafa; */
+  /* border-radius: 5px; */
 }
 
 .pluginMiniBoxNameCell {
@@ -2011,7 +2014,7 @@ h2:lang(en) { text-transform:capitalize; }
 }
 
 .pluginDesc {
-  margin-top: 5px;
+  margin-top: 43px;
   font-size: 12px;
   color: grey;
   line-height: 1.5em;
@@ -2024,20 +2027,21 @@ h2:lang(en) { text-transform:capitalize; }
   margin-top:15px;
   font-size:12px;
 }
-
+/* 
 .pluginActions > * {
   padding: 10px 4px;
   text-align: center;
   display:block;
-}
+} */
 .pluginEmptyInput {width: 90px;}
 .pluginUnavailableAction {
   opacity: 0.5;
   font-size: 12px;
-  padding: 10px 4px;
-  margin-top: 15px;
-  background-color:#ddd;
+  padding: 2px 10px;
+  /* margin-top: 15px; */
+  background-color:#dddddddd;
   font-weight:700;
+  border-radius: 5px;
 }
 .pluginActionLevel1 {background-color: #ffc17e; font-weight: bold;}
 .pluginActionLevel1:hover {background-color: #ff7700; color: white; text-decoration: none;}
@@ -2073,6 +2077,56 @@ h2:lang(en) { text-transform:capitalize; }
   padding: 13px;
 }
 
+.pluginTypeFilter .filter {
+  display: none;
+}
+
+.pluginTypeFilter {
+  display: flex;
+  flex-direction: row;
+
+  position: absolute;
+
+  left: 225px;
+  z-index: 2;
+
+  transform: translateY(13px);
+}
+
+.pluginTypeFilter label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: 70px;
+  height: 30px;
+
+  color: #898989;
+  background: #f3f3f3;
+  box-shadow: 0px 2px #00000024;
+}
+
+.pluginTypeFilter input:checked + label{
+  background: #ffa500;
+  color: white;
+  box-shadow: 0 2px #d18800;
+}
+
+.pluginContainer.line .pluginMiniBox:hover .pluginContent{
+  transition: 0.4s;
+  background: #ffe5cc;
+}
+
+.pluginContainer.line .pluginMiniBox:hover.plugin-inactive .slider {
+  transition: 0.4s;
+  background: #999999;
+}
+
+.pluginContainer.line .pluginMiniBox:hover .pluginContent .pluginActions a{
+  /* color: #ffffff; */
+  opacity: 1;
+}
 
  .PluginOptionsBlock{
     display:none;

@@ -1104,9 +1104,65 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color:#999999;
 }
 
+.pluginContent {
+  border-left: solid 5px #ff8c27;
+}
+
 .pluginUnavailableAction{
   background-color:#888;
   color:#666;
+}
+
+.pluginTypeFilter {
+  display: flex;
+  flex-direction: row;
+
+  position: absolute;
+
+  left: 225px;
+  z-index: 2;
+
+  transform: translateY(13px);
+}
+
+.pluginTypeFilter label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: 70px;
+  height: 30px;
+
+  color: #c1c1c1;
+  background: #555555;
+  box-shadow: 0px 2px #00000066;
+}
+
+.pluginTypeFilter input:checked + label{
+  background: #ffa500;
+  color: #444444;
+  box-shadow: 0 2px #925f00;
+}
+
+.pluginContainer.line .pluginMiniBox:hover .pluginContent{
+  transition: 0.4s;
+  background: #333333;
+}
+
+.pluginContainer.line .pluginMiniBox:hover.plugin-inactive .slider {
+  transition: 0.4s;
+  background: #777777;
+}
+
+.pluginContainer .pluginMiniBox.plugin-inactive .slider {
+  transition: 0.4s;
+  background: #777777;
+}
+
+.pluginContainer.line .pluginMiniBox:hover .pluginContent .pluginActions .pluginUnavailableAction{
+  /* color: #ffffff; */
+  opacity: 0.5;
 }
 
 .addAlbum label{

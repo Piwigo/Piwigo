@@ -20,8 +20,13 @@ const are_you_sure_msg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
 const confirm_msg = '{"Yes, I am sure"|@translate}';
 const cancel_msg = "{"No, I have changed my mind"|@translate}";
 let delete_plugin_msg = '{'Are you sure you want to delete the plugin "%s"?'|@translate|@escape:'javascript'}';
+let deleted_plugin_msg = '{'Plugin "%s" deleted!'|@translate|@escape:'javascript'}';
 let restore_plugin_msg = '{'Are you sure you want to restore the plugin "%s"?'|@translate|@escape:'javascript'}';
 const restore_tip_msg = "{'Restore default configuration. You will lose your plugin settings!'|@translate}";
+const plugin_added_str = '{'Activated!'|@translate}';
+const plugin_deactivated_str = '{'Deactivated!'|@translate}';
+const plugin_restored_str = '{'Restored!'|@translate}';
+const plugin_action_error = '{'an error happened'|@translate}';
 {literal}
 var queuedManager = jQuery.manageAjax.create('queued', { 
   queue: true,  
@@ -32,30 +37,6 @@ var done = 0;
 /* group action */
 
 jQuery(document).ready(function() {
-  $(".delete-plugin-button").each(function() {
-    let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
-    $(this).pwg_jconfirm_follow_href({
-      alert_title: delete_plugin_msg.replace('%s', plugin_name),
-      alert_confirm: confirm_msg,
-      alert_cancel: cancel_msg
-    });
-  });
-  $(".plugin-restore").each(function() {
-    let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
-    $(this).pwg_jconfirm_follow_href({
-      alert_title: restore_plugin_msg.replace('%s', plugin_name),
-      alert_confirm: confirm_msg,
-      alert_cancel: cancel_msg,
-      alert_content: restore_tip_msg,
-    });
-  });
-  $(".uninstall-plugin-button").each(function() {
-    $(this).pwg_jconfirm_follow_href({
-      alert_title: are_you_sure_msg,
-      alert_confirm: confirm_msg,
-      alert_cancel: cancel_msg
-    });
-  });
   jQuery('div.deactivate_all a').click(function() {
     $.confirm({
       title: deactivate_all_msg,
@@ -160,35 +141,37 @@ jQuery(document).ready(function() {
     jQuery(".pluginFilter input").on("input", function() {
       let text = jQuery(this).val().toLowerCase();
       var searchNumber = 0;
-      jQuery('.pluginBoxes').each(function () {
-        let searchNumberInBox = 0;
-        let pluginBoxes = jQuery(this);
-        pluginBoxes.find(".pluginMiniBox").each(function() {
+      
+        $(".pluginMiniBox").each(function() {
           if (text == "") {
-            jQuery(this).fadeIn()
-            searchNumberInBox++;
+            jQuery(this).fadeIn();
+            searchNumber++
           } else {
             let name = jQuery(this).find(".pluginMiniBoxNameCell").text().toLowerCase();
             let description = jQuery(this).find(".pluginDesc").text().toLowerCase();
             if (name.search(text) != -1 || description.search(text) != -1){
-              jQuery(this).fadeIn()
-              searchNumberInBox++;
+              searchNumber++;
+
+              if ($("#seeAll").is(":checked")) {
+                jQuery(this).fadeIn();
+              }
+              if ($("#seeActive").is(":checked") && jQuery(this).hasClass("plugin-active")) {
+                jQuery(this).fadeIn();
+              }
+              if ($("#seeInactive").is(":checked") && jQuery(this).hasClass("plugin-inactive")) {
+                
+                jQuery(this).fadeIn();
+              }
+              if ($("#seeOther").is(":checked") && (jQuery(this).hasClass("plugin-merged") || jQuery(this).hasClass("plugin-missing"))) {
+                jQuery(this).fadeIn();
+              }
+
             } else {
-              jQuery(this).fadeOut()
+              jQuery(this).fadeOut();
             }
           }
         })
-        if (searchNumberInBox == 0) {
-          pluginBoxes.fadeOut();
-        } else {
-          if (pluginBoxes.hasClass("plugin-inactive")) {
-            showInactivePlugins()
-          } else {
-            pluginBoxes.fadeIn();
-          }
-        }
-        searchNumber += searchNumberInBox;
-      });
+
       if (searchNumber == 0) {
           jQuery(".emptyResearch").fadeIn();
         } else {
@@ -237,6 +220,10 @@ jQuery(".pluginMiniBox").each(function(index){
 {assign var='field_name' value='null'} {* <!-- 'counter' for fieldset management --> *}
 {counter start=0 assign=i} {* <!-- counter for 'deactivate all' link --> *}
 
+<div class="pluginTypeFilter">
+  <input type="radio" name="p-filter" class="filter" id="seeAll" checked><label for="seeAll">All</label><input type="radio" name="p-filter" class="filter" id="seeActive"><label class="filterLabel" for="seeActive">Active</label><input type="radio" name="p-filter" class="filter" id="seeInactive"><label class="filterLabel" for="seeInactive">Inactive</label><input type="radio" name="p-filter" class="filter" id="seeOther"><label class="filterLabel" for="seeOther">Other</label>
+</div>
+
 <div class="pluginFilter"> 
   <span class="icon-filter search-icon"></span>
   <span class="icon-cancel search-cancel"></span>
@@ -244,46 +231,15 @@ jQuery(".pluginMiniBox").each(function(index){
 </div>
 
 <div class="AlbumViewSelector">
-    <input type="radio" name="layout" class="switchLayout" id="displayTile" {if $smarty.cookies.pwg_plugin_manager_view == 'tile' || !$smarty.cookies.pwg_plugin_manager_view}checked{/if}/><label for="displayTile"><span class="icon-pause firstIcon tiptip" title="{'Tile View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_plugin_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
-</div>
+    <input type="radio" name="layout" class="switchLayout" id="displayClassic" {if $smarty.cookies.pwg_plugin_manager_view == 'classic' || !$smarty.cookies.pwg_plugin_manager_view}checked{/if}/><label for="displayClassic"><span class="icon-pause firstIcon tiptip" title="{'Classic View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayLine" {if $smarty.cookies.pwg_plugin_manager_view == 'line'}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_plugin_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
+</div>  
 
 <div class="emptyResearch"> {'No plugins found'|@translate} </div>
 
+<div class="pluginContainer">
+
 {foreach from=$plugins item=plugin name=plugins_loop}
-    
-{if $field_name != $plugin.STATE}
-  {if $field_name != 'null'}
-  </div> {* PluginBoxes Container*}
-  </div> {* PluginBoxes*}
-      {/if}
 
-  <div class="pluginBoxes plugin-{$plugin.STATE}" {if $plugin.STATE == 'inactive'}{if $count_types_plugins["inactive"]>$max_inactive_before_hide}style="display:none"{/if}{/if}>
-  {assign var='field_name' value=$plugin.STATE}
-
-  <div class="pluginBoxesHead">
-      <div class="pluginBoxesTitle">
-        <p>
-        {if $plugin.STATE == 'active'}
-          <span class="icon-purple icon-toggle-on"></span>{'Active Plugins'|@translate}
-        {elseif $plugin.STATE == 'inactive'}
-          <span class="icon-red icon-toggle-off"></span>{'Inactive Plugins'|@translate}
-        {elseif $plugin.STATE == 'missing'}
-          <span class="icon-green icon-toggle-off"></span>{'Missing Plugins'|@translate}
-        {elseif $plugin.STATE == 'merged'}
-          <span class="icon-yellow icon-toggle-off"></span>{'Obsolete Plugins'|@translate}
-        {/if}
-        </p>
-        <div class="pluginBoxesCount">{$count_types_plugins[$plugin.STATE]}</div>
-      </div>
-
-      {if $plugin.STATE == 'active'}
-        <div class="deactivate_all"><a>{'Deactivate all'|@translate}</a></div>
-      {/if}
-    </div>
-
-  <div class="pluginBoxesContainer">
-{/if}
-  
   {if not empty($plugin.AUTHOR)}
     {if not empty($plugin.AUTHOR_URL)}
       {assign var='author' value="<a href='%s'>%s</a>"|@sprintf:$plugin.AUTHOR_URL:$plugin.AUTHOR}
@@ -297,14 +253,44 @@ jQuery(".pluginMiniBox").each(function(index){
   {else}
     {assign var='version' value=$plugin.VERSION}
   {/if}
-              
-  <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}">
+
+  <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE} plugin-{$plugin.STATE}">
+
+    <div class="AddPluginSuccess pluginNotif">
+      <label class="icon-ok">
+        <span>{'Plugin activated'|@translate}</span>
+      </label>
+    </div>
+
+    <div class="DeactivatePluginSuccess pluginNotif">
+      <label class="icon-ok">
+        <span>{'Plugin deactivated'|@translate}</span>
+      </label>
+    </div>
+
+    <div class="RestorePluginSuccess pluginNotif">
+      <label class="icon-ok">
+        <span>{'Plugin deactivated'|@translate}</span>
+      </label>
+    </div>
+
+    <div class="PluginActionError pluginNotif">
+      <label class="icon-cancel">
+        <span>{'Plugin deactivated'|@translate}</span>
+      </label>
+    </div>
+
     <div class="pluginContent">
       <div class="PluginOptionsIcons">
         {if $plugin.STATE == 'active' || $plugin.STATE == 'inactive'}
           <a class="icon-ellipsis-v showOptions showInfo" ></a>
         {/if}
       </div>
+
+    <label class="switch">
+      <input type="checkbox" id="toggleSelectionMode" {if {$plugin.STATE} === "active"}checked{/if}>
+      <span class="slider round"></span>
+    </label>
 
       <div class="pluginActionsSmallIcons">
         {if $plugin.STATE == 'active'}
@@ -318,9 +304,15 @@ jQuery(".pluginMiniBox").each(function(index){
             </div>
           {/if}
         {elseif $plugin.STATE == 'inactive'}
-          <div class="tiptip" title="{'Activate'|@translate}">
-            <a class="icon-plus-circled" href="{$plugin.U_ACTION}&amp;action=activate" class="activate"></a>
-          </div>
+          {if $plugin.SETTINGS_URL != ''}
+              <div class="tiptip" title="{'Settings'|@translate}"> 
+                  <a href="{$plugin.SETTINGS_URL}"><span class="icon-cog"></span></a>
+              </div>
+          {else}
+              <div class="tiptip" title="{'Settings'|@translate}"> 
+                <a href="{$plugin.SETTINGS_URL}"><span class="icon-cog"></span></a>
+              </div>
+          {/if}
         {elseif $plugin.STATE == 'missing'}
           <div class="tiptip" title="{'Uninstall'|@translate}">
             <a class="uninstall-plugin-button" href="{$plugin.U_ACTION}&amp;action=uninstall"></a>
@@ -337,12 +329,8 @@ jQuery(".pluginMiniBox").each(function(index){
         <div class="pluginDescCompact">
           {$plugin.DESC}
         </div>
-        {if $plugin.STATE == 'active'}
-          <a class="dropdown-option icon-back-in-time plugin-restore separator-top" href="{$plugin.U_ACTION}&amp;action=restore">{'Restore'|@translate}</a>  
-          <a class="dropdown-option icon-cancel-circled" href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-        {elseif $plugin.STATE == 'inactive'}
-          <a class="dropdown-option icon-trash delete-plugin-button" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
-        {/if}      
+          <a class="dropdown-option icon-back-in-time plugin-restore separator-top">{'Restore'|@translate}</a>
+          <a class="dropdown-option icon-trash delete-plugin-button separator-top">{'Delete'|@translate}</a>
       </div>
       <div class="pluginMiniBoxNameCell" data-title="{$plugin.NAME}">
         {$plugin.NAME}
@@ -355,10 +343,14 @@ jQuery(".pluginMiniBox").each(function(index){
           {if $plugin.SETTINGS_URL != ''}
             <a href="{$plugin.SETTINGS_URL}" class="pluginActionLevel1 icon-cog">{'Settings'|@translate}</a>
           {else}
-            <div class="pluginUnavailableAction icon-cog tiptip" title="{'N/A'|translate}">{'Settings'|@translate}</div>
+            <a class="pluginUnavailableAction icon-cog tiptip" title="{'N/A'|translate}">{'Settings'|@translate}</a>
           {/if}
         {elseif $plugin.STATE == 'inactive'}
-          <a class="pluginActionLevel1 icon-plus" href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
+          {if $plugin.SETTINGS_URL != ''}
+            <a href="{$plugin.SETTINGS_URL}" class="pluginUnavailableAction icon-cog">{'Settings'|@translate}</a>
+          {else}
+            <a class="pluginUnavailableAction icon-cog tiptip" title="{'N/A'|translate}">{'Settings'|@translate}</a>
+          {/if}
         {elseif $plugin.STATE == 'missing'}
           <a class="pluginActionLevel3 uninstall-plugin-button" href="{$plugin.U_ACTION}&amp;action=uninstall">{'Uninstall'|@translate}</a>
         {elseif $plugin.STATE == 'merged'}
@@ -367,22 +359,9 @@ jQuery(".pluginMiniBox").each(function(index){
       </div>
     </div>
     
-  </div> {*<!-- pluginMiniBox -->*}
-    
-
-    
-  {/foreach}
-  </div> {* PluginBoxes Container*}
-  </div> {* PluginBoxes*}
-
-  <div class="showInactivePlugins" {if $count_types_plugins["inactive"]<=$max_inactive_before_hide}style="display:none"{/if} >
-      <div class="showInactivePluginsInfo">
-        {assign var='badge_inactive' value='<span class="pluginBoxesCount">%s</span>'|@sprintf:$count_types_plugins["inactive"]}
-        <div>{'You have %s inactive plugins'|translate:$badge_inactive}</div>
-      </div>
-      <button class="buttonLike" id="showInactivePluginsAction">{'Show inactive plugins'|@translate}</button>
-  </div>
-
+  </div> 
+{/foreach}
+</div>
 {/if}
 
 
@@ -443,7 +422,7 @@ jQuery(".pluginMiniBox").each(function(index){
   justify-content: center;
   align-items: center;
 
-  color: #7f7f7f;
+  color: #3c3c3c;
 }
 
 .pluginActionsSmallIcons a:hover, .PluginOptionsIcons a:hover {
@@ -459,14 +438,34 @@ jQuery(".pluginMiniBox").each(function(index){
   display: flex;
 }
 
-.pluginActionsSmallIcons a {
-  transform: scale(1.3);
-}
-
-.pluginActionsSmallIcons a span {
+.pluginMiniBox.active .pluginActionsSmallIcons a span {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  padding: 5px 2px;
+  background: #ffc17e;
+  border-radius: 5px;
+}
+
+.pluginMiniBox.active .pluginActionsSmallIcons a span:hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 2px;
+  background: #ff7700;
+  border-radius: 5px;
+}
+
+.pluginMiniBox.inactive .pluginActionsSmallIcons a span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 2px;
+  background: #e0e0e0;
+  border-radius: 5px;
 }
 
 .pluginActionsSmallIcons a:hover {
@@ -475,6 +474,7 @@ jQuery(".pluginMiniBox").each(function(index){
 
 .pluginMiniBox {
   transition: 0.5s;
+  position: relative;
 }
 
 .unavailablePlugin {
@@ -509,4 +509,193 @@ jQuery(".pluginMiniBox").each(function(index){
   font-weight: bold;
 }
 
+.pluginContainer {
+  margin-top: 75px;
+  padding: 0 20px;
+}
+
+.switch {
+  margin: 0 10px 0 0;
+}
+
+.plugin-inactive .pluginActions a {
+  pointer-events: none;
+}
+
+.plugin-active .dropdown .delete-plugin-button {
+  display: none;
+}
+  
+.plugin-inactive .dropdown .plugin-restore {
+ display: none;
+}
+
+.plugin-inactive .dropdown .delete-plugin-button {
+  display: block;
+}
+  
+.plugin-active .dropdown .plugin-restore {
+ display: block;
+}
+
+.plugin-inactive .pluginActionsSmallIcons {
+  opacity: 0.5;
+}
+
+.pluginNotif {
+  display:none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -20px;
+  font-weight:bold;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.AddPluginSuccess span,
+.RestorePluginSuccess span,
+.DeactivatePluginSuccess span {
+  color: #0a0;
+}
+
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label {
+  padding: 10px;
+  background-color:  #c2f5c2;
+  cursor: default;
+  color: #0a0;
+  border-radius: 30px;
+}
+
+.PluginActionError span {
+  color: rgb(170, 0, 0);
+}
+
+.PluginActionError label {
+  padding: 10px;
+  background-color:  #f5c2c2;
+  cursor: default;
+  color: rgb(170, 0, 0);
+  border-radius: 30px;
+}
+
+/* Line view */
+
+.pluginContainer.line {
+  display: flex;
+  flex-direction: column;
+}
+
+.pluginContainer.line .pluginMiniBox {
+  width: 100%;
+  height: 50px;
+
+  margin: 0 0 10px 0;
+}
+
+.pluginContainer.line .pluginMiniBox .pluginContent{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pluginContainer.line .pluginMiniBox .pluginActions{
+  width: auto;
+  margin: 0 25px 0 auto;
+}
+
+.pluginContainer.line .pluginMiniBox .PluginOptionsBlock{
+  display:none;
+  position:absolute;
+  right: 30px;
+  top: 0;
+  z-index: 2;
+  transform: translateY(calc(50% - 30px));
+}
+
+.pluginContainer.line .pluginMiniBox .dropdown::after {
+  content: " ";
+  position: absolute;
+  bottom: 55%;
+  left: calc(100% + 5px);
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #ff7700 transparent;
+  transform: rotate(90deg);
+}
+
+
+.pluginContainer.line .pluginMiniBox .pluginActions a,
+.pluginContainer.classic .pluginMiniBox .pluginActions a{
+  margin: 0;
+  padding: 2px 10px;
+  border-radius: 5px;
+  color: #3c3c3c;
+}
+
+.pluginContainer.line .pluginMiniBox .pluginDesc{
+  margin:  auto 10px auto 10px;
+  display: block !important;
+  align-items: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  max-width: 1000px;
+  flex: 1;
+}
+
+/* Classic view */
+
+.pluginContainer.classic {
+  display: flex;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+}
+
+.pluginContainer.classic .pluginMiniBoxNameCell {
+  position: relative;
+}
+
+.pluginContainer.classic .switch {
+  position: absolute;
+  top: 45px;
+}
+
+.pluginContainer.classic .pluginMiniBox .pluginActions {
+  position: absolute;
+  top: 47px;
+  right: 17px;
+}
+
+/* Compact view */
+
+.plugin-inactive .pluginActionsSmallIcons a {
+  pointer-events: none;
+}
+
+.pluginContainer.compact {
+  display: flex;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+}
+
+.pluginContainer.compact .pluginMiniBox {
+  width: 350px;
+
+  margin: 15px 15px 0 0;
+}
+
+.pluginContainer.compact .pluginMiniBox .pluginContent {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+}
 </style>
