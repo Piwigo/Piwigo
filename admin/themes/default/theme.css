@@ -4420,6 +4420,7 @@ a.group_users {
 .preview-box.icon-zoom-in {
   display:block;
   position:relative;
+  max-width: 150px;
 }
 
 .preview-box.icon-zoom-in:before {
