@@ -2076,7 +2076,6 @@ Advanced filter
 .tileView .user-container-username {
   margin-top: 10px;
   margin-bottom: 5px;
-  color: black;
   font-size: 13px;
 
   height: 15px;
@@ -2280,5 +2279,27 @@ Advanced filter
   color: #000 !important;
 }
 
+/* Selection mode */ 
 
+.selectable {
+  cursor: pointer;
+}
+
+.selectable .select-checkbox {
+  width: 25px;
+  height: 25px;
+}
+
+.selectable .select-checkbox i {
+ color: white;
+ margin: 5px 0 0 13px;
+}
+
+.selectable:hover .select-checkbox{
+  background-color: #ffa646 !important;
+}
+
+.selectable .user-container-select {
+  border: none;
+}
 </style>

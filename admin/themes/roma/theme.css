@@ -1170,31 +1170,40 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 /* Selected container in userManager*/
 
 .user-container.container-selected .user-container-checkbox.user-list-checkbox .select-checkbox {
-  background-color: #ffa646;
-  border: solid #ff7b00 2px !important;
+  border: solid #c76a23 2px !important;
+  background-color: #c76a23 !important;
 }
+
 
 .user-container.container-selected {
   display:flex;
   width:100%;
   height:80px;
-  background-color:#ffa646;
+  background-color:#f9852c;
   font-weight:bold;
   border-radius:10px;
   margin-bottom:20px;
 }
 
+.user-container.container-selected .user-container-username {
+  color: #333;
+}
+
+.user-container.container-selected .user-container-status{
+  color: #fddaba !important;
+}
+
 .user-container.container-selected .user-container-initials-wrapper > span {
-  background-color: #FF7B00;
-  color:#FEE7BD;
-  border: solid #ff7b00 2px;
+  background-color: #c76a23;
+  color:#faa96b;
+  border: solid #c76a23 2px;
 }
 
 .user-container.container-selected .user-groups,
 .user-container.container-selected .registration-clock {
-  background-color: #FEE7C8;
-  color:#FF7B00;
-  border: solid #ff7b00 2px;
+  background-color: #c76a23;
+  color:#faa96b;
+  border: solid #c76a23 2px;
 }
 
 /*****/

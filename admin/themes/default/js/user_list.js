@@ -876,6 +876,8 @@ function selectionMode(isSelection) {
                 display: "none"
             })
         }
+
+        $(".user-container").addClass("selectable");
     } else {
         $(".container-selected").removeClass("container-selected");
         $(".in-selection-mode").hide();
@@ -886,6 +888,9 @@ function selectionMode(isSelection) {
                 display: "flex"
             })
         }
+
+        $(".user-container").removeClass("selectable");
+
     }
 }
 
