@@ -574,6 +574,7 @@ input:focus + .slider {
 .OrangeIcon{
   background-color:#ae5d1e !important;
   color:#faa96b!important;
+  border-color: #ae5d1e !important;
 }
 
 .OrangeFont{
