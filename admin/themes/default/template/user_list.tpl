@@ -30,6 +30,7 @@ const dates_infos = '{'between %s and %s'|translate}'
 const hide_str = '{'Hide'|@translate}';
 const show_str = '{'Show'|@translate}';
 const user_added_str = '{'User %s added'|@translate}';
+const str_popin_update_btn = '{'Update'|@translate}';
 
 months = [
   "{'Jan'|@translate}",
