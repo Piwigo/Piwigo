@@ -1788,7 +1788,7 @@ update_selection_content();
 #GuestUserList .item,
 #GuestUserList .item.active {
   background-image:none;
-  background-color: #ffd2a1;
+  background-color: #ffa646;
   border-color: transparent;
 
   border-radius: 20px;
@@ -1805,7 +1805,7 @@ update_selection_content();
 }
 #UserList .item .remove:hover,
 #GuestUserList .item .remove:hover {
-  background-color: #ffaf58;
+  background-color: #ff7700;
 }
 
 /* selection panel */
