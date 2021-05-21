@@ -1080,13 +1080,13 @@ update_selection_content();
 .user-header-status,
 .user-container-status {
     width:10%;
-    max-width: 140px;
+    max-width: 110px;
 }
 
 .user-header-email,
 .user-container-email {
     width:20%;
-    max-width: 200px;
+    max-width: 220px;
 }
 
 .user-header-groups,
@@ -1109,6 +1109,7 @@ update_selection_content();
 .user-container-registration {
     width: 10% !important;
     max-width: 700px;
+    min-width: 130px;
     margin-left: auto;
 }
 
