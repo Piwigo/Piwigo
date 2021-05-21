@@ -953,7 +953,7 @@ update_selection_content();
   display:none;
   position: absolute;
   top:-135px;
-  right:30px;
+  right:17px;
   font-weight:bold;
 }
 
