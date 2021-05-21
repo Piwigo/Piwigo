@@ -148,4 +148,8 @@ jQuery("a.preview-box").colorbox( {
 .selectize-input .item .remove:hover {
   background-color: #ff7700 !important;
 }
+
+.thumb {
+  float: right;
+}
 </style>
