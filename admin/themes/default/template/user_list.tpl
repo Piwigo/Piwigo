@@ -140,7 +140,7 @@ update_selection_content();
       </div>
     </div>
     <div id="advanced_filter_button">
-      <span>{'Advanced filter'|@translate}</span>
+      <span>{'Advanced filters'|@translate}</span>
     </div>
     <div id='search-user'>
         <div class='search-info'> </div>
@@ -609,7 +609,7 @@ update_selection_content();
           <div>
             <span class="update-user-button">{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
-            <span class="update-user-success icon-green">{'User updated'|@translate}</span>
+            <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
           </div>
           <div>
             <span class="delete-user-button icon-trash">{'Delete user'|@translate}</span>
@@ -952,7 +952,7 @@ update_selection_content();
 #AddUserSuccess {
   display:none;
   position: absolute;
-  top:80px;
+  top:-135px;
   right:30px;
   font-weight:bold;
 }
@@ -1610,9 +1610,10 @@ update_selection_content();
 
 .update-user-success {
     padding:10px;
-    display:none;s
-    background-color:  #c2f5c2;
+    display:none;
+    background-color:#c2f5c2;
     color: #0a0;
+    border-left: 2px solid #00FF00;
 }
 
 .update-user-fail {
