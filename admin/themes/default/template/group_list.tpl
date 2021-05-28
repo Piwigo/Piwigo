@@ -170,7 +170,7 @@ usersCache.selectize(jQuery('select.UserSearch'));
     <div id="addGroupForm" class="GroupContainer">
       <div class="groupError icon-cancel"></div>
       <div class="addGroupBlock">
-        <div class="icon-plus-circled icon-blue"></div>
+        <div class="icon-plus-circled icon-blue-full"></div>
         <p id="addGroup">{'Add group'|translate}</p>
       </div>
       <form>

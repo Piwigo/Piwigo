@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
 <div class="categoryContainer">
   <div class="addAlbum">
     <div class="addAlbumHead">
-      <span class="icon-plus-circled icon-blue"></span>
+      <span class="icon-plus-circled icon-blue-full"></span>
       <p>{"Add Album"|@translate}
     </div>
     <form action="{$F_ACTION}" method="post">

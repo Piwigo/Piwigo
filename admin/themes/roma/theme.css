@@ -136,11 +136,20 @@ ul.actions, .content form#waiting  {text-align:center;}
 }
 
 .pagination-per-page span {
-  color: #777;
+  color: #c1c1c1;
+}
+
+.pagination-per-page a{
+  color:#c1c1c1;
 }
 
 .pagination-per-page a:hover {
   background-color: #888; color: #444;
+}
+
+.selected-pagination{
+  background:orange!important;
+  color:#444!important;
 }
 
 /* jQuery tooltips */
@@ -1064,6 +1073,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #379bbc;
 }
 
+.icon-blue-full {
+  background-color:#1C5B88;
+  color: #379bbc;
+}
+
 .icon-green {
   border:2px solid #4ac641;
   color: #4ac641;
@@ -1206,6 +1220,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   border: solid #c76a23 2px;
 }
 
+.user-groups{
+  padding: 6px 15px!important;
+}
+
 /*****/
 
 .group-bonus {
@@ -1282,4 +1300,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 .user-property-input.user-property-input-password:hover {
   background-color: #333;
+}
+
+.lineView .user-container-initials-wrapper > span {
+  height: 31px!important;
+  width: 31px!important;
+}
+
+.storage-chart span{
+  opacity:1;
 }
