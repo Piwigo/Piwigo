@@ -1075,6 +1075,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .icon-blue-full {
   background-color:#1C5B88;
+  border:0px;
   color: #379bbc;
 }
 
