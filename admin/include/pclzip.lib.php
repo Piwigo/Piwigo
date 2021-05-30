@@ -2677,7 +2677,7 @@
         @fclose($v_file);
 
         // ----- Calculate the CRC
-        $p_header['crc'] = @crc32($v_content);
+        $p_header['crc'] = @hash("crc32b", $v_content);
         
         // ----- Look for no compression
         if ($p_options[PCLZIP_OPT_NO_COMPRESSION]) {
@@ -2715,7 +2715,7 @@
         $v_content = $p_filedescr['content'];
 
         // ----- Calculate the CRC
-        $p_header['crc'] = @crc32($v_content);
+        $p_header['crc'] = @hash("crc32b", $v_content);
         
         // ----- Look for no compression
         if ($p_options[PCLZIP_OPT_NO_COMPRESSION]) {
