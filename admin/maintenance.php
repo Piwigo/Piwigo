@@ -77,6 +77,7 @@ switch ($action)
   }
   case 'user_cache' :
   {
+    empty_lounge(false);
     invalidate_user_cache();
     break;
   }

@@ -405,8 +405,10 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
   }
   usort($related_categories, 'global_rank_compare');
 
-  if (empty($related_categories))
+  if (empty($related_categories) and !is_admin())
   {
+    // photo might be in the lounge? or simply orphan. A standard user should not get
+    // info. An admin should still be able to get info.
     return new PwgError(401, 'Access denied');
   }
 
@@ -2090,6 +2092,21 @@ function ws_images_checkUpload($params, $service)
   {
     $ret['ready_for_upload'] = false;
   }
+
+  return $ret;
+}
+
+/**
+ * API method
+ * Empties the lounge, where photos may wait before taking off.
+ * @since 12
+ * @param mixed[] $params
+ */
+function ws_images_emptyLounge($params, $service)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $ret = array('count' => empty_lounge());
 
   return $ret;
 }

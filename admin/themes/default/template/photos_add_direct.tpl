@@ -222,6 +222,14 @@ jQuery(document).ready(function(){
         
         Piecon.reset();
 
+        jQuery.ajax({
+          url: "ws.php?format=json&method=pwg.images.emptyLounge",
+          type:"POST",
+          data: {
+            pwg_token: pwg_token
+          }
+        });
+
         jQuery(".selectAlbum, .selectFiles, #permissions, .showFieldset").hide();
 
         jQuery(".infos").append('<ul><li>'+sprintf(photosUploaded_label, uploadedPhotos.length)+'</li></ul>');

@@ -151,6 +151,8 @@ if (isset($conf['order_by_inside_category_custom']))
   $conf['order_by_inside_category'] = $conf['order_by_inside_category_custom'];
 }
 
+check_lounge();
+
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
 if (in_array( substr($user['language'],0,2), array('fr','it','de','es','pl','ru','nl','tr','da') ) )
