@@ -1124,3 +1124,4 @@ $lang['The other tags will be removed'] = 'Zvyšné štítky budú odstránené'
 $lang['This is already the default theme'] = 'Toto už je predvolený motív';
 $lang['Videos'] = 'Videá';
 $lang['Unset as group for new users'] = 'Nepridávať do tejto skupiny nových používateľov';
+$lang['Manage users with user manager'] = 'V správcovi používateľov nastavíte prístupy';
