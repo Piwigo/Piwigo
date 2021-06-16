@@ -74,6 +74,11 @@ get_guest_info();
 update_user_list();
 update_selection_content();
 
+$(".icon-help-circled").tipTip({
+  'maxWidth':'650px',
+  'fadeIn': '1000',
+});
+
 {/footer_script}
 
 {combine_script id='user_list' load='footer' path='admin/themes/default/js/user_list.js'}
@@ -567,7 +572,14 @@ update_selection_content();
             <input type="text" class="user-property-input" value="contact@jessy-pinkman.com" />
           </div>
           <div class="user-property-status">
-            <p class="user-property-label">{'Status'|@translate}</p>
+            <p class="user-property-label">{'Status'|@translate}
+                <span class="icon-help-circled" 
+                  title="Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
+                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
+                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
+                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>">
+                </span>
+            </p>
             <div class="user-property-select-container">
               <select name="status" class="user-property-select">
                 <option value="webmaster">{'user_status_webmaster'|@translate}</option>
@@ -893,6 +905,11 @@ update_selection_content();
 </div>
 
 <style>
+
+.icon-help-circled {
+  color: #777777 !important;
+  cursor: help;
+}
 
 /* general */
 .no-flex-grow {
