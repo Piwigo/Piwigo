@@ -767,7 +767,7 @@ update_selection_content();
       </div>
       <div class="update-container">
         <div style="display:flex;flex-direction:column">
-          <div style="display:flex;margin-bottom: 30px">
+          <div style="display:flex;">
             <span class="update-user-button">{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green">{'User updated'|@translate}</span>
@@ -1231,6 +1231,10 @@ update_selection_content();
     font-size:1em;
 }
 
+#guest-msg {
+  max-width: 835px;
+}
+
 .UserListPopIn{
     position: fixed;
     z-index: 100;
@@ -1251,7 +1255,7 @@ update_selection_content();
     text-align:left;
     padding:20px;
     display:flex;
-    width:870px
+    width:840px
 }
 
 .summary-properties-update-container {
@@ -1279,9 +1283,14 @@ update_selection_content();
     padding: 0 20px
 }
 
-.update-container {
+.UserListPopInContainer .update-container {
     padding-right:20px;
     padding-top:30px;
+}
+
+.GuestUserListPopInContainer .update-container {
+    padding-right:20px;
+    padding-top:20px;
 }
 
 .preferences-container {
@@ -1646,11 +1655,10 @@ update_selection_content();
     top: 50%;
     transform:translate(-50%, -48%);
     text-align:left;
-    padding:10px;
     display:flex;
     background-color:white;
-    padding:30px;
-    width:1020px;
+    padding:20px;
+    width:840px;
     flex-direction:column;
     border-radius:15px;
 }

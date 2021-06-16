@@ -436,7 +436,7 @@ $conf['session_gc_probability'] = 1;
 // number of photos beyond which individual photos are added in the
 // lounge, a temporary zone where photos wait before being "launched".
 // 50k photos by default.
-$conf['lounge_activate_threshold'] = 50000;
+$conf['lounge_activate_threshold'] = 1;
 
 // Lounge is automatically emptied (photos are being pushed to their
 // albums) when the oldest one reaches this duration. Lounge can be emptied

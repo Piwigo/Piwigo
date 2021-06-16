@@ -728,6 +728,10 @@ input:focus + .slider {
   visibility: hidden;
 }
 
+.GuestUserListPopInContainer{
+  background-color:#444 !important;
+}
+
 /*Edit user popin*/
 
 .user_form_popin .ui-slider-horizontal .ui-slider-handle{
