@@ -260,3 +260,11 @@ usersCache.selectize(jQuery('select.UserSearch'));
 
 </div>
 </div>
+
+<style>
+
+.dropdown::after {
+  left: 183px
+}
+
+</style>
