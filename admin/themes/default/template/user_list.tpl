@@ -13,6 +13,8 @@
 
 {combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
+
 {footer_script}
 
 /* Translates */
@@ -607,12 +609,12 @@ update_selection_content();
       <div class="update-container" style="display:flex;flex-direction:column">
         <div style="display:flex;justify-content:space-between;margin-bottom: 10px;">
           <div>
-            <span class="update-user-button">{'Update'|@translate}</span>
+            <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
           </div>
           <div>
-            <span class="delete-user-button icon-trash">{'Delete user'|@translate}</span>
+            <span class="delete-user-button icon-trash">{'Delete'|@translate}</span>
           </div>
         </div>
         <div>
@@ -768,7 +770,7 @@ update_selection_content();
       <div class="update-container">
         <div style="display:flex;flex-direction:column">
           <div style="display:flex;">
-            <span class="update-user-button">{'Update'|@translate}</span>
+            <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green">{'User updated'|@translate}</span>
           </div>
