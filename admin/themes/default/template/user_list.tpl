@@ -1812,6 +1812,11 @@ $(".icon-help-circled").tipTip({
 
 /* Selectize Inputs (groups) */
 
+#UserList .user-property-group .selectize-input,
+#GuestUserList .user-property-group .selectize-input {
+  overflow-y: scroll;
+}
+
 #UserList .item,
 #UserList .item.active,
 #GuestUserList .item,
