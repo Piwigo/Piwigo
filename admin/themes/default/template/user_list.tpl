@@ -1686,6 +1686,9 @@ $(".icon-help-circled").tipTip({
   color:#CBCBCB;
 }
 
+.unclickable {
+  pointer-events: none;
+}
 /* Add User Pop In */
 
 #AddUser {

@@ -1307,7 +1307,7 @@ function update_user_info() {
 
     //Show spinner
     $(".update-user-button i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
-
+    $(".update-user-button").addClass("unclickable");
     let pop_in_container = $('.UserListPopInContainer');
     let ajax_data = {
         pwg_token: pwg_token,
@@ -1346,6 +1346,7 @@ function update_user_info() {
 
                 //Hide spinner
                 $(".update-user-button i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
+                $(".update-user-button").removeClass("unclickable");
 
             } else if (data.stat === 'fail') {
                 $("#UserList .update-user-fail").html(data.message);
@@ -1395,6 +1396,7 @@ function get_user_info(uid, callback=None) {
 function update_guest_info() {
     //Show spinner
     $(".update-user-button i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
+    $(".update-user-button").addClass("unclickable");
 
     let pop_in_container = $('.GuestUserListPopInContainer');
     let ajax_data = {
@@ -1415,6 +1417,7 @@ function update_guest_info() {
             }
              //Hide spinner
             $(".update-user-button i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
+            $(".update-user-button").removeClass("unclickable");
         }
     });
 }
