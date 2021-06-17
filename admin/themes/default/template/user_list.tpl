@@ -2280,6 +2280,10 @@ Advanced filter
   margin-bottom: 20px;
 }
 
+.lineView .user-container-username {
+  margin-left: -15px;
+}
+
 .lineView .user-container.container-selected {
   height: 50px;
   margin-bottom: 10px;
