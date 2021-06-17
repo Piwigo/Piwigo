@@ -1208,8 +1208,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #333;
 }
 
-.user-container.container-selected .user-container-status{
-  color: #fddaba !important;
+.user-container.container-selected .user-container-status,
+.user-container.container-selected .user-container-registration-date-since{
+  color: #333 !important;
 }
 
 .user-container.container-selected .user-container-initials-wrapper > span {
