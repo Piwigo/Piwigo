@@ -2344,7 +2344,6 @@ SELECT id
       );
 
     $inserted_id = pwg_db_insert_id(TAGS_TABLE);
-    pwg_activity('tag', $inserted_id, 'add');
 
     return array(
       'info' => l10n('Tag "%s" was added', stripslashes($tag_name)),
