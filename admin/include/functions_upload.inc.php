@@ -260,21 +260,6 @@ SELECT
   }
   @chmod($file_path, 0644);
 
-  // handle the uploaded file type by potentially making a
-  // pwg_representative file.
-  $representative_ext = trigger_change('upload_file', null, $file_path);
-
-  global $logger;
-  $logger->info("Handling " . (string)$file_path . " got " . (string)$representative_ext);
-  
-  // If it is set to either true (the file didn't need a
-  // representative generated) or false (the generation of the
-  // representative failed), set it to null because we have no
-  // representative file.
-  if (is_bool($representative_ext)) {
-    $representative_ext = null;
-  }
-  
   if (pwg_image::get_library() != 'gd')
   {
     if ($conf['original_resize'])
@@ -297,6 +282,21 @@ SELECT
         $img->destroy();
       }
     }
+  }
+  
+  // handle the uploaded file type by potentially making a
+  // pwg_representative file.
+  $representative_ext = trigger_change('upload_file', null, $file_path);
+
+  global $logger;
+  $logger->info("Handling " . (string)$file_path . " got " . (string)$representative_ext);
+  
+  // If it is set to either true (the file didn't need a
+  // representative generated) or false (the generation of the
+  // representative failed), set it to null because we have no
+  // representative file.
+  if (is_bool($representative_ext)) {
+    $representative_ext = null;
   }
 
   // we need to save the rotation angle in the database to compute
@@ -333,6 +333,14 @@ SELECT
   {
     // database registration
     $file = pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path));
+    
+    // delete tiff and use the representative as the new "original"
+    if ($is_tiff)
+    {
+      unlink($file_path);
+      $file_path = $upload_dir.'/pwg_representative/'.$filename_wo_ext.'.' .$representative_ext;
+    }
+    
     $insert = array(
       'file' => $file,
       'name' => get_name_from_file($file),
