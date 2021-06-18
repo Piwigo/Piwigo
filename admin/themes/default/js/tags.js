@@ -927,6 +927,7 @@ function getNumberPages() {
 }
 
 function movePage(toRigth = true) {
+  $(".tag-box").removeClass("edit-name");
   if (toRigth) {
     if (actualPage < getNumberPages()) {
       actualPage++;
