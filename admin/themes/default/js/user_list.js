@@ -1029,7 +1029,7 @@ function get_formatted_date(date_str) {
     }
     let first_part = date_str.split(' ')[0];
     let formatted = first_part.split('-').join('/');
-    console.log(formatted);
+     console.log(formatted);
     return (formatted);
 }
 
