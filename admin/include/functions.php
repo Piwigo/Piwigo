@@ -1889,6 +1889,129 @@ function compare_image_tag_lists($taglist_before, $taglist_after)
 }
 
 /**
+ * Instead of associating images to categories, add them in the lounge, waiting for take-off.
+ *
+ * @since 12
+ * @param array $images - list of image ids
+ * @param array $categories - list of category ids
+ */
+function fill_lounge($images, $categories)
+{
+  $inserts = array();
+  foreach ($categories as $category_id)
+  {
+    foreach ($images as $image_id)
+    {
+      $inserts[] = array(
+        'image_id' => $image_id,
+        'category_id' => $category_id,
+      );
+    }
+  }
+
+  if (count($inserts))
+  {
+    mass_inserts(
+      LOUNGE_TABLE,
+      array_keys($inserts[0]),
+      $inserts
+    );
+  }
+}
+
+/**
+ * Move images from the lounge to the categories they were intended for.
+ *
+ * @since 12
+ * @param boolean $invalidate_user_cache
+ * @return int number of images moved
+ */
+function empty_lounge($invalidate_user_cache=true)
+{
+  global $logger;
+
+  if (isset($conf['empty_lounge_running']))
+  {
+    list($running_exec_id, $running_exec_start_time) = explode('-', $conf['empty_lounge_running']);
+    if (time() - $running_exec_start_time > 60)
+    {
+      $logger->debug(__FUNCTION__.', exec='.$running_exec_id.', timeout stopped by another call to the function');
+      conf_delete_param('empty_lounge_running');
+    }
+  }
+
+  $exec_id = generate_key(4);
+  $logger->debug(__FUNCTION__.', exec='.$exec_id.', begins');
+
+  // if lounge is already being emptied, skip
+  $query = '
+INSERT IGNORE
+  INTO '.CONFIG_TABLE.'
+  SET param="empty_lounge_running"
+    , value="'.$exec_id.'-'.time().'"
+;';
+  pwg_query($query);
+
+  list($empty_lounge_running) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.CONFIG_TABLE.' WHERE param = "empty_lounge_running"'));
+  list($running_exec_id,) = explode('-', $empty_lounge_running);
+
+  if ($running_exec_id != $exec_id)
+  {
+    $logger->debug(__FUNCTION__.', exec='.$exec_id.', skip');
+    return;
+  }
+  $logger->debug(__FUNCTION__.', exec='.$exec_id.' wins the race and gets the token!');
+  sleep(5);
+
+  $max_image_id = 0;
+
+  $query = '
+SELECT
+    image_id,
+    category_id
+  FROM '.LOUNGE_TABLE.'
+  ORDER BY category_id ASC, image_id ASC
+;';
+
+  $rows = query2array($query);
+
+  $images = array();
+  foreach ($rows as $idx => $row)
+  {
+    if ($row['image_id'] > $max_image_id)
+    {
+      $max_image_id = $row['image_id'];
+    }
+
+    $images[] = $row['image_id'];
+
+    if (!isset($rows[$idx+1]) or $rows[$idx+1]['category_id'] != $row['category_id'])
+    {
+      // if we're at the end of the loop OR if category changes
+      associate_images_to_categories($images, array($row['category_id']));
+      $images = array();
+    }
+  }
+
+  $query = '
+DELETE
+  FROM '.LOUNGE_TABLE.'
+  WHERE image_id <= '.$max_image_id.'
+;';
+  pwg_query($query);
+
+  if ($invalidate_user_cache)
+  {
+    invalidate_user_cache();
+  }
+
+  conf_delete_param('empty_lounge_running');
+
+  $logger->debug(__FUNCTION__.', exec='.$exec_id.', ends');
+  return count($rows);
+}
+
+/**
  * Associate a list of images to a list of categories.
  * The function will not duplicate links and will preserve ranks.
  *
@@ -2221,7 +2344,6 @@ SELECT id
       );
 
     $inserted_id = pwg_db_insert_id(TAGS_TABLE);
-    pwg_activity('tag', $inserted_id, 'add');
 
     return array(
       'info' => l10n('Tag "%s" was added', stripslashes($tag_name)),
@@ -3140,12 +3262,28 @@ SELECT path
  */
 function get_orphans()
 {
+  // exclude images in the lounge
+  $query = '
+SELECT
+    image_id
+  FROM '.LOUNGE_TABLE.'
+;';
+  $lounged_ids = query2array($query, null, 'image_id');
+
   $query = '
 SELECT
     id
   FROM '.IMAGES_TABLE.'
     LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
-  WHERE category_id is null
+  WHERE category_id is null';
+
+  if (count($lounged_ids) > 0)
+  {
+    $query .= '
+    AND id NOT IN ('.implode(',', $lounged_ids).')';
+  }
+
+  $query.= '
   ORDER BY id ASC
 ;';
   

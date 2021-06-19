@@ -13,6 +13,8 @@
 
 {combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
+
 {footer_script}
 
 /* Translates */
@@ -71,6 +73,11 @@ selectionMode(false);
 get_guest_info();
 update_user_list();
 update_selection_content();
+
+$(".icon-help-circled").tipTip({
+  'maxWidth':'650px',
+  'fadeIn': '1000',
+});
 
 {/footer_script}
 
@@ -565,7 +572,14 @@ update_selection_content();
             <input type="text" class="user-property-input" value="contact@jessy-pinkman.com" />
           </div>
           <div class="user-property-status">
-            <p class="user-property-label">{'Status'|@translate}</p>
+            <p class="user-property-label">{'Status'|@translate}
+                <span class="icon-help-circled" 
+                  title="Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
+                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
+                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
+                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>">
+                </span>
+            </p>
             <div class="user-property-select-container">
               <select name="status" class="user-property-select">
                 <option value="webmaster">{'user_status_webmaster'|@translate}</option>
@@ -607,12 +621,12 @@ update_selection_content();
       <div class="update-container" style="display:flex;flex-direction:column">
         <div style="display:flex;justify-content:space-between;margin-bottom: 10px;">
           <div>
-            <span class="update-user-button">{'Update'|@translate}</span>
+            <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
           </div>
           <div>
-            <span class="delete-user-button icon-trash">{'Delete user'|@translate}</span>
+            <span class="delete-user-button icon-trash">{'Delete'|@translate}</span>
           </div>
         </div>
         <div>
@@ -767,8 +781,8 @@ update_selection_content();
       </div>
       <div class="update-container">
         <div style="display:flex;flex-direction:column">
-          <div style="display:flex;margin-bottom: 30px">
-            <span class="update-user-button">{'Update'|@translate}</span>
+          <div style="display:flex;">
+            <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green">{'User updated'|@translate}</span>
           </div>
@@ -891,6 +905,11 @@ update_selection_content();
 </div>
 
 <style>
+
+.icon-help-circled {
+  color: #777777 !important;
+  cursor: help;
+}
 
 /* general */
 .no-flex-grow {
@@ -1231,6 +1250,10 @@ update_selection_content();
     font-size:1em;
 }
 
+#guest-msg {
+  max-width: 835px;
+}
+
 .UserListPopIn{
     position: fixed;
     z-index: 100;
@@ -1251,7 +1274,7 @@ update_selection_content();
     text-align:left;
     padding:20px;
     display:flex;
-    width:870px
+    width:840px
 }
 
 .summary-properties-update-container {
@@ -1279,9 +1302,14 @@ update_selection_content();
     padding: 0 20px
 }
 
-.update-container {
+.UserListPopInContainer .update-container {
     padding-right:20px;
     padding-top:30px;
+}
+
+.GuestUserListPopInContainer .update-container {
+    padding-right:20px;
+    padding-top:20px;
 }
 
 .preferences-container {
@@ -1646,11 +1674,10 @@ update_selection_content();
     top: 50%;
     transform:translate(-50%, -48%);
     text-align:left;
-    padding:10px;
     display:flex;
     background-color:white;
-    padding:30px;
-    width:1020px;
+    padding:20px;
+    width:840px;
     flex-direction:column;
     border-radius:15px;
 }
@@ -1659,6 +1686,9 @@ update_selection_content();
   color:#CBCBCB;
 }
 
+.unclickable {
+  pointer-events: none;
+}
 /* Add User Pop In */
 
 #AddUser {
@@ -1784,6 +1814,11 @@ update_selection_content();
 }
 
 /* Selectize Inputs (groups) */
+
+#UserList .user-property-group .selectize-input,
+#GuestUserList .user-property-group .selectize-input {
+  overflow-y: scroll;
+}
 
 #UserList .item,
 #UserList .item.active,
@@ -2243,6 +2278,10 @@ Advanced filter
 
 .lineView {
   margin-bottom: 20px;
+}
+
+.lineView .user-container-username {
+  margin-left: -15px;
 }
 
 .lineView .user-container.container-selected {

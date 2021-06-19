@@ -362,12 +362,31 @@ SELECT
     pwg_activity('photo', $image_id, 'add');
   }
 
+  if (!isset($conf['lounge_active']))
+  {
+    conf_update_param('lounge_active', false, true);
+  }
+
+  if (!$conf['lounge_active'])
+  {
+    // check if we need to use the lounge from now
+    list($nb_photos) = pwg_db_fetch_row(pwg_query('SELECT COUNT(*) FROM '.IMAGES_TABLE.';'));
+    if ($nb_photos >= $conf['lounge_activate_threshold'])
+    {
+      conf_update_param('lounge_active', true, true);
+    }
+  }
+
   if (isset($categories) and count($categories) > 0)
   {
-    associate_images_to_categories(
-      array($image_id),
-      $categories
-      );
+    if ($conf['lounge_active'])
+    {
+      fill_lounge(array($image_id), $categories);
+    }
+    else
+    {
+      associate_images_to_categories(array($image_id), $categories);
+    }
   }
 
   // update metadata from the uploaded file (exif/iptc)
@@ -377,7 +396,10 @@ SELECT
   }
   sync_metadata(array($image_id));
 
-  invalidate_user_cache();
+  if (!$conf['lounge_active'])
+  {
+    invalidate_user_cache();
+  }
 
   // cache a derivative
   $query = '

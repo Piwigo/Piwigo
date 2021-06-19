@@ -261,6 +261,17 @@ CREATE TABLE `piwigo_languages` (
 ) ENGINE=MyISAM;
 
 --
+-- Table structure for table `piwigo_lounge`
+--
+
+DROP TABLE IF EXISTS `piwigo_lounge`;
+CREATE TABLE `piwigo_lounge` (
+  `image_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `category_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`image_id`,`category_id`)
+) ENGINE=MyISAM;
+
+--
 -- Table structure for table `piwigo_old_permalinks`
 --
 

@@ -475,6 +475,11 @@ SELECT image_id
  */
 function get_computed_categories(&$userdata, $filter_days=null)
 {
+  global $logger;
+
+  $start_time = get_moment();
+  $logger->debug(__FUNCTION__.' starts now');
+
   $query = 'SELECT c.id AS cat_id, id_uppercat';
   $query.= ', global_rank';
   // Count by date_available to avoid count null
@@ -569,6 +574,9 @@ FROM '.CATEGORIES_TABLE.' as c
       }
     }
   }
+
+  $logger->debug(__FUNCTION__.' ends now in '.get_elapsed_time($start_time, get_moment()));
+
   return $cats;
 }
 

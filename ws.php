@@ -770,6 +770,15 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.emptyLounge',
+      'ws_images_emptyLounge',
+      null,
+      'Empty lounge, where images may be waiting before taking off.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.images.setInfo',
       'ws_images_setInfo',
       array(

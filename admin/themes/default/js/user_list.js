@@ -1306,8 +1306,8 @@ function update_user_password() {
 function update_user_info() {
 
     //Show spinner
-    $(".update-user-button").html("<i class='icon-spin6 animate-spin'> </i>");
-
+    $(".update-user-button i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
+    $(".update-user-button").addClass("unclickable");
     let pop_in_container = $('.UserListPopInContainer');
     let ajax_data = {
         pwg_token: pwg_token,
@@ -1345,7 +1345,9 @@ function update_user_info() {
                 $("#UserList .update-user-success").fadeIn();
 
                 //Hide spinner
-                $(".update-user-button").html(str_popin_update_btn);
+                $(".update-user-button i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
+                $(".update-user-button").removeClass("unclickable");
+
             } else if (data.stat === 'fail') {
                 $("#UserList .update-user-fail").html(data.message);
                 $("#UserList .update-user-fail").fadeIn();
@@ -1392,6 +1394,10 @@ function get_user_info(uid, callback=None) {
 }
 
 function update_guest_info() {
+    //Show spinner
+    $(".update-user-button i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
+    $(".update-user-button").addClass("unclickable");
+
     let pop_in_container = $('.GuestUserListPopInContainer');
     let ajax_data = {
         pwg_token: pwg_token,
@@ -1409,6 +1415,9 @@ function update_guest_info() {
             if (data.stat == 'ok') {
                 $("#GuestUserList .update-user-success").fadeIn();
             }
+             //Hide spinner
+            $(".update-user-button i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
+            $(".update-user-button").removeClass("unclickable");
         }
     });
 }

@@ -2266,4 +2266,48 @@ function safe_version_compare($a, $b, $op=null)
   }
 }
 
+/**
+ * Checks if the lounge needs to be emptied automatically.
+ *
+ * @since 12
+ */
+function check_lounge()
+{
+  global $conf;
+
+  if (!isset($conf['lounge_active']) or !$conf['lounge_active'])
+  {
+    return;
+  }
+
+  if (isset($_REQUEST['method']) and in_array($_REQUEST['method'], array('pwg.images.upload', 'pwg.images.uploadAsync')))
+  {
+    return;
+  }
+
+  // is the oldest photo in the lounge older than lounge maximum waiting time?
+  $query = '
+SELECT
+    image_id,
+    date_available,
+    NOW() AS dbnow
+  FROM '.LOUNGE_TABLE.'
+    JOIN '.IMAGES_TABLE.' ON image_id = id
+  ORDER BY image_id ASC
+  LIMIT 1
+;';
+  $voyagers = query2array($query);
+  if (count($voyagers))
+  {
+    $voyager = $voyagers[0];
+    $age = strtotime($voyager['dbnow']) - strtotime($voyager['date_available']);
+
+    if ($age > $conf['lounge_max_duration'])
+    {
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+      empty_lounge();
+    }
+  }
+}
+
 ?>
