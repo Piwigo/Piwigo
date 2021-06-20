@@ -1039,3 +1039,7 @@ $lang['%d checksums were added'] = 'lisati %d kontrollsummat';
 $lang['%d photos'] = '%d fotot';
 $lang[' (copy %s)'] = '(koopia %s)';
 $lang[' (copy)'] = '(koopia)';
+$lang['You have %d orphan tags %s'] = 'Sul on %d kasutamata jäänud märksõna: %s';
+$lang['Delete orphan tags ?'] = 'Kustuta orvuks jäänud märksõnad?';
+$lang['Delete album'] = 'Kustuta album';
+$lang['Average last 12 months'] = 'Viimase 12 kuu keskmine';
