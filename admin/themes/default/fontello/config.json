@@ -297,7 +297,7 @@
     {
       "uid": "513ac180ff85bd275f2b736720cbbf5e",
       "css": "home",
-      "code": 59406,
+      "code": 59402,
       "src": "entypo"
     },
     {
@@ -781,6 +781,30 @@
       "css": "th-list-1",
       "code": 59484,
       "src": "elusive"
+    },
+    {
+      "uid": "347c38a8b96a509270fdcabc951e7571",
+      "css": "database",
+      "code": 61888,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "6a12c2b74456ea21cc984e11dec227a1",
+      "css": "globe",
+      "code": 59406,
+      "src": "entypo"
+    },
+    {
+      "uid": "26613a2e6bc41593c54bead46f8c8ee3",
+      "css": "file-code",
+      "code": 61897,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "671f29fa10dda08074a4c6a341bb4f39",
+      "css": "bell",
+      "code": 61683,
+      "src": "fontawesome"
     },
     {
       "uid": "7411608e7611ffd477aeec7d239f87e9",

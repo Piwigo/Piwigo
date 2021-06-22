@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?94529484');
-  src: url('../font/fontello.eot?94529484#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?94529484') format('woff2'),
-       url('../font/fontello.woff?94529484') format('woff'),
-       url('../font/fontello.ttf?94529484') format('truetype'),
-       url('../font/fontello.svg?94529484#fontello') format('svg');
+  src: url('../font/fontello.eot?61506492');
+  src: url('../font/fontello.eot?61506492#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?61506492') format('woff2'),
+       url('../font/fontello.woff?61506492') format('woff'),
+       url('../font/fontello.ttf?61506492') format('truetype'),
+       url('../font/fontello.svg?61506492#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,46 +15,45 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?94529484#fontello') format('svg');
+    src: url('../font/fontello.svg?61506492#fontello') format('svg');
   }
 }
 */
- 
- [class^="icon-"]:before, [class*=" icon-"]:before {
+[class^="icon-"]:before, [class*="icon-"]:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
   speak: never;
- 
+
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
   margin-right: .2em;
   text-align: center;
   /* opacity: .8; */
- 
+
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
   text-transform: none;
- 
+
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
- 
+
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
   margin-left: .2em;
- 
+
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
- 
+
   /* Font smoothing. That was taken from TWBS */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
- 
+
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
- 
+
 .icon-puzzle:before { content: '\e7b6'; } /* '' */
 .icon-language:before { content: '\e800'; } /* '' */
 .icon-signal:before { content: '\e801'; } /* '' */
@@ -67,10 +66,11 @@
 .icon-flow-branch:before { content: '\e808'; } /* '' */
 .icon-menu:before { content: '\e809'; } /* '' */
 .icon-code:before { content: '\e80a'; } /* '' */
+.icon-home:before { content: '\e80a'; } /* '' */
 .icon-user-add:before { content: '\e80b'; } /* '' */
 .icon-cw:before { content: '\e80c'; } /* '' */
 .icon-group:before { content: '\e80d'; } /* '' */
-.icon-home:before { content: '\e80e'; } /* '' */
+.icon-globe:before { content: '\e80e'; } /* '' */
 .icon-equalizer:before { content: '\e80f'; } /* '' */
 .icon-mail-1:before { content: '\e810'; } /* '' */
 .icon-search:before { content: '\e811'; } /* '' */
@@ -156,6 +156,7 @@
 .icon-list-bullet:before { content: '\f0ca'; } /* '' */
 .icon-mail-alt:before { content: '\f0e0'; } /* '' */
 .icon-sitemap:before { content: '\f0e8'; } /* '' */
+.icon-bell:before { content: '\f0f3'; } /* '' */
 .icon-circle-empty:before { content: '\f10c'; } /* '' */
 .icon-crop:before { content: '\f125'; } /* '' */
 .icon-ellipsis:before { content: '\f141'; } /* '' */
@@ -166,7 +167,9 @@
 .icon-sort-number-up:before { content: '\f162'; } /* '' */
 .icon-right:before { content: '\f178'; } /* '' */
 .icon-dot-circled:before { content: '\f192'; } /* '' */
+.icon-database:before { content: '\f1c0'; } /* '' */
 .icon-file-image:before { content: '\f1c5'; } /* '' */
+.icon-file-code:before { content: '\f1c9'; } /* '' */
 .icon-lifebuoy:before { content: '\f1cd'; } /* '' */
 .icon-toggle-off:before { content: '\f204'; } /* '' */
 .icon-toggle-on:before { content: '\f205'; } /* '' */
