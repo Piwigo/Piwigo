@@ -8,48 +8,32 @@
 
 if (!defined('PHPWG_ROOT_PATH'))
 {
-  die ("Hacking attempt!");
+  die('Hacking attempt!');
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-
 check_status(ACCESS_ADMINISTRATOR);
-
-if (isset($_GET['action']))
-{
-  check_pwg_token();
-}
 
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-$my_base_url = get_root_url().'admin.php?page=';
+$page['tab'] = 'user_activity';
+include(PHPWG_ROOT_PATH.'admin/include/user_tabs.inc.php');
 
-if (isset($_GET['tab']))
-{
-  check_input_parameter('tab', $_GET, false, '/^(actions|env)$/');
-  $page['tab'] = $_GET['tab'];
-}
-else
-{
-  $page['tab'] = 'actions';
-}
+// +-----------------------------------------------------------------------+
+// |                       template initialization                         |
+// +-----------------------------------------------------------------------+
+$template->set_filename('user_activity', 'user_activity.tpl');
+$template->assign('ADMIN_PAGE_TITLE', l10n('User Activity logs'));
 
+// +-----------------------------------------------------------------------+
+// |                          sending html code                            |
+// +-----------------------------------------------------------------------+
+$template->assign_var_from_handle('ADMIN_CONTENT', 'user_activity');
 
-$tabsheet = new tabsheet();
-$tabsheet->set_id('maintenance');
-$tabsheet->select($page['tab']);
-$tabsheet->assign();
-
-include(PHPWG_ROOT_PATH.'admin/maintenance_'.$page['tab'].'.php');
-
-$template->assign(
-  array('ADMIN_PAGE_TITLE' => l10n('Maintenance'))
-);
+?>

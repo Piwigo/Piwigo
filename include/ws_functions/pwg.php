@@ -180,6 +180,10 @@ function ws_getInfos($params, &$service)
     list($infos['nb_unvalidated_comments']) = pwg_db_fetch_row(pwg_query($query));
   }
 
+  // Cache size
+  // TODO for real later
+  $infos['cache_size'] = 4242;
+
   foreach ($infos as $name => $value)
   {
     $output[] = array(
@@ -187,7 +191,6 @@ function ws_getInfos($params, &$service)
       'value' => $value,
     );
   }
-
   return array('infos' => new PwgNamedArray($output, 'item'));
 }
 
@@ -336,6 +339,145 @@ function ws_session_getStatus($params, &$service)
   }
   
   return $res;
+}
+
+/**
+ * API method
+ * Returns lines of users activity
+ */
+
+function ws_getActivityList($param, &$service) {
+
+  /* Test Lantency */ 
+  // sleep(1);
+  
+  $output_lines = array();
+  $current_key = '';
+
+  $query = '
+  SELECT 
+      activity_id,
+      performed_by, 
+      object, action, 
+      session_idx, 
+      ip_address, 
+      occured_on, 
+      details, 
+      username 
+    FROM piwigo_activity, 
+         piwigo_users 
+    WHERE piwigo_activity.performed_by = piwigo_users.id 
+    ORDER BY activity_id DESC;
+  ';
+
+  $line_id = 0;
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $row['details'] = str_replace('`groups`', 'groups', $row['details']);
+    $row['details'] = str_replace('`rank`', 'rank', $row['details']);
+    $details = unserialize($row['details']);
+
+    if (isset($details['method']))
+    {
+      $detailsType = 'method';
+    }
+    if (isset($details['script']))
+    {
+      $detailsType = 'script';
+    }
+  
+    $line_key = $row['session_idx'].'~'.$row['object'].'~'.$row['action'].'~'; // idx~photo~add
+  
+    if ($line_key === $current_key)
+    {
+      // j'incrémente le counter de la ligne précédente
+      $output_lines[count($output_lines)-1]['counter']++;
+    }
+    else
+    {
+      list($date, $hour) = explode(' ', $row['occured_on']);
+      // New line
+      $output_lines[] = array(
+        'id' => $line_id,
+        'object' => $row['object'],
+        'action' => $row['action'],
+        'ip_address' => $row['ip_address'],
+        'date' => format_date($date),
+        'hour' => $hour,
+        'username' => $row['username'],
+        'user_id' => $row['performed_by'],
+        'detailsType' => $detailsType,
+        'details' => $details,
+        'counter' => 1, 
+      );
+  
+      $current_key = $line_key;
+      $line_id++;
+    }
+  }
+
+  return $output_lines;
+}
+
+/**
+ * API method
+ * Returns lines of users activity
+ */
+
+function ws_activity_downloadLog($param, &$service) {
+
+  $output_lines = array();
+
+  $query = '
+  SELECT 
+      activity_id,
+      performed_by, 
+      object, 
+      object_id,
+      action, 
+      ip_address, 
+      occured_on, 
+      details, 
+      username 
+    FROM piwigo_activity, 
+         piwigo_users 
+    WHERE piwigo_activity.performed_by = piwigo_users.id 
+    ORDER BY activity_id DESC;
+  ';
+
+  $result = pwg_query($query);
+  array_push($output_lines, ['User', 'ID_User', 'Object', 'Object_ID', 'Action', 'Date', 'Hour', 'IP_Address', 'Details']);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $row['details'] = str_replace('`groups`', 'groups', $row['details']);
+    $row['details'] = str_replace('`rank`', 'rank', $row['details']);
+
+    list($date, $hour) = explode(' ', $row['occured_on']);
+
+    $output_lines[] = array(
+      'username' => $row['username'],
+      'user_id' => $row['performed_by'],
+      'object' => $row['object'],
+      'object_id' => $row['object_id'],
+      'action' => $row['action'],
+      'date' => $date,
+      'hour' => $hour,
+      'ip_address' => $row['ip_address'],
+      'details' => $row['details'],
+    );
+    $line_id++;
+  }
+
+  header('Content-type: application/csv');
+  header('Content-Disposition: attachment; filename='.date('YmdGis').'piwigo_activity_log.csv');
+  header("Content-Transfer-Encoding: UTF-8");
+
+  $f = fopen('php://output', 'w');  
+      foreach ($output_lines as $line) { 
+          fputcsv($f, $line, ";"); 
+      }
+  fclose($f);
 }
 
 ?>
