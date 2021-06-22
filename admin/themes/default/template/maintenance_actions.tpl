@@ -135,7 +135,7 @@ $(".delete-size-check").change(function() {
       <span class="cache-lastCalculated-value">42 {'months ago'|@translate}</span>
       <a class="refresh-cache-size"><span class="refresh-icon icon-arrows-cw"></span>{'Refresh'|@translate}</a>
     </div>
-    <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="icon-doc maintenance-action">{'Purge compiled templates'|@translate} <span class="multiple-compiledTemplate-sizes"> 999 Go </span></a> 
+    <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="icon-file-code maintenance-action">{'Purge compiled templates'|@translate} <span class="multiple-compiledTemplate-sizes"> 999 Go </span></a> 
   </div>
 
 
