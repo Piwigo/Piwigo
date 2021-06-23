@@ -2128,6 +2128,12 @@ h2:lang(en) { text-transform:capitalize; }
   opacity: 1;
 }
 
+.pluginContainer.line .pluginMiniBox.inactive:hover .pluginContent .pluginActions a{
+  background: transparent;
+  opacity: 0.7;
+}
+
+
  .PluginOptionsBlock{
     display:none;
     position:absolute;
@@ -5206,7 +5212,6 @@ color:#FF7B00;
 
 .line {
   background: #fafafa;
-  box-shadow: 0px 2px 4px #00000024;
 
   display: flex;
   flex-direction: row;
