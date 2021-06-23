@@ -2231,9 +2231,7 @@ legend {text-align:left;}
 }
 
 .multiple-pictures-sizes {
-  position: absolute;
-  left: 231px;
-  margin-top: 25px;
+  margin-left: 10px;
 }
 
 /* Tables & forms */
@@ -2814,6 +2812,10 @@ a#showPermissions:hover {text-decoration: none;}
   /* margin: 2px 0px; */
   margin-left: 3.4px;
   border: solid #ffa646 2px;
+}
+
+.delete-size-check .select-checkbox {
+  margin-left: 0;
 }
 
 .user-list-checkbox .select-checkbox {
