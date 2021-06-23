@@ -466,7 +466,6 @@ function ws_activity_downloadLog($param, &$service) {
       'ip_address' => $row['ip_address'],
       'details' => $row['details'],
     );
-    $line_id++;
   }
 
   header('Content-type: application/csv');

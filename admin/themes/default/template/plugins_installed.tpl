@@ -23,9 +23,9 @@ let delete_plugin_msg = '{'Are you sure you want to delete the plugin "%s"?'|@tr
 let deleted_plugin_msg = '{'Plugin "%s" deleted!'|@translate|@escape:'javascript'}';
 let restore_plugin_msg = '{'Are you sure you want to restore the plugin "%s"?'|@translate|@escape:'javascript'}';
 const restore_tip_msg = "{'Restore default configuration. You will lose your plugin settings!'|@translate}";
-const plugin_added_str = '{'Activated!'|@translate}';
-const plugin_deactivated_str = '{'Deactivated!'|@translate}';
-const plugin_restored_str = '{'Restored!'|@translate}';
+const plugin_added_str = '{'Activated'|@translate}';
+const plugin_deactivated_str = '{'Deactivated'|@translate}';
+const plugin_restored_str = '{'Restored'|@translate}';
 const plugin_action_error = '{'an error happened'|@translate}';
 {literal}
 var queuedManager = jQuery.manageAjax.create('queued', { 
@@ -660,6 +660,7 @@ jQuery(".pluginMiniBox").each(function(index){
 
 .pluginContainer.classic .pluginMiniBoxNameCell {
   position: relative;
+  margin-right: 10px;
 }
 
 .pluginContainer.classic .switch {

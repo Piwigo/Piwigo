@@ -1160,9 +1160,15 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background: #777777;
 }
 
-.pluginContainer.line .pluginMiniBox:hover .pluginContent .pluginActions .pluginUnavailableAction{
+.pluginContainer.line .pluginMiniBox:hover .pluginContent .pluginActions a{
   /* color: #ffffff; */
-  opacity: 0.5;
+  opacity: 1;
+}
+
+.pluginContainer.line .pluginMiniBox.inactive:hover .pluginContent .pluginActions a{
+  background: transparent;
+  opacity: 1;
+  color: #777777;
 }
 
 .addAlbum label{
@@ -1419,8 +1425,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .line {
-  background: #333333;
-  box-shadow: 0px 2px 4px #00000024;
+  background: transparent;
 
   display: flex;
   flex-direction: row;

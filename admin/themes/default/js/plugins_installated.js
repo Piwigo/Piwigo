@@ -95,7 +95,7 @@ function activatePlugin(id) {
     }).done(function (data) {
         console.log(data);
         $("#"+id+" .switch").attr("disabled", false);
-        $("#" + id + " .AddPluginSuccess").fadeOut(2500);
+        $("#" + id + " .AddPluginSuccess").fadeOut(3000);
     })
 }
 
@@ -132,7 +132,7 @@ function disactivatePlugin(id) {
     }).done(function (data) {
         console.log(data);
         $("#"+id+" .switch").attr("disabled", false);
-        $("#" + id + " .DeactivatePluginSuccess").fadeOut(2500);
+        $("#" + id + " .DeactivatePluginSuccess").fadeOut(3000);
     })
 }
 
@@ -204,7 +204,7 @@ function restorePlugin(id) {
             $("#" + id + " .PluginActionError").delay(1500).fadeOut(2500);
         }
     }).done(function (data) {
-        $("#" + id + " .RestorePluginSuccess").fadeOut(2500);
+        $("#" + id + " .RestorePluginSuccess").fadeOut(3000);
     })
 }
 
