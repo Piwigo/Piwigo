@@ -93,6 +93,19 @@ $(".delete-size-check").change(function() {
   }
 })
 
+$(".delete-sizes").hide();
+$(".delete-size-check").click( function () {
+  let displayDeleteSizes = false;
+  $(".delete-size-check").each(function() {
+    if ($(this).attr("data-selected") == 1) {
+      displayDeleteSizes = true;
+    }
+  });
+
+  (displayDeleteSizes ? $(".delete-sizes").show() : $(".delete-sizes").hide())
+
+})
+
 {/footer_script}
 
 {combine_script id='ajax' load='footer' path='admin/themes/default/js/maintenance.js'}
@@ -140,7 +153,7 @@ $(".delete-size-check").change(function() {
 
 
   <div class="delete-size-checks">
-  <span id="label-delete-size-checkbox">{'Delete multiple size images'|@translate} <span class="multiple-pictures-sizes"> 999 Go </span></span>
+  <span id="label-delete-size-checkbox">{'Delete multiple size images'|@translate}<span class="multiple-pictures-sizes">999 Go</span></span>
     <div class="delete-check-container">
       {foreach from=$purge_derivatives key=name item=url name=loop}
       <div class="delete-size-check" title="Poids : 999Go" data-selected="0" name="{$url}">
@@ -150,7 +163,7 @@ $(".delete-size-check").change(function() {
     </div>
   </div>
 
-  <a class="icon-ok maintenance-action delete-sizes">{'Delete these sizes'|@translate}</a>
+  <a class="icon-ok delete-sizes">{'Delete these sizes'|@translate}</a>
 </fieldset>
 
 <style>
@@ -160,13 +173,13 @@ $(".delete-size-check").change(function() {
 }
 
 .maintenance-action:hover {
-  background-color: #ffa744;
-  color: #3c3c3c;
+  color: #ff7700;
+  text-decoration: none;
 }
 
 .maintenance-action {
   border:solid 1px;
-  padding:8px 30px;
+  padding:8px 10px;
   margin-right: 20px;
   margin-bottom: 20px;
 }
@@ -174,16 +187,19 @@ $(".delete-size-check").change(function() {
 .delete-size-checks {
   display:flex;
   text-align:left;
-  margin-bottom:20px;
+  margin-bottom:5px;
+
+  flex-direction: column;
 }
 
 .delete-check-container {
   display:flex;
   flex-wrap:wrap;
+  margin-top: 15px;
 }
 
 .delete-size-check {
-  margin-left:15px;
+  margin-right:15px;
   margin-bottom:10px;
   display:flex;
   cursor:pointer
@@ -197,6 +213,20 @@ $(".delete-size-check").change(function() {
   display:block;
   width:max-content;
   text-align:left;
+}
+
+.delete-sizes {
+  cursor: pointer;
+  padding: 8px 10px;
+  font-weight: bold;
+  background-color: #ffa744;
+  color: #3c3c3c;
+}
+
+.delete-sizes:hover {
+  background-color: #ff7700;
+  color: #3c3c3c;
+  text-decoration: none;
 }
 
 .rotate-anim {
