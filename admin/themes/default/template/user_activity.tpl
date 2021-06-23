@@ -29,7 +29,8 @@ var actionType_add = "{'add'|translate}";
 var actionType_delete = "{'deletion'|translate}";
 var actionType_move = "{'move'|translate}";
 var actionType_edit = "{'edit'|translate}";
-var actionType_log = "{'log'|translate}";
+var actionType_login = "{'login'|translate}";
+var actionType_logout = "{'logout'|translate}";
 
 {* Album keys *}
 
@@ -299,7 +300,7 @@ function lineConstructor(line) {
             newLine.find(".action-icon").addClass("icon-key");
             newLine.find(".action-section").addClass("icon-user-1");
 
-            newLine.find(".action-name").html(actionType_log);
+            newLine.find(".action-name").html(actionType_login);
 
             console.log("userS Logged in");
             final_albumInfos = actionInfos_users_logged_in.replace('%d', line.counter);
@@ -309,10 +310,10 @@ function lineConstructor(line) {
             case "logout":
             newLine.find(".action-type").addClass("icon-purple");
             newLine.find(".user-pic").addClass(color_icons[line.user_id % 5]);
-            newLine.find(".action-icon").addClass("icon-key");
+            newLine.find(".action-icon").addClass("icon-logout");
             newLine.find(".action-section").addClass("icon-user-1");
 
-            newLine.find(".action-name").html(actionType_log);
+            newLine.find(".action-name").html(actionType_logout);
 
             console.log("userS Logged in");
             final_albumInfos = actionInfos_users_logged_out.replace('%d', line.counter);
@@ -482,7 +483,7 @@ function lineConstructor(line) {
             newLine.find(".action-icon").addClass("icon-key");
             newLine.find(".action-section").addClass("icon-user-1");
 
-            newLine.find(".action-name").html(actionType_log);
+            newLine.find(".action-name").html(actionType_login);
 
             final_albumInfos = actionInfos_user_logged_in.replace('%d', line.counter);
 
@@ -490,10 +491,10 @@ function lineConstructor(line) {
             case "logout":
             newLine.find(".action-type").addClass("icon-purple");
             newLine.find(".user-pic").addClass(color_icons[line.user_id % 5]);
-            newLine.find(".action-icon").addClass("icon-key");
+            newLine.find(".action-icon").addClass("icon-logout");
             newLine.find(".action-section").addClass("icon-user-1");
 
-            newLine.find(".action-name").html(actionType_log);
+            newLine.find(".action-name").html(actionType_logout);
           
             final_albumInfos = actionInfos_user_logged_out.replace('%d', line.counter);
 
