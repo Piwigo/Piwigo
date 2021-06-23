@@ -456,7 +456,7 @@ $(".icon-help-circled").tipTip({
             <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit"> <span id="applyOnDetails"></span></input>
             <span id="applyActionLoading" style="display:none"><img src="themes/default/images/ajax-loader-small.gif"></span>
             <br />
-            <span class="infos" style="display:inline-block;display:none;max-width:100%;margin:0;margin-top:30px;min-height:0;border-left: 2px solid #00FF00;">&#x2714; {'Users modified'|translate}</span>
+            <span class="infos icon-ok" style="display:inline-block;display:none;max-width:100%;margin:0;margin-top:30px;min-height:0;border-left: 2px solid #00FF00;">{'Users modified'|translate}</span>
           </p>
         </div> {* #permitActionUserList *}
       </fieldset>
@@ -1076,7 +1076,7 @@ $(".icon-help-circled").tipTip({
 
 .user-header-username{
   width: 20%;
-  max-width: 210px;
+  max-width: 195px;
 }
 .user-container-username {
   width: 20%;
@@ -2336,6 +2336,10 @@ Advanced filter
 
 .selectable:hover .select-checkbox{
   background-color: #ffa646 !important;
+}
+
+.selectable .user-first-col:hover {
+    background-color: transparent;
 }
 
 .selectable .user-container-select {
