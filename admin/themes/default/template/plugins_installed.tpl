@@ -236,7 +236,7 @@ jQuery(".pluginMiniBox").each(function(index){
 
 <div class="emptyResearch"> {'No plugins found'|@translate} </div>
 
-<div class="pluginContainer">
+    <div class="pluginContainer {if $smarty.cookies.pwg_plugin_manager_view == 'classic'} classic {elseif $smarty.cookies.pwg_plugin_manager_view == 'line'} line {elseif $smarty.cookies.pwg_plugin_manager_view == 'compact'} compact {else} {/if}">
 
 {foreach from=$plugins item=plugin name=plugins_loop}
 
