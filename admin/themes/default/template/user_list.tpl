@@ -1060,7 +1060,7 @@ $(".icon-help-circled").tipTip({
     border-radius:10px;
     margin-bottom:10px;
     transition: background-color 500ms linear;
-    box-shadow: 0px 2px 5px #00000024;
+    box-shadow: 0px 2px 2px #00000024;
 }
 
 .user-header-select,
@@ -2208,8 +2208,8 @@ Advanced filter
 }
 
 .compactView .user-container-initials-wrapper > span {
-  height: 36px;
-  width: 36px;
+  height: 40px;
+  width: 40px;
 }
 
 
