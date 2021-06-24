@@ -129,6 +129,15 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.getCacheSize',
+      'ws_getCacheSize',
+      null,
+      'Returns general informations.',
+      $ws_functions_root . 'pwg.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
     'pwg.activity.getList',
     'ws_getActivityList',
     null,
