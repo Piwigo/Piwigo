@@ -1153,7 +1153,6 @@ $(".icon-help-circled").tipTip({
 
 
 .user-container-checkbox.user-list-checkbox .select-checkbox {
-  border: solid #E6E6E6 2px;
   background-color: #F3F3F3;
 }
 
@@ -2327,6 +2326,8 @@ Advanced filter
 .selectable .select-checkbox {
   width: 25px;
   height: 25px;
+
+  border: solid #ffa646 2px;
 }
 
 .selectable .select-checkbox i {
