@@ -1424,6 +1424,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #bbbbbb;
 }
 
+.compactView .user-container-initials-wrapper > span {
+  height: 50px !important;
+  width: 50px !important;
+
+  box-sizing: border-box;
+}
+
 .line {
   background: transparent;
 
