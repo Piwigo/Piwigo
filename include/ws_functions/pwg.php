@@ -196,6 +196,47 @@ function ws_getInfos($params, &$service)
 
 /**
  * API method
+ * Calculates and returns the size of the cache
+ * @param mixed[] $params
+ */
+function ws_getCacheSize($params, &$service)
+{
+  // Cache size
+  $infos['cache_size'] = 4444;
+
+
+  /* Multiples sizes */
+
+  $custom = 1;
+  $huge = 2;
+  $extra_large = 3;
+  $large = 4;
+  $medium = 5;
+  $small = 6;
+  $extra_small = 7;
+  $tiny = 8;
+  $thumbnail = 9;
+  $squarre = 10;
+  $all = $squarre + $thumbnail + $tiny + $extra_small + $small + $medium + $large + $extra_large + $huge + $custom;
+
+  $infos['msizes'] = [$all, $squarre, $thumbnail, $tiny, $extra_small, $small, $medium, $large, $extra_large, $huge, $custom];
+
+  $infos['last_time_calc'] = "now";
+
+  foreach ($infos as $name => $value)
+  {
+    $output[] = array(
+      'name' => $name,
+      'value' => $value,
+    );
+  }
+
+  return array('infos' => new PwgNamedArray($output, 'item'));
+}
+
+
+/**
+ * API method
  * Adds images to the caddie
  * @param mixed[] $params
  *    @option int[] image_id
