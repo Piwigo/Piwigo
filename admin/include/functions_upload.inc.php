@@ -339,6 +339,7 @@ SELECT
     {
       unlink($file_path);
       $file_path = $upload_dir.'/pwg_representative/'.$filename_wo_ext.'.' .$representative_ext;
+      $representative_ext = null;
     }
     
     $insert = array(
