@@ -387,7 +387,9 @@ function ws_session_getStatus($params, &$service)
  * Returns lines of users activity
  */
 
-function ws_getActivityList($param, &$service) {
+function ws_getActivityList($param, &$service)
+{
+  global $conf;
 
   /* Test Lantency */ 
   // sleep(1);
@@ -396,20 +398,19 @@ function ws_getActivityList($param, &$service) {
   $current_key = '';
 
   $query = '
-  SELECT 
-      activity_id,
-      performed_by, 
-      object, action, 
-      session_idx, 
-      ip_address, 
-      occured_on, 
-      details, 
-      username 
-    FROM piwigo_activity, 
-         piwigo_users 
-    WHERE piwigo_activity.performed_by = piwigo_users.id 
-    ORDER BY activity_id DESC;
-  ';
+SELECT
+    activity_id,
+    performed_by,
+    object, action,
+    session_idx,
+    ip_address,
+    occured_on,
+    details,
+    '.$conf['user_fields']['username'].' AS username
+  FROM '.ACTIVITY_TABLE.'
+    JOIN '.USERS_TABLE.' AS u ON performed_by = u.'.$conf['user_fields']['id'].'
+  ORDER BY activity_id DESC
+;';
 
   $line_id = 0;
   $result = pwg_query($query);
@@ -466,26 +467,27 @@ function ws_getActivityList($param, &$service) {
  * Returns lines of users activity
  */
 
-function ws_activity_downloadLog($param, &$service) {
+function ws_activity_downloadLog($param, &$service)
+{
+  global $conf;
 
   $output_lines = array();
 
   $query = '
-  SELECT 
-      activity_id,
-      performed_by, 
-      object, 
-      object_id,
-      action, 
-      ip_address, 
-      occured_on, 
-      details, 
-      username 
-    FROM piwigo_activity, 
-         piwigo_users 
-    WHERE piwigo_activity.performed_by = piwigo_users.id 
-    ORDER BY activity_id DESC;
-  ';
+SELECT
+    activity_id,
+    performed_by,
+    object,
+    object_id,
+    action,
+    ip_address,
+    occured_on,
+    details,
+    '.$conf['user_fields']['username'].' AS username
+  FROM '.ACTIVITY_TABLE.'
+    JOIN '.USERS_TABLE.' AS u ON performed_by = u.'.$conf['user_fields']['id'].'
+  ORDER BY activity_id DESC
+;';
 
   $result = pwg_query($query);
   array_push($output_lines, ['User', 'ID_User', 'Object', 'Object_ID', 'Action', 'Date', 'Hour', 'IP_Address', 'Details']);
