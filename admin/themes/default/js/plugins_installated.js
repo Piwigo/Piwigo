@@ -1,5 +1,5 @@
 function setDisplayClassic() {
-    console.log("DISPLAY CLASSIC");
+    console.error("DISPLAY CLASSIC");
     $(".pluginContainer").removeClass("line").removeClass("compact").addClass("classic");
 
     $(".pluginDesc").show();
