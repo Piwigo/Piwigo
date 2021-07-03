@@ -344,11 +344,8 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
               $granted_grps[$row['cat_id']]=array();
             }
             // TODO: explanaition
-            array_push(
-              $granted_grps,
-              array(
-                $row['cat_id'] => array_push($granted_grps[$row['cat_id']],$row['group_id'])
-              )
+            $granted_grps[] = array(
+                $row['cat_id'] => array_push($granted_grps[$row['cat_id']], $row['group_id'])
             );
           }
         }
@@ -368,11 +365,8 @@ SELECT id_uppercat, MAX(`rank`)+1 AS next_rank
               $granted_users[$row['cat_id']]=array();
             }
             // TODO: explanaition
-            array_push(
-              $granted_users,
-              array(
-                $row['cat_id'] => array_push($granted_users[$row['cat_id']],$row['user_id'])
-              )
+            $granted_users[] = array(
+                $row['cat_id'] => array_push($granted_users[$row['cat_id']], $row['user_id'])
             );
           }
         }
