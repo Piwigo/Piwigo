@@ -21,7 +21,7 @@ if (empty($_GET['theme']))
 
 include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
 $themes = new themes();
-if (!in_array($_GET['theme'], array_keys($themes->fs_themes)))
+if (!array_key_exists($_GET['theme'], $themes->fs_themes))
 {
   die('Invalid theme');
 }

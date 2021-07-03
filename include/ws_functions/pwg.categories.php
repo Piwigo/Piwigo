@@ -169,7 +169,7 @@ function ws_categories_getList($params, &$service)
 {
   global $user, $conf;
 
-  if (!in_array($params['thumbnail_size'], array_keys(ImageStdParams::get_defined_type_map())))
+  if (!array_key_exists($params['thumbnail_size'], ImageStdParams::get_defined_type_map()))
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid thumbnail_size");
   }
