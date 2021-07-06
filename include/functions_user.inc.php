@@ -795,20 +795,76 @@ function get_default_language()
 
 /**
  * Tries to find the browser language among available languages.
- * @todo : try to match 'fr_CA' before 'fr'
  *
  * @return string
  */
 function get_browser_language()
 {
-  $browser_language = substr(@$_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
+  $language_header = @$_SERVER['HTTP_ACCEPT_LANGUAGE'];
+  if ($language_header == '')
+  {
+    return false;
+  }
+
+  // case insensitive match
+  // 'en-US;q=0.9, fr-CH, kok-IN;q=0.7' => 'en_us;q=0.9, fr_ch, kok_in;q=0.7'
+  $language_header = strtolower(str_replace("-", "_", $language_header));
+  $match_pattern = '/(([a-z]{1,8})(?:_[a-z0-9]{1,8})*)\s*(?:;\s*q\s*=\s*([01](?:\.[0-9]{0,3})?))?/';
+  $matches = null;
+  preg_match_all($match_pattern, $language_header, $matches);
+  $accept_languages_full = $matches[1];  // ['en-us', 'fr-ch', 'kok-in']
+  $accept_languages_short = $matches[2];  // ['en', 'fr', 'kok']
+  if (!count($accept_languages_full))
+  {
+    return false;
+  }
+
+  // if the quality value is absent for an language, use 1 as the default
+  $q_values = $matches[3];  // ['0.9', '', '0.7']
+  foreach ($q_values as $i => $q_value)
+  {
+    $q_values[$i] = ($q_values[$i] === '') ? 1 : floatval($q_values[$i]);
+  }
+
+  // since quick sort is not stable,
+  // sort by $indices explicitly after sorting by $q_values
+  $indices = range(1, count($q_values));
+  array_multisort(
+    $q_values, SORT_DESC, SORT_NUMERIC,
+    $indices, SORT_ASC, SORT_NUMERIC,
+    $accept_languages_full,
+    $accept_languages_short
+  );
+
+  // list all enabled language codes in the Piwigo installation
+  // in both full and short forms, and case insensitive
+  $languages_available = array();
   foreach (get_languages() as $language_code => $language_name)
   {
-    if (substr($language_code, 0, 2) == $browser_language)
+    $lowercase_full = strtolower($language_code);
+    $lowercase_parts = explode('_', $lowercase_full, 2);
+    $lowercase_prefix = $lowercase_parts[0];
+    $languages_available[$lowercase_full] = $language_code;
+    $languages_available[$lowercase_prefix] = $language_code;
+  }
+
+  foreach ($q_values as $i => $q_value)
+  {
+    // if the exact language variant is present, make sure it's chosen
+    // en-US;q=0.9 => en_us => en_US
+    if (array_key_exists($accept_languages_full[$i], $languages_available))
     {
-      return $language_code;
+      return $languages_available[$accept_languages_full[$i]];
+    }
+    // only in case that an exact match was not available,
+    // should we fallback to other variants in the same language family
+    // fr_CH => fr => fr_FR
+    else if (array_key_exists($accept_languages_short[$i], $languages_available))
+    {
+      return $languages_available[$accept_languages_short[$i]];
     }
   }
+
   return false;
 }
 
