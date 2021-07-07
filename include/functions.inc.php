@@ -1092,8 +1092,10 @@ function original_to_representative($path, $representative_ext)
  */
 function original_to_format($path, $format_ext)
 {
+  global $conf;
+
   $pos = strrpos($path, '/');
-  $path = substr_replace($path, 'pwg_format/', $pos+1, 0);
+  $path = substr_replace($path, $conf['format_dir'].'/', $pos+1, 0);
   $pos = strrpos($path, '.');
   return substr_replace($path, $format_ext, $pos+1);
 }

@@ -52,8 +52,13 @@ $conf['file_ext'] = array_merge(
 $conf['enable_formats'] = false;
 
 // format_ext : file extensions for formats, ie additional versions of a
-// photo (or nay other file). Formats are in sub-directory pwg_format.
+// photo (or any other file). Formats are in the sub-directory specified
+// by format_dir below (default: pwg_format).
 $conf['format_ext'] = array('cr2', 'tif', 'tiff', 'nef', 'dng', 'ai', 'psd');
+
+// format_dir : name of the directory in which to search for formats. Use
+// '.' if formats are stored alongside the original version.
+$conf['format_dir'] = 'pwg_format';
 
 // top_number : number of element to display for "best rated" and "most
 // visited" categories
