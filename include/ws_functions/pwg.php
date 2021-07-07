@@ -197,31 +197,63 @@ function ws_getInfos($params, &$service)
 /**
  * API method
  * Calculates and returns the size of the cache
+ *
+ * @since 12
  * @param mixed[] $params
  */
 function ws_getCacheSize($params, &$service)
 {
+  global $conf;
+
   // Cache size
-  $infos['cache_size'] = 4444;
+  $path_cache = $conf['data_location'];
+  $infos['cache_size'] = null;
+  if (function_exists('exec'))
+  {
+    @exec('du -sk '.$path_cache, $return_array_cache);
+    if (
+      is_array($return_array_cache)
+      and !empty($return_array_cache[0])
+      and preg_match('/^(\d+)\s/', $return_array_cache[0], $matches_cache)
+    )
+    {
+      $infos['cache_size'] = $matches_cache[1] * 1024;
+    }
+  }
 
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  // Multiples sizes size
+  $path_msizes = $conf['data_location'].'i';
+  $msizes = get_cache_size_derivatives($path_msizes);
 
-  /* Multiples sizes */
+  $infos['msizes'] = array_fill_keys(array_keys(ImageStdParams::get_defined_type_map()), 0);
+  $infos['msizes']['custom'] = 0;
+  $all = 0;
 
-  $custom = 1;
-  $huge = 2;
-  $extra_large = 3;
-  $large = 4;
-  $medium = 5;
-  $small = 6;
-  $extra_small = 7;
-  $tiny = 8;
-  $thumbnail = 9;
-  $squarre = 10;
-  $all = $squarre + $thumbnail + $tiny + $extra_small + $small + $medium + $large + $extra_large + $huge + $custom;
+  foreach(array_keys($infos['msizes']) as $size_type)
+  {
+    $infos['msizes'][$size_type] += @$msizes[derivative_to_url($size_type)];
+    $all += $infos['msizes'][$size_type];
+  }
+  $infos['msizes']['all'] = $all;
 
-  $infos['msizes'] = [$all, $squarre, $thumbnail, $tiny, $extra_small, $small, $medium, $large, $extra_large, $huge, $custom];
+  // Compiled templates size
+  $path_template_c = $conf['data_location'].'templates_c';
+  $infos['tsizes'] = null;
+  if (function_exists('exec'))
+  {
+    @exec('du -sk '.$path_template_c, $return_array_template_c);
+    if (
+      is_array($return_array_template_c)
+      and !empty($return_array_template_c[0])
+      and preg_match('/^(\d+)\s/', $return_array_template_c[0], $matches_template_c)
+    )
+    {
+      $infos['tsizes'] = $matches_template_c[1] * 1024;
+    }
+  }
 
-  $infos['last_time_calc'] = "now";
+  $infos['last_date_calc'] = date("Y-m-d H:i:s");
 
   foreach ($infos as $name => $value)
   {
@@ -231,9 +263,10 @@ function ws_getCacheSize($params, &$service)
     );
   }
 
+  conf_update_param("cache_sizes", $output, true);
+
   return array('infos' => new PwgNamedArray($output, 'item'));
 }
-
 
 /**
  * API method

@@ -1,4 +1,7 @@
 {combine_script id='ajax' load='footer' path='admin/themes/default/js/maintenance.js'}
+{footer_script}
+const no_time_elapsed = "{"right now"|@translate}";
+{/footer_script}
 
 <fieldset id="environment">
   <legend><span class="icon-television icon-red"></span> {'Environment'|@translate}</legend>
@@ -12,9 +15,15 @@
     {/if}
     <li>     
       <span class="cache-size-text">{'Cache size'|@translate}</span>
-      <span class="cache-size-value">999 Go</span>
-      <span class="cache-lastCalculated-text">{'calculated'|@translate}</span>
-      <span class="cache-lastCalculated-value">{'42 months ago'|@translate}</span>
+      <span class="cache-size-value">
+      {if isset($cache_sizes)}
+        {round($cache_sizes[0]['value']/1024/1024, 2)} Mo
+      {else}
+        {'N/A'|translate}
+      {/if}
+      </span>
+      <span class="cache-lastCalculated-text">{if $time_elapsed_since_last_calc}&ThickSpace;{'calculated'|@translate}{/if}</span>
+      <span class="cache-lastCalculated-value">{if $time_elapsed_since_last_calc} {$time_elapsed_since_last_calc} {else} &ThickSpace;{"never calculated"|@translate} {/if}</span>
       <a class="refresh-cache-size"><span class="refresh-icon icon-arrows-cw"></span>{'Refresh'|@translate}</a>
     </li>
   </ul>

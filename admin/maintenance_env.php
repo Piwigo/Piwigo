@@ -292,6 +292,8 @@ $template->assign(
     'U_PHPINFO' => sprintf($url_format, 'phpinfo'),
     'PHP_DATATIME' => $php_current_timestamp,
     'DB_DATATIME' => $db_current_date,
+    'cache_sizes' => (isset($conf['cache_sizes'])) ? unserialize($conf['cache_sizes']) : null,
+    'time_elapsed_since_last_calc' => (isset($conf['cache_sizes'])) ? time_since(unserialize($conf['cache_sizes'])[3]['value'], 'year') : null,
     )
   );
 
