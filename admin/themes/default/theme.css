@@ -4721,6 +4721,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 	text-align: center;
 	margin-top: 20px;
 	border-radius: 7px;
+  background-color:#f5f5f5
 }
 .selectedAlbum span.icon-sitemap::before, .afterUploadActions a.batchLink.icon-pencil::before, .afterUploadActions a.icon-plus-circled::before {
 	margin-right: 12px;
