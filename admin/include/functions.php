@@ -3410,3 +3410,46 @@ SELECT *
 
   return $images[0];
 }
+
+
+/**
+ * Return each cache image sizes.
+ *
+ * @since 12
+ * @param string $path_to_file
+ */
+function get_cache_size_derivatives($path)
+{
+  $msizes = array(); //final res
+  $subdirs = array(); //sous-rep
+
+  if (is_dir($path))
+  {
+    if ($contents = opendir($path))
+    {
+      while (($node = readdir($contents)) !== false)
+      {
+        if ($node == '.' or $node == '..') continue;
+
+        if (is_file($path.'/'.$node))
+        {
+          if ($split = explode('-' ,$node))
+          {
+            $size_code = substr(end($split), 0, 2);
+            @$msizes[$size_code] += filesize($path.'/'.$node);
+          }
+        }
+        elseif (is_dir($path.'/'.$node))
+        {
+          $tmp_msizes = get_cache_size_derivatives($path.'/'.$node);
+          foreach ($tmp_msizes as $size_key => $value)
+          {
+            @$msizes[$size_key] += $value;
+          }
+        }
+      }
+    }
+    closedir($contents);
+  }
+  return $msizes;
+}

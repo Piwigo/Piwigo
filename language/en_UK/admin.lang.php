@@ -1228,3 +1228,5 @@ $lang['Plugin "%s" deleted!'] = 'Plugin "%s" deleted!';
 $lang['Activated'] = 'Activated';
 $lang['Deactivated'] = 'Deactivated';
 $lang['Restored'] = 'Restored';
+$lang['right now'] = 'right now';
+$lang['never calculated'] = 'never  calculated';
