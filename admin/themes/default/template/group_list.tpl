@@ -263,8 +263,12 @@ usersCache.selectize(jQuery('select.UserSearch'));
 
 <style>
 
-.dropdown::after {
+.GroupContainer[data-default="1"] .dropdown::after {
   left: 183px
+}
+
+.GroupContainer[data-default="0"] .dropdown::after {
+  left: 250px
 }
 
 </style>
