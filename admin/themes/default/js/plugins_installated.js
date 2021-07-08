@@ -253,7 +253,7 @@ $(document).ready(function () {
     actualizeFilter();
 
     if (!$.cookie("pwg_plugin_manager_view")) {
-        $.cookie("pwg_plugin_manager_view", "tile");
+        $.cookie("pwg_plugin_manager_view", "classic");
     }
 
     if ($("#displayClassic").is(":checked")) {
