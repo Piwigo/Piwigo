@@ -1701,7 +1701,6 @@ $(".icon-help-circled").tipTip({
     top: 50%;
     transform:translate(-50%, -48%);
     text-align:left;
-    background-color:white;
     padding:40px;
     flex-direction:column;
     border-radius:15px;
@@ -1721,7 +1720,6 @@ $(".icon-help-circled").tipTip({
 .AddIconTitle {
   font-size:1.7em;
   font-weight:bold;
-  color: #000000;
   margin-bottom:20px;
   margin-top:15px;
 }
@@ -1735,21 +1733,13 @@ $(".icon-help-circled").tipTip({
 
 .AddUserLabel {
   display:block;
-  color: #3E3E3E;
   font-size:1.3em;
 }
 
 .AddUserInput {
   display:block;
-  background-color:white;
-  border: solid 1px #D4D4D4;
   font-size:1.3em;
   padding: 10px 5px;
-}
-
-.AddUserInput[type="password"],
-.AddUserInput[type="text"] {
-  background-color:white;
 }
 
 .AddUserPasswordWrapper {
