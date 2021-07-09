@@ -14,7 +14,7 @@ define('PHPWG_ROOT_PATH','./');
 // addslashes to vars if magic_quotes_gpc is off this is a security
 // precaution to prevent someone trying to break out of a SQL statement.
 //
-if( !@get_magic_quotes_gpc() )
+if(function_exists('get_magic_quotes_gpc') && !@get_magic_quotes_gpc() )
 {
   if( is_array($_POST) )
   {

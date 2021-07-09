@@ -168,6 +168,8 @@ SELECT COUNT(*)
 ;';
   list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
   $template->assign('NB_COMMENTS', $nb_comments);
+} else {
+  $template->assign('NB_COMMENTS', 0);
 }
 
 if ($nb_photos > 0)
