@@ -225,9 +225,9 @@ jQuery(".pluginMiniBox").each(function(index){
 </div>
 
 <div class="pluginFilter"> 
-  <span class="icon-filter search-icon"></span>
+  <span class="icon-search search-icon"></span>
   <span class="icon-cancel search-cancel"></span>
-  <input class='search-input' type="text" placeholder="{'Filter'|@translate}">
+  <input class='search-input' type="text" placeholder="{'Search'|@translate}">
 </div>
 
 <div class="AlbumViewSelector">
