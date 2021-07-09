@@ -1485,3 +1485,20 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .selectedAlbum span {
   background-color: #333333
 }
+
+.AddUserPopInContainer {
+  background-color: #333;
+}
+
+.AddUserPopInContainer .AddIconTitle {
+  color: #c1c1c1;
+}
+
+.AddUserPopInContainer .AddUserLabel {
+  color: #777;
+}
+
+.AddUserPopInContainer .AddUserInput {
+  background-color:#333;
+  border: solid 2px #151515;
+}

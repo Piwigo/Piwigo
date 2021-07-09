@@ -5261,3 +5261,20 @@ color:#FF7B00;
   background: #aaaaaa;
   color: black;
 }
+
+.AddUserPopInContainer {
+  background-color: white;
+}
+
+.AddUserPopInContainer .AddIconTitle  {
+  color: #000000;
+}
+
+.AddUserPopInContainer .AddUserLabel {
+  color: #3E3E3E;
+}
+
+.AddUserPopInContainer .AddUserInput {
+  background-color:white;
+  border: solid 2px #D4D4D4;
+}
