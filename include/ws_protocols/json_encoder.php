@@ -32,7 +32,7 @@ class PwgJsonEncoder extends PwgResponseEncoder
 
   function getContentType()
   {
-    return 'text/plain';
+    return 'text/json';
   }
 }
 
