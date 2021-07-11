@@ -619,7 +619,9 @@ $metadata_showable = trigger_change(
   $picture['current']
   );
 
-if ( $metadata_showable and pwg_get_session_var('show_metadata') )
+// noindex and nofollow the page if the display of metadata will be different
+// than the default state
+if ( $metadata_showable xor pwg_get_session_var('show_metadata') )
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
