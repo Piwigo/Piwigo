@@ -47,7 +47,7 @@ function pwg_db_connect($host, $user, $password, $database)
     list($host, $port) = explode(':', $host);
   }
 
-  $dbname = null;
+  $dbname = '';
   
   $mysqli = new mysqli($host, $user, $password, $dbname, $port, $socket);
   if (mysqli_connect_error())
