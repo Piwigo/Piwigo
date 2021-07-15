@@ -599,6 +599,7 @@ jQuery(".pluginMiniBox").each(function(index){
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: calc(100% - 35px);
 }
 
 .pluginContainer.line .pluginMiniBox .pluginActions{
