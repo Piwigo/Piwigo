@@ -361,7 +361,7 @@ function fatal_error($msg, $title=null, $show_trace=true)
   if ($show_trace and function_exists('debug_backtrace'))
   {
     $bt = debug_backtrace();
-    for ($i=1; $i<count($bt); $i++)
+    for ($i=1, $iMax = count($bt); $i< $iMax; $i++)
     {
       $class = isset($bt[$i]['class']) ? (@$bt[$i]['class'].'::') : '';
       $btrace_msg .= "#$i\t".$class.@$bt[$i]['function'].' '.@$bt[$i]['file']."(".@$bt[$i]['line'].")\n";
@@ -401,7 +401,7 @@ function get_tags_content_title()
     . l10n( count($page['tags']) > 1 ? 'Tags' : 'Tag' )
     . '</a> ';
 
-  for ($i=0; $i<count($page['tags']); $i++)
+  for ($i=0, $iMax = count($page['tags']); $i< $iMax; $i++)
   {
     $title.= $i>0 ? ' + ' : '';
 

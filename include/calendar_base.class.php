@@ -75,7 +75,7 @@ abstract class CalendarBase
     global $conf, $page;
     $res = '';
 
-    for ($i=0; $i<count($page['chronology_date']); $i++)
+    for ($i=0, $iMax = count($page['chronology_date']); $i< $iMax; $i++)
     {
       $res .= $conf['level_separator'];
       if ( isset($page['chronology_date'][$i+1]) )

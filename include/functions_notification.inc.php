@@ -466,7 +466,7 @@ SELECT
 ;';
   $dates = query2array($query);
 
-  for ($i=0; $i<count($dates); $i++)
+  for ($i=0, $iMax = count($dates); $i< $iMax; $i++)
   {
     if ($max_elements>0)
     { // get some thumbnails ...

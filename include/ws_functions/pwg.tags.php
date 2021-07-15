@@ -24,7 +24,7 @@ function ws_tags_getList($params, &$service)
     usort($tags, 'tag_alpha_compare');
   }
 
-  for ($i=0; $i<count($tags); $i++)
+  for ($i=0, $iMax = count($tags); $i< $iMax; $i++)
   {
     $tags[$i]['id'] = (int)$tags[$i]['id'];
     $tags[$i]['counter'] = (int)$tags[$i]['counter'];
