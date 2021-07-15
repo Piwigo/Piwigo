@@ -262,6 +262,10 @@ function cropImage() {
         <a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a>
       {/if}
 
+      {if isset($U_MOVE) }
+        <a class="icon-move moveAlbum" href="{$U_MOVE}">{'Move'|@translate}</a>
+      {/if} 
+
       {if isset($U_DELETE) }
         <a class="icon-trash deleteAlbum" href="#">{'Delete album'|@translate}</a>
       {/if} 

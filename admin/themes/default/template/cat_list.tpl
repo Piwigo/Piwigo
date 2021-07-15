@@ -56,6 +56,7 @@ jQuery(document).ready(function(){
     <div class="albumActions">
       <a href="{$category.U_EDIT}" class="actionEdit" {*title="{'Edit'|@translate}"*}><span class="icon-pencil tiptip" title="{'Edit'|@translate}"></span><span class="iconLegend">{'Edit'|@translate}</span></a>
       <a href="{$category.U_CHILDREN}" class="actionTitle" {*title="{'sub-albums'|@translate}"*}><span class="icon-sitemap tiptip" title="{'sub-albums'|@translate}"></span><span class="iconLegend">{'sub-albums'|@translate}</span></a>
+      <a href="{$category.U_MOVE}" class="actionMove"><span class="icon-move tiptip" title="{'Move'|@translate}"></span><span class="iconLegend">{'Move'|@translate}</span></a>
       {if cat_admin_access($category.ID)}
       <a href="{$category.U_JUMPTO}" class="actionGalery" {*title="{'Visit Gallery'|@translate}"*}><span class="icon-eye tiptip" title="{'Visit Gallery'|@translate}"></span><span class="iconLegend">{'Visit Gallery'|@translate}</span></a>
       {else}
