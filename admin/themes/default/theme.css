@@ -161,7 +161,7 @@ TABLE.languages TR TD { padding: 7px 20px; }
 .categoryBox, .addAlbum {
   position: relative;
   text-align: left;
-  height: 300px;
+  height: 320px;
   width: 220px;
   margin: 15px;
   border-radius: 10px;

@@ -155,11 +155,7 @@ jQuery(document).ready(function(){
 .categoryBox, .addAlbum{
   display: flex;
   flex-direction: column;
-  max-height: 200px;
   flex-grow: 1;
-
-  /* Potential Animation */
-  /* transition: 1s linear; */
 }
 
 .albumIcon span{

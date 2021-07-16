@@ -292,7 +292,7 @@ function setDisplayTile() {
         minWidth: "220px",
         maxWidth: "280px",
         flexDirection: "column",
-        maxHeight: "300px",
+        maxHeight: "320px",
         alignItems: "center",
         margin: "15px"
     });
@@ -336,7 +336,7 @@ function setDisplayTile() {
         minWidth: "220px",
         maxWidth: "280px",
         flexDirection: "column",
-        maxHeight: "300px",
+        maxHeight: "320px",
         margin: "15px"
     });
 
