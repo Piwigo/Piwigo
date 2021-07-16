@@ -223,6 +223,7 @@ TABLE.languages TR TD { padding: 7px 20px; }
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  color: #848484;
 }
 
 .albumActions a span, .albumActions span span{
