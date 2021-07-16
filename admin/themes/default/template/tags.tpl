@@ -115,9 +115,9 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div class='tag-header'>
   <div id='search-tag'>
     <div class='search-info'> </div>
-    <span class='icon-filter search-icon'> </span>
+    <span class='icon-search search-icon'> </span>
     <span class="icon-cancel search-cancel"></span>
-    <input class='search-input' type='text' placeholder='{'Filter'|@translate}'>
+    <input class='search-input' type='text' placeholder='{'Search'|@translate}'>
   </div>
   <form id='add-tag' class='not-in-selection-mode'>
     <span class='icon-cancel-circled'></span>

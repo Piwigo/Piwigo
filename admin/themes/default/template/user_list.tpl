@@ -132,28 +132,19 @@ $(".icon-help-circled").tipTip({
           </div>
         </div>
         <div style="display:flex; width: 270px;">
-          {* <div id="advanced_filter_button">
-            <span>{'Advanced filter'|@translate}</span>
-          </div> *}
-          {* <div id='search-user'>
-            <div class='search-info'> </div>
-            <span class='icon-filter search-icon'> </span>
-            <span class="icon-cancel search-cancel"></span>
-            <input id="user_search" class='search-input' type='text' placeholder='{'Filter'|@translate}'>
-          </div> *}
         </div>
       </div>
       <div class="not-in-selection-mode" style="width: 264px; height:2px">
       </div>
     </div>
-    <div id="advanced_filter_button">
-      <span>{'Advanced filters'|@translate}</span>
+    <div id="advanced_filter_button" class="icon-filter">
+      <span>{'Filters'|@translate}</span>
     </div>
     <div id='search-user'>
         <div class='search-info'> </div>
-          <span class='icon-filter search-icon'> </span>
+          <span class='icon-search search-icon'> </span>
           <span class="icon-cancel search-cancel"></span>
-          <input id="user_search" class='search-input' type='text' placeholder='{'Filter'|@translate}'>
+          <input id="user_search" class='search-input' type='text' placeholder='{'Search'|@translate}'>
         </div>
     <div id="advanced-filter-container">
       <div class="advanced-filters-header">
@@ -997,7 +988,7 @@ $(".icon-help-circled").tipTip({
 /* filters bar */
 
 #user_search {
-    width: 100px;
+    width: 200px;
 }
 
 .advanced-filter-date {
@@ -1886,16 +1877,20 @@ Advanced filter
 
 #advanced_filter_button {
 
-  width: 100px;
+  width: 70px;
 
   position: absolute;
   z-index: 2;
-  right: 550px;
+  right: 650px;
 
 
   cursor:pointer;
   padding:10px;
   margin-right:10px;
+}
+
+#advanced_filter_button.icon-filter::before {
+  transform: scale(1.2);
 }
 
 #search-user {

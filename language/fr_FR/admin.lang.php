@@ -1232,3 +1232,4 @@ $lang['Deactivated'] = 'Désactivé';
 $lang['Restored'] = 'Restoré';
 $lang['right now'] = 'à l\'instant';
 $lang['never calculated'] = 'jamais calculé';
+$lang['Filters'] = 'Filtres';

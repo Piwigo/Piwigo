@@ -1230,3 +1230,4 @@ $lang['Deactivated'] = 'Deactivated';
 $lang['Restored'] = 'Restored';
 $lang['right now'] = 'right now';
 $lang['never calculated'] = 'never  calculated';
+$lang['Filters'] = 'Filters';
