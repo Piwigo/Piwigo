@@ -199,6 +199,7 @@ $template->assign(
     'U_CHANGE_THEME' => $change_theme_url,
     'U_UPDATES' => $link_start.'updates',
     'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
+    'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
     )
   );
   

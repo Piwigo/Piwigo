@@ -731,6 +731,9 @@ $conf['dashboard_activity_nb_weeks'] = 4;
 // dragging an album. In milliseconds. 3 seconds by default.
 $conf['album_move_delay_before_auto_opening'] = 3*1000;
 
+// This variable is used to show or hide the template tab in the side menu
+$conf['show_template_in_side_menu'] = false;
+
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
 // +-----------------------------------------------------------------------+
