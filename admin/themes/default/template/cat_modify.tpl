@@ -336,7 +336,7 @@ function cropImage() {
 {/if}
 
   <p style="margin:0">
-    <button name="submit" type="submit" class="buttonGradient">
+    <button name="submit" type="submit" class="buttonLike">
       <i class="icon-floppy"></i> {'Save Settings'|@translate}
     </button>
   </p>
