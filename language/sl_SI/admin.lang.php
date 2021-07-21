@@ -1120,3 +1120,4 @@ $lang['<b>%d</b> albums found'] = '<b>%d</b> najdenih albumov';
 $lang['<b>%d</b> tag found'] = '<b>%d</b> najdena oznaka';
 $lang['<b>%d</b> tag selected'] = '<b>%d</b> oznaka izbrana';
 $lang['<b>%d</b> tags found'] = '<b>%d</b> najdenih oznak';
+$lang['Add Album'] = 'Dodaj album';
