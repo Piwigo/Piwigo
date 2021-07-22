@@ -1234,3 +1234,4 @@ $lang['right now'] = 'à l\'instant';
 $lang['never calculated'] = 'jamais calculé';
 $lang['Filters'] = 'Filtres';
 $lang['Synchronization settings'] = 'Paramètres de synchronisation';
+$lang['Activated plugin list'] = 'Liste des plugins activés';

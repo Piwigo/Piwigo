@@ -1,4 +1,7 @@
 {combine_script id='ajax' load='footer' path='admin/themes/default/js/maintenance.js'}
+{combine_script id='activated_plugin_list' load='footer' path='admin/themes/default/js/maintenance_env.js'}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10}
+ {* order 10 is required, see issue 1080 *}
 {footer_script}
 const no_time_elapsed = "{"right now"|@translate}";
 {/footer_script}
@@ -26,6 +29,13 @@ const no_time_elapsed = "{"right now"|@translate}";
       <span class="cache-lastCalculated-value">{if $time_elapsed_since_last_calc} {$time_elapsed_since_last_calc} {else} &ThickSpace;{"never calculated"|@translate} {/if}</span>
       <a class="refresh-cache-size"><span class="refresh-icon icon-arrows-cw"></span>{'Refresh'|@translate}</a>
     </li>
+  </ul>
+</fieldset>
+
+<fieldset id="pluginList">
+  <legend><span class="icon-puzzle icon-green"></span> {'Activated plugin list'|@translate}</legend>
+  <ul style="font-weight:bold">
+    <i class="icon-spin6 animate-spin"></i>
   </ul>
 </fieldset>
 
