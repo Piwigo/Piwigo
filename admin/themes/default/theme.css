@@ -1833,7 +1833,13 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 .themeActions span, .themeActions a {padding: 10px; margin: 0px 10px 10px 10px; font-weight: bold; font-size: 12px;}
 .themeActions span {font-size: 11px; background-color: #ddd; opacity: 0.5; color: ;}
 
-.themeActions .pluginUnavailableAction {margin:0 10px 10px 10px;}
+.themeActions .pluginUnavailableAction {
+  padding: 10px;
+  margin: 0px 10px 10px 10px;
+  font-weight: bold;
+  font-size: 12px;
+  background: #ebebeb;
+}
 
 .themeActions a:nth-child(1) {background-color: #ffc17e; color: #222;}
 .themeActions a:nth-child(1):hover {background-color: #ff7700; color: white; text-decoration: none;}
@@ -2035,7 +2041,7 @@ h2:lang(en) { text-transform:capitalize; }
   display:block;
 } */
 .pluginEmptyInput {width: 90px;}
-.pluginUnavailableAction {
+.pluginContent .pluginUnavailableAction {
   opacity: 0.5;
   font-size: 12px;
   padding: 2px 10px;
