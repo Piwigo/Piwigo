@@ -64,7 +64,6 @@ $('#syncFiles label').click(function () {
 {/if}
 
 {if isset($introduction)}
-<h4>{'Choose an option'|@translate}</h4>
 <form action="" method="post" id="update">
 
 	<fieldset id="syncFiles">
@@ -119,5 +118,3 @@ $('#syncFiles label').click(function () {
   </p>
 </form>
 {/if}{*isset $introduction*}
-
-<p><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></p>
