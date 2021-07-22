@@ -114,9 +114,8 @@ $('#syncFiles label').click(function () {
     </ul>
   </fieldset>
 
-  <p class="bottomButtons">
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
-    <input class="submit" type="reset"  value="{'Reset'|@translate}"  name="reset">
+  <p class="bottomButtons syncBtn">
+    <input class="buttonGradient" type="submit" value="{'Synchronize'|@translate}" name="submit">
   </p>
 </form>
 {/if}{*isset $introduction*}

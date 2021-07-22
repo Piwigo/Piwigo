@@ -3180,6 +3180,11 @@ a#showPermissions:hover {text-decoration: none;}
   text-align:left;
 }
 
+.bottomButtons.syncBtn {
+  text-align:left;
+  margin-left: 25px;
+}
+
 .commentFilter {text-align:left;margin:5px 1em;}
 
 FORM#categoryOrdering p.albumTitle {margin:0; margin-left: 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-bottom: 4px;}
