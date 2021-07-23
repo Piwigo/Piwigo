@@ -2902,6 +2902,9 @@ a#showPermissions:hover {text-decoration: none;}
   color: #ffa744;
 }
 
+.tag-pagination .selected {
+  background: #ffa646;
+}
 
 .tag-container .tag-box .tag-rename span {
   padding: 2px 3px;
