@@ -7,7 +7,6 @@ $(document).ready(function () {
       plugins = data.result;
       hasActivePlugins = false
       nbActivatedPlugins = 0;
-      console.log(data);
       plugins.forEach(plugin => {
         if (plugin.state == "active") {
           hasActivePlugins = true
