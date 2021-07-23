@@ -4,6 +4,8 @@
  {* order 10 is required, see issue 1080 *}
 {footer_script}
 const no_time_elapsed = "{"right now"|@translate}";
+const no_active_plugin = "{"No plugin activated"|@translate}";
+const error_occured = "{"an error happened"|@translate}";
 {/footer_script}
 
 <fieldset id="environment">
@@ -33,7 +35,7 @@ const no_time_elapsed = "{"right now"|@translate}";
 </fieldset>
 
 <fieldset id="pluginList">
-  <legend><span class="icon-puzzle icon-green"></span> {'Activated plugin list'|@translate}</legend>
+  <legend><span class="icon-puzzle icon-green"></span> {'Activated plugin list'|@translate} <span class="adminMenubarCounter"></span></legend>
   <ul style="font-weight:bold">
     <i class="icon-spin6 animate-spin"></i>
   </ul>

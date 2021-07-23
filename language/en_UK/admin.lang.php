@@ -1233,3 +1233,4 @@ $lang['never calculated'] = 'never  calculated';
 $lang['Filters'] = 'Filters';
 $lang['Synchronization settings'] = 'Synchronization settings';
 $lang['Activated plugin list'] = 'Activated plugin list';
+$lang['No plugin activated'] = 'No plugin activated';
