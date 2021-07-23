@@ -20,10 +20,10 @@ $(document).ready(function () {
         $("#pluginList ul i").hide();
         $("#pluginList ul").append("<p>" + no_active_plugin +"</p>");
       }
-      $(".adminMenubarCounter").append(nbActivatedPlugins);
+      $(".badge-number").append(nbActivatedPlugins);
     },
     error: function () {
-      $(".adminMenubarCounter").append(0);
+      $(".badge-number").append(0);
       $("#pluginList ul").append("<p>" + error_occured +"</p>");
       $("#pluginList ul i").hide();
     }

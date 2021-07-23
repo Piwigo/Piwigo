@@ -35,7 +35,7 @@ const error_occured = "{"an error happened"|@translate}";
 </fieldset>
 
 <fieldset id="pluginList">
-  <legend><span class="icon-puzzle icon-green"></span> {'Activated plugin list'|@translate} <span class="adminMenubarCounter"></span></legend>
+  <legend><span class="icon-puzzle icon-green"></span> {'Activated plugin list'|@translate} <span class="badge-number"></span></legend>
   <ul style="font-weight:bold">
     <i class="icon-spin6 animate-spin"></i>
   </ul>
@@ -56,4 +56,7 @@ const error_occured = "{"an error happened"|@translate}";
   font-size: 10px;
 }
 
+.badge-number {
+  color:white;
+}
 </style>
