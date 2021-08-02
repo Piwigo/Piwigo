@@ -20,7 +20,7 @@ defined('PWG_COMBINED_DIR') or define('PWG_COMBINED_DIR', $conf['data_location']
 defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_location'].'i/');
 
 // Required versions
-define('REQUIRED_PHP_VERSION', '5.3.0');
+define('REQUIRED_PHP_VERSION', '7.0.0');
 
 // Access codes
 define('ACCESS_FREE', 0);
