@@ -10,7 +10,11 @@ $('#syncFiles label').click(function () {
 {/footer_script}
 
 <div class="titrePage">
-  <h2>{'Synchronize'|@translate}<a href="{$SITE_URL}"><span class="badge-number">{$SITE_URL}</span></a></h2>
+  <h2>{'Synchronize'|@translate}</h2>
+</div>
+
+<div class="selectedAlbum site-url-path">
+  <span class="icon-folder-open selectedAlbum-first">{$SITE_URL}</span>
 </div>
 
 {if isset($update_result)}
@@ -114,7 +118,7 @@ $('#syncFiles label').click(function () {
   </fieldset>
 
   <p class="bottomButtons syncBtn">
-    <input class="buttonGradient" type="submit" value="{'Synchronize'|@translate}" name="submit">
+    <button class="icon-exchange buttonGradient" type="submit" value="" name="submit"> {'Synchronize'|@translate} </button>
   </p>
 </form>
 {/if}{*isset $introduction*}

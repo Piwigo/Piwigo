@@ -399,7 +399,7 @@ var sliders = {
           <span id="duplicates_options" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'duplicates'}display:none{/if}">
             {'based on'|translate}
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_filename" {if isset($filter.duplicates_filename)}checked="checked"{/if}> {'file name'|translate}</label>
-            <label class="font-checkbox" title="md5sum"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_checksum" {if isset($filter.duplicates_checksum)}checked="checked"{/if}> {'checksum'|translate}</label>
+            <label class="font-checkbox" title="md5sum"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_checksum" {if isset($filter.duplicates_checksum)}checked="checked"{/if}> {'checksum'|translate} <i class="icon-help-circled tiptip" title="translated md5sum definition here !"> </i></label>
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_date" {if isset($filter.duplicates_date) or (isset($filter.prefilter) and $filter.prefilter ne 'duplicates')}checked="checked"{/if}> {'date & time'|translate}</label>
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_dimensions" {if isset($filter.duplicates_dimensions)}checked="checked"{/if}> {'width & height'|translate}</label>
           </span>

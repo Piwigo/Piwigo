@@ -4673,11 +4673,16 @@ fieldset#environment legend i[class*="icon-"] {
 }
 
 .buttonGradient {
-  padding: 8px 10px; margin-left: 5px;
+  padding: 8px 10px;
+  margin-left: 5px;
   background: linear-gradient(135deg, rgb(255, 119, 0) 0%, rgb(249, 76, 93) 25%, rgb(201, 74, 140) 50%, rgb(249, 76, 93) 100%);  transition: 0.3s ease; 
   cursor: pointer;
   color: white !important;
   background-size: 200% 100%;
+}
+
+.syncBtn .buttonGradient {
+  padding:13px 20px;
 }
 
 .buttonGradient:hover {background-position-x: 100%;}
@@ -5292,4 +5297,15 @@ color:#FF7B00;
 .AddUserPopInContainer .AddUserInput {
   background-color:white;
   border: solid 2px #D4D4D4;
+}
+
+.site-url-path {
+  justify-content: flex-start;
+  display: flex;
+  width: max-content;
+  padding-left: 25px;
+}
+
+.site-url-path span {
+  margin-top: -10px;
 }
