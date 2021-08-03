@@ -296,7 +296,7 @@ $( document ).ready(function() {
     /*View manager*/
 
     if (!$.cookie("pwg_user_manager_view")) {
-        $.cookie("pwg_user_manager_view", "tile");
+        $.cookie("pwg_user_manager_view", "line");
     }
 
     if ($("#displayCompact").is(":checked")) {
