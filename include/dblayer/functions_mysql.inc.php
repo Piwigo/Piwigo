@@ -61,7 +61,7 @@ function pwg_get_db_version()
   return mysql_get_server_info();
 }
 
-function pwg_query($query, $escape_reserved_words=true)
+function pwg_query($query)
 {
   global $conf,$page,$debug,$t2;
 
