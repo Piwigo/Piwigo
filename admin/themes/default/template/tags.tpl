@@ -154,6 +154,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div class='tag-container' data-tags='{$data|@json_encode|escape:html}' data-per_page={$per_page}>
   {foreach from=$first_tags item=tag}
   <div class='tag-box' data-id='{$tag.id}' data-selected='0'>
+  {if isset($tag.counter)}
     {tagContent 
         tag_name = $tag.name
         tag_U_VIEW = 'index.php?/tags/%s-%s'|@sprintf:$tag['id']:$tag['url_name']
@@ -161,6 +162,16 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
         has_image = ($tag.counter > 0)
         tag_count = $tag.counter
       }
+  {else}
+    {tagContent 
+        tag_name = $tag.name
+        tag_U_VIEW = 'index.php?/tags/%s-%s'|@sprintf:$tag['id']:$tag['url_name']
+        tag_U_EDIT = 'admin.php?page=batch_manager&amp;filter=tag-%s'|@sprintf:$tag['id']
+        has_image = false
+        tag_count = 0
+      }
+  {/if}
+
   </div>
   {/foreach}
 </div>

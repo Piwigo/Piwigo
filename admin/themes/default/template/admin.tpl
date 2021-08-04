@@ -103,7 +103,7 @@ jQuery(document).ready(function() {
 				<li><a href="{$U_MAINTENANCE}"><i class="icon-tools"></i>{'Maintenance'|@translate}</a></li>
 {if isset($U_COMMENTS)}
 				<li><a href="{$U_COMMENTS}"><i class="icon-chat"></i>{'Comments'|@translate}
-        {if $NB_PENDING_COMMENTS > 0}
+        {if isset($NB_PENDING_COMMENTS) and $NB_PENDING_COMMENTS > 0}
           <span class="adminMenubarCounter" title="{'%d waiting for validation'|translate:$NB_PENDING_COMMENTS}">{$NB_PENDING_COMMENTS}</span>
         {/if}</a></li>
 {/if}
