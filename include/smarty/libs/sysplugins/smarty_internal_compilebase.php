@@ -65,8 +65,8 @@ abstract class Smarty_Internal_CompileBase
      * the corresponding list. The keyword '_any' specifies that any attribute will be accepted
      * as valid
      *
-     * @param  object $compiler   compiler object
-     * @param  array  $attributes attributes applied to the tag
+     * @param object $compiler   compiler object
+     * @param array  $attributes attributes applied to the tag
      *
      * @return array  of mapped attributes for further processing
      */
@@ -103,8 +103,12 @@ abstract class Smarty_Internal_CompileBase
                             if (isset($this->optionMap[ $v ])) {
                                 $_indexed_attr[ $k ] = $this->optionMap[ $v ];
                             } else {
-                                $compiler->trigger_template_error("illegal value '" . var_export($v, true) .
-                                                                  "' for option flag '{$k}'", null, true);
+                                $compiler->trigger_template_error(
+                                    "illegal value '" . var_export($v, true) .
+                                    "' for option flag '{$k}'",
+                                    null,
+                                    true
+                                );
                             }
                         }
                         // must be named attribute
@@ -124,8 +128,14 @@ abstract class Smarty_Internal_CompileBase
         if ($this->optional_attributes !== array('_any')) {
             if (!isset($this->mapCache[ 'all' ])) {
                 $this->mapCache[ 'all' ] =
-                    array_fill_keys(array_merge($this->required_attributes, $this->optional_attributes,
-                                                $this->option_flags), true);
+                    array_fill_keys(
+                        array_merge(
+                            $this->required_attributes,
+                            $this->optional_attributes,
+                            $this->option_flags
+                        ),
+                        true
+                    );
             }
             foreach ($_indexed_attr as $key => $dummy) {
                 if (!isset($this->mapCache[ 'all' ][ $key ]) && $key !== 0) {
@@ -162,8 +172,8 @@ abstract class Smarty_Internal_CompileBase
      * Pop closing tag
      * Raise an error if this stack-top doesn't match with expected opening tags
      *
-     * @param  object       $compiler    compiler object
-     * @param  array|string $expectedTag the expected opening tag names
+     * @param object       $compiler    compiler object
+     * @param array|string $expectedTag the expected opening tag names
      *
      * @return mixed        any type the opening tag's name or saved data
      */
@@ -173,7 +183,7 @@ abstract class Smarty_Internal_CompileBase
             // get stacked info
             list($_openTag, $_data) = array_pop($compiler->_tag_stack);
             // open tag must match with the expected ones
-            if (in_array($_openTag, (array) $expectedTag)) {
+            if (in_array($_openTag, (array)$expectedTag)) {
                 if (is_null($_data)) {
                     // return opening tag
                     return $_openTag;
@@ -184,12 +194,10 @@ abstract class Smarty_Internal_CompileBase
             }
             // wrong nesting of tags
             $compiler->trigger_template_error("unclosed '{$compiler->smarty->left_delimiter}{$_openTag}{$compiler->smarty->right_delimiter}' tag");
-
             return;
         }
         // wrong nesting of tags
         $compiler->trigger_template_error('unexpected closing tag', null, true);
-
         return;
     }
 }
