@@ -106,7 +106,7 @@ jQuery(document).ready(function() {
 
   $(".deleteAlbum").on("click", function() {
     $.ajax({
-      url: "ws.php?format=json&method=pwg.images.calculateOrphansOnAlbumDeletion",
+      url: "ws.php?format=json&method=pwg.categories.calculateOrphans",
       type: "GET",
       data: {
         category_id: {$CAT_ID},
