@@ -63,10 +63,14 @@ $(document).ready(() => {
     cont.find(".icon-folder-open, .icon-sitemap").addClass(colors[colorId]);  
   }
 
-  var url_split = window.location.href.split("&");
+  var url_split = window.location.href.split("#");
   var catToOpen = url_split[url_split.length-1].split("-")[1];
 
-  if(catToOpen) {
+  function isNumeric(num){
+    return !isNaN(num)
+  }
+
+  if(catToOpen && isNumeric(catToOpen)) {
     goToNode($('.tree').tree('getNodeById', catToOpen), $('.tree').tree('getNodeById', catToOpen));
   }
 

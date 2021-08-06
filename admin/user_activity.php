@@ -34,6 +34,12 @@ $template->assign('ADMIN_PAGE_TITLE', l10n('User Activity logs'));
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
 // +-----------------------------------------------------------------------+
+$template->assign(array(
+  'PWG_TOKEN' => get_pwg_token(),
+  'INHERIT' => $conf['inheritance_by_default'],
+  'CACHE_KEYS' => get_admin_client_cache_keys(array('users')),
+  ));
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'user_activity');
 
 ?>
