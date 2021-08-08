@@ -146,7 +146,7 @@ function cmp($a, $b)
   if($a['STATE'] == $b['STATE'])
     return strcasecmp($a['NAME'], $b['NAME']); 
   else
-    return $s[$a['STATE']] <=> $s[$b['STATE']]; 
+    return $s[$a['STATE']] >= $s[$b['STATE']]; 
 }
 usort($tpl_themes, 'cmp');
 
