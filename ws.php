@@ -594,6 +594,18 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.categories.calculateOrphans',
+      'ws_categories_calculateOrphans',
+      array(
+        'category_id' =>  array('type'=>WS_TYPE_ID,
+                                'flags'=>WS_PARAM_FORCE_ARRAY),
+        ),
+      'Return the number of orphan photos if an album is deleted.',
+      $ws_functions_root . 'pwg.categories.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.categories.getAdminList',
       'ws_categories_getAdminList',
       null,

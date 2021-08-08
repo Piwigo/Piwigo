@@ -75,7 +75,7 @@ update_user_list();
 update_selection_content();
 
 $(".icon-help-circled").tipTip({
-  'maxWidth':'650px',
+  'maxWidth':'700px',
   'fadeIn': '1000',
 });
 
@@ -132,28 +132,19 @@ $(".icon-help-circled").tipTip({
           </div>
         </div>
         <div style="display:flex; width: 270px;">
-          {* <div id="advanced_filter_button">
-            <span>{'Advanced filter'|@translate}</span>
-          </div> *}
-          {* <div id='search-user'>
-            <div class='search-info'> </div>
-            <span class='icon-filter search-icon'> </span>
-            <span class="icon-cancel search-cancel"></span>
-            <input id="user_search" class='search-input' type='text' placeholder='{'Filter'|@translate}'>
-          </div> *}
         </div>
       </div>
       <div class="not-in-selection-mode" style="width: 264px; height:2px">
       </div>
     </div>
-    <div id="advanced_filter_button">
-      <span>{'Advanced filters'|@translate}</span>
+    <div id="advanced_filter_button" class="icon-filter">
+      <span>{'Filters'|@translate}</span>
     </div>
     <div id='search-user'>
         <div class='search-info'> </div>
-          <span class='icon-filter search-icon'> </span>
+          <span class='icon-search search-icon'> </span>
           <span class="icon-cancel search-cancel"></span>
-          <input id="user_search" class='search-input' type='text' placeholder='{'Filter'|@translate}'>
+          <input id="user_search" class='search-input' type='text' placeholder='{'Search'|@translate}'>
         </div>
     <div id="advanced-filter-container">
       <div class="advanced-filters-header">
@@ -574,10 +565,13 @@ $(".icon-help-circled").tipTip({
           <div class="user-property-status">
             <p class="user-property-label">{'Status'|@translate}
                 <span class="icon-help-circled" 
-                  title="Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
-                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
-                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>
-                  Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor sodales ex non scelerisque. <br>">
+                  title="<div class='tooltip-status-content'>
+                    <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_webmaster'|translate}</span><span class='tooltip-col2'>{'Has access to all administration functionnalities. Can manage both configuration and content.'|translate}</span></div>
+                    <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_admin'|translate}</span><span class='tooltip-col2'>{'Has access to administration. Can only manage content: photos/albums/users/tags/groups.'|translate}</span></div>
+                    <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_normal'|translate}</span><span class='tooltip-col2'>{'No access to administration, can see private content with appropriate permissions.'|translate}</span></div>
+                    <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_generic'|translate}</span><span class='tooltip-col2'>{'Can be shared by several individuals without conflict (they cannot change the password).'|translate}</span></div>
+                    <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_guest'|translate}</span><span class='tooltip-col2'>{'Equivalent to deactivation. The user is still in the list, but can no longer log in.'|translate}</span></div>
+                  </div">
                 </span>
             </p>
             <div class="user-property-select-container">
@@ -997,7 +991,7 @@ $(".icon-help-circled").tipTip({
 /* filters bar */
 
 #user_search {
-    width: 100px;
+    width: 200px;
 }
 
 .advanced-filter-date {
@@ -1886,16 +1880,20 @@ Advanced filter
 
 #advanced_filter_button {
 
-  width: 100px;
+  width: 70px;
 
   position: absolute;
   z-index: 2;
-  right: 550px;
+  right: 650px;
 
 
   cursor:pointer;
   padding:10px;
   margin-right:10px;
+}
+
+#advanced_filter_button.icon-filter::before {
+  transform: scale(1.2);
 }
 
 #search-user {
@@ -2335,5 +2333,24 @@ Advanced filter
 
 .selectable .user-container-select {
   border: none;
+}
+
+.tooltip-status-content {
+  text-align:left;
+  font-size:14px;
+}
+.tooltip-status-row {
+  margin-top:10px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+.tooltip-col1 {
+  display:inline-block;
+  width:150px;
+  vertical-align: top;
+}
+.tooltip-col2 {
+  display:inline-block;
+  max-width:500px;
 }
 </style>

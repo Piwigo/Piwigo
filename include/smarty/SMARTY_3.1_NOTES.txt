@@ -50,7 +50,7 @@ The escape modifier now knows the $double_encode option, which will
 prevent entities from being encoded again.
 
 The capitalize modifier now know the $lc_rest option, which makes sure
-all letters following a captial letter are lower-cased.
+all letters following a capital letter are lower-cased.
 
 The count_sentences modifier now accepts (.?!) as
 legitimate endings of a sentence - previously only (.) was
@@ -62,7 +62,7 @@ entity.
 
   default_template_handler_func
 
-The invocation of $smarty->$default_template_handler_func had to be 
+The invocation of $smarty->$default_template_handler_func had to be
 altered. Instead of a Smarty_Internal_Template, the fifth argument is
 now provided with the Smarty instance. New footprint:
 
@@ -71,14 +71,14 @@ now provided with the Smarty instance. New footprint:
  * Default Template Handler
  *
  * called when Smarty's file: resource is unable to load a requested file
- * 
+ *
  * @param string   $type     resource type (e.g. "file", "string", "eval", "resource")
  * @param string   $name     resource name (e.g. "foo/bar.tpl")
  * @param string  &$content  template's content
  * @param integer &$modified template's modification time
  * @param Smarty   $smarty   Smarty instance
- * @return string|boolean   path to file or boolean true if $content and $modified 
- *                          have been filled, boolean false if no default template 
+ * @return string|boolean   path to file or boolean true if $content and $modified
+ *                          have been filled, boolean false if no default template
  *                          could be loaded
  */
 function default_template_handler_func($type, $name, &$content, &$modified, Smarty $smarty) {
@@ -126,7 +126,7 @@ run on variable output.
 SYNTAX:
 {setfilter filter1|filter2|filter3....}
 Smarty3 will lookup up matching filters in the following search order:
-1. varibale filter plugin in plugins_dir.
+1. variable filter plugin in plugins_dir.
 2. a valid modifier. A modifier specification will also accept
 additional parameter like filter2:'foo'
 3. a PHP function
@@ -186,8 +186,8 @@ Note that old-fashioned registration of $cache_handler is not possible
 anymore. As the functionality had not been ported to Smarty 3.0.x
 properly, it has been dropped from 3.1 completely.
 
-Locking facilities have been implemented to avoid concurrent cache 
-generation. Enable cache locking by setting 
+Locking facilities have been implemented to avoid concurrent cache
+generation. Enable cache locking by setting
 $smarty->cache_locking = true;
 
   Relative Paths in Templates (File-Resource)
@@ -258,7 +258,7 @@ default_config_handler_func() has been introduced.
 
   default_plugin_handler_func()
 
-An optional default_plugin_handler_func() can be defined which gets called 
+An optional default_plugin_handler_func() can be defined which gets called
 by the compiler on tags which can't be resolved internally or by plugins.
 The default_plugin_handler() can map tags to plugins on the fly.
 

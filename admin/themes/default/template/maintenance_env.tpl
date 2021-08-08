@@ -1,6 +1,11 @@
 {combine_script id='ajax' load='footer' path='admin/themes/default/js/maintenance.js'}
+{combine_script id='activated_plugin_list' load='footer' path='admin/themes/default/js/maintenance_env.js'}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10}
+ {* order 10 is required, see issue 1080 *}
 {footer_script}
 const no_time_elapsed = "{"right now"|@translate}";
+const no_active_plugin = "{"No plugin activated"|@translate}";
+const error_occured = "{"an error happened"|@translate}";
 {/footer_script}
 
 <fieldset id="environment">
@@ -29,6 +34,13 @@ const no_time_elapsed = "{"right now"|@translate}";
   </ul>
 </fieldset>
 
+<fieldset id="pluginList">
+  <legend><span class="icon-puzzle icon-green"></span> {'Activated plugin list'|@translate} <span class="badge-number"></span></legend>
+  <ul style="font-weight:bold">
+    <i class="icon-spin6 animate-spin"></i>
+  </ul>
+</fieldset>
+
 <style>
 
 .cache-size-value {
@@ -44,4 +56,7 @@ const no_time_elapsed = "{"right now"|@translate}";
   font-size: 10px;
 }
 
+.badge-number {
+  color:white;
+}
 </style>

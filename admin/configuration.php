@@ -122,7 +122,7 @@ $sort_fields = array(
   'hit ASC'             => l10n('Visits, low &rarr; high'),
   'id ASC'              => l10n('Numeric identifier, 1 &rarr; 9'),
   'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
-  'rank ASC'            => l10n('Manual sort order'),
+  '`rank` ASC'          => l10n('Manual sort order'),
   );
 
 $comments_order = array(

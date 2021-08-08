@@ -157,7 +157,8 @@ function add_core_tabs($sheets, $tab_id)
       break;
     case 'site_update':
       global $my_base_url;
-      $sheets['synchronization'] = array('caption' => l10n('Database synchronization with files'), 'url' => $my_base_url.'site_update&site=1');
+      $sheets['synchronization'] = array('caption' => l10n('Synchronization'), 'url' => $my_base_url.'site_update&site=1');
+      $sheets['site_maager'] = array('caption' => l10n('Site manager'), 'url' => $my_base_url.'site_manager');
       break;
     case 'maintenance':
       global $my_base_url;

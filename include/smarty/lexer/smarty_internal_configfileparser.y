@@ -80,7 +80,7 @@ class Smarty_Internal_Configfileparser
      *
      * @var array
      */
-    private static $escapes_single = Array('\\' => '\\',
+    private static $escapes_single = array('\\' => '\\',
                                            '\'' => '\'');
 
     /**
@@ -89,29 +89,13 @@ class Smarty_Internal_Configfileparser
      * @param Smarty_Internal_Configfilelexer      $lex
      * @param Smarty_Internal_Config_File_Compiler $compiler
      */
-    function __construct(Smarty_Internal_Configfilelexer $lex, Smarty_Internal_Config_File_Compiler $compiler)
+    public function __construct(Smarty_Internal_Configfilelexer $lex, Smarty_Internal_Config_File_Compiler $compiler)
     {
-        // set instance object
-        self::instance($this);
         $this->lex = $lex;
         $this->smarty = $compiler->smarty;
         $this->compiler = $compiler;
         $this->configOverwrite = $this->smarty->config_overwrite;
         $this->configReadHidden = $this->smarty->config_read_hidden;
-    }
-
-    /**
-     * @param null $new_instance
-     *
-     * @return null
-     */
-    public static function &instance($new_instance = null)
-    {
-        static $instance = null;
-        if (isset($new_instance) && is_object($new_instance)) {
-            $instance = $new_instance;
-        }
-        return $instance;
     }
 
     /**
@@ -147,7 +131,7 @@ class Smarty_Internal_Configfileparser
 
         $ss = preg_split('/(\\\\.)/', $escaped_string, - 1, PREG_SPLIT_DELIM_CAPTURE);
 
-        $str = "";
+        $str = '';
         foreach ($ss as $s) {
             if (strlen($s) === 2 && $s[0] === '\\') {
                 if (isset(self::$escapes_single[$s[1]])) {
@@ -190,10 +174,10 @@ class Smarty_Internal_Configfileparser
      * @param array $var
      * @param array $target_array
      */
-    private function set_var(Array $var, Array &$target_array)
+    private function set_var(array $var, array &$target_array)
     {
-        $key = $var["key"];
-        $value = $var["value"];
+        $key = $var['key'];
+        $value = $var['value'];
 
         if ($this->configOverwrite || !isset($target_array['vars'][$key])) {
             $target_array['vars'][$key] = $value;
@@ -208,10 +192,10 @@ class Smarty_Internal_Configfileparser
      *
      * @param array $vars
      */
-    private function add_global_vars(Array $vars)
+    private function add_global_vars(array $vars)
     {
         if (!isset($this->compiler->config_data['vars'])) {
-            $this->compiler->config_data['vars'] = Array();
+            $this->compiler->config_data['vars'] = array();
         }
         foreach ($vars as $var) {
             $this->set_var($var, $this->compiler->config_data);
@@ -224,10 +208,10 @@ class Smarty_Internal_Configfileparser
      * @param string $section_name
      * @param array  $vars
      */
-    private function add_section_vars($section_name, Array $vars)
+    private function add_section_vars($section_name, array $vars)
     {
         if (!isset($this->compiler->config_data['sections'][$section_name]['vars'])) {
-            $this->compiler->config_data['sections'][$section_name]['vars'] = Array();
+            $this->compiler->config_data['sections'][$section_name]['vars'] = array();
         }
         foreach ($vars as $var) {
             $this->set_var($var, $this->compiler->config_data['sections'][$section_name]);
@@ -254,7 +238,7 @@ class Smarty_Internal_Configfileparser
 %stack_overflow
 {
     $this->internalError = true;
-    $this->compiler->trigger_config_file_error("Stack overflow in configfile parser");
+    $this->compiler->trigger_config_file_error('Stack overflow in configfile parser');
 }
 
 // Complete config file
@@ -295,17 +279,17 @@ var_list(res) ::= var_list(vl) newline. {
 }
 
 var_list(res) ::= var_list(vl) var(v). {
-    res = array_merge(vl, Array(v));
+    res = array_merge(vl, array(v));
 }
 
 var_list(res) ::= . {
-    res = Array();
+    res = array();
 }
 
 
 // Var
 var(res) ::= ID(id) EQUAL value(v). {
-    res = Array("key" => id, "value" => v);
+    res = array('key' => id, 'value' => v);
 }
 
 

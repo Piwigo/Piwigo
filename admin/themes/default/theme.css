@@ -161,7 +161,7 @@ TABLE.languages TR TD { padding: 7px 20px; }
 .categoryBox, .addAlbum {
   position: relative;
   text-align: left;
-  height: 300px;
+  height: 320px;
   width: 220px;
   margin: 15px;
   border-radius: 10px;
@@ -223,6 +223,7 @@ TABLE.languages TR TD { padding: 7px 20px; }
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  color: #848484;
 }
 
 .albumActions a span, .albumActions span span{
@@ -1832,7 +1833,13 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 .themeActions span, .themeActions a {padding: 10px; margin: 0px 10px 10px 10px; font-weight: bold; font-size: 12px;}
 .themeActions span {font-size: 11px; background-color: #ddd; opacity: 0.5; color: ;}
 
-.themeActions .pluginUnavailableAction {margin:0 10px 10px 10px;}
+.themeActions .pluginUnavailableAction {
+  padding: 10px;
+  margin: 0px 10px 10px 10px;
+  font-weight: bold;
+  font-size: 12px;
+  background: #ebebeb;
+}
 
 .themeActions a:nth-child(1) {background-color: #ffc17e; color: #222;}
 .themeActions a:nth-child(1):hover {background-color: #ff7700; color: white; text-decoration: none;}
@@ -2034,7 +2041,7 @@ h2:lang(en) { text-transform:capitalize; }
   display:block;
 } */
 .pluginEmptyInput {width: 90px;}
-.pluginUnavailableAction {
+.pluginContent .pluginUnavailableAction {
   opacity: 0.5;
   font-size: 12px;
   padding: 2px 10px;
@@ -2895,6 +2902,9 @@ a#showPermissions:hover {text-decoration: none;}
   color: #ffa744;
 }
 
+.tag-pagination .selected {
+  background: #ffa646;
+}
 
 .tag-container .tag-box .tag-rename span {
   padding: 2px 3px;
@@ -3177,6 +3187,11 @@ a#showPermissions:hover {text-decoration: none;}
 
 #pendingComments .bottomButtons {
   text-align:left;
+}
+
+.bottomButtons.syncBtn {
+  text-align:left;
+  margin-left: 25px;
 }
 
 .commentFilter {text-align:left;margin:5px 1em;}
@@ -4658,11 +4673,16 @@ fieldset#environment legend i[class*="icon-"] {
 }
 
 .buttonGradient {
-  padding: 8px 10px; margin-left: 5px;
+  padding: 8px 10px;
+  margin-left: 5px;
   background: linear-gradient(135deg, rgb(255, 119, 0) 0%, rgb(249, 76, 93) 25%, rgb(201, 74, 140) 50%, rgb(249, 76, 93) 100%);  transition: 0.3s ease; 
   cursor: pointer;
   color: white !important;
   background-size: 200% 100%;
+}
+
+.syncBtn .buttonGradient {
+  padding:13px 20px;
 }
 
 .buttonGradient:hover {background-position-x: 100%;}
@@ -5277,4 +5297,15 @@ color:#FF7B00;
 .AddUserPopInContainer .AddUserInput {
   background-color:white;
   border: solid 2px #D4D4D4;
+}
+
+.site-url-path {
+  justify-content: flex-start;
+  display: flex;
+  width: max-content;
+  padding-left: 25px;
+}
+
+.site-url-path span {
+  margin-top: -10px;
 }

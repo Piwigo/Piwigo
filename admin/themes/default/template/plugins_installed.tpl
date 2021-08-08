@@ -422,7 +422,7 @@ jQuery(".pluginMiniBox").each(function(index){
   justify-content: center;
   align-items: center;
 
-  color: #3c3c3c;
+  color: #777;
 }
 
 .pluginActionsSmallIcons a:hover, .PluginOptionsIcons a:hover {
@@ -599,6 +599,7 @@ jQuery(".pluginMiniBox").each(function(index){
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: calc(100% - 35px);
 }
 
 .pluginContainer.line .pluginMiniBox .pluginActions{

@@ -63,6 +63,17 @@ $(document).ready(() => {
     cont.find(".icon-folder-open, .icon-sitemap").addClass(colors[colorId]);  
   }
 
+  var url_split = window.location.href.split("#");
+  var catToOpen = url_split[url_split.length-1].split("-")[1];
+
+  function isNumeric(num){
+    return !isNaN(num)
+  }
+
+  if(catToOpen && isNumeric(catToOpen)) {
+    goToNode($('.tree').tree('getNodeById', catToOpen), $('.tree').tree('getNodeById', catToOpen));
+  }
+
   $('.tree').on( 'click', '.move-cat-toogler', function(e) {
     var node_id = $(this).attr('data-id');
     var node = $('.tree').tree('getNodeById', node_id);
@@ -156,6 +167,18 @@ $(document).ready(() => {
     }, 500);
   }
 });
+
+function goToNode(node, firstNode) {
+  if (node.parent) {
+    goToNode(node.parent, firstNode);
+    if(node != firstNode) {
+      $(".tree").tree('openNode', node);
+    }
+  } else {
+    $(".tree").tree('openNode', node);
+    $("#cat-"+firstNode.id).addClass("animateFocus");
+  }
+}
 
 function getId(parent) {
   if (parent.getLevel() == 0) {

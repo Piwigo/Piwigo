@@ -199,6 +199,8 @@ $template->assign(
     'U_CHANGE_THEME' => $change_theme_url,
     'U_UPDATES' => $link_start.'updates',
     'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
+    'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
+    'SHOW_RATING' => $conf['rate'],
     )
   );
   
@@ -237,6 +239,13 @@ if ($nb_photos_in_caddie > 0)
       'U_CADDIE' => $link_start.'batch_manager&amp;filter=prefilter-caddie',
       )
     );
+} else {
+  $template->assign(
+    array(
+      'NB_PHOTOS_IN_CADDIE' => 0,
+      'U_CADDIE' => '',
+      )
+    );
 }
 
 // any photos with no md5sum ?
@@ -259,6 +268,13 @@ if ($nb_orphans > 0)
     array(
       'NB_ORPHANS' => $nb_orphans,
       'U_ORPHANS' => $link_start.'batch_manager&amp;filter=prefilter-no_album',
+      )
+    );
+} else {
+  $template->assign(
+    array(
+      'NB_ORPHANS' => 0,
+      'U_ORPHANS' => '',
       )
     );
 }

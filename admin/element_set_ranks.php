@@ -71,7 +71,7 @@ if (isset($_POST['submit']))
   }
   elseif ($image_order_choice=='rank')
   {
-    $image_order = 'rank ASC';
+    $image_order = '`rank` ASC';
   }
   $query = '
 UPDATE '.CATEGORIES_TABLE.' 

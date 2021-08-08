@@ -5,41 +5,39 @@
  *
  * Load extensions dynamically
  *
- *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  *
- * @property Smarty_Internal_Runtime_Inheritance      $_inheritance
- * @property Smarty_Internal_Runtime_SubTemplate      $_subTemplate
- * @property Smarty_Internal_Runtime_TplFunction      $_tplFunction
- * @property Smarty_Internal_Runtime_Var              $_var
- * @property Smarty_Internal_Runtime_Config           $_config
- * @property Smarty_Internal_Runtime_Foreach          $_foreach
- * @property Smarty_Internal_Runtime_Hhvm             $_hhvm
- * @property Smarty_Internal_Runtime_WriteFile        $_writeFile
- * @property Smarty_Internal_Runtime_ValidateCompiled $_validateCompiled
- * @property Smarty_Internal_Runtime_CodeFrame        $_codeFrame
- * @property Smarty_Internal_Runtime_FilterHandler    $_filterHandler
- * @property Smarty_Internal_Runtime_GetIncludePath   $_getIncludePath
- * @property Smarty_Internal_Runtime_UpdateScope      $_updateScope
- * @property Smarty_Internal_Runtime_IsCached         $_isCached
- * @property Smarty_Internal_Runtime_CacheModify      $_cacheModify
- * @property Smarty_Internal_Runtime_UpdateCache      $_updateCache
- * @property Smarty_Internal_Method_GetTemplateVars   $getTemplateVars
- * @property Smarty_Internal_Method_Append            $append
- * @property Smarty_Internal_Method_AppendByRef       $appendByRef
- * @property Smarty_Internal_Method_AssignGlobal      $assignGlobal
- * @property Smarty_Internal_Method_AssignByRef       $assignByRef
- * @property Smarty_Internal_Method_LoadFilter        $loadFilter
- * @property Smarty_Internal_Method_LoadPlugin        $loadPlugin
- * @property Smarty_Internal_Method_RegisterFilter    $registerFilter
- * @property Smarty_Internal_Method_RegisterObject    $registerObject
- * @property Smarty_Internal_Method_RegisterPlugin    $registerPlugin
+ * Runtime extensions
+ * @property   Smarty_Internal_Runtime_CacheModify       $_cacheModify
+ * @property   Smarty_Internal_Runtime_CacheResourceFile $_cacheResourceFile
+ * @property   Smarty_Internal_Runtime_Capture           $_capture
+ * @property   Smarty_Internal_Runtime_CodeFrame         $_codeFrame
+ * @property   Smarty_Internal_Runtime_FilterHandler     $_filterHandler
+ * @property   Smarty_Internal_Runtime_Foreach           $_foreach
+ * @property   Smarty_Internal_Runtime_GetIncludePath    $_getIncludePath
+ * @property   Smarty_Internal_Runtime_Make_Nocache      $_make_nocache
+ * @property   Smarty_Internal_Runtime_UpdateCache       $_updateCache
+ * @property   Smarty_Internal_Runtime_UpdateScope       $_updateScope
+ * @property   Smarty_Internal_Runtime_TplFunction       $_tplFunction
+ * @property   Smarty_Internal_Runtime_WriteFile         $_writeFile
+ *
+ * Method extensions
+ * @property   Smarty_Internal_Method_GetTemplateVars    $getTemplateVars
+ * @property   Smarty_Internal_Method_Append             $append
+ * @property   Smarty_Internal_Method_AppendByRef        $appendByRef
+ * @property   Smarty_Internal_Method_AssignGlobal       $assignGlobal
+ * @property   Smarty_Internal_Method_AssignByRef        $assignByRef
+ * @property   Smarty_Internal_Method_LoadFilter         $loadFilter
+ * @property   Smarty_Internal_Method_LoadPlugin         $loadPlugin
+ * @property   Smarty_Internal_Method_RegisterFilter     $registerFilter
+ * @property   Smarty_Internal_Method_RegisterObject     $registerObject
+ * @property   Smarty_Internal_Method_RegisterPlugin     $registerPlugin
+ * @property   mixed|\Smarty_Template_Cached             configLoad
  */
 class Smarty_Internal_Extension_Handler
 {
-
     public $objType = null;
 
     /**
@@ -48,9 +46,11 @@ class Smarty_Internal_Extension_Handler
      *
      * @var array
      */
-    private $_property_info = array('AutoloadFilters' => 0, 'DefaultModifiers' => 0, 'ConfigVars' => 0,
-                                    'DebugTemplate'   => 0, 'RegisteredObject' => 0, 'StreamVariable' => 0,
-                                    'TemplateVars'    => 0,);#
+    private $_property_info     = array(
+        'AutoloadFilters' => 0, 'DefaultModifiers' => 0, 'ConfigVars' => 0,
+        'DebugTemplate'   => 0, 'RegisteredObject' => 0, 'StreamVariable' => 0,
+        'TemplateVars'    => 0, 'Literals' => 'Literals',
+    );//
 
     private $resolvedProperties = array();
 
@@ -62,60 +62,91 @@ class Smarty_Internal_Extension_Handler
      * @param array                 $args argument array
      *
      * @return mixed
-     * @throws SmartyException
      */
     public function _callExternalMethod(Smarty_Internal_Data $data, $name, $args)
     {
         /* @var Smarty $data ->smarty */
         $smarty = isset($data->smarty) ? $data->smarty : $data;
         if (!isset($smarty->ext->$name)) {
-            $class = 'Smarty_Internal_Method_' . ucfirst($name);
-            if (preg_match('/^(set|get)([A-Z].*)$/', $name, $match)) {
-                if (!isset($this->_property_info[$prop = $match[2]])) {
-                    // convert camel case to underscored name
-                    $this->resolvedProperties[$prop] = $pn = strtolower(join('_',
-                                                                             preg_split('/([A-Z][^A-Z]*)/', $prop, - 1,
-                                                                                        PREG_SPLIT_NO_EMPTY |
-                                                                                        PREG_SPLIT_DELIM_CAPTURE)));
-                    $this->_property_info[$prop] = property_exists($data, $pn) ? 1 :
-                        ($data->_objType == 2 && property_exists($smarty, $pn) ? 2 : 0);
-                }
-                if ($this->_property_info[$prop]) {
-                    $pn = $this->resolvedProperties[$prop];
-                    if ($match[1] == 'get') {
-                        return $this->_property_info[$prop] == 1 ? $data->$pn : $data->smarty->$pn;
-                    } else {
-                        return $this->_property_info[$prop] == 1 ? $data->$pn = $args[0] :
-                            $data->smarty->$pn = $args[0];
+            if (preg_match('/^((set|get)|(.*?))([A-Z].*)$/', $name, $match)) {
+                $basename = $this->upperCase($match[ 4 ]);
+                if (!isset($smarty->ext->$basename) && isset($this->_property_info[ $basename ])
+                    && is_string($this->_property_info[ $basename ])
+                ) {
+                    $class = 'Smarty_Internal_Method_' . $this->_property_info[ $basename ];
+                    if (class_exists($class)) {
+                        $classObj = new $class();
+                        $methodes = get_class_methods($classObj);
+                        foreach ($methodes as $method) {
+                            $smarty->ext->$method = $classObj;
+                        }
                     }
-                } elseif (!class_exists($class)) {
-                    throw new SmartyException("property '$pn' does not exist.");
+                }
+                if (!empty($match[ 2 ]) && !isset($smarty->ext->$name)) {
+                    $class = 'Smarty_Internal_Method_' . $this->upperCase($name);
+                    if (!class_exists($class)) {
+                        $objType = $data->_objType;
+                        $propertyType = false;
+                        if (!isset($this->resolvedProperties[ $match[ 0 ] ][ $objType ])) {
+                            $property = isset($this->resolvedProperties[ 'property' ][ $basename ]) ?
+                                $this->resolvedProperties[ 'property' ][ $basename ] :
+                                $property = $this->resolvedProperties[ 'property' ][ $basename ] = strtolower(
+                                    join(
+                                        '_',
+                                        preg_split(
+                                            '/([A-Z][^A-Z]*)/',
+                                            $basename,
+                                            -1,
+                                            PREG_SPLIT_NO_EMPTY |
+                                            PREG_SPLIT_DELIM_CAPTURE
+                                        )
+                                    )
+                                );
+                            if ($property !== false) {
+                                if (property_exists($data, $property)) {
+                                    $propertyType = $this->resolvedProperties[ $match[ 0 ] ][ $objType ] = 1;
+                                } elseif (property_exists($smarty, $property)) {
+                                    $propertyType = $this->resolvedProperties[ $match[ 0 ] ][ $objType ] = 2;
+                                } else {
+                                    $this->resolvedProperties[ 'property' ][ $basename ] = $property = false;
+                                }
+                            }
+                        } else {
+                            $propertyType = $this->resolvedProperties[ $match[ 0 ] ][ $objType ];
+                            $property = $this->resolvedProperties[ 'property' ][ $basename ];
+                        }
+                        if ($propertyType) {
+                            $obj = $propertyType === 1 ? $data : $smarty;
+                            if ($match[ 2 ] === 'get') {
+                                return $obj->$property;
+                            } elseif ($match[ 2 ] === 'set') {
+                                return $obj->$property = $args[ 0 ];
+                            }
+                        }
+                    }
                 }
             }
-            if (class_exists($class)) {
-                $callback = array($smarty->ext->$name = new $class(), $name);
-            }
-        } else {
-            $callback = array($smarty->ext->$name, $name);
         }
+        $callback = array($smarty->ext->$name, $name);
         array_unshift($args, $data);
-        if (isset($callback) && $callback[0]->objMap | $data->_objType) {
+        if (isset($callback) && $callback[ 0 ]->objMap | $data->_objType) {
             return call_user_func_array($callback, $args);
         }
         return call_user_func_array(array(new Smarty_Internal_Undefined(), $name), $args);
     }
 
     /**
-     * set extension property
+     * Make first character of name parts upper case
      *
-     * @param string $property_name property name
-     * @param mixed  $value         value
+     * @param string $name
      *
-     * @throws SmartyException
+     * @return string
      */
-    public function __set($property_name, $value)
+    public function upperCase($name)
     {
-        $this->$property_name = $value;
+        $_name = explode('_', $name);
+        $_name = array_map('ucfirst', $_name);
+        return implode('_', $_name);
     }
 
     /**
@@ -124,20 +155,31 @@ class Smarty_Internal_Extension_Handler
      * @param string $property_name property name
      *
      * @return mixed|Smarty_Template_Cached
-     * @throws SmartyException
      */
     public function __get($property_name)
     {
         // object properties of runtime template extensions will start with '_'
-        if ($property_name[0] == '_') {
-            $class = 'Smarty_Internal_Runtime_' . ucfirst(substr($property_name, 1));
+        if ($property_name[ 0 ] === '_') {
+            $class = 'Smarty_Internal_Runtime' . $this->upperCase($property_name);
         } else {
-            $class = 'Smarty_Internal_Method_' . ucfirst($property_name);
+            $class = 'Smarty_Internal_Method_' . $this->upperCase($property_name);
         }
-        if (class_exists($class)) {
-            return $this->$property_name = new $class();
+        if (!class_exists($class)) {
+            return $this->$property_name = new Smarty_Internal_Undefined($class);
         }
-        return $this;
+        return $this->$property_name = new $class();
+    }
+
+    /**
+     * set extension property
+     *
+     * @param string $property_name property name
+     * @param mixed  $value         value
+     *
+     */
+    public function __set($property_name, $value)
+    {
+        $this->$property_name = $value;
     }
 
     /**
@@ -147,11 +189,9 @@ class Smarty_Internal_Extension_Handler
      * @param array  $args argument array
      *
      * @return mixed
-     * @throws SmartyException
      */
     public function __call($name, $args)
     {
-        return call_user_func_array(array(new Smarty_Internal_Undefined(), $name), $args);
+        return call_user_func_array(array(new Smarty_Internal_Undefined(), $name), array($this));
     }
-
 }

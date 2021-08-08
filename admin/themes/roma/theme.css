@@ -111,7 +111,7 @@ a.Piwigo:hover  span.Piwigo  {
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 */
 
-a { color:#bbb; }
+a { color:#3A3A3A; }
 a:hover, a:active { color: #f70; cursor: pointer; }
 ul.actions, .content form#waiting  {text-align:center;}
 

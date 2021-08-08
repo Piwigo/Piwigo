@@ -35,6 +35,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 {combine_script id='tiptip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 {combine_script id='tags' load='footer' path='admin/themes/default/js/tags.js'}
+{combine_script id='jquery.cookie' path='themes/default/js/jquery.cookie.js' load='footer'}
 
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
@@ -115,9 +116,9 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div class='tag-header'>
   <div id='search-tag'>
     <div class='search-info'> </div>
-    <span class='icon-filter search-icon'> </span>
+    <span class='icon-search search-icon'> </span>
     <span class="icon-cancel search-cancel"></span>
-    <input class='search-input' type='text' placeholder='{'Filter'|@translate}'>
+    <input class='search-input' type='text' placeholder='{'Search'|@translate}'>
   </div>
   <form id='add-tag' class='not-in-selection-mode'>
     <span class='icon-cancel-circled'></span>
@@ -153,6 +154,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div class='tag-container' data-tags='{$data|@json_encode|escape:html}' data-per_page={$per_page}>
   {foreach from=$first_tags item=tag}
   <div class='tag-box' data-id='{$tag.id}' data-selected='0'>
+  {if isset($tag.counter)}
     {tagContent 
         tag_name = $tag.name
         tag_U_VIEW = 'index.php?/tags/%s-%s'|@sprintf:$tag['id']:$tag['url_name']
@@ -160,6 +162,16 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
         has_image = ($tag.counter > 0)
         tag_count = $tag.counter
       }
+  {else}
+    {tagContent 
+        tag_name = $tag.name
+        tag_U_VIEW = 'index.php?/tags/%s-%s'|@sprintf:$tag['id']:$tag['url_name']
+        tag_U_EDIT = 'admin.php?page=batch_manager&amp;filter=tag-%s'|@sprintf:$tag['id']
+        has_image = false
+        tag_count = 0
+      }
+  {/if}
+
   </div>
   {/foreach}
 </div>
@@ -167,10 +179,26 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div class="tag-pagination">
   <div class="pagination-per-page">
     <span class="thumbnailsActionsShow" style="font-weight: bold;">{'Display'|@translate}</span>
-    <a>100</a>
-    <a>200</a>
-    <a>500</a>
-    <a>1000</a>
+    <a id="100"
+  {if $smarty.cookies.pwg_tags_per_page == 100 || !$smarty.cookies.pwg_tags_per_page} 
+    class="selected"
+  {/if}
+    >100</a>
+    <a id="200"
+  {if $smarty.cookies.pwg_tags_per_page == 200} 
+    class="selected"
+  {/if}
+    >200</a>
+    <a id="500"
+  {if $smarty.cookies.pwg_tags_per_page == 500} 
+    class="selected"
+  {/if}
+    >500</a>
+    <a id="1000"
+  {if $smarty.cookies.pwg_tags_per_page == 1000} 
+    class="selected"
+  {/if}
+    >1000</a>
   </div>
 
   <div class="pagination-container">
