@@ -1,12 +1,12 @@
 function displayResponse(domElem, values, mDivs,  mValues) {
 
     for (let index = 0; index < domElem.length; index++) {
-        domElem[index].html(values[index] + " Mo")
+        domElem[index].html(unit_MB.replace("%s",values[index]))
     }
 
     for (let index = 0; index < mDivs.length; index++) {
         mDivName = mDivs[index].getAttribute("name");
-        mDivs[index].title = mValues[mDivName] + " Mo";
+        mDivs[index].title = unit_MB.replace("%s", mValues[mDivName])
     }
 
     $(".cache-lastCalculated-value").html(no_time_elapsed);
@@ -15,7 +15,6 @@ function displayResponse(domElem, values, mDivs,  mValues) {
 $(document).ready(function () {
     $(".refresh-cache-size").on("click", function () {
         $(this).find(".refresh-icon").addClass("animate-spin");
-        console.log("lelelele");
 
         return new Promise((res, rej) => {
             jQuery.ajax({

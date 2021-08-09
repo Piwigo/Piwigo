@@ -6,6 +6,7 @@
 const confirm_msg = '{"Yes, I am sure"|@translate}';
 const cancel_msg = "{"No, I have changed my mind"|@translate}";
 const no_time_elapsed = "{"right now"|@translate}";
+const unit_MB = "{"%s MB"|@translate}"
 let selected = [];
 $(".lock-gallery-button").each(function() {
   const gallery_tip = '{"A locked gallery is only visible to administrators"|@translate|@escape:'javascript'}';
@@ -147,7 +148,7 @@ $(".delete-size-check").click( function () {
         <span class="cache-size-text">{'Cache size'|@translate}</span>
         <span class="cache-size-value">
 {if isset($cache_sizes)}
-          {round($cache_sizes[0]['value']/1024/1024, 2)} Mo
+          {"%s MB"|@translate:{round($cache_sizes[0]['value']/1024/1024, 2)}}
 {else}
           {'N/A'|translate}
 {/if}
@@ -159,7 +160,7 @@ $(".delete-size-check").click( function () {
     <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="icon-file-code maintenance-action">{'Purge compiled templates'|@translate} 
       <span class="multiple-compiledTemplate-sizes">
 {if isset($cache_sizes)}
-        {round($cache_sizes[2]['value']/1024/1024, 2)} Mo
+        {"%s MB"|@translate:{round($cache_sizes[2]['value']/1024/1024, 2)}}  
 {else}
         {'N/A'|translate}
 {/if}
@@ -171,7 +172,7 @@ $(".delete-size-check").click( function () {
     <span id="label-delete-size-checkbox">{'Delete multiple size images'|@translate}
       <span class="multiple-pictures-sizes">
 {if isset($cache_sizes)}
-        {round($cache_sizes[1]['value']['all']/1024/1024, 2)} Mo
+        {"%s MB"|@translate:{round($cache_sizes[1]['value']['all']/1024/1024, 2)}}
 {else}
         {'N/A'|translate}
 {/if}
@@ -179,7 +180,7 @@ $(".delete-size-check").click( function () {
     </span>
     <div class="delete-check-container">
 {foreach from=$purge_derivatives key=name item=url name=loop}
-      <div class="delete-size-check" title="{if isset($cache_sizes)} {round($cache_sizes[1]['value'][$url]/1024/1024, 2)} Mo{else}{'N/A'|translate}{/if}" data-selected="0" name="{$url}">
+      <div class="delete-size-check" title="{if isset($cache_sizes)}{"%s MB"|@translate:{round($cache_sizes[1]['value'][$url]/1024/1024, 2)}}{else}{'N/A'|translate}{/if}" data-selected="0" name="{$url}">
           <span class="select-checkbox"><i class="icon-ok" style="margin-left:8px"></i></span>
           <span class="picture-deletion-size" style="font-size:14px;margin-left:5px;padding-top:2px;">{$name}</span>
       </div>

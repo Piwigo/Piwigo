@@ -1241,3 +1241,4 @@ $lang['Has access to administration. Can only manage content: photos/albums/user
 $lang['No access to administration, can see private content with appropriate permissions.'] = 'Pas d\'accès à l\'administration. Peut accéder au contenu privé s\'il en a les permissions.';
 $lang['Can be shared by several individuals without conflict (they cannot change the password).'] = 'Partageable entre plusieurs personnes sans rentrer en conflit (mot de passe non modifiable).';
 $lang['Equivalent to deactivation. The user is still in the list, but can no longer log in.'] = 'Équivalent à une désactivation. L\'utilisateur est toujours dans la liste mais ne peut plus se connecter.';
+$lang['%s MB'] = '%s Mo';
