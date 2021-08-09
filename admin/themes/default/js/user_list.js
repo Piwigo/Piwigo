@@ -1063,8 +1063,10 @@ function fill_user_edit_summary(user_to_edit, pop_in) {
     pop_in.find('.user-property-username span:first').html(user_to_edit.username);
     if (user_to_edit.id === connected_user) {
         pop_in.find('.user-property-username .edit-username-specifier').show();
+        pop_in.find('.delete-user-button').hide();
     } else {
         pop_in.find('.user-property-username .edit-username-specifier').hide();
+        pop_in.find('.delete-user-button').show();
     }
     pop_in.find('.user-property-username-change input').val(user_to_edit.username);
     pop_in.find('.user-property-password-change input').val('');
