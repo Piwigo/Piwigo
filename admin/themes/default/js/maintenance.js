@@ -13,8 +13,9 @@ function displayResponse(domElem, values, mDivs,  mValues) {
 }
 
 $(document).ready(function () {
-    $(".refresh-cache-size").on("click", function test () {
-        $(this).children("span").addClass("spin6").removeClass("icon-arrows-cw")
+    $(".refresh-cache-size").on("click", function () {
+        $(this).find(".refresh-icon").addClass("animate-spin");
+        console.log("lelelele");
 
         return new Promise((res, rej) => {
             jQuery.ajax({
@@ -43,7 +44,7 @@ $(document).ready(function () {
 
                         displayResponse(domElemToRefresh , domElemValues, multipleSizes,  multipleSizesValues);
 
-                        $(this).children("span").addClass("icon-arrows-cw").removeClass("spin6");
+                        $(".animate-spin").removeClass("animate-spin");
 
                     } else {
                         rej(data);
