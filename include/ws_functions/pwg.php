@@ -430,11 +430,15 @@ function ws_getActivityList($param, &$service)
   $output_lines = array();
   $current_key = '';
 
+  $user_ids = array();
+
   $query = '
 SELECT
     activity_id,
     performed_by,
-    object, action,
+    object,
+    object_id,
+    action,
     session_idx,
     ip_address,
     occured_on,
@@ -461,6 +465,11 @@ SELECT
     {
       $detailsType = 'script';
     }
+
+    if ('user' == $row['object'])
+    {
+      $user_ids[ $row['object_id'] ] = 1;
+    }
   
     $line_key = $row['session_idx'].'~'.$row['object'].'~'.$row['action'].'~'; // idx~photo~add
   
@@ -468,6 +477,7 @@ SELECT
     {
       // j'incrémente le counter de la ligne précédente
       $output_lines[count($output_lines)-1]['counter']++;
+      $output_lines[count($output_lines)-1]['object_id'][] = $row['object_id'];
     }
     else
     {
@@ -476,6 +486,7 @@ SELECT
       $output_lines[] = array(
         'id' => $line_id,
         'object' => $row['object'],
+        'object_id' => array($row['object_id']),
         'action' => $row['action'],
         'ip_address' => $row['ip_address'],
         'date' => format_date($date),
@@ -489,6 +500,35 @@ SELECT
   
       $current_key = $line_key;
       $line_id++;
+    }
+  }
+
+  $username_of = array();
+  if (count($user_ids) > 0)
+  {
+    $query = '
+SELECT
+    `'.$conf['user_fields']['id'].'` AS user_id,
+    `'.$conf['user_fields']['username'].'` AS username
+  FROM '.USERS_TABLE.'
+  WHERE `'.$conf['user_fields']['id'].'` IN ('.implode(',', array_keys($user_ids)).')
+;';
+    $username_of = query2array($query, 'user_id', 'username');
+  }
+
+  foreach ($output_lines as $idx => $output_line)
+  {
+    if ('user' == $output_line['object'])
+    {
+      foreach ($output_line['object_id'] as $user_id)
+      {
+        @$output_lines[$idx]['details']['users'][] = isset($username_of[$user_id]) ? $username_of[$user_id] : 'user #'.$user_id;
+      }
+
+      if (isset($output_lines[$idx]['details']['users']))
+      {
+        $output_lines[$idx]['details']['users_string'] = implode(', ', $output_lines[$idx]['details']['users']);
+      }
     }
   }
 
