@@ -309,7 +309,11 @@ function lineConstructor(line) {
 
             case "logout":
             newLine.find(".action-type").addClass("icon-purple");
-            newLine.find(".user-pic").addClass(color_icons[line.user_id % 5]);
+            if (line.user_id != 2) {
+              newLine.find(".user-pic").addClass(color_icons[line.user_id % 5]);
+            } else {
+              newLine.find(".user-pic").addClass(color_icons[line.object_id[0] % 5]);
+            }
             newLine.find(".action-icon").addClass("icon-logout");
             newLine.find(".action-section").addClass("icon-user-1");
 
@@ -490,7 +494,11 @@ function lineConstructor(line) {
             break;
             case "logout":
             newLine.find(".action-type").addClass("icon-purple");
-            newLine.find(".user-pic").addClass(color_icons[line.user_id % 5]);
+            if (line.user_id != 2) {
+              newLine.find(".user-pic").addClass(color_icons[line.user_id % 5]);
+            } else {
+              newLine.find(".user-pic").addClass(color_icons[line.object_id[0] % 5]);
+            }
             newLine.find(".action-icon").addClass("icon-logout");
             newLine.find(".action-section").addClass("icon-user-1");
 
