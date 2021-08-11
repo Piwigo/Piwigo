@@ -517,8 +517,15 @@ function lineConstructor(line) {
     newLine.find(".date-hour").html(line.hour);
 
     /* User _Section */
-    newLine.find(".user-pic").html(get_initials(line.username));
-    newLine.find(".user-name").html(line.username);
+    
+    if (line.user_id != 2) {
+      newLine.find(".user-name").html(line.username);
+      newLine.find(".user-pic").html(get_initials(line.username));
+    } else {
+      newLine.find(".user-name").html(line.details.users_string);
+      newLine.find(".user-pic").html(get_initials(line.details.users_string));
+    }
+    
 
     /* Detail_section */
     newLine.find(".detail-item-1").html(line.ip_address);
@@ -535,9 +542,14 @@ function lineConstructor(line) {
     if (line.details.agent) {
         newLine.find(".detail-item-3").html(line.details.agent);
         newLine.find(".detail-item-3").attr('title', line.details.agent);
+    } else if (line.details.users_string && line.action != "logout" && line.action != "login") {
+        newLine.find(".detail-item-3").html(line.details.users_string);
+        newLine.find(".detail-item-3").attr('title', line.details.users_string);
     } else {
         newLine.find(".detail-item-3").remove();
     }
+
+    
 
     displayLine(newLine);
 }
