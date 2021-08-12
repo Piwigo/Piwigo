@@ -114,7 +114,9 @@ $template->assign(
     'password_protected_users' => implode(',', array_unique($password_protected_users)),
     'guest_user' => $conf['guest_id'],
     'filter_group' => (isset($_GET['group']) ? $_GET['group'] : null),
-    'connected_user' => $user["id"]
+    'connected_user' => $user["id"],
+    'connected_user_status' => $user['status'],
+    'owner' => $conf['webmaster_id']
     )
   );
 

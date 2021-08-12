@@ -22,6 +22,7 @@ jQuery(".cancel-icon").click(function() {
 });
 
 const color_icons = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
+const users_key = "{"Users"|@translate}"
 
 {*<-- Translation keys -->*}
 
@@ -552,7 +553,7 @@ function lineConstructor(line) {
         newLine.find(".detail-item-3").attr('title', line.details.agent);
     } else if (line.details.users_string && line.action != "logout" && line.action != "login") {
         newLine.find(".detail-item-3").html(line.details.users_string);
-        newLine.find(".detail-item-3").attr('title', line.details.users_string);
+        newLine.find(".detail-item-3").attr('title', users_key + ": " +line.details.users_string);
     } else {
         newLine.find(".detail-item-3").remove();
     }

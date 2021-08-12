@@ -51,6 +51,8 @@ months = [
 
 /* Template variables */
 connected_user = {$connected_user};
+connected_user_status = "{$connected_user_status}";
+owner_id = {$owner};
 let groups_arr_name = [{$groups_arr_name}];
 let groups_arr_id = [{$groups_arr_id}];
 groups_arr = groups_arr_id.map((elem, index) => [elem, groups_arr_name[index]]);
@@ -560,7 +562,7 @@ $(".icon-help-circled").tipTip({
           </div>
           <div class="user-property-email">
             <p class="user-property-label">{'Email Adress'|@translate}</p>
-            <input type="text" class="user-property-input" value="contact@jessy-pinkman.com" />
+            <input type="text" class="user-property-input" value="contact@jessy-pinkman.com" disabled="false"/>
           </div>
           <div class="user-property-status">
             <p class="user-property-label">{'Status'|@translate}
@@ -2352,5 +2354,13 @@ Advanced filter
 .tooltip-col2 {
   display:inline-block;
   max-width:500px;
+}
+
+.notClickable {
+  pointer-events: none;
+}
+
+.notClickable:hover {
+  cursor: not-allowed;
 }
 </style>

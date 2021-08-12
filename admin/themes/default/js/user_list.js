@@ -1060,13 +1060,11 @@ function set_selected_groups(groups) {
 
 function fill_user_edit_summary(user_to_edit, pop_in) {
     pop_in.find('.user-property-initials span').html(get_initials(user_to_edit.username)).removeClass(color_icons.join(' ')).addClass(color_icons[user_to_edit.id % 5]);
-    pop_in.find('.user-property-username span:first').html(user_to_edit.username);
-    if (user_to_edit.id === connected_user) {
+    pop_in.find('.user-property-username span:first').html(user_to_edit.username); 
+    if (user_to_edit.id === connected_user || user_to_edit.id === 1) {
         pop_in.find('.user-property-username .edit-username-specifier').show();
-        pop_in.find('.delete-user-button').hide();
     } else {
         pop_in.find('.user-property-username .edit-username-specifier').hide();
-        pop_in.find('.delete-user-button').show();
     }
     pop_in.find('.user-property-username-change input').val(user_to_edit.username);
     pop_in.find('.user-property-password-change input').val('');
@@ -1145,12 +1143,81 @@ function fill_user_edit_update(user_to_edit, pop_in) {
     })
 }
 
+function fill_user_edit_permissions(user_to_edit, pop_in) {
+  if (user_to_edit.id != connected_user) {
+    // I'm not the connected user
+    if (!is_owner(connected_user)) {
+      // I'm not the owner, you need to test my permissions
+      if (is_owner(user_to_edit.id)) {
+        // I want to edit the owner but I'm not the owner (No matter my status)
+        pop_in.find(".delete-user-button").hide();
+        pop_in.find(".user-property-password.edit-password").addClass("notClickable");
+        pop_in.find(".user-property-email .user-property-input").attr('disabled','disabled');
+        pop_in.find(".user-property-status .user-property-select").addClass("notClickable");
+        pop_in.find(".user-property-username .edit-username").hide();
+      } else {
+        pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+        pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
+        pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
+        pop_in.find(".user-property-username .edit-username").show();
+      }
+      
+      if (user_to_edit.status == connected_user_status && connected_user_status == "webmaster" && !is_owner(user_to_edit.id)) {
+        // I have the same status than the user I want to edit and I'm a webmaster, I can do whatever I want
+        pop_in.find(".delete-user-button").show();
+        pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+        pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
+        pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
+        pop_in.find(".user-property-username .edit-username").show();
+      } else if (user_to_edit.status == connected_user_status && connected_user_status == "admin") {
+        // I have the same status than the user I want to edit and I'm an admin, I can do whatever I want but edit the status
+        pop_in.find(".delete-user-button").hide();
+        pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+        pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
+        pop_in.find(".user-property-username .edit-username").removeClass("notClickable");
+        pop_in.find(".user-property-status .user-property-select").hide();
+      } else if (user_to_edit.status == "webmaster" && connected_user_status == "admin") {
+        // I'm admin and I want to edit webmaster
+        pop_in.find(".user-property-password.edit-password").addClass("notClickable");
+        pop_in.find(".user-property-email .user-property-input").attr('disabled','disabled');
+        pop_in.find(".user-property-status .user-property-select").addClass("notClickable");
+        pop_in.find(".user-property-username .edit-username").hide();
+      } else if (user_to_edit.status == "admin" && connected_user_status == "webmaster") {
+        // I'm webmaster and I want to edit admin
+        pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+        pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
+        pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
+        pop_in.find(".user-property-username .edit-username").show();
+      }
+    } else {
+      // I'm the owner, I can do whatever I want. No need to test, I am GOD here
+      pop_in.find(".delete-user-button").show();
+      pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+      pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
+      pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
+      pop_in.find(".user-property-username .edit-username").show();
+    }
+  } else {
+    // I'm the connected user, I can do whatever I want on my profile but kill myself (Suicide is not allowed)
+    pop_in.find(".delete-user-button").hide();
+    pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+    pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
+    pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
+    pop_in.find(".user-property-username .edit-username").show();
+  }
+}
+
+function is_owner(user_id) {
+  return user_id === owner_id;
+}
+
 function fill_user_edit(user_to_edit) {
     let pop_in = $('.UserListPopInContainer');
     fill_user_edit_summary(user_to_edit, pop_in);
     fill_user_edit_properties(user_to_edit, pop_in);
     fill_user_edit_preferences(user_to_edit, pop_in);
     fill_user_edit_update(user_to_edit, pop_in);
+    fill_user_edit_permissions(user_to_edit, pop_in);
 }
 
 function fill_guest_edit() {
@@ -1172,7 +1239,12 @@ function fill_ajax_data_from_properties(ajax_data, pop_in) {
     } ).get();
     console.log(groups_selected);
     ajax_data['email'] = pop_in.find('.user-property-email input').val();
-    ajax_data['status'] = pop_in.find('.user-property-status select').val();
+    if (connected_user_status == "admin" && pop_in.find('.user-property-status select').val() != "webmaster" && pop_in.find('.user-property-status select').val() != "admin") {
+      ajax_data['status'] = pop_in.find('.user-property-status select').val();
+    } else if (connected_user_status == "webmaster"){
+      ajax_data['status'] = pop_in.find('.user-property-status select').val();
+    }
+    console.log(ajax_data['status']);
     ajax_data['level'] = pop_in.find('.user-property-level select').val();
     ajax_data['group_id'] = groups_selected.length == 0 ? -1 : groups_selected;
     ajax_data['enabled_high'] = pop_in.find('.user-list-checkbox[name="hd_enabled"]').attr('data-selected') == '1' ? true : false ;
