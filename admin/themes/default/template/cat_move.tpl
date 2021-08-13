@@ -72,6 +72,18 @@ var delay_autoOpen = {$delay_before_autoOpen}
           <input type="radio" value="date_available ASC" name="order">
           {'Date posted, old &rarr; new'|@translate}
         </label>
+
+        <label class="font-checkbox">
+          <span class="icon-dot-circled"> </span>
+          <input type="radio" value="natural_order ASC" name="order">
+          {'Natural order, A &rarr; Z'|@translate}
+        </label>
+        
+        <label class="font-checkbox">
+          <span class="icon-dot-circled"> </span>
+          <input type="radio" value="natural_order DESC" name="order">
+          {'Natural order, Z &rarr; A'|@translate}
+        </label>
       </div>
       <input type="submit" name="simpleAutoOrder" value="{'Apply to direct sub-albums'|@translate}"/>
       <input type="submit" name="recursiveAutoOrder" value="{'Apply to the whole hierarchy'|@translate}"/>

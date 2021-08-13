@@ -415,4 +415,6 @@ $lang['Your authentication key is no longer valid.'] = 'Your authentication key 
 $lang['Invalid username or password!'] = 'Invalid username or password!';
 $lang['generate random password'] = 'generate random password';
 $lang['Related albums'] = 'Related albums';
+$lang['Natural order, A &rarr; Z'] = 'Natural order, A &rarr; Z';
+$lang['Natural order, Z &rarr; A'] = 'Natural order, Z &rarr; A';
 ?>
