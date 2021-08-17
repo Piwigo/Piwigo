@@ -303,11 +303,11 @@ jQuery(document).ready(function(){
       <legend><span class="icon-folder-open icon-red"></span>{'Drop into album'|@translate}</legend>
       <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{$ADD_TO_ALBUM}</span></div>
       <div class="selectAlbumBlock"{if isset($ADD_TO_ALBUM)} style="display: none"{/if}>
-        <a href="#" data-add-album="category" title="{'create a new album'|@translate}" class="icon-plus"></a>
         <span id="albumSelection">
           <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
           data-default="first" name="category" style="width:600px"></select>
         </span>
+        <a href="#" data-add-album="category" class="orCreateAlbum"> {'... or '|@translate} {'create a new album'|@translate}</a>
       </div>
     </fieldset>
 {*

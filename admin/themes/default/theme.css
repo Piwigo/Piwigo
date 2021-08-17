@@ -4697,7 +4697,14 @@ fieldset#environment legend i[class*="icon-"] {
 	padding: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16); font-size: 15px; margin-bottom: 8px; transition: all 125ms ease-out;
 }
 .icon-plus.cboxElement:hover {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);}
-#albumSelection {margin-left: 25px;}
+#albumSelection {margin-right: 20px;}
+.orCreateAlbum{margin: 7px 0 9px 0; padding: 5px 10px; background: #f5f5f5; border-radius: 20px;}
+.orCreateAlbum:hover {
+  text-decoration: none;
+  color: #3a3a3a;
+  background: #dcdcdc;
+  transition: 0.2s;
+}
 .selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
 .buttonLike {padding: 8px 10px; margin-left: 5px;}
 .changeUsername .buttonLike {padding: 1px 10px;}
