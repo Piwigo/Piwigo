@@ -307,7 +307,8 @@ jQuery(document).ready(function(){
           <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
           data-default="first" name="category" style="width:600px"></select>
         </span>
-        <a href="#" data-add-album="category" class="orCreateAlbum"> {'... or '|@translate} {'create a new album'|@translate}</a>
+        <span>{'... or '|@translate} </span>
+        <a href="#" data-add-album="category" class="orCreateAlbum icon-plus-circled"> {'create a new album'|@translate}</a>
       </div>
     </fieldset>
 {*
