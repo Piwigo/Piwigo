@@ -8,39 +8,6 @@ jQuery().ready(function(){
 
 {html_head}{literal}
 <style type="text/css">
-
-  .applicationContainer {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .illustration {
-    float:left; 
-    margin:10px;
-  }
-  .illustration img {
-    max-width: 300px;
-    height: 200px;
-  }
-  fieldset p {
-    text-align:left;
-    margin-top:0;
-    float: left;
-  }
-
-  fieldset {
-    box-shadow: 0px 0px 4px 6px #DBDBDB;
-    max-width: 30%;
-  }
-
-  fieldset legend {
-    position: relative;
-    left:  100px;
-    top: 100px;
-  }
-
-  /************************/
-
   .applicationContainer {
     width: 100%;
     display: flex;
@@ -58,8 +25,8 @@ jQuery().ready(function(){
   }
 
   .applicationCard img {
-    max-width: 250px;
-    height: 200px;
+    max-width: 210px;
+    height: 175px;
     margin: 20px;
   }
 
@@ -72,13 +39,14 @@ jQuery().ready(function(){
     font-size: 15px;
     font-weight: bold;
     margin: 20px 0 10px 0;
+    padding-right: 15px;
     text-align: left;
     color: black;
   }
 
   .applicationCard .applicationDesc {
     text-align: left;
-    padding-right: 10px;
+    padding-right: 15px;
 
     display: -webkit-box;
     -webkit-line-clamp: 6;
@@ -109,7 +77,7 @@ jQuery().ready(function(){
 <div class="applicationContainer">
 
   <div class="applicationCard"> 
-    <img title="Piwigo Remote Sync" src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-remote-sync.jpg">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-remote-sync.png" title="Piwigo Remote Sync"><img src="https://piwigo.org/screenshots/applications/piwigo-remote-sync.png"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> Piwigo Remote Sync </div> 
@@ -121,7 +89,7 @@ jQuery().ready(function(){
   </div>
 
   <div class="applicationCard"> 
-    <img title="{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}" src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-ios.png">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-ios.png" title="{'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-ios.png"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> {'Piwigo for iOS (iPhone, iPad, iPod Touch)'|@translate}</div> 
@@ -133,7 +101,7 @@ jQuery().ready(function(){
   </div>
 
   <div class="applicationCard"> 
-    <img title="{'Piwigo for Android'|@translate}" src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-android.png">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/piwigo-android.png" title="{'Piwigo for Android'|@translate}"><img src="https://piwigo.org/screenshots/applications/thumbnail/piwigo-android.png"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> {'Piwigo for Android'|@translate} </div> 
@@ -145,7 +113,7 @@ jQuery().ready(function(){
   </div>
 
   <div class="applicationCard"> 
-    <img title="{'Piwigo Publish plugin for Lightroom'|@translate}" src="https://piwigo.org/screenshots/applications/thumbnail/lightroom.png">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/lightroom.png" title="{'Piwigo Publish plugin for Lightroom'|@translate}"><img src="https://piwigo.org/screenshots/applications/lightroom.png"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> Lightroom </div> 
@@ -160,7 +128,7 @@ jQuery().ready(function(){
   </div>
 
   <div class="applicationCard"> 
-    <img title="{'Piwigo publish plugin for Shotwell'|@translate}" src="https://piwigo.org/screenshots/applications/thumbnail/shotwell.jpg">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/shotwell.png" title="{'Piwigo publish plugin for Shotwell'|@translate}"><img src="https://piwigo.org/screenshots/applications/shotwell.png"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> Shotwell </div> 
@@ -172,7 +140,7 @@ jQuery().ready(function(){
   </div>
 
   <div class="applicationCard"> 
-    <img title="{'Piwigo publish plugin for digiKam'|@translate}" src="https://piwigo.org/screenshots/applications/thumbnail/digikam.jpg">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/digikam.png" title="{'Piwigo publish plugin for digiKam'|@translate}"><img src="https://piwigo.org/screenshots/applications/digikam.png"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> digiKam </div> 
@@ -187,7 +155,7 @@ jQuery().ready(function(){
   </div>
 
   <div class="applicationCard"> 
-    <img title="MacShareToPiwigo" src="https://piwigo.org/screenshots/applications/thumbnail/macsharetopiwigo.jpg">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/macsharetopiwigo.jpg" title="MacShareToPiwigo"><img src="https://piwigo.org/screenshots/applications/macsharetopiwigo.jpg"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> MacShareToPiwigo </div> 
@@ -199,7 +167,7 @@ jQuery().ready(function(){
   </div>
 
   <div class="applicationCard"> 
-    <img title="{'Piwigo export plugin for iPhoto'|@translate}" src="https://piwigo.org/screenshots/applications/thumbnail/iphoto.jpg">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/iphoto.jpg" title="{'Piwigo export plugin for iPhoto'|@translate}"><img src="https://piwigo.org/screenshots/applications/iphoto.jpg"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> iPhoto </div> 
@@ -211,7 +179,7 @@ jQuery().ready(function(){
   </div>
 
   <div class="applicationCard"> 
-    <img title="{'Piwigo export plugin for Aperture'|@translate}" src="https://piwigo.org/screenshots/applications/thumbnail/aperture.jpg">
+    <div class="illustration"><a href="https://piwigo.org/screenshots/applications/aperture.png" title="{'Piwigo export plugin for Aperture'|@translate}"><img src="https://piwigo.org/screenshots/applications/aperture.png"></a></div>
 
     <div class="textSide">
       <div class="applicationName"> Aperture </div> 
