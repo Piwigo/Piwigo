@@ -1132,3 +1132,5 @@ $lang['Root'] = 'ルート';
 $lang['Select an album... or type it!'] = 'アルバムを選択するか入力して下さい';
 $lang['Show sub-albums'] = 'サブアルバムを表示する';
 $lang['Tile View'] = 'タイトルビュー';
+$lang['<b>%d+</b> albums found, try to refine the search'] = '<b>%d+</b>アルバムが見つかりました。絞り込み検索をお試しください。';
+$lang['Apply to direct sub-albums'] = '直下のサブアルバムに適用する';
