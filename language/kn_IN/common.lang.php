@@ -413,3 +413,5 @@ $lang['Link: %s'] = 'ಕೊಂಡಿ :  %s';
 $lang['Invalid username or password!'] = 'ಅಸಿಂಧುವಾದ ಬಳಕೆದಾರರ ಹೆಸರು ಅಥವಾ ಗುಪ್ತಪದ!';
 $lang['Album name, Z &rarr; A'] = 'ಸಂಪುಟದ ಹೆಸರು, Z &rarr; A';
 $lang['Album name, A &rarr; Z'] = 'ಸಂಪುಟದ ಹೆಸರು, A &rarr; Z';
+$lang['Apply on properties'] = 'ಗುಣವಿಶೇಷಗಳ ಮೇಲೆ ಅನ್ವಯಿಸಿ';
+$lang['Your authentication key is no longer valid.'] = 'ನಿಮ್ಮ ಧೃಢೀಕರಣದ ಕೀ ಅಸಿಂಧುವಾಗಿದೆ';
