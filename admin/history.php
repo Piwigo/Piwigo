@@ -161,7 +161,8 @@ history_tabsheet();
 $template->assign(
   array(
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=history',
-    'F_ACTION' => get_root_url().'admin.php?page=history'
+    'F_ACTION' => get_root_url().'admin.php?page=history',
+    'API_METHOD' => 'ws.php?format=json&method=pwg.history.search'
     )
   );
 
@@ -182,6 +183,7 @@ SELECT rules
 
   $page['search'] = unserialize($serialized_rules);
 
+  // Used when filtering on a specific user from displayed lines
   if (isset($_GET['user_id']))
   {
     if (!is_numeric($_GET['user_id']))
@@ -212,6 +214,7 @@ INSERT INTO '.SEARCH_TABLE.'
 
   $page['nb_lines'] = count($data);
 
+  //Number of ids of each kind
   $history_lines = array();
   $user_ids = array();
   $username_of = array();
@@ -435,7 +438,8 @@ SELECT
         }
       }
     }
-
+    
+    // Put in ajax response
     $template->append(
       'search_results',
       array(
@@ -480,6 +484,7 @@ SELECT
     $member_strings[] = $member_string;
   }
 
+  // Put in ajax response
   $template->assign(
     'search_summary',
     array(

@@ -5,11 +5,19 @@
 jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
   jQuery('[data-datepicker]').pwgDatepicker();
 });
+
+const API_METHOD = "{$API_METHOD}";
 {/footer_script}
+
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='history' load='footer' path='admin/themes/default/js/history.js'}
+
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
 
-<form class="filter" method="post" name="filter" action="{$F_ACTION}">
+<form class="filter" method="post" name="filter" action="">
 <fieldset class="with-border">
   <legend><span class="icon-filter icon-green"></span>{'Filter'|@translate}</legend>
   <ul>

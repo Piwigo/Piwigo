@@ -1244,6 +1244,14 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       'Returns the favorite images of the current user.',
       $ws_functions_root . 'pwg.users.php'
     );
+
+  $service->addMethod(
+      'pwg.history.search',
+      'ws_history_search',
+      null,
+      'Gives an history of who has visited the galery and the actions done in it. Receives parameter.',
+      $ws_functions_root . 'pwg.php'
+    );
 }
 
 ?>

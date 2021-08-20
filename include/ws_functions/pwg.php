@@ -578,4 +578,133 @@ SELECT
   );
 }
 
+function ws_history_search($param, &$service)
+{
+
+if (isset($_GET['start']) and is_numeric($_GET['start']))
+{
+  $page['start'] = $_GET['start'];
+}
+else
+{
+  $page['start'] = 0;
+}
+
+$types = array_merge(array('none'), get_enums(HISTORY_TABLE, 'image_type'));
+
+$display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
+                            'display_thumbnail_classic' => l10n('Classic display'),
+                            'display_thumbnail_hoverbox' => l10n('Hoverbox display')
+  );
+
+// +-----------------------------------------------------------------------+
+// | Build search criteria and redirect to results                         |
+// +-----------------------------------------------------------------------+
+
+$page['errors'] = array();
+$search = array();
+
+// date start
+if (!empty($param['start']))
+{
+  check_input_parameter('start', $param, false, '/^\d{4}-\d{2}-\d{2}$/');
+  $search['fields']['date-after'] = $param['start'];
+}
+
+// date end
+if (!empty($param['end']))
+{
+  check_input_parameter('end', $param, false, '/^\d{4}-\d{2}-\d{2}$/');
+  $search['fields']['date-before'] = $param['end'];
+}
+
+// types
+if (empty($param['types']))
+{
+  $search['fields']['types'] = $types;
+}
+else
+{
+  check_input_parameter('types', $param, true, '/^('.implode('|', $types).')$/');
+  $search['fields']['types'] = $param['types'];
+}
+
+// user
+$search['fields']['user'] = intval($param['user']);
+
+// image
+if (!empty($param['image_id']))
+{
+  $search['fields']['image_id'] = intval($param['image_id']);
+}
+
+// filename
+if (!empty($param['filename']))
+{
+  $search['fields']['filename'] = str_replace(
+    '*',
+    '%',
+    pwg_db_real_escape_string($param['filename'])
+    );
+}
+
+// ip
+if (!empty($param['ip']))
+{
+  $search['fields']['ip'] = str_replace(
+    '*',
+    '%',
+    pwg_db_real_escape_string($param['ip'])
+    );
+}
+
+// thumbnails
+check_input_parameter('display_thumbnail', $param, false, '/^('.implode('|', array_keys($display_thumbnails)).')$/');
+
+$search['fields']['display_thumbnail'] = $param['display_thumbnail'];
+// Display choise are also save to one cookie
+if (!empty($param['display_thumbnail'])
+    and isset($display_thumbnails[$param['display_thumbnail']]))
+{
+  $cookie_val = $param['display_thumbnail'];
+}
+else
+{
+  $cookie_val = null;
+}
+
+pwg_set_cookie_var('display_thumbnail', $cookie_val, strtotime('+1 month') );
+
+// TODO manage inconsistency of having $_POST['image_id'] and
+// $_POST['filename'] simultaneously
+
+// store seach in database
+if (!empty($search))
+{
+  // register search rules in database, then they will be available on
+  // thumbnails page and picture page.
+  $query ='
+INSERT INTO '.SEARCH_TABLE.'
+(rules)
+VALUES
+(\''.pwg_db_real_escape_string(serialize($search)).'\')
+;';
+
+  pwg_query($query);
+
+  $search_id = pwg_db_insert_id(SEARCH_TABLE);
+
+  // Remove redirect for ajax //
+  // redirect(
+  //   PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
+  //   );
+}
+else
+{
+  $page['errors'][] = l10n('Empty query. No criteria has been entered.');
+}
+
+  return $param;
+}
+
 ?>
