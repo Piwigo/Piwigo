@@ -578,8 +578,18 @@ SELECT
   );
 }
 
+/**
+ * API method
+ * Returns lines of an history search
+ */
+
 function ws_history_search($param, &$service)
 {
+
+include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
+
+global $conf;
 
 if (isset($_GET['start']) and is_numeric($_GET['start']))
 {
@@ -704,7 +714,271 @@ else
   $page['errors'][] = l10n('Empty query. No criteria has been entered.');
 }
 
-  return $param;
-}
+// what are the lines to display in reality ?
+  $query = '
+SELECT rules
+  FROM '.SEARCH_TABLE.'
+  WHERE id = '.$search_id.'
+;';
+  list($serialized_rules) = pwg_db_fetch_row(pwg_query($query));
 
+  $page['search'] = unserialize($serialized_rules);
+
+
+  /*TODO - no need to get a huge number of rows from db (should take only what needed for display + SQL_CALC_FOUND_ROWS*/
+  $data = trigger_change('get_history', array(), $page['search'], $types);
+  usort($data, 'history_compare');
+
+  $page['nb_lines'] = count($data);
+
+  //Number of ids of each kind
+  $history_lines = array();
+  $user_ids = array();
+  $username_of = array();
+  $category_ids = array();
+  $image_ids = array();
+  $has_tags = false;
+
+  foreach ($data as $row)
+  {
+    $user_ids[$row['user_id']] = 1;
+
+    if (isset($row['category_id']))
+    {
+      $category_ids[$row['category_id']] = 1;
+    }
+
+    if (isset($row['image_id']))
+    {
+      $image_ids[$row['image_id']] = 1;
+    }
+
+    if (isset($row['tag_ids']))
+    {
+      $has_tags = true;
+    }
+
+    $history_lines[] = $row;
+  }
+
+  // prepare reference data (users, tags, categories...)
+  if (count($user_ids) > 0)
+  {
+    $query = '
+SELECT '.$conf['user_fields']['id'].' AS id
+     , '.$conf['user_fields']['username'].' AS username
+  FROM '.USERS_TABLE.'
+  WHERE id IN ('.implode(',', array_keys($user_ids)).')
+;';
+    $result = pwg_query($query);
+
+    $username_of = array();
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $username_of[$row['id']] = stripslashes($row['username']);
+    }
+  }
+
+  if (count($category_ids) > 0)
+  {
+    $query = '
+SELECT id, uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', array_keys($category_ids)).')
+;';
+    $uppercats_of = query2array($query, 'id', 'uppercats');
+
+    $name_of_category = array();
+
+    foreach ($uppercats_of as $category_id => $uppercats)
+    {
+      $name_of_category[$category_id] = get_cat_display_name_cache(
+        $uppercats
+        );
+    }
+  }
+
+  if (count($image_ids) > 0)
+  {
+    $query = '
+SELECT
+    id,
+    IF(name IS NULL, file, name) AS label,
+    filesize,
+    file,
+    path,
+    representative_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', array_keys($image_ids)).')
+;';
+    $image_infos = query2array($query, 'id');
+  }
+
+  if ($has_tags > 0)
+  {
+    $query = '
+SELECT
+    id,
+    name, url_name
+  FROM '.TAGS_TABLE;
+
+    global $name_of_tag; // used for preg_replace
+    $name_of_tag = array();
+    $result = pwg_query($query);
+    while ($row=pwg_db_fetch_assoc($result))
+    {
+      $name_of_tag[ $row['id'] ] = '<a href="'.make_index_url( array('tags'=>array($row))).'">'.trigger_change("render_tag_name", $row['name'], $row).'</a>';
+    }
+  }
+
+  $i = 0;
+  $first_line = $page['start'] + 1;
+  $last_line = $page['start'] + $conf['nb_logs_page'];
+
+  $summary['total_filesize'] = 0;
+  $summary['guests_IP'] = array();
+
+  $result = array();
+
+  foreach ($history_lines as $line)
+  {
+    if (isset($line['image_type']) and $line['image_type'] == 'high')
+    {
+      $summary['total_filesize'] += @intval($image_infos[$line['image_id']]['filesize']);
+    }
+
+    if ($line['user_id'] == $conf['guest_id'])
+    {
+      if (!isset($summary['guests_IP'][ $line['IP'] ]))
+      {
+        $summary['guests_IP'][ $line['IP'] ] = 0;
+      }
+
+      $summary['guests_IP'][ $line['IP'] ]++;
+    }
+
+    $i++;
+
+    if ($i < $first_line or $i > $last_line)
+    {
+      continue;
+    }
+
+    $user_string = '';
+    if (isset($username_of[$line['user_id']]))
+    {
+      $user_string.= $username_of[$line['user_id']];
+    }
+    else
+    {
+      $user_string.= $line['user_id'];
+    }
+    $user_string.= '&nbsp;<a href="';
+    $user_string.= PHPWG_ROOT_PATH.'admin.php?page=history';
+    $user_string.= '&amp;search_id='.$search_id;
+    $user_string.= '&amp;user_id='.$line['user_id'];
+    $user_string.= '">+</a>';
+
+    $tags_string = '';
+    if (isset($line['tag_ids']))
+    {
+      $tags_string = preg_replace_callback(
+        '/(\d+)/',
+        function($m) use ($name_of_tag) { return isset($name_of_tag[$m[1]]) ? $name_of_tag[$m[1]] : $m[1];} ,
+        str_replace(
+          ',',
+          ', ',
+          $line['tag_ids']
+          )
+        );
+    }
+
+    $image_string = '';
+    if (isset($line['image_id']))
+    {
+      $picture_url = make_picture_url(
+        array(
+          'image_id' => $line['image_id'],
+          )
+        );
+
+      if (isset($image_infos[$line['image_id']]))
+      {
+        $element = array(
+          'id' => $line['image_id'],
+          'file' => $image_infos[$line['image_id']]['file'],
+          'path' => $image_infos[$line['image_id']]['path'],
+          'representative_ext' => $image_infos[$line['image_id']]['representative_ext'],
+          );
+        $thumbnail_display = $page['search']['fields']['display_thumbnail'];
+      }
+      else
+      {
+        $thumbnail_display = 'no_display_thumbnail';
+      }
+
+      $image_title = '('.$line['image_id'].')';
+
+      if (isset($image_infos[$line['image_id']]['label']))
+      {
+        $image_title.= ' '.trigger_change('render_element_description', $image_infos[$line['image_id']]['label']);
+      }
+      else
+      {
+        $image_title.= ' unknown filename';
+      }
+
+      $image_string = '';
+
+      switch ($thumbnail_display)
+      {
+        case 'no_display_thumbnail':
+        {
+          $image_string= '<a href="'.$picture_url.'">'.$image_title.'</a>';
+          break;
+        }
+        case 'display_thumbnail_classic':
+        {
+          $image_string =
+            '<a class="thumbnail" href="'.$picture_url.'">'
+            .'<span><img src="'.DerivativeImage::thumb_url($element)
+            .'" alt="'.$image_title.'" title="'.$image_title.'">'
+            .'</span></a>';
+          break;
+        }
+        case 'display_thumbnail_hoverbox':
+        {
+          $image_string =
+            '<a class="over" href="'.$picture_url.'">'
+            .'<span><img src="'.DerivativeImage::thumb_url($element)
+            .'" alt="'.$image_title.'" title="'.$image_title.'">'
+            .'</span>'.$image_title.'</a>';
+          break;
+        }
+      }
+    }
+    /** */
+    
+    array_push( $result, 
+      array(
+        'DATE'      => $line['date'],
+        'TIME'      => $line['time'],
+        'USER'      => $user_string,
+        'IP'        => $line['IP'],
+        'IMAGE'     => $image_string,
+        'TYPE'      => $line['image_type'],
+        'SECTION'   => $line['section'],
+        'CATEGORY'  => isset($line['category_id'])
+          ? ( isset($name_of_category[$line['category_id']])
+                ? $name_of_category[$line['category_id']]
+                : 'deleted '.$line['category_id'] )
+          : '',
+        'TAGS'       => $tags_string,
+      )
+    );
+
+      /** */
+  }
+return $result;
+}
 ?>

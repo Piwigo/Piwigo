@@ -19,6 +19,7 @@ $(document).ready(() => {
     $.ajax({
       url: API_METHOD,
       method: "POST",
+      dataType: "JSON",
       data: {
         start: dataObj['start'],
         end: dataObj['end'],
@@ -30,6 +31,7 @@ $(document).ready(() => {
         display_thumbnail: dataObj['display_thumbnail'],
       },
       success: function (data) {
+        console.log("RESULTS");
         console.log(data);
       },
       error: function (e) {
