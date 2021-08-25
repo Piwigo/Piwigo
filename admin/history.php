@@ -439,7 +439,7 @@ SELECT
       }
     }
     
-    // Put in ajax response
+    // Put in ajax response done
     $template->append(
       'search_results',
       array(

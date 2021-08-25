@@ -30,9 +30,14 @@ $(document).ready(() => {
         ip: dataObj['ip'],
         display_thumbnail: dataObj['display_thumbnail'],
       },
-      success: function (data) {
+      success: function (raw_data) {
+        data = raw_data.result;
         console.log("RESULTS");
         console.log(data);
+
+        data.forEach(line => {
+          lineConstructor(line)
+        });
       },
       error: function (e) {
         console.log("Something went wrong: " + e);
@@ -40,5 +45,10 @@ $(document).ready(() => {
     })
 
     console.log(dataObj);
-  })
+  });
+
+  function lineConstructor(line) {
+    // console.log(line);
+  }
+
 })
