@@ -420,3 +420,5 @@ $lang['Invalid username or password!'] = 'A felhasználó-azonosító vagy a jel
 $lang['generate random password'] = 'Véletlenszerű jelszó generálása';
 $lang['Password: ********** (no copy by email)'] = 'Jelszó: ********** (nincs email másolat)';
 $lang['Related albums'] = 'Kapcsolódó albumok';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Album neve, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Album neve, 100 &rarr; 10 &rarr; 5 &rarr; 1';
