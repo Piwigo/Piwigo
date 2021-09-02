@@ -1021,3 +1021,5 @@ $lang['%s GB used'] = '%s Go implijet';
 $lang['%d photos'] = '%d luc\'hskeudenn';
 $lang[' (copy)'] = '(eilad)';
 $lang[' (copy %s)'] = '(eilad %s)';
+$lang['Search albums'] = 'Klask rummadoù';
+$lang['Show sub-albums'] = 'Diskouez an iz-rummadoù';
