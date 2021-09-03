@@ -415,3 +415,5 @@ $lang['Invalid username or password!'] = 'Contrasenya no vàlida';
 $lang['generate random password'] = 'Genera una contrasenya aleatòria';
 $lang['Password: ********** (no copy by email)'] = 'Contrasenya: ********** (sense còpia per correu electrònic)';
 $lang['Related albums'] = 'Àlbums relacionats';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nom de l\'àlbum, 1 &rarr; 5&rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Nom de l\'àlbum, 100 &rarr; 10&rarr; 5 &rarr; 1';
