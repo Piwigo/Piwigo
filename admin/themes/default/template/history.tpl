@@ -155,7 +155,47 @@ const API_METHOD = "{$API_METHOD}";
       <span class="icon-spin6 animate-spin"> </span>
     </div>
 
-    <div class="search-line" id="-1">
+    <div class="search-line hide" id="-1">
+      <div class="date-section">
+        <span class="date-day bold"> July 4th, 2042 </span>
+        <span> at <span class="date-hour">23:59:59</span> </span>
+      </div>
+
+      <div class="user-section">
+        <span class="user-name bold"> Zac le boss </span>
+        <span class="user-ip"> 192.168.0.0</span>
+      </div>
+
+      <div class="type-section">
+        <span class="type-icon"> <i class="icon-file-image"> </i> </span>
+        <span class="icon-ellipsis-vert toggle-img-option">
+          <div class="img-option">
+            <span> info 2</span>
+            <span> info 1</span>
+          </div>
+        </span>
+
+        <div class="type-desc">
+          <span class="type-name bold"> WIP </span>
+          <span class="type-id"> tag #99 </span>
+        </div>
+        
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-item detail-item-1">
+          detail 1
+        </div>
+        <div class="detail-item detail-item-2">
+          detail 2
+        </div>
+        <div class="detail-item detail-item-3">
+          detail 3
+        </div>
+      </div>
+    </div>
+
+    {* <div class="search-line" id="-2">
       <div class="date-section">
         <span class="date-day bold"> July 4th, 2042 </span>
         <span class="date-hour"> at 23:59:59</span>
@@ -193,47 +233,7 @@ const API_METHOD = "{$API_METHOD}";
           detail 3
         </div>
       </div>
-    </div>
-
-    <div class="search-line" id="-2">
-      <div class="date-section">
-        <span class="date-day bold"> July 4th, 2042 </span>
-        <span class="date-hour"> at 23:59:59</span>
-      </div>
-
-      <div class="user-section">
-        <span class="user-name bold"> Zac le boss </span>
-        <span class="user-ip"> 127.0.0.1 </span>
-      </div>
-
-      <div class="type-section">
-        <span class="type-icon"> <i class="icon-file-image"> </i> </span>
-        <span class="icon-ellipsis-vert toggle-img-option">
-          <div class="img-option">
-            <span> info 2</span>
-            <span> info 1</span>
-          </div>
-        </span>
-
-        <div class="type-desc">
-          <span class="type-name bold"> WIP </span>
-          <span class="type-id"> tag #99 </span>
-        </div>
-        
-      </div>
-
-      <div class="detail-section">
-        <div class="detail-item detail-item-1">
-          detail 1
-        </div>
-        <div class="detail-item detail-item-2">
-          detail 2
-        </div>
-        <div class="detail-item detail-item-3">
-          detail 3
-        </div>
-      </div>
-    </div>
+    </div> *}
   </div>
 </div>
 

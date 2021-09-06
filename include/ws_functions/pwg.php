@@ -867,6 +867,7 @@ SELECT
     $user_string = '';
     if (isset($username_of[$line['user_id']]))
     {
+      $user_name = $username_of[$line['user_id']];
       $user_string.= $username_of[$line['user_id']];
     }
     else
@@ -961,9 +962,10 @@ SELECT
     
     array_push( $result, 
       array(
-        'DATE'      => $line['date'],
+        'DATE'      => format_date($line['date']),
         'TIME'      => $line['time'],
         'USER'      => $user_string,
+        'USERNAME'  => $user_name,
         'IP'        => $line['IP'],
         'IMAGE'     => $image_string,
         'TYPE'      => $line['image_type'],
