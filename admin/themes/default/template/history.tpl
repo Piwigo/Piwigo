@@ -105,7 +105,7 @@ const API_METHOD = "{$API_METHOD}";
 
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
-<table class="table2" id="detailedStats">
+{* <table class="table2" id="detailedStats">
 <thead>
 <tr class="throw">
   <th>{'Date'|@translate}</th>
@@ -132,7 +132,110 @@ const API_METHOD = "{$API_METHOD}";
 </tr>
 {/foreach}
 {/if}
-</table>
+</table> *}
+
+<div class="container">
+  <div class="tab-title">
+    <div class="date-title">
+        {'Date'|translate}
+    </div>
+    <div class="user-title">
+        {'User'|translate}
+    </div>
+    <div class="type-title">
+        {'Type'|translate}
+    </div>
+    <div class="detail-title">
+        {'Details'|translate}
+    </div>
+  </div>
+
+  <div class="tab">
+    <div class="loading hide"> 
+      <span class="icon-spin6 animate-spin"> </span>
+    </div>
+
+    <div class="search-line" id="-1">
+      <div class="date-section">
+        <span class="date-day bold"> July 4th, 2042 </span>
+        <span class="date-hour"> at 23:59:59</span>
+      </div>
+
+      <div class="user-section">
+        <span class="user-name bold"> Zac le boss </span>
+        <span class="user-ip"> 127.0.0.1 </span>
+      </div>
+
+      <div class="type-section">
+        <span class="type-icon"> <i class="icon-file-image"> </i> </span>
+        <span class="icon-ellipsis-vert toggle-img-option">
+          <div class="img-option">
+            <span> info 2</span>
+            <span> info 1</span>
+          </div>
+        </span>
+
+        <div class="type-desc">
+          <span class="type-name bold"> WIP </span>
+          <span class="type-id"> tag #99 </span>
+        </div>
+        
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-item detail-item-1">
+          detail 1
+        </div>
+        <div class="detail-item detail-item-2">
+          detail 2
+        </div>
+        <div class="detail-item detail-item-3">
+          detail 3
+        </div>
+      </div>
+    </div>
+
+    <div class="search-line" id="-2">
+      <div class="date-section">
+        <span class="date-day bold"> July 4th, 2042 </span>
+        <span class="date-hour"> at 23:59:59</span>
+      </div>
+
+      <div class="user-section">
+        <span class="user-name bold"> Zac le boss </span>
+        <span class="user-ip"> 127.0.0.1 </span>
+      </div>
+
+      <div class="type-section">
+        <span class="type-icon"> <i class="icon-file-image"> </i> </span>
+        <span class="icon-ellipsis-vert toggle-img-option">
+          <div class="img-option">
+            <span> info 2</span>
+            <span> info 1</span>
+          </div>
+        </span>
+
+        <div class="type-desc">
+          <span class="type-name bold"> WIP </span>
+          <span class="type-id"> tag #99 </span>
+        </div>
+        
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-item detail-item-1">
+          detail 1
+        </div>
+        <div class="detail-item detail-item-2">
+          detail 2
+        </div>
+        <div class="detail-item detail-item-3">
+          detail 3
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
@@ -181,3 +284,181 @@ jQuery(document).ready( function() {
   });
 });
 {/literal}{/footer_script}
+
+<style>
+
+.container {
+  padding: 0 30px;
+}
+
+.container,
+.tab {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.hide {
+  display: none !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+.search-line {
+  background: #fafafa;
+  box-shadow: 0px 2px 4px #00000024;
+
+  display: flex;
+  flex-direction: row;
+
+  height: 80px;
+
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+.tab-title div {
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: bold;
+
+  margin: 0 20px 10px 0px;
+
+  color: #9e9e9e;
+
+  padding-bottom: 5px;
+}
+
+.date-title,
+.date-section {
+  width: 200px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.user-title,
+.user-section {
+  width: 200px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.type-title,
+.type-section {
+  width: 200px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.detail-title,
+.detail-section {
+  width: 200px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.detail-item {
+  background: #f0f0f0f0;
+  margin: 0 10px 0 0;
+  padding: 3px 6px;
+  border-radius: 20px;
+
+  min-width: 50px; 
+  max-width: 150px;
+  height: 20px;
+
+  text-align: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+
+  white-space: nowrap;
+}
+
+.date-section,
+.user-section,
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 20px;
+  height: 60%;
+  border-right: 1px solid #bbb;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-right: none;
+}
+
+.type-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 20px;
+  height: 60%;
+  border-right: 1px solid #bbb;
+}
+
+.type-desc {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.toggle-img-option {
+  cursor: pointer;
+  position: absolute;
+  margin-left: 15px;
+}
+
+.toggle-img-option::before{
+  transform: scale(1.3);
+}
+
+.img-option {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(130deg, #dddddd 0%, #f5f5f5 100%);
+  left: 20px;
+  top: -80%;
+  width: max-content;
+  border-radius: 10px;
+}
+
+.img-option span {
+  padding: 5px 10px;
+}
+
+.img-option:after {
+  content: " ";
+  position: absolute;
+  top: 35%;
+  left: -10px;
+  transform: rotate(270deg);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #dddddd transparent;
+}
+
+.img-option span:hover:first-child {
+  background: linear-gradient(130deg, #bbbbbb 0%, #e5e5e5 100%);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.img-option span:hover:last-child {
+  background: linear-gradient(130deg, #bbbbbb 0%, #e5e5e5 100%);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+</style>

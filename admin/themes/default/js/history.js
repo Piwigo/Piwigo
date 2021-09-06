@@ -51,4 +51,26 @@ $(document).ready(() => {
     // console.log(line);
   }
 
+  $(".search-line").find(".img-option").hide();
+
+  /* Display the option on the click on "..." */
+  $(".search-line").find(".toggle-img-option").on("click", function () {
+    $(this).find(".img-option").toggle();
+  })
+
+  /* Hide img options and rename field on click on the screen */
+
+  $(document).mouseup(function (e) {
+    e.stopPropagation();
+    let option_is_clicked = false
+    $(".img-option span").each(function () {
+      if (!($(this).has(e.target).length === 0)) {
+        option_is_clicked = true;
+      }
+    })
+    if (!option_is_clicked) {
+      $(".search-line").find(".img-option").hide();
+    }
+  });
+
 })
