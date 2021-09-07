@@ -4703,8 +4703,8 @@ fieldset#environment legend i[class*="icon-"] {
 .icon-plus.cboxElement:hover {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);}
 #albumSelection {margin-right: 20px;}
 .orCreateAlbum{
-  margin: 7px 0 9px 0;
-   padding: 5px 10px;
+  margin: 7px 0 9px 20px;
+  padding: 7px 10px;
   background-color: #fafafa;
   box-shadow: 0px 2px #00000024;
   border-radius: 5px;
@@ -4713,6 +4713,9 @@ fieldset#environment legend i[class*="icon-"] {
 .orCreateAlbum:hover {
   text-decoration: none;
   color: #3a3a3a;
+}
+.selectAlbumBlock .orChoice {
+  margin: 12px 0 0 0;
 }
 .selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
 .buttonLike {padding: 8px 10px; margin-left: 5px;}
