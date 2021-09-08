@@ -895,8 +895,11 @@ SELECT
     }
 
     $image_string = '';
+    $image_title = '';
+    $image_edit_string = '';
     if (isset($line['image_id']))
     {
+      $image_edit_string = PHPWG_ROOT_PATH.'admin.php?page=photo-'.$line['image_id'];
       $picture_url = make_picture_url(
         array(
           'image_id' => $line['image_id'],
@@ -950,10 +953,10 @@ SELECT
         case 'display_thumbnail_hoverbox':
         {
           $image_string =
-            '<a class="over" href="'.$picture_url.'">'
+            '<a class="over icon-file-image" href="'.$picture_url.'">'
             .'<span><img src="'.DerivativeImage::thumb_url($element)
             .'" alt="'.$image_title.'" title="'.$image_title.'">'
-            .'</span>'.$image_title.'</a>';
+            .'</span></a>';
           break;
         }
       }
@@ -968,6 +971,8 @@ SELECT
         'USERNAME'  => $user_name,
         'IP'        => $line['IP'],
         'IMAGE'     => $image_string,
+        'IMAGENAME' => $image_title,
+        'EDIT_IMAGE'=> $image_edit_string,
         'TYPE'      => $line['image_type'],
         'SECTION'   => $line['section'],
         'CATEGORY'  => isset($line['category_id'])
@@ -981,6 +986,6 @@ SELECT
 
       /** */
   }
-return $result;
+return [$result, $param];
 }
 ?>

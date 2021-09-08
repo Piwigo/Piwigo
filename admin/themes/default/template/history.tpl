@@ -150,12 +150,8 @@ const API_METHOD = "{$API_METHOD}";
     </div>
   </div>
 
-  <div class="tab">
-    <div class="loading hide"> 
-      <span class="icon-spin6 animate-spin"> </span>
-    </div>
-
-    <div class="search-line hide" id="-1">
+  {* Used to be copied in js *}
+  <div class="search-line hide" id="-1">
       <div class="date-section">
         <span class="date-day bold"> July 4th, 2042 </span>
         <span> at <span class="date-hour">23:59:59</span> </span>
@@ -171,7 +167,7 @@ const API_METHOD = "{$API_METHOD}";
         <span class="icon-ellipsis-vert toggle-img-option">
           <div class="img-option">
             <span> info 2</span>
-            <span> info 1</span>
+            <a class="edit-img" href="">{'Edit'|@translate}</a>
           </div>
         </span>
 
@@ -193,6 +189,11 @@ const API_METHOD = "{$API_METHOD}";
           detail 3
         </div>
       </div>
+    </div>
+
+  <div class="tab">
+    <div class="loading hide"> 
+      <span class="icon-spin6 animate-spin"> </span>
     </div>
 
     {* <div class="search-line" id="-2">
@@ -436,8 +437,13 @@ jQuery(document).ready( function() {
   border-radius: 10px;
 }
 
-.img-option span {
+.img-option span, .img-option a {
   padding: 5px 10px;
+  text-decoration: none;
+}
+
+.img-option a:hover {
+  color: #3a3a3a;
 }
 
 .img-option:after {
@@ -456,7 +462,7 @@ jQuery(document).ready( function() {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
-.img-option span:hover:last-child {
+.img-option a:hover:last-child {
   background: linear-gradient(130deg, #bbbbbb 0%, #e5e5e5 100%);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
