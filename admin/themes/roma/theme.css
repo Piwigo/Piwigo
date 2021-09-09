@@ -830,6 +830,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addFilesButtonChanged:hover {background-color: #777;}
 .categoryBox, .addAlbum {background-color: #333 !important; box-shadow: -1px 1px 2px #1a1a1a;}
 
+.albumIconLineHover {
+  background: #f98100 ! important;
+  color: #ffd7ad !important;
+  transition: 0.5s ease;
+  border-color: #f98100 !important;
+}
+
 #checkActions a, .deleteDerivButtons a {background-color: #393939;}
 #addFilter, #filterList select, .pictureLevels select, #permitAction select {background-color: #444444; color: #BFBFBF}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options, 
@@ -1492,7 +1499,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .selectedAlbum span {
-  background-color: #333333
+  background-color: #333333;
+  color: #777 !important;
+}
+
+.selectedAlbum span a{
+  color: #777 !important;
 }
 
 .AddUserPopInContainer {

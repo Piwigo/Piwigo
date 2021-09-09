@@ -167,6 +167,12 @@ TABLE.languages TR TD { padding: 7px 20px; }
   border-radius: 10px;
 }
 
+.albumIconLineHover {
+  background: #f98100! important;
+  color: #ffd7ad;
+  transition: 0.5s ease;
+}
+
 .albumIcon {
   height: 80px;
   display: flex;

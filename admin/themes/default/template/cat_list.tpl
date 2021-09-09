@@ -165,12 +165,6 @@ jQuery(document).ready(function(){
   border-radius: 30px;
 }
 
-.albumIconLineHover {
-  background: #f98100! important;
-  color: #ffd7ad;
-  transition: 0.5s ease;
-}
-
 .albumInfos {
   color: #a9a9a9;
 
