@@ -1,4 +1,5 @@
 
+.icon-home:before { content: '\2302'; } /* '⌂' */
 .icon-puzzle:before { content: '\e7b6'; } /* '' */
 .icon-language:before { content: '\e800'; } /* '' */
 .icon-signal:before { content: '\e801'; } /* '' */
