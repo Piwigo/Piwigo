@@ -6,6 +6,31 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
   jQuery('[data-datepicker]').pwgDatepicker();
 });
 
+var dateObj = new Date();
+var month = dateObj.getUTCMonth() + 1; //months from 1-12
+var day = dateObj.getUTCDate();
+var year = dateObj.getUTCFullYear();
+
+if (month < 10) month = "0" + month;
+if (day < 10) day = "0" + day;
+
+today = year + "-" + month + "-" + day;
+var current_data = {
+  start: "",
+  end: today,
+  types: {
+    0: "none",
+    1: "picture",
+    2: "high",
+    3: "other"
+  },
+  user: "-1",
+  image_id: "",
+  filename: "",
+  ip: "",
+  display_thumbnail: "no_display_thumbnail",
+}
+
 const API_METHOD = "{$API_METHOD}";
 {/footer_script}
 
@@ -14,6 +39,8 @@ const API_METHOD = "{$API_METHOD}";
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
+
+{combine_css path="admin/themes/default/css/components/general.css"}
 
 <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
 
@@ -86,6 +113,46 @@ const API_METHOD = "{$API_METHOD}";
 </fieldset>
 </form>
 
+<form class="filter-new" method="post" name="filter-new" action="">
+<fieldset class="history-filter">
+  <div class="selectable-filter">
+    <div class="filter-part date-start">
+      <label>{'Date'|@translate}</label>
+        <input type="hidden" name="start" value="{$START}">
+        <label>
+          <input type="text" data-datepicker="start" data-datepicker-end="end" data-datepicker-unset="start_unset" readonly>
+        </label>
+        <a href="#" class="icon-cancel-circled" id="start_unset">{'unset'|translate}</a>
+    </div>
+    <div class="filter-part date-end">
+      <label>{'End-Date'|@translate}</label>
+        <input type="hidden" name="end" value="{$END}">
+        <label>
+          <input type="text" data-datepicker="end" data-datepicker-start="start" data-datepicker-unset="end_unset" readonly>
+        </label>
+        <a href="#" class="icon-cancel-circled" id="end_unset">{'unset'|translate}</a>
+    </div>
+    <div class="filter-part elem-type advanced-filter-select-container">
+      <label>
+        {'Element type'|@translate}
+        <select name="types[]" class="elem-type-select user-action-select advanced-filter-select">
+          {html_options values=$type_option_values output=$type_option_values|translate selected=$type_option_selected}
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="filter-tags">
+    <label> Personnalized filters</label>
+    <div class="filter-container">
+      <div id="default-filter" class="filter-item hide">
+        <i class="filter-icon"> </i>
+        <span class="filter-title"> test </span><span class="remove-filter">x</span>
+      </div>
+    </div>
+  </div>
+</fieldset>
+</form>
+
 {if isset($search_summary)}
 <fieldset>
   <legend>{'Summary'|@translate}</legend>
@@ -104,35 +171,6 @@ const API_METHOD = "{$API_METHOD}";
 {/if}
 
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
-
-{* <table class="table2" id="detailedStats">
-<thead>
-<tr class="throw">
-  <th>{'Date'|@translate}</th>
-  <th>{'Time'|@translate}</th>
-  <th>{'User'|@translate}</th>
-  <th>{'IP'|@translate}</th>
-  <th>{'Element'|@translate}</th>
-  <th>{'Element type'|@translate}</th>
-  <th>{'Section'|@translate}</th>
-	<th>{'Album'|@translate} / {'Tags'|@translate}</th>
-</tr>
-</thead>
-{if !empty($search_results)}
-{foreach from=$search_results item=detail name=res_loop}
-<tr class="{if $smarty.foreach.res_loop.index is odd}row1{else}row2{/if}">
-  <td class="hour">{$detail.DATE}</td>
-  <td class="hour">{$detail.TIME}</td>
-  <td>{$detail.USER}</td>
-  <td class="IP">{$detail.IP}</td>
-  <td>{$detail.IMAGE}</td>
-  <td>{$detail.TYPE}</td>
-  <td>{$detail.SECTION}</td>
-	<td>{$detail.CATEGORY}{$detail.TAGS}</td>
-</tr>
-{/foreach}
-{/if}
-</table> *}
 
 <div class="container">
   <div class="tab-title">
@@ -166,7 +204,7 @@ const API_METHOD = "{$API_METHOD}";
         <span class="type-icon"> <i class="icon-file-image"> </i> </span>
         <span class="icon-ellipsis-vert toggle-img-option">
           <div class="img-option">
-            <span> info 2</span>
+            <span> Add as filter </span>
             <a class="edit-img" href="">{'Edit'|@translate}</a>
           </div>
         </span>
@@ -195,46 +233,6 @@ const API_METHOD = "{$API_METHOD}";
     <div class="loading hide"> 
       <span class="icon-spin6 animate-spin"> </span>
     </div>
-
-    {* <div class="search-line" id="-2">
-      <div class="date-section">
-        <span class="date-day bold"> July 4th, 2042 </span>
-        <span class="date-hour"> at 23:59:59</span>
-      </div>
-
-      <div class="user-section">
-        <span class="user-name bold"> Zac le boss </span>
-        <span class="user-ip"> 127.0.0.1 </span>
-      </div>
-
-      <div class="type-section">
-        <span class="type-icon"> <i class="icon-file-image"> </i> </span>
-        <span class="icon-ellipsis-vert toggle-img-option">
-          <div class="img-option">
-            <span> info 2</span>
-            <span> info 1</span>
-          </div>
-        </span>
-
-        <div class="type-desc">
-          <span class="type-name bold"> WIP </span>
-          <span class="type-id"> tag #99 </span>
-        </div>
-        
-      </div>
-
-      <div class="detail-section">
-        <div class="detail-item detail-item-1">
-          detail 1
-        </div>
-        <div class="detail-item detail-item-2">
-          detail 2
-        </div>
-        <div class="detail-item detail-item-3">
-          detail 3
-        </div>
-      </div>
-    </div> *}
   </div>
 </div>
 
@@ -310,6 +308,88 @@ jQuery(document).ready( function() {
 .bold {
   font-weight: bold;
 }
+
+.history-filter {
+  background: #f3f3f3;
+  display: flex;
+  flex-direction: row;
+}
+
+.hasDatepicker {
+  background: white !important;
+  border: solid 1px #D4D4D4;
+  padding: 5px 10px;
+  max-width: 180px;
+}
+
+.filter-part {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+
+.filter-part.elem-type label {
+  display: flex;
+  flex-direction: column;
+}
+
+.elem-type-select{
+  background: white !important;
+  border: solid 1px #D4D4D4;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+}
+
+.selectable-filter {
+  width: calc(50%-20px);
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
+
+.selectable-filter label {
+  white-space: nowrap;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.filter-item {
+  margin: 0 5px;
+  white-space: nowrap;
+
+}
+
+.filter-title, .remove-filter, .filter-icon {
+  font-weight: bold;
+  color: black;
+  background: orange;
+  padding: 2px 0;
+}
+
+.filter-title {
+  padding-right: 2px;
+}
+
+.remove-filter {
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+  padding-right: 6px;
+  padding-left: 4px;
+}
+.remove-filter:hover {
+  background: #ff7700;
+  cursor: pointer;
+}
+
+.filter-icon {
+  padding-left: 2px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
 .search-line {
   background: #fafafa;
   box-shadow: 0px 2px 4px #00000024;
@@ -322,6 +402,11 @@ jQuery(document).ready( function() {
   align-items: center;
 
   margin-bottom: 10px;
+}
+
+.line-icon {
+  padding: 10px;
+  border-radius: 50%;
 }
 
 .tab-title div {
@@ -352,14 +437,14 @@ jQuery(document).ready( function() {
 
 .type-title,
 .type-section {
-  width: 200px;
+  width: 250px;
   text-align: left;
   padding-left: 10px;
 }
 
 .detail-title,
 .detail-section {
-  width: 200px;
+  max-width: 500px;
   text-align: left;
   padding-left: 10px;
 }
@@ -367,11 +452,10 @@ jQuery(document).ready( function() {
 .detail-item {
   background: #f0f0f0f0;
   margin: 0 10px 0 0;
-  padding: 3px 6px;
-  border-radius: 20px;
+  padding: 4px 8px;
+  border-radius: 5px;
 
-  min-width: 50px; 
-  max-width: 150px;
+  max-width: 250px;
   height: 20px;
 
   text-align: center;
@@ -384,8 +468,7 @@ jQuery(document).ready( function() {
 }
 
 .date-section,
-.user-section,
-.detail-section {
+.user-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -419,7 +502,7 @@ jQuery(document).ready( function() {
 .toggle-img-option {
   cursor: pointer;
   position: absolute;
-  margin-left: 15px;
+  margin-left: 38px;
 }
 
 .toggle-img-option::before{

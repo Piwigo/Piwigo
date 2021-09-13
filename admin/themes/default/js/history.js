@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-  fillHistoryResult();
+  fillHistoryResult(current_data);
   
   $(".filter").submit(function (e) {
     e.preventDefault();
@@ -36,10 +36,10 @@ $(document).ready(() => {
         data = raw_data.result[0];
         imageDisplay = raw_data.result[1].display_thumbnail;
 
-        $(".tab .search-line").remove();
+        // console.log("RESULTS");
+        // console.log(data);
 
-        console.log("RESULTS");
-        console.log(data);
+        current_data = raw_data.result[1];
 
         var id = 0;
 
@@ -53,11 +53,9 @@ $(document).ready(() => {
       }
     }).done( () => {
       activateLineOptions();
-    }
-      
-    )
+    })
 
-    console.log(dataObj);
+    // console.log(dataObj);
   });
 
   activateLineOptions();
@@ -88,49 +86,27 @@ function activateLineOptions() {
   });
 }
 
-function fillHistoryResult() {
-
-  var dateObj = new Date();
-  var month = dateObj.getUTCMonth() + 1; //months from 1-12
-  var day = dateObj.getUTCDate();
-  var year = dateObj.getUTCFullYear();
-
-  if (month < 10) month = "0" + month;
-  if (day < 10) day = "0" + day;
-
-  today = year + "-" + month + "-" + day;
-
-  var dataSend = {
-    start: "",
-    end: today,
-    types: {
-      0: "none",
-      1: "picture",
-      2: "high",
-      3: "other"
-    },
-    user: "-1",
-    image_id: "",
-    filename: "",
-    ip: "",
-    display_thumbnail: "no_display_thumbnail",
-  }
+function fillHistoryResult(ajaxParam) {
+  // console.log(current_data);
 
   $.ajax({
     url: API_METHOD,
     method: "POST",
     dataType: "JSON",
-    data: dataSend,
+    data: ajaxParam,
     success: function (raw_data) {
       $(".loading").removeClass("hide");
-      console.log(raw_data);
+      // console.log(ajaxParam.user);
+      // console.log(raw_data);
       data = raw_data.result[0];
       imageDisplay = raw_data.result[1].display_thumbnail;
       // console.log("RESULTS");
       // console.log(data);
 
+      //clear lines before refill
+      $(".tab .search-line").remove();
+      
       var id = 0;
-
       data.reverse().forEach(line => {
         lineConstructor(line, id, imageDisplay)
         id++
@@ -148,10 +124,36 @@ function fillHistoryResult() {
 function lineConstructor(line, id, imageDisplay) {
   let newLine = $("#-1").clone();
 
+  let sections = [
+    "categories",
+    "tags",
+    "best_rated",
+    "memories-1-year-ago",
+    "list",
+    "search",
+    "most_visited",
+    "recent_pics",
+    "recent_cats",
+    "favorites"
+  ]
+
+  let icons = [
+    "line-icon icon-folder-open icon-yellow",
+    "line-icon icon-tags icon-blue",
+    "line-icon icon-star icon-green",
+    "line-icon icon-wrench",
+    "line-icon icon-dice-solid icon-purple",
+    "line-icon icon-search icon-purple",
+    "line-icon icon-fire icon-red",
+    "line-icon icon-clock icon-yellow",
+    "line-icon icon-clock icon-yellow",
+    "line-icon icon-heart icon-red"
+  ];
+
   newLine.removeClass("hide");
 
   /* console log to help debug */
-  console.log(line);
+  // console.log(line);
   newLine.attr("id", id);
   // console.log(id);
 
@@ -159,24 +161,61 @@ function lineConstructor(line, id, imageDisplay) {
   newLine.find(".date-hour").html(line.TIME);
 
   newLine.find(".user-name").html(line.USERNAME);
+  newLine.find(".user-name").attr("id", line.USERID);
+  newLine.find(".user-name").on("click", function ()  {
+    current_data.user = $(this).attr('id') + "";
+    addUserFilter($(this).html());
+    fillHistoryResult(current_data);
+  })
   newLine.find(".user-ip").html(line.IP);
-
-  console.log(line.EDIT_IMAGE);
   newLine.find(".edit-img").attr("href", line.EDIT_IMAGE)
 
   if (line.IMAGE != "") {
     newLine.find(".type-name").html(line.IMAGENAME);
     if (imageDisplay !== "no_display_thumbnail") {
       newLine.find(".type-icon").html(line.IMAGE);
+    } else {
+      newLine.find(".type-icon").addClass("line-icon icon-picture icon-yellow");
+      newLine.find(".type-icon .icon-file-image").removeClass("icon-file-image");
     }
   } else {
-    newLine.find(".type-icon").hide();
+    newLine.find(".type-icon .icon-file-image").removeClass("icon-file-image");
     newLine.find(".toggle-img-option").hide();
+
+    if (sections.indexOf(line.SECTION) != -1) {
+      var lineIconClass = icons[sections.indexOf(line.SECTION)];
+      newLine.find(".type-icon i").addClass(lineIconClass)
+    } else {
+      console.log("ERROR ON THIS : " + line.SECTION);
+    }
   }
+
+  newLine.find(".detail-item-1").html(line.SECTION);
   
   displayLine(newLine);
 }
 
 function displayLine(line) {
   $(".tab").append(line);
+}
+
+function addUserFilter(username) {
+  console.log(username);
+  var newFilter = $("#default-filter").clone();
+  console.log(newFilter);
+
+  newFilter.removeClass("hide");
+
+  newFilter.find(".filter-title").html(username);
+  newFilter.find(".filter-icon").addClass("icon-user");
+
+  newFilter.find(".remove-filter").on("click", function () {
+    $(this).parent().remove();
+
+    current_data.user = "-1";
+    fillHistoryResult(current_data);
+
+  })
+
+  $(".filter-container").append(newFilter);
 }

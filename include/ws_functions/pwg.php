@@ -969,6 +969,7 @@ SELECT
         'TIME'      => $line['time'],
         'USER'      => $user_string,
         'USERNAME'  => $user_name,
+        'USERID'    => $line['user_id'],
         'IP'        => $line['IP'],
         'IMAGE'     => $image_string,
         'IMAGENAME' => $image_title,
