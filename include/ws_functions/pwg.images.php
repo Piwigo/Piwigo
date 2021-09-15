@@ -2106,9 +2106,60 @@ function ws_images_emptyLounge($params, $service)
 {
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
-  $ret = array('count' => empty_lounge());
+  $ret = array('rows' => empty_lounge());
 
   return $ret;
+}
+
+/**
+ * API method
+ * Empties the lounge, where photos may wait before taking off.
+ * @since 12
+ * @param mixed[] $params
+ */
+function ws_images_uploadCompleted($params, $service)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  if (!is_array($params['image_id']))
+  {
+    $params['image_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['image_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
+  $params['image_id'] = array_map('intval', $params['image_id']);
+
+  $image_ids = array();
+  foreach ($params['image_id'] as $image_id)
+  {
+    if ($image_id > 0)
+    {
+      $image_ids[] = $image_id;
+    }
+  }
+
+  // the list of images moved from the lounge might not be the same than
+  // $image_ids (canbe a subset or more image_ids from another upload too)
+  $moved_from_lounge = empty_lounge();
+
+  trigger_notify(
+    'ws_images_uploadCompleted',
+    array(
+      'image_ids' => $image_ids,
+      'category_id' => $params['category_id'],
+      'moved_from_lounge' => $moved_from_lounge,
+    )
+  );
+
+  return array('moved_from_lounge' => $moved_from_lounge);
 }
 
 /**

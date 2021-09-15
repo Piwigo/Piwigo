@@ -223,10 +223,12 @@ jQuery(document).ready(function(){
         Piecon.reset();
 
         jQuery.ajax({
-          url: "ws.php?format=json&method=pwg.images.emptyLounge",
+          url: "ws.php?format=json&method=pwg.images.uploadCompleted",
           type:"POST",
           data: {
-            pwg_token: pwg_token
+            pwg_token: pwg_token,
+            image_id: uploadedPhotos.join(","),
+            category_id: uploadCategory.id,
           }
         });
 

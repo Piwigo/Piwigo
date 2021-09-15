@@ -818,6 +818,19 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.uploadCompleted',
+      'ws_images_uploadCompleted',
+      array(
+        'image_id' => array('default'=>null, 'flags'=>WS_PARAM_ACCEPT_ARRAY),
+        'pwg_token' => array(),
+        'category_id' => array('default'=>null, 'type'=>WS_TYPE_ID),
+        ),
+      'Notifiy Piwigo you have finished to upload a set of photos. It will empty the lounge, if any.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.images.setInfo',
       'ws_images_setInfo',
       array(

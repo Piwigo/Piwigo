@@ -1961,7 +1961,6 @@ INSERT IGNORE
     return;
   }
   $logger->debug(__FUNCTION__.', exec='.$exec_id.' wins the race and gets the token!');
-  sleep(5);
 
   $max_image_id = 0;
 
@@ -2008,7 +2007,10 @@ DELETE
   conf_delete_param('empty_lounge_running');
 
   $logger->debug(__FUNCTION__.', exec='.$exec_id.', ends');
-  return count($rows);
+
+  trigger_notify('empty_lounge', $rows);
+
+  return $rows;
 }
 
 /**
