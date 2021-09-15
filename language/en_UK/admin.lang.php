@@ -1259,3 +1259,10 @@ $lang['Purge Cache'] = 'Purge Cache';
 $lang['Rename "%s"'] = 'Rename "%s"';
 $lang['Yes, rename'] = 'Yes, rename';
 $lang['Tag name'] = 'Tag name';
+
+$lang['Visited'] = 'Visited';
+$lang['Downloaded'] = 'Downloaded';
+$lang['Most visited'] = 'Most visited';
+$lang['Best rated'] = 'Best rated';
+$lang['Random'] = 'Random';
+$lang['Favorites'] = 'Favorites';

@@ -28,10 +28,15 @@ var current_data = {
   image_id: "",
   filename: "",
   ip: "",
-  display_thumbnail: "no_display_thumbnail",
+  display_thumbnail: "display_thumbnail_classic",
 }
 
 const API_METHOD = "{$API_METHOD}";
+const str_dwld = "{'Downloaded'|translate}";
+const str_most_visited = "{'Most visited'|translate}";
+const str_best_rated = "{'Best rated'|translate}";
+const str_list = "{'Random'|translate}";
+const str_favorites = "{'Favorites'|translate}";
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -136,7 +141,10 @@ const API_METHOD = "{$API_METHOD}";
       <label>
         {'Element type'|@translate}
         <select name="types[]" class="elem-type-select user-action-select advanced-filter-select">
-          {html_options values=$type_option_values output=$type_option_values|translate selected=$type_option_selected}
+          {* {html_options values=$type_option_values output=$type_option_values|translate selected=$type_option_selected} *}
+          <option value=""></option>
+          <option value="visited">{'Visited'|@translate} </option>
+          <option value="downloaded">{'Downloaded'|@translate} </option>
         </select>
       </label>
     </div>
@@ -191,20 +199,23 @@ const API_METHOD = "{$API_METHOD}";
   {* Used to be copied in js *}
   <div class="search-line hide" id="-1">
       <div class="date-section">
-        <span class="date-day bold"> July 4th, 2042 </span>
-        <span> at <span class="date-hour">23:59:59</span> </span>
+        <i class="date-dwld-icon"> </i>
+        <div class="date-infos">
+          <span class="date-day bold"> July 4th, 2042 </span>
+          <span> at <span class="date-hour">23:59:59</span> </span>
+        </div>
       </div>
 
       <div class="user-section">
-        <span class="user-name bold"> Zac le boss </span>
-        <span class="user-ip"> 192.168.0.0</span>
+        <span class="user-name bold" title="{'Add a filter'}"> Zac le boss </span>
+        <span class="user-ip" title="{'Add a filter'}"> 192.168.0.0</span>
       </div>
 
       <div class="type-section">
         <span class="type-icon"> <i class="icon-file-image"> </i> </span>
         <span class="icon-ellipsis-vert toggle-img-option">
           <div class="img-option">
-            <span> Add as filter </span>
+            <span class="add-img-as-filter"> Add as filter </span>
             <a class="edit-img" href="">{'Edit'|@translate}</a>
           </div>
         </span>
@@ -390,6 +401,10 @@ jQuery(document).ready( function() {
   border-top-left-radius: 5px;
 }
 
+.user-name, .user-ip {
+  cursor: pointer;
+}
+
 .search-line {
   background: #fafafa;
   box-shadow: 0px 2px 4px #00000024;
@@ -423,7 +438,7 @@ jQuery(document).ready( function() {
 
 .date-title,
 .date-section {
-  width: 200px;
+  width: 300px;
   text-align: left;
   padding-left: 10px;
 }
@@ -450,7 +465,6 @@ jQuery(document).ready( function() {
 }
 
 .detail-item {
-  background: #f0f0f0f0;
   margin: 0 10px 0 0;
   padding: 4px 8px;
   border-radius: 5px;
@@ -467,7 +481,10 @@ jQuery(document).ready( function() {
   white-space: nowrap;
 }
 
-.date-section,
+.detail-item-1, .detail-item-2, .detail-item-3 {
+  background: #f0f0f0f0;
+}
+
 .user-section {
   display: flex;
   flex-direction: column;
@@ -475,6 +492,35 @@ jQuery(document).ready( function() {
   margin-right: 20px;
   height: 60%;
   border-right: 1px solid #bbb;
+}
+
+.date-section {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+  height: 60%;
+  border-right: 1px solid #bbb;
+}
+
+.date-infos {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.date-dwld-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.date-dwld-icon::before {
+  transform: scale(1.2);
 }
 
 .detail-section {
@@ -502,7 +548,7 @@ jQuery(document).ready( function() {
 .toggle-img-option {
   cursor: pointer;
   position: absolute;
-  margin-left: 38px;
+  margin-left: 71px;
 }
 
 .toggle-img-option::before{
@@ -549,5 +595,10 @@ jQuery(document).ready( function() {
   background: linear-gradient(130deg, #bbbbbb 0%, #e5e5e5 100%);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+.type-icon img {
+  width: 70px;
+  height: 70px;
 }
 </style>

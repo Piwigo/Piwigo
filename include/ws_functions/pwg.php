@@ -827,7 +827,7 @@ SELECT
     $result = pwg_query($query);
     while ($row=pwg_db_fetch_assoc($result))
     {
-      $name_of_tag[ $row['id'] ] = '<a href="'.make_index_url( array('tags'=>array($row))).'">'.trigger_change("render_tag_name", $row['name'], $row).'</a>';
+      $name_of_tag[ $row['id'] ] = trigger_change("render_tag_name", $row["name"], $row);
     }
   }
 
@@ -880,23 +880,23 @@ SELECT
     $user_string.= '&amp;user_id='.$line['user_id'];
     $user_string.= '">+</a>';
 
-    $tags_string = '';
+    $tag_names = '';
+    $tag_ids = '';
     if (isset($line['tag_ids']))
     {
-      $tags_string = preg_replace_callback(
+      $tag_names = preg_replace_callback(
         '/(\d+)/',
         function($m) use ($name_of_tag) { return isset($name_of_tag[$m[1]]) ? $name_of_tag[$m[1]] : $m[1];} ,
-        str_replace(
-          ',',
-          ', ',
           $line['tag_ids']
-          )
         );
+      $tag_ids = $line['tag_ids'];
     }
 
     $image_string = '';
     $image_title = '';
     $image_edit_string = '';
+    $image_id = '';
+    $cat_name = '';
     if (isset($line['image_id']))
     {
       $image_edit_string = PHPWG_ROOT_PATH.'admin.php?page=photo-'.$line['image_id'];
@@ -933,33 +933,17 @@ SELECT
       }
 
       $image_string = '';
+      $image_id = $line['image_id'];
 
-      switch ($thumbnail_display)
-      {
-        case 'no_display_thumbnail':
-        {
-          $image_string= '<a href="'.$picture_url.'">'.$image_title.'</a>';
-          break;
-        }
-        case 'display_thumbnail_classic':
-        {
-          $image_string =
-            '<a class="thumbnail" href="'.$picture_url.'">'
-            .'<span><img src="'.DerivativeImage::thumb_url($element)
-            .'" alt="'.$image_title.'" title="'.$image_title.'">'
-            .'</span></a>';
-          break;
-        }
-        case 'display_thumbnail_hoverbox':
-        {
-          $image_string =
-            '<a class="over icon-file-image" href="'.$picture_url.'">'
-            .'<span><img src="'.DerivativeImage::thumb_url($element)
-            .'" alt="'.$image_title.'" title="'.$image_title.'">'
-            .'</span></a>';
-          break;
-        }
-      }
+      $image_string =
+      '<span><img src="'.DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $element)
+      .'" alt="'.$image_title.'" title="'.$image_title.'">';
+
+      $cat_name = isset($line['category_id'])
+      ? ( isset($name_of_category[$line['category_id']])
+            ? $name_of_category[$line['category_id']]
+            : 'deleted '.$line['category_id'] )
+      : '';
     }
     /** */
     
@@ -973,15 +957,13 @@ SELECT
         'IP'        => $line['IP'],
         'IMAGE'     => $image_string,
         'IMAGENAME' => $image_title,
+        'IMAGEID'   => $image_id,
         'EDIT_IMAGE'=> $image_edit_string,
         'TYPE'      => $line['image_type'],
         'SECTION'   => $line['section'],
-        'CATEGORY'  => isset($line['category_id'])
-          ? ( isset($name_of_category[$line['category_id']])
-                ? $name_of_category[$line['category_id']]
-                : 'deleted '.$line['category_id'] )
-          : '',
-        'TAGS'       => $tags_string,
+        'CATEGORY'  => $cat_name,
+        'TAGS'       => explode(",",$tag_names),
+        'TAGIDS'     => explode(",",$tag_ids),
       )
     );
 

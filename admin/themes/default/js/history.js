@@ -60,6 +60,46 @@ $(document).ready(() => {
 
   activateLineOptions();
 
+  $(".elem-type-select").on("change", function (e) {
+    console.log($(".elem-type-select option:selected").attr("value"));
+
+    if ($(".elem-type-select option:selected").attr("value") == "visited") {
+      current_data.types = {
+        0: "none",
+        1: "picture"
+      }
+    } else if ($(".elem-type-select option:selected").attr("value") == "downloaded"){
+      current_data.types = {
+        0: "high",
+        1: "other"
+      }
+    } else {
+      current_data.types = {
+        0: "none",
+        1: "picture",
+        2: "high",
+        3: "other"
+      }
+    }
+
+    fillHistoryResult(current_data)
+  })
+
+  //TODO
+  $('.date-start [data-datepicker]').on("toggle", function () {
+    console.log("CLOSED");
+  })
+
+  $('.date-start .hasDatepicker').on("click", function () {
+    console.log($('.date-start input[name="start"]').attr("value"));
+    current_data.start = $('.date-start input[name="start"]').attr("value");
+  });
+
+  $('.date-end .hasDatepicker').on("click", function () {
+    console.log($('.date-end input[name="end"]').attr("value"));
+    current_data.end = $('.date-start input[name="start"]').attr("value");
+  });
+
 })
 
 function activateLineOptions() {
@@ -153,7 +193,7 @@ function lineConstructor(line, id, imageDisplay) {
   newLine.removeClass("hide");
 
   /* console log to help debug */
-  // console.log(line);
+  console.log(line);
   newLine.attr("id", id);
   // console.log(id);
 
@@ -161,23 +201,73 @@ function lineConstructor(line, id, imageDisplay) {
   newLine.find(".date-hour").html(line.TIME);
 
   newLine.find(".user-name").html(line.USERNAME);
+
   newLine.find(".user-name").attr("id", line.USERID);
-  newLine.find(".user-name").on("click", function ()  {
-    current_data.user = $(this).attr('id') + "";
-    addUserFilter($(this).html());
-    fillHistoryResult(current_data);
-  })
+  if (current_data.user == "-1") {
+    newLine.find(".user-name").on("click", function ()  {
+      current_data.user = $(this).attr('id') + "";
+      addUserFilter($(this).html());
+      fillHistoryResult(current_data);
+    })
+  }
+
   newLine.find(".user-ip").html(line.IP);
+  if (current_data.ip == "") {
+    newLine.find(".user-ip").on("click", function () {
+      current_data.ip = $(this).html();
+      addIpFilter($(this).html());
+      fillHistoryResult(current_data);
+    })
+  }
+
+  newLine.find(".add-img-as-filter").data("img-id", line.IMAGEID);
+  if (current_data.image_id == "") {
+    newLine.find(".add-img-as-filter").on("click", function () {
+      current_data.image_id = $(this).data("img-id");
+      addImageFilter($(this).data("img-id"));
+      fillHistoryResult(current_data);
+    });
+  }
   newLine.find(".edit-img").attr("href", line.EDIT_IMAGE)
+
+  switch (line.SECTION) {
+    case "tags":
+      newLine.find(".type-name").html(line.TAGS[0]);
+      newLine.find(".type-id").html("#" + line.TAGIDS[0]);
+      let detail_str = "";
+      line.TAGS.forEach(tag => {
+        detail_str += tag + ", ";
+      });
+      detail_str = detail_str.slice(0, -2)
+      newLine.find(".detail-item-2").html(detail_str);
+      newLine.find(".detail-item-2").attr("title", detail_str);
+      break;
+    
+    case "most_visited":
+      newLine.find(".type-name").html(str_most_visited);
+      newLine.find(".type-id").remove();
+      break;
+    case "best_rated":
+      newLine.find(".type-name").html(str_best_rated);
+      newLine.find(".type-id").remove();
+      break;
+    case "list":
+      newLine.find(".type-name").html(str_list);
+      newLine.find(".type-id").remove();
+      break;
+    case "favorites":
+      newLine.find(".type-name").html(str_favorites);
+      newLine.find(".type-id").remove();
+      break;
+
+    default:
+      break;
+  }
 
   if (line.IMAGE != "") {
     newLine.find(".type-name").html(line.IMAGENAME);
-    if (imageDisplay !== "no_display_thumbnail") {
-      newLine.find(".type-icon").html(line.IMAGE);
-    } else {
-      newLine.find(".type-icon").addClass("line-icon icon-picture icon-yellow");
-      newLine.find(".type-icon .icon-file-image").removeClass("icon-file-image");
-    }
+    newLine.find(".type-icon").html(line.IMAGE);
+    newLine.find(".type-id").html("#" + line.IMAGEID)
   } else {
     newLine.find(".type-icon .icon-file-image").removeClass("icon-file-image");
     newLine.find(".toggle-img-option").hide();
@@ -191,7 +281,12 @@ function lineConstructor(line, id, imageDisplay) {
   }
 
   newLine.find(".detail-item-1").html(line.SECTION);
-  
+  if (line.TYPE == "high") {
+    newLine.find(".detail-item-1").html(str_dwld).addClass("icon-blue").removeClass("detail-item-1");
+    newLine.find(".date-dwld-icon").addClass("icon-blue icon-floppy")
+  } else {
+    newLine.find(".date-dwld-icon").remove();
+  }
   displayLine(newLine);
 }
 
@@ -200,10 +295,7 @@ function displayLine(line) {
 }
 
 function addUserFilter(username) {
-  console.log(username);
   var newFilter = $("#default-filter").clone();
-  console.log(newFilter);
-
   newFilter.removeClass("hide");
 
   newFilter.find(".filter-title").html(username);
@@ -213,6 +305,42 @@ function addUserFilter(username) {
     $(this).parent().remove();
 
     current_data.user = "-1";
+    fillHistoryResult(current_data);
+
+  })
+
+  $(".filter-container").append(newFilter);
+}
+
+function addIpFilter(ip) {
+  var newFilter = $("#default-filter").clone();
+  newFilter.removeClass("hide");
+
+  newFilter.find(".filter-title").html(ip);
+  newFilter.find(".filter-icon").addClass("icon-code");
+
+  newFilter.find(".remove-filter").on("click", function () {
+    $(this).parent().remove();
+
+    current_data.ip = "";
+    fillHistoryResult(current_data);
+
+  })
+
+  $(".filter-container").append(newFilter);
+}
+
+function addImageFilter(img_id) {
+  var newFilter = $("#default-filter").clone();
+  newFilter.removeClass("hide");
+
+  newFilter.find(".filter-title").html("Image #" + img_id);
+  newFilter.find(".filter-icon").addClass("icon-picture");
+
+  newFilter.find(".remove-filter").on("click", function () {
+    $(this).parent().remove();
+
+    current_data.image_id = "";
     fillHistoryResult(current_data);
 
   })

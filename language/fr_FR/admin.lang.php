@@ -1261,3 +1261,10 @@ $lang['Purge Cache'] = 'Purger le cache';
 $lang['Rename "%s"'] = 'Renommer "%s"';
 $lang['Yes, rename'] = 'Oui, renommer';
 $lang['Tag name'] = 'Nom du tag';
+
+$lang['Visited'] = 'Visité';
+$lang['Downloaded'] = 'Téléchargé';
+$lang['Most visited'] = 'Les plus visitées';
+$lang['Best rated'] = 'Les mieux notées';
+$lang['Random'] = 'Aléatoire';
+$lang['Favorites'] = 'Favoris';
