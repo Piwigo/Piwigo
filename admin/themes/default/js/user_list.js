@@ -1151,12 +1151,12 @@ function fill_user_edit_permissions(user_to_edit, pop_in) {
       if (is_owner(user_to_edit.id)) {
         // I want to edit the owner but I'm not the owner (No matter my status)
         pop_in.find(".delete-user-button").hide();
-        pop_in.find(".user-property-password.edit-password").addClass("notClickable");
+        pop_in.find(".user-property-password.edit-password").hide();
         pop_in.find(".user-property-email .user-property-input").attr('disabled','disabled');
         pop_in.find(".user-property-status .user-property-select").addClass("notClickable");
         pop_in.find(".user-property-username .edit-username").hide();
       } else {
-        pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+        pop_in.find(".user-property-password.edit-password").show();
         pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
         pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
         pop_in.find(".user-property-username .edit-username").show();
@@ -1165,26 +1165,26 @@ function fill_user_edit_permissions(user_to_edit, pop_in) {
       if (user_to_edit.status == connected_user_status && connected_user_status == "webmaster" && !is_owner(user_to_edit.id)) {
         // I have the same status than the user I want to edit and I'm a webmaster, I can do whatever I want
         pop_in.find(".delete-user-button").show();
-        pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+        pop_in.find(".user-property-password.edit-password").show();
         pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
         pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
         pop_in.find(".user-property-username .edit-username").show();
       } else if (user_to_edit.status == connected_user_status && connected_user_status == "admin") {
         // I have the same status than the user I want to edit and I'm an admin, I can do whatever I want but edit the status
         pop_in.find(".delete-user-button").hide();
-        pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+        pop_in.find(".user-property-password.edit-password").show();
         pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
         pop_in.find(".user-property-username .edit-username").removeClass("notClickable");
         pop_in.find(".user-property-status .user-property-select").hide();
       } else if (user_to_edit.status == "webmaster" && connected_user_status == "admin") {
         // I'm admin and I want to edit webmaster
-        pop_in.find(".user-property-password.edit-password").addClass("notClickable");
+        pop_in.find(".user-property-password.edit-password").hide();
         pop_in.find(".user-property-email .user-property-input").attr('disabled','disabled');
         pop_in.find(".user-property-status .user-property-select").addClass("notClickable");
         pop_in.find(".user-property-username .edit-username").hide();
       } else if (user_to_edit.status == "admin" && connected_user_status == "webmaster") {
         // I'm webmaster and I want to edit admin
-        pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+        pop_in.find(".user-property-password.edit-password").show();
         pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
         pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
         pop_in.find(".user-property-username .edit-username").show();
@@ -1192,7 +1192,7 @@ function fill_user_edit_permissions(user_to_edit, pop_in) {
     } else {
       // I'm the owner, I can do whatever I want. No need to test, I am GOD here
       pop_in.find(".delete-user-button").show();
-      pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+      pop_in.find(".user-property-password.edit-password").show();
       pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
       pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
       pop_in.find(".user-property-username .edit-username").show();
@@ -1200,11 +1200,18 @@ function fill_user_edit_permissions(user_to_edit, pop_in) {
   } else {
     // I'm the connected user, I can do whatever I want on my profile but kill myself (Suicide is not allowed)
     pop_in.find(".delete-user-button").hide();
-    pop_in.find(".user-property-password.edit-password").removeClass("notClickable");
+    pop_in.find(".user-property-password.edit-password").show();
     pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
     pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
     pop_in.find(".user-property-username .edit-username").show();
+
+    // I'm an administrator, I can't edit my status
+    if (connected_user_status == "admin") {
+      pop_in.find(".user-property-status .user-property-select").addClass("notClickable");
+    }
   }
+
+  $(".notClickable").parent().addClass("notClickableBefore");
 }
 
 function is_owner(user_id) {
@@ -1348,7 +1355,7 @@ function update_user_username() {
                     $('#UserList .user-property-initials span').html(get_initials(current_users[last_user_index].username));
                     fill_container_user_info($('#user-table-content .user-container').eq(last_user_index), last_user_index);
                 }
-                $("#UserList .update-user-success").fadeIn();
+                $("#UserList .update-user-success").fadeIn().delay(1500).fadeOut(2500);
                 $('.user-property-username').show();
                 $('.user-property-username-change').hide();
             }
@@ -1370,7 +1377,7 @@ function update_user_password() {
         success: (raw_data) => {
             data = jQuery.parseJSON(raw_data);
             if (data.stat == 'ok') {
-                $("#UserList .update-user-success").fadeIn();
+                $("#UserList .update-user-success").fadeIn().delay(1500).fadeOut(2500);
                 $('.user-property-password').show();
                 $('.user-property-password-change').hide();
             }
@@ -1417,7 +1424,7 @@ function update_user_info() {
                     current_users[last_user_index].theme = result_user.theme;
                     fill_container_user_info($('#user-table-content .user-container').eq(last_user_index), last_user_index);
                 }
-                $("#UserList .update-user-success").fadeIn();
+                $("#UserList .update-user-success").fadeIn().delay(1500).fadeOut(2500);
 
                 //Hide spinner
                 $(".update-user-button i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
@@ -1488,7 +1495,7 @@ function update_guest_info() {
         success: function(raw_data) {
             data = jQuery.parseJSON(raw_data);
             if (data.stat == 'ok') {
-                $("#GuestUserList .update-user-success").fadeIn();
+                $("#GuestUserList .update-user-success").fadeIn().delay(1500).fadeOut(2500);
             }
              //Hide spinner
             $(".update-user-button i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");

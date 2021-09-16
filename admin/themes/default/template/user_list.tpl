@@ -1335,7 +1335,6 @@ $(".icon-help-circled").tipTip({
 .dates-infos {
 	color: #ff7700;
 	font-weight: bold;
-  margin-left: 15px;
 }
 
 
@@ -2362,5 +2361,9 @@ Advanced filter
 
 .notClickable:hover {
   cursor: not-allowed;
+}
+
+.notClickableBefore:before {
+  color: #bbb;
 }
 </style>
