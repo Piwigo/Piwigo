@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-  fillHistoryResult(current_data);
+  fillHistoryResult(current_param);
   
   $(".filter").submit(function (e) {
     e.preventDefault();
@@ -39,7 +39,7 @@ $(document).ready(() => {
         // console.log("RESULTS");
         // console.log(data);
 
-        current_data = raw_data.result[1];
+        current_param = raw_data.result[1];
 
         var id = 0;
 
@@ -64,17 +64,17 @@ $(document).ready(() => {
     console.log($(".elem-type-select option:selected").attr("value"));
 
     if ($(".elem-type-select option:selected").attr("value") == "visited") {
-      current_data.types = {
+      current_param.types = {
         0: "none",
         1: "picture"
       }
     } else if ($(".elem-type-select option:selected").attr("value") == "downloaded"){
-      current_data.types = {
+      current_param.types = {
         0: "high",
         1: "other"
       }
     } else {
-      current_data.types = {
+      current_param.types = {
         0: "none",
         1: "picture",
         2: "high",
@@ -82,7 +82,7 @@ $(document).ready(() => {
       }
     }
 
-    fillHistoryResult(current_data)
+    fillHistoryResult(current_param)
   })
 
   //TODO
@@ -92,12 +92,12 @@ $(document).ready(() => {
 
   $('.date-start .hasDatepicker').on("click", function () {
     console.log($('.date-start input[name="start"]').attr("value"));
-    current_data.start = $('.date-start input[name="start"]').attr("value");
+    current_param.start = $('.date-start input[name="start"]').attr("value");
   });
 
   $('.date-end .hasDatepicker').on("click", function () {
     console.log($('.date-end input[name="end"]').attr("value"));
-    current_data.end = $('.date-start input[name="start"]').attr("value");
+    current_param.end = $('.date-start input[name="start"]').attr("value");
   });
 
 })
@@ -127,7 +127,7 @@ function activateLineOptions() {
 }
 
 function fillHistoryResult(ajaxParam) {
-  // console.log(current_data);
+  // console.log(current_param);
 
   $.ajax({
     url: API_METHOD,
@@ -140,14 +140,15 @@ function fillHistoryResult(ajaxParam) {
       // console.log(raw_data);
       data = raw_data.result[0];
       imageDisplay = raw_data.result[1].display_thumbnail;
-      // console.log("RESULTS");
-      // console.log(data);
+      console.log("RESULTS");
+      console.log(data);
+      console.log(raw_data);
 
       //clear lines before refill
       $(".tab .search-line").remove();
       
       var id = 0;
-      data.reverse().forEach(line => {
+      data.forEach(line => {
         lineConstructor(line, id, imageDisplay)
         id++
       });
@@ -193,7 +194,7 @@ function lineConstructor(line, id, imageDisplay) {
   newLine.removeClass("hide");
 
   /* console log to help debug */
-  console.log(line);
+  // console.log(line);
   newLine.attr("id", id);
   // console.log(id);
 
@@ -203,29 +204,29 @@ function lineConstructor(line, id, imageDisplay) {
   newLine.find(".user-name").html(line.USERNAME);
 
   newLine.find(".user-name").attr("id", line.USERID);
-  if (current_data.user == "-1") {
+  if (current_param.user == "-1") {
     newLine.find(".user-name").on("click", function ()  {
-      current_data.user = $(this).attr('id') + "";
+      current_param.user = $(this).attr('id') + "";
       addUserFilter($(this).html());
-      fillHistoryResult(current_data);
+      fillHistoryResult(current_param);
     })
   }
 
   newLine.find(".user-ip").html(line.IP);
-  if (current_data.ip == "") {
+  if (current_param.ip == "") {
     newLine.find(".user-ip").on("click", function () {
-      current_data.ip = $(this).html();
+      current_param.ip = $(this).html();
       addIpFilter($(this).html());
-      fillHistoryResult(current_data);
+      fillHistoryResult(current_param);
     })
   }
 
   newLine.find(".add-img-as-filter").data("img-id", line.IMAGEID);
-  if (current_data.image_id == "") {
+  if (current_param.image_id == "") {
     newLine.find(".add-img-as-filter").on("click", function () {
-      current_data.image_id = $(this).data("img-id");
+      current_param.image_id = $(this).data("img-id");
       addImageFilter($(this).data("img-id"));
-      fillHistoryResult(current_data);
+      fillHistoryResult(current_param);
     });
   }
   newLine.find(".edit-img").attr("href", line.EDIT_IMAGE)
@@ -304,8 +305,8 @@ function addUserFilter(username) {
   newFilter.find(".remove-filter").on("click", function () {
     $(this).parent().remove();
 
-    current_data.user = "-1";
-    fillHistoryResult(current_data);
+    current_param.user = "-1";
+    fillHistoryResult(current_param);
 
   })
 
@@ -322,8 +323,8 @@ function addIpFilter(ip) {
   newFilter.find(".remove-filter").on("click", function () {
     $(this).parent().remove();
 
-    current_data.ip = "";
-    fillHistoryResult(current_data);
+    current_param.ip = "";
+    fillHistoryResult(current_param);
 
   })
 
@@ -340,8 +341,8 @@ function addImageFilter(img_id) {
   newFilter.find(".remove-filter").on("click", function () {
     $(this).parent().remove();
 
-    current_data.image_id = "";
-    fillHistoryResult(current_data);
+    current_param.image_id = "";
+    fillHistoryResult(current_param);
 
   })
 

@@ -15,7 +15,7 @@ if (month < 10) month = "0" + month;
 if (day < 10) day = "0" + day;
 
 today = year + "-" + month + "-" + day;
-var current_data = {
+var current_param = {
   start: "",
   end: today,
   types: {
@@ -29,6 +29,7 @@ var current_data = {
   filename: "",
   ip: "",
   display_thumbnail: "display_thumbnail_classic",
+  pageNumber: 0 {* fetch lines from line 0 to line 100*}
 }
 
 const API_METHOD = "{$API_METHOD}";
@@ -243,6 +244,17 @@ const str_favorites = "{'Favorites'|translate}";
   <div class="tab">
     <div class="loading hide"> 
       <span class="icon-spin6 animate-spin"> </span>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <div class="pagination-arrow left">
+      <span class="icon-left-open"></span>
+    </div>
+    <div class="pagination-item-container">
+    
+    </div>
+    <div class="pagination-arrow rigth">
+      <span class="icon-left-open"></span>
     </div>
   </div>
 </div>

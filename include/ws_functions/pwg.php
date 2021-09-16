@@ -969,6 +969,15 @@ SELECT
 
       /** */
   }
-return [$result, $param];
+
+/**
+ * Pagination Time
+ */
+
+  $max_page = ceil(count($result)/100);
+  $result = array_reverse($result, true);
+  $result = array_slice($result, $param['pageNumber']*100, 100);
+
+return [$result, $param,  $max_page];
 }
 ?>
