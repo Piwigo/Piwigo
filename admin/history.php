@@ -160,7 +160,6 @@ history_tabsheet();
 
 $template->assign(
   array(
-    'U_HELP' => get_root_url().'admin/popuphelp.php?page=history',
     'F_ACTION' => get_root_url().'admin.php?page=history',
     'API_METHOD' => 'ws.php?format=json&method=pwg.history.search'
     )

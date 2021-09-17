@@ -1,62 +1,6 @@
 $(document).ready(() => {
 
   fillHistoryResult(current_param);
-  
-  $(".filter").submit(function (e) {
-    e.preventDefault();
-
-    var dataArray = $(this).serializeArray()
-    console.log(dataArray);
-    dataObj = {};
-
-    dataObj["types"] = [];
-    $(dataArray).each(function(i, field){
-      if (field.name == "types[]") {
-        dataObj["types"].push(field.value);
-      } else {
-        dataObj[field.name] = field.value;
-      }
-    });
-
-    $.ajax({
-      url: API_METHOD,
-      method: "POST",
-      dataType: "JSON",
-      data: {
-        start: dataObj['start'],
-        end: dataObj['end'],
-        types: dataObj['types'],
-        user: dataObj['user'],
-        image_id: dataObj['image_id'],
-        filename: dataObj['filename'],
-        ip: dataObj['ip'],
-        display_thumbnail: dataObj['display_thumbnail'],
-      },
-      success: function (raw_data) {
-        data = raw_data.result[0];
-        imageDisplay = raw_data.result[1].display_thumbnail;
-
-        // console.log("RESULTS");
-        // console.log(data);
-
-        current_param = raw_data.result[1];
-
-        var id = 0;
-
-        data.reverse().forEach(line => {
-          lineConstructor(line, id, imageDisplay)
-          id++
-        });
-      },
-      error: function (e) {
-        console.log("Something went wrong: " + e);
-      }
-    }).done( () => {
-      activateLineOptions();
-    })
-
-    // console.log(dataObj);
-  });
 
   activateLineOptions();
 
@@ -83,23 +27,38 @@ $(document).ready(() => {
     }
 
     fillHistoryResult(current_param)
-  })
+  });
 
   //TODO
   $('.date-start [data-datepicker]').on("toggle", function () {
     console.log("CLOSED");
   })
 
-  $('.date-start .hasDatepicker').on("click", function () {
+  $('.date-start .hasDatepicker').on("change", function () {
     console.log($('.date-start input[name="start"]').attr("value"));
+    console.log("HELLO START");
     current_param.start = $('.date-start input[name="start"]').attr("value");
   });
 
-  $('.date-end .hasDatepicker').on("click", function () {
+  $('.date-end').on("change", function () {
     console.log($('.date-end input[name="end"]').attr("value"));
+    console.log("HELLO END");
     current_param.end = $('.date-start input[name="start"]').attr("value");
   });
 
+  /**
+   * Pagination
+   */
+
+   $('.pagination-arrow.rigth').on('click', () => {
+    current_param.pageNumber += 1;
+    fillHistoryResult(current_param);
+  })
+  
+  $('.pagination-arrow.left').on('click', () => {
+    current_param.pageNumber -= 1;
+    fillHistoryResult(current_param);
+  })
 })
 
 function activateLineOptions() {
@@ -143,6 +102,7 @@ function fillHistoryResult(ajaxParam) {
       console.log("RESULTS");
       console.log(data);
       console.log(raw_data);
+      maxPage = raw_data.result[2];
 
       //clear lines before refill
       $(".tab .search-line").remove();
@@ -159,6 +119,7 @@ function fillHistoryResult(ajaxParam) {
   }).done(() => {
     activateLineOptions();
     $(".loading").addClass("hide");
+    updatePagination(maxPage);
   })
 }
 
@@ -207,6 +168,7 @@ function lineConstructor(line, id, imageDisplay) {
   if (current_param.user == "-1") {
     newLine.find(".user-name").on("click", function ()  {
       current_param.user = $(this).attr('id') + "";
+      current_param.pageNumber = 0;
       addUserFilter($(this).html());
       fillHistoryResult(current_param);
     })
@@ -216,6 +178,7 @@ function lineConstructor(line, id, imageDisplay) {
   if (current_param.ip == "") {
     newLine.find(".user-ip").on("click", function () {
       current_param.ip = $(this).html();
+      current_param.pageNumber = 0;
       addIpFilter($(this).html());
       fillHistoryResult(current_param);
     })
@@ -225,6 +188,7 @@ function lineConstructor(line, id, imageDisplay) {
   if (current_param.image_id == "") {
     newLine.find(".add-img-as-filter").on("click", function () {
       current_param.image_id = $(this).data("img-id");
+      current_param.pageNumber = 0;
       addImageFilter($(this).data("img-id"));
       fillHistoryResult(current_param);
     });
@@ -306,6 +270,7 @@ function addUserFilter(username) {
     $(this).parent().remove();
 
     current_param.user = "-1";
+    current_param.pageNumber = 0;
     fillHistoryResult(current_param);
 
   })
@@ -324,6 +289,7 @@ function addIpFilter(ip) {
     $(this).parent().remove();
 
     current_param.ip = "";
+    current_param.pageNumber = 0;
     fillHistoryResult(current_param);
 
   })
@@ -342,9 +308,33 @@ function addImageFilter(img_id) {
     $(this).parent().remove();
 
     current_param.image_id = "";
+    current_param.pageNumber = 0;
     fillHistoryResult(current_param);
 
   })
 
   $(".filter-container").append(newFilter);
+}
+
+function updateArrows(actualPage, maxPage) {
+  if (actualPage == 0) {
+    $('.pagination-arrow.left').addClass('unavailable');
+  } else {
+    $('.pagination-arrow.left').removeClass('unavailable');
+  }
+
+  if (actualPage == maxPage-1) {
+    $('.pagination-arrow.rigth').addClass('unavailable');
+  } else {
+    $('.pagination-arrow.rigth').removeClass('unavailable');
+  }
+}
+
+function updatePagination(maxPage) {
+  updateArrows(current_param.pageNumber, maxPage);
+
+  $(".pagination-item-container").empty();
+  $(".pagination-item-container").append(
+    "<a class='actual'>"+ (current_param.pageNumber+1) +"</a>"
+  )
 }
