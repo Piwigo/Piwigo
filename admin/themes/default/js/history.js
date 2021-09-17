@@ -36,8 +36,10 @@ $(document).ready(() => {
   });
 
   $('.date-end').on("change", function () {
-    if (current_param.end != $('.date-start input[name="end"]').attr("value")) {
-      current_param.end = $('.date-start input[name="end"]').attr("value");
+    console.log($('.date-end input[name="end"]').attr("value"));
+    if (current_param.end != $('.date-end input[name="end"]').attr("value")) {
+      console.log("HERE");
+      current_param.end = $('.date-end input[name="end"]').attr("value");
       current_param.pageNumber = 0;
       fillHistoryResult(current_param);
     }
