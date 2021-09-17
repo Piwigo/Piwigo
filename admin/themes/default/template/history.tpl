@@ -160,13 +160,13 @@ const str_favorites = "{'Favorites'|translate}";
       </div>
 
       <div class="detail-section">
-        <div class="detail-item detail-item-1">
+        <div class="detail-item detail-item-1 hide">
           detail 1
         </div>
-        <div class="detail-item detail-item-2">
+        <div class="detail-item detail-item-2 hide">
           detail 2
         </div>
-        <div class="detail-item detail-item-3">
+        <div class="detail-item detail-item-3 hide">
           detail 3
         </div>
       </div>
@@ -305,15 +305,19 @@ jQuery(document).ready( function() {
   white-space: nowrap;
 }
 
+.filter-tags {
+  display: flex;
+  flex-direction: column;
+}
+
 .filter-container {
   display: flex;
   flex-direction: row;
 }
 
 .filter-item {
-  margin: 0 5px;
+  margin: 0 5px 0 0;
   white-space: nowrap;
-
 }
 
 .filter-title, .remove-filter, .filter-icon {

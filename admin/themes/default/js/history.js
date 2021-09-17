@@ -1,7 +1,5 @@
 $(document).ready(() => {
 
-  fillHistoryResult(current_param);
-
   activateLineOptions();
 
   $(".elem-type-select").on("change", function (e) {
@@ -29,36 +27,48 @@ $(document).ready(() => {
     fillHistoryResult(current_param)
   });
 
-  //TODO
-  $('.date-start [data-datepicker]').on("toggle", function () {
-    console.log("CLOSED");
-  })
-
-  $('.date-start .hasDatepicker').on("change", function () {
-    console.log($('.date-start input[name="start"]').attr("value"));
-    console.log("HELLO START");
-    current_param.start = $('.date-start input[name="start"]').attr("value");
+  $('.date-start').on("change", function () {
+    if (current_param.start != $('.date-start input[name="start"]').attr("value")) {
+      current_param.start = $('.date-start input[name="start"]').attr("value");
+      current_param.pageNumber = 0;
+      fillHistoryResult(current_param);
+    }
   });
 
   $('.date-end').on("change", function () {
-    console.log($('.date-end input[name="end"]').attr("value"));
-    console.log("HELLO END");
-    current_param.end = $('.date-start input[name="start"]').attr("value");
+    if (current_param.end != $('.date-start input[name="end"]').attr("value")) {
+      current_param.end = $('.date-start input[name="end"]').attr("value");
+      current_param.pageNumber = 0;
+      fillHistoryResult(current_param);
+    }
   });
 
-  /**
-   * Pagination
-   */
+  $("#start_unset").on("click", function () {
+    if (!current_param.start == "") {
+      current_param.pageNumber = 0;
+      current_param.start = "";
+      fillHistoryResult(current_param);
+    }
+  });
 
-   $('.pagination-arrow.rigth').on('click', () => {
+  $("#end_unset").on("click", function () {
+    if (!current_param.start == today) {
+      current_param.end = today;
+      current_param.pageNumber = 0;
+      fillHistoryResult(current_param);
+    }
+  });
+
+
+  $('.pagination-arrow.rigth').on('click', () => {
     current_param.pageNumber += 1;
     fillHistoryResult(current_param);
-  })
+  });
   
   $('.pagination-arrow.left').on('click', () => {
     current_param.pageNumber -= 1;
     fillHistoryResult(current_param);
-  })
+  });
 })
 
 function activateLineOptions() {
@@ -100,8 +110,6 @@ function fillHistoryResult(ajaxParam) {
       data = raw_data.result[0];
       imageDisplay = raw_data.result[1].display_thumbnail;
       console.log("RESULTS");
-      console.log(data);
-      console.log(raw_data);
       maxPage = raw_data.result[2];
 
       //clear lines before refill
@@ -205,7 +213,7 @@ function lineConstructor(line, id, imageDisplay) {
       });
       detail_str = detail_str.slice(0, -2)
       newLine.find(".detail-item-2").html(detail_str);
-      newLine.find(".detail-item-2").attr("title", detail_str);
+      newLine.find(".detail-item-2").attr("title", detail_str).removeClass("hide");
       break;
     
     case "most_visited":
@@ -245,9 +253,9 @@ function lineConstructor(line, id, imageDisplay) {
     }
   }
 
-  newLine.find(".detail-item-1").html(line.SECTION);
+  newLine.find(".detail-item-1").html(line.SECTION).removeClass("hide");
   if (line.TYPE == "high") {
-    newLine.find(".detail-item-1").html(str_dwld).addClass("icon-blue").removeClass("detail-item-1");
+    newLine.find(".detail-item-1").html(str_dwld).addClass("icon-blue").removeClass("detail-item-1").removeClass("hide");
     newLine.find(".date-dwld-icon").addClass("icon-blue icon-floppy")
   } else {
     newLine.find(".date-dwld-icon").remove();
