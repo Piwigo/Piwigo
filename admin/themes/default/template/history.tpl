@@ -88,7 +88,7 @@ const str_recent_pics = "{'Recent photos'|translate}";
     <div class="filter-container">
       <div id="default-filter" class="filter-item hide">
         <i class="filter-icon"> </i>
-        <span class="filter-title"> test </span><span class="remove-filter">x</span>
+        <span class="filter-title"> test </span><span class="remove-filter icon-cancel"></span>
       </div>
     </div>
   </div>
@@ -328,15 +328,15 @@ jQuery(document).ready( function() {
 }
 
 .filter-item {
-  margin: 0 5px 0 0;
+  margin: 10px 5px 0 0;
   white-space: nowrap;
+  cursor: default;
 }
 
 .filter-title, .remove-filter, .filter-icon {
-  font-weight: bold;
-  color: black;
-  background: orange;
-  padding: 2px 0;
+  color: #777;
+  background: #fff;
+  padding: 10px 0;
 }
 
 .filter-title {
@@ -344,20 +344,19 @@ jQuery(document).ready( function() {
 }
 
 .remove-filter {
-  border-bottom-right-radius: 15px;
-  border-top-right-radius: 15px;
-  padding-right: 6px;
-  padding-left: 4px;
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+  padding-right: 10px;
+  padding-left: 5px;
 }
 .remove-filter:hover {
-  background: #ff7700;
   cursor: pointer;
 }
 
 .filter-icon {
-  padding-left: 2px;
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
+  padding-left: 10px;
+  border-bottom-left-radius: 25px;;
+  border-top-left-radius: 25px;;
 }
 
 .user-name, .user-ip {
