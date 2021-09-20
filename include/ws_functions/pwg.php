@@ -942,11 +942,10 @@ SELECT
       $cat_name = isset($line['category_id'])
       ? ( isset($name_of_category[$line['category_id']])
             ? $name_of_category[$line['category_id']]
-            : 'deleted '.$line['category_id'] )
-      : '';
+            : 'deleted'.$line['category_id'] )
+      : 'root';
     }
-    /** */
-    
+
     array_push( $result, 
       array(
         'DATE'      => format_date($line['date']),
@@ -966,18 +965,19 @@ SELECT
         'TAGIDS'     => explode(",",$tag_ids),
       )
     );
-
-      /** */
   }
-
-/**
- * Pagination Time
- */
 
   $max_page = ceil(count($result)/100);
   $result = array_reverse($result, true);
   $result = array_slice($result, $param['pageNumber']*100, 100);
 
-return [$result, $param,  $max_page];
+  /* Tableau associatif here cf ws_images_search*/
+  return array(
+    'lines' => $result,
+    'params'  => $param,
+    'maxPage' => $max_page
+  );
+  
+  // [$result, $param, $max_page];
 }
 ?>

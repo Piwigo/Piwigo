@@ -1264,7 +1264,4 @@ $lang['Tag name'] = 'Nom du tag';
 
 $lang['Visited'] = 'Visité';
 $lang['Downloaded'] = 'Téléchargé';
-$lang['Most visited'] = 'Les plus visitées';
-$lang['Best rated'] = 'Les mieux notées';
-$lang['Random'] = 'Aléatoire';
-$lang['Favorites'] = 'Favoris';
+$lang['Personnalized filters'] = 'Filtres personnalisés';

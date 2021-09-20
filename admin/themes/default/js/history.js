@@ -109,11 +109,11 @@ function fillHistoryResult(ajaxParam) {
       $(".loading").removeClass("hide");
       // console.log(ajaxParam.user);
       // console.log(raw_data);
-      data = raw_data.result[0];
-      imageDisplay = raw_data.result[1].display_thumbnail;
-      console.log("RESULTS");
-      maxPage = raw_data.result[2];
-
+      data = raw_data.result["lines"];
+      imageDisplay = raw_data.result["params"].display_thumbnail;
+      // console.log("RESULTS");
+      maxPage = raw_data.result["maxPage"];
+      console.log(data);
       //clear lines before refill
       $(".tab .search-line").remove();
       
@@ -172,7 +172,7 @@ function lineConstructor(line, id, imageDisplay) {
   newLine.find(".date-day").html(line.DATE);
   newLine.find(".date-hour").html(line.TIME);
 
-  newLine.find(".user-name").html(line.USERNAME);
+  newLine.find(".user-name").html(line.USERNAME + '<i class="add-filter icon-plus-circled"></i>');
 
   newLine.find(".user-name").attr("id", line.USERID);
   if (current_param.user == "-1") {
@@ -184,10 +184,11 @@ function lineConstructor(line, id, imageDisplay) {
     })
   }
 
-  newLine.find(".user-ip").html(line.IP);
+  newLine.find(".user-ip").html(line.IP + '<i class="add-filter icon-plus-circled"></i>');
+  newLine.find(".user-ip").data("ip", line.IP);
   if (current_param.ip == "") {
     newLine.find(".user-ip").on("click", function () {
-      current_param.ip = $(this).html();
+      current_param.ip = $(this).data("ip");
       current_param.pageNumber = 0;
       addIpFilter($(this).html());
       fillHistoryResult(current_param);
@@ -207,8 +208,17 @@ function lineConstructor(line, id, imageDisplay) {
 
   switch (line.SECTION) {
     case "tags":
-      newLine.find(".type-name").html(line.TAGS[0]);
-      newLine.find(".type-id").html("#" + line.TAGIDS[0]);
+      if (line.TAGS.length > 1 && line.TAGS.length <= 2  ) {
+        newLine.find(".type-name").html(line.TAGS[0] +", "+ line.TAGS[1] + ", ...");
+        newLine.find(".type-id").html("#" + line.TAGIDS[0] +", "+ line.TAGIDS[1] + ", ...");
+      } else if (line.TAGS.length > 2) {
+        newLine.find(".type-name").html(line.TAGS[0] +", "+ line.TAGS[1] +", "+ line.TAGS[2]  + ", ...");
+        newLine.find(".type-id").html("#" + line.TAGIDS[0] +", "+ line.TAGIDS[1] +", "+ line.TAGIDS[2] + ", ...");
+      } else {
+        newLine.find(".type-name").html(line.TAGS[0]);
+        newLine.find(".type-id").html("#" + line.TAGIDS[0]);
+      }
+      
       let detail_str = "";
       line.TAGS.forEach(tag => {
         detail_str += tag + ", ";
@@ -234,6 +244,17 @@ function lineConstructor(line, id, imageDisplay) {
       newLine.find(".type-name").html(str_favorites);
       newLine.find(".type-id").remove();
       break;
+    case "recent_cats":
+      newLine.find(".type-name").html(str_recent_cats);
+      newLine.find(".type-id").remove();
+      break;
+    case "recent_pics":
+      newLine.find(".type-name").html(str_recent_pics);
+      newLine.find(".type-id").remove();
+      break;
+    case "categories":
+      newLine.find(".type-name").html(line.CATEGORY);
+      newLine.find(".type-id").remove();
 
     default:
       break;

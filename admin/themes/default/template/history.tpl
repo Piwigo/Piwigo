@@ -36,8 +36,10 @@ const API_METHOD = "{$API_METHOD}";
 const str_dwld = "{'Downloaded'|translate}";
 const str_most_visited = "{'Most visited'|translate}";
 const str_best_rated = "{'Best rated'|translate}";
-const str_list = "{'Random'|translate}";
-const str_favorites = "{'Favorites'|translate}";
+const str_list = "{'Random photo'|translate}";
+const str_favorites = "{'Your favorites'|translate}";
+const str_recent_cats = "{'Recent albums'|translate}";
+const str_recent_pics = "{'Recent photos'|translate}";
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -82,7 +84,7 @@ const str_favorites = "{'Favorites'|translate}";
     </div>
   </div>
   <div class="filter-tags">
-    <label> Personnalized filters</label>
+    <label>{'Personnalized filters'|translate}</label>
     <div class="filter-container">
       <div id="default-filter" class="filter-item hide">
         <i class="filter-icon"> </i>
@@ -139,8 +141,8 @@ const str_favorites = "{'Favorites'|translate}";
       </div>
 
       <div class="user-section">
-        <span class="user-name bold" title="{'Add a filter'}"> Zac le boss </span>
-        <span class="user-ip" title="{'Add a filter'}"> 192.168.0.0</span>
+        <span class="user-name bold" title="{'Add a filter'|translate}"> Zac le boss <i class="add-filter icon-plus-circled"></i></span>
+        <span class="user-ip" title="{'Add a filter'|translate}"> 192.168.0.0 <i class="add-filter icon-plus-circled"></i></span>
       </div>
 
       <div class="type-section">
@@ -426,6 +428,20 @@ jQuery(document).ready( function() {
   cursor: default;
 
   white-space: nowrap;
+}
+
+.add-filter {
+  display: none;
+}
+
+.user-name:hover .add-filter {
+  display: inline;
+  margin-left: 4px;
+}
+
+.user-ip:hover .add-filter {
+  display: inline;
+  margin-left: 4px;
 }
 
 .detail-item-1, .detail-item-2, .detail-item-3 {
