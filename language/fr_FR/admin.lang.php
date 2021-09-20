@@ -1265,3 +1265,4 @@ $lang['Tag name'] = 'Nom du tag';
 $lang['Visited'] = 'Visité';
 $lang['Downloaded'] = 'Téléchargé';
 $lang['Personnalized filters'] = 'Filtres personnalisés';
+$lang['Object'] = 'Objet';

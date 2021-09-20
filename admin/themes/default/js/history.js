@@ -1,6 +1,7 @@
 $(document).ready(() => {
 
   activateLineOptions();
+  checkFilters();
 
   $(".elem-type-select").on("change", function (e) {
     console.log($(".elem-type-select option:selected").attr("value"));
@@ -71,6 +72,11 @@ $(document).ready(() => {
     current_param.pageNumber -= 1;
     fillHistoryResult(current_param);
   });
+
+  $(".refresh-results").on("click", function () {
+    $(this).addClass("animate-spin")
+    fillHistoryResult(current_param);
+  })
 })
 
 function activateLineOptions() {
@@ -130,6 +136,7 @@ function fillHistoryResult(ajaxParam) {
     activateLineOptions();
     $(".loading").addClass("hide");
     updatePagination(maxPage);
+    $(".refresh-results").removeClass("animate-spin")
   })
 }
 
@@ -303,10 +310,11 @@ function addUserFilter(username) {
     current_param.user = "-1";
     current_param.pageNumber = 0;
     fillHistoryResult(current_param);
-
+    checkFilters();
   })
 
   $(".filter-container").append(newFilter);
+  checkFilters();
 }
 
 function addIpFilter(ip) {
@@ -322,16 +330,17 @@ function addIpFilter(ip) {
     current_param.ip = "";
     current_param.pageNumber = 0;
     fillHistoryResult(current_param);
-
+    checkFilters();
   })
 
   $(".filter-container").append(newFilter);
+  checkFilters();
 }
 
 function addImageFilter(img_id) {
   var newFilter = $("#default-filter").clone();
   newFilter.removeClass("hide");
-
+  
   newFilter.find(".filter-title").html("Image #" + img_id);
   newFilter.find(".filter-icon").addClass("icon-picture");
 
@@ -341,10 +350,11 @@ function addImageFilter(img_id) {
     current_param.image_id = "";
     current_param.pageNumber = 0;
     fillHistoryResult(current_param);
-
+    checkFilters();
   })
 
   $(".filter-container").append(newFilter);
+  checkFilters();
 }
 
 function updateArrows(actualPage, maxPage) {
@@ -368,4 +378,12 @@ function updatePagination(maxPage) {
   $(".pagination-item-container").append(
     "<a class='actual'>"+ (current_param.pageNumber+1) +"</a>"
   )
+}
+
+function checkFilters() {
+  if ($(".filter-container")[0].childElementCount - 1 > 0) { //Check if there are filters
+    $(".filter-tags label").show();
+  } else {
+    $(".filter-tags label").hide();
+  }
 }

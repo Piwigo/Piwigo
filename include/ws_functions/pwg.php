@@ -971,13 +971,10 @@ SELECT
   $result = array_reverse($result, true);
   $result = array_slice($result, $param['pageNumber']*100, 100);
 
-  /* Tableau associatif here cf ws_images_search*/
   return array(
     'lines' => $result,
     'params'  => $param,
     'maxPage' => $max_page
   );
-  
-  // [$result, $param, $max_page];
 }
 ?>

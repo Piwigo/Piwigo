@@ -1263,3 +1263,4 @@ $lang['Tag name'] = 'Tag name';
 $lang['Visited'] = 'Visited';
 $lang['Downloaded'] = 'Downloaded';
 $lang['Personnalized filters'] = 'Personnalized filters';
+$lang['Object'] = 'Object';

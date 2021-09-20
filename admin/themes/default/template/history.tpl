@@ -73,7 +73,7 @@ const str_recent_pics = "{'Recent photos'|translate}";
     </div>
     <div class="filter-part elem-type advanced-filter-select-container">
       <label>
-        {'Element type'|@translate}
+        {'Action'|@translate}
         <select name="types[]" class="elem-type-select user-action-select advanced-filter-select">
           {* {html_options values=$type_option_values output=$type_option_values|translate selected=$type_option_selected} *}
           <option value=""></option>
@@ -91,6 +91,8 @@ const str_recent_pics = "{'Recent photos'|translate}";
         <span class="filter-title"> test </span><span class="remove-filter">x</span>
       </div>
     </div>
+  </div>
+  <div class="refresh-results icon-arrows-cw tiptip" title="{'Refresh'|translate}">
   </div>
 </fieldset>
 </form>
@@ -123,7 +125,7 @@ const str_recent_pics = "{'Recent photos'|translate}";
         {'User'|translate}
     </div>
     <div class="type-title">
-        {'Type'|translate}
+        {'Object'|translate}
     </div>
     <div class="detail-title">
         {'Details'|translate}
@@ -263,6 +265,14 @@ jQuery(document).ready( function() {
 
 .bold {
   font-weight: bold;
+}
+
+.refresh-results {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 17px;
 }
 
 .history-filter {
