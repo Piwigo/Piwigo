@@ -1542,7 +1542,7 @@ $(".icon-help-circled").tipTip({
     font-weight:bold;
     font-size:1.2em;
     display:flex;
-    align-items:center;
+    align-items: first baseline;
     justify-content:center;
 }
 
@@ -1553,12 +1553,12 @@ $(".icon-help-circled").tipTip({
 
 .user-property-register, .user-property-last-visit {
   min-width: 80px;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .user-property-register-visit .icon-calendar {
     margin:0;
-    font-size:1.8em;
+    font-size: 20px;
 }
 
 /* properties */
