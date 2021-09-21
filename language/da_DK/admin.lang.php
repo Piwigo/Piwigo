@@ -1241,3 +1241,4 @@ $lang['%d photo edited'] = '%d fotografi redigeret';
 $lang['%d photo moved'] = '%d fotografi flyttet';
 $lang['%d photos added'] = '%d fotografier tilføjet';
 $lang['%d photos deleted'] = '%d fotografier slettet';
+$lang['to'] = 'til';
