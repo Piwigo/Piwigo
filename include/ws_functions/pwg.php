@@ -745,7 +745,7 @@ SELECT rules
 
     if (isset($row['category_id']))
     {
-      $category_ids[$row['category_id']] = 1;
+      array_push($category_ids, $row['category_id'] );
     }
 
     if (isset($row['image_id']))
@@ -784,7 +784,7 @@ SELECT '.$conf['user_fields']['id'].' AS id
     $query = '
 SELECT id, uppercats
   FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', array_keys($category_ids)).')
+  WHERE id IN ('.implode(',', array_values($category_ids)).')
 ;';
     $uppercats_of = query2array($query, 'id', 'uppercats');
 
@@ -938,12 +938,6 @@ SELECT
       $image_string =
       '<span><img src="'.DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $element)
       .'" alt="'.$image_title.'" title="'.$image_title.'">';
-
-      $cat_name = isset($line['category_id'])
-      ? ( isset($name_of_category[$line['category_id']])
-            ? $name_of_category[$line['category_id']]
-            : 'deleted'.$line['category_id'] )
-      : 'root';
     }
 
     array_push( $result, 
@@ -960,7 +954,7 @@ SELECT
         'EDIT_IMAGE'=> $image_edit_string,
         'TYPE'      => $line['image_type'],
         'SECTION'   => $line['section'],
-        'CATEGORY'  => $cat_name,
+        'CATEGORY'  => isset($name_of_category[$line['category_id']]) ? $name_of_category[$line['category_id']] : 'Root'.$line['category_id'],
         'TAGS'       => explode(",",$tag_names),
         'TAGIDS'     => explode(",",$tag_ids),
       )

@@ -380,6 +380,7 @@ jQuery(document).ready( function() {
 .line-icon {
   padding: 10px;
   border-radius: 50%;
+  white-space: nowrap;
 }
 
 .tab-title div {
@@ -515,6 +516,16 @@ jQuery(document).ready( function() {
   display: flex;
   flex-direction: column;
   margin-left: 20px;
+}
+
+.type-name {
+  overflow: hidden;
+  max-height: 80px;
+  max-width: 190px;
+  vertical-align: middle;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .toggle-img-option {
