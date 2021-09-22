@@ -921,7 +921,7 @@ SELECT
         $thumbnail_display = 'no_display_thumbnail';
       }
 
-      $image_title = '('.$line['image_id'].')';
+      $image_title = '';
 
       if (isset($image_infos[$line['image_id']]['label']))
       {
@@ -954,7 +954,7 @@ SELECT
         'EDIT_IMAGE'=> $image_edit_string,
         'TYPE'      => $line['image_type'],
         'SECTION'   => $line['section'],
-        'CATEGORY'  => isset($name_of_category[$line['category_id']]) ? $name_of_category[$line['category_id']] : 'Root'.$line['category_id'],
+        'CATEGORY'  => isset($name_of_category[$line['category_id']]) ? $name_of_category[$line['category_id']] : l10n('Root').$line['category_id'],
         'TAGS'       => explode(",",$tag_names),
         'TAGIDS'     => explode(",",$tag_ids),
       )

@@ -151,7 +151,7 @@ const str_recent_pics = "{'Recent photos'|translate}";
         <span class="type-icon"> <i class="icon-file-image"> </i> </span>
         <span class="icon-ellipsis-vert toggle-img-option">
           <div class="img-option">
-            <span class="add-img-as-filter"> Add as filter </span>
+            <span class="add-img-as-filter"> {'Add a filter'|translate} </span>
             <a class="edit-img" href="">{'Edit'|@translate}</a>
           </div>
         </span>

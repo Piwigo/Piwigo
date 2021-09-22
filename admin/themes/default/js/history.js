@@ -47,7 +47,9 @@ $(document).ready(() => {
   });
 
   $("#start_unset").on("click", function () {
+    console.log("here" + current_param.start);
     if (!current_param.start == "") {
+      
       current_param.pageNumber = 0;
       current_param.start = "";
       fillHistoryResult(current_param);
@@ -261,8 +263,10 @@ function lineConstructor(line, id, imageDisplay) {
       break;
     case "categories":
       newLine.find(".type-name").html(line.CATEGORY);
-      newLine.find(".type-id").remove();
-
+      if (line.IMAGE == "") {
+        newLine.find(".type-id").remove();
+      }
+      break;
     default:
       break;
   }
