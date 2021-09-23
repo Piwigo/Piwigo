@@ -2112,8 +2112,9 @@ h2:lang(en) { text-transform:capitalize; }
   justify-content: center;
   align-items: center;
 
-  width: 70px;
+  width: auto;
   height: 30px;
+  padding: 0 10px;
 
   color: #898989;
   background: #f3f3f3;
@@ -2124,6 +2125,16 @@ h2:lang(en) { text-transform:capitalize; }
   background: #ffa500;
   color: white;
   box-shadow: 0 2px #d18800;
+}
+
+.pluginTypeFilter input:checked + label .filter-badge {
+  background-color: #d18800;
+  color: white;
+}
+
+.pluginTypeFilter input + label .filter-badge {
+  background-color: #dbdbdb;
+  color: #8c8c8c;
 }
 
 .pluginContainer.line .pluginMiniBox:hover .pluginContent{

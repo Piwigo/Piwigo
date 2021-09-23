@@ -1147,8 +1147,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   justify-content: center;
   align-items: center;
 
-  width: 70px;
+  width: auto;
   height: 30px;
+  padding: 0 10px;
 
   color: #c1c1c1;
   background: #555555;
@@ -1160,6 +1161,17 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #444444;
   box-shadow: 0 2px #925f00;
 }
+
+.pluginTypeFilter input:checked + label .filter-badge {
+  background-color: #d18800;
+  color: #444;
+}
+
+.pluginTypeFilter input + label .filter-badge {
+  background-color: #3f3f3f;
+  color: #bababa;
+}
+
 
 .pluginContainer.line .pluginMiniBox:hover .pluginContent{
   transition: 0.4s;

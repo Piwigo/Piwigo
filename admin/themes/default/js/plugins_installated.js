@@ -61,6 +61,13 @@ function normalTitle() {
     }
 }
 
+function actualizeFilterBadges() {
+  $("label[for='seeAll'] .filter-badge").html(nb_plugin.all);
+  $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
+  $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
+  $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+}
+
 function activatePlugin(id) {
     console.log("Plugin activated");
     console.log(id);
@@ -82,6 +89,10 @@ function activatePlugin(id) {
                 $("#" + id + " .pluginNotif").stop(false, true);
                 $("#" + id + " .AddPluginSuccess label span:first").html(plugin_added_str.replace("%s", pluginName));
                 $("#" + id + " .AddPluginSuccess").css("display", "flex");
+
+                nb_plugin.active += 1;
+                nb_plugin.inactive -= 1;
+                actualizeFilterBadges();
             }
         }, 
         error: function () {
@@ -119,6 +130,10 @@ function disactivatePlugin(id) {
                 $("#" + id + " .pluginNotif").stop(false, true);
                 $("#" + id + " .DeactivatePluginSuccess label span:first").html(plugin_deactivated_str.replace("%s", pluginName));
                 $("#" + id + " .DeactivatePluginSuccess").css("display", "flex");
+
+                nb_plugin.inactive += 1;
+                nb_plugin.active -= 1;
+                actualizeFilterBadges(nb_plugin.all, nb_plugin.active, nb_plugin.inactive, nb_plugin.other)
             }
         }, 
         error: function () {
@@ -158,6 +173,9 @@ function deletePlugin(id, name) {
                             $("#"+id).remove();  
                             actualizeFilter();
                         }
+                        nb_plugin.inactive -=1;
+                        nb_plugin.all -=1;
+                        actualizeFilterBadges();
                     }, 
                     error: function (e) {
                         console.log(e);
@@ -225,6 +243,9 @@ function uninstallPlugin(id) {
         success: function (data) {
             console.log(data);
             console.log("it works (uninstallated)");
+            nb_plugin.other -=1;
+            nb_plugin.all -=1;
+            actualizeFilterBadges();
         }, 
         error: function (e) {
             console.log(e);
@@ -238,7 +259,6 @@ function actualizeFilter() {
     $(".pluginMiniBox").each(function () {
         if ($(this).hasClass("plugin-active")) {
             $("label[for='seeActive']").show();
-            console.log("BLEU");
         }
         if ($(this).hasClass("plugin-inactive")) {
             $("label[for='seeInactive']").show();
@@ -251,6 +271,7 @@ function actualizeFilter() {
 
 $(document).ready(function () {
     actualizeFilter();
+    actualizeFilterBadges();
 
     if (!$.cookie("pwg_plugin_manager_view")) {
         $.cookie("pwg_plugin_manager_view", "classic");
@@ -320,6 +341,7 @@ $(document).ready(function () {
         })
     })
 
+    console.log(nb_plugin);
 
     /* Plugin Actions */ 
     /**

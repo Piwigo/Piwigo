@@ -16,6 +16,12 @@ var showInactivePlugins = function() {
 
 /* group action */
 const pwg_token = '{$PWG_TOKEN}';
+var nb_plugin = {
+  'all' : {$count_types_plugins["active"]} + {$count_types_plugins["inactive"]} + {$count_types_plugins["missing"]} + {$count_types_plugins["merged"]},
+  'active' : {$count_types_plugins["active"]},
+  'inactive' : {$count_types_plugins["inactive"]},
+  'other' : {$count_types_plugins["missing"]} + {$count_types_plugins["merged"]},
+}
 const are_you_sure_msg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
 const confirm_msg = '{"Yes, I am sure"|@translate}';
 const cancel_msg = "{"No, I have changed my mind"|@translate}";
@@ -221,7 +227,7 @@ jQuery(".pluginMiniBox").each(function(index){
 {counter start=0 assign=i} {* <!-- counter for 'deactivate all' link --> *}
 
 <div class="pluginTypeFilter">
-  <input type="radio" name="p-filter" class="filter" id="seeAll" checked><label for="seeAll">{'All'|@translate}</label><input type="radio" name="p-filter" class="filter" id="seeActive"><label class="filterLabel" for="seeActive">{'Activated'|@translate}</label><input type="radio" name="p-filter" class="filter" id="seeInactive"><label class="filterLabel" for="seeInactive">{'Deactivated'|@translate}</label><input type="radio" name="p-filter" class="filter" id="seeOther"><label class="filterLabel" for="seeOther">{'Other'|@translate}</label>
+  <input type="radio" name="p-filter" class="filter" id="seeAll" checked><label for="seeAll">{'All'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeActive"><label class="filterLabel" for="seeActive">{'Activated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeInactive"><label class="filterLabel" for="seeInactive">{'Deactivated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeOther"><label class="filterLabel" for="seeOther">{'Other'|@translate}<span class="filter-badge">X</span></label>
 </div>
 
 <div class="pluginFilter"> 
@@ -699,5 +705,13 @@ jQuery(".pluginMiniBox").each(function(index){
   flex-direction: row;
 
   align-items: center;
+}
+
+.filter-badge {
+  border-radius: 20px;
+  text-align: center;
+  padding: 0px 7px;
+  margin-left: 10px;
+  font-weight: bold;
 }
 </style>
