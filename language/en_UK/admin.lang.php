@@ -1241,3 +1241,4 @@ $lang['Can be shared by several individuals without conflict (they cannot change
 $lang['Equivalent to deactivation. The user is still in the list, but can no longer log in.'] = 'Equivalent to deactivation. The user is still in the list, but can no longer log in.';
 $lang['%s MB'] = '%s MB';
 $lang['Your selection'] = 'Your selection';
+$lang['Action succesfully performed.'] = 'Action succesfully performed.';
