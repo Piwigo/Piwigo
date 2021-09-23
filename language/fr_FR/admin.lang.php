@@ -1247,3 +1247,4 @@ $lang['Posted %s on %s'] = 'Posté %s sur %s';
 $lang['Portraits'] = 'Portraits';
 $lang['Edit photo'] = 'Éditer la photo';
 $lang['Delete tag "%s"?'] = 'Supprimer le tag "%s" ?';
+$lang['Your selection'] = 'Votre selection';
