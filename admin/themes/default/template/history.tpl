@@ -40,6 +40,7 @@ const str_list = "{'Random photo'|translate}";
 const str_favorites = "{'Your favorites'|translate}";
 const str_recent_cats = "{'Recent albums'|translate}";
 const str_recent_pics = "{'Recent photos'|translate}";
+const unit_MB = "{"%s MB"|@translate}";
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -75,7 +76,6 @@ const str_recent_pics = "{'Recent photos'|translate}";
       <label>
         {'Action'|@translate}
         <select name="types[]" class="elem-type-select user-action-select advanced-filter-select">
-          {* {html_options values=$type_option_values output=$type_option_values|translate selected=$type_option_selected} *}
           <option value=""></option>
           <option value="visited">{'Visited'|@translate} </option>
           <option value="downloaded">{'Downloaded'|@translate} </option>
@@ -113,6 +113,36 @@ const str_recent_pics = "{'Recent photos'|translate}";
   </ul>
 </fieldset>
 {/if}
+
+{* Used to be copied in JS *}
+<span id="-2" class="icon-green summary-user-item hide">
+  <i class="icon-green icon-user-1"> </i>
+  <i class="icon-green icon-plus-circled"> </i> 
+  <span class="user-item-name"> User test </span>
+</span>
+{*  *}
+
+<div class="search-summary">
+  <div class="summary-lines">
+    <span class="icon-yellow icon-menu summary-icons"></span>
+    <span class="summary-data"> </span>
+  </div>
+  <div class="summary-weight">
+    <span class="icon-purple icon-download summary-icons"></span>
+    <span class="summary-data"> </span>
+  </div>
+  <div class="summary-users">
+    <span class="icon-green icon-user-1 summary-icons"></span>
+    <span class="summary-data"> </span>
+    <div class="user-list">
+    </div>
+    <span class="user-dot icon-green summary-user-item">...</span>
+  </div>
+  <div class="summary-guests">
+    <span class="icon-blue icon-user-1 summary-icons"></span>
+    <span class="summary-data"> </span>
+  </div>
+</div>
 
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
@@ -584,4 +614,64 @@ jQuery(document).ready( function() {
   width: 70px;
   height: 70px;
 }
+
+/* Summary */
+
+.search-summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100px;
+}
+
+.summary-lines,
+.summary-weight,
+.summary-users,
+.summary-guests {
+  white-space: nowrap;
+}
+
+.summary-icons {
+  padding: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.summary-users {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.summary-user-item {
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.summary-user-item .icon-plus-circled {
+  display: none;
+}
+
+.summary-user-item:hover .icon-plus-circled {
+  display: inline-block;
+}
+
+.summary-user-item:hover .icon-user-1 {
+  display: none;
+}
+
+.summary-users .summary-data {
+  margin: 0 5px 0 0 !important;
+}
+
+.summary-data {
+  font-weight: bold;
+  margin: 0 15px 0 0;
+}
+
 </style>

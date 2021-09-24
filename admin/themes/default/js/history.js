@@ -105,6 +105,53 @@ function activateLineOptions() {
   });
 }
 
+function fillSummaryResult(summary) {
+  $(".user-list").empty();
+
+  $(".summary-lines .summary-data").html(summary.NB_LINES);
+  $(".summary-weight .summary-data").html(unit_MB.replace("%s", summary.FILESIZE));
+  $(".summary-users .summary-data").html(summary.USERS);
+  $(".summary-guests .summary-data").html(summary.GUESTS);
+
+  var id_of = [];
+  var user_dot_title = "";
+
+  // not sorted
+  summary.MEMBERS.forEach(keyval => {
+    for (const [key, value] of Object.entries(keyval)) {
+      id_of[key] = value;
+      user_dot_title += key + ", ";
+    }
+  });
+  user_dot_title = user_dot_title.slice(0, -2);
+  $(".user-dot").attr("title", user_dot_title).addClass("tiptip");
+
+  var tmp = 0;
+  //sorted
+  for (const [key, value] of Object.entries(summary.SORTED_MEMBERS)) {
+    if (tmp < 5) {
+      new_user_item = $("#-2").clone();
+
+      new_user_item.removeClass("hide");
+      new_user_item.find(".user-item-name").html(key);
+      new_user_item.data("user-id", id_of[key]);
+  
+      new_user_item.on("click", function () {
+        if (current_param.user != id_of[key]) {
+          current_param.user = $(this).data("user-id");
+          addUserFilter(key)
+          fillHistoryResult(current_param);
+        }
+      })
+      $(".user-list").append(new_user_item);
+      $(".user-dot").hide();
+      tmp++;
+    } else {
+      $(".user-dot").show();
+    }
+  }
+}
+
 function fillHistoryResult(ajaxParam) {
   // console.log(current_param);
 
@@ -115,13 +162,12 @@ function fillHistoryResult(ajaxParam) {
     data: ajaxParam,
     success: function (raw_data) {
       $(".loading").removeClass("hide");
-      // console.log(ajaxParam.user);
-      // console.log(raw_data);
       data = raw_data.result["lines"];
       imageDisplay = raw_data.result["params"].display_thumbnail;
-      // console.log("RESULTS");
       maxPage = raw_data.result["maxPage"];
-      console.log(data);
+      summary = raw_data.result["summary"];
+      // console.log(raw_data);
+
       //clear lines before refill
       $(".tab .search-line").remove();
       
@@ -130,6 +176,8 @@ function fillHistoryResult(ajaxParam) {
         lineConstructor(line, id, imageDisplay)
         id++
       });
+
+      fillSummaryResult(summary);
     },
     error: function (e) {
       console.log(e);

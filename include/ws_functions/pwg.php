@@ -839,6 +839,7 @@ SELECT
   $summary['guests_IP'] = array();
 
   $result = array();
+  $sorted_members = array();
 
   foreach ($history_lines as $line)
   {
@@ -940,6 +941,13 @@ SELECT
       .'" alt="'.$image_title.'" title="'.$image_title.'">';
     }
 
+    if (isset($sorted_members[$user_name])) {
+      $sorted_members[$user_name] += 1;
+    } else {
+      $sorted_members[$user_name] =1;
+    }
+    
+
     array_push( $result, 
       array(
         'DATE'      => format_date($line['date']),
@@ -965,10 +973,60 @@ SELECT
   $result = array_reverse($result, true);
   $result = array_slice($result, $param['pageNumber']*100, 100);
 
+  $summary['nb_guests'] = 0;
+  if (count(array_keys($summary['guests_IP'])) > 0)
+  {
+    $summary['nb_guests'] = count(array_keys($summary['guests_IP']));
+
+    // we delete the "guest" from the $username_of hash so that it is
+    // avoided in next steps
+    unset($username_of[ $conf['guest_id'] ]);
+  }
+
+  $summary['nb_members'] = count($username_of);
+
+  $member_strings = array();
+  foreach ($username_of as $user_id => $user_name)
+  {
+    $member_string = $user_name;
+    // '&nbsp;<a href="';
+    // $member_string.= get_root_url().'admin.php?page=history';
+    // $member_string.= '&amp;search_id='.$page['search_id'];
+    // $member_string.= '&amp;user_id='.$user_id;
+    // $member_string.= '">+</a>';
+
+    $member_strings[] = array($member_string => $user_id);
+  }
+
+  arsort($sorted_members);
+  unset($sorted_members['guest']);
+
+  $search_summary = 
+  array(
+    'NB_LINES' => l10n_dec(
+      '%d line filtered', '%d lines filtered',
+      $page['nb_lines']
+      ),
+    'FILESIZE' => $summary['total_filesize'] != 0 ? ceil($summary['total_filesize']/1024) : 0,
+    'USERS' => l10n_dec(
+      '%d user', '%d users',
+      $summary['nb_members'] + $summary['nb_guests']
+      ),
+    'MEMBERS' => $member_strings,
+    'SORTED_MEMBERS' => $sorted_members,
+    'GUESTS' => l10n_dec(
+      '%d guest', '%d guests',
+      $summary['nb_guests']
+      ),
+    );
+
+  unset($name_of_tag);
+
   return array(
-    'lines' => $result,
+    'lines'   => $result,
     'params'  => $param,
-    'maxPage' => $max_page
+    'maxPage' => $max_page,
+    'summary' => $search_summary
   );
 }
 ?>
