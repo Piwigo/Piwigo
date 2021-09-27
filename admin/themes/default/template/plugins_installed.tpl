@@ -87,13 +87,7 @@ jQuery(document).ready(function() {
       dataType: 'json',
       success: function(data) {
         for (i=0;i<data.length;i++) {
-          {/literal}
-          {if $show_details}
-            jQuery('#'+data[i]+' .pluginBoxNameCell').prepend('<a class="warning" title="'+incompatible_msg+'"></a>')
-          {else}
-            jQuery('#'+data[i]+' .pluginMiniBoxNameCell').prepend('<span class="warning" title="'+incompatible_msg+'"></span>')
-          {/if}
-          {literal}
+          jQuery('#'+data[i]+' .pluginMiniBoxNameCell').prepend('<i class="icon-attention" title="'+incompatible_msg+'"></i> ');
           jQuery('#'+data[i]).addClass('incompatible');
           jQuery('#'+data[i]+' .activate').each(function () {
             $(this).pwg_jconfirm_follow_href({
@@ -713,5 +707,9 @@ jQuery(".pluginMiniBox").each(function(index){
   padding: 0px 7px;
   margin-left: 10px;
   font-weight: bold;
+}
+
+.pluginMiniBox.incompatible .pluginMiniBoxNameCell i {
+  color:#c64444;
 }
 </style>
