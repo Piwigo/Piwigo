@@ -297,7 +297,7 @@
     {
       "uid": "513ac180ff85bd275f2b736720cbbf5e",
       "css": "home",
-      "code": 59402,
+      "code": 59452,
       "src": "entypo"
     },
     {
@@ -687,7 +687,7 @@
     {
       "uid": "53d72bdf3f8e3c18f2f668af5649d7f5",
       "css": "user-1",
-      "code": 59452,
+      "code": 59500,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -804,6 +804,12 @@
       "uid": "671f29fa10dda08074a4c6a341bb4f39",
       "css": "bell",
       "code": 61683,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f9c8ea86275ca16128235c6452b67b8e",
+      "css": "user-secret",
+      "code": 61979,
       "src": "fontawesome"
     },
     {

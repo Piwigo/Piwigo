@@ -113,7 +113,7 @@ $(".icon-help-circled").tipTip({
           </div>
 
           <div class="not-in-selection-mode user-header-button" style="margin: auto; margin-right: 10px">
-            <label class="user-header-button-label icon-user-1 edit-guest-user-button">
+            <label class="user-header-button-label icon-user-secret edit-guest-user-button">
               <p>{'Edit guest user'|@translate}</p>
             </label>
           </div>
