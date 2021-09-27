@@ -706,7 +706,6 @@ jQuery(".pluginMiniBox").each(function(index){
   text-align: center;
   padding: 0px 7px;
   margin-left: 10px;
-  font-weight: bold;
 }
 
 .pluginMiniBox.incompatible .pluginMiniBoxNameCell i {

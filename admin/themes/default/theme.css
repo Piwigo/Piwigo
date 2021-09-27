@@ -2119,6 +2119,11 @@ h2:lang(en) { text-transform:capitalize; }
   color: #898989;
   background: #f3f3f3;
   box-shadow: 0px 2px #00000024;
+  font-weight: 600;
+}
+
+.pluginTypeFilter label .filter-badge {
+  font-weight: normal;
 }
 
 .pluginTypeFilter input:checked + label{
@@ -2129,7 +2134,7 @@ h2:lang(en) { text-transform:capitalize; }
 
 .pluginTypeFilter input:checked + label .filter-badge {
   background-color: #d18800;
-  color: white;
+  color: #ffe5b6;
 }
 
 .pluginTypeFilter input + label .filter-badge {
@@ -4726,6 +4731,8 @@ fieldset#environment legend i[class*="icon-"] {
   box-shadow: 0px 2px #00000024;
   border-radius: 5px;
   font-weight: bold;
+  color: #777 !important;
+  display: block;
 }
 .orCreateAlbum:hover {
   text-decoration: none;
