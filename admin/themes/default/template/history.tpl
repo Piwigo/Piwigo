@@ -140,7 +140,7 @@ const unit_MB = "{"%s MB"|@translate}";
     <span class="user-dot icon-green summary-user-item">...</span>
   </div>
   <div class="summary-guests">
-    <span class="icon-blue icon-user-1 summary-icons"></span>
+    <span class="icon-blue icon-user-secret summary-icons"></span>
     <span class="summary-data"> </span>
   </div>
 </div>
