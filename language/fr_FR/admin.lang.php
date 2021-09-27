@@ -1266,3 +1266,4 @@ $lang['Visited'] = 'Visité';
 $lang['Downloaded'] = 'Téléchargé';
 $lang['Personnalized filters'] = 'Filtres personnalisés';
 $lang['Object'] = 'Objet';
+$lang['Memories'] = 'Souvenirs';

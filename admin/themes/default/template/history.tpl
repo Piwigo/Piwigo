@@ -40,6 +40,7 @@ const str_list = "{'Random photo'|translate}";
 const str_favorites = "{'Your favorites'|translate}";
 const str_recent_cats = "{'Recent albums'|translate}";
 const str_recent_pics = "{'Recent photos'|translate}";
+const str_memories = "{'Memories'|translate}";
 const unit_MB = "{"%s MB"|@translate}";
 {/footer_script}
 
@@ -672,6 +673,10 @@ jQuery(document).ready( function() {
 .summary-data {
   font-weight: bold;
   margin: 0 15px 0 0;
+}
+
+.user-list {
+  margin-right: 10px;
 }
 
 </style>

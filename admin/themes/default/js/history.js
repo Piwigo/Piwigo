@@ -127,6 +127,7 @@ function fillSummaryResult(summary) {
   $(".user-dot").attr("title", user_dot_title).addClass("tiptip");
 
   var tmp = 0;
+  $(".user-dot").hide();
   //sorted
   for (const [key, value] of Object.entries(summary.SORTED_MEMBERS)) {
     if (tmp < 5) {
@@ -144,7 +145,6 @@ function fillSummaryResult(summary) {
         }
       })
       $(".user-list").append(new_user_item);
-      $(".user-dot").hide();
       tmp++;
     } else {
       $(".user-dot").show();
@@ -210,7 +210,7 @@ function lineConstructor(line, id, imageDisplay) {
     "line-icon icon-folder-open icon-yellow",
     "line-icon icon-tags icon-blue",
     "line-icon icon-star icon-green",
-    "line-icon icon-wrench",
+    "line-icon icon-clock icon-yellow",
     "line-icon icon-dice-solid icon-purple",
     "line-icon icon-search icon-purple",
     "line-icon icon-fire icon-red",
@@ -315,6 +315,10 @@ function lineConstructor(line, id, imageDisplay) {
         newLine.find(".type-id").remove();
       }
       break;
+    case "memories-1-year-ago":
+      newLine.find(".type-name").html(str_memories);
+      newLine.find(".type-id").remove();
+    break;
     default:
       break;
   }
