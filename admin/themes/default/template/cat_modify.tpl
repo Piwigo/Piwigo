@@ -321,15 +321,15 @@ function cropImage() {
       <div>
         <strong>
           {'Publication'|@translate}
-          <span class="icon-help-circled" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></span>
         </strong>
         <div class="switch-input">
-          <span class="label">{'Unlocked'|@translate}</span>
+          {* <span class="label">{'Unlocked'|@translate}</span> *}
           <label class="switch">
             <input type="checkbox" name="locked" id="toggleSelectionMode" value="true" {if $IS_LOCKED}checked{/if}>
             <span class="slider round"></span>
           </label>
           <span class="label">{'Locked'|@translate}</span>
+          <span class="icon-help-circled" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></span>
         </div>    
       </div>
     {if isset($CAT_COMMENTABLE)}
