@@ -729,7 +729,7 @@ input:focus + .slider {
   background-color:#003751;
   color: #379bbc;
 }
-
+.advanced-filter-select {border: solid 1px #747474;}
 /*------*/
 
 .userSeparator {

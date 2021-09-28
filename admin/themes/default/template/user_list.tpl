@@ -1335,6 +1335,7 @@ $(".icon-help-circled").tipTip({
 .dates-infos {
 	color: #ff7700;
 	font-weight: bold;
+  margin-left: 5px;
 }
 
 
@@ -1933,18 +1934,16 @@ Advanced filter
 .advanced-filter-level,
 .advanced-filter-group {
   margin-right: 30px;
-    
+  min-width: 130px;
 }
 
-.advanced-filter-status, 
 .advanced-filter-level {
-  min-width: 130px;
   max-width: 160px;
   width: 16%;
 }
 
 .advanced-filter-group {
-  min-width: 200px;
+  max-width: 160px;
   width: 20%;
 }
 
@@ -1976,11 +1975,11 @@ Advanced filter
   text-align:left;
   display:block;
   margin-bottom:5px;
+  white-space: nowrap;
 }
 
 .advanced-filter-select {
   display:block;
-  border: solid 1px #D4D4D4;
 }
 
 .advanced-filter-close {

@@ -4838,6 +4838,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .user-action-select-container::before {top: 5px; right:10px}
 .user-property-select-container::before {margin-top: 10px; margin-left:270px;}
 .advanced-filter-select-container::before {top: 5px; right:10px}
+.advanced-filter-select {border: solid 1px #d4d4d4;}
 #filter_prefilter::before {margin-left: 257px; margin-top: 35px;}
 #filter_category .selectize-control.single .selectize-input::after {content: none;}
 #filter_category {width: 600px;}
