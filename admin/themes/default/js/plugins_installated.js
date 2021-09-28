@@ -9,7 +9,7 @@ function setDisplayClassic() {
 
     $(".pluginMiniBoxNameCell").removeClass("pluginMiniBoxNameCellCompact");
 
-    normalTitle();
+    // normalTitle();
 }
 
 function setDisplayCompact() {
@@ -23,7 +23,7 @@ function setDisplayCompact() {
 
     $(".pluginMiniBoxNameCell").addClass("pluginMiniBoxNameCellCompact");
 
-    reduceTitle()
+    // reduceTitle()
 }
 
 function setDisplayLine() {
@@ -34,7 +34,7 @@ function setDisplayLine() {
     $(".pluginDescCompact").hide();
     $(".pluginActions").show();
     $(".pluginActionsSmallIcons").hide();
-    normalTitle();
+    // normalTitle();
 }
 
 function reduceTitle() {

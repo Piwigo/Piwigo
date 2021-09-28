@@ -1198,19 +1198,15 @@ function fill_user_edit_permissions(user_to_edit, pop_in) {
       pop_in.find(".user-property-username .edit-username").show();
     }
   } else {
-    // I'm the connected user, I can do whatever I want on my profile but kill myself (Suicide is not allowed)
+    // I'm the connected user, I can do whatever I want on my profile but kill myself (Suicide is not allowed) and edit my status
     pop_in.find(".delete-user-button").hide();
     pop_in.find(".user-property-password.edit-password").show();
     pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
-    pop_in.find(".user-property-status .user-property-select").removeClass("notClickable");
+    pop_in.find(".user-property-status .user-property-select").addClass("notClickable");
     pop_in.find(".user-property-username .edit-username").show();
-
-    // I'm an administrator, I can't edit my status
-    if (connected_user_status == "admin") {
-      pop_in.find(".user-property-status .user-property-select").addClass("notClickable");
-    }
   }
 
+  $(".notClickableBefore").removeClass("notClickableBefore");
   $(".notClickable").parent().addClass("notClickableBefore");
 }
 
