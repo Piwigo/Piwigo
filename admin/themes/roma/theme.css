@@ -830,6 +830,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addFilesButtonChanged:hover {background-color: #777;}
 .categoryBox, .addAlbum {background-color: #333 !important; box-shadow: -1px 1px 2px #1a1a1a;}
 
+.albumActions a:hover span {
+  color: #fff !important;
+}
+.albumActions a {
+  text-decoration: none;
+}
+
 .albumIconLineHover {
   background: #f98100 ! important;
   color: #ffd7ad !important;

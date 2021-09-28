@@ -220,6 +220,10 @@ TABLE.languages TR TD { padding: 7px 20px; }
   display: flex;
 }
 
+.albumActions a:hover span {
+  color: #ff7700 !important;
+}
+
 .albumActions a, .albumActions span {
   margin: 5px;
   font-size: 14px;
