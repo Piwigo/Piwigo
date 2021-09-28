@@ -1058,9 +1058,16 @@ function set_selected_groups(groups) {
     }
 }
 
-function fill_user_edit_summary(user_to_edit, pop_in) {
-    pop_in.find('.user-property-initials span').html(get_initials(user_to_edit.username)).removeClass(color_icons.join(' ')).addClass(color_icons[user_to_edit.id % 5]);
+function fill_user_edit_summary(user_to_edit, pop_in, isGuest) {
+    console.log(isGuest);
+    if (isGuest) {
+      pop_in.find('.user-property-initials span').removeClass(color_icons.join(' ')).addClass(color_icons[user_to_edit.id % 5]);
+    } else {
+      pop_in.find('.user-property-initials span').html(get_initials(user_to_edit.username)).removeClass(color_icons.join(' ')).addClass(color_icons[user_to_edit.id % 5]);
+    }
     pop_in.find('.user-property-username span:first').html(user_to_edit.username); 
+    
+    
     if (user_to_edit.id === connected_user || user_to_edit.id === 1) {
         pop_in.find('.user-property-username .edit-username-specifier').show();
     } else {
@@ -1216,7 +1223,7 @@ function is_owner(user_id) {
 
 function fill_user_edit(user_to_edit) {
     let pop_in = $('.UserListPopInContainer');
-    fill_user_edit_summary(user_to_edit, pop_in);
+    fill_user_edit_summary(user_to_edit, pop_in, false);
     fill_user_edit_properties(user_to_edit, pop_in);
     fill_user_edit_preferences(user_to_edit, pop_in);
     fill_user_edit_update(user_to_edit, pop_in);
@@ -1226,7 +1233,7 @@ function fill_user_edit(user_to_edit) {
 function fill_guest_edit() {
     let user_to_edit = guest_user;
     let pop_in = $('.GuestUserListPopInContainer');
-    fill_user_edit_summary(user_to_edit, pop_in);
+    fill_user_edit_summary(user_to_edit, pop_in, true);
     fill_user_edit_properties(user_to_edit, pop_in);
     fill_user_edit_preferences(user_to_edit, pop_in);
     fill_user_edit_update(user_to_edit, pop_in);

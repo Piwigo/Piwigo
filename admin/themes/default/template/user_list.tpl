@@ -701,7 +701,7 @@ $(".icon-help-circled").tipTip({
         <div class="summary-container">
           <div class="user-property-initials">
             <div>
-              <span class="icon-blue"><!-- initials -> JP --></span>
+              <span class="icon-blue"><i class="icon-user-secret"> </i></span>
             </div>
           </div>
           <div class="user-property-username">
@@ -1435,6 +1435,10 @@ $(".icon-help-circled").tipTip({
 /* summary section */
 .user-property-initials {
     margin-bottom: 40px;
+}
+
+.user-property-initials i {
+  margin-left: 5px;
 }
 
 .user-property-initials > div {
