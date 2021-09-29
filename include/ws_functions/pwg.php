@@ -504,6 +504,7 @@ SELECT
   }
 
   $username_of = array();
+  $user_id_list = array();
   if (count($user_ids) > 0)
   {
     $query = '
@@ -514,6 +515,17 @@ SELECT
   WHERE `'.$conf['user_fields']['id'].'` IN ('.implode(',', array_keys($user_ids)).')
 ;';
     $username_of = query2array($query, 'user_id', 'username');
+
+    $query = '
+SELECT
+    performed_by,
+    count(*) as nb_lines
+  FROM '.ACTIVITY_TABLE.'
+  GROUP BY
+    performed_by
+    ;';
+
+    $user_id_list = query2array($query, 'performed_by', 'nb_lines');
   }
 
   foreach ($output_lines as $idx => $output_line)
@@ -522,7 +534,7 @@ SELECT
     {
       foreach ($output_line['object_id'] as $user_id)
       {
-        @$output_lines[$idx]['details']['users'][] = isset($username_of[$user_id]) ? $username_of[$user_id] : 'user #'.$user_id;
+        @$output_lines[$idx]['details']['users'][] = isset($username_of[$user_id]) ? $username_of[$user_id] : 'user#'.$user_id;
       }
 
       if (isset($output_lines[$idx]['details']['users']))
@@ -532,7 +544,22 @@ SELECT
     }
   }
 
-  return $output_lines;
+  $filterable_users = array();
+  foreach ($user_id_list as $key => $value) {
+    if (isset($username_of[$key])) {
+      $filterable_users[$username_of[$key]] = $value;
+    } else {
+      $filterable_users['user#'.$key] = $value;
+    }
+  }
+
+  unset($filterable_users['guest']);
+
+  // return $output_lines;
+  return array(
+    'result_lines' => $output_lines,
+    'filterable_users' => $filterable_users,
+  );
 }
 
 /**

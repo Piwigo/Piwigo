@@ -1249,3 +1249,5 @@ $lang['Edit photo'] = 'Éditer la photo';
 $lang['Delete tag "%s"?'] = 'Supprimer le tag "%s" ?';
 $lang['Your selection'] = 'Votre selection';
 $lang['action succesfully performed.'] = 'action effectuée avec succès.';
+$lang['%s lines'] = "%s lignes";
+$lang['%s line'] = "%s ligne";

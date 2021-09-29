@@ -1242,3 +1242,5 @@ $lang['Equivalent to deactivation. The user is still in the list, but can no lon
 $lang['%s MB'] = '%s MB';
 $lang['Your selection'] = 'Your selection';
 $lang['action succesfully performed.'] = 'action succesfully performed.';
+$lang['%s lines'] = "%s lines";
+$lang['%s line'] = "%s line";

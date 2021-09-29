@@ -14,15 +14,11 @@ var usersCache = new UsersCache({
   rootUrl: '{$ROOT_URL}'
 });
 
-usersCache.selectize(jQuery('[data-selectize=users]'));
-
-jQuery(".cancel-icon").click(function() {
-  jQuery(".user-selecter")[0].selectize.setValue(null);
-  return false;
-});
-
 const color_icons = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
 const users_key = "{"Users"|@translate}"
+
+const line_key = "{'%s line'|translate}";
+const lines_key = "{'%s lines'|translate}";
 
 {*<-- Translation keys -->*}
 
@@ -112,20 +108,44 @@ function get_user_activity() {
             /* console log to help debug */
             {* console.log(data); *}
 
-            setCreationDate(data.result[data.result.length-1].date, data.result[0].date);
+            setCreationDate(data.result['result_lines'][data.result['result_lines'].length-1].date, data.result['result_lines'][0].date);
             $(".loading").hide();
             
-            data.result.forEach(line => {
+            data.result['result_lines'].forEach(line => {
                 lineConstructor(line);
             });
-            displayLine(data);
+
+            fillUserFilter(data.result['filterable_users']);
         }, 
         error: (e) => {
             console.log("ajax call failed");
             console.log(e);
         }
-
     })
+}
+
+function fillUserFilter(user_tab) {
+
+  var index = 0;
+  for (const [key, value] of Object.entries(user_tab)) {
+    console.log(key, value);
+    if (value > 1) {
+      var newOption = "<option value=" + index +"> <span class='username_filter'>" + key + "</span> <span class='nb_lines_str'> (" + lines_key.replace("%s", value) + ") </span></option>";
+    } else {
+      var newOption = "<option value=" + index +"> <span class='username_filter'>" + key + "</span> <span class='nb_lines_str'> (" + line_key.replace("%s", value) + ") </span></option>";
+    }
+
+    index++;
+    $(".user-selecter").append(newOption);
+  }
+
+  jQuery('.user-selecter').selectize();
+
+  jQuery(".user-selecter")[0].selectize.setValue(null);
+
+  jQuery(".cancel-icon").click(function() {
+    jQuery(".user-selecter")[0].selectize.setValue(null);
+  });
 }
 
 function lineConstructor(line) {
@@ -612,8 +632,9 @@ function setCreationDate(startDate, endDate) {
 $(document).ready(function () {
 
     $('select').on('change', function (user) {
+      console.log($(".selectize-input .item")[0].innerText.split(" ")[0])
         try {
-            filterUsers($(".selectize-input .item")[0].innerHTML);
+            filterUsers($(".selectize-input .item")[0].innerText.split(" ")[0]);
         } catch (error) {
             showAllLines();
             let lines =  $(".line");
@@ -634,8 +655,8 @@ $(document).ready(function () {
         <div class="select-user">
             <span class="select-user-title"> {'Selected user'|translate} </span>
             
-            <select class="user-selecter" data-selectize="users" placeholder="{'none'|translate}"
-                single style="width:250px; height: 10px;"></select>
+            <select class="user-selecter" placeholder="{'none'|translate}" single style="width:250px; height: 10px;">
+            </select>
             
             <span class="icon-cancel cancel-icon"> </span>
 
@@ -759,7 +780,7 @@ $(document).ready(function () {
 
 .tab-title .action-title, 
 .line .action-section {
-    min-width: 310px;
+    min-width: 320px;
     max-width: 340px;
 }
 .tab-title .action-title {
@@ -768,7 +789,7 @@ $(document).ready(function () {
 
 .tab-title .date-title, 
 .line .date-section {
-    min-width: 240px;
+    min-width: 280px;
     max-width: 300px;
 }
 
