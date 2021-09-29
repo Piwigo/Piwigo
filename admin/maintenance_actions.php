@@ -40,7 +40,7 @@ switch ($action)
     update_category('all');
     update_global_rank();
     invalidate_user_cache(true);
-    $page['infos'][] = sprintf('%s : %s', l10n('Update albums informations'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Update albums informations'), l10n('action succesfully performed.'));
     break;
   }
   case 'images' :
@@ -50,19 +50,19 @@ switch ($action)
 		include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
     update_rating_score();
     invalidate_user_cache();
-    $page['infos'][] = sprintf('%s : %s', l10n('Update photos information'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Update photos information'), l10n('action succesfully performed.'));
     break;
   }
   case 'delete_orphan_tags' :
   {
     delete_orphan_tags();
-    $page['infos'][] = sprintf('%s : %s', l10n('Delete orphan tags'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Delete orphan tags'), l10n('action succesfully performed.'));
     break;
   }
   case 'user_cache' :
   {
     invalidate_user_cache();
-    $page['infos'][] = sprintf('%s : %s', l10n('Purge user cache'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Purge user cache'), l10n('action succesfully performed.'));
     break;
   }
   case 'history_detail' :
@@ -72,7 +72,7 @@ DELETE
   FROM '.HISTORY_TABLE.'
 ;';
     pwg_query($query);
-    $page['infos'][] = sprintf('%s : %s', l10n('Purge history detail'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Purge history detail'), l10n('action succesfully performed.'));
     break;
   }
   case 'history_summary' :
@@ -82,7 +82,7 @@ DELETE
   FROM '.HISTORY_SUMMARY_TABLE.'
 ;';
     pwg_query($query);
-    $page['infos'][] = sprintf('%s : %s', l10n('Purge history summary'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Purge history summary'), l10n('action succesfully performed.'));
     break;
   }
   case 'sessions' :
@@ -127,7 +127,7 @@ DELETE
 ;';
       pwg_query($query);
     }
-    $page['infos'][] = sprintf('%s : %s', l10n('Purge sessions'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Purge sessions'), l10n('action succesfully performed.'));
     break;
   }
   case 'feeds' :
@@ -138,7 +138,7 @@ DELETE
   WHERE last_check IS NULL
 ;';
     pwg_query($query);
-    $page['infos'][] = sprintf('%s : %s', l10n('Purge never used notification feeds'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Purge never used notification feeds'), l10n('action succesfully performed.'));
     break;
   }
   case 'database' :
@@ -151,7 +151,7 @@ DELETE
     include_once(PHPWG_ROOT_PATH.'admin/include/check_integrity.class.php');
     $c13y = new check_integrity();
     $c13y->maintenance();
-    $page['infos'][] = sprintf('%s : %s', l10n('Reinitialize check integrity'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Reinitialize check integrity'), l10n('action succesfully performed.'));
     break;
   }
   case 'search' :
@@ -161,7 +161,7 @@ DELETE
   FROM '.SEARCH_TABLE.'
 ;';
     pwg_query($query);
-    sprintf('%s : %s', l10n('Reinitialize check integrity'), l10n('Action succesfully performed.'));
+    sprintf('%s : %s', l10n('Reinitialize check integrity'), l10n('action succesfully performed.'));
     break;
   }
   case 'compiled-templates':
@@ -169,7 +169,7 @@ DELETE
     $template->delete_compiled_templates();
     FileCombiner::clear_combined_files();
     $persistent_cache->purge(true);
-    $page['infos'][] = sprintf('%s : %s', l10n('Purge compiled templates'), l10n('Action succesfully performed.'));
+    $page['infos'][] = sprintf('%s : %s', l10n('Purge compiled templates'), l10n('action succesfully performed.'));
     break;
   }
   case 'derivatives':
@@ -183,7 +183,7 @@ DELETE
         clear_derivative_cache($type_to_clear);
       }
     }
-    $page['infos'][] = l10n('Action succesfully performed.');
+    $page['infos'][] = l10n('action succesfully performed.');
     break;
   }
 
@@ -236,7 +236,7 @@ DELETE
         $page['infos'][] = l10n('You are running the latest version of Piwigo.');
       }
     }
-    $page['infos'][] = l10n('Action succesfully performed.');
+    $page['infos'][] = l10n('action succesfully performed.');
   }
 
   default :

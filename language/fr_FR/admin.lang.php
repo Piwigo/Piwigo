@@ -1248,4 +1248,4 @@ $lang['Portraits'] = 'Portraits';
 $lang['Edit photo'] = 'Éditer la photo';
 $lang['Delete tag "%s"?'] = 'Supprimer le tag "%s" ?';
 $lang['Your selection'] = 'Votre selection';
-$lang['Action succesfully performed.'] = 'Action effectuée avec succès.';
+$lang['action succesfully performed.'] = 'action effectuée avec succès.';
