@@ -117,8 +117,8 @@ const unit_MB = "{"%s MB"|@translate}";
 
 {* Used to be copied in JS *}
 <span id="-2" class="icon-green summary-user-item hide">
-  <i class="icon-green icon-user-1"> </i>
-  <i class="icon-green icon-plus-circled"> </i> 
+  <i class="icon-user-1"> </i>
+  <i class="icon-plus-circled"> </i> 
   <span class="user-item-name"> User test </span>
 </span>
 {*  *}
@@ -307,13 +307,11 @@ jQuery(document).ready( function() {
 }
 
 .history-filter {
-  background: #f3f3f3;
   display: flex;
   flex-direction: row;
 }
 
 .hasDatepicker {
-  background: white !important;
   border: solid 1px #D4D4D4;
   padding: 5px 10px;
   max-width: 180px;
@@ -331,7 +329,6 @@ jQuery(document).ready( function() {
 }
 
 .elem-type-select{
-  background: white !important;
   border: solid 1px #D4D4D4;
   padding: 5px 10px;
   margin-bottom: 5px;
@@ -395,7 +392,6 @@ jQuery(document).ready( function() {
 }
 
 .search-line {
-  background: #fafafa;
   box-shadow: 0px 2px 4px #00000024;
 
   display: flex;
@@ -485,17 +481,12 @@ jQuery(document).ready( function() {
   margin-left: 4px;
 }
 
-.detail-item-1, .detail-item-2, .detail-item-3 {
-  background: #f0f0f0f0;
-}
-
 .user-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-right: 20px;
   height: 60%;
-  border-right: 1px solid #bbb;
 }
 
 .date-section {
@@ -503,7 +494,6 @@ jQuery(document).ready( function() {
   flex-direction: row;
   margin-right: 20px;
   height: 60%;
-  border-right: 1px solid #bbb;
 }
 
 .date-infos {
@@ -540,7 +530,6 @@ jQuery(document).ready( function() {
   align-items: center;
   margin-right: 20px;
   height: 60%;
-  border-right: 1px solid #bbb;
 }
 
 .type-desc {
@@ -679,4 +668,11 @@ jQuery(document).ready( function() {
   margin-right: 10px;
 }
 
+#start_unset, #end_unset {
+  text-decoration: none;
+}
+
+#start_unset:hover, #end_unset:hover {
+  color: #ffa500;
+}
 </style>

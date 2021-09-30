@@ -1657,3 +1657,34 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #373737 !important;
   cursor: not-allowed;
 }
+
+.search-line {
+  background: transparent;
+  color: #a1a1a1;
+}
+
+.search-line .date-section,
+.search-line .user-section,
+.search-line .type-section  {
+  border-right: 1px solid #a1a1a1;
+}
+
+.detail-item-1, .detail-item-2, .detail-item-3 {
+  background: #555;
+}
+
+.history-filter {
+  background: transparent;
+  color: #a1a1a1;
+  box-shadow: 0px 2px 4px #00000024;
+}
+
+#start_unset, #end_unset {
+  color: #a1a1a1;
+  text-decoration: none;
+}
+
+.hasDatepicker, .elem-type-select {
+  background: #444 !important;
+  border-color: #c1c1c1 !important;
+}

@@ -5582,3 +5582,29 @@ color:#FF7B00;
 .site-url-path span {
   margin-top: -10px;
 }
+
+.search-line {
+  background: #fafafa;
+}
+
+.search-line .date-section,
+.search-line .user-section,
+.search-line .type-section {
+  border-right: 1px solid #bbb;
+}
+
+.detail-item-1, .detail-item-2, .detail-item-3 {
+  background: #f0f0f0f0;
+}
+
+.search-line .type-name a {
+  color: #a1a1a1;
+}
+
+.history-filter {
+  background: #f3f3f3;
+}
+
+.hasDatepicker, .elem-type-select {
+  background: white !important;
+}
