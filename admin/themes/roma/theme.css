@@ -265,6 +265,7 @@ a.stat-box:hover {
 
 .intro-charts .tooltip .tooltip-details-title, .intro-charts .tooltip-title {
   color:#aeaeae !important;
+  border: none !important;
 }
 
 /* hacks */
