@@ -582,7 +582,6 @@ SELECT
  * API method
  * Returns lines of an history search
  */
-
 function ws_history_search($param, &$service)
 {
 
@@ -941,28 +940,24 @@ SELECT
       .'" alt="'.$image_title.'" title="'.$image_title.'">';
     }
 
-    if (isset($sorted_members[$user_name])) {
-      $sorted_members[$user_name] += 1;
-    } else {
-      $sorted_members[$user_name] =1;
-    }
-    
+    @$sorted_members[$user_name] += 1;
 
-    array_push( $result, 
+    array_push( 
+      $result,
       array(
-        'DATE'      => format_date($line['date']),
-        'TIME'      => $line['time'],
-        'USER'      => $user_string,
-        'USERNAME'  => $user_name,
-        'USERID'    => $line['user_id'],
-        'IP'        => $line['IP'],
-        'IMAGE'     => $image_string,
-        'IMAGENAME' => $image_title,
-        'IMAGEID'   => $image_id,
-        'EDIT_IMAGE'=> $image_edit_string,
-        'TYPE'      => $line['image_type'],
-        'SECTION'   => $line['section'],
-        'CATEGORY'  => isset($name_of_category[$line['category_id']]) ? $name_of_category[$line['category_id']] : l10n('Root').$line['category_id'],
+        'DATE'       => format_date($line['date']),
+        'TIME'       => $line['time'],
+        'USER'       => $user_string,
+        'USERNAME'   => $user_name,
+        'USERID'     => $line['user_id'],
+        'IP'         => $line['IP'],
+        'IMAGE'      => $image_string,
+        'IMAGENAME'  => $image_title,
+        'IMAGEID'    => $image_id,
+        'EDIT_IMAGE' => $image_edit_string,
+        'TYPE'       => $line['image_type'],
+        'SECTION'    => $line['section'],
+        'CATEGORY'   => isset($name_of_category[$line['category_id']]) ? $name_of_category[$line['category_id']] : l10n('Root').$line['category_id'],
         'TAGS'       => explode(",",$tag_names),
         'TAGIDS'     => explode(",",$tag_ids),
       )
@@ -989,12 +984,6 @@ SELECT
   foreach ($username_of as $user_id => $user_name)
   {
     $member_string = $user_name;
-    // '&nbsp;<a href="';
-    // $member_string.= get_root_url().'admin.php?page=history';
-    // $member_string.= '&amp;search_id='.$page['search_id'];
-    // $member_string.= '&amp;user_id='.$user_id;
-    // $member_string.= '">+</a>';
-
     $member_strings[] = array($member_string => $user_id);
   }
 
@@ -1021,6 +1010,8 @@ SELECT
     );
 
   unset($name_of_tag);
+
+  sleep(3);
 
   return array(
     'lines'   => $result,
