@@ -733,7 +733,11 @@ input:focus + .slider {
   background-color:#003751;
   color: #379bbc;
 }
-.advanced-filter-select {border: solid 1px #747474;}
+.advanced-filter-select {border: 1px solid transparent;}
+
+.advanced-filter-select-container::before {
+  color: #4c4c4c;
+}
 /*------*/
 
 .userSeparator {
@@ -1368,6 +1372,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .advanced-filter-label, .advanced-filter-title, .advanced-filter-close {
   color:#777;
+}
+
+.advanced-filter-select-container {
+  background: #252525;
 }
 
 .user-action-select {
