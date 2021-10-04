@@ -1562,7 +1562,7 @@ $(".icon-help-circled").tipTip({
 }
 
 .user-property-register-visit .icon-calendar {
-    margin:0;
+    margin:0 4px 0 0;
     font-size: 20px;
 }
 
