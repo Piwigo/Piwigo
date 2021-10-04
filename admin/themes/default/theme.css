@@ -239,7 +239,12 @@ TABLE.languages TR TD { padding: 7px 20px; }
 .albumActions a span, .albumActions span span{
   margin: 10px;
 }
-
+.albumActions a span {
+  margin-left: 20px;
+}
+.albumActions .iconLegend {
+  margin-left: 0;
+}
 .addAlbum {
   display: flex;
   flex-direction: column;
