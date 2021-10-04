@@ -1182,7 +1182,7 @@ function fill_user_edit_permissions(user_to_edit, pop_in) {
         pop_in.find(".user-property-password.edit-password").show();
         pop_in.find(".user-property-email .user-property-input").removeAttr('disabled');
         pop_in.find(".user-property-username .edit-username").removeClass("notClickable");
-        pop_in.find(".user-property-status .user-property-select").hide();
+        pop_in.find(".user-property-status .user-property-select").addClass("notClickable");
       } else if (user_to_edit.status == "webmaster" && connected_user_status == "admin") {
         // I'm admin and I want to edit webmaster
         pop_in.find(".user-property-password.edit-password").hide();
