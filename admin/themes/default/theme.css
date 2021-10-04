@@ -2166,6 +2166,15 @@ h2:lang(en) { text-transform:capitalize; }
   opacity: 0.7;
 }
 
+.pluginMiniBox.active .pluginActionsSmallIcons a span {
+  background: #ffc17e;
+  color: #3c3c3c;
+}
+
+.pluginMiniBox.active .pluginActionsSmallIcons a span:hover {
+  background: #ff7700;
+  color: #111;
+}
 
  .PluginOptionsBlock{
     display:none;

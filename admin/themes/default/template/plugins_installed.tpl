@@ -421,8 +421,6 @@ jQuery(".pluginMiniBox").each(function(index){
   display: flex;
   justify-content: center;
   align-items: center;
-
-  color: #777;
 }
 
 .pluginActionsSmallIcons a:hover, .PluginOptionsIcons a:hover {
@@ -444,7 +442,6 @@ jQuery(".pluginMiniBox").each(function(index){
   justify-content: center;
 
   padding: 5px 2px;
-  background: #ffc17e;
   border-radius: 5px;
 }
 
@@ -454,7 +451,6 @@ jQuery(".pluginMiniBox").each(function(index){
   justify-content: center;
 
   padding: 5px 2px;
-  background: #ff7700;
   border-radius: 5px;
 }
 
