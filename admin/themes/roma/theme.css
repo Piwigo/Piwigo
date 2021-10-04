@@ -838,7 +838,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addFilesButtonChanged:hover {background-color: #777;}
 .categoryBox, .addAlbum {background-color: #333 !important; box-shadow: -1px 1px 2px #1a1a1a;}
 .categoryBox.line_cat:hover {
-  background: #ffa500 !important;
+  background: #f9852c !important;
   color: #333 !important;
   transition: 0.2s linear;
 }
@@ -858,10 +858,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .albumIconLineHover {
-  background: #f98100 ! important;
-  color: #ffd7ad !important;
+  background: #ae5d1e ! important;
+  color: #ffa96b !important;
   transition: 0.5s ease;
-  border-color: #f98100 !important;
+  border-color: #ae5d1e !important;
 }
 
 #checkActions a, .deleteDerivButtons a {background-color: #393939;}
