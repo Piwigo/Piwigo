@@ -82,7 +82,8 @@ function setDisplayCompact() {
          transform: "translateY(75px)",
          alignItems: "center",
          marginTop: "-10px",
-         transition: "0.4s ease"
+         transition: "0.4s ease",
+         marginBottom: "40px"
     });
 
     $(".addAlbum form").css("flex-direction", "column");
@@ -233,7 +234,8 @@ function setDisplayLine() {
         transform: "translateY(0)",
         alignItems: "center",
         marginTop: "0",
-        transform: "translateX(200px)"
+        transform: "translateX(200px)",
+        marginBottom: "0"
     });
 
     $(".addAlbum form").css({
@@ -345,7 +347,8 @@ function setDisplayTile() {
         transform: "translateY(75px)",
         alignItems: "center",
         marginTop: "10px",
-        transition: "0.4s ease"
+        transition: "0.4s ease",
+        marginBottom: "0"
     });
 
     $(".addAlbum form").css({
