@@ -239,10 +239,10 @@ TABLE.languages TR TD { padding: 7px 20px; }
 .albumActions a span, .albumActions span span{
   margin: 10px;
 }
-.albumActions a span {
+.tile_cat .albumActions a span {
   margin-left: 20px;
 }
-.albumActions .iconLegend {
+.tile_cat .albumActions .iconLegend {
   margin-left: 0;
 }
 .addAlbum {
