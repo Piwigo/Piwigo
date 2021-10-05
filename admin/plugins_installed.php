@@ -44,36 +44,9 @@ $action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.$pwg_token;
 
 $plugins = new plugins();
 
-//--------------------------------------------------perform requested actions
-if (isset($_GET['action']) and isset($_GET['plugin']))
+if (!is_webmaster())
 {
-  if (!is_webmaster())
-  {
-    $page['errors'][] = l10n('Webmaster status is required.');
-  }
-  else
-  {
-    check_pwg_token();
-
-    $page['errors'] = $plugins->perform_action($_GET['action'], $_GET['plugin']);
-
-    if (empty($page['errors']))
-    {
-      if ($_GET['action'] == 'activate' or $_GET['action'] == 'deactivate')
-      {
-        $template->delete_compiled_templates();
-        $persistent_cache->purge(true);
-      }
-
-      $redirect_url = $base_url;
-      if ('activate' == $_GET['action'])
-      {
-        $redirect_url.= '&show_inactive';
-      }
-
-      redirect($redirect_url);
-    }
-  }
+  $page['errors'][] = l10n('Webmaster status is required.');
 }
 
 //--------------------------------------------------------Incompatible Plugins
@@ -218,6 +191,7 @@ $template->assign(
     'base_url' => $base_url,
     'show_details' => $show_details,
     'max_inactive_before_hide' => isset($_GET['show_inactive']) ? 999 : 8,
+    'isWebmaster' => (is_webmaster()) ? 1 : 0,
     )
   );
 

@@ -3807,10 +3807,44 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   transition: .4s;
 }
 
-input:checked + .slider:before {
+.plugin-active input:checked + .slider:before {
   -webkit-transform: translateX(33px);
   -ms-transform: translateX(33px);
   transform: translateX(33px);
+}
+
+.notUsable input.disabled + .slider.activate_disabled:before {
+  animation: activate_disabled .4s linear;
+}
+
+@keyframes activate_disabled {
+  50% {
+    -webkit-transform: translateX(5px);
+    -ms-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    transform: translateX(0);
+  }
+}
+
+.notUsable input:checked + .slider.desactivate_disabled:before {
+  animation: desactivate_disabled .4s linear;
+}
+
+@keyframes desactivate_disabled {
+  50% {
+    -webkit-transform: translateX(28px);
+    -ms-transform: translateX(28px);
+    transform: translateX(28px);
+  }
+  100% {
+    -webkit-transform: translateX(33px);
+    -ms-transform: translateX(33px);
+    transform: translateX(33px);
+  }
 }
 
 .slider.round {

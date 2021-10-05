@@ -33,6 +33,7 @@ const plugin_added_str = '{'Activated'|@translate}';
 const plugin_deactivated_str = '{'Deactivated'|@translate}';
 const plugin_restored_str = '{'Restored'|@translate}';
 const plugin_action_error = '{'an error happened'|@translate}';
+const isWebmaster = {$isWebmaster};
 {literal}
 var queuedManager = jQuery.manageAjax.create('queued', { 
   queue: true,  

@@ -95,7 +95,7 @@ function activatePlugin(id) {
                 actualizeFilterBadges();
             }
         }, 
-        error: function () {
+        error: function (e) {
             console.log(e);
             console.log("It didn't work");
             $("#" + id + " .pluginNotif").stop(false, true);
@@ -136,7 +136,7 @@ function disactivatePlugin(id) {
                 actualizeFilterBadges(nb_plugin.all, nb_plugin.active, nb_plugin.inactive, nb_plugin.other)
             }
         }, 
-        error: function () {
+        error: function (e) {
             console.log(e);
             console.log("It didn't work");
             $("#" + id + " .pluginNotif").stop(false, true);
@@ -347,7 +347,10 @@ $(document).ready(function () {
     /**
      * Activate / Deactivate
      */
-    $(".switch").change(function () {
+    if (isWebmaster != 0) {
+      $(".switch").change(function () {
+      $(".pluginMiniBox").addClass("usable");
+
         if ($(this).find("#toggleSelectionMode").is(':checked')) {
             activatePlugin($(this).parent().parent().attr("id"));
             console.log("activatePlugin");
@@ -365,7 +368,20 @@ $(document).ready(function () {
         }
         
         actualizeFilter();
-    })
+      })
+    } else {
+      $(".pluginMiniBox").addClass("notUsable");
+      $(".plugin-active").find(".slider").addClass("desactivate_disabled");
+      $(".plugin-inactive").find(".slider").addClass("activate_disabled");
+      $(".switch input").on("click", function (event) {
+        $(this).addClass("disabled");
+        event.preventDefault();
+        event.stopPropagation();
+        setTimeout(function(){
+          $(".switch input").removeClass("disabled");
+        }, 400); //Same duration as the animation "desactivate_disabled" in css
+      })
+    }
 
     /**
      * Delete

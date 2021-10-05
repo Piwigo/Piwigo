@@ -59,6 +59,11 @@ function ws_plugins_performAction($params, $service)
     return new PwgError(403, 'Invalid security token');
   }
 
+  if (!is_webmaster())
+  {
+    return new PwgError(403, l10n('Webmaster status is required.'));
+  }
+
   define('IN_ADMIN', true);
   include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
