@@ -5608,3 +5608,11 @@ color:#FF7B00;
 .hasDatepicker, .elem-type-select {
   background: white !important;
 }
+
+.selectable-filter label {
+  margin-bottom: 5px;
+}
+
+.selectable-filter .elem-type-select {
+  margin-top: 5px !important;
+}

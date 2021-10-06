@@ -1674,7 +1674,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .history-filter {
-  background: transparent;
+  background: #333 !important;
   color: #a1a1a1;
   box-shadow: 0px 2px 4px #00000024;
 }
@@ -1685,6 +1685,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .hasDatepicker, .elem-type-select {
-  background: #444 !important;
-  border-color: #c1c1c1 !important;
+  background: #252525 !important;
+  border-color: transparent !important;
+  color: #777;
 }

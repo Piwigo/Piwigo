@@ -113,6 +113,18 @@ function fillSummaryResult(summary) {
   $(".summary-users .summary-data").html(summary.USERS);
   $(".summary-guests .summary-data").html(summary.GUESTS);
 
+  (summary.GUESTS.split(" ")[0] != "0") ? $(".summary-guests .summary-data").addClass("icon-plus-circled").on("click", function () {
+    if (current_param.user == "-1") {
+      current_param.user = guest_id;
+      addUserFilter(str_guest);
+      fillHistoryResult(current_param);
+    }
+  }).hover(function () {
+    $(this).css({
+      cursor : "pointer"
+    })
+  }) : console.log();
+
   var id_of = [];
   var user_dot_title = "";
 
@@ -378,7 +390,7 @@ function addIpFilter(ip) {
   newFilter.removeClass("hide");
 
   newFilter.find(".filter-title").html(ip);
-  newFilter.find(".filter-icon").addClass("icon-code");
+  newFilter.find(".filter-icon").html("IP ").addClass("bold");
 
   newFilter.find(".remove-filter").on("click", function () {
     $(this).parent().remove();

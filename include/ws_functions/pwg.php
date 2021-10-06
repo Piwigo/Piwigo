@@ -585,135 +585,135 @@ SELECT
 function ws_history_search($param, &$service)
 {
 
-include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
 
-global $conf;
+  global $conf;
 
-if (isset($_GET['start']) and is_numeric($_GET['start']))
-{
-  $page['start'] = $_GET['start'];
-}
-else
-{
-  $page['start'] = 0;
-}
+  if (isset($_GET['start']) and is_numeric($_GET['start']))
+  {
+    $page['start'] = $_GET['start'];
+  }
+  else
+  {
+    $page['start'] = 0;
+  }
 
-$types = array_merge(array('none'), get_enums(HISTORY_TABLE, 'image_type'));
+  $types = array_merge(array('none'), get_enums(HISTORY_TABLE, 'image_type'));
 
-$display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
-                            'display_thumbnail_classic' => l10n('Classic display'),
-                            'display_thumbnail_hoverbox' => l10n('Hoverbox display')
-  );
-
-// +-----------------------------------------------------------------------+
-// | Build search criteria and redirect to results                         |
-// +-----------------------------------------------------------------------+
-
-$page['errors'] = array();
-$search = array();
-
-// date start
-if (!empty($param['start']))
-{
-  check_input_parameter('start', $param, false, '/^\d{4}-\d{2}-\d{2}$/');
-  $search['fields']['date-after'] = $param['start'];
-}
-
-// date end
-if (!empty($param['end']))
-{
-  check_input_parameter('end', $param, false, '/^\d{4}-\d{2}-\d{2}$/');
-  $search['fields']['date-before'] = $param['end'];
-}
-
-// types
-if (empty($param['types']))
-{
-  $search['fields']['types'] = $types;
-}
-else
-{
-  check_input_parameter('types', $param, true, '/^('.implode('|', $types).')$/');
-  $search['fields']['types'] = $param['types'];
-}
-
-// user
-$search['fields']['user'] = intval($param['user']);
-
-// image
-if (!empty($param['image_id']))
-{
-  $search['fields']['image_id'] = intval($param['image_id']);
-}
-
-// filename
-if (!empty($param['filename']))
-{
-  $search['fields']['filename'] = str_replace(
-    '*',
-    '%',
-    pwg_db_real_escape_string($param['filename'])
+  $display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
+                              'display_thumbnail_classic' => l10n('Classic display'),
+                              'display_thumbnail_hoverbox' => l10n('Hoverbox display')
     );
-}
 
-// ip
-if (!empty($param['ip']))
-{
-  $search['fields']['ip'] = str_replace(
-    '*',
-    '%',
-    pwg_db_real_escape_string($param['ip'])
-    );
-}
+  // +-----------------------------------------------------------------------+
+  // | Build search criteria and redirect to results                         |
+  // +-----------------------------------------------------------------------+
 
-// thumbnails
-check_input_parameter('display_thumbnail', $param, false, '/^('.implode('|', array_keys($display_thumbnails)).')$/');
+  $page['errors'] = array();
+  $search = array();
 
-$search['fields']['display_thumbnail'] = $param['display_thumbnail'];
-// Display choise are also save to one cookie
-if (!empty($param['display_thumbnail'])
-    and isset($display_thumbnails[$param['display_thumbnail']]))
-{
-  $cookie_val = $param['display_thumbnail'];
-}
-else
-{
-  $cookie_val = null;
-}
+  // date start
+  if (!empty($param['start']))
+  {
+    check_input_parameter('start', $param, false, '/^\d{4}-\d{2}-\d{2}$/');
+    $search['fields']['date-after'] = $param['start'];
+  }
 
-pwg_set_cookie_var('display_thumbnail', $cookie_val, strtotime('+1 month') );
+  // date end
+  if (!empty($param['end']))
+  {
+    check_input_parameter('end', $param, false, '/^\d{4}-\d{2}-\d{2}$/');
+    $search['fields']['date-before'] = $param['end'];
+  }
 
-// TODO manage inconsistency of having $_POST['image_id'] and
-// $_POST['filename'] simultaneously
+  // types
+  if (empty($param['types']))
+  {
+    $search['fields']['types'] = $types;
+  }
+  else
+  {
+    check_input_parameter('types', $param, true, '/^('.implode('|', $types).')$/');
+    $search['fields']['types'] = $param['types'];
+  }
 
-// store seach in database
-if (!empty($search))
-{
-  // register search rules in database, then they will be available on
-  // thumbnails page and picture page.
-  $query ='
-INSERT INTO '.SEARCH_TABLE.'
-(rules)
-VALUES
-(\''.pwg_db_real_escape_string(serialize($search)).'\')
-;';
+  // user
+  $search['fields']['user'] = intval($param['user']);
 
-  pwg_query($query);
+  // image
+  if (!empty($param['image_id']))
+  {
+    $search['fields']['image_id'] = intval($param['image_id']);
+  }
 
-  $search_id = pwg_db_insert_id(SEARCH_TABLE);
+  // filename
+  if (!empty($param['filename']))
+  {
+    $search['fields']['filename'] = str_replace(
+      '*',
+      '%',
+      pwg_db_real_escape_string($param['filename'])
+      );
+  }
 
-  // Remove redirect for ajax //
-  // redirect(
-  //   PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
-  //   );
-}
-else
-{
-  $page['errors'][] = l10n('Empty query. No criteria has been entered.');
-}
+  // ip
+  if (!empty($param['ip']))
+  {
+    $search['fields']['ip'] = str_replace(
+      '*',
+      '%',
+      pwg_db_real_escape_string($param['ip'])
+      );
+  }
 
-// what are the lines to display in reality ?
+  // thumbnails
+  check_input_parameter('display_thumbnail', $param, false, '/^('.implode('|', array_keys($display_thumbnails)).')$/');
+
+  $search['fields']['display_thumbnail'] = $param['display_thumbnail'];
+  // Display choise are also save to one cookie
+  if (!empty($param['display_thumbnail'])
+      and isset($display_thumbnails[$param['display_thumbnail']]))
+  {
+    $cookie_val = $param['display_thumbnail'];
+  }
+  else
+  {
+    $cookie_val = null;
+  }
+
+  pwg_set_cookie_var('display_thumbnail', $cookie_val, strtotime('+1 month') );
+
+  // TODO manage inconsistency of having $_POST['image_id'] and
+  // $_POST['filename'] simultaneously
+
+  // store seach in database
+  if (!empty($search))
+  {
+    // register search rules in database, then they will be available on
+    // thumbnails page and picture page.
+    $query ='
+  INSERT INTO '.SEARCH_TABLE.'
+  (rules)
+  VALUES
+  (\''.pwg_db_real_escape_string(serialize($search)).'\')
+  ;';
+
+    pwg_query($query);
+
+    $search_id = pwg_db_insert_id(SEARCH_TABLE);
+
+    // Remove redirect for ajax //
+    // redirect(
+    //   PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
+    //   );
+  }
+  else
+  {
+    $page['errors'][] = l10n('Empty query. No criteria has been entered.');
+  }
+
+  // what are the lines to display in reality ?
   $query = '
 SELECT rules
   FROM '.SEARCH_TABLE.'
@@ -1010,8 +1010,6 @@ SELECT
     );
 
   unset($name_of_tag);
-
-  sleep(3);
 
   return array(
     'lines'   => $result,

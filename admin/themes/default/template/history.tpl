@@ -42,6 +42,8 @@ const str_recent_cats = "{'Recent albums'|translate}";
 const str_recent_pics = "{'Recent photos'|translate}";
 const str_memories = "{'Memories'|translate}";
 const unit_MB = "{"%s MB"|@translate}";
+const str_guest = '{'guest'|@translate}';
+const guest_id = {$guest_id};
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -58,7 +60,7 @@ const unit_MB = "{"%s MB"|@translate}";
 <fieldset class="history-filter">
   <div class="selectable-filter">
     <div class="filter-part date-start">
-      <label>{'Date'|@translate}</label>
+      <label>{'Start-Date'|@translate}</label>
         <input type="hidden" name="start" value="{$START}">
         <label>
           <input type="text" data-datepicker="start" data-datepicker-end="end" data-datepicker-unset="start_unset" readonly>
@@ -88,8 +90,7 @@ const unit_MB = "{"%s MB"|@translate}";
     <label>{'Personnalized filters'|translate}</label>
     <div class="filter-container">
       <div id="default-filter" class="filter-item hide">
-        <i class="filter-icon"> </i>
-        <span class="filter-title"> test </span><span class="remove-filter icon-cancel"></span>
+        <span class="filter-icon"></span><span class="filter-title"> test </span><span class="remove-filter icon-cancel"></span>
       </div>
     </div>
   </div>
@@ -142,6 +143,7 @@ const unit_MB = "{"%s MB"|@translate}";
   <div class="summary-guests">
     <span class="icon-blue icon-user-secret summary-icons"></span>
     <span class="summary-data"> </span>
+    <span class="addGuestFilter"> </span>
   </div>
 </div>
 
@@ -364,7 +366,7 @@ jQuery(document).ready( function() {
 .filter-title, .remove-filter, .filter-icon {
   color: #777;
   background: #fff;
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
 .filter-title {
