@@ -44,11 +44,6 @@ $action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.$pwg_token;
 
 $plugins = new plugins();
 
-if (!is_webmaster())
-{
-  $page['errors'][] = l10n('Webmaster status is required.');
-}
-
 //--------------------------------------------------------Incompatible Plugins
 if (isset($_GET['incompatible_plugins']))
 {

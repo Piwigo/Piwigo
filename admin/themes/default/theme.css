@@ -2153,7 +2153,7 @@ h2:lang(en) { text-transform:capitalize; }
 
 .pluginContainer.line .pluginMiniBox:hover .pluginContent{
   transition: 0.4s;
-  background: #ffe5cc;
+  background: #ffd7ad;
 }
 
 .pluginContainer.line .pluginMiniBox:hover.plugin-inactive .slider {
@@ -3807,7 +3807,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   transition: .4s;
 }
 
-.plugin-active input:checked + .slider:before {
+input:checked + .slider:before {
   -webkit-transform: translateX(33px);
   -ms-transform: translateX(33px);
   transform: translateX(33px);

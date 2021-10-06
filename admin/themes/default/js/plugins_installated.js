@@ -306,6 +306,13 @@ $(document).ready(function () {
 
     /* Plugin Filters */
 
+    // Set filter on Active on load
+    $(".pluginMiniBox").each(function () {
+      if (!$(this).hasClass("plugin-active")) {
+          $(this).hide();
+      }
+    })
+
     $("#seeAll").on("change", function () {
         console.log("All");
         $(".pluginMiniBox").show();
@@ -377,10 +384,17 @@ $(document).ready(function () {
         $(this).addClass("disabled");
         event.preventDefault();
         event.stopPropagation();
+
+        var id = $(this).parent().parent().parent().attr("id");
+        $("#" + id + " .pluginNotif").stop(false, true);
+        $("#" + id + " .PluginActionError label span:first").html(not_webmaster);
+        $("#" + id + " .PluginActionError").css("display", "flex");
+        $("#" + id + " .PluginActionError").delay(1500).fadeOut(2500);
+
         setTimeout(function(){
           $(".switch input").removeClass("disabled");
         }, 400); //Same duration as the animation "desactivate_disabled" in css
-      })
+      });
     }
 
     /**

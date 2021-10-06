@@ -1245,3 +1245,4 @@ $lang['action succesfully performed.'] = 'action succesfully performed.';
 $lang['%s lines'] = "%s lines";
 $lang['%s line'] = "%s line";
 $lang['Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'] = 'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums';
+$lang['Webmaster status required'] = 'Webmaster status required';

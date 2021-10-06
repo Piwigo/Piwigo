@@ -33,6 +33,7 @@ const plugin_added_str = '{'Activated'|@translate}';
 const plugin_deactivated_str = '{'Deactivated'|@translate}';
 const plugin_restored_str = '{'Restored'|@translate}';
 const plugin_action_error = '{'an error happened'|@translate}';
+const not_webmaster = '{'Webmaster status required'|@translate}';
 const isWebmaster = {$isWebmaster};
 {literal}
 var queuedManager = jQuery.manageAjax.create('queued', { 
@@ -222,7 +223,7 @@ jQuery(".pluginMiniBox").each(function(index){
 {counter start=0 assign=i} {* <!-- counter for 'deactivate all' link --> *}
 
 <div class="pluginTypeFilter">
-  <input type="radio" name="p-filter" class="filter" id="seeAll" checked><label for="seeAll">{'All'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeActive"><label class="filterLabel" for="seeActive">{'Activated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeInactive"><label class="filterLabel" for="seeInactive">{'Deactivated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeOther"><label class="filterLabel" for="seeOther">{'Other'|@translate}<span class="filter-badge">X</span></label>
+  <input type="radio" name="p-filter" class="filter" id="seeAll"><label for="seeAll">{'All'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeActive" checked><label class="filterLabel" for="seeActive">{'Activated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeInactive"><label class="filterLabel" for="seeInactive">{'Deactivated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeOther"><label class="filterLabel" for="seeOther">{'Other'|@translate}<span class="filter-badge">X</span></label>
 </div>
 
 <div class="pluginFilter"> 
@@ -583,6 +584,8 @@ jQuery(".pluginMiniBox").each(function(index){
 .pluginContainer.line {
   display: flex;
   flex-direction: column;
+  box-shadow: none;
+  background: transparent;
 }
 
 .pluginContainer.line .pluginMiniBox {
