@@ -581,6 +581,7 @@ SELECT
 /**
  * API method
  * Returns lines of an history search
+ * @since 13
  */
 function ws_history_search($param, &$service)
 {
