@@ -1473,24 +1473,13 @@ function ws_images_uploadAsync($params, &$service)
 {
   global $conf, $user, $logger;
 
+  // the username/password parameters have been used in include/user.inc.php
+  // to authenticate the request (a much better time/place than here)
+
   // additional check for some parameters
   if (!preg_match('/^[a-fA-F0-9]{32}$/', $params['original_sum']))
   {
     return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid original_sum');
-  }
-
-  if (!try_log_user($params['username'], $params['password'], false))
-  {
-    return new PwgError(999, 'Invalid username/password');
-  }
-
-  // build $user
-  // include(PHPWG_ROOT_PATH.'include/user.inc.php');
-  $user = build_user($user['id'], false);
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Admin status is required.');
   }
 
   if ($params['image_id'] > 0)
