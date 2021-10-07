@@ -27,7 +27,7 @@ input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 
 
 
-INPUT[type="text"], INPUT[type="password"], INPUT[type="file"] {
+INPUT[type="text"], INPUT[type="file"] {
 	background-color: #ddd;
 }
 

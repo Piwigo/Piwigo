@@ -129,12 +129,10 @@ $( document ).ready(function() {
             $(this).removeClass("icon-eye");
             $(this).addClass("icon-eye-off");
             $("#AddUserPassword").get(0).type = "text";
-            $(this).html(hide_str)
         } else {
             $(this).removeClass("icon-eye-off");
             $(this).addClass("icon-eye");
             $("#AddUserPassword").get(0).type = "password";
-            $(this).html(show_str)
         }
     })
     /* Action */
@@ -1567,9 +1565,9 @@ function add_user() {
     let ajax_data = {
         pwg_token: pwg_token,
     }
-    ajax_data.username = $('.AddUserLabelUsername .AddUserInput').val();
+    ajax_data.username = $('.AddUserLabelUsername .user-property-input').val();
     ajax_data.password = $('#AddUserPassword').val();
-    ajax_data.email = $(".AddUserLabelEmail .AddUserInput").val();
+    ajax_data.email = $(".AddUserLabelEmail .user-property-input").val();
     ajax_data.send_password_by_mail = $('.user-list-checkbox[name="send_by_email"]').attr("data-selected") == "1" ? true : false;
     jQuery.ajax({
         url: "ws.php?format=json&method=pwg.users.add",
@@ -1577,8 +1575,8 @@ function add_user() {
         data: ajax_data,
         beforeSend: function() {
             $("#AddUser .AddUserErrors").css("visibility", "hidden");
-            if ($(".AddUserLabelUsername .AddUserInput").val() == "") {
-                $("#AddUser .AddUserErrors p").html('&#x2718; '+missingUsername);
+            if ($(".AddUserLabelUsername .user-property-input").val() == "") {
+                $("#AddUser .AddUserErrors").html(missingUsername);
                 $("#AddUser .AddUserErrors").css("visibility", "visible");
                 return false;
             }
@@ -1589,7 +1587,7 @@ function add_user() {
                 let new_user_id = data.result.users[0].id;
                 update_user_list();
                 add_user_close();
-                $("#AddUser .AddUserInput").val("");
+                $("#AddUser .user-property-input").val("");
                 $("#AddUserSuccess .edit-now").unbind("click").click(() => {
                     last_user_id = new_user_id;
                     last_user_index = get_container_index_from_uid(new_user_id);

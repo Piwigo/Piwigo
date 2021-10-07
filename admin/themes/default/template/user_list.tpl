@@ -856,17 +856,17 @@ $(".icon-help-circled").tipTip({
       <span>{'Add a new user'|@translate}</span>
     </div>
     <div class="AddUserInputContainer">
-      <label class="AddUserLabel AddUserLabelUsername">{'Username'|@translate}
-        <input class="AddUserInput" />
+      <label class="user-property-label AddUserLabelUsername">{'Username'|@translate}
+        <input class="user-property-input" />
       </label>
     </div>
 
     <div class="AddUserInputContainer">
       <div class="AddUserPasswordWrapper">
-        <label for="AddUserPassword" class="AddUserLabel AddUserLabelPassword">{'Password'|@translate}</label>
-        <span id="show_password" class="icon-eye">{'Show'|@translate}</span>
+        <label for="AddUserPassword" class="user-property-label AddUserLabelPassword">{'Password'|@translate}</label>
+        <span id="show_password" class="icon-eye"></span>
       </div>
-      <input id="AddUserPassword" class="AddUserInput" type="password"/>
+      <input id="AddUserPassword" class="user-property-input" type="password"/>
 
       <div class="AddUserGenPassword">
         <span class="icon-dice-solid"></span><span>{'Generate random password'|@translate}</span>
@@ -874,8 +874,8 @@ $(".icon-help-circled").tipTip({
     </div>
 
     <div class="AddUserInputContainer">
-      <label class="AddUserLabel AddUserLabelEmail">{'Email'|@translate}
-        <input class="AddUserInput" />
+      <label class="user-property-label AddUserLabelEmail">{'Email'|@translate}
+        <input class="user-property-input" />
       </label>
     </div>
 
@@ -886,8 +886,7 @@ $(".icon-help-circled").tipTip({
       <span class="user-list-checkbox-label">{'Send connection settings by email'|translate}</span>
     </div>
 
-    <div class="AddUserErrors icon-red">
-      <p>X</p>
+    <div class="AddUserErrors icon-red icon-cancel">
     </div>
 
     <div class="AddUserSubmit">
@@ -905,6 +904,12 @@ $(".icon-help-circled").tipTip({
 .icon-help-circled {
   color: #777777 !important;
   cursor: help;
+}
+
+#show_password {
+  position: absolute;
+  left: 240px;
+  top: 29px;
 }
 
 /* general */
@@ -1347,6 +1352,10 @@ $(".icon-help-circled").tipTip({
     border:none;
 }
 
+{* .AddUserPopInContainer .user-property-input {
+  background-color: #F3F3F3;
+} *}
+
 .user-property-button {
     margin-top:0;
     font-size:1.1em;
@@ -1701,14 +1710,15 @@ $(".icon-help-circled").tipTip({
     top: 50%;
     transform:translate(-50%, -48%);
     text-align:left;
-    padding:40px;
+    padding:20px;
     flex-direction:column;
     border-radius:15px;
     align-items:center;
-    width: min-content;
+    width: 270px;
 }
 
 .AddIconContainer {
+  margin-top: 10px;
 }
 
 .AddIcon {
@@ -1718,10 +1728,11 @@ $(".icon-help-circled").tipTip({
 }
 
 .AddIconTitle {
-  font-size:1.7em;
+  font-size:1.4em;
   font-weight:bold;
   margin-bottom:20px;
   margin-top:15px;
+  text-align: center;
 }
 
 .AddUserInputContainer {
@@ -1745,6 +1756,7 @@ $(".icon-help-circled").tipTip({
 .AddUserPasswordWrapper {
   display:flex;
   justify-content:space-between;
+  position: relative;
 }
 
 .AddUserPasswordWrapper span {
