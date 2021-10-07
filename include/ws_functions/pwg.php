@@ -965,9 +965,9 @@ SELECT
     );
   }
 
-  $max_page = ceil(count($result)/100);
+  $max_page = ceil(count($result)/300);
   $result = array_reverse($result, true);
-  $result = array_slice($result, $param['pageNumber']*100, 100);
+  $result = array_slice($result, $param['pageNumber']*300, 300);
 
   $summary['nb_guests'] = 0;
   if (count(array_keys($summary['guests_IP'])) > 0)

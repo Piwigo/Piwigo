@@ -474,7 +474,7 @@ function updatePagination(maxPage) {
 
   $(".pagination-item-container").empty();
   $(".pagination-item-container").append(
-    "<a class='actual'>"+ (current_param.pageNumber+1) +"</a>"
+    "<a class='actual'>"+ (current_param.pageNumber+1) + "/" + maxPage +"</a>"
   )
 }
 

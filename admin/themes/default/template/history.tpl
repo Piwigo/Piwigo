@@ -496,6 +496,7 @@ jQuery(document).ready( function() {
   display: flex;
   flex-direction: column;
   text-align: left;
+  justify-content: center;
 }
 
 .date-dwld-icon {

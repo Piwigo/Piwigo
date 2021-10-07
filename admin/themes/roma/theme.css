@@ -1659,18 +1659,18 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .search-line {
-  background: transparent;
+  background: #333;
   color: #a1a1a1;
 }
 
 .search-line .date-section,
 .search-line .user-section,
 .search-line .type-section  {
-  border-right: 1px solid #a1a1a1;
+  border-right: 1px solid #777;
 }
 
 .detail-item-1, .detail-item-2, .detail-item-3 {
-  background: #555;
+  background: #252525;
 }
 
 .history-filter {
