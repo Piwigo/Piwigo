@@ -20,8 +20,7 @@ function ws_isInvokeAllowed($res, $methodName, $params)
   }
 
   if ( !is_autorize_status(ACCESS_GUEST) and
-      strpos($methodName,'pwg.session.')!==0 and
-      'pwg.images.uploadAsync'!=$methodName )
+      strpos($methodName,'pwg.session.')!==0 )
   {
     return new PwgError(401, 'Access denied');
   }
