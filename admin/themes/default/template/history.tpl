@@ -677,4 +677,8 @@ jQuery(document).ready( function() {
 #start_unset:hover, #end_unset:hover {
   color: #ffa500;
 }
+
+.loading {
+  font-size: 25px;
+}
 </style>

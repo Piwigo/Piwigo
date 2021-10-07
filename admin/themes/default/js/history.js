@@ -76,7 +76,6 @@ $(document).ready(() => {
   });
 
   $(".refresh-results").on("click", function () {
-    $(this).addClass("animate-spin")
     fillHistoryResult(current_param);
   })
 })
@@ -166,14 +165,18 @@ function fillSummaryResult(summary) {
 
 function fillHistoryResult(ajaxParam) {
   // console.log(current_param);
-
+  // $(".tab .search-line").remove();
   $.ajax({
     url: API_METHOD,
     method: "POST",
     dataType: "JSON",
     data: ajaxParam,
-    success: function (raw_data) {
+    beforeSend: function () {
+      $(".tab .search-line").remove();
       $(".loading").removeClass("hide");
+    },
+    success: function (raw_data) {
+      
       data = raw_data.result["lines"];
       imageDisplay = raw_data.result["params"].display_thumbnail;
       maxPage = raw_data.result["maxPage"];
@@ -181,7 +184,7 @@ function fillHistoryResult(ajaxParam) {
       // console.log(raw_data);
 
       //clear lines before refill
-      $(".tab .search-line").remove();
+      
       
       var id = 0;
       data.forEach(line => {
@@ -198,7 +201,6 @@ function fillHistoryResult(ajaxParam) {
     activateLineOptions();
     $(".loading").addClass("hide");
     updatePagination(maxPage);
-    $(".refresh-results").removeClass("animate-spin")
   })
 }
 
