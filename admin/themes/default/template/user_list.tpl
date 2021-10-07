@@ -910,6 +910,7 @@ $(".icon-help-circled").tipTip({
   position: absolute;
   left: 240px;
   top: 29px;
+  z-index: 100; {*used to fix firefox auto fill input*}
 }
 
 /* general */
