@@ -363,12 +363,6 @@ jQuery(document).ready( function() {
   cursor: default;
 }
 
-.filter-title, .remove-filter, .filter-icon {
-  color: #777;
-  background: #fff;
-  padding: 5px 0;
-}
-
 .filter-title {
   padding-right: 2px;
 }
@@ -629,7 +623,11 @@ jQuery(document).ready( function() {
 .summary-icons {
   padding: 10px;
   border-radius: 50%;
-  margin: 0 5px;
+  margin: 0 5px 0 15px;
+}
+
+.summary-lines .summary-icons {
+  margin-left: 5px;
 }
 
 .summary-users {
@@ -663,12 +661,11 @@ jQuery(document).ready( function() {
 
 .summary-data {
   font-weight: bold;
-  margin: 0 15px 0 0;
 }
 
-.user-list {
+{* .user-list {
   margin-right: 10px;
-}
+} *}
 
 #start_unset, #end_unset {
   text-decoration: none;

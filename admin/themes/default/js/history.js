@@ -112,17 +112,23 @@ function fillSummaryResult(summary) {
   $(".summary-users .summary-data").html(summary.USERS);
   $(".summary-guests .summary-data").html(summary.GUESTS);
 
-  (summary.GUESTS.split(" ")[0] != "0") ? $(".summary-guests .summary-data").addClass("icon-plus-circled").on("click", function () {
-    if (current_param.user == "-1") {
-      current_param.user = guest_id;
-      addUserFilter(str_guest);
-      fillHistoryResult(current_param);
-    }
-  }).hover(function () {
-    $(this).css({
-      cursor : "pointer"
-    })
-  }) : console.log();
+  if ((summary.GUESTS.split(" ")[0] != "0")) {
+    $(".summary-guests .summary-data").addClass("icon-plus-circled").on("click", function () {
+      if (current_param.user == "-1") {
+        current_param.user = guest_id;
+        addGuestFilter(str_guest);
+        fillHistoryResult(current_param);
+      }
+    }).hover(function () {
+      $(this).css({
+        cursor : "pointer"
+      })
+    });
+
+    $(".summary-guests").show();
+  } else {
+    $(".summary-guests").hide();
+  }
 
   var id_of = [];
   var user_dot_title = "";
@@ -373,6 +379,28 @@ function addUserFilter(username) {
 
   newFilter.find(".filter-title").html(username);
   newFilter.find(".filter-icon").addClass("icon-user");
+
+  newFilter.find(".remove-filter").on("click", function () {
+    $(this).parent().remove();
+
+    current_param.user = "-1";
+    current_param.pageNumber = 0;
+    fillHistoryResult(current_param);
+    checkFilters();
+    $(".summary-guests").show();
+  })
+
+  $(".summary-guests").hide();
+  $(".filter-container").append(newFilter);
+  checkFilters();
+}
+
+function addGuestFilter(username) {
+  var newFilter = $("#default-filter").clone();
+  newFilter.removeClass("hide");
+
+  newFilter.find(".filter-title").html(username);
+  newFilter.find(".filter-icon").addClass("icon-user-secret");
 
   newFilter.find(".remove-filter").on("click", function () {
     $(this).parent().remove();

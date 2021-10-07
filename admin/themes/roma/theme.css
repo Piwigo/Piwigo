@@ -1689,3 +1689,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   border-color: transparent !important;
   color: #777;
 }
+
+.filter-title, .remove-filter, .filter-icon {
+  color: #777;
+  background: #252525;
+  padding: 5px 0;
+}
