@@ -1057,8 +1057,8 @@ SELECT id, name, dir
 /**
  * API method
  * Return the number of orphan photos if an album is deleted
+ * @since 12
  */
-
 function ws_categories_calculateOrphans($param, &$service)
 {
   global $conf;

@@ -50,7 +50,11 @@ function setDisplayCompact() {
         padding: "8px"
     });
 
-    $(".albumInfos p").css("margin", "0");
+    $(".albumInfos p").css({
+        margin: "0",
+        textAlign: "center",
+        whiteSpace: "normal"
+    });
     $(".albumInfos p:last-child").css({
         width: "auto"
     });
@@ -200,7 +204,8 @@ function setDisplayLine() {
 
     $(".albumInfos p").css({
         textAlign: "right",
-        margin: "0"
+        margin: "0",
+        whiteSpace: "nowrap"
     });
 
     $(".albumInfos p:last-child").css({
@@ -313,6 +318,11 @@ function setDisplayTile() {
 
     $(".albumInfos p:last-child").css({
         width: "auto"
+    });
+    $(".albumInfos p").css({
+        margin: "0",
+        textAlign: "center",
+        whiteSpace: "normal"
     });
 
     $(".albumIcon").css({

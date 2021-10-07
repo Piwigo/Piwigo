@@ -418,8 +418,8 @@ function ws_session_getStatus($params, &$service)
 /**
  * API method
  * Returns lines of users activity
+ *  @since 12
  */
-
 function ws_getActivityList($param, &$service)
 {
   global $conf;
@@ -565,8 +565,8 @@ SELECT
 /**
  * API method
  * Returns lines of users activity
+ * @since 12
  */
-
 function ws_activity_downloadLog($param, &$service)
 {
   global $conf;
