@@ -1015,7 +1015,7 @@ SELECT
   return array(
     'lines'   => $result,
     'params'  => $param,
-    'maxPage' => $max_page,
+    'maxPage' => ($max_page == 0) ? 1 : $max_page,
     'summary' => $search_summary
   );
 }
