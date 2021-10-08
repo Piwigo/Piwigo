@@ -149,6 +149,12 @@ const guest_id = {$guest_id};
 
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
+<div class="loading hide"> 
+  <span class="icon-spin6 animate-spin"> </span>
+</div>
+<div class="noResults">
+  {'No results'|@translate}
+</div>
 <div class="container">
   <div class="tab-title">
     <div class="date-title">
@@ -210,9 +216,6 @@ const guest_id = {$guest_id};
     </div>
 
   <div class="tab">
-    <div class="loading hide"> 
-      <span class="icon-spin6 animate-spin"> </span>
-    </div>
   </div>
   <div class="pagination-container">
     <div class="pagination-arrow left">
@@ -278,7 +281,7 @@ jQuery(document).ready( function() {
 <style>
 
 .container {
-  padding: 0 30px;
+  padding: 0 20px;
 }
 
 .container,
@@ -294,6 +297,14 @@ jQuery(document).ready( function() {
 
 .hide {
   display: none !important;
+}
+
+.noResults {
+  font-size: 14px;
+  display: none;
+  font-weight: bold;
+  color: #777;
+  margin-top: 20px;
 }
 
 .bold {

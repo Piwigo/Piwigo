@@ -1666,7 +1666,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .search-line .date-section,
 .search-line .user-section,
 .search-line .type-section  {
-  border-right: 1px solid #777;
+  border-right: 1px solid #252525;
 }
 
 .detail-item-1, .detail-item-2, .detail-item-3 {

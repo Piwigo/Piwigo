@@ -169,6 +169,17 @@ function fillSummaryResult(summary) {
   }
 }
 
+function showResults(doShow) {
+  console.log("EMPTY");
+  if (doShow) {
+    $(".search-summary").show();
+    $(".container").show();
+  } else {
+    $(".search-summary").hide();
+    $(".container").hide();
+  }
+}
+
 function fillHistoryResult(ajaxParam) {
   // console.log(current_param);
   // $(".tab .search-line").remove();
@@ -178,8 +189,9 @@ function fillHistoryResult(ajaxParam) {
     dataType: "JSON",
     data: ajaxParam,
     beforeSend: function () {
-      $(".tab .search-line").remove();
+      showResults(false);
       $(".loading").removeClass("hide");
+      $(".noResults").hide();
     },
     success: function (raw_data) {
       
@@ -191,14 +203,21 @@ function fillHistoryResult(ajaxParam) {
 
       //clear lines before refill
       
-      
-      var id = 0;
-      data.forEach(line => {
-        lineConstructor(line, id, imageDisplay)
-        id++
-      });
+      if (data.length > 0) {
+        var id = 0;
+        data.forEach(line => {
+          lineConstructor(line, id, imageDisplay)
+          id++
+        });
+  
+        fillSummaryResult(summary);
+        showResults(true);
+        $(".noResults").hide();
+      } else {
+        showResults(false);
+        $(".noResults").show();
+      }
 
-      fillSummaryResult(summary);
     },
     error: function (e) {
       console.log(e);
