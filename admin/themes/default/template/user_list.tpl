@@ -226,9 +226,7 @@ $(".icon-help-circled").tipTip({
        <span>{'Groups'|@translate}</span>
      </div>
     </div>
-    <div class="user-update-spinner" style="position:relative">
-      <img class="loading" src="themes/default/images/ajax-loader-small.gif" style="position:absolute;top:20px;width:30px">
-    </div>
+    <div class="user-update-spinner icon-spin6 animate-spin"></div>
     <div class="user-container-wrapper">
     </div>
     <!-- Pagination -->
@@ -242,15 +240,12 @@ $(".icon-help-circled").tipTip({
       </div>
 
       <div class="pagination-container">
-
-        <div class="user-update-spinner">
-          <img class="loading" src="themes/default/images/ajax-loader-small.gif">
-        </div>
         <div class="pagination-arrow left">
           <span class="icon-left-open"></span>
         </div>
         <div class="pagination-item-container">
         </div>
+        <div class="user-update-spinner icon-spin6 animate-spin"></div> 
         <div class="pagination-arrow rigth">
           <span class="icon-left-open"></span>
         </div>
@@ -2007,6 +2002,7 @@ Advanced filter
 
 .user-update-spinner {
   display:none;
+  font-size: 25px;
 }
 
 .UserListPopInContainer .selectize-dropdown-content .option{

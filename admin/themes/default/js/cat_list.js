@@ -17,7 +17,7 @@ function setDisplayCompact() {
     });
     $(".categoryBox").removeClass("line_cat").removeClass("tile_cat");
     $(".categoryBox").css({
-        minWidth: "230px",
+        minWidth: "250px",
         maxWidth: "350px",
         flexDirection: "column",
         maxHeight: "180px",
@@ -70,7 +70,7 @@ function setDisplayCompact() {
     $(".albumTitle").css("padding", "0 15px");
 
     $(".addAlbum").css({
-        minWidth : "230px",
+        minWidth : "250px",
         maxWidth: "350px",
         flexDirection: "column",
         maxHeight: "180px",
@@ -120,6 +120,10 @@ function setDisplayCompact() {
         flexDirection : "row",
         marginTop: "auto",
         width: "100%"
+    });
+
+    $(".albumActions a").css({
+      minWidth : "0px"
     });
 
     $(".albumActions a:first-child").css("margin-left", "35px");
@@ -267,6 +271,10 @@ function setDisplayLine() {
         width: "300px",
     });
 
+    $(".albumActions a").css({
+      minWidth : "30px"
+    });
+
     $(".albumActions a:first-child").css("margin-left", "35px");
     $(".albumActions a:last-child").css("margin-right", "35px");
 
@@ -387,6 +395,10 @@ function setDisplayTile() {
     });
 
     $(".albumInfos p").css("margin", "0");
+
+    $(".albumActions a").css({
+      minWidth : "0px"
+    });
 
     $(".albumActions a:first-child").css("margin-left", "5px");
     $(".albumActions a:last-child").css("margin-left", "5px");
