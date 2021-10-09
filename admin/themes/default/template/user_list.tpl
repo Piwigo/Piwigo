@@ -156,7 +156,7 @@ $(".icon-help-circled").tipTip({
         </div>
     <div class="advanced-filter">
       <div class="advanced-filter-header">
-        <span class="advanced-filter-title">{'Advanced filter'|@translate}</span>
+        <span class="advanced-filter-title">{'Advanced filters'|@translate}</span>
         <span class="advanced-filter-close icon-cancel"></span>
       </div>
       <div class="advanced-filter-container">

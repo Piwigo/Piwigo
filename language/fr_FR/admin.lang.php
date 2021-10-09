@@ -1240,6 +1240,13 @@ $lang['No access to administration, can see private content with appropriate per
 $lang['Can be shared by several individuals without conflict (they cannot change the password).'] = 'Partageable entre plusieurs personnes sans rentrer en conflit (mot de passe non modifiable).';
 $lang['Equivalent to deactivation. The user is still in the list, but can no longer log in.'] = 'Équivalent à une désactivation. L\'utilisateur est toujours dans la liste mais ne peut plus se connecter.';
 $lang['%s MB'] = '%s Mo';
+$lang['All of them'] = 'Tous';
+$lang['Show beta test plugins'] = 'Montrer les plugins en beta test';
+$lang['Rating greater than'] = 'Notation supérieure à';
+$lang['Last revision date is newer than'] = 'Dernière révision récente d\'au moins';
+$lang['Certification higher or equal to'] = 'Certification plus haute ou égale à';
+$lang['On %d rating(s)'] = 'Sur %d notation(s)';
+$lang['Version %s'] = 'Version %s';
 $lang['Display'] = 'Afficher';
 $lang['Posted %s on %s'] = 'Posté %s sur %s';
 $lang['Portraits'] = 'Portraits';
@@ -1261,7 +1268,6 @@ $lang['Purge Cache'] = 'Purger le cache';
 $lang['Rename "%s"'] = 'Renommer "%s"';
 $lang['Yes, rename'] = 'Oui, renommer';
 $lang['Tag name'] = 'Nom du tag';
-
 $lang['Visited'] = 'Visité';
 $lang['Downloaded'] = 'Téléchargé';
 $lang['Personnalized filters'] = 'Filtres personnalisés';

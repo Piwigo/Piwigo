@@ -61,7 +61,7 @@ const str_x_years = '{"%d years"|@translate}';
 
     <div class="advanced-filter advanced-filter-new-plugin">
       <div class="advanced-filter-header">
-        <span class="advanced-filter-title">{'Advanced filter'|@translate}</span>
+        <span class="advanced-filter-title">{'Advanced filters'|@translate}</span>
         <span class="advanced-filter-close icon-cancel"></span>
       </div>
       <div class="advanced-filter-container">
@@ -101,7 +101,7 @@ const str_x_years = '{"%d years"|@translate}';
 
         <div class="advanced-filter-item advanced-filter-revision-date">
             <label class="advanced-filter-item-label" for="revision-date-filter">
-                {'Last revision date is newer than '|@translate}<span class="revision-date"></span>
+                {'Last revision date is newer than'|@translate}<span class="revision-date"></span>
             </label>
             <div class="advanced-filter-item-container">
                 <div id="revision-date" class="select-bar"></div>
@@ -113,7 +113,7 @@ const str_x_years = '{"%d years"|@translate}';
 
         <div class="advanced-filter-item advanced-filter-certification">
           <label class="advanced-filter-item-label" for="certification-filter">
-              {'Certification higher or equal to '|@translate}
+              {'Certification higher or equal to'|@translate}
               <span><i class="certification" title=""></i></span>
           </label>
           <div class="advanced-filter-item-container">
@@ -187,7 +187,7 @@ const str_x_years = '{"%d years"|@translate}';
           </div>
         {/if}
         <div class="pluginDownload" title="{$plugin.DOWNLOADS} {'Downloads'|@translate}"><i class="icon-download">{$plugin.DOWNLOADS}</i></div>
-        <div class="pluginDownload" title="{'Version'|@translate} {$plugin.VERSION}"><i class="icon-flow-branch"></i>{'Version'|@translate} {$plugin.VERSION}</div>
+        <div class="pluginDownload" title="{'Version %s'|@translate:$plugin.VERSION}"><i class="icon-flow-branch"></i>{'Version %s'|@translate:$plugin.VERSION}</div>
         <a class="pluginLink" href="{$plugin.EXT_URL}"><i class="icon-link"></i>{'Website'|@translate}</a>
       </div>
 

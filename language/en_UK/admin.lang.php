@@ -1242,6 +1242,13 @@ $lang['No access to administration, can see private content with appropriate per
 $lang['Can be shared by several individuals without conflict (they cannot change the password).'] = 'Can be shared by several individuals without conflict (they cannot change the password).';
 $lang['Equivalent to deactivation. The user is still in the list, but can no longer log in.'] = 'Equivalent to deactivation. The user is still in the list, but can no longer log in.';
 $lang['%s MB'] = '%s MB';
+$lang['All of them'] = 'All';
+$lang['Show beta test plugins'] = 'Show beta test plugins';
+$lang['Rating greater than'] = 'Rating greater than';
+$lang['Last revision date is newer than'] = 'Last revision date is newer than';
+$lang['Certification higher or equal to'] = 'Certification higher or equal to';
+$lang['On %d rating(s)'] = 'On %d rating(s)';
+$lang['Version %s'] = 'Version %s';
 $lang['Your selection'] = 'Your selection';
 $lang['action successfully performed.'] = 'action successfully performed.';
 $lang['%s lines'] = "%s lines";
@@ -1265,3 +1272,5 @@ $lang['Downloaded'] = 'Downloaded';
 $lang['Personnalized filters'] = 'Personnalized filters';
 $lang['Object'] = 'Object';
 $lang['Memories'] = 'Souvenirs';
+
+// Leave this line empty
