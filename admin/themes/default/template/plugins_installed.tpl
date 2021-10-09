@@ -93,7 +93,13 @@ jQuery(document).ready(function() {
       dataType: 'json',
       success: function(data) {
         for (i=0;i<data.length;i++) {
-          jQuery('#'+data[i]+' .pluginMiniBoxNameCell').prepend('<i class="icon-attention" title="'+incompatible_msg+'"></i> ');
+          {/literal}
+          {if $show_details}
+            jQuery('#'+data[i]+' .pluginName').prepend('<a class="warning" title="'+incompatible_msg+'"></a>')
+          {else}
+            jQuery('#'+data[i]+' .pluginName').prepend('<span class="warning" title="'+incompatible_msg+'"></span>')
+          {/if}
+          {literal}
           jQuery('#'+data[i]).addClass('incompatible');
           jQuery('#'+data[i]+' .activate').each(function () {
             $(this).pwg_jconfirm_follow_href({
@@ -120,21 +126,6 @@ jQuery(document).ready(function() {
     'keepAlive':false,
   });
 
-  /* Add the '...' for the overflow of the description line*/
-  jQuery( document ).ready(function () {
-    jQuery('.pluginDesc').each(function () {
-      var el = jQuery(this).context;
-      var wordArray = el.innerHTML.split(' ');
-      if (el.scrollHeight > el.offsetHeight) {
-        jQuery(this).attr('title', jQuery(this).html())
-      }
-      while(el.scrollHeight > el.offsetHeight) {
-          wordArray.pop();
-          el.innerHTML = wordArray.join(' ') + '...';
-      }
-    })
-  });
-
   /*Add the filter research*/
   jQuery( document ).ready(function () {
     document.onkeydown = function(e) {
@@ -152,7 +143,7 @@ jQuery(document).ready(function() {
       var searchInactive = 0;
       var searchOther = 0;
       
-        $(".pluginMiniBox").each(function() {
+        $(".pluginBox").each(function() {
           if (text == "") {
             jQuery(".nbPluginsSearch").hide();
             if ($("#seeAll").is(":checked")) {
@@ -185,8 +176,8 @@ jQuery(document).ready(function() {
             nb_plugin.other = searchOther;
 
           } else {
+            let name = jQuery(this).find(".pluginName").text().toLowerCase();
             jQuery(".nbPluginsSearch").show();
-            let name = jQuery(this).find(".pluginMiniBoxNameCell").text().toLowerCase();
             let description = jQuery(this).find(".pluginDesc").text().toLowerCase();
             if (name.search(text) != -1 || description.search(text) != -1){
               searchNumber++;
@@ -249,7 +240,7 @@ jQuery(document).ready(function() {
 
 $(document).mouseup(function (e) {
   e.stopPropagation();
-  $(".pluginMiniBox").each(function() {  
+  $(".pluginBox").each(function() {  
     if ($(this).find(".showOptions").has(e.target).length === 0) {
       $(this).find(".PluginOptionsBlock").hide();
     }
@@ -257,8 +248,36 @@ $(document).mouseup(function (e) {
 });
 
 function actualizeFilter() {
-
     $("label[for='seeAll'] .filter-badge").html(nb_plugin.all);
+    $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
+    $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
+    $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+    //console.log(nb_plugin)
+    $(".filterLabel").show();
+    $(".pluginMiniBox").each(function () {
+        if (nb_plugin.active == 0) {
+            $("label[for='seeActive']").hide();
+            if ($("#seeActive").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+        if (nb_plugin.inactive == 0) {
+            $("label[for='seeInactive']").hide();
+            if ($("#seeInactive").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+        if (nb_plugin.other == 0) {
+            $("label[for='seeOther']").hide();
+            if ($("#seeOther").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+    })
+}
+
+jQuery(".pluginBox").each(function(index){
+
     $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
     $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
     $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
@@ -347,7 +366,7 @@ jQuery(".pluginMiniBox").each(function(index){
     {assign var='version' value=$plugin.VERSION}
   {/if}
 
-  <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE} plugin-{$plugin.STATE}">
+<div id="{$plugin.ID}" class="pluginBox pluginMiniBox {$plugin.STATE} plugin-{$plugin.STATE}">
 
     <div class="AddPluginSuccess pluginNotif">
       <label class="icon-ok">
@@ -426,7 +445,7 @@ jQuery(".pluginMiniBox").each(function(index){
           <a class="dropdown-option icon-back-in-time plugin-restore separator-top">{'Restore'|@translate}</a>
           <a class="dropdown-option icon-trash delete-plugin-button separator-top">{'Delete'|@translate}</a>
       </div>
-      <div class="pluginMiniBoxNameCell" data-title="{$plugin.NAME}">
+      <div class="pluginName" data-title="{$plugin.NAME}">
         {$plugin.NAME}
       </div>
       <div class="pluginDesc">
@@ -530,7 +549,7 @@ jQuery(".pluginMiniBox").each(function(index){
   display: flex;
 }
 
-.pluginMiniBox.active .pluginActionsSmallIcons a span {
+.pluginBox.active .pluginActionsSmallIcons a span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -539,7 +558,7 @@ jQuery(".pluginMiniBox").each(function(index){
   border-radius: 5px;
 }
 
-.pluginMiniBox.active .pluginActionsSmallIcons a span:hover {
+.pluginBox.active .pluginActionsSmallIcons a span:hover {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -548,7 +567,7 @@ jQuery(".pluginMiniBox").each(function(index){
   border-radius: 5px;
 }
 
-.pluginMiniBox.inactive .pluginActionsSmallIcons a span {
+.pluginBox.inactive .pluginActionsSmallIcons a span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -562,7 +581,7 @@ jQuery(".pluginMiniBox").each(function(index){
   text-decoration: none;
 }
 
-.pluginMiniBox {
+.pluginBox {
   transition: 0.5s;
   position: relative;
 }
@@ -669,26 +688,26 @@ jQuery(".pluginMiniBox").each(function(index){
   background: transparent;
 }
 
-.pluginContainer.line .pluginMiniBox {
+.pluginContainer.line .pluginBox {
   width: 100%;
   height: 50px;
 
   margin: 0 0 10px 0;
 }
 
-.pluginContainer.line .pluginMiniBox .pluginContent{
+.pluginContainer.line .pluginBox .pluginContent{
   display: flex;
   flex-direction: row;
   align-items: center;
   width: calc(100% - 35px);
 }
 
-.pluginContainer.line .pluginMiniBox .pluginActions{
+.pluginContainer.line .pluginBox .pluginActions{
   width: auto;
   margin: 0 25px 0 auto;
 }
 
-.pluginContainer.line .pluginMiniBox .PluginOptionsBlock{
+.pluginContainer.line .pluginBox .PluginOptionsBlock{
   display:none;
   position:absolute;
   right: 30px;
@@ -697,7 +716,7 @@ jQuery(".pluginMiniBox").each(function(index){
   transform: translateY(calc(50% - 30px));
 }
 
-.pluginContainer.line .pluginMiniBox .dropdown::after {
+.pluginContainer.line .pluginBox .dropdown::after {
   content: " ";
   position: absolute;
   bottom: 55%;
@@ -710,15 +729,15 @@ jQuery(".pluginMiniBox").each(function(index){
 }
 
 
-.pluginContainer.line .pluginMiniBox .pluginActions a,
-.pluginContainer.classic .pluginMiniBox .pluginActions a{
+.pluginContainer.line .pluginBox .pluginActions a,
+.pluginContainer.classic .pluginBox .pluginActions a{
   margin: 0;
   padding: 2px 10px;
   border-radius: 5px;
   color: #3c3c3c;
 }
 
-.pluginContainer.line .pluginMiniBox .pluginDesc{
+.pluginContainer.line .pluginBox .pluginDesc{
   margin:  auto 10px auto 10px;
   display: block !important;
   align-items: center;
@@ -740,7 +759,7 @@ jQuery(".pluginMiniBox").each(function(index){
   flex-wrap: wrap;
 }
 
-.pluginContainer.classic .pluginMiniBoxNameCell {
+.pluginContainer.classic .pluginName {
   position: relative;
   margin-right: 10px;
 }
@@ -750,7 +769,7 @@ jQuery(".pluginMiniBox").each(function(index){
   top: 45px;
 }
 
-.pluginContainer.classic .pluginMiniBox .pluginActions {
+.pluginContainer.classic .pluginBox .pluginActions {
   position: absolute;
   top: 47px;
   right: 17px;
@@ -769,13 +788,13 @@ jQuery(".pluginMiniBox").each(function(index){
   flex-wrap: wrap;
 }
 
-.pluginContainer.compact .pluginMiniBox {
+.pluginContainer.compact .pluginBox {
   width: 350px;
 
   margin: 15px 15px 0 0;
 }
 
-.pluginContainer.compact .pluginMiniBox .pluginContent {
+.pluginContainer.compact .pluginBox .pluginContent {
   display: flex;
   flex-direction: row;
 

@@ -13,6 +13,8 @@
 
 {combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 
+{combine_css path="admin/themes/default/css/components/general.css"}
+
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 {footer_script}
@@ -141,7 +143,7 @@ $(".icon-help-circled").tipTip({
       <div class="not-in-selection-mode" style="width: 264px; height:2px">
       </div>
     </div>
-    <div id="advanced_filter_button" class="icon-filter">
+    <div class="advanced-filter-btn icon-filter">
       <span>{'Filters'|@translate}</span>
     </div>
     <div id='search-user'>
@@ -152,47 +154,47 @@ $(".icon-help-circled").tipTip({
           <span class="icon-cancel search-cancel"></span>
           <input id="user_search" class='search-input' type='text' placeholder='{'Search'|@translate}'>
         </div>
-    <div id="advanced-filter-container">
-      <div class="advanced-filters-header">
-        <span class="advanced-filter-title">{'Advanced filters'|@translate}</span>
+    <div class="advanced-filter">
+      <div class="advanced-filter-header">
+        <span class="advanced-filter-title">{'Advanced filter'|@translate}</span>
         <span class="advanced-filter-close icon-cancel"></span>
       </div>
-      <div class="advanced-filters">
-        <div class="advanced-filter-status">
-          <label class="advanced-filter-label">{'Status'|@translate}</label>
-          <div class="advanced-filter-select-container">
+      <div class="advanced-filter-container">
+      <div class="advanced-filter-status advanced-filter-item">
+          <label class="advanced-filter-item-label">{'Status'|@translate}</label>
+          <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_status">
               <option value="" label="" selected></option>
               {html_options options=$pref_status_options}
             </select>
           </div>
         </div>
-        <div class="advanced-filter-level">
-          <label class="advanced-filter-label">{'Privacy level'|@translate}</label>
-          <div class="advanced-filter-select-container">
+        <div class="advanced-filter-level advanced-filter-item">
+          <label class="advanced-filter-item-label">{'Privacy level'|@translate}</label>
+          <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_level" size="1">
               <option value="" label="" selected></option>
               {html_options options=$level_options}
             </select>
           </div>
         </div>
-        <div class="advanced-filter-group">
-          <label class="advanced-filter-label">{'Group'|@translate}</label>
-          <div class="advanced-filter-select-container">
+        <div class="advanced-filter-group advanced-filter-item">
+          <label class="advanced-filter-item-label">{'Group'|@translate}</label>
+          <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_group">
               <option value="" label="" selected></option>
               {html_options options=$association_options}
             </select>
           </div>
         </div>
-        <div class="advanced-filter-date">
+        <div class="advanced-filter-date advanced-filter-item">
           <div class="advanced-filter-date-title" style="display:flex">
-            <span class="advanced-filter-label">{'Registered'|@translate}</span>
+            <span class="advanced-filter-item-label">{'Registered'|@translate}</span>
             <span class='dates-infos'></span>
           </div>
           <div class="dates-select-bar">
-              <div class="select-bar-wrapper">
-                <div class="select-bar-container"></div>
+              <div class="slider-bar-wrapper">
+                <div class="slider-bar-container"></div>
               </div>
             </div>
         </div>
@@ -359,8 +361,8 @@ $(".icon-help-circled").tipTip({
             <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
               <br/>
               <span class="nb-img-page-infos"></span>
-              <div class="select-bar-wrapper">
-                <div class="select-bar-container"></div>
+              <div class="slider-bar-wrapper">
+                <div class="slider-bar-container"></div>
               </div>
               <input name="nb_image_page" />
             </div>
@@ -390,8 +392,8 @@ $(".icon-help-circled").tipTip({
             <div class="user-property-label period-select-bar">{'Recent period'|translate}
               <br />
               <span class="recent_period_infos"></span>
-              <div class="select-bar-wrapper">
-                <div class="select-bar-container"></div>
+              <div class="slider-bar-wrapper">
+                <div class="slider-bar-container"></div>
               </div>
             </div>
           </div>
@@ -635,8 +637,8 @@ $(".icon-help-circled").tipTip({
       </div>
       <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
         <span class="nb-img-page-infos"></span>
-        <div class="select-bar-wrapper">
-          <div class="select-bar-container"></div>
+        <div class="slider-bar-wrapper">
+          <div class="slider-bar-container"></div>
         </div>
         <input name="recent_period" />
       </div>
@@ -658,8 +660,8 @@ $(".icon-help-circled").tipTip({
       </div>
       <div class="user-property-label period-select-bar">{'Recent period'|translate}
         <span class="recent_period_infos"></span>
-        <div class="select-bar-wrapper">
-          <div class="select-bar-container"></div>
+        <div class="slider-bar-wrapper">
+          <div class="slider-bar-container"></div>
         </div>
       </div>
       
@@ -793,8 +795,8 @@ $(".icon-help-circled").tipTip({
         </div>
         <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
           <span class="nb-img-page-infos"></span>
-          <div class="select-bar-wrapper">
-            <div class="select-bar-container"></div>
+          <div class="slider-bar-wrapper">
+            <div class="slider-bar-container"></div>
           </div>
           <input name="recent_period" />
         </div>
@@ -816,8 +818,8 @@ $(".icon-help-circled").tipTip({
         </div>
         <div class="user-property-label period-select-bar">{'Recent period'|translate}
           <span class="recent_period_infos"><!-- 7 days --></span>
-          <div class="select-bar-wrapper">
-            <div class="select-bar-container"></div>
+          <div class="slider-bar-wrapper">
+            <div class="slider-bar-container"></div>
           </div>
         </div>
 
@@ -1388,43 +1390,8 @@ $(".icon-help-circled").tipTip({
   margin-left: 220px;
 }
 
-.advanced-filter-select-container {
-  position: relative;
-  text-align:left;
-  width:100%;
-}
-
 .user-action-select-container {
   position:relative;
-}
-
-
-.select-bar-wrapper {
-    padding-left:10px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-
-.select-bar-wrapper .select-bar-container {
-  height: 2px;
-}
-
-.select-bar-wrapper .ui-slider-horizontal .ui-slider-handle{
-    background-color:#ffaf58;
-    border: 1px solid #ffaf58;
-    border-radius:25px;
-    top: -.7em !important;
-    width: 1.4em;
-    height: 1.4em;
-}
-
-.select-bar-wrapper .ui-slider-horizontal .ui-slider-range {
-  background-color: #ffaf58;
-}
-
-.select-bar-wrapper .ui-slider-horizontal{
-    border:none;
-    border-radius:25px;
 }
 
 .user-list-checkbox {
@@ -1894,22 +1861,10 @@ Advanced filter
   margin-left: 500px;
 }
 
-#advanced_filter_button {
-
-  width: 70px;
-
+.advanced-filter-btn {
   position: absolute;
-  z-index: 2;
   right: 650px;
-
-
-  cursor:pointer;
-  padding:10px;
   margin-right:10px;
-}
-
-#advanced_filter_button.icon-filter::before {
-  transform: scale(1.2);
 }
 
 #search-user {
@@ -1929,7 +1884,7 @@ Advanced filter
   font-size:1em;
 }
 
-.advanced-filters-header {
+.advanced-filter-header {
   display:flex;
   justify-content:space-between;
   margin-bottom:10px;
@@ -1939,18 +1894,7 @@ Advanced filter
   font-weight:bold;
 }
 
-.advanced-filters {
-  display:flex;
-  padding:5px;
-}
-
 .advanced-filter-status, 
-.advanced-filter-level,
-.advanced-filter-group {
-  margin-right: 30px;
-  min-width: 130px;
-}
-
 .advanced-filter-level {
   max-width: 160px;
   width: 16%;
@@ -1977,7 +1921,7 @@ Advanced filter
   flex-direction: row;
 }
 
-.select-bar-wrapper {
+.slider-bar-wrapper {
   margin-top: 12px;
 }
 

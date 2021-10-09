@@ -509,7 +509,7 @@ SELECT
     }
 
     // Retrieve PEM themes infos
-    $url = PEM_URL . '/api/get_revision_list.php';
+    $url = PEM_URL . '/api/get_revision_list-next.php';
     $get_data = array_merge($get_data, array(
       'last_revision_only' => 'true',
       'version' => implode(',', $versions_to_check),

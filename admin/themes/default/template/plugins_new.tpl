@@ -1,123 +1,213 @@
 {combine_script id='jquery.sort' load='footer' path='themes/default/js/plugins/jquery.sort.js'}
 
+{combine_script id='jquery.ui.slider' require='jquery.ui' load='header' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
+{combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
+
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
+
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_script id='pluginsNew' load='footer' require='jquery.ui.effect-blind,jquery.sort' path='admin/themes/default/js/plugins_new.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 
-{footer_script require='jquery.ui.effect-blind,jquery.sort'}
-const install_title = '{'Are you sure you want to install this plugin?'|@translate|@escape:'javascript'}';
-const confirm_msg = '{"Yes, I am sure"|@translate}';
-const cancel_msg = "{"No, I have changed my mind"|@translate}";
-let title = '{'Are you sure you want to install the plugin "%s"?'|@translate|@escape:'javascript'}';
-{literal}
-var sortOrder = 'date';
-var sortPlugins = (function(a, b) {
-  if (sortOrder == 'downloads' || sortOrder == 'revision' || sortOrder == 'date')
-    return parseInt($(a).find('input[name="'+sortOrder+'"]').val())
-      < parseInt($(b).find('input[name="'+sortOrder+'"]').val()) ? 1 : -1;
-  else
-    return $(a).find('input[name="'+sortOrder+'"]').val().toLowerCase()
-      > $(b).find('input[name="'+sortOrder+'"]').val().toLowerCase()  ? 1 : -1;
-});
+{combine_css path="admin/themes/default/css/components/general.css"}
 
-jQuery(document).ready(function(){
-	jQuery("td[id^='desc_']").click(function() {
-		id = this.id.split('_');
-		nb_lines = jQuery("#bigdesc_"+id[1]).html().split('<br>').length;
-
-		jQuery("#smalldesc_"+id[1]).toggle('blind', 1);
-		if (jQuery(this).hasClass('bigdesc')) {
-			jQuery("#bigdesc_"+id[1]).toggle('blind', 1);
-		} else {
-			jQuery("#bigdesc_"+id[1]).toggle('blind', 50 + (nb_lines * 30));
-		}
-		jQuery(this).toggleClass('bigdesc');
-		return false;
-	});
-
-  jQuery('select[name="selectOrder"]').change(function() {
-    sortOrder = this.value;
-    $('.pluginBox').sortElements(sortPlugins);
-    $.get("admin.php?plugins_new_order="+sortOrder);
-  });
-  
-  jQuery('#filter').keyup(function(){
-    var filter = $(this).val();
-    if (filter.length>2) {
-      $('.pluginBox').hide();
-      $('#availablePlugins .pluginBox input[name="name"]').each(function(){
-        if ($(this).val().toUpperCase().indexOf(filter.toUpperCase()) != -1) {
-          $(this).parents('div').show();
-        }
-      });
-    } else {
-      $('.pluginBox').show();
-    }
-  jQuery("#filter").focus();
-  });
-  $(".install-plugin-button").each(function() {
-    let plugin_name = $(this).closest(".pluginBox").find("input[name=\"name\"]").val();
-    $(this).pwg_jconfirm_follow_href({
-      alert_title: title.replace("%s", plugin_name),
-      alert_confirm: confirm_msg,
-      alert_cancel: cancel_msg
-    });
-  });
-});
-{/literal}{/footer_script}
+{footer_script}
+const str_confirm_msg = '{"Yes, I am sure"|@translate}';
+const str_cancel_msg = "{"No, I have changed my mind"|@translate}";
+const str_install_title = '{'Are you sure you want to install the plugin "%s"?'|@translate|@escape:'javascript'}';
+const strs_certification = {
+  "-1" : '{'This plugin is incompatible with your version'|@translate}',
+  "0" : '{'This plugin have no update since 3 years ! It may be outdated'|@translate}',
+  "1" : '{'This plugin has no recent update'|@translate}', 
+  "2" : '{'This plugin was updated less than 6 months ago'|@translate}',
+  "3" : '{'This plugin have been updated recently'|@translate}',
+};
+const str_all = '{"All of them"|@translate}'
+const str_x_month = '{"%d month"|@translate}';
+const str_x_months = '{"%d months"|@translate}';
+const str_x_year = '{"%d year"|@translate}';
+const str_x_years = '{"%d years"|@translate}';
+{/footer_script}
 
 <div class="titrePage">
-<span class="sort">
-<i class="icon-filter"></i> {'Filter'|@translate} <input type="text" id="filter">
-<i class="icon-sort-number-up"></i> {'Sort order'|@translate}
-{html_options name="selectOrder" options=$order_options selected=$order_selected}
-</span>
+  <div class="sort">
+    <div class="sort-actions">
+      <div class="beta-test-plugin-switch">
+        <label class="switch">
+          <input type="checkbox" id="showBetaTestPlugin" {if $BETA_TEST}checked{/if}>
+          <span class="slider round"></span>
+        </label>
+        <label for='showBetaTestPlugin'>{'Show beta test plugins'|@translate}</label>
+      </div>
+      
+      <div class="sort-by">
+      <label>{'Sort order'|@translate}</label>
+      <div class="select-container">
+        {html_options name="selectOrder" options=$order_options selected=$order_selected}
+      </div>
+      </div>
+      
+      <div class="advanced-filter-btn icon-filter"> <span>{'Filters'|@translate}</span></div>
+      
+      <div id="search-plugin">
+          <span class="icon-search search-icon"> </span>
+          <span class="icon-cancel search-cancel"></span>
+          <input class="search-input" type="text" placeholder="{'Search'|@translate}" id="search">
+      </div>
+    
+    </div>
+
+    <div class="advanced-filter advanced-filter-new-plugin">
+      <div class="advanced-filter-header">
+        <span class="advanced-filter-title">{'Advanced filter'|@translate}</span>
+        <span class="advanced-filter-close icon-cancel"></span>
+      </div>
+      <div class="advanced-filter-container">
+        
+        <div class="advanced-filter-item advanced-filter-author">
+          <label class="advanced-filter-item-label" for="author-filter">{'Author'|@translate}</label>
+          <div class="advanced-filter-item-container">
+            <select name="author-filter" id="author-filter"></select>
+          </div>
+        </div>
+
+        <div class="advanced-filter-item advanced-filter-tag">
+          <label class="advanced-filter-item-label" for="tag-filter">{'Tag'|@translate}</label>
+          <div class="advanced-filter-item-container">
+            <select name="tag-filter" id="tag-filter"></select>
+          </div>
+        </div>
+
+        <div class="advanced-filter-item advanced-filter-rating">
+          <label class="advanced-filter-item-label" for="notation-filter">
+            {'Rating greater than'|@translate}
+            <span class="rating-star-container">
+              <span data-star="0"><i></i></span>
+              <span data-star="1"><i></i></span>
+              <span data-star="2"><i></i></span>
+              <span data-star="3"><i></i></span>
+              <span data-star="4"><i></i></span>
+            </span>
+          </label>
+          <div class="advanced-filter-item-container">
+            <div id="notation-filter" class="select-bar"></div>
+            <div class="slider-bar-wrapper">
+            <div class="slider-bar-container notation-filter-slider"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="advanced-filter-item advanced-filter-revision-date">
+            <label class="advanced-filter-item-label" for="revision-date-filter">
+                {'Last revision date is newer than '|@translate}<span class="revision-date"></span>
+            </label>
+            <div class="advanced-filter-item-container">
+                <div id="revision-date" class="select-bar"></div>
+                <div class="slider-bar-wrapper">
+                    <div class="slider-bar-container revision-date-filter-slider"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="advanced-filter-item advanced-filter-certification">
+          <label class="advanced-filter-item-label" for="certification-filter">
+              {'Certification higher or equal to '|@translate}
+              <span><i class="certification" title=""></i></span>
+          </label>
+          <div class="advanced-filter-item-container">
+            <div id="certification-filter" class="select-bar"></div>
+              <div class="slider-bar-wrapper">
+                  <div class="slider-bar-container certification-filter-slider"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <h2>{'Plugins'|@translate}</h2>
 </div>
 
 {if not empty($plugins)}
 <div id="availablePlugins">
-<fieldset>
-<legend></legend>
+
+{assign var='color_tab' value=["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"]}
+
 {foreach from=$plugins item=plugin name=plugins_loop}
-<div class="pluginBox" id="plugin_{$plugin.ID}">
-<input type="hidden" name="date" value="{$plugin.ID}">
-<input type="hidden" name="name" value="{$plugin.EXT_NAME}">
-<input type="hidden" name="revision" value="{$plugin.REVISION_DATE}">
-<input type="hidden" name="downloads" value="{$plugin.DOWNLOADS}">
-<input type="hidden" name="author" value="{$plugin.AUTHOR}">
-  <table>
-    <tr>
-      <td class="pluginBoxNameCell">{$plugin.EXT_NAME}</td>
-{if $plugin.BIG_DESC != $plugin.SMALL_DESC}
-      <td id="desc_{$plugin.ID}" class="pluginDesc">
-        <span id="smalldesc_{$plugin.ID}">
-          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif" alt="">{$plugin.SMALL_DESC}...
-        </span>
-        <span id="bigdesc_{$plugin.ID}" style="display:none;">
-          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif" alt="">{$plugin.BIG_DESC|@nl2br}<br>&nbsp;
-        </span>
-      </td>
-{else}
-      <td>{$plugin.BIG_DESC|@nl2br}</td>
-{/if}
-    </tr>
-    <tr>
-      <td>
-        <a href="{$plugin.URL_INSTALL}" class="install-plugin-button">{'Install'|@translate}</a>
-        |  <a href="{$plugin.URL_DOWNLOAD}">{'Download'|@translate}</a>
-      </td>
-      <td>
-        <em>{'Downloads'|@translate}: {$plugin.DOWNLOADS}</em>
-        {'Version'|@translate} {$plugin.VERSION}
-        | {'By %s'|@translate:$plugin.AUTHOR}
-        | <a class="externalLink" href="{$plugin.EXT_URL}">{'Visit plugin site'|@translate}</a>
-      </td>
-    </tr>
-  </table>
+<div class="pluginBox pluginBigBox" id="plugin_{$plugin.ID}"
+  data-id="{$plugin.ID}"
+  data-date="{$plugin.ID}"
+  data-name="{$plugin.EXT_NAME}"
+  data-revision="{$plugin.REVISION_DATE}"
+  data-downloads="{$plugin.DOWNLOADS}"
+  data-author="{$plugin.AUTHOR}"
+  data-tags="{implode(', ', $plugin.TAGS)}"
+>
+  <div class="pluginContent">
+    <div class="pluginImage">
+      {if $plugin.SCREENSHOT == ''}
+        <span class="noImage {$color_tab[$plugin.ID%5]}"><i class="icon-puzzle"></i></span>
+      {else}
+        <span class="screenshot" style="background-image: url({$plugin.SCREENSHOT});"></span>
+      {/if}
+    </div>
+    <div class="pluginInfo">
+      <div>
+        <div class="pluginName">
+          <span title="{$plugin.EXT_NAME}">{$plugin.EXT_NAME}</span>
+          <i class="certification" data-certification={$plugin.CERTIFICATION}
+            {if $plugin.CERTIFICATION == 3}
+              title="{'This plugin have been updated recently'|@translate}"
+            {elseif $plugin.CERTIFICATION == 2}
+              title="{'This plugin was updated less than 6 months ago'|@translate}"
+            {elseif $plugin.CERTIFICATION == 1}
+              title="{'This plugin has no recent update'|@translate}"
+            {elseif $plugin.CERTIFICATION == 0}
+              title="{'This plugin have no update since 3 years ! It may be outdated'|@translate}"
+            {elseif $plugin.CERTIFICATION == -1}
+              title="{'  This plugin is incompatible with your version'|@translate}"
+            {/if}
+          ></i>
+        </div>
+        <div class="pluginAuthorVersion">{'By %s'|@translate:$plugin.AUTHOR}</div>
+      </div>
+
+      <div>
+        {if !is_null($plugin.RATING)}
+          <div class="pluginRating" data-rating="{$plugin.RATING}" title="{'On %d rating(s)'|@translate:$plugin.NB_RATINGS}">
+            <div class="rating-star-container">
+              <span data-star="0"><i></i></span>
+              <span data-star="1"><i></i></span>
+              <span data-star="2"><i></i></span>
+              <span data-star="3"><i></i></span>
+              <span data-star="4"><i></i></span>
+            </div>
+            <span class="rating">{$plugin.RATING}</span>
+          </div>
+        {/if}
+        <div class="pluginDownload" title="{$plugin.DOWNLOADS} {'Downloads'|@translate}"><i class="icon-download">{$plugin.DOWNLOADS}</i></div>
+        <div class="pluginDownload" title="{'Version'|@translate} {$plugin.VERSION}"><i class="icon-flow-branch"></i>{'Version'|@translate} {$plugin.VERSION}</div>
+        <a class="pluginLink" href="{$plugin.EXT_URL}"><i class="icon-link"></i>{'Website'|@translate}</a>
+      </div>
+
+      <div class="pluginInstall">
+        <a class="buttonLike buttonInstall" href="{$plugin.URL_INSTALL}"><i class="icon-plus-circled"></i>{'Add'|@translate}</a>
+      </div>
+    </div>
+    <div class="pluginMoreInfo">
+      <div class="pluginTags" title="{'Tags'|@translate} : {implode(', ', $plugin.TAGS)}">
+      {foreach from=$plugin.TAGS key=tag_id item=tag_label}
+        <span data-id="{$tag_id}">{$tag_label}</span>
+      {/foreach}
+      </div>
+      <div class="pluginDesc" >
+      {$plugin.BIG_DESC|@nl2br}
+      </div>
+    </div>
+  </div>
 </div>
 {/foreach}
-</fieldset>
 </div>
 {else}
 <p>{'There is no other plugin available.'|@translate}</p>

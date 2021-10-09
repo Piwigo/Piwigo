@@ -191,7 +191,7 @@ $("#update_all").click(function() {
 <div class="pluginBox" id="plugins_{$plugin.EXT_ID}" {if $plugin.IGNORED}style="display:none;"{/if}>
   <table>
     <tr>
-      <td class="pluginBoxNameCell">
+      <td class="pluginName">
         {$plugin.EXT_NAME}
       </td>
       <td>
@@ -233,7 +233,7 @@ $("#update_all").click(function() {
 <div class="pluginBox" id="themes_{$theme.EXT_ID}" {if $theme.IGNORED}style="display:none;"{/if}>
   <table>
     <tr>
-      <td class="pluginBoxNameCell">
+      <td class="pluginName">
         {$theme.EXT_NAME}
       </td>
       <td>
@@ -275,7 +275,7 @@ $("#update_all").click(function() {
 <div class="pluginBox" id="languages_{$language.EXT_ID}" {if $language.IGNORED}style="display:none;"{/if}>
   <table>
     <tr>
-      <td class="pluginBoxNameCell">
+      <td class="pluginName">
         {$language.EXT_NAME}
       </td>
       <td>

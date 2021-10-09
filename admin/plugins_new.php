@@ -81,7 +81,15 @@ $template->assign('order_options',
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-if ($plugins->get_server_plugins(true))
+
+$beta_test = false;
+
+if(isset($_GET['beta-test']) && $_GET['beta-test'] == 'true') 
+{
+  $beta_test = true;
+}
+
+if ($plugins->get_server_plugins(true, $beta_test))
 {
   /* order plugins */
   if (pwg_get_session_var('plugins_new_order') != null)
@@ -107,6 +115,27 @@ if ($plugins->get_server_plugins(true))
       . '&amp;pwg_token='.get_pwg_token()
     ;
 
+    $last_revision_diff = date_diff(date_create($plugin['revision_date']), date_create());
+
+    $certification = 1;
+
+    if (get_branch_from_version($plugin['compatible_with_versions'][0]) !== get_branch_from_version(PHPWG_VERSION)) 
+    {
+      $certification = -1;
+    } 
+    elseif ($last_revision_diff->days < 90)
+    {
+      $certification = 3;
+    }
+    elseif ($last_revision_diff->days < 180) 
+    {
+      $certification = 2;
+    }
+    elseif ($last_revision_diff->y > 3)
+    {
+      $certification = 0;
+    }
+
     $template->append('plugins', array(
       'ID' => $plugin['extension_id'],
       'EXT_NAME' => $plugin['extension_name'],
@@ -114,12 +143,21 @@ if ($plugins->get_server_plugins(true))
       'SMALL_DESC' => trim($small_desc, " \r\n"),
       'BIG_DESC' => $ext_desc,
       'VERSION' => $plugin['revision_name'],
-      'REVISION_DATE' => preg_replace('/[^0-9]/', '', $plugin['revision_date']),
+      'REVISION_DATE' => preg_replace('/[^0-9]/', '', strtotime($plugin['revision_date'])),
       'AUTHOR' => $plugin['author_name'],
       'DOWNLOADS' => $plugin['extension_nb_downloads'],
       'URL_INSTALL' => $url_auto_install,
-      'URL_DOWNLOAD' => $plugin['download_url'] . '&amp;origin=piwigo_download'));
+      'CERTIFICATION' => $certification,
+      'RATING' => $plugin['rating_score'],
+      'NB_RATINGS' => $plugin['nb_ratings'],
+      'SCREENSHOT' => (key_exists('screenshot_url', $plugin)) ? $plugin['screenshot_url']:'',
+      'TAGS' => $plugin["tags"],
+    ));
+
+    $template->assign('BETA_TEST', $beta_test);
   }
+
+  
 }
 else
 {

@@ -6,7 +6,7 @@ function setDisplayClassic() {
     $(".pluginActions").show();
     $(".pluginActionsSmallIcons").hide();
 
-    $(".pluginMiniBoxNameCell").removeClass("pluginMiniBoxNameCellCompact");
+    $(".pluginName").removeClass("pluginNameCompact");
 
     // normalTitle();
 }
@@ -19,7 +19,7 @@ function setDisplayCompact() {
     $(".pluginActions").hide();
     $(".pluginActionsSmallIcons").show();
 
-    $(".pluginMiniBoxNameCell").addClass("pluginMiniBoxNameCellCompact");
+    $(".pluginName").addClass("pluginNameCompact");
 
     // reduceTitle()
 }
@@ -35,7 +35,7 @@ function setDisplayLine() {
 }
 
 function reduceTitle() {
-    var x = document.getElementsByClassName("pluginMiniBoxNameCell");
+    var x = document.getElementsByClassName("pluginName");
     var length = 22;
 
     for (const div of x) {
@@ -51,7 +51,7 @@ function reduceTitle() {
 }
 
 function normalTitle() {
-    var x = document.getElementsByClassName("pluginMiniBoxNameCell");
+    var x = document.getElementsByClassName("pluginName");
 
     for (const div of x) {
         div.innerHTML = div.dataset.title
@@ -277,13 +277,13 @@ $(document).ready(function () {
 
 
     $("#seeAll").on("change", function () {
-        $(".pluginMiniBox").show();
+        $(".pluginBox").show();
         $('.search-input').trigger("input");
     })
 
     $("#seeActive").on("change", function () {
-        $(".pluginMiniBox").show();
-        $(".pluginMiniBox").each(function () {
+        $(".pluginBox").show();
+        $(".pluginBox").each(function () {
             if (!$(this).hasClass("plugin-active")) {
                 $(this).hide();
             }
@@ -292,8 +292,8 @@ $(document).ready(function () {
     })
 
     $("#seeInactive").on("change", function () {
-        $(".pluginMiniBox").show();
-        $(".pluginMiniBox").each(function () {
+        $(".pluginBox").show();
+        $(".pluginBox").each(function () {
             if (!$(this).hasClass("plugin-inactive")) {
                 $(this).hide();
             }
@@ -302,8 +302,8 @@ $(document).ready(function () {
     })
 
     $("#seeOther").on("change", function () {
-        $(".pluginMiniBox").show();
-        $(".pluginMiniBox").each(function () {
+        $(".pluginBox").show();
+        $(".pluginBox").each(function () {
             if (($(this).hasClass("plugin-active") || $(this).hasClass("plugin-inactive"))) {
                 $(this).hide();
             }
@@ -360,7 +360,7 @@ $(document).ready(function () {
      * Delete
      */
     $(".pluginContent").find('.dropdown-option.delete-plugin-button').on('click', function () {
-        let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
+        let plugin_name = $(this).closest(".pluginContent").find(".pluginName").html().trim();
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
         $.confirm({
           title: delete_plugin_msg.replace("%s",plugin_name),
@@ -384,7 +384,7 @@ $(document).ready(function () {
        * Restore
        */
       $(".pluginContent").find('.dropdown-option.plugin-restore').on('click', function () {
-        let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
+        let plugin_name = $(this).closest(".pluginContent").find(".pluginName").html().trim();
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
         $.confirm({
           title: restore_plugin_msg.replace('%s', plugin_name),
@@ -408,7 +408,7 @@ $(document).ready(function () {
        * Uninstall
        */
       $(".pluginContent").find('.uninstall-plugin-button').on('click', function () {
-        let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
+        let plugin_name = $(this).closest(".pluginContent").find(".pluginName").html().trim();
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
         $.confirm({
           title: uninstall_plugin_msg.replace('%s', plugin_name),
