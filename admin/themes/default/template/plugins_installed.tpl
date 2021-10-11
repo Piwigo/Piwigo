@@ -482,8 +482,11 @@ jQuery(".pluginMiniBox").each(function(index){
 
 .unavailablePlugin:hover {
   cursor: default;
-  color: #7f7f7f !important;
-  opacity: 0.5;
+  color: #3a3a3a !important;
+}
+
+.pluginUnavailableAction {
+  text-decoration: none !important;
 }
 
 .pluginDescCompact {
