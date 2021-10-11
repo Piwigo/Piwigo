@@ -192,6 +192,7 @@ function fillHistoryResult(ajaxParam) {
       showResults(false);
       $(".loading").removeClass("hide");
       $(".noResults").hide();
+      $(".tab").empty();
     },
     success: function (raw_data) {
       

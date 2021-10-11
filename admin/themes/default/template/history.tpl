@@ -190,8 +190,8 @@ const guest_id = {$guest_id};
         <span class="type-icon"> <i class="icon-file-image"> </i> </span>
         <span class="icon-ellipsis-vert toggle-img-option">
           <div class="img-option">
-            <span class="add-img-as-filter"> {'Add a filter'|translate} </span>
-            <a class="edit-img" href="">{'Edit'|@translate}</a>
+            <a class="add-img-as-filter icon-filter"> {'Add a filter'|translate} </a>
+            <a class="edit-img icon-pencil" href="">{'Edit'|@translate}</a>
           </div>
         </span>
 
@@ -570,7 +570,7 @@ jQuery(document).ready( function() {
   position: absolute;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(130deg, #dddddd 0%, #f5f5f5 100%);
+  background: linear-gradient(130deg, #ff7700 0%, #ffa744 100%);
   left: 20px;
   top: -80%;
   width: max-content;
@@ -580,10 +580,8 @@ jQuery(document).ready( function() {
 .img-option span, .img-option a {
   padding: 5px 10px;
   text-decoration: none;
-}
-
-.img-option a:hover {
-  color: #3a3a3a;
+  color: white;
+  font-weight: 600;
 }
 
 .img-option:after {
@@ -594,16 +592,23 @@ jQuery(document).ready( function() {
   transform: rotate(270deg);
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #dddddd transparent;
+  border-color: transparent transparent #ff7700 transparent;
 }
 
-.img-option span:hover:first-child {
-  background: linear-gradient(130deg, #bbbbbb 0%, #e5e5e5 100%);
+.img-option a:first-child::before {
+  margin-right: -1px;
+}
+
+.img-option a:hover:first-child {
+  color: white;
+  background-color: #00000012;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+
 .img-option a:hover:last-child {
-  background: linear-gradient(130deg, #bbbbbb 0%, #e5e5e5 100%);
+  color: white;
+  background-color: #00000012;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
