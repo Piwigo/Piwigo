@@ -144,6 +144,7 @@ function fillUserFilter(user_tab) {
   jQuery(".user-selecter")[0].selectize.setValue(null);
 
   jQuery(".cancel-icon").click(function() {
+    console.log("ytop")
     jQuery(".user-selecter")[0].selectize.setValue(null);
   });
 }
@@ -632,7 +633,6 @@ function setCreationDate(startDate, endDate) {
 $(document).ready(function () {
 
     $('select').on('change', function (user) {
-      console.log($(".selectize-input .item")[0].innerText.split(" ")[0])
         try {
             filterUsers($(".selectize-input .item")[0].innerText.split(" ")[0]);
         } catch (error) {
