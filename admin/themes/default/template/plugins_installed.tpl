@@ -223,7 +223,7 @@ jQuery(".pluginMiniBox").each(function(index){
 {counter start=0 assign=i} {* <!-- counter for 'deactivate all' link --> *}
 
 <div class="pluginTypeFilter">
-  <input type="radio" name="p-filter" class="filter" id="seeAll"><label for="seeAll">{'All'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeActive" checked><label class="filterLabel" for="seeActive">{'Activated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeInactive"><label class="filterLabel" for="seeInactive">{'Deactivated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeOther"><label class="filterLabel" for="seeOther">{'Other'|@translate}<span class="filter-badge">X</span></label>
+<input type="radio" name="p-filter" class="filter" id="seeAll" {if $count_types_plugins["active"] <= 0} checked {/if}><label for="seeAll">{'All'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeActive" {if $count_types_plugins["active"] > 0} checked {/if}><label class="filterLabel" for="seeActive">{'Activated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeInactive"><label class="filterLabel" for="seeInactive">{'Deactivated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeOther"><label class="filterLabel" for="seeOther">{'Other'|@translate}<span class="filter-badge">X</span></label>
 </div>
 
 <div class="pluginFilter"> 

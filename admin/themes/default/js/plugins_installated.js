@@ -307,11 +307,16 @@ $(document).ready(function () {
     /* Plugin Filters */
 
     // Set filter on Active on load
-    $(".pluginMiniBox").each(function () {
-      if (!$(this).hasClass("plugin-active")) {
-          $(this).hide();
-      }
-    })
+    if (nb_plugin.active > 0) {
+      $(".pluginMiniBox").each(function () {
+        if (!$(this).hasClass("plugin-active")) {
+            $(this).hide();
+        }
+      })
+    } else {
+      $(".pluginMiniBox").show();
+    }
+
 
     $("#seeAll").on("change", function () {
         console.log("All");
