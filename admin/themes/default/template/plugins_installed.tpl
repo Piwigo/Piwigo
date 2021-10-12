@@ -302,7 +302,7 @@ jQuery(".pluginMiniBox").each(function(index){
             </div>
           {else}
             <div class="tiptip" title="{'N/A'|translate}">
-              <a class="icon-cog unavailablePlugin"></a>
+              <a><i class="icon-cog"></i></a>
             </div>
           {/if}
         {elseif $plugin.STATE == 'inactive'}
@@ -311,8 +311,8 @@ jQuery(".pluginMiniBox").each(function(index){
                   <a href="{$plugin.SETTINGS_URL}"><span class="icon-cog"></span></a>
               </div>
           {else}
-              <div class="tiptip" title="{'Settings'|@translate}"> 
-                <a href="{$plugin.SETTINGS_URL}"><span class="icon-cog"></span></a>
+              <div class="tiptip" title="{'N/A'|@translate}"> 
+                  <a><i class="icon-cog"></i></a>
               </div>
           {/if}
         {elseif $plugin.STATE == 'missing'}
