@@ -1430,6 +1430,16 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color:#333;
 }
 
+.user-property-button a {
+  color: #c1c1c1;
+  /* text-decoration: none; */
+}
+
+.user-property-button a:hover {
+  color: #f70;
+  /* text-decoration: none; */
+}
+
 .user-property-input {
   color:#c1c1c1;
   background-color:#333;
