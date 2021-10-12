@@ -1245,6 +1245,27 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #111;
 }
 
+.AddPluginSuccess span,
+.RestorePluginSuccess span,
+.DeactivatePluginSuccess span {
+  color: #c2f5c2;
+}
+
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label {
+  color: #c2f5c2;
+  background-color: #0a0;
+}
+
+.PluginActionError span {
+  color: #ffd5dc
+}
+
+.PluginActionError label {
+  background-color:  #f22;
+  color: #ffd5dc
+}
 
 .addAlbum label{
   color:#aaa;

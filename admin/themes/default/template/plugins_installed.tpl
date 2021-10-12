@@ -554,31 +554,17 @@ jQuery(".pluginMiniBox").each(function(index){
   white-space: nowrap;
 }
 
-.AddPluginSuccess span,
-.RestorePluginSuccess span,
-.DeactivatePluginSuccess span {
-  color: #0a0;
-}
-
 .AddPluginSuccess label,
 .DeactivatePluginSuccess label,
 .RestorePluginSuccess label {
   padding: 10px;
-  background-color:  #c2f5c2;
   cursor: default;
-  color: #0a0;
   border-radius: 30px;
-}
-
-.PluginActionError span {
-  color: rgb(170, 0, 0);
 }
 
 .PluginActionError label {
   padding: 10px;
-  background-color:  #f5c2c2;
   cursor: default;
-  color: rgb(170, 0, 0);
   border-radius: 30px;
 }
 

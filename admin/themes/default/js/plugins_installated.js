@@ -87,7 +87,7 @@ function activatePlugin(id) {
             if (data.stat == 'ok') {
                 let pluginName = id;
                 $("#" + id + " .pluginNotif").stop(false, true);
-                $("#" + id + " .AddPluginSuccess label span:first").html(plugin_added_str.replace("%s", pluginName));
+                $("#" + id + " .AddPluginSuccess label span:first").html(plugin_added_str);
                 $("#" + id + " .AddPluginSuccess").css("display", "flex");
 
                 nb_plugin.active += 1;
@@ -128,7 +128,7 @@ function disactivatePlugin(id) {
             if (data.stat == 'ok') {
                 let pluginName = id;
                 $("#" + id + " .pluginNotif").stop(false, true);
-                $("#" + id + " .DeactivatePluginSuccess label span:first").html(plugin_deactivated_str.replace("%s", pluginName));
+                $("#" + id + " .DeactivatePluginSuccess label span:first").html(plugin_deactivated_str);
                 $("#" + id + " .DeactivatePluginSuccess").css("display", "flex");
 
                 nb_plugin.inactive += 1;
@@ -209,7 +209,7 @@ function restorePlugin(id) {
             if (data.stat == 'ok') {
                 let pluginName = id;
                 $("#" + id + " .pluginNotif").stop(false, true);
-                $("#" + id + " .RestorePluginSuccess label span:first").html(plugin_restored_str.replace("%s", pluginName));
+                $("#" + id + " .RestorePluginSuccess label span:first").html(plugin_restored_str);
                 $("#" + id + " .RestorePluginSuccess").css("display", "flex");
             }
         }, 
