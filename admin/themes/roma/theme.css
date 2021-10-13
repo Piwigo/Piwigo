@@ -470,6 +470,16 @@ label>p.group_select {
   border:1px solid #d5d5d5;
 }
 
+#addGroupNameInput {
+  color: #353535 !important;
+  background-color: #252525 !important;
+  border: none !important;
+}
+
+#addGroupNameInput::placeholder {
+  color: #777 !important;
+}
+
 .groups .AddUser .icon-user-add::before{
   background-color:#f3f3f3;
   color:#e0e0e0;
@@ -833,6 +843,15 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .buttonSeparator {color: #c1c1c1;}
 #cboxTitle {color: #7f7f7f !important;}
 #addAlbumForm {color: #999;}
+.addAlbum form input {
+  color: #777 !important;
+  background-color: #252525 !important;
+  border: none !important;
+}
+.addAlbum form input::placeholder {
+  color: #777 !important;
+}
+
 #uploadForm li.plupload_droptext {background-color: #343434!important; color: #777 !important;}
 .addFilesButtonChanged {background-color: #888;}
 .addFilesButtonChanged:hover {background-color: #777;}

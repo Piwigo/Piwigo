@@ -205,7 +205,6 @@ jQuery(document).ready(function(){
 
 .addAlbum form input {
   border: none;
-  box-shadow: 0px 2px 3px #00000024;
   border-radius: 5px;
 
   margin: 0px 10px;

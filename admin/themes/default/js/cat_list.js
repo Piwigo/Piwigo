@@ -382,7 +382,7 @@ function setDisplayTile() {
 
     $(".addAlbum form label").css({
         display: "flex",
-        margin: "-20px 0 0 10px"
+        margin: "-25px 0 0 15px"
     });
 
     $(".addAlbumHead p").css("margin-left", "0");

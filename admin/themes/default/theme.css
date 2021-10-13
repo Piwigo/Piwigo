@@ -261,7 +261,6 @@ TABLE.languages TR TD { padding: 7px 20px; }
 }
 
 .addAlbum label {
-  margin: 0;
   border-radius: 5px 5px 0 0;
   padding: 2px;
   position: absolute;
@@ -315,10 +314,13 @@ TABLE.languages TR TD { padding: 7px 20px; }
   width: 159px;
   margin-top: 20px;
   font-size: 15px;
+  color: #353535 !important;
+  background-color: #F3F3F3 !important;
+  border: none !important;
 }
 
 .addAlbum form input::placeholder {
-  color: rgb(206, 206, 206);
+  color: #353535 !important;
 }
 
 .addAlbum button, .addAlbum a {
@@ -3744,6 +3746,17 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 
 .groups input[type="text"]{
   padding:5px;
+}
+
+#addGroupNameInput {
+  color: #353535 !important;
+  background-color: #F3F3F3 !important;
+  border: none !important;
+  margin-top: 15px;
+}
+
+#addGroupNameInput::placeholder {
+  color: #353535 !important;
 }
 
 .groupIcon {
