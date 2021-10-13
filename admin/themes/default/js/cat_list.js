@@ -84,11 +84,11 @@ function setDisplayCompact() {
 
      $(".addAlbumHead").css({
          flexDirection: "column",
-         transform: "translateY(75px)",
+         transform: "translateY(55px)",
          alignItems: "center",
          marginTop: "-10px",
          transition: "0.4s ease",
-         marginBottom: "40px"
+         marginBottom: "0px"
     });
 
     $(".addAlbum form").css("flex-direction", "column");
