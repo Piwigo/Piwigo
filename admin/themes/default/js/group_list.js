@@ -316,34 +316,42 @@ var renameGroup = function(id, newName) {
   loadState.changeHTML($("#group-" + id + " .group-rename .validate"), "<i class='animate-spin icon-spin6'></i>")
   loadState.removeClass($("#group-" + id + " .group-rename .validate"), "icon-ok")
   loadState.changeAttribute($("#group-" + id + " .group-rename span"), "style", "pointer-events: none");
-  jQuery.ajax({
-    url: "ws.php?format=json&method=pwg.groups.setInfo",
-    type: "POST",
-    data: "group_id=" + id + "&pwg_token=" + pwg_token + "&name="+newName,
-    success: function (raw_data) {
-      data = jQuery.parseJSON(raw_data);
-      loadState.reverse();
-      if (data.stat === "ok") {
-        newName = data.result.groups[0].name;
-        //Display message
-        $("#group-" + id).find(".groupMessage").html(str_renaming_done);
-        $("#group-" + id).find(".groupMessage").fadeIn();
-        $("#group-" + id).find(".groupMessage").delay(DELAY_FEEDBACK).fadeOut();
-        $("#group-" + id).find("#group_name").html(newName);
 
-        //Hide editable field
-        displayRenameForm(false, id);
-      } else {
-        //Display error message
-        $("#group-" + id).find(".groupError").html(str_name_taken);
-        $("#group-" + id).find(".groupError").fadeIn();
-        $("#group-" + id).find(".groupError").delay(DELAY_FEEDBACK).fadeOut();
-      }
-    },
-    error: function (err) {
-      console.log(err);
-    },
-  });
+  if (newName.replace(/\s/g, '').length != 0) {
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.groups.setInfo",
+      type: "POST",
+      data: "group_id=" + id + "&pwg_token=" + pwg_token + "&name="+newName,
+      success: function (raw_data) {
+        data = jQuery.parseJSON(raw_data);
+        loadState.reverse();
+        if (data.stat === "ok") {
+          newName = data.result.groups[0].name;
+          //Display message
+          $("#group-" + id).find(".groupMessage").html(str_renaming_done);
+          $("#group-" + id).find(".groupMessage").fadeIn();
+          $("#group-" + id).find(".groupMessage").delay(DELAY_FEEDBACK).fadeOut();
+          $("#group-" + id).find("#group_name").html(newName);
+  
+          //Hide editable field
+          displayRenameForm(false, id);
+        } else {
+          //Display error message
+          $("#group-" + id).find(".groupError").html(str_name_taken);
+          $("#group-" + id).find(".groupError").fadeIn();
+          $("#group-" + id).find(".groupError").delay(DELAY_FEEDBACK).fadeOut();
+        }
+      },
+      error: function (err) {
+        console.log(err);
+      },
+    });
+  } else {
+    loadState.reverse();
+    $("#group-" + id).find(".groupError").html(str_name_not_empty);
+    $("#group-" + id).find(".groupError").fadeIn();
+    $("#group-" + id).find(".groupError").delay(DELAY_FEEDBACK).fadeOut();
+  }
 }
 
 // Hide or display rename form
