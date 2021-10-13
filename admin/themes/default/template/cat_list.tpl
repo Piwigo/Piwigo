@@ -142,6 +142,10 @@ jQuery(document).ready(function(){
  *  Tiles display
  */
 
+.tile_add.addAlbum form input::placeholder {
+  color: transparent !important;
+}
+
 .albumTop {
   display: flex;
   flex-direction: row;

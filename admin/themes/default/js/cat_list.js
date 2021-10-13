@@ -16,6 +16,7 @@ function setDisplayCompact() {
         });
     });
     $(".categoryBox").removeClass("line_cat").removeClass("tile_cat");
+    $(".addAlbum").removeClass("tile_add");
     $(".categoryBox").css({
         minWidth: "250px",
         maxWidth: "350px",
@@ -173,6 +174,7 @@ function setDisplayLine() {
 
     /************************************/
     $(".categoryBox").addClass("line_cat").removeClass("tile_cat");
+    $(".addAlbum").removeClass("tile_add");
     $(".categoryBox").css({
         minWidth: "90%",
         maxWidth: "100%",
@@ -303,6 +305,7 @@ function setDisplayTile() {
         transitionDelay: "0s",
     });
     $(".categoryBox").removeClass("line_cat").addClass("tile_cat");
+    $(".addAlbum").addClass("tile_add");
     $(".categoryBox").css({
         minWidth: "220px",
         maxWidth: "280px",
