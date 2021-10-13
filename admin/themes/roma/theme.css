@@ -1310,6 +1310,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background:#555 !important;
 }
 
+.AlbumViewSelector label span{
+  background: #555;
+}
+
 .AlbumViewSelector input:checked + label,
 .UserViewSelector input:checked + label{
   background: transparent;
@@ -1611,9 +1615,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #dddddd;
 }
 
-.selectedAlbum span {
+.selectedAlbum .selectedAlbum-first {
   background-color: #333333;
-  color: #777 !important;
 }
 
 .selectedAlbum span a{
