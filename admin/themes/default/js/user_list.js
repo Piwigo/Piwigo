@@ -1602,7 +1602,7 @@ function add_user() {
                 $("#AddUserSuccess").css("display", "flex");
             }
             else {
-                $("#AddUser .AddUserErrors p").html('&#x2718; '+data.message)
+                $("#AddUser .AddUserErrors").html(data.message)
                 $("#AddUser .AddUserErrors").css("visibility", "visible");
             }
         }
