@@ -21,7 +21,7 @@ var nb_plugin = {
   'active' : {$count_types_plugins["active"]},
   'inactive' : {$count_types_plugins["inactive"]},
   'other' : {$count_types_plugins["missing"]} + {$count_types_plugins["merged"]},
-}
+};
 const are_you_sure_msg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
 const confirm_msg = '{"Yes, I am sure"|@translate}';
 const cancel_msg = "{"No, I have changed my mind"|@translate}";
@@ -34,6 +34,9 @@ const plugin_deactivated_str = '{'Deactivated'|@translate}';
 const plugin_restored_str = '{'Restored'|@translate}';
 const plugin_action_error = '{'an error happened'|@translate}';
 const not_webmaster = '{'Webmaster status required'|@translate}';
+const nothing_found = '{'No plugins found'|@translate}';
+const x_plugins_found = '{'%s plugins found'|@translate}';
+const plugin_found = '{'%s plugin found'|@translate}';
 const isWebmaster = {$isWebmaster};
 {literal}
 var queuedManager = jQuery.manageAjax.create('queued', { 
@@ -146,39 +149,52 @@ jQuery(document).ready(function() {
       
         $(".pluginMiniBox").each(function() {
           if (text == "") {
-            jQuery(this).fadeIn();
+            jQuery(".nbPluginsSearch").hide();
+            if ($("#seeAll").is(":checked")) {
+              jQuery(this).show();
+            }
+            if ($("#seeActive").is(":checked") && jQuery(this).hasClass("plugin-active")) {
+              jQuery(this).show();
+            }
+            if ($("#seeInactive").is(":checked") && jQuery(this).hasClass("plugin-inactive")) {
+              jQuery(this).show();
+            }
+            if ($("#seeOther").is(":checked") && (jQuery(this).hasClass("plugin-merged") || jQuery(this).hasClass("plugin-missing"))) {
+              jQuery(this).show();
+            }
             searchNumber++
           } else {
+            jQuery(".nbPluginsSearch").show();
             let name = jQuery(this).find(".pluginMiniBoxNameCell").text().toLowerCase();
             let description = jQuery(this).find(".pluginDesc").text().toLowerCase();
             if (name.search(text) != -1 || description.search(text) != -1){
               searchNumber++;
 
               if ($("#seeAll").is(":checked")) {
-                jQuery(this).fadeIn();
+                jQuery(this).show();
               }
               if ($("#seeActive").is(":checked") && jQuery(this).hasClass("plugin-active")) {
-                jQuery(this).fadeIn();
+                jQuery(this).show();
               }
               if ($("#seeInactive").is(":checked") && jQuery(this).hasClass("plugin-inactive")) {
-                
-                jQuery(this).fadeIn();
+                jQuery(this).show();
               }
               if ($("#seeOther").is(":checked") && (jQuery(this).hasClass("plugin-merged") || jQuery(this).hasClass("plugin-missing"))) {
-                jQuery(this).fadeIn();
+                jQuery(this).show();
               }
-
             } else {
-              jQuery(this).fadeOut();
+              jQuery(this).hide();
             }
           }
         })
-
+        
       if (searchNumber == 0) {
-          jQuery(".emptyResearch").fadeIn();
-        } else {
-          jQuery(".emptyResearch").fadeOut();
-        }
+        jQuery(".nbPluginsSearch").html(nothing_found);
+      } else if (searchNumber == 1) {
+        jQuery(".nbPluginsSearch").html(plugin_found.replace("%s", searchNumber));
+      } else {
+        jQuery(".nbPluginsSearch").html(x_plugins_found.replace("%s", searchNumber));
+      }
     });
   });
 
@@ -226,6 +242,8 @@ jQuery(".pluginMiniBox").each(function(index){
 <input type="radio" name="p-filter" class="filter" id="seeAll" {if $count_types_plugins["active"] <= 0} checked {/if}><label for="seeAll">{'All'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeActive" {if $count_types_plugins["active"] > 0} checked {/if}><label class="filterLabel" for="seeActive">{'Activated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeInactive"><label class="filterLabel" for="seeInactive">{'Deactivated'|@translate}<span class="filter-badge">X</span></label><input type="radio" name="p-filter" class="filter" id="seeOther"><label class="filterLabel" for="seeOther">{'Other'|@translate}<span class="filter-badge">X</span></label>
 </div>
 
+<div class="nbPluginsSearch"></div>
+
 <div class="pluginFilter"> 
   <span class="icon-search search-icon"></span>
   <span class="icon-cancel search-cancel"></span>
@@ -235,8 +253,6 @@ jQuery(".pluginMiniBox").each(function(index){
 <div class="AlbumViewSelector">
     <input type="radio" name="layout" class="switchLayout" id="displayClassic" {if $smarty.cookies.pwg_plugin_manager_view == 'classic' || !$smarty.cookies.pwg_plugin_manager_view}checked{/if}/><label for="displayClassic"><span class="icon-pause firstIcon tiptip" title="{'Classic View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayLine" {if $smarty.cookies.pwg_plugin_manager_view == 'line'}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_plugin_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
 </div>  
-
-<div class="emptyResearch"> {'No plugins found'|@translate} </div>
 
     <div class="pluginContainer {if $smarty.cookies.pwg_plugin_manager_view == 'classic'} classic {elseif $smarty.cookies.pwg_plugin_manager_view == 'line'} line {elseif $smarty.cookies.pwg_plugin_manager_view == 'compact'} compact {else} {/if}">
 
@@ -699,5 +715,11 @@ jQuery(".pluginMiniBox").each(function(index){
 
 .pluginMiniBox.incompatible .pluginMiniBoxNameCell i {
   color:#c64444;
+}
+
+.nbPluginsSearch {
+  position: absolute;
+  right: 415px;
+  transform: translateY(18px);
 }
 </style>

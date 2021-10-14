@@ -321,6 +321,7 @@ $(document).ready(function () {
     $("#seeAll").on("change", function () {
         console.log("All");
         $(".pluginMiniBox").show();
+        $('.search-input').trigger("input");
     })
 
     $("#seeActive").on("change", function () {
@@ -331,6 +332,7 @@ $(document).ready(function () {
                 $(this).hide();
             }
         })
+        $('.search-input').trigger("input");
     })
 
     $("#seeInactive").on("change", function () {
@@ -341,6 +343,7 @@ $(document).ready(function () {
                 $(this).hide();
             }
         })
+        $('.search-input').trigger("input");
     })
 
     $("#seeOther").on("change", function () {
@@ -351,6 +354,7 @@ $(document).ready(function () {
                 $(this).hide();
             }
         })
+        $('.search-input').trigger("input");
     })
 
     console.log(nb_plugin);
