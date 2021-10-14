@@ -3524,7 +3524,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 /*Overwrite JQtree CSS*/
 
 .jqtree_common {
-  margin: 20px 2px !important;
+  margin: 20px 0px !important;
 }
 
 li.jqtree-ghost {
