@@ -84,30 +84,38 @@ jQuery(document).ready(function () {
     loadState.changeHTML($(".actionButtons button"), "<i class='icon-spin6 animate-spin'> </i>");
     loadState.changeAttribute($(".actionButtons button"), "style", "pointer-events: none");
     loadState.changeAttribute($(".actionButtons a"), "style", "pointer-events: none");
-    jQuery.ajax({
-      url: "ws.php?format=json&method=pwg.groups.add",
-      type: "POST",
-      data: "name=" + name + "&pwg_token=" + pwg_token,
-      success: function (raw_data) {
-        loadState.reverse();
-        data = jQuery.parseJSON(raw_data);
-        if (data.stat === "ok") {
-          $(".addGroupFormLabelAndInput input").val('');
-          group = data.result.groups[0];
-          groupBox = createGroup(group)
-          groupBox.prependTo(".groups")
-          setupGroupBox(groupBox);
-          updateBadge();
-        } else {
-          $("#addGroupForm .groupError").html(str_name_not_empty);
-          $("#addGroupForm .groupError").fadeIn();
-          $("#addGroupForm .groupError").delay(DELAY_FEEDBACK).fadeOut();
-        }
-      },
-      error: function (err) {
-        console.log(err);
-      },
-    });
+
+    if (name.replace(/\s/g, '').length != 0) {
+      jQuery.ajax({
+        url: "ws.php?format=json&method=pwg.groups.add",
+        type: "POST",
+        data: "name=" + name + "&pwg_token=" + pwg_token,
+        success: function (raw_data) {
+          loadState.reverse();
+          data = jQuery.parseJSON(raw_data);
+          if (data.stat === "ok") {
+            $(".addGroupFormLabelAndInput input").val('');
+            group = data.result.groups[0];
+            groupBox = createGroup(group)
+            groupBox.prependTo(".groups")
+            setupGroupBox(groupBox);
+            updateBadge();
+          } else {
+            $("#addGroupForm .groupError").html(str_name_not_empty);
+            $("#addGroupForm .groupError").fadeIn();
+            $("#addGroupForm .groupError").delay(DELAY_FEEDBACK).fadeOut();
+          }
+        },
+        error: function (err) {
+          console.log(err);
+        },
+      });     
+    } else {
+      loadState.reverse();
+      $("#addGroupForm .groupError").html(str_name_not_empty);
+      $("#addGroupForm .groupError").fadeIn();
+      $("#addGroupForm .groupError").delay(DELAY_FEEDBACK).fadeOut();
+    }
   });
 });
 

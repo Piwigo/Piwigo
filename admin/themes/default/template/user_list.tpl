@@ -25,6 +25,7 @@ const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
 const str_and_others_tags = '{'and %s others'|@translate}';
 const missingConfirm = "{'You need to confirm deletion'|translate|escape:javascript}";
 const missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
+const fieldNotEmpty = "{'Name field must not be empty'|@translate}"
 
 const registered_str = '{"Registered"|@translate}';
 const last_visit_str = '{"Last visit"|@translate}';
@@ -615,13 +616,13 @@ $(".icon-help-circled").tipTip({
             <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
+            <span class="update-user-fail icon-red icon-cancel"></span>
           </div>
           <div>
             <span class="delete-user-button icon-trash">{'Delete'|@translate}</span>
           </div>
         </div>
         <div>
-          <span class="update-user-fail icon-red"></span>
         </div>
       </div>
     </div>
@@ -776,9 +777,9 @@ $(".icon-help-circled").tipTip({
             <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green">{'User updated'|@translate}</span>
+            <span class="update-user-fail icon-red icon-cancel"></span>
           </div>
           <div>
-            <span class="update-user-fail icon-red"></span>
           </div>
         </div>
       </div>
@@ -1649,8 +1650,12 @@ $(".icon-help-circled").tipTip({
 }
 
 .update-user-fail {
-    padding:10px;
-    display:none
+    padding:11px;
+    display:none;
+    border-left: 2px solid #FF0000;
+    {* top: -30px;
+    position: relative;
+    left: 190px; *}
 }
 
 /* Guest Pop in */

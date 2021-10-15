@@ -362,6 +362,10 @@ function ws_users_add($params, &$service)
     return new PwgError(403, 'Invalid security token');
   }
   
+  if (strlen(str_replace( " ", "",  $params['username'])) == 0) {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
+  }
+
   global $conf;
 
   if ($conf['double_password_type_in_admin'])
@@ -491,6 +495,10 @@ function ws_users_setInfo($params, &$service)
   if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
+  }
+
+  if (strlen(str_replace( " ", "",  $params['username'])) == 0) {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
   }
 
   global $conf, $user;

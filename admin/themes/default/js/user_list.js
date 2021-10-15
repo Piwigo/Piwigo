@@ -1340,8 +1340,9 @@ function update_user_username() {
         user_id: last_user_id
     };
     ajax_data['username'] = pop_in_container.find('.user-property-input-username').val();
-    if (ajax_data.username === '') {
-        return;
+    if (ajax_data.username.replace(/\s/g, '').length == 0) {
+        $(".update-user-fail").html(fieldNotEmpty).fadeIn().delay(1500).fadeOut(2500);
+        return
     }
     jQuery.ajax({
         url: "ws.php?format=json&method=pwg.users.setInfo",

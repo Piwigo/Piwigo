@@ -75,6 +75,10 @@ SELECT COUNT(*)
     return new PwgError(WS_ERR_INVALID_PARAM, 'This name is already used by another group.');
   }
 
+  if (strlen(str_replace( " ", "", $params['name'])) == 0) {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
+  }
+
   // creating the group
   single_insert(
     GROUPS_TABLE,
@@ -125,6 +129,10 @@ function ws_groups_setInfo($params, &$service)
   if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
+  }
+
+  if (strlen(str_replace( " ", "",  $params['name'])) == 0) {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
   }
 
   $updates = array();
