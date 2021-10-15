@@ -111,7 +111,7 @@ $('#action-delete-picture').on('click', function() {
         <div class='picture-infos-container'>
           <div class='picture-infos-title'>{$INTRO.file}</div>
           <div>{$INTRO.size}</div>
-          <div>{$INTRO.formats}</div>
+          <div>{if isset($INTRO.formats)}{$INTRO.formats} {/if}</div>
           <div>{$INTRO.ext}</div>
         </div>
       </div>
