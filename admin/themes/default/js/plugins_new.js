@@ -1,3 +1,4 @@
+// <-- Define sort orders -->
 var sortOrder = 'date';
 var sortPlugins = (function (a, b) {
     if (sortOrder == 'downloads' || sortOrder == 'revision' || sortOrder == 'date')
@@ -10,9 +11,14 @@ var sortPlugins = (function (a, b) {
 
 $(function () {
 
+    // <-- Set the advanced filters -->
+
     let betaTestPlugins = $('#showBetaTestPlugin')[0].hasAttribute('checked');
+
+    // object that remember filters states (initialized later)
     let filters = {};
 
+    // toggle advanced filter's panel
     $(".advanced-filter-btn").click(advanced_filter_button_click);
     $(".advanced-filter span.icon-cancel").click(advanced_filter_hide);
 
@@ -68,9 +74,11 @@ $(function () {
         displayStars(ratingContainer.find('.rating-star-container'), rating);
     })
 
-    let authorNames = [{ value: '', text: str_all }];
-    let tagsNames = [{ value: '', text: str_all }]
-    
+    // put default values in the select
+    let authorNames = [{ value: '', text: "-" }];
+    let tagsNames = [{ value: '', text: "-" }]
+
+    // read all plugin boxes to get author and tags
     $('.pluginBox').each((i,el) => {
         let author = $(el).data('author');
         author.split(', ').forEach(name => {
@@ -136,6 +144,7 @@ $(function () {
         }
     });
 
+    // All the slider values and it's corresponding month's number and label
     function value_to_month(val) {
         switch (val) {
             case 6:
@@ -157,11 +166,12 @@ $(function () {
                 return [60, str_x_years.replace('%d', 5)];
                 break;
             default:
-                return [240, str_x_years.replace('%d', 20)];
+                return [Number.MAX_SAFE_INTEGER, str_from_begining];
                 break;
         }
     }
 
+    // The certification filter dosen't include incompatible if the beta-test option is not checked
     let minCertification = betaTestPlugins ? -1 : 0;
 
     $('.certification-filter-slider').slider({
@@ -175,6 +185,7 @@ $(function () {
         }
     });
 
+    // Diffrence between two dates, in months
     function monthDiff(d1, d2) {
         var months;
         months = (d2.getFullYear() - d1.getFullYear()) * 12;
@@ -206,6 +217,8 @@ $(function () {
         }
     }
 
+    // Updates labels when input change
+
     function updateRatingFilterLabel(value) {
         displayStars($('.advanced-filter-rating .rating-star-container'), value);
     }
@@ -227,6 +240,10 @@ $(function () {
         $('.revision-date').html(label);
     }
 
+
+    // <-- Apply advanced filters -->
+
+    // object that remember filters states
     filters = {
         "search": $('#search').val(),
         "author": '',
@@ -285,6 +302,9 @@ $(function () {
     })
 
     $('#showBetaTestPlugin').on('change', (e) => {
+
+        $('.beta-test-plugin-switch .slider').addClass('loading');
+
         let queryParams = new URLSearchParams(window.location.search);
 
         queryParams.set("beta-test", e.currentTarget.checked.toString());

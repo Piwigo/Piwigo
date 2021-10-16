@@ -584,6 +584,10 @@ label>p.group_select {
   background-color: #151515;
 }
 
+.slider::after {
+  color: #151515;
+}
+
 input:checked + .slider {
   background-color: #ff8c27;
 }

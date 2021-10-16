@@ -376,6 +376,7 @@ DELETE FROM '. PLUGINS_TABLE .'
   }
 
   // Retrieve PEM versions
+  // Beta test : return last version on PEM if the current version isn't known or else return the current and the last version
   function get_versions_to_check($beta_test=false, $version=PHPWG_VERSION)
   {
     global $conf;

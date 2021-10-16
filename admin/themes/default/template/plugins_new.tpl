@@ -14,21 +14,21 @@
 {combine_css path="admin/themes/default/css/components/general.css"}
 
 {footer_script}
-const str_confirm_msg = '{"Yes, I am sure"|@translate}';
-const str_cancel_msg = "{"No, I have changed my mind"|@translate}";
-const str_install_title = '{'Are you sure you want to install the plugin "%s"?'|@translate|@escape:'javascript'}';
+const str_confirm_msg = "{"Yes, I am sure"|@translate}";
+const str_cancel_msg = "{"No, I have chaged my mind"|@translate}";
+const str_install_title = "{'Are you sure you want to install the plugin "%s"?'|@translate|@escape:'javascript'}";
 const strs_certification = {
-  "-1" : '{'This plugin is incompatible with your version'|@translate}',
-  "0" : '{'This plugin have no update since 3 years ! It may be outdated'|@translate}',
-  "1" : '{'This plugin has no recent update'|@translate}', 
-  "2" : '{'This plugin was updated less than 6 months ago'|@translate}',
-  "3" : '{'This plugin have been updated recently'|@translate}',
+  "-1" : "{'This plugin is incompatible with your version'|@translate}",
+  "0" : "{'This plugin have no update since 3 years ! It may be outdated'|@translate}",
+  "1" : "{'This plugin has no recent update'|@translate}", 
+  "2" : "{'This plugin was updated less than 6 months ago'|@translate}",
+  "3" : "{'This plugin have been updated recently'|@translate}",
 };
-const str_all = '{"All of them"|@translate}'
-const str_x_month = '{"%d month"|@translate}';
-const str_x_months = '{"%d months"|@translate}';
-const str_x_year = '{"%d year"|@translate}';
-const str_x_years = '{"%d years"|@translate}';
+const str_x_month = "{"%d month"|@translate}";
+const str_x_months = "{"%d months"|@translate}";
+const str_x_year = "{"%d year"|@translate}";
+const str_x_years = "{"%d years"|@translate}";
+const str_from_begining = "{"since the beginning"|@translate}";
 {/footer_script}
 
 <div class="titrePage">
@@ -166,11 +166,11 @@ const str_x_years = '{"%d years"|@translate}';
             {elseif $plugin.CERTIFICATION == 0}
               title="{'This plugin have no update since 3 years ! It may be outdated'|@translate}"
             {elseif $plugin.CERTIFICATION == -1}
-              title="{'  This plugin is incompatible with your version'|@translate}"
+              title="{'This plugin is incompatible with your version'|@translate}"
             {/if}
           ></i>
         </div>
-        <div class="pluginAuthorVersion">{'By %s'|@translate:$plugin.AUTHOR}</div>
+        <div class="pluginAuthorVersion">{'by %s'|@translate:$plugin.AUTHOR}</div>
       </div>
 
       <div>
@@ -187,7 +187,7 @@ const str_x_years = '{"%d years"|@translate}';
           </div>
         {/if}
         <div class="pluginDownload" title="{$plugin.DOWNLOADS} {'Downloads'|@translate}"><i class="icon-download">{$plugin.DOWNLOADS}</i></div>
-        <div class="pluginDownload" title="{'Version %s'|@translate:$plugin.VERSION}"><i class="icon-flow-branch"></i>{'Version %s'|@translate:$plugin.VERSION}</div>
+        <div class="pluginDownload" title="{$plugin.REVISION_FORMATED_DATE}"><i class="icon-flow-branch"></i>{'Version %s'|@translate:$plugin.VERSION}</div>
         <a class="pluginLink" href="{$plugin.EXT_URL}"><i class="icon-link"></i>{'Website'|@translate}</a>
       </div>
 

@@ -1995,6 +1995,7 @@ h2:lang(en) { text-transform:capitalize; }
   align-items: center;
   justify-content: end;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .sort-actions > * {
@@ -2003,24 +2004,21 @@ h2:lang(en) { text-transform:capitalize; }
 
 .sort-by {
   display: flex;
-  flex-direction: column;
   position: relative;
+  align-items: baseline;
 }
 
 .sort-by label {
-  color: #A4A4A4;
+  color: #777;
   font-weight: bold;
   font-size: 1.1em;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translateY(-100%);
+  margin-right: 10px;
 }
 
 .sort-by select {
   display: block;
   padding: 10px 18px;
-  width: 290px;
+  width: 230px;
 
 }
 
@@ -2032,6 +2030,16 @@ h2:lang(en) { text-transform:capitalize; }
 
 #search-plugin {
   position: relative;
+}
+
+.beta-test-plugin-switch {
+  position: absolute;
+  left: 0;
+}
+
+.beta-test-plugin-switch label {
+  font-weight: bold;
+  margin-left: 5px;
 }
 
 #availablePlugins {
@@ -2048,6 +2056,11 @@ h2:lang(en) { text-transform:capitalize; }
 .revision-date {
   color: #f70;
   margin-left: 5px;
+}
+
+.advanced-filter-revision-date .advanced-filter-item-label {
+  display: inline !important;
+
 }
 
 .pluginFilter {justify-content: end;position: absolute;right: 160px; z-index: 2; transform: translateY(6px);}
@@ -2273,6 +2286,7 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginTags {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 4px;
 }
 
 .pluginTags > span {
@@ -2282,6 +2296,7 @@ h2:lang(en) { text-transform:capitalize; }
   margin-right: 5px;
   margin-bottom: 5px;
   white-space: nowrap;
+  margin-top: 4px;
 }
 
 .pluginActions a {
@@ -4202,7 +4217,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   transition: 1s;
 }
 
-.slider:before {
+.slider:before, .slider::after {
   position: absolute;
   content: "";
   height: 16px;
@@ -4213,10 +4228,36 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   transition: .4s;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(33px);
-  -ms-transform: translateX(33px);
-  transform: translateX(33px);
+.slider::after {
+  content: "\E81D";
+  font-family: 'fontello';
+  font-size: 15px;
+  animation-name: spin;
+  animation-duration: .5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+  opacity: 0;
+}
+
+@keyframes spin {
+  from {
+    transform:rotate(0deg);
+  }
+  to {
+    transform:rotate(360deg);
+  }
+}
+
+input:checked + .slider:before, input:checked + .slider::after {
+  margin-left: 33px;
+}
+
+.slider.loading::before {
+  opacity: 0;
+}
+
+.slider.loading::after {
+  opacity: 1;
 }
 
 .notUsable input.disabled + .slider.activate_disabled:before {
