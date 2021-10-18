@@ -4486,6 +4486,12 @@ input:checked + .slider:before {
   position: relative;
 }
 
+.AddUserErrors, .update-user-fail {
+  background-color: #ffcfcf;
+  color: #ff5252;
+  border-left:solid 3px red;
+}
+
 #UserList .AddUserBlock p,
 #UserList .AddUserBlock select,
 #UserList .AddUserBlock button{

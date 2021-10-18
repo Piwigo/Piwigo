@@ -616,7 +616,7 @@ $(".icon-help-circled").tipTip({
             <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
-            <span class="update-user-fail icon-red icon-cancel"></span>
+            <span class="update-user-fail icon-cancel"></span>
           </div>
           <div>
             <span class="delete-user-button icon-trash">{'Delete'|@translate}</span>
@@ -777,7 +777,7 @@ $(".icon-help-circled").tipTip({
             <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
             <span class="close-update-button">{'Close'|@translate}</span>
             <span class="update-user-success icon-green">{'User updated'|@translate}</span>
-            <span class="update-user-fail icon-red icon-cancel"></span>
+            <span class="update-user-fail  icon-cancel"></span>
           </div>
           <div>
           </div>
@@ -882,7 +882,7 @@ $(".icon-help-circled").tipTip({
       <span class="user-list-checkbox-label">{'Send connection settings by email'|translate}</span>
     </div>
 
-    <div class="AddUserErrors icon-red icon-cancel">
+    <div class="AddUserErrors  icon-cancel">
     </div>
 
     <div class="AddUserSubmit">
@@ -1652,10 +1652,6 @@ $(".icon-help-circled").tipTip({
 .update-user-fail {
     padding:11px;
     display:none;
-    border-left: 2px solid #FF0000;
-    {* top: -30px;
-    position: relative;
-    left: 190px; *}
 }
 
 /* Guest Pop in */
@@ -1788,13 +1784,6 @@ $(".icon-help-circled").tipTip({
   width:100%;
   padding:5px;
   border-left:solid 3px red;
-}
-
-.AddUserErrors p {
-	font-size: 14px;
-	font-weight: bold;
-	padding-left: 10px;
-	height: 40px;
 }
 
 .AddUserSubmit {

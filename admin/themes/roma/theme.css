@@ -1623,6 +1623,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #777 !important;
 }
 
+.AddUserErrors, .update-user-fail {
+  background-color: #f22;;
+  color: #ffd5dc;
+  border-left:solid 3px #f22;
+}
+
 .AddUserPopInContainer {
   background-color: #444;
 }
