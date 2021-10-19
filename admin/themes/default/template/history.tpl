@@ -654,7 +654,7 @@ jQuery(document).ready( function() {
 }
 
 .summary-user-item {
-  padding: 2px 10px;
+  padding: 3px 6px;
   border-radius: 20px;
   margin-left: 5px;
   cursor: pointer;
