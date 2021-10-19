@@ -497,7 +497,7 @@ function ws_users_setInfo($params, &$service)
     return new PwgError(403, 'Invalid security token');
   }
 
-  if (strlen(str_replace( " ", "",  $params['username'])) == 0) {
+  if (isset($params['username']) and strlen(str_replace( " ", "",  $params['username'])) == 0) {
     return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
   }
 
