@@ -442,10 +442,8 @@ SELECT
     session_idx,
     ip_address,
     occured_on,
-    details,
-    '.$conf['user_fields']['username'].' AS username
+    details
   FROM '.ACTIVITY_TABLE.'
-    JOIN '.USERS_TABLE.' AS u ON performed_by = u.'.$conf['user_fields']['id'].'
   ORDER BY activity_id DESC
 ;';
 
@@ -466,11 +464,6 @@ SELECT
       $detailsType = 'script';
     }
 
-    if ('user' == $row['object'])
-    {
-      $user_ids[ $row['object_id'] ] = 1;
-    }
-  
     $line_key = $row['session_idx'].'~'.$row['object'].'~'.$row['action'].'~'; // idx~photo~add
   
     if ($line_key === $current_key)
@@ -491,13 +484,13 @@ SELECT
         'ip_address' => $row['ip_address'],
         'date' => format_date($date),
         'hour' => $hour,
-        'username' => $row['username'],
         'user_id' => $row['performed_by'],
         'detailsType' => $detailsType,
         'details' => $details,
         'counter' => 1, 
       );
-  
+
+      @$user_ids[ $row['performed_by'] ]++;
       $current_key = $line_key;
       $line_id++;
     }
@@ -515,17 +508,6 @@ SELECT
   WHERE `'.$conf['user_fields']['id'].'` IN ('.implode(',', array_keys($user_ids)).')
 ;';
     $username_of = query2array($query, 'user_id', 'username');
-
-    $query = '
-SELECT
-    performed_by,
-    count(*) as nb_lines
-  FROM '.ACTIVITY_TABLE.'
-  GROUP BY
-    performed_by
-    ;';
-
-    $user_id_list = query2array($query, 'performed_by', 'nb_lines');
   }
 
   foreach ($output_lines as $idx => $output_line)
@@ -542,18 +524,26 @@ SELECT
         $output_lines[$idx]['details']['users_string'] = implode(', ', $output_lines[$idx]['details']['users']);
       }
     }
-  }
 
-  $filterable_users = array();
-  foreach ($user_id_list as $key => $value) {
-    if (isset($username_of[$key])) {
-      $filterable_users[$username_of[$key]] = $value;
-    } else {
-      $filterable_users['user#'.$key] = $value;
+    $output_lines[$idx]['username'] = 'user#'.$output_lines[$idx]['user_id'];
+    if (isset($username_of[ $output_lines[$idx]['user_id'] ]))
+    {
+      $output_lines[$idx]['username'] = $username_of[ $output_lines[$idx]['user_id'] ];
     }
   }
 
-  unset($filterable_users['guest']);
+  $filterable_users = array();
+  foreach ($user_ids as $key => $value)
+  {
+    if (isset($username_of[$key]))
+    {
+      $filterable_users[$username_of[$key]] = $value;
+    }
+    else
+    {
+      $filterable_users['user#'.$key] = $value;
+    }
+  }
 
   // return $output_lines;
   return array(

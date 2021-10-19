@@ -547,15 +547,8 @@ function lineConstructor(line) {
     newLine.find(".date-hour").html(line.hour);
 
     /* User _Section */
-    
-    if (line.user_id != 2) {
-      newLine.find(".user-name").html(line.username);
-      newLine.find(".user-pic").html(get_initials(line.username));
-    } else {
-      newLine.find(".user-name").html(line.details.users_string);
-      newLine.find(".user-pic").html(get_initials(line.details.users_string));
-    }
-    
+    newLine.find(".user-name").html(line.username);
+    newLine.find(".user-pic").html(get_initials(line.username));
 
     /* Detail_section */
     newLine.find(".detail-item-1").html(line.ip_address);

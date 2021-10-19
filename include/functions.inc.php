@@ -582,11 +582,18 @@ function pwg_activity($object, $object_id, $action, $details=array())
 
   foreach ($object_ids as $loop_object_id)
   {
+    $performed_by = $user['id'];
+
+    if ('logout' == $action)
+    {
+      $performed_by = $loop_object_id;
+    }
+
     $inserts[] = array(
       'object' => $object,
       'object_id' => $loop_object_id,
       'action' => $action,
-      'performed_by' => $user['id'],
+      'performed_by' => $performed_by,
       'session_idx' => session_id(),
       'ip_address' => $ip_address,
       'details' => $details_insert,
