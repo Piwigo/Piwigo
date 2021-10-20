@@ -1241,7 +1241,7 @@ $lang['Can be shared by several individuals without conflict (they cannot change
 $lang['Equivalent to deactivation. The user is still in the list, but can no longer log in.'] = 'Equivalent to deactivation. The user is still in the list, but can no longer log in.';
 $lang['%s MB'] = '%s MB';
 $lang['Your selection'] = 'Your selection';
-$lang['action succesfully performed.'] = 'action succesfully performed.';
+$lang['action successfully performed.'] = 'action successfully performed.';
 $lang['%s lines'] = "%s lines";
 $lang['%s line'] = "%s line";
 $lang['Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'] = 'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums';
