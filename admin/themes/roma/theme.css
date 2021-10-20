@@ -1218,6 +1218,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #bababa;
 }
 
+.pluginMiniBox.plugin-active .pluginActionsSmallIcons a span {
+  background: #ffa744 !important;
+  color: #3c3c3c !important;
+}
 
 .pluginContainer.line .pluginMiniBox:hover .pluginContent{
   transition: 0.4s;
