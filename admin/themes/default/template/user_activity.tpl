@@ -106,7 +106,7 @@ function get_user_activity() {
         },
         success: (data) => {
             /* console log to help debug */
-            {* console.log(data); *}
+            console.log(data);
 
             setCreationDate(data.result['result_lines'][data.result['result_lines'].length-1].date, data.result['result_lines'][0].date);
             $(".loading").hide();
