@@ -578,7 +578,7 @@ $(".icon-help-circled").tipTip({
                 <option value="admin">{'user_status_admin'|@translate}</option>
                 <option value="normal">{'user_status_normal'|@translate}</option>
                 <option value="generic">{'user_status_generic'|@translate}</option>
-                <option value="guest">{'user_status_guest'|@translate}</option>
+                <option value="guest">{'user_status_guest'|@translate}  ({'Deactivated'|@translate})</option>
               </select>
             </div>
           </div>
