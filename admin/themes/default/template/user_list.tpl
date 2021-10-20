@@ -737,8 +737,8 @@ $(".icon-help-circled").tipTip({
           </div>
           <div class="user-property-status">
             <p class="user-property-label">{'Status'|@translate}</p>
-            <div class="user-property-select-container">
-              <select name="status" class="user-property-select">
+            <div class="user-property-select-container notClickableBefore">
+              <select name="status" class="user-property-select notClickable">
                 <option value="guest">{'Guest'|@translate}</option>
               </select>
             </div>
