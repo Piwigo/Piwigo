@@ -115,7 +115,7 @@ function get_user_activity() {
                 lineConstructor(line);
             });
 
-            fillUserFilter(data.result['filterable_users']);
+            fillUserFilter(data.result['filterable_users'], data.result['id_of']);
         }, 
         error: (e) => {
             console.log("ajax call failed");
@@ -124,18 +124,12 @@ function get_user_activity() {
     })
 }
 
-function fillUserFilter(user_tab) {
+function fillUserFilter(user_tab, id_of) {
 
-  var index = 0;
   for (const [key, value] of Object.entries(user_tab)) {
-    console.log(key, value);
-    if (value > 1) {
-      var newOption = "<option value=" + index +"> <span class='username_filter'>" + key + "</span> <span class='nb_lines_str'> (" + lines_key.replace("%s", value) + ") </span></option>";
-    } else {
-      var newOption = "<option value=" + index +"> <span class='username_filter'>" + key + "</span> <span class='nb_lines_str'> (" + line_key.replace("%s", value) + ") </span></option>";
-    }
+    {* console.log(key, value); *}
+    var newOption = "<option value=" + id_of[key] +"> <span class='username_filter'>" + key + "</span> <span class='nb_lines_str'> (" + lines_key.replace("%s", value) + ") </span></option>";
 
-    index++;
     $(".user-selecter").append(newOption);
   }
 
@@ -144,8 +138,8 @@ function fillUserFilter(user_tab) {
   jQuery(".user-selecter")[0].selectize.setValue(null);
 
   jQuery(".cancel-icon").click(function() {
-    console.log("ytop")
     jQuery(".user-selecter")[0].selectize.setValue(null);
+    $(".line").show();
   });
 }
 
@@ -572,7 +566,7 @@ function lineConstructor(line) {
         newLine.find(".detail-item-3").remove();
     }
 
-    
+    newLine.addClass("uid-" + line.user_id);
 
     displayLine(newLine);
 }
@@ -624,18 +618,10 @@ function setCreationDate(startDate, endDate) {
 }
 
 $(document).ready(function () {
-
     $('select').on('change', function (user) {
-        try {
-            filterUsers($(".selectize-input .item")[0].innerText.split(" ")[0]);
-        } catch (error) {
-            showAllLines();
-            let lines =  $(".line");
-            let resultLines = [];
-            for (let index = 1; index < lines.length; index++) {
-                resultLines.push(lines[index].getElementsByClassName("date-day")[0].textContent)
-            }
-            setCreationDate((!resultLines[resultLines.length-1]) ? "-" : resultLines[resultLines.length-1], (!resultLines[0]) ? "-" : resultLines[0])
+        if ($(".selectize-input").hasClass("full")) {
+          $(".line").hide();
+          $(".uid-" + $(".selectize-input .item").data("value")).show();
         }
     });
 });

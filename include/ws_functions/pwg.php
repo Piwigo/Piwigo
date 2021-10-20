@@ -545,10 +545,24 @@ SELECT
     }
   }
 
+  $id_of = array();
+  foreach ($user_ids as $key => $value)
+  {
+    if (isset($username_of[$key]))
+    {
+      $id_of[$username_of[$key]] = $key;
+    }
+    else
+    {
+      $id_of['user#'.$key] = $key;
+    }
+  }
+
   // return $output_lines;
   return array(
     'result_lines' => $output_lines,
     'filterable_users' => $filterable_users,
+    'id_of' => $id_of,
   );
 }
 
