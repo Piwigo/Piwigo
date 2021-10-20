@@ -113,6 +113,8 @@ $(".delete-size-check").click( function () {
 
 {combine_script id='ajax' load='footer' path='admin/themes/default/js/maintenance.js'}
 
+{if $isWebmaster == 1}
+
 <fieldset class="">
   <legend><span class="icon-globe icon-blue"></span>Global Gallery Actions</legend>
   <div style="display:flex;flex-wrap: wrap;">
@@ -191,6 +193,7 @@ $(".delete-size-check").click( function () {
   <a class="icon-ok delete-sizes">{'Delete these sizes'|@translate}</a>
 </fieldset>
 
+{/if}
 <style>
 #label-delete-size-checkbox {
   font-weight: bold;

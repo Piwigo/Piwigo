@@ -254,6 +254,10 @@ $template->set_filenames(array('maintenance'=>'maintenance_actions.tpl'));
 $pwg_token = get_pwg_token();
 $url_format = get_root_url().'admin.php?page=maintenance&amp;action=%s&amp;pwg_token='.get_pwg_token();
 
+if (!is_webmaster()) {
+  $page['warnings'][] = l10n('Webmaster status is required.');
+}
+
 $purge_urls[l10n('All')] = 'all';
 foreach(ImageStdParams::get_defined_type_map() as $params)
 {
@@ -345,6 +349,8 @@ else
       )
     );
 }
+
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 
 // +-----------------------------------------------------------------------+
 // | Define advanced features                                              |
