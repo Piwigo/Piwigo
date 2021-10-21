@@ -145,6 +145,8 @@ $(".icon-help-circled").tipTip({
     </div>
     <div id='search-user'>
         <div class='search-info'> </div>
+          {*This input (#user_search2) is used to bait the chrome autocomplete tool. It is hidden in navigator and is not meant to be seen.*}
+          <input id="user_search2" class='search-input' type='text' placeholder='{'Search'|@translate}'> 
           <span class='icon-search search-icon'> </span>
           <span class="icon-cancel search-cancel"></span>
           <input id="user_search" class='search-input' type='text' placeholder='{'Search'|@translate}'>
@@ -996,6 +998,11 @@ $(".icon-help-circled").tipTip({
 
 #user_search {
     width: 200px;
+}
+
+#user_search2 {
+  position: absolute;
+  top: -20000px;
 }
 
 .advanced-filter-date {
