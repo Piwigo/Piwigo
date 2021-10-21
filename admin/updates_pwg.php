@@ -108,7 +108,7 @@ if (isset($new_versions['major_php']) and version_compare(phpversion(), $new_ver
 
 if (!is_webmaster())
 {
-  $page['errors'][] = l10n('Webmaster status is required.');
+  $page['warnings'][] = l10n('Webmaster status is required.');
 }
 
 $template->assign(array(

@@ -170,6 +170,8 @@ $("#update_all").click(function() {
   <h2>{'Updates'|@translate}</h2>
 </div>
 
+{if $isWebmaster == 1}
+
 <div class="autoupdate_bar">
 <input type="submit" id="update_all" value="{'Update All'|@translate}">
 <input type="submit" id="ignore_all" value="{'Ignore All'|@translate}" onClick="ignoreAll(); return false;">
@@ -305,4 +307,6 @@ $("#update_all").click(function() {
 {/foreach}
 </fieldset>
 </div>
+{/if}
+
 {/if}

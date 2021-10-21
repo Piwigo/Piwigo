@@ -72,7 +72,8 @@ if (isset($page['no_md5sum_number']))
   $page['messages'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('Some checksums are missing.').'<i class="icon-right"></i></a>';
 }
 
-if (!is_webmaster()) {
+if (!is_webmaster()) 
+{
   $page['warnings'][] = l10n('Webmaster status is required.');
 }
 
