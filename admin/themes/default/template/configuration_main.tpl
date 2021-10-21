@@ -236,7 +236,7 @@ jQuery("input[name='mail_theme']").change(function() {
 </div> <!-- configContent -->
 
 <p class="formButtons">
-  <button name="submit" type="submit" class="buttonLike">
+  <button name="submit" type="submit" class="buttonLike" {if $isWebmaster != 1}disabled{/if}>
     <i class="icon-floppy"></i> {'Save Settings'|@translate}
   </button>
 </p>

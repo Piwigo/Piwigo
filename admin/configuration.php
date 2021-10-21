@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!is_webmaster())
+{
+  $page['warnings'][] = l10n('Webmaster status is required.');
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
@@ -253,7 +258,7 @@ if (isset($_POST['submit']))
   }
 
   // updating configuration if no error found
-  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0)
+  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0 and is_webmaster())
   {
     //echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT param FROM '.CONFIG_TABLE);
@@ -601,6 +606,8 @@ switch ($page['section'])
     break;
   }
 }
+
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'config');
