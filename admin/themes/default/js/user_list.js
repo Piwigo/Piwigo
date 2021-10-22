@@ -360,6 +360,11 @@ $( document ).ready(function() {
         $("#pagination-per-page-50").removeClass("selected-pagination");
     }
 
+    if (has_group) {
+      advanced_filter_button_click();
+      $("select[name='filter_group']").val(has_group);
+      update_user_list();
+    }
 });
 
 function setDisplayTile() {
@@ -671,13 +676,13 @@ function advanced_filter_button_click() {
 function advanced_filter_show() {
     $("#advanced-filter-container").show();
     $("#advanced_filter_button").addClass("extended-filter-btn");
-    update_user_list();
+    // update_user_list();
 }
 
 function advanced_filter_hide() {
     $("#advanced-filter-container").hide();
     $("#advanced_filter_button").removeClass("extended-filter-btn");
-    update_user_list();
+    // update_user_list();
 }
 
 let months = [];

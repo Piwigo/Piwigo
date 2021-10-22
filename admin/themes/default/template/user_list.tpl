@@ -63,6 +63,7 @@ nb_days = "{'%d days'|@translate}";
 nb_photos = "{'%d photos'|@translate}";
 nb_photos_per_page = "{'%d photos per page'|@translate}";
 pwg_token = '{$PWG_TOKEN}';
+has_group = "{$filter_group}";
 
 let register_dates_str = '{$register_dates}';
 let register_dates = register_dates_str.split(',');
