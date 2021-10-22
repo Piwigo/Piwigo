@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!is_webmaster())
+{
+  $page['warnings'][] = l10n('Webmaster status is required.');
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/languages.class.php');
 
 $template->set_filenames(array('languages' => 'languages_installed.tpl'));
@@ -24,7 +29,7 @@ $languages->get_db_languages();
 check_input_parameter('action', $_GET, false, '/^(activate|deactivate|set_default|delete)$/');
 check_input_parameter('language', $_GET, false, '/^('.join('|', array_keys($languages->fs_languages)).')$/');
 
-if (isset($_GET['action']) and isset($_GET['language']))
+if (isset($_GET['action']) and isset($_GET['language']) and is_webmaster())
 {
   $page['errors'] = $languages->perform_action($_GET['action'], $_GET['language']);
 
@@ -109,6 +114,8 @@ DELETE
 ;';
   pwg_query($query);
 }
+
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'languages');
 ?>
