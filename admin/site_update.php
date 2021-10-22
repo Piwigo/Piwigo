@@ -72,11 +72,6 @@ if (isset($page['no_md5sum_number']))
   $page['messages'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-no_sync_md5sum">'.l10n('Some checksums are missing.').'<i class="icon-right"></i></a>';
 }
 
-if (!is_webmaster()) 
-{
-  $page['warnings'][] = l10n('Webmaster status is required.');
-}
-
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
 // +-----------------------------------------------------------------------+
@@ -110,10 +105,6 @@ if (isset($_GET['quick_sync']))
 $general_failure = true;
 if (isset($_POST['submit']))
 {
-
-  if (!is_webmaster()) {
-    redirect(get_root_url().'admin.php?page=site_update&amp;site='.$_GET['site']);
-  }
 
   if ($site_reader->open())
   {
@@ -967,8 +958,6 @@ $template->assign(
     'METADATA_LIST' => $used_metadata,
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=synchronize',
     ));
-
-$template->assign('isWebmaster', is_webmaster());
 
 // +-----------------------------------------------------------------------+
 // |                        introduction : choices                         |

@@ -118,7 +118,7 @@ $('#syncFiles label').click(function () {
   </fieldset>
 
   <p class="bottomButtons syncBtn">
-    <button class="icon-exchange buttonGradient" type="submit" value="" name="submit" {if !$isWebmaster} disabled {/if}> {'Synchronize'|@translate} </button>
+    <button class="icon-exchange buttonGradient" type="submit" value="" name="submit"> {'Synchronize'|@translate} </button>
   </p>
 </form>
 {/if}{*isset $introduction*}
