@@ -537,32 +537,38 @@ SELECT
   {
     if (isset($username_of[$key]))
     {
-      $filterable_users[$username_of[$key]] = $value;
+      array_push(
+        $filterable_users, 
+        array(
+          'id' => $key,
+          'username' => $username_of[$key],
+          'nb_lines' => $value,
+        )
+      );
     }
     else
     {
-      $filterable_users['user#'.$key] = $value;
+      array_push(
+        $filterable_users, 
+        array(
+          'id' => $key,
+          'username' => 'user#'.$key,
+          'nb_lines' => $value,
+        )
+      );
     }
   }
 
-  $id_of = array();
-  foreach ($user_ids as $key => $value)
+  //Multidimentionnal sorting
+  usort($filterable_users, function ($a, $b) 
   {
-    if (isset($username_of[$key]))
-    {
-      $id_of[$username_of[$key]] = $key;
-    }
-    else
-    {
-      $id_of['user#'.$key] = $key;
-    }
-  }
+    return strtolower($a['username']) <=> strtolower($b['username']);
+  });
 
   // return $output_lines;
   return array(
     'result_lines' => $output_lines,
     'filterable_users' => $filterable_users,
-    'id_of' => $id_of,
   );
 }
 

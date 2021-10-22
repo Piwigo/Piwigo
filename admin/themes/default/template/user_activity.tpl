@@ -124,11 +124,11 @@ function get_user_activity() {
     })
 }
 
-function fillUserFilter(user_tab, id_of) {
+function fillUserFilter(user_tab) {
 
   for (const [key, value] of Object.entries(user_tab)) {
     {* console.log(key, value); *}
-    var newOption = "<option value=" + id_of[key] +"> <span class='username_filter'>" + key + "</span> <span class='nb_lines_str'> (" + lines_key.replace("%s", value) + ") </span></option>";
+    var newOption = "<option value=" + value.id +"> <span class='username_filter'>" + value.username + "</span> <span class='nb_lines_str'> (" + lines_key.replace("%s", value.nb_lines) + ") </span></option>";
 
     $(".user-selecter").append(newOption);
   }
