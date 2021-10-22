@@ -97,7 +97,6 @@ jQuery(document).ready(function() {
       <ul>
 {if $ENABLE_SYNCHRONIZATION}
         <li><a href="{$U_CAT_UPDATE}"><i class="icon-exchange"></i>{'Synchronize'|@translate}</a></li>
-        <li><a href="{$U_SITE_MANAGER}"><i class="icon-flow-branch"></i>{'Site manager'|@translate}</a></li>
 {/if}
 				<li><a href="{$U_HISTORY_STAT}"><i class="icon-signal"></i>{'History'|@translate}</a></li>
 				<li><a href="{$U_MAINTENANCE}"><i class="icon-tools"></i>{'Maintenance'|@translate}</a></li>
