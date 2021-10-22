@@ -13,7 +13,7 @@ if( !defined("PHPWG_ROOT_PATH") )
 
 if (!is_webmaster())
 {
-  $page['warnings'][] = l10n('Webmaster status is required.');
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');

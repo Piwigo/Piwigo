@@ -1255,3 +1255,4 @@ $lang['Locked albums are disabled for maintenance. Only administrators can view 
 $lang['Webmaster status required'] = 'Statut Webmaster nécéssaire';
 $lang['%s plugins found'] = '<b>%s</b> plugins trouvés';
 $lang['%s plugin found'] = '<b>%s</b> plugin trouvé';
+$lang['%s status is required to edit parameters.'] = 'Le statut %s est nécéssaire pour modifier les paramètres.';

@@ -256,7 +256,7 @@ $url_format = get_root_url().'admin.php?page=maintenance&amp;action=%s&amp;pwg_t
 
 if (!is_webmaster()) 
 {
-  $page['warnings'][] = l10n('Webmaster status is required.');
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
 }
 
 $purge_urls[l10n('All')] = 'all';
