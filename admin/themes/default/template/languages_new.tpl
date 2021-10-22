@@ -13,6 +13,8 @@ jQuery().ready(function(){ldelim}
   <h2>{'Add New Language'|@translate}</h2>
 </div>
 
+{if $isWebmaster == 1}
+  
 {if !empty($languages)}
 <table class="table2 languages">
 <thead>
@@ -38,4 +40,6 @@ jQuery().ready(function(){ldelim}
 </table>
 {else}
 <p>{'There is no other language available.'|@translate}</p>
+{/if}
+
 {/if}
