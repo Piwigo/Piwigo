@@ -131,7 +131,7 @@ $template->assign('delay_before_autoOpen', $conf['album_move_delay_before_auto_o
 
 //Get all albums
 $query = '
-SELECT id,name,rank,status, uppercats
+SELECT id,name,`rank`,status, uppercats
   FROM '.CATEGORIES_TABLE.'
 ;';
 
