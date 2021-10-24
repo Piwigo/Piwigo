@@ -288,11 +288,12 @@ a.stat-box:hover {
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
 .pluginBox, .pluginContent, .groups .GroupContainer {background-color:#333;color:#999;border-right-color:#333; box-shadow: none;border-left: none;}
+.pluginContainer.line-form .pluginBox:hover .pluginContent {background: #1e1e1d;}
 
 .pluginName {color:#aaa;}
 .pluginBox.incompatible {border-color:#800 !important;}
-.pluginActionLevel1, .pluginActionLevel2 {color: #333;}
-.pluginActionLevel2 {background-color: #bbbbbb;}
+.pluginActionLevel1 {color: #333;}
+.pluginActionLevel2 {color: #bbbbbb;}
 .pluginFilter {color: #c1c1c1;}
 .pluginFilter input {border-color: #c1c1c1;}
 .languageBox {background-color:#333;}

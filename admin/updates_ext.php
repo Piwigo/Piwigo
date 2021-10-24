@@ -28,6 +28,8 @@ if (!$autoupdate->get_server_extensions())
   return; // TODO: remove this return and add a proper "page killer"
 }
 
+$updates_extension = []; //The array of the updates of a type of extension is stored in $updates_extension[type]
+
 foreach ($autoupdate->types as $type)
 {
   $fs = 'fs_'.$type;
@@ -40,6 +42,8 @@ foreach ($autoupdate->types as $type)
     continue;
   }
 
+  $updates_extension[$type] = [];
+  
   foreach($fs_ext as $ext_id => $fs_ext)
   {
     if (!isset($fs_ext['extension']) or !isset($server_ext[$fs_ext['extension']]))
@@ -51,7 +55,7 @@ foreach ($autoupdate->types as $type)
 
     if (!safe_version_compare($fs_ext['version'], $ext_info['revision_name'], '>='))
     {
-      $template->append('update_'.$type, array(
+      array_push($updates_extension[$type], array(
         'ID' => $ext_info['extension_id'],
         'REVISION_ID' => $ext_info['revision_id'],
         'EXT_ID' => $ext_id,
@@ -76,6 +80,7 @@ foreach ($autoupdate->types as $type)
   }
 }
 
+$template->assign('UPDATES_EXTENSION', $updates_extension);
 $template->assign('SHOW_RESET', $show_reset);
 $template->assign('PWG_TOKEN', get_pwg_token());
 $template->assign('EXT_TYPE', $page['page'] == 'updates' ? 'extensions' : $page['page']);

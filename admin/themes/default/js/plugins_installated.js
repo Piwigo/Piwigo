@@ -1,5 +1,5 @@
 function setDisplayClassic() {
-    $(".pluginContainer").removeClass("line").removeClass("compact").addClass("classic");
+    $(".pluginContainer").removeClass("line-form").removeClass("compact-form").addClass("classic-form");
 
     $(".pluginDesc").show();
     $(".pluginDescCompact").hide();
@@ -12,7 +12,7 @@ function setDisplayClassic() {
 }
 
 function setDisplayCompact() {
-    $(".pluginContainer").removeClass("line").addClass("compact").removeClass("classic");
+    $(".pluginContainer").removeClass("line-form").addClass("compact-form").removeClass("classic-form");
 
     $(".pluginDesc").hide();
     $(".pluginDescCompact").show();
@@ -25,7 +25,7 @@ function setDisplayCompact() {
 }
 
 function setDisplayLine() {
-    $(".pluginContainer").addClass("line").removeClass("compact").removeClass("classic");
+    $(".pluginContainer").addClass("line-form").removeClass("compact-form").removeClass("classic-form");
 
     $(".pluginDesc").show();
     $(".pluginDescCompact").hide();
