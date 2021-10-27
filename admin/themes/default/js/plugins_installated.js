@@ -59,6 +59,7 @@ function normalTitle() {
 }
 
 function activatePlugin(id) {
+
     $("#"+id+" .switch").attr("disabled", true);
 
     $.ajax({
@@ -84,7 +85,6 @@ function activatePlugin(id) {
         }, 
         error: function (e) {
             console.log(e);
-            console.log("It didn't work");
             $("#" + id + " .pluginNotif").stop(false, true);
             $("#" + id + " .PluginActionError label span:first").html(plugin_action_error);
             $("#" + id + " .PluginActionError").css("display", "flex");
@@ -122,7 +122,6 @@ function disactivatePlugin(id) {
         }, 
         error: function (e) {
             console.log(e);
-            console.log("It didn't work");
             $("#" + id + " .pluginNotif").stop(false, true);
             $("#" + id + " .PluginActionError label span:first").html(plugin_action_error);
             $("#" + id + " .PluginActionError").css("display", "flex");
@@ -157,7 +156,6 @@ function deletePlugin(id, name) {
                     }, 
                     error: function (e) {
                         console.log(e);
-                        console.log("It didn't work");
                         $("#" + id + " .pluginNotif").stop(false, true);
                         $("#" + id + " .PluginActionError label span:first").html(plugin_action_error);
                         $("#" + id + " .PluginActionError").css("display", "flex");
@@ -189,7 +187,6 @@ function restorePlugin(id) {
         }, 
         error: function (e) {
             console.log(e);
-            console.log("It didn't work");
             $("#" + id + " .pluginNotif").stop(false, true);
             $("#" + id + " .PluginActionError label span:first").html(plugin_action_error);
             $("#" + id + " .PluginActionError").css("display", "flex");
@@ -217,12 +214,11 @@ function uninstallPlugin(id) {
             actualizeFilter();
         }, 
         error: function (e) {
-          console.log(e);
-          console.log("It didn't work");
           $("#" + id + " .pluginNotif").stop(false, true);
           $("#" + id + " .PluginActionError label span:first").html(plugin_action_error);
           $("#" + id + " .PluginActionError").css("display", "flex");
           $("#" + id + " .PluginActionError").delay(1500).fadeOut(2500);
+          console.log(e.message);
         }
     })
 }
