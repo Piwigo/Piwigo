@@ -106,7 +106,7 @@ $(window).bind("load", function() {
     <div class="themeShot"><a href="{$theme.SCREENSHOT}" class="preview-box" title="{$theme.NAME}"><img src="{$theme.SCREENSHOT}" alt=""></a></div>
     <div class="themeName" title="{$theme.NAME}">
       {$theme.NAME} {if isset($theme.IS_DEFAULT) and $theme.IS_DEFAULT}<i class="icon-star" title="{'default'|@translate}"></i>{/if} {if $theme.IS_MOBILE}<i class="icon-mobile" title="{'Mobile'|translate}"></i>{/if}
-      {if isWebmaster == 1} <a class="icon-ellipsis-v showInfo"></a>{/if}
+      {if $isWebmaster == 1} <a class="icon-ellipsis-v showInfo"></a>{/if}
     </div>
     <div class="showInfo-dropdown dropdown">
       <div class="showInfo-dropdown-header">
@@ -129,7 +129,7 @@ $(window).bind("load", function() {
         <a href="{$deactivate_baseurl}{$theme.ID}" class="showInfo-dropdown-action tiptip icon-cancel-circled" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
       {/if}
     </div>
-{if isWebmaster == 1}
+{if $isWebmaster == 1}
     <div class="themeActions">
 {if $theme.STATE == 'active'}
   {if $theme.ADMIN_URI}
