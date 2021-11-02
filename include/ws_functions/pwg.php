@@ -562,7 +562,11 @@ SELECT
   //Multidimentionnal sorting
   usort($filterable_users, function ($a, $b) 
   {
-    return strtolower($a['username']) <=> strtolower($b['username']);
+    // compatible with PHP 7+ only
+    // return strtolower($a['username']) <=> strtolower($b['username']);
+
+    // still compatible with PHP 5
+    return (strtolower($a['username']) >= strtolower($b['username']) ? 1 : 0);
   });
 
   // return $output_lines;
