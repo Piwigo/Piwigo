@@ -1,0 +1,50 @@
+<h2>Txantiloi-luzapenen konfigurazioa</h2>
+
+<h3>About</h3>
+<p>Piwigo galeria pertsonalizatu egin daiteke lehenetsitako txantiloi-fitxategiak norberak sortutakoekin ordezkatuz. Adibidez, lehenetsitako goiburu-txantiloia (header.tpl) norberak pertsonalizatutako beste goiburu-txantiloi bategatik (nire-header.tpl) ordezkatu daiteke. Aldaketak datu-basera bidali eta gero galeriak pertsonalizatutako goiburua bistaratuko du jatorrizkoaren ordez. Txantiloi-luzapenak gai pertsonalizatuak sortzeko oso modu erosoa dira erabiltzaile berrientzat zein aurreratuentzat. and advanced users. LocalFiles Editorearekin batera erabilita, gai pertsonalizatuak sor ditzakezu you can create your own child themes.</p>
+
+<h3>Jatorrizko txantiloia</h3>
+<p>Galeriaren orriak osatzen dituzten gai batek dauzkan txantiloi-fitxategiak dira jatorrizko txantiloiak.</p>
+
+<h3>Aukerako URL gako-hitza</h3>
+<p>Galeriaren URL helbidean moduluaren izenaren ostean aurkitzen diren hitzak dira gako-hitzak. Esteka iraunkor aktiboak ere izan daitezke (begiratu esteka iraunkorren dokumentazioa informazio gehiago lortzeko). These are words found in the gallery URL after the module name.  They can also be active permalinks  (See the permalink documentation for more information).  <a href="#warnings">OHARRA:</a> gako-hitz bera txantiloi pertsonalizatu batean baino gehiagotan erabiltzen bada, azkenengoa baino ez da aktibo egongo.</p>
+
+<h3>Lotutako gaia</h3>
+<p>Ordezkatzen diren txantiloi-fitxategiak lotutako gaian gordetzen dira.</p>
+
+<h3>Non daude jatorrizko txantiloiak?</h3>
+<p>Jatorrizko txantiloiak gai bakoitzarekin datozenak dira. Hemen gordetzen dira: <em>/gaiak/lehenetsita/txantiloia</em> (edo <em>gaiak/<gaiaren izena>/txantiloia</em>).  Txantiloi hauek ez lirateke editatu behar gaiaren eguneraketa bakoitzean aldaketak galtzen baitira.<br>
+Onartutako jatorrizko txantiloien edukia:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> eta/edo <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> eta/edo <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> eta/edo <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> eta/edo <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> eta/edo <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> eta/edo <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> eta/edo <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+<h3>Pertsonalizatutako txantiloiak gorde</h3>
+<p>Pertsonalizatutako txantiloiak txantiloi-luzapenen karpetan edo azpi-karpetetan gorde beharko lirateke. Adibidez, <em>/txantiloi-luzapena/nire-lehenetsita/header.tpl</em> (edo <em>/txantiloi-luzapena/<nire-gaiaren-izena>/header.tpl</em>) Txantiloi-fitxategiek edozein izen har dezakete .tpl luzapena erabiliz. Azpikarpetetan gordetako txantiloi-fitxategiak Txantiloiaren konfigurazio pantailan agertzen dira txantiloi pertsonalizatu eskuragarri bezala.</p>
+<h3>Pertsonalizatutako txantiloiak aktibatu</h3>
+<p>Hautatu ordeztu nahi duzun jatorrizko txantiloia. Aukeran, URL gako-hitz bat hautatu pertsonalizatutako txantiloia gako-hitz hori duten orrietan baino ez daiten bistaratu. Hautatu lotutako gairen bat eta aldaketak bistaratu egingo dira gai horretan. Bidali aldaketak datu-basera.</p>
+<h3>Pertsonalizatutako txantiloiak desaktibatu</h3>
+<p>Desautatu jatorrizko txantiloia eta bidali aldaketak datu-basera.<br>
+Ezabatu pertsonalizatutako txantiloi-fitxategiak txantiloi-luzapen karpetatik.</p>
+
+<a name="warnings"></a>
+<h3>OHARRAK</h3>
+<ul>
+  <li><strong>Jatorrizko txantiloiak</strong> jatorrizko txantiloia izan behar du, bestela ezin daiteke jakin zein aldaketa gerta daiteken.</li>
+  <li>Jatorrizko txantiloia eta gako-hitz bera txantiloi pertsonalizatu batean baino gehiagotan erabiltzen bada, azkenengoa baino ez da aktibo egongo.</li>
+  <li>Banatutako adibidezko txantiloi-fitxategiak probak egiteko baino ez dira. Ez itzazu editatu, sortu zureak fitxategiak kopiatuz edo berriak sortuz <em>/txantiloi-luzapena/<nire-gaia>/</em> karpetan </li>
+  <li>Pertsonalizatutako txantiloia ezabatzerakoan automatikoki berraktibatzen da jatorrizko txantiloi-fitxategia.</li>
+</ul>

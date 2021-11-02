@@ -1,0 +1,141 @@
+<h2>搜尋</h2>
+
+<p>在預設情況下，所有輸入的詞彙都必須符合，不區分大小寫。</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>詞彙加上引號<br>
+<q>"search"</q>
+</td>
+<td>想要搜尋完全一致的單字或片語，請使用引號<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>符合其中之一即可<br>
+<q>OR search</q><br>
+</td>
+<td>在單字之間加上 OR。<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>排除<br>
+<q>NOT search</q><br>
+<q>-search</q>
+</td>
+<td>搜尋結果中想要排除某個字單字，可以在該單字前面加上減號 (-) 或是 NOT。請注意：NOT 是用來篩選運算結果的，因此搜尋條件中不得只有 NOT 運算。另外，NOT 也無法和 OR 合併使用（例如 <q>john OR NOT bill</q> 就是無效的條件）。<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>群組<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mother OR father) AND (daugther OR son)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>只在標籤中搜尋；不搜尋照片標題或是說明。<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>只在照片的標題或說明中搜尋。<br>
+<q>photo:John</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>搜尋符合的檔案名稱。<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>搜尋符合的作者。<br>
+<q>author:John</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>搜尋符合的拍攝日期。<br>
+<q>taken:2003</q> 於 2003 年拍攝的照片<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> 於 2003 年 5 月拍攝的照片<br>
+<q>taken:2003..2008</q> 於 2003 到 2008 年間拍攝的照片<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> 2008 年 1 月 1 日以後拍攝的照片<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>搜尋符合的上傳日期。</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>搜尋符合寬度 (width) 或高度 (height) 的照片。</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>搜尋符合大小（單位為畫素）的照片。<br>
+<q>size:5m</q> 列出所有 5 百萬畫素的照片<br>
+<q>size:>12m</q> 列出所有 1200 萬以及以上的照片<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>依照片的寬/高比例搜尋照片。<br>
+<q>ratio:3/4 OR ratio:4/3</q> 尋找所有用小相機拍攝的照片，直的橫的都要。
+<q>ratio:>16/9</q> 尋找全景照片
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>提示：<q>score:*</q> 會列出至少被評價一次的所有照片。<q>score:</q> 會列出沒有被評價過的照片。</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>指定要搜尋的檔案大小。<br>
+<q>filesize:1m..10m</q> 尋找所有大小在 1MB 到 10MB 之間的檔案。</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>以 Piwigo 所給予的 ID 編號搜尋照片。<br>
+<q>id:123..126</q> 列出 123 到 126 號的照片（結果可能會有 0 到 4 張照片，因為照片可能會被刪除）。</td>
+</tr>
+
+</table>

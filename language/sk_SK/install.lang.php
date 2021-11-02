@@ -26,7 +26,7 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'zadať používateľské meno webmastra';
 $lang['webmaster login can\'t contain characters \' or "'] = 'používateľské meno správcu nemôže obsahovať znak \' alebo "';
 $lang['please enter your password again'] = 'prosím zadať znovu heslo';
-$lang['Keep it confidential, it enables you to access administration panel'] = 'Heslo majte utajené, umožní Vám prístup do administrácie aplikácie';
+$lang['Keep it confidential, it enables you to access administration panel'] = 'Heslo držte v tajnosti, umožní Vám prístup do administrácie aplikácie';
 $lang['Password [confirm]'] = 'Heslo [potvrdenie]';
 $lang['verification'] = 'kontrola';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Potrebujete pomoc? Opýtajte sa na <a href="%s">Piwigo fóre</a>.';
@@ -38,15 +38,15 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['Try to configure PHP 5'] = 'Pokúste sa zmeniť Vaše nastavenie na PHP 5.2';
 $lang['Sorry!'] = 'Bohužiaľ!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nebolo schopné zmeniť Vaše nastavenie na PHP 5.2';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Obráďte sa na poskytovateľa Vašeho webhostingu, aby ste zistili, ako môžete zmeniť Vaše nastavenie na PHP 5.2';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Obráťte sa na poskytovateľa Vášho webhostingu, aby ste zistili, ako môžete prejsť na PHP 5.3.';
 $lang['Hope to see you back soon.'] = 'Veríme, že sa čoskoro uvidíme.';
-$lang['Congratulations, Piwigo installation is completed'] = 'Gratulujeme, Piwigo inštalácia je ukončená';
-$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Náhradným riešením je skopírovať text z boxu vyššie a vložiť ho do súboru "local/config/database.inc.php" (Upozornenie: súbor database.inc.php môže obsahovať len to, čo je v tomto boxe, žiadne znaky odriadkovania alebo medzery)';
+$lang['Congratulations, Piwigo installation is completed'] = 'Gratulujeme, inštalácia Piwigo je dokončená';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Náhradným riešením je skopírovať text z boxu vyššie a vložiť ho do súboru "local/config/database.inc.php" (Upozornenie: súbor database.inc.php môže obsahovať len to, čo je v tomto boxe, žiadne znaky nových riadkov alebo medzery)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Vytvorenie súboru local/config/database.inc.php sa nepodarilo.';
 $lang['Download the config file'] = 'Stiahnuť konfiguračný súbor';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Môžete stiahnuť konfiguračný súbor a nahrať ho do adresára local/config Vašej inštalácie.';
 $lang['Just another Piwigo gallery'] = 'Len iná Piwigo galéria';
 $lang['Welcome to my photo gallery'] = 'Vitajte v mojej foto galérii';
 $lang['Welcome to your new installation of Piwigo!'] = 'Vitajte vo Vašej novej inštalácii Piwigo!';
-$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Neváhajte konzultovať na našom fóre každú pomoc: %s'; 
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'V prípade otázok neváhajte navštíviť naše fórum: %s';
 $lang['localhost or other, supplied by your host provider'] = 'localhost alebo iné, obdržíte od poskytovateľa hostu';

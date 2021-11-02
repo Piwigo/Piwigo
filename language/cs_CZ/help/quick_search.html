@@ -1,0 +1,141 @@
+<h2>Search</h2>
+
+<p>Výchozí nastavení je že všechny hledané výrazy se musí shodovat. Při vyhledávání se nerozlišují velká a malá písmena.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>citovaná fráze<br>
+<q>"najdi"</q>
+</td>
+<td>Pomocí uvozovek vyhledejte přesné slovo nebo sousloví.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>buďto odpovídá termín<br>
+<q>nebo/OR ho vyhledej</q><br>
+</td>
+<td>Vlož výraz OR mezi slova.<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>vyjmi<br>
+<q>NOT nehledej</q><br>
+<q>-nehledat</q>
+</td>
+<td>Vlož pomlčku (-) nebo NOT před slovo pro vyjmutí z vyhledávání. Pozn. NOT funguje jako operátor filtrování, takže nemůžete mít vyhledávání obsahující pouze operátory NOT. Nelze spojovat OR a NOT (<q>john OR NOT bill</q> není funkční)<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>seskupování<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mother OR father) AND (daugther OR son)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Hledá pouze v názvech značek/tagů, aniž by sledoval názvy nebo popisy fotografií.<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Vyhledá pouze fotografie s danými slovy v názvu nebo popisu.<br>
+<q>photo:John</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Vyhledává podle názvu souboru.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Vyhledává podle autora.<br>
+<q>author:John</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Vyhledává podle datum.<br>
+<q>taken:2003</q> fotky pořízené v 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> fotky pořízené od května 2003<br>
+<q>taken:2003..2008</q> fotky pořízené od 2003 do 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> fotky pořízené po 1.1.2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Vyhledává fotky pořízené podle datum vložení.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Hledá fotografie s danou šířkou nebo výškou.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Hledá fotografie podle velikosti v pixelech<br>
+<q>size:5m</q> zobrazí fotky o 5 megapixelech<br>
+<q>size:>12m</q> zobrazí fotky od 12 megapixelů nebo větší<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Prohledává fotografie podle poměru šířka/výška.<br>
+<q>ratio:3/4 OR ratio:4/3</q> vyhledá fotografie z kompaktních fotoaparátů v režimu na výšku nebo na šířku
+<q>ratio:>16/9</q> hledá panorama
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Hint: <q>score:*</q> vám ukáže všechny fotografie s alespoň jedním hlasem. <q>score:</q> vám ukáže všechny fotografie bez hlasování.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Hledá fotografie podle velikosti souboru<br>
+<q>filesize:1m..10m</q> najde soubory mezi 1MB a 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Najde fotky podle jejich numerického id v databázi Piwigo <br>
+<q>id:123..126</q> hledá fotky od 123 do 126 (může vypsdat mezi 0 a 4 fotkami, protože fotky mohli být odstraněny).</td>
+</tr>
+
+</table>
