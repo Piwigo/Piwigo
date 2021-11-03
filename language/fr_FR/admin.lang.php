@@ -1278,3 +1278,5 @@ $lang['Downloaded'] = 'Téléchargé';
 $lang['Personnalized filters'] = 'Filtres personnalisés';
 $lang['Object'] = 'Objet';
 $lang['Memories'] = 'Souvenirs';
+$lang['Current Version'] = 'Version actuelle';
+$lang['More information'] = 'Plus d\'information';

@@ -1,6 +1,7 @@
 {combine_script id='jquery.ajaxmanager' load='footer' require='jquery' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
 {combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js'}
 {combine_css path="themes/default/js/plugins/jquery.jgrowl.css"}
+{combine_css path="admin/themes/default/css/components/general.css"}
 
 {footer_script require='jquery.ui.effect-blind,jquery.ajaxmanager,jquery.jgrowl'}
 var pwg_token = '{$PWG_TOKEN}';
@@ -165,9 +166,9 @@ $("#update_all").click(function() {
 {if $isWebmaster == 1}
 
 <div class="autoupdate_bar">
-<input type="submit" id="update_all" value="{'Update All'|@translate}">
-<input type="submit" id="ignore_all" value="{'Ignore All'|@translate}" onClick="ignoreAll(); return false;">
-<input type="submit" id="reset_ignore" value="{'Reset ignored updates'|@translate}" onClick="resetIgnored(); return false;" {if !$SHOW_RESET}style="display:none;"{/if}>
+<div class="head-button-1 icon-ok-circled" id="update_all">{'Update All'|@translate}</div>
+<div class="head-button-2 icon-block" id="ignore_all" onClick="ignoreAll(); return false;">{'Ignore All'|@translate}</div>
+<div class="head-button-2 icon-ccw" id="reset_ignore" onClick="resetIgnored(); return false;" {if !$SHOW_RESET}style="display:none;"{/if}>{'Reset ignored updates'|@translate}</div>
 </div>
 <div class="autoupdate_bar" style="display:none;">
 {'Please wait...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif">
@@ -195,12 +196,13 @@ $("#update_all").click(function() {
             {$extension.EXT_NAME}
           </div>
           <div class="pluginDesc" id="desc_{$extension.ID}">
-            {'New Version'|@translate} : {$extension.NEW_VERSION}
-            | {'By %s'|@translate:$extension.AUTHOR}
+            <span class="plugin-version plugin-version-old icon-flow-branch" title="{"Current Version"|@translate}">{$extension.CURRENT_VERSION}</span> <i class="icon-right"></i> <span class="plugin-version icon-flow-branch" title="{"New Version"|@translate}">{$extension.NEW_VERSION}</span>
+            <div class="plugin-revision-info"><span>{$extension.REV_DESC}</span></div>
+            <a href='{$extension.EXT_URL}' target="_blank" class="plugin-update-link icon-info-circled-1">{'More information'|@translate}</a>
           </div>
           <div class="pluginActions">
             <a href="#" onClick="updateExtension('{$type}', '{$extension.EXT_ID}', {$extension.REVISION_ID});" class="updateExtension pluginActionLevel1"> <i class="icon-ok-circled"></i> {'Install'|@translate}</a>
-            <a href="{$extension.URL_DOWNLOAD}" class="pluginActionLevel2"> <i class="icon-plus-circled"></i> {'Download'|@translate}</a>
+            <a href="{$extension.URL_DOWNLOAD}" class="pluginActionLevel2"> <i class="icon-download"></i> {'Download'|@translate}</a>
             <a href="#" onClick="ignoreExtension('{$type}', '{$extension.EXT_ID}'); return false;" class="ignoreExtension pluginActionLevel2"><i class="icon-block"></i>{'Ignore this update'|@translate}</a>
           </div>
         </div>

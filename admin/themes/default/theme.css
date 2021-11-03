@@ -2209,6 +2209,41 @@ h2:lang(en) { text-transform:capitalize; }
   margin-right: 5px;
 }
 
+.autoupdate_bar {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.plugin-version {
+  border-radius: 5px;
+  color: white;
+  padding: 0px 5px;
+  background: #ff7700;
+  font-weight: bold;
+}
+
+.plugin-version-old {
+  color: rgb(59, 59, 59);
+  background: #ddd;
+}
+
+.plugin-revision-info {
+  display: inline-grid;
+  max-width: 40%;
+  margin-left: 5px;
+}
+
+.plugin-revision-info span{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plugin-update-link {
+  margin-left: 5px;
+}
+
 .pluginImage .screenshot {
   background-image: url(path-to-file/img.jpg);
   background-repeat:no-repeat;
@@ -2830,7 +2865,7 @@ legend {text-align:left;}
 
 .pluginContainer.line-form .pluginBox .pluginDesc{
   margin:  auto 10px auto 10px;
-  display: block !important;
+  display: flex !important;
   align-items: center;
 
   white-space: nowrap;
@@ -2839,6 +2874,7 @@ legend {text-align:left;}
 
   max-width: 1000px;
   flex: 1;
+  height: 100%;
 }
 
 /* Classic view */
@@ -5993,7 +6029,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background: orange;
 }
 
-.user-header-button-label {
+.head-button {
   background-color: #fafafa;
 }
 

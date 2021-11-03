@@ -1271,6 +1271,8 @@ $lang['Purge Cache'] = 'Purge Cache';
 $lang['Rename "%s"'] = 'Rename "%s"';
 $lang['Yes, rename'] = 'Yes, rename';
 $lang['Tag name'] = 'Tag name';
+$lang['Current Version'] = 'Current Version';
+$lang['More information'] = 'More information';
 
 $lang['Visited'] = 'Visited';
 $lang['Downloaded'] = 'Downloaded';

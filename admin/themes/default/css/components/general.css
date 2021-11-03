@@ -1,4 +1,51 @@
 /* -------------
+Head Buttons
+------------- 
+
+.head-button-1
+
+or
+
+.head-button-2
+
+*/
+
+.head-button-1, .head-button-2 {
+    position: relative;
+	padding: 10px;
+	border-radius: 5px;
+	font-weight: bold;
+	display: flex;
+	align-items: baseline;
+	cursor: pointer;
+    margin-right: 10px;
+}
+
+.head-button-1:active, .head-button-2:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}
+
+.head-button-1 {
+    color: white;
+    background: #ffa646;
+    box-shadow: 0px 2px #bb7932;
+}
+
+.head-button-1:hover {
+    background: #ff7700;
+}
+
+.head-button-2 {
+    background: #fafafa;
+    box-shadow: 0px 2px #00000024;
+}
+
+.head-button-2:hover {
+    background: #eee;
+}
+
+/* -------------
 Advanced filter 
 ------------- 
  
