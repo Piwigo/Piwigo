@@ -78,7 +78,7 @@ function get_columns_of($tables)
   foreach ($tables as $table)
   {
     $query = '
-DESC '.$table.'
+DESC `'.$table.'`
 ;';
     $result = pwg_query($query);
 
