@@ -414,4 +414,7 @@ $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Your authentication key is no longer valid.';
 $lang['Invalid username or password!'] = 'Invalid username or password!';
 $lang['generate random password'] = 'generate random password';
+$lang['Related albums'] = 'Related albums';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1';
 ?>

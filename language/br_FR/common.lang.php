@@ -432,3 +432,7 @@ $lang['day']['1'] = 'al Lun';
 $lang['Your authentication key is no longer valid.'] = 'N\'eo ket gwiriek ken hoc\'h alc\'hwez dilesadur';
 $lang['generate random password'] = 'Jediñ ur ger-tremen dre zegouezh';
 $lang['Invalid username or password!'] = 'Anv implijer pe ger-tremen direiz !';
+$lang['Related albums'] = 'Rummadoù stag';
+$lang['Password: ********** (no copy by email)'] = 'Ger-tremen: ********** (eilad ebet kaset dre bostel)';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Anv ar rummad, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Anv ar rummad, 1 &rarr; 5 &rarr; 10 &rarr; 100';

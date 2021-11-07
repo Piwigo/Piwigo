@@ -346,6 +346,8 @@ SELECT id
  ;';
     $all_elements = query2array($query, null, 'id');
 
+    $linked_to_virtual = array();
+
     $query = '
  SELECT id
    FROM '.CATEGORIES_TABLE.'
@@ -605,7 +607,7 @@ foreach ($filter_sets as $set)
 {
   $current_set = array_intersect($current_set, $set);
 }
-$page['cat_elements_id'] = $current_set;
+$page['cat_elements_id'] = empty($current_set) ? array() : $current_set;
 
 
 // +-----------------------------------------------------------------------+

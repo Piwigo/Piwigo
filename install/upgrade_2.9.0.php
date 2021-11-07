@@ -107,5 +107,5 @@ echo '</pre>';
 ob_end_clean();
 
 // now we upgrade from 2.10.0
-// include_once(PHPWG_ROOT_PATH.'install/upgrade_2.10.0.php');
+include_once(PHPWG_ROOT_PATH.'install/upgrade_2.10.0.php');
 ?>

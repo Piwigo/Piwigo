@@ -46,7 +46,7 @@ $template->set_filenames(array('group_list' => 'group_list.tpl'));
 $template->assign(
   array(
     'F_ADD_ACTION' => get_root_url().'admin.php?page=group_list',
-    'U_HELP' => get_root_url().'admin/popuphelp.php?page=group_list',
+    // 'U_HELP' => get_root_url().'admin/popuphelp.php?page=group_list',
     'PWG_TOKEN' => get_pwg_token(),
     'CACHE_KEYS' => get_admin_client_cache_keys(array('groups', 'users')),
     )
@@ -68,6 +68,8 @@ $perm_url    = $admin_url.'group_perm&amp;group_id=';
 $users_url = $admin_url.'user_list&amp;group=';
 $del_url     = $admin_url.'group_list&amp;delete=';
 $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
+
+$group_counter = 0;
 
 while ($row = pwg_db_fetch_assoc($result))
 {
@@ -99,7 +101,11 @@ SELECT u.'. $conf['user_fields']['username'].' AS username
       'U_ISDEFAULT' => $toggle_is_default_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
       )
     );
+
+  $group_counter++;
 }
+
+$template->assign('ADMIN_PAGE_TITLE', l10n('Group management').' <span class="badge-number">'.$group_counter.'</span>');
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

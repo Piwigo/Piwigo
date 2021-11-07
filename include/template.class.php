@@ -1993,7 +1993,7 @@ final class FileCombiner
     if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
     {
       require_once(PHPWG_ROOT_PATH.'include/jshrink.class.php');
-      try { $js = JShrink_Minifier::minify($js); } catch(Exception $e) {}
+      try { $js = JShrink\Minifier::minify($js); } catch(Exception $e) {}
     }
     return trim($js, " \t\r\n;").";\n";
   }

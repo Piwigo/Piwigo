@@ -1,8 +1,20 @@
+{footer_script}
+$('#syncFiles label').click(function () {
+  if ($("input[value='files']:checked").val()) {
+    $("input[value='files']").closest("li").find("ul").show();
+  } else {
+    $("input[value='files']").closest("li").find("ul").hide();
+  }
+})
 
-{include file='include/resize.inc.tpl'}
+{/footer_script}
 
 <div class="titrePage">
-  <h2>{'Database synchronization with files'|@translate}: <a href="{$SITE_URL}">{$SITE_URL}</a></h2>
+  <h2>{'Synchronize'|@translate}</h2>
+</div>
+
+<div class="selectedAlbum site-url-path">
+  <span class="icon-folder-open selectedAlbum-first">{$SITE_URL}</span>
 </div>
 
 {if isset($update_result)}
@@ -56,7 +68,6 @@
 {/if}
 
 {if isset($introduction)}
-<h4>{'Choose an option'|@translate}</h4>
 <form action="" method="post" id="update">
 
 	<fieldset id="syncFiles">
@@ -66,7 +77,7 @@
 			<li><label><input type="radio" name="sync" value="dirs" {if 'dirs'==$introduction.sync}checked="checked"{/if}> {'only directories'|@translate}</label></li>
 
 			<li><label><input type="radio" name="sync" value="files" {if 'files'==$introduction.sync}checked="checked"{/if}> {'directories + files'|@translate}</label>
-				<ul style="padding-left:3em">
+				<ul style="display:none;padding-left:3em">
 					<li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}> {'display maximum informations (added albums and photos, deleted albums and photos)'|@translate}</label></li>
 					<li><label><input type="checkbox" name="add_to_caddie" value="1" {if $introduction.add_to_caddie}checked="checked"{/if}> {'add new photos to caddie'|@translate}</label></li>
 					<li><label>{'Who can see these photos?'|@translate} <select name="privacy_level">{html_options options=$introduction.privacy_level_options selected=$introduction.privacy_level_selected}</select></label></li>
@@ -106,11 +117,8 @@
     </ul>
   </fieldset>
 
-  <p class="bottomButtons">
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
-    <input class="submit" type="reset"  value="{'Reset'|@translate}"  name="reset">
+  <p class="bottomButtons syncBtn">
+    <button class="icon-exchange buttonGradient" type="submit" value="" name="submit"> {'Synchronize'|@translate} </button>
   </p>
 </form>
 {/if}{*isset $introduction*}
-
-<p><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></p>

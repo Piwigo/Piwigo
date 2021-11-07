@@ -238,7 +238,7 @@ DELETE FROM '. PLUGINS_TABLE .'
         {
           break;
         }
-
+        include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
         deltree(PHPWG_PLUGINS_PATH . $plugin_id, PHPWG_PLUGINS_PATH . 'trash');
         break;
     }
@@ -317,9 +317,21 @@ DELETE FROM '. PLUGINS_TABLE .'
       {
         $plugin['author uri'] = trim($val[1]);
       }
-      if (preg_match("/Has Settings:\\s*(true|True)/", $plg_data, $val))
+      if (preg_match("/Has Settings:\\s*([Tt]rue|[Ww]ebmaster)/", $plg_data, $val))
       {
-        $plugin['hasSettings'] = true;
+        if (strtolower($val[1]) == 'webmaster')
+        {
+          global $user;
+
+          if ('webmaster' == $user['status'])
+          {
+            $plugin['hasSettings'] = true;
+          }
+        }
+        else
+        {
+          $plugin['hasSettings'] = true;
+        }
       }
       if (!empty($plugin['uri']) and strpos($plugin['uri'] , 'extension_view.php?eid='))
       {

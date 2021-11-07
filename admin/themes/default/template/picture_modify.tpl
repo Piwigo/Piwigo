@@ -47,7 +47,7 @@ jQuery("a.preview-box").colorbox({
 
 str_are_you_sure = '{'Are you sure?'|translate}';
 str_yes = '{'Yes, delete'|translate}';
-str_no = '{'No, I have changed my mind'|translate}';
+str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
 url_delete = '{$U_DELETE}';
 
 {literal}
@@ -84,19 +84,19 @@ $('#action-delete-picture').on('click', function() {
 }());
 {/footer_script}
 
-<h2>{'Edit photo #%s'|@translate:$INTRO.id}</h2>
-
 <form action="{$F_ACTION}" method="post" id="pictureModify">
   <div id='picture-preview'>
     <div class='picture-preview-actions'>
       {if isset($U_JUMPTO)}
         <a class="icon-eye" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
       {else}
-        <a class="icon-eye unavailable" title="{'Photo is in a private album'|@translate}"></a>
+        <a class="icon-eye unavailable" title="{'You don\'t have access to this photo'|translate}"></a>
       {/if}
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
+      {if !url_is_remote($PATH)}
       <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
+      {/if}
     </div>
     <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}" style="{if $FORMAT}width{else}height{/if}:35vw">
       <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" style="{if $FORMAT}width{else}height{/if}:100%">
@@ -111,7 +111,7 @@ $('#action-delete-picture').on('click', function() {
         <div class='picture-infos-container'>
           <div class='picture-infos-title'>{$INTRO.file}</div>
           <div>{$INTRO.size}</div>
-          <div>{$INTRO.formats}</div>
+          <div>{if isset($INTRO.formats)}{$INTRO.formats} {/if}</div>
           <div>{$INTRO.ext}</div>
         </div>
       </div>
@@ -199,3 +199,30 @@ $('#action-delete-picture').on('click', function() {
   </div>
 
 </form>
+
+<style>
+.selectize-input  .item,
+.selectize-input .item.active {
+  background-image:none !important;
+  background-color: #ffa646 !important;
+  border-color: transparent !important;
+  color: black !important;
+
+  border-radius: 20px !important;
+}
+
+.selectize-input .item .remove,
+.selectize-input .item .remove {
+  background-color: transparent !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  color: black !important;
+  
+  border-left: 1px solid transparent !important;
+
+}
+.selectize-input .item .remove:hover,
+.selectize-input .item .remove:hover {
+  background-color: #ff7700 !important;
+}
+</style>

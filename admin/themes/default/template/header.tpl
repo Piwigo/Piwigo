@@ -5,9 +5,12 @@
 <!DOCTYPE html>
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
+{if $SHOW_MOBILE_APP_BANNER}
+<meta name="apple-itunes-app" content="app-id=472225196">
+{/if}
 <meta charset="{$CONTENT_ENCODING}">
 <title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
-<link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
+<link rel="icon" type="image/svg+xml" href="{$ROOT_URL}{$themeconf.icon_dir}/piwigo.org-icon 1.svg">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/fonts/open-sans/open-sans.css">
 
 {strip}

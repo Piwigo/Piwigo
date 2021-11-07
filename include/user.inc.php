@@ -56,6 +56,22 @@ if (isset($_GET['auth']))
   auth_key_login($_GET['auth']);
 }
 
+if (
+  defined('IN_WS')
+  and isset($_REQUEST['method'])
+  and 'pwg.images.uploadAsync' == $_REQUEST['method']
+  and isset($_POST['username'])
+  and isset($_POST['password'])
+)
+{
+  if (!try_log_user($_POST['username'], $_POST['password'], false))
+  {
+    include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
+    $service->sendResponse(new PwgError(999, 'Invalid username/password'));
+    exit();
+  }
+}
+
 $user = build_user( $user['id'],
           ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
          );

@@ -30,7 +30,9 @@ $sort_orders = array(
   'date_creation DESC',
   'date_creation ASC',
   'date_available DESC',
-  'date_available ASC'
+  'date_available ASC',
+  'natural_order DESC',
+  'natural_order ASC'
 );
 
 if (isset($_POST['simpleAutoOrder']) || isset($_POST['recursiveAutoOrder']) )
@@ -79,6 +81,8 @@ SELECT id, name, id_uppercat
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
+    $row['name'] = trigger_change('render_category_name', $row['name'], 'admin_cat_list');
+
     if ($order_by_date)
     {
       $sort[] = $ref_dates[ $row['id'] ];
@@ -96,7 +100,7 @@ SELECT id, name, id_uppercat
 
   array_multisort(
     $sort,
-    SORT_REGULAR,
+    $order_by_field === "natural_order" ? SORT_NATURAL : SORT_REGULAR,
     'ASC' == $order_by_asc ? SORT_ASC : SORT_DESC,
     $categories
     );
@@ -119,13 +123,15 @@ $template->assign(
     )
   );
 
+$template->assign('delay_before_autoOpen', $conf['album_move_delay_before_auto_opening']);
+
 // +-----------------------------------------------------------------------+
 // |                          Album display                                |
 // +-----------------------------------------------------------------------+
 
 //Get all albums
 $query = '
-SELECT id,name,rank,status, uppercats
+SELECT id,name,`rank`,status, uppercats
   FROM '.CATEGORIES_TABLE.'
 ;';
 
@@ -136,6 +142,8 @@ $associatedTree = array();
 
 foreach ($allAlbum as $album) 
 {
+  $album['name'] = trigger_change('render_category_name', $album['name'], 'admin_cat_list');
+
   $parents = explode(',',$album['uppercats']);
   $the_place = &$associatedTree[strval($parents[0])];
   for ($i=1; $i < count($parents); $i++) 

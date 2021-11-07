@@ -23,7 +23,8 @@ var lang = {
 	Cancel: '{'Cancel'|translate|escape:'javascript'}',
 	deleteProgressMessage: "{'Deletion in progress'|translate|escape:'javascript'}",
 	syncProgressMessage: "{'Synchronization in progress'|translate|escape:'javascript'}",
-	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}"
+	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}",
+  generateMsg: "{'Generate multiple size images'|@translate}"
 };
 
 jQuery(document).ready(function() {
@@ -152,6 +153,11 @@ $(document).ready(function() {
     else {
       $("#applyActionBlock").hide();
     }
+    if ($(this).val() == "delete" || $(this).val() == "delete_derivatives") {
+      $("#confirmDel").css("visibility", "visible");
+    } else {
+      $("#confirmDel").css("visibility", "hidden");  
+    }
   });
 
   $(".wrap1 label").click(function (event) {
@@ -230,14 +236,23 @@ $(document).ready(function() {
     return false;
   });
 
+
+  jQuery("input[name=confirm_deletion]").change(function() {
+    jQuery("#confirmDel span.errors").css("visibility", "hidden");
+  });
+
   jQuery('#applyAction').click(function() {
 		var action = jQuery('[name="selectAction"]').val();
 		if (action == 'delete_derivatives') {
-			var d_count = $('#action_delete_derivatives input[type=checkbox]').filter(':checked').length
-				, e_count = $('input[name="setSelected"]').is(':checked') ? nb_thumbs_set : $('.thumbnails input[type=checkbox]').filter(':checked').length;
-			if (d_count*e_count > 500)
-				return confirm(lang.AreYouSure);
-		}
+			let d_count = $('#confirmDel input[type=checkbox]').filter(':checked').length
+			let e_count = $('input[name="setSelected"]').is(':checked') ? nb_thumbs_set : $('.thumbnails input[type=checkbox]').filter(':checked').length;
+      if (!jQuery("#confirmDel input[name=confirm_deletion]").is(':checked')) {
+        jQuery("#confirmDel span.errors").css("visibility", "visible");
+        return false;
+      } else {
+        return true;
+      }
+    }
 
 		if (action != 'generate_derivatives'
 			|| derivatives.finished() )
@@ -268,7 +283,8 @@ $(document).ready(function() {
     jQuery('.permitActionListButton div').addClass('hidden');
 		jQuery('#regenerationMsg').show();
 
-		progress();
+		progress_start();
+    progress();
 		getDerivativeUrls();
 		return false;
   });
@@ -323,6 +339,10 @@ var sliders = {
 };
 
 {/footer_script}
+
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 <div id="batchManagerGlobal">
 
@@ -379,7 +399,7 @@ var sliders = {
           <span id="duplicates_options" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'duplicates'}display:none{/if}">
             {'based on'|translate}
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_filename" {if isset($filter.duplicates_filename)}checked="checked"{/if}> {'file name'|translate}</label>
-            <label class="font-checkbox" title="md5sum"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_checksum" {if isset($filter.duplicates_checksum)}checked="checked"{/if}> {'checksum'|translate}</label>
+            <label class="font-checkbox" title="md5sum"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_checksum" {if isset($filter.duplicates_checksum)}checked="checked"{/if}> {'checksum'|translate} <i class="icon-help-circled tiptip" title="translated md5sum definition here !"> </i></label>
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_date" {if isset($filter.duplicates_date) or (isset($filter.prefilter) and $filter.prefilter ne 'duplicates')}checked="checked"{/if}> {'date & time'|translate}</label>
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_dimensions" {if isset($filter.duplicates_dimensions)}checked="checked"{/if}> {'width & height'|translate}</label>
           </span>
@@ -573,7 +593,6 @@ UL.thumbnails SPAN.wrap2 {ldelim}
             <a href="{$thumbnail.FILE_SRC}" class="preview-box icon-zoom-square" title="{'Zoom'|@translate}"></a>
           </div>
 						{if $thumbnail.level > 0}
-						<em class="levelIndicatorB">{'Level %d'|@sprintf:$thumbnail.level|@translate}</em>
 						<em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{'Level %d'|@sprintf:$thumbnail.level|@translate}</em>
 						{/if}
 						<img src="{$thumbnail.thumb->get_url()}" alt="{$thumbnail.file}" title="{$thumbnail.TITLE|@escape:'html'}" {$thumbnail.thumb->get_size_htm()}>
@@ -643,8 +662,14 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       {/if}
         </select>
       </div>
-      
-      <p id="applyActionBlock" style="display:none" class="actionButtons">
+      <p id="confirmDel" style="visibility:hidden">
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</input>
+        </label><br/><br/>
+        <span class="errors" style="visibility:hidden;margin:0;">{"You need to confirm deletion"|translate}</span>
+      </p>
+      <p id="applyActionBlock" style="display:none;margin:1em 0 0 0;" class="actionButtons">
         <button id="applyAction" name="submit" type="submit" class="buttonLike">
           <i class="icon-cog-alt"></i> {'Apply action'|translate}
         </button>
@@ -655,12 +680,11 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <div class="permitActionItem">
       <!-- delete -->
       <div id="action_delete" class="bulkAction">
-      <p><label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label><span class="errors" style="display:none">{"You need to confirm deletion"|translate}</span></p>
       </div>
 
       <!-- associate -->{* also used for "move" action *}
       <div id="action_associate" class="bulkAction">
-        <select data-selectize="categories" data-default="first" name="associate" style="width:600px"></select>
+        <select data-selectize="categories" data-default="" name="associate" style="width:600px" placeholder="{'Select an album... or type it!'|@translate}"></select>
         <a href="#" data-add-album="associate" title="{'create a new album'|@translate}" class="icon-plus"></a>
       </div>
 
@@ -748,14 +772,6 @@ UL.thumbnails SPAN.wrap2 {ldelim}
         {/foreach}
       </div>
 
-      <!-- progress bar -->
-      <div id="regenerationMsg" class="bulkAction" style="display:none">
-        <p id="regenerationText" style="margin-bottom:10px;">{'Generate multiple size images'|@translate}</p>
-        <span class="progressBar" id="progressBar"></span>
-        <input type="hidden" name="regenerateSuccess" value="0">
-        <input type="hidden" name="regenerateError" value="0">
-      </div>
-
       <!-- plugins -->
   {if !empty($element_set_global_plugins_actions)}
     {foreach from=$element_set_global_plugins_actions item=action}
@@ -766,8 +782,54 @@ UL.thumbnails SPAN.wrap2 {ldelim}
   {/if}
       </div>
     </div> <!-- #permitAction -->
+    <div id="regenerationMsg" class="bulkAction" style="display:none;margin-left:0;">
+        <div id="regenerationStatus" style="margin-bottom:10px;">
+          <span id="regenerationText">{'Generate multiple size images'|@translate}</span>
+          <span class="badge-number" style="font-size:12.8px"></span>
+        </div>
+        <input type="hidden" name="regenerateSuccess" value="0">
+        <input type="hidden" name="regenerateError" value="0">
+      </div>
+    <!-- progress bar -->
+    <div id="uploadingActions" style="display:none">
+      <div class="big-progressbar" style="max-width:100%;margin-bottom: 10px;">
+        <div class="progressbar" style="width:0%"></div>
+      </div>
+    </div>
   </fieldset>
 
   </form>
 
 </div> <!-- #batchManagerGlobal -->
+
+<style>
+#action_associate .selectize-input {
+  min-width: 500px;
+  height: 44px;
+}
+
+#action_add_tags .item,
+#action_add_tags .item.active {
+  background-image:none;
+  background-color: #ffa646;
+  border-color: transparent;
+  color: black;
+
+  border-radius: 20px;
+}
+
+#action_add_tags .item .remove,
+#action_add_tags .item .remove {
+  background-color: transparent;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: black;
+  
+  border-left: 1px solid transparent;
+
+}
+#action_add_tags .item .remove:hover,
+#action_add_tags .item .remove:hover {
+  background-color: #ff7700;
+}
+</style>

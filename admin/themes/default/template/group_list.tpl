@@ -1,3 +1,4 @@
+{include file='include/colorbox.inc.tpl'}
 {footer_script}
 var pwg_token = "{$PWG_TOKEN}";
 var str_member_default = "{'member'|@translate}"
@@ -5,16 +6,18 @@ var str_members_default = "{'members'|@translate}"
 var str_group_created = "{'Group added'|@translate}"
 var str_renaming_done = "{'Group renamed'|@translate}"
 var str_name_taken = "{'Name is already taken'|@translate}"
+var str_name_not_empty = "{'Name field must not be empty'|@translate}"
 var str_group_deleted = '{'Group "%s" succesfully deleted'|@translate}'
 var str_groups_deleted = '{'Groups \{%s\} succesfully deleted'|@translate}'
 var str_set_default = "{'Set as group for new users'|@translate}"
 var str_unset_default = "{'Unset as group for new users'|@translate}"
-var str_delete = '{'Delete group "%s"?'|@translate}'
+var str_delete = '{'Are you sure you want to delete group "%s"?'|@translate}'
 var str_yes_delete_confirmation = "{'Yes, delete'|@translate}"
 var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}"
 var str_user_associated = "{"User associated"|@translate}"
+var str_user_dissociate = "{'Dissociate user from this group'|translate}"
 var str_user_dissociated = '{'User "%s" dissociated from this group'|@translate}'
-var str_user_list = "{"User List"|@translate}"
+var str_user_list = "{'Manage the members'|translate}"
 var str_merged_into = '{'Group(s) \{%s1\} succesfully merged into "%s2"'|@translate}'
 var str_copy = '{' (copy)'|@translate}'
 var str_other_copy = '{' (copy %s)'|@translate}'
@@ -22,6 +25,27 @@ var str_other_copy = '{' (copy %s)'|@translate}'
 var serverKey = '{$CACHE_KEYS.users}'
 var serverId = '{$CACHE_KEYS._hash}'
 var rootUrl = '{$ROOT_URL}'
+
+$(document).on('keydown', function (e) {
+  if ( e.keyCode === 27) { // ESC button
+    $("#UserList").fadeOut();
+  }
+})
+$(document).on('click', function (e) {
+  if ($(e.target).closest(".UserListPopInContainer").length === 0) {
+    $("#UserList").fadeOut();
+  }
+});
+
+{* temporary fix for #1283 (begin) : force user local storage cache on page load. *}
+var usersCache = new UsersCache({
+  serverKey: '{$CACHE_KEYS.users}',
+  serverId: '{$CACHE_KEYS._hash}',
+  rootUrl: '{$ROOT_URL}'
+});
+
+usersCache.selectize(jQuery('select.UserSearch'));
+{* temporary fix for #1283 (end) *}
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -34,7 +58,7 @@ var rootUrl = '{$ROOT_URL}'
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
-{combine_css path="admin/themes/default/fontello/css/animation.css"}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 {* Define template function for the content of Groups*}
 {function name=groupContent}
@@ -47,7 +71,11 @@ var rootUrl = '{$ROOT_URL}'
     </div>
     <div class="groupHeader">
       <div class="groupIcon"> 
-        <div class="icon-users-1 {$grp_color}"></div>
+        <div class="icon-users-1 
+    {if isset($grp_color)}
+      {$grp_color}
+    {/if}">
+        </div>
         <div class="groupMessage icon-ok"></div>
         <div class="groupError icon-cancel"></div>
       </div>
@@ -86,16 +114,12 @@ var rootUrl = '{$ROOT_URL}'
       <p class="group_number_users">{$grp_members}</p>
     </div>
 
-    <a id="UserListTrigger" class="icon-user-1 manage-users not-in-selection-mode GroupManagerButtons">Manage users</a>
-    <a class="icon-lock manage-permissions not-in-selection-mode GroupManagerButtons" href="admin.php?page=group_perm&group_id={$grp_id}">Manage permissions</a>
+    <a id="UserListTrigger" class="icon-user-1 manage-users not-in-selection-mode GroupManagerButtons">{'Manage the members'|translate}</a>
+    <a class="icon-lock manage-permissions not-in-selection-mode GroupManagerButtons" href="admin.php?page=group_perm&group_id={$grp_id}">{'Manage Permissions'|translate}</a>
   </div>
 {/function}
 {/function}
 
-
-<div class="titrePage">
-  <h2>{'Group management'|@translate} <span class="badge-number"> {count($groups)}</span></h2>
-</div>
 
 <div class="selection-mode-group-manager">
   <label class="switch">
@@ -150,7 +174,7 @@ var rootUrl = '{$ROOT_URL}'
     <div id="addGroupForm" class="GroupContainer">
       <div class="groupError icon-cancel"></div>
       <div class="addGroupBlock">
-        <div class="icon-plus-circled icon-blue"></div>
+        <div class="icon-plus-circled icon-blue icon-blue-full"></div>
         <p id="addGroup">{'Add group'|translate}</p>
       </div>
       <form>
@@ -205,13 +229,13 @@ var rootUrl = '{$ROOT_URL}'
 
     <div class="UserListAddFilterUsers">
       <div class="AddUserBlock">
-        <p>Associate User</p>
+        <p>{'Associate User'|translate}</p>
         <select class="UserSearch" placeholder="John Doe"></select>
         <button class="icon-user-add submit" name="submit_add" id="UserSubmit" type="submit"></button>
       </div>
       <div class="FilterUserBlock">
         <div class="AmountOfUsersShown">
-          <p>Showing <strong>39</strong> users out of <strong>251</strong></p>
+          <p>{'Showing %s users out of %s'|translate:'<strong>39</strong>':'<strong>251</strong>'}</p>
         </div>
         <div class='search-user'>
           <span class="icon-filter search-icon"></span>
@@ -233,10 +257,22 @@ var rootUrl = '{$ROOT_URL}'
     <div class="LinkUserManager">
       <a>
       <span class="icon-users-cog"></span>
-      Manage users with user manager</a>
+      {'Manage users with user manager'|translate}</a>
     </div>
       
   </div>
 
 </div>
 </div>
+
+<style>
+
+.GroupContainer[data-default="1"] .dropdown::after {
+  left: 183px
+}
+
+.GroupContainer[data-default="0"] .dropdown::after {
+  left: 250px
+}
+
+</style>

@@ -156,6 +156,7 @@ $template->assign(
     'NB_PLUGINS' => count($pwg_loaded_plugins),
     'STORAGE_USED' => l10n('%sGB', number_format($du_gb, $du_decimals)),
     'U_QUICK_SYNC' => PHPWG_ROOT_PATH.'admin.php?page=site_update&amp;site=1&amp;quick_sync=1&amp;pwg_token='.get_pwg_token(),
+    'CHECK_FOR_UPDATES' => $conf['dashboard_check_for_updates'],
     )
   );
 
@@ -167,6 +168,8 @@ SELECT COUNT(*)
 ;';
   list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
   $template->assign('NB_COMMENTS', $nb_comments);
+} else {
+  $template->assign('NB_COMMENTS', 0);
 }
 
 if ($nb_photos > 0)
@@ -192,9 +195,7 @@ trigger_notify('loc_end_intro');
 // +-----------------------------------------------------------------------+
 
 $nb_weeks = $conf['dashboard_activity_nb_weeks'];
-$date = new DateTime();
-//Array for the JS tooltip
-$activity_last_weeks = array();
+
 //Count mondays
 $mondays = 0;
 //Get mondays number for the chart legend
@@ -202,10 +203,13 @@ $week_number = array();
 //Array for sorting days in circle size
 $temp_data = array();
 
+$activity_last_weeks = array();
+$date = new DateTime();
+
 //Get data from $nb_weeks last weeks
-while ($mondays < $nb_weeks) 
+while ($mondays < $nb_weeks)
 {
-  if ($date->format('D') == 'Mon') 
+  if ($date->format('D') == 'Mon')
   {
     $week_number[] = $date->format('W');
     $mondays += 1;
@@ -215,34 +219,54 @@ while ($mondays < $nb_weeks)
 }
 
 $week_number = array_reverse($week_number);
-
 $date_string = $date->format('Y-m-d');
-$query = '
-SELECT *
-  FROM `'.ACTIVITY_TABLE.'`
-  WHERE occured_on >= "'.$date_string.'%"
-;';
 
-$result = query2array($query, null);
-
-foreach ($result as $row) 
+if (!isset($_SESSION['cache_activity_last_weeks']) or $_SESSION['cache_activity_last_weeks']['calculated_on'] < strtotime('5 minutes ago'))
 {
-  $day_date = new DateTime($row['occured_on']);
+  $start_time = get_moment();
 
-  $week = 0;
-  for ($i=0; $i < $nb_weeks; $i++) 
-  { 
-    if ($week_number[$i] == $day_date->format('W'))
+  $query = '
+  SELECT
+      DATE_FORMAT(occured_on , \'%Y-%m-%d\') AS activity_day,
+      object,
+      action,
+      COUNT(*) AS activity_counter
+    FROM `'.ACTIVITY_TABLE.'`
+    WHERE occured_on >= \''.$date_string.'\'
+    GROUP BY activity_day, object, action
+  ;';
+  $activity_actions = query2array($query);
+
+  foreach ($activity_actions as $action)
+  {
+    // set the time to 12:00 (midday) so that it doesn't goes to previous/next day due to timezone offset
+    $day_date = new DateTime($action['activity_day'].' 12:00:00');
+
+    $week = 0;
+    for ($i=0; $i < $nb_weeks; $i++)
     {
-      $week = $i;
+      if ($week_number[$i] == $day_date->format('W'))
+      {
+        $week = $i;
+      }
     }
-  }
-  $day_nb = $day_date->format('N');
+    $day_nb = $day_date->format('N');
 
-  @$activity_last_weeks[$week][$day_nb]['details'][ucfirst($row['object'])][ucfirst($row['action'])] += 1;
-  @$activity_last_weeks[$week][$day_nb]['number'] += 1;
-  @$activity_last_weeks[$week][$day_nb]['date'] = format_date($day_date->getTimestamp());
+    @$activity_last_weeks[$week][$day_nb]['details'][ucfirst($action['object'])][ucfirst($action['action'])] = $action['activity_counter'];
+    @$activity_last_weeks[$week][$day_nb]['number'] += $action['activity_counter'];
+    @$activity_last_weeks[$week][$day_nb]['date'] = format_date($day_date->getTimestamp());
+  }
+
+  $logger->debug('[admin/intro::'.__LINE__.'] recent activity calculated in '.get_elapsed_time($start_time, get_moment()));
+
+  $_SESSION['cache_activity_last_weeks'] = array(
+    'calculated_on' => time(),
+    'data' => $activity_last_weeks,
+  );
 }
+
+$activity_last_weeks = $_SESSION['cache_activity_last_weeks']['data'];
+
 
 foreach($activity_last_weeks as $week => $i) 
 {
@@ -305,7 +329,12 @@ for ($i=0; $i < $nb_weeks; $i++)
 }
 
 $size = 1;
-$chart_data[$temp_data[0]['w']][$temp_data[0]['d']] = $size;
+
+if (isset($temp_data[0]))
+{
+  $chart_data[$temp_data[0]['w']][$temp_data[0]['d']] = $size;
+}
+
 //Set sizes in chart data
 for ($i=1; $i < count($temp_data); $i++) 
 { 
@@ -322,6 +351,14 @@ $template->assign('ACTIVITY_LAST_WEEKS', $activity_last_weeks);
 $template->assign('ACTIVITY_CHART_DATA',$chart_data);
 $template->assign('ACTIVITY_CHART_NUMBER_SIZES',$size);
 
+$day_labels = array();
+for ($i=0; $i<=6; $i++)
+{
+  // first 3 letters of day name
+  $day_labels[] = mb_substr($lang['day'][($i+1)%7], 0, 3);
+}
+$template->assign('DAY_LABELS', $day_labels);
+
 // +-----------------------------------------------------------------------+
 // |                           get storage data                            |
 // +-----------------------------------------------------------------------+
@@ -331,18 +368,18 @@ $data_storage = array();
 
 //Select files in Image_Table
 $query = '
-SELECT file, filesize
+SELECT
+   SUBSTRING_INDEX(path,".",-1) AS ext,
+   SUM(filesize) AS filesize
   FROM `'.IMAGES_TABLE.'`
+  GROUP BY ext
 ;';
 
-$result = query2array($query, null);
+$file_extensions = query2array($query, 'ext', 'filesize');
 
-foreach ($result as $file) 
+foreach ($file_extensions as $ext => $size)
 {
-  $tabString = explode('.',$file['file']);
-  $ext = $tabString[count($tabString) -1];
-  $size = $file['filesize'];
-  if (in_array($ext, $conf['picture_ext'])) 
+  if (in_array(strtolower($ext), $conf['picture_ext']))
   {
     if (isset($data_storage['Photos'])) 
     {
@@ -350,19 +387,25 @@ foreach ($result as $file)
     } else {
       $data_storage['Photos'] = $size;
     }
-  } elseif (in_array($ext, $video_format)) {
+  }
+  elseif (in_array(strtolower($ext), $video_format))
+  {
     if (isset($data_storage['Videos'])) 
     {
       $data_storage['Videos'] += $size;
     } else {
       $data_storage['Videos'] = $size;
     }
-  } else {
-    if (isset($data_storage['Others'])) 
+  }
+  else
+  {
+    if (isset($data_storage['Other']))
     {
-      $data_storage['Others'] += $size;
-    } else {
-      $data_storage['Others'] = $size;
+      $data_storage['Other'] += $size;
+    }
+    else
+    {
+      $data_storage['Other'] = $size;
     }
   }
 }
@@ -378,17 +421,6 @@ $result = query2array($query);
 if (isset($result[0]['SUM(filesize)']))
 {
   $data_storage['Formats'] = $result[0]['SUM(filesize)'];
-}
-
-//If the host is not windows, get the cache size
-if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') 
-{
-  $f = './_data';
-  $io = popen ( '/usr/bin/du -sk ' . $f, 'r' );
-  $size = fgets ($io, 4096);
-  $size = substr ( $size, 0, strpos ( $size, "\t" ) );
-  pclose ( $io );
-  $data_storage['Cache'] = $size;
 }
 
 //Calculate total storage

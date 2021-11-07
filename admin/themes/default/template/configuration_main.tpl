@@ -19,6 +19,13 @@
       });
     })(target);
   };
+
+  jQuery('.tiptip-with-img').tipTip({
+    maxWidth: "300px",
+    delay: 0,
+    fadeIn: 200,
+    fadeOut: 200
+  });
 }());
 
 {if !isset($ORDER_BY_IS_CUSTOM)}
@@ -184,6 +191,24 @@ jQuery("input[name='mail_theme']").change(function() {
       </li>
 
       <li>
+        <strong>{'Promote mobile app on mobile devices'|translate}</strong>
+
+        <label class="font-checkbox no-bold">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="show_mobile_app_banner_in_gallery" {if ($main.show_mobile_app_banner_in_gallery)}checked="checked"{/if}>
+          {'in gallery'|translate}
+        </label>
+
+        <label class="font-checkbox no-bold">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="show_mobile_app_banner_in_admin" {if ($main.show_mobile_app_banner_in_admin)}checked="checked"{/if}>
+          {'in administration'|translate}
+        </label>
+
+        <span class="icon-help-circled tiptip-with-img show-mobile-app-banner-tooltip" title="{'Displays a banner to install or open the official Piwigo app'|translate}<br><img src='admin/themes/default/images/piwigo_app_banner.jpg' style='width:100%;margin-top:5px;'>" style="cursor:help"></span>
+      </li>
+
+      <li>
         <label>{'Mail theme'|translate}</label>
 
         <div class="themeBoxes font-checkbox">
@@ -204,13 +229,14 @@ jQuery("input[name='mail_theme']").change(function() {
         {/foreach}
         </div>
       </li>
+
     </ul>
   </fieldset>
 
 </div> <!-- configContent -->
 
 <p class="formButtons">
-  <button name="submit" type="submit" class="buttonLike">
+  <button name="submit" type="submit" class="buttonLike" {if $isWebmaster != 1}disabled{/if}>
     <i class="icon-floppy"></i> {'Save Settings'|@translate}
   </button>
 </p>

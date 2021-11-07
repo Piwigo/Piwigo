@@ -7,7 +7,7 @@ $('#select-100').prop('checked', true)
 //Orphan tags
 $('.tag-warning p a').on('click', () => {
   let url = $('.tag-warning p a').data('url');
-  let tags = $('.tag-warning p a').data('tags');
+  let tags = orphan_tag_names;
   let str_orphans = str_orphan_tags.replace('%s1', tags.length).replace('%s2', tags.join(', '));
   $.confirm({
     content : str_orphans,
@@ -91,6 +91,7 @@ function updateBadge() {
 //Add a tag
 $('.add-tag-container').on('click', function() {
   $('#add-tag').addClass('input-mode');
+  $('#add-tag-input').focus();
   $('.tag-info').hide();
 })
 
@@ -116,10 +117,11 @@ $('#add-tag').submit(function (e) {
     loadState.changeHTML($('#add-tag .icon-validate') , "<i class='icon-spin6 animate-spin'> </i>")
     loadState.changeAttribute($('#add-tag .icon-validate'), 'style','pointer-event:none')
     addTag($('#add-tag-input').val()).then(function () {
-      showMessage(str_tag_created.replace('%s', $('#add-tag-input').val()))
-      loadState.reverse();
+      showMessage(str_tag_created.replace('%s', $('#add-tag-input').val()));
       $('#add-tag-input').val("");
       $('#add-tag').removeClass('input-mode');
+      $("#search-tag .search-input").trigger("input");
+      loadState.reverse();
     }).catch(message => {
       loadState.reverse();
       showError(message)
@@ -156,9 +158,7 @@ function addTag(name) {
             id:data.result.id,
             url_name:data.result.url_name
           });
-
           resolve();
-          updatePaginationMenu();
         } else {
           reject(str_already_exist.replace('%s', name));
         }
@@ -210,6 +210,7 @@ function setupTagbox(tagBox) {
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
     tagBox.addClass('edit-name');
+    tagBox.find(".tag-name-editable").focus();
   })
 
   tagBox.find('.tag-rename .icon-cancel').on('click', function() {
@@ -794,9 +795,9 @@ function isSearched(tagBox, stringSearch) {
 }
 
 function isDataSearched(tagObj) {
-  let name = tagObj.name;
+  let name = tagObj.name.toLowerCase();
   let stringSearch = $("#search-tag .search-input").val();
-  if (name.startsWith(stringSearch.toLowerCase())) {
+  if (name.includes(stringSearch.toLowerCase())) {
     return true;
   } else {
     return false;
@@ -857,10 +858,10 @@ function updatePaginationMenu() {
   actualPage = Math.min(actualPage, getNumberPages());
 
   if (getNumberPages() > 1) {
-    $('.tag-pagination').show();
+    $('.pagination-container').show();
     createPaginationMenu();
   } else {
-    $('.tag-pagination').hide();
+    $('.pagination-container').hide();
   }
 
   updateArrows();
@@ -926,6 +927,7 @@ function getNumberPages() {
 }
 
 function movePage(toRigth = true) {
+  $(".tag-box").removeClass("edit-name");
   if (toRigth) {
     if (actualPage < getNumberPages()) {
       actualPage++;
@@ -945,7 +947,7 @@ function updatePage() {
     dataToDisplay = tagToDisplay();
     tagBoxes = $('.tag-box');
     $('.pageLoad').fadeIn();;
-    $('.tag-box, .tag-pagination').animate({opacity:0}, 500).promise().then(() => {
+    $('.tag-box').animate({opacity:0}, 500).promise().then(() => {
 
       let displayTags = new Promise((res, rej) => {
         boxToRecycle = Math.min(dataToDisplay.length, tagBoxes.length);
@@ -962,7 +964,7 @@ function updatePage() {
         } else if (dataToDisplay.length > tagBoxes.length) {
           for (let j = boxToRecycle; j < dataToDisplay.length; j++) {
             let tag = dataToDisplay[j];
-            newTag = createTagBox(tag.id, tag.name, tag.url_name);
+            newTag = createTagBox(tag.id, tag.name, tag.url_name, tag.counter);
             newTag.css('opacity', 0);
             $('.tag-container').append(newTag);
             setupTagbox(newTag);
@@ -1004,16 +1006,19 @@ $('.pagination-arrow.left').on('click', () => {
 })
 
 if (getNumberPages() > 1) {
-  $('.tag-pagination').show();
+  $('.pagination-container').show();
   createPaginationMenu();
   updateArrows();
 } else {
-  $('.tag-pagination').hide();
+  $('.pagination-container').hide();
 }
 
 $('.pagination-per-page a').on('click',function () {
   per_page = parseInt($(this).html());
   updatePaginationMenu();
+  $(".pagination-per-page .selected").removeClass("selected");
+  $(this).addClass("selected");
+  $.cookie("pwg_tags_per_page", per_page);
 })
 
 function updateSearchInfo () {
@@ -1028,3 +1033,13 @@ function updateSearchInfo () {
     $('.search-info').html('');
   }
 }
+
+$(function () {
+  function setPagination() {
+    let test = $.cookie("pwg_tags_per_page");
+    $(".pagination-per-page .selected").removeClass("selected");
+    $("#"+test).trigger("click");
+  }
+  
+  setPagination()
+})

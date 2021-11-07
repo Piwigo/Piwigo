@@ -413,3 +413,8 @@ $lang['Link: %s'] = 'Lien: %s';
 $lang['Your authentication key is no longer valid.'] = 'Votre clef d\'identification n\'est plus valide.';
 $lang['Invalid username or password!'] = 'Nom d\'utilisateur ou mot de passe invalide !';
 $lang['generate random password'] = 'générer un mot de passe aléatoire';
+$lang['Related albums'] = 'Albums liés';
+$lang['Password: ********** (no copy by email)'] = 'Mot de passe : ********** (pas de copie par email)';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nom d\'album, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Nom d\'album, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+

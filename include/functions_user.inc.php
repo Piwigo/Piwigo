@@ -1099,6 +1099,8 @@ function pwg_login($success, $username, $password, $remember_me)
   pwg_session_gc();
 
   global $conf;
+
+  $user_found = false;
   // retrieving the encrypted password of the login submitted
   $query = '
 SELECT '.$conf['user_fields']['id'].' AS id,
@@ -1106,12 +1108,54 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
 ;';
+
   $row = pwg_db_fetch_assoc(pwg_query($query));
   if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
   {
-    log_user($row['id'], $remember_me);
-    trigger_notify('login_success', stripslashes($username));
-    return true;
+    $user_found = true;
+  }
+
+  // If we didn't find a matching user name, we search for email address
+  if (!$user_found)
+  {
+    $query = '
+  SELECT '.$conf['user_fields']['id'].' AS id,
+         '.$conf['user_fields']['password'].' AS password
+    FROM '.USERS_TABLE.'
+    WHERE '.$conf['user_fields']['email'].' = \''.pwg_db_real_escape_string($username).'\'
+    ;';
+
+    $row = pwg_db_fetch_assoc(pwg_query($query));
+    if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
+    {
+      $user_found = true;
+    }
+  }
+
+  if ($user_found)
+  {
+    // if user status is "guest" then she should not be granted to log in.
+    // The user may not exist in the user_infos table, so we consider it's a "normal" user by default
+    $status = 'normal';
+
+    $query = '
+SELECT
+    *
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$row['id'].'
+;';
+    $result = pwg_query($query);
+    while ($user_infos_row = pwg_db_fetch_assoc($result))
+    {
+      $status = $user_infos_row['status'];
+    }
+
+    if ('guest' != $status)
+    {
+      log_user($row['id'], $remember_me);
+      trigger_notify('login_success', stripslashes($username));
+      return true;
+    }
   }
   trigger_notify('login_failure', stripslashes($username));
   return false;
@@ -1602,6 +1646,25 @@ UPDATE '.USER_AUTH_KEYS_TABLE.'
     AND expired_on > NOW()
 ;';
   pwg_query($query);
+}
+
+/**
+ * Deactivates password reset key
+ *
+ * @since 11
+ * @param int $user_id
+ * @return null
+ */
+function deactivate_password_reset_key($user_id)
+{
+  single_update(
+    USER_INFOS_TABLE,
+    array(
+      'activation_key' => null,
+      'activation_key_expire' => null,
+      ),
+    array('user_id' => $user_id)
+    );
 }
 
 /**

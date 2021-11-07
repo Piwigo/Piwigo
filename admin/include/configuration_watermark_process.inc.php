@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!is_webmaster())
+{
+  return;
+}
+
 function get_watermark_filename($list, $candidate, $step = 0)
 {
   global $change_name;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Method UnloadFilter
+ * Smarty Method MustCompile
  *
  * Smarty_Internal_Template::mustCompile() method
  *
@@ -31,7 +31,7 @@ class Smarty_Internal_Method_MustCompile
     public function mustCompile(Smarty_Internal_Template $_template)
     {
         if (!$_template->source->exists) {
-            if (isset($_template->parent) && $_template->parent->_objType == 2) {
+            if ($_template->_isSubTpl()) {
                 $parent_resource = " in '$_template->parent->template_resource}'";
             } else {
                 $parent_resource = '';
@@ -40,10 +40,11 @@ class Smarty_Internal_Method_MustCompile
         }
         if ($_template->mustCompile === null) {
             $_template->mustCompile = (!$_template->source->handler->uncompiled &&
-                ($_template->smarty->force_compile || $_template->source->handler->recompiled || !$_template->compiled->exists ||
-                    ($_template->smarty->compile_check && $_template->compiled->getTimeStamp() < $_template->source->getTimeStamp())));
+                                       ($_template->smarty->force_compile || $_template->source->handler->recompiled ||
+                                        !$_template->compiled->exists || ($_template->compile_check &&
+                                                                          $_template->compiled->getTimeStamp() <
+                                                                          $_template->source->getTimeStamp())));
         }
-
         return $_template->mustCompile;
     }
 }

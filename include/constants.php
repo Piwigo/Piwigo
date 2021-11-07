@@ -7,7 +7,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '2.11.0beta2');
+define('PHPWG_VERSION', '12.0.0');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 
 // this constant is only used in the upgrade process, the true default theme
@@ -20,7 +20,7 @@ defined('PWG_COMBINED_DIR') or define('PWG_COMBINED_DIR', $conf['data_location']
 defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_location'].'i/');
 
 // Required versions
-define('REQUIRED_PHP_VERSION', '5.3.0');
+define('REQUIRED_PHP_VERSION', '7.0.0');
 
 // Access codes
 define('ACCESS_FREE', 0);
@@ -100,5 +100,7 @@ if (!defined('IMAGE_FORMAT_TABLE'))
   define('IMAGE_FORMAT_TABLE', $prefixeTable.'image_format');
 if (!defined('ACTIVITY_TABLE'))
   define('ACTIVITY_TABLE', $prefixeTable.'activity');
+if (!defined('LOUNGE_TABLE'))
+  define('LOUNGE_TABLE', $prefixeTable.'lounge');
 
 ?>

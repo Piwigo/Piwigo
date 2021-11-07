@@ -14,7 +14,7 @@ define('PHPWG_ROOT_PATH','./');
 // addslashes to vars if magic_quotes_gpc is off this is a security
 // precaution to prevent someone trying to break out of a SQL statement.
 //
-if( !@get_magic_quotes_gpc() )
+if(function_exists('get_magic_quotes_gpc') && !@get_magic_quotes_gpc() )
 {
   if( is_array($_POST) )
   {
@@ -211,9 +211,6 @@ else if ('pl_PL' == $language) {
 else if ('zh_CN' == $language) {
   define('PHPWG_DOMAIN', 'cn.piwigo.org');
 }
-else if ('hu_HU' == $language) {
-  define('PHPWG_DOMAIN', 'hu.piwigo.org');
-}
 else if ('ru_RU' == $language) {
   define('PHPWG_DOMAIN', 'ru.piwigo.org');
 }
@@ -232,7 +229,7 @@ else if ('pt_BR' == $language) {
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
-define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+define('PHPWG_URL', 'https://'.PHPWG_DOMAIN);
 
 load_language('common.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
 load_language('admin.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
@@ -242,7 +239,8 @@ header('Content-Type: text/html; charset=UTF-8');
 //------------------------------------------------- check php version
 if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
 {
-  include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php');
+  // include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php'); // to remove, with all its related content
+  $errors[] = l10n('PHP version %s required (you are running on PHP %s)', REQUIRED_PHP_VERSION, PHP_VERSION);
 }
 
 //----------------------------------------------------- template initialization
@@ -359,11 +357,8 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
       '<h1>%gallery_title%</h1>'."\n\n<p>".pwg_db_real_escape_string(l10n('Welcome to my photo gallery')).'</p>'
       );
 
-    // fill languages table
-    foreach ($languages->fs_languages as $language_code => $fs_language)
-    {
-      $languages->perform_action('activate', $language_code);
-    }
+    // fill languages table, only activate the current language
+    $languages->perform_action('activate', $language);
 
     // fill $conf global array
     load_conf_from_db();

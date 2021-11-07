@@ -43,7 +43,8 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-<h2>{'User comments'|@translate} {$TABSHEET_TITLE}</h2>
+<h2>{'User comments'|@translate}{if isset($TABSHEET_TITLE)} {$TABSHEET_TITLE}{/if}
+</h2>
 
 <div class="commentFilter">
   <a href="{$F_ACTION}&amp;filter=all" class="{if $filter == 'all'}commentFilterSelected{/if}">{'All'|@translate}</a> ({$nb_total})
