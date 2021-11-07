@@ -35,6 +35,7 @@ $(".delete-lang-button").each(function() {
     {if $language.state == $language_state}
   <div class="languageBox{if $language.is_default} languageDefault{/if}">
     <div class="languageName">{$language.name}{if $language.is_default} <em>({'default'|@translate})</em>{/if}</div>
+    {if $isWebmaster == 1}
     <div class="languageActions">
       <div>
       {if $language_state == 'active'}
@@ -55,6 +56,7 @@ $(".delete-lang-button").each(function() {
       {/if}
       </div>
     </div> <!-- languageActions -->
+    {/if}
   </div> <!-- languageBox -->
     {/if}
   {/foreach}

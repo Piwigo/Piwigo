@@ -6,6 +6,7 @@ $(document).ready(() => {
     data: formatedData,
     autoOpen : false,
     dragAndDrop: true,
+    openFolderDelay: delay_autoOpen,
     onCreateLi : createAlbumNode,
     onCanSelectNode: function(node) {return false}
   });
@@ -60,6 +61,17 @@ $(document).ready(() => {
     var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
     var colorId = Number(node.id)%5;
     cont.find(".icon-folder-open, .icon-sitemap").addClass(colors[colorId]);  
+  }
+
+  var url_split = window.location.href.split("#");
+  var catToOpen = url_split[url_split.length-1].split("-")[1];
+
+  function isNumeric(num){
+    return !isNaN(num)
+  }
+
+  if(catToOpen && isNumeric(catToOpen)) {
+    goToNode($('.tree').tree('getNodeById', catToOpen), $('.tree').tree('getNodeById', catToOpen));
   }
 
   $('.tree').on( 'click', '.move-cat-toogler', function(e) {
@@ -156,6 +168,18 @@ $(document).ready(() => {
   }
 });
 
+function goToNode(node, firstNode) {
+  if (node.parent) {
+    goToNode(node.parent, firstNode);
+    if(node != firstNode) {
+      $(".tree").tree('openNode', node);
+    }
+  } else {
+    $(".tree").tree('openNode', node);
+    $("#cat-"+firstNode.id).addClass("animateFocus");
+  }
+}
+
 function getId(parent) {
   if (parent.getLevel() == 0) {
     return 0;
@@ -200,8 +224,8 @@ function applyMove(event) {
     }
     moveRank = 1;
   } else if (event.move_info.position == 'before') {
-    if (moveParent == null) {
-      moveParent = 0
+    if (getId(previous_parent) != getId(target.parent)) {
+      moveParent = getId(target.parent);
     }
     moveRank = 1;
   } 
@@ -216,14 +240,14 @@ function applyMove(event) {
 function moveNode(node, rank, parent) {
   return new Promise ((res, rej) => {
     if (parent != null) {
-      changeParent(node, parent).then(changeRank(node, rank)).then(() => res()).catch(() => rej())
+      changeParent(node, parent, rank).then(() => res()).catch(() => rej())
     } else if (rank != null) {
       changeRank(node, rank).then(() => res()).catch(() => rej())
     }
   })
 }
 
-function changeParent(node, parent) {
+function changeParent(node, parent, rank) {
   return new Promise((res, rej) => {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.categories.move",
@@ -236,6 +260,7 @@ function changeParent(node, parent) {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
+          changeRank(node, rank)
           res();
         } else {
           rej(raw_data);

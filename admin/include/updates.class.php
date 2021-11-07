@@ -545,9 +545,14 @@ class updates
             self::process_obsolete_list($obsolete_list);
             deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
             invalidate_user_cache(true);
-            $template->delete_compiled_templates();
             if ($step == 2)
             {
+              // only delete compiled templates on minor update. Doing this on
+              // a major update might even encounter fatal error if Smarty
+              // changes. Anyway, a compiled template purge will be performed
+              // by upgrade.php
+              $template->delete_compiled_templates();
+
               $page['infos'][] = l10n('Update Complete');
               $page['infos'][] = $upgrade_to;
               $step = -1;

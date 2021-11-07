@@ -238,7 +238,7 @@ DELETE FROM '. PLUGINS_TABLE .'
         {
           break;
         }
-
+        include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
         deltree(PHPWG_PLUGINS_PATH . $plugin_id, PHPWG_PLUGINS_PATH . 'trash');
         break;
     }

@@ -16,14 +16,8 @@ check_input_parameter('group', $_GET, false, PATTERN_ID);
 // | tabs                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-
-$my_base_url = get_root_url().'admin.php?page=';
-
-$tabsheet = new tabsheet();
-$tabsheet->set_id('users');
-$tabsheet->select('user_list');
-$tabsheet->assign();
+$page['tab'] = 'user_list';
+include(PHPWG_ROOT_PATH.'admin/include/user_tabs.inc.php');
 
 // +-----------------------------------------------------------------------+
 // |                              groups list                              |
@@ -44,10 +38,33 @@ while ($row = pwg_db_fetch_assoc($result))
 }
 
 // +-----------------------------------------------------------------------+
+// |                              Dates for filtering                      |
+// +-----------------------------------------------------------------------+
+
+$query = '
+SELECT DISTINCT
+      month(registration_date) as registration_month,
+      year(registration_date) as registration_year
+FROM '.USER_INFOS_TABLE.'
+ORDER BY registration_date
+;';
+$result = pwg_query($query);
+
+$register_dates = array();
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $register_dates[] = $row['registration_month'].' '.$row['registration_year'];
+}
+
+$template->assign('register_dates', implode(',' , $register_dates));
+
+
+// +-----------------------------------------------------------------------+
 // | template                                                              |
 // +-----------------------------------------------------------------------+
 $template->assign(
   array(
+    'ADMIN_PAGE_TITLE' => l10n('Manage users'),
     'ACTIVATE_COMMENTS' => $conf['activate_comments'],
     'Double_Password' => $conf['double_password_type_in_admin']
   )
@@ -97,6 +114,9 @@ $template->assign(
     'password_protected_users' => implode(',', array_unique($password_protected_users)),
     'guest_user' => $conf['guest_id'],
     'filter_group' => (isset($_GET['group']) ? $_GET['group'] : null),
+    'connected_user' => $user["id"],
+    'connected_user_status' => $user['status'],
+    'owner' => $conf['webmaster_id']
     )
   );
 
@@ -132,6 +152,24 @@ foreach ($conf['available_permission_levels'] as $level)
 $template->assign('level_options', $level_options);
 $template->assign('level_selected', $default_user['level']);
 
+$query = '
+SELECT id, name, is_default
+  FROM `'.GROUPS_TABLE.'`
+  ORDER BY name ASC
+;';
+$result = pwg_query($query);
+
+$groups_arr_id = [];
+$groups_arr_name = [];
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $groups_arr_name[] = '"'.pwg_db_real_escape_string($row["name"]).'"';
+  $groups_arr_id[] = $row["id"];
+}
+
+$template->assign('groups_arr_id', implode(',', $groups_arr_id));
+$template->assign('groups_arr_name', implode(',', $groups_arr_name));
+$template->assign('guest_id', $conf["guest_id"]);
 
 // +-----------------------------------------------------------------------+
 // | html code display                                                     |

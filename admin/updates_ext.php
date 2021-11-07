@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!is_webmaster())
+{
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
+}
+
 $conf['updates_ignored'] = unserialize($conf['updates_ignored']);
 
 include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
@@ -76,5 +81,6 @@ $template->assign('PWG_TOKEN', get_pwg_token());
 $template->assign('EXT_TYPE', $page['page'] == 'updates' ? 'extensions' : $page['page']);
 $template->set_filename('plugin_admin_content', 'updates_ext.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 
 ?>

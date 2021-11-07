@@ -25,7 +25,13 @@ class Smarty_Internal_Configfilelexer
      * @var string
      */
     public $data;
-    /**
+      /**
+      * Source length
+      *
+      * @var int
+      */
+     public $dataLength = null;
+   /**
      * byte counter
      *
      * @var int
@@ -118,11 +124,10 @@ class Smarty_Internal_Configfilelexer
      * @param   string                             $data template source
      * @param Smarty_Internal_Config_File_Compiler $compiler
      */
-    function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
+    public function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
     {
-        // set instance object
-        self::instance($this);
         $this->data = $data . "\n"; //now all lines are \n-terminated
+        $this->dataLength = strlen($data);
         $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/', $this->data, $match)) {
             $this->counter += strlen($match[0]);
@@ -133,14 +138,9 @@ class Smarty_Internal_Configfilelexer
         $this->configBooleanize = $this->smarty->config_booleanize;
     }
 
-    public static function &instance($new_instance = null)
-    {
-        static $instance = null;
-        if (isset($new_instance) && is_object($new_instance)) {
-            $instance = $new_instance;
-        }
-        return $instance;
-    }
+   public function replace ($input) {
+        return $input;
+   }
 
     public function PrintTrace()
     {
@@ -235,7 +235,7 @@ double_quoted_string {
     $this->yypopstate();
 }
 maybe_bool {
-    if (!$this->configBooleanize || !in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no")) ) {
+    if (!$this->configBooleanize || !in_array(strtolower($this->value), array('true', 'false', 'on', 'off', 'yes', 'no')) ) {
         $this->yypopstate();
         $this->yypushstate(self::NAKED_STRING_VALUE);
         return true; //reprocess in new state
@@ -250,7 +250,7 @@ naked_string {
 }
 newline {
     $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
-    $this->value = "";
+    $this->value = '';
     $this->yypopstate();
 }
 
@@ -308,7 +308,7 @@ text {
   if (isset($match[0][1])) {
     $to = $match[0][1];
   } else {
-    $this->compiler->trigger_template_error ("missing or misspelled literal closing tag");
+    $this->compiler->trigger_config_file_error ('missing or misspelled literal closing tag');
   }  
   $this->value = substr($this->data,$this->counter,$to-$this->counter);
   $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_TEXT;

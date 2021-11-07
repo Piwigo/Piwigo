@@ -156,6 +156,7 @@ $template->assign(
     'NB_PLUGINS' => count($pwg_loaded_plugins),
     'STORAGE_USED' => l10n('%sGB', number_format($du_gb, $du_decimals)),
     'U_QUICK_SYNC' => PHPWG_ROOT_PATH.'admin.php?page=site_update&amp;site=1&amp;quick_sync=1&amp;pwg_token='.get_pwg_token(),
+    'CHECK_FOR_UPDATES' => $conf['dashboard_check_for_updates'],
     )
   );
 
@@ -167,6 +168,8 @@ SELECT COUNT(*)
 ;';
   list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
   $template->assign('NB_COMMENTS', $nb_comments);
+} else {
+  $template->assign('NB_COMMENTS', 0);
 }
 
 if ($nb_photos > 0)
@@ -236,7 +239,8 @@ if (!isset($_SESSION['cache_activity_last_weeks']) or $_SESSION['cache_activity_
 
   foreach ($activity_actions as $action)
   {
-    $day_date = new DateTime($action['activity_day']);
+    // set the time to 12:00 (midday) so that it doesn't goes to previous/next day due to timezone offset
+    $day_date = new DateTime($action['activity_day'].' 12:00:00');
 
     $week = 0;
     for ($i=0; $i < $nb_weeks; $i++)
@@ -364,18 +368,18 @@ $data_storage = array();
 
 //Select files in Image_Table
 $query = '
-SELECT file, filesize
+SELECT
+   SUBSTRING_INDEX(path,".",-1) AS ext,
+   SUM(filesize) AS filesize
   FROM `'.IMAGES_TABLE.'`
+  GROUP BY ext
 ;';
 
-$result = query2array($query, null);
+$file_extensions = query2array($query, 'ext', 'filesize');
 
-foreach ($result as $file) 
+foreach ($file_extensions as $ext => $size)
 {
-  $tabString = explode('.',$file['file']);
-  $ext = $tabString[count($tabString) -1];
-  $size = $file['filesize'];
-  if (in_array($ext, $conf['picture_ext'])) 
+  if (in_array(strtolower($ext), $conf['picture_ext']))
   {
     if (isset($data_storage['Photos'])) 
     {
@@ -383,18 +387,24 @@ foreach ($result as $file)
     } else {
       $data_storage['Photos'] = $size;
     }
-  } elseif (in_array($ext, $video_format)) {
+  }
+  elseif (in_array(strtolower($ext), $video_format))
+  {
     if (isset($data_storage['Videos'])) 
     {
       $data_storage['Videos'] += $size;
     } else {
       $data_storage['Videos'] = $size;
     }
-  } else {
+  }
+  else
+  {
     if (isset($data_storage['Other']))
     {
       $data_storage['Other'] += $size;
-    } else {
+    }
+    else
+    {
       $data_storage['Other'] = $size;
     }
   }

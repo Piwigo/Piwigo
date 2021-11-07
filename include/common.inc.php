@@ -17,7 +17,7 @@ $t2 = microtime(true);
 // addslashes to vars if magic_quotes_gpc is off this is a security
 // precaution to prevent someone trying to break out of a SQL statement.
 //
-if( !@get_magic_quotes_gpc() )
+if(function_exists('get_magic_quotes_gpc') && !@get_magic_quotes_gpc() )
 {
   function sanitize_mysql_kv(&$v, $k)
   {
@@ -150,6 +150,8 @@ if (isset($conf['order_by_inside_category_custom']))
 {
   $conf['order_by_inside_category'] = $conf['order_by_inside_category_custom'];
 }
+
+check_lounge();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 

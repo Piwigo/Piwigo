@@ -111,7 +111,7 @@ a.Piwigo:hover  span.Piwigo  {
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 */
 
-a { color:#bbb; }
+a { color:#777; }
 a:hover, a:active { color: #f70; cursor: pointer; }
 ul.actions, .content form#waiting  {text-align:center;}
 
@@ -136,11 +136,20 @@ ul.actions, .content form#waiting  {text-align:center;}
 }
 
 .pagination-per-page span {
-  color: #777;
+  color: #c1c1c1;
+}
+
+.pagination-per-page a{
+  color:#c1c1c1;
 }
 
 .pagination-per-page a:hover {
   background-color: #888; color: #444;
+}
+
+.selected-pagination{
+  background:orange!important;
+  color:#444!important;
 }
 
 /* jQuery tooltips */
@@ -256,6 +265,7 @@ a.stat-box:hover {
 
 .intro-charts .tooltip .tooltip-details-title, .intro-charts .tooltip-title {
   color:#aeaeae !important;
+  border: none !important;
 }
 
 /* hacks */
@@ -277,7 +287,8 @@ a.stat-box:hover {
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
-.pluginBox, .pluginContent, .pluginMiniBox, .groups li, .groups .GroupContainer {background-color:#333;color:#999;border-color:#333; box-shadow: none;}
+.pluginBox, .pluginContent, .pluginMiniBox, .groups li, .groups .GroupContainer {background-color:#333;color:#999;border-right-color:#333; box-shadow: none;}
+.pluginMiniBox {border-left: none;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#aaa;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#800 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing {background-color:#422;border:1px solid #800;}
@@ -295,6 +306,9 @@ a.stat-box:hover {
 .GroupContainer .group_name-editable {background-color: #323232 !important; border: 1px solid #666 !important;}
 .GroupContainer .group-rename .icon-ok {color: #222;}
 
+.maintenance-action {
+  color: #c1c1c1;
+}
 
 /* Batch Manager */
 #batchManagerGlobal .thumbnails .font-checkbox [class*="icon-check"]::before {
@@ -366,6 +380,15 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 }
 
 /* Album edit */
+
+.orCreateAlbum{
+  background-color: #333;
+  color: #777;
+}
+.orCreateAlbum:hover {
+  text-decoration: none;
+  color: #777;
+}
 
 #catModify input[type="text"], #catModify textarea{
   background-color: #444444;
@@ -445,6 +468,16 @@ label>p.group_select {
 .groups input[type="text"]{
   background-color:#444444;
   border:1px solid #d5d5d5;
+}
+
+#addGroupNameInput {
+  color: #353535 !important;
+  background-color: #252525 !important;
+  border: none !important;
+}
+
+#addGroupNameInput::placeholder {
+  color: #777 !important;
 }
 
 .groups .AddUser .icon-user-add::before{
@@ -573,6 +606,7 @@ input:focus + .slider {
 .OrangeIcon{
   background-color:#ae5d1e !important;
   color:#faa96b!important;
+  border-color: #ae5d1e !important;
 }
 
 .OrangeFont{
@@ -709,12 +743,20 @@ input:focus + .slider {
   background-color:#003751;
   color: #379bbc;
 }
+.advanced-filter-select {border: 1px solid transparent;}
 
+.advanced-filter-select-container::before {
+  color: #4c4c4c;
+}
 /*------*/
 
 .userSeparator {
   color:#666;
   visibility: hidden;
+}
+
+.GuestUserListPopInContainer{
+  background-color:#444 !important;
 }
 
 /*Edit user popin*/
@@ -801,11 +843,45 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .buttonSeparator {color: #c1c1c1;}
 #cboxTitle {color: #7f7f7f !important;}
 #addAlbumForm {color: #999;}
-.selectedAlbum span {background-color: #555; color: #999;}
+.addAlbum form input {
+  color: #777 !important;
+  background-color: #252525 !important;
+  border: none !important;
+}
+.addAlbum form input::placeholder {
+  color: #777 !important;
+}
+
 #uploadForm li.plupload_droptext {background-color: #343434!important; color: #777 !important;}
 .addFilesButtonChanged {background-color: #888;}
 .addFilesButtonChanged:hover {background-color: #777;}
 .categoryBox, .addAlbum {background-color: #333 !important; box-shadow: -1px 1px 2px #1a1a1a;}
+.categoryBox.line_cat:hover {
+  background: #f9852c !important;
+  color: #333 !important;
+  transition: 0.2s linear;
+}
+.categoryBox.line_cat:hover .albumInfos {
+  color: #333 !important;
+  transition: 0.2s linear;
+}
+.categoryBox.line_cat:hover .albumActions a span {
+  color: #333;
+  transition: 0.2s linear;
+}
+.albumActions a:hover span {
+  color: #fff !important;
+}
+.albumActions a {
+  text-decoration: none;
+}
+
+.albumIconLineHover {
+  background: #ae5d1e ! important;
+  color: #ffa96b !important;
+  transition: 0.5s ease;
+  border-color: #ae5d1e !important;
+}
 
 #checkActions a, .deleteDerivButtons a {background-color: #393939;}
 #addFilter, #filterList select, .pictureLevels select, #permitAction select {background-color: #444444; color: #BFBFBF}
@@ -977,7 +1053,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   box-shadow: none;
 }
 
-.tag-container .tag-box[data-selected="1"] .select-checkbox {
+.tag-container .tag-box[data-selected="1"] .select-checkbox,
+.delete-size-check[data-selected="1"] .select-checkbox {
   background-color: #c76a23;
   border-color: #c76a23;
 }
@@ -1044,29 +1121,36 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 /* Icon colors*/
 
 .icon-red {
-  background-color: #c64444;
-  color: #650101;
+  border:2px solid #c64444;
+  color: #c64444
 }
 
 .icon-yellow {
-  color: #9b5200;
-  background-color: #ffa744;
+  color: #ffa744;
+  border:2px solid #ffa744;
 }
 
 .icon-purple {
-  background-color: #ce4baa;
-  color: #52003b;
+  border:2px solid #ce4baa;
+  color: #ce4baa;
 }
 
 .icon-blue {
-  background-color: #379bbc;
-  color: #003751;
+  border:2px solid #379bbc;
+  color: #379bbc;
+}
+
+.icon-blue-full {
+  background-color:#1C5B88;
+  border:0px;
+  color: #379bbc;
 }
 
 .icon-green {
-  background-color: #4ac641;
-  color: #014400;
+  border:2px solid #4ac641;
+  color: #4ac641;
 }
+
 
 .themeBox{
   box-shadow: 0 0 5px #333;
@@ -1082,9 +1166,128 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color:#999999;
 }
 
+.pluginContent {
+  border-left: solid 5px #ff8c27;
+}
+
 .pluginUnavailableAction{
   background-color:#888;
   color:#666;
+}
+
+.pluginTypeFilter {
+  display: flex;
+  flex-direction: row;
+
+  position: absolute;
+
+  left: 225px;
+  z-index: 2;
+
+  transform: translateY(13px);
+}
+
+.pluginTypeFilter label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: auto;
+  height: 30px;
+  padding: 0 10px;
+
+  color: #c1c1c1;
+  background: #555555;
+  box-shadow: 0px 2px #00000066;
+}
+
+.pluginTypeFilter input:checked + label{
+  background: #ffa500;
+  color: #444444;
+  box-shadow: 0 2px #925f00;
+}
+
+.pluginTypeFilter input:checked + label .filter-badge {
+  background-color: #d18800;
+  color: #444;
+}
+
+.pluginTypeFilter input + label .filter-badge {
+  background-color: #3f3f3f;
+  color: #bababa;
+}
+
+.pluginMiniBox.plugin-active .pluginActionsSmallIcons a span {
+  background: #ffa744 !important;
+  color: #3c3c3c !important;
+}
+
+.pluginContainer.line .pluginMiniBox:hover .pluginContent{
+  transition: 0.4s;
+  background: #333333;
+}
+
+.pluginContainer.line .pluginMiniBox:hover.plugin-inactive .slider {
+  transition: 0.4s;
+  background: #777777;
+}
+
+.pluginContainer .pluginMiniBox.plugin-inactive .slider {
+  transition: 0.4s;
+  background: #777777;
+}
+
+.pluginContainer.line .pluginMiniBox:hover .pluginContent .pluginActions a{
+  /* color: #ffffff; */
+  opacity: 1;
+}
+
+.pluginContainer.line .pluginMiniBox.inactive:hover .pluginContent .pluginActions a{
+  background: transparent;
+  opacity: 1;
+  color: #777777;
+}
+
+.pluginContainer.line .pluginMiniBox:hover .pluginUnavailableAction {
+  opacity: 0.5 !important;
+}
+
+.pluginContainer.line .pluginMiniBox.plugin-inactive:hover .pluginUnavailableAction {
+  color: #3c3c3c !important;
+  background: #dddddddd !important;
+}
+
+.pluginMiniBox.active .pluginActionsSmallIcons a span {
+  background: #ffa500;
+  color: #3c3c3c;
+}
+
+.pluginMiniBox.active .pluginActionsSmallIcons a span:hover {
+  background: #ff7700;
+  color: #111;
+}
+
+.AddPluginSuccess span,
+.RestorePluginSuccess span,
+.DeactivatePluginSuccess span {
+  color: #c2f5c2;
+}
+
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label {
+  color: #c2f5c2;
+  background-color: #0a0;
+}
+
+.PluginActionError span {
+  color: #ffd5dc
+}
+
+.PluginActionError label {
+  background-color:  #f22;
+  color: #ffd5dc
 }
 
 .addAlbum label{
@@ -1103,4 +1306,354 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .move-cat-container .move-cat-toogler{
   color:#ffa744;
+}
+
+/*Album view selector css*/
+
+.AlbumViewSelector, .UserViewSelector {
+  background:#555 !important;
+}
+
+.AlbumViewSelector label span{
+  background: #555;
+}
+
+.AlbumViewSelector input:checked + label,
+.UserViewSelector input:checked + label{
+  background: transparent;
+  color: white;
+}
+
+.AlbumViewSelector input:checked + label span,
+.UserViewSelector input:checked + label span{
+  background: orange;
+}
+
+.AlbumViewSelector input:checked + label .icon-th-large, 
+.AlbumViewSelector input:checked + label .icon-th-list,
+.AlbumViewSelector input:checked + label .icon-pause {
+  color: #444;
+}
+
+.UserViewSelector input:checked + label .icon-th-large, 
+.UserViewSelector input:checked + label .icon-th-list,
+.UserViewSelector input:checked + label .icon-pause {
+  color: #444;
+}
+
+.icon-th-large, .icon-th-list, .icon-pause {
+  color: #c1c1c1;
+}
+
+.user-header-button-label {
+  background-color: #333;
+}
+
+.user-container {
+  background-color:#333;
+}
+
+.user-first-col:hover {
+  border: solid #ffa646 2px;
+  box-sizing: border-box;
+
+  background-color:transparent;
+}
+
+.user-first-col:hover .icon-pencil {
+  color: #ffa646;
+}
+.user-first-col:hover .select-checkbox {
+  border: solid #ffa646 2px !important;
+  background-color: #ffa646 !important;
+}
+.user-first-col .select-checkbox {
+  border: solid #ffa646 2px !important;
+  background-color: transparent !important;
+}
+
+/* Selected container in userManager*/
+
+.user-container.container-selected .user-container-checkbox.user-list-checkbox .select-checkbox {
+  border: solid #c76a23 2px !important;
+  background-color: #c76a23 !important;
+}
+
+
+.user-container.container-selected {
+  display:flex;
+  width:100%;
+  height:80px;
+  background-color:#f9852c;
+  font-weight:bold;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+.user-container.container-selected .user-container-username {
+  color: #333;
+}
+
+.user-container.container-selected .user-container-status,
+.user-container.container-selected .user-container-registration-date-since{
+  color: #333 !important;
+}
+
+.user-container.container-selected .user-container-initials-wrapper > span {
+  background-color: #c76a23;
+  color:#faa96b;
+  border: solid #c76a23 2px;
+}
+
+.user-container.container-selected .user-groups,
+.user-container.container-selected .registration-clock {
+  background-color: #c76a23;
+  color:#faa96b;
+  border: solid #c76a23 2px;
+}
+
+.user-groups{
+  padding: 6px 15px!important;
+}
+
+/*****/
+
+.group-bonus {
+  color: #DDDDDD;
+  background: transparent;
+}
+
+#advanced_filter_button, #advanced-filter-container {
+  background-color:#333;
+}
+
+.advanced-filter-label, .advanced-filter-title, .advanced-filter-close {
+  color:#777;
+}
+
+.advanced-filter-select-container {
+  background: #252525;
+}
+
+.user-action-select {
+  background: transparent;
+}
+
+.user-property-select {
+  background-color:#333; 
+  color:#c1c1c1;
+}
+
+.UserListPopInContainer {
+  background-color:#444;
+}
+
+.user-property-column-title, .edit-username-title {
+  color:#c1c1c1;
+}
+
+.user-property-button {
+  color:#c1c1c1;
+  background-color:#333;
+}
+
+.user-property-button a {
+  color: #c1c1c1;
+  /* text-decoration: none; */
+}
+
+.user-property-button a:hover {
+  color: #f70;
+  /* text-decoration: none; */
+}
+
+.user-property-input {
+  color:#c1c1c1;
+  background-color:#333;
+}
+
+.user-property-input[type="text"] {
+  background-color:#333;
+}
+
+.user-property-group .selectize-input.items {
+  background-color: transparent;
+}
+
+.user-property-register-visit .icon-calendar {
+  color: #c1c1c1
+}
+
+.delete-user-button {
+  color:#c1c1c1;
+  background-color: #333;
+}
+
+.select-bar-wrapper .ui-slider-horizontal{
+  background-color:#666;
+}
+
+.preferences-container, .properties-container {
+  border-left: solid 1px #333;
+}
+
+.update-container {
+  border-top:solid 1px #333;
+}
+
+.user-property-input.user-property-input-username:hover {
+  background-color: #333;
+}
+.user-property-input.user-property-input-password:hover {
+  background-color: #333;
+}
+
+.lineView .user-container-initials-wrapper > span {
+  height: 31px!important;
+  width: 31px!important;
+}
+
+.storage-chart span{
+  opacity:1;
+}
+
+
+.multiple-pictures-sizes, .multiple-compiledTemplate-sizes, .cache-size-value {
+  background: #555555;
+  color: #c1c1c1;
+}
+
+.cache-lastCalculated-value, .cache-lastCalculated-text, .cache-size-text, .picture-deletion-size, #label-delete-size-checkbox {
+  color: #c1c1c1;
+}
+
+/* Activity Tab in user manager */
+
+.select-user {
+  background: #555555;
+  height: 50%;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 20px;
+
+  box-shadow: 0px 2px 4px #00000024;
+  border-radius: 5px;
+}
+
+.select-user-title {
+  color: #bbbbbb;
+}
+
+.start-date, 
+.end-date {
+    padding: 5px 10px;
+    background: #555555;
+    border-radius: 50px;
+    margin: 5px;
+    color: #bbbbbb;
+}
+
+.acivity-time-text {
+  font-size: 13px;
+  font-weight: bold;
+  color: #bbbbbb;
+}
+
+.compactView .user-container-initials-wrapper > span {
+  height: 50px !important;
+  width: 50px !important;
+
+  box-sizing: border-box;
+}
+
+.line {
+  background: transparent;
+
+  display: flex;
+  flex-direction: row;
+
+  height: 40px;
+
+  align-items: center;
+
+  margin-bottom: 10px;
+  color: #bbbbbb;
+}
+
+.line .detail-item {
+  background: #555555;
+  margin: 0 10px 0 0;
+  padding: 3px 6px;
+  border-radius: 20px;
+
+  min-width: 50px; 
+  max-width: 150px;
+
+  text-align: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+
+  white-space: nowrap;
+}
+
+.download_csv {
+  margin-left: auto;
+  height: 25px;
+  width: 30px;
+  background: #555555;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color:#b8b8b8;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.download_csv:hover {
+  background: #777777;
+  color: #dddddd;
+}
+
+.selectedAlbum .selectedAlbum-first {
+  background-color: #333333;
+}
+
+.selectedAlbum span a{
+  color: #777 !important;
+}
+
+.AddUserErrors, .update-user-fail {
+  background-color: #f22;;
+  color: #ffd5dc;
+  border-left:solid 3px #f22;
+}
+
+.AddUserPopInContainer {
+  background-color: #444;
+}
+
+.AddUserPopInContainer .AddIconTitle {
+  color: #c1c1c1;
+}
+
+.AddUserPopInContainer .AddUserLabel {
+  color: #777;
+}
+
+.AddUserPopInContainer .AddUserInput {
+  background-color:#333;
+  border: solid 2px #151515;
+}
+
+.buttonGradient:disabled {
+  padding: 8px 10px; margin-left: 5px;
+  background-size: 200% 100%;
+  background: #5d5d5d !important;
+  color: #373737 !important;
+  cursor: not-allowed;
 }

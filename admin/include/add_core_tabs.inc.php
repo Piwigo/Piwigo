@@ -35,6 +35,12 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['permalinks'] = array('caption' => '<span class="icon-link-1"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
       $sheets['search'] = array('caption' => '<span class="icon-search"></span>'.l10n('Search'), 'url' => $my_base_url.'cat_search');
       break;
+    
+    case 'users':
+      global $my_base_url;
+      $sheets['user_list'] = array('caption' => '<span class="icon-users"></span>'.l10n('User list'), 'url' => $my_base_url.'user_list');
+      $sheets['user_activity'] = array('caption' => '<span class="icon-eye"></span>'.l10n('Activity'), 'url' => $my_base_url.'user_activity');
+      break;
 
     case 'batch_manager':
       global $manager_link;
@@ -151,7 +157,13 @@ function add_core_tabs($sheets, $tab_id)
       break;
     case 'site_update':
       global $my_base_url;
-      $sheets['synchronization'] = array('caption' => l10n('Database synchronization with files'), 'url' => $my_base_url.'site_update&site=1');
+      $sheets['synchronization'] = array('caption' => '<span class="icon-exchange"></span>'.l10n('Synchronization'), 'url' => $my_base_url.'site_update&site=1');
+      $sheets['site_maager'] = array('caption' => '<span class="icon-flow-branch"></span>'.l10n('Site manager'), 'url' => $my_base_url.'site_manager');
+      break;
+    case 'maintenance':
+      global $my_base_url;
+      $sheets['actions'] = array('caption' => '<span class="icon-tools"></span>'.l10n('Actions'), 'url' => $my_base_url.'maintenance&tab=actions');
+      $sheets['env'] = array('caption' => '<span class="icon-television"></span>'.l10n('Environment'), 'url' => $my_base_url.'maintenance&tab=env');
       break;
   }
 

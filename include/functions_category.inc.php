@@ -569,6 +569,7 @@ FROM '.CATEGORIES_TABLE.' as c
       }
     }
   }
+
   return $cats;
 }
 
@@ -661,7 +662,7 @@ SELECT id
  * @param int[] $excluded_cat_ids
  * @return array [id, name, counter, url_name]
  */
-function get_common_categories($items, $max=null, $excluded_cat_ids=array())
+function get_common_categories($items, $max=null, $excluded_cat_ids=array(), $use_permissions=true)
 {
   if (empty($items))
   {
@@ -676,6 +677,16 @@ SELECT
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.CATEGORIES_TABLE.' c ON category_id = id
   WHERE image_id IN ('.implode(',', $items).')';
+
+  if ($use_permissions)
+  {
+    $query.= get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'category_id',
+        ),
+      "\n    AND"
+      );
+  }
 
   if (!empty($excluded_cat_ids))
   {
@@ -708,9 +719,9 @@ SELECT
 
 function get_related_categories_menu($items, $excluded_cat_ids=array())
 {
-  global $page;
+  global $page, $conf;
 
-  $common_cats = get_common_categories($items, null, $excluded_cat_ids);
+  $common_cats = get_common_categories($items, $conf['related_albums_display_limit'], $excluded_cat_ids);
   // echo '<pre>'; print_r($common_cats); echo '</pre>';
 
   if (count($common_cats) == 0)

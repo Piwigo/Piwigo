@@ -78,7 +78,7 @@ function get_columns_of($tables)
   foreach ($tables as $table)
   {
     $query = '
-DESC '.$table.'
+DESC `'.$table.'`
 ;';
     $result = pwg_query($query);
 
@@ -189,11 +189,6 @@ load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=
 load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'install.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'upgrade.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
-// check php version
-if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
-{
-  include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php');
-}
 
 // +-----------------------------------------------------------------------+
 // |                          database connection                          |
@@ -353,6 +348,10 @@ SELECT id
   {
     $current_release = '2.10.0';
   }
+  else if (!in_array(162, $applied_upgrades))
+  {
+    $current_release = '11.0.0';
+  }
   else
   {
     // confirm that the database is in the same version as source code files
@@ -371,6 +370,13 @@ SELECT id
 $page['infos'] = array();
 $page['errors'] = array();
 $mysql_changes = array();
+
+// check php version
+if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
+{
+  // include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php'); // to remove, with all its related content
+  $page['errors'][] = l10n('PHP version %s required (you are running on PHP %s)', REQUIRED_PHP_VERSION, PHP_VERSION);
+}
 
 check_upgrade_access_rights();
 

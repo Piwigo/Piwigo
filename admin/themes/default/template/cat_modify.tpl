@@ -1,11 +1,17 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {include file='include/colorbox.inc.tpl'}
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{* {combine_script id='cat_modify' load='footer' path='admin/themes/default/js/cat_modify.js'} *}
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 
 {footer_script}
+const has_images_associated_outside = '{"delete album and all %d photos, even the %d associated to other albums"|@translate|escape:javascript}';
+const has_images_becomming_orphans = '{'delete album and the %d orphan photos'|@translate|escape:javascript}';
+const has_images_recursives = '{'delete only album, not photos'|@translate|escape:javascript}';
+
 {* <!-- CATEGORIES --> *}
 var categoriesCache = new CategoriesCache({
   serverKey: '{$CACHE_KEYS.categories}',
@@ -98,6 +104,40 @@ jQuery(document).ready(function() {
     e.preventDefault();
   });
 
+  $(".deleteAlbum").on("click", function() {
+    $.ajax({
+      url: "ws.php?format=json&method=pwg.categories.calculateOrphans",
+      type: "GET",
+      data: {
+        category_id: {$CAT_ID},
+      },
+      success: function (raw_data) {
+        let data = JSON.parse(raw_data).result[0]
+        console.log(data);
+        if (data.nb_images_recursive == 0) {
+          $(".delete_popin ul").hide();
+        } else {
+          if (data.nb_images_associated_outside == 0) {
+            $("#IMAGES_ASSOCIATED_OUTSIDE").hide();
+          } else {
+            $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").html("");
+            $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").append(has_images_associated_outside.replace('%d', data.nb_images_recursive).replace('%d', data.nb_images_associated_outside));
+          }
+          if (data.nb_images_becoming_orphan == 0) {
+            $("#IMAGES_BECOMING_ORPHAN").hide();
+          } else {
+            $("#IMAGES_BECOMING_ORPHAN .innerText").html("");
+            $("#IMAGES_BECOMING_ORPHAN .innerText").append(has_images_becomming_orphans.replace('%d', data.nb_images_becoming_orphan));
+          }
+
+        }
+      },
+      error: function(message) {
+        console.log(message);
+      }
+    });
+  });
+
   jQuery(".deleteAlbum").click(function() {
     jQuery.colorbox({
       inline:true,
@@ -186,6 +226,10 @@ function cropImage() {
 .delete_popin p.popin-actions {
   margin-top:30px;
 }
+
+#cboxContent {
+  background: none;
+}
 {/html_style}
 
 
@@ -262,6 +306,10 @@ function cropImage() {
         <a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a>
       {/if}
 
+      {if isset($U_MOVE) }
+        <a class="icon-move moveAlbum" href="{$U_MOVE}">{'Move'|@translate}</a>
+      {/if} 
+
       {if isset($U_DELETE) }
         <a class="icon-trash deleteAlbum" href="#">{'Delete album'|@translate}</a>
       {/if} 
@@ -273,15 +321,15 @@ function cropImage() {
       <div>
         <strong>
           {'Publication'|@translate}
-          <span class="icon-help-circled" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></span>
         </strong>
         <div class="switch-input">
-          <span class="label">{'Unlocked'|@translate}</span>
+          {* <span class="label">{'Unlocked'|@translate}</span> *}
           <label class="switch">
             <input type="checkbox" name="locked" id="toggleSelectionMode" value="true" {if $IS_LOCKED}checked{/if}>
             <span class="slider round"></span>
           </label>
           <span class="label">{'Locked'|@translate}</span>
+          <span class="icon-help-circled" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></span>
         </div>    
       </div>
     {if isset($CAT_COMMENTABLE)}
@@ -332,7 +380,7 @@ function cropImage() {
 {/if}
 
   <p style="margin:0">
-    <button name="submit" type="submit" class="buttonGradient">
+    <button name="submit" type="submit" class="buttonLike">
       <i class="icon-floppy"></i> {'Save Settings'|@translate}
     </button>
   </p>
@@ -350,25 +398,15 @@ function cropImage() {
       {'Delete album "%s" and its %d sub-albums.'|translate:$CATEGORIES_NAV:$NB_SUBCATS}
 {/if}
     </p>
-
-{if $NB_IMAGES_RECURSIVE > 0}
-  <ul>
-  {if $NB_IMAGES_ASSOCIATED_OUTSIDE > 0}
-    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="force_delete"> {'delete album and all %d photos, even the %d associated to other albums'|translate:$NB_IMAGES_RECURSIVE:$NB_IMAGES_ASSOCIATED_OUTSIDE}</label></li>
-  {/if}
-  {if $NB_IMAGES_BECOMING_ORPHAN > 0}
-    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="delete_orphans"> {'delete album and the %d orphan photos'|translate:$NB_IMAGES_BECOMING_ORPHAN}</label></li>
-  {/if}
-    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked"> {'delete only album, not photos'|translate}</label></li>
-  </ul>
-{/if}
-
+    <ul>
+      <li id="IMAGES_ASSOCIATED_OUTSIDE"><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="force_delete"><span class="innerText"></span></label></li>
+      <li id="IMAGES_BECOMING_ORPHAN"><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="delete_orphans"><span class="innerText"></span></label></li>
+      <li id="IMAGES_RECURSIVE"><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked">{'delete only album, not photos'|translate}</label></li>
+    </ul>
     <p class="popin-actions">
       <a id="deleteConfirm" class="buttonLike" type="submit" href="{$U_DELETE}"><i class="icon-trash"></i> {'Confirm deletion'|translate}</button>
       <a class="icon-cancel-circled close-delete_popin" href="#">{'Cancel'|translate}</a>
     </p>
-
-{* $U_DELETE *}
   </div>
 </div>
 

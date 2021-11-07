@@ -15,6 +15,8 @@ jQuery().ready(function(){
 		splitTitle: '|',
 		positionBy: 'bottomTop'
 	});
+{/literal}
+{if $CHECK_FOR_UPDATES}
   jQuery.ajax({
     type: 'GET',
     url: 'ws.php',
@@ -34,6 +36,8 @@ jQuery().ready(function(){
         jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
     }
   });
+{/if}
+{literal}
 
   jQuery('.newsletter-subscription a').click(function() {
     jQuery('.newsletter-subscription').hide();

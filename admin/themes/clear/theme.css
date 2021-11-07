@@ -27,7 +27,7 @@ input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 
 
 
-INPUT[type="text"], INPUT[type="password"], INPUT[type="file"] {
+INPUT[type="text"], INPUT[type="file"] {
 	background-color: #ddd;
 }
 
@@ -211,6 +211,7 @@ INPUT[type="text"].large  { width: 317px; }
 #pwgHead A, #footer A {color:#ccc;}
 #pwgHead A:hover, #footer A:hover {color:white;}
 
+.AlbumViewSelector {background: #fafafa;}
 .pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border-color:#ddd;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
@@ -412,7 +413,7 @@ label>p.group_select {
 
 
 .UserListPopInContainer{
-  background-color:#f3f3f3;
+  background-color:white;
   border-radius:10px;
 
 }

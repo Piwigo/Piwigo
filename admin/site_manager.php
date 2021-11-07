@@ -35,6 +35,18 @@ if (!empty($_POST) or isset($_GET['action']))
 $template->set_filenames(array('site_manager'=>'site_manager.tpl'));
 
 // +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+$my_base_url = get_root_url().'admin.php?page=';
+
+$tabsheet = new tabsheet();
+$tabsheet->set_id('site_update');
+$tabsheet->select('site_maager');
+$tabsheet->assign();  
+
+// +-----------------------------------------------------------------------+
 // |                        new site creation form                         |
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit']) and !empty($_POST['galleries_url']))

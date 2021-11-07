@@ -486,6 +486,8 @@ if (isset($page['no_md5sum_number']))
       'NB_NO_MD5SUM' => $page['no_md5sum_number'],
     )
   );
+} else {
+  $template->assign('NB_NO_MD5SUM', '');
 }
 
 // +-----------------------------------------------------------------------+

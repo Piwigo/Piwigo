@@ -222,6 +222,16 @@ jQuery(document).ready(function(){
         
         Piecon.reset();
 
+        jQuery.ajax({
+          url: "ws.php?format=json&method=pwg.images.uploadCompleted",
+          type:"POST",
+          data: {
+            pwg_token: pwg_token,
+            image_id: uploadedPhotos.join(","),
+            category_id: uploadCategory.id,
+          }
+        });
+
         jQuery(".selectAlbum, .selectFiles, #permissions, .showFieldset").hide();
 
         jQuery(".infos").append('<ul><li>'+sprintf(photosUploaded_label, uploadedPhotos.length)+'</li></ul>');
@@ -293,13 +303,14 @@ jQuery(document).ready(function(){
   <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
     <fieldset class="selectAlbum">
       <legend><span class="icon-folder-open icon-red"></span>{'Drop into album'|@translate}</legend>
-      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap" style="background-color:#f5f5f5">{$ADD_TO_ALBUM}</span></div>
+      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{$ADD_TO_ALBUM}</span></div>
       <div class="selectAlbumBlock"{if isset($ADD_TO_ALBUM)} style="display: none"{/if}>
-        <a href="#" data-add-album="category" title="{'create a new album'|@translate}" class="icon-plus"></a>
         <span id="albumSelection">
           <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
           data-default="first" name="category" style="width:600px"></select>
         </span>
+        <span class="orChoice">{'... or '|@translate} </span>
+        <a href="#" data-add-album="category" class="orCreateAlbum icon-plus-circled"> {'create a new album'|@translate}</a>
       </div>
     </fieldset>
 {*

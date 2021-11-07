@@ -180,6 +180,10 @@ function ws_getInfos($params, &$service)
     list($infos['nb_unvalidated_comments']) = pwg_db_fetch_row(pwg_query($query));
   }
 
+  // Cache size
+  // TODO for real later
+  $infos['cache_size'] = 4242;
+
   foreach ($infos as $name => $value)
   {
     $output[] = array(
@@ -187,6 +191,79 @@ function ws_getInfos($params, &$service)
       'value' => $value,
     );
   }
+  return array('infos' => new PwgNamedArray($output, 'item'));
+}
+
+/**
+ * API method
+ * Calculates and returns the size of the cache
+ *
+ * @since 12
+ * @param mixed[] $params
+ */
+function ws_getCacheSize($params, &$service)
+{
+  global $conf;
+
+  // Cache size
+  $path_cache = $conf['data_location'];
+  $infos['cache_size'] = null;
+  if (function_exists('exec'))
+  {
+    @exec('du -sk '.$path_cache, $return_array_cache);
+    if (
+      is_array($return_array_cache)
+      and !empty($return_array_cache[0])
+      and preg_match('/^(\d+)\s/', $return_array_cache[0], $matches_cache)
+    )
+    {
+      $infos['cache_size'] = $matches_cache[1] * 1024;
+    }
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  // Multiples sizes size
+  $path_msizes = $conf['data_location'].'i';
+  $msizes = get_cache_size_derivatives($path_msizes);
+
+  $infos['msizes'] = array_fill_keys(array_keys(ImageStdParams::get_defined_type_map()), 0);
+  $infos['msizes']['custom'] = 0;
+  $all = 0;
+
+  foreach(array_keys($infos['msizes']) as $size_type)
+  {
+    $infos['msizes'][$size_type] += @$msizes[derivative_to_url($size_type)];
+    $all += $infos['msizes'][$size_type];
+  }
+  $infos['msizes']['all'] = $all;
+
+  // Compiled templates size
+  $path_template_c = $conf['data_location'].'templates_c';
+  $infos['tsizes'] = null;
+  if (function_exists('exec'))
+  {
+    @exec('du -sk '.$path_template_c, $return_array_template_c);
+    if (
+      is_array($return_array_template_c)
+      and !empty($return_array_template_c[0])
+      and preg_match('/^(\d+)\s/', $return_array_template_c[0], $matches_template_c)
+    )
+    {
+      $infos['tsizes'] = $matches_template_c[1] * 1024;
+    }
+  }
+
+  $infos['last_date_calc'] = date("Y-m-d H:i:s");
+
+  foreach ($infos as $name => $value)
+  {
+    $output[] = array(
+      'name' => $name,
+      'value' => $value,
+    );
+  }
+
+  conf_update_param("cache_sizes", $output, true);
 
   return array('infos' => new PwgNamedArray($output, 'item'));
 }
@@ -336,6 +413,227 @@ function ws_session_getStatus($params, &$service)
   }
   
   return $res;
+}
+
+/**
+ * API method
+ * Returns lines of users activity
+ *  @since 12
+ */
+function ws_getActivityList($param, &$service)
+{
+  global $conf;
+
+  /* Test Lantency */ 
+  // sleep(1);
+  
+  $output_lines = array();
+  $current_key = '';
+
+  $user_ids = array();
+
+  $query = '
+SELECT
+    activity_id,
+    performed_by,
+    object,
+    object_id,
+    action,
+    session_idx,
+    ip_address,
+    occured_on,
+    details
+  FROM '.ACTIVITY_TABLE.'
+  ORDER BY activity_id DESC
+;';
+
+  $line_id = 0;
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $row['details'] = str_replace('`groups`', 'groups', $row['details']);
+    $row['details'] = str_replace('`rank`', 'rank', $row['details']);
+    $details = unserialize($row['details']);
+
+    if (isset($details['method']))
+    {
+      $detailsType = 'method';
+    }
+    if (isset($details['script']))
+    {
+      $detailsType = 'script';
+    }
+
+    $line_key = $row['session_idx'].'~'.$row['object'].'~'.$row['action'].'~'; // idx~photo~add
+  
+    if ($line_key === $current_key)
+    {
+      // j'incrémente le counter de la ligne précédente
+      $output_lines[count($output_lines)-1]['counter']++;
+      $output_lines[count($output_lines)-1]['object_id'][] = $row['object_id'];
+    }
+    else
+    {
+      list($date, $hour) = explode(' ', $row['occured_on']);
+      // New line
+      $output_lines[] = array(
+        'id' => $line_id,
+        'object' => $row['object'],
+        'object_id' => array($row['object_id']),
+        'action' => $row['action'],
+        'ip_address' => $row['ip_address'],
+        'date' => format_date($date),
+        'hour' => $hour,
+        'user_id' => $row['performed_by'],
+        'detailsType' => $detailsType,
+        'details' => $details,
+        'counter' => 1, 
+      );
+
+      @$user_ids[ $row['performed_by'] ]++;
+      $current_key = $line_key;
+      $line_id++;
+    }
+  }
+
+  $username_of = array();
+  $user_id_list = array();
+  if (count($user_ids) > 0)
+  {
+    $query = '
+SELECT
+    `'.$conf['user_fields']['id'].'` AS user_id,
+    `'.$conf['user_fields']['username'].'` AS username
+  FROM '.USERS_TABLE.'
+  WHERE `'.$conf['user_fields']['id'].'` IN ('.implode(',', array_keys($user_ids)).')
+;';
+    $username_of = query2array($query, 'user_id', 'username');
+  }
+
+  foreach ($output_lines as $idx => $output_line)
+  {
+    if ('user' == $output_line['object'])
+    {
+      foreach ($output_line['object_id'] as $user_id)
+      {
+        @$output_lines[$idx]['details']['users'][] = isset($username_of[$user_id]) ? $username_of[$user_id] : 'user#'.$user_id;
+      }
+
+      if (isset($output_lines[$idx]['details']['users']))
+      {
+        $output_lines[$idx]['details']['users_string'] = implode(', ', $output_lines[$idx]['details']['users']);
+      }
+    }
+
+    $output_lines[$idx]['username'] = 'user#'.$output_lines[$idx]['user_id'];
+    if (isset($username_of[ $output_lines[$idx]['user_id'] ]))
+    {
+      $output_lines[$idx]['username'] = $username_of[ $output_lines[$idx]['user_id'] ];
+    }
+  }
+
+  $filterable_users = array();
+  foreach ($user_ids as $key => $value)
+  {
+    if (isset($username_of[$key]))
+    {
+      array_push(
+        $filterable_users, 
+        array(
+          'id' => $key,
+          'username' => $username_of[$key],
+          'nb_lines' => $value,
+        )
+      );
+    }
+    else
+    {
+      array_push(
+        $filterable_users, 
+        array(
+          'id' => $key,
+          'username' => 'user#'.$key,
+          'nb_lines' => $value,
+        )
+      );
+    }
+  }
+
+  //Multidimentionnal sorting
+  usort($filterable_users, function ($a, $b) 
+  {
+    // compatible with PHP 7+ only
+    // return strtolower($a['username']) <=> strtolower($b['username']);
+
+    // still compatible with PHP 5
+    return (strtolower($a['username']) >= strtolower($b['username']) ? 1 : 0);
+  });
+
+  // return $output_lines;
+  return array(
+    'result_lines' => $output_lines,
+    'filterable_users' => $filterable_users,
+  );
+}
+
+/**
+ * API method
+ * Returns lines of users activity
+ * @since 12
+ */
+function ws_activity_downloadLog($param, &$service)
+{
+  global $conf;
+
+  $output_lines = array();
+
+  $query = '
+SELECT
+    activity_id,
+    performed_by,
+    object,
+    object_id,
+    action,
+    ip_address,
+    occured_on,
+    details,
+    '.$conf['user_fields']['username'].' AS username
+  FROM '.ACTIVITY_TABLE.'
+    JOIN '.USERS_TABLE.' AS u ON performed_by = u.'.$conf['user_fields']['id'].'
+  ORDER BY activity_id DESC
+;';
+
+  $result = pwg_query($query);
+  array_push($output_lines, ['User', 'ID_User', 'Object', 'Object_ID', 'Action', 'Date', 'Hour', 'IP_Address', 'Details']);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $row['details'] = str_replace('`groups`', 'groups', $row['details']);
+    $row['details'] = str_replace('`rank`', 'rank', $row['details']);
+
+    list($date, $hour) = explode(' ', $row['occured_on']);
+
+    $output_lines[] = array(
+      'username' => $row['username'],
+      'user_id' => $row['performed_by'],
+      'object' => $row['object'],
+      'object_id' => $row['object_id'],
+      'action' => $row['action'],
+      'date' => $date,
+      'hour' => $hour,
+      'ip_address' => $row['ip_address'],
+      'details' => $row['details'],
+    );
+  }
+
+  header('Content-type: application/csv');
+  header('Content-Disposition: attachment; filename='.date('YmdGis').'piwigo_activity_log.csv');
+  header("Content-Transfer-Encoding: UTF-8");
+
+  $f = fopen('php://output', 'w');  
+      foreach ($output_lines as $line) { 
+          fputcsv($f, $line, ";"); 
+      }
+  fclose($f);
 }
 
 ?>

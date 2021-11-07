@@ -105,6 +105,7 @@ if (isset($_GET['quick_sync']))
 $general_failure = true;
 if (isset($_POST['submit']))
 {
+
   if ($site_reader->open())
   {
     $general_failure = false;

@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!is_webmaster())
+{
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
@@ -122,7 +127,7 @@ $sort_fields = array(
   'hit ASC'             => l10n('Visits, low &rarr; high'),
   'id ASC'              => l10n('Numeric identifier, 1 &rarr; 9'),
   'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
-  'rank ASC'            => l10n('Manual sort order'),
+  '`rank` ASC'          => l10n('Manual sort order'),
   );
 
 $comments_order = array(
@@ -253,7 +258,7 @@ if (isset($_POST['submit']))
   }
 
   // updating configuration if no error found
-  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0)
+  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0 and is_webmaster())
   {
     //echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT param FROM '.CONFIG_TABLE);
@@ -601,6 +606,8 @@ switch ($page['section'])
     break;
   }
 }
+
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'config');
