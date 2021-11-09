@@ -1432,6 +1432,14 @@ SELECT
 ;';
     $category_infos = pwg_db_fetch_assoc(pwg_query($query));
 
+    $query = '
+SELECT
+    COUNT(*)
+  FROM '.LOUNGE_TABLE.'
+  WHERE category_id = '.$params['category'][0].'
+;';
+    list($nb_photos_lounge) = pwg_db_fetch_row(pwg_query($query));
+
     $category_name = get_cat_display_name_from_id($params['category'][0], null);
 
     return array(
@@ -1441,7 +1449,7 @@ SELECT
       'name' => $image_infos['name'],
       'category' => array(
         'id' => $params['category'][0],
-        'nb_photos' => $category_infos['nb_photos'],
+        'nb_photos' => $category_infos['nb_photos'] + $nb_photos_lounge,
         'label' => $category_name,
         )
       );
