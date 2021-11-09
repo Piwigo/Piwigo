@@ -100,9 +100,6 @@ SELECT id, uppercats
   if (pwg_db_num_rows($result) == 1)
   {
     $selected_category = array($_GET['album']);
-    
-    // lets put in the session to persist in case of upload method switch
-    $_SESSION['selected_category'] = $selected_category;
 
     $cat = pwg_db_fetch_assoc($result);
     $template->assign('ADD_TO_ALBUM', get_cat_display_name_cache($cat['uppercats'], null));
@@ -111,10 +108,6 @@ SELECT id, uppercats
   {
     fatal_error('[Hacking attempt] the album id = "'.$_GET['album'].'" is not valid');
   }
-}
-else if (isset($_SESSION['selected_category']))
-{
-  $selected_category = $_SESSION['selected_category'];
 }
 else
 {
