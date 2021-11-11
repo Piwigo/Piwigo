@@ -1249,3 +1249,4 @@ $lang['Webmaster status required'] = 'Webmaster status required';
 $lang['%s plugins found'] = '<b>%s</b> plugins found';
 $lang['%s plugin found'] = '<b>%s</b> plugin found';
 $lang['%s status is required to edit parameters.'] = '%s status is required to edit parameters.';
+$lang['Edit photo #%s'] = 'Edit photo #%s';
