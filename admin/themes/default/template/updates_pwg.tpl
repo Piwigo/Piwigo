@@ -127,7 +127,7 @@ p.release .errors {margin:0}
 </p>
 <p>
   {'A new version of Piwigo is available.'|@translate}<br>
-  {'This is a major update, with <a href="%s">new exciting features</a>.'|@translate:$RELEASE_URL} {'Some themes and plugins may be not available yet.'|@translate}
+  {'This is a major update, with <a href="%s">new exciting features</a>.'|@translate:$MAJOR_RELEASE_URL} {'Some themes and plugins may be not available yet.'|@translate}
 </p>
 <form action="" method="post">
 
