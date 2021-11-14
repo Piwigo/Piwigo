@@ -1432,6 +1432,14 @@ SELECT
 ;';
     $category_infos = pwg_db_fetch_assoc(pwg_query($query));
 
+    $query = '
+SELECT
+    COUNT(*)
+  FROM '.LOUNGE_TABLE.'
+  WHERE category_id = '.$params['category'][0].'
+;';
+    list($nb_photos_lounge) = pwg_db_fetch_row(pwg_query($query));
+
     $category_name = get_cat_display_name_from_id($params['category'][0], null);
 
     return array(
@@ -1441,7 +1449,7 @@ SELECT
       'name' => $image_infos['name'],
       'category' => array(
         'id' => $params['category'][0],
-        'nb_photos' => $category_infos['nb_photos'],
+        'nb_photos' => $category_infos['nb_photos'] + $nb_photos_lounge,
         'label' => $category_name,
         )
       );
@@ -2139,6 +2147,15 @@ function ws_images_uploadCompleted($params, $service)
   // $image_ids (canbe a subset or more image_ids from another upload too)
   $moved_from_lounge = empty_lounge();
 
+  $query = '
+SELECT
+    COUNT(*) AS nb_photos
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category_id'].'
+;';
+  $category_infos = pwg_db_fetch_assoc(pwg_query($query));
+  $category_name = get_cat_display_name_from_id($params['category_id'], null);
+
   trigger_notify(
     'ws_images_uploadCompleted',
     array(
@@ -2148,7 +2165,14 @@ function ws_images_uploadCompleted($params, $service)
     )
   );
 
-  return array('moved_from_lounge' => $moved_from_lounge);
+  return array(
+    'moved_from_lounge' => $moved_from_lounge,
+    'category' => array(
+      'id' => $params['category_id'],
+      'nb_photos' => $category_infos['nb_photos'],
+      'label' => $category_name,
+    ),
+  );
 }
 
 /**
