@@ -146,6 +146,10 @@ jQuery(document).ready(function() {
     jQuery(".pluginFilter input").on("input", function() {
       let text = jQuery(this).val().toLowerCase();
       var searchNumber = 0;
+
+      var searchActive = 0;
+      var searchInactive = 0;
+      var searchOther = 0;
       
         $(".pluginMiniBox").each(function() {
           if (text == "") {
@@ -162,7 +166,23 @@ jQuery(document).ready(function() {
             if ($("#seeOther").is(":checked") && (jQuery(this).hasClass("plugin-merged") || jQuery(this).hasClass("plugin-missing"))) {
               jQuery(this).show();
             }
+
+            if ($(this).hasClass("plugin-active")) {
+              searchActive++;
+            }
+            if ($(this).hasClass("plugin-inactive")) {
+              searchInactive++;
+            }
+            if (($(this).hasClass("plugin-merged") || $(this).hasClass("plugin-missing"))) {
+              searchOther++;
+            }
             searchNumber++
+
+            nb_plugin.all = searchNumber;
+            nb_plugin.active = searchActive;
+            nb_plugin.inactive = searchInactive;
+            nb_plugin.other = searchOther;
+
           } else {
             jQuery(".nbPluginsSearch").show();
             let name = jQuery(this).find(".pluginMiniBoxNameCell").text().toLowerCase();
@@ -182,11 +202,33 @@ jQuery(document).ready(function() {
               if ($("#seeOther").is(":checked") && (jQuery(this).hasClass("plugin-merged") || jQuery(this).hasClass("plugin-missing"))) {
                 jQuery(this).show();
               }
+
+              if ($(this).hasClass("plugin-active")) {
+                searchActive++;
+              }
+              if ($(this).hasClass("plugin-inactive")) {
+                searchInactive++;
+              }
+              if (($(this).hasClass("plugin-merged") || $(this).hasClass("plugin-missing"))) {
+                searchOther++;
+              }
+
+              nb_plugin.all = searchNumber;
+              nb_plugin.active = searchActive;
+              nb_plugin.inactive = searchInactive;
+              nb_plugin.other = searchOther;
             } else {
               jQuery(this).hide();
+
+              nb_plugin.all = searchNumber;
+              nb_plugin.active = searchActive;
+              nb_plugin.inactive = searchInactive;
+              nb_plugin.other = searchOther;
             }
           }
         })
+
+      actualizeFilter();
         
       if (searchNumber == 0) {
         jQuery(".nbPluginsSearch").html(nothing_found);
@@ -212,6 +254,36 @@ $(document).mouseup(function (e) {
     }
   })
 });
+
+function actualizeFilter() {
+
+    $("label[for='seeAll'] .filter-badge").html(nb_plugin.all);
+    $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
+    $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
+    $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+
+    $(".filterLabel").show();
+    $(".pluginMiniBox").each(function () {
+        if (nb_plugin.active == 0) {
+            $("label[for='seeActive']").hide();
+            if ($("#seeActive").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+        if (nb_plugin.inactive == 0) {
+            $("label[for='seeInactive']").hide();
+            if ($("#seeInactive").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+        if (nb_plugin.other == 0) {
+            $("label[for='seeOther']").hide();
+            if ($("#seeOther").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+    })
+}
 
 jQuery(".pluginMiniBox").each(function(index){
   let myplugin = jQuery(this);
