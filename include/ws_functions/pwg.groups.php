@@ -131,7 +131,7 @@ function ws_groups_setInfo($params, &$service)
     return new PwgError(403, 'Invalid security token');
   }
 
-  if (strlen(str_replace( " ", "",  $params['name'])) == 0) {
+  if (isset($params['name']) && strlen(str_replace( " ", "",  $params['name'])) == 0) {
     return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
   }
 
