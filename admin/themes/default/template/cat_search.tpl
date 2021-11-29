@@ -111,9 +111,9 @@ function addAlbumResult (cat, nbResult) {
 function getHtmlPath (cat) {
   html = '';
   for (let i = 0; i < cat[1].length - 1; i++) {
-    id = cat[1][i];
-    c = data[id];
-    html += '<a href="' + editLink + id + '">' + c[0] + '</a> <b>/</b> '
+    id_bis = cat[1][i];
+    c = data[id_bis];
+    html += '<a href="' + editLink + id_bis + '">' + c[0] + '</a> <b>/</b> '
   }
   html += '<a href="' + editLink + cat[1][cat[1].length - 1] + '">' + cat[0] + '</a>';
 
