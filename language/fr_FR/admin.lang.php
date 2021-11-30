@@ -1066,6 +1066,7 @@ $lang['Are you sure you want to delete the plugin "%s"?'] = 'Êtes-vous sûr de 
 $lang['Are you sure you want to restore the plugin "%s"?'] = 'Êtes-vous sûr de vouloir restaurer le plugin "%s"&nbsp?';
 $lang['Are you sure you want to delete all sizes?'] = 'Êtes-vous sûr de vouloir supprimer toutes les tailles&nbsp?';
 $lang['Are you sure you want to lock the gallery?'] = 'Êtes-vous sûr de vouloir verrouiller la galerie&nbsp?';
+$lang['Are you sure you want to unlock the gallery?'] = 'Êtes-vous sûr de vouloir déverrouiller la galerie&nbsp?';
 $lang['Are you sure you want to delete the language "%s"?'] = 'Êtes-vous sûr de vouloir supprimer la langue "%s"&nbsp?';
 $lang['Are you sure you want to delete the theme "%s"?'] = 'Êtes-vous sûr de vouloir supprimer le thème "%s"&nbsp?';
 $lang['Are you sure you want to update all extensions?'] = 'Êtes-vous sûr de vouloir mettre à jour toutes les extensions&nbsp?';
