@@ -10,7 +10,12 @@ const unit_MB = "{"%s MB"|@translate}"
 let selected = [];
 $(".lock-gallery-button").each(function() {
   const gallery_tip = '{"A locked gallery is only visible to administrators"|@translate|@escape:'javascript'}';
-  let title = '{"Are you sure you want to lock the gallery?"|@translate}';
+  {if (isset($U_MAINT_LOCK_GALLERY))}
+    let title = '{"Are you sure you want to lock the gallery?"|@translate}';
+  {else}
+    let title = '{"Are you sure you want to unlock the gallery?"|@translate}';
+  {/if}
+  
   let confirm_msg_gallery = '{"Yes, I want to lock the gallery"|@translate}';
   let cancel_msg_gallery = '{"Keep it unlocked"|@translate}';
   $(this).pwg_jconfirm_follow_href({
