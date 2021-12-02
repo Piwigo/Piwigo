@@ -28,15 +28,15 @@ const cancel_msg = "{"No, I have changed my mind"|@translate}";
 let delete_plugin_msg = '{'Are you sure you want to delete the plugin "%s"?'|@translate|@escape:'javascript'}';
 let deleted_plugin_msg = '{'Plugin "%s" deleted!'|@translate|@escape:'javascript'}';
 let restore_plugin_msg = '{'Are you sure you want to restore the plugin "%s"?'|@translate|@escape:'javascript'}';
-const restore_tip_msg = "{'Restore default configuration. You will lose your plugin settings!'|@translate}";
-const plugin_added_str = '{'Activated'|@translate}';
-const plugin_deactivated_str = '{'Deactivated'|@translate}';
-const plugin_restored_str = '{'Restored'|@translate}';
-const plugin_action_error = '{'an error happened'|@translate}';
-const not_webmaster = '{'Webmaster status required'|@translate}';
-const nothing_found = '{'No plugins found'|@translate}';
-const x_plugins_found = '{'%s plugins found'|@translate}';
-const plugin_found = '{'%s plugin found'|@translate}';
+const restore_tip_msg = "{'Restore default configuration. You will lose your plugin settings!'|@translate|@escape:'javascript'}";
+const plugin_added_str = '{'Activated'|@translate|@escape:'javascript'}';
+const plugin_deactivated_str = '{'Deactivated'|@translate|@escape:'javascript'}';
+const plugin_restored_str = '{'Restored'|@translate|@escape:'javascript'}';
+const plugin_action_error = '{'an error happened'|@translate|@escape:'javascript'}';
+const not_webmaster = '{'Webmaster status required'|@translate|@escape:'javascript'}';
+const nothing_found = '{'No plugins found'|@translate|@escape:'javascript'}';
+const x_plugins_found = '{'%s plugins found'|@translate|@escape:'javascript'}';
+const plugin_found = '{'%s plugin found'|@translate|@escape:'javascript'}';
 const isWebmaster = {$isWebmaster};
 {literal}
 var queuedManager = jQuery.manageAjax.create('queued', { 
@@ -146,6 +146,10 @@ jQuery(document).ready(function() {
     jQuery(".pluginFilter input").on("input", function() {
       let text = jQuery(this).val().toLowerCase();
       var searchNumber = 0;
+
+      var searchActive = 0;
+      var searchInactive = 0;
+      var searchOther = 0;
       
         $(".pluginMiniBox").each(function() {
           if (text == "") {
@@ -162,7 +166,23 @@ jQuery(document).ready(function() {
             if ($("#seeOther").is(":checked") && (jQuery(this).hasClass("plugin-merged") || jQuery(this).hasClass("plugin-missing"))) {
               jQuery(this).show();
             }
+
+            if ($(this).hasClass("plugin-active")) {
+              searchActive++;
+            }
+            if ($(this).hasClass("plugin-inactive")) {
+              searchInactive++;
+            }
+            if (($(this).hasClass("plugin-merged") || $(this).hasClass("plugin-missing"))) {
+              searchOther++;
+            }
             searchNumber++
+
+            nb_plugin.all = searchNumber;
+            nb_plugin.active = searchActive;
+            nb_plugin.inactive = searchInactive;
+            nb_plugin.other = searchOther;
+
           } else {
             jQuery(".nbPluginsSearch").show();
             let name = jQuery(this).find(".pluginMiniBoxNameCell").text().toLowerCase();
@@ -182,11 +202,33 @@ jQuery(document).ready(function() {
               if ($("#seeOther").is(":checked") && (jQuery(this).hasClass("plugin-merged") || jQuery(this).hasClass("plugin-missing"))) {
                 jQuery(this).show();
               }
+
+              if ($(this).hasClass("plugin-active")) {
+                searchActive++;
+              }
+              if ($(this).hasClass("plugin-inactive")) {
+                searchInactive++;
+              }
+              if (($(this).hasClass("plugin-merged") || $(this).hasClass("plugin-missing"))) {
+                searchOther++;
+              }
+
+              nb_plugin.all = searchNumber;
+              nb_plugin.active = searchActive;
+              nb_plugin.inactive = searchInactive;
+              nb_plugin.other = searchOther;
             } else {
               jQuery(this).hide();
+
+              nb_plugin.all = searchNumber;
+              nb_plugin.active = searchActive;
+              nb_plugin.inactive = searchInactive;
+              nb_plugin.other = searchOther;
             }
           }
         })
+
+      actualizeFilter();
         
       if (searchNumber == 0) {
         jQuery(".nbPluginsSearch").html(nothing_found);
@@ -212,6 +254,36 @@ $(document).mouseup(function (e) {
     }
   })
 });
+
+function actualizeFilter() {
+
+    $("label[for='seeAll'] .filter-badge").html(nb_plugin.all);
+    $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
+    $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
+    $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+
+    $(".filterLabel").show();
+    $(".pluginMiniBox").each(function () {
+        if (nb_plugin.active == 0) {
+            $("label[for='seeActive']").hide();
+            if ($("#seeActive").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+        if (nb_plugin.inactive == 0) {
+            $("label[for='seeInactive']").hide();
+            if ($("#seeInactive").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+        if (nb_plugin.other == 0) {
+            $("label[for='seeOther']").hide();
+            if ($("#seeOther").is(":checked")) {
+              $("#seeAll").trigger("click")
+            }
+        }
+    })
+}
 
 jQuery(".pluginMiniBox").each(function(index){
   let myplugin = jQuery(this);
