@@ -78,22 +78,31 @@ SELECT id, name, permalink, image_order
     }
     $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
 
+    $favoritesJoin = '';
+    $favSelect = '0 as is_favorite';
+    if (!is_a_guest()) {
+      $favoritesJoin = 'LEFT JOIN ' .FAVORITES_TABLE. ' f ON (i.id=f.image_id AND f.user_id='.$user['id'].')';
+      $favSelect = 'CASE WHEN f.image_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite';
+    }
+
     $query = '
-SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
+SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(c.category_id) AS cat_ids, '.$favSelect.'
   FROM '. IMAGES_TABLE .' i
-    INNER JOIN '. IMAGE_CATEGORY_TABLE .' ON i.id=image_id
+    INNER JOIN '. IMAGE_CATEGORY_TABLE .' c ON i.id=c.image_id
+    '.$favoritesJoin.'
   WHERE '. implode("\n    AND ", $where_clauses) .'
   GROUP BY i.id
   '. $order_by .'
   LIMIT '. $params['per_page'] .'
   OFFSET '. ($params['per_page']*$params['page']) .'
 ;';
+
     $result = pwg_query($query);
 
     while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
-      foreach (array('id', 'width', 'height', 'hit') as $k)
+      foreach (array('id', 'width', 'height', 'hit', 'is_favorite') as $k)
       {
         if (isset($row[$k]))
         {

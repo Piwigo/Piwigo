@@ -78,6 +78,8 @@ function ws_tags_getAdminList($params, &$service)
  */
 function ws_tags_getImages($params, &$service)
 {
+  global $user;
+
   // first build all the tag_ids we are interested in
   $tags = find_tags($params['tag_id'], $params['tag_url_name'], $params['tag_name']);
   $tags_by_id = array();
@@ -135,10 +137,17 @@ SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
   {
     $rank_of = array_flip($image_ids);
 
+    $favoritesJoin = '';
+    $favSelect = '0 as is_favorite';
+    if (!is_a_guest()) {
+      $favoritesJoin = 'LEFT JOIN ' .FAVORITES_TABLE. ' f ON (i.id=f.image_id AND f.user_id='.$user['id'].')';
+      $favSelect = 'CASE WHEN f.image_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite';
+    }
+
     $query = '
-SELECT *
-  FROM '. IMAGES_TABLE .'
-  WHERE id IN ('. implode(',',$image_ids) .')
+SELECT i.*, ' . $favSelect . '
+  FROM '. IMAGES_TABLE .' i ' . $favoritesJoin . '
+  WHERE i.id IN ('. implode(',',$image_ids) .')
 ;';
     $result = pwg_query($query);
 
@@ -147,7 +156,7 @@ SELECT *
       $image = array();
       $image['rank'] = $rank_of[ $row['id'] ];
 
-      foreach (array('id', 'width', 'height', 'hit') as $k)
+      foreach (array('id', 'width', 'height', 'hit', 'is_favorite') as $k)
       {
         if (isset($row[$k]))
         {
