@@ -1,5 +1,4 @@
 function setDisplayClassic() {
-    console.log("DISPLAY CLASSIC");
     $(".pluginContainer").removeClass("line").removeClass("compact").addClass("classic");
 
     $(".pluginDesc").show();
@@ -13,7 +12,6 @@ function setDisplayClassic() {
 }
 
 function setDisplayCompact() {
-    console.log("DISPLAY COMPACT");
     $(".pluginContainer").removeClass("line").addClass("compact").removeClass("classic");
 
     $(".pluginDesc").hide();
@@ -27,7 +25,6 @@ function setDisplayCompact() {
 }
 
 function setDisplayLine() {
-    console.log("DISPLAY LINE");
     $(".pluginContainer").addClass("line").removeClass("compact").removeClass("classic");
 
     $(".pluginDesc").show();
@@ -61,17 +58,7 @@ function normalTitle() {
     }
 }
 
-function actualizeFilterBadges() {
-  $("label[for='seeAll'] .filter-badge").html(nb_plugin.all);
-  $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
-  $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
-  $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
-}
-
 function activatePlugin(id) {
-    console.log("Plugin activated");
-    console.log(id);
-
     $("#"+id+" .switch").attr("disabled", true);
 
     $.ajax({
@@ -92,7 +79,7 @@ function activatePlugin(id) {
 
                 nb_plugin.active += 1;
                 nb_plugin.inactive -= 1;
-                actualizeFilterBadges();
+                actualizeFilter();
             }
         }, 
         error: function (e) {
@@ -104,15 +91,12 @@ function activatePlugin(id) {
             $("#" + id + " .PluginActionError").delay(1500).fadeOut(2500);
         }
     }).done(function (data) {
-        console.log(data);
         $("#"+id+" .switch").attr("disabled", false);
         $("#" + id + " .AddPluginSuccess").fadeOut(3000);
     })
 }
 
 function disactivatePlugin(id) {
-    console.log("Plugin disactivated");
-    console.log(id);
     $("#"+id+" .switch").attr("disabled", true);
 
     $.ajax({
@@ -133,7 +117,7 @@ function disactivatePlugin(id) {
 
                 nb_plugin.inactive += 1;
                 nb_plugin.active -= 1;
-                actualizeFilterBadges(nb_plugin.all, nb_plugin.active, nb_plugin.inactive, nb_plugin.other)
+                actualizeFilter();
             }
         }, 
         error: function (e) {
@@ -145,17 +129,12 @@ function disactivatePlugin(id) {
             $("#" + id + " .PluginActionError").delay(1500).fadeOut(2500);
         }
     }).done(function (data) {
-        console.log(data);
         $("#"+id+" .switch").attr("disabled", false);
         $("#" + id + " .DeactivatePluginSuccess").fadeOut(3000);
     })
 }
 
 function deletePlugin(id, name) {
-    console.log("Plugin deletetion");
-    console.log(id);
-    console.log(pwg_token);
-
     $.alert({
         title : deleted_plugin_msg.replace("%s",name),
         content: function() {
@@ -171,11 +150,10 @@ function deletePlugin(id, name) {
                     success: function (data) {
                         if (data.stat === "ok") {
                             $("#"+id).remove();  
+                            nb_plugin.inactive -=1;
+                            nb_plugin.all -=1;
                             actualizeFilter();
                         }
-                        nb_plugin.inactive -=1;
-                        nb_plugin.all -=1;
-                        actualizeFilterBadges();
                     }, 
                     error: function (e) {
                         console.log(e);
@@ -192,10 +170,6 @@ function deletePlugin(id, name) {
 }
 
 function restorePlugin(id) {
-    console.log("Plugin restoration");
-    console.log(id);
-    console.log(pwg_token);
-
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -227,10 +201,6 @@ function restorePlugin(id) {
 }
 
 function uninstallPlugin(id) {
-    console.log("Plugin uninstallated");
-    console.log(id);
-    console.log(pwg_token);
-
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -241,11 +211,9 @@ function uninstallPlugin(id) {
                 pwg_token: pwg_token, 
                 format: 'json' },
         success: function (data) {
-            console.log(data);
-            console.log("it works (uninstallated)");
             nb_plugin.other -=1;
             nb_plugin.all -=1;
-            actualizeFilterBadges();
+            actualizeFilter()
         }, 
         error: function (e) {
             console.log(e);
@@ -254,24 +222,8 @@ function uninstallPlugin(id) {
     })
 }
 
-function actualizeFilter() {
-    $(".filterLabel").hide();
-    $(".pluginMiniBox").each(function () {
-        if ($(this).hasClass("plugin-active")) {
-            $("label[for='seeActive']").show();
-        }
-        if ($(this).hasClass("plugin-inactive")) {
-            $("label[for='seeInactive']").show();
-        }
-        if (($(this).hasClass("plugin-merged")) || ($(this).hasClass("plugin-missing"))) {
-            $("label[for='seeOther']").show();
-        }
-    })
-}
-
 $(document).ready(function () {
     actualizeFilter();
-    actualizeFilterBadges();
 
     if (!$.cookie("pwg_plugin_manager_view")) {
         $.cookie("pwg_plugin_manager_view", "classic");
@@ -319,13 +271,11 @@ $(document).ready(function () {
 
 
     $("#seeAll").on("change", function () {
-        console.log("All");
         $(".pluginMiniBox").show();
         $('.search-input').trigger("input");
     })
 
     $("#seeActive").on("change", function () {
-        console.log("Active");
         $(".pluginMiniBox").show();
         $(".pluginMiniBox").each(function () {
             if (!$(this).hasClass("plugin-active")) {
@@ -336,7 +286,6 @@ $(document).ready(function () {
     })
 
     $("#seeInactive").on("change", function () {
-        console.log("Inactive");
         $(".pluginMiniBox").show();
         $(".pluginMiniBox").each(function () {
             if (!$(this).hasClass("plugin-inactive")) {
@@ -347,7 +296,6 @@ $(document).ready(function () {
     })
 
     $("#seeOther").on("change", function () {
-        console.log("Other");
         $(".pluginMiniBox").show();
         $(".pluginMiniBox").each(function () {
             if (($(this).hasClass("plugin-active") || $(this).hasClass("plugin-inactive"))) {
@@ -356,8 +304,6 @@ $(document).ready(function () {
         })
         $('.search-input').trigger("input");
     })
-
-    console.log(nb_plugin);
 
     /* Plugin Actions */ 
     /**
@@ -369,7 +315,6 @@ $(document).ready(function () {
 
         if ($(this).find("#toggleSelectionMode").is(':checked')) {
             activatePlugin($(this).parent().parent().attr("id"));
-            console.log("activatePlugin");
 
             $(this).parent().parent().addClass("plugin-active").removeClass("plugin-inactive");
             if ($(this).parent().parent().find(".pluginUnavailableAction").attr("href")) {
@@ -377,7 +322,6 @@ $(document).ready(function () {
             }
         } else {
             disactivatePlugin($(this).parent().parent().attr("id"))
-            console.log("disactivatePlugin");
 
             $(this).parent().parent().removeClass("plugin-active").addClass("plugin-inactive");
             $(this).parent().parent().find(".pluginActionLevel1").removeClass("pluginActionLevel1").addClass("pluginUnavailableAction");
@@ -412,7 +356,6 @@ $(document).ready(function () {
     $(".pluginContent").find('.dropdown-option.delete-plugin-button').on('click', function () {
         let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
-        console.log($(this).closest(".pluginContent").parent().attr("id"));
         $.confirm({
           title: delete_plugin_msg.replace("%s",plugin_name),
           buttons: {
@@ -437,7 +380,6 @@ $(document).ready(function () {
       $(".pluginContent").find('.dropdown-option.plugin-restore').on('click', function () {
         let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
-        console.log($(this).closest(".pluginContent").parent().attr("id"));
         $.confirm({
           title: restore_plugin_msg.replace('%s', plugin_name),
           buttons: {
@@ -462,7 +404,6 @@ $(document).ready(function () {
       $(".pluginContent").find('.uninstall-plugin-button').on('click', function () {
         let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
-        console.log($(this).closest(".pluginContent").parent().attr("id"));
         $.confirm({
           title: restore_plugin_msg.replace('%s', plugin_name),
           buttons: {
