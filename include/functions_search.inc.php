@@ -237,7 +237,7 @@ SELECT
   if (!empty($search_clause))
   {
     $query = '
-SELECT DISTINCT(id)
+SELECT DISTINCT id, i.date_available, i.file
   FROM '.IMAGES_TABLE.' i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE '.$search_clause;
