@@ -126,10 +126,15 @@ function ws_addDefaultMethods( $arr )
                               'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'order' =>      array('default'=>null,
                               'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random'),
+        'display' =>    array('default'=>'basics',
+                              'info'=>'Comma separated list'),
         ), $f_params),
       'Returns elements for the corresponding categories.
 <br><b>cat_id</b> can be empty if <b>recursive</b> is true.
-<br><b>order</b> comma separated fields for sorting',
+<br><b>order</b> comma separated fields for sorting.
+<br><b>display</b> comma separated fields that should be displayed.
+<br>&emsp;\'basics\' displays '.
+"'id', 'width', 'hit', 'file', 'name', 'comment', 'date_creation', 'date_available', 'derivatives', 'categories'",
       $ws_functions_root . 'pwg.categories.php'
     );
 

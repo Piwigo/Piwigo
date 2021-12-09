@@ -15,6 +15,7 @@
  *    @option int per_page
  *    @option int page
  *    @option string order (optional)
+ *    @option string display (optional)
  */
 function ws_categories_getImages($params, &$service)
 {
@@ -90,49 +91,83 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
 ;';
     $result = pwg_query($query);
 
+    $params['display'] = array_map('trim', explode(',', $params['display']));
+
+    if (in_array('basics', $params['display']))
+    {
+      // Merge 'basics' fields with display params to include additional fields
+      // that are mentioned besides 'basics'
+      $params['display'] = array_merge($params['display'], array(
+        'id', 'width', 'hit', 'file', 'name', 'comment', 'date_creation', 'date_available', 'derivatives', 'categories'
+        ));
+    }
+
+    $int_params = array('id', 'width', 'height', 'hit');
+    $double_params = array('latitude', 'longitude', 'rating_score');
+    $string_params = array('file', 'name', 'comment', 'date_creation', 'date_available', 'author', 'last_modified');
+
     while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
-      foreach (array('id', 'width', 'height', 'hit') as $k)
+      // Intersect keys with keys given in display parameter
+      // to only show requested fields
+      foreach (array_intersect(
+        $int_params,
+        $params['display']
+      ) as $k)
       {
         if (isset($row[$k]))
         {
           $image[$k] = (int)$row[$k];
         }
       }
-      foreach (array('file', 'name', 'comment', 'date_creation', 'date_available') as $k)
+      foreach (array_intersect(
+        $double_params,
+        $params['display']
+      ) as $k)
+      {
+        $image[$k] = (double)$row[$k];
+      }
+      foreach (array_intersect(
+        $string_params,
+        $params['display']
+      ) as $k)
       {
         $image[$k] = $row[$k];
       }
-      $image = array_merge($image, ws_std_get_urls($row));
 
-      $image_cats = array();
-      foreach (explode(',', $row['cat_ids']) as $cat_id)
+      $image = array_merge($image, ws_std_get_urls($row, in_array('derivatives', $params['display'])));
+
+      if (in_array('categories', $params['display']))
       {
-        $url = make_index_url(
-          array(
-            'category' => $cats[$cat_id],
-            )
-          );
-        $page_url = make_picture_url(
-          array(
-            'category' => $cats[$cat_id],
-            'image_id' => $row['id'],
-            'image_file' => $row['file'],
-            )
-          );
-        $image_cats[] = array(
-          'id' => (int)$cat_id,
-          'url' => $url,
-          'page_url' => $page_url,
+        $image_cats = array();
+        foreach (explode(',', $row['cat_ids']) as $cat_id)
+        {
+          $url = make_index_url(
+            array(
+              'category' => $cats[$cat_id],
+              )
+            );
+          $page_url = make_picture_url(
+            array(
+              'category' => $cats[$cat_id],
+              'image_id' => $row['id'],
+              'image_file' => $row['file'],
+              )
+            );
+          $image_cats[] = array(
+            'id' => (int)$cat_id,
+            'url' => $url,
+            'page_url' => $page_url,
+            );
+        }
+
+        $image['categories'] = new PwgNamedArray(
+          $image_cats,
+          'category',
+          array('id', 'url', 'page_url')
           );
       }
-
-      $image['categories'] = new PwgNamedArray(
-        $image_cats,
-        'category',
-        array('id', 'url', 'page_url')
-        );
       $images[] = $image;
     }
   }
