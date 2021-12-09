@@ -104,7 +104,12 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
 
     $int_params = array('id', 'width', 'height', 'hit');
     $double_params = array('latitude', 'longitude', 'rating_score');
-    $string_params = array('file', 'name', 'comment', 'date_creation', 'date_available', 'author', 'last_modified');
+    $string_params = array('file', 'name', 'comment', 'date_creation', 'date_available', 'author', 'lastmodified');
+
+    if (in_array('all', $params['display']))
+    {
+      $params['display'] = array_merge($int_params, $double_params, $string_params, array('derivatives', 'categories'));
+    }
 
     while ($row = pwg_db_fetch_assoc($result))
     {
