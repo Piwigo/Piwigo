@@ -423,6 +423,19 @@ if (isset($result[0]['SUM(filesize)']))
   $data_storage['Formats'] = $result[0]['SUM(filesize)'];
 }
 
+// Add cache size if requested and known.
+if ($conf['add_cache_to_storage_chart'] && isset($conf['cache_sizes']))
+{
+  $cache_sizes = unserialize($conf['cache_sizes']);
+  if (isset($cache_sizes))
+  {
+    if (isset($cache_sizes[0]) && isset($cache_sizes[0]['value']))
+    {
+      $data_storage['Cache'] = $cache_sizes[0]['value']/1024;
+    }
+  }
+}
+
 //Calculate total storage
 $total_storage = 0;
 foreach ($data_storage as $value) 
