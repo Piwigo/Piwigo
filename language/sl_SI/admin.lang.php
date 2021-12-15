@@ -660,7 +660,7 @@ $lang['Title'] = 'Ime';
 $lang['To send ?'] = 'Poslati?';
 $lang['To subscribe'] = 'Naročiti se';
 $lang['To unsubscribe'] = 'Odjaviti se';
-$lang['Toggle \'default group\' property'] = 'Preobrni lstnosti "privzete skupine"';
+$lang['Toggle \'default group\' property'] = 'Preobrni lastnosti "privzete skupine"';
 $lang['Tools'] = 'Orodja';
 $lang['Two updates are available'] = 'Na voljo stad ve posodobitvi';
 $lang['Type here the author name'] = 'Tu vpišite ime avtorja';
@@ -1010,8 +1010,7 @@ $lang['Tag "%s" succesfully deleted'] = 'OZnaka \"%s\" uspešno izbrisana';
 $lang['Set as default'] = 'Nastavi kot privzeto';
 $lang['Are you sure you want to restore the plugin "%s"?'] = 'Ali ste prepričani, da želite obnoviti vtičnik "%s"?';
 $lang['Delete tag "%s"?'] = 'Izbriši oznako "%s"?';
-$lang['Delete tags \{%s\}?'] = 'Izbriši oznake \{%s\}?
-';
+$lang['Delete tags \{%s\}?'] = 'Izbriši oznake \{%s\}?';
 $lang['Display'] = 'Prikaži';
 $lang['Are you sure you want to restore this plugin?'] = 'Ali ste prepričani, da želite obnoviti ta vtičnik?';
 $lang['Are you sure you want to restore to default settings?'] = 'Ali ste prepričani, da želite obnoviti privzete nastavitve?';
@@ -1081,9 +1080,9 @@ $lang['%d sub-albums'] = '%d pod albumi';
 $lang['%s GB used'] = '%s GB porabljenih';
 $lang['%s MB used'] = '%s MB porabljenih';
 $lang['Delete orphan tags ?'] = 'Izbriši pod oznake ?';
-$lang['You have %d orphan tags %s'] = 'Imate %d pod oznak %s
+$lang['You have %d orphan tags %s'] = 'Imate %d pod oznak %s';
 ';
-$lang['You have %s1 orphan : %s2'] = 'Imate %s1 pod oznako : %s2
+$lang['You have %s1 orphan : %s2'] = 'Imate %s1 pod oznako : %s2';
 ';
 $lang['Tag(s) \{%s1\} succesfully merged into "%s2"'] = 'Oznake (\{%s1\} so bile uspešno združene v "%s2"';
 $lang['User "%s" dissociated from this group'] = 'Uporabnik "%s" je bil odstranjen iz te skupine';
@@ -1092,7 +1091,7 @@ $lang['Set as group for new users'] = 'Nastavitev kot skupino za nove uporabnike
 $lang['Tag "%s1" renamed in "%s2"'] = 'Oznaka \"%s1\" preimenovana v \"%s2\"';
 $lang['Showing %s users out of %s'] = 'Prikaz %s uporabnikov od %s';
 $lang['Group(s) \{%s1\} succesfully merged into "%s2"'] = 'Skupine  \{%s1\} so bile uspešno združene v "%s2"';
-$lang['Groups \{%s\} succesfully deleted'] = 'Skupine  \{%s\, so bile uspešno izbrisane
+$lang['Groups \{%s\} succesfully deleted'] = 'Skupine  \{%s\, so bile uspešno izbrisane';
 ';
 $lang['Are you sure you want to delete the ratings of the user "%s"?'] = 'Ali ste prepričani, da želite izbrisati ocene uporabnika "%s"?';
 $lang['Unset as group for new users'] = 'Odstavi kot skupino za nove uporabnike';
