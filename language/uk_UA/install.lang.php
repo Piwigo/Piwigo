@@ -50,3 +50,4 @@ $lang['You can download the config file and upload it to local/config directory 
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Ви повинні звернутися в службу підтримки вашого хостинг-провайдера і подивитися, як ви можете переключитися на PHP 5.2 самостійно.';
 $lang['User'] = 'Користувач';
 $lang['localhost or other, supplied by your host provider'] = 'локальний хост або будь-який інший, наданий вашим провайдером';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'потрібно мати PHP версії %s (ви використовуєте PHP %s)';
