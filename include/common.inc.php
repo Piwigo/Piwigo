@@ -85,7 +85,10 @@ include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php
 if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
 {
   @ini_set('error_reporting', $conf['show_php_errors']);
-  @ini_set('display_errors', true);
+  if($conf['show_php_errors_on_frontend'])
+  {
+    @ini_set('display_errors', true);
+  }
 }
 
 if ($conf['session_gc_probability'] > 0)

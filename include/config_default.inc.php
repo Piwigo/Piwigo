@@ -487,6 +487,13 @@ $conf['template_combine_files'] = true;
 // gives an empty value '' to deactivate
 $conf['show_php_errors'] = E_ALL;
 
+// This sets the display_errors php option to true, so php errors and warning
+// messages are shown in the browser. If this is false, the error messages are 
+// available in the php log of the server if show_php_errors has any set.
+// If the below is turned off in local config and errors are still shown on 
+// frontend, check for display_errors setting server's php config
+$conf['show_php_errors_on_frontend'] = true;
+
 
 // +-----------------------------------------------------------------------+
 // |                            authentication                             |
