@@ -104,6 +104,12 @@ $change_theme_url.= 'change_theme=1';
 if (isset($_GET['page']) and preg_match('/^plugin-([^-]*)(?:-(.*))?$/', $_GET['page'], $matches))
 {
   $_GET['page'] = 'plugin';
+
+  if (preg_match('/^piwigo_(videojs|openstreetmap)$/', $matches[1]))
+  {
+    $matches[1] = str_replace('_', '-', $matches[1]);
+  }
+
   $_GET['section'] = $matches[1].'/admin.php';
   if (isset($matches[2]))
   {
