@@ -97,6 +97,11 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $setting_url = $settings_url_for_plugin_deprec[$plugin_id];
   } else if ($fs_plugin['hasSettings']) { // new version
     $setting_url = "admin.php?page=plugin-".$plugin_id;
+
+    if (preg_match('/^piwigo-(videojs|openstreetmap)$/', $plugin_id))
+    {
+      $setting_url = str_replace('piwigo-', 'piwigo_', $setting_url);
+    }
   }
 
   $tpl_plugin = array(
