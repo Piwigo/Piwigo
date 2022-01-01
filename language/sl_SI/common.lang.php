@@ -414,3 +414,5 @@ $lang['Invalid username or password!'] = 'Napačno uporabniško ime ali geslo!';
 $lang['generate random password'] = 'generiraj naključno geslo';
 $lang['Password: ********** (no copy by email)'] = 'Geslo: ********** (brez kopije po e-pošti)';
 $lang['Related albums'] = 'Sorodni albumi';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Ime albuma, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Ime albuma, 100 &rarr; 10 &rarr; 5 &rarr; 1';

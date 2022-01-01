@@ -417,3 +417,5 @@ $lang['Invalid username or password!'] = 'Недійсне ім\'я корист
 $lang['generate random password'] = 'Генерувати випадковий пароль';
 $lang['Password: ********** (no copy by email)'] = 'Пароль: ********** (без копії електронною поштою)';
 $lang['Related albums'] = 'Схожі альбоми';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Назва альбому, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Назва альбому, 1 &rarr; 5 &rarr; 10 &rarr; 100';

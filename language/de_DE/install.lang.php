@@ -52,3 +52,4 @@ $lang['Welcome to your new installation of Piwigo!'] = 'Ihre neue Piwigo-Install
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Sie sollten Kontakt mit Ihrem Provider aufnehmen und um Unterstützung bei der Umstellung auf PHP 5.2 bitten.';
 $lang['localhost or other, supplied by your host provider'] = '\'localhost\' oder Name des DB-Servers, bereitgestellt durch Ihren Hosting-Provider';
 $lang['Password ']['confirm'] = 'Kennwort [Bestätigung]';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP-Version %s benötigt (Aktuelle PHP-Version: %s)';
