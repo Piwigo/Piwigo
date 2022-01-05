@@ -15,6 +15,12 @@ var usersCache = new UsersCache({
 });
 
 const color_icons = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
+var activity_page = 1;
+let actual_page = 1;
+let max_page = 1;
+const page_ellipsis = '<span>...</span>'
+const page_item = '<a data-page="%d">%d</a>';
+var create_selecter = true;
 const users_key = "{"Users"|@translate}"
 
 const line_key = "{'%s line'|translate}";
@@ -93,16 +99,24 @@ var actionInfos_tags_moved = "{'%d tags moved'|translate}";
 
 {*<-- Getting and Displaying Activities -->*}
 
-get_user_activity();
+get_user_activity(activity_page);
 
-function get_user_activity() {
+function get_user_activity(page) {
     $.ajax({
         url: "ws.php?format=json&method=pwg.activity.getList",
         type: "POST",
         dataType: "json",
         data: {
-            a: 1,
-            b: 2
+            page: page - 1,
+        },
+        beforeSend: () => {
+          $('.tab').contents(':not(#-1):not(.loading)').remove();
+          $(".loading").show();
+          $('.pagination-arrow.rigth').addClass('unavailable');
+          $('.pagination-arrow.left').addClass('unavailable');
+          $(".pagination-item-container").hide();
+          $(".user-update-spinner").addClass("icon-spin6");
+          $(".cancel-icon").trigger("click");
         },
         success: (data) => {
             /* console log to help debug */
@@ -110,12 +124,17 @@ function get_user_activity() {
 
             setCreationDate(data.result['result_lines'][data.result['result_lines'].length-1].date, data.result['result_lines'][0].date);
             $(".loading").hide();
-            
+
             data.result['result_lines'].forEach(line => {
                 lineConstructor(line);
             });
 
-            fillUserFilter(data.result['filterable_users'], data.result['id_of']);
+            max_page = data.result['max_page'];
+            $(".user-update-spinner").removeClass("icon-spin6");
+            $(".pagination-item-container").show();
+            update_pagination_menu();
+            createUserFilter();
+            fillUserFilter(data.result['filterable_users'], create_selecter, data.result['id_of']);
         }, 
         error: (e) => {
             console.log("ajax call failed");
@@ -124,12 +143,26 @@ function get_user_activity() {
     })
 }
 
-function fillUserFilter(user_tab) {
+function addSelecterListenner() {
+  $('select').on('change', function (user) {
+        if ($(".selectize-input").hasClass("full")) {
+          $(".line").hide();
+          console.log("ici");
+          $(".uid-" + $(".selectize-input .item").data("value")).show();
+        }
+    });
+}
 
+function createUserFilter() {
+  $(".user-selecter").remove();
+  $(".select-user-title").after("<select class='user-selecter' placeholder'{'none'|translate}' single style='width:250px; height: 10px;'></select>");
+}
+
+function fillUserFilter(user_tab, create_selecter) {
   for (const [key, value] of Object.entries(user_tab)) {
-    {* console.log(key, value); *}
+    
     var newOption = "<option value=" + value.id +"> <span class='username_filter'>" + value.username + "</span> <span class='nb_lines_str'> (" + lines_key.replace("%s", value.nb_lines) + ") </span></option>";
-
+    
     $(".user-selecter").append(newOption);
   }
 
@@ -138,9 +171,11 @@ function fillUserFilter(user_tab) {
   jQuery(".user-selecter")[0].selectize.setValue(null);
 
   jQuery(".cancel-icon").click(function() {
-    jQuery(".user-selecter")[0].selectize.setValue(null);
-    $(".line").show();
+    jQuery(".user-selecter")[0].selectize.clear(true);
+    $(".line").css('display', 'flex');;
   });
+
+  addSelecterListenner();
 }
 
 function lineConstructor(line) {
@@ -318,7 +353,6 @@ function lineConstructor(line) {
 
             newLine.find(".action-name").html(actionType_login);
 
-            console.log("userS Logged in");
             final_albumInfos = actionInfos_users_logged_in.replace('%d', line.counter);
 
             break;
@@ -335,7 +369,6 @@ function lineConstructor(line) {
 
             newLine.find(".action-name").html(actionType_logout);
 
-            console.log("userS Logged in");
             final_albumInfos = actionInfos_users_logged_out.replace('%d', line.counter);
 
             break;
@@ -617,6 +650,83 @@ function setCreationDate(startDate, endDate) {
     $(".end-date").html(endDate)
 }
 
+{* Pagination *}
+
+function move_to_page(page) {
+    if (page < 0 || page > max_page)
+        return;
+    actual_page = page;
+    update_pagination_menu();
+    get_user_activity(page);
+}
+
+$('.pagination-arrow.rigth').on('click', () => {
+    move_to_page(actual_page + 1);
+})
+
+$('.pagination-arrow.left').on('click', () => {
+    move_to_page(actual_page - 1);
+})
+
+function update_pagination_menu() {
+    {* max_page = Math.ceil(nb_filtered_users / per_page); *}
+    updateArrows();
+    update_pagination_items();
+    if (max_page <= 1) {
+        $('.pagination-container').hide();
+    } else {
+        $('.pagination-container').show();
+    }
+}
+
+function updateArrows() {
+    if (actual_page == 1) {
+        $('.pagination-arrow.left').addClass('unavailable');
+    } else {
+        $('.pagination-arrow.left').removeClass('unavailable');
+    }   
+    if (actual_page == max_page) {
+        $('.pagination-arrow.rigth').addClass('unavailable');
+    } else {
+        $('.pagination-arrow.rigth').removeClass('unavailable');
+    }
+}
+
+function update_pagination_items() {
+    $('.pagination-item-container a').remove();
+    $('.pagination-item-container span').remove();
+
+    append_pagination_item(1);
+
+    if (actual_page > 2) {
+        append_pagination_item();
+    }
+    if (actual_page != 1 && actual_page != max_page) {
+        append_pagination_item(actual_page)
+    }
+    if (actual_page < (max_page - 1)) {
+        append_pagination_item();
+    }   
+    append_pagination_item(max_page);
+
+}
+
+function append_pagination_item(page = null) {
+    if (page != null) {
+        let new_tag = $(page_item.replace(/%d/g, page));
+        $('.pagination-item-container').append(new_tag);
+        if (actual_page == page) {
+            new_tag.addClass('actual');
+        }
+        new_tag.on('click', () => {
+            move_to_page(new_tag.data('page'));
+        })
+    } else {
+        $('.pagination-item-container').append($(page_ellipsis));
+    }
+}
+
+
 $(document).ready(function () {
     $('select').on('change', function (user) {
         if ($(".selectize-input").hasClass("full")) {
@@ -638,7 +748,6 @@ $(document).ready(function () {
             </select>
             
             <span class="icon-cancel cancel-icon"> </span>
-
         </div>
         <div class="acivity-time">
             <span class="acivity-time-text"> {'Activity time from'|translate}</span>
@@ -654,8 +763,20 @@ $(document).ready(function () {
             <i class="icon-download"> </i>
         </a>
     </div>
-
-
+{if max_page != 1}
+  <div class="pagination-container">
+      <div class="pagination-arrow left">
+        <span class="icon-left-open"></span>
+      </div>
+      <div class="pagination-item-container">
+      </div>
+      <div class="user-update-spinner icon-spin6 animate-spin"></div>
+      <div class="pagination-arrow rigth">
+        <span class="icon-left-open"></span>
+      </div>
+    </div>
+{/if}
+    
 
     <div class="tab-title">
         <div class="action-title">

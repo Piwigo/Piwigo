@@ -429,6 +429,8 @@ function ws_getActivityList($param, &$service)
   
   $output_lines = array();
   $current_key = '';
+  $page_size = 100000; //We will fetch X lines in database =/= lines displayed due to line concatenation
+  $page_offset = $param['page']*$page_size;
 
   $user_ids = array();
 
@@ -444,8 +446,8 @@ SELECT
     occured_on,
     details
   FROM '.ACTIVITY_TABLE.'
-  ORDER BY activity_id DESC LIMIT 100000
-;'; //Limited to 100k before implementing pagination in v.13 (issue #1595)
+  ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
+;';
 
   $line_id = 0;
   $result = pwg_query($query);
@@ -569,10 +571,19 @@ SELECT
     return (strtolower($a['username']) >= strtolower($b['username']) ? 1 : 0);
   });
 
+  $query = '
+  SELECT
+      count(*)
+    FROM '.ACTIVITY_TABLE.'
+  ;';
+  
+  $result = (pwg_db_fetch_row(pwg_query($query))[0])/$page_size;
+
   // return $output_lines;
   return array(
     'result_lines' => $output_lines,
     'filterable_users' => $filterable_users,
+    'max_page' => floor($result),
   );
 }
 

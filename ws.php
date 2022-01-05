@@ -83,7 +83,10 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod(
     'pwg.activity.getList',
     'ws_getActivityList',
-    null,
+    array(
+      'page' => array('default'=>null,
+                      'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      ),
     'Returns general informations.',
     $ws_functions_root . 'pwg.php',
     array('admin_only'=>true)
