@@ -213,11 +213,16 @@ function uninstallPlugin(id) {
         success: function (data) {
             nb_plugin.other -=1;
             nb_plugin.all -=1;
-            actualizeFilter()
+            actualizeFilter();
+            $("#"+id).remove();
         }, 
         error: function (e) {
-            console.log(e);
-            console.log("It didn't work");
+          console.log(e);
+          console.log("It didn't work");
+          $("#" + id + " .pluginNotif").stop(false, true);
+          $("#" + id + " .PluginActionError label span:first").html(plugin_action_error);
+          $("#" + id + " .PluginActionError").css("display", "flex");
+          $("#" + id + " .PluginActionError").delay(1500).fadeOut(2500);
         }
     })
 }
@@ -264,7 +269,8 @@ $(document).ready(function () {
         if (!$(this).hasClass("plugin-active")) {
             $(this).hide();
         }
-      })
+      });
+      $("#seeActive").trigger("click");
     } else {
       $(".pluginMiniBox").show();
     }
@@ -405,7 +411,7 @@ $(document).ready(function () {
         let plugin_name = $(this).closest(".pluginContent").find(".pluginMiniBoxNameCell").html().trim();
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
         $.confirm({
-          title: restore_plugin_msg.replace('%s', plugin_name),
+          title: uninstall_plugin_msg.replace('%s', plugin_name),
           buttons: {
             confirm: {
               text: confirm_msg,
