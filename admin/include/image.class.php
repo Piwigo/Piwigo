@@ -317,6 +317,11 @@ class pwg_image
   {
     global $conf;
 
+    if (isset($conf['ext_imagick_version'])) {
+        self::$ext_imagick_version = $conf['ext_imagick_version'];
+        return true;
+    }
+
     if (!function_exists('exec'))
     {
       return false;
@@ -494,24 +499,14 @@ class image_ext_imagick implements imageInterface
 
   function __construct($source_filepath)
   {
-    global $conf;
+    global $conf, $logger;
     $this->source_filepath = $source_filepath;
     $this->imagickdir = $conf['ext_imagick_dir'];
 
-    if (strpos(@$_SERVER['SCRIPT_FILENAME'], '/kunden/') === 0)  // 1and1
-    {
-      @putenv('MAGICK_THREAD_LIMIT=1');
-    }
-
-    $command = $this->imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
-    @exec($command, $returnarray);
-    if(!is_array($returnarray) or empty($returnarray[0]) or !preg_match('/^(\d+)x(\d+)$/', $returnarray[0], $match))
-    {
-      die("[External ImageMagick] Corrupt image\n" . var_export($returnarray, true));
-    }
-
-    $this->width = $match[1];
-    $this->height = $match[2];
+    list($width, $height, $type, $attr) = getimagesize(realpath($source_filepath));
+    $this->width = $width;
+    $this->height = $height;
+    $logger->debug("Image: " . $width .  "x" . $height, 'i.php');
   }
 
   function add_command($command, $params=null)
@@ -634,7 +629,7 @@ class image_ext_imagick implements imageInterface
 
     $dest = pathinfo($destination_filepath);
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
-    $logger->debug($exec, 'i.php');
+    $logger->debug($exec, 'image.class.php');
     @exec($exec, $returnarray);
 
     if (is_array($returnarray) && (count($returnarray)>0) )
@@ -642,8 +637,10 @@ class image_ext_imagick implements imageInterface
       $logger->error('', 'i.php', $returnarray);
       foreach ($returnarray as $line)
         trigger_error($line, E_USER_WARNING);
+
+      return true;
     }
-    return is_array($returnarray);
+    return false;
   }
 }
 
