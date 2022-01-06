@@ -50,3 +50,4 @@ $lang['Welcome to my photo gallery'] = 'Vitajte v mojej foto galérii';
 $lang['Welcome to your new installation of Piwigo!'] = 'Vitajte vo Vašej novej inštalácii Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'V prípade otázok neváhajte navštíviť naše fórum: %s';
 $lang['localhost or other, supplied by your host provider'] = 'localhost alebo iné, obdržíte od poskytovateľa hostu';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Vyžaduje sa verzia PHP %s (používate verziu PHP %s)';
