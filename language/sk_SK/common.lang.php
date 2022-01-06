@@ -422,3 +422,5 @@ $lang['generate random password'] = 'generovanie náhodného hesla';
 $lang['Invalid username or password!'] = 'Neplatné meno alebo heslo!';
 $lang['Password: ********** (no copy by email)'] = 'Heslo: ********** (žiadna kópia e-mailom)';
 $lang['Related albums'] = 'Súvisiace albumy';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Názov albumu, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Názov albumu, 100 &rarr; 10 &rarr; 5 &rarr; 1';
