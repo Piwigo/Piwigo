@@ -444,8 +444,8 @@ SELECT
     occured_on,
     details
   FROM '.ACTIVITY_TABLE.'
-  ORDER BY activity_id DESC
-;';
+  ORDER BY activity_id DESC LIMIT 100000
+;'; //Limited to 100k before implementing pagination in v.13 (issue #1595)
 
   $line_id = 0;
   $result = pwg_query($query);
