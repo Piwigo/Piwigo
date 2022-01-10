@@ -211,10 +211,10 @@ function uninstallPlugin(id) {
                 pwg_token: pwg_token, 
                 format: 'json' },
         success: function (data) {
+            $("#"+id).remove();
             nb_plugin.other -=1;
             nb_plugin.all -=1;
             actualizeFilter();
-            $("#"+id).remove();
         }, 
         error: function (e) {
           console.log(e);
