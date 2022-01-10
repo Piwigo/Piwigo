@@ -160,11 +160,13 @@ if (count($missing_plugin_ids) > 0)
   {
     $tpl_plugins[] = array(
       'NAME' => $plugin_id,
+      'ID' => $plugin_id,
       'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
       'DESC' => l10n('ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'),
       'U_ACTION' => sprintf($action_url, $plugin_id),
       'STATE' => 'missing',
       );
+      $count_types_plugins['missing']++;
   }
   $template->append('plugin_states', 'missing');
 }
