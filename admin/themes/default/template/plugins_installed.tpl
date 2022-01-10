@@ -263,7 +263,7 @@ function actualizeFilter() {
     $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
     $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
 
-    console.log(nb_plugin)
+    //console.log(nb_plugin)
 
     $(".filterLabel").show();
     $(".pluginMiniBox").each(function () {
@@ -379,11 +379,12 @@ jQuery(".pluginMiniBox").each(function(index){
           <a class="icon-ellipsis-v showOptions showInfo" ></a>
         {/if}
       </div>
-
+  {if $plugin.STATE == 'active' || $plugin.STATE == 'inactive'}
     <label class="switch">
       <input type="checkbox" id="toggleSelectionMode" {if {$plugin.STATE} === "active"}checked{/if}>
       <span class="slider round"></span>
     </label>
+  {/if}
 
       <div class="pluginActionsSmallIcons">
         {if $plugin.STATE == 'active'}
