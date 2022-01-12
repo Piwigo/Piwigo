@@ -21,7 +21,9 @@ let max_page = 1;
 const page_ellipsis = '<span>...</span>'
 const page_item = '<a data-page="%d">%d</a>';
 var create_selecter = true;
-const users_key = "{"Users"|@translate}"
+const users_key = "{"Users"|@translate}";
+
+const ulist = {$ulist};
 
 const line_key = "{'%s line'|translate}";
 const lines_key = "{'%s lines'|translate}";
@@ -133,8 +135,8 @@ function get_user_activity(page) {
             $(".user-update-spinner").removeClass("icon-spin6");
             $(".pagination-item-container").show();
             update_pagination_menu();
-            createUserFilter();
-            fillUserFilter(data.result['filterable_users'], create_selecter, data.result['id_of']);
+            {* createUserFilter();
+            fillUserFilter(data.result['filterable_users'], create_selecter, data.result['id_of']); *}
         }, 
         error: (e) => {
             console.log("ajax call failed");
@@ -143,40 +145,6 @@ function get_user_activity(page) {
     })
 }
 
-function addSelecterListenner() {
-  $('select').on('change', function (user) {
-        if ($(".selectize-input").hasClass("full")) {
-          $(".line").hide();
-          console.log("ici");
-          $(".uid-" + $(".selectize-input .item").data("value")).show();
-        }
-    });
-}
-
-function createUserFilter() {
-  $(".user-selecter").remove();
-  $(".select-user-title").after("<select class='user-selecter' placeholder'{'none'|translate}' single style='width:250px; height: 10px;'></select>");
-}
-
-function fillUserFilter(user_tab, create_selecter) {
-  for (const [key, value] of Object.entries(user_tab)) {
-    
-    var newOption = "<option value=" + value.id +"> <span class='username_filter'>" + value.username + "</span> <span class='nb_lines_str'> (" + lines_key.replace("%s", value.nb_lines) + ") </span></option>";
-    
-    $(".user-selecter").append(newOption);
-  }
-
-  jQuery('.user-selecter').selectize();
-
-  jQuery(".user-selecter")[0].selectize.setValue(null);
-
-  jQuery(".cancel-icon").click(function() {
-    jQuery(".user-selecter")[0].selectize.clear(true);
-    $(".line").css('display', 'flex');;
-  });
-
-  addSelecterListenner();
-}
 
 function lineConstructor(line) {
     let newLine = $("#-1").clone();
@@ -732,7 +700,16 @@ $(document).ready(function () {
         if ($(".selectize-input").hasClass("full")) {
           $(".line").hide();
           $(".uid-" + $(".selectize-input .item").data("value")).show();
+          {* call ajax sur activity list avec uid en param *}
         }
+    });
+
+    jQuery('.user-selecter').selectize();
+    jQuery(".user-selecter")[0].selectize.setValue(null);
+
+    jQuery(".cancel-icon").click(function() {
+      jQuery(".user-selecter")[0].selectize.clear(true);
+      $(".line").css('display', 'flex');
     });
 });
 
@@ -745,6 +722,9 @@ $(document).ready(function () {
             <span class="select-user-title"> {'Selected user'|translate} </span>
             
             <select class="user-selecter" placeholder="{'none'|translate}" single style="width:250px; height: 10px;">
+            {foreach from=$ulist item=$user}
+              <option value="{$user.id}"> <span class='username_filter'>{$user.username}</span></option>
+            {/foreach}
             </select>
             
             <span class="icon-cancel cancel-icon"> </span>

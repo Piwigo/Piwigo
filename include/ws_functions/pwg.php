@@ -534,43 +534,6 @@ SELECT
     }
   }
 
-  $filterable_users = array();
-  foreach ($user_ids as $key => $value)
-  {
-    if (isset($username_of[$key]))
-    {
-      array_push(
-        $filterable_users, 
-        array(
-          'id' => $key,
-          'username' => $username_of[$key],
-          'nb_lines' => $value,
-        )
-      );
-    }
-    else
-    {
-      array_push(
-        $filterable_users, 
-        array(
-          'id' => $key,
-          'username' => 'user#'.$key,
-          'nb_lines' => $value,
-        )
-      );
-    }
-  }
-
-  //Multidimentionnal sorting
-  usort($filterable_users, function ($a, $b) 
-  {
-    // compatible with PHP 7+ only
-    // return strtolower($a['username']) <=> strtolower($b['username']);
-
-    // still compatible with PHP 5
-    return (strtolower($a['username']) >= strtolower($b['username']) ? 1 : 0);
-  });
-
   $query = '
   SELECT
       count(*)
@@ -582,7 +545,6 @@ SELECT
   // return $output_lines;
   return array(
     'result_lines' => $output_lines,
-    'filterable_users' => $filterable_users,
     'max_page' => floor($result),
   );
 }
