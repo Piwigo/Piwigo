@@ -469,8 +469,6 @@ SELECT
 ;';
   }
 
-  
-
   $line_id = 0;
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
@@ -492,7 +490,7 @@ SELECT
   
     if ($line_key === $current_key)
     {
-      // j'incrémente le counter de la ligne précédente
+      // I increment the counter of the previous line
       $output_lines[count($output_lines)-1]['counter']++;
       $output_lines[count($output_lines)-1]['object_id'][] = $row['object_id'];
     }
@@ -556,24 +554,23 @@ SELECT
     }
   }
 
-if (isset($param['uid'])) {
-  $query = '
-SELECT
-    count(*)
-  FROM '.ACTIVITY_TABLE.'
-  WHERE performed_by = '.$param['uid'].'
-;';
-} else {
-  $query = '
-SELECT
-    count(*)
-  FROM '.ACTIVITY_TABLE.'
-;';
-}
+  if (isset($param['uid'])) {
+    $query = '
+  SELECT
+      count(*)
+    FROM '.ACTIVITY_TABLE.'
+    WHERE performed_by = '.$param['uid'].'
+  ;';
+  } else {
+    $query = '
+  SELECT
+      count(*)
+    FROM '.ACTIVITY_TABLE.'
+  ;';
+  }
 
   $result = (pwg_db_fetch_row(pwg_query($query))[0])/$page_size;
 
-  // return $output_lines;
   return array(
     'result_lines' => $output_lines,
     'max_page' => floor($result),

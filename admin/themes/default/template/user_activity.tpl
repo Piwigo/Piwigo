@@ -123,7 +123,7 @@ function get_user_activity(page, uid) {
         },
         success: (data) => {
             /* console log to help debug */
-            console.log(data);
+            {* console.log(data); *}
             uid_filter = uid;
 
             setCreationDate(data.result['result_lines'][data.result['result_lines'].length-1].date, data.result['result_lines'][0].date);
@@ -137,8 +137,6 @@ function get_user_activity(page, uid) {
             $(".user-update-spinner").removeClass("icon-spin6");
             $(".pagination-item-container").show();
             update_pagination_menu();
-            {* createUserFilter();
-            fillUserFilter(data.result['filterable_users'], create_selecter, data.result['id_of']); *}
         }, 
         error: (e) => {
             console.log("ajax call failed");
@@ -146,7 +144,6 @@ function get_user_activity(page, uid) {
         }
     })
 }
-
 
 function lineConstructor(line) {
     let newLine = $("#-1").clone();
@@ -586,32 +583,6 @@ function get_initials(username) {
         res += words[1][0];
     }
     return res;
-}
-
-function filterUsers(username) {
-    let lines =  $(".line");
-
-    showAllLines()
-    let resultLines = [];
-
-    for (let index = 1; index < lines.length; index++) {
-        
-        if (username != lines[index].children[2].children[1].innerHTML) {
-            $("#" + lines[index].id).hide();
-        } else  {
-            resultLines.push(lines[index].getElementsByClassName("date-day")[0].textContent)
-        }
-    }
-    setCreationDate((!resultLines[resultLines.length-1]) ? "{'N/A'|translate}" : resultLines[resultLines.length-1], (!resultLines[0]) ? "{'N/A'|translate}" : resultLines[0])
-}
-
-function showAllLines() {
-    let lines =  $(".line");
-    for (let index = 1; index < lines.length; index++) {
-        $("#" + lines[index].id).show();
-    }
-
-    $("#-1").hide();
 }
 
 function setCreationDate(startDate, endDate) {
