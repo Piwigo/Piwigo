@@ -3159,6 +3159,7 @@ a#showPermissions:hover {text-decoration: none;}
 
 #picture-content .selectize-input {
   width: 100%;
+  overflow-y: scroll;
 }
 
 #picture-content input[type=text], #picture-content textarea, #picture-content .selectize-control {
