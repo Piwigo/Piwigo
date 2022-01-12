@@ -695,7 +695,7 @@ $(document).ready(function () {
             
             <select class="user-selecter" placeholder="{'none'|translate}" single style="width:250px; height: 10px;">
             {foreach from=$ulist item=$user}
-              <option value="{$user.id}"> <span class='username_filter'>{$user.username}</span></option>
+            <option value="{$user.id}"> <span class='username_filter'>{$user.username}</span><span class='nb_lines_str'> ({if $user.nb_lines == 1}{'%d Activity'|translate:$user.nb_lines}{else}{'%d Activities'|translate:$user.nb_lines}{/if}) </span></option>
             {/foreach}
             </select>
             
