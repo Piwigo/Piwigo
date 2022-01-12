@@ -434,7 +434,26 @@ function ws_getActivityList($param, &$service)
 
   $user_ids = array();
 
-  $query = '
+  if (isset($param['uid'])) {
+    $query = '
+SELECT
+    activity_id,
+    performed_by,
+    object,
+    object_id,
+    action,
+    session_idx,
+    ip_address,
+    occured_on,
+    details
+  FROM '.ACTIVITY_TABLE.'
+  WHERE performed_by = '.$param['uid'].'
+  ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
+;';
+  } 
+  else 
+  {
+    $query = '
 SELECT
     activity_id,
     performed_by,
@@ -448,6 +467,9 @@ SELECT
   FROM '.ACTIVITY_TABLE.'
   ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
 ;';
+  }
+
+  
 
   $line_id = 0;
   $result = pwg_query($query);
@@ -534,18 +556,28 @@ SELECT
     }
   }
 
+if (isset($param['uid'])) {
   $query = '
-  SELECT
-      count(*)
-    FROM '.ACTIVITY_TABLE.'
-  ;';
-  
+SELECT
+    count(*)
+  FROM '.ACTIVITY_TABLE.'
+  WHERE performed_by = '.$param['uid'].'
+;';
+} else {
+  $query = '
+SELECT
+    count(*)
+  FROM '.ACTIVITY_TABLE.'
+;';
+}
+
   $result = (pwg_db_fetch_row(pwg_query($query))[0])/$page_size;
 
   // return $output_lines;
   return array(
     'result_lines' => $output_lines,
     'max_page' => floor($result),
+    'params' => $param,
   );
 }
 

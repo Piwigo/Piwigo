@@ -86,6 +86,8 @@ function ws_addDefaultMethods( $arr )
     array(
       'page' => array('default'=>null,
                       'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      'uid' => array('default'=>NULL,
+                     'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
       ),
     'Returns general informations.',
     $ws_functions_root . 'pwg.php',

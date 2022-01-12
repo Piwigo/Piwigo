@@ -18,6 +18,7 @@ const color_icons = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "ico
 var activity_page = 1;
 let actual_page = 1;
 let max_page = 1;
+let uid_filter;
 const page_ellipsis = '<span>...</span>'
 const page_item = '<a data-page="%d">%d</a>';
 var create_selecter = true;
@@ -101,15 +102,16 @@ var actionInfos_tags_moved = "{'%d tags moved'|translate}";
 
 {*<-- Getting and Displaying Activities -->*}
 
-get_user_activity(activity_page);
+get_user_activity(activity_page, uid_filter);
 
-function get_user_activity(page) {
+function get_user_activity(page, uid) {
     $.ajax({
         url: "ws.php?format=json&method=pwg.activity.getList",
         type: "POST",
         dataType: "json",
         data: {
             page: page - 1,
+            uid: uid,
         },
         beforeSend: () => {
           $('.tab').contents(':not(#-1):not(.loading)').remove();
@@ -118,11 +120,11 @@ function get_user_activity(page) {
           $('.pagination-arrow.left').addClass('unavailable');
           $(".pagination-item-container").hide();
           $(".user-update-spinner").addClass("icon-spin6");
-          $(".cancel-icon").trigger("click");
         },
         success: (data) => {
             /* console log to help debug */
             console.log(data);
+            uid_filter = uid;
 
             setCreationDate(data.result['result_lines'][data.result['result_lines'].length-1].date, data.result['result_lines'][0].date);
             $(".loading").hide();
@@ -625,7 +627,7 @@ function move_to_page(page) {
         return;
     actual_page = page;
     update_pagination_menu();
-    get_user_activity(page);
+    get_user_activity(page, uid_filter);
 }
 
 $('.pagination-arrow.rigth').on('click', () => {
@@ -698,9 +700,8 @@ function append_pagination_item(page = null) {
 $(document).ready(function () {
     $('select').on('change', function (user) {
         if ($(".selectize-input").hasClass("full")) {
-          $(".line").hide();
-          $(".uid-" + $(".selectize-input .item").data("value")).show();
           {* call ajax sur activity list avec uid en param *}
+          get_user_activity(1, $(".selectize-input .item").data("value"));
         }
     });
 
