@@ -1068,3 +1068,4 @@ $lang['Are you sure you want to install the plugin "%s"?'] = 'Oled sa kindel, et
 $lang['Are you sure you want to lock the gallery?'] = 'Oled sa kindel, et soovid galerii lukustada?';
 $lang['This is already the default theme'] = 'See juba on vaike teema.';
 $lang['in administration'] = 'administreerimisel';
+$lang['Close'] = 'Sulge';
