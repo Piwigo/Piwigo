@@ -1069,3 +1069,5 @@ $lang['Are you sure you want to lock the gallery?'] = 'Oled sa kindel, et soovid
 $lang['This is already the default theme'] = 'See juba on vaike teema.';
 $lang['in administration'] = 'administreerimisel';
 $lang['Close'] = 'Sulge';
+$lang['Email Adress'] = 'E-posti aadress';
+$lang['Email'] = 'E-post';
