@@ -50,3 +50,4 @@ $lang['Welcome to your new installation of Piwigo!'] = 'Bine ai venit la noua in
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Poti sa descarci fila de configurare si sa o uploadezi in folderul local/config al instalarii.';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Ar trebui sa te adresezi hostului si sa intrebi cum poti sa treci la PHP5.2';
 $lang['localhost or other, supplied by your host provider'] = 'localhost sau alta, furnizat de furnizorul de găzduire';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Este necesară versiunea PHP %s (acum utilizați PHP %s)';
