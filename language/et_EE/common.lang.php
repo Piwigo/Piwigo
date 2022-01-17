@@ -438,3 +438,5 @@ $lang['Invalid username or password!'] = 'Vale kasutajanimi või salasõna!';
 $lang['generate random password'] = 'Genereeri juhuslik salasõna';
 $lang['Password: ********** (no copy by email)'] = 'Parool: ********** (pole e-posti koopia)';
 $lang['Related albums'] = 'Seotud albumid';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumi nimi, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumi nimi, 1 &rarr; 5 &rarr; 10 &rarr; 100';
