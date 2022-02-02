@@ -650,7 +650,7 @@ $(document).ready(function () {
                 <span class="icon-spin6 animate-spin"></span>
             </span>
         </div>
-        <a class="download_csv tiptip" title="{'Download all activities'|translate}" href="ws.php?format=json&method=pwg.activity.downloadLog"> 
+        <a class="download_csv tiptip" title="{'Download all activities 2'|translate}" href="admin.php?page=user_activity&type=download_logs"> 
             <i class="icon-download"> </i>
         </a>
     </div>
