@@ -3091,6 +3091,99 @@ a#showPermissions:hover {text-decoration: none;}
   color: rgba(29, 29, 29, 0.226);
 }
 
+#RenameTag {
+  display:none;
+}
+
+.AddIconContainer {
+  margin-top: 5px;
+}
+
+.RenameTagPopIn {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.7);
+}
+
+.RenameTagPopInContainer {
+  display:flex;
+  position:absolute;
+  left:50%;
+  top: 50%;
+  transform:translate(-50%, -48%);
+  text-align:left;
+  padding:20px;
+  flex-direction:column;
+  border-radius:15px;
+  align-items:center;
+  width: 270px;
+  background-color: white;
+}
+
+.ClosePopIn {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  font-size: 30px;
+  color: white;
+}
+
+.AddIcon {
+  border-radius: 9999px;
+  padding: 10px;
+  font-size: 2em;
+}
+.AddIconTitle {
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.tag-property-label {
+  color:#A4A4A4;
+  font-weight:bold;
+  font-size:1.1em;
+  margin-bottom:5px;
+}
+.tag-property-input {
+  width: 100%;
+  box-sizing:border-box;
+  font-size:1.1em;
+  padding:8px 16px;
+  border:none;
+}
+
+.TagErrors {
+  visibility:hidden;
+  width:100%;
+  padding:5px;
+  border-left:solid 3px red;
+}
+.TagSubmit {
+  cursor:pointer;
+  font-weight:bold;
+  color: #3F3E40;
+  background-color: #FFA836;
+  padding: 10px;
+  margin: 20px;
+  font-size:1em;
+  margin-bottom:0;
+}
+.TagCancel {
+  color: #3F3E40;
+  font-weight: bold;
+  cursor: pointer;
+  font-size:1em;
+}
+
 /* Picture Edit */
 #pictureModify {
   display: flex;

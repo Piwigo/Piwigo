@@ -209,8 +209,9 @@ function setupTagbox(tagBox) {
 
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
-    tagBox.addClass('edit-name');
-    tagBox.find(".tag-name-editable").focus();
+    console.log('SALUT');
+    set_up_popin(tagBox.data('id'), tagBox.find('.tag-name').html());
+    rename_tag_open()
   })
 
   tagBox.find('.tag-rename .icon-cancel').on('click', function() {
@@ -270,6 +271,35 @@ function setupTagbox(tagBox) {
 
 }
 
+function set_up_popin(id, tagName) {
+
+  $(".RenameTagPopInContainer").find(".tag-property-input").attr("id", id);
+
+  $(".AddIconTitle span").html(str_tag_rename.replace("%s", tagName))
+  $(".ClosePopIn").on('click', function () {
+    rename_tag_close()
+  });
+  $(".TagSubmit").on('click', function () {
+    renameTag($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"), $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
+      console.log("then");
+      rename_tag_close();
+    }).catch((message) => {
+      console.log(message);
+    })
+  });
+  $(".TagSubmit").html(str_yes_rename_confirmation);
+  $(".RenameTagPopInContainer").find(".tag-property-input").val(tagName);
+}
+
+function rename_tag_close() {
+  $("#RenameTag").fadeOut();
+}
+
+function rename_tag_open() {
+  $("#RenameTag").fadeIn();
+  $(".tag-property-input").first().focus();
+}
+
 function removeTag(id, name) {
   $.alert({
       title : str_tag_deleted.replace("%s",name),
@@ -314,6 +344,7 @@ function renameTag(id, new_name) {
       },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
+        console.log(data);
         if (data.stat === "ok") {
           $('.tag-box[data-id='+id+'] p, .tag-box[data-id='+id+'] .tag-dropdown-header b').html(data.result.name);
           $('.tag-box[data-id='+id+'] .tag-name-editable').attr('value', data.result.name);
