@@ -3121,7 +3121,9 @@ a#showPermissions:hover {text-decoration: none;}
   flex-direction:column;
   border-radius:15px;
   align-items:center;
-  width: 270px;
+  width: auto;
+  min-width: 270px;
+  max-width: 700px;
   background-color: white;
 }
 
@@ -3147,6 +3149,9 @@ a#showPermissions:hover {text-decoration: none;}
   margin-top: 15px;
 }
 
+.RenameTagInputContainer {
+  width: 100%;
+}
 .tag-property-label {
   color:#A4A4A4;
   font-weight:bold;
