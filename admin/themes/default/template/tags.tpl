@@ -63,14 +63,6 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     <span class="select-checkbox">
       <i class="icon-ok"> </i>
     </span>
-    <div class="tag-rename">
-      <form>
-        <input type="text" class="tag-name-editable" value="{$tag_name}">
-        <input type="submit" hidden>
-      </form>
-      <span class="icon-ok validate"></span>
-      <span class="icon-cancel"></span>
-    </div>
 {/function}
 {/function}
 

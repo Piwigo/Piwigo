@@ -214,34 +214,6 @@ function setupTagbox(tagBox) {
     rename_tag_open()
   })
 
-  tagBox.find('.tag-rename .icon-cancel').on('click', function() {
-    tagBox.removeClass('edit-name');
-    tagBox.find('.tag-name-editable').val(tagBox.find('.tag-name').html());
-  })
-
-  tagBox.find('.tag-rename .validate').on('click', function() {
-    tagBox.find('.tag-rename form').submit();
-  })
-
-  tagBox.find('.tag-rename form').submit(function (e) {
-    let name = tagBox.find('.tag-name').html();
-    e.preventDefault();
-    new_name = tagBox.find('.tag-rename .tag-name-editable').val();
-    if (new_name != "") {
-      let loadState = new TemporaryState();
-      loadState.removeClass(tagBox.find('.tag-rename .validate'), 'icon-ok');
-      loadState.changeHTML(tagBox.find('.tag-rename .validate'), "<i class='icon-spin6 animate-spin'> </i>");
-      renameTag(tagBox.data('id'), new_name).then(() => {
-        showMessage(str_tag_renamed.replace('%s1', name).replace('%s2', new_name));
-        loadState.reverse();
-        tagBox.removeClass('edit-name');
-      }).catch((message) => {
-        loadState.reverse();
-        showError(message);
-      })
-    }
-  })
-
   //Delete Tag
   tagBox.find('.dropdown-option.delete').on('click', function () {
     $.confirm({
