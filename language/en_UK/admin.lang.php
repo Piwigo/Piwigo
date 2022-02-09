@@ -1256,3 +1256,6 @@ $lang['Advanced features'] = 'Advanced features';
 $lang['Global Gallery Actions'] = 'Global Gallery Actions';
 $lang['Purge Actions'] = 'Purge Actions';
 $lang['Purge Cache'] = 'Purge Cache';
+$lang['Rename "%s"'] = 'Rename "%s"';
+$lang['Yes, rename'] = 'Yes, rename';
+$lang['Tag name'] = 'Tag name';

@@ -164,12 +164,14 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     <div class="TagErrors icon-cancel">
     </div>
 
-    <div class="TagSubmit">
-      <span>{'Rename Tag'|@translate}</span>
-    </div>
+    <div class="TagSubmitOptions">
+      <div class="TagSubmit">
+        <span>{'Rename Tag'|@translate}</span>
+      </div>
 
-    <div class="TagCancel" style="display:none;">
-      <span>{'Cancel'|@translate}</span>
+      <div class="TagCancel">
+        <span>{'Cancel'|@translate}</span>
+      </div>
     </div>
   </div>
 </div>

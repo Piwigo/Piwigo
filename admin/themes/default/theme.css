@@ -3172,21 +3172,30 @@ a#showPermissions:hover {text-decoration: none;}
   padding:5px;
   border-left:solid 3px red;
 }
+
+.TagSubmitOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .TagSubmit {
   cursor:pointer;
   font-weight:bold;
   color: #3F3E40;
   background-color: #FFA836;
-  padding: 10px;
-  margin: 20px;
+  padding: 10px 20px;
   font-size:1em;
   margin-bottom:0;
+  margin: 0 15px;
 }
 .TagCancel {
-  color: #3F3E40;
-  font-weight: bold;
+  cursor:pointer;
   cursor: pointer;
-  font-size:1em;
+  color: #A4A4A4;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: bold;
 }
 
 /* Picture Edit */

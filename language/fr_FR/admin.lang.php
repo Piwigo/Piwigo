@@ -1258,3 +1258,6 @@ $lang['Advanced features'] = 'Fonctionnalités avancées';
 $lang['Global Gallery Actions'] = 'Actions sur la gallerie';
 $lang['Purge Actions'] = 'Actions de purge';
 $lang['Purge Cache'] = 'Purger le cache';
+$lang['Rename "%s"'] = 'Renommer "%s"';
+$lang['Yes, rename'] = 'Oui, renommer';
+$lang['Tag name'] = 'Nom du tag';
