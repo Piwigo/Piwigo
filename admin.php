@@ -187,7 +187,7 @@ $template->assign(
     'U_CONFIG_LANGUAGES' => $link_start.'languages',
     'U_CONFIG_THEMES'=> $link_start.'themes',
     'U_CATEGORIES'=> $link_start.'cat_list',
-    'U_CAT_MOVE'=> $link_start.'cat_move',
+    'U_ALBUMS'=> $link_start.'albums',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_SEARCH'=> $link_start.'cat_search',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
@@ -300,7 +300,7 @@ if (
     or ( !empty($_POST) and in_array($page['page'],
         array(
           'album',        // public/private; lock/unlock, permissions
-          'cat_move',
+          'albums',
           'cat_options',  // public/private; lock/unlock
           'user_list',    // group assoc; user level
           'user_perm',

@@ -2699,7 +2699,7 @@ function get_active_menu($menu_page)
 
     case 'album':
     case 'cat_list':
-    case 'cat_move':
+    case 'albums':
     case 'cat_options':
     case 'cat_search':
     case 'permalinks':

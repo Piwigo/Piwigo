@@ -115,11 +115,11 @@ $template->assign('open_cat', $open_cat);
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
-$template->set_filename('cat_move', 'cat_move.tpl');
+$template->set_filename('albums', 'albums.tpl');
 
 $template->assign(
   array(
-    'F_ACTION' => get_root_url().'admin.php?page=cat_move',
+    'F_ACTION' => get_root_url().'admin.php?page=albums',
     )
   );
 
@@ -190,7 +190,7 @@ $template->assign('PWG_TOKEN', get_pwg_token());
 // |                          sending html code                            |
 // +-----------------------------------------------------------------------+
 
-$template->assign_var_from_handle('ADMIN_CONTENT', 'cat_move');
+$template->assign_var_from_handle('ADMIN_CONTENT', 'albums');
 
 // +-----------------------------------------------------------------------+
 // |                              functions                                |

@@ -23,7 +23,7 @@ var delay_autoOpen = {$delay_before_autoOpen}
 {combine_script id='jtree' load='footer' path='themes/default/js/plugins/tree.jquery.js'}
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
-{combine_script id='cat_move' load='footer' path='admin/themes/default/js/cat_move.js'}
+{combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
 
 <div class="titrePage">
   <h2>{'Move albums'|@translate}</h2>
