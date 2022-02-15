@@ -1015,4 +1015,4 @@ $lang['checksums to add'] = '要添加的校验码';
 $lang['or'] = '或者';
 $lang['... or hide this link'] = '... 或隐藏本链接';
 $lang['%d sub-albums'] = '%d个子相册';
-$lang['%d photos'] = '%d 相册';
+$lang['%d photos'] = '%d 图片';
