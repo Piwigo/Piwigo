@@ -105,6 +105,21 @@ $('.tag-box').each(function() {
   setupTagbox($(this))
 })
 
+//Call the API when rename a tag
+$(".TagSubmit").on('click', function () {
+  $('.TagSubmit').hide();
+  $('.TagLoading').show();
+  renameTag($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"), $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
+    $('.TagSubmit').show();
+    $('.TagLoading').hide();
+    rename_tag_close();
+  }).catch((message) => {
+    $('.TagSubmit').show();
+    $('.TagLoading').hide();
+    console.error(message)
+  })
+});
+
 /*-------
  Add a tag
 -------*/
@@ -250,14 +265,6 @@ function set_up_popin(id, tagName) {
   $(".AddIconTitle span").html(str_tag_rename.replace("%s", tagName))
   $(".ClosePopIn").on('click', function () {
     rename_tag_close()
-  });
-  $(".TagSubmit").on('click', function () {
-    renameTag($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"), $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
-      console.log("then");
-      rename_tag_close();
-    }).catch((message) => {
-      console.log(message);
-    })
   });
   $(".TagSubmit").html(str_yes_rename_confirmation);
   $(".RenameTagPopInContainer").find(".tag-property-input").val(tagName);

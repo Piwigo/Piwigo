@@ -169,6 +169,10 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
         <span>{'Rename Tag'|@translate}</span>
       </div>
 
+      <div class="TagLoading">
+        <i class='icon-spin6 animate-spin'></i>
+      </div>
+
       <div class="TagCancel">
         <span>{'Cancel'|@translate}</span>
       </div>

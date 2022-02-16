@@ -3179,7 +3179,7 @@ a#showPermissions:hover {text-decoration: none;}
   justify-content: space-between;
 }
 
-.TagSubmit {
+.TagSubmit, .TagLoading {
   cursor:pointer;
   font-weight:bold;
   color: #3F3E40;
@@ -3188,6 +3188,10 @@ a#showPermissions:hover {text-decoration: none;}
   font-size:1em;
   margin-bottom:0;
   margin: 0 15px;
+}
+.TagLoading{
+  cursor: auto;
+  display: none;
 }
 .TagCancel {
   cursor:pointer;
