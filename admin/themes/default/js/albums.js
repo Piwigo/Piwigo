@@ -1,6 +1,7 @@
 $(document).ready(() => {
 
   formatedData = data;
+  $(".albumsFilter .search-input").val('');
 
   $('.tree').tree({
     data: formatedData,
@@ -166,18 +167,78 @@ $(document).ready(() => {
       scrollTop: $("#cat-"+openCat).offset().top
     }, 500);
   }
+
+  // tree search
+
+  $(".albumsFilter .search-input").on('input', function () {
+    // console.log($(this).val());
+    //close the tree
+    closeTree($('.tree'));
+    //
+    $(".jqtree-element").removeClass('animateFocus').removeClass('imune')
+    var testNode = $('.tree').tree('getNodeByCallback', 
+    function(node) {
+      if ($(".albumsFilter .search-input").val() !== "") {
+        if (node.name.toLowerCase().includes($(".albumsFilter .search-input").val().toLowerCase())) {
+          // Node is found
+          // console.log("found");
+          $("#cat-"+node.id).show().addClass("imune");
+          goToNode(node, node)
+        }
+        else {
+          // Node not found
+          // console.log("not found");
+          if (!$("#cat-"+node.id).hasClass("imune")) {
+            $("#cat-"+node.id).hide();
+          }
+        }
+      } else {
+        $(".jqtree-element").show();
+      }
+    });
+  })
+
 });
 
 function goToNode(node, firstNode) {
+  // console.log(firstNode.id, node.id);
   if (node.parent) {
     goToNode(node.parent, firstNode);
     if(node != firstNode) {
       $(".tree").tree('openNode', node);
+      // console.log("parent id : " + node.parent.id);
+      $("#cat-"+node.parent.id).show();
+      $("#cat-"+node.parent.id).addClass("imune");
     }
   } else {
     $(".tree").tree('openNode', node);
     $("#cat-"+firstNode.id).addClass("animateFocus");
+
+    showNodeChildrens(firstNode);
   }
+}
+
+function showNodeChildrens(node) {
+  if (node.children) {
+    // console.log("childrens : " + node.children);
+    node.children.forEach(child => {
+      // console.log("children : " + child.id, child.name);
+      $("#cat-"+child.id).addClass("imune");
+      showNodeChildrens(child);
+    });
+    
+  }
+}
+
+function closeTree(tree) {
+  // console.log(tree);
+  if (tree.tree('getState').open_nodes.length > 0) {
+    tree.tree('getState').open_nodes.forEach(nodeItem => {
+      var node = tree.tree('getNodeById', nodeItem);
+      tree.tree('closeNode', node);
+    });
+  }
+
 }
 
 function getId(parent) {

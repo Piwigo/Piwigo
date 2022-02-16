@@ -634,6 +634,16 @@ LI.menuLi {
   font-size: 18px;
 }
 
+.albumsFilter .search-cancel {
+  position: absolute;
+  top: auto;
+  right: auto;
+  transform: translateY(0);
+  font-size: 18px;
+  margin-left: 215px;
+  margin-top: 10px;
+}
+
 .search-cancel:hover {
   opacity: 1;
 }
@@ -642,6 +652,13 @@ LI.menuLi {
   position: absolute;
   top: 50%;
   transform: translate(4px, -50%);
+  font-size: 18px;
+}
+
+.albumsFilter .search-icon {
+  position: absolute;
+  top: auto;
+  transform: translate(6px, 40%);
   font-size: 18px;
 }
 
@@ -2064,6 +2081,7 @@ h2:lang(en) { text-transform:capitalize; }
 }
 
 .pluginFilter {justify-content: end;position: absolute;right: 160px; z-index: 2; transform: translateY(6px);}
+.albumsFilter { margin-right: 20px; }
 
 .pluginBox {
   display:flex;
@@ -4092,6 +4110,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
 .cat-move-header .cat-move-info {
   position: relative;
+  margin-right: auto;
 }
 
 .cat-move-header .cat-move-info::before {

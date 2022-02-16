@@ -93,6 +93,11 @@ var delay_autoOpen = {$delay_before_autoOpen}
 
 <div class="cat-move-header"> 
   <div class="cat-move-info icon-help-circled"> {'Drag and drop to reorder albums'|@translate}</div>
+  <div class="albumsFilter"> 
+    <span class="icon-search search-icon"></span>
+    <span class="icon-cancel search-cancel"></span>
+    <input class='search-input' type="text" placeholder="{'Search'|@translate}">
+  </div>
   <a class="order-root icon-sitemap"> {'Apply an automatic order to root albums'|@translate} </a>
 </div>
 
