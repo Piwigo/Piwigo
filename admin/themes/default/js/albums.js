@@ -174,11 +174,12 @@ $(document).ready(() => {
     // console.log($(this).val());
     //close the tree
     closeTree($('.tree'));
-    //
-    $(".jqtree-element").removeClass('animateFocus').removeClass('imune')
-    var testNode = $('.tree').tree('getNodeByCallback', 
-    function(node) {
-      if ($(".albumsFilter .search-input").val() !== "") {
+    $(".jqtree-element").removeClass('animateFocus').removeClass('imune');
+
+    if ($(".albumsFilter .search-input").val().length >= 3) {
+      $('.tree').tree('getNodeByCallback', 
+      function(node) {
+
         if (node.name.toLowerCase().includes($(".albumsFilter .search-input").val().toLowerCase())) {
           // Node is found
           // console.log("found");
@@ -192,10 +193,10 @@ $(document).ready(() => {
             $("#cat-"+node.id).hide();
           }
         }
-      } else {
-        $(".jqtree-element").show();
-      }
-    });
+      });
+    } else {
+      $(".jqtree-element").show();
+    }
   })
 
 });
