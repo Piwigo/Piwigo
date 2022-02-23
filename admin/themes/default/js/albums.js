@@ -16,32 +16,24 @@ $(document).ready(() => {
     icon = "<span class='%icon%'></span>";
     title = "<p class='move-cat-title' title='%name%'>%name%</p>";
     toggler_cont = "<div class='move-cat-toogler' data-id=%id%>%content%</div>";
-    toggler_close = "<span class='icon-left-open'></span> <p>"+str_show_sub+"</p>";
-    toggler_open = "<span class='icon-down-open'></span> <p>"+str_hide_sub+"</p>";
-    actions = '<div class="move-cat-action-cont">'
+    toggler_close = "<span class='icon-left-open'></span>";
+    toggler_open = "<span class='icon-down-open'></span>";
+    actions = 
+      '<div class="move-cat-action-cont">'
         +"<div class='move-cat-action'>"
-          +"<a class='move-cat-edit icon-pencil' href='admin.php?page=album-"+node.id+"'>"+str_edit+"</a>"
+          +"<a class='move-cat-add icon-plus-circled' href='admin.php?page=album-"+node.id+"'></a>"
+          +"<a class='move-cat-edit icon-pencil' href='admin.php?page=album-"+node.id+"'></a>"
+          +"<a class='move-cat-upload icon-upload' href='admin.php?page=photos_add&album="+node.id+"'></a>"
+          +"<a class='move-cat-see icon-eye' href='admin.php?page=album-"+node.id+"'></a>"
+          +"<a class='move-cat-order icon-sort-name-up' href='admin.php?page=album-"+node.id+"'></a>"
         +"</div>"
       +'</div>';
-    action_order = "<a data-id='"+node.id+"' class='move-cat-order icon-sort-alt-up'>"+str_apply_order+"</a>";
+    action_order = "<a data-id='"+node.id+"' class='move-cat-delete icon-trash'></a>";
 
     cont = li.find('.jqtree-element');
     cont.addClass('move-cat-container');
     cont.attr('id', 'cat-'+node.id)
     cont.html('');
-    cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
-
-    if (node.children.length != 0) {
-      cont.append($(icon.replace(/%icon%/g, 'icon-sitemap')));
-    } else {
-      cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
-    }
-
-    cont.append($(title.replace(/%name%/g, node.name)));
-
-    if (node.status == 'private') {
-      cont.find(".move-cat-title").addClass('icon-lock');
-    }
 
     cont.append(actions);
 
@@ -59,9 +51,23 @@ $(document).ready(() => {
       cont.find('.move-cat-action').append(action_order);
     }
 
+    cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
+
+    if (node.children.length != 0) {
+      cont.append($(icon.replace(/%icon%/g, 'icon-sitemap')));
+    } else {
+      cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
+    }
+
+    cont.append($(title.replace(/%name%/g, node.name)));
+
+    if (node.status == 'private') {
+      cont.find(".move-cat-title").addClass('icon-lock');
+    }
+
     var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
     var colorId = Number(node.id)%5;
-    cont.find(".icon-folder-open, .icon-sitemap").addClass(colors[colorId]);  
+    cont.find("span.icon-folder-open, span.icon-sitemap").addClass(colors[colorId]);  
   }
 
   var url_split = window.location.href.split("#");
@@ -173,8 +179,12 @@ $(document).ready(() => {
   $(".albumsFilter .search-input").on('input', function () {
     // console.log($(this).val());
     //close the tree
-    closeTree($('.tree'));
-    $(".jqtree-element").removeClass('animateFocus').removeClass('imune');
+
+    if ($(".albumsFilter .search-input").val().length >= 2) {
+      closeTree($('.tree'));
+      $(".jqtree-element").removeClass('animateFocus').removeClass('imune');
+      console.log("here");
+    }
 
     if ($(".albumsFilter .search-input").val().length >= 3) {
       $('.tree').tree('getNodeByCallback', 

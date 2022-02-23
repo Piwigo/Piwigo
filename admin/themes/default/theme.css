@@ -4174,7 +4174,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 .move-cat-container .move-cat-toogler {
   display: flex;
   color: #FFBD4D;
-  margin-left: 15px;
+  margin-left: 5px;
   align-items: center;
   cursor: pointer;
   z-index: 2;
@@ -4182,7 +4182,11 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .move-cat-container .move-cat-toogler .icon-left-open{
-  transform: rotate(90deg);
+  transform: rotate(180deg);
+}
+.move-cat-container .move-cat-toogler{
+  color: #ff7700;
+  transform: scale(1.4);
 }
 
 .move-cat-action-cont {
@@ -4210,19 +4214,21 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .move-cat-action a {
-  padding: 30px 15px;
+  padding: 30px 10px;
   font-weight: bold;
   cursor: pointer;
   height: 100%;
-  border-left: 1px solid #00000012;
-  background-color: #00000003;
   text-align: center;
+  transform: scale(1.2);
+}
+
+.move-cat-action a:last-child {
+  padding-right: 20px;
 }
 
 .move-cat-action a:hover {
-  color: #444;
+  color: #ff7700;
   text-decoration: none;
-  background-color: #FFA646;
 }
 
 .cat-move-order-popin {
