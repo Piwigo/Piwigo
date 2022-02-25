@@ -148,7 +148,7 @@ $('.search-input').focus();
     <div class="search-album-input-container" style="position:relative">
       <span class="icon-search search-icon"></span>
       <span class="icon-cancel search-cancel"></span>
-      <input class='search-input' type="text" placeholder="{'Portraits'|@translate}">
+      <input class='search-input' type="text" placeholder="{$placeholder|escape:html}">
     </div>
     <span class="search-album-help icon-help-circled" title="{'Enter a term to search for album'|@translate}"></span>
     <span class="search-album-num-result"></span>
