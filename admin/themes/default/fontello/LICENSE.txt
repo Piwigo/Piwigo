@@ -1,15 +1,6 @@
 Font license info
 
 
-## Typicons
-
-   (c) Stephen Hutchings 2012
-
-   Author:    Stephen Hutchings
-   License:   SIL (http://scripts.sil.org/OFL)
-   Homepage:  http://typicons.com/
-
-
 ## Entypo
 
    Copyright (C) 2012 by Daniel Bruce
@@ -17,6 +8,15 @@ Font license info
    Author:    Daniel Bruce
    License:   SIL (http://scripts.sil.org/OFL)
    Homepage:  http://www.entypo.com
+
+
+## Typicons
+
+   (c) Stephen Hutchings 2012
+
+   Author:    Stephen Hutchings
+   License:   SIL (http://scripts.sil.org/OFL)
+   Homepage:  http://typicons.com/
 
 
 ## Font Awesome

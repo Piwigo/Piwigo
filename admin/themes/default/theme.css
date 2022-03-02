@@ -3091,6 +3091,117 @@ a#showPermissions:hover {text-decoration: none;}
   color: rgba(29, 29, 29, 0.226);
 }
 
+#RenameTag {
+  display:none;
+}
+
+.AddIconContainer {
+  margin-top: 5px;
+}
+
+.RenameTagPopIn {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.7);
+}
+
+.RenameTagPopInContainer {
+  display:flex;
+  position:absolute;
+  left:50%;
+  top: 50%;
+  transform:translate(-50%, -48%);
+  text-align:left;
+  padding:20px;
+  flex-direction:column;
+  border-radius:15px;
+  align-items:center;
+  width: auto;
+  min-width: 270px;
+  max-width: 700px;
+  background-color: white;
+}
+
+.ClosePopIn {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  font-size: 30px;
+  color: white;
+}
+
+.AddIcon {
+  border-radius: 9999px;
+  padding: 10px;
+  font-size: 2em;
+}
+.AddIconTitle {
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.RenameTagInputContainer {
+  width: 100%;
+}
+.tag-property-label {
+  color:#A4A4A4;
+  font-weight:bold;
+  font-size:1.1em;
+  margin-bottom:5px;
+}
+.tag-property-input {
+  width: 100%;
+  box-sizing:border-box;
+  font-size:1.1em;
+  padding:8px 16px;
+  border:none;
+}
+
+.TagErrors {
+  visibility:hidden;
+  width:100%;
+  padding:5px;
+  border-left:solid 3px red;
+}
+
+.TagSubmitOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.TagSubmit, .TagLoading {
+  cursor:pointer;
+  font-weight:bold;
+  color: #3F3E40;
+  background-color: #FFA836;
+  padding: 10px 20px;
+  font-size:1em;
+  margin-bottom:0;
+  margin: 0 15px;
+}
+.TagLoading{
+  cursor: auto;
+  display: none;
+}
+.TagCancel {
+  cursor:pointer;
+  cursor: pointer;
+  color: #A4A4A4;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
 /* Picture Edit */
 #pictureModify {
   display: flex;
@@ -3159,6 +3270,7 @@ a#showPermissions:hover {text-decoration: none;}
 
 #picture-content .selectize-input {
   width: 100%;
+  overflow-y: scroll;
 }
 
 #picture-content input[type=text], #picture-content textarea, #picture-content .selectize-control {
@@ -5469,4 +5581,44 @@ color:#FF7B00;
 
 .site-url-path span {
   margin-top: -10px;
+}
+
+.search-line {
+  background: #fafafa;
+}
+
+.search-line .date-section,
+.search-line .user-section,
+.search-line .type-section {
+  border-right: 1px solid #bbb;
+}
+
+.detail-item-1, .detail-item-2, .detail-item-3 {
+  background: #f0f0f0f0;
+}
+
+.search-line .type-name a {
+  color: #a1a1a1;
+}
+
+.history-filter {
+  background: #f3f3f3;
+}
+
+.hasDatepicker, .elem-type-select {
+  background: white !important;
+}
+
+.selectable-filter label {
+  margin-bottom: 5px;
+}
+
+.selectable-filter .elem-type-select {
+  margin-top: 5px !important;
+}
+
+.filter-title, .remove-filter, .filter-icon {
+  color: #777;
+  background: #fff;
+  padding: 5px 0;
 }

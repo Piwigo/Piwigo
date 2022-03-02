@@ -83,7 +83,12 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod(
     'pwg.activity.getList',
     'ws_getActivityList',
-    null,
+    array(
+      'page' => array('default'=>null,
+                      'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      'uid' => array('default'=>NULL,
+                     'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      ),
     'Returns general informations.',
     $ws_functions_root . 'pwg.php',
     array('admin_only'=>true)
@@ -1238,6 +1243,14 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       ),
       'Returns the favorite images of the current user.',
       $ws_functions_root . 'pwg.users.php'
+    );
+
+  $service->addMethod(
+      'pwg.history.search',
+      'ws_history_search',
+      null,
+      'Gives an history of who has visited the galery and the actions done in it. Receives parameter.',
+      $ws_functions_root . 'pwg.php'
     );
 }
 

@@ -28,6 +28,7 @@ const cancel_msg = "{"No, I have changed my mind"|@translate}";
 let delete_plugin_msg = '{'Are you sure you want to delete the plugin "%s"?'|@translate|@escape:'javascript'}';
 let deleted_plugin_msg = '{'Plugin "%s" deleted!'|@translate|@escape:'javascript'}';
 let restore_plugin_msg = '{'Are you sure you want to restore the plugin "%s"?'|@translate|@escape:'javascript'}';
+let uninstall_plugin_msg = '{'Are you sure you want to uninstall the plugin "%s"?'|@translate|@escape:'javascript'}';
 const restore_tip_msg = "{'Restore default configuration. You will lose your plugin settings!'|@translate|@escape:'javascript'}";
 const plugin_added_str = '{'Activated'|@translate|@escape:'javascript'}';
 const plugin_deactivated_str = '{'Deactivated'|@translate|@escape:'javascript'}';
@@ -262,6 +263,8 @@ function actualizeFilter() {
     $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
     $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
 
+    //console.log(nb_plugin)
+
     $(".filterLabel").show();
     $(".pluginMiniBox").each(function () {
         if (nb_plugin.active == 0) {
@@ -376,11 +379,12 @@ jQuery(".pluginMiniBox").each(function(index){
           <a class="icon-ellipsis-v showOptions showInfo" ></a>
         {/if}
       </div>
-
+  {if $plugin.STATE == 'active' || $plugin.STATE == 'inactive'}
     <label class="switch">
       <input type="checkbox" id="toggleSelectionMode" {if {$plugin.STATE} === "active"}checked{/if}>
       <span class="slider round"></span>
     </label>
+  {/if}
 
       <div class="pluginActionsSmallIcons">
         {if $plugin.STATE == 'active'}
@@ -405,11 +409,11 @@ jQuery(".pluginMiniBox").each(function(index){
           {/if}
         {elseif $plugin.STATE == 'missing'}
           <div class="tiptip" title="{'Uninstall'|@translate}">
-            <a class="uninstall-plugin-button" href="{$plugin.U_ACTION}&amp;action=uninstall"></a>
+            <a class="uninstall-plugin-button">{'Uninstall'|@translate}</a>
           </div>
         {elseif $plugin.STATE == 'merged'}
           <div class="tiptip" title="{'Delete'|@translate}">
-            <a class="" href="{$plugin.U_ACTION}&amp;action=delete"></a>
+            <a class="" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
           </div>
         {/if}                     
       </div>
@@ -442,7 +446,7 @@ jQuery(".pluginMiniBox").each(function(index){
             <a class="pluginUnavailableAction icon-cog tiptip" title="{'N/A'|translate}">{'Settings'|@translate}</a>
           {/if}
         {elseif $plugin.STATE == 'missing'}
-          <a class="pluginActionLevel3 uninstall-plugin-button" href="{$plugin.U_ACTION}&amp;action=uninstall">{'Uninstall'|@translate}</a>
+          <a class="pluginActionLevel3 uninstall-plugin-button">{'Uninstall'|@translate}</a>
         {elseif $plugin.STATE == 'merged'}
           <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
         {/if}                     

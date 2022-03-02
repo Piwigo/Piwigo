@@ -15,7 +15,16 @@ var usersCache = new UsersCache({
 });
 
 const color_icons = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
-const users_key = "{"Users"|@translate}"
+var activity_page = 1;
+let actual_page = 1;
+let max_page = 1;
+let uid_filter;
+const page_ellipsis = '<span>...</span>'
+const page_item = '<a data-page="%d">%d</a>';
+var create_selecter = true;
+const users_key = "{"Users"|@translate}";
+
+const ulist = {$ulist};
 
 const line_key = "{'%s line'|translate}";
 const lines_key = "{'%s lines'|translate}";
@@ -93,54 +102,47 @@ var actionInfos_tags_moved = "{'%d tags moved'|translate}";
 
 {*<-- Getting and Displaying Activities -->*}
 
-get_user_activity();
+get_user_activity(activity_page, uid_filter);
 
-function get_user_activity() {
+function get_user_activity(page, uid) {
     $.ajax({
         url: "ws.php?format=json&method=pwg.activity.getList",
         type: "POST",
         dataType: "json",
         data: {
-            a: 1,
-            b: 2
+            page: page - 1,
+            uid: uid,
+        },
+        beforeSend: () => {
+          $('.tab').contents(':not(#-1):not(.loading)').remove();
+          $(".loading").show();
+          $('.pagination-arrow.rigth').addClass('unavailable');
+          $('.pagination-arrow.left').addClass('unavailable');
+          $(".pagination-item-container").hide();
+          $(".user-update-spinner").addClass("icon-spin6");
         },
         success: (data) => {
             /* console log to help debug */
-            console.log(data);
+            {* console.log(data); *}
+            uid_filter = uid;
 
             setCreationDate(data.result['result_lines'][data.result['result_lines'].length-1].date, data.result['result_lines'][0].date);
             $(".loading").hide();
-            
+
             data.result['result_lines'].forEach(line => {
                 lineConstructor(line);
             });
 
-            fillUserFilter(data.result['filterable_users'], data.result['id_of']);
+            max_page = data.result['max_page'];
+            $(".user-update-spinner").removeClass("icon-spin6");
+            $(".pagination-item-container").show();
+            update_pagination_menu();
         }, 
         error: (e) => {
             console.log("ajax call failed");
             console.log(e);
         }
     })
-}
-
-function fillUserFilter(user_tab) {
-
-  for (const [key, value] of Object.entries(user_tab)) {
-    {* console.log(key, value); *}
-    var newOption = "<option value=" + value.id +"> <span class='username_filter'>" + value.username + "</span> <span class='nb_lines_str'> (" + lines_key.replace("%s", value.nb_lines) + ") </span></option>";
-
-    $(".user-selecter").append(newOption);
-  }
-
-  jQuery('.user-selecter').selectize();
-
-  jQuery(".user-selecter")[0].selectize.setValue(null);
-
-  jQuery(".cancel-icon").click(function() {
-    jQuery(".user-selecter")[0].selectize.setValue(null);
-    $(".line").show();
-  });
 }
 
 function lineConstructor(line) {
@@ -318,7 +320,6 @@ function lineConstructor(line) {
 
             newLine.find(".action-name").html(actionType_login);
 
-            console.log("userS Logged in");
             final_albumInfos = actionInfos_users_logged_in.replace('%d', line.counter);
 
             break;
@@ -335,7 +336,6 @@ function lineConstructor(line) {
 
             newLine.find(".action-name").html(actionType_logout);
 
-            console.log("userS Logged in");
             final_albumInfos = actionInfos_users_logged_out.replace('%d', line.counter);
 
             break;
@@ -585,44 +585,103 @@ function get_initials(username) {
     return res;
 }
 
-function filterUsers(username) {
-    let lines =  $(".line");
-
-    showAllLines()
-    let resultLines = [];
-
-    for (let index = 1; index < lines.length; index++) {
-        
-        if (username != lines[index].children[2].children[1].innerHTML) {
-            $("#" + lines[index].id).hide();
-        } else  {
-            resultLines.push(lines[index].getElementsByClassName("date-day")[0].textContent)
-        }
-    }
-    setCreationDate((!resultLines[resultLines.length-1]) ? "{'N/A'|translate}" : resultLines[resultLines.length-1], (!resultLines[0]) ? "{'N/A'|translate}" : resultLines[0])
-}
-
-function showAllLines() {
-    let lines =  $(".line");
-    for (let index = 1; index < lines.length; index++) {
-        $("#" + lines[index].id).show();
-    }
-
-    $("#-1").hide();
-}
-
 function setCreationDate(startDate, endDate) {
     $(".start-date").html(startDate)
 
     $(".end-date").html(endDate)
 }
 
+{* Pagination *}
+
+function move_to_page(page) {
+    if (page < 0 || page > max_page)
+        return;
+    actual_page = page;
+    update_pagination_menu();
+    get_user_activity(page, uid_filter);
+}
+
+$('.pagination-arrow.rigth').on('click', () => {
+    move_to_page(actual_page + 1);
+})
+
+$('.pagination-arrow.left').on('click', () => {
+    move_to_page(actual_page - 1);
+})
+
+function update_pagination_menu() {
+    {* max_page = Math.ceil(nb_filtered_users / per_page); *}
+    updateArrows();
+    update_pagination_items();
+    if (max_page <= 1) {
+        $('.pagination-container').hide();
+    } else {
+        $('.pagination-container').show();
+    }
+}
+
+function updateArrows() {
+    if (actual_page == 1) {
+        $('.pagination-arrow.left').addClass('unavailable');
+    } else {
+        $('.pagination-arrow.left').removeClass('unavailable');
+    }   
+    if (actual_page == max_page) {
+        $('.pagination-arrow.rigth').addClass('unavailable');
+    } else {
+        $('.pagination-arrow.rigth').removeClass('unavailable');
+    }
+}
+
+function update_pagination_items() {
+    $('.pagination-item-container a').remove();
+    $('.pagination-item-container span').remove();
+
+    append_pagination_item(1);
+
+    if (actual_page > 2) {
+        append_pagination_item();
+    }
+    if (actual_page != 1 && actual_page != max_page) {
+        append_pagination_item(actual_page)
+    }
+    if (actual_page < (max_page - 1)) {
+        append_pagination_item();
+    }   
+    append_pagination_item(max_page);
+
+}
+
+function append_pagination_item(page = null) {
+    if (page != null) {
+        let new_tag = $(page_item.replace(/%d/g, page));
+        $('.pagination-item-container').append(new_tag);
+        if (actual_page == page) {
+            new_tag.addClass('actual');
+        }
+        new_tag.on('click', () => {
+            move_to_page(new_tag.data('page'));
+        })
+    } else {
+        $('.pagination-item-container').append($(page_ellipsis));
+    }
+}
+
+
 $(document).ready(function () {
     $('select').on('change', function (user) {
         if ($(".selectize-input").hasClass("full")) {
-          $(".line").hide();
-          $(".uid-" + $(".selectize-input .item").data("value")).show();
+          {* call ajax sur activity list avec uid en param *}
+          get_user_activity(1, $(".selectize-input .item").data("value"));
         }
+    });
+
+    jQuery('.user-selecter').selectize();
+    jQuery(".user-selecter")[0].selectize.setValue(null);
+
+    jQuery(".cancel-icon").click(function() {
+      jQuery(".user-selecter")[0].selectize.clear(true);
+      $(".line").css('display', 'flex');
     });
 });
 
@@ -635,10 +694,12 @@ $(document).ready(function () {
             <span class="select-user-title"> {'Selected user'|translate} </span>
             
             <select class="user-selecter" placeholder="{'none'|translate}" single style="width:250px; height: 10px;">
+            {foreach from=$ulist item=$user}
+            <option value="{$user.id}"> <span class='username_filter'>{$user.username}</span><span class='nb_lines_str'> ({if $user.nb_lines == 1}{'%d Activity'|translate:$user.nb_lines}{else}{'%d Activities'|translate:$user.nb_lines}{/if}) </span></option>
+            {/foreach}
             </select>
             
             <span class="icon-cancel cancel-icon"> </span>
-
         </div>
         <div class="acivity-time">
             <span class="acivity-time-text"> {'Activity time from'|translate}</span>
@@ -650,12 +711,24 @@ $(document).ready(function () {
                 <span class="icon-spin6 animate-spin"></span>
             </span>
         </div>
-        <a class="download_csv tiptip" title="{'Download all activities'|translate}" href="ws.php?format=json&method=pwg.activity.downloadLog"> 
+        <a class="download_csv tiptip" title="{'Download all activities'|translate}" href="admin.php?page=user_activity&type=download_logs"> 
             <i class="icon-download"> </i>
         </a>
     </div>
-
-
+{if max_page != 1}
+  <div class="pagination-container">
+      <div class="pagination-arrow left">
+        <span class="icon-left-open"></span>
+      </div>
+      <div class="pagination-item-container">
+      </div>
+      <div class="user-update-spinner icon-spin6 animate-spin"></div>
+      <div class="pagination-arrow rigth">
+        <span class="icon-left-open"></span>
+      </div>
+    </div>
+{/if}
+    
 
     <div class="tab-title">
         <div class="action-title">

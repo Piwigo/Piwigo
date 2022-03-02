@@ -591,7 +591,7 @@
     {
       "uid": "0d6ab2d08779e9f9d2b9199270b95909",
       "css": "user-minus",
-      "code": 59451,
+      "code": 59501,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -815,7 +815,7 @@
     {
       "uid": "7411608e7611ffd477aeec7d239f87e9",
       "css": "dice",
-      "code": 59401,
+      "code": 59500,
       "src": "custom_icons",
       "selected": false,
       "svg": {

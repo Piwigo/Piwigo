@@ -417,4 +417,4 @@ $lang['Related albums'] = 'Albums liés';
 $lang['Password: ********** (no copy by email)'] = 'Mot de passe : ********** (pas de copie par email)';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nom d\'album, 1 &rarr; 5 &rarr; 10 &rarr; 100';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Nom d\'album, 100 &rarr; 10 &rarr; 5 &rarr; 1';
-
+$lang['Start-Date'] = 'Date de début';

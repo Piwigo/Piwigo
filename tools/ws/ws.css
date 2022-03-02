@@ -1,0 +1,601 @@
+
+/* BEGIN CSS RESET
+http://meyerweb.com/eric/tools/css/reset
+v2.0 | 20110126 | License: none (public domain) */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
+body {line-height:1.1;}
+blockquote, q {quotes:none;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';content:none;}
+table {border-collapse:collapse;border-spacing:0;}
+/* END CSS RESET */
+
+#the_body, body {
+    --color-bg: #E5E5E5;
+    --color-bg-secondary: #FFFFFF;
+    --color-text: #434343;
+    --color-action: #FF7700;
+    --color-action-text: #FFF;
+    --color-action-hover: #ee4b00;
+    --color-action-secondary: #eee;
+    --color-action-secondary-text: var(--color-text);
+    --color-action-secondary-hover: #ddd;
+    --color-bg-nuance:#f7f7f7;
+    
+    --border-radius: 5px;
+    --box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+    --header-heigth: 50px;
+    --footer-heigth: 20px;
+    --container-heigth: calc(100vh - var(--header-heigth) - var(--footer-heigth));
+
+    background: var(--color-bg);
+}
+
+#the_body.dark-mode {
+    --color-bg: #393939;
+    --color-bg-secondary: #242424;
+    --color-text: #fff;
+    --color-action: #FF7700;
+    --color-action-text: #FFF;
+    --color-action-hover: #ee4b00;
+    --color-action-secondary: #181818;
+    --color-action-secondary-text: #fff;
+    --color-action-secondary-hover: #292929;
+    --color-bg-nuance:#1e1e1e;
+
+    --box-shadow: none;
+}
+
+li {
+    list-style: none;
+}
+
+html {font-family:"Corbel","Lucida Grande","Verdana",sans-serif;color:#434343;font-size:14px;}
+
+#the_body {
+    display: flex;
+    flex-direction: column;
+}
+
+#the_container {
+    display: grid;
+    grid-template-columns: 250px auto;
+}
+
+#the_header, #the_footer {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    overflow: hidden;
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+}
+
+a {
+    color:var(--color-action);
+    text-decoration:none;
+}
+a:hover {
+    color:var(--color-action-hover);
+    border-bottom-width:1px;
+}
+
+blockquote {
+    padding:8px;
+}
+hr {
+    margin:10px 30px;
+}
+ul {
+    margin-left:25px;
+}
+p {margin: 8px 0;}
+
+h1 {
+    font-size:20px;
+    padding-left:10px;
+}
+
+h2 {
+    font-size:16px;
+    padding: 10px 10px 5px 10px;
+}
+
+h2#errorWrapper {
+    color:#F42C00;
+    font-weight:normal;
+}
+
+h3 {
+    display:inline-block;
+    font-weight:bold;
+}
+
+input[type="text"] {
+    border: 2px solid var(--color-action-secondary);
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    background: var(--color-bg-secondary);
+    width: 100%;
+    padding: 5px;
+}
+
+#the_header {
+    height: var(--header-heigth);
+    box-shadow: var(--box-shadow);
+}
+
+#the_header img {
+    width: 30px;
+    opacity: 1;
+    margin-left: 10px;
+}
+
+#the_body:not(.dark-mode) #the_header img {
+    filter: brightness(80%);;
+}
+
+#the_footer {
+    height: var(--footer-heigth);
+    justify-content: center;
+    background: var(--color-bg-secondary);
+    opacity: 0.7;
+}
+
+#the_footer a {
+    margin-left: 5px;
+}
+
+#the_methods, #the_page {
+    height: var(--container-heigth);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* ScrollBar customization for firefox */
+    scrollbar-width: thin;
+}
+
+#the_methods {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
+    box-shadow: var(--box-shadow);
+    z-index: 5;
+}
+
+#methodsList, #search {
+    font-size:1.1em;
+    margin:5px 10px;
+    position: relative;
+}
+
+#search {
+    display: flex;
+}
+
+#search i {
+    position:absolute;
+    top:50%;
+    left:5px;
+    transform: translateY(-50%);
+}
+
+#search input {
+    padding-left: 25px;
+}
+
+.method-node {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.method-node input {
+    opacity: 0; 
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.method-node-content {
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.method-node label, .method-link {
+    margin: 5px 0px;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    overflow-y: clip;
+}
+
+.method-link {
+    order: 1;
+}
+
+.method-node label {
+    background: var(--color-action-secondary);
+    color: var(--color-action-secondary-text);
+    padding: 6px;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+}
+
+.onSearch .method-node label {
+    pointer-events: none;
+    padding-left: 10px;
+}
+
+.onSearch .method-node label i {
+    display: none;
+}
+
+.method-node label i::before {
+    font-size: 12px;
+    transform: rotate(-90deg);
+    transition: 0.2s ease-in-out;
+}
+
+.method-node > input:checked ~ label i::before {
+    transform: rotate(0deg);
+}
+
+.method-node label:hover {
+    background-color: var(--color-action-secondary-hover);
+}
+
+#methodsList > .method-node > label {
+    background: var(--color-action);
+    color: var(--color-action-text);
+}
+
+#methodsList > .method-node > label:hover {
+    background: var(--color-action-hover);
+}
+
+#the_page {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+#the_title {
+    display: flex;
+    align-items: baseline;
+}
+
+#the_title #onlys .only {
+    border-radius: var(--border-radius);
+    background: var(--color-action-secondary);
+    color: var(--color-text);
+    padding: 5px;
+    margin-right: 10px;
+}
+
+#the_content {
+    padding:10px;
+    padding-top: 0px;
+}
+
+#methodWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+#methodControl {
+    display: grid;
+    grid-template-columns: 66% 34%;
+}
+
+.card, .card-2 {
+    margin: 10px;
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    position: relative;
+}
+
+.card {
+    padding:10px;
+}
+
+.card-2 {
+    border: 2px solid var(--color-action);
+    margin-top: 25px;
+}
+
+.card .card-title {
+    font-size: 16px;
+}
+
+.card-2 .card-title {
+    font-size: 14px;
+    color: var(--color-action);
+    position: absolute;
+    top: 0;
+    transform: translateY(calc(-100% - 5px));
+}
+
+.card-2 .card-content {
+    overflow-y: auto;
+    
+    /* firefox scrollbar customization */
+    scrollbar-width: thin;
+}
+
+.card .card-title i {
+    color: var(--color-action);
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.card .card-content {
+    padding: 10px;
+    position: relative;
+}
+
+/* #requestResultDisplay {
+    background: white;
+} */
+
+#methodParams table {
+    width: 100%;
+}
+
+#methodParams td .methodParameterSend{
+    opacity: 0; 
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+#methodParams td .methodParameterSendCheckbox {
+    padding: 10px;
+    position: relative;
+    border: 2px solid var(--color-action);
+    border-radius: var(--border-radius);
+    line-height: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#methodParams td .methodParameterSendCheckbox i {
+    color: var(--color-action-text);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+#methodParams td .methodParameterSend:checked ~ .methodParameterSendCheckbox {
+    background: var(--color-action);
+}
+
+#methodParams td .methodParameterSend:not(:checked) ~ .methodParameterSendCheckbox i {
+    display: none;
+    transform: translate(-50%,-50%);
+}
+
+#methodParams tr {
+    display: flex;
+    border-radius: var(--border-radius);
+    align-items: center;
+    height: 38px;
+}
+
+#methodParams tr td {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0px 12px;
+}
+
+#methodParams tr .required {
+    color: var(--color-action);
+    font-size: 20px;
+}
+
+#methodParams tr td:nth-child(1){width: calc(50% - 100px);}
+#methodParams tr td:nth-child(2){width: 100px;}
+#methodParams tr td:nth-child(3){width: calc(50% - 30px);}
+#methodParams tr td:nth-child(4){width: 30px; justify-content: center;}
+
+#methodParams thead tr {
+    background: var(--color-action);
+    color: var(--color-action-text);
+    font-weight: bold;
+}
+
+#methodParams tbody tr:nth-child(even) {
+    background-color: var(--color-bg-nuance);
+}
+
+#methodParams .type-badge {
+    display:flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    width:20px;
+    height:20px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height:16px;
+    border-radius: 100%;
+    background: var(--color-action);
+    color: var(--color-action-text);
+    margin-right: 2px;
+}
+
+#methodParams .type-badge::before {
+    font-size: 12px;
+}
+
+#testForm .card-content .select-group {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+#testForm .testAction {
+    display:flex;
+    justify-content: flex-end;
+}
+
+#testForm .testAction .button {
+    margin-left: 10px;
+}
+
+#testForm select, #testForm select::before, #testForm select::after {
+    box-sizing: border-box;
+}
+
+select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  color: var(--color-text);
+}
+
+#testForm .select {
+    width: 100%;
+    outline: none;
+    min-width: 15ch;
+    max-width: 30ch;
+    border: 2px solid var(--color-action-secondary);
+    border-radius: var(--border-radius);
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    position: relative;
+}
+
+#testForm .select::after {
+    content: '\e835';
+    font-family: 'fontello';
+    font-size: 12px;
+    color: var(--color-text);
+    position:absolute;
+    top:50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Remove arrow from select */
+#testForm select::-ms-expand {
+  display: none;
+}
+
+#introMessage {
+    font-size:1.1em;
+}
+
+#introMessage .card-content {
+    padding: 0 10px;
+}
+
+#urlForm {
+    margin-bottom:10px;
+}
+
+a.button {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background: var(--color-action);
+    color: var(--color-action-text);
+    display: flex;
+    align-items: center;
+}
+
+a.button:hover {
+    background-color: var(--color-action-hover);
+}
+
+#tiptip_content { 
+    font-size:12px; 
+}
+
+#resultWrapper {
+    width:100%;
+    height:300px;
+    padding: 0;
+    position:relative;
+}
+iframe {width:100%;height:100%; background-color: white;}
+
+#iframeAction {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(calc(100% + 5px));
+}
+
+#decreaseIframe i::before {
+    transform: rotate(180deg);
+}
+
+div.onlys {padding:.25em .5em;display:table;border-radius:4px;margin-bottom:0.5em;}
+
+.darkModeButton {
+    position: absolute;
+    z-index: 11;
+    top: 0px;
+    right: 0px;
+    width: var(--header-heigth);
+    height: var(--header-heigth);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.darkModeButton:hover {
+    opacity: 1;
+}
+
+/* -- Tiptip customization -- */
+#tiptip_content {
+    color: var(--color-action-text) !important;
+    background: var(--color-action) !important;
+    text-shadow: none;
+} 
+
+#tiptip_holder.tip_bottom #tiptip_arrow_inner {
+    border-bottom-color: var(--color-action) !important;
+}
+
+/* -- Chrome ScrollBar customization -- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.11);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-action);
+  border-radius:5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-action); 
+}

@@ -429,10 +429,13 @@ function ws_getActivityList($param, &$service)
   
   $output_lines = array();
   $current_key = '';
+  $page_size = 100000; //We will fetch X lines in database =/= lines displayed due to line concatenation
+  $page_offset = $param['page']*$page_size;
 
   $user_ids = array();
 
-  $query = '
+  if (isset($param['uid'])) {
+    $query = '
 SELECT
     activity_id,
     performed_by,
@@ -444,8 +447,27 @@ SELECT
     occured_on,
     details
   FROM '.ACTIVITY_TABLE.'
-  ORDER BY activity_id DESC
+  WHERE performed_by = '.$param['uid'].'
+  ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
 ;';
+  } 
+  else 
+  {
+    $query = '
+SELECT
+    activity_id,
+    performed_by,
+    object,
+    object_id,
+    action,
+    session_idx,
+    ip_address,
+    occured_on,
+    details
+  FROM '.ACTIVITY_TABLE.'
+  ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
+;';
+  }
 
   $line_id = 0;
   $result = pwg_query($query);
@@ -468,7 +490,7 @@ SELECT
   
     if ($line_key === $current_key)
     {
-      // j'incrémente le counter de la ligne précédente
+      // I increment the counter of the previous line
       $output_lines[count($output_lines)-1]['counter']++;
       $output_lines[count($output_lines)-1]['object_id'][] = $row['object_id'];
     }
@@ -532,108 +554,469 @@ SELECT
     }
   }
 
-  $filterable_users = array();
-  foreach ($user_ids as $key => $value)
-  {
-    if (isset($username_of[$key]))
-    {
-      array_push(
-        $filterable_users, 
-        array(
-          'id' => $key,
-          'username' => $username_of[$key],
-          'nb_lines' => $value,
-        )
-      );
-    }
-    else
-    {
-      array_push(
-        $filterable_users, 
-        array(
-          'id' => $key,
-          'username' => 'user#'.$key,
-          'nb_lines' => $value,
-        )
-      );
-    }
+  if (isset($param['uid'])) {
+    $query = '
+  SELECT
+      count(*)
+    FROM '.ACTIVITY_TABLE.'
+    WHERE performed_by = '.$param['uid'].'
+  ;';
+  } else {
+    $query = '
+  SELECT
+      count(*)
+    FROM '.ACTIVITY_TABLE.'
+  ;';
   }
 
-  //Multidimentionnal sorting
-  usort($filterable_users, function ($a, $b) 
-  {
-    // compatible with PHP 7+ only
-    // return strtolower($a['username']) <=> strtolower($b['username']);
+  $result = (pwg_db_fetch_row(pwg_query($query))[0])/$page_size;
 
-    // still compatible with PHP 5
-    return (strtolower($a['username']) >= strtolower($b['username']) ? 1 : 0);
-  });
-
-  // return $output_lines;
   return array(
     'result_lines' => $output_lines,
-    'filterable_users' => $filterable_users,
+    'max_page' => floor($result),
+    'params' => $param,
   );
 }
 
 /**
  * API method
- * Returns lines of users activity
- * @since 12
+ * Returns lines of an history search
+ * @since 13
  */
-function ws_activity_downloadLog($param, &$service)
+function ws_history_search($param, &$service)
 {
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
+
   global $conf;
 
-  $output_lines = array();
-
-  $query = '
-SELECT
-    activity_id,
-    performed_by,
-    object,
-    object_id,
-    action,
-    ip_address,
-    occured_on,
-    details,
-    '.$conf['user_fields']['username'].' AS username
-  FROM '.ACTIVITY_TABLE.'
-    JOIN '.USERS_TABLE.' AS u ON performed_by = u.'.$conf['user_fields']['id'].'
-  ORDER BY activity_id DESC
-;';
-
-  $result = pwg_query($query);
-  array_push($output_lines, ['User', 'ID_User', 'Object', 'Object_ID', 'Action', 'Date', 'Hour', 'IP_Address', 'Details']);
-  while ($row = pwg_db_fetch_assoc($result))
+  if (isset($_GET['start']) and is_numeric($_GET['start']))
   {
-    $row['details'] = str_replace('`groups`', 'groups', $row['details']);
-    $row['details'] = str_replace('`rank`', 'rank', $row['details']);
+    $page['start'] = $_GET['start'];
+  }
+  else
+  {
+    $page['start'] = 0;
+  }
 
-    list($date, $hour) = explode(' ', $row['occured_on']);
+  $types = array_merge(array('none'), get_enums(HISTORY_TABLE, 'image_type'));
 
-    $output_lines[] = array(
-      'username' => $row['username'],
-      'user_id' => $row['performed_by'],
-      'object' => $row['object'],
-      'object_id' => $row['object_id'],
-      'action' => $row['action'],
-      'date' => $date,
-      'hour' => $hour,
-      'ip_address' => $row['ip_address'],
-      'details' => $row['details'],
+  $display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
+                              'display_thumbnail_classic' => l10n('Classic display'),
+                              'display_thumbnail_hoverbox' => l10n('Hoverbox display')
+    );
+
+  // +-----------------------------------------------------------------------+
+  // | Build search criteria and redirect to results                         |
+  // +-----------------------------------------------------------------------+
+
+  $page['errors'] = array();
+  $search = array();
+
+  // date start
+  if (!empty($param['start']))
+  {
+    check_input_parameter('start', $param, false, '/^\d{4}-\d{2}-\d{2}$/');
+    $search['fields']['date-after'] = $param['start'];
+  }
+
+  // date end
+  if (!empty($param['end']))
+  {
+    check_input_parameter('end', $param, false, '/^\d{4}-\d{2}-\d{2}$/');
+    $search['fields']['date-before'] = $param['end'];
+  }
+
+  // types
+  if (empty($param['types']))
+  {
+    $search['fields']['types'] = $types;
+  }
+  else
+  {
+    check_input_parameter('types', $param, true, '/^('.implode('|', $types).')$/');
+    $search['fields']['types'] = $param['types'];
+  }
+
+  // user
+  $search['fields']['user'] = intval($param['user']);
+
+  // image
+  if (!empty($param['image_id']))
+  {
+    $search['fields']['image_id'] = intval($param['image_id']);
+  }
+
+  // filename
+  if (!empty($param['filename']))
+  {
+    $search['fields']['filename'] = str_replace(
+      '*',
+      '%',
+      pwg_db_real_escape_string($param['filename'])
+      );
+  }
+
+  // ip
+  if (!empty($param['ip']))
+  {
+    $search['fields']['ip'] = str_replace(
+      '*',
+      '%',
+      pwg_db_real_escape_string($param['ip'])
+      );
+  }
+
+  // thumbnails
+  check_input_parameter('display_thumbnail', $param, false, '/^('.implode('|', array_keys($display_thumbnails)).')$/');
+
+  $search['fields']['display_thumbnail'] = $param['display_thumbnail'];
+  // Display choise are also save to one cookie
+  if (!empty($param['display_thumbnail'])
+      and isset($display_thumbnails[$param['display_thumbnail']]))
+  {
+    $cookie_val = $param['display_thumbnail'];
+  }
+  else
+  {
+    $cookie_val = null;
+  }
+
+  pwg_set_cookie_var('display_thumbnail', $cookie_val, strtotime('+1 month') );
+
+  // TODO manage inconsistency of having $_POST['image_id'] and
+  // $_POST['filename'] simultaneously
+
+  // store seach in database
+  if (!empty($search))
+  {
+    // register search rules in database, then they will be available on
+    // thumbnails page and picture page.
+    $query ='
+  INSERT INTO '.SEARCH_TABLE.'
+  (rules)
+  VALUES
+  (\''.pwg_db_real_escape_string(serialize($search)).'\')
+  ;';
+
+    pwg_query($query);
+
+    $search_id = pwg_db_insert_id(SEARCH_TABLE);
+
+    // Remove redirect for ajax //
+    // redirect(
+    //   PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
+    //   );
+  }
+  else
+  {
+    $page['errors'][] = l10n('Empty query. No criteria has been entered.');
+  }
+
+  // what are the lines to display in reality ?
+  $query = '
+SELECT rules
+  FROM '.SEARCH_TABLE.'
+  WHERE id = '.$search_id.'
+;';
+  list($serialized_rules) = pwg_db_fetch_row(pwg_query($query));
+
+  $page['search'] = unserialize($serialized_rules);
+
+
+  /*TODO - no need to get a huge number of rows from db (should take only what needed for display + SQL_CALC_FOUND_ROWS*/
+  $data = trigger_change('get_history', array(), $page['search'], $types);
+  usort($data, 'history_compare');
+
+  $page['nb_lines'] = count($data);
+
+  //Number of ids of each kind
+  $history_lines = array();
+  $user_ids = array();
+  $username_of = array();
+  $category_ids = array();
+  $image_ids = array();
+  $has_tags = false;
+
+  foreach ($data as $row)
+  {
+    $user_ids[$row['user_id']] = 1;
+
+    if (isset($row['category_id']))
+    {
+      array_push($category_ids, $row['category_id'] );
+    }
+
+    if (isset($row['image_id']))
+    {
+      $image_ids[$row['image_id']] = 1;
+    }
+
+    if (isset($row['tag_ids']))
+    {
+      $has_tags = true;
+    }
+
+    $history_lines[] = $row;
+  }
+
+  // prepare reference data (users, tags, categories...)
+  if (count($user_ids) > 0)
+  {
+    $query = '
+SELECT '.$conf['user_fields']['id'].' AS id
+     , '.$conf['user_fields']['username'].' AS username
+  FROM '.USERS_TABLE.'
+  WHERE id IN ('.implode(',', array_keys($user_ids)).')
+;';
+    $result = pwg_query($query);
+
+    $username_of = array();
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $username_of[$row['id']] = stripslashes($row['username']);
+    }
+  }
+
+  if (count($category_ids) > 0)
+  {
+    $query = '
+SELECT id, uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', array_values($category_ids)).')
+;';
+    $uppercats_of = query2array($query, 'id', 'uppercats');
+
+    $name_of_category = array();
+
+    foreach ($uppercats_of as $category_id => $uppercats)
+    {
+      $name_of_category[$category_id] = get_cat_display_name_cache(
+        $uppercats
+        );
+    }
+  }
+
+  if (count($image_ids) > 0)
+  {
+    $query = '
+SELECT
+    id,
+    IF(name IS NULL, file, name) AS label,
+    filesize,
+    file,
+    path,
+    representative_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', array_keys($image_ids)).')
+;';
+    $image_infos = query2array($query, 'id');
+  }
+
+  if ($has_tags > 0)
+  {
+    $query = '
+SELECT
+    id,
+    name, url_name
+  FROM '.TAGS_TABLE;
+
+    global $name_of_tag; // used for preg_replace
+    $name_of_tag = array();
+    $result = pwg_query($query);
+    while ($row=pwg_db_fetch_assoc($result))
+    {
+      $name_of_tag[ $row['id'] ] = trigger_change("render_tag_name", $row["name"], $row);
+    }
+  }
+
+  $i = 0;
+  $first_line = $page['start'] + 1;
+  $last_line = $page['start'] + $conf['nb_logs_page'];
+
+  $summary['total_filesize'] = 0;
+  $summary['guests_IP'] = array();
+
+  $result = array();
+  $sorted_members = array();
+
+  foreach ($history_lines as $line)
+  {
+    if (isset($line['image_type']) and $line['image_type'] == 'high')
+    {
+      $summary['total_filesize'] += @intval($image_infos[$line['image_id']]['filesize']);
+    }
+
+    if ($line['user_id'] == $conf['guest_id'])
+    {
+      if (!isset($summary['guests_IP'][ $line['IP'] ]))
+      {
+        $summary['guests_IP'][ $line['IP'] ] = 0;
+      }
+
+      $summary['guests_IP'][ $line['IP'] ]++;
+    }
+
+    $i++;
+
+    if ($i < $first_line or $i > $last_line)
+    {
+      continue;
+    }
+
+    $user_string = '';
+    if (isset($username_of[$line['user_id']]))
+    {
+      $user_name = $username_of[$line['user_id']];
+      $user_string.= $username_of[$line['user_id']];
+    }
+    else
+    {
+      $user_string.= $line['user_id'];
+    }
+    $user_string.= '&nbsp;<a href="';
+    $user_string.= PHPWG_ROOT_PATH.'admin.php?page=history';
+    $user_string.= '&amp;search_id='.$search_id;
+    $user_string.= '&amp;user_id='.$line['user_id'];
+    $user_string.= '">+</a>';
+
+    $tag_names = '';
+    $tag_ids = '';
+    if (isset($line['tag_ids']))
+    {
+      $tag_names = preg_replace_callback(
+        '/(\d+)/',
+        function($m) use ($name_of_tag) { return isset($name_of_tag[$m[1]]) ? $name_of_tag[$m[1]] : $m[1];} ,
+          $line['tag_ids']
+        );
+      $tag_ids = $line['tag_ids'];
+    }
+
+    $image_string = '';
+    $image_title = '';
+    $image_edit_string = '';
+    $image_id = '';
+    $cat_name = '';
+    if (isset($line['image_id']))
+    {
+      $image_edit_string = PHPWG_ROOT_PATH.'admin.php?page=photo-'.$line['image_id'];
+      $picture_url = make_picture_url(
+        array(
+          'image_id' => $line['image_id'],
+          )
+        );
+
+      if (isset($image_infos[$line['image_id']]))
+      {
+        $element = array(
+          'id' => $line['image_id'],
+          'file' => $image_infos[$line['image_id']]['file'],
+          'path' => $image_infos[$line['image_id']]['path'],
+          'representative_ext' => $image_infos[$line['image_id']]['representative_ext'],
+          );
+        $thumbnail_display = $page['search']['fields']['display_thumbnail'];
+      }
+      else
+      {
+        $thumbnail_display = 'no_display_thumbnail';
+      }
+
+      $image_title = '';
+
+      if (isset($image_infos[$line['image_id']]['label']))
+      {
+        $image_title.= ' '.trigger_change('render_element_description', $image_infos[$line['image_id']]['label']);
+      }
+      else
+      {
+        $image_title.= ' unknown filename';
+      }
+
+      $image_string = '';
+      $image_id = $line['image_id'];
+
+      $image_string =
+      '<span><img src="'.DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $element)
+      .'" alt="'.$image_title.'" title="'.$image_title.'">';
+    }
+
+    @$sorted_members[$user_name] += 1;
+
+    array_push( 
+      $result,
+      array(
+        'DATE'       => format_date($line['date']),
+        'TIME'       => $line['time'],
+        'USER'       => $user_string,
+        'USERNAME'   => $user_name,
+        'USERID'     => $line['user_id'],
+        'IP'         => $line['IP'],
+        'IMAGE'      => $image_string,
+        'IMAGENAME'  => $image_title,
+        'IMAGEID'    => $image_id,
+        'EDIT_IMAGE' => $image_edit_string,
+        'TYPE'       => $line['image_type'],
+        'SECTION'    => $line['section'],
+        'CATEGORY'   => isset($name_of_category[$line['category_id']]) ? $name_of_category[$line['category_id']] : l10n('Root').$line['category_id'],
+        'TAGS'       => explode(",",$tag_names),
+        'TAGIDS'     => explode(",",$tag_ids),
+      )
     );
   }
 
-  header('Content-type: application/csv');
-  header('Content-Disposition: attachment; filename='.date('YmdGis').'piwigo_activity_log.csv');
-  header("Content-Transfer-Encoding: UTF-8");
+  $max_page = ceil(count($result)/300);
+  $result = array_reverse($result, true);
+  $result = array_slice($result, $param['pageNumber']*300, 300);
 
-  $f = fopen('php://output', 'w');  
-      foreach ($output_lines as $line) { 
-          fputcsv($f, $line, ";"); 
-      }
-  fclose($f);
+  $summary['nb_guests'] = 0;
+  if (count(array_keys($summary['guests_IP'])) > 0)
+  {
+    $summary['nb_guests'] = count(array_keys($summary['guests_IP']));
+
+    // we delete the "guest" from the $username_of hash so that it is
+    // avoided in next steps
+    unset($username_of[ $conf['guest_id'] ]);
+  }
+
+  $summary['nb_members'] = count($username_of);
+
+  $member_strings = array();
+  foreach ($username_of as $user_id => $user_name)
+  {
+    $member_string = $user_name;
+    $member_strings[] = array($member_string => $user_id);
+  }
+
+  arsort($sorted_members);
+  unset($sorted_members['guest']);
+
+  $search_summary = 
+  array(
+    'NB_LINES' => l10n_dec(
+      '%d line filtered', '%d lines filtered',
+      $page['nb_lines']
+      ),
+    'FILESIZE' => $summary['total_filesize'] != 0 ? ceil($summary['total_filesize']/1024) : 0,
+    'USERS' => l10n_dec(
+      '%d user', '%d users',
+      $summary['nb_members'] + $summary['nb_guests']
+      ),
+    'MEMBERS' => $member_strings,
+    'SORTED_MEMBERS' => $sorted_members,
+    'GUESTS' => l10n_dec(
+      '%d guest', '%d guests',
+      $summary['nb_guests']
+      ),
+    );
+
+  unset($name_of_tag);
+
+  return array(
+    'lines'   => $result,
+    'params'  => $param,
+    'maxPage' => ($max_page == 0) ? 1 : $max_page,
+    'summary' => $search_summary
+  );
 }
-
 ?>
