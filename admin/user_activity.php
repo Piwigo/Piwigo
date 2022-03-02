@@ -113,7 +113,7 @@ if (count($nb_lines_for_user) > 0)
   SELECT 
       id, 
       username 
-    FROM piwigo_users 
+          FROM piwigo_users 
     WHERE id IN ('.implode(',', array_keys($nb_lines_for_user)).');';
 }
 
