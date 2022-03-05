@@ -210,21 +210,22 @@ else
             .basename($file).'";';
 }
 
-foreach ($http_headers as $header)
-{
-  header( $header );
-}
-
 // Looking at the safe_mode configuration for execution time
 if (ini_get('safe_mode') == 0)
 {
   @set_time_limit(0);
 }
+
 // Without clean and flush there may be some image download problems, or image can be corrupted after download
 if (ob_get_length() !== FALSE)
 {
-  ob_clean();
-  flush();
+  ob_flush();
+}
+flush();
+
+foreach ($http_headers as $header)
+{
+  header( $header );
 }
 
 @readfile($file);
