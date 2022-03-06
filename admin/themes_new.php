@@ -103,8 +103,8 @@ if ($themes->get_server_themes(true)) // only new themes
       'new_themes',
       array(
         'name' => $theme['extension_name'],
-        'thumbnail' => PEM_URL.'/upload/extension-'.$theme['extension_id'].'/thumbnail.jpg',
-        'screenshot' => PEM_URL.'/upload/extension-'.$theme['extension_id'].'/screenshot.jpg',
+        'thumbnail' => (key_exists('thumbnail_src', $theme)) ? $theme['thumbnail_src']:'',
+        'screenshot' => (key_exists('screenshot_url', $theme)) ? $theme['screenshot_url']:'',
         'install_url' => $url_auto_install,
         )
       );

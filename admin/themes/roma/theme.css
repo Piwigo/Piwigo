@@ -287,13 +287,13 @@ a.stat-box:hover {
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
-.pluginBox, .pluginContent, .pluginMiniBox, .groups li, .groups .GroupContainer {background-color:#333;color:#999;border-right-color:#333; box-shadow: none;}
-.pluginMiniBox {border-left: none;}
-.pluginBoxNameCell, .pluginMiniBoxNameCell {color:#aaa;}
-.pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#800 !important;}
-.pluginBoxes .merged, .pluginBoxes .missing {background-color:#422;border:1px solid #800;}
-.pluginActionLevel1, .pluginActionLevel2 {color: #333;}
-.pluginActionLevel2 {background-color: #bbbbbb;}
+.pluginBox, .pluginContent, .groups .GroupContainer {background-color:#333;color:#999;border-right-color:#333; box-shadow: none;border-left: none;}
+.pluginContainer.line-form .pluginBox:hover .pluginContent {background: #1e1e1d;}
+
+.pluginName {color:#aaa;}
+.pluginBox.incompatible {border-color:#800 !important;}
+.pluginActionLevel1 {color: #333;}
+.pluginActionLevel2 {color: #bbbbbb;}
 .pluginFilter {color: #c1c1c1;}
 .pluginFilter input {border-color: #c1c1c1;}
 .languageBox {background-color:#333;}
@@ -583,6 +583,10 @@ label>p.group_select {
 
 .slider:before {
   background-color: #151515;
+}
+
+.slider::after {
+  color: #151515;
 }
 
 input:checked + .slider {
@@ -884,7 +888,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 #checkActions a, .deleteDerivButtons a {background-color: #393939;}
-#addFilter, #filterList select, .pictureLevels select, #permitAction select {background-color: #444444; color: #BFBFBF}
+#addFilter, #filterList select, .pictureLevels select, #permitAction select, .sort-by select {background-color: #444444; color: #BFBFBF}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options, 
 #filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
@@ -1218,52 +1222,52 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #bababa;
 }
 
-.pluginMiniBox.plugin-active .pluginActionsSmallIcons a span {
+.pluginBox.plugin-active .pluginActionsSmallIcons a span {
   background: #ffa744 !important;
   color: #3c3c3c !important;
 }
 
-.pluginContainer.line .pluginMiniBox:hover .pluginContent{
+.pluginContainer.line .pluginBox:hover .pluginContent{
   transition: 0.4s;
   background: #333333;
 }
 
-.pluginContainer.line .pluginMiniBox:hover.plugin-inactive .slider {
+.pluginContainer.line .pluginBox:hover.plugin-inactive .slider {
   transition: 0.4s;
   background: #777777;
 }
 
-.pluginContainer .pluginMiniBox.plugin-inactive .slider {
+.pluginContainer .pluginBox.plugin-inactive .slider {
   transition: 0.4s;
   background: #777777;
 }
 
-.pluginContainer.line .pluginMiniBox:hover .pluginContent .pluginActions a{
+.pluginContainer.line .pluginBox:hover .pluginContent .pluginActions a{
   /* color: #ffffff; */
   opacity: 1;
 }
 
-.pluginContainer.line .pluginMiniBox.inactive:hover .pluginContent .pluginActions a{
+.pluginContainer.line .pluginBox.inactive:hover .pluginContent .pluginActions a{
   background: transparent;
   opacity: 1;
   color: #777777;
 }
 
-.pluginContainer.line .pluginMiniBox:hover .pluginUnavailableAction {
+.pluginContainer.line .pluginBox:hover .pluginUnavailableAction {
   opacity: 0.5 !important;
 }
 
-.pluginContainer.line .pluginMiniBox.plugin-inactive:hover .pluginUnavailableAction {
+.pluginContainer.line .pluginBox.plugin-inactive:hover .pluginUnavailableAction {
   color: #3c3c3c !important;
   background: #dddddddd !important;
 }
 
-.pluginMiniBox.active .pluginActionsSmallIcons a span {
+.pluginBox.active .pluginActionsSmallIcons a span {
   background: #ffa500;
   color: #3c3c3c;
 }
 
-.pluginMiniBox.active .pluginActionsSmallIcons a span:hover {
+.pluginBox.active .pluginActionsSmallIcons a span:hover {
   background: #ff7700;
   color: #111;
 }
@@ -1288,6 +1292,14 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .PluginActionError label {
   background-color:  #f22;
   color: #ffd5dc
+}
+
+.pluginTags > span {
+  background-color: #444;
+}
+
+.pluginLink {
+  color: #999;
 }
 
 .addAlbum label{
@@ -1345,8 +1357,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #c1c1c1;
 }
 
-.user-header-button-label {
-  background-color: #333;
+.head-button-2 {
+  background-color: #333 !important;
+}
+
+.head-button-2:hover {
+  background-color: #222 !important;
 }
 
 .user-container {
@@ -1423,11 +1439,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background: transparent;
 }
 
-#advanced_filter_button, #advanced-filter-container {
+.advanced-filter-btn, .advanced-filter {
   background-color:#333;
 }
 
-.advanced-filter-label, .advanced-filter-title, .advanced-filter-close {
+.advanced-filter-item-label, .advanced-filter-title, .advanced-filter-close {
   color:#777;
 }
 
@@ -1489,7 +1505,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #333;
 }
 
-.select-bar-wrapper .ui-slider-horizontal{
+.slider-bar-wrapper .ui-slider-horizontal{
   background-color:#666;
 }
 

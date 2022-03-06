@@ -81,7 +81,17 @@ $template->assign('order_options',
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-if ($plugins->get_server_plugins(true))
+
+// Beta test : show plugins of last version on PEM if the current version isn't present
+// If the current version in known, give the current and last version's compatible plugins
+$beta_test = false;
+
+if(isset($_GET['beta-test']) && $_GET['beta-test'] == 'true') 
+{
+  $beta_test = true;
+}
+
+if ($plugins->get_server_plugins(true, $beta_test))
 {
   /* order plugins */
   if (pwg_get_session_var('plugins_new_order') != null)
@@ -107,6 +117,41 @@ if ($plugins->get_server_plugins(true))
       . '&amp;pwg_token='.get_pwg_token()
     ;
 
+    // get the age of the last revision in days
+    $last_revision_diff = date_diff(date_create($plugin['revision_date']), date_create());
+
+    $certification = 1;
+    $has_compatible_version = false;
+
+    // Check if the current version is in the compatible version (not necessary if we are in beta test)
+    if ($beta_test) {
+      foreach ($plugin['compatible_with_versions'] as $vers) {
+        if (get_branch_from_version($vers) == get_branch_from_version(PHPWG_VERSION)) 
+        {
+          $has_compatible_version = true;
+        } 
+      }
+    } else {
+      $has_compatible_version = true;
+    }
+
+    if (!$has_compatible_version) {
+      $certification = -1;
+    }
+    elseif ($last_revision_diff->days < 90) // if the last revision is new of 3 month or less
+    {
+      $certification = 3;
+    }
+    elseif ($last_revision_diff->days < 180) // 6 month or less
+    {
+      $certification = 2;
+    }
+    elseif ($last_revision_diff->y > 3) // 3 years or less
+    {
+      $certification = 0;
+    }
+    // Between 6 month and 3 years : certification = 1
+
     $template->append('plugins', array(
       'ID' => $plugin['extension_id'],
       'EXT_NAME' => $plugin['extension_name'],
@@ -114,12 +159,22 @@ if ($plugins->get_server_plugins(true))
       'SMALL_DESC' => trim($small_desc, " \r\n"),
       'BIG_DESC' => $ext_desc,
       'VERSION' => $plugin['revision_name'],
-      'REVISION_DATE' => preg_replace('/[^0-9]/', '', $plugin['revision_date']),
+      'REVISION_DATE' => preg_replace('/[^0-9]/', '', strtotime($plugin['revision_date'])),
+      'REVISION_FORMATED_DATE' => format_date($plugin['revision_date'], array('day','month','year')),
       'AUTHOR' => $plugin['author_name'],
       'DOWNLOADS' => $plugin['extension_nb_downloads'],
       'URL_INSTALL' => $url_auto_install,
-      'URL_DOWNLOAD' => $plugin['download_url'] . '&amp;origin=piwigo_download'));
+      'CERTIFICATION' => $certification,
+      'RATING' => $plugin['rating_score'],
+      'NB_RATINGS' => $plugin['nb_ratings'],
+      'SCREENSHOT' => (key_exists('screenshot_url', $plugin)) ? $plugin['screenshot_url']:'',
+      'TAGS' => $plugin["tags"],
+    ));
+
+    $template->assign('BETA_TEST', $beta_test);
   }
+
+  
 }
 else
 {
