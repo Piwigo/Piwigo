@@ -2459,6 +2459,10 @@ h2:lang(en) { text-transform:capitalize; }
 
 .pluginTypeFilter label .filter-badge {
   font-weight: normal;
+  border-radius: 20px;
+  text-align: center;
+  padding: 0px 7px;
+  margin-left: 10px;
 }
 
 .pluginTypeFilter input:checked + label{
@@ -2475,6 +2479,12 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginTypeFilter input + label .filter-badge {
   background-color: #dbdbdb;
   color: #8c8c8c;
+}
+
+.nbPluginsSearch {
+  position: absolute;
+  right: 415px;
+  transform: translateY(18px);
 }
 
 .pluginContainer.line .pluginBox:hover .pluginContent{
@@ -2743,10 +2753,7 @@ legend {text-align:left;}
 .pluginContainer {
   padding: 0 20px;
   margin : 0;
-}
-
-.pluginInstalledFilters {
-  height: 75px;
+  margin-top: 75px;
 }
 
 .switch {

@@ -84,7 +84,7 @@ function activatePlugin(id) {
             }
         }, 
         error: function (e) {
-            console.log(e);
+            console.log(e.responseText);
             $("#" + id + " .pluginNotif").stop(false, true);
             $("#" + id + " .PluginActionError label span:first").html(plugin_action_error);
             $("#" + id + " .PluginActionError").css("display", "flex");
@@ -424,3 +424,319 @@ $(document).ready(function () {
         })
       })
 })
+
+// TPL part :
+
+const queuedManager = jQuery.manageAjax.create("queued", {
+    queue: true,
+    maxRequests: 1,
+  });
+  
+const nb_plugins = jQuery("div.active").size();
+const done = 0;
+
+function showInactivePlugins () {
+  jQuery(".showInactivePlugins").fadeOut(
+    (complete = function () {
+      jQuery(".plugin-inactive").fadeIn();
+    })
+  );
+};
+
+function actualizeFilter() {
+  $("label[for='seeAll'] .filter-badge").html(nb_plugin.all);
+  $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
+  $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
+  $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+  $(".filterLabel").show();
+  $(".pluginMiniBox").each(function () {
+    if (nb_plugin.active == 0) {
+      $("label[for='seeActive']").hide();
+      if ($("#seeActive").is(":checked")) {
+        $("#seeAll").trigger("click");
+      }
+    }
+    if (nb_plugin.inactive == 0) {
+      $("label[for='seeInactive']").hide();
+      if ($("#seeInactive").is(":checked")) {
+        $("#seeAll").trigger("click");
+      }
+    }
+    if (nb_plugin.other == 0) {
+      $("label[for='seeOther']").hide();
+      if ($("#seeOther").is(":checked")) {
+        $("#seeAll").trigger("click");
+      }
+    }
+  });
+}
+
+function performPluginDeactivate(id) {
+  queuedManager.add({
+    type: "GET",
+    dataType: "json",
+    url: "ws.php",
+    data: {
+      method: "pwg.plugins.performAction",
+      action: "deactivate",
+      plugin: id,
+      pwg_token: pwg_token,
+      format: "json",
+    },
+    success: function (data) {
+      if (data["stat"] == "ok")
+        jQuery("#" + id)
+          .removeClass("active")
+          .addClass("inactive");
+      done++;
+      if (done == nb_plugins) location.reload();
+    },
+  });
+}
+
+/* group action */
+
+jQuery(document).ready(function () {
+
+
+    jQuery(".pluginBox").each(function (index) {
+        $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
+        $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
+        $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+
+        $(".filterLabel").show();
+        $(".pluginMiniBox").each(function () {
+            if (nb_plugin.active == 0) {
+                $("label[for='seeActive']").hide();
+                if ($("#seeActive").is(":checked")) {
+                $("#seeAll").trigger("click");
+                }
+            }
+            if (nb_plugin.inactive == 0) {
+                $("label[for='seeInactive']").hide();
+                if ($("#seeInactive").is(":checked")) {
+                $("#seeAll").trigger("click");
+                }
+            }
+            if (nb_plugin.other == 0) {
+                $("label[for='seeOther']").hide();
+                if ($("#seeOther").is(":checked")) {
+                $("#seeAll").trigger("click");
+                }
+            }
+        });
+    });
+
+    jQuery(".pluginBox").each(function (index) {
+        let myplugin = jQuery(this);
+        myplugin.find(".showOptions").click(function () {
+        myplugin.find(".PluginOptionsBlock").toggle();
+        });
+    });
+
+    jQuery("div.deactivate_all a").click(function () {
+        $.confirm({
+        title: deactivate_all_msg,
+        buttons: {
+            confirm: {
+            text: confirm_msg,
+            btnClass: "btn-red",
+            action: function () {
+                jQuery("div.active").each(function () {
+                performPluginDeactivate(jQuery(this).attr("id"));
+                });
+            },
+            },
+            cancel: {
+            text: cancel_msg,
+            },
+        },
+        ...jConfirm_confirm_options,
+        });
+    });
+
+    /* incompatible plugins */
+    jQuery.ajax({
+        method: "GET",
+        url: "admin.php",
+        data: { page: "plugins_installed", incompatible_plugins: true },
+        dataType: "json",
+        success: function (data) {
+        for (i = 0; i < data.length; i++) {
+            if (show_details)
+            jQuery("#" + data[i] + " .pluginName").prepend(
+                '<a class="warning" title="' + incompatible_msg + '"></a>'
+            );
+            else
+            jQuery("#" + data[i] + " .pluginName").prepend(
+                '<span class="warning" title="' + incompatible_msg + '"></span>'
+            );
+            jQuery("#" + data[i]).addClass("incompatible");
+            jQuery("#" + data[i] + " .activate").each(function () {
+            $(this).pwg_jconfirm_follow_href({
+                alert_title: incompatible_msg + activate_msg,
+                alert_confirm: confirm_msg,
+                alert_cancel: cancel_msg,
+            });
+            });
+        }
+        jQuery(".warning").tipTip({
+            delay: 0,
+            fadeIn: 200,
+            fadeOut: 200,
+            maxWidth: "250px",
+        });
+        },
+    });
+
+    jQuery(".fullInfo").tipTip({
+        delay: 500,
+        fadeIn: 200,
+        fadeOut: 200,
+        maxWidth: "300px",
+        keepAlive: false,
+    });
+
+    /*Add the filter research*/
+    document.onkeydown = function (e) {
+        if (e.keyCode == 58) {
+        jQuery(".pluginFilter input.search-input").focus();
+        return false;
+        }
+    };
+
+    jQuery(".pluginFilter input").on("input", function () {
+        let text = jQuery(this).val().toLowerCase();
+        var searchNumber = 0;
+
+        var searchActive = 0;
+        var searchInactive = 0;
+        var searchOther = 0;
+
+        $(".pluginBox").each(function () {
+        if (text == "") {
+            jQuery(".nbPluginsSearch").hide();
+            if ($("#seeAll").is(":checked")) {
+            jQuery(this).show();
+            }
+            if (
+            $("#seeActive").is(":checked") &&
+            jQuery(this).hasClass("plugin-active")
+            ) {
+            jQuery(this).show();
+            }
+            if (
+            $("#seeInactive").is(":checked") &&
+            jQuery(this).hasClass("plugin-inactive")
+            ) {
+            jQuery(this).show();
+            }
+            if (
+            $("#seeOther").is(":checked") &&
+            (jQuery(this).hasClass("plugin-merged") ||
+                jQuery(this).hasClass("plugin-missing"))
+            ) {
+            jQuery(this).show();
+            }
+
+            if ($(this).hasClass("plugin-active")) {
+            searchActive++;
+            }
+            if ($(this).hasClass("plugin-inactive")) {
+            searchInactive++;
+            }
+            if (
+            $(this).hasClass("plugin-merged") ||
+            $(this).hasClass("plugin-missing")
+            ) {
+            searchOther++;
+            }
+            searchNumber++;
+
+            nb_plugin.all = searchNumber;
+            nb_plugin.active = searchActive;
+            nb_plugin.inactive = searchInactive;
+            nb_plugin.other = searchOther;
+        } else {
+            let name = jQuery(this).find(".pluginName").text().toLowerCase();
+            jQuery(".nbPluginsSearch").show();
+            let description = jQuery(this).find(".pluginDesc").text().toLowerCase();
+            if (name.search(text) != -1 || description.search(text) != -1) {
+            searchNumber++;
+
+            if ($("#seeAll").is(":checked")) {
+                jQuery(this).show();
+            }
+            if (
+                $("#seeActive").is(":checked") &&
+                jQuery(this).hasClass("plugin-active")
+            ) {
+                jQuery(this).show();
+            }
+            if (
+                $("#seeInactive").is(":checked") &&
+                jQuery(this).hasClass("plugin-inactive")
+            ) {
+                jQuery(this).show();
+            }
+            if (
+                $("#seeOther").is(":checked") &&
+                (jQuery(this).hasClass("plugin-merged") ||
+                jQuery(this).hasClass("plugin-missing"))
+            ) {
+                jQuery(this).show();
+            }
+
+            if ($(this).hasClass("plugin-active")) {
+                searchActive++;
+            }
+            if ($(this).hasClass("plugin-inactive")) {
+                searchInactive++;
+            }
+            if (
+                $(this).hasClass("plugin-merged") ||
+                $(this).hasClass("plugin-missing")
+            ) {
+                searchOther++;
+            }
+
+            nb_plugin.all = searchNumber;
+            nb_plugin.active = searchActive;
+            nb_plugin.inactive = searchInactive;
+            nb_plugin.other = searchOther;
+            } else {
+            jQuery(this).hide();
+
+            nb_plugin.all = searchNumber;
+            nb_plugin.active = searchActive;
+            nb_plugin.inactive = searchInactive;
+            nb_plugin.other = searchOther;
+            }
+        }
+        });
+
+        actualizeFilter();
+
+        if (searchNumber == 0) {
+        jQuery(".nbPluginsSearch").html(nothing_found);
+        } else if (searchNumber == 1) {
+        jQuery(".nbPluginsSearch").html(plugin_found.replace("%s", searchNumber));
+        } else {
+        jQuery(".nbPluginsSearch").html(
+            x_plugins_found.replace("%s", searchNumber)
+        );
+        }
+    });
+
+    /* Show Inactive plugins or button to show them*/
+    jQuery(".showInactivePlugins button").on("click", showInactivePlugins);
+});
+
+$(document).mouseup(function (e) {
+  e.stopPropagation();
+  $(".pluginBox").each(function () {
+    if ($(this).find(".showOptions").has(e.target).length === 0) {
+      $(this).find(".PluginOptionsBlock").hide();
+    }
+  });
+});
