@@ -1273,6 +1273,9 @@ $lang['Yes, rename'] = 'Yes, rename';
 $lang['Tag name'] = 'Tag name';
 $lang['Current Version'] = 'Current Version';
 $lang['More information'] = 'More information';
+$lang['This photo is an orphan'] = 'This photo is an orphan';
+$lang['This albums is already in related categories list'] = 'This albums is already in related albums list';
+$lang['No search in progress'] = 'No search in progress';
 
 $lang['Visited'] = 'Visited';
 $lang['Downloaded'] = 'Downloaded';

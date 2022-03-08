@@ -6258,6 +6258,191 @@ color:#FF7B00;
   margin-top: -10px;
 }
 
+.linked-albums-badge {
+  padding: 2px 6px;
+  background: #F1F1F1;
+  border-radius: 50px;
+  font-size: 10px;
+  transition: 0.3s;
+}
+
+.linked-albums-badge.badge-red {
+  background: red;
+  color: white;
+}
+
+.breadcrumb-item {
+  margin: 0 10px 10px 12px;
+  padding: 7px 10px;
+  background-color: #fafafa;
+  box-shadow: 0px 2px #00000024;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #777 !important;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.breadcrumb-item a {
+  padding: 0 5px;
+  font-weight: 400;
+}
+
+.breadcrumb-item .icon-cancel-circled {
+  margin-left: auto !important;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+}
+
+.breadcrumb-item .icon-cancel-circled:hover {
+  color: #ff7700;
+}
+
+.breadcrumb-item.add-item {
+  width: min-content;
+  cursor: pointer;
+  color: #111111;
+  transition: 0.3s;
+}
+
+.breadcrumb-item.add-item.highlight {
+  background: #ffa646;
+  box-shadow: 0 2px #af7200;
+  color: white !important;
+}
+
+#addLinkedAlbum {
+  display:none;
+}
+
+.linkedAlbumPopIn {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.7);
+}
+
+.linkedAlbumPopInContainer {
+  display:flex;
+  position:absolute;
+  left:50%;
+  top: 50%;
+  transform:translate(-50%, -48%);
+  text-align:left;
+  padding:20px;
+  flex-direction:column;
+  border-radius:15px;
+  align-items:center;
+  width: 400px;
+  background-color: white;
+}
+
+.linkedAlbumPopInContainer .AddIconContainer {
+  margin-top: 20px;
+}
+
+.ClosePopIn {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  font-size: 30px;
+  color: white;
+}
+
+.linkedAlbumPopInContainer .AddIcon {
+  border-radius: 9999px;
+  padding: 10px;
+  font-size: 2em;
+}
+.AddIconTitle {
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+#linkedAlbumSearch .search-icon {
+  position: absolute;
+  transform: translate(7px, 8px);
+  font-size: 18px;
+  top: auto;
+}
+
+.linkedAlbumPopInContainer #searchResult {
+  width: 100%;
+  overflow-y: scroll;
+  max-height: 400px;
+  margin: 10px 0 0 0;
+}
+
+.search-cancel-linked-album {
+  opacity: 0.4;
+  cursor: pointer;
+  position: absolute;
+  font-size: 18px;
+  transform: translate(215px, 8px);
+}
+
+.search-cancel-linked-album:hover {
+  opacity: 1;
+}
+
+.search-result-item {
+  margin: 10px 0px;
+  padding: 5px 10px;
+  height: 25px;
+  background-color: #fafafa;
+  box-shadow: 0px 2px #00000024;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #777;
+  display: flex;
+  align-items: center;
+}
+
+.search-result-path {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  direction: rtl;
+  text-align: left;
+}
+
+.search-result-item .icon-plus-circled{
+  margin-left: auto;
+  cursor: pointer;
+  color: black;
+}
+
+.search-result-item .icon-plus-circled:hover{
+  color: black;
+}
+
+.search-result-item .notClickable {
+  opacity: 0.3;
+}
+
+.linkedAlbumPopInContainer .searching {
+  margin-top: 10px;
+}
+
+.invisible-related-categories-select {
+  display: none;
+}
+
+.orphan-photo {
+  margin-left: 4px;
+  font-style: italic;
+}
 .search-line {
   background: #fafafa;
 }

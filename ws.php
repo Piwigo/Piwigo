@@ -556,8 +556,14 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod(
       'pwg.categories.getAdminList',
       'ws_categories_getAdminList',
-      null,
-      'Get albums list as displayed on admin page.',
+      array(
+        'search' => array('default' => null),
+        'additional_output' =>    array('default'=>null,
+                              'info'=>'Comma saparated list (see method description)'),
+      ),
+      'Get albums list as displayed on admin page. <br>
+      <b>additional_output</b> controls which data are returned, possible values are:<br>
+      null, full_name_with_admin_links<br>',
       $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true)
     );
