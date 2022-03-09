@@ -1767,3 +1767,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .applicationCard .applicationDesc {
   color: #bbb;
 }
+
+.breadcrumb-item.add-item.highlight {
+  background: #f7a43c;
+  box-shadow: 0 2px #af7200;
+  color: #444 !important;
+}

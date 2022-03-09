@@ -821,3 +821,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .search-result-item .icon-plus-circled:hover{
   color: #ff7700;
 }
+
+.breadcrumb-item.add-item.highlight {
+  background: #ffa646;
+  box-shadow: 0 2px #af7200;
+  color: white !important;
+}

@@ -6302,12 +6302,6 @@ color:#FF7B00;
   transition: 0.3s;
 }
 
-.breadcrumb-item.add-item.highlight {
-  background: #ffa646;
-  box-shadow: 0 2px #af7200;
-  color: white !important;
-}
-
 #addLinkedAlbum {
   display:none;
 }
