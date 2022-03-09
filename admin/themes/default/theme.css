@@ -6260,7 +6260,6 @@ color:#FF7B00;
 
 .linked-albums-badge {
   padding: 2px 6px;
-  background: #DBDBDB;
   border-radius: 50px;
   font-size: 10px;
   transition: 0.3s;
@@ -6274,17 +6273,11 @@ color:#FF7B00;
 .breadcrumb-item {
   margin: 0 10px 10px 12px;
   padding: 7px 10px;
-  background-color: #fafafa;
-  box-shadow: 0px 2px #00000024;
   border-radius: 5px;
   font-weight: bold;
-  color: #777 !important;
   display: flex;
   align-items: center;
   position: relative;
-}
-.breadcrumb-item:hover {
-  background: #ffd7ad;
 }
 .breadcrumb-item:hover .icon-cancel-circled{
   color: black;
@@ -6300,10 +6293,6 @@ color:#FF7B00;
   cursor: pointer;
   position: absolute;
   right: 10px;
-}
-
-.breadcrumb-item .icon-cancel-circled:hover {
-  color: #ff7700;
 }
 
 .breadcrumb-item.add-item {
@@ -6346,7 +6335,6 @@ color:#FF7B00;
   border-radius:15px;
   align-items:center;
   width: 400px;
-  background-color: white;
 }
 
 .linkedAlbumPopInContainer .AddIconContainer {
@@ -6370,7 +6358,6 @@ color:#FF7B00;
   font-size: 1.4em;
   font-weight: bold;
   text-align: center;
-  color: #000;
   margin-bottom: 10px;
   margin-top: 15px;
 }
@@ -6426,11 +6413,6 @@ color:#FF7B00;
 .search-result-item .icon-plus-circled{
   margin-left: auto;
   cursor: pointer;
-  color: black;
-}
-
-.search-result-item .icon-plus-circled:hover{
-  color: black;
 }
 
 .search-result-item .notClickable {

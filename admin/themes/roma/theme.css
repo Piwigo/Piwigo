@@ -1674,6 +1674,49 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   cursor: not-allowed;
 }
 
+.linked-albums-badge {
+  background: #777;
+  color: #333;
+}
+
+.breadcrumb-item {
+  background-color: #333;
+  box-shadow: 0px 2px #00000070;
+  color: #777 !important;
+}
+.breadcrumb-item:hover {
+  background: #f9852c;
+}
+.breadcrumb-item:hover a {
+  background: #f9852c;
+  color: #000;
+}
+.breadcrumb-item .icon-cancel-circled:hover {
+  color: #ae5d1e;
+}
+
+.linkedAlbumPopInContainer {
+  background-color: #444;
+}
+.AddIconTitle,
+.limitReached {
+  color: #cccccc;
+}
+
+.search-result-item {
+  background-color: #333;
+  box-shadow: 0px 2px #00000070;
+  color: #777;
+}
+
+.search-result-item .icon-plus-circled{
+  color: #777;
+}
+
+.search-result-item .icon-plus-circled:hover{
+  color: #ff7700;
+}
+
 .search-line {
   background: #333;
   color: #a1a1a1;
