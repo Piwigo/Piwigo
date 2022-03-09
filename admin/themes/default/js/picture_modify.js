@@ -108,7 +108,11 @@ function fill_results(cats) {
 function remove_related_category(cat_id) {
   $(".invisible-related-categories-select option[value="+ cat_id +"]").remove();
   $("#" + cat_id).parent().remove();
-  related_categories_ids.pop(cat_id);
+
+  cat_to_remove_index = related_categories_ids.indexOf(cat_id);
+  if (cat_to_remove_index > -1) {
+    related_categories_ids.splice(cat_to_remove_index, 1);
+  }
 
   check_related_categories();
 }

@@ -6260,7 +6260,7 @@ color:#FF7B00;
 
 .linked-albums-badge {
   padding: 2px 6px;
-  background: #F1F1F1;
+  background: #DBDBDB;
   border-radius: 50px;
   font-size: 10px;
   transition: 0.3s;
@@ -6282,6 +6282,12 @@ color:#FF7B00;
   display: flex;
   align-items: center;
   position: relative;
+}
+.breadcrumb-item:hover {
+  background: #ffd7ad;
+}
+.breadcrumb-item:hover .icon-cancel-circled{
+  color: black;
 }
 
 .breadcrumb-item a {
@@ -6481,4 +6487,13 @@ color:#FF7B00;
   color: #777;
   background: #fff;
   padding: 5px 0;
+}
+
+.search-result-item .item-add:hover {
+  color: #ff7700;
+}
+
+.search-result-item .notClickable {
+  opacity: 0.3;
+  color: black !important;
 }

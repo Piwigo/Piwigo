@@ -513,7 +513,7 @@ SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, statu
 
     $cat_display_name = get_cat_display_name_cache(
       $row['uppercats'],
-      get_root_url().'admin.php?page=album-'
+      'admin.php?page=album-'
     );
 
     $row['name'] = strip_tags(
