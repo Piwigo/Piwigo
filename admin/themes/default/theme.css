@@ -660,8 +660,8 @@ LI.menuLi {
   content: " ";
   position: absolute;
   bottom: 100%;
-  left: 51%;
-  margin-left: -5px;
+  left: 50%;
+  transform:translateX(-50%);
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent #ff7700 transparent;
@@ -4918,7 +4918,7 @@ input:checked + .slider:before, input:checked + .slider::after {
 
 /* Options menu*/
 
-.group-dropdown-options:before{
+.group-dropdown-options{
   font-size:20px;
   position:absolute;
   top:10px;
@@ -4931,8 +4931,9 @@ input:checked + .slider:before, input:checked + .slider::after {
   display:none;
   z-index:1;
   position:absolute;
-  right: -86px;
-  top: 41px;
+  transform: translateX(-50%);
+  left:50%;
+  top: 37px;
 }
 
 .is-default-token {
@@ -4942,7 +4943,7 @@ input:checked + .slider:before, input:checked + .slider::after {
   cursor: pointer;
   right: 33px;
   top: 4px;
-  padding: 5px 0;
+  padding: 11px 0;
   font-size: 20px;
   color: #777;
   transition: 0.2s ease;
