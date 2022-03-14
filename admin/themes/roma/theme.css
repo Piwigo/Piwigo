@@ -1714,6 +1714,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .applicationCard {
   box-shadow: -1px 1px 2px #1a1a1a;
+  background: #333;
 }
 
 .applicationCard .applicationName {
