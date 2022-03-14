@@ -1719,3 +1719,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .applicationCard .applicationName {
   color: #c1c1c1;
 }
+
+.applicationCard .applicationDesc {
+  color: #bbb;
+}
