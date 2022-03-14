@@ -16,7 +16,6 @@ jQuery().ready(function(){
   }
 
   .applicationCard {
-    box-shadow: 0px 0px 4px 4px #DBDBDB;
     max-width: 500px;
     margin: 20px;
 
@@ -41,7 +40,6 @@ jQuery().ready(function(){
     margin: 20px 0 10px 0;
     padding-right: 15px;
     text-align: left;
-    color: black;
   }
 
   .applicationCard .applicationDesc {
