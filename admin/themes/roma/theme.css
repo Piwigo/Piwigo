@@ -1447,8 +1447,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color:#777;
 }
 
-.advanced-filter-select-container {
-  background: #252525;
+.user-header-button-label {
+  background: #333;
 }
 
 .user-action-select {

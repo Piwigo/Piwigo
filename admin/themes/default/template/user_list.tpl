@@ -978,6 +978,23 @@ $(".icon-help-circled").tipTip({
   margin-left:10px;
 }
 
+.user-header-button {
+  position:relative;
+}
+.user-header-button-label {
+	position: relative;
+	padding: 10px;
+	box-shadow: 0px 2px #00000024;
+	border-radius: 5px;
+	font-weight: bold;
+	display: flex;
+	align-items: baseline;
+	cursor: pointer;
+}
+.user-header-button-label p {
+  margin:0;
+}
+
 /* filters bar */
 
 #user_search {
