@@ -189,7 +189,7 @@ const guest_id = {$guest_id};
         <span class="icon-ellipsis-vert toggle-img-option">
           <div class="img-option">
             <a class="add-img-as-filter icon-filter"> {'Add a filter'|translate} </a>
-            <a class="edit-img icon-pencil" href="">{'Edit'|@translate}</a>
+            <a class="edit-img icon-pencil" href="" target="_blank">{'Edit'|@translate}</a>
           </div>
         </span>
 
@@ -394,6 +394,7 @@ jQuery(document).ready( function() {
 
 .user-name, .user-ip {
   cursor: pointer;
+  max-width: fit-content;
 }
 
 .search-line {
@@ -429,23 +430,29 @@ jQuery(document).ready( function() {
 
 .date-title,
 .date-section {
-  width: 300px;
   text-align: left;
   padding-left: 10px;
+}
+.date-title {
+  width: 300px;
 }
 
 .user-title,
 .user-section {
-  width: 200px;
   text-align: left;
   padding-left: 10px;
+}
+.user-title {
+  width: 200px;
 }
 
 .type-title,
 .type-section {
-  width: 250px;
   text-align: left;
   padding-left: 10px;
+}
+.type-title {
+  width: 250px;
 }
 
 .detail-title,
@@ -490,15 +497,16 @@ jQuery(document).ready( function() {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-right: 20px;
   height: 60%;
+  width: 220px;
 }
 
 .date-section {
   display: flex;
   flex-direction: row;
-  margin-right: 20px;
   height: 60%;
+  width: 320px;
+  align-items: center;
 }
 
 .date-infos {
@@ -534,8 +542,8 @@ jQuery(document).ready( function() {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-right: 20px;
   height: 60%;
+  width: 270px;
 }
 
 .type-desc {
@@ -557,7 +565,7 @@ jQuery(document).ready( function() {
 .toggle-img-option {
   cursor: pointer;
   position: absolute;
-  margin-left: 71px;
+  margin-left: 51px;
 }
 
 .toggle-img-option::before{
@@ -612,8 +620,9 @@ jQuery(document).ready( function() {
 }
 
 .type-icon img {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
+  margin-bottom: -5px;
 }
 
 /* Summary */
