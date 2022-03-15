@@ -62,21 +62,19 @@ galleries
   Piwigo objekt om filändelsen är med i <code>file_ext</code>
   konfigurations parametern (se filen <span
   class="filename">include/config_default.inc.php</span>). En fil kan
-  vara en bild om fileändelsen är med i <code>picture_ext</code>
+  vara en bild om filändelsen är med i <code>picture_ext</code>
   konfigurations parametern.</li>
 
   <li>Icke foto objekt (video, ljud, texter, vad som helst..) representeras som standard av en ikon som matchar filändelsen.
-  Du kan om du vill associera en "thumbnail" fil som visar istället för ikonen.
+  Du kan om du vill associera en "miniatyr" fil som visas istället för ikonen.
   (se video.avi i exemplet ovan).</li>
 
-  <li>Multiple formats: a photo can be available in several formats. In this example, we have 3 additional formats for img0001.jpg. You can activate this feature with <code>$conf['enable_formats'] = true;</code> in your local configuration and define a list of formats, like <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
+  <li>Flera format: ett foto kan finnas i flera format. I detta exempel så har vi 3 ytterligare format för img0001.jpg. Du kan aktivera denna funktion med <code>$conf['enable_formats'] = true;</code> i din lokala konfiguration och definiera en lista av format, t.ex. <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
 
   <li><em>Varning</em>: Katalog och filnamn får bara bestå av bokstäver och dessa tecken "-", "_" or ".". Inga mellanslag eller accentuerade
   bokstäver.</li>
 
-  <li>Nät bilderna är placerade i katalogen, gå till,
-  gå till: <span class="pwgScreen">Administration &raquo; Verktyg &raquo;
-  Synkronisera</span></li>
+  <li>När bilderna är placerade i katalogen, gå till: <span class="pwgScreen">Administration &raquo; Verktyg &raquo; Synkronisera</span></li>
 
 </ul>
 </fieldset>
