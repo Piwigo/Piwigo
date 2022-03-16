@@ -21,6 +21,7 @@
 
   {if $theme.load_css}
   {combine_css path="admin/themes/`$theme.id`/theme.css" order=-10}
+  {combine_css path="admin/themes/`$theme.id`/css/components/general.css" order=-9} {* Temporary solution *}
   {/if}
   {if !empty($theme.local_head)}
   {include file=$theme.local_head load_css=$theme.load_css}

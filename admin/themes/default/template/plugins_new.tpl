@@ -11,8 +11,6 @@
 {combine_script id='pluginsNew' load='footer' require='jquery.ui.effect-blind,jquery.sort' path='admin/themes/default/js/plugins_new.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 
-{combine_css path="admin/themes/default/css/components/general.css"}
-
 {footer_script}
 const str_confirm_msg = "{"Yes, I am sure"|@translate}";
 const str_cancel_msg = "{"No, I have chaged my mind"|@translate}";
