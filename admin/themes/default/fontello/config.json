@@ -813,6 +813,24 @@
       "src": "fontawesome"
     },
     {
+      "uid": "8f8278fbe5a2a0ea836be3c408b005d2",
+      "css": "star-half",
+      "code": 59402,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dc73bee1d58539abe8c96b958bf4c931",
+      "css": "fire",
+      "code": 59485,
+      "src": "elusive"
+    },
+    {
+      "uid": "d73eceadda1f594cec0536087539afbf",
+      "css": "heart",
+      "code": 59451,
+      "src": "fontawesome"
+    },
+    {
       "uid": "7411608e7611ffd477aeec7d239f87e9",
       "css": "dice",
       "code": 59500,
