@@ -1276,8 +1276,8 @@ $lang['More information'] = 'More information';
 
 $lang['Visited'] = 'Visited';
 $lang['Downloaded'] = 'Downloaded';
-$lang['Personnalized filters'] = 'Personnalized filters';
+$lang['Additional filters'] = 'Additional filters';
 $lang['Object'] = 'Object';
 $lang['Memories'] = 'Souvenirs';
-
+$lang['Add as filter'] = 'Add as filter';
 // Leave this line empty

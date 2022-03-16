@@ -85,7 +85,7 @@ const guest_id = {$guest_id};
     </div>
   </div>
   <div class="filter-tags">
-    <label>{'Personnalized filters'|translate}</label>
+    <label>{'Additional filters'|translate}</label>
     <div class="filter-container">
       <div id="default-filter" class="filter-item hide">
         <span class="filter-icon"></span><span class="filter-title"> test </span><span class="remove-filter icon-cancel"></span>
@@ -180,15 +180,15 @@ const guest_id = {$guest_id};
       </div>
 
       <div class="user-section">
-        <span class="user-name bold" title="{'Add a filter'|translate}"> Zac le boss <i class="add-filter icon-plus-circled"></i></span>
-        <span class="user-ip" title="{'Add a filter'|translate}"> 192.168.0.0 <i class="add-filter icon-plus-circled"></i></span>
+        <span class="user-name bold" title="{'Add as filter'|translate}"> Zac le boss <i class="add-filter icon-plus-circled"></i></span>
+        <span class="user-ip" title="{'Add as filter'|translate}"> 192.168.0.0 <i class="add-filter icon-plus-circled"></i></span>
       </div>
 
       <div class="type-section">
         <span class="type-icon"> <i class="icon-file-image"> </i> </span>
         <span class="icon-ellipsis-vert toggle-img-option">
           <div class="img-option">
-            <a class="add-img-as-filter icon-filter"> {'Add a filter'|translate} </a>
+            <a class="add-img-as-filter icon-filter"> {'Add as filter'|translate} </a>
             <a class="edit-img icon-pencil" href="" target="_blank">{'Edit'|@translate}</a>
           </div>
         </span>
