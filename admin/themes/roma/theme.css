@@ -1509,6 +1509,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color:#666;
 }
 
+.slider-bar-wrapper .ui-slider-horizontal .ui-slider-handle{
+  background-color:#ffa500;
+  border: 1px solid #ffa500;
+}
+
 .preferences-container, .properties-container {
   border-left: solid 1px #333;
 }
