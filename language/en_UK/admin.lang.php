@@ -1283,4 +1283,5 @@ $lang['Additional filters'] = 'Additional filters';
 $lang['Object'] = 'Object';
 $lang['Memories'] = 'Souvenirs';
 $lang['Add as filter'] = 'Add as filter';
+$lang['Show plugins compatible with previous version of Piwigo'] = 'Show plugins compatible with previous version of Piwigo';
 // Leave this line empty
