@@ -447,7 +447,7 @@ DELETE FROM '. PLUGINS_TABLE .'
     $versions_to_check = $this->get_versions_to_check($beta_test);
     if (empty($versions_to_check))
     {
-      return false;
+      return true;
     }
 
     // Plugins to check

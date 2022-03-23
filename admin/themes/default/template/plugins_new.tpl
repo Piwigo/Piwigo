@@ -32,7 +32,7 @@ const str_from_begining = "{"since the beginning"|@translate}";
 <div class="titrePage">
   <div class="sort">
     <div class="sort-actions">
-      <div class="beta-test-plugin-switch">
+      <div class="beta-test-plugin-switch tiptip" title="{'Show plugins compatible with previous version of Piwigo'|translate|escape:html}">
         <label class="switch">
           <input type="checkbox" id="showBetaTestPlugin" {if $BETA_TEST}checked{/if}>
           <span class="slider round"></span>
@@ -208,5 +208,9 @@ const str_from_begining = "{"since the beginning"|@translate}";
 {/foreach}
 </div>
 {else}
-<p>{'There is no other plugin available.'|@translate}</p>
+<p>{'There is no other plugin available.'|@translate}
+{if isset($BETA_URL)}
+  <a href="{$BETA_URL}" class="buttonLike icon-fire">{'Show beta test plugins'|@translate}</a>
+{/if}
+</p>
 {/if}

@@ -181,5 +181,10 @@ else
   $page['errors'][] = l10n('Can\'t connect to server.');
 }
 
+if (!$beta_test and preg_match('/(beta|RC)/', PHPWG_VERSION))
+{
+  $template->assign('BETA_URL', $base_url.'&amp;beta-test=true');
+}
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>
