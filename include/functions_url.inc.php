@@ -37,8 +37,11 @@ function get_absolute_root_url($with_scheme=true)
   if ($with_scheme)
   {
     $is_https = false;
-    if (isset($_SERVER['HTTPS']) &&
-      ((strtolower($_SERVER['HTTPS']) == 'on') or ($_SERVER['HTTPS'] == 1)))
+    if ((isset($_SERVER['HTTPS']) &&
+        ((strtolower($_SERVER['HTTPS']) == 'on') or ($_SERVER['HTTPS'] == 1)))
+        ||
+        ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+         strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')))
     {
       $is_https = true;
       $url .= 'https://';
