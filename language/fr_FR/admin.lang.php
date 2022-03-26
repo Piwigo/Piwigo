@@ -1285,4 +1285,5 @@ $lang['This photo is an orphan'] = 'Cette photo est orpheline';
 $lang['This albums is already in related categories list'] = 'Cet album est déjà dans la liste des albums associés';
 $lang['No search in progress'] = 'Pas de recherche en cours';
 $lang['Show plugins compatible with previous version of Piwigo'] = 'Montrer les plugins compatibles avec la version précédente de Piwigo';
+$lang['User activity logs'] = 'Journaux d\'activité des utilisateurs';
 // Leave this line empty
