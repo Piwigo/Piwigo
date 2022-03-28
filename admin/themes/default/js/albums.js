@@ -21,14 +21,14 @@ $(document).ready(() => {
     actions = 
       '<div class="move-cat-action-cont">'
         +"<div class='move-cat-action'>"
-          +"<a class='move-cat-add icon-plus-circled' href='admin.php?page=album-"+node.id+"'></a>"
+          +"<a class='move-cat-add icon-plus-circled' href='#' data-aid='"+node.id+"'></a>"
           +"<a class='move-cat-edit icon-pencil' href='admin.php?page=album-"+node.id+"'></a>"
           +"<a class='move-cat-upload icon-upload' href='admin.php?page=photos_add&album="+node.id+"'></a>"
           +"<a class='move-cat-see icon-eye' href='admin.php?page=album-"+node.id+"'></a>"
-          +"<a class='move-cat-order icon-sort-name-up' href='admin.php?page=album-"+node.id+"'></a>"
+          +"<a data-id='"+node.id+"' class='move-cat-delete icon-trash'></a>"
         +"</div>"
       +'</div>';
-    action_order = "<a data-id='"+node.id+"' class='move-cat-delete icon-trash'></a>";
+    action_order = "<a class='move-cat-order icon-sort-name-up' href='admin.php?page=album-"+node.id+"'></a>";
 
     cont = li.find('.jqtree-element');
     cont.addClass('move-cat-container');
@@ -48,7 +48,7 @@ $(document).ready(() => {
         .replace(/%content%/g, toggler)
         .replace(/%id%/g, node.id)));
 
-      cont.find('.move-cat-action').append(action_order);
+      cont.find('.move-cat-action .move-cat-see').after(action_order);
     }
 
     cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
@@ -209,7 +209,188 @@ $(document).ready(() => {
     }
   })
 
+
+  // AddAlbumPopIn
+  $(".AddAlbumErrors").hide();
+  $(".DeleteAlbumErrors").hide();
+  $(".move-cat-add").on("click", function () {
+    openAddAlbumPopIn();
+  })
+  $(".CloseAddAlbum").on("click", function () {
+    closeAddAlbumPopIn();
+  });
+  $(".AddAlbumCancel").on("click", function () {
+    closeAddAlbumPopIn();
+  });
+  $(".DeleteAlbumCancel").on("click", function () {
+    closeDeleteAlbumPopIn();
+  });
+
+  $(".AddAlbumSubmit").on("click", function () {
+    newAlbumName = $(".AddAlbumLabelUsername input").val();
+    newAlbumParent = $(".AddAlbumSubmit").data("a-parent");
+    newAlbumPosition = $("input[name=position]:checked").val();
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.categories.add",
+      type: "POST",
+      data: {
+        name : newAlbumName,
+        parent : newAlbumParent,
+        position : newAlbumPosition
+      },
+      success: function (raw_data) {
+        data = jQuery.parseJSON(raw_data);
+        var parent_node = $('.tree').tree('getNodeById', newAlbumParent);
+        $('.tree').tree(
+            'appendNode',
+            {
+              id: data.result.id,
+              isEmptyFolder: true,
+              name: newAlbumName
+            },
+            parent_node
+        );
+
+        $("#cat-"+data.result.id+" .move-cat-add").on("click", function () {
+          openAddAlbumPopIn();
+        })
+      },
+      error: function(message) {
+        
+      }
+    });
+    
+  })
+
+  // Delete Album
+  $(".move-cat-delete").on("click", function () {
+    cat_id = $(this).data("id");
+    console.log(cat_id);
+
+    $.ajax({
+      url: "ws.php?format=json&method=pwg.categories.calculateOrphans",
+      type: "GET",
+      data: {
+        category_id: cat_id,
+      },
+      success: function (raw_data) {
+        let data = JSON.parse(raw_data).result[0]
+        console.log(data);
+        if (data.nb_images_recursive == 0) {
+          $(".deleteAlbumOptions").hide();
+        } else {
+          $(".deleteAlbumOptions").show();
+          if (data.nb_images_associated_outside == 0) {
+            $("#IMAGES_ASSOCIATED_OUTSIDE").hide();
+          } else {
+            $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").html("");
+            $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").append(has_images_associated_outside.replace('%d', data.nb_images_recursive).replace('%d', data.nb_images_associated_outside));
+          }
+          if (data.nb_images_becoming_orphan == 0) {
+            $("#IMAGES_BECOMING_ORPHAN").hide();
+          } else {
+            $("#IMAGES_BECOMING_ORPHAN .innerText").html("");
+            $("#IMAGES_BECOMING_ORPHAN .innerText").append(has_images_becomming_orphans.replace('%d', data.nb_images_becoming_orphan));
+          }
+        }
+      },
+      error: function(message) {
+        console.log(message);
+      }
+    }).done(function () {
+      openDeleteAlbumPopIn(cat_id);
+    });
+  })
+
+  /*----------------
+  Checkboxes
+  ----------------*/
+
+  function checkbox_change() {
+    if ($(this).attr('data-selected') == '1') {
+        $(this).find("i").hide();
+    } else {
+        $(this).find("i").show();
+    }
+  }
+
+  function checkbox_click() {
+    if ($(this).attr('data-selected') == '1') {
+        $(this).attr('data-selected', '0');
+        $(this).find("i").hide();
+    } else {
+        $(this).attr('data-selected', '1');
+        $(this).find("i").show();
+    }
+  }
+
+  $('.user-list-checkbox').unbind("change").change(checkbox_change);
+  $('.user-list-checkbox').unbind("click").click(checkbox_click);
+
 });
+
+function openAddAlbumPopIn() {
+  $("#AddAlbum").fadeIn();
+  $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+  $(".AddAlbumLabelUsername .user-property-input").val('');
+  $(".AddAlbumLabelUsername .user-property-input").focus();
+}
+
+function closeAddAlbumPopIn() {
+  $("#AddAlbum").fadeOut();
+}
+
+function openDeleteAlbumPopIn(cat_to_delete) {
+  $("#DeleteAlbum").fadeIn();
+  node = $(".tree").tree('getNodeById', cat_to_delete);
+  if (node.children.length == 0) {
+    $(".DeleteIconTitle span").html(delete_album_with_name.replace("%s", node.name));
+  } else {
+    nb_sub_cats = 0;
+    test = getSubAlbumsFromNode(node, nb_sub_cats);
+    $(".DeleteIconTitle span").html(delete_album_with_subs.replace("%s", node.name).replace("%d", getSubAlbumsFromNode(node, nb_sub_cats)));
+  }
+
+  // Actually delete
+
+  $(".DeleteAlbumSubmit").unbind("click").on("click", function () {
+    $.ajax({
+      url: "ws.php?format=json&method=pwg.categories.delete",
+      type: "POST",
+      data: {
+        category_id: cat_to_delete,
+        photo_deletion_mode: $("input [name=photo_deletion_mode]:checked").val(),
+        pwg_token: pwg_token,
+      },
+      success: function (raw_data) {
+       $('.tree').tree('removeNode', node);
+       closeDeleteAlbumPopIn();
+      },
+      error: function(message) {
+        console.log(message);
+      }
+    });
+  })
+
+}
+function closeDeleteAlbumPopIn() {
+  $("#DeleteAlbum").fadeOut();
+}
+
+function getSubAlbumsFromNode(node, nb_sub_cats) {
+  nb_sub_cats = 0;
+  if (node.children != 0) {
+    node.children.forEach(child => {
+      nb_sub_cats++;
+      tmp = getSubAlbumsFromNode(child, nb_sub_cats);
+      nb_sub_cats += tmp;
+    });
+  } else {
+    return 0;
+  }
+  return nb_sub_cats;
+}
 
 function goToNode(node, firstNode) {
   // console.log(firstNode.id, node.id);

@@ -125,6 +125,8 @@ $template->assign(
 
 $template->assign('delay_before_autoOpen', $conf['album_move_delay_before_auto_opening']);
 
+$template->assign("POS_PREF", $conf['newcat_default_position']);
+
 // +-----------------------------------------------------------------------+
 // |                          Album display                                |
 // +-----------------------------------------------------------------------+

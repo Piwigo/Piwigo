@@ -5313,7 +5313,7 @@ input:checked + .slider:before, input:checked + .slider::after {
   position: relative;
 }
 
-.AddUserErrors, .update-user-fail {
+.AddUserErrors, .update-user-fail, .AddAlbumErrors {
   background-color: #ffcfcf;
   color: #ff5252;
   border-left:solid 3px red;
@@ -6255,19 +6255,27 @@ color:#FF7B00;
   color: black;
 }
 
-.AddUserPopInContainer {
+.AddUserPopInContainer,
+.AddAlbumPopInContainer,
+.DeleteAlbumPopInContainer {
   background-color: white;
 }
 
-.AddUserPopInContainer .AddIconTitle  {
+.AddUserPopInContainer .AddIconTitle,
+.AddAlbumPopInContainer .AddIconTitle,
+.DeleteAlbumPopInContainer .DeleteIconTitle  {
   color: #000000;
 }
 
-.AddUserPopInContainer .AddUserLabel {
+.AddUserPopInContainer .AddUserLabel,
+.AddAlbumPopInContainer .AddAlbumLabel,
+.DeleteAlbumPopInContainer .DeleteAlbumLabel {
   color: #3E3E3E;
 }
 
-.AddUserPopInContainer .AddUserInput {
+.AddUserPopInContainer .AddUserInput,
+.AddAlbumPopInContainer .AddAlbumInput,
+.DeleteAlbumPopInContainer .DeleteAlbumInput {
   background-color:white;
   border: solid 2px #D4D4D4;
 }

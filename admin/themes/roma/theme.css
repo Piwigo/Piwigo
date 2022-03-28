@@ -708,7 +708,7 @@ input:focus + .slider {
 
 /*UserList Pop in*/
 
-.CloseUserList{
+.CloseUserList, .CloseAddAlbum, #CloseDeleteAlbum{
   color:white;
 }
 

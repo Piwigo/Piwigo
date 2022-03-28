@@ -572,6 +572,12 @@ function ws_categories_add($params, &$service)
 {
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+  global $conf;
+
+  if ($params["position"] != "") {
+    $conf['newcat_default_position'] = $params["position"];
+  }
+
   $options = array();
   if (!empty($params['status']) and in_array($params['status'], array('private','public')))
   {
