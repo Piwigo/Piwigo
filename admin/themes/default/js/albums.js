@@ -215,6 +215,7 @@ $(document).ready(() => {
   $(".DeleteAlbumErrors").hide();
   $(".move-cat-add").on("click", function () {
     openAddAlbumPopIn();
+    $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
   })
   $(".CloseAddAlbum").on("click", function () {
     closeAddAlbumPopIn();
@@ -254,13 +255,15 @@ $(document).ready(() => {
 
         $("#cat-"+data.result.id+" .move-cat-add").on("click", function () {
           openAddAlbumPopIn();
+          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         })
       },
       error: function(message) {
-        
+        console.log(message);
       }
+    }).done(function () {
+      closeAddAlbumPopIn();
     });
-    
   })
 
   // Delete Album
@@ -332,7 +335,6 @@ $(document).ready(() => {
 
 function openAddAlbumPopIn() {
   $("#AddAlbum").fadeIn();
-  $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
   $(".AddAlbumLabelUsername .user-property-input").val('');
   $(".AddAlbumLabelUsername .user-property-input").focus();
 }
