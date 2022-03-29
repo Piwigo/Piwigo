@@ -209,7 +209,6 @@ $(document).ready(() => {
     }
   })
 
-
   // AddAlbumPopIn
   $(".AddAlbumErrors").hide();
   $(".DeleteAlbumErrors").hide();
@@ -253,13 +252,18 @@ $(document).ready(() => {
             parent_node
         );
 
-        $("#cat-"+data.result.id+" .move-cat-add").on("click", function () {
+        $(".move-cat-add").unbind("click").on("click", function () {
           openAddAlbumPopIn();
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
         $(".move-cat-delete").on("click", function () {
           triggerDeleteAlbum($(this).data("id"));
-        })
+        });
+
+        goToNode($(".tree").tree('getNodeById', data.result.id), $(".tree").tree('getNodeById', data.result.id));
+        $('html,body').animate({
+          scrollTop: $("#cat-" + data.result.id).offset().top - screen.height / 2},
+          'slow');
       },
       error: function(message) {
         console.log(message);
@@ -361,7 +365,6 @@ function openDeleteAlbumPopIn(cat_to_delete) {
   }
 
   // Actually delete
-
   $(".DeleteAlbumSubmit").unbind("click").on("click", function () {
     $.ajax({
       url: "ws.php?format=json&method=pwg.categories.delete",
@@ -372,8 +375,17 @@ function openDeleteAlbumPopIn(cat_to_delete) {
         pwg_token: pwg_token,
       },
       success: function (raw_data) {
-       $('.tree').tree('removeNode', node);
-       closeDeleteAlbumPopIn();
+        $('.tree').tree('removeNode', node);
+
+        $(".move-cat-add").on("click", function () {
+          openAddAlbumPopIn();
+          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+        });
+        $(".move-cat-delete").on("click", function () {
+          triggerDeleteAlbum($(this).data("id"));
+        });
+
+        closeDeleteAlbumPopIn();
       },
       error: function(message) {
         console.log(message);
