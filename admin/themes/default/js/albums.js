@@ -256,6 +256,9 @@ $(document).ready(() => {
         $("#cat-"+data.result.id+" .move-cat-add").on("click", function () {
           openAddAlbumPopIn();
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+        });
+        $(".move-cat-delete").on("click", function () {
+          triggerDeleteAlbum($(this).data("id"));
         })
       },
       error: function(message) {
@@ -268,42 +271,7 @@ $(document).ready(() => {
 
   // Delete Album
   $(".move-cat-delete").on("click", function () {
-    cat_id = $(this).data("id");
-    console.log(cat_id);
-
-    $.ajax({
-      url: "ws.php?format=json&method=pwg.categories.calculateOrphans",
-      type: "GET",
-      data: {
-        category_id: cat_id,
-      },
-      success: function (raw_data) {
-        let data = JSON.parse(raw_data).result[0]
-        console.log(data);
-        if (data.nb_images_recursive == 0) {
-          $(".deleteAlbumOptions").hide();
-        } else {
-          $(".deleteAlbumOptions").show();
-          if (data.nb_images_associated_outside == 0) {
-            $("#IMAGES_ASSOCIATED_OUTSIDE").hide();
-          } else {
-            $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").html("");
-            $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").append(has_images_associated_outside.replace('%d', data.nb_images_recursive).replace('%d', data.nb_images_associated_outside));
-          }
-          if (data.nb_images_becoming_orphan == 0) {
-            $("#IMAGES_BECOMING_ORPHAN").hide();
-          } else {
-            $("#IMAGES_BECOMING_ORPHAN .innerText").html("");
-            $("#IMAGES_BECOMING_ORPHAN .innerText").append(has_images_becomming_orphans.replace('%d', data.nb_images_becoming_orphan));
-          }
-        }
-      },
-      error: function(message) {
-        console.log(message);
-      }
-    }).done(function () {
-      openDeleteAlbumPopIn(cat_id);
-    });
+    triggerDeleteAlbum($(this).data("id"));
   })
 
   /*----------------
@@ -343,6 +311,44 @@ function closeAddAlbumPopIn() {
   $("#AddAlbum").fadeOut();
 }
 
+
+function triggerDeleteAlbum(cat_id) {
+  console.log(cat_id);
+
+  $.ajax({
+    url: "ws.php?format=json&method=pwg.categories.calculateOrphans",
+    type: "GET",
+    data: {
+      category_id: cat_id,
+    },
+    success: function (raw_data) {
+      let data = JSON.parse(raw_data).result[0]
+      console.log(data);
+      if (data.nb_images_recursive == 0) {
+        $(".deleteAlbumOptions").hide();
+      } else {
+        $(".deleteAlbumOptions").show();
+        if (data.nb_images_associated_outside == 0) {
+          $("#IMAGES_ASSOCIATED_OUTSIDE").hide();
+        } else {
+          $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").html("");
+          $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").append(has_images_associated_outside.replace('%d', data.nb_images_recursive).replace('%d', data.nb_images_associated_outside));
+        }
+        if (data.nb_images_becoming_orphan == 0) {
+          $("#IMAGES_BECOMING_ORPHAN").hide();
+        } else {
+          $("#IMAGES_BECOMING_ORPHAN .innerText").html("");
+          $("#IMAGES_BECOMING_ORPHAN .innerText").append(has_images_becomming_orphans.replace('%d', data.nb_images_becoming_orphan));
+        }
+      }
+    },
+    error: function(message) {
+      console.log(message);
+    }
+  }).done(function () {
+    openDeleteAlbumPopIn(cat_id);
+  });
+}
 function openDeleteAlbumPopIn(cat_to_delete) {
   $("#DeleteAlbum").fadeIn();
   node = $(".tree").tree('getNodeById', cat_to_delete);
