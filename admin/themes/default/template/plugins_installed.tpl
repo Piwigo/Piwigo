@@ -40,86 +40,9 @@ const x_plugins_found = '{'%s plugins found'|@translate|@escape:'javascript'}';
 const plugin_found = '{'%s plugin found'|@translate|@escape:'javascript'}';
 const isWebmaster = {$isWebmaster};
 {literal}
-var queuedManager = jQuery.manageAjax.create('queued', { 
-  queue: true,  
-  maxRequests: 1
-});
-var nb_plugins = jQuery('div.active').size();
-var done = 0;
-/* group action */
 
 jQuery(document).ready(function() {
-  jQuery('div.deactivate_all a').click(function() {
-    $.confirm({
-      title: deactivate_all_msg,
-      buttons: {
-        confirm: {
-          text: confirm_msg,
-          btnClass: 'btn-red',
-          action: function () {
-            jQuery('div.active').each(function() {
-              performPluginDeactivate(jQuery(this).attr('id'));
-            })
-          }
-        },
-        cancel: {
-          text: cancel_msg
-        }
-      },
-      ...jConfirm_confirm_options
-    });
-  });
-
-  function performPluginDeactivate(id) {
-    queuedManager.add({
-      type: 'GET',
-      dataType: 'json',
-      url: 'ws.php',
-      data: { method: 'pwg.plugins.performAction', action: 'deactivate', plugin: id, pwg_token: pwg_token, format: 'json' },
-      success: function(data) {
-        if (data['stat'] == 'ok') jQuery("#"+id).removeClass('active').addClass('inactive');
-        done++;
-        if (done == nb_plugins) location.reload();
-      }
-    });
-  };
-
-  /* incompatible plugins */
-  jQuery(document).ready(function() {
-    jQuery.ajax({
-      method: 'GET',
-      url: 'admin.php',
-      data: { page: 'plugins_installed', incompatible_plugins: true },
-      dataType: 'json',
-      success: function(data) {
-        for (i=0;i<data.length;i++) {
-          jQuery('#'+data[i]+' .pluginMiniBoxNameCell').prepend('<i class="icon-attention" title="'+incompatible_msg+'"></i> ');
-          jQuery('#'+data[i]).addClass('incompatible');
-          jQuery('#'+data[i]+' .activate').each(function () {
-            $(this).pwg_jconfirm_follow_href({
-              alert_title: incompatible_msg + activate_msg,
-              alert_confirm: confirm_msg,
-              alert_cancel: cancel_msg
-            });
-          });
-        }
-        jQuery('.warning').tipTip({
-          'delay' : 0,
-          'fadeIn' : 200,
-          'fadeOut' : 200,
-          'maxWidth':'250px'
-        });
-      }
-    });
-  });
-  jQuery('.fullInfo').tipTip({
-    'delay' : 500,
-    'fadeIn' : 200,
-    'fadeOut' : 200,
-    'maxWidth':'300px',
-    'keepAlive':false,
-  });
-
+  
   /* Add the '...' for the overflow of the description line*/
   jQuery( document ).ready(function () {
     jQuery('.pluginDesc').each(function () {
