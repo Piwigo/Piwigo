@@ -2081,7 +2081,7 @@ h2:lang(en) { text-transform:capitalize; }
 }
 
 .pluginFilter {justify-content: end;position: absolute;right: 160px; z-index: 2; transform: translateY(6px);}
-.albumsFilter { margin-right: 20px; }
+.albumsFilter { margin-left: auto; }
 
 .pluginBox {
   display:flex;
@@ -4097,15 +4097,14 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 /* Move Album */
 .cat-move-header {
   display: flex;
-  margin: 0px 30px;
+  margin: 0px 20px;
   align-items: center;
   font-size: 14px;
-  justify-content: space-between;
   margin-top: 20px;
 }
 
 .cat-move-header .order-root::before {
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .cat-move-header .cat-move-info {

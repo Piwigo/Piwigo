@@ -100,13 +100,21 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
 </div>
 
 <div class="cat-move-header"> 
-  <div class="cat-move-info icon-help-circled"> {'Drag and drop to reorder albums'|@translate}</div>
+  <div class="add-album-button">
+    <label class="album-add-button-label icon-plus-circled">
+      <p>{'Add an album'|@translate}</p>
+    </label>
+  </div>
+  <div class="order-root-button">
+    <label class="order-root order-root-button-label icon-sort-name-up">
+      <p>{'Automatic sort order'|@translate}</p>
+    </label>
+  </div>
   <div class="albumsFilter"> 
     <span class="icon-search search-icon"></span>
     <span class="icon-cancel search-cancel"></span>
     <input class='search-input' type="text" placeholder="{'Search'|@translate}">
   </div>
-  <a class="order-root icon-sitemap"> {'Apply an automatic order to root albums'|@translate} </a>
 </div>
 
 <div id="AddAlbum" class="AddAlbumPopIn">
@@ -407,5 +415,28 @@ input[name="position"] {
 }
 .deleteAlbumOptions input{
   margin-right: 5px;
+}
+
+.album-add-button-label, .order-root-button-label {
+  padding: 10px;
+  box-shadow: 0px 2px #00000024;
+  border-radius: 5px;
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+  cursor: pointer;
+  font-size: 13px;
+  background-color: #fafafa;
+  height: 18px;
+}
+.album-add-button-label p,
+.order-root-button-label p {
+  white-space: nowrap;
+  margin: 0 !important;
+}
+
+.add-album-button,
+.order-root-button {
+  margin: 0 10px 0 0;
 }
 </style>

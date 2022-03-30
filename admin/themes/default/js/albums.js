@@ -212,6 +212,10 @@ $(document).ready(() => {
   // AddAlbumPopIn
   $(".AddAlbumErrors").hide();
   $(".DeleteAlbumErrors").hide();
+  $(".add-album-button").on("click", function () {
+    openAddAlbumPopIn();
+    $(".AddAlbumSubmit").data("a-parent", 0);
+  })
   $(".move-cat-add").on("click", function () {
     openAddAlbumPopIn();
     $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
@@ -242,7 +246,8 @@ $(document).ready(() => {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         var parent_node = $('.tree').tree('getNodeById', newAlbumParent);
-        $('.tree').tree(
+        if (newAlbumPosition == "last") {
+          $('.tree').tree(
             'appendNode',
             {
               id: data.result.id,
@@ -250,7 +255,19 @@ $(document).ready(() => {
               name: newAlbumName
             },
             parent_node
-        );
+          );
+        } else {
+          $('.tree').tree(
+            'prependNode',
+            {
+              id: data.result.id,
+              isEmptyFolder: true,
+              name: newAlbumName
+            },
+            parent_node
+          );
+        }
+
 
         $(".move-cat-add").unbind("click").on("click", function () {
           openAddAlbumPopIn();
