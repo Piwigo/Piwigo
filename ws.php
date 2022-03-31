@@ -1210,6 +1210,18 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
   $service->addMethod(
+      'pwg.users.preferences.set',
+      'ws_users_preferences_set',
+      array(
+        'param' => array(),
+        'value' => array('flags'=>WS_PARAM_OPTIONAL),
+        'is_json' =>  array('default'=>false, 'type'=>WS_TYPE_BOOL),
+      ),
+      'Set a user preferences parameter. JSON encode the value (and set is_json to true) if you need a complex data structure.',
+      $ws_functions_root . 'pwg.users.php'
+    );
+
+  $service->addMethod(
       'pwg.users.favorites.add',
       'ws_users_favorites_add',
       array(

@@ -395,6 +395,8 @@ SELECT
   }
   unset($value);
 
+  $userdata['preferences'] = empty($userdata['preferences']) ? array() : unserialize($userdata['preferences']);
+
   if ($use_cache)
   {
     if (!isset($userdata['need_update'])
@@ -1707,5 +1709,101 @@ UPDATE '.USER_INFOS_TABLE.'
   }
 
   return $last_visit;
+}
+
+/**
+ * Save user preferences in database
+ * @since 13
+ */
+function userprefs_save()
+{
+  global $user;
+
+  $dbValue = pwg_db_real_escape_string(serialize($user['preferences']));
+
+  $query = '
+UPDATE '.USER_INFOS_TABLE.'
+  SET preferences = \''.$dbValue.'\'
+  WHERE user_id = '.$user['id'].'
+;';
+  pwg_query($query);
+}
+
+/**
+ * Add or update a user preferences parameter
+ * @since 13
+ *
+ * @param string $param
+ * @param string $value
+ * @param boolean $updateGlobal update global *$conf* variable
+ */
+function userprefs_update_param($param, $value)
+{
+  global $user;
+
+  // If the field is true or false, the variable is transformed into a boolean value.
+  if ('true' == $value)
+  {
+    $value = true;
+  }
+  elseif ('false' == $value)
+  {
+    $value = false;
+  }
+
+  $user['preferences'][$param] = $value;
+
+  userprefs_save();
+}
+
+/**
+ * Delete one or more user preferences parameters
+ * @since 13
+ *
+ * @param string|string[] $params
+ */
+function userprefs_delete_param($params)
+{
+  global $user;
+
+  if (!is_array($params))
+  {
+    $params = array($params);
+  }
+  if (empty($params))
+  {
+    return;
+  }
+
+  foreach ($params as $param)
+  {
+    if (isset($user['preferences'][$param]))
+    {
+      unset($user['preferences'][$param]);
+    }
+  }
+
+  userprefs_save();
+}
+
+/**
+ * Return a default value for a user preferences parameter.
+ * @since 13
+ *
+ * @param string $param the configuration value to be extracted (if it exists)
+ * @param mixed $default_value the default value if it does not exist yet.
+ *
+ * @return mixed The configuration value if the variable exists, otherwise the default.
+ */
+function userprefs_get_param($param, $default_value=null)
+{
+  global $user;
+
+  if (isset($user['preferences'][$param]))
+  {
+    return $user['preferences'][$param];
+  }
+
+  return $default_value;
 }
 ?>
