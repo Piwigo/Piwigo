@@ -44,7 +44,7 @@ if (isset($_GET['plugins_new_order']))
 if (isset($_GET['change_theme']))
 {
   $admin_themes = array('roma', 'clear');
-  $admin_theme_array = array($conf['admin_theme']);
+  $admin_theme_array = array(userprefs_get_param('admin_theme', 'clear'));
   $result = array_diff(
       $admin_themes,
       $admin_theme_array
@@ -54,7 +54,7 @@ if (isset($_GET['change_theme']))
       $result
     );
 
-  conf_update_param('admin_theme', $new_admin_theme);
+  userprefs_update_param('admin_theme', $new_admin_theme);
 
   $url_params = array();
   foreach (array('page', 'tab', 'section') as $url_param)

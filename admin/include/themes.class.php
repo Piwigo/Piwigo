@@ -420,7 +420,7 @@ SELECT
             global $conf;
             $theme['screenshot'] =
               PHPWG_ROOT_PATH.'admin/themes/'
-              .$conf['admin_theme']
+              .userprefs_get_param('admin_theme', 'clear')
               .'/images/missing_screenshot.png'
               ;
           }
