@@ -37,6 +37,8 @@ $(document).ready(() => {
 
     cont.append(actions);
 
+    cont.find('.move-cat-action .move-cat-see').after(action_order);
+
     if (node.children.length != 0) {
       open_nodes = $('.tree').tree('getState').open_nodes;
       if (open_nodes.includes(node.id)) {
@@ -47,8 +49,8 @@ $(document).ready(() => {
       cont.append($(toggler_cont
         .replace(/%content%/g, toggler)
         .replace(/%id%/g, node.id)));
-
-      cont.find('.move-cat-action .move-cat-see').after(action_order);
+    } else {
+      cont.find('.move-cat-order').addClass("notClickable");
     }
 
     cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));

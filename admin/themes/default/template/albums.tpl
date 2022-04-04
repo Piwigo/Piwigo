@@ -440,10 +440,26 @@ input[name="position"] {
   margin: 0 10px 0 0;
 }
 
+.badge-container {
+  position: absolute;
+  right: 275px;
+}
+
 .badge-container i {
   padding: 2px 6px 2px 4px!important;
   border-radius: 10px !important;
   font-size: 10px !important;
   margin: 0 2px !important;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.notClickable {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.notClickable:hover {
+  cursor: not-allowed;
 }
 </style>

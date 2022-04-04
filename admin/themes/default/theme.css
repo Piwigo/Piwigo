@@ -4189,7 +4189,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .move-cat-action-cont {
-  display: none;
+  display: flex;
   position: absolute;
   right: 50%;
   top : 50%;
@@ -4200,10 +4200,6 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   align-items: center;
   flex-direction: row-reverse;
   overflow: hidden;
-}
-
-.move-cat-container:hover .move-cat-action-cont {
-  display: flex;
 }
 
 .move-cat-action {
