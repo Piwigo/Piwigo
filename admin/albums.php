@@ -133,7 +133,7 @@ $template->assign("POS_PREF", $conf['newcat_default_position']); //TODO use user
 
 //Get all albums
 $query = '
-SELECT id,name,`rank`,status, uppercats
+SELECT id,name,`rank`,status, uppercats, lastmodified
   FROM '.CATEGORIES_TABLE.'
 ;';
 
@@ -145,6 +145,7 @@ $associatedTree = array();
 foreach ($allAlbum as $album) 
 {
   $album['name'] = trigger_change('render_category_name', $album['name'], 'admin_cat_list');
+  $album['lastmodified'] = time_since($album['lastmodified'], 'year');
 
   $parents = explode(',',$album['uppercats']);
   $the_place = &$associatedTree[strval($parents[0])];
@@ -179,7 +180,7 @@ function assocToOrderedTree($assocT)
     $orderedCat['status'] = $cat['cat']['status'];
     $orderedCat['id'] = $cat['cat']['id'];
     $orderedCat['nb_images'] = 'test2';
-    $orderedCat['last_updates'] = 'test3';
+    $orderedCat['last_updates'] = $cat['cat']['lastmodified'];
     if (isset($cat['children'])) 
     {
       //Does not update when moving a node
