@@ -169,6 +169,8 @@ function assocToOrderedTree($assocT)
 {
   $orderedTree = array();
 
+
+  // echo '<pre>'; print_r($assocT); echo '</pre>';
   foreach($assocT as $cat) 
   {
     $orderedCat = array();
@@ -176,8 +178,12 @@ function assocToOrderedTree($assocT)
     $orderedCat['name'] = $cat['cat']['name'];
     $orderedCat['status'] = $cat['cat']['status'];
     $orderedCat['id'] = $cat['cat']['id'];
+    $orderedCat['nb_images'] = 'test2';
+    $orderedCat['last_updates'] = 'test3';
     if (isset($cat['children'])) 
     {
+      //Does not update when moving a node
+      $orderedCat['nb_subcats'] = count($cat['children']);
       $orderedCat['children'] = assocToOrderedTree($cat['children']);
     }
     array_push($orderedTree, $orderedCat);

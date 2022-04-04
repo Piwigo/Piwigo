@@ -71,11 +71,17 @@ $(document).ready(() => {
 
     cont.find(".move-cat-title").after(
       "<div class='badge-container'>" 
-        +"<i class='icon-blue icon-sitemap'> aaaa </i>"
-        +"<i class='icon-purple icon-picture'> aaaa </i>"
-        +"<i class='icon-red icon-back-in-time'> aaaa </i>"
+        +"<i class='icon-blue icon-sitemap nb-subcats'></i>"
+        +"<i class='icon-purple icon-picture nb-images'>"+ node.nb_images +"</i>"
+        +"<i class='icon-red icon-back-in-time last-update'>"+ node.last_updates +"</i>"
       +"</div>"
     )
+
+    if (node.nb_subcats) {
+      cont.find(".nb-subcats").text(node.nb_subcats);
+    } else {
+      cont.find(".nb-subcats").hide();
+    }
   }
 
   var url_split = window.location.href.split("#");
@@ -385,8 +391,7 @@ function openDeleteAlbumPopIn(cat_to_delete) {
     $(".DeleteIconTitle span").html(delete_album_with_name.replace("%s", node.name));
   } else {
     nb_sub_cats = 0;
-    test = getSubAlbumsFromNode(node, nb_sub_cats);
-    $(".DeleteIconTitle span").html(delete_album_with_subs.replace("%s", node.name).replace("%d", getSubAlbumsFromNode(node, nb_sub_cats)));
+    $(".DeleteIconTitle span").html(delete_album_with_subs.replace("%s", node.name).replace("%d", getAllSubAlbumsFromNode(node, nb_sub_cats)));
   }
 
   // Actually delete
@@ -410,6 +415,7 @@ function openDeleteAlbumPopIn(cat_to_delete) {
           triggerDeleteAlbum($(this).data("id"));
         });
 
+        // setSubcatsBadge($('.tree').tree('getNodeById', node.parent));
         closeDeleteAlbumPopIn();
       },
       error: function(message) {
@@ -423,18 +429,28 @@ function closeDeleteAlbumPopIn() {
   $("#DeleteAlbum").fadeOut();
 }
 
-function getSubAlbumsFromNode(node, nb_sub_cats) {
+function getAllSubAlbumsFromNode(node, nb_sub_cats) {
   nb_sub_cats = 0;
   if (node.children != 0) {
     node.children.forEach(child => {
       nb_sub_cats++;
-      tmp = getSubAlbumsFromNode(child, nb_sub_cats);
+      tmp = getAllSubAlbumsFromNode(child, nb_sub_cats);
       nb_sub_cats += tmp;
     });
   } else {
     return 0;
   }
   return nb_sub_cats;
+}
+
+function setSubcatsBadge(node) {
+  console.log($("#cat-"+node.id).find(".nb-subcats"));
+  console.log("the node "+node.id+" has " +node.children.length+"children" );
+  if (node.children.length != 0) {
+    $("#cat-"+node.id).find(".nb-subcats").text(node.children.length).show();
+  } else {
+    $("#cat-"+node.id).find(".nb-subcats").hide()
+  }
 }
 
 function goToNode(node, firstNode) {
@@ -531,6 +547,8 @@ function applyMove(event) {
     event.move_info.do_move();
     clearTimeout(waitingTimeout);
     $('.waiting-message').removeClass('visible');
+    setSubcatsBadge(previous_parent);
+    setSubcatsBadge($('.tree').tree('getNodeById', moveParent));
   })
     .catch((message) => console.log('An error has occured : ' + message ));
 }
@@ -546,6 +564,7 @@ function moveNode(node, rank, parent) {
 }
 
 function changeParent(node, parent, rank) {
+  oldParent = node.parent
   return new Promise((res, rej) => {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.categories.move",
@@ -554,6 +573,9 @@ function changeParent(node, parent, rank) {
         category_id : node,
         parent : parent,
         pwg_token : pwg_token
+      },
+      before: function () {
+        oldParent = node.parent
       },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
