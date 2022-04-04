@@ -282,6 +282,7 @@ $(document).ready(() => {
           );
         }
 
+        setSubcatsBadge(parent_node);
 
         $(".move-cat-add").unbind("click").on("click", function () {
           openAddAlbumPopIn();
@@ -348,8 +349,6 @@ function closeAddAlbumPopIn() {
 
 
 function triggerDeleteAlbum(cat_id) {
-  console.log(cat_id);
-
   $.ajax({
     url: "ws.php?format=json&method=pwg.categories.calculateOrphans",
     type: "GET",
@@ -358,7 +357,6 @@ function triggerDeleteAlbum(cat_id) {
     },
     success: function (raw_data) {
       let data = JSON.parse(raw_data).result[0]
-      console.log(data);
       if (data.nb_images_recursive == 0) {
         $(".deleteAlbumOptions").hide();
       } else {
@@ -405,6 +403,7 @@ function openDeleteAlbumPopIn(cat_to_delete) {
         pwg_token: pwg_token,
       },
       success: function (raw_data) {
+        parentOfDeletedNode = node.parent
         $('.tree').tree('removeNode', node);
 
         $(".move-cat-add").on("click", function () {
@@ -415,7 +414,7 @@ function openDeleteAlbumPopIn(cat_to_delete) {
           triggerDeleteAlbum($(this).data("id"));
         });
 
-        // setSubcatsBadge($('.tree').tree('getNodeById', node.parent));
+        setSubcatsBadge(parentOfDeletedNode);
         closeDeleteAlbumPopIn();
       },
       error: function(message) {
@@ -444,12 +443,10 @@ function getAllSubAlbumsFromNode(node, nb_sub_cats) {
 }
 
 function setSubcatsBadge(node) {
-  console.log($("#cat-"+node.id).find(".nb-subcats"));
-  console.log("the node "+node.id+" has " +node.children.length+"children" );
   if (node.children.length != 0) {
-    $("#cat-"+node.id).find(".nb-subcats").text(node.children.length).show();
+    $("#cat-"+node.id).find(".nb-subcats").text(node.children.length).show(100);
   } else {
-    $("#cat-"+node.id).find(".nb-subcats").hide()
+    $("#cat-"+node.id).find(".nb-subcats").hide(100)
   }
 }
 
