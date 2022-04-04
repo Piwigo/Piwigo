@@ -439,4 +439,11 @@ input[name="position"] {
 .order-root-button {
   margin: 0 10px 0 0;
 }
+
+.badge-container i {
+  padding: 2px 6px 2px 4px!important;
+  border-radius: 10px !important;
+  font-size: 10px !important;
+  margin: 0 2px !important;
+}
 </style>

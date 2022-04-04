@@ -68,6 +68,14 @@ $(document).ready(() => {
     var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
     var colorId = Number(node.id)%5;
     cont.find("span.icon-folder-open, span.icon-sitemap").addClass(colors[colorId]);  
+
+    cont.find(".move-cat-title").after(
+      "<div class='badge-container'>" 
+        +"<i class='icon-blue icon-sitemap'> aaaa </i>"
+        +"<i class='icon-purple icon-picture'> aaaa </i>"
+        +"<i class='icon-red icon-back-in-time'> aaaa </i>"
+      +"</div>"
+    )
   }
 
   var url_split = window.location.href.split("#");
