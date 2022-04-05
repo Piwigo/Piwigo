@@ -14,7 +14,7 @@ $(document).ready(() => {
 
   function createAlbumNode(node, li) {
     icon = "<span class='%icon%'></span>";
-    title = "<span class='move-cat-title-container'><p class='move-cat-title' title='%name%'>%name%</p> <span class='icon-pencil'></span> </span>";
+    title = "<span data-id='"+node.id+"' class='move-cat-title-container'><p class='move-cat-title' title='%name%'>%name%</p> <span class='icon-pencil'></span> </span>";
     toggler_cont = "<div class='move-cat-toogler' data-id=%id%>%content%</div>";
     toggler_close = "<span class='icon-left-open'></span>";
     toggler_open = "<span class='icon-down-open'></span>";
@@ -231,6 +231,39 @@ $(document).ready(() => {
     }
   })
 
+  // RenameAlbumPopIn
+  $(".RenameAlbumErrors").hide();
+  $(".move-cat-title-container").on("click", function () {
+    openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
+    $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+  });
+  $(".CloseRenameAlbum").on("click", function () {
+    closeRenameAlbumPopIn();
+  });
+  $(".RenameAlbumCancel").on("click", function () {
+    closeRenameAlbumPopIn();
+  })
+  
+  $(".RenameAlbumSubmit").on("click", function () {
+    catToEdit = $(this).data("cat_id");
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.categories.setInfo",
+      type: "POST",
+      data: {
+        category_id : catToEdit,
+        name : $(".RenameAlbumLabelUsername input").val(),
+      },
+      success: function (raw_data) {
+        data = jQuery.parseJSON(raw_data);
+        $("#cat-"+catToEdit).find(".move-cat-title-container p.move-cat-title").html($(".RenameAlbumLabelUsername input").val());
+        closeRenameAlbumPopIn();
+      },
+      error: function(message) {
+        console.log(message);
+      }
+    });
+  })
+
   // AddAlbumPopIn
   $(".AddAlbumErrors").hide();
   $(".DeleteAlbumErrors").hide();
@@ -350,11 +383,19 @@ function openAddAlbumPopIn() {
   $(".AddAlbumLabelUsername .user-property-input").val('');
   $(".AddAlbumLabelUsername .user-property-input").focus();
 }
-
 function closeAddAlbumPopIn() {
   $("#AddAlbum").fadeOut();
 }
 
+function openRenameAlbumPopIn(replacedAlbumName) {
+  $("#RenameAlbum").fadeIn();
+  $(".RenameAlbumTitle span").html(rename_item.replace("%s", replacedAlbumName))
+  $(".RenameAlbumLabelUsername .user-property-input").val('');
+  $(".RenameAlbumLabelUsername .user-property-input").focus();
+}
+function closeRenameAlbumPopIn() {
+  $("#RenameAlbum").fadeOut();
+}
 
 function triggerDeleteAlbum(cat_id) {
   $.ajax({

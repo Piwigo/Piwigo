@@ -563,7 +563,7 @@ input:focus + .slider {
 
 /*UserList Pop in*/
 
-.CloseUserList, .CloseAddAlbum, .CloseDeleteAlbum{
+.CloseUserList, .CloseAddAlbum, .CloseDeleteAlbum, .CloseRenameAlbum {
   color:white;
 }
 

@@ -29,6 +29,7 @@ const delete_album_with_subs = '{'Delete album "%s" and its %d sub-albums.'|@tra
 const has_images_associated_outside = '{"delete album and all %d photos, even the %d associated to other albums"|@translate|escape:javascript}';
 const has_images_becomming_orphans = '{'delete album and the %d orphan photos'|@translate|escape:javascript}';
 const has_images_recursives = '{'delete only album, not photos'|@translate|escape:javascript}';
+const rename_item = '{'Rename "%s"'|@translate|escape:javascript}';
 {/footer_script}
 
 {combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
@@ -119,7 +120,7 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
 
 <div id="AddAlbum" class="AddAlbumPopIn">
   <div class="AddAlbumPopInContainer">
-    <a class="icon-cancel CloseAddAlbum CloseAddAlbum"></a>
+    <a class="icon-cancel CloseAddAlbum"></a>
     
     <div class="AddIconContainer">
       <span class="AddIcon icon-blue icon-plus-circled"></span>
@@ -161,6 +162,38 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
       </div>
 
       <div class="AddAlbumCancel">
+        <span>{'Cancel'|@translate}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="RenameAlbum" class="RenameAlbumPopIn">
+  <div class="RenameAlbumPopInContainer">
+    <a class="icon-cancel CloseRenameAlbum"></a>
+    
+    <div class="AddIconContainer">
+      <span class="AddIcon icon-blue icon-pencil"></span>
+    </div>
+    <div class="RenameAlbumTitle">
+      <span></span>
+    </div>
+
+    <div class="RenameAlbumInputContainer">
+      <label class="user-property-label RenameAlbumLabelUsername">{'Rename album'|@translate}
+        <input class="user-property-input" />
+      </label>
+    </div>
+
+    <div class="RenameAlbumErrors icon-cancel">
+    </div>
+
+    <div class="RenameAlbumFormValidation">
+      <div class="RenameAlbumSubmit">
+        <span>{'Yes, rename'|@translate}</span>
+      </div>
+
+      <div class="RenameAlbumCancel">
         <span>{'Cancel'|@translate}</span>
       </div>
     </div>
@@ -238,11 +271,11 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
   }
 }
 
-#AddAlbum, #DeleteAlbum {
+#AddAlbum, #DeleteAlbum, #RenameAlbum {
   display: none;
 }
 
-.AddAlbumPopIn, .DeleteAlbumPopIn{
+.AddAlbumPopIn, .DeleteAlbumPopIn, .RenameAlbumPopIn{
   position: fixed;
   z-index: 100;
   left: 0;
@@ -253,7 +286,7 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
   background-color: rgba(0,0,0,0.7);
 }
 
-.AddAlbumPopInContainer, .DeleteAlbumPopInContainer{
+.AddAlbumPopInContainer, .DeleteAlbumPopInContainer, .RenameAlbumPopInContainer{
   display:flex;
   position:absolute;
   left:50%;
@@ -270,6 +303,11 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
   width: 40%;
   border-radius: 4px;
   border-top: solid 7px #e74c3c;
+}
+.RenameAlbumPopInContainer {
+  width: auto;
+  min-width: 270px;
+  max-width: 700px;
 }
 
 .user-property-input {
@@ -292,7 +330,7 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
   margin-bottom:5px;
 }
 
-.AddIconContainer, .DeleteIconContainer {
+.AddIconContainer, .DeleteIconContainer, .AddIconContainer {
   margin-top: 10px;
 }
 
@@ -302,7 +340,7 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
   font-size: 2em;
 }
 
-.AddIconTitle {
+.AddIconTitle, .RenameAlbumTitle {
   font-size:1.4em;
   font-weight:bold;
   margin-bottom:20px;
@@ -318,7 +356,8 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
 }
 
 .AddAlbumSubmit,
-.DeleteAlbumSubmit {
+.DeleteAlbumSubmit,
+.RenameAlbumSubmit {
   cursor:pointer;
   font-weight:bold;
   color: #3F3E40;
@@ -336,14 +375,14 @@ const has_images_recursives = '{'delete only album, not photos'|@translate|escap
   transition: .1s;
 }
 
-.AddAlbumCancel {
+.AddAlbumCancel, .RebameAlbumCancel {
   color: #3F3E40;
   font-weight: bold;
   cursor: pointer;
   font-size:1em;
 }
 
-.CloseAddAlbum{
+.CloseAddAlbum, .CloseRenameAlbum {
   position:absolute;
   right:-40px;
   top:-40px;
@@ -374,13 +413,15 @@ input[name="position"] {
   font-weight: 600;
 }
 .AddAlbumFormValidation,
-.DeleteAlbumFormValidation {
+.DeleteAlbumFormValidation,
+.RenameAlbumFormValidation {
   display: flex;
   flex-direction: row;
   align-items: baseline;
 }
 .AddAlbumCancel,
-.DeleteAlbumCancel {
+.DeleteAlbumCancel,
+.RenameAlbumCancel {
   cursor: pointer;
   font-weight: bold;
   color: #3F3E40;
@@ -402,7 +443,8 @@ input[name="position"] {
   background: #bdc3c7;
 }
 .AddAlbumSubmit,
-.DeleteAlbumSubmit {
+.DeleteAlbumSubmit,
+.RenameAlbumSubmit {
   margin-right: 10px;
   padding: 10px 20px;
 }
