@@ -28,7 +28,7 @@ $(document).ready(() => {
           +"<a data-id='"+node.id+"' class='move-cat-delete icon-trash'></a>"
         +"</div>"
       +'</div>';
-    action_order = "<a class='move-cat-order icon-sort-name-up'></a>";
+    action_order = "<a data-id='"+node.id+"' class='move-cat-order icon-sort-name-up'></a>";
 
     cont = li.find('.jqtree-element');
     cont.addClass('move-cat-container');
