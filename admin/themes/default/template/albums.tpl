@@ -448,7 +448,7 @@ input[name="position"] {
 .badge-container i {
   padding: 2px 6px 2px 4px!important;
   border-radius: 10px !important;
-  font-size: 10px !important;
+  font-size: 0.85em !important;
   margin: 0 2px !important;
   font-weight: 700;
   font-style: normal;

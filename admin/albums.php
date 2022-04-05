@@ -170,8 +170,16 @@ function assocToOrderedTree($assocT)
 {
   $orderedTree = array();
 
+  $query = '
+SELECT
+    category_id,
+    COUNT(*) AS nb_photos
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  GROUP BY category_id
+;';
 
-  // echo '<pre>'; print_r($assocT); echo '</pre>';
+  $nb_photos_in = query2array($query, 'category_id', 'nb_photos');
+
   foreach($assocT as $cat) 
   {
     $orderedCat = array();
@@ -179,7 +187,7 @@ function assocToOrderedTree($assocT)
     $orderedCat['name'] = $cat['cat']['name'];
     $orderedCat['status'] = $cat['cat']['status'];
     $orderedCat['id'] = $cat['cat']['id'];
-    $orderedCat['nb_images'] = 'test2';
+    $orderedCat['nb_images'] = isset($nb_photos_in[$cat['cat']['id']]) ? $nb_photos_in[$cat['cat']['id']] : 0;
     $orderedCat['last_updates'] = $cat['cat']['lastmodified'];
     if (isset($cat['children'])) 
     {

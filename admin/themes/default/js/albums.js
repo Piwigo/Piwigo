@@ -74,7 +74,7 @@ $(document).ready(() => {
     cont.find(".move-cat-title").after(
       "<div class='badge-container'>" 
         +"<i class='icon-blue icon-sitemap nb-subcats'></i>"
-        +"<i class='icon-purple icon-picture nb-images'>"+ node.nb_images +"</i>"
+        +"<i class='icon-purple icon-picture nb-images'></i>"
         +"<i class='icon-red icon-back-in-time last-update'>"+ node.last_updates +"</i>"
       +"</div>"
     )
@@ -83,6 +83,12 @@ $(document).ready(() => {
       cont.find(".nb-subcats").text(node.nb_subcats);
     } else {
       cont.find(".nb-subcats").hide();
+    }
+
+    if (node.nb_images != 0) {
+      cont.find(".nb-images").text(node.nb_images);
+    } else {
+      cont.find(".nb-images").hide();
     }
   }
 
