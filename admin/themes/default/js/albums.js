@@ -24,7 +24,7 @@ $(document).ready(() => {
           +"<a class='move-cat-add icon-plus-circled' href='#' data-aid='"+node.id+"'></a>"
           +"<a class='move-cat-edit icon-pencil' href='admin.php?page=album-"+node.id+"'></a>"
           +"<a class='move-cat-upload icon-upload' href='admin.php?page=photos_add&album="+node.id+"'></a>"
-          +"<a class='move-cat-see icon-eye' href='admin.php?page=album-"+node.id+"'></a>"
+          +"<a class='move-cat-see icon-eye' href='index.php?/category/"+node.id+"'></a>"
           +"<a data-id='"+node.id+"' class='move-cat-delete icon-trash'></a>"
         +"</div>"
       +'</div>';
