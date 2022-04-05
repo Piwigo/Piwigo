@@ -14,7 +14,7 @@ $(document).ready(() => {
 
   function createAlbumNode(node, li) {
     icon = "<span class='%icon%'></span>";
-    title = "<p class='move-cat-title' title='%name%'>%name%</p>";
+    title = "<span class='move-cat-title-container'><p class='move-cat-title' title='%name%'>%name%</p> <span class='icon-pencil'></span> </span>";
     toggler_cont = "<div class='move-cat-toogler' data-id=%id%>%content%</div>";
     toggler_close = "<span class='icon-left-open'></span>";
     toggler_open = "<span class='icon-down-open'></span>";
@@ -28,7 +28,7 @@ $(document).ready(() => {
           +"<a data-id='"+node.id+"' class='move-cat-delete icon-trash'></a>"
         +"</div>"
       +'</div>';
-    action_order = "<a class='move-cat-order icon-sort-name-up' href='admin.php?page=album-"+node.id+"'></a>";
+    action_order = "<a class='move-cat-order icon-sort-name-up'></a>";
 
     cont = li.find('.jqtree-element');
     cont.addClass('move-cat-container');
@@ -71,7 +71,7 @@ $(document).ready(() => {
     var colorId = Number(node.id)%5;
     cont.find("span.icon-folder-open, span.icon-sitemap").addClass(colors[colorId]);  
 
-    cont.find(".move-cat-title").after(
+    cont.find(".move-cat-title-container").after(
       "<div class='badge-container'>" 
         +"<i class='icon-blue icon-sitemap nb-subcats'></i>"
         +"<i class='icon-purple icon-picture nb-images'></i>"

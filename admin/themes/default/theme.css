@@ -4170,6 +4170,24 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   font-weight: 600;
 }
 
+.move-cat-title-container {
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.move-cat-title-container:hover {
+  cursor: pointer !important;
+}
+
+.move-cat-title-container .icon-pencil {
+  display: none;
+  font-size: 16px;
+}
+.move-cat-title-container:hover .icon-pencil {
+  display: flex !important;
+}
+
 .move-cat-container .move-cat-toogler {
   display: flex;
   color: #FFBD4D;
