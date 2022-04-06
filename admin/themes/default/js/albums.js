@@ -85,10 +85,16 @@ $(document).ready(() => {
       cont.find(".nb-subcats").hide();
     }
 
-    if (node.nb_images != 0) {
+    if (node.nb_images != 0 && node.nb_images) {
       cont.find(".nb-images").text(node.nb_images);
     } else {
       cont.find(".nb-images").hide();
+    }
+
+    if (node.last_updates) {
+      cont.find(".last-update").text(node.last_updates);
+    } else {
+      cont.find(".last-update").hide();
     }
   }
 
@@ -323,7 +329,9 @@ $(document).ready(() => {
           );
         }
 
-        setSubcatsBadge(parent_node);
+        if (parent_node) {
+          setSubcatsBadge(parent_node);
+        }
 
         $(".move-cat-add").unbind("click").on("click", function () {
           openAddAlbumPopIn();
