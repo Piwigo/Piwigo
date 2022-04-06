@@ -111,7 +111,27 @@ if ( empty($page['is_external']) )
 {
   //----------------------------------------------------- template initialization
   $page['body_id'] = 'theCategoryPage';
-  
+
+  if ('categories' == $page['section'] && isset($page['category']))
+  {
+    $page['body_class'] = 'category_'.$page['category']['id'];
+    if (isset($page['combined_categories']))
+    {
+      foreach ($page['combined_categories'] as $combined_categories)
+      {
+        $page['body_class'] .= '_'.$combined_categories['id'];
+      }
+    }
+  }
+  elseif (isset($page['tags']))
+  {
+    $page['body_class'] = 'tag';
+    foreach ($page['tags'] as $tag)
+    {
+      $page['body_class'] .= '_'.$tag['id'];
+    }
+  }
+
   if (isset($page['flat']) or isset($page['chronology_field']))
   {
     $template->assign(
