@@ -189,7 +189,7 @@ SELECT
     $orderedCat['id'] = $cat['cat']['id'];
     $orderedCat['nb_images'] = isset($nb_photos_in[$cat['cat']['id']]) ? $nb_photos_in[$cat['cat']['id']] : 0;
     $orderedCat['last_updates'] = $cat['cat']['lastmodified'];
-    $orderedCat['has_access'] = cat_admin_access($cat['cat']['id']);
+    $orderedCat['has_not_access'] = !cat_admin_access($cat['cat']['id']);
     if (isset($cat['children'])) 
     {
       //Does not update when moving a node

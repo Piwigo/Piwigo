@@ -97,7 +97,7 @@ $(document).ready(() => {
       cont.find(".last-update").hide();
     }
 
-    if (!node.has_access) {
+    if (node.has_not_access) {
       cont.find(".move-cat-see").addClass("notClickable");
     }
   }
@@ -335,6 +335,21 @@ $(document).ready(() => {
 
         if (parent_node) {
           setSubcatsBadge(parent_node);
+
+          $("#cat-"+parent_node.id).on( 'click', '.move-cat-toogler', function(e) {
+            var node_id = parent_node.id;
+            var node = $('.tree').tree('getNodeById', node_id);
+            if (node) {
+              open_nodes = $('.tree').tree('getState').open_nodes;
+              if (!open_nodes.includes(node_id)) {
+                $(this).html(toggler_open);
+                $('.tree').tree('openNode', node);
+              } else {
+                $(this).html(toggler_close);
+                $('.tree').tree('closeNode', node);
+              }
+            }
+          });
         }
 
         $(".move-cat-add").unbind("click").on("click", function () {
@@ -343,21 +358,6 @@ $(document).ready(() => {
         });
         $(".move-cat-delete").on("click", function () {
           triggerDeleteAlbum($(this).data("id"));
-        });
-
-        $("#cat-"+parent_node.id).on( 'click', '.move-cat-toogler', function(e) {
-          var node_id = parent_node.id;
-          var node = $('.tree').tree('getNodeById', node_id);
-          if (node) {
-            open_nodes = $('.tree').tree('getState').open_nodes;
-            if (!open_nodes.includes(node_id)) {
-              $(this).html(toggler_open);
-              $('.tree').tree('openNode', node);
-            } else {
-              $(this).html(toggler_close);
-              $('.tree').tree('closeNode', node);
-            }
-          }
         });
 
         goToNode($(".tree").tree('getNodeById', data.result.id), $(".tree").tree('getNodeById', data.result.id));
