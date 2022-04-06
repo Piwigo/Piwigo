@@ -96,6 +96,10 @@ $(document).ready(() => {
     } else {
       cont.find(".last-update").hide();
     }
+
+    if (!node.has_access) {
+      cont.find(".move-cat-see").addClass("notClickable");
+    }
   }
 
   var url_split = window.location.href.split("#");
