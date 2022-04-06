@@ -345,6 +345,21 @@ $(document).ready(() => {
           triggerDeleteAlbum($(this).data("id"));
         });
 
+        $("#cat-"+parent_node.id).on( 'click', '.move-cat-toogler', function(e) {
+          var node_id = parent_node.id;
+          var node = $('.tree').tree('getNodeById', node_id);
+          if (node) {
+            open_nodes = $('.tree').tree('getState').open_nodes;
+            if (!open_nodes.includes(node_id)) {
+              $(this).html(toggler_open);
+              $('.tree').tree('openNode', node);
+            } else {
+              $(this).html(toggler_close);
+              $('.tree').tree('closeNode', node);
+            }
+          }
+        });
+
         goToNode($(".tree").tree('getNodeById', data.result.id), $(".tree").tree('getNodeById', data.result.id));
         $('html,body').animate({
           scrollTop: $("#cat-" + data.result.id).offset().top - screen.height / 2},
@@ -607,6 +622,14 @@ function applyMove(event) {
     $('.waiting-message').removeClass('visible');
     setSubcatsBadge(previous_parent);
     setSubcatsBadge($('.tree').tree('getNodeById', moveParent));
+
+    $(".move-cat-add").unbind("click").on("click", function () {
+      openAddAlbumPopIn();
+      $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+    });
+    $(".move-cat-delete").on("click", function () {
+      triggerDeleteAlbum($(this).data("id"));
+    });
   })
     .catch((message) => console.log('An error has occured : ' + message ));
 }
