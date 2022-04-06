@@ -435,6 +435,7 @@ function get_tags_content_title()
           .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
         .'" alt="x" style="vertical-align:bottom;" >'
         .'<span class="pwg-icon pwg-icon-close" ></span>'
+        .'<i class="fas fa-plus" aria-hidden="true"></i>'
         .'</a>';
     }
   }
