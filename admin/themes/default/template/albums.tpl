@@ -504,4 +504,16 @@ input[name="position"] {
 .notClickable:hover {
   cursor: not-allowed;
 }
+
+.move-cat-container, .move-cat-container .badge-container i {
+  transition: 0.2s;
+}
+.move-cat-container:hover {
+  background-color: #ffd7ad;
+}
+.move-cat-container:hover .badge-container i,
+.move-cat-container:hover .node-icon{
+  color: #ffd7ad;
+  background-color: #f98100;
+}
 </style>

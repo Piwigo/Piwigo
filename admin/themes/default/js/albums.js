@@ -69,7 +69,7 @@ $(document).ready(() => {
 
     var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
     var colorId = Number(node.id)%5;
-    cont.find("span.icon-folder-open, span.icon-sitemap").addClass(colors[colorId]);  
+    cont.find("span.icon-folder-open, span.icon-sitemap").addClass(colors[colorId]).addClass("node-icon");  
 
     cont.find(".move-cat-title-container").after(
       "<div class='badge-container'>" 
