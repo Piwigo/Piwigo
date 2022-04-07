@@ -48,10 +48,11 @@ $template->assign(
 
     'SHOW_MOBILE_APP_BANNER' => $show_mobile_app_banner,
 
-    'BODY_CLASS' =>
-      isset($page['body_class']) ?
-        $page['body_class'] : '',
-    ));
+    'BODY_CLASSES' => $page['body_classes'],
+
+    'BODY_DATA' => json_encode($page['body_classes']),
+  )
+);
 
 
 // Header notes

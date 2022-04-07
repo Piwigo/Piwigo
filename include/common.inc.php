@@ -51,6 +51,7 @@ $page = array(
   'errors' => array(),
   'warnings' => array(),
   'messages' => array(),
+  'body_classes' => array(),
   );
 $user = array();
 $lang = array();

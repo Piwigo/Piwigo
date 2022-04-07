@@ -647,6 +647,42 @@ if ( 'categories'==$page['section'] and isset($page['category']) and !isset($pag
   }
   unset( $need_redirect, $page['hit_by'] );
 }
+echo('<pre>');print_r($page);echo('</pre>');
+array_push($page['body_classes'], 'section-'.$page['section']);
+
+if ('categories' == $page['section'] && isset($page['category']))
+{
+  $body_class = 'category-'.$page['category']['id'];
+  if (isset($page['combined_categories']))
+  {
+    foreach ($page['combined_categories'] as $combined_categories)
+    {
+      $body_class .= '-'.$combined_categories['id'];
+    }
+  }
+  array_push($page['body_classes'], $body_class);
+}
+elseif (isset($page['tags']))
+{
+  $body_class = 'tag';
+  foreach ($page['tags'] as $tag)
+  {
+    $body_class .= '-'.$tag['id'];
+  }
+  array_push($page['body_classes'], $body_class);
+  
+}
+elseif (isset($page['search']))
+{
+  array_push($page['body_classes'], 'search-'.$page['search']);
+}
+
+if (isset($page['image_id']))
+{
+  array_push($page['body_classes'], 'image-'.$page['image_id']);
+}
+
+
 
 trigger_notify('loc_end_section_init');
 ?>

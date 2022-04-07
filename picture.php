@@ -627,12 +627,6 @@ if ( $metadata_showable and pwg_get_session_var('show_metadata') )
 
 $page['body_id'] = 'thePicturePage';
 
-if (isset($page['image_id']))
-{
-  $page['body_class'] = 'image_'.$page['image_id'];
-}
-
-
 // allow plugins to change what we computed before passing data to template
 $picture = trigger_change('picture_pictures_data', $picture);
 
