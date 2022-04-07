@@ -647,7 +647,7 @@ if ( 'categories'==$page['section'] and isset($page['category']) and !isset($pag
   }
   unset( $need_redirect, $page['hit_by'] );
 }
-echo('<pre>');print_r($page);echo('</pre>');
+
 array_push($page['body_classes'], 'section-'.$page['section']);
 
 if ('categories' == $page['section'] && isset($page['category']))
