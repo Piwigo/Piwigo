@@ -52,6 +52,7 @@ $page = array(
   'warnings' => array(),
   'messages' => array(),
   'body_classes' => array(),
+  'body_data' => array(),
   );
 $user = array();
 $lang = array();

@@ -649,40 +649,45 @@ if ( 'categories'==$page['section'] and isset($page['category']) and !isset($pag
 }
 
 array_push($page['body_classes'], 'section-'.$page['section']);
+$page['body_data']['section'] = $page['section'];
+
 
 if ('categories' == $page['section'] && isset($page['category']))
 {
-  $body_class = 'category-'.$page['category']['id'];
+  array_push($page['body_classes'], 'category-'.$page['category']['id']);
+  $page['body_data']['category_id'] = $page['category']['id'];
+
   if (isset($page['combined_categories']))
   {
+    $page['body_data']['combined_category_ids'] = array();
     foreach ($page['combined_categories'] as $combined_categories)
     {
-      $body_class .= '-'.$combined_categories['id'];
+      array_push($page['body_classes'],'category-'.$combined_categories['id']);
+      array_push($page['body_data']['combined_category_ids'], $combined_categories['id']);
     }
   }
-  array_push($page['body_classes'], $body_class);
 }
 elseif (isset($page['tags']))
 {
-  $body_class = 'tag';
+  $page['body_data']['tag_ids'] = array();
   foreach ($page['tags'] as $tag)
   {
-    $body_class .= '-'.$tag['id'];
+    array_push($page['body_classes'], 'tag-'.$tag['id']);
+    array_push($page['body_data']['tag_ids'], $tag['id']);
   }
-  array_push($page['body_classes'], $body_class);
   
 }
 elseif (isset($page['search']))
 {
   array_push($page['body_classes'], 'search-'.$page['search']);
+  $page['body_data']['search_id'] = $page['search'];
 }
 
 if (isset($page['image_id']))
 {
   array_push($page['body_classes'], 'image-'.$page['image_id']);
+  $page['body_data']['image_id'] = $page['image_id'];
 }
-
-
 
 trigger_notify('loc_end_section_init');
 ?>
