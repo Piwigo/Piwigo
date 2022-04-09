@@ -319,4 +319,30 @@ function upgrade_db_connect()
     my_error(l10n($e->getMessage()), true); 
   }
 }
+
+/**
+ * Mark all upgrades as done.
+ * Available upgrades must be ignored after a fresh installation. To
+ * make PWG avoid upgrading, we must tell it upgrades have already been
+ * made.
+ */
+function mark_all_upgrades_as_done() {
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+  define('CURRENT_DATE', $dbnow);
+  $datas = array();
+  foreach (get_available_upgrade_ids() as $upgrade_id)
+  {
+    $datas[] = array(
+      'id'          => $upgrade_id,
+      'applied'     => CURRENT_DATE,
+      'description' => 'upgrade included in installation',
+      );
+  }
+  mass_inserts(
+    UPGRADE_TABLE,
+    array_keys($datas[0]),
+    $datas
+  );
+}
+
 ?>

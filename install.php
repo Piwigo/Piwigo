@@ -166,6 +166,7 @@ if (@file_exists($config_file))
 
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
+include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 
 include(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
 $languages = new languages('utf-8');
@@ -253,11 +254,10 @@ if (!isset($step))
 //---------------------------------------------------------------- form analyze
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$dblayer.'.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions_install.inc.php');
-include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 
 if (isset($_POST['install']))
 {
-  install_db_connect($infos, $errors);
+  install_db_connect($dbhost, $dbuser, $dbpasswd, $dbname, $errors)
   pwg_db_check_charset();
 
   $webmaster = trim(preg_replace('/\s{2,}/', ' ', $admin_name));
@@ -328,93 +328,9 @@ define(\'DB_COLLATE\', \'\');
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
 
-    // tables creation, based on piwigo_structure.sql
-    execute_sqlfile(
-      PHPWG_ROOT_PATH.'install/piwigo_structure-mysql.sql',
-      DEFAULT_PREFIX_TABLE,
-      $prefixeTable,
-      'mysql'
-      );
-    // We fill the tables with basic informations
-    execute_sqlfile(
-      PHPWG_ROOT_PATH.'install/config.sql',
-      DEFAULT_PREFIX_TABLE,
-      $prefixeTable,
-      'mysql'
-      );
-
-    $query = '
-INSERT INTO '.$prefixeTable.'config (param,value,comment) 
-   VALUES (\'secret_key\',md5('.pwg_db_cast_to_text(DB_RANDOM_FUNCTION.'()').'),
-   \'a secret key specific to the gallery for internal use\');';
-    pwg_query($query);
-
-    conf_update_param('piwigo_db_version', get_branch_from_version(PHPWG_VERSION));
-    conf_update_param('gallery_title', pwg_db_real_escape_string(l10n('Just another Piwigo gallery')));
-
-    conf_update_param(
-      'page_banner',
-      '<h1>%gallery_title%</h1>'."\n\n<p>".pwg_db_real_escape_string(l10n('Welcome to my photo gallery')).'</p>'
-      );
-
-    // fill languages table, only activate the current language
-    $languages->perform_action('activate', $language);
-
-    // fill $conf global array
-    load_conf_from_db();
-
-    // PWG_CHARSET is required for building the fs_themes array in the
-    // themes class
-    if (!defined('PWG_CHARSET'))
-    {
-      define('PWG_CHARSET', 'utf-8');
-    }
-    activate_core_themes();
-    activate_core_plugins();
-
-    $insert = array(
-      'id' => 1,
-      'galleries_url' => PHPWG_ROOT_PATH.'galleries/',
-      );
-    mass_inserts(SITES_TABLE, array_keys($insert), array($insert));
-
-    // webmaster admin user
-    $inserts = array(
-      array(
-        'id'           => 1,
-        'username'     => $admin_name,
-        'password'     => md5($admin_pass1),
-        'mail_address' => $admin_mail,
-        ),
-      array(
-        'id'           => 2,
-        'username'     => 'guest',
-        ),
-      );
-    mass_inserts(USERS_TABLE, array_keys($inserts[0]), $inserts);
-
-    create_user_infos(array(1,2), array('language' => $language));
-
-    // Available upgrades must be ignored after a fresh installation. To
-    // make PWG avoid upgrading, we must tell it upgrades have already been
-    // made.
-    list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
-    define('CURRENT_DATE', $dbnow);
-    $datas = array();
-    foreach (get_available_upgrade_ids() as $upgrade_id)
-    {
-      $datas[] = array(
-        'id'          => $upgrade_id,
-        'applied'     => CURRENT_DATE,
-        'description' => 'upgrade included in installation',
-        );
-    }
-    mass_inserts(
-      UPGRADE_TABLE,
-      array_keys($datas[0]),
-      $datas
-      );
-
+    initialize_db($languages, $language, $prefixeTable);
+    add_admin($admin_name, $admin_pass1, $admin_mail, $language);
+    mark_all_upgrades_as_done();
     if ($is_newsletter_subscribe)
     {
       fetchRemote(
