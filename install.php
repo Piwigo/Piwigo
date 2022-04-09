@@ -257,7 +257,7 @@ include(PHPWG_ROOT_PATH . 'admin/include/functions_install.inc.php');
 
 if (isset($_POST['install']))
 {
-  install_db_connect($dbhost, $dbuser, $dbpasswd, $dbname, $errors)
+  install_db_connect($dbhost, $dbuser, $dbpasswd, $dbname, $errors);
   pwg_db_check_charset();
 
   $webmaster = trim(preg_replace('/\s{2,}/', ' ', $admin_name));
