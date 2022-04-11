@@ -52,8 +52,8 @@ $(document).ready(() => {
     } else {
       cont.find('.move-cat-order').addClass("notClickable");
 
-      cont.append($(toggler_close
-        .replace(/%content%/g, toggler)
+      cont.append($(toggler_cont
+        .replace(/%content%/g, toggler_close)
         .replace(/%id%/g, node.id))).addClass("disabledToggle");
     }
 
