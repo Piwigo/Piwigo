@@ -417,7 +417,7 @@ function closeAddAlbumPopIn() {
 function openRenameAlbumPopIn(replacedAlbumName) {
   $("#RenameAlbum").fadeIn();
   $(".RenameAlbumTitle span").html(rename_item.replace("%s", replacedAlbumName))
-  $(".RenameAlbumLabelUsername .user-property-input").val('');
+  $(".RenameAlbumLabelUsername .user-property-input").val(replacedAlbumName);
   $(".RenameAlbumLabelUsername .user-property-input").focus();
 }
 function closeRenameAlbumPopIn() {
@@ -635,7 +635,20 @@ function applyMove(event) {
       $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
     });
   })
-    .catch((message) => console.log('An error has occured : ' + message ));
+    .catch(function (message) {
+      console.log('An error has occured : ' + message );
+      $(".move-cat-add").unbind("click").on("click", function () {
+        openAddAlbumPopIn();
+        $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+      });
+      $(".move-cat-delete").on("click", function () {
+        triggerDeleteAlbum($(this).data("id"));
+      });
+      $(".move-cat-title-container").on("click", function () {
+        openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
+        $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+      });
+    })
 }
 
 function moveNode(node, rank, parent) {
