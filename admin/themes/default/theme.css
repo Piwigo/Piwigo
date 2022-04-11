@@ -5891,6 +5891,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   font-weight:600;
 }
 
+.disabledToggle .move-cat-toogler{
+  color: gray;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* album search */
 
 .search-album {

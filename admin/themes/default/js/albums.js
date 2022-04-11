@@ -51,6 +51,10 @@ $(document).ready(() => {
         .replace(/%id%/g, node.id)));
     } else {
       cont.find('.move-cat-order').addClass("notClickable");
+
+      cont.append($(toggler_close
+        .replace(/%content%/g, toggler)
+        .replace(/%id%/g, node.id))).addClass("disabledToggle");
     }
 
     cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
