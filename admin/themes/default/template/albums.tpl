@@ -389,9 +389,13 @@ const rename_item = '{'Rename "%s"'|@translate|escape:javascript}';
   display: flex;
   flex-direction: column;
 }
-.AddAlbumInputContainer, .DeleteAlbumInputContainer {
+.AddAlbumInputContainer {
   width: 100%;
   margin: 15px 0;
+}
+.DeleteAlbumInputContainer {
+  width: 70%;
+  margin: 15px auto;
 }
 input[name="position"] {
   margin-right: 5px;
@@ -403,10 +407,16 @@ input[name="position"] {
   align-items: center;
   margin-top: 10px;
 }
-.AddAlbumRadioInput label,
-.deleteAlbumOptions label {
+.AddAlbumRadioInput label {
   font-size: 12px;
   font-weight: 600;
+}
+.deleteAlbumOptions label {
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .AddAlbumFormValidation,
 .DeleteAlbumFormValidation,
