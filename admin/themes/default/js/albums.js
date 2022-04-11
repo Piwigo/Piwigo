@@ -1,7 +1,7 @@
 $(document).ready(() => {
 
   formatedData = data;
-  $(".albumsFilter .search-input").val('');
+  // $(".albumsFilter .search-input").val('');
 
   $('.tree').tree({
     data: formatedData,
@@ -205,41 +205,6 @@ $(document).ready(() => {
       scrollTop: $("#cat-"+openCat).offset().top
     }, 500);
   }
-
-  // tree search
-
-  $(".albumsFilter .search-input").on('input', function () {
-    // console.log($(this).val());
-    //close the tree
-
-    if ($(".albumsFilter .search-input").val().length >= 2) {
-      closeTree($('.tree'));
-      $(".jqtree-element").removeClass('animateFocus').removeClass('imune');
-      console.log("here");
-    }
-
-    if ($(".albumsFilter .search-input").val().length >= 3) {
-      $('.tree').tree('getNodeByCallback', 
-      function(node) {
-
-        if (node.name.toLowerCase().includes($(".albumsFilter .search-input").val().toLowerCase())) {
-          // Node is found
-          // console.log("found");
-          $("#cat-"+node.id).show().addClass("imune");
-          goToNode(node, node)
-        }
-        else {
-          // Node not found
-          // console.log("not found");
-          if (!$("#cat-"+node.id).hasClass("imune")) {
-            $("#cat-"+node.id).hide();
-          }
-        }
-      });
-    } else {
-      $(".jqtree-element").show();
-    }
-  })
 
   // RenameAlbumPopIn
   $(".RenameAlbumErrors").hide();

@@ -111,11 +111,6 @@ const rename_item = '{'Rename "%s"'|@translate|escape:javascript}';
       <p>{'Automatic sort order'|@translate}</p>
     </label>
   </div>
-  <div class="albumsFilter"> 
-    <span class="icon-search search-icon"></span>
-    <span class="icon-cancel search-cancel"></span>
-    <input class='search-input' type="text" placeholder="{'Search'|@translate}">
-  </div>
 </div>
 
 <div id="AddAlbum" class="AddAlbumPopIn">
