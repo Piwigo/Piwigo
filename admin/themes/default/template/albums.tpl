@@ -111,6 +111,7 @@ const rename_item = '{'Rename "%s"'|@translate|escape:javascript}';
       <p>{'Automatic sort order'|@translate}</p>
     </label>
   </div>
+  <div class="cat-move-info icon-help-circled"> {'Drag and drop to reorder albums'|@translate}</div>
 </div>
 
 <div id="AddAlbum" class="AddAlbumPopIn">

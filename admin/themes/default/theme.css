@@ -4108,8 +4108,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .cat-move-header .cat-move-info {
-  position: relative;
-  margin-right: auto;
+  margin-left: auto;
 }
 
 .cat-move-header .cat-move-info::before {
