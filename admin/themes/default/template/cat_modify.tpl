@@ -300,15 +300,11 @@ function cropImage() {
 
         <a class="icon-plus-circled" href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a>
 
-        <a class="icon-sitemap" href="{$U_CHILDREN}">{'Manage sub-albums'|@translate}</a>
+        <a class="icon-sitemap" href="{$U_MOVE}">{'Manage sub-albums'|@translate}</a>
 
       {if isset($U_SYNC) }
         <a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a>
       {/if}
-
-      {if isset($U_MOVE) }
-        <a class="icon-move moveAlbum" href="{$U_MOVE}">{'Move'|@translate}</a>
-      {/if} 
 
       {if isset($U_DELETE) }
         <a class="icon-trash deleteAlbum" href="#">{'Delete album'|@translate}</a>

@@ -1,7 +1,6 @@
 $(document).ready(() => {
 
   formatedData = data;
-  // $(".albumsFilter .search-input").val('');
 
   $('.tree').tree({
     data: formatedData,
@@ -114,7 +113,12 @@ $(document).ready(() => {
   }
 
   if(catToOpen && isNumeric(catToOpen)) {
-    goToNode($('.tree').tree('getNodeById', catToOpen), $('.tree').tree('getNodeById', catToOpen));
+    nodeToGo = $('.tree').tree('getNodeById', catToOpen);
+
+    goToNode(nodeToGo, nodeToGo);
+    if (nodeToGo.children) {
+      $(".tree").tree("openNode", nodeToGo, false);
+    }
   }
 
   $('.tree').on( 'click', '.move-cat-toogler', function(e) {
