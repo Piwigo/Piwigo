@@ -684,6 +684,17 @@ LI.menuLi {
   border-color: transparent transparent #ff7700 transparent;
 }
 
+#catOptionsSmall.dropdown::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  left: 85%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #ff7700 transparent;
+}
+
 .dropdown-content {
   position: relative;
 }
@@ -4216,7 +4227,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   transform: translate(50%, -50%);
   align-items: center;
   flex-direction: row-reverse;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .move-cat-action {
@@ -4964,13 +4975,19 @@ input:checked + .slider:before, input:checked + .slider::after {
   cursor: pointer;
 }
 
-#GroupOptions{
+#GroupOptions {
   display:none;
   z-index:1;
   position:absolute;
   transform: translateX(-50%);
   left:50%;
   top: 37px;
+}
+#catOptionsSmall{
+  display:none;
+  position:absolute;
+  right: -10px;
+  top: 40px;
 }
 
 .is-default-token {

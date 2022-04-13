@@ -528,7 +528,7 @@ input[name="position"] {
 }
 
 .jqtree-moving .move-cat-container .badge-container i,
-.jqtree-moving .move-cat-container .node-icon{
+.jqtree-moving .move-cat-container .node-icon {
   color: #ffd7ad;
   background-color: #f98100;
 }
@@ -539,7 +539,45 @@ input[name="position"] {
 
 .dragging .move-cat-container .move-cat-toogler,
 .dragging .move-cat-container .move-cat-action-cont a,
-.dragging .move-cat-container .move-cat-title-container{
+.dragging .move-cat-container .move-cat-title-container,
+.dragging .move-cat-action-small {
   pointer-events: all;
 }
+
+.move-cat-action-small {
+  display: none;
+  position: relative;
+  right: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transform: scale(1.2);
+  padding: 20px 10px;
+}
+
+@media (max-width: 1415px) { 
+  .badge-container  .last-update {
+    display: none;
+  }
+}
+
+@media (max-width: 1300px) { 
+  .badge-container {
+    display: none;
+  }
+}
+
+@media (max-width: 1230px) { 
+  .badge-container {
+    display: none;
+  }
+
+  .move-cat-action {
+    display: none;
+  }
+
+  .move-cat-action-small {
+    display: flex;
+  }
+}
+
 </style>

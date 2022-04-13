@@ -29,14 +29,28 @@ $(document).ready(() => {
       +'</div>';
     action_order = "<a data-id='"+node.id+"' class='move-cat-order icon-sort-name-up'></a>";
 
+    action_small = 
+    "<div class='icon-ellipsis-vert move-cat-action-small toggle-cat-option'>"
+      +"<span id='catOptionsSmall' class='dropdown cat-option'>"
+        +"<a class='icon-docs dropdown-option' id='GroupDuplicate' value='duplicate'>{'Duplicate'|@translate}</a>"
+        +"<a class='icon-trash dropdown-option' id='GroupDelete' value='delete'>{'Delete'|@translate}</a>"
+        +"<a class='icon-star dropdown-option' id='GroupDefault' value='delete'></a>"
+      +"</span>"
+    +"</div>";
+
     cont = li.find('.jqtree-element');
     cont.addClass('move-cat-container');
     cont.attr('id', 'cat-'+node.id)
     cont.html('');
 
     cont.append(actions);
-
     cont.find('.move-cat-action .move-cat-see').after(action_order);
+
+    cont.find('.move-cat-action').before(action_small);
+    cont.find(".toggle-cat-option").on("click", function () {
+      $(".cat-option").hide();
+      $(this).find(".cat-option").toggle();
+    })
 
     if (node.children.length != 0) {
       open_nodes = $('.tree').tree('getState').open_nodes;
