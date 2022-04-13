@@ -206,6 +206,14 @@ $(document).ready(() => {
     $('.cat-move-order-popin input[name=id]').val(-1);
   });
 
+  $('.tree').on('mousedown mouseup', function mouseState(e) {
+    if (e.type == "mousedown") {
+      $(".tree").addClass("dragging")
+    } else if (e.type == "mouseup") {
+      $(".dragging").removeClass("dragging")
+    }
+});
+
   if (openCat != -1) {
     var node = $('.tree').tree('getNodeById', openCat);
     $('.tree').tree('openNode', node);

@@ -522,4 +522,24 @@ input[name="position"] {
   color: #ffd7ad;
   background-color: #f98100;
 }
+
+.jqtree-moving .move-cat-container {
+  background-color: #ffd7ad;
+}
+
+.jqtree-moving .move-cat-container .badge-container i,
+.jqtree-moving .move-cat-container .node-icon{
+  color: #ffd7ad;
+  background-color: #f98100;
+}
+
+.dragging .move-cat-container {
+  pointer-events: none;
+}
+
+.dragging .move-cat-container .move-cat-toogler,
+.dragging .move-cat-container .move-cat-action-cont a,
+.dragging .move-cat-container .move-cat-title-container{
+  pointer-events: all;
+}
 </style>
