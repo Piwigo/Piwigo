@@ -112,7 +112,7 @@ SELECT
 
   if ($_REQUEST['search']["value"] != "")
   {
-    for ( $i=0 ; $i<count($aColumns) ; $i++ )
+    for ($i=0, $iMax = count($aColumns); $i< $iMax; $i++ )
     {
       $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string( $_REQUEST['search']["value"] )."%' OR ";
     }
@@ -123,7 +123,7 @@ SELECT
 }
 	
 /* Individual column filtering */
-for ( $i=0 ; $i<count($aColumns) ; $i++ )
+for ($i=0, $iMax = count($aColumns); $i< $iMax; $i++ )
 {
   if (isset($_REQUEST['columns'][$i]["searchable"]) && isset($_REQUEST['columns'][$i]['search']['value'])
       && $_REQUEST['columns'][$i]["searchable"] == "true" && $_REQUEST['columns'][$i]['search']['value'] != ''
@@ -206,7 +206,7 @@ if (isSet($_REQUEST['get_set_uids'])) {
     $user_ids[] = $aRow[ $conf['user_fields']['id'] ];
 
     $row = array();
-    for ( $i=0 ; $i<count($aColumns) ; $i++ )
+    for ($i=0, $iMax = count($aColumns); $i< $iMax; $i++ )
     {
       if ( $aColumns[$i] == "status" )
       {

@@ -2945,7 +2945,7 @@ function clear_derivative_cache($types='all')
     $types = array($types);
   }
 
-  for ($i=0; $i<count($types); $i++)
+  for ($i=0, $iMax = count($types); $i< $iMax; $i++)
   {
     $type = $types[$i];
     if ($type == IMG_CUSTOM)

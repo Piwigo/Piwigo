@@ -1012,7 +1012,7 @@ array(
       <td>'.$trigger['name'].'</td>
       <td>'.$trigger['type'].'</td>
       <td>';
-      for ($i=0; $i<count($trigger['vars']); $i+=2)
+      for ($i=0, $iMax = count($trigger['vars']); $i< $iMax; $i+=2)
       {
         if ($i>0) echo ', ';
         echo $trigger['vars'][$i].' '.(!empty($trigger['vars'][$i+1])?'<i>$'.$trigger['vars'][$i+1].'</i>':null);

@@ -146,7 +146,7 @@ foreach ($allAlbum as $album)
 
   $parents = explode(',',$album['uppercats']);
   $the_place = &$associatedTree[strval($parents[0])];
-  for ($i=1; $i < count($parents); $i++) 
+  for ($i=1, $iMax = count($parents); $i < $iMax; $i++)
   { 
     $the_place = &$the_place['children'][strval($parents[$i])];
   }
