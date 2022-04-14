@@ -178,7 +178,7 @@ function assocToOrderedTree($assocT)
     {
       $orderedCat['children'] = assocToOrderedTree($cat['children']);
     }
-    array_push($orderedTree, $orderedCat);
+    $orderedTree[] = $orderedCat;
   }
   usort($orderedTree, 'cmpCat');
   return $orderedTree;

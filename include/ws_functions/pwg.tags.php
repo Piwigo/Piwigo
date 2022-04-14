@@ -430,7 +430,7 @@ function ws_tags_merge($params, &$service)
   }
 
   $all_tags = $params['merge_tag_id'];
-  array_push($all_tags, $params['destination_tag_id']);
+  $all_tags[] = $params['destination_tag_id'];
 
   $all_tags = array_unique($all_tags);
   $merge_tag = array_diff($params['merge_tag_id'], array($params['destination_tag_id']));
