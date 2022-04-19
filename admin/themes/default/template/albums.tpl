@@ -593,6 +593,16 @@ input[name="position"] {
   .move-cat-action-small {
     display: flex;
   }
+
+  .move-cat-title-container {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 850px) { 
+  .move-cat-title-container {
+    max-width: 60%;
+  }
 }
 
 </style>
