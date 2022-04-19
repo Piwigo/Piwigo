@@ -32,9 +32,12 @@ $(document).ready(() => {
     action_small = 
     "<div class='icon-ellipsis-vert move-cat-action-small toggle-cat-option'>"
       +"<span id='catOptionsSmall' class='dropdown cat-option'>"
-        +"<a class='icon-docs dropdown-option' id='GroupDuplicate' value='duplicate'>{'Duplicate'|@translate}</a>"
-        +"<a class='icon-trash dropdown-option' id='GroupDelete' value='delete'>{'Delete'|@translate}</a>"
-        +"<a class='icon-star dropdown-option' id='GroupDefault' value='delete'></a>"
+        +"<a class='icon-plus-circled move-cat-add-small dropdown-option' data-aid='"+node.id+"'>"+ str_add_album +"</a>"
+        +"<a class='icon-pencil dropdown-option' href='admin.php?page=album-"+node.id+"'>"+ str_edit_album +"</a>"
+        +"<a class='icon-upload dropdown-option' href='admin.php?page=photos_add&album="+node.id+"'>"+ str_add_photo +"</a>"
+        +"<a class='icon-eye dropdown-option' href='index.php?/category/"+node.id+"'>"+ str_visit_gallery +"</a>"
+        +"<a class='icon-sort-name-up dropdown-option' data-id='"+node.id+"'>"+ str_sort_order +"</a>"
+        +"<a class='icon-trash move-cat-delete-small dropdown-option' data-id='"+node.id+"'>"+ str_delete_album +"</a>"
       +"</span>"
     +"</div>";
 
@@ -50,7 +53,7 @@ $(document).ready(() => {
     cont.find(".toggle-cat-option").on("click", function () {
       $(".cat-option").hide();
       $(this).find(".cat-option").toggle();
-    })
+    });
 
     if (node.children.length != 0) {
       open_nodes = $('.tree').tree('getState').open_nodes;
@@ -64,6 +67,7 @@ $(document).ready(() => {
         .replace(/%id%/g, node.id)));
     } else {
       cont.find('.move-cat-order').addClass("notClickable");
+      cont.find('#catOptionsSmall .icon-sort-name-up').hide();
 
       cont.append($(toggler_cont
         .replace(/%content%/g, toggler_close)
@@ -116,8 +120,24 @@ $(document).ready(() => {
 
     if (node.has_not_access) {
       cont.find(".move-cat-see").addClass("notClickable");
+      cont.find('#catOptionsSmall .icon-eye').hide();
     }
   }
+
+  /* Hide group options and rename field on click on the screen */
+
+  $(document).mouseup(function (e) {
+    e.stopPropagation();
+    let option_is_clicked = false
+    $("#catOptionsSmall a").each(function () {
+      if (!($(this).has(e.target).length === 0)) {
+        option_is_clicked = true;
+      }
+    })
+    if (!option_is_clicked) {
+      $(".jqtree-element").find("#catOptionsSmall").hide();
+    }
+  });
 
   var url_split = window.location.href.split("#");
   var catToOpen = url_split[url_split.length-1].split("-")[1];
@@ -130,7 +150,7 @@ $(document).ready(() => {
     nodeToGo = $('.tree').tree('getNodeById', catToOpen);
 
     goToNode(nodeToGo, nodeToGo);
-    if (nodeToGo.children) {
+    if (nodeToGo.children) {move-cat-delete-small
       $(".tree").tree("openNode", nodeToGo, false);
     }
   }
@@ -280,6 +300,10 @@ $(document).ready(() => {
     openAddAlbumPopIn();
     $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
   })
+  $(".move-cat-add-small").on("click", function () {
+    openAddAlbumPopIn();
+    $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+  })
   $(".CloseAddAlbum").on("click", function () {
     closeAddAlbumPopIn();
   });
@@ -351,7 +375,14 @@ $(document).ready(() => {
           openAddAlbumPopIn();
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
+        $(".move-cat-add-small").unbind("click").on("click", function () {
+          openAddAlbumPopIn();
+          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+        });
         $(".move-cat-delete").on("click", function () {
+          triggerDeleteAlbum($(this).data("id"));
+        });
+        $(".move-cat-delete-small").on("click", function () {
           triggerDeleteAlbum($(this).data("id"));
         });
 
@@ -371,7 +402,10 @@ $(document).ready(() => {
   // Delete Album
   $(".move-cat-delete").on("click", function () {
     triggerDeleteAlbum($(this).data("id"));
-  })
+  });
+  $(".move-cat-delete-small").on("click", function () {
+    triggerDeleteAlbum($(this).data("id"));
+  });
 
   /*----------------
   Checkboxes
@@ -481,7 +515,14 @@ function openDeleteAlbumPopIn(cat_to_delete) {
           openAddAlbumPopIn();
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
+        $(".move-cat-add-small").on("click", function () {
+          openAddAlbumPopIn();
+          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+        });
         $(".move-cat-delete").on("click", function () {
+          triggerDeleteAlbum($(this).data("id"));
+        });
+        $(".move-cat-delete-small").on("click", function () {
           triggerDeleteAlbum($(this).data("id"));
         });
 
@@ -622,7 +663,14 @@ function applyMove(event) {
       openAddAlbumPopIn();
       $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
     });
+    $(".move-cat-add-small").unbind("click").on("click", function () {
+      openAddAlbumPopIn();
+      $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+    });
     $(".move-cat-delete").on("click", function () {
+      triggerDeleteAlbum($(this).data("id"));
+    });
+    $(".move-cat-delete-small").on("click", function () {
       triggerDeleteAlbum($(this).data("id"));
     });
     $(".move-cat-title-container").on("click", function () {
@@ -636,7 +684,14 @@ function applyMove(event) {
         openAddAlbumPopIn();
         $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
       });
+      $(".move-cat-add-small").unbind("click").on("click", function () {
+        openAddAlbumPopIn();
+        $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+      });
       $(".move-cat-delete").on("click", function () {
+        triggerDeleteAlbum($(this).data("id"));
+      });
+      $(".move-cat-delete-small").on("click", function () {
         triggerDeleteAlbum($(this).data("id"));
       });
       $(".move-cat-title-container").on("click", function () {

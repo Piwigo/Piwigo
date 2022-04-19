@@ -30,6 +30,13 @@ const has_images_associated_outside = '{"delete album and all %d photos, even th
 const has_images_becomming_orphans = '{'delete album and the %d orphan photos'|@translate|escape:javascript}';
 const has_images_recursives = '{'delete only album, not photos'|@translate|escape:javascript}';
 const rename_item = '{'Rename "%s"'|@translate|escape:javascript}';
+
+const str_add_album = '{'Add album'|@translate|escape:javascript}';
+const str_edit_album = '{'Edit album'|@translate|escape:javascript}';
+const str_add_photo = '{'Add Photos'|@translate|escape:javascript}';
+const str_visit_gallery = '{'Visit Gallery'|@translate|escape:javascript}';
+const str_sort_order = '{'Automatic sort order'|@translate|escape:javascript}';
+const str_delete_album = '{'Delete album'|@translate|escape:javascript}';
 {/footer_script}
 
 {combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
@@ -552,6 +559,14 @@ input[name="position"] {
   cursor: pointer;
   transform: scale(1.2);
   padding: 20px 10px;
+}
+
+#catOptionsSmall .dropdown-option {
+  font-size: 10px;
+  font-weight: bold;
+}
+#catOptionsSmall .dropdown-option::before{
+  margin: 0 6px 0 -2px;
 }
 
 @media (max-width: 1415px) { 

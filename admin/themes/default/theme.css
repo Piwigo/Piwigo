@@ -687,12 +687,13 @@ LI.menuLi {
 #catOptionsSmall.dropdown::after {
   content: " ";
   position: absolute;
-  bottom: 100%;
-  left: 85%;
+  bottom: 15%;
+  left: 103%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #ff7700 transparent;
+  border-color: transparent transparent #ffa33e transparent;
+  transform: rotate(90deg);
 }
 
 .dropdown-content {
@@ -4986,8 +4987,8 @@ input:checked + .slider:before, input:checked + .slider::after {
 #catOptionsSmall{
   display:none;
   position:absolute;
-  right: -10px;
-  top: 40px;
+  right: 80%;
+  bottom: 0%;
 }
 
 .is-default-token {
