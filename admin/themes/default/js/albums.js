@@ -568,7 +568,6 @@ function setSubcatsBadge(node) {
 function updateTitleBadge(new_nb_albums) {
   nb_albums = new_nb_albums;
   $(".badge-number").text(new_nb_albums);
-  console.log("updateTitleBadge " + new_nb_albums);
 }
 
 function goToNode(node, firstNode) {
