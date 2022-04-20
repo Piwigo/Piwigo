@@ -12,6 +12,7 @@ var str_yes_change_parent = "{'Yes change parent anyway'|@translate}"
 var str_no_change_parent = "{'No, don\'t move this album here'|@translate}"
 var str_root = "{'Root'|@translate}"
 var openCat = {$open_cat};
+var nb_albums = {$nb_albums};
 
 var delay_autoOpen = {$delay_before_autoOpen}
 {/footer_script}
@@ -42,7 +43,7 @@ const str_delete_album = '{'Delete album'|@translate|escape:javascript}';
 {combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
 
 <div class="titrePage">
-  <h2>{'Move albums'|@translate}</h2>
+  <h2>{'Albums'|@translate} <span class="badge-number"> {$nb_albums} </span></h2>
 </div>
 
 <div class="cat-move-order-popin">

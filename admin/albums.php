@@ -211,6 +211,7 @@ SELECT
 
 $template->assign('album_data', assocToOrderedTree($associatedTree));
 $template->assign('PWG_TOKEN', get_pwg_token());
+$template->assign('nb_albums', count($allAlbum));
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
 // +-----------------------------------------------------------------------+

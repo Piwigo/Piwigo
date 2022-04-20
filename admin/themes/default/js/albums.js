@@ -386,6 +386,8 @@ $(document).ready(() => {
           triggerDeleteAlbum($(this).data("id"));
         });
 
+        updateTitleBadge(nb_albums+1)
+
         goToNode($(".tree").tree('getNodeById', data.result.id), $(".tree").tree('getNodeById', data.result.id));
         $('html,body').animate({
           scrollTop: $("#cat-" + data.result.id).offset().top - screen.height / 2},
@@ -526,6 +528,7 @@ function openDeleteAlbumPopIn(cat_to_delete) {
           triggerDeleteAlbum($(this).data("id"));
         });
 
+        updateTitleBadge(nb_albums-1);
         setSubcatsBadge(parentOfDeletedNode);
         closeDeleteAlbumPopIn();
       },
@@ -560,6 +563,12 @@ function setSubcatsBadge(node) {
   } else {
     $("#cat-"+node.id).find(".nb-subcats").hide(100)
   }
+}
+
+function updateTitleBadge(new_nb_albums) {
+  nb_albums = new_nb_albums;
+  $(".badge-number").text(new_nb_albums);
+  console.log("updateTitleBadge " + new_nb_albums);
 }
 
 function goToNode(node, firstNode) {
