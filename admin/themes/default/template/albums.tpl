@@ -8,9 +8,9 @@ var str_apply_order_raw = "{'apply automatic sort order'|translate}";
 var str_apply_order = str_apply_order_raw.charAt(0).toUpperCase() + str_apply_order_raw.slice(1);
 var str_edit = "{'Edit album'|@translate}";
 var str_are_you_sure = "{'The status of the album \'%s\' and its sub-albums will change to private. Are you sure?'|@translate}";
-var str_yes_change_parent = "{'Yes change parent anyway'|@translate}"
-var str_no_change_parent = "{'No, don\'t move this album here'|@translate}"
-var str_root = "{'Root'|@translate}"
+var str_yes_change_parent = "{'Yes change parent anyway'|@translate}";
+var str_no_change_parent = "{'No, don\'t move this album here'|@translate}";
+var str_root = "{'Root'|@translate}";
 var openCat = {$open_cat};
 var nb_albums = {$nb_albums};
 
@@ -32,12 +32,15 @@ const has_images_becomming_orphans = '{'delete album and the %d orphan photos'|@
 const has_images_recursives = '{'delete only album, not photos'|@translate|escape:javascript}';
 const rename_item = '{'Rename "%s"'|@translate|escape:javascript}';
 
-const str_add_album = '{'Add album'|@translate|escape:javascript}';
+const str_add_album = '{'Add Album'|@translate|escape:javascript}';
 const str_edit_album = '{'Edit album'|@translate|escape:javascript}';
 const str_add_photo = '{'Add Photos'|@translate|escape:javascript}';
 const str_visit_gallery = '{'Visit Gallery'|@translate|escape:javascript}';
 const str_sort_order = '{'Automatic sort order'|@translate|escape:javascript}';
 const str_delete_album = '{'Delete album'|@translate|escape:javascript}';
+
+const add_album_root_title = '{'Create a new album at root'|@translate|escape:javascript}';
+const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javascript}';
 {/footer_script}
 
 {combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
@@ -130,7 +133,7 @@ const str_delete_album = '{'Delete album'|@translate|escape:javascript}';
       <span class="AddIcon icon-blue icon-plus-circled"></span>
     </div>
     <div class="AddIconTitle">
-      <span>{'Créer un nouvel album à la racine'|translate}</span>
+      <span></span>
     </div>
 
     <div class="AddAlbumInputContainer">

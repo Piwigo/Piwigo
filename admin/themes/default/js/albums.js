@@ -13,7 +13,7 @@ $(document).ready(() => {
 
   function createAlbumNode(node, li) {
     icon = "<span class='%icon%'></span>";
-    title = "<span data-id='"+node.id+"' class='move-cat-title-container'><p class='move-cat-title' title='%name%'>%name%</p> <span class='icon-pencil'></span> </span>";
+    title = "<span data-id='"+node.id+"' class='move-cat-title-container'><p class='move-cat-title' title="+node.name+">%name%</p> <span class='icon-pencil'></span> </span>";
     toggler_cont = "<div class='move-cat-toogler' data-id=%id%>%content%</div>";
     toggler_close = "<span class='icon-left-open'></span>";
     toggler_open = "<span class='icon-down-open'></span>";
@@ -150,7 +150,7 @@ $(document).ready(() => {
     nodeToGo = $('.tree').tree('getNodeById', catToOpen);
 
     goToNode(nodeToGo, nodeToGo);
-    if (nodeToGo.children) {move-cat-delete-small
+    if (nodeToGo.children) {
       $(".tree").tree("openNode", nodeToGo, false);
     }
   }
@@ -293,15 +293,15 @@ $(document).ready(() => {
   $(".AddAlbumErrors").hide();
   $(".DeleteAlbumErrors").hide();
   $(".add-album-button").on("click", function () {
-    openAddAlbumPopIn();
+    openAddAlbumPopIn(0);
     $(".AddAlbumSubmit").data("a-parent", 0);
   })
   $(".move-cat-add").on("click", function () {
-    openAddAlbumPopIn();
+    openAddAlbumPopIn($(this).data("aid"));
     $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
   })
   $(".move-cat-add-small").on("click", function () {
-    openAddAlbumPopIn();
+    openAddAlbumPopIn($(this).data("aid"));
     $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
   })
   $(".CloseAddAlbum").on("click", function () {
@@ -372,11 +372,11 @@ $(document).ready(() => {
         }
 
         $(".move-cat-add").unbind("click").on("click", function () {
-          openAddAlbumPopIn();
+          openAddAlbumPopIn($(this).data("aid"));
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
         $(".move-cat-add-small").unbind("click").on("click", function () {
-          openAddAlbumPopIn();
+          openAddAlbumPopIn($(this).data("aid"));
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
         $(".move-cat-delete").on("click", function () {
@@ -436,7 +436,12 @@ $(document).ready(() => {
 
 });
 
-function openAddAlbumPopIn() {
+function openAddAlbumPopIn(parentAlbumId) {
+  if (parentAlbumId != 0) {
+    $("#AddAlbum .AddIconTitle span").html(add_sub_album_of.replace("%s", $(".tree").tree('getNodeById', parentAlbumId).name));
+  } else {
+    $("#AddAlbum .AddIconTitle span").html(add_album_root_title)
+  }
   $("#AddAlbum").fadeIn();
   $(".AddAlbumLabelUsername .user-property-input").val('');
   $(".AddAlbumLabelUsername .user-property-input").focus();
@@ -514,11 +519,11 @@ function openDeleteAlbumPopIn(cat_to_delete) {
         $('.tree').tree('removeNode', node);
 
         $(".move-cat-add").on("click", function () {
-          openAddAlbumPopIn();
+          openAddAlbumPopIn($(this).data("aid"));
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
         $(".move-cat-add-small").on("click", function () {
-          openAddAlbumPopIn();
+          openAddAlbumPopIn($(this).data("aid"));
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
         $(".move-cat-delete").on("click", function () {
@@ -668,11 +673,11 @@ function applyMove(event) {
     setSubcatsBadge($('.tree').tree('getNodeById', moveParent));
 
     $(".move-cat-add").unbind("click").on("click", function () {
-      openAddAlbumPopIn();
+      openAddAlbumPopIn($(this).data("aid"));
       $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
     });
     $(".move-cat-add-small").unbind("click").on("click", function () {
-      openAddAlbumPopIn();
+      openAddAlbumPopIn($(this).data("aid"));
       $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
     });
     $(".move-cat-delete").on("click", function () {
@@ -689,11 +694,11 @@ function applyMove(event) {
     .catch(function (message) {
       console.log('An error has occured : ' + message );
       $(".move-cat-add").unbind("click").on("click", function () {
-        openAddAlbumPopIn();
+        openAddAlbumPopIn($(this).data("aid"));
         $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
       });
       $(".move-cat-add-small").unbind("click").on("click", function () {
-        openAddAlbumPopIn();
+        openAddAlbumPopIn($(this).data("aid"));
         $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
       });
       $(".move-cat-delete").on("click", function () {

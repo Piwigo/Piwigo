@@ -1276,6 +1276,8 @@ $lang['More information'] = 'More information';
 $lang['This photo is an orphan'] = 'This photo is an orphan';
 $lang['This albums is already in related categories list'] = 'This albums is already in related albums list';
 $lang['No search in progress'] = 'No search in progress';
+$lang['Create a new album at root'] = 'Create a new album at root';
+$lang['Create a sub-album of "%s"'] = 'Create a sub-album of "%s"';
 
 $lang['Visited'] = 'Visited';
 $lang['Downloaded'] = 'Downloaded';
