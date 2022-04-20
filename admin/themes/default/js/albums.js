@@ -13,21 +13,21 @@ $(document).ready(() => {
 
   function createAlbumNode(node, li) {
     icon = "<span class='%icon%'></span>";
-    title = "<span data-id='"+node.id+"' class='move-cat-title-container'><p class='move-cat-title' title="+node.name+">%name%</p> <span class='icon-pencil'></span> </span>";
+    title = '<span data-id="'+node.id+'" class="move-cat-title-container"><p class="move-cat-title" title="'+node.name+'">%name%</p> <span class="icon-pencil"></span> </span>';
     toggler_cont = "<div class='move-cat-toogler' data-id=%id%>%content%</div>";
     toggler_close = "<span class='icon-left-open'></span>";
     toggler_open = "<span class='icon-down-open'></span>";
     actions = 
       '<div class="move-cat-action-cont">'
         +"<div class='move-cat-action'>"
-          +"<a class='move-cat-add icon-plus-circled' href='#' data-aid='"+node.id+"'></a>"
-          +"<a class='move-cat-edit icon-pencil' href='admin.php?page=album-"+node.id+"'></a>"
-          +"<a class='move-cat-upload icon-upload' href='admin.php?page=photos_add&album="+node.id+"'></a>"
-          +"<a class='move-cat-see icon-eye' href='index.php?/category/"+node.id+"'></a>"
-          +"<a data-id='"+node.id+"' class='move-cat-delete icon-trash'></a>"
+          +'<a class="move-cat-add icon-plus-circled tiptip" title="'+ str_add_album +'" href="#" data-aid="'+node.id+'"></a>'
+          +'<a class="move-cat-edit icon-pencil tiptip" title="'+ str_edit_album +'" href="admin.php?page=album-"'+node.id+'"></a>'
+          +'<a class="move-cat-upload icon-upload tiptip" title="'+ str_add_photo +'" href="admin.php?page=photos_add&album="'+node.id+'"></a>'
+          +'<a class="move-cat-see icon-eye tiptip" title="'+ str_visit_gallery +'" href="index.php?/category/"'+node.id+'"></a>'
+          +'<a data-id="'+node.id+'" class="move-cat-delete icon-trash tiptip" title="'+ str_delete_album +'" ></a>'
         +"</div>"
       +'</div>';
-    action_order = "<a data-id='"+node.id+"' class='move-cat-order icon-sort-name-up'></a>";
+    action_order = '<a data-id="'+node.id+'" class="move-cat-order icon-sort-name-up" title="'+ str_sort_order +'"></a>';
 
     action_small = 
     "<div class='icon-ellipsis-vert move-cat-action-small toggle-cat-option'>"
