@@ -1248,3 +1248,4 @@ $lang['Locked albums are disabled for maintenance. Only administrators can view 
 $lang['Webmaster status required'] = 'Vergrendelde albums zijn uitgeschakeld voor onderhoud. Alleen beheerders kunnen ze in de galerij bekijken. Als je dit album vergrendelt, worden ook de sub-albums vergrendeld';
 $lang['Your selection'] = 'Jouw selectie';
 $lang['action successfully performed.'] = 'actie succesvol uitgevoerd.';
+$lang['Edit photo #%s'] = 'Wijzig foto #%s';
