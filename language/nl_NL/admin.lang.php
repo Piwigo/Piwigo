@@ -1249,3 +1249,5 @@ $lang['Webmaster status required'] = 'Vergrendelde albums zijn uitgeschakeld voo
 $lang['Your selection'] = 'Jouw selectie';
 $lang['action successfully performed.'] = 'actie succesvol uitgevoerd.';
 $lang['Edit photo #%s'] = 'Wijzig foto #%s';
+$lang['%s lines'] = '%s regels';
+$lang['%s line'] = '%s regel';
