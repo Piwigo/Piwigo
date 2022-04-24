@@ -50,3 +50,4 @@ $lang['Just another Piwigo gallery'] = '他のPiwigoギャラリー';
 $lang['Welcome to your new installation of Piwigo!'] = '新しくPiwigoをインストールしていただき、ありがとうざいます!';
 $lang['Welcome to my photo gallery'] = '私のフォトギャラリーへようこそ';
 $lang['localhost or other, supplied by your host provider'] = 'localhost または、他のホスト、あるいは、あなたのホスティング業者から提供されたホスト名です。';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHPのバージョン%sが必要です（現在PHP %sをお使いです）';
