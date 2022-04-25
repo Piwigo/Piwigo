@@ -318,11 +318,6 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 }
 
 .user-property-input {
-  color:#353535;
-  background-color:#F3F3F3;
-}
-
-.user-property-input {
   width: 100%;
   box-sizing:border-box;
   font-size:1.1em;
@@ -367,8 +362,6 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 .RenameAlbumSubmit {
   cursor:pointer;
   font-weight:bold;
-  color: #3F3E40;
-  background-color: #FFA836;
   padding: 10px;
   margin: 20px;
   font-size:1em;
@@ -376,14 +369,11 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 }
 
 .DeleteAlbumSubmit {
-  background-color: #e74c3c;
   border-radius: 4px;
-  color: #fff;
   transition: .1s;
 }
 
-.AddAlbumCancel, .RebameAlbumCancel {
-  color: #3F3E40;
+.AddAlbumCancel, .RenameAlbumCancel {
   font-weight: bold;
   cursor: pointer;
   font-size:1em;
@@ -441,8 +431,6 @@ input[name="position"] {
 .RenameAlbumCancel {
   cursor: pointer;
   font-weight: bold;
-  color: #3F3E40;
-  background-color: #f3f3f3;
   padding: 10px 20px;
   margin: 20px;
   margin-bottom: 20px;
@@ -478,14 +466,12 @@ input[name="position"] {
 
 .album-add-button-label, .order-root-button-label {
   padding: 10px;
-  box-shadow: 0px 2px #00000024;
   border-radius: 5px;
   font-weight: bold;
   display: flex;
   align-items: baseline;
   cursor: pointer;
   font-size: 13px;
-  background-color: #fafafa;
   height: 18px;
 }
 .album-add-button-label p,
@@ -524,14 +510,6 @@ input[name="position"] {
 
 .move-cat-container, .move-cat-container .badge-container i {
   transition: 0.2s;
-}
-.move-cat-container:hover {
-  background-color: #ffd7ad;
-}
-.move-cat-container:hover .badge-container i,
-.move-cat-container:hover .node-icon{
-  color: #ffd7ad;
-  background-color: #f98100;
 }
 
 .jqtree-moving .move-cat-container {

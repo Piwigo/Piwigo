@@ -389,6 +389,84 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   text-decoration: none;
   color: #777;
 }
+.album-add-button-label, .order-root-button-label {
+  box-shadow: 0px 2px #00000024;
+  background-color: #333;
+  color: #777;
+}
+.move-cat-container:hover {
+  background-color: #f9852c;
+}
+.move-cat-container:hover .badge-container i,
+.move-cat-container:hover .node-icon{
+  color: #faa96b;
+  background-color: #ae5d1e;
+  border-color: #ae5d1e;
+}
+.move-cat-container:hover .move-cat-action a {
+  color: #333333;
+}
+
+.disabledToggle .move-cat-toogler{
+  color: gray !important;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.move-cat-container:hover .move-cat-toogler span{
+  color: #ae5d1e !important;
+}
+.move-cat-container.disabledToggle:hover .move-cat-toogler{
+  color: #333 !important;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.move-cat-container:hover .move-cat-title-container {
+  color: #333333;
+}
+
+.AddUserPopInContainer,
+.AddAlbumPopInContainer,
+.DeleteAlbumPopInContainer,
+.RenameAlbumPopInContainer {
+  background-color: #333;
+}
+.AddUserPopInContainer .AddIconTitle,
+.AddAlbumPopInContainer .AddIconTitle,
+.DeleteAlbumPopInContainer .DeleteIconTitle,
+.RenameAlbumPopInContainer .RenameAlbumTitle  {
+  color: #777;
+}
+.AddUserPopInContainer .AddUserInput,
+.AddAlbumPopInContainer .user-property-input,
+.DeleteAlbumPopInContainer .DeleteAlbumInput,
+.RenameAlbumPopInContainer .RenameAlbumInput {
+  background-color:#252525;
+  border: solid 2px #252525;
+}
+
+.AddAlbumCancel, .RenameAlbumCancel {
+  color: #3F3E40;
+  background-color: #d9d9d9;
+}
+
+.AddAlbumCancel:hover, .RenameAlbumCancel:hover {
+  background-color: #ffc17e;
+}
+.AddAlbumSubmit,
+.RenameAlbumSubmit {
+  color: #3F3E40;
+  background-color: #ffa744;
+}
+.AddAlbumSubmit:hover,
+.RenameAlbumSubmit:hover {
+  color: #3F3E40;
+  background-color: #f70;
+}
+.DeleteAlbumSubmit {
+  background-color: #e74c3c;
+  color: #fff;
+}
 
 #catModify input[type="text"], #catModify textarea{
   background-color: #444444;

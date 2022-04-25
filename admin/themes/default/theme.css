@@ -4067,6 +4067,20 @@ a#showPermissions:hover {text-decoration: none;}
   border-radius: 3px;
 }
 
+.album-add-button-label, .order-root-button-label {
+  box-shadow: 0px 2px #00000024;
+  background-color: #fafafa;
+}
+
+.move-cat-container:hover {
+  background-color: #ffd7ad;
+}
+.move-cat-container:hover .badge-container i,
+.move-cat-container:hover .node-icon{
+  color: #ffd7ad;
+  background-color: #f98100;
+}
+
 /* Pending Comments */
 #pendingComments {
   padding:0 5px 0 10px;
@@ -6317,6 +6331,20 @@ color:#FF7B00;
 .RenameAlbumPopInContainer .RenameAlbumInput {
   background-color:white;
   border: solid 2px #D4D4D4;
+}
+
+.AddAlbumCancel, .RebameAlbumCancel {
+  color: #3F3E40;
+  background-color: #f3f3f3;
+}
+.AddAlbumSubmit,
+.RenameAlbumSubmit {
+  color: #3F3E40;
+  background-color: #FFA836;
+}
+.DeleteAlbumSubmit {
+  background-color: #e74c3c;
+  color: #fff;
 }
 
 .site-url-path {
