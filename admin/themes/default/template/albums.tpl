@@ -43,6 +43,8 @@ const add_album_root_title = '{'Create a new album at root'|@translate|escape:ja
 const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javascript}';
 {/footer_script}
 
+{combine_script id='jquery.tipTip' load='footer' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
+
 {combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
 
 <div class="titrePage">

@@ -4252,7 +4252,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 }
 
 .move-cat-action a {
-  padding: 30px 10px;
+  padding: 0 10px;
   font-weight: bold;
   cursor: pointer;
   height: 100%;

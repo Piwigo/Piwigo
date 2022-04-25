@@ -434,6 +434,11 @@ $(document).ready(() => {
   $('.user-list-checkbox').unbind("change").change(checkbox_change);
   $('.user-list-checkbox').unbind("click").click(checkbox_click);
 
+  $('.tiptip').tipTip({
+    delay: 0,
+    fadeIn: 200,
+    fadeOut: 200
+  });
 });
 
 function openAddAlbumPopIn(parentAlbumId) {
