@@ -415,6 +415,9 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 .move-cat-container:hover .move-cat-toogler span{
   color: #ae5d1e !important;
 }
+.move-cat-container:hover .icon-grip-vertical-solid{
+  color: #333 !important;
+}
 .move-cat-container.disabledToggle:hover .move-cat-toogler{
   color: #333 !important;
   opacity: 0.5;
