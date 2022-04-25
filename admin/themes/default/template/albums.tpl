@@ -114,7 +114,7 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 <div class="cat-move-header"> 
   <div class="add-album-button">
     <label class="album-add-button-label icon-plus-circled">
-      <p>{'Add an album'|@translate}</p>
+      <p>{'Add Album'|@translate}</p>
     </label>
   </div>
   <div class="order-root-button">
