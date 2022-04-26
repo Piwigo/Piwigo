@@ -1278,6 +1278,7 @@ $lang['This albums is already in related categories list'] = 'This albums is alr
 $lang['No search in progress'] = 'No search in progress';
 $lang['Create a new album at root'] = 'Create a new album at root';
 $lang['Create a sub-album of "%s"'] = 'Create a sub-album of "%s"';
+$lang['No research in progress'] = 'No research in progress';
 
 $lang['Visited'] = 'Visited';
 $lang['Downloaded'] = 'Downloaded';

@@ -1202,6 +1202,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .search-album-ghost div {
   background-image: linear-gradient(#333, #444);
 }
+.search-album-ghost span{
+  background-color: #5a5757;
+  color: #c1c1c1;
+}
 
 /* Icon colors*/
 

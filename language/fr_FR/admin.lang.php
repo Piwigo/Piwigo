@@ -1272,6 +1272,7 @@ $lang['Purge Actions'] = 'Actions de purge';
 $lang['Purge Cache'] = 'Purger le cache';
 $lang['Create a new album at root'] = 'Créer un nouvel album à la racine';
 $lang['Create a sub-album of "%s"'] = 'Créer un sous-album de "%s"';
+$lang['No research in progress'] = 'Pas de recherche en cours';
 $lang['Rename "%s"'] = 'Renommer "%s"';
 $lang['Yes, rename'] = 'Oui, renommer';
 $lang['Tag name'] = 'Nom du tag';
