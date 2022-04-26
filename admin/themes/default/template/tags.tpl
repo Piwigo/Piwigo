@@ -67,7 +67,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 {/function}
 
 <div class="titrePage">
-  <h2>{'Tag Manager'|@translate} <span class="badge-number"> {$total}</span> </h2>
+  <h2>{'Tags'|@translate} <span class="badge-number"> {$total}</span> </h2>
 </div>
 
 <div class="selection-mode-group-manager">

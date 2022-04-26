@@ -64,7 +64,7 @@ $template->assign('register_dates', implode(',' , $register_dates));
 // +-----------------------------------------------------------------------+
 $template->assign(
   array(
-    'ADMIN_PAGE_TITLE' => l10n('Manage users'),
+    'ADMIN_PAGE_TITLE' => l10n('Users'),
     'ACTIVATE_COMMENTS' => $conf['activate_comments'],
     'Double_Password' => $conf['double_password_type_in_admin']
   )
