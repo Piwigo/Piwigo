@@ -523,13 +523,13 @@ switch ($page['section'])
       $template->assign('derivatives', $tpl_vars);
       $template->assign('resize_quality', ImageStdParams::$quality);
 
-      $tpl_vars = array();
-      $now = time();
-      foreach(ImageStdParams::$custom as $custom=>$time)
-      {
-        $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
-      }
-      $template->assign('custom_derivatives', $tpl_vars);
+      // $tpl_vars = array();
+      // $now = time();
+      // foreach(ImageStdParams::$custom as $custom=>$time)
+      // {
+      //   $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
+      // }
+      // $template->assign('custom_derivatives', $tpl_vars);
     }
 
     break;
