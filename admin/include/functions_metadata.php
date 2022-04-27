@@ -163,6 +163,7 @@ function get_sync_metadata($infos)
   $infos['filesize'] = floor($fs/1024);
 
   $is_tiff = false;
+  $is_svg = false;
 
   if (isset($infos['representative_ext']))
   {
@@ -177,10 +178,25 @@ function get_sync_metadata($infos)
         // for width/height (to compute the multiple size dimensions)
         $is_tiff = true;
       }
-
     }
 
     $file = original_to_representative($file, $infos['representative_ext']);
+  }
+
+  if ('image/svg+xml' === mime_content_type($file) || 'image/svg' === mime_content_type($file)) 
+  {
+    $is_svg = true;
+
+    $xml = file_get_contents($file);
+
+    $xmlget = simplexml_load_string($xml);
+    $xmlattributes = $xmlget->attributes();
+    $width = (string) $xmlattributes->width; 
+    $height = (string) $xmlattributes->height;
+    $vb = (string) $xmlattributes->viewBox;
+
+    $infos['width'] = isset($width) ? $width : explode(" ", $vb)[2];
+    $infos['height'] = isset($height) ? $height : explode(" ", $vb)[3];
   }
 
   if ($image_size = @getimagesize($file))
@@ -244,7 +260,7 @@ SELECT id, path, representative_ext
     {
       continue;
     }
-
+    // print_r($data);
     $id = $data['id'];
     foreach (array('keywords', 'tags') as $key)
     {
