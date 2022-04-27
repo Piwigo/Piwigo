@@ -45,7 +45,7 @@ $conf['picture_ext'] = array('jpg','jpeg','png','gif');
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array_merge(
   $conf['picture_ext'],
-  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf')
+  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf','svg')
   );
 
 // enable_formats: should Piwigo search for multiple formats?

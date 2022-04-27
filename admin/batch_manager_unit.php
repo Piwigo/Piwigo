@@ -213,7 +213,8 @@ SELECT
     {
       $legend.= ' ('.$row['file'].')';
     }
-
+    $extTab = explode('.',$row['path']);
+    
     $template->append(
       'elements', array_merge($row,
       array(
@@ -228,6 +229,7 @@ SELECT
         'DESCRIPTION' => htmlspecialchars(isset($row['comment']) ? $row['comment'] : ""),
         'DATE_CREATION' => $row['date_creation'],
         'TAGS' => $tag_selection,
+        'is_svg' => (strtoupper(end($extTab)) == 'SVG'),
         )
       ));
   }

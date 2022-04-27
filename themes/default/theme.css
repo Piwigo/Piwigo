@@ -342,6 +342,7 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 }
 .thumbnails IMG {
 	vertical-align: middle;
+  max-width: 100%;
 }
 
 .thumbnails SPAN.thumbLegend {
@@ -429,6 +430,11 @@ TD.calDayCellFull, TD.calDayCellEmpty {
   text-align: right;
 }
 
+#linkPrev img.svgImg,
+#linkNext img.svgImg {
+  width: 50px;
+  height: 50px;
+}
 
 DIV.thumbHover{ /*only first & last holders are divs*/
   width: 108px;

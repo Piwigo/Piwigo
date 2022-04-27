@@ -104,6 +104,8 @@ foreach ($pictures as $row)
     'URL' => $url,
     'DESCRIPTION' => $desc,
     'src_image' => new SrcImage($row),
+    'path_ext' => strtolower(get_extension($row['path'])),
+    'file_ext' => strtolower(get_extension($row['file'])),
     ) );
 
   if ($conf['index_new_icon'])

@@ -507,6 +507,10 @@ while ($row = pwg_db_fetch_assoc($result))
   $row['src_image'] = new SrcImage($row);
   $row['derivatives'] = DerivativeImage::get_all($row['src_image']);
 
+  $extTab = explode('.',$row['path']);
+  $row['path_ext'] = strtolower(get_extension($row['path']));
+  $row['file_ext'] = strtolower(get_extension($row['file']));
+
   if ($i=='current')
   {
     $row['element_path'] = get_element_path($row);
