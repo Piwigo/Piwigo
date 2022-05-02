@@ -183,7 +183,7 @@ function get_sync_metadata($infos)
     $file = original_to_representative($file, $infos['representative_ext']);
   }
 
-  if ('image/svg+xml' === mime_content_type($file) || 'image/svg' === mime_content_type($file)) 
+  if (in_array(mime_content_type($file), array('image/svg+xml', 'image/svg')))
   {
     $is_svg = true;
 
@@ -195,8 +195,20 @@ function get_sync_metadata($infos)
     $height = (string) $xmlattributes->height;
     $vb = (string) $xmlattributes->viewBox;
 
-    $infos['width'] = isset($width) ? $width : explode(" ", $vb)[2];
-    $infos['height'] = isset($height) ? $height : explode(" ", $vb)[3];
+
+    $infos['is_svg'] = $is_svg;
+
+    if (isset($width)) {
+      $infos['width'] = $width;
+    } elseif (isset($vb)) {
+      $infos['width'] = explode(" ", $vb)[2];
+    }
+
+    if (isset($height)) {
+      $infos['height'] = $height;
+    } elseif (isset($vb)) {
+      $infos['height'] = explode(" ", $vb)[3];
+    }
   }
 
   if ($image_size = @getimagesize($file))
