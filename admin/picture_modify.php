@@ -295,7 +295,8 @@ $intro_vars = array(
   'size' => $row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB',
   'stats' => l10n('Visited %d times', $row['hit']),
   'id' => l10n($row['id']),
-  'ext' => l10n('%s file type',strtoupper(end($extTab)))
+  'ext' => l10n('%s file type',strtoupper(end($extTab))),
+  'is_svg'=> (strtoupper(end($extTab)) == 'SVG'),
   );
 
 if ($conf['rate'] and !empty($row['rating_score']))
