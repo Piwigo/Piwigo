@@ -198,15 +198,19 @@ function get_sync_metadata($infos)
 
     $infos['is_svg'] = $is_svg;
 
-    if (isset($width)) {
+    if (isset($width))
+    {
       $infos['width'] = $width;
-    } elseif (isset($vb)) {
+    } elseif (isset($vb))
+    {
       $infos['width'] = explode(" ", $vb)[2];
     }
 
-    if (isset($height)) {
+    if (isset($height))
+    {
       $infos['height'] = $height;
-    } elseif (isset($vb)) {
+    } elseif (isset($vb))
+    {
       $infos['height'] = explode(" ", $vb)[3];
     }
   }
