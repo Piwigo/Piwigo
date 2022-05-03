@@ -429,6 +429,10 @@ TD.calDayCellFull, TD.calDayCellEmpty {
   text-align: right;
 }
 
+#linkPrev img.svgImg,
+#linkNext img.svgImg {
+  max-width: 50px;
+}
 
 DIV.thumbHover{ /*only first & last holders are divs*/
   width: 108px;
