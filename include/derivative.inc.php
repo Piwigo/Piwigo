@@ -57,7 +57,12 @@ final class SrcImage
       $this->flags |= self::IS_MIMETYPE;
       if ( ($size=@getimagesize(PHPWG_ROOT_PATH.$this->rel_path)) === false)
       {
-        $this->rel_path = 'themes/default/icon/mimetypes/unknown.png';
+        $extTab = explode('.',$infos['path']);
+        if (strtoupper(end($extTab)) == 'SVG') {
+          $this->rel_path = $infos['path'];
+        } else {
+          $this->rel_path = 'themes/default/icon/mimetypes/unknown.png';
+        }
         $size = getimagesize(PHPWG_ROOT_PATH.$this->rel_path);
       }
       $this->size = array($size[0],$size[1]);
