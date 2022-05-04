@@ -47,10 +47,6 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 
 {combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
 
-<div class="titrePage">
-  <h2>{'Albums'|@translate} <span class="badge-number"> {$nb_albums} </span></h2>
-</div>
-
 <div class="cat-move-order-popin">
   <div class="order-popin-container">
     <a class="close-popin icon-cancel" onClick="$('.cat-move-order-popin').fadeOut()"> </a>

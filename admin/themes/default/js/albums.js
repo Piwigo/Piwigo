@@ -2,6 +2,8 @@ $(document).ready(() => {
 
   formatedData = data;
 
+  $("h1").append(`<span class='badge-number'>`+nb_albums+`</span>`);
+
   $('.tree').tree({
     data: formatedData,
     autoOpen : false,

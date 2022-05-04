@@ -209,9 +209,15 @@ SELECT
   return $orderedTree;
 }
 
-$template->assign('album_data', assocToOrderedTree($associatedTree));
-$template->assign('PWG_TOKEN', get_pwg_token());
-$template->assign('nb_albums', count($allAlbum));
+$template->assign(
+  array(
+    'album_data' => assocToOrderedTree($associatedTree),
+    'PWG_TOKEN' => get_pwg_token(),
+    'nb_albums' => count($allAlbum),
+    'ADMIN_PAGE_TITLE' => l10n('Albums'),
+  )
+);
+
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
 // +-----------------------------------------------------------------------+
