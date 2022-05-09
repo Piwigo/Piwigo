@@ -342,6 +342,7 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 }
 .thumbnails IMG {
 	vertical-align: middle;
+  max-width: 100%;
 }
 
 .thumbnails SPAN.thumbLegend {
