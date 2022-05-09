@@ -191,14 +191,13 @@ function get_sync_metadata($infos)
 
     $xmlget = simplexml_load_string($xml);
     $xmlattributes = $xmlget->attributes();
-    $width = (string) $xmlattributes->width; 
-    $height = (string) $xmlattributes->height;
+    $width = (int) $xmlattributes->width; 
+    $height = (int) $xmlattributes->height;
     $vb = (string) $xmlattributes->viewBox;
-
 
     $infos['is_svg'] = $is_svg;
 
-    if (isset($width))
+    if (isset($width) and $width != "")
     {
       $infos['width'] = $width;
     } elseif (isset($vb))
@@ -206,7 +205,7 @@ function get_sync_metadata($infos)
       $infos['width'] = explode(" ", $vb)[2];
     }
 
-    if (isset($height))
+    if (isset($height) and $height != "")
     {
       $infos['height'] = $height;
     } elseif (isset($vb))
