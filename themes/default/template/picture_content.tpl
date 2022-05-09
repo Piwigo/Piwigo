@@ -4,7 +4,7 @@
 {footer_script}var error_icon = "{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png"{/footer_script}
 {/if}
 
-<img {if $current.is_svg}src="{$current.path}" style="{if $current.width < 150}min-width: 200px; {else} max-width:{$current.width}; {/if} {if $current.height < 150} min-height: 200px;{else} max-height: {$current.height} {/if}" {elseif $current.selected_derivative->is_cached()}src="{$current.selected_derivative->get_url()}"{$current.selected_derivative->get_size_htm()}{else}src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif" data-src="{$current.selected_derivative->get_url()}"{/if} alt="{$ALT_IMG}" id="theMainImage" usemap="#map{$current.selected_derivative->get_type()}" title="{if isset($COMMENT_IMG)}{$COMMENT_IMG|@strip_tags:false|@replace:'"':' '}{else}{$current.TITLE_ESC} - {$ALT_IMG}{/if}">
+<img {if $current.is_svg}src="{$current.path}" style="{if $current.width < 150}min-width: 200px; {else} max-width:{$current.width}px; {/if} {if $current.height < 150} min-height: 200px;{else} max-height: {$current.height}px {/if}" {elseif $current.selected_derivative->is_cached()}src="{$current.selected_derivative->get_url()}"{$current.selected_derivative->get_size_htm()}{else}src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif" data-src="{$current.selected_derivative->get_url()}"{/if} alt="{$ALT_IMG}" id="theMainImage" usemap="#map{$current.selected_derivative->get_type()}" title="{if isset($COMMENT_IMG)}{$COMMENT_IMG|@strip_tags:false|@replace:'"':' '}{else}{$current.TITLE_ESC} - {$ALT_IMG}{/if}">
 
 {foreach from=$current.unique_derivatives item=derivative key=derivative_type}{strip}
 <map name="map{$derivative->get_type()}">
