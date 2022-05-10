@@ -495,6 +495,7 @@ CREATE TABLE `piwigo_user_infos` (
   `last_visit` datetime default NULL,
   `last_visit_from_history` enum('true','false') NOT NULL default 'false',
   `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `preferences` TEXT default NULL,
   PRIMARY KEY (`user_id`),
   KEY `lastmodified` (`lastmodified`)
 ) ENGINE=MyISAM;
