@@ -23,9 +23,9 @@ $(document).ready(() => {
       '<div class="move-cat-action-cont">'
         +"<div class='move-cat-action'>"
           +'<a class="move-cat-add icon-plus-circled tiptip" title="'+ str_add_album +'" href="#" data-aid="'+node.id+'"></a>'
-          +'<a class="move-cat-edit icon-pencil tiptip" title="'+ str_edit_album +'" href="admin.php?page=album-"'+node.id+'"></a>'
-          +'<a class="move-cat-upload icon-upload tiptip" title="'+ str_add_photo +'" href="admin.php?page=photos_add&album="'+node.id+'"></a>'
-          +'<a class="move-cat-see icon-eye tiptip" title="'+ str_visit_gallery +'" href="index.php?/category/"'+node.id+'"></a>'
+          +'<a class="move-cat-edit icon-pencil tiptip" title="'+ str_edit_album +'" href="admin.php?page=album-'+node.id+'"></a>'
+          +'<a class="move-cat-upload icon-upload tiptip" title="'+ str_add_photo +'" href="admin.php?page=photos_add&album='+node.id+'"></a>'
+          +'<a class="move-cat-see icon-eye tiptip" title="'+ str_visit_gallery +'" href="index.php?/category/'+node.id+'"></a>'
           +'<a data-id="'+node.id+'" class="move-cat-delete icon-trash tiptip" title="'+ str_delete_album +'" ></a>'
         +"</div>"
       +'</div>';
@@ -126,7 +126,7 @@ $(document).ready(() => {
     }
   }
 
-  /* Hide group options and rename field on click on the screen */
+  /* Hide album options and on click on the screen */
 
   $(document).mouseup(function (e) {
     e.stopPropagation();
@@ -283,6 +283,7 @@ $(document).ready(() => {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         $("#cat-"+catToEdit).find(".move-cat-title-container p.move-cat-title").html($(".RenameAlbumLabelUsername input").val());
+        $("#cat-"+catToEdit).find(".move-cat-title-container p.move-cat-title").attr('title', $(".RenameAlbumLabelUsername input").val());
         closeRenameAlbumPopIn();
       },
       error: function(message) {
@@ -317,6 +318,8 @@ $(document).ready(() => {
   });
 
   $(".AddAlbumSubmit").on("click", function () {
+    $(this).addClass("notClickable");
+
     newAlbumName = $(".AddAlbumLabelUsername input").val();
     newAlbumParent = $(".AddAlbumSubmit").data("a-parent");
     newAlbumPosition = $("input[name=position]:checked").val();
@@ -387,6 +390,10 @@ $(document).ready(() => {
         $(".move-cat-delete-small").on("click", function () {
           triggerDeleteAlbum($(this).data("id"));
         });
+        $(".move-cat-title-container").unbind("click").on("click", function () {
+          openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
+          $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+        });
 
         updateTitleBadge(nb_albums+1)
 
@@ -400,6 +407,7 @@ $(document).ready(() => {
       }
     }).done(function () {
       closeAddAlbumPopIn();
+      $(".AddAlbumSubmit").removeClass("notClickable");
     });
   })
 
@@ -538,6 +546,10 @@ function openDeleteAlbumPopIn(cat_to_delete) {
         });
         $(".move-cat-delete-small").on("click", function () {
           triggerDeleteAlbum($(this).data("id"));
+        });
+        $(".move-cat-title-container").unbind("click").on("click", function () {
+          openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
+          $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
         });
 
         updateTitleBadge(nb_albums-1);
