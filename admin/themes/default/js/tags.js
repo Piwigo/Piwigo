@@ -85,7 +85,7 @@ function recycleTagBox(tagBox, id, name, url_name, count) {
 
 //Number On Badge
 function updateBadge() {
-  $('.badge-number').html(dataTags.length)
+  $('.badge-number').html(dataTags.length);
 }
 
 //Add a tag
@@ -164,7 +164,6 @@ function addTag(name) {
           newTag = createTagBox(data.result.id, data.result.name, data.result.url_name, 0);
           $('.tag-container').prepend(newTag);
           setupTagbox(newTag);
-          updateBadge();
           updateSearchInfo();
 
           //Update the data
@@ -173,6 +172,7 @@ function addTag(name) {
             id:data.result.id,
             url_name:data.result.url_name
           });
+          updateBadge();
           resolve();
         } else {
           reject(str_already_exist.replace('%s', name));
