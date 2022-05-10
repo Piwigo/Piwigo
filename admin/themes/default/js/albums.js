@@ -394,6 +394,11 @@ $(document).ready(() => {
           openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
           $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
         });
+        $('.tiptip').tipTip({
+          delay: 0,
+          fadeIn: 200,
+          fadeOut: 200
+        });
 
         updateTitleBadge(nb_albums+1)
 
@@ -470,6 +475,12 @@ function openRenameAlbumPopIn(replacedAlbumName) {
   $(".RenameAlbumTitle span").html(rename_item.replace("%s", replacedAlbumName))
   $(".RenameAlbumLabelUsername .user-property-input").val(replacedAlbumName);
   $(".RenameAlbumLabelUsername .user-property-input").focus();
+
+  $(document).unbind("keypress").on('keypress',function(e) {
+    if(e.which == 13) {
+      $(".RenameAlbumSubmit").trigger("click");
+    }
+});
 }
 function closeRenameAlbumPopIn() {
   $("#RenameAlbum").fadeOut();
@@ -550,6 +561,11 @@ function openDeleteAlbumPopIn(cat_to_delete) {
         $(".move-cat-title-container").unbind("click").on("click", function () {
           openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
           $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+        });
+        $('.tiptip').tipTip({
+          delay: 0,
+          fadeIn: 200,
+          fadeOut: 200
         });
 
         updateTitleBadge(nb_albums-1);
@@ -709,6 +725,11 @@ function applyMove(event) {
       openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
       $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
     });
+    $('.tiptip').tipTip({
+      delay: 0,
+      fadeIn: 200,
+      fadeOut: 200
+    });
   })
     .catch(function (message) {
       console.log('An error has occured : ' + message );
@@ -729,6 +750,11 @@ function applyMove(event) {
       $(".move-cat-title-container").on("click", function () {
         openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
         $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+      });
+      $('.tiptip').tipTip({
+        delay: 0,
+        fadeIn: 200,
+        fadeOut: 200
       });
     })
 }
