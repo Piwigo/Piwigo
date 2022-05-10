@@ -937,7 +937,7 @@ SELECT
       $image_id = $line['image_id'];
 
       $image_string =
-      '<span><img src="'.DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $element)
+      '<span><img src="'.@DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $element)
       .'" alt="'.$image_title.'" title="'.$image_title.'">';
     }
 
