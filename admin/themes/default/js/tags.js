@@ -86,6 +86,11 @@ function recycleTagBox(tagBox, id, name, url_name, count) {
 //Number On Badge
 function updateBadge() {
   $('.badge-number').html(dataTags.length);
+  if (dataTags.length == 0) {
+    $(".tag-header #add-tag .add-tag-label").addClass("highlight");
+  } else {
+    $(".tag-header #add-tag .add-tag-label").removeClass("highlight");
+  }
 }
 
 //Add a tag

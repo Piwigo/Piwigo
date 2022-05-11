@@ -116,7 +116,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
   </div>
   <form id='add-tag' class='not-in-selection-mode'>
     <span class='icon-cancel-circled'></span>
-    <label class='add-tag-label icon-plus-circled'>
+    <label class='add-tag-label icon-plus-circled {if $total == 0} highlight {/if}'>
       <p>{'Add a tag'|@translate}</p>
       <div class='add-tag-container'>
         <input type='text' id='add-tag-input' placeholder="{'New tag'|@translate}">

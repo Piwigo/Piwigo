@@ -3335,11 +3335,18 @@ a#showPermissions:hover {text-decoration: none;}
   cursor: pointer;
 }
 
+.tag-header #add-tag .add-tag-label.highlight {
+  background: #ffa646;
+  box-shadow: 0 2px #af7200;
+  color: white;
+}
+
 .tag-header #add-tag.input-mode .add-tag-label {
   background: none;
   box-shadow: none;
   cursor: auto;
-  padding: 0px
+  padding: 0px;
+  color: inherit;
 }
 
 .tag-header #add-tag .add-tag-label::before {

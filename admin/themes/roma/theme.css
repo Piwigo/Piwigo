@@ -1121,6 +1121,17 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #333 !important;
 }
 
+.tag-header #add-tag .add-tag-label.highlight {
+  background: #f7a43c !important;
+  box-shadow: 0 2px #af7200;
+  color: #444 !important;
+}
+.tag-header #add-tag.input-mode .add-tag-label.highlight {
+  background: transparent !important;
+  box-shadow: none;
+  color: inherit !important;
+}
+
 .tag-container .tag-box p {
   color: #aaa;
 }
