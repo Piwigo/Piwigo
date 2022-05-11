@@ -1287,4 +1287,6 @@ $lang['Object'] = 'Object';
 $lang['Memories'] = 'Souvenirs';
 $lang['Add as filter'] = 'Add as filter';
 $lang['Show plugins compatible with previous version of Piwigo'] = 'Show plugins compatible with previous version of Piwigo';
+$lang['Placer au début'] = 'Place at the start';
+$lang['Placer à la fin'] = 'Place at the end';
 // Leave this line empty
