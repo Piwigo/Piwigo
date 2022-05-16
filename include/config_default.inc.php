@@ -40,6 +40,7 @@
 
 // picture_ext : file extensions for picture file, must be a subset of
 // file_ext
+// Add 'svg' to this array to support svg images.
 $conf['picture_ext'] = array('jpg','jpeg','png','gif');
 
 // file_ext : file extensions (case sensitive) authorized
