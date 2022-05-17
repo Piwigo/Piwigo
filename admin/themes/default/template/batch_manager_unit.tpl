@@ -58,7 +58,7 @@ jQuery("a.preview-box").colorbox( {
   <legend>{$element.LEGEND}</legend>
 
   <span class="thumb">
-    <a href="{$element.FILE_SRC}" class="preview-box icon-zoom-in" title="{$element.LEGEND|@htmlspecialchars}"><img src="{$element.TN_SRC}" alt="" {if $current.is_svg}style="{if $current.width < 100}min-width: 100px;{/if}{if $current.height < 100} min-height: 100px; {/if}" {/if}></a>
+    <a href="{$element.FILE_SRC}" class="preview-box icon-zoom-in" title="{$element.LEGEND|@htmlspecialchars}"><img src="{$element.TN_SRC}" alt="" {if $element.is_svg}style="{if $current.width < 100}min-width: 100px;{/if}{if $current.height < 100} min-height: 100px; {/if}" {/if}></a>
     <a href="{$element.U_EDIT}" class="icon-pencil">{'Edit'|@translate}</a>
   </span>
 
