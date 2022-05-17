@@ -104,6 +104,7 @@ foreach ($pictures as $row)
     'URL' => $url,
     'DESCRIPTION' => $desc,
     'src_image' => new SrcImage($row),
+    'is_svg' => ('svg' == strtolower(get_extension($row['path']))),
     ) );
 
   if ($conf['index_new_icon'])
