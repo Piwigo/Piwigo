@@ -107,7 +107,7 @@ jQuery(document).ready(function(){
 		},
 
 		// Rename files by clicking on their titles
-		// rename: true,
+		rename: true,
 
 		// Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
 		dragdrop: true,
@@ -149,13 +149,54 @@ jQuery(document).ready(function(){
         }
       },
 
+      FilesAdded: function(up, files) {
+        console.log("FilesAdded");
+
+        // Création de la liste avec plupload_id : image_name
+        fileNames = [];
+        files.forEach((file) => {
+          console.log(file)
+          fileNames[file.id] = file.name;
+        });
+
+        //ajax qui renvois les id des images dans la gallerie.
+        jQuery.ajax({
+          url: "ws.php?format=json&method=pwg.session.getStatus", // penser a changer la method
+          type: "POST",
+          success: function (data) {
+
+            //les data qui sont renvoyées avec plupload_id : piwigo_id
+            data = {o_1g369r2011io3v2k1hmn1fc11m7a : 42, o_1g36a8kgutjjajjpb9agvb16a : 69};
+
+            console.log("FilesInAjax");
+            for (const [plupload_id, piwigo_id] of Object.entries(data)) {
+              console.log(`${plupload_id}: ${piwigo_id}`);
+
+              files.forEach((file) => {
+                if (file.id == plupload_id) {
+                  file.format_of = true; // mettre l`id 
+                } else {
+                  file.format_of = false; // mettre a null si pas de photo trouvées ?
+                }
+              })
+            }
+          }
+        });
+
+
+        //vérifier qu'on a bien format_of ici
+        console.log("Files");
+        console.log(files);
+      },
+
       UploadProgress: function(up, file) {
         jQuery('#uploadingActions .progressbar').width(up.total.percent+'%');
         Piecon.setProgress(up.total.percent);
       },
       
       BeforeUpload: function(up, file) {
-        //console.log('[BeforeUpload]', file);
+
+        console.log('[BeforeUpload]', file);
         
         // hide buttons
         jQuery('#startUpload, .selectFilesButtonBlock, .selectAlbumBlock').hide();
@@ -178,7 +219,7 @@ jQuery(document).ready(function(){
           {
             category : jQuery("select[name=category] option:selected").val(),
             level : jQuery("select[name=level] option:selected").val(),
-            pwg_token : pwg_token
+            pwg_token : pwg_token,
             // name : file.name
           }
         );
