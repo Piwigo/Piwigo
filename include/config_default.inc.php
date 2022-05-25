@@ -40,13 +40,12 @@
 
 // picture_ext : file extensions for picture file, must be a subset of
 // file_ext
-// Add 'svg' to this array to support svg images.
 $conf['picture_ext'] = array('jpg','jpeg','png','gif');
 
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array_merge(
   $conf['picture_ext'],
-  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf')
+  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf','svg')
   );
 
 // enable_formats: should Piwigo search for multiple formats?
