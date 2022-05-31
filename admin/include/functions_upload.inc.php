@@ -427,6 +427,74 @@ SELECT
   return $image_id;
 }
 
+function add_format($source_filepath, $format_ext, $format_of)
+{
+  // 1) find infos about the extended image
+  //
+  // 2) move uploaded file to upload/2022/05/16/pwg_format/20100122003814-449ada00.cr2
+  //
+  // 3) register in database
+
+  if (!conf_get_param('enable_formats', false))
+  {
+    die('['.__FUNCTION__.'] formats are disabled');
+  }
+
+  if (!in_array($format_ext, conf_get_param('format_ext', array('cr2'))))
+  {
+    die('['.__FUNCTION__.'] unexpected format extension "'.$format_ext.'" (authorized extensions: '.implode(', ', conf_get_param('format_ext', array('cr2'))).')');
+  }
+
+  $query = '
+SELECT
+    path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$format_of.'
+;';
+  $images = query2array($query);
+
+  if (!isset($images[0]))
+  {
+    die('['.__FUNCTION__.'] this photo does not exist in the database');
+  }
+
+  $format_path = dirname($images[0]['path']).'/pwg_format/';
+  $format_path.= get_filename_wo_extension(basename($images[0]['path']));
+  $format_path.= '.'.$format_ext;
+
+  prepare_directory(dirname($format_path));
+
+  if (is_uploaded_file($source_filepath))
+  {
+    move_uploaded_file($source_filepath, $format_path);
+  }
+  else
+  {
+    rename($source_filepath, $format_path);
+  }
+  @chmod($format_path, 0644);
+
+  $file_infos = pwg_image_infos($format_path);
+
+  $insert = array(
+    'image_id' => $format_of,
+    'ext' => $format_ext,
+    'filesize' => $file_infos['filesize'],
+  );
+
+  single_insert(IMAGE_FORMAT_TABLE, $insert);
+  $format_id = pwg_db_insert_id(IMAGE_FORMAT_TABLE);
+
+  pwg_activity('photo', $format_of, 'edit', array('action'=>'add format', 'format_ext'=>$format_ext, 'format_id'=>$format_id));
+
+  $format_infos = $insert;
+  $format_infos['format_id'] = $format_id;
+
+  trigger_notify('loc_end_add_format', $format_infos);
+
+  return $format_id;
+}
+
 add_event_handler('upload_file', 'upload_file_pdf');
 function upload_file_pdf($representative_ext, $file_path)
 {

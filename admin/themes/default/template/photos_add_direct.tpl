@@ -69,6 +69,7 @@ var batch_Label = "{'Manage this set of %d photos'|translate}";
 var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape}";
 var uploadedPhotos = [];
 var uploadCategory = null;
+var uploadFormats = true;
 
 {literal}
 jQuery(document).ready(function(){
@@ -149,6 +150,50 @@ jQuery(document).ready(function(){
         }
       },
 
+      FilesAdded: function(up, files) {
+        console.log("FilesAdded");
+
+        // Création de la liste avec plupload_id : image_name
+        fileNames = {};
+        files.forEach((file) => {
+          console.log(file)
+          fileNames[file.id] = file.name;
+        });
+
+        //ajax qui renvois les id des images dans la gallerie.
+        jQuery.ajax({
+          url: "ws.php?format=json&method=pwg.images.formats.searchImage",
+          type: "POST",
+          data: {
+            category_id: jQuery("select[name=category] option:selected").val(),
+            filename_list: JSON.stringify(fileNames),
+          },
+          success: function(data) {
+
+            //les data qui sont renvoyées avec plupload_id : piwigo_id
+            var data = JSON.parse(data);
+            console.log(data.result);
+            // data = {o_1g369r2011io3v2k1hmn1fc11m7a : 42, o_1g36a8kgutjjajjpb9agvb16a : 69};
+
+            console.log("FilesInAjax");
+            for (const [plupload_id, piwigo_data] of Object.entries(data.result)) {
+              console.log(plupload_id+': '+piwigo_data.image_id);
+
+              files.forEach((file) => {
+                if (file.id == plupload_id) {
+                  file.format_of = piwigo_data.image_id;
+                }
+              })
+            }
+          }
+        });
+
+
+        //vérifier qu'on a bien format_of ici
+        console.log("Files");
+        console.log(files);
+      },
+
       UploadProgress: function(up, file) {
         jQuery('#uploadingActions .progressbar').width(up.total.percent+'%');
         Piecon.setProgress(up.total.percent);
@@ -173,15 +218,18 @@ jQuery(document).ready(function(){
         jQuery("select[name=level]").attr("disabled", "disabled");
 
         // You can override settings before the file is uploaded
-        up.setOption(
-          'multipart_params',
-          {
-            category : jQuery("select[name=category] option:selected").val(),
-            level : jQuery("select[name=level] option:selected").val(),
-            pwg_token : pwg_token
-            // name : file.name
-          }
-        );
+        var options = {
+          category : jQuery("select[name=category] option:selected").val(),
+          level : jQuery("select[name=level] option:selected").val(),
+          pwg_token : pwg_token
+          // name : file.name
+        };
+
+        if (uploadFormats) {
+          options.format_of = file.format_of;
+        }
+
+        up.setOption('multipart_params', options);
       },
 
       FileUploaded: function(up, file, info) {

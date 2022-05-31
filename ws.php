@@ -254,6 +254,18 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.formats.searchImage',
+      'ws_images_formats_searchImage',
+      array(
+        'category_id' => array('type'=>WS_TYPE_ID, 'default'=>null),
+        'filename_list' => array(),
+        ),
+      'Search for image ids matching the provided filenames. <b>filename_list</b> must be a JSON encoded associative array of unique_id:filename.<br><br>The method returns a list of unique_id:image_id.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.images.setRank',
       'ws_images_setRank',
       array(
@@ -451,6 +463,11 @@ function ws_addDefaultMethods( $arr )
           'default' => 0,
           'maxValue' => max($conf['available_permission_levels']),
           'type' => WS_TYPE_INT|WS_TYPE_POSITIVE
+          ),
+        'format_of' => array(
+          'default' => null,
+          'type' => WS_TYPE_ID,
+          'info' => 'id of the extended image (name/category/level are not used if format_of is provided)',
           ),
         'pwg_token' => array(),
         ),
