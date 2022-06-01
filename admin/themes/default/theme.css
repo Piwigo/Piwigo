@@ -4662,7 +4662,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 }
 
 /* Selection mode */
-.selection-mode-group-manager{
+.format-mode-group-manager, .selection-mode-group-manager{
   position:absolute;
   right:15px;
   z-index:11;
@@ -4676,7 +4676,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   vertical-align:middle;
 }
 
-.selection-mode-group-manager p{
+.format-mode-group-manager p, .selection-mode-group-manager p{
   display:inline-block;
   padding:0 5px;
 }
@@ -5044,7 +5044,7 @@ input:checked + .slider:before, input:checked + .slider::after {
 }
 
 .jconfirmDeleteConfirm ~ .jconfirm-content-pane, .jconfirmAlert ~ .jconfirm-content-pane {
-  height: 0px !important;
+  /*height: 0px !important;*/
   margin: 0px !important;
 }
 
@@ -5053,8 +5053,6 @@ input:checked + .slider:before, input:checked + .slider::after {
 }
 
 .jconfirmAlert .jconfirm-icon-c i {
-  color: #0a0 !important;
-  background-color:#c2f5c2 !important;
   border-radius: 20px;
   padding: 5px 3px;
   border-radius: 60px;
@@ -5068,6 +5066,16 @@ input:checked + .slider:before, input:checked + .slider::after {
 
 .jconfirmAlert .jconfirm-title {
   font-size: 20px !important;
+}
+
+.jconfirmAlert .jconfirm-icon-c i {
+  color: #0a0 !important;
+  background-color:#c2f5c2 !important;
+}
+
+.jconfirmWarning .jconfirm-icon-c i {
+  color: #ffa744 !important;
+  background-color: #ffe9cf !important;
 }
 
 .jconfirm-title {
@@ -5707,6 +5715,7 @@ fieldset#environment legend i[class*="icon-"] {
 .selectAlbum, #permissions, .selectFiles {border: 0;}
 #permissions {display: none!important;}
 #permissions, .selectFiles {margin-top: 35px; margin-bottom: 20px;}
+.format-mode .selectFiles {margin: auto;}
 .selectAlbumBlock {display: flex; margin-left: 10px; margin-top: 10px;}
 /* .selectAlbumBlock span {
   margin-top: 15px;
@@ -5751,7 +5760,37 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .plupload_file_size {margin-right: 25px;}
 .plupload_total_file_size {margin-right: -8px;}
 .plupload_total_status {color: #707070!important; margin-right: -8px; font-weight: bold;}
-#photosAddContent .Addedphotos {border: none; margin-top: 35px;}
+
+/* Thumbnail after picture upload */
+#photosAddContent .Addedphotos {
+  border: none; 
+  margin-top: 35px;
+}
+#photosAddContent .Addedphotos #uploadedPhotos {
+  display: flex;
+}
+#photosAddContent .Addedphotos a {
+  margin-right: 35px; 
+  display: flex;
+}
+#photosAddContent .Addedphotos .format-ext-name {
+  position: absolute;
+  bottom: 0;
+  text-align: right;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  height: 50%;
+  background: linear-gradient(#0000, #000000b8);
+}
+#photosAddContent .Addedphotos .format-ext-name span {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 5px;
+}
 
 .addAlbumEmpty {text-align: center; position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%);}
 .addAlbumEmptyCenter {position: relative; margin: auto; height: calc(100vh - 200px);}

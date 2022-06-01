@@ -53,5 +53,14 @@ include_once(PHPWG_ROOT_PATH.'admin/include/photos_add_direct_prepare.inc.php');
 // +-----------------------------------------------------------------------+
 trigger_notify('loc_end_photo_add_direct');
 
+$display_formats = $conf['enable_formats'] && isset($_GET['formats']);
+
+$template->assign(array(
+  'ENABLE_FORMATS' => $conf['enable_formats'],
+  'DISPLAY_FORMATS' => $display_formats,
+  'SWITCH_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($display_formats ? '':'&formats'),
+  'format_ext' =>  implode(',', $conf['format_ext']),
+));
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'photos_add');
 ?>

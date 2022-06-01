@@ -1,6 +1,8 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='jquery.plupload' load='footer' require='jquery' path='themes/default/js/plugins/plupload/plupload.full.min.js'}
 {combine_script id='jquery.plupload.queue' load='footer' require='jquery' path='themes/default/js/plugins/plupload/jquery.plupload.queue/jquery.plupload.queue.min.js'}
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 
 {combine_css path="themes/default/js/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css"}
 
@@ -10,7 +12,9 @@
 {/if}
 
 {include file='include/colorbox.inc.tpl'}
-{include file='include/add_album.inc.tpl'}
+{if !$DISPLAY_FORMATS}
+  {include file='include/add_album.inc.tpl'}
+{/if}
 
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
@@ -24,52 +28,63 @@
 {/html_style}
 
 {footer_script}
-{* <!-- CATEGORIES --> *}
-var categoriesCache = new CategoriesCache({
-  serverKey: '{$CACHE_KEYS.categories}',
-  serverId: '{$CACHE_KEYS._hash}',
-  rootUrl: '{$ROOT_URL}'
-});
 
-categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
-  filter: function(categories, options) {
-    if (categories.length > 0) {
+const formatMode = {if $DISPLAY_FORMATS}true{else}false{/if};
+
+{* <!-- CATEGORIES --> *}
+if (!formatMode) {
+  var categoriesCache = new CategoriesCache({
+    serverKey: '{$CACHE_KEYS.categories}',
+    serverId: '{$CACHE_KEYS._hash}',
+    rootUrl: '{$ROOT_URL}'
+  });
+
+  categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
+    filter: function(categories, options) {
+      if (categories.length > 0) {
+        jQuery(".addAlbumEmptyCenter").css( "height", "auto" );
+        jQuery(".addAlbumFormParent").attr( "style", "display: block !important;" );
+      }
+      
+      return categories;
+    }
+  });
+
+  jQuery('[data-add-album]').pwgAddAlbum({
+    afterSelect: function() {
+      jQuery("#uploadForm").show();
+      jQuery(".addAlbumEmptyCenter").hide();
       jQuery(".addAlbumEmptyCenter").css( "height", "auto" );
       jQuery(".addAlbumFormParent").attr( "style", "display: block !important;" );
+
+      var categorySelectedId = jQuery("select[name=category] option:selected").val();
+      var categorySelectedPath = jQuery("select[name=category]")[0].selectize.getItem(categorySelectedId).text();
+      jQuery('.selectedAlbum').show().find('span').html(categorySelectedPath);
+      jQuery('.selectAlbumBlock').hide();
     }
-    
-    return categories;
-  }
-});
+  });
 
-jQuery('[data-add-album]').pwgAddAlbum({
-  afterSelect: function() {
-    jQuery("#uploadForm").show();
-    jQuery(".addAlbumEmptyCenter").hide();
-    jQuery(".addAlbumEmptyCenter").css( "height", "auto" );
-    jQuery(".addAlbumFormParent").attr( "style", "display: block !important;" );
-
-    var categorySelectedId = jQuery("select[name=category] option:selected").val();
-    var categorySelectedPath = jQuery("select[name=category]")[0].selectize.getItem(categorySelectedId).text();
-    jQuery('.selectedAlbum').show().find('span').html(categorySelectedPath);
-    jQuery('.selectAlbumBlock').hide();
-  }
-});
-
-Piecon.setOptions({
-  color: '#ff7700',
-  background: '#bbb',
-  shadow: '#fff',
-  fallback: 'force'
-});
+  Piecon.setOptions({
+    color: '#ff7700',
+    background: '#bbb',
+    shadow: '#fff',
+    fallback: 'force'
+  });
+}
 
 var pwg_token = '{$pwg_token}';
 var photosUploaded_label = "{'%d photos uploaded'|translate}";
 var batch_Label = "{'Manage this set of %d photos'|translate}";
 var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape}";
+var str_format_warning = "{'Error when trying to detect formats'|translate}";
+var str_ok = "{'Ok'|translate}";
+var str_format_warning_multiple = "{'There is multiple image in the database with the following names : %s. Try to rename them with the Edit Filename plugin.'|translate}";
+var str_format_warning_notFound = "{'No picture found with the following name : %s.'|translate}";
+var str_and_X_others = "{'and %d more'|translate}";
+var file_ext = "{$file_exts}";
+var format_ext = "{$format_ext}"; 
 var uploadedPhotos = [];
 var uploadCategory = null;
-var uploadFormats = true;
 
 {literal}
 jQuery(document).ready(function(){
@@ -103,7 +118,7 @@ jQuery(document).ready(function(){
 			max_file_size : '1000mb',
 			// Specify what files to browse for
 			mime_types: [
-				{title : "Image files", extensions : "{/literal}{$file_exts}{literal}"}
+				{title : "Image files", extensions : formatMode ? format_ext : file_ext}
 			]
 		},
 
@@ -151,47 +166,72 @@ jQuery(document).ready(function(){
       },
 
       FilesAdded: function(up, files) {
-        console.log("FilesAdded");
-
         // Création de la liste avec plupload_id : image_name
         fileNames = {};
         files.forEach((file) => {
-          console.log(file)
           fileNames[file.id] = file.name;
         });
 
-        //ajax qui renvois les id des images dans la gallerie.
-        jQuery.ajax({
-          url: "ws.php?format=json&method=pwg.images.formats.searchImage",
-          type: "POST",
-          data: {
-            category_id: jQuery("select[name=category] option:selected").val(),
-            filename_list: JSON.stringify(fileNames),
-          },
-          success: function(data) {
+        if (formatMode) {
+          //ajax qui renvois les id des images dans la gallerie.
+          jQuery.ajax({
+            url: "ws.php?format=json&method=pwg.images.formats.searchImage",
+            type: "POST",
+            data: {
+              category_id: jQuery("select[name=category] option:selected").val(),
+              filename_list: JSON.stringify(fileNames),
+            },
+            success: function(res) {
 
-            //les data qui sont renvoyées avec plupload_id : piwigo_id
-            var data = JSON.parse(data);
-            console.log(data.result);
-            // data = {o_1g369r2011io3v2k1hmn1fc11m7a : 42, o_1g36a8kgutjjajjpb9agvb16a : 69};
+              const notFound = [];
+              const multiple = []
 
-            console.log("FilesInAjax");
-            for (const [plupload_id, piwigo_data] of Object.entries(data.result)) {
-              console.log(plupload_id+': '+piwigo_data.image_id);
+              //les data qui sont renvoyées avec plupload_id : piwigo_id
+              let data = JSON.parse(res);
 
-              files.forEach((file) => {
-                if (file.id == plupload_id) {
-                  file.format_of = piwigo_data.image_id;
-                }
+              const images_search = data.result;
+              // data = {o_1g369r2011io3v2k1hmn1fc11m7a : 42, o_1g36a8kgutjjajjpb9agvb16a : 69};
+
+              files.forEach((f) => {
+                const search = images_search[f.id];
+                if (search.status == "found") 
+                  f.format_of = search.image_id;
+                else {
+                  if (search.status == "multiple")
+                    multiple.push(f.name);
+                  else 
+                    notFound.push(f.name);
+                  up.removeFile(f.id);
+                } 
               })
+
+              files.filter(f => images_search[f.id].status === "found");
+
+              if (notFound.length || multiple.length) {
+                const [multStr, notFoundStr] = [multiple, notFound].map((tab) => {
+                  //Get names
+                  tab = tab.map(f => f.slice(0,f.indexOf('.')))
+                  // Remove duplicates
+                  tab = tab.filter((f,i) => i === tab.indexOf(f))
+
+                  // Add "and X more" if necessary
+                  if (tab.length > 5) {
+                    tab[5] = str_and_X_others.replace('%d', tab.length - 5);
+                    tab = tab.splice(0,6);
+                  }
+                  return tab;
+                })
+
+                $.alert({
+                  title: str_format_warning,
+                  content : (notFound.length ? `<p>${str_format_warning_notFound.replace('%s', notFoundStr.join(', '))}</p>` : "")
+                    +(multiple.length ? `<p>${str_format_warning_multiple.replace('%s', multStr.join(', '))}</p>` : ""),
+                  ...jConfirm_warning_options
+                })
+              }
             }
-          }
-        });
-
-
-        //vérifier qu'on a bien format_of ici
-        console.log("Files");
-        console.log(files);
+          });
+        }
       },
 
       UploadProgress: function(up, file) {
@@ -200,14 +240,15 @@ jQuery(document).ready(function(){
       },
       
       BeforeUpload: function(up, file) {
-        //console.log('[BeforeUpload]', file);
-        
         // hide buttons
         jQuery('#startUpload, .selectFilesButtonBlock, .selectAlbumBlock').hide();
         jQuery('#uploadingActions').show();
-        var categorySelectedId = jQuery("select[name=category] option:selected").val();
-        var categorySelectedPath = jQuery("select[name=category]")[0].selectize.getItem(categorySelectedId).text();
-        jQuery('.selectedAlbum').show().find('span').html(categorySelectedPath);
+        jQuery('.format-mode-group-manager').hide();
+        if (!formatMode) {
+          var categorySelectedId = jQuery("select[name=category] option:selected").val();
+          var categorySelectedPath = jQuery("select[name=category]")[0].selectize.getItem(categorySelectedId).text();
+          jQuery('.selectedAlbum').show().find('span').html(categorySelectedPath);
+        }
 
         // warn user if she wants to leave page while upload is running
         jQuery(window).bind('beforeunload', function() {
@@ -219,14 +260,15 @@ jQuery(document).ready(function(){
 
         // You can override settings before the file is uploaded
         var options = {
-          category : jQuery("select[name=category] option:selected").val(),
-          level : jQuery("select[name=level] option:selected").val(),
           pwg_token : pwg_token
-          // name : file.name
         };
 
-        if (uploadFormats) {
+        if (formatMode) {
           options.format_of = file.format_of;
+        } else {
+          options.category = jQuery("select[name=category] option:selected").val();
+          options.level = jQuery("select[name=level] option:selected").val();
+          options.name = file.name;
         }
 
         up.setOption('multipart_params', options);
@@ -238,13 +280,14 @@ jQuery(document).ready(function(){
         
         // hide item line
         jQuery('#'+file.id).hide();
-      
-        var data = jQuery.parseJSON(info.response);
+
+        let data = jQuery.parseJSON(info.response);
       
         jQuery("#uploadedPhotos").parent("fieldset").show();
       
-        html = '<a href="admin.php?page=photo-'+data.result.image_id+'" target="_blank">';
+        html = '<a href="admin.php?page=photo-'+data.result.image_id+'" style="position : relative" target="_blank">';
         html += '<img src="'+data.result.square_src+'" class="thumbnail" title="'+data.result.name+'">';
+        if (formatMode) html += '<div class="format-ext-name" title="'+file.name+'"><span>'+file.name.slice(file.name.indexOf('.'))+'</span></div>';
         html += '</a> ';
       
         jQuery("#uploadedPhotos").prepend(html);
@@ -314,6 +357,18 @@ jQuery(document).ready(function(){
 {/footer_script}
 
 <div id="photosAddContent">
+
+  {if $ENABLE_FORMATS}
+    <div class="format-mode-group-manager">
+    <label class="switch" onClick="window.location.replace('{$SWITCH_MODE_URL}');">
+      <input type="checkbox" id="toggleFormatMode" {if $DISPLAY_FORMATS}checked{/if}>
+      <span class="slider round"></span>
+    </label>
+      <p>{'Upload Formats'|@translate}</p>
+    </div>
+  {/if}
+
+  {if !$DISPLAY_FORMATS}
   <div class="addAlbumEmptyCenter">
     <div class="addAlbumEmpty"{if $NB_ALBUMS > 0} style="display:none;"{/if}>
       <div class="addAlbumEmptyTitle">{'Welcome!'|translate}</div>
@@ -321,6 +376,7 @@ jQuery(document).ready(function(){
       <a href="#" data-add-album="category" class="buttonLike">{'Create a first album'|translate}</a>
     </div>
   </div>
+  {/if}
 
 <div class="infos" style="display:none"><i class="eiw-icon icon-ok"></i></div>
 <div class="errors" style="display:none"><i class="eiw-icon icon-cancel"></i><ul></ul></div>
@@ -348,7 +404,8 @@ jQuery(document).ready(function(){
   {/if}
 
 
-  <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
+  <form id="uploadForm" class="{if $DISPLAY_FORMATS}format-mode{/if}" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
+    {if not $DISPLAY_FORMATS}
     <fieldset class="selectAlbum">
       <legend><span class="icon-folder-open icon-red"></span>{'Drop into album'|@translate}</legend>
       <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{$ADD_TO_ALBUM}</span></div>
@@ -361,6 +418,7 @@ jQuery(document).ready(function(){
         <a href="#" data-add-album="category" class="orCreateAlbum icon-plus-circled"> {'create a new album'|@translate}</a>
       </div>
     </fieldset>
+    {/if}
 {*
     <p class="showFieldset"><a id="showPermissions" href="#">{'Manage Permissions'|@translate}</a></p>
 
@@ -375,12 +433,18 @@ jQuery(document).ready(function(){
     <fieldset class="selectFiles">
       <legend><span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}</legend>
       <div class="selectFilesButtonBlock">
-        <button id="addFiles" class="buttonGradient">{'Add Photos'|translate}<i class="icon-plus-circled"></i></button>
+        <button id="addFiles" class="buttonGradient">{if not $DISPLAY_FORMATS}{'Add Photos'|translate}{else}{'Add Formats'|translate}{/if}<i class="icon-plus-circled"></i></button>
         <div class="selectFilesinfo">
           {if isset($original_resize_maxheight)}
           <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
           {/if}
-          <p id="uploadWarningsSummary">{'Allowed file types: %s.'|@translate:$upload_file_types}</p>
+            <p id="uploadWarningsSummary">
+            {if not $DISPLAY_FORMATS}
+              {'Allowed file types: %s.'|@translate:$upload_file_types}
+            {else}
+              {'Allowed file types: %s.'|@translate:$format_ext}
+            {/if}
+            </p>
           <p>
             {if isset($max_upload_resolution)}
             {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
