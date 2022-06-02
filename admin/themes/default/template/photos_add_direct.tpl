@@ -304,7 +304,8 @@ jQuery(document).ready(function(){
         // do not remove file, or it will reset the progress bar :-/
         // up.removeFile(file);
         uploadedPhotos.push(parseInt(data.result.image_id));
-        uploadCategory = data.result.category;
+        if (!formatMode)
+          uploadCategory = data.result.category;
       },
 
       Error: function(up, error) {
@@ -322,15 +323,17 @@ jQuery(document).ready(function(){
         
         Piecon.reset();
 
-        jQuery.ajax({
-          url: "ws.php?format=json&method=pwg.images.uploadCompleted",
-          type:"POST",
-          data: {
-            pwg_token: pwg_token,
-            image_id: uploadedPhotos.join(","),
-            category_id: uploadCategory.id,
-          }
-        });
+        if (!formatMode) {
+          jQuery.ajax({
+            url: "ws.php?format=json&method=pwg.images.uploadCompleted",
+            type:"POST",
+            data: {
+              pwg_token: pwg_token,
+              image_id: uploadedPhotos.join(","),
+              category_id: uploadCategory.id,
+            }
+          });
+        }
 
         jQuery("#uploadForm, #permissions, .showFieldset").hide();
 
@@ -376,7 +379,7 @@ jQuery(document).ready(function(){
 
   {if $ENABLE_FORMATS}
     <div class="format-mode-group-manager">
-    <label class="switch" onClick="window.location.replace('{$SWITCH_MODE_URL}');">
+    <label class="switch" onClick="window.location.replace('{$SWITCH_MODE_URL}'); $('.switch .slider').addClass('loading');">
       <input type="checkbox" id="toggleFormatMode" {if $DISPLAY_FORMATS}checked{/if}>
       <span class="slider round"></span>
     </label>
@@ -397,7 +400,13 @@ jQuery(document).ready(function(){
 <div class="infos" style="display:none"><i class="eiw-icon icon-ok"></i></div>
 <div class="errors" style="display:none"><i class="eiw-icon icon-cancel"></i><ul></ul></div>
 
-  <p class="afterUploadActions" style="margin:10px; display:none;"> <a class="batchLink icon-pencil"></a><span class="buttonSeparator">{'or'|translate}</span><a href="admin.php?page=photos_add" class="icon-plus-circled">{'Add another set of photos'|@translate}</a></p>
+<p class="afterUploadActions" style="margin:10px; display:none;"> 
+  {if !$DISPLAY_FORMATS}
+    <a class="batchLink icon-pencil"></a><span class="buttonSeparator">{'or'|translate}</span><a href="admin.php?page=photos_add" class="icon-plus-circled">{'Add another set of photos'|@translate}</a>
+  {else}
+    <a href="admin.php?page=photos_add&formats" class="icon-plus-circled">{'Add another set of formats'|@translate}</a>
+  {/if}
+</p>
 
 {if count($setup_errors) > 0}
 <div class="errors">

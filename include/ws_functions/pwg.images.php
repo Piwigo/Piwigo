@@ -1449,11 +1449,6 @@ SELECT *
         'src' => DerivativeImage::thumb_url($image),
         'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image),
         'name' => $image['name'],
-        'category' => array(
-          'id' => $params['category'][0], // not relevant
-          'nb_photos' => 42, // not relevant, once again
-          'label' => 'test', // not relevant
-          )
         );
     }
 
