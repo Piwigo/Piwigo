@@ -371,12 +371,12 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   color: #c1c1c1;
 }
 
-.picture-infos-title, .picture-infos-icon {
-  color: #c1c1c1;
+.info-framed-title, .info-framed-icon {
+  color: #c1c1c1 !important;
 }
 
-.picture-infos-category {
-  border-color: #333;
+.info-framed {
+  border-color: #333 !important;
 }
 
 /* Album edit */
@@ -1097,6 +1097,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .jconfirmAlert .jconfirm-icon-c i {
   color:#c2f5c2 !important;
   background-color:#0a0 !important;
+}
+
+.jconfirmWarning .jconfirm-icon-c i {
+  color: #ffa744 !important;
+  background-color: #ffe9cf !important;
 }
 
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-default {

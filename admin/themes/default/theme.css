@@ -4023,41 +4023,6 @@ a#showPermissions:hover {text-decoration: none;}
   grid-template-columns: 50% 50%;
 }
 
-.picture-infos-category {
-  display: flex;
-  border: #EEE solid 2px;
-  padding: 20px;
-  border-radius: 5px;
-  margin: 0px 10px;
-  align-items: center;
-}
-
-.picture-infos-icon {
-  font-size: 34px;
-  margin-right: 20px;
-  display: flex;
-  color: #3c3c3c;
-}
-
-.picture-infos-icon span {
-  margin: auto;
-}
-
-.picture-infos-container {
-  margin: 0;
-  display: inline-table;
-}
-
-.picture-infos-container div {
-  margin: 0;
-  word-wrap: anywhere;
-}
-
-.picture-infos-title {
-  color: #3c3c3c;
-  font-weight: bold;
-}
-
 /* Album Manager */
 #addAlbumForm {
   text-align:left;
@@ -5712,10 +5677,14 @@ fieldset#environment legend i[class*="icon-"] {
 
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
 
-.selectAlbum, #permissions, .selectFiles {border: 0;}
+#permissions, #uploadForm fieldset {border: 0;}
 #permissions {display: none!important;}
-#permissions, .selectFiles {margin-top: 35px; margin-bottom: 20px;}
-.format-mode .selectFiles {margin: auto;}
+#permissions {margin-top: 35px; margin-bottom: 20px;}
+#uploadForm fieldset:not(:last-child) {margin-bottom: 35px;}
+#uploadForm fieldset:last-child {margin-bottom: 20px;}
+
+.originalPicture .info-framed {max-width: 400px;}
+
 .selectAlbumBlock {display: flex; margin-left: 10px; margin-top: 10px;}
 /* .selectAlbumBlock span {
   margin-top: 15px;
@@ -5770,7 +5739,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display: flex;
 }
 #photosAddContent .Addedphotos a {
-  margin-right: 35px; 
+  margin-right: 5px; 
   display: flex;
 }
 #photosAddContent .Addedphotos .format-ext-name {
@@ -5786,7 +5755,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #photosAddContent .Addedphotos .format-ext-name span {
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
   padding: 5px;

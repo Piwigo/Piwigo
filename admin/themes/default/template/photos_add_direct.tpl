@@ -30,6 +30,8 @@
 {footer_script}
 
 const formatMode = {if $DISPLAY_FORMATS}true{else}false{/if};
+const haveFormatsOriginal = {if $HAVE_FORMATS_ORIGINAL}true{else}false{/if};
+const originalImageId = haveFormatsOriginal? '{$FORMATS_ORIGINAL_INFO['id']}' : -1;
 
 {* <!-- CATEGORIES --> *}
 if (!formatMode) {
@@ -74,6 +76,7 @@ if (!formatMode) {
 
 var pwg_token = '{$pwg_token}';
 var photosUploaded_label = "{'%d photos uploaded'|translate}";
+var formatsUploaded_label = "{'%d formats uploaded for %d photos'|translate}";
 var batch_Label = "{'Manage this set of %d photos'|translate}";
 var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape}";
 var str_format_warning = "{'Error when trying to detect formats'|translate}";
@@ -123,7 +126,7 @@ jQuery(document).ready(function(){
 		},
 
 		// Rename files by clicking on their titles
-		// rename: true,
+		rename: formatMode,
 
 		// Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
 		dragdrop: true,
@@ -165,7 +168,7 @@ jQuery(document).ready(function(){
         }
       },
 
-      FilesAdded: function(up, files) {
+      FilesAdded: async function(up, files) {
         // Création de la liste avec plupload_id : image_name
         fileNames = {};
         files.forEach((file) => {
@@ -173,64 +176,70 @@ jQuery(document).ready(function(){
         });
 
         if (formatMode) {
-          //ajax qui renvois les id des images dans la gallerie.
-          jQuery.ajax({
-            url: "ws.php?format=json&method=pwg.images.formats.searchImage",
-            type: "POST",
-            data: {
-              category_id: jQuery("select[name=category] option:selected").val(),
-              filename_list: JSON.stringify(fileNames),
-            },
-            success: function(res) {
+          // If no original image is specified
+          if (!haveFormatsOriginal) {
+            const images_search = await new Promise((res, rej) => {
+              //ajax qui renvois les id des images dans la gallerie.
+              jQuery.ajax({
+                url: "ws.php?format=json&method=pwg.images.formats.searchImage",
+                type: "POST",
+                data: {
+                  category_id: jQuery("select[name=category] option:selected").val(),
+                  filename_list: JSON.stringify(fileNames),
+                },
+                success: function(result) {
+                  let data = JSON.parse(result);
+                  res(data.result)
+                }
+              })
+            })
 
-              const notFound = [];
-              const multiple = []
+            const notFound = [];
+            const multiple = [];
 
-              //les data qui sont renvoyées avec plupload_id : piwigo_id
-              let data = JSON.parse(res);
+            files.forEach((f) => {
+              const search = images_search[f.id];
+              if (search.status == "found") 
+                f.format_of = search.image_id;
+              else {
+                if (search.status == "multiple")
+                  multiple.push(f.name);
+                else 
+                  notFound.push(f.name);
+                up.removeFile(f.id);
+              } 
+            })
 
-              const images_search = data.result;
-              // data = {o_1g369r2011io3v2k1hmn1fc11m7a : 42, o_1g36a8kgutjjajjpb9agvb16a : 69};
+            files.filter(f => images_search[f.id].status === "found");
 
-              files.forEach((f) => {
-                const search = images_search[f.id];
-                if (search.status == "found") 
-                  f.format_of = search.image_id;
-                else {
-                  if (search.status == "multiple")
-                    multiple.push(f.name);
-                  else 
-                    notFound.push(f.name);
-                  up.removeFile(f.id);
-                } 
+            // If a file is not found or found more than one time
+            if (notFound.length || multiple.length) {
+              const [multStr, notFoundStr] = [multiple, notFound].map((tab) => {
+                //Get names
+                tab = tab.map(f => f.slice(0,f.indexOf('.')))
+                // Remove duplicates
+                tab = tab.filter((f,i) => i === tab.indexOf(f))
+
+                // Add "and X more" if necessary
+                if (tab.length > 5) {
+                  tab[5] = str_and_X_others.replace('%d', tab.length - 5);
+                  tab = tab.splice(0,6);
+                }
+                return tab;
               })
 
-              files.filter(f => images_search[f.id].status === "found");
-
-              if (notFound.length || multiple.length) {
-                const [multStr, notFoundStr] = [multiple, notFound].map((tab) => {
-                  //Get names
-                  tab = tab.map(f => f.slice(0,f.indexOf('.')))
-                  // Remove duplicates
-                  tab = tab.filter((f,i) => i === tab.indexOf(f))
-
-                  // Add "and X more" if necessary
-                  if (tab.length > 5) {
-                    tab[5] = str_and_X_others.replace('%d', tab.length - 5);
-                    tab = tab.splice(0,6);
-                  }
-                  return tab;
-                })
-
-                $.alert({
-                  title: str_format_warning,
-                  content : (notFound.length ? `<p>${str_format_warning_notFound.replace('%s', notFoundStr.join(', '))}</p>` : "")
-                    +(multiple.length ? `<p>${str_format_warning_multiple.replace('%s', multStr.join(', '))}</p>` : ""),
-                  ...jConfirm_warning_options
-                })
-              }
+              $.alert({
+                title: str_format_warning,
+                content : (notFound.length ? `<p>${str_format_warning_notFound.replace('%s', notFoundStr.join(', '))}</p>` : "")
+                  +(multiple.length ? `<p>${str_format_warning_multiple.replace('%s', multStr.join(', '))}</p>` : ""),
+                ...jConfirm_warning_options
+              })
             }
-          });
+          } else { //If an original image is specified
+            files.forEach((f) => {
+              f.format_of = originalImageId;
+            })
+          }
         }
       },
 
@@ -323,17 +332,24 @@ jQuery(document).ready(function(){
           }
         });
 
-        jQuery(".selectAlbum, .selectFiles, #permissions, .showFieldset").hide();
+        jQuery("#uploadForm, #permissions, .showFieldset").hide();
 
-        jQuery(".infos").append('<ul><li>'+sprintf(photosUploaded_label, uploadedPhotos.length)+'</li></ul>');
+        const infoText = formatMode?
+          sprintf(formatsUploaded_label, uploadedPhotos.length, [...new Set(files.map(f => f.format_of))].length)
+          : sprintf(photosUploaded_label, uploadedPhotos.length)
 
-        html = sprintf(
-          albumSummary_label,
-          '<a href="admin.php?page=album-'+uploadCategory.id+'">'+uploadCategory.label+'</a>',
-          parseInt(uploadCategory.nb_photos)
-        );
+        jQuery(".infos").append('<ul><li>'+infoText+'</li></ul>');
 
-        jQuery(".infos ul").append('<li>'+html+'</li>');
+
+        if (!formatMode) {
+          html = sprintf(
+            albumSummary_label,
+            '<a href="admin.php?page=album-'+uploadCategory.id+'">'+uploadCategory.label+'</a>',
+            parseInt(uploadCategory.nb_photos)
+          );
+
+          jQuery(".infos ul").append('<li>'+html+'</li>');
+        }
 
         jQuery(".infos").show();
 
@@ -418,6 +434,20 @@ jQuery(document).ready(function(){
         <a href="#" data-add-album="category" class="orCreateAlbum icon-plus-circled"> {'create a new album'|@translate}</a>
       </div>
     </fieldset>
+    {elseif $HAVE_FORMATS_ORIGINAL}
+    <fieldset class="originalPicture">
+      <legend><span class="icon-link-1 icon-red"></span>{'Picture to associate formats with'|@translate}</legend>
+      <a class='info-framed' href='{$FORMATS_ORIGINAL_INFO['u_edit']}' title='{'Edit photo'|@translate}'>
+        <div class='info-framed-icon'>
+          <img src='{$FORMATS_ORIGINAL_INFO['src']}'></i>
+        </div>
+        <div class='info-framed-container'>
+          <div class='info-framed-title'>{$FORMATS_ORIGINAL_INFO['name']}</div>
+          {if isset($FORMATS_ORIGINAL_INFO['formats'])}<div>{$FORMATS_ORIGINAL_INFO['formats']}</div>{/if}
+          <div>{$FORMATS_ORIGINAL_INFO.ext}</div>
+        </div>
+      </a>
+    </fieldset>
     {/if}
 {*
     <p class="showFieldset"><a id="showPermissions" href="#">{'Manage Permissions'|@translate}</a></p>
@@ -442,10 +472,11 @@ jQuery(document).ready(function(){
             {if not $DISPLAY_FORMATS}
               {'Allowed file types: %s.'|@translate:$upload_file_types}
             {else}
-              {'Allowed file types: %s.'|@translate:$format_ext}
+              {'Allowed file types: %s.'|@translate:$str_format_ext} 
+              {if !$HAVE_FORMATS_ORIGINAL}<p>{'The original picture will be detected with the filename (without extension).'|@translate}</p>{/if}
             {/if}
             </p>
-          <p>
+          </p>
             {if isset($max_upload_resolution)}
             {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
             {/if}

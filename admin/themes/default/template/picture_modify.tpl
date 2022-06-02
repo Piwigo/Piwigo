@@ -115,24 +115,24 @@ $('#action-delete-picture').on('click', function() {
   </div>
   <div id='picture-content'>
     <div id='picture-infos'>
-      <div class='picture-infos-category'>
-        <div class='picture-infos-icon'>
-          <span class='icon-picture'></span>
+      <div class='info-framed'>
+        <div class='info-framed-icon'>
+          <i class='icon-picture'></i>
         </div>
-        <div class='picture-infos-container'>
-          <div class='picture-infos-title'>{$INTRO.file}</div>
+        <div class='info-framed-container'>
+          <div class='info-framed-title'>{$INTRO.file}</div>
           <div>{$INTRO.size}</div>
           <div>{if isset($INTRO.formats)}{$INTRO.formats} {/if}</div>
           <div>{$INTRO.ext}</div>
         </div>
       </div>
 
-      <div class='picture-infos-category'>
-        <div class='picture-infos-icon'>
+      <div class='info-framed'>
+        <div class='info-framed-icon'>
           <span class='icon-calendar'></span>
         </div>
-        <div class='picture-infos-container'>
-          <div class='picture-infos-title'>{$INTRO.date}</div>
+        <div class='info-framed-container'>
+          <div class='info-framed-title'>{$INTRO.date}</div>
           <div>{$INTRO.age}</div>
           <div>{$INTRO.added_by}</div>
           <div>{$INTRO.stats}</div>
