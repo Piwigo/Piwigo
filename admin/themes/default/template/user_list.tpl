@@ -25,7 +25,7 @@ const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
 const str_and_others_tags = '{'and %s others'|@translate}';
 const missingConfirm = "{'You need to confirm deletion'|translate|escape:javascript}";
 const missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
-const fieldNotEmpty = "{'Name field must not be empty'|@translate}"
+const fieldNotEmpty = "{'Name field must not be empty'|@translate|escape:javascript}"
 
 const registered_str = '{"Registered"|@translate}';
 const last_visit_str = '{"Last visit"|@translate}';
