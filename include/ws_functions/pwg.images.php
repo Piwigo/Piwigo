@@ -1868,13 +1868,8 @@ function ws_images_formats_searchImage($params, $service)
 
   $logger->debug(__FUNCTION__, 'WS', $params);
 
-  $result = array();
-
   $candidates = json_decode(stripslashes($params['filename_list']), true);
 
-  // let's fake it for now: return an id without really testing the match
-
-/*
   $unique_filenames_db = array();
 
   $query = '
@@ -1889,14 +1884,42 @@ SELECT
     $filename_wo_ext = get_filename_wo_extension($row['file']);
     @$unique_filenames_db[ $filename_wo_ext ][] = $row['id'];
   }
-*/
+
+  // we want "long" format extensions first to match "cmyk.jpg" before "jpg" for example
+  usort($conf['format_ext'], function($a, $b) {
+    return strlen($b) - strlen($a);
+  });
+
+  $result = array();
 
   foreach ($candidates as $format_external_id => $format_filename)
   {
-    $result[$format_external_id] = array(
-      'status' => 'found', // could be 'not found' or 'multiple'
-      'image_id' => 84,
-    );
+    $candidate_filename_wo_ext = null;
+
+    if (preg_match('/^(.*?)\.('.implode('|', $conf['format_ext']).')$/', $format_filename, $matches))
+    {
+      $candidate_filename_wo_ext = $matches[1];
+    }
+
+    if (empty($candidate_filename_wo_ext))
+    {
+      $result[$format_external_id] = array('status' => 'not found');
+      continue;
+    }
+
+    if (isset($unique_filenames_db[$candidate_filename_wo_ext]))
+    {
+      if (count($unique_filenames_db[$candidate_filename_wo_ext]) > 1)
+      {
+        $result[$format_external_id] = array('status' => 'multiple');
+        continue;
+      }
+
+      $result[$format_external_id] = array('status' => 'found', 'image_id' => $unique_filenames_db[$candidate_filename_wo_ext][0]);
+      continue;
+    }
+
+    $result[$format_external_id] = array('status' => 'not found');
   }
 
   return $result;
