@@ -100,7 +100,7 @@ $(document).ready(() => {
       "<div class='badge-container'>" 
         +"<i class='icon-blue icon-sitemap nb-subcats'></i>"
         +"<i class='icon-purple icon-picture nb-images'></i>"
-        +"<i class='icon-green icon-back-in-time nb-sub-photos'></i>"
+        +"<i class='icon-green icon-imagefolder-01 nb-sub-photos'></i>"
         +"<i class='icon-red icon-back-in-time last-update'>"+ node.last_updates +"</i>"
       +"</div>"
     )
