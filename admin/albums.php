@@ -186,6 +186,38 @@ SELECT
 ;';
 
   $nb_photos_in = query2array($query, 'category_id', 'nb_photos');
+  
+  $query = '
+SELECT
+    id,
+    uppercats
+  FROM '.CATEGORIES_TABLE.'
+;';
+  $all_categories = query2array($query, 'id', 'uppercats');
+  $subcats_of = array();
+
+  foreach ($all_categories as $id => $uppercats)
+  {
+    foreach (array_slice(explode(',', $uppercats), 0, -1) as $uppercat_id)
+    {
+      @$subcats_of[$uppercat_id][] = $id;
+    }
+  }
+
+  $nb_sub_photos = array();
+  foreach ($subcats_of as $cat_id => $subcat_ids)
+  {
+    $nb_photos = 0;
+    foreach ($subcat_ids as $id)
+    {
+      if (isset($nb_photos_in[$id]))
+      {
+        $nb_photos+= $nb_photos_in[$id];
+      }
+    }
+
+    $nb_sub_photos[$cat_id] = $nb_photos;
+  }
 
   foreach($assocT as $cat) 
   {
@@ -197,6 +229,7 @@ SELECT
     $orderedCat['nb_images'] = isset($nb_photos_in[$cat['cat']['id']]) ? $nb_photos_in[$cat['cat']['id']] : 0;
     $orderedCat['last_updates'] = $cat['cat']['lastmodified'];
     $orderedCat['has_not_access'] = !cat_admin_access($cat['cat']['id']);
+    $orderedCat['nb_sub_photos'] = isset($nb_sub_photos[$cat['cat']['id']]) ? $nb_sub_photos[$cat['cat']['id']] : 0;
     if (isset($cat['children'])) 
     {
       //Does not update when moving a node

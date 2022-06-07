@@ -549,8 +549,16 @@ input[name="position"] {
   margin: 0 6px 0 -2px;
 }
 
+.last-update {
+    display: none;
+}
+
 @media (max-width: 1415px) { 
   .badge-container  .last-update {
+    display: none;
+  }
+
+  .badge-container .nb-sub-photos {
     display: none;
   }
 }
