@@ -397,7 +397,8 @@ $(document).ready(() => {
         $('.tiptip').tipTip({
           delay: 0,
           fadeIn: 200,
-          fadeOut: 200
+          fadeOut: 200,
+          edgeOffset: 3
         });
 
         updateTitleBadge(nb_albums+1)
@@ -452,7 +453,8 @@ $(document).ready(() => {
   $('.tiptip').tipTip({
     delay: 0,
     fadeIn: 200,
-    fadeOut: 200
+    fadeOut: 200,
+    edgeOffset: 3
   });
 });
 
@@ -565,7 +567,8 @@ function openDeleteAlbumPopIn(cat_to_delete) {
         $('.tiptip').tipTip({
           delay: 0,
           fadeIn: 200,
-          fadeOut: 200
+          fadeOut: 200,
+          edgeOffset: 3
         });
 
         updateTitleBadge(nb_albums-1);
@@ -728,7 +731,8 @@ function applyMove(event) {
     $('.tiptip').tipTip({
       delay: 0,
       fadeIn: 200,
-      fadeOut: 200
+      fadeOut: 200,
+      edgeOffset: 3
     });
   })
     .catch(function (message) {
@@ -754,7 +758,8 @@ function applyMove(event) {
       $('.tiptip').tipTip({
         delay: 0,
         fadeIn: 200,
-        fadeOut: 200
+        fadeOut: 200,
+        edgeOffset: 3
       });
     })
 }
