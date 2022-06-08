@@ -2710,6 +2710,7 @@ function get_active_menu($menu_page)
     case 'group_list':
     case 'group_perm':
     case 'notification_by_mail':
+    case 'user_activity';
       return 2;
 
     case 'site_manager':
