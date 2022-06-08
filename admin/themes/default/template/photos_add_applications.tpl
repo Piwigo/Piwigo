@@ -105,7 +105,7 @@ jQuery().ready(function(){
       <div class="applicationName"> {'Piwigo for Android'|@translate} </div> 
       <div class="applicationDesc"> {'<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'|@translate} </div> 
       <div class="applicationLink">
-        <a class="buttonGradient" target="_blank" href="https://play.google.com/store/apps/details?id=org.piwigo.android">{'Available on'|@translate} Google Play</a> 
+        <a class="buttonGradient" target="_blank" href="https://play.google.com/store/apps/details?id=com.piwigo.piwigo_ng">{'Available on'|@translate} Google Play</a> 
       </div>
     </div>
   </div>
