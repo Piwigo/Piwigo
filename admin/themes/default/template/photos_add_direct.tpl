@@ -91,6 +91,26 @@ var uploadCategory = null;
 
 {literal}
 jQuery(document).ready(function(){
+  jQuery(".close-apps").on("click", function() {
+    jQuery(".promote-apps").hide();
+  });
+
+  jQuery(".dont-show-again").on("click", function() {
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.users.preferences.set",
+      type: "POST",
+      dataType: "JSON",
+      data: {
+        param: 'promote-mobile-apps',
+        value: false,
+      },
+      success: function(res) {
+        console.log(res);
+        jQuery(".promote-apps").hide();
+      }
+    })
+  })
+
   jQuery("#uploadWarningsSummary a.showInfo").click(function() {
     jQuery("#uploadWarningsSummary").hide();
     jQuery("#uploadWarnings").show();
@@ -428,6 +448,28 @@ jQuery(document).ready(function(){
 </div>
   {/if}
 
+  {if $PROMOTE_MOBILE_APPS}
+  <div class="promote-apps">
+    <span class="icon-cancel close-apps"></span>
+    <div class="promote-content">
+      <div class="left-side">
+      <img src="https://de.piwigo.org/./plugins/piwigo-piwigodotorg/images/mobile_applications/Group_77.png">
+        <div class="promote-text">
+          <span>{"Piwigo is also on mobile."|@translate|escape:javascript}</span>
+          <span>{"Try now !"|@translate|escape:javascript}</span>
+        </div>
+      </div>
+      <div class="mid-side"></div>
+      <div class="right-side">
+        <div class="promote-text">
+          <span>{"Install Piwigo on mobile"|@translate|escape:javascript}</span>
+          <a href="https://piwigo.org/mobile-applications" target="_blank"><span class="go-to-porg icon-download">{"Install"|@translate|escape:javascript}</span></a>
+        </div>
+      </div>
+    </div>
+    <span class="dont-show-again">{"Ne plus afficher"|@translate|escape:javascript}</span>
+  </div>
+  {/if}
 
   <form id="uploadForm" class="{if $DISPLAY_FORMATS}format-mode{/if}" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
     {if not $DISPLAY_FORMATS}

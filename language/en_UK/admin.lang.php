@@ -1289,4 +1289,8 @@ $lang['Add as filter'] = 'Add as filter';
 $lang['Show plugins compatible with previous version of Piwigo'] = 'Show plugins compatible with previous version of Piwigo';
 $lang['Placer au début'] = 'Place at the start';
 $lang['Placer à la fin'] = 'Place at the end';
+
+$lang['Piwigo is also on mobile.'] = 'Piwigo is also on mobile.';
+$lang['Try now !'] = 'Try now !';
+$lang['Install Piwigo on mobile'] = 'Install Piwigo on mobile';
 // Leave this line empty

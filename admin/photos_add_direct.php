@@ -42,6 +42,39 @@ DELETE FROM '.CADDIE_TABLE.'
   redirect(get_root_url().'admin.php?page=batch_manager&filter=prefilter-caddie');
 }
 
+if (userprefs_get_param('promote-mobile-apps', true)) 
+{
+  $query = '
+  SELECT registration_date 
+    FROM '.USER_INFOS_TABLE.' 
+    WHERE user_id = 1
+  ;';
+
+  $result = pwg_db_fetch_assoc(pwg_query($query));
+  $register_date = $result['registration_date'];
+
+  $query = '
+  SELECT count(*) as nb_categories
+    FROM '.CATEGORIES_TABLE.'
+  ;';
+
+  $result = pwg_db_fetch_assoc(pwg_query($query));
+  $nb_cats = $result['nb_categories'];
+
+  $query = '
+  SELECT count(*) as nb_images
+    FROM '.IMAGES_TABLE.'
+  ;';
+
+  $result = pwg_db_fetch_assoc(pwg_query($query));
+  $nb_images = $result['nb_images'];
+
+  // 2 Weeks = 1209600 seconds
+  // To see the mobile app promote, the account must have 2 weeks ancient, 3 albums created and 30 photos uploaded
+  $template->assign("PROMOTE_MOBILE_APPS", (time() - strtotime($register_date) > 1209600 and $nb_cats >= 3 and $nb_images >= 30));
+} else {
+  $template->assign("PROMOTE_MOBILE_APPS", false);
+}
 // +-----------------------------------------------------------------------+
 // |                             Formats Mode                              |
 // +-----------------------------------------------------------------------+

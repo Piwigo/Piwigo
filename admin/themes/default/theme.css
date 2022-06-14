@@ -6596,3 +6596,127 @@ color:#FF7B00;
   opacity: 0.3;
   color: black !important;
 }
+
+.promote-apps {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  border-bottom: 1px solid lightgray;
+  padding: 0 15px 15px 15px;
+}
+
+.close-apps {
+  padding: 1px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: #BBB;
+  color: #000;
+  font-size: 19px;
+}
+.close-apps::before {
+  transform: translateY(-1px);
+}
+
+.dont-show-again {
+  margin-left: auto;
+  background: #BBB;
+  color: #000;
+  border-radius: 20px;
+  padding: 3px 8px;
+  font-weight: 700;
+}
+
+.dont-show-again:hover, 
+.close-apps:hover {
+  cursor: pointer;
+}
+
+.promote-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.promote-content .left-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.promote-content .mid-side {
+  border-right: 1px solid gray;
+}
+.promote-content .right-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.promote-content .left-side img {
+  width: 170px;
+  margin-left: 60px;
+  margin-right: 80px;
+}
+
+.promote-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  font-weight: 700;
+  color: #000;
+}
+
+.promote-text span:first-child {
+  margin-bottom: 5px;
+}
+.promote-text span:last-child {
+  margin-top: 5px;
+}
+
+.go-to-porg {
+  cursor: pointer;
+  padding: 7px 14px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #ffa744;
+  color: #3c3c3c;
+  width: 150px;
+  text-align: center;
+}
+
+.go-to-porg::before {
+  margin-right: 10px;
+}
+
+.promote-content .right-side .promote-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1450px) {
+  .promote-text span {
+    font-size: 20px;
+  }
+
+  .promote-content .left-side img {
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 1170px) {
+  .promote-content .left-side img {
+    margin: 0 20px 0 0;
+  }
+}
+
+@media (max-width: 1050px) {
+  .promote-text span {
+    font-size: 15px;
+  }
+
+  .promote-content .left-side img {
+    width: 100px;
+  }
+}
