@@ -105,7 +105,6 @@ jQuery(document).ready(function(){
         value: false,
       },
       success: function(res) {
-        console.log(res);
         jQuery(".promote-apps").hide();
       }
     })
