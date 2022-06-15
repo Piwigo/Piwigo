@@ -45,36 +45,34 @@ DELETE FROM '.CADDIE_TABLE.'
 if (userprefs_get_param('promote-mobile-apps', true)) 
 {
   $query = '
-  SELECT registration_date 
-    FROM '.USER_INFOS_TABLE.' 
-    WHERE user_id = 1
-  ;';
-
-  $result = pwg_db_fetch_assoc(pwg_query($query));
-  $register_date = $result['registration_date'];
-
-  $query = '
-  SELECT count(*) as nb_categories
-    FROM '.CATEGORIES_TABLE.'
-  ;';
-
-  $result = pwg_db_fetch_assoc(pwg_query($query));
-  $nb_cats = $result['nb_categories'];
+SELECT registration_date 
+  FROM '.USER_INFOS_TABLE.'
+  WHERE registration_date IS NOT NULL  
+  ORDER BY user_id ASC
+  LIMIT 1
+;';
+  list($register_date) = pwg_db_fetch_row(pwg_query($query));
 
   $query = '
-  SELECT count(*) as nb_images
-    FROM '.IMAGES_TABLE.'
-  ;';
+SELECT COUNT(*)
+  FROM '.CATEGORIES_TABLE.'
+;';
+  list($nb_cats) = pwg_db_fetch_row(pwg_query($query));
 
-  $result = pwg_db_fetch_assoc(pwg_query($query));
-  $nb_images = $result['nb_images'];
+  $query = '
+SELECT COUNT(*)
+  FROM '.IMAGES_TABLE.'
+;';
+  list($nb_images) = pwg_db_fetch_row(pwg_query($query));
 
-  // 2 Weeks = 1209600 seconds
   // To see the mobile app promote, the account must have 2 weeks ancient, 3 albums created and 30 photos uploaded
-  $template->assign("PROMOTE_MOBILE_APPS", (time() - strtotime($register_date) > 1209600 and $nb_cats >= 3 and $nb_images >= 30));
-} else {
+  $template->assign("PROMOTE_MOBILE_APPS", (strtotime($register_date) < strtotime('2 weeks ago') and $nb_cats >= 3 and $nb_images >= 30));
+} 
+else
+{
   $template->assign("PROMOTE_MOBILE_APPS", false);
 }
+
 // +-----------------------------------------------------------------------+
 // |                             Formats Mode                              |
 // +-----------------------------------------------------------------------+
