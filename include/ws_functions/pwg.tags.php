@@ -107,6 +107,7 @@ function ws_tags_getImages($params, &$service)
     $tag_ids = array("null");
     $untagged = true;
 
+    $count_set = count($image_ids);
     $image_ids = array_slice($image_ids, $params['per_page']*$params['page'], $params['per_page'] );
 
   // else build all the tag_ids we are interested in
@@ -159,9 +160,9 @@ SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
         $image_tag_map[ $row['image_id'] ] = explode(',', $row['tag_ids']);
       }
     }
-  }
 
-  $count_set = count($image_ids);
+    $count_set = count($image_ids);
+  }
 
   $images = array();
   if (!empty($image_ids))
