@@ -25,7 +25,7 @@ class Smarty_Internal_Method_ClearAssign
      * @link http://www.smarty.net/docs/en/api.clear.assign.tpl
      *
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
-     * @param  string|array                                           $tpl_var the template variable(s) to clear
+     * @param string|array                                            $tpl_var the template variable(s) to clear
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
@@ -33,12 +33,11 @@ class Smarty_Internal_Method_ClearAssign
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $curr_var) {
-                unset($data->tpl_vars[$curr_var]);
+                unset($data->tpl_vars[ $curr_var ]);
             }
         } else {
-            unset($data->tpl_vars[$tpl_var]);
+            unset($data->tpl_vars[ $tpl_var ]);
         }
-
         return $data;
     }
 }

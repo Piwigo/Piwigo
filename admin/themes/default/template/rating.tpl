@@ -38,7 +38,7 @@ jQuery("select[name=cat]").change(function(){
 
 <form action="{$F_ACTION}" method="GET" class="filter">
   <fieldset>
-    <legend>{'Filter'|@translate}</legend>
+    <legend><span class="icon-filter icon-green"></span>{'Filter'|@translate}</legend>
 
     <label>
       {'Sort by'|@translate}

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d веза';
@@ -675,7 +660,7 @@ $lang['include child albums'] = 'укључи подалбуме';
 $lang['manual order'] = 'ручно уређивање';
 $lang['No photo in the current set.'] = 'Нема фотографија у одабраном скупу.';
 $lang['No photo selected, %d photos in current set'] = 'Ниједна одабрана фотографија, број фотографија у одабраном скупу: %d';
-$lang['No photo selected, no action possible.'] = 'Ниједна одабрана фотографија, нема могућих операција.';
+$lang['No photos selected, no actions possible.'] = 'Ниједна одабрана фотографија, нема могућих операција.';
 $lang['on the %d selected photos'] = 'on the %d одабране слике';
 $lang['Orphan tags deleted'] = 'Orphan ознака обрисана';
 $lang['Refresh photo set'] = 'Обнови скуп слика';
@@ -743,9 +728,6 @@ $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 
 $lang['Some themes and plugins may be not available yet.'] = 'Неке теме и додаци можда још нису доступни.';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Можете унапредити ПиВиГо директно на %s, без унапређења ПиВиГо-а %s (препоручено).';
 $lang['Save Template Directory'] = 'Снимање адресара шаблона';
-$lang['Dump Database'] = 'Дамповање базе података';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Укључи податке о историји (Упозорење: Меморијско ограничење сервера може бити прекорачено)';
-$lang['Unable to dump database.'] = 'Не могу да дампујем базу података.';
 $lang['Some upgrades are available for extensions.'] = 'Нека унапређења су доступна за проширења.';
 $lang['Ignore All'] = 'Занемари све';
 $lang['Crop'] = 'Одсецање';
@@ -810,6 +792,7 @@ $lang['Move to album'] = 'Пребаци у албум';
 $lang['Minimum width'] = 'Минимална ширина';
 $lang['Minimum height'] = 'Минимална висина';
 $lang['Landscape'] = 'Положено';
+$lang['Piwigo for Android'] = 'ПиВиГо за Андроид';
 $lang['Panorama'] = 'Панорама';
 $lang['Select groups...'] = 'Одабери групе ...';
 $lang['Select users...'] = 'Одабери кориснике ...';
@@ -894,6 +877,7 @@ $lang['X Repeat'] = 'X понављања';
 $lang['pending validation'] = 'чека на потврду';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'посетиоци морају бити пријављени и да поседују одговарајуће дозволе како би видели овај албум';
 $lang['(filtered from %s total users)'] = '(изфилтрирано од %s корисника)';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'Апликација <em>Piwigo за Андроид</em> вам омогућава да повежете телефон или таблет са Piwigo галеријом, правите албуме и шаљете по неколико слика одједном.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'Апликација <em>Piwigo за iOS</em> бам омогућава да повежете Piwigo галерију са iPhone, iPad или iPod Touch уређајима, правите албуме и шаљете по неколико слика одједном.';
 $lang['Activate it now'] = 'Активирај сада';
 $lang['Center of interest'] = 'Центар интереса';
@@ -940,7 +924,7 @@ $lang['Piwigo publish plugin for digiKam'] = 'Piwigo објављивање за
 $lang['Please select at least two groups'] = 'Изаберите најмање две групе';
 $lang['No order field selected'] = 'Није изабрано поље за редослед';
 $lang['No user selected of %d users'] = 'Није изабран ни један од %d корисника';
-$lang['No user selected, no action possible.'] = 'Није изабран корисник, није могућа ни једна радња.';
+$lang['No users selected, no actions possible.'] = 'Није изабран корисник, није могућа ни једна радња.';
 $lang['Notify administrators when a comment is'] = 'Обавести администраторе када је коментар';
 $lang['Numeric identifier : %d'] = 'Број слике: %d';
 $lang['Select at least one tag'] = 'Изаберите бар једну ознаку';
@@ -951,7 +935,7 @@ $lang['Features include gallery browsing, album creation and photo upload.'] = '
 $lang['For photo sizes with crop, such as "Square", Piwigo will do its best to include the center of interest.'] = 'Уколико треба исећи део слике, као код коцкастог приказа, Piwigo ће се потрудити да исечак садржи интересни центар.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Уколико велике, HD слике нису доступне и уколико је изабрана величина за приказ на вебу већа од умањене слике';
 $lang['Mail theme'] = 'Мејл тема';
-$lang['No group selected, no action possible.'] = 'Није изабрана група, па није могућа операција.';
+$lang['No groups selected, no actions possible.'] = 'Није изабрана група, па није могућа операција.';
 $lang['No matching user found'] = 'Није пронађен корисник';
 $lang['No members to manage'] = 'Нема корисника за управљање';
 $lang['Open user details'] = 'Јавни подави о кориснику';
@@ -987,3 +971,165 @@ $lang['Each email sent will contain its own automatic authentication key on link
 $lang['For security reason, authentication keys do not work for administrators.'] = 'Из безбедоносних разлога, кључеви за пријаву не раде за администраторе.';
 $lang['Orphans'] = 'Без родитеља';
 $lang['Recipients'] = 'Примаоци';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'брише албум и свих %d фотографија, чак и %d њих које су повезане са другим албумима';
+$lang['delete album and the %d orphan photos'] = 'брише албум и %d фотографија без албума';
+$lang['delete only album, not photos'] = 'брише само албум, не и фотографије';
+$lang['orphans to delete'] = 'фотографије без албума за брисање';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Дошло је време да ажурирате Пивиго верзијом %s, идите на %s';
+$lang['checksum'] = 'сума за проверу';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Употреба најновије верзије Пивига је важна за сигурност података.';
+$lang['Select tags'] = 'Изаберите ознаке';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Поделите/пошаљите ваше фотографије директно са macOS (10.10 или новијег) на Пивиго';
+$lang['Storage used'] = 'Употребљено складиште';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Помоћу Пивогове удаљена синхронизација могуће је послати читаву фасциклу, а уколико поново покренете синхронизацију додаћете само нове фотографије.';
+$lang['(determined from photos)'] = '(одређено на основу фотографија)';
+$lang['Confirm deletion'] = 'Потврдите брисање';
+$lang['Dashboard'] = 'Сажети приказ';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Бришете албум „%s“ и његових %d подалбума.';
+$lang['Delete album "%s".'] = 'Бришете албум „%s“.';
+$lang['Display form'] = 'Форма приказа';
+$lang['First photo added'] = 'Додата прва фотографија';
+$lang['It only takes a few clicks.'] = 'Потребно је само неколико клика.';
+$lang['No filter on album. Select one or type to search'] = 'Нема филтера или албума. Изаберите један или унесите у претрагу.';
+$lang['No tags selected, no actions possible.'] = 'Није изабрана ознака, није могућа ни једна радња.';
+$lang['Piwigo %s is available, please update'] = 'Доступан је Пивиго %s, ажурирајте вашу верзију.';
+$lang['Display album date period'] = 'Прикажи опсег датума из сваког албума, нпр. „од 12. до 15. јула 2018.“';
+$lang['Display category date'] = 'Прикажи датум за категорију';
+$lang['Piwigo requires an album to add photos.'] = 'Морате имати албум пре него што додате фотгорафије у Пивиго ';
+$lang['Some checksums are missing.'] = 'Недостају неке суме за проверу.';
+$lang['Synchronization in progress'] = 'Синхронизација је у току';
+$lang['Visit'] = 'Посетите';
+$lang['Welcome!'] = 'Добродошли!';
+$lang['With no checksum'] = 'Без суме за проверу';
+$lang['checksums to add'] = 'суме за проверу које ће бити додате';
+$lang['or'] = 'или';
+$lang['%d checksums were added'] = 'Додато је %d сума за проверу';
+$lang['... or hide this link'] = '… или сакриј ову везу';
+$lang['Compute %d missing checksums'] = 'Прорачунај %d недостајућих сума за проверу';
+$lang['Create a first album'] = 'Направите први албум';
+$lang['Deletion in progress'] = 'Брисање је у току';
+$lang['Group(s) \{%s1\} succesfully merged into "%s2"'] = 'Група(е) \{%s1\} успешно спојена(е) у „%s2“';
+$lang['Dissociate user from this group'] = 'Избаци корисника из ове групе';
+$lang['Edited on %s'] = 'Уређено %s';
+$lang['File type: %s'] = 'Врста датотеке: %s';
+$lang['Formats'] = 'Формати';
+$lang['Group "%s" succesfully deleted'] = 'Група „%s“ је успешно обрисана';
+$lang['Group added'] = 'Група је додата';
+$lang['Group renamed'] = 'Група је преименована';
+$lang['Groups \{%s\} succesfully deleted'] = 'Групе \{%s\} су успешно обрисане';
+$lang['Keep them'] = 'Задржи их';
+$lang['Manage album photos'] = 'Управљај фотографијама албума';
+$lang['Manage sub-albums'] = 'Управљај подалбумима';
+$lang['Manage users with user manager'] = 'Управљај корисницима';
+$lang['Merge'] = 'Споји';
+$lang['Name is already taken'] = 'Име је већ заузето';
+$lang['No albums found'] = 'Нису пронађени албуми';
+$lang['No plugins found'] = 'Нису пронађени додаци';
+$lang['No tag found'] = 'Нису пронађене ознаке';
+$lang['No, I have changed my mind'] = 'Ни, предомислио сам се';
+$lang['Open in gallery'] = 'Отвори у галерији';
+$lang['Created on %s'] = 'Направљено на %s';
+$lang['Delete album'] = 'Обриши албум';
+$lang['Delete orphan tags ?'] = 'Да обришем ознаке без родитеља?';
+$lang['Delete tag "%s"?'] = 'Да обришем ознаку „%s“?';
+$lang['Delete tags \{%s\}?'] = 'Да обришем ознаке \{%s\}?';
+$lang['Delete them'] = 'Обриши их';
+$lang['Display'] = 'Прикажи';
+$lang['Displays a banner to install or open the official Piwigo app'] = 'Приказује банер за инсталацију или отварање званичне Пивиго апликације';
+$lang['Are you sure you want to delete the plugin "%s"?'] = 'Да ли желите да обришете додатак „%s“?';
+$lang['Are you sure you want to delete the ratings of the user "%s"?'] = 'Да ли желите да обришете оцене корисника „%s“?';
+$lang['Are you sure you want to delete the theme "%s"?'] = 'Да ли желите да обришете тему „%s“?';
+$lang['Are you sure you want to delete the user "%s"?'] = 'Да ли желите да обришете корисника „%s“?';
+$lang['Are you sure you want to delete this site?'] = 'Да ли желите да обришете овај сајт?';
+$lang['Are you sure you want to delete this theme?'] = 'Да ли желите да обришете ову тему?';
+$lang['Are you sure you want to delete this?'] = 'Да ли желите да обришете ово?';
+$lang['Are you sure you want to install the plugin "%s"?'] = 'Да ли желите да инсталирате додатак „%s“?';
+$lang['Are you sure you want to lock the gallery?'] = 'Да ли желите да закључате галерију?';
+$lang['Are you sure you want to restore the plugin "%s"?'] = 'Да ли желите да повратите додатак „%s“?';
+$lang['Are you sure you want to restore this plugin?'] = 'Да ли сте сигурни да желите да повратите овај додатак?';
+$lang['Are you sure you want to restore to default settings?'] = 'Да ли сте сигурни да желите да вратите подразумеване поставке?';
+$lang['Are you sure you want to update all extensions?'] = 'Да ли сте сигурни да желите да ажурирате сва проширења?';
+$lang['Associate User'] = 'Повежи корисника';
+$lang['At least 2 selected tags are needed to merge'] = 'Треба спојити најмање две изабране ознаке';
+$lang['Average last 12 months'] = 'Просек у последњих 12 месеци';
+$lang['Cache'] = 'Остава';
+$lang['Choose which tag to merge these tags into'] = 'Изаберите са којом ознаком желите да спојите ове ознаке';
+$lang['Clear Selection'] = 'Очисти избор';
+$lang['Compare mode'] = 'Режим поређења';
+$lang['<b>1</b> album found'] = 'пронађен <b>1</b> албум';
+$lang[' (copy %s)'] = '(копирање %s)';
+$lang[' (copy)'] = '(копирање)';
+$lang['%d Activities'] = '%d активности';
+$lang['%d Activity'] = '%d активност';
+$lang['%d photos'] = '%d фотографије';
+$lang['%d sub-albums'] = '%d подалбума';
+$lang['%s GB used'] = '%s искоришћених GB';
+$lang['%s MB used'] = '%s искоришћених MB';
+$lang['%s file type'] = '%s врста датотеке';
+$lang['%s other tags available..'] = '%s других ознака је доступно…';
+$lang['<b>%d</b> albums found'] = 'пронађено <b>%d</b> албума';
+$lang['<b>%d</b> tag found'] = 'пронађена <b>%d</b> ознака';
+$lang['<b>%d</b> tag selected'] = 'изабрана <b>%d</b> ознака';
+$lang['<b>%d</b> tags found'] = 'пронађено <b>%d</b> ознака';
+$lang['Activity peak in the last weeks'] = 'Пик активности последње недеље';
+$lang['Album search tool'] = 'Алат за претрагу албума';
+$lang['Are you sure you want to delete all sizes?'] = 'Да ли желите да обришете све величине?';
+$lang['Are you sure you want to delete group "%s"?'] = 'Да ли желите да обришете групу „%s“?';
+$lang['Are you sure you want to delete the language "%s"?'] = 'Да ли желите да обришете језик „%s“?';
+$lang['in administration'] = 'у администрацији';
+$lang['in gallery'] = 'у галерији';
+$lang['no photo'] = 'нема фотографије';
+$lang['Tag "%s" created'] = 'Ознака „%s“ је направљена';
+$lang['Tag "%s" succesfully deleted'] = 'Ознака „%s“ је успешно обрисана';
+$lang['Tag "%s1" renamed in "%s2"'] = 'Ознака „%s1“ је преименована у „%s“';
+$lang['Tag Manager'] = 'Уредник ознака';
+$lang['Tag(s) \{%s1\} succesfully merged into "%s2"'] = 'Ознака(е) \{%s1\} је успешно спојена у „%s2“';
+$lang['Tags \{%s\} succesfully deleted'] = 'Ознака \{%s\} је успешно обрисана';
+$lang['The %d tags on this page are selected'] = '%d ознака на овој страници је изабрано';
+$lang['The other tags will be removed'] = 'Остале ознаке ће бити уклоњене';
+$lang['This is already the default theme'] = 'Ово је већ подразумевана тема';
+$lang['Unset as group for new users'] = 'Избаци новог корисника из групе';
+$lang['User "%s" dissociated from this group'] = 'Корисник „%s“ је избачен из ове групе';
+$lang['User associated'] = 'Повезивање корисника';
+$lang['Videos'] = 'Видео';
+$lang['Yes, I am sure'] = 'Да, сигуран сам';
+$lang['Yes, delete'] = 'Да, обриши';
+$lang['You don\'t have access to this photo'] = 'Немате приступ овој фотографији';
+$lang['You have %d orphan tags %s'] = 'Имате %d ознака без родитеља %s';
+$lang['You have %s inactive plugins'] = 'Имате %s неактивних додатака';
+$lang['You have %s1 orphan : %s2'] = 'Имате %s1 без родитеља: %s2';
+$lang['and %s others'] = 'и %s осталих';
+$lang['Other'] = 'Остало';
+$lang['Page Visited'] = 'Посећена страница';
+$lang['Page Visited in %s'] = 'Страница посећена у %s';
+$lang['Please upgrade your PHP version before any update.'] = 'Ажурирајте вашу PHP верзију пре ажурирања овог програма.';
+$lang['Portraits'] = 'Портрети';
+$lang['Posted %s'] = 'Постављено %s';
+$lang['Promote mobile app on mobile devices'] = 'Промовиши мобилну апликацију на мобилним уређајима';
+$lang['Refresh thumbnail'] = 'Освежи умањене сличице';
+$lang['Requires PHP %s'] = 'Захтева PHP %s';
+$lang['Review'] = 'Преглед';
+$lang['Search albums'] = 'Претрага албума';
+$lang['Search tips'] = 'Савети за претрагу';
+$lang['Select'] = 'Изабери';
+$lang['Select all %d tags'] = 'Изабери свих %d ознака';
+$lang['Selection mode'] = 'Режим избора';
+$lang['Set as default'] = 'Постави као подразумевано';
+$lang['Set as group for new users'] = 'Постави као групу за нове кориснике';
+$lang['Show inactive plugins'] = 'Прикажи неактивне додатке';
+$lang['Showing %s users out of %s'] = 'Приказује %s корисника од %s';
+$lang['Storage'] = 'Складиште';
+$lang['<b>%d+</b> albums found, try to refine the search'] = 'пронађено <b>%d+</b> албума, пробајте да побољшате претрагу';
+$lang['Add Album'] = 'Додај албум';
+$lang['Apply an automatic order to root albums'] = 'Примени аутоматски редослед корених албума';
+$lang['Apply to direct sub-albums'] = 'Примени на директне подалбуме';
+$lang['Apply to the whole hierarchy'] = 'Примени на целу хијерархију';
+$lang['Compact View'] = 'Компактни приказ';
+$lang['Drag and drop to reorder albums'] = 'Превуците и пустите албуме да промените редослед';
+$lang['Hide sub-albums'] = 'Сакриј подалбуме';
+$lang['Line View'] = 'Приказ у линији';
+$lang['Name field must not be empty'] = 'Поље са именом не сме бити празно';
+$lang['Root'] = 'Корен';
+$lang['Select an album... or type it!'] = 'Изаберите албум… или га укуцајте!';
+$lang['Show sub-albums'] = 'Прикажи подалбуме';
+$lang['Tile View'] = 'Приказ наслова';

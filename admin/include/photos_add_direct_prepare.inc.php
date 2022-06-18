@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 // +-----------------------------------------------------------------------+
@@ -29,6 +14,7 @@ $template->assign(
     array(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
       'chunk_size' => $conf['upload_form_chunk_size'],
+      'ADMIN_PAGE_TITLE' => l10n('Upload Photos'),
     )
   );
 
@@ -106,7 +92,7 @@ if (isset($_GET['album']))
   
   // test if album really exists
   $query = '
-SELECT id
+SELECT id, uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$_GET['album'].'
 ;';
@@ -114,18 +100,14 @@ SELECT id
   if (pwg_db_num_rows($result) == 1)
   {
     $selected_category = array($_GET['album']);
-    
-    // lets put in the session to persist in case of upload method switch
-    $_SESSION['selected_category'] = $selected_category;
+
+    $cat = pwg_db_fetch_assoc($result);
+    $template->assign('ADD_TO_ALBUM', get_cat_display_name_cache($cat['uppercats'], null));
   }
   else
   {
     fatal_error('[Hacking attempt] the album id = "'.$_GET['album'].'" is not valid');
   }
-}
-else if (isset($_SESSION['selected_category']))
-{
-  $selected_category = $_SESSION['selected_category'];
 }
 else
 {
@@ -150,6 +132,15 @@ SELECT category_id
 // existing album
 $template->assign('selected_category', $selected_category);
 
+// how many existing albums?
+$query = '
+SELECT
+    COUNT(*)
+  FROM '.CATEGORIES_TABLE.'
+;';
+list($nb_albums) = pwg_db_fetch_row(pwg_query($query));
+// $nb_albums = 0;
+$template->assign('NB_ALBUMS', $nb_albums);
 
 // image level options
 $selected_level = isset($_POST['level']) ? $_POST['level'] : 0;
@@ -193,7 +184,7 @@ if (!isset($_SESSION['upload_hide_warnings']))
 {
   $setup_warnings = array();
   
-  if ($conf['use_exif'] and !function_exists('read_exif_data'))
+  if ($conf['use_exif'] and !function_exists('exif_read_data'))
   {
     $setup_warnings[] = l10n('Exif extension not available, admin should disable exif use');
   }

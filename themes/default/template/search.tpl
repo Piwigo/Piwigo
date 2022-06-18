@@ -1,8 +1,3 @@
-{* Example of resizeable *}
-{*
-{include file='include/resize.inc.tpl'}
-*}
-
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 

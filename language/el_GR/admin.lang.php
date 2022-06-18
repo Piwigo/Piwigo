@@ -1,28 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
-// +-----------------------------------------------------------------------+
-// +                                                                       +
-// + Revised by AM on 18/04/2011                                           +
-// +                                                                       +
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang[' and %d virtual'] = " και %d εικονικό";
@@ -298,7 +279,6 @@ $lang['Download,'] = 'Κατεβάστε,';
 $lang['Downloads'] = 'Λήψεις';
 $lang['Drag to re-order'] = 'Κάντε κλικ και σύρετε για εκ νέου στοίχηση';
 $lang['Drop into album'] = 'Επιλέξτε ένα λεύκωμα';
-$lang['Dump Database'] = 'Εξαγωγή Βάσης Δεδομένων';
 $lang['Duplicates'] = 'Διπλα Αντίγραφα';
 $lang['Edit album permissions'] = 'Επεξεργασία δικαιωμάτων λευκώματος';
 $lang['Edit album'] = 'Επεξεργασία λευκώματος';
@@ -410,7 +390,6 @@ $lang['hide details'] = 'απόκρυψη λεπτομερειών';
 $lang['high'] = 'υψηλό';
 $lang['IP'] = 'IP';
 $lang['Include display of recent photos grouped by dates'] = 'Συμπεριλαβάνει απεικονίσεις από πρόσφατες φωτογραφίες ομαδοποιημένες κατά ημερομηνία';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Συμπεριλαμβάνει ιστορικά δεδομένων (Προσοχή: Το όριο μνήμης του διακομιστή  μπορεί να υπερβεί) ';
 $lang['Information data registered in database'] = 'Πληροφορίες για δεδομένα που έχουν καταχωρηθεί στη βάση δεδομένων';
 $lang['Informations'] = 'Πληροφορίες';
 $lang['Install on your computer,'] = 'Εγκαταστήστε στον υπολογιστή σας,';
@@ -495,7 +474,7 @@ $lang['No photo in the current set.'] = 'Καμιά φωτογραφία στο 
 $lang['No photo in this album'] = 'Καμιά φωτογραφία σ\' αυτό το λεύκωμα';
 $lang['new'] = 'νέο';
 $lang['No photo selected, %d photos in current set'] = 'Δεν έχει επιλεγεί φωτογραφία , %d φωτογραφίες στο τρέχον σύνολο';
-$lang['No photo selected, no action possible.'] = 'Δεν έχει επιλεγεί φωτογραφία , δεν είναι δυνατή ενέργεια';
+$lang['No photos selected, no actions possible.'] = 'Δεν έχει επιλεγεί φωτογραφία , δεν είναι δυνατή ενέργεια';
 $lang['No results'] = 'Δεν υπάρχουν αποτελέσματα';
 $lang['No user to send notifications by mail.'] = 'Κανένας χρήστης δεν θα ειδοποιηθεί μέσω ταχυδρομείου.';
 $lang['None'] = 'Κανένα';
@@ -692,6 +671,7 @@ $lang['%d years'] = '%d χρόνια';
 $lang['%s ago'] = '%s πριν';
 $lang['%s in the future'] = '%s στο μέλλον';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u χρήστες έχουν αυτόματη άδεια επειδή ανήκουν σε μια ομάδα που της έχει χορηγηθεί.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Η εφαρμογή Piwigo για το Android</em> που παρέχει τη δυνατότητα να συνδεθείτε με τη γκαλερί Piwigo σας από το κινητό σας Android ή τη ταμπλέτα σας και δημιουργούν μερικά άλμπουμ και ανεβάζουν πολλές φωτογραφίες ταυτόχρονα.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Η εφαρμογή Piwigo για το iOS</em> που παρέχει τη δυνατότητα να συνδεθείτε με τη γκαλερί Piwigo σας από το iPhone, iPad ή το iPod Touch, δημιουργούν μερικά άλμπουμ και ανεβάζουν πολλές φωτογραφίες ταυτόχρονα.';
 $lang['A locked gallery is only visible to administrators'] = 'Μια κλειδωμένη γκαλερί είναι ορατή μόνο στους διαχειριστές';
 $lang['Added by %s'] = 'Προστέθηκε από %s';
@@ -730,6 +710,7 @@ $lang['Photo sizes with crop'] = 'Μέγεθος φωτογραφίας με τ�
 $lang['Piwigo Publish plugin for Lightroom'] = 'πρόσθετο Piwigo για Δημοσίευση από το Lightroom';
 $lang['Piwigo export plugin for Aperture'] = 'Piwigo export plugin για το Aperture';
 $lang['Piwigo export plugin for iPhoto'] = 'Piwigo export plugin για το iPhoto';
+$lang['Piwigo for Android'] = 'Piwigo για Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo για το iOS (iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo publish plugin για το Shotwell';
 $lang['Piwigo publish plugin for digiKam'] = 'Piwigo publish plugin για το digiKam';
@@ -791,7 +772,6 @@ $lang['Type here the author name'] = 'Πληκτρολογήστε εδώ το �
 $lang['Type here the title'] = 'Πληκτρολογήστε εδώ τον τίτλο';
 $lang['Type in a search term'] = 'Πληκτρολογήστε έναν όρο αναζήτησης';
 $lang['Unable to check for upgrade.'] = 'Αδύνατον να ελέγξει για αναβάθμιση.';
-$lang['Unable to dump database.'] = 'Δεν είναι δυνατή η εξαγωγή της βάσης δεδομένων.';
 $lang['Uncheck all'] = 'Αποεπιλέξτε όλα';
 $lang['Uninstalled Plugins'] = 'Απεγκατεστημένα πρόσθετα';
 $lang['Uninstall'] = 'Απεγκατάσταση';
@@ -935,7 +915,7 @@ $lang['This group will be set to default'] = 'Η ομάδα αυτή θα ορι
 $lang['Rename'] = 'Μετονομασία';
 $lang['Please select at least two groups'] = 'Παρακαλώ επιλέξτε τουλάχιστον δύο ομάδες';
 $lang['No members to manage'] = 'Κανένα μέλος για διαχείριση';
-$lang['No group selected, no action possible.'] = 'Καμία ομάδα δεν επιλέχτηκε, δεν είναι δυνατή η συνέχεια.';
+$lang['No groups selected, no actions possible.'] = 'Καμία ομάδα δεν επιλέχτηκε, δεν είναι δυνατή η συνέχεια.';
 $lang['Merge selected groups'] = 'Συγχώνευση επιλεγμένων ομάδων';
 $lang['Duplicate'] = 'Διπλότυπο';
 $lang['Manage the members'] = 'Διαχειριστείτε τα μέλη';
@@ -955,7 +935,7 @@ $lang['Showing %s to %s of %s users'] = 'Εμφάνιση από %s ως %s τω
 $lang['Show %s users'] = 'Εμφάνιση %s χρηστών';
 $lang['Registered on %s, %s.'] = 'Εγγεγραμμένοι στις %s, %s.';
 $lang['Password updated'] = 'Ο κωδικό πρόσβασης ενημερώθηκε';
-$lang['No user selected, no action possible.'] = 'Κανένας χρήστης δεν επιλέχτηκε, καμία ενέργεια δεν είναι δυνατή.';
+$lang['No users selected, no actions possible.'] = 'Κανένας χρήστης δεν επιλέχτηκε, καμία ενέργεια δεν είναι δυνατή.';
 $lang['No user selected of %d users'] = 'Κανένας χρήστης δεν επιλέχτηκε από  %d χρήστες';
 $lang['No matching user found'] = 'Δεν βρέθηκε χρήστης';
 $lang['Loading...'] = 'Φόρτωση ...';
@@ -1000,7 +980,7 @@ $lang['Storage used'] = 'χώρος αποθήκευσης που χρησιμο
 $lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Μοιραστείτε / Στείλτε τις φωτογραφίες σας απευθείας από το MacOS σας (10.10 και μετά) στο Piwigo';
 $lang['Select tags'] = 'Επιλέξτε ετικέτες';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Τρέχοντας σε ένα ενημερωμένο Piwigo είναι σημαντικό για την ασφάλεια.';
-$lang['No tag selected, no action possible.'] = 'Δεν έχει επιλεγεί ετικέτα, καμία ενέργεια δεν είναι δυνατή.';
+$lang['No tags selected, no actions possible.'] = 'Δεν έχει επιλεγεί ετικέτα, καμία ενέργεια δεν είναι δυνατή.';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Το Piwigo Remote Sync είναι σε θέση να μεταφορτόσει μια ολόκληρη ιεραρχία φακέλων. Αν το εκτελέσετε ξανά, μόνο νέες φωτογραφίες θα μεταφορτοθούν.';
 $lang['Piwigo %s is available, please update'] = 'Το Piwigo %s είναι διαθέσιμο, παρακαλώ ενημερώστε';
 $lang['No filter on album. Select one or type to search'] = 'Χωρίς φίλτρο για λευκώματα. Επιλέξτε ένα ή πληκτρολογήστε για αναζήτηση';
@@ -1012,3 +992,58 @@ $lang['Delete album "%s" and its %d sub-albums.'] = 'Διαγραφή άλμπο
 $lang['Dashboard'] = 'Πίνακας Ελέγχου';
 $lang['Confirm deletion'] = 'Επιβεβαίωση διαγραφής';
 $lang['(determined from photos)'] = '(Που καθορίζεται από τις φωτογραφίες)';
+$lang['or'] = 'ή';
+$lang['checksums to add'] = 'αθροίσματα ελέγχου για προσθήκη';
+$lang['With no checksum'] = 'Χωρίς κανένα άθροισμα ελέγχου';
+$lang['Welcome!'] = 'Καλώς ορίσατε!';
+$lang['Visit'] = 'Επίσκεψη';
+$lang['Synchronization in progress'] = 'Ο συγχρονισμός βρίσκεται σε εξέλιξη';
+$lang['Some checksums are missing.'] = 'Ορισμένα αθροίσματα ελέγχου λείπουν.';
+$lang['Piwigo requires an album to add photos.'] = 'Ο Piwigo απαιτεί ένα λεύκωμα για την προσθήκη φωτογραφιών';
+$lang['Display category date'] = 'Εμφάνιση ημερομηνίας κατηγορίας';
+$lang['Display album date period'] = 'Δείξτε την περίοδο αναφοράς που σχετίζεται με κάθε άλμπουμ, π.χ. «από τις 12 έως τις 15 Ιουλίου 2018»';
+$lang['Deletion in progress'] = 'Η διαγραφή βρίσκεται σε εξέλιξη';
+$lang['Create a first album'] = 'Δημιουργήστε ένα πρώτο λεύκωμα.';
+$lang['Compute %d missing checksums'] = 'Υπολογισμός %d αθροίσματα ελέγχου που λείπουν';
+$lang['... or hide this link'] = '...ή να αποκρύψει αυτόν τον σύνδεσμο';
+$lang['%d checksums were added'] = 'Έχουν προστεθεί %d αθροίσματα ελέγχου';
+$lang['<b>%d</b> tags found'] = '<b>%d</b> ετικέτες βρέθηκαν';
+$lang['<b>%d</b> tag found'] = '<b>%d</b> ετικέτα βρέθηκε';
+$lang['<b>%d</b> tag selected'] = '<b>%d</b> ετικέτες επιλέχτηκαν ';
+$lang['%s other tags available..'] = '%s άλλες ετικέτες διαθέσιμες..';
+$lang['%s MB used'] = '%s MB που χρησιμοποιεί';
+$lang['%s GB used'] = '%s GB που χρησιμοποιεί';
+$lang['%d photos'] = '%d φωτογραφίες';
+$lang[' (copy)'] = ' (αντιγραφή)';
+$lang[' (copy %s)'] = ' (αντιγραφή %s)';
+$lang['Are you sure you want to restore this plugin?'] = 'Είστε βέβαιοι ότι θέλετε να επαναφέρετε αυτήν το πρόσθετο;';
+$lang['Tags \{%s\} succesfully deleted'] = 'Η Ετικέτα  \{%s\} διαγράφηκε επιτυχώς';
+$lang['Tag(s) \{%s1\} succesfully merged into "%s2"'] = 'Η Ετικέτα \{%s1\} συγχωνεύτηκαν με επιτυχία στο "%s2"';
+$lang['Tag Manager'] = 'Διαχειριστής Ετικετών';
+$lang['Tag "%s1" renamed in "%s2"'] = 'Η ετικέτα \"%s1\" μετονομάστηκε σε \"%s2\"';
+$lang['Are you sure you want to restore the plugin "%s"?'] = 'Είστε βέβαιοι ότι θέλετε να επαναφέρετε το πρόσθετο "%s";';
+$lang['Are you sure you want to lock the gallery?'] = 'Είστε βέβαιοι ότι θέλετε να κλειδώσετε τη γκαλερί;';
+$lang['Are you sure you want to install the plugin "%s"?'] = 'Είστε βέβαιοι ότι θέλετε να εγκαταστήσετε την προσθήκη "%s";';
+$lang['Are you sure you want to delete this?'] = 'Είστε βέβαιοι ότι θέλετε να το διαγράψετε;';
+$lang['Are you sure you want to delete this theme?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το θέμα;';
+$lang['Are you sure you want to delete this site?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτόν τον ιστότοπο;';
+$lang['Are you sure you want to delete the user "%s"?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε τον χρήστη "%s";';
+$lang['Are you sure you want to delete the theme "%s"?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε το θέμα "%s";';
+$lang['Are you sure you want to delete the ratings of the user "%s"?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε τις αξιολογήσεις του χρήστη "%s";';
+$lang['Are you sure you want to delete the plugin "%s"?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε το πρόσθετο "%s";';
+$lang['Are you sure you want to delete the language "%s"?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε τη γλώσσα "%s";';
+$lang['Are you sure you want to delete group "%s"?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε την ομάδα "%s";';
+$lang['Are you sure you want to delete all sizes?'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα μεγέθη;';
+$lang['Album search tool'] = 'Εργαλείο αναζήτησης λευκωμάτων';
+$lang['Activity peak in the last weeks'] = 'Μέγιστη δραστηριότητα τις τελευταίες εβδομάδες';
+$lang['<b>1</b> album found'] = 'Βρέθηκε <b>1</b> λεύκωμα';
+$lang['<b>%d</b> albums found'] = 'Βρέθηκαν <b>%d</b> λευκώματα';
+$lang['%s file type'] = '%s τύπος αρχείου';
+$lang['%d Activity'] = '%d Δραστηριότητα';
+$lang['%d sub-albums'] = '%d υπο-λευκώματα';
+$lang['%d Activities'] = '%d Δραστηριότητες';
+$lang['Are you sure you want to update all extensions?'] = 'Είστε βέβαιοι ότι θέλετε να ενημερώσετε όλες τις επεκτάσεις;';
+$lang['Are you sure you want to restore to default settings?'] = 'Είστε βέβαιοι ότι θέλετε να επαναφέρετε τις προεπιλεγμένες ρυθμίσεις;';
+$lang['Cache'] = 'Λανθάνουσα Μνήμη';
+$lang['Average last 12 months'] = 'Μέσος όρος τους τελευταίους 12 μήνες';
+$lang['At least 2 selected tags are needed to merge'] = 'Τουλάχιστον δύο επιλέξιμες ετικέτες χρειάζονται για συγχώνευση.';

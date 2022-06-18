@@ -52,10 +52,11 @@
 
   <p class="bottomButtons">
     <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-    <input class="submit" type="submit" name="validate" value="{'Submit'|translate}">
-    <input class="submit" type="reset" name="reset" value="{'Reset'|translate}">
+    <input class="submit" type="submit" name="validate" value="{'Submit'|translate}" {if $isWebmaster != 1}disabled{/if}>
+    <input class="submit" type="reset" name="reset" value="{'Reset'|translate}" {if $isWebmaster != 1}disabled{/if}>
   </p>
 
 </div>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

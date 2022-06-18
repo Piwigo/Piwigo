@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -252,11 +237,13 @@ SELECT
       }
       else
       {
+        unlink($source_filepath);
         die('unexpected file type');
       }
     }
     else
     {
+      unlink($source_filepath);
       die('forbidden file type');
     }
 
@@ -372,44 +359,140 @@ SELECT
     single_insert(IMAGES_TABLE, $insert);
 
     $image_id = pwg_db_insert_id(IMAGES_TABLE);
+    pwg_activity('photo', $image_id, 'add');
+  }
+
+  if (!isset($conf['lounge_active']))
+  {
+    conf_update_param('lounge_active', false, true);
+  }
+
+  if (!$conf['lounge_active'])
+  {
+    // check if we need to use the lounge from now
+    list($nb_photos) = pwg_db_fetch_row(pwg_query('SELECT COUNT(*) FROM '.IMAGES_TABLE.';'));
+    if ($nb_photos >= $conf['lounge_activate_threshold'])
+    {
+      conf_update_param('lounge_active', true, true);
+    }
   }
 
   if (isset($categories) and count($categories) > 0)
   {
-    associate_images_to_categories(
-      array($image_id),
-      $categories
-      );
+    if ($conf['lounge_active'])
+    {
+      fill_lounge(array($image_id), $categories);
+    }
+    else
+    {
+      associate_images_to_categories(array($image_id), $categories);
+    }
   }
 
   // update metadata from the uploaded file (exif/iptc)
-  if ($conf['use_exif'] and !function_exists('read_exif_data'))
+  if ($conf['use_exif'] and !function_exists('exif_read_data'))
   {
     $conf['use_exif'] = false;
   }
   sync_metadata(array($image_id));
 
-  invalidate_user_cache();
+  if (!$conf['lounge_active'])
+  {
+    invalidate_user_cache();
+  }
 
-  // cache thumbnail
+  // cache a derivative
   $query = '
 SELECT
     id,
-    path
+    path,
+    representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
   $image_infos = pwg_db_fetch_assoc(pwg_query($query));
+  $src_image = new SrcImage($image_infos);
 
   set_make_full_url();
   // in case we are on uploadify.php, we have to replace the false path
-  $thumb_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::thumb_url($image_infos));
+  $derivative_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::url(IMG_MEDIUM, $src_image));
   unset_make_full_url();
 
-  fetchRemote($thumb_url, $dest);
+  $logger->info(__FUNCTION__.' : force cache generation, derivative_url = '.$derivative_url);
 
+  fetchRemote($derivative_url, $dest);
+
+  trigger_notify('loc_end_add_uploaded_file', $image_infos);
 
   return $image_id;
+}
+
+function add_format($source_filepath, $format_ext, $format_of)
+{
+  // 1) find infos about the extended image
+  //
+  // 2) move uploaded file to upload/2022/05/16/pwg_format/20100122003814-449ada00.cr2
+  //
+  // 3) register in database
+
+  if (!conf_get_param('enable_formats', false))
+  {
+    die('['.__FUNCTION__.'] formats are disabled');
+  }
+
+  if (!in_array($format_ext, conf_get_param('format_ext', array('cr2'))))
+  {
+    die('['.__FUNCTION__.'] unexpected format extension "'.$format_ext.'" (authorized extensions: '.implode(', ', conf_get_param('format_ext', array('cr2'))).')');
+  }
+
+  $query = '
+SELECT
+    path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$format_of.'
+;';
+  $images = query2array($query);
+
+  if (!isset($images[0]))
+  {
+    die('['.__FUNCTION__.'] this photo does not exist in the database');
+  }
+
+  $format_path = dirname($images[0]['path']).'/pwg_format/';
+  $format_path.= get_filename_wo_extension(basename($images[0]['path']));
+  $format_path.= '.'.$format_ext;
+
+  prepare_directory(dirname($format_path));
+
+  if (is_uploaded_file($source_filepath))
+  {
+    move_uploaded_file($source_filepath, $format_path);
+  }
+  else
+  {
+    rename($source_filepath, $format_path);
+  }
+  @chmod($format_path, 0644);
+
+  $file_infos = pwg_image_infos($format_path);
+
+  $insert = array(
+    'image_id' => $format_of,
+    'ext' => $format_ext,
+    'filesize' => $file_infos['filesize'],
+  );
+
+  single_insert(IMAGE_FORMAT_TABLE, $insert);
+  $format_id = pwg_db_insert_id(IMAGE_FORMAT_TABLE);
+
+  pwg_activity('photo', $format_of, 'edit', array('action'=>'add format', 'format_ext'=>$format_ext, 'format_id'=>$format_id));
+
+  $format_infos = $insert;
+  $format_infos['format_id'] = $format_id;
+
+  trigger_notify('loc_end_add_format', $format_infos);
+
+  return $format_id;
 }
 
 add_event_handler('upload_file', 'upload_file_pdf');

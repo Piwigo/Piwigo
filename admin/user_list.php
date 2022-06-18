@@ -1,42 +1,23 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
  * Add users and manage users list
  */
 
+check_input_parameter('group', $_GET, false, PATTERN_ID);
+
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-
-$my_base_url = get_root_url().'admin.php?page=';
-
-$tabsheet = new tabsheet();
-$tabsheet->set_id('users');
-$tabsheet->select('user_list');
-$tabsheet->assign();
+$page['tab'] = 'user_list';
+include(PHPWG_ROOT_PATH.'admin/include/user_tabs.inc.php');
 
 // +-----------------------------------------------------------------------+
 // |                              groups list                              |
@@ -46,7 +27,7 @@ $groups = array();
 
 $query = '
 SELECT id, name
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   ORDER BY name ASC
 ;';
 $result = pwg_query($query);
@@ -57,39 +38,39 @@ while ($row = pwg_db_fetch_assoc($result))
 }
 
 // +-----------------------------------------------------------------------+
-// | template                                                              |
+// |                              Dates for filtering                      |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('user_list'=>'user_list.tpl'));
-
 $query = '
-SELECT
-    DISTINCT u.'.$conf['user_fields']['id'].' AS id,
-    u.'.$conf['user_fields']['username'].' AS username,
-    u.'.$conf['user_fields']['email'].' AS email,
-    ui.status,
-    ui.enabled_high,
-    ui.level
-  FROM '.USERS_TABLE.' AS u
-    INNER JOIN '.USER_INFOS_TABLE.' AS ui ON u.'.$conf['user_fields']['id'].' = ui.user_id
-  WHERE u.'.$conf['user_fields']['id'].' > 0
+SELECT DISTINCT
+      month(registration_date) as registration_month,
+      year(registration_date) as registration_year
+FROM '.USER_INFOS_TABLE.'
+ORDER BY registration_date
 ;';
-
 $result = pwg_query($query);
+
+$register_dates = array();
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $users[] = $row;
-  $user_ids[] = $row['id'];
+  $register_dates[] = $row['registration_month'].' '.$row['registration_year'];
 }
 
+$template->assign('register_dates', implode(',' , $register_dates));
+
+
+// +-----------------------------------------------------------------------+
+// | template                                                              |
+// +-----------------------------------------------------------------------+
 $template->assign(
   array(
-    'users' => $users,
-    'all_users' => join(',', $user_ids),
+    'ADMIN_PAGE_TITLE' => l10n('Users'),
     'ACTIVATE_COMMENTS' => $conf['activate_comments'],
     'Double_Password' => $conf['double_password_type_in_admin']
-    )
-  );
+  )
+);
+
+$template->set_filenames(array('user_list'=>'user_list.tpl'));
 
 $default_user = get_default_user_info(true);
 
@@ -132,6 +113,10 @@ $template->assign(
     'protected_users' => implode(',', array_unique($protected_users)),
     'password_protected_users' => implode(',', array_unique($password_protected_users)),
     'guest_user' => $conf['guest_id'],
+    'filter_group' => (isset($_GET['group']) ? $_GET['group'] : null),
+    'connected_user' => $user["id"],
+    'connected_user_status' => $user['status'],
+    'owner' => $conf['webmaster_id']
     )
   );
 
@@ -167,6 +152,24 @@ foreach ($conf['available_permission_levels'] as $level)
 $template->assign('level_options', $level_options);
 $template->assign('level_selected', $default_user['level']);
 
+$query = '
+SELECT id, name, is_default
+  FROM `'.GROUPS_TABLE.'`
+  ORDER BY name ASC
+;';
+$result = pwg_query($query);
+
+$groups_arr_id = [];
+$groups_arr_name = [];
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $groups_arr_name[] = '"'.pwg_db_real_escape_string($row["name"]).'"';
+  $groups_arr_id[] = $row["id"];
+}
+
+$template->assign('groups_arr_id', implode(',', $groups_arr_id));
+$template->assign('groups_arr_name', implode(',', $groups_arr_name));
+$template->assign('guest_id', $conf["guest_id"]);
 
 // +-----------------------------------------------------------------------+
 // | html code display                                                     |

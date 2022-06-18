@@ -38,21 +38,27 @@ jQuery(document).ready(function() {
       jQuery("."+boxType+" .eiw-icon").css("margin-right", "20px");
     }
   }
+
+  if (jQuery('h2').length > 0) {
+    jQuery('h1').html(jQuery('h2').html());
+  }
 });
 {/footer_script}
 
 <div id="menubar">
-  <div id="adminHome"><a href="{$U_ADMIN}"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
+  <div id="adminHome"><a href="{$U_ADMIN}" class="admin-main"><i class="icon-television"></i> {'Dashboard'|@translate}</a></div>
 
 	<dl>
-		<dt><i class="icon-picture"> </i><span>{'Photos'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-picture"> </i><span>{'Photos'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
 			<ul>
 				<li><a href="{$U_ADD_PHOTOS}"><i class="icon-plus-circled"></i>{'Add'|@translate}</a></li>
-				<li><a href="{$U_RATING}"><i class="icon-star"></i>{'Rating'|@translate}</a></li>
+{if $SHOW_RATING}
+        <li><a href="{$U_RATING}"><i class="icon-star"></i>{'Rating'|@translate}</a></li>
+{/if}
 				<li><a href="{$U_TAGS}"><i class="icon-tags"></i>{'Tags'|@translate}</a></li>
 				<li><a href="{$U_RECENT_SET}"><i class="icon-clock"></i>{'Recent photos'|@translate}</a></li>
-				<li><a href="{$U_BATCH}"><i class="icon-pencil"></i>{'Batch Manager'|@translate}</a></li>
+				<li><a href="{$U_BATCH}"><i class="icon-th"></i>{'Batch Manager'|@translate}</a></li>
 {if $NB_PHOTOS_IN_CADDIE > 0}
 				<li><a href="{$U_CADDIE}"><i class="icon-flag"></i>{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
 {/if}
@@ -63,16 +69,16 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-sitemap"> </i><span>{'Albums'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-sitemap"> </i><span>{'Albums'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
     <dd>
       <ul>
-        <li><a href="{$U_CATEGORIES}"><i class="icon-folder-open"></i>{'Manage'|@translate}</a></li>
+        <li><a href="{$U_ALBUMS}"><i class="icon-folder-open"></i>{'Manage'|@translate}</a></li>
         <li><a href="{$U_CAT_OPTIONS}"><i class="icon-pencil"></i>{'Properties'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
   <dl>
-		<dt><i class="icon-users"> </i><span>{'Users'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-users"> </i><span>{'Users'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
       <ul>
         <li><a href="{$U_USERS}"><i class="icon-user-add"></i>{'Manage'|@translate}</a></li>
@@ -82,34 +88,20 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span></dt>
-		<dd>
-      <ul>
-        <li><a href="{$U_PLUGINS}"><i class="icon-equalizer"></i>{'Manage'|@translate}</a></li>
-      </ul>
-{if !empty($plugin_menu_items)}
-      <div id="pluginsMenuSeparator"></div>
-      <ul class="scroll">
-  {foreach from=$plugin_menu_items item=menu_item}
-        <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
-  {/foreach}
-      </ul>
-{/if}
-		</dd>
+		<dt><a href="{$U_PLUGINS}" class="admin-main"><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span></a></dt>
   </dl>
   <dl>
-		<dt><i class="icon-wrench"> </i><span>{'Tools'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-wrench"> </i><span>{'Tools'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
       <ul>
 {if $ENABLE_SYNCHRONIZATION}
         <li><a href="{$U_CAT_UPDATE}"><i class="icon-exchange"></i>{'Synchronize'|@translate}</a></li>
-        <li><a href="{$U_SITE_MANAGER}"><i class="icon-flow-branch"></i>{'Site manager'|@translate}</a></li>
 {/if}
 				<li><a href="{$U_HISTORY_STAT}"><i class="icon-signal"></i>{'History'|@translate}</a></li>
 				<li><a href="{$U_MAINTENANCE}"><i class="icon-tools"></i>{'Maintenance'|@translate}</a></li>
 {if isset($U_COMMENTS)}
 				<li><a href="{$U_COMMENTS}"><i class="icon-chat"></i>{'Comments'|@translate}
-        {if $NB_PENDING_COMMENTS > 0}
+        {if isset($NB_PENDING_COMMENTS) and $NB_PENDING_COMMENTS > 0}
           <span class="adminMenubarCounter" title="{'%d waiting for validation'|translate:$NB_PENDING_COMMENTS}">{$NB_PENDING_COMMENTS}</span>
         {/if}</a></li>
 {/if}
@@ -118,12 +110,14 @@ jQuery(document).ready(function() {
 		</dd>
   </dl>
   <dl>
-		<dt><i class="icon-cog"> </i><span>{'Configuration'|@translate}&nbsp;</span></dt>
+		<dt><i class="icon-cog"> </i><span>{'Configuration'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}"><i class="icon-cog-alt"></i>{'Options'|@translate}</a></li>
         <li><a href="{$U_CONFIG_MENUBAR}"><i class="icon-menu"></i>{'Menu Management'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_EXTENTS}"><i class="icon-code"></i>{'Templates'|@translate}</a></li>
+        {if {$U_SHOW_TEMPLATE_TAB}}
+          <li><a href="{$U_CONFIG_EXTENTS}"><i class="icon-code"></i>{'Templates'|@translate}</a></li>
+        {/if}
 				<li><a href="{$U_CONFIG_LANGUAGES}"><i class="icon-language"></i>{'Languages'|@translate}</a></li>
         <li><a href="{$U_CONFIG_THEMES}"><i class="icon-brush"></i>{'Themes'|@translate}</a></li>
       </ul>
@@ -133,13 +127,18 @@ jQuery(document).ready(function() {
 
 <div id="content" class="content">
 
+  <h1>{$ADMIN_PAGE_TITLE}</h1>
+
   {if isset($TABSHEET)}
   {$TABSHEET}
   {/if}
   {if isset($U_HELP)}
-	{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+  {include file='include/colorbox.inc.tpl'}
+{footer_script}
+  jQuery('.help-popin').colorbox({ width:"500px" });
+{/footer_script}
   <ul class="HelpActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/help.png" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}&amp;output=content_only" title="{'Help'|@translate}" class="help-popin"><span class="icon-help-circled"></span></a></li>
   </ul>
   {/if}
 

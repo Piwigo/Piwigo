@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 // customize appearance of the site for a user
@@ -192,21 +177,23 @@ function save_profile_from_post($userdata, &$errors)
     // mass_updates function
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+    $activity_details_tables = array();
+
     if (isset($_POST['mail_address']))
     {
       // update common user informations
       $fields = array($conf['user_fields']['email']);
 
       $data = array();
-      $data{$conf['user_fields']['id']} = $userdata['id'];
-      $data{$conf['user_fields']['email']} = $_POST['mail_address'];
+      $data[ $conf['user_fields']['id'] ] = $userdata['id'];
+      $data[ $conf['user_fields']['email'] ] = $_POST['mail_address'];
 
       // password is updated only if filled
       if (!empty($_POST['use_new_pwd']))
       {
         $fields[] = $conf['user_fields']['password'];
         // password is hashed with function $conf['password_hash']
-        $data{$conf['user_fields']['password']} = $conf['password_hash']($_POST['use_new_pwd']);
+        $data[ $conf['user_fields']['password'] ] = $conf['password_hash']($_POST['use_new_pwd']);
 
         deactivate_user_auth_keys($userdata['id']);
       }
@@ -222,7 +209,7 @@ function save_profile_from_post($userdata, &$errors)
         else
         {
           $fields[] = $conf['user_fields']['username'];
-          $data{$conf['user_fields']['username']} = $_POST['username'];
+          $data[ $conf['user_fields']['username'] ] = $_POST['username'];
           
           // send email to the user
           if ($_POST['username'] != $userdata['username'])
@@ -255,6 +242,13 @@ function save_profile_from_post($userdata, &$errors)
                     'update' => $fields
                     ),
                    array($data));
+
+      if ($_POST['mail_address'] != $userdata['email'])
+      {
+        deactivate_password_reset_key($userdata['id']);
+      }
+
+      $activity_details_tables[] = 'users';
     }
 
     if ($conf['allow_user_customization'] or defined('IN_ADMIN'))
@@ -283,8 +277,11 @@ function save_profile_from_post($userdata, &$errors)
       mass_updates(USER_INFOS_TABLE,
                    array('primary' => array('user_id'), 'update' => $fields),
                    array($data));
+
+      $activity_details_tables[] = 'user_infos';
     }
     trigger_notify( 'save_profile_from_post', $userdata['id'] );
+    pwg_activity('user', $userdata['id'], 'edit', array('function'=>__FUNCTION__, 'tables'=>implode(',', $activity_details_tables)));
 
     if (!empty($_POST['redirect']))
     {

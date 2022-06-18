@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -185,7 +170,7 @@ function register_user($login, $password, $mail_address, $notify_admin=true, &$e
     );
 
   // if no error until here, registration of the user
-  if (count($errors) == 0)
+  if (empty($errors))
   {
     $insert = array(
       $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
@@ -199,7 +184,7 @@ function register_user($login, $password, $mail_address, $notify_admin=true, &$e
     // Assign by default groups
     $query = '
 SELECT id
-  FROM '.GROUPS_TABLE.'
+  FROM `'.GROUPS_TABLE.'`
   WHERE is_default = \''.boolean_to_string(true).'\'
   ORDER BY id ASC
 ;';
@@ -282,6 +267,8 @@ SELECT id
         )
       );
 
+    pwg_activity('user', $user_id, 'add');
+
     return $user_id;
   }
   else
@@ -311,10 +298,13 @@ function build_user($user_id, $use_cache=true)
     $user['internal_status']['guest_must_be_guest'] = true;
   }
 
-  // Check user theme
-  if (!isset($user['theme_name']))
+  // Check user theme. 2 possible problems:
+  // 1. the user_infos.theme was not found in the themes table, thus themes.name is null
+  // 2. the theme is not really installed on the filesystem
+  if (!isset($user['theme_name']) or !check_theme_installed($user['theme']))
   {
     $user['theme'] = get_default_theme();
+    $user['theme_name'] = $user['theme'];
   }
 
   return $user;
@@ -404,6 +394,8 @@ SELECT
       }
   }
   unset($value);
+
+  $userdata['preferences'] = empty($userdata['preferences']) ? array() : unserialize($userdata['preferences']);
 
   if ($use_cache)
   {
@@ -790,7 +782,7 @@ function get_default_theme()
 
   // let's find the first available theme
   $active_themes = array_keys(get_pwg_themes());
-  return $active_themes[0];
+  return isset($active_themes[0]) ? $active_themes[0] : 'default';
 }
 
 /**
@@ -873,7 +865,7 @@ function create_user_infos($user_ids, $override_values=null)
       }
 
       $insert = array_merge(
-        $default_user,
+        array_map('pwg_db_real_escape_string', $default_user),
         array(
           'user_id' => $user_id,
           'status' => $status,
@@ -948,10 +940,7 @@ function log_user($user_id, $remember_me)
   if ( session_id()!="" )
   { // we regenerate the session for security reasons
     // see http://www.acros.si/papers/session_fixation.pdf
-    if (version_compare(PHP_VERSION, '7') <= 0)
-    {
-      session_regenerate_id(true);
-    }
+    session_regenerate_id(true);
   }
   else
   {
@@ -961,6 +950,7 @@ function log_user($user_id, $remember_me)
 
   $user['id'] = $_SESSION['pwg_uid'];
   trigger_notify('user_login', $user['id']);
+  pwg_activity('user', $user['id'], 'login');
 }
 
 /**
@@ -1111,6 +1101,8 @@ function pwg_login($success, $username, $password, $remember_me)
   pwg_session_gc();
 
   global $conf;
+
+  $user_found = false;
   // retrieving the encrypted password of the login submitted
   $query = '
 SELECT '.$conf['user_fields']['id'].' AS id,
@@ -1118,12 +1110,54 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
 ;';
+
   $row = pwg_db_fetch_assoc(pwg_query($query));
   if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
   {
-    log_user($row['id'], $remember_me);
-    trigger_notify('login_success', stripslashes($username));
-    return true;
+    $user_found = true;
+  }
+
+  // If we didn't find a matching user name, we search for email address
+  if (!$user_found)
+  {
+    $query = '
+  SELECT '.$conf['user_fields']['id'].' AS id,
+         '.$conf['user_fields']['password'].' AS password
+    FROM '.USERS_TABLE.'
+    WHERE '.$conf['user_fields']['email'].' = \''.pwg_db_real_escape_string($username).'\'
+    ;';
+
+    $row = pwg_db_fetch_assoc(pwg_query($query));
+    if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
+    {
+      $user_found = true;
+    }
+  }
+
+  if ($user_found)
+  {
+    // if user status is "guest" then she should not be granted to log in.
+    // The user may not exist in the user_infos table, so we consider it's a "normal" user by default
+    $status = 'normal';
+
+    $query = '
+SELECT
+    *
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$row['id'].'
+;';
+    $result = pwg_query($query);
+    while ($user_infos_row = pwg_db_fetch_assoc($result))
+    {
+      $status = $user_infos_row['status'];
+    }
+
+    if ('guest' != $status)
+    {
+      log_user($row['id'], $remember_me);
+      trigger_notify('login_success', stripslashes($username));
+      return true;
+    }
   }
   trigger_notify('login_failure', stripslashes($username));
   return false;
@@ -1137,6 +1171,7 @@ function logout_user()
   global $conf;
 
   trigger_notify('user_logout', @$_SESSION['pwg_uid']);
+  pwg_activity('user', @$_SESSION['pwg_uid'], 'logout');
 
   $_SESSION = array();
   session_unset();
@@ -1616,6 +1651,25 @@ UPDATE '.USER_AUTH_KEYS_TABLE.'
 }
 
 /**
+ * Deactivates password reset key
+ *
+ * @since 11
+ * @param int $user_id
+ * @return null
+ */
+function deactivate_password_reset_key($user_id)
+{
+  single_update(
+    USER_INFOS_TABLE,
+    array(
+      'activation_key' => null,
+      'activation_key_expire' => null,
+      ),
+    array('user_id' => $user_id)
+    );
+}
+
+/**
  * Gets the last visit (datetime) of a user, based on history table
  *
  * @since 2.9
@@ -1655,5 +1709,101 @@ UPDATE '.USER_INFOS_TABLE.'
   }
 
   return $last_visit;
+}
+
+/**
+ * Save user preferences in database
+ * @since 13
+ */
+function userprefs_save()
+{
+  global $user;
+
+  $dbValue = pwg_db_real_escape_string(serialize($user['preferences']));
+
+  $query = '
+UPDATE '.USER_INFOS_TABLE.'
+  SET preferences = \''.$dbValue.'\'
+  WHERE user_id = '.$user['id'].'
+;';
+  pwg_query($query);
+}
+
+/**
+ * Add or update a user preferences parameter
+ * @since 13
+ *
+ * @param string $param
+ * @param string $value
+ * @param boolean $updateGlobal update global *$conf* variable
+ */
+function userprefs_update_param($param, $value)
+{
+  global $user;
+
+  // If the field is true or false, the variable is transformed into a boolean value.
+  if ('true' == $value)
+  {
+    $value = true;
+  }
+  elseif ('false' == $value)
+  {
+    $value = false;
+  }
+
+  $user['preferences'][$param] = $value;
+
+  userprefs_save();
+}
+
+/**
+ * Delete one or more user preferences parameters
+ * @since 13
+ *
+ * @param string|string[] $params
+ */
+function userprefs_delete_param($params)
+{
+  global $user;
+
+  if (!is_array($params))
+  {
+    $params = array($params);
+  }
+  if (empty($params))
+  {
+    return;
+  }
+
+  foreach ($params as $param)
+  {
+    if (isset($user['preferences'][$param]))
+    {
+      unset($user['preferences'][$param]);
+    }
+  }
+
+  userprefs_save();
+}
+
+/**
+ * Return a default value for a user preferences parameter.
+ * @since 13
+ *
+ * @param string $param the configuration value to be extracted (if it exists)
+ * @param mixed $default_value the default value if it does not exist yet.
+ *
+ * @return mixed The configuration value if the variable exists, otherwise the default.
+ */
+function userprefs_get_param($param, $default_value=null)
+{
+  global $user;
+
+  if (isset($user['preferences'][$param]))
+  {
+    return $user['preferences'][$param];
+  }
+
+  return $default_value;
 }
 ?>

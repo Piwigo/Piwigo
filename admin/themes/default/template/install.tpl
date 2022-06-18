@@ -52,8 +52,9 @@ body {
 
 #theHeader {
   display: block;
-  background:url("admin/themes/clear/images/piwigo_logo_big.png") no-repeat scroll center 20px transparent;
+  background:url("admin/themes/default/images/piwigo-orange.svg") no-repeat scroll center 20px transparent;
   height:100px;
+  background-size: 300px;
 }
 
 fieldset {
@@ -281,7 +282,7 @@ jQuery().ready(function(){ldelim}
         </label>
         <br>
         <label>
-          <input type="checkbox" name="send_password_by_mail" checked="checked">
+          <input type="checkbox" name="send_credentials_by_mail" checked="checked">
           {'Send my connection settings by email'|@translate}
         </label>
       </td>

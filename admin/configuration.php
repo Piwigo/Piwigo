@@ -1,29 +1,19 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if( !defined("PHPWG_ROOT_PATH") )
 {
   die ("Hacking attempt!");
+}
+
+if (!is_webmaster())
+{
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -58,6 +48,8 @@ $main_checkboxes = array(
     'log',
     'history_admin',
     'history_guest',
+    'show_mobile_app_banner_in_gallery',
+    'show_mobile_app_banner_in_admin',
    );
 
 $sizes_checkboxes = array(
@@ -90,6 +82,7 @@ $display_checkboxes = array(
     'index_new_icon',
     'index_edit_icon',
     'index_caddie_icon',
+    'display_fromto',
     'picture_metadata_icon',
     'picture_slideshow_icon',
     'picture_favorite_icon',
@@ -134,7 +127,7 @@ $sort_fields = array(
   'hit ASC'             => l10n('Visits, low &rarr; high'),
   'id ASC'              => l10n('Numeric identifier, 1 &rarr; 9'),
   'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
-  'rank ASC'            => l10n('Manual sort order'),
+  '`rank` ASC'          => l10n('Manual sort order'),
   );
 
 $comments_order = array(
@@ -150,6 +143,7 @@ $mail_themes = array(
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
   $int_pattern = '/^\d+$/';
 
   switch ($page['section'])
@@ -160,6 +154,8 @@ if (isset($_POST['submit']))
       {
         if ( !empty($_POST['order_by']) )
         {
+          check_input_parameter('order_by', $_POST, true, '/^('.implode('|', array_keys($sort_fields)).')$/');
+
           $used = array();
           foreach ($_POST['order_by'] as $i => $val)
           {
@@ -182,7 +178,7 @@ if (isset($_POST['submit']))
             $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
 
             // there is no rank outside categories
-            if ( ($i = array_search('rank ASC', $order_by)) !== false)
+            if ( ($i = array_search('`rank` ASC', $order_by)) !== false)
             {
               unset($order_by[$i]);
             }
@@ -262,7 +258,7 @@ if (isset($_POST['submit']))
   }
 
   // updating configuration if no error found
-  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0)
+  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0 and is_webmaster())
   {
     //echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT param FROM '.CONFIG_TABLE);
@@ -320,6 +316,7 @@ $action.= '&amp;section='.$page['section'];
 $template->assign(
   array(
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=configuration',
+    'PWG_TOKEN' => get_pwg_token(),
     'F_ACTION'=>$action
     ));
 
@@ -526,13 +523,13 @@ switch ($page['section'])
       $template->assign('derivatives', $tpl_vars);
       $template->assign('resize_quality', ImageStdParams::$quality);
 
-      $tpl_vars = array();
-      $now = time();
-      foreach(ImageStdParams::$custom as $custom=>$time)
-      {
-        $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
-      }
-      $template->assign('custom_derivatives', $tpl_vars);
+      // $tpl_vars = array();
+      // $now = time();
+      // foreach(ImageStdParams::$custom as $custom=>$time)
+      // {
+      //   $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
+      // }
+      // $template->assign('custom_derivatives', $tpl_vars);
     }
 
     break;
@@ -609,6 +606,8 @@ switch ($page['section'])
     break;
   }
 }
+
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'config');

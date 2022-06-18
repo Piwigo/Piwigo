@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -88,6 +73,10 @@ class plugins
   {
     $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain';
     $classname = $plugin_id.'_maintain';
+
+    // piwigo-videojs and piwigo-openstreetmap unfortunately have a "-" in their folder
+    // name (=plugin_id) and a class name can't have a "-". So we have to replace with a "_"
+    $classname = str_replace('-', '_', $classname);
 
     // 2.7 pattern (OO only)
     if (file_exists($file_to_include.'.class.php'))
@@ -253,7 +242,7 @@ DELETE FROM '. PLUGINS_TABLE .'
         {
           break;
         }
-
+        include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
         deltree(PHPWG_PLUGINS_PATH . $plugin_id, PHPWG_PLUGINS_PATH . 'trash');
         break;
     }
@@ -300,6 +289,7 @@ DELETE FROM '. PLUGINS_TABLE .'
           'uri'=>'',
           'description'=>'',
           'author'=>'',
+          'hasSettings'=>false,
         );
       $plg_data = file_get_contents($path.'/main.inc.php', null, null, 0, 2048);
 
@@ -330,6 +320,22 @@ DELETE FROM '. PLUGINS_TABLE .'
       if (preg_match("|Author URI:\\s*(https?:\\/\\/.+)|", $plg_data, $val))
       {
         $plugin['author uri'] = trim($val[1]);
+      }
+      if (preg_match("/Has Settings:\\s*([Tt]rue|[Ww]ebmaster)/", $plg_data, $val))
+      {
+        if (strtolower($val[1]) == 'webmaster')
+        {
+          global $user;
+
+          if ('webmaster' == $user['status'])
+          {
+            $plugin['hasSettings'] = true;
+          }
+        }
+        else
+        {
+          $plugin['hasSettings'] = true;
+        }
       }
       if (!empty($plugin['uri']) and strpos($plugin['uri'] , 'extension_view.php?eid='))
       {
@@ -370,7 +376,8 @@ DELETE FROM '. PLUGINS_TABLE .'
   }
 
   // Retrieve PEM versions
-  function get_versions_to_check($version=PHPWG_VERSION)
+  // Beta test : return last version on PEM if the current version isn't known or else return the current and the last version
+  function get_versions_to_check($beta_test=false, $version=PHPWG_VERSION)
   {
     global $conf;
 
@@ -378,33 +385,69 @@ DELETE FROM '. PLUGINS_TABLE .'
     $url = PEM_URL . '/api/get_version_list.php?category_id='. $conf['pem_plugins_category'] .'&format=php';
     if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
     {
-      if (!preg_match('/^\d+\.\d+\.\d+$/', $version))
+      $i = 0;
+
+      // If the actual version exist, put the PEM id in $versions_to_check
+      while ($i < count($pem_versions) && count($versions_to_check) == 0) 
       {
-        $version = $pem_versions[0]['name'];
-      }
-      $branch = get_branch_from_version($version);
-      foreach ($pem_versions as $pem_version)
-      {
-        if (strpos($pem_version['name'], $branch) === 0)
+        if (get_branch_from_version($pem_versions[$i]['name']) == get_branch_from_version($version))
         {
-          $versions_to_check[] = $pem_version['id'];
+          $versions_to_check[] = $pem_versions[$i]['id'];
+        }
+        $i++;
+      }
+
+      // If $beta_test is true, search the previous version
+      if ($beta_test) 
+      {
+        // If the actual version is not in PEM, put the latest PEM version
+        if (count($versions_to_check) == 0)
+        {
+          $versions_to_check[] = $pem_versions[0]['id'];
+        } 
+        else // Else search the next version in PEM 
+        {
+          $has_found_previous_version = false;
+          while ($i < count($pem_versions) && !$has_found_previous_version)
+          {
+            if ($pem_versions[$i]['id'] != $versions_to_check[0])
+            {
+              $versions_to_check[] = $pem_versions[$i]['id'];
+              $has_found_previous_version = true;
+            }
+            $i++;
+          }  
         }
       }
+
+      // if (!preg_match('/^\d+\.\d+\.\d+$/', $version))
+      // {
+      //   $version = $pem_versions[0]['name'];
+      // }
+      // $branch = get_branch_from_version($version);
+      // foreach ($pem_versions as $pem_version)
+      // {
+      //   if (strpos($pem_version['name'], $branch) === 0)
+      //   {
+      //     $versions_to_check[] = $pem_version['id'];
+      //   }
+      // }
     }
     return $versions_to_check;
   }
 
   /**
    * Retrieve PEM server datas to $server_plugins
+   * $beta_test parameter add plugins compatible with the previous version
    */
-  function get_server_plugins($new=false)
+  function get_server_plugins($new=false, $beta_test=false)
   {
     global $user, $conf;
 
-    $versions_to_check = $this->get_versions_to_check();
+    $versions_to_check = $this->get_versions_to_check($beta_test);
     if (empty($versions_to_check))
     {
-      return false;
+      return true;
     }
 
     // Plugins to check
@@ -418,7 +461,7 @@ DELETE FROM '. PLUGINS_TABLE .'
     }
 
     // Retrieve PEM plugins infos
-    $url = PEM_URL . '/api/get_revision_list.php';
+    $url = PEM_URL . '/api/get_revision_list-next.php';
     $get_data = array(
       'category_id' => $conf['pem_plugins_category'],
       'format' => 'php',

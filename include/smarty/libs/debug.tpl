@@ -113,10 +113,10 @@
         <div>
             {foreach $template_data as $template}
                 <font color=brown>{$template.name}</font>
-                <br>&nbsp;&nbsp;<span class="exectime">
+                <br />&nbsp;&nbsp;<span class="exectime">
                 (compile {$template['compile_time']|string_format:"%.5f"}) (render {$template['render_time']|string_format:"%.5f"}) (cache {$template['cache_time']|string_format:"%.5f"})
                  </span>
-                <br>
+                <br />
             {/foreach}
         </div>
     {/if}
@@ -127,7 +127,7 @@
         {foreach $assigned_vars as $vars}
             <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
                 <td><h3><font color=blue>${$vars@key}</font></h3>
-                    {if isset($vars['nocache'])}<b>Nocache</b></br>{/if}
+                    {if isset($vars['nocache'])}<b>Nocache</b><br />{/if}
                     {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var nofilter}{/if}
                 </td>
                 <td><h3>Value</h3>{$vars['value']|debug_print_var:10:80 nofilter}</td>

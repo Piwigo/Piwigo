@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Монгол [MN]
@@ -177,7 +162,7 @@ $lang['Error sending email'] = 'И-мэйлийг илгээхэд алдаа г
 $lang['Expand all albums'] = 'Бүх цомгийг дэлгэх';
 $lang['Display'] = 'Харуулах';
 $lang['Download'] = 'татах';
-$lang['Download this file'] = 'Файлыг татаж авах';
+$lang['Download this file'] = 'Татаж авах';
 $lang['EXIF Metadata'] = 'EXIF мэдээлэл';
 $lang['Edit'] = 'Засах';
 $lang['Edit a comment'] = 'Сэтгэгдэлийг засах';
@@ -231,10 +216,10 @@ $lang['%d rates'] = '%d үнэлгээ';
 $lang['display each day with photos, month per month'] = 'зураг авсан өдрөөр нь ангилж харах';
 $lang['return to the display of all photos'] = 'бүх зургийг харуулах';
 $lang['Welcome to your Piwigo photo gallery!'] = 'Piwigo гэрэл зургын галерейд тавтай морилно уу!';
-$lang['add this photo to your favorites'] = 'энэ зургийг дуртай зургандаа нэмэх';
-$lang['delete all photos from your favorites'] = 'дуртай зурагнуудаа бүгдийг нь хасах';
-$lang['delete this photo from your favorites'] = 'энэ зургийг дуртай зурагнаасаа хасах';
-$lang['display your favorites photos'] = 'дуртай зурагнуудаа харах';
+$lang['add this photo to your favorites'] = 'таалагдсан зургын жагсаалтанд нэмэх';
+$lang['delete all photos from your favorites'] = 'таалагдсан зурагнуудаа бүгдийг нь хасах';
+$lang['delete this photo from your favorites'] = 'таалагдсан зурагнаасаа хасах';
+$lang['display your favorites photos'] = 'таалагдсан зурагнуудаа харах';
 $lang['The number of photos per page must be a not null scalar'] = 'Нэг хуудсанд харуулах зургийн тоо 0-с их байх ёстой';
 $lang['I want to add photos'] = 'Би зураг оруулмаар байна';
 $lang['Number of photos per page'] = 'Нэг хуудсанд харагдах зургын тоо';
@@ -288,7 +273,7 @@ $lang['Date posted, old &rarr; new'] = 'Нийтэлсэн огноогоор, �
 $lang['display recently updated albums'] = 'сүүлд шинэчилсэн цомгыг харуулах';
 $lang['Filter and display'] = 'Шүүгээд харуулах';
 $lang['Number of items'] = 'Харуулах тоо';
-$lang['Sort order'] = 'Дараалал';
+$lang['Sort order'] = 'Эрэмблэх';
 $lang['ascending'] = 'өгсөх';
 $lang['descending'] = 'уруудах';
 $lang['Date created, new &rarr; old'] = 'Авсан огноогоор, шинэ &rarr; хуучин';
@@ -305,7 +290,7 @@ $lang['A comment on your site'] = 'Танай сайтын талаархи сэ
 $lang['Username is mandatory'] = 'Хэрэглэгчийн нэр заавал шаардлагатай';
 $lang['Email address is mandatory'] = 'Имэйл хаяг заавал шаардлагатай';
 $lang['Previous'] = 'Өмнөх';
-$lang['Show file metadata'] = 'Зургийн файлын дэлгэрэнгүй мэдээллийг харуулах';
+$lang['Show file metadata'] = 'Дэлгэрэнгүй мэдээллийг харуулах';
 $lang['Specials'] = 'Сонгож харах';
 $lang['this login is already used'] = 'Уучлаарай, ийм нэрээр бүртгүүлэх боломжгүй.';
 $lang['obligatory'] = 'шаардлагатай';
@@ -384,11 +369,11 @@ $lang['Profile'] = 'Бүртгэл';
 $lang['Preferences'] = 'Тохиргоо';
 $lang['excluded'] = 'хасагдсан';
 $lang['available for administrators only'] = 'зөвхөн админууд хандах эрхтэй';
-$lang['Your favorites'] = 'Дуртай зурагнууд';
+$lang['Your favorites'] = 'Таалагдсан зурагнууд';
 $lang['Piwigo encountered a non recoverable error'] = 'Сэргээх боломжгүй ноцтой алдаа гарлаа!!!';
 $lang['You will receive a link to create a new password via email.'] = 'Шинэ нууц үг үүсгэх холбоос имэйл хаяг уруу тань очих болно.';
 $lang['chronology_monthly_calendar'] = 'Сарын хуанли';
-$lang['Favorites'] = 'Дуртай зурагнууд';
+$lang['Favorites'] = 'Таалагдсан зурагнууд';
 $lang['... or please deactivate this message, I will find my way by myself'] = '... би өөрөө тохиргоогоо хийх тул энэ мэдээллийг дахин битгий харуул.';
 $lang['Empty query. No criteria has been entered.'] = 'Хайлтын утгаа оруулна уу';
 $lang['Redirection...'] = 'Шилжүүлэх...';

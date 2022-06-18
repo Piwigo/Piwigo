@@ -12,7 +12,7 @@
 <form class="filter" action="{$F_ACTION}" method="get">
 
   <fieldset>
-    <legend>{'Filter'|@translate}</legend>
+    <legend><span class="icon-filter icon-green"></span>{'Filter'|@translate}</legend>
 
 		<ul>
 			<li>

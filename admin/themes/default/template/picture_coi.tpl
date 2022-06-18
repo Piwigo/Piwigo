@@ -3,8 +3,6 @@
 {/html_head}
 {combine_script id='jquery.jcrop' load='footer' require='jquery' path='themes/default/js/plugins/jquery.Jcrop.min.js'}
 
-<h2>{$TITLE} &#8250; {'Edit photo'|@translate} {$TABSHEET_TITLE}</h2>
-
 <form method="post">
 
 <fieldset>

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 // +-----------------------------------------------------------------------+
@@ -42,6 +27,7 @@ trigger_notify('loc_begin_admin');
 check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('page', $_GET, false, '/^[a-zA-Z\d_-]+$/');
+check_input_parameter('section', $_GET, false, '/^[a-z]+[a-z_\/-]*(\.php)?$/i');
 
 // +-----------------------------------------------------------------------+
 // | Direct actions                                                        |
@@ -58,7 +44,7 @@ if (isset($_GET['plugins_new_order']))
 if (isset($_GET['change_theme']))
 {
   $admin_themes = array('roma', 'clear');
-  $admin_theme_array = array($conf['admin_theme']);
+  $admin_theme_array = array(userprefs_get_param('admin_theme', 'clear'));
   $result = array_diff(
       $admin_themes,
       $admin_theme_array
@@ -68,7 +54,7 @@ if (isset($_GET['change_theme']))
       $result
     );
 
-  conf_update_param('admin_theme', $new_admin_theme);
+  userprefs_update_param('admin_theme', $new_admin_theme);
 
   $url_params = array();
   foreach (array('page', 'tab', 'section') as $url_param)
@@ -118,6 +104,12 @@ $change_theme_url.= 'change_theme=1';
 if (isset($_GET['page']) and preg_match('/^plugin-([^-]*)(?:-(.*))?$/', $_GET['page'], $matches))
 {
   $_GET['page'] = 'plugin';
+
+  if (preg_match('/^piwigo_(videojs|openstreetmap)$/', $matches[1]))
+  {
+    $matches[1] = str_replace('_', '-', $matches[1]);
+  }
+
   $_GET['section'] = $matches[1].'/admin.php';
   if (isset($matches[2]))
   {
@@ -195,7 +187,9 @@ $template->assign(
     'U_CONFIG_LANGUAGES' => $link_start.'languages',
     'U_CONFIG_THEMES'=> $link_start.'themes',
     'U_CATEGORIES'=> $link_start.'cat_list',
+    'U_ALBUMS'=> $link_start.'albums',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
+    'U_CAT_SEARCH'=> $link_start.'cat_search',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_RATING'=> $link_start.'rating',
     'U_RECENT_SET'=> $link_start.'batch_manager&amp;filter=prefilter-last_import',
@@ -210,6 +204,9 @@ $template->assign(
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => $change_theme_url,
     'U_UPDATES' => $link_start.'updates',
+    'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
+    'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
+    'SHOW_RATING' => $conf['rate'],
     )
   );
   
@@ -248,6 +245,24 @@ if ($nb_photos_in_caddie > 0)
       'U_CADDIE' => $link_start.'batch_manager&amp;filter=prefilter-caddie',
       )
     );
+} else {
+  $template->assign(
+    array(
+      'NB_PHOTOS_IN_CADDIE' => 0,
+      'U_CADDIE' => '',
+      )
+    );
+}
+
+// any photos with no md5sum ?
+if (in_array($page['page'], array('site_update', 'batch_manager')))
+{
+  $nb_no_md5sum = count(get_photos_no_md5sum());
+
+  if ($nb_no_md5sum > 0)
+  {
+    $page['no_md5sum_number'] = $nb_no_md5sum;
+  }
 }
 
 // any orphan photo?
@@ -261,20 +276,14 @@ if ($nb_orphans > 0)
       'U_ORPHANS' => $link_start.'batch_manager&amp;filter=prefilter-no_album',
       )
     );
+} else {
+  $template->assign(
+    array(
+      'NB_ORPHANS' => 0,
+      'U_ORPHANS' => '',
+      )
+    );
 }
-
-// +-----------------------------------------------------------------------+
-// | Plugin menu                                                           |
-// +-----------------------------------------------------------------------+
-
-$plugin_menu_links = trigger_change('get_admin_plugin_menu_links', array() );
-
-function UC_name_compare($a, $b)
-{
-  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
-}
-usort($plugin_menu_links, 'UC_name_compare');
-$template->assign('plugin_menu_items', $plugin_menu_links);
 
 // +-----------------------------------------------------------------------+
 // | Refresh permissions                                                   |
@@ -291,7 +300,7 @@ if (
     or ( !empty($_POST) and in_array($page['page'],
         array(
           'album',        // public/private; lock/unlock, permissions
-          'cat_move',
+          'albums',
           'cat_options',  // public/private; lock/unlock
           'user_list',    // group assoc; user level
           'user_perm',

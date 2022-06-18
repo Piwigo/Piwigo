@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -226,7 +211,11 @@ $forbidden = get_sql_condition_FandF(
 // +-----------------------------------------------------------------------+
 if ('categories' == $page['section'])
 {
-  if (isset($page['category']))
+  if (isset($page['combined_categories']))
+  {
+    $page['title'] = get_combined_categories_content_title();
+  }
+  elseif (isset($page['category']))
   {
     $page = array_merge(
       $page,
@@ -246,7 +235,17 @@ if ('categories' == $page['section'])
   }
 
   // GET IMAGES LIST
-  if
+  if (isset($page['combined_categories']))
+  {
+    $cat_ids = array($page['category']['id']);
+    foreach ($page['combined_categories'] as $category)
+    {
+      $cat_ids[] = $category['id'];
+    }
+
+    $page['items'] = get_image_ids_for_categories($cat_ids);
+  }
+  elseif
     (
       $page['startcat'] == 0 and
       (!isset($page['chronology_field'])) and // otherwise the calendar will requery all subitems
@@ -338,6 +337,15 @@ else
 
     $items = get_image_ids_for_tags($page['tag_ids']);
 
+    if (count($items) == 0)
+    {
+      $logger->info(
+        'attempt to see the name of the tag #'.implode(', #', $page['tag_ids'])
+        .' from the address : '.$_SERVER['REMOTE_ADDR']
+      );
+      access_denied();
+    }
+
     $page = array_merge(
       $page,
       array(
@@ -379,7 +387,8 @@ else
     $page = array_merge(
       $page,
       array(
-        'title' => l10n('Favorites')
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+                    .l10n('Favorites').'</a>'
       )
     );
 
@@ -469,7 +478,8 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => l10n('Recent albums'),
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+                    .l10n('Recent albums').'</a>'
         )
       );
   }
@@ -604,7 +614,7 @@ if ( $filter['enabled'] )
 }
 
 // see if we need a redirect because of a permalink
-if ( 'categories'==$page['section'] and isset($page['category']) )
+if ( 'categories'==$page['section'] and isset($page['category']) and !isset($page['combined_categories']))
 {
   $need_redirect=false;
   if ( empty($page['category']['permalink']) )
@@ -636,6 +646,47 @@ if ( 'categories'==$page['section'] and isset($page['category']) )
     redirect( $redirect_url );
   }
   unset( $need_redirect, $page['hit_by'] );
+}
+
+array_push($page['body_classes'], 'section-'.$page['section']);
+$page['body_data']['section'] = $page['section'];
+
+
+if ('categories' == $page['section'] && isset($page['category']))
+{
+  array_push($page['body_classes'], 'category-'.$page['category']['id']);
+  $page['body_data']['category_id'] = $page['category']['id'];
+
+  if (isset($page['combined_categories']))
+  {
+    $page['body_data']['combined_category_ids'] = array();
+    foreach ($page['combined_categories'] as $combined_categories)
+    {
+      array_push($page['body_classes'],'category-'.$combined_categories['id']);
+      array_push($page['body_data']['combined_category_ids'], $combined_categories['id']);
+    }
+  }
+}
+elseif (isset($page['tags']))
+{
+  $page['body_data']['tag_ids'] = array();
+  foreach ($page['tags'] as $tag)
+  {
+    array_push($page['body_classes'], 'tag-'.$tag['id']);
+    array_push($page['body_data']['tag_ids'], $tag['id']);
+  }
+  
+}
+elseif (isset($page['search']))
+{
+  array_push($page['body_classes'], 'search-'.$page['search']);
+  $page['body_data']['search_id'] = $page['search'];
+}
+
+if (isset($page['image_id']))
+{
+  array_push($page['body_classes'], 'image-'.$page['image_id']);
+  $page['body_data']['image_id'] = $page['image_id'];
 }
 
 trigger_notify('loc_end_section_init');

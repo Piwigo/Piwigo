@@ -1,29 +1,19 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if( !defined("PHPWG_ROOT_PATH") )
 {
   die ("Hacking attempt!");
+}
+
+if (!is_webmaster())
+{
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
 }
 
 $conf['updates_ignored'] = unserialize($conf['updates_ignored']);
@@ -38,6 +28,8 @@ if (!$autoupdate->get_server_extensions())
   return; // TODO: remove this return and add a proper "page killer"
 }
 
+$updates_extension = []; //The array of the updates of a type of extension is stored in $updates_extension[type]
+
 foreach ($autoupdate->types as $type)
 {
   $fs = 'fs_'.$type;
@@ -50,6 +42,8 @@ foreach ($autoupdate->types as $type)
     continue;
   }
 
+  $updates_extension[$type] = [];
+  
   foreach($fs_ext as $ext_id => $fs_ext)
   {
     if (!isset($fs_ext['extension']) or !isset($server_ext[$fs_ext['extension']]))
@@ -61,18 +55,15 @@ foreach ($autoupdate->types as $type)
 
     if (!safe_version_compare($fs_ext['version'], $ext_info['revision_name'], '>='))
     {
-      $template->append('update_'.$type, array(
+      array_push($updates_extension[$type], array(
         'ID' => $ext_info['extension_id'],
         'REVISION_ID' => $ext_info['revision_id'],
         'EXT_ID' => $ext_id,
         'EXT_NAME' => $fs_ext['name'],
-        'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$ext_info['extension_id'],
-        'EXT_DESC' => trim($ext_info['extension_description'], " \n\r"),
+        'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$ext_info['extension_id'].'#changelog',
         'REV_DESC' => trim($ext_info['revision_description'], " \n\r"),
         'CURRENT_VERSION' => $fs_ext['version'],
         'NEW_VERSION' => $ext_info['revision_name'],
-        'AUTHOR' => $ext_info['author_name'],
-        'DOWNLOADS' => $ext_info['extension_nb_downloads'],
         'URL_DOWNLOAD' => $ext_info['download_url'] . '&amp;origin=piwigo_download',
         'IGNORED' => in_array($ext_id, $conf['updates_ignored'][$type]),
         )
@@ -86,9 +77,11 @@ foreach ($autoupdate->types as $type)
   }
 }
 
+$template->assign('UPDATES_EXTENSION', $updates_extension);
 $template->assign('SHOW_RESET', $show_reset);
 $template->assign('PWG_TOKEN', get_pwg_token());
 $template->assign('EXT_TYPE', $page['page'] == 'updates' ? 'extensions' : $page['page']);
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 $template->set_filename('plugin_admin_content', 'updates_ext.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 

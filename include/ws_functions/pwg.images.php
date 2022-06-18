@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 // +-----------------------------------------------------------------------+
@@ -127,9 +112,9 @@ DELETE
   if ($search_current_ranks)
   {
     $query = '
-SELECT category_id, MAX(rank) AS max_rank
+SELECT category_id, MAX(`rank`) AS max_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE rank IS NOT NULL
+  WHERE `rank` IS NOT NULL
     AND category_id IN ('.implode(',', $new_cat_ids).')
   GROUP BY category_id
 ;';
@@ -420,8 +405,10 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
   }
   usort($related_categories, 'global_rank_compare');
 
-  if (empty($related_categories))
+  if (empty($related_categories) and !is_admin())
   {
+    // photo might be in the lounge? or simply orphan. A standard user should not get
+    // info. An admin should still be able to get info.
     return new PwgError(401, 'Access denied');
   }
 
@@ -722,6 +709,8 @@ UPDATE '. IMAGES_TABLE .'
 ;';
   $result = pwg_query($query);
 
+  pwg_activity('photo', $params['image_id'], 'edit');
+
   $affected_rows = pwg_db_changes($result);
   if ($affected_rows)
   {
@@ -755,7 +744,7 @@ SELECT
     image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$params['category_id'].'
-  ORDER BY rank ASC
+  ORDER BY `rank` ASC
 ;';
     $image_ids = query2array($query, null, 'image_id');
 
@@ -801,7 +790,7 @@ SELECT COUNT(*)
 
   // what is the current higher rank for this category?
   $query = '
-SELECT MAX(rank) AS max_rank
+SELECT MAX(`rank`) AS max_rank
   FROM '. IMAGE_CATEGORY_TABLE .'
   WHERE category_id = '. $params['category_id'] .'
 ;';
@@ -822,17 +811,17 @@ SELECT MAX(rank) AS max_rank
   // update rank for all other photos in the same category
   $query = '
 UPDATE '. IMAGE_CATEGORY_TABLE .'
-  SET rank = rank + 1
+  SET `rank` = `rank` + 1
   WHERE category_id = '. $params['category_id'] .'
-    AND rank IS NOT NULL
-    AND rank >= '. $params['rank'] .'
+    AND `rank` IS NOT NULL
+    AND `rank` >= '. $params['rank'] .'
 ;';
   pwg_query($query);
 
   // set the new rank for the photo
   $query = '
 UPDATE '. IMAGE_CATEGORY_TABLE .'
-  SET rank = '. $params['rank'] .'
+  SET `rank` = '. $params['rank'] .'
   WHERE image_id = '. $params['image_id'] .'
     AND category_id = '. $params['category_id'] .'
 ;';
@@ -1328,6 +1317,28 @@ function ws_images_upload($params, $service)
     return new PwgError(403, 'Invalid security token');
   }
 
+  if (isset($params['format_of']))
+  {
+    $format_ext = null;
+
+    // are formats enabled?
+    if (!$conf['enable_formats'])
+    {
+      return new PwgError(401, 'formats are disabled');
+    }
+
+    // We must check if the extension is in the authorized list.
+    if (preg_match('/\.('.implode('|', $conf['format_ext']).')$/', $params['name'], $matches))
+    {
+      $format_ext = $matches[1];
+    }
+
+    if (empty($format_ext))
+    {
+      return new PwgError(401, 'unexpected format extension of file "'.$params['name'].'" (authorized extensions: '.implode(', ', $conf['format_ext']).')');
+    }
+  }
+
   // usleep(100000);
 
   // if (!isset($_FILES['image']))
@@ -1360,6 +1371,10 @@ function ws_images_upload($params, $service)
   {
     $fileName = uniqid("file_");
   }
+
+  // change the name of the file in the buffer to avoid any unexpected
+  // extension. Function add_uploaded_file will eventually clean the mess.
+  $fileName = md5($fileName);
 
   $filePath = $upload_dir.DIRECTORY_SEPARATOR.$fileName;
 
@@ -1412,6 +1427,31 @@ function ws_images_upload($params, $service)
 
     include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 
+    if (isset($params['format_of']))
+    {
+      $query='
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '. $params['format_of'] .'
+;';
+      $images = query2array($query);
+      if (count($images) == 0)
+      {
+        return new PwgError(404, __FUNCTION__.' : image_id not found');
+      }
+
+      $image = $images[0];
+
+      add_format($filePath, $format_ext, $image['id']);
+
+      return array(
+        'image_id' => $image['id'],
+        'src' => DerivativeImage::thumb_url($image),
+        'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image),
+        'name' => $image['name'],
+        );
+    }
+
     $image_id = add_uploaded_file(
       $filePath,
       stripslashes($params['name']), // function add_uploaded_file will secure before insert
@@ -1439,19 +1479,305 @@ SELECT
 ;';
     $category_infos = pwg_db_fetch_assoc(pwg_query($query));
 
+    $query = '
+SELECT
+    COUNT(*)
+  FROM '.LOUNGE_TABLE.'
+  WHERE category_id = '.$params['category'][0].'
+;';
+    list($nb_photos_lounge) = pwg_db_fetch_row(pwg_query($query));
+
     $category_name = get_cat_display_name_from_id($params['category'][0], null);
 
     return array(
       'image_id' => $image_id,
       'src' => DerivativeImage::thumb_url($image_infos),
+      'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image_infos),
       'name' => $image_infos['name'],
       'category' => array(
         'id' => $params['category'][0],
-        'nb_photos' => $category_infos['nb_photos'],
+        'nb_photos' => $category_infos['nb_photos'] + $nb_photos_lounge,
         'label' => $category_name,
         )
       );
   }
+}
+
+/**
+ * API method
+ * Adds a chunk of an image. Chunks don't have to be uploaded in the right sort order. When the last chunk is added, they get merged.
+ * @since 11
+ * @param mixed[] $params
+ *    @option string username
+ *    @option string password
+ *    @option chunk int number of the chunk
+ *    @option string chunk_sum MD5 sum of the chunk
+ *    @option chunks int total number of chunks for this image
+ *    @option string original_sum MD5 sum of the final image
+ *    @option int[] category
+ *    @option string filename
+ *    @option string name (optional)
+ *    @option string author (optional)
+ *    @option string comment (optional)
+ *    @option string date_creation (optional)
+ *    @option int level
+ *    @option string tag_ids (optional) - "tag_id,tag_id"
+ *    @option int image_id (optional)
+ */
+function ws_images_uploadAsync($params, &$service)
+{
+  global $conf, $user, $logger;
+
+  // the username/password parameters have been used in include/user.inc.php
+  // to authenticate the request (a much better time/place than here)
+
+  // additional check for some parameters
+  if (!preg_match('/^[a-fA-F0-9]{32}$/', $params['original_sum']))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid original_sum');
+  }
+
+  if ($params['image_id'] > 0)
+  {
+    $query='
+SELECT COUNT(*)
+  FROM '. IMAGES_TABLE .'
+  WHERE id = '. $params['image_id'] .'
+;';
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    if ($count == 0)
+    {
+      return new PwgError(404, __FUNCTION__.' : image_id not found');
+    }
+  }
+
+  // handle upload error as in ws_images_addSimple
+  // if (isset($_FILES['image']['error']) && $_FILES['image']['error'] != 0)
+
+  $output_filepath_prefix = $conf['upload_dir'].'/buffer/'.$params['original_sum'].'-u'.$user['id'];
+  $chunkfile_path_pattern = $output_filepath_prefix.'-%03uof%03u.chunk';
+
+  $chunkfile_path = sprintf($chunkfile_path_pattern, $params['chunk']+1, $params['chunks']);
+
+  // create the upload directory tree if not exists
+  if (!mkgetdir(dirname($chunkfile_path), MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR))
+  {
+    return new PwgError(500, 'error during buffer directory creation');
+  }
+  secure_directory(dirname($chunkfile_path));
+
+  // move uploaded file
+  move_uploaded_file($_FILES['file']['tmp_name'], $chunkfile_path);
+  $logger->debug(__FUNCTION__.' uploaded '.$chunkfile_path);
+
+  // MD5 checksum
+  $chunk_md5 = md5_file($chunkfile_path);
+  if ($chunk_md5 != $params['chunk_sum'])
+  {
+    unlink($chunkfile_path);
+    $logger->error(__FUNCTION__.' '.$chunkfile_path.' MD5 checksum mismatched');
+    return new PwgError(500, "MD5 checksum chunk file mismatched");
+  }
+
+  // are all chunks uploaded?
+  $chunk_ids_uploaded = array();
+  for ($i = 1; $i <= $params['chunks']; $i++)
+  {
+    $chunkfile = sprintf($chunkfile_path_pattern, $i, $params['chunks']);
+    if ( file_exists($chunkfile) && ($fp = fopen($chunkfile, "rb"))!==false )
+    {
+      $chunk_ids_uploaded[] = $i;
+      fclose($fp);
+    }
+  }
+
+  if ($params['chunks'] != count($chunk_ids_uploaded))
+  {
+    // all chunks are not yet available
+    $logger->debug(__FUNCTION__.' all chunks are not uploaded yet, maybe on next chunk, exit for now');
+    return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
+  }
+  
+  // all chunks available
+  $logger->debug(__FUNCTION__.' '.$params['original_sum'].' '.$params['chunks'].' chunks available, try now to get lock for merging');
+  $output_filepath = $output_filepath_prefix.'.merged';
+  
+  // chunks already being merged?
+  if ( file_exists($output_filepath) && ($fp = fopen($output_filepath, "rb"))!==false )
+  {
+    // merge file already exists
+    fclose($fp);
+    $logger->error(__FUNCTION__.' '.$output_filepath.' already exists, another merge is under process');
+    return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
+  }
+  
+  // create merged and open it for writing only
+  $fp = fopen($output_filepath, "wb");
+  if ( !$fp )
+  {
+    // unable to create file and open it for writing only
+    $logger->error(__FUNCTION__.' '.$chunkfile_path.' unable to create merge file');
+    return new PwgError(500, 'error while creating merged '.$chunkfile_path);
+  }
+
+  // acquire an exclusive lock and keep it until merge completes
+  // this postpones another uploadAsync task running in another thread
+  if (!flock($fp, LOCK_EX))
+  {
+    // unable to obtain lock
+    fclose($fp);
+    $logger->error(__FUNCTION__.' '.$chunkfile_path.' unable to obtain lock');
+    return new PwgError(500, 'error while locking merged '.$chunkfile_path);
+  }
+
+  $logger->debug(__FUNCTION__.' lock obtained to merge chunks');
+
+  // loop over all chunks
+  foreach ($chunk_ids_uploaded as $chunk_id)
+  {
+    $chunkfile_path = sprintf($chunkfile_path_pattern, $chunk_id, $params['chunks']);
+
+    // chunk deleted by preceding merge?
+    if (!file_exists($chunkfile_path))
+    {
+      // cancel merge
+      $logger->error(__FUNCTION__.' '.$chunkfile_path.' already merged');
+      flock($fp, LOCK_UN);
+      fclose($fp);
+      return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
+    }
+
+    if (!fwrite($fp, file_get_contents($chunkfile_path)))
+    {
+      // could not append chunk
+      $logger->error(__FUNCTION__.' error merging chunk '.$chunkfile_path);
+      flock($fp, LOCK_UN);
+      fclose($fp);
+
+      // delete merge file without returning an error
+      @unlink($output_filepath);
+      return new PwgError(500, 'error while merging chunk '.$chunk_id);
+    }
+
+    $logger->debug(__FUNCTION__.' original_sum='.$params['original_sum'].', chunk '.$chunk_id.'/'.$params['chunks'].' merged');
+
+    // delete chunk and clear cache
+    unlink($chunkfile_path);
+  }
+
+  // flush output before releasing lock
+  fflush($fp);
+  flock($fp, LOCK_UN);
+  fclose($fp);
+
+  $logger->debug(__FUNCTION__.' merged file '.$output_filepath.' saved');
+  
+  // MD5 checksum
+  $merged_md5 = md5_file($output_filepath);
+
+  if ($merged_md5 != $params['original_sum'])
+  {
+    unlink($output_filepath);
+    $logger->error(__FUNCTION__.' '.$output_filepath.' MD5 checksum mismatched!');
+    return new PwgError(500, "MD5 checksum merged file mismatched");
+  }
+
+  $logger->debug(__FUNCTION__.' '.$output_filepath.' MD5 checksum OK');
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+
+  $image_id = add_uploaded_file(
+    $output_filepath,
+    $params['filename'],
+    $params['category'],
+    $params['level'],
+    $params['image_id'],
+    $params['original_sum']
+  );
+
+  $logger->debug(__FUNCTION__.' image_id after add_uploaded_file = '.$image_id);
+
+  // and now, let's create tag associations
+  if (isset($params['tag_ids']) and !empty($params['tag_ids']))
+  {
+    set_tags(
+      explode(',', $params['tag_ids']),
+      $image_id
+    );
+  }
+
+  // time to set other infos
+  $info_columns = array(
+    'name',
+    'author',
+    'comment',
+    'date_creation',
+  );
+
+  $update = array();
+  foreach ($info_columns as $key)
+  {
+    if (isset($params[$key]))
+    {
+      $update[$key] = $params[$key];
+    }
+  }
+
+  if (count(array_keys($update)) > 0)
+  {
+    single_update(
+      IMAGES_TABLE,
+      $update,
+      array('id' => $image_id)
+    );
+  }
+
+  // final step, reset user cache
+  invalidate_user_cache();
+
+  // trick to bypass get_sql_condition_FandF
+  if (!empty($params['level']) and $params['level'] > $user['level'])
+  {
+    // this will not persist
+    $user['level'] = $params['level'];
+  }
+
+  // delete chunks older than a week
+  $now = time();
+  foreach (glob($conf['upload_dir'].'/buffer/'."*.chunk") as $file)
+  {
+    if (is_file($file))
+    {
+      if ($now - filemtime($file) >= 60 * 60 * 24 * 7) // 7 days
+      {
+        $logger->info(__FUNCTION__.' delete '.$file);
+        unlink($file);
+      }
+      else
+      {
+        $logger->debug(__FUNCTION__.' keep '.$file);
+      }
+    }
+  }
+
+  // delete merged older than a week
+  foreach (glob($conf['upload_dir'].'/buffer/'."*.merged") as $file)
+  {
+    if (is_file($file))
+    {
+      if ($now - filemtime($file) >= 60 * 60 * 24 * 7) // 7 days
+      {
+        $logger->info(__FUNCTION__.' delete '.$file);
+        unlink($file);
+      }
+      else
+      {
+        $logger->debug(__FUNCTION__.' keep '.$file);
+      }
+    }
+  }
+
+  return $service->invoke('pwg.images.getInfo', array('image_id' => $image_id));
 }
 
 /**
@@ -1522,6 +1848,78 @@ SELECT id, file
         $result[$filename] = $id_of_filename[$filename];
       }
     }
+  }
+
+  return $result;
+}
+
+/**
+ * API method
+ * Check if an image exists by it's name or md5 sum
+ * 
+ * @since 13
+ * @param mixed[] $params
+ *    @option string category_id (optional)
+ *    @option string filename_list
+ */
+function ws_images_formats_searchImage($params, $service)
+{
+  global $conf, $logger;
+
+  $logger->debug(__FUNCTION__, 'WS', $params);
+
+  $candidates = json_decode(stripslashes($params['filename_list']), true);
+
+  $unique_filenames_db = array();
+
+  $query = '
+SELECT
+    id,
+    file
+  FROM '.IMAGES_TABLE.'
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $filename_wo_ext = get_filename_wo_extension($row['file']);
+    @$unique_filenames_db[ $filename_wo_ext ][] = $row['id'];
+  }
+
+  // we want "long" format extensions first to match "cmyk.jpg" before "jpg" for example
+  usort($conf['format_ext'], function($a, $b) {
+    return strlen($b) - strlen($a);
+  });
+
+  $result = array();
+
+  foreach ($candidates as $format_external_id => $format_filename)
+  {
+    $candidate_filename_wo_ext = null;
+
+    if (preg_match('/^(.*?)\.('.implode('|', $conf['format_ext']).')$/', $format_filename, $matches))
+    {
+      $candidate_filename_wo_ext = $matches[1];
+    }
+
+    if (empty($candidate_filename_wo_ext))
+    {
+      $result[$format_external_id] = array('status' => 'not found');
+      continue;
+    }
+
+    if (isset($unique_filenames_db[$candidate_filename_wo_ext]))
+    {
+      if (count($unique_filenames_db[$candidate_filename_wo_ext]) > 1)
+      {
+        $result[$format_external_id] = array('status' => 'multiple');
+        continue;
+      }
+
+      $result[$format_external_id] = array('status' => 'found', 'image_id' => $unique_filenames_db[$candidate_filename_wo_ext][0]);
+      continue;
+    }
+
+    $result[$format_external_id] = array('status' => 'not found');
   }
 
   return $result;
@@ -1648,6 +2046,9 @@ SELECT *
         $params[$key] = strip_tags($params[$key], '<b><strong><em><i>');
       }
 
+      // TODO do not strip tags if pwg_token is provided (and valid)
+      $params[$key] = strip_tags($params[$key]);
+
       if ('fill_if_empty' == $params['single_value_mode'])
       {
         if (empty($image_row[$key]))
@@ -1679,7 +2080,12 @@ SELECT *
         );
     }
 
-    $update['file'] = $params['file'];
+    // prevent XSS, remove HTML tags
+    $update['file'] = strip_tags($params['file']);
+    if (empty($update['file']))
+    {
+      unset($update['file']);
+    }
   }
 
   if (count(array_keys($update)) > 0)
@@ -1691,6 +2097,8 @@ SELECT *
       $update,
       array('id' => $update['id'])
       );
+
+    pwg_activity('photo', $update['id'], 'edit');
   }
 
   if (isset($params['categories']))
@@ -1802,6 +2210,146 @@ function ws_images_checkUpload($params, $service)
   }
 
   return $ret;
+}
+
+/**
+ * API method
+ * Empties the lounge, where photos may wait before taking off.
+ * @since 12
+ * @param mixed[] $params
+ */
+function ws_images_emptyLounge($params, $service)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $ret = array('rows' => empty_lounge());
+
+  return $ret;
+}
+
+/**
+ * API method
+ * Empties the lounge, where photos may wait before taking off.
+ * @since 12
+ * @param mixed[] $params
+ */
+function ws_images_uploadCompleted($params, $service)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  if (!is_array($params['image_id']))
+  {
+    $params['image_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['image_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
+  $params['image_id'] = array_map('intval', $params['image_id']);
+
+  $image_ids = array();
+  foreach ($params['image_id'] as $image_id)
+  {
+    if ($image_id > 0)
+    {
+      $image_ids[] = $image_id;
+    }
+  }
+
+  // the list of images moved from the lounge might not be the same than
+  // $image_ids (canbe a subset or more image_ids from another upload too)
+  $moved_from_lounge = empty_lounge();
+
+  $query = '
+SELECT
+    COUNT(*) AS nb_photos
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category_id'].'
+;';
+  $category_infos = pwg_db_fetch_assoc(pwg_query($query));
+  $category_name = get_cat_display_name_from_id($params['category_id'], null);
+
+  trigger_notify(
+    'ws_images_uploadCompleted',
+    array(
+      'image_ids' => $image_ids,
+      'category_id' => $params['category_id'],
+      'moved_from_lounge' => $moved_from_lounge,
+    )
+  );
+
+  return array(
+    'moved_from_lounge' => $moved_from_lounge,
+    'category' => array(
+      'id' => $params['category_id'],
+      'nb_photos' => $category_infos['nb_photos'],
+      'label' => $category_name,
+    ),
+  );
+}
+
+/**
+ * API method
+ * add md5sum at photos, by block. Returns how md5sum were added and how many are remaining.
+ * @param mixed[] $params
+ *    @option int block_size
+ */
+function ws_images_setMd5sum($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $md5sum_ids_to_add = array_slice(get_photos_no_md5sum(), 0, $params['block_size']);
+  $added_count = add_md5sum($md5sum_ids_to_add);
+
+  return array(
+    'nb_added' => $added_count,
+    'nb_no_md5sum' => count(get_photos_no_md5sum()),
+    );
+}
+
+/**
+ * API method
+ * Synchronize metadatas photos. Returns how many metadatas were sync.
+ * @param mixed[] $params
+ *    @option int image_id
+ */
+function ws_images_syncMetadata($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(', ', $params['image_id']).')
+;';
+  $params['image_id'] = query2array($query, null, 'id');
+
+  if (empty($params['image_id']))
+  {
+    return new PwgError(403, 'No image found');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  sync_metadata($params['image_id']);
+
+  return array(
+    'nb_synchronized' => count($params['image_id'])
+  );
 }
 
 /**

@@ -1,6 +1,6 @@
 -- initial configuration for Piwigo
 
-INSERT INTO piwigo_config (param,value,comment) VALUES ('activate_comments','true','Global parameter for usage of comments system');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('activate_comments','false','Global parameter for usage of comments system');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nb_comment_page','10','number of comments to display on each page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('log','true','keep an history of visits on your website');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_validation','false','administrators validate users comments before becoming visible');
@@ -69,6 +69,9 @@ INSERT INTO piwigo_config (param,value) VALUES ('picture_sizes_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('index_sizes_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('index_edit_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('index_caddie_icon','true');
+INSERT INTO piwigo_config (param,value) VALUES ('display_fromto','false');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_edit_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_caddie_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_representative_icon','true');
+INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_admin','true');
+INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_gallery','false');

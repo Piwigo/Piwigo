@@ -67,7 +67,9 @@ body .ui-tooltip {
 	<input type="hidden" name="page" value="rating_user">
 </fieldset>
 </form>
-
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 {combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 {combine_script id='jquery.geoip' load='async' path='admin/themes/default/js/jquery.geoip.js'}
 {footer_script}
@@ -126,29 +128,43 @@ function uidFromCell(cell){
 $(document).ready( function(){
 	$("#rateTable").on( "click", ".del", function(e) {
 		e.preventDefault();
-		if (!confirm('{'Are you sure?'|@translate|@escape:'javascript'}'))
-			return;
-		var cell = e.target.parentNode,
-			tr = cell;
-		while ( tr.nodeName != "TR") tr = tr.parentNode;
-		tr = jQuery(tr).fadeTo(1000, 0.4);
-
-		var data=uidFromCell(cell);
-		
-		(new PwgWS('{$ROOT_URL|@escape:javascript}')).callService(
-			'pwg.rates.delete', { user_id:data.uid, anonymous_id:data.aid},
-			{
-				method: 'POST',
-				onFailure: function(num, text) { tr.stop(); tr.fadeTo(0,1); alert(num + " " + text); },
-				onSuccess: function(result){
-					if (result)
-						oTable.row(tr[0]).remove().draw();
-					else 
-						alert(result); 
+		const title_msg  = '{'Are you sure you want to delete the ratings of the user "%s"?'|@translate|@escape:'javascript'}';
+		const confirm_msg = '{"Yes, I am sure"|@translate}';
+		const cancel_msg = "{"No, I have changed my mind"|@translate}";
+		let usr_name = $(this).closest("tr").find(".usr").html();
+		$.confirm({
+			title: title_msg.replace("%s", usr_name),
+			buttons: {
+				confirm: {
+					text: confirm_msg,
+					btnClass: 'btn-red',
+					action: function () {
+						var cell = e.target.parentNode,
+						tr = cell;
+						while ( tr.nodeName != "TR") tr = tr.parentNode;
+						tr = jQuery(tr).fadeTo(1000, 0.4);
+						var data=uidFromCell(cell);
+						(new PwgWS('{$ROOT_URL|@escape:javascript}')).callService(
+							'pwg.rates.delete', { user_id:data.uid, anonymous_id:data.aid},
+							{
+								method: 'POST',
+								onFailure: function(num, text) { tr.stop(); tr.fadeTo(0,1); alert(num + " " + text); },
+								onSuccess: function(result){
+									if (result)
+										oTable.row(tr[0]).remove().draw();
+									else 
+										alert(result); 
+								}
+							}
+						);
+					}
+				},
+				cancel: {
+					text: cancel_msg
 				}
-			}
-		);
-
+			},
+			...jConfirm_confirm_options
+		});
 	});
 });
 

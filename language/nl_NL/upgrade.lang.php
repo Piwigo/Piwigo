@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Upgrade';
@@ -31,7 +16,7 @@ $lang['total SQL time'] = 'totale SQL tijd';
 $lang['SQL queries'] = 'SQL queries';
 $lang['Upgrade informations'] = 'Upgrade informatie';
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Voer een onderhoudscontrole uit [Beheer>Hulpmiddelen>Onderhoud] indien je problemen ondervindt.';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Als voorzorgsmaatregel zijn de volgende plugins gedeactiveerd. Voordat je ze reactiveert moet je deze plugins op upgrades controleren:';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Als voorzorgsmaatregel zijn de volgende plug-ins gedeactiveerd. Voordat je ze reactiveert moet je deze plug-ins op upgrades controleren:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Alleen een beheerder kan een upgrade uitvoeren: hieronder kun je inloggen.';
 $lang['You do not have access rights to run upgrade'] = 'Je bent niet bevoegd om een upgrade uit te voeren';
 $lang['All sub-albums of private albums become private'] = 'Alle sub-albums van privé albums worden privé';

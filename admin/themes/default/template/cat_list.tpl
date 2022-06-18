@@ -1,157 +1,229 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
+{combine_script id='alternativeView' load='footer' path='admin/themes/default/js/cat_list.js'}
+{combine_script id='jquery.cookie' path='themes/default/js/jquery.cookie.js' load='footer'}
+
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function(){
-  jQuery(".drag_button").show();
-  jQuery(".categoryLi").css("cursor","move");
-  jQuery(".categoryUl").sortable({
-    axis: "y",
-    opacity: 0.8,
-    update : function() {
-      jQuery("#manualOrder").show();
-      jQuery("#notManualOrder").hide();
-      jQuery("#formAutoOrder").hide();
-      jQuery("#formCreateAlbum").hide();
-    }
-  });
-
-  jQuery("#categoryOrdering").submit(function(){
-    ar = jQuery('.categoryUl').sortable('toArray');
-    for(i=0;i<ar.length;i++) {
-      cat = ar[i].split('cat_');
-      document.getElementsByName('catOrd[' + cat[1] + ']')[0].value = i;
-    }
-  });
-
-  jQuery("input[name=order_type]").click(function () {
-    jQuery("#automatic_order_params").hide();
-    if (jQuery("input[name=order_type]:checked").val() == "automatic") {
-      jQuery("#automatic_order_params").show();
-    }
-  });
-
-  jQuery("#addAlbumOpen").click(function(){
-    jQuery("#formCreateAlbum").toggle();
-    jQuery("input[name=virtual_name]").focus();
-    jQuery("#formAutoOrder").hide();
-  });
-
-  jQuery("#addAlbumClose").click(function(){
-    jQuery("#formCreateAlbum").hide();
-  });
-
-
-  jQuery("#autoOrderOpen").click(function(){
-    jQuery("#formAutoOrder").toggle();
-    jQuery("#formCreateAlbum").hide();
-  });
-
-  jQuery("#autoOrderClose").click(function(){
-    jQuery("#formAutoOrder").hide();
-  });
-
-  jQuery("#cancelManualOrder").click(function(){
-    jQuery(".categoryUl").sortable("cancel");
-    jQuery("#manualOrder").hide();
-    jQuery("#notManualOrder").show();
-  });
+  $(".addAlbumHead").click(function () {
+    $(".addAlbum input[name=virtual_name]").focus();
+  })
 });
 {/literal}{/footer_script}
 
-<h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Album list management'|@translate}</h2>
-<p class="showCreateAlbum" id="notManualOrder">
-  <a href="#" id="addAlbumOpen" class="icon-plus-circled">{'create a new album'|@translate}</a>
-  {if count($categories)}<span class="userSeparator">&middot;</span><a href="#" id="autoOrderOpen" class="icon-sort-number-up">{'apply automatic sort order'|@translate}</a>{/if}
-  {if ($PARENT_EDIT)}<span class="userSeparator">&middot;</span><a href="{$PARENT_EDIT}" class="icon-pencil"></span>{'edit'|@translate}</a>{/if}
-</p>
-<form id="formCreateAlbum" action="{$F_ACTION}" method="post" style="display:none;">
-  <fieldset class="with-border">
-      <legend>{'create a new album'|@translate}</legend>
+<div class="selectedAlbum cat-list-album-path">
+  <span class="icon-sitemap selectedAlbum-first">{$CATEGORIES_NAV}</span>
+  <div class="AlbumViewSelector">
+    <input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_album_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large firstIcon tiptip" title="{'Compact View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout tiptip" id="displayLine" {if $smarty.cookies.pwg_album_manager_view == 'line'}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayTile" {if $smarty.cookies.pwg_album_manager_view == 'tile' || !$smarty.cookies.pwg_album_manager_view}checked{/if}/><label for="displayTile"><span class="icon-pause lastIcon tiptip" title="{'Tile View'|translate}"></span></label>
+  </div>
+</div>
+{assign var='color_tab' value=["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"]}
+<div class="categoryContainer">
+  <div class="addAlbum">
+    <div class="addAlbumHead">
+      <span class="icon-plus-circled icon-blue icon-blue-full"></span>
+      <p>{"Add Album"|@translate}
+    </div>
+    <form action="{$F_ACTION}" method="post">
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-      
-      <p>
-        <strong>{'Album name'|@translate}</strong><br>
-        <input type="text" name="virtual_name" maxlength="255">
-      </p>
-      
-      <p class="actionButtons">
-        <button name="submitAdd" type="submit" class="buttonLike">
-          <i class="icon-plus-circled"></i> {'Create'|translate}
+      <label for="virtual_name">{"Album name"|@translate}</label>
+      <input type="text" name="virtual_name" placeholder="{"Album name"|@translate}">
+      <button name="submitAdd" type="submit" class="buttonLike">
+          <i class="icon-plus"></i> {"Create"|@translate}
         </button>
+      <a class="cancelAddAlbum">{"Cancel"|@translate}</a>
+    </form>
+  </div>
+  {if count($categories)}
+  {foreach from=$categories item=category}
+  <div class="categoryBox{if $category.IS_VIRTUAL} virtual_cat{/if}" id="cat_{$category.ID}">
 
-        <a href="#" id="addAlbumClose" class="icon-cancel-circled">{'Cancel'|@translate}</a>
-      </p>
-  </fieldset>
-</form>
-{if count($categories)}
-<form id="formAutoOrder" action="{$F_ACTION}" method="post" style="display:none;">
-  <fieldset class="with-border">
-    <legend>{'Automatic sort order'|@translate}</legend>
-    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+    <div class="albumTop">
+      <div class="albumIcon">
+        <span class="
+        {if $category.NB_SUB_ALBUMS == 0}icon-folder-open{else}icon-sitemap{/if}
+        {$color_tab[$category.ID % 5]}
+        "> </span>
+      </div>
+
+      <div class="albumTitle">
+        {$category.NAME}
+      </div>
+    </div>
     
-    <p><strong>{'Sort order'|@translate}</strong>
-  {foreach from=$sort_orders key=sort_code item=sort_label}
-      <br>
-      <label class="font-checkbox">
-        <span class="icon-dot-circled"></span>
-        <input type="radio" value="{$sort_code}" name="order_by" {if $sort_code eq $sort_order_checked}checked="checked"{/if}> {$sort_label}
-      </label>
-  {/foreach}
-    </p>
-  
-    <p>
-      <label class="font-checkbox">
-        <span class="icon-check"></span>
-        <input type="checkbox" name="recursive"> <strong>{'Apply to sub-albums'|@translate}</strong>
-      </label>
-    </p>
-  
-    <p class="actionButtons">
-      <button name="submitAutoOrder" type="submit" class="buttonLike">
-        <i class="icon-floppy"></i> {'Save order'|translate}
-      </button>
-      <a href="#" id="autoOrderClose" class="icon-cancel-circled">{'Cancel'|@translate}</a>
-    </p>
-  </fieldset>
-</form>
-{/if}
+    <span class="albumInfos"><p>{$category.NB_PHOTOS|translate_dec:'%d photo':'%d photos'}</p> <p>{$category.NB_SUB_PHOTOS|translate_dec:'%d photo':'%d photos'} {$category.NB_SUB_ALBUMS|translate_dec:'in %d sub-album':'in %d sub-albums'}</p></span>
 
-<form id="categoryOrdering" action="{$F_ACTION}" method="post">
-  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-  <p id="manualOrder" style="display:none">
-    <input class="submit" name="submitManualOrder" type="submit" value="{'Save manual order'|@translate}">
-    {'... or '|@translate} <a href="#" id="cancelManualOrder">{'cancel manual order'|@translate}</a>
-  </p>
-  
-{if count($categories)}
-  <ul class="categoryUl">
-    {foreach from=$categories item=category}
-    <li class="categoryLi{if $category.IS_VIRTUAL} virtual_cat{/if}" id="cat_{$category.ID}">
-      <!-- category {$category.ID} -->
-      <p class="albumTitle">
-        <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
-        <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}">{$category.NAME}</a></strong>
-        <span class="albumInfos"><span class="userSeparator">&middot;</span> {$category.NB_PHOTOS|translate_dec:'%d photo':'%d photos'} <span class="userSeparator">&middot;</span> {$category.NB_SUB_PHOTOS|translate_dec:'%d photo':'%d photos'} {$category.NB_SUB_ALBUMS|translate_dec:'in %d sub-album':'in %d sub-albums'}</span>
-      </p>
-
-      <input type="hidden" name="catOrd[{$category.ID}]" value="{$category.RANK}">
-
-      <p class="albumActions">
-        <a href="{$category.U_EDIT}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
-        <span class="userSeparator">&middot;</span><a href="{$category.U_CHILDREN}"><span class="icon-sitemap"></span>{'manage sub-albums'|@translate}</a>
-        {if isset($category.U_SYNC) }
-        <span class="userSeparator">&middot;</span><a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>
-        {/if}
-        {if isset($category.U_DELETE) }
-        <span class="userSeparator">&middot;</span><a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><span class="icon-trash"></span>{'delete album'|@translate}</a>
-      {/if}
+    <div class="albumActions">
+      <a href="{$category.U_EDIT}" class="actionEdit" {*title="{'Edit'|@translate}"*}><span class="icon-pencil tiptip" title="{'Edit'|@translate}"></span><span class="iconLegend">{'Edit'|@translate}</span></a>
+      <a href="{$category.U_CHILDREN}" class="actionTitle" {*title="{'sub-albums'|@translate}"*}><span class="icon-sitemap tiptip" title="{'sub-albums'|@translate}"></span><span class="iconLegend">{'sub-albums'|@translate}</span></a>
+      <a href="{$category.U_MOVE}" class="actionMove"><span class="icon-move tiptip" title="{'Move'|@translate}"></span><span class="iconLegend">{'Move'|@translate}</span></a>
       {if cat_admin_access($category.ID)}
-        <span class="userSeparator">&middot;</span><a href="{$category.U_JUMPTO}">{'jump to album'|@translate} →</a>
+      <a href="{$category.U_JUMPTO}" class="actionGalery" {*title="{'Visit Gallery'|@translate}"*}><span class="icon-eye tiptip" title="{'Visit Gallery'|@translate}"></span><span class="iconLegend">{'Visit Gallery'|@translate}</span></a>
+      {else}
+      <span href="{$category.U_JUMPTO}" class="actionGalery" {*title="{'This album is private'|@translate}"*}><span class="icon-eye tiptip" title="{'This album is private'|@translate}"></span><span class="iconLegend">{'Visit Gallery'|@translate}</span></span>
       {/if}
-      </p>
-
-    </li>
+      <a href="{$category.U_ADD_PHOTOS_ALBUM}" class="actionAdd" {*title="{'Add Photos'|@translate}"*}><span class="icon-plus tiptip" title="{'Add Photos'|@translate}"></span><span class="iconLegend">{'Add Photos'|@translate}</span></a>
+    </div>
+  </div>
     {/foreach}
-  </ul>
-{/if}
-</form>
+    {/if}
+</div>
+
+<style>
+
+
+/*
+ *  Switch btn between views
+ */
+
+ #tabsheet , .selectedAlbum{
+   margin: 0 0 10px 0 !important;
+ }
+
+.selectedAlbum {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding: 0 34px 0 22px;
+
+  align-items: baseline;
+}
+
+.selectedAlbum-first {
+  margin-left: 0px;
+}
+
+.AlbumViewSelector {
+  padding: 7px 0px;
+  margin-right: 0px;
+  border-radius: 10px;
+}
+
+.AlbumViewSelector span {
+  border-radius: 0;
+  padding: 7px;
+}
+
+.addAlbum button {
+  white-space: nowrap;
+}
+
+/* Should be done with :first-child and :last-child but doesn't work */
+
+.AlbumViewSelector label span.firstIcon{
+  border-radius: 7px 0 0 7px;
+}
+
+.AlbumViewSelector label span.lastIcon{
+  border-radius: 0 7px 7px 0;
+}
+
+.icon-th-large, .icon-th-list, .icon-pause {
+  padding: 10px;
+  font-size: 19px;
+
+  transition: 0.3s;
+}
+
+.switchLayout {
+  display: none;
+}
+
+.albumActions a span.iconLegend {
+  font-size: 14px;
+}
+
+.categoryContainer {
+  padding: 0 20px 0 20px;
+}
+
+/*
+ *  Tiles display
+ */
+
+.tile_add.addAlbum form input::placeholder {
+  color: transparent !important;
+}
+
+.albumTop {
+  display: flex;
+  flex-direction: row;
+
+  padding: 0px 20px;
+  height: 75px;
+
+  align-items: baseline;
+}
+
+.categoryBox, .addAlbum{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.albumIcon span{
+  font-size: 19px;
+  width: 27px;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+.albumInfos {
+  color: #a9a9a9;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.albumInfos p {
+  margin: 0 20px;
+  text-align: right;
+}
+
+.albumActions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-top: auto;
+
+  width: 100%;
+  margin-bottom: auto;
+}
+
+.albumActions a:first-child{
+  margin-left: 35px;
+}
+
+.albumActions a:last-child {
+  margin-right: 35px;
+}
+
+.addAlbum form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addAlbum form input {
+  border: none;
+  border-radius: 5px;
+
+  margin: 0px 10px;
+
+  max-width: 200px;
+  width: 75%;
+}
+
+.addAlbum form button {
+  margin-bottom: 0;
+  height: 30px;
+}
+
+.addAlbumHead {
+  padding: 0;
+}
+
+</style>

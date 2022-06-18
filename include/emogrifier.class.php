@@ -241,7 +241,7 @@ class Emogrifier {
 
         $nodesWithStyleAttributes = $xpath->query('//*[@style]');
         if ($nodesWithStyleAttributes !== FALSE) {
-            $callback = create_function('$m', 'return strtolower($m[0]);');
+            $callback = function($m) { return strtolower($m[0]); };
 
             /** @var $nodeWithStyleAttribute \DOMNode */
             foreach ($nodesWithStyleAttributes as $node) {

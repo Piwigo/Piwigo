@@ -2,6 +2,9 @@
 /_data
 /plugins/*
 !/plugins/index.php
+/themes/*
+!/themes/index.php
+!/themes/default
 /upload
 /galleries/*
 !/galleries/index.php

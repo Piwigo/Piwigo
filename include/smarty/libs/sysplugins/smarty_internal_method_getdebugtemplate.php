@@ -22,14 +22,14 @@ class Smarty_Internal_Method_GetDebugTemplate
      * return name of debugging template
      *
      * @api Smarty::getDebugTemplate()
-
+     *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
      *
      * @return string
      */
     public function getDebugTemplate(Smarty_Internal_TemplateBase $obj)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         return $smarty->debug_tpl;
     }
 }

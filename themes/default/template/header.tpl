@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
+{if $SHOW_MOBILE_APP_BANNER}
+<meta name="apple-itunes-app" content="app-id=472225196">
+{/if}
 <meta charset="{$CONTENT_ENCODING}">
 <meta name="generator" content="Piwigo (aka PWG), see piwigo.org">
 
@@ -65,7 +68,7 @@
 {/if}
 </head>
 
-<body id="{$BODY_ID}">
+<body id="{$BODY_ID}" class="{foreach from=$BODY_CLASSES item=class}{$class} {/foreach}"  data-infos={$BODY_DATA}>
 
 <div id="the_page">
 

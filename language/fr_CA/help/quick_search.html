@@ -1,0 +1,141 @@
+<h2>Recherche</h2>
+
+<p>Par d&eacute;faut, la recherche s'applique &agrave; l'ensemble des mots cl&eacute;s. Les recherches ne sont pas sensibles &agrave; la casse.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>mots cl&eacute;s entre guillemets<br>
+<q>"mot_cl&eacute;"</q>
+</td>
+<td>Utilisez des guillemets pour rechercher un mot ou une phrase exacte.<br>
+<q>"capitaine haddock"</q></td>
+</tr>
+
+
+<tr>
+<td>OU inclusif<br>
+<q>OR mot_cl&eacute;</q><br>
+</td>
+<td>Ajoutez un OR entre les mots clés.<br>
+<q>alain OR bernard</q></td>
+</tr>
+
+
+<tr>
+<td>exclusion<br>
+<q>NOT mot_cl&eacute;</q><br>
+<q>-mot_cl&eacute;</q>
+</td>
+<td>Ajoutez un signe moins (-) ou NOT avant un mot_cl&eacute; pour l'exclure de la recherche. Notez bien que NOT agit comme un filtre. Vous ne pouvez donc pas utiliser que des op&eacute;rateurs NOT et il n'est pas possible de combiner OR avec NOT (<q>alain OR NOT david</q> n'est pas valide).<br>
+<q>capitaine haddock NOT tintin</q></td>
+</tr>
+
+<tr>
+<td>regroupement<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(maman OR papa) AND (fille OR fils)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Recherche seulement dans les mots cl&eacute;s, sans tenir compte des titres ou des descriptions de photos.<br>
+<q>tag:alain</q>, <q>tag:(alain OR david)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Recherche seulement les photos ayant les mots cl&eacute;s dans leur titre ou leur description.<br>
+<q>photo:Jacques</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Recherche dans les noms de fichier.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Recherche par auteur.<br>
+<q>author:Alain</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Recherche les photos par date de prise.<br>
+<q>taken:2003</q> photos prises en 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> photos prises &agrave; partir de mai 2003<br>
+<q>taken:2003..2008</q> photos de 2003 &agrave; 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> photos prises &agrave; partir du 1er janvier 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Recherche les photos par date d'ajout.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Recherche les photos ayant une certaine largeur ou hauteur en pixels.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Recherche les photos par taille en pixels.<br>
+<q>size:5m</q> retourne les photos de 5 millions de pixels<br>
+<q>size:>12m</q> retourne les photos de 12 millions de pixels ou plus<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Recherche les photos ayant un certain rapport largeur/hauteur.<br>
+<q>ratio:3/4 OR ratio:4/3</q> trouve les photos d'un compact en mode portrait ou paysage
+<q>ratio:>16/9</q> trouve les panoramas
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Astuce : <q>score:*</q> retournera toutes les photos ayant au moins une note. <q>score:</q> retournera les photos sans note.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Recherche les photos par taille de fichier.<br>
+<q>filesize:1m..10m</q> retourne les fichiers dont la taille est comprise entre 1 et 10 Mo.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Recherche les photos en utilisant leur identifiant numérique Piwigo<br>
+<q>id:123..126</q> trouve les photos 123 &agrave; 126 (le nombre de photos peut varier de 0 &agrave; 4 car certaines ont pu &ecirc;tre effac&eacute;es).</td>
+</tr>
+
+</table>

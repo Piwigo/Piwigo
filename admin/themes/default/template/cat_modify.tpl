@@ -1,11 +1,17 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {include file='include/colorbox.inc.tpl'}
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{* {combine_script id='cat_modify' load='footer' path='admin/themes/default/js/cat_modify.js'} *}
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 
 {footer_script}
+const has_images_associated_outside = '{"delete album and all %d photos, even the %d associated to other albums"|@translate|escape:javascript}';
+const has_images_becomming_orphans = '{'delete album and the %d orphan photos'|@translate|escape:javascript}';
+const has_images_recursives = '{'delete only album, not photos'|@translate|escape:javascript}';
+
 {* <!-- CATEGORIES --> *}
 var categoriesCache = new CategoriesCache({
   serverKey: '{$CACHE_KEYS.categories}',
@@ -45,11 +51,16 @@ jQuery(document).ready(function() {
       success:function(data) {
         var data = jQuery.parseJSON(data);
         if (data.stat == 'ok') {
-          jQuery(".albumThumbnailImage")
-            .attr('href', data.result.url)
-            .find("img").attr('src', data.result.src)
-            .end().show();
+          jQuery(".deleteRepresentative").show();
+          
+          jQuery(".albumThumbailImage, .albumThumbnailRandom").on('load', function () {
+            cropImage();
+          })
 
+          jQuery(".albumThumbailImage, .albumThumbnailRandom")
+            .attr('src', data.result.src)
+            .end().show();
+          
           jQuery(".albumThumbnailRandom").hide();
         }
         else {
@@ -77,6 +88,7 @@ jQuery(document).ready(function() {
       success:function(data) {
         var data = jQuery.parseJSON(data);
         if (data.stat == 'ok') {
+          jQuery(".deleteRepresentative").hide();
           jQuery(".albumThumbnailImage").hide();
           jQuery(".albumThumbnailRandom").show();
         }
@@ -90,6 +102,40 @@ jQuery(document).ready(function() {
     });
 
     e.preventDefault();
+  });
+
+  $(".deleteAlbum").on("click", function() {
+    $.ajax({
+      url: "ws.php?format=json&method=pwg.categories.calculateOrphans",
+      type: "GET",
+      data: {
+        category_id: {$CAT_ID},
+      },
+      success: function (raw_data) {
+        let data = JSON.parse(raw_data).result[0]
+        console.log(data);
+        if (data.nb_images_recursive == 0) {
+          $(".delete_popin ul").hide();
+        } else {
+          if (data.nb_images_associated_outside == 0) {
+            $("#IMAGES_ASSOCIATED_OUTSIDE").hide();
+          } else {
+            $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").html("");
+            $("#IMAGES_ASSOCIATED_OUTSIDE .innerText").append(has_images_associated_outside.replace('%d', data.nb_images_recursive).replace('%d', data.nb_images_associated_outside));
+          }
+          if (data.nb_images_becoming_orphan == 0) {
+            $("#IMAGES_BECOMING_ORPHAN").hide();
+          } else {
+            $("#IMAGES_BECOMING_ORPHAN .innerText").html("");
+            $("#IMAGES_BECOMING_ORPHAN .innerText").append(has_images_becomming_orphans.replace('%d', data.nb_images_becoming_orphan));
+          }
+
+        }
+      },
+      error: function(message) {
+        console.log(message);
+      }
+    });
   });
 
   jQuery(".deleteAlbum").click(function() {
@@ -128,6 +174,29 @@ jQuery(document).ready(function() {
   });
 });
 
+$(window).bind("load", function() {
+  cropImage();
+});
+
+$(window).resize(function() {
+  cropImage();
+});
+
+function cropImage() {
+  let image = $(".albumThumbailImage");
+  let imageW = image[0].naturalWidth;
+  let imageH = image[0].naturalHeight;
+  let size = $('.catThumbnail').innerWidth();
+
+  if (imageW > imageH) {
+    image.css('height', size+'px');
+    image.css('width', (imageW * size / imageH)+'px');
+  } else {
+    image.css('width', size+'px');
+    image.css('heigth', (imageH * size / imageW)+'px');
+  }
+}
+
 {/footer_script}
 
 {html_style}
@@ -157,70 +226,134 @@ jQuery(document).ready(function() {
 .delete_popin p.popin-actions {
   margin-top:30px;
 }
+
+#cboxContent {
+  background: none;
+}
 {/html_style}
 
 
 <div class="titrePage">
-  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
+  <h2>{'Edit album'|@translate} <span title="{'Numeric identifier'|@translate}">#{$CAT_ID}</span> <span style="letter-spacing:0">{$CATEGORIES_NAV}</span></h2>
 </div>
 
 <div id="catModify">
 
+<form action="{$F_ACTION}" method="POST">
+
 <fieldset>
-  <legend>{'Informations'|@translate}</legend>
+  <legend><span class="icon-info-circled-1 icon-blue"></span>{'Informations'|@translate}</legend>
 
-  <table style="width:100%">
-    <tr>
-      <td id="albumThumbnail">
-{if isset($representant) }
-        <a class="albumThumbnailImage" style="{if !isset($representant.picture)}display:none{/if}" href="{$representant.picture.url}"><img src="{$representant.picture.src}"></a>
-        <img class="albumThumbnailRandom" style="{if isset($representant.picture)}display:none{/if}" src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
+  <div id="catHeader">
 
-<p class="albumThumbnailActions">
-  {if $representant.ALLOW_SET_RANDOM }
-  <a href="#refresh" data-category_id="{$CAT_ID}" class="refreshRepresentative" title="{'Find a new representant by random'|@translate}">{'Refresh'|@translate}</a>
-  {/if}
+  
+    <div class="catThumbnail">
+      <div class="thumbnailContainer">
+        {if isset($representant) }
+        <img class="albumThumbailImage" src="{$representant.picture.src}">
+        <div class="albumThumbnailRandom" style="{if isset($representant.picture)}display:none{/if}"><span class="icon-dice-solid"></span></div>
 
-  {if isset($representant.ALLOW_DELETE) }
-  | <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative" title="{'Delete Representant'|@translate}">{'Delete'|translate}</a>
-  {/if}
-</p>
-{/if}
-      </td>
+        <div class="albumThumbnailActions" data-random_allowed="{$representant.ALLOW_SET_RANDOM}">
+          <div class="albumThumbnailActionContainer"> 
+            {if $representant.ALLOW_SET_RANDOM }
+            <a href="#refresh" data-category_id="{$CAT_ID}" class="refreshRepresentative icon-ccw" title="{'Find a new representant by random'|@translate}">{'Refresh thumbnail'|@translate}</a>
+            {/if}
+            {if isset($representant.ALLOW_DELETE)}
+            <a href="#delete" data-category_id="{$CAT_ID}" class="deleteRepresentative icon-cancel" title="{'Delete Representant'|@translate}" style="{if !isset($representant.picture)}display:none{/if}">{'Remove thumbnail'|translate}</a>
+            {/if}
+          </div>
+        </div>
+        {else}
+          <div class="albumThumbnailNoPhoto" title="{'No photos in the current album, no thumbnail available'|@translate}"><span class="icon-file-image"></span></div>
+        {/if}
+      </div>
+    </div>
 
-      <td id="albumLinks">
-<p>{$INTRO}</p>
-<ul>
-{if cat_admin_access($CAT_ID)}
-  <li><a class="icon-eye" href="{$U_JUMPTO}">{'jump to album'|@translate} →</a></li>
-{/if}
+    <div class="catInfo">
+      <div class="container">
+        {if isset($INFO_CREATION)}
+          <span class="icon-yellow">{$INFO_CREATION}</span>
+        {/if}
+        <span class="icon-red">{$INFO_LAST_MODIFIED}</span>
+        {if isset($INFO_PHOTO)}
+          <span class="icon-purple" title="{$INFO_TITLE}">{$INFO_PHOTO}</span>
+        {/if}
+        {if isset($INFO_DIRECT_SUB)}
+          <span class="icon-blue">{$INFO_DIRECT_SUB}</span>
+        {/if}
+        {if isset($U_SYNC) }
+        <span class="icon-green" >{'Directory'|@translate} : {$CAT_FULL_DIR}</span>
+        {/if}
+      </div>
+    </div>
 
-{if isset($U_MANAGE_ELEMENTS) }
-  <li><a class="icon-picture" href="{$U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a></li>
-{/if}
+    <div class="catAction">
+      <div class="container">
+      <strong>{"Actions"|@translate}</strong>
+      {if cat_admin_access($CAT_ID)}
+        <a class="icon-eye" href="{$U_JUMPTO}">{'Open in gallery'|@translate}</a>
+      {/if}
 
-  <li style="text-transform:lowercase;"><a class="icon-plus-circled" href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a></li>
+      {if isset($U_MANAGE_ELEMENTS) }
+        <a class="icon-picture" href="{$U_MANAGE_ELEMENTS}">{'Manage album photos'|@translate}</a>
+      {/if}
 
-  <li><a class="icon-sitemap" href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a></li>
+        <a class="icon-plus-circled" href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a>
 
-{if isset($U_SYNC) }
-  <li><a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a> ({'Directory'|@translate} = {$CAT_FULL_DIR})</li>
-{/if}
+        <a class="icon-sitemap" href="{$U_MOVE}">{'Manage sub-albums'|@translate}</a>
 
-{if isset($U_DELETE) }
-  <li><a class="icon-trash deleteAlbum" href="#">{'delete album'|@translate}</a></li>
-{/if}
+      {if isset($U_SYNC) }
+        <a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a>
+      {/if}
 
-</ul>
-      </td>
-    </tr>
-  </table>
+      {if isset($U_DELETE) }
+        <a class="icon-trash deleteAlbum" href="#">{'Delete album'|@translate}</a>
+      {/if} 
+      </div>
+    </div>
 
+    <div class="catLock">
+    <div class="container">
+      <div>
+        <strong>
+          {'Publication'|@translate}
+        </strong>
+        <div class="switch-input">
+          {* <span class="label">{'Unlocked'|@translate}</span> *}
+          <label class="switch">
+            <input type="checkbox" name="locked" id="toggleSelectionMode" value="true" {if $IS_LOCKED}checked{/if}>
+            <span class="slider round"></span>
+          </label>
+          <span class="label">{'Locked'|@translate}</span>
+          <span class="icon-help-circled" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></span>
+        </div>    
+      </div>
+    {if isset($CAT_COMMENTABLE)}
+      <div>
+        <strong>{'Comments'|@translate} <span class="icon-help-circled" title="{'A photo can receive comments from your visitors if it belongs to an album with comments activated.'|@translate}" style="cursor:help"></span></strong>
+        <div class="switch-input">
+          <span class="label">{'Forbidden'|@translate}</span>
+          <label class="switch">
+            <input type="checkbox" name="commentable" id="commentable" value="true" {if $CAT_COMMENTABLE == "true"}checked{/if}>
+            <span class="slider round"></span>
+          </label>
+          <span class="label">{'Authorized'|@translate}</span>
+        <div>
+        <label id="applytoSubAction">
+        {if isset($INFO_DIRECT_SUB)}
+        <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="apply_commentable_on_sub"></label>
+          {'Apply to sub-albums'|@translate}
+        </label>
+        {/if}
+      </div>
+    {/if}
+      </div>
+    </div>
+  </div>
 </fieldset>
 
-<form action="{$F_ACTION}" method="POST">
 <fieldset>
-  <legend>{'Properties'|@translate}</legend>
+  <legend><span class="icon-tools icon-red"></span>{'Properties'|@translate}</legend>
   <p>
     <strong>{'Name'|@translate}</strong>
     <br>
@@ -238,30 +371,9 @@ jQuery(document).ready(function() {
     <strong>{'Parent album'|@translate}</strong>
     <br>
     <select data-selectize="categories" data-value="{$parent_category|@json_encode|escape:html}"
-        name="parent" style="width:600px"></select>
+        name="parent" style="width:100%"></select>
   </p>
 {/if}
-
-  <p>
-    <strong>{'Lock'|@translate}</strong>
-    <br>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="true"{if $CAT_VISIBLE == "true"} checked="checked"{/if}>{'No'|translate}</label>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="true_sub">{'No and unlock sub-albums'|translate}</label>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="visible" value="false"{if $CAT_VISIBLE == "false"} checked="checked"{/if}>{'Yes'|translate}</label>
-  </p>
-
-  {if isset($CAT_COMMENTABLE)}
-  <p>
-    <strong>{'Comments'|@translate}</strong>
-    <br>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="commentable" value="false"{if $CAT_COMMENTABLE == "false"} checked="checked"{/if}>{'No'|translate}</label>
-      <label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="commentable" value="true"{if $CAT_COMMENTABLE == "true"} checked="checked"{/if}>{'Yes'|translate}</label>
-    <label id="applytoSubAction">
-      <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="apply_commentable_on_sub"></label>
-      {'Apply to sub-albums'|@translate}
-    </label>
-  </p>
-  {/if}
 
   <p style="margin:0">
     <button name="submit" type="submit" class="buttonLike">
@@ -282,25 +394,15 @@ jQuery(document).ready(function() {
       {'Delete album "%s" and its %d sub-albums.'|translate:$CATEGORIES_NAV:$NB_SUBCATS}
 {/if}
     </p>
-
-{if $NB_IMAGES_RECURSIVE > 0}
-  <ul>
-  {if $NB_IMAGES_ASSOCIATED_OUTSIDE > 0}
-    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="force_delete"> {'delete album and all %d photos, even the %d associated to other albums'|translate:$NB_IMAGES_RECURSIVE:$NB_IMAGES_ASSOCIATED_OUTSIDE}</label></li>
-  {/if}
-  {if $NB_IMAGES_BECOMING_ORPHAN > 0}
-    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="delete_orphans"> {'delete album and the %d orphan photos'|translate:$NB_IMAGES_BECOMING_ORPHAN}</label></li>
-  {/if}
-    <li><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked"> {'delete only album, not photos'|translate}</label></li>
-  </ul>
-{/if}
-
+    <ul>
+      <li id="IMAGES_ASSOCIATED_OUTSIDE"><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="force_delete"><span class="innerText"></span></label></li>
+      <li id="IMAGES_BECOMING_ORPHAN"><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="delete_orphans"><span class="innerText"></span></label></li>
+      <li id="IMAGES_RECURSIVE"><label class="font-checkbox"><span class="icon-dot-circled"></span><input type="radio" name="photo_deletion_mode" value="no_delete" checked="checked">{'delete only album, not photos'|translate}</label></li>
+    </ul>
     <p class="popin-actions">
       <a id="deleteConfirm" class="buttonLike" type="submit" href="{$U_DELETE}"><i class="icon-trash"></i> {'Confirm deletion'|translate}</button>
       <a class="icon-cancel-circled close-delete_popin" href="#">{'Cancel'|translate}</a>
     </p>
-
-{* $U_DELETE *}
   </div>
 </div>
 

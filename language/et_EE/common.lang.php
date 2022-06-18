@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Estonian [EE]
@@ -69,7 +54,7 @@ $lang['Dimensions'] = 'Dimensioonid';
 $lang['Display'] = 'Näita';
 $lang['Each listed rule must be satisfied.'] = 'Kõik loetletud reeglid peavad olema rahuldatud.';
 $lang['Email address'] = 'E-posti aadress';
-$lang['Enter your personnal informations'] = 'Sisesta isiklikud andmed';
+$lang['Enter your personnal informations'] = 'Sisesta oma isiklikud andmed';
 $lang['Error sending email'] = 'Viga e-posti saatmisel';
 $lang['File name'] = 'Faili nimi';
 $lang['File'] = 'Fail';
@@ -101,7 +86,7 @@ $lang['month'][6] = 'Juuni';
 $lang['month'][7] = 'Juuli';
 $lang['month'][8] = 'August';
 $lang['month'][9] = 'September';
-$lang['Notification'] = 'RSS voog';
+$lang['Notification'] = 'Teavitus';
 $lang['Number of items'] = 'Ühikute arv';
 $lang['Original dimensions'] = 'Originaal mõõtmed';
 $lang['Password forgotten'] = 'Unustatud parool';
@@ -193,11 +178,11 @@ $lang['created on %s'] = 'loodud %s';
 $lang['Customize'] = 'Kohanda';
 $lang['Your Gallery Customization'] = 'Sinu galerii kohandamine';
 $lang['Default'] = 'Vaikimisi';
-$lang['delete this photo from your favorites'] = 'kustuta see foto oma lemmikutest';
+$lang['delete this photo from your favorites'] = 'eemalda see foto oma lemmikutest';
 $lang['Delete'] = 'Kustuta';
 $lang['descending'] = 'kahanev';
 $lang['Download'] = 'allalaadimine';
-$lang['Download this file'] = 'lae see fail alla';
+$lang['Download this file'] = 'Lae see fail alla';
 $lang['edit'] = 'redigeeri';
 $lang['wrong date'] = 'vale kuupäev';
 $lang['excluded'] = 'välja arvatud';
@@ -235,7 +220,7 @@ $lang['Email address is missing. Please specify an email address.'] = 'E-posti a
 $lang['This author modified following comment:'] = 'See autor muutis järgnevat kommentaari:';
 $lang['This author removed the comment with id %d'] = 'See autor eemaldas kommentaari ID-ga: %d';
 $lang['html tags are not allowed in login'] = 'html-märgised ei ole kasutajanimes lubatud';
-$lang['Invalid username or email'] = 'Vigane kasutajanimi või e-post';
+$lang['Invalid username or email'] = 'Vale kasutajanimi või e-post';
 $lang['Password reset is not allowed for this user'] = 'Parooli algseadistamine pole sellele kasutajale lubatud';
 $lang['User "%s" has no email address, password reset is not possible'] = 'Kasutajal "%s" puudub e-posti aadress, parooli algseadistamine pole võimalik';
 $lang['Someone requested that the password be reset for the following user account:'] = 'Keegi taotles alljärgneva kasutajakonto parooli algseadistamist:';
@@ -274,7 +259,7 @@ $lang['Recent period'] = 'Viimatine periood';
 $lang['Recent photos'] = 'Viimased fotod';
 $lang['display most recent photos'] = 'kuva kõige viimased fotod';
 $lang['Redirection...'] = 'Ümbersuunamine...';
-$lang['%d Kb'] = '%d Kb';
+$lang['%d Kb'] = '%d KiB';
 $lang['%d photo is also linked to current tags'] = '%d foto on samuti viidatud nende märksõnadega';
 $lang['%d photo'] = '%d foto';
 $lang['%d photos are also linked to current tags'] = '%d fotot on samuti viidatud nende märksõnadega';
@@ -297,8 +282,8 @@ $lang['Auto login'] = 'Jäta mind sisselogituks';
 $lang['Bad request'] = 'Vigane päring';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Vigane olek kasutajale "külaline", kasutatakse vaikimisi olekut. Palun teavita veebimeistrit.';
 $lang['Browser: %s'] = 'Veebisirbija: %s';
-$lang['Change my password'] = 'Vaheta parool';
-$lang['Check your email for the confirmation link'] = 'Vaata su e-postist kinnitusmeili';
+$lang['Change my password'] = 'Vaheta enda parool';
+$lang['Check your email for the confirmation link'] = 'Vaata enda e-postist kinnitusmeili';
 $lang['Comment by %s'] = 'Kommentaar kasutajalt %s';
 $lang['Comment: %s'] = 'Kommentaar: %s';
 $lang['Connected user: %s'] = 'Sisselogitud kasutaja: %s';
@@ -313,7 +298,7 @@ $lang['Desktop'] = 'Töölaud';
 $lang['EXIF Metadata'] = 'EXIF metaandmed';
 $lang['Edit a comment'] = 'Toimeta kommentaari';
 $lang['Edit'] = 'Redigeeri';
-$lang['Email: %s'] = 'Epost: %s';
+$lang['Email: %s'] = 'E-post: %s';
 $lang['Empty query. No criteria has been entered.'] = 'Tühi päring. Midagi pole sisestatud.';
 $lang['End-Date'] = 'Lõppkuupäev';
 $lang['Enter your new password below.'] = 'Sisesta uus parool allpool.';
@@ -321,11 +306,11 @@ $lang['File name, A &rarr; Z'] = 'Failinimi, A &rarr; Z';
 $lang['File name, Z &rarr; A'] = 'Failinimi, Z &rarr; A';
 $lang['Forbidden'] = 'Keelatud';
 $lang['Hello %s,'] = 'Tere, %s';
-$lang['Here are your connection settings'] = 'Sellised on su ühenduse määrangud';
+$lang['Here are your connection settings'] = 'Sellised on su ühenduse seaded';
 $lang['IP: %s'] = 'IP: %s';
 $lang['IPTC Metadata'] = 'IPTC metaandmed';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Kui arvad, et oled saanud selle eposti eksituse teel, palun teavita meid aadressil %s';
-$lang['Invalid key'] = 'Vigane võti';
+$lang['Invalid key'] = 'Vale võti';
 $lang['Kind of date'] = 'Kuupäeva välimus';
 $lang['Links'] = 'Lingid';
 $lang['Manual sort order'] = 'Sorteeri käsitsi';
@@ -375,7 +360,7 @@ $lang['Sent by'] = 'Saatja';
 $lang['Show latest comments first'] = 'Näita viimased kommentaarid kõigepealt';
 $lang['Show number of comments'] = 'Näita kommentaaride arv';
 $lang['Show number of hits'] = 'Näita tabamuste arv';
-$lang['Show oldest comments first'] = 'Näita vanimad kommentaarid kõigepealt';
+$lang['Show oldest comments first'] = 'Näita vanimaid kommentaare ennem';
 $lang['Specials'] = 'Erileheküljed';
 $lang['Submit'] = 'Postita';
 $lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Registreerimine lõppes edukalt, varsti saabub sulle epost su ühenduse määrangutega. Tere tulemast pardale!';
@@ -433,7 +418,7 @@ $lang['Username is mandatory'] = 'Kasutajanimi on kohustuslik';
 $lang['Website'] = 'Veebileht';
 $lang['Your website URL is invalid'] = 'Antud veebilehe aadress on vigane';
 $lang['mandatory'] = 'kohustuslik';
-$lang['Email'] = 'E-kiri';
+$lang['Email'] = 'E-post';
 $lang['First Page'] = 'Esimene leht';
 $lang['Go back to the album'] = 'Mine tagasi albumi juurde';
 $lang['Last Page'] = 'Viimane leht';
@@ -445,9 +430,11 @@ $lang['Apply on properties'] = 'Rakenda seadistustele';
 $lang['No results for'] = 'tulemusi pole';
 $lang['Photo description'] = 'Foto kirjeldus';
 $lang['Photo title'] = 'Foto pealkiri';
-$lang['Album name, A &rarr; Z'] = 'Albumine nimed, A &rarr;Z';
-$lang['Album name, Z &rarr; A'] = 'Albumine nimed, Z &rarr;A';
+$lang['Album name, A &rarr; Z'] = 'Albumi nimi, A &rarr; Z';
+$lang['Album name, Z &rarr; A'] = 'Albumi nimi, Z &rarr; A';
 $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Teie autentimise võti enam ei kehti';
 $lang['Invalid username or password!'] = 'Vale kasutajanimi või salasõna!';
 $lang['generate random password'] = 'Genereeri juhuslik salasõna';
+$lang['Password: ********** (no copy by email)'] = 'Parool: ********** (pole e-posti koopia)';
+$lang['Related albums'] = 'Seotud albumid';

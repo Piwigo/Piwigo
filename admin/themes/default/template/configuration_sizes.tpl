@@ -1,6 +1,21 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
-
+{combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
+{combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 {footer_script}
+
+
+const title_msg = '{'Are you sure you want to restore to default settings?'|@translate|@escape}';
+const confirm_msg = '{'Yes, I am sure'|@translate|@escape}';
+const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
+
+$(".restore-settings-button").each(function() {
+  $(this).pwg_jconfirm_follow_href({
+    alert_title: title_msg,
+    alert_confirm: confirm_msg,
+    alert_cancel: cancel_msg
+  });
+});
+
 (function(){
   var labelMaxWidth = "{'Maximum width'|translate}",
       labelWidth = "{'Width'|translate}",
@@ -50,7 +65,7 @@
     jQuery(this).css("visibility", "hidden");
 		return false;
   });
-}());
+})();
 {/footer_script}
 
 {html_style}
@@ -71,7 +86,7 @@
 <div id="configContent">
 
   <fieldset id="sizesConf">
-    <legend>{'Original Size'|translate}</legend>
+    <legend><span class="icon-picture icon-red"></span>{'Original Size'|translate}</legend>
   {if $is_gd}
     <div>
       {'Resize after upload disabled due to the use of GD as graphic library'|translate}
@@ -116,7 +131,7 @@
   </fieldset>
 
   <fieldset id="multiSizesConf">
-    <legend>{'Multiple Size'|translate}</legend>
+    <legend><span class="icon-th icon-purple"></span>{'Multiple Size'|translate}</legend>
 
     <div class="showDetails">
       <a href="#" id="showDetails"{if isset($ferrors)} style="display:none"{/if}>{'show details'|translate}</a>
@@ -194,41 +209,15 @@
       </tr>
     {/foreach}
     </table>
-
-    <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
-      {'Image Quality'|translate}
-      <input type="text" name="resize_quality" value="{$resize_quality}" size="3" maxlength="3"{if isset($ferrors.resize_quality)} class="dError"{/if}> %
-      {if isset($ferrors.resize_quality)}<span class="dErrorDesc" title="{$ferrors.resize_quality}">!</span>{/if}
-    </p>
-    <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
-      <a href="{$F_ACTION}&action=restore_settings" onclick="return confirm('{'Are you sure?'|translate|@escape:javascript}');">{'Reset to default values'|translate}</a>
-    </p>
-
-  {if !empty($custom_derivatives)}
-    <fieldset class="sizeDetails">
-      <legend>{'custom'|translate}</legend>
-
-      <table style="margin:0">
-      {foreach from=$custom_derivatives item=time key=custom}
-        <tr><td>
-          <label class="font-checkbox">
-            <span class="icon-check"></span>
-            <input type="checkbox" name="delete_custom_derivative_{$custom}"> {'Delete'|translate} {$custom} ({'Last hit'|translate}: {$time})
-          </label>
-        </td></tr>
-      {/foreach}
-      </table>
-    </fieldset>
-  {/if}
-
   </fieldset>
 
 </div> <!-- configContent -->
 
 <p class="formButtons">
-  <button name="submit" type="submit" class="buttonLike">
+  <button name="submit" type="submit" class="buttonLike" {if $isWebmaster != 1}disabled{/if}>
     <i class="icon-floppy"></i> {'Save Settings'|@translate}
   </button>
 </p>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

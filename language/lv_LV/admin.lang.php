@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d kopa';
@@ -678,7 +663,7 @@ $lang['Refresh photo set'] = 'Atjaunināt foto sēriju';
 $lang['The whole page'] = 'Visa lapa';
 $lang['The whole set'] = 'Visa sērija';
 $lang['No photo in the current set.'] = 'Nav fotoattēlu esošajā sērijā.';
-$lang['No photo selected, no action possible.'] = 'Nav atlasītu fotoattēlu, nekādas darbības nav iespējamas.';
+$lang['No photos selected, no actions possible.'] = 'Nav atlasītu fotoattēlu, nekādas darbības nav iespējamas.';
 $lang['Choose an action'] = 'Izvēlēties darbību';
 $lang['remove author'] = 'izdzēst autoru';
 $lang['Type here the author name'] = 'Ievadīt autora vārdu šeit';
@@ -739,9 +724,6 @@ $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 
 $lang['Some themes and plugins may be not available yet.'] = 'Dažas tēmas un spraudņi vēl var būt nav pieejami.';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Jūs varat jaunināt uz Piwigo %s tieši, neuzlabojot uz Piwigo %s (ieteicams).';
 $lang['Save Template Directory'] = 'Saglabāt veidņu mapi';
-$lang['Dump Database'] = 'Izgāzt Datubāzi';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Ietvert datu vēsturi (Brīdinājums: servera atmiņas limits var tikt pārsniegts)';
-$lang['Unable to dump database.'] = 'Neiespējami izgāzt (dump) datubāzi.';
 $lang['Some upgrades are available for extensions.'] = 'Paplašinājumiem pieejami daži uzlabojumi.';
 $lang['Ignore All'] = 'Ignorēt Visu';
 $lang['Crop'] = 'Apgriezt';
@@ -828,6 +810,8 @@ $lang['Applications'] = 'Aplikācijas';
 $lang['Available on'] = 'Pieejams uz';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo priekš iOS (iPhone, iPad, iPod Touch)';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo priekš iOS</em> aplikācijas, kas ļauj piekļūt jūsu  Piwigo galerijai no iPhone, iPad vai iPod Touch, un bez pūlēm  izveidot jaunus albūmus un ielādēt jaunas fotogrāfijas.';
+$lang['Piwigo for Android'] = 'Piwigo priekš Android';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo priekš Android</em> aplikācija dod jums iespēju savienot savu Android telefonu vai iekārtu ar jūsu Piwigo galeriju, bez pūlēm izveidot jaunus albūmus un ielādēt jaunas fotogrāfijas.';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo Publicēšanas spraudnis priekš Lightroom'; 
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom ir fotoredaktora programmatūra, kas domāta liela apjoma digitālu attēlu pārvaldīšanai un  pirmsproducēšanas darbu veikšanai.';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Piwigo publicēšanas spraudnis ļauj jums eksportēt un sinhronizēt attēlus Lightroom aplikācijā ar jūsu  Piwigo foto galeriju.';
@@ -928,7 +912,7 @@ $lang['This group will be set to default'] = 'Šī grupa tiks izmantots pēc nok
 $lang['Rename'] = 'Pārdēvēt';
 $lang['Please select at least two groups'] = 'Lūdzu atlasiet vismaz divas grupas';
 $lang['No members to manage'] = 'Nav biedru, ko pārvaldīt';
-$lang['No group selected, no action possible.'] = 'Nav izvēlēta neviena grupa, nekādas darbības nav iespējamas.';
+$lang['No groups selected, no actions possible.'] = 'Nav izvēlēta neviena grupa, nekādas darbības nav iespējamas.';
 $lang['Manage the members'] = 'Pārvaldīt biedrus';
 $lang['Merge selected groups'] = 'Sapludināt atlasītās grupas';
 $lang['Duplicate'] = 'Dublikāts';
@@ -945,7 +929,7 @@ $lang['Registered on %s, %s.'] = 'Reģistrēts %s, %s.';
 $lang['User %s updated'] = '%s lietotājs atjaunināts';
 $lang['Update user'] = 'Atjaunināt lietotāju';
 $lang['Show %s users'] = 'Parādīt %s lietotājus';
-$lang['No user selected, no action possible.'] = 'Neviens lietotāja nav atlasīts, darbība nav iespējama.';
+$lang['No users selected, no actions possible.'] = 'Neviens lietotāja nav atlasīts, darbība nav iespējama.';
 $lang['No user selected of %d users'] = 'Neviens no %d lietotājiem nav atlasīts';
 $lang['No matching user found'] = 'Nav atrasti atbilstoši lietotāji';
 $lang['Users modified'] = 'Lietotāji modoficēti';
@@ -984,7 +968,7 @@ $lang['No recipient selected'] = 'Nav izvēlēts neviens saņēmējs';
 $lang['Edit user'] = 'Rediģēt lietotāju';
 $lang['Delete %d orphan photos'] = 'Dzēst %d nezināmos foto ';
 $lang['orphans to delete'] = 'nepiesaistītie dzēšanai';
-$lang['No tag selected, no action possible.'] = 'Nav izvēlētu tegu, nekādas darbības nav iespējamas.';
+$lang['No tags selected, no actions possible.'] = 'Nav izvēlētu tegu, nekādas darbības nav iespējamas.';
 $lang['Select tags'] = 'Izvēlieties tegus';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s ir pieejams, lūdzu atjauniniet';
 $lang['Storage used'] = 'Izmantotā krātuve';
@@ -1005,3 +989,136 @@ $lang['Share / Send your photos directly from your Mac Os X (10.10 and following
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync var augšupielādēt visu mapes hierarhiju. Ja jūs palaistu to vēlreiz, tikai jaunas fotogrāfijas tiktu augšupielādētas.';
 $lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Ir pienācis laiks atjaunināt savu Piwigo uz versiju %s, dodieties uz%s';
 $lang['Running on an up-to-date Piwigo is important for security.'] = 'Darboties ar vienmēr jauninātu Piwigo ir svarīgi drošībai.';
+$lang['Display album date period'] = 'Rādīt datumu periodu saistītu ar katru albumu, piemēram, «no 12 jūlija līdz 15, 2018»';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo nepieciešams album lai pievienotu fotogrāfijas.';
+$lang['Some checksums are missing.'] = 'Trūkst dažas kontrolsummas';
+$lang['Synchronization in progress'] = 'Notiek sinhronizācija';
+$lang['Welcome!'] = 'laipni lūgti!';
+$lang['or'] = 'vai';
+$lang['checksums to add'] = 'kontrolsummas pievienošanai';
+$lang['With no checksum'] = 'Bez kontrolsummas';
+$lang['Visit'] = 'Apmeklēt';
+$lang['Compute %d missing checksums'] = 'Izskaitļot %d trūkstošās kontrolsummas';
+$lang['Display category date'] = 'Atainot kategorijas datumu';
+$lang['Deletion in progress'] = 'Notiek dzēšana';
+$lang['Create a first album'] = 'Izveidot pirmo albūmu';
+$lang['%d checksums were added'] = '%d kontrolsumma ir pievienota';
+$lang['... or hide this link'] = '... vai paslēpt šo saiti';
+$lang['Choose which tag to merge these tags into'] = 'Izvēlieties, kurā tagā sapludināt šos tagus';
+$lang['Displays a banner to install or open the official Piwigo app'] = 'Parāda reklāmkarogu, lai instalētu vai atvērtu oficiālo Piwigo lietotni';
+$lang['Tag(s) \{%s1\} succesfully merged into "%s2"'] = 'Tags(i) \{%s1\} veiksmīgi iekļauts "%s2"';
+$lang['The %d tags on this page are selected'] = 'Tags %d šajā lapā ir atlasīts';
+$lang['Tags \{%s\} succesfully deleted'] = 'Tagi \{%s\} veiksmīgi dzēsti';
+$lang['Tag "%s1" renamed in "%s2"'] = 'Tags \"%s1\" pārdēvēts par\"%s2\"';
+$lang['Tag "%s" succesfully deleted'] = 'Tags \"%s\" veiksmīgi dzēsts';
+$lang['Promote mobile app on mobile devices'] = 'Reklamējiet Mobilās lietotnes mobilajās ierīcēs';
+$lang['You have %s1 orphan : %s2'] = 'Jums ir %s1 bezsaites : %s2 ';
+$lang['You have %d orphan tags %s'] = 'Jums ir %d bezsaistes tagi %s';
+$lang['Portraits'] = 'Portreti';
+$lang['Please upgrade your PHP version before any update.'] = 'Lūdzu uzlabojiet savu PHP versiju pirms veicat jebkādu jauninājumu';
+$lang['Posted %s'] = 'Publicēti %s';
+$lang['Yes, delete'] = 'Jā, dzēst';
+$lang['and %s others'] = 'un %s pārējie';
+$lang['in administration'] = 'pārvaldībā';
+$lang['in gallery'] = 'galerijā';
+$lang['no photo'] = 'nav attēlu';
+$lang['Requires PHP %s'] = 'Nepieciešams PHP %s';
+$lang['At least 2 selected tags are needed to merge'] = 'Jābūt atlasītiem vismaz diviem tagiem, lai tos saplūdinātu';
+$lang['Are you sure you want to lock the gallery?'] = 'Vai esat pārliecināts, ka gribat slēgt galeriju?';
+$lang['Select all %d tags'] = 'Atlasīt visus %d tagus';
+$lang['Selection mode'] = 'Atlases režīms';
+$lang['Tag "%s" created'] = 'Tags "%s" izveidots';
+$lang['Tag Manager'] = 'Tagu Menedžeris';
+$lang['The other tags will be removed'] = 'Citi tagi tiks dzēsti';
+$lang['Yes, I am sure'] = 'Jā, esmu pārliecināts';
+$lang['Review'] = 'Apskatīt';
+$lang['Search albums'] = 'Meklēt albūmus';
+$lang['Search tips'] = 'Meklēšanas padomi
+
+
+';
+$lang['Select'] = 'Atlasīt';
+$lang['Manage album photos'] = 'Pārvaldīt albūma fotogrāfijas';
+$lang['Manage sub-albums'] = 'Pārvaldīt apakšalbūmus';
+$lang['Open in gallery'] = 'Atvērt galerijā';
+$lang['No, I have changed my mind'] = 'Nē, es pārdomāju';
+$lang['No tag found'] = 'Neviens tags nav atrasts';
+$lang['Merge'] = 'Sapludināt';
+$lang['Keep them'] = 'Saglabāt tos';
+$lang['File type: %s'] = 'Faila tips: %s';
+$lang['Display'] = 'Attēlot';
+$lang['Delete them'] = 'Izdzēst tos';
+$lang['Delete tags \{%s\}?'] = 'Dzēst tagua \{%s\}?';
+$lang['Delete tag "%s"?'] = 'Dzēst tagu "%s"?';
+$lang['Delete orphan tags ?'] = 'Dzēst nepiesaistītos tagus?';
+$lang['Clear Selection'] = 'Notīrīt atlasīto';
+$lang['Delete album'] = 'Dzēst albūmu';
+$lang['Are you sure you want to install the plugin "%s"?'] = 'Vai esat pārliecināts, ka gribat instalēt "%s spraudni? ';
+$lang['Are you sure you want to delete the ratings of the user "%s"?'] = 'Vai estat pārliecināts, ka gribat dzēst lietotāja "%s sniegto vērtējumu?';
+$lang['Are you sure you want to delete the plugin "%s"?'] = 'Vai estat pārliecināts, ka gribat dzēst spraudni "%s?';
+$lang['Are you sure you want to delete the language "%s"?'] = 'Vai estat pārliecināts, ka gribat dzēst valodas "%s?';
+$lang['Are you sure you want to delete all sizes?'] = 'Vai estat pārliecināts, ka gribat dzēst visus izmērus?';
+$lang['<b>%d</b> tags found'] = '<b>%d</b> tagi atrasti';
+$lang['<b>%d</b> tag selected'] = '<b>%d</b> tags atlasīts';
+$lang['<b>%d</b> tag found'] = '<b>%d</b> tags atrasts';
+$lang['%s other tags available..'] = '%s citi tagi pieejami..';
+$lang['%s MB used'] = '%s MB izlietoti';
+$lang['%s GB used'] = '%s GB izlietoti';
+$lang['%d photos'] = '%d foto';
+$lang[' (copy)'] = ' (kopēt)';
+$lang[' (copy %s)'] = ' (kopēt %s)';
+$lang['Are you sure you want to restore the plugin "%s"?'] = 'Vai esat pārliecināts, ka gribat atjaunot spraudni "%s ?';
+$lang['Are you sure you want to restore this plugin?'] = 'Vai esat pārliecināts, ka gribat atjaunot šo spraudni?';
+$lang['Are you sure you want to update all extensions?'] = 'Vai esat pārliecināts, ka gribat atjaunināt visus paplašinājumus?';
+$lang['Are you sure you want to restore to default settings?'] = 'Vai esat pārliecināts, ka gribat atjaunot iestatījumus pēc noklusējuma?';
+$lang['Are you sure you want to delete the theme "%s"?'] = 'Vai esat pārliecināts, ka gribat izdzēst "%s tēmu ?';
+$lang['Are you sure you want to delete the user "%s"?'] = 'Vai esat pārliecināts, ka gribat izdzēst lietotāja "%s"?';
+$lang['Are you sure you want to delete this site?'] = 'Vai esat pārliecināts, ka gribat izdzēst šo lapu?';
+$lang['Are you sure you want to delete this theme?'] = 'Vai esat pārliecināts, ka gribat izdzēst šo tēmu?';
+$lang['Are you sure you want to delete this?'] = 'Vai esat pārliecināts, ka gribat šo izdzēst?';
+$lang['Group(s) \{%s1\} succesfully merged into "%s2"'] = 'Grupa(s) \{%s1\} veiksmīgi iekļauta "%s2"';
+$lang['User "%s" dissociated from this group'] = 'Lietotājs "%s" izņemts no šīs grupas';
+$lang['<b>%d</b> albums found'] = '<b>%d</b> albūmi atrasti';
+$lang['<b>1</b> album found'] = '<b>1</b> albūms atrasts';
+$lang['Activity peak in the last weeks'] = 'Aktivitātes pīķis pēdējo nedēļu laikā';
+$lang['You have %s inactive plugins'] = 'Jums ir %s neaktīvu spraudņu';
+$lang['You don\'t have access to this photo'] = 'Jums nav pielaides šim foto';
+$lang['Are you sure you want to delete group "%s"?'] = 'Vai esat pārliecināts, ka gribat izdzēst "%s" grupu?';
+$lang['Dissociate user from this group'] = 'Izņemt lietotāju no šīs grupas';
+$lang['Group "%s" succesfully deleted'] = 'Group "%s" veiksmīgi izdzēsts';
+$lang['Groups \{%s\} succesfully deleted'] = '\{%s\} Grupu veiksmīgi izdzēsts';
+$lang['Manage users with user manager'] = 'Pārvaldīt lietotājus ar lietotāju pārvaldnieku';
+$lang['User associated'] = 'Lietotājs asociēts';
+$lang['Videos'] = 'Video';
+$lang['Cache'] = 'Kešatmiņa';
+$lang['Album search tool'] = 'Albūmu meklēšanas rīks';
+$lang['%d Activity'] = '%d Aktivitāte';
+$lang['Showing %s users out of %s'] = 'Rādīt %s lietotājus no %s';
+$lang['Page Visited in %s'] = 'Lapa apmeklēta %s';
+$lang['Refresh thumbnail'] = 'Atsveidzināt sīkbildi';
+$lang['Set as group for new users'] = 'Iestatīt kā grupu jaunajiem lietotājiem';
+$lang['Show inactive plugins'] = 'Rādīt neaktīvos spraudņus';
+$lang['Unset as group for new users'] = 'Atiestatīt kā grupu jauniem lietotājiem';
+$lang['This is already the default theme'] = 'Šī jau ir noklusējuma tēma';
+$lang['Storage'] = 'Glabātuve';
+$lang['Name is already taken'] = 'Nosaukums jau ir aizņemts';
+$lang['No albums found'] = 'Neviens albūms nav atrasts';
+$lang['No plugins found'] = 'Neviens spraudnis nav atrasts';
+$lang['Set as default'] = 'Iestatīt kā noklusējumu';
+$lang['Page Visited'] = 'Lapa Apmeklēta';
+$lang['Other'] = 'Cits';
+$lang['Group renamed'] = 'Grupa pārdēvēta';
+$lang['Group added'] = 'Grupa pievienota';
+$lang['Formats'] = 'Formāti';
+$lang['Edited on %s'] = 'Rediģēts %s';
+$lang['Created on %s'] = 'Izveidots %s';
+$lang['Compare mode'] = 'Salīdzināšanas režīms';
+$lang['Average last 12 months'] = 'Vidēji pēdējos 12 mēnešos';
+$lang['Associate User'] = 'Saistītais Lietātājs';
+$lang['%s file type'] = '%s faila tipu';
+$lang['%d sub-albums'] = '%d apakšalbūmu';
+$lang['%d Activities'] = '%d Activitāšu';
+$lang['Show sub-albums'] = 'Parādīt apakšalbūmus';
+$lang['Hide sub-albums'] = 'Paslēpt apakšalbūmus';
+$lang['Compact View'] = 'Kompakts Skats';
+$lang['Add Album'] = 'Pievienot Albūmu';

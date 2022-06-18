@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -688,7 +673,7 @@ $lang['Refresh photo set'] = 'Aggiornare il set di foto';
 $lang['The whole page'] = 'Tutta la pagina';
 $lang['The whole set'] = 'L\'intero set';
 $lang['No photo in the current set.'] = 'Nessuna foto nel set corrente.';
-$lang['No photo selected, no action possible.'] = 'Nessuna foto selezionata, nessuna azione possibile.';
+$lang['No photos selected, no actions possible.'] = 'Nessuna foto selezionata, nessuna azione possibile.';
 $lang['Choose an action'] = 'Scegliere un\'azione';
 $lang['remove author'] = 'cancellare l\'autore';
 $lang['Type here the author name'] = 'Inserire qui il nome dell\'autore';
@@ -740,9 +725,6 @@ $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 
 $lang['Some themes and plugins may be not available yet.'] = 'Alcuni temi e plugin possono non essere ancora disponibili.';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'E\' possibile aggiornare direttamente a Piwigo %s, senza passare per Piwigo %s (consigliato).';
 $lang['Save Template Directory'] = 'Salvare la template directory';
-$lang['Dump Database'] = 'Salvare il database';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Includere la cronologia (Attenzione: può essere superato il limite di memoria del server)';
-$lang['Unable to dump database.'] = 'Impossibile eseguire il salvataggio del database.';
 $lang['Some upgrades are available for extensions.'] = 'Degli aggiornamenti sono disponibili per le estensioni.';
 $lang['Please wait...'] = 'Attendere prego...';
 $lang['Ignore All'] = 'Ignorare tutto';
@@ -836,6 +818,8 @@ $lang['Applications'] = 'Applicazioni';
 $lang['Available on'] = 'Disponibile su';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo per iOS (iPhone, iPad, iPod Touch)';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'L\'applicazione <em>Piwigo per iOS</em> permette di collegarti alla tua galleria Piwigo dal tuo iPhone, iPad o iPod Touch, creando degli album e caricando le immagini.';
+$lang['Piwigo for Android'] = 'Piwigo per Android';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'L\'applicazione <em>Piwigo per Android</em> permette di collegarti alla tua galleria di Piwigo dal tuo cellulare o tablet Android, creando degli album e caricando le immagini.';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Plugin Piwigo per Lightroom';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom è un software fotografico specializzato per gestire grandi quantità di immagini ed eseguirne la post-produzione.';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Il plugin di Piwigo permette di esportare e sincronizzare le immagini da Lightroom direttamente alla tua galleria di Piwigo.';
@@ -932,7 +916,7 @@ $lang['between %d and %d pixels'] = 'tra %d e %d pixels';
 $lang['between %.2f and %.2f'] = 'tra %.2f e %.2f';
 $lang['Manage the members'] = 'Gestire membri';
 $lang['Type here the name of the new group'] = 'Digita quì il nome del nuovo gruppo';
-$lang['No group selected, no action possible.'] = 'Nessun gruppo selezionato, nessuna azione possibile.';
+$lang['No groups selected, no actions possible.'] = 'Nessun gruppo selezionato, nessuna azione possibile.';
 $lang['Please select at least two groups'] = 'Seleziona almeno due gruppi';
 $lang['Duplicate'] = 'Duplicare';
 $lang['Merge selected groups'] = 'Unire i gruppi selezionati';
@@ -950,7 +934,7 @@ $lang['Show %s users'] = 'Mostra %s utenti';
 $lang['No matching user found'] = 'Nessun utente corrispondente trovato';
 $lang['Showing %s to %s of %s users'] = 'Mostra %s a %s di %s utenti';
 $lang['(filtered from %s total users)'] = '(filtrato da %s utenti totali)';
-$lang['No user selected, no action possible.'] = 'Nessun utente selezionato, nessuna azione è possibile.';
+$lang['No users selected, no actions possible.'] = 'Nessun utente selezionato, nessuna azione è possibile.';
 $lang['%d of %d users selected'] = '%d di %d utenti selezionati';
 $lang['No user selected of %d users'] = 'Nessun utente selezionato di %d utenti';
 $lang['All %d users are selected'] = 'Tutti %d utenti sono selezionati';
@@ -1008,6 +992,146 @@ $lang['Delete album "%s".'] = 'Cancellare l\'album "%s"';
 $lang['Display form'] = 'Visualizzare il modulo';
 $lang['First photo added'] = 'Prima foto';
 $lang['No filter on album. Select one or type to search'] = 'Nessun filtro. Toccare qui per cercare un album.';
-$lang['No tag selected, no action possible.'] = 'Nessun tag selezionato, nessuna azione possibile.';
+$lang['No tags selected, no actions possible.'] = 'Nessun tag selezionato, nessuna azione possibile.';
 $lang['Confirm deletion'] = 'Confermare l\'eliminazione';
 $lang['(determined from photos)'] = '(Determinata dalle foto)';
+$lang['Some checksums are missing.'] = 'Checkums mancanti';
+$lang['Synchronization in progress'] = 'Sincronizzazione in corso';
+$lang['Visit'] = 'Visita';
+$lang['Welcome!'] = 'Benvenuto!';
+$lang['With no checksum'] = 'Senza checksum';
+$lang['checksums to add'] = 'checksum da aggiungere';
+$lang['or'] = 'o';
+$lang['%d checksums were added'] = '%d checksum sono stati aggiunti';
+$lang['... or hide this link'] = '... o nascondi questo link';
+$lang['Compute %d missing checksums'] = 'Calcola %d dei checksum mancanti';
+$lang['Create a first album'] = 'Crea un primo album';
+$lang['Deletion in progress'] = 'Cancellazione in corso';
+$lang['Display album date period'] = 'Visualizza la data del periodo associato a ciascun album, ad es. "dal 12 al 15 luglio 2018"';
+$lang['Display category date'] = 'Visualizza la data della categoria';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo ha bisogno di un album per aggiungere delle foto.';
+$lang[' (copy)'] = '(copia)';
+$lang['Activity peak in the last weeks'] = 'Picchi di attività nelle ultime settimane';
+$lang['Album search tool'] = 'Ricerca d\'album';
+$lang['Are you sure you want to delete all sizes?'] = 'Sei sicuro di voler eliminare tutte le taglie&nbsp?';
+$lang['Are you sure you want to delete group "%s"?'] = 'Sei sicuro di voler eliminare il gruppo "%s"&nbsp?';
+$lang['Are you sure you want to delete the language "%s"?'] = 'Sei sicuro di voler rimuovere la lingua "%s"&nbsp?';
+$lang['Are you sure you want to delete the plugin "%s"?'] = 'Sei sicuro di voler rimuovere il plug-in "%s"&nbsp?';
+$lang['Are you sure you want to delete the ratings of the user "%s"?'] = 'Sei sicuro di voler eliminare le notazioni dell\'utente "%s"&nbsp?';
+$lang['Are you sure you want to delete the theme "%s"?'] = 'Sei sicuro di voler eliminare il tema "%s"&nbsp?';
+$lang['Are you sure you want to delete the user "%s"?'] = 'Sei sicuro di voler eliminare l\'utente "%s"&nbsp?';
+$lang['Are you sure you want to delete this site?'] = 'Sei sicuro di aver eliminato questo sito & nbsp?';
+$lang['<b>1</b> album found'] = '<b>1</b> album trovato';
+$lang['%s GB used'] = '%s GB utilizzati';
+$lang['%s MB used'] = '%s MB utilizzati';
+$lang['%s file type'] = 'file di tipo %s';
+$lang['%s other tags available..'] = '%s altri tag disponibili..';
+$lang['<b>%d</b> albums found'] = '<b>%d</b> album trovati';
+$lang['<b>%d</b> tag found'] = 'Tag <b>%d</b> trovato';
+$lang['<b>%d</b> tag selected'] = 'Tag <b>%d</b> selezionato';
+$lang['<b>%d</b> tags found'] = '<b>%d</b> tag trovati';
+$lang[' (copy %s)'] = '(copia %s)';
+$lang['%d Activities'] = '%d Attività';
+$lang['%d Activity'] = '%d Attività';
+$lang['%d photos'] = '%d fotos';
+$lang['%d sub-albums'] = '%d sub-album';
+$lang['Cache'] = 'Cache';
+$lang['Choose which tag to merge these tags into'] = 'Scegli in quale tag unire questi tag';
+$lang['Are you sure you want to delete this theme?'] = 'Sei sicuro di aver eliminato questo tema&nbsp?';
+$lang['Are you sure you want to delete this?'] = 'Sei sicuro di rimuovere questo&nbsp?';
+$lang['Are you sure you want to install the plugin "%s"?'] = 'Sei sicuro di voler installare il plugin "%s"&nbsp?';
+$lang['Are you sure you want to lock the gallery?'] = 'Sei sicuro di voler bloccare la galleria&nbsp?';
+$lang['Delete album'] = 'Eliminare l\'album';
+$lang['Delete orphan tags ?'] = 'Rimuovere i tag orfani?';
+$lang['Delete tag "%s"?'] = 'Rimuovere il tag "%s" ?';
+$lang['Delete tags \{%s\}?'] = 'Rimuovere i tag \{%s\}?';
+$lang['Are you sure you want to restore this plugin?'] = 'Sei sicuro di ripristinare questo plugin&nbsp?';
+$lang['Are you sure you want to restore to default settings?'] = 'Sei sicuro di voler ripristinare le impostazioni predefinite&nbsp?';
+$lang['Are you sure you want to update all extensions?'] = 'Sei sicuro di volere aggiornare tutte le estensioni&nbsp?';
+$lang['Associate User'] = 'Associare l\'utente';
+$lang['At least 2 selected tags are needed to merge'] = 'È necessario selezionare almeno 2 tag per la fusione';
+$lang['Average last 12 months'] = 'Media degli ultimi 12 mesi';
+$lang['Clear Selection'] = 'Cancella selezione';
+$lang['Compare mode'] = 'Modalità di confronto';
+$lang['Created on %s'] = 'Creato il %s';
+$lang['Delete them'] = 'Eliminali';
+$lang['Display'] = 'Visualizzare';
+$lang['Displays a banner to install or open the official Piwigo app'] = 'Visualizza un banner per installare e/o aprire l\'applicazione mobile ufficiale di Piwigo';
+$lang['Are you sure you want to restore the plugin "%s"?'] = 'Sei sicuro di voler ripristinare il plugin "%s"&nbsp?';
+$lang['Set as default'] = 'Definisci impostazione predefinita';
+$lang['Videos'] = 'Video';
+$lang['Yes, I am sure'] = 'Sì, sono sicuro';
+$lang['Yes, delete'] = 'Sì, voglio eliminare';
+$lang['in gallery'] = 'nella galleria';
+$lang['no photo'] = 'nessuna immagine';
+$lang['Dissociate user from this group'] = 'Dissocia l\'utente da questo gruppo';
+$lang['Edited on %s'] = 'Modificato il %s';
+$lang['File type: %s'] = 'Tipo di file : %s';
+$lang['Formats'] = 'Formati';
+$lang['Group "%s" succesfully deleted'] = 'Il gruppo "%s" è stato cancellato';
+$lang['Group added'] = 'Gruppo aggiunto';
+$lang['Group renamed'] = 'Gruppo rinomato';
+$lang['Group(s) \{%s1\} succesfully merged into "%s2"'] = 'Il/I gruppi \{%s1\} sono stati fusi nel gruppo "%s2"';
+$lang['Groups \{%s\} succesfully deleted'] = 'I gruppi \{%s\} sono stati cancellati';
+$lang['Keep them'] = 'Mantenergli';
+$lang['Manage album photos'] = 'Gestisci le foto del album';
+$lang['Manage sub-albums'] = 'Gestisci album secondari';
+$lang['Manage users with user manager'] = 'Gestisci i membri nel gestore utenti';
+$lang['Merge'] = 'Unisci';
+$lang['Name is already taken'] = 'Questo nome è già stato scelto';
+$lang['No albums found'] = 'Nessun album trovato';
+$lang['No plugins found'] = 'Nessun plugin trovato';
+$lang['No tag found'] = 'Nessun tag trovato';
+$lang['No, I have changed my mind'] = 'No, ho cambiato idea';
+$lang['Open in gallery'] = 'Apri in galleria';
+$lang['Other'] = 'Altro';
+$lang['Page Visited'] = 'Pagine viste';
+$lang['Page Visited in %s'] = 'Pagine visualizzate in %s';
+$lang['Please upgrade your PHP version before any update.'] = 'Dovrai aggiornare il tuo PHP prima di poter aggiornare Piwigo.';
+$lang['Portraits'] = 'Ritratti';
+$lang['Posted %s'] = 'Pubblicata %s';
+$lang['Promote mobile app on mobile devices'] = 'Promuovi l\'applicazione mobile su smartphone e tablet';
+$lang['Refresh thumbnail'] = 'Cambia miniatura';
+$lang['User "%s" dissociated from this group'] = 'L\'utente "%s" si è dissociato da questo gruppo';
+$lang['Select all %d tags'] = 'Seleziona tutti i %d tag';
+$lang['Select an album... or type it!'] = 'Seleziona un album ... o scrivilo!';
+$lang['Selection mode'] = 'Modalità di selezione';
+$lang['Set as group for new users'] = 'Associa automaticamente ai futuri utenti';
+$lang['Show inactive plugins'] = 'Mostra plugin disabilitati';
+$lang['Show sub-albums'] = 'Mostra album secondari';
+$lang['Showing %s users out of %s'] = 'Mostra %s utenti tra %s';
+$lang['Storage'] = 'Conservazione';
+$lang['Tag "%s" created'] = 'Il tag \"%s\" è stato creato';
+$lang['Tag "%s" succesfully deleted'] = 'Il tag \"%s\" è stato eliminato';
+$lang['Tag "%s1" renamed in "%s2"'] = 'Il tag \"%s1\" è stato rinominato \"%s2\"';
+$lang['Tag Manager'] = 'Gestione tag';
+$lang['Tag(s) \{%s1\} succesfully merged into "%s2"'] = 'I tag \{%s1\} sono stati uniti in "%s2"';
+$lang['Tags \{%s\} succesfully deleted'] = 'I tag \{%s\} sono stati rimossi';
+$lang['The %d tags on this page are selected'] = 'I tag %d in questa pagina sono selezionati';
+$lang['The other tags will be removed'] = 'Gli altri tag verranno eliminati';
+$lang['This is already the default theme'] = 'Questo è già il tema predefinito';
+$lang['Tile View'] = 'Vista tiles';
+$lang['Unset as group for new users'] = 'Non più associare ai futuri utenti';
+$lang['User associated'] = 'Utente associato';
+$lang['You don\'t have access to this photo'] = 'Non hai accesso a questa foto';
+$lang['You have %d orphan tags %s'] = 'Hai %d tag orfano(i) %s';
+$lang['You have %s inactive plugins'] = 'Hai %s plugin disabilitati';
+$lang['You have %s1 orphan : %s2'] = 'Hai %s1 orfano(i) : /%s2';
+$lang['and %s others'] = 'e %s altri';
+$lang['in administration'] = 'nell\'amministrazione';
+$lang['Requires PHP %s'] = 'Richiede PHP %s';
+$lang['Review'] = 'Esaminare';
+$lang['Root'] = 'Radice';
+$lang['Search albums'] = 'Trova album';
+$lang['Search tips'] = 'Suggerimenti per la ricerca';
+$lang['Select'] = 'Selezionare';
+$lang['<b>%d+</b> albums found, try to refine the search'] = '<b>%d+</b> album trovati! Affina la tua ricerca.';
+$lang['Add Album'] = 'Aggiungi un album';
+$lang['Apply an automatic order to root albums'] = 'Applica un ordinamento automatico agli album principali';
+$lang['Apply to direct sub-albums'] = 'Applica agli album secondari diretti';
+$lang['Apply to the whole hierarchy'] = 'Applicare su tutto l\'albero';
+$lang['Compact View'] = 'Vista compatta';
+$lang['Drag and drop to reorder albums'] = 'Riorganizza gli album trascinandoli';
+$lang['Hide sub-albums'] = 'Nascondi album secondari';
+$lang['Line View'] = 'Visualizzazione linea';
+$lang['Name field must not be empty'] = 'Il nome non può essere vuoto';

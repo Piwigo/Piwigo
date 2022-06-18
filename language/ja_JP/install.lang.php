@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['Installation'] = 'インストール';
@@ -55,12 +40,12 @@ $lang['Sorry!'] = '申し訳ありません!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'PiwigoはPHP 5.2を設定できませんでした。';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'あなたのホスティング業者のサポートに連絡し、どうやったらPHP 5.2を設定できるか確認すべきです。';
 $lang['Hope to see you back soon.'] = 'またお越し下さい';
-$lang['Congratulations, Piwigo installation is completed'] = 'おめでとうございました。Piwigo のインストールが完了しました。';
-$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'その他の解決は、上のボックスにあるテクストをコピーし、"local/config/database.inc.php"に貼り付けます。（注意：database.inc.php は上のテクスト内容以外のこと（エンターキーやスペースなど）を含まないでください。)';
+$lang['Congratulations, Piwigo installation is completed'] = 'おめでとうございます。Piwigo のインストールが完了しました。';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'その他の解決方法としては、上のボックスにあるテキストをコピーし、"local/config/database.inc.php"に貼り付ける方法があります。（注意：database.inc.php は上のテキスト内容以外のこと（改行やスペースなど）を含めないでください。)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'local/config/database.inc.php の設定ファイル作成に失敗しました。';
 $lang['Download the config file'] = '設定ファイルをダウンロードします。';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = '設定ファイルをダウンロードし、インストールされた local/config ディレクトリーにアップロードすることができます。';
-$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'どうぞ、フォーラムで相談するのをためらわないでください: %s';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'ヘルプが必要な際には、気軽にフォーラムで相談してください: %s';
 $lang['Just another Piwigo gallery'] = '他のPiwigoギャラリー';
 $lang['Welcome to your new installation of Piwigo!'] = '新しくPiwigoをインストールしていただき、ありがとうざいます!';
 $lang['Welcome to my photo gallery'] = '私のフォトギャラリーへようこそ';

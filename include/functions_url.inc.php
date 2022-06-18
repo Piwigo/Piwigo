@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -363,6 +348,27 @@ function make_section_in_url($params)
         {
           $section_string.= $params['category']['permalink'];
         }
+
+        if (isset($params['combined_categories']))
+        {
+          foreach ($params['combined_categories'] as $category)
+          {
+            $section_string.= '/';
+
+            if ( empty($category['permalink']) )
+            {
+              $section_string.= $category['id'];
+              if ( $conf['category_url_style']=='id-name' )
+              {
+                $section_string.= '-'.str2url($category['name']);
+              }
+            }
+            else
+            {
+              $section_string.= $category['permalink'];
+            }
+          }
+        }
       }
 
       break;
@@ -436,13 +442,37 @@ function parse_section_url( $tokens, &$next_token)
     $page['section'] = 'categories';
     $next_token++;
 
-    if (isset($tokens[$next_token]) )
+    $i = $next_token;
+    $loop_counter = 0;
+
+    while (isset($tokens[$next_token]))
     {
+      if ($loop_counter++ > count($tokens)+10){die('infinite loop?');}
+
+      if (
+        strpos($tokens[$next_token], 'created-')===0
+        or strpos($tokens[$next_token], 'posted-')===0
+        or strpos($tokens[$next_token], 'start-')===0
+        or strpos($tokens[$next_token], 'startcat-')===0
+        or 'flat' == $tokens[$next_token]
+      )
+      {
+        break;
+      }
+
       if (preg_match('/^(\d+)(?:-(.+))?$/', $tokens[$next_token], $matches))
       {
         if ( isset($matches[2]) )
           $page['hit_by']['cat_url_name'] = $matches[2];
-        $page['category'] = $matches[1];
+
+        if (!isset($page['category']))
+        {
+          $page['category'] = $matches[1];
+        }
+        else
+        {
+          $page['combined_categories'][] = $matches[1];
+        }
         $next_token++;
       }
       else
@@ -475,8 +505,16 @@ function parse_section_url( $tokens, &$next_token)
           if ( isset($cat_id) )
           {
             $next_token += $perma_index+1;
-            $page['category'] = $cat_id;
-            $page['hit_by']['cat_permalink'] = $maybe_permalinks[$perma_index];
+
+            if (!isset($page['category']))
+            {
+              $page['category'] = $cat_id;
+              $page['hit_by']['cat_permalink'] = $maybe_permalinks[$perma_index];
+            }
+            else
+            {
+              $page['combined_categories'][] = $cat_id;
+            }
           }
           else
           {
@@ -494,6 +532,24 @@ function parse_section_url( $tokens, &$next_token)
          page_not_found(l10n('Requested album does not exist'));
       }
       $page['category']=$result;
+    }
+
+    if (isset($page['combined_categories']))
+    {
+      $combined_categories = array();
+
+      foreach ($page['combined_categories'] as $cat_id)
+      {
+        $result = get_cat_info($cat_id);
+        if (empty($result))
+        {
+          page_not_found(l10n('Requested album does not exist'));
+        }
+
+        $combined_categories[] = $result;
+      }
+
+      $page['combined_categories'] = $combined_categories;
     }
   }
   elseif ( 'tags' == @$tokens[$next_token] )

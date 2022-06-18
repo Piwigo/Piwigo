@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -199,10 +184,6 @@ $conf['header_notes']  = array();
 // show_thumbnail_caption : on thumbnails page, show thumbnail captions ?
 $conf['show_thumbnail_caption'] = true;
 
-// display_fromto: display the date creation bounds of a
-// category.
-$conf['display_fromto'] = false;
-
 // allow_random_representative : do you wish Piwigo to search among
 // categories elements a new representative at each reload ?
 //
@@ -289,6 +270,12 @@ $conf['update_notify_reminder_period'] = 7*24*60*60;
 // should the album description be displayed on all pages (value=true) or
 // only the first page (value=false)
 $conf['album_description_on_all_pages'] = false;
+
+// Number of years displayed in the history compare mode (for the years chart)
+$conf['stat_compare_year_displayed'] = 5;
+
+// Limit for linked albums search
+$conf['linked_album_search_limit'] = 100;
 
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
@@ -448,6 +435,17 @@ $conf['session_gc_probability'] = 1;
 // +-----------------------------------------------------------------------+
 // |                            debug/performance                          |
 // +-----------------------------------------------------------------------+
+
+// number of photos beyond which individual photos are added in the
+// lounge, a temporary zone where photos wait before being "launched".
+// 50k photos by default.
+$conf['lounge_activate_threshold'] = 1;
+
+// Lounge is automatically emptied (photos are being pushed to their
+// albums) when the oldest one reaches this duration. Lounge can be emptied
+// before, either manually or at the end of the upload. In seconds.
+// 5 minutes by default.
+$conf['lounge_max_duration'] = 5*60;
 
 // show_queries : for debug purpose, show queries and execution times
 $conf['show_queries'] = false;
@@ -660,6 +658,19 @@ $conf['tags_default_display_mode'] = 'cloud';
 $conf['tag_letters_column_number'] = 4;
 
 // +-----------------------------------------------------------------------+
+// | Related albums                                                        |
+// +-----------------------------------------------------------------------+
+
+// beyond this limit, do not try to find related albums. If there are too
+// many items, the SQL query will be slow and the results irrelevant,
+// because showing too many related albums.
+$conf['related_albums_maximum_items_to_compute'] = 1000;
+
+// once found the related albums, how many to show in the menubar? We take
+// the heaviest (with more relations).
+$conf['related_albums_display_limit'] = 20;
+
+// +-----------------------------------------------------------------------+
 // | Notification by mail                                                  |
 // +-----------------------------------------------------------------------+
 
@@ -711,6 +722,20 @@ $conf['ws_max_users_per_page'] = 1000;
 
 // Display a link to subscribe to Piwigo Announcements Newsletter
 $conf['show_newsletter_subscription'] = true;
+
+// Check for available updates on Piwigo or extensions, performed each time
+// the dashboard is displayed
+$conf['dashboard_check_for_updates'] = true;
+
+// Number Weeks displayed on activity chart on the dashboard
+$conf['dashboard_activity_nb_weeks'] = 4;
+
+// On album mover page, number of seconds before auto openning album when
+// dragging an album. In milliseconds. 3 seconds by default.
+$conf['album_move_delay_before_auto_opening'] = 3*1000;
+
+// This variable is used to show or hide the template tab in the side menu
+$conf['show_template_in_side_menu'] = false;
 
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
@@ -859,6 +884,15 @@ $conf['batch_manager_images_per_page_global'] = 20;
 // batch manager: how many images should Piwigo display by default on the
 // unit mode. Must be among values {5, 10, 50}
 $conf['batch_manager_images_per_page_unit'] = 5;
+
+// how many missing md5sum should Piwigo compute at once.
+$conf['checksum_compute_blocksize'] = 50;
+
+// quicksearch engine: include all photos from sub-albums of any matching
+// album. For example, if search is "bear", then we display photos from
+// "bear/grizzly". When value changed, delete database cache files in
+// _data/cache directory
+$conf['quick_search_include_sub_albums'] = false;
 
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |
