@@ -1317,6 +1317,28 @@ function ws_images_upload($params, $service)
     return new PwgError(403, 'Invalid security token');
   }
 
+  if (isset($params['format_of']))
+  {
+    $format_ext = null;
+
+    // are formats enabled?
+    if (!$conf['enable_formats'])
+    {
+      return new PwgError(401, 'formats are disabled');
+    }
+
+    // We must check if the extension is in the authorized list.
+    if (preg_match('/\.('.implode('|', $conf['format_ext']).')$/', $params['name'], $matches))
+    {
+      $format_ext = $matches[1];
+    }
+
+    if (empty($format_ext))
+    {
+      return new PwgError(401, 'unexpected format extension of file "'.$params['name'].'" (authorized extensions: '.implode(', ', $conf['format_ext']).')');
+    }
+  }
+
   // usleep(100000);
 
   // if (!isset($_FILES['image']))
@@ -1404,6 +1426,31 @@ function ws_images_upload($params, $service)
     rename("{$filePath}.part", $filePath);
 
     include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+
+    if (isset($params['format_of']))
+    {
+      $query='
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '. $params['format_of'] .'
+;';
+      $images = query2array($query);
+      if (count($images) == 0)
+      {
+        return new PwgError(404, __FUNCTION__.' : image_id not found');
+      }
+
+      $image = $images[0];
+
+      add_format($filePath, $format_ext, $image['id']);
+
+      return array(
+        'image_id' => $image['id'],
+        'src' => DerivativeImage::thumb_url($image),
+        'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image),
+        'name' => $image['name'],
+        );
+    }
 
     $image_id = add_uploaded_file(
       $filePath,
@@ -1801,6 +1848,78 @@ SELECT id, file
         $result[$filename] = $id_of_filename[$filename];
       }
     }
+  }
+
+  return $result;
+}
+
+/**
+ * API method
+ * Check if an image exists by it's name or md5 sum
+ * 
+ * @since 13
+ * @param mixed[] $params
+ *    @option string category_id (optional)
+ *    @option string filename_list
+ */
+function ws_images_formats_searchImage($params, $service)
+{
+  global $conf, $logger;
+
+  $logger->debug(__FUNCTION__, 'WS', $params);
+
+  $candidates = json_decode(stripslashes($params['filename_list']), true);
+
+  $unique_filenames_db = array();
+
+  $query = '
+SELECT
+    id,
+    file
+  FROM '.IMAGES_TABLE.'
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $filename_wo_ext = get_filename_wo_extension($row['file']);
+    @$unique_filenames_db[ $filename_wo_ext ][] = $row['id'];
+  }
+
+  // we want "long" format extensions first to match "cmyk.jpg" before "jpg" for example
+  usort($conf['format_ext'], function($a, $b) {
+    return strlen($b) - strlen($a);
+  });
+
+  $result = array();
+
+  foreach ($candidates as $format_external_id => $format_filename)
+  {
+    $candidate_filename_wo_ext = null;
+
+    if (preg_match('/^(.*?)\.('.implode('|', $conf['format_ext']).')$/', $format_filename, $matches))
+    {
+      $candidate_filename_wo_ext = $matches[1];
+    }
+
+    if (empty($candidate_filename_wo_ext))
+    {
+      $result[$format_external_id] = array('status' => 'not found');
+      continue;
+    }
+
+    if (isset($unique_filenames_db[$candidate_filename_wo_ext]))
+    {
+      if (count($unique_filenames_db[$candidate_filename_wo_ext]) > 1)
+      {
+        $result[$format_external_id] = array('status' => 'multiple');
+        continue;
+      }
+
+      $result[$format_external_id] = array('status' => 'found', 'image_id' => $unique_filenames_db[$candidate_filename_wo_ext][0]);
+      continue;
+    }
+
+    $result[$format_external_id] = array('status' => 'not found');
   }
 
   return $result;

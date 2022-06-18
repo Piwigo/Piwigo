@@ -111,7 +111,7 @@ if ( empty($page['is_external']) )
 {
   //----------------------------------------------------- template initialization
   $page['body_id'] = 'theCategoryPage';
-  
+
   if (isset($page['flat']) or isset($page['chronology_field']))
   {
     $template->assign(

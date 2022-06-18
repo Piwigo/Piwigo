@@ -5,11 +5,13 @@ var str_delete = '{'Delete tag "%s"?'|@translate}';
 var str_delete_tags = '{'Delete tags \{%s\}?'|@translate}';
 var str_yes_delete_confirmation = "{'Yes, delete'|@translate}";
 var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}";
+var str_yes_rename_confirmation = "{'Yes, rename'|@translate}";
 var str_tag_deleted = '{'Tag "%s" succesfully deleted'|@translate}';
 var str_tags_deleted = '{'Tags \{%s\} succesfully deleted'|@translate}';
 var str_already_exist = '{'Tag "%s" already exists'|@translate}';
 var str_tag_created = '{'Tag "%s" created'|@translate}';
 var str_tag_renamed = '{'Tag "%s1" renamed in "%s2"'|@translate}';
+var str_tag_rename = '{'Rename "%s"'|@translate}';
 var str_delete_orphan_tags = '{'Delete orphan tags ?'|@translate}';
 var str_orphan_tags = '{'You have %s1 orphan : %s2'|@translate}';
 var str_delete_them = '{'Delete them'|@translate}';
@@ -61,19 +63,11 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     <span class="select-checkbox">
       <i class="icon-ok"> </i>
     </span>
-    <div class="tag-rename">
-      <form>
-        <input type="text" class="tag-name-editable" value="{$tag_name}">
-        <input type="submit" hidden>
-      </form>
-      <span class="icon-ok validate"></span>
-      <span class="icon-cancel"></span>
-    </div>
 {/function}
 {/function}
 
 <div class="titrePage">
-  <h2>{'Tag Manager'|@translate} <span class="badge-number"> {$total}</span> </h2>
+  <h2>{'Tags'|@translate} <span class="badge-number"> {$total}</span> </h2>
 </div>
 
 <div class="selection-mode-group-manager">
@@ -122,7 +116,7 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
   </div>
   <form id='add-tag' class='not-in-selection-mode'>
     <span class='icon-cancel-circled'></span>
-    <label class='add-tag-label icon-plus-circled'>
+    <label class='add-tag-label icon-plus-circled {if $total == 0} highlight {/if}'>
       <p>{'Add a tag'|@translate}</p>
       <div class='add-tag-container'>
         <input type='text' id='add-tag-input' placeholder="{'New tag'|@translate}">
@@ -149,6 +143,41 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 
 <div class="tag-select-message">
   <div></div> <a></a>
+</div>
+
+<div id="RenameTag" class="RenameTagPopIn">
+  <div class="RenameTagPopInContainer">
+    <a class="icon-cancel ClosePopIn"></a>
+    
+    <div class="AddIconContainer">
+      <span class="AddIcon icon-blue icon-tags"></span>
+    </div>
+    <div class="AddIconTitle">
+      <span>{'Rename "%s"'|@translate}</span>
+    </div>
+    <div class="RenameTagInputContainer">
+      <label class="tag-property-label TagRenameLabelUsername">{'Tag name'|@translate}
+        <input type="text" class="tag-property-input"/> 
+      </label>
+    </div>
+
+    <div class="TagErrors icon-cancel">
+    </div>
+
+    <div class="TagSubmitOptions">
+      <div class="TagSubmit">
+        <span>{'Rename Tag'|@translate}</span>
+      </div>
+
+      <div class="TagLoading">
+        <i class='icon-spin6 animate-spin'></i>
+      </div>
+
+      <div class="TagCancel">
+        <span>{'Cancel'|@translate}</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class='tag-container' data-tags='{$data|@json_encode|escape:html}' data-per_page={$per_page}>

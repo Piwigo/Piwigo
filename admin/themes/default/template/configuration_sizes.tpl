@@ -209,33 +209,6 @@ $(".restore-settings-button").each(function() {
       </tr>
     {/foreach}
     </table>
-
-    <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
-      {'Image Quality'|translate}
-      <input type="text" name="resize_quality" value="{$resize_quality}" size="3" maxlength="3"{if isset($ferrors.resize_quality)} class="dError"{/if}> %
-      {if isset($ferrors.resize_quality)}<span class="dErrorDesc" title="{$ferrors.resize_quality}">!</span>{/if}
-    </p>
-    <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
-      <a href="{$F_ACTION}&action=restore_settings" class="restore-settings-button">{'Reset to default values'|translate}</a>
-    </p>
-
-  {if !empty($custom_derivatives)}
-    <fieldset class="sizeDetails">
-      <legend>{'custom'|translate}</legend>
-
-      <table style="margin:0">
-      {foreach from=$custom_derivatives item=time key=custom}
-        <tr><td>
-          <label class="font-checkbox">
-            <span class="icon-check"></span>
-            <input type="checkbox" name="delete_custom_derivative_{$custom}"> {'Delete'|translate} {$custom} ({'Last hit'|translate}: {$time})
-          </label>
-        </td></tr>
-      {/foreach}
-      </table>
-    </fieldset>
-  {/if}
-
   </fieldset>
 
 </div> <!-- configContent -->

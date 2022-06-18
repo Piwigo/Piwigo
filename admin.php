@@ -44,7 +44,7 @@ if (isset($_GET['plugins_new_order']))
 if (isset($_GET['change_theme']))
 {
   $admin_themes = array('roma', 'clear');
-  $admin_theme_array = array($conf['admin_theme']);
+  $admin_theme_array = array(userprefs_get_param('admin_theme', 'clear'));
   $result = array_diff(
       $admin_themes,
       $admin_theme_array
@@ -54,7 +54,7 @@ if (isset($_GET['change_theme']))
       $result
     );
 
-  conf_update_param('admin_theme', $new_admin_theme);
+  userprefs_update_param('admin_theme', $new_admin_theme);
 
   $url_params = array();
   foreach (array('page', 'tab', 'section') as $url_param)
@@ -104,6 +104,12 @@ $change_theme_url.= 'change_theme=1';
 if (isset($_GET['page']) and preg_match('/^plugin-([^-]*)(?:-(.*))?$/', $_GET['page'], $matches))
 {
   $_GET['page'] = 'plugin';
+
+  if (preg_match('/^piwigo_(videojs|openstreetmap)$/', $matches[1]))
+  {
+    $matches[1] = str_replace('_', '-', $matches[1]);
+  }
+
   $_GET['section'] = $matches[1].'/admin.php';
   if (isset($matches[2]))
   {
@@ -181,7 +187,7 @@ $template->assign(
     'U_CONFIG_LANGUAGES' => $link_start.'languages',
     'U_CONFIG_THEMES'=> $link_start.'themes',
     'U_CATEGORIES'=> $link_start.'cat_list',
-    'U_CAT_MOVE'=> $link_start.'cat_move',
+    'U_ALBUMS'=> $link_start.'albums',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_SEARCH'=> $link_start.'cat_search',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
@@ -294,7 +300,7 @@ if (
     or ( !empty($_POST) and in_array($page['page'],
         array(
           'album',        // public/private; lock/unlock, permissions
-          'cat_move',
+          'albums',
           'cat_options',  // public/private; lock/unlock
           'user_list',    // group assoc; user level
           'user_perm',

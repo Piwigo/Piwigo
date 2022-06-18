@@ -765,6 +765,34 @@ SELECT
 
 /**
  * API method
+ * Set a preferences parameter to current user
+ * @since 13
+ * @param mixed[] $params
+ *    @option string param
+ *    @option string|mixed value
+ */
+function ws_users_preferences_set($params, &$service)
+{
+  global $user;
+
+  if (!preg_match('/^[a-zA-Z0-9_-]+$/', $params['param']))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid param name #'.$params['param'].'#');
+  }
+
+  $value = stripslashes($params['value']);
+  if ($params['is_json'])
+  {
+    $value = json_decode($value, true);
+  }
+
+  userprefs_update_param($params['param'], $value, true);
+
+  return $user['preferences'];
+}
+
+/**
+ * API method
  * Adds a favorite image for the current user
  * @param mixed[] $params
  *    @option int image_id

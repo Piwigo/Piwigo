@@ -111,7 +111,7 @@ let str_size = "";
 {/if}
 
 {if $NB_ALBUMS > 1}
-<a class="stat-box" href="{$U_CATEGORIES}">
+<a class="stat-box" href="{$U_ALBUMS}">
 <i class="icon-sitemap icon-red"></i>
 <span class="number">{$NB_ALBUMS}</span><span class="caption">{'Albums'|translate}</span>
 </a>

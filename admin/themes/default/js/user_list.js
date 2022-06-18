@@ -190,7 +190,7 @@ $( document ).ready(function() {
                 data.language = jQuery("#permitActionUserList select[name=language]").val();
                 break;
             case 'recent_period':
-                data.recent_period = recent_period_values[$('#permitActionUserList .period-select-bar .select-bar-container').slider("option", "value")];;
+                data.recent_period = recent_period_values[$('#permitActionUserList .period-select-bar .slider-bar-container').slider("option", "value")];;
                 break;
             case 'expand':
                 data.expand = $("#permitActionUserList .user-list-checkbox[name=expand_yes]").attr("data-selected") === "1" ? true : false;
@@ -285,8 +285,8 @@ $( document ).ready(function() {
 
     $("#permitActionUserList select[name=selectAction]").val("-1");
 
-    $("#advanced_filter_button").click(advanced_filter_button_click);
-    $("#advanced-filter-container span.icon-cancel").click(advanced_filter_hide);
+    $(".advanced-filter-btn").click(advanced_filter_button_click);
+    $(".advanced-filter span.icon-cancel").click(advanced_filter_hide);
     $(".advanced-filter-select").change(update_user_list);
     $("#user_search").on("input", update_user_list);
 
@@ -459,7 +459,7 @@ function getRecentPeriodInfoFromIdx(idx) {
 }
 
 /* Photos bar slider */
-jQuery('#UserList .photos-select-bar .select-bar-container').slider({
+jQuery('#UserList .photos-select-bar .slider-bar-container').slider({
     range: "min",
     min: 0,
     max: nb_image_page_values.length - 1,
@@ -476,7 +476,7 @@ jQuery('#UserList .photos-select-bar .select-bar-container').slider({
 });
 
 
-jQuery('#GuestUserList .photos-select-bar .select-bar-container').slider({
+jQuery('#GuestUserList .photos-select-bar .slider-bar-container').slider({
     range: "min",
     min: 0,
     max: nb_image_page_values.length - 1,
@@ -493,7 +493,7 @@ jQuery('#GuestUserList .photos-select-bar .select-bar-container').slider({
 });
 
 $('#permitActionUserList .photos-select-bar .nb-img-page-infos').html(getNbImagePageInfoFromIdx(0));
-jQuery('#permitActionUserList .photos-select-bar .select-bar-container').slider({
+jQuery('#permitActionUserList .photos-select-bar .slider-bar-container').slider({
     range: "min",
     min: 0,
     max: nb_image_page_values.length - 1,
@@ -510,7 +510,7 @@ jQuery('#permitActionUserList .photos-select-bar .select-bar-container').slider(
 });
 
 /* recent_period slider */
-$('#UserList .period-select-bar .select-bar-container').slider({
+$('#UserList .period-select-bar .slider-bar-container').slider({
     range: "min",
     min: 0,
     max: recent_period_values.length - 1,
@@ -526,7 +526,7 @@ $('#UserList .period-select-bar .select-bar-container').slider({
     }
 });
 
-$('#GuestUserList .period-select-bar .select-bar-container').slider({
+$('#GuestUserList .period-select-bar .slider-bar-container').slider({
     range: "min",
     min: 0,
     max: recent_period_values.length - 1,
@@ -542,7 +542,7 @@ $('#GuestUserList .period-select-bar .select-bar-container').slider({
     }
 });
 
-$('#permitActionUserList .period-select-bar .select-bar-container').slider({
+$('#permitActionUserList .period-select-bar .slider-bar-container').slider({
     range: "min",
     min: 0,
     max: recent_period_values.length - 1,
@@ -557,7 +557,7 @@ $('#permitActionUserList .period-select-bar .select-bar-container').slider({
         $('#permitActionUserList .period-select-bar input[name=recent_period]').val(recent_period_values[ui.value]).trigger('change');
     }
 });
-$('#permitActionUserList .photos-select-bar .select-bar-container').slider("option", "value", 0);
+$('#permitActionUserList .photos-select-bar .slider-bar-container').slider("option", "value", 0);
 let period_info = getRecentPeriodInfoFromIdx(0);
 $('#permitActionUserList .period-select-bar .recent_period_infos').html(period_info);
 
@@ -666,23 +666,20 @@ Advanced filter
 ------------------*/
 
 function advanced_filter_button_click() {
-    if ($("#advanced-filter-container").css("display") === "none") {
-        advanced_filter_show(); 
+    if (!$(".advanced-filter").hasClass("advanced-filter-open")) {
+        advanced_filter_show();
     } else { 
-        advanced_filter_hide(); 
+        advanced_filter_hide();
     }
+    update_user_list();
 }
 
 function advanced_filter_show() {
-    $("#advanced-filter-container").show();
-    $("#advanced_filter_button").addClass("extended-filter-btn");
-    // update_user_list();
+    $(".advanced-filter-btn, .advanced-filter").addClass("advanced-filter-open");
 }
 
 function advanced_filter_hide() {
-    $("#advanced-filter-container").hide();
-    $("#advanced_filter_button").removeClass("extended-filter-btn");
-    // update_user_list();
+    $(".advanced-filter-btn, .advanced-filter").removeClass("advanced-filter-open");
 }
 
 let months = [];
@@ -694,24 +691,24 @@ function getDateStr(date) {
 }
 
 function setupRegisterDates(register_dates) {
-    $('#advanced-filter-container .dates-select-bar .select-bar-container').slider({
+    $('.advanced-filter .dates-select-bar .slider-bar-container').slider({
         range: true,
         min: 0,
         max: register_dates.length - 1,
         values: [0, register_dates.length - 1],
         change: function( event, ui ) {
-            $("#advanced-filter-container .dates-infos").html(sprintf(dates_infos, getDateStr(register_dates[ui.values[0]]), getDateStr(register_dates[ui.values[1]])));
+            $(".advanced-filter .dates-infos").html(sprintf(dates_infos, getDateStr(register_dates[ui.values[0]]), getDateStr(register_dates[ui.values[1]])));
         },
         slide: function( event, ui ) {
-            $("#advanced-filter-container .dates-infos").html(sprintf(dates_infos, getDateStr(register_dates[ui.values[0]]), getDateStr(register_dates[ui.values[1]])));
+            $(".advanced-filter .dates-infos").html(sprintf(dates_infos, getDateStr(register_dates[ui.values[0]]), getDateStr(register_dates[ui.values[1]])));
         },
         stop: function( event, ui ) {
-            $("#advanced-filter-container .dates-infos").html(sprintf(dates_infos, getDateStr(register_dates[ui.values[0]]), getDateStr(register_dates[ui.values[1]])));
+            $(".advanced-filter .dates-infos").html(sprintf(dates_infos, getDateStr(register_dates[ui.values[0]]), getDateStr(register_dates[ui.values[1]])));
             update_user_list();
         }
     });
 
-    $("#advanced-filter-container .dates-infos").html(sprintf(dates_infos, getDateStr(register_dates[0]), getDateStr(register_dates[register_dates.length - 1])));
+    $(".advanced-filter .dates-infos").html(sprintf(dates_infos, getDateStr(register_dates[0]), getDateStr(register_dates[register_dates.length - 1])));
             
 }
 /*------------------
@@ -1111,7 +1108,7 @@ function fill_user_edit_preferences(user_to_edit, pop_in) {
     let slider_key_photos = getSliderKeyFromValue(parseInt(user_to_edit.nb_image_page), nb_image_page_values);
     let slider_key_period = getSliderKeyFromValue(parseInt(user_to_edit.recent_period), recent_period_values);
     
-    pop_in.find('.photos-select-bar .select-bar-container').slider("option", "value", slider_key_photos);
+    pop_in.find('.photos-select-bar .slider-bar-container').slider("option", "value", slider_key_photos);
     pop_in.find('.user-property-theme select option').each(function () {
         if ($(this).val() == user_to_edit.theme) {
             $(this).prop('selected', true);
@@ -1122,7 +1119,7 @@ function fill_user_edit_preferences(user_to_edit, pop_in) {
             $(this).prop('selected', true);
         }
     });
-    pop_in.find('.period-select-bar .select-bar-container').slider("option", "value", slider_key_period);
+    pop_in.find('.period-select-bar .slider-bar-container').slider("option", "value", slider_key_period);
     pop_in.find('.user-list-checkbox[name="expand_all_albums"]').attr('data-selected', user_to_edit.expand == 'true' ? '1' : '0');
     pop_in.find('.user-list-checkbox[name="show_nb_comments"]').attr('data-selected', user_to_edit.show_nb_comments == 'true' ? '1' : '0');
     pop_in.find('.user-list-checkbox[name="show_nb_hits"]').attr('data-selected', user_to_edit.show_nb_hits == 'true' ? '1' : '0');   
@@ -1267,8 +1264,8 @@ function fill_ajax_data_from_properties(ajax_data, pop_in) {
 function fill_ajax_data_from_preferences(ajax_data, pop_in) {
     ajax_data['theme'] = pop_in.find('.user-property-theme select').val();
     ajax_data['language'] = pop_in.find('.user-property-lang select').val();
-    ajax_data['nb_image_page'] = nb_image_page_values[pop_in.find('.photos-select-bar .select-bar-container').slider("option", "value")];
-    ajax_data['recent_period'] = recent_period_values[pop_in.find('.period-select-bar .select-bar-container').slider("option", "value")];
+    ajax_data['nb_image_page'] = nb_image_page_values[pop_in.find('.photos-select-bar .slider-bar-container').slider("option", "value")];
+    ajax_data['recent_period'] = recent_period_values[pop_in.find('.period-select-bar .slider-bar-container').slider("option", "value")];
     ajax_data['expand'] = pop_in.find('.user-list-checkbox[name="expand_all_albums"]').attr('data-selected') == '1' ? true : false;
     ajax_data['show_nb_comments'] = pop_in.find('.user-list-checkbox[name="show_nb_comments"]').attr('data-selected') == '1' ? true : false ;
     ajax_data['show_nb_hits'] = pop_in.find('.user-list-checkbox[name="show_nb_hits"]').attr('data-selected') == '1' ? true : false ;
@@ -1522,13 +1519,13 @@ function update_user_list() {
     if ($("#user_search").val().length != 0) {
       update_data["filter"] = $("#user_search").val();
     }
-    if ($("#advanced-filter-container").css("display") !== "none") {
+    if ($(".advanced-filter").hasClass('advanced-filter-open') !== "none") {
         update_data["status"] = $(".advanced-filter-select[name=filter_status]").val();
         update_data["group_id"] = $(".advanced-filter-select[name=filter_group]").val();
         update_data["min_level"] = $(".advanced-filter-select[name=filter_level]").val();
         update_data["max_level"] = $(".advanced-filter-select[name=filter_level]").val();
-        update_data["min_register"] = register_dates[$(".dates-select-bar .select-bar-container").slider("option", "values")[0]];
-        update_data["max_register"] = register_dates[$(".dates-select-bar .select-bar-container").slider("option", "values")[1]];
+        update_data["min_register"] = register_dates[$(".dates-select-bar .slider-bar-container").slider("option", "values")[0]];
+        update_data["max_register"] = register_dates[$(".dates-select-bar .slider-bar-container").slider("option", "values")[1]];
     }
     jQuery.ajax({
         url: "ws.php?format=json&method=pwg.users.getList",

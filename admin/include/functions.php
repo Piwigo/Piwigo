@@ -2699,7 +2699,7 @@ function get_active_menu($menu_page)
 
     case 'album':
     case 'cat_list':
-    case 'cat_move':
+    case 'albums':
     case 'cat_options':
     case 'cat_search':
     case 'permalinks':
@@ -2710,6 +2710,7 @@ function get_active_menu($menu_page)
     case 'group_list':
     case 'group_perm':
     case 'notification_by_mail':
+    case 'user_activity';
       return 2;
 
     case 'site_manager':

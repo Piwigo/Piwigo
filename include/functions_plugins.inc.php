@@ -398,6 +398,11 @@ function autoupdate_plugin(&$plugin)
       include_once($maintain_file);
 
       $classname = $plugin['id'].'_maintain';
+
+      // piwigo-videojs and piwigo-openstreetmap unfortunately have a "-" in their folder
+      // name (=plugin_id) and a class name can't have a "-". So we have to replace with a "_"
+      $classname = str_replace('-', '_', $classname);
+
       $plugin_maintain = new $classname($plugin['id']);
       $plugin_maintain->update($plugin['version'], $fs_version, $page['errors']);
     }

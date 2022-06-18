@@ -274,6 +274,22 @@ const jConfirm_confirm_options = {
   typeAnimated: false,
 }
 
+const jConfirm_warning_options = {
+  icon: "icon-attention",
+  draggable: false,
+  titleClass: "jconfirmWarning jconfirmAlert",
+  theme:"modern",
+  type: 'orange',
+  closeIcon: true,
+  draggable: false,
+  animation: "zoom",
+  boxWidth: '20%',
+  useBootstrap: false,
+  backgroundDismiss: true,
+  animateFromElement: false,
+  typeAnimated: false,
+}
+
 const jConfirm_confirm_with_content_options = {
   draggable: false,
   theme: "modern",

@@ -105,7 +105,7 @@ SELECT u.'. $conf['user_fields']['username'].' AS username
   $group_counter++;
 }
 
-$template->assign('ADMIN_PAGE_TITLE', l10n('Group management').' <span class="badge-number">'.$group_counter.'</span>');
+$template->assign('ADMIN_PAGE_TITLE', l10n('Groups').' <span class="badge-number">'.$group_counter.'</span>');
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

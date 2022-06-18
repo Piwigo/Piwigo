@@ -530,6 +530,12 @@ function pwg_activity($object, $object_id, $action, $details=array())
 {
   global $user;
 
+  // in case of uploadAsync, do not log the automatic login as an independant activity
+  if (isset($_REQUEST['method']) and 'pwg.images.uploadAsync' == $_REQUEST['method'] and 'login' == $action)
+  {
+    return;
+  }
+
   $object_ids = $object_id;
   if (!is_array($object_id))
   {

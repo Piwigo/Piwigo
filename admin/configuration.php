@@ -178,7 +178,7 @@ if (isset($_POST['submit']))
             $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
 
             // there is no rank outside categories
-            if ( ($i = array_search('rank ASC', $order_by)) !== false)
+            if ( ($i = array_search('`rank` ASC', $order_by)) !== false)
             {
               unset($order_by[$i]);
             }
@@ -523,13 +523,13 @@ switch ($page['section'])
       $template->assign('derivatives', $tpl_vars);
       $template->assign('resize_quality', ImageStdParams::$quality);
 
-      $tpl_vars = array();
-      $now = time();
-      foreach(ImageStdParams::$custom as $custom=>$time)
-      {
-        $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
-      }
-      $template->assign('custom_derivatives', $tpl_vars);
+      // $tpl_vars = array();
+      // $now = time();
+      // foreach(ImageStdParams::$custom as $custom=>$time)
+      // {
+      //   $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
+      // }
+      // $template->assign('custom_derivatives', $tpl_vars);
     }
 
     break;

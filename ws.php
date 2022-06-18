@@ -83,7 +83,12 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod(
     'pwg.activity.getList',
     'ws_getActivityList',
-    null,
+    array(
+      'page' => array('default'=>null,
+                      'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      'uid' => array('default'=>NULL,
+                     'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      ),
     'Returns general informations.',
     $ws_functions_root . 'pwg.php',
     array('admin_only'=>true)
@@ -244,6 +249,18 @@ function ws_addDefaultMethods( $arr )
                             'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         ),
       'Sets the privacy levels for the images.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.images.formats.searchImage',
+      'ws_images_formats_searchImage',
+      array(
+        'category_id' => array('type'=>WS_TYPE_ID, 'default'=>null),
+        'filename_list' => array(),
+        ),
+      'Search for image ids matching the provided filenames. <b>filename_list</b> must be a JSON encoded associative array of unique_id:filename.<br><br>The method returns a list of unique_id:image_id.',
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
@@ -449,6 +466,11 @@ function ws_addDefaultMethods( $arr )
           'maxValue' => max($conf['available_permission_levels']),
           'type' => WS_TYPE_INT|WS_TYPE_POSITIVE
           ),
+        'format_of' => array(
+          'default' => null,
+          'type' => WS_TYPE_ID,
+          'info' => 'id of the extended image (name/category/level are not used if format_of is provided)',
+          ),
         'pwg_token' => array(),
         ),
       'Add an image.
@@ -553,8 +575,14 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod(
       'pwg.categories.getAdminList',
       'ws_categories_getAdminList',
-      null,
-      'Get albums list as displayed on admin page.',
+      array(
+        'search' => array('default' => null),
+        'additional_output' =>    array('default'=>null,
+                              'info'=>'Comma saparated list (see method description)'),
+      ),
+      'Get albums list as displayed on admin page. <br>
+      <b>additional_output</b> controls which data are returned, possible values are:<br>
+      null, full_name_with_admin_links<br>',
       $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true)
     );
@@ -573,6 +601,7 @@ function ws_addDefaultMethods( $arr )
                                 'info'=>'public, private'),
         'commentable' =>  array('default'=>true,
                                 'type'=>WS_TYPE_BOOL),
+        'position' =>     array('default'=>null),
         ),
       'Adds an album.',
       $ws_functions_root . 'pwg.categories.php',
@@ -1201,6 +1230,18 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
   $service->addMethod(
+      'pwg.users.preferences.set',
+      'ws_users_preferences_set',
+      array(
+        'param' => array(),
+        'value' => array('flags'=>WS_PARAM_OPTIONAL),
+        'is_json' =>  array('default'=>false, 'type'=>WS_TYPE_BOOL),
+      ),
+      'Set a user preferences parameter. JSON encode the value (and set is_json to true) if you need a complex data structure.',
+      $ws_functions_root . 'pwg.users.php'
+    );
+
+  $service->addMethod(
       'pwg.users.favorites.add',
       'ws_users_favorites_add',
       array(
@@ -1240,6 +1281,14 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       ),
       'Returns the favorite images of the current user.',
       $ws_functions_root . 'pwg.users.php'
+    );
+
+  $service->addMethod(
+      'pwg.history.search',
+      'ws_history_search',
+      null,
+      'Gives an history of who has visited the galery and the actions done in it. Receives parameter.',
+      $ws_functions_root . 'pwg.php'
     );
 }
 

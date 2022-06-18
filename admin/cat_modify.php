@@ -226,7 +226,7 @@ $template->assign(
     'U_ADD_PHOTOS_ALBUM' => $base_url.'photos_add&amp;album='.$category['id'],
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_modify',
-    'U_MOVE' => $base_url.'cat_move#cat-'.$category['id'],
+    'U_MOVE' => $base_url.'albums#cat-'.$category['id'],
 
     'F_ACTION' => $form_action,
     )

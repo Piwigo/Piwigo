@@ -47,7 +47,12 @@ $template->assign(
     'LEVEL_SEPARATOR' => $conf['level_separator'],
 
     'SHOW_MOBILE_APP_BANNER' => $show_mobile_app_banner,
-    ));
+
+    'BODY_CLASSES' => $page['body_classes'],
+
+    'BODY_DATA' => json_encode($page['body_data']),
+  )
+);
 
 
 // Header notes
