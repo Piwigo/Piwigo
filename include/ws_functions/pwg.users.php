@@ -909,24 +909,6 @@ SELECT
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-<<<<<<< HEAD
-      $image = array();
-      foreach (array('id', 'width', 'height', 'hit') as $k)
-      {
-        if (isset($row[$k]))
-        {
-          $image[$k] = (int)$row[$k];
-        }
-      }
-      foreach (array('file', 'name', 'comment', 'date_creation', 'date_available') as $k)
-      {
-        $image[$k] = $row[$k];
-      }
-      $images[] = array_merge($image, ws_std_get_urls($row));
-  }
-  $count = count($images);
-  $images = array_slice($images, $params['per_page']*$params['page'], $params['per_page']);
-=======
     $image = array();
 
     foreach (array('id', 'width', 'height', 'hit') as $k)
@@ -948,7 +930,6 @@ SELECT
   $count = count($images);
   $images = array_slice($images, $params['per_page']*$params['page'], $params['per_page']);
 
->>>>>>> 5bdbb332bc88284b3b6a522930d3dbb58a5523b1
   return array(
     'paging' => new PwgNamedStruct(
       array(
