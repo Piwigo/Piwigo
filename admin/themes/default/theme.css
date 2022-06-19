@@ -3323,24 +3323,6 @@ a#showPermissions:hover {text-decoration: none;}
   display: none;
 }
 
-.tag-header #add-tag .add-tag-label {
-  position: relative;
-  padding: 10px;
-  background-color: #fafafa;
-  box-shadow: 0px 2px #00000024;
-  border-radius: 5px;
-  font-weight: bold;
-  display: flex;
-  align-items: baseline;
-  cursor: pointer;
-}
-
-.tag-header #add-tag .add-tag-label.highlight {
-  background: #ffa646;
-  box-shadow: 0 2px #af7200;
-  color: white;
-}
-
 .tag-header #add-tag.input-mode .add-tag-label {
   background: none;
   box-shadow: none;
@@ -3349,19 +3331,8 @@ a#showPermissions:hover {text-decoration: none;}
   color: inherit;
 }
 
-.tag-header #add-tag .add-tag-label::before {
-  margin: auto;
-  font-size: 16px;
-  margin-right: 5px;
-}
-
 .tag-header #add-tag.input-mode .add-tag-label::before {
   display: none;
-}
-
-.tag-header #add-tag .add-tag-label p{
-  margin: 0;
-  white-space: nowrap;
 }
 
 .tag-header #add-tag .add-tag-container {
@@ -4037,11 +4008,6 @@ a#showPermissions:hover {text-decoration: none;}
 #formCreateAlbum input[name="virtual_name"] {
   width:300px;
   border-radius: 3px;
-}
-
-.album-add-button-label, .order-root-button-label {
-  box-shadow: 0px 2px #00000024;
-  background-color: #fafafa;
 }
 
 .move-cat-container:hover {

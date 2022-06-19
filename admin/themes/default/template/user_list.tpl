@@ -108,14 +108,14 @@ $(".icon-help-circled").tipTip({
 
       <div style="display:flex;justify-content:space-between; flex-grow:1;">
         <div style="display:flex; align-items: center;">
-          <div class="not-in-selection-mode user-header-button add-user-button" style="margin: auto; margin-right: 10px">
-            <label class="user-header-button-label icon-plus-circled">
+          <div class="not-in-selection-mode user-header-button add-user-button" style="margin: auto;">
+            <label class="head-button-2 icon-plus-circled">
               <p>{'Add a user'|@translate}</p>
             </label>
           </div>
 
-          <div class="not-in-selection-mode user-header-button" style="margin: auto; margin-right: 10px">
-            <label class="user-header-button-label icon-user-secret edit-guest-user-button">
+          <div class="not-in-selection-mode user-header-button" style="margin: auto;">
+            <label class="head-button-2 icon-user-secret edit-guest-user-button">
               <p>{'Edit guest user'|@translate}</p>
             </label>
           </div>
@@ -978,19 +978,6 @@ $(".icon-help-circled").tipTip({
 
 .user-header-button {
   position:relative;
-}
-.user-header-button-label {
-	position: relative;
-	padding: 10px;
-	box-shadow: 0px 2px #00000024;
-	border-radius: 5px;
-	font-weight: bold;
-	display: flex;
-	align-items: baseline;
-	cursor: pointer;
-}
-.user-header-button-label p {
-  margin:0;
 }
 
 /* filters bar */
