@@ -453,7 +453,7 @@ SELECT
   {
     $row['details'] = str_replace('`groups`', 'groups', $row['details']);
     $row['details'] = str_replace('`rank`', 'rank', $row['details']);
-    $details = unserialize($row['details']);
+    $details = @unserialize($row['details']);
 
     if (isset($details['method']))
     {
