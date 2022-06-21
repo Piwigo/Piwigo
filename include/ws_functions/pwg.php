@@ -445,7 +445,8 @@ SELECT
     session_idx,
     ip_address,
     occured_on,
-    details
+    details,
+    user_agent
   FROM '.ACTIVITY_TABLE.'
   WHERE performed_by = '.$param['uid'].'
   ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
@@ -463,7 +464,8 @@ SELECT
     session_idx,
     ip_address,
     occured_on,
-    details
+    details,
+    user_agent
   FROM '.ACTIVITY_TABLE.'
   ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
 ;';
@@ -476,6 +478,11 @@ SELECT
     $row['details'] = str_replace('`groups`', 'groups', $row['details']);
     $row['details'] = str_replace('`rank`', 'rank', $row['details']);
     $details = @unserialize($row['details']);
+
+    if (isset($row['user_agent']))
+    {
+      $details['agent'] = $row['user_agent'];
+    }
 
     if (isset($details['method']))
     {

@@ -556,9 +556,10 @@ function pwg_activity($object, $object_id, $action, $details=array())
     }
   }
 
-  if ('user' == $object and 'login' == $action)
+  $user_agent = null;
+  if ('user' == $object and 'login' == $action and isset($_SERVER['HTTP_USER_AGENT']))
   {
-    $details['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
   }
 
   if ('photo' == $object and 'add' == $action and !isset($details['sync']))
@@ -568,7 +569,6 @@ function pwg_activity($object, $object_id, $action, $details=array())
     {
       $details['added_with'] = 'browser';
     }
-    $details['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
   }
 
   if (in_array($object, array('album', 'photo')) and 'delete' == $action and isset($_GET['page']) and 'site_update' == $_GET['page'])
@@ -603,6 +603,7 @@ function pwg_activity($object, $object_id, $action, $details=array())
       'session_idx' => session_id(),
       'ip_address' => $ip_address,
       'details' => $details_insert,
+      'user_agent' => $user_agent,
     );
   }
 
