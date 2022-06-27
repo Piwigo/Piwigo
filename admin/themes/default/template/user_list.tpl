@@ -83,6 +83,93 @@ $(".icon-help-circled").tipTip({
   'fadeIn': '1000',
 });
 
+$(document).ready(function() {
+  // We set the applyAction btn click event here so plugins can add cases to the list 
+  // which is not possible if this JS part is in a JS file
+  // see #1571 on Github
+  jQuery("#applyAction").click(function() {
+      let action = jQuery("select[name=selectAction]").prop("value");
+      let method = 'pwg.users.setInfo';
+      let data = {
+          pwg_token: pwg_token,
+          user_id: selection.map(x => x.id)
+      };
+      switch (action) {
+          case 'delete':
+              if (!($("#permitActionUserList .user-list-checkbox[name=confirm_deletion]").attr("data-selected") === "1")) {
+                  alert(missingConfirm);
+                  return false;
+              }
+              method = 'pwg.users.delete';
+              break;
+          case 'group_associate':
+              method = 'pwg.groups.addUser';
+              data.group_id = jQuery("#permitActionUserList select[name=associate]").prop("value");
+              break;
+          case 'group_dissociate':
+              method = 'pwg.groups.deleteUser';
+              data.group_id = jQuery("#permitActionUserList select[name=dissociate]").prop("value");
+              break;
+          case 'status':
+              data.status = jQuery("#permitActionUserList select[name=status]").prop("value");
+              break;
+          case 'enabled_high':
+              data.enabled_high = $("#permitActionUserList .user-list-checkbox[name=enabled_high_yes]").attr("data-selected") === "1" ? true : false;
+              break;
+          case 'level':
+              data.level = jQuery("#permitActionUserList select[name=level]").val();
+              break;
+          case 'nb_image_page':
+              data.nb_image_page = jQuery("#permitActionUserList input[name=nb_image_page]").val();
+              break;
+          case 'theme':
+              data.theme = jQuery("#permitActionUserList select[name=theme]").val();
+              break;
+          case 'language':
+              data.language = jQuery("#permitActionUserList select[name=language]").val();
+              break;
+          case 'recent_period':
+              data.recent_period = recent_period_values[$('#permitActionUserList .period-select-bar .slider-bar-container').slider("option", "value")];;
+              break;
+          case 'expand':
+              data.expand = $("#permitActionUserList .user-list-checkbox[name=expand_yes]").attr("data-selected") === "1" ? true : false;
+              break;
+          case 'show_nb_comments':
+              data.show_nb_comments = $("#permitActionUserList .user-list-checkbox[name=show_nb_comments_yes]").attr("data-selected") === "1" ? true : false
+              break;
+          case 'show_nb_hits':
+              data.show_nb_hits = $("#permitActionUserList .user-list-checkbox[name=show_nb_hits_yes]").attr("data-selected") === "1" ? true : false;
+              break;
+          default:
+              alert("Unexpected action");
+              return false;
+      }
+      jQuery.ajax({
+          url: "ws.php?format=json&method="+method,
+          type:"POST",
+          data: data,
+          beforeSend: function() {
+              jQuery("#applyActionLoading").show();
+              jQuery("#applyActionBlock .infos").fadeOut();
+          },
+          success:function(data) {
+              jQuery("#applyActionLoading").hide();
+              jQuery("#applyActionBlock .infos").fadeIn();
+              jQuery("#applyActionBlock .infos").css("display", "inline-block");
+              update_user_list();
+              if (action == 'delete') {
+                  selection = [];
+                  update_selection_content();
+              }
+          },
+          error:function(XMLHttpRequest, textStatus, errorThrows) {
+              jQuery("#applyActionLoading").hide();
+          }
+      });
+      return false;
+  });
+});
+
 {/footer_script}
 
 {combine_script id='user_list' load='footer' path='admin/themes/default/js/user_list.js'}
