@@ -37,7 +37,7 @@ body .ui-tooltip {
 
 {/html_style}
 
-<h2>{$ratings|@count} {'Users'|@translate}</h2>
+<h2>{'Rating'|@translate}<span class='badge-number'>{$ratings|@count}</span></h2>
 
 <form action="{$F_ACTION}" method="GET">
 <fieldset>

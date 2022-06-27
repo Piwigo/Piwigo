@@ -93,6 +93,7 @@ jQuery(document).ready(function () {
         success: function (raw_data) {
           loadState.reverse();
           data = jQuery.parseJSON(raw_data);
+          console.log(data);
           if (data.stat === "ok") {
             $(".addGroupFormLabelAndInput input").val('');
             group = data.result.groups[0];

@@ -52,7 +52,7 @@ const guest_id = {$guest_id};
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
-<h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
+<h2>{'History'|@translate}</h2>
 
 <form class="filter" method="post" name="filter" action="">
 <fieldset class="history-filter">

@@ -28,7 +28,7 @@ form fieldset p.actionButtons {margin-bottom:0}
 {/html_style}
 
 <div class="titrePage">
-  <h2>{'Permalinks'|@translate}</h2>
+  <h2>{'Albums'|@translate}<span class='badge-number'>{$nb_cats}</span></h2>
 </div>
 
 <p id="showAddPermalink"><a href="#" id="addPermalinkOpen">{'Add/delete a permalink'|@translate}</a></p>

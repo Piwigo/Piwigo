@@ -210,3 +210,4 @@ $("#update_all").click(function() {
     </fieldset>
   {/if}
 {/foreach}
+{/if}

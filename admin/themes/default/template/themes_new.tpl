@@ -20,7 +20,7 @@ $(window).bind("load", function() {
 })
 {/literal}{/footer_script}
 <div class="titrePage">
-  <h2>{'Add New Theme'|@translate}</h2>
+  <h2>{'Themes'|@translate}</h2>
 </div>
 
 {if not empty($new_themes)}

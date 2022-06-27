@@ -69,7 +69,7 @@ jQuery().ready(function(){
 {/literal}{/html_head}
 
 <div class="titrePage">
-  <h2>{'Upload Photos'|@translate} {$TABSHEET_TITLE}</h2>
+  <h2>{'Upload Photos'|@translate}</h2>
 </div>
 
 <div class="applicationContainer">

@@ -10,7 +10,7 @@ jQuery().ready(function(){ldelim}
 {/footer_script}
 
 <div class="titrePage">
-  <h2>{'Add New Language'|@translate}</h2>
+  <h2>{'Languages'|@translate}</h2>
 </div>
 
 {if $isWebmaster == 1}

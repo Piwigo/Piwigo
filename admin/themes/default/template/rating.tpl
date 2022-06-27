@@ -34,7 +34,7 @@ jQuery("select[name=cat]").change(function(){
 });
 {/footer_script}
 
-<h2>{$NB_ELEMENTS} {'Photos'|@translate}</h2>
+<h2>{'Rating'|@translate}<span class='badge-number'>{$NB_ELEMENTS}</span></h2>
 
 <form action="{$F_ACTION}" method="GET" class="filter">
   <fieldset>

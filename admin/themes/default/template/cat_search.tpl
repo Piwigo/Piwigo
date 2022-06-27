@@ -1,6 +1,9 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
 {footer_script}
+$(document).ready(() => {
+  $("h1").append("<span class='badge-number'>"+{$nb_cats}+"</span>");
+});
 var data = {json_encode($data_cat)};
 /* 
   Here data is an associative array id => category under this form 
