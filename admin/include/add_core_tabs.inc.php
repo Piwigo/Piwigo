@@ -18,7 +18,7 @@ function add_core_tabs($sheets, $tab_id)
 
     case 'tags':
       global $my_base_url;
-      $sheets[''] = array('caption' => '<span class="icon-tags"></span>'.l10n('Tags'), 'url' => $my_base_url.'tags');
+      $sheets[''] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'tags');
       break;
 
     case 'album':
