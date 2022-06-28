@@ -1290,4 +1290,5 @@ $lang['No search in progress'] = 'Pas de recherche en cours';
 $lang['Show plugins compatible with previous version of Piwigo'] = 'Montrer les plugins compatibles avec la version précédente de Piwigo';
 $lang['Placer au début'] = 'Placer au début';
 $lang['Placer à la fin'] = 'Placer à la fin';
+$lang['Properties of abums'] = 'Propriétés des albums';
 // Leave this line empty
