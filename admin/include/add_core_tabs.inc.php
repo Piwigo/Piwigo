@@ -119,7 +119,7 @@ function add_core_tabs($sheets, $tab_id)
 
     case 'photo':
       global $admin_photo_base_url;
-      $sheets['properties'] = array('caption' => l10n('Properties'), 'url' => $admin_photo_base_url.'-properties');
+      $sheets['properties'] = array('caption' => '<span class="icon-file-image"></span>'.l10n('Properties'), 'url' => $admin_photo_base_url.'-properties');
       $sheets['coi'] = array('caption' => '<span class="icon-crop"></span>'.l10n('Center of interest'), 'url' => $admin_photo_base_url.'-coi');
       break;
 
