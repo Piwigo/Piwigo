@@ -38,6 +38,8 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
 });
 
 jQuery(document).ready(function() {
+  $("h1").append('<span title="{"Numeric identifier"|@translate}"> #{$CAT_ID}</span> <span style="letter-spacing:0">{$CATEGORIES_NAV}</span>');
+
   jQuery(document).on('click', '.refreshRepresentative',  function(e) {
     var $this = jQuery(this);
     var method = 'pwg.categories.refreshRepresentative';
@@ -231,11 +233,6 @@ function cropImage() {
   background: none;
 }
 {/html_style}
-
-
-<div class="titrePage">
-  <h2>{'Edit album'|@translate} <span title="{'Numeric identifier'|@translate}">#{$CAT_ID}</span> <span style="letter-spacing:0">{$CATEGORIES_NAV}</span></h2>
-</div>
 
 <div id="catModify">
 

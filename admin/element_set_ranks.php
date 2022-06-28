@@ -126,7 +126,7 @@ $navigation = get_cat_display_name_cache(
 
 $template->assign(
   array(
-    'CATEGORIES_NAV' => $navigation,
+    'CATEGORIES_NAV' => trim($navigation),
     'F_ACTION' => $base_url.get_query_string_diff(array()),
    )
  );
