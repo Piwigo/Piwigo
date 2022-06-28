@@ -1295,4 +1295,6 @@ $lang['Try now !'] = 'Try now !';
 $lang['Install Piwigo on mobile'] = 'Install Piwigo on mobile';
 $lang['Properties of abums'] = 'Properties of abums';
 $lang['Add New Plugin'] = 'Add a new plugin';
+$lang['Piwigo core'] = 'Piwigo core';
+$lang['Extensions'] = 'Extensions';
 // Leave this line empty

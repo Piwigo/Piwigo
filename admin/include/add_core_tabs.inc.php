@@ -152,8 +152,8 @@ function add_core_tabs($sheets, $tab_id)
 
     case 'updates':
       global $my_base_url;
-      $sheets['pwg'] = array('caption' => l10n('Piwigo Update'), 'url' => $my_base_url);
-      $sheets['ext'] = array('caption' => l10n('Extensions Update'), 'url' => $my_base_url.'&amp;tab=ext');
+      $sheets['pwg'] = array('caption' => l10n('Piwigo core'), 'url' => $my_base_url);
+      $sheets['ext'] = array('caption' => l10n('Extensions'), 'url' => $my_base_url.'&amp;tab=ext');
       break;
     case 'site_update':
       global $my_base_url;

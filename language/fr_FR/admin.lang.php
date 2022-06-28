@@ -1292,4 +1292,6 @@ $lang['Placer au début'] = 'Placer au début';
 $lang['Placer à la fin'] = 'Placer à la fin';
 $lang['Properties of abums'] = 'Propriétés des albums';
 $lang['Add New Plugin'] = 'Ajouter un plugin';
+$lang['Piwigo core'] = 'Noyau de Piwigo';
+$lang['Extensions'] = 'Extensions';
 // Leave this line empty
