@@ -1291,4 +1291,5 @@ $lang['Show plugins compatible with previous version of Piwigo'] = 'Montrer les 
 $lang['Placer au début'] = 'Placer au début';
 $lang['Placer à la fin'] = 'Placer à la fin';
 $lang['Properties of abums'] = 'Propriétés des albums';
+$lang['Add New Plugin'] = 'Ajouter un plugin';
 // Leave this line empty

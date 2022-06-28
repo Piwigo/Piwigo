@@ -1294,4 +1294,5 @@ $lang['Piwigo is also on mobile.'] = 'Piwigo is also on mobile.';
 $lang['Try now !'] = 'Try now !';
 $lang['Install Piwigo on mobile'] = 'Install Piwigo on mobile';
 $lang['Properties of abums'] = 'Properties of abums';
+$lang['Add New Plugin'] = 'Add a new plugin';
 // Leave this line empty

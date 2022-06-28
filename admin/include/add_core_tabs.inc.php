@@ -135,7 +135,7 @@ function add_core_tabs($sheets, $tab_id)
       global $my_base_url;
       $sheets['installed'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'&amp;tab=installed');
       $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Other plugins'), 'url' => $my_base_url.'&amp;tab=new');
+      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Plugin'), 'url' => $my_base_url.'&amp;tab=new');
       break;
 
     case 'rating':
