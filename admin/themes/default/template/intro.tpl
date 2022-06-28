@@ -127,7 +127,8 @@ let str_size = "";
 {if $NB_USERS > 2}
 <a class="stat-box" href="{$U_USERS}">
 <i class="icon-users icon-purple"></i>
-<span class="number">{$NB_USERS}</span><span class="caption">{'Users'|translate}</span>
+{* -1 because we don't count the "guest" user *}
+<span class="number">{$NB_USERS - 1}</span><span class="caption">{'Users'|translate}</span>
 </a>
 {/if}
 
