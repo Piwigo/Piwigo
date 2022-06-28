@@ -1933,6 +1933,10 @@ h1 {
   color: #333;
   font-size: 22px;
 }
+h1 .image-id {
+  font-weight: 100;
+  opacity: 0.5;
+}
 h2 { letter-spacing:1px; font-weight:bold; display: none;}
 h2:lang(en) { text-transform:capitalize; }
 
