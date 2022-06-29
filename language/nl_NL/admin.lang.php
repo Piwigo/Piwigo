@@ -639,7 +639,7 @@ $lang['Failed to write file to disk'] = 'Kan bestand niet naar schijf schrijven'
 $lang['File upload stopped by extension'] = 'Bestand upload gestopt door bestandsextensie';
 $lang['Unknown upload error'] = 'Onbekende upload-fout';
 $lang['Error on file "%s" : %s'] = 'Fout in het bestand "%s" : %s';
-$lang['automatic order'] = 'Sutomatische volgorde';
+$lang['automatic order'] = 'Automatische volgorde';
 $lang['manual order'] = 'Handmatige volgorde';
 $lang['Albums automatically sorted'] = 'Albums automatisch gesorteerd';
 $lang['Batch Manager'] = 'Bulk beheerder';
@@ -1248,3 +1248,6 @@ $lang['Locked albums are disabled for maintenance. Only administrators can view 
 $lang['Webmaster status required'] = 'Vergrendelde albums zijn uitgeschakeld voor onderhoud. Alleen beheerders kunnen ze in de galerij bekijken. Als je dit album vergrendelt, worden ook de sub-albums vergrendeld';
 $lang['Your selection'] = 'Jouw selectie';
 $lang['action successfully performed.'] = 'actie succesvol uitgevoerd.';
+$lang['Edit photo #%s'] = 'Wijzig foto #%s';
+$lang['%s lines'] = '%s regels';
+$lang['%s line'] = '%s regel';

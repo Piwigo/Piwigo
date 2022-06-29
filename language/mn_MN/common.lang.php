@@ -412,3 +412,9 @@ $lang['Link: %s'] = 'Холбоос: %s';
 $lang['Your authentication key is no longer valid.'] = 'Хүчингүй болсон баталгаажуулах код байна';
 $lang['Invalid username or password!'] = 'Хэрэглэгчийн нэр/ нууц үг буруу байна ';
 $lang['generate random password'] = 'Дурын нууц үг үүсгэх';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Цомгийн нэр, 1 &rarr; 5 &rarr; 10 &rarr; 100
+';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Цомгийн нэр, 100 &rarr; 10 &rarr; 5 &rarr; 1
+';
+$lang['Related albums'] = 'Холбоотой цомог';
+$lang['Password: ********** (no copy by email)'] = 'Нууц үг: ********** (имэйлээр очихгүй)';

@@ -51,3 +51,4 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'No dudes en 
 $lang['Welcome to your new installation of Piwigo!'] = '¡Bienvenid@ a la instalación de Piwigo!';
 $lang['localhost or other, supplied by your host provider'] = 'host local o de otro tipo, suministrado por el proveedor de alojamiento';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Usted debe ponerse en contacto con su alojador web con el fin de saber cómo configurar PHP 5.2';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Se requiere la versión %s de PHP (se está ejecutando PHP versión %s)';
