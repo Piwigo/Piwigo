@@ -163,3 +163,5 @@ p.release .errors {margin:0}
 <p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
 </form>
 {/if}
+
+{'Currently running version %s.'|translate:PHPWG_VERSION}
