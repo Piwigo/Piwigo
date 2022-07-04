@@ -1091,7 +1091,7 @@ $lang['Portraits'] = 'Portréty';
 $lang['Review'] = 'Revidovat';
 $lang['Search albums'] = 'Prohledat alba';
 $lang['Select'] = 'Vybrat';
-$lang['Storage'] = 'Sklad';
+$lang['Storage'] = 'Úložiště';
 $lang['No, I have changed my mind'] = 'Ne, změnil jsem své rozhodnutí';
 $lang['No albums found'] = 'Nebyla nalezena žádná alba';
 $lang['Tag "%s" created'] = 'Štítek "%s" vytvořen';
@@ -1251,3 +1251,8 @@ $lang['Locked albums are disabled for maintenance. Only administrators can view 
 $lang['Webmaster status required'] = 'Je vyžadováno oprávnění Webmaster';
 $lang['Your selection'] = 'Váš výběr';
 $lang['action successfully performed.'] = 'akce úspěšně provedena.';
+$lang['Global Gallery Actions'] = 'Hromadné akce alba';
+$lang['Purge Actions'] = 'Úklidové akce';
+$lang['Purge Cache'] = 'Vyčistit cache';
+$lang['Are you sure you want to uninstall the plugin "%s"?'] = 'Opravdu chcete odinstalovat plugin plugin "%s"?';
+$lang['Are you sure you want to unlock the gallery?'] = 'Opravdu chcete odemknout galerii?';
