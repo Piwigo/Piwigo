@@ -1253,3 +1253,8 @@ $lang['Locked albums are disabled for maintenance. Only administrators can view 
 $lang['Webmaster status required'] = 'Webmaster-Berechtigung benötigt';
 $lang['Your selection'] = 'Ihre Auswahl';
 $lang['action successfully performed.'] = 'Aktion erfolgreich ausgeführt';
+$lang['Are you sure you want to uninstall the plugin "%s"?'] = 'Sind Sie sicher, dass Sie das Plugin "%s" deinstallieren möchten?';
+$lang['Are you sure you want to unlock the gallery?'] = 'Sind Sie sicher, dass Sie die Galerie freischalten wollen?';
+$lang['Global Gallery Actions'] = 'Globale Galerie-Aktionen';
+$lang['Purge Actions'] = 'Bereinigungsaktionen';
+$lang['Purge Cache'] = 'Cache leeren';
