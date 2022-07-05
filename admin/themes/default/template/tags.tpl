@@ -29,6 +29,11 @@ var str_selection_done = '{'The %d tags on this page are selected'|@translate}';
 var str_tag_selected = '{'<b>%d</b> tag selected'|@translate}';
 var str_tags_found = '{'<b>%d</b> tags found'|@translate}';
 var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
+
+$(document).ready(function() {
+  $("h1").append('<span class="badge-number">{$total}</span>');
+});
+
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
@@ -65,10 +70,6 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     </span>
 {/function}
 {/function}
-
-<div class="titrePage">
-  <h2>{'Tags'|@translate} <span class="badge-number"> {$total}</span> </h2>
-</div>
 
 <div class="selection-mode-group-manager">
   <label class="switch">

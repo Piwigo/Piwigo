@@ -116,6 +116,7 @@ DELETE
 }
 
 $template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
+$template->assign('ADMIN_PAGE_TITLE', l10n('Languages'));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'languages');
 ?>

@@ -68,10 +68,6 @@ jQuery().ready(function(){
 </style>
 {/literal}{/html_head}
 
-<div class="titrePage">
-  <h2>{'Upload Photos'|@translate}</h2>
-</div>
-
 <div class="applicationContainer">
 
   <div class="applicationCard"> 

@@ -476,6 +476,7 @@ $template->assign(
     'PWG_TOKEN' => get_pwg_token(),
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
     'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag','filter')),
+    'ADMIN_PAGE_TITLE' => l10n('Batch Manager'),
    )
  );
 

@@ -57,10 +57,6 @@ p.release .errors {margin:0}
 </div>
 {/if}
 
-<div class="titrePage">
-<h2>{'Updates'|@translate}</h2>
-</div>
-
 {if $STEP == 0}
   {if $CHECK_VERSION}
     <p>{'You are running the latest version of Piwigo.'|@translate}</p>

@@ -124,7 +124,6 @@ const str_from_begining = "{"since the beginning"|@translate}";
       </div>
     </div>
   </div>
-  <h2>{'Plugins'|@translate}</h2>
 </div>
 
 {if not empty($plugins)}

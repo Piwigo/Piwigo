@@ -19,9 +19,6 @@ $(window).bind("load", function() {
   })
 })
 {/literal}{/footer_script}
-<div class="titrePage">
-  <h2>{'Themes'|@translate}</h2>
-</div>
 
 {if not empty($new_themes)}
 <div class="themeBoxes">

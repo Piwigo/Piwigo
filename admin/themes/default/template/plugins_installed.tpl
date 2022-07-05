@@ -43,10 +43,6 @@ const isWebmaster = {$isWebmaster};
 const show_details = {if $show_details} true {else} false {/if};
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Plugins'|@translate}</h2>
-</div>
-
 {if isset($plugins)}
 
 {assign var='field_name' value='null'} {* <!-- 'counter' for fieldset management --> *}

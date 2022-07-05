@@ -113,6 +113,7 @@ $template->assign(
 $template->assign('display_thumbnails', $display_thumbnails);
 $template->assign('display_thumbnail_selected', $form['display_thumbnail']);
 $template->assign('guest_id', $conf['guest_id']);
+$template->assign('ADMIN_PAGE_TITLE', l10n('History'));
 
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |

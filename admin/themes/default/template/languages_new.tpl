@@ -9,10 +9,6 @@ jQuery().ready(function(){ldelim}
 });
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Languages'|@translate}</h2>
-</div>
-
 {if $isWebmaster == 1}
   
 {if !empty($languages)}

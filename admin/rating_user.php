@@ -245,7 +245,8 @@ $template->assign( array(
   'image_urls' => $image_urls,
   'TN_WIDTH' => ImageStdParams::get_by_type(IMG_SQUARE)->sizing->ideal_size[0],
   'NB_ELEMENTS' => $nb_elements,
-  ) );
+  'ADMIN_PAGE_TITLE' => l10n('Rating'),
+  ));
 $template->set_filename('rating', 'rating_user.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'rating');
 

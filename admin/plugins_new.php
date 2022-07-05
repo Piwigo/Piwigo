@@ -185,6 +185,7 @@ if (!$beta_test and preg_match('/(beta|RC)/', PHPWG_VERSION))
 {
   $template->assign('BETA_URL', $base_url.'&amp;beta-test=true');
 }
+$template->assign('ADMIN_PAGE_TITLE', l10n('Plugins'));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>
