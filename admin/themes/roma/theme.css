@@ -45,6 +45,9 @@ h1 {
   background-color: #565656;
   color: #c1c1c1;
 }
+h1 .bc-albums {
+  background-color: #333;
+}
 
 #tabsheet {
   background-color:#565656;

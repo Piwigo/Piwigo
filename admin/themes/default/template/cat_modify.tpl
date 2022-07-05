@@ -38,7 +38,7 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
 });
 
 jQuery(document).ready(function() {
-  $("h1").append('<span title="{"Numeric identifier"|@translate}"> #{$CAT_ID}</span> <span style="letter-spacing:0">{$CATEGORIES_NAV}</span>');
+  $("h1").append('<span title="{"Numeric identifier"|@translate}"> <span class="image-id">#{$CAT_ID}</span></span> <span style="letter-spacing:0" class="bc-albums">{$CATEGORIES_NAV}</span>');
 
   jQuery(document).on('click', '.refreshRepresentative',  function(e) {
     var $this = jQuery(this);

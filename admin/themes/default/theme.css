@@ -1937,6 +1937,16 @@ h1 .image-id {
   font-weight: 100;
   opacity: 0.5;
 }
+h1 .bc-albums {
+  padding: 4px 8px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 7px;
+  background-color: #c6c6c6;
+  font-size: 12px;
+  position: relative;
+  top: -3px;
+}
 h2 { letter-spacing:1px; font-weight:bold; display: none;}
 h2:lang(en) { text-transform:capitalize; }
 
