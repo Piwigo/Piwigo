@@ -57,6 +57,8 @@ p.release .errors {margin:0}
 </div>
 {/if}
 
+<p><i class="icon-info-circled-1"></i> {'Currently running version %s'|translate:PHPWG_VERSION}</p>
+
 {if $STEP == 0}
   {if $CHECK_VERSION}
     <p>{'You are running the latest version of Piwigo.'|@translate}</p>
@@ -163,5 +165,3 @@ p.release .errors {margin:0}
 <p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
 </form>
 {/if}
-
-{'Currently running version %s.'|translate:PHPWG_VERSION}

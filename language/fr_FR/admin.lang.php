@@ -1294,4 +1294,5 @@ $lang['Properties of abums'] = 'Propriétés des albums';
 $lang['Add New Plugin'] = 'Ajouter un plugin';
 $lang['Piwigo core'] = 'Noyau de Piwigo';
 $lang['Extensions'] = 'Extensions';
+$lang['Currently running version %s'] = 'Version %s installée actuellement';
 // Leave this line empty

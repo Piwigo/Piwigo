@@ -1297,4 +1297,5 @@ $lang['Properties of abums'] = 'Properties of abums';
 $lang['Add New Plugin'] = 'Add a new plugin';
 $lang['Piwigo core'] = 'Piwigo core';
 $lang['Extensions'] = 'Extensions';
+$lang['Currently running version %s'] = 'Currently running version %s';
 // Leave this line empty
