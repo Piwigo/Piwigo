@@ -69,7 +69,7 @@ final class SrcImage
         }
         $size = getimagesize(PHPWG_ROOT_PATH.$this->rel_path);
       }
-      $this->size = array($size[0],$size[1]);
+      $this->size = @array($size[0],$size[1]);
     }
 
     if (!$this->size)
