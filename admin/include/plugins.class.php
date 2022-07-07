@@ -291,7 +291,7 @@ DELETE FROM '. PLUGINS_TABLE .'
           'author'=>'',
           'hasSettings'=>false,
         );
-      $plg_data = file_get_contents($path.'/main.inc.php', null, null, 0, 2048);
+      $plg_data = file_get_contents($path.'/main.inc.php', false, null, 0, 2048);
 
       if (preg_match("|Plugin Name:\\s*(.+)|", $plg_data, $val))
       {
