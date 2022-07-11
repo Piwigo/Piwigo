@@ -1414,7 +1414,7 @@ function get_quick_search_results_no_cache($q, $options)
   trigger_notify('qsearch_before_eval', $expression, $qsr);
 
   $ids = qsearch_eval($expression, $qsr, $tmp, $search_results['qs']['unmatched_terms']);
-  
+
   $debug[] = "<!--\nparsed: ".htmlspecialchars($expression);
   $debug[] = count($expression->stokens).' tokens';
   for ($i=0; $i<count($expression->stokens); $i++)
