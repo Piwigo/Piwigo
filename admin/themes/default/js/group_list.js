@@ -93,12 +93,11 @@ jQuery(document).ready(function () {
         success: function (raw_data) {
           loadState.reverse();
           data = jQuery.parseJSON(raw_data);
-          console.log(data);
           if (data.stat === "ok") {
             $(".addGroupFormLabelAndInput input").val('');
             group = data.result.groups[0];
-            groupBox = createGroup(group)
-            groupBox.prependTo(".groups")
+            groupBox = createGroup(group);
+            $("#addGroupForm").after(groupBox);
             setupGroupBox(groupBox);
             updateBadge();
           } else {
