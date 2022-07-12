@@ -41,6 +41,9 @@ const plugin_found = '{'%s plugin found'|@translate|@escape:'javascript'}';
 const isWebmaster = {$isWebmaster};
 
 const show_details = {if $show_details} true {else} false {/if};
+
+let searchParams = new URLSearchParams(window.location.search);
+let plugin_filter = searchParams.get('filter');
 {/footer_script}
 
 {if isset($plugins)}
