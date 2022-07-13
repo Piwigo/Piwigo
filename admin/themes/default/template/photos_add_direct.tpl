@@ -411,7 +411,7 @@ jQuery(document).ready(function(){
         <div class="right-side">
           <div class="promote-text">
             <span>{"Install Piwigo on mobile"|@translate|escape:javascript}</span>
-            <a href="https://piwigo.org/mobile-applications" target="_blank"><span class="go-to-porg icon-link-1">{"Install"|@translate|escape:javascript}</span></a>
+            <a href="https://piwigo.org/mobile-applications" target="_blank"><span class="go-to-porg icon-link-1">{"Discover"|@translate|escape:javascript}</span></a>
           </div>
         </div>
       </div>
