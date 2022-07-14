@@ -62,10 +62,6 @@ $(window).bind("load", function() {
 
 {/literal}{/footer_script}
 
-<div class="titrePage">
-  <h2>{'Installed Themes'|@translate}</h2>
-</div>
-
 <div id="themesContent">
 
 {assign var='field_name' value='null'} {* <!-- 'counter' for fieldset management --> *}

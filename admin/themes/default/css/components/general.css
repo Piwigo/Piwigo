@@ -32,6 +32,11 @@ or
     box-shadow: 0px 2px #bb7932;
 }
 
+.head-button-1 p, .head-button-2 p {
+    margin: 0;
+    white-space: nowrap;
+}
+
 .head-button-1:hover {
     background: #ff7700;
 }

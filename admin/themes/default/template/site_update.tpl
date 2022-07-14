@@ -9,10 +9,6 @@ $('#syncFiles label').click(function () {
 
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Synchronize'|@translate}</h2>
-</div>
-
 <div class="selectedAlbum site-url-path">
   <span class="icon-folder-open selectedAlbum-first">{$SITE_URL}</span>
 </div>

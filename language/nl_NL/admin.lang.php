@@ -723,7 +723,8 @@ $lang['You can\'t define a default photo order because you have a custom setting
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Je hebt <i>$conf[\'order_by\']</i> in je lokale configuratie-bestand gespecificeerd. Deze parameter is verouderd, verwijder hem of hernoem hem naar <i>$conf[\'order_by_custom\']</i> !';
 $lang['Following themes may not be compatible with the new version of Piwigo:'] = 'De volgende thema\'s zijn mogelijk niet compatibel met de nieuwe versie van Piwigo:';
 $lang['I decide to update anyway'] = 'Ik besluit om in ieder geval te updaten';
-$lang['Update to Piwigo %s'] = 'Update naar Piwigo%s';
+$lang['Update to Piwigo %s'] = 'Update naar Piwigo %s';
+$lang['Currently running version %s.'] = 'De huidige versie is %s.';
 $lang['Two updates are available'] = 'Twee updates zijn beschikbaar';
 $lang['This is a minor update, with only bug corrections.'] = 'Dit is een kleine update, met alleen wat gerepareerde foutjes';
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Dit is een grote update, met <a href="%s">allerlei nieuwe mogelijkheden</a>.';

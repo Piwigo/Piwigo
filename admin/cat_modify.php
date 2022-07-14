@@ -211,7 +211,7 @@ if (!empty($category['id_uppercat']))
 
 $template->assign(
   array(
-    'CATEGORIES_NAV'     => $navigation,
+    'CATEGORIES_NAV'     => preg_replace("# {2,}#"," ",preg_replace("#(\r\n|\n\r|\n|\r)#"," ",$navigation)),
     'CAT_ID'             => $category['id'],
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),

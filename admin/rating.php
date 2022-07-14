@@ -102,6 +102,12 @@ $query.= '
 WHERE 1=1'. $page['user_filter'];
 list($nb_images) = pwg_db_fetch_row(pwg_query($query));
 
+$query = '
+SELECT
+    COUNT(*)
+  FROM '.RATE_TABLE.
+';';
+list($nb_elements) = pwg_db_fetch_row(pwg_query($query));
 
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
@@ -119,7 +125,7 @@ $template->assign(
       ),
     'F_ACTION' => PHPWG_ROOT_PATH.'admin.php',
     'DISPLAY' => $elements_per_page,
-    'NB_ELEMENTS' => $nb_images,
+    'NB_ELEMENTS' => $nb_elements,
     'category' => (isset($_GET['cat']) ? array($_GET['cat']) : array()),
     'CACHE_KEYS' => get_admin_client_cache_keys(array('categories')),
     )
@@ -156,7 +162,7 @@ $user_options = array(
 
 $template->assign('user_options', $user_options );
 $template->assign('user_options_selected', array(@$_GET['users']) );
-
+$template->assign('ADMIN_PAGE_TITLE', l10n('Rating'));
 
 $query = '
 SELECT i.id,

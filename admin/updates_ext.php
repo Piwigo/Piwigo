@@ -84,5 +84,6 @@ $template->assign('EXT_TYPE', $page['page'] == 'updates' ? 'extensions' : $page[
 $template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 $template->set_filename('plugin_admin_content', 'updates_ext.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
+$template->assign('ADMIN_PAGE_TITLE', l10n('Updates'));
 
 ?>

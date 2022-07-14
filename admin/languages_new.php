@@ -108,6 +108,7 @@ else
 {
   $page['errors'][] = l10n('Can\'t connect to server.');
 }
+$template->assign('ADMIN_PAGE_TITLE', l10n('Languages'));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'languages');
 ?>

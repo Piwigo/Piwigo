@@ -55,6 +55,10 @@ $tabsheet->assign();
 // | Load the tab                                                          |
 // +-----------------------------------------------------------------------+
 
+$template->assign(array(
+  'ADMIN_PAGE_TITLE' => l10n('Edit album'),
+));
+
 if ('properties' == $page['tab'])
 {
   include(PHPWG_ROOT_PATH.'admin/cat_modify.php');

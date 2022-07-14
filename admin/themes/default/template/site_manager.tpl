@@ -21,9 +21,6 @@ $(".delete-site-button").each(function() {
   });
 });
 {/footer_script}
-<div class="titrePage">
-  <h2>{'Site manager'|@translate}</h2>
-</div>
 
 {if not empty($remote_output)}
 <div class="remoteOutput">

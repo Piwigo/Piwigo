@@ -497,8 +497,6 @@ function performPluginDeactivate(id) {
 /* group action */
 
 jQuery(document).ready(function () {
-
-
     jQuery(".pluginBox").each(function (index) {
         $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
         $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
@@ -730,6 +728,10 @@ jQuery(document).ready(function () {
 
     /* Show Inactive plugins or button to show them*/
     jQuery(".showInactivePlugins button").on("click", showInactivePlugins);
+
+    if (plugin_filter == "deactivated") {
+      jQuery(".filterLabel[for='seeInactive']").trigger("click");
+    }
 });
 
 $(document).mouseup(function (e) {

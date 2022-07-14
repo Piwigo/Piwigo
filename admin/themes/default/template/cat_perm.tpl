@@ -47,11 +47,11 @@ jQuery("#selectStatus").change(function() {
   });
 {/if}
 }());
-{/footer_script}
 
-<div class="titrePage">
-  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
+$(document).ready(function () {
+  $("h1").append(' <span style="letter-spacing:0">{$CATEGORIES_NAV}</span>');
+})
+{/footer_script}
 
 <form action="{$F_ACTION}" method="post" id="categoryPermissions">
 

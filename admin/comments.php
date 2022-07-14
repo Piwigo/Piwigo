@@ -211,6 +211,7 @@ $navbar = create_navigation_bar(
   );
 
 $template->assign('navbar', $navbar);
+$template->assign('ADMIN_PAGE_TITLE', l10n('User comments'));
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

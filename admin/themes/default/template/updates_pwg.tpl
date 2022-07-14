@@ -57,9 +57,7 @@ p.release .errors {margin:0}
 </div>
 {/if}
 
-<div class="titrePage">
-<h2>{'Updates'|@translate}</h2>
-</div>
+<p><i class="icon-info-circled-1"></i> {'Currently running version %s'|translate:PHPWG_VERSION}</p>
 
 {if $STEP == 0}
   {if $CHECK_VERSION}
