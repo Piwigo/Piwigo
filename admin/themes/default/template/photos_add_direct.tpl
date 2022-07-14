@@ -415,7 +415,7 @@ jQuery(document).ready(function(){
           </div>
         </div>
       </div>
-      <span class="dont-show-again">{"Ne plus afficher"|@translate|escape:javascript}</span>
+      <span class="dont-show-again">{'Hide'|translate|escape:javascript}</span>
     </div>
   {/if}
 
