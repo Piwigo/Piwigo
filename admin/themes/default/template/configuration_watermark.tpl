@@ -36,8 +36,6 @@
 }());
 {/footer_script}
 
-<h2>{'Piwigo configuration'|translate} {$TABSHEET_TITLE}</h2>
-
 <form method="post" action="{$F_ACTION}" class="properties" enctype="multipart/form-data">
 
 <div id="configContent">

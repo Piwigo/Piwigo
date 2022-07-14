@@ -109,6 +109,7 @@ $template->assign(
     'U_ELEMENTS_PAGE' => $base_url.get_query_string_diff(array('display','start')),
     'F_ACTION' => $base_url.get_query_string_diff(array()),
     'level_options' => get_privacy_level_options(),
+    'ADMIN_PAGE_TITLE' => l10n('Batch Manager'),
     )
   );
 

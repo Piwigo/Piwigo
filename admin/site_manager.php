@@ -125,6 +125,7 @@ $template->assign(
   array(
     'F_ACTION'  => get_root_url().'admin.php'.get_query_string_diff(array('action','site','pwg_token')),
     'PWG_TOKEN' => get_pwg_token(),
+    'ADMIN_PAGE_TITLE' => l10n('Synchronize'),
     )
   );
 

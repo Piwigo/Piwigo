@@ -16,10 +16,6 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-<div class="titrePage">
-  <h2>{'Send mail to users'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
-
 <form method="post" name="notification_by_mail" id="notification_by_mail" action="{$F_ACTION}">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 

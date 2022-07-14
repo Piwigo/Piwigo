@@ -45,7 +45,8 @@ if (isset($_GET['installstatus']))
       $activate_url = get_root_url().'admin.php?page=plugins'
         . '&amp;plugin=' . $_GET['plugin_id']
         . '&amp;pwg_token=' . get_pwg_token()
-        . '&amp;action=activate';
+        . '&amp;action=activate'
+        . '&amp;filter=deactivated';
 
       $page['infos'][] = l10n('Plugin has been successfully copied');
       $page['infos'][] = '<a href="'. $activate_url . '">' . l10n('Activate it now') . '</a>';
@@ -185,6 +186,7 @@ if (!$beta_test and preg_match('/(beta|RC)/', PHPWG_VERSION))
 {
   $template->assign('BETA_URL', $base_url.'&amp;beta-test=true');
 }
+$template->assign('ADMIN_PAGE_TITLE', l10n('Plugins'));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>

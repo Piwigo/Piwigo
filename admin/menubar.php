@@ -155,6 +155,7 @@ $action = get_root_url().'admin.php?page=menubar';
 $template->assign(array('F_ACTION'=>$action));
 
 $template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
+$template->assign('ADMIN_PAGE_TITLE', l10n('Menu Management'));
 
 $template->set_filename( 'menubar_admin_content', 'menubar.tpl' );
 $template->assign_var_from_handle( 'ADMIN_CONTENT', 'menubar_admin_content');

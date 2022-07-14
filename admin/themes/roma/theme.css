@@ -45,6 +45,9 @@ h1 {
   background-color: #565656;
   color: #c1c1c1;
 }
+h1 .bc-albums {
+  background-color: #333;
+}
 
 #tabsheet {
   background-color:#565656;
@@ -387,11 +390,6 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 }
 .orCreateAlbum:hover {
   text-decoration: none;
-  color: #777;
-}
-.album-add-button-label, .order-root-button-label {
-  box-shadow: 0px 2px #00000024;
-  background-color: #333;
   color: #777;
 }
 .move-cat-container:hover {
@@ -1120,21 +1118,15 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 /* Tag Manager */
 
-.tag-box, 
-.tag-header #add-tag:not(.input-mode) .add-tag-label,
+.tag-box,
 .tag-header .selection-controller a{
   background-color: #333 !important;
 }
 
-.tag-header #add-tag .add-tag-label.highlight {
-  background: #f7a43c !important;
-  box-shadow: 0 2px #af7200;
-  color: #444 !important;
-}
-.tag-header #add-tag.input-mode .add-tag-label.highlight {
+.tag-header #add-tag.input-mode .add-tag-label {
   background: transparent !important;
   box-shadow: none;
-  color: inherit !important;
+  color: rgb(119, 119, 119) !important;
 }
 
 .tag-container .tag-box p {
@@ -1458,6 +1450,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #c1c1c1;
 }
 
+.head-button-1 {
+  color: #444 !important;
+}
+
 .head-button-2 {
   background-color: #333 !important;
 }
@@ -1546,10 +1542,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .advanced-filter-item-label, .advanced-filter-title, .advanced-filter-close {
   color:#777;
-}
-
-.user-header-button-label {
-  background: #333;
 }
 
 .user-action-select {

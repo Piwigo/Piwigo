@@ -15,10 +15,6 @@ $(".delete-lang-button").each(function() {
 });
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Installed Languages'|@translate}</h2>
-</div>
-
 {foreach from=$language_states item=language_state}
 <fieldset>
   <legend>

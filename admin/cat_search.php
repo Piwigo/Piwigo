@@ -87,7 +87,7 @@ $template->set_filename('cat_search', 'cat_search.tpl');
 $template->assign(
   array(
     'data_cat' => $categories,
-    'ADMIN_PAGE_TITLE' => l10n('Album search tool'),
+    'ADMIN_PAGE_TITLE' => l10n('Albums'),
     'placeholder' => $placeholder,
   )
 );

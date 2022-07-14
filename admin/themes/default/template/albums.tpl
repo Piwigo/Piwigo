@@ -111,12 +111,12 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 
 <div class="cat-move-header"> 
   <div class="add-album-button">
-    <label class="album-add-button-label icon-plus-circled">
+    <label class="head-button-2 icon-plus-circled">
       <p>{'Add Album'|@translate}</p>
     </label>
   </div>
   <div class="order-root-button">
-    <label class="order-root order-root-button-label icon-sort-name-up">
+    <label class="order-root head-button-2 icon-sort-name-up">
       <p>{'Automatic sort order'|@translate}</p>
     </label>
   </div>
@@ -476,11 +476,6 @@ input[name="position"] {
 .order-root-button-label p {
   white-space: nowrap;
   margin: 0 !important;
-}
-
-.add-album-button,
-.order-root-button {
-  margin: 0 10px 0 0;
 }
 
 .badge-container {

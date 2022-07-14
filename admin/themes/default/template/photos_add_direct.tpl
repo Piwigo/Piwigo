@@ -396,6 +396,29 @@ jQuery(document).ready(function(){
 
 <div id="photosAddContent">
 
+  {if $PROMOTE_MOBILE_APPS}
+    <div class="promote-apps">
+      <span class="icon-cancel close-apps"></span>
+      <div class="promote-content">
+        <div class="left-side">
+        <img src="https://de.piwigo.org/./plugins/piwigo-piwigodotorg/images/mobile_applications/Group_77.png">
+          <div class="promote-text">
+            <span>{"Piwigo is also on mobile."|@translate|escape:javascript}</span>
+            <span>{"Try now !"|@translate|escape:javascript}</span>
+          </div>
+        </div>
+        <div class="mid-side"></div>
+        <div class="right-side">
+          <div class="promote-text">
+            <span>{"Install Piwigo on mobile"|@translate|escape:javascript}</span>
+            <a href="https://piwigo.org/mobile-applications" target="_blank"><span class="go-to-porg icon-link-1">{"Discover"|@translate|escape:javascript}</span></a>
+          </div>
+        </div>
+      </div>
+      <span class="dont-show-again">{"Ne plus afficher"|@translate|escape:javascript}</span>
+    </div>
+  {/if}
+
   {if $ENABLE_FORMATS}
     <div class="format-mode-group-manager">
     <label class="switch" onClick="window.location.replace('{$SWITCH_MODE_URL}'); $('.switch .slider').addClass('loading');">
@@ -445,29 +468,6 @@ jQuery(document).ready(function(){
   </ul>
   <div class="hideButton" style="text-align:center"><a href="{$hide_warnings_link}">{'Hide'|@translate}</a></div>
 </div>
-  {/if}
-
-  {if $PROMOTE_MOBILE_APPS}
-  <div class="promote-apps">
-    <span class="icon-cancel close-apps"></span>
-    <div class="promote-content">
-      <div class="left-side">
-      <img src="https://de.piwigo.org/./plugins/piwigo-piwigodotorg/images/mobile_applications/Group_77.png">
-        <div class="promote-text">
-          <span>{"Piwigo is also on mobile."|@translate|escape:javascript}</span>
-          <span>{"Try now !"|@translate|escape:javascript}</span>
-        </div>
-      </div>
-      <div class="mid-side"></div>
-      <div class="right-side">
-        <div class="promote-text">
-          <span>{"Install Piwigo on mobile"|@translate|escape:javascript}</span>
-          <a href="https://piwigo.org/mobile-applications" target="_blank"><span class="go-to-porg icon-link-1">{"Install"|@translate|escape:javascript}</span></a>
-        </div>
-      </div>
-    </div>
-    <span class="dont-show-again">{"Ne plus afficher"|@translate|escape:javascript}</span>
-  </div>
   {/if}
 
   <form id="uploadForm" class="{if $DISPLAY_FORMATS}format-mode{/if}" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>

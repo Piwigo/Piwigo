@@ -1290,4 +1290,10 @@ $lang['No search in progress'] = 'Pas de recherche en cours';
 $lang['Show plugins compatible with previous version of Piwigo'] = 'Montrer les plugins compatibles avec la version précédente de Piwigo';
 $lang['Placer au début'] = 'Placer au début';
 $lang['Placer à la fin'] = 'Placer à la fin';
+$lang['Properties of abums'] = 'Propriétés des albums';
+$lang['Add New Plugin'] = 'Ajouter un plugin';
+$lang['Piwigo core'] = 'Noyau de Piwigo';
+$lang['Extensions'] = 'Extensions';
+$lang['Currently running version %s'] = 'Version %s installée actuellement';
+$lang['Discover'] = 'Découvrir';
 // Leave this line empty

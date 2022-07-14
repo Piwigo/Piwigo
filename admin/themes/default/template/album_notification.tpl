@@ -4,6 +4,8 @@
 
 {footer_script}
 jQuery(document).ready(function() {
+  $("h1").append(' <span style="letter-spacing:0">{$CATEGORIES_NAV}</span>');
+
   jQuery("input[name=who]").change(function () {
     checkWhoOptions();
   });
@@ -54,10 +56,6 @@ span.errors {
   border-radius:5px;
 }
 {/html_style}
-
-<div class="titrePage">
-  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
 
 <form action="{$F_ACTION}" method="post" id="categoryNotify">
 

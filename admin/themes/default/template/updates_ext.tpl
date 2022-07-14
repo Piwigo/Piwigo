@@ -158,10 +158,6 @@ $("#update_all").click(function() {
 })
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Updates'|@translate}</h2>
-</div>
-
 {if $isWebmaster == 1}
 
 <div class="autoupdate_bar">
@@ -210,3 +206,4 @@ $("#update_all").click(function() {
     </fieldset>
   {/if}
 {/foreach}
+{/if}

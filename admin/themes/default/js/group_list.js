@@ -89,15 +89,18 @@ jQuery(document).ready(function () {
       jQuery.ajax({
         url: "ws.php?format=json&method=pwg.groups.add",
         type: "POST",
-        data: "name=" + name + "&pwg_token=" + pwg_token,
+        data: {
+          'name': name,
+          'pwg_token': pwg_token,
+        },
         success: function (raw_data) {
           loadState.reverse();
           data = jQuery.parseJSON(raw_data);
           if (data.stat === "ok") {
             $(".addGroupFormLabelAndInput input").val('');
             group = data.result.groups[0];
-            groupBox = createGroup(group)
-            groupBox.prependTo(".groups")
+            groupBox = createGroup(group);
+            $("#addGroupForm").after(groupBox);
             setupGroupBox(groupBox);
             updateBadge();
           } else {

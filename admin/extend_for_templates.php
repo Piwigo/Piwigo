@@ -184,6 +184,7 @@ foreach ($tpl_extension as $file => $conditions)
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
+$template->assign('ADMIN_PAGE_TITLE', l10n('Extend for templates'));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'extend_for_templates');
 ?>

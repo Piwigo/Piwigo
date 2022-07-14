@@ -22,7 +22,7 @@
     <label>
       {'Username or email'|@translate}
       <br>
-      <input type="text" id="username_or_email" name="username_or_email" size="40" maxlength="40"{if isset($username_or_email)} value="{$username_or_email}"{/if}>
+      <input type="text" id="username_or_email" name="username_or_email" size="100" maxlength="100"{if isset($username_or_email)} value="{$username_or_email}"{/if}>
     </label>
   </p>
 

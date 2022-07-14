@@ -19,6 +19,7 @@ CREATE TABLE `piwigo_activity` (
   `ip_address` varchar(50) DEFAULT NULL,
   `occured_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `details` varchar(255) DEFAULT NULL,
+  `user_agent` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
 ) ENGINE=MyISAM;
 

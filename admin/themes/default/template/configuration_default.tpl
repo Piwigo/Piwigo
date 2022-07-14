@@ -1,7 +1,5 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
-<h2>{'Piwigo configuration'|translate} {$TABSHEET_TITLE}</h2>
-
 <form method="post" name="profile" action="{$GUEST_F_ACTION}" id="profile" class="properties">
 
 <div id="configContent">

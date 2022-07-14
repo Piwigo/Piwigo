@@ -118,6 +118,7 @@ else
 $template->assign('default_screenshot',
   get_root_url().'admin/themes/'.userprefs_get_param('admin_theme', 'clear').'/images/missing_screenshot.png'
 );
+$template->assign('ADMIN_PAGE_TITLE', l10n('Themes'));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'themes');
 ?>

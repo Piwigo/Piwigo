@@ -1293,4 +1293,10 @@ $lang['Placer à la fin'] = 'Place at the end';
 $lang['Piwigo is also on mobile.'] = 'Piwigo is also on mobile.';
 $lang['Try now !'] = 'Try now !';
 $lang['Install Piwigo on mobile'] = 'Install Piwigo on mobile';
+$lang['Properties of abums'] = 'Properties of abums';
+$lang['Add New Plugin'] = 'Add a new plugin';
+$lang['Piwigo core'] = 'Piwigo core';
+$lang['Extensions'] = 'Extensions';
+$lang['Currently running version %s'] = 'Currently running version %s';
+$lang['Discover'] = 'Discover';
 // Leave this line empty

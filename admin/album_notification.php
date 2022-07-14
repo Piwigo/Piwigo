@@ -181,10 +181,12 @@ $template->set_filename('album_notification', 'album_notification.tpl');
 $template->assign(
   array(
     'CATEGORIES_NAV' =>
-      get_cat_display_name_from_id(
-        $page['cat'],
-        'admin.php?page=album-'
-        ),
+      trim(
+        get_cat_display_name_from_id(
+          $page['cat'],
+          'admin.php?page=album-'
+        )
+      ),
     'F_ACTION' => $admin_album_base_url.'-notification',
     'PWG_TOKEN' => get_pwg_token(),
     )

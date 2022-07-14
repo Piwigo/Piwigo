@@ -35,8 +35,6 @@ jQuery("a.preview-box").colorbox( {
 }());
 {/footer_script}
 
-<h2>{'Batch Manager'|@translate}</h2>
-
 <form action="{$F_ACTION}" method="POST">
   <div style="margin: 30px 0; display: flex; justify-content: space-between;">
     <div style="margin-left: 22px;">

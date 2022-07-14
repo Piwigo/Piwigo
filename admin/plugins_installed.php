@@ -194,6 +194,7 @@ $template->assign(
     'show_details' => $show_details,
     'max_inactive_before_hide' => isset($_GET['show_inactive']) ? 999 : 8,
     'isWebmaster' => (is_webmaster()) ? 1 : 0,
+    'ADMIN_PAGE_TITLE' => l10n('Plugins'),
     )
   );
 
