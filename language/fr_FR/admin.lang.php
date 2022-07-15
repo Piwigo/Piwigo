@@ -1296,4 +1296,5 @@ $lang['Piwigo core'] = 'Noyau de Piwigo';
 $lang['Extensions'] = 'Extensions';
 $lang['Currently running version %s'] = 'Version %s installée actuellement';
 $lang['Discover'] = 'Découvrir';
+$lang['Latest Piwigo news'] = 'Dernière nouvelle de Piwigo';
 // Leave this line empty

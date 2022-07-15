@@ -723,6 +723,9 @@ $conf['ws_max_users_per_page'] = 1000;
 // Display a link to subscribe to Piwigo Announcements Newsletter
 $conf['show_newsletter_subscription'] = true;
 
+// Fetch and show latest news from piwigo.org
+$conf['show_piwigo_latest_news'] = true;
+
 // Check for available updates on Piwigo or extensions, performed each time
 // the dashboard is displayed
 $conf['dashboard_check_for_updates'] = true;

@@ -188,6 +188,26 @@ SELECT MIN(date_available)
     );
 }
 
+if ($conf['show_piwigo_latest_news'])
+{
+  $news = get_piwigo_news(0, 1);
+
+  // echo '<pre>'; print_r($news); echo '</pre>';
+
+  if (isset($news['topics']) and isset($news['topics'][0]) and $news['topics'][0]['posted_on'] > time()-60*60*24*30)
+  {
+    $latest_news = $news['topics'][0];
+
+    $page['messages'][] = sprintf(
+      '%s <a href="%s" title="%s" target="_blank"><i class="icon-bell"></i> %s</a>',
+      l10n('Latest Piwigo news'),
+      $latest_news['url'],
+      time_since($latest_news['posted_on'], 'year').' ('.$latest_news['posted'].')',
+      $latest_news['subject']
+    );
+  }
+}
+
 trigger_notify('loc_end_intro');
 
 // +-----------------------------------------------------------------------+

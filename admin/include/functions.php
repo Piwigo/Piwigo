@@ -3456,3 +3456,77 @@ function get_cache_size_derivatives($path)
   }
   return $msizes;
 }
+
+/**
+ * Return news from piwigo.org.
+ *
+ * @since 13
+ * @param int $start
+ * @param int $count
+ */
+function get_piwigo_news($start, $count)
+{
+  global $lang_info, $conf;
+
+  $all_news = null;
+
+  $cache_path = PHPWG_ROOT_PATH.$conf['data_location'].'cache/piwigo_news-'.$lang_info['code'].'.cache.php';
+  if (!is_file($cache_path) or filemtime($cache_path) < strtotime('24 hours ago'))
+  {
+    $forum_url = PHPWG_URL.'/forum';
+    $url = $forum_url.'/news.php?format=json&limit='.$count;
+
+    if (conf_get_param('porg_fetch_news_check_ssl', true))
+    {
+      $content = file_get_contents($url);
+    }
+    else
+    {
+      $arrContextOptions = array(
+        "ssl" => array(
+          "verify_peer" => false,
+          "verify_peer_name" => false,
+        ),
+      );
+
+      $content = file_get_contents($url, false, stream_context_create($arrContextOptions));
+    }
+
+    if ($content !== false)
+    {
+      $all_news = array();
+
+      $topics = json_decode($content, true);
+
+      foreach ($topics as $idx => $topic)
+      {
+        $news = array(
+          'id' => $topic['topic_id'],
+          'subject' => $topic['subject'],
+          'posted_on' => $topic['posted_on'],
+          'posted' => format_date($topic['posted_on']),
+          'url' => $forum_url.'/viewtopic.php?id='.$topic['topic_id'],
+        );
+
+        $all_news[] = $news;
+      }
+
+      if (mkgetdir(dirname($cache_path)))
+      {
+        file_put_contents($cache_path, serialize($all_news));
+      }
+    }
+  }
+
+  if (is_null($all_news))
+  {
+    $all_news = unserialize(file_get_contents($cache_path));
+  }
+
+  $news_slice = array_slice($all_news, $start, $count);
+
+  return array(
+    'total_count' => count($all_news),
+    'topics' => $news_slice,
+  );
+}
