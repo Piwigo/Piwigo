@@ -23,7 +23,6 @@ class Smarty_Internal_Templateparser
 {
     const ERR1 = 'Security error: Call to private object member not allowed';
     const ERR2 = 'Security error: Call to dynamic object member not allowed';
-    const ERR3 = 'PHP in template not allowed. Use SmartyBC to enable it';
 
     /**
      * result status
@@ -235,16 +234,6 @@ start(res)       ::= template. {
     $this->root_buffer->prepend_array($this, $this->template_prefix);
     $this->root_buffer->append_array($this, $this->template_postfix);
     res = $this->root_buffer->to_smarty_php($this);
-}
-
-
-                      // php tags
-template       ::= template PHP(B). {
-    $code = $this->compiler->compileTag('private_php',array(array('code' => B), array('type' => $this->lex->phpType )),array());
-    if ($this->compiler->has_code && !empty($code)) {
-        $tmp =''; foreach ($this->compiler->prefix_code as $code) {$tmp.=$code;} $this->compiler->prefix_code=array();
-         $this->current_buffer->append_subtree($this,  new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode($tmp.$code,true)));
-    }
 }
 
                       // template text
@@ -758,6 +747,9 @@ value(res)       ::= doublequoted_with_quotes(s). {
 
 
 value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
+    if ($this->security && $this->security->static_classes !== array()) {
+        $this->compiler->trigger_template_error('dynamic static class not allowed by security setting');
+    }
     $prefixVar = $this->compiler->getNewPrefixVariable();
     if (vi['var'] === '\'smarty\'') {
         $this->compiler->appendPrefixCode("<?php {$prefixVar} = ". $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).';?>');

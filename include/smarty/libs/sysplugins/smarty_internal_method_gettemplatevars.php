@@ -22,7 +22,7 @@ class Smarty_Internal_Method_GetTemplateVars
      * Returns a single or all template variables
      *
      * @api  Smarty::getTemplateVars()
-     * @link http://www.smarty.net/docs/en/api.get.template.vars.tpl
+     * @link https://www.smarty.net/docs/en/api.get.template.vars.tpl
      *
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
      * @param string                                                  $varName       variable name or null

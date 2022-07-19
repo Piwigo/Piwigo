@@ -11,7 +11,7 @@
  * Name:     escape
  * Purpose:  escape string for output
  *
- * @link   http://www.smarty.net/docs/en/language.modifier.escape
+ * @link   https://www.smarty.net/docs/en/language.modifier.escape
  * @author Monte Ohrt <monte at ohrt dot com>
  *
  * @param string  $string        input string
@@ -23,12 +23,9 @@
  */
 function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $double_encode = true)
 {
-    static $_double_encode = null;
+    static $_double_encode = true;
     static $is_loaded_1 = false;
     static $is_loaded_2 = false;
-    if ($_double_encode === null) {
-        $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
-    }
     if (!$char_set) {
         $char_set = Smarty::$_CHARSET;
     }
@@ -184,7 +181,11 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                     '"'  => '\\"',
                     "\r" => '\\r',
                     "\n" => '\\n',
-                    '</' => '<\/'
+                    '</' => '<\/',
+                    // see https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
+                    '<!--' => '<\!--',
+                    '<s'   => '<\s',
+                    '<S'   => '<\S'
                 )
             );
         case 'mail':
@@ -250,6 +251,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             }
             return $return;
         default:
+            trigger_error("escape: unsupported type: $esc_type - returning unmodified string", E_USER_NOTICE);
             return $string;
     }
 }

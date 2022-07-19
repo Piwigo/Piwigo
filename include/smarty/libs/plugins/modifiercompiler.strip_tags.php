@@ -11,7 +11,7 @@
  * Name:     strip_tags
  * Purpose:  strip html tags from text
  *
- * @link   http://www.smarty.net/docs/en/language.modifier.strip.tags.tpl strip_tags (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.strip.tags.tpl strip_tags (Smarty online manual)
  * @author Uwe Tews
  *
  * @param array $params parameters

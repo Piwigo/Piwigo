@@ -289,8 +289,6 @@ class Smarty_Internal_Templatelexer
      textdoublequoted = ~([^"\\]*?)((?:\\.[^"\\]*?)*?)(?=((SMARTYldel)SMARTYal|\$|`\$|"SMARTYliteral))~
      namespace = ~([0-9]*[a-zA-Z_]\w*)?(\\[0-9]*[a-zA-Z_]\w*)+~
      emptyjava = ~[{][}]~
-     phptag = ~(SMARTYldel)SMARTYalphp([ ].*?)?SMARTYrdel|(SMARTYldel)SMARTYal[/]phpSMARTYrdel~
-     phpstart = ~[<][?]((php\s+|=)|\s+)|[<][%]|[<][?]xml\s+|[<]script\s+language\s*=\s*["']?\s*php\s*["']?\s*[>]|[?][>]|[%][>]~
      slash = ~[/]~
      ldel = ~(SMARTYldel)SMARTYal~
      rdel = ~\s*SMARTYrdel~
@@ -362,9 +360,6 @@ class Smarty_Internal_Templatelexer
         $this->value = substr($this->data,$this->counter,$to-$this->counter);
         return false;
      }
-     phptag {
-        $this->compiler->getTagCompiler('private_php')->parsePhp($this);
-     }
      userliteral {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
@@ -380,12 +375,9 @@ class Smarty_Internal_Templatelexer
         $this->yypushstate(self::TAG);
         return true;
      }
-     phpstart {
-        $this->compiler->getTagCompiler('private_php')->parsePhp($this);
-     }
      char {
        if (!isset($this->yy_global_text)) {
-           $this->yy_global_text = $this->replace('/(SMARTYldel)SMARTYal|[<][?]((php\s+|=)|\s+)|[<][%]|[<][?]xml\s+|[<]script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*[>]|[?][>]|[%][>]SMARTYliteral/isS');
+           $this->yy_global_text = $this->replace('/(SMARTYldel)SMARTYal/isS');
        }
        $to = $this->dataLength;
        preg_match($this->yy_global_text, $this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);

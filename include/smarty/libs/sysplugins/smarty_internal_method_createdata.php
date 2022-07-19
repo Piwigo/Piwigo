@@ -22,7 +22,7 @@ class Smarty_Internal_Method_CreateData
      * creates a data object
      *
      * @api  Smarty::createData()
-     * @link http://www.smarty.net/docs/en/api.create.data.tpl
+     * @link https://www.smarty.net/docs/en/api.create.data.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty      $obj
      * @param \Smarty_Internal_Template|\Smarty_Internal_Data|\Smarty_Data|\Smarty $parent next higher level of Smarty

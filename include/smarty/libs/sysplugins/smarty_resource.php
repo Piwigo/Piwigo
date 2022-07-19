@@ -72,9 +72,7 @@ abstract class Smarty_Resource
         }
         // try registered resource
         if (isset($smarty->registered_resources[ $type ])) {
-            return $smarty->_cache[ 'resource_handlers' ][ $type ] =
-                $smarty->registered_resources[ $type ] instanceof Smarty_Resource ?
-                    $smarty->registered_resources[ $type ] : new Smarty_Internal_Resource_Registered();
+            return $smarty->_cache[ 'resource_handlers' ][ $type ] = $smarty->registered_resources[ $type ];
         }
         // try sysplugins dir
         if (isset(self::$sysplugins[ $type ])) {

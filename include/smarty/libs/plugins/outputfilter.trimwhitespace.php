@@ -41,7 +41,7 @@ function smarty_outputfilter_trimwhitespace($source)
         }
     }
     // Strip all HTML-Comments
-    // yes, even the ones in <script> - see http://stackoverflow.com/a/808850/515124
+    // yes, even the ones in <script> - see https://stackoverflow.com/a/808850/515124
     $source = preg_replace('#<!--.*?-->#ms', '', $source);
     // capture html elements not to be messed with
     $_offset = 0;

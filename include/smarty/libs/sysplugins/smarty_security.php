@@ -21,19 +21,6 @@
  */
 class Smarty_Security
 {
-    /**
-     * This determines how Smarty handles "<?php ... ?>" tags in templates.
-     * possible values:
-     * <ul>
-     *   <li>Smarty::PHP_PASSTHRU -> echo PHP tags as they are</li>
-     *   <li>Smarty::PHP_QUOTE    -> escape tags as entities</li>
-     *   <li>Smarty::PHP_REMOVE   -> remove php tags</li>
-     *   <li>Smarty::PHP_ALLOW    -> execute php tags</li>
-     * </ul>
-     *
-     * @var integer
-     */
-    public $php_handling = Smarty::PHP_PASSTHRU;
 
     /**
      * This is the list of template directories that are considered secure.

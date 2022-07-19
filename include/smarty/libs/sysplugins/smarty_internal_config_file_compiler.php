@@ -158,7 +158,7 @@ class Smarty_Internal_Config_File_Compiler
         }
         // template header code
         $template_header =
-            "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") .
+            "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . date("Y-m-d H:i:s") .
             "\n";
         $template_header .= "         compiled from '{$this->template->source->filepath}' */ ?>\n";
         $code = '<?php $_smarty_tpl->smarty->ext->configLoad->_loadConfigVars($_smarty_tpl, ' .

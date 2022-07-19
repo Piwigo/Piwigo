@@ -44,7 +44,7 @@ if (!function_exists('smarty_mb_str_replace')) {
                 }
             }
         } else {
-            $parts = mb_split(preg_quote($search), $subject);
+            $parts = mb_split(preg_quote($search), $subject) ?: array();
             $count = count($parts) - 1;
             $subject = implode($replace, $parts);
         }

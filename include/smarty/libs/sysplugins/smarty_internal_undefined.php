@@ -61,15 +61,6 @@ class Smarty_Internal_Undefined
         if (isset($this->class)) {
             throw new SmartyException("undefined extension class '{$this->class}'");
         } else {
-            // Piwigo specifics - starts here
-            // when updating from Piwigo 11 to 12, we try to delete compiled templates and there is a mix old and new Smarty files, resulting in a:
-            // Fatal error: Uncaught --> Smarty: Smarty->_clearTemplateCache() undefined method
-            // indeed this method does not exist in Smarty 3.1.29 (Piwigo 11) but exists in Smarty 3.1.39 (Piwigo 12)
-            if ('_clearTemplateCache' == $name)
-            {
-                return;
-            }
-            // Piwigo specifics - stops here
             throw new SmartyException(get_class($args[ 0 ]) . "->{$name}() undefined method");
         }
     }

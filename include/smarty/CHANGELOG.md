@@ -6,11 +6,66 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2022-02-06
+
+### Added
+- PHP8.1 compatibility [#713](https://github.com/smarty-php/smarty/pull/713)
+
+## [4.0.4] - 2022-01-18
+
+### Fixed
+- Fixed illegal characters bug in math function security check [#702](https://github.com/smarty-php/smarty/issues/702)
+
+## [4.0.3] - 2022-01-10
+
+### Security
+- Prevent evasion of the `static_classes` security policy. This addresses CVE-2021-21408
+
+## [4.0.2] - 2022-01-10
+
+### Security
+- Prevent arbitrary PHP code execution through maliciously crafted expression for the math function. This addresses CVE-2021-29454
+
+## [4.0.1] - 2022-01-09
+
+### Security
+- Rewrote the mailto function to not use `eval` when encoding with javascript
+
+## [4.0.0] - 2021-11-25
+
+## [4.0.0-rc.0] - 2021-10-13
+
+### Added
+- You can now use `$smarty->muteUndefinedOrNullWarnings()` to activate convert warnings about undefined or null template vars to notices when running PHP8
+
+### Changed
+- Switch CI from Travis to Github CI
+- Updated unit tests to avoid skipped and risky test warnings
+
+### Removed
+- Dropped support for PHP7.0 and below, so Smarty now requires PHP >=7.1
+- Dropped support for php asp tags in templates (removed from php since php7.0)
+- Dropped deprecated API calls that where only accessible through SmartyBC
+- Dropped support for {php} and {include_php} tags and embedded PHP in templates. Embedded PHP will now be passed through as is.
+- Removed all PHP_VERSION_ID and compare_version checks and conditional code blocks that are now no longer required
+- Dropped deprecated SMARTY_RESOURCE_CHAR_SET and SMARTY_RESOURCE_DATE_FORMAT constants
+- Dropped deprecated Smarty::muteExpectedErrors and Smarty::unmuteExpectedErrors API methods
+- Dropped deprecated $smarty->getVariable() method. Use $smarty->getTemplateVars() instead.
+- $smarty->registerResource() no longer accepts an array of callback functions
+
+## [3.1.40] - 2021-10-13
+
+### Changed
+- modifier escape now triggers a E_USER_NOTICE when an unsupported escape type is used https://github.com/smarty-php/smarty/pull/649
+
+### Security
+- More advanced javascript escaping to handle https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements thanks to m-haritonov
+
 ## [3.1.39] - 2021-02-17
 
 ### Security
-- Prevent access to `$smarty.template_object` in sandbox mode
-- Fixed code injection vulnerability by using illegal function names in `{function name='blah'}{/function}` 
+- Prevent access to `$smarty.template_object` in sandbox mode. This addresses CVE-2021-26119.
+- Fixed code injection vulnerability by using illegal function names in `{function name='blah'}{/function}`. This addresses CVE-2021-26120.
 
 ## [3.1.38] - 2021-01-08
 

@@ -16,12 +16,12 @@ class SmartyCompilerException extends SmartyException
     }
 
     /**
-     * The line number of the template error
-     *
-     * @type int|null
+     * @param int $line
      */
-    public $line = null;
-
+    public function setLine($line)
+    {
+        $this->line = $line;
+    }
     /**
      * The template source snippet relating to the error
      *

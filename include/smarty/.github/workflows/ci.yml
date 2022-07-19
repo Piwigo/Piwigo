@@ -1,0 +1,77 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+on:
+  - pull_request
+  - push
+
+name: CI
+
+jobs:
+  tests:
+    name: Tests
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      PHP_EXTENSIONS: dom, json, libxml, mbstring, pdo_sqlite, soap, xml, xmlwriter
+      PHP_INI_VALUES: assert.exception=1, zend.assertions=1
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+
+        php-version:
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+
+        compiler:
+          - default
+
+        include:
+          - os: ubuntu-latest
+            php-version: "8.0"
+            compiler: jit
+          - os: ubuntu-latest
+            php-version: "8.1"
+            compiler: jit
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Override PHP ini values for JIT compiler
+      if: matrix.compiler == 'jit'
+      run: echo "PHP_INI_VALUES::assert.exception=1, zend.assertions=1, opcache.enable=1, opcache.enable_cli=1, opcache.optimization_level=-1, opcache.jit=1255, opcache.jit_buffer_size=32M" >> $GITHUB_ENV
+
+    - name: Install PHP with extensions
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        coverage: pcov
+        extensions: ${{ env.PHP_EXTENSIONS }}
+        ini-values: ${{ env.PHP_INI_VALUES }}
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-${{ matrix.php-version }}-
+
+    - name: Install dependencies
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Run tests with phpunit
+      run: ./phpunit.sh
