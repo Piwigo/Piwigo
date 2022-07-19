@@ -350,7 +350,7 @@ switch ($page['section'])
     {
       $out = array();
       $order_by = trim($conf['order_by_inside_category']);
-      $order_by = str_replace('ORDER BY ', null, $order_by);
+      $order_by = str_replace('ORDER BY ', false, $order_by);
       $order_by = explode(', ', $order_by);
     }
 
