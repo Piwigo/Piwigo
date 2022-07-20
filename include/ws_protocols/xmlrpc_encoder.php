@@ -49,7 +49,7 @@ class PwgXmlRpcEncoder extends PwgResponseEncoder
 {
   function encodeResponse($response)
   {
-    if (is_object($response) and strtolower(@get_class($response)) == 'pwgerror')
+    if ($response instanceof PwgError)
     {
       $code = $response->code();
       $msg = htmlspecialchars($response->message());
