@@ -736,7 +736,8 @@ $conf['show_template_in_side_menu'] = false;
 
 // Add last calculated cache size to Dashboard Storage chart if true.
 // To recalculate use Tools -> Maintenance, Refresh.
-$conf['add_cache_to_storage_chart'] = false;
+// To disable, set to false.
+$conf['add_cache_to_storage_chart'] = true;
 
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
