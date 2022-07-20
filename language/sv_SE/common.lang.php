@@ -416,3 +416,5 @@ $lang['Invalid username or password!'] = 'Ogiltigt användarnamn eller lösenord
 $lang['generate random password'] = 'Slumpa fram ett lösenord';
 $lang['Related albums'] = 'Relaterade album';
 $lang['Password: ********** (no copy by email)'] = 'Lösenord:********** (Ingen kopia via e-post)';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumnamn, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumnamn, 100 &rarr; 10 &rarr; 5 &rarr; 1';
