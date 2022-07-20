@@ -24,8 +24,6 @@ const page_item = '<a data-page="%d">%d</a>';
 var create_selecter = true;
 const users_key = "{"Users"|@translate}";
 
-const ulist = {$ulist};
-
 const line_key = "{'%s line'|translate}";
 const lines_key = "{'%s lines'|translate}";
 

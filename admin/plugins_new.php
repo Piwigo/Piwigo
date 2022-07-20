@@ -171,8 +171,6 @@ if ($plugins->get_server_plugins(true, $beta_test))
       'SCREENSHOT' => (key_exists('screenshot_url', $plugin)) ? $plugin['screenshot_url']:'',
       'TAGS' => $plugin["tags"],
     ));
-
-    $template->assign('BETA_TEST', $beta_test);
   }
 
   
@@ -187,6 +185,6 @@ if (!$beta_test and preg_match('/(beta|RC)/', PHPWG_VERSION))
   $template->assign('BETA_URL', $base_url.'&amp;beta-test=true');
 }
 $template->assign('ADMIN_PAGE_TITLE', l10n('Plugins'));
-
+$template->assign('BETA_TEST', $beta_test);
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>
