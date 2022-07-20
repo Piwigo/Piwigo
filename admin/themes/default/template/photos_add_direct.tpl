@@ -31,7 +31,7 @@
 
 const formatMode = {if $DISPLAY_FORMATS}true{else}false{/if};
 const haveFormatsOriginal = {if $HAVE_FORMATS_ORIGINAL}true{else}false{/if};
-const originalImageId = haveFormatsOriginal? '{$FORMATS_ORIGINAL_INFO['id']}' : -1;
+const originalImageId = haveFormatsOriginal? '{if isset($FORMATS_ORIGINAL_INFO['id'])} {$FORMATS_ORIGINAL_INFO['id']} {else} -1 {/if}' : -1;
 
 {* <!-- CATEGORIES --> *}
 if (!formatMode) {

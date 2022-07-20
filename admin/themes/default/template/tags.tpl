@@ -44,6 +44,12 @@ $(document).ready(function() {
 {combine_script id='tags' load='footer' path='admin/themes/default/js/tags.js'}
 {combine_script id='jquery.cookie' path='themes/default/js/jquery.cookie.js' load='footer'}
 
+{footer_script}
+if (!$.cookie("pwg_tags_per_page")) {
+  $.cookie("pwg_tags_per_page", "100");
+}
+{/footer_script}
+
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
 <meta http-equiv='pragma' content='no-cache'>
@@ -210,22 +216,22 @@ $(document).ready(function() {
   <div class="pagination-per-page">
     <span class="thumbnailsActionsShow" style="font-weight: bold;">{'Display'|@translate}</span>
     <a id="100"
-  {if $smarty.cookies.pwg_tags_per_page == 100 || !$smarty.cookies.pwg_tags_per_page} 
+  {if !isset($smarty.cookies.pwg_tags_per_page) || !$smarty.cookies.pwg_tags_per_page || $smarty.cookies.pwg_tags_per_page == 100} 
     class="selected"
   {/if}
     >100</a>
     <a id="200"
-  {if $smarty.cookies.pwg_tags_per_page == 200} 
+  {if isset($smarty.cookies.pwg_tags_per_page) && $smarty.cookies.pwg_tags_per_page == 200} 
     class="selected"
   {/if}
     >200</a>
     <a id="500"
-  {if $smarty.cookies.pwg_tags_per_page == 500} 
+  {if isset($smarty.cookies.pwg_tags_per_page) && $smarty.cookies.pwg_tags_per_page == 500} 
     class="selected"
   {/if}
     >500</a>
     <a id="1000"
-  {if $smarty.cookies.pwg_tags_per_page == 1000} 
+  {if isset($smarty.cookies.pwg_tags_per_page) && $smarty.cookies.pwg_tags_per_page == 1000} 
     class="selected"
   {/if}
     >1000</a>
