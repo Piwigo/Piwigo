@@ -19,6 +19,13 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+$page['tab'] = 'list';
+include(PHPWG_ROOT_PATH.'admin/include/albums_tab.inc.php');
+
+// +-----------------------------------------------------------------------+
 // |                         categories auto order                         |
 // +-----------------------------------------------------------------------+
 
@@ -115,15 +122,17 @@ $template->assign('open_cat', $open_cat);
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
-$template->set_filename('cat_move', 'cat_move.tpl');
+$template->set_filename('albums', 'albums.tpl');
 
 $template->assign(
   array(
-    'F_ACTION' => get_root_url().'admin.php?page=cat_move',
+    'F_ACTION' => get_root_url().'admin.php?page=albums',
     )
   );
 
 $template->assign('delay_before_autoOpen', $conf['album_move_delay_before_auto_opening']);
+
+$template->assign("POS_PREF", $conf['newcat_default_position']); //TODO use user pref if it exists
 
 // +-----------------------------------------------------------------------+
 // |                          Album display                                |
@@ -131,7 +140,7 @@ $template->assign('delay_before_autoOpen', $conf['album_move_delay_before_auto_o
 
 //Get all albums
 $query = '
-SELECT id,name,`rank`,status, uppercats
+SELECT id,name,`rank`,status, uppercats, lastmodified
   FROM '.CATEGORIES_TABLE.'
 ;';
 
@@ -143,6 +152,7 @@ $associatedTree = array();
 foreach ($allAlbum as $album) 
 {
   $album['name'] = trigger_change('render_category_name', $album['name'], 'admin_cat_list');
+  $album['lastmodified'] = time_since($album['lastmodified'], 'year');
 
   $parents = explode(',',$album['uppercats']);
   $the_place = &$associatedTree[strval($parents[0])];
@@ -167,6 +177,48 @@ function assocToOrderedTree($assocT)
 {
   $orderedTree = array();
 
+  $query = '
+SELECT
+    category_id,
+    COUNT(*) AS nb_photos
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  GROUP BY category_id
+;';
+
+  $nb_photos_in = query2array($query, 'category_id', 'nb_photos');
+  
+  $query = '
+SELECT
+    id,
+    uppercats
+  FROM '.CATEGORIES_TABLE.'
+;';
+  $all_categories = query2array($query, 'id', 'uppercats');
+  $subcats_of = array();
+
+  foreach ($all_categories as $id => $uppercats)
+  {
+    foreach (array_slice(explode(',', $uppercats), 0, -1) as $uppercat_id)
+    {
+      @$subcats_of[$uppercat_id][] = $id;
+    }
+  }
+
+  $nb_sub_photos = array();
+  foreach ($subcats_of as $cat_id => $subcat_ids)
+  {
+    $nb_photos = 0;
+    foreach ($subcat_ids as $id)
+    {
+      if (isset($nb_photos_in[$id]))
+      {
+        $nb_photos+= $nb_photos_in[$id];
+      }
+    }
+
+    $nb_sub_photos[$cat_id] = $nb_photos;
+  }
+
   foreach($assocT as $cat) 
   {
     $orderedCat = array();
@@ -174,8 +226,14 @@ function assocToOrderedTree($assocT)
     $orderedCat['name'] = $cat['cat']['name'];
     $orderedCat['status'] = $cat['cat']['status'];
     $orderedCat['id'] = $cat['cat']['id'];
+    $orderedCat['nb_images'] = isset($nb_photos_in[$cat['cat']['id']]) ? $nb_photos_in[$cat['cat']['id']] : 0;
+    $orderedCat['last_updates'] = $cat['cat']['lastmodified'];
+    $orderedCat['has_not_access'] = !cat_admin_access($cat['cat']['id']);
+    $orderedCat['nb_sub_photos'] = isset($nb_sub_photos[$cat['cat']['id']]) ? $nb_sub_photos[$cat['cat']['id']] : 0;
     if (isset($cat['children'])) 
     {
+      //Does not update when moving a node
+      $orderedCat['nb_subcats'] = count($cat['children']);
       $orderedCat['children'] = assocToOrderedTree($cat['children']);
     }
     array_push($orderedTree, $orderedCat);
@@ -184,13 +242,20 @@ function assocToOrderedTree($assocT)
   return $orderedTree;
 }
 
-$template->assign('album_data', assocToOrderedTree($associatedTree));
-$template->assign('PWG_TOKEN', get_pwg_token());
+$template->assign(
+  array(
+    'album_data' => assocToOrderedTree($associatedTree),
+    'PWG_TOKEN' => get_pwg_token(),
+    'nb_albums' => count($allAlbum),
+    'ADMIN_PAGE_TITLE' => l10n('Albums'),
+  )
+);
+
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
 // +-----------------------------------------------------------------------+
 
-$template->assign_var_from_handle('ADMIN_CONTENT', 'cat_move');
+$template->assign_var_from_handle('ADMIN_CONTENT', 'albums');
 
 // +-----------------------------------------------------------------------+
 // |                              functions                                |

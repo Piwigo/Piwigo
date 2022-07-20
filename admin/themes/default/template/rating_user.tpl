@@ -36,8 +36,11 @@ body .ui-tooltip {
 }
 
 {/html_style}
-
-<h2>{$ratings|@count} {'Users'|@translate}</h2>
+{footer_script}
+$(document).ready(function() {
+  $('h1').append("<span class='badge-number'>{$NB_ELEMENTS}</span>")
+});
+{/footer_script}
 
 <form action="{$F_ACTION}" method="GET">
 <fieldset>

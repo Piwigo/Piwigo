@@ -150,7 +150,8 @@ $template->assign(
     'first_tags' => array_slice($all_tags, 0, $per_page),
     'data' => $all_tags,
     'total' => count($all_tags),
-    'per_page' => $per_page
+    'per_page' => $per_page,
+    'ADMIN_PAGE_TITLE' => l10n('Tags'),
     )
   );
 

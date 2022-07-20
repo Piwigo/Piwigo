@@ -33,10 +33,6 @@ jQuery(document).ready(function(){
 }
 {/html_style}
 
-<div class="titrePage">
-  <h2>{'Menu Management'|@translate}</h2>
-</div>
-
 <form id="menuOrdering" action="{$F_ACTION}" method="post">
   <ul class="menuUl">
     {foreach from=$blocks item=block name="block_loop"}

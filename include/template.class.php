@@ -702,7 +702,7 @@ class Template
    */
   function block_html_head($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
       $this->html_head_elements[] = $content;
@@ -718,7 +718,7 @@ class Template
    */
   function block_html_style($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
       $this->html_style .= "\n".$content;
@@ -908,7 +908,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    */
   function block_footer_script($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
 

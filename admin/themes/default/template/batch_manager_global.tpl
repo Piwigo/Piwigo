@@ -345,9 +345,6 @@ var sliders = {
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 <div id="batchManagerGlobal">
-
-<h2>{'Batch Manager'|@translate}</h2>
-
   <form action="{$F_ACTION}" method="post">
   <input type="hidden" name="start" value="{$START}">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">

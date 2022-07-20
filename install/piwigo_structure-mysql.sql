@@ -19,6 +19,7 @@ CREATE TABLE `piwigo_activity` (
   `ip_address` varchar(50) DEFAULT NULL,
   `occured_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `details` varchar(255) DEFAULT NULL,
+  `user_agent` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
 ) ENGINE=MyISAM;
 
@@ -495,6 +496,7 @@ CREATE TABLE `piwigo_user_infos` (
   `last_visit` datetime default NULL,
   `last_visit_from_history` enum('true','false') NOT NULL default 'false',
   `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `preferences` TEXT default NULL,
   PRIMARY KEY (`user_id`),
   KEY `lastmodified` (`lastmodified`)
 ) ENGINE=MyISAM;

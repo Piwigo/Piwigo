@@ -1428,7 +1428,11 @@ function get_quick_search_results_no_cache($q, $options)
   $search_results['qs']['matching_tags'] = $qsr->all_tags;
   $search_results['qs']['matching_cats'] = $qsr->all_cats;
   $search_results = trigger_change('qsearch_results', $search_results, $expression, $qsr);
-
+  if (isset($search_results['items']))
+  {
+    $ids = array_merge($ids, $search_results['items']);
+  }
+  
   global $template;
 
   if (empty($ids))

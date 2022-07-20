@@ -111,7 +111,7 @@ let str_size = "";
 {/if}
 
 {if $NB_ALBUMS > 1}
-<a class="stat-box" href="{$U_CATEGORIES}">
+<a class="stat-box" href="{$U_ALBUMS}">
 <i class="icon-sitemap icon-red"></i>
 <span class="number">{$NB_ALBUMS}</span><span class="caption">{'Albums'|translate}</span>
 </a>
@@ -127,7 +127,8 @@ let str_size = "";
 {if $NB_USERS > 2}
 <a class="stat-box" href="{$U_USERS}">
 <i class="icon-users icon-purple"></i>
-<span class="number">{$NB_USERS}</span><span class="caption">{'Users'|translate}</span>
+{* -1 because we don't count the "guest" user *}
+<span class="number">{$NB_USERS - 1}</span><span class="caption">{'Users'|translate}</span>
 </a>
 {/if}
 

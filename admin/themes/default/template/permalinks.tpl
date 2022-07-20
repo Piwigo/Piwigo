@@ -1,5 +1,6 @@
-{footer_script require='jquery.ui.sortable'}{literal}
+{footer_script require='jquery.ui.sortable'}
 jQuery(document).ready(function(){
+  $("h1").append("<span class='badge-number'>{$nb_cats}</span>")
   jQuery("#addPermalinkOpen").click(function(){
     jQuery("#addPermalink").show();
     jQuery("#showAddPermalink").hide();
@@ -10,7 +11,7 @@ jQuery(document).ready(function(){
     jQuery("#showAddPermalink").show();
   });
 });
-{/literal}{/footer_script}
+{/footer_script}
 
 {literal}
 <style>
@@ -26,10 +27,6 @@ form fieldset p.actionButtons {margin-bottom:0}
   max-width : 600px;
 }
 {/html_style}
-
-<div class="titrePage">
-  <h2>{'Permalinks'|@translate}</h2>
-</div>
 
 <p id="showAddPermalink"><a href="#" id="addPermalinkOpen">{'Add/delete a permalink'|@translate}</a></p>
 

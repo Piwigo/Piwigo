@@ -16,7 +16,6 @@ jQuery().ready(function(){
   }
 
   .applicationCard {
-    box-shadow: 0px 0px 4px 4px #DBDBDB;
     max-width: 500px;
     margin: 20px;
 
@@ -41,7 +40,6 @@ jQuery().ready(function(){
     margin: 20px 0 10px 0;
     padding-right: 15px;
     text-align: left;
-    color: black;
   }
 
   .applicationCard .applicationDesc {
@@ -69,10 +67,6 @@ jQuery().ready(function(){
 
 </style>
 {/literal}{/html_head}
-
-<div class="titrePage">
-  <h2>{'Upload Photos'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
 
 <div class="applicationContainer">
 
@@ -107,7 +101,7 @@ jQuery().ready(function(){
       <div class="applicationName"> {'Piwigo for Android'|@translate} </div> 
       <div class="applicationDesc"> {'<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'|@translate} </div> 
       <div class="applicationLink">
-        <a class="buttonGradient" target="_blank" href="https://play.google.com/store/apps/details?id=org.piwigo.android">{'Available on'|@translate} Google Play</a> 
+        <a class="buttonGradient" target="_blank" href="https://play.google.com/store/apps/details?id=com.piwigo.piwigo_ng">{'Available on'|@translate} Google Play</a> 
       </div>
     </div>
   </div>

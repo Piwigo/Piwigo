@@ -85,7 +85,12 @@ function recycleTagBox(tagBox, id, name, url_name, count) {
 
 //Number On Badge
 function updateBadge() {
-  $('.badge-number').html(dataTags.length)
+  $('.badge-number').html(dataTags.length);
+  if (dataTags.length == 0) {
+    $(".tag-header #add-tag .add-tag-label").addClass("highlight");
+  } else {
+    $(".tag-header #add-tag .add-tag-label").removeClass("highlight");
+  }
 }
 
 //Add a tag
@@ -104,6 +109,21 @@ $('#add-tag .icon-cancel-circled').on('click', function() {
 $('.tag-box').each(function() {
   setupTagbox($(this))
 })
+
+//Call the API when rename a tag
+$(".TagSubmit").on('click', function () {
+  $('.TagSubmit').hide();
+  $('.TagLoading').show();
+  renameTag($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"), $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
+    $('.TagSubmit').show();
+    $('.TagLoading').hide();
+    rename_tag_close();
+  }).catch((message) => {
+    $('.TagSubmit').show();
+    $('.TagLoading').hide();
+    console.error(message)
+  })
+});
 
 /*-------
  Add a tag
@@ -149,7 +169,6 @@ function addTag(name) {
           newTag = createTagBox(data.result.id, data.result.name, data.result.url_name, 0);
           $('.tag-container').prepend(newTag);
           setupTagbox(newTag);
-          updateBadge();
           updateSearchInfo();
 
           //Update the data
@@ -158,6 +177,7 @@ function addTag(name) {
             id:data.result.id,
             url_name:data.result.url_name
           });
+          updateBadge();
           resolve();
         } else {
           reject(str_already_exist.replace('%s', name));
@@ -209,36 +229,9 @@ function setupTagbox(tagBox) {
 
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
-    tagBox.addClass('edit-name');
-    tagBox.find(".tag-name-editable").focus();
-  })
-
-  tagBox.find('.tag-rename .icon-cancel').on('click', function() {
-    tagBox.removeClass('edit-name');
-    tagBox.find('.tag-name-editable').val(tagBox.find('.tag-name').html());
-  })
-
-  tagBox.find('.tag-rename .validate').on('click', function() {
-    tagBox.find('.tag-rename form').submit();
-  })
-
-  tagBox.find('.tag-rename form').submit(function (e) {
-    let name = tagBox.find('.tag-name').html();
-    e.preventDefault();
-    new_name = tagBox.find('.tag-rename .tag-name-editable').val();
-    if (new_name != "") {
-      let loadState = new TemporaryState();
-      loadState.removeClass(tagBox.find('.tag-rename .validate'), 'icon-ok');
-      loadState.changeHTML(tagBox.find('.tag-rename .validate'), "<i class='icon-spin6 animate-spin'> </i>");
-      renameTag(tagBox.data('id'), new_name).then(() => {
-        showMessage(str_tag_renamed.replace('%s1', name).replace('%s2', new_name));
-        loadState.reverse();
-        tagBox.removeClass('edit-name');
-      }).catch((message) => {
-        loadState.reverse();
-        showError(message);
-      })
-    }
+    console.log('SALUT');
+    set_up_popin(tagBox.data('id'), tagBox.find('.tag-name').html());
+    rename_tag_open()
   })
 
   //Delete Tag
@@ -268,6 +261,27 @@ function setupTagbox(tagBox) {
     })
   })
 
+}
+
+function set_up_popin(id, tagName) {
+
+  $(".RenameTagPopInContainer").find(".tag-property-input").attr("id", id);
+
+  $(".AddIconTitle span").html(str_tag_rename.replace("%s", tagName))
+  $(".ClosePopIn").on('click', function () {
+    rename_tag_close()
+  });
+  $(".TagSubmit").html(str_yes_rename_confirmation);
+  $(".RenameTagPopInContainer").find(".tag-property-input").val(tagName);
+}
+
+function rename_tag_close() {
+  $("#RenameTag").fadeOut();
+}
+
+function rename_tag_open() {
+  $("#RenameTag").fadeIn();
+  $(".tag-property-input").first().focus();
 }
 
 function removeTag(id, name) {
@@ -314,6 +328,7 @@ function renameTag(id, new_name) {
       },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
+        console.log(data);
         if (data.stat === "ok") {
           $('.tag-box[data-id='+id+'] p, .tag-box[data-id='+id+'] .tag-dropdown-header b').html(data.result.name);
           $('.tag-box[data-id='+id+'] .tag-name-editable').attr('value', data.result.name);

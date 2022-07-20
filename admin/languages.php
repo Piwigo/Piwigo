@@ -30,9 +30,12 @@ $tabsheet->set_id('languages');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
-if ($page['tab'] == 'update')
+if ($page['tab'] == 'update') {
   include(PHPWG_ROOT_PATH.'admin/updates_ext.php');
+  $template->assign('ADMIN_PAGE_TITLE', l10n('Languages'));
+}
 else
+{ 
   include(PHPWG_ROOT_PATH.'admin/languages_'.$page['tab'].'.php');
-
+}
 ?>

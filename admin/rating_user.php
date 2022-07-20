@@ -229,6 +229,13 @@ $template->assign('order_by_options_selected', array($order_by_index) );
 
 $x = uasort($by_user_ratings, $available_order_by[$order_by_index][1] );
 
+$query = '
+SELECT
+    COUNT(*)
+  FROM '.RATE_TABLE.
+';';
+list($nb_elements) = pwg_db_fetch_row(pwg_query($query));
+
 $template->assign( array(
   'F_ACTION' => get_root_url().'admin.php',
   'F_MIN_RATES' => $filter_min_rates,
@@ -237,7 +244,9 @@ $template->assign( array(
   'ratings' => $by_user_ratings,
   'image_urls' => $image_urls,
   'TN_WIDTH' => ImageStdParams::get_by_type(IMG_SQUARE)->sizing->ideal_size[0],
-  ) );
+  'NB_ELEMENTS' => $nb_elements,
+  'ADMIN_PAGE_TITLE' => l10n('Rating'),
+  ));
 $template->set_filename('rating', 'rating_user.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'rating');
 

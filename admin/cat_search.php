@@ -53,9 +53,44 @@ foreach ($result as $cat)
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
+
+// let's find a custom placeholder
+$query = '
+SELECT
+    name
+  FROM '.CATEGORIES_TABLE.'
+  ORDER BY RAND()
+  LIMIT 1
+;';
+$lines = query2array($query);
+$placeholder = null;
+foreach ($lines as $line)
+{
+  $name = trigger_change('render_category_name', $line['name']);
+
+  if (mb_strlen($name) > 25)
+  {
+    $name = mb_substr($name, 0, 25).'...';
+  }
+
+  $placeholder = $name;
+  break;
+}
+
+if (empty($placeholder))
+{
+  $placeholder = l10n('Portraits');
+}
+
 $template->set_filename('cat_search', 'cat_search.tpl');
-$template->assign('data_cat', $categories);
-$template->assign('ADMIN_PAGE_TITLE', l10n('Album search tool'));
+
+$template->assign(
+  array(
+    'data_cat' => $categories,
+    'ADMIN_PAGE_TITLE' => l10n('Albums'),
+    'placeholder' => $placeholder,
+  )
+);
 
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |

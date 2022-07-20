@@ -55,7 +55,7 @@ $tabsheet->assign();
 
 $template->assign(
   array(
-    'ADMIN_PAGE_TITLE' => l10n('Edit photo #%s', $_GET['image_id']),
+    'ADMIN_PAGE_TITLE' => l10n('Edit photo <span class="image-id">#%s</span>', $_GET['image_id']),
     )
   );
 

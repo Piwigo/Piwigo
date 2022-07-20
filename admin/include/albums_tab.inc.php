@@ -15,4 +15,16 @@ $tabsheet->set_id('albums');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
+$query = '
+SELECT COUNT(*)
+  FROM '.CATEGORIES_TABLE.'
+;';
+
+list($nb_cats) = pwg_db_fetch_row(pwg_query($query));
+$template->assign(
+  array(
+    'nb_cats' => $nb_cats,
+  )
+);
+
 ?>

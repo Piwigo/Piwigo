@@ -957,6 +957,7 @@ $template->assign(
     'L_RESULT_METADATA'=>$result_title.l10n('Metadata synchronization results'),
     'METADATA_LIST' => $used_metadata,
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=synchronize',
+    'ADMIN_PAGE_TITLE' => l10n('Synchronize'),
     ));
 
 // +-----------------------------------------------------------------------+

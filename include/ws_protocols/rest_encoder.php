@@ -142,7 +142,7 @@ class PwgRestEncoder extends PwgResponseEncoder
 {
   function encodeResponse($response)
   {
-    if (is_object($response) and strtolower(@get_class($response)) == 'pwgerror')
+    if ($response instanceof PwgError)
     {
       $ret = '<?xml version="1.0"?>
 <rsp stat="fail">

@@ -1,26 +1,26 @@
 {include file='include/colorbox.inc.tpl'}
 {footer_script}
 var pwg_token = "{$PWG_TOKEN}";
-var str_member_default = "{'member'|@translate}"
-var str_members_default = "{'members'|@translate}"
-var str_group_created = "{'Group added'|@translate}"
-var str_renaming_done = "{'Group renamed'|@translate}"
-var str_name_taken = "{'Name is already taken'|@translate}"
-var str_name_not_empty = "{'Name field must not be empty'|@translate}"
-var str_group_deleted = '{'Group "%s" succesfully deleted'|@translate}'
+var str_member_default = "{'member'|@translate|@escape:'javascript'}"
+var str_members_default = "{'members'|@translate|@escape:'javascript'}"
+var str_group_created = "{'Group added'|@translate|@escape:'javascript'}"
+var str_renaming_done = "{'Group renamed'|@translate|@escape:'javascript'}"
+var str_name_taken = "{'Name is already taken'|@translate|@escape:'javascript'}"
+var str_name_not_empty = "{'Name field must not be empty'|@translate|@escape:'javascript'}"
+var str_group_deleted = '{'Group "%s" succesfully deleted'|@translate|@escape:'javascript'}'
 var str_groups_deleted = '{'Groups \{%s\} succesfully deleted'|@translate}'
-var str_set_default = "{'Set as group for new users'|@translate}"
-var str_unset_default = "{'Unset as group for new users'|@translate}"
-var str_delete = '{'Are you sure you want to delete group "%s"?'|@translate}'
-var str_yes_delete_confirmation = "{'Yes, delete'|@translate}"
-var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}"
-var str_user_associated = "{"User associated"|@translate}"
-var str_user_dissociate = "{'Dissociate user from this group'|translate}"
-var str_user_dissociated = '{'User "%s" dissociated from this group'|@translate}'
-var str_user_list = "{'Manage the members'|translate}"
+var str_set_default = "{'Set as group for new users'|@translate|@escape:'javascript'}"
+var str_unset_default = "{'Unset as group for new users'|@translate|@escape:'javascript'}"
+var str_delete = '{'Are you sure you want to delete group "%s"?'|@translate|@escape:'javascript'}'
+var str_yes_delete_confirmation = "{'Yes, delete'|@translate|@escape:'javascript'}"
+var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate|@escape:'javascript'}"
+var str_user_associated = "{"User associated"|@translate|@escape:'javascript'}"
+var str_user_dissociate = "{'Dissociate user from this group'|translate|@escape:'javascript'}"
+var str_user_dissociated = '{'User "%s" dissociated from this group'|@translate|@escape:'javascript'}'
+var str_user_list = "{'Manage the members'|translate|@escape:'javascript'}"
 var str_merged_into = '{'Group(s) \{%s1\} succesfully merged into "%s2"'|@translate}'
-var str_copy = '{' (copy)'|@translate}'
-var str_other_copy = '{' (copy %s)'|@translate}'
+var str_copy = '{' (copy)'|@translate|@escape:'javascript'}'
+var str_other_copy = '{' (copy %s)'|@translate|@escape:'javascript'}'
 
 var serverKey = '{$CACHE_KEYS.users}'
 var serverId = '{$CACHE_KEYS._hash}'
@@ -265,14 +265,3 @@ usersCache.selectize(jQuery('select.UserSearch'));
 </div>
 </div>
 
-<style>
-
-.GroupContainer[data-default="1"] .dropdown::after {
-  left: 183px
-}
-
-.GroupContainer[data-default="0"] .dropdown::after {
-  left: 250px
-}
-
-</style>

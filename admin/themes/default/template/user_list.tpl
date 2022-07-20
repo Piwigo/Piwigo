@@ -25,7 +25,7 @@ const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
 const str_and_others_tags = '{'and %s others'|@translate}';
 const missingConfirm = "{'You need to confirm deletion'|translate|escape:javascript}";
 const missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
-const fieldNotEmpty = "{'Name field must not be empty'|@translate}"
+const fieldNotEmpty = "{'Name field must not be empty'|@translate|escape:javascript}"
 
 const registered_str = '{"Registered"|@translate}';
 const last_visit_str = '{"Last visit"|@translate}';
@@ -83,6 +83,93 @@ $(".icon-help-circled").tipTip({
   'fadeIn': '1000',
 });
 
+$(document).ready(function() {
+  // We set the applyAction btn click event here so plugins can add cases to the list 
+  // which is not possible if this JS part is in a JS file
+  // see #1571 on Github
+  jQuery("#applyAction").click(function() {
+      let action = jQuery("select[name=selectAction]").prop("value");
+      let method = 'pwg.users.setInfo';
+      let data = {
+          pwg_token: pwg_token,
+          user_id: selection.map(x => x.id)
+      };
+      switch (action) {
+          case 'delete':
+              if (!($("#permitActionUserList .user-list-checkbox[name=confirm_deletion]").attr("data-selected") === "1")) {
+                  alert(missingConfirm);
+                  return false;
+              }
+              method = 'pwg.users.delete';
+              break;
+          case 'group_associate':
+              method = 'pwg.groups.addUser';
+              data.group_id = jQuery("#permitActionUserList select[name=associate]").prop("value");
+              break;
+          case 'group_dissociate':
+              method = 'pwg.groups.deleteUser';
+              data.group_id = jQuery("#permitActionUserList select[name=dissociate]").prop("value");
+              break;
+          case 'status':
+              data.status = jQuery("#permitActionUserList select[name=status]").prop("value");
+              break;
+          case 'enabled_high':
+              data.enabled_high = $("#permitActionUserList .user-list-checkbox[name=enabled_high_yes]").attr("data-selected") === "1" ? true : false;
+              break;
+          case 'level':
+              data.level = jQuery("#permitActionUserList select[name=level]").val();
+              break;
+          case 'nb_image_page':
+              data.nb_image_page = jQuery("#permitActionUserList input[name=nb_image_page]").val();
+              break;
+          case 'theme':
+              data.theme = jQuery("#permitActionUserList select[name=theme]").val();
+              break;
+          case 'language':
+              data.language = jQuery("#permitActionUserList select[name=language]").val();
+              break;
+          case 'recent_period':
+              data.recent_period = recent_period_values[$('#permitActionUserList .period-select-bar .slider-bar-container').slider("option", "value")];;
+              break;
+          case 'expand':
+              data.expand = $("#permitActionUserList .user-list-checkbox[name=expand_yes]").attr("data-selected") === "1" ? true : false;
+              break;
+          case 'show_nb_comments':
+              data.show_nb_comments = $("#permitActionUserList .user-list-checkbox[name=show_nb_comments_yes]").attr("data-selected") === "1" ? true : false
+              break;
+          case 'show_nb_hits':
+              data.show_nb_hits = $("#permitActionUserList .user-list-checkbox[name=show_nb_hits_yes]").attr("data-selected") === "1" ? true : false;
+              break;
+          default:
+              alert("Unexpected action");
+              return false;
+      }
+      jQuery.ajax({
+          url: "ws.php?format=json&method="+method,
+          type:"POST",
+          data: data,
+          beforeSend: function() {
+              jQuery("#applyActionLoading").show();
+              jQuery("#applyActionBlock .infos").fadeOut();
+          },
+          success:function(data) {
+              jQuery("#applyActionLoading").hide();
+              jQuery("#applyActionBlock .infos").fadeIn();
+              jQuery("#applyActionBlock .infos").css("display", "inline-block");
+              update_user_list();
+              if (action == 'delete') {
+                  selection = [];
+                  update_selection_content();
+              }
+          },
+          error:function(XMLHttpRequest, textStatus, errorThrows) {
+              jQuery("#applyActionLoading").hide();
+          }
+      });
+      return false;
+  });
+});
+
 {/footer_script}
 
 {combine_script id='user_list' load='footer' path='admin/themes/default/js/user_list.js'}
@@ -108,14 +195,14 @@ $(".icon-help-circled").tipTip({
 
       <div style="display:flex;justify-content:space-between; flex-grow:1;">
         <div style="display:flex; align-items: center;">
-          <div class="not-in-selection-mode user-header-button add-user-button" style="margin: auto; margin-right: 10px">
-            <label class="user-header-button-label icon-plus-circled">
+          <div class="not-in-selection-mode user-header-button add-user-button" style="margin: auto;">
+            <label class="head-button-2 icon-plus-circled">
               <p>{'Add a user'|@translate}</p>
             </label>
           </div>
 
-          <div class="not-in-selection-mode user-header-button" style="margin: auto; margin-right: 10px">
-            <label class="user-header-button-label icon-user-secret edit-guest-user-button">
+          <div class="not-in-selection-mode user-header-button" style="margin: auto;">
+            <label class="head-button-2 icon-user-secret edit-guest-user-button">
               <p>{'Edit guest user'|@translate}</p>
             </label>
           </div>
@@ -141,7 +228,7 @@ $(".icon-help-circled").tipTip({
       <div class="not-in-selection-mode" style="width: 264px; height:2px">
       </div>
     </div>
-    <div id="advanced_filter_button" class="icon-filter">
+    <div class="advanced-filter-btn icon-filter">
       <span>{'Filters'|@translate}</span>
     </div>
     <div id='search-user'>
@@ -152,47 +239,47 @@ $(".icon-help-circled").tipTip({
           <span class="icon-cancel search-cancel"></span>
           <input id="user_search" class='search-input' type='text' placeholder='{'Search'|@translate}'>
         </div>
-    <div id="advanced-filter-container">
-      <div class="advanced-filters-header">
+    <div class="advanced-filter">
+      <div class="advanced-filter-header">
         <span class="advanced-filter-title">{'Advanced filters'|@translate}</span>
         <span class="advanced-filter-close icon-cancel"></span>
       </div>
-      <div class="advanced-filters">
-        <div class="advanced-filter-status">
-          <label class="advanced-filter-label">{'Status'|@translate}</label>
-          <div class="advanced-filter-select-container">
+      <div class="advanced-filter-container">
+      <div class="advanced-filter-status advanced-filter-item">
+          <label class="advanced-filter-item-label">{'Status'|@translate}</label>
+          <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_status">
               <option value="" label="" selected></option>
               {html_options options=$pref_status_options}
             </select>
           </div>
         </div>
-        <div class="advanced-filter-level">
-          <label class="advanced-filter-label">{'Privacy level'|@translate}</label>
-          <div class="advanced-filter-select-container">
+        <div class="advanced-filter-level advanced-filter-item">
+          <label class="advanced-filter-item-label">{'Privacy level'|@translate}</label>
+          <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_level" size="1">
               <option value="" label="" selected></option>
               {html_options options=$level_options}
             </select>
           </div>
         </div>
-        <div class="advanced-filter-group">
-          <label class="advanced-filter-label">{'Group'|@translate}</label>
-          <div class="advanced-filter-select-container">
+        <div class="advanced-filter-group advanced-filter-item">
+          <label class="advanced-filter-item-label">{'Group'|@translate}</label>
+          <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_group">
               <option value="" label="" selected></option>
               {html_options options=$association_options}
             </select>
           </div>
         </div>
-        <div class="advanced-filter-date">
+        <div class="advanced-filter-date advanced-filter-item">
           <div class="advanced-filter-date-title" style="display:flex">
-            <span class="advanced-filter-label">{'Registered'|@translate}</span>
+            <span class="advanced-filter-item-label">{'Registered'|@translate}</span>
             <span class='dates-infos'></span>
           </div>
           <div class="dates-select-bar">
-              <div class="select-bar-wrapper">
-                <div class="select-bar-container"></div>
+              <div class="slider-bar-wrapper">
+                <div class="slider-bar-container"></div>
               </div>
             </div>
         </div>
@@ -359,8 +446,8 @@ $(".icon-help-circled").tipTip({
             <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
               <br/>
               <span class="nb-img-page-infos"></span>
-              <div class="select-bar-wrapper">
-                <div class="select-bar-container"></div>
+              <div class="slider-bar-wrapper">
+                <div class="slider-bar-container"></div>
               </div>
               <input name="nb_image_page" />
             </div>
@@ -390,8 +477,8 @@ $(".icon-help-circled").tipTip({
             <div class="user-property-label period-select-bar">{'Recent period'|translate}
               <br />
               <span class="recent_period_infos"></span>
-              <div class="select-bar-wrapper">
-                <div class="select-bar-container"></div>
+              <div class="slider-bar-wrapper">
+                <div class="slider-bar-container"></div>
               </div>
             </div>
           </div>
@@ -635,8 +722,8 @@ $(".icon-help-circled").tipTip({
       </div>
       <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
         <span class="nb-img-page-infos"></span>
-        <div class="select-bar-wrapper">
-          <div class="select-bar-container"></div>
+        <div class="slider-bar-wrapper">
+          <div class="slider-bar-container"></div>
         </div>
         <input name="recent_period" />
       </div>
@@ -658,8 +745,8 @@ $(".icon-help-circled").tipTip({
       </div>
       <div class="user-property-label period-select-bar">{'Recent period'|translate}
         <span class="recent_period_infos"></span>
-        <div class="select-bar-wrapper">
-          <div class="select-bar-container"></div>
+        <div class="slider-bar-wrapper">
+          <div class="slider-bar-container"></div>
         </div>
       </div>
       
@@ -793,8 +880,8 @@ $(".icon-help-circled").tipTip({
         </div>
         <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
           <span class="nb-img-page-infos"></span>
-          <div class="select-bar-wrapper">
-            <div class="select-bar-container"></div>
+          <div class="slider-bar-wrapper">
+            <div class="slider-bar-container"></div>
           </div>
           <input name="recent_period" />
         </div>
@@ -816,8 +903,8 @@ $(".icon-help-circled").tipTip({
         </div>
         <div class="user-property-label period-select-bar">{'Recent period'|translate}
           <span class="recent_period_infos"><!-- 7 days --></span>
-          <div class="select-bar-wrapper">
-            <div class="select-bar-container"></div>
+          <div class="slider-bar-wrapper">
+            <div class="slider-bar-container"></div>
           </div>
         </div>
 
@@ -949,25 +1036,6 @@ $(".icon-help-circled").tipTip({
   padding-bottom:10px;
 }
 
-.user-header-button {
-  position:relative;
-}
-
-.user-header-button-label {
-	position: relative;
-	padding: 10px;
-	box-shadow: 0px 2px #00000024;
-	border-radius: 5px;
-	font-weight: bold;
-	display: flex;
-	align-items: baseline;
-	cursor: pointer;
-}
-
-
-.user-header-button-label p {
-  margin:0;
-}
 
 #AddUserSuccess {
   display:none;
@@ -993,6 +1061,10 @@ $(".icon-help-circled").tipTip({
   color: #3a3a3a;
   cursor: pointer;
   margin-left:10px;
+}
+
+.user-header-button {
+  position:relative;
 }
 
 /* filters bar */
@@ -1388,43 +1460,8 @@ $(".icon-help-circled").tipTip({
   margin-left: 220px;
 }
 
-.advanced-filter-select-container {
-  position: relative;
-  text-align:left;
-  width:100%;
-}
-
 .user-action-select-container {
   position:relative;
-}
-
-
-.select-bar-wrapper {
-    padding-left:10px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-
-.select-bar-wrapper .select-bar-container {
-  height: 2px;
-}
-
-.select-bar-wrapper .ui-slider-horizontal .ui-slider-handle{
-    background-color:#ffaf58;
-    border: 1px solid #ffaf58;
-    border-radius:25px;
-    top: -.7em !important;
-    width: 1.4em;
-    height: 1.4em;
-}
-
-.select-bar-wrapper .ui-slider-horizontal .ui-slider-range {
-  background-color: #ffaf58;
-}
-
-.select-bar-wrapper .ui-slider-horizontal{
-    border:none;
-    border-radius:25px;
 }
 
 .user-list-checkbox {
@@ -1894,22 +1931,10 @@ Advanced filter
   margin-left: 500px;
 }
 
-#advanced_filter_button {
-
-  width: 70px;
-
+.advanced-filter-btn {
   position: absolute;
-  z-index: 2;
   right: 650px;
-
-
-  cursor:pointer;
-  padding:10px;
   margin-right:10px;
-}
-
-#advanced_filter_button.icon-filter::before {
-  transform: scale(1.2);
 }
 
 #search-user {
@@ -1929,7 +1954,7 @@ Advanced filter
   font-size:1em;
 }
 
-.advanced-filters-header {
+.advanced-filter-header {
   display:flex;
   justify-content:space-between;
   margin-bottom:10px;
@@ -1939,18 +1964,7 @@ Advanced filter
   font-weight:bold;
 }
 
-.advanced-filters {
-  display:flex;
-  padding:5px;
-}
-
 .advanced-filter-status, 
-.advanced-filter-level,
-.advanced-filter-group {
-  margin-right: 30px;
-  min-width: 130px;
-}
-
 .advanced-filter-level {
   max-width: 160px;
   width: 16%;
@@ -1977,7 +1991,7 @@ Advanced filter
   flex-direction: row;
 }
 
-.select-bar-wrapper {
+.slider-bar-wrapper {
   margin-top: 12px;
 }
 

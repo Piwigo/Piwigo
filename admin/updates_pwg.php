@@ -138,6 +138,7 @@ if (isset($new_versions['major']))
   );
 }
 
+$template->assign('ADMIN_PAGE_TITLE', l10n('Updates'));
 $template->set_filename('plugin_admin_content', 'updates_pwg.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 
