@@ -1252,3 +1252,8 @@ $lang['Locked albums are disabled for maintenance. Only administrators can view 
 $lang['Webmaster status required'] = 'Kræver webmasterstatus';
 $lang['Your selection'] = 'Dit valg';
 $lang['action successfully performed.'] = 'handling gennemført.';
+$lang['Are you sure you want to uninstall the plugin "%s"?'] = 'Er du sikker på, at du vil afinstallere plugin\'en "%s"?';
+$lang['Are you sure you want to unlock the gallery?'] = 'Er du sikker på, at du vil låse galleriet op?';
+$lang['Global Gallery Actions'] = 'Globale gallerihandlinger';
+$lang['Purge Actions'] = 'Tøm handlinger';
+$lang['Purge Cache'] = 'Tøm cache';
