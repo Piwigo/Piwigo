@@ -586,7 +586,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
     $result = trigger_change('ws_invoke_allowed', true, $methodName, $params);
     
     $is_error = false;
-    if (is_object($result) and strtolower( get_class($result) ) == 'pwgerror')
+    if ($result instanceof PwgError)
     {
       $is_error = true;
     }

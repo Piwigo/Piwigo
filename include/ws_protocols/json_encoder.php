@@ -10,7 +10,7 @@ class PwgJsonEncoder extends PwgResponseEncoder
 {
   function encodeResponse($response)
   {
-    if (is_object($response) and strtolower(get_class($response)) == 'pwgerror')
+    if ($response instanceof PwgError)
     {
       return json_encode(
         array(
