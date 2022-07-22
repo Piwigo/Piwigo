@@ -7,6 +7,8 @@ var piwigo_need_update_msg = '<a href="admin.php?page=updates">{'A new version o
 var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
 const str_gb_used = "{'%s GB used'|translate}";
 const str_mb_used = "{'%s MB used'|translate}";
+const str_gb = "{'%sGB'|translate}".replace(' ', '&nbsp;');
+const str_mb = "{'%sMB'|translate}".replace(' ', '&nbsp;');
 const storage_total = {$STORAGE_TOTAL};
 {literal}
 jQuery().ready(function(){
@@ -80,9 +82,9 @@ let str_size = "";
 {/literal}
 {foreach from=$STORAGE_CHART_DATA key=type item=value}
   size = {$value};
-  str_size_type = size > 1000000 ? "GB" : "MB";
+  str_size_type_string = size > 1000000 ? str_gb : str_mb;
   size_nb = size > 1000000 ? (size / 1000000).toFixed(2) : (size / 1000).toFixed(0);
-  str_size = " : " + size_nb.toString() + " " + str_size_type;
+  str_size = " : " + str_size_type_string.replace("%s", size_nb);
   $("#storage-{$type}").html("<b></b>" + str_size);
   $("#storage-{$type} b").html("{$type|translate}");
 {/foreach}
