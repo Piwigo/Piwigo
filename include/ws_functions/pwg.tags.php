@@ -136,18 +136,23 @@ SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
   if (!empty($image_ids))
   {
     $rank_of = array_flip($image_ids);
-
-    $favoritesJoin = '';
-    $favSelect = '0 as is_favorite';
+    
+    $favorite_ids = [];
     if (!is_a_guest()) {
-      $favoritesJoin = 'LEFT JOIN ' .FAVORITES_TABLE. ' f ON (i.id=f.image_id AND f.user_id='.$user['id'].')';
-      $favSelect = 'CASE WHEN f.image_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite';
+      $query = '
+SELECT
+    image_id,
+    1 as fake_value
+  FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+';
+      $favorite_ids = query2array($query, 'image_id', 'fake_value');
     }
 
     $query = '
-SELECT i.*, ' . $favSelect . '
-  FROM '. IMAGES_TABLE .' i ' . $favoritesJoin . '
-  WHERE i.id IN ('. implode(',',$image_ids) .')
+SELECT *
+  FROM '. IMAGES_TABLE .'
+  WHERE id IN ('. implode(',',$image_ids) .')
 ;';
     $result = pwg_query($query);
 
@@ -155,8 +160,9 @@ SELECT i.*, ' . $favSelect . '
     {
       $image = array();
       $image['rank'] = $rank_of[ $row['id'] ];
+      $image['is_favorite'] = isset($favorite_ids[ $row['id'] ]);
 
-      foreach (array('id', 'width', 'height', 'hit', 'is_favorite') as $k)
+      foreach (array('id', 'width', 'height', 'hit') as $k)
       {
         if (isset($row[$k]))
         {
