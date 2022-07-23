@@ -646,10 +646,12 @@ SELECT *
 ;';
     $result = pwg_query($query);
     $image_ids = array_flip($image_ids);
+    $favorite_ids = get_user_favorites();
 
     while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
+      $image['is_favorite'] = isset($favorite_ids[ $row['id'] ]);
       foreach (array('id', 'width', 'height', 'hit') as $k)
       {
         if (isset($row[$k]))

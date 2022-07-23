@@ -134,6 +134,7 @@ SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
   if (!empty($image_ids))
   {
     $rank_of = array_flip($image_ids);
+    $favorite_ids = get_user_favorites();
 
     $query = '
 SELECT *
@@ -146,6 +147,7 @@ SELECT *
     {
       $image = array();
       $image['rank'] = $rank_of[ $row['id'] ];
+      $image['is_favorite'] = isset($favorite_ids[ $row['id'] ]);
 
       foreach (array('id', 'width', 'height', 'hit') as $k)
       {

@@ -77,6 +77,7 @@ SELECT id, name, permalink, image_order
       $order_by = $cats[ $params['cat_id'][0] ]['image_order'];
     }
     $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
+    $favorite_ids = get_user_favorites();
 
     $query = '
 SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
@@ -93,6 +94,7 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
     while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
+      $image['is_favorite'] = isset($favorite_ids[ $row['id'] ]);
       foreach (array('id', 'width', 'height', 'hit') as $k)
       {
         if (isset($row[$k]))
