@@ -129,13 +129,13 @@ function get_exif_data($filename, $map)
   
   $result = array();
 
-  if (!function_exists('read_exif_data'))
+  if (!function_exists('exif_read_data'))
   {
     die('Exif extension not available, admin should disable exif use');
   }
 
   // Read EXIF data
-  if ($exif = @read_exif_data($filename) or $exif2 = trigger_change('format_exif_data', $exif=null, $filename, $map))
+  if ($exif = @exif_read_data($filename) or $exif2 = trigger_change('format_exif_data', $exif=null, $filename, $map))
   {
     if (!empty($exif2))
     {

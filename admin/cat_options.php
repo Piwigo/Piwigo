@@ -242,6 +242,7 @@ SELECT DISTINCT id,name,uppercats,global_rank
 display_select_cat_wrapper($query_true,array(),'category_option_true');
 display_select_cat_wrapper($query_false,array(),'category_option_false');
 $template->assign('PWG_TOKEN',get_pwg_token());
+$template->assign('ADMIN_PAGE_TITLE', l10n('Properties of abums'));
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

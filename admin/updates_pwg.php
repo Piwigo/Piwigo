@@ -108,7 +108,7 @@ if (isset($new_versions['major_php']) and version_compare(phpversion(), $new_ver
 
 if (!is_webmaster())
 {
-  $page['errors'][] = l10n('Webmaster status is required.');
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
 }
 
 $template->assign(array(
@@ -138,6 +138,7 @@ if (isset($new_versions['major']))
   );
 }
 
+$template->assign('ADMIN_PAGE_TITLE', l10n('Updates'));
 $template->set_filename('plugin_admin_content', 'updates_pwg.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 

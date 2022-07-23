@@ -14,7 +14,7 @@ define('PHPWG_ROOT_PATH','./');
 // addslashes to vars if magic_quotes_gpc is off this is a security
 // precaution to prevent someone trying to break out of a SQL statement.
 //
-if( !@get_magic_quotes_gpc() )
+if(function_exists('get_magic_quotes_gpc') && !@get_magic_quotes_gpc() )
 {
   if( is_array($_POST) )
   {
@@ -239,7 +239,8 @@ header('Content-Type: text/html; charset=UTF-8');
 //------------------------------------------------- check php version
 if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
 {
-  include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php');
+  // include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php'); // to remove, with all its related content
+  $errors[] = l10n('PHP version %s required (you are running on PHP %s)', REQUIRED_PHP_VERSION, PHP_VERSION);
 }
 
 //----------------------------------------------------- template initialization

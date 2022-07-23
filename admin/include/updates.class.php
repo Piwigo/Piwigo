@@ -465,8 +465,7 @@ class updates
 
     if ($step == 2)
     {
-      preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION, $matches);
-      $code =  $matches[1].'.x_to_'.$upgrade_to;
+      $code = get_branch_from_version(PHPWG_VERSION).'.x_to_'.$upgrade_to;
       $dl_code = str_replace(array('.', '_'), '', $code);
       $remove_path = $code;
       $obsolete_list = 'obsolete.list';
@@ -546,9 +545,14 @@ class updates
             self::process_obsolete_list($obsolete_list);
             deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
             invalidate_user_cache(true);
-            $template->delete_compiled_templates();
             if ($step == 2)
             {
+              // only delete compiled templates on minor update. Doing this on
+              // a major update might even encounter fatal error if Smarty
+              // changes. Anyway, a compiled template purge will be performed
+              // by upgrade.php
+              $template->delete_compiled_templates();
+
               $page['infos'][] = l10n('Update Complete');
               $page['infos'][] = $upgrade_to;
               $step = -1;

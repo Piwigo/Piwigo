@@ -66,7 +66,7 @@ class c13y_internal
 
     foreach (array('show_exif', 'use_exif') as $value)
     {
-      if (($conf[$value]) and (!function_exists('read_exif_data')))
+      if (($conf[$value]) and (!function_exists('exif_read_data')))
       {
         $c13y->add_anomaly(
           sprintf(l10n('%s value is not correct file because exif are not supported'), '$conf[\''.$value.'\']'),

@@ -172,6 +172,7 @@ while ($row = pwg_db_fetch_assoc($result))
       array(
         'id'=>$row['image_id'],
         'path'=>$row['path'],
+        'representative_ext'=>$row['representative_ext'],
         )
      );
   if (empty($row['author_id']))
@@ -211,6 +212,7 @@ $navbar = create_navigation_bar(
   );
 
 $template->assign('navbar', $navbar);
+$template->assign('ADMIN_PAGE_TITLE', l10n('User comments'));
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

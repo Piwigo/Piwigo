@@ -826,6 +826,7 @@ LEGEND {
 }
 
 
-#TagsGroupRemoveTag span{
+#TagsGroupRemoveTag span,
+#TagsGroupRemoveTag i{
   display:none;
 }

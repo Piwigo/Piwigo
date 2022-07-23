@@ -421,3 +421,7 @@ $lang['created after %s (%s)'] = '%s-aren (%s-en) ondoren sortuta';
 $lang['Your authentication key is no longer valid.'] = 'Zure autentifikazio gakoa ez da luzaroago baliozkoa';
 $lang['generate random password'] = 'Sortu ausazko pasahitza';
 $lang['Invalid username or password!'] = 'Erabiltzaile-izen edo pasahitz baliogabea!';
+$lang['Password: ********** (no copy by email)'] = 'Pasahitza: ********** (ez da kopiarik bidaliko posta elektronikoz)';
+$lang['Related albums'] = 'Erlazionatutako albumak';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumaren izena, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumaren izena, 100 &rarr; 10 &rarr; 5 &rarr; 1';

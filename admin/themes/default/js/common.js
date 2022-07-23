@@ -142,10 +142,12 @@ $('.search-input').on('input', function() {
 
 // Class to implement a temporary state and reverse it
 class TemporaryState {
-  //Arrays to reverse changes
-  attrChanges = []; //Attribute changes : {object(s), attribute, value}
-  classChanges = []; //Class changes : {object(s), state(add:true/remove:false), class}
-  htmlChanges = []; //Html changes : {object(s), html}
+  constructor() {
+    //Arrays to reverse changes
+    this.attrChanges = []; //Attribute changes : {object(s), attribute, value}
+    this.classChanges = []; //Class changes : {object(s), state(add:true/remove:false), class}
+    this.htmlChanges = []; //Html changes : {object(s), html}
+  }
 
   /**
    * Change temporaly an attribute of an object
@@ -269,6 +271,22 @@ const jConfirm_confirm_options = {
   type: 'red',
   animateFromElement: false,
   backgroundDismiss: true,
+  typeAnimated: false,
+}
+
+const jConfirm_warning_options = {
+  icon: "icon-attention",
+  draggable: false,
+  titleClass: "jconfirmWarning jconfirmAlert",
+  theme:"modern",
+  type: 'orange',
+  closeIcon: true,
+  draggable: false,
+  animation: "zoom",
+  boxWidth: '20%',
+  useBootstrap: false,
+  backgroundDismiss: true,
+  animateFromElement: false,
   typeAnimated: false,
 }
 

@@ -7,6 +7,8 @@ var piwigo_need_update_msg = '<a href="admin.php?page=updates">{'A new version o
 var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
 const str_gb_used = "{'%s GB used'|translate}";
 const str_mb_used = "{'%s MB used'|translate}";
+const str_gb = "{'%sGB'|translate}".replace(' ', '&nbsp;');
+const str_mb = "{'%sMB'|translate}".replace(' ', '&nbsp;');
 const storage_total = {$STORAGE_TOTAL};
 {literal}
 jQuery().ready(function(){
@@ -15,6 +17,8 @@ jQuery().ready(function(){
 		splitTitle: '|',
 		positionBy: 'bottomTop'
 	});
+{/literal}
+{if $CHECK_FOR_UPDATES}
   jQuery.ajax({
     type: 'GET',
     url: 'ws.php',
@@ -34,6 +38,8 @@ jQuery().ready(function(){
         jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
     }
   });
+{/if}
+{literal}
 
   jQuery('.newsletter-subscription a').click(function() {
     jQuery('.newsletter-subscription').hide();
@@ -76,11 +82,11 @@ let str_size = "";
 {/literal}
 {foreach from=$STORAGE_CHART_DATA key=type item=value}
   size = {$value};
-  str_size_type = size > 1000000 ? "GB" : "MB";
+  str_size_type_string = size > 1000000 ? str_gb : str_mb;
   size_nb = size > 1000000 ? (size / 1000000).toFixed(2) : (size / 1000).toFixed(0);
-  str_size = " : " + size_nb.toString() + " " + str_size_type;
+  str_size = " : " + str_size_type_string.replace("%s", size_nb);
   $("#storage-{$type}").html("<b></b>" + str_size);
-  $("#storage-{$type} b").html("{$type}");
+  $("#storage-{$type} b").html("{$type|translate}");
 {/foreach}
 {/footer_script}
 
@@ -107,7 +113,7 @@ let str_size = "";
 {/if}
 
 {if $NB_ALBUMS > 1}
-<a class="stat-box" href="{$U_CATEGORIES}">
+<a class="stat-box" href="{$U_ALBUMS}">
 <i class="icon-sitemap icon-red"></i>
 <span class="number">{$NB_ALBUMS}</span><span class="caption">{'Albums'|translate}</span>
 </a>
@@ -123,7 +129,8 @@ let str_size = "";
 {if $NB_USERS > 2}
 <a class="stat-box" href="{$U_USERS}">
 <i class="icon-users icon-purple"></i>
-<span class="number">{$NB_USERS}</span><span class="caption">{'Users'|translate}</span>
+{* -1 because we don't count the "guest" user *}
+<span class="number">{$NB_USERS - 1}</span><span class="caption">{'Users'|translate}</span>
 </a>
 {/if}
 
@@ -181,7 +188,7 @@ let str_size = "";
   <div class="chart-title"> {"Activity peak in the last weeks"|@translate}</div>
   <div class="activity-chart" style="grid-template-rows: repeat({count($ACTIVITY_CHART_DATA) + 1}, 5vw);">
     {foreach from=$ACTIVITY_CHART_DATA item=WEEK_ACTIVITY key=WEEK_NUMBER}
-      <div id="week-{$WEEK_NUMBER}-legend" class="row-legend"><div>{"Week %s"|@translate:$ACTIVITY_WEEK_NUMBER[$WEEK_NUMBER]}</div></div>
+      <div id="week-{$WEEK_NUMBER}-legend" class="row-legend"><div>{'Week %d'|@translate:$ACTIVITY_WEEK_NUMBER[$WEEK_NUMBER]}</div></div>
       {foreach from=$WEEK_ACTIVITY item=SIZE key=DAY_NUMBER}
         <span>
           {if $SIZE != 0}
@@ -191,18 +198,18 @@ let str_size = "";
           {if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] != 0}     
           <p class="tooltip" style="transform: translate(-50%,{$SIZE_IN_UNIT/2}vw);">
             <span class="tooltip-header"> 
-              <span class="tooltip-title">{if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] > 1}{"%s Activities"|@translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}{else}{"%s Activity"|@translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}{/if}</span>
+              <span class="tooltip-title">{if $ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"] > 1}{'%d Activities'|translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}{else}{'%d Activity'|translate:$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["number"]}{/if}</span>
               <span class="tooltip-date">{$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["date"]}</span>
             </span>
             <span class="tooltip-details">
             {foreach from=$ACTIVITY_LAST_WEEKS[$WEEK_NUMBER][$DAY_NUMBER]["details"] item=actions key=cat}
               <span class="tooltip-details-cont">
-                {if $cat == "Group"} <span class="icon-group icon-purple tooltip-details-title">{$cat|@translate}</span>
-                {elseif $cat == "User"} <span class="icon-users icon-purple tooltip-details-title"> {$cat|@translate}</span>
-                {elseif $cat == "Album"} <span class="icon-sitemap icon-red tooltip-details-title">{$cat|@translate}</span>
-                {elseif $cat == "Photo"} <span class="icon-picture icon-yellow tooltip-details-title">{$cat|@translate} </span>
-                {elseif $cat == "Tag"} <span class="icon-tags icon-green tooltip-details-title">{$cat|@translate} </span>
-                {else} <span class="tooltip-details-title"> {$cat|@translate} </span> {/if}
+                {if $cat == "Group"} <span class="icon-group icon-purple tooltip-details-title">{$cat|translate}</span>
+                {elseif $cat == "User"} <span class="icon-users icon-purple tooltip-details-title"> {$cat|translate}</span>
+                {elseif $cat == "Album"} <span class="icon-sitemap icon-red tooltip-details-title">{$cat|translate}</span>
+                {elseif $cat == "Photo"} <span class="icon-picture icon-yellow tooltip-details-title">{$cat|translate} </span>
+                {elseif $cat == "Tag"} <span class="icon-tags icon-green tooltip-details-title">{$cat|translate} </span>
+                {else} <span class="tooltip-details-title"> {$cat|translate} </span> {/if}
 
                 {foreach from=$actions item=number key=action}
                   {if $action == "Edit"} <span class="icon-pencil tooltip-detail" title="{"%s editions"|@translate:$number}">{$number}</span>
@@ -211,7 +218,7 @@ let str_size = "";
                   {elseif $action == "Login"} <span class="icon-key tooltip-detail" title="{"%s login"|@translate:$number}">{$number}</span>
                   {elseif $action == "Logout"} <span class="icon-logout tooltip-detail" title="{"%s logout"|@translate:$number}">{$number} </span>
                   {elseif $action == "Move"} <span class="icon-move tooltip-detail" title="{"%s movement"|@translate:$number}">{$number} </span>
-                  {else} <span> ({$action|@translate}) {$number} </span> 
+                  {else} <span> ({$action|translate}) {$number} </span> 
                   {/if}  
                 {/foreach}
                 </span>
@@ -223,12 +230,12 @@ let str_size = "";
       {/foreach}
     {/foreach}
     <div></div>
-    {foreach from=array('Mon'|translate, 'Tue'|translate, 'Wed'|translate, 'Thu'|translate, 'Fri'|translate, 'Sat'|translate, 'Sun'|translate) item=day}
+    {foreach from=$DAY_LABELS item=day}
       <div class="col-legend">{$day} <div class="line-vertical" style="height: {count($ACTIVITY_CHART_DATA)*100 - 50}%;"></div></div>
     {/foreach}
   </div>
 
-  <div class="chart-title"> {"Storage"|@translate} <span class="chart-title-infos"> {'%s MB used'|translate:(round($STORAGE_TOTAL/1000, 0))} </span></div>
+  <div class="chart-title"> {'Storage'|translate} <span class="chart-title-infos"> {'%s MB used'|translate:(round($STORAGE_TOTAL/1000, 0))} </span></div>
 
   <div class="storage-chart">
     {foreach from=$STORAGE_CHART_DATA key=type item=value}
@@ -240,7 +247,7 @@ let str_size = "";
 
   <div class="storage-tooltips">
     {foreach from=$STORAGE_CHART_DATA key=type item=value}
-      <p id="storage-{$type}" class="tooltip"><b>{$type}</b></p>
+      <p id="storage-{$type}" class="tooltip"><b>{$type|translate}</b></p>
     {/foreach}
   </div>
 

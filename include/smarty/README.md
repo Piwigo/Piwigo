@@ -1,5 +1,18 @@
-#Smarty 3 template engine
-##Distribution repository
+# Smarty 3 template engine
+[smarty.net](https://www.smarty.net/) 
+
+[![Build Status](https://travis-ci.org/smarty-php/smarty.svg?branch=master)](https://travis-ci.org/smarty-php/smarty)
+
+## Documentation
+
+For documentation see 
+[www.smarty.net/docs/en/](https://www.smarty.net/docs/en/) 
+
+## Requirements
+
+Smarty can be run with PHP 5.2 to PHP 7.4.
+
+## Distribution repository
 
 > Smarty 3.1.28 introduces run time template inheritance
 
@@ -10,7 +23,7 @@ Smarty versions 3.1.11 or later are now on github and can be installed with Comp
 
 The "smarty/smarty" package will start at libs/....   subfolder.
 
-To get the latest stable version of Smarty 3.1 use
+To get the latest stable version of Smarty 3.1 use:
 
 ```json
 "require": {
@@ -20,7 +33,7 @@ To get the latest stable version of Smarty 3.1 use
 
 in your composer.json file.
 
-To get the trunk version use
+To get the trunk version use:
 
 ```json
 "require": {
@@ -28,7 +41,7 @@ To get the trunk version use
 }
 ```
 
-For a specific version use something like
+For a specific version use something like:
 
 ```json
 "require": {
@@ -36,7 +49,7 @@ For a specific version use something like
 }
 ```
 
-PHPUnit test can be installed by corresponding composer entries like
+PHPUnit test can be installed by corresponding composer entries like:
 
 ```json
 "require": {
@@ -44,7 +57,7 @@ PHPUnit test can be installed by corresponding composer entries like
 }
 ```
 
-Similar applies for the lexer/parser generator
+Similar applies for the lexer/parser generator.
 
 ```json
 "require": {
@@ -52,7 +65,7 @@ Similar applies for the lexer/parser generator
 }
 ```
 
-Or you could use
+Or you could use:
 
 ```json
 "require": {
@@ -60,6 +73,6 @@ Or you could use
 }
 ```
 
-Which is a wrapper to install all 3 packages
+Which is a wrapper to install all 3 packages.
 
-Composer can also be used for Smarty2 versions 2.6.24 to 2.6.28
+Composer can also be used for Smarty2 versions 2.6.24 to 2.6.30.

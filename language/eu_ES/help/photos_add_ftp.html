@@ -1,0 +1,71 @@
+<fieldset>
+  <legend>Bizkor erabiltzen hasteko argibideak</legend>
+
+<ol>
+  <li>Sortu karpeta zure ordenagailuan.</li>  
+
+  <li>Kopiatu argazki batzuk karpeta horretara eta webean bistaratzeko moduko tamainara aldatu. <em>Oharra</em>: karpeten eta fitxategien izenek hizkiak, zenbakiak edo "-", "_" eta "." baino ezin dituzten euki. Ezin da hutsunerik utzi ezta azentodun hizkirik.</li>
+
+  <li>FTP kliente batekin, kopiatu karpeta Piwigo instalazioaren "galeriak" direktorioan.</li>
+
+  <li>Hasi zaioa zure galerian eta joan <span class="pwgScreen">Administrazioa</span> atalera. Bertan zaudenean egin klik "Sinkronizazioa" botoian.</li>
+</ol>
+
+<p>Zorionak! Zure argazki-galeriaren lehen albuma sortu duzu!.</p>
+</fieldset>
+
+<fieldset>
+  <legend>Karpeten eta fitxategien antolaketa</legend>
+
+<ul>
+
+  <li>
+
+    <p>Albumen karpetak Piwigoren "galeriak" direktorioan daude. Hemen duzu galeria txiki baten direktorio-zuhaitza:</p>
+
+    <pre>
+galeriak
+|-- Ezkontza
+|   |-- ospakizuna
+|   |   |-- helduera
+|   |   |   |-- paul-bakarrik.jpg
+|   |   |   +-- sarah-bakarrik.jpg
+|   |   +-- irteera
+|   |       +-- paul-eta-sarah.jpg
+|   +-- jaia
+|       |-- dantzariak001.jpg
+|       |-- dantzariak002.jpg
+|       +-- dantzariak003pg
++-- eztei-bidaia
+|   |-- hotela.png
+|   |-- bideoa-hegazkinetik.avi
+|   +-- pwg_ordezkaria
+|       +-- bideoa_hegazkinetik.jpg
++-- argazki-saioa
+    |-- img0001.jpg
+    |-- img0002.jpg
+    +-- pwg_formatua
+        |-- img0001.cr2
+        |-- img0001.cmyk.jpg
+        |-- img0001.zip
+        |-- img0002.cr2
+        +-- img0002.cmyk.jpg
+</pre>
+
+  </li>
+
+  <li>Except for "pwg_ordezkaria" and "pwg_formatua" izan ezik (azalpenak behealdean), "galeriak" menpean dagoen beste karpeta guztiek album bat sortzen dute. Ez dago sakonera mugarik.</li>
+
+  <li>Oinarrian, elementu bakoitza fitxategi batekin adierazita dago. Edozein fitxategi izan daiteke Piwigoko elementua bere luzapena <code>file_ext</code>-ren konfigurazio-parametroetan adierazita baldin badago (begiratu <span class="filename">include/config_default.inc.php</span> fitxategian). Fitxategi bat irudia izan daiteke bere luzapena <code>picture_ext</code>-ren konfigurazio-parametroetan adierazita baldin badago.</li>
+
+  <li>Argazkiak ez diren elementuak (bideoa, soinuak, testu fitxategian zein edozein gauza...) fitxategiaren luzapenarekin bat datorren ikonoren batekin adierazita datoz. Aukeran, koadro-txiki eta fitxategi ordezkari batekin erlazionatu ditzakezu (adibideko bideoa.avi fitxategian bezala).</li>
+
+  <li>Askotariko formatuak: argazki bera hainbat formatutan egon daiteke eskuragarri. Adibidean 3 formatu ezberdin ditugu img0001.jpg argazkirako. Egin bide hau aktibatzeko, konfigurazioko <code>$conf['enable_formats'] = true;</code> ezarri eta formatuen zerrenda zehaztu. Honako honen moduan: <code>$conf['format_ext'] = array('cmyk.jpg', 'cr2', 'zip');</code></li>
+
+  <li><em>Oharra</em>: karpeten eta fitxategien izenek hizkiak, zenbakiak edo "-", "_" eta "." baino ezin dituzten euki. Ezin da hutsunerik utzi ezta azentodun hizkirik.</li>
+
+  <li>Behin argazkiak zuzen kokaturik direktorioetan joan <span class="pwgScreen">Administratzioa &raquo; Tresnak &raquo;
+  Sinkronizatu</span> atalera</li>
+
+</ul>
+</fieldset>

@@ -11,8 +11,9 @@ var str_unit_format = {
   "day":"dddd",
   "month":"MMM YYYY"
 }
-var str_avg = "{'Average last 12 months'|@translate}"
-var str_months = ["{'January'|@translate}", "{'February'|@translate}", "{'March'|@translate}", "{'April'|@translate}", "{'May'|@translate}", "{'June'|@translate}", "{'July'|@translate}", "{'August'|@translate}", "{'September'|@translate}", "{'Octobember'|@translate}", "{'November'|@translate}", "{'December'|@translate}"];
+var str_avg = "{'Average last 12 months'|@translate}";
+var str_months_tosplit = "{$month_labels}";
+var str_months = str_months_tosplit.split('~');
 moment.locale("{$langCode}");
 {/footer_script}
 
@@ -22,10 +23,6 @@ moment.locale("{$langCode}");
 {combine_script id='moment-with-locales.js' path='themes/default/js/plugins/moment-with-locales.min.js'}
 
 {combine_script id='stats' load='footer' path='admin/themes/default/js/stats.js'}
-
-<div class="titrePage">
-  <h2>{'History'|@translate}</h2>
-</div>
 
 <div class="stat-compare-mode">
   <label class="switch">

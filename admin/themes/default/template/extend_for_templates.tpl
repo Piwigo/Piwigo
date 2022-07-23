@@ -1,5 +1,3 @@
-<div class="titrePage"><h2>{'Extend for templates'|@translate}</h2>
-</div>
 {if isset($extents)}
 <h4>{'Replacement of original templates by customized templates from template-extension subfolder'|@translate}</h4>
 <form method="post" name="extend_for_templates" id="extend_for_templates" action="">

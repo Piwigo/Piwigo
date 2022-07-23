@@ -11,6 +11,10 @@ if (!defined('PHPWG_ROOT_PATH'))
   die ("Hacking attempt!");
 }
 
+if (!is_webmaster())
+{
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
+}
 
 function abs_fn_cmp($a, $b)
 {
@@ -69,7 +73,7 @@ foreach ($reg_blocks as $id => $block)
 }
 
 
-if ( isset($_POST['submit']) )
+if ( isset($_POST['submit']) and is_webmaster())
 {
   foreach ( $mb_conf as $id => $pos )
   {
@@ -149,6 +153,9 @@ foreach ($mb_conf as $id => $pos )
 
 $action = get_root_url().'admin.php?page=menubar';
 $template->assign(array('F_ACTION'=>$action));
+
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
+$template->assign('ADMIN_PAGE_TITLE', l10n('Menu Management'));
 
 $template->set_filename( 'menubar_admin_content', 'menubar.tpl' );
 $template->assign_var_from_handle( 'ADMIN_CONTENT', 'menubar_admin_content');

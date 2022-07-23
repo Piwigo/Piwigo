@@ -1,0 +1,141 @@
+<h2>Buscar</h2>
+
+<p>Por defecto, todos los términos buscados tienen que coincidir. Las búsquedas no distinguen entre mayúsculas y minúsculas.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>frase citada<br>
+<q>"buscar"</q>
+</td>
+<td>Utilice las comillas para buscar una palabra o frase exacta.<br>
+<q>"manuel azaña"</q></td>
+</tr>
+
+
+<tr>
+<td>cualquier término<br>
+<q>búsqueda OR</q><br>
+</td>
+<td>Añada un OR entre palabras.<br>
+<q>juan OR guillermo</q></td>
+</tr>
+
+
+<tr>
+<td>excluir<br>
+<q>búsqueda NOT</q><br>
+<q>-búsqueda</q>
+</td>
+<td>Añada un guión (-) o la palabra NOT delante de una palabra para excluirla de la búsqueda. Tenga en cuenta que NOT actúa como un filtro, así que no puede tener una búsqueda que solamente contenga operadores NOT. No puede combinar OR con NOT (<q>juan OR NOT guillermo</q> no es válido)<br>
+<q>manuel azaña NOT fraga</q></td>
+</tr>
+
+<tr>
+<td>agrupar<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(padre OR madre) AND (hijo OR hija)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Busca solamente en nombres de etiqueta sin mirar en los títulos ni descripciones de las fotos.<br>
+<q>tag:juan</q>, <q>tag:(juan OR guillermo)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Busca solamente fotos con las palabras dadas en el título o la descripción.<br>
+<q>photo:Juan</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Busca por nombre de archivo.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Busca por autor.<br>
+<q>author:Juan</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Busca fotos por la fecha en que se hicieron.<br>
+<q>taken:2003</q> fotos hechas el año 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> fotos de mayo de 2003<br>
+<q>taken:2003..2008</q> fotos de 2003 a 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> fotos posteriores al 1 de enero de 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Busca fotos por su fecha de publicación.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Busca fotos con una anchura o altura determinadas.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Busca fotos por tamaño en píxels<br>
+<q>size:5m</q> devuelve fots de 5 megapíxels<br>
+<q>size:&gt;12m</q> devuelve fotos de 12 megapíxels o más<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Busca fotos por su proporción entre ancho y alto.<br>
+<q>ratio:3/4 OR ratio:4/3</q> encuentra fotos de cámaras compactas en modo paisaje o retrato
+<q>ratio:>16/9</q> busca panorámicas
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Consejo: <q>score:*</q> devolverá todas las fotos con al menos un voto. <q>score:</q> devolverá las fotos sin votos.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Busca fotos por el tamaño del archivo<br>
+<q>filesize:1m..10m</q> busca fotos de entre 1MB y 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Busca fotos por su identificador numérico en Piwigo<br>
+<q>id:123..126</q> encuentra las fotos de la 123 a la 126 (puede encontrar de 0 a 4 fotos, porque las fotos pueden suprimirse).</td>
+</tr>
+
+</table>

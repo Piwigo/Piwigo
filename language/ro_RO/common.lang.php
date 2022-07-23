@@ -416,3 +416,5 @@ $lang['Your authentication key is no longer valid.'] = '
 Cheia dvs. de autentificare nu mai este valabilă.';
 $lang['generate random password'] = 'generează parolă aleatoare';
 $lang['Invalid username or password!'] = 'Nume de utilizator sau parola incorecte!';
+$lang['Password: ********** (no copy by email)'] = 'Parolă: ********** (fără copie prin e-mail)';
+$lang['Related albums'] = 'Albume conexe';

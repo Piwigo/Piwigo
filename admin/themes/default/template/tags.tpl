@@ -1,14 +1,17 @@
 {footer_script}
 var pwg_token = "{$PWG_TOKEN}";
+var orphan_tag_names = {$orphan_tag_names_array};
 var str_delete = '{'Delete tag "%s"?'|@translate}';
 var str_delete_tags = '{'Delete tags \{%s\}?'|@translate}';
 var str_yes_delete_confirmation = "{'Yes, delete'|@translate}";
 var str_no_delete_confirmation = "{"No, I have changed my mind"|@translate}";
+var str_yes_rename_confirmation = "{'Yes, rename'|@translate}";
 var str_tag_deleted = '{'Tag "%s" succesfully deleted'|@translate}';
 var str_tags_deleted = '{'Tags \{%s\} succesfully deleted'|@translate}';
 var str_already_exist = '{'Tag "%s" already exists'|@translate}';
 var str_tag_created = '{'Tag "%s" created'|@translate}';
 var str_tag_renamed = '{'Tag "%s1" renamed in "%s2"'|@translate}';
+var str_tag_rename = '{'Rename "%s"'|@translate}';
 var str_delete_orphan_tags = '{'Delete orphan tags ?'|@translate}';
 var str_orphan_tags = '{'You have %s1 orphan : %s2'|@translate}';
 var str_delete_them = '{'Delete them'|@translate}';
@@ -26,14 +29,20 @@ var str_selection_done = '{'The %d tags on this page are selected'|@translate}';
 var str_tag_selected = '{'<b>%d</b> tag selected'|@translate}';
 var str_tags_found = '{'<b>%d</b> tags found'|@translate}';
 var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
+
+$(document).ready(function() {
+  $("h1").append('<span class="badge-number">{$total}</span>');
+});
+
 {/footer_script}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
-{combine_css path="admin/themes/default/fontello/css/animation.css"}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 {combine_script id='tiptip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 {combine_script id='tags' load='footer' path='admin/themes/default/js/tags.js'}
+{combine_script id='jquery.cookie' path='themes/default/js/jquery.cookie.js' load='footer'}
 
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
@@ -59,20 +68,8 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
     <span class="select-checkbox">
       <i class="icon-ok"> </i>
     </span>
-    <div class="tag-rename">
-      <form>
-        <input type="text" class="tag-name-editable" value="{$tag_name}">
-        <input type="submit" hidden>
-      </form>
-      <span class="icon-ok validate"></span>
-      <span class="icon-cancel"></span>
-    </div>
 {/function}
 {/function}
-
-<div class="titrePage">
-  <h2>{'Tag Manager'|@translate} <span class="badge-number"> {$total}</span> </h2>
-</div>
 
 <div class="selection-mode-group-manager">
   <label class="switch">
@@ -114,13 +111,13 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div class='tag-header'>
   <div id='search-tag'>
     <div class='search-info'> </div>
-    <span class='icon-filter search-icon'> </span>
+    <span class='icon-search search-icon'> </span>
     <span class="icon-cancel search-cancel"></span>
-    <input class='search-input' type='text' placeholder='{'Filter'|@translate}'>
+    <input class='search-input' type='text' placeholder='{'Search'|@translate}'>
   </div>
   <form id='add-tag' class='not-in-selection-mode'>
     <span class='icon-cancel-circled'></span>
-    <label class='add-tag-label icon-plus-circled'>
+    <label class='add-tag-label icon-plus-circled {if $total == 0} head-button-1 {else} head-button-2 {/if}'>
       <p>{'Add a tag'|@translate}</p>
       <div class='add-tag-container'>
         <input type='text' id='add-tag-input' placeholder="{'New tag'|@translate}">
@@ -149,9 +146,45 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
   <div></div> <a></a>
 </div>
 
-<div class='tag-container' data-tags='{json_encode($data)}' data-per_page={$per_page}>
+<div id="RenameTag" class="RenameTagPopIn">
+  <div class="RenameTagPopInContainer">
+    <a class="icon-cancel ClosePopIn"></a>
+    
+    <div class="AddIconContainer">
+      <span class="AddIcon icon-blue icon-tags"></span>
+    </div>
+    <div class="AddIconTitle">
+      <span>{'Rename "%s"'|@translate}</span>
+    </div>
+    <div class="RenameTagInputContainer">
+      <label class="tag-property-label TagRenameLabelUsername">{'Tag name'|@translate}
+        <input type="text" class="tag-property-input"/> 
+      </label>
+    </div>
+
+    <div class="TagErrors icon-cancel">
+    </div>
+
+    <div class="TagSubmitOptions">
+      <div class="TagSubmit">
+        <span>{'Rename Tag'|@translate}</span>
+      </div>
+
+      <div class="TagLoading">
+        <i class='icon-spin6 animate-spin'></i>
+      </div>
+
+      <div class="TagCancel">
+        <span>{'Cancel'|@translate}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='tag-container' data-tags='{$data|@json_encode|escape:html}' data-per_page={$per_page}>
   {foreach from=$first_tags item=tag}
   <div class='tag-box' data-id='{$tag.id}' data-selected='0'>
+  {if isset($tag.counter)}
     {tagContent 
         tag_name = $tag.name
         tag_U_VIEW = 'index.php?/tags/%s-%s'|@sprintf:$tag['id']:$tag['url_name']
@@ -159,6 +192,16 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
         has_image = ($tag.counter > 0)
         tag_count = $tag.counter
       }
+  {else}
+    {tagContent 
+        tag_name = $tag.name
+        tag_U_VIEW = 'index.php?/tags/%s-%s'|@sprintf:$tag['id']:$tag['url_name']
+        tag_U_EDIT = 'admin.php?page=batch_manager&amp;filter=tag-%s'|@sprintf:$tag['id']
+        has_image = false
+        tag_count = 0
+      }
+  {/if}
+
   </div>
   {/foreach}
 </div>
@@ -166,10 +209,26 @@ var str_tag_found = '{'<b>%d</b> tag found'|@translate}';
 <div class="tag-pagination">
   <div class="pagination-per-page">
     <span class="thumbnailsActionsShow" style="font-weight: bold;">{'Display'|@translate}</span>
-    <a>100</a>
-    <a>200</a>
-    <a>500</a>
-    <a>1000</a>
+    <a id="100"
+  {if $smarty.cookies.pwg_tags_per_page == 100 || !$smarty.cookies.pwg_tags_per_page} 
+    class="selected"
+  {/if}
+    >100</a>
+    <a id="200"
+  {if $smarty.cookies.pwg_tags_per_page == 200} 
+    class="selected"
+  {/if}
+    >200</a>
+    <a id="500"
+  {if $smarty.cookies.pwg_tags_per_page == 500} 
+    class="selected"
+  {/if}
+    >500</a>
+    <a id="1000"
+  {if $smarty.cookies.pwg_tags_per_page == 1000} 
+    class="selected"
+  {/if}
+    >1000</a>
   </div>
 
   <div class="pagination-container">

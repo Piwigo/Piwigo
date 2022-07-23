@@ -1,0 +1,98 @@
+<h2>Konfigurazioa</h2>
+
+<p>Pantaila honek galeriaren oinarrizko ezarpen batzuk gaitzea baimentzen dio administratzaileari. Izan ere, administratzaile gehienentzat nahikoak izan behar liratekeen konfigurazio-ezarpenak aurkezten dira pantaila honetan. Beste konfigurazio-parametro gehiago (eta aurreratuago) ikusi nahi badituzu irakurri lehenetsitako <span
+class="filename">include/config_default.inc.php</span> konfigurazio-fitxategia.</p>
+
+<p>Pantaila atal ezberdinetan banatzen da konfigurazio-parametroak gaiaren arabera multzokatuz.</p>
+
+
+<h3>Nagusia</h3>
+<ul>
+  <li><strong>Galeriaren izenburua</strong>: RSS jarioetan eta email-mezuetan erabiliko dena.</li>
+
+  <li><strong>Orriaren bannerra</strong>: orri publiko bakoitzaren goialdean bistaratuko dena.</li>
+
+  <li><strong>Galeriaren URLa</strong>: RSS jarioan erabiliko dena.</li>
+
+  <li><strong>Blokeatu galeria</strong>: Galeria osoa blokeatu mantenurako. Blokeoak dirauen bitartean administratzaileek baino ezingo dute galeriara sartu.</li>
+
+  <li><strong>Balorazioa</strong>: Argazkiak baloratzeko aukera ezartzen du.</li>
+
+  <li><strong>Balorazioa gonbidatuen eskutik</strong>: Errgistratu gabeko erabiltzaileek ere balora ditzakete argazkiak.</li>
+
+  <li><strong>Baimendu erabiltzaileen erregistratzea</strong>: Edonor erregistratu daiteke.</li>
+
+  <li><strong>Email helbidea derrigorrezko erabiltzaile guztientzat</strong>: posta elektroniko helbidea egiaztatuko da izena ematerakoan edo profila eguneratzekoan. Ez da horrela izango ekintza administratzaile batek egina baldin bada.</li>
+
+  <li><strong>Bidali emaila administratzaileei erabiltzaile berri bakoitzeko</strong>: administratzaileei emailez ohartaraziko zaie izen-emate berri bakoitzeko.</li>
+  
+  <li><strong>Lehenetsitako argazki-ordena</strong>: argazki-ordena pertsonalizatu dezakezu gotibeherako zerrendekin.</li>
+
+</ul>
+
+<h3>Historia</h3>
+
+  <p><span
+  class="pwgScreen">category.php</span> eta <span
+  class="pwgScreen">picture.php</span> orrietako bisitak gorde egingo dira <code>history</code> taulan.</p>
+  
+  <p>Bisitak erakutsiko diren tokia: <span  class="pwgScreen">Administrazioa &raquo; Tresnak &raquo; Historia</span>.</p>
+
+<ul>
+  <li><strong>Gorde orri-bisitak gonbidatuko</strong>: bisitarien bisitak gordeko dira.</li>
+
+  <li><strong>Gorde orri-bisitak erabiltzaileko</strong>: izena emandako erabiltzaileen bisitak gordeko dira.</li>
+
+  <li><strong>Gorde orri-bisitak administratzaileko</strong>: administratzaileen bisitak gordeko dira.</li>
+
+</ul>
+
+<h3>Iruzkinak</h3>
+<ul>
+
+  <li><strong>Iruzkinak denontzat</strong>: Izena eman gabeko bisitariek ere bidali ditzakete iruzkinak.</li>
+
+  <li><strong>Iruzkin-kopurua orriko</strong>.</li>
+
+  <li><strong>Balidazioa</strong>: administratzaile batek onartu behar ditu erabiltzaileen iruzkinak gunean bistaratu aurretik. Erabiltzaileen iruzkinen balidaziorako: <span class="pwgScreen">Administrazioa &raquo; Tresnak &raquo; Onartzeko zain dauden iruzkinak</span>.</li>
+
+  <li><strong>Bidali email-mezua administratzaileei baliozko iruzkina sartzerakoan</strong>: Administratzaileei posta elektroniko bidez ohartarazten zaie erabiltzaile batek onartutako iruzkin bat sartzen duenean.</li>
+
+  <li><strong>Bidali email-mezua administratzaileei balidazioaren zain dagoen iruzkina sartzerakoan</strong>:
+Administratzaileei posta elektroniko bidez ohartarazten zaie erabiltzaile batek onarpena behar duen iruzkin bat sartzen duenean.
+Erabiltzaileen iruzkinen balidaziorako: <span class="pwgScreen">Administrazioa &raquo; Tresnak &raquo; Onartzeko zain dauden iruzkinak</span>.</li>
+
+</ul>
+
+<h3>Lehenetsitako bistaratzea</h3>
+
+<p>Pantaila honek galeria bisitariei bistaratzeko aukerak gaitzen die administratzaileei. Bisitariak edo gonbidatuak, konektatu gabeko erabiltzaileak dira, behin konektaturik bistaratze-aukerak erabiltzailearen aukera propioekaitik indargabetzen dira. (aldatzeko: <span class="pwgScreen">profila</span>).</p>
+
+<p>Erabiltzaileen bistaratze-aukerak aldatzeko: <span class="pwgScreen">Administrazioa &raquo;
+Erabiltzaileak &raquo; Kudeatu</span> non erabiltzaile-mota ezberdinak aukera ditzakezu.</p>
+
+<ul>
+
+  <li><strong>Hizkuntza</strong>: Piwigoren etiketetara baino ez. Ez da aplikatzen albumen eta argazkien izenetara edo deskribapen-erremuetara.</li>
+
+  <li><strong>Argazki-kopurua errenkadako</strong></li>
+
+  <li><strong>Errenkada-kopurua orriko</strong></li>
+
+  <li><strong>Interfazearen gaia</strong></li>
+
+  <li><strong>Azkeneko tartea</strong>: Eguneko. Argazkia berri modura erakutsiko den denbora-tartea. Egun 1 baino gehiagokoa izan behar du.</li>
+
+  <li><strong>Zabaldu album guztiak</strong>: Menuan album guztiak zabaldu modu lehenetsian. <em>Oharra</em>: aukera honek baliabide asko eskatzen ditu eta menu erraldoia sor lezake album ugari baldin badituzu.</li>
+
+  <li><strong>Erakutsi iruzkin kopurua</strong>: Argazki bakoitzaren iruzkin kopurua erakutsi koadro txikien orrian bistaratzerakoan. Baliabide asko eskatzen ditu.</li>
+
+  <li><strong>Erakutsi emaitza kopurua</strong>: Argazki bakoitzaren emaitza kopurua erakutsi koadro txikien orrian bistratzerakoan. Bakarrik erabil daiteke konfigurazio-parametro aurreratuan baieztatuta dagoenean<br>
+  $conf['show_nb_hits'] = true; <br>
+  Oharrra: parametroaren lehenetsitako konfigurazioa: false.</li>
+
+  <li><strong>Argazkien gehienezko zabalera</strong>: bistaratzeko erabiliko den gehienezko zabalera. Ezarpenaren balioa baino gehiago duten argazkiei bistaratze-tamaina aldatuko zaie. Agian, aukera hau ezarri beharrean zure argazkien tamaina birplanteatu beharko zenuke; praktika hobeagoa litzateke.</li>
+
+  <li><strong>Argazkien gehienezko altuera</strong>: bistaratzeko erabiliko den gehienezko altuera. Ezarpenaren balioa baino gehiago duten argazkiei bistaratze-tamaina aldatuko zaie. Agian, aukera hau ezarri beharrean zure argazkien tamaina birplanteatu beharko zenuke; praktika hobeagoa litzateke.</li>
+
+</ul>

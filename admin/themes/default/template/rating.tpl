@@ -32,9 +32,12 @@ checkCatFilter();
 jQuery("select[name=cat]").change(function(){
   checkCatFilter();
 });
-{/footer_script}
 
-<h2>{$NB_ELEMENTS} {'Photos'|@translate}</h2>
+$(document).ready(function() {
+  $('h1').append("<span class='badge-number'>{$NB_ELEMENTS}</span>")
+});
+
+{/footer_script}
 
 <form action="{$F_ACTION}" method="GET" class="filter">
   <fieldset>

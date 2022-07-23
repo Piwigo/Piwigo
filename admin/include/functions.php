@@ -1889,6 +1889,131 @@ function compare_image_tag_lists($taglist_before, $taglist_after)
 }
 
 /**
+ * Instead of associating images to categories, add them in the lounge, waiting for take-off.
+ *
+ * @since 12
+ * @param array $images - list of image ids
+ * @param array $categories - list of category ids
+ */
+function fill_lounge($images, $categories)
+{
+  $inserts = array();
+  foreach ($categories as $category_id)
+  {
+    foreach ($images as $image_id)
+    {
+      $inserts[] = array(
+        'image_id' => $image_id,
+        'category_id' => $category_id,
+      );
+    }
+  }
+
+  if (count($inserts))
+  {
+    mass_inserts(
+      LOUNGE_TABLE,
+      array_keys($inserts[0]),
+      $inserts
+    );
+  }
+}
+
+/**
+ * Move images from the lounge to the categories they were intended for.
+ *
+ * @since 12
+ * @param boolean $invalidate_user_cache
+ * @return int number of images moved
+ */
+function empty_lounge($invalidate_user_cache=true)
+{
+  global $logger;
+
+  if (isset($conf['empty_lounge_running']))
+  {
+    list($running_exec_id, $running_exec_start_time) = explode('-', $conf['empty_lounge_running']);
+    if (time() - $running_exec_start_time > 60)
+    {
+      $logger->debug(__FUNCTION__.', exec='.$running_exec_id.', timeout stopped by another call to the function');
+      conf_delete_param('empty_lounge_running');
+    }
+  }
+
+  $exec_id = generate_key(4);
+  $logger->debug(__FUNCTION__.', exec='.$exec_id.', begins');
+
+  // if lounge is already being emptied, skip
+  $query = '
+INSERT IGNORE
+  INTO '.CONFIG_TABLE.'
+  SET param="empty_lounge_running"
+    , value="'.$exec_id.'-'.time().'"
+;';
+  pwg_query($query);
+
+  list($empty_lounge_running) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.CONFIG_TABLE.' WHERE param = "empty_lounge_running"'));
+  list($running_exec_id,) = explode('-', $empty_lounge_running);
+
+  if ($running_exec_id != $exec_id)
+  {
+    $logger->debug(__FUNCTION__.', exec='.$exec_id.', skip');
+    return;
+  }
+  $logger->debug(__FUNCTION__.', exec='.$exec_id.' wins the race and gets the token!');
+
+  $max_image_id = 0;
+
+  $query = '
+SELECT
+    image_id,
+    category_id
+  FROM '.LOUNGE_TABLE.'
+  ORDER BY category_id ASC, image_id ASC
+;';
+
+  $rows = query2array($query);
+
+  $images = array();
+  foreach ($rows as $idx => $row)
+  {
+    if ($row['image_id'] > $max_image_id)
+    {
+      $max_image_id = $row['image_id'];
+    }
+
+    $images[] = $row['image_id'];
+
+    if (!isset($rows[$idx+1]) or $rows[$idx+1]['category_id'] != $row['category_id'])
+    {
+      // if we're at the end of the loop OR if category changes
+      associate_images_to_categories($images, array($row['category_id']));
+      $images = array();
+    }
+  }
+
+  $query = '
+DELETE
+  FROM '.LOUNGE_TABLE.'
+  WHERE image_id <= '.$max_image_id.'
+;';
+  pwg_query($query);
+
+  if ($invalidate_user_cache)
+  {
+    invalidate_user_cache();
+  }
+
+  conf_delete_param('empty_lounge_running');
+
+  $logger->debug(__FUNCTION__.', exec='.$exec_id.', ends');
+
+  trigger_notify('empty_lounge', $rows);
+
+  return $rows;
+}
+
+/**
  * Associate a list of images to a list of categories.
  * The function will not duplicate links and will preserve ranks.
  *
@@ -2221,7 +2346,6 @@ SELECT id
       );
 
     $inserted_id = pwg_db_insert_id(TAGS_TABLE);
-    pwg_activity('tag', $inserted_id, 'add');
 
     return array(
       'info' => l10n('Tag "%s" was added', stripslashes($tag_name)),
@@ -2575,7 +2699,7 @@ function get_active_menu($menu_page)
 
     case 'album':
     case 'cat_list':
-    case 'cat_move':
+    case 'albums':
     case 'cat_options':
     case 'cat_search':
     case 'permalinks':
@@ -2586,6 +2710,7 @@ function get_active_menu($menu_page)
     case 'group_list':
     case 'group_perm':
     case 'notification_by_mail':
+    case 'user_activity';
       return 2;
 
     case 'site_manager':
@@ -3140,12 +3265,28 @@ SELECT path
  */
 function get_orphans()
 {
+  // exclude images in the lounge
+  $query = '
+SELECT
+    image_id
+  FROM '.LOUNGE_TABLE.'
+;';
+  $lounged_ids = query2array($query, null, 'image_id');
+
   $query = '
 SELECT
     id
   FROM '.IMAGES_TABLE.'
     LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
-  WHERE category_id is null
+  WHERE category_id is null';
+
+  if (count($lounged_ids) > 0)
+  {
+    $query .= '
+    AND id NOT IN ('.implode(',', $lounged_ids).')';
+  }
+
+  $query.= '
   ORDER BY id ASC
 ;';
   
@@ -3271,4 +3412,121 @@ SELECT *
   }
 
   return $images[0];
+}
+
+
+/**
+ * Return each cache image sizes.
+ *
+ * @since 12
+ * @param string $path_to_file
+ */
+function get_cache_size_derivatives($path)
+{
+  $msizes = array(); //final res
+  $subdirs = array(); //sous-rep
+
+  if (is_dir($path))
+  {
+    if ($contents = opendir($path))
+    {
+      while (($node = readdir($contents)) !== false)
+      {
+        if ($node == '.' or $node == '..') continue;
+
+        if (is_file($path.'/'.$node))
+        {
+          if ($split = explode('-' ,$node))
+          {
+            $size_code = substr(end($split), 0, 2);
+            @$msizes[$size_code] += filesize($path.'/'.$node);
+          }
+        }
+        elseif (is_dir($path.'/'.$node))
+        {
+          $tmp_msizes = get_cache_size_derivatives($path.'/'.$node);
+          foreach ($tmp_msizes as $size_key => $value)
+          {
+            @$msizes[$size_key] += $value;
+          }
+        }
+      }
+    }
+    closedir($contents);
+  }
+  return $msizes;
+}
+
+/**
+ * Return news from piwigo.org.
+ *
+ * @since 13
+ * @param int $start
+ * @param int $count
+ */
+function get_piwigo_news($start, $count)
+{
+  global $lang_info, $conf;
+
+  $all_news = null;
+
+  $cache_path = PHPWG_ROOT_PATH.$conf['data_location'].'cache/piwigo_news-'.$lang_info['code'].'.cache.php';
+  if (!is_file($cache_path) or filemtime($cache_path) < strtotime('24 hours ago'))
+  {
+    $forum_url = PHPWG_URL.'/forum';
+    $url = $forum_url.'/news.php?format=json&limit='.$count;
+
+    if (conf_get_param('porg_fetch_news_check_ssl', true))
+    {
+      $content = file_get_contents($url);
+    }
+    else
+    {
+      $arrContextOptions = array(
+        "ssl" => array(
+          "verify_peer" => false,
+          "verify_peer_name" => false,
+        ),
+      );
+
+      $content = file_get_contents($url, false, stream_context_create($arrContextOptions));
+    }
+
+    if ($content !== false)
+    {
+      $all_news = array();
+
+      $topics = json_decode($content, true);
+
+      foreach ($topics as $idx => $topic)
+      {
+        $news = array(
+          'id' => $topic['topic_id'],
+          'subject' => $topic['subject'],
+          'posted_on' => $topic['posted_on'],
+          'posted' => format_date($topic['posted_on']),
+          'url' => $forum_url.'/viewtopic.php?id='.$topic['topic_id'],
+        );
+
+        $all_news[] = $news;
+      }
+
+      if (mkgetdir(dirname($cache_path)))
+      {
+        file_put_contents($cache_path, serialize($all_news));
+      }
+    }
+  }
+
+  if (is_null($all_news))
+  {
+    $all_news = unserialize(file_get_contents($cache_path));
+  }
+
+  $news_slice = array_slice($all_news, $start, $count);
+
+  return array(
+    'total_count' => count($all_news),
+    'topics' => $news_slice,
+  );
 }

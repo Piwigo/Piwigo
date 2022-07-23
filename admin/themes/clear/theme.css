@@ -27,7 +27,7 @@ input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 
 
 
-INPUT[type="text"], INPUT[type="password"], INPUT[type="file"] {
+INPUT[type="text"], INPUT[type="file"] {
 	background-color: #ddd;
 }
 
@@ -211,10 +211,9 @@ INPUT[type="text"].large  { width: 317px; }
 #pwgHead A, #footer A {color:#ccc;}
 #pwgHead A:hover, #footer A:hover {color:white;}
 
-.pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border-color:#ddd;}
-.pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
-.pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
-.pluginBoxes .merged, .pluginBoxes .missing  {background-color:#d99;border:1px solid #a00;}
+.AlbumViewSelector {background: #fafafa;}
+.pluginName {color:#111;}
+.pluginBox.incompatible {border-color:#a00 !important;}
 
 .languageBox {background-color:#ddd;}
 .languageName {color:black;}
@@ -412,7 +411,7 @@ label>p.group_select {
 
 
 .UserListPopInContainer{
-  background-color:#f3f3f3;
+  background-color:white;
   border-radius:10px;
 
 }
@@ -456,6 +455,10 @@ label>p.group_select {
 
 .slider:before {
   background-color: white;
+}
+
+.slider::after {
+  color: white;
 }
 
 input:checked + .slider {
@@ -560,7 +563,7 @@ input:focus + .slider {
 
 /*UserList Pop in*/
 
-.CloseUserList{
+.CloseUserList, .CloseAddAlbum, .CloseDeleteAlbum, .CloseRenameAlbum {
   color:white;
 }
 
@@ -672,7 +675,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .addFilesButtonChanged:hover {background-color: #BBB;}
 
 #checkActions a, .deleteDerivButtons a {background-color: #E8E8E8;}
-#filterList select, .pictureLevels select, #permitAction select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important; outline: none !important;}
+#filterList select, .pictureLevels select, #permitAction select, .sort-by select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important; outline: none !important;}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options,
 #filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
@@ -772,4 +775,55 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .icon-green {
   background-color: #d6ffcf;
   color: #6ece5e;
+}
+
+.applicationCard {
+  box-shadow: 0px 0px 4px 4px #DBDBDB;
+}
+
+.applicationCard .applicationName {
+  color: black;
+}
+
+.linked-albums-badge {
+  background: #DBDBDB;
+}
+
+.breadcrumb-item {
+  background-color: #fafafa;
+  box-shadow: 0px 2px #00000024;
+  color: #777 !important;
+}
+.breadcrumb-item:hover {
+  background: #ffd7ad;
+}
+.breadcrumb-item .icon-cancel-circled:hover {
+  color: #ff7700;
+}
+
+.linkedAlbumPopInContainer {
+  background-color: white;
+}
+.AddIconTitle {
+  color: #000;
+}
+
+.search-result-item {
+  background-color: #fafafa;
+  box-shadow: 0px 2px #00000024;
+  color: #777;
+}
+
+.search-result-item .icon-plus-circled{
+  color: black;
+}
+
+.search-result-item .icon-plus-circled:hover{
+  color: #ff7700;
+}
+
+.breadcrumb-item.add-item.highlight {
+  background: #ffa646;
+  box-shadow: 0 2px #af7200;
+  color: white !important;
 }

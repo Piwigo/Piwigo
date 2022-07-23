@@ -911,6 +911,8 @@ class QResults
 
 function qsearch_get_text_token_search_sql($token, $fields)
 {
+  global $page;
+
   $clauses = array();
   $variants = array_merge(array($token->term), $token->variants);
   $fts = array();
@@ -933,8 +935,20 @@ function qsearch_get_text_token_search_sql($token, $fields)
 
     if (!$use_ft)
     {// odd term or too short for full text search; fallback to regex but unfortunately this is diacritic/accent sensitive
-      $pre = ($token->modifier & QST_WILDCARD_BEGIN) ? '' : '[[:<:]]';
-      $post = ($token->modifier & QST_WILDCARD_END) ? '' : '[[:>:]]';
+      if (!isset($page['use_regexp_ICU']))
+      {
+        // Prior to MySQL 8.0.4, MySQL used the Henry Spencer regular expression library to support
+        // regular expression operations, rather than International Components for Unicode (ICU)
+        $page['use_regexp_ICU'] = false;
+        $db_version = pwg_get_db_version();
+        if (!preg_match('/mariadb/i', $db_version) and version_compare($db_version, '8.0.4', '>'))
+        {
+          $page['use_regexp_ICU'] = true;
+        }
+      }
+
+      $pre = ($token->modifier & QST_WILDCARD_BEGIN) ? '' : ($page['use_regexp_ICU'] ? '\\\\b' : '[[:<:]]');
+      $post = ($token->modifier & QST_WILDCARD_END) ? '' : ($page['use_regexp_ICU'] ? '\\\\b' : '[[:>:]]');
       foreach( $fields as $field)
         $clauses[] = $field.' REGEXP \''.$pre.addslashes(preg_quote($variant)).$post.'\'';
     }
@@ -1414,7 +1428,11 @@ function get_quick_search_results_no_cache($q, $options)
   $search_results['qs']['matching_tags'] = $qsr->all_tags;
   $search_results['qs']['matching_cats'] = $qsr->all_cats;
   $search_results = trigger_change('qsearch_results', $search_results, $expression, $qsr);
-
+  if (isset($search_results['items']))
+  {
+    $ids = array_merge($ids, $search_results['items']);
+  }
+  
   global $template;
 
   if (empty($ids))

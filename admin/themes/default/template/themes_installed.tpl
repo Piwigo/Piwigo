@@ -62,10 +62,6 @@ $(window).bind("load", function() {
 
 {/literal}{/footer_script}
 
-<div class="titrePage">
-  <h2>{'Installed Themes'|@translate}</h2>
-</div>
-
 <div id="themesContent">
 
 {assign var='field_name' value='null'} {* <!-- 'counter' for fieldset management --> *}
@@ -102,11 +98,11 @@ $(window).bind("load", function() {
     {assign var='version' value=$theme.VERSION}
   {/if}
   
-  <div class="themeBox{if $theme.IS_DEFAULT} themeDefault{/if}">
+  <div class="themeBox{if isset($theme.IS_DEFAULT) and $theme.IS_DEFAULT} themeDefault{/if}">
     <div class="themeShot"><a href="{$theme.SCREENSHOT}" class="preview-box" title="{$theme.NAME}"><img src="{$theme.SCREENSHOT}" alt=""></a></div>
     <div class="themeName" title="{$theme.NAME}">
-      {$theme.NAME} {if $theme.IS_DEFAULT}<em>({'default'|@translate})</em>{/if} {if $theme.IS_MOBILE}<em>({'Mobile'|@translate})</em>{/if}
-      <a class="icon-ellipsis-v showInfo"></a>
+      {$theme.NAME} {if isset($theme.IS_DEFAULT) and $theme.IS_DEFAULT}<i class="icon-star" title="{'default'|@translate}"></i>{/if} {if $theme.IS_MOBILE}<i class="icon-mobile" title="{'Mobile'|translate}"></i>{/if}
+      {if $isWebmaster == 1} <a class="icon-ellipsis-v showInfo"></a>{/if}
     </div>
     <div class="showInfo-dropdown dropdown">
       <div class="showInfo-dropdown-header">
@@ -125,19 +121,22 @@ $(window).bind("load", function() {
             <span class="dropdown-option icon-trash delete-plugin-button"title="{$theme.DELETE_TOOLTIP}">{'Delete'|@translate}</span>
         {/if}
       {/if}
-      {if $theme.DEACTIVABLE}
+      {if isset($theme.DEACTIVABLE) and $theme.DEACTIVABLE}
         <a href="{$deactivate_baseurl}{$theme.ID}" class="showInfo-dropdown-action tiptip icon-cancel-circled" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
       {/if}
     </div>
+{if $isWebmaster == 1}
     <div class="themeActions">
 {if $theme.STATE == 'active'}
   {if $theme.ADMIN_URI}
         <a href="{$theme.ADMIN_URI}" class="icon-cog">{'Configuration'|@translate}</a>
-  {/if}
-  {if not $theme.IS_DEFAULT}
-        <a href="{$set_default_baseurl}{$theme.ID}" class="tiptip" title="{'Set as default theme for unregistered and new users'|@translate}">{'Set as default'|@translate}</a>
   {else}
-        <span class="tiptip" title="{'Theme is already set to default'|@translate}">{'Set as default'|@translate}</span>
+        <div class="pluginUnavailableAction icon-cog tiptip" title="{'N/A'|translate}">{'Configuration'|@translate}</div>
+  {/if}
+  {if isset($theme.IS_DEFAULT) and not $theme.IS_DEFAULT}
+        <a href="{$set_default_baseurl}{$theme.ID}" class="tiptip icon-star" title="{'Set as default theme for unregistered and new users'|@translate}">{'Set as default'|@translate}</a>
+  {else}
+        <span class="tiptip icon-star" title="{'This is already the default theme'|@translate}">{'Set as default'|@translate}</span>
   {/if}
 {else}
   {if $theme.ACTIVABLE}
@@ -147,6 +146,7 @@ $(window).bind("load", function() {
   {/if}
 {/if}
     </div> <!-- themeActions -->
+{/if}
   </div>
   
 {/foreach}

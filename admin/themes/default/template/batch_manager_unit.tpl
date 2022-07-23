@@ -35,8 +35,6 @@ jQuery("a.preview-box").colorbox( {
 }());
 {/footer_script}
 
-<h2>{'Batch Manager'|@translate}</h2>
-
 <form action="{$F_ACTION}" method="POST">
   <div style="margin: 30px 0; display: flex; justify-content: space-between;">
     <div style="margin-left: 22px;">
@@ -122,3 +120,34 @@ jQuery("a.preview-box").colorbox( {
 {/if}
 
 </form>
+
+<style>
+.selectize-input  .item,
+.selectize-input .item.active {
+  background-image:none !important;
+  background-color: #ffa646 !important;
+  border-color: transparent !important;
+  color: black !important;
+
+  border-radius: 20px !important;
+}
+
+.selectize-input .item .remove,
+.selectize-input .item .remove {
+  background-color: transparent !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  color: black !important;
+  
+  border-left: 1px solid transparent !important;
+
+}
+.selectize-input .item .remove:hover,
+.selectize-input .item .remove:hover {
+  background-color: #ff7700 !important;
+}
+
+.thumb {
+  float: right;
+}
+</style>

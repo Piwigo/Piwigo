@@ -353,10 +353,19 @@ function make_section_in_url($params)
         {
           foreach ($params['combined_categories'] as $category)
           {
-            $section_string.= '/'.$category['id'];
-            if ( $conf['category_url_style']=='id-name' )
+            $section_string.= '/';
+
+            if ( empty($category['permalink']) )
             {
-              $section_string.= '-'.str2url($category['name']);
+              $section_string.= $category['id'];
+              if ( $conf['category_url_style']=='id-name' )
+              {
+                $section_string.= '-'.str2url($category['name']);
+              }
+            }
+            else
+            {
+              $section_string.= $category['permalink'];
             }
           }
         }
@@ -434,9 +443,23 @@ function parse_section_url( $tokens, &$next_token)
     $next_token++;
 
     $i = $next_token;
+    $loop_counter = 0;
 
     while (isset($tokens[$next_token]))
     {
+      if ($loop_counter++ > count($tokens)+10){die('infinite loop?');}
+
+      if (
+        strpos($tokens[$next_token], 'created-')===0
+        or strpos($tokens[$next_token], 'posted-')===0
+        or strpos($tokens[$next_token], 'start-')===0
+        or strpos($tokens[$next_token], 'startcat-')===0
+        or 'flat' == $tokens[$next_token]
+      )
+      {
+        break;
+      }
+
       if (preg_match('/^(\d+)(?:-(.+))?$/', $tokens[$next_token], $matches))
       {
         if ( isset($matches[2]) )
@@ -482,8 +505,16 @@ function parse_section_url( $tokens, &$next_token)
           if ( isset($cat_id) )
           {
             $next_token += $perma_index+1;
-            $page['category'] = $cat_id;
-            $page['hit_by']['cat_permalink'] = $maybe_permalinks[$perma_index];
+
+            if (!isset($page['category']))
+            {
+              $page['category'] = $cat_id;
+              $page['hit_by']['cat_permalink'] = $maybe_permalinks[$perma_index];
+            }
+            else
+            {
+              $page['combined_categories'][] = $cat_id;
+            }
           }
           else
           {
@@ -847,6 +878,30 @@ function url_is_remote($url)
     return true;
   }
   return false;
+}
+
+/**
+ * List favorite image_ids of the current user.
+ * @since 13
+ */
+function get_user_favorites()
+{
+  global $user;
+
+  if (is_a_guest())
+  {
+    return array();
+  }
+
+  $query = '
+SELECT
+    image_id,
+    1 as fake_value
+  FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+';
+
+  return query2array($query, 'image_id', 'fake_value');
 }
 
 ?>

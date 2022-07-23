@@ -75,6 +75,10 @@ SELECT COUNT(*)
     return new PwgError(WS_ERR_INVALID_PARAM, 'This name is already used by another group.');
   }
 
+  if (strlen(str_replace( " ", "", $params['name'])) == 0) {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
+  }
+
   // creating the group
   single_insert(
     GROUPS_TABLE,
@@ -125,6 +129,10 @@ function ws_groups_setInfo($params, &$service)
   if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
+  }
+
+  if (isset($params['name']) && strlen(str_replace( " ", "",  $params['name'])) == 0) {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
   }
 
   $updates = array();
@@ -334,7 +342,7 @@ function ws_groups_duplicate($params, &$service) {
   $query = '
 SELECT COUNT(*)
   FROM `'.GROUPS_TABLE.'`
-  WHERE name = \''.$params['copy_name'].'\'
+  WHERE name = \''.pwg_db_real_escape_string($params['copy_name']).'\'
 ;';
   list($count) = pwg_db_fetch_row(pwg_query($query));
   if ($count != 0)
@@ -359,7 +367,7 @@ SELECT is_default
   WHERE id = '.$params['group_id'].'
 ;';
 
-  $is_default = pwg_db_fetch_row(pwg_query($query))[0];
+  list($is_default) = pwg_db_fetch_row(pwg_query($query));
 
   // creating the group
   single_insert(

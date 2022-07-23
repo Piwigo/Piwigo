@@ -116,7 +116,7 @@ function changeData(dataType, options = displayOptions) {
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'Page visited'
+            labelString: str_number_page_visited
           },
           tick: {
             min: 0
@@ -142,7 +142,7 @@ function changeData(dataType, options = displayOptions) {
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'Page visited'
+            labelString: str_number_page_visited
           }
         }]
       }

@@ -183,6 +183,9 @@ UPDATE '.CATEGORIES_TABLE.'
 
   $page['infos'][] = l10n('Photo informations updated');
   pwg_activity('photo', $_GET['image_id'], 'edit');
+
+  // refresh page cache
+  $page['image'] = get_image_infos($_GET['image_id'], true);
 }
 
 // tags
@@ -354,6 +357,9 @@ SELECT category_id, uppercats
 ;';
 $result = pwg_query($query);
 
+$related_categories = array();
+$related_categories_ids = array();
+
 while ($row = pwg_db_fetch_assoc($result))
 {
   $name =
@@ -368,9 +374,13 @@ while ($row = pwg_db_fetch_assoc($result))
   }
   else
   {
-    $template->append('related_categories', $name);
+    $related_categories[$row['category_id']] = $name;
+    $related_categories_ids[] = $row['category_id'];
   }
 }
+
+$template->assign('related_categories', $related_categories);
+$template->assign('related_categories_ids', $related_categories_ids);
 
 // jump to link
 //
@@ -379,6 +389,7 @@ while ($row = pwg_db_fetch_assoc($result))
 // 3. if URL category not available or reachable, use the first reachable
 //    linked category
 // 4. if no category reachable, no jumpto link
+// 5. if level is too high for current user, no jumpto link
 
 $query = '
 SELECT category_id
@@ -420,7 +431,7 @@ else
   }
 }
 
-if (isset($url_img))
+if (isset($url_img) and $user['level'] >= $page['image']['level'])
 {
   $template->assign( 'U_JUMPTO', $url_img ); 
 }

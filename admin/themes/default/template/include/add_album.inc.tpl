@@ -3,7 +3,7 @@
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
-{combine_css path="admin/themes/default/fontello/css/animation.css" order=10}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 {combine_script id='addAlbum' load=$load_mode path='admin/themes/default/js/addAlbum.js'}
 

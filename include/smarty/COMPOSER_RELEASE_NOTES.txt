@@ -27,3 +27,5 @@ To retrieve the development and documentation folders add
         "smarty/smarty-dev": "~3.1@dev"
     }
 
+If you are using (include) the composer generated autoloader.php which is located
+in the /vendor folder it is no longer needed to require the Smarty.class.php file.

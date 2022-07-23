@@ -103,8 +103,8 @@ if ($themes->get_server_themes(true)) // only new themes
       'new_themes',
       array(
         'name' => $theme['extension_name'],
-        'thumbnail' => PEM_URL.'/upload/extension-'.$theme['extension_id'].'/thumbnail.jpg',
-        'screenshot' => PEM_URL.'/upload/extension-'.$theme['extension_id'].'/screenshot.jpg',
+        'thumbnail' => (key_exists('thumbnail_src', $theme)) ? $theme['thumbnail_src']:'',
+        'screenshot' => (key_exists('screenshot_url', $theme)) ? $theme['screenshot_url']:'',
         'install_url' => $url_auto_install,
         )
       );
@@ -116,8 +116,9 @@ else
 }
 
 $template->assign('default_screenshot',
-  get_root_url().'admin/themes/'.$conf['admin_theme'].'/images/missing_screenshot.png'
+  get_root_url().'admin/themes/'.userprefs_get_param('admin_theme', 'clear').'/images/missing_screenshot.png'
 );
+$template->assign('ADMIN_PAGE_TITLE', l10n('Themes'));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'themes');
 ?>

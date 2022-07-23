@@ -49,6 +49,14 @@ str_are_you_sure = '{'Are you sure?'|translate}';
 str_yes = '{'Yes, delete'|translate}';
 str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
 url_delete = '{$U_DELETE}';
+str_albums_found = '{"<b>%d</b> albums found"|translate}';
+str_album_found = '{"<b>1</b> album found"|translate}';
+str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
+str_orphan = '{'This photo is an orphan'|@translate}';
+str_no_search_in_progress = '{'No search in progress'|@translate}';
+
+related_categories_ids = {$related_categories_ids|@json_encode};
+str_already_in_related_cats = '{'This albums is already in related categories list'|translate}';
 
 {literal}
 $('#action-delete-picture').on('click', function() {
@@ -84,7 +92,8 @@ $('#action-delete-picture').on('click', function() {
 }());
 {/footer_script}
 
-<h2>{'Edit photo #%s'|@translate:$INTRO.id}</h2>
+{combine_script id='picture_modify' load='footer' path='admin/themes/default/js/picture_modify.js'}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 <form action="{$F_ACTION}" method="post" id="pictureModify">
   <div id='picture-preview'>
@@ -92,11 +101,13 @@ $('#action-delete-picture').on('click', function() {
       {if isset($U_JUMPTO)}
         <a class="icon-eye" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
       {else}
-        <a class="icon-eye unavailable" title="{'Photo is in a private album'|@translate}"></a>
+        <a class="icon-eye unavailable" title="{'You don\'t have access to this photo'|translate}"></a>
       {/if}
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
+      {if !url_is_remote($PATH)}
       <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
+      {/if}
     </div>
     <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}" style="{if $FORMAT}width{else}height{/if}:35vw">
       <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" style="{if $FORMAT}width{else}height{/if}:100%">
@@ -104,24 +115,24 @@ $('#action-delete-picture').on('click', function() {
   </div>
   <div id='picture-content'>
     <div id='picture-infos'>
-      <div class='picture-infos-category'>
-        <div class='picture-infos-icon'>
-          <span class='icon-picture'></span>
+      <div class='info-framed'>
+        <div class='info-framed-icon'>
+          <i class='icon-picture'></i>
         </div>
-        <div class='picture-infos-container'>
-          <div class='picture-infos-title'>{$INTRO.file}</div>
+        <div class='info-framed-container'>
+          <div class='info-framed-title'>{$INTRO.file}</div>
           <div>{$INTRO.size}</div>
-          <div>{$INTRO.formats}</div>
+          <div>{if isset($INTRO.formats)}{$INTRO.formats} {/if}</div>
           <div>{$INTRO.ext}</div>
         </div>
       </div>
 
-      <div class='picture-infos-category'>
-        <div class='picture-infos-icon'>
+      <div class='info-framed'>
+        <div class='info-framed-icon'>
           <span class='icon-calendar'></span>
         </div>
-        <div class='picture-infos-container'>
-          <div class='picture-infos-title'>{$INTRO.date}</div>
+        <div class='info-framed-container'>
+          <div class='info-framed-title'>{$INTRO.date}</div>
           <div>{$INTRO.age}</div>
           <div>{$INTRO.added_by}</div>
           <div>{$INTRO.stats}</div>
@@ -154,11 +165,24 @@ $('#action-delete-picture').on('click', function() {
     </p>
 
     <p>
-      <strong>{'Linked albums'|@translate}</strong>
+      <strong>{'Linked albums'|@translate} <span class="linked-albums-badge {if $related_categories|@count < 1 } badge-red {/if}"> {$related_categories|@count} </span></strong>
+      {if $related_categories|@count < 1}
+        <span class="orphan-photo">{'This photo is an orphan'|@translate}</span>
+      {else}
+        <span class="orphan-photo"></span>
+      {/if}
       <br>
-      <select data-selectize="categories" data-value="{$associated_albums|@json_encode|escape:html}"
-        placeholder="{'Type in a search term'|translate}"
-        data-default="{$STORAGE_ALBUM}" name="associate[]" multiple style="width:calc(100% + 2px);"></select>
+      <select class="invisible-related-categories-select" name="associate[]" multiple>
+      {foreach from=$related_categories item=$cat_path key=$key}
+        <option selected value="{$key}"></option>
+      {/foreach}
+      </select>
+      <div class="related-categories-container">
+      {foreach from=$related_categories item=$cat_path key=$key}
+        <div class="breadcrumb-item"><span class="link-path">{$cat_path}</span><span id={$key} class="icon-cancel-circled remove-item"></span></div>
+      {/foreach}
+      </div>
+      <div class="breadcrumb-item linked-albums add-item {if $related_categories|@count < 1 } highlight {/if}"><span class="icon-plus-circled"></span>{'Add'|translate}</div>
     </p>
 
     <p>
@@ -199,3 +223,55 @@ $('#action-delete-picture').on('click', function() {
   </div>
 
 </form>
+
+<div id="addLinkedAlbum" class="linkedAlbumPopIn">
+  <div class="linkedAlbumPopInContainer">
+    <a class="icon-cancel ClosePopIn"></a>
+    
+    <div class="AddIconContainer">
+      <span class="AddIcon icon-blue icon-plus-circled"></span>
+    </div>
+    <div class="AddIconTitle">
+      <span>{'Associate to album'|@translate}</span>
+    </div>
+
+    <div id="linkedAlbumSearch">
+      <span class='icon-search search-icon'> </span>
+      <span class="icon-cancel search-cancel-linked-album"></span>
+      <input class='search-input' type='text' placeholder='{'Search'|@translate}'>
+    </div>
+    <div class="limitReached"></div>
+    <div class="noSearch"></div>
+    <div class="searching icon-spin6 animate-spin"> </div>
+
+    <div id="searchResult">
+    </div>
+  </div>
+</div>
+
+<style>
+.selectize-input  .item,
+.selectize-input .item.active {
+  background-image:none !important;
+  background-color: #ffa646 !important;
+  border-color: transparent !important;
+  color: black !important;
+
+  border-radius: 20px !important;
+}
+
+.selectize-input .item .remove,
+.selectize-input .item .remove {
+  background-color: transparent !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  color: black !important;
+  
+  border-left: 1px solid transparent !important;
+
+}
+.selectize-input .item .remove:hover,
+.selectize-input .item .remove:hover {
+  background-color: #ff7700 !important;
+}
+</style>

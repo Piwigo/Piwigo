@@ -238,15 +238,7 @@ function reset_password()
     array($conf['user_fields']['id'] => $user_id)
     );
 
-  single_update(
-    USER_INFOS_TABLE,
-    array(
-      'activation_key' => null,
-      'activation_key_expire' => null,
-      ),
-    array('user_id' => $user_id)
-    );
-
+  deactivate_password_reset_key($user_id);
   deactivate_user_auth_keys($user_id);
 
   $page['infos'][] = l10n('Your password has been reset');

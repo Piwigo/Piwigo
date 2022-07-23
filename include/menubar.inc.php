@@ -22,7 +22,12 @@ function initialize_menu()
   global $page, $conf, $user, $template, $filter;
 
   $menu = new BlockManager("menubar");
-  $menu->load_registered_blocks();
+
+  // if guest_access is disabled, we only display the menus if the user is identified
+  if ($conf['guest_access'] or !is_a_guest())
+  {
+    $menu->load_registered_blocks();
+  }
   $menu->prepare_display();
 
   if ( @$page['section']=='search' and isset($page['qsearch_details']) )
@@ -104,7 +109,12 @@ function initialize_menu()
 //------------------------------------------------------------ related categories
   $block = $menu->get_block('mbRelatedCategories');
 
-  if ($block != null and !empty($page['items']))
+  if (
+    isset($page['items'])
+    and count($page['items']) < $conf['related_albums_maximum_items_to_compute']
+    and $block != null
+    and !empty($page['items'])
+  )
   {
     $exclude_cat_ids = array();
     if (isset($page['category']))

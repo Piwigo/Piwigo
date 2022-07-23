@@ -201,7 +201,7 @@ $sort_orders_checked = array_keys($sort_orders);
 
 $template->assign(array(
   'ADMIN_PAGE_TITLE' => l10n('Album list management'),
-  'CATEGORIES_NAV'=>$navigation,
+  'CATEGORIES_NAV'=> preg_replace("# {2,}#"," ",preg_replace("#(\r\n|\n\r|\n|\r)#"," ",$navigation)),
   'F_ACTION'=>$form_action,
   'PWG_TOKEN' => get_pwg_token(),
   'sort_orders' => $sort_orders,
@@ -324,6 +324,7 @@ foreach ($categories as $category)
       'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
       'U_EDIT'     => $base_url.'album-'.$category['id'],
       'U_ADD_PHOTOS_ALBUM' => $base_url.'photos_add&amp;album='.$category['id'],
+      'U_MOVE' => $base_url.'albums#cat-'.$category['id'],
 
       'IS_VIRTUAL' => empty($category['dir'])
     );

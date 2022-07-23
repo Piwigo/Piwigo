@@ -1,0 +1,141 @@
+<h2>Search</h2>
+
+<p>Per defecte, tots els mots cercats han de coincidir. Les cerques no distingeixen entre majúscules i minúscules.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>Frase entre cometes<br>
+<q>"cerca"</q>
+</td>
+<td>Utilitzeu les cometes per cercar una paraula o frase exacta.<br>
+<q>"josep tarradellas"</q></td>
+</tr>
+
+
+<tr>
+<td>un terme o l'altre<br>
+<q>cerca OR</q><br>
+</td>
+<td>Afegiu un OR entre paraules.<br>
+<q>josep OR jordi</q></td>
+</tr>
+
+
+<tr>
+<td>exclusió<br>
+<q>cerca NOT</q><br>
+<q>-cerca</q>
+</td>
+<td>Afegiu un guió (-) o la paraula NOT abans d'una paraula per excloure-la de la cerca. Teniu en compte que NOT funciona com un operador de filtre, i per tant no podeu tenir una cerca que només contingui operadors NOT. No podeu combinar OR amb NOT (<q>joan OR NOT guillem</q> no és vàlid)<br>
+<q>josep tarradellas NOT montilla</q></td>
+</tr>
+
+<tr>
+<td>agrupament<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mare OR pare) AND (filla OR fill)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Cerca només als noms d'etiqueta sense mirar els títols ni les descripcions de les fotos.<br>
+<q>tag:joan</q>, <q>tag:(joan OR guillem)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Cerca només fotos amb les paraules donades al títol o la descripció.<br>
+<q>photo:Joan</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Cerca per nom de fitxer.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Cerca per autor.<br>
+<q>author:Joan</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Cerca fotos per la data en què es varen fer.<br>
+<q>taken:2003</q> fotos fetes el 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> fotos del maig de 2003<br>
+<q>taken:2003..2008</q> photos d'entre el 2003 i el 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> fotos posteriors a l'1 de gener del 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Cerca fotos per la data de publicació.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Cerca fotos amb una amplada o alçada determinades.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Cerca fotos per la mida en píxels<br>
+<q>size:5m</q> retorna fotos de 5 megapíxels<br>
+<q>size:&gt;12m</q> retorna fotos de 12 megapíxels o més<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Cerca fotos per la proporció entre amplada i alçada.<br>
+<q>ratio:3/4 OR ratio:4/3</q> cerca fotos de càmeres compactes en mode paisatge o retrat.<br>
+<q>ratio:&gt;16/9</q> cerca panorames
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Consell: <q>score:*</q> us retornarà totes les fotos amb almenys un vot. <q>score:</q> us retornarà les fotos sense vots.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Cerca fotos per mida de fitxer<br>
+<q>filesize:1m..10m</q> cerca fitxers d'entre 1MB i 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Cerca fotos pel seu identificador numèric al Piwigo<br>
+<q>id:123..126</q> cerca les fotos 123 a 126 (pot trobar de 0 a 4 fotos, perquè les fotos poden haver estat esborrades).</td>
+</tr>
+
+</table>

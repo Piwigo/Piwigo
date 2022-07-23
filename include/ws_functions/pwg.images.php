@@ -112,9 +112,9 @@ DELETE
   if ($search_current_ranks)
   {
     $query = '
-SELECT category_id, MAX(rank) AS max_rank
+SELECT category_id, MAX(`rank`) AS max_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE rank IS NOT NULL
+  WHERE `rank` IS NOT NULL
     AND category_id IN ('.implode(',', $new_cat_ids).')
   GROUP BY category_id
 ;';
@@ -405,8 +405,10 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
   }
   usort($related_categories, 'global_rank_compare');
 
-  if (empty($related_categories))
+  if (empty($related_categories) and !is_admin())
   {
+    // photo might be in the lounge? or simply orphan. A standard user should not get
+    // info. An admin should still be able to get info.
     return new PwgError(401, 'Access denied');
   }
 
@@ -644,10 +646,12 @@ SELECT *
 ;';
     $result = pwg_query($query);
     $image_ids = array_flip($image_ids);
+    $favorite_ids = get_user_favorites();
 
     while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
+      $image['is_favorite'] = isset($favorite_ids[ $row['id'] ]);
       foreach (array('id', 'width', 'height', 'hit') as $k)
       {
         if (isset($row[$k]))
@@ -742,7 +746,7 @@ SELECT
     image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$params['category_id'].'
-  ORDER BY rank ASC
+  ORDER BY `rank` ASC
 ;';
     $image_ids = query2array($query, null, 'image_id');
 
@@ -788,7 +792,7 @@ SELECT COUNT(*)
 
   // what is the current higher rank for this category?
   $query = '
-SELECT MAX(rank) AS max_rank
+SELECT MAX(`rank`) AS max_rank
   FROM '. IMAGE_CATEGORY_TABLE .'
   WHERE category_id = '. $params['category_id'] .'
 ;';
@@ -809,17 +813,17 @@ SELECT MAX(rank) AS max_rank
   // update rank for all other photos in the same category
   $query = '
 UPDATE '. IMAGE_CATEGORY_TABLE .'
-  SET rank = rank + 1
+  SET `rank` = `rank` + 1
   WHERE category_id = '. $params['category_id'] .'
-    AND rank IS NOT NULL
-    AND rank >= '. $params['rank'] .'
+    AND `rank` IS NOT NULL
+    AND `rank` >= '. $params['rank'] .'
 ;';
   pwg_query($query);
 
   // set the new rank for the photo
   $query = '
 UPDATE '. IMAGE_CATEGORY_TABLE .'
-  SET rank = '. $params['rank'] .'
+  SET `rank` = '. $params['rank'] .'
   WHERE image_id = '. $params['image_id'] .'
     AND category_id = '. $params['category_id'] .'
 ;';
@@ -1315,6 +1319,28 @@ function ws_images_upload($params, $service)
     return new PwgError(403, 'Invalid security token');
   }
 
+  if (isset($params['format_of']))
+  {
+    $format_ext = null;
+
+    // are formats enabled?
+    if (!$conf['enable_formats'])
+    {
+      return new PwgError(401, 'formats are disabled');
+    }
+
+    // We must check if the extension is in the authorized list.
+    if (preg_match('/\.('.implode('|', $conf['format_ext']).')$/', $params['name'], $matches))
+    {
+      $format_ext = $matches[1];
+    }
+
+    if (empty($format_ext))
+    {
+      return new PwgError(401, 'unexpected format extension of file "'.$params['name'].'" (authorized extensions: '.implode(', ', $conf['format_ext']).')');
+    }
+  }
+
   // usleep(100000);
 
   // if (!isset($_FILES['image']))
@@ -1403,6 +1429,31 @@ function ws_images_upload($params, $service)
 
     include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 
+    if (isset($params['format_of']))
+    {
+      $query='
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '. $params['format_of'] .'
+;';
+      $images = query2array($query);
+      if (count($images) == 0)
+      {
+        return new PwgError(404, __FUNCTION__.' : image_id not found');
+      }
+
+      $image = $images[0];
+
+      add_format($filePath, $format_ext, $image['id']);
+
+      return array(
+        'image_id' => $image['id'],
+        'src' => DerivativeImage::thumb_url($image),
+        'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image),
+        'name' => $image['name'],
+        );
+    }
+
     $image_id = add_uploaded_file(
       $filePath,
       stripslashes($params['name']), // function add_uploaded_file will secure before insert
@@ -1430,6 +1481,14 @@ SELECT
 ;';
     $category_infos = pwg_db_fetch_assoc(pwg_query($query));
 
+    $query = '
+SELECT
+    COUNT(*)
+  FROM '.LOUNGE_TABLE.'
+  WHERE category_id = '.$params['category'][0].'
+;';
+    list($nb_photos_lounge) = pwg_db_fetch_row(pwg_query($query));
+
     $category_name = get_cat_display_name_from_id($params['category'][0], null);
 
     return array(
@@ -1439,7 +1498,7 @@ SELECT
       'name' => $image_infos['name'],
       'category' => array(
         'id' => $params['category'][0],
-        'nb_photos' => $category_infos['nb_photos'],
+        'nb_photos' => $category_infos['nb_photos'] + $nb_photos_lounge,
         'label' => $category_name,
         )
       );
@@ -1471,24 +1530,13 @@ function ws_images_uploadAsync($params, &$service)
 {
   global $conf, $user, $logger;
 
+  // the username/password parameters have been used in include/user.inc.php
+  // to authenticate the request (a much better time/place than here)
+
   // additional check for some parameters
   if (!preg_match('/^[a-fA-F0-9]{32}$/', $params['original_sum']))
   {
     return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid original_sum');
-  }
-
-  if (!try_log_user($params['username'], $params['password'], false))
-  {
-    return new PwgError(999, 'Invalid username/password');
-  }
-
-  // build $user
-  // include(PHPWG_ROOT_PATH.'include/user.inc.php');
-  $user = build_user($user['id'], false);
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Admin status is required.');
   }
 
   if ($params['image_id'] > 0)
@@ -1809,6 +1857,78 @@ SELECT id, file
 
 /**
  * API method
+ * Check if an image exists by it's name or md5 sum
+ * 
+ * @since 13
+ * @param mixed[] $params
+ *    @option string category_id (optional)
+ *    @option string filename_list
+ */
+function ws_images_formats_searchImage($params, $service)
+{
+  global $conf, $logger;
+
+  $logger->debug(__FUNCTION__, 'WS', $params);
+
+  $candidates = json_decode(stripslashes($params['filename_list']), true);
+
+  $unique_filenames_db = array();
+
+  $query = '
+SELECT
+    id,
+    file
+  FROM '.IMAGES_TABLE.'
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $filename_wo_ext = get_filename_wo_extension($row['file']);
+    @$unique_filenames_db[ $filename_wo_ext ][] = $row['id'];
+  }
+
+  // we want "long" format extensions first to match "cmyk.jpg" before "jpg" for example
+  usort($conf['format_ext'], function($a, $b) {
+    return strlen($b) - strlen($a);
+  });
+
+  $result = array();
+
+  foreach ($candidates as $format_external_id => $format_filename)
+  {
+    $candidate_filename_wo_ext = null;
+
+    if (preg_match('/^(.*?)\.('.implode('|', $conf['format_ext']).')$/', $format_filename, $matches))
+    {
+      $candidate_filename_wo_ext = $matches[1];
+    }
+
+    if (empty($candidate_filename_wo_ext))
+    {
+      $result[$format_external_id] = array('status' => 'not found');
+      continue;
+    }
+
+    if (isset($unique_filenames_db[$candidate_filename_wo_ext]))
+    {
+      if (count($unique_filenames_db[$candidate_filename_wo_ext]) > 1)
+      {
+        $result[$format_external_id] = array('status' => 'multiple');
+        continue;
+      }
+
+      $result[$format_external_id] = array('status' => 'found', 'image_id' => $unique_filenames_db[$candidate_filename_wo_ext][0]);
+      continue;
+    }
+
+    $result[$format_external_id] = array('status' => 'not found');
+  }
+
+  return $result;
+}
+
+/**
+ * API method
  * Check is file has been update
  * @param mixed[] $params
  *    @option int image_id
@@ -2092,6 +2212,88 @@ function ws_images_checkUpload($params, $service)
   }
 
   return $ret;
+}
+
+/**
+ * API method
+ * Empties the lounge, where photos may wait before taking off.
+ * @since 12
+ * @param mixed[] $params
+ */
+function ws_images_emptyLounge($params, $service)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $ret = array('rows' => empty_lounge());
+
+  return $ret;
+}
+
+/**
+ * API method
+ * Empties the lounge, where photos may wait before taking off.
+ * @since 12
+ * @param mixed[] $params
+ */
+function ws_images_uploadCompleted($params, $service)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  if (!is_array($params['image_id']))
+  {
+    $params['image_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['image_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
+  $params['image_id'] = array_map('intval', $params['image_id']);
+
+  $image_ids = array();
+  foreach ($params['image_id'] as $image_id)
+  {
+    if ($image_id > 0)
+    {
+      $image_ids[] = $image_id;
+    }
+  }
+
+  // the list of images moved from the lounge might not be the same than
+  // $image_ids (canbe a subset or more image_ids from another upload too)
+  $moved_from_lounge = empty_lounge();
+
+  $query = '
+SELECT
+    COUNT(*) AS nb_photos
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category_id'].'
+;';
+  $category_infos = pwg_db_fetch_assoc(pwg_query($query));
+  $category_name = get_cat_display_name_from_id($params['category_id'], null);
+
+  trigger_notify(
+    'ws_images_uploadCompleted',
+    array(
+      'image_ids' => $image_ids,
+      'category_id' => $params['category_id'],
+      'moved_from_lounge' => $moved_from_lounge,
+    )
+  );
+
+  return array(
+    'moved_from_lounge' => $moved_from_lounge,
+    'category' => array(
+      'id' => $params['category_id'],
+      'nb_photos' => $category_infos['nb_photos'],
+      'label' => $category_name,
+    ),
+  );
 }
 
 /**

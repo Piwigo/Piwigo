@@ -24,15 +24,15 @@ class Smarty_Internal_Method_SetDefaultModifiers
      * @api Smarty::setDefaultModifiers()
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  array|string                                                   $modifiers modifier or list of modifiers
+     * @param array|string                                                    $modifiers modifier or list of modifiers
      *                                                                                   to set
      *
      * @return \Smarty|\Smarty_Internal_Template
      */
     public function setDefaultModifiers(Smarty_Internal_TemplateBase $obj, $modifiers)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
-        $smarty->default_modifiers = (array) $modifiers;
+        $smarty = $obj->_getSmartyObj();
+        $smarty->default_modifiers = (array)$modifiers;
         return $obj;
     }
 }

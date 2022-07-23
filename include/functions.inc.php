@@ -530,6 +530,12 @@ function pwg_activity($object, $object_id, $action, $details=array())
 {
   global $user;
 
+  // in case of uploadAsync, do not log the automatic login as an independant activity
+  if (isset($_REQUEST['method']) and 'pwg.images.uploadAsync' == $_REQUEST['method'] and 'login' == $action)
+  {
+    return;
+  }
+
   $object_ids = $object_id;
   if (!is_array($object_id))
   {
@@ -550,9 +556,10 @@ function pwg_activity($object, $object_id, $action, $details=array())
     }
   }
 
-  if ('user' == $object and 'login' == $action)
+  $user_agent = null;
+  if ('user' == $object and 'login' == $action and isset($_SERVER['HTTP_USER_AGENT']))
   {
-    $details['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
   }
 
   if ('photo' == $object and 'add' == $action and !isset($details['sync']))
@@ -562,7 +569,6 @@ function pwg_activity($object, $object_id, $action, $details=array())
     {
       $details['added_with'] = 'browser';
     }
-    $details['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
   }
 
   if (in_array($object, array('album', 'photo')) and 'delete' == $action and isset($_GET['page']) and 'site_update' == $_GET['page'])
@@ -582,14 +588,22 @@ function pwg_activity($object, $object_id, $action, $details=array())
 
   foreach ($object_ids as $loop_object_id)
   {
+    $performed_by = $user['id'];
+
+    if ('logout' == $action)
+    {
+      $performed_by = $loop_object_id;
+    }
+
     $inserts[] = array(
       'object' => $object,
       'object_id' => $loop_object_id,
       'action' => $action,
-      'performed_by' => $user['id'],
+      'performed_by' => $performed_by,
       'session_idx' => session_id(),
       'ip_address' => $ip_address,
       'details' => $details_insert,
+      'user_agent' => $user_agent,
     );
   }
 
@@ -2263,6 +2277,50 @@ function safe_version_compare($a, $b, $op=null)
   else
   {
     return version_compare($a, $b, $op);
+  }
+}
+
+/**
+ * Checks if the lounge needs to be emptied automatically.
+ *
+ * @since 12
+ */
+function check_lounge()
+{
+  global $conf;
+
+  if (!isset($conf['lounge_active']) or !$conf['lounge_active'])
+  {
+    return;
+  }
+
+  if (isset($_REQUEST['method']) and in_array($_REQUEST['method'], array('pwg.images.upload', 'pwg.images.uploadAsync')))
+  {
+    return;
+  }
+
+  // is the oldest photo in the lounge older than lounge maximum waiting time?
+  $query = '
+SELECT
+    image_id,
+    date_available,
+    NOW() AS dbnow
+  FROM '.LOUNGE_TABLE.'
+    JOIN '.IMAGES_TABLE.' ON image_id = id
+  ORDER BY image_id ASC
+  LIMIT 1
+;';
+  $voyagers = query2array($query);
+  if (count($voyagers))
+  {
+    $voyager = $voyagers[0];
+    $age = strtotime($voyager['dbnow']) - strtotime($voyager['date_available']);
+
+    if ($age > $conf['lounge_max_duration'])
+    {
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+      empty_lounge();
+    }
   }
 }
 

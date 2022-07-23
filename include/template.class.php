@@ -212,7 +212,7 @@ class Template
     {
       $compile_id = "1";
       $compile_id .= ($real_dir = realpath($dir))===false ? $dir : $real_dir;
-      $this->smarty->compile_id = base_convert(crc32($compile_id), 10, 36 );
+      $this->smarty->compile_id = base_convert(hash("crc32b", $compile_id), 16, 36 );
     }
   }
 
@@ -702,7 +702,7 @@ class Template
    */
   function block_html_head($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
       $this->html_head_elements[] = $content;
@@ -718,7 +718,7 @@ class Template
    */
   function block_html_style($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
       $this->html_style .= "\n".$content;
@@ -908,7 +908,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    */
   function block_footer_script($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
 
@@ -1021,7 +1021,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
           $this->smarty->registerFilter($type, $callback);
         }
       }
-      $this->smarty->compile_id .= '.'.base_convert(crc32($compile_id), 10, 36);
+      $this->smarty->compile_id .= '.'.base_convert(hash("crc32b", $compile_id), 16, 36);
     }
   }
 
@@ -1896,7 +1896,7 @@ final class FileCombiner
     if (count($pending)>1)
     {
       $key = join('>', $key);
-      $file = PWG_COMBINED_DIR . base_convert(crc32($key),10,36) . '.' . $this->type;
+      $file = PWG_COMBINED_DIR . base_convert(hash("crc32b", $key), 16, 36) . '.' . $this->type;
       if ($force || !file_exists(PHPWG_ROOT_PATH.$file) )
       {
         $output = '';
@@ -1945,7 +1945,7 @@ final class FileCombiner
         $key = array($combinable->path, $combinable->version);
         if ($conf['template_compile_check'])
           $key[] = filemtime( PHPWG_ROOT_PATH . $combinable->path );
-        $file = PWG_COMBINED_DIR . 't' . base_convert(crc32(implode(',',$key)),10,36) . '.' . $this->type;
+        $file = PWG_COMBINED_DIR . 't' . base_convert(hash("crc32b", implode(',', $key)), 16, 36) . '.' . $this->type;
         if (!$force && file_exists(PHPWG_ROOT_PATH.$file) )
         {
           $combinable->path = $file;
@@ -1993,7 +1993,7 @@ final class FileCombiner
     if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
     {
       require_once(PHPWG_ROOT_PATH.'include/jshrink.class.php');
-      try { $js = JShrink_Minifier::minify($js); } catch(Exception $e) {}
+      try { $js = JShrink\Minifier::minify($js); } catch(Exception $e) {}
     }
     return trim($js, " \t\r\n;").";\n";
   }

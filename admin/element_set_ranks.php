@@ -71,7 +71,7 @@ if (isset($_POST['submit']))
   }
   elseif ($image_order_choice=='rank')
   {
-    $image_order = 'rank ASC';
+    $image_order = '`rank` ASC';
   }
   $query = '
 UPDATE '.CATEGORIES_TABLE.' 
@@ -126,7 +126,7 @@ $navigation = get_cat_display_name_cache(
 
 $template->assign(
   array(
-    'CATEGORIES_NAV' => $navigation,
+    'CATEGORIES_NAV' => preg_replace("# {2,}#"," ",preg_replace("#(\r\n|\n\r|\n|\r)#"," ",$navigation)),
     'F_ACTION' => $base_url.get_query_string_diff(array()),
    )
  );

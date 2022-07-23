@@ -33,7 +33,7 @@ fi
 mkdir $version
 cd $version
 
-git clone https://github.com/Piwigo/Piwigo.git piwigo
+git clone git@github.com:Piwigo/Piwigo.git piwigo
 cd piwigo
 
 if [ $# -eq 2 ]
@@ -61,7 +61,7 @@ do
   fi
 
   # clone repo
-  git clone https://github.com/Piwigo/${plugin}.git $plugin_dir
+  git clone git@github.com:Piwigo/${plugin}.git $plugin_dir
   cd /tmp/$version/piwigo/plugins/$plugin_dir
 
   # change version
@@ -83,7 +83,7 @@ for theme in modus elegant smartpocket
 do
   cd /tmp/$version/piwigo/themes
 
-  git_url=https://github.com/Piwigo/piwigo-${theme}.git
+  git_url=git@github.com:Piwigo/piwigo-${theme}.git
 
   # clone repo
   git clone $git_url $theme

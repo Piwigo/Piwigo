@@ -395,6 +395,8 @@ SELECT
   }
   unset($value);
 
+  $userdata['preferences'] = empty($userdata['preferences']) ? array() : unserialize($userdata['preferences']);
+
   if ($use_cache)
   {
     if (!isset($userdata['need_update'])
@@ -1134,9 +1136,28 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 
   if ($user_found)
   {
-    log_user($row['id'], $remember_me);
-    trigger_notify('login_success', stripslashes($username));
-    return true;
+    // if user status is "guest" then she should not be granted to log in.
+    // The user may not exist in the user_infos table, so we consider it's a "normal" user by default
+    $status = 'normal';
+
+    $query = '
+SELECT
+    *
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$row['id'].'
+;';
+    $result = pwg_query($query);
+    while ($user_infos_row = pwg_db_fetch_assoc($result))
+    {
+      $status = $user_infos_row['status'];
+    }
+
+    if ('guest' != $status)
+    {
+      log_user($row['id'], $remember_me);
+      trigger_notify('login_success', stripslashes($username));
+      return true;
+    }
   }
   trigger_notify('login_failure', stripslashes($username));
   return false;
@@ -1630,6 +1651,25 @@ UPDATE '.USER_AUTH_KEYS_TABLE.'
 }
 
 /**
+ * Deactivates password reset key
+ *
+ * @since 11
+ * @param int $user_id
+ * @return null
+ */
+function deactivate_password_reset_key($user_id)
+{
+  single_update(
+    USER_INFOS_TABLE,
+    array(
+      'activation_key' => null,
+      'activation_key_expire' => null,
+      ),
+    array('user_id' => $user_id)
+    );
+}
+
+/**
  * Gets the last visit (datetime) of a user, based on history table
  *
  * @since 2.9
@@ -1669,5 +1709,101 @@ UPDATE '.USER_INFOS_TABLE.'
   }
 
   return $last_visit;
+}
+
+/**
+ * Save user preferences in database
+ * @since 13
+ */
+function userprefs_save()
+{
+  global $user;
+
+  $dbValue = pwg_db_real_escape_string(serialize($user['preferences']));
+
+  $query = '
+UPDATE '.USER_INFOS_TABLE.'
+  SET preferences = \''.$dbValue.'\'
+  WHERE user_id = '.$user['id'].'
+;';
+  pwg_query($query);
+}
+
+/**
+ * Add or update a user preferences parameter
+ * @since 13
+ *
+ * @param string $param
+ * @param string $value
+ * @param boolean $updateGlobal update global *$conf* variable
+ */
+function userprefs_update_param($param, $value)
+{
+  global $user;
+
+  // If the field is true or false, the variable is transformed into a boolean value.
+  if ('true' == $value)
+  {
+    $value = true;
+  }
+  elseif ('false' == $value)
+  {
+    $value = false;
+  }
+
+  $user['preferences'][$param] = $value;
+
+  userprefs_save();
+}
+
+/**
+ * Delete one or more user preferences parameters
+ * @since 13
+ *
+ * @param string|string[] $params
+ */
+function userprefs_delete_param($params)
+{
+  global $user;
+
+  if (!is_array($params))
+  {
+    $params = array($params);
+  }
+  if (empty($params))
+  {
+    return;
+  }
+
+  foreach ($params as $param)
+  {
+    if (isset($user['preferences'][$param]))
+    {
+      unset($user['preferences'][$param]);
+    }
+  }
+
+  userprefs_save();
+}
+
+/**
+ * Return a default value for a user preferences parameter.
+ * @since 13
+ *
+ * @param string $param the configuration value to be extracted (if it exists)
+ * @param mixed $default_value the default value if it does not exist yet.
+ *
+ * @return mixed The configuration value if the variable exists, otherwise the default.
+ */
+function userprefs_get_param($param, $default_value=null)
+{
+  global $user;
+
+  if (isset($user['preferences'][$param]))
+  {
+    return $user['preferences'][$param];
+  }
+
+  return $default_value;
 }
 ?>

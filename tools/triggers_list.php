@@ -469,6 +469,20 @@ array(
   'infos' => 'New in 2.11',
 ),
 array(
+  'name' => 'empty_lounge',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'rows'),
+  'files' => array('admin\include\functions.php (empty_lounge)'),
+  'infos' => 'New in 12',
+),
+array(
+  'name' => 'ws_images_uploadCompleted',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'upload_data'),
+  'files' => array('include\ws_functions\pwg.images.php (ws_images_uploadCompleted)'),
+  'infos' => 'New in 12',
+),
+array(
   'name' => 'loc_end_password',
   'type' => 'trigger_notify',
   'vars' => array(),

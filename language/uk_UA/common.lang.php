@@ -415,3 +415,5 @@ $lang['Link: %s'] = 'Посилання: %s';
 $lang['Your authentication key is no longer valid.'] = 'Ваш ключ аутентифікації більше не дійсний.';
 $lang['Invalid username or password!'] = 'Недійсне ім\'я користувача чи пароль';
 $lang['generate random password'] = 'Генерувати випадковий пароль';
+$lang['Password: ********** (no copy by email)'] = 'Пароль: ********** (без копії електронною поштою)';
+$lang['Related albums'] = 'Схожі альбоми';

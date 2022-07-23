@@ -9,8 +9,8 @@ $('#syncFiles label').click(function () {
 
 {/footer_script}
 
-<div class="titrePage">
-  <h2>{'Synchronize'|@translate}<a href="{$SITE_URL}"><span class="badge-number">{$SITE_URL}</span></a></h2>
+<div class="selectedAlbum site-url-path">
+  <span class="icon-folder-open selectedAlbum-first">{$SITE_URL}</span>
 </div>
 
 {if isset($update_result)}
@@ -64,7 +64,6 @@ $('#syncFiles label').click(function () {
 {/if}
 
 {if isset($introduction)}
-<h4>{'Choose an option'|@translate}</h4>
 <form action="" method="post" id="update">
 
 	<fieldset id="syncFiles">
@@ -114,11 +113,8 @@ $('#syncFiles label').click(function () {
     </ul>
   </fieldset>
 
-  <p class="bottomButtons">
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
-    <input class="submit" type="reset"  value="{'Reset'|@translate}"  name="reset">
+  <p class="bottomButtons syncBtn">
+    <button class="icon-exchange buttonGradient" type="submit" value="" name="submit"> {'Synchronize'|@translate} </button>
   </p>
 </form>
 {/if}{*isset $introduction*}
-
-<p><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></p>

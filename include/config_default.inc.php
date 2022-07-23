@@ -274,6 +274,9 @@ $conf['album_description_on_all_pages'] = false;
 // Number of years displayed in the history compare mode (for the years chart)
 $conf['stat_compare_year_displayed'] = 5;
 
+// Limit for linked albums search
+$conf['linked_album_search_limit'] = 100;
+
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
 // +-----------------------------------------------------------------------+
@@ -432,6 +435,17 @@ $conf['session_gc_probability'] = 1;
 // +-----------------------------------------------------------------------+
 // |                            debug/performance                          |
 // +-----------------------------------------------------------------------+
+
+// number of photos beyond which individual photos are added in the
+// lounge, a temporary zone where photos wait before being "launched".
+// 50k photos by default.
+$conf['lounge_activate_threshold'] = 1;
+
+// Lounge is automatically emptied (photos are being pushed to their
+// albums) when the oldest one reaches this duration. Lounge can be emptied
+// before, either manually or at the end of the upload. In seconds.
+// 5 minutes by default.
+$conf['lounge_max_duration'] = 5*60;
 
 // show_queries : for debug purpose, show queries and execution times
 $conf['show_queries'] = false;
@@ -644,6 +658,19 @@ $conf['tags_default_display_mode'] = 'cloud';
 $conf['tag_letters_column_number'] = 4;
 
 // +-----------------------------------------------------------------------+
+// | Related albums                                                        |
+// +-----------------------------------------------------------------------+
+
+// beyond this limit, do not try to find related albums. If there are too
+// many items, the SQL query will be slow and the results irrelevant,
+// because showing too many related albums.
+$conf['related_albums_maximum_items_to_compute'] = 1000;
+
+// once found the related albums, how many to show in the menubar? We take
+// the heaviest (with more relations).
+$conf['related_albums_display_limit'] = 20;
+
+// +-----------------------------------------------------------------------+
 // | Notification by mail                                                  |
 // +-----------------------------------------------------------------------+
 
@@ -696,8 +723,27 @@ $conf['ws_max_users_per_page'] = 1000;
 // Display a link to subscribe to Piwigo Announcements Newsletter
 $conf['show_newsletter_subscription'] = true;
 
+// Fetch and show latest news from piwigo.org
+$conf['show_piwigo_latest_news'] = true;
+
+// Check for available updates on Piwigo or extensions, performed each time
+// the dashboard is displayed
+$conf['dashboard_check_for_updates'] = true;
+
 // Number Weeks displayed on activity chart on the dashboard
 $conf['dashboard_activity_nb_weeks'] = 4;
+
+// On album mover page, number of seconds before auto openning album when
+// dragging an album. In milliseconds. 3 seconds by default.
+$conf['album_move_delay_before_auto_opening'] = 3*1000;
+
+// This variable is used to show or hide the template tab in the side menu
+$conf['show_template_in_side_menu'] = false;
+
+// Add last calculated cache size to Dashboard Storage chart if true.
+// To recalculate use Tools -> Maintenance, Refresh.
+// To disable, set to false.
+$conf['add_cache_to_storage_chart'] = true;
 
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |

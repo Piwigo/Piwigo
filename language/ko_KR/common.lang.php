@@ -410,3 +410,6 @@ $lang['Link: %s'] = '링크: %s';
 $lang['Photo description'] = '사진 설명';
 $lang['Photo title'] = '사진 제목';
 $lang['No results for'] = '다음의 검색 결과가 없음';
+$lang['Invalid username or password!'] = '시용자 이름 또는 비밀번호가 올바르지 않습니다.';
+$lang['Your authentication key is no longer valid.'] = '인증키가 유효하지 않습니다.';
+$lang['generate random password'] = '랜덤 비밀번호 생성';

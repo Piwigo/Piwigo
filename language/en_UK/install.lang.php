@@ -33,6 +33,7 @@ $lang['verification'] = "verification";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Need help? Ask your question on the <a href="%s">Piwigo message board</a>.';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Visitors will be able to use this email to contact the site administrator';
 $lang['PHP 5 is required'] = 'PHP 5.3 is required';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP version %s required (you are running on PHP %s)';
 $lang['It appears your webhost is currently running PHP %s.'] = "It appears your webhost is currently running PHP %s.";
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo may try to switch your configuration to PHP 5.3 by creating or modifying a .htaccess file.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Note you can change your configuration by yourself and then restart Piwigo.';

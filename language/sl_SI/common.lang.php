@@ -412,3 +412,5 @@ $lang['Photo title'] = 'Ime slike';
 $lang['Your authentication key is no longer valid.'] = 'Vaš avtorizacijski ključ ni več veljaven.';
 $lang['Invalid username or password!'] = 'Napačno uporabniško ime ali geslo!';
 $lang['generate random password'] = 'generiraj naključno geslo';
+$lang['Password: ********** (no copy by email)'] = 'Geslo: ********** (brez kopije po e-pošti)';
+$lang['Related albums'] = 'Sorodni albumi';

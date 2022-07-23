@@ -57,12 +57,18 @@
    * @param data {mixed}
    */
   LocalStorageCache.prototype.set = function(data) {
-    if (this.ready) {
-      this.storage[this.key] = JSON.stringify({
-        timestamp: new Date().getTime(),
-        key: this.serverKey,
-        data: data
-      });
+    try {
+      if (this.ready) {
+        this.storage[this.key] = JSON.stringify({
+          timestamp: new Date().getTime(),
+          key: this.serverKey,
+          data: data
+        });
+      }
+    } catch (e) {
+      console.log("Local storage error:");
+      console.log(e);
+      console.log("Use of direct result from Piwigo API.");
     }
   };
 

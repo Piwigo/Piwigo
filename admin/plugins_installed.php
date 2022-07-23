@@ -44,31 +44,6 @@ $action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.$pwg_token;
 
 $plugins = new plugins();
 
-//--------------------------------------------------perform requested actions
-if (isset($_GET['action']) and isset($_GET['plugin']))
-{
-  if (!is_webmaster())
-  {
-    $page['errors'][] = l10n('Webmaster status is required.');
-  }
-  else
-  {
-    check_pwg_token();
-
-    $page['errors'] = $plugins->perform_action($_GET['action'], $_GET['plugin']);
-
-    if (empty($page['errors']))
-    {
-      if ($_GET['action'] == 'activate' or $_GET['action'] == 'deactivate')
-      {
-        $template->delete_compiled_templates();
-        $persistent_cache->purge(true);
-      }
-      redirect($base_url);
-    }
-  }
-}
-
 //--------------------------------------------------------Incompatible Plugins
 if (isset($_GET['incompatible_plugins']))
 {
@@ -93,7 +68,7 @@ foreach ($plugin_menu_links_deprec as $value)
 {
   if (preg_match('/^admin\.php\?page=plugin-(.*)$/', $value["URL"], $matches)) {
     $settings_url_for_plugin_deprec[$matches[1]] = $value["URL"];
-  } elseif (preg_match('/^.*section=(.*)[\/&%].*$/', $value["URL"], $matches)) {
+  } elseif (preg_match('/^.*section=(.*?)[\/&%].*$/', $value["URL"], $matches)) {
     $settings_url_for_plugin_deprec[$matches[1]] = $value["URL"];
   }
 }
@@ -122,6 +97,11 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $setting_url = $settings_url_for_plugin_deprec[$plugin_id];
   } else if ($fs_plugin['hasSettings']) { // new version
     $setting_url = "admin.php?page=plugin-".$plugin_id;
+
+    if (preg_match('/^piwigo-(videojs|openstreetmap)$/', $plugin_id))
+    {
+      $setting_url = str_replace('piwigo-', 'piwigo_', $setting_url);
+    }
   }
 
   $tpl_plugin = array(
@@ -180,11 +160,13 @@ if (count($missing_plugin_ids) > 0)
   {
     $tpl_plugins[] = array(
       'NAME' => $plugin_id,
+      'ID' => $plugin_id,
       'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
       'DESC' => l10n('ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'),
       'U_ACTION' => sprintf($action_url, $plugin_id),
       'STATE' => 'missing',
       );
+      $count_types_plugins['missing']++;
   }
   $template->append('plugin_states', 'missing');
 }
@@ -199,7 +181,9 @@ function cmp($a, $b)
   else
     return $s[$a['STATE']] >= $s[$b['STATE']]; 
 }
-usort($tpl_plugins, 'cmp');
+
+// Stoped plugin sorting for new plugin manager
+// usort($tpl_plugins, 'cmp');
 
 $template->assign(
   array(
@@ -208,6 +192,9 @@ $template->assign(
     'PWG_TOKEN' => $pwg_token,
     'base_url' => $base_url,
     'show_details' => $show_details,
+    'max_inactive_before_hide' => isset($_GET['show_inactive']) ? 999 : 8,
+    'isWebmaster' => (is_webmaster()) ? 1 : 0,
+    'ADMIN_PAGE_TITLE' => l10n('Plugins'),
     )
   );
 

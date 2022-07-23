@@ -342,12 +342,9 @@ var sliders = {
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
-{combine_css path="admin/themes/default/fontello/css/animation.css"}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 <div id="batchManagerGlobal">
-
-<h2>{'Batch Manager'|@translate}</h2>
-
   <form action="{$F_ACTION}" method="post">
   <input type="hidden" name="start" value="{$START}">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
@@ -399,7 +396,7 @@ var sliders = {
           <span id="duplicates_options" style="{if !isset($filter.prefilter) or $filter.prefilter ne 'duplicates'}display:none{/if}">
             {'based on'|translate}
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_filename" {if isset($filter.duplicates_filename)}checked="checked"{/if}> {'file name'|translate}</label>
-            <label class="font-checkbox" title="md5sum"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_checksum" {if isset($filter.duplicates_checksum)}checked="checked"{/if}> {'checksum'|translate}</label>
+            <label class="font-checkbox" title="md5sum"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_checksum" {if isset($filter.duplicates_checksum)}checked="checked"{/if}> {'checksum'|translate} <i class="icon-help-circled tiptip" title="translated md5sum definition here !"> </i></label>
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_date" {if isset($filter.duplicates_date) or (isset($filter.prefilter) and $filter.prefilter ne 'duplicates')}checked="checked"{/if}> {'date & time'|translate}</label>
             <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_dimensions" {if isset($filter.duplicates_dimensions)}checked="checked"{/if}> {'width & height'|translate}</label>
           </span>
@@ -684,7 +681,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
       <!-- associate -->{* also used for "move" action *}
       <div id="action_associate" class="bulkAction">
-        <select data-selectize="categories" data-default="first" name="associate" style="width:600px"></select>
+        <select data-selectize="categories" data-default="" name="associate" style="width:600px" placeholder="{'Select an album... or type it!'|@translate}"></select>
         <a href="#" data-add-album="associate" title="{'create a new album'|@translate}" class="icon-plus"></a>
       </div>
 
@@ -801,3 +798,35 @@ UL.thumbnails SPAN.wrap2 {ldelim}
   </form>
 
 </div> <!-- #batchManagerGlobal -->
+
+<style>
+#action_associate .selectize-input {
+  min-width: 500px;
+  height: 44px;
+}
+
+#action_add_tags .item,
+#action_add_tags .item.active {
+  background-image:none;
+  background-color: #ffa646;
+  border-color: transparent;
+  color: black;
+
+  border-radius: 20px;
+}
+
+#action_add_tags .item .remove,
+#action_add_tags .item .remove {
+  background-color: transparent;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: black;
+  
+  border-left: 1px solid transparent;
+
+}
+#action_add_tags .item .remove:hover,
+#action_add_tags .item .remove:hover {
+  background-color: #ff7700;
+}
+</style>

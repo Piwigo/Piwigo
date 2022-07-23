@@ -31,14 +31,12 @@ $tabsheet->assign();
 // |                           delete orphan tags                          |
 // +-----------------------------------------------------------------------+
 
-$message_tags = "";
-
 if (isset($_GET['action']) and 'delete_orphans' == $_GET['action'])
 {
   check_pwg_token();
 
   delete_orphan_tags();
-  $message_tags = array(l10n('Orphan tags deleted'));
+  $_SESSION['message_tags'] = l10n('Orphan tags deleted');
   redirect(get_root_url().'admin.php?page=tags');
 }
 
@@ -63,6 +61,7 @@ $warning_tags = "";
 
 $orphan_tags = get_orphan_tags();
 
+$orphan_tag_names_array = '[]';
 $orphan_tag_names = array();
 foreach ($orphan_tags as $tag)
 {
@@ -75,19 +74,37 @@ if (count($orphan_tag_names) > 0)
     l10n('You have %d orphan tags %s'),
     count($orphan_tag_names),
     '<a 
-      data-tags=\'["'.implode('" ,"', $orphan_tag_names).'"]\' 
       class="icon-eye"
       data-url="'.get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token().'">'
       .l10n('Review').'</a>'
     );
+
+  $orphan_tag_names_array = '["';
+  $orphan_tag_names_array.= implode(
+    '" ,"',
+    array_map(
+      'htmlentities',
+      $orphan_tag_names,
+      array_fill(0 , count($orphan_tag_names) , ENT_QUOTES)
+    )
+  );
+  $orphan_tag_names_array.= '"]';
 }
 
 $template->assign(
   array(
+    'orphan_tag_names_array' => $orphan_tag_names_array,
     'warning_tags' => $warning_tags,
-    'message_tags' => $message_tags
     )
   );
+
+$message_tags = '';
+if (isset($_SESSION['message_tags']))
+{
+  $message_tags = $_SESSION['message_tags'];
+  unset($_SESSION['message_tags']);
+}
+$template->assign('message_tags', $message_tags);
 
 // +-----------------------------------------------------------------------+
 // |                             form creation                             |
@@ -133,7 +150,8 @@ $template->assign(
     'first_tags' => array_slice($all_tags, 0, $per_page),
     'data' => $all_tags,
     'total' => count($all_tags),
-    'per_page' => $per_page
+    'per_page' => $per_page,
+    'ADMIN_PAGE_TITLE' => l10n('Tags'),
     )
   );
 
