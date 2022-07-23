@@ -610,7 +610,6 @@ SELECT DISTINCT id
 function ws_images_search($params, $service)
 {
   include_once(PHPWG_ROOT_PATH .'include/functions_search.inc.php');
-  global $user;
 
   $images = array();
   $where_clauses = ws_std_image_sql_filter($params, 'i.');

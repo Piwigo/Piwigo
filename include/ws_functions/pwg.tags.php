@@ -78,8 +78,6 @@ function ws_tags_getAdminList($params, &$service)
  */
 function ws_tags_getImages($params, &$service)
 {
-  global $user;
-
   // first build all the tag_ids we are interested in
   $tags = find_tags($params['tag_id'], $params['tag_url_name'], $params['tag_name']);
   $tags_by_id = array();
