@@ -77,18 +77,7 @@ SELECT id, name, permalink, image_order
       $order_by = $cats[ $params['cat_id'][0] ]['image_order'];
     }
     $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
-
-    $favorite_ids = [];
-    if (!is_a_guest()) {
-      $query = '
-SELECT
-    image_id,
-    1 as fake_value
-  FROM '.FAVORITES_TABLE.'
-  WHERE user_id = '.$user['id'].'
-';
-      $favorite_ids = query2array($query, 'image_id', 'fake_value');
-    }
+    $favorite_ids = get_user_favorites();
 
     $query = '
 SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids

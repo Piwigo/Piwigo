@@ -880,4 +880,28 @@ function url_is_remote($url)
   return false;
 }
 
+/**
+ * List favorite image_ids of the current user.
+ * @since 13
+ */
+function get_user_favorites()
+{
+  global $user;
+
+  if (is_a_guest())
+  {
+    return array();
+  }
+
+  $query = '
+SELECT
+    image_id,
+    1 as fake_value
+  FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+';
+
+  return query2array($query, 'image_id', 'fake_value');
+}
+
 ?>

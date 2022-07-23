@@ -647,17 +647,7 @@ SELECT *
 ;';
     $result = pwg_query($query);
     $image_ids = array_flip($image_ids);
-    $favorite_ids = [];
-    if (!is_a_guest()) {
-      $query = '
-SELECT
-    image_id,
-    1 as fake_value
-  FROM '.FAVORITES_TABLE.'
-  WHERE user_id = '.$user['id'].'
-';
-      $favorite_ids = query2array($query, 'image_id', 'fake_value');
-    }
+    $favorite_ids = get_user_favorites();
 
     while ($row = pwg_db_fetch_assoc($result))
     {

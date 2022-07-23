@@ -136,18 +136,7 @@ SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
   if (!empty($image_ids))
   {
     $rank_of = array_flip($image_ids);
-    
-    $favorite_ids = [];
-    if (!is_a_guest()) {
-      $query = '
-SELECT
-    image_id,
-    1 as fake_value
-  FROM '.FAVORITES_TABLE.'
-  WHERE user_id = '.$user['id'].'
-';
-      $favorite_ids = query2array($query, 'image_id', 'fake_value');
-    }
+    $favorite_ids = get_user_favorites();
 
     $query = '
 SELECT *
