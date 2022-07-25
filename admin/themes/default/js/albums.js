@@ -150,7 +150,7 @@ $(document).ready(() => {
     }
   });
 
-  var url_split = window.location.href.split("#");
+  var url_split = window.location.href.split("cat_move");
   var catToOpen = url_split[url_split.length-1].split("-")[1];
 
   function isNumeric(num){
