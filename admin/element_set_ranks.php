@@ -203,7 +203,7 @@ $sort_fields = array(
 
 $template->assign('image_order_options', $sort_fields);
 
-$image_order = explode(',', $category['image_order']);
+$image_order = explode(',', isset($category['image_order']) ? $category['image_order'] : "");
 
 for ($i=0; $i<3; $i++) // 3 fields
 {

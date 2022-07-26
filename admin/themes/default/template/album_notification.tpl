@@ -104,7 +104,7 @@ span.errors {
   <p>
     <strong>{'Complementary mail content'|@translate}</strong>
     <br>
-    <textarea cols="50" rows="5" name="mail_content" id="mail_content" class="description">{$MAIL_CONTENT}</textarea>
+<textarea cols="50" rows="5" name="mail_content" id="mail_content" class="description">{if isset($MAIL_CONTENT)}{$MAIL_CONTENT}{/if}</textarea>
   </p>
 
 {if isset($auth_key_duration)}
