@@ -258,14 +258,14 @@ $template->assign(
     'AUTHOR' => htmlspecialchars(
       isset($_POST['author'])
         ? stripslashes($_POST['author'])
-        : @$row['author']
+        : ""
       ),
 
     'DATE_CREATION' => $row['date_creation'],
 
     'DESCRIPTION' =>
       htmlspecialchars( isset($_POST['description']) ?
-        stripslashes($_POST['description']) : @$row['comment'] ),
+        stripslashes($_POST['description']) : ""),
 
     'F_ACTION' =>
         get_root_url().'admin.php'
