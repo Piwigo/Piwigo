@@ -91,10 +91,6 @@ var uploadCategory = null;
 
 {literal}
 jQuery(document).ready(function(){
-  jQuery(".close-apps").on("click", function() {
-    jQuery(".promote-apps").hide();
-  });
-
   jQuery(".dont-show-again").on("click", function() {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.users.preferences.set",
@@ -398,7 +394,6 @@ jQuery(document).ready(function(){
 
   {if $PROMOTE_MOBILE_APPS}
     <div class="promote-apps">
-      <span class="icon-cancel close-apps"></span>
       <div class="promote-content">
         <div class="left-side">
         <img src="https://de.piwigo.org/./plugins/piwigo-piwigodotorg/images/mobile_applications/Group_77.png">
@@ -415,7 +410,7 @@ jQuery(document).ready(function(){
           </div>
         </div>
       </div>
-      <span class="dont-show-again">{'Hide'|translate|escape:javascript}</span>
+      <span class="dont-show-again">{'Understood, do not show again'|translate|escape:javascript}</span>
     </div>
   {/if}
 

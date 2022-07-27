@@ -6601,8 +6601,7 @@ color:#FF7B00;
 
 .dont-show-again {
   margin-left: auto;
-  background: #BBB;
-  color: #000;
+  color: #555;
   border-radius: 20px;
   padding: 3px 8px;
   font-weight: 700;
