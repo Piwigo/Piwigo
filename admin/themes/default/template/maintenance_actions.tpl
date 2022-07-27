@@ -227,6 +227,9 @@ $(".delete-size-check").click( function () {
   margin-right: 20px;
   margin-bottom: 20px;
 }
+.maintenance-action.icon-th-list {
+  font-size: 13px;
+}
 
 .delete-size-checks {
   display: flex;
