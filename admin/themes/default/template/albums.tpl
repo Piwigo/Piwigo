@@ -548,6 +548,10 @@ input[name="position"] {
     display: none;
 }
 
+.badge-container .nb-sub-photos::before {
+  margin-right: 6px;
+}
+
 @media (max-width: 1415px) { 
   .badge-container  .last-update {
     display: none;
