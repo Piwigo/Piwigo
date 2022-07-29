@@ -1303,4 +1303,5 @@ $lang['Currently running version %s'] = 'Currently running version %s';
 $lang['Discover'] = 'Discover';
 $lang['Latest Piwigo news'] = 'Latest Piwigo news';
 $lang['Understood, do not show again'] = 'Understood, do not show again';
+$lang['%s pixels, %.2f MB'] = '%s pixels, %.2f MB';
 // Leave this line empty

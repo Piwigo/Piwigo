@@ -1300,4 +1300,5 @@ $lang['Currently running version %s'] = 'Version %s installée actuellement';
 $lang['Discover'] = 'Découvrir';
 $lang['Latest Piwigo news'] = 'Dernière nouvelle de Piwigo';
 $lang['Understood, do not show again'] = 'Compris, ne plus afficher';
+$lang['%s pixels, %.2f MB'] = '%s pixels, %.2f Mo';
 // Leave this line empty
