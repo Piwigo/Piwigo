@@ -81,7 +81,7 @@ var batch_Label = "{'Manage this set of %d photos'|translate}";
 var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape}";
 var str_format_warning = "{'Error when trying to detect formats'|translate}";
 var str_ok = "{'Ok'|translate}";
-var str_format_warning_multiple = "{'There is multiple image in the database with the following names : %s. Try to rename them with the Edit Filename plugin.'|translate}";
+var str_format_warning_multiple = "{'There is multiple image in the database with the following names : %s.'|translate}";
 var str_format_warning_notFound = "{'No picture found with the following name : %s.'|translate}";
 var str_and_X_others = "{'and %d more'|translate}";
 var file_ext = "{$file_exts}";
@@ -508,7 +508,7 @@ jQuery(document).ready(function(){
     <fieldset class="selectFiles">
       <legend><span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}</legend>
       <div class="selectFilesButtonBlock">
-        <button id="addFiles" class="buttonGradient">{if not $DISPLAY_FORMATS}{'Add Photos'|translate}{else}{'Add Formats'|translate}{/if}<i class="icon-plus-circled"></i></button>
+        <button id="addFiles" class="buttonGradient">{if not $DISPLAY_FORMATS}{'Add Photos'|translate}{else}{'Add formats'|@translate}{/if}<i class="icon-plus-circled"></i></button>
         <div class="selectFilesinfo">
           {if isset($original_resize_maxheight)}
           <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>

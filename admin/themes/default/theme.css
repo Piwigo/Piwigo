@@ -4008,6 +4008,78 @@ a#showPermissions:hover {text-decoration: none;}
   grid-template-columns: 50% 50%;
 }
 
+
+/* Format tab on picture edit */
+
+.formats-header {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-left: 20px;
+  max-width: calc(100% - 20px);
+  overflow: hidden;
+  padding: 10px;
+}
+
+.formats-content {
+  margin: 10px 30px;
+}
+
+.formats-list {
+  display: flex;
+}
+
+.format-card {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.format-card::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.format-card-ext {
+  color: white;
+  font-weight: bolder;
+  font-size: 50px;
+  z-index: 2;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.format-card-actions {
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.format-card-actions a {
+  color: white;
+  font-size: 24px;
+  margin: 0 10px;
+}
+
+.format-card-size {
+  color: white;
+  margin-top: 5px;
+  z-index: 2;
+  font-size: 20px;
+}
+
 /* Album Manager */
 #addAlbumForm {
   text-align:left;

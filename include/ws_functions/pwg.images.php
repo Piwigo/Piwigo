@@ -1929,6 +1929,125 @@ SELECT
 
 /**
  * API method
+ * Remove a formats from the database and the file system
+ * 
+ * @since 13
+ * @param mixed[] $params
+ *    @option int format_id
+ *    @option string pwg_token
+ */
+function ws_images_formats_delete($params, $service) {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  if (!is_array($params['format_id']))
+  {
+    $params['format_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['format_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
+  $params['format_id'] = array_map('intval', $params['format_id']);
+
+  $format_ids = array();
+  foreach ($params['format_id'] as $format_id)
+  {
+    if ($format_id >= 0)
+    {
+      $format_ids[] = $format_id;
+    }
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $image_ids = array();
+  $formats_of = array();
+
+  //Delete physical file
+  $ok = true;
+  
+  $query = '
+SELECT
+    image_id,
+    ext
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE format_id IN ('.implode(',', $format_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+
+    if (!isset($formats_of[ $row['image_id'] ]))
+    {
+      $image_ids[] = $row['image_id'];
+      $formats_of[ $row['image_id'] ] = array();
+    }
+
+    $formats_of[ $row['image_id'] ][] = $row['ext'];
+  }
+
+  if (count($image_ids) == 0)
+  {
+    return new PwgError(404, 'No format found for the id(s) given');
+  }
+
+  $query = '
+SELECT
+    id,
+    path,
+    representative_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $image_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if (url_is_remote($row['path']))
+    {
+      continue;
+    }
+
+    $files = array();
+    $image_path = get_element_path($row);
+
+    if (isset($formats_of[ $row['id'] ]))
+    {
+      foreach ($formats_of[ $row['id'] ] as $format_ext)
+      {
+        $files[] = original_to_format($image_path, $format_ext);
+      }
+    }
+
+    foreach ($files as $path)
+    {
+      if (is_file($path) and !unlink($path))
+      {
+        $ok = false;
+        trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
+        break;
+      }
+    }
+  }
+
+
+  //Delete format in the database
+  $query = '
+DELETE FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE format_id IN ('.implode(',', $format_ids).')
+;';
+  pwg_query($query);
+
+  invalidate_user_cache();
+
+  return $ok;
+}
+
+/**
+ * API method
  * Check is file has been update
  * @param mixed[] $params
  *    @option int image_id

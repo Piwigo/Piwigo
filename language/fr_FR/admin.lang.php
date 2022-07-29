@@ -1301,4 +1301,15 @@ $lang['Discover'] = 'Découvrir';
 $lang['Latest Piwigo news'] = 'Dernière nouvelle de Piwigo';
 $lang['Understood, do not show again'] = 'Compris, ne plus afficher';
 $lang['%s pixels, %.2f MB'] = '%s pixels, %.2f Mo';
+$lang['Upload Formats'] = 'Télécharger des formats';
+$lang['Add formats'] = 'Ajouter des formats';
+$lang['No format for this picture'] = 'Il n\'y a pas de format pour cette photo';
+$lang['Add another set of formats'] = 'Ajouter un autre lot de formats';
+$lang['%d formats uploaded for %d photos'] = '%d format(s) téléchargé(s) pour %d photo(s)';
+$lang['Error when trying to detect formats'] = 'Une erreur est survenue lors de la détection des formats';
+$lang['There is multiple image in the database with the following names : %s.'] = 'Plusieurs images trouvée avec le nom : %s.';
+$lang['No picture found with the following name : %s.'] = 'Pas de photos trouvée pour le nom : %s.';
+$lang['and %d more'] = 'et %d autre(s)';
+$lang['Picture to associate formats with'] = 'Photo à associer avec les formats';
+$lang['The original picture will be detected with the filename (without extension).'] = 'La photo originale sera détectée en comparant les noms des fichiers (sans extension).';
 // Leave this line empty

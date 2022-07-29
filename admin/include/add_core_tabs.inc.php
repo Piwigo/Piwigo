@@ -118,9 +118,13 @@ function add_core_tabs($sheets, $tab_id)
       break;
 
     case 'photo':
-      global $admin_photo_base_url;
+      global $admin_photo_base_url, $conf;
       $sheets['properties'] = array('caption' => '<span class="icon-file-image"></span>'.l10n('Properties'), 'url' => $admin_photo_base_url.'-properties');
       $sheets['coi'] = array('caption' => '<span class="icon-crop"></span>'.l10n('Center of interest'), 'url' => $admin_photo_base_url.'-coi');
+      if ($conf['enable_formats'])
+      {
+        $sheets['formats'] = array('caption' => '<span class="icon-docs"></span>'.l10n('Formats'), 'url' => $admin_photo_base_url.'-formats');
+      }
       break;
 
     case 'photos_add':

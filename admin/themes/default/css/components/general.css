@@ -39,6 +39,8 @@ or
 
 .head-button-1:hover {
     background: #ff7700;
+    text-decoration: none !important;
+    color: white;
 }
 
 .head-button-2 {
@@ -48,6 +50,8 @@ or
 
 .head-button-2:hover {
     background: #eee;
+    text-decoration: none !important;
+    color: inherit !important;
 }
 
 /* -------------

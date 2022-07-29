@@ -264,6 +264,18 @@ function ws_addDefaultMethods( $arr )
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+  
+  $service->addMethod(
+      'pwg.images.formats.delete',
+      'ws_images_formats_delete',
+      array(
+        'format_id' => array('type'=>WS_TYPE_ID, 'default'=>null, 'flags'=>WS_PARAM_ACCEPT_ARRAY),
+        'pwg_token' =>  array(),
+        ),
+      'Remove a format',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
 
   $service->addMethod(
       'pwg.images.setRank',

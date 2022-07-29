@@ -1454,6 +1454,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #444 !important;
 }
 
+.head-button-1:hover {
+  color: #444 !important;
+}
+
 .head-button-2 {
   background-color: #333 !important;
 }
