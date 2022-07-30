@@ -47,7 +47,7 @@ foreach ($formats as &$format)
     $format['label'] = $lang[$lang_key];
   }
   
-  $format['filesize'] = sprintf('%.1fMB', $format['filesize']/1024);
+  $format['filesize'] = round($format['filesize']/1024, 2);
 }
 
 $template->assign(array(

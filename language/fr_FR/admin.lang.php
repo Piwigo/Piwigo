@@ -1312,4 +1312,5 @@ $lang['No picture found with the following name : %s.'] = 'Pas de photos trouvé
 $lang['and %d more'] = 'et %d autre(s)';
 $lang['Picture to associate formats with'] = 'Photo à associer avec les formats';
 $lang['The original picture will be detected with the filename (without extension).'] = 'La photo originale sera détectée en comparant les noms des fichiers (sans extension).';
+$lang['Delete %s format ?'] = 'Supprimer le format %s ?';
 // Leave this line empty
