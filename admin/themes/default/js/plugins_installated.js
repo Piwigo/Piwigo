@@ -226,10 +226,6 @@ function uninstallPlugin(id) {
 $(document).ready(function () {
     actualizeFilter();
 
-    if (!$.cookie("pwg_plugin_manager_view")) {
-        $.cookie("pwg_plugin_manager_view", "classic");
-    }
-
     if ($("#displayClassic").is(":checked")) {
         setDisplayClassic();
     };
@@ -244,17 +240,17 @@ $(document).ready(function () {
 
     $("#displayClassic").change(function () {
         setDisplayClassic();
-        $.cookie("pwg_plugin_manager_view", "classic");
+        set_view_selector('classic');
     })
 
     $("#displayCompact").change(function () {
         setDisplayCompact();
-        $.cookie("pwg_plugin_manager_view", "compact");
+        set_view_selector('compact');
     })
 
     $("#displayLine").change(function () {
         setDisplayLine();
-        $.cookie("pwg_plugin_manager_view", "line");
+        set_view_selector('line');
     })
 
     /* Plugin Filters */
@@ -424,6 +420,18 @@ $(document).ready(function () {
         })
       })
 })
+
+function set_view_selector(view_type) {
+  $.ajax({
+    url: "ws.php?format=json&method=pwg.users.preferences.set",
+    type: "POST",
+    dataType: "JSON",
+    data: {
+      param: 'plugin-manager-view',
+      value: view_type,
+    }
+  })
+}
 
 // TPL part :
 

@@ -195,6 +195,7 @@ $template->assign(
     'max_inactive_before_hide' => isset($_GET['show_inactive']) ? 999 : 8,
     'isWebmaster' => (is_webmaster()) ? 1 : 0,
     'ADMIN_PAGE_TITLE' => l10n('Plugins'),
+    'view_selector' => userprefs_get_param('plugin-manager-view', 'classic'),
     )
   );
 

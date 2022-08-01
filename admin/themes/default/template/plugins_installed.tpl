@@ -39,6 +39,7 @@ const nothing_found = '{'No plugins found'|@translate|@escape:'javascript'}';
 const x_plugins_found = '{'%s plugins found'|@translate|@escape:'javascript'}';
 const plugin_found = '{'%s plugin found'|@translate|@escape:'javascript'}';
 const isWebmaster = {$isWebmaster};
+const view_selector = '{$view_selector}';
 
 const show_details = {if $show_details} true {else} false {/if};
 
@@ -64,10 +65,10 @@ let plugin_filter = searchParams.get('filter');
 </div>
 
 <div class="AlbumViewSelector">
-    <input type="radio" name="layout" class="switchLayout" id="displayClassic" {if $smarty.cookies.pwg_plugin_manager_view == 'classic' || !$smarty.cookies.pwg_plugin_manager_view}checked{/if}/><label for="displayClassic"><span class="icon-pause firstIcon tiptip" title="{'Classic View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayLine" {if $smarty.cookies.pwg_plugin_manager_view == 'line'}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_plugin_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
+    <input type="radio" name="layout" class="switchLayout" id="displayClassic" {if $view_selector == 'classic'}checked{/if}/><label for="displayClassic"><span class="icon-pause firstIcon tiptip" title="{'Classic View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayLine" {if $view_selector== 'line'}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $view_selector == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
 </div>  
 
-<div class="pluginContainer {if $smarty.cookies.pwg_plugin_manager_view == 'classic-form'} classic-form {elseif $smarty.cookies.pwg_plugin_manager_view == 'line-form'} line-form {elseif $smarty.cookies.pwg_plugin_manager_view == 'compact-form'} compact-form {else} {/if}">
+<div class="pluginContainer {if $view_selector == 'classic'} classic-form {elseif $view_selector == 'line'} line-form {elseif $view_selector == 'compact'} compact-form {else} {/if}">
 
 {foreach from=$plugins item=plugin name=plugins_loop}
 

@@ -37,8 +37,6 @@ const str_popin_update_btn = '{'Update'|@translate}';
 
 const view_selector = '{$view_selector}';
 
-console.log(view_selector);
-
 months = [
   "{'Jan'|@translate}",
   "{'Feb'|@translate}",
