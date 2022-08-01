@@ -35,6 +35,10 @@ const show_str = '{'Show'|@translate}';
 const user_added_str = '{'User %s added'|@translate}';
 const str_popin_update_btn = '{'Update'|@translate}';
 
+const view_selector = '{$view_selector}';
+
+console.log(view_selector);
+
 months = [
   "{'Jan'|@translate}",
   "{'Feb'|@translate}",
@@ -190,7 +194,7 @@ $(document).ready(function() {
     <div class="user-manager-header">
 
       <div class="UserViewSelector">
-        <input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_user_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large firstIcon tiptip" title="{'Compact View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout tiptip" id="displayLine" {if $smarty.cookies.pwg_user_manager_view == 'line' || !$smarty.cookies.pwg_user_manager_view}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayTile" {if $smarty.cookies.pwg_user_manager_view == 'tile'}checked{/if}/><label for="displayTile"><span class="icon-pause lastIcon tiptip" title="{'Tile View'|translate}"></span></label>
+        <input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $view_selector == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large firstIcon tiptip" title="{'Compact View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout tiptip" id="displayLine" {if $view_selector == 'line'}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayTile" {if $view_selector == 'tile'}checked{/if}/><label for="displayTile"><span class="icon-pause lastIcon tiptip" title="{'Tile View'|translate}"></span></label>
       </div>
 
       <div style="display:flex;justify-content:space-between; flex-grow:1;">

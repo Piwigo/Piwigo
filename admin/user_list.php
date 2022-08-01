@@ -171,6 +171,7 @@ $template->assign('groups_arr_id', implode(',', $groups_arr_id));
 $template->assign('groups_arr_name', implode(',', $groups_arr_name));
 $template->assign('guest_id', $conf["guest_id"]);
 
+$template->assign('view_selector', userprefs_get_param('user-manager-view', 'line'));
 // +-----------------------------------------------------------------------+
 // | html code display                                                     |
 // +-----------------------------------------------------------------------+

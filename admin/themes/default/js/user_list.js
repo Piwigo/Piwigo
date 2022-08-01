@@ -211,10 +211,6 @@ $( document ).ready(function() {
 
     /*View manager*/
 
-    if (!$.cookie("pwg_user_manager_view")) {
-        $.cookie("pwg_user_manager_view", "line");
-    }
-
     if ($("#displayCompact").is(":checked")) {
         setDisplayCompact();
     };
@@ -233,9 +229,7 @@ $( document ).ready(function() {
         if ($(".addAlbum").hasClass("input-mode")) {
             $(".addAlbum p").hide();
         }
-        
-        $.cookie("pwg_user_manager_view", "compact");
-
+        set_view_selector('compact');
     });
 
     $("#displayLine").change(function () {
@@ -244,8 +238,7 @@ $( document ).ready(function() {
         if ($(".addAlbum").hasClass("input-mode")) {
             $(".addAlbum p").hide();
         }
-
-        $.cookie("pwg_user_manager_view", "line");
+        set_view_selector('line');
     });
 
     $("#displayTile").change(function () {
@@ -254,13 +247,12 @@ $( document ).ready(function() {
         if ($(".addAlbum").hasClass("input-mode")) {
             $(".addAlbum p").show();
         }
-        
-        $.cookie("pwg_user_manager_view", "tile");
+        set_view_selector('tile');
     });
 
     /* Pagination */
 
-    if ($.cookie("pwg_user_manager_view") === "compact") {
+    if (view_selector === "compact") {
         if (per_page < 10) {
             per_page = 10
             update_pagination_menu();
@@ -284,6 +276,18 @@ $( document ).ready(function() {
       update_user_list();
     }
 });
+
+function set_view_selector(view_type) {
+  $.ajax({
+    url: "ws.php?format=json&method=pwg.users.preferences.set",
+    type: "POST",
+    dataType: "JSON",
+    data: {
+      param: 'user-manager-view',
+      value: view_type,
+    }
+  })
+}
 
 function setDisplayTile() {
     $(".user-container-wrapper").removeClass("compactView").removeClass("lineView").addClass("tileView");
@@ -786,11 +790,11 @@ function selectionMode(isSelection) {
         $(".in-selection-mode").show();
         $(".not-in-selection-mode").hide();
 
-        if ($.cookie("pwg_user_manager_view") === "tile") {
+        if (view_selector === "tile") {
             $(".user-container-email").show();
         }
 
-        if ($.cookie("pwg_user_manager_view") !== "tile" || $.cookie("pwg_user_manager_view") === "line") {
+        if (view_selector === "compact") {
             $(".user-container-email").css({
                 display: "none"
             })
@@ -802,7 +806,7 @@ function selectionMode(isSelection) {
         $(".in-selection-mode").hide();
         $(".not-in-selection-mode").show();
 
-        if ($.cookie("pwg_user_manager_view") === "tile" || $.cookie("pwg_user_manager_view") === "line") {
+        if (view_selector === "tile" || view_selector === "line") {
             $(".user-container-email").css({
                 display: "flex"
             })
