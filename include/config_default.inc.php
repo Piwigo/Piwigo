@@ -339,8 +339,10 @@ $conf['use_iptc'] = false;
 // associates a piwigo_images column name to a IPTC key
 $conf['use_iptc_mapping'] = array(
   'keywords'        => '2#025',
-  'date_creation'   => '2#055',
-  'author'          => '2#122',
+  // iptc_Date_Created 2#055 is _only_ date without time and would override
+  // EXIF DateTime, so use only if your images don't have EXIF DateTime.
+//'date_creation'   => '2#055',
+  'author'          => '2#080', // Not 2#122, which would be author of description/comment.
   'name'            => '2#005',
   'comment'         => '2#120'
   );
