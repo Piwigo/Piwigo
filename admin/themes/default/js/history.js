@@ -195,13 +195,13 @@ function fillHistoryResult(ajaxParam) {
       $(".tab").empty();
     },
     success: function (raw_data) {
-      
+      console.log(raw_data);
+
       data = raw_data.result["lines"];
       imageDisplay = raw_data.result["params"].display_thumbnail;
       maxPage = raw_data.result["maxPage"];
       summary = raw_data.result["summary"];
-      // console.log(raw_data);
-
+      
       //clear lines before refill
       
       if (data.length > 0) {

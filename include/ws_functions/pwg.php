@@ -607,6 +607,10 @@ function ws_history_search($param, &$service)
     $page['start'] = 0;
   }
 
+  $page['start'] = $param['pageNumber'];
+  // print_r("page start :");
+  // print_r($page['start']);
+
   $types = array_merge(array('none'), get_enums(HISTORY_TABLE, 'image_type'));
 
   $display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
@@ -838,8 +842,8 @@ SELECT
     }
   }
 
-  $i = 0;
-  $first_line = $page['start'] + 1;
+  $i = $page['start'];
+  $first_line = $page['start'];
   $last_line = $page['start'] + $conf['nb_logs_page'];
 
   $summary['total_filesize'] = 0;
@@ -867,7 +871,7 @@ SELECT
 
     $i++;
 
-    if ($i < $first_line or $i > $last_line)
+    if ($i >= $first_line and $i <= $last_line)
     {
       continue;
     }
@@ -972,7 +976,8 @@ SELECT
     );
   }
 
-  $max_page = ceil(count($result)/300);
+  // print_r(count($result));
+  $max_page = ceil($page['nb_lines']/300);
   $result = array_reverse($result, true);
   $result = array_slice($result, $param['pageNumber']*300, 300);
 

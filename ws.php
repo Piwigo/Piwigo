@@ -1296,7 +1296,43 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
   $service->addMethod(
       'pwg.history.search',
       'ws_history_search',
-      null,
+      array(
+        'start' => array(
+          'default' => null
+        ),
+        'end' => array(
+          'default' => null
+        ),
+        'types' => array(
+          'flags'=>WS_PARAM_FORCE_ARRAY,
+          'default' => array(
+            'none',
+            'picture',
+            'high',
+            'other',
+          )
+        ),
+        'user' => array(
+          'default' => -1,
+        ),
+        'image_id' => array(
+          'default' => null,
+          'type' => WS_TYPE_ID,
+        ),
+        'filename' => array(
+          'default' => null
+        ),
+        'ip' => array(
+          'default' => null
+        ),
+        'display_thumbnail' => array(
+          'default' => 'display_thumbnail_classic'
+        ),
+        'pageNumber' => array(
+          'default' => null,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+      ),
       'Gives an history of who has visited the galery and the actions done in it. Receives parameter.',
       $ws_functions_root . 'pwg.php'
     );
