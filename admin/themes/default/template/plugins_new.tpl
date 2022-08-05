@@ -112,7 +112,7 @@ const str_from_begining = "{"since the beginning"|@translate}";
         <div class="advanced-filter-item advanced-filter-certification">
           <label class="advanced-filter-item-label" for="certification-filter">
               {'Certification higher or equal to'|@translate}
-              <span><i class="certification" title=""></i></span>
+              <span><i class="certification tiptip" title=""></i></span>
           </label>
           <div class="advanced-filter-item-container">
             <div id="certification-filter" class="select-bar"></div>
@@ -153,7 +153,7 @@ const str_from_begining = "{"since the beginning"|@translate}";
       <div>
         <div class="pluginName">
           <span title="{$plugin.EXT_NAME}">{$plugin.EXT_NAME}</span>
-          <i class="certification" data-certification={$plugin.CERTIFICATION}
+          <i class="certification tiptip" data-certification={$plugin.CERTIFICATION}
             {if $plugin.CERTIFICATION == 3}
               title="{'This plugin have been updated recently'|@translate}"
             {elseif $plugin.CERTIFICATION == 2}
@@ -172,7 +172,7 @@ const str_from_begining = "{"since the beginning"|@translate}";
 
       <div>
         {if !is_null($plugin.RATING)}
-          <div class="pluginRating" data-rating="{$plugin.RATING}" title="{'On %d rating(s)'|@translate:$plugin.NB_RATINGS}">
+          <div class="pluginRating tiptip" data-rating="{$plugin.RATING}" title="{'On %d rating(s)'|@translate:$plugin.NB_RATINGS}">
             <div class="rating-star-container">
               <span data-star="0"><i></i></span>
               <span data-star="1"><i></i></span>
@@ -183,8 +183,8 @@ const str_from_begining = "{"since the beginning"|@translate}";
             <span class="rating">{$plugin.RATING}</span>
           </div>
         {/if}
-        <div class="pluginDownload" title="{$plugin.DOWNLOADS} {'Downloads'|@translate}"><i class="icon-download">{$plugin.DOWNLOADS}</i></div>
-        <div class="pluginDownload" title="{$plugin.REVISION_FORMATED_DATE}"><i class="icon-flow-branch"></i>{'Version %s'|@translate:$plugin.VERSION}</div>
+        <div class="pluginDownload tiptip" title="{$plugin.DOWNLOADS} {'Downloads'|@translate}"><i class="icon-download">{$plugin.DOWNLOADS}</i></div>
+        <div class="pluginVersion tiptip" title="{$plugin.REVISION_FORMATED_DATE}"><i class="icon-flow-branch"></i>{'Version %s'|@translate:$plugin.VERSION}</div>
         <a class="pluginLink" href="{$plugin.EXT_URL}"><i class="icon-link"></i>{'Website'|@translate}</a>
       </div>
 
@@ -193,7 +193,7 @@ const str_from_begining = "{"since the beginning"|@translate}";
       </div>
     </div>
     <div class="pluginMoreInfo">
-      <div class="pluginTags" title="{'Tags'|@translate} : {implode(', ', $plugin.TAGS)}">
+      <div class="pluginTags tiptip" title="{'Tags'|@translate} : {implode(', ', $plugin.TAGS)}">
       {foreach from=$plugin.TAGS key=tag_id item=tag_label}
         <span data-id="{$tag_id}">{$tag_label}</span>
       {/foreach}

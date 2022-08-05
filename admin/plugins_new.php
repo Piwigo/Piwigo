@@ -161,7 +161,7 @@ if ($plugins->get_server_plugins(true, $beta_test))
       'BIG_DESC' => $ext_desc,
       'VERSION' => $plugin['revision_name'],
       'REVISION_DATE' => preg_replace('/[^0-9]/', '', strtotime($plugin['revision_date'])),
-      'REVISION_FORMATED_DATE' => format_date($plugin['revision_date'], array('day','month','year')),
+      'REVISION_FORMATED_DATE' => format_date($plugin['revision_date'], array('day','month','year')).", ".time_since($plugin['revision_date'], "day"),
       'AUTHOR' => $plugin['author_name'],
       'DOWNLOADS' => $plugin['extension_nb_downloads'],
       'URL_INSTALL' => $url_auto_install,
