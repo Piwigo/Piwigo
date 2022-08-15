@@ -420,3 +420,4 @@ $lang['Password: ********** (no copy by email)'] = 'Adgangskode: ********** (ing
 $lang['Related albums'] = 'Relaterede albummer';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumnavn, 1 &rarr; 5 &rarr; 10 &rarr; 100';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumnavn, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Startdato';
