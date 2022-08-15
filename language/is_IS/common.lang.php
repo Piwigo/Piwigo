@@ -417,3 +417,4 @@ $lang['Your password has been reset'] = 'Lykilorðið þitt hefur verið endurst
 $lang['Your username has been successfully changed to : %s'] = 'Notandanafni þínu hefur verið breytt í: %s';
 $lang['Your website URL is invalid'] = 'Vefslóðin að þínu vefsvæði er ógild';
 $lang['generate random password'] = 'útbúa handahófskennt lykilorð';
+$lang['Start-Date'] = 'Upphafsdagur';
