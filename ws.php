@@ -611,7 +611,7 @@ function ws_addDefaultMethods( $arr )
                                 'info'=>'public, private'),
         'commentable' =>  array('default'=>true,
                                 'type'=>WS_TYPE_BOOL),
-        'position' =>     array('default'=>null),
+        'position' =>     array('default'=>null, 'info'=>'first, last'),
         ),
       'Adds an album.',
       $ws_functions_root . 'pwg.categories.php',

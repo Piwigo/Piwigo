@@ -576,7 +576,7 @@ function ws_categories_add($params, &$service)
 
   global $conf;
 
-  if ($params["position"] != "") 
+  if (!empty($params['position']) and in_array($params['position'], array('first','last')))
   {
     //TODO make persistent with user prefs
     $conf['newcat_default_position'] = $params["position"];
