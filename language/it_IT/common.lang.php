@@ -415,3 +415,6 @@ $lang['Invalid username or password!'] = 'Nome utente o password non valida';
 $lang['generate random password'] = 'Rigenerare una nuova password';
 $lang['Related albums'] = 'Album collegati';
 $lang['Password: ********** (no copy by email)'] = 'Password: ********** (nessuna copia via e-mail)';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nome dell\'album, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'nome dell\'album, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Data d\'inizio';
