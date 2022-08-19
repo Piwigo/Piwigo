@@ -147,12 +147,12 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
         <div class="AddAlbumRadioInput">
           <input type="radio" id="place-start"
           name="position" value="first" {if "first" == {$POS_PREF}} checked {/if}>
-          <label for="place-start">{'Place at start'|translate}</label>
+          <label for="place-start">{'Place first'|translate}</label>
         </div>
         <div class="AddAlbumRadioInput">
           <input type="radio" id="place-end"
           name="position" value="last" {if "last" == {$POS_PREF}} checked {/if}>
-          <label for="place-end">{'Place at the end'|translate}</label>
+          <label for="place-end">{'Place last'|translate}</label>
         </div>
       </div>
     </div>

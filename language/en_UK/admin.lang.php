@@ -1289,8 +1289,8 @@ $lang['Object'] = 'Object';
 $lang['Memories'] = 'Souvenirs';
 $lang['Add as filter'] = 'Add as filter';
 $lang['Show plugins compatible with previous version of Piwigo'] = 'Show plugins compatible with previous version of Piwigo';
-$lang['Placer au début'] = 'Place at the start';
-$lang['Placer à la fin'] = 'Place at the end';
+$lang['Place first'] = 'Place first';
+$lang['Place last'] = 'Place last';
 
 $lang['Piwigo is also on mobile.'] = 'Piwigo is also on mobile.';
 $lang['Try now !'] = 'Try now !';
