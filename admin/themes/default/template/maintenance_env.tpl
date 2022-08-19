@@ -13,6 +13,9 @@ const unit_MB = "{"%s MB"|@translate}"
   <legend><span class="icon-television icon-red"></span> {'Environment'|@translate}</legend>
   <ul style="font-weight:bold">
     <li><a href="{$PHPWG_URL}" class="externalLink">Piwigo</a> {$PWG_VERSION} <a href="{$U_CHECK_UPGRADE}&tab=env" class="icon-arrows-cw">{'Check for upgrade'|@translate}</a></li>
+{if isset($INSTALLED_ON)}
+    <li>{'Installed on %s, %s'|translate:$INSTALLED_ON:$INSTALLED_SINCE}</li>
+{/if}
     <li>{'Operating system'|@translate}: {$OS}</li>
     <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" class="externalLink">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
     <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>
