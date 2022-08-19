@@ -344,6 +344,28 @@ else
     );
 }
 
+$query = '
+SELECT
+    registration_date
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = 2
+;';
+$users = query2array($query);
+if (count($users) > 0)
+{
+  $installed_on = $users[0]['registration_date'];
+
+  if (!empty($installed_on))
+  {
+    $template->assign(
+      array(
+        'INSTALLED_ON' => format_date($installed_on, array('day', 'month', 'year')),
+        'INSTALLED_SINCE' => time_since($installed_on, 'day'),
+      )
+    );
+  }
+}
+
 // +-----------------------------------------------------------------------+
 // | Define advanced features                                              |
 // +-----------------------------------------------------------------------+

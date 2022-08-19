@@ -174,13 +174,6 @@ let str_size = "";
 <span class="number">{$STORAGE_USED}</span><span class="caption">{'Storage used'|translate}</span>
 </div>
 
-{if $NB_PHOTOS > 1}
-<div class="stat-box">
-<i class="icon-back-in-time icon-yellow"></i>
-<span class="number">{$first_added_age}</span><span class="caption" title="{'first photo added on %s'|translate:$first_added_date}">{'First photo added'|translate}</span>
-</div>
-{/if}
-
 </div> {* .stat-boxes *}
 
 <div class="intro-charts">

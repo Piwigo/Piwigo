@@ -1316,4 +1316,5 @@ $lang['and %d more'] = 'et %d autre(s)';
 $lang['Picture to associate formats with'] = 'Photo à associer avec les formats';
 $lang['The original picture will be detected with the filename (without extension).'] = 'La photo originale sera détectée en comparant les noms des fichiers (sans extension).';
 $lang['Delete %s format ?'] = 'Supprimer le format %s ?';
+$lang['Installed on %s, %s'] = 'Installé le %s, %s';
 // Leave this line empty

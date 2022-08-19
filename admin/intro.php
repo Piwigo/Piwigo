@@ -172,22 +172,6 @@ SELECT COUNT(*)
   $template->assign('NB_COMMENTS', 0);
 }
 
-if ($nb_photos > 0)
-{
-  $query = '
-SELECT MIN(date_available)
-  FROM '.IMAGES_TABLE.'
-;';
-  list($first_date) = pwg_db_fetch_row(pwg_query($query));
-
-  $template->assign(
-    array(
-      'first_added_date' => format_date($first_date),
-      'first_added_age' => time_since($first_date, 'year', null, false, false),
-      )
-    );
-}
-
 if ($conf['show_piwigo_latest_news'])
 {
   $news = get_piwigo_news(0, 1);
