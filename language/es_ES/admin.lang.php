@@ -1238,3 +1238,6 @@ $lang['calculated'] = 'calculado';
 $lang['deletion'] = 'supresión';
 $lang['edit'] = 'editar';
 $lang['login'] = 'iniciar sesión';
+$lang['Place first'] = 'Ubicar al inicio';
+$lang['Place last'] = 'Ubicar al final';
+$lang['Properties of abums'] = 'Propiedades de los álbumes';
