@@ -349,7 +349,6 @@ function send_derivative($expires)
   {
     header('Expires: '.gmdate('D, d M Y H:i:s', $expires).' GMT');
   }
-  header('Content-length: '.$fstat['size']);
   header('Connection: close');
 
   $ctype="application/octet-stream";
