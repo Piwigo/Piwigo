@@ -587,6 +587,33 @@ SELECT
 
 /**
  * API method
+ * Log a new line in visit history
+ * @since 13
+ */
+function ws_history_log($params, &$service)
+{
+  global $logger, $page;
+
+  if (!empty($params['section']) and in_array($params['section'], get_enums(HISTORY_TABLE, 'section')))
+  {
+    $page['section'] = $params['section'];
+  }
+
+  if (!empty($params['cat_id']))
+  {
+    $page['category'] = array('id' => $params['cat_id']);
+  }
+
+  if (!empty($params['tags_string']) and preg_match('/^\d+(,\d+)*$/', $params['tags_string']))
+  {
+    $page['tag_ids'] = explode(',', $params['tags_string']);
+  }
+
+  pwg_log($params['image_id'], 'picture');
+}
+
+/**
+ * API method
  * Returns lines of an history search
  * @since 13
  */

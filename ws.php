@@ -1294,6 +1294,19 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
   $service->addMethod(
+    'pwg.history.log',
+    'ws_history_log',
+    array(
+      'image_id' => array('type'=>WS_TYPE_ID),
+      'cat_id' => array('type'=>WS_TYPE_ID, 'default'=>null),
+      'section' => array('default'=>null),
+      'tags_string' => array('default'=>null),
+      ),
+    'Log visit in history',
+    $ws_functions_root . 'pwg.php'
+    );
+
+  $service->addMethod(
       'pwg.history.search',
       'ws_history_search',
       null,
