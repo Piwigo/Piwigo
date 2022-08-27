@@ -3476,23 +3476,7 @@ function get_piwigo_news($start, $count)
     $forum_url = PHPWG_URL.'/forum';
     $url = $forum_url.'/news.php?format=json&limit='.$count;
 
-    if (conf_get_param('porg_fetch_news_check_ssl', true))
-    {
-      $content = file_get_contents($url);
-    }
-    else
-    {
-      $arrContextOptions = array(
-        "ssl" => array(
-          "verify_peer" => false,
-          "verify_peer_name" => false,
-        ),
-      );
-
-      $content = file_get_contents($url, false, stream_context_create($arrContextOptions));
-    }
-
-    if ($content !== false)
+    if (fetchRemote($url, $content))
     {
       $all_news = array();
 
