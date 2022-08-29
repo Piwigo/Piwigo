@@ -163,7 +163,6 @@ function get_sync_metadata($infos)
   $infos['filesize'] = floor($fs/1024);
 
   $is_tiff = false;
-  $is_svg = false;
 
   if (isset($infos['representative_ext']))
   {
@@ -185,8 +184,6 @@ function get_sync_metadata($infos)
 
   if (in_array(mime_content_type($file), array('image/svg+xml', 'image/svg')))
   {
-    $is_svg = true;
-
     $xml = file_get_contents($file);
 
     $xmlget = simplexml_load_string($xml);
@@ -194,8 +191,6 @@ function get_sync_metadata($infos)
     $width = (int) $xmlattributes->width; 
     $height = (int) $xmlattributes->height;
     $vb = (string) $xmlattributes->viewBox;
-
-    $infos['is_svg'] = $is_svg;
 
     if (isset($width) and $width != "")
     {
