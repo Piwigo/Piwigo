@@ -418,3 +418,5 @@ $lang['Password: ********** (no copy by email)'] = 'Contraseña: ********** (sin
 $lang['Related albums'] = 'Albumes relacionados';
 $lang['Your authentication key is no longer valid.'] = 'Su clave de autenticación ya no es válida';
 $lang['generate random password'] = 'generar contraseña aleatoria';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nombre del álbum, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Nombre del álbum, 100 &rarr; 10 &rarr; 5 &rarr; 1';

@@ -50,3 +50,4 @@ $lang['Just another Piwigo gallery'] = 'Enda et Piwigo bildegalleri';
 $lang['Welcome to my photo gallery'] = 'Velkommen til mitt bildegalleri';
 $lang['Welcome to your new installation of Piwigo!'] = 'Velkommen til din nye installasjon av Piwigo!';
 $lang['localhost or other, supplied by your host provider'] = 'lokal tjener eller annen tjenesteleverandør';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP-versjon %s kreves (du kjører PHP %s)';

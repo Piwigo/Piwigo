@@ -51,3 +51,4 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Herhangi bir
 $lang['Welcome to your new installation of Piwigo!'] = 'Piwigo\'nunuzun yeni kurulumuna hoşgeldiniz!';
 $lang['Password ']['confirm'] = 'Şifre [doğrula]';
 $lang['localhost or other, supplied by your host provider'] = 'localhost veya diğer, bulundurma hizmeti sağlayıcınız tarafından verilen';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP %s sürümü gerekli (PHP %s üzerinde çalışıyorsunuz)';

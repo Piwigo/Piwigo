@@ -416,3 +416,5 @@ $lang['generate random password'] = 'ģenerēt gadījumveida paroli';
 $lang['Invalid username or password!'] = 'Nepareizs lietotjvārds vai parole';
 $lang['Password: ********** (no copy by email)'] = 'Parole: ********** (ne e-pasta kopija)';
 $lang['Related albums'] = 'Saistītie albūmi';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Aibūma nosaukums,1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Aibūma nosaukums, 100 &rarr; 10 &rarr; 5 &rarr; 1';

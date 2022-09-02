@@ -50,3 +50,4 @@ $lang['user password given by your host provider'] = 'veebimajutuse parool';
 $lang['verification'] = 'kinnitamine';
 $lang['webmaster login can\'t contain characters \' or "'] = 'veebimeistri kasutajanimi ei saa sisaldada jutumärke';
 $lang['localhost or other, supplied by your host provider'] = 'localhost või teised, antud teenusepakkuja poolt';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Vajalik on PHP versioon %s (Teil on kasutusel PHP %s)';
