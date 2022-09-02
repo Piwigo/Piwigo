@@ -207,7 +207,7 @@ y.callService(
 		<dd>{$INFO_FILESIZE}</dd>
 	</div>
 	{/if}
-	{if $display_info.tags and isset($related_tags)}
+	{if ($display_info.tags and isset($related_tags))}
 	<div id="Tags" class="imageInfo">
 		<dt>{'Tags'|@translate}</dt>
 		<dd>
