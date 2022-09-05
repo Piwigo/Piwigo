@@ -425,8 +425,8 @@ jQuery(document).ready(function(){
   {/if}
 
   {if !$DISPLAY_FORMATS}
-  <div class="addAlbumEmptyCenter">
-    <div class="addAlbumEmpty"{if $NB_ALBUMS > 0} style="display:none;"{/if}>
+  <div class="addAlbumEmptyCenter"{if $NB_ALBUMS > 0} style="display:none;"{/if}>
+    <div class="addAlbumEmpty">
       <div class="addAlbumEmptyTitle">{'Welcome!'|translate}</div>
       <p class="addAlbumEmptyInfos">{'Piwigo requires an album to add photos.'|translate}</p>
       <a href="#" data-add-album="category" class="buttonLike">{'Create a first album'|translate}</a>
