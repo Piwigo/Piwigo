@@ -89,7 +89,7 @@ function fill_results(cats) {
   $("#searchResult").empty();
   cats.forEach(cat => {
     $("#searchResult").append(
-    "<div class='search-result-item'>" +
+    "<div class='search-result-item' id="+ cat.id + ">" +
       "<span class='search-result-path'>" + cat.fullname +"</span><span id="+ cat.id + " class='icon-plus-circled item-add'></span>" +
     "</div>"
     );
@@ -98,8 +98,11 @@ function fill_results(cats) {
       $(".search-result-item #"+ cat.id +".item-add").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
         event.preventDefault();
       });
+      $(".search-result-item").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
+        event.preventDefault();
+      });
     } else {
-      $(".search-result-item #"+ cat.id +".item-add").on("click", function () {
+      $(".search-result-item#"+ cat.id).on("click", function () {
         add_related_category(cat.id, cat.full_name_with_admin_links);
       });
     }
