@@ -96,7 +96,7 @@ $('#action-delete-picture').on('click', function() {
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 <form action="{$F_ACTION}" method="post" id="pictureModify">
-  <div id='picture-preview' {if $INTRO.is_svg} style="padding:50px" {/if}>
+  <div id='picture-preview'>
     <div class='picture-preview-actions'>
       {if isset($U_JUMPTO)}
         <a class="icon-eye" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
