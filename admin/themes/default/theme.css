@@ -3896,13 +3896,14 @@ a#showPermissions:hover {text-decoration: none;}
 }
 
 #picture-preview {
-  width: 35vw;
+  width: 100%;
   position: relative;
   background-color: #3c3c3c;
   height: 35vw;
   flex-shrink: 0;
   overflow: hidden;
-  margin-left: 10px;
+  margin-left: 35px;
+  max-width: 45%;
 }
 
 #picture-preview .preview-box{
@@ -3936,7 +3937,10 @@ a#showPermissions:hover {text-decoration: none;}
 }
 
 #picture-content {
-  width: 50%;
+  width: 100%;
+  margin-left: 23px;
+  margin-right: 23px;
+  max-width: 50%;
 }
 
 #picture-content p {
