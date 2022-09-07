@@ -15,7 +15,8 @@ $(document).ready(function () {
       $("#linkedAlbumSearch .search-cancel-linked-album").hide();
     }
 
-    if ($(this).val().length > 2) {
+    // Search input value length required to start searching
+    if ($(this).val().length > 0) {
       linked_albums_search($(this).val());
     } else {
       $(".limitReached").html(str_no_search_in_progress);
