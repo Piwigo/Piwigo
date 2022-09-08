@@ -2194,7 +2194,7 @@ function url_check_format($url)
     return false;
   }
 
-  return filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED)!==false;
+  return filter_var($url, FILTER_VALIDATE_URL)!==false;
 }
 
 /**
