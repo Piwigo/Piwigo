@@ -2951,7 +2951,7 @@ function clear_derivative_cache($types='all')
     $type = $types[$i];
     if ($type == IMG_CUSTOM)
     {
-      $type = derivative_to_url($type).'[a-zA-Z0-9]+';
+      $type = derivative_to_url($type).'_[a-zA-Z0-9]+';
     }
     elseif (in_array($type, ImageStdParams::get_all_types()))
     {
