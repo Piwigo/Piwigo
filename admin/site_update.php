@@ -529,10 +529,10 @@ SELECT id, path
 
     $insert = array(
       'id'             => $next_element_id++,
-      'file'           => $filename,
-      'name'           => get_name_from_file($filename),
+      'file'           => pwg_db_real_escape_string($filename),
+      'name'           => pwg_db_real_escape_string(get_name_from_file($filename)),
       'date_available' => CURRENT_DATE,
-      'path'           => $path,
+      'path'           => pwg_db_real_escape_string($path),
       'representative_ext'  => $fs[$path]['representative_ext'],
       'storage_category_id' => $db_fulldirs[$dirname],
       'added_by'       => $user['id'],
