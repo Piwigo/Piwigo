@@ -162,7 +162,7 @@ let plugin_filter = searchParams.get('filter');
         <div class="pluginDescCompact">
           {$plugin.DESC}
         </div>
-          <a class="dropdown-option icon-back-in-time plugin-restore separator-top">{'Restore'|@translate}</a>
+          <a class="dropdown-option icon-back-in-time plugin-restore separator-top tiptip" title="{'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'|@translate}">{'Restore'|@translate}</a>
           <a class="dropdown-option icon-trash delete-plugin-button separator-top">{'Delete'|@translate}</a>
       </div>
       <div class="pluginName" data-title="{$plugin.NAME}">

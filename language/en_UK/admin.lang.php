@@ -1315,4 +1315,5 @@ $lang['Picture to associate formats with'] = 'Picture to associate formats with'
 $lang['The original picture will be detected with the filename (without extension).'] = 'The original picture will be detected with the filename (without extension).';
 $lang['Delete %s format ?'] = 'Delete %s format ?';
 $lang['Installed on %s, %s'] = 'Installed on %s, %s';
+$lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset';
 // Leave this line empty
