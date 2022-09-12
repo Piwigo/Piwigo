@@ -48,6 +48,7 @@ function linked_albums_open() {
   $(".search-input").val("");
   $(".search-input").focus();
   $("#searchResult").empty();
+  $(".limitReached").html(str_no_search_in_progress);
 }
 function linked_albums_search(searchText) {
   $(".linkedAlbumPopInContainer .searching").show();
