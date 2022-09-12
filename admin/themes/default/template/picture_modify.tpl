@@ -96,7 +96,11 @@ $('#action-delete-picture').on('click', function() {
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 <form action="{$F_ACTION}" method="post" id="pictureModify">
+{if $INTRO.is_svg}
+  <div id='picture-preview' class="svg-container">
+{else}
   <div id='picture-preview'>
+{/if}
     <div class='picture-preview-actions'>
       {if isset($U_JUMPTO)}
         <a class="icon-eye" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
@@ -109,11 +113,11 @@ $('#action-delete-picture').on('click', function() {
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
       {/if}
     </div>
-    <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}" style="{if $FORMAT}width{else}height{/if}:35vw">
+    <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}" >
       {if $INTRO.is_svg}
-      <img src="{$PATH}" alt="{'Thumbnail'|translate}" style="{if $FORMAT}width{else}height{/if}:100%;">
+      <img src="{$PATH}" alt="{'Thumbnail'|translate}" class="svg-image" style="{if $FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
       {else}
-      <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" style="{if $FORMAT}width{else}height{/if}:100%">
+      <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" class="other-image-format" style="{if $FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
       {/if}
     </a>
   </div>

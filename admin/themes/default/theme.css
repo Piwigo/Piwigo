@@ -3892,7 +3892,11 @@ a#showPermissions:hover {text-decoration: none;}
   display: flex;
   margin: 0;
   justify-content: space-evenly;
-  margin-top: 30px
+  margin-top: 30px;
+}
+
+#picture-preview.svg-container{
+  padding:15px;
 }
 
 #picture-preview {
@@ -3902,19 +3906,24 @@ a#showPermissions:hover {text-decoration: none;}
   height: 35vw;
   flex-shrink: 0;
   overflow: hidden;
-  margin-left: 35px;
+  margin-left: 30px;
   max-width: 45%;
 }
 
 #picture-preview .preview-box{
+  width:100%;
+  height:100%;
+}
+
+#picture-preview .other-image-format{
   margin: 0;
   position: absolute;
   top: 50%;
   -ms-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
-  left: 50%;
-}
+  left: 50%; 
 
+}
 
 .picture-preview-actions {
   position: absolute;
