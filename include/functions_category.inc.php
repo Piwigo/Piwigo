@@ -683,6 +683,7 @@ SELECT
     $query.= get_sql_condition_FandF(
       array(
         'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
         ),
       "\n    AND"
       );
