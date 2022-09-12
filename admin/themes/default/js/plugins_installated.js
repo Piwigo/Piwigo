@@ -380,6 +380,7 @@ $(document).ready(function () {
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
         $.confirm({
           title: restore_plugin_msg.replace('%s', plugin_name),
+          content: str_restore_def,
           buttons: {
             confirm: {
               text: confirm_msg,

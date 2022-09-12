@@ -40,6 +40,7 @@ const x_plugins_found = '{'%s plugins found'|@translate|@escape:'javascript'}';
 const plugin_found = '{'%s plugin found'|@translate|@escape:'javascript'}';
 const isWebmaster = {$isWebmaster};
 const view_selector = '{$view_selector}';
+const str_restore_def = '{'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'|@translate|@escape:'javascript'}';
 
 const show_details = {if $show_details} true {else} false {/if};
 
