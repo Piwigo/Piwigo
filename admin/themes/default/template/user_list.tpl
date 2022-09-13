@@ -1190,8 +1190,7 @@ $(document).ready(function() {
     margin-right: 20px;
 }
 .user-container-email span {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: scroll;
   padding: 7px 0;
 }
 
