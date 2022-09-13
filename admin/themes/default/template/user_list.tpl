@@ -1187,6 +1187,12 @@ $(document).ready(function() {
 .user-container-email {
     width:20%;
     max-width: 220px;
+    margin-right: 20px;
+}
+.user-container-email span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 7px 0;
 }
 
 .user-header-groups,
@@ -2150,6 +2156,7 @@ Advanced filter
   margin: 10px auto;
   justify-content: center;
   max-height: 40px;
+  width: 190px;
 }
 
 .tileView .user-container-groups {
