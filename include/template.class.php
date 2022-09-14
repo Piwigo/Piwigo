@@ -1632,7 +1632,7 @@ class ScriptLoader
     $result = array( array(), array() );
     foreach( $todo as $id => $script)
     {
-      $result[$script->load_mode-1][$id] = $script;
+     if (!is_string($script->load_mode)) $result[$script->load_mode-1][$id] = $script;
     }
     return array( self::do_combine($result[0],1), self::do_combine($result[1],2) );
   }
