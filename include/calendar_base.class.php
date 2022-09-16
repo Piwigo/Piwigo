@@ -352,11 +352,11 @@ GROUP BY period';
 
     if ( !empty($tpl_var) )
     {
-      $existing = $template->smarty->getVariable('chronology_navigation_bars');
-      if (! ($existing instanceof Smarty_Undefined_Variable))
+      $existing = $template->smarty->getTemplateVars('chronology_navigation_bars');
+      if (!empty($existing))
       {
-        $existing->value[ sizeof($existing->value)-1 ] =
-          array_merge( $existing->value[ sizeof($existing->value)-1 ], $tpl_var);
+        $existing[ sizeof($existing)-1 ] = array_merge( $existing[ sizeof($existing)-1 ], $tpl_var);
+        $template->assign('chronology_navigation_bars', $existing);
       }
       else
       {
