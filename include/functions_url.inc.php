@@ -686,6 +686,11 @@ function parse_well_known_params_url($tokens, &$i)
       array_shift($chronology_tokens);
       $page['chronology_style'] = $chronology_tokens[0];
 
+      if (!in_array($page['chronology_style'], array('monthly', 'weekly')))
+      {
+        fatal_error('bad chronology field (style)');
+      }
+
       array_shift($chronology_tokens);
       if ( count($chronology_tokens)>0 )
       {
@@ -696,6 +701,15 @@ function parse_well_known_params_url($tokens, &$i)
           array_shift($chronology_tokens);
         }
         $page['chronology_date'] = $chronology_tokens;
+
+        foreach ($page['chronology_date'] as $date_token)
+        {
+          // each date part must be an integer (number of the year, number of the month, number of the week or number of the day)
+          if (!preg_match('/^\d+$/', $date_token))
+          {
+            fatal_error('bad chronology field (date)');
+          }
+        }
       }
     }
     elseif (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
