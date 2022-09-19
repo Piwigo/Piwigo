@@ -373,11 +373,8 @@ while ($row = pwg_db_fetch_assoc($result))
   {
     $template->assign('STORAGE_CATEGORY', $name);
   }
-  else
-  {
-    $related_categories[$row['category_id']] = $name;
-    $related_categories_ids[] = $row['category_id'];
-  }
+  $related_categories[$row['category_id']] = $name;
+  $related_categories_ids[] = $row['category_id'];
 }
 
 $template->assign('related_categories', $related_categories);
