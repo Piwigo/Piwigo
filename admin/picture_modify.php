@@ -350,7 +350,7 @@ $template->assign(
 
 // categories
 $query = '
-SELECT category_id, uppercats
+SELECT category_id, uppercats, dir
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.CATEGORIES_TABLE.' AS c
       ON c.id = ic.category_id
@@ -373,7 +373,8 @@ while ($row = pwg_db_fetch_assoc($result))
   {
     $template->assign('STORAGE_CATEGORY', $name);
   }
-  $related_categories[$row['category_id']] = $name;
+
+  $related_categories[$row['category_id']] = array('name' => $name, 'isVirtual' => !isset($row['dir']));
   $related_categories_ids[] = $row['category_id'];
 }
 

@@ -6481,7 +6481,8 @@ color:#FF7B00;
   font-weight: 400;
 }
 
-.breadcrumb-item .icon-cancel-circled {
+.breadcrumb-item .icon-cancel-circled,
+.breadcrumb-item .help-item {
   margin-left: auto !important;
   cursor: pointer;
   position: absolute;
