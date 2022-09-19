@@ -479,6 +479,9 @@ function ws_categories_getAdminList($params, &$service)
 
   global $conf;
 
+  if (!isset($params['additional_output'])) {
+    $params['additional_output'] = "";
+  }
   $params['additional_output'] = array_map('trim', explode(',', $params['additional_output']));
 
   $query = '
@@ -526,6 +529,7 @@ SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, statu
         )
       );
     $row['fullname'] = strip_tags($cat_display_name);
+    isset($row['comment']) ? false : $row['comment'] = "";
     $row['comment'] = strip_tags(
       trigger_change(
         'render_category_description',
