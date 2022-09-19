@@ -433,7 +433,7 @@ function progress_bar(val, max, success) {
 }
 
 jQuery("#confirmDel input[name=confirm_deletion]").change(function() {
-  jQuery("#confirmDel span.errors").css("visiblity", "hidden");
+  jQuery("#confirmDel span.errors").css("visibility", "hidden");
 });
 
 jQuery('#sync_md5sum').click(function(e) {
