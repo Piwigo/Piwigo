@@ -374,7 +374,7 @@ while ($row = pwg_db_fetch_assoc($result))
     $template->assign('STORAGE_CATEGORY', $name);
   }
 
-  $related_categories[$row['category_id']] = array('name' => $name, 'isVirtual' => !isset($row['dir']));
+  $related_categories[$row['category_id']] = array('name' => $name, 'unlinkable' => $row['category_id'] != $storage_category_id);
   $related_categories_ids[] = $row['category_id'];
 }
 

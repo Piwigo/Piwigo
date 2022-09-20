@@ -187,7 +187,7 @@ $('#action-delete-picture').on('click', function() {
       </select>
       <div class="related-categories-container">
       {foreach from=$related_categories item=$cat_path key=$key}
-      <div class="breadcrumb-item"><span class="link-path">{$cat_path['name']}</span><span id={$key} class="icon-cancel-circled remove-item"></span></div>
+      <div class="breadcrumb-item"><span class="link-path">{$cat_path['name']}</span>{if $cat_path['unlinkable']}<span id={$key} class="icon-cancel-circled remove-item"></span>{else}<span id={$key} class="icon-help-circled help-item tiptip" title="{'This album is physical, it can\'t be unlinked from the picture'|translate}"></span>{/if}</div>
       {/foreach}
       </div>
       <div class="breadcrumb-item linked-albums add-item {if $related_categories|@count < 1 } highlight {/if}"><span class="icon-plus-circled"></span>{'Add'|translate}</div>
