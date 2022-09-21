@@ -732,11 +732,6 @@ LI.menuLi {
   background-color: #00000012;
 }
 
-.dropdown-plugin-desc {
-  padding: 5px 10px;
-  max-width: 200px;
-}
-
 .badge-number {
   border-radius: 20px;
   background-color: #777;
