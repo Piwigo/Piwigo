@@ -4,7 +4,7 @@
 {footer_script}
 
 
-const title_msg = '{'Are you sure you want to restore to default settings?'|@translate|@escape}';
+const title_msg = '{'Are you sure you want to restore to default settings?'|@translate|@escape:javascript}';
 const confirm_msg = '{'Yes, I am sure'|@translate|@escape}';
 const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
 
