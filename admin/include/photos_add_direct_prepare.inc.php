@@ -14,6 +14,7 @@ $template->assign(
     array(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
       'chunk_size' => $conf['upload_form_chunk_size'],
+      'max_file_size' => $conf['upload_form_max_file_size'],
       'ADMIN_PAGE_TITLE' => l10n('Upload Photos'),
     )
   );

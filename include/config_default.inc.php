@@ -920,6 +920,9 @@ $conf['upload_form_all_types'] = false;
 // performances with high values, such as 5000.
 $conf['upload_form_chunk_size'] = 500;
 
+// Maximum size for a file in the upload form, in megabytes.
+$conf['upload_form_max_file_size'] = 1000;
+
 // If we try to generate a pwg_representative for a video we use ffmpeg. If
 // "ffmpeg" is not visible by the web user, you can define the full path of
 // the directory where "ffmpeg" executable is.

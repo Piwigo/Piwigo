@@ -133,7 +133,7 @@ jQuery(document).ready(function(){
 		
 		filters : {
 			// Maximum file size
-			max_file_size : '1000mb',
+			max_file_size : '{/literal}{$max_file_size}{literal}mb',
 			// Specify what files to browse for
 			mime_types: [
 				{title : "Image files", extensions : formatMode ? format_ext : file_ext}
