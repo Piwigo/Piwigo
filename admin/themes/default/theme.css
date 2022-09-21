@@ -732,6 +732,11 @@ LI.menuLi {
   background-color: #00000012;
 }
 
+.dropdown-plugin-desc {
+  padding: 5px 10px;
+  max-width: 200px;
+}
+
 .badge-number {
   border-radius: 20px;
   background-color: #777;
@@ -2899,13 +2904,13 @@ legend {text-align:left;}
   right: 30px;
   top: 0;
   z-index: 2;
-  transform: translateY(calc(50% - 30px));
+  transform: translateY(0px);
 }
 
 .pluginContainer.line-form .pluginBox .dropdown::after {
   content: " ";
   position: absolute;
-  bottom: 55%;
+  top: 20px;
   left: calc(100% + 5px);
   margin-left: -5px;
   border-width: 5px;

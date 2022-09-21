@@ -160,7 +160,6 @@ let plugin_filter = searchParams.get('filter');
       
       <div class="PluginOptionsBlock dropdown">
         <div class="dropdown-option-content"> {if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}</div>
-        <div style="padding: 5px 10px;">{$plugin.DESC}</div>
         <div class="pluginDescCompact">
           {$plugin.DESC}
         </div>
