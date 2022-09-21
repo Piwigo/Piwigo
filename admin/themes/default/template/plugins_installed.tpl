@@ -160,7 +160,8 @@ let plugin_filter = searchParams.get('filter');
       
       <div class="PluginOptionsBlock dropdown">
         <div class="dropdown-option-content"> {if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}</div>
-        <div class="pluginDescCompact tiptip" title="{$plugin.DESC}">
+        <div style="padding: 5px 10px;">{$plugin.DESC}</div>
+        <div class="pluginDescCompact">
           {$plugin.DESC}
         </div>
           <a class="dropdown-option icon-back-in-time plugin-restore separator-top tiptip" title="{'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'|@translate}">{'Restore'|@translate}</a>
@@ -169,7 +170,7 @@ let plugin_filter = searchParams.get('filter');
       <div class="pluginName" data-title="{$plugin.NAME}">
         {$plugin.NAME}
       </div>
-      <div class="pluginDesc tiptip" title="{$plugin.DESC}">
+      <div class="pluginDesc">
         {$plugin.DESC}
       </div>
       <div class="pluginActions">
