@@ -1190,8 +1190,8 @@ $(document).ready(function() {
     margin-right: 20px;
 }
 .user-container-email span {
-  overflow: scroll;
-  padding: 7px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-header-groups,
