@@ -369,49 +369,51 @@ $template->assign('DAY_LABELS', $day_labels);
 
 $video_format = array('webm','webmv','ogg','ogv','mp4','m4v');
 $data_storage = array();
+$file_extensions_of = array();
 
 //Select files in Image_Table
 $query = '
 SELECT
+  COUNT(*) AS ext_counter,
    SUBSTRING_INDEX(path,".",-1) AS ext,
    SUM(filesize) AS filesize
   FROM `'.IMAGES_TABLE.'`
   GROUP BY ext
 ;';
 
-$file_extensions = query2array($query, 'ext', 'filesize');
+$file_extensions = query2array($query, 'ext');
 
-foreach ($file_extensions as $ext => $size)
+foreach ($file_extensions as $ext => $ext_details)
 {
+  $type = null;
   if (in_array(strtolower($ext), $conf['picture_ext']))
   {
-    if (isset($data_storage['Photos'])) 
-    {
-      $data_storage['Photos'] += $size;
-    } else {
-      $data_storage['Photos'] = $size;
-    }
+    $type = 'Photos';
   }
   elseif (in_array(strtolower($ext), $video_format))
   {
-    if (isset($data_storage['Videos'])) 
-    {
-      $data_storage['Videos'] += $size;
-    } else {
-      $data_storage['Videos'] = $size;
-    }
+    $type = 'Videos';
   }
   else
   {
-    if (isset($data_storage['Other']))
-    {
-      $data_storage['Other'] += $size;
-    }
-    else
-    {
-      $data_storage['Other'] = $size;
-    }
+    $type = 'Other';
   }
+
+  @$file_extensions_of[$type][strtoupper($ext)] = $ext_details['ext_counter'];
+  @$data_storage[$type] += $ext_details['filesize'];
+}
+
+$data_storage_details = array();
+
+foreach ($file_extensions_of as $type => $extensions)
+{
+  $details = array();
+
+  foreach ($extensions as $ext => $counter)
+  {
+    $details[] = $counter.'x'.$ext;
+  }
+  $data_storage_details[$type] = implode(', ', $details);
 }
 
 //Select files from format table
@@ -450,6 +452,7 @@ foreach ($data_storage as $value)
 //Pass data to HTML
 $template->assign('STORAGE_TOTAL',$total_storage);
 $template->assign('STORAGE_CHART_DATA',$data_storage);
+$template->assign('STORAGE_DETAILS', json_encode($data_storage_details));
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+

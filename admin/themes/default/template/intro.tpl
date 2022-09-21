@@ -10,6 +10,7 @@ const str_mb_used = "{'%s MB used'|translate}";
 const str_gb = "{'%sGB'|translate}".replace(' ', '&nbsp;');
 const str_mb = "{'%sMB'|translate}".replace(' ', '&nbsp;');
 const storage_total = {$STORAGE_TOTAL};
+const storage_details = {$STORAGE_DETAILS};
 {literal}
 jQuery().ready(function(){
 	jQuery('.cluetip').cluetip({
@@ -85,6 +86,11 @@ let str_size = "";
   str_size_type_string = size > 1000000 ? str_gb : str_mb;
   size_nb = size > 1000000 ? (size / 1000000).toFixed(2) : (size / 1000).toFixed(0);
   str_size = " : " + str_size_type_string.replace("%s", size_nb);
+
+  if (typeof storage_details.{$type} !== 'undefined') {
+    // str_size += " (" + storage_details.{$type} + ")";
+  }
+
   $("#storage-{$type}").html("<b></b>" + str_size);
   $("#storage-{$type} b").html("{$type|translate}");
 {/foreach}
