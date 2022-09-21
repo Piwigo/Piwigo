@@ -6496,6 +6496,10 @@ color:#FF7B00;
   transition: 0.3s;
 }
 
+.breadcrumb-item a:hover {
+  color: #3A3A3A;
+}
+
 #addLinkedAlbum {
   display:none;
 }

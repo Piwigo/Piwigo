@@ -1316,5 +1316,5 @@ $lang['The original picture will be detected with the filename (without extensio
 $lang['Delete %s format ?'] = 'Delete %s format ?';
 $lang['Installed on %s, %s'] = 'Installed on %s, %s';
 $lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset';
-$lang['This album is physical, it can\'t be unlinked from the picture'] = 'This album is physical, it can\'t be unlinked from the picture';
+$lang['This picture is physically linked to this album, you can\'t dissociate them'] = 'This picture is physically linked to this album, you can\'t dissociate them.';
 // Leave this line empty

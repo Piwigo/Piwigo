@@ -1318,5 +1318,5 @@ $lang['The original picture will be detected with the filename (without extensio
 $lang['Delete %s format ?'] = 'Supprimer le format %s ?';
 $lang['Installed on %s, %s'] = 'Installé le %s, %s';
 $lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'En restaurant ce plugin, il reviendra à son paramétrage d’origine et les données associées seront remises à zero';
-$lang['This album is physical, it can\'t be unlinked from the picture'] = 'Cet album est physique, il ne peut pas être dissocié de l\'image';
+$lang['This picture is physically linked to this album, you can\'t dissociate them'] = 'Cette photo est physiquement liée à cet album, vous ne pouvez pas les dissocier.';
 // Leave this line empty
