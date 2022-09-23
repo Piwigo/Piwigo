@@ -33,6 +33,13 @@ function get_root_url()
 function get_absolute_root_url($with_scheme=true)
 {
   // TODO - add HERE the possibility to call PWG functions from external scripts
+
+  // Support X-Forwarded-Proto header for HTTPS detection in PHP
+  if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) and 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'])
+  {
+    $_SERVER['HTTPS'] = 'on';
+  }
+
   $url = '';
   if ($with_scheme)
   {
