@@ -107,7 +107,6 @@ if (isset($_POST['submit']))
         @$_POST['comment'] : strip_tags(@$_POST['comment']),
     );
 
-  $data['name'] = pwg_db_real_escape_string($data['name']);
   if ($conf['activate_comments'])
   {
     $data['commentable'] = isset($_POST['commentable'])? 'true':'false';
@@ -212,7 +211,7 @@ if (!empty($category['id_uppercat']))
 
 $template->assign(
   array(
-    'CATEGORIES_NAV'     => preg_replace("# {2,}#"," ",preg_replace("#(\r\n|\n\r|\n|\r)#"," ",pwg_db_real_escape_string($navigation))),
+    'CATEGORIES_NAV'     => preg_replace("# {2,}#"," ",preg_replace("#(\r\n|\n\r|\n|\r)#"," ",$navigation)),
     'CAT_ID'             => $category['id'],
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
