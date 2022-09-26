@@ -21,6 +21,7 @@ function ws_categories_getImages($params, &$service)
   global $user, $conf;
 
   $images = array();
+  $image_ids = array();
 
   //------------------------------------------------- get the related categories
   $where_clauses = array();
@@ -45,7 +46,9 @@ function ws_categories_getImages($params, &$service)
     );
 
   $query = '
-SELECT id, name, permalink, image_order
+SELECT
+    id,
+    image_order
   FROM '. CATEGORIES_TABLE .'
   WHERE '. implode("\n    AND ", $where_clauses) .'
 ;';
@@ -80,7 +83,7 @@ SELECT id, name, permalink, image_order
     $favorite_ids = get_user_favorites();
 
     $query = '
-SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
+SELECT SQL_CALC_FOUND_ROWS i.*
   FROM '. IMAGES_TABLE .' i
     INNER JOIN '. IMAGE_CATEGORY_TABLE .' ON i.id=image_id
   WHERE '. implode("\n    AND ", $where_clauses) .'
@@ -93,6 +96,8 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
 
     while ($row = pwg_db_fetch_assoc($result))
     {
+      $image_ids[] = $row['id'];
+
       $image = array();
       $image['is_favorite'] = isset($favorite_ids[ $row['id'] ]);
       foreach (array('id', 'width', 'height', 'hit') as $k)
@@ -108,34 +113,79 @@ SELECT SQL_CALC_FOUND_ROWS i.*, GROUP_CONCAT(category_id) AS cat_ids
       }
       $image = array_merge($image, ws_std_get_urls($row));
 
-      $image_cats = array();
-      foreach (explode(',', $row['cat_ids']) as $cat_id)
+      $images[] = $image;
+    }
+
+    // let's take care of adding the related albums to each photo
+    if (count($image_ids) > 0)
+    {
+      $category_ids = array();
+
+      // find the complete list (given permissions) of albums linked to photos
+      $query = '
+SELECT
+    image_id,
+    category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('.implode(',', $image_ids).')
+    AND '.get_sql_condition_FandF(array('forbidden_categories' => 'category_id'), null, true).'
+;';
+      $result = pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($result))
       {
-        $url = make_index_url(
-          array(
-            'category' => $cats[$cat_id],
-            )
-          );
-        $page_url = make_picture_url(
-          array(
-            'category' => $cats[$cat_id],
-            'image_id' => $row['id'],
-            'image_file' => $row['file'],
-            )
-          );
-        $image_cats[] = array(
-          'id' => (int)$cat_id,
-          'url' => $url,
-          'page_url' => $page_url,
-          );
+        $category_ids[] = $row['category_id'];
+        @$categories_of_image[ $row['image_id'] ][] = $row['category_id'];
       }
 
-      $image['categories'] = new PwgNamedArray(
-        $image_cats,
-        'category',
-        array('id', 'url', 'page_url')
+      if (count($category_ids) > 0)
+      {
+        // find details (for URL generation) about each album
+        $query = '
+SELECT
+    id,
+    name,
+    permalink
+  FROM '. CATEGORIES_TABLE .'
+  WHERE id IN ('. implode(',', $category_ids) .')
+;';
+        $details_for_category = query2array($query, 'id');
+      }
+
+      foreach ($images as $idx => $image)
+      {
+        $image_cats = array();
+
+        // it should not be possible at this point, but let's consider a photo can be in no album
+        if (!isset($categories_of_image[ $image['id'] ]))
+        {
+          continue;
+        }
+
+        foreach ($categories_of_image[ $image['id'] ] as $cat_id)
+        {
+          $url = make_index_url(array('category' => $details_for_category[$cat_id]));
+
+          $page_url = make_picture_url(
+            array(
+              'category' => $details_for_category[$cat_id],
+              'image_id' => $image['id'],
+              'image_file' => $image['file'],
+            )
+          );
+
+          $image_cats[] = array(
+            'id' => (int)$cat_id,
+            'url' => $url,
+            'page_url' => $page_url,
+          );
+        }
+
+        $images[$idx]['categories'] = new PwgNamedArray(
+          $image_cats,
+          'category',
+          array('id', 'url', 'page_url')
         );
-      $images[] = $image;
+      }
     }
   }
 
