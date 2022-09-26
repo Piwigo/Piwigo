@@ -416,3 +416,4 @@ $lang['Password: ********** (no copy by email)'] = 'Geslo: ********** (brez kopi
 $lang['Related albums'] = 'Sorodni albumi';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Ime albuma, 1 &rarr; 5 &rarr; 10 &rarr; 100';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Ime albuma, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Začetni datum';
