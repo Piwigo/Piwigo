@@ -229,6 +229,12 @@ $admin_url_start.= isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '';
 
 $src_image = new SrcImage($row);
 
+// in case the photo needs a rotation of 90 degrees (clockwise or counterclockwise), we switch width and height
+if (in_array($row['rotation'], array(1, 3)))
+{
+  list($row['width'], $row['height']) = array($row['height'], $row['width']);
+}
+
 $template->assign(
   array(
     'tag_selection' => $tag_selection,
