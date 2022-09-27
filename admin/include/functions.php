@@ -3359,6 +3359,7 @@ function number_format_human_readable($numbers)
 {
   $readable = array("",  "k", "M");
   $index = 0;
+  $numbers = empty($numbers) ? 0 : $numbers;
 
   while ($numbers >= 1000)
   {
