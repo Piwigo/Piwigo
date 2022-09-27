@@ -392,6 +392,27 @@ jQuery(document).ready(function(){
 
 <div id="photosAddContent">
 
+{if count($setup_errors) > 0}
+  <div class="errors">
+    <ul>
+    {foreach from=$setup_errors item=error}
+      <li>{$error}</li>
+    {/foreach}
+    </ul>
+  </div>
+  {else}
+    {if count($setup_warnings) > 0}
+  <div class="warnings">
+    <ul>
+      {foreach from=$setup_warnings item=warning}
+      <li>{$warning}</li>
+      {/foreach}
+    </ul>
+    <div class="hideButton" style="text-align:center"><a href="{$hide_warnings_link}">{'Hide'|@translate}</a></div>
+  </div>
+    {/if}
+  {/if} {* $setup_errors *}
+  
   {if $PROMOTE_MOBILE_APPS}
     <div class="promote-apps">
       <div class="promote-content">
@@ -444,26 +465,6 @@ jQuery(document).ready(function(){
     <a href="admin.php?page=photos_add&formats" class="icon-plus-circled">{'Add another set of formats'|@translate}</a>
   {/if}
 </p>
-
-{if count($setup_errors) > 0}
-<div class="errors">
-  <ul>
-  {foreach from=$setup_errors item=error}
-    <li>{$error}</li>
-  {/foreach}
-  </ul>
-</div>
-{else}
-  {if count($setup_warnings) > 0}
-<div class="warnings">
-  <ul>
-    {foreach from=$setup_warnings item=warning}
-    <li>{$warning}</li>
-    {/foreach}
-  </ul>
-  <div class="hideButton" style="text-align:center"><a href="{$hide_warnings_link}">{'Hide'|@translate}</a></div>
-</div>
-  {/if}
 
   <form id="uploadForm" class="{if $DISPLAY_FORMATS}format-mode{/if}" enctype="multipart/form-data" method="post" action="{$form_action}"{if $NB_ALBUMS == 0} style="display:none;"{/if}>
     {if not $DISPLAY_FORMATS}
@@ -548,7 +549,5 @@ jQuery(document).ready(function(){
   <fieldset style="display:none" class="Addedphotos">
     <div id="uploadedPhotos"></div>
   </fieldset>
-
-{/if} {* $setup_errors *}
 
 </div> <!-- photosAddContent -->
