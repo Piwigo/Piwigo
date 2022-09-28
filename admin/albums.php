@@ -49,7 +49,8 @@ if (isset($_POST['simpleAutoOrder']) || isset($_POST['recursiveAutoOrder']) )
   {
     die('Invalid sort order');
   }
-
+  check_input_parameter('id', $_POST, false, '/^-?\d+$/');
+  
   $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
