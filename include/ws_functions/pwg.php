@@ -894,7 +894,7 @@ SELECT
 
     $i++;
 
-    if ($i < $first_line or $i > $last_line)
+    if ($i <= $first_line and $i >= $last_line)
     {
       continue;
     }
