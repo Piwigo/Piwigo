@@ -3501,6 +3501,10 @@ function get_piwigo_news($start, $count)
         file_put_contents($cache_path, serialize($all_news));
       }
     }
+    else
+    {
+      return array();
+    }
   }
 
   if (is_null($all_news))
