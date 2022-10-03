@@ -964,6 +964,7 @@ SELECT
       }
       else
       {
+        $image_edit_string = '';
         $image_title.= ' unknown filename';
       }
 

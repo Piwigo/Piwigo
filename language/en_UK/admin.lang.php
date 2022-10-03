@@ -1317,4 +1317,5 @@ $lang['Delete %s format ?'] = 'Delete %s format ?';
 $lang['Installed on %s, %s'] = 'Installed on %s, %s';
 $lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset';
 $lang['This picture is physically linked to this album, you can\'t dissociate them'] = 'This picture is physically linked to this album, you can\'t dissociate them.';
+$lang['This photo no longer exists'] = 'This photo no longer exists';
 // Leave this line empty

@@ -301,7 +301,18 @@ function lineConstructor(line, id, imageDisplay) {
       fillHistoryResult(current_param);
     });
   }
-  newLine.find(".edit-img").attr("href", line.EDIT_IMAGE)
+
+  if (line.EDIT_IMAGE != "") {
+    newLine.find(".edit-img").attr("href", line.EDIT_IMAGE);
+  } else {
+    newLine.find(".edit-img")
+      .attr("href", "#")
+      .addClass("notClickable tiptip")
+      .attr('title', str_no_longer_exist_photo)
+      .on("click", (e) => {
+      e.preventDefault();
+    });
+  }
 
   switch (line.SECTION) {
     case "tags":
