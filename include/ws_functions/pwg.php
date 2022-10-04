@@ -674,7 +674,7 @@ function ws_history_search($param, &$service)
   }
 
   // user
-  $search['fields']['user'] = intval($param['user']);
+  $search['fields']['user'] = intval($param['user_id']);
 
   // image
   if (!empty($param['image_id']))

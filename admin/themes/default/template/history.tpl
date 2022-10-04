@@ -24,7 +24,7 @@ var current_param = {
     2: "high",
     3: "other"
   },
-  user: "-1",
+  user_id: "-1",
   image_id: "",
   filename: "",
   ip: "",

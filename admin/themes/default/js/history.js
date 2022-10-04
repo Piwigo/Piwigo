@@ -114,8 +114,8 @@ function fillSummaryResult(summary) {
 
   if ((summary.GUESTS.split(" ")[0] != "0")) {
     $(".summary-guests .summary-data").addClass("icon-plus-circled").on("click", function () {
-      if (current_param.user == "-1") {
-        current_param.user = guest_id;
+      if (current_param.user_id == "-1") {
+        current_param.user_id = guest_id;
         addGuestFilter(str_guest);
         fillHistoryResult(current_param);
       }
@@ -155,8 +155,8 @@ function fillSummaryResult(summary) {
       new_user_item.data("user-id", id_of[key]);
   
       new_user_item.on("click", function () {
-        if (current_param.user != id_of[key]) {
-          current_param.user = $(this).data("user-id");
+        if (current_param.user_id != id_of[key]) {
+          current_param.user_id = $(this).data("user-id");
           addUserFilter(key)
           fillHistoryResult(current_param);
         }
@@ -272,9 +272,9 @@ function lineConstructor(line, id, imageDisplay) {
   newLine.find(".user-name").html(line.USERNAME + '<i class="add-filter icon-plus-circled"></i>');
 
   newLine.find(".user-name").attr("id", line.USERID);
-  if (current_param.user == "-1") {
+  if (current_param.user_id == "-1") {
     newLine.find(".user-name").on("click", function ()  {
-      current_param.user = $(this).attr('id') + "";
+      current_param.user_id = $(this).attr('id') + "";
       current_param.pageNumber = 0;
       addUserFilter($(this).html());
       fillHistoryResult(current_param);
@@ -422,7 +422,7 @@ function addUserFilter(username) {
   newFilter.find(".remove-filter").on("click", function () {
     $(this).parent().remove();
 
-    current_param.user = "-1";
+    current_param.user_id = "-1";
     current_param.pageNumber = 0;
     fillHistoryResult(current_param);
     checkFilters();
@@ -444,7 +444,7 @@ function addGuestFilter(username) {
   newFilter.find(".remove-filter").on("click", function () {
     $(this).parent().remove();
 
-    current_param.user = "-1";
+    current_param.user_id = "-1";
     current_param.pageNumber = 0;
     fillHistoryResult(current_param);
     checkFilters();

@@ -1309,8 +1309,47 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
   $service->addMethod(
       'pwg.history.search',
       'ws_history_search',
-      null,
-      'Gives an history of who has visited the galery and the actions done in it. Receives parameter.',
+      array(
+        'start' => array(
+          'default' => null
+        ),
+        'end' => array(
+          'default' => null
+        ),
+        'types' => array(
+          'flags'=>WS_PARAM_FORCE_ARRAY,
+          'default' => array(
+            'none',
+            'picture',
+            'high',
+            'other',
+          )
+        ),
+        'user_id' => array(
+          'default' => -1,
+        ),
+        'image_id' => array(
+          'default' => null,
+          'type' => WS_TYPE_ID,
+        ),
+        'filename' => array(
+          'default' => null
+        ),
+        'ip' => array(
+          'default' => null
+        ),
+        'display_thumbnail' => array(
+          'default' => 'display_thumbnail_classic'
+        ),
+        'pageNumber' => array(
+          'default' => null,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+      ),
+      'Gives an history of who has visited the galery and the actions done in it. Receives parameter.
+      <br> <strong>Types </strong> can be : \'none\', \'picture\', \'high\', \'other\' 
+      <br> <strong>Date format</strong> is yyyy-mm-dd
+      <br> <strong>display_thumbnail</strong> can be : \'no_display_thumbnail\', \'display_thumbnail_classic\', \'display_thumbnail_hoverbox\'',
       $ws_functions_root . 'pwg.php'
     );
 }
