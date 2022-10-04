@@ -44,6 +44,7 @@ const str_memories = "{'Memories'|translate}";
 const str_no_longer_exist_photo = "{'This photo no longer exists'|@translate}";
 const unit_MB = "{"%s MB"|@translate}";
 const str_guest = '{'guest'|@translate}';
+const str_contact_form = '{'Contact Form'|@translate}';
 const guest_id = {$guest_id};
 {/footer_script}
 
