@@ -371,12 +371,12 @@ function lineConstructor(line, id, imageDisplay) {
       newLine.find(".type-id").remove();
     break;
     case "contact":
-      newLine.find(".type-icon i").addClass("line-icon icon-puzzle icon-yellow");
+      newLine.find(".type-icon i").addClass("line-icon icon-mail-1 icon-yellow");
       newLine.find(".type-name").html(str_contact_form);
       newLine.find(".type-id").remove();
     break;
     default:
-      newLine.find(".type-icon i").addClass("line-icon icon-help-circled icon-grey");
+      newLine.find(".type-icon i").addClass("line-icon icon-help-puzzle icon-grey");
       newLine.find(".type-name").html(line.SECTION);
       newLine.find(".type-id").remove();
     break;
