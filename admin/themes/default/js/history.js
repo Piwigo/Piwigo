@@ -338,54 +338,55 @@ function lineConstructor(line, id, imageDisplay) {
     
     case "most_visited":
       newLine.find(".type-name").html(str_most_visited);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
       break;
     case "best_rated":
       newLine.find(".type-name").html(str_best_rated);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
       break;
     case "list":
       newLine.find(".type-name").html(str_list);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
       break;
     case "favorites":
       newLine.find(".type-name").html(str_favorites);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
       break;
     case "recent_cats":
       newLine.find(".type-name").html(str_recent_cats);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
       break;
     case "recent_pics":
       newLine.find(".type-name").html(str_recent_pics);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
       break;
     case "categories":
       newLine.find(".type-name").html(line.CATEGORY);
       if (line.IMAGE == "") {
-        newLine.find(".type-id").remove();
+        newLine.find(".type-id").hide();
       }
       break;
     case "memories-1-year-ago":
       newLine.find(".type-name").html(str_memories);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
     break;
     case "contact":
       newLine.find(".type-icon i").addClass("line-icon icon-mail-1 icon-yellow");
       newLine.find(".type-name").html(str_contact_form);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
     break;
     default:
       newLine.find(".type-icon i").addClass("line-icon icon-help-puzzle icon-grey");
       newLine.find(".type-name").html(line.SECTION);
-      newLine.find(".type-id").remove();
+      newLine.find(".type-id").hide();
     break;
   }
 
   if (line.IMAGE != "") {
     newLine.find(".type-name").html(line.IMAGENAME);
     newLine.find(".type-icon").html(line.IMAGE);
-    newLine.find(".type-id").html("#" + line.IMAGEID)
+    newLine.find(".type-id").html("#" + line.IMAGEID);
+    newLine.find(".type-id").show();
   } else {
     newLine.find(".type-icon .icon-file-image").removeClass("icon-file-image");
     newLine.find(".toggle-img-option").hide();
