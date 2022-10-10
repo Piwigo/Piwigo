@@ -42,6 +42,7 @@ const str_recent_cats = "{'Recent albums'|translate}";
 const str_recent_pics = "{'Recent photos'|translate}";
 const str_memories = "{'Memories'|translate}";
 const str_no_longer_exist_photo = "{'This photo no longer exists'|@translate}";
+const str_tags = "{'Tags'|translate}";
 const unit_MB = "{"%s MB"|@translate}";
 const str_guest = '{'guest'|@translate}';
 const str_contact_form = '{'Contact Form'|@translate}';
@@ -481,6 +482,9 @@ jQuery(document).ready( function() {
   cursor: default;
 
   white-space: nowrap;
+}
+.detail-item::before {
+  margin: 0 5px 0 0px;
 }
 
 .add-filter {

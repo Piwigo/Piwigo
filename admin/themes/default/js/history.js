@@ -200,7 +200,7 @@ function fillHistoryResult(ajaxParam) {
       imageDisplay = raw_data.result["params"].display_thumbnail;
       maxPage = raw_data.result["maxPage"];
       summary = raw_data.result["summary"];
-      // console.log(raw_data);
+      console.log(raw_data);
 
       //clear lines before refill
       
@@ -227,6 +227,12 @@ function fillHistoryResult(ajaxParam) {
     activateLineOptions();
     $(".loading").addClass("hide");
     updatePagination(maxPage);
+    $('.tiptip').tipTip({
+      delay: 0,
+      fadeIn: 200,
+      fadeOut: 200,
+      edgeOffset: 3
+    });
   })
 }
 
@@ -332,47 +338,57 @@ function lineConstructor(line, id, imageDisplay) {
         detail_str += tag + ", ";
       });
       detail_str = detail_str.slice(0, -2)
+      newLine.find(".detail-item-1").html(str_tags).addClass('icon-tags');
       newLine.find(".detail-item-2").html(detail_str);
       newLine.find(".detail-item-2").attr("title", detail_str).removeClass("hide");
       break;
     
     case "most_visited":
       newLine.find(".type-name").html(str_most_visited);
+      newLine.find(".detail-item-1").html(str_most_visited).addClass('icon-fire');
       newLine.find(".type-id").hide();
       break;
     case "best_rated":
       newLine.find(".type-name").html(str_best_rated);
+      newLine.find(".detail-item-1").html(str_best_rated).addClass("icon-star");
       newLine.find(".type-id").hide();
       break;
     case "list":
       newLine.find(".type-name").html(str_list);
+      newLine.find(".detail-item-1").html(str_list).addClass('icon-dice-solid');
       newLine.find(".type-id").hide();
       break;
     case "favorites":
       newLine.find(".type-name").html(str_favorites);
+      newLine.find(".detail-item-1").html(str_favorites).addClass('icon-heart');
       newLine.find(".type-id").hide();
       break;
     case "recent_cats":
       newLine.find(".type-name").html(str_recent_cats);
+      newLine.find(".detail-item-1").html(str_recent_cats).addClass('icon-clock');
       newLine.find(".type-id").hide();
       break;
     case "recent_pics":
       newLine.find(".type-name").html(str_recent_pics);
+      newLine.find(".detail-item-1").html(str_recent_pics).addClass('icon-clock');
       newLine.find(".type-id").hide();
       break;
     case "categories":
       newLine.find(".type-name").html(line.CATEGORY);
+      newLine.find(".detail-item-1").html(line.CATEGORY).addClass("icon-folder-open tiptip").attr("title", line.FULL_CATEGORY_PATH);
       if (line.IMAGE == "") {
         newLine.find(".type-id").hide();
       }
       break;
     case "memories-1-year-ago":
       newLine.find(".type-name").html(str_memories);
+      newLine.find(".detail-item-1").html(str_memories).addClass('icon-clock');
       newLine.find(".type-id").hide();
     break;
     case "contact":
       newLine.find(".type-icon i").addClass("line-icon icon-mail-1 icon-yellow");
       newLine.find(".type-name").html(str_contact_form);
+      newLine.find(".detail-item-1").html(str_contact_form);
       newLine.find(".type-id").hide();
     break;
     default:
@@ -399,7 +415,7 @@ function lineConstructor(line, id, imageDisplay) {
     }
   }
 
-  newLine.find(".detail-item-1").html(line.SECTION).removeClass("hide");
+  newLine.find(".detail-item-1").removeClass("hide");
   if (line.TYPE == "high") {
     newLine.find(".detail-item-1").html(str_dwld).addClass("icon-blue").removeClass("detail-item-1").removeClass("hide");
     newLine.find(".date-dwld-icon").addClass("icon-blue icon-floppy")

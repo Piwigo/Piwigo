@@ -822,13 +822,21 @@ SELECT id, uppercats
 ;';
     $uppercats_of = query2array($query, 'id', 'uppercats');
 
+    $full_cat_path = array();
     $name_of_category = array();
 
     foreach ($uppercats_of as $category_id => $uppercats)
     {
+      $full_cat_path[$category_id] = get_cat_display_name_cache(
+        $uppercats,
+        'admin.php?page=album-',
+      );
+      
+      $uppercats = explode(",", $uppercats);
       $name_of_category[$category_id] = get_cat_display_name_cache(
-        $uppercats
-        );
+        end($uppercats),
+        'admin.php?page=album-',
+      );
     }
   }
 
@@ -993,6 +1001,7 @@ SELECT
         'EDIT_IMAGE' => $image_edit_string,
         'TYPE'       => $line['image_type'],
         'SECTION'    => $line['section'],
+        'FULL_CATEGORY_PATH'   => isset($full_cat_path[$line['category_id']]) ? strip_tags($full_cat_path[$line['category_id']]) : l10n('Root').$line['category_id'],
         'CATEGORY'   => isset($name_of_category[$line['category_id']]) ? $name_of_category[$line['category_id']] : l10n('Root').$line['category_id'],
         'TAGS'       => explode(",",$tag_names),
         'TAGIDS'     => explode(",",$tag_ids),
