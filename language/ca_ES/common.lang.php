@@ -417,3 +417,4 @@ $lang['Password: ********** (no copy by email)'] = 'Contrasenya: ********** (sen
 $lang['Related albums'] = 'Àlbums relacionats';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nom de l\'àlbum, 1 &rarr; 5&rarr; 10 &rarr; 100';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Nom de l\'àlbum, 100 &rarr; 10&rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Data d\'inici';
