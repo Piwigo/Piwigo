@@ -352,6 +352,10 @@ SELECT id
   {
     $current_release = '11.0.0';
   }
+  else if (!in_array(164, $applied_upgrades))
+  {
+    $current_release = '12.0.0';
+  }
   else
   {
     // confirm that the database is in the same version as source code files
