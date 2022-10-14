@@ -712,7 +712,7 @@ function parse_well_known_params_url($tokens, &$i)
         foreach ($page['chronology_date'] as $date_token)
         {
           // each date part must be an integer (number of the year, number of the month, number of the week or number of the day)
-          if (!preg_match('/^\d+$/', $date_token))
+          if (!preg_match('/^(\d+|any)$/', $date_token))
           {
             fatal_error('bad chronology field (date)');
           }
