@@ -829,13 +829,13 @@ SELECT id, uppercats
     {
       $full_cat_path[$category_id] = get_cat_display_name_cache(
         $uppercats,
-        'admin.php?page=album-',
+        'admin.php?page=album-'
       );
       
       $uppercats = explode(",", $uppercats);
       $name_of_category[$category_id] = get_cat_display_name_cache(
         end($uppercats),
-        'admin.php?page=album-',
+        'admin.php?page=album-'
       );
     }
   }
