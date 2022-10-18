@@ -31,10 +31,10 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   }
 
   $comm = array(
-    'author' => trim( @$_POST['author'] ),
-    'content' => trim( $_POST['content'] ),
-    'website_url' => trim( @$_POST['website_url'] ),
-    'email' => trim( @$_POST['email'] ),
+    'author' => empty(@$_POST['author']) ? '' : trim( @$_POST['author'] ),
+    'content' => empty(@$_POST['content']) ? '' : trim( $_POST['content'] ),
+    'website_url' => empty(@$_POST['website_url']) ? '' : trim( @$_POST['website_url'] ),
+    'email' => empty(@$_POST['email']) ? '' : trim( @$_POST['email'] ),
     'image_id' => $page['image_id'],
    );
 
@@ -254,7 +254,7 @@ SELECT
     {
       foreach( array('content', 'author', 'website_url', 'email') as $k)
       {
-        $tpl_var[strtoupper($k)] = htmlspecialchars( stripslashes(@$_POST[$k]) );
+        $tpl_var[strtoupper($k)] = isset($_POST[$k]) ? htmlspecialchars(stripslashes(@$_POST[$k])) : '';
       }
     }
     $template->assign('comment_add', $tpl_var);
