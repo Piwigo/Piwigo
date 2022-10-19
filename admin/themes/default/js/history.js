@@ -338,9 +338,8 @@ function lineConstructor(line, id, imageDisplay) {
         detail_str += tag + ", ";
       });
       detail_str = detail_str.slice(0, -2)
-      newLine.find(".detail-item-1").html(str_tags).addClass('icon-tags');
-      newLine.find(".detail-item-2").html(detail_str);
-      newLine.find(".detail-item-2").attr("title", detail_str).removeClass("hide");
+      newLine.find(".detail-item-1").html(detail_str);
+      newLine.find(".detail-item-1").attr("title", detail_str).removeClass("hide").addClass('icon-tags');;
       break;
     
     case "most_visited":
