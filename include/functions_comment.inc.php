@@ -214,10 +214,10 @@ SELECT count(1) FROM '.COMMENTS_TABLE.'
 INSERT INTO '.COMMENTS_TABLE.'
   (author, author_id, anonymous_id, content, date, validated, validation_date, image_id, website_url, email)
   VALUES (
-    \''.$comm['author'].'\',
+    \''.pwg_db_real_escape_string($comm['author']).'\',
     '.$comm['author_id'].',
     \''.$comm['ip'].'\',
-    \''.$comm['content'].'\',
+    \''.pwg_db_real_escape_string($comm['content']).'\',
     NOW(),
     \''.($comment_action=='validate' ? 'true':'false').'\',
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
