@@ -11,10 +11,10 @@
     {'</ul></li>'|@str_repeat:($ref_level-$cat.LEVEL)}
   {/if}
     <li>
-  {if isset($cat.url) and isset($cat.TITLE)}
-      <a href="{$cat.url}" title="{$cat.TITLE}">{$cat.name}</a>
+  {if isset($cat.TITLE)}
+      <a href="{if isset($cat.url)}{$cat.url}{/if}" title="{$cat.TITLE}">{$cat.name}</a>
   {else}
-      {$cat.name}
+      <a href="{if isset($cat.url)}{$cat.url}{/if}">{$cat.name}</a>
   {/if}
   {if isset($cat.count_images) and $cat.count_images > 0}
       <span class="badge" title="{$cat.count_images|translate_dec:'%d photo':'%d photos'}">{$cat.count_images}</span>
