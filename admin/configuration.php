@@ -327,6 +327,8 @@ switch ($page['section'])
 
     function order_by_is_local()
     {
+      $conf = array();
+      include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
       @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
       if (isset($conf['local_dir_site']))
       {
