@@ -1319,4 +1319,7 @@ $lang['While restoring this plugin, it will be reset to its original parameters 
 $lang['This picture is physically linked to this album, you can\'t dissociate them'] = 'This picture is physically linked to this album, you can\'t dissociate them.';
 $lang['This photo no longer exists'] = 'This photo no longer exists';
 $lang['Details'] = 'Details';
+$lang['Always have a backup of your database and files.'] = 'Always have a backup of your database and files.';
+$lang['The best is to have them made automatically on a regular basis.'] = 'The best is to have them made automatically on a regular basis.';
+$lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'If anything bad happens during the update, you would be able to restore a backup.';
 // Leave this line empty
