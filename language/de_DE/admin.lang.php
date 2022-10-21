@@ -1317,3 +1317,5 @@ $lang['Place first'] = 'Erster Platz';
 $lang['Place last'] = 'Letzter Platz';
 $lang['This picture is physically linked to this album, you can\'t dissociate them'] = 'Dieses Bild ist physisch mit diesem Album verbunden, man kann sie nicht voneinander trennen.';
 $lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'Bei der Wiederherstellung dieses Plugins werden die ursprünglichen Parameter wiederhergestellt und die zugehörigen Daten werden zurückgesetzt';
+$lang['Details'] = 'Einzelheiten';
+$lang['This photo no longer exists'] = 'Dieses Foto existiert nicht mehr';

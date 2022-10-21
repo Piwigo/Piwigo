@@ -1313,3 +1313,5 @@ $lang['Place first'] = 'Placera först';
 $lang['Place last'] = 'Placera sist';
 $lang['This picture is physically linked to this album, you can\'t dissociate them'] = 'Denna bild är fysiskt länkad till detta album, du kan inte koppla isär dem.';
 $lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'Vid återställning av denna insticksmodul så kommer dess inställningar och data att nollställas.';
+$lang['Details'] = 'Detaljer';
+$lang['This photo no longer exists'] = 'Detta foto finns inte längre';
