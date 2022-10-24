@@ -229,10 +229,8 @@ DELETE
       }
       else if (version_compare($versions['current'], $versions['latest']) < 0)
       {
-        $page['infos'][] = l10n('A new version of Piwigo is available.');
-
         $update_url = PHPWG_ROOT_PATH.'admin.php?page=updates';
-        $page['infos'][] = '<a href="'. $update_url . '">' . l10n('Update to Piwigo %s', $versions['latest']) . '</a>';
+        $page['infos'][] = '<a href="'. $update_url . '">' . l10n('A new version of Piwigo is available.') . '<i class="icon-right"></i></a>';
       }
       else
       {
