@@ -1315,3 +1315,6 @@ $lang['This picture is physically linked to this album, you can\'t dissociate th
 $lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'Vid återställning av denna insticksmodul så kommer dess inställningar och data att nollställas.';
 $lang['Details'] = 'Detaljer';
 $lang['This photo no longer exists'] = 'Detta foto finns inte längre';
+$lang['Always have a backup of your database and files.'] = 'Ha alltid en backup på din databas och filer.';
+$lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Om något går fel vid uppdateringen, så har du möjlighet att återställa från en backup.';
+$lang['The best is to have them made automatically on a regular basis.'] = 'Det bästa är att göra regelbundna backuper automatiskt.';
