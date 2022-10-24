@@ -1317,3 +1317,6 @@ $lang['Webmaster status required'] = 'Statuto di webmaster richiesto';
 $lang['Your selection'] = 'La tua selezione';
 $lang['Yes, rename'] = 'Sì, rinominare';
 $lang['Visited'] = 'Visitato';
+$lang['Always have a backup of your database and files.'] = 'Fai sempre una copia del tuo database e dei file.';
+$lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Se qualcosa va storto durante l\'aggiornamento, sarai in grado di ripristinare da un backup.';
+$lang['The best is to have them made automatically on a regular basis.'] = 'La cosa migliore sarebbe di eseguire tale procedura automaticamente su base regolare.';
