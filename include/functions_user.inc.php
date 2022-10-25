@@ -920,8 +920,13 @@ function create_user_infos($user_ids, $override_values=null)
         $status = 'normal';
       }
 
+      $pwg_db_real_escape_string = function($str)
+      {
+        return isset($str) ? pwg_db_real_escape_string($str) : '';
+      };
+      
       $insert = array_merge(
-        array_map('pwg_db_real_escape_string', $default_user),
+        array_map($pwg_db_real_escape_string, $default_user),
         array(
           'user_id' => $user_id,
           'status' => $status,
