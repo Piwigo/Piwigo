@@ -249,6 +249,7 @@ $(document).ready(() => {
     $('.cat-move-order-popin').fadeIn();
     $('.cat-move-order-popin .album-name').html(str_root);
     $('.cat-move-order-popin input[name=id]').val(-1);
+    $('input[name=simpleAutoOrder]').attr('value', str_root_order);
   });
 
   $('.tree').on('mousedown mouseup', function mouseState(e) {
