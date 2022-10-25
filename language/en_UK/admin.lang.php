@@ -1322,4 +1322,5 @@ $lang['Details'] = 'Details';
 $lang['Always have a backup of your database and files.'] = 'Always have a backup of your database and files.';
 $lang['The best is to have them made automatically on a regular basis.'] = 'The best is to have them made automatically on a regular basis.';
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'If anything bad happens during the update, you would be able to restore a backup.';
+$lang['Apply to root albums'] = 'Apply to root albums';
 // Leave this line empty
