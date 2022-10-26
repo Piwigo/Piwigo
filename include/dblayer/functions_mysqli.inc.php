@@ -230,7 +230,7 @@ function pwg_db_real_escape_string($s)
 {
   global $mysqli;
   
-  return $mysqli->real_escape_string($s);
+  return isset($s) ? $mysqli->real_escape_string($s) : null;
 }
 
 function pwg_db_insert_id()
