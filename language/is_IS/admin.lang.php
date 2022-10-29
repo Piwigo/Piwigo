@@ -1315,3 +1315,4 @@ $lang['Details'] = 'Smáatriði';
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Ef eitthvað slæmt gerist meðan á uppfærslu stendur gætirðu endurheimt öryggisafrit.';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Best er að láta útbúa þær sjálfkrafa með reglubundnum hætti.';
 $lang['This photo no longer exists'] = 'Þessi mynd er ekki lengur til';
+$lang['Apply to root albums'] = 'Virkja á rótaralbúmum';
