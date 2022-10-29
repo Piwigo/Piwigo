@@ -1320,3 +1320,4 @@ $lang['%d photo deleted'] = 'обрисана је %d фотографија';
 $lang['%d photo edited'] = 'уређена је %d фотографија';
 $lang['%d photo moved'] = 'премештена је %d фотографија';
 $lang['%d photos added'] = 'додато је %d фотографија';
+$lang['Apply to root albums'] = 'Примени на корене албуме';
