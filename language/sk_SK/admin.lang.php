@@ -1318,3 +1318,4 @@ $lang['Details'] = 'Podrobnosti';
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Ak sa počas aktualizácie stane niečo zlé, budete môcť obnoviť zálohu.';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Najlepšie je nechať si ich pravidelne robiť automaticky.';
 $lang['This photo no longer exists'] = 'Táto fotografia už neexistuje';
+$lang['Apply to root albums'] = 'Použiť na koreňové albumy';
