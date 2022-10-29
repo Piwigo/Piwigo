@@ -161,7 +161,6 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   }
 
   $file_path = null;
-  $is_tiff = false;
 
   if (isset($image_id))
   {
@@ -217,11 +216,6 @@ SELECT
     elseif (IMAGETYPE_GIF == $type)
     {
       $file_path.= 'gif';
-    }
-    elseif (IMAGETYPE_TIFF_MM == $type or IMAGETYPE_TIFF_II == $type)
-    {
-      $is_tiff = true;
-      $file_path.= 'tif';
     }
     elseif (IMAGETYPE_JPEG == $type)
     {
