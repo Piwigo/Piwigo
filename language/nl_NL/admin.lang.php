@@ -1320,3 +1320,4 @@ $lang['If anything bad happens during the update, you would be able to restore a
 $lang['This photo no longer exists'] = 'Deze foto bestaat niet meer';
 $lang['Details'] = 'Details';
 $lang['Always have a backup of your database and files.'] = 'Zorg steeds voor een backup van je database en bestanden.';
+$lang['Apply to root albums'] = 'Toepassen op rootalbums';
