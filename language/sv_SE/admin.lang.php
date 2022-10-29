@@ -1318,3 +1318,4 @@ $lang['This photo no longer exists'] = 'Detta foto finns inte längre';
 $lang['Always have a backup of your database and files.'] = 'Ha alltid en backup på din databas och filer.';
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Om något går fel vid uppdateringen, så har du möjlighet att återställa från en backup.';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Det bästa är att göra regelbundna backuper automatiskt.';
+$lang['Apply to root albums'] = 'Tillämpa på rotalbum';
