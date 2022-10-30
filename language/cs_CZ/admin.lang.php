@@ -1320,3 +1320,4 @@ $lang['If anything bad happens during the update, you would be able to restore a
 $lang['On %d rating(s)'] = 'Na %d hodnocení';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Nejlepší je nechat je pravidelně automaticky provádět.';
 $lang['This photo no longer exists'] = 'Tato fotografie již neexistuje';
+$lang['Apply to root albums'] = 'Použít na hlavní alba';
