@@ -1321,3 +1321,4 @@ $lang['Details'] = 'Detaljer';
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Hvis noget går galt under opdateringen, ville du være i stand til at gendanne sikkerhedskopien.';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Det bedste er at lave dem automatisk med jævne mellemrum.';
 $lang['This photo no longer exists'] = 'Dette fotografi findes ikke længere';
+$lang['Apply to root albums'] = 'Udfør på albummer i roden';
