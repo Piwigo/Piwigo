@@ -31,7 +31,7 @@ $(document).ready(() => {
           +'<a data-id="'+node.id+'" class="move-cat-delete icon-trash tiptip" title="'+ str_delete_album +'" ></a>'
         +"</div>"
       +'</div>';
-    action_order = '<a data-id="'+node.id+'" class="move-cat-order icon-sort-name-up" title="'+ str_sort_order +'"></a>';
+    action_order = '<a data-id="'+node.id+'" class="move-cat-order icon-sort-name-up tiptip" title="'+ str_sort_order +'"></a>';
 
     action_small = 
     "<div class='icon-ellipsis-vert move-cat-action-small toggle-cat-option'>"
