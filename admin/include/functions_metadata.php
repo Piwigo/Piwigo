@@ -182,7 +182,7 @@ function get_sync_metadata($infos)
     $file = original_to_representative($file, $infos['representative_ext']);
   }
 
-  if (in_array(mime_content_type($file), array('image/svg+xml', 'image/svg')))
+  if (function_exists('mime_content_type') && in_array(mime_content_type($file), array('image/svg+xml', 'image/svg')))
   {
     $xml = file_get_contents($file);
 
