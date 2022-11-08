@@ -93,6 +93,7 @@ $(() => {
             url: ws_url,
             data: { format: "json", method: "reflection.getMethodList" }
         }).done(function (result) {
+            console.log(result);
             result = parsePwgJSON(result);
 
             if (result != null) {
