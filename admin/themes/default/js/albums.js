@@ -345,85 +345,91 @@ $(document).ready(() => {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         var parent_node = $('.tree').tree('getNodeById', newAlbumParent);
-        if (newAlbumPosition == "last") {
-          $('.tree').tree(
-            'appendNode',
-            {
-              id: data.result.id,
-              isEmptyFolder: true,
-              name: newAlbumName
-            },
-            parent_node
-          );
-        } else {
-          $('.tree').tree(
-            'prependNode',
-            {
-              id: data.result.id,
-              isEmptyFolder: true,
-              name: newAlbumName
-            },
-            parent_node
-          );
-        }
-
-        if (parent_node) {
-          setSubcatsBadge(parent_node);
-
-          $("#cat-"+parent_node.id).on( 'click', '.move-cat-toogler', function(e) {
-            var node_id = parent_node.id;
-            var node = $('.tree').tree('getNodeById', node_id);
-            if (node) {
-              open_nodes = $('.tree').tree('getState').open_nodes;
-              if (!open_nodes.includes(node_id)) {
-                $(this).html(toggler_open);
-                $('.tree').tree('openNode', node);
-              } else {
-                $(this).html(toggler_close);
-                $('.tree').tree('closeNode', node);
+        
+        if (data.stat == "ok") {
+          if (newAlbumPosition == "last") {
+            $('.tree').tree(
+              'appendNode',
+              {
+                id: data.result.id,
+                isEmptyFolder: true,
+                name: newAlbumName
+              },
+              parent_node
+            );
+          } else {
+            $('.tree').tree(
+              'prependNode',
+              {
+                id: data.result.id,
+                isEmptyFolder: true,
+                name: newAlbumName
+              },
+              parent_node
+            );
+          }
+  
+          if (parent_node) {
+            setSubcatsBadge(parent_node);
+  
+            $("#cat-"+parent_node.id).on( 'click', '.move-cat-toogler', function(e) {
+              var node_id = parent_node.id;
+              var node = $('.tree').tree('getNodeById', node_id);
+              if (node) {
+                open_nodes = $('.tree').tree('getState').open_nodes;
+                if (!open_nodes.includes(node_id)) {
+                  $(this).html(toggler_open);
+                  $('.tree').tree('openNode', node);
+                } else {
+                  $(this).html(toggler_close);
+                  $('.tree').tree('closeNode', node);
+                }
               }
-            }
+            });
+          } 
+          
+          $(".move-cat-add").unbind("click").on("click", function () {
+            openAddAlbumPopIn($(this).data("aid"));
+            $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
           });
+          $(".move-cat-add-small").unbind("click").on("click", function () {
+            openAddAlbumPopIn($(this).data("aid"));
+            $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+          });
+          $(".move-cat-delete").on("click", function () {
+            triggerDeleteAlbum($(this).data("id"));
+          });
+          $(".move-cat-delete-small").on("click", function () {
+            triggerDeleteAlbum($(this).data("id"));
+          });
+          $(".move-cat-title-container").unbind("click").on("click", function () {
+            openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
+            $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+          });
+          $('.tiptip').tipTip({
+            delay: 0,
+            fadeIn: 200,
+            fadeOut: 200,
+            edgeOffset: 3
+          });
+
+          updateTitleBadge(nb_albums+1)
+
+          goToNode($(".tree").tree('getNodeById', data.result.id), $(".tree").tree('getNodeById', data.result.id));
+          $('html,body').animate({
+            scrollTop: $("#cat-" + data.result.id).offset().top - screen.height / 2},
+            'slow');
+
+          closeAddAlbumPopIn();
+          $(".AddAlbumSubmit").removeClass("notClickable");
+        } else {
+          $(".AddAlbumErrors").text(str_album_name_empty).show();
+          $(".AddAlbumSubmit").removeClass("notClickable");
         }
-
-        $(".move-cat-add").unbind("click").on("click", function () {
-          openAddAlbumPopIn($(this).data("aid"));
-          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
-        });
-        $(".move-cat-add-small").unbind("click").on("click", function () {
-          openAddAlbumPopIn($(this).data("aid"));
-          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
-        });
-        $(".move-cat-delete").on("click", function () {
-          triggerDeleteAlbum($(this).data("id"));
-        });
-        $(".move-cat-delete-small").on("click", function () {
-          triggerDeleteAlbum($(this).data("id"));
-        });
-        $(".move-cat-title-container").unbind("click").on("click", function () {
-          openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
-          $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
-        });
-        $('.tiptip').tipTip({
-          delay: 0,
-          fadeIn: 200,
-          fadeOut: 200,
-          edgeOffset: 3
-        });
-
-        updateTitleBadge(nb_albums+1)
-
-        goToNode($(".tree").tree('getNodeById', data.result.id), $(".tree").tree('getNodeById', data.result.id));
-        $('html,body').animate({
-          scrollTop: $("#cat-" + data.result.id).offset().top - screen.height / 2},
-          'slow');
       },
       error: function(message) {
         console.log(message);
       }
-    }).done(function () {
-      closeAddAlbumPopIn();
-      $(".AddAlbumSubmit").removeClass("notClickable");
     });
   })
 
@@ -477,6 +483,17 @@ function openAddAlbumPopIn(parentAlbumId) {
   $("#AddAlbum").fadeIn();
   $(".AddAlbumLabelUsername .user-property-input").val('');
   $(".AddAlbumLabelUsername .user-property-input").focus();
+
+  $("#AddAlbum").on('keyup', function (e) {
+    // 13 is 'Enter'
+    if(e.keyCode === 13) {
+      $(".AddAlbumSubmit").trigger("click");
+    }
+    // 27 is 'Escape'
+    if(e.keyCode === 27) {
+      closeAddAlbumPopIn();
+    }
+  })
 }
 function closeAddAlbumPopIn() {
   $("#AddAlbum").fadeOut();

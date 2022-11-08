@@ -38,7 +38,8 @@ const str_add_photo = '{'Add Photos'|@translate|escape:javascript}';
 const str_visit_gallery = '{'Visit Gallery'|@translate|escape:javascript}';
 const str_sort_order = '{'Automatic sort order'|@translate|escape:javascript}';
 const str_delete_album = '{'Delete album'|@translate|escape:javascript}';
-const str_root_order = '{'Apply to root albums'|@translate|escape:javascript}'
+const str_root_order = '{'Apply to root albums'|@translate|escape:javascript}';
+str_album_name_empty = '{'Album name must not be empty'|@translate|escape:javascript}'
 
 const add_album_root_title = '{'Create a new album at root'|@translate|escape:javascript}';
 const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javascript}';
