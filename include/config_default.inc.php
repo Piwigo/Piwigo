@@ -98,6 +98,9 @@ $conf['newcat_default_status'] = 'public';
 // newcat_default_position : at creation, should the album appear at the first or last position ?
 $conf['newcat_default_position'] = 'first';
 
+// above which number of albums should Piwigo use the lighter album manager
+$conf['light_album_manager_threshold'] = 2000;
+
 // level_separator : character string used for separating a category level
 // to the sub level. Suggestions : ' / ', ' &raquo; ', ' &rarr; ', ' - ',
 // ' &gt;'
