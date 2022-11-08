@@ -13,6 +13,25 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+$query = '
+SELECT
+    COUNT(*)
+  FROM '.CATEGORIES_TABLE.'
+;';
+list($albums_counter) = pwg_db_fetch_row(pwg_query($query));
+
+if ($albums_counter > $conf['light_album_manager_threshold'])
+{
+  $url = get_root_url().'admin.php?page=cat_list';
+
+  if (isset($_GET['parent_id']))
+  {
+    $url.= '&parent_id='.$_GET['parent_id'];
+  }
+
+  redirect($url);
+}
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
