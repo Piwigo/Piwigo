@@ -1320,3 +1320,4 @@ $lang['If anything bad happens during the update, you would be able to restore a
 $lang['The best is to have them made automatically on a regular basis.'] = 'O melhor é tê-los feitos automaticamente em uma base regular.';
 $lang['This photo no longer exists'] = 'Esta foto não existe mais';
 $lang['Always have a backup of your database and files.'] = 'Sempre tenha um backup de seu banco de dados e arquivos.';
+$lang['Apply to root albums'] = 'Aplicar a álbuns raiz';
