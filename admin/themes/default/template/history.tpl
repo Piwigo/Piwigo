@@ -25,7 +25,7 @@ var current_param = {
     3: "other"
   },
   user_id: "-1",
-  image_id: "",
+  image_id: {if isset($IMAGE_ID)}"{$IMAGE_ID}"{else}""{/if},
   filename: "",
   ip:{if isset($IP)}"{$IP}"{else}""{/if},
   display_thumbnail: "display_thumbnail_classic",

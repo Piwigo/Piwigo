@@ -241,6 +241,7 @@ $template->assign(
     'U_DOWNLOAD' => 'action.php?id='.$_GET['image_id'].'&amp;part=e&amp;pwg_token='.get_pwg_token().'&amp;download',
     'U_SYNC' => $admin_url_start.'&amp;sync_metadata=1',
     'U_DELETE' => $admin_url_start.'&amp;delete=1&amp;pwg_token='.get_pwg_token(),
+    'U_HISTORY' => get_root_url().'admin.php?page=history&amp;filter_image_id='.$_GET['image_id'],
 
     'PATH'=>$row['path'],
 

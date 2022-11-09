@@ -101,10 +101,11 @@ else
 }
 
 $form_param['ip'] = isset($_GET['filter_ip']) ? $_GET['filter_ip'] : @$form['ip'];
+$form_param['image_id'] = isset($_GET['filter_image_id']) ? $_GET['filter_image_id'] : @$form['image_id'];
 
 $template->assign(
   array(
-    'IMAGE_ID' => @$form['image_id'],
+    'IMAGE_ID' => $form_param['image_id'],
     'FILENAME' => @$form['filename'],
     'IP' => $form_param['ip'],
     'START' => @$form['start'],

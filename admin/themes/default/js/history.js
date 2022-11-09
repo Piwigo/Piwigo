@@ -6,6 +6,9 @@ $(document).ready(() => {
   if (current_param.ip != "") {
     addIpFilter(current_param.ip);
   }
+  if (current_param.image_id != "") {
+    addImageFilter(current_param.image_id);
+  }
 
   $(".elem-type-select").on("change", function (e) {
     console.log($(".elem-type-select option:selected").attr("value"));
