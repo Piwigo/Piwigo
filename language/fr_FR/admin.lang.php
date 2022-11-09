@@ -1324,4 +1324,5 @@ $lang['The best is to have them made automatically on a regular basis.'] = 'Le m
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Si quelque chose arrive pendant la mise à jour, il sera possible de restaurer la sauvegarde';
 $lang['Apply to root albums'] = 'Appliquer aux albums racine';
 $lang['Album name must not be empty'] = 'Le nom de l\'album ne doit pas être vide';
+$lang['Visit history'] = 'Historique des visites';
 // Leave this line empty

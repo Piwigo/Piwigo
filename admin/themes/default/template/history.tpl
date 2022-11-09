@@ -11,6 +11,8 @@ var month = dateObj.getUTCMonth() + 1; //months from 1-12
 var day = dateObj.getUTCDate();
 var year = dateObj.getUTCFullYear();
 
+var filter_user_name = "{$USER_NAME}";
+
 if (month < 10) month = "0" + month;
 if (day < 10) day = "0" + day;
 
@@ -24,10 +26,10 @@ var current_param = {
     2: "high",
     3: "other"
   },
-  user_id: "-1",
+  user_id: {$USER_ID},
   image_id: {if isset($IMAGE_ID)}"{$IMAGE_ID}"{else}""{/if},
   filename: "",
-  ip:{if isset($IP)}"{$IP}"{else}""{/if},
+  ip: {if isset($IP)}"{$IP}"{else}""{/if},
   display_thumbnail: "display_thumbnail_classic",
   pageNumber: 0 {* fetch lines from line 0 to line 100*}
 }

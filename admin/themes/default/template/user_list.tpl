@@ -34,6 +34,7 @@ const hide_str = '{'Hide'|@translate}';
 const show_str = '{'Show'|@translate}';
 const user_added_str = '{'User %s added'|@translate}';
 const str_popin_update_btn = '{'Update'|@translate}';
+const history_base_url = "{$U_HISTORY}";
 
 const view_selector = '{$view_selector}';
 
@@ -637,6 +638,11 @@ $(document).ready(function() {
             <div class="user-property-permissions">
               <p class="user-property-button"> <span class="icon-lock user-edit-icon"> </span><a href="#" >{'Permissions'|@translate}</a></p>
             </div>
+            <div class="user-stats">
+              <div class="user-property-history">
+                <p class="user-property-button"> <span class="icon-signal user-edit-icon"> </span><a href="" >{'Visit history'|@translate}</a></p>
+              </div>
+            </div>
           </div>
           <div class="user-property-register-visit">
             <span class="user-property-register"><!-- Registered date XX/XX/XXXX --></span>
@@ -816,6 +822,11 @@ $(document).ready(function() {
             </div>
             <div class="user-property-permissions">
               <p class="user-property-button"><span class="icon-lock user-edit-icon"></span><a href="admin.php?page=user_perm&user_id={$guest_id}">{'Permissions'|@translate}</a></p>
+            </div>
+            <div class="user-stats">
+              <div class="user-property-history">
+                <p class="user-property-button"> <span class="icon-signal user-edit-icon"> </span><a href="" >{'Visit history'|@translate}</a></p>
+              </div>
             </div>
           </div>
         </div>
