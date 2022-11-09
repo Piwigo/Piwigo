@@ -108,7 +108,7 @@ $('#action-delete-picture').on('click', function() {
         <a class="icon-eye unavailable" title="{'You don\'t have access to this photo'|translate}"></a>
       {/if}
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
-      <a class="icon-signal" href="{$U_HISTORY}" title="{'cONSULTER L\'HISTORIQU'|translate}"></a>
+      <a class="icon-signal" href="{$U_HISTORY}" title="{'Visit history'|translate}"></a>
       {if !url_is_remote($PATH)}
       <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
