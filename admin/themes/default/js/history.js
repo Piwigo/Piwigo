@@ -3,6 +3,10 @@ $(document).ready(() => {
   activateLineOptions();
   checkFilters();
 
+  if (current_param.ip != "") {
+    addIpFilter(current_param.ip);
+  }
+
   $(".elem-type-select").on("change", function (e) {
     console.log($(".elem-type-select option:selected").attr("value"));
 

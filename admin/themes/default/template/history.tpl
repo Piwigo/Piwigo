@@ -27,7 +27,7 @@ var current_param = {
   user_id: "-1",
   image_id: "",
   filename: "",
-  ip: "",
+  ip:{if isset($IP)}"{$IP}"{else}""{/if},
   display_thumbnail: "display_thumbnail_classic",
   pageNumber: 0 {* fetch lines from line 0 to line 100*}
 }
