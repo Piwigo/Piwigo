@@ -100,11 +100,13 @@ else
     pwg_get_cookie_var('display_thumbnail', 'no_display_thumbnail');
 }
 
+$form_param['ip'] = isset($_GET['filter_ip']) ? $_GET['filter_ip'] : @$form['ip'];
+
 $template->assign(
   array(
     'IMAGE_ID' => @$form['image_id'],
     'FILENAME' => @$form['filename'],
-    'IP' => @$form['ip'],
+    'IP' => $form_param['ip'],
     'START' => @$form['start'],
     'END' => @$form['end'],
     )
