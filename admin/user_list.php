@@ -102,6 +102,7 @@ SELECT
 
 $template->assign(
   array(
+    'U_HISTORY' => get_root_url().'admin.php?page=history&filter_user_id=',
     'PWG_TOKEN' => get_pwg_token(),
     'NB_IMAGE_PAGE' => $default_user['nb_image_page'],
     'RECENT_PERIOD' => $default_user['recent_period'],

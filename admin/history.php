@@ -102,9 +102,24 @@ else
 
 $form_param['ip'] = isset($_GET['filter_ip']) ? $_GET['filter_ip'] : @$form['ip'];
 $form_param['image_id'] = isset($_GET['filter_image_id']) ? $_GET['filter_image_id'] : @$form['image_id'];
+$form_param['user_id'] = isset($_GET['filter_user_id']) ? $_GET['filter_user_id'] : "-1";
+
+if ($form_param['user_id'] != "-1") {
+  $query = '
+  SELECT
+      username
+    FROM '.USERS_TABLE.'
+    WHERE id = '.$form_param['user_id'].'
+  ;';
+
+  list($form_param['user_name']) = pwg_db_fetch_row(pwg_query($query));
+  $form_param['user_id'] = empty(pwg_db_fetch_row(pwg_query($query))) ? "-1" : $form_param['user_id'];
+}
 
 $template->assign(
   array(
+    'USER_ID' => $form_param['user_id'],
+    'USER_NAME' => @$form_param['user_name'],
     'IMAGE_ID' => $form_param['image_id'],
     'FILENAME' => @$form['filename'],
     'IP' => $form_param['ip'],

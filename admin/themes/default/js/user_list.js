@@ -1002,6 +1002,7 @@ function fill_user_edit_summary(user_to_edit, pop_in, isGuest) {
     pop_in.find('.user-property-register').tipTip({content:`${registered_str}<br />${user_to_edit.registration_date_since}`});
     pop_in.find('.user-property-last-visit').html(get_formatted_date(user_to_edit.last_visit));
     pop_in.find('.user-property-last-visit').tipTip({content: `${last_visit_str}<br />${user_to_edit.last_visit_since}`});
+    pop_in.find('.user-property-history a').attr('href', history_base_url + user_to_edit.id);
 }
 
 function fill_user_edit_properties(user_to_edit, pop_in) {

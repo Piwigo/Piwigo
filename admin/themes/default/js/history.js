@@ -9,6 +9,9 @@ $(document).ready(() => {
   if (current_param.image_id != "") {
     addImageFilter(current_param.image_id);
   }
+  if (current_param.user_id != "-1") {
+    addUserFilter(filter_user_name);
+  }
 
   $(".elem-type-select").on("change", function (e) {
     console.log($(".elem-type-select option:selected").attr("value"));
