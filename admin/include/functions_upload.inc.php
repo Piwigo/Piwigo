@@ -221,6 +221,10 @@ SELECT
     {
       $file_path.= 'jpg';
     }
+    elseif (IMAGETYPE_WEBP == $type)
+    {
+      $file_path.= 'webp';
+    }
     elseif (isset($conf['upload_form_all_types']) and $conf['upload_form_all_types'])
     {
       $original_extension = strtolower(get_extension($original_filename));
