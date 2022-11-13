@@ -58,7 +58,7 @@ class pwg_image
 
     $extension = strtolower(get_extension($source_filepath));
 
-    if (!in_array($extension, array('jpg', 'jpeg', 'png', 'gif')))
+    if (!in_array($extension, $conf['picture_ext']))
     {
       die('[Image] unsupported file extension');
     }
