@@ -47,6 +47,7 @@ class pwg_image
 
   function __construct($source_filepath, $library=null)
   {
+    global $conf;
     $this->source_filepath = $source_filepath;
 
     trigger_notify('load_image_library', array(&$this) );
