@@ -127,7 +127,7 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
  * returns an array map of urls (thumb/element) for image_row - to be returned
  * in a standard way by different web service methods
  */
-function ws_std_get_urls($image_row)
+function ws_std_get_urls($image_row, $with_derivatives = true)
 {
   $ret = array();
 
@@ -152,15 +152,18 @@ function ws_std_get_urls($image_row)
     $ret['element_url'] = get_element_url($image_row);
   }
 
-  $derivatives = DerivativeImage::get_all($src_image);
-  $derivatives_arr = array();
-  foreach($derivatives as $type=>$derivative)
+  if ($with_derivatives)
   {
-    $size = $derivative->get_size();
-    $size != null or $size=array(null,null);
-    $derivatives_arr[$type] = array('url' => $derivative->get_url(), 'width'=>$size[0], 'height'=>$size[1] );
+    $derivatives = DerivativeImage::get_all($src_image);
+    $derivatives_arr = array();
+    foreach($derivatives as $type=>$derivative)
+    {
+      $size = $derivative->get_size();
+      $size != null or $size=array(null,null);
+      $derivatives_arr[$type] = array('url' => $derivative->get_url(), 'width'=>$size[0], 'height'=>$size[1] );
+    }
+    $ret['derivatives'] = $derivatives_arr;
   }
-  $ret['derivatives'] = $derivatives_arr;;
   return $ret;
 }
 
