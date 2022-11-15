@@ -33,18 +33,6 @@ $(document).ready(() => {
       +'</div>';
     action_order = '<a data-id="'+node.id+'" class="move-cat-order icon-sort-name-up tiptip" title="'+ str_sort_order +'"></a>';
 
-    action_small = 
-    "<div class='icon-ellipsis-vert move-cat-action-small toggle-cat-option'>"
-      +"<span id='catOptionsSmall' class='dropdown cat-option'>"
-        +"<a class='icon-plus-circled move-cat-add-small dropdown-option' data-aid='"+node.id+"'>"+ str_add_album +"</a>"
-        +"<a class='icon-pencil dropdown-option' href='admin.php?page=album-"+node.id+"'>"+ str_edit_album +"</a>"
-        +"<a class='icon-upload dropdown-option' href='admin.php?page=photos_add&album="+node.id+"'>"+ str_add_photo +"</a>"
-        +"<a class='icon-eye dropdown-option' href='index.php?/category/"+node.id+"'>"+ str_visit_gallery +"</a>"
-        +"<a class='icon-sort-name-up dropdown-option' data-id='"+node.id+"'>"+ str_sort_order +"</a>"
-        +"<a class='icon-trash move-cat-delete-small dropdown-option' data-id='"+node.id+"'>"+ str_delete_album +"</a>"
-      +"</span>"
-    +"</div>";
-
     cont = li.find('.jqtree-element');
     cont.addClass('move-cat-container');
     cont.attr('id', 'cat-'+node.id)
@@ -53,7 +41,6 @@ $(document).ready(() => {
     cont.append(actions);
     cont.find('.move-cat-action .move-cat-see').after(action_order);
 
-    cont.find('.move-cat-action').before(action_small);
     cont.find(".toggle-cat-option").on("click", function () {
       $(".cat-option").hide();
       $(this).find(".cat-option").toggle();
@@ -71,7 +58,6 @@ $(document).ready(() => {
         .replace(/%id%/g, node.id)));
     } else {
       cont.find('.move-cat-order').addClass("notClickable");
-      cont.find('#catOptionsSmall .icon-sort-name-up').hide();
 
       cont.append($(toggler_cont
         .replace(/%content%/g, toggler_close)
@@ -131,24 +117,8 @@ $(document).ready(() => {
 
     if (node.has_not_access) {
       cont.find(".move-cat-see").addClass("notClickable");
-      cont.find('#catOptionsSmall .icon-eye').hide();
     }
   }
-
-  /* Hide album options and on click on the screen */
-
-  $(document).mouseup(function (e) {
-    e.stopPropagation();
-    let option_is_clicked = false
-    $("#catOptionsSmall a").each(function () {
-      if (!($(this).has(e.target).length === 0)) {
-        option_is_clicked = true;
-      }
-    })
-    if (!option_is_clicked) {
-      $(".jqtree-element").find("#catOptionsSmall").hide();
-    }
-  });
 
   var url_split = window.location.href.split("cat_move");
   var catToOpen = url_split[url_split.length-1].split("-")[1];
@@ -313,10 +283,6 @@ $(document).ready(() => {
     openAddAlbumPopIn($(this).data("aid"));
     $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
   })
-  $(".move-cat-add-small").on("click", function () {
-    openAddAlbumPopIn($(this).data("aid"));
-    $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
-  })
   $(".CloseAddAlbum").on("click", function () {
     closeAddAlbumPopIn();
   });
@@ -392,14 +358,7 @@ $(document).ready(() => {
             openAddAlbumPopIn($(this).data("aid"));
             $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
           });
-          $(".move-cat-add-small").unbind("click").on("click", function () {
-            openAddAlbumPopIn($(this).data("aid"));
-            $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
-          });
           $(".move-cat-delete").on("click", function () {
-            triggerDeleteAlbum($(this).data("id"));
-          });
-          $(".move-cat-delete-small").on("click", function () {
             triggerDeleteAlbum($(this).data("id"));
           });
           $(".move-cat-title-container").unbind("click").on("click", function () {
@@ -435,9 +394,6 @@ $(document).ready(() => {
 
   // Delete Album
   $(".move-cat-delete").on("click", function () {
-    triggerDeleteAlbum($(this).data("id"));
-  });
-  $(".move-cat-delete-small").on("click", function () {
     triggerDeleteAlbum($(this).data("id"));
   });
 
@@ -577,14 +533,7 @@ function openDeleteAlbumPopIn(cat_to_delete) {
           openAddAlbumPopIn($(this).data("aid"));
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
-        $(".move-cat-add-small").on("click", function () {
-          openAddAlbumPopIn($(this).data("aid"));
-          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
-        });
         $(".move-cat-delete").on("click", function () {
-          triggerDeleteAlbum($(this).data("id"));
-        });
-        $(".move-cat-delete-small").on("click", function () {
           triggerDeleteAlbum($(this).data("id"));
         });
         $(".move-cat-title-container").unbind("click").on("click", function () {
@@ -741,14 +690,7 @@ function applyMove(event) {
       openAddAlbumPopIn($(this).data("aid"));
       $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
     });
-    $(".move-cat-add-small").unbind("click").on("click", function () {
-      openAddAlbumPopIn($(this).data("aid"));
-      $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
-    });
     $(".move-cat-delete").on("click", function () {
-      triggerDeleteAlbum($(this).data("id"));
-    });
-    $(".move-cat-delete-small").on("click", function () {
       triggerDeleteAlbum($(this).data("id"));
     });
     $(".move-cat-title-container").on("click", function () {
@@ -768,14 +710,7 @@ function applyMove(event) {
         openAddAlbumPopIn($(this).data("aid"));
         $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
       });
-      $(".move-cat-add-small").unbind("click").on("click", function () {
-        openAddAlbumPopIn($(this).data("aid"));
-        $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
-      });
       $(".move-cat-delete").on("click", function () {
-        triggerDeleteAlbum($(this).data("id"));
-      });
-      $(".move-cat-delete-small").on("click", function () {
         triggerDeleteAlbum($(this).data("id"));
       });
       $(".move-cat-title-container").on("click", function () {
@@ -855,7 +790,7 @@ function changeRank(node, rank) {
   })
 }
 
-function makePrivateHierarchy (node) {
+function makePrivateHierarchy(node) {
   node.status = 'private';
   node.children.forEach(node => {
     makePrivateHierarchy(node);

@@ -523,28 +523,10 @@ input[name="position"] {
 
 .dragging .move-cat-container .move-cat-toogler,
 .dragging .move-cat-container .move-cat-action-cont a,
-.dragging .move-cat-container .move-cat-title-container,
-.dragging .move-cat-action-small {
+.dragging .move-cat-container .move-cat-title-container{
   pointer-events: all;
 }
 
-.move-cat-action-small {
-  display: none;
-  position: relative;
-  right: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transform: scale(1.2);
-  padding: 20px 10px;
-}
-
-#catOptionsSmall .dropdown-option {
-  font-size: 10px;
-  font-weight: bold;
-}
-#catOptionsSmall .dropdown-option::before{
-  margin: 0 6px 0 -2px;
-}
 
 .last-update {
     display: none;
@@ -575,22 +557,24 @@ input[name="position"] {
     display: none;
   }
 
-  .move-cat-action {
-    display: none;
-  }
-
-  .move-cat-action-small {
-    display: flex;
+  ul.jqtree-tree ul.jqtree_common {
+    margin-left: 20px !important;
   }
 
   .move-cat-title-container {
-    max-width: 80%;
+    max-width: 60%;
+  }
+}
+
+@media (max-width: 1100px) { 
+  .move-cat-title-container {
+    max-width: 50%;
   }
 }
 
 @media (max-width: 850px) { 
   .move-cat-title-container {
-    max-width: 60%;
+    max-width: 40%;
   }
 }
 
