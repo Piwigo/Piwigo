@@ -197,7 +197,7 @@ function cmpCat($a, $b)
 
 function assocToOrderedTree($assocT) 
 {
-  global $nb_photos_in, $nb_sub_photos;
+  global $nb_photos_in, $nb_sub_photos, $is_forbidden;
 
   $orderedTree = array();
 
