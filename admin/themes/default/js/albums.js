@@ -212,6 +212,7 @@ $(document).ready(() => {
       $('.cat-move-order-popin').fadeIn();
       $('.cat-move-order-popin .album-name').html(getPathNode(node));
       $('.cat-move-order-popin input[name=id]').val(node_id);
+      $('input[name=simpleAutoOrder]').attr('value', str_sub_album_order);
     }
   });
 
