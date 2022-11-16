@@ -17,7 +17,11 @@ $t2 = microtime(true);
 // addslashes to vars if magic_quotes_gpc is off this is a security
 // precaution to prevent someone trying to break out of a SQL statement.
 //
-if(function_exists('get_magic_quotes_gpc') && !@get_magic_quotes_gpc() )
+// The magic quote feature has been disabled since php 5.4
+// but function get_magic_quotes_gpc was always replying false.
+// Since php 8 the function get_magic_quotes_gpc is also removed
+// but we stil want to sanitize user input variables.
+if(!function_exists('get_magic_quotes_gpc') or !@get_magic_quotes_gpc() )
 {
   function sanitize_mysql_kv(&$v, $k)
   {
