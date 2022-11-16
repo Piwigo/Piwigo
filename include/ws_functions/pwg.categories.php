@@ -318,7 +318,7 @@ SELECT
     }
 
     $row['comment'] = strip_tags(
-      trigger_change(
+      (string) trigger_change(
         'render_category_description',
         $row['comment'],
         'ws_categories_getList'

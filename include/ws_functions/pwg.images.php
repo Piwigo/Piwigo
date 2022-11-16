@@ -1803,7 +1803,7 @@ function ws_images_exist($params, $service)
     // search among photos the list of photos already added, based on md5sum list
     $md5sums = preg_split(
       $split_pattern,
-      $params['md5sum_list'],
+      (string) $params['md5sum_list'],
       -1,
       PREG_SPLIT_NO_EMPTY
     );
