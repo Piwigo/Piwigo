@@ -183,6 +183,11 @@ foreach ($allAlbum as $album)
   $the_place['cat'] = $album;
 }
 
+// WARNING $user['forbidden_categories'] is 100% reliable only on gallery side because
+// it's a cache variable. On administration side, if you modify public/private status
+// of an album or change permissions, this variable is reset and not recalculated until
+// you open the gallery. As this situation doesn't occur each time you use the
+// administration, it's quite reliable but not as much as on gallery side.
 $is_forbidden = array_fill_keys(@explode(',', $user['forbidden_categories']), 1);
 
 //Make an ordered tree
