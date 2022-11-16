@@ -187,7 +187,6 @@ $lang['Album updated successfully'] = "Les informations de la catégorie ont ét
 $lang['photos per page'] = "Nombre d'éléments par page à afficher";
 $lang['High definition enabled'] = "Haute définition actif";
 $lang['File'] = "Fichier";
-$lang['first photo added on %s'] = "premier élément ajouté le %s";
 $lang['Forbidden'] = "Interdits";
 $lang['global mode'] = "Mode global";
 $lang['group "%s" added'] = "groupe \"%s\" ajouté";
