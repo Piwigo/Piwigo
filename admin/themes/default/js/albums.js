@@ -441,6 +441,7 @@ function openAddAlbumPopIn(parentAlbumId) {
   $(".AddAlbumLabelUsername .user-property-input").val('');
   $(".AddAlbumLabelUsername .user-property-input").focus();
 
+  $("#AddAlbum").unbind('keyup');
   $("#AddAlbum").on('keyup', function (e) {
     // 13 is 'Enter'
     if(e.keyCode === 13) {
