@@ -1,7 +1,10 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {footer_script require='jquery.ui.sortable'}
+
+const cat_nav = '{$CATEGORIES_NAV|escape:javascript}';
+
 jQuery(document).ready(function() {
-  $("h1").append(' <span style="letter-spacing:0">{$CATEGORIES_NAV}</span>');
+  $("h1").append(' <span style="letter-spacing:0">'+cat_nav+'</span>');
 
   function checkOrderOptions() {
     jQuery("#image_order_user_define_options").hide();
