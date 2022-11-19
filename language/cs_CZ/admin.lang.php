@@ -1321,3 +1321,5 @@ $lang['On %d rating(s)'] = 'Na %d hodnocení';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Nejlepší je nechat je pravidelně automaticky provádět.';
 $lang['This photo no longer exists'] = 'Tato fotografie již neexistuje';
 $lang['Apply to root albums'] = 'Použít na hlavní alba';
+$lang['Visit history'] = 'Historie návštěv';
+$lang['Album name must not be empty'] = 'Název alba nesmí být prázdný';
