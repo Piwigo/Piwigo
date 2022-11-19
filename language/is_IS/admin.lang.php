@@ -383,7 +383,7 @@ $lang['Manage the members'] = 'Umsjón meðlima';
 $lang['Manage tags'] = 'Umsjón merkja';
 $lang['Manage sub-albums'] = 'Umsjón undiralbúma';
 $lang['Manage photos'] = 'Umsjón mynda';
-$lang['Manage photo ranks'] = 'Röðunarröð mynda';
+$lang['Manage photo ranks'] = 'Röðun mynda';
 $lang['Manage permissions for user "%s"'] = 'Hafa umsjón með heimildum fyrir notandann "%s"';
 $lang['Manage permissions for group "%s"'] = 'Hafa umsjón með heimildum fyrir hópinn "%s"';
 $lang['Manage authorizations for selected albums'] = 'Hafa umsjón með heimildum fyrir valin albúm';
@@ -1316,3 +1316,5 @@ $lang['If anything bad happens during the update, you would be able to restore a
 $lang['The best is to have them made automatically on a regular basis.'] = 'Best er að láta útbúa þær sjálfkrafa með reglubundnum hætti.';
 $lang['This photo no longer exists'] = 'Þessi mynd er ekki lengur til';
 $lang['Apply to root albums'] = 'Virkja á rótaralbúmum';
+$lang['Album name must not be empty'] = 'Heiti albúms má ekki vera autt';
+$lang['Visit history'] = 'Heimsóknarsaga';
