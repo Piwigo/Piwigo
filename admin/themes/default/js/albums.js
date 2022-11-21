@@ -1,11 +1,20 @@
-$(document).ready(() => {
+const start = Date.now();
 
+function timeElapsed(start, message) {
+  const millis = Date.now() - start;
+  console.log(message);
+  console.log(`ms elapsed = ${Math.floor(millis)}`);
+}
+createNodeLiCount = 0;
+
+$(document).ready(() => {
+  timeElapsed(start, 'Start of document.ready');
   formatedData = data;
 
   $("h1").append(`<span class='badge-number'>`+nb_albums+`</span>`);
 
-  console.log(formatedData);
-
+  // console.log(formatedData);
+  timeElapsed(start, 'Before tree init');
   $('.tree').tree({
     data: formatedData,
     autoOpen : false,
@@ -14,118 +23,11 @@ $(document).ready(() => {
     onCreateLi : createAlbumNode,
     onCanSelectNode: function(node) {return false}
   });
-
-  function createAlbumNode(node, li) {
-    icon = "<span class='%icon%'></span>";
-    title = '<span data-id="'+node.id+'" class="move-cat-title-container"><p class="move-cat-title" title="'+node.name+'">%name%</p> <span class="icon-pencil"></span> </span>';
-    toggler_cont = "<div class='move-cat-toogler' data-id=%id%>%content%</div>";
-    toggler_close = "<span class='icon-left-open'></span>";
-    toggler_open = "<span class='icon-down-open'></span>";
-    actions = 
-      '<div class="move-cat-action-cont">'
-        +"<div class='move-cat-action'>"
-          +'<a class="move-cat-add icon-plus-circled tiptip" title="'+ str_add_album +'" href="#" data-aid="'+node.id+'"></a>'
-          +'<a class="move-cat-edit icon-pencil tiptip" title="'+ str_edit_album +'" href="admin.php?page=album-'+node.id+'"></a>'
-          +'<a class="move-cat-upload icon-upload tiptip" title="'+ str_add_photo +'" href="admin.php?page=photos_add&album='+node.id+'"></a>'
-          +'<a class="move-cat-see icon-eye tiptip" title="'+ str_visit_gallery +'" href="index.php?/category/'+node.id+'"></a>'
-          +'<a data-id="'+node.id+'" class="move-cat-delete icon-trash tiptip" title="'+ str_delete_album +'" ></a>'
-        +"</div>"
-      +'</div>';
-    action_order = '<a data-id="'+node.id+'" class="move-cat-order icon-sort-name-up tiptip" title="'+ str_sort_order +'"></a>';
-
-    cont = li.find('.jqtree-element');
-    cont.addClass('move-cat-container');
-    cont.attr('id', 'cat-'+node.id)
-    cont.html('');
-
-    cont.append(actions);
-    cont.find('.move-cat-action .move-cat-see').after(action_order);
-
-    cont.find(".toggle-cat-option").on("click", function () {
-      $(".cat-option").hide();
-      $(this).find(".cat-option").toggle();
-    });
-
-    if (node.children.length != 0) {
-      open_nodes = $('.tree').tree('getState').open_nodes;
-      if (open_nodes.includes(node.id)) {
-        toggler = toggler_open;
-      } else {
-        toggler = toggler_close;
-      }
-      cont.append($(toggler_cont
-        .replace(/%content%/g, toggler)
-        .replace(/%id%/g, node.id)));
-    } else {
-      cont.find('.move-cat-order').addClass("notClickable");
-
-      cont.append($(toggler_cont
-        .replace(/%content%/g, toggler_close)
-        .replace(/%id%/g, node.id))).addClass("disabledToggle");
-    }
-
-    cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
-
-    if (node.children.length != 0) {
-      cont.append($(icon.replace(/%icon%/g, 'icon-sitemap')));
-    } else {
-      cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
-    }
-
-    cont.append($(title.replace(/%name%/g, node.name)));
-
-    if (node.status == 'private') {
-      cont.find(".move-cat-title").addClass('icon-lock');
-    }
-
-    var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
-    var colorId = Number(node.id)%5;
-    cont.find("span.icon-folder-open, span.icon-sitemap").addClass(colors[colorId]).addClass("node-icon");  
-
-    cont.find(".move-cat-title-container").after(
-      "<div class='badge-container'>" 
-        +"<i class='icon-blue icon-sitemap nb-subcats'></i>"
-        +"<i class='icon-purple icon-picture nb-images'></i>"
-        +"<i class='icon-green icon-imagefolder-01 nb-sub-photos'></i>"
-        +"<i class='icon-red icon-back-in-time last-update'>"+ node.last_updates +"</i>"
-      +"</div>"
-    )
-
-    if (node.nb_subcats) {
-      cont.find(".nb-subcats").text(node.nb_subcats);
-    } else {
-      cont.find(".nb-subcats").hide();
-    }
-
-    if (node.nb_images != 0 && node.nb_images) {
-      cont.find(".nb-images").text(node.nb_images);
-    } else {
-      cont.find(".nb-images").hide();
-    }
-
-    if (node.last_updates) {
-      cont.find(".last-update").text(node.last_updates);
-    } else {
-      cont.find(".last-update").hide();
-    }
-
-    if (node.nb_sub_photos) {
-      cont.find(".nb-sub-photos").text(node.nb_sub_photos);
-    } else {
-      cont.find(".nb-sub-photos").hide();
-    }
-
-    if (node.has_not_access) {
-      cont.find(".move-cat-see").addClass("notClickable");
-    }
-  }
+  timeElapsed(start, 'After tree init');
+  console.log(createNodeLiCount);
 
   var url_split = window.location.href.split("cat_move");
   var catToOpen = url_split[url_split.length-1].split("-")[1];
-
-  function isNumeric(num){
-    return !isNaN(num)
-  }
 
   if(catToOpen && isNumeric(catToOpen)) {
     nodeToGo = $('.tree').tree('getNodeById', catToOpen);
@@ -135,7 +37,7 @@ $(document).ready(() => {
       $(".tree").tree("openNode", nodeToGo, false);
     }
   }
-
+  timeElapsed(start, 'Before tree listenners');
   $('.tree').on( 'click', '.move-cat-toogler', function(e) {
     var node_id = $(this).attr('data-id');
     var node = $('.tree').tree('getNodeById', node_id);
@@ -229,7 +131,8 @@ $(document).ready(() => {
     } else if (e.type == "mouseup") {
       $(".dragging").removeClass("dragging")
     }
-});
+  });
+  timeElapsed(start, 'After tree listenners');
 
   if (openCat != -1) {
     var node = $('.tree').tree('getNodeById', openCat);
@@ -239,6 +142,7 @@ $(document).ready(() => {
     }, 500);
   }
 
+  timeElapsed(start, 'Before click events listenners');
   // RenameAlbumPopIn
   $(".RenameAlbumErrors").hide();
   $(".move-cat-title-container").on("click", function () {
@@ -293,7 +197,8 @@ $(document).ready(() => {
   $(".DeleteAlbumCancel").on("click", function () {
     closeDeleteAlbumPopIn();
   });
-
+  timeElapsed(start, 'After click events listenners');
+  timeElapsed(start, 'Before AddAlbumSubmit events listenners');
   $(".AddAlbumSubmit").on("click", function () {
     $(this).addClass("notClickable");
 
@@ -392,44 +297,169 @@ $(document).ready(() => {
       }
     });
   })
+  timeElapsed(start, 'After AddAlbumSubmit events listenners');
 
   // Delete Album
   $(".move-cat-delete").on("click", function () {
     triggerDeleteAlbum($(this).data("id"));
   });
 
-  /*----------------
-  Checkboxes
-  ----------------*/
-
-  function checkbox_change() {
-    if ($(this).attr('data-selected') == '1') {
-        $(this).find("i").hide();
-    } else {
-        $(this).find("i").show();
-    }
-  }
-
-  function checkbox_click() {
-    if ($(this).attr('data-selected') == '1') {
-        $(this).attr('data-selected', '0');
-        $(this).find("i").hide();
-    } else {
-        $(this).attr('data-selected', '1');
-        $(this).find("i").show();
-    }
-  }
-
   $('.user-list-checkbox').unbind("change").change(checkbox_change);
   $('.user-list-checkbox').unbind("click").click(checkbox_click);
+  timeElapsed(start, 'Before tiptip listenners');
+  // $('.tiptip').tipTip({
+  //   delay: 0,
+  //   fadeIn: 200,
+  //   fadeOut: 200,
+  //   edgeOffset: 3
+  // });
 
-  $('.tiptip').tipTip({
-    delay: 0,
-    fadeIn: 200,
-    fadeOut: 200,
-    edgeOffset: 3
-  });
+  timeElapsed(start, 'End of document.ready');
 });
+
+function createAlbumNode(node, li) {
+  createNodeLiCount += 1;
+  icon = "<span class='%icon%'></span>";
+  title = '<span data-id="'+node.id+'" class="move-cat-title-container ';
+  if (node.status == 'private') {
+    title += 'icon-lock';
+  }
+  title += '"><p class="move-cat-title" title="'+node.name+'">%name%</p> <span class="icon-pencil"></span> </span>';
+  toggler_cont = "<div class='move-cat-toogler' data-id=%id%>%content%</div>";
+  toggler_close = "<span class='icon-left-open'></span>";
+  toggler_open = "<span class='icon-down-open'></span>";
+  actions = 
+    '<div class="move-cat-action-cont">'
+      +"<div class='move-cat-action'>"
+        +'<a class="move-cat-add icon-plus-circled tiptip" title="'+ str_add_album +'" href="#" data-aid="'+node.id+'"></a>'
+        +'<a class="move-cat-edit icon-pencil tiptip" title="'+ str_edit_album +'" href="admin.php?page=album-'+node.id+'"></a>'
+        +'<a class="move-cat-upload icon-upload tiptip" title="'+ str_add_photo +'" href="admin.php?page=photos_add&album='+node.id+'"></a>'
+        +'<a class="move-cat-see icon-eye tiptip" title="'+ str_visit_gallery +'" href="index.php?/category/'+node.id+'"></a>'
+        +'<a data-id="'+node.id+'" class="move-cat-order icon-sort-name-up tiptip" title="'+ str_sort_order +'"></a>'
+        +'<a data-id="'+node.id+'" class="move-cat-delete icon-trash tiptip" title="'+ str_delete_album +'" ></a>'
+      +"</div>"
+    +'</div>';
+  // action_order = '<a data-id="'+node.id+'" class="move-cat-order icon-sort-name-up tiptip" title="'+ str_sort_order +'"></a>';
+
+  cont = li.find('.jqtree-element');
+  cont.addClass('move-cat-container');
+  cont.attr('id', 'cat-'+node.id)
+  cont.html('');
+
+  cont.append(actions);
+  // cont.find('.move-cat-action .move-cat-see').after(action_order);
+
+  cont.find(".toggle-cat-option").on("click", function () {
+    $(".cat-option").hide();
+    $(this).find(".cat-option").toggle();
+  });
+
+  if (node.children.length != 0) {
+    open_nodes = $('.tree').tree('getState').open_nodes;
+    if (open_nodes.includes(node.id)) {
+      toggler = toggler_open;
+    } else {
+      toggler = toggler_close;
+    }
+    cont.append($(toggler_cont
+      .replace(/%content%/g, toggler)
+      .replace(/%id%/g, node.id)));
+  } else {
+    cont.find('.move-cat-order').addClass("notClickable");
+
+    cont.append($(toggler_cont
+      .replace(/%content%/g, toggler_close)
+      .replace(/%id%/g, node.id))).addClass("disabledToggle");
+  }
+
+  cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
+
+  if (node.children.length != 0) {
+    cont.append($(icon.replace(/%icon%/g, 'icon-sitemap')));
+  } else {
+    cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
+  }
+
+  cont.append($(title.replace(/%name%/g, node.name)));
+
+  // if (node.status == 'private') {
+  //   cont.find(".move-cat-title").addClass('icon-lock');
+  // }
+
+  var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
+  var colorId = Number(node.id)%5;
+  cont.find("span.icon-folder-open, span.icon-sitemap").addClass(colors[colorId]).addClass("node-icon");
+
+  cont.find(".move-cat-title-container").after(
+    "<div class='badge-container'>" 
+      +"<i class='icon-blue icon-sitemap nb-subcats'>"+node.nb_subcats+"</i>"
+      +"<i class='icon-purple icon-picture nb-images'>"+node.nb_images+"</i>"
+      +"<i class='icon-green icon-imagefolder-01 nb-sub-photos'>"+node.nb_sub_photos+"</i>"
+      // +"<i class='icon-red icon-back-in-time last-update'>"+ node.last_updates +"</i>"
+    +"</div>"
+  )
+
+  if (node.nb_subcats) {
+    // cont.find(".nb-subcats").text(node.nb_subcats);
+  } else {
+    cont.find(".nb-subcats").hide();
+  }
+
+  if (node.nb_images != 0 && node.nb_images) {
+    // cont.find(".nb-images").text(node.nb_images);
+  } else {
+    cont.find(".nb-images").hide();
+  }
+
+  // if (node.last_updates) {
+  //   cont.find(".last-update").text(node.last_updates);
+  // } else {
+  //   cont.find(".last-update").hide();
+  // }
+
+  if (node.nb_sub_photos) {
+    // cont.find(".nb-sub-photos").text(node.nb_sub_photos);
+  } else {
+    cont.find(".nb-sub-photos").hide();
+  }
+
+  if (node.has_not_access) {
+    cont.find(".move-cat-see").addClass("notClickable");
+  }
+
+  // $('.tiptip').tipTip({
+  //   delay: 0,
+  //   fadeIn: 200,
+  //   fadeOut: 200,
+  //   edgeOffset: 3
+  // });
+}
+
+/*----------------
+Checkboxes
+----------------*/
+
+function checkbox_change() {
+  if ($(this).attr('data-selected') == '1') {
+      $(this).find("i").hide();
+  } else {
+      $(this).find("i").show();
+  }
+}
+
+function checkbox_click() {
+  if ($(this).attr('data-selected') == '1') {
+      $(this).attr('data-selected', '0');
+      $(this).find("i").hide();
+  } else {
+      $(this).attr('data-selected', '1');
+      $(this).find("i").show();
+  }
+}
+
+function isNumeric(num){
+  return !isNaN(num)
+}
 
 function openAddAlbumPopIn(parentAlbumId) {
   if (parentAlbumId != 0) {
@@ -453,6 +483,7 @@ function openAddAlbumPopIn(parentAlbumId) {
     }
   })
 }
+
 function closeAddAlbumPopIn() {
   $("#AddAlbum").fadeOut();
 }
@@ -467,8 +498,9 @@ function openRenameAlbumPopIn(replacedAlbumName) {
     if(e.which == 13) {
       $(".RenameAlbumSubmit").trigger("click");
     }
-});
+  });
 }
+
 function closeRenameAlbumPopIn() {
   $("#RenameAlbum").fadeOut();
 }
@@ -507,6 +539,7 @@ function triggerDeleteAlbum(cat_id) {
     openDeleteAlbumPopIn(cat_id);
   });
 }
+
 function openDeleteAlbumPopIn(cat_to_delete) {
   $("#DeleteAlbum").fadeIn();
   node = $(".tree").tree('getNodeById', cat_to_delete);
@@ -560,6 +593,7 @@ function openDeleteAlbumPopIn(cat_to_delete) {
   })
 
 }
+
 function closeDeleteAlbumPopIn() {
   $("#DeleteAlbum").fadeOut();
 }
