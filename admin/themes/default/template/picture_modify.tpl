@@ -45,18 +45,18 @@ jQuery("a.preview-box").colorbox({
 	photo: true
 });
 
-str_are_you_sure = '{'Are you sure?'|translate}';
-str_yes = '{'Yes, delete'|translate}';
+str_are_you_sure = '{'Are you sure?'|translate|escape:javascript}';
+str_yes = '{'Yes, delete'|translate|escape:javascript}';
 str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
 url_delete = '{$U_DELETE}';
-str_albums_found = '{"<b>%d</b> albums found"|translate}';
-str_album_found = '{"<b>1</b> album found"|translate}';
+str_albums_found = '{"<b>%d</b> albums found"|translate|escape:javascript}';
+str_album_found = '{"<b>1</b> album found"|translate|escape:javascript}';
 str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
-str_orphan = '{'This photo is an orphan'|@translate}';
-str_no_search_in_progress = '{'No search in progress'|@translate}';
+str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
+str_no_search_in_progress = '{'No search in progress'|@translate|escape:javascript}';
 
 related_categories_ids = {$related_categories_ids|@json_encode};
-str_already_in_related_cats = '{'This albums is already in related categories list'|translate}';
+str_already_in_related_cats = '{'This albums is already in related categories list'|translate|escape:javascript}';
 
 {literal}
 $('#action-delete-picture').on('click', function() {
