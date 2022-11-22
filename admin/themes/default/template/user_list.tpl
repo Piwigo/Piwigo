@@ -22,18 +22,18 @@ const title_msg = '{'Are you sure you want to delete the user "%s"?'|@translate|
 const are_you_sure_msg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
 const confirm_msg = '{'Yes, I am sure'|@translate|@escape}';
 const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
-const str_and_others_tags = '{'and %s others'|@translate}';
+const str_and_others_tags = '{'and %s others'|@translate|escape:javascript}';
 const missingConfirm = "{'You need to confirm deletion'|translate|escape:javascript}";
 const missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
 const fieldNotEmpty = "{'Name field must not be empty'|@translate|escape:javascript}"
 
-const registered_str = '{"Registered"|@translate}';
-const last_visit_str = '{"Last visit"|@translate}';
-const dates_infos = '{'between %s and %s'|translate}'
-const hide_str = '{'Hide'|@translate}';
-const show_str = '{'Show'|@translate}';
-const user_added_str = '{'User %s added'|@translate}';
-const str_popin_update_btn = '{'Update'|@translate}';
+const registered_str = '{"Registered"|@translate|escape:javascript}';
+const last_visit_str = '{"Last visit"|@translate|escape:javascript}';
+const dates_infos = '{'between %s and %s'|translate|escape:javascript}'
+const hide_str = '{'Hide'|@translate|escape:javascript}';
+const show_str = '{'Show'|@translate|escape:javascript}';
+const user_added_str = '{'User %s added'|@translate|escape:javascript}';
+const str_popin_update_btn = '{'Update'|@translate|escape:javascript}';
 const history_base_url = "{$U_HISTORY}";
 
 const view_selector = '{$view_selector}';
