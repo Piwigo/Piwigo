@@ -301,7 +301,6 @@ $(document).ready(() => {
 });
 
 function createAlbumNode(node, li) {
-  createNodeLiCount += 1;
   icon = "<span class='%icon%'></span>";
   title = '<span data-id="'+node.id+'" class="move-cat-title-container ';
   if (node.status == 'private') {
