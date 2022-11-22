@@ -173,7 +173,7 @@ function register_user($login, $password, $mail_address, $notify_admin=true, &$e
   if (empty($errors))
   {
     $insert = array(
-      $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
+      $conf['user_fields']['username'] => $login,
       $conf['user_fields']['password'] => $conf['password_hash']($password),
       $conf['user_fields']['email'] => $mail_address
       );
