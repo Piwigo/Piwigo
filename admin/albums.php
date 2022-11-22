@@ -20,18 +20,6 @@ SELECT
 ;';
 list($albums_counter) = pwg_db_fetch_row(pwg_query($query));
 
-if ($albums_counter > $conf['light_album_manager_threshold'])
-{
-  $url = get_root_url().'admin.php?page=cat_list';
-
-  if (isset($_GET['parent_id']))
-  {
-    $url.= '&parent_id='.$_GET['parent_id'];
-  }
-
-  redirect($url);
-}
-
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -278,6 +266,7 @@ $template->assign(
     'PWG_TOKEN' => get_pwg_token(),
     'nb_albums' => count($allAlbum),
     'ADMIN_PAGE_TITLE' => l10n('Albums'),
+    'light_album_manager' => ($albums_counter > $conf['light_album_manager_threshold']) ? 1 : 0,
   )
 );
 
