@@ -4286,24 +4286,25 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   display: flex;
   align-items: center;
   max-width: 60%;
+  height: 100%;
 }
 
 .move-cat-action a {
-  padding: 0 8px;
+  padding: 21px 8px;
   font-weight: bold;
   cursor: pointer;
-  height: 100%;
   text-align: center;
   font-size: 15px;
 }
 
 .move-cat-action a:last-child {
-  padding-right: 20px;
+  margin-right: 12px;
 }
 
 .move-cat-action a:hover {
-  color: #ff7700;
+  color: #000;
   text-decoration: none;
+  background: #f98100;
 }
 
 .cat-move-order-popin {
