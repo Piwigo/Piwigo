@@ -54,6 +54,25 @@ if (isset($page['nb_pending_comments']))
   $page['messages'][] = $message;
 }
 
+// any orphan photo?
+$nb_orphans = $page['nb_orphans']; // already calculated in admin.php
+
+if ($page['nb_photos_total'] >= 100000) // but has not been calculated on a big gallery, so force it now
+{
+  $nb_orphans = count(get_orphans());
+}
+
+if ($nb_orphans > 0)
+{
+  $orphans_url = PHPWG_ROOT_PATH.'admin.php?page=batch_manager&amp;filter=prefilter-no_album';
+
+  $message = '<a href="'.$orphans_url.'"><i class="icon-heart-broken"></i>';
+  $message.= l10n('Orphans').'</a>';
+  $message.= '<span class="adminMenubarCounter">'.$nb_orphans.'</span>';
+
+  $page['warnings'][] = $message;
+}
+
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+

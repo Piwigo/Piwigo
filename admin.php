@@ -265,25 +265,21 @@ if (in_array($page['page'], array('site_update', 'batch_manager')))
   }
 }
 
-// any orphan photo?
-$nb_orphans = count(get_orphans());
+// only calculate number of orphans on all pages if the number of images is "not huge"
+$page['nb_orphans'] = 0;
 
-if ($nb_orphans > 0)
+list($page['nb_photos_total']) = pwg_db_fetch_row(pwg_query('SELECT COUNT(*) FROM '.IMAGES_TABLE));
+if ($page['nb_photos_total'] < 100000) // 100k is already a big gallery
 {
-  $template->assign(
-    array(
-      'NB_ORPHANS' => $nb_orphans,
-      'U_ORPHANS' => $link_start.'batch_manager&amp;filter=prefilter-no_album',
-      )
-    );
-} else {
-  $template->assign(
-    array(
-      'NB_ORPHANS' => 0,
-      'U_ORPHANS' => '',
-      )
-    );
+  $page['nb_orphans'] = count(get_orphans());
 }
+
+$template->assign(
+  array(
+    'NB_ORPHANS' => $page['nb_orphans'],
+    'U_ORPHANS' => $link_start.'batch_manager&amp;filter=prefilter-no_album',
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // | Refresh permissions                                                   |
