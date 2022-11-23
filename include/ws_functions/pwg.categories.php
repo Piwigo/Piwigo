@@ -648,7 +648,6 @@ function ws_categories_add($params, &$service)
     $options['comment'] = strip_tags($params['comment']);
   }
   
-  $params['name'] = $params['name'];
   $creation_output = create_virtual_category(
     strip_tags($params['name']), // TODO do not strip tags if pwg_token is provided (and valid)
     $params['parent'],
