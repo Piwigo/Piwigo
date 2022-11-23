@@ -313,9 +313,9 @@ function createAlbumNode(node, li) {
   actions = 
     '<div class="move-cat-action-cont">'
       +"<div class='move-cat-action'>"
-        +'<a class="move-cat-add icon-plus-circled tiptip" title="'+ str_add_album +'" href="#" data-aid="'+node.id+'"></a>'
+        +'<a class="move-cat-add icon-add-album tiptip" title="'+ str_add_album +'" href="#" data-aid="'+node.id+'"></a>'
         +'<a class="move-cat-edit icon-pencil tiptip" title="'+ str_edit_album +'" href="admin.php?page=album-'+node.id+'"></a>'
-        +'<a class="move-cat-upload icon-upload tiptip" title="'+ str_add_photo +'" href="admin.php?page=photos_add&album='+node.id+'"></a>'
+        +'<a class="move-cat-upload icon-plus-circled tiptip" title="'+ str_add_photo +'" href="admin.php?page=photos_add&album='+node.id+'"></a>'
         +'<a class="move-cat-see icon-eye tiptip" title="'+ str_visit_gallery +'" href="index.php?/category/'+node.id+'"></a>'
         +'<a data-id="'+node.id+'" class="move-cat-order icon-sort-name-up tiptip" title="'+ str_sort_order +'"></a>'
         +'<a data-id="'+node.id+'" class="move-cat-delete icon-trash tiptip" title="'+ str_delete_album +'" ></a>'

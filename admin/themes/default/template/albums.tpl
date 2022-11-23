@@ -115,7 +115,7 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 
 <div class="cat-move-header"> 
   <div class="add-album-button">
-    <label class="head-button-2 icon-plus-circled">
+    <label class="head-button-2 icon-add-album">
       <p>{'Add Album'|@translate}</p>
     </label>
   </div>
@@ -132,7 +132,7 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
     <a class="icon-cancel CloseAddAlbum"></a>
     
     <div class="AddIconContainer">
-      <span class="AddIcon icon-blue icon-plus-circled"></span>
+      <span class="AddIcon icon-blue icon-add-album"></span>
     </div>
     <div class="AddIconTitle">
       <span></span>
@@ -278,6 +278,10 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
       border: 20px solid #ff7700;
       opacity: 0;
   }
+}
+
+.add-album-button label::before {
+  margin-right: 7px;
 }
 
 #AddAlbum, #DeleteAlbum, #RenameAlbum {
