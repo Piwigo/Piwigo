@@ -455,6 +455,7 @@ function actualizeFilter() {
   $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
   $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
   $(".filterLabel").show();
+  
   $(".pluginMiniBox").each(function () {
     if (nb_plugin.active == 0) {
       $("label[for='seeActive']").hide();
@@ -503,38 +504,34 @@ function performPluginDeactivate(id) {
 /* group action */
 
 jQuery(document).ready(function () {
-    jQuery(".pluginBox").each(function (index) {
-        $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
-        $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
-        $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+    $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
+    $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
+    $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+    $(".filterLabel").show(); 
 
-        $(".filterLabel").show();
-        $(".pluginMiniBox").each(function () {
-            if (nb_plugin.active == 0) {
-                $("label[for='seeActive']").hide();
-                if ($("#seeActive").is(":checked")) {
-                $("#seeAll").trigger("click");
-                }
+    $(".pluginBox").each(function () {
+        if (nb_plugin.active == 0) {
+            $("label[for='seeActive']").hide();
+            if ($("#seeActive").is(":checked")) {
+            $("#seeAll").trigger("click");
             }
-            if (nb_plugin.inactive == 0) {
-                $("label[for='seeInactive']").hide();
-                if ($("#seeInactive").is(":checked")) {
-                $("#seeAll").trigger("click");
-                }
+        }
+        if (nb_plugin.inactive == 0) {
+            $("label[for='seeInactive']").hide();
+            if ($("#seeInactive").is(":checked")) {
+            $("#seeAll").trigger("click");
             }
-            if (nb_plugin.other == 0) {
-                $("label[for='seeOther']").hide();
-                if ($("#seeOther").is(":checked")) {
-                $("#seeAll").trigger("click");
-                }
+        }
+        if (nb_plugin.other == 0) {
+            $("label[for='seeOther']").hide();
+            if ($("#seeOther").is(":checked")) {
+            $("#seeAll").trigger("click");
             }
-        });
-    });
+        }
 
-    jQuery(".pluginBox").each(function (index) {
         let myplugin = jQuery(this);
         myplugin.find(".showOptions").click(function () {
-        myplugin.find(".PluginOptionsBlock").toggle();
+            myplugin.find(".PluginOptionsBlock").toggle();
         });
     });
 
