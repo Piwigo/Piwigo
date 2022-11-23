@@ -1321,3 +1321,5 @@ $lang['The best is to have them made automatically on a regular basis.'] = 'O me
 $lang['This photo no longer exists'] = 'Esta foto não existe mais';
 $lang['Always have a backup of your database and files.'] = 'Sempre tenha um backup de seu banco de dados e arquivos.';
 $lang['Apply to root albums'] = 'Aplicar a álbuns raiz';
+$lang['Album name must not be empty'] = 'O nome do álbum não deve estar vazio';
+$lang['Visit history'] = 'Visite o histórico';
