@@ -1,5 +1,6 @@
 
 .icon-code:before { content: '\2302'; } /* '⌂' */
+.icon-add-album:before { content: '\e73e'; } /* '' */
 .icon-puzzle:before { content: '\e7b6'; } /* '' */
 .icon-language:before { content: '\e800'; } /* '' */
 .icon-signal:before { content: '\e801'; } /* '' */
