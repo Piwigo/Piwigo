@@ -1317,3 +1317,5 @@ $lang['If anything bad happens during the update, you would be able to restore a
 $lang['The best is to have them made automatically on a regular basis.'] = 'Det beste er å få dem satt til automatisk med jevne mellomrom.';
 $lang['This photo no longer exists'] = 'Dette bildet eksisterer ikke lenger';
 $lang['Apply to root albums'] = 'Bruk på rotalbum';
+$lang['Album name must not be empty'] = 'Albumnavn må ikke være tomt';
+$lang['Visit history'] = 'Besøkshistorikk';
