@@ -13,6 +13,7 @@ var str_no_change_parent = "{'No, don\'t move this album here'|@translate}";
 var str_root = "{'Root'|@translate}";
 var openCat = {$open_cat};
 var nb_albums = {$nb_albums};
+var light_album_manager = {$light_album_manager};
 
 var delay_autoOpen = {$delay_before_autoOpen}
 {/footer_script}
