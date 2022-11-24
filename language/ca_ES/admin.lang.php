@@ -1329,3 +1329,5 @@ $lang['Details'] = 'Detalls';
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Si passa qualsevol cosa indesitjable durant l\'actualització, podríeu restaurar una còpia de seguretat.';
 $lang['The best is to have them made automatically on a regular basis.'] = 'El millor és que es facin automàticament de manera regular.';
 $lang['This photo no longer exists'] = 'Aquesta foto ja no existeix';
+$lang['Album name must not be empty'] = 'El nom de l\'àlbum no pot estar buit';
+$lang['Visit history'] = 'Historial de visites';
