@@ -514,7 +514,7 @@ function openDeleteAlbumPopIn(cat_to_delete) {
       type: "POST",
       data: {
         category_id: cat_to_delete,
-        photo_deletion_mode: $("input [name=photo_deletion_mode]:checked").val(),
+        photo_deletion_mode: $("input[name=photo_deletion_mode]:checked").val(),
         pwg_token: pwg_token,
       },
       success: function (raw_data) {
