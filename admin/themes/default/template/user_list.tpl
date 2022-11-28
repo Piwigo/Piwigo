@@ -823,11 +823,6 @@ $(document).ready(function() {
             <div class="user-property-permissions">
               <p class="user-property-button"><span class="icon-lock user-edit-icon"></span><a href="admin.php?page=user_perm&user_id={$guest_id}">{'Permissions'|@translate}</a></p>
             </div>
-            <div class="user-stats">
-              <div class="user-property-history">
-                <p class="user-property-button"> <span class="icon-signal user-edit-icon"> </span><a href="" >{'Visit history'|@translate}</a></p>
-              </div>
-            </div>
           </div>
         </div>
         <div class="properties-container">
