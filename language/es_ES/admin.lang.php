@@ -1318,3 +1318,5 @@ $lang['If anything bad happens during the update, you would be able to restore a
 $lang['Details'] = 'Detalles';
 $lang['Apply to root albums'] = 'Aplicar a los álbumes principales';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Lo mejor es que se hagan automáticamente de manera regular.';
+$lang['Album name must not be empty'] = 'El nombre del álbum no puede estar vacío';
+$lang['Visit history'] = 'Historial de visitas';

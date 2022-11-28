@@ -1323,3 +1323,5 @@ $lang['Always have a backup of your database and files.'] = 'Erstellen Sie immer
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Wenn während der Aktualisierung etwas Schlimmes passiert, können Sie ein Backup wiederherstellen.';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Am besten ist es, sie regelmäßig und automatisch durchführen zu lassen.';
 $lang['Apply to root albums'] = 'Auf Stammalben anwenden';
+$lang['Album name must not be empty'] = 'Der Albumname darf nicht leer sein';
+$lang['Visit history'] = 'Geschichte besuchen';

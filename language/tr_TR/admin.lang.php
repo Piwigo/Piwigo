@@ -1316,3 +1316,5 @@ $lang['If anything bad happens during the update, you would be able to restore a
 $lang['The best is to have them made automatically on a regular basis.'] = 'En iyisi, düzenli olarak otomatik olarak yapılmasıdır.';
 $lang['This photo no longer exists'] = 'Bu fotoğraf artık mevcut değil';
 $lang['Apply to root albums'] = 'Kök albümlere uygula';
+$lang['Visit history'] = 'Ziyaret geçmişi';
+$lang['Album name must not be empty'] = 'Albüm adı boş bırakılamaz';
