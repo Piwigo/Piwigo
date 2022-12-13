@@ -1442,7 +1442,7 @@ function update_user_list() {
     if ($("#user_search").val().length != 0) {
       update_data["filter"] = $("#user_search").val();
     }
-    if ($(".advanced-filter").hasClass('advanced-filter-open') !== "none") {
+    if ($(".advanced-filter").hasClass('advanced-filter-open')) {
         update_data["status"] = $(".advanced-filter-select[name=filter_status]").val();
         update_data["group_id"] = $(".advanced-filter-select[name=filter_group]").val();
         update_data["min_level"] = $(".advanced-filter-select[name=filter_level]").val();
