@@ -1239,7 +1239,13 @@ function select_whole_set() {
             order: "id",
             page: actual_page - 1,
             per_page: 0,
-            exclude: [guest_id]
+            exclude: [guest_id],
+            status: $(".advanced-filter-select[name=filter_status]").val(),
+            group_id: $(".advanced-filter-select[name=filter_group]").val(),
+            min_level: $(".advanced-filter-select[name=filter_level]").val(),
+            max_level: $(".advanced-filter-select[name=filter_level]").val(),
+            min_register: register_dates[$(".dates-select-bar .slider-bar-container").slider("option", "values")[0]],
+            max_register: register_dates[$(".dates-select-bar .slider-bar-container").slider("option", "values")[1]],
         },
         beforeSend: function() {
             $("#checkActions .loading").show();
