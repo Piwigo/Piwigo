@@ -661,7 +661,7 @@ function add_user_close() {
 function add_user_open() {
     $('#AddUser .AddUserInput').val('');
     $("#AddUser").fadeIn();
-    $(".AddUserInput").first().focus();
+    $(".AddUserLabelUsername input").first().focus();
 }
 
 /*------------------
