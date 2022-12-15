@@ -5635,6 +5635,15 @@ a.group_users {
   opacity:1;
   -webkit-transition:opacity 200ms ease;
   transition:opacity 200ms ease;
+  max-width: 100%;
+}
+
+.preview-box.icon-zoom-in img.svg-image {
+  height: 100%;
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .preview-box.icon-zoom-in:hover img {
   opacity:0.5;
