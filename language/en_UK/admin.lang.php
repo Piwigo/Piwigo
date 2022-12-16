@@ -1325,4 +1325,5 @@ $lang['If anything bad happens during the update, you would be able to restore a
 $lang['Apply to root albums'] = 'Apply to root albums';
 $lang['Album name must not be empty'] = 'Album name must not be empty';
 $lang['Visit history'] = 'Visit history';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Some photos are missing from your file system. Details provided by plugin Check Uploads';
 // Leave this line empty
