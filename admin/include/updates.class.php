@@ -552,6 +552,7 @@ class updates
               // changes. Anyway, a compiled template purge will be performed
               // by upgrade.php
               $template->delete_compiled_templates();
+              conf_delete_param('fs_quick_check_last_check');
 
               $page['infos'][] = l10n('Update Complete');
               $page['infos'][] = $upgrade_to;
