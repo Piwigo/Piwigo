@@ -30,6 +30,31 @@ check_input_parameter('page', $_GET, false, '/^[a-zA-Z\d_-]+$/');
 check_input_parameter('section', $_GET, false, '/^[a-z]+[a-z_\/-]*(\.php)?$/i');
 
 // +-----------------------------------------------------------------------+
+// | Filesystem checks                                                     |
+// +-----------------------------------------------------------------------+
+
+if ($conf['fs_quick_check_period'] > 0)
+{
+  $perform_fsqc = false;
+  if (isset($conf['fs_quick_check_last_check']))
+  {
+    if (strtotime($conf['fs_quick_check_last_check']) < strtotime($conf['fs_quick_check_period'].' seconds ago'))
+    {
+      $perform_fsqc = true;
+    }
+  }
+  else
+  {
+    $perform_fsqc = true;
+  }
+
+  if ($perform_fsqc)
+  {
+    fs_quick_check();
+  }
+}
+
+// +-----------------------------------------------------------------------+
 // | Direct actions                                                        |
 // +-----------------------------------------------------------------------+
 

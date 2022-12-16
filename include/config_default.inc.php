@@ -280,6 +280,13 @@ $conf['stat_compare_year_displayed'] = 5;
 // Limit for linked albums search
 $conf['linked_album_search_limit'] = 100;
 
+// how often should we check for missing photos in the filesystem. Only in the
+// administration. Consider the fs_quick_check is always performed on
+// dashboard and maintenance pages. This setting is only for any other
+// administration page.
+// 0 to disable.
+$conf['fs_quick_check_period'] = 24*60*60;
+
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
 // +-----------------------------------------------------------------------+

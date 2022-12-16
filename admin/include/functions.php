@@ -3459,6 +3459,79 @@ function get_cache_size_derivatives($path)
 }
 
 /**
+ * Displays a header warning if we find missing photos on a random sample.
+ *
+ * @since 13.4.0
+ */
+function fs_quick_check()
+{
+  global $page, $conf;
+
+  if ($conf['fs_quick_check_period'] == 0)
+  {
+    return;
+  }
+
+  if (isset($page[__FUNCTION__.'_already_called']))
+  {
+    return;
+  }
+
+  $page[__FUNCTION__.'_already_called'] = true;
+  conf_update_param('fs_quick_check_last_check', date('c'));
+
+  $query = '
+SELECT
+    id
+  FROM '.IMAGES_TABLE.'
+  WHERE date_available < \'2022-12-08 00:00:00\'
+    AND path LIKE \'./upload/%\'
+  LIMIT 5000
+;';
+  $issue1827_ids = query2array($query, null, 'id');
+  shuffle($issue1827_ids);
+  $issue1827_ids = array_slice($issue1827_ids, 0, 50);
+
+  $query = '
+SELECT
+    id
+  FROM '.IMAGES_TABLE.'
+  LIMIT 5000
+;';
+  $random_image_ids = query2array($query, null, 'id');
+  shuffle($random_image_ids);
+  $random_image_ids = array_slice($random_image_ids, 0, 50);
+
+  $fs_quick_check_ids = array_unique(array_merge($issue1827_ids, $random_image_ids));
+
+  $query = '
+SELECT
+    id,
+    path
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $fs_quick_check_ids).')
+;';
+  $fsqc_paths = query2array($query, 'id', 'path');
+
+  foreach ($fsqc_paths as $id => $path)
+  {
+    if (!file_exists($path))
+    {
+      global $template;
+
+      $template->assign(
+        'header_msgs',
+        array(
+          l10n('Some photos are missing from your file system. Details provided by plugin Check Uploads'),
+        )
+      );
+
+      return;
+    }
+  }
+}
+
+/**
  * Return news from piwigo.org.
  *
  * @since 13
