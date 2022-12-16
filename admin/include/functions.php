@@ -3504,6 +3504,11 @@ SELECT
 
   $fs_quick_check_ids = array_unique(array_merge($issue1827_ids, $random_image_ids));
 
+  if (count($fs_quick_check_ids) < 1)
+  {
+    return;
+  }
+
   $query = '
 SELECT
     id,
