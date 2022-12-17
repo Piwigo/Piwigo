@@ -1323,3 +1323,4 @@ $lang['This photo no longer exists'] = 'Tato fotografie již neexistuje';
 $lang['Apply to root albums'] = 'Použít na hlavní alba';
 $lang['Visit history'] = 'Historie návštěv';
 $lang['Album name must not be empty'] = 'Název alba nesmí být prázdný';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'V souborovém systému chybí některé fotografie. Podrobnosti poskytl plugin Check Uploads';
