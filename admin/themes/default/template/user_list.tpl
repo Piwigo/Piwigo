@@ -37,6 +37,7 @@ const str_popin_update_btn = '{'Update'|@translate|escape:javascript}';
 const history_base_url = "{$U_HISTORY}";
 
 const view_selector = '{$view_selector}';
+const pagination = '{$pagination}';
 
 months = [
   "{'Jan'|@translate}",

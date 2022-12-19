@@ -173,6 +173,17 @@ $template->assign('groups_arr_name', implode(',', $groups_arr_name));
 $template->assign('guest_id', $conf["guest_id"]);
 
 $template->assign('view_selector', userprefs_get_param('user-manager-view', 'line'));
+
+if (userprefs_get_param('user-manager-view', 'line') == 'line') 
+{
+  //Show 5 users by default
+  $template->assign('pagination', userprefs_get_param('user-manager-pagination', 5));
+}
+else
+{
+  //Show 10 users by default
+  $template->assign('pagination', userprefs_get_param('user-manager-pagination', 10));
+}
 // +-----------------------------------------------------------------------+
 // | html code display                                                     |
 // +-----------------------------------------------------------------------+
