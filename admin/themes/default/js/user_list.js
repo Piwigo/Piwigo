@@ -252,23 +252,44 @@ $( document ).ready(function() {
 
     /* Pagination */
 
-    if (view_selector === "compact") {
-        if (per_page < 10) {
-            per_page = 10
-            update_pagination_menu();
-            update_user_list();
-        
-            $("#pagination-per-page-5").removeClass("selected-pagination");
-            $("#pagination-per-page-10").addClass("selected-pagination");
-            $("#pagination-per-page-25").removeClass("selected-pagination");
-            $("#pagination-per-page-50").removeClass("selected-pagination");
-        }
-    } else {
+    console.log(pagination);
+    switch (pagination) {
+      case '5':
+        console.log(pagination);
         $("#pagination-per-page-5").addClass("selected-pagination");
         $("#pagination-per-page-10").removeClass("selected-pagination");
         $("#pagination-per-page-25").removeClass("selected-pagination");
         $("#pagination-per-page-50").removeClass("selected-pagination");
+        break;
+      case '10':
+        console.log(pagination);
+        $("#pagination-per-page-5").removeClass("selected-pagination");
+        $("#pagination-per-page-10").addClass("selected-pagination");
+        $("#pagination-per-page-25").removeClass("selected-pagination");
+        $("#pagination-per-page-50").removeClass("selected-pagination");
+      
+        break;
+      case '25':
+        console.log(pagination);
+        $("#pagination-per-page-5").removeClass("selected-pagination");
+        $("#pagination-per-page-10").removeClass("selected-pagination");
+        $("#pagination-per-page-25").addClass("selected-pagination");
+        $("#pagination-per-page-50").removeClass("selected-pagination");
+      
+        break;
+      case '50':
+        console.log(pagination);
+        $("#pagination-per-page-5").removeClass("selected-pagination");
+        $("#pagination-per-page-10").removeClass("selected-pagination");
+        $("#pagination-per-page-25").removeClass("selected-pagination");
+        $("#pagination-per-page-50").addClass("selected-pagination");
+        break;
+      default:
+
+        break;
     }
+
+    $("#pagination-per-page-"+pagination).trigger('click');
 
     if (has_group) {
       advanced_filter_button_click();
@@ -514,6 +535,17 @@ $('.pagination-arrow.left').on('click', () => {
 })
 
 $('.pagination-per-page a').on('click',function () {
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.users.preferences.set",
+      type: "POST",
+      data: {
+          param: "user-manager-pagination",
+          value: parseInt($(this).html()),
+          is_json: false,
+      }
+  });
+
     per_page = parseInt($(this).html());
     actual_page = 1;
     update_pagination_menu();
