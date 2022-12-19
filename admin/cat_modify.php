@@ -201,7 +201,7 @@ $form_action = $admin_album_base_url.'-properties';
 $template->set_filename( 'album_properties', 'cat_modify.tpl');
 
 $base_url = get_root_url().'admin.php?page=';
-$cat_list_url = $base_url.'cat_list';
+$cat_list_url = $base_url.'albums';
 
 $self_url = $cat_list_url;
 if (!empty($category['id_uppercat']))
