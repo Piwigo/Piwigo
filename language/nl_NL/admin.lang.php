@@ -1323,3 +1323,4 @@ $lang['Always have a backup of your database and files.'] = 'Zorg steeds voor ee
 $lang['Apply to root albums'] = 'Toepassen op rootalbums';
 $lang['Album name must not be empty'] = 'De naam van het album mag niet leeg zijn';
 $lang['Visit history'] = 'Bezoek geschiedenis';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Sommige foto\'s ontbreken in uw bestandssysteem. Details verstrekt door plugin Check Uploads';
