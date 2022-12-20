@@ -252,17 +252,14 @@ $( document ).ready(function() {
 
     /* Pagination */
 
-    console.log(pagination);
     switch (pagination) {
       case '5':
-        console.log(pagination);
         $("#pagination-per-page-5").addClass("selected-pagination");
         $("#pagination-per-page-10").removeClass("selected-pagination");
         $("#pagination-per-page-25").removeClass("selected-pagination");
         $("#pagination-per-page-50").removeClass("selected-pagination");
         break;
       case '10':
-        console.log(pagination);
         $("#pagination-per-page-5").removeClass("selected-pagination");
         $("#pagination-per-page-10").addClass("selected-pagination");
         $("#pagination-per-page-25").removeClass("selected-pagination");
@@ -270,7 +267,6 @@ $( document ).ready(function() {
       
         break;
       case '25':
-        console.log(pagination);
         $("#pagination-per-page-5").removeClass("selected-pagination");
         $("#pagination-per-page-10").removeClass("selected-pagination");
         $("#pagination-per-page-25").addClass("selected-pagination");
@@ -278,7 +274,6 @@ $( document ).ready(function() {
       
         break;
       case '50':
-        console.log(pagination);
         $("#pagination-per-page-5").removeClass("selected-pagination");
         $("#pagination-per-page-10").removeClass("selected-pagination");
         $("#pagination-per-page-25").removeClass("selected-pagination");
