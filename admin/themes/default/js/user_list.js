@@ -620,7 +620,7 @@ function advanced_filter_button_click() {
     } else { 
         advanced_filter_hide();
     }
-    update_user_list();
+    // update_user_list();
 }
 
 function advanced_filter_show() {
@@ -1465,6 +1465,15 @@ function update_guest_info() {
 }
 
 function update_user_list() {
+    let nb_filters = 0;
+    ($(".advanced-filter-select[name=filter_status]").val() != "") ? nb_filters += 1 : false;
+    ($(".advanced-filter-select[name=filter_group]").val() != "") ? nb_filters += 1 : false;
+    ($(".advanced-filter-select[name=filter_level]").val() != "") ? nb_filters += 1 : false;
+    ($(".dates-select-bar .slider-bar-container").slider("option", "values")[0] != 0) ? nb_filters += 1 : false;
+    ($(".dates-select-bar .slider-bar-container").slider("option", "values")[1] != register_dates.length -1) ? nb_filters += 1 : false;
+
+    show_filter_infos(nb_filters);
+
     let update_data = {
         display: "all",
         order: "id",
@@ -1592,4 +1601,18 @@ function delete_user(uid) {
             //jQuery('#user'+uid+' .userDelete .loading').hide();
         }
     })
+}
+
+function show_filter_infos(nb_filters) {
+  if (nb_filters != 0) {
+    $(".advanced-filter-btn").css({
+      width: "80px",
+    });
+    $(".filter-counter").html(nb_filters).css('display', 'flex');
+  } else {
+    $(".advanced-filter-btn").css({
+      width: "70px",
+    });
+    $(".filter-counter").css('display', 'none').html(0);
+  }
 }

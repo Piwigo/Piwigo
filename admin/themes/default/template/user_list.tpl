@@ -234,6 +234,7 @@ $(document).ready(function() {
     </div>
     <div class="advanced-filter-btn icon-filter">
       <span>{'Filters'|@translate}</span>
+      <span class="filter-counter">2</span>
     </div>
     <div id='search-user'>
         <div class='search-info'> </div>
@@ -1949,6 +1950,9 @@ Advanced filter
   position: absolute;
   right: 650px;
   margin-right:10px;
+  
+  display: flex;
+  justify-content: center;
 }
 
 #search-user {
@@ -2408,5 +2412,18 @@ Advanced filter
 
 .notClickableBefore:before {
   color: #bbb;
+}
+
+.filter-counter {
+  background: #ffa500;
+  border-radius: 50%;
+  justify-content: center;
+
+  font-size: 10px;
+  padding: 1px 6px;
+  color: black;
+
+  margin:0 4px 0 7px;
+  display: none;  
 }
 </style>
