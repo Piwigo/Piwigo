@@ -14,6 +14,7 @@ let last_user_id = -1;
 let pwg_token = '';
 let selection = [];
 let first_update = true;
+let total_users = 0
 /*----------------
 Escape of pop-in
 ----------------*/
@@ -291,6 +292,19 @@ $( document ).ready(function() {
       $("select[name='filter_group']").val(has_group);
       update_user_list();
     }
+
+    $('.search-cancel').on('click', function () {
+      $('.search-input').val('');
+      $('.search-input').trigger ("input");
+    })
+    
+    $('.search-input').on('input', function() {
+      if ($('.search-input').val() == '') {
+        $('.search-cancel').hide();
+      } else {
+        $('.search-cancel').show();
+      }
+    })
 });
 
 function set_view_selector(view_type) {
@@ -1465,15 +1479,6 @@ function update_guest_info() {
 }
 
 function update_user_list() {
-    let nb_filters = 0;
-    ($(".advanced-filter-select[name=filter_status]").val() != "") ? nb_filters += 1 : false;
-    ($(".advanced-filter-select[name=filter_group]").val() != "") ? nb_filters += 1 : false;
-    ($(".advanced-filter-select[name=filter_level]").val() != "") ? nb_filters += 1 : false;
-    ($(".dates-select-bar .slider-bar-container").slider("option", "values")[0] != 0) ? nb_filters += 1 : false;
-    ($(".dates-select-bar .slider-bar-container").slider("option", "values")[1] != register_dates.length -1) ? nb_filters += 1 : false;
-
-    show_filter_infos(nb_filters);
-
     let update_data = {
         display: "all",
         order: "id",
@@ -1505,8 +1510,8 @@ function update_user_list() {
                 console.log(data.message);
                 return;
             }
+            total_users = data.result.total_count;
             if (first_update) {
-                let total_users = data.result.total_count;
                 $("h1").append(`<span class='badge-number'>${total_users}</span>`);
                 first_update = false;
             }
@@ -1524,6 +1529,15 @@ function update_user_list() {
             set_selected_to_selection();
 
             $(".user-update-spinner").hide();
+
+            let nb_filters = 0;
+            ($(".advanced-filter-select[name=filter_status]").val() != "") ? nb_filters += 1 : false;
+            ($(".advanced-filter-select[name=filter_group]").val() != "") ? nb_filters += 1 : false;
+            ($(".advanced-filter-select[name=filter_level]").val() != "") ? nb_filters += 1 : false;
+            ($(".dates-select-bar .slider-bar-container").slider("option", "values")[0] != 0) ? nb_filters += 1 : false;
+            ($(".dates-select-bar .slider-bar-container").slider("option", "values")[1] != register_dates.length -1) ? nb_filters += 1 : false;
+        
+            show_filter_infos(nb_filters);
         },
         error: (raw_data) => {
             $(".user-update-spinner").hide();
@@ -1604,6 +1618,16 @@ function delete_user(uid) {
 }
 
 function show_filter_infos(nb_filters) {
+  if ($("#user_search").val().length != 0 || nb_filters != 0) {
+    if (total_users != "1") {
+      $(".filtered-users").html(filtered_users.replace(/%d/g, total_users));
+    } else {
+      $(".filtered-users").html(filtered_user.replace(/%d/g, total_users));
+    }
+  } else {
+    $(".filtered-users").html("");
+  }
+  
   if (nb_filters != 0) {
     $(".advanced-filter-btn").css({
       width: "80px",
