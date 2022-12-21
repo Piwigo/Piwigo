@@ -518,7 +518,12 @@ SELECT
         'counter' => 1, 
       );
 
-      @$user_ids[ $row['performed_by'] ]++;
+      $user_ids[ $row['performed_by'] ] = 1;
+      if ('user' == $row['object'])
+      {
+        $user_ids[ $row['object_id'] ] = 1;
+      }
+
       $current_key = $line_key;
       $line_id++;
     }
