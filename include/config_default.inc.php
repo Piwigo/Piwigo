@@ -750,6 +750,12 @@ $conf['dashboard_check_for_updates'] = true;
 // Number Weeks displayed on activity chart on the dashboard
 $conf['dashboard_activity_nb_weeks'] = 4;
 
+// On the Admin>Users>Activity page, should we display the connection/disconnections?
+// 'all' = do not filter, display all
+// 'admins_only' = only display connections of admin users
+// 'none' = don't even display connections of admin users
+$conf['activity_display_connections'] = 'admins_only';
+
 // On album mover page, number of seconds before auto openning album when
 // dragging an album. In milliseconds. 3 seconds by default.
 $conf['album_move_delay_before_auto_opening'] = 3*1000;
