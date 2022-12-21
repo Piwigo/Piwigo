@@ -15,6 +15,10 @@ var openCat = {$open_cat};
 var nb_albums = {$nb_albums};
 var light_album_manager = {$light_album_manager};
 
+var x_nb_subcats = "{'%d sub-albums'|@translate}";
+var x_nb_images = "{'%d photos'|@translate}";
+var x_nb_sub_photos = "{'%d lineage pictures'|@translate}";
+
 var delay_autoOpen = {$delay_before_autoOpen}
 {/footer_script}
 
@@ -540,6 +544,46 @@ input[name="position"] {
 
 .badge-container .nb-sub-photos::before {
   margin-right: 6px;
+}
+
+.badge-container:hover .badge-dropdown {
+  display: flex;
+}
+
+.badge-dropdown {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  background: linear-gradient(130deg, white 0%, white 100%);
+  right: 50%;
+  top: 30px;
+  width: max-content;
+  border-radius: 10px;
+  z-index: 10;
+  transform: translateX(48%);
+  box-shadow: 0px 3px 3px 1px rgba(0,0,0,0.2);
+  padding: 10px 20px;
+}
+
+.badge-dropdown:after {
+  content: " ";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: rotate(0);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
+.badge-dropdown span {
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 5px 0;
+}
+.badge-dropdown span::before {
+  margin: 0 5px 0 0;
 }
 
 @media (max-width: 1415px) { 
