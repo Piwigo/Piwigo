@@ -434,8 +434,7 @@ function ws_getActivityList($param, &$service)
 
   $user_ids = array();
 
-  if (isset($param['uid'])) {
-    $query = '
+  $query = '
 SELECT
     activity_id,
     performed_by,
@@ -447,29 +446,29 @@ SELECT
     occured_on,
     details,
     user_agent
-  FROM '.ACTIVITY_TABLE.'
-  WHERE performed_by = '.$param['uid'].'
-  ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
-;';
-  } 
-  else 
+  FROM '.ACTIVITY_TABLE;
+
+  if (isset($param['uid']))
   {
-    $query = '
-SELECT
-    activity_id,
-    performed_by,
-    object,
-    object_id,
-    action,
-    session_idx,
-    ip_address,
-    occured_on,
-    details,
-    user_agent
-  FROM '.ACTIVITY_TABLE.'
-  ORDER BY activity_id DESC LIMIT '.$page_size.' OFFSET '.$page_offset.';
-;';
+    $query.= '
+  WHERE performed_by = '.$param['uid'];
   }
+  elseif ('none' == $conf['activity_display_connections'])
+  {
+    $query.= '
+  WHERE action NOT IN (\'login\', \'logout\')';
+  }
+  elseif ('admins_only' == $conf['activity_display_connections'])
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    $query.= '
+  WHERE NOT (action IN (\'login\', \'logout\') AND object_id NOT IN ('.implode(',', get_admins()).'))';
+  }
+
+  $query.= '
+  ORDER BY activity_id DESC
+  LIMIT '.$page_size.' OFFSET '.$page_offset.'
+;';
 
   $line_id = 0;
   $result = pwg_query($query);
