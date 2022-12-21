@@ -4209,7 +4209,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
   left: 6px;
 }
 
-.move-cat-container .icon-folder-open, .move-cat-container .icon-sitemap {
+.move-cat-container .icon-folder-open, .move-cat-container .icon-sitemap.node-icon {
   display: inline-block;
   border-radius: 50%;
   font-size: 20px;

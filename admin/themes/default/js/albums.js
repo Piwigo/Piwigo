@@ -372,6 +372,11 @@ function createAlbumNode(node, li) {
       +"<i class='icon-blue icon-sitemap nb-subcats'>"+node.nb_subcats+"</i>"
       +"<i class='icon-purple icon-picture nb-images'>"+node.nb_images+"</i>"
       +"<i class='icon-green icon-imagefolder-01 nb-sub-photos'>"+node.nb_sub_photos+"</i>"
+        +"<div class='badge-dropdown'>"
+          +"<span class='icon-blue icon-sitemap nb-subcats'>"+x_nb_subcats.replace('%d', node.nb_subcats)+"</span>"
+          +"<span class='icon-purple icon-picture nb-images'>"+x_nb_images.replace('%d', node.nb_images)+"</span>"
+          +"<span class='icon-green icon-imagefolder-01 nb-sub-photos'>"+x_nb_sub_photos.replace('%d', node.nb_sub_photos)+"</span>"
+        +"</div>"
     +"</div>"
   )
 

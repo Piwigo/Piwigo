@@ -1328,4 +1328,5 @@ $lang['Visit history'] = 'Visit history';
 $lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Some photos are missing from your file system. Details provided by plugin Check Uploads';
 $lang['<b>%d</b> filtered users'] = '<b>%d</b> filtered users';
 $lang['<b>%d</b> filtered user'] = '<b>%d</b> filtered user';
+$lang['%d lineage pictures'] = '%d lineage pictures';
 // Leave this line empty
