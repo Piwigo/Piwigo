@@ -1323,3 +1323,4 @@ $lang['Always have a backup of your database and files.'] = 'Sempre tenha um bac
 $lang['Apply to root albums'] = 'Aplicar a álbuns raiz';
 $lang['Album name must not be empty'] = 'O nome do álbum não deve estar vazio';
 $lang['Visit history'] = 'Visite o histórico';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Algumas fotos estão faltando no seu sistema de arquivos. Detalhes fornecidos pelo plugin Check Uploads';
