@@ -285,6 +285,7 @@ WHERE param = \''.$row['param'].'\'
       }
     }
     $page['infos'][] = l10n('Information data registered in database');
+    pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section']));
   }
 
   //------------------------------------------------------ $conf reinitialization
@@ -299,6 +300,7 @@ if ('sizes' == $page['section'] and isset($_GET['action']) and 'restore_settings
   clear_derivative_cache();
 
   $page['infos'][] = l10n('Your configuration settings are saved');
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section'],'config_action'=>$_GET['action']));
 }
 
 //----------------------------------------------------- template initialization

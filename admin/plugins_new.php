@@ -50,6 +50,19 @@ if (isset($_GET['installstatus']))
 
       $page['infos'][] = l10n('Plugin has been successfully copied');
       $page['infos'][] = '<a href="'. $activate_url . '">' . l10n('Activate it now') . '</a>';
+
+      if (isset($plugins->fs_plugins[$_GET['plugin_id']]))
+      {
+        pwg_activity(
+          'system',
+          ACTIVITY_SYSTEM_PLUGIN,
+          'install',
+          array(
+            'plugin_id' => $_GET['plugin_id'],
+            'version' => $plugins->fs_plugins[$_GET['plugin_id']]['version'],
+          )
+        );
+      }
       break;
 
     case 'temp_path_error':

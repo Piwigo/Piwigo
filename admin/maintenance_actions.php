@@ -13,6 +13,7 @@ fs_quick_check();
 // +-----------------------------------------------------------------------+
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
+$register_activity = true;
 
 switch ($action)
 {
@@ -24,6 +25,7 @@ switch ($action)
   case 'lock_gallery' :
   {
     conf_update_param('gallery_locked', 'true');
+    pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'maintenance', array('maintenance_action'=>$action));
     redirect(get_root_url().'admin.php?page=maintenance');
     break;
   }
@@ -31,6 +33,7 @@ switch ($action)
   {
     conf_update_param('gallery_locked', 'false');
     $_SESSION['page_infos'] = array(l10n('Gallery unlocked'));
+    pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'maintenance', array('maintenance_action'=>$action));
     redirect(get_root_url().'admin.php?page=maintenance');
     break;
   }
@@ -243,10 +246,15 @@ DELETE
 
   default :
   {
+    $register_activity = false;
     break;
   }
 }
 
+if ($register_activity)
+{
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'maintenance', array('maintenance_action'=>$action));
+}
 
 // +-----------------------------------------------------------------------+
 // |                             template init                             |

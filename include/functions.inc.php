@@ -536,6 +536,13 @@ function pwg_activity($object, $object_id, $action, $details=array())
     return;
   }
 
+  if (isset($_REQUEST['method']) and 'pwg.plugins.performAction' == $_REQUEST['method'] and $_REQUEST['action'] != $action)
+  {
+    // for example, if you "restore" a plugin, the internal sequence will perform deactivate/uninstall/install/activate.
+    // We only want to keep the last call to pwg_activity with the "restore" action.
+    return;
+  }
+
   $object_ids = $object_id;
   if (!is_array($object_id))
   {
@@ -554,6 +561,13 @@ function pwg_activity($object, $object_id, $action, $details=array())
     {
       $details['script'].= '/'.$_GET['page'];
     }
+  }
+
+  if ('autoupdate' == $action)
+  {
+    // autoupdate on a plugin can happen anywhere, the "script/method" is not meaningfull
+    unset($details['method']);
+    unset($details['script']);
   }
 
   $user_agent = null;
@@ -588,7 +602,7 @@ function pwg_activity($object, $object_id, $action, $details=array())
 
   foreach ($object_ids as $loop_object_id)
   {
-    $performed_by = $user['id'];
+    $performed_by = $user['id'] ?? 0; // on a plugin autoupdate, $user is not yet loaded
 
     if ('logout' == $action)
     {
