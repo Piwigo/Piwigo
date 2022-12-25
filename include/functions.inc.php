@@ -573,7 +573,7 @@ function pwg_activity($object, $object_id, $action, $details=array())
   $user_agent = null;
   if ('user' == $object and 'login' == $action and isset($_SERVER['HTTP_USER_AGENT']))
   {
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $user_agent = strip_tags($_SERVER['HTTP_USER_AGENT']);
   }
 
   if ('photo' == $object and 'add' == $action and !isset($details['sync']))
