@@ -1321,3 +1321,6 @@ $lang['Always have a backup of your database and files.'] = 'Fai sempre una copi
 $lang['If anything bad happens during the update, you would be able to restore a backup.'] = 'Se qualcosa va storto durante l\'aggiornamento, sarai in grado di ripristinare da un backup.';
 $lang['The best is to have them made automatically on a regular basis.'] = 'La cosa migliore sarebbe di eseguire tale procedura automaticamente su base regolare.';
 $lang['Apply to root albums'] = 'Applica agli album principali';
+$lang['Album name must not be empty'] = 'Il nome dell\'album non deve essere vuoto.';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Alcune fotografie sono scomparse dal tuo file System. Dettagli dal plugin Controlla caricamenti.';
+$lang['Visit history'] = 'Cronologia visitatori.';
