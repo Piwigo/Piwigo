@@ -32,6 +32,7 @@ function get_root_url()
  */
 function get_absolute_root_url($with_scheme=true)
 {
+  global $conf;
   // TODO - add HERE the possibility to call PWG functions from external scripts
 
   // Support X-Forwarded-Proto header for HTTPS detection in PHP
@@ -61,14 +62,29 @@ function get_absolute_root_url($with_scheme=true)
     else
     {
       $url .= $_SERVER['HTTP_HOST'];
-      if ( (!$is_https && $_SERVER['SERVER_PORT'] != 80)
-            ||($is_https && $_SERVER['SERVER_PORT'] != 443))
+
+      $url_port = null;
+
+      if ('none' == $conf['url_port'])
       {
-        $url_port = ':'.$_SERVER['SERVER_PORT'];
-        if (strrchr($url, ':') != $url_port)
+        // do nothing
+      }
+      elseif ('auto' == $conf['url_port'])
+      {
+        if ((!$is_https && $_SERVER['SERVER_PORT'] != 80) || ($is_https && $_SERVER['SERVER_PORT'] != 443))
         {
-          $url .= $url_port;
+          $url_port = ':'.$_SERVER['SERVER_PORT'];
         }
+      }
+      else
+      {
+        // we have a custom port
+        $url_port = ':'.$conf['url_port'];
+      }
+
+      if (!empty($url_port) and strrchr($url, ':') != $url_port)
+      {
+        $url .= $url_port;
       }
     }
   }

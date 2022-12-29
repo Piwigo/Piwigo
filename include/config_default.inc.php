@@ -638,6 +638,12 @@ $conf['picture_url_style'] = 'id';
 // tags is not unique, all tags with the same url representation will be shown
 $conf['tag_url_style'] = 'id-tag';
 
+// force an explicit port in the url (like ":80" or ":443")
+// * 'none' : do not add any port, whatever protocol is detected
+// * 'auto' : tries to smartly add a port based on $_SERVER variables
+// * 123 : adds ":123" next to url host
+$conf['url_port'] = 'none';
+
 // +-----------------------------------------------------------------------+
 // |                                 tags                                  |
 // +-----------------------------------------------------------------------+
