@@ -56,7 +56,8 @@ $tabsheet->assign();
 // +-----------------------------------------------------------------------+
 
 $template->assign(array(
-  'ADMIN_PAGE_TITLE' => l10n('Edit album'),
+  'ADMIN_PAGE_TITLE' => l10n('Edit album').' <strong>'.$category['name'].'</strong>',
+  'ADMIN_PAGE_OBJECT_ID' => '#'.$category['id'],
 ));
 
 if ('properties' == $page['tab'])

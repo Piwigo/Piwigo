@@ -1314,6 +1314,17 @@ $lang['and %d more'] = 'and %d more';
 $lang['Picture to associate formats with'] = 'Picture to associate formats with';
 $lang['The original picture will be detected with the filename (without extension).'] = 'The original picture will be detected with the filename (without extension).';
 $lang['Delete %s format ?'] = 'Delete %s format ?';
+$lang['Authorize publications'] = 'Authorize publications';
+$lang['Created'] = 'Created';
+$lang['Modified'] = 'Modified';
+$lang['%d including sub-albums'] = '%d including sub-albums';
+$lang['%d in whole branch'] = '%d in whole branch';
+$lang['Authorize comments'] = 'Authorize comments';
+$lang['Remove thumbnail'] = 'Remove thumbnail';
+$lang['Allow comments down the line'] = 'Allow comments down the line';
+$lang['Disallow comments down the line'] = 'Disallow comments down the line';
+$lang['Comments allowed down the line'] = 'Comments allowed down the line';
+$lang['Comments disallowed down the line'] = 'Comments disallowed down the line';
 $lang['Installed on %s, %s'] = 'Installed on %s, %s';
 $lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset';
 $lang['This picture is physically linked to this album, you can\'t dissociate them'] = 'This picture is physically linked to this album, you can\'t dissociate them.';
@@ -1329,4 +1340,6 @@ $lang['Some photos are missing from your file system. Details provided by plugin
 $lang['<b>%d</b> filtered users'] = '<b>%d</b> filtered users';
 $lang['<b>%d</b> filtered user'] = '<b>%d</b> filtered user';
 $lang['%d lineage pictures'] = '%d lineage pictures';
+$lang['Put at the root'] = 'Put at the root';
+$lang['or'] = 'or';
 // Leave this line empty

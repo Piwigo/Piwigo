@@ -230,6 +230,7 @@ $template->assign(
     'U_CHANGE_THEME' => $change_theme_url,
     'U_UPDATES' => $link_start.'updates',
     'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
+    'ADMIN_PAGE_OBJECT_ID' => '',
     'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
     'SHOW_RATING' => $conf['rate'],
     )

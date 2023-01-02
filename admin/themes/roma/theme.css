@@ -469,19 +469,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   color: #fff;
 }
 
-#catModify input[type="text"], #catModify textarea{
-  background-color: #444444;
-  border: 1px solid #666;
-  color: #c1c1c1;
-}
-
-#catHeader .catAction strong, #catHeader .catLock strong {
-  color: #c1c1c1;
-}
-
-#catHeader .catAction a:hover {
-  color: white;
-}
+/* Cat modify */
 
 .selectedComment {background-color:#555; color:#fff;}
 
@@ -952,6 +940,39 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #333;
   transition: 0.2s linear;
 }
+
+.cat-modify-info-card, .cat-modify-input-container input, .cat-modify-input-container textarea {
+  background: #333 !important;
+  color :  #c1c1c1 !important
+}
+
+.cat-modify-representative {
+  background-color: #333;
+}
+
+.cat-modify-info-content {
+  color :  #c1c1c1 !important
+}
+
+.cat-modify-footer {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.cat-modify-actions a:hover
+.cat-modify-actions .toggle-comment-option:hover  {
+  color: white !important;
+}
+
+.cat-modify-actions a::after,
+.cat-modify-actions .toggle-comment-option::after {
+  background: #111 !important;
+}
+
+.cat-modify-input-container #cat-parent {
+  background: #333333;
+  box-shadow: 0px 2px #00000024;
+}
+
 .albumActions a:hover span {
   color: #fff !important;
 }
@@ -1172,21 +1193,21 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #0051a5;
 }
 
-.tag-info.tag-warning {
+.info-warning {
   color: #ffdd99;
   background-color: #ee8800;
 }
 
-.tag-info.tag-warning a {
+.info-warning a, .info-message a, .info-error a {
   color: white;
 }
 
-.tag-info.tag-message {
+.info-message {
   color: #c2f5c2 ;
   background-color:#0a0;
 }
 
-.tag-info.tag-error {
+.info-error {
   color: #ffd5dc;
   background-color:#f22;
 }

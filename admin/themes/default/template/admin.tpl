@@ -127,7 +127,7 @@ jQuery(document).ready(function() {
 
 <div id="content" class="content">
 
-  <h1>{$ADMIN_PAGE_TITLE}</h1>
+  <h1>{$ADMIN_PAGE_TITLE}<span class="admin-object-id">{$ADMIN_PAGE_OBJECT_ID}</span></h1>
 
   {if isset($TABSHEET)}
   {$TABSHEET}

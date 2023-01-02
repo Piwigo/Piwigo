@@ -1314,6 +1314,13 @@ $lang['and %d more'] = 'et %d autre(s)';
 $lang['Picture to associate formats with'] = 'Photo à associer avec les formats';
 $lang['The original picture will be detected with the filename (without extension).'] = 'La photo originale sera détectée en comparant les noms des fichiers (sans extension).';
 $lang['Delete %s format ?'] = 'Supprimer le format %s ?';
+$lang['Authorize publications'] = 'Authoriser les publications';
+$lang['Created'] = 'Créé';
+$lang['Modified'] = 'Modifié';
+$lang['%d including sub-albums'] = '%d en incluant les sous-albums';
+$lang['%d in whole branch'] = '%d dans toute la branche';
+$lang['Authorize comments'] = 'Autoriser les commentaires';
+$lang['Remove thumbnail'] = 'Retirer la miniature';
 $lang['Installed on %s, %s'] = 'Installé le %s, %s';
 $lang['While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'] = 'En restaurant ce plugin, il reviendra à son paramétrage d’origine et les données associées seront remises à zero';
 $lang['This picture is physically linked to this album, you can\'t dissociate them'] = 'Cette photo est physiquement liée à cet album, vous ne pouvez pas les dissocier.';
@@ -1329,4 +1336,10 @@ $lang['Some photos are missing from your file system. Details provided by plugin
 $lang['<b>%d</b> filtered users'] = '<b>%d</b> utilisateurs filtrés';
 $lang['<b>%d</b> filtered user'] = '<b>%d</b> utilisateur filtré';
 $lang['%d lineage pictures'] = '%d images de lignée';
+$lang['Allow comments down the line'] = 'Autoriser les commentaires pour toute la lignée';
+$lang['Disallow comments down the line'] = 'Interdire les commentaires pour toute la lignée';
+$lang['Comments allowed down the line'] = 'Commentaires autorisés pour toute la lignée';
+$lang['Comments disallowed down the line'] = 'Commentaires interdit pour toute la lignée';
+$lang['Put at the root'] = 'Placer à la racine';
+$lang['or'] = 'ou';
 // Leave this line empty

@@ -844,7 +844,7 @@ function format_fromto($from, $to, $full=false)
  * @param bool $with_weeks
  * @return string
  */
-function time_since($original, $stop='minute', $format=null, $with_text=true, $with_week=true)
+function time_since($original, $stop='minute', $format=null, $with_text=true, $with_week=true, $only_last_unit=false)
 {
   $date = str2DateTime($original, $format);
 
@@ -876,17 +876,37 @@ function time_since($original, $stop='minute', $format=null, $with_text=true, $w
   $j = array_search($stop, array_keys($chunks));
 
   $print = ''; $i=0;
-  foreach ($chunks as $name => $value)
+  
+  if (!$only_last_unit)
   {
-    if ($value != 0)
+    foreach ($chunks as $name => $value)
     {
-      $print.= ' '.l10n_dec('%d '.$name, '%d '.$name.'s', $value);
+      if ($value != 0)
+      {
+        $print.= ' '.l10n_dec('%d '.$name, '%d '.$name.'s', $value);
+      }
+      if (!empty($print) && $i >= $j)
+      {
+        break;
+      }
+      $i++;
     }
-    if (!empty($print) && $i >= $j)
+  } else {
+    $reversed_chunks_names = array_keys($chunks);
+    while ($print == '' && $i<count($reversed_chunks_names )) 
     {
-      break;
+      $name = $reversed_chunks_names[$i];
+      $value = $chunks[$name];
+      if ($value != 0)
+      {
+        $print = l10n_dec('%d '.$name, '%d '.$name.'s', $value);
+      }
+      if (!empty($print) && $i >= $j)
+      {
+        break;
+      }
+      $i++;
     }
-    $i++;
   }
 
   $print = trim($print);

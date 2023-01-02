@@ -139,10 +139,10 @@ if (!$.cookie("pwg_tags_per_page")) {
     <a id="selectInvert">{'Invert'|@translate}</a> 
   </div>
   {if $warning_tags != ""}
-  <div class='tag-warning tag-info icon-attention not-in-selection-mode'><p> {$warning_tags} </p></div>
+  <div class='info-warning tag-info icon-attention not-in-selection-mode'><p> {$warning_tags} </p></div>
   {/if}
-  <div class='tag-message tag-info icon-ok not-in-selection-mode' {if $message_tags != ""}style='display:flex'{/if}> <p> {$message_tags} </p> </div>
-  <div class='tag-error tag-info icon-cancel not-in-selection-mode'> <p> </p> </div>
+  <div class='info-message tag-info  icon-ok not-in-selection-mode' {if $message_tags != ""}style='display:flex'{/if}> <p> {$message_tags} </p> </div>
+  <div class='info-error tag-info icon-cancel not-in-selection-mode'> <p> </p> </div>
 </div>
 <div class="pageLoad">
   <i class='icon-spin6 animate-spin'> </i>

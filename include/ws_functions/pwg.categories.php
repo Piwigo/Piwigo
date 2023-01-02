@@ -752,7 +752,10 @@ SELECT id
  * @param mixed[] $params
  *    @option int cat_id
  *    @option string name (optional)
+ *    @option string status (optional)
  *    @option string comment (optional)
+ *    @option bool commentable (optional)
+ *    @option bool apply_commentable_to_subalbums (optional)
  */
 function ws_categories_setInfo($params, &$service)
 {
@@ -788,7 +791,7 @@ SELECT *
     'id' => $params['category_id'],
     );
 
-  $info_columns = array('name', 'comment',);
+  $info_columns = array('name', 'comment','commentable');
 
   $perform_update = false;
   foreach ($info_columns as $key)
@@ -799,6 +802,20 @@ SELECT *
       // TODO do not strip tags if pwg_token is provided (and valid)
       $update[$key] = strip_tags($params[$key]);
     }
+  }
+
+  if (isset($params['commentable']) && isset($params['apply_commentable_to_subalbums']) && $params['apply_commentable_to_subalbums'])
+  {
+    $subcats = get_subcat_ids(array('id' => $params['category_id']));
+    if (count($subcats) > 0)
+    {
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+SET commentable = \''.$params['commentable'].'\'
+WHERE id IN ('.implode(',', $subcats).')
+;';
+    pwg_query($query);
+    }  
   }
 
   if ($perform_update)
@@ -1146,6 +1163,22 @@ SELECT id, name, dir
   {
     return new PwgError(403, implode('; ', $page['errors']));
   }
+
+  $query = '
+  SELECT uppercats
+    FROM '. CATEGORIES_TABLE .'
+    WHERE id IN ('. implode(',', $category_ids) .')
+  ;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $cat_display_name = get_cat_display_name_cache(
+      $row['uppercats'],
+      'admin.php?page=album-'
+    );
+  }
+
+  return array('new_ariane_string' => $cat_display_name);
 }
 
 /**

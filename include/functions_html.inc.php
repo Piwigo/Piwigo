@@ -136,7 +136,7 @@ SELECT id, name, permalink
     }
     else
     {
-      $output.= $conf['level_separator'];
+      $output.= '<span>'.$conf['level_separator'].'</span>';
     }
 
     if ( !isset($url) or $single_link )

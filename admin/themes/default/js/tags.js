@@ -5,8 +5,8 @@ var dataTags = $('.tag-container').data('tags');
 $('#select-100').prop('checked', true)
 
 //Orphan tags
-$('.tag-warning p a').on('click', () => {
-  let url = $('.tag-warning p a').data('url');
+$('.info-warning p a').on('click', () => {
+  let url = $('.info-warning p a').data('url');
   let tags = orphan_tag_names;
   let str_orphans = str_orphan_tags.replace('%s1', tags.length).replace('%s2', tags.join(', '));
   $.confirm({
@@ -32,7 +32,7 @@ $('.tag-warning p a').on('click', () => {
       keep : {
         text:str_keep_them,
         action: function() {
-          $('.tag-warning').hide();
+          $('.info-warning').hide();
         }
       }
     }
@@ -823,17 +823,17 @@ function isDataSearched(tagObj) {
  Show Info
 -------*/
 function showError(message) {
-  $('.tag-error p').html(message);
-  $('.tag-error').attr('title', message)
-  $('.tag-info').hide()
-  $('.tag-error').css('display', 'flex');
+  $('.info-error p').html(message);
+  $('.info-error').attr('title', message)
+  $('.info-info').hide()
+  $('.info-error').css('display', 'flex');
 }
 
 function showMessage(message) {
-  $('.tag-message p').html(message);
-  $('.tag-message').attr('title', message)
-  $('.tag-info').hide()
-  $('.tag-message').css('display', 'flex');
+  $('.info-message p').html(message);
+  $('.info-message').attr('title', message)
+  $('.info-info').hide()
+  $('.info-message').css('display', 'flex');
 }
 
 

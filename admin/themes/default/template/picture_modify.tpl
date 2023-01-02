@@ -233,30 +233,10 @@ $('#action-delete-picture').on('click', function() {
 
 </form>
 
-<div id="addLinkedAlbum" class="linkedAlbumPopIn">
-  <div class="linkedAlbumPopInContainer">
-    <a class="icon-cancel ClosePopIn"></a>
-    
-    <div class="AddIconContainer">
-      <span class="AddIcon icon-blue icon-plus-circled"></span>
-    </div>
-    <div class="AddIconTitle">
-      <span>{'Associate to album'|@translate}</span>
-    </div>
-
-    <div id="linkedAlbumSearch">
-      <span class='icon-search search-icon'> </span>
-      <span class="icon-cancel search-cancel-linked-album"></span>
-      <input class='search-input' type='text' placeholder='{'Search'|@translate}'>
-    </div>
-    <div class="limitReached"></div>
-    <div class="noSearch"></div>
-    <div class="searching icon-spin6 animate-spin"> </div>
-
-    <div id="searchResult">
-    </div>
-  </div>
-</div>
+{include file='include/album_selector.inc.tpl' 
+  title={'Associate to album'|@translate}
+  searchPlaceholder={'Search'|@translate}
+}
 
 <style>
 .selectize-input  .item,
