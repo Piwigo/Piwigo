@@ -542,10 +542,6 @@ input[name="position"] {
     display: none;
 }
 
-.badge-container .nb-sub-photos::before {
-  margin-right: 6px;
-}
-
 .badge-container:hover .badge-dropdown {
   display: flex;
 }
@@ -583,7 +579,8 @@ input[name="position"] {
   margin: 5px 0;
 }
 .badge-dropdown span::before {
-  margin: 0 5px 0 0;
+  margin: 0 8px 0 0;
+  width: 20px;
 }
 
 @media (max-width: 1415px) { 
