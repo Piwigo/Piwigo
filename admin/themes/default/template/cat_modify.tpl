@@ -33,8 +33,8 @@ str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|transla
 str_orphan = '{'This photo is an orphan'|@translate}';
 str_no_search_in_progress = '{'No search in progress'|@translate}';
 str_already_in_related_cats = '{'This albums is already in related categories list'|@translate}';
-str_album_comment_allow = '{'Comments allowed down the line'|@translate}';
-str_album_comment_disallow = '{'Comments disallowed down the line'|@translate}';
+str_album_comment_allow = '{'Comments allowed for sub-albums'|@translate}';
+str_album_comment_disallow = '{'Comments disallowed for sub-albums'|@translate}';
 str_root = '{'Root'|@translate}';
 {/footer_script}
 
@@ -70,8 +70,8 @@ str_root = '{'Root'|@translate}';
 
       <span class="icon-ellipsis-vert toggle-comment-option">
         <div class="comment-option">
-          <span class="allow-comments icon-ok"> {'Allow comments down the line'|translate} </span>
-          <span class="disallow-comments icon-cancel" target="_blank">{'Disallow comments down the line'|@translate}</span>
+          <span class="allow-comments icon-ok"> {'Allow comments for sub-albums'|translate} </span>
+          <span class="disallow-comments icon-cancel" target="_blank">{'Disallow comments for sub-albums'|@translate}</span>
         </div>
       </span>
 
@@ -175,7 +175,7 @@ str_root = '{'Root'|@translate}';
           </label>
           
         </div>    
-        <label class="switch-label" for="cat-locked"><span>{'Authorize publications'|@translate}</span> <i class="icon-help-circled tiptip" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></i></label>
+        <label class="switch-label" for="cat-locked"><span>{'Unlocked album'|@translate}</span> <i class="icon-help-circled tiptip" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></i></label>
       </div>
     </div>
   </div>
@@ -184,7 +184,7 @@ str_root = '{'Root'|@translate}';
     <div class="info-message icon-ok">{'Album updated'|@translate}</div>
     <div class="info-error icon-cancel">{'An error has occured while saving album settings'|@translate}</div>
     <span class="buttonLike" id="cat-properties-save"><i class="icon-floppy"></i> {'Save Settings'|@translate}</span>
-  </div>
+    </div>
 </div>
 
 <style>

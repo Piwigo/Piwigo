@@ -421,6 +421,10 @@ LI.menuLi {
   display: flex;
   align-items: center;
   font-size: 18px;
+  flex-wrap: wrap;
+}
+.cat-modify-ariane a {
+  white-space: nowrap;
 }
 
 .cat-modify-ariane > * {
@@ -626,16 +630,18 @@ LI.menuLi {
   background: #fafafa;
   box-shadow: 0px 2px #00000024;
   border-radius: 5px;
-  font-weight: bold;
+  font-weight: 400;
   cursor: pointer;
   box-sizing: border-box;
   text-align: initial;
+  padding-right: 30px;
 }
 
 .cat-modify-input-container #cat-parent::before {
   position: absolute;
   right: 12px;
   margin-top: 4px;
+  top: 50%;
 }
 
 .cat-modify-switch-container {
@@ -656,6 +662,8 @@ LI.menuLi {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: left;
+  margin: 0 10%;  
 }
 
 .cat-delete-modes div {

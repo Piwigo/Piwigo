@@ -1314,7 +1314,7 @@ $lang['and %d more'] = 'et %d autre(s)';
 $lang['Picture to associate formats with'] = 'Photo à associer avec les formats';
 $lang['The original picture will be detected with the filename (without extension).'] = 'La photo originale sera détectée en comparant les noms des fichiers (sans extension).';
 $lang['Delete %s format ?'] = 'Supprimer le format %s ?';
-$lang['Authorize publications'] = 'Authoriser les publications';
+$lang['Unlocked album'] = 'Album dévérouillé';
 $lang['Created'] = 'Créé';
 $lang['Modified'] = 'Modifié';
 $lang['%d including sub-albums'] = '%d en incluant les sous-albums';
@@ -1336,10 +1336,10 @@ $lang['Some photos are missing from your file system. Details provided by plugin
 $lang['<b>%d</b> filtered users'] = '<b>%d</b> utilisateurs filtrés';
 $lang['<b>%d</b> filtered user'] = '<b>%d</b> utilisateur filtré';
 $lang['%d lineage pictures'] = '%d images de lignée';
-$lang['Allow comments down the line'] = 'Autoriser les commentaires pour toute la lignée';
-$lang['Disallow comments down the line'] = 'Interdire les commentaires pour toute la lignée';
-$lang['Comments allowed down the line'] = 'Commentaires autorisés pour toute la lignée';
-$lang['Comments disallowed down the line'] = 'Commentaires interdit pour toute la lignée';
+$lang['Allow comments for sub-albums'] = 'Autoriser les commentaires pour tous les sous-albums';
+$lang['Disallow comments for sub-albums'] = 'Interdire les commentaires pour tous les sous-albums';
+$lang['Comments allowed for sub-albums'] = 'Commentaires autorisés pour tous les sous-albums';
+$lang['Comments disallowed for sub-albums'] = 'Commentaires interdit pour tous les sous-albums';
 $lang['Put at the root'] = 'Placer à la racine';
 $lang['or'] = 'ou';
 // Leave this line empty
