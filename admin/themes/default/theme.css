@@ -691,6 +691,12 @@ LI.menuLi {
 
 .cat-delete-modes div {
   margin-top: 5px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.cat-delete-modes input {
+  margin: 5px 3px 0 0;
 }
 
 /* Search bar */
