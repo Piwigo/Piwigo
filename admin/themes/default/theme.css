@@ -404,6 +404,10 @@ LI.menuLi {
 }
 
 /* Cat Modify */
+.unlock-album {
+  cursor: pointer;
+}
+
 .cat-modify {
   height: calc(100vh - 192px);
   width: calc(100vw - 205px);
@@ -425,6 +429,25 @@ LI.menuLi {
 }
 .cat-modify-ariane a {
   white-space: nowrap;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#cat-parent {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  flex-wrap: wrap;
+}
+#cat-parent span {
+  margin: 0 5px;
+}
+#cat-parent a {
+  max-width: 175px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cat-modify-ariane > * {

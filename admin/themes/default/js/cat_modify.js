@@ -1,6 +1,56 @@
 jQuery(document).ready(function() {
   
-  activateCommentDropdown()
+  activateCommentDropdown();
+  checkAlbumLock();
+
+  $(".unlock-album").on('click', function () {
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.categories.setInfo",
+      type:"POST",
+      dataType: "json",
+      data: {
+        category_id: album_id,
+        visible: 'true',
+      },
+      success:function(data) {
+        if (data.stat == "ok") {
+
+          is_visible = 'true';
+          if ($("#cat-locked").is(":checked")) {
+            $("input[id='cat-locked']").trigger('click');
+          }
+          checkAlbumLock();
+
+          setTimeout(
+            function() {
+              $('.info-message').hide()
+            }, 
+            5000
+          )
+        } else {
+          $('.info-error').show()
+          setTimeout(
+            function() {
+              $('.info-error').hide()
+            }, 
+            5000
+          )
+        }
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        save_button_set_loading(false)
+
+        $('.info-error').show()
+        setTimeout(
+          function() {
+            $('.info-error').hide()
+          }, 
+          5000
+        )
+        console.log(errorThrows);
+      }
+    });
+  })
 
   jQuery('.tiptip').tipTip({
     'delay' : 0,
@@ -21,8 +71,8 @@ jQuery(document).ready(function() {
         category_id: album_id,
         name: $("#cat-name").val(),
         comment: $("#cat-comment").val(),
-        status: $("#cat-locked").is(":checked")? "public":"private",
-        commentable: $("#cat-commentable").is(":checked")? "true":"false",
+        visible: $("#cat-locked").is(":checked") ? 'false' : 'true',
+        commentable: $("#cat-commentable").is(":checked") ? "true":"false",
         apply_commentable_to_subalbums: $("#cat-apply-commentable-on-sub").is(":checked")? "true":"false",
       },
       success:function(data) {
@@ -32,6 +82,10 @@ jQuery(document).ready(function() {
           $('.info-message').show()
           $('.cat-modification .cat-modify-info-subcontent').html(str_just_now)
           $('.cat-modification .cat-modify-info-content').html(str_just_now)
+
+          is_visible = $("#cat-locked").is(":checked") ? 'false' : 'true';
+          checkAlbumLock();
+
           setTimeout(
             function() {
               $('.info-message').hide()
@@ -409,6 +463,15 @@ jQuery(document).ready(function() {
     });
   });
 });
+
+function checkAlbumLock() {
+  console.log(is_visible);
+  if (is_visible == 'true') {
+    $(".warnings").hide();
+  } else {
+    $(".warnings").show();
+  }
+}
 
 // Parent album popin functions
 function set_up_popin() {

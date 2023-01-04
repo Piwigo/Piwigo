@@ -159,6 +159,9 @@ if (!empty($category['id_uppercat']))
   $self_url.= '&amp;parent_id='.$category['id_uppercat'];
 }
 
+// We show or hide this warning in JS
+$page['warnings'][] = l10n('This album is currently locked, visible only to administrators.').'<span class="icon-key unlock-album">'.l10n('Unlock it').'</span>';
+
 $template->assign(
   array(
     'CATEGORIES_NAV'     => preg_replace("# {2,}#"," ",preg_replace("#(\r\n|\n\r|\n|\r)#"," ",$navigation)),
@@ -167,7 +170,7 @@ $template->assign(
     'CAT_ID'             => $category['id'],
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
-    'IS_LOCKED'          => $category['status'] == "private",
+    'IS_VISIBLE'          => boolean_to_string($category['visible']),
 
     'U_DELETE' => $base_url.'albums',
 

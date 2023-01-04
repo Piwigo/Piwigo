@@ -17,6 +17,7 @@ const album_name = "{$CAT_NAME}"
 const nb_sub_albums = {$NB_SUBCATS}
 const pwg_token = '{$PWG_TOKEN}'
 const u_delete = '{$U_DELETE}'
+var is_visible = '{$IS_VISIBLE}'
 
 const str_cancel = '{'No, I have changed my mind'|@translate|@escape}'
 const str_delete_album = '{'Delete album'|@translate|escape:javascript}'
@@ -170,12 +171,12 @@ str_root = '{'Root'|@translate}';
       <div class="cat-modify-switch-container">
         <div class="switch-input">
           <label class="switch">
-            <input type="checkbox" name="locked" id="cat-locked" value="true" {if !$IS_LOCKED}checked{/if}>
+            <input type="checkbox" name="locked" id="cat-locked" value="true" {if $IS_VISIBLE == 'false'}checked{/if}>
             <span class="slider round"></span>
           </label>
           
         </div>    
-        <label class="switch-label" for="cat-locked"><span>{'Unlocked album'|@translate}</span> <i class="icon-help-circled tiptip" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></i></label>
+        <label class="switch-label" for="cat-locked"><span>{'Locked album'|@translate}</span> <i class="icon-help-circled tiptip" title="{'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'|@translate}" style="cursor:help"></i></label>
       </div>
     </div>
   </div>

@@ -1258,7 +1258,7 @@ $lang['Your selection'] = 'Your selection';
 $lang['action successfully performed.'] = 'action successfully performed.';
 $lang['%s lines'] = "%s lines";
 $lang['%s line'] = "%s line";
-$lang['Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'] = 'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Locking this album will also lock its sub-albums';
+$lang['Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'] = 'Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Locking this album will also lock its sub-albums.';
 $lang['Webmaster status required'] = 'Webmaster status required';
 $lang['%s plugins found'] = '<b>%s</b> plugins found';
 $lang['%s plugin found'] = '<b>%s</b> plugin found';
@@ -1342,4 +1342,7 @@ $lang['<b>%d</b> filtered user'] = '<b>%d</b> filtered user';
 $lang['%d lineage pictures'] = '%d lineage pictures';
 $lang['Put at the root'] = 'Put at the root';
 $lang['or'] = 'or';
+$lang['Locked album'] = 'Locked album';
+$lang['This album is currently locked, visible only to administrators.'] = 'This album is currently locked, visible only to administrators.';
+$lang['Unlock it'] = 'Unlock it';
 // Leave this line empty

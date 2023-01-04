@@ -854,6 +854,8 @@ function ws_addDefaultMethods( $arr )
         'status' =>       array('default'=>null,
                                 'flags'=>WS_PARAM_OPTIONAL,
                                 'info'=>'public, private'),
+        'visible' =>       array('default'=>null,
+                                'flags'=>WS_PARAM_OPTIONAL),
         'commentable' =>  array('default'=>true,
                                 'flags'=>WS_PARAM_OPTIONAL,
                                 'info'=>'Boolean, effective if configuration variable activate_comments is set to true'),

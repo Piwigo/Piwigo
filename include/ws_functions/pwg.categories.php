@@ -753,6 +753,7 @@ SELECT id
  *    @option int cat_id
  *    @option string name (optional)
  *    @option string status (optional)
+ *    @option bool visible (optional)
  *    @option string comment (optional)
  *    @option bool commentable (optional)
  *    @option bool apply_commentable_to_subalbums (optional)
@@ -791,7 +792,7 @@ SELECT *
     'id' => $params['category_id'],
     );
 
-  $info_columns = array('name', 'comment','commentable');
+  $info_columns = array('name', 'comment','commentable', 'visible');
 
   $perform_update = false;
   foreach ($info_columns as $key)
