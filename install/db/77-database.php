@@ -6,9 +6,8 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
-if (!defined('PHPWG_ROOT_PATH'))
-{
-  die('Hacking attempt!');
+if (!defined('PHPWG_ROOT_PATH')) {
+    die('Hacking attempt!');
 }
 
 $upgrade_description = 'images.file categories.permalink old_permalinks.permalink - become binary';
@@ -17,23 +16,22 @@ $upgrade_description = 'images.file categories.permalink old_permalinks.permalin
 // |                            Upgrade content                            |
 // +-----------------------------------------------------------------------+
 
-$query = 'ALTER TABLE '.CATEGORIES_TABLE.'
+$query = 'ALTER TABLE ' . CATEGORIES_TABLE . '
   MODIFY COLUMN permalink varchar(64) binary default NULL';
 pwg_query($query);
 
-$query = 'ALTER TABLE '.OLD_PERMALINKS_TABLE.'
+$query = 'ALTER TABLE ' . OLD_PERMALINKS_TABLE . '
   MODIFY COLUMN permalink varchar(64) binary NOT NULL default ""';
 pwg_query($query);
 
-$query = 'ALTER TABLE '.IMAGES_TABLE.'
+$query = 'ALTER TABLE ' . IMAGES_TABLE . '
   MODIFY COLUMN file varchar(255) binary NOT NULL default ""';
 pwg_query($query);
 
 
 echo
-"\n"
-.'"'.$upgrade_description.'"'.' ended'
-."\n"
-;
+    "\n"
+    . '"' . $upgrade_description . '"' . ' ended'
+    . "\n";
 
 ?>

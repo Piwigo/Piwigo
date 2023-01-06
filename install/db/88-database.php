@@ -6,15 +6,14 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
-if (!defined("PHPWG_ROOT_PATH"))
-{
-  die('Hacking attempt!');
+if (!defined("PHPWG_ROOT_PATH")) {
+    die('Hacking attempt!');
 }
 
 $upgrade_description = 'Add display configuration for picture properties.';
 
 $query = '
-INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
+INSERT INTO ' . CONFIG_TABLE . ' (param,value,comment)
   VALUES
     ("picture_download_icon","true","Display download icon on picture page"),
     (
@@ -27,8 +26,7 @@ INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
 pwg_query($query);
 
 echo
-"\n"
-. $upgrade_description
-."\n"
-;
+    "\n"
+    . $upgrade_description
+    . "\n";
 ?>

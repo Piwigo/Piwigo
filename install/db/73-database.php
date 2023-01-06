@@ -6,9 +6,8 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
-if (!defined('PHPWG_ROOT_PATH'))
-{
-  die('Hacking attempt!');
+if (!defined('PHPWG_ROOT_PATH')) {
+    die('Hacking attempt!');
 }
 
 $upgrade_description = 'Add #user_cache.cache_update_time';
@@ -19,13 +18,12 @@ $upgrade_description = 'Add #user_cache.cache_update_time';
 // +-----------------------------------------------------------------------+
 
 $query = '
-ALTER TABLE '.USER_CACHE_TABLE.' ADD COLUMN `cache_update_time` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER need_update';
+ALTER TABLE ' . USER_CACHE_TABLE . ' ADD COLUMN `cache_update_time` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER need_update';
 pwg_query($query);
 
 echo
-"\n"
-.'"'.$upgrade_description.'"'.' ended'
-."\n"
-;
+    "\n"
+    . '"' . $upgrade_description . '"' . ' ended'
+    . "\n";
 
 ?>

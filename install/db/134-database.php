@@ -12,17 +12,16 @@ $upgrade_description = 'replace dblayer to "mysqli" if available.';
 
 global $conf;
 
-$config_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php';
+$config_file = PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'config/database.inc.php';
 
-if ( extension_loaded('mysqli') and $conf['dblayer']=='mysql' and is_writable($config_file) )
-{
-  $file_content = file_get_contents($config_file);
-  $file_content = preg_replace(
-                            '#\$conf\[\'dblayer\'\]( *)=( *)\'mysql\';#', 
-                            '$conf[\'dblayer\']$1=$2\'mysqli\';', 
-                            $file_content);
-  file_put_contents($config_file, $file_content);
+if (extension_loaded('mysqli') and $conf['dblayer'] == 'mysql' and is_writable($config_file)) {
+    $file_content = file_get_contents($config_file);
+    $file_content = preg_replace(
+        '#\$conf\[\'dblayer\'\]( *)=( *)\'mysql\';#',
+        '$conf[\'dblayer\']$1=$2\'mysqli\';',
+        $file_content);
+    file_put_contents($config_file, $file_content);
 }
 
-echo "\n".$upgrade_description."\n";
+echo "\n" . $upgrade_description . "\n";
 ?>

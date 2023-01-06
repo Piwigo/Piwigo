@@ -6,19 +6,18 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
-if (!defined('PHPWG_ROOT_PATH'))
-{
-  die('Hacking attempt!');
+if (!defined('PHPWG_ROOT_PATH')) {
+    die('Hacking attempt!');
 }
 
 $upgrade_description = 'add auth_key_id in history table';
 
 // we use PREFIX_TABLE, in case Piwigo uses an external user table
 pwg_query('
-ALTER TABLE `'.PREFIX_TABLE.'history`
+ALTER TABLE `' . PREFIX_TABLE . 'history`
   ADD COLUMN `auth_key_id` int(11) unsigned DEFAULT NULL
 ;');
 
-echo "\n".$upgrade_description."\n";
+echo "\n" . $upgrade_description . "\n";
 
 ?>

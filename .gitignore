@@ -10,6 +10,7 @@
 !/galleries/index.php
 /local/*
 !/local/**/index.php
+/DepoResimler
 
 # IntelliJ
 .idea
