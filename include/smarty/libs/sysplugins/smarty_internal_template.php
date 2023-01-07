@@ -24,6 +24,7 @@
  *
  * @method bool mustCompile()
  */
+#[\AllowDynamicProperties]
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 {
     /**
@@ -226,7 +227,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             } else {
                 if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
                     && !$no_output_filter && (isset($this->smarty->autoload_filters[ 'output' ])
-                                              || isset($this->smarty->registered_filters[ 'output' ]))
+                        || isset($this->smarty->registered_filters[ 'output' ]))
                 ) {
                     echo $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
                 } else {
@@ -292,11 +293,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $smarty = &$this->smarty;
         $_templateId = $smarty->_getTemplateId($template, $cache_id, $compile_id, $caching, $tpl);
         // recursive call ?
-        if (isset($tpl->templateId) ? $tpl->templateId : $tpl->_getTemplateId() !== $_templateId) {
+        if ((isset($tpl->templateId) ? $tpl->templateId : $tpl->_getTemplateId()) !== $_templateId) {
             // already in template cache?
-            if (isset(self::$tplObjCache[ $_templateId ])) {
+            if (isset(self::$tplObjCache[$_templateId])) {
                 // copy data from cached object
-                $cachedTpl = &self::$tplObjCache[ $_templateId ];
+                $cachedTpl = &self::$tplObjCache[$_templateId];
                 $tpl->templateId = $cachedTpl->templateId;
                 $tpl->template_resource = $cachedTpl->template_resource;
                 $tpl->cache_id = $cachedTpl->cache_id;
@@ -344,7 +345,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (!isset(self::$tplObjCache[ $tpl->templateId ]) && !$tpl->source->handler->recompiled) {
             // check if template object should be cached
             if ($forceTplCache || (isset(self::$subTplInfo[ $tpl->template_resource ])
-                                   && self::$subTplInfo[ $tpl->template_resource ] > 1)
+                    && self::$subTplInfo[ $tpl->template_resource ] > 1)
                 || ($tpl->_isSubTpl() && isset(self::$tplObjCache[ $tpl->parent->templateId ]))
             ) {
                 self::$tplObjCache[ $tpl->templateId ] = $tpl;
@@ -358,7 +359,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         if ($tpl->caching === 9999) {
             if (!isset($tpl->compiled)) {
-                $this->loadCompiled(true);
+                $tpl->loadCompiled(true);
             }
             if ($tpl->compiled->has_nocache_code) {
                 $this->cached->hashes[ $tpl->compiled->nocache_hash ] = true;

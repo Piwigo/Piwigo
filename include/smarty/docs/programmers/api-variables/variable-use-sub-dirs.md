@@ -10,7 +10,7 @@ environments do not allow PHP processes to create directories, so this
 must be disabled which is the default.
 
 Sub directories are more efficient, so use them if you can.
-Theoretically you get much better perfomance on a filesystem with 10
+Theoretically you get much better performance on a filesystem with 10
 directories each having 100 files, than with 1 directory having 1000
 files. This was certainly the case with Solaris 7 (UFS)\... with newer
 filesystems such as ext3 and especially reiserfs, the difference is

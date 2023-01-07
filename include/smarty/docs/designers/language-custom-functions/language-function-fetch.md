@@ -12,20 +12,20 @@ ftp and display the contents.
     > This will not support http redirects, be sure to include a
     > trailing slash on your web page fetches where necessary.
 
--   If the file name begins with `ftp://`, the file will be downloaded
-    from the ftp server and displayed.
+- If the file name begins with `ftp://`, the file will be downloaded
+  from the ftp server and displayed.
 
--   For local files, either a full system file path must be given, or a
-    path relative to the executed php script.
+- For local files, either a full system file path must be given, or a
+  path relative to the executed php script.
 
-    > **Note**
-    >
-    > If security is enabled and you are fetching a file from the local
-    > file system, `{fetch}` will only allow files from within the
-    > `$secure_dir` path of the securty policy. See the
-    > [Security](#advanced.features.security) section for details.
+  > **Note**
+  >
+  > If security is enabled and you are fetching a file from the local
+  > file system, `{fetch}` will only allow files from within the
+  > `$secure_dir` path of the security policy. See the
+  > [Security](#advanced.features.security) section for details.
 
--   If the `assign` attribute is set, the output of the `{fetch}`
+- If the `assign` attribute is set, the output of the `{fetch}`
     function will be assigned to this template variable instead of being
     output to the template.
 

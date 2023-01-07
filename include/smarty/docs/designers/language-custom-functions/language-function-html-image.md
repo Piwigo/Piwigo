@@ -15,15 +15,15 @@ automatically calculated from the image file if they are not supplied.
         href        string      no              *n/a*          href value to link the image to
     path\_prefix    string      no              *n/a*          Prefix for output path
 
--   `basedir` is the base directory that relative image paths are based
-    from. If not given, the web server\'s document root
-    `$_ENV['DOCUMENT_ROOT']` is used as the base. If security is
-    enabled, then the image must be located in the `$secure_dir` path of
-    the securty policy. See the [Security](#advanced.features.security)
-    section for details.
+- `basedir` is the base directory that relative image paths are based
+  from. If not given, the web server\'s document root
+  `$_ENV['DOCUMENT_ROOT']` is used as the base. If security is
+  enabled, then the image must be located in the `$secure_dir` path of
+  the security policy. See the [Security](#advanced.features.security)
+  section for details.
 
--   `href` is the href value to link the image to. If link is supplied,
-    an `<a href="LINKVALUE"><a>` tag is placed around the image tag.
+- `href` is the href value to link the image to. If link is supplied,
+  an `<a href="LINKVALUE"><a>` tag is placed around the image tag.
 
 -   `path_prefix` is an optional prefix string you can give the output
     path. This is useful if you want to supply a different server name

@@ -20,20 +20,20 @@ can override all or some of the parent named block areas.
     [`{block}`](#language.function.block) tag option flags and
     `{$smarty.block.parent}` or `{$smarty.block.child}` placeholders.
 
--   Template inheritance is a compile time process which creates a
-    single compiled template file. Compared to corresponding solutions
-    based on subtemplates included with the
-    [`{include}`](#language.function.include) tag it does have much
-    better performance when rendering.
+- Template inheritance is a compile time process which creates a
+  single compiled template file. Compared to corresponding solutions
+  based on subtemplates included with the
+  [`{include}`](#language.function.include) tag it does have much
+  better performance when rendering.
 
--   The child template extends its parent defined with the
-    [`{extends}`](#language.function.extends) tag, which must be the
-    first line in the child template. Instead of using the
-    [`{extends}`](#language.function.extends) tags in the template files
-    you can define the whole template inheritance tree in the PHP script
-    when you are calling [`fetch()`](#api.fetch) or
-    [`display()`](#api.display) with the `extends:` template resource
-    type. The later provides even more flexibillity.
+- The child template extends its parent defined with the
+  [`{extends}`](#language.function.extends) tag, which must be the
+  first line in the child template. Instead of using the
+  [`{extends}`](#language.function.extends) tags in the template files
+  you can define the whole template inheritance tree in the PHP script
+  when you are calling [`fetch()`](#api.fetch) or
+  [`display()`](#api.display) with the `extends:` template resource
+  type. The later provides even more flexibility.
 
 > **Note**
 >

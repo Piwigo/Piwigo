@@ -107,16 +107,16 @@ These parameters follow the modifier name and are separated by a `:`
     demonstrated in the example above. However, using php-functions as
     modifiers has two little pitfalls:
 
-    -   First - sometimes the order of the function-parameters is not
-        the desirable one. Formatting `$foo` with
-        `{"%2.f"|sprintf:$foo}` actually works, but asks for the more
-        intuitive, like `{$foo|string_format:"%2.f"}` that is provided
-        by the Smarty distribution.
+    - First - sometimes the order of the function-parameters is not
+      the desirable one. Formatting `$foo` with
+      `{"%2.f"|sprintf:$foo}` actually works, but asks for the more
+      intuitive, like `{$foo|string_format:"%2.f"}` that is provided
+      by the Smarty distribution.
 
-    -   Secondly - if security is enabled, all php-functions that are to
-        be used as modifiers have to be declared trusted in the
-        `$modifiers` property of the securty policy. See the
-        [Security](../programmers/advanced-features/advanced-features-security.md) section for details.
+    - Secondly - if security is enabled, all php-functions that are to
+      be used as modifiers have to be declared trusted in the
+      `$modifiers` property of the security policy. See the
+      [Security](../programmers/advanced-features/advanced-features-security.md) section for details.
 
 See also [`registerPlugin()`](../programmers/api-functions/api-register-plugin.md), [combining
 modifiers](./language-combining-modifiers.md). and [extending smarty with

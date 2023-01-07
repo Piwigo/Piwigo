@@ -36,6 +36,7 @@
  * @property   Smarty_Internal_Method_RegisterPlugin     $registerPlugin
  * @property   mixed|\Smarty_Template_Cached             configLoad
  */
+#[\AllowDynamicProperties]
 class Smarty_Internal_Extension_Handler
 {
     public $objType = null;
@@ -88,9 +89,8 @@ class Smarty_Internal_Extension_Handler
                         $objType = $data->_objType;
                         $propertyType = false;
                         if (!isset($this->resolvedProperties[ $match[ 0 ] ][ $objType ])) {
-                            $property = isset($this->resolvedProperties[ 'property' ][ $basename ]) ?
-                                $this->resolvedProperties[ 'property' ][ $basename ] :
-                                $property = $this->resolvedProperties[ 'property' ][ $basename ] = strtolower(
+                            $property = $this->resolvedProperties['property'][$basename] ??
+                                $this->resolvedProperties['property'][$basename] = smarty_strtolower_ascii(
                                     join(
                                         '_',
                                         preg_split(
@@ -104,11 +104,11 @@ class Smarty_Internal_Extension_Handler
                                 );
                             if ($property !== false) {
                                 if (property_exists($data, $property)) {
-                                    $propertyType = $this->resolvedProperties[ $match[ 0 ] ][ $objType ] = 1;
+                                    $propertyType = $this->resolvedProperties[$match[0]][$objType] = 1;
                                 } elseif (property_exists($smarty, $property)) {
-                                    $propertyType = $this->resolvedProperties[ $match[ 0 ] ][ $objType ] = 2;
+                                    $propertyType = $this->resolvedProperties[$match[0]][$objType] = 2;
                                 } else {
-                                    $this->resolvedProperties[ 'property' ][ $basename ] = $property = false;
+                                    $this->resolvedProperties['property'][$basename] = $property = false;
                                 }
                             }
                         } else {
@@ -145,7 +145,7 @@ class Smarty_Internal_Extension_Handler
     public function upperCase($name)
     {
         $_name = explode('_', $name);
-        $_name = array_map('ucfirst', $_name);
+        $_name = array_map('smarty_ucfirst_ascii', $_name);
         return implode('_', $_name);
     }
 

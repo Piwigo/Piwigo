@@ -15,5 +15,5 @@ modifier](#language.modifier.to_charset).
 > modifier should only be used in cases where the application cannot
 > anticipate that a certain string is required in another encoding.
 
-See also [Charset Enconding](#charset), [from\_charset
+See also [Charset Encoding](#charset), [from\_charset
 modifier](#language.modifier.from_charset).

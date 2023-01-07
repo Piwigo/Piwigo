@@ -8,10 +8,10 @@ SYNTAX: {setfilter filter1\|filter2\|filter3\....}\...{/setfilter}
 
 The filter can be:
 
--   A variable filter plugin specified by it\'s name.
+- A variable filter plugin specified by it\'s name.
 
--   A modidier specified by it\'s name and optional additional
-    parameter.
+- A modifier specified by it\'s name and optional additional
+  parameter.
 
 `{setfilter}...{/setfilter}` blocks can be nested. The filter definition
 of inner blocks does replace the definition of the outer block.

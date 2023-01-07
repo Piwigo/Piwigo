@@ -3,7 +3,7 @@
 
 `{extends}` tags are used in child templates in template inheritance for
 extending parent templates. For details see section of [Template
-Interitance](#advanced.features.template.inheritance).
+Inheritance](#advanced.features.template.inheritance).
 
 -   The `{extends}` tag must be on the first line of the template.
 
@@ -31,7 +31,5 @@ Interitance](#advanced.features.template.inheritance).
     {extends file='parent.tpl'}
     {extends 'parent.tpl'}  {* short-hand *}
 
-      
-
-See also [Template Interitance](#advanced.features.template.inheritance)
+See also [Template Inheritance](#advanced.features.template.inheritance)
 and [`{block}`](#language.function.block).

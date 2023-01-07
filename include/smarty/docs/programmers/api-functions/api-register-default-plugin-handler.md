@@ -18,7 +18,7 @@ not find a definition for a tag otherwise. It uses the following
 parameters:
 
 If during compilation Smarty encounters tag which is not defined
-internal, registered or loacted in the plugins folder it tries to
+internal, registered or located in the plugins folder it tries to
 resolve it by calling the registered default plugin handler. The handler
 may be called several times for same undefined tag looping over valid
 plugin types.

@@ -157,13 +157,13 @@ Returns the version of Smarty the template was compiled with.
 ----------------------
 
 Returns block text from child template. See [Template
-interitance](#advanced.features.template.inheritance).
+inheritance](#advanced.features.template.inheritance).
 
 {\$smarty.block.parent} {#language.variables.smarty.block.parent}
 -----------------------
 
 Returns block text from parent template. See [Template
-interitance](#advanced.features.template.inheritance)
+inheritance](#advanced.features.template.inheritance)
 
 {\$smarty.ldelim}, {\$smarty.rdelim} {#language.variables.smarty.ldelim}
 ------------------------------------

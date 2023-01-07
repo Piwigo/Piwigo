@@ -3,7 +3,7 @@ Attributes {#language.syntax.attributes}
 
 Most of the [functions](#language.syntax.functions) take attributes that
 specify or modify their behavior. Attributes to Smarty functions are
-much like HTML attributes. Static values don\'t have to be enclosed in
+much like HTML attributes. Static values don't have to be enclosed in
 quotes, but it is required for literal strings. Variables with or
 without modifiers may also be used, and should not be in quotes. You can
 even use PHP function results, plugin results and complex expressions.

@@ -244,7 +244,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      */
     protected function sanitize($string)
     {
-        $string = trim($string, '|');
+        $string = trim((string)$string, '|');
         if (!$string) {
             return '';
         }
@@ -428,7 +428,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
             $t[] = 'IVK#COMPILE' . $_compile;
         }
         $_name .= '#';
-        $cid = trim($cache_id, '|');
+        $cid = trim((string)$cache_id, '|');
         if (!$cid) {
             return $t;
         }

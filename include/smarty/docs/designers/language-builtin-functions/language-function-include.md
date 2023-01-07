@@ -131,7 +131,7 @@ cache lifetime of 500 seconds.
       
 
 In this example included template will be cached independent of the
-global cahing setting.
+global caching setting.
 
 
     {include 'sub_template.tpl' caching}
@@ -186,9 +186,5 @@ current template.
     {* include a multi $variable template - eg amber/links.view.tpl *}
     {include file="$style_dir/$module.$view.tpl"}
 
-      
-
-See also [`{include_php}`](#language.function.include.php),
-[`{insert}`](#language.function.insert),
-[`{php}`](#language.function.php), [template resources](#resources) and
+See also [`{insert}`](#language.function.insert), [template resources](#resources) and
 [componentized templates](#tips.componentized.templates).

@@ -188,67 +188,6 @@ See also [`{html_select_date}`](#language.function.html.select.date),
 [`date_format`](#language.modifier.date.format) and
 [`$smarty.now`](#language.variables.smarty.now),
 
-WAP/WML {#tips.wap}
-=======
-
-WAP/WML templates require a php [Content-Type
-header](&url.php-manual;header) to be passed along with the template.
-The easist way to do this would be to write a custom function that
-prints the header. If you are using [caching](#caching), that won\'t
-work so we\'ll do it using the [`{insert}`](#language.function.insert)
-tag; remember `{insert}` tags are not cached! Be sure that there is
-nothing output to the browser before the template, or else the header
-may fail.
-
-
-    <?php
-
-    // be sure apache is configure for the .wml extensions!
-    // put this function somewhere in your application, or in Smarty.addons.php
-    function insert_header($params)
-    {
-       // this function expects $content argument
-       if (empty($params['content'])) {
-           return;
-       }
-       header($params['content']);
-       return;
-    }
-
-    ?>
-
-        
-
-your Smarty template *must* begin with the insert tag :
-
-
-    {insert name=header content="Content-Type: text/vnd.wap.wml"}
-
-    <?xml version="1.0"?>
-    <!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">
-
-    <!-- begin new wml deck -->
-    <wml>
-     <!-- begin first card -->
-     <card>
-      <do type="accept">
-       <go href="#two"/>
-      </do>
-      <p>
-       Welcome to WAP with Smarty!
-       Press OK to continue...
-      </p>
-     </card>
-     <!-- begin second card -->
-     <card id="two">
-      <p>
-       Pretty easy isn't it?
-      </p>
-     </card>
-    </wml>
-
-        
-
 Componentized Templates {#tips.componentized.templates}
 =======================
 
@@ -259,7 +198,7 @@ Smarty object, [`assign()`](#api.assign) the variables and
 [`display()`](#api.display) the template. So lets say for example we
 have a stock ticker on our template. We would collect the stock data in
 our application, then assign these variables in the template and display
-it. Now wouldn\'t it be nice if you could add this stock ticker to any
+it. Now wouldn't it be nice if you could add this stock ticker to any
 application by merely including the template, and not worry about
 fetching the data up front?
 
@@ -299,11 +238,7 @@ assigning it to a template variable.
 
     Stock Name: {$ticker.name} Stock Price: {$ticker.price}
 
-        
-
-See also [`{include_php}`](#language.function.include.php),
-[`{include}`](#language.function.include) and
-[`{php}`](#language.function.php).
+See also: [`{include}`](#language.function.include).
 
 Obfuscating E-mail Addresses {#tips.obfuscating.email}
 ============================

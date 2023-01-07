@@ -34,22 +34,25 @@ class Smarty_Internal_Runtime_CodeFrame
     ) {
         // build property code
         $properties[ 'version' ] = Smarty::SMARTY_VERSION;
-        $properties[ 'unifunc' ] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
+        $properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         if (!$cache) {
-            $properties[ 'has_nocache_code' ] = $_template->compiled->has_nocache_code;
-            $properties[ 'file_dependency' ] = $_template->compiled->file_dependency;
-            $properties[ 'includes' ] = $_template->compiled->includes;
+            $properties['has_nocache_code'] = $_template->compiled->has_nocache_code;
+            $properties['file_dependency'] = $_template->compiled->file_dependency;
+            $properties['includes'] = $_template->compiled->includes;
         } else {
-            $properties[ 'has_nocache_code' ] = $_template->cached->has_nocache_code;
-            $properties[ 'file_dependency' ] = $_template->cached->file_dependency;
-            $properties[ 'cache_lifetime' ] = $_template->cache_lifetime;
+            $properties['has_nocache_code'] = $_template->cached->has_nocache_code;
+            $properties['file_dependency'] = $_template->cached->file_dependency;
+            $properties['cache_lifetime'] = $_template->cache_lifetime;
         }
-        $output = "<?php\n";
-        $output .= "/* Smarty version {$properties[ 'version' ]}, created on " . date("Y-m-d H:i:s") .
-                   "\n  from '" . str_replace('*/', '* /', $_template->source->filepath) . "' */\n\n";
+        $output = sprintf(
+            "<?php\n/* Smarty version %s, created on %s\n  from '%s' */\n\n",
+            $properties['version'],
+            date("Y-m-d H:i:s"),
+            str_replace('*/', '* /', $_template->source->filepath)
+        );
         $output .= "/* @var Smarty_Internal_Template \$_smarty_tpl */\n";
         $dec = "\$_smarty_tpl->_decodeProperties(\$_smarty_tpl, " . var_export($properties, true) . ',' .
-               ($cache ? 'true' : 'false') . ')';
+            ($cache ? 'true' : 'false') . ')';
         $output .= "if ({$dec}) {\n";
         $output .= "function {$properties['unifunc']} (Smarty_Internal_Template \$_smarty_tpl) {\n";
         if (!$cache && !empty($compiler->tpl_function)) {

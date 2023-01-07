@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Smarty currently supports the latest minor version of Smarty 3 and Smarty 4. (Smarty 4 has not been released yet.)
+Smarty currently supports the latest minor version of Smarty 3 and Smarty 4.
 
 | Version | Supported          |
 | ------- | ------------------ |

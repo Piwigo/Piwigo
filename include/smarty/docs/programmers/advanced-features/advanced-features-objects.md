@@ -29,7 +29,7 @@ determined by your needs, but use the first method whenever possible to
 keep template syntax to a minimum.
 
 If security is enabled, no private methods or functions can be accessed
-(beginningwith \'\_\'). If a method and property of the same name exist,
+(beginning with \'\_\'). If a method and property of the same name exist,
 the method will be used.
 
 You can restrict the methods and properties that can be accessed by

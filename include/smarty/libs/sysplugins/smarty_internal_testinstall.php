@@ -144,7 +144,7 @@ class Smarty_Internal_TestInstall
         }
         // test if all registered plugins_dir are accessible
         // and if core plugins directory is still registered
-        $_core_plugins_dir = realpath(dirname(__FILE__) . '/../plugins');
+        $_core_plugins_dir = realpath(__DIR__ . '/../plugins');
         $_core_plugins_available = false;
         foreach ($smarty->getPluginsDir() as $plugin_dir) {
             $_plugin_dir = $plugin_dir;

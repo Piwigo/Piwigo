@@ -3,14 +3,14 @@
 
 `{block}` is used to define a named area of template source for template
 inheritance. For details see section of [Template
-Interitance](#advanced.features.template.inheritance).
+Inheritance](#advanced.features.template.inheritance).
 
 The `{block}` template source area of a child template will replace the
-correponding areas in the parent template(s).
+corresponding areas in the parent template(s).
 
 Optionally `{block}` areas of child and parent templates can be merged
 into each other. You can append or prepend the parent `{block}` content
-by using the `append` or `prepend` option flag with the childs `{block}`
+by using the `append` or `prepend` option flag with the child's `{block}`
 definition. With the {\$smarty.block.parent} the `{block}` content of
 the parent template can be inserted at any location of the child
 `{block}` content. {\$smarty.block.child} inserts the `{block}` content

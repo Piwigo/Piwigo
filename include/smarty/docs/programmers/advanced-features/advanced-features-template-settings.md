@@ -8,7 +8,7 @@ Modifications done to the Smarty object will be global for all
 templates.
 
 However the Smarty class variables and functions can be accessed or
-called by induvidual template objects. Modification done to a template
+called by individual template objects. Modification done to a template
 object will apply only for that template and its included subtemplates.
 
 

@@ -47,7 +47,7 @@ Templates from a specific \$template\_dir {#templates.from.specified.template.di
 Smarty 3.1 introduced the bracket-syntax for specifying an element from
 [`$template_dir`](#variable.template.dir). This allows websites
 employing multiple sets of templates better control over which template
-to acces.
+to access.
 
 The bracket-syntax can be used from anywhere you can specify the `file:`
 resource type.

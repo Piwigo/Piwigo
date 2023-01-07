@@ -48,25 +48,25 @@ In this example, Smarty would call this function:
 insert\_getBanner(array(\"lid\" =\> \"12345\",\"sid\" =\> \"67890\"));
 and display the returned results in place of the {insert} tag.
 
--   If you supply the `assign` attribute, the output of the `{insert}`
-    tag will be assigned to this template variable instead of being
-    output to the template.
+- If you supply the `assign` attribute, the output of the `{insert}`
+  tag will be assigned to this template variable instead of being
+  output to the template.
 
-    > **Note**
-    >
-    > Assigning the output to a template variable isn\'t too useful with
-    > [caching](#variable.caching) enabled.
+  > **Note**
+  >
+  > Assigning the output to a template variable isn\'t too useful with
+  > [caching](#variable.caching) enabled.
 
--   If you supply the `script` attribute, this php script will be
-    included (only once) before the `{insert}` function is executed.
-    This is the case where the insert function may not exist yet, and a
-    php script must be included first to make it work.
+- If you supply the `script` attribute, this php script will be
+  included (only once) before the `{insert}` function is executed.
+  This is the case where the insert function may not exist yet, and a
+  php script must be included first to make it work.
 
-    The path can be either absolute, or relative to
-    [`$trusted_dir`](#variable.trusted.dir). If security is enabled,
-    then the script must be located in the `$trusted_dir` path of the
-    securty policy. See the [Security](#advanced.features.security)
-    section for details.
+  The path can be either absolute, or relative to
+  [`$trusted_dir`](#variable.trusted.dir). If security is enabled,
+  then the script must be located in the `$trusted_dir` path of the
+  security policy. See the [Security](#advanced.features.security)
+  section for details.
 
 The Smarty object is passed as the second argument. This way you can
 reference and modify information in the Smarty object from within the

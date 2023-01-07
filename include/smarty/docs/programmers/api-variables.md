@@ -39,7 +39,6 @@ them directly, or use the corresponding setter/getter methods.
 - [$left_delimiter](./api-variables/variable-left-delimiter.md)
 - [$locking_timeout](./api-variables/variable-locking-timeout.md)
 - [$merge_compiled_includes](./api-variables/variable-merge-compiled-includes.md)
-- [$php_handling](./api-variables/variable-php-handling.md)
 - [$plugins_dir](./api-variables/variable-plugins-dir.md)
 - [$right_delimiter](./api-variables/variable-right-delimiter.md)
 - [$smarty_debug_id](./api-variables/variable-smarty-debug-id.md)

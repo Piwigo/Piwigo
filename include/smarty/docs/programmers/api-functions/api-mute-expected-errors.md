@@ -16,6 +16,6 @@ given error was produced deliberately and must be ignored, or should be
 passed on to the next error handler.
 
 `Smarty::unmuteExpectedErrors()` removes the current error handler.
-Please note, that if you\'ve registerd any custom error handlers after
+Please note, that if you\'ve registered any custom error handlers after
 the muteExpectedErrors() call, the unmute will not remove Smarty\'s
 muting error handler, but the one registered last.

@@ -25,7 +25,7 @@ string
 
 enableSecurity
 
-This enables securty checking on templates. It uses the following
+This enables security checking on templates. It uses the following
 parameters:
 
 -   `securityclass` is an optional parameter. It\'s the name of the

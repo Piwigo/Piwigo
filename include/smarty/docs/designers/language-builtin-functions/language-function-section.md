@@ -251,8 +251,8 @@ The above example will output:
 
 {section}\'s can be nested as deep as you like. With nested
 {section}\'s, you can access complex data structures, such as
-multi-dimensional arrays. This is an example `.php` script thats
-assign\'s the arrays.
+multi-dimensional arrays. This is an example `.php` script that
+assigns the arrays.
 
 
     <?php
