@@ -113,7 +113,7 @@ if (!is_webmaster())
 
 $template->assign(array(
   'STEP'          => $step,
-  'PHPWG_VERSION' => PHPWG_VERSION,
+  'PIWIGO_CURRENT_VERSION' => isset($page['updated_version']) ? $page['updated_version'] : PHPWG_VERSION,
   'UPGRADE_TO'    => $upgrade_to,
   )
 );

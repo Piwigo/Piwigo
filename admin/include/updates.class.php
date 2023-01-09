@@ -563,6 +563,7 @@ class updates
 
               $page['infos'][] = l10n('Update Complete');
               $page['infos'][] = $upgrade_to;
+              $page['updated_version'] = $upgrade_to;
               $step = -1;
             }
             else
