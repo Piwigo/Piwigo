@@ -1320,3 +1320,4 @@ $lang['Apply to root albums'] = 'Aplicar a los álbumes principales';
 $lang['The best is to have them made automatically on a regular basis.'] = 'Lo mejor es que se hagan automáticamente de manera regular.';
 $lang['Album name must not be empty'] = 'El nombre del álbum no puede estar vacío';
 $lang['Visit history'] = 'Historial de visitas';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Faltan algunas fotos de su sistema de archivos. El plugin Check Uploads le mostrará los detalles.';
