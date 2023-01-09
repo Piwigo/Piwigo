@@ -406,6 +406,7 @@ LI.menuLi {
 /* Cat Modify */
 .unlock-album {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .cat-modify {

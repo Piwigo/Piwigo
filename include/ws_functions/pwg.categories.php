@@ -792,7 +792,21 @@ SELECT *
     'id' => $params['category_id'],
     );
 
-  $info_columns = array('name', 'comment','commentable', 'visible');
+  foreach (array('visible', 'commentable') as $param_name)
+  {
+    if (isset($params[$param_name]) and !preg_match('/^(true|false)$/i', $params[$param_name]))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid param '.$param_name.' : '.$params[$param_name]);
+    }
+  }
+
+  if (!empty($params['visible']) and ($params['visible'] != $category['visible']))
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    set_cat_visible(array($params['category_id']), $params['visible']);
+  }
+
+  $info_columns = array('name', 'comment','commentable');
 
   $perform_update = false;
   foreach ($info_columns as $key)
@@ -807,15 +821,15 @@ SELECT *
 
   if (isset($params['commentable']) && isset($params['apply_commentable_to_subalbums']) && $params['apply_commentable_to_subalbums'])
   {
-    $subcats = get_subcat_ids(array('id' => $params['category_id']));
+    $subcats = get_subcat_ids(array($params['category_id']));
     if (count($subcats) > 0)
     {
-    $query = '
+      $query = '
 UPDATE '.CATEGORIES_TABLE.'
-SET commentable = \''.$params['commentable'].'\'
-WHERE id IN ('.implode(',', $subcats).')
+  SET commentable = \''.$params['commentable'].'\'
+  WHERE id IN ('.implode(',', $subcats).')
 ;';
-    pwg_query($query);
+      pwg_query($query);
     }  
   }
 

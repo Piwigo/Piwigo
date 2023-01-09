@@ -73,7 +73,6 @@ jQuery(document).ready(function() {
         comment: $("#cat-comment").val(),
         visible: $("#cat-locked").is(":checked") ? 'false' : 'true',
         commentable: $("#cat-commentable").is(":checked") ? "true":"false",
-        apply_commentable_to_subalbums: $("#cat-apply-commentable-on-sub").is(":checked")? "true":"false",
       },
       success:function(data) {
         if (data.stat == "ok") {
