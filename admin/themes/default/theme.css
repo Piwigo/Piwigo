@@ -465,14 +465,44 @@ LI.menuLi {
   justify-content: end;
 }
 
-.cat-modify-actions a {
+.cat-modify-actions a,
+.cat-modify-ariane a.icon-sitemap {
   font-size: 20px;
   position: relative;
   width: 24px;
   height: 24px;
   padding: 5px;
   color: #757575;
+  overflow: visible;
 }
+.cat-modify-ariane a.icon-sitemap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  width: 0px;
+  height: 0px;
+  border-radius: 100%;
+  transition: ease-in-out 0.2s;
+  z-index: 0;
+  opacity: 0;
+  color: #444444;
+}
+.cat-modify-ariane a.icon-sitemap:hover::after{
+  width: 40px;
+  height: 40px;
+  opacity: 1;
+}
+.cat-modify-ariane a.icon-sitemap::before {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(calc(-50% - 4px), -50%);
+}
+
 .cat-modify-actions .toggle-comment-option {
   font-size: 16px;
   padding: 5px;

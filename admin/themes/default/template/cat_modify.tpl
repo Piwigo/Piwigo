@@ -42,7 +42,8 @@ str_root = '{'Root'|@translate}';
 <div class="cat-modify">
 
   <div class="cat-modify-header">
-    <div class="cat-modify-ariane icon-sitemap">
+    <div class="cat-modify-ariane">
+    <a class="icon-sitemap tiptip" href="{$U_MOVE}" title="{'Manage sub-albums'|@translate}"></a>
       {$CATEGORIES_NAV}
     </div>
 
