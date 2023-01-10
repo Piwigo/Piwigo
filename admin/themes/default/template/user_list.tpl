@@ -2435,4 +2435,28 @@ Advanced filter
   right: 770px;
   line-height: 38px;
 }
+
+@media (max-width: 1550px) {
+  #user_search {
+    width: 120px;
+  }
+  .advanced-filter-btn {
+    right: 570px;
+  }
+  .filtered-users {
+    right: 690px;
+  }
+}
+
+@media (max-width: 1465px) {
+  #user_search {
+    width: 70px;
+  }
+  .advanced-filter-btn {
+    right: 520px;
+  }
+  .filtered-users {
+    right: 640px;
+  }
+}
 </style>
