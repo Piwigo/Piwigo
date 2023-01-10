@@ -6862,6 +6862,14 @@ color:#FF7B00;
   align-items: center;
 }
 
+.badge-dropdown {
+  background: linear-gradient(130deg, white 0%, white 100%);
+}
+
+.badge-dropdown:after {
+  border-color: transparent transparent white transparent;
+}
+
 @media (max-width: 1450px) {
   .promote-text span {
     font-size: 20px;

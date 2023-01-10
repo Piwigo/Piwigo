@@ -1901,3 +1901,14 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   box-shadow: 0 2px #af7200;
   color: #444 !important;
 }
+
+.badge-dropdown {
+  background: #333;
+}
+.badge-dropdown::after {
+  border-color: transparent transparent #333 transparent;
+}
+.badge-dropdown span {
+  border: none;
+  color: #aeaeae;
+}

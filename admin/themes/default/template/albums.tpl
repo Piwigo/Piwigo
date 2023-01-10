@@ -550,7 +550,6 @@ input[name="position"] {
   position: absolute;
   display: none;
   flex-direction: column;
-  background: linear-gradient(130deg, white 0%, white 100%);
   right: 50%;
   top: 30px;
   width: max-content;
@@ -569,7 +568,6 @@ input[name="position"] {
   transform: rotate(0);
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent white transparent;
 }
 
 .badge-dropdown span {
