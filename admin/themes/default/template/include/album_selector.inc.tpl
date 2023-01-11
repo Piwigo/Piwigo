@@ -1,5 +1,6 @@
 {if empty($load_mode)}{$load_mode='footer'}{/if}
 {include file='include/colorbox.inc.tpl' load_mode=$load_mode}
+{combine_script id='albumSelector' load_mode=$load_mode path='admin/themes/default/js/album_selector.js'}
 
 <div id="addLinkedAlbum" class="linkedAlbumPopIn">
   <div class="linkedAlbumPopInContainer">
