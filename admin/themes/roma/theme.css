@@ -1393,7 +1393,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .AddPluginSuccess span,
 .RestorePluginSuccess span,
-.DeactivatePluginSuccess span {
+.DeactivatePluginSuccess span,
+.info-message {
   color: #c2f5c2;
 }
 

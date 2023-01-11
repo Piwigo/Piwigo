@@ -2723,13 +2723,15 @@ h2:lang(en) { text-transform:capitalize; }
 
 .AddPluginSuccess span,
 .RestorePluginSuccess span,
-.DeactivatePluginSuccess span {
+.DeactivatePluginSuccess span,
+.info-message {
   color: #0a0;
 }
 
 .AddPluginSuccess label,
 .DeactivatePluginSuccess label,
-.RestorePluginSuccess label {
+.RestorePluginSuccess label,
+.info-message {
   background-color:  #c2f5c2;
   color: #0a0;
 }
