@@ -528,7 +528,7 @@ LI.menuLi {
 
 .cat-modify-actions a:hover,
 .cat-modify-actions .toggle-comment-option:hover {
-  color: #444444;
+  color: #757575;
 }
 
 .cat-modify-actions a:hover::after,
