@@ -1810,13 +1810,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .breadcrumb-item {
   background-color: #333;
   box-shadow: 0px 2px #00000070;
-  color: #777 !important;
+  color: #777;
 }
 .breadcrumb-item:hover {
   background: #f9852c;
 }
-.breadcrumb-item:hover a {
-  background: #f9852c;
+.breadcrumb-item:hover a,
+.breadcrumb-item:hover span {
   color: #000;
 }
 .breadcrumb-item .icon-cancel-circled:hover {
@@ -1901,7 +1901,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   box-shadow: 0 2px #af7200;
   color: #444 !important;
 }
-
+.breadcrumb-item.add-item:hover {
+  color: #000;
+}
 .badge-dropdown {
   background: #333;
 }
@@ -1911,4 +1913,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .badge-dropdown span {
   border: none;
   color: #aeaeae;
+}
+
+.cat-modify-ariane a.icon-sitemap::after {
+  background-color: #111111;
 }

@@ -6560,6 +6560,9 @@ color:#FF7B00;
   align-items: center;
   position: relative;
 }
+.breadcrumb-item .link-path {
+  margin-right: 15px;
+}
 .breadcrumb-item:hover .icon-cancel-circled{
   color: black;
 }
@@ -6580,7 +6583,7 @@ color:#FF7B00;
 .breadcrumb-item.add-item {
   width: min-content;
   cursor: pointer;
-  color: #111111;
+  color: #777;
   transition: 0.3s;
 }
 

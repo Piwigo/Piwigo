@@ -797,7 +797,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .breadcrumb-item {
   background-color: #fafafa;
   box-shadow: 0px 2px #00000024;
-  color: #777 !important;
 }
 .breadcrumb-item:hover {
   background: #ffd7ad;
