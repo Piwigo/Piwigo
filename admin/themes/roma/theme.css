@@ -538,13 +538,13 @@ label>p.group_select {
 }
 
 #addGroupNameInput {
-  color: #353535 !important;
+  color: #999;
   background-color: #252525 !important;
   border: none !important;
 }
 
 #addGroupNameInput::placeholder {
-  color: #777 !important;
+  color: #777;
 }
 
 .groups .AddUser .icon-user-add::before{
@@ -956,6 +956,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .cat-modify-footer {
   border-color: rgba(0, 0, 0, 0.2);
+  background: #444444;
 }
 
 .cat-modify-actions a:hover
@@ -1202,11 +1203,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: white;
 }
 
-.info-message {
-  color: #c2f5c2 ;
-  background-color:#0a0;
-}
-
 .info-error {
   color: #ffd5dc;
   background-color:#f22;
@@ -1393,8 +1389,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .AddPluginSuccess span,
 .RestorePluginSuccess span,
-.DeactivatePluginSuccess span,
-.info-message {
+.DeactivatePluginSuccess span {
   color: #c2f5c2;
 }
 

@@ -302,6 +302,8 @@ Info
 
 .info-message {
     display: none;
+    background-color:  #c2f5c2;
+    color: #0a0;
 }
 
 .info-error {

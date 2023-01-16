@@ -411,7 +411,6 @@ LI.menuLi {
 
 .cat-modify {
   height: calc(100vh - 192px);
-  width: calc(100vw - 205px);
   display: grid;
   grid-template-rows: 50px auto 60px;
 }
@@ -504,10 +503,11 @@ LI.menuLi {
 }
 
 .cat-modify-actions .toggle-comment-option {
-  font-size: 16px;
+  font-size: 13px;
   padding: 5px;
   width: 20px;
   height: 24px;
+  z-index: 20;
 }
 
 .cat-modify-actions a::after,
@@ -710,7 +710,12 @@ LI.menuLi {
   justify-content: end;
   border-top: 1px solid #ececec;
   padding: 12px;
-}
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background: white;
+  }
 
 .cat-delete-modes {
   display: flex;
@@ -2723,15 +2728,13 @@ h2:lang(en) { text-transform:capitalize; }
 
 .AddPluginSuccess span,
 .RestorePluginSuccess span,
-.DeactivatePluginSuccess span,
-.info-message {
+.DeactivatePluginSuccess span {
   color: #0a0;
 }
 
 .AddPluginSuccess label,
 .DeactivatePluginSuccess label,
-.RestorePluginSuccess label,
-.info-message {
+.RestorePluginSuccess label {
   background-color:  #c2f5c2;
   color: #0a0;
 }
@@ -3755,6 +3758,7 @@ a#showPermissions:hover {text-decoration: none;}
 
 .tag-pagination .selected {
   background: #ffa646;
+  color: black;
 }
 
 .tag-container .tag-box .tag-rename span {
@@ -4705,14 +4709,14 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 }
 
 #addGroupNameInput {
-  color: #353535 !important;
+  color: #353535;
   background-color: #F3F3F3 !important;
   border: none !important;
   margin-top: 15px;
 }
 
 #addGroupNameInput::placeholder {
-  color: #353535 !important;
+  color: #353535;
 }
 
 .groupIcon {
