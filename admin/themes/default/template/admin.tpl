@@ -105,7 +105,9 @@ jQuery(document).ready(function() {
           <span class="adminMenubarCounter" title="{'%d waiting for validation'|translate:$NB_PENDING_COMMENTS}">{$NB_PENDING_COMMENTS}</span>
         {/if}</a></li>
 {/if}
+{if isset($U_UPDATES)}
         <li><a href="{$U_UPDATES}"><i class="icon-arrows-cw"></i>{'Updates'|@translate}</a></li>
+{/if}
       </ul>
 		</dd>
   </dl>

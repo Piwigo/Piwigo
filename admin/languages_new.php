@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!$conf['enable_extensions_install'])
+{
+  die('Piwigo extensions install/update system is disabled');
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/languages.class.php');
 
 $template->set_filenames(array('languages' => 'languages_new.tpl'));

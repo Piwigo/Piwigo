@@ -133,6 +133,13 @@ function ws_themes_performAction($params, $service)
  */
 function ws_extensions_update($params, $service)
 {
+  global $conf;
+
+  if (!$conf['enable_extensions_install'])
+  {
+    return new PwgError(401, 'Piwigo extensions install/update system is disabled');
+  }
+
   if (!is_webmaster())
   {
     return new PwgError(401, l10n('Webmaster status is required.'));
