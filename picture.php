@@ -1029,6 +1029,10 @@ if ($conf['picture_menu'] AND (!isset($themeconf['hide_menu_on']) OR !in_array('
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }
 
+if (isset($conf['picture_page_banner']) && !$conf['picture_page_banner'])
+{
+  $page['page_banner'] = '';
+}
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_notify('loc_end_picture');
 flush_page_messages();
