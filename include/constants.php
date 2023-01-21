@@ -30,6 +30,11 @@ define('ACCESS_ADMINISTRATOR', 3);
 define('ACCESS_WEBMASTER', 4);
 define('ACCESS_CLOSED', 5);
 
+// System activities
+define('ACTIVITY_SYSTEM_CORE', 1);
+define('ACTIVITY_SYSTEM_PLUGIN', 2);
+define('ACTIVITY_SYSTEM_THEME', 3);
+
 // Sanity checks
 define('PATTERN_ID', '/^\d+$/');
 

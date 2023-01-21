@@ -101,7 +101,9 @@ SELECT
     performed_by, 
     COUNT(*) as counter 
   FROM '.ACTIVITY_TABLE.'
-  group by performed_by;';
+  WHERE object != \'system\'
+  GROUP BY performed_by
+;';
 
 $nb_lines_for_user = query2array($query, 'performed_by', 'counter');
 

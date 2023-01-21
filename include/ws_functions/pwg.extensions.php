@@ -190,6 +190,20 @@ function ws_extensions_update($params, $service)
   {
     $upgrade_status = $extension->extract_theme_files('upgrade', $revision, $extension_id);
     $extension_name = $extension->fs_themes[$extension_id]['name'];
+
+    $activity_details = array('theme_id'=>$extension_id, 'from_version'=>$extension->fs_themes[$extension_id]['version']);
+
+    if ('ok' == $upgrade_status)
+    {
+      $extension->get_fs_themes(); // refresh list
+      $activity_details['to_version'] = $extension->fs_themes[$extension_id]['version'];
+    }
+    else
+    {
+      $activity_details['result'] = 'error';
+    }
+
+    pwg_activity('system', ACTIVITY_SYSTEM_THEME, 'update', $activity_details);
   }
   else if ($type == 'languages')
   {

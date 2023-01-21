@@ -446,23 +446,24 @@ SELECT
     occured_on,
     details,
     user_agent
-  FROM '.ACTIVITY_TABLE;
+  FROM '.ACTIVITY_TABLE.'
+  WHERE object != \'system\'';
 
   if (isset($param['uid']))
   {
     $query.= '
-  WHERE performed_by = '.$param['uid'];
+    AND performed_by = '.$param['uid'];
   }
   elseif ('none' == $conf['activity_display_connections'])
   {
     $query.= '
-  WHERE action NOT IN (\'login\', \'logout\')';
+    AND action NOT IN (\'login\', \'logout\')';
   }
   elseif ('admins_only' == $conf['activity_display_connections'])
   {
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     $query.= '
-  WHERE NOT (action IN (\'login\', \'logout\') AND object_id NOT IN ('.implode(',', get_admins()).'))';
+    AND NOT (action IN (\'login\', \'logout\') AND object_id NOT IN ('.implode(',', get_admins()).'))';
   }
 
   $query.= '

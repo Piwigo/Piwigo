@@ -460,6 +460,8 @@ class updates
 
     if ($check_current_version and !version_compare($upgrade_to, PHPWG_VERSION, '>'))
     {
+      // TODO why redirect to a plugin page? maybe a remaining code from when
+      // the update system was provided as a plugin?
       redirect(get_root_url().'admin.php?page=plugin-'.basename(dirname(__FILE__)));
     }
 
@@ -552,6 +554,8 @@ class updates
 
             deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
             invalidate_user_cache(true);
+            pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'update', array('from_version'=>PHPWG_VERSION, 'to_version'=>$upgrade_to));
+
             if ($step == 2)
             {
               // only delete compiled templates on minor update. Doing this on
