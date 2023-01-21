@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!$conf['enable_core_update'])
+{
+  die('Piwigo core update system is disabled');
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
 

@@ -10,6 +10,8 @@ add_event_handler('tabsheet_before_select', 'add_core_tabs', 0);
 
 function add_core_tabs($sheets, $tab_id)
 {
+  global $conf;
+
   switch($tab_id)
   {
     case 'admin_home':
@@ -49,7 +51,7 @@ function add_core_tabs($sheets, $tab_id)
       break;
 
     case 'cat_options':
-      global $link_start, $conf;
+      global $link_start;
       $sheets['status'] = array('caption' => '<span class="icon-lock"></span>'.l10n('Public / Private'), 'url' => $link_start.'cat_options&amp;section=status');
       $sheets['visible'] = array('caption' => '<span class="icon-block"></span>'.l10n('Lock'), 'url' => $link_start.'cat_options&amp;section=visible');
       if ($conf['activate_comments'])
@@ -101,8 +103,11 @@ function add_core_tabs($sheets, $tab_id)
     case 'languages':
       global $my_base_url;
       $sheets['installed'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
+      if ($conf['enable_extensions_install'])
+      {
+        $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+        $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
+      }
       break;
 
     case 'menus':
@@ -128,7 +133,6 @@ function add_core_tabs($sheets, $tab_id)
       break;
 
     case 'photos_add':
-      global $conf;
       $sheets['direct'] = array('caption' => '<span class="icon-upload"></span>'.l10n('Web Form'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=direct');
       $sheets['applications'] = array('caption' => '<span class="icon-network"></span>'.l10n('Applications'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=applications');
       if ($conf['enable_synchronization'])
@@ -138,8 +142,11 @@ function add_core_tabs($sheets, $tab_id)
     case 'plugins':
       global $my_base_url;
       $sheets['installed'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Plugin'), 'url' => $my_base_url.'&amp;tab=new');
+      if ($conf['enable_extensions_install'])
+      {
+        $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+        $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Plugin'), 'url' => $my_base_url.'&amp;tab=new');
+      }
       break;
 
     case 'rating':
@@ -150,14 +157,25 @@ function add_core_tabs($sheets, $tab_id)
     case 'themes':
       global $my_base_url;
       $sheets['installed'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Theme'), 'url' => $my_base_url.'&amp;tab=new');
+      if ($conf['enable_extensions_install'])
+      {
+        $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+        $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Theme'), 'url' => $my_base_url.'&amp;tab=new');
+      }
       break;
 
     case 'updates':
       global $my_base_url;
-      $sheets['pwg'] = array('caption' => l10n('Piwigo core'), 'url' => $my_base_url);
-      $sheets['ext'] = array('caption' => l10n('Extensions'), 'url' => $my_base_url.'&amp;tab=ext');
+
+      if ($conf['enable_core_update'])
+      {
+        $sheets['pwg'] = array('caption' => l10n('Piwigo core'), 'url' => $my_base_url);
+      }
+
+      if ($conf['enable_extensions_install'])
+      {
+        $sheets['ext'] = array('caption' => l10n('Extensions'), 'url' => $my_base_url.'&amp;tab=ext');
+      }
       break;
     case 'site_update':
       global $my_base_url;

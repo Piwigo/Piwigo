@@ -847,6 +847,12 @@ $conf['themes_dir'] = PHPWG_ROOT_PATH.'themes';
 // enable the synchronization method for adding photos
 $conf['enable_synchronization'] = true;
 
+// enable the update of Piwigo core from administration pages
+$conf['enable_core_update'] = true;
+
+// enable install/update of plugins/themes/languages from administration pages
+$conf['enable_extensions_install'] = true;
+
 // Permitted characters for files/directories during synchronization.
 // Do not add the ' U+0027 single quote apostrophe character, it WILL make some
 // SQL queries fail. URI reserved characters (see

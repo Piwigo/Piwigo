@@ -228,13 +228,17 @@ $template->assign(
     'U_PLUGINS'=> $link_start.'plugins',
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => $change_theme_url,
-    'U_UPDATES' => $link_start.'updates',
     'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
     'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
     'SHOW_RATING' => $conf['rate'],
     )
   );
-  
+
+if ($conf['enable_core_update'])
+{
+  $template->assign('U_UPDATES', $link_start.'updates');
+}
+
 if ($conf['activate_comments'])
 {
   $template->assign('U_COMMENTS', $link_start.'comments');
