@@ -599,6 +599,7 @@ function pwg_activity($object, $object_id, $action, $details=array())
   $inserts = array();
   $details_insert = pwg_db_real_escape_string(serialize($details));
   $ip_address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+  $session_id = !empty(session_id()) ? session_id() : 'none';
 
   foreach ($object_ids as $loop_object_id)
   {
@@ -614,7 +615,7 @@ function pwg_activity($object, $object_id, $action, $details=array())
       'object_id' => $loop_object_id,
       'action' => $action,
       'performed_by' => $performed_by,
-      'session_idx' => session_id(),
+      'session_idx' => $session_id,
       'ip_address' => $ip_address,
       'details' => $details_insert,
       'user_agent' => $user_agent,
