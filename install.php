@@ -463,6 +463,7 @@ if ($step == 1)
 }
 else
 {
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'install', array('version'=>PHPWG_VERSION));
   $infos[] = l10n('Congratulations, Piwigo installation is completed');
 
   if (isset($error_copy))
