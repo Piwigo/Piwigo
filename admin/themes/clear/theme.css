@@ -832,3 +832,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   box-shadow: 0 2px #af7200;
   color: white !important;
 }
+
+.move-cat-container:hover .badge-container i,
+.move-cat-container:hover .node-icon{
+  color: #ffd7ad;
+  background-color: #f98100;
+}
