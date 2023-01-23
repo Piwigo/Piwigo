@@ -1329,12 +1329,4 @@ $lang['Some photos are missing from your file system. Details provided by plugin
 $lang['<b>%d</b> filtered users'] = '<b>%d</b> utilisateurs filtrés';
 $lang['<b>%d</b> filtered user'] = '<b>%d</b> utilisateur filtré';
 $lang['%d pictures in sub-albums'] = '%d images dans les sous-albums';
-$lang['Allow comments for sub-albums'] = 'Autoriser les commentaires pour tous les sous-albums';
-$lang['Disallow comments for sub-albums'] = 'Interdire les commentaires pour tous les sous-albums';
-$lang['Comments allowed for sub-albums'] = 'Commentaires autorisés pour tous les sous-albums';
-$lang['Comments disallowed for sub-albums'] = 'Commentaires interdit pour tous les sous-albums';
-$lang['or'] = 'ou';
-$lang['Locked album'] = 'Album verrouillé';
-$lang['This album is currently locked, visible only to administrators.'] = 'Cet album est actuellement verrouillé, visible uniquement par les administrateurs.';
-$lang['Unlock it'] = 'Le déverrouiller';
 // Leave this line empty

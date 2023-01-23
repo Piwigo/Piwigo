@@ -1329,8 +1329,4 @@ $lang['Some photos are missing from your file system. Details provided by plugin
 $lang['<b>%d</b> filtered users'] = '<b>%d</b> filtered users';
 $lang['<b>%d</b> filtered user'] = '<b>%d</b> filtered user';
 $lang['%d pictures in sub-albums'] = '%d pictures in sub-albums';
-$lang['or'] = 'or';
-$lang['Locked album'] = 'Locked album';
-$lang['This album is currently locked, visible only to administrators.'] = 'This album is currently locked, visible only to administrators.';
-$lang['Unlock it'] = 'Unlock it';
 // Leave this line empty
