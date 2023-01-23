@@ -1333,7 +1333,6 @@ $lang['Allow comments for sub-albums'] = 'Autoriser les commentaires pour tous l
 $lang['Disallow comments for sub-albums'] = 'Interdire les commentaires pour tous les sous-albums';
 $lang['Comments allowed for sub-albums'] = 'Commentaires autorisés pour tous les sous-albums';
 $lang['Comments disallowed for sub-albums'] = 'Commentaires interdit pour tous les sous-albums';
-$lang['Put at the root'] = 'Placer à la racine';
 $lang['or'] = 'ou';
 $lang['Locked album'] = 'Album verrouillé';
 $lang['This album is currently locked, visible only to administrators.'] = 'Cet album est actuellement verrouillé, visible uniquement par les administrateurs.';
