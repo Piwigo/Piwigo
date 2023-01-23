@@ -1324,3 +1324,4 @@ $lang['This photo no longer exists'] = 'Dette fotografi findes ikke længere';
 $lang['Apply to root albums'] = 'Udfør på albummer i roden';
 $lang['Album name must not be empty'] = 'Albumnavn må ikke være tomt';
 $lang['Visit history'] = 'Besøgshistorik';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Nogle fotografier mangler i dit filsystem. Flere oplysninger fås gennem plugin\'en Check Uploads';

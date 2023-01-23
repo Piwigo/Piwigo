@@ -1318,3 +1318,4 @@ $lang['Place last'] = '置於最後';
 $lang['Place first'] = '置於首位';
 $lang['Certification higher or equal to'] = '認證高於或等於';
 $lang['Album name must not be empty'] = '相簿名稱不得留空';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = '有些照片在您的檔案系統中找不到。Check Uploads 外掛可以提供更詳細的資訊。';

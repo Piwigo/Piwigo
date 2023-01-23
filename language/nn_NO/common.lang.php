@@ -417,3 +417,4 @@ $lang['Password: ********** (no copy by email)'] = 'Passord: ********** (ingen k
 $lang['Invalid username or password!'] = 'Ugyldig brukernamn og passord';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumnavn, 1 &rarr; 5 &rarr; 10 &rarr; 100';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumnavn, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Startdate';

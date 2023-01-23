@@ -1319,3 +1319,4 @@ $lang['This photo no longer exists'] = 'Dette bildet eksisterer ikke lenger';
 $lang['Apply to root albums'] = 'Bruk på rotalbum';
 $lang['Album name must not be empty'] = 'Albumnavn må ikke være tomt';
 $lang['Visit history'] = 'Besøkshistorikk';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Noen bilder mangler fra filsystemet. Detaljerte opplysninger finnes i programtillegget, Sjekk Opplastinger';

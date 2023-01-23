@@ -1318,3 +1318,4 @@ $lang['This photo no longer exists'] = 'Þessi mynd er ekki lengur til';
 $lang['Apply to root albums'] = 'Virkja á rótaralbúmum';
 $lang['Album name must not be empty'] = 'Heiti albúms má ekki vera autt';
 $lang['Visit history'] = 'Heimsóknarsaga';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Sumar myndir vantar í skráarkerfið þitt. Upplýsingar veittar af viðbótinni Athugaðu upphleðslur';

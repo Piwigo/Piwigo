@@ -1331,3 +1331,4 @@ $lang['The best is to have them made automatically on a regular basis.'] = 'El m
 $lang['This photo no longer exists'] = 'Aquesta foto ja no existeix';
 $lang['Album name must not be empty'] = 'El nom de l\'àlbum no pot estar buit';
 $lang['Visit history'] = 'Historial de visites';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Manquen algunes fotos del vostre sistema de fitxers. El connector Check Uploads us en donarà detalls.';

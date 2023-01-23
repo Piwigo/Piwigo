@@ -436,3 +436,4 @@ $lang['Related albums'] = 'Rummadoù stag';
 $lang['Password: ********** (no copy by email)'] = 'Ger-tremen: ********** (eilad ebet kaset dre bostel)';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Anv ar rummad, 100 &rarr; 10 &rarr; 5 &rarr; 1';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Anv ar rummad, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Start-Date'] = 'Deiziad deroù';

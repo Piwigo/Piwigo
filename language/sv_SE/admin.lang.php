@@ -1321,3 +1321,4 @@ $lang['The best is to have them made automatically on a regular basis.'] = 'Det 
 $lang['Apply to root albums'] = 'Tillämpa på rotalbum';
 $lang['Album name must not be empty'] = 'Albumets namn får inte vara tomt';
 $lang['Visit history'] = 'Besökshistorik';
+$lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Vissa foton saknas i ditt filsystem. Detaljer tillhandahålls av insticksmodulen Check Uploads';
