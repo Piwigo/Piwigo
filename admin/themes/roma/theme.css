@@ -393,16 +393,15 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   color: #777;
 }
 .move-cat-container:hover {
-  background-color: #f9852c;
+  background-color: #232323;
 }
 .move-cat-container:hover .badge-container i,
 .move-cat-container:hover .node-icon{
-  color: #faa96b;
-  background-color: #ae5d1e;
-  border-color: #ae5d1e;
+  background-color: transparent;
 }
-.move-cat-container:hover .move-cat-action a {
-  color: #333333;
+.move-cat-action a:hover {
+  color: #777;
+  background: #111;
 }
 
 .disabledToggle .move-cat-toogler{
@@ -410,20 +409,9 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   opacity: 0.5;
   pointer-events: none;
 }
-.move-cat-container:hover .move-cat-toogler span{
-  color: #ae5d1e !important;
-}
-.move-cat-container:hover .icon-grip-vertical-solid{
-  color: #333 !important;
-}
 .move-cat-container.disabledToggle:hover .move-cat-toogler{
-  color: #333 !important;
   opacity: 0.5;
   pointer-events: none;
-}
-
-.move-cat-container:hover .move-cat-title-container {
-  color: #333333;
 }
 
 .AddUserPopInContainer,
@@ -441,9 +429,11 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 .AddUserPopInContainer .AddUserInput,
 .AddAlbumPopInContainer .user-property-input,
 .DeleteAlbumPopInContainer .DeleteAlbumInput,
-.RenameAlbumPopInContainer .RenameAlbumInput {
+.RenameAlbumPopInContainer .RenameAlbumInput,
+.RenameAlbumLabelUsername input {
   background-color:#252525;
   border: solid 2px #252525;
+  outline: none;
 }
 
 .AddAlbumCancel, .RenameAlbumCancel {

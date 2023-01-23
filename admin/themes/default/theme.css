@@ -4196,11 +4196,6 @@ a#showPermissions:hover {text-decoration: none;}
 .move-cat-container:hover {
   background-color: #ffd7ad;
 }
-.move-cat-container:hover .badge-container i,
-.move-cat-container:hover .node-icon{
-  color: #ffd7ad;
-  background-color: #f98100;
-}
 
 /* Pending Comments */
 #pendingComments {
