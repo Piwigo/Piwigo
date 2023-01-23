@@ -17,7 +17,7 @@ var light_album_manager = {$light_album_manager};
 
 var x_nb_subcats = "{'%d sub-albums'|@translate}";
 var x_nb_images = "{'%d photos'|@translate}";
-var x_nb_sub_photos = "{'%d lineage pictures'|@translate}";
+var x_nb_sub_photos = "{'%d pictures in sub-albums'|@translate}";
 
 var delay_autoOpen = {$delay_before_autoOpen}
 {/footer_script}
