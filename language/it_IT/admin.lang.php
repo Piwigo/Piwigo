@@ -1324,3 +1324,6 @@ $lang['Apply to root albums'] = 'Applica agli album principali';
 $lang['Album name must not be empty'] = 'Il nome dell\'album non deve essere vuoto.';
 $lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Alcune fotografie sono scomparse dal tuo file System. Dettagli dal plugin Controlla caricamenti.';
 $lang['Visit history'] = 'Cronologia visitatori.';
+$lang['%d pictures in sub-albums'] = '%d immagini nei sotto album';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> utente filtrato';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> utenti filtrati';
