@@ -88,6 +88,11 @@ class themes
   {
     global $conf;
 
+    if (!$conf['enable_extensions_install'] and 'delete' == $action)
+    {
+      die('Piwigo extensions install/update/delete system is disabled');
+    }
+
     if (isset($this->db_themes_by_id[$theme_id]))
     {
       $crt_db_theme = $this->db_themes_by_id[$theme_id];
