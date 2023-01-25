@@ -151,7 +151,7 @@ let plugin_filter = searchParams.get('filter');
           <div class="tiptip" title="{'Uninstall'|@translate}">
             <a class="uninstall-plugin-button">{'Uninstall'|@translate}</a>
           </div>
-        {elseif $plugin.STATE == 'merged'}
+        {elseif $plugin.STATE == 'merged' and $CONF_ENABLE_EXTENSIONS_INSTALL}
           <div class="tiptip" title="{'Delete'|@translate}">
             <a class="" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
           </div>
@@ -164,7 +164,9 @@ let plugin_filter = searchParams.get('filter');
           {$plugin.DESC}
         </div>
           <a class="dropdown-option icon-back-in-time plugin-restore separator-top tiptip" title="{'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'|@translate}">{'Restore'|@translate}</a>
+  {if $CONF_ENABLE_EXTENSIONS_INSTALL}
           <a class="dropdown-option icon-trash delete-plugin-button separator-top">{'Delete'|@translate}</a>
+  {/if}
       </div>
       <div class="pluginName" data-title="{$plugin.NAME}">
         {$plugin.NAME}
@@ -187,7 +189,7 @@ let plugin_filter = searchParams.get('filter');
           {/if}
         {elseif $plugin.STATE == 'missing'}
           <a class="pluginActionLevel3 uninstall-plugin-button">{'Uninstall'|@translate}</a>
-        {elseif $plugin.STATE == 'merged'}
+        {elseif $plugin.STATE == 'merged' and $CONF_ENABLE_EXTENSIONS_INSTALL}
           <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
         {/if}                     
       </div>

@@ -107,6 +107,13 @@ class plugins
    */
   function perform_action($action, $plugin_id, $options=array())
   {
+    global $conf;
+
+    if (!$conf['enable_extensions_install'] and 'delete' == $action)
+    {
+      die('Piwigo extensions install/update/delete system is disabled');
+    }
+
     if (isset($this->db_plugins_by_id[$plugin_id]))
     {
       $crt_db_plugin = $this->db_plugins_by_id[$plugin_id];

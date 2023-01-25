@@ -114,7 +114,7 @@ $(window).bind("load", function() {
       <div class="showInfo-dropdown-content">
         {$theme.DESC|@escape:'html'}
       </div>
-      {if $theme.STATE != "active"}
+      {if $theme.STATE != "active" and $CONF_ENABLE_EXTENSIONS_INSTALL}
         {if $theme.DELETABLE}
             <a class="dropdown-option icon-trash delete-plugin-button delete-theme-button" href="{$delete_baseurl}{$theme.ID}">{'Delete'|@translate}</a>
         {else}
