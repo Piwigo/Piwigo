@@ -1321,3 +1321,6 @@ $lang['The best is to have them made automatically on a regular basis.'] = 'Lo m
 $lang['Album name must not be empty'] = 'El nombre del álbum no puede estar vacío';
 $lang['Visit history'] = 'Historial de visitas';
 $lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Faltan algunas fotos de su sistema de archivos. El plugin Check Uploads le mostrará los detalles.';
+$lang['%d pictures in sub-albums'] = '%d fotos en sub-álbumes';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> usuario filtrado';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> usuarios filtrados';
