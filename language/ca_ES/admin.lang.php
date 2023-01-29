@@ -1332,3 +1332,6 @@ $lang['This photo no longer exists'] = 'Aquesta foto ja no existeix';
 $lang['Album name must not be empty'] = 'El nom de l\'àlbum no pot estar buit';
 $lang['Visit history'] = 'Historial de visites';
 $lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Manquen algunes fotos del vostre sistema de fitxers. El connector Check Uploads us en donarà detalls.';
+$lang['%d pictures in sub-albums'] = '%d fotos en sub-àlbums';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> usuari filtrat';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> usuaris filtrats';
