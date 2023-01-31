@@ -1322,3 +1322,6 @@ $lang['Apply to root albums'] = 'Tillämpa på rotalbum';
 $lang['Album name must not be empty'] = 'Albumets namn får inte vara tomt';
 $lang['Visit history'] = 'Besökshistorik';
 $lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Vissa foton saknas i ditt filsystem. Detaljer tillhandahålls av insticksmodulen Check Uploads';
+$lang['%d pictures in sub-albums'] = '%d bilder i underalbum';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> filtrerad användare';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> filtrerade användare';
