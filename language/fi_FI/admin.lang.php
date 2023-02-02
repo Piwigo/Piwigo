@@ -5,6 +5,7 @@
 // | For copyright and license information, please view the COPYING.txt    |
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
+$lang['Start Upload'] = 'Lataa kuvat';
 $lang['%s ago'] = '%s sitten';
 $lang['... or '] = '... tai';
 $lang['%d years'] = '%d vuodet';
