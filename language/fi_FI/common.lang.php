@@ -40,6 +40,7 @@ $lang['At least one listed rule must be satisfied.'] = 'Vähintään yksi listat
 $lang['Author'] = 'Tekijä';
 $lang['Albums'] = 'Albumit';
 $lang['Album'] = 'Albumi';
+$lang['Discover'] = 'Selaa';
 $lang['Close this window'] = 'Sulje tämä ikkuna';
 $lang['Complete RSS feed (photos, comments)'] = 'Täydellinen RSS-syöte (kuvat, kommentit)';
 $lang['Confirm Password'] = 'Vahvista salasana';
