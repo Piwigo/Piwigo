@@ -417,21 +417,19 @@ jQuery(document).ready(function(){
     <div class="promote-apps">
       <div class="promote-content">
         <div class="left-side">
-        <img src="https://de.piwigo.org/./plugins/piwigo-piwigodotorg/images/mobile_applications/Group_77.png">
-          <div class="promote-text">
-            <span>{"Piwigo is also on mobile."|@translate|escape:javascript}</span>
-            <span>{"Try now !"|@translate|escape:javascript}</span>
-          </div>
+          <img src="https://sandbox.piwigo.com/uploads/4/y/1/4y1zzhnrnw//2023/01/24/20230124175152-015bc1e3.png">
         </div>
-        <div class="mid-side"></div>
+        <div class="promote-text">
+          <span>{"Piwigo is also on mobile."|@translate|escape:javascript}</span>
+          <span>{"Try now !"|@translate|escape:javascript}</span>
+        </div>
         <div class="right-side">
-          <div class="promote-text">
-            <span>{"Install Piwigo on mobile"|@translate|escape:javascript}</span>
+          <div>
             <a href="{$PHPWG_URL}/mobile-applications" target="_blank"><span class="go-to-porg icon-link-1">{"Discover"|@translate|escape:javascript}</span></a>
           </div>
         </div>
       </div>
-      <span class="dont-show-again">{'Understood, do not show again'|translate|escape:javascript}</span>
+      <span class="dont-show-again icon-cancel tiptip" title="{'Understood, do not show again'|translate|escape:javascript}"></span>
     </div>
   {/if}
 

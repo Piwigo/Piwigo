@@ -6773,9 +6773,14 @@ color:#FF7B00;
   flex-direction: column;
   justify-content: flex-end;
 
-  border-bottom: 1px solid lightgray;
-  padding: 0 15px 15px 15px;
-  margin-bottom: 15px;
+  padding: 15px;
+  margin: 0 20px 15px 20px;
+  border-radius: 5px;
+
+  background: #f5d8b0;
+  position: relative;
+
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1)
 }
 
 .close-apps {
@@ -6791,11 +6796,11 @@ color:#FF7B00;
 }
 
 .dont-show-again {
-  margin-left: auto;
-  color: #555;
-  border-radius: 20px;
-  padding: 3px 8px;
-  font-weight: 700;
+  position: absolute;
+  color: #333;
+  top: 5px;
+  right: 5px;
+  font-size: 25px;
 }
 
 .dont-show-again:hover, 
@@ -6806,28 +6811,26 @@ color:#FF7B00;
 .promote-content {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  flex: 2;
 }
 
 .promote-content .left-side {
   display: flex;
   flex-direction: row;
-  align-items: center;
-}
-.promote-content .mid-side {
-  border-right: 1px solid gray;
+  flex: 1;
 }
 .promote-content .right-side {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex: 1;
 }
 
 .promote-content .left-side img {
   width: 170px;
-  margin-left: 60px;
-  margin-right: 80px;
+  margin-left: 25px;
 }
 
 .promote-text {
@@ -6836,8 +6839,13 @@ color:#FF7B00;
   font-size: 30px;
   font-weight: 700;
   color: #000;
+  justify-content: center;
+  flex: 2;
 }
 
+.promote-text span {
+  font-size: 35px;
+}
 .promote-text span:first-child {
   margin-bottom: 5px;
 }
@@ -6854,6 +6862,7 @@ color:#FF7B00;
   color: #3c3c3c;
   width: 150px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .go-to-porg::before {
@@ -6876,23 +6885,19 @@ color:#FF7B00;
 
 @media (max-width: 1450px) {
   .promote-text span {
-    font-size: 20px;
-  }
-
-  .promote-content .left-side img {
-    margin-left: 60px;
+    font-size: 30px;
   }
 }
 
 @media (max-width: 1170px) {
-  .promote-content .left-side img {
-    margin: 0 20px 0 0;
+  .promote-text span {
+    font-size: 25px;
   }
 }
 
 @media (max-width: 1050px) {
   .promote-text span {
-    font-size: 15px;
+    font-size: 20px;
   }
 
   .promote-content .left-side img {
