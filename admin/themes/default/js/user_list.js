@@ -1481,7 +1481,7 @@ function update_guest_info() {
 function update_user_list() {
     let update_data = {
         display: "all",
-        order: "id",
+        order: "id DESC", // We want the most recent user first
         page: actual_page - 1,
         per_page: per_page,
         exclude: [guest_id]
