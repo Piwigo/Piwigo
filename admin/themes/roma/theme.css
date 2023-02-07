@@ -543,10 +543,11 @@ label>p.group_select {
   color: #353535 !important;
   background-color: #252525 !important;
   border: none !important;
+  outline: none;
 }
 
 #addGroupNameInput::placeholder {
-  color: #777 !important;
+  color: #bbb;
 }
 
 .groups .AddUser .icon-user-add::before{
