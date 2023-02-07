@@ -1756,6 +1756,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .selectedAlbum span a{
   color: #777 !important;
 }
+.selectedAlbum span {
+  background-color: #343434;
+}
 
 .AddUserErrors, .update-user-fail {
   background-color: #f22;;
