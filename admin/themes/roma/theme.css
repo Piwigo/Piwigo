@@ -531,10 +531,11 @@ label>p.group_select {
   color: #999;
   background-color: #252525 !important;
   border: none !important;
+  outline: none;
 }
 
 #addGroupNameInput::placeholder {
-  color: #777;
+  color: #bbb;
 }
 
 .groups .AddUser .icon-user-add::before{
