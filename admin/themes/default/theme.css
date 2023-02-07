@@ -4627,7 +4627,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 }
 
 #addGroupNameInput::placeholder {
-  color: #353535 !important;
+  color: #353535;
 }
 
 .groupIcon {
