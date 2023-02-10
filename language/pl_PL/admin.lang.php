@@ -1321,3 +1321,6 @@ $lang['Album name must not be empty'] = 'Nazwa albumu nie może być pusta';
 $lang['Always have a backup of your database and files.'] = 'Zawsze miej kopię zapasową swojej bazy i plików';
 $lang['Apply an automatic order to root albums'] = 'Zastosuj kolejność automatyczną dla albumu głównego';
 $lang['%d formats uploaded for %d photos'] = '%d formaty przesłano dla %d zdjęć';
+$lang['%d pictures in sub-albums'] = '%d zdjęć w podalbumie';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> filtrowany użytkownik';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> filtrowanych użytkowników';
