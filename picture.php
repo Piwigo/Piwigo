@@ -861,7 +861,8 @@ if (isset($picture['current']['comment'])
 // author
 if (!empty($picture['current']['author']))
 {
-  $infos['INFO_AUTHOR'] = $picture['current']['author'];
+  // persisted cross site scripting issue fix, but i think this solution is not "correct" for all endpoints
+  $infos['INFO_AUTHOR'] = htmlspecialchars($picture['current']['author']);
 }
 
 // creation date
