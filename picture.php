@@ -852,7 +852,7 @@ if (isset($picture['current']['comment'])
   $template->assign(
       'COMMENT_IMG',
         trigger_change('render_element_description',
-          $picture['current']['comment'],
+          htmlspecialchars($picture['current']['comment']);,
           'picture_page_element_description'
           )
       );
