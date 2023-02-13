@@ -304,6 +304,7 @@ function createAlbumNode(node, li) {
   icon = "<span class='%icon%'></span>";
   title = '<span data-id="'+node.id+'" class="move-cat-title-container ';
   if (node.status == 'private' || node.parent.status == 'private') {
+    node.status = 'private';
     title += 'icon-lock';
   }
   title += '"><p class="move-cat-title" title="'+node.name+'">%name%</p> <span class="icon-pencil"></span> </span>';
