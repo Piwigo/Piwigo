@@ -5836,7 +5836,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   padding: 5px;
 }
 
-.addAlbumEmpty {text-align: center; position: absolute; top: 45%; left: calc(50% - 30px);}
+.addAlbumEmpty {text-align: center; position: absolute; top: 45%; left: 50%; transform: translateX(-50%) translateX(102px)}
 /* .addAlbumEmptyCenter {position: relative; margin: auto; height: calc(100vh - 280px);} */
 .addAlbumEmptyTitle {font-size: 35px; font-weight: bold;}
 .addAlbumEmptyInfos {font-size: 14px; margin-bottom: 25px !important; margin-top: 5px !important;}
