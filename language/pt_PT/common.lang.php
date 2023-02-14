@@ -331,7 +331,7 @@ $lang['Someone requested that the password be reset for the following user accou
 $lang['Username "%s" on gallery %s'] = 'Nome de utilizador "%s" na galeria %s';
 $lang['To reset your password, visit the following address:'] = 'Para reinicializar a sua senha, siga o endereço seguinte :';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Se for um erro, apenas deverá ignorar este email e nada acontecerá.';
-$lang['Password Reset'] = 'Senha reinicializada';
+$lang['Password Reset'] = 'Redefinir senha';
 $lang['Check your email for the confirmation link'] = 'Verifique o seu email para clicar no link de confirmação';
 $lang['Invalid key'] = 'Chave inválida';
 $lang['The passwords do not match'] = 'As Senhas não correspondem';
@@ -405,7 +405,7 @@ $lang['First Page'] = 'Primeira página';
 $lang['Go back to the album'] = 'Voltar ao album';
 $lang['Last Page'] = 'Última página';
 $lang['Password is missing. Please enter the password.'] = 'Senha em falta. Por favor escreva a Senha.';
-$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Confirma��o da Senha em falta. Por favor confirme a Palavra Passe escolhida.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Confirmação da Senha em falta. Por favor confirme a Palavra Passe escolhida.';
 $lang['%d photos per page'] = '%d Fotos por página';
 $lang['Theme'] = 'Tema';
 $lang['No results for'] = 'Sem resultados para';
