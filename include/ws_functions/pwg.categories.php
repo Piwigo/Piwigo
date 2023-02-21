@@ -116,6 +116,8 @@ SELECT SQL_CALC_FOUND_ROWS i.*
       $images[] = $image;
     }
 
+    list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+
     // let's take care of adding the related albums to each photo
     if (count($image_ids) > 0)
     {
@@ -188,8 +190,6 @@ SELECT
       }
     }
   }
-
-  list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
 
   return array(
     'paging' => new PwgNamedStruct(
