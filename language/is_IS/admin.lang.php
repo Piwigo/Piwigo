@@ -1319,3 +1319,6 @@ $lang['Apply to root albums'] = 'Virkja á rótaralbúmum';
 $lang['Album name must not be empty'] = 'Heiti albúms má ekki vera autt';
 $lang['Visit history'] = 'Heimsóknarsaga';
 $lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Sumar myndir vantar í skráarkerfið þitt. Upplýsingar veittar af viðbótinni Athugaðu upphleðslur';
+$lang['%d pictures in sub-albums'] = '%d myndir í undiralbúmum';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> síaður notandi';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> síaðir notendur';

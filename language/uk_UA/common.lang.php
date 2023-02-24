@@ -419,3 +419,4 @@ $lang['Password: ********** (no copy by email)'] = 'Пароль: ********** (б
 $lang['Related albums'] = 'Схожі альбоми';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Назва альбому, 100 &rarr; 10 &rarr; 5 &rarr; 1';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Назва альбому, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Start-Date'] = 'Початкова дата';

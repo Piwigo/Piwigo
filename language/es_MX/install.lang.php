@@ -49,3 +49,4 @@ $lang['It appears your webhost is currently running PHP %s.'] = 'Parece que tu s
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Se mostrará a los visitantes. Es necesario para la administración del sitio web';
 $lang['Just another Piwigo gallery'] = 'Otra galería Piwigo';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Mantenlo confidencial, te permite acceder al panel de administración';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Se requiere la versión de PHP %s (usted está ejecutando PHP %s)';

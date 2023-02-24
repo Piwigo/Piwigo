@@ -1322,3 +1322,6 @@ $lang['Apply to root albums'] = 'Použiť na koreňové albumy';
 $lang['Album name must not be empty'] = 'Názov albumu nesmie byť prázdny';
 $lang['Visit history'] = 'História návštev';
 $lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'V systéme súborov chýbajú niektoré fotografie. Podrobnosti poskytuje doplnok Skontrolovať nahrávania';
+$lang['%d pictures in sub-albums'] = '%d obrázkov v podalbumoch';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> filtrovaný používateľ';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> filtrovaných používateľov';

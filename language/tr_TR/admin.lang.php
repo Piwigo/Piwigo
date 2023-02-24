@@ -1319,3 +1319,6 @@ $lang['Apply to root albums'] = 'Kök albümlere uygula';
 $lang['Visit history'] = 'Ziyaret geçmişi';
 $lang['Album name must not be empty'] = 'Albüm adı boş bırakılamaz';
 $lang['Some photos are missing from your file system. Details provided by plugin Check Uploads'] = 'Dosya sisteminizdeki bazı fotoğraflar kayıp. Detaylar Check Uploads eklentisi tarafından sağlandı.';
+$lang['%d pictures in sub-albums'] = 'alt albümlerde %d resim';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> filtrelenmiş kullanıcı';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> filtrelenmiş kullanıcılar';
