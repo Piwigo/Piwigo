@@ -61,6 +61,14 @@ $(document).ready(function () {
         performSearch(global_params);
       }
     });
+
+    $(".filter-tag .filter-validate").on("click", function () {
+      // Update global params
+      console.log(global_params);
+  
+      // Trigger search with click
+      $(".filter-tag").trigger("click");
+    })
   });
 
   $(".filter-date").on("click", function (e) {
