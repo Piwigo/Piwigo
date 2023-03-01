@@ -20,10 +20,10 @@ $lang_info['code'] = "fa";
 $lang_info['zero_plural'] = true;
 
 $lang['%d Kb'] = '%d کیلوبایت';
-$lang['%d album updated'] = "%d آلبوم بروزرسانی شد";
-$lang['%d albums updated'] = '%d آلبوم ها بروزرسانی شدند';
-$lang['%d comment to validate'] = '%d دیدگاه در انتظار پذیرش است.';
-$lang['%d comments to validate'] = '%d دیدگاه در انتظار پذیرش هستند.';
+$lang['%d album updated'] = '%d آلبوم به‌روزرسانی شد';
+$lang['%d albums updated'] = '%d آلبوم به‌روزرسانی شدند';
+$lang['%d comment to validate'] = '%d دیدگاه در انتظار پذیرش';
+$lang['%d comments to validate'] = '%d دیدگاه در انتظار پذیرش';
 $lang['%d new comment'] = "%d دیدگاه تازه";
 $lang['%d new comments'] = "%d دیدگاه تازه";
 $lang['%d comment'] = "%d دیدگاه";
@@ -39,7 +39,7 @@ $lang['All tags'] = 'همه ی برچسب ها';
 $lang['Any tag'] = "هر برچسبی";
 $lang['At least one listed rule must be satisfied.'] = 'دست کم یکی از معیارهای بیان شده باید هم خوانی داشته باشد.';
 $lang['Author'] = "نویسنده";
-$lang['Albums'] = "آلبوم ها";
+$lang['Albums'] = 'آلبوم‌ها';
 $lang['Album'] = "آلبوم";
 $lang['Close this window'] = "بستن این پنجره";
 $lang['Complete RSS feed (photos, comments)'] = 'خوراک RSS کامل (عکس ها و دیدگاه ها)';
@@ -102,7 +102,7 @@ $lang['Username'] = "نام کاربری";
 $lang['Visits'] = "بازدید ها";
 $lang['Webmaster'] = 'مدیرکل';
 $lang['Week %d'] = 'هفته ی %d';
-$lang['About Piwigo'] = "درباره ی Piwigo";
+$lang['About Piwigo'] = 'درباره‌ی Piwigo';
 $lang['You are not authorized to access the requested page'] = 'شما مجاز به مشاهده این صفحه نیستید';
 $lang['add this photo to your favorites'] = "افزودن این عکس به علاقه مندی های من";
 $lang['Administration'] = "مدیریت";
@@ -250,7 +250,7 @@ $lang['return to the display of all photos'] = "بازگشت به نمایش ه�
 $lang['the beginning'] = "آغاز";
 $lang['Thumbnails'] = 'عکس بندانگشتی';
 $lang['Menu'] = "منو";
-$lang['A comment on your site'] = "یادداشتی روی سایت شما";
+$lang['A comment on your site'] = 'دیدگاهی در سایت شما';
 $lang['today'] = "امروز";
 $lang['Update your rating'] = "بروزرسانی امتیاز";
 $lang['the username must be given'] = "نام کاربری ضروری است";
@@ -283,8 +283,8 @@ $lang['Yes'] = "بله";
 $lang['No'] = "خیر";
 $lang['%d photo'] = "%d عکس";
 $lang['%d photos'] = "%d عکس";
-$lang['%d photo is also linked to current tags'] = "%d عکس هم به این برچسب مربوط است.";
-$lang['%d photos are also linked to current tags'] = '%d عکس هم به این برچسب مربوط هستند.';
+$lang['%d photo is also linked to current tags'] = '%d عکس هم به این برچسب مربوط است';
+$lang['%d photos are also linked to current tags'] = '%d عکس هم به این برچسب مربوط هستند';
 $lang['display photos linked to this tag'] = "نمایش عکس هایی که مربوط به این برچسب هستند";
 $lang['photos posted during the last %d days'] = 'عکس هایی که در %d روز گذشته فرستاده شده اند';
 $lang['Piwigo Help'] = "راهنمای Piwigo";
@@ -303,7 +303,7 @@ $lang['(!) This comment requires validation'] = '(!) این دیدگاه نیا�
 $lang['Welcome'] = 'خوش آمدید';
 $lang['Welcome to your Piwigo photo gallery!'] = 'به گالری عکس Piwigo خود خوش آمدید!';
 $lang['... or browse your empty gallery'] = '... یا گالری خالی خود را مشاهده کنید';
-$lang['... or please deactivate this message, I will find my way by myself'] = '... یا لطفاً این پیام را غیرفعال نمایید، من راهم را پیدا خواهم کرد';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... یا لطفا این پیام را غیرفعال کنید، من راهم را پیدا خواهم کرد';
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = 'درود %s، گالری عکس شما خالی است!';
 $lang['I want to add photos'] = 'می‌خواهم عکس تازه اضافه کنم';
 $lang['Manage this user comment: %s'] = 'مدیریت دیدگاه های %s';
@@ -409,7 +409,7 @@ $lang['Last Page'] = 'آخرین برگه';
 $lang['Password is missing. Please enter the password.'] = 'گذرواژه ای نوشته نشده است. خواهشمندیم گذرواژه‌ای بنویسید.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'پذیرش گذرواژه با گذرواژه‌ی اصلی همخوانی ندارد. خواهشمندیم گذرواژه‌ی اصلی را در بخش پذیرش گذرواژه نیز بنویسید.';
 $lang['Theme'] = 'زمینه';
-$lang['%d photos per page'] = '%d عکس در هر برگ';
+$lang['%d photos per page'] = '%d عکس در هر صفحه';
 $lang['No results for'] = 'نتیجه‌ای پیدا نشد برای';
 $lang['Photo description'] = 'توضیحاتِ عکس';
 $lang['Photo title'] = 'عنوانِ عکس';
@@ -420,3 +420,5 @@ $lang['Link: %s'] = 'لینک: %s';
 $lang['Your authentication key is no longer valid.'] = 'کلید احراز هویت شما نامعتبر بوده و باید دوباره ارسال شود.';
 $lang['Invalid username or password!'] = 'رمز یا نام کاربری ناموجود است';
 $lang['generate random password'] = 'ساخت رمز اتفاقی';
+$lang['Related albums'] = 'آلبوم‌های مرتبط';
+$lang['Start-Date'] = 'تاریخ شروع';
