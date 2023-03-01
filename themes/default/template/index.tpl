@@ -1,4 +1,18 @@
 {combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
+{combine_script id='mcs' load='async' require='jquery' path='themes/default/js/mcs.js'}
+
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+
+{footer_script}
+jQuery(document).ready(function() {
+  jQuery("#tag-search").each(function() {
+    jQuery(this).selectize({
+      plugins: ['remove_button'],
+      maxOptions:jQuery(this).find("option").length
+    });
+  })
+});
+{/footer_script}
 {$MENUBAR}
 
 
@@ -173,6 +187,86 @@
 
 {if !empty($THUMBNAILS)}
 <div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
+
+{* Recherche multicritère *}
+<div class="mcs-container">
+  <div class="filter-manager">
+    <span class="mcs-icon pwg-icon-cog">X</span>Filtres
+  </div>
+
+  <div class="filter filter-word">
+   <span class="mcs-icon pwg-icon-search">X</span>Mot: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+
+   <div class="filter-form filter-word-form">
+    <span class="word-help"><i class="pwg-icon-help"></i> Conseils de recherche</span>
+    <input type="text" id="word-search" name="word">
+    
+    <span> Rechercher dans :</span>
+    <div class="search-params"> 
+      <div>
+        <input type="checkbox" id="cat-title" name="cat-title">
+        <label for="cat-title">Titre de l'album</label>
+      </div>
+      <div>
+        <input type="checkbox" id="tags" name="tags">
+        <label for="tags">Tags</label>
+      </div>
+      <div>
+        <input type="checkbox" id="file-name" name="file-name">
+        <label for="file-name">Nom de fichier</label>
+      </div>
+      <div>
+        <input type="checkbox" id="pict-title" name="pict-title">
+        <label for="pict-title">Titre de la photo</label>
+      </div>
+      <div>
+        <input type="checkbox" id="pict-desc" name="pict-desc">
+        <label for="pict-desc">Description de la photo</label>
+      </div>
+      <div>
+        <input type="checkbox" id="cat-desc" name="cat-desc">
+        <label for="cat-desc">Description de l'album</label>
+      </div>
+    </div>
+    <div class="filter-validate">
+      Valider
+    </div>
+   </div>
+  </div>
+  <div class="filter filter-tag">
+    <span class="mcs-icon pwg-icon-tag">X</span>Tag: <span class="search-words">Un Tag</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+
+    <div class="filter-form filter-tag-form">
+      <div class="search-params"> 
+        <div>
+          <input type="radio" id="tag-all" name="tag_mode" value="AND" checked>
+          <label for="tag-all">{'All tags'|@translate}</label>
+        </div>
+        <div>
+          <input type="radio" id="tag-one" name="tag_mode" value="OR">
+          <label for="tag-one">{'Any tag'|@translate}</label>
+        </div>
+      </div>
+      {* <input type="text" id="tag-search" name="word"> *}
+      <select id="tag-search" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple>
+    {foreach from=$TAGS item=tag}
+        <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
+    {/foreach}
+      </select>
+      <div class="filter-validate">
+        Valider
+      </div>
+    </div>
+  </div>
+  <div class="filter filter-date">
+    <span class="mcs-icon pwg-icon-calendar"></span>Date: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+
+    <div class="filter-form filter-date-form">
+      date div
+    </div>
+  </div>
+</div>
+
 <ul class="thumbnails" id="thumbnails">
   {$THUMBNAILS}
 </ul>

@@ -346,6 +346,16 @@ if ( empty($page['is_external']) )
   }
 }
 
+
+$available_tags = get_available_tags();
+
+if (count($available_tags) > 0)
+{
+  usort( $available_tags, 'tag_alpha_compare');
+
+  $template->assign('TAGS', $available_tags);
+}
+
 //------------------------------------------------------------ end
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_notify('loc_end_index');

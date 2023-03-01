@@ -1363,6 +1363,27 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       <br> <strong>display_thumbnail</strong> can be : \'no_display_thumbnail\', \'display_thumbnail_classic\', \'display_thumbnail_hoverbox\'',
       $ws_functions_root . 'pwg.php'
     );
+
+    $service->addMethod(
+      'pwg.gallery.getSearch',
+      'ws_gallery_getSearch',
+      array(
+        'search_id' => array('default'=>null),
+        ),
+      '',
+      $ws_functions_root . 'pwg.php'
+      );
+
+    $service->addMethod(
+      'pwg.gallery.updateSearch',
+      'ws_gallery_updateSearch',
+      array(
+        'search_id' => array('default'=>null),
+        'params' => array('default'=>null),
+        ),
+      '',
+      $ws_functions_root . 'pwg.php'
+      );
 }
 
 ?>
