@@ -343,9 +343,14 @@ function ws_images_getInfo($params, $service)
 {
   global $user, $conf;
 
+  # This is called to retrieve all details for an image, so is reasonable to assume the user is viewing the image.
+  pwg_log($params['image_id'], 'picture');
+
   $query='
 SELECT *
   FROM '. IMAGES_TABLE .'
+  LEFT OUTER JOIN '.FAVORITES_TABLE.' ft
+  ON id=ft.image_id
   WHERE id='. $params['image_id'] .
     get_sql_condition_FandF(
       array('visible_images' => 'id'),
@@ -362,6 +367,12 @@ LIMIT 1
 
   $image_row = pwg_db_fetch_assoc($result);
   $image_row = array_merge($image_row, ws_std_get_urls($image_row));
+
+  $isFavorite = 'false';
+  if($image_row['image_id'] != null)
+  {
+    $isFavorite = 'true';
+  }
 
   //-------------------------------------------------------- related categories
   $query = '
@@ -439,19 +450,29 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
     'score' => $image_row['rating_score'],
     'count' => 0,
     'average' => null,
+    'my_rating' => null,
     );
 	if (isset($rating['score']))
 	{
 		$query = '
-SELECT COUNT(rate) AS count, ROUND(AVG(rate),2) AS average
-  FROM '. RATE_TABLE .'
-  WHERE element_id = '. $image_row['id'] .'
-;';
+            SELECT COUNT(rate) AS count, ROUND(AVG(rate),2) AS average
+              FROM '. RATE_TABLE .'
+              WHERE element_id = '. $image_row['id'] .'
+            ;';
 		$row = pwg_db_fetch_assoc(pwg_query($query));
+
+		$query = '
+            SELECT rate as my_rating
+              FROM '. RATE_TABLE .'
+              WHERE element_id = '. $image_row['id'] .'
+              AND user_id = '.$user['id'].'
+            ;';
+        $rowB = pwg_db_fetch_assoc(pwg_query($query));
 
 		$rating['score'] = (float)$rating['score'];
 		$rating['average'] = (float)$row['average'];
 		$rating['count'] = (int)$row['count'];
+		$rating['my_rating'] = (int)$rowB['my_rating'];
 	}
 
   //---------------------------------------------------------- related comments
@@ -502,6 +523,7 @@ SELECT id, date, author, content
   }
 
   $ret = $image_row;
+  $ret['isFavorite']=$isFavorite;
   foreach (array('id','width','height','hit','filesize') as $k)
   {
     if (isset($ret[$k]))
@@ -2496,4 +2518,65 @@ function ws_images_deleteOrphans($params, $service)
     'nb_orphans' => count(get_orphans()),
     );
 }
+
+
+/**
+ * API method
+ * Returns all orphaned images
+ * @param mixed[] $params
+ *    @option int per_page
+ *    @option int page
+ */
+function ws_images_listOrphans($params, $service)
+{
+    global $conf, $logger;
+
+    # $logger->debug(__FUNCTION__, 'WS', $params);
+
+    $images = array();
+
+    $query = '
+    SELECT
+        SQL_CALC_FOUND_ROWS id
+      FROM '.IMAGES_TABLE.'
+        LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+      WHERE category_id is null
+      ORDER BY id ASC
+      LIMIT '. $params['per_page'] .'
+          OFFSET '. ($params['per_page']*$params['page']) .'
+    ;';
+
+  $result = pwg_query($query);
+
+  while ($row = pwg_db_fetch_assoc($result))
+    {
+      $image = array();
+      foreach (array('id') as $k)
+      {
+        if (isset($row[$k]))
+        {
+          $image[$k] = (int)$row[$k];
+        }
+      }
+      $images[] = $image;
+    }
+
+  list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+
+  return array(
+    'paging' => new PwgNamedStruct(
+      array(
+        'page' => $params['page'],
+        'per_page' => $params['per_page'],
+        'count' => count($images),
+        'total_count' => $total_images
+        )
+      ),
+    'images' => new PwgNamedArray(
+      $images, 'image',
+      ws_std_get_image_xml_attributes()
+      )
+    );
+}
+
 ?>

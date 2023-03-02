@@ -295,6 +295,50 @@ function ws_addDefaultMethods( $arr )
       array('admin_only'=>true, 'post_only'=>true)
     );
 
+    $service->addMethod(
+      'pwg.favorites.addImage',
+      'ws_favorites_add_image',
+      array(
+        'image_id' => array('type'=>WS_TYPE_ID)
+        ),
+      'Adds an image to the present user\'s list of favorites.',
+      $ws_functions_root . 'pwg.favorites.php',
+      array('post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.favorites.removeImage',
+      'ws_favorites_remove_image',
+      array(
+        'image_id' => array('type'=>WS_TYPE_ID)
+        ),
+      'Removes an image from the present user\'s list of favorites.',
+      $ws_functions_root . 'pwg.favorites.php',
+      array('post_only'=>true)
+    );
+    $service->addMethod(
+      'pwg.favorites.getList',
+      'ws_favorites_get_list',
+      array(
+        'per_page' =>     array('default'=>100,
+                                        'maxValue'=>$conf['ws_max_images_per_page'],
+                                        'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'page' =>         array('default'=>0,
+                                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        ),
+      'List all images on the present user\'s list of favorites.',
+      $ws_functions_root . 'pwg.favorites.php',
+      array('post_only'=>true)
+    );
+    $service->addMethod(
+      'pwg.favorites.removeAll',
+      'ws_favorites_remove_all',
+      array(),
+      'Remove all images from the present user\'s list of favorites.',
+      $ws_functions_root . 'pwg.favorites.php',
+      array('post_only'=>true)
+    );
+
   $service->addMethod(
       'pwg.rates.delete',
       'ws_rates_delete',
@@ -559,6 +603,21 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.listOrphans',
+      'ws_images_listOrphans',
+      array(
+          'per_page' => array('default' => 100,
+                              'maxValue' => $conf['ws_max_images_per_page'],
+                              'type' => WS_TYPE_INT|WS_TYPE_POSITIVE),
+          'page' => array('default'=>0,
+                          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE),
+      ),
+      'Lists orphaned images.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>false)
+  );
+
+  $service->addMethod(
       'pwg.images.deleteOrphans',
       'ws_images_deleteOrphans',
       array(
@@ -569,6 +628,8 @@ function ws_addDefaultMethods( $arr )
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+
+
 
   $service->addMethod(
       'pwg.categories.calculateOrphans',
