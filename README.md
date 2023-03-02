@@ -33,6 +33,13 @@ The [piwigo.org](https://piwigo.org) website introduces you to Piwigo. You'll fi
 
 If you do not have your own server, consider the [piwigo.com](https://piwigo.com/) hosting solution.
 
+### Run on YunoHost
+
+[![Install Piwigo with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=piwigo)
+
+Piwigo app for [YunoHost](https://yunohost.org). See [here](https://github.com/YunoHost-Apps/piwigo_ynh)
+
+
 ## Contributing
 
 Piwigo is widely driven by its community; if you want to improve the code, fork this repo and submit your changes to the `master` branch. See our [Contribution guide](https://github.com/Piwigo/Piwigo/blob/master/docs/CONTRIBUTING.md).
