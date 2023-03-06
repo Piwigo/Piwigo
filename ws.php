@@ -1379,7 +1379,10 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       'ws_gallery_updateSearch',
       array(
         'search_id' => array('default'=>null),
-        'params' => array('default'=>null),
+        'params' => array(
+          'default'=>null,
+          'flags'=> WS_PARAM_FORCE_ARRAY
+        ),
         ),
       '',
       $ws_functions_root . 'pwg.php'

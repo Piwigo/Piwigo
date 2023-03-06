@@ -185,9 +185,6 @@ jQuery(document).ready(function() {
 	{include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$cats_navbar}
 {/if}
 
-{if !empty($THUMBNAILS)}
-<div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
-
 {* Recherche multicritère *}
 <div class="mcs-container">
   <div class="filter-manager">
@@ -267,9 +264,20 @@ jQuery(document).ready(function() {
   </div>
 </div>
 
+{if !empty($THUMBNAILS)}
+<div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
+
 <ul class="thumbnails" id="thumbnails">
   {$THUMBNAILS}
 </ul>
+
+{else}
+<div class="mcs-no-result">
+  <div class="text">
+    <span>Aucun résultat n'est disponible.</span>
+    <span>Vous pouvez tenter de modifier vos filtres et effectuer une nouvelle recherche.</span>
+  </div>
+</div>
 {/if}
 {if !empty($thumb_navbar)}
 	{include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$thumb_navbar}

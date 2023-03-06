@@ -4,7 +4,7 @@ $(document).ready(function () {
 
   $.ajax({
     url: "ws.php?format=json&method=pwg.gallery.getSearch",
-    type:"POST",
+    type: "POST",
     dataType: "JSON",
     data: {
       search_id: search_id,
@@ -15,11 +15,10 @@ $(document).ready(function () {
       console.log(data.result);
       if (data.stat == "ok") {
         global_params = data.result;
-        // global_params.search_id = search_id;
+        global_params.search_id = search_id;
       }
-      // console.log(global_params);
-
       // What do we do if we can't fetch search params ?
+
     },
     error:function(e) {
       console.log(e);
@@ -107,6 +106,7 @@ $(document).ready(function () {
 })
 
 function performSearch(params) {
+  console.log("params sent to updatesearch");
   console.log(params);
   // TODO : Envoyer les bon paramètres
   // console.log(params.search_params);

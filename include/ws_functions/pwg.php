@@ -1079,10 +1079,9 @@ function ws_gallery_getSearch($param, &$service)
   include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
   if (get_search_array($param['search_id']) == false) {
-    return new PwgError(404, 'Search associated to id '.$param['search_id'].' not found');
+    return new PwgError(1404, 'Search associated to id '.$param['search_id'].' not found');
   }
 
-  // echo json_encode(get_search_array($param['search_id']));
   return get_search_array($param['search_id']);
 }
 
