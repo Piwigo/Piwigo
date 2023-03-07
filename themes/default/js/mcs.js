@@ -10,15 +10,41 @@ $(document).ready(function () {
       search_id: search_id,
     },
     success:function(data) {
-      console.log("Global params after fetch");
-
-      console.log(data.result);
+      if (data.stat == 'fail') {
+        console.log("search failed");
+        return;
+      } 
       if (data.stat == "ok") {
         global_params = data.result;
         global_params.search_id = search_id;
       }
-      // What do we do if we can't fetch search params ?
+      console.log("Global params after fetch");
+      console.log(global_params);
 
+      // Setup word filter
+      if (global_params.fields.allwords) {
+        console.log("there is a word in the search");
+        word_search_str = "";
+        word_search_words = global_params.fields.allwords.words
+        word_search_words.forEach(word => {
+          word_search_str += word + " ";
+        });
+        $("#word-search").val(word_search_str.slice(0, -1));
+
+        word_search_fields = global_params.fields.allwords.fields;
+        Object.keys(word_search_fields).forEach(field_key => {
+          $("#"+word_search_fields[field_key]).prop("checked", true);
+        });
+
+        word_search_mode = global_params.fields.allwords.mode;
+        $(".word-search-options input[value=" + word_search_mode + "]").prop("checked", true);
+
+        if (global_params.fields.search_in_tags) {
+          $("#tags").prop("checked", true);
+        }
+      }
+
+      // What do we do if we can't fetch search params ?
     },
     error:function(e) {
       console.log(e);
@@ -33,8 +59,23 @@ $(document).ready(function () {
       
       if ($(this).is(':visible')) {
         $(".filter-word").addClass("show-filter-dropdown");
+        $("#word-search").focus();
       } else {
         $(".filter-word").removeClass("show-filter-dropdown");
+
+        global_params.fields.allwords.words = $("#word-search").val().split(" ");
+        global_params.mode = $(".word-search-options input:checked").attr('value');
+
+        new_fields = []
+        $(".filter-word-form .search-params input:checked").each(function () {
+
+          if ($(this).attr("name") == "tags") {
+            global_params.fields.search_in_tags = true;
+          } else {
+            new_fields.push($(this).attr("name"));
+          }
+        });
+        global_params.fields.allwords.fields = new_fields;
         performSearch(global_params);
       }
     });
@@ -55,6 +96,7 @@ $(document).ready(function () {
 
       if ($(this).is(':visible')) {
         $(".filter-tag").addClass("show-filter-dropdown");
+        $(".filter-tag-form .selectize-input input").focus();
       } else {
         $(".filter-tag").removeClass("show-filter-dropdown");
         performSearch(global_params);
@@ -115,7 +157,7 @@ function performSearch(params) {
     type:"POST",
     dataType: "json",
     data: {
-      search_id: 199,
+      search_id: params.search_id,
       params: params,
     },
     success:function(data) {

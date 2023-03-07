@@ -196,8 +196,12 @@ jQuery(document).ready(function() {
 
    <div class="filter-form filter-word-form">
     <span class="word-help"><i class="pwg-icon-help"></i> Conseils de recherche</span>
+    <div class="word-search-options">
+      <label><input type="radio" name="mode" value="AND"> {'Search for all terms'|@translate}</label>
+      <label><input type="radio" name="mode" value="OR"> {'Search for any term'|@translate}</label>
+    </div>
+
     <input type="text" id="word-search" name="word">
-    
     <span> Rechercher dans :</span>
     <div class="search-params"> 
       <div>
@@ -209,16 +213,16 @@ jQuery(document).ready(function() {
         <label for="tags">Tags</label>
       </div>
       <div>
-        <input type="checkbox" id="file-name" name="file-name">
-        <label for="file-name">Nom de fichier</label>
+        <input type="checkbox" id="file" name="file">
+        <label for="file">Nom de fichier</label>
       </div>
       <div>
-        <input type="checkbox" id="pict-title" name="pict-title">
-        <label for="pict-title">Titre de la photo</label>
+        <input type="checkbox" id="name" name="name">
+        <label for="name">Titre de la photo</label>
       </div>
       <div>
-        <input type="checkbox" id="pict-desc" name="pict-desc">
-        <label for="pict-desc">Description de la photo</label>
+        <input type="checkbox" id="comment" name="comment">
+        <label for="comment">Description de la photo</label>
       </div>
       <div>
         <input type="checkbox" id="cat-desc" name="cat-desc">
