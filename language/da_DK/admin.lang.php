@@ -750,7 +750,7 @@ $lang['The original maximum height must be a number between %d and %d'] = 'Den o
 $lang['The original maximum width must be a number between %d and %d'] = 'Den originale maksimumbredde skal være et tal mellem %d og %d';
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Dette er en større opdatering, med <a href="%s">nye spændende funktioner</a>.';
 $lang['This is a minor update, with only bug corrections.'] = 'Dette er en mindre opdatering, kun med fejlrettelser.';
-$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'DENNE PLUGIN ER NU EN DEL AF PIWIGOS KERNE! AFINDSTALLER DET NU!';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'DENNE PLUGIN ER NU EN DEL AF PIWIGOS KERNE! AFINDSTALLER DEN NU!';
 $lang['Thumbnails generation in progress...'] = 'Dannelse af miniaturebilleder er i gang ...';
 $lang['Update All'] = 'Opdater alle';
 $lang['Update Complete'] = 'Opdatering gennemført';
@@ -1262,7 +1262,7 @@ $lang['This albums is already in related categories list'] = 'Dette album er all
 $lang['This photo is an orphan'] = 'Dette fotografi er forældreløst';
 $lang['This plugin has no recent update'] = 'Denne plugin er ikke nyligt opdateret';
 $lang['This plugin have been updated recently'] = 'Denne plugin er nyligt opdateret';
-$lang['This plugin have no update since 3 years ! It may be outdated'] = 'Denne plugin er ikke opdateret i tre år! Den kan være forældet';
+$lang['This plugin have no update since 3 years ! It may be outdated'] = 'Denne plugin har ikke været opdateret i tre år! Den kan være forældet';
 $lang['This plugin is incompatible with your version'] = 'Denne plugin er inkompatibel med din version';
 $lang['This plugin was updated less than 6 months ago'] = 'Denne plugin blev opdateret for mindre end 6 måneder siden';
 $lang['Try now !'] = 'Prøv nu!';
