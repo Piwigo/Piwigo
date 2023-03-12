@@ -422,3 +422,6 @@ $lang['Invalid username or password!'] = 'رمز یا نام کاربری نام
 $lang['generate random password'] = 'ساخت رمز اتفاقی';
 $lang['Related albums'] = 'آلبوم‌های مرتبط';
 $lang['Start-Date'] = 'تاریخ شروع';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'نام آلبوم, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'نام آلبوم, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Password: ********** (no copy by email)'] = 'گذرواژه: ********** )نباید محتوی ایمیل شما باشد(';
