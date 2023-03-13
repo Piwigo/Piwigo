@@ -1012,64 +1012,64 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 /*Error message*/
 
 .errors {
-    color: #ffc4bf;
-    background-color: #d31100;
-    border-left: 4px solid #ffc4bf;
+    color: #fec6c7;
+    background-color: #bc4b4a;
+    border-left: 4px solid #fec6c7;
 }
 
 .errors li{
-    color: #ff0303;
+    color: #ffffff;
 }
 
 .errors a{
-    background-color: #ff4838;
+    background-color: #6b3030;
     padding: 2px 7px;
-    color: #ffe8e6;
+    color: #ffffff;
 }
 
 /*Success message*/
 
 .infos {
-    color: #9bff92;
-    background-color: #10bb00;
-    border-left: 4px solid #9bff92;
+    color: #b8feee;
+    background-color: #50a48f;
+    border-left: 4px solid #b8feee;
 }
 
 .infos li{
-    color: #9bff92;
+    color: #ffffff;
 }
 
 .infos a{
-    background-color: #12e100;
+    background-color: #28554a;
     padding: 2px 7px;
-    color: #e3ffe1;
+    color: #ffffff;
 }
 
 /*Warning message*/
 
 .warnings {
-    color: #ffc58c;
-    background-color: #ee6300;
-    border-left: 4px solid #ffc58c;
+    color: #fedac0;
+    background-color: #d47f44;
+    border-left: 4px solid #fedac0;
 }
 
 .warnings a{
-    background-color: #ff8e3d;
+    background-color: #734627;
     padding: 2px 7px;
-    color: #ffedda;
+    color: #ffffff;
 }
 
 /*announcement message*/
 
 .messages {
-    color: #45a8ff;
-    background-color: #003360;
-    border-left: 4px solid #45a8ff;
+    color: #bad6ff;
+    background-color: #4f71a4;
+    border-left: 4px solid #bad6ff;
 }
 
 .eiw .messages a {
-    background-color: #00529b;
-    color: #a7d6ff;
+    background-color: #273d5f;
+    color: #ffffff;
     padding: 2px 7px;
 }
 
@@ -1209,23 +1209,23 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 /* Icon colors*/
 
 .icon-red {
-  border:2px solid #c64444;
-  color: #c64444
+  color: #fec6c7;
+  background: #bc4b4a;
 }
 
 .icon-yellow {
-  color: #ffa744;
-  border:2px solid #ffa744;
+  color: #fedac0;
+  background: #d47f44;
 }
 
 .icon-purple {
-  border:2px solid #ce4baa;
-  color: #ce4baa;
+  background: #4e5aa3;
+  color: #a1adf6;
 }
 
 .icon-blue {
-  border:2px solid #379bbc;
-  color: #379bbc;
+  background: #4f71a4;
+  color: #9fbef1;
 }
 
 .icon-blue-full {
@@ -1235,13 +1235,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .icon-green {
-  border:2px solid #4ac641;
-  color: #4ac641;
+  background: #50a48f;
+  color: #a9f6e3;
 }
 
 .icon-grey {
   color: #ccc;
-  border: 2px solid #ccc;
+  background: #888;
 }
 
 
