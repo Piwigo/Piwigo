@@ -38,6 +38,14 @@ const filtered_users = '{'<b>%d</b> filtered users'|@translate|escape:javascript
 const filtered_user = '{'<b>%d</b> filtered user'|@translate|escape:javascript}';
 const history_base_url = "{$U_HISTORY}";
 
+const status_to_str = {
+  'webmaster': "{'user_status_webmaster'|translate}",
+  'admin': "{'user_status_admin'|translate}",
+  'normal': "{'user_status_normal'|translate}",
+  'generic': "{'user_status_generic'|translate}",
+  'guest': "{'user_status_guest'|translate}",
+}
+
 const view_selector = '{$view_selector}';
 const pagination = '{$pagination}';
 

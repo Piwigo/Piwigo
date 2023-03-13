@@ -963,7 +963,7 @@ function fill_container_user_info(container, user_index) {
     container.attr('key', user_index);
     container.find(".user-container-username span").html(user.username);
     container.find(".user-container-initials span").html(get_initials(user.username)).addClass(color_icons[user.id % 5]);
-    container.find(".user-container-status span").html(user.status);
+    container.find(".user-container-status span").html(status_to_str[user.status]);
     container.find(".user-container-email span").html(user.email);
     generate_groups(container, user.groups);
     container.find(".user-container-registration-date").html(registration_dates[0]);
