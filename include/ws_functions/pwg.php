@@ -1072,13 +1072,15 @@ SELECT
 function ws_gallery_getSearch($param, &$service)
 {
   // return $param;
-  if (is_null($param['search_id'])) {
+  if (is_null($param['search_id']))
+  {
     // Créer une recherche
     return new PwgError(404, 'Search id is null');
   }
   include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
-  if (get_search_array($param['search_id']) == false) {
+  if (get_search_array($param['search_id']) == false)
+  {
     return new PwgError(1404, 'Search associated to id '.$param['search_id'].' not found');
   }
 
@@ -1088,13 +1090,15 @@ function ws_gallery_getSearch($param, &$service)
 function ws_gallery_updateSearch($param, &$service)
 {
   // return $param;
-  if (is_null($param['search_id'])) {
+  if (is_null($param['search_id']))
+  {
     // Créer une recherche
     return new PwgError(404, 'Search id is null');
   }
   include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
-  if (get_search_array($param['search_id']) == false) {
+  if (get_search_array($param['search_id']) == false)
+  {
     return new PwgError(404, 'Search associated to id '.$param['search_id'].' not found');
   }
 

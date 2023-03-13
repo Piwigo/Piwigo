@@ -75,6 +75,9 @@ $(document).ready(function () {
             new_fields.push($(this).attr("name"));
           }
         });
+        if ($(".filter-word-form .search-params input[name='tags']:checked").length == 0) {
+          delete global_params.fields.search_in_tags;
+        }
         global_params.fields.allwords.fields = new_fields;
         performSearch(global_params);
       }
