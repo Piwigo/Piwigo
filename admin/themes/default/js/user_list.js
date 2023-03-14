@@ -1407,6 +1407,11 @@ function update_user_info() {
             } else if (data.stat === 'fail') {
                 $("#UserList .update-user-fail").html(data.message);
                 $("#UserList .update-user-fail").fadeIn();
+                $(".update-user-button i").addClass("icon-floppy").removeClass("icon-spin6 animate-spin");
+                $(".update-user-button").removeClass("unclickable");
+                setTimeout(() => {
+                  $("#UserList .update-user-fail").fadeOut();
+                }, 5000);
             }
         }
     });
