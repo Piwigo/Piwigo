@@ -271,6 +271,32 @@ a.stat-box:hover {
   border: none !important;
 }
 
+.activity-chart span div,
+.storage-chart span:nth-child(5), .storage-chart-legend div:nth-child(5) span {
+  background-color: #bc4b4a;
+  opacity: 1;
+}
+
+.activity-chart #week-1-legend ~ span div,
+.storage-chart span:nth-child(4), .storage-chart-legend div:nth-child(4) span {
+  background-color: #4f71a4;
+}
+
+.activity-chart #week-2-legend ~ span div,
+.storage-chart span:nth-child(3), .storage-chart-legend div:nth-child(3) span {
+  background-color: #4e5aa3;
+}
+
+.activity-chart #week-3-legend ~ span div,
+.storage-chart span:nth-child(2), .storage-chart-legend div:nth-child(2) span {
+  background-color: #50a48f;
+}
+
+.activity-chart #week-4-legend ~ span div,
+.storage-chart span:nth-child(1), .storage-chart-legend div:nth-child(1) span {
+  background-color: #d47f44;
+}
+
 /* hacks */
 * html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
 *+html  .bigtext { left: 70px; }
@@ -395,10 +421,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 .move-cat-container:hover {
   background-color: #232323;
 }
-.move-cat-container:hover .badge-container i,
-.move-cat-container:hover .node-icon{
-  background-color: transparent;
-}
+
 .move-cat-action a:hover {
   color: #777;
   background: #111;
@@ -1467,14 +1490,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .user-first-col:hover {
-  border: solid #ffa646 2px;
   box-sizing: border-box;
-
-  background-color:transparent;
+  background-color:#d47f44;
 }
 
 .user-first-col:hover .icon-pencil {
-  color: #ffa646;
+  color: #fedac0;
 }
 .user-first-col:hover .select-checkbox {
   border: solid #ffa646 2px !important;
