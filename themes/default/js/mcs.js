@@ -92,28 +92,25 @@ $(document).ready(function () {
   })
 
   $(".filter-tag").on("click", function (e) {
-    if ($(".filter-form").has(e.target).length != 0 || $(e.target).hasClass("filter-form")) {
+    if ($(".filter-form").has(e.target).length != 0 || $(e.target).hasClass("filter-form") || $(e.target).hasClass("remove")) {
       return
     }
     $(".filter-tag-form").toggle(0, function () {
-
       if ($(this).is(':visible')) {
         $(".filter-tag").addClass("show-filter-dropdown");
-        $(".filter-tag-form .selectize-input input").focus();
       } else {
         $(".filter-tag").removeClass("show-filter-dropdown");
         performSearch(global_params);
       }
     });
-
-    $(".filter-tag .filter-validate").on("click", function () {
-      // Update global params
-      console.log(global_params);
-  
-      // Trigger search with click
-      $(".filter-tag").trigger("click");
-    })
   });
+  $(".filter-tag .filter-validate").on("click", function () {
+    // Update global params
+    console.log(global_params);
+
+    // Trigger search with click
+    $(".filter-tag").trigger("click");
+  })
 
   $(".filter-date").on("click", function (e) {
     if ($(".filter-form").has(e.target).length != 0 || $(e.target).hasClass("filter-form")) {

@@ -195,14 +195,14 @@ jQuery(document).ready(function() {
    <span class="mcs-icon pwg-icon-search">X</span>Mot: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-arrow-n"></span>
 
    <div class="filter-form filter-word-form">
-    <span class="word-help"><i class="pwg-icon-help"></i> Conseils de recherche</span>
+    <span class="word-help"><i class="pwg-icon-help"></i>Conseils de recherche</span>
     <div class="word-search-options">
       <label><input type="radio" name="mode" value="AND"> {'Search for all terms'|@translate}</label>
       <label><input type="radio" name="mode" value="OR"> {'Search for any term'|@translate}</label>
     </div>
 
     <input type="text" id="word-search" name="word">
-    <span> Rechercher dans :</span>
+    <span class="search-params-title"> Rechercher dans :</span>
     <div class="search-params"> 
       <div>
         <input type="checkbox" id="cat-title" name="cat-title">
@@ -248,7 +248,6 @@ jQuery(document).ready(function() {
           <label for="tag-one">{'Any tag'|@translate}</label>
         </div>
       </div>
-      {* <input type="text" id="tag-search" name="word"> *}
       <select id="tag-search" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple>
     {foreach from=$TAGS item=tag}
         <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
