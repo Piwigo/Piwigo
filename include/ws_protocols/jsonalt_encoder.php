@@ -6,7 +6,7 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
-class PwgJsonEncoder extends PwgResponseEncoder
+class PwgJsonAlternativeEncoder extends PwgResponseEncoder
 {
   function encodeResponse($response)
   {

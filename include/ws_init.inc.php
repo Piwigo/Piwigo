@@ -60,7 +60,7 @@ if (!is_null($responseFormat))
       break;
     case 'jsonalt':
       include_once(PHPWG_ROOT_PATH.'include/ws_protocols/jsonalt_encoder.php');
-      $encoder = new PwgJsonEncoder();
+      $encoder = new PwgJsonAlternativeEncoder();
       break;
     case 'xmlrpc':
       include_once(PHPWG_ROOT_PATH.'include/ws_protocols/xmlrpc_encoder.php');
