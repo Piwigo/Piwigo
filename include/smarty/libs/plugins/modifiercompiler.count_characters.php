@@ -25,8 +25,8 @@ function smarty_modifiercompiler_count_characters($params)
         return 'preg_match_all(\'/[^\s]/' . Smarty::$_UTF8_MODIFIER . '\',' . $params[ 0 ] . ', $tmp)';
     }
     if (Smarty::$_MBSTRING) {
-        return 'mb_strlen(' . $params[ 0 ] . ', \'' . addslashes(Smarty::$_CHARSET) . '\')';
+        return 'mb_strlen((string) ' . $params[ 0 ] . ', \'' . addslashes(Smarty::$_CHARSET) . '\')';
     }
     // no MBString fallback
-    return 'strlen(' . $params[ 0 ] . ')';
+    return 'strlen((string) ' . $params[ 0 ] . ')';
 }

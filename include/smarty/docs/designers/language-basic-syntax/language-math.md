@@ -1,25 +1,24 @@
-Math {#language.math}
-====
+# Math
 
 Math can be applied directly to variable values.
 
+## Examples
+```smarty
+{$foo+1}
 
-    {$foo+1}
+{$foo*$bar}
 
-    {$foo*$bar}
+{* some more complicated examples *}
 
-    {* some more complicated examples *}
+{$foo->bar-$bar[1]*$baz->foo->bar()-3*7}
 
-    {$foo->bar-$bar[1]*$baz->foo->bar()-3*7}
+{if ($foo+$bar.test%$baz*134232+10+$b+10)}
 
-    {if ($foo+$bar.test%$baz*134232+10+$b+10)}
+{$foo|truncate:"`$fooTruncCount/$barTruncFactor-1`"}
 
-    {$foo|truncate:"`$fooTruncCount/$barTruncFactor-1`"}
-
-    {assign var="foo" value="`$foo+$bar`"}
-
+{assign var="foo" value="`$foo+$bar`"}
+```
       
-
 > **Note**
 >
 > Although Smarty can handle some very complex expressions and syntax,

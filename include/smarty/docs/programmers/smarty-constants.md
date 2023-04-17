@@ -23,5 +23,4 @@ to determine the appropriate value automatically. If defined, the path
 
          
 
-See also [`$smarty.const`](../designers/language-variables/language-variables-smarty.md) and
-[`$php_handling constants`](./api-variables/variable-php-handling.md)
+See also [`$smarty.const`](../designers/language-variables/language-variables-smarty.md).

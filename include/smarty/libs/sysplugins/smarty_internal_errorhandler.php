@@ -23,6 +23,12 @@ class Smarty_Internal_ErrorHandler
      */
     public $allowUndefinedArrayKeys = true;
 
+    /**
+     * Allows {$foo->bar} where bar is not an object (e.g. null or false).
+     * @var bool
+     */
+    public $allowDereferencingNonObjects = true;
+
     private $previousErrorHandler = null;
 
     /**
@@ -66,14 +72,25 @@ class Smarty_Internal_ErrorHandler
      */
     public function handleError($errno, $errstr, $errfile, $errline, $errcontext = [])
     {
-        if ($this->allowUndefinedVars && $errstr == 'Attempt to read property "value" on null') {
+
+        if ($this->allowUndefinedVars && preg_match(
+                '/^(Attempt to read property "value" on null|Trying to get property (\'value\' )?of non-object)/',
+                $errstr
+            )) {
             return; // suppresses this error
         }
 
         if ($this->allowUndefinedArrayKeys && preg_match(
-            '/^(Undefined array key|Trying to access array offset on value of type null)/',
+            '/^(Undefined index|Undefined array key|Trying to access array offset on value of type)/',
             $errstr
         )) {
+            return; // suppresses this error
+        }
+
+        if ($this->allowDereferencingNonObjects && preg_match(
+                '/^Attempt to read property ".+?" on/',
+                $errstr
+            )) {
             return; // suppresses this error
         }
 

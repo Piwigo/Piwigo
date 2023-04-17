@@ -1,8 +1,6 @@
-{for} {#language.function.for}
-=====
+# {for}
 
-The `{for}{forelse}` tag is used to create simple loops. The following
-different formarts are supported:
+The `{for}{forelse}` tag is used to create simple loops. The following different formats are supported:
 
 -   `{for $var=$start to $end}` simple loop with step size of 1.
 
@@ -11,87 +9,83 @@ different formarts are supported:
 
 `{forelse}` is executed when the loop is not iterated.
 
-**Attributes:**
+## Attributes
 
-   Attribute Name   Shorthand    Type     Required   Default  Description
-  ---------------- ----------- --------- ---------- --------- --------------------------------
-        max            n/a      integer      No       *n/a*   Limit the number of iterations
+| Attribute | Required | Description                    |
+|-----------|----------|--------------------------------|
+| max       | No       | Limit the number of iterations |
 
-**Option Flags:**
+## Option Flags
 
-    Name    Description
-  --------- --------------------------------------
-   nocache  Disables caching of the `{for}` loop
+| Name    | Description                          |
+|---------|--------------------------------------|
+| nocache | Disables caching of the `{for}` loop |
 
+## Examples
 
-    <ul>
+```smarty
+<ul>
     {for $foo=1 to 3}
         <li>{$foo}</li>
     {/for}
-    </ul>
-
+</ul>
+```
       
-
 The above example will output:
 
-
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-    </ul>
-
+```html
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+```
       
-
-
-    $smarty->assign('to',10);
-
-      
-
-
-    <ul>
+```php
+<?php
+$smarty->assign('to',10);
+```
+    
+```smarty
+<ul>
     {for $foo=3 to $to max=3}
         <li>{$foo}</li>
     {/for}
-    </ul>
-
-      
+</ul>
+```
 
 The above example will output:
 
+```html
+<ul>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+```
 
-    <ul>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-    </ul>
+```php
+<?php
+$smarty->assign('start',10);
+$smarty->assign('to',5);
+```
 
-      
-
-
-    $smarty->assign('start',10);
-    $smarty->assign('to',5);
-
-      
-
-
-    <ul>
+```smarty
+<ul>
     {for $foo=$start to $to}
         <li>{$foo}</li>
     {forelse}
       no iteration
     {/for}
-    </ul>
-
-      
+</ul>
+```
 
 The above example will output:
 
-
-      no iteration
-
+```
+   no iteration
+```
       
-
-See also [`{foreach}`](#language.function.foreach),
-[`{section}`](#language.function.section) and
-[`{while}`](#language.function.while)
+See also [`{foreach}`](./language-function-foreach.md),
+[`{section}`](./language-function-section.md) and
+[`{while}`](./language-function-while.md)

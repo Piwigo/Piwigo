@@ -2,7 +2,7 @@
 ====================
 
 This tells smarty to respect the
-[include\_path](&url.php-manual;ini.core.php#ini.include-path) within
+[include\_path](https://www.php.net/ini.core.php#ini.include-path) within
 the [`File Template Resource`](#resources.file) handler and the plugin
 loader to resolve the directories known to
 [`$template_dir`](#variable.template.dir). The flag also makes the
@@ -23,14 +23,14 @@ If use\_include\_path is enabled, file discovery for
     \$plugins\_dir) do
 
 -   Test if requested file is in `$directory` relative to the [current
-    working directory](&url.php-manual;function.getcwd.php). If file
+    working directory](https://www.php.net/function.getcwd.php). If file
     found, return it.
 
 -   For each `$path` in include\_path do
 
 -   Test if requested file is in `$directory` relative to the `$path`
     (possibly relative to the [current working
-    directory](&url.php-manual;function.getcwd.php)). If file found,
+    directory](https://www.php.net/function.getcwd.php)). If file found,
     return it.
 
 -   Try default\_handler or fail.

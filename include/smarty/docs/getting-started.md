@@ -1,26 +1,25 @@
-What is Smarty?
-==============
+# Getting started
 
 ## Requirements
-Smarty can be run with PHP 7.1 to PHP 8.1.
+Smarty can be run with PHP 7.1 to PHP 8.2.
 
 ## Installation
-Smarty versions 3.1.11 or later can be installed with [Composer](https://getcomposer.org/).
+Smarty can be installed with [Composer](https://getcomposer.org/).
 
 To get the latest stable version of Smarty use:
-```bash
+```shell
 composer require smarty/smarty
-````
+```
 
 To get the latest, unreleased version, use:
-```bash
+```shell
 composer require smarty/smarty:dev-master
-````
+```
 
 To get the previous stable version of Smarty, Smarty 3, use:
-```bash
+```shell
 composer require smarty/smarty:^3
-````
+```
 
 Here's how you create an instance of Smarty in your PHP scripts:
 ```php
@@ -30,7 +29,7 @@ require 'vendor/autoload.php';
 $smarty = new Smarty();
 ```
 
-Now that the library files are in place, it's time to setup the Smarty
+Now that the library files are in place, it's time to set up the Smarty
 directories for your application.
 
 Smarty requires four directories which are by default named
@@ -82,7 +81,7 @@ $smarty->testInstall();
 Now, let's create the `index.tpl` file that Smarty will display. This
 needs to be located in the [`$template_dir`](./programmers/api-variables/variable-template-dir.md).
 
-```html
+```smarty
 {* Smarty *}
 Hello {$name}, welcome to Smarty!
 ```
@@ -118,24 +117,22 @@ $smarty->display('index.tpl');
 
 > **Note**
 >
-> In our example, we are setting absolute paths to all of the Smarty
+> In our example, we are setting absolute paths to all the Smarty
 > directories. If `/web/www.example.com/guestbook/` is within your PHP
 > include\_path, then these settings are not necessary. However, it is
 > more efficient and (from experience) less error-prone to set them to
 > absolute paths. This ensures that Smarty is getting files from the
 > directories you intended.
 
-Now, run your PHP file. You should see *\"Hello Ned, welcome to Smarty!\"*
+Now, run your PHP file. You should see *"Hello Ned, welcome to Smarty!"*
 
 You have completed the basic setup for Smarty!
 
-## Extended Setup {#installing.smarty.extended}
-==============
+## Extended Setup
 
-This is a continuation of the [basic
-installation](#installing.smarty.basic), please read that first!
+This is a continuation of the [basic installation](#installation), please read that first!
 
-A slightly more flexible way to setup Smarty is to extend the Smarty
+A slightly more flexible way to set up Smarty is to extend the Smarty
 class and initialize your Smarty
 environment. So instead of repeatedly setting directory paths, assigning
 the same vars, etc., we can do that in one place.
@@ -163,7 +160,8 @@ class Smarty_GuestBook extends Smarty {
 
 Now, we can use `Smarty_GuestBook` instead of `Smarty` in our scripts:
 ```php
+<?php
 $smarty = new Smarty_GuestBook();
-$smarty->assign('name','Ned');
+$smarty->assign('name', 'Ned');
 $smarty->display('index.tpl');
 ```

@@ -205,11 +205,11 @@ abstract class Smarty_CacheResource
         }
         // try sysplugins dir
         if (isset(self::$sysplugins[ $type ])) {
-            $cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($type);
+            $cache_resource_class = 'Smarty_Internal_CacheResource_' . smarty_ucfirst_ascii($type);
             return $smarty->_cache[ 'cacheresource_handlers' ][ $type ] = new $cache_resource_class();
         }
         // try plugins dir
-        $cache_resource_class = 'Smarty_CacheResource_' . ucfirst($type);
+        $cache_resource_class = 'Smarty_CacheResource_' . smarty_ucfirst_ascii($type);
         if ($smarty->loadPlugin($cache_resource_class)) {
             return $smarty->_cache[ 'cacheresource_handlers' ][ $type ] = new $cache_resource_class();
         }

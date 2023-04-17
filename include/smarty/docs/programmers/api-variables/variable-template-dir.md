@@ -18,7 +18,7 @@ found.
 >
 > If the directories known to `$template_dir` are relative to
 > directories known to the
-> [include\_path](&url.php-manual;ini.core.php#ini.include-path) you
+> [include\_path](https://www.php.net/ini.core.php#ini.include-path) you
 > need to activate the [`$use_include_path`](#variable.use.include.path)
 > option.
 

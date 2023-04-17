@@ -25,10 +25,10 @@ like.
 -   You CANNOT remove a specified template name under multiple cache
     groups such as `'/a/b/*/foo.tpl'`, the cache grouping works
     left-to-right ONLY. You will need to group your templates under a
-    single cache group heirarchy to be able to clear them as a group.
+    single cache group hierarchy to be able to clear them as a group.
 
 Cache grouping should not be confused with your template directory
-heirarchy, the cache grouping has no knowledge of how your templates are
+hierarchy, the cache grouping has no knowledge of how your templates are
 structured. So for example, if you have a template structure like
 `themes/blue/index.tpl` and you want to be able to clear all the cache
 files for the "blue" theme, you will need to create a cache group

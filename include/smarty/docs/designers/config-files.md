@@ -1,5 +1,4 @@
-Config Files {#config.files}
-============
+# Config Files
 
 Config files are handy for designers to manage global template variables
 from one file. One example is template colors. Normally if you wanted to
@@ -8,39 +7,38 @@ each and every template file and change the colors. With a config file,
 the colors can be kept in one place, and only one file needs to be
 updated.
 
+```ini
+# global variables
+pageTitle = "Main Menu"
+bodyBgColor = #000000
+tableBgColor = #000000
+rowBgColor = #00ff00
 
-    # global variables
-    pageTitle = "Main Menu"
-    bodyBgColor = #000000
-    tableBgColor = #000000
-    rowBgColor = #00ff00
+[Customer]
+pageTitle = "Customer Info"
 
-    [Customer]
-    pageTitle = "Customer Info"
+[Login]
+pageTitle = "Login"
+focus = "username"
+Intro = """This is a value that spans more
+           than one line. you must enclose
+           it in triple quotes."""
 
-    [Login]
-    pageTitle = "Login"
-    focus = "username"
-    Intro = """This is a value that spans more
-               than one line. you must enclose
-               it in triple quotes."""
-
-    # hidden section
-    [.Database]
-    host=my.example.com
-    db=ADDRESSBOOK
-    user=php-user
-    pass=foobar
-
+# hidden section
+[.Database]
+host=my.example.com
+db=ADDRESSBOOK
+user=php-user
+pass=foobar
+```
       
 
 Values of [config file variables](./language-variables/language-config-variables.md) can be in
 quotes, but not necessary. You can use either single or double quotes.
 If you have a value that spans more than one line, enclose the entire
-value with triple quotes (\"\"\"). You can put comments into config
+value with triple quotes \("""\). You can put comments into config
 files by any syntax that is not a valid config file syntax. We recommend
-using a `
-  #` (hash) at the beginning of the line.
+using a `#` (hash) at the beginning of the line.
 
 The example config file above has two sections. Section names are
 enclosed in \[brackets\]. Section names can be arbitrary strings not
@@ -54,8 +52,7 @@ the last one will be used unless
 [`$config_overwrite`](../programmers/api-variables/variable-config-overwrite.md) is disabled.
 
 Config files are loaded into templates with the built-in template
-function [`
-  {config_load}`](./language-builtin-functions/language-function-config-load.md) or the API
+function [`{config_load}`](./language-builtin-functions/language-function-config-load.md) or the API
 [`configLoad()`](../programmers/api-functions/api-config-load.md) function.
 
 You can hide variables or entire sections by prepending the variable

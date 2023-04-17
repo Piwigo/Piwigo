@@ -422,9 +422,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
         try {
             // save template object in compiler class
             $this->template = $template;
-            if (property_exists($this->template->smarty, 'plugin_search_order')) {
-                $this->plugin_search_order = $this->template->smarty->plugin_search_order;
-            }
             if ($this->smarty->debugging) {
                 if (!isset($this->smarty->_debug)) {
                     $this->smarty->_debug = new Smarty_Internal_Debug();
@@ -608,7 +605,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0
                 || strcasecmp($name, 'array') === 0 || is_callable($name)
             ) {
-                $func_name = strtolower($name);
+                $func_name = smarty_strtolower_ascii($name);
 
                 if ($func_name === 'isset') {
                     if (count($parameter) === 0) {
@@ -768,7 +765,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (!isset(self::$_tag_objects[ $tag ])) {
             // lazy load internal compiler plugin
             $_tag = explode('_', $tag);
-            $_tag = array_map('ucfirst', $_tag);
+            $_tag = array_map('smarty_ucfirst_ascii', $_tag);
             $class_name = 'Smarty_Internal_Compile_' . implode('_', $_tag);
             if (class_exists($class_name)
                 && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))
@@ -1134,8 +1131,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
             echo ob_get_clean();
             flush();
         }
-        $e = new SmartyCompilerException($error_text);
-        $e->setLine($line);
+        $e = new SmartyCompilerException(
+            $error_text,
+            0,
+            $this->template->source->filepath,
+            $line
+        );
         $e->source = trim(preg_replace('![\t\r\n]+!', ' ', $match[ $line - 1 ]));
         $e->desc = $args;
         $e->template = $this->template->source->filepath;
@@ -1438,6 +1439,10 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @return bool true if compiling succeeded, false if it failed
      */
     abstract protected function doCompile($_content, $isTemplateSource = false);
+
+    public function cStyleComment($string) {
+        return '/*' . str_replace('*/', '* /' , $string) . '*/';
+    }
 
     /**
      * Compile Tag

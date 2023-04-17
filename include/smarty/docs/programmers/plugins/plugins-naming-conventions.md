@@ -32,7 +32,7 @@ in order to be located by Smarty.
 
 -   And `name` should be a valid identifier; letters, numbers, and
     underscores only, see [php
-    variables](&url.php-manual;language.variables).
+    variables](https://www.php.net/language.variables).
 
 -   Some examples: `function.html_select_date.php`, `resource.db.php`,
     `modifier.spacify.php`.

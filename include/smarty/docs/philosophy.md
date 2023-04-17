@@ -1,5 +1,4 @@
-Philosophy
-=======
+# Philosophy
 
 ## What is Smarty?
 

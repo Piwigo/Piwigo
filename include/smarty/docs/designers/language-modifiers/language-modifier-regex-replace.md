@@ -1,9 +1,13 @@
-regex\_replace {#language.modifier.regex.replace}
-==============
+# regex_replace
 
 A regular expression search and replace on a variable. Use the
-[`preg_replace()`](&url.php-manual;preg_replace) syntax from the PHP
+[`preg_replace()`](https://www.php.net/preg_replace) syntax from the PHP
 manual.
+
+## Basic usage
+```smarty
+{$myVar|regex_replace:"/foo/":"bar"}
+```
 
 > **Note**
 >
@@ -12,40 +16,40 @@ manual.
 > functions or modifiers. Regular expressions are considered application
 > code and are not part of presentation logic.
 
-Parameters
+## Parameters
 
-   Parameter Position    Type    Required   Default  Description
-  -------------------- -------- ---------- --------- ------------------------------------------------
-           1            string     Yes       *n/a*   This is the regular expression to be replaced.
-           2            string     Yes       *n/a*   This is the string of text to replace with.
+| Parameter Position | Type   | Required | Description                                    |
+|--------------------|--------|----------|------------------------------------------------|
+| 1                  | string | Yes      | This is the regular expression to be replaced. |
+| 2                  | string | Yes      | This is the string of text to replace with.    |
 
 
-    <?php
+## Examples
 
-    $smarty->assign('articleTitle', "Infertility unlikely to\nbe passed on, experts say.");
+```php
+<?php
 
-    ?>
+$smarty->assign('articleTitle', "Infertility unlikely to\nbe passed on, experts say.");
 
-       
+```
 
 Where template is:
 
+```smarty
+{* replace each carriage return, tab and new line with a space *}
 
-    {* replace each carriage return, tab and new line with a space *}
-
-    {$articleTitle}
-    {$articleTitle|regex_replace:"/[\r\t\n]/":" "}
-
+{$articleTitle}
+{$articleTitle|regex_replace:"/[\r\t\n]/":" "}
+```
        
-
 Will output:
 
-
-    Infertility unlikely to
-    be passed on, experts say.
-    Infertility unlikely to be passed on, experts say.
-
+```
+Infertility unlikely to
+be passed on, experts say.
+Infertility unlikely to be passed on, experts say.
+```
        
 
-See also [`replace`](#language.modifier.replace) and
-[`escape`](#language.modifier.escape).
+See also [`replace`](language-modifier-replace.md) and
+[`escape`](language-modifier-escape.md).

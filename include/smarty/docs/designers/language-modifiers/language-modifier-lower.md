@@ -1,33 +1,34 @@
-lower {#language.modifier.lower}
-=====
+# lower
 
 This is used to lowercase a variable. This is equivalent to the PHP
-[`strtolower()`](&url.php-manual;strtolower) function.
+[`strtolower()`](https://www.php.net/strtolower) function.
 
+## Basic usage
+```smarty
+{$myVar|lower}
+```
 
-    <?php
+## Examples
 
-    $smarty->assign('articleTitle', 'Two Convicts Evade Noose, Jury Hung.');
+```php
+<?php
 
-    ?>
-
-       
+$smarty->assign('articleTitle', 'Two Convicts Evade Noose, Jury Hung.');
+```
 
 Where template is:
 
-
-    {$articleTitle}
-    {$articleTitle|lower}
-
-       
+```smarty
+{$articleTitle}
+{$articleTitle|lower}
+```
 
 This will output:
 
-
-    Two Convicts Evade Noose, Jury Hung.
-    two convicts evade noose, jury hung.
-
+```
+Two Convicts Evade Noose, Jury Hung.
+two convicts evade noose, jury hung.
+```
        
-
-See also [`upper`](#language.modifier.upper) and
-[`capitalize`](#language.modifier.capitalize).
+See also [`upper`](language-modifier-upper.md) and
+[`capitalize`](language-modifier-capitalize.md).

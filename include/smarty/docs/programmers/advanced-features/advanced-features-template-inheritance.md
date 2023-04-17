@@ -33,7 +33,7 @@ can override all or some of the parent named block areas.
     you can define the whole template inheritance tree in the PHP script
     when you are calling [`fetch()`](#api.fetch) or
     [`display()`](#api.display) with the `extends:` template resource
-    type. The later provides even more flexibillity.
+    type. The later provides even more flexibility.
 
 > **Note**
 >

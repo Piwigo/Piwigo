@@ -62,7 +62,7 @@ cannot have both custom function `{func}` and block function
 
 If you have nested block functions, it\'s possible to find out what the
 parent block function is by accessing `$smarty->_tag_stack` variable.
-Just do a [`var_dump()`](&url.php-manual;var_dump) on it and the
+Just do a [`var_dump()`](https://www.php.net/var_dump) on it and the
 structure should be apparent.
 
 

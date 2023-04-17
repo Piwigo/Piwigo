@@ -21,7 +21,7 @@ key
     <?php
 
     // add directory where config files are stored
-    $smarty->addConigDir('./config_1');
+    $smarty->addConfigDir('./config_1');
 
     // add directory where config files are stored and specify array-key
     $smarty->addConfigDir('./config_1', 'one');

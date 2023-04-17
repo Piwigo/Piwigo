@@ -27,5 +27,5 @@ function smarty_modifiercompiler_count_words($params)
                $params[ 0 ] . ', $tmp)';
     }
     // no MBString fallback
-    return 'str_word_count(' . $params[ 0 ] . ')';
+    return 'str_word_count((string) ' . $params[ 0 ] . ')';
 }

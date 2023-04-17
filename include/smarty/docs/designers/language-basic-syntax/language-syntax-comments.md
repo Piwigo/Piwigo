@@ -1,27 +1,25 @@
-Comments {#language.syntax.comments}
-========
+# Comments
 
 Template comments are surrounded by asterisks, and that is surrounded by
-the [delimiter](#variable.left.delimiter) tags like so:
+the [delimiter](../../programmers/api-variables/variable-left-delimiter.md) tags like so:
 
-::: {.informalexample}
+## Examples
 
-    {* this is a comment *}
-
-       
-:::
+```smarty
+{* this is a comment *}
+```
 
 Smarty comments are NOT displayed in the final output of the template,
 unlike `<!-- HTML comments -->`. These are useful for making internal
 notes in the templates which no one will see ;-)
 
-
-    {* I am a Smarty comment, I don't exist in the compiled output  *}
-    <html>
+```smarty
+{* I am a Smarty comment, I don't exist in the compiled output  *}
+<html>
     <head>
-    <title>{$title}</title>
+     <title>{$title}</title>
     </head>
-    <body>
+<body>
 
     {* another single line smarty comment  *}
     <!-- HTML comment that is sent to the browser -->
@@ -66,6 +64,6 @@ notes in the templates which no one will see ;-)
     *}
 
     </body>
-    </html>
-
+</html>
+```
       

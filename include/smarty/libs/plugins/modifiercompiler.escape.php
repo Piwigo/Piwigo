@@ -18,12 +18,10 @@
  * @param Smarty_Internal_TemplateCompilerBase $compiler
  *
  * @return string with compiled code
- * @throws \SmartyException
+ * @throws SmartyException
  */
 function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompilerBase $compiler)
 {
-    static $_double_encode = true;
-    static $is_loaded = false;
     $compiler->template->_checkPlugins(
         array(
             array(
@@ -41,55 +39,34 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
         }
         switch ($esc_type) {
             case 'html':
-                if ($_double_encode) {
-                    return 'htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
-                           var_export($double_encode, true) . ')';
-                } elseif ($double_encode) {
-                    return 'htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ')';
-                } else {
-                    // fall back to modifier.escape.php
-                }
+                return 'htmlspecialchars((string)' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
+                    var_export($double_encode, true) . ')';
             // no break
             case 'htmlall':
                 if (Smarty::$_MBSTRING) {
-                    if ($_double_encode) {
-                        // php >=5.2.3 - go native
-                        return 'mb_convert_encoding(htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' .
-                               var_export($char_set, true) . ', ' . var_export($double_encode, true) .
-                               '), "HTML-ENTITIES", ' . var_export($char_set, true) . ')';
-                    } elseif ($double_encode) {
-                        // php <5.2.3 - only handle double encoding
-                        return 'mb_convert_encoding(htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' .
-                               var_export($char_set, true) . '), "HTML-ENTITIES", ' . var_export($char_set, true) . ')';
-                    } else {
-                        // fall back to modifier.escape.php
-                    }
+                    return 'htmlentities(mb_convert_encoding((string)' . $params[ 0 ] . ', \'UTF-8\', ' .
+                        var_export($char_set, true) . '), ENT_QUOTES, \'UTF-8\', ' .
+                        var_export($double_encode, true) . ')';
                 }
                 // no MBString fallback
-                if ($_double_encode) {
-                    // php >=5.2.3 - go native
-                    return 'htmlentities(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
-                           var_export($double_encode, true) . ')';
-                } elseif ($double_encode) {
-                    // php <5.2.3 - only handle double encoding
-                    return 'htmlentities(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ')';
-                } else {
-                    // fall back to modifier.escape.php
-                }
+                return 'htmlentities((string)' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
+                    var_export($double_encode, true) . ')';
             // no break
             case 'url':
-                return 'rawurlencode(' . $params[ 0 ] . ')';
+                return 'rawurlencode((string)' . $params[ 0 ] . ')';
             case 'urlpathinfo':
-                return 'str_replace("%2F", "/", rawurlencode(' . $params[ 0 ] . '))';
+                return 'str_replace("%2F", "/", rawurlencode((string)' . $params[ 0 ] . '))';
             case 'quotes':
                 // escape unescaped single quotes
-                return 'preg_replace("%(?<!\\\\\\\\)\'%", "\\\'",' . $params[ 0 ] . ')';
+                return 'preg_replace("%(?<!\\\\\\\\)\'%", "\\\'", (string)' . $params[ 0 ] . ')';
             case 'javascript':
                 // escape quotes and backslashes, newlines, etc.
                 // see https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
-                return 'strtr(' .
+                return 'strtr((string)' .
                        $params[ 0 ] .
-                       ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/", "<!--" => "<\!--", "<s" => "<\s", "<S" => "<\S" ))';
+                       ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", 
+                       "\\n" => "\\\n", "</" => "<\/", "<!--" => "<\!--", "<s" => "<\s", "<S" => "<\S",
+                       "`" => "\\\\`", "\${" => "\\\\\\$\\{"))';
         }
     } catch (SmartyException $e) {
         // pass through to regular plugin fallback

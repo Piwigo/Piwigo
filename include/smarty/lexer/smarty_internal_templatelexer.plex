@@ -161,7 +161,6 @@ class Smarty_Internal_Templatelexer
                                                'COMMENT'     => 'comment',
                                                'AS'          => 'as',
                                                'TO'          => 'to',
-                                               'PHP'         => '"<?php", "<%", "{php}" tag',
                                                'LOGOP'       => '"<", "==" ... logical operator',
                                                'TLOGOP'      => '"lt", "eq" ... logical operator; "is div by" ... if condition',
                                                'SCOND'       => '"is even" ... if condition',

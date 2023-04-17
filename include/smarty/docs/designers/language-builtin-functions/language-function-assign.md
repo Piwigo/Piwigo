@@ -1,8 +1,25 @@
-{assign} {#language.function.assign}
-========
+# {assign}, {$var=...}
 
-`{assign}` is used for assigning template variables **during the
+`{assign}` or `{$var=...}` is used for assigning template variables **during the
 execution of a template**.
+
+## Attributes of the {assign} syntax
+| Attribute Name | Required   | Description                                                           |
+|----------------|------------|-----------------------------------------------------------------------|
+| var            |            | The name of the variable being assigned                               | 
+| value          |            | The value being assigned                                              |                             
+| scope          | (optional) | The scope of the assigned variable: \'parent\',\'root\' or \'global\' | 
+
+## Attributes of the {$var=...} syntax
+| Attribute Name | Required   | Description                                                           |
+|----------------|------------|-----------------------------------------------------------------------|
+| scope          | (optional) | The scope of the assigned variable: \'parent\',\'root\' or \'global\' | 
+
+## Option Flags
+| Name    | Description                                       |
+|---------|---------------------------------------------------|
+| nocache | Assigns the variable with the 'nocache' attribute |
+
 
 > **Note**
 >
@@ -10,140 +27,121 @@ execution of a template**.
 > logic into the presentation that may be better handled in PHP. Use at
 > your own discretion.
 
-> **Note**
->
-> See also the [`short-form`](#language.function.shortform.assign)
-> method of assigning template vars.
+## Examples
 
-**Attributes:**
+```smarty
+{assign var="name" value="Bob"}  {* or *}
+{assign "name" "Bob"} {* short-hand, or *}
+{$name='Bob'}
 
-   Attribute Name    Type    Required   Default  Description
-  ---------------- -------- ---------- --------- -----------------------------------------------------------------------
-        var         string     Yes       *n/a*   The name of the variable being assigned
-       value        string     Yes       *n/a*   The value being assigned
-       scope        string      No       *n/a*   The scope of the assigned variable: \'parent\',\'root\' or \'global\'
-
-**Option Flags:**
-
-    Name    Description
-  --------- -----------------------------------------------------
-   nocache  Assigns the variable with the \'nocache\' attribute
-
-
-    {assign var="name" value="Bob"}
-    {assign "name" "Bob"} {* short-hand *}
-
-    The value of $name is {$name}.
-
+The value of $name is {$name}.
+```
       
 
 The above example will output:
 
+```
+The value of $name is Bob.
+```
 
-    The value of $name is Bob.
 
-      
+```smarty
+{assign var="name" value="Bob" nocache}  {* or *}
+{assign "name" "Bob" nocache} {* short-hand, or *}
+{$name='Bob' nocache}
 
-
-    {assign var="name" value="Bob" nocache}
-    {assign "name" "Bob" nocache} {* short-hand *}
-
-    The value of $name is {$name}.
-
-      
-
+The value of $name is {$name}.
+```
 The above example will output:
-
-
-    The value of $name is Bob.
-
+```
+The value of $name is Bob.
+```
       
 
-
-    {assign var=running_total value=$running_total+$some_array[$row].some_value}
-
-      
+```smarty
+{assign var=running_total value=$running_total+$some_array[$row].some_value}  {* or *}
+{$running_total=$running_total+$some_array[row].some_value}
+```
 
 Variables assigned in the included template will be seen in the
 including template.
 
+```smarty
+{include file="sub_template.tpl"}
 
-    {include file="sub_template.tpl"}
-    ...
-    {* display variable assigned in sub_template *}
-    {$foo}<br>
-    ...
+{* display variable assigned in sub_template *}
+{$foo}<br>
+```
 
-      
+The template above includes the example `sub_template.tpl` below:
 
-The template above includes the example `sub_template.tpl` below
+```smarty
 
+{* foo will be known also in the including template *}
+{assign var="foo" value="something" scope=parent}
+{$foo="something" scope=parent}
 
-    ...
-    {* foo will be known also in the including template *}
-    {assign var="foo" value="something" scope=parent}
-    {* bar is assigned only local in the including template *}
-    {assign var="bar" value="value"}
-    ...
+{* bar is assigned only local in the including template *}
+{assign var="bar" value="value"} {* or *}
+{$var="value"}
+
+```
 
 You can assign a variable to root of the current root tree. The variable
 is seen by all templates using the same root tree.
 
-
-    {assign var=foo value="bar" scope="root"}
-
+```smarty
+{assign var=foo value="bar" scope="root"}
+```
       
-
 A global variable is seen by all templates.
 
-
-    {assign var=foo value="bar" scope="global"}
-    {assign "foo" "bar" scope="global"} {* short-hand *}
-
-      
-
+```smarty
+{assign var=foo value="bar" scope="global"} {* or *}
+{assign "foo" "bar" scope="global"} {* short-hand, or *}
+{$foo="bar" scope="global"}
+```
+ 
 To access `{assign}` variables from a php script use
-[`getTemplateVars()`](#api.get.template.vars). Here\'s the template that
-creates the variable `$foo`.
+[`getTemplateVars()`](../../programmers/api-functions/api-get-template-vars.md). 
+Here's the template that creates the variable `$foo`.
 
-
-    {assign var="foo" value="Smarty"}
+```smarty
+{assign var="foo" value="Smarty"} {* or *}
+{$foo="Smarty"}
+```
 
 The template variables are only available after/during template
 execution as in the following script.
 
+```php
+<?php
 
-    <?php
+// this will output nothing as the template has not been executed
+echo $smarty->getTemplateVars('foo');
 
-    // this will output nothing as the template has not been executed
-    echo $smarty->getTemplateVars('foo');
+// fetch the template to a variable
+$whole_page = $smarty->fetch('index.tpl');
 
-    // fetch the template to a variable
-    $whole_page = $smarty->fetch('index.tpl');
+// this will output 'smarty' as the template has been executed
+echo $smarty->getTemplateVars('foo');
 
-    // this will output 'smarty' as the template has been executed
-    echo $smarty->getTemplateVars('foo');
+$smarty->assign('foo','Even smarter');
 
-    $smarty->assign('foo','Even smarter');
+// this will output 'Even smarter'
+echo $smarty->getTemplateVars('foo');
+```
 
-    // this will output 'Even smarter'
-    echo $smarty->getTemplateVars('foo');
-
-    ?>
-
-The following functions can also *optionally* assign template variables.
-
-[`{capture}`](#language.function.capture),
+The following functions can also *optionally* assign template variables: [`{capture}`](#language.function.capture),
 [`{include}`](#language.function.include),
-[`{include_php}`](#language.function.include.php),
 [`{insert}`](#language.function.insert),
 [`{counter}`](#language.function.counter),
 [`{cycle}`](#language.function.cycle),
 [`{eval}`](#language.function.eval),
 [`{fetch}`](#language.function.fetch),
-[`{math}`](#language.function.math),
-[`{textformat}`](#language.function.textformat)
+[`{math}`](#language.function.math) and
+[`{textformat}`](#language.function.textformat).
 
-See also [`{$var=...}`](#language.function.shortform.assign),
+See also [`{append}`](./language-function-append.md),
 [`assign()`](#api.assign) and
 [`getTemplateVars()`](#api.get.template.vars).

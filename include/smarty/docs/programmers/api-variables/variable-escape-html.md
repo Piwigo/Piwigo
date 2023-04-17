@@ -3,7 +3,7 @@
 
 Setting `$escape_html` to TRUE will escape all template variable output
 by wrapping it in
-`htmlspecialchars({$output}, ENT_QUOTES, SMARTY_RESOURCE_CHAR_SET);`,
+`htmlspecialchars({$output}, ENT_QUOTES, $char_set);`,
 which is the same as `{$variable|escape:"html"}`.
 
 Template designers can choose to selectively disable this feature by

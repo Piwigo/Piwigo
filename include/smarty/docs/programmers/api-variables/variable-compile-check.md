@@ -13,6 +13,9 @@ changing), the compile check step is no longer needed. Be sure to set
 change this to FALSE and a template file is changed, you will \*not\*
 see the change since the template will not get recompiled.
 
+Note that up to Smarty 4.x, Smarty will check for the existence of 
+the source template even if `$compile_check` is disabled.
+
 If [`$caching`](#variable.caching) is enabled and `$compile_check` is
 enabled, then the cache files will get regenerated if an involved
 template file or config file was updated.

@@ -1,5 +1,4 @@
-Debugging Console {#chapter.debugging.console}
-=================
+# Debugging Console
 
 There is a debugging console included with Smarty. The console informs
 you of all the [included](./language-builtin-functions/language-function-include.md) templates,

@@ -26,7 +26,7 @@ the following parameters:
     variables assigned to any of the objects in it\'s parent chain.
 
 Data objects are used to create scopes for assigned variables. They can
-be used to have controll which variables are seen by which templates.
+be used to control which variables are seen by which templates.
 
 
     <?php

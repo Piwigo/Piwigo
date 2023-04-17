@@ -46,8 +46,8 @@ From within a Smarty template
       
 
 Both `string:` and `eval:` resources may be encoded with
-[`urlencode()`](&url.php-manual;urlencode) or
-[`base64_encode()`](&url.php-manual;urlencode). This is not necessary
+[`urlencode()`](https://www.php.net/urlencode) or
+[`base64_encode()`](https://www.php.net/urlencode). This is not necessary
 for the usual use of `string:` and `eval:`, but is required when using
 either of them in conjunction with
 [`Extends Template Resource`](#resources.extends)

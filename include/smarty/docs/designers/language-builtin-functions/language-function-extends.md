@@ -1,9 +1,8 @@
-{extends} {#language.function.extends}
-=========
+# {extends}
 
 `{extends}` tags are used in child templates in template inheritance for
 extending parent templates. For details see section of [Template
-Interitance](#advanced.features.template.inheritance).
+Inheritance](../../programmers/advanced-features/advanced-features-template-inheritance.md).
 
 -   The `{extends}` tag must be on the first line of the template.
 
@@ -11,27 +10,28 @@ Interitance](#advanced.features.template.inheritance).
     tag it may contain only `{block}` tags. Any other template content
     is ignored.
 
--   Use the syntax for [template resources](#resources) to extend files
-    outside of the [`$template_dir`](#variable.template.dir) directory.
+-   Use the syntax for [template resources](../../programmers/resources.md) to extend files
+    outside the [`$template_dir`](../../programmers/api-variables/variable-template-dir.md) directory.
+
+## Attributes
+
+| Attribute | Required | Description                                     |
+|-----------|----------|-------------------------------------------------|
+| file      | Yes      | The name of the template file which is extended |
 
 > **Note**
 >
 > When extending a variable parent like `{extends file=$parent_file}`,
 > make sure you include `$parent_file` in the
-> [`$compile_id`](#variable.compile.id). Otherwise Smarty cannot
+> [`$compile_id`](../../programmers/api-variables/variable-compile-id.md). Otherwise, Smarty cannot
 > distinguish between different `$parent_file`s.
 
-**Attributes:**
+## Examples
 
-   Attribute Name    Type    Required   Default  Description
-  ---------------- -------- ---------- --------- -------------------------------------------------
-        file        string     Yes       *n/a*   The name of the template file which is extended
+```smarty
+{extends file='parent.tpl'}
+{extends 'parent.tpl'}  {* short-hand *}
+```
 
-
-    {extends file='parent.tpl'}
-    {extends 'parent.tpl'}  {* short-hand *}
-
-      
-
-See also [Template Interitance](#advanced.features.template.inheritance)
-and [`{block}`](#language.function.block).
+See also [Template Inheritance](../../programmers/advanced-features/advanced-features-template-inheritance.md)
+and [`{block}`](./language-function-block.md).

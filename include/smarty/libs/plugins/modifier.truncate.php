@@ -26,7 +26,7 @@
  */
 function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_words = false, $middle = false)
 {
-    if ($length === 0) {
+    if ($length === 0 || $string === null) {
         return '';
     }
     if (Smarty::$_MBSTRING) {
@@ -42,8 +42,8 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_wo
             if (!$middle) {
                 return mb_substr($string, 0, $length, Smarty::$_CHARSET) . $etc;
             }
-            return mb_substr($string, 0, $length / 2, Smarty::$_CHARSET) . $etc .
-                   mb_substr($string, -$length / 2, $length, Smarty::$_CHARSET);
+            return mb_substr($string, 0, intval($length / 2), Smarty::$_CHARSET) . $etc .
+                   mb_substr($string, -intval($length / 2), $length, Smarty::$_CHARSET);
         }
         return $string;
     }
@@ -56,7 +56,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_wo
         if (!$middle) {
             return substr($string, 0, $length) . $etc;
         }
-        return substr($string, 0, $length / 2) . $etc . substr($string, -$length / 2);
+        return substr($string, 0, intval($length / 2)) . $etc . substr($string, -intval($length / 2));
     }
     return $string;
 }

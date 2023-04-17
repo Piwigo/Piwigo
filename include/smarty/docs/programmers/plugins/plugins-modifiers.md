@@ -25,7 +25,7 @@ The first parameter to the modifier plugin is the value on which the
 modifier is to operate. The rest of the parameters are optional,
 depending on what kind of operation is to be performed.
 
-The modifier has to [return](&url.php-manual;return) the result of its
+The modifier has to [return](https://www.php.net/return) the result of its
 processing.
 
 This plugin basically aliases one of the built-in PHP functions. It does
