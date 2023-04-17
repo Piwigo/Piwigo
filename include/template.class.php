@@ -105,6 +105,17 @@ class Template
     $this->smarty->assign( 'pwg', new PwgTemplateAdapter() );
     $this->smarty->registerPlugin('modifiercompiler', 'translate', array('Template', 'modcompiler_translate') );
     $this->smarty->registerPlugin('modifiercompiler', 'translate_dec', array('Template', 'modcompiler_translate_dec') );
+    $this->smarty->registerPlugin('modifier', 'sprintf', 'sprintf');
+    $this->smarty->registerPlugin('modifier', 'urlencode', 'urlencode');
+    $this->smarty->registerPlugin('modifier', 'intval', 'intval');
+    $this->smarty->registerPlugin('modifier', 'file_exists', 'file_exists');
+    $this->smarty->registerPlugin('modifier', 'constant', 'constant');
+    $this->smarty->registerPlugin('modifier', 'json_encode', 'json_encode');
+    $this->smarty->registerPlugin('modifier', 'htmlspecialchars', 'htmlspecialchars');
+    $this->smarty->registerPlugin('modifier', 'implode', 'implode');
+    $this->smarty->registerPlugin('modifier', 'stripslashes', 'stripslashes');
+    $this->smarty->registerPlugin('modifier', 'in_array', 'in_array');
+    $this->smarty->registerPlugin('modifier', 'ucfirst', 'ucfirst');
     $this->smarty->registerPlugin('modifier', 'explode', array('Template', 'mod_explode') );
     $this->smarty->registerPlugin('modifier', 'ternary', array('Template', 'mod_ternary') );
     $this->smarty->registerPlugin('modifier', 'get_extent', array($this, 'get_extent') );
