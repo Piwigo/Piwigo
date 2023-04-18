@@ -262,7 +262,89 @@ jQuery(document).ready(function() {
     <span class="mcs-icon pwg-icon-calendar"></span>Date: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-arrow-n"></span>
 
     <div class="filter-form filter-date-form">
-      date div
+    {* Still in porgress *}
+      <div class="row">
+        <div class="col-sm-12" id="htmlTarget">
+          <label for="datetimepicker1Input" class="form-label">Picker</label>
+          <div class="input-group log-event" id="datetimepicker1" data-td-target-input="nearest" data-td-target-toggle="nearest">
+            <input id="datetimepicker1Input" type="text" class="form-control" data-td-target="#datetimepicker1">
+            <span class="input-group-text" data-td-target="#datetimepicker1" data-td-toggle="datetimepicker">
+              <i class="fas fa-calendar">blavvla</i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="filter filter-album">
+    <span class="mcs-icon pwg-icon-album">X</span>Album: <span class="search-words">Mon super album</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+
+    <div class="filter-form filter-album-form">
+      <div class="search-params"> 
+          <div>
+            <input type="radio" id="album-all" name="album_mode" value="ALL" checked>
+            <label for="album-all">{'All albums'|@translate}</label>
+          </div>
+          <div>
+            <input type="radio" id="album-any" name="album_mode" value="ANY">
+            <label for="album-any">{'Any album'|@translate}</label>
+          </div>
+        </div>
+        <div class="selected-categories-container">
+        </div>
+        <div class="add-album-button">
+          <label class="head-button-2 icon-add-album">
+            <p class="mcs-icon pwg-icon-close">{'Add Album'|@translate}</p>
+          </label>
+        </div>
+        <div class="search-sub-cats">
+          <input type="checkbox" id="search-sub-cats" name="search-sub-cats">
+          <label for="search-sub-cats">Rechercher dans les sous albums</label>
+        </div>
+        <div class="filter-validate">
+          Valider
+        </div>
+    </div>
+  </div>
+  {include file='admin/themes/default/template/include/album_selector.inc.tpl' 
+    title={'Search in album'|@translate}
+    searchPlaceholder={'Search'|@translate}
+    show_root_btn=false
+  }
+  <div class="filter filter-author">
+    Author div
+    <div class="filter-form filter-author-form">
+
+    </div>
+  </div>
+  <div class="filter filter-note">
+   Note div
+   <div class="filter-form filter-note-form">
+
+   </div>
+  </div>
+  <div class="filter filter-height">
+    Height div
+    <div class="filter-form filter-height-form">
+
+    </div>
+  </div>
+  <div class="filter filter-width">
+    Width div
+    <div class="filter-form filter-width-form">
+
+    </div>
+  </div>
+  <div class="filter filter-file-type">
+    File type div
+    <div class="filter-form filter-file-type-form">
+
+    </div>
+  </div>
+  <div class="filter filter-file-size">
+    File size div
+    <div class="filter-form filter-file-size-form">
+
     </div>
   </div>
 </div>

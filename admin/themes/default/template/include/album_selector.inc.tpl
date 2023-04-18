@@ -1,6 +1,11 @@
 {if empty($load_mode)}{$load_mode='footer'}{/if}
 {include file='include/colorbox.inc.tpl' load_mode=$load_mode}
 {combine_script id='albumSelector' load_mode=$load_mode path='admin/themes/default/js/album_selector.js'}
+{footer_script}
+  str_no_search_in_progress = '{'No search in progress'|@translate|escape:javascript}';
+  str_albums_found = '{"<b>%d</b> albums found"|translate}';
+  str_album_found = '{"<b>1</b> album found"|translate}';
+{/footer_script}
 
 <div id="addLinkedAlbum" class="linkedAlbumPopIn">
   <div class="linkedAlbumPopInContainer">
