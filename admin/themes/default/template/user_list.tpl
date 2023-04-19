@@ -551,7 +551,7 @@ $(document).ready(function() {
             <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit"> <span id="applyOnDetails"></span></input>
             <span id="applyActionLoading" style="display:none"><img src="themes/default/images/ajax-loader-small.gif"></span>
             <br />
-            <span class="infos icon-ok" style="display:inline-block;display:none;max-width:100%;margin:0;margin-top:30px;min-height:0;border-left: 2px solid #00FF00;">{'Users modified'|translate}</span>
+            <span class="infos icon-ok icon-green" style="display:inline-block;display:none;max-width:100%;margin:0;margin-top:30px;min-height:0;">{'Users modified'|translate}</span>
           </p>
         </div> {* #permitActionUserList *}
       </fieldset>
@@ -1066,16 +1066,9 @@ $(document).ready(function() {
   font-weight:bold;
 }
 
-#AddUserSuccess span {
-  color: #0a0;
-}
-
 #AddUserSuccess label {
   padding: 10px;
-  background-color:  #c2f5c2;
-  border-left: 2px solid #00FF00;
   cursor: default;
-  color: #0a0;
 }
 
 #AddUserSuccess .edit-now {
@@ -1715,9 +1708,6 @@ $(document).ready(function() {
 .update-user-success {
     padding:10px;
     display:none;
-    background-color:#c2f5c2;
-    color: #0a0;
-    border-left: 2px solid #00FF00;
 }
 
 .update-user-fail {

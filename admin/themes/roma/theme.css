@@ -328,7 +328,6 @@ a.stat-box:hover {
 .languageBox {background-color:#333;}
 .languageName {color:#ccc;}
 .languageDefault {background-color:#555; color:#aaa;}
-.groupMessage {color: #c2f5c2 ;background-color: #0a0;}
 .groupError {color: #ffd5dc;background-color: #f22;}
 .group-rename input {color: #999;}
 .GroupBackgroudSelected .Group-name {color: #333 !important;}
@@ -1803,6 +1802,20 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .AddUserPopInContainer .AddUserInput {
   background-color:#333;
   border: solid 2px #151515;
+}
+
+#AddUserSuccess span {
+  color: #a9f6e3;
+}
+
+#AddUserSuccess label {
+  background-color: #50a48f;
+  border-left: 2px solid #a9f6e3;
+  color: #a9f6e3;
+}
+
+.update-user-success {
+  border-left: 2px solid #a9f6e3;
 }
 
 .buttonGradient:disabled {
