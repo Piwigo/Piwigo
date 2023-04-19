@@ -76,7 +76,7 @@ usersCache.selectize(jQuery('select.UserSearch'));
       {$grp_color}
     {/if}">
         </div>
-        <div class="groupMessage icon-ok"></div>
+        <div class="groupMessage icon-ok icon-green"></div>
         <div class="groupError icon-cancel"></div>
       </div>
 

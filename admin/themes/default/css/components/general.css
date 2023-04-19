@@ -256,3 +256,72 @@ a.info-framed:hover {
     color: #3c3c3c;
     font-weight: bold;
 }
+
+/* -------------
+Info
+------------- 
+
+.info-message.icon-*, .info-warning.icon-*, .info-error.icon-*
+    p
+        (a)
+
+*/
+
+.info-message, .info-warning, .info-error {
+    height: 35px;
+    overflow: hidden;
+    border-radius: 20px;
+    display: flex;
+    padding: 0px 10px 0px 0px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.info.hide {
+    display: none;
+}
+
+.info-message p, .info-warning p, .info-error p {
+    margin: auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: initial;
+}
+
+.info-message::before, .info-warning::before, .info-error::before {
+    line-height: 35px;
+    margin: 0px 10px;
+    font-size: 16px;
+}
+
+.info-warning {
+    color: #ee8800;
+    background-color:#ffdd99;
+}
+
+.info-message {
+    display: none;
+    background-color: #c2f5c2;
+    color: #0a0;
+}
+
+.info-error {
+    color: #f22;
+    background-color: #ffd5dc;
+    display: none;
+    animation-name: info-error-appear ;
+    animation-duration: 0.4s;
+    animation-timing-function: ease;
+}
+
+.info-message a:hover, .info-warning a:hover, .info-error a:hover {
+    color: white;
+}
+
+@keyframes info-error-appear {
+    25% { transform: translateX(-10px)}
+    50% { transform: translateX(10px)}
+    75% { transform: translateX(-10px)}
+    100% { transform: translateX(0px)}
+  }

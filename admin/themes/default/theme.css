@@ -4653,8 +4653,6 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   font-size: 12px;
   right: 52px;
   width: 110px;
-  color: #0a0;
-  background-color:#c2f5c2;
   text-align: center;
 }
 
@@ -5404,6 +5402,18 @@ input:checked + .slider:before, input:checked + .slider::after {
   border-left:solid 3px red;
 }
 
+#AddUserSuccess span {
+  color: #0a0;
+}
+
+#AddUserSuccess label {
+  background-color: #c2f5c2;
+  border-left: 2px solid #00FF00;
+  color: #0a0;
+}
+.update-user-success {
+  border-left: 2px solid #00FF00;
+}
 #UserList .AddUserBlock p,
 #UserList .AddUserBlock select,
 #UserList .AddUserBlock button{
