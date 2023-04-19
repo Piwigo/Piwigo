@@ -229,7 +229,6 @@ function setupTagbox(tagBox) {
 
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
-    console.log('SALUT');
     set_up_popin(tagBox.data('id'), tagBox.find('.tag-name').html());
     rename_tag_open()
   })
@@ -268,7 +267,7 @@ function set_up_popin(id, tagName) {
   $(".RenameTagPopInContainer").find(".tag-property-input").attr("id", id);
 
   $(".AddIconTitle span").html(str_tag_rename.replace("%s", tagName))
-  $(".ClosePopIn").on('click', function () {
+  $(".ClosePopIn, .TagCancel").on('click', function () {
     rename_tag_close()
   });
   $(".TagSubmit").html(str_yes_rename_confirmation);
