@@ -4525,6 +4525,10 @@ ul.jqtree-tree .jqtree-element {
 #ftpPage p {text-align:left;margin:1em;}
 #ftpPage fieldset p {margin:0;}
 
+.sub-setting {
+  margin: 10px 0 10px 20px;
+}
+
 /* watermark configuration screen */
 #watermarkPositionBox {
   width:500px;

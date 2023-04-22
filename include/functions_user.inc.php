@@ -212,7 +212,7 @@ SELECT id
     
     create_user_infos($user_id, $override);
 
-    if ($notify_admin and $conf['email_admin_on_new_user'])
+    if ($notify_admin and 'none' != $conf['email_admin_on_new_user'])
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
       $admin_url = get_absolute_root_url().'admin.php?page=user_list&username='.$login;
@@ -224,9 +224,17 @@ SELECT id
         get_l10n_args('Admin: %s', $admin_url),
         );
 
+      $group_id = null;
+      if (preg_match('/^group:(\d+)$/', $conf['email_admin_on_new_user'], $matches))
+      {
+        $group_id = $matches[1];
+      }
+
       pwg_mail_notification_admins(
         get_l10n_args('Registration of %s', stripslashes($login) ),
-        $keyargs_content
+        $keyargs_content,
+        true, // $send_technical_details
+        $group_id
         );
     }
 

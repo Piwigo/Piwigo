@@ -351,7 +351,7 @@ function switch_lang_back()
  * @param boolean $send_technical_details - send user IP and browser
  * @return boolean
  */
-function pwg_mail_notification_admins($subject, $content, $send_technical_details=true)
+function pwg_mail_notification_admins($subject, $content, $send_technical_details=true, $group_id=null)
 {
   if (empty($subject) or empty($content))
   {
@@ -397,7 +397,10 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
     array(
       'filename' => 'notification_admin',
       'assign' => $tpl_vars,
-      )
+      ),
+    true, // exclude_current_user
+    false, // only_webmasters
+    $group_id
     );
 }
 
@@ -411,7 +414,7 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
  * @param array $tpl - as in pwg_mail()
  * @return boolean
  */
-function pwg_mail_admins($args=array(), $tpl=array(), $exclude_current_user=true, $only_webmasters=false)
+function pwg_mail_admins($args=array(), $tpl=array(), $exclude_current_user=true, $only_webmasters=false, $group_id=null)
 {
   if (empty($args['content']) and empty($tpl))
   {
@@ -430,13 +433,29 @@ function pwg_mail_admins($args=array(), $tpl=array(), $exclude_current_user=true
   // get admins (except ourself)
   $query = '
 SELECT
+    i.user_id,
     u.'.$conf['user_fields']['username'].' AS name,
     u.'.$conf['user_fields']['email'].' AS email
   FROM '.USERS_TABLE.' AS u
     JOIN '.USER_INFOS_TABLE.' AS i
-    ON i.user_id =  u.'.$conf['user_fields']['id'].'
+    ON i.user_id =  u.'.$conf['user_fields']['id'];
+
+  if (!is_null($group_id))
+  {
+    $query.= '
+    JOIN '.USER_GROUP_TABLE.' AS ug
+      ON ug.user_id = i.user_id';
+  }
+
+  $query.= '
   WHERE i.status in (\''.implode("','", $user_statuses).'\')
     AND u.'.$conf['user_fields']['email'].' IS NOT NULL';
+
+  if (!is_null($group_id))
+  {
+    $query.= '
+    AND group_id = '.intval($group_id);
+  }
 
   if ($exclude_current_user)
   {

@@ -5,7 +5,8 @@
 (function(){
   var targets = {
     'input[name="rate"]' : '#rate_anonymous',
-    'input[name="allow_user_registration"]' : '#email_admin_on_new_user'
+    'input[name="allow_user_registration"]' : '#email_admin_on_new_user',
+    'input[name="email_admin_on_new_user"]' : '#email_admin_on_new_user_filter'
   };
 
   for (selector in targets) {
@@ -67,6 +68,12 @@ jQuery("input[name='mail_theme']").change(function() {
   jQuery("input[name='mail_theme']").parents(".themeSelect").removeClass("themeDefault");
   jQuery(this).parents(".themeSelect").addClass("themeDefault");
 });
+
+jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
+  var val = jQuery("input[name='email_admin_on_new_user_filter']:checked").val();
+
+  jQuery('#email_admin_on_new_user_filter_group_options').toggle('group' == val);
+});
 {/footer_script}
 
 <form method="post" action="{$F_ACTION}" class="properties">
@@ -119,11 +126,13 @@ jQuery("input[name='mail_theme']").change(function() {
           {'Allow rating'|translate}
         </label>
 
-        <label id="rate_anonymous" class="font-checkbox no-bold">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="rate_anonymous" {if ($main.rate_anonymous)}checked="checked"{/if}>
-          {'Rating by guests'|translate}
-        </label>
+        <div id="rate_anonymous" class="sub-setting">
+          <label class="font-checkbox no-bold">
+            <span class="icon-check"></span>
+            <input type="checkbox" name="rate_anonymous" {if ($main.rate_anonymous)}checked="checked"{/if}>
+            {'Rating by guests'|translate}
+          </label>
+        </div>
       </li>
 
       <li>
@@ -133,11 +142,38 @@ jQuery("input[name='mail_theme']").change(function() {
           {'Allow user registration'|translate}
         </label>
 
-        <label id="email_admin_on_new_user" class="font-checkbox no-bold">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
-          {'Email admins when a new user registers'|translate}
-        </label>
+        <div id="email_admin_on_new_user" class="sub-setting">
+          <label class="font-checkbox no-bold">
+            <span class="icon-check"></span>
+            <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
+            {'Email admins when a new user registers'|translate}
+          </label>
+
+          <div id="email_admin_on_new_user_filter" class="sub-setting"{if (!$main.email_admin_on_new_user)} style="display:none"{/if}>
+            <label class="font-checkbox no-bold">
+              <span class="icon-dot-circled"></span>
+              <input type="radio" name="email_admin_on_new_user_filter" value="all" {if ($main.email_admin_on_new_user_filter eq 'all')}checked{/if}>
+              {'All admins'|translate}
+            </label>
+<br>
+            <label class="font-checkbox no-bold">
+              <span class="icon-dot-circled"></span>
+              <input type="radio" name="email_admin_on_new_user_filter" value="group" {if ($main.email_admin_on_new_user_filter eq 'group')}checked{/if}>
+              {'Only admins in a specific group'|translate}
+            </label>
+
+            <span id="email_admin_on_new_user_filter_group_options"{if ($main.email_admin_on_new_user_filter ne 'group')} style="display:none"{/if}>
+{if count($group_options) > 0}
+            <select name="email_admin_on_new_user_filter_group">
+              {html_options options=$group_options selected=$main.email_admin_on_new_user_filter_group}
+            </select>
+{else}
+    {'There is no group in this gallery.'|@translate} <a href="admin.php?page=group_list" class="externalLink">{'Group management'|@translate}</a>
+{/if}
+            </span>
+
+          </div>
+        </div>
       </li>
 
       <li>

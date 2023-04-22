@@ -1345,4 +1345,6 @@ $lang['or'] = 'ou';
 $lang['Locked album'] = 'Album verrouillé';
 $lang['This album is currently locked, visible only to administrators.'] = 'Cet album est actuellement verrouillé, visible uniquement par les administrateurs.';
 $lang['Unlock it'] = 'Le déverrouiller';
+$lang['All admins'] = 'Tous les administrateurs';
+$lang['Only admins in a specific group'] = 'Uniquement les administrations d\'un groupe spécifique';
 // Leave this line empty

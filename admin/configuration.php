@@ -43,7 +43,6 @@ $main_checkboxes = array(
     'obligatory_user_mail_address',
     'rate',
     'rate_anonymous',
-    'email_admin_on_new_user',
     'allow_user_customization',
     'log',
     'history_admin',
@@ -196,6 +195,26 @@ if (isset($_POST['submit']))
         else
         {
           $page['errors'][] = l10n('No order field selected');
+        }
+      }
+
+      if (empty($_POST['email_admin_on_new_user']))
+      {
+        $_POST['email_admin_on_new_user'] = 'none';
+      }
+      elseif ('all' == $_POST['email_admin_on_new_user_filter'])
+      {
+        $_POST['email_admin_on_new_user'] = 'all';
+      }
+      else
+      {
+        if (empty($_POST['email_admin_on_new_user_filter_group']))
+        {
+          $_POST['email_admin_on_new_user'] = 'all';
+        }
+        else
+        {
+          $_POST['email_admin_on_new_user'] = 'group:'.$_POST['email_admin_on_new_user_filter_group'];
         }
       }
 
@@ -372,6 +391,25 @@ switch ($page['section'])
         'mail_theme_options' => $mail_themes,
         'order_by' => $order_by,
         'order_by_options' => $sort_fields,
+        'email_admin_on_new_user' => 'none' != $conf['email_admin_on_new_user'],
+        'email_admin_on_new_user_filter' => in_array($conf['email_admin_on_new_user'], array('none', 'all')) ? 'all' : 'group',
+        'email_admin_on_new_user_filter_group' => preg_match('/^group:(\d+)$/', $conf['email_admin_on_new_user'], $matches) ? $matches[1] : -1,
+        )
+      );
+
+    // list of groups
+    $query = '
+    SELECT
+        id,
+        name
+      FROM '.GROUPS_TABLE.'
+    ;';
+    $groups = query2array($query, 'id', 'name');
+    natcasesort($groups);
+
+    $template->assign(
+      array(
+        'group_options' => $groups,
         )
       );
 

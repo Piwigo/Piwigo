@@ -1345,4 +1345,6 @@ $lang['or'] = 'or';
 $lang['Locked album'] = 'Locked album';
 $lang['This album is currently locked, visible only to administrators.'] = 'This album is currently locked, visible only to administrators.';
 $lang['Unlock it'] = 'Unlock it';
+$lang['All admins'] = 'All admins';
+$lang['Only admins in a specific group'] = 'Only admins in a specific group';
 // Leave this line empty

@@ -2592,6 +2592,17 @@ function delete_groups($group_ids)
     return false;
   }
 
+  if (preg_match('/^group:(\d+)$/', conf_get_param('email_admin_on_new_user', 'undefined'), $matches))
+  {
+    foreach ($group_ids as $group_id)
+    {
+      if ($group_id == $matches[1])
+      {
+        conf_update_param('email_admin_on_new_user', 'all', true);
+      }
+    }
+  }
+
   $group_id_string = implode(',', $group_ids);
 
   // destruction of the access linked to the group
