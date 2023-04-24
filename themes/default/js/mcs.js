@@ -128,6 +128,10 @@ $(document).ready(function () {
   });
   $(".filter-tag .filter-validate").on("click", function () {
     // Update global params
+    global_params.fields.tags = {};
+    global_params.fields.tags.mode = $(".filter-tag-form .search-params input:checked").val();
+    global_params.fields.tags.words = $("#tag-search")[0].selectize.getValue()
+
     console.log(global_params);
 
     // Trigger search with click
