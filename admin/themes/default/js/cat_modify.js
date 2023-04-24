@@ -464,7 +464,6 @@ jQuery(document).ready(function() {
 });
 
 function checkAlbumLock() {
-  console.log(is_visible);
   if (is_visible == 'true') {
     $(".warnings").hide();
   } else {

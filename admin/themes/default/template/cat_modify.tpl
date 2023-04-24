@@ -264,4 +264,8 @@ str_root = '{'Root'|@translate}';
   width: 20px;
   height: 20px;
 }
+
+.warnings {
+  display: none;
+}
 </style>
