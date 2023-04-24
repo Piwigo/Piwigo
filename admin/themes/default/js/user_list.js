@@ -1097,6 +1097,7 @@ function fill_user_edit_update(user_to_edit, pop_in) {
     pop_in.find('.delete-user-button').unbind("click").click(function () {
         $.confirm({
             title: title_msg.replace('%s', user_to_edit.username),
+            content: "",
             buttons: {
                 confirm: {
                     text: confirm_msg,
