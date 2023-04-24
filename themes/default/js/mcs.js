@@ -46,6 +46,20 @@ $(document).ready(function () {
         }
       }
 
+      // Setup tag filter
+      $("#tag-search").each(function() {
+        $(this).selectize({
+          plugins: ['remove_button'],
+          maxOptions:$(this).find("option").length,
+          items: global_params.fields.tags ? global_params.fields.tags.words : null,
+        });
+      });
+      if (global_params.fields.tags) {
+        $(".filter-tag-form .search-params input[value=" + global_params.fields.tags.mode + "]").prop("checked", true);
+      }
+      
+
+
       // What do we do if we can't fetch search params ?
     },
     error:function(e) {

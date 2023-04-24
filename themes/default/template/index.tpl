@@ -3,16 +3,6 @@
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 
-{footer_script}
-jQuery(document).ready(function() {
-  jQuery("#tag-search").each(function() {
-    jQuery(this).selectize({
-      plugins: ['remove_button'],
-      maxOptions:jQuery(this).find("option").length
-    });
-  })
-});
-{/footer_script}
 {$MENUBAR}
 
 
