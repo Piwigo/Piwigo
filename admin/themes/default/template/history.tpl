@@ -48,6 +48,8 @@ const str_tags = "{'Tags'|translate}";
 const unit_MB = "{"%s MB"|@translate}";
 const str_guest = '{'guest'|@translate}';
 const str_contact_form = '{'Contact Form'|@translate}';
+const str_edit_img = '{'Edit photo'|@translate}';
+
 const guest_id = {$guest_id};
 {/footer_script}
 
@@ -188,7 +190,7 @@ const guest_id = {$guest_id};
       </div>
 
       <div class="type-section">
-        <span class="type-icon"> <i class="icon-file-image"> </i> </span>
+        <a class="type-icon no-img" target="_blank"> <i class="icon-file-image"> </i> </a>
         <span class="icon-ellipsis-vert toggle-img-option">
           <div class="img-option">
             <a class="add-img-as-filter icon-filter"> {'Add as filter'|translate} </a>
@@ -283,6 +285,10 @@ jQuery(document).ready( function() {
 
 .notClickable {
   opacity: 0.5;
+}
+
+.no-img {
+  cursor: default !important;
 }
 
 .container {
