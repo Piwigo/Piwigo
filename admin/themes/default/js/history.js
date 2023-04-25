@@ -411,6 +411,8 @@ function lineConstructor(line, id, imageDisplay) {
     newLine.find(".type-name").html(line.IMAGENAME);
     newLine.find(".type-icon").html(line.IMAGE);
     newLine.find(".type-id").html("#" + line.IMAGEID);
+    newLine.find(".type-icon").attr("href", line.EDIT_IMAGE).removeClass("no-img")
+    newLine.find(".type-icon img").attr("title", str_edit_img).addClass("tiptip")
     newLine.find(".type-id").show();
   } else {
     newLine.find(".type-icon .icon-file-image").removeClass("icon-file-image");
