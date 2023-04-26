@@ -356,6 +356,49 @@ if (count($available_tags) > 0)
   $template->assign('TAGS', $available_tags);
 }
 
+// authors
+$authors = array();
+
+$query = '
+SELECT
+    author,
+    id
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'id'
+      ),
+    ' WHERE '
+    ).'
+    AND author IS NOT NULL
+  GROUP BY author, id
+  ORDER BY author
+;';
+$author_counts = array();
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  if (!isset($author_counts[ $row['author'] ]))
+  {
+    $author_counts[ $row['author'] ] = 0;
+  }
+  
+  $author_counts[ $row['author'] ]++;
+}
+
+foreach ($author_counts as $author => $counter)
+{
+  $authors[] = array(
+    'author' => $author,
+    'counter' => $counter,
+    );
+}
+
+$template->assign('AUTHORS', $authors);
+
 //------------------------------------------------------------ end
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_notify('loc_end_index');

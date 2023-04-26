@@ -302,9 +302,17 @@
     show_root_btn=false
   }
   <div class="filter filter-author">
-    Author div
+    <span class="mcs-icon pwg-icon-album">X</span>Author: <span class="search-words">Autheur talentueux</span><span class="filter-arrow pwg-icon-arrow-n"></span>
     <div class="filter-form filter-author-form">
+      <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
+      {foreach from=$AUTHORS item=author}
+        <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
+      {/foreach}
+      </select>
 
+      <div class="filter-validate">
+        Valider
+      </div>
     </div>
   </div>
   <div class="filter filter-note">

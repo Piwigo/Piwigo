@@ -58,6 +58,14 @@ $(document).ready(function () {
         $(".filter-tag-form .search-params input[value=" + global_params.fields.tags.mode + "]").prop("checked", true);
       }
       
+      // Setup author filter
+      $("#authors").each(function() {
+        $(this).selectize({
+          plugins: ['remove_button'],
+          maxOptions:$(this).find("option").length,
+          items: global_params.fields.author ? global_params.fields.author.words : null,
+        });
+      });
 
 
       // What do we do if we can't fetch search params ?
@@ -130,7 +138,7 @@ $(document).ready(function () {
     // Update global params
     global_params.fields.tags = {};
     global_params.fields.tags.mode = $(".filter-tag-form .search-params input:checked").val();
-    global_params.fields.tags.words = $("#tag-search")[0].selectize.getValue()
+    global_params.fields.tags.words = $("#tag-search")[0].selectize.getValue();
 
     console.log(global_params);
 
@@ -206,6 +214,35 @@ $(document).ready(function () {
       $("#searchResult").empty();
     }
   })
+
+  /**
+   * Author Widget
+   */
+  $(".filter-author").on("click", function (e) {
+    if ($(".filter-form").has(e.target).length != 0 || $(e.target).hasClass("filter-form") || $(e.target).hasClass("remove")) {
+      return
+    }
+    $(".filter-author-form").toggle(0, function () {
+      if ($(this).is(':visible')) {
+        $(".filter-author").addClass("show-filter-dropdown");
+      } else {
+        $(".filter-author").removeClass("show-filter-dropdown");
+        performSearch(global_params);
+      }
+    });
+  });
+  $(".filter-author .filter-validate").on("click", function () {
+    // Update global params
+    global_params.fields.author = {};
+    global_params.fields.author.mode = "OR";
+    global_params.fields.author.words = $("#authors")[0].selectize.getValue();
+
+    console.log(global_params);
+
+    // Trigger search with click
+    $(".filter-author").trigger("click");
+  })
+
 
   /* Close dropdowns if you click on the screen */
   // $(document).mouseup(function (e) {
