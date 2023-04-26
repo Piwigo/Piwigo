@@ -90,8 +90,9 @@ $(document).ready(function () {
       } else {
         $(".filter-word").removeClass("show-filter-dropdown");
 
+        global_params.fields.allwords = {};
         global_params.fields.allwords.words = $("#word-search").val().split(" ");
-        global_params.mode = $(".word-search-options input:checked").attr('value');
+        global_params.fields.allwords.mode = $(".word-search-options input:checked").attr('value');
 
         new_fields = []
         $(".filter-word-form .search-params input:checked").each(function () {
