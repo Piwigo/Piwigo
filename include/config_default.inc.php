@@ -615,7 +615,7 @@ $conf['gallery_url'] = null;
 // (depends on the server AcceptPathInfo directive configuration)
 $conf['question_mark_in_urls'] = true;
 
-// php_extension_in_urls : if true, the urls generated for picture and
+// php_extension_in_urls : if false, the urls generated for picture and
 // category will not contain the .php extension. This will work only if
 // .htaccess defines Options +MultiViews parameter or url rewriting rules
 // are active.
