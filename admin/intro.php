@@ -197,7 +197,7 @@ if ($conf['show_piwigo_latest_news'])
 {
   $latest_news = get_piwigo_news();
 
-  if (isset($latest_news['id']) and $latest_news['posted_on'] > time()-60*60*24*180)
+  if (isset($latest_news['id']) and $latest_news['posted_on'] > time()-60*60*24*30)
   {
     $page['messages'][] = sprintf(
       '%s <a href="%s" title="%s" target="_blank"><i class="icon-bell"></i> %s</a>',
