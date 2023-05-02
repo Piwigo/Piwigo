@@ -67,6 +67,15 @@ $(document).ready(function () {
         });
       });
 
+      // Setup added_by filter
+      $("#added_by").each(function() {
+        $(this).selectize({
+          plugins: ['remove_button'],
+          maxOptions:$(this).find("option").length,
+          items: global_params.fields.added ? global_params.fields.added.words : null,
+        });
+      });
+
 
       // What do we do if we can't fetch search params ?
     },
@@ -244,6 +253,33 @@ $(document).ready(function () {
     $(".filter-author").trigger("click");
   })
 
+  /**
+   * Added by Widget
+   */
+  $(".filter-added").on("click", function (e) {
+    if ($(".filter-form").has(e.target).length != 0 || $(e.target).hasClass("filter-form") || $(e.target).hasClass("remove")) {
+      return
+    }
+    $(".filter-added-form").toggle(0, function () {
+      if ($(this).is(':visible')) {
+        $(".filter-added").addClass("show-filter-dropdown");
+      } else {
+        $(".filter-added").removeClass("show-filter-dropdown");
+        performSearch(global_params);
+      }
+    });
+  });
+  $(".filter-added .filter-validate").on("click", function () {
+    // Update global params
+    global_params.fields.added = {};
+    global_params.fields.added.mode = "OR";
+    global_params.fields.added.words = $("#added_by")[0].selectize.getValue();
+
+    console.log(global_params);
+
+    // Trigger search with click
+    $(".filter-added").trigger("click");
+  })
 
   /* Close dropdowns if you click on the screen */
   // $(document).mouseup(function (e) {

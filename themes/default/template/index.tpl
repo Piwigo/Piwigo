@@ -315,6 +315,23 @@
       </div>
     </div>
   </div>
+  <div class="filter filter-added">
+    <span class="mcs-icon pwg-icon-album">X</span>Added by: <span class="search-words">User name</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+    <div class="filter-form filter-added-form">
+
+      <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
+      {foreach from=$ADDED_BY item=added_by}
+        <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">
+          {$added_by.added_by_name|strip_tags:false} 
+          <span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span>
+        </option>
+      {/foreach}
+      </select>
+      <div class="filter-validate">
+        Valider
+      </div>
+    </div>
+  </div>
   <div class="filter filter-note">
    Note div
    <div class="filter-form filter-note-form">

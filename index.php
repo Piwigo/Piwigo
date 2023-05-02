@@ -399,6 +399,41 @@ foreach ($author_counts as $author => $counter)
 
 $template->assign('AUTHORS', $authors);
 
+// added by
+$query = '
+SELECT
+    id,
+    username
+  FROM
+    '.USERS_TABLE.'
+;';
+$username_of = query2array($query, 'id', 'username');
+
+$added_by = array();
+
+$query = '
+SELECT
+    count(added_by) as nb_photos,
+    added_by
+  FROM '.IMAGES_TABLE.'
+  GROUP BY
+    added_by
+  ORDER BY
+    nb_photos DESC
+;';
+
+$result = pwg_query($query);
+
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $added_by[] = array(
+    'added_by_id' => $row['added_by'],
+    'added_by_name' => $username_of[$row['added_by']],
+    'counter' => $row['nb_photos'],
+    );
+}
+
+$template->assign('ADDED_BY', $added_by);
 //------------------------------------------------------------ end
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_notify('loc_end_index');
