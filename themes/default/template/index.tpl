@@ -248,11 +248,11 @@
       </div>
     </div>
   </div>
-  <div class="filter filter-date">
+  {* <div class="filter filter-date">
     <span class="mcs-icon pwg-icon-calendar"></span>Date: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-arrow-n"></span>
 
     <div class="filter-form filter-date-form">
-    {* Still in porgress *}
+    // Still in porgress
       <div class="row">
         <div class="col-sm-12" id="htmlTarget">
           <label for="datetimepicker1Input" class="form-label">Picker</label>
@@ -265,7 +265,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> *}
   <div class="filter filter-album">
     <span class="mcs-icon pwg-icon-album">X</span>Album: <span class="search-words">Mon super album</span><span class="filter-arrow pwg-icon-arrow-n"></span>
 
@@ -332,7 +332,7 @@
       </div>
     </div>
   </div>
-  <div class="filter filter-note">
+  {* <div class="filter filter-note">
    Note div
    <div class="filter-form filter-note-form">
 
@@ -361,7 +361,7 @@
     <div class="filter-form filter-file-size-form">
 
     </div>
-  </div>
+  </div> *}
 </div>
 
 {if !empty($THUMBNAILS)}
