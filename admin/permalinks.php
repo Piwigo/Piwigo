@@ -73,6 +73,8 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_permalinks.php');
 
+check_input_parameter('cat_id', $_POST, false, PATTERN_ID);
+
 $selected_cat = array();
 if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
 {
@@ -89,7 +91,7 @@ elseif ( isset($_GET['delete_permanent']) )
   check_pwg_token();
   $query = '
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
-  WHERE permalink=\''.$_GET['delete_permanent'].'\'
+  WHERE permalink=\''.pwg_db_real_escape_string($_GET['delete_permanent']).'\'
   LIMIT 1';
   $result = pwg_query($query);
   if (pwg_db_changes($result)==0)
