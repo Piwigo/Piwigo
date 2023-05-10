@@ -994,3 +994,68 @@ $lang['No tags selected, no actions possible.'] = 'هیچ برچسبی انتخ�
 $lang['Piwigo %s is available, please update'] = 'ورژن %s از Piwigo آماده‌ی آپدیت کردن است
 ';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync قابلیت این را دارد که یک پوشه(فولدر) را با تمام زیر مجموعه هایش آپلود کند. اگر مجدد این عملیات را انجام دهید فقط موارد جدید آپلود میشود.';
+$lang[' (copy %s)'] = '(کپی %s)';
+$lang[' (copy)'] = '(کپی)';
+$lang['%d Activities'] = '%d فعالیت';
+$lang['%d Activity'] = '%d فعالیت';
+$lang['%d album added'] = '%d آلبوم افزوده شد';
+$lang['%d album deleted'] = '%d آلبوم حذف شد';
+$lang['%d album edited'] = '%d آلبوم ویرایش شد';
+$lang['%d albums added'] = '%d آلبوم افزوده شدند';
+$lang['%d albums deleted'] = '%d آلبوم حذف شدند';
+$lang['%d albums edited'] = '%d آلبوم ویرایش شدند';
+$lang['%d checksums were added'] = '%d چک‌سام افزوده شدند';
+$lang['%d formats uploaded for %d photos'] = '%d فرمت برای %d عکس آپلود شدند';
+$lang['%d group added'] = '%d گروه افزوده شد';
+$lang['%d group deleted'] = '%d گروه حذف شد';
+$lang['%d group edited'] = '%d گروه ویرایش شد';
+$lang['%d group moved'] = '%d گروه جابجا شد';
+$lang['%d groups added'] = '%d گروه افزوده شدند';
+$lang['%d groups deleted'] = '%d گروه حذف شدند';
+$lang['%d groups edited'] = '%d گروه ویرایش شدند';
+$lang['%d groups moved'] = '%d گروه جابجا شدند';
+$lang['%d photo added'] = '%d عکس افزوده شد';
+$lang['%d photo deleted'] = '%d عکس حذف شد';
+$lang['%d photo edited'] = '%d عکس ویرایش شد';
+$lang['%d photo moved'] = '%d عکس جابجا شد';
+$lang['%d photos'] = '%d عکس';
+$lang['%d photos added'] = '%d عکس افزوده شدند';
+$lang['%d photos deleted'] = '%d عکس حذف شدند';
+$lang['%d photos edited'] = '%d عکس ویرایش شدند';
+$lang['%d photos moved'] = '%d عکس جابجا شدند';
+$lang['%d pictures in sub-albums'] = '%d عکس در زیرآلبوم';
+$lang['%d sub-albums'] = '%d زیرآلبوم';
+$lang['%d tag added'] = '%d برچسب افزوده شد';
+$lang['%d tag deleted'] = '%d برچسب حذف شد';
+$lang['%d tag edited'] = '%d برچسب ویرایش شد';
+$lang['%d tag moved'] = '%d برچسب جابجا شد';
+$lang['%d tags added'] = '%d برچسب افزوده شدند';
+$lang['%d tags deleted'] = '%d برچسب حذف شدند';
+$lang['%d tags edited'] = '%d برچسب ویرایش شدند';
+$lang['%d tags moved'] = '%d برچسب جابجا شدند';
+$lang['%d user added'] = '%d کاربر افزوده شد';
+$lang['%d user edited'] = '%d کاربر ویرایش شد';
+$lang['%d user logged in'] = '%d کاربر وارد شد';
+$lang['%d user logged out'] = '%d کاربر خارج شد';
+$lang['%d users added'] = '%d کاربر افزوده شدند';
+$lang['%d users edited'] = '%d کاربر ویرایش شدند';
+$lang['%d users logged in'] = '%d کاربر وارد شدند';
+$lang['%d users logged out'] = '%d کاربر خارج شدند';
+$lang['%s GB used'] = '%s گیگابایت استفاده شده';
+$lang['%s MB'] = '%s مگابایت';
+$lang['%s MB used'] = '%s مگابایت استفاده شده';
+$lang['%s file type'] = '%s نوع فایل';
+$lang['%s line'] = '%s خط';
+$lang['%s lines'] = '%s خط';
+$lang['%sGB'] = '%s گیگابایت';
+$lang['%sMB'] = '%s مگابایت';
+$lang['Activated'] = 'فعال شد';
+$lang['Activity'] = 'فعالیت';
+$lang['Add Album'] = 'افزودن آلبوم';
+$lang['Add New Plugin'] = 'افزودن افزونه‌ی جدید';
+$lang['Add User'] = 'افزودن کاربر';
+$lang['Add a new user'] = 'افزودن کاربر جدید';
+$lang['Apr'] = 'آپریل';
+$lang['Aug'] = 'آگوست';
+$lang['Cache'] = 'حافظه‌ی پنهان';
+$lang['Close'] = 'بستن';
