@@ -27,7 +27,7 @@ check_status(ACCESS_ADMINISTRATOR);
 
 if (isset($_GET['action']) and 'hide_newsletter_subscription' == $_GET['action'])
 {
-  conf_update_param('show_newsletter_subscription', 'false', true);
+  userprefs_update_param('show_newsletter_subscription', 'false');
   exit();
 }
 
@@ -81,7 +81,7 @@ fs_quick_check();
 
 $template->set_filenames(array('intro' => 'intro.tpl'));
 
-if ($conf['show_newsletter_subscription']) {
+if ($conf['show_newsletter_subscription'] and userprefs_get_param('show_newsletter_subscription', true)) {
   $template->assign(
     array(
       'EMAIL' => $user['email'],
