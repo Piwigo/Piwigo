@@ -25,7 +25,7 @@ list($albums_counter) = pwg_db_fetch_row(pwg_query($query));
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-if (isset($_GET['delete']))
+if (!empty($_POST) or isset($_GET['delete']))
 {
   check_pwg_token();
 }
