@@ -62,6 +62,7 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
     <div class="album-name icon-sitemap"></div>
     <form action="{$F_ACTION}" method="post">
       <input type="hidden" name="id" value="-1">
+      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       <div class="choice-container">
         <label class="font-checkbox">
           <span class="icon-dot-circled"> </span>
