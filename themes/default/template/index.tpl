@@ -177,12 +177,51 @@
 
 {* Recherche multicritère *}
 <div class="mcs-container">
+  <div class="filter-manager-popin">
+    <div class="filter-manager-popin-container">
+      <span class="pwg-icon-cancel filter-manager-close"></span>
+
+      <div class="mcs-popin-title">Filtres</div>
+
+      <div class="filter-manager-controller-container">
+        <label>
+          <input class="filter-manager-controller word" type="checkbox"/>
+          <span class="mcs-icon pwg-icon-search">Word</span>
+        </label>
+        <label>
+          <input class="filter-manager-controller tags" type="checkbox"/>
+          <span class="mcs-icon pwg-icon-tag">Tags</span>
+        </label>
+        <label>
+          <input class="filter-manager-controller album" type="checkbox"/>
+          <span class="mcs-icon pwg-icon-album">Album</span>
+        </label>
+        <label>
+          <input class="filter-manager-controller author" type="checkbox"/>
+          <span class="mcs-icon pwg-icon-user-edit">Author</span>
+        </label>
+        <label>
+          <input class="filter-manager-controller added" type="checkbox"/>
+          <span class="mcs-icon pwg-icon-user">Added by</span>
+        </label>
+      </div>
+
+      <div class="filter-manager-actions">
+        <div class="filter-cancel">
+          Annuler
+        </div>
+        <div class="filter-validate">
+          Valider
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="filter-manager">
-    <span class="mcs-icon pwg-icon-cog">X</span>Filtres
+    <span class="mcs-icon pwg-icon-cog"></span>Filtres
   </div>
 
   <div class="filter filter-word">
-   <span class="mcs-icon pwg-icon-search">X</span>Mot: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+   <span class="mcs-icon pwg-icon-search">X</span><span class="search-words"></span><span class="filter-arrow pwg-icon-arrow-n"></span>
 
    <div class="filter-form filter-word-form">
     <span class="word-help"><i class="pwg-icon-help"></i>Conseils de recherche</span>

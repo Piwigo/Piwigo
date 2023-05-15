@@ -85,6 +85,32 @@ $(document).ready(function () {
   });
 
   /**
+   * Filter Manager
+   */
+
+  $(".filter-manager").on('click', function () {
+    $(".filter-manager-popin").show();
+  });
+  $(document).on('keyup', function (e) {
+    console.log("test");
+    // 27 is 'Escape'
+    if(e.keyCode === 27) {
+      $(".filter-manager-popin").hide();
+    }
+  });
+  $(".filter-manager-close").on('click', function () {
+    $(".filter-manager-popin").hide();
+  })
+
+  $(".filter-manager-popin .filter-validate").on('click', function () {
+
+    $(".filter-manager-controller-container input:checked").each(function (e) {
+      console.log($(this).attr("class").split(/\s+/));
+    })
+  })
+
+
+  /**
    * Filter Word
    */
   $(".filter-word").on("click", function (e) {
