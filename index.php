@@ -434,6 +434,40 @@ while ($row = pwg_db_fetch_assoc($result))
 }
 
 $template->assign('ADDED_BY', $added_by);
+
+// albums
+$my_search = get_search_array($page['search']);
+
+if (isset($my_search['fields']['cat'])) 
+{
+  $fullname_of = array();
+
+  $query = '
+SELECT 
+    id, 
+    uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE 
+    id 
+    IN ('.implode(", ", array_values($my_search['fields']['cat']['words'])).')
+  ;';
+
+  $result = pwg_query($query);
+
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $cat_display_name = get_cat_display_name_cache(
+      $row['uppercats'],
+      'admin.php?page=album-'
+    );
+    $row['fullname'] = strip_tags($cat_display_name);
+
+    $fullname_of[$row['id']] = $row['fullname'];
+  }
+
+  $template->assign('fullname_of', json_encode($fullname_of));
+}
+
 //------------------------------------------------------------ end
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_notify('loc_end_index');

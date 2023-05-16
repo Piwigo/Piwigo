@@ -26,6 +26,9 @@ $(document).ready(function () {
       // Setup word filter
       if (global_params.fields.allwords) {
         console.log("there is a word in the search");
+        $(".filter-word").show();
+        $(".filter-manager-controller.word").prop("checked", true);
+
         word_search_str = "";
         word_search_words = global_params.fields.allwords.words
         word_search_words.forEach(word => {
@@ -55,7 +58,24 @@ $(document).ready(function () {
         });
       });
       if (global_params.fields.tags) {
+        $(".filter-tag").show();
+        $(".filter-manager-controller tag").prop("checked", true);
         $(".filter-tag-form .search-params input[value=" + global_params.fields.tags.mode + "]").prop("checked", true);
+      }
+
+      // Setup album filter
+      if (global_params.fields.cat) {
+        console.log("there is an album in the search");
+        $(".filter-album").show();
+        $(".filter-manager-controller.album").prop("checked", true);
+        
+
+        global_params.fields.cat.words.forEach(cat_id => {
+          add_related_category(cat_id, fullname_of_cat[cat_id]);
+        });
+        if (global_params.fields.cat.sub_inc) {
+          $("#search-sub-cats").prop("checked", true);
+        }
       }
       
       // Setup author filter
@@ -65,6 +85,10 @@ $(document).ready(function () {
           maxOptions:$(this).find("option").length,
           items: global_params.fields.author ? global_params.fields.author.words : null,
         });
+        if (global_params.fields.author) {
+          $(".filter-author").show();
+          $(".filter-manager-controller.author").prop("checked", true);
+        }
       });
 
       // Setup added_by filter
@@ -74,6 +98,10 @@ $(document).ready(function () {
           maxOptions:$(this).find("option").length,
           items: global_params.fields.added ? global_params.fields.added.words : null,
         });
+        if (global_params.fields.added) {
+          $(".filter-added").show();
+          $(".filter-manager-controller.added").prop("checked", true);
+        }
       });
 
 
@@ -92,7 +120,6 @@ $(document).ready(function () {
     $(".filter-manager-popin").show();
   });
   $(document).on('keyup', function (e) {
-    console.log("test");
     // 27 is 'Escape'
     if(e.keyCode === 27) {
       $(".filter-manager-popin").hide();
@@ -100,13 +127,15 @@ $(document).ready(function () {
   });
   $(".filter-manager-close").on('click', function () {
     $(".filter-manager-popin").hide();
-  })
+  });
 
   $(".filter-manager-popin .filter-validate").on('click', function () {
 
+    $(".filter").hide();
     $(".filter-manager-controller-container input:checked").each(function (e) {
-      console.log($(this).attr("class").split(/\s+/));
-    })
+      $(".filter.filter-" + $(this).data("wid")).show();
+    });
+    $(".filter-manager-popin").hide();
   })
 
 
@@ -213,10 +242,10 @@ $(document).ready(function () {
         $(".filter-album").addClass("show-filter-dropdown");
       } else {
         $(".filter-album").removeClass("show-filter-dropdown");
-        global_params.cat_params = {};
-        global_params.cat_params.cat_ids = related_categories_ids;
-        global_params.cat_params.search_params = $(".filter-form.filter-album-form .search-params input:checked").val().toLowerCase();
-        global_params.cat_params.search_in_sub_cat = $("input[name='search-sub-cats']:checked").length != 0;
+        global_params.fields.cat = {};
+        global_params.fields.cat.words = related_categories_ids;
+        global_params.fields.cat.search_params = $(".filter-form.filter-album-form .search-params input:checked").val().toLowerCase();
+        global_params.fields.cat.sub_inc = $("input[name='search-sub-cats']:checked").length != 0;
 
         performSearch(global_params);
       }

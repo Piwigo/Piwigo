@@ -5,6 +5,11 @@
 
 {$MENUBAR}
 
+{footer_script}
+
+fullname_of_cat = {$fullname_of};
+
+{/footer_script}
 
 {if isset($errors) or isset($infos)}
 <div class="content messages{if isset($MENUBAR)} contentWithMenu{/if}">
@@ -185,23 +190,23 @@
 
       <div class="filter-manager-controller-container">
         <label>
-          <input class="filter-manager-controller word" type="checkbox"/>
+          <input data-wid='word' class="filter-manager-controller word" type="checkbox"/>
           <span class="mcs-icon pwg-icon-search">Word</span>
         </label>
         <label>
-          <input class="filter-manager-controller tags" type="checkbox"/>
+          <input data-wid='tag' class="filter-manager-controller tags" type="checkbox"/>
           <span class="mcs-icon pwg-icon-tag">Tags</span>
         </label>
         <label>
-          <input class="filter-manager-controller album" type="checkbox"/>
+          <input data-wid='album' class="filter-manager-controller album" type="checkbox"/>
           <span class="mcs-icon pwg-icon-album">Album</span>
         </label>
         <label>
-          <input class="filter-manager-controller author" type="checkbox"/>
+          <input data-wid='author' class="filter-manager-controller author" type="checkbox"/>
           <span class="mcs-icon pwg-icon-user-edit">Author</span>
         </label>
         <label>
-          <input class="filter-manager-controller added" type="checkbox"/>
+          <input data-wid='added' class="filter-manager-controller added" type="checkbox"/>
           <span class="mcs-icon pwg-icon-user">Added by</span>
         </label>
       </div>
