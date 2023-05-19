@@ -26,7 +26,8 @@ $(document).ready(function () {
       // Setup word filter
       if (global_params.fields.allwords) {
         console.log("there is a word in the search");
-        $(".filter-word").show();
+        $(".filter-word").css("display", "flex").addClass("filter-filled");
+
         $(".filter-manager-controller.word").prop("checked", true);
 
         word_search_str = "";
@@ -35,6 +36,7 @@ $(document).ready(function () {
           word_search_str += word + " ";
         });
         $("#word-search").val(word_search_str.slice(0, -1));
+        $(".filter-word .search-words").html(word_search_str.slice(0, -1));
 
         word_search_fields = global_params.fields.allwords.fields;
         Object.keys(word_search_fields).forEach(field_key => {
@@ -66,13 +68,16 @@ $(document).ready(function () {
       // Setup album filter
       if (global_params.fields.cat) {
         console.log("there is an album in the search");
-        $(".filter-album").show();
+        $(".filter-album").css("display", "flex").addClass("filter-filled");;
         $(".filter-manager-controller.album").prop("checked", true);
-        
-
+      
+        album_widget_value = "";
         global_params.fields.cat.words.forEach(cat_id => {
           add_related_category(cat_id, fullname_of_cat[cat_id]);
+          album_widget_value += fullname_of_cat[cat_id] + ", ";
         });
+        $(".filter-album .search-words").html(album_widget_value.slice(0, -2));
+
         if (global_params.fields.cat.sub_inc) {
           $("#search-sub-cats").prop("checked", true);
         }
