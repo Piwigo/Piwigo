@@ -7,8 +7,9 @@
 
 {footer_script}
 
+{if $fullname_of}
 fullname_of_cat = {$fullname_of};
-
+{/if}
 {/footer_script}
 
 {if isset($errors) or isset($infos)}
@@ -269,8 +270,9 @@ fullname_of_cat = {$fullname_of};
    </div>
   </div>
   <div class="filter filter-tag">
-    <span class="mcs-icon pwg-icon-tag"></span>Tag: <span class="search-words">Un Tag</span><span class="filter-arrow pwg-icon-arrow-n"></span>
-
+    <span class="mcs-icon pwg-icon-tag"></span>
+    <span class="search-words"></span>
+    <span class="filter-arrow pwg-icon-arrow-n"></span>
     <div class="filter-form filter-tag-form">
       <div class="search-params"> 
         <div>
@@ -346,7 +348,9 @@ fullname_of_cat = {$fullname_of};
     show_root_btn=false
   }
   <div class="filter filter-author">
-    <span class="mcs-icon pwg-icon-user-edit"></span>Author: <span class="search-words">Autheur talentueux</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+    <span class="mcs-icon pwg-icon-user-edit"></span>
+    <span class="search-words"></span>
+    <span class="filter-arrow pwg-icon-arrow-n"></span>
     <div class="filter-form filter-author-form">
       <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
       {foreach from=$AUTHORS item=author}
@@ -359,6 +363,7 @@ fullname_of_cat = {$fullname_of};
       </div>
     </div>
   </div>
+
   <div class="filter filter-added">
     <span class="mcs-icon pwg-icon-user">X</span>Added by: <span class="search-words">User name</span><span class="filter-arrow pwg-icon-arrow-n"></span>
     <div class="filter-form filter-added-form">

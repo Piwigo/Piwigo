@@ -436,7 +436,9 @@ while ($row = pwg_db_fetch_assoc($result))
 $template->assign('ADDED_BY', $added_by);
 
 // albums
-$my_search = get_search_array($page['search']);
+if (isset($page['search'])) {
+  $my_search = get_search_array($page['search']);
+}
 
 if (isset($my_search['fields']['cat'])) 
 {

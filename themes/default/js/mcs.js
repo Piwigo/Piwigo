@@ -60,9 +60,14 @@ $(document).ready(function () {
         });
       });
       if (global_params.fields.tags) {
-        $(".filter-tag").show();
-        $(".filter-manager-controller tag").prop("checked", true);
+        $(".filter-tag").css("display", "flex").addClass("filter-filled");
+        $(".filter-manager-controller.tags").prop("checked", true);
         $(".filter-tag-form .search-params input[value=" + global_params.fields.tags.mode + "]").prop("checked", true);
+        tag_search_str = ""
+        $("#tag-search")[0].selectize.getValue().forEach(id => {
+          tag_search_str += $("#tag-search")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
+        });
+        $(".filter.filter-tag .search-words").text(tag_search_str.slice(0, -2));
       }
 
       // Setup album filter
@@ -91,8 +96,13 @@ $(document).ready(function () {
           items: global_params.fields.author ? global_params.fields.author.words : null,
         });
         if (global_params.fields.author) {
-          $(".filter-author").show();
+          $(".filter-author").css("display", "flex").addClass("filter-filled");
           $(".filter-manager-controller.author").prop("checked", true);
+          author_search_str = ""
+          $("#authors")[0].selectize.getValue().forEach(id => {
+            author_search_str += $("#authors")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
+          });
+          $(".filter.filter-author .search-words").text(author_search_str.slice(0, -2));
         }
       });
 
@@ -104,8 +114,13 @@ $(document).ready(function () {
           items: global_params.fields.added ? global_params.fields.added.words : null,
         });
         if (global_params.fields.added) {
-          $(".filter-added").show();
+          $(".filter-added").css("display", "flex").addClass("filter-filled");
           $(".filter-manager-controller.added").prop("checked", true);
+          added_search_srt = ""
+          $("#added_by")[0].selectize.getValue().forEach(id => {
+            author_search_str += $("#added_by")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
+          });
+          $(".filter.filter-added .search-words").text(author_search_str.slice(0, -2));
         }
       });
 
