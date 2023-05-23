@@ -118,9 +118,9 @@ $(document).ready(function () {
           $(".filter-manager-controller.added").prop("checked", true);
           added_search_srt = ""
           $("#added_by")[0].selectize.getValue().forEach(id => {
-            author_search_str += $("#added_by")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
+            added_search_srt += $("#added_by")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
           });
-          $(".filter.filter-added .search-words").text(author_search_str.slice(0, -2));
+          $(".filter.filter-added .search-words").text(added_search_srt.slice(0, -2));
         }
       });
 
