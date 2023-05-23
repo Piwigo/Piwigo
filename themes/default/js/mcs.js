@@ -1,8 +1,7 @@
 $(document).ready(function () {
-  var url = window.location.href;
-  var search_id = url.substring(url.lastIndexOf('/') + 1);
-
   related_categories_ids = [];
+
+  $(".linkedAlbumPopInContainer .ClosePopIn").addClass("pwg-icon-cancel")
 
   $.ajax({
     url: "ws.php?format=json&method=pwg.gallery.getSearch",

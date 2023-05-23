@@ -1,5 +1,5 @@
 {combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
-{combine_script id='mcs' load='async' require='jquery' path='themes/default/js/mcs.js'}
+
 
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 
@@ -9,6 +9,10 @@
 
 {if $fullname_of}
 fullname_of_cat = {$fullname_of};
+{/if}
+
+{if $SEARCH_ID}
+search_id = {$SEARCH_ID};
 {/if}
 {/footer_script}
 
@@ -181,6 +185,8 @@ fullname_of_cat = {$fullname_of};
 	{include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$cats_navbar}
 {/if}
 
+{if !empty($SEARCH_ID)}
+{combine_script id='mcs' load='async' require='jquery' path='themes/default/js/mcs.js'}
 {* Recherche multicritère *}
 <div class="mcs-container">
   <div class="filter-manager-popin">
@@ -227,10 +233,10 @@ fullname_of_cat = {$fullname_of};
   </div>
 
   <div class="filter filter-word">
-   <span class="mcs-icon pwg-icon-search"></span><span class="search-words"></span><span class="filter-arrow pwg-icon-arrow-n"></span>
+   <span class="mcs-icon pwg-icon-search"></span><span class="search-words"></span><span class="filter-arrow pwg-icon-up-open"></span>
 
    <div class="filter-form filter-word-form">
-    <span class="word-help"><i class="pwg-icon-help"></i>Conseils de recherche</span>
+    <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span>
     <div class="word-search-options">
       <label><input type="radio" name="mode" value="AND" checked> {'Search for all terms'|@translate}</label>
       <label><input type="radio" name="mode" value="OR"> {'Search for any term'|@translate}</label>
@@ -272,7 +278,7 @@ fullname_of_cat = {$fullname_of};
   <div class="filter filter-tag">
     <span class="mcs-icon pwg-icon-tag"></span>
     <span class="search-words"></span>
-    <span class="filter-arrow pwg-icon-arrow-n"></span>
+    <span class="filter-arrow pwg-icon-up-open"></span>
     <div class="filter-form filter-tag-form">
       <div class="search-params"> 
         <div>
@@ -295,7 +301,7 @@ fullname_of_cat = {$fullname_of};
     </div>
   </div>
   {* <div class="filter filter-date">
-    <span class="mcs-icon pwg-icon-calendar"></span>Date: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+    <span class="mcs-icon pwg-icon-calendar"></span>Date: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-date-form">
     // Still in porgress
@@ -313,7 +319,7 @@ fullname_of_cat = {$fullname_of};
     </div>
   </div> *}
   <div class="filter filter-album">
-    <span class="mcs-icon pwg-icon-album"></span>Album: <span class="search-words">Mon super album</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+    <span class="mcs-icon pwg-icon-album"></span>Album: <span class="search-words">Mon super album</span><span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
       <div class="search-params"> 
@@ -350,7 +356,7 @@ fullname_of_cat = {$fullname_of};
   <div class="filter filter-author">
     <span class="mcs-icon pwg-icon-user-edit"></span>
     <span class="search-words"></span>
-    <span class="filter-arrow pwg-icon-arrow-n"></span>
+    <span class="filter-arrow pwg-icon-up-open"></span>
     <div class="filter-form filter-author-form">
       <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
       {foreach from=$AUTHORS item=author}
@@ -365,7 +371,7 @@ fullname_of_cat = {$fullname_of};
   </div>
 
   <div class="filter filter-added">
-    <span class="mcs-icon pwg-icon-user">X</span>Added by: <span class="search-words">User name</span><span class="filter-arrow pwg-icon-arrow-n"></span>
+    <span class="mcs-icon pwg-icon-user">X</span>Added by: <span class="search-words">User name</span><span class="filter-arrow pwg-icon-up-open"></span>
     <div class="filter-form filter-added-form">
 
       <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
@@ -412,6 +418,7 @@ fullname_of_cat = {$fullname_of};
     </div>
   </div> *}
 </div>
+{/if}
 
 {if !empty($THUMBNAILS)}
 <div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>

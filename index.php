@@ -438,6 +438,7 @@ $template->assign('ADDED_BY', $added_by);
 // albums
 if (isset($page['search'])) {
   $my_search = get_search_array($page['search']);
+  $template->assign('SEARCH_ID', $page['search']);
 }
 
 if (isset($my_search['fields']['cat'])) 
