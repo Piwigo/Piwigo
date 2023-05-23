@@ -191,16 +191,12 @@ $(document).ready(function () {
           delete global_params.fields.search_in_tags;
         }
         global_params.fields.allwords.fields = new_fields;
-        performSearch(global_params);
       }
     });
   });
   $(".filter-word .filter-validate").on("click", function () {
-    // Update global params
-    console.log(global_params);
-
-    // Trigger search with click
     $(".filter-word").trigger("click");
+    performSearch(global_params);
   })
 
   /**
@@ -215,20 +211,16 @@ $(document).ready(function () {
         $(".filter-tag").addClass("show-filter-dropdown");
       } else {
         $(".filter-tag").removeClass("show-filter-dropdown");
-        performSearch(global_params);
+        global_params.fields.tags = {};
+        global_params.fields.tags.mode = $(".filter-tag-form .search-params input:checked").val();
+        global_params.fields.tags.words = $("#tag-search")[0].selectize.getValue();
       }
     });
   });
   $(".filter-tag .filter-validate").on("click", function () {
-    // Update global params
-    global_params.fields.tags = {};
-    global_params.fields.tags.mode = $(".filter-tag-form .search-params input:checked").val();
-    global_params.fields.tags.words = $("#tag-search")[0].selectize.getValue();
-
-    console.log(global_params);
-
-    // Trigger search with click
     $(".filter-tag").trigger("click");
+
+    performSearch(global_params);
   })
 
   /**
@@ -266,17 +258,12 @@ $(document).ready(function () {
         global_params.fields.cat.words = related_categories_ids;
         global_params.fields.cat.search_params = $(".filter-form.filter-album-form .search-params input:checked").val().toLowerCase();
         global_params.fields.cat.sub_inc = $("input[name='search-sub-cats']:checked").length != 0;
-
-        performSearch(global_params);
       }
     });
   });
   $(".filter-album .filter-validate").on("click", function () {
-    // Update global params
-    console.log(global_params);
-
-    // Trigger search with click
     $(".filter-album").trigger("click");
+    performSearch(global_params);
   });
 
   $(".add-album-button").on("click", function () {
@@ -312,20 +299,15 @@ $(document).ready(function () {
         $(".filter-author").addClass("show-filter-dropdown");
       } else {
         $(".filter-author").removeClass("show-filter-dropdown");
-        performSearch(global_params);
+        global_params.fields.author = {};
+        global_params.fields.author.mode = "OR";
+        global_params.fields.author.words = $("#authors")[0].selectize.getValue();
       }
     });
   });
   $(".filter-author .filter-validate").on("click", function () {
-    // Update global params
-    global_params.fields.author = {};
-    global_params.fields.author.mode = "OR";
-    global_params.fields.author.words = $("#authors")[0].selectize.getValue();
-
-    console.log(global_params);
-
-    // Trigger search with click
     $(".filter-author").trigger("click");
+    performSearch(global_params);
   })
 
   /**
@@ -340,19 +322,14 @@ $(document).ready(function () {
         $(".filter-added").addClass("show-filter-dropdown");
       } else {
         $(".filter-added").removeClass("show-filter-dropdown");
-        performSearch(global_params);
+        global_params.fields.added = {};
+        global_params.fields.added.mode = "OR";
+        global_params.fields.added.words = $("#added_by")[0].selectize.getValue();
       }
     });
   });
   $(".filter-added .filter-validate").on("click", function () {
-    // Update global params
-    global_params.fields.added = {};
-    global_params.fields.added.mode = "OR";
-    global_params.fields.added.words = $("#added_by")[0].selectize.getValue();
-
-    console.log(global_params);
-
-    // Trigger search with click
+    performSearch(global_params);
     $(".filter-added").trigger("click");
   })
 
