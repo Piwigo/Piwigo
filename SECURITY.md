@@ -11,7 +11,7 @@ we may release a new version of an old branch but that won't be the standard way
 ## Reporting a Vulnerability
 
 **Please contact us at [security@piwigo.org](mailto:security@piwigo.org) when you have
-discovered a potential security issue.** At a minimum, your report should include the following:
+discovered a potential security issue.** Please do not create a public issue for now. At a minimum, your report by email should include the following:
 
 - version of Piwigo, version of PHP, version of MySQL/MariaDB
 - vulnerability description
