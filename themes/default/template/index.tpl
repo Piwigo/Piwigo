@@ -236,7 +236,7 @@ search_id = {$SEARCH_ID};
    <span class="mcs-icon pwg-icon-search"></span><span class="search-words"></span><span class="filter-arrow pwg-icon-up-open"></span>
 
    <div class="filter-form filter-word-form">
-    <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span>
+    {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
     <div class="word-search-options">
       <label><input type="radio" name="mode" value="AND" checked> {'Search for all terms'|@translate}</label>
       <label><input type="radio" name="mode" value="OR"> {'Search for any term'|@translate}</label>
