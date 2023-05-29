@@ -37,6 +37,7 @@ define('ACTIVITY_SYSTEM_THEME', 3);
 
 // Sanity checks
 define('PATTERN_ID', '/^\d+$/');
+define('PATTERN_ORDER', '/^(rand(om)?|[a-z_]+(\s+(asc|desc))?)(\s*,\s*(rand(om)?|[a-z_]+(\s+(asc|desc))?))*$/i');
 
 // Table names
 if (!defined('CATEGORIES_TABLE'))
