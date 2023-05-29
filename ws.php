@@ -1102,6 +1102,8 @@ function ws_addDefaultMethods( $arr )
                               'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'order' =>      array('default'=>'id',
                               'info'=>'id, username, level, email'),
+        'exclude' =>    array('flags'=>WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+                              'type'=>WS_TYPE_ID),
         'display' =>    array('default'=>'basics',
                               'info'=>'Comma saparated list (see method description)'),
         ),

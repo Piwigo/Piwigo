@@ -15,6 +15,11 @@
  */
 function ws_groups_getList($params, &$service)
 {
+  if (!preg_match(PATTERN_ORDER, $params['order']))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid input parameter order');
+  }
+
   $where_clauses = array('1=1');
 
   if (!empty($params['name']))
