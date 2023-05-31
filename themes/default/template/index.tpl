@@ -213,7 +213,7 @@ search_id = {$SEARCH_ID};
           <span class="mcs-icon pwg-icon-user-edit">Author</span>
         </label>
         <label>
-          <input data-wid='added' class="filter-manager-controller added" type="checkbox"/>
+          <input data-wid='added_by' class="filter-manager-controller added_by" type="checkbox"/>
           <span class="mcs-icon pwg-icon-user">Added by</span>
         </label>
       </div>
@@ -233,7 +233,10 @@ search_id = {$SEARCH_ID};
   </div>
 
   <div class="filter filter-word">
-   <span class="mcs-icon pwg-icon-search"></span><span class="search-words"></span><span class="filter-arrow pwg-icon-up-open"></span>
+   <span class="mcs-icon pwg-icon-search filter-icon"></span>
+   <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
+   <span class="search-words"></span>
+   <span class="filter-arrow pwg-icon-up-open"></span>
 
    <div class="filter-form filter-word-form">
     {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
@@ -276,9 +279,11 @@ search_id = {$SEARCH_ID};
    </div>
   </div>
   <div class="filter filter-tag">
-    <span class="mcs-icon pwg-icon-tag"></span>
+    <span class="mcs-icon pwg-icon-tag filter-icon"></span>
+    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     <span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
+
     <div class="filter-form filter-tag-form">
       <div class="search-params"> 
         <div>
@@ -319,7 +324,10 @@ search_id = {$SEARCH_ID};
     </div>
   </div> *}
   <div class="filter filter-album">
-    <span class="mcs-icon pwg-icon-album"></span>Album: <span class="search-words">Mon super album</span><span class="filter-arrow pwg-icon-up-open"></span>
+    <span class="mcs-icon pwg-icon-album filter-icon"></span>
+    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
+    <span class="search-words"></span>
+    <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
       <div class="search-params"> 
@@ -354,9 +362,11 @@ search_id = {$SEARCH_ID};
     show_root_btn=false
   }
   <div class="filter filter-author">
-    <span class="mcs-icon pwg-icon-user-edit"></span>
+    <span class="mcs-icon pwg-icon-user-edit filter-icon"></span>
+    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     <span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
+    
     <div class="filter-form filter-author-form">
       <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
       {foreach from=$AUTHORS item=author}
@@ -370,10 +380,13 @@ search_id = {$SEARCH_ID};
     </div>
   </div>
 
-  <div class="filter filter-added">
-    <span class="mcs-icon pwg-icon-user">X</span>Added by: <span class="search-words">User name</span><span class="filter-arrow pwg-icon-up-open"></span>
-    <div class="filter-form filter-added-form">
+  <div class="filter filter-added_by">
+    <span class="mcs-icon pwg-icon-user filter-icon"></span>
+    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
+    </span>Added by: <span class="search-words">User name</span>
+    <span class="filter-arrow pwg-icon-up-open"></span>
 
+    <div class="filter-form filter-added_by-form">
       <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
       {foreach from=$ADDED_BY item=added_by}
         <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">
