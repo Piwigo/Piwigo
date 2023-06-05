@@ -1,7 +1,6 @@
 {combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
-
-
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 {$MENUBAR}
 
@@ -223,7 +222,8 @@ search_id = {$SEARCH_ID};
           Annuler
         </div>
         <div class="filter-validate">
-          Valider
+          <i class="loading pwg-icon-spin6 animate-spin"></i>
+          <span class="validate-text">Valider</span>
         </div>
       </div>
     </div>
@@ -274,7 +274,8 @@ search_id = {$SEARCH_ID};
       </div>
     </div>
     <div class="filter-validate">
-      Valider
+      <i class="loading pwg-icon-spin6 animate-spin"></i>
+      <span class="validate-text">Valider</span>
     </div>
    </div>
   </div>
@@ -301,7 +302,8 @@ search_id = {$SEARCH_ID};
     {/foreach}
       </select>
       <div class="filter-validate">
-        Valider
+        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <span class="validate-text">Valider</span>
       </div>
     </div>
   </div>
@@ -352,7 +354,8 @@ search_id = {$SEARCH_ID};
           <label for="search-sub-cats">Rechercher dans les sous albums</label>
         </div>
         <div class="filter-validate">
-          Valider
+          <i class="loading pwg-icon-spin6 animate-spin"></i>
+          <span class="validate-text">Valider</span>
         </div>
     </div>
   </div>
@@ -375,7 +378,8 @@ search_id = {$SEARCH_ID};
       </select>
 
       <div class="filter-validate">
-        Valider
+        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <span class="validate-text">Valider</span>
       </div>
     </div>
   </div>
@@ -396,7 +400,8 @@ search_id = {$SEARCH_ID};
       {/foreach}
       </select>
       <div class="filter-validate">
-        Valider
+        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <span class="validate-text">Valider</span>
       </div>
     </div>
   </div>

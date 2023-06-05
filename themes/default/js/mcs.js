@@ -2,6 +2,10 @@ $(document).ready(function () {
   related_categories_ids = [];
 
   $(".linkedAlbumPopInContainer .ClosePopIn").addClass("pwg-icon-cancel");
+  $(".filter-validate").on("click", function () {
+    $(this).find(".loading").css("display", "block");
+    $(this).find(".validate-text").hide();
+  });
 
   $.ajax({
     url: "ws.php?format=json&method=pwg.gallery.getSearch",
@@ -159,8 +163,7 @@ $(document).ready(function () {
         $(".filter.filter-" + $(this).data("wid")).css("display", "none");
       }
     });  
-    $(".filter-manager-popin").hide();
-    performSearch(global_params, true);
+    performSearch(global_params);
   })
 
 
@@ -461,7 +464,11 @@ function performSearch(params, reload = false) {
     },
     error:function(e) {
       console.log(e);
-    }
+    },
+  }).done(function () {
+    console.log('ajax ended');
+    $(".filter-validate").find(".validate-text").css("display", "block");
+    $(".filter-validate").find(".loading").hide();
   });
 }
 
