@@ -5,7 +5,7 @@
 {$MENUBAR}
 
 {footer_script}
-
+global_params = {$GP};
 {if $fullname_of}
 fullname_of_cat = {$fullname_of};
 {/if}

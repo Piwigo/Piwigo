@@ -471,6 +471,19 @@ SELECT
   $template->assign('fullname_of', json_encode($fullname_of));
 }
 
+if (is_null($page['search']))
+{
+  $page['errors'][] = l10n('Search id is null');
+}
+include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
+
+if (get_search_array($page['search']) == false)
+{
+  $page['errors'][] = l10n('Search associated to id '.$page['search'].' not found');
+}
+
+$template->assign('GP', json_encode(get_search_array($page['search'])));
+
 //------------------------------------------------------------ end
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_notify('loc_end_index');
