@@ -7,6 +7,24 @@ $(document).ready(function () {
     $(this).find(".validate-text").hide();
   });
 
+  $(".filter-form").hover(
+  function () {
+    $(this).parent().find(".mcs-icon.remove-filter").css({
+      display: 'none',
+    });
+    $(this).parent().find(".mcs-icon.filter-icon").css({
+      display: 'block',
+    });
+  }, 
+  function () {
+    $(this).parent().find(".mcs-icon.remove-filter").css({
+      display: 'block',
+    });
+    $(this).parent().find(".mcs-icon.filter-icon").css({
+      display: 'none',
+    });
+  });
+
   global_params.search_id = search_id;
   console.log("Global params after fetch");
   console.log(global_params);
@@ -134,12 +152,10 @@ $(document).ready(function () {
         if (!$(".filter.filter-" + $(this).data("wid")).is(':visible')) {
           updateFilters($(this).data("wid"), 'add');
         }
-        $(".filter.filter-" + $(this).data("wid")).css("display", "flex");
       } else {
         if ($(".filter.filter-" + $(this).data("wid")).is(':visible')) {
           updateFilters($(this).data("wid"), 'del');
         }
-        $(".filter.filter-" + $(this).data("wid")).css("display", "none");
       }
     });
     // Set second param to true
