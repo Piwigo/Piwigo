@@ -847,6 +847,7 @@ SELECT id
 UPDATE '.SEARCH_TABLE.'
   SET rules = \''.pwg_db_real_escape_string(serialize($search)).'\'
     , last_seen = NOW()
+  WHERE id = '.$params['search_id'].'
 ;';
   pwg_query($query);
 }
