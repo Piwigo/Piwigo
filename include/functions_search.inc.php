@@ -77,6 +77,7 @@ function get_sql_search_clause($search)
 
   if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0)
   {
+    // 1) we search in regular fields (ie, the ones in the piwigo_images table)
     $fields = array('file', 'name', 'comment');
 
     if (isset($search['fields']['allwords']['fields']) and count($search['fields']['allwords']['fields']) > 0)
@@ -117,11 +118,48 @@ function get_sql_search_clause($search)
       $search['fields']['allwords']['mode'] = 'AND';
     }
 
+    // 2) we search the words in album titles/descriptions
+    $cat_fields_dictionnary = array(
+      'cat-title' => 'name',
+      'cat-desc' => 'comment',
+    );
+    $cat_fields = array_intersect(array_keys($cat_fields_dictionnary), $search['fields']['allwords']['fields']);
+
+    if (count($cat_fields) > 0)
+    {
+      $cat_word_clauses = array();
+      foreach ($search['fields']['allwords']['words'] as $word)
+      {
+        $field_clauses = array();
+        foreach ($cat_fields as $cat_field)
+        {
+          $field_clauses[] = $cat_fields_dictionnary[$cat_field]." LIKE '%".$word."%'";
+        }
+
+        // adds brackets around where clauses
+        $cat_word_clauses[] = implode(' OR ', $field_clauses);
+      }
+
+      $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE '.implode(' OR ', $cat_word_clauses).'
+;';
+      $cat_ids = query2array($query, null, 'id');
+      if (count($cat_ids) > 0)
+      {
+        $word_clauses[] = 'category_id IN ('.implode(',', $cat_ids).')';
+      }
+    }
+
     $clauses[] = "\n         ".
       implode(
         "\n         ". $search['fields']['allwords']['mode']. "\n         ",
         $word_clauses
         );
+
+    // 3) the case of searching among tags is handled by search_in_tags in function get_regular_search_results
   }
 
   foreach (array('date_available', 'date_creation') as $datefield)
@@ -145,7 +183,12 @@ function get_sql_search_clause($search)
     }
   }
 
-  if (isset($search['fields']['cat']))
+  if (!empty($search['fields']['added_by']))
+  {
+    $clauses[] = 'added_by IN ('.implode(',', $search['fields']['added_by']).')';
+  }
+
+  if (isset($search['fields']['cat']) and !empty($search['fields']['cat']['words']))
   {
     if ($search['fields']['cat']['sub_inc'])
     {
@@ -200,6 +243,14 @@ function get_regular_search_results($search, $images_where='')
 
   $items = array();
   $tag_items = array();
+
+  // starting with version 14, we no longer have $search['fields']['search_in_tags'] but 'tags'
+  // in the array $search['fields']['allwords']['fields']. Let's convert, without changing the
+  // search algorithm
+  if (!empty($search['fields']['allwords']['fields']) and in_array('tags', $search['fields']['allwords']['fields']))
+  {
+    $search['fields']['search_in_tags'] = true;
+  }
 
   if (isset($search['fields']['search_in_tags']))
   {
