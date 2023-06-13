@@ -75,7 +75,7 @@ function get_sql_search_clause($search)
     }
   }
 
-  if (isset($search['fields']['allwords']) and count($search['fields']['allwords']['fields']) > 0)
+  if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0)
   {
     $fields = array('file', 'name', 'comment');
 
