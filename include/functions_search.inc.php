@@ -65,13 +65,16 @@ function get_sql_search_clause($search)
         }
       }
 
-      // adds brackets around where clauses
-      $local_clauses = prepend_append_array_items($local_clauses, '(', ')');
+      if (count($local_clauses) > 0)
+      {
+        // adds brackets around where clauses
+        $local_clauses = prepend_append_array_items($local_clauses, '(', ')');
 
-      $clauses[] = implode(
-        ' '.$search['fields'][$textfield]['mode'].' ',
-        $local_clauses
+        $clauses[] = implode(
+          ' '.$search['fields'][$textfield]['mode'].' ',
+          $local_clauses
         );
+      }
     }
   }
 
