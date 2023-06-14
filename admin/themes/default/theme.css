@@ -5817,6 +5817,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #photosAddContent .Addedphotos #uploadedPhotos {
   display: flex;
+  flex-wrap: wrap;
 }
 /* Here we add a width and height of 120px so svg are visible and the same size as square images */
 #uploadedPhotos img {
