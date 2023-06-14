@@ -29,13 +29,17 @@ $(document).ready(function () {
   console.log("Global params after fetch");
   console.log(global_params);
 
+  if (!global_params.fields) {
+    global_params.fields = {};
+  }
+
   // Setup word filter
   if (global_params.fields.allwords) {
     $(".filter-word").css("display", "flex").addClass("filter-filled");
     $(".filter-manager-controller.word").prop("checked", true);
 
     word_search_str = "";
-    word_search_words = global_params.fields.allwords.words;
+    word_search_words = global_params.fields.allwords.words != null ? global_params.fields.allwords.words : [];
     word_search_words.forEach(word => {
       word_search_str += word + " ";
     });
@@ -158,11 +162,13 @@ $(document).ready(function () {
         }
       }
     });
-    // Set second param to true
-    performSearch(global_params ,true);
+    // Set second param to true to trigger reload
+    performSearch(PS_params ,false);
   })
 
-
+  // Declare params sent to pwg.images.filteredSearch.update
+  PS_params = {};
+  PS_params.search_id = search_id;
   /**
    * Filter Word
    */
@@ -181,32 +187,35 @@ $(document).ready(function () {
         $(".filter-word").removeClass("show-filter-dropdown");
 
         global_params.fields.allwords = {};
-        global_params.fields.allwords.words = $("#word-search").val().split(" ");
+        global_params.fields.allwords.words = $("#word-search").val();
         global_params.fields.allwords.mode = $(".word-search-options input:checked").attr('value');
+        
+        PS_params.allwords = $("#word-search").val();
+        PS_params.allwords_mode = $(".word-search-options input:checked").attr('value');
 
         new_fields = [];
         $(".filter-word-form .search-params input:checked").each(function () {
           if ($(this).attr("name") == "tags") {
             global_params.fields.search_in_tags = true;
-          } else {
-            new_fields.push($(this).attr("name"));
           }
+          new_fields.push($(this).attr("name"));
         });
         if ($(".filter-word-form .search-params input[name='tags']:checked").length == 0) {
           delete global_params.fields.search_in_tags;
         }
         global_params.fields.allwords.fields = new_fields;
+        PS_params.allwords_fields = new_fields;
       }
     });
   });
   $(".filter-word .filter-validate").on("click", function () {
     $(".filter-word").trigger("click");
-    performSearch(global_params, true);
+    performSearch(PS_params, true);
   });
   $(".filter-word .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
     updateFilters('word', 'del');
-    performSearch(global_params, $(".filter-word").hasClass("filter-filled"));
+    performSearch(PS_params, $(".filter-word").hasClass("filter-filled"));
     if (!$(".filter-word").hasClass("filter-filled")) {
       $(".filter-word").hide();
       $(".filter-manager-controller.word").prop("checked", false);
@@ -231,17 +240,20 @@ $(document).ready(function () {
         global_params.fields.tags = {};
         global_params.fields.tags.mode = $(".filter-tag-form .search-params input:checked").val();
         global_params.fields.tags.words = $("#tag-search")[0].selectize.getValue();
+
+        PS_params.tags = $("#tag-search")[0].selectize.getValue();
+        PS_params.tags_mode = $(".filter-tag-form .search-params input:checked").val();
       }
     });
   });
   $(".filter-tag .filter-validate").on("click", function () {
     $(".filter-tag").trigger("click");
-    performSearch(global_params, true);
+    performSearch(PS_params, true);
   });
   $(".filter-tag .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
     updateFilters('tag', 'del');
-    performSearch(global_params, $(".filter-tag").hasClass("filter-filled"));
+    performSearch(PS_params, $(".filter-tag").hasClass("filter-filled"));
     if (!$(".filter-tag").hasClass("filter-filled")) {
       $(".filter-tag").hide();
       $(".filter-manager-controller.tags").prop("checked", false);
@@ -263,14 +275,14 @@ $(document).ready(function () {
         $(".filter-date").addClass("show-filter-dropdown");
       } else {
         $(".filter-date").removeClass("show-filter-dropdown");
-        performSearch(global_params, true);
+        performSearch(PS_params, true);
       }
     });
   });
   $(".filter-date .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
     updateFilters('date', 'del');
-    performSearch(global_params, $(".filter-date").hasClass("filter-filled"));
+    performSearch(PS_params, $(".filter-date").hasClass("filter-filled"));
     if (!$(".filter-date").hasClass("filter-filled")) {
       $(".filter-date").hide();
       $(".filter-manager-controller.date").prop("checked", false);
@@ -296,17 +308,20 @@ $(document).ready(function () {
         global_params.fields.cat.words = related_categories_ids;
         global_params.fields.cat.search_params = $(".filter-form.filter-album-form .search-params input:checked").val().toLowerCase();
         global_params.fields.cat.sub_inc = $("input[name='search-sub-cats']:checked").length != 0;
+
+        PS_params.categories = related_categories_ids;
+        PS_params.categories_withsubs = $("input[name='search-sub-cats']:checked").length != 0;
       }
     });
   });
   $(".filter-album .filter-validate").on("click", function () {
     $(".filter-album").trigger("click");
-    performSearch(global_params, true);
+    performSearch(PS_params, false);
   });
   $(".filter-album .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
     updateFilters('album', 'del');
-    performSearch(global_params, $(".filter-album").hasClass("filter-filled"));
+    performSearch(PS_params, $(".filter-album").hasClass("filter-filled"));
     if (!$(".filter-album").hasClass("filter-filled")) {
       $(".filter-album").hide();
       $(".filter-manager-controller.album").prop("checked", false);
@@ -352,17 +367,19 @@ $(document).ready(function () {
         global_params.fields.author = {};
         global_params.fields.author.mode = "OR";
         global_params.fields.author.words = $("#authors")[0].selectize.getValue();
+
+        PS_params.authors = $("#authors")[0].selectize.getValue();
       }
     });
   });
   $(".filter-author .filter-validate").on("click", function () {
     $(".filter-author").trigger("click");
-    performSearch(global_params, true);
+    performSearch(PS_params, true);
   });
   $(".filter-author .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
     updateFilters('author', 'del');
-    performSearch(global_params, $(".filter-author").hasClass("filter-filled"));
+    performSearch(PS_params, $(".filter-author").hasClass("filter-filled"));
     if (!$(".filter-author").hasClass("filter-filled")) {
       $(".filter-author").hide();
       $(".filter-manager-controller.author").prop("checked", false);
@@ -387,17 +404,19 @@ $(document).ready(function () {
         global_params.fields.added_by = {};
         global_params.fields.added_by.mode = "OR";
         global_params.fields.added_by.words = $("#added_by")[0].selectize.getValue();
+
+        PS_params.added_by = $("#added_by")[0].selectize.getValue();
       }
     });
   });
   $(".filter-added_by .filter-validate").on("click", function () {
     $(".filter-added_by").trigger("click");
-    performSearch(global_params, true);
+    performSearch(PS_params, true);
   });
   $(".filter-added_by .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
     updateFilters('added_by', 'del');
-    performSearch(global_params, $(".filter-added_by").hasClass("filter-filled"));
+    performSearch(PS_params, $(".filter-added_by").hasClass("filter-filled"));
     if (!$(".filter-added_by").hasClass("filter-filled")) {
       $(".filter-added_by").hide();
       $(".filter-manager-controller.added_by").prop("checked", false);
@@ -428,13 +447,10 @@ function performSearch(params, reload = false) {
   console.log("params sent to updatesearch");
   console.log(params);
   $.ajax({
-    url: "ws.php?format=json&method=pwg.gallery.updateSearch",
+    url: "ws.php?format=json&method=pwg.images.filteredSearch.update",
     type:"POST",
     dataType: "json",
-    data: {
-      search_id: params.search_id,
-      params: params,
-    },
+    data: PS_params,
     success:function(data) {
       console.log("perform search");
       console.log(data);
@@ -498,7 +514,7 @@ function add_related_category(cat_id, cat_link_path) {
     $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>");
 
     $("#"+ cat_id).on("click", function () {
-      remove_related_category($(this).attr("id"))
+      remove_related_category($(this).attr("id"));
     });
 
     linked_albums_close();
@@ -507,9 +523,12 @@ function add_related_category(cat_id, cat_link_path) {
 function remove_related_category(cat_id) {
   $("#" + cat_id).parent().remove();
 
-  cat_to_remove_index = related_categories_ids.indexOf(cat_id);
+  cat_to_remove_index = related_categories_ids.indexOf(parseInt(cat_id));
   if (cat_to_remove_index > -1) {
     related_categories_ids.splice(cat_to_remove_index, 1);
+  }
+  if (related_categories_ids.length === 0) {
+    related_categories_ids = '';
   }
 }
 
@@ -518,32 +537,56 @@ function updateFilters(filterName, mode) {
     case 'word':
       if (mode == 'add') {
         global_params.fields.allwords = {};
+
+        PS_params.allwords = "";
+        PS_params.allwords_mode = 'AND';
+        PS_params.allwords_fields = [];
       } else if (mode == 'del') {
         delete global_params.fields.allwords;
+
+        delete PS_params.allwords;
+        delete PS_params.allwords_mode;
+        delete PS_params.allwords_fields;
       }
       break;
 
     case 'tag':
       if (mode == 'add') {
         global_params.fields.tags = {};
+
+        PS_params.tags = '';
+        PS_params.tags_mode = 'AND';
       } else if (mode == 'del') {
         delete global_params.fields.tags;
+
+        delete PS_params.tags;
+        delete PS_params.tags_mode;
       }
       break;
 
     case 'album':
       if (mode == 'add') {
         global_params.fields.cat = {};
+
+        PS_params.categories = '';
+        PS_params.categories_withsubs = false;
       } else if (mode == 'del') {
         delete global_params.fields.cat;
+
+        delete PS_params.categories;
+        delete PS_params.categories_withsubs;
       }
       break;
 
     default:
       if (mode == 'add') {
         global_params.fields[filterName] = {};
+
+        PS_params[filterName] = [];
       } else if (mode == 'del') {
         delete global_params.fields[filterName];
+
+        delete PS_params[filterNane];
       }
       break;
   }
