@@ -208,8 +208,8 @@ search_id = {$SEARCH_ID};
           <span class="mcs-icon pwg-icon-album">Album</span>
         </label>
         <label>
-          <input data-wid='author' class="filter-manager-controller author" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-user-edit">Author</span>
+          <input data-wid='authors' class="filter-manager-controller author" type="checkbox"/>
+          <span class="mcs-icon pwg-icon-user-edit">Authors</span>
         </label>
         <label>
           <input data-wid='added_by' class="filter-manager-controller added_by" type="checkbox"/>
@@ -333,14 +333,14 @@ search_id = {$SEARCH_ID};
 
     <div class="filter-form filter-album-form">
       <div class="search-params"> 
-          <div>
-            <input type="radio" id="album-all" name="album_mode" value="ALL" checked>
-            <label for="album-all">{'All albums'|@translate}</label>
-          </div>
-          <div>
-            <input type="radio" id="album-any" name="album_mode" value="ANY">
-            <label for="album-any">{'Any album'|@translate}</label>
-          </div>
+        {* <div>
+          <input type="radio" id="album-all" name="album_mode" value="ALL" checked>
+          <label for="album-all">{'All albums'|@translate}</label>
+        </div>
+        <div>
+          <input type="radio" id="album-any" name="album_mode" value="ANY">
+          <label for="album-any">{'Any album'|@translate}</label>
+        </div> *}
         </div>
         <div class="selected-categories-container">
         </div>

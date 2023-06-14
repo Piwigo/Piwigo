@@ -378,7 +378,7 @@ $(document).ready(function () {
   });
   $(".filter-author .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
-    updateFilters('author', 'del');
+    updateFilters('authors', 'del');
     performSearch(PS_params, $(".filter-author").hasClass("filter-filled"));
     if (!$(".filter-author").hasClass("filter-filled")) {
       $(".filter-author").hide();
@@ -582,11 +582,11 @@ function updateFilters(filterName, mode) {
       if (mode == 'add') {
         global_params.fields[filterName] = {};
 
-        PS_params[filterName] = [];
+        PS_params[filterName] = '';
       } else if (mode == 'del') {
         delete global_params.fields[filterName];
 
-        delete PS_params[filterNane];
+        delete PS_params[filterName];
       }
       break;
   }
