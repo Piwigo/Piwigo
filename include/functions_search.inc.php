@@ -255,7 +255,7 @@ function get_regular_search_results($search, $images_where='')
     $search['fields']['search_in_tags'] = true;
   }
 
-  if (isset($search['fields']['search_in_tags']))
+  if (isset($search['fields']['search_in_tags']) and !empty($search['fields']['allwords']['words']))
   {
     $word_clauses = array();
     foreach ($search['fields']['allwords']['words'] as $word)
