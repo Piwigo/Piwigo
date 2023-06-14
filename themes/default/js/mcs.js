@@ -33,6 +33,10 @@ $(document).ready(function () {
     global_params.fields = {};
   }
 
+  // Declare params sent to pwg.images.filteredSearch.update
+  PS_params = {};
+  PS_params.search_id = search_id;
+
   // Setup word filter
   if (global_params.fields.allwords) {
     $(".filter-word").css("display", "flex").addClass("filter-filled");
@@ -57,6 +61,10 @@ $(document).ready(function () {
     if (global_params.fields.search_in_tags) {
       $("#tags").prop("checked", true);
     }
+
+    PS_params.allwords = word_search_str.slice(0, -1);
+    PS_params.allwords_fields = word_search_fields;
+    PS_params.allwords_mode = word_search_mode;
   }
 
   // Setup tag filter
@@ -77,6 +85,9 @@ $(document).ready(function () {
       tag_search_str += $("#tag-search")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
     });
     $(".filter.filter-tag .search-words").text(tag_search_str.slice(0, -2));
+
+    PS_params.tags = global_params.fields.tags.words.length > 0 ? global_params.fields.tags.words : '';
+    PS_params.tags_mode = global_params.fields.tags.mode;
   }
 
   // Setup album filter
@@ -95,6 +106,9 @@ $(document).ready(function () {
     if (global_params.fields.cat.sub_inc) {
       $("#search-sub-cats").prop("checked", true);
     }
+
+    PS_params.categories = global_params.fields.cat.words.length > 0 ? global_params.fields.cat.words : '';
+    PS_params.categories_withsubs = global_params.fields.cat.sub_inc;
   }
   
   // Setup author filter
@@ -112,6 +126,8 @@ $(document).ready(function () {
         author_search_str += $("#authors")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
       });
       $(".filter.filter-author .search-words").text(author_search_str.slice(0, -2));
+
+      PS_params.authors = global_params.fields.author.words.length > 0 ? global_params.fields.author.words : '';
     }
   });
 
@@ -120,16 +136,18 @@ $(document).ready(function () {
     $(this).selectize({
       plugins: ['remove_button'],
       maxOptions:$(this).find("option").length,
-      items: global_params.fields.added_by ? global_params.fields.added_by.words : null,
+      items: global_params.fields.added_by ? global_params.fields.added_by : null,
     });
     if (global_params.fields.added_by) {
       $(".filter-added_by").css("display", "flex").addClass("filter-filled");
       $(".filter-manager-controller.added_by").prop("checked", true);
-      added_search_srt = "";
+      added_search_str = "";
       $("#added_by")[0].selectize.getValue().forEach(id => {
-        added_search_srt += $("#added_by")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
+        added_search_str += $("#added_by")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
       });
-      $(".filter.filter-added_by .search-words").text(added_search_srt.slice(0, -2));
+      $(".filter.filter-added_by .search-words").text(added_search_str.slice(0, -2));
+
+      PS_params.added_by = global_params.fields.added_by.length > 0 ? global_params.fields.added_by : '';
     }
   });
 
@@ -166,9 +184,6 @@ $(document).ready(function () {
     performSearch(PS_params ,false);
   })
 
-  // Declare params sent to pwg.images.filteredSearch.update
-  PS_params = {};
-  PS_params.search_id = search_id;
   /**
    * Filter Word
    */
@@ -204,7 +219,7 @@ $(document).ready(function () {
           delete global_params.fields.search_in_tags;
         }
         global_params.fields.allwords.fields = new_fields;
-        PS_params.allwords_fields = new_fields;
+        PS_params.allwords_fields = new_fields.length > 0 ? new_fields : '';
       }
     });
   });
@@ -241,7 +256,7 @@ $(document).ready(function () {
         global_params.fields.tags.mode = $(".filter-tag-form .search-params input:checked").val();
         global_params.fields.tags.words = $("#tag-search")[0].selectize.getValue();
 
-        PS_params.tags = $("#tag-search")[0].selectize.getValue();
+        PS_params.tags = $("#tag-search")[0].selectize.getValue().length > 0 ? $("#tag-search")[0].selectize.getValue() : '';
         PS_params.tags_mode = $(".filter-tag-form .search-params input:checked").val();
       }
     });
@@ -306,10 +321,10 @@ $(document).ready(function () {
         $(".filter-album").removeClass("show-filter-dropdown");
         global_params.fields.cat = {};
         global_params.fields.cat.words = related_categories_ids;
-        global_params.fields.cat.search_params = $(".filter-form.filter-album-form .search-params input:checked").val().toLowerCase();
+        // global_params.fields.cat.search_params = $(".filter-form.filter-album-form .search-params input:checked").val().toLowerCase();
         global_params.fields.cat.sub_inc = $("input[name='search-sub-cats']:checked").length != 0;
 
-        PS_params.categories = related_categories_ids;
+        PS_params.categories = related_categories_ids.length > 0 ? related_categories_ids : '';
         PS_params.categories_withsubs = $("input[name='search-sub-cats']:checked").length != 0;
       }
     });
@@ -368,7 +383,7 @@ $(document).ready(function () {
         global_params.fields.author.mode = "OR";
         global_params.fields.author.words = $("#authors")[0].selectize.getValue();
 
-        PS_params.authors = $("#authors")[0].selectize.getValue();
+        PS_params.authors = $("#authors")[0].selectize.getValue().length > 0 ? $("#authors")[0].selectize.getValue() : '';
       }
     });
   });
@@ -405,7 +420,7 @@ $(document).ready(function () {
         global_params.fields.added_by.mode = "OR";
         global_params.fields.added_by.words = $("#added_by")[0].selectize.getValue();
 
-        PS_params.added_by = $("#added_by")[0].selectize.getValue();
+        PS_params.added_by = $("#added_by")[0].selectize.getValue().length > 0 ? $("#added_by")[0].selectize.getValue() : '';
       }
     });
   });
@@ -538,7 +553,7 @@ function updateFilters(filterName, mode) {
       if (mode == 'add') {
         global_params.fields.allwords = {};
 
-        PS_params.allwords = "";
+        PS_params.allwords = '';
         PS_params.allwords_mode = 'AND';
         PS_params.allwords_fields = [];
       } else if (mode == 'del') {

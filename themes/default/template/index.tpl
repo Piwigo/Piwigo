@@ -387,16 +387,13 @@ search_id = {$SEARCH_ID};
   <div class="filter filter-added_by">
     <span class="mcs-icon pwg-icon-user filter-icon"></span>
     <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
-    </span>Added by: <span class="search-words">User name</span>
+    </span><span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
       <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
       {foreach from=$ADDED_BY item=added_by}
-        <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">
-          {$added_by.added_by_name|strip_tags:false} 
-          <span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span>
-        </option>
+        <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">{$added_by.added_by_name|strip_tags:false}<span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span></option>
       {/foreach}
       </select>
       <div class="filter-validate">
