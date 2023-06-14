@@ -441,7 +441,7 @@ if (isset($page['search'])) {
   $template->assign('SEARCH_ID', $page['search']);
 }
 
-if (isset($my_search['fields']['cat'])) 
+if (isset($my_search['fields']['cat']) and !empty($my_search['fields']['cat']['words'])) 
 {
   $fullname_of = array();
 
