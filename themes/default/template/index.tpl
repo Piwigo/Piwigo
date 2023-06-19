@@ -231,6 +231,7 @@ search_id = {$SEARCH_ID};
   <div class="filter-manager">
     <span class="mcs-icon pwg-icon-cog"></span>Filtres
   </div>
+  <i class="filter-spinner pwg-icon-spin6 animate-spin"></i>
 
   <div class="filter filter-word">
    <span class="mcs-icon pwg-icon-search filter-icon"></span>
@@ -239,6 +240,7 @@ search_id = {$SEARCH_ID};
    <span class="filter-arrow pwg-icon-up-open"></span>
 
    <div class="filter-form filter-word-form">
+    <div class="filter-form-title">Mot</div>
     {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
     <div class="word-search-options">
       <label><input type="radio" name="mode" value="AND" checked> {'Search for all terms'|@translate}</label>
@@ -286,6 +288,7 @@ search_id = {$SEARCH_ID};
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-tag-form">
+      <div class="filter-form-title">Tags</div>
       <div class="search-params"> 
         <div>
           <input type="radio" id="tag-all" name="tag_mode" value="AND" checked>
@@ -332,6 +335,7 @@ search_id = {$SEARCH_ID};
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
+      <div class="filter-form-title">Album</div>
       <div class="search-params"> 
         {* <div>
           <input type="radio" id="album-all" name="album_mode" value="ALL" checked>
@@ -371,6 +375,7 @@ search_id = {$SEARCH_ID};
     <span class="filter-arrow pwg-icon-up-open"></span>
     
     <div class="filter-form filter-author-form">
+      <div class="filter-form-title">Autheur</div>
       <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
       {foreach from=$AUTHORS item=author}
         <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
@@ -391,6 +396,7 @@ search_id = {$SEARCH_ID};
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
+      <div class="filter-form-title">Ajouté par</div>
       <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
       {foreach from=$ADDED_BY item=added_by}
         <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">{$added_by.added_by_name|strip_tags:false}<span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span></option>

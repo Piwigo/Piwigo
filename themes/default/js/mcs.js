@@ -73,6 +73,8 @@ $(document).ready(function () {
     PS_params.allwords_fields = word_search_fields;
     PS_params.allwords_mode = word_search_mode;
   }
+  //Hide filter spinner
+  $(".filter-spinner").hide();
 
   // Setup tag filter
   $("#tag-search").each(function() {
