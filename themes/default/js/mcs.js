@@ -40,10 +40,6 @@ $(document).ready(function () {
   // Setup word filter
   if (global_params.fields.allwords) {
     $(".filter-word").css("display", "flex");
-    if (global_params.fields.allwords.words && global_params.fields.allwords.words.length > 0) {
-      $(".filter-word").addClass("filter-filled");
-    }
-
     $(".filter-manager-controller.word").prop("checked", true);
 
     word_search_str = "";
@@ -52,7 +48,14 @@ $(document).ready(function () {
       word_search_str += word + " ";
     });
     $("#word-search").val(word_search_str.slice(0, -1));
-    $(".filter-word .search-words").html(word_search_str.slice(0, -1));
+
+    if (global_params.fields.allwords.words && global_params.fields.allwords.words.length > 0) {
+      $(".filter-word").addClass("filter-filled");
+      $(".filter-word .search-words").html(word_search_str.slice(0, -1));
+    } else {
+      $(".filter-word .search-words").html("Mot");
+    }
+    
 
     word_search_fields = global_params.fields.allwords.fields;
     Object.keys(word_search_fields).forEach(field_key => {
@@ -81,9 +84,6 @@ $(document).ready(function () {
   });
   if (global_params.fields.tags) {
     $(".filter-tag").css("display", "flex");
-    if (global_params.fields.tags.words && global_params.fields.tags.words.length > 0) {
-      $(".filter-tag").addClass("filter-filled");
-    }
     $(".filter-manager-controller.tags").prop("checked", true);
     $(".filter-tag-form .search-params input[value=" + global_params.fields.tags.mode + "]").prop("checked", true);
 
@@ -91,7 +91,13 @@ $(document).ready(function () {
     $("#tag-search")[0].selectize.getValue().forEach(id => {
       tag_search_str += $("#tag-search")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
     });
-    $(".filter.filter-tag .search-words").text(tag_search_str.slice(0, -2));
+    if (global_params.fields.tags.words && global_params.fields.tags.words.length > 0) {
+      $(".filter-tag").addClass("filter-filled");
+      $(".filter.filter-tag .search-words").text(tag_search_str.slice(0, -2));
+    } else {
+      $(".filter.filter-tag .search-words").text("Tags");
+    }
+    
 
     PS_params.tags = global_params.fields.tags.words.length > 0 ? global_params.fields.tags.words : '';
     PS_params.tags_mode = global_params.fields.tags.mode;
@@ -101,9 +107,6 @@ $(document).ready(function () {
   if (global_params.fields.cat) {
     console.log("there is an album in the search");
     $(".filter-album").css("display", "flex");
-    if (global_params.fields.cat.words && global_params.fields.cat.words.length > 0) {
-      $(".filter-album").addClass("filter-filled");
-    }
     $(".filter-manager-controller.album").prop("checked", true);
   
     album_widget_value = "";
@@ -111,7 +114,13 @@ $(document).ready(function () {
       add_related_category(cat_id, fullname_of_cat[cat_id]);
       album_widget_value += fullname_of_cat[cat_id] + ", ";
     });
-    $(".filter-album .search-words").html(album_widget_value.slice(0, -2));
+    if (global_params.fields.cat.words && global_params.fields.cat.words.length > 0) {
+      $(".filter-album").addClass("filter-filled");
+      $(".filter-album .search-words").html(album_widget_value.slice(0, -2));
+    } else {
+      $(".filter-album .search-words").html("Album");
+    }
+    
 
     if (global_params.fields.cat.sub_inc) {
       $("#search-sub-cats").prop("checked", true);
@@ -130,15 +139,20 @@ $(document).ready(function () {
     });
     if (global_params.fields.author) {
       $(".filter-author").css("display", "flex");
-      if (global_params.fields.author.words && global_params.fields.author.words.length > 0) {
-        $(".filter-author").addClass("filter-filled");
-      }
       $(".filter-manager-controller.author").prop("checked", true);
+
       author_search_str = "";
       $("#authors")[0].selectize.getValue().forEach(id => {
         author_search_str += $("#authors")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
       });
-      $(".filter.filter-author .search-words").text(author_search_str.slice(0, -2));
+
+      if (global_params.fields.author.words && global_params.fields.author.words.length > 0) {
+        $(".filter-author").addClass("filter-filled");
+        $(".filter.filter-author .search-words").text(author_search_str.slice(0, -2));
+      } else {
+        $(".filter.filter-author .search-words").text("Auteur");
+      }
+      
 
       PS_params.authors = global_params.fields.author.words.length > 0 ? global_params.fields.author.words : '';
     }
@@ -153,15 +167,19 @@ $(document).ready(function () {
     });
     if (global_params.fields.added_by) {
       $(".filter-added_by").css("display", "flex");
-      if (global_params.fields.added_by && global_params.fields.added_by.length > 0) {
-        $(".filter-added_by").addClass("filter-filled");
-      }
       $(".filter-manager-controller.added_by").prop("checked", true);
+
       added_search_str = "";
       $("#added_by")[0].selectize.getValue().forEach(id => {
         added_search_str += $("#added_by")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
       });
-      $(".filter.filter-added_by .search-words").text(added_search_str.slice(0, -2));
+      if (global_params.fields.added_by && global_params.fields.added_by.length > 0) {
+        $(".filter-added_by").addClass("filter-filled");
+        $(".filter.filter-added_by .search-words").text(added_search_str.slice(0, -2));
+      } else {
+        $(".filter.filter-added_by .search-words").text("Ajouté par");
+      }
+      
 
       PS_params.added_by = global_params.fields.added_by.length > 0 ? global_params.fields.added_by : '';
     }
