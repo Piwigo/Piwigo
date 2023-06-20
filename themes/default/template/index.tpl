@@ -208,7 +208,7 @@ search_id = {$SEARCH_ID};
           <span class="mcs-icon pwg-icon-album">Album</span>
         </label>
         <label>
-          <input data-wid='author' class="filter-manager-controller author" type="checkbox"/>
+          <input data-wid='authors' class="filter-manager-controller author" type="checkbox"/>
           <span class="mcs-icon pwg-icon-user-edit">Authors</span>
         </label>
         <label>
