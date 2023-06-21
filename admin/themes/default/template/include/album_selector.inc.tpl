@@ -5,6 +5,13 @@
   str_no_search_in_progress = '{'No search in progress'|@translate|escape:javascript}';
   str_albums_found = '{"<b>%d</b> albums found"|translate}';
   str_album_found = '{"<b>1</b> album found"|translate}';
+
+  {if isset($api_method)}
+    api_method = '{$api_method}';
+  {else}
+    api_method = 'pwg.categories.getAdminList';
+  {/if}
+  
 {/footer_script}
 
 <div id="addLinkedAlbum" class="linkedAlbumPopIn">

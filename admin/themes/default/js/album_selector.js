@@ -17,15 +17,29 @@ function linked_albums_open() {
 }
 
 function linked_albums_search(searchText) {
-  $(".linkedAlbumPopInContainer .searching").show();
-  $.ajax({
-    url: "ws.php?format=json&method=pwg.categories.getAdminList",
-    type: "POST",
-    dataType: "json",
-    data : {
+
+  if (api_method == 'pwg.categories.getList') {
+    api_params = {
+      cat_id: 0,
+      recursive: true,
+      fullname: true,
+    }
+  } else {
+    api_params = {
       search: searchText,
       additional_output: "full_name_with_admin_links",
-    },
+    }
+  }
+
+  console.log('lalalal');
+  console.log(api_method);
+
+  $(".linkedAlbumPopInContainer .searching").show();
+  $.ajax({
+    url: "ws.php?format=json&method=" + api_method,
+    type: "POST",
+    dataType: "json",
+    data : api_params,
     before: function () {
       
     },

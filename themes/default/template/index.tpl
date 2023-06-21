@@ -370,6 +370,7 @@ search_id = {$SEARCH_ID};
     title={'Search in album'|@translate}
     searchPlaceholder={'Search'|@translate}
     show_root_btn=false
+    api_method='pwg.categories.getList'
   }
   <div class="filter filter-author">
     <span class="mcs-icon pwg-icon-user-edit filter-icon"></span>
