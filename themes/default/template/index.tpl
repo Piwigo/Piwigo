@@ -5,12 +5,15 @@
 {$MENUBAR}
 
 {footer_script}
-global_params = {$GP};
+{if isset($global_params)}
+  global_params = {$GP};
+{/if}
+
 {if isset($fullname_of)}
 fullname_of_cat = {$fullname_of};
 {/if}
 
-{if $SEARCH_ID}
+{if isset($SEARCH_ID)}
 search_id = {$SEARCH_ID};
 {/if}
 {/footer_script}
