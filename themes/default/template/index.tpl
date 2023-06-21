@@ -5,7 +5,7 @@
 {$MENUBAR}
 
 {footer_script}
-{if isset($global_params)}
+{if isset($GP)}
   global_params = {$GP};
 {/if}
 
