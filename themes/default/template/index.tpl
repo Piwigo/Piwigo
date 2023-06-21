@@ -16,6 +16,9 @@ fullname_of_cat = {$fullname_of};
 {if isset($SEARCH_ID)}
 search_id = {$SEARCH_ID};
 {/if}
+
+str_word_widget = "{'Search for words'|@translate}";
+
 {/footer_script}
 
 {if isset($errors) or isset($infos)}
@@ -200,7 +203,7 @@ search_id = {$SEARCH_ID};
       <div class="filter-manager-controller-container">
         <label>
           <input data-wid='word' class="filter-manager-controller word" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-search">Word</span>
+          <span class="mcs-icon pwg-icon-search">{'Search for words'|@translate}</span>
         </label>
         <label>
           <input data-wid='tag' class="filter-manager-controller tags" type="checkbox"/>
@@ -243,7 +246,7 @@ search_id = {$SEARCH_ID};
    <span class="filter-arrow pwg-icon-up-open"></span>
 
    <div class="filter-form filter-word-form">
-    <div class="filter-form-title">Word</div>
+    <div class="filter-form-title">{'Search for words'|@translate}</div>
     {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
     <div class="word-search-options">
       <label><input type="radio" name="mode" value="AND" checked> {'Search for all terms'|@translate}</label>

@@ -53,7 +53,7 @@ $(document).ready(function () {
       $(".filter-word").addClass("filter-filled");
       $(".filter-word .search-words").html(word_search_str.slice(0, -1));
     } else {
-      $(".filter-word .search-words").html("Word");
+      $(".filter-word .search-words").html(str_word_widget);
     }
 
     word_search_fields = global_params.fields.allwords.fields;
