@@ -1365,6 +1365,54 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       <br> <strong>display_thumbnail</strong> can be : \'no_display_thumbnail\', \'display_thumbnail_classic\', \'display_thumbnail_hoverbox\'',
       $ws_functions_root . 'pwg.php'
     );
+
+    $service->addMethod(
+      'pwg.images.filteredSearch.update',
+      'ws_images_filteredSearch_update',
+      array(
+        'search_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'allwords' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'query to search by words',
+        ),
+        'allwords_mode' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'AND (by default) | OR',
+        ),
+        'allwords_fields' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'info' => 'values among [name, comment, tags, file, cat-title, cat-desc]',
+        ),
+        'tags' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'type' => WS_TYPE_ID,
+        ),
+        'tags_mode' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'AND (by default) | OR',
+        ),
+        'categories' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'type' => WS_TYPE_ID,
+        ),
+        'categories_withsubs' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type' => WS_TYPE_BOOL,
+          'info' => 'false, by default',
+        ),
+        'authors' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+        ),
+        'added_by' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'type' => WS_TYPE_ID,
+        ),
+      ),
+      '',
+      $ws_functions_root . 'pwg.images.php'
+    );
 }
 
 ?>

@@ -346,6 +346,146 @@ if ( empty($page['is_external']) )
   }
 }
 
+
+$available_tags = get_available_tags();
+
+if (count($available_tags) > 0)
+{
+  usort( $available_tags, 'tag_alpha_compare');
+
+  $template->assign('TAGS', $available_tags);
+}
+
+// authors
+$authors = array();
+
+$query = '
+SELECT
+    author,
+    id
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'id'
+      ),
+    ' WHERE '
+    ).'
+    AND author IS NOT NULL
+  GROUP BY author, id
+  ORDER BY author
+;';
+$author_counts = array();
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  if (!isset($author_counts[ $row['author'] ]))
+  {
+    $author_counts[ $row['author'] ] = 0;
+  }
+  
+  $author_counts[ $row['author'] ]++;
+}
+
+foreach ($author_counts as $author => $counter)
+{
+  $authors[] = array(
+    'author' => $author,
+    'counter' => $counter,
+    );
+}
+
+$template->assign('AUTHORS', $authors);
+
+// added by
+$query = '
+SELECT
+    id,
+    username
+  FROM
+    '.USERS_TABLE.'
+;';
+$username_of = query2array($query, 'id', 'username');
+
+$added_by = array();
+
+$query = '
+SELECT
+    count(added_by) as nb_photos,
+    added_by
+  FROM '.IMAGES_TABLE.'
+  GROUP BY
+    added_by
+  ORDER BY
+    nb_photos DESC
+;';
+
+$result = pwg_query($query);
+
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $added_by[] = array(
+    'added_by_id' => $row['added_by'],
+    'added_by_name' => $username_of[$row['added_by']],
+    'counter' => $row['nb_photos'],
+    );
+}
+
+$template->assign('ADDED_BY', $added_by);
+
+// albums
+if (isset($page['search'])) {
+  $my_search = get_search_array($page['search']);
+  $template->assign('SEARCH_ID', $page['search']);
+}
+
+if (isset($my_search['fields']['cat']) and !empty($my_search['fields']['cat']['words'])) 
+{
+  $fullname_of = array();
+
+  $query = '
+SELECT 
+    id, 
+    uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE 
+    id 
+    IN ('.implode(", ", array_values($my_search['fields']['cat']['words'])).')
+  ;';
+
+  $result = pwg_query($query);
+
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $cat_display_name = get_cat_display_name_cache(
+      $row['uppercats'],
+      'admin.php?page=album-'
+    );
+    $row['fullname'] = strip_tags($cat_display_name);
+
+    $fullname_of[$row['id']] = $row['fullname'];
+  }
+
+  $template->assign('fullname_of', json_encode($fullname_of));
+}
+
+if (isset($page['search'])) {
+  if (is_null($page['search']))
+  {
+    $page['errors'][] = l10n('Search id is null');
+  }
+  include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
+
+  if (get_search_array($page['search']) == false)
+  {
+    $page['errors'][] = l10n('Search associated to id '.$page['search'].' not found');
+  }
+  $template->assign('GP', json_encode(get_search_array($page['search'])));
+}
+
+
 //------------------------------------------------------------ end
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_notify('loc_end_index');
