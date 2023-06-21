@@ -17,7 +17,10 @@ fullname_of_cat = {$fullname_of};
 search_id = {$SEARCH_ID};
 {/if}
 
-str_word_widget = "{'Search for words'|@translate}";
+str_word_widget_label = "{'Search for words'|@translate}";
+str_tags_widget_label = "{'Search tags'|@translate}";
+str_album_widget_label = "{'Search in albums'|@translate}";
+str_author_widget_label = "{'Search for Author'|@translate}";
 
 {/footer_script}
 
@@ -207,15 +210,15 @@ str_word_widget = "{'Search for words'|@translate}";
         </label>
         <label>
           <input data-wid='tag' class="filter-manager-controller tags" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-tag">Tags</span>
+          <span class="mcs-icon pwg-icon-tag">{'Search tags'|@translate}</span>
         </label>
         <label>
           <input data-wid='album' class="filter-manager-controller album" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-album">Album</span>
+          <span class="mcs-icon pwg-icon-album">{'Search in albums'|@translate}</span>
         </label>
         <label>
           <input data-wid='authors' class="filter-manager-controller author" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-user-edit">Authors</span>
+          <span class="mcs-icon pwg-icon-user-edit">{'Search for Author'|@translate}</span>
         </label>
         <label>
           <input data-wid='added_by' class="filter-manager-controller added_by" type="checkbox"/>
@@ -294,7 +297,7 @@ str_word_widget = "{'Search for words'|@translate}";
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-tag-form">
-      <div class="filter-form-title">Tags</div>
+      <div class="filter-form-title">{'Search tags'|@translate}</div>
       <div class="search-params"> 
         <div>
           <input type="radio" id="tag-all" name="tag_mode" value="AND" checked>
@@ -341,7 +344,7 @@ str_word_widget = "{'Search for words'|@translate}";
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
-      <div class="filter-form-title">Album</div>
+      <div class="filter-form-title">{'Search in albums'|@translate}</div>
       <div class="search-params"> 
         {* <div>
           <input type="radio" id="album-all" name="album_mode" value="ALL" checked>
@@ -356,7 +359,7 @@ str_word_widget = "{'Search for words'|@translate}";
         </div>
         <div class="add-album-button">
           <label class="head-button-2 icon-add-album">
-            <p class="mcs-icon pwg-icon-close">{'Add Album'|@translate}</p>
+            <p class="mcs-icon pwg-icon-plus-circled">{'Add Album'|@translate}</p>
           </label>
         </div>
         <div class="search-sub-cats">
@@ -382,7 +385,7 @@ str_word_widget = "{'Search for words'|@translate}";
     <span class="filter-arrow pwg-icon-up-open"></span>
     
     <div class="filter-form filter-author-form">
-      <div class="filter-form-title">Author</div>
+      <div class="filter-form-title">{'Search for Author'|@translate}</div>
       <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
       {foreach from=$AUTHORS item=author}
         <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
@@ -455,7 +458,7 @@ str_word_widget = "{'Search for words'|@translate}";
   {$THUMBNAILS}
 </ul>
 
-{else}
+{else if !empty($SEARCH_ID)}
 <div class="mcs-no-result">
   <div class="text">
     <span>No results are available.</span>

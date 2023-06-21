@@ -26,8 +26,6 @@ $(document).ready(function () {
   });
 
   global_params.search_id = search_id;
-  console.log("Global params after fetch");
-  console.log(global_params);
 
   if (!global_params.fields) {
     global_params.fields = {};
@@ -53,7 +51,7 @@ $(document).ready(function () {
       $(".filter-word").addClass("filter-filled");
       $(".filter-word .search-words").html(word_search_str.slice(0, -1));
     } else {
-      $(".filter-word .search-words").html(str_word_widget);
+      $(".filter-word .search-words").html(str_word_widget_label);
     }
 
     word_search_fields = global_params.fields.allwords.fields;
@@ -96,7 +94,7 @@ $(document).ready(function () {
       $(".filter-tag").addClass("filter-filled");
       $(".filter.filter-tag .search-words").text(tag_search_str.slice(0, -2));
     } else {
-      $(".filter.filter-tag .search-words").text("Tags");
+      $(".filter.filter-tag .search-words").text(str_tags_widget_label);
     }
     
 
@@ -106,7 +104,6 @@ $(document).ready(function () {
 
   // Setup album filter
   if (global_params.fields.cat) {
-    console.log("there is an album in the search");
     $(".filter-album").css("display", "flex");
     $(".filter-manager-controller.album").prop("checked", true);
   
@@ -119,7 +116,7 @@ $(document).ready(function () {
       $(".filter-album").addClass("filter-filled");
       $(".filter-album .search-words").html(album_widget_value.slice(0, -2));
     } else {
-      $(".filter-album .search-words").html("Album");
+      $(".filter-album .search-words").html(str_album_widget_label);
     }
     
 
@@ -151,7 +148,7 @@ $(document).ready(function () {
         $(".filter-author").addClass("filter-filled");
         $(".filter.filter-author .search-words").text(author_search_str.slice(0, -2));
       } else {
-        $(".filter.filter-author .search-words").text("Author");
+        $(".filter.filter-author .search-words").text(str_author_widget_label);
       }
       
 
@@ -216,7 +213,7 @@ $(document).ready(function () {
       }
     });
     // Set second param to true to trigger reload
-    performSearch(PS_params ,false);
+    performSearch(PS_params ,true);
   })
 
   /**
@@ -366,7 +363,7 @@ $(document).ready(function () {
   });
   $(".filter-album .filter-validate").on("click", function () {
     $(".filter-album").trigger("click");
-    performSearch(PS_params, false);
+    performSearch(PS_params, true);
   });
   $(".filter-album .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
@@ -494,16 +491,12 @@ $(document).ready(function () {
 })
 
 function performSearch(params, reload = false) {
-  console.log("params sent to updatesearch");
-  console.log(params);
   $.ajax({
     url: "ws.php?format=json&method=pwg.images.filteredSearch.update",
     type:"POST",
     dataType: "json",
-    data: PS_params,
+    data: params,
     success:function(data) {
-      console.log("perform search");
-      console.log(data);
       if (reload) {
         reloadPage();
       }
@@ -512,7 +505,6 @@ function performSearch(params, reload = false) {
       console.log(e);
     },
   }).done(function () {
-    console.log('ajax ended');
     $(".filter-validate").find(".validate-text").css("display", "block");
     $(".filter-validate").find(".loading").hide();
     $(".remove-filter").removeClass('pwg-icon-spin6 animate-spin').addClass('pwg-icon-cancel');
@@ -556,7 +548,7 @@ function fill_results(cats) {
 function add_related_category(cat_id, cat_link_path) {
     $(".selected-categories-container").append(
       "<div class='breadcrumb-item'>" +
-        "<span class='link-path'>" + cat_link_path + "</span><span id="+ cat_id + " class='mcs-icon pwg-icon-close remove-item'></span>" +
+        "<span class='link-path'>" + cat_link_path + "</span><span id="+ cat_id + " class='mcs-icon pwg-icon-cancel remove-item'></span>" +
       "</div>"
     );
 
