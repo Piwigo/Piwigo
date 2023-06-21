@@ -53,9 +53,8 @@ $(document).ready(function () {
       $(".filter-word").addClass("filter-filled");
       $(".filter-word .search-words").html(word_search_str.slice(0, -1));
     } else {
-      $(".filter-word .search-words").html("Mot");
+      $(".filter-word .search-words").html("Word");
     }
-    
 
     word_search_fields = global_params.fields.allwords.fields;
     Object.keys(word_search_fields).forEach(field_key => {
@@ -152,7 +151,7 @@ $(document).ready(function () {
         $(".filter-author").addClass("filter-filled");
         $(".filter.filter-author .search-words").text(author_search_str.slice(0, -2));
       } else {
-        $(".filter.filter-author .search-words").text("Auteur");
+        $(".filter.filter-author .search-words").text("Author");
       }
       
 
@@ -179,7 +178,7 @@ $(document).ready(function () {
         $(".filter-added_by").addClass("filter-filled");
         $(".filter.filter-added_by .search-words").text(added_search_str.slice(0, -2));
       } else {
-        $(".filter.filter-added_by .search-words").text("Ajouté par");
+        $(".filter.filter-added_by .search-words").text("Added by");
       }
       
 

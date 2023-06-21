@@ -222,17 +222,17 @@ search_id = {$SEARCH_ID};
 
       <div class="filter-manager-actions">
         <div class="filter-cancel">
-          Annuler
+          Cancel
         </div>
         <div class="filter-validate">
           <i class="loading pwg-icon-spin6 animate-spin"></i>
-          <span class="validate-text">Valider</span>
+          <span class="validate-text">Validate</span>
         </div>
       </div>
     </div>
   </div>
   <div class="filter-manager">
-    <span class="mcs-icon pwg-icon-cog"></span>Filtres
+    <span class="mcs-icon pwg-icon-cog"></span>Filters
   </div>
   <i class="filter-spinner pwg-icon-spin6 animate-spin"></i>
 
@@ -243,7 +243,7 @@ search_id = {$SEARCH_ID};
    <span class="filter-arrow pwg-icon-up-open"></span>
 
    <div class="filter-form filter-word-form">
-    <div class="filter-form-title">Mot</div>
+    <div class="filter-form-title">Word</div>
     {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
     <div class="word-search-options">
       <label><input type="radio" name="mode" value="AND" checked> {'Search for all terms'|@translate}</label>
@@ -251,11 +251,11 @@ search_id = {$SEARCH_ID};
     </div>
 
     <input type="text" id="word-search" name="word">
-    <span class="search-params-title"> Rechercher dans :</span>
+    <span class="search-params-title">Search in :</span>
     <div class="search-params"> 
       <div>
         <input type="checkbox" id="cat-title" name="cat-title">
-        <label for="cat-title">Titre de l'album</label>
+        <label for="cat-title">Album title</label>
       </div>
       <div>
         <input type="checkbox" id="tags" name="tags">
@@ -263,24 +263,24 @@ search_id = {$SEARCH_ID};
       </div>
       <div>
         <input type="checkbox" id="file" name="file">
-        <label for="file">Nom de fichier</label>
+        <label for="file">File name</label>
       </div>
       <div>
         <input type="checkbox" id="name" name="name">
-        <label for="name">Titre de la photo</label>
+        <label for="name">Photo title</label>
       </div>
       <div>
         <input type="checkbox" id="comment" name="comment">
-        <label for="comment">Description de la photo</label>
+        <label for="comment">Photo description</label>
       </div>
       <div>
         <input type="checkbox" id="cat-desc" name="cat-desc">
-        <label for="cat-desc">Description de l'album</label>
+        <label for="cat-desc">Album description</label>
       </div>
     </div>
     <div class="filter-validate">
       <i class="loading pwg-icon-spin6 animate-spin"></i>
-      <span class="validate-text">Valider</span>
+      <span class="validate-text">Validate</span>
     </div>
    </div>
   </div>
@@ -309,7 +309,7 @@ search_id = {$SEARCH_ID};
       </select>
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">Valider</span>
+        <span class="validate-text">Validate</span>
       </div>
     </div>
   </div>
@@ -358,11 +358,11 @@ search_id = {$SEARCH_ID};
         </div>
         <div class="search-sub-cats">
           <input type="checkbox" id="search-sub-cats" name="search-sub-cats">
-          <label for="search-sub-cats">Rechercher dans les sous albums</label>
+          <label for="search-sub-cats">Search in sub-albums</label>
         </div>
         <div class="filter-validate">
           <i class="loading pwg-icon-spin6 animate-spin"></i>
-          <span class="validate-text">Valider</span>
+          <span class="validate-text">Validate</span>
         </div>
     </div>
   </div>
@@ -379,7 +379,7 @@ search_id = {$SEARCH_ID};
     <span class="filter-arrow pwg-icon-up-open"></span>
     
     <div class="filter-form filter-author-form">
-      <div class="filter-form-title">Autheur</div>
+      <div class="filter-form-title">Author</div>
       <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
       {foreach from=$AUTHORS item=author}
         <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
@@ -388,7 +388,7 @@ search_id = {$SEARCH_ID};
 
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">Valider</span>
+        <span class="validate-text">Validate</span>
       </div>
     </div>
   </div>
@@ -400,7 +400,7 @@ search_id = {$SEARCH_ID};
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
-      <div class="filter-form-title">Ajouté par</div>
+      <div class="filter-form-title">Added by</div>
       <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
       {foreach from=$ADDED_BY item=added_by}
         <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">{$added_by.added_by_name|strip_tags:false}<span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span></option>
@@ -408,7 +408,7 @@ search_id = {$SEARCH_ID};
       </select>
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">Valider</span>
+        <span class="validate-text">Validate</span>
       </div>
     </div>
   </div>
@@ -455,8 +455,8 @@ search_id = {$SEARCH_ID};
 {else}
 <div class="mcs-no-result">
   <div class="text">
-    <span>Aucun résultat n'est disponible.</span>
-    <span>Vous pouvez tenter de modifier vos filtres et effectuer une nouvelle recherche.</span>
+    <span>No results are available.</span>
+    <span>You can try to edit your filters and perform a new search.</span>
   </div>
 </div>
 {/if}
