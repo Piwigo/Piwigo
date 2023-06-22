@@ -30,9 +30,14 @@ SELECT rules
   FROM '.SEARCH_TABLE.'
   WHERE id = '.$search_id.'
 ;';
-  list($serialized_rules) = pwg_db_fetch_row(pwg_query($query));
+  $rules_list = query2array($query);
 
-  return unserialize($serialized_rules);
+  if (count($rules_list) == 0)
+  {
+    bad_request('this search identifier does not exist');
+  }
+
+  return unserialize($rules_list[0]['rules']);
 }
 
 /**

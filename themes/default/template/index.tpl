@@ -378,6 +378,7 @@ str_author_widget_label = "{'Search for Author'|@translate}";
     show_root_btn=false
     api_method='pwg.categories.getList'
   }
+{if isset($AUTHORS)}
   <div class="filter filter-author">
     <span class="mcs-icon pwg-icon-user-edit filter-icon"></span>
     <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
@@ -398,7 +399,9 @@ str_author_widget_label = "{'Search for Author'|@translate}";
       </div>
     </div>
   </div>
+{/if}
 
+{if isset($ADDED_BY)}
   <div class="filter filter-added_by">
     <span class="mcs-icon pwg-icon-user filter-icon"></span>
     <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
@@ -418,6 +421,8 @@ str_author_widget_label = "{'Search for Author'|@translate}";
       </div>
     </div>
   </div>
+{/if}
+
   {* <div class="filter filter-note">
    Note div
    <div class="filter-form filter-note-form">
