@@ -175,7 +175,7 @@ $(document).ready(function () {
         $(".filter-added_by").addClass("filter-filled");
         $(".filter.filter-added_by .search-words").text(added_search_str.slice(0, -2));
       } else {
-        $(".filter.filter-added_by .search-words").text("Added by");
+        $(".filter.filter-added_by .search-words").text(str_added_by_widget_label);
       }
       
 

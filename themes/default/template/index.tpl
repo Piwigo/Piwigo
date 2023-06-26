@@ -21,6 +21,7 @@ str_word_widget_label = "{'Search for words'|@translate}";
 str_tags_widget_label = "{'Search tags'|@translate}";
 str_album_widget_label = "{'Search in albums'|@translate}";
 str_author_widget_label = "{'Search for Author'|@translate}";
+str_added_by_widget_label = "{'Added by'|@translate}";
 
 {/footer_script}
 
@@ -201,7 +202,7 @@ str_author_widget_label = "{'Search for Author'|@translate}";
     <div class="filter-manager-popin-container">
       <span class="pwg-icon-cancel filter-manager-close"></span>
 
-      <div class="mcs-popin-title">Filtres</div>
+      <div class="mcs-popin-title">{'Filtres'|@translate}</div>
 
       <div class="filter-manager-controller-container">
         <label>
@@ -222,23 +223,23 @@ str_author_widget_label = "{'Search for Author'|@translate}";
         </label>
         <label>
           <input data-wid='added_by' class="filter-manager-controller added_by" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-user">Added by</span>
+          <span class="mcs-icon pwg-icon-user">{'Added by'|@translate}</span>
         </label>
       </div>
 
       <div class="filter-manager-actions">
         <div class="filter-cancel">
-          Cancel
+          {'Cancel'|@translate}
         </div>
         <div class="filter-validate">
           <i class="loading pwg-icon-spin6 animate-spin"></i>
-          <span class="validate-text">Validate</span>
+          <span class="validate-text">{'Validate'|@translate}</span>
         </div>
       </div>
     </div>
   </div>
   <div class="filter-manager">
-    <span class="mcs-icon pwg-icon-cog"></span>Filters
+    <span class="mcs-icon pwg-icon-cog"></span>{'Filtres'|@translate}
   </div>
   <i class="filter-spinner pwg-icon-spin6 animate-spin"></i>
 
@@ -257,36 +258,36 @@ str_author_widget_label = "{'Search for Author'|@translate}";
     </div>
 
     <input type="text" id="word-search" name="word">
-    <span class="search-params-title">Search in :</span>
+    <span class="search-params-title">{'Search in :'|@translate}</span>
     <div class="search-params"> 
       <div>
         <input type="checkbox" id="cat-title" name="cat-title">
-        <label for="cat-title">Album title</label>
+        <label for="cat-title">{'Album title'|@translate}</label>
       </div>
       <div>
         <input type="checkbox" id="tags" name="tags">
-        <label for="tags">Tags</label>
+        <label for="tags">{'Tags'|@translate}</label>
       </div>
       <div>
         <input type="checkbox" id="file" name="file">
-        <label for="file">File name</label>
+        <label for="file">{'File name'|@translate}</label>
       </div>
       <div>
         <input type="checkbox" id="name" name="name">
-        <label for="name">Photo title</label>
+        <label for="name">{'Photo title'|@translate}</label>
       </div>
       <div>
         <input type="checkbox" id="comment" name="comment">
-        <label for="comment">Photo description</label>
+        <label for="comment">{'Photo description'|@translate}</label>
       </div>
       <div>
         <input type="checkbox" id="cat-desc" name="cat-desc">
-        <label for="cat-desc">Album description</label>
+        <label for="cat-desc">{'Album description'|@translate}</label>
       </div>
     </div>
     <div class="filter-validate">
       <i class="loading pwg-icon-spin6 animate-spin"></i>
-      <span class="validate-text">Validate</span>
+      <span class="validate-text">{'Validate'|@translate}</span>
     </div>
    </div>
   </div>
@@ -315,7 +316,7 @@ str_author_widget_label = "{'Search for Author'|@translate}";
       </select>
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">Validate</span>
+        <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
   </div>
@@ -368,12 +369,12 @@ str_author_widget_label = "{'Search for Author'|@translate}";
         </div>
         <div class="filter-validate">
           <i class="loading pwg-icon-spin6 animate-spin"></i>
-          <span class="validate-text">Validate</span>
+          <span class="validate-text">{'Validate'|@translate}</span>
         </div>
     </div>
   </div>
   {include file='admin/themes/default/template/include/album_selector.inc.tpl' 
-    title={'Search in album'|@translate}
+    title={'Search in albums'|@translate}
     searchPlaceholder={'Search'|@translate}
     show_root_btn=false
     api_method='pwg.categories.getList'
@@ -395,7 +396,7 @@ str_author_widget_label = "{'Search for Author'|@translate}";
 
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">Validate</span>
+        <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
   </div>
@@ -417,7 +418,7 @@ str_author_widget_label = "{'Search for Author'|@translate}";
       </select>
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">Validate</span>
+        <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
   </div>

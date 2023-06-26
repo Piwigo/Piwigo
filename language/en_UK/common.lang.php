@@ -418,4 +418,12 @@ $lang['Related albums'] = 'Related albums';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1';
 $lang['Start-Date'] = 'Start date';
+$lang['Added by'] = 'Added by';
+$lang['Filters'] = 'Filters';
+$lang['Validate'] = 'Validate';
+$lang['Cancel'] = 'Cancel';
+$lang['Search in :'] = 'Search in :';
+$lang['Album title'] = 'Album title';
+$lang['File name'] = 'File name';
+$lang['Album description'] = 'Album description';
 ?>
