@@ -136,7 +136,7 @@ $(document).ready(function () {
       items: global_params.fields.author ? global_params.fields.author.words : null,
     });
     if (global_params.fields.author) {
-      $(".filter-author").css("display", "flex");
+      $(".filter-authors").css("display", "flex");
       $(".filter-manager-controller.author").prop("checked", true);
 
       author_search_str = "";
@@ -145,10 +145,10 @@ $(document).ready(function () {
       });
 
       if (global_params.fields.author.words && global_params.fields.author.words.length > 0) {
-        $(".filter-author").addClass("filter-filled");
-        $(".filter.filter-author .search-words").text(author_search_str.slice(0, -2));
+        $(".filter-authors").addClass("filter-filled");
+        $(".filter.filter-authors .search-words").text(author_search_str.slice(0, -2));
       } else {
-        $(".filter.filter-author .search-words").text(str_author_widget_label);
+        $(".filter.filter-authors .search-words").text(str_author_widget_label);
       }
       
 
@@ -193,10 +193,32 @@ $(document).ready(function () {
     // 27 is 'Escape'
     if(e.keyCode === 27) {
       $(".filter-manager-popin").hide();
+      $(".filter-manager-controller-container input").each(function (e) {
+        if ($(this).is(':checked')) {
+          if (!$(".filter.filter-" + $(this).data("wid")).is(':visible')) {
+            $(this).prop('checked', false);
+          }
+        } else {
+          if ($(".filter.filter-" + $(this).data("wid")).is(':visible')) {
+            $(this).prop('checked', true);
+          }
+        }
+      });
     }
   });
   $(".filter-manager-popin .filter-cancel, .filter-manager-popin .filter-manager-close").on('click', function () {
     $(".filter-manager-popin").hide();
+    $(".filter-manager-controller-container input").each(function (e) {
+      if ($(this).is(':checked')) {
+        if (!$(".filter.filter-" + $(this).data("wid")).is(':visible')) {
+          $(this).prop('checked', false);
+        }
+      } else {
+        if ($(".filter.filter-" + $(this).data("wid")).is(':visible')) {
+          $(this).prop('checked', true);
+        }
+      }
+    });
   });
 
   $(".filter-manager-popin .filter-validate").on('click', function () {
@@ -399,7 +421,7 @@ $(document).ready(function () {
   /**
    * Author Widget
    */
-  $(".filter-author").on("click", function (e) {
+  $(".filter-authors").on("click", function (e) {
     if ($(".filter-form").has(e.target).length != 0 ||
         $(e.target).hasClass("filter-form") ||
         $(e.target).hasClass("remove") ||
@@ -408,9 +430,9 @@ $(document).ready(function () {
     }
     $(".filter-author-form").toggle(0, function () {
       if ($(this).is(':visible')) {
-        $(".filter-author").addClass("show-filter-dropdown");
+        $(".filter-authors").addClass("show-filter-dropdown");
       } else {
-        $(".filter-author").removeClass("show-filter-dropdown");
+        $(".filter-authors").removeClass("show-filter-dropdown");
         global_params.fields.author = {};
         global_params.fields.author.mode = "OR";
         global_params.fields.author.words = $("#authors")[0].selectize.getValue();
@@ -419,16 +441,16 @@ $(document).ready(function () {
       }
     });
   });
-  $(".filter-author .filter-validate").on("click", function () {
-    $(".filter-author").trigger("click");
+  $(".filter-authors .filter-validate").on("click", function () {
+    $(".filter-authors").trigger("click");
     performSearch(PS_params, true);
   });
-  $(".filter-author .remove-filter").on("click", function () {
+  $(".filter-authors .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
     updateFilters('authors', 'del');
-    performSearch(PS_params, $(".filter-author").hasClass("filter-filled"));
-    if (!$(".filter-author").hasClass("filter-filled")) {
-      $(".filter-author").hide();
+    performSearch(PS_params, $(".filter-authors").hasClass("filter-filled"));
+    if (!$(".filter-authors").hasClass("filter-filled")) {
+      $(".filter-authors").hide();
       $(".filter-manager-controller.author").prop("checked", false);
     }
   });

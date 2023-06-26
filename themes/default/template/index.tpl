@@ -379,7 +379,7 @@ str_author_widget_label = "{'Search for Author'|@translate}";
     api_method='pwg.categories.getList'
   }
 {if isset($AUTHORS)}
-  <div class="filter filter-author">
+  <div class="filter filter-authors">
     <span class="mcs-icon pwg-icon-user-edit filter-icon"></span>
     <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     <span class="search-words"></span>
