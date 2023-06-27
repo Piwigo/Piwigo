@@ -157,6 +157,7 @@ function ws_addDefaultMethods( $arr )
           'default' => IMG_THUMB,
           'info' => implode(',', array_keys(ImageStdParams::get_defined_type_map()))
           ),
+        'search' => array('default' => null),
         ),
       'Returns a list of categories.',
       $ws_functions_root . 'pwg.categories.php'

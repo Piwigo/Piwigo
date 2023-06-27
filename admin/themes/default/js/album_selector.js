@@ -23,6 +23,7 @@ function linked_albums_search(searchText) {
       cat_id: 0,
       recursive: true,
       fullname: true,
+      search: searchText,
     }
   } else {
     api_params = {

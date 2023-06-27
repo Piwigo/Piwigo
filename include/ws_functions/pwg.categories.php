@@ -279,7 +279,16 @@ SELECT
   FROM '. CATEGORIES_TABLE .'
     '.$join_type.' JOIN '. USER_CACHE_CATEGORIES_TABLE .'
     ON id=cat_id AND user_id='.$join_user.'
-  WHERE '. implode("\n    AND ", $where) .'
+  WHERE '. implode("\n    AND ", $where);
+
+  if (isset($params["search"]) and $params['search'] != "")
+  {
+    $query .= '
+    AND name LIKE \'%'.pwg_db_real_escape_string($params["search"]).'%\'
+  LIMIT '.$conf["linked_album_search_limit"];
+  }
+
+  $query.= '
 ;';
   $result = pwg_query($query);
 
