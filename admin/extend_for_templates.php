@@ -90,7 +90,6 @@ $eligible_templates = array(
     'redirect.tpl'               => 'redirect',
     'register.tpl'               => 'register',
     'search.tpl'                 => 'search',
-    'search_rules.tpl'           => 'search_rules',
     'slideshow.tpl'              => 'slideshow',
     'tags.tpl'                   => 'tags',
     'thumbnails.tpl'             => 'index_thumbnails',

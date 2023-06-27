@@ -176,12 +176,6 @@ if ( empty($page['is_external']) )
 
   if ('search' == $page['section'])
   {
-    // TODO remove the search_rules system (replaced by multi-criteria search filters and widgets)
-    $template->assign(
-      'U_SEARCH_RULES',
-      get_root_url().'search_rules.php?search_id='.$page['search']
-      );
-
     include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
     $my_search = get_search_array($page['search']);

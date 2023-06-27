@@ -85,12 +85,6 @@ str_added_by_widget_label = "{'Added by'|@translate}";
 			<span class="pwg-icon pwg-icon-category-edit"></span><span class="pwg-button-text">{'Edit'|@translate}</span>
 		</a></li>
 {/if}
-{if isset($U_SEARCH_RULES)}
-		{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
-		<li><a href="{$U_SEARCH_RULES}" onclick="popuphelp(this.href); return false;" title="{'Search rules'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-help"></span><span class="pwg-button-text">(?)</span>
-		</a></li>
-{/if}
 {if isset($U_SLIDESHOW)}
 		<li id="cmdSlideshow">{strip}<a href="{$U_SLIDESHOW}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-slideshow"></span><span class="pwg-button-text">{'slideshow'|@translate}</span>
