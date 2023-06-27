@@ -303,14 +303,16 @@ str_added_by_widget_label = "{'Added by'|@translate}";
           <label for="tag-one">{'Any tag'|@translate}</label>
         </div>
       </div>
-      <select id="tag-search" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple>
-    {foreach from=$TAGS item=tag}
-        <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
-    {/foreach}
-      </select>
-      <div class="filter-validate">
-        <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">{'Validate'|@translate}</span>
+      <div class="form-container">
+        <select id="tag-search" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple>
+      {foreach from=$TAGS item=tag}
+          <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
+      {/foreach}
+        </select>
+        <div class="filter-validate">
+          <i class="loading pwg-icon-spin6 animate-spin"></i>
+          <span class="validate-text">{'Validate'|@translate}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -382,15 +384,17 @@ str_added_by_widget_label = "{'Added by'|@translate}";
     
     <div class="filter-form filter-author-form">
       <div class="filter-form-title">{'Search for Author'|@translate}</div>
-      <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
-      {foreach from=$AUTHORS item=author}
-        <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
-      {/foreach}
-      </select>
+      <div class="form-container">
+        <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
+        {foreach from=$AUTHORS item=author}
+          <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
+        {/foreach}
+        </select>
 
-      <div class="filter-validate">
-        <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">{'Validate'|@translate}</span>
+        <div class="filter-validate">
+          <i class="loading pwg-icon-spin6 animate-spin"></i>
+          <span class="validate-text">{'Validate'|@translate}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -405,14 +409,16 @@ str_added_by_widget_label = "{'Added by'|@translate}";
 
     <div class="filter-form filter-added_by-form">
       <div class="filter-form-title">Added by</div>
-      <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
-      {foreach from=$ADDED_BY item=added_by}
-        <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">{$added_by.added_by_name|strip_tags:false}<span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span></option>
-      {/foreach}
-      </select>
-      <div class="filter-validate">
-        <i class="loading pwg-icon-spin6 animate-spin"></i>
-        <span class="validate-text">{'Validate'|@translate}</span>
+      <div class="form-container">
+        <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
+        {foreach from=$ADDED_BY item=added_by}
+          <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">{$added_by.added_by_name|strip_tags:false}<span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span></option>
+        {/foreach}
+        </select>
+        <div class="filter-validate">
+          <i class="loading pwg-icon-spin6 animate-spin"></i>
+          <span class="validate-text">{'Validate'|@translate}</span>
+        </div>
       </div>
     </div>
   </div>
