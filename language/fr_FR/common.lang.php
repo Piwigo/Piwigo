@@ -426,3 +426,5 @@ $lang['Search in :'] = 'Rechercher dans :';
 $lang['Album title'] = 'Titre de l\'album';
 $lang['File name'] = 'Nom de fichier';
 $lang['Album description'] = 'Description de l\'album';
+$lang['No results are available.'] = 'Aucun résultat n\'est disponible';
+$lang['You can try to edit your filters and perform a new search.'] = 'Vous pouvez tenter de modifier vos filtres et effectuer une nouvelle recherche';

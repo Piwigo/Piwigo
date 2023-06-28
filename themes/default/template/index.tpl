@@ -18,9 +18,9 @@ search_id = {$SEARCH_ID};
 {/if}
 
 str_word_widget_label = "{'Search for words'|@translate}";
-str_tags_widget_label = "{'Search tags'|@translate}";
-str_album_widget_label = "{'Search in albums'|@translate}";
-str_author_widget_label = "{'Search for Author'|@translate}";
+str_tags_widget_label = "{'Tag'|@translate}";
+str_album_widget_label = "{'Album'|@translate}";
+str_author_widget_label = "{'Author'|@translate}";
 str_added_by_widget_label = "{'Added by'|@translate}";
 
 {/footer_script}
@@ -205,15 +205,15 @@ str_added_by_widget_label = "{'Added by'|@translate}";
         </label>
         <label>
           <input data-wid='tag' class="filter-manager-controller tags" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-tag">{'Search tags'|@translate}</span>
+          <span class="mcs-icon pwg-icon-tag">{'Tag'|@translate}</span>
         </label>
         <label>
           <input data-wid='album' class="filter-manager-controller album" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-album">{'Search in albums'|@translate}</span>
+          <span class="mcs-icon pwg-icon-album">{'Album'|@translate}</span>
         </label>
         <label>
           <input data-wid='authors' class="filter-manager-controller author" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-user-edit">{'Search for Author'|@translate}</span>
+          <span class="mcs-icon pwg-icon-user-edit">{'Author'|@translate}</span>
         </label>
         <label>
           <input data-wid='added_by' class="filter-manager-controller added_by" type="checkbox"/>
@@ -292,7 +292,7 @@ str_added_by_widget_label = "{'Added by'|@translate}";
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-tag-form">
-      <div class="filter-form-title">{'Search tags'|@translate}</div>
+      <div class="filter-form-title">{'Tag'|@translate}</div>
       <div class="search-params"> 
         <div>
           <input type="radio" id="tag-all" name="tag_mode" value="AND" checked>
@@ -341,7 +341,7 @@ str_added_by_widget_label = "{'Added by'|@translate}";
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
-      <div class="filter-form-title">{'Search in albums'|@translate}</div>
+    <div class="filter-form-title">{'Album'|@translate}</div>
       <div class="search-params"> 
         {* <div>
           <input type="radio" id="album-all" name="album_mode" value="ALL" checked>
@@ -383,7 +383,7 @@ str_added_by_widget_label = "{'Added by'|@translate}";
     <span class="filter-arrow pwg-icon-up-open"></span>
     
     <div class="filter-form filter-author-form">
-      <div class="filter-form-title">{'Search for Author'|@translate}</div>
+      <div class="filter-form-title">{'Author'|@translate}</div>
       <div class="form-container">
         <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
         {foreach from=$AUTHORS item=author}
@@ -408,7 +408,7 @@ str_added_by_widget_label = "{'Added by'|@translate}";
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
-      <div class="filter-form-title">Added by</div>
+      <div class="filter-form-title">{'Added by'|@translate}</div>
       <div class="form-container">
         <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
         {foreach from=$ADDED_BY item=added_by}
@@ -467,8 +467,8 @@ str_added_by_widget_label = "{'Added by'|@translate}";
 {else if !empty($SEARCH_ID)}
 <div class="mcs-no-result">
   <div class="text">
-    <span>No results are available.</span>
-    <span>You can try to edit your filters and perform a new search.</span>
+    <span>{'No results are available.'|@translate}</span>
+    <span>{'You can try to edit your filters and perform a new search.'|translate}</span>
   </div>
 </div>
 {/if}
