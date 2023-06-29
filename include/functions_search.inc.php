@@ -93,6 +93,12 @@ function get_sql_search_clause($search)
       $fields = array_intersect($fields, $search['fields']['allwords']['fields']);
     }
 
+    $cat_fields_dictionnary = array(
+      'cat-title' => 'name',
+      'cat-desc' => 'comment',
+    );
+    $cat_fields = array_intersect(array_keys($cat_fields_dictionnary), $search['fields']['allwords']['fields']);
+
     // in the OR mode, request bust be :
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
     // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
@@ -108,64 +114,62 @@ function get_sql_search_clause($search)
       {
         $field_clauses[] = $field." LIKE '%".$word."%'";
       }
-      // adds brackets around where clauses
-      $word_clauses[] = implode(
-        "\n          OR ",
-        $field_clauses
-        );
-    }
 
-    array_walk(
-      $word_clauses,
-      function(&$s){ $s = "(".$s.")"; }
-      );
-
-    // make sure the "mode" is either OR or AND
-    if ($search['fields']['allwords']['mode'] != 'AND' and $search['fields']['allwords']['mode'] != 'OR')
-    {
-      $search['fields']['allwords']['mode'] = 'AND';
-    }
-
-    // 2) we search the words in album titles/descriptions
-    $cat_fields_dictionnary = array(
-      'cat-title' => 'name',
-      'cat-desc' => 'comment',
-    );
-    $cat_fields = array_intersect(array_keys($cat_fields_dictionnary), $search['fields']['allwords']['fields']);
-
-    if (count($cat_fields) > 0)
-    {
-      $cat_word_clauses = array();
-      foreach ($search['fields']['allwords']['words'] as $word)
+      if (count($cat_fields) > 0)
       {
-        $field_clauses = array();
+        $cat_word_clauses = array();
+        $cat_field_clauses = array();
         foreach ($cat_fields as $cat_field)
         {
-          $field_clauses[] = $cat_fields_dictionnary[$cat_field]." LIKE '%".$word."%'";
+          $cat_field_clauses[] = $cat_fields_dictionnary[$cat_field]." LIKE '%".$word."%'";
         }
 
         // adds brackets around where clauses
-        $cat_word_clauses[] = implode(' OR ', $field_clauses);
-      }
+        $cat_word_clauses[] = implode(' OR ', $cat_field_clauses);
 
-      $query = '
+        $query = '
 SELECT
     id
   FROM '.CATEGORIES_TABLE.'
   WHERE '.implode(' OR ', $cat_word_clauses).'
 ;';
-      $cat_ids = query2array($query, null, 'id');
-      if (count($cat_ids) > 0)
+        $cat_ids = query2array($query, null, 'id');
+        if (count($cat_ids) == 0)
+        {
+          $cat_ids = array(-1);
+        }
+
+        $field_clauses[] = 'category_id IN ('.implode(',', $cat_ids).')';
+      }
+
+      if (count($field_clauses) > 0)
       {
-        $word_clauses[] = 'category_id IN ('.implode(',', $cat_ids).')';
+        // adds brackets around where clauses
+        $word_clauses[] = implode(
+          "\n          OR ",
+          $field_clauses
+        );
       }
     }
 
-    $clauses[] = "\n         ".
-      implode(
-        "\n         ". $search['fields']['allwords']['mode']. "\n         ",
-        $word_clauses
-        );
+    if (count($word_clauses) > 0)
+    {
+      array_walk(
+        $word_clauses,
+        function(&$s){ $s = "(".$s.")"; }
+      );
+    }
+
+    // make sure the "mode" is either OR or AND
+    if (!in_array($search['fields']['allwords']['mode'], array('OR', 'AND')))
+    {
+      $search['fields']['allwords']['mode'] = 'AND';
+    }
+
+    $clauses[] = "\n         ".implode(
+      "\n         ". $search['fields']['allwords']['mode']. "\n         ",
+      $word_clauses
+    );
 
     // 3) the case of searching among tags is handled by search_in_tags in function get_regular_search_results
   }
