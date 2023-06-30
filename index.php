@@ -235,7 +235,7 @@ SELECT
     {
       $query = '
 SELECT
-    COUNT(added_by) AS counter,
+    COUNT(DISTINCT(id)) AS counter,
     added_by AS added_by_id
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
