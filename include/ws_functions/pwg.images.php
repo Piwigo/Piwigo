@@ -700,6 +700,7 @@ SELECT *
 function ws_images_filteredSearch_update($params, $service)
 {
   // echo json_encode($params); exit();
+  include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
   // * check the search exists
   $query = '
@@ -746,30 +747,7 @@ SELECT id
     }
     $search['fields']['allwords']['fields'] = $params['allwords_fields'];
 
-    $search['fields']['allwords']['words'] = null;
-    if (!preg_match('/^\s*$/', $params['allwords']))
-    {
-      $drop_char_match = array(
-        '-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_',
-        '?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*'
-      );
-      $drop_char_replace = array(
-        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','','',' ',' ',' ',' ','',' ',
-        ' ',' ',' ',' ',' ',' ',' ',' ','' ,' ',' ',' ',' ',' '
-      );
-
-      // Split words
-      $search['fields']['allwords']['words'] = array_unique(
-        preg_split(
-          '/\s+/',
-          str_replace(
-            $drop_char_match,
-            $drop_char_replace,
-            $params['allwords']
-          )
-        )
-      );
-    }
+    $search['fields']['allwords']['words'] = split_allwords($params['allwords']);
   }
 
   if (isset($params['tags']))

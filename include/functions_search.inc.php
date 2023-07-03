@@ -1568,4 +1568,29 @@ function get_search_results($search_id, $super_order_by, $images_where='')
   }
 }
 
+function split_allwords($raw_allwords)
+{
+  $words = null;
+
+  if (!preg_match('/^\s*$/', $raw_allwords))
+  {
+    $drop_char_match   = array('-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_','?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
+    $drop_char_replace = array(' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','', '',  ' ',' ',' ',' ','', ' ',' ',' ',' ',' ',' ',' ',' ',' ','' , ' ',' ',' ', ' ',' ');
+
+    // Split words
+    $words = array_unique(
+      preg_split(
+        '/\s+/',
+        str_replace(
+          $drop_char_match,
+          $drop_char_replace,
+          $raw_allwords
+        )
+      )
+    );
+  }
+
+  return $words;
+}
+
 ?>

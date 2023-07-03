@@ -21,11 +21,18 @@ trigger_notify('loc_begin_search');
 // | Create a default search                                               |
 // +-----------------------------------------------------------------------+
 
+$words = array();
+if (!empty($_GET['q']))
+{
+  include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
+  $words = split_allwords($_GET['q']);
+}
+
 $search = array(
   'mode' => 'AND',
   'fields' => array(
     'allwords' => array(
-      'words' => array(),
+      'words' => $words,
       'mode' => 'AND',
       'fields' => array('file', 'name', 'comment', 'tags', 'cat-title', 'cat-desc'),
     ),
