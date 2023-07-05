@@ -84,10 +84,22 @@ array(
   'files' => array('admin\include\functions.inc.php (delete_categories)'),
 ),
 array(
+  'name' => 'delete_group',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'groupids'),
+  'files' => array('admin\group_list.php','admin\include\functions.inc.php (delete_group)'),
+),
+array(
   'name' => 'delete_elements',
   'type' => 'trigger_notify',
   'vars' => array('array', 'ids'),
   'files' => array('admin\include\functions.inc.php (delete_elements)'),
+),
+array(
+  'name' => 'delete_tags',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'tag_ids'),
+  'files' => array('admin\include\functions.inc.php (delete_tags)')
 ),
 array(
   'name' => 'delete_user',
@@ -448,6 +460,27 @@ array(
   'vars' => array(),
   'files' => array('notification.php'),
   'infos' => 'New in 2.5',
+),
+array(
+  'name' => 'loc_end_add_uploaded_file',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'image_infos'),
+  'files' => array('admin\include\functions_upload.inc.php (add_uploaded_file)'),
+  'infos' => 'New in 2.11',
+),
+array(
+  'name' => 'empty_lounge',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'rows'),
+  'files' => array('admin\include\functions.php (empty_lounge)'),
+  'infos' => 'New in 12',
+),
+array(
+  'name' => 'ws_images_uploadCompleted',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'upload_data'),
+  'files' => array('include\ws_functions\pwg.images.php (ws_images_uploadCompleted)'),
+  'infos' => 'New in 12',
 ),
 array(
   'name' => 'loc_end_password',
@@ -867,20 +900,6 @@ array(
   'type' => 'trigger_notify',
   'vars' => array('Template', 'template', 'Combinable', '$combinable', 'FileCombiner', '$combiner'),
   'files' => array('include\template.class.php (FileCombiner::process_combinable)'),
-  'infos' => 'New in 2.6.',
-),
-array(
-  'name' => 'user_list_columns',
-  'type' => 'trigger_change',
-  'vars' => array('string[]', 'aColumns'),
-  'files' => array('admin\user_list_backend.php'),
-  'infos' => 'New in 2.6.',
-),
-array(
-  'name' => 'after_render_user_list',
-  'type' => 'trigger_change',
-  'vars' => array('array', 'output'),
-  'files' => array('admin\user_list_backend.php'),
   'infos' => 'New in 2.6.',
 ),
 array(

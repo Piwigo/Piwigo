@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -45,9 +30,14 @@ SELECT rules
   FROM '.SEARCH_TABLE.'
   WHERE id = '.$search_id.'
 ;';
-  list($serialized_rules) = pwg_db_fetch_row(pwg_query($query));
+  $rules_list = query2array($query);
 
-  return unserialize($serialized_rules);
+  if (count($rules_list) == 0)
+  {
+    bad_request('this search identifier does not exist');
+  }
+
+  return unserialize($rules_list[0]['rules']);
 }
 
 /**
@@ -80,24 +70,34 @@ function get_sql_search_clause($search)
         }
       }
 
-      // adds brackets around where clauses
-      $local_clauses = prepend_append_array_items($local_clauses, '(', ')');
+      if (count($local_clauses) > 0)
+      {
+        // adds brackets around where clauses
+        $local_clauses = prepend_append_array_items($local_clauses, '(', ')');
 
-      $clauses[] = implode(
-        ' '.$search['fields'][$textfield]['mode'].' ',
-        $local_clauses
+        $clauses[] = implode(
+          ' '.$search['fields'][$textfield]['mode'].' ',
+          $local_clauses
         );
+      }
     }
   }
 
-  if (isset($search['fields']['allwords']) and count($search['fields']['allwords']['fields']) > 0)
+  if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0)
   {
+    // 1) we search in regular fields (ie, the ones in the piwigo_images table)
     $fields = array('file', 'name', 'comment');
 
     if (isset($search['fields']['allwords']['fields']) and count($search['fields']['allwords']['fields']) > 0)
     {
       $fields = array_intersect($fields, $search['fields']['allwords']['fields']);
     }
+
+    $cat_fields_dictionnary = array(
+      'cat-title' => 'name',
+      'cat-desc' => 'comment',
+    );
+    $cat_fields = array_intersect(array_keys($cat_fields_dictionnary), $search['fields']['allwords']['fields']);
 
     // in the OR mode, request bust be :
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
@@ -114,29 +114,64 @@ function get_sql_search_clause($search)
       {
         $field_clauses[] = $field." LIKE '%".$word."%'";
       }
-      // adds brackets around where clauses
-      $word_clauses[] = implode(
-        "\n          OR ",
-        $field_clauses
+
+      if (count($cat_fields) > 0)
+      {
+        $cat_word_clauses = array();
+        $cat_field_clauses = array();
+        foreach ($cat_fields as $cat_field)
+        {
+          $cat_field_clauses[] = $cat_fields_dictionnary[$cat_field]." LIKE '%".$word."%'";
+        }
+
+        // adds brackets around where clauses
+        $cat_word_clauses[] = implode(' OR ', $cat_field_clauses);
+
+        $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE '.implode(' OR ', $cat_word_clauses).'
+;';
+        $cat_ids = query2array($query, null, 'id');
+        if (count($cat_ids) == 0)
+        {
+          $cat_ids = array(-1);
+        }
+
+        $field_clauses[] = 'category_id IN ('.implode(',', $cat_ids).')';
+      }
+
+      if (count($field_clauses) > 0)
+      {
+        // adds brackets around where clauses
+        $word_clauses[] = implode(
+          "\n          OR ",
+          $field_clauses
         );
+      }
     }
 
-    array_walk(
-      $word_clauses,
-      function(&$s){ $s = "(".$s.")"; }
+    if (count($word_clauses) > 0)
+    {
+      array_walk(
+        $word_clauses,
+        function(&$s){ $s = "(".$s.")"; }
       );
+    }
 
     // make sure the "mode" is either OR or AND
-    if ($search['fields']['allwords']['mode'] != 'AND' and $search['fields']['allwords']['mode'] != 'OR')
+    if (!in_array($search['fields']['allwords']['mode'], array('OR', 'AND')))
     {
       $search['fields']['allwords']['mode'] = 'AND';
     }
 
-    $clauses[] = "\n         ".
-      implode(
-        "\n         ". $search['fields']['allwords']['mode']. "\n         ",
-        $word_clauses
-        );
+    $clauses[] = "\n         ".implode(
+      "\n         ". $search['fields']['allwords']['mode']. "\n         ",
+      $word_clauses
+    );
+
+    // 3) the case of searching among tags is handled by search_in_tags in function get_regular_search_results
   }
 
   foreach (array('date_available', 'date_creation') as $datefield)
@@ -160,7 +195,12 @@ function get_sql_search_clause($search)
     }
   }
 
-  if (isset($search['fields']['cat']))
+  if (!empty($search['fields']['added_by']))
+  {
+    $clauses[] = 'added_by IN ('.implode(',', $search['fields']['added_by']).')';
+  }
+
+  if (isset($search['fields']['cat']) and !empty($search['fields']['cat']['words']))
   {
     if ($search['fields']['cat']['sub_inc'])
     {
@@ -216,7 +256,15 @@ function get_regular_search_results($search, $images_where='')
   $items = array();
   $tag_items = array();
 
-  if (isset($search['fields']['search_in_tags']))
+  // starting with version 14, we no longer have $search['fields']['search_in_tags'] but 'tags'
+  // in the array $search['fields']['allwords']['fields']. Let's convert, without changing the
+  // search algorithm
+  if (!empty($search['fields']['allwords']['fields']) and in_array('tags', $search['fields']['allwords']['fields']))
+  {
+    $search['fields']['search_in_tags'] = true;
+  }
+
+  if (isset($search['fields']['search_in_tags']) and !empty($search['fields']['allwords']['words']))
   {
     $word_clauses = array();
     foreach ($search['fields']['allwords']['words'] as $word)
@@ -926,6 +974,8 @@ class QResults
 
 function qsearch_get_text_token_search_sql($token, $fields)
 {
+  global $page;
+
   $clauses = array();
   $variants = array_merge(array($token->term), $token->variants);
   $fts = array();
@@ -948,8 +998,20 @@ function qsearch_get_text_token_search_sql($token, $fields)
 
     if (!$use_ft)
     {// odd term or too short for full text search; fallback to regex but unfortunately this is diacritic/accent sensitive
-      $pre = ($token->modifier & QST_WILDCARD_BEGIN) ? '' : '[[:<:]]';
-      $post = ($token->modifier & QST_WILDCARD_END) ? '' : '[[:>:]]';
+      if (!isset($page['use_regexp_ICU']))
+      {
+        // Prior to MySQL 8.0.4, MySQL used the Henry Spencer regular expression library to support
+        // regular expression operations, rather than International Components for Unicode (ICU)
+        $page['use_regexp_ICU'] = false;
+        $db_version = pwg_get_db_version();
+        if (!preg_match('/mariadb/i', $db_version) and version_compare($db_version, '8.0.4', '>'))
+        {
+          $page['use_regexp_ICU'] = true;
+        }
+      }
+
+      $pre = ($token->modifier & QST_WILDCARD_BEGIN) ? '' : ($page['use_regexp_ICU'] ? '\\\\b' : '[[:<:]]');
+      $post = ($token->modifier & QST_WILDCARD_END) ? '' : ($page['use_regexp_ICU'] ? '\\\\b' : '[[:>:]]');
       foreach( $fields as $field)
         $clauses[] = $field.' REGEXP \''.$pre.addslashes(preg_quote($variant)).$post.'\'';
     }
@@ -1134,7 +1196,7 @@ SELECT image_id FROM '.IMAGE_TAG_TABLE.'
 
 function qsearch_get_categories(QExpression $expr, QResults $qsr)
 {
-  global $user;
+  global $user, $conf;
 
   $token_cat_ids = $qsr->cat_iids = array_fill(0, count($expr->stokens), array() );
   $all_cats = array();
@@ -1186,6 +1248,18 @@ SELECT
 
     if (!empty($cat_ids))
     {
+      if ($conf['quick_search_include_sub_albums'])
+      {
+        $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id = cat_id and user_id = '.$user['id'].'
+  WHERE id IN ('.implode(',', get_subcat_ids($cat_ids)) .')
+;';
+        $cat_ids = query2array($query, null, 'id');
+      }
+
       $query = '
 SELECT image_id FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id IN ('.implode(',',$cat_ids).')
@@ -1417,7 +1491,11 @@ function get_quick_search_results_no_cache($q, $options)
   $search_results['qs']['matching_tags'] = $qsr->all_tags;
   $search_results['qs']['matching_cats'] = $qsr->all_cats;
   $search_results = trigger_change('qsearch_results', $search_results, $expression, $qsr);
-
+  if (isset($search_results['items']))
+  {
+    $ids = array_merge($ids, $search_results['items']);
+  }
+  
   global $template;
 
   if (empty($ids))
@@ -1488,6 +1566,31 @@ function get_search_results($search_id, $super_order_by, $images_where='')
   {
     return get_quick_search_results($search['q'], array('super_order_by'=>$super_order_by, 'images_where'=>$images_where) );
   }
+}
+
+function split_allwords($raw_allwords)
+{
+  $words = null;
+
+  if (!preg_match('/^\s*$/', $raw_allwords))
+  {
+    $drop_char_match   = array('-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_','?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
+    $drop_char_replace = array(' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','', '',  ' ',' ',' ',' ','', ' ',' ',' ',' ',' ',' ',' ',' ',' ','' , ' ',' ',' ', ' ',' ');
+
+    // Split words
+    $words = array_unique(
+      preg_split(
+        '/\s+/',
+        str_replace(
+          $drop_char_match,
+          $drop_char_replace,
+          $raw_allwords
+        )
+      )
+    );
+  }
+
+  return $words;
 }
 
 ?>

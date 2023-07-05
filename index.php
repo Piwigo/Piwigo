@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 //--------------------------------------------------------------------- include
@@ -110,11 +95,9 @@ $template->assign('U_CANONICAL', $canonical_url);
 //-------------------------------------------------------------- page title
 $title = $page['title'];
 $template_title = $page['section_title'];
-if (count($page['items']) > 0)
-{
-  $template_title.= ' ['.count($page['items']).']';
-}
+$nb_items = count($page['items']);
 $template->assign('TITLE', $template_title);
+$template->assign('NB_ITEMS', $nb_items);
 
 //-------------------------------------------------------------- menubar
 include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
@@ -128,7 +111,7 @@ if ( empty($page['is_external']) )
 {
   //----------------------------------------------------- template initialization
   $page['body_id'] = 'theCategoryPage';
-  
+
   if (isset($page['flat']) or isset($page['chronology_field']))
   {
     $template->assign(
@@ -193,10 +176,149 @@ if ( empty($page['is_external']) )
 
   if ('search' == $page['section'])
   {
+    include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
+
+    $my_search = get_search_array($page['search']);
+
+    if (isset($my_search['fields']['tags']))
+    {
+      $available_tags = get_available_tags();
+      $available_tag_ids = array();
+
+      if (count($available_tags) > 0)
+      {
+        usort( $available_tags, 'tag_alpha_compare');
+        $template->assign('TAGS', $available_tags);
+
+        foreach ($available_tags as $tag)
+        {
+          $available_tag_ids[] = $tag['id'];
+        }
+      }
+
+      // in case the search has forbidden tags for current user, we need to filter the search rule
+      $my_search['fields']['tags']['words'] = array_intersect($my_search['fields']['tags']['words'], $available_tag_ids);
+    }
+
+    if (isset($my_search['fields']['author']))
+    {
+      $query = '
+SELECT
+    author,
+    COUNT(DISTINCT(id)) AS counter
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'id'
+      ),
+    ' WHERE '
+    ).'
+    AND author IS NOT NULL
+  GROUP BY author
+;';
+      $authors = query2array($query);
+      $author_names = array();
+      foreach ($authors as $author)
+      {
+        $author_names[] = $author['author'];
+      }
+      $template->assign('AUTHORS', query2array($query));
+
+      // in case the search has forbidden authors for current user, we need to filter the search rule
+      $my_search['fields']['author']['words'] = array_intersect($my_search['fields']['author']['words'], $author_names);
+    }
+
+    if (isset($my_search['fields']['added_by']))
+    {
+      $query = '
+SELECT
+    COUNT(DISTINCT(id)) AS counter,
+    added_by AS added_by_id
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'id'
+      ),
+    ' WHERE '
+    ).'
+  GROUP BY added_by_id
+  ORDER BY counter DESC
+;';
+      $added_by = query2array($query);
+
+      if (count($added_by) > 0)
+      {
+        // now let's find the usernames of added_by users
+        $user_ids = array();
+        foreach ($added_by as $i)
+        {
+          $user_ids[] = $i['added_by_id'];
+        }
+
+        $query = '
+SELECT
+    '.$conf['user_fields']['id'].' AS id,
+    '.$conf['user_fields']['username'].' AS username
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' IN ('.implode(',', $user_ids).')
+;';
+        $username_of = query2array($query, 'id', 'username');
+
+        foreach (array_keys($added_by) as $added_by_idx)
+        {
+          $added_by[$added_by_idx]['added_by_name'] = $username_of[ $added_by[$added_by_idx]['added_by_id'] ];
+        }
+      }
+
+      $template->assign('ADDED_BY', $added_by);
+
+      // in case the search has forbidden added_by users for current user, we need to filter the search rule
+      $my_search['fields']['added_by'] = array_intersect($my_search['fields']['added_by'], $user_ids);
+    }
+
+    if (isset($my_search['fields']['cat']) and !empty($my_search['fields']['cat']['words']))
+    {
+      $fullname_of = array();
+
+      $query = '
+SELECT
+    id, 
+    uppercats
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id = cat_id AND user_id = '.$user['id'].'
+  WHERE id IN ('.implode(',', $my_search['fields']['cat']['words']).')
+;';
+      $result = pwg_query($query);
+
+      while ($row = pwg_db_fetch_assoc($result))
+      {
+        $cat_display_name = get_cat_display_name_cache(
+          $row['uppercats'],
+          'admin.php?page=album-' // TODO not sure it's relevant to link to admin pages
+        );
+        $row['fullname'] = strip_tags($cat_display_name);
+
+        $fullname_of[$row['id']] = $row['fullname'];
+      }
+
+      $template->assign('fullname_of', json_encode($fullname_of));
+
+      // in case the search has forbidden albums for current user, we need to filter the search rule
+      $my_search['fields']['cat']['words'] = array_intersect($my_search['fields']['cat']['words'], array_keys($fullname_of));
+    }
+
     $template->assign(
-      'U_SEARCH_RULES',
-      get_root_url().'search_rules.php?search_id='.$page['search']
-      );
+      array(
+        'GP' => json_encode($my_search),
+        'SEARCH_ID' => $page['search'],
+      )
+    );
   }
 
   if (isset($page['category']) and is_admin() and $conf['index_edit_icon'])

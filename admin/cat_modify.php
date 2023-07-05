@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if (!defined('PHPWG_ROOT_PATH'))
@@ -112,66 +97,6 @@ if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
 }
 
 //--------------------------------------------------------- form criteria check
-if (isset($_POST['submit']))
-{
-  $data = array(
-    'id' => $_GET['cat_id'],
-    'name' => @$_POST['name'],
-    'comment' =>
-      $conf['allow_html_descriptions'] ?
-        @$_POST['comment'] : strip_tags(@$_POST['comment']),
-    );
-     
-  if ($conf['activate_comments'])
-  {
-    $data['commentable'] = isset($_POST['commentable'])?$_POST['commentable']:'false';
-  }
-  
-  single_update(
-    CATEGORIES_TABLE,
-    $data,
-    array('id' => $data['id'])
-    );
-  if (isset($_POST['apply_commentable_on_sub']))
-  {
-    $subcats = get_subcat_ids(array('id' => $data['id']));
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET commentable = \''.$data['commentable'].'\'
-  WHERE id IN ('.implode(',', $subcats).')
-;';
-    pwg_query($query);
-  }
-
-  // retrieve cat infos before continuing (following updates are expensive)
-  $cat_info = get_cat_info($_GET['cat_id']);
-
-  if ($_POST['visible']=='true_sub')
-  {
-    set_cat_visible(array($_GET['cat_id']), true, true);
-  }
-  elseif ($cat_info['visible'] != get_boolean( $_POST['visible'] ) )
-  {
-    set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
-  }
-
-  // in case the use moves his album to the gallery root, we force
-  // $_POST['parent'] from 0 to null to be compared with
-  // $cat_info['id_uppercat']
-  if (empty($_POST['parent']))
-  {
-    $_POST['parent'] = null;
-  }
-
-  // only move virtual albums
-  if (empty($cat_info['dir']) and $cat_info['id_uppercat'] != $_POST['parent'])
-  {
-    move_categories( array($_GET['cat_id']), $_POST['parent'] );
-  }
-
-  $_SESSION['page_infos'][] = l10n('Album updated successfully');
-  $redirect = true;
-}
 
 if (isset($redirect))
 {
@@ -201,50 +126,32 @@ $subcat_ids = get_subcat_ids(array($category['id']));
 
 $category['nb_subcats'] = count($subcat_ids) - 1;
 
-// total number of images under this category (including sub-categories)
-$query = '
-SELECT
-    DISTINCT(image_id)
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id IN ('.implode(',', $subcat_ids).')
- ;';
-$image_ids_recursive = query2array($query, null, 'image_id');
-
-$category['nb_images_recursive'] = count($image_ids_recursive);
-
-// number of images that would become orphan on album deletion
-$category['nb_images_becoming_orphan'] = 0;
-$category['nb_images_associated_outside'] = 0;
-
-if ($category['nb_images_recursive'] > 0)
-{
-  $query = '
-SELECT
-    DISTINCT(image_id)
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id NOT IN ('.implode(',', $subcat_ids).')
-    AND image_id IN ('.implode(',', $image_ids_recursive).')
-;';
-  $image_ids_associated_outside = query2array($query, null, 'image_id');
-  $category['nb_images_associated_outside'] = count($image_ids_associated_outside);
-
-  $image_ids_becoming_orphan = array_diff($image_ids_recursive, $image_ids_associated_outside);
-  $category['nb_images_becoming_orphan'] = count($image_ids_becoming_orphan);
-}
-
 // Navigation path
 $navigation = get_cat_display_name_cache(
   $category['uppercats'],
   get_root_url().'admin.php?page=album-'
-  );
+);
 
-$form_action = $admin_album_base_url.'-properties';
+// Parent navigation path
+$uppercats_array = explode(',', $category['uppercats']);
+if (count($uppercats_array) > 1)
+{
+  array_pop($uppercats_array);
+  $parent_navigation = get_cat_display_name_cache(
+    implode(',', $uppercats_array),
+    get_root_url().'admin.php?page=album-'
+  );
+}
+else
+{
+  $parent_navigation = l10n('Root');
+}
 
 //----------------------------------------------------- template initialization
 $template->set_filename( 'album_properties', 'cat_modify.tpl');
 
 $base_url = get_root_url().'admin.php?page=';
-$cat_list_url = $base_url.'cat_list';
+$cat_list_url = $base_url.'albums';
 
 $self_url = $cat_list_url;
 if (!empty($category['id_uppercat']))
@@ -252,13 +159,20 @@ if (!empty($category['id_uppercat']))
   $self_url.= '&amp;parent_id='.$category['id_uppercat'];
 }
 
+// We show or hide this warning in JS
+$page['warnings'][] = l10n('This album is currently locked, visible only to administrators.').'<span class="icon-key unlock-album">'.l10n('Unlock it').'</span>';
+
 $template->assign(
   array(
-    'CATEGORIES_NAV'     => $navigation,
+    'CATEGORIES_NAV'     => preg_replace("# {2,}#"," ",preg_replace("#(\r\n|\n\r|\n|\r)#"," ",$navigation)),
+    'CATEGORIES_PARENT_NAV' => preg_replace("# {2,}#"," ",preg_replace("#(\r\n|\n\r|\n|\r)#"," ",$parent_navigation)),
+    'PARENT_CAT_ID'      => !empty($category['id_uppercat']) ? $category['id_uppercat'] : 0,
     'CAT_ID'             => $category['id'],
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
-    'CAT_VISIBLE'       => boolean_to_string($category['visible']),
+    'IS_VISIBLE'          => boolean_to_string($category['visible']),
+
+    'U_DELETE' => $base_url.'albums',
 
     'U_JUMPTO' => make_index_url(
       array(
@@ -268,9 +182,7 @@ $template->assign(
 
     'U_ADD_PHOTOS_ALBUM' => $base_url.'photos_add&amp;album='.$category['id'],
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
-    'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_modify',
-
-    'F_ACTION' => $form_action,
+    'U_MOVE' => $base_url.'albums&amp;parent_id='.$category['id'].'#cat-'.$category['id'],
     )
   );
  
@@ -280,6 +192,8 @@ if ($conf['activate_comments'])
 }
 
 // manage album elements link
+$image_count = 0;
+$info_title = "";
 if ($category['has_images'])
 {
   $template->assign(
@@ -300,7 +214,7 @@ SELECT
 
   if ($min_date == $max_date)
   {
-    $intro = l10n(
+    $info_title = l10n(
       'This album contains %d photos, added on %s.',
       $image_count,
       format_date($min_date)
@@ -308,47 +222,97 @@ SELECT
   }
   else
   {
-    $intro = l10n(
+    $info_title = l10n(
       'This album contains %d photos, added between %s and %s.',
       $image_count,
       format_date($min_date),
       format_date($max_date)
       );
   }
+  
 }
-else
-{
-  $intro = l10n('This album contains no photo.');
-}
+$info_photos = l10n('%d photos', $image_count);
 
-// info for deletion
 $template->assign(
   array(
-    'CATEGORY_FULLNAME' => trim(strip_tags($navigation)),
-    'NB_SUBCATS' => $category['nb_subcats'],
-    'NB_IMAGES_RECURSIVE' => $category['nb_images_recursive'],
-    'NB_IMAGES_BECOMING_ORPHAN' => $category['nb_images_becoming_orphan'],
-    'NB_IMAGES_ASSOCIATED_OUTSIDE' => $category['nb_images_associated_outside'],
+    'INFO_PHOTO' => $info_photos,
+    'INFO_TITLE' => $info_title
     )
   );
 
-$intro.= '<br>'.l10n('Numeric identifier : %d', $category['id']);
+// total number of images under this category (including sub-categories)
+  $query = '
+SELECT DISTINCT
+    (image_id)
+  FROM 
+    '.IMAGE_CATEGORY_TABLE.'
+  WHERE 
+    category_id IN ('.implode(',', $subcat_ids).')
+  ;';
+  $image_ids_recursive = query2array($query, null, 'image_id');
+
+  $category['nb_images_recursive'] = count($image_ids_recursive);
+
+// date creation
+$query = '
+SELECT occured_on
+  FROM `'.ACTIVITY_TABLE.'`
+  WHERE object_id = '.$category['id'].' 
+    AND object = "album"
+    AND action = "add"
+';
+$result = query2array($query);
+
+if (count($result) > 0) {
+  $template->assign(
+    array(
+      'INFO_CREATION_SINCE' => time_since($result[0]['occured_on'], 'day', $format=null, $with_text=true, $with_week=true, $only_last_unit=true),
+      'INFO_CREATION' => format_date($result[0]['occured_on'], array('day', 'month','year'))
+      )
+    );
+}
+
+// Sub Albums
+$query = '
+SELECT COUNT(*)
+  FROM `'.CATEGORIES_TABLE.'`
+  WHERE id_uppercat = '.$category['id'].'
+';
+$result = query2array($query);
+
+
+$template->assign(
+  array(
+    'INFO_DIRECT_SUB' => l10n(
+      '%d sub-albums',
+      $result[0]['COUNT(*)']
+    ), 
+    )
+  );
 
 $template->assign(array(
-  'INTRO' => $intro,
+  'INFO_ID' => l10n('Numeric identifier : %d',$category['id']),
+  'INFO_LAST_MODIFIED_SINCE' => time_since($category['lastmodified'], 'minute', $format=null, $with_text=true, $with_week=true, $only_last_unit=true),
+  'INFO_LAST_MODIFIED'=> format_date($category['lastmodified'], array('day', 'month','year')),
+  'INFO_IMAGES_RECURSIVE' => l10n(
+    '%d including sub-albums',
+    $category['nb_images_recursive']
+  ),
+  'INFO_SUBCATS' => l10n(
+    '%d in whole branch',
+    $category['nb_subcats']
+  ),
+
+  'NB_SUBCATS' => $category['nb_subcats'],
+  ),
+);
+
+$template->assign(array(
   'U_MANAGE_RANKS' => $base_url.'element_set_ranks&amp;cat_id='.$category['id'],
   'CACHE_KEYS' => get_admin_client_cache_keys(array('categories')),
   ));
 
-if ($category['is_virtual'])
-{
-  $template->assign(
-    array(
-      'U_DELETE' => $self_url.'&amp;delete='.$category['id'].'&amp;pwg_token='.get_pwg_token(),
-      )
-    );
-}
-else
+if (!$category['is_virtual'])
 {
   $category['cat_full_dir'] = get_complete_dir($_GET['cat_id']);
   $template->assign(
@@ -376,11 +340,11 @@ if ($category['has_images'] or !empty($category['representative_picture_id']))
   // representant ?
   if (!empty($category['representative_picture_id']))
   {
-    $tpl_representant['picture'] = get_category_representant_properties($category['representative_picture_id']);
+    $tpl_representant['picture'] = get_category_representant_properties($category['representative_picture_id'], IMG_SMALL);
   }
 
   // can the admin choose to set a new random representant ?
-  $tpl_representant['ALLOW_SET_RANDOM'] = ($category['has_images']) ? true : false;
+  $tpl_representant['ALLOW_SET_RANDOM'] = ($category['has_images'] ? true : false);
 
   // can the admin delete the current representant ?
   if (
@@ -399,6 +363,8 @@ if ($category['is_virtual'])
 {
   $template->assign('parent_category', empty($category['id_uppercat']) ? array() : array($category['id_uppercat']));
 }
+
+$template->assign('PWG_TOKEN', get_pwg_token());
 
 trigger_notify('loc_end_cat_modify');
 

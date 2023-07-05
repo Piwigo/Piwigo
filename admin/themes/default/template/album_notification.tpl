@@ -3,7 +3,12 @@
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 
 {footer_script}
+
+const cat_nav = '{$CATEGORIES_NAV|escape:javascript}';
+
 jQuery(document).ready(function() {
+  $("h1").append(' <span style="letter-spacing:0">'+cat_nav+'</span>');
+
   jQuery("input[name=who]").change(function () {
     checkWhoOptions();
   });
@@ -55,14 +60,10 @@ span.errors {
 }
 {/html_style}
 
-<div class="titrePage">
-  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
-
 <form action="{$F_ACTION}" method="post" id="categoryNotify">
 
 <fieldset id="emailCatInfo">
-  <legend>{'Send mail to users'|@translate}</legend>
+  <legend><span class="icon-mail-1 icon-green"></span>{'Send mail to users'|@translate}</legend>
 
   <p>
     <strong>{'Recipients'|@translate}</strong>
@@ -106,7 +107,7 @@ span.errors {
   <p>
     <strong>{'Complementary mail content'|@translate}</strong>
     <br>
-    <textarea cols="50" rows="5" name="mail_content" id="mail_content" class="description">{$MAIL_CONTENT}</textarea>
+<textarea cols="50" rows="5" name="mail_content" id="mail_content" class="description">{if isset($MAIL_CONTENT)}{$MAIL_CONTENT}{/if}</textarea>
   </p>
 
 {if isset($auth_key_duration)}

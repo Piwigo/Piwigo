@@ -24,14 +24,14 @@ class Smarty_Internal_Method_SetDebugTemplate
      * @api Smarty::setDebugTemplate()
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $tpl_name
+     * @param string                                                          $tpl_name
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws SmartyException if file is not readable
      */
     public function setDebugTemplate(Smarty_Internal_TemplateBase $obj, $tpl_name)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         if (!is_readable($tpl_name)) {
             throw new SmartyException("Unknown file '{$tpl_name}'");
         }

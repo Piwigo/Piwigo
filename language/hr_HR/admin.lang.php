@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['%d association'] = '%d poveznica';
@@ -668,7 +653,7 @@ $lang['new'] = 'novo';
 $lang['No file was uploaded'] = 'Datoteka nije poslana';
 $lang['No photo in the current set.'] = 'U trenutnoj grupi nema fotografija.';
 $lang['No photo selected, %d photos in current set'] = 'Fotografije nisu označene, %d fotografija u trenutnoj grupi';
-$lang['No photo selected, no action possible.'] = 'Nijedna fotografija nije označena.';
+$lang['No photos selected, no actions possible.'] = 'Nijedna fotografija nije označena.';
 $lang['No results'] = 'Nema rezultata';
 $lang['on the %d selected photos'] = 'na %d označenih fotografija';
 $lang['Orphan tags deleted'] = 'Nekorištene oznake su izbrisane';
@@ -754,6 +739,7 @@ $lang['%d years'] = '%d godina';
 $lang['%s ago'] = '%s prije';
 $lang['%s in the future'] = '%s u budućnosti';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u korisnici su u grupi koja ima pristup';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo za Android</em> je aplikacija koja vam omogućava spajanje vašeg tableta ili mobilnog telefona na vašu Piwigo galeriju. Kreirajte albume i postavite fotografije.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo za iOS</em> je aplikacija koja vam omogućava spajanje vašeg iPhone-a, iPada-a ili iPod Touch-a na vašu Piwigo galeriju. Kreirajte albume i postavite fotografije.';
 $lang['show details'] = 'prikaži pojedinosti';
 $lang['top left corner'] = 'gornji lijevi ugao';
@@ -767,6 +753,7 @@ $lang['Watermark'] = 'Vodeni žig';
 $lang['Week starts on'] = 'Tjedan počinje od';
 $lang['Width'] = 'Širina';
 $lang['Select an album'] = 'Odaberi album';
+$lang['Piwigo for Android'] = 'Piwigo za Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo za iOS (iPhone, iPad, iPod Touch)';
 $lang['Portrait'] = 'Portret';
 $lang['Ratio'] = 'Omjer';

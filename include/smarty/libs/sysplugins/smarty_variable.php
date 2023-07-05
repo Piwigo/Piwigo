@@ -7,6 +7,7 @@
  * @package    Smarty
  * @subpackage Template
  */
+#[\AllowDynamicProperties]
 class Smarty_Variable
 {
     /**
@@ -15,6 +16,7 @@ class Smarty_Variable
      * @var mixed
      */
     public $value = null;
+
     /**
      * if true any output of this variable will be not cached
      *
@@ -41,7 +43,6 @@ class Smarty_Variable
      */
     public function __toString()
     {
-        return (string) $this->value;
+        return (string)$this->value;
     }
 }
-

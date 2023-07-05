@@ -1,7 +1,11 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{footer_script require='jquery.ui.sortable'}
 
-{footer_script require='jquery.ui.sortable'}{literal}
+const cat_nav = '{$CATEGORIES_NAV|escape:javascript}';
+
 jQuery(document).ready(function() {
+  $("h1").append(' <span style="letter-spacing:0">'+cat_nav+'</span>');
+
   function checkOrderOptions() {
     jQuery("#image_order_user_define_options").hide();
     if (jQuery("input[name=image_order_choice]:checked").val() == "user_define") {
@@ -37,17 +41,13 @@ jQuery('.thumbnail').tipTip({
 'fadeOut' : 200
 });
 }); 
-{/literal}{/footer_script}
-
-<div class="titrePage">
-  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
+{/footer_script}
 
 <form action="{$F_ACTION}" method="post">
 {if !empty($thumbnails)}
   <p><input type="submit" value="{'Submit'|@translate}" name="submit"></p>
   <fieldset>
-    <legend>{'Manual order'|@translate}</legend>
+    <legend><span class="icon-sort-alt-down icon-blue"></span>{'Manual order'|@translate}</legend>
     {if !empty($thumbnails)}
     <p>{'Drag to re-order'|@translate}</p>
     <ul class="thumbnails">
@@ -63,7 +63,7 @@ jQuery('.thumbnail').tipTip({
 {/if}
 
   <fieldset>
-    <legend>{'Sort order'|@translate}</legend>
+    <legend><span class="icon-sort-name-up icon-red"></span>{'Sort order'|@translate}</legend>
     <p class="field">
       <label class="font-checkbox">
         <span class="icon-dot-circled"></span>

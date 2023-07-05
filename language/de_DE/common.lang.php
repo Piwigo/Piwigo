@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Deutsch [DE]
@@ -42,7 +27,7 @@ $lang['%d comment to validate'] = '%d Kommentar zu moderieren';
 $lang['%d comments to validate'] = '%d Kommentare zu moderieren';
 $lang['%d new comment'] = '%d neuer Kommentar';
 $lang['%d new comments'] = '%d neue Kommentare';
-$lang['%d comment'] = '%d Kommentar';
+$lang['%d comment'] = 'Kein Kommentar (%d)';
 $lang['%d comments'] = '%d Kommentare';
 $lang['%d hit'] = '%d Aufruf';
 $lang['%d hits'] = '%d Aufrufe';
@@ -51,7 +36,7 @@ $lang['%d new photos'] = '%d neue Fotos';
 $lang['%d new user'] = '%d neuer Benutzer';
 $lang['%d new users'] = '%d neue Benutzer';
 $lang['About'] = 'Info';
-$lang['All tags'] = 'Alle Schlagwörter';
+$lang['All tags'] = 'Alle Schlagworte';
 $lang['Any tag'] = 'Beliebiges Schlagwort';
 $lang['At least one listed rule must be satisfied.'] = 'Mindestens eine aufgelistete Regel muss erfüllt sein.';
 $lang['Author'] = 'Autor';
@@ -73,14 +58,14 @@ $lang['Each listed rule must be satisfied.'] = 'Jede aufgelistete Regel muss erf
 $lang['Email address is missing. Please specify an email address.'] = 'Die E-Mail-Adresse fehlt. Bitte geben Sie eine E-Mail-Adresse an.';
 $lang['Email address'] = 'E-Mail-Adresse';
 $lang['Enter your personnal informations'] = 'Ihre persönlichen Daten angeben';
-$lang['Error sending email'] = 'Fehler beim Senden der E-Mail.';
+$lang['Error sending email'] = 'Fehler beim Senden der E-Mail';
 $lang['File name'] = 'Name der Datei';
 $lang['File'] = 'Datei';
 $lang['Filesize'] = 'Dateigröße';
 $lang['Filter and display'] = 'Filtern und anzeigen';
 $lang['Filter'] = 'Filter';
 $lang['Forgot your password?'] = 'Passwort vergessen?';
-$lang['Go through the gallery as a visitor'] = 'Besuchen Sie die Galerie als Gast.';
+$lang['Go through the gallery as a visitor'] = 'Die Galerie als Gast besuchen';
 $lang['Help'] = 'Hilfe';
 $lang['Identification'] = 'Anmeldung';
 $lang['Photos only RSS feed'] = 'RSS-Feed (nur Fotos)';
@@ -100,20 +85,20 @@ $lang['Quick connect'] = 'Schnelle Anmeldung';
 $lang['RSS feed'] = 'RSS-Feed';
 $lang['Register'] = 'Registrieren';
 $lang['Registration'] = 'Registrierung';
-$lang['Related tags'] = 'Mit den Schlagwörten';
+$lang['Related tags'] = 'Schlagworte';
 $lang['Reset'] = 'Zurücksetzen';
 $lang['Retrieve password'] = 'Passwort abrufen';
 $lang['Search rules'] = 'Suchkriterien';
-$lang['Search tags'] = 'Schlagwörter suchen';
+$lang['Search tags'] = 'Schlagworte suchen';
 $lang['Search'] = 'Suchen';
-$lang['display available tags'] = 'Alle verfügbaren Schlagwörter anzeigen';
+$lang['display available tags'] = 'Alle verfügbaren Schlagworte anzeigen';
 $lang['Since'] = 'Seit';
 $lang['Sort by'] = 'Sortieren nach';
 $lang['Sort order'] = 'Sortierreihenfolge';
 $lang['Tag'] = 'Schlagwort';
-$lang['Tags'] = 'Schlagwörter';
+$lang['Tags'] = 'Schlagworte';
 $lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'Der RSS-Feed stellt Benachrichtigungen dieser Webseite bereit und informiert Sie über neue Fotos, aktualisierte Alben sowie neue Kommentare. Benutzen Sie dazu einen RSS-Feed-Reader.';
-$lang['Unknown feed identifier'] = 'Feed-ID unbekannt.';
+$lang['Unknown feed identifier'] = 'Feed-ID unbekannt';
 $lang['User comments'] = 'Benutzerkommentare';
 $lang['Username'] = 'Benutzername';
 $lang['Visits'] = 'Besuche';
@@ -145,7 +130,7 @@ $lang['comment date'] = 'Datum des Kommentars';
 $lang['Comment'] = 'Kommentar';
 $lang['Your comment has been registered'] = 'Ihr Kommentar wurde gespeichert.';
 $lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'Anti-Flood-Sperre: Vor dem Absenden eines weiteren Kommentars bitte einen Moment warten.';
-$lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'Ihr Kommentar wurde abgelehnt, da er den Validierungsregeln nicht entspricht.';
+$lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'Ihr Kommentar wurde abgelehnt, da die Mindestanforderungen nicht erfüllt sind.';
 $lang['An administrator must authorize your comment before it is visible.'] = 'Ein Administrator muss Ihren Beitrag freigeben, bevor er sichtbar wird.';
 $lang['This login is already used by another user'] = 'Dieser Benutzername ist bereits vergeben.';
 $lang['Comments'] = 'Kommentare';
@@ -176,14 +161,14 @@ $lang['Your favorites'] = 'Meine Favoriten';
 $lang['display your favorites photos'] = 'Lieblingsbilder anzeigen';
 $lang['Favorites'] = 'Favoriten';
 $lang['First'] = 'Erste Seite';
-$lang['The gallery is locked for maintenance. Please, come back later.'] = 'Der Schreibzugriff auf die Datenbank ist wegen Wartungsarbeiten gesperrt. Bitte besuchen Sie uns später wieder.';
+$lang['The gallery is locked for maintenance. Please, come back later.'] = 'Die Galerie ist aus Wartungsgründen gesperrt. Bitte besuchen Sie uns später wieder.';
 $lang['Page generated in'] = 'Seite erstellt in';
 $lang['guest'] = 'Gast';
 $lang['Hello'] = 'Hallo';
-$lang['available for administrators only'] = 'Nur für Administratoren verfügbar';
+$lang['available for administrators only'] = 'Administrationsmenü';
 $lang['display this album'] = 'Dieses Album anzeigen';
 $lang['display last user comments'] = 'Die neuesten Kommentare anzeigen';
-$lang['customize the appareance of the gallery'] = 'Anpassen des Erscheinungsbildes der Galerie';
+$lang['customize the appareance of the gallery'] = 'Anpassungen vornehmen';
 $lang['search'] = 'Suchen';
 $lang['Home'] = 'Startseite';
 $lang['Identification'] = 'Identifikation';
@@ -299,14 +284,14 @@ $lang['Pause of slideshow'] = 'Diashow anhalten';
 $lang['Repeat the slideshow'] = 'Diashow wiederholen';
 $lang['Not repeat the slideshow'] = 'Diashow nicht wiederholen';
 $lang['Reduce diaporama speed'] = 'Diashow langsamer';
-$lang['Accelerate diaporama speed'] = 'Diashow schneller';
+$lang['Accelerate diaporama speed'] = 'Diashow beschleunigen';
 $lang['Submit'] = 'Absenden';
 $lang['Yes'] = 'Ja';
 $lang['No'] = 'Nein';
 $lang['%d photo'] = '%d Foto';
 $lang['%d photos'] = '%d Fotos';
-$lang['%d photo is also linked to current tags'] = '%d Foto ist ebenfalls mit diesen Schlagwörtern verknüpft';
-$lang['%d photos are also linked to current tags'] = '%d Fotos sind ebenfalls mit diesen Schlagwörtern verknüpft';
+$lang['%d photo is also linked to current tags'] = '%d Foto ist ebenfalls mit diesen Schlagworten verknüpft';
+$lang['%d photos are also linked to current tags'] = '%d Fotos sind ebenfalls mit diesen Schlagworten verknüpft';
 $lang['display photos linked to this tag'] = 'Fotos mit diesem Schlagwort anzeigen';
 $lang['photos posted during the last %d days'] = 'Fotos eingestellt während der letzten %d Tage';
 $lang['Piwigo Help'] = 'Piwigo-Hilfe';
@@ -318,7 +303,7 @@ $lang['cloud'] = 'Wolke';
 $lang['Reset to default values'] = 'Auf Standardwerte zurücksetzen';
 $lang['delete all photos from your favorites'] = 'Alle Fotos aus Ihren Favoriten entfernen';
 $lang['Sent by'] = 'Gesendet von';
-$lang['Are you sure?'] = 'Sind Sie sicher?';
+$lang['Are you sure?'] = 'Änderungen übernehmen';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies werden geblockt oder von Ihrem Browser nicht unterstützt. Sie müssen Cookies erlauben, um sich anzumelden.';
 $lang['Edit a comment'] = 'Einen Kommentar bearbeiten';
 $lang['(!) This comment requires validation'] = '(!) Dieser Kommentar erfordert Überprüfung.';
@@ -327,7 +312,7 @@ $lang['Welcome to your Piwigo photo gallery!'] = 'Willkommen!';
 $lang['... or browse your empty gallery'] = '...oder durchstöbern Sie Ihre leere Galerie.';
 $lang['... or please deactivate this message, I will find my way by myself'] = '...oder diese Meldung übergehen. Ich finde mich selbst zurecht.';
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Hallo %s, Ihre Piwigo-Fotogalerie ist leer!';
-$lang['I want to add photos'] = 'Ich möchte Fotos hinzufügen.';
+$lang['I want to add photos'] = 'Fotos hinzufügen';
 $lang['Manage this user comment: %s'] = 'Diesen Kommentar bearbeiten: %s';
 $lang['This author modified following comment:'] = 'Dieser Autor veränderte den folgenden Kommentar:';
 $lang['This author removed the comment with id %d'] = 'Dieser Autor löschte den Kommentar mit der ID %d';
@@ -340,7 +325,7 @@ $lang['Change my password'] = 'Mein Passwort ändern';
 $lang['Check your email for the confirmation link'] = 'Überprüfen Sie Ihr E-Mail-Postfach auf eine E-Mail mit Bestätigungslink.';
 $lang['Enter your new password below.'] = 'Neues Passwort unten eingeben.';
 $lang['EXIF Metadata'] = 'Exif-Metadaten';
-$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Falls ein Irrtum vorliegt, ignorieren Sie einfach diese E-Mail.';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Falls das unbeabsichtigt war, diese E-Mail ignorieren und es wird keine Änderung vorgenommen.';
 $lang['Invalid key'] = 'Ungültiger Schlüssel';
 $lang['Invalid username or email'] = 'Ungültiger Benutzername oder ungültige E-Mail-Adresse';
 $lang['IPTC Metadata'] = 'IPTC-Metadaten';
@@ -405,8 +390,8 @@ $lang['Page not found'] = 'Seite nicht gefunden.';
 $lang['Permalink for album not found'] = 'Permalink für Album nicht gefunden.';
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo ist auf einen nicht behebbaren Fehler gestoßen.';
 $lang['Requested album does not exist'] = 'Das gewählte Album existiert nicht.';
-$lang['Requested tag does not exist'] = 'Das gewähltes Schlagwort existiert nicht.';
-$lang['Email address is mandatory'] = 'Email Adresse ist erforderlich';
+$lang['Requested tag does not exist'] = 'Das gewählte Schlagwort existiert nicht.';
+$lang['Email address is mandatory'] = 'E-Mail-Adresse ist erforderlich';
 $lang['Username is mandatory'] = 'Benutzername ist erforderlich';
 $lang['mandatory'] = 'erforderlich';
 $lang['Website'] = 'Ihre Webseite';
@@ -418,7 +403,7 @@ $lang['Last Page'] = 'Letzte Seite';
 $lang['Password is missing. Please enter the password.'] = 'Das Kennwort fehlt. Bitte geben Sie Ihr Kennwort ein.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Kennwort-Überprüfung fehlt. Bitte geben Sie ihr gewähltes Kennwort noch einmal ein.';
 $lang['%d photos per page'] = '%d Bilder pro Seite';
-$lang['Theme'] = 'Thema';
+$lang['Theme'] = 'Erscheinungsbild';
 $lang['No results for'] = 'Keine Ergebnisse für';
 $lang['Photo description'] = 'Bildbeschreibung';
 $lang['Photo title'] = 'Bildtitel';
@@ -429,3 +414,8 @@ $lang['Link: %s'] = 'Adresse: %s';
 $lang['Your authentication key is no longer valid.'] = 'Ihr Authentifizierungs-Schlüssel ist nicht mehr gültig.';
 $lang['Invalid username or password!'] = 'Benutzername oder Passwort ungültig!';
 $lang['generate random password'] = 'Zufälliges Passwort generieren';
+$lang['Password: ********** (no copy by email)'] = 'Passwort: ********** (keine Kopie per E-Mail)';
+$lang['Related albums'] = 'Verwandte Alben';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumname, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumname, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Datum des Beginns';

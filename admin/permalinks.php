@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 function parse_sort_variables(
@@ -41,7 +26,13 @@ function parse_sort_variables(
     {
       $base_url .= $is_first ? '?' : '&amp;';
       $is_first = false;
-      $base_url .= $key.'='.urlencode($value);
+
+      if (!in_array($key, array('page', 'psf', 'dpsf', 'pwg_token')))
+      {
+        fatal_error('unexpected URL get key');
+      }
+
+      $base_url .= urlencode($key).'='.urlencode($value);
     }
   }
 
@@ -82,6 +73,8 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_permalinks.php');
 
+check_input_parameter('cat_id', $_POST, false, PATTERN_ID);
+
 $selected_cat = array();
 if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
 {
@@ -98,7 +91,7 @@ elseif ( isset($_GET['delete_permanent']) )
   check_pwg_token();
   $query = '
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
-  WHERE permalink=\''.$_GET['delete_permanent'].'\'
+  WHERE permalink=\''.pwg_db_real_escape_string($_GET['delete_permanent']).'\'
   LIMIT 1';
   $result = pwg_query($query);
   if (pwg_db_changes($result)==0)
@@ -190,6 +183,7 @@ $template->assign(array(
   'PWG_TOKEN' => $pwg_token,
   'U_HELP' => get_root_url().'admin/popuphelp.php?page=permalinks',
   'deleted_permalinks' => $deleted_permalinks,
+  'ADMIN_PAGE_TITLE' => l10n('Albums'),
   ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'permalinks');

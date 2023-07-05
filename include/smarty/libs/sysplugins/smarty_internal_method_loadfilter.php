@@ -30,23 +30,23 @@ class Smarty_Internal_Method_LoadFilter
      *
      * @api  Smarty::loadFilter()
      *
-     * @link http://www.smarty.net/docs/en/api.load.filter.tpl
+     * @link https://www.smarty.net/docs/en/api.load.filter.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $type filter type
-     * @param  string                                                         $name filter name
+     * @param string                                                          $type filter type
+     * @param string                                                          $name filter name
      *
      * @return bool
      * @throws SmartyException if filter could not be loaded
      */
     public function loadFilter(Smarty_Internal_TemplateBase $obj, $type, $name)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         $this->_checkFilterType($type);
         $_plugin = "smarty_{$type}filter_{$name}";
         $_filter_name = $_plugin;
         if (is_callable($_plugin)) {
-            $smarty->registered_filters[$type][$_filter_name] = $_plugin;
+            $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
             return true;
         }
         if ($smarty->loadPlugin($_plugin)) {
@@ -54,11 +54,11 @@ class Smarty_Internal_Method_LoadFilter
                 $_plugin = array($_plugin, 'execute');
             }
             if (is_callable($_plugin)) {
-                $smarty->registered_filters[$type][$_filter_name] = $_plugin;
+                $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
                 return true;
             }
         }
-        throw new SmartyException("{$type}filter \"{$name}\" not found or callable");
+        throw new SmartyException("{$type}filter '{$name}' not found or callable");
     }
 
     /**
@@ -70,8 +70,8 @@ class Smarty_Internal_Method_LoadFilter
      */
     public function _checkFilterType($type)
     {
-        if (!isset($this->filterTypes[$type])) {
-            throw new SmartyException("Illegal filter type \"{$type}\"");
+        if (!isset($this->filterTypes[ $type ])) {
+            throw new SmartyException("Illegal filter type '{$type}'");
         }
     }
 }

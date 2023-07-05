@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -463,6 +448,36 @@ UPDATE '.USER_INFOS_TABLE.'
     $ip = substr($ip, 0, 15);
   }
 
+  // If plugin developers add their own sections, Piwigo will automatically add it in the history.section enum column
+  if (isset($page['section']))
+  {
+    // set cache if not available
+    if (!isset($conf['history_sections_cache']))
+    {
+      conf_update_param('history_sections_cache', get_enums(HISTORY_TABLE, 'section'), true);
+    }
+
+    $conf['history_sections_cache'] = safe_unserialize($conf['history_sections_cache']);
+
+    if (in_array($page['section'], $conf['history_sections_cache']))
+    {
+      $section = $page['section'];
+    }
+    elseif (preg_match('/^[a-zA-Z0-9_-]+$/', $page['section']))
+    {
+      $history_sections = get_enums(HISTORY_TABLE, 'section');
+      $history_sections[] = $page['section'];
+
+      // alter history table structure, to include a new section
+      pwg_query('ALTER TABLE '.HISTORY_TABLE.' CHANGE section section enum(\''.implode("','", array_unique($history_sections)).'\') DEFAULT NULL;');
+
+      // and refresh cache
+      conf_update_param('history_sections_cache', get_enums(HISTORY_TABLE, 'section'), true);
+
+      $section = $page['section'];
+    }
+  }
+  
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (
@@ -484,7 +499,7 @@ INSERT INTO '.HISTORY_TABLE.'
     CURRENT_TIME,
     '.$user['id'].',
     \''.$ip.'\',
-    '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
+    '.(isset($section) ? "'".$section."'" : 'NULL').',
     '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
@@ -509,6 +524,105 @@ INSERT INTO '.HISTORY_TABLE.'
   }
 
   return true;
+}
+
+function pwg_activity($object, $object_id, $action, $details=array())
+{
+  global $user;
+
+  // in case of uploadAsync, do not log the automatic login as an independant activity
+  if (isset($_REQUEST['method']) and 'pwg.images.uploadAsync' == $_REQUEST['method'] and 'login' == $action)
+  {
+    return;
+  }
+
+  if (isset($_REQUEST['method']) and 'pwg.plugins.performAction' == $_REQUEST['method'] and $_REQUEST['action'] != $action)
+  {
+    // for example, if you "restore" a plugin, the internal sequence will perform deactivate/uninstall/install/activate.
+    // We only want to keep the last call to pwg_activity with the "restore" action.
+    return;
+  }
+
+  $object_ids = $object_id;
+  if (!is_array($object_id))
+  {
+    $object_ids = array($object_id);
+  }
+
+  if (isset($_REQUEST['method']))
+  {
+    $details['method'] = $_REQUEST['method'];
+  }
+  else
+  {
+    $details['script'] = script_basename();
+
+    if ('admin' == $details['script'] and isset($_GET['page']))
+    {
+      $details['script'].= '/'.$_GET['page'];
+    }
+  }
+
+  if ('autoupdate' == $action)
+  {
+    // autoupdate on a plugin can happen anywhere, the "script/method" is not meaningfull
+    unset($details['method']);
+    unset($details['script']);
+  }
+
+  $user_agent = null;
+  if ('user' == $object and 'login' == $action and isset($_SERVER['HTTP_USER_AGENT']))
+  {
+    $user_agent = strip_tags($_SERVER['HTTP_USER_AGENT']);
+  }
+
+  if ('photo' == $object and 'add' == $action and !isset($details['sync']))
+  {
+    $details['added_with'] = 'app';
+    if (isset($_SERVER['HTTP_REFERER']) and preg_match('/page=photos_add/', $_SERVER['HTTP_REFERER']))
+    {
+      $details['added_with'] = 'browser';
+    }
+  }
+
+  if (in_array($object, array('album', 'photo')) and 'delete' == $action and isset($_GET['page']) and 'site_update' == $_GET['page'])
+  {
+    $details['sync'] = true;
+  }
+
+  if ('tag' == $object and 'delete' == $action and isset($_POST['destination_tag']))
+  {
+    $details['action'] = 'merge';
+    $details['destination_tag'] = $_POST['destination_tag'];
+  }
+
+  $inserts = array();
+  $details_insert = pwg_db_real_escape_string(serialize($details));
+  $ip_address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+  $session_id = !empty(session_id()) ? session_id() : 'none';
+
+  foreach ($object_ids as $loop_object_id)
+  {
+    $performed_by = $user['id'] ?? 0; // on a plugin autoupdate, $user is not yet loaded
+
+    if ('logout' == $action)
+    {
+      $performed_by = $loop_object_id;
+    }
+
+    $inserts[] = array(
+      'object' => $object,
+      'object_id' => $loop_object_id,
+      'action' => $action,
+      'performed_by' => $performed_by,
+      'session_idx' => $session_id,
+      'ip_address' => $ip_address,
+      'details' => $details_insert,
+      'user_agent' => $user_agent,
+    );
+  }
+
+  mass_inserts(ACTIVITY_TABLE, array_keys($inserts[0]), $inserts);
 }
 
 /**
@@ -731,7 +845,7 @@ function format_fromto($from, $to, $full=false)
  * @param bool $with_weeks
  * @return string
  */
-function time_since($original, $stop='minute', $format=null, $with_text=true, $with_week=true)
+function time_since($original, $stop='minute', $format=null, $with_text=true, $with_week=true, $only_last_unit=false)
 {
   $date = str2DateTime($original, $format);
 
@@ -763,17 +877,37 @@ function time_since($original, $stop='minute', $format=null, $with_text=true, $w
   $j = array_search($stop, array_keys($chunks));
 
   $print = ''; $i=0;
-  foreach ($chunks as $name => $value)
+  
+  if (!$only_last_unit)
   {
-    if ($value != 0)
+    foreach ($chunks as $name => $value)
     {
-      $print.= ' '.l10n_dec('%d '.$name, '%d '.$name.'s', $value);
+      if ($value != 0)
+      {
+        $print.= ' '.l10n_dec('%d '.$name, '%d '.$name.'s', $value);
+      }
+      if (!empty($print) && $i >= $j)
+      {
+        break;
+      }
+      $i++;
     }
-    if (!empty($print) && $i >= $j)
+  } else {
+    $reversed_chunks_names = array_keys($chunks);
+    while ($print == '' && $i<count($reversed_chunks_names )) 
     {
-      break;
+      $name = $reversed_chunks_names[$i];
+      $value = $chunks[$name];
+      if ($value != 0)
+      {
+        $print = l10n_dec('%d '.$name, '%d '.$name.'s', $value);
+      }
+      if (!empty($print) && $i >= $j)
+      {
+        break;
+      }
+      $i++;
     }
-    $i++;
   }
 
   $print = trim($print);
@@ -2000,14 +2134,17 @@ function get_privacy_level_options()
 
 
 /**
- * return the branch from the version. For example version 2.2.4 is for branch 2.2
+ * return the branch from the version. For example version 11.1.2 is on branch 11
  *
  * @param string $version
  * @return string
  */
 function get_branch_from_version($version)
 {
-  return implode('.', array_slice(explode('.', $version), 0, 2));
+  // the algorithm is a bit complicated to just retrieve the first digits before
+  // the first ".". It's because before version 11.0.0, we used to take the 2 first
+  // digits, ie version 2.2.4 was on branch 2.2
+  return implode('.', array_slice(explode('.', $version), 0, 1));
 }
 
 /**
@@ -2092,7 +2229,7 @@ function url_check_format($url)
     return false;
   }
 
-  return filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED)!==false;
+  return filter_var($url, FILTER_VALIDATE_URL)!==false;
 }
 
 /**
@@ -2175,6 +2312,50 @@ function safe_version_compare($a, $b, $op=null)
   else
   {
     return version_compare($a, $b, $op);
+  }
+}
+
+/**
+ * Checks if the lounge needs to be emptied automatically.
+ *
+ * @since 12
+ */
+function check_lounge()
+{
+  global $conf;
+
+  if (!isset($conf['lounge_active']) or !$conf['lounge_active'])
+  {
+    return;
+  }
+
+  if (isset($_REQUEST['method']) and in_array($_REQUEST['method'], array('pwg.images.upload', 'pwg.images.uploadAsync')))
+  {
+    return;
+  }
+
+  // is the oldest photo in the lounge older than lounge maximum waiting time?
+  $query = '
+SELECT
+    image_id,
+    date_available,
+    NOW() AS dbnow
+  FROM '.LOUNGE_TABLE.'
+    JOIN '.IMAGES_TABLE.' ON image_id = id
+  ORDER BY image_id ASC
+  LIMIT 1
+;';
+  $voyagers = query2array($query);
+  if (count($voyagers))
+  {
+    $voyager = $voyagers[0];
+    $age = strtotime($voyager['dbnow']) - strtotime($voyager['date_available']);
+
+    if ($age > $conf['lounge_max_duration'])
+    {
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+      empty_lounge();
+    }
   }
 }
 

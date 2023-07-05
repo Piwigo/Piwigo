@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Svenska [SE]
@@ -48,7 +33,7 @@ $lang['Email: %s'] = 'E-post: %s';
 $lang['Admin: %s'] = 'Admin: %s';
 $lang['Registration of %s'] = 'Registrering av %s';
 $lang['Album: %s'] = 'Album: %s';
-$lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Användarstatus för \"gäst\" är ogiltig, standard status kommer användas. Vänligen informera webbansvarig.';
+$lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Användarstatus för "gäst" är ogiltig, standard status kommer användas. Vänligen informera webbansvarig.';
 $lang['this email address is already in use'] = 'en annan användare använder redan denna e-post';
 $lang['Album results for'] = 'Albumresultat för';
 $lang['Tag results for'] = 'Tagg-resultat för';
@@ -72,10 +57,10 @@ $lang['Piwigo Help'] = 'Piwigo Hjälp';
 $lang['Rank'] = 'Rang';
 $lang['group by letters'] = 'gruppera i bokstavsordning';
 $lang['letters'] = 'bokstäver';
-$lang['show tag cloud'] = 'Visa tagg-moln';
+$lang['show tag cloud'] = 'visa tagg-moln';
 $lang['cloud'] = 'moln';
 $lang['Reset to default values'] = 'Återställ till standardvärden';
-$lang['delete all photos from your favorites'] = 'radera alla bilder från dina favoriter';
+$lang['delete all photos from your favorites'] = 'ta bort alla bilder från dina favoriter';
 $lang['Sent by'] = 'Skickat av';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies är blockerade eller stöds inte av din webbläsare. Du måste aktivera cookies för att ansluta.';
 $lang['%d new comment'] = '%d ny kommentar';
@@ -149,7 +134,7 @@ $lang['Tag'] = 'Tagg';
 $lang['Tags'] = 'Taggar';
 $lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS-flödet ger information om nya händelser från denna webbplats: nya bilder, uppdaterade album och nya kommentarer. Används med en RSS-läsare.';
 $lang['Unknown feed identifier'] = 'Okänt RSS-flöde';
-$lang['User comments'] = 'Kommentarer';
+$lang['User comments'] = 'Användarkommentarer';
 $lang['Username'] = 'Användarnamn';
 $lang['Visits'] = 'Besök';
 $lang['Webmaster'] = 'Webbansvarig';
@@ -165,7 +150,7 @@ $lang['Expand all albums'] = 'Visa alla album';
 $lang['posted after %s (%s)'] = 'publicerade efter %s (%s)';
 $lang['posted before %s (%s)'] = 'publicerade före %s (%s)';
 $lang['posted between %s (%s) and %s (%s)'] = 'publicerade mellan %s (%s) och %s (%s)';
-$lang['posted on %s'] = 'Publicerad den %s';
+$lang['posted on %s'] = 'publicerad den %s';
 $lang['Best rated'] = 'Högst betygsatta';
 $lang['display best rated photos'] = 'visa högst betygsatta bilder';
 $lang['Calendar'] = 'Kalender';
@@ -191,9 +176,9 @@ $lang['month'][6] = "Juni";
 $lang['month'][7] = "Juli";
 $lang['month'][8] = "Augusti";
 $lang['month'][9] = "September";
-$lang['chronology_monthly_calendar'] = 'månadskalender';
-$lang['chronology_monthly_list'] = 'månadslista';
-$lang['chronology_weekly_list'] = 'veckolista';
+$lang['chronology_monthly_calendar'] = 'Månadskalender';
+$lang['chronology_monthly_list'] = 'Månadslista';
+$lang['chronology_weekly_list'] = 'Veckolista';
 $lang['Click here if your browser does not automatically forward you'] = 'Klicka här om din webbläsare inte automatiskt omdirigerar dig';
 $lang['comment date'] = 'kommentarsdatum';
 $lang['Comment'] = 'Kommentar';
@@ -214,18 +199,18 @@ $lang['Default'] = 'Standard';
 $lang['delete this photo from your favorites'] = 'ta bort bilden från dina favoriter';
 $lang['Delete'] = 'Ta bort';
 $lang['descending'] = 'fallande';
-$lang['Download'] = 'Ladda ner';
-$lang['Download this file'] = 'ladda ner denna fil';
+$lang['Download'] = 'ladda ner';
+$lang['Download this file'] = 'Ladda ner denna fil';
 $lang['edit'] = 'redigera';
 $lang['wrong date'] = 'fel datum';
 $lang['excluded'] = 'exkluderade';
 $lang['Your favorites'] = 'Mina favoriter';
-$lang['display your favorites photos'] = 'visa mina favoriterbilder';
+$lang['display your favorites photos'] = 'visa mina favoritbilder';
 $lang['Favorites'] = 'Favoriter';
 $lang['First'] = 'Första';
 $lang['The gallery is locked for maintenance. Please, come back later.'] = 'Galleriet är stängt för underhåll. Vänligen kom tillbaka senare.';
 $lang['Page generated in'] = 'Sidan skapades';
-$lang['guest'] = 'Gäst';
+$lang['guest'] = 'gäst';
 $lang['Hello'] = 'Hej';
 $lang['available for administrators only'] = 'endast för administratörer';
 $lang['display this album'] = 'visa detta album';
@@ -275,11 +260,11 @@ $lang['Redirection...'] = 'Omdirigering...';
 $lang['Please, enter a login'] = 'Vänligen ange inloggning';
 $lang['login mustn\'t end with a space character'] = 'användarnamn får inte sluta med ett mellanslag';
 $lang['login mustn\'t start with a space character'] = 'användarnamn får inte börja med ett mellanslag';
-$lang['this login is already used'] = 'Detta användarnamn används redan';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-postadress måste vara av formen ”arne@anka.org';
+$lang['this login is already used'] = 'detta användarnamn används redan';
+$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-postadress måste vara av formen arne@anka.org';
 $lang['Auto login'] = 'Automatisk inloggning';
 $lang['remove this tag from the list'] = 'ta bort taggen från listan';
-$lang['representative'] = 'representant';
+$lang['representative'] = 'albumminiatyr';
 $lang['Search for Author'] = 'Sök efter en fotograf';
 $lang['Search in albums'] = 'Sök i album';
 $lang['Search by date'] = 'Sök efter datum';
@@ -292,16 +277,16 @@ $lang['Search for any term'] = 'Sök efter någon term';
 $lang['Empty query. No criteria has been entered.'] = 'Tom fråga. Inga kriterier har angetts.';
 $lang['Search results'] = 'Sökresultat';
 $lang['Search in sub-albums'] = 'Sök i underliggande album';
-$lang['searched words : %s'] = 'sökte efter : %s';
+$lang['searched words : %s'] = 'sökte efter: %s';
 $lang['Contact'] = 'Kontakta';
-$lang['%d Kb'] = '%d Kb';
+$lang['%d Kb'] = '%d KB';
 $lang['%d album updated'] = '%d album uppdaterat';
 $lang['%d albums updated'] = '%d album uppdaterade';
 $lang['%d comment to validate'] = '%d inlägg att godkänna';
 $lang['%d comments to validate'] = '%d inlägg att godkänna';
 $lang['N/A'] = 'Inte tillgängligt';
 $lang['New on %s'] = 'Nya på %s';
-$lang['set as album representative'] = 'ange som omslag för album';
+$lang['set as album representative'] = 'ange som miniatyr för album';
 $lang['Show number of comments'] = 'Visa antal inlägg';
 $lang['Show number of hits'] = 'Visa antal träffar';
 $lang['slideshow'] = 'bildspel';
@@ -317,7 +302,7 @@ $lang['A comment on your site'] = 'En kommentar på din sida';
 $lang['today'] = 'idag';
 $lang['Update your rating'] = 'Ändra ditt betyg';
 $lang['the username must be given'] = 'användarnamn krävs';
-$lang['Edit a comment'] = 'Redigera ett inlägg';
+$lang['Edit a comment'] = 'Redigera en kommentar';
 $lang['Are you sure?'] = 'Är du säker?';
 $lang['(!) This comment requires validation'] = '(!) Detta inlägg kräver validering';
 $lang['Welcome'] = 'Välkommen';
@@ -347,10 +332,10 @@ $lang['Check your email for the confirmation link'] = 'Kontrollera din e-post f�
 $lang['Invalid key'] = 'Ogiltig nyckel';
 $lang['The passwords do not match'] = 'Lösenorden stämmer inte överens';
 $lang['Your password has been reset'] = 'Ditt lösenord har återställts';
-$lang['Return to home page'] = 'Gå tillbaks timm hem-sidan';
+$lang['Return to home page'] = 'Gå tillbak till hemsidan';
 $lang['Please enter your username or email address.'] = 'Ange ditt användarnamn och e-postadress.';
 $lang['You will receive a link to create a new password via email.'] = 'Du kommer att få en länk via e-post för att skapa ett nytt lösenord.';
-$lang['Username or email'] = 'Användanamn eller e-post';
+$lang['Username or email'] = 'Användarnamn eller e-post';
 $lang['Change my password'] = 'Ändra mitt lösenord';
 $lang['Enter your new password below.'] = 'Ange ditt nya lösenord nedan.';
 $lang['EXIF Metadata'] = 'EXIF Metadata';
@@ -359,15 +344,15 @@ $lang['Edit'] = 'Redigera';
 $lang['Hello %s,'] = 'Hej %s,';
 $lang['Send my connection settings by email'] = 'Skicka mina anslutningsinställningar via e-post';
 $lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Registreringen lyckades, du kommer snart få ett e-post meddelande med dina anslutningsinställningar. Välkommen!';
-$lang['Username modification'] = 'Regdigera användarnamn';
+$lang['Username modification'] = 'Redigera användarnamn';
 $lang['Your username has been successfully changed to : %s'] = 'Ditt användarnamn har ändrats till: %s';
 $lang['square'] = 'Kvadrat';
 $lang['thumb'] = 'Miniatyr';
-$lang['small'] = 'Liten';
-$lang['medium'] = 'Medium';
-$lang['large'] = 'Stor';
-$lang['xlarge'] = 'XStor';
-$lang['xxlarge'] = 'XXStor';
+$lang['small'] = 'S - liten';
+$lang['medium'] = 'M - medium';
+$lang['large'] = 'L - stor';
+$lang['xlarge'] = 'XL - extra stor';
+$lang['xxlarge'] = 'XXL - jättestor';
 $lang['Original'] = 'Original';
 $lang['Thank you for registering at %s!'] = 'Tack för att du registrerat på %s!';
 $lang['Here are your connection settings'] = 'Här är dina anslutningsinställningar';
@@ -417,7 +402,7 @@ $lang['Go back to the album'] = 'Gå tillbaka till album';
 $lang['Last Page'] = 'Sista sidan';
 $lang['Password is missing. Please enter the password.'] = 'Lösenord saknas. Ange lösenord.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Bekräftelse av lösenord saknas. Vänligen bekräfta ditt valda lösenord.';
-$lang['%d photos per page'] = '%d fotografier per sida';
+$lang['%d photos per page'] = '%d bilder per sida';
 $lang['Theme'] = 'Tema';
 $lang['Apply on properties'] = 'Verkställ egenskaper';
 $lang['No results for'] = 'Inget resultat för';
@@ -428,4 +413,9 @@ $lang['Album name, Z &rarr; A'] = 'Albumnamn, Ö &rarr; A';
 $lang['Link: %s'] = 'Länk: %s';
 $lang['Your authentication key is no longer valid.'] = 'Din autenticeringsnyckel är inte längre giltig.';
 $lang['Invalid username or password!'] = 'Ogiltigt användarnamn eller lösenord!';
-$lang['generate random password'] = 'Slumpa fram ett lösenord';
+$lang['generate random password'] = 'slumpa fram ett lösenord';
+$lang['Related albums'] = 'Relaterade album';
+$lang['Password: ********** (no copy by email)'] = 'Lösenord: ********** (Ingen kopia via e-post)';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumnamn, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumnamn, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Start datum';

@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 define ('PHPWG_ROOT_PATH', './');
@@ -32,65 +17,8 @@ if ( !$conf['allow_web_services'] )
   page_forbidden('Web services are disabled');
 }
 
-include_once(PHPWG_ROOT_PATH.'include/ws_core.inc.php');
+include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
 
-add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
-add_event_handler('ws_invoke_allowed', 'ws_isInvokeAllowed', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
-
-$requestFormat = 'rest';
-$responseFormat = null;
-
-if ( isset($_GET['format']) )
-{
-  $responseFormat = $_GET['format'];
-}
-
-if ( !isset($responseFormat) and isset($requestFormat) )
-{
-  $responseFormat = $requestFormat;
-}
-
-$service = new PwgServer();
-
-if (!is_null($requestFormat))
-{
-  $handler = null;
-  switch ($requestFormat)
-  {
-    case 'rest':
-      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/rest_handler.php');
-      $handler = new PwgRestRequestHandler();
-      break;
-  }
-  $service->setHandler($requestFormat, $handler);
-}
-
-if (!is_null($responseFormat))
-{
-  $encoder = null;
-  switch ($responseFormat)
-  {
-    case 'rest':
-      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/rest_encoder.php');
-      $encoder = new PwgRestEncoder();
-      break;
-    case 'php':
-      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/php_encoder.php');
-      $encoder = new PwgSerialPhpEncoder();
-      break;
-    case 'json':
-      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/json_encoder.php');
-      $encoder = new PwgJsonEncoder();
-      break;
-    case 'xmlrpc':
-      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/xmlrpc_encoder.php');
-      $encoder = new PwgXmlRpcEncoder();
-      break;
-  }
-  $service->setEncoder($responseFormat, $encoder);
-}
-
-set_make_full_url();
 $service->run();
 
 
@@ -144,6 +72,38 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.getCacheSize',
+      'ws_getCacheSize',
+      null,
+      'Returns general informations.',
+      $ws_functions_root . 'pwg.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+    'pwg.activity.getList',
+    'ws_getActivityList',
+    array(
+      'page' => array('default'=>null,
+                      'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      'uid' => array('default'=>NULL,
+                     'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      ),
+    'Returns general informations.',
+    $ws_functions_root . 'pwg.php',
+    array('admin_only'=>true)
+  );
+
+  $service->addMethod(
+    'pwg.activity.downloadLog',
+    'ws_activity_downloadLog',
+    null,
+    'Returns general informations.',
+    $ws_functions_root . 'pwg.php',
+    array('admin_only'=>true)
+  );
+
+  $service->addMethod(
       'pwg.caddie.add',
       'ws_caddie_add',
       array(
@@ -159,7 +119,7 @@ function ws_addDefaultMethods( $arr )
       'pwg.categories.getImages',
       'ws_categories_getImages',
       array_merge(array(
-        'cat_id' =>     array('default'=>null, 
+        'cat_id' =>     array('default'=>null,
                               'flags'=>WS_PARAM_FORCE_ARRAY,
                               'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'recursive' =>  array('default'=>false,
@@ -197,6 +157,7 @@ function ws_addDefaultMethods( $arr )
           'default' => IMG_THUMB,
           'info' => implode(',', array_keys(ImageStdParams::get_defined_type_map()))
           ),
+        'search' => array('default' => null),
         ),
       'Returns a list of categories.',
       $ws_functions_root . 'pwg.categories.php'
@@ -294,6 +255,30 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.formats.searchImage',
+      'ws_images_formats_searchImage',
+      array(
+        'category_id' => array('type'=>WS_TYPE_ID, 'default'=>null),
+        'filename_list' => array(),
+        ),
+      'Search for image ids matching the provided filenames. <b>filename_list</b> must be a JSON encoded associative array of unique_id:filename.<br><br>The method returns a list of unique_id:image_id.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+  
+  $service->addMethod(
+      'pwg.images.formats.delete',
+      'ws_images_formats_delete',
+      array(
+        'format_id' => array('type'=>WS_TYPE_ID, 'default'=>null, 'flags'=>WS_PARAM_ACCEPT_ARRAY),
+        'pwg_token' =>  array(),
+        ),
+      'Remove a format',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.images.setRank',
       'ws_images_setRank',
       array(
@@ -335,7 +320,10 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod(
       'pwg.session.login',
       'ws_session_login',
-      array('username', 'password'),
+      array(
+        'username' => array(),
+        'password' => array('default'=>null),
+      ),
       'Tries to login the user.',
       $ws_functions_root . 'pwg.php',
       array('post_only'=>true)
@@ -489,11 +477,46 @@ function ws_addDefaultMethods( $arr )
           'maxValue' => max($conf['available_permission_levels']),
           'type' => WS_TYPE_INT|WS_TYPE_POSITIVE
           ),
+        'format_of' => array(
+          'default' => null,
+          'type' => WS_TYPE_ID,
+          'info' => 'id of the extended image (name/category/level are not used if format_of is provided)',
+          ),
         'pwg_token' => array(),
         ),
       'Add an image.
 <br>Use the <b>$_FILES[image]</b> field for uploading file.
 <br>Set the form encoding to "form-data".',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+    'pwg.images.uploadAsync',
+    'ws_images_uploadAsync',
+    array(
+        'username' => array(),
+        'password' => array('default'=>null),
+        'chunk' => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'chunk_sum' => array(),
+        'chunks' => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'original_sum' => array(),
+        'category' => array('default'=>null, 'flags'=>WS_PARAM_FORCE_ARRAY, 'type'=>WS_TYPE_ID),
+        'filename' => array(),
+        'name' => array('default'=>null),
+        'author' => array('default'=>null),
+        'comment' => array('default'=>null),
+        'date_creation' => array('default'=>null),
+        'level' => array('default'=>0, 'maxValue'=>max($conf['available_permission_levels']), 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'tag_ids' => array('default'=>null, 'info'=>'Comma separated ids'),
+        'image_id' => array('default'=>null, 'type'=>WS_TYPE_ID),
+    ),
+    'Upload photo by chunks in a random order.
+<br>Use the <b>$_FILES[file]</b> field for uploading file.
+<br>Start with chunk 0 (zero).
+<br>Set the form encoding to "form-data".
+<br>You can update an existing photo if you define an existing image_id.
+<br>Requires <b>admin</b> credentials.',
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
@@ -511,6 +534,32 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.setMd5sum',
+      'ws_images_setMd5sum',
+      array(
+        'block_size' => array('default'=>$conf['checksum_compute_blocksize'], 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'pwg_token' =>  array(),
+        ),
+      'Set md5sum column, by blocks. Returns how many md5sums were added and how many are remaining.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.images.syncMetadata',
+      'ws_images_syncMetadata',
+      array(
+        'image_id' => array('default'=>null,
+                            'type'=>WS_TYPE_ID|WS_TYPE_POSITIVE,
+                            'flags'=>WS_PARAM_FORCE_ARRAY),
+        'pwg_token' =>  array(),
+        ),
+      'Sync metadatas, by blocks. Returns how many images were synchronized',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.images.deleteOrphans',
       'ws_images_deleteOrphans',
       array(
@@ -523,10 +572,28 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.categories.calculateOrphans',
+      'ws_categories_calculateOrphans',
+      array(
+        'category_id' =>  array('type'=>WS_TYPE_ID,
+                                'flags'=>WS_PARAM_FORCE_ARRAY),
+        ),
+      'Return the number of orphan photos if an album is deleted.',
+      $ws_functions_root . 'pwg.categories.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.categories.getAdminList',
       'ws_categories_getAdminList',
-      null,
-      'Get albums list as displayed on admin page.',
+      array(
+        'search' => array('default' => null),
+        'additional_output' =>    array('default'=>null,
+                              'info'=>'Comma saparated list (see method description)'),
+      ),
+      'Get albums list as displayed on admin page. <br>
+      <b>additional_output</b> controls which data are returned, possible values are:<br>
+      null, full_name_with_admin_links<br>',
       $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true)
     );
@@ -545,6 +612,7 @@ function ws_addDefaultMethods( $arr )
                                 'info'=>'public, private'),
         'commentable' =>  array('default'=>true,
                                 'type'=>WS_TYPE_BOOL),
+        'position' =>     array('default'=>null, 'info'=>'first, last'),
         ),
       'Adds an album.',
       $ws_functions_root . 'pwg.categories.php',
@@ -626,10 +694,66 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod( // TODO: create multiple tags
       'pwg.tags.add',
       'ws_tags_add',
-      array('name'),
+      array(
+        'name' => array()
+      ),
       'Adds a new tag.',
       $ws_functions_root . 'pwg.tags.php',
       array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.tags.delete',
+      'ws_tags_delete',
+      array(
+        'tag_id' => array('type'=>WS_TYPE_ID,
+                      'flags'=>WS_PARAM_FORCE_ARRAY),
+        'pwg_token' =>  array(),
+        ),
+      'Delete tag(s) by ID.',
+      $ws_functions_root . 'pwg.tags.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.tags.rename',
+      'ws_tags_rename',
+      array(
+        'tag_id' => array('type'=>WS_TYPE_ID),
+        'new_name' => array(),
+        'pwg_token' =>  array(),
+        ),
+      'Rename tag',
+      $ws_functions_root . 'pwg.tags.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.tags.duplicate',
+      'ws_tags_duplicate',
+      array(
+        'tag_id' => array('type'=>WS_TYPE_ID),
+        'copy_name' => array(),
+        'pwg_token' => array(),
+        ),
+      'Create a copy of a tag',
+      $ws_functions_root . 'pwg.tags.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.tags.merge',
+      'ws_tags_merge',
+      array(
+        'destination_tag_id' => array('type'=>WS_TYPE_ID,
+          'info'=>'Is not necessarily part of groups to merge'),
+        'merge_tag_id' => array('flags'=>WS_PARAM_FORCE_ARRAY,
+          'type'=>WS_TYPE_ID),
+        'pwg_token' => array(),
+        ),
+      'Merge tags in one other group',
+      $ws_functions_root . 'pwg.tags.php',
+      array('admin_only'=>true, 'post_only'=>true)
     );
 
   $service->addMethod(
@@ -670,6 +794,28 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.emptyLounge',
+      'ws_images_emptyLounge',
+      null,
+      'Empty lounge, where images may be waiting before taking off.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.images.uploadCompleted',
+      'ws_images_uploadCompleted',
+      array(
+        'image_id' => array('default'=>null, 'flags'=>WS_PARAM_ACCEPT_ARRAY),
+        'pwg_token' => array(),
+        'category_id' => array('default'=>null, 'type'=>WS_TYPE_ID),
+        ),
+      'Notifiy Piwigo you have finished to upload a set of photos. It will empty the lounge, if any.',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.images.setInfo',
       'ws_images_setInfo',
       array(
@@ -702,16 +848,46 @@ function ws_addDefaultMethods( $arr )
       'ws_categories_setInfo',
       array(
         'category_id' =>  array('type'=>WS_TYPE_ID),
-        'name' =>         array('default'=>null),
-        'comment' =>      array('default'=>null),
+        'name' =>         array('default'=>null,
+                                'flags'=>WS_PARAM_OPTIONAL,),
+        'comment' =>      array('default'=>null,
+                                'flags'=>WS_PARAM_OPTIONAL,),
         'status' =>       array('default'=>null,
+                                'flags'=>WS_PARAM_OPTIONAL,
                                 'info'=>'public, private'),
+        'visible' =>       array('default'=>null,
+                                'flags'=>WS_PARAM_OPTIONAL),
+        'commentable' =>  array('default'=>null,
+                                'flags'=>WS_PARAM_OPTIONAL,
+                                'info'=>'Boolean, effective if configuration variable activate_comments is set to true'),
+        'apply_commentable_to_subalbums' =>  array('default'=>null,
+                                'flags'=>WS_PARAM_OPTIONAL,
+                                'info'=>'If true, set commentable to all sub album'),
         ),
       'Changes properties of an album.',
       $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
-  
+
+    $service->addMethod(
+        'pwg.categories.setRank',
+        'ws_categories_setRank',
+        array(
+          'category_id' =>  array('type'=>WS_TYPE_ID,
+                                  'flags'=>WS_PARAM_FORCE_ARRAY),
+          'rank' =>         array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL, 
+                                  'flags'=>WS_PARAM_OPTIONAL),
+          ),
+        'Changes the rank of an album
+        <br><br>If you provide a list for category_id:
+        <ul>
+        <li>rank becomes useless, only the order of the image_id list matters</li>
+        <li>you are supposed to provide the list of all categories_ids belonging to the album.
+        </ul>.',
+        $ws_functions_root . 'pwg.categories.php',
+        array('admin_only'=>true, 'post_only'=>true)
+      );
+
   $service->addMethod(
       'pwg.plugins.getList',
       'ws_plugins_getList',
@@ -878,6 +1054,34 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.groups.merge',
+      'ws_groups_merge',
+      array(
+        'destination_group_id' => array('type'=>WS_TYPE_ID,
+          'info'=>'Is not necessarily part of groups to merge'),
+        'merge_group_id' => array('flags'=>WS_PARAM_FORCE_ARRAY,
+          'type'=>WS_TYPE_ID),
+        'pwg_token' => array(),
+        ),
+      'Merge groups in one other group',
+      $ws_functions_root . 'pwg.groups.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.groups.duplicate',
+      'ws_groups_duplicate',
+      array(
+        'group_id' => array('type'=>WS_TYPE_ID),
+        'copy_name' => array(),
+        'pwg_token' => array(),
+        ),
+      'Create a copy of a group',
+      $ws_functions_root . 'pwg.groups.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.users.getList',
       'ws_users_getList',
       array(
@@ -899,6 +1103,8 @@ function ws_addDefaultMethods( $arr )
                               'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'order' =>      array('default'=>'id',
                               'info'=>'id, username, level, email'),
+        'exclude' =>    array('flags'=>WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+                              'type'=>WS_TYPE_ID),
         'display' =>    array('default'=>'basics',
                               'info'=>'Comma saparated list (see method description)'),
         ),
@@ -1045,6 +1251,168 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       'Removes permissions from an album.',
       $ws_functions_root . 'pwg.permissions.php',
       array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.users.preferences.set',
+      'ws_users_preferences_set',
+      array(
+        'param' => array(),
+        'value' => array('flags'=>WS_PARAM_OPTIONAL),
+        'is_json' =>  array('default'=>false, 'type'=>WS_TYPE_BOOL),
+      ),
+      'Set a user preferences parameter. JSON encode the value (and set is_json to true) if you need a complex data structure.',
+      $ws_functions_root . 'pwg.users.php'
+    );
+
+  $service->addMethod(
+      'pwg.users.favorites.add',
+      'ws_users_favorites_add',
+      array(
+        'image_id' =>  array('type'=>WS_TYPE_ID)
+      ),
+      'Adds the indicated image to the current user\'s favorite images.',
+      $ws_functions_root . 'pwg.users.php'
+    );
+
+  $service->addMethod(
+      'pwg.users.favorites.remove',
+      'ws_users_favorites_remove',
+      array(
+        'image_id' =>  array('type'=>WS_TYPE_ID)
+      ),
+      'Removes the indicated image from the current user\'s favorite images.',
+      $ws_functions_root . 'pwg.users.php'
+    );
+
+  $service->addMethod(
+      'pwg.users.favorites.getList',
+      'ws_users_favorites_getList',
+      array(
+        'per_page' => array(
+          'default'=>100,
+          'maxValue'=>$conf['ws_max_images_per_page'],
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE
+        ),
+        'page' => array(
+          'default'=>0,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE
+        ),
+        'order' => array(
+          'default'=>null,
+          'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random'
+        )
+      ),
+      'Returns the favorite images of the current user.',
+      $ws_functions_root . 'pwg.users.php'
+    );
+
+  $service->addMethod(
+    'pwg.history.log',
+    'ws_history_log',
+    array(
+      'image_id' => array('type'=>WS_TYPE_ID),
+      'cat_id' => array('type'=>WS_TYPE_ID, 'default'=>null),
+      'section' => array('default'=>null),
+      'tags_string' => array('default'=>null),
+      ),
+    'Log visit in history',
+    $ws_functions_root . 'pwg.php'
+    );
+
+  $service->addMethod(
+      'pwg.history.search',
+      'ws_history_search',
+      array(
+        'start' => array(
+          'default' => null
+        ),
+        'end' => array(
+          'default' => null
+        ),
+        'types' => array(
+          'flags'=>WS_PARAM_FORCE_ARRAY,
+          'default' => array(
+            'none',
+            'picture',
+            'high',
+            'other',
+          )
+        ),
+        'user_id' => array(
+          'default' => -1,
+        ),
+        'image_id' => array(
+          'default' => null,
+          'type' => WS_TYPE_ID,
+        ),
+        'filename' => array(
+          'default' => null
+        ),
+        'ip' => array(
+          'default' => null
+        ),
+        'display_thumbnail' => array(
+          'default' => 'display_thumbnail_classic'
+        ),
+        'pageNumber' => array(
+          'default' => null,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+      ),
+      'Gives an history of who has visited the galery and the actions done in it. Receives parameter.
+      <br> <strong>Types </strong> can be : \'none\', \'picture\', \'high\', \'other\' 
+      <br> <strong>Date format</strong> is yyyy-mm-dd
+      <br> <strong>display_thumbnail</strong> can be : \'no_display_thumbnail\', \'display_thumbnail_classic\', \'display_thumbnail_hoverbox\'',
+      $ws_functions_root . 'pwg.php'
+    );
+
+    $service->addMethod(
+      'pwg.images.filteredSearch.update',
+      'ws_images_filteredSearch_update',
+      array(
+        'search_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'allwords' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'query to search by words',
+        ),
+        'allwords_mode' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'AND (by default) | OR',
+        ),
+        'allwords_fields' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'info' => 'values among [name, comment, tags, file, cat-title, cat-desc]',
+        ),
+        'tags' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'type' => WS_TYPE_ID,
+        ),
+        'tags_mode' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'AND (by default) | OR',
+        ),
+        'categories' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'type' => WS_TYPE_ID,
+        ),
+        'categories_withsubs' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type' => WS_TYPE_BOOL,
+          'info' => 'false, by default',
+        ),
+        'authors' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+        ),
+        'added_by' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'type' => WS_TYPE_ID,
+        ),
+      ),
+      '',
+      $ws_functions_root . 'pwg.images.php'
     );
 }
 

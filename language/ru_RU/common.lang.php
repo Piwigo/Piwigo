@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Русский [RU]
@@ -46,8 +31,8 @@ $lang['%d comment'] = '%d комментарий';
 $lang['%d comments'] = 'комментариев: %d';
 $lang['%d hit'] = '%d просмотр';
 $lang['%d hits'] = 'просмотров: %d';
-$lang['%d new photo'] = '%d новая фотография';
-$lang['%d new photos'] = 'новых фотографий: %d';
+$lang['%d new photo'] = '%d новое изображение';
+$lang['%d new photos'] = 'новых изображений: %d';
 $lang['%d new user'] = '%d новый посетитель';
 $lang['%d new users'] = '%d новых посетителей';
 $lang['About'] = 'О фото галерее';
@@ -121,7 +106,7 @@ $lang['Webmaster'] = 'Техподдержка';
 $lang['Week %d'] = 'Неделя %d';
 $lang['About Piwigo'] = 'О Piwigo';
 $lang['You are not authorized to access the requested page'] = 'Вы не можете получить доступ к запрашиваемой странице без авторизации';
-$lang['add this photo to your favorites'] = 'добавить эту фотографию в избранные';
+$lang['add this photo to your favorites'] = 'добавить это изображение в избранные';
 $lang['Administration'] = 'Администрирование';
 $lang['all'] = 'все';
 $lang['ascending'] = 'по возрастанию';
@@ -135,7 +120,7 @@ $lang['Best rated'] = 'По оценкам';
 $lang['display best rated photos'] = 'показать высоко оцененные';
 $lang['Calendar'] = 'Календарь';
 $lang['All'] = 'Все';
-$lang['display each day with photos, month per month'] = 'показать календарь с  фотографиями, день за днем, месяц за месяцем';
+$lang['display each day with photos, month per month'] = 'показать календарь с  изображениями, день за днем, месяц за месяцем';
 $lang['View'] = 'Просмотр';
 $lang['chronology_monthly_calendar'] = 'Календарь по месяцам';
 $lang['chronology_monthly_list'] = 'Месяцы';
@@ -164,7 +149,7 @@ $lang['day'][4] = 'Чт';
 $lang['day'][5] = 'Пт';
 $lang['day'][6] = 'Сб';
 $lang['Default'] = 'По умолчанию';
-$lang['delete this photo from your favorites'] = 'удалить эту фотографию из избранных';
+$lang['delete this photo from your favorites'] = 'удалить это изображение из избранных';
 $lang['Delete'] = 'Удалить';
 $lang['descending'] = 'по убыванию';
 $lang['Download'] = 'Загрузить';
@@ -173,7 +158,7 @@ $lang['edit'] = 'редактировать';
 $lang['wrong date'] = 'ошибка в дате';
 $lang['excluded'] = 'исключённый';
 $lang['Your favorites'] = 'Избранное';
-$lang['display your favorites photos'] = 'показать ваши избранные фотографии';
+$lang['display your favorites photos'] = 'показать ваши избранные изображения';
 $lang['Favorites'] = 'Избранное';
 $lang['First'] = 'Первая';
 $lang['The gallery is locked for maintenance. Please, come back later.'] = 'Галерея закрыта для обслуживания. Пожалуйста, заходите позже.';
@@ -198,7 +183,7 @@ $lang['Last'] = 'Последняя';
 $lang['Logout'] = 'Выход';
 $lang['obligatory'] = 'обязательный';
 $lang['display a calendar by creation date'] = 'показывает календарь по дате съёмки';
-$lang['display all photos in all sub-albums'] = 'показать все фотографии во всех вложенных альбомах';
+$lang['display all photos in all sub-albums'] = 'показать все изображения во всех вложенных альбомах';
 $lang['return to normal view mode'] = 'возвращение к нормальному режиму';
 $lang['display a calendar by posted date'] = 'показывает календарь по дате загрузки';
 $lang['month'][10] = 'Октябрь';
@@ -214,10 +199,10 @@ $lang['month'][7] = 'Июль';
 $lang['month'][8] = 'Август';
 $lang['month'][9] = 'Сентябрь';
 $lang['Most visited'] = 'По популярности';
-$lang['display most visited photos'] = 'показать наиболее популярные фотографии';
+$lang['display most visited photos'] = 'показать наиболее популярные изображения';
 $lang['Unknown identifier'] = 'Неизвестный идентификатор';
 $lang['New password'] = 'Новый пароль';
-$lang['Rate this photo'] = 'Оценить эту фотографию';
+$lang['Rate this photo'] = 'Оценить это изображение';
 $lang['Next'] = 'Следующая';
 $lang['no rate'] = 'оценок изображений нет';
 $lang['Photos posted within the last %d day.'] = 'Фотографии, загруженные в течении последнего %d дня.';
@@ -225,18 +210,18 @@ $lang['Photos posted within the last %d days.'] = 'Фотографии, заг�
 $lang['password updated'] = 'пароль изменен';
 $lang['Recent period must be a positive integer value'] = 'Последний период должен быть положительным целым числом';
 /* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'изображение';
-$lang['Click on the photo to see it in high definition'] = 'Нажмите для просмотра фотографии в большом разрешении';
+$lang['Click on the photo to see it in high definition'] = 'Нажмите для просмотра изображения в большом разрешении';
 $lang['Show file metadata'] = 'Показать метаданные';
 $lang['Powered by'] = 'Скрипт';
 $lang['Preferences'] = 'Предпочтение';
 $lang['Previous'] = 'Предыдущая';
-$lang['Random photos'] = 'Случайные фотографии';
-$lang['display a set of random photos'] = 'показать ряд случайных фотографий ';
+$lang['Random photos'] = 'Случайные изображения';
+$lang['display a set of random photos'] = 'показать ряд случайных изображений';
 $lang['Recent albums'] = 'Последние альбомы';
 $lang['display recently updated albums'] = 'показать недавно обновленные альбомы';
 $lang['Recent period'] = 'Срок "новых"';
-$lang['Recent photos'] = 'Недавние фотографии';
-$lang['display most recent photos'] = 'показать больше свежих фотографий';
+$lang['Recent photos'] = 'Недавние изображения';
+$lang['display most recent photos'] = 'показать больше свежих изображений';
 $lang['Redirection...'] = 'Перенаправляем...';
 $lang['Please, enter a login'] = 'Пожалуйста, введите логин';
 $lang['login mustn\'t end with a space character'] = 'логин не должен оканчиваться пробелом';
@@ -267,8 +252,8 @@ $lang['slideshow'] = 'слайдшоу';
 $lang['stop the slideshow'] = 'остановить слайдшоу';
 $lang['Specials'] = 'Избранное';
 $lang['SQL queries in'] = 'SQL-запрос в';
-$lang['display only recently posted photos'] = 'показать только недавно загруженные фотографии';
-$lang['return to the display of all photos'] = 'вернуться к полному списку фотографий';
+$lang['display only recently posted photos'] = 'показать только недавно загруженные изображения';
+$lang['return to the display of all photos'] = 'вернуться к полному списку изображений';
 $lang['the beginning'] = 'сначала';
 $lang['Thumbnails'] = 'Миниатюры';
 $lang['Menu'] = 'Меню';
@@ -303,12 +288,12 @@ $lang['Accelerate diaporama speed'] = 'Увеличить скорость сл�
 $lang['Submit'] = 'Отправить';
 $lang['Yes'] = 'Да';
 $lang['No'] = 'Нет';
-$lang['%d photo'] = '%d фотография';
-$lang['%d photos'] = 'фотографий: %d';
-$lang['%d photo is also linked to current tags'] = '%d фотография также связана с этими тегами';
-$lang['%d photos are also linked to current tags'] = 'фотографий, связаных с этими тегами: %d';
-$lang['display photos linked to this tag'] = 'показать фотографии, связанные с этим тегом';
-$lang['photos posted during the last %d days'] = 'фотографии, опубликованные за последние %d дней';
+$lang['%d photo'] = '%d изображение';
+$lang['%d photos'] = 'изображений: %d';
+$lang['%d photo is also linked to current tags'] = '%d изображение также связана с этими тегами';
+$lang['%d photos are also linked to current tags'] = 'изображений, связаных с этими тегами: %d';
+$lang['display photos linked to this tag'] = 'показать изображения, связанные с этим тегом';
+$lang['photos posted during the last %d days'] = 'изображения, опубликованные за последние %d дней';
 $lang['Piwigo Help'] = 'Помощь';
 $lang['Rank'] = 'Ряд';
 $lang['group by letters'] = 'сгруппировать по буквам';
@@ -317,7 +302,7 @@ $lang['show tag cloud'] = 'показать облако тегов';
 $lang['cloud'] = 'облако';
 $lang['Are you sure?'] = 'Уверены?';
 $lang['Reset to default values'] = 'Восстановить значения по умолчанию';
-$lang['delete all photos from your favorites'] = 'удалить все фотографии из избранных';
+$lang['delete all photos from your favorites'] = 'удалить все изображения из избранных';
 $lang['Sent by'] = 'Отправить';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Ваш браузер не поддерживает или блокирует куки. Разрешите ему использовать куки в настройках.';
 $lang['Edit a comment'] = 'Редактировать комментарий';
@@ -335,8 +320,8 @@ $lang['%d Kb'] = '%d Кб';
 $lang['Reduce diaporama speed'] = 'Уменьшить скорость панорамы';
 $lang['Accelerate diaporama speed'] = 'Увеличить скорость панорамы';
 $lang['html tags are not allowed in login'] = 'html тэги не допустимы в логине';
-$lang['The number of photos per page must be a not null scalar'] = 'Число фотографий на странице должно быть ненулевым целым числом';
-$lang['Number of photos per page'] = 'Число фотографий на странице';
+$lang['The number of photos per page must be a not null scalar'] = 'Число изображений на странице должно быть ненулевым целым числом';
+$lang['Number of photos per page'] = 'Число изображений на странице';
 $lang['%d rates'] = 'Оценок: %d';
 $lang['Rating score'] = 'Средний балл';
 $lang['Invalid username or email'] = 'Неверное имя пользователя или адрес электронной почты';
@@ -382,7 +367,7 @@ $lang['Here are your connection settings'] = 'Ваши настройки сое
 $lang['Password: %s'] = 'Пароль: %s';
 $lang['Username: %s'] = 'Имя пользователя: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Если Вы получили это сообщение по ошибке, пожалуйста, напишите нам по адресу %s';
-$lang['Photo sizes'] = 'Размер фотографии';
+$lang['Photo sizes'] = 'Размер изображения';
 $lang['View in'] = 'Вид';
 $lang['Mobile'] = 'Мобильное устройство';
 $lang['Desktop'] = 'Компьютер';
@@ -395,8 +380,8 @@ $lang['File name, Z &rarr; A'] = 'Имя файла, Я &rarr; А';
 $lang['Manual sort order'] = 'Сортировка вручную';
 $lang['Numeric identifier, 1 &rarr; 9'] = 'Порядок номеров, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Порядок номеров, 9 &rarr; 1';
-$lang['Photo title, A &rarr; Z'] = 'Название фотографии, А &rarr; Я';
-$lang['Photo title, Z &rarr; A'] = 'Название фотографии, Я &rarr; А';
+$lang['Photo title, A &rarr; Z'] = 'Название изображения, А &rarr; Я';
+$lang['Photo title, Z &rarr; A'] = 'Название изображения, Я &rarr; А';
 $lang['Rating score, high &rarr; low'] = 'Рейтинг, высокий &rarr; низкий';
 $lang['Rating score, low &rarr; high'] = 'Рейтинг, низкий &rarr; высокий';
 $lang['Visits, high &rarr; low'] = 'Посещения, много &rarr; мало';
@@ -432,3 +417,5 @@ $lang['Link: %s'] = 'Ссылка: %s';
 $lang['Your authentication key is no longer valid.'] = 'Увы, Ваш ключ идентификации больше не действителен.';
 $lang['Invalid username or password!'] = 'Неверное имя пользователя или пароль!';
 $lang['generate random password'] = 'генерирование случайного пароля';
+$lang['Password: ********** (no copy by email)'] = 'Пароль: **********  (без копии по электронной почте)';
+$lang['Related albums'] = 'Похожие альбомы';

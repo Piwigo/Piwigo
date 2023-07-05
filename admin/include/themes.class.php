@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -103,6 +88,11 @@ class themes
   {
     global $conf;
 
+    if (!$conf['enable_extensions_install'] and 'delete' == $action)
+    {
+      die('Piwigo extensions install/update/delete system is disabled');
+    }
+
     if (isset($this->db_themes_by_id[$theme_id]))
     {
       $crt_db_theme = $this->db_themes_by_id[$theme_id];
@@ -111,6 +101,7 @@ class themes
     $theme_maintain = self::build_maintain_class($theme_id);
 
     $errors = array();
+    $activity_details = array('theme_id'=>$theme_id);
 
     switch ($action)
     {
@@ -158,6 +149,8 @@ INSERT INTO '.THEMES_TABLE.'
          \''.$this->fs_themes[$theme_id]['name'].'\')
 ;';
           pwg_query($query);
+
+          $activity_details['version'] = $this->fs_themes[$theme_id]['version'];
 
           if ($this->fs_themes[$theme_id]['mobile'])
           {
@@ -251,6 +244,9 @@ DELETE
         $this->set_default_theme($theme_id);
         break;
     }
+
+    pwg_activity('system', ACTIVITY_SYSTEM_THEME, $action, $activity_details);
+
     return $errors;
   }
 
@@ -435,7 +431,7 @@ SELECT
             global $conf;
             $theme['screenshot'] =
               PHPWG_ROOT_PATH.'admin/themes/'
-              .$conf['admin_theme']
+              .userprefs_get_param('admin_theme', 'clear')
               .'/images/missing_screenshot.png'
               ;
           }
@@ -524,7 +520,7 @@ SELECT
     }
 
     // Retrieve PEM themes infos
-    $url = PEM_URL . '/api/get_revision_list.php';
+    $url = PEM_URL . '/api/get_revision_list-next.php';
     $get_data = array_merge($get_data, array(
       'last_revision_only' => 'true',
       'version' => implode(',', $versions_to_check),
@@ -592,7 +588,7 @@ SELECT
    * @param string - remote revision identifier (numeric)
    * @param string - theme id or extension id
    */
-  function extract_theme_files($action, $revision, $dest)
+  function extract_theme_files($action, $revision, $dest, &$theme_id=null)
   {
     global $logger;
 
@@ -629,13 +625,13 @@ SELECT
             $root = dirname($main_filepath); // main.inc.php path in archive
             if ($action == 'upgrade')
             {
-              $extract_path = PHPWG_THEMES_PATH . $dest;
+              $theme_id = $dest;
             }
             else
             {
-              $extract_path = PHPWG_THEMES_PATH . ($root == '.' ? 'extension_' . $dest : basename($root));
+              $theme_id = ($root == '.' ? 'extension_' . $dest : basename($root));
             }
-
+            $extract_path = PHPWG_THEMES_PATH . $theme_id;
             $logger->debug(__FUNCTION__.', $extract_path = '.$extract_path);
 
             if (

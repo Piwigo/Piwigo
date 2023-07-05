@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 define('PHPWG_ROOT_PATH', './');
@@ -93,7 +78,7 @@ function get_columns_of($tables)
   foreach ($tables as $table)
   {
     $query = '
-DESC '.$table.'
+DESC `'.$table.'`
 ;';
     $result = pwg_query($query);
 
@@ -180,9 +165,6 @@ else if ('pl_PL' == $language) {
 else if ('zh_CN' == $language) {
   define('PHPWG_DOMAIN', 'cn.piwigo.org');
 }
-else if ('hu_HU' == $language) {
-  define('PHPWG_DOMAIN', 'hu.piwigo.org');
-}
 else if ('ru_RU' == $language) {
   define('PHPWG_DOMAIN', 'ru.piwigo.org');
 }
@@ -201,17 +183,12 @@ else if ('pt_BR' == $language) {
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
-define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+define('PHPWG_URL', 'https://'.PHPWG_DOMAIN);
 
 load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'install.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'upgrade.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
-// check php version
-if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
-{
-  include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php');
-}
 
 // +-----------------------------------------------------------------------+
 // |                          database connection                          |
@@ -350,6 +327,14 @@ else if (!in_array('auth_key_id', $columns_of[PREFIX_TABLE.'history']))
 {
   $current_release = '2.7.0';
 }
+else if (!in_array('history_id_to', $columns_of[PREFIX_TABLE.'history_summary']))
+{
+  $current_release = '2.8.0';
+}
+else if (!in_array(PREFIX_TABLE.'activity', $tables))
+{
+  $current_release = '2.9.0';
+}
 else
 {
   // retrieve already applied upgrades
@@ -359,9 +344,17 @@ SELECT id
 ;';
   $applied_upgrades = array_from_query($query, 'id');
 
-  if (!in_array(152, $applied_upgrades))
+  if (!in_array(159, $applied_upgrades))
   {
-    $current_release = '2.8.0';
+    $current_release = '2.10.0';
+  }
+  else if (!in_array(162, $applied_upgrades))
+  {
+    $current_release = '11.0.0';
+  }
+  else if (!in_array(164, $applied_upgrades))
+  {
+    $current_release = '12.0.0';
   }
   else
   {
@@ -381,6 +374,13 @@ SELECT id
 $page['infos'] = array();
 $page['errors'] = array();
 $mysql_changes = array();
+
+// check php version
+if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
+{
+  // include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php'); // to remove, with all its related content
+  $page['errors'][] = l10n('PHP version %s required (you are running on PHP %s)', REQUIRED_PHP_VERSION, PHP_VERSION);
+}
 
 check_upgrade_access_rights();
 

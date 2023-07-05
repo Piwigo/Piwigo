@@ -1,27 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// | Czech language localization                                           |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2009     Pavel Budka & Petr Jirsa    http://pbudka.co.cc |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Slovensky [SK]
@@ -55,8 +37,8 @@ $lang['%d new photos'] = '%d nových objektov';
 $lang['%d new user'] = '%d nový používateľ';
 $lang['%d new users'] = '%d nových používateľov';
 $lang['About'] = 'O galérii';
-$lang['All tags'] = 'Všetky kľúčové slová';
-$lang['Any tag'] = 'Akékoľvek kľúčové slovo';
+$lang['All tags'] = 'Všetky štítky';
+$lang['Any tag'] = 'Akýkoľvek kľúč';
 $lang['At least one listed rule must be satisfied.'] = 'Aspoň jedno pravidlo zo zoznamu musí byť splnené.';
 $lang['Author'] = 'Autor';
 $lang['Albums'] = 'Albumy';
@@ -104,18 +86,18 @@ $lang['Quick connect'] = 'Rýchle prihlásenie';
 $lang['RSS feed'] = 'RSS čítačka';
 $lang['Register'] = 'Zaregistrovať sa';
 $lang['Registration'] = 'Registrácia';
-$lang['Related tags'] = 'Súvisiace kľúčové slová';
+$lang['Related tags'] = 'Súvisiace štítky';
 $lang['Reset'] = 'Vynulovať';
 $lang['Retrieve password'] = 'Obnoviť heslo';
 $lang['Search rules'] = 'Podmienky pre vyhľadávanie';
-$lang['Search tags'] = 'Hľadať podľa kľúčových slov';
+$lang['Search tags'] = 'Hľadať pomocou štítkov';
 $lang['Search'] = 'Vyhľadať';
-$lang['display available tags'] = 'Ukázať dostupné kľúčové slová';
+$lang['display available tags'] = 'Ukázať dostupné štítky';
 $lang['Since'] = 'Od';
 $lang['Sort by'] = 'Zoradiť podľa';
-$lang['Sort order'] = 'Smer zoradenia';
-$lang['Tag'] = 'Kľúčové slovo';
-$lang['Tags'] = 'Kľúčové slová';
+$lang['Sort order'] = 'Smer triedenia';
+$lang['Tag'] = 'Štítok';
+$lang['Tags'] = 'Štítky';
 $lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS vlákno informuje o novinkách na týchto stránkach: nové fotografie, aktualizované albumy, komentáre. Použite RSS čítačku.';
 $lang['Unknown feed identifier'] = 'Neznámý identifikátor vlákna';
 $lang['User comments'] = 'Komentáre používateľov';
@@ -167,7 +149,7 @@ $lang['day'][3] = 'Streda';
 $lang['day'][4] = 'Štvrtok';
 $lang['day'][5] = 'Piatok';
 $lang['day'][6] = 'Sobota';
-$lang['Default'] = 'Východzie';
+$lang['Default'] = 'Predvolené';
 $lang['delete this photo from your favorites'] = 'Odstrániť fotografiu z obľúbených';
 $lang['Delete'] = 'Zmazať';
 $lang['descending'] = 'zostupne';
@@ -232,17 +214,17 @@ $lang['password updated'] = 'heslo aktualizované';
 $lang['Recent period must be a positive integer value'] = 'Aktuálny interval musí byť číslo väčšie ako 0.';
 /* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'fotografia';
 $lang['Click on the photo to see it in high definition'] = 'Pre zobrazenie vo vyššom rozlíšení kliknite na fotografiu';
-$lang['Show file metadata'] = 'Zobraziť metadata';
+$lang['Show file metadata'] = 'Zobraziť metadáta súboru';
 $lang['Powered by'] = 'Publikované pomocou aplikácie';
 $lang['Preferences'] = 'Nastavenia';
 $lang['Previous'] = 'Predchádzajúca';
 $lang['Random photos'] = 'Náhodný výber';
 $lang['display a set of random photos'] = 'Zobraziť sadu fotografií podľa náhodného výberu';
 $lang['Recent albums'] = 'Nové albumy';
-$lang['display recently updated albums'] = 'zobraziť novo pridané albumy';
-$lang['Recent period'] = 'Doba, počas ktorej sú fotografie zobrazované ako novo pridané';
+$lang['display recently updated albums'] = 'zobraziť novopridané albumy';
+$lang['Recent period'] = 'Doba, počas ktorej sú fotografie zobrazované ako novopridané';
 $lang['Recent photos'] = 'Nové fotografie';
-$lang['display most recent photos'] = 'zobraziť novo pridané fotografie';
+$lang['display most recent photos'] = 'zobraziť novopridané fotografie';
 $lang['Redirection...'] = 'Presmerovanie...';
 $lang['Please, enter a login'] = 'Zadajte prosím prihlasovacie údaje';
 $lang['login mustn\'t end with a space character'] = 'používateľské meno nesmie končiť medzerou';
@@ -250,7 +232,7 @@ $lang['login mustn\'t start with a space character'] = 'používateľské meno n
 $lang['this login is already used'] = 'tieto prihlasovacie údaje už sú používané';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'E-mail musí byť vo formáte xxx@yyy.eee (napríklad: kovac@zoznam.sk)';
 $lang['Auto login'] = 'Automatické prihlásenie';
-$lang['remove this tag from the list'] = 'odstrániť toto kľúčové slovo zo zoznamu';
+$lang['remove this tag from the list'] = 'odstrániť tento štítok zo zoznamu';
 $lang['representative'] = 'vzorový';
 $lang['Search for Author'] = 'Hľadať autora';
 $lang['Search in albums'] = 'Hľadanie v albumoch';
@@ -273,7 +255,7 @@ $lang['slideshow'] = 'automatické prehrávanie';
 $lang['stop the slideshow'] = 'zastaviť automatické prehrávanie';
 $lang['Specials'] = 'Zobraziť';
 $lang['SQL queries in'] = 'SQL dotazov behom';
-$lang['display only recently posted photos'] = 'zobrazí len novo vložené fotografie';
+$lang['display only recently posted photos'] = 'zobraziť len novo vložené fotografie';
 $lang['return to the display of all photos'] = 'návrat k zobrazeniu všetkých fotografií';
 $lang['the beginning'] = 'začiatok';
 $lang['Thumbnails'] = 'Náhľady';
@@ -298,7 +280,7 @@ $lang['Album: %s'] = 'Album: %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Zlý stav pre používateľa "hosť", bude použitý východzí stav. Prosím informujte webmastra.';
 $lang['this email address is already in use'] = 'táto e-mailová adresa je už používaná';
 $lang['Album results for'] = 'Výsledky pre album';
-$lang['Tag results for'] = 'Výsledky pre kľúčové slová';
+$lang['Tag results for'] = 'Výsledky pre štítky';
 $lang['from %s to %s'] = 'od %s do %s';
 $lang['Play of slideshow'] = 'Spustiť prezentáciu';
 $lang['Pause of slideshow'] = 'Zastaviť prezentáciu';
@@ -306,23 +288,23 @@ $lang['Repeat the slideshow'] = 'Opakovať prezentáciu';
 $lang['Not repeat the slideshow'] = 'Neopakovať prezentáciu';
 $lang['Reduce diaporama speed'] = 'Spomaliť';
 $lang['Accelerate diaporama speed'] = 'Zrýchliť';
-$lang['Submit'] = 'Poslať';
+$lang['Submit'] = 'Potvrdiť';
 $lang['Yes'] = 'Áno';
 $lang['No'] = 'Nie';
 $lang['%d photo'] = '%d fotografia';
 $lang['%d photos'] = '%d fotografií';
-$lang['%d photo is also linked to current tags'] = '%d fotografia je tiež spojená s aktuálnymi kľúčovými slovami';
-$lang['%d photos are also linked to current tags'] = '%d fotografií je tiež spojených s aktuálnymi kľúčovými slovami';
-$lang['display photos linked to this tag'] = 'Ukázať len fotografie spojené s aktuálnym kľúčovým slovom';
+$lang['%d photo is also linked to current tags'] = '%d fotografia je tiež spojená s aktuálnymi štítkami';
+$lang['%d photos are also linked to current tags'] = '%d fotografií je tiež spojených s aktuálnymi štítkami';
+$lang['display photos linked to this tag'] = 'Ukázať len fotografie spojené s aktuálnym štítkom';
 $lang['photos posted during the last %d days'] = 'fotografie vložené za posledních %d dní';
 $lang['Piwigo Help'] = 'Nápoveda Piwigo';
 $lang['Rank'] = 'Hodnotiť';
 $lang['group by letters'] = 'zoskupiť podľa písmen';
 $lang['letters'] = 'písmená';
-$lang['show tag cloud'] = 'zobraziť kľúčové slová v bubline';
+$lang['show tag cloud'] = 'zobraziť štítky v bubline';
 $lang['cloud'] = 'bublina';
 $lang['Are you sure?'] = 'Ste si istý?';
-$lang['Reset to default values'] = 'Obnoviť východzie hodnoty';
+$lang['Reset to default values'] = 'Obnoviť predvolené hodnoty';
 $lang['delete all photos from your favorites'] = 'vymazať všetky obrázky z Vašich obľúbených';
 $lang['Sent by'] = 'Poslané';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies sú buď blokované, alebo nie sú povolené vo Vašom prehliadači. Musíte povoliť cookies, aby bolo možné sa prihlásiť.';
@@ -353,7 +335,7 @@ $lang['To reset your password, visit the following address:'] = 'Pre obnovu hesl
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Ak to bola chyba, jednoducho ignorujte tento mail a všetko bude v poriadku.';
 $lang['Password Reset'] = 'Obnova hesla';
 $lang['Check your email for the confirmation link'] = 'Skontrolujte Váš email pre potvrdenie linku';
-$lang['Invalid key'] = 'Nesprávny kľúč';
+$lang['Invalid key'] = 'Neplatný kľúč';
 $lang['The passwords do not match'] = 'Heslo sa nezhoduje';
 $lang['Your password has been reset'] = 'Vaše heslo bolo obnovené';
 $lang['Return to home page'] = 'Návrat na Úvodnú stránku';
@@ -362,8 +344,8 @@ $lang['You will receive a link to create a new password via email.'] = 'Obdrží
 $lang['Username or email'] = 'Používateľské meno alebo email';
 $lang['Change my password'] = 'Zmeniť moje heslo';
 $lang['Enter your new password below.'] = 'Nižšie vložte Vaše nové heslo.';
-$lang['EXIF Metadata'] = 'EXIF Metadata';
-$lang['IPTC Metadata'] = 'IPTC Metadata';
+$lang['EXIF Metadata'] = 'EXIF Metadáta';
+$lang['IPTC Metadata'] = 'IPTC Metadáta';
 $lang['Edit'] = 'Upraviť';
 $lang['Hello %s,'] = 'Ahoj %s,';
 $lang['Send my connection settings by email'] = 'Odoslať moje nastavenia pripojenia emailom';
@@ -390,8 +372,8 @@ $lang['View in'] = 'Ukázať v';
 $lang['Mobile'] = 'Mobile';
 $lang['Desktop'] = 'Desktope';
 $lang['Mobile'] = 'Mobil';
-$lang['2small'] = 'XXS - malé';
-$lang['xsmall'] = 'XS – veľmi malé';
+$lang['2small'] = 'XXS – malý';
+$lang['xsmall'] = 'XS – veľmi malý';
 $lang['File name, A &rarr; Z'] = 'Názov súboru, A &rarr; Z';
 $lang['File name, Z &rarr; A'] = 'Názov súboru, Z &rarr; A';
 $lang['Photo title, A &rarr; Z'] = 'Názov fotky, A &rarr; Z';
@@ -411,10 +393,10 @@ $lang['%d rate'] = '%d hodnotené';
 $lang['Bad request'] = 'Nesprávna požiadavka';
 $lang['Forbidden'] = 'Zakázané';
 $lang['Page not found'] = 'Stránka sa nenašla';
-$lang['Permalink for album not found'] = 'Permanentný link pre album sa nenašiel';
+$lang['Permalink for album not found'] = 'Trvalý odkaz na album sa nenašiel';
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo narazilo na opraviteľnú chybu';
 $lang['Requested album does not exist'] = 'Požadovaný album neexistuje';
-$lang['Requested tag does not exist'] = 'Požadované kľúčové slovo neexistuje';
+$lang['Requested tag does not exist'] = 'Požadovaný štítok neexistuje';
 $lang['Email address is mandatory'] = 'Emailová adresa je povinná';
 $lang['Username is mandatory'] = 'Meno používateľa je povinné';
 $lang['mandatory'] = 'povinné';
@@ -436,3 +418,10 @@ $lang['Album name, Z &rarr; A'] = 'Názov albumu, Z &rarr; A';
 $lang['Album name, A &rarr; Z'] = 'Názov albumu, A &rarr; Z';
 $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Váš autentifikačný kľúč nie je viac platný.';
+$lang['generate random password'] = 'generovanie náhodného hesla';
+$lang['Invalid username or password!'] = 'Neplatné meno alebo heslo!';
+$lang['Password: ********** (no copy by email)'] = 'Heslo: ********** (žiadna kópia e-mailom)';
+$lang['Related albums'] = 'Súvisiace albumy';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Názov albumu, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Názov albumu, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Dátum začiatku';

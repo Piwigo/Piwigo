@@ -1,0 +1,141 @@
+<h2>搜索</h2>
+
+<p>默认匹配所有关键词，不区分大小写。</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>带引号的短语<br>
+<q>"search"</q>
+</td>
+<td>使用引号搜索一个确切的词或短语。<br>
+<q>"乔治 华盛顿"</q></td>
+</tr>
+
+
+<tr>
+<td>任一关键词<br>
+<q>OR search</q><br>
+</td>
+<td>在词语间添加一个 OR<br>
+<q>小李 OR 小张</q></td>
+</tr>
+
+
+<tr>
+<td>排除<br>
+<q>NOT search</q><br>
+<q>-search</q>
+</td>
+<td>在一个关键词前面添加连接符号（-）或 NOT 将其排除在外。注意 NOT 是作为筛选运算符起作用的，所以搜索框中不能只含有 NOT 运算符。OR 和 NOT 不能同时使用（<q>小李 OR NOT 小张</q> 是无效的）<br>
+<q>乔治 华盛顿 NOT 布什</q></td>
+</tr>
+
+<tr>
+<td>组合搜索<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(妈妈 OR 爸爸) AND (女儿 OR 儿子)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>不在图片标题或描述中搜索，只在标签（tag）名称中搜索。<br>
+<q>tag:小李</q>, <q>tag:(小李 OR 小张)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>只在图片标题或描述中搜索关键词。<br>
+<q>photo:小李</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>在文件名中搜索。<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>按作者搜索。<br>
+<q>author:小李</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>按照片拍摄时间搜索。<br>
+<q>taken:2003</q> 搜索2003年拍摄的照片<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> 搜索2003年5月拍摄的照片<br>
+<q>taken:2003..2008</q> 搜索2003年至2008年拍摄的照片<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> 搜索2008年1月1日起拍摄的照片<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>按图片发布时间搜索。</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>按给定的图片宽度或高度搜索。</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>按图片像素尺寸搜索。<br>
+<q>size:5m</q> 找出5百万像素的图片<br>
+<q>size:>12m</q> 找出大于或等于1千2百万像素的图片<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>按图片宽/高比搜索。<br>
+<q>ratio:3/4 OR ratio:4/3</q> 找出3:4或4:3的卡片相机比例的竖版或横版图片
+<q>ratio:>16/9</q> 找出16:9的宽版图片
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>提示： <q>score:*</q> 将找出所有至少获得过1次评分的图片。 <q>score:</q> 将找出未获得过评分的图片。</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>按文件大小搜索图片。<br>
+<q>filesize:1m..10m</q> 找出大小在1MB与10MB之间的图片。</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>根据图片在 Piwigo 中的序号搜索图片。<br>
+<q>id:123..126</q> 找出图片 123 至 126 （结果可能会找出0至4张图片，因为有的图片可能已被删除）。</td>
+</tr>
+
+</table>

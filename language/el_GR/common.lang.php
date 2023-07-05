@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Ελληνικά [GR]
@@ -368,8 +353,8 @@ $lang['thumb'] = 'Μικρογραφία';
 $lang['small'] = 'Μικρό';
 $lang['medium'] = 'Ενδιάμεσο';
 $lang['large'] = 'Μεγάλο';
-$lang['xlarge'] = 'Πολύ μεγάλο';
-$lang['xxlarge'] = 'Εξαιρετικά μεγάλο';
+$lang['xlarge'] = 'XL - Πολύ μεγάλο';
+$lang['xxlarge'] = 'XXL - Εξαιρετικά μεγάλο';
 $lang['Original'] = 'Γνήσιοl';
 $lang['Thank you for registering at %s!'] = 'Ευχαριστούμε για την εγγραφή στο %s!';
 $lang['Here are your connection settings'] = 'Οι ρυθυμίσεις σύνδεσης σας';
@@ -429,3 +414,7 @@ $lang['Link: %s'] = 'Σύνδεσμος: %s';
 $lang['Your authentication key is no longer valid.'] = 'Το κλειδί ταυτοποίησης σας δεν είναι πλέον έγκυρο.';
 $lang['generate random password'] = 'δημιουργήστε τυχαίο κωδικό πρόσβασης';
 $lang['Invalid username or password!'] = 'Μη έγκυρο όνομα ή κωδικός!';
+$lang['Related albums'] = 'Σχετικά Λευκώματα';
+$lang['Password: ********** (no copy by email)'] = 'Κωδικός πρόσβασης: ********** (χωρίς αντίγραφο μέσω email)';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Όνομα λευκώματος, 1 &rarr; 5 &​​rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Όνομα άλμπουμ, , 100 &rarr; 10 &rarr; 5 &rarr; 1';

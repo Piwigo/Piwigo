@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -79,8 +64,21 @@ DELETE FROM '.CADDIE_TABLE.'
       redirect(get_root_url().'admin.php?page='.$_GET['page']);
     }
   }
-}
 
+  if ('sync_md5sum' == $_GET['action'] and isset($_GET['nb_md5sum_added']))
+  {
+    check_input_parameter('nb_md5sum_added', $_GET, false, '/^\d+$/');
+    if ($_GET['nb_md5sum_added'] > 0)
+    {
+      $_SESSION['page_infos'][] = l10n_dec(
+        '%d checksums were added', '%d checksums were added',
+        $_GET['nb_md5sum_added']
+      );
+
+      redirect(get_root_url().'admin.php?page='.$_GET['page']);
+    }
+  }
+}
 // +-----------------------------------------------------------------------+
 // |                      initialize current set                           |
 // +-----------------------------------------------------------------------+
@@ -127,6 +125,8 @@ if (isset($_POST['submitFilter']))
 
   if (isset($_POST['filter_category_use']))
   {
+    check_input_parameter('filter_category', $_POST, false, PATTERN_ID);
+
     $_SESSION['bulk_manager_filter']['category'] = $_POST['filter_category'];
 
     if (isset($_POST['filter_category_recursive']))
@@ -346,6 +346,8 @@ SELECT id
  ;';
     $all_elements = query2array($query, null, 'id');
 
+    $linked_to_virtual = array();
+
     $query = '
  SELECT id
    FROM '.CATEGORIES_TABLE.'
@@ -368,6 +370,9 @@ SELECT id
 
   case 'no_album':
     $filter_sets[] = get_orphans();
+    break;
+  case 'no_sync_md5sum':
+    $filter_sets[] = get_photos_no_md5sum();
     break;
 
   case 'no_tag':
@@ -602,7 +607,7 @@ foreach ($filter_sets as $set)
 {
   $current_set = array_intersect($current_set, $set);
 }
-$page['cat_elements_id'] = $current_set;
+$page['cat_elements_id'] = empty($current_set) ? array() : $current_set;
 
 
 // +-----------------------------------------------------------------------+

@@ -5,6 +5,7 @@
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 
 {footer_script}
+const cat_nav = '{$CATEGORIES_NAV|escape:javascript}';
 (function(){
 {* <!-- GROUPS --> *}
 var groupsCache = new GroupsCache({
@@ -47,16 +48,16 @@ jQuery("#selectStatus").change(function() {
   });
 {/if}
 }());
-{/footer_script}
 
-<div class="titrePage">
-  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
+$(document).ready(function () {
+  $("h1").append(' <span style="letter-spacing:0">'+cat_nav+'</span>');
+})
+{/footer_script}
 
 <form action="{$F_ACTION}" method="post" id="categoryPermissions">
 
 <fieldset>
-  <legend>{'Access type'|@translate}</legend>
+  <legend><span class="icon-lock icon-yellow"></span>{'Access type'|@translate}</legend>
 
   <p id="selectStatus">
     <label class="font-checkbox">

@@ -1,0 +1,8 @@
+/* BEGIN SemiBold Italic */
+@font-face {
+	font-family: "Open Sans";
+	@include fontdef($OpenSansPath, $OpenSansVersion, "SemiBoldItalic");
+	font-weight: 600;
+	font-style: italic;
+}
+/* END SemiBold Italic */

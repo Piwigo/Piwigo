@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -120,6 +105,17 @@ class Template
     $this->smarty->assign( 'pwg', new PwgTemplateAdapter() );
     $this->smarty->registerPlugin('modifiercompiler', 'translate', array('Template', 'modcompiler_translate') );
     $this->smarty->registerPlugin('modifiercompiler', 'translate_dec', array('Template', 'modcompiler_translate_dec') );
+    $this->smarty->registerPlugin('modifier', 'sprintf', 'sprintf');
+    $this->smarty->registerPlugin('modifier', 'urlencode', 'urlencode');
+    $this->smarty->registerPlugin('modifier', 'intval', 'intval');
+    $this->smarty->registerPlugin('modifier', 'file_exists', 'file_exists');
+    $this->smarty->registerPlugin('modifier', 'constant', 'constant');
+    $this->smarty->registerPlugin('modifier', 'json_encode', 'json_encode');
+    $this->smarty->registerPlugin('modifier', 'htmlspecialchars', 'htmlspecialchars');
+    $this->smarty->registerPlugin('modifier', 'implode', 'implode');
+    $this->smarty->registerPlugin('modifier', 'stripslashes', 'stripslashes');
+    $this->smarty->registerPlugin('modifier', 'in_array', 'in_array');
+    $this->smarty->registerPlugin('modifier', 'ucfirst', 'ucfirst');
     $this->smarty->registerPlugin('modifier', 'explode', array('Template', 'mod_explode') );
     $this->smarty->registerPlugin('modifier', 'ternary', array('Template', 'mod_ternary') );
     $this->smarty->registerPlugin('modifier', 'get_extent', array($this, 'get_extent') );
@@ -227,7 +223,7 @@ class Template
     {
       $compile_id = "1";
       $compile_id .= ($real_dir = realpath($dir))===false ? $dir : $real_dir;
-      $this->smarty->compile_id = base_convert(crc32($compile_id), 10, 36 );
+      $this->smarty->compile_id = base_convert(hash("crc32b", $compile_id), 16, 36 );
     }
   }
 
@@ -717,7 +713,7 @@ class Template
    */
   function block_html_head($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
       $this->html_head_elements[] = $content;
@@ -733,7 +729,7 @@ class Template
    */
   function block_html_style($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
       $this->html_style .= "\n".$content;
@@ -923,7 +919,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    */
   function block_footer_script($params, $content)
   {
-    $content = trim($content);
+    $content = isset($content) ? trim($content) : '';
     if ( !empty($content) )
     { // second call
 
@@ -1036,7 +1032,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
           $this->smarty->registerFilter($type, $callback);
         }
       }
-      $this->smarty->compile_id .= '.'.base_convert(crc32($compile_id), 10, 36);
+      $this->smarty->compile_id .= '.'.base_convert(hash("crc32b", $compile_id), 16, 36);
     }
   }
 
@@ -1647,7 +1643,7 @@ class ScriptLoader
     $result = array( array(), array() );
     foreach( $todo as $id => $script)
     {
-      $result[$script->load_mode-1][$id] = $script;
+     if (!is_string($script->load_mode)) $result[$script->load_mode-1][$id] = $script;
     }
     return array( self::do_combine($result[0],1), self::do_combine($result[1],2) );
   }
@@ -1911,7 +1907,7 @@ final class FileCombiner
     if (count($pending)>1)
     {
       $key = join('>', $key);
-      $file = PWG_COMBINED_DIR . base_convert(crc32($key),10,36) . '.' . $this->type;
+      $file = PWG_COMBINED_DIR . base_convert(hash("crc32b", $key), 16, 36) . '.' . $this->type;
       if ($force || !file_exists(PHPWG_ROOT_PATH.$file) )
       {
         $output = '';
@@ -1960,7 +1956,7 @@ final class FileCombiner
         $key = array($combinable->path, $combinable->version);
         if ($conf['template_compile_check'])
           $key[] = filemtime( PHPWG_ROOT_PATH . $combinable->path );
-        $file = PWG_COMBINED_DIR . 't' . base_convert(crc32(implode(',',$key)),10,36) . '.' . $this->type;
+        $file = PWG_COMBINED_DIR . 't' . base_convert(hash("crc32b", implode(',', $key)), 16, 36) . '.' . $this->type;
         if (!$force && file_exists(PHPWG_ROOT_PATH.$file) )
         {
           $combinable->path = $file;
@@ -2008,7 +2004,7 @@ final class FileCombiner
     if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
     {
       require_once(PHPWG_ROOT_PATH.'include/jshrink.class.php');
-      try { $js = JShrink_Minifier::minify($js); } catch(Exception $e) {}
+      try { $js = JShrink\Minifier::minify($js); } catch(Exception $e) {}
     }
     return trim($js, " \t\r\n;").";\n";
   }

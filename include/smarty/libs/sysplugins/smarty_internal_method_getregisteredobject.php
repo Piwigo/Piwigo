@@ -22,23 +22,23 @@ class Smarty_Internal_Method_GetRegisteredObject
      * return a reference to a registered object
      *
      * @api  Smarty::getRegisteredObject()
-     * @link http://www.smarty.net/docs/en/api.get.registered.object.tpl
+     * @link https://www.smarty.net/docs/en/api.get.registered.object.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $object_name object name
+     * @param string                                                          $object_name object name
      *
      * @return object
      * @throws \SmartyException if no such object is found
      */
     public function getRegisteredObject(Smarty_Internal_TemplateBase $obj, $object_name)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
-        if (!isset($smarty->registered_objects[$object_name])) {
+        $smarty = $obj->_getSmartyObj();
+        if (!isset($smarty->registered_objects[ $object_name ])) {
             throw new SmartyException("'$object_name' is not a registered object");
         }
-        if (!is_object($smarty->registered_objects[$object_name][0])) {
+        if (!is_object($smarty->registered_objects[ $object_name ][ 0 ])) {
             throw new SmartyException("registered '$object_name' is not an object");
         }
-        return $smarty->registered_objects[$object_name][0];
+        return $smarty->registered_objects[ $object_name ][ 0 ];
     }
 }

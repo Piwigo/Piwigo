@@ -22,11 +22,11 @@ class Smarty_Internal_Method_GetConfigVars
      * Returns a single or all config variables
      *
      * @api  Smarty::getConfigVars()
-     * @link http://www.smarty.net/docs/en/api.get.config.vars.tpl
+     * @link https://www.smarty.net/docs/en/api.get.config.vars.tpl
      *
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
-     * @param  string                                                 $varname        variable name or null
-     * @param  bool                                                   $search_parents include parent templates?
+     * @param string                                                  $varname        variable name or null
+     * @param bool                                                    $search_parents include parent templates?
      *
      * @return mixed variable value or or array of variables
      */
@@ -36,8 +36,8 @@ class Smarty_Internal_Method_GetConfigVars
         $var_array = array();
         while ($_ptr !== null) {
             if (isset($varname)) {
-                if (isset($_ptr->config_vars[$varname])) {
-                    return $_ptr->config_vars[$varname];
+                if (isset($_ptr->config_vars[ $varname ])) {
+                    return $_ptr->config_vars[ $varname ];
                 }
             } else {
                 $var_array = array_merge($_ptr->config_vars, $var_array);

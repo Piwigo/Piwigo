@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Français [FR]
@@ -428,3 +413,18 @@ $lang['Link: %s'] = 'Lien: %s';
 $lang['Your authentication key is no longer valid.'] = 'Votre clef d\'identification n\'est plus valide.';
 $lang['Invalid username or password!'] = 'Nom d\'utilisateur ou mot de passe invalide !';
 $lang['generate random password'] = 'générer un mot de passe aléatoire';
+$lang['Related albums'] = 'Albums liés';
+$lang['Password: ********** (no copy by email)'] = 'Mot de passe : ********** (pas de copie par email)';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nom d\'album, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Nom d\'album, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Date de début';
+$lang['Added by'] = 'Ajouté par';
+$lang['Filters'] = 'Filtres';
+$lang['Validate'] = 'Valider';
+$lang['Cancel'] = 'Annuler';
+$lang['Search in :'] = 'Rechercher dans :';
+$lang['Album title'] = 'Titre de l\'album';
+$lang['File name'] = 'Nom de fichier';
+$lang['Album description'] = 'Description de l\'album';
+$lang['No results are available.'] = 'Aucun résultat n\'est disponible';
+$lang['You can try to edit your filters and perform a new search.'] = 'Vous pouvez tenter de modifier vos filtres et effectuer une nouvelle recherche';

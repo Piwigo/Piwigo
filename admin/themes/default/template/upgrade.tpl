@@ -45,8 +45,9 @@ body {
 
 #theHeader {
   display: block;
-  background:url("admin/themes/clear/images/piwigo_logo_big.png") no-repeat scroll center 20px transparent;
+  background:url("admin/themes/default/images/piwigo-orange.svg") no-repeat scroll center 20px transparent;
   height:100px;
+  background-size: 300px;
 }
 
 fieldset {

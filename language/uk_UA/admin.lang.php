@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -336,7 +321,7 @@ $lang['Deactivate all'] = 'Деактивувати все';
 $lang['No file was uploaded'] = 'Файл не був завантажений';
 $lang['No mail to send.'] = 'Немає пошти для відправки.';
 $lang['No photo selected, %d photos in current set'] = 'Немає виділених зображень, %d зображення в поточному наборі';
-$lang['No photo selected, no action possible.'] = 'Немає виділених фотографій, немає можливих дій.';
+$lang['No photos selected, no actions possible.'] = 'Немає виділених фотографій, немає можливих дій.';
 $lang['No results'] = 'Немає результату';
 $lang['No user to send notifications by mail.'] = 'Немає користувачів для оповіщення поштою.';
 $lang['Notification'] = 'Оповіщення';
@@ -572,7 +557,6 @@ $lang['Create'] = 'Створити';
 $lang['Crop'] = 'Результат';
 $lang['display'] = 'показати';
 $lang['Do you want to activate anyway?'] = 'Чи Ви таки бажаєте активувати?';
-$lang['Dump Database'] = 'Дамп бази даних';
 $lang['ERROR'] = 'ПОМИЛКА';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ПОМИЛКА: ЦЕЙ ДОДАТОК ВІДСУТНІЙ, АЛЕ ВІН ВСТАНОВЛЕНИЙ! ВИДАЛИТИ ЙОГО ЗАРАЗ.';
 $lang['Extensions Update'] = 'Оновлення розширень';
@@ -623,7 +607,6 @@ $lang['Inactive Plugins'] = 'Неактивні плаґіни';
 $lang['Inactive Themes'] = 'Неактивні теми';
 $lang['include child albums'] = 'включити дочірні альбоми';
 $lang['Include display of recent photos grouped by dates'] = 'Включити відображення недавніх фотографій, згрупованих по датам';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Включити історичні дані (Увага: ліміт пам\'яті сервера може бути перевищений)';
 $lang['Information data registered in database'] = 'Інформація даних, зареєстрованих в базі даних';
 $lang['Informations'] = 'Інформація';
 $lang['Install on your computer,'] = 'Встановити на Ваш компьютер,';
@@ -708,7 +691,6 @@ $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ЦЕЙ ПЛА
 $lang['Thumbnails generation in progress...'] = 'Процес генерації мініатюр...';
 $lang['Two updates are available'] = 'Два доступних оновлень';
 $lang['Unable to check for upgrade.'] = 'Неможливо перевірити наявність оновлень.';
-$lang['Unable to dump database.'] = 'Неможливо зберегти базу даних.';
 $lang['Uncheck all'] = 'Зняти все';
 $lang['Uninstall'] = 'Видалити';
 $lang['Uninstalled Plugins'] = 'Видалити плаґіни';
@@ -827,8 +809,10 @@ $lang['Web Form'] = 'Веб-форми';
 $lang['Available on'] = 'Доступні на';
 $lang['Delete multiple size images'] = 'Видалення декількох зображень розміром';
 $lang['Generate multiple size images'] = 'Створення декількох зображень розміром';
+$lang['Piwigo for Android'] = 'Piwigo для Android';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo для iOS(iPhone, iPad, iPod Touch)';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u користувачі мають автоматичний дозвіл, тому що вони належать до наданої групи.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo для Android</em> додаток дозволяє вам підключити ваш телефон або планшет в галерею Piwigo, створити кілька альбомів і завантажити декілька зображень одночасно.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo для iOS</em> додаток дає можливість підключатись до вашої галереї Piwigo з вашого сенсорного iPhone, iPad та iPod, створити кілька альбомів і завантажити декілька зображень одночасно.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom являє собою програмне забезпечення фотографа, призначене для управління великою кількістю цифрових зображень і робить роботу постпродакшн.';
 $lang['any visitor can see this album'] = 'будь-який відвідувач може бачити цей альбом';
@@ -926,7 +910,7 @@ $lang['between %d and %d pixels'] = 'між %d і %d пікселями';
 $lang['Duplicate'] = 'Дублювати';
 $lang['Manage the members'] = 'Керування учасниками';
 $lang['Merge selected groups'] = 'Злиття вибраних груп';
-$lang['No group selected, no action possible.'] = 'Жодна група не вибрана, не можливі ніякі дії.';
+$lang['No groups selected, no actions possible.'] = 'Жодна група не вибрана, не можливі ніякі дії.';
 $lang['No members to manage'] = 'Немає учасників для управління';
 $lang['Please select at least two groups'] = 'Виберіть щонайменше дві групи';
 $lang['Rename'] = 'Перейменувати';
@@ -950,7 +934,7 @@ $lang['Last visit on %s, %s.'] = 'Був на сайті %s, %s.';
 $lang['Loading...'] = 'Завантаження...';
 $lang['No matching user found'] = 'Відповідних користувачі не знайдено';
 $lang['No user selected of %d users'] = 'Не вибраний жоден з %d користувачів ';
-$lang['No user selected, no action possible.'] = 'Жоден користувач не обраний, ніякі дії можливі.';
+$lang['No users selected, no actions possible.'] = 'Жоден користувач не обраний, ніякі дії можливі.';
 $lang['Password updated'] = 'Пароль оновлений';
 $lang['Registered on %s, %s.'] = 'Зареєстрований %s, %s.';
 $lang['Show %s users'] = 'Відображати %s користувачів';
@@ -984,3 +968,103 @@ $lang['No user is permitted to see this private album'] = 'Жодному кор
 $lang['Orphans'] = 'Одиночні';
 $lang['Recipients'] = 'Одержувачі';
 $lang['Y Repeat'] = 'Повторення Y';
+$lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync може завантажувати всю ієрархію папок. Якщо ви запустите його знову, будуть завантажені лише нові фотографії.';
+$lang['Share / Send your photos directly from your Mac Os X (10.10 and following) to Piwigo'] = 'Поділіться/надсилайте свої фотографії безпосередньо з вашої MacOS (10.10 і пізніша) до Piwigo';
+$lang['Time has come to update your Piwigo with version %s, go to %s'] = 'Настав час оновлювати свій Piwigo з версії %s, перейти до %s';
+$lang['delete album and all %d photos, even the %d associated to other albums'] = 'видалити альбом і всі %d фотографії, навіть, %d пов\'язані з іншими альбомами';
+$lang['Piwigo %s is available, please update'] = 'Piwigo  %s доступний до оновлення, будь ласка, оновіться';
+$lang['No filter on album. Select one or type to search'] = 'Немає фільтрів на альбомі. Виберіть один або введіть для пошуку';
+$lang['No tags selected, no actions possible.'] = 'Теґи не вибрано, ніякі дії неможливі.';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Робота на сучасній Piwigo важлива для безпеки.';
+$lang['Select tags'] = 'Виберіть теги';
+$lang['Storage used'] = 'Використано пам\'яті';
+$lang['checksum'] = 'контрольна сума';
+$lang['delete album and the %d orphan photos'] = 'видалити альбом та %d поодинокі фотографії';
+$lang['delete only album, not photos'] = 'видалити лише альбом, а не фотографії';
+$lang['orphans to delete'] = 'поодинокі до видалення';
+$lang['(determined from photos)'] = '(визначається з фотографій)';
+$lang['Confirm deletion'] = 'Підтвердьте видалення';
+$lang['Dashboard'] = 'Дошка';
+$lang['Delete album "%s" and its %d sub-albums.'] = 'Видалити альбом "%s" та його %d суб-альбоми.';
+$lang['Delete album "%s".'] = 'Видалити альбом "%s".';
+$lang['Display form'] = 'Форма відображення';
+$lang['First photo added'] = 'Перша фотографія додана';
+$lang['It only takes a few clicks.'] = 'Це займає лише кілька кліків.';
+$lang['Display category date'] = 'Показати дату категорії';
+$lang['Display album date period'] = 'Показувати період, пов\'язаний з кожним альбомом, наприклад, «з 12 до 15 липня 2018 року»';
+$lang['Compute %d missing checksums'] = 'Вичислити %d відсутні контрольні суми';
+$lang['%d checksums were added'] = '%d контрольних сум було додано';
+$lang['... or hide this link'] = '... або приховати це посилання';
+$lang['Piwigo requires an album to add photos.'] = 'Piwigo потребує альбом для додавання фотографій.';
+$lang['Some checksums are missing.'] = 'Деякі контрольні суми відсутні.';
+$lang['Synchronization in progress'] = 'Виконується синхронізація';
+$lang['Visit'] = 'Відвідати';
+$lang['Welcome!'] = 'Ласкаво просимо!';
+$lang['With no checksum'] = 'Без контрольної суми';
+$lang['checksums to add'] = 'контрольні суми для додавання';
+$lang['or'] = 'чи';
+$lang['Deletion in progress'] = 'Виконується видалення';
+$lang['Create a first album'] = 'Створіть перший альбом';
+$lang['Clear Selection'] = 'Очистити вибране';
+$lang['Compact View'] = 'Компактний перегляд';
+$lang['Compare mode'] = 'Режим порівняння';
+$lang['Delete album'] = 'Видалити альбом';
+$lang['Cache'] = 'Кеш';
+$lang['Requires PHP %s'] = 'Вимагається PHP %s';
+$lang['No albums found'] = 'Не знайдено альбомів';
+$lang['No plugins found'] = 'Не знайдено плагінів';
+$lang['No tag found'] = 'Не знайдено теґів';
+$lang['Open in gallery'] = 'Відкрити в галереї';
+$lang['Other'] = 'Ініші';
+$lang['Page Visited'] = 'Сторінка відвідана';
+$lang['Page Visited in %s'] = 'Сторінка відвідана в %s';
+$lang['Please upgrade your PHP version before any update.'] = 'Будь ласка оновіть свою версію PHP до оновлення.';
+$lang['Posted %s'] = 'Опубліковано %s';
+$lang['Refresh thumbnail'] = 'Оновити мініатюри';
+$lang['Tile View'] = 'Заголовок перегляду';
+$lang['Videos'] = 'Відео';
+$lang['Yes, I am sure'] = 'Так, я впевнений';
+$lang['Yes, delete'] = 'Так, видалити';
+$lang['You don\'t have access to this photo'] = 'Ви не маєте доступу до цього фото';
+$lang['in gallery'] = 'в галереї';
+$lang['no photo'] = 'немає фото';
+$lang['%d photos'] = '%d фотографій';
+$lang['%d sub-albums'] = '%d під-альбомів';
+$lang['Add Album'] = 'Додати Альбом';
+$lang[' (copy %s)'] = '(скопійовано %s)';
+$lang[' (copy)'] = '(копія)';
+$lang['%s GB used'] = '%s GB використано';
+$lang['%s MB used'] = '%s MB використано';
+$lang['%s file type'] = '%s файли типу';
+$lang['%s other tags available..'] = '%s, інші теги доступні..';
+$lang['%d user added'] = '%d користувача додано';
+$lang['%d user edited'] = '%d користувача відредаговано';
+$lang['%d user logged in'] = '%d користувач увійшов';
+$lang['%d user logged out'] = '%d користувач вийшов';
+$lang['%d users added'] = '%d користувачів додано';
+$lang['%d users edited'] = '%d користувачів відредаговано';
+$lang['%d users logged in'] = '%d користувачів увійшло';
+$lang['%d users logged out'] = '%d користувачів вийшло';
+$lang['%s MB'] = '%s MB';
+$lang['%d photos moved'] = '%d фотографій переміщено';
+$lang['%d photos edited'] = '%d фотографій відредаговано';
+$lang['%d photos deleted'] = '%d фотографій видалено';
+$lang['%d photos added'] = '%d фотографій додано';
+$lang['%d photo moved'] = '%d фото переміщено';
+$lang['%d photo edited'] = '%d фото відредаговано';
+$lang['%d photo deleted'] = '%d фото видалено';
+$lang['%d photo added'] = '%d фото додано';
+$lang['%d groups moved'] = '%d груп переміщено';
+$lang['%d groups edited'] = '%d груп відредаговано';
+$lang['%d groups deleted'] = '%d груп видалено';
+$lang['%d groups added'] = '%d груп додано';
+$lang['%d group moved'] = '%d група переміщена';
+$lang['%d group edited'] = '%d група відредагована';
+$lang['%d group deleted'] = '%d група видалена';
+$lang['%d group added'] = '%d група додана';
+$lang['%d album added'] = '%d альбом додано';
+$lang['%d album deleted'] = '%d альбом видалено';
+$lang['%d album edited'] = '%d альбом відредаговано';
+$lang['%d albums added'] = '%d альбомів додано';
+$lang['%d albums deleted'] = '%d альбомів видалено';
+$lang['%d albums edited'] = '%d альбомів відредаговано';

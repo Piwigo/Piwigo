@@ -1,0 +1,141 @@
+<h2>Søgning</h2>
+
+<p>Som standard skal alle søgeord forekommer. I søgninger er der ikke forskel på små og store bogstaver.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>udtryk i anførselstegn<br>
+<q>"søgning"</q>
+</td>
+<td>Anvend anførselstegn for at søge for efter et bestemt ord eller udtryk.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>udtryk med eller<br>
+<q>OR søgning</q><br>
+</td>
+<td>Tilføj et OR mellem ordene.<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>exclude<br>
+<q>NOT søgning</q><br>
+<q>-søgning</q>
+</td>
+<td>Tilføj en bindestreg (-) eller NOT foran et ord, for at fravælge det fra søgningen. Bemærk at NOT fungerer som en filtreringsoperator, så du kan ikke have en søgning, der kun indeholder NOT-operatorer. Du kan ikke kombinere OR med NOT (<q>john OR NOT bill</q> er ikke gyldigt)<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>gruppering<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mor OR far) AND (datter OR søn)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Søger kun i tagnavne uden at kigge på fotografiers titler eller beskrivelser.<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q><br>
+<q>photos:</q>
+</td>
+<td>Søger kun efter fotografier med det angivne ord i titlen eller beskrivelsen.<br>
+<q>photo:John</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Søger efter et filnavn.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Søger efter forfatter.<br>
+<q>author:John</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Søger efter fotografiers optagelsesdato.<br>
+<q>taken:2003</q> fotografier optaget i 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> fotografier fra maj 2003<br>
+<q>taken:2003..2008</q> fotografier fra 2003 til 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> fotografier efter 1. januar 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Søger efter fotografiers uploaddatoer.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Søger efter fotografier med en given bredde (width) eller højde height).</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Søger efter fotografiers størrelse i pixels<br>
+<q>size:5m</q> finder fotografier på 5 megapixels<br>
+<q>size:>12m</q> finder fotografier på 12 megapixels eller mere<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Søger efter fotografiers bredde/højde-forhold.<br>
+<q>ratio:3/4 OR ratio:4/3</q> finder fotografier fra kompaktkameraer i portræt- eller landskabstilstand
+<q>ratio:>16/9</q> finder panoramaer
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Tip: <q>score:*</q> finder alle fotografier med mindst én stemme. <q>score:</q> finder fotografier uden stemmer.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Søger efter fotografiers filstørrelse<br>
+<q>filesize:1m..10m</q> finder filer mellem 1MB og 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Søger efter fotografiers numeriske identifikation i Piwigo<br>
+<q>id:123..126</q> finder fotografi 123 til 126 (der findes mellem 0 og 4 fotografier, da fotografier kan være slettet).</td>
+</tr>
+
+</table>

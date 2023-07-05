@@ -1,38 +1,23 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
 
 $lang['%d association'] = "%d association";
 $lang['%d associations'] = "%d associations";
-$lang['%d album including'] = "%d catégorie dont";
-$lang['%d albums including'] = "%d catégories dont";
+$lang['%d album including'] = '%d album dont';
+$lang['%d albums including'] = '%d albums dont';
 $lang['%d physical'] = " %d physique";
 $lang['%d physicals'] = " %d physiques";
 $lang[' and %d virtual'] = " et %d virtuelle";
 $lang[' and %d virtuals'] = " et %d virtuelles";
-$lang['%d album moved'] = "%d catégorie déplacée";
-$lang['%d albums moved'] = "%d catégories déplacées";
+$lang['%d album moved'] = '%d album déplacée';
+$lang['%d albums moved'] = '%d albums déplacées';
 $lang['%d group'] = "%d groupe";
 $lang['%d groups'] = "%d groupes";
 $lang['%d member'] = "%d membre";
@@ -680,7 +665,7 @@ $lang['Missing a temporary folder'] = 'Impossible de trouver le répertoire temp
 $lang['No file was uploaded'] = 'Aucun fichier n\'a été transféré';
 $lang['No photo in the current set.'] = 'Aucune photo dans le lot.';
 $lang['No photo selected, %d photos in current set'] = 'Aucune photo sélectionnée parmi les %d photos du lot';
-$lang['No photo selected, no action possible.'] = 'Aucune photo sélectionnée, aucune action possible.';
+$lang['No photos selected, no actions possible.'] = 'Aucune photo sélectionnée, aucune action possible.';
 $lang['on the %d selected photos'] = 'sur les %d photos sélectionnées';
 $lang['Orphan tags deleted'] = 'Mots clés orphelins supprimés';
 $lang['Refresh photo set'] = 'Rafraîchir le lot de photos';
@@ -759,9 +744,6 @@ $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 
 $lang['Some themes and plugins may be not available yet.'] = 'Certains thèmes ou greffons ne sont peut-être pas encore disponibles.';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Vous pouvez mettre à jour vers Piwigo %s directement, sans passer par Piwigo %s (recommandé).';
 $lang['Save Template Directory'] = 'Sauvegarder le dossier template';
-$lang['Dump Database'] = 'Sauvegarder la base de données';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Inclure les données de l\'historique (Attention: risque de dépassement de la limite mémoire du serveur)';
-$lang['Unable to dump database.'] = 'Impossible de sauvegarder la base de données.';
 $lang['Some upgrades are available for extensions.'] = 'Des mises à jour sont disponibles pour les extensions.';
 $lang['Ignore All'] = 'Tout ignorer';
 $lang['Crop'] = 'Retailler';
@@ -841,6 +823,8 @@ $lang['Applications'] = 'Applications';
 $lang['Available on'] = 'Disponible sur';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo pour iOS (iPhone, iPad, iPod Touch)';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'L\'application <em>Piwigo pour iOS</em> vous permet de connecter votre iPhone, iPad ou iPod Touch à votre galerie Piwigo pour y créer des albums et envoyer plusieurs photos à la fois.';
+$lang['Piwigo for Android'] = 'Piwigo pour Android';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'L\'application <em>Piwigo pour Android</em> vous permet de connecter votre smartphone ou votre tablette Android à votre galerie Piwigo pour y créer des albums et envoyer plusieurs photos à la fois.';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Plugin de publication Piwigo pour Lightroom';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom est un logiciel de photographie conçu pour gérer d\'importantes collections de photos numériques et les post-traiter.';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Le plugin de publication Piwigo pour Lightroom vous permet d\'exporter et synchroniser vos photos de Lightroom vers votre galerie Piwigo.';
@@ -926,7 +910,7 @@ $lang['Source tag'] = 'Source du mot clé';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Le mot clé "%s" est désormais une copie de "%s"';
 $lang['Manage the members'] = 'Gérer les membres';
 $lang['Type here the name of the new group'] = 'Inscrivez ici le nom du nouveau groupe';
-$lang['No group selected, no action possible.'] = 'Pas de groupes sélectionnés, pas d\'actions possibles.';
+$lang['No groups selected, no actions possible.'] = 'Pas de groupes sélectionnés, pas d\'actions possibles.';
 $lang['Please select at least two groups'] = 'Merci de sélectionner au moins deux groupes';
 $lang['Duplicate'] = 'Dupliquer';
 $lang['Merge selected groups'] = 'Fusionner les groupes sélectionnés';
@@ -961,7 +945,7 @@ $lang['Last visit on %s, %s.'] = 'Dernière visite le %s, %s.';
 $lang['Loading...'] = 'Chargement...';
 $lang['No matching user found'] = 'Aucun utilisateur à afficher';
 $lang['No user selected of %d users'] = 'Aucun utilisateur sélectionné sur les %d';
-$lang['No user selected, no action possible.'] = 'Aucun utilisateur sélectionné, aucune action possible.';
+$lang['No users selected, no actions possible.'] = 'Aucun utilisateur sélectionné, aucune action possible.';
 $lang['Password updated'] = 'Mot de passe mis à jour';
 $lang['Registered on %s, %s.'] = 'Enregistré depuis le %s, %s.';
 $lang['Show %s users'] = 'Afficher %s utilisateurs';
@@ -987,3 +971,40 @@ $lang['between %s and %s MB'] = 'entre %s et %s Mo';
 $lang['date & time'] = 'date et heure';
 $lang['file name'] = 'nom de fichier';
 $lang['width & height'] = 'largeur et hauteur';
+$lang['Select tags'] = 'Sélectionner des mots clés';
+$lang['Each email sent will contain its own automatic authentication key on links, valid for %s.'] = 'Chaque courriel envoyé contiendra sa propre clef d\'identification automatique sur les liens, valide %s.';
+$lang['No tags selected, no actions possible.'] = 'Aucun mot clé sélectionné, aucune action possible.';
+$lang['checksums to add'] = 'Checksums à ajouter';
+$lang['With no checksum'] = 'Sans checksums';
+$lang['Some checksums are missing.'] = 'Des checksums sont manquants';
+$lang['Compute %d missing checksums'] = 'Calcule %d des checksums manquants';
+$lang['%d checksums were added'] = '%d des sommes de contrôle ont été ajoutées';
+$lang['The other tags will be removed'] = 'Les autres mots-clés seront supprimés';
+$lang['You have %d orphan tags %s'] = 'Vous avez %d mot-clé(s) orphelin(s) %s';
+$lang['Promote mobile app on mobile devices'] = 'Promouvoir l\'application mobile sur les cellulaires et tablettes';
+$lang['Select all %d tags'] = 'Sélectionner tout des %d mots-clés';
+$lang['Tag "%s" created'] = 'Le mot-clé \"%s\" a été créé';
+$lang['Tag "%s" succesfully deleted'] = 'Le mot-clé \"%s\" a été supprimé';
+$lang['Tag "%s1" renamed in "%s2"'] = 'Le mot-clé \"%s1\" a été renommé en \"%s2\"';
+$lang['Tag Manager'] = 'Gestionnaire de mots-clés';
+$lang['Tag(s) \{%s1\} succesfully merged into "%s2"'] = 'Les mots-clés \{%s1\} ont été fusionnés dans "%s2"';
+$lang['Tags \{%s\} succesfully deleted'] = 'Les mots-clés \{%s\} ont été supprimés';
+$lang['The %d tags on this page are selected'] = 'Les %d mots-clés sur cette page sont sélectionnés';
+$lang['At least 2 selected tags are needed to merge'] = 'Au moins 2 mots-clés doivent être sélectionnés pour fusionner';
+$lang['Choose which tag to merge these tags into'] = 'Choisissez dans quel mot-clé vont être fusionné les mots-clés';
+$lang['Delete orphan tags ?'] = 'Supprimer les mots-clés orphelins?';
+$lang['Delete tags \{%s\}?'] = 'Supprimer les mots-clés \{%s\}?';
+$lang['No tag found'] = 'Pas de mot-clé trouvé';
+$lang['%s other tags available..'] = '%s autres mots-clés disponibles.';
+$lang['<b>%d</b> tag found'] = '<b>%d</b> mot-clé trouvé';
+$lang['<b>%d</b> tag selected'] = '<b>%d</b> mot-clé sélectionné';
+$lang['<b>%d</b> tags found'] = '<b>%d</b> mots-clés trouvés';
+$lang['Aug'] = 'Aoû';
+$lang['Dec'] = 'Déc';
+$lang['Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'] = 'Les albums verrouillés sont désactivé pour maintenance. Seul les administrateurs peuvent les voir dans la galerie. Verrouiller cet album verrouillera aussi ses sous-albums';
+$lang['No picture found with the following name : %s.'] = 'Pas de photos trouvées pour le nom : %s.';
+$lang['Webmaster status required'] = 'Statut Webmestre nécessaire';
+$lang['Your selection'] = 'Votre sélection';
+$lang['login'] = 'connexion';
+$lang['Email'] = 'Courriel';
+$lang['Email Adress'] = 'Adresse courriel';

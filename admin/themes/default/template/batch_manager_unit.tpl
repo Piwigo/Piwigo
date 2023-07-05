@@ -35,20 +35,19 @@ jQuery("a.preview-box").colorbox( {
 }());
 {/footer_script}
 
-<h2>{'Batch Manager'|@translate}</h2>
-
 <form action="{$F_ACTION}" method="POST">
-<fieldset>
-  <legend>{'Display options'|@translate}</legend>
-  <p>{'photos per page'|@translate} :
+  <div style="margin: 30px 0; display: flex; justify-content: space-between;">
+    <div style="margin-left: 22px;">
+      {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+    </div>
+    <div style="margin-right: 21px;" class="pagination-per-page">
+      <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
       <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
-    | <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
-    | <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
-  </p>
-
-</fieldset>
-
-{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+      <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
+      <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
+    </div>
+  </div>
+  <div style="clear:both"></div>
 
 {if !empty($elements) }
 <div><input type="hidden" name="element_ids" value="{$ELEMENT_IDS}"></div>
@@ -57,7 +56,7 @@ jQuery("a.preview-box").colorbox( {
   <legend>{$element.LEGEND}</legend>
 
   <span class="thumb">
-    <a href="{$element.FILE_SRC}" class="preview-box icon-zoom-in" title="{$element.LEGEND|@htmlspecialchars}"><img src="{$element.TN_SRC}" alt=""></a>
+    <a href="{$element.FILE_SRC}" class="preview-box icon-zoom-in" title="{$element.LEGEND|@htmlspecialchars}"><img src="{$element.TN_SRC}" alt="" {if $element.is_svg}style="{if $current.width < 100}min-width: 100px;{/if}{if $current.height < 100} min-height: 100px; {/if}" {/if}></a>
     <a href="{$element.U_EDIT}" class="icon-pencil">{'Edit'|@translate}</a>
   </span>
 
@@ -121,3 +120,34 @@ jQuery("a.preview-box").colorbox( {
 {/if}
 
 </form>
+
+<style>
+.selectize-input  .item,
+.selectize-input .item.active {
+  background-image:none !important;
+  background-color: #ffa646 !important;
+  border-color: transparent !important;
+  color: black !important;
+
+  border-radius: 20px !important;
+}
+
+.selectize-input .item .remove,
+.selectize-input .item .remove {
+  background-color: transparent !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  color: black !important;
+  
+  border-left: 1px solid transparent !important;
+
+}
+.selectize-input .item .remove:hover,
+.selectize-input .item .remove:hover {
+  background-color: #ff7700 !important;
+}
+
+.thumb {
+  float: right;
+}
+</style>

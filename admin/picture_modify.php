@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if(!defined("PHPWG_ROOT_PATH"))
@@ -197,6 +182,10 @@ UPDATE '.CATEGORIES_TABLE.'
   $represented_albums = $_POST['represent'];
 
   $page['infos'][] = l10n('Photo informations updated');
+  pwg_activity('photo', $_GET['image_id'], 'edit');
+
+  // refresh page cache
+  $page['image'] = get_image_infos($_GET['image_id'], true);
 }
 
 // tags
@@ -240,16 +229,23 @@ $admin_url_start.= isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '';
 
 $src_image = new SrcImage($row);
 
+// in case the photo needs a rotation of 90 degrees (clockwise or counterclockwise), we switch width and height
+if (in_array($row['rotation'], array(1, 3)))
+{
+  list($row['width'], $row['height']) = array($row['height'], $row['width']);
+}
+
 $template->assign(
   array(
     'tag_selection' => $tag_selection,
     'U_DOWNLOAD' => 'action.php?id='.$_GET['image_id'].'&amp;part=e&amp;pwg_token='.get_pwg_token().'&amp;download',
     'U_SYNC' => $admin_url_start.'&amp;sync_metadata=1',
     'U_DELETE' => $admin_url_start.'&amp;delete=1&amp;pwg_token='.get_pwg_token(),
+    'U_HISTORY' => get_root_url().'admin.php?page=history&amp;filter_image_id='.$_GET['image_id'],
 
     'PATH'=>$row['path'],
 
-    'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
+    'TN_SRC' => DerivativeImage::url(IMG_MEDIUM, $src_image),
     'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
 
     'NAME' =>
@@ -260,6 +256,8 @@ $template->assign(
 
     'DIMENSIONS' => @$row['width'].' * '.@$row['height'],
 
+    'FORMAT' => ($row['width'] >= $row['height'])? 1:0,//0:horizontal, 1:vertical
+
     'FILESIZE' => @$row['filesize'].' KB',
 
     'REGISTRATION_DATE' => format_date($row['date_available']),
@@ -267,14 +265,14 @@ $template->assign(
     'AUTHOR' => htmlspecialchars(
       isset($_POST['author'])
         ? stripslashes($_POST['author'])
-        : @$row['author']
+        : (empty($row['author']) ? '' : $row['author'])
       ),
 
     'DATE_CREATION' => $row['date_creation'],
 
     'DESCRIPTION' =>
       htmlspecialchars( isset($_POST['description']) ?
-        stripslashes($_POST['description']) : @$row['comment'] ),
+        stripslashes($_POST['description']) : (empty($row['comment']) ? '' : $row['comment'])),
 
     'F_ACTION' =>
         get_root_url().'admin.php'
@@ -294,13 +292,18 @@ while ($user_row = pwg_db_fetch_assoc($result))
   $row['added_by'] = $user_row['username'];
 }
 
+$extTab = explode('.',$row['file']);
+
 $intro_vars = array(
-  'file' => l10n('Original file : %s', $row['file']),
-  'add_date' => l10n('Posted %s on %s', time_since($row['date_available'], 'year'), format_date($row['date_available'], array('day', 'month', 'year'))),
+  'file' => l10n('%s', $row['file']),
+  'date' => l10n('Posted the %s', format_date($row['date_available'], array('day', 'month', 'year'))),
+  'age' => l10n(ucfirst(time_since($row['date_available'], 'year'))),
   'added_by' => l10n('Added by %s', $row['added_by']),
-  'size' => $row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB',
+  'size' => l10n('%s pixels, %.2f MB', $row['width'].'&times;'.$row['height'], $row['filesize']/1024),
   'stats' => l10n('Visited %d times', $row['hit']),
-  'id' => l10n('Numeric identifier : %d', $row['id']),
+  'id' => l10n($row['id']),
+  'ext' => l10n('%s file type',strtoupper(end($extTab))),
+  'is_svg'=> (strtoupper(end($extTab)) == 'SVG'),
   );
 
 if ($conf['rate'] and !empty($row['rating_score']))
@@ -354,13 +357,16 @@ $template->assign(
 
 // categories
 $query = '
-SELECT category_id, uppercats
+SELECT category_id, uppercats, dir
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.CATEGORIES_TABLE.' AS c
       ON c.id = ic.category_id
   WHERE image_id = '.$_GET['image_id'].'
 ;';
 $result = pwg_query($query);
+
+$related_categories = array();
+$related_categories_ids = array();
 
 while ($row = pwg_db_fetch_assoc($result))
 {
@@ -374,11 +380,13 @@ while ($row = pwg_db_fetch_assoc($result))
   {
     $template->assign('STORAGE_CATEGORY', $name);
   }
-  else
-  {
-    $template->append('related_categories', $name);
-  }
+
+  $related_categories[$row['category_id']] = array('name' => $name, 'unlinkable' => $row['category_id'] != $storage_category_id);
+  $related_categories_ids[] = $row['category_id'];
 }
+
+$template->assign('related_categories', $related_categories);
+$template->assign('related_categories_ids', $related_categories_ids);
 
 // jump to link
 //
@@ -387,6 +395,7 @@ while ($row = pwg_db_fetch_assoc($result))
 // 3. if URL category not available or reachable, use the first reachable
 //    linked category
 // 4. if no category reachable, no jumpto link
+// 5. if level is too high for current user, no jumpto link
 
 $query = '
 SELECT category_id
@@ -428,9 +437,9 @@ else
   }
 }
 
-if (isset($url_img))
+if (isset($url_img) and $user['level'] >= $page['image']['level'])
 {
-  $template->assign( 'U_JUMPTO', $url_img );
+  $template->assign( 'U_JUMPTO', $url_img ); 
 }
 
 // associate to albums

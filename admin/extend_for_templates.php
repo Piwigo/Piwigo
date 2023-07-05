@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -105,7 +90,6 @@ $eligible_templates = array(
     'redirect.tpl'               => 'redirect',
     'register.tpl'               => 'register',
     'search.tpl'                 => 'search',
-    'search_rules.tpl'           => 'search_rules',
     'slideshow.tpl'              => 'slideshow',
     'tags.tpl'                   => 'tags',
     'thumbnails.tpl'             => 'index_thumbnails',
@@ -199,6 +183,7 @@ foreach ($tpl_extension as $file => $conditions)
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
+$template->assign('ADMIN_PAGE_TITLE', l10n('Extend for templates'));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'extend_for_templates');
 ?>

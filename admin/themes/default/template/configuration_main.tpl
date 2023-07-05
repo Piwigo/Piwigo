@@ -5,7 +5,8 @@
 (function(){
   var targets = {
     'input[name="rate"]' : '#rate_anonymous',
-    'input[name="allow_user_registration"]' : '#email_admin_on_new_user'
+    'input[name="allow_user_registration"]' : '#email_admin_on_new_user',
+    'input[name="email_admin_on_new_user"]' : '#email_admin_on_new_user_filter'
   };
 
   for (selector in targets) {
@@ -19,6 +20,13 @@
       });
     })(target);
   };
+
+  jQuery('.tiptip-with-img').tipTip({
+    maxWidth: "300px",
+    delay: 0,
+    fadeIn: 200,
+    fadeOut: 200
+  });
 }());
 
 {if !isset($ORDER_BY_IS_CUSTOM)}
@@ -57,19 +65,23 @@
 jQuery(".themeBoxes a").colorbox();
 
 jQuery("input[name='mail_theme']").change(function() {
-  jQuery("input[name='mail_theme']").parents(".themeBox").removeClass("themeDefault");
-  jQuery(this).parents(".themeBox").addClass("themeDefault");
+  jQuery("input[name='mail_theme']").parents(".themeSelect").removeClass("themeDefault");
+  jQuery(this).parents(".themeSelect").addClass("themeDefault");
+});
+
+jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
+  var val = jQuery("input[name='email_admin_on_new_user_filter']:checked").val();
+
+  jQuery('#email_admin_on_new_user_filter_group_options').toggle('group' == val);
 });
 {/footer_script}
-
-<h2>{'Piwigo configuration'|translate} {$TABSHEET_TITLE}</h2>
 
 <form method="post" action="{$F_ACTION}" class="properties">
 
 <div id="configContent">
 
   <fieldset class="mainConf">
-    <legend>{'Basic settings'|translate}</legend>
+    <legend><span class="icon-cog icon-purple"></span>{'Basic settings'|translate}</legend>
     <ul>
       <li>
         <label for="gallery_title">{'Gallery title'|translate}</label>
@@ -105,7 +117,7 @@ jQuery("input[name='mail_theme']").change(function() {
   </fieldset>
 
   <fieldset class="mainConf">
-    <legend>{'Permissions'|translate}</legend>
+    <legend><span class="icon-lock icon-yellow"></span>{'Permissions'|translate}</legend>
     <ul>
       <li>
         <label class="font-checkbox">
@@ -114,11 +126,13 @@ jQuery("input[name='mail_theme']").change(function() {
           {'Allow rating'|translate}
         </label>
 
-        <label id="rate_anonymous" class="font-checkbox no-bold">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="rate_anonymous" {if ($main.rate_anonymous)}checked="checked"{/if}>
-          {'Rating by guests'|translate}
-        </label>
+        <div id="rate_anonymous" class="sub-setting">
+          <label class="font-checkbox no-bold">
+            <span class="icon-check"></span>
+            <input type="checkbox" name="rate_anonymous" {if ($main.rate_anonymous)}checked="checked"{/if}>
+            {'Rating by guests'|translate}
+          </label>
+        </div>
       </li>
 
       <li>
@@ -128,11 +142,38 @@ jQuery("input[name='mail_theme']").change(function() {
           {'Allow user registration'|translate}
         </label>
 
-        <label id="email_admin_on_new_user" class="font-checkbox no-bold">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
-          {'Email admins when a new user registers'|translate}
-        </label>
+        <div id="email_admin_on_new_user" class="sub-setting">
+          <label class="font-checkbox no-bold">
+            <span class="icon-check"></span>
+            <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
+            {'Email admins when a new user registers'|translate}
+          </label>
+
+          <div id="email_admin_on_new_user_filter" class="sub-setting"{if (!$main.email_admin_on_new_user)} style="display:none"{/if}>
+            <label class="font-checkbox no-bold">
+              <span class="icon-dot-circled"></span>
+              <input type="radio" name="email_admin_on_new_user_filter" value="all" {if ($main.email_admin_on_new_user_filter eq 'all')}checked{/if}>
+              {'All admins'|translate}
+            </label>
+<br>
+            <label class="font-checkbox no-bold">
+              <span class="icon-dot-circled"></span>
+              <input type="radio" name="email_admin_on_new_user_filter" value="group" {if ($main.email_admin_on_new_user_filter eq 'group')}checked{/if}>
+              {'Only admins in a specific group'|translate}
+            </label>
+
+            <span id="email_admin_on_new_user_filter_group_options"{if ($main.email_admin_on_new_user_filter ne 'group')} style="display:none"{/if}>
+{if count($group_options) > 0}
+            <select name="email_admin_on_new_user_filter_group">
+              {html_options options=$group_options selected=$main.email_admin_on_new_user_filter_group}
+            </select>
+{else}
+    {'There is no group in this gallery.'|@translate} <a href="admin.php?page=group_list" class="externalLink">{'Group management'|@translate}</a>
+{/if}
+            </span>
+
+          </div>
+        </div>
       </li>
 
       <li>
@@ -154,7 +195,7 @@ jQuery("input[name='mail_theme']").change(function() {
   </fieldset>
 
   <fieldset class="mainConf">
-    <legend>{'Miscellaneous'|translate}</legend>
+    <legend><span class="icon-wrench icon-blue"></span>{'Miscellaneous'|translate}</legend>
     <ul>
       <li>
         <label>{'Week starts on'|translate}
@@ -184,11 +225,29 @@ jQuery("input[name='mail_theme']").change(function() {
       </li>
 
       <li>
+        <strong>{'Promote mobile app on mobile devices'|translate}</strong>
+
+        <label class="font-checkbox no-bold">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="show_mobile_app_banner_in_gallery" {if ($main.show_mobile_app_banner_in_gallery)}checked="checked"{/if}>
+          {'in gallery'|translate}
+        </label>
+
+        <label class="font-checkbox no-bold">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="show_mobile_app_banner_in_admin" {if ($main.show_mobile_app_banner_in_admin)}checked="checked"{/if}>
+          {'in administration'|translate}
+        </label>
+
+        <span class="icon-help-circled tiptip-with-img show-mobile-app-banner-tooltip" title="{'Displays a banner to install or open the official Piwigo app'|translate}<br><img src='admin/themes/default/images/piwigo_app_banner.jpg' style='width:100%;margin-top:5px;'>" style="cursor:help"></span>
+      </li>
+
+      <li>
         <label>{'Mail theme'|translate}</label>
 
         <div class="themeBoxes font-checkbox">
         {foreach from=$main.mail_theme_options item=name key=theme}
-          <div class="themeBox {if $main.mail_theme==$theme}themeDefault{/if}">
+          <div class="themeSelect {if $main.mail_theme==$theme}themeDefault{/if}">
             <label class="font-checkbox">
               <div class="themeName">
                 <span class="icon-dot-circled"></span>
@@ -204,13 +263,14 @@ jQuery("input[name='mail_theme']").change(function() {
         {/foreach}
         </div>
       </li>
+
     </ul>
   </fieldset>
 
 </div> <!-- configContent -->
 
 <p class="formButtons">
-  <button name="submit" type="submit" class="buttonLike">
+  <button name="submit" type="submit" class="buttonLike" {if $isWebmaster != 1}disabled{/if}>
     <i class="icon-floppy"></i> {'Save Settings'|@translate}
   </button>
 </p>

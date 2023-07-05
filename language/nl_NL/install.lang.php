@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['Installation'] = 'Installatie';
@@ -40,7 +25,7 @@ $lang['Database table prefix'] = 'Database-tabel voorvoegsel';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'Tabellen in de database worden voorzien van dit voorvoegsel (dit maakt een beter beheer van de database mogelijk) ook wel prefix genoemd';
 $lang['enter a login for webmaster'] = 'Geef de gebruikersnaam voor de beheerder';
 $lang['webmaster login can\'t contain characters \' or "'] = 'De gebruikersnaam mag geen \' of " bevatten';
-$lang['please enter your password again'] = 'Vul a.u.b. nog een keer je wachtwoord in';
+$lang['please enter your password again'] = 'Vul a.u.b. nog een keer jouw wachtwoord in';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Houd dit vertrouwelijk. Het geeft toegang tot de beheermodule';
 $lang['Password [confirm]'] = 'Bevestig wachtwoord';
 $lang['verification'] = 'controle';
@@ -62,6 +47,7 @@ $lang['Download the config file'] = 'Download het config-bestand';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Je kunt het config-bestand downloaden en het uploaden naar de local/config directory van jouw Piwigo-installatie.';
 $lang['Just another Piwigo gallery'] = 'Alweer een Piwigo galerie';
 $lang['Welcome to my photo gallery'] = 'Welkom bij mijn fotogalerie';
-$lang['Welcome to your new installation of Piwigo!'] = 'Welkom bij je nieuwe installatie van Piwigo!';
+$lang['Welcome to your new installation of Piwigo!'] = 'Welkom bij jouw nieuwe installatie van Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Aarzel niet om onze forums te raadplegen voor hulp: %s';
 $lang['localhost or other, supplied by your host provider'] = 'localhost of andere, geleverd door je provider';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP-versie %s vereist (je draait op PHP %s)';

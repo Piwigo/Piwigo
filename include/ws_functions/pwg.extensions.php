@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -67,11 +52,21 @@ function ws_plugins_getList($params, $service)
  */
 function ws_plugins_performAction($params, $service)
 {
-  global $template;
+  global $template, $conf;
 
   if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
+  }
+
+  if (!is_webmaster())
+  {
+    return new PwgError(403, l10n('Webmaster status is required.'));
+  }
+
+  if (!$conf['enable_extensions_install'] and 'delete' == $params['action'])
+  {
+    return new PwgError(401, 'Piwigo extensions install/update/delete system is disabled');
   }
 
   define('IN_ADMIN', true);
@@ -104,11 +99,16 @@ function ws_plugins_performAction($params, $service)
  */
 function ws_themes_performAction($params, $service)
 {
-  global $template;
+  global $template, $conf;
 
   if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
+  }
+
+  if (!$conf['enable_extensions_install'] and 'delete' == $params['action'])
+  {
+    return new PwgError(401, 'Piwigo extensions install/update/delete system is disabled');
   }
 
   define('IN_ADMIN', true);
@@ -143,6 +143,13 @@ function ws_themes_performAction($params, $service)
  */
 function ws_extensions_update($params, $service)
 {
+  global $conf;
+
+  if (!$conf['enable_extensions_install'])
+  {
+    return new PwgError(401, 'Piwigo extensions install/update system is disabled');
+  }
+
   if (!is_webmaster())
   {
     return new PwgError(401, l10n('Webmaster status is required.'));
@@ -200,6 +207,20 @@ function ws_extensions_update($params, $service)
   {
     $upgrade_status = $extension->extract_theme_files('upgrade', $revision, $extension_id);
     $extension_name = $extension->fs_themes[$extension_id]['name'];
+
+    $activity_details = array('theme_id'=>$extension_id, 'from_version'=>$extension->fs_themes[$extension_id]['version']);
+
+    if ('ok' == $upgrade_status)
+    {
+      $extension->get_fs_themes(); // refresh list
+      $activity_details['to_version'] = $extension->fs_themes[$extension_id]['version'];
+    }
+    else
+    {
+      $activity_details['result'] = 'error';
+    }
+
+    pwg_activity('system', ACTIVITY_SYSTEM_THEME, 'update', $activity_details);
   }
   else if ($type == 'languages')
   {

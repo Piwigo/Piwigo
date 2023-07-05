@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 $lang['%d associations'] = '
 ';
@@ -100,6 +85,7 @@ $lang['(this tag will be deleted)'] = '(இந்த குறி நீக்�
 $lang['+ Add an upload box'] = '+ ஒரு பதிவேற்ற பெட்டியை சேர்க்கவும்';
 $lang[', click on'] = 'சொடுக்கவும் மீது';
 $lang['... or '] = '... அல்லது';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em> Android க்கான Piwigo </ em>  பயன்பாட்டு உங்கள் Piwigo கேலரியில் உங்கள் Android தொலைபேசி அல்லது வரைபட்டிகை இணைக்க அனுமதிக்கும், சில ஆல்பங்களை உருவாக்க மற்றும் ஒரே நேரத்தில் பல புகைப்படங்களை பதிவேற்றலாம்.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em> Piwigo iOS க்கு </ em> பயன்பாட்டு சில ஆல்பங்களை உருவாக்கி ஒரே நேரத்தில் பல புகைப்படங்களை பதிவேற்ற, உங்கள் ஐபோன், ஐபாட் அல்லது ஐபாட் டச் உங்கள் Piwigo கேலரி இணைக்க நீங்கள் அதிகாரமளிக்கிகிறது.';
 $lang['ACCESS_3'] = 'நிர்வாகிகள் அணுகல்';
 $lang['ACCESS_4'] = 'வலை மேலாளர்கள் அணுகல்';

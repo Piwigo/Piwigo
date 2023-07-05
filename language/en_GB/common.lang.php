@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: English [GB]
@@ -68,3 +53,33 @@ $lang['Successfully registered, you will soon receive an email with your connect
 $lang['Please, enter a login'] = 'Please enter a login';
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo encountered an irrecoverable error';
 $lang['Forgot your password?'] = 'Forgotten your password?';
+$lang['small'] = 'S - small';
+$lang['square'] = 'Square';
+$lang['stop the slideshow'] = 'stop the slideshow';
+$lang['thumb'] = 'Thumbnail';
+$lang['today'] = 'today';
+$lang['useful when password forgotten'] = 'useful in case password is forgotten';
+$lang['wrong date'] = 'wrong date';
+$lang['xlarge'] = 'XL - extra large';
+$lang['medium'] = 'M - medium';
+$lang['month']['10'] = 'October';
+$lang['month']['11'] = 'November';
+$lang['month']['12'] = 'December';
+$lang['month']['1'] = 'January';
+$lang['month']['2'] = 'February';
+$lang['month']['3'] = 'March';
+$lang['month']['4'] = 'April';
+$lang['month']['5'] = 'May';
+$lang['month']['6'] = 'June';
+$lang['month']['7'] = 'July';
+$lang['month']['8'] = 'August';
+$lang['month']['9'] = 'September';
+$lang['obligatory'] = 'mandatory';
+$lang['password updated'] = 'password updated';
+$lang['photo'] = 'photo';
+$lang['photos posted during the last %d days'] = 'photos posted during the last %d days';
+$lang['posted after %s (%s)'] = 'posted after %s (%s)';
+$lang['posted before %s (%s)'] = 'posted before %s (%s)';
+$lang['posted between %s (%s) and %s (%s)'] = 'posted between %s (%s) and %s (%s)';
+$lang['xsmall'] = 'XS - extra small';
+$lang['xxlarge'] = 'XXL - huge';

@@ -1,7 +1,5 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 
-<h2>{'Piwigo configuration'|translate} {$TABSHEET_TITLE}</h2>
-
 <form method="post" name="profile" action="{$GUEST_F_ACTION}" id="profile" class="properties">
 
 <div id="configContent">
@@ -52,8 +50,8 @@
 
   <p class="bottomButtons">
     <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-    <input class="submit" type="submit" name="validate" value="{'Submit'|translate}">
-    <input class="submit" type="reset" name="reset" value="{'Reset'|translate}">
+    <input class="submit" type="submit" name="validate" value="{'Submit'|translate}" {if $isWebmaster != 1}disabled{/if}>
+    <input class="submit" type="reset" name="reset" value="{'Reset'|translate}" {if $isWebmaster != 1}disabled{/if}>
   </p>
 
 </div>

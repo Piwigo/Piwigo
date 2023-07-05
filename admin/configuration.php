@@ -1,29 +1,19 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if( !defined("PHPWG_ROOT_PATH") )
 {
   die ("Hacking attempt!");
+}
+
+if (!is_webmaster())
+{
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -53,11 +43,12 @@ $main_checkboxes = array(
     'obligatory_user_mail_address',
     'rate',
     'rate_anonymous',
-    'email_admin_on_new_user',
     'allow_user_customization',
     'log',
     'history_admin',
     'history_guest',
+    'show_mobile_app_banner_in_gallery',
+    'show_mobile_app_banner_in_admin',
    );
 
 $sizes_checkboxes = array(
@@ -90,6 +81,7 @@ $display_checkboxes = array(
     'index_new_icon',
     'index_edit_icon',
     'index_caddie_icon',
+    'display_fromto',
     'picture_metadata_icon',
     'picture_slideshow_icon',
     'picture_favorite_icon',
@@ -134,7 +126,7 @@ $sort_fields = array(
   'hit ASC'             => l10n('Visits, low &rarr; high'),
   'id ASC'              => l10n('Numeric identifier, 1 &rarr; 9'),
   'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
-  'rank ASC'            => l10n('Manual sort order'),
+  '`rank` ASC'          => l10n('Manual sort order'),
   );
 
 $comments_order = array(
@@ -185,7 +177,7 @@ if (isset($_POST['submit']))
             $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
 
             // there is no rank outside categories
-            if ( ($i = array_search('rank ASC', $order_by)) !== false)
+            if ( ($i = array_search('`rank` ASC', $order_by)) !== false)
             {
               unset($order_by[$i]);
             }
@@ -203,6 +195,26 @@ if (isset($_POST['submit']))
         else
         {
           $page['errors'][] = l10n('No order field selected');
+        }
+      }
+
+      if (empty($_POST['email_admin_on_new_user']))
+      {
+        $_POST['email_admin_on_new_user'] = 'none';
+      }
+      elseif ('all' == $_POST['email_admin_on_new_user_filter'])
+      {
+        $_POST['email_admin_on_new_user'] = 'all';
+      }
+      else
+      {
+        if (empty($_POST['email_admin_on_new_user_filter_group']))
+        {
+          $_POST['email_admin_on_new_user'] = 'all';
+        }
+        else
+        {
+          $_POST['email_admin_on_new_user'] = 'group:'.$_POST['email_admin_on_new_user_filter_group'];
         }
       }
 
@@ -265,7 +277,7 @@ if (isset($_POST['submit']))
   }
 
   // updating configuration if no error found
-  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0)
+  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0 and is_webmaster())
   {
     //echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT param FROM '.CONFIG_TABLE);
@@ -292,6 +304,7 @@ WHERE param = \''.$row['param'].'\'
       }
     }
     $page['infos'][] = l10n('Information data registered in database');
+    pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section']));
   }
 
   //------------------------------------------------------ $conf reinitialization
@@ -306,6 +319,7 @@ if ('sizes' == $page['section'] and isset($_GET['action']) and 'restore_settings
   clear_derivative_cache();
 
   $page['infos'][] = l10n('Your configuration settings are saved');
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section'],'config_action'=>$_GET['action']));
 }
 
 //----------------------------------------------------- template initialization
@@ -334,6 +348,8 @@ switch ($page['section'])
 
     function order_by_is_local()
     {
+      $conf = array();
+      include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
       @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
       if (isset($conf['local_dir_site']))
       {
@@ -357,7 +373,7 @@ switch ($page['section'])
     {
       $out = array();
       $order_by = trim($conf['order_by_inside_category']);
-      $order_by = str_replace('ORDER BY ', null, $order_by);
+      $order_by = str_replace('ORDER BY ', false, $order_by);
       $order_by = explode(', ', $order_by);
     }
 
@@ -375,6 +391,25 @@ switch ($page['section'])
         'mail_theme_options' => $mail_themes,
         'order_by' => $order_by,
         'order_by_options' => $sort_fields,
+        'email_admin_on_new_user' => 'none' != $conf['email_admin_on_new_user'],
+        'email_admin_on_new_user_filter' => in_array($conf['email_admin_on_new_user'], array('none', 'all')) ? 'all' : 'group',
+        'email_admin_on_new_user_filter_group' => preg_match('/^group:(\d+)$/', $conf['email_admin_on_new_user'], $matches) ? $matches[1] : -1,
+        )
+      );
+
+    // list of groups
+    $query = '
+    SELECT
+        id,
+        name
+      FROM '.GROUPS_TABLE.'
+    ;';
+    $groups = query2array($query, 'id', 'name');
+    natcasesort($groups);
+
+    $template->assign(
+      array(
+        'group_options' => $groups,
         )
       );
 
@@ -613,6 +648,9 @@ switch ($page['section'])
     break;
   }
 }
+
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
+$template->assign('ADMIN_PAGE_TITLE', l10n('Configuration'));
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'config');

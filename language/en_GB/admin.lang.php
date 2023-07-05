@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -181,3 +166,70 @@ $lang['%d group'] = '%d group';
 $lang['%d groups'] = '%d groups';
 $lang['%d guest'] = '%d guest';
 $lang['%d guests'] = '%d guests';
+$lang['%d hour'] = '%d hour';
+$lang['%d hours'] = '%d hours';
+$lang['%d line filtered'] = '%d line filtered';
+$lang['%d lines filtered'] = '%d lines filtered';
+$lang['%d mail was not sent.'] = '%d mail has not been sent.';
+$lang['%d mail was sent.'] = '%d mail has been sent.';
+$lang['%d mails were not sent.'] = '%d mails have not been sent.';
+$lang['%d mails were sent.'] = '%d mails have been sent.';
+$lang['%d member'] = '%d member';
+$lang['%d members'] = '%d members';
+$lang['%d minute'] = '%d minute';
+$lang['%d minutes'] = '%d minutes';
+$lang['%d month'] = '%d month';
+$lang['%d months'] = '%d months';
+$lang['%d of %d photos selected'] = '%d of %d photos selected';
+$lang['%d of %d users selected'] = '%d of %d users selected';
+$lang['%d parameter was updated.'] = '%d parameter updated.';
+$lang['%d parameters were updated.'] = '%d parameters updated.';
+$lang['%d photo was deleted'] = '%d photo deleted';
+$lang['%d photos uploaded'] = '%d photos uploaded';
+$lang['Your configuration settings are saved'] = 'Your configuration settings are saved';
+$lang['Zoom'] = 'Zoom';
+$lang['[%s] Visit album %s'] = '[%s] Visit album %s';
+$lang['[NBM] Problems or questions'] = '[NBM] Problems or questions';
+$lang['add a new watermark'] = 'add a new watermark';
+$lang['added'] = 'added';
+$lang['administrators'] = 'administrators';
+$lang['albums deleted in the database'] = 'albums deleted in the database';
+$lang['all'] = 'all';
+$lang['an error happened'] = 'an error occurred';
+$lang['and'] = 'and';
+$lang['any visitor can see this album'] = 'any visitor can see this album';
+$lang['apply automatic sort order'] = 'apply automatic sort order';
+$lang['associate to group'] = 'associate to group';
+$lang['automatic order'] = 'automatic order';
+$lang['average time'] = 'average time';
+$lang['based on'] = 'based on';
+$lang['between'] = 'between';
+$lang['between %.2f and %.2f'] = 'between %.2f and %.2f';
+$lang['between %d and %d pixels'] = 'between %d and %d pixels';
+$lang['user_status_guest'] = 'Guest';
+$lang['user_status_normal'] = 'User';
+$lang['user_status_webmaster'] = 'Webmaster';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'visitors need to login and have the appropriate permissions to see this album';
+$lang['width & height'] = 'width & height';
+$lang['width must be a number superior to'] = 'width must be a number greater than';
+$lang['wrong filename'] = 'wrong filename';
+$lang['%d photos were deleted'] = '%d photos deleted';
+$lang['%d physical'] = ' %d physical';
+$lang['%d physicals'] = ' %d physical';
+$lang['%d second'] = '%d second';
+$lang['%d seconds'] = '%d seconds';
+$lang['%d tag'] = '%d tag';
+$lang['%d tags'] = '%d tags';
+$lang['%d user'] = '%d user';
+$lang['%d user comment rejected'] = '%d user comment rejected';
+$lang['%d user comment validated'] = '%d user comment validated';
+$lang['%d user comments rejected'] = '%d user comments rejected';
+$lang['%d user comments validated'] = '%d user comments validated';
+$lang['%d user deleted'] = '%d user deleted';
+$lang['%d user was not updated.'] = '%d user not updated.';
+$lang['%d user was updated.'] = '%d user updated.';
+$lang['%d users'] = '%d users';
+$lang['%d users deleted'] = '%d users deleted';
+$lang['%d users were not updated.'] = '%d users not updated.';
+$lang['%d users were updated.'] = '%d users updated.';
+$lang['%d waiting for validation'] = '%d waiting for validation';

@@ -1,37 +1,26 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '2.9.0');
+define('PHPWG_VERSION', '14.0.0beta1');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
-define('PHPWG_DEFAULT_TEMPLATE', 'elegant');
+
+// this constant is only used in the upgrade process, the true default theme
+// is the theme of user "guest", which is initialized with column user_infos.theme
+// default value (see file install/piwigo_structure-mysql.sql)
+define('PHPWG_DEFAULT_TEMPLATE', 'modus');
 
 define('PHPWG_THEMES_PATH', $conf['themes_dir'].'/');
 defined('PWG_COMBINED_DIR') or define('PWG_COMBINED_DIR', $conf['data_location'].'combined/');
 defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_location'].'i/');
 
 // Required versions
-define('REQUIRED_PHP_VERSION', '5.3.0');
+define('REQUIRED_PHP_VERSION', '7.0.0');
 
 // Access codes
 define('ACCESS_FREE', 0);
@@ -41,8 +30,14 @@ define('ACCESS_ADMINISTRATOR', 3);
 define('ACCESS_WEBMASTER', 4);
 define('ACCESS_CLOSED', 5);
 
+// System activities
+define('ACTIVITY_SYSTEM_CORE', 1);
+define('ACTIVITY_SYSTEM_PLUGIN', 2);
+define('ACTIVITY_SYSTEM_THEME', 3);
+
 // Sanity checks
 define('PATTERN_ID', '/^\d+$/');
+define('PATTERN_ORDER', '/^(rand(om)?|[a-z_]+(\s+(asc|desc))?)(\s*,\s*(rand(om)?|[a-z_]+(\s+(asc|desc))?))*$/i');
 
 // Table names
 if (!defined('CATEGORIES_TABLE'))
@@ -109,5 +104,9 @@ if (!defined('LANGUAGES_TABLE'))
   define('LANGUAGES_TABLE', $prefixeTable.'languages');
 if (!defined('IMAGE_FORMAT_TABLE'))
   define('IMAGE_FORMAT_TABLE', $prefixeTable.'image_format');
+if (!defined('ACTIVITY_TABLE'))
+  define('ACTIVITY_TABLE', $prefixeTable.'activity');
+if (!defined('LOUNGE_TABLE'))
+  define('LOUNGE_TABLE', $prefixeTable.'lounge');
 
 ?>

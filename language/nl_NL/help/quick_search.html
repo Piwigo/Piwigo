@@ -1,0 +1,141 @@
+<h2>Zoeken</h2>
+
+<p>Alle zoektermen moeten gevonden worden. Zoekacties zijn niet hoofdlettergevoelig.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>tekst met aanhalingstekens<br>
+<q>"zoeken"</q>
+</td>
+<td>Gebruik aanhalingsteken om te zoeken naar het opgegeven woord of de uitdrukking.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>&eacute;&eacute;n van beide woorden<br>
+<q>OR zoeken</q><br>
+</td>
+<td>Zet OR tussen de woorden.<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>uitsluiten<br>
+<q>NOT zoeken</q><br>
+<q>-zoeken</q>
+</td>
+<td>Zet een minteken (-) of NOT voor een woord om het uit te sluiten van het zoeken. Let op: NOT is een filter operatie zodat je niet alleen NOT operaties kunt gebruiken. Ook kan het niet gecombineerd worden met OR (<q>john OR NOT bill</q> is niet mogelijk).<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>grouperen<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(moeder OR vader) AND (dochter OR zoon)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>tag:</q><br>
+<q>tags:</q>
+</td>
+<td>Zoekt alleen in tag names zonder te zoeken in foto titels of omschrijvingen.<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>foto:</q><br>
+<q>photos:</q>
+</td>
+<td>Zoekt alleen naar foto's met de opgegeven woorden in de titel of omschrijving.<br>
+<q>photo:John</q></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Zoekt naar een bestand met de opgegeven naam.<br>
+<q>file:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>author:</q>
+</td>
+<td>Zoekt naar de auteur.<br>
+<q>author:John</q></td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+<q>shot:</q>
+</td>
+<td>Zoekt foto's die op een bepaalde datum gemaakt zijn.<br>
+<q>taken:2003</q> foto's gemaakt in 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> foto's vanaf mei 2003<br>
+<q>taken:2003..2008</q> foto's tussen 2003 en 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> foto's na 1 janurari 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td>Zoek foto's die een bepaalde datum geplaatst zijn.</td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td>Zoekt foto's met de opgegeven width or height.</td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td>Zoekt foto's die de opgegeven pixel grootte hebben.<br>
+<q>size:5m</q> zoekt foto's van 5 megapixels<br>
+<q>size:>12m</q> zoekt foto's van 12 megapixels of meer<br></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td>Zoekt foto's op basis van breedte/hoogte ratio.<br>
+<q>ratio:3/4 OR ratio:4/3</q> zoekt foto's van compact cameras in portret of landschap formaat
+<q>ratio:>16/9</q> zoekt panoramas
+</td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q><br>
+<q>rating:</q>
+</td>
+<td>Hint: <q>score:*</q> geeft alle foto's met minstens 1 stem. <q>score:</q> geeft de foto's zonder stem.</td>
+</tr>
+<tr>
+<td><q>filesize:</q>
+</td>
+<td>Zoekt foto's op basis van bestandsgrootte.<br>
+<q>filesize:1m..10m</q> geeft foto's met grootte tussen 1MB en 10MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Zoekt foto's op basis van de numerieke identifier in Piwigo.<br>
+<q>id:123..126</q> geeft foto's 123 tot 126 (er worden 0 tot 4 foto's gevonden omdat er foto's verwijderd kunnen zijn).</td>
+</tr>
+
+</table>

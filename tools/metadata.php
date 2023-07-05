@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $filename = 'sample.jpg';
@@ -90,8 +75,44 @@ else
 
 echo '<br><br><br>';
 echo 'EXIF Fields in '.$filename.'<br>';
-$exif = read_exif_data($filename);
+$exif = exif_read_data($filename);
 echo '<pre>';
 print_r($exif);
 echo '</pre>';
+
+#
+#        Display XMP metadata using ImageMagick PHP extension
+#
+
+print "<h3>XMP data in '{$filename}'</h3><br />" ;
+print ' (Requires Imagemagick PHP extension)<br />' ;
+print '<pre>' ;
+
+if( extension_loaded('imagick') && class_exists("Imagick") ){ //Check ImageMagick is installed
+
+  //  create new Imagick object from image
+  $sampleIM = new imagick($filename) ;
+
+  //  get the XMP data
+  $sampleXMP = $sampleIM -> getImageProperties("xmp:*") ;
+
+  //  If there's data, then loop through the XMP array
+  if ( count($sampleXMP) ) {
+    foreach ($sampleXMP as $XMPname => $XMPproperty) {
+      print "{$XMPname} => {$XMPproperty} <br />\n" ; 
+    }
+  }else{
+    print 'No data <br /> ';
+  }
+  print '[end of XMP]' ;
+
+}else{
+
+  print 'ImageMagick not detected or disabled' ;
+  
+}
+
+print '</pre>' ;
+
+
 ?>

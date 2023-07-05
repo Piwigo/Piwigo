@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 if( !defined("PHPWG_ROOT_PATH") )
@@ -68,6 +53,12 @@ $tabsheet->set_id('photo');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
+$template->assign(
+  array(
+    'ADMIN_PAGE_TITLE' => l10n('Edit photo').' <span class="image-id">#'.$_GET['image_id'].'</span>',
+    )
+  );
+
 // +-----------------------------------------------------------------------+
 // | Load the tab                                                          |
 // +-----------------------------------------------------------------------+
@@ -79,6 +70,10 @@ if ('properties' == $page['tab'])
 elseif ('coi' == $page['tab'])
 {
   include(PHPWG_ROOT_PATH.'admin/picture_coi.php');
+}
+elseif ('formats' == $page['tab'] && $conf['enable_formats'])
+{
+  include(PHPWG_ROOT_PATH.'admin/picture_formats.php');
 }
 else
 {

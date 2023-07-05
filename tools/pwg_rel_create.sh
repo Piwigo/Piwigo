@@ -33,7 +33,7 @@ fi
 mkdir $version
 cd $version
 
-git clone https://github.com/Piwigo/Piwigo.git piwigo
+git clone git@github.com:Piwigo/Piwigo.git piwigo
 cd piwigo
 
 if [ $# -eq 2 ]
@@ -61,7 +61,7 @@ do
   fi
 
   # clone repo
-  git clone https://github.com/Piwigo/${plugin}.git $plugin_dir
+  git clone git@github.com:Piwigo/${plugin}.git $plugin_dir
   cd /tmp/$version/piwigo/plugins/$plugin_dir
 
   # change version
@@ -79,11 +79,27 @@ done
 # | themes                                                                   |
 # +--------------------------------------------------------------------------+
 
-cd /tmp/$version/piwigo/themes
-for themefile in $(ls */themeconf.inc.php)
+for theme in modus elegant smartpocket
 do
+  cd /tmp/$version/piwigo/themes
+
+  git_url=git@github.com:Piwigo/piwigo-${theme}.git
+
+  # clone repo
+  git clone $git_url $theme
+
+  # enter theme directory for next actions
+  cd $theme
+
   # change version
-  perl $scriptdir/replace_version.pl --file=$themefile --version=$version
+  perl $scriptdir/replace_version.pl --file=themeconf.inc.php --version=$version
+
+  # register metadata in dedicated file
+  echo $git_url > pem_metadata.txt
+  git log -n 1 --pretty=format:"%H %ad" --date=iso8601 >> pem_metadata.txt
+
+  # remove Git metadata
+  rm -rf .git
 done
 
 # +--------------------------------------------------------------------------+

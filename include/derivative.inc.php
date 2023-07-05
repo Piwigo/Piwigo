@@ -1,22 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 /**
@@ -55,6 +42,8 @@ final class SrcImage
 
     $this->id = $infos['id'];
     $ext = strtolower(get_extension($infos['path']));
+    $infos['file_ext'] = @strtolower(get_extension($infos['file']));
+    $infos['path_ext'] = $ext;
     if (in_array($ext, $conf['picture_ext']))
     {
       $this->rel_path = $infos['path'];
@@ -70,10 +59,17 @@ final class SrcImage
       $this->flags |= self::IS_MIMETYPE;
       if ( ($size=@getimagesize(PHPWG_ROOT_PATH.$this->rel_path)) === false)
       {
-        $this->rel_path = 'themes/default/icon/mimetypes/unknown.png';
+        if ('svg' == $ext) 
+        {
+          $this->rel_path = $infos['path'];
+        }
+        else 
+        {
+          $this->rel_path = 'themes/default/icon/mimetypes/unknown.png';
+        }
         $size = getimagesize(PHPWG_ROOT_PATH.$this->rel_path);
       }
-      $this->size = array($size[0],$size[1]);
+      $this->size = @array($size[0],$size[1]);
     }
 
     if (!$this->size)

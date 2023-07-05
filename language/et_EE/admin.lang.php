@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 
@@ -121,6 +106,7 @@ $lang['%s must be to set to false in your local/config/config.inc.php file'] = '
 $lang['%s value is not correct file because exif are not supported'] = '%s väärtus on vale, kuna Exif metaandmeid ei toetata';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u kasutajatel on automaatselt luba, kuna nad kuuluvad loaga gruppi.';
 $lang['(this tag will be deleted)'] = '(see märksõna kustutakse)';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo for Android</em> on programm mis võimaldab sul ühenduda Android telefoni või tahvelarvutiga su Piwigo galleriisse, toimetada albumeid ja laadida üles fotosid.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em> on programm mis võimaldab sul ühenduda iPhone, iPad või iPod Touch-iga su Piwigo galleriisse, toimetada albumeid ja laadida üles fotosid.';
 $lang['A locked gallery is only visible to administrators'] = 'Lukustatud galleriid on ainult nähtavad administraatoritele';
 $lang['A new version of Piwigo is available.'] = 'Piwigo uus versioon on saadaval.';
@@ -279,7 +265,6 @@ $lang['Download,'] = 'Laadi alla,';
 $lang['Downloads'] = 'Allalaadimised';
 $lang['Drag to re-order'] = 'Klõpsa ja lohista ümberjärjestamiseks';
 $lang['Drop into album'] = 'Vali album';
-$lang['Dump Database'] = 'Viska andmebaas minema';
 $lang['Duplicate selected tags'] = 'Dubleeri valitud märksõnad';
 $lang['Duplicates'] = 'Duplikaadid';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'VIGA: PLUGIN PUUDUB ENT ON INSTALLITUD! KÕRVALDA SEE KOHE!';
@@ -375,7 +360,6 @@ $lang['Inactive Languages'] = 'Deaktiveeritud keeled';
 $lang['Inactive Plugins'] = 'Deaktiveeritud pluginad';
 $lang['Inactive Themes'] = 'Deaktiveeritud teemad';
 $lang['Include display of recent photos grouped by dates'] = 'Kuva hiljutisi fotosid kuupäevade kaupa';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Kuva ajalugu (hoiatus: serveri mälulimiit võib ületuda)';
 $lang['Information data registered in database'] = 'Informatsiooniandmed registreeriti andmebaasis';
 $lang['Informations'] = 'Informatsioon';
 $lang['Install on your computer,'] = 'Paigalda su arvutisse,';
@@ -461,7 +445,7 @@ $lang['No photo can be deleted'] = 'Ühtki fotot ei saa kustutada';
 $lang['No photo in the current set.'] = 'Fotod puuduvad valitud kogumikus.';
 $lang['No photo in this album'] = 'Selles albumis pole ühtki fotot';
 $lang['No photo selected, %d photos in current set'] = 'Ühtki fotot pole valitud, selles kogumikus on %d fotot.';
-$lang['No photo selected, no action possible.'] = 'Ühtki fotot pole valitud, ükski tegevus pole võimalik';
+$lang['No photos selected, no actions possible.'] = 'Ühtki fotot pole valitud, ükski tegevus pole võimalik';
 $lang['No results'] = 'Ei leidnud vasteid';
 $lang['No user to send notifications by mail.'] = 'Ühtki kasutajat pole, keda teavitada epostiga.';
 $lang['None'] = 'Mitte ükski';
@@ -524,6 +508,7 @@ $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo ei suutnud sa
 $lang['Piwigo configuration'] = 'Piwigo seadistused';
 $lang['Piwigo export plugin for Aperture'] = 'Piwigo eksportimisplugin Aperturele';
 $lang['Piwigo export plugin for iPhoto'] = 'Piwigo eksportimisplugin iPhotole';
+$lang['Piwigo for Android'] = 'Piwigo Androidile';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo iOS-ile (iPhone, iPad, iPod Touch)';
 $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo avaldamisplugin rakendusele Shotwell';
 $lang['Piwigo publish plugin for digiKam'] = 'Piwigo avaldamisplugin rakendusele digiKam';
@@ -712,7 +697,6 @@ $lang['Type here the author name'] = 'Autori nimi';
 $lang['Type here the title'] = 'Pealkiri';
 $lang['Type in a search term'] = 'Otsisõna';
 $lang['Unable to check for upgrade.'] = 'Uuenduste otsimine nurjus.';
-$lang['Unable to dump database.'] = 'Andmebaasi väljaviskamine nurjus.';
 $lang['Uncheck all'] = 'Tühista valik';
 $lang['Uninstalled Plugins'] = 'Kustutatud pluginad';
 $lang['Uninstall'] = 'Kustuta';
@@ -892,7 +876,7 @@ $lang['the wiki'] = 'viki';
 $lang['top left corner'] = 'ülemine vasakpoolne nurk';
 $lang['top right corner'] = 'ülemine parempoolne nurk';
 $lang['total time'] = 'aeg kokku';
-$lang['unit mode'] = 'ühe-režiim';
+$lang['unit mode'] = 'üksik-režiim';
 $lang['unknown'] = 'tundmatu';
 $lang['unset'] = 'tühista';
 $lang['update the database from files'] = 'uuenda andmebaas failidega';
@@ -930,7 +914,7 @@ $lang['between %d and %d pixels'] = '%d ja %d pikslite vahel';
 $lang['This group will be unset to default'] = 'Seda rühma ei kasutata edaspidi vaikerühmana';
 $lang['Type here the name of the new group'] = 'Nimeta uus rühm';
 $lang['Merge selected groups'] = 'Liida valitud rühmad';
-$lang['No group selected, no action possible.'] = 'Ühtegi rühma pole valitud, seega ei saa midagi teha.';
+$lang['No groups selected, no actions possible.'] = 'Ühtegi rühma pole valitud, seega ei saa midagi teha.';
 $lang['No members to manage'] = 'Puudub liikmeid keda hallata';
 $lang['Please select at least two groups'] = 'Vali vähemalt kaks rühma';
 $lang['Rename'] = 'Nimeta ümber';
@@ -959,7 +943,7 @@ $lang['Last visit on %s, %s.'] = 'Viimane külastus %s, %s.';
 $lang['Loading...'] = 'Laadimine...';
 $lang['No matching user found'] = 'Vastet ei leitud';
 $lang['No user selected of %d users'] = 'Kasutajat ei valitud etteantud %d kasutajatest';
-$lang['No user selected, no action possible.'] = 'Kasutajaid pole valitud, ei saa midagi teha';
+$lang['No users selected, no actions possible.'] = 'Kasutajaid pole valitud, ei saa midagi teha';
 $lang['Password updated'] = 'Parool uuendatud';
 $lang['Registered on %s, %s.'] = 'Registreeritud %s, %s.';
 $lang['Show %s users'] = 'Näita %s kasutajaid';
@@ -1004,3 +988,86 @@ $lang['Orphans'] = 'Orvuks jäänud fotod';
 $lang['Piwigo %s is available, please update'] = 'Piwigo %s on saadaval, palun uuenda';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync saab üles laadida kogu kausta hierarhia. Kui käivitad selle uuesti, siis laetakse ainult uued fotod';
 $lang['Recipients'] = 'Saajad';
+$lang['Running on an up-to-date Piwigo is important for security.'] = 'Värske Piwigo versiooni kasutamine on turvalisuse huvides oluline';
+$lang['No tags selected, no actions possible.'] = 'Silti ei ole valitud, toiming ei ole võimalik';
+$lang['Select tags'] = 'Vali sildid';
+$lang['For security reason, authentication keys do not work for administrators.'] = 'Turvalisuse huvides autenteerimise võti administraatorite puhul ei toimi.';
+$lang['(determined from photos)'] = '(määratud fotode järgi)';
+$lang['or'] = 'või';
+$lang['Welcome!'] = 'Tere tulemast!';
+$lang['Synchronization in progress'] = 'Toimub sünkroniseerimine';
+$lang['Piwigo requires an album to add photos.'] = 'Fotode lisamiseks on vaja luua album';
+$lang['Display category date'] = 'Näita kategooria kuupäeva';
+$lang['Deletion in progress'] = 'Toimub kustutamine';
+$lang['Create a first album'] = 'Loo esimene album';
+$lang['... or hide this link'] = '... või peida see link';
+$lang['Name is already taken'] = 'Nimi on juba kasutuses';
+$lang['No albums found'] = 'Albumeid ei leidnud';
+$lang['No, I have changed my mind'] = 'Ei, muutsin meelt';
+$lang['Open in gallery'] = 'Ava galerii';
+$lang['Other'] = 'Muu';
+$lang['Please upgrade your PHP version before any update.'] = 'Palun uuenda oma PHP versioon enne muid uuendusi';
+$lang['Portraits'] = 'Portreed';
+$lang['Search albums'] = 'Otsi albumites';
+$lang['in gallery'] = 'galeriis';
+$lang['Yes, delete'] = 'Jah, kustuta';
+$lang['Yes, I am sure'] = 'Jah, olen kindel';
+$lang['You don\'t have access to this photo'] = 'Sul puudub fotole juurdepääs';
+$lang['Are you sure you want to delete the language "%s"?'] = 'Kas oled kindel, et soovid kustutada "%s" keele?';
+$lang['Are you sure you want to delete this?'] = 'Kas oled kindel, et soovid seda kustutada? ';
+$lang['Are you sure you want to delete the theme "%s"?'] = 'Kas oled kindel, et soovid kustutada teema "%s"?';
+$lang['Are you sure you want to delete this theme?'] = 'Kas oled kindel, et soovid kustutada selle teema?';
+$lang['Are you sure you want to delete the user "%s"?'] = 'Kas oled kindel, et soovid kustutada kasutaja "%s"?';
+$lang['Select'] = 'Vali';
+$lang['No plugins found'] = 'Ei leitud ühtegi pluginat';
+$lang['You have %s inactive plugins'] = 'Sul on %s aktiveerimata pluginat';
+$lang['Show inactive plugins'] = 'Näita aktiveerimata pluginaid';
+$lang['Are you sure you want to delete group "%s"?'] = 'Oled sa kindel, et soovid kustutada grupi "%s"?';
+$lang['Are you sure you want to delete all sizes?'] = 'Oled sa kindel, et soovid kustutada kõik suurused?';
+$lang['<b>%d</b> tags found'] = 'Leitud <b>%d</b> märksõna';
+$lang['<b>%d</b> tag selected'] = 'Valitud <b>%d</b> märksõna';
+$lang['<b>%d</b> tag found'] = 'Leitud <b>%d</b> märksõna';
+$lang['<b>%d</b> albums found'] = 'Leiti <b>%d</b> albumit';
+$lang['<b>1</b> album found'] = 'Leiti <b>1</b> album';
+$lang['%s file type'] = '%s faili tüüp';
+$lang['Album search tool'] = 'Albumi otsimise tööriist';
+$lang['Add Album'] = 'Lisa album';
+$lang['%d sub-albums'] = '%d alam-albumit';
+$lang['%s GB used'] = '%s GB kasutatud';
+$lang['%s MB used'] = '%s MB kasutatud';
+$lang['%d checksums were added'] = 'lisati %d kontrollsummat';
+$lang['%d photos'] = '%d fotot';
+$lang[' (copy %s)'] = '(koopia %s)';
+$lang[' (copy)'] = '(koopia)';
+$lang['You have %d orphan tags %s'] = 'Sul on %d kasutamata jäänud märksõna: %s';
+$lang['Delete orphan tags ?'] = 'Kustuta orvuks jäänud märksõnad?';
+$lang['Delete album'] = 'Kustuta album';
+$lang['Average last 12 months'] = 'Viimase 12 kuu keskmine';
+$lang['Choose which tag to merge these tags into'] = 'Vali millisesse märksõnasse need märksõnad mestitakse';
+$lang['The %d tags on this page are selected'] = 'Sellel lehel on valitud märksõnad %d';
+$lang['Tags \{%s\} succesfully deleted'] = 'Märksõnad \{%s\} edukalt kustutatud';
+$lang['Tag "%s1" renamed in "%s2"'] = 'Märksõna \"%s1\" ümbernimetatud \"%s2\"';
+$lang['Tag(s) \{%s1\} succesfully merged into "%s2"'] = 'Märksõna(d) \{%s1\} edukalt mestitud "%s2"\'sse';
+$lang['Tag Manager'] = 'Märksõnade haldur';
+$lang['Tag "%s" created'] = 'Märksõna "%s" loodud';
+$lang['Tag "%s" succesfully deleted'] = 'Märksõna \"%s\" kustutatud';
+$lang['Selection mode'] = 'Valiku režiim';
+$lang['Compare mode'] = 'Võrdlus režiim';
+$lang['Compact View'] = 'Kompaktvaade';
+$lang['Storage'] = 'Salvestusmaht';
+$lang['Compute %d missing checksums'] = 'Arvuta %d puuduvat kontrollsummat';
+$lang['checksums to add'] = 'kontrollsummat lisada';
+$lang['With no checksum'] = 'Ilma kontrollsummata';
+$lang['Some checksums are missing.'] = 'Mõned kontrollsummad on puudu.';
+$lang['Are you sure you want to update all extensions?'] = 'Oled sa kindel, et soovid uuendada kõik laiendused?';
+$lang['Clear Selection'] = 'Tühjenda valik';
+$lang['Cache'] = 'Vahemälu';
+$lang['Are you sure you want to delete this site?'] = 'Oled sa kindel, et soovid kustutada selle terve saidi?';
+$lang['Are you sure you want to delete the ratings of the user "%s"?'] = 'Oled sa kindel, et soovid kustutada kasutaja "%s" pandud hinded?';
+$lang['Are you sure you want to install the plugin "%s"?'] = 'Oled sa kindel, et soovid paigaldada plugina "%s"?';
+$lang['Are you sure you want to lock the gallery?'] = 'Oled sa kindel, et soovid galerii lukustada?';
+$lang['This is already the default theme'] = 'See juba on vaike teema.';
+$lang['in administration'] = 'administreerimisel';
+$lang['Close'] = 'Sulge';
+$lang['Email Adress'] = 'E-posti aadress';
+$lang['Email'] = 'E-post';

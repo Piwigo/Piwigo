@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 /*
 Language Name: English [UK]
@@ -80,9 +65,7 @@ $lang['Anti-flood system : please wait for a moment before trying to post anothe
 $lang['Any tag'] = "Any tag";
 $lang['Are you sure?'] = "Are you sure?";
 $lang['ascending'] = "ascending";
-$lang['At least one listed rule must be satisfied.'] = "At least one listed criterion must be satisfied.";
 $lang['Author'] = "Author";
-$lang['author(s) : %s'] = 'author(s): %s';
 $lang['Author: %s'] = "Author: %s";
 $lang['Auto login'] = "Auto login";
 $lang['available for administrators only'] = "available for administrators only";
@@ -159,7 +142,6 @@ $lang['display your favorites photos'] = "display your favorites photos";
 $lang['Display'] = "Display";
 $lang['Download this file'] = "Download this file";
 $lang['Download'] = "download";
-$lang['Each listed rule must be satisfied.'] = 'Each of the listed criteria must be satisfied.';
 $lang['Edit a comment'] = "Edit a comment";
 $lang['edit'] = "edit"; //TO remove
 $lang['Edit'] = 'Edit';
@@ -267,6 +249,7 @@ $lang['Password Reset'] = 'Password Reset';
 $lang['password updated'] = "password updated";
 $lang['Password'] = "Password";
 $lang['Password: %s'] = 'Password: %s';
+$lang['Password: ********** (no copy by email)'] = 'Password: ********** (no copy by email)';
 $lang['Pause of slideshow'] = "Pause slideshow";
 $lang['Permalink for album not found'] = 'Permalink for album not found';
 $lang['Photo sizes'] = 'Photo sizes';
@@ -330,11 +313,9 @@ $lang['Search for words'] = "Search for words";
 $lang['Search in albums'] = "Search in albums";
 $lang['Search in sub-albums'] = "Search in sub-albums";
 $lang['Search results'] = "Search results";
-$lang['Search rules'] = "Search criteria";
 $lang['Search tags'] = "Search tags";
 $lang['Search'] = "Search";
 $lang['search'] = "search";
-$lang['searched words : %s'] = 'searched words: %s';
 $lang['Send my connection settings by email'] = 'Send my connection settings by email';
 $lang['Sent by'] = "Sent by";
 $lang['set as album representative'] = "set as album thumbnail";
@@ -428,4 +409,18 @@ $lang['Link: %s'] = 'Link: %s';
 $lang['Your authentication key is no longer valid.'] = 'Your authentication key is no longer valid.';
 $lang['Invalid username or password!'] = 'Invalid username or password!';
 $lang['generate random password'] = 'generate random password';
+$lang['Related albums'] = 'Related albums';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Start date';
+$lang['Added by'] = 'Added by';
+$lang['Filters'] = 'Filters';
+$lang['Validate'] = 'Validate';
+$lang['Cancel'] = 'Cancel';
+$lang['Search in :'] = 'Search in :';
+$lang['Album title'] = 'Album title';
+$lang['File name'] = 'File name';
+$lang['Album description'] = 'Album description';
+$lang['No results are available.'] = 'No results are available.';
+$lang['You can try to edit your filters and perform a new search.'] = 'You can try to edit your filters and perform a new search.';
 ?>

@@ -5,9 +5,13 @@
 <!DOCTYPE html>
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
+{if $SHOW_MOBILE_APP_BANNER}
+<meta name="apple-itunes-app" content="app-id=472225196">
+{/if}
 <meta charset="{$CONTENT_ENCODING}">
 <title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
-<link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
+<link rel="icon" type="image/svg+xml" href="{$ROOT_URL}{$themeconf.icon_dir}/piwigo.org-icon 1.svg">
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/fonts/open-sans/open-sans.css">
 
 {strip}
 {combine_css path="admin/themes/default/fontello/css/fontello.css" order=-10}
@@ -17,6 +21,7 @@
 
   {if $theme.load_css}
   {combine_css path="admin/themes/`$theme.id`/theme.css" order=-10}
+  {combine_css path="admin/themes/`$theme.id`/css/components/general.css" order=-9} {* Temporary solution *}
   {/if}
   {if !empty($theme.local_head)}
   {include file=$theme.local_head load_css=$theme.load_css}
@@ -52,18 +57,14 @@
 {/if}
 
 <div id="pwgHead">
-{strip}
-  <h1>
-    <a href="{$U_RETURN}" title="{'Visit Gallery'|translate}" class="tiptip">
-      <span class="icon-home"></span>
-      {$GALLERY_TITLE}
-    </a>
-  </h1>
-{/strip}
+  <a href="{$U_RETURN}" class="visit-gallery tiptip" title="{'Visit Gallery'|translate}"><i class="icon-left-open"></i>{'Visit'|translate}</a>
+  <div class="pwgHead-gallery-title">{$GALLERY_TITLE}</div>
 
   <div id="headActions">
-    <i class="icon-user"></i>{$USERNAME}
+    <span class="admin-head-username"><i class="icon-user"></i>{$USERNAME}</span>
+{*
     <a href="{$U_RETURN}" title="{'Visit Gallery'|translate}"><i class="icon-eye"></i><span>{'Visit Gallery'|translate}</span></a>
+*}
 
 {strip}
     <a href="{$U_CHANGE_THEME}" class="tiptip" title="{'Switch to clear or dark colors for administration'|translate}">

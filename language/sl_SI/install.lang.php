@@ -1,24 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2016 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
+// | This file is part of Piwigo.                                          |
 // |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
+// | For copyright and license information, please view the COPYING.txt    |
+// | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
 $lang['PHP 5 is required'] = 'Zahtevan je PHP 5.2';
@@ -65,3 +50,4 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Druga rešitev je, da kopirate besedilo v polje zgoraj in ga prilepite v datoteko "local/config/database.inc.php" (Opozorilo: database.inc.php mora vsebovati le to kar je v besedilnem polju, brez znakov prehoda v novo vrstico(line return)ali znakov za presledke)';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Varno shranite, omogoča vam dostop do administratorske nadzorne plošče!';
 $lang['localhost or other, supplied by your host provider'] = 'localhost ali drug naslov ki ga imate pri svojem ponudniku gostovanja';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Zahtevana je različica PHP %s (izvajate v PHP %s) ';
