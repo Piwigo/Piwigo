@@ -419,3 +419,5 @@ $lang['generate random password'] = 'luo satunnainen salasana';
 $lang['Password: ********** (no copy by email)'] = 'Salasana: ********** (ei kopioa sähköpostitse)';
 $lang['Related albums'] = 'Aiheeseen liittyvät albumit';
 $lang['Start-Date'] = 'Aloituspäivämäärä';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumin nimi, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumin nimi, 100 &rarr; 10 &rarr; 5 &rarr; 1';
