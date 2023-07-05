@@ -275,7 +275,8 @@ SELECT
     uppercats, global_rank, id_uppercat,
     nb_images, count_images AS total_nb_images,
     representative_picture_id, user_representative_picture_id, count_images, count_categories,
-    date_last, max_date_last, count_categories AS nb_categories
+    date_last, max_date_last, count_categories AS nb_categories,
+    image_order
   FROM '. CATEGORIES_TABLE .'
     '.$join_type.' JOIN '. USER_CACHE_CATEGORIES_TABLE .'
     ON id=cat_id AND user_id='.$join_user.'
@@ -398,6 +399,11 @@ SELECT representative_picture_id
     }
     unset($image_id);
     // management of the album thumbnail -- stops here
+
+    if (empty($row['image_order']))
+    {
+      $row['image_order'] = str_replace('ORDER BY ', '', $conf['order_by']);
+    }
 
     $cats[] = $row;
   }
@@ -535,10 +541,10 @@ SELECT id, path, representative_ext
  */
 function ws_categories_getAdminList($params, &$service)
 {
-
   global $conf;
 
-  if (!isset($params['additional_output'])) {
+  if (!isset($params['additional_output']))
+  {
     $params['additional_output'] = "";
   }
   $params['additional_output'] = array_map('trim', explode(',', $params['additional_output']));
@@ -553,7 +559,7 @@ SELECT category_id, COUNT(*) AS counter
   // pwg_db_real_escape_string
 
   $query = '
-SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, status
+SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, status, image_order
   FROM '. CATEGORIES_TABLE;
 
   if (isset($params["search"]) and $params['search'] != "") 
@@ -596,6 +602,11 @@ SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, statu
         'ws_categories_getAdminList'
         )
       );
+
+    if (empty($row['image_order']))
+    {
+      $row['image_order'] = str_replace('ORDER BY ', '', $conf['order_by']);
+    }
 
     if (in_array('full_name_with_admin_links', $params['additional_output']))
     {
