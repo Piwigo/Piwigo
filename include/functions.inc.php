@@ -618,7 +618,7 @@ function pwg_activity($object, $object_id, $action, $details=array())
       'session_idx' => $session_id,
       'ip_address' => $ip_address,
       'details' => $details_insert,
-      'user_agent' => $user_agent,
+      'user_agent' => pwg_db_real_escape_string($user_agent),
     );
   }
 
