@@ -806,6 +806,19 @@ SELECT id
     );
   }
 
+  if (isset($params['filetypes']))
+  {
+    foreach ($params['filetypes'] as $ext)
+    {
+      if (!preg_match('/^[a-z0-9]+$/i', $ext))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter filetypes');
+      }
+    }
+
+    $search['fields']['filetypes'] = $params['filetypes'];
+  }
+
   if (isset($params['added_by']))
   {
     foreach ($params['added_by'] as $user_id)

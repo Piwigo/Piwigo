@@ -1410,6 +1410,9 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
           'type' => WS_TYPE_ID,
         ),
+        'filetypes' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+        ),
       ),
       '',
       $ws_functions_root . 'pwg.images.php'

@@ -195,6 +195,16 @@ SELECT
     }
   }
 
+  if (!empty($search['fields']['filetypes']))
+  {
+    $filetypes_clauses = array();
+    foreach ($search['fields']['filetypes'] as $ext)
+    {
+      $filetypes_clauses[] = 'path LIKE \'%.'.$ext.'\'';
+    }
+    $clauses[] = implode(' OR ', $filetypes_clauses);
+  }
+
   if (!empty($search['fields']['added_by']))
   {
     $clauses[] = 'added_by IN ('.implode(',', $search['fields']['added_by']).')';
