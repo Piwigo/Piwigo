@@ -313,6 +313,28 @@ SELECT
       $my_search['fields']['cat']['words'] = array_intersect($my_search['fields']['cat']['words'], array_keys($fullname_of));
     }
 
+    // if (isset($my_search['fields']['filetype']))
+    // {
+      $query = '
+SELECT
+    SUBSTRING_INDEX(path, ".", -1) AS ext,
+    COUNT(DISTINCT(id)) AS counter
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'id'
+      ),
+    ' WHERE '
+    ).'
+  GROUP BY ext
+  ORDER BY ext
+;';
+      $template->assign('FILETYPES', query2array($query, 'ext', 'counter'));
+    // }
+
     $template->assign(
       array(
         'GP' => json_encode($my_search),

@@ -183,6 +183,22 @@ $(document).ready(function () {
     }
   });
 
+  // Setup ffile_type filter
+  if (global_params.fields.file_type) {
+    $(".filter-file_type").css("display", "flex");
+    $(".filter-manager-controller.file_type").prop("checked", true);
+
+
+    file_type_search_str = "";
+    if (global_params.fields.file_type && global_params.fields.file_type.length > 0) {
+      $(".filter-file_type").addClass("filter-filled");
+      $(".filter.filter-file_type .search-words").text(file_type_search_str.slice(0, -2));
+    } else {
+      $(".filter.filter-file_type .search-words").text(str_file_type_widget_label);
+    }
+  }
+
+
   /**
    * Filter Manager
    */
@@ -489,6 +505,43 @@ $(document).ready(function () {
     if (!$(".filter-added_by").hasClass("filter-filled")) {
       $(".filter-added_by").hide();
       $(".filter-manager-controller.added_by").prop("checked", false);
+    }
+  });
+
+  /**
+   * File type Widget
+   */
+  $(".filter-file_type").on("click", function (e) {
+    if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove") ||
+        $(e.target).hasClass("remove-filter")) {
+      return;
+    }
+    $(".filter-file_type-form").toggle(0, function () {
+      if ($(this).is(':visible')) {
+        $(".filter-file_type").addClass("show-filter-dropdown");
+      } else {
+        // $(".filter-file_type").removeClass("show-filter-dropdown");
+        // global_params.fields.file_type = {};
+        // global_params.fields.file_type.mode = "OR";
+        // global_params.fields.file_type.words = $("#file_type")[0].selectize.getValue();
+
+        // PS_params.file_type = $("#file_type")[0].selectize.getValue().length > 0 ? $("#file_type")[0].selectize.getValue() : '';
+      }
+    });
+  });
+  $(".filter-file_type .filter-validate").on("click", function () {
+    $(".filter-file_type").trigger("click");
+    performSearch(PS_params, true);
+  });
+  $(".filter-file_type .remove-filter").on("click", function () {
+    $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
+    updateFilters('file_type', 'del');
+    performSearch(PS_params, $(".filter-file_type").hasClass("filter-filled"));
+    if (!$(".filter-file_type").hasClass("filter-filled")) {
+      $(".filter-file_type").hide();
+      $(".filter-manager-controller.file_type").prop("checked", false);
     }
   });
 

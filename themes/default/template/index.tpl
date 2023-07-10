@@ -22,6 +22,7 @@ str_tags_widget_label = "{'Tag'|@translate}";
 str_album_widget_label = "{'Album'|@translate}";
 str_author_widget_label = "{'Author'|@translate}";
 str_added_by_widget_label = "{'Added by'|@translate}";
+str_file_type_widget_label = "{'File type'|@translate}";
 
 {/footer_script}
 
@@ -218,6 +219,10 @@ str_added_by_widget_label = "{'Added by'|@translate}";
         <label>
           <input data-wid='added_by' class="filter-manager-controller added_by" type="checkbox"/>
           <span class="mcs-icon pwg-icon-user">{'Added by'|@translate}</span>
+        </label>
+        <label>
+          <input data-wid='file_type' class="filter-manager-controller file_type" type="checkbox"/>
+          <span class="mcs-icon pwg-icon-file-image">{'File type'|@translate}</span>
         </label>
       </div>
 
@@ -423,6 +428,37 @@ str_added_by_widget_label = "{'Added by'|@translate}";
     </div>
   </div>
 {/if}
+
+{* {if isset($FILE_TYPE)} *}
+  <div class="filter filter-file_type">
+    <span class="mcs-icon pwg-icon-file-image filter-icon"></span>
+    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
+    </span><span class="search-words"></span>
+    <span class="filter-arrow pwg-icon-up-open"></span>
+
+    <div class="filter-form filter-file_type-form">
+      <div class="filter-form-title">{'File type'|@translate}</div>
+      <div class="form-container">
+        <div class="file_type-option-container">
+        {foreach from=$FILETYPES item=file_type key=k}
+          <div class="file_type-option">
+              <input type="checkbox" id="filetype-{$k}" name="filetype-{$k}">
+              <label for="filetype-{$k}">
+                <span class="mcs-icon pwg-icon-cog checked-icon"></span>
+                <span class="ext-name">{$k}</span>
+                <span class="ext-badge">{$file_type}</span>
+              </label>
+            </div>
+        {/foreach}
+        </div>
+      </div>
+      <div class="filter-validate">
+        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
+    </div>
+  </div>
+{* {/if} *}
 
   {* <div class="filter filter-note">
    Note div

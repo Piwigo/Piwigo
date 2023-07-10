@@ -423,4 +423,5 @@ $lang['File name'] = 'File name';
 $lang['Album description'] = 'Album description';
 $lang['No results are available.'] = 'No results are available.';
 $lang['You can try to edit your filters and perform a new search.'] = 'You can try to edit your filters and perform a new search.';
+$lang['File type'] = 'File type';
 ?>
