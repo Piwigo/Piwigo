@@ -614,6 +614,14 @@ function ws_history_log($params, &$service)
     $page['tag_ids'] = explode(',', $params['tags_string']);
   }
 
+  // when visiting a photo (which is currently, in version 14, the only event registered
+  // by pwg.history.log) we should also increment images.hit
+  if (!empty($params['image_id']))
+  {
+    include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+    increase_image_visit_counter($params['image_id']);
+  }
+
   pwg_log($params['image_id'], 'picture');
 }
 

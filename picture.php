@@ -430,14 +430,7 @@ else
 // don't increment if adding a comment
 if (trigger_change('allow_increment_element_hit_count', $inc_hit_count, $page['image_id'] ) )
 {
-  // avoiding auto update of "lastmodified" field
-  $query = '
-UPDATE
-  '.IMAGES_TABLE.'
-  SET hit = hit+1, lastmodified = lastmodified
-  WHERE id = '.$page['image_id'].'
-;';
-  pwg_query($query);
+  increase_image_visit_counter($page['image_id']);
 }
 
 //---------------------------------------------------------- related categories
