@@ -22,7 +22,7 @@ str_tags_widget_label = "{'Tag'|@translate}";
 str_album_widget_label = "{'Album'|@translate}";
 str_author_widget_label = "{'Author'|@translate}";
 str_added_by_widget_label = "{'Added by'|@translate}";
-str_file_type_widget_label = "{'File type'|@translate}";
+str_filetypes_widget_label = "{'File type'|@translate}";
 
 {/footer_script}
 
@@ -221,7 +221,7 @@ str_file_type_widget_label = "{'File type'|@translate}";
           <span class="mcs-icon pwg-icon-user">{'Added by'|@translate}</span>
         </label>
         <label>
-          <input data-wid='file_type' class="filter-manager-controller file_type" type="checkbox"/>
+          <input data-wid='filetypes' class="filter-manager-controller filetypes" type="checkbox"/>
           <span class="mcs-icon pwg-icon-file-image">{'File type'|@translate}</span>
         </label>
       </div>
@@ -429,24 +429,24 @@ str_file_type_widget_label = "{'File type'|@translate}";
   </div>
 {/if}
 
-{* {if isset($FILE_TYPE)} *}
-  <div class="filter filter-file_type">
+{if isset($FILETYPES)}
+  <div class="filter filter-filetypes">
     <span class="mcs-icon pwg-icon-file-image filter-icon"></span>
     <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     </span><span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
-    <div class="filter-form filter-file_type-form">
+    <div class="filter-form filter-filetypes-form">
       <div class="filter-form-title">{'File type'|@translate}</div>
       <div class="form-container">
-        <div class="file_type-option-container">
-        {foreach from=$FILETYPES item=file_type key=k}
-          <div class="file_type-option">
-              <input type="checkbox" id="filetype-{$k}" name="filetype-{$k}">
+        <div class="filetypes-option-container">
+        {foreach from=$FILETYPES item=filetypes key=k}
+          <div class="filetypes-option">
+              <input type="checkbox" id="filetype-{$k}" name="{$k}">
               <label for="filetype-{$k}">
                 <span class="mcs-icon pwg-icon-cog checked-icon"></span>
                 <span class="ext-name">{$k}</span>
-                <span class="ext-badge">{$file_type}</span>
+                <span class="ext-badge">{$filetypes}</span>
               </label>
             </div>
         {/foreach}
@@ -458,7 +458,7 @@ str_file_type_widget_label = "{'File type'|@translate}";
       </div>
     </div>
   </div>
-{* {/if} *}
+{/if}
 
   {* <div class="filter filter-note">
    Note div

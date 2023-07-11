@@ -183,19 +183,30 @@ $(document).ready(function () {
     }
   });
 
-  // Setup ffile_type filter
-  if (global_params.fields.file_type) {
-    $(".filter-file_type").css("display", "flex");
-    $(".filter-manager-controller.file_type").prop("checked", true);
+  // Setup filetypes filter
+  if (global_params.fields.filetypes) {
+    $(".filter-filetypes").css("display", "flex");
+    $(".filter-manager-controller.filetypes").prop("checked", true);
 
+    filetypes_search_str = "";
+    global_params.fields.filetypes.forEach(ft => {
+      filetypes_search_str += ft + ", ";
+    });
+  
+    if (global_params.fields.filetypes && global_params.fields.filetypes.length > 0) {
+      $(".filter-filetypes").addClass("filter-filled");
+      $(".filter.filter-filetypes .search-words").text(filetypes_search_str.slice(0, -2));
 
-    file_type_search_str = "";
-    if (global_params.fields.file_type && global_params.fields.file_type.length > 0) {
-      $(".filter-file_type").addClass("filter-filled");
-      $(".filter.filter-file_type .search-words").text(file_type_search_str.slice(0, -2));
+      $(".filetypes-option input").each(function () {
+        if (global_params.fields.filetypes.includes($(this).attr('name'))) {
+          $(this).prop('checked', true);
+        }
+      });
     } else {
-      $(".filter.filter-file_type .search-words").text(str_file_type_widget_label);
+      $(".filter.filter-filetypes .search-words").text(str_filetypes_widget_label);
     }
+
+    PS_params.filetypes = global_params.fields.filetypes.length > 0 ? global_params.fields.filetypes : '';
   }
 
 
@@ -251,7 +262,7 @@ $(document).ready(function () {
       }
     });
     // Set second param to true to trigger reload
-    performSearch(PS_params ,true);
+    performSearch(PS_params ,false);
   })
 
   /**
@@ -511,37 +522,41 @@ $(document).ready(function () {
   /**
    * File type Widget
    */
-  $(".filter-file_type").on("click", function (e) {
+  $(".filter-filetypes").on("click", function (e) {
     if ($(".filter-form").has(e.target).length != 0 ||
         $(e.target).hasClass("filter-form") ||
         $(e.target).hasClass("remove") ||
         $(e.target).hasClass("remove-filter")) {
       return;
     }
-    $(".filter-file_type-form").toggle(0, function () {
+    $(".filter-filetypes-form").toggle(0, function () {
       if ($(this).is(':visible')) {
-        $(".filter-file_type").addClass("show-filter-dropdown");
+        $(".filter-filetypes").addClass("show-filter-dropdown");
       } else {
-        // $(".filter-file_type").removeClass("show-filter-dropdown");
-        // global_params.fields.file_type = {};
-        // global_params.fields.file_type.mode = "OR";
-        // global_params.fields.file_type.words = $("#file_type")[0].selectize.getValue();
+        $(".filter-filetypes").removeClass("show-filter-dropdown");
 
-        // PS_params.file_type = $("#file_type")[0].selectize.getValue().length > 0 ? $("#file_type")[0].selectize.getValue() : '';
+        filetypes_array = []
+        $(".filetypes-option input:checked").each(function () {
+          filetypes_array.push($(this).attr('name'));
+        });
+
+        global_params.fields.filetypes = filetypes_array;
+
+        PS_params.filetypes = filetypes_array
       }
     });
   });
-  $(".filter-file_type .filter-validate").on("click", function () {
-    $(".filter-file_type").trigger("click");
+  $(".filter-filetypes .filter-validate").on("click", function () {
+    $(".filter-filetypes").trigger("click");
     performSearch(PS_params, true);
   });
-  $(".filter-file_type .remove-filter").on("click", function () {
+  $(".filter-filetypes .remove-filter").on("click", function () {
     $(this).addClass('pwg-icon-spin6 animate-spin').removeClass('pwg-icon-cancel');
-    updateFilters('file_type', 'del');
-    performSearch(PS_params, $(".filter-file_type").hasClass("filter-filled"));
-    if (!$(".filter-file_type").hasClass("filter-filled")) {
-      $(".filter-file_type").hide();
-      $(".filter-manager-controller.file_type").prop("checked", false);
+    updateFilters('filetypes', 'del');
+    performSearch(PS_params, $(".filter-filetypes").hasClass("filter-filled"));
+    if (!$(".filter-filetypes").hasClass("filter-filled")) {
+      $(".filter-filetypes").hide();
+      $(".filter-manager-controller.filetypes").prop("checked", false);
     }
   });
 

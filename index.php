@@ -313,8 +313,8 @@ SELECT
       $my_search['fields']['cat']['words'] = array_intersect($my_search['fields']['cat']['words'], array_keys($fullname_of));
     }
 
-    // if (isset($my_search['fields']['filetype']))
-    // {
+    if (isset($my_search['fields']['filetypes']))
+    {
       $query = '
 SELECT
     SUBSTRING_INDEX(path, ".", -1) AS ext,
@@ -330,10 +330,10 @@ SELECT
     ' WHERE '
     ).'
   GROUP BY ext
-  ORDER BY ext
+  ORDER BY counter DESC
 ;';
       $template->assign('FILETYPES', query2array($query, 'ext', 'counter'));
-    // }
+    }
 
     $template->assign(
       array(
