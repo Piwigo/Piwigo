@@ -195,7 +195,7 @@ $(document).ready(function () {
   
     if (global_params.fields.filetypes && global_params.fields.filetypes.length > 0) {
       $(".filter-filetypes").addClass("filter-filled");
-      $(".filter.filter-filetypes .search-words").text(filetypes_search_str.slice(0, -2));
+      $(".filter.filter-filetypes .search-words").text(filetypes_search_str.toUpperCase().slice(0, -2));
 
       $(".filetypes-option input").each(function () {
         if (global_params.fields.filetypes.includes($(this).attr('name'))) {
@@ -542,7 +542,7 @@ $(document).ready(function () {
 
         global_params.fields.filetypes = filetypes_array;
 
-        PS_params.filetypes = filetypes_array
+        PS_params.filetypes = filetypes_array.length > 0 ? filetypes_array : '';
       }
     });
   });

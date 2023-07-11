@@ -197,7 +197,7 @@ str_filetypes_widget_label = "{'File type'|@translate}";
     <div class="filter-manager-popin-container">
       <span class="pwg-icon-cancel filter-manager-close"></span>
 
-      <div class="mcs-popin-title">{'Filtres'|@translate}</div>
+      <div class="mcs-popin-title">{'Choose filters'|@translate}</div>
 
       <div class="filter-manager-controller-container">
         <label>
@@ -238,7 +238,7 @@ str_filetypes_widget_label = "{'File type'|@translate}";
     </div>
   </div>
   <div class="filter-manager">
-    <span class="mcs-icon pwg-icon-cog"></span>{'Filtres'|@translate}
+    <span class="mcs-icon pwg-icon-selecters"></span>{'Choose filters'|@translate}
   </div>
   <i class="filter-spinner pwg-icon-spin6 animate-spin"></i>
 
@@ -444,7 +444,7 @@ str_filetypes_widget_label = "{'File type'|@translate}";
           <div class="filetypes-option">
               <input type="checkbox" id="filetype-{$k}" name="{$k}">
               <label for="filetype-{$k}">
-                <span class="mcs-icon pwg-icon-cog checked-icon"></span>
+                <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
                 <span class="ext-name">{$k}</span>
                 <span class="ext-badge">{$filetypes}</span>
               </label>
