@@ -262,7 +262,7 @@ $(document).ready(function () {
       }
     });
     // Set second param to true to trigger reload
-    performSearch(PS_params ,false);
+    performSearch(PS_params ,true);
   })
 
   /**
