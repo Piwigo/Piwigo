@@ -222,8 +222,16 @@ $(document).ready(function () {
     if(e.keyCode === 27) {
       $(".filter-manager-popin .filter-manager-close").trigger('click');
     }
+    // 13 is 'Enter'
+    if (e.keyCode === 13) {
+      $('.filter-form .filter-validate').each(function () {
+        if ($(this).is(':visible')) {
+          $(this).trigger('click');
+        }
+      })
+    }
   });
-
+  
   $(".filter-manager-popin").on('click', function(e) {
     if ($(this).is(e.target) && $(this).has(e.target).length === 0) {
       $(".filter-manager-popin .filter-manager-close").trigger('click');
