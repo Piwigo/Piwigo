@@ -260,24 +260,24 @@ str_filetypes_widget_label = "{'File type'|@translate}";
     <span class="search-params-title">{'Search in :'|@translate}</span>
     <div class="search-params"> 
       <div>
-        <input type="checkbox" id="cat-title" name="cat-title">
-        <label for="cat-title">{'Album title'|@translate}</label>
-      </div>
-      <div>
-        <input type="checkbox" id="tags" name="tags">
-        <label for="tags">{'Tags'|@translate}</label>
+        <input type="checkbox" id="name" name="name">
+        <label for="name">{'Photo title'|@translate}</label>
       </div>
       <div>
         <input type="checkbox" id="file" name="file">
         <label for="file">{'File name'|@translate}</label>
       </div>
       <div>
-        <input type="checkbox" id="name" name="name">
-        <label for="name">{'Photo title'|@translate}</label>
-      </div>
-      <div>
         <input type="checkbox" id="comment" name="comment">
         <label for="comment">{'Photo description'|@translate}</label>
+      </div>
+      <div>
+        <input type="checkbox" id="tags" name="tags">
+        <label for="tags">{'Tags'|@translate}</label>
+      </div>
+      <div>
+        <input type="checkbox" id="cat-title" name="cat-title">
+        <label for="cat-title">{'Album title'|@translate}</label>
       </div>
       <div>
         <input type="checkbox" id="cat-desc" name="cat-desc">
