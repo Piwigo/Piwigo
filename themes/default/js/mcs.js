@@ -216,23 +216,20 @@ $(document).ready(function () {
   $(".filter-manager").on('click', function () {
     $(".filter-manager-popin").show();
   });
+
   $(document).on('keyup', function (e) {
     // 27 is 'Escape'
     if(e.keyCode === 27) {
-      $(".filter-manager-popin").hide();
-      $(".filter-manager-controller-container input").each(function (e) {
-        if ($(this).is(':checked')) {
-          if (!$(".filter.filter-" + $(this).data("wid")).is(':visible')) {
-            $(this).prop('checked', false);
-          }
-        } else {
-          if ($(".filter.filter-" + $(this).data("wid")).is(':visible')) {
-            $(this).prop('checked', true);
-          }
-        }
-      });
+      $(".filter-manager-popin .filter-manager-close").trigger('click');
     }
   });
+
+  $(".filter-manager-popin").on('click', function(e) {
+    if ($(this).is(e.target) && $(this).has(e.target).length === 0) {
+      $(".filter-manager-popin .filter-manager-close").trigger('click');
+    }
+  });
+
   $(".filter-manager-popin .filter-cancel, .filter-manager-popin .filter-manager-close").on('click', function () {
     $(".filter-manager-popin").hide();
     $(".filter-manager-controller-container input").each(function (e) {
@@ -249,7 +246,6 @@ $(document).ready(function () {
   });
 
   $(".filter-manager-popin .filter-validate").on('click', function () {
-
     $(".filter-manager-controller-container input").each(function (e) {
       if ($(this).is(':checked')) {
         if (!$(".filter.filter-" + $(this).data("wid")).is(':visible')) {
