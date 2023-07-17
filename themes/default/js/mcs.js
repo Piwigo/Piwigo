@@ -25,6 +25,19 @@ $(document).ready(function () {
     });
   });
 
+  $(document).on('click', function (e) {
+    $(".filter-form").each(function () {
+      if ($(this).parent().hasClass("show-filter-dropdown") &&
+          $(this).parent().has(e.target).length === 0 &&
+          !$(this).parent().is(e.target)) {
+        $(this).parent().trigger('click');
+        if ($(".filter").has(e.target).length !== 0) {
+          $(e.target).trigger('click');
+        }
+      }
+    });
+  })
+
   global_params.search_id = search_id;
 
   if (!global_params.fields) {
@@ -334,6 +347,7 @@ $(document).ready(function () {
     }
     $(".filter-tag-form").toggle(0, function () {
       if ($(this).is(':visible')) {
+        $(".show-filter-dropdown").removeClass('show-filter-dropdown');
         $(".filter-tag").addClass("show-filter-dropdown");
       } else {
         $(".filter-tag").removeClass("show-filter-dropdown");
