@@ -139,17 +139,27 @@ function ws_std_get_urls($image_row)
 
   $src_image = new SrcImage($image_row);
 
+  $provide_download_url = false;
+
   if ( $src_image->is_original() )
   {// we have a photo
     global $user;
     if ($user['enabled_high'])
     {
       $ret['element_url'] = $src_image->get_url();
+      $provide_download_url = true;
     }
   }
   else
   {
     $ret['element_url'] = get_element_url($image_row);
+    $provide_download_url = true;
+  }
+
+  $ret['download_url'] = null;
+  if ($provide_download_url)
+  {
+    $ret['download_url'] = str_replace('&amp;', '&', get_action_url($image_row['id'], 'e', true));
   }
 
   $derivatives = DerivativeImage::get_all($src_image);
