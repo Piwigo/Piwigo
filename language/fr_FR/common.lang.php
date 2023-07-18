@@ -430,3 +430,4 @@ $lang['No results are available.'] = 'Aucun résultat n\'est disponible';
 $lang['You can try to edit your filters and perform a new search.'] = 'Vous pouvez tenter de modifier vos filtres et effectuer une nouvelle recherche';
 $lang['File type'] = 'Type de fichier';
 $lang['Choose filters'] = 'Choisir les filtres';
+$lang['Clear'] = 'Vider';

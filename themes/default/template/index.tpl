@@ -1,6 +1,7 @@
 {combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
+{combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 
 {$MENUBAR}
 
@@ -244,12 +245,15 @@ str_filetypes_widget_label = "{'File type'|@translate}";
 
   <div class="filter filter-word">
    <span class="mcs-icon pwg-icon-search filter-icon"></span>
-   <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
    <span class="search-words"></span>
    <span class="filter-arrow pwg-icon-up-open"></span>
 
    <div class="filter-form filter-word-form">
     <div class="filter-form-title">{'Search for words'|@translate}</div>
+    <div class="filter-actions"> 
+      <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
+      <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+    </div>
     {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
     <div class="word-search-options">
       <label><input type="radio" name="mode" value="AND" checked> {'Search for all terms'|@translate}</label>
@@ -292,12 +296,15 @@ str_filetypes_widget_label = "{'File type'|@translate}";
   </div>
   <div class="filter filter-tag">
     <span class="mcs-icon pwg-icon-tag filter-icon"></span>
-    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     <span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-tag-form">
       <div class="filter-form-title">{'Tag'|@translate}</div>
+      <div class="filter-actions"> 
+        <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+      </div>
       <div class="search-params"> 
         <div>
           <input type="radio" id="tag-all" name="tag_mode" value="AND" checked>
@@ -341,12 +348,15 @@ str_filetypes_widget_label = "{'File type'|@translate}";
   </div> *}
   <div class="filter filter-album">
     <span class="mcs-icon pwg-icon-album filter-icon"></span>
-    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     <span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
     <div class="filter-form-title">{'Album'|@translate}</div>
+    <div class="filter-actions"> 
+      <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
+      <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+    </div>
       <div class="search-params"> 
         {* <div>
           <input type="radio" id="album-all" name="album_mode" value="ALL" checked>
@@ -383,12 +393,15 @@ str_filetypes_widget_label = "{'File type'|@translate}";
 {if isset($AUTHORS)}
   <div class="filter filter-authors">
     <span class="mcs-icon pwg-icon-user-edit filter-icon"></span>
-    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     <span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
     
     <div class="filter-form filter-author-form">
       <div class="filter-form-title">{'Author'|@translate}</div>
+      <div class="filter-actions"> 
+        <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+      </div>
       <div class="form-container">
         <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
         {foreach from=$AUTHORS item=author}
@@ -408,12 +421,15 @@ str_filetypes_widget_label = "{'File type'|@translate}";
 {if isset($ADDED_BY)}
   <div class="filter filter-added_by">
     <span class="mcs-icon pwg-icon-user filter-icon"></span>
-    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     </span><span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
       <div class="filter-form-title">{'Added by'|@translate}</div>
+      <div class="filter-actions"> 
+        <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+      </div>
       <div class="form-container">
         <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
         {foreach from=$ADDED_BY item=added_by}
@@ -432,12 +448,15 @@ str_filetypes_widget_label = "{'File type'|@translate}";
 {if isset($FILETYPES)}
   <div class="filter filter-filetypes">
     <span class="mcs-icon pwg-icon-file-image filter-icon"></span>
-    <span class="mcs-icon pwg-icon-cancel remove-filter"></span>
     </span><span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-filetypes-form">
       <div class="filter-form-title">{'File type'|@translate}</div>
+      <div class="filter-actions"> 
+        <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-broom tiptip" title="{'Clear'|@translate}"></span>
+      </div>
       <div class="form-container">
         <div class="filetypes-option-container">
         {foreach from=$FILETYPES item=filetypes key=k}
