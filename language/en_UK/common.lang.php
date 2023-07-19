@@ -426,4 +426,6 @@ $lang['You can try to edit your filters and perform a new search.'] = 'You can t
 $lang['File type'] = 'File type';
 $lang['Choose filters'] = 'Choose filters';
 $lang['Clear'] = 'Clear';
+$lang['Fill in the filters to start a search'] = 'Fill in the filters to start a search';
+$lang['Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'] = 'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.';
 ?>

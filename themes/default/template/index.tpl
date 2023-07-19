@@ -25,6 +25,9 @@ str_author_widget_label = "{'Author'|@translate}";
 str_added_by_widget_label = "{'Added by'|@translate}";
 str_filetypes_widget_label = "{'File type'|@translate}";
 
+str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate}";
+str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate}";
+
 {/footer_script}
 
 {if isset($errors) or isset($infos)}
@@ -522,8 +525,8 @@ str_filetypes_widget_label = "{'File type'|@translate}";
 {else if !empty($SEARCH_ID)}
 <div class="mcs-no-result">
   <div class="text">
-    <span>{'No results are available.'|@translate}</span>
-    <span>{'You can try to edit your filters and perform a new search.'|translate}</span>
+    <span class="top">{'No results are available.'|@translate}</span>
+    <span class="bot">{'You can try to edit your filters and perform a new search.'|translate}</span>
   </div>
 </div>
 {/if}

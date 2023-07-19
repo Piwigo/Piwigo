@@ -233,6 +233,11 @@ $(document).ready(function () {
     PS_params.filetypes = global_params.fields.filetypes.length > 0 ? global_params.fields.filetypes : '';
   }
 
+  // Adapt no result message
+  if ($(".filter-filled").length === 0) {
+    $(".mcs-no-result .text .top").html(str_empty_search_top_alt);
+    $(".mcs-no-result .text .bot").html(str_empty_search_bot_alt);
+  }
 
   /**
    * Filter Manager
