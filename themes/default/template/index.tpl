@@ -18,15 +18,15 @@ fullname_of_cat = {$fullname_of};
 search_id = {$SEARCH_ID};
 {/if}
 
-str_word_widget_label = "{'Search for words'|@translate}";
-str_tags_widget_label = "{'Tag'|@translate}";
-str_album_widget_label = "{'Album'|@translate}";
-str_author_widget_label = "{'Author'|@translate}";
-str_added_by_widget_label = "{'Added by'|@translate}";
-str_filetypes_widget_label = "{'File type'|@translate}";
+str_word_widget_label = "{'Search for words'|@translate|escape:javascript}";
+str_tags_widget_label = "{'Tag'|@translate|escape:javascript}";
+str_album_widget_label = "{'Album'|@translate|escape:javascript}";
+str_author_widget_label = "{'Author'|@translate|escape:javascript}";
+str_added_by_widget_label = "{'Added by'|@translate|escape:javascript}";
+str_filetypes_widget_label = "{'File type'|@translate|escape:javascript}";
 
-str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate}";
-str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate}";
+str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate|escape:javascript}";
+str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate|escape:javascript}";
 
 {/footer_script}
 
