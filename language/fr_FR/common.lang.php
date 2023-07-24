@@ -433,3 +433,4 @@ $lang['Choose filters'] = 'Choisir les filtres';
 $lang['Clear'] = 'Vider';
 $lang['Fill in the filters to start a search'] = 'Complétez les filtres pour lancer une recherche';
 $lang['Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'] = 'Des filtres préétablis vous sont proposés, mais vous pouvez aussi en ajouter ou en retirer grâce au bouton "Choisir les filtres".';
+$lang['Empty filters'] = 'Vider les filtres';

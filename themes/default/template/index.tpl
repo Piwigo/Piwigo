@@ -482,6 +482,10 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   </div>
 {/if}
 
+<div>
+  <span class="mcs-icon pwg-icon-broom clear-all">{'Empty filters'|@translate}</span>
+</div>
+
   {* <div class="filter filter-note">
    Note div
    <div class="filter-form filter-note-form">

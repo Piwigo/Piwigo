@@ -39,6 +39,7 @@ $(document).ready(function () {
   // Declare params sent to pwg.images.filteredSearch.update
   PS_params = {};
   PS_params.search_id = search_id;
+  empty_filters_list = [];
 
   // Setup word filter
   if (global_params.fields.allwords) {
@@ -80,6 +81,8 @@ $(document).ready(function () {
     PS_params.allwords = word_search_str.slice(0, -1);
     PS_params.allwords_fields = word_search_fields;
     PS_params.allwords_mode = word_search_mode;
+
+    empty_filters_list.push(PS_params.allwords);
   }
   //Hide filter spinner
   $(".filter-spinner").hide();
@@ -115,6 +118,8 @@ $(document).ready(function () {
 
     PS_params.tags = global_params.fields.tags.words.length > 0 ? global_params.fields.tags.words : '';
     PS_params.tags_mode = global_params.fields.tags.mode;
+
+    empty_filters_list.push(PS_params.tags);
   }
 
   // Setup album filter
@@ -148,6 +153,8 @@ $(document).ready(function () {
 
     PS_params.categories = global_params.fields.cat.words.length > 0 ? global_params.fields.cat.words : '';
     PS_params.categories_withsubs = global_params.fields.cat.sub_inc;
+
+    empty_filters_list.push(PS_params.categories);
   }
   
   // Setup author filter
@@ -178,6 +185,8 @@ $(document).ready(function () {
       });
 
       PS_params.authors = global_params.fields.author.words.length > 0 ? global_params.fields.author.words : '';
+
+      empty_filters_list.push(PS_params.authors);
     }
   });
 
@@ -208,6 +217,8 @@ $(document).ready(function () {
       });
 
       PS_params.added_by = global_params.fields.added_by.length > 0 ? global_params.fields.added_by : '';
+
+      empty_filters_list.push(PS_params.added_by);
     }
   });
 
@@ -239,12 +250,27 @@ $(document).ready(function () {
     });
 
     PS_params.filetypes = global_params.fields.filetypes.length > 0 ? global_params.fields.filetypes : '';
+
+    empty_filters_list.push(PS_params.filetypes);
   }
 
   // Adapt no result message
   if ($(".filter-filled").length === 0) {
     $(".mcs-no-result .text .top").html(str_empty_search_top_alt);
     $(".mcs-no-result .text .bot").html(str_empty_search_bot_alt);
+  }
+
+  if (!empty_filters_list.every(param => param === "" || param === null)) {
+    $(".clear-all").addClass("clickable");
+    $(".clear-all.clickable").on('click', function () {
+      exclude_params = ['search_id', 'allwords_mode', 'allwords_fields', 'tags_mode', 'categories_withsubs'];
+      for (const key in PS_params) {
+        if (!exclude_params.includes(key)) {
+          PS_params[key] = '';
+        }
+      }
+      performSearch(PS_params, true);
+    });
   }
 
   /**
