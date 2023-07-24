@@ -1413,6 +1413,10 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'filetypes' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
         ),
+        'date_posted' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'files posted within 7 days (7d) or 30 days (30d) or 6 months (6m) or 1 year (1y). Value among 7d|30d|6m|1y',
+        ),
       ),
       '',
       $ws_functions_root . 'pwg.images.php'

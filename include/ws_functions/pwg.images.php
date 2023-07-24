@@ -832,6 +832,16 @@ SELECT id
     $search['fields']['added_by'] = $params['added_by'];
   }
 
+  if (isset($params['date_posted']))
+  {
+    if (!preg_match('/^(7d|30d|6m|1y)$/', $params['date_posted']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_posted');
+    }
+
+    $search['fields']['date_posted'] = $params['date_posted'];
+  }
+
   // register search rules in database, then they will be available on
   // thumbnails page and picture page.
   $query ='

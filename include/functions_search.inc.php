@@ -195,6 +195,17 @@ SELECT
     }
   }
 
+  if (!empty($search['fields']['date_posted']))
+  {
+    $options = array(
+      '7d' => '7 DAY',
+      '30d' => '30 DAY',
+      '6m' => '6 MONTH',
+      '1y' => '1 YEAR',
+    );
+    $clauses[] = 'date_available > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_posted'] ].')';
+  }
+
   if (!empty($search['fields']['filetypes']))
   {
     $filetypes_clauses = array();
