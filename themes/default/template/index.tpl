@@ -25,6 +25,12 @@ str_author_widget_label = "{'Author'|@translate|escape:javascript}";
 str_added_by_widget_label = "{'Added by'|@translate|escape:javascript}";
 str_filetypes_widget_label = "{'File type'|@translate|escape:javascript}";
 
+str_date_post_7d = "{'last 7 days'|@translate|escape:javascript}";
+str_date_post_30d = "{'last 30 days'|@translate|escape:javascript}";
+str_date_post_6m = "{'last 6 months'|@translate|escape:javascript}";
+str_date_post_1y = "{'last year'|@translate|escape:javascript}";
+str_date_post_u = "{'Unknown time period'|@translate|escape:javascript}";
+
 str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate|escape:javascript}";
 str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate|escape:javascript}";
 
@@ -213,6 +219,10 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
           <span class="mcs-icon pwg-icon-tag">{'Tag'|@translate}</span>
         </label>
         <label>
+          <input data-wid='date_posted' class="filter-manager-controller date_post" type="checkbox"/>
+          <span class="mcs-icon pwg-icon-calendar-plus">{'Post date'|@translate}</span>
+        </label>
+        <label>
           <input data-wid='album' class="filter-manager-controller album" type="checkbox"/>
           <span class="mcs-icon pwg-icon-album">{'Album'|@translate}</span>
         </label>
@@ -331,24 +341,54 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
     </div>
   </div>
-  {* <div class="filter filter-date">
-    <span class="mcs-icon pwg-icon-calendar"></span>Date: <span class="search-words">Balloon</span><span class="filter-arrow pwg-icon-up-open"></span>
+  <div class="filter filter-date_post">
+    <span class="mcs-icon pwg-icon-calendar-plus filter-icon"></span>
+    <span class="search-words">{'Post date'|@translate}</span>
+    <span class="filter-arrow pwg-icon-up-open"></span>
 
-    <div class="filter-form filter-date-form">
-    // Still in porgress
-      <div class="row">
-        <div class="col-sm-12" id="htmlTarget">
-          <label for="datetimepicker1Input" class="form-label">Picker</label>
-          <div class="input-group log-event" id="datetimepicker1" data-td-target-input="nearest" data-td-target-toggle="nearest">
-            <input id="datetimepicker1Input" type="text" class="form-control" data-td-target="#datetimepicker1">
-            <span class="input-group-text" data-td-target="#datetimepicker1" data-td-toggle="datetimepicker">
-              <i class="fas fa-calendar">blavvla</i>
-            </span>
-          </div>
+    <div class="filter-form filter-date_post-form">
+      <div class="filter-form-title">{'Post date'|@translate}</div>
+      <div class="filter-actions"> 
+        <span class="delete mcs-icon pwg-icon-trash" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-broom" title="{'Clear'|@translate}"></span>
+      </div>
+
+      <div class="date_post-option-container">
+        <div class="date_post-option">
+          <input type="radio" id="date_post-7d" value="7d" name="date_post-period">
+          <label for="date_post-7d">
+            <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+            <span class="date-period">{'last 7 days'|@translate}</span>
+          </label>
+        </div>
+        <div class="date_post-option">
+          <input type="radio" id="date_post-30d" value="30d" name="date_post-period">
+          <label for="date_post-30d">
+            <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+            <span class="date-period">{'last 30 days'|@translate}</span>
+          </label>
+        </div>
+        <div class="date_post-option">
+          <input type="radio" id="date_post-6m" value="6m" name="date_post-period">
+          <label for="date_post-6m">
+            <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+            <span class="date-period">{'last 6 months'|@translate}</span>
+          </label>
+        </div>
+        <div class="date_post-option">
+          <input type="radio" id="date_post-1y" value="1y" name="date_post-period">
+          <label for="date_post-1y">
+            <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+            <span class="date-period">{'last year'|@translate}</span>
+          </label>
         </div>
       </div>
+      <div class="filter-validate">
+        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
     </div>
-  </div> *}
+  </div>
   <div class="filter filter-album">
     <span class="mcs-icon pwg-icon-album filter-icon"></span>
     <span class="search-words"></span>

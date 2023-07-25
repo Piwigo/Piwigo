@@ -429,4 +429,9 @@ $lang['Clear'] = 'Clear';
 $lang['Fill in the filters to start a search'] = 'Fill in the filters to start a search';
 $lang['Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'] = 'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.';
 $lang['Empty filters'] = 'Empty filters';
+$lang['last 7 days'] = 'Last 7 days';
+$lang['last 30 days'] = 'Last 30 days';
+$lang['last 6 months'] = 'Last 6 months';
+$lang['last year'] = 'Last year';
+$lang['Unknown time period'] = 'Unknown time period';
 ?>

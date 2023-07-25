@@ -122,6 +122,43 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.tags);
   }
 
+  // Setup Date post filter
+  if (global_params.fields.hasOwnProperty('date_posted')) {
+    $(".filter-date_post").css("display", "flex");
+    $(".filter-manager-controller.date_post").prop("checked", true);
+    if (global_params.fields.date_posted != null && global_params.fields.date_posted != "") {
+      $("#date_post-" + global_params.fields.date_posted).prop("checked", true);
+
+      switch (global_params.fields.date_posted) {
+        case "7d":
+          date_posted_str = str_date_post_7d;
+          break;
+        case "30d":
+          date_posted_str = str_date_post_30d;
+          break;
+        case "6m":
+          date_posted_str = str_date_post_6m;
+          break;
+        case "1y":
+          date_posted_str = str_date_post_1y;
+          break;
+      
+        default:
+          date_posted_str = str_date_post_u;
+          break;
+      }
+      $(".filter-date_post").addClass("filter-filled");
+      $(".filter.filter-date_post .search-words").text(date_posted_str);
+    }
+    $(".filter-date_post .filter-actions .clear").on('click', function () {
+      $(".date_post-option input").prop('checked', false);
+    });
+
+    PS_params.date_posted = global_params.fields.date_posted.length > 0 ? global_params.fields.date_posted : '';
+
+    empty_filters_list.push(PS_params.date_posted);
+  }
+
   // Setup album filter
   if (global_params.fields.cat) {
     $(".filter-album").css("display", "flex");
@@ -421,28 +458,35 @@ $(document).ready(function () {
   });
 
   /**
-   * Filter Date
+   * Filter Date posted
    */
-  $(".filter-date").on("click", function (e) {
+  $(".filter-date_post").on("click", function (e) {
     if ($(".filter-form").has(e.target).length != 0 ||
         $(e.target).hasClass("filter-form")) {
       return;
     }
-    $(".filter-date-form").toggle(0, function () {
-      
+    $(".filter-date_post-form").toggle(0, function () {
       if ($(this).is(':visible')) {
-        $(".filter-date").addClass("show-filter-dropdown");
+        $(".filter-date_post").addClass("show-filter-dropdown");
       } else {
-        $(".filter-date").removeClass("show-filter-dropdown");
-        performSearch(PS_params, true);
+        $(".filter-date_post").removeClass("show-filter-dropdown");
+
+        global_params.fields.date_posted = $(".date_post-option input:checked").val();
+
+        PS_params.date_posted = $(".date_post-option input:checked").length > 0 ? $(".date_post-option input:checked").val() : "";
       }
     });
   });
-  $(".filter-date .filter-actions .delete").on("click", function () {
-    updateFilters('date', 'del');
-    performSearch(PS_params, $(".filter-date").hasClass("filter-filled"));
-    if (!$(".filter-date").hasClass("filter-filled")) {
-      $(".filter-date").hide();
+
+  $(".filter-date_post .filter-validate").on("click", function () {
+    $(".filter-date_post").trigger("click");
+    performSearch(PS_params, true);
+  });
+  $(".filter-date_post .filter-actions .delete").on("click", function () {
+    updateFilters('date_posted', 'del');
+    performSearch(PS_params, $(".filter-date_post").hasClass("filter-filled"));
+    if (!$(".filter-date_post").hasClass("filter-filled")) {
+      $(".filter-date_post").hide();
       $(".filter-manager-controller.date").prop("checked", false);
     }
   });

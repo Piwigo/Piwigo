@@ -834,7 +834,7 @@ SELECT id
 
   if (isset($params['date_posted']))
   {
-    if (!preg_match('/^(7d|30d|6m|1y)$/', $params['date_posted']))
+    if (!preg_match('/^(7d|30d|6m|1y|)$/', $params['date_posted']))
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_posted');
     }
