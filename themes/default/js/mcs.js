@@ -368,7 +368,44 @@ $(document).ready(function () {
     });
     // Set second param to true to trigger reload
     performSearch(PS_params ,true);
+  });
+
+  /**
+   * Tags & Albums found
+   */
+  $(".mcs-tags-found").on('click', function () {
+    $(".tags-found-popin").show();
+  });
+  $(".mcs-albums-found").on('click', function () {
+    $(".albums-found-popin").show();
+  });
+
+  $(document).on('keyup', function (e) {
+    // 27 is 'Escape'
+    if(e.keyCode === 27) {
+      $(".tags-found-popin .tags-found-close").trigger('click');
+      $(".albums-found-popin .albums-found-close").trigger('click');
+    }
+  });
+  
+  $(".tags-found-popin").on('click', function(e) {
+    if ($(this).is(e.target) && $(this).has(e.target).length === 0) {
+      $(".tags-found-popin .tags-found-close").trigger('click');
+    }
+  });
+  $(".tags-found-close").on('click', function () {
+    $(".tags-found-popin").hide();
+  });
+
+  $(".albums-found-popin").on('click', function(e) {
+    if ($(this).is(e.target) && $(this).has(e.target).length === 0) {
+      $(".albums-found-popin .albums-found-close").trigger('click');
+    }
+  });
+  $(".albums-found-close").on('click', function () {
+    $(".albums-found-popin").hide();
   })
+
 
   /**
    * Filter Word

@@ -563,9 +563,31 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="mcs-side-badge">555</span>
     <p>{'Tags found'|@translate}</p>
   </div>
-  <div class="mcs-cats-found">
+  <div class="mcs-albums-found">
     <span class="mcs-side-badge">555</span>
     <p>{'Albums found'|@translate}</p>
+  </div>
+</div>
+
+<div class="tags-found-popin">
+  <div class="tags-found-popin-container">
+    <span class="pwg-icon-cancel tags-found-close"></span>
+    <div class="mcs-popin-title">{'Tags found'|@translate}</div>
+
+    <div class="tags-found-controller-container">
+      content
+    </div>
+  </div>
+</div>
+
+<div class="albums-found-popin">
+  <div class="albums-found-popin-container">
+    <span class="pwg-icon-cancel albums-found-close"></span>
+    <div class="mcs-popin-title">{'Albums found'|@translate}</div>
+
+    <div class="albums-found-controller-container">
+      content
+    </div>
   </div>
 </div>
 {/if}
