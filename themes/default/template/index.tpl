@@ -522,9 +522,9 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   </div>
 {/if}
 
-<div>
-  <span class="mcs-icon pwg-icon-broom clear-all">{'Empty filters'|@translate}</span>
-</div>
+  <div>
+    <span class="mcs-icon pwg-icon-broom clear-all">{'Empty filters'|@translate}</span>
+  </div>
 
   {* <div class="filter filter-note">
    Note div
@@ -556,6 +556,17 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
 
     </div>
   </div> *}
+</div>
+
+<div class="mcs-side-results">
+  <div class="mcs-tags-found">
+    <span class="mcs-side-badge">555</span>
+    <p>{'Tags found'|@translate}</p>
+  </div>
+  <div class="mcs-cats-found">
+    <span class="mcs-side-badge">555</span>
+    <p>{'Albums found'|@translate}</p>
+  </div>
 </div>
 {/if}
 

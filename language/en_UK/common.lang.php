@@ -434,4 +434,6 @@ $lang['last 30 days'] = 'Last 30 days';
 $lang['last 6 months'] = 'Last 6 months';
 $lang['last year'] = 'Last year';
 $lang['Unknown time period'] = 'Unknown time period';
+$lang['Tags found'] = 'Tags found';
+$lang['Albums found'] = 'Albums found';
 ?>
