@@ -231,6 +231,57 @@ SELECT
       $my_search['fields']['author']['words'] = array_intersect($my_search['fields']['author']['words'], $author_names);
     }
 
+    if (isset($my_search['fields']['date_posted']))
+    {
+      $query = '
+SELECT
+    SUBDATE(NOW(), INTERVAL 7 DAY) AS 7d,
+    SUBDATE(NOW(), INTERVAL 30 DAY) AS 30d,
+    SUBDATE(NOW(), INTERVAL 6 MONTH) AS 6m
+;';
+    $thresholds = query2array($query)[0];
+
+    $query = '
+SELECT
+    image_id,
+    date_available
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'id'
+      ),
+    ' WHERE '
+    ).'
+    AND date_available > SUBDATE(NOW(), INTERVAL 1 YEAR)
+;';
+    $dates = query2array($query);
+    $pre_counters = array_fill_keys(array_keys($thresholds), array());
+    foreach ($dates as $date_row)
+    {
+      foreach ($thresholds as $threshold => $date_limit)
+      {
+        if ($date_row['date_available'] > $date_limit)
+        {
+          @$pre_counters[$threshold][ $date_row['image_id'] ] = 1;
+        }
+      }
+      @$pre_counters['1y'][ $date_row['image_id'] ] = 1;
+    }
+
+    // pre_counters need to be deduplicated because a photo can be in several albums
+    $counters = array_fill_keys(array_keys($thresholds), 0);
+    foreach (array_keys($thresholds) as $threshold)
+    {
+      $counters[$threshold] = count(array_keys($pre_counters[$threshold]));
+    }
+    $counters['1y'] = count(array_keys($pre_counters['1y']));
+
+    $template->assign('DATE_POSTED', $counters);
+  }
+
     if (isset($my_search['fields']['added_by']))
     {
       $query = '
