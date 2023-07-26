@@ -25,11 +25,12 @@ str_author_widget_label = "{'Author'|@translate|escape:javascript}";
 str_added_by_widget_label = "{'Added by'|@translate|escape:javascript}";
 str_filetypes_widget_label = "{'File type'|@translate|escape:javascript}";
 
-str_date_post_7d = "{'last 7 days'|@translate|escape:javascript}";
-str_date_post_30d = "{'last 30 days'|@translate|escape:javascript}";
-str_date_post_6m = "{'last 6 months'|@translate|escape:javascript}";
-str_date_post_1y = "{'last year'|@translate|escape:javascript}";
-str_date_post_u = "{'Unknown time period'|@translate|escape:javascript}";
+str_date_post = {
+  '7d': "{'last 7 days'|@translate|escape:javascript}",
+  '30d': "{'last 30 days'|@translate|escape:javascript}",
+  '6m': "{'last 6 months'|@translate|escape:javascript}",
+  '1y': "{'last year'|@translate|escape:javascript}",
+}
 
 str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate|escape:javascript}";
 str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate|escape:javascript}";
@@ -354,7 +355,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
 
       <div class="date_posted-option-container">
-        <div class="date_posted-option">
+        {* <div class="date_posted-option">
           <input type="radio" id="date_posted-7d" value="7d" name="date_posted-period">
           <label for="date_posted-7d">
             <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
@@ -381,7 +382,17 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
             <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
             <span class="date-period">{'last year'|@translate}</span>
           </label>
-        </div>
+        </div> *}
+        {foreach from=$DATE_POSTED item=badge_number key=k}
+          <div class="date_posted-option">
+            <input type="radio" id="date_posted-{$k}" value={$k} name="date_posted-period">
+            <label for="date_posted-{$k}" id="{$k}">
+              <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+              <span class="date-period">{'last year'|@translate}</span>
+              <span class="date_posted-badge">{$badge_number}</span>
+            </label>
+          </div>
+        {/foreach}
       </div>
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>

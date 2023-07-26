@@ -126,30 +126,19 @@ $(document).ready(function () {
   if (global_params.fields.hasOwnProperty('date_posted')) {
     $(".filter-date_posted").css("display", "flex");
     $(".filter-manager-controller.date_posted").prop("checked", true);
+
     if (global_params.fields.date_posted != null && global_params.fields.date_posted != "") {
       $("#date_posted-" + global_params.fields.date_posted).prop("checked", true);
 
-      switch (global_params.fields.date_posted) {
-        case "7d":
-          date_posted_str = str_date_post_7d;
-          break;
-        case "30d":
-          date_posted_str = str_date_post_30d;
-          break;
-        case "6m":
-          date_posted_str = str_date_post_6m;
-          break;
-        case "1y":
-          date_posted_str = str_date_post_1y;
-          break;
-      
-        default:
-          date_posted_str = str_date_post_u;
-          break;
-      }
+      date_posted_str = str_date_post[global_params.fields.date_posted];
       $(".filter-date_posted").addClass("filter-filled");
       $(".filter.filter-date_posted .search-words").text(date_posted_str);
     }
+
+    $(".date_posted-option label").each(function () {
+        $(this).find('.date-period').html(str_date_post[$(this).attr('id')])
+    });
+
     $(".filter-date_posted .filter-actions .clear").on('click', function () {
       $(".date_posted-option input").prop('checked', false);
     });
@@ -451,7 +440,7 @@ $(document).ready(function () {
   });
   $(".filter-word .filter-actions .delete").on("click", function () {
     updateFilters('word', 'del');
-    performSearch(PS_params, $(".filter-word").hasClass("filter-filled"));
+    performSearch(PS_params, true);
     if (!$(".filter-word").hasClass("filter-filled")) {
       $(".filter-word").hide();
       $(".filter-manager-controller.word").prop("checked", false);
@@ -488,7 +477,7 @@ $(document).ready(function () {
   });
   $(".filter-tag .filter-actions .delete").on("click", function () {
     updateFilters('tag', 'del');
-    performSearch(PS_params, $(".filter-tag").hasClass("filter-filled"));
+    performSearch(PS_params, true);
     if (!$(".filter-tag").hasClass("filter-filled")) {
       $(".filter-tag").hide();
       $(".filter-manager-controller.tags").prop("checked", false);
@@ -522,7 +511,7 @@ $(document).ready(function () {
   });
   $(".filter-date_posted .filter-actions .delete").on("click", function () {
     updateFilters('date_posted', 'del');
-    performSearch(PS_params, $(".filter-date_posted").hasClass("filter-filled"));
+    performSearch(PS_params, true);
     if (!$(".filter-date_posted").hasClass("filter-filled")) {
       $(".filter-date_posted").hide();
       $(".filter-manager-controller.date").prop("checked", false);
@@ -559,7 +548,7 @@ $(document).ready(function () {
   });
   $(".filter-album .filter-actions .delete").on("click", function () {
     updateFilters('album', 'del');
-    performSearch(PS_params, $(".filter-album").hasClass("filter-filled"));
+    performSearch(PS_params, true);
     if (!$(".filter-album").hasClass("filter-filled")) {
       $(".filter-album").hide();
       $(".filter-manager-controller.album").prop("checked", false);
@@ -615,7 +604,7 @@ $(document).ready(function () {
   });
   $(".filter-authors .filter-actions .delete").on("click", function () {
     updateFilters('authors', 'del');
-    performSearch(PS_params, $(".filter-authors").hasClass("filter-filled"));
+    performSearch(PS_params, true);
     if (!$(".filter-authors").hasClass("filter-filled")) {
       $(".filter-authors").hide();
       $(".filter-manager-controller.author").prop("checked", false);
@@ -650,7 +639,7 @@ $(document).ready(function () {
   });
   $(".filter-added_by .filter-actions .delete").on("click", function () {
     updateFilters('added_by', 'del');
-    performSearch(PS_params, $(".filter-added_by").hasClass("filter-filled"));
+    performSearch(PS_params, true);
     if (!$(".filter-added_by").hasClass("filter-filled")) {
       $(".filter-added_by").hide();
       $(".filter-manager-controller.added_by").prop("checked", false);
@@ -689,7 +678,7 @@ $(document).ready(function () {
   });
   $(".filter-filetypes .filter-actions .delete").on("click", function () {
     updateFilters('filetypes', 'del');
-    performSearch(PS_params, $(".filter-filetypes").hasClass("filter-filled"));
+    performSearch(PS_params, true);
     if (!$(".filter-filetypes").hasClass("filter-filled")) {
       $(".filter-filetypes").hide();
       $(".filter-manager-controller.filetypes").prop("checked", false);
