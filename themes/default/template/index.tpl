@@ -219,7 +219,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
           <span class="mcs-icon pwg-icon-tag">{'Tag'|@translate}</span>
         </label>
         <label>
-          <input data-wid='date_posted' class="filter-manager-controller date_post" type="checkbox"/>
+          <input data-wid='date_posted' class="filter-manager-controller date_posted" type="checkbox"/>
           <span class="mcs-icon pwg-icon-calendar-plus">{'Post date'|@translate}</span>
         </label>
         <label>
@@ -341,43 +341,43 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
     </div>
   </div>
-  <div class="filter filter-date_post">
+  <div class="filter filter-date_posted">
     <span class="mcs-icon pwg-icon-calendar-plus filter-icon"></span>
     <span class="search-words">{'Post date'|@translate}</span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
-    <div class="filter-form filter-date_post-form">
+    <div class="filter-form filter-date_posted-form">
       <div class="filter-form-title">{'Post date'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash" title="{'Delete'|@translate}"></span>
         <span class="clear mcs-icon pwg-icon-broom" title="{'Clear'|@translate}"></span>
       </div>
 
-      <div class="date_post-option-container">
-        <div class="date_post-option">
-          <input type="radio" id="date_post-7d" value="7d" name="date_post-period">
-          <label for="date_post-7d">
+      <div class="date_posted-option-container">
+        <div class="date_posted-option">
+          <input type="radio" id="date_posted-7d" value="7d" name="date_posted-period">
+          <label for="date_posted-7d">
             <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
             <span class="date-period">{'last 7 days'|@translate}</span>
           </label>
         </div>
-        <div class="date_post-option">
-          <input type="radio" id="date_post-30d" value="30d" name="date_post-period">
-          <label for="date_post-30d">
+        <div class="date_posted-option">
+          <input type="radio" id="date_posted-30d" value="30d" name="date_posted-period">
+          <label for="date_posted-30d">
             <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
             <span class="date-period">{'last 30 days'|@translate}</span>
           </label>
         </div>
-        <div class="date_post-option">
-          <input type="radio" id="date_post-6m" value="6m" name="date_post-period">
-          <label for="date_post-6m">
+        <div class="date_posted-option">
+          <input type="radio" id="date_posted-6m" value="6m" name="date_posted-period">
+          <label for="date_posted-6m">
             <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
             <span class="date-period">{'last 6 months'|@translate}</span>
           </label>
         </div>
-        <div class="date_post-option">
-          <input type="radio" id="date_post-1y" value="1y" name="date_post-period">
-          <label for="date_post-1y">
+        <div class="date_posted-option">
+          <input type="radio" id="date_posted-1y" value="1y" name="date_posted-period">
+          <label for="date_posted-1y">
             <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
             <span class="date-period">{'last year'|@translate}</span>
           </label>

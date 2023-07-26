@@ -124,10 +124,10 @@ $(document).ready(function () {
 
   // Setup Date post filter
   if (global_params.fields.hasOwnProperty('date_posted')) {
-    $(".filter-date_post").css("display", "flex");
-    $(".filter-manager-controller.date_post").prop("checked", true);
+    $(".filter-date_posted").css("display", "flex");
+    $(".filter-manager-controller.date_posted").prop("checked", true);
     if (global_params.fields.date_posted != null && global_params.fields.date_posted != "") {
-      $("#date_post-" + global_params.fields.date_posted).prop("checked", true);
+      $("#date_posted-" + global_params.fields.date_posted).prop("checked", true);
 
       switch (global_params.fields.date_posted) {
         case "7d":
@@ -147,11 +147,11 @@ $(document).ready(function () {
           date_posted_str = str_date_post_u;
           break;
       }
-      $(".filter-date_post").addClass("filter-filled");
-      $(".filter.filter-date_post .search-words").text(date_posted_str);
+      $(".filter-date_posted").addClass("filter-filled");
+      $(".filter.filter-date_posted .search-words").text(date_posted_str);
     }
-    $(".filter-date_post .filter-actions .clear").on('click', function () {
-      $(".date_post-option input").prop('checked', false);
+    $(".filter-date_posted .filter-actions .clear").on('click', function () {
+      $(".date_posted-option input").prop('checked', false);
     });
 
     PS_params.date_posted = global_params.fields.date_posted.length > 0 ? global_params.fields.date_posted : '';
@@ -361,6 +361,7 @@ $(document).ready(function () {
         }
       } else {
         if ($(".filter.filter-" + $(this).data("wid")).is(':visible')) {
+          console.log($(this).data("wid"));
           updateFilters($(this).data("wid"), 'del');
         }
       }
@@ -460,33 +461,33 @@ $(document).ready(function () {
   /**
    * Filter Date posted
    */
-  $(".filter-date_post").on("click", function (e) {
+  $(".filter-date_posted").on("click", function (e) {
     if ($(".filter-form").has(e.target).length != 0 ||
         $(e.target).hasClass("filter-form")) {
       return;
     }
-    $(".filter-date_post-form").toggle(0, function () {
+    $(".filter-date_posted-form").toggle(0, function () {
       if ($(this).is(':visible')) {
-        $(".filter-date_post").addClass("show-filter-dropdown");
+        $(".filter-date_posted").addClass("show-filter-dropdown");
       } else {
-        $(".filter-date_post").removeClass("show-filter-dropdown");
+        $(".filter-date_posted").removeClass("show-filter-dropdown");
 
-        global_params.fields.date_posted = $(".date_post-option input:checked").val();
+        global_params.fields.date_posted = $(".date_posted-option input:checked").val();
 
-        PS_params.date_posted = $(".date_post-option input:checked").length > 0 ? $(".date_post-option input:checked").val() : "";
+        PS_params.date_posted = $(".date_posted-option input:checked").length > 0 ? $(".date_posted-option input:checked").val() : "";
       }
     });
   });
 
-  $(".filter-date_post .filter-validate").on("click", function () {
-    $(".filter-date_post").trigger("click");
+  $(".filter-date_posted .filter-validate").on("click", function () {
+    $(".filter-date_posted").trigger("click");
     performSearch(PS_params, true);
   });
-  $(".filter-date_post .filter-actions .delete").on("click", function () {
+  $(".filter-date_posted .filter-actions .delete").on("click", function () {
     updateFilters('date_posted', 'del');
-    performSearch(PS_params, $(".filter-date_post").hasClass("filter-filled"));
-    if (!$(".filter-date_post").hasClass("filter-filled")) {
-      $(".filter-date_post").hide();
+    performSearch(PS_params, $(".filter-date_posted").hasClass("filter-filled"));
+    if (!$(".filter-date_posted").hasClass("filter-filled")) {
+      $(".filter-date_posted").hide();
       $(".filter-manager-controller.date").prop("checked", false);
     }
   });
