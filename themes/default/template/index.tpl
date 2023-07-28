@@ -571,11 +571,11 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
 
 <div class="mcs-side-results">
   <div class="mcs-tags-found">
-    <span class="mcs-side-badge">555</span>
+    <span class="mcs-side-badge">{count($TAGS_FOUND)}</span>
     <p>{'Tags found'|@translate}</p>
   </div>
   <div class="mcs-albums-found">
-    <span class="mcs-side-badge">555</span>
+    <span class="mcs-side-badge">{count($ALBUMS_FOUND)}</span>
     <p>{'Albums found'|@translate}</p>
   </div>
 </div>
@@ -585,8 +585,12 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="pwg-icon-cancel tags-found-close"></span>
     <div class="mcs-popin-title">{'Tags found'|@translate}</div>
 
-    <div class="tags-found-controller-container">
-      content
+    <div class="tags-found-container">
+    {foreach from=$TAGS_FOUND item=tag_path key=k}
+      <div class="tag-item">
+        {$tag_path}
+      </div>
+    {/foreach}
     </div>
   </div>
 </div>
@@ -596,8 +600,12 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="pwg-icon-cancel albums-found-close"></span>
     <div class="mcs-popin-title">{'Albums found'|@translate}</div>
 
-    <div class="albums-found-controller-container">
-      content
+    <div class="albums-found-container">
+      {foreach from=$ALBUMS_FOUND item=album_path key=k}
+        <div class="album-item">
+          {$album_path}
+        </div>
+      {/foreach}
     </div>
   </div>
 </div>

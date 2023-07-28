@@ -392,6 +392,26 @@ SELECT
         'SEARCH_ID' => $page['search'],
       )
     );
+
+    // TODO: Send actual data
+    $template->assign('TAGS_FOUND',
+      array(
+        'Link 1 / Sub link 1 / <a href="https://www.google.com"> Sub sub</a>',
+        'Link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2.2.2',
+        'Link 3',
+        'Link 4',
+        'Link 5'
+      )
+    );
+
+    $template->assign('ALBUMS_FOUND',
+      array(
+        'Link 1 / Sub link 1 / <a href="https://www.google.com"> Sub sub</a>',
+        'Link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2.2.2',
+        'Link 3',
+        'Link 4',
+      )
+    );
   }
 
   if (isset($page['category']) and is_admin() and $conf['index_edit_icon'])
