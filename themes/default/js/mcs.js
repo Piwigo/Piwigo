@@ -37,6 +37,7 @@ $(document).ready(function () {
   }
 
   // Declare params sent to pwg.images.filteredSearch.update
+  // PS for performSearch()
   PS_params = {};
   PS_params.search_id = search_id;
   empty_filters_list = [];
