@@ -137,7 +137,7 @@ SELECT
       }
 
       $user_args = $args;
-      if (isset($authkey))
+      if (isset($authkey['auth_key']))
       {
         $user_args['auth_key'] = $authkey['auth_key'];
       }
