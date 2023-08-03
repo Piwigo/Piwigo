@@ -394,6 +394,7 @@ SELECT
     );
 
     // TODO: Send actual data
+/*
     $template->assign('TAGS_FOUND',
       array(
         'Link 1 / Sub link 1 / <a href="https://www.google.com"> Sub sub</a>',
@@ -412,6 +413,7 @@ SELECT
         'Link 4',
       )
     );
+*/
   }
 
   if (isset($page['category']) and is_admin() and $conf['index_edit_icon'])

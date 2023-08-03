@@ -329,17 +329,23 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   </div>
 </div>
 
+{if isset($TAGS_FOUND) or isset($ALBUMS_FOUND)}
 <div class="mcs-side-results">
+  {if isset($TAGS_FOUND)}
   <div class="mcs-tags-found">
     <span class="mcs-side-badge">{count($TAGS_FOUND)}</span>
     <p>{'Tags found'|@translate}</p>
   </div>
+  {/if}
+  {if isset($ALBUMS_FOUND)}
   <div class="mcs-albums-found">
     <span class="mcs-side-badge">{count($ALBUMS_FOUND)}</span>
     <p>{'Albums found'|@translate}</p>
   </div>
+  {/if}
 </div>
 
+  {if isset($TAGS_FOUND)}
 <div class="tags-found-popin">
   <div class="tags-found-popin-container">
     <span class="pwg-icon-cancel tags-found-close"></span>
@@ -354,7 +360,8 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     </div>
   </div>
 </div>
-
+  {/if}
+  {if isset($ALBUMS_FOUND)}
 <div class="albums-found-popin">
   <div class="albums-found-popin-container">
     <span class="pwg-icon-cancel albums-found-close"></span>
@@ -369,3 +376,5 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     </div>
   </div>
 </div>
+  {/if}
+{/if}
