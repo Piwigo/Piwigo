@@ -389,6 +389,7 @@ function ws_session_getStatus($params, &$service)
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   $res['current_datetime'] = $dbnow;
   $res['version'] = PHPWG_VERSION;
+  $res['save_visits'] = do_log();
 
   // Piwigo Remote Sync does not support receiving the available sizes
   $piwigo_remote_sync_agent = 'Apache-HttpClient/';

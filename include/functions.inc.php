@@ -386,6 +386,35 @@ SELECT id, name
 }
 
 /**
+ * Does the current user must log visits in history table
+ *
+ * @since 14
+ *
+ * @param int $image_id
+ * @param string $image_type
+ *
+ * @return bool
+ */
+function do_log($image_id = null, $image_type = null)
+{
+  global $conf;
+
+  $do_log = $conf['log'];
+  if (is_admin())
+  {
+    $do_log = $conf['history_admin'];
+  }
+  if (is_a_guest())
+  {
+    $do_log = $conf['history_guest'];
+  }
+
+  $do_log = trigger_change('pwg_log_allowed', $do_log, $image_id, $image_type);
+
+  return $do_log;
+}
+
+/**
  * log the visit into history table
  *
  * @param int $image_id
@@ -414,19 +443,7 @@ UPDATE '.USER_INFOS_TABLE.'
     pwg_query($query);
   }
 
-  $do_log = $conf['log'];
-  if (is_admin())
-  {
-    $do_log = $conf['history_admin'];
-  }
-  if (is_a_guest())
-  {
-    $do_log = $conf['history_guest'];
-  }
-
-  $do_log = trigger_change('pwg_log_allowed', $do_log, $image_id, $image_type);
-
-  if (!$do_log)
+  if (!do_log($image_id, $image_type))
   {
     return false;
   }
