@@ -1315,6 +1315,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       'cat_id' => array('type'=>WS_TYPE_ID, 'default'=>null),
       'section' => array('default'=>null),
       'tags_string' => array('default'=>null),
+      'is_download' => array('default'=>false, 'type'=>WS_TYPE_BOOL),
       ),
     'Log visit in history',
     $ws_functions_root . 'pwg.php'

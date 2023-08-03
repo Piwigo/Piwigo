@@ -622,7 +622,13 @@ function ws_history_log($params, &$service)
     increase_image_visit_counter($params['image_id']);
   }
 
-  pwg_log($params['image_id'], 'picture');
+  $image_type = 'picture';
+  if ($params['is_download'])
+  {
+    $image_type = 'high';
+  }
+
+  pwg_log($params['image_id'], $image_type);
 }
 
 /**
