@@ -225,7 +225,7 @@ SELECT
       {
         $author_names[] = $author['author'];
       }
-      $template->assign('AUTHORS', query2array($query));
+      $template->assign('AUTHORS', $authors);
 
       // in case the search has forbidden authors for current user, we need to filter the search rule
       $my_search['fields']['author']['words'] = array_intersect($my_search['fields']['author']['words'], $author_names);
