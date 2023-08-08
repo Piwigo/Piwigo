@@ -330,9 +330,10 @@ define(\'DB_COLLATE\', \'\');
           'config_file_content' => $file_content,
           )
         );
+    } else {
+      @fputs($fp, $file_content, strlen($file_content));
+      @fclose($fp);
     }
-    @fputs($fp, $file_content, strlen($file_content));
-    @fclose($fp);
 
     // tables creation, based on piwigo_structure.sql
     execute_sqlfile(
