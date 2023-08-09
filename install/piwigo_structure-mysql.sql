@@ -319,6 +319,10 @@ CREATE TABLE `piwigo_rate` (
 DROP TABLE IF EXISTS `piwigo_search`;
 CREATE TABLE `piwigo_search` (
   `id` int(10) unsigned NOT NULL auto_increment,
+  `search_uuid` CHAR(23) DEFAULT NULL,
+  `created_on` DATETIME DEFAULT NULL,
+  `created_by` MEDIUMINT(8) UNSIGNED,
+  `forked_from` INT(10) UNSIGNED,
   `last_seen` date default NULL,
   `rules` text,
   PRIMARY KEY  (`id`)
