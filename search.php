@@ -9,6 +9,7 @@
 //--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -24,7 +25,6 @@ trigger_notify('loc_begin_search');
 $words = array();
 if (!empty($_GET['q']))
 {
-  include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
   $words = split_allwords($_GET['q']);
 }
 
@@ -78,24 +78,5 @@ if (count($first_author) > 0)
   );
 }
 
-list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW()'));
-
-single_insert(
-  SEARCH_TABLE,
-  array(
-    'rules' => pwg_db_real_escape_string(serialize($search)),
-    'last_seen' => $dbnow,
-  )
-);
-
-$search_id = pwg_db_insert_id(SEARCH_TABLE);
-
-redirect(
-  make_index_url(
-    array(
-      'section' => 'search',
-      'search'  => $search_id,
-    )
-  )
-);
+save_search_and_redirect($search);
 ?>

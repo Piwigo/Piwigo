@@ -1372,9 +1372,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       'pwg.images.filteredSearch.update',
       'ws_images_filteredSearch_update',
       array(
-        'search_id' => array(
-          'type' => WS_TYPE_ID,
-        ),
+        'search_id' => array(),
         'allwords' => array(
           'flags' => WS_PARAM_OPTIONAL,
           'info' => 'query to search by words',

@@ -10,6 +10,45 @@
  * @package functions\search
  */
 
+function get_search_id_pattern($candidate)
+{
+  $clause_pattern = null;
+  if (preg_match('/^psk-\d{8}-[a-z0-9]{10}$/i', $candidate))
+  {
+    $clause_pattern = 'search_uuid = \'%s\'';
+  }
+  elseif (preg_match('/^\d+$/', $candidate))
+  {
+    $clause_pattern = 'id = %u';
+  }
+
+  return $clause_pattern;
+}
+
+function get_search_info($candidate)
+{
+  // $candidate might be a search.id or a search_uuid
+  $clause_pattern = get_search_id_pattern($candidate);
+
+  if (empty($clause_pattern))
+  {
+    die('Invalid search identifier');
+  }
+
+  $query = '
+SELECT *
+  FROM '.SEARCH_TABLE.'
+  WHERE '.sprintf($clause_pattern, $candidate).'
+;';
+  $searches = query2array($query);
+
+  if (count($searches) > 0)
+  {
+    return $searches[0];
+  }
+
+  return null;
+}
 
 /**
  * Returns search rules stored into a serialized array in "search"
@@ -20,24 +59,24 @@
  */
 function get_search_array($search_id)
 {
-  if (!is_numeric($search_id))
-  {
-    die('Search id must be an integer');
-  }
+  global $user;
 
-  $query = '
-SELECT rules
-  FROM '.SEARCH_TABLE.'
-  WHERE id = '.$search_id.'
-;';
-  $rules_list = query2array($query);
+  $search = get_search_info($search_id);
 
-  if (count($rules_list) == 0)
+  if (empty($search))
   {
     bad_request('this search identifier does not exist');
   }
+  else
+  {
+    if (!empty($search['created_by']) and $search['created_by'] != $user['user_id'])
+    {
+      // we need to fork this search
+      save_search_and_redirect(unserialize($search['rules']), $search['id']);
+    }
+  }
 
-  return unserialize($rules_list[0]['rules']);
+  return unserialize($search['rules']);
 }
 
 /**
@@ -1612,6 +1651,56 @@ function split_allwords($raw_allwords)
   }
 
   return $words;
+}
+
+function get_available_search_uuid()
+{
+  $candidate = 'psk-'.date('Ymd').'-'.generate_key(10);
+
+  $query = '
+SELECT
+    COUNT(*)
+  FROM '.SEARCH_TABLE.'
+  WHERE search_uuid = \''.$candidate.'\'
+;';
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
+  if (0 == $counter)
+  {
+    return $candidate;
+  }
+  else
+  {
+    return get_available_search_uuid();
+  }
+}
+
+function save_search_and_redirect($rules, $forked_from=null)
+{
+  global $user;
+
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW()'));
+  $search_uuid = get_available_search_uuid();
+
+  single_insert(
+    SEARCH_TABLE,
+    array(
+      'rules' => pwg_db_real_escape_string(serialize($rules)),
+      'created_on' => $dbnow,
+      'created_by' => $user['user_id'],
+      'search_uuid' => $search_uuid,
+      'last_seen' => $dbnow,
+      'forked_from' => $forked_from,
+    )
+  );
+
+  redirect(
+    make_index_url(
+      array(
+        'section' => 'search',
+        'search'  => $search_uuid,
+      )
+    )
+  );
 }
 
 ?>

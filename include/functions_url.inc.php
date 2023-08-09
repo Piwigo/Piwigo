@@ -648,10 +648,14 @@ function parse_section_url( $tokens, &$next_token)
     $page['section'] = 'search';
     $next_token++;
 
-    preg_match('/(\d+)/', @$tokens[$next_token], $matches);
+    preg_match('/^(psk-\d{8}-[a-zA-Z0-9]{10})$/', @$tokens[$next_token], $matches);
     if (!isset($matches[1]))
     {
-      bad_request('search identifier is missing');
+      preg_match('/(\d+)/', @$tokens[$next_token], $matches);
+      if (!isset($matches[1]))
+      {
+        bad_request('search identifier is missing');
+      }
     }
     $page['search'] = $matches[1];
     $next_token++;

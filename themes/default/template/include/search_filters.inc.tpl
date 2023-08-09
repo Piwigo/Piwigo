@@ -8,7 +8,7 @@ fullname_of_cat = {$fullname_of};
 {/if}
 
 {if isset($SEARCH_ID)}
-search_id = {$SEARCH_ID};
+search_id = '{$SEARCH_ID}';
 {/if}
 
 str_word_widget_label = "{'Search for words'|@translate|escape:javascript}";

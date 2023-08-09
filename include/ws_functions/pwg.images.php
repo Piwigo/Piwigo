@@ -699,24 +699,28 @@ SELECT *
  */
 function ws_images_filteredSearch_update($params, $service)
 {
-  // echo json_encode($params); exit();
+  global $user;
+
   include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
   // * check the search exists
-  $query = '
-SELECT id
-  FROM '.SEARCH_TABLE.'
-  WHERE id = '.$params['search_id'].'
-;';
+  if (empty(get_search_id_pattern($params['search_id'])))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid search_id input parameter.');
+  }
 
-  if (count(query2array($query)) == 0)
+  $search_info = get_search_info($params['search_id']);
+  if (empty($search_info))
   {
     return new PwgError(WS_ERR_INVALID_PARAM, 'This search does not exist.');
   }
 
-  $search = array('mode' => 'AND');
+  if (!empty($search_info['created_by']) and $search_info['created_by'] != $user['user_id'])
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This search was created by another user.');
+  }
 
-  // TODO we should check that this search is updated by the user who created the search.
+  $search = array('mode' => 'AND');
 
   // * check all parameters
   if (isset($params['allwords']))
@@ -848,7 +852,7 @@ SELECT id
 UPDATE '.SEARCH_TABLE.'
   SET rules = \''.pwg_db_real_escape_string(serialize($search)).'\'
     , last_seen = NOW()
-  WHERE id = '.$params['search_id'].'
+  WHERE id = '.$search_info['id'].'
 ;';
   pwg_query($query);
 }
