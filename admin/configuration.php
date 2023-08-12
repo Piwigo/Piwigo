@@ -72,6 +72,8 @@ $comments_checkboxes = array(
 
 $display_checkboxes = array(
     'menubar_filter_icon',
+    'index_search_in_set_button',
+    'index_search_in_set_action',
     'index_sort_order_input',
     'index_flat_icon',
     'index_posted_date_icon',

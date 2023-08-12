@@ -43,6 +43,22 @@
       <li>
         <label class="font-checkbox">
           <span class="icon-check"></span>
+          <input type="checkbox" name="index_search_in_set_button" {if ($display.index_search_in_set_button)}checked="checked"{/if}>
+          {'Activate button "%s"'|translate:('Search in this set'|translate)}
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="index_search_in_set_action" {if ($display.index_search_in_set_action)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Search in this set'|translate)}
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
           <input type="checkbox" name="index_sort_order_input" {if ($display.index_sort_order_input)}checked="checked"{/if}>
           {'Activate icon "%s"'|translate:('Sort order'|translate)}
         </label>

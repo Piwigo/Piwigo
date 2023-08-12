@@ -436,4 +436,5 @@ $lang['last year'] = 'Last year';
 $lang['Unknown time period'] = 'Unknown time period';
 $lang['Tags found'] = 'Tags found';
 $lang['Albums found'] = 'Albums found';
+$lang['Search in this set'] = 'Search in this set';
 ?>

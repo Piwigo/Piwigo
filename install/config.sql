@@ -75,3 +75,5 @@ INSERT INTO piwigo_config (param,value) VALUES ('picture_caddie_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_representative_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_admin','true');
 INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_gallery','false');
+INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_button','true');
+INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_action','true');

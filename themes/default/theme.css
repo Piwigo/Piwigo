@@ -1499,6 +1499,10 @@ LEGEND {
   background: #777;
 }
 
+.mcs-side-results.search-in-set-button {
+	margin-top:0;
+}
+
 .ClosePopIn:hover {
   text-decoration: none;
   color: white;

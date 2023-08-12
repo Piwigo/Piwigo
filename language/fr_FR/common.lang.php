@@ -441,3 +441,4 @@ $lang['last year'] = 'Dernière année';
 $lang['Unknown time period'] = 'Période inconnue';
 $lang['Tags found'] = 'Tags trouvés';
 $lang['Albums found'] = 'Albums trouvés';
+$lang['Search in this set'] = 'Rechercher dans ce lot';

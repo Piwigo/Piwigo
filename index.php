@@ -416,6 +416,28 @@ SELECT
 */
   }
 
+  if ('categories' == $page['section'] and isset($page['category']) and !isset($page['combined_categories']))
+  {
+    $template->assign(
+      array(
+        'SEARCH_IN_SET_BUTTON' => $conf['index_search_in_set_button'],
+        'SEARCH_IN_SET_ACTION' => $conf['index_search_in_set_action'],
+        'SEARCH_IN_SET_URL' => get_root_url().'search.php?cat_id='.$page['category']['id'],
+      )
+    );
+  }
+
+  if (isset($page['body_data']['tag_ids']))
+  {
+    $template->assign(
+      array(
+        'SEARCH_IN_SET_BUTTON' => $conf['index_search_in_set_button'],
+        'SEARCH_IN_SET_ACTION' => $conf['index_search_in_set_action'],
+        'SEARCH_IN_SET_URL' => get_root_url().'search.php?tag_id='.implode(',', $page['body_data']['tag_ids']),
+      )
+    );
+  }
+
   if (isset($page['category']) and is_admin() and $conf['index_edit_icon'])
   {
     $template->assign(

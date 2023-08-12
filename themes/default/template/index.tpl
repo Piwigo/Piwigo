@@ -15,6 +15,11 @@
 <div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
 <div class="titrePage{if isset($chronology.TITLE)} calendarTitleBar{/if}">
 	<ul class="categoryActions">
+{if isset($SEARCH_IN_SET_ACTION) and $SEARCH_IN_SET_ACTION}
+    <li id="cmdSearchInSet"><a href="{$SEARCH_IN_SET_URL}" title="{'Search in this set'|translate}" class="pwg-state-default pwg-button">
+      <span class="pwg-icon pwg-icon-search"></span><span class="pwg-button-text">{'Search in this set'|translate}</span>
+    </a></li>
+{/if}
 {if !empty($image_orders)}
 		<li>{strip}<a id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sort"></span><span class="pwg-button-text">{'Sort order'|@translate}</span>
@@ -152,6 +157,14 @@
 
 {if isset($FILE_CHRONOLOGY_VIEW)}
 {include file=$FILE_CHRONOLOGY_VIEW}
+{/if}
+
+{if isset($SEARCH_IN_SET_BUTTON) and $SEARCH_IN_SET_BUTTON}
+<div class="mcs-side-results search-in-set-button">
+  <div>
+    <p><a href="{$SEARCH_IN_SET_URL}" class="pwg-icon-search">{'Search in this set'|translate}</a></p>
+  </div>
+</div>
 {/if}
 
 {if !empty($CONTENT_DESCRIPTION)}

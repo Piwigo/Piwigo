@@ -1347,4 +1347,5 @@ $lang['This album is currently locked, visible only to administrators.'] = 'This
 $lang['Unlock it'] = 'Unlock it';
 $lang['All admins'] = 'All admins';
 $lang['Only admins in a specific group'] = 'Only admins in a specific group';
+$lang['Activate button "%s"'] = 'Activate button "%s"';
 // Leave this line empty

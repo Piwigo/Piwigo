@@ -28,6 +28,13 @@ if (!empty($_GET['q']))
   $words = split_allwords($_GET['q']);
 }
 
+$cat_ids = array();
+if (isset($_GET['cat_id']))
+{
+  check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
+  $cat_ids = array($_GET['cat_id']);
+}
+
 $search = array(
   'mode' => 'AND',
   'fields' => array(
@@ -37,7 +44,7 @@ $search = array(
       'fields' => array('file', 'name', 'comment', 'tags', 'cat-title', 'cat-desc'),
     ),
     'cat' => array(
-      'words' => array(),
+      'words' => $cat_ids,
       'sub_inc' => true,
     ),
   ),
@@ -45,8 +52,15 @@ $search = array(
 
 if (count(get_available_tags()) > 0)
 {
+  $tag_ids = array();
+  if (isset($_GET['tag_id']))
+  {
+    check_input_parameter('tag_id', $_GET, false, '/^\d+(,\d+)*$/');
+    $tag_ids = explode(',', $_GET['tag_id']);
+  }
+
   $search['fields']['tags'] = array(
-    'words' => array(),
+    'words' => $tag_ids,
     'mode'  => 'AND',
   );
 }
