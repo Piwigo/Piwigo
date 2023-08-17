@@ -111,7 +111,8 @@ SELECT id, name, permalink
   $output = '';
   if ($single_link)
   {
-    $single_url = add_url_params(get_root_url().$url.array_pop(explode(',', $uppercats)), $add_url_params);
+    $uppercats_array = explode(',', $uppercats);
+    $single_url = add_url_params(get_root_url().$url.array_pop($uppercats_array), $add_url_params);
     $output.= '<a href="'.$single_url.'"';
     if (isset($link_class))
     {
