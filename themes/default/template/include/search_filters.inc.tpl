@@ -350,7 +350,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   <div class="tags-found-popin-container">
     <span class="pwg-icon-cancel tags-found-close"></span>
     <div class="mcs-popin-title">{'Tags found'|@translate}</div>
-
+    <div class="mcs-popin-desc">{'Tags listed here match your search by word. Click on one to browse by tag.'|translate}</div>
     <div class="tags-found-container">
     {foreach from=$TAGS_FOUND item=tag_path key=k}
       <div class="tag-item">
@@ -366,7 +366,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   <div class="albums-found-popin-container">
     <span class="pwg-icon-cancel albums-found-close"></span>
     <div class="mcs-popin-title">{'Albums found'|@translate}</div>
-
+    <div class="mcs-popin-desc">{'Albums listed here match your search by word. Click on one to browse by album.'|translate}</div>
     <div class="albums-found-container">
       {foreach from=$ALBUMS_FOUND item=album_path key=k}
         <div class="album-item">

@@ -368,6 +368,10 @@ else
     {
       $page['qsearch_details'] = $search_result['qs'];
     }
+    else if (isset($search_result['search_details']))
+    {
+      $page['search_details'] = $search_result['search_details'];
+    }
 
     $page = array_merge(
       $page,

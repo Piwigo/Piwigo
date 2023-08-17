@@ -146,6 +146,7 @@ function get_sql_search_clause($search)
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
     // AND (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
     $word_clauses = array();
+    $cat_ids_by_word = array();
     foreach ($search['fields']['allwords']['words'] as $word)
     {
       $field_clauses = array();
@@ -173,6 +174,7 @@ SELECT
   WHERE '.implode(' OR ', $cat_word_clauses).'
 ;';
         $cat_ids = query2array($query, null, 'id');
+        $cat_ids_by_word[$word] = $cat_ids;
         if (count($cat_ids) == 0)
         {
           $cat_ids = array(-1);
@@ -209,6 +211,35 @@ SELECT
       "\n         ". $search['fields']['allwords']['mode']. "\n         ",
       $word_clauses
     );
+
+    if (count($cat_ids_by_word) > 0)
+    {
+      $matching_cat_ids = null;
+      foreach ($cat_ids_by_word as $idx => $cat_ids)
+      {
+        if (is_null($matching_cat_ids))
+        {
+          // first iteration
+          $matching_cat_ids = $cat_ids;
+        }
+        else
+        {
+          if ('OR' == $search['fields']['allwords']['mode'])
+          {
+            $matching_cat_ids = array_merge($matching_cat_ids, $cat_ids);
+          }
+          else
+          {
+            $matching_cat_ids = array_intersect($matching_cat_ids, $cat_ids);
+          }
+        }
+      }
+
+      if ('OR' == $search['fields']['allwords']['mode'])
+      {
+        $matching_cat_ids = array_unique($matching_cat_ids);
+      }
+    }
 
     // 3) the case of searching among tags is handled by search_in_tags in function get_regular_search_results
   }
@@ -287,7 +318,7 @@ SELECT
 
   $search_clause = $where_separator;
 
-  return $search_clause;
+  return array($search_clause, isset($matching_cat_ids) ? array_values($matching_cat_ids) : null);
 }
 
 /**
@@ -334,13 +365,13 @@ function get_regular_search_results($search, $images_where='')
 
     $query = '
 SELECT
-    id
+    id, name, url_name
   FROM '.TAGS_TABLE.'
   WHERE '.implode(' OR ', $word_clauses).'
 ;';
-    $tag_ids = query2array($query, null, 'id');
+    $matching_tags = query2array($query, 'id');
 
-    $search_in_tags_items = get_image_ids_for_tags($tag_ids, 'OR');
+    $search_in_tags_items = get_image_ids_for_tags(array_keys($matching_tags), 'OR');
 
     $logger->debug(__FUNCTION__.' '.count($search_in_tags_items).' items in $search_in_tags_items');
   }
@@ -355,7 +386,7 @@ SELECT
     $logger->debug(__FUNCTION__.' '.count($tag_items).' items in $tag_items');
   }
 
-  $search_clause = get_sql_search_clause($search);
+  list($search_clause, $matching_cat_ids) = get_sql_search_clause($search);
 
   if (!empty($search_clause))
   {
@@ -419,7 +450,13 @@ SELECT DISTINCT(id)
     }
   }
 
-  return $items;
+  return array(
+    'items' => $items,
+    'search_details' => array(
+      'matching_cat_ids' => $matching_cat_ids,
+      'matching_tags' => @$matching_tags,
+    ),
+  );
 }
 
 
@@ -1619,8 +1656,7 @@ function get_search_results($search_id, $super_order_by, $images_where='')
   $search = get_search_array($search_id);
   if ( !isset($search['q']) )
   {
-    $result['items'] = get_regular_search_results($search, $images_where);
-    return $result;
+    return get_regular_search_results($search, $images_where);
   }
   else
   {

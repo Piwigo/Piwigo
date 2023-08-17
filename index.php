@@ -393,27 +393,49 @@ SELECT
       )
     );
 
-    // TODO: Send actual data
-/*
-    $template->assign('TAGS_FOUND',
-      array(
-        'Link 1 / Sub link 1 / <a href="https://www.google.com"> Sub sub</a>',
-        'Link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2.2.2',
-        'Link 3',
-        'Link 4',
-        'Link 5'
-      )
-    );
-
-    $template->assign('ALBUMS_FOUND',
-      array(
-        'Link 1 / Sub link 1 / <a href="https://www.google.com"> Sub sub</a>',
-        'Link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2 / Sub link 2.2.2',
-        'Link 3',
-        'Link 4',
-      )
-    );
-*/
+    if (0 == $page['start'] and !isset($page['chronology_field']) and isset($page['search_details']))
+    {
+      if (isset($page['search_details']['matching_cat_ids']))
+      {
+        $cat_ids = $page['search_details']['matching_cat_ids'];
+        if (count($cat_ids))
+        {
+          $query = '
+SELECT
+    *
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $cat_ids).')
+;';
+          $cats = query2array($query);
+          usort($cats, 'name_compare');
+          $albums_found = array();
+          foreach ($cats as $cat)
+          {
+            $single_link = false;
+            $albums_found[] = get_cat_display_name_cache(
+              $cat['uppercats'],
+              '',
+              $single_link
+            );
+          }
+          $template->assign('ALBUMS_FOUND', $albums_found);
+        }
+      }
+      if (isset($page['search_details']['matching_tags']))
+      {
+        $tags_found = array();
+        foreach ($page['search_details']['matching_tags'] as $tag)
+        {
+          $url = make_index_url(
+            array(
+              'tags' => array($tag)
+            )
+          );
+          $tags_found[] = sprintf('<a href="%s">%s</a>', $url, $tag['name']);
+        }
+        $template->assign('TAGS_FOUND', $tags_found);
+      }
+    }
   }
 
   if ('categories' == $page['section'] and isset($page['category']) and !isset($page['combined_categories']))

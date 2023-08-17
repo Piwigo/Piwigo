@@ -437,4 +437,6 @@ $lang['Unknown time period'] = 'Unknown time period';
 $lang['Tags found'] = 'Tags found';
 $lang['Albums found'] = 'Albums found';
 $lang['Search in this set'] = 'Search in this set';
+$lang['Tags listed here match your search by word. Click on one to browse by tag.'] = 'Tags listed here match your search by word. Click on one to browse by tag.';
+$lang['Albums listed here match your search by word. Click on one to browse by album.'] = 'Albums listed here match your search by word. Click on one to browse by album.';
 ?>
