@@ -17,7 +17,7 @@
 	<ul class="categoryActions">
 {if isset($SEARCH_IN_SET_ACTION) and $SEARCH_IN_SET_ACTION}
     <li id="cmdSearchInSet"><a href="{$SEARCH_IN_SET_URL}" title="{'Search in this set'|translate}" class="pwg-state-default pwg-button">
-      <span class="pwg-icon pwg-icon-search"></span><span class="pwg-button-text">{'Search in this set'|translate}</span>
+      <span class="pwg-icon pwg-icon-search-folder"></span><span class="pwg-button-text">{'Search in this set'|translate}</span>
     </a></li>
 {/if}
 {if !empty($image_orders)}
@@ -162,7 +162,7 @@
 {if isset($SEARCH_IN_SET_BUTTON) and $SEARCH_IN_SET_BUTTON}
 <div class="mcs-side-results search-in-set-button">
   <div>
-    <p><a href="{$SEARCH_IN_SET_URL}" class="pwg-icon-search">{'Search in this set'|translate}</a></p>
+    <p><a href="{$SEARCH_IN_SET_URL}" class="pwg-icon-search-folder">{'Search in this set'|translate}</a></p>
   </div>
 </div>
 {/if}
