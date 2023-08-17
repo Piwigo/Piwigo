@@ -753,7 +753,7 @@ array(
 array(
   'name' => 'render_element_name',
   'type' => 'trigger_change',
-  'vars' => array('string', 'element_name'),
+  'vars' => array('string', 'element_name', 'array', 'info'),
   'files' => array('include\functions_html.inc.php (render_element_name)'),
 ),
 array(
