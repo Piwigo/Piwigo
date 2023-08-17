@@ -305,7 +305,7 @@ WHERE param = \''.$row['param'].'\'
         pwg_query($query);
       }
     }
-    $page['infos'][] = l10n('Information data registered in database');
+    $page['infos'][] = l10n('Your configuration settings are saved');
     pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section']));
   }
 
