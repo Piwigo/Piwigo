@@ -537,6 +537,55 @@ function upload_file_pdf($representative_ext, $file_path)
   return $representative_ext;
 }
 
+add_event_handler('upload_file', 'upload_file_heic');
+function upload_file_heic($representative_ext, $file_path)
+{
+  global $logger, $conf;
+
+  $logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+  if (isset($representative_ext))
+  {
+    return $representative_ext;
+  }
+
+  if (pwg_image::get_library() != 'ext_imagick')
+  {
+    return $representative_ext;
+  }
+
+  if (!in_array(strtolower(get_extension($file_path)), array('heic')))
+  {
+    return $representative_ext;
+  }
+
+  $ext = 'jpg';
+
+  // move the uploaded file to pwg_representative sub-directory
+  $representative_file_path = original_to_representative($file_path, $ext);
+  prepare_directory(dirname($representative_file_path));
+
+  list($w,$h) = get_optimal_dimensions_for_representative();
+
+  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec.= ' -sampling-factor 4:2:0 -quality 85 -interlace JPEG -colorspace sRGB -auto-orient +repage -strip -resize "'.$w.'x'.$h.'>"';
+  $exec.= ' "'.realpath($file_path).'"';
+  $exec.= ' "'.$representative_file_path.'"';
+  $exec.= ' 2>&1';
+
+  $logger->info(__FUNCTION__.', exec = '.$exec);
+
+  @exec($exec, $returnarray);
+
+  // Return the extension (if successful) or false (if failed)
+  if (file_exists($representative_file_path))
+  {
+    $representative_ext = $ext;
+  }
+
+  return $representative_ext;
+}
+
 add_event_handler('upload_file', 'upload_file_tiff');
 function upload_file_tiff($representative_ext, $file_path)
 {
@@ -858,5 +907,41 @@ function ready_for_upload_message()
   }
 
   return null;
+}
+
+/**
+ * Return the optimized resize dimensions for a representative, based on maximum display size.
+ * There is no need to generate a 4000x3000 JPEG from a 4000x3000 HEIC if XXL size is only 1600x1200.
+ * 
+ * @since 14
+ *
+ * @return array(width, height)
+ */
+function get_optimal_dimensions_for_representative()
+{
+  global $conf;
+
+  $enabled = ImageStdParams::get_defined_type_map();
+  $disabled = @unserialize(@$conf['disabled_derivatives']);
+  if ($disabled === false)
+  {
+    $disabled = array();
+  }
+
+  $w = $h = 2000; // safe default values
+
+  foreach(ImageStdParams::get_all_types() as $type)
+  {
+    $params = $enabled[$type] ?? @$disabled[$type];
+
+    if ($params)
+    {
+      list($w, $h) = $params->sizing->ideal_size;
+    }
+  }
+
+  $margin_coef = 1.5;
+
+  return array($w*$margin_coef, $h*$margin_coef);
 }
 ?>
