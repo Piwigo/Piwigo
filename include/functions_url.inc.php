@@ -460,7 +460,7 @@ function make_section_in_url($params)
 function parse_section_url( $tokens, &$next_token)
 {
   $page=array();
-  if (strncmp(@$tokens[$next_token], 'categor', 7)==0 )
+  if (isset($tokens[$next_token]) and strncmp($tokens[$next_token], 'categor', 7)==0 )
   {
     $page['section'] = 'categories';
     $next_token++;
