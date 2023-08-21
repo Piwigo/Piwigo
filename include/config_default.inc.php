@@ -43,6 +43,9 @@
 $conf['picture_ext'] = array('jpg','jpeg','png','gif');
 
 // file_ext : file extensions (case sensitive) authorized
+//
+// * if you enable "eps" file extension, make sure you have this file type
+//   authorized in your ImageMagick policy
 $conf['file_ext'] = array_merge(
   $conf['picture_ext'],
   array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf','svg', 'heic')

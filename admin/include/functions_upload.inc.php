@@ -795,6 +795,55 @@ function upload_file_psd($representative_ext, $file_path)
   return get_extension($representative_file_abspath);
 }
 
+add_event_handler('upload_file', 'upload_file_eps');
+function upload_file_eps($representative_ext, $file_path)
+{
+  global $logger, $conf;
+
+  $logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+  if (isset($representative_ext))
+  {
+    return $representative_ext;
+  }
+
+  if (pwg_image::get_library() != 'ext_imagick')
+  {
+    return $representative_ext;
+  }
+
+  if (!in_array(strtolower(get_extension($file_path)), array('eps')))
+  {
+    return $representative_ext;
+  }
+
+  // if the representative is "jpg", the derivatives are ugly. With "png" it's fine.
+  $ext = 'png';
+
+  // move the uploaded file to pwg_representative sub-directory
+  $representative_file_path = original_to_representative($file_path, $ext);
+  prepare_directory(dirname($representative_file_path));
+
+  // convert -density 300 image.eps -resize 2048x2048 image.png
+
+  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec.= ' -density 300';
+  $exec.= ' "'.realpath($file_path).'"';
+  $exec.= ' -resize 2048x2048';
+  $exec.= ' "'.$representative_file_path.'"';
+  $exec.= ' 2>&1';
+  $logger->info(__FUNCTION__.', $exec = '.$exec);
+  @exec($exec, $returnarray);
+
+  // Return the extension (if successful) or false (if failed)
+  if (file_exists($representative_file_path))
+  {
+    $representative_ext = $ext;
+  }
+
+  return $representative_ext;
+}
+
 function prepare_directory($directory)
 {
   if (!is_dir($directory)) {
