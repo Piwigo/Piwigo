@@ -733,6 +733,68 @@ function upload_file_video($representative_ext, $file_path)
   return $representative_ext;
 }
 
+add_event_handler('upload_file', 'upload_file_psd');
+function upload_file_psd($representative_ext, $file_path)
+{
+  global $logger, $conf;
+
+  $logger->info(__FUNCTION__.', $file_path = '.$file_path.', $representative_ext = '.$representative_ext);
+
+  if (isset($representative_ext))
+  {
+    return $representative_ext;
+  }
+
+  if (pwg_image::get_library() != 'ext_imagick')
+  {
+    return $representative_ext;
+  }
+
+  if (!in_array(strtolower(get_extension($file_path)), array('psd')))
+  {
+    return $representative_ext;
+  }
+
+  // move the uploaded file to pwg_representative sub-directory
+  $representative_file_path = dirname($file_path).'/pwg_representative/';
+  $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+
+  $representative_ext = 'png';
+  $representative_file_path.= $representative_ext;
+
+  prepare_directory(dirname($representative_file_path));
+
+  $exec = $conf['ext_imagick_dir'].'convert';
+
+  $exec .= ' "'.realpath($file_path).'"';
+
+  $dest = pathinfo($representative_file_path);
+  $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
+
+  $exec .= ' 2>&1';
+  $logger->info(__FUNCTION__.', exec = '.$exec);
+  @exec($exec, $returnarray);
+
+  // sometimes ImageMagick creates file-0.png + file-1.png + file-2.png...
+  // It seems we can't avoid it.
+  $representative_file_abspath = realpath($dest['dirname']).'/'.$dest['basename'];
+  if (!file_exists($representative_file_abspath))
+  {
+    $first_file_abspath = preg_replace(
+      '/\.'.$representative_ext.'$/',
+      '-0.'.$representative_ext,
+      $representative_file_abspath
+      );
+
+    if (file_exists($first_file_abspath))
+    {
+      rename($first_file_abspath, $representative_file_abspath);
+    }
+  }
+
+  return get_extension($representative_file_abspath);
+}
+
 function prepare_directory($directory)
 {
   if (!is_dir($directory)) {
