@@ -611,12 +611,12 @@ function get_thumbnail_title($info, $title, $comment='')
 
   if (!empty($info['hit']))
   {
-    $details[] = $info['hit'].' '.strtolower(l10n('Visits'));
+    $details[] = l10n('%d visits', $info['hit']);
   }
 
   if ($conf['rate'] and !empty($info['rating_score']))
   {
-    $details[] = strtolower(l10n('Rating score')).' '.$info['rating_score'];
+    $details[] = l10n('rating score %s', $info['rating_score']);
   }
 
   if (isset($info['nb_comments']) and $info['nb_comments'] != 0)
