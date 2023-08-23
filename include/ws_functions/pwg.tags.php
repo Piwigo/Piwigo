@@ -288,7 +288,7 @@ function ws_tags_rename($params, &$service)
   }
 
   $tag_id = $params['tag_id'];
-  $tag_name = $params['new_name'];
+  $tag_name = strip_tags(stripslashes($params['new_name']));
 
   // does the tag exist ?
   $query = '
@@ -318,7 +318,7 @@ SELECT name
   else if (!empty($tag_name))
   {
     $update = array(
-      'name' => addslashes($tag_name),
+      'name' => pwg_db_real_escape_string($tag_name),
       'url_name' => trigger_change('render_tag_url', $tag_name),
     );
 
@@ -332,11 +332,16 @@ SELECT name
     array('id' => $tag_id)
     );
 
-  return array(
-    'id' => $tag_id,
-    'name' => addslashes($tag_name),
-    'url_name' => trigger_change('render_tag_url', $tag_name)
-  );
+  $query = '
+SELECT
+    id,
+    name,
+    url_name
+  FROM '.TAGS_TABLE.'
+  WHERE id = '.$tag_id.'
+;';
+
+  return query2array($query)[0];
 }
 
 
