@@ -837,3 +837,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #ffd7ad;
   background-color: #f98100;
 }
+
+.eiw .messages a {
+  background-color: #00529b;
+  color: #bde5f8;
+  padding: 2px 7px;
+}
