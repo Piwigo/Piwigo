@@ -838,7 +838,7 @@ function ws_images_filteredSearch_update($params, $service)
 
   if (isset($params['date_posted']))
   {
-    if (!preg_match('/^(7d|30d|6m|1y|)$/', $params['date_posted']))
+    if (!preg_match('/^(24h|7d|30d|3m|6m|y\d+|)$/', $params['date_posted']))
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_posted');
     }

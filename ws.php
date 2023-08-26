@@ -1414,7 +1414,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         ),
         'date_posted' => array(
           'flags' => WS_PARAM_OPTIONAL,
-          'info' => 'files posted within 7 days (7d) or 30 days (30d) or 6 months (6m) or 1 year (1y). Value among 7d|30d|6m|1y',
+          'info' => 'files posted within 24 hours, 7 days or 30 days or 3 months or 6 months or year NNNN. Value among 24h|7d|30d|3m|6m|yNNNN',
         ),
       ),
       '',

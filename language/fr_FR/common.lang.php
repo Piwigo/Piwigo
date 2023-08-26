@@ -446,3 +446,6 @@ $lang['Tags listed here match your search by word. Click on one to browse by tag
 $lang['Albums listed here match your search by word. Click on one to browse by album.'] = 'Les albums ci-dessous correspondent à votre recherche par mot. Cliquez sur l\'un d\'eux pour basculer en navigation par album.';
 $lang['%d visits'] = '%d visites';
 $lang['rating score %s'] = 'score %s';
+$lang['year %d'] = 'année %d';
+$lang['last 3 months'] = '3 derniers mois';
+$lang['last 24 hours'] = '24 dernières heures';

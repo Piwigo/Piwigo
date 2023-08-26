@@ -131,14 +131,10 @@ $(document).ready(function () {
     if (global_params.fields.date_posted != null && global_params.fields.date_posted != "") {
       $("#date_posted-" + global_params.fields.date_posted).prop("checked", true);
 
-      date_posted_str = str_date_post[global_params.fields.date_posted];
+      date_posted_str = $('.date_posted-option label#'+global_params.fields.date_posted+' .date-period').text();
       $(".filter-date_posted").addClass("filter-filled");
       $(".filter.filter-date_posted .search-words").text(date_posted_str);
     }
-
-    $(".date_posted-option label").each(function () {
-        $(this).find('.date-period').html(str_date_post[$(this).attr('id')])
-    });
 
     $(".filter-date_posted .filter-actions .clear").on('click', function () {
       $(".date_posted-option input").prop('checked', false);

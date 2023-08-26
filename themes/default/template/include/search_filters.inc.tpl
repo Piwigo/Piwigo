@@ -18,13 +18,6 @@ str_author_widget_label = "{'Author'|@translate|escape:javascript}";
 str_added_by_widget_label = "{'Added by'|@translate|escape:javascript}";
 str_filetypes_widget_label = "{'File type'|@translate|escape:javascript}";
 
-str_date_post = {
-  '7d': "{'last 7 days'|@translate|escape:javascript}",
-  '30d': "{'last 30 days'|@translate|escape:javascript}",
-  '6m': "{'last 6 months'|@translate|escape:javascript}",
-  '1y': "{'last year'|@translate|escape:javascript}",
-}
-
 str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate|escape:javascript}";
 str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate|escape:javascript}";
 
@@ -183,13 +176,13 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
 
       <div class="date_posted-option-container">
-        {foreach from=$DATE_POSTED item=badge_number key=k}
+        {foreach from=$DATE_POSTED item=date_posted key=k}
           <div class="date_posted-option">
             <input type="radio" id="date_posted-{$k}" value={$k} name="date_posted-period">
             <label for="date_posted-{$k}" id="{$k}">
               <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
-              <span class="date-period">{'last year'|@translate}</span>
-              <span class="date_posted-badge">{$badge_number}</span>
+              <span class="date-period">{$date_posted.label}</span>
+              <span class="date_posted-badge">{$date_posted.counter}</span>
             </label>
           </div>
         {/foreach}

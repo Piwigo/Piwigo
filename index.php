@@ -235,8 +235,10 @@ SELECT
     {
       $query = '
 SELECT
+    SUBDATE(NOW(), INTERVAL 24 HOUR) AS 24h,
     SUBDATE(NOW(), INTERVAL 7 DAY) AS 7d,
     SUBDATE(NOW(), INTERVAL 30 DAY) AS 30d,
+    SUBDATE(NOW(), INTERVAL 3 MONTH) AS 3m,
     SUBDATE(NOW(), INTERVAL 6 MONTH) AS 6m
 ;';
     $thresholds = query2array($query)[0];
@@ -255,12 +257,13 @@ SELECT
       ),
     ' WHERE '
     ).'
-    AND date_available > SUBDATE(NOW(), INTERVAL 1 YEAR)
 ;';
     $dates = query2array($query);
     $pre_counters = array_fill_keys(array_keys($thresholds), array());
     foreach ($dates as $date_row)
     {
+      $year = date('Y', strtotime($date_row['date_available']));
+      @$pre_counters['y'.$year][ $date_row['image_id'] ] = 1;
       foreach ($thresholds as $threshold => $date_limit)
       {
         if ($date_row['date_available'] > $date_limit)
@@ -268,16 +271,39 @@ SELECT
           @$pre_counters[$threshold][ $date_row['image_id'] ] = 1;
         }
       }
-      @$pre_counters['1y'][ $date_row['image_id'] ] = 1;
     }
 
+    $label_for_threshold = array(
+      '24h' => l10n('last 24 hours'),
+      '7d' => l10n('last 7 days'),
+      '30d' => l10n('last 30 days'),
+      '3m' => l10n('last 3 months'),
+      '6m' => l10n('last 6 months'),
+    );
+
     // pre_counters need to be deduplicated because a photo can be in several albums
-    $counters = array_fill_keys(array_keys($thresholds), 0);
+    $counters = array_fill_keys(array_keys($thresholds), array('label'=>'default label', 'counter'=>0));
     foreach (array_keys($thresholds) as $threshold)
     {
-      $counters[$threshold] = count(array_keys($pre_counters[$threshold]));
+      $counters[$threshold] = array(
+        'label' => $label_for_threshold[$threshold],
+        'counter' => count(array_keys($pre_counters[$threshold]))
+      );
     }
-    $counters['1y'] = count(array_keys($pre_counters['1y']));
+
+    $pre_counters_keys = array_keys($pre_counters);
+    rsort($pre_counters_keys); // we want y2023 to come before y2022 in the list
+
+    foreach ($pre_counters_keys as $key)
+    {
+      if (preg_match('/^y(\d+)$/', $key, $matches))
+      {
+        $counters[$key] = array(
+          'label' => l10n('year %d', $matches[1]),
+          'counter' => count(array_keys($pre_counters[$key]))
+        );
+      }
+    }
 
     $template->assign('DATE_POSTED', $counters);
   }

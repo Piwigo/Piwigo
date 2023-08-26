@@ -268,12 +268,23 @@ SELECT
   if (!empty($search['fields']['date_posted']))
   {
     $options = array(
+      '24h' => '24 HOUR',
       '7d' => '7 DAY',
       '30d' => '30 DAY',
+      '3m' => '3 MONTH',
       '6m' => '6 MONTH',
       '1y' => '1 YEAR',
     );
-    $clauses[] = 'date_available > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_posted'] ].')';
+
+    if (isset($options[ $search['fields']['date_posted'] ]))
+    {
+      $clauses[] = 'date_available > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_posted'] ].')';
+    }
+    elseif (preg_match('/^y(\d+)$/', $search['fields']['date_posted'], $matches))
+    {
+      // that is for y2023 = all photos posted in 2022
+      $clauses[] = 'YEAR(date_available) = '.$matches[1];
+    }
   }
 
   if (!empty($search['fields']['filetypes']))
