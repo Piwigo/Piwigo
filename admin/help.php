@@ -46,6 +46,14 @@ $template->assign(
     )
   );
 
+if (substr($user['language'], 0, 3) == 'fr_')
+{
+  $page['messages'][] = sprintf(
+    'Besoin d\'aide pour utiliser Piwigo ? Consultez la <a href="%s" target="_blank">documentation en ligne</a> !',
+    'https://doc-fr.piwigo.org/'
+  );
+}
+
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
