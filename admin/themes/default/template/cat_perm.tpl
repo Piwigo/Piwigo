@@ -49,9 +49,6 @@ jQuery("#selectStatus").change(function() {
 {/if}
 }());
 
-$(document).ready(function () {
-  $("h1").append(' <span style="letter-spacing:0">'+cat_nav+'</span>');
-})
 {/footer_script}
 
 <form action="{$F_ACTION}" method="post" id="categoryPermissions">

@@ -7,7 +7,7 @@
 const cat_nav = '{$CATEGORIES_NAV|escape:javascript}';
 
 jQuery(document).ready(function() {
-  $("h1").append(' <span style="letter-spacing:0">'+cat_nav+'</span>');
+
 
   jQuery("input[name=who]").change(function () {
     checkWhoOptions();
