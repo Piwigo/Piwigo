@@ -325,3 +325,7 @@ Info
     75% { transform: translateX(-10px)}
     100% { transform: translateX(0px)}
   }
+
+.tree .badge-container i.icon-imagefolder-01.nb-sub-photos:before{
+    margin-right:0.5em!important;
+}
