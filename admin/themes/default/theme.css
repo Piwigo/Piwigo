@@ -555,6 +555,7 @@ LI.menuLi {
   justify-content: center;
   align-content: center;
   gap: 24px;
+  padding-bottom:100px;
 }
 
 .cat-modify-infos {
