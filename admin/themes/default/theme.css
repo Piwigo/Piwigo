@@ -5915,6 +5915,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #photosAddContent .Addedphotos a {
   margin-right: 5px; 
+  margin-bottom:5px;
   display: flex;
 }
 #photosAddContent .Addedphotos .format-ext-name {
