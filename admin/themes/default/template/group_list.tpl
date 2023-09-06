@@ -153,8 +153,8 @@ usersCache.selectize(jQuery('select.UserSearch'));
       </select>
     </div>
     
-    <button class="icon-ok ConfirmMergeButton">Confirm merge</button>
-    <a id="CancelMerge" onclick="updateSelectionPanel('Selection')">Cancel</a>
+    <button class="icon-ok ConfirmMergeButton">{'Confirm merge'|@translate}</button>
+    <a id="CancelMerge" onclick="updateSelectionPanel('Selection')">{'Cancel'|@translate}</a>
    </div>
  
 
