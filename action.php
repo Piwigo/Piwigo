@@ -157,6 +157,8 @@ else if ($_GET['part'] == 'f')
   pwg_log($_GET['id'], 'high', $format['format_id']);
 }
 
+trigger_notify('loc_action_before_http_headers');
+
 $http_headers = array();
 
 $ctype = null;
