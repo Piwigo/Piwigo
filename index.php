@@ -459,7 +459,11 @@ SELECT
           );
           $tags_found[] = sprintf('<a href="%s">%s</a>', $url, $tag['name']);
         }
-        $template->assign('TAGS_FOUND', $tags_found);
+
+        if (count($tags_found) > 0)
+        {
+          $template->assign('TAGS_FOUND', $tags_found);
+        }
       }
     }
   }
