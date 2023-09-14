@@ -5,9 +5,16 @@
 {/if}
 
 {if isset($current.path_ext) and $current.path_ext == 'pdf'}
-    <div id="theImage" class="row d-block justify-content-center mb-3">
-        <embed src="{$ROOT_URL}{$current.path}" type="application/pdf" width="800px" height="700px" />
-    </div>
+    {if isset($current.filesize) && $current.filesize < 100}
+        <div id="theImage" class="row d-block justify-content-center mb-3">
+            <embed src="{$ROOT_URL}{$current.path}" type="application/pdf" width="800px" height="700px" />
+        </div>
+    {else}
+        <div class="pdf-too-heavy">
+            Le PDF que vous avez demandé est trop volumineux pour être affiché sur cette page. </br>
+            <a href="{$ROOT_URL}{$current.path}" target="_blank">Cliquez ici pour le voir</a>
+        </div>
+    {/if}
 {else}
     <img class="file-ext-{if isset($current.file_ext)}{$current.file_ext}{/if} path-ext-{if isset($current.path_ext)}{$current.path_ext}{/if}" {if (isset($current.path_ext) and $current.path_ext == 'svg')} src="{$current.path}" {elseif $current.selected_derivative->is_cached()}src="{$current.selected_derivative->get_url()}"{$current.selected_derivative->get_size_htm()}{else}src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif" data-src="{$current.selected_derivative->get_url()}"{/if} alt="{$ALT_IMG}" id="theMainImage" usemap="#map{$current.selected_derivative->get_type()}" title="{if isset($COMMENT_IMG)}{$COMMENT_IMG|@strip_tags:false|@replace:'"':' '}{else}{$current.TITLE_ESC} - {$ALT_IMG}{/if}">
 {/if}
