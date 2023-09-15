@@ -971,6 +971,10 @@ SELECT id, name, permalink
   }
 }
 
+if ($conf['pdf_max_size']) {
+  $template->assign('PDF_MAX_SIZE', $conf['pdf_max_size']);
+}
+
 // maybe someone wants a special display (call it before page_header so that
 // they can add stylesheets)
 $element_content = trigger_change(

@@ -168,7 +168,6 @@ y.callService(
 		{/if}
 	</div>
 {/if}
-
 <dl id="standard" class="imageInfoTable">
 {strip}
 	{if $display_info.author and isset($INFO_AUTHOR)}
@@ -325,7 +324,6 @@ function setPrivacyLevel(id, level){
 {/if}
 {/strip}
 </dl>
-
 {if isset($metadata)}
 <dl id="Metadata" class="imageInfoTable">
 {foreach from=$metadata item=meta}
