@@ -971,7 +971,7 @@ SELECT id, name, permalink
   }
 }
 
-if ($conf['pdf_max_size']) {
+if (isset($conf['pdf_max_size']) && $conf['pdf_max_size']) {
   $template->assign('PDF_MAX_SIZE', $conf['pdf_max_size']);
 } else {
   $template->assign('PDF_MAX_SIZE', 1000);
