@@ -233,6 +233,12 @@ y.callService(
 	</div>
 	{/if}
 
+		{if $current.path_ext=="pdf"}
+			<div id="Pages" class="imageInfo">
+				<dt>{'Pages'|@translate}</dt>
+				<dd>{count_pdf_pages($current.path)}</dd>
+			</div>
+{/if}
 {if $display_info.rating_score and isset($rate_summary)}
 	<div id="Average" class="imageInfo">
 		<dt>{'Rating score'|@translate}</dt>
