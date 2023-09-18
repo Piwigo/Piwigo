@@ -264,21 +264,29 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
-      <div class="filter-form-title">{'Added by'|@translate}</div>
+      <div class="filter-form-title">{'Added by'|translate}</div>
       <div class="filter-actions"> 
-        <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+        <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-broom tiptip" title="{'Clear'|@translate}"></span>
       </div>
+
       <div class="form-container">
-        <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
-        {foreach from=$ADDED_BY item=added_by}
-          <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">{$added_by.added_by_name|strip_tags:false}<span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span></option>
+        <div class="added_by-option-container">
+        {foreach from=$ADDED_BY item=added_by key=k}
+          <div class="added_by-option">
+              <input type="checkbox" id="added_by-{$added_by.added_by_id}" name="{$added_by.added_by_id}">
+              <label for="added_by-{$added_by.added_by_id}">
+                <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+                <span class="added_by-name">{$added_by.added_by_name|strip_tags:false}</span>
+                <span class="added_by-badge">{$added_by.counter}</span>
+              </label>
+            </div>
         {/foreach}
-        </select>
-        <div class="filter-validate">
-          <i class="loading pwg-icon-spin6 animate-spin"></i>
-          <span class="validate-text">{'Validate'|@translate}</span>
         </div>
+      </div>
+      <div class="filter-validate">
+        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
   </div>
