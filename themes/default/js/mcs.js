@@ -458,7 +458,6 @@ $(document).ready(function () {
     }
     $(".filter-tag-form").toggle(0, function () {
       if ($(this).is(':visible')) {
-        $(".show-filter-dropdown").removeClass('show-filter-dropdown');
         $(".filter-tag").addClass("show-filter-dropdown");
       } else {
         $(".filter-tag").removeClass("show-filter-dropdown");
