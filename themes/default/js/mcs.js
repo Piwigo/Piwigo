@@ -7,15 +7,16 @@ $(document).ready(function () {
     $(this).find(".validate-text").hide();
   });
 
+  // If we open another filter, hide all other dropdowns expect the one just opened
   $("div.filter").on("click", function () {
     $(this).siblings().removeClass("show-filter-dropdown");
     $(this).siblings().children("div.filter-form").css('display','none');
   });
 
+  // If we open the choose filters modal hide all filter forms if any open
   $("div.filter-manager").on("click", function () {
     $('div.filter').children("div.filter-form").css('display','none');
   });
-
 
   global_params.search_id = search_id;
 
