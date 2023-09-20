@@ -7,28 +7,15 @@ $(document).ready(function () {
     $(this).find(".validate-text").hide();
   });
 
-  $(document).on('click', function (e) {
-    $(".filter-form").each(function () {
-      if ($(this).parent().hasClass("show-filter-dropdown")) {
-        // Filter is open
+  $("div.filter").on("click", function () {
+    $(this).siblings().removeClass("show-filter-dropdown");
+    $(this).siblings().children("div.filter-form").css('display','none');
+  });
 
-        if ($(this).parent().has(e.target).length === 0 && !$(this).parent().is(e.target)) {
-          // We don't click on a filter or filter's form
-          // $(this).parent().trigger('click');
+  $("div.filter-manager").on("click", function () {
+    $('div.filter').children("div.filter-form").css('display','none');
+  });
 
-          if ($("#addLinkedAlbum").has(e.target).length === 0 && !$("#addLinkedAlbum").is(e.target)) {
-            console.log("We don't click in filter manager");
-            $(this).parent().trigger('click');
-          }
-
-          //if target if a filter, open it
-          if ($(".filter").has(e.target).length !== 0) {
-            $(e.target).trigger('click');
-          }
-        }
-      }
-    });
-  })
 
   global_params.search_id = search_id;
 
