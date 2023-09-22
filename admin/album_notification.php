@@ -35,7 +35,7 @@ if (isset($_POST['submitEmail']))
 {
   set_make_full_url();
 
-  $img = array();
+  $img = null;
 
   /* TODO: if $category['representative_picture_id']
     is empty find child representative_picture_id */
@@ -316,6 +316,8 @@ SELECT
 
   $template->assign('user_options', $users);
 }
+
+$template->assign('user_options_selected', '');
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
