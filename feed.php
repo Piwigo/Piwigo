@@ -121,7 +121,7 @@ if (!$image_only)
 
     $item->date = ts_to_iso8601(datetime_to_ts($dbnow));
     $item->author = $conf['rss_feed_author'];
-    $item->guid= sprintf('%s', $dbnow);;
+    $item->guid= sprintf('%s', $dbnow);
 
     $rss->addItem($item);
 
@@ -173,7 +173,7 @@ foreach($dates as $date_detail)
 
   $item->date = ts_to_iso8601(datetime_to_ts($date));
   $item->author = $conf['rss_feed_author'];
-  $item->guid= sprintf('%s', 'pics-'.$date);;
+  $item->guid= sprintf('%s', 'pics-'.$date);
 
   $rss->addItem($item);
 }
