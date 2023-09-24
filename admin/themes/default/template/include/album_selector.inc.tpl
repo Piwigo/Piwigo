@@ -25,7 +25,7 @@
       <span>{$title}</span>
     </div>
 
-    {if $show_root_btn}
+    {if isset($show_root_btn)}
     <label class="head-button-2 put-to-root">
       <p class="icon-home">{'Put at the root'|@translate}</p>
     </label>
