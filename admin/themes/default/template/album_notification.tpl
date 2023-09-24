@@ -94,7 +94,7 @@ span.errors {
     </p>
 
     <p class="who_option who_users">
-{if isset($user_options)}
+{if isset($user_options) and isset($user_options_selected)}
     <select name="users[]" multiple placeholder="{'Type in a search term'|translate}" style="width:524px;">
       {html_options options=$user_options selected=$user_options_selected}
     </select>
