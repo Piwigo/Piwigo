@@ -216,6 +216,8 @@ SELECT
 ;';
 $all_group_ids = array_from_query($query, 'group_id');
 
+$template->assign('permission_url', '' );
+
 if (count($all_group_ids) == 0)
 {
   $template->assign('no_group_in_gallery', true);
