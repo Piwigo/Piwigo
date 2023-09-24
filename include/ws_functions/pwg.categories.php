@@ -22,6 +22,7 @@ function ws_categories_getImages($params, &$service)
 
   $images = array();
   $image_ids = array();
+  $total_images = 0;
 
   //------------------------------------------------- get the related categories
   $where_clauses = array();
