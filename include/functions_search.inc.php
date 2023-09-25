@@ -183,6 +183,25 @@ SELECT
         $field_clauses[] = 'category_id IN ('.implode(',', $cat_ids).')';
       }
 
+      // search_in_tags
+      if (in_array('tags', $search['fields']['allwords']['fields']))
+      {
+        $query = '
+SELECT
+    id
+  FROM '.TAGS_TABLE.'
+  WHERE name LIKE \'%'.$word.'%\'
+;';
+        $tag_ids = query2array($query, null, 'id');
+        $tag_ids_by_word[$word] = $tag_ids;
+        if (count($tag_ids) == 0)
+        {
+          $tag_ids = array(-1);
+        }
+
+        $field_clauses[] = 'tag_id IN ('.implode(',', $tag_ids).')';
+      }
+
       if (count($field_clauses) > 0)
       {
         // adds brackets around where clauses
@@ -241,7 +260,34 @@ SELECT
       }
     }
 
-    // 3) the case of searching among tags is handled by search_in_tags in function get_regular_search_results
+    if (count($tag_ids_by_word) > 0)
+    {
+      $matching_tag_ids = null;
+      foreach ($tag_ids_by_word as $idx => $tag_ids)
+      {
+        if (is_null($matching_tag_ids))
+        {
+          // first iteration
+          $matching_tag_ids = $tag_ids;
+        }
+        else
+        {
+          if ('OR' == $search['fields']['allwords']['mode'])
+          {
+            $matching_tag_ids = array_merge($matching_tag_ids, $tag_ids);
+          }
+          else
+          {
+            $matching_tag_ids = array_intersect($matching_tag_ids, $tag_ids);
+          }
+        }
+      }
+
+      if ('OR' == $search['fields']['allwords']['mode'])
+      {
+        $matching_tag_ids = array_unique($matching_tag_ids);
+      }
+    }
   }
 
   foreach (array('date_available', 'date_creation') as $datefield)
@@ -329,7 +375,11 @@ SELECT
 
   $search_clause = $where_separator;
 
-  return array($search_clause, isset($matching_cat_ids) ? array_values($matching_cat_ids) : null);
+  return array(
+    $search_clause,
+    isset($matching_cat_ids) ? array_values($matching_cat_ids) : null,
+    isset($matching_tag_ids) ? array_values($matching_tag_ids) : null
+  );
 }
 
 /**
@@ -358,35 +408,6 @@ function get_regular_search_results($search, $images_where='')
   $items = array();
   $tag_items = array();
 
-  // starting with version 14, we no longer have $search['fields']['search_in_tags'] but 'tags'
-  // in the array $search['fields']['allwords']['fields']. Let's convert, without changing the
-  // search algorithm
-  if (!empty($search['fields']['allwords']['fields']) and in_array('tags', $search['fields']['allwords']['fields']))
-  {
-    $search['fields']['search_in_tags'] = true;
-  }
-
-  if (isset($search['fields']['search_in_tags']) and !empty($search['fields']['allwords']['words']))
-  {
-    $word_clauses = array();
-    foreach ($search['fields']['allwords']['words'] as $word)
-    {
-      $word_clauses[] = "name LIKE '%".$word."%'";
-    }
-
-    $query = '
-SELECT
-    id, name, url_name
-  FROM '.TAGS_TABLE.'
-  WHERE '.implode(' OR ', $word_clauses).'
-;';
-    $matching_tags = query2array($query, 'id');
-
-    $search_in_tags_items = get_image_ids_for_tags(array_keys($matching_tags), 'OR');
-
-    $logger->debug(__FUNCTION__.' '.count($search_in_tags_items).' items in $search_in_tags_items');
-  }
-
   if (isset($search['fields']['tags']))
   {
     $tag_items = get_image_ids_for_tags(
@@ -397,7 +418,7 @@ SELECT
     $logger->debug(__FUNCTION__.' '.count($tag_items).' items in $tag_items');
   }
 
-  list($search_clause, $matching_cat_ids) = get_sql_search_clause($search);
+  list($search_clause, $matching_cat_ids, $matching_tag_ids) = get_sql_search_clause($search);
 
   if (!empty($search_clause))
   {
@@ -405,6 +426,7 @@ SELECT
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.' i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+    LEFT JOIN '.IMAGE_TAG_TABLE.' AS it ON id = it.image_id
   WHERE '.$search_clause;
     if (!empty($images_where))
     {
@@ -415,23 +437,6 @@ SELECT DISTINCT(id)
     $items = array_from_query($query, 'id');
 
     $logger->debug(__FUNCTION__.' '.count($items).' items in $items');
-  }
-
-  if (isset($search_in_tags_items))
-  {
-    // TODO the sorting order will not match $conf['order_by'], a solution would be
-    // to have a new SQL query 'where id in (merged ids) order by $conf[order_by]'
-    //
-    // array_values will reset the numeric keys, without changing the sorting order.
-    // picture.php relies on these keys to be sequential {0,1,2} and not {0,1,5}
-    $items = array_values(
-      array_unique(
-        array_merge(
-          $items,
-          $search_in_tags_items
-          )
-        )
-      );
   }
 
   if ( !empty($tag_items) )
@@ -465,7 +470,7 @@ SELECT DISTINCT(id)
     'items' => $items,
     'search_details' => array(
       'matching_cat_ids' => $matching_cat_ids,
-      'matching_tags' => @$matching_tags,
+      'matching_tag_ids' => $matching_tag_ids,
     ),
   );
 }

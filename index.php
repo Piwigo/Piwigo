@@ -447,21 +447,30 @@ SELECT
           $template->assign('ALBUMS_FOUND', $albums_found);
         }
       }
-      if (isset($page['search_details']['matching_tags']))
+      if (isset($page['search_details']['matching_tag_ids']))
       {
-        $tags_found = array();
-        foreach ($page['search_details']['matching_tags'] as $tag)
-        {
-          $url = make_index_url(
-            array(
-              'tags' => array($tag)
-            )
-          );
-          $tags_found[] = sprintf('<a href="%s">%s</a>', $url, $tag['name']);
-        }
+        $tag_ids = $page['search_details']['matching_tag_ids'];
 
-        if (count($tags_found) > 0)
+        if (count($tag_ids) > 0)
         {
+          $query = '
+SELECT
+    *
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.implode(',', $tag_ids).')
+  ORDER BY name
+;';
+          $tags = query2array($query);
+          $tags_found = array();
+          foreach ($tags as $tag)
+          {
+            $url = make_index_url(
+              array(
+                'tags' => array($tag)
+              )
+            );
+            $tags_found[] = sprintf('<a href="%s">%s</a>', $url, $tag['name']);
+          }
           $template->assign('TAGS_FOUND', $tags_found);
         }
       }
