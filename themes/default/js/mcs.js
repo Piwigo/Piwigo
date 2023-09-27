@@ -700,13 +700,13 @@ $(document).ready(function () {
 
 function performSearch(params, reload = false) {
   $.ajax({
-    url: "ws.php?format=json&method=pwg.images.filteredSearch.update",
+    url: "ws.php?format=json&method=pwg.images.filteredSearch.create",
     type:"POST",
     dataType: "json",
     data: params,
     success:function(data) {
-      if (reload) {
-        reloadPage();
+      if (reload && typeof data.result.search_url !== 'undefined') {
+       reloadPage(data.result.search_url);
       }
     },
     error:function(e) {
@@ -842,6 +842,6 @@ function updateFilters(filterName, mode) {
   }
 }
 
-function reloadPage(){
-  location.reload(true);
+function reloadPage(url){
+  window.location.href = url;
 }

@@ -67,14 +67,6 @@ function get_search_array($search_id)
   {
     bad_request('this search identifier does not exist');
   }
-  else
-  {
-    if (!empty($search['created_by']) and $search['created_by'] != $user['user_id'])
-    {
-      // we need to fork this search
-      save_search_and_redirect(unserialize($search['rules']), $search['id']);
-    }
-  }
 
   return unserialize($search['rules']);
 }
@@ -1726,7 +1718,7 @@ SELECT
   }
 }
 
-function save_search_and_redirect($rules, $forked_from=null)
+function save_search($rules, $forked_from=null)
 {
   global $user;
 
@@ -1745,14 +1737,14 @@ function save_search_and_redirect($rules, $forked_from=null)
     )
   );
 
-  redirect(
-    make_index_url(
-      array(
-        'section' => 'search',
-        'search'  => $search_uuid,
-      )
+  $url = make_index_url(
+    array(
+      'section' => 'search',
+      'search'  => $search_uuid,
     )
   );
+
+  return array($search_uuid, $url);
 }
 
 ?>

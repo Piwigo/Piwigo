@@ -1369,10 +1369,13 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
     $service->addMethod(
-      'pwg.images.filteredSearch.update',
-      'ws_images_filteredSearch_update',
+      'pwg.images.filteredSearch.create',
+      'ws_images_filteredSearch_create',
       array(
-        'search_id' => array(),
+        'search_id' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'prior search_id (or search_key), if any',
+        ),
         'allwords' => array(
           'flags' => WS_PARAM_OPTIONAL,
           'info' => 'query to search by words',

@@ -92,5 +92,6 @@ if (count($first_author) > 0)
   );
 }
 
-save_search_and_redirect($search);
+list($search_uuid, $search_url) = save_search($search);
+redirect($search_url);
 ?>

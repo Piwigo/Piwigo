@@ -690,34 +690,29 @@ SELECT *
 
 /**
  * API method
- * Returns a list of elements corresponding to a query search
+ * Registers a new search
  * @param mixed[] $params
  *    @option string query
- *    @option int per_page
- *    @option int page
- *    @option string order (optional)
  */
-function ws_images_filteredSearch_update($params, $service)
+function ws_images_filteredSearch_create($params, $service)
 {
   global $user;
 
   include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
   // * check the search exists
-  if (empty(get_search_id_pattern($params['search_id'])))
+  if (isset($params['search_id']))
   {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid search_id input parameter.');
-  }
+    if (empty(get_search_id_pattern($params['search_id'])))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid search_id input parameter.');
+    }
 
-  $search_info = get_search_info($params['search_id']);
-  if (empty($search_info))
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'This search does not exist.');
-  }
-
-  if (!empty($search_info['created_by']) and $search_info['created_by'] != $user['user_id'])
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'This search was created by another user.');
+    $search_info = get_search_info($params['search_id']);
+    if (empty($search_info))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'This search does not exist.');
+    }
   }
 
   $search = array('mode' => 'AND');
@@ -846,15 +841,12 @@ function ws_images_filteredSearch_update($params, $service)
     $search['fields']['date_posted'] = $params['date_posted'];
   }
 
-  // register search rules in database, then they will be available on
-  // thumbnails page and picture page.
-  $query ='
-UPDATE '.SEARCH_TABLE.'
-  SET rules = \''.pwg_db_real_escape_string(serialize($search)).'\'
-    , last_seen = NOW()
-  WHERE id = '.$search_info['id'].'
-;';
-  pwg_query($query);
+  list($search_uuid, $search_url) = save_search($search, $search_info['id'] ?? null);
+
+  return array(
+    'search_id' => $search_uuid,
+    'search_url' => $search_url,
+  );
 }
 
 /**
