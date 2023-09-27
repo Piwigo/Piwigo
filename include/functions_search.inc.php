@@ -44,6 +44,19 @@ SELECT *
 
   if (count($searches) > 0)
   {
+    // we don't want spies to be able to see the search rules of any prior search (performed
+    // by any user). We don't want them to be try index.php?/search/123 then index.php?/search/124
+    // and so on. That's why we have implemented search_uuid with random characters.
+    //
+    // We also don't want to break old search urls with only the numeric id, so we only break if
+    // there is no uuid.
+    //
+    // We also don't want to die if we're in the API.
+    if (script_basename() != 'ws' and 'id = %u' == $clause_pattern and isset($searches[0]['search_uuid']))
+    {
+      fatal_error('this search is not reachable with its id, need the search_uuid instead');
+    }
+
     return $searches[0];
   }
 
