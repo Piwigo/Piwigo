@@ -163,6 +163,8 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
     </div>
   </div>
+
+  {if isset($DATE_POSTED)}
   <div class="filter filter-date_posted">
     <span class="mcs-icon pwg-icon-calendar-plus filter-icon"></span>
     <span class="search-words">{'Post date'|@translate}</span>
@@ -193,6 +195,8 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
     </div>
   </div>
+  {/if}
+
   <div class="filter filter-album">
     <span class="mcs-icon pwg-icon-album filter-icon"></span>
     <span class="search-words"></span>
