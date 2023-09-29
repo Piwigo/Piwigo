@@ -96,7 +96,7 @@ span.errors {
     <p class="who_option who_users">
 {if isset($user_options)}
     <select name="users[]" multiple placeholder="{'Type in a search term'|translate}" style="width:524px;">
-      {html_options options=$user_options selected=$user_options_selected}
+      {html_options options=$user_options}
     </select>
 {else}
     {'No user is permitted to see this private album'|@translate}.
