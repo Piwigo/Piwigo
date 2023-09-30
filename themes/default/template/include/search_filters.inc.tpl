@@ -219,7 +219,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
       <div class="search-sub-cats">
         <input type="checkbox" id="search-sub-cats" name="search-sub-cats">
-        <label for="search-sub-cats">Search in sub-albums</label>
+        <label for="search-sub-cats">{'Search in sub-albums'|@translate}</label>
       </div>
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>
