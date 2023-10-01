@@ -1720,7 +1720,7 @@ function tag_id_from_tag_name($tag_name)
   $query = '
 SELECT id
   FROM '.TAGS_TABLE.'
-  WHERE name = \''.$tag_name.'\'
+  WHERE name = \''.pwg_db_real_escape_string($tag_name).'\'
 ;';
   if (count($existing_tags = query2array($query, null, 'id')) == 0)
   {
