@@ -1023,6 +1023,7 @@ SELECT
         'SECTION'    => $line['section'],
         'FULL_CATEGORY_PATH'   => isset($full_cat_path[$line['category_id']]) ? strip_tags($full_cat_path[$line['category_id']]) : l10n('Root').$line['category_id'],
         'CATEGORY'   => isset($name_of_category[$line['category_id']]) ? $name_of_category[$line['category_id']] : l10n('Root').$line['category_id'],
+        'SEARCH_ID'  => $line['search_id'] ?? null,
         'TAGS'       => explode(",",$tag_names),
         'TAGIDS'     => explode(",",$tag_ids),
       )

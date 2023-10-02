@@ -27,6 +27,8 @@ function get_search_id_pattern($candidate)
 
 function get_search_info($candidate)
 {
+  global $page;
+
   // $candidate might be a search.id or a search_uuid
   $clause_pattern = get_search_id_pattern($candidate);
 
@@ -55,6 +57,12 @@ SELECT *
     if (script_basename() != 'ws' and 'id = %u' == $clause_pattern and isset($searches[0]['search_uuid']))
     {
       fatal_error('this search is not reachable with its id, need the search_uuid instead');
+    }
+
+    if (isset($page['section']) and 'search' == $page['section'])
+    {
+      // to be used later in pwg_log
+      $page['search_id'] = $searches[0]['id'];
     }
 
     return $searches[0];
