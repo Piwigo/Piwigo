@@ -1753,7 +1753,6 @@ function save_search($rules, $forked_from=null)
       'created_on' => $dbnow,
       'created_by' => $user['user_id'],
       'search_uuid' => $search_uuid,
-      'last_seen' => $dbnow,
       'forked_from' => $forked_from,
     )
   );
