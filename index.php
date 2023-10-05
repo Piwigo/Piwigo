@@ -182,6 +182,8 @@ if ( empty($page['is_external']) )
 
     if (isset($my_search['fields']['tags']))
     {
+      // TODO calling get_available_tags(), with lots of photos/albums/tags may cost time,
+      // we should reuse the result if already executed (for building the menu for example)
       $available_tags = get_available_tags();
       $available_tag_ids = array();
 
@@ -428,8 +430,9 @@ SELECT
         {
           $query = '
 SELECT
-    *
-  FROM '.CATEGORIES_TABLE.'
+    c.*
+  FROM '.CATEGORIES_TABLE.' AS c
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON c.id = cat_id and user_id = '.$user['id'].'
   WHERE id IN ('.implode(',', $cat_ids).')
 ;';
           $cats = query2array($query);
@@ -444,7 +447,11 @@ SELECT
               $single_link
             );
           }
-          $template->assign('ALBUMS_FOUND', $albums_found);
+
+          if (count($albums_found) > 0)
+          {
+            $template->assign('ALBUMS_FOUND', $albums_found);
+          }
         }
       }
       if (isset($page['search_details']['matching_tag_ids']))
@@ -453,14 +460,8 @@ SELECT
 
         if (count($tag_ids) > 0)
         {
-          $query = '
-SELECT
-    *
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.implode(',', $tag_ids).')
-  ORDER BY name
-;';
-          $tags = query2array($query);
+          $tags = get_available_tags($tag_ids);
+          usort($tags, 'tag_alpha_compare');
           $tags_found = array();
           foreach ($tags as $tag)
           {
@@ -471,7 +472,11 @@ SELECT
             );
             $tags_found[] = sprintf('<a href="%s">%s</a>', $url, $tag['name']);
           }
-          $template->assign('TAGS_FOUND', $tags_found);
+
+          if (count($tags_found) > 0)
+          {
+            $template->assign('TAGS_FOUND', $tags_found);
+          }
         }
       }
     }
