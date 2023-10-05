@@ -600,25 +600,14 @@ function get_title_recent_post_date($date_detail)
 {
   global $lang;
 
-  $date = $date_detail['date_available'];
-  $exploded_date = strptime($date, '%Y-%m-%d %H:%M:%S');
-
   $title = l10n_dec('%d new photo', '%d new photos', $date_detail['nb_elements']);
-  $title .= ' ('.$lang['month'][1+$exploded_date['tm_mon']].' '.$exploded_date['tm_mday'].')';
+
+  if (preg_match('/^\d+-(\d+)-(\d+) /', $date_detail['date_available'], $matches))
+  {
+    $title .= ' ('.$lang['month'][(int)$matches[1]].' '.$matches[2].')';
+  }
 
   return $title;
-}
-
-if (!function_exists('strptime'))
-{
-  function strptime($date, $fmt)
-  {
-    if ($fmt != '%Y-%m-%d %H:%M:%S')
-      die('Invalid strptime format '.$fmt);
-    list($y,$m,$d,$H,$M,$S) = preg_split('/[-: ]/', $date);
-    $res = localtime( mktime($H,$M,$S,$m,$d,$y), true );
-    return $res;
-  }
 }
 
 ?>
