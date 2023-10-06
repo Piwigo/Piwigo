@@ -59,7 +59,7 @@ $nb_orphans = $page['nb_orphans']; // already calculated in admin.php
 
 if ($page['nb_photos_total'] >= 100000) // but has not been calculated on a big gallery, so force it now
 {
-  $nb_orphans = count(get_orphans());
+  $nb_orphans = count_orphans();
 }
 
 if ($nb_orphans > 0)

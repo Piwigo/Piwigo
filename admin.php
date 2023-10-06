@@ -301,7 +301,7 @@ $page['nb_orphans'] = 0;
 list($page['nb_photos_total']) = pwg_db_fetch_row(pwg_query('SELECT COUNT(*) FROM '.IMAGES_TABLE));
 if ($page['nb_photos_total'] < 100000) // 100k is already a big gallery
 {
-  $page['nb_orphans'] = count(get_orphans());
+  $page['nb_orphans'] = count_orphans();
 }
 
 $template->assign(
