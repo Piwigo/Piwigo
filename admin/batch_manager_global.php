@@ -51,7 +51,7 @@ if (isset($_POST['nb_photos_deleted']))
 }
 else if (isset($_POST['setSelected']))
 {
-  $collection = $page['cat_elements_id'];
+  $collection = explode(',', $_POST['whole_set']);
 }
 else if (isset($_POST['selection']))
 {

@@ -163,7 +163,7 @@ $(document).ready(function() {
   });
 
   $(".wrap1 label").click(function (event) {
-    $("input[name=setSelected]").prop('checked', false);
+    $("input[name=setSelected]").prop('checked', false).trigger('change');
 
     var li = $(this).closest("li");
     var checkbox = $(this).children("input[type=checkbox]");
@@ -181,7 +181,7 @@ $(document).ready(function() {
   });
 
   $("#selectAll").click(function () {
-    $("input[name=setSelected]").prop('checked', false);
+    $("input[name=setSelected]").prop('checked', false).trigger('change');
     selectPageThumbnails();
     checkPermitAction();
     return false;
@@ -197,7 +197,7 @@ $(document).ready(function() {
   }
 
   $("#selectNone").click(function () {
-    $("input[name=setSelected]").prop('checked', false);
+    $("input[name=setSelected]").prop('checked', false).trigger('change');
 
     $(".thumbnails label").each(function() {
       var checkbox = $(this).children("input[type=checkbox]");
@@ -213,7 +213,7 @@ $(document).ready(function() {
   });
 
   $("#selectInvert").click(function () {
-    $("input[name=setSelected]").prop('checked', false);
+    $("input[name=setSelected]").prop('checked', false).trigger('change');
 
     $(".thumbnails label").each(function() {
       var checkbox = $(this).children("input[type=checkbox]");
@@ -233,11 +233,14 @@ $(document).ready(function() {
 
   $("#selectSet").click(function () {
     selectPageThumbnails();
-    $("input[name=setSelected]").prop('checked', true);
+    $("input[name=setSelected]").prop('checked', true).trigger('change');
     checkPermitAction();
     return false;
   });
 
+  $("input[name=setSelected]").change(function() {
+    $('input[name=whole_set]').val(this.checked ? all_elements.join(',') : '');
+  });
 
   jQuery("input[name=confirm_deletion]").change(function() {
     jQuery("#confirmDel span.errors").css("visibility", "hidden");
@@ -569,6 +572,7 @@ var sliders = {
     <span id="selectedMessage"></span>
 
     <input type="checkbox" name="setSelected" style="display:none" {if count($selection) == $nb_thumbs_set}checked="checked"{/if}>
+    <input type="hidden" name="whole_set" value="">
   </p>
 
 	<ul class="thumbnails">
