@@ -51,6 +51,7 @@ if (isset($_POST['nb_photos_deleted']))
 }
 else if (isset($_POST['setSelected']))
 {
+  check_input_parameter('whole_set', $_POST, false, '/^\d+(,\d+)*$/');
   $collection = explode(',', $_POST['whole_set']);
 }
 else if (isset($_POST['selection']))
