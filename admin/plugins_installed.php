@@ -47,8 +47,17 @@ $plugins = new plugins();
 //--------------------------------------------------------Incompatible Plugins
 if (isset($_GET['incompatible_plugins']))
 {
+  $incompatible_plugins_raw = $plugins->get_incompatible_plugins();
+
+  if (false === $incompatible_plugins_raw)
+  {
+    echo json_encode(array());
+    exit;
+  }
+
   $incompatible_plugins = array();
-  foreach ($plugins->get_incompatible_plugins() as $plugin => $version)
+
+  foreach ($incompatible_plugins_raw as $plugin => $version)
   {
     if ($plugin == '~~expire~~') continue;
     $incompatible_plugins[] = $plugin;
