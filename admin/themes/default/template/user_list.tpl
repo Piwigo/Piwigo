@@ -418,7 +418,7 @@ $(document).ready(function() {
           <div id="action_group_associate" class="bulkAction">
             <div class="user-action-select-container">
               <select class="user-action-select" name="associate">
-                {html_options options=$association_options selected=$associate_selected}
+                {html_options options=$association_options}
               </select>
             </div>
           </div>
@@ -427,7 +427,7 @@ $(document).ready(function() {
           <div id="action_group_dissociate" class="bulkAction">
             <div class="user-action-select-container">
               <select class="user-action-select" name="dissociate">
-                {html_options options=$association_options selected=$dissociate_selected}
+                {html_options options=$association_options}
               </select>
             </div>
           </div>
