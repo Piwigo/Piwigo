@@ -84,9 +84,9 @@ usersCache.selectize(jQuery('select.UserSearch'));
      
       <div class="icon-ellipsis-vert group-dropdown-options not-in-selection-mode">
         <div id="GroupOptions" class="dropdown">
-          <option class="icon-docs dropdown-option" id="GroupDuplicate" value="duplicate">{'Duplicate'|@translate}</option>
-          <option class="icon-trash dropdown-option" id="GroupDelete" value="delete">{'Delete'|@translate}</option>
-          <option class="icon-star dropdown-option" id="GroupDefault" value="delete"></option>
+          <div class="icon-docs dropdown-option" id="GroupDuplicate" value="duplicate">{'Duplicate'|@translate}</div>
+          <div class="icon-trash dropdown-option" id="GroupDelete" value="delete">{'Delete'|@translate}</div>
+          <div class="icon-star dropdown-option" id="GroupDefault" value="delete"></div>
         </div>
       </div>
 
