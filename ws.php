@@ -297,6 +297,20 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.setCategory',
+      'ws_images_setCategory',
+      array(
+        'image_id'    => array('flags'=>WS_PARAM_FORCE_ARRAY, 'type'=>WS_TYPE_ID),
+        'category_id' => array('type'=>WS_TYPE_ID),
+        'action'      => array('default'=>'associate', 'info' => 'associate/dissociate/move'),
+        'pwg_token'   => array(),
+        ),
+      'Manage associations of images with an album. <b>action</b> can be:<ul><li><i>associate</i> : add photos to this album</li><li><i>dissociate</i> : remove photos from this album</li><li><i>move</i> : dissociate photos from any other album and adds photos to this album</li></ul>',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.rates.delete',
       'ws_rates_delete',
       array(

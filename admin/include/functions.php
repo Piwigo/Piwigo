@@ -2103,6 +2103,43 @@ SELECT
 }
 
 /**
+ * Dissociate a list of images from a category.
+ *
+ * @param int[] $images
+ * @param int $categories
+ */
+function dissociate_images_from_category($images, $category)
+{
+  // physical links must not be broken, so we must first retrieve image_id
+  // which create virtual links with the category to "dissociate from".
+  $query = '
+SELECT id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.IMAGES_TABLE.' ON image_id = id
+  WHERE category_id ='.$category.'
+    AND id IN ('.implode(',', $images).')
+    AND (
+      category_id != storage_category_id
+      OR storage_category_id IS NULL
+    )
+;';
+  $dissociables = array_from_query($query, 'id');
+
+  if (!empty($dissociables))
+  {
+    $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$category.'
+    AND image_id IN ('.implode(',', $dissociables).')
+';
+    pwg_query($query);
+  }
+
+  return count($dissociables);
+}
+
+/**
  * Dissociate images from all old categories except their storage category and
  * associate to new categories.
  * This function will preserve ranks.

@@ -2657,4 +2657,54 @@ function ws_images_deleteOrphans($params, $service)
     'nb_orphans' => count(get_orphans()),
     );
 }
+
+/**
+ * API method
+ * Associate/Dissociate/Move photos with an album.
+ * 
+ * @since 14
+ * @param mixed[] $params
+ *    @option int[] image_id
+ *    @option int category_id
+ *    @option string action
+ *    @option string pwg_token
+ */
+function ws_images_setCategory($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  // does the category really exist?
+  $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$params['category_id'].'
+;';
+  $categories = query2array($query);
+
+  if (count($categories) == 0)
+  {
+    return new PwgError(404, 'category_id not found');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  if ('associate' == $params['action'])
+  {
+    associate_images_to_categories($params['image_id'], array($params['category_id']));
+  }
+  elseif ('dissociate' == $params['action'])
+  {
+    dissociate_images_from_category($params['image_id'], $params['category_id']);
+  }
+  elseif ('move' == $params['action'])
+  {
+    move_images_to_categories($params['image_id'], array($params['category_id']));
+  }
+
+  invalidate_user_cache();
+}
 ?>
