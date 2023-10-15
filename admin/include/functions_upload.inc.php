@@ -158,7 +158,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   }
 
   // we only try to detect duplicate on a new image, not when updating an existing image
-  if (!isset($image_id) and conf_get_param('upload_detect_duplicate', false))
+  if (!isset($image_id) and $conf['upload_detect_duplicate'])
   {
     $query = '
 SELECT
