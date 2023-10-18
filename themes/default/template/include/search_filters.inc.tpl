@@ -107,6 +107,10 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
           <label for="file">{'File name'|@translate}</label>
         </div>
         <div>
+          <input type="checkbox" id="author" name="author">
+          <label for="author">{'Author'|translate}</label>
+        </div>
+        <div>
           <input type="checkbox" id="comment" name="comment">
           <label for="comment">{'Photo description'|@translate}</label>
         </div>

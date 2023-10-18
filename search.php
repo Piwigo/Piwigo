@@ -41,7 +41,7 @@ $search = array(
     'allwords' => array(
       'words' => $words,
       'mode' => 'AND',
-      'fields' => array('file', 'name', 'comment', 'tags', 'cat-title', 'cat-desc'),
+      'fields' => array('file', 'name', 'comment', 'tags', 'author', 'cat-title', 'cat-desc'),
     ),
     'cat' => array(
       'words' => $cat_ids,

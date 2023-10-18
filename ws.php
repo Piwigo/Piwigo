@@ -1400,7 +1400,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         ),
         'allwords_fields' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
-          'info' => 'values among [name, comment, tags, file, cat-title, cat-desc]',
+          'info' => 'values among [name, comment, tags, file, author, cat-title, cat-desc]',
         ),
         'tags' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,

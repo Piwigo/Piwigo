@@ -138,7 +138,7 @@ function get_sql_search_clause($search)
   if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0)
   {
     // 1) we search in regular fields (ie, the ones in the piwigo_images table)
-    $fields = array('file', 'name', 'comment');
+    $fields = array('file', 'name', 'comment', 'author');
 
     if (isset($search['fields']['allwords']['fields']) and count($search['fields']['allwords']['fields']) > 0)
     {
