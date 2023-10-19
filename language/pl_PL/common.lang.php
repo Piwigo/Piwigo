@@ -438,3 +438,6 @@ $lang['Your authentication key is no longer valid.'] = 'Twój klucz autoryzacyjn
 $lang['generate random password'] = 'wygeneruj losowe hasło';
 $lang['Password: ********** (no copy by email)'] = 'Hasło: ********** (nie kopiuj emailem)';
 $lang['Related albums'] = 'Powiązane albumy';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nazwa albumu, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Nazwa albumu, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Data rozpoczęcia';

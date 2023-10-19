@@ -185,7 +185,6 @@ $lang['Album updated successfully'] = 'آلبوم با موفقیت به روز 
 $lang['photos per page'] = 'عکس در هر صفحه';
 $lang['High definition enabled'] = 'حالت HD فعال شده است';
 $lang['File'] = "فایل";
-$lang['first photo added on %s'] = 'عکس نخست در %s افزوده شده';
 $lang['Forbidden'] = 'غیر مجاز';
 $lang['global mode'] = "حالت کلی";
 $lang['group "%s" added'] = "گروه \"%s\" افزوده شد";
@@ -660,7 +659,7 @@ $lang['All %d photos are selected'] = 'همه‌ی %d عکس انتخاب شد';
 $lang['remove this filter'] = 'پاک کردن این فیلتر';
 $lang['Duplicates'] = 'دوتایی‌ها';
 $lang['Add a filter'] = 'افزودن فیلتر';
-$lang['Remove all filters'] = 'پاک کردن همه ی فیلتر ها';
+$lang['Remove all filters'] = 'پاک کردن همه‌ی فیلترها';
 $lang['Refresh photo set'] = 'تازه کردن (Refresh) سِت عکس ها';
 $lang['The whole page'] = 'تمام صفحه';
 $lang['The whole set'] = 'تمامی عکس ها (کل سِت)';
@@ -727,7 +726,6 @@ $lang['Start Upload'] = 'آغاز آپلود';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'برچسب <em>%s</em> با برچسب <em>%s</em> ادغام شد';
 $lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'نگارش %s [%s] نصب شده با نگارش مورد نیاز ( [%s] ) سازگار نیست';
 $lang['Two updates are available'] = 'دو عدد بروز رسانی آماده می باشند';
-$lang['Unable to dump database.'] = 'سیستم قادر به پاکسازی پایگاه داده نیست.';
 $lang['Update All'] = 'بروز رسانی همه';
 $lang['Update in progress... Please wait.'] = 'بروز رسانی در حال انجام است... شکیبا باشید.';
 $lang['Update to Piwigo %s'] = 'بروز رسانی به نگارش %s از Piwigo';
@@ -752,7 +750,6 @@ $lang['Cancel'] = 'لغو';
 $lang['Confirm merge'] = 'پذیرش ترکیب';
 $lang['Default comments order'] = 'چیدمان پیشفرض برای دیدگاه‌ها';
 $lang['Default photos order'] = 'چیدمان پیشفرض برای عکس‌ها';
-$lang['Dump Database'] = 'پاکسازی پایگاه داده';
 $lang['Follow Orientation'] = 'دنبال کردن سودار';
 $lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'افزونه‌های زیر شاید با نگارش تازه‌ی Piwigo سازگار نباشند:';
 $lang['Following themes may not be compatible with the new version of Piwigo:'] = 'زمینه‌های زیر شاید با نگارش تازه‌ی Piwigo سازگار نباشند:';
@@ -805,7 +802,6 @@ $lang['Activate icon "new" next to albums and pictures'] = 'فعال کردن آ
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'یک خطا هنگام باز کردن فایل رخ داده است. خواهشمندیم تنظیمات دسترسی نصب خود را بررسی کنید.<br>
 برای مشاهده‌ی جزئیات خطا <a href="%s">اینجا کلیک کنید</a>.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'اگر سایز عکس HD نباشد و اگر وب سایز کنونی بزرگتر از اندازه‌ی پس از تغییر سایز عکس باشد، Piwigo عکس را بعنوان HD جابجا کرده و یک سایز کوچکتر برای آن می‌سازد.';
-$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'داد‌ه‌ی تاریخ شامل شود (هشدار: شاید به حافظه‌ی سرور فشار بیاورد)';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'دریافت Piwigo برای iOS (iPhone, iPad, iPod Touch)';
 $lang['Save visits in history for'] = 'ذخیره کردن بازدید ها برای';
 $lang['This album contains %d photos, added between %s and %s.'] = 'این آلبوم شامل %d عکس می باشد که بین %s و %s اضافه شده اند.';
@@ -929,7 +925,7 @@ $lang['Purge user cache'] = 'پاک کردن مخزن کاربر (کش)';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'اندازه‌ی این عکس به %dx%d پیکسل کاهش خواهد یافت.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'بدلیل استفاده از کتابخانه‌ی گرافیکیِ GD، امکان ویرایش سایز عکس پس از آپلود وجود ندارد.';
 $lang['Select at least one tag'] = 'دست کم باید یک برچسب انتخاب کنید';
-$lang['Basic settings'] = 'تنظیماتِ پایه';
+$lang['Basic settings'] = 'تنظیمات پایه';
 $lang['General'] = 'همگانی';
 $lang['Mail theme'] = 'زمینه‌ی ایمیل';
 $lang['Loading...'] = 'در حال بارگذاری...';
@@ -980,7 +976,6 @@ $lang['Delete album "%s".'] = 'حذف البوم"%s".';
 $lang['Display form'] = 'فرم نمایش ';
 $lang['It only takes a few clicks.'] = 'فقط با چند کلید ';
 $lang['Dashboard'] = 'میزکار';
-$lang['First photo added'] = 'افزودن اولین عکس';
 $lang['Select tags'] = 'انتخاب تگ ها';
 $lang['Storage used'] = 'فضای ذخیره سازی استفاده شده';
 $lang['checksum'] = 'چک سام';
@@ -999,3 +994,92 @@ $lang['No tags selected, no actions possible.'] = 'هیچ برچسبی انتخ�
 $lang['Piwigo %s is available, please update'] = 'ورژن %s از Piwigo آماده‌ی آپدیت کردن است
 ';
 $lang['Piwigo Remote Sync is able to upload a whole folder hierarchy. If you run it again, only new photos will be uploaded.'] = 'Piwigo Remote Sync قابلیت این را دارد که یک پوشه(فولدر) را با تمام زیر مجموعه هایش آپلود کند. اگر مجدد این عملیات را انجام دهید فقط موارد جدید آپلود میشود.';
+$lang[' (copy %s)'] = '(کپی %s)';
+$lang[' (copy)'] = '(کپی)';
+$lang['%d Activities'] = '%d فعالیت';
+$lang['%d Activity'] = '%d فعالیت';
+$lang['%d album added'] = '%d آلبوم افزوده شد';
+$lang['%d album deleted'] = '%d آلبوم حذف شد';
+$lang['%d album edited'] = '%d آلبوم ویرایش شد';
+$lang['%d albums added'] = '%d آلبوم افزوده شدند';
+$lang['%d albums deleted'] = '%d آلبوم حذف شدند';
+$lang['%d albums edited'] = '%d آلبوم ویرایش شدند';
+$lang['%d checksums were added'] = '%d چک‌سام افزوده شدند';
+$lang['%d formats uploaded for %d photos'] = '%d فرمت برای %d عکس آپلود شدند';
+$lang['%d group added'] = '%d گروه افزوده شد';
+$lang['%d group deleted'] = '%d گروه حذف شد';
+$lang['%d group edited'] = '%d گروه ویرایش شد';
+$lang['%d group moved'] = '%d گروه جابجا شد';
+$lang['%d groups added'] = '%d گروه افزوده شدند';
+$lang['%d groups deleted'] = '%d گروه حذف شدند';
+$lang['%d groups edited'] = '%d گروه ویرایش شدند';
+$lang['%d groups moved'] = '%d گروه جابجا شدند';
+$lang['%d photo added'] = '%d عکس افزوده شد';
+$lang['%d photo deleted'] = '%d عکس حذف شد';
+$lang['%d photo edited'] = '%d عکس ویرایش شد';
+$lang['%d photo moved'] = '%d عکس جابجا شد';
+$lang['%d photos'] = '%d عکس';
+$lang['%d photos added'] = '%d عکس افزوده شدند';
+$lang['%d photos deleted'] = '%d عکس حذف شدند';
+$lang['%d photos edited'] = '%d عکس ویرایش شدند';
+$lang['%d photos moved'] = '%d عکس جابجا شدند';
+$lang['%d pictures in sub-albums'] = '%d عکس در زیرآلبوم';
+$lang['%d sub-albums'] = '%d زیرآلبوم';
+$lang['%d tag added'] = '%d برچسب افزوده شد';
+$lang['%d tag deleted'] = '%d برچسب حذف شد';
+$lang['%d tag edited'] = '%d برچسب ویرایش شد';
+$lang['%d tag moved'] = '%d برچسب جابجا شد';
+$lang['%d tags added'] = '%d برچسب افزوده شدند';
+$lang['%d tags deleted'] = '%d برچسب حذف شدند';
+$lang['%d tags edited'] = '%d برچسب ویرایش شدند';
+$lang['%d tags moved'] = '%d برچسب جابجا شدند';
+$lang['%d user added'] = '%d کاربر افزوده شد';
+$lang['%d user edited'] = '%d کاربر ویرایش شد';
+$lang['%d user logged in'] = '%d کاربر وارد شد';
+$lang['%d user logged out'] = '%d کاربر خارج شد';
+$lang['%d users added'] = '%d کاربر افزوده شدند';
+$lang['%d users edited'] = '%d کاربر ویرایش شدند';
+$lang['%d users logged in'] = '%d کاربر وارد شدند';
+$lang['%d users logged out'] = '%d کاربر خارج شدند';
+$lang['%s GB used'] = '%s گیگابایت استفاده شده';
+$lang['%s MB'] = '%s مگابایت';
+$lang['%s MB used'] = '%s مگابایت استفاده شده';
+$lang['%s file type'] = '%s نوع فایل';
+$lang['%s line'] = '%s خط';
+$lang['%s lines'] = '%s خط';
+$lang['%sGB'] = '%s گیگابایت';
+$lang['%sMB'] = '%s مگابایت';
+$lang['Activated'] = 'فعال شد';
+$lang['Activity'] = 'فعالیت';
+$lang['Add Album'] = 'افزودن آلبوم';
+$lang['Add New Plugin'] = 'افزودن افزونه‌ی جدید';
+$lang['Add User'] = 'افزودن کاربر';
+$lang['Add a new user'] = 'افزودن کاربر جدید';
+$lang['Apr'] = 'آپریل';
+$lang['Aug'] = 'آگوست';
+$lang['Cache'] = 'حافظه‌ی پنهان';
+$lang['Close'] = 'بستن';
+$lang['<b>%d</b> filtered user'] = '<b>%d</b> کاربر فیلتر شده';
+$lang['<b>%d</b> filtered users'] = '<b>%d</b> کاربر فیلتر شده';
+$lang['Add as filter'] = 'افزودن به عنوان فیلتر';
+$lang['Additional filters'] = 'فیلترهای اضافی';
+$lang['Advanced filters'] = 'فیلترهای پیشرفته';
+$lang['Filters'] = 'فیلترها';
+$lang['<b>1</b> album found'] = '<b>1</b> آلبوم پیدا شد';
+$lang['%s plugin found'] = '<b>%s</b> افزونه پیدا شد';
+$lang['%s plugins found'] = '<b>%s</b> افزونه پیدا شد';
+$lang['<b>%d+</b> albums found, try to refine the search'] = '<b>%d+</b> آلبوم پیدا شد، لطفا جستجوی دقیق‌تری انجام دهید';
+$lang['<b>%d</b> albums found'] = '<b>%d</b> آلبوم پیدا شد';
+$lang['<b>%d</b> tag found'] = '<b>%d</b> برچسب پیدا شد';
+$lang['<b>%d</b> tags found'] = '<b>%d</b> برچسب پیدا شد';
+$lang['No albums found'] = 'هیچ آلبومی پیدا نشد';
+$lang['No picture found with the following name : %s.'] = 'هیچ عکسی با این نام پیدا نشد: %s.';
+$lang['No plugins found'] = 'هیچ افزونه‌ای پیدا نشد';
+$lang['No tag found'] = 'هیچ برچسبی پیدا نشد';
+$lang['to'] = 'تا';
+$lang['right now'] = 'همین الان';
+$lang['or'] = 'یا';
+$lang['logout'] = 'خروج';
+$lang['months ago'] = 'ماه پیش';
+$lang['edit'] = 'ویرایش';
+$lang['login'] = 'ورود';

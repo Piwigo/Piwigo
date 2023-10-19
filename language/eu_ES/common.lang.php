@@ -425,3 +425,4 @@ $lang['Password: ********** (no copy by email)'] = 'Pasahitza: ********** (ez da
 $lang['Related albums'] = 'Erlazionatutako albumak';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Albumaren izena, 1 &rarr; 5 &rarr; 10 &rarr; 100';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Albumaren izena, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Hasiera data';

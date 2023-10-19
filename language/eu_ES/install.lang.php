@@ -49,3 +49,4 @@ $lang['Congratulations, Piwigo installation is completed'] = 'Zorionak, Piwigo i
 $lang['Can\'t connect to server'] = 'Ezin izan da zerbitzariarekin konektatu';
 $lang['Basic configuration'] = 'Oinarrizko konfigurazioa';
 $lang['Admin configuration'] = 'Administrazio konfigurazioa';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP %s bertsioa behar da (PHP %s bertsioa erabiltzen zaude';

@@ -418,3 +418,4 @@ $lang['Related albums'] = 'Σχετικά Λευκώματα';
 $lang['Password: ********** (no copy by email)'] = 'Κωδικός πρόσβασης: ********** (χωρίς αντίγραφο μέσω email)';
 $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Όνομα λευκώματος, 1 &rarr; 5 &​​rarr; 10 &rarr; 100';
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Όνομα άλμπουμ, , 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Ημερομηνία Έναρξης';
