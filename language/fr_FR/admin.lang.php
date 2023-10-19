@@ -1329,4 +1329,25 @@ $lang['Some photos are missing from your file system. Details provided by plugin
 $lang['<b>%d</b> filtered users'] = '<b>%d</b> utilisateurs filtrés';
 $lang['<b>%d</b> filtered user'] = '<b>%d</b> utilisateur filtré';
 $lang['%d pictures in sub-albums'] = '%d images dans les sous-albums';
+$lang['Unlocked album'] = 'Album déverouillé';
+$lang['Created'] = 'Créé';
+$lang['Modified'] = 'Modifié';
+$lang['%d including sub-albums'] = '%d en incluant les sous-albums';
+$lang['%d in whole branch'] = '%d dans toute la branche';
+$lang['Authorize comments'] = 'Autoriser les commentaires';
+$lang['Remove thumbnail'] = 'Retirer la miniature';
+$lang['Allow comments for sub-albums'] = 'Autoriser les commentaires pour tous les sous-albums';
+$lang['Disallow comments for sub-albums'] = 'Interdire les commentaires pour tous les sous-albums';
+$lang['Comments allowed for sub-albums'] = 'Commentaires autorisés pour tous les sous-albums';
+$lang['Comments disallowed for sub-albums'] = 'Commentaires interdit pour tous les sous-albums';
+$lang['Put at the root'] = 'Placer à la racine';
+$lang['or'] = 'ou';
+$lang['Locked album'] = 'Album verrouillé';
+$lang['This album is currently locked, visible only to administrators.'] = 'Cet album est actuellement verrouillé, visible uniquement par les administrateurs.';
+$lang['Unlock it'] = 'Le déverrouiller';
+$lang['All admins'] = 'Tous les administrateurs';
+$lang['Only admins in a specific group'] = 'Uniquement les administrations d\'un groupe spécifique';
+$lang['Activate button "%s"'] = 'Afficher le bouton "%s"';
+$lang['Detect and avoid duplicates during upload'] = 'Détecter et éviter les doublons à l\'import';
+$lang['During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'] = 'Pendant l\'ajout de photo, si Piwigo détecte que la photo existe déjà, associer la photo existante à l\'album de destination, sans dupliquer le fichier.';
 // Leave this line empty
