@@ -180,26 +180,50 @@ if ( empty($page['is_external']) )
 
     $my_search = get_search_array($page['search']);
 
+    // we want filters to be filled with values related to current items ONLY IF we have some filters filled
+    if ($page['search_details']['has_filters_filled'])
+    {
+      $search_items = array(-1);
+      if (!empty($page['items']))
+      {
+        $search_items = $page['items'];
+      }
+
+      $search_items_clause = 'image_id IN ('.implode(',', $search_items).')';
+    }
+    else
+    {
+      $search_items_clause = '1=1';
+    }
+
     if (isset($my_search['fields']['tags']))
     {
       // TODO calling get_available_tags(), with lots of photos/albums/tags may cost time,
       // we should reuse the result if already executed (for building the menu for example)
-      $available_tags = get_available_tags();
-      $available_tag_ids = array();
-
-      if (count($available_tags) > 0)
+      if (isset($search_items))
       {
-        usort( $available_tags, 'tag_alpha_compare');
-        $template->assign('TAGS', $available_tags);
+        $filter_tags = get_common_tags($search_items, 0);
+      }
+      else
+      {
+        $filter_tags = get_available_tags();
+        usort($filter_tags, 'tag_alpha_compare');
+      }
 
-        foreach ($available_tags as $tag)
+      $filter_tag_ids = array();
+
+      if (count($filter_tags) > 0)
+      {
+        $template->assign('TAGS', $filter_tags);
+
+        foreach ($filter_tags as $tag)
         {
-          $available_tag_ids[] = $tag['id'];
+          $filter_tag_ids[] = $tag['id'];
         }
       }
 
       // in case the search has forbidden tags for current user, we need to filter the search rule
-      $my_search['fields']['tags']['words'] = array_intersect($my_search['fields']['tags']['words'], $available_tag_ids);
+      $my_search['fields']['tags']['words'] = array_intersect($my_search['fields']['tags']['words'], $filter_tag_ids);
     }
 
     if (isset($my_search['fields']['author']))
@@ -210,13 +234,14 @@ SELECT
     COUNT(DISTINCT(id)) AS counter
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
   '.get_sql_condition_FandF(
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
       'visible_images' => 'id'
       ),
-    ' WHERE '
+    ' AND '
     ).'
     AND author IS NOT NULL
   GROUP BY author
@@ -251,13 +276,14 @@ SELECT
     date_available
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
   '.get_sql_condition_FandF(
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
       'visible_images' => 'id'
       ),
-    ' WHERE '
+    ' AND '
     ).'
 ;';
     $dates = query2array($query);
@@ -307,6 +333,14 @@ SELECT
       }
     }
 
+    foreach ($counters as $key => $counter)
+    {
+      if (0 == $counter['counter'])
+      {
+        unset($counters[$key]);
+      }
+    }
+
     $template->assign('DATE_POSTED', $counters);
   }
 
@@ -318,13 +352,14 @@ SELECT
     added_by AS added_by_id
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
   '.get_sql_condition_FandF(
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
       'visible_images' => 'id'
       ),
-    ' WHERE '
+    ' AND '
     ).'
   GROUP BY added_by_id
   ORDER BY counter DESC
@@ -400,13 +435,14 @@ SELECT
     COUNT(DISTINCT(id)) AS counter
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
   '.get_sql_condition_FandF(
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
       'visible_images' => 'id'
       ),
-    ' WHERE '
+    ' AND '
     ).'
   GROUP BY ext
   ORDER BY counter DESC

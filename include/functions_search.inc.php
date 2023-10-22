@@ -408,6 +408,8 @@ function get_regular_search_results($search, $images_where='')
 
   $logger->debug(__FUNCTION__, 'search', $search);
 
+  $has_filters_filled = false;
+
   $forbidden = get_sql_condition_FandF(
         array
           (
@@ -423,6 +425,11 @@ function get_regular_search_results($search, $images_where='')
 
   if (isset($search['fields']['tags']))
   {
+    if (!empty($search['fields']['tags']['words']))
+    {
+      $has_filters_filled = true;
+    }
+
     $tag_items = get_image_ids_for_tags(
       $search['fields']['tags']['words'],
       $search['fields']['tags']['mode']
@@ -435,6 +442,8 @@ function get_regular_search_results($search, $images_where='')
 
   if (!empty($search_clause))
   {
+    $has_filters_filled = true;
+
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.' i
@@ -484,6 +493,7 @@ SELECT DISTINCT(id)
     'search_details' => array(
       'matching_cat_ids' => $matching_cat_ids,
       'matching_tag_ids' => $matching_tag_ids,
+      'has_filters_filled' => $has_filters_filled,
     ),
   );
 }
