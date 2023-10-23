@@ -174,7 +174,10 @@ if ( empty($page['is_external']) )
     }
   }
 
-  if ('search' == $page['section'])
+  // we add isset($page['search_details']) in this condition because it only
+  // applies to regular search, not the legacy qsearch. As Piwigo 14 will still
+  // be able to show an old quicksearch result, we must check this condtion too.
+  if ('search' == $page['section'] and isset($page['search_details']))
   {
     include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
