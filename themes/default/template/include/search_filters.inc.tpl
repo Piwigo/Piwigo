@@ -133,6 +133,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
       </div>
     </div>
+{if isset($TAGS)}
   <div class="filter filter-tag">
     <span class="mcs-icon pwg-icon-tag filter-icon"></span>
     <span class="search-words"></span>
@@ -167,6 +168,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
     </div>
   </div>
+{/if}
 
   {if isset($DATE_POSTED)}
   <div class="filter filter-date_posted">

@@ -201,6 +201,7 @@ if ( empty($page['is_external']) )
 
     if (isset($my_search['fields']['tags']))
     {
+      $filter_tags = $filter_tag_ids = array();
       // TODO calling get_available_tags(), with lots of photos/albums/tags may cost time,
       // we should reuse the result if already executed (for building the menu for example)
       if (isset($search_items))
@@ -213,17 +214,15 @@ if ( empty($page['is_external']) )
         usort($filter_tags, 'tag_alpha_compare');
       }
 
-      $filter_tag_ids = array();
-
       if (count($filter_tags) > 0)
       {
-        $template->assign('TAGS', $filter_tags);
-
         foreach ($filter_tags as $tag)
         {
           $filter_tag_ids[] = $tag['id'];
         }
       }
+
+      $template->assign('TAGS', $filter_tags);
 
       // in case the search has forbidden tags for current user, we need to filter the search rule
       $my_search['fields']['tags']['words'] = array_intersect($my_search['fields']['tags']['words'], $filter_tag_ids);
