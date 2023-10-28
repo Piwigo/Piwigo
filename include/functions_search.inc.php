@@ -159,7 +159,7 @@ function get_sql_search_clause($search)
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
     // AND (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
     $word_clauses = array();
-    $cat_ids_by_word = array();
+    $cat_ids_by_word = $tag_ids_by_word = array();
     foreach ($search['fields']['allwords']['words'] as $word)
     {
       $field_clauses = array();

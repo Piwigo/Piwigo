@@ -367,11 +367,11 @@ SELECT
   ORDER BY counter DESC
 ;';
       $added_by = query2array($query);
+      $user_ids = array();
 
       if (count($added_by) > 0)
       {
         // now let's find the usernames of added_by users
-        $user_ids = array();
         foreach ($added_by as $i)
         {
           $user_ids[] = $i['added_by_id'];
