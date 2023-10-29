@@ -20,6 +20,25 @@ function ws_categories_getImages($params, &$service)
 {
   global $user, $conf;
 
+  $params['cat_id'] = array_unique($params['cat_id']);
+
+  if (count($params['cat_id']) > 0)
+  {
+    // do the categories really exist?
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $params['cat_id']).')
+;';
+    $db_cat_ids = query2array($query, null, 'id');
+    $missing_cat_ids = array_diff($params['cat_id'], $db_cat_ids);
+
+    if (count($missing_cat_ids) > 0)
+    {
+      return new PwgError(404, 'cat_id {'.implode(',', $missing_cat_ids).'} not found');
+    }
+  }
+
   $images = array();
   $image_ids = array();
   $total_images = 0;
