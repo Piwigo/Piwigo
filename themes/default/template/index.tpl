@@ -1,7 +1,4 @@
 {combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
-{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
-{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
-{combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 
 {$MENUBAR}
 
@@ -16,8 +13,9 @@
 <div class="titrePage{if isset($chronology.TITLE)} calendarTitleBar{/if}">
 	<ul class="categoryActions">
 {if isset($SEARCH_IN_SET_ACTION) and $SEARCH_IN_SET_ACTION}
+	  {combine_css path="themes/default/vendor/fontello/css/fontello.css" order=-10}
     <li id="cmdSearchInSet"><a href="{$SEARCH_IN_SET_URL}" title="{'Search in this set'|translate}" class="pwg-state-default pwg-button">
-      <span class="pwg-icon pwg-icon-search-folder"></span><span class="pwg-button-text">{'Search in this set'|translate}</span>
+      <span class="pwg-icon-search-folder"></span><span class="pwg-button-text">{'Search in this set'|translate}</span>
     </a></li>
 {/if}
 {if !empty($image_orders)}

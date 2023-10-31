@@ -1,3 +1,10 @@
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
+{combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
+{combine_css path="themes/default/css/search.css" order=-100}
+{combine_css path="themes/default/css/{$themeconf.colorscheme}-search.css" order=-100}
+{combine_css path="themes/default/vendor/fontello/css/fontello.css" order=-10} 
+
 {footer_script}
 {if isset($GP)}
   global_params = {$GP};
