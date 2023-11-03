@@ -146,6 +146,7 @@
   align-items: center;
   flex-wrap: wrap;
   margin: 0 15px;
+  margin-top:15px
 }
 
 .filter-manager,
@@ -335,11 +336,14 @@
   margin: 5px;
 }
 
+.filetypes-option label .ext-name {
+  text-transform: uppercase;
+}
+
 .filetypes-option label .ext-name,
 .added_by-option label .added_by-name,
 .date_posted-option label .date-period {
   margin-left: 30px;
-  text-transform: uppercase;
 }
 
 .added_by-option label .added_by-name{
@@ -392,7 +396,7 @@
 }
 
 .head-button-2 p {
-  margin: 0;
+  margin: 0!important;
   white-space: nowrap;
 }
 
@@ -629,6 +633,13 @@
   height: 16px;
   padding: 0;
   height: 26px;
+  border:none;
+}
+.filter-author-form .selectize-input input:focus-visible,
+.filter-added_by-form .selectize-input input:focus-visible,
+.filter-tag-form .selectize-input input:focus-visible{
+  border:none;
+  outline:none!important;
 }
 
 .filter-tag-form .selectize-control.multi .selectize-input > div,
@@ -655,7 +666,7 @@
 .filter-tag-form .selectize-dropdown,
 .filter-author-form .selectize-dropdown,
 .filter-added_by-form .selectize-dropdown {
-  padding: 0;
+  padding: 5px;;
   max-height: 100px;
   overflow-y: scroll;
   position: absolute;
@@ -703,4 +714,9 @@
 
 .section-search .sticky-top{
   z-index: 10!important;
+}
+
+.search-input{
+  padding:10px;
+  margin-bottom:10px;
 }

@@ -1,4 +1,4 @@
-/* Search default clear colros */
+/* Search default clear colors */
 .filter .filter-icon {
   color: #474747;
 }
@@ -254,4 +254,19 @@
 .filter-author-form .selectize-dropdown .option.active,
 .filter-added_by-form .selectize-dropdown .option.active {
   background: #ccc;
+}
+
+.search-input{
+  padding:10px;
+  margin-bottom:10px;
+}
+
+.search-input::placeholder{
+  color: #ccc;
+}
+
+.filter-tag-form .selectize-control.multi .selectize-input > div .remove,
+.filter-author-form .selectize-control.multi .selectize-input > div .remove,
+.filter-added_by-form .selectize-control.multi .selectize-input > div .remove {
+  color:#000;
 }

@@ -73,7 +73,7 @@
 }
 
 .mcs-container .filter {
-  border: 1px solid #aeaeae;
+  border: 2px solid #444;
   color:#aeaeae;
 }
 
@@ -93,7 +93,7 @@
 
 .mcs-container .filter-filled {
   background: #ff7700bb;
-  border: 1px solid #ffeacf !important;
+  border: none!important;
   color: #ffeacf!important;
 }
 
@@ -113,13 +113,13 @@
 .filetypes-option:nth-child(odd),
 .added_by-option:nth-child(odd),
 .date_posted-option:nth-child(odd) label {
-  background: #f3f3f3;
+  background: #444;
 }
 
 .filetypes-option label .checked-icon,
 .added_by-option label .checked-icon,
 .date_posted-option label .checked-icon{
-  color: #ff7700bb;
+  color: white;
 }
 
 .filetypes-option label .ext-badge,
@@ -129,23 +129,21 @@
   color: white;
 }
 
-.filetypes-option input:checked + label {
-  background: #fff5e8;
-}
-
+.added_by-option input:checked + label,
+.filetypes-option input:checked + label,
 .date_posted-option input:checked + label {
   background: rgba(244, 171, 79, 0.17);
 }
 
 .head-button-2 {
   color: #777;
-  background: #fafafa;
+  background: #222;
   box-shadow: 0px 2px #00000024;
 }
 
 .head-button-2:hover {
-  background: #eee;
-  color: #555 !important;
+  background: #000;
+  color: #777 !important;
 }
 
 .breadcrumb-item {
@@ -173,11 +171,11 @@
 }
 
 .linkedAlbumPopInContainer {
-  background-color: white;
+  background-color: #555;
 }
 
 .ClosePopIn {
-  color: white;
+  color: #777;
 }
 
 .search-result-item {
@@ -221,6 +219,7 @@
 .filter-author-form .selectize-input input,
 .filter-added_by-form .selectize-input input {
   color: #ccc ;
+  background: #555;
 }
 
 .filter-tag-form .selectize-input input::placeholder,
@@ -243,7 +242,7 @@
 .filter-tag-form .selectize-dropdown,
 .filter-author-form .selectize-dropdown,
 .filter-added_by-form .selectize-dropdown {
-  background: #eee;
+  background: #555;
 }
 
 .filter-tag-form .selectize-dropdown .option.active,
@@ -254,4 +253,18 @@
 
 .filter-tag-form .selectize-dropdown .selectize-dropdown-content{
   background-color: #444;
+}
+
+.search-input{
+  background: #555;
+}
+
+.search-input::placeholder{
+  color: #ccc;
+}
+
+.filter-tag-form .selectize-control.multi .selectize-input > div .remove,
+.filter-author-form .selectize-control.multi .selectize-input > div .remove,
+.filter-added_by-form .selectize-control.multi .selectize-input > div .remove {
+  color:#000;
 }
