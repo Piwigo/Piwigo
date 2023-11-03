@@ -1350,4 +1350,5 @@ $lang['Only admins in a specific group'] = 'Uniquement les administrations d\'un
 $lang['Activate button "%s"'] = 'Afficher le bouton "%s"';
 $lang['Detect and avoid duplicates during upload'] = 'Détecter et éviter les doublons à l\'import';
 $lang['During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'] = 'Pendant l\'ajout de photo, si Piwigo détecte que la photo existe déjà, associer la photo existante à l\'album de destination, sans dupliquer le fichier.';
+$lang['%d files'] = "%d fichiers";
 // Leave this line empty
