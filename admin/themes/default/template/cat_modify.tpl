@@ -86,8 +86,8 @@ str_root = '{'Root'|@translate}';
     <div class="cat-modify-infos">
       <div class="cat-modify-info-card cat-creation">
         <span class="cat-modify-info-title">{'Created'|@translate}</span>
-        <span class="cat-modify-info-content">{$INFO_CREATION_SINCE}</span>
-        <span class="cat-modify-info-subcontent">{$INFO_CREATION}</span>
+        <span class="cat-modify-info-content">{if isset($INFO_CREATION_SINCE)}{$INFO_CREATION_SINCE}{else}{'unknown'|translate}{/if}</span>
+        <span class="cat-modify-info-subcontent">{if isset($INFO_CREATION)}{$INFO_CREATION}{else}{'Unknown time period'|translate}{/if}</span>
       </div>
       <div class="cat-modify-info-card cat-modification">
         <span class="cat-modify-info-title">{'Modified'|@translate}</span>
