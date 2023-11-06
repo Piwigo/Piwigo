@@ -268,3 +268,8 @@
 .filter-added_by-form .selectize-control.multi .selectize-input > div .remove {
   color:#000;
 }
+
+.breadcrumb-item .link-path,
+.pwg-icon-cancel:before{
+  color:black;
+}
