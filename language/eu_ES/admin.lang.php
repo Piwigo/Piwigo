@@ -1330,3 +1330,4 @@ $lang['Activate button "%s"'] = 'Aktibatu "%s" botoia';
 $lang['Add another set of formats'] = 'Beste formatu-sorta bat';
 $lang['All admins'] = 'Admin guztiak';
 $lang['Allow comments for sub-albums'] = 'Baimendu iruzkinak azp-albumetan';
+$lang['The best is to have them made automatically on a regular basis.'] = 'Maiztasun jakin baten automatikoki egitea gomendatzen da.';
