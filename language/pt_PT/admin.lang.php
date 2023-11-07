@@ -1341,3 +1341,7 @@ $lang['Only admins in a specific group'] = 'Somente admins num grupo especifico'
 $lang['Remove thumbnail'] = 'Remover miniatura';
 $lang['Unlock it'] = 'Abrir isto';
 $lang['Unlocked album'] = 'Album aberto';
+$lang['%d in whole branch'] = '%d em todo o ramo';
+$lang['During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'] = 'Durante o upload, se o Piwigo detectar que a foto já existe, associe a foto existente ao álbum de destino, sem duplicar o arquivo
+';
+$lang['Put at the root'] = 'Coloque na raiz';
