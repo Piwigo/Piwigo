@@ -1599,6 +1599,11 @@ a.stat-box:hover {
   border-color: transparent transparent white transparent;
 }
 
+.storage-tooltips .tooltip-arrow.bottom {
+  top: 100%;
+  border-color: white transparent transparent transparent;
+}
+
 .storage-tooltips .separated {
   display: block !important;
   width: 100%;
@@ -1638,14 +1643,16 @@ a.stat-box:hover {
 }
 
 .storage-tooltips .tooltip-details {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .storage-tooltips .tooltip-details-cont{
+  width: 33%;
   align-items: center !important;
+  margin: 0 !important;
   margin-top: 10px !important;
+  margin-bottom: 5px !important;
 }
 
 .storage-tooltips .tooltip-details-ext,

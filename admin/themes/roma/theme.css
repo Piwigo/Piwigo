@@ -274,6 +274,10 @@ a.stat-box:hover {
   border-color: transparent transparent #333333 transparent;
 }
 
+.storage-tooltips .tooltip-arrow.bottom{
+  border-color: #333333 transparent transparent transparent;
+}
+
 .intro-charts .tooltip .tooltip-details-title, .intro-charts .tooltip-title {
   color:#aeaeae !important;
   border: none !important;

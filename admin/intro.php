@@ -384,9 +384,8 @@ $template->assign('DAY_LABELS', $day_labels);
 // |                           get storage data                            |
 // +-----------------------------------------------------------------------+
 
-$video_format = array('webm','webmv','ogg','ogv','mp4','m4v');
+$video_format = array('webm','webmv','ogg','ogv','mp4','m4v', 'mov');
 $data_storage = array();
-$file_extensions_of = array();
 
 //Select files in Image_Table
 $query = '
@@ -416,34 +415,37 @@ foreach ($file_extensions as $ext => $ext_details)
     $type = 'Other';
   }
 
-  @$file_extensions_of[$type][strtoupper($ext)] = $ext_details['ext_counter'];
-  @$data_storage[$type] += $ext_details['filesize'];
-}
+  @$data_storage[$type]['total']['filesize'] += $ext_details['filesize'];
+  @$data_storage[$type]['total']['nb_files'] += $ext_details['ext_counter'];
 
-$data_storage_details = array();
-
-foreach ($file_extensions_of as $type => $extensions)
-{
-  $details = array();
-
-  foreach ($extensions as $ext => $counter)
-  {
-    $details[] = $counter.'x'.$ext;
-  }
-  $data_storage_details[$type] = implode(', ', $details);
+  @$data_storage[$type]['details'][strtoupper($ext)] = array(
+    'filesize' => $ext_details['filesize'],
+    'nb_files' => $ext_details['ext_counter'],
+  );
 }
 
 //Select files from format table
 $query = '
-SELECT SUM(filesize)
+SELECT
+    COUNT(*) AS ext_counter,
+    ext,
+    SUM(filesize) AS filesize
   FROM `'.IMAGE_FORMAT_TABLE.'`
+  GROUP BY ext
 ;';
 
-$result = query2array($query);
-
-if (isset($result[0]['SUM(filesize)']))
+$file_extensions = query2array($query, 'ext');
+foreach ($file_extensions as $ext => $ext_details)
 {
-  $data_storage['Formats'] = $result[0]['SUM(filesize)'];
+  $type = 'Formats';
+
+  @$data_storage[$type]['total']['filesize'] += $ext_details['filesize'];
+  @$data_storage[$type]['total']['nb_files'] += $ext_details['ext_counter'];
+
+  @$data_storage[$type]['details'][strtoupper($ext)] = array(
+    'filesize' => $ext_details['filesize'],
+    'nb_files' => $ext_details['ext_counter'],
+  );
 }
 
 // Add cache size if requested and known.
@@ -454,7 +456,7 @@ if ($conf['add_cache_to_storage_chart'] && isset($conf['cache_sizes']))
   {
     if (isset($cache_sizes[0]) && isset($cache_sizes[0]['value']))
     {
-      $data_storage['Cache'] = $cache_sizes[0]['value']/1024;
+      @$data_storage['Cache']['total']['filesize'] = $cache_sizes[0]['value']/1024;
     }
   }
 }
@@ -463,13 +465,13 @@ if ($conf['add_cache_to_storage_chart'] && isset($conf['cache_sizes']))
 $total_storage = 0;
 foreach ($data_storage as $value) 
 {
-  $total_storage += $value;
+  $total_storage += $value['total']['filesize'];
 }
 
 //Pass data to HTML
 $template->assign('STORAGE_TOTAL',$total_storage);
 $template->assign('STORAGE_CHART_DATA',$data_storage);
-$template->assign('STORAGE_DETAILS', json_encode($data_storage_details));
+
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
