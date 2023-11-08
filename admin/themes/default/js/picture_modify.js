@@ -60,6 +60,7 @@ function fill_results(cats) {
 
 function remove_related_category(cat_id) {
   $(".invisible-related-categories-select option[value="+ cat_id +"]").remove();
+  $(".invisible-related-categories-select").trigger('change');
   $("#" + cat_id).parent().remove();
 
   cat_to_remove_index = related_categories_ids.indexOf(cat_id);
@@ -80,7 +81,7 @@ function add_related_category(cat_id, cat_link_path) {
 
     $(".search-result-item #" + cat_id).addClass("notClickable");
     related_categories_ids.push(cat_id);
-    $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>");
+    $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>").trigger('change');
 
     $("#"+ cat_id).on("click", function () {
       remove_related_category($(this).attr("id"))

@@ -48,9 +48,6 @@ str_root = '{'Root'|@translate}';
     </div>
 
     <div class="cat-modify-actions">
-      {if cat_admin_access($CAT_ID)}
-        <a class="icon-eye tiptip" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
-      {/if}
 
       {if isset($U_MANAGE_ELEMENTS) }
         <a class="icon-picture tiptip" href="{$U_MANAGE_ELEMENTS}" title="{'Manage album photos'|@translate}"></a>
@@ -183,10 +180,19 @@ str_root = '{'Root'|@translate}';
   </div>
 
   <div class="cat-modify-footer">
+   <div class="cat-modify-footer-start">
+    {if cat_admin_access($CAT_ID)}
+      <a class="cat-modify-footer-see-out" href="{$U_JUMPTO}"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>
+    {else}
+    <a class="tiptip cat-modify-footer-see-out disabled" title="{'ACCESS_5'|translate}" href="#"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>
+    {/if}
+   </div>
+   <div class="cat-modify-footer-end">
     <div class="info-message icon-ok">{'Album updated'|@translate}</div>
     <div class="info-error icon-cancel">{'An error has occured while saving album settings'|@translate}</div>
     <span class="buttonLike" id="cat-properties-save"><i class="icon-floppy"></i> {'Save Settings'|@translate}</span>
-    </div>
+   </div>
+  </div>
 </div>
 
 <style>

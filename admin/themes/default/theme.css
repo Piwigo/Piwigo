@@ -631,7 +631,7 @@ LI.menuLi {
 }
 
 .cat-modify-representative-actions a{
-  color: white;
+  color: #3C3C3C;
   transform: translateY(5px);
   transition: 0.3s ease-in-out;
   margin-bottom: 10px;
@@ -707,8 +707,7 @@ LI.menuLi {
 
 .cat-modify-footer {
   display: flex;
-  align-items: end;
-  justify-content: end;
+  justify-content: space-between;
   border-top: 1px solid #ececec;
   padding: 12px;
   position: fixed;
@@ -718,6 +717,45 @@ LI.menuLi {
   background: white;
   }
 
+.cat-modify-footer-see-out {
+  display: flex;
+  background-color: #ECECEC;
+  color: #3C3C3C;
+  padding: 9px 10px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.cat-modify-footer-see-out:hover {
+  background-color: #F29F4B;
+  color: #3C3C3C;
+  text-decoration: none;
+}
+
+.cat-modify-footer-see-out:focus {
+  border: 2px solid #F4AB4F;
+  background: #ECECEC;
+}
+
+.cat-modify-footer-start {
+  margin-left: 230px;
+}
+
+.cat-modify-footer-end {
+  display: flex;
+}
+
+.cat-modify-footer-see-out.disabled{
+  background-color: #ECECEC;
+  color: #B8B8B8;
+  cursor: not-allowed;
+}
+.cat-modify-footer-see-out.disabled:focus {
+  border: none;
+
+}
 .cat-delete-modes {
   display: flex;
   flex-direction: column;
@@ -5825,6 +5863,69 @@ a.group_users {
 .preview-box.icon-zoom-in:hover img {
   opacity:0.5;
 }
+/* See in the gallery - Photo page */
+.see-out{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.see-out::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease-in-out;
+}
+.see-out:hover::after {
+  background: rgba(0, 0, 0, 0.301);
+}
+.see-out p{
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  margin: unset;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease-in-out, transform 0.3s ease-in-out;
+  -webkit-transition: opacity 0.2s ease-in-out, transform 0.3s ease-in-out;
+  background-color: #ffa744;
+  color: #3C3C3C;
+  padding: 8px 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.see-out p:hover {
+  background-color: #f70;
+}
+.see-out:hover p{
+  opacity: 1;
+  transform: translate(-50%, -60%);
+  -webkit-transform: translate(-50%, -60%);
+}
+.see-out p i {
+  font-size: 12px;
+  line-height: 12px;
+  vertical-align: 1px;
+}
+.see-out p i::before{
+  margin: unset;
+  margin-right: 4px;
+}
+.see-out.disabled {
+  cursor: not-allowed;
+}
+.see-out.disabled p {
+  background-color: #ECECEC;
+  color: #B8B8B8;
+}
+
 
 /* Edit user popin*/
 

@@ -1950,3 +1950,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .cat-modify-ariane a.icon-sitemap::after {
   background-color: #111111;
 }
+
+.cat-modify-footer-see-out.disabled {
+  background: #5d5d5d !important;
+  color: #373737 !important;
+}
+
+.see-out.disabled p {
+  background-color: #5d5d5d !important;;
+  color: #373737 !important;
+}
