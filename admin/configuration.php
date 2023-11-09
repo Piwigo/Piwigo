@@ -405,7 +405,7 @@ switch ($page['section'])
     SELECT
         id,
         name
-      FROM '.GROUPS_TABLE.'
+      FROM `'.GROUPS_TABLE.'`
     ;';
     $groups = query2array($query, 'id', 'name');
     natcasesort($groups);
