@@ -53,7 +53,7 @@ $result = pwg_query($query);
 $register_dates = array();
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $register_dates[] = $row['registration_month'].' '.$row['registration_year'];
+  $register_dates[] = $row['registration_year'].'-'.sprintf('%02u', $row['registration_month']);
 }
 
 $template->assign('register_dates', implode(',' , $register_dates));

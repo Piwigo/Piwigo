@@ -1118,9 +1118,16 @@ function ws_addDefaultMethods( $arr )
         'order' =>      array('default'=>'id',
                               'info'=>'id, username, level, email'),
         'exclude' =>    array('flags'=>WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
-                              'type'=>WS_TYPE_ID),
+                              'type'=>WS_TYPE_ID,
+                              'info'=>'Expects a user_id as value.'),
         'display' =>    array('default'=>'basics',
                               'info'=>'Comma saparated list (see method description)'),
+        'filter' =>     array('flags'=>WS_PARAM_OPTIONAL,
+                              'info'=>'Filter by username, email, group'),
+        'min_register' => array('flags'=>WS_PARAM_OPTIONAL,
+                                 'info'=>'See method description'),
+        'max_register' => array('flags'=>WS_PARAM_OPTIONAL,
+                                'info'=>'See method description'),
         ),
       'Retrieves a list of all the users.<br>
 <br>
@@ -1129,7 +1136,8 @@ all, basics, none,<br>
 username, email, status, level, groups,<br>
 language, theme, nb_image_page, recent_period, expand, show_nb_comments, show_nb_hits,<br>
 enabled_high, registration_date, registration_date_string, registration_date_since, last_visit, last_visit_string, last_visit_since<br>
-<b>basics</b> stands for "username,email,status,level,groups"',
+<b>basics</b> stands for "username,email,status,level,groups"<br>
+<b>min_register</b> and <b>max_register</b> filter users by their registration date expecting format "YYYY" or "YYYY-mm" or "YYYY-mm-dd".',
       $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true)
     );

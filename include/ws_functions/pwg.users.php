@@ -68,20 +68,22 @@ function ws_users_getList($params, &$service)
 
 
   if (!empty($params['min_register'])) {
-    list($min_register_month, $min_register_year) = explode(' ', $params["min_register"]);
-    if (strlen($min_register_month) == 1) {
-      $min_register_month = "0".$min_register_month;
-    }
-    $where_clauses[] = 'ui.registration_date >= \''.$min_register_year.'-'.$min_register_month.'-01 00:00:00\'';
+    $date_tokens = explode('-', $params['min_register']);
+    $min_register_year = $date_tokens[0];
+    $min_register_month = $date_tokens[1] ?? 1;
+    $min_register_day =  $date_tokens[2] ?? 1;
+    $min_date = sprintf('%u-%02u-%02u', $min_register_year, $min_register_month, $min_register_day);
+    $where_clauses[] = 'ui.registration_date >= \''.$min_date.' 00:00:00\'';
   }
 
 
   if (!empty($params['max_register'])) {
-    list($max_register_month, $max_register_year) = explode(' ', $params["max_register"]);
-    if (strlen($max_register_month) == 1) {
-      $max_register_month = "0".$max_register_month;
-    }
-    $where_clauses[] = 'ui.registration_date <= adddate(\''.$max_register_year.'-'.$max_register_month.'-01 00:00:00\', interval 1 month)';
+    $max_date_tokens = explode('-', $params['max_register']);
+    $max_register_year = $max_date_tokens[0];
+    $max_register_month = $max_date_tokens[1] ?? 12;
+    $max_register_day = $max_date_tokens[2] ?? date('t', strtotime($max_register_year.'-'.$max_register_month.'-1'));
+    $max_date = sprintf('%u-%02u-%02u', $max_register_year, $max_register_month, $max_register_day);
+    $where_clauses[] = 'ui.registration_date <= \''.$max_date.' 23:59:59\'';
   }
 
   if (!empty($params['status']))
