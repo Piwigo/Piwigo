@@ -160,7 +160,7 @@ if (!empty($category['id_uppercat']))
 }
 
 // We show or hide this warning in JS
-$page['warnings'][] = l10n('This album is currently locked, visible only to administrators.').'<span class="icon-key unlock-album">'.l10n('Unlock it').'</span>';
+$page['warnings'][] = l10n('This album is currently locked, visible only to administrators.').'<span class="icon-cone unlock-album">'.l10n('Unlock it').'</span>';
 
 $template->assign(
   array(

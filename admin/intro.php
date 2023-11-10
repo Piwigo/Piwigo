@@ -73,6 +73,24 @@ if ($nb_orphans > 0)
   $page['warnings'][] = $message;
 }
 
+// locked album ?
+$query = '
+SELECT COUNT(*)
+  FROM '.CATEGORIES_TABLE.'
+  WHERE visible =\'false\'
+;';
+list($locked_album) = pwg_db_fetch_row(pwg_query($query));
+if ($locked_album > 0)
+{
+  $locked_album_url = PHPWG_ROOT_PATH.'admin.php?page=cat_options&section=visible';
+
+  $message = '<a href="'.$locked_album_url.'"><i class="icon-cone"></i>';
+  $message.= l10n('Locked album').'</a>';
+  $message.= '<span class="adminMenubarCounter">'.$locked_album.'</span>';
+
+  $page['warnings'][] = $message;
+}
+
 fs_quick_check();
 
 // +-----------------------------------------------------------------------+

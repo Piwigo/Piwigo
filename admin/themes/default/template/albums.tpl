@@ -49,6 +49,7 @@ str_album_name_empty = '{'Album name must not be empty'|@translate|escape:javasc
 
 const add_album_root_title = '{'Create a new album at root'|@translate|escape:javascript}';
 const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javascript}';
+const tiptip_locked_album = "{'Locked album'|translate|escape:javascript}";
 {/footer_script}
 
 {combine_script id='jquery.tipTip' load='footer' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
