@@ -201,12 +201,23 @@ if ( empty($page['is_external']) )
 
     if (isset($my_search['fields']['tags']))
     {
-      $filter_tags = $filter_tag_ids = array();
+      $filter_tags = array();
       // TODO calling get_available_tags(), with lots of photos/albums/tags may cost time,
       // we should reuse the result if already executed (for building the menu for example)
       if (isset($search_items))
       {
         $filter_tags = get_common_tags($search_items, 0);
+
+        // the user may have started a search on 2 or more tags that have no
+        // intersection. In this case, $search_items is empty and get_common_tags
+        // returns nothing. We should still display the list of selected tags. We
+        // have to "force" them in the list.
+        $missing_tag_ids = array_diff($my_search['fields']['tags']['words'], array_column($filter_tags, 'id'));
+
+        if (count($missing_tag_ids) > 0)
+        {
+          $filter_tags = array_merge(get_available_tags($missing_tag_ids), $filter_tags);
+        }
       }
       else
       {
@@ -214,15 +225,9 @@ if ( empty($page['is_external']) )
         usort($filter_tags, 'tag_alpha_compare');
       }
 
-      if (count($filter_tags) > 0)
-      {
-        foreach ($filter_tags as $tag)
-        {
-          $filter_tag_ids[] = $tag['id'];
-        }
-      }
-
       $template->assign('TAGS', $filter_tags);
+
+      $filter_tag_ids = count($filter_tags) > 0 ? array_column($filter_tags, 'id') : array();
 
       // in case the search has forbidden tags for current user, we need to filter the search rule
       $my_search['fields']['tags']['words'] = array_intersect($my_search['fields']['tags']['words'], $filter_tag_ids);
