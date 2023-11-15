@@ -1349,3 +1349,4 @@ $lang['Created'] = 'Erstellt';
 $lang['Detect and avoid duplicates during upload'] = 'Duplikate beim Hochladen erkennen und vermeiden';
 $lang['Disallow comments for sub-albums'] = 'Kommentare für Unteralben nicht zulassen';
 $lang['During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'] = 'Wenn Piwigo während des Hochladens feststellt, dass das Foto bereits existiert, wird das vorhandene Foto dem Zielalbum zugeordnet, ohne die Datei zu duplizieren';
+$lang['%d files'] = '%d Dateien';
