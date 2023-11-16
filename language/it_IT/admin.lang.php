@@ -1347,3 +1347,4 @@ $lang['Remove thumbnail'] = 'Rimuovi anteprime';
 $lang['This album is currently locked, visible only to administrators.'] = 'L\'album è attualmente bloccato, visibile soltanto agli amministratori.';
 $lang['Unlock it'] = 'Sbloccalo.';
 $lang['Unlocked album'] = 'Album sbloccato.';
+$lang['%d files'] = '%d file';
