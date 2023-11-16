@@ -1343,3 +1343,4 @@ $lang['Remove thumbnail'] = 'Fjern miniatyrbilde';
 $lang['This album is currently locked, visible only to administrators.'] = 'Dette albumet er for øyeblikket låst, kun synlig for administratorer.';
 $lang['Unlock it'] = 'Lås den opp';
 $lang['Unlocked album'] = 'Ulåst album';
+$lang['%d files'] = '%d filer';
