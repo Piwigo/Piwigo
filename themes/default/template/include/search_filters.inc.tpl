@@ -94,7 +94,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       <div class="filter-form-title">{'Search for words'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
       {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
       <div class="word-search-options">
@@ -150,7 +150,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       <div class="filter-form-title">{'Tag'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
       <div class="search-params"> 
         <div>
@@ -187,7 +187,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       <div class="filter-form-title">{'Post date'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash" title="{'Delete'|@translate}"></span>
-        <span class="clear mcs-icon pwg-icon-broom" title="{'Clear'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left" title="{'Clear'|@translate}"></span>
       </div>
 
       <div class="date_posted-option-container">
@@ -219,7 +219,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <div class="filter-form-title">{'Album'|@translate}</div>
     <div class="filter-actions"> 
       <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-      <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+      <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
     </div>
       <div class="search-params"> 
       </div>
@@ -256,7 +256,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       <div class="filter-form-title">{'Author'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
       <div class="form-container">
         <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
@@ -284,7 +284,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       <div class="filter-form-title">{'Added by'|translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
-        <span class="clear mcs-icon pwg-icon-broom tiptip" title="{'Clear'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
       </div>
 
       <div class="form-container">
@@ -319,7 +319,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       <div class="filter-form-title">{'File type'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
-        <span class="clear mcs-icon pwg-icon-broom tiptip" title="{'Clear'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
       </div>
       <div class="form-container">
         <div class="filetypes-option-container">
@@ -343,7 +343,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   </div>
   {/if}
   <div>
-    <span class="mcs-icon pwg-icon-broom clear-all">{'Empty filters'|@translate}</span>
+    <span class="mcs-icon pwg-icon-arrow-rotate-left clear-all">{'Empty filters'|@translate}</span>
   </div>
 </div>
 
