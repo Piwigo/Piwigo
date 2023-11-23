@@ -2292,6 +2292,11 @@ function ws_images_setInfo($params, $service)
 {
   global $conf;
 
+  if (isset($params['pwg_token']) and get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   $query='
@@ -2323,13 +2328,10 @@ SELECT *
   {
     if (isset($params[$key]))
     {
-      if (!$conf['allow_html_descriptions'])
+      if (!$conf['allow_html_descriptions'] or !isset($params['pwg_token']))
       {
         $params[$key] = strip_tags($params[$key], '<b><strong><em><i>');
       }
-
-      // TODO do not strip tags if pwg_token is provided (and valid)
-      $params[$key] = strip_tags($params[$key]);
 
       if ('fill_if_empty' == $params['single_value_mode'])
       {

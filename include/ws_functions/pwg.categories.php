@@ -670,6 +670,11 @@ function ws_categories_add($params, &$service)
 
   global $conf;
 
+  if (isset($params['pwg_token']) and get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   if (!empty($params['position']) and in_array($params['position'], array('first','last')))
   {
     //TODO make persistent with user prefs
@@ -684,12 +689,11 @@ function ws_categories_add($params, &$service)
 
   if (!empty($params['comment']))
   {
-    // TODO do not strip tags if pwg_token is provided (and valid)
-    $options['comment'] = strip_tags($params['comment']);
+    $options['comment'] = (!$conf['allow_html_descriptions'] or !isset($params['pwg_token'])) ? strip_tags($params['comment']) : $params['comment'];
   }
   
   $creation_output = create_virtual_category(
-    strip_tags($params['name']), // TODO do not strip tags if pwg_token is provided (and valid)
+    (!$conf['allow_html_descriptions'] or !isset($params['pwg_token'])) ? strip_tags($params['name']) : $params['name'],
     $params['parent'],
     $options
     );
@@ -800,6 +804,13 @@ SELECT id
  */
 function ws_categories_setInfo($params, &$service)
 {
+  global $conf;
+
+  if (isset($params['pwg_token']) and get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   // does the category really exist?
   $query = '
 SELECT *
@@ -854,8 +865,7 @@ SELECT *
     if (isset($params[$key]))
     {
       $perform_update = true;
-      // TODO do not strip tags if pwg_token is provided (and valid)
-      $update[$key] = strip_tags($params[$key]);
+      $update[$key] = (!$conf['allow_html_descriptions'] or !isset($params['pwg_token'])) ? strip_tags($params[$key]) : $params[$key];
     }
   }
 
