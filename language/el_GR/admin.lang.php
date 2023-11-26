@@ -1217,3 +1217,6 @@ $lang['Are you sure you want to uninstall the plugin "%s"?'] = 'Είστε βέ�
 $lang['Apr'] = 'Apr';
 $lang['Apply to the whole hierarchy'] = 'Εφαρμόστε σε ολόκληρη την ιεραρχία';
 $lang['%d files'] = '%d αρχεία';
+$lang['Name field must not be empty'] = 'Το πεδίο ονόματος δεν πρέπει να είναι κενό';
+$lang['More information'] = 'Περισσότερες πληροφορίες';
+$lang['Modified'] = 'Τροποποιημένο';
