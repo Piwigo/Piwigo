@@ -1342,3 +1342,4 @@ $lang['Remove thumbnail'] = 'Fjarlægðu smámynd';
 $lang['This album is currently locked, visible only to administrators.'] = 'Þetta albúm er læst eins og er, aðeins sýnilegt stjórnendum.';
 $lang['Unlock it'] = 'Aflæsa því';
 $lang['Unlocked album'] = 'Ólæst albúm';
+$lang['%d files'] = '%d skrár';
