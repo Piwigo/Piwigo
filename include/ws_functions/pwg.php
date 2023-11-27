@@ -927,6 +927,7 @@ SELECT
       continue;
     }
 
+    $user_name = '#unknown';
     $user_string = '';
     if (isset($username_of[$line['user_id']]))
     {
