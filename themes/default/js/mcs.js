@@ -845,3 +845,31 @@ function updateFilters(filterName, mode) {
 function reloadPage(url){
   window.location.href = url;
 }
+
+/**
+ * Replace the filter_form elements if they exceed the window
+ */
+function resize_filter_form(){
+  $('.filter').each(function() {
+    const window_width = $(window).innerWidth();
+    const left_distance = $(this).offset().left;
+    const filter_form = $(this).find($('.filter-form'));
+    const filter_form_width = filter_form.innerWidth();
+    const too_left = (left_distance + $(this).innerWidth()) - filter_form_width;
+    filter_form.css('left', '0px');
+
+    if(left_distance + filter_form_width > window_width) {
+      console.log($(this)[0].outerText + ': dépasse de ' + (window_width - left_distance) + filter_form_width + 'px');
+      
+      const check_left = too_left < 0 ? Math.abs(too_left - 5) : 0;
+      const replace_form_width = - filter_form_width + $(this).innerWidth() + check_left;
+      filter_form.css('left', replace_form_width+'px');
+    }
+  });
+}
+$(window).on('load', function() {
+  resize_filter_form();
+});
+$(window).on('resize', function() {
+  resize_filter_form();
+});
