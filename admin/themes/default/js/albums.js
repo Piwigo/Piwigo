@@ -13,8 +13,10 @@ $(document).ready(() => {
     onCanSelectNode: function(node) {return false}
   });
 
-  var url_split = window.location.href.split("cat_move");
-  var catToOpen = url_split[url_split.length-1].split("-")[1];
+  var url_split = window.location.href.split("albums");
+  if(url_split.length>1) {
+    var catToOpen = url_split[url_split.length-1].split("-")[1];
+  }
 
   if(catToOpen && isNumeric(catToOpen)) {
     nodeToGo = $('.tree').tree('getNodeById', catToOpen);
