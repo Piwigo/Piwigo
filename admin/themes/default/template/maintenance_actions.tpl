@@ -124,26 +124,26 @@ $(".delete-size-check").click( function () {
   <legend><span class="icon-globe icon-blue"></span>{'Global Gallery Actions'|translate}</legend>
   <div style="display:flex;flex-wrap: wrap;">
 {if (isset($U_MAINT_LOCK_GALLERY))}
-    <a href="{$U_MAINT_LOCK_GALLERY}" class="lock-gallery-button icon-lock maintenance-action">{'Lock gallery'|@translate}</a>
+    <a href="{$U_MAINT_LOCK_GALLERY}" class="lock-gallery-button {$maint_actions['lock_gallery']['icon']} maintenance-action">{$maint_actions['lock_gallery']['label']}</a>
 {else}
-    <a href="{$U_MAINT_UNLOCK_GALLERY}" class="lock-gallery-button icon-lock maintenance-action">{'Unlock gallery'|@translate}</a>
+    <a href="{$U_MAINT_UNLOCK_GALLERY}" class="lock-gallery-button {$maint_actions['unlock_gallery']['icon']} maintenance-action">{$maint_actions['unlock_gallery']['label']}</a>
 {/if}
-    <a href="{$U_MAINT_CATEGORIES}" class="icon-folder-open maintenance-action">{'Update albums informations'|@translate}</a>
-    <a href="{$U_MAINT_IMAGES}" class="icon-info-circled-1 maintenance-action">{'Update photos information'|@translate}</a>
-    <a href="{$U_MAINT_DATABASE}" class="icon-database maintenance-action">{'Repair and optimize database'|@translate}</a>
-    <a href="{$U_MAINT_C13Y}" class="icon-ok maintenance-action">{'Reinitialize check integrity'|@translate}</a>
+    <a href="{$U_MAINT_CATEGORIES}" class="{$maint_actions['categories']['icon']} maintenance-action">{$maint_actions['categories']['label']}</a>
+    <a href="{$U_MAINT_IMAGES}" class="{$maint_actions['images']['icon']} maintenance-action">{$maint_actions['images']['label']}</a>
+    <a href="{$U_MAINT_DATABASE}" class="{$maint_actions['database']['icon']} maintenance-action">{$maint_actions['database']['label']}</a>
+    <a href="{$U_MAINT_C13Y}" class="{$maint_actions['c13y']['icon']} maintenance-action">{$maint_actions['c13y']['label']}</a>
   </div>
 </fieldset>
 <fieldset class="">
   <legend><span class="icon-trash-1 icon-green"></span>{'Purge Actions'|@translate}</legend>
   <div style="display:flex;flex-wrap: wrap;">
-    <a href="{$U_MAINT_USER_CACHE}" class="icon-user-1 maintenance-action">{'Purge user cache'|@translate}</a>
-    <a href="{$U_MAINT_ORPHAN_TAGS}" class="icon-tags maintenance-action">{'Delete orphan tags'|@translate}</a>
-    <a href="{$U_MAINT_HISTORY_DETAIL}" class="icon-back-in-time maintenance-action purge-history-detail-button">{'Purge history detail'|@translate}</a>
-    <a href="{$U_MAINT_HISTORY_SUMMARY}" class="icon-back-in-time maintenance-action purge-history-summary-button">{'Purge history summary'|@translate}</a>
-    <a href="{$U_MAINT_SESSIONS}" class="icon-th-list maintenance-action">{'Purge sessions'|@translate}</a>
-    <a href="{$U_MAINT_FEEDS}" class="icon-bell maintenance-action">{'Purge never used notification feeds'|@translate}</a>
-    <a href="{$U_MAINT_SEARCH}" class="icon-search maintenance-action purge-search-history-button">{'Purge search history'|@translate}</a>
+    <a href="{$U_MAINT_USER_CACHE}" class="{$maint_actions['user_cache']['icon']} maintenance-action">{$maint_actions['user_cache']['label']}</a>
+    <a href="{$U_MAINT_ORPHAN_TAGS}" class="{$maint_actions['delete_orphan_tags']['icon']} maintenance-action">{$maint_actions['delete_orphan_tags']['label']}</a>
+    <a href="{$U_MAINT_HISTORY_DETAIL}" class="{$maint_actions['history_detail']['icon']} maintenance-action purge-history-detail-button">{$maint_actions['history_detail']['label']}</a>
+    <a href="{$U_MAINT_HISTORY_SUMMARY}" class="{$maint_actions['history_summary']['icon']} maintenance-action purge-history-summary-button">{$maint_actions['history_summary']['label']}</a>
+    <a href="{$U_MAINT_SESSIONS}" class="{$maint_actions['sessions']['icon']} maintenance-action">{$maint_actions['sessions']['label']}</a>
+    <a href="{$U_MAINT_FEEDS}" class="{$maint_actions['feeds']['icon']} maintenance-action">{$maint_actions['feeds']['label']}</a>
+    <a href="{$U_MAINT_SEARCH}" class="{$maint_actions['search']['icon']} maintenance-action purge-search-history-button">{$maint_actions['search']['label']}</a>
   </div>
 </fieldset>
 
@@ -175,7 +175,7 @@ $(".delete-size-check").click( function () {
         <span class="cache-lastCalculated-value">{if $time_elapsed_since_last_calc} {$time_elapsed_since_last_calc} {else} &ThickSpace;{"never calculated"|@translate} {/if}</span>
         <a class="refresh-cache-size"><span class="refresh-icon icon-arrows-cw"></span>{'Refresh'|@translate}</a>
     </div>
-    <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="icon-file-code maintenance-action">{'Purge compiled templates'|@translate} 
+    <a href="{$U_MAINT_COMPILED_TEMPLATES}" class="{$maint_actions['compiled-templates']['icon']} maintenance-action">{$maint_actions['compiled-templates']['label']} 
       <span class="multiple-compiledTemplate-sizes">
 {if isset($cache_sizes)}
         {"%s MB"|@translate:{round($cache_sizes[2]['value']/1024/1024, 2)}}  
@@ -187,7 +187,7 @@ $(".delete-size-check").click( function () {
   </div>
 
   <div class="delete-size-checks">
-    <span id="label-delete-size-checkbox">{'Delete multiple size images'|@translate}
+    <span id="label-delete-size-checkbox">{$maint_actions['derivatives']['label']}
       <span class="multiple-pictures-sizes">
 {if isset($cache_sizes)}
         {"%s MB"|@translate:{round($cache_sizes[1]['value']['all']/1024/1024, 2)}}

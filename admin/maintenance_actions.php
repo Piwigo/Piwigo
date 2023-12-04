@@ -282,6 +282,7 @@ list($db_current_date) = pwg_db_fetch_row(pwg_query('SELECT now();'));
 
 $template->assign(
   array(
+    'maint_actions' => $maint_actions,
     'U_MAINT_CATEGORIES' => sprintf($url_format, 'categories'),
     'U_MAINT_IMAGES' => sprintf($url_format, 'images'),
     'U_MAINT_ORPHAN_TAGS' => sprintf($url_format, 'delete_orphan_tags'),

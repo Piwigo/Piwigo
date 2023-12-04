@@ -1351,4 +1351,7 @@ $lang['Activate button "%s"'] = 'Activate button "%s"';
 $lang['Detect and avoid duplicates during upload'] = 'Detect and avoid duplicates during upload';
 $lang['During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'] = 'During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file';
 $lang['%d files'] = "%d files";
+$lang['Auto-update'] = 'Auto-update';
+$lang['Core'] = 'Core';
+$lang['System Activities'] = 'System Activities';
 // Leave this line empty

@@ -24,6 +24,72 @@ if (isset($_GET['action']))
 {
   check_pwg_token();
 }
+// +-----------------------------------------------------------------------+
+// | Commons parameters                                                    |
+// +-----------------------------------------------------------------------+
+
+$maint_actions = array(
+  'derivatives' => array(
+    'icon' => 'icon-trash-1',
+    'label' => l10n('Delete multiple size images'),
+  ),
+  'lock_gallery' => array(
+    'icon' => 'icon-lock',
+    'label' => l10n('Lock gallery'),
+  ),
+  'unlock_gallery' => array(
+    'icon' => 'icon-lock',
+    'label' => l10n('Unlock gallery'),
+  ),
+  'categories' => array(
+    'icon' => 'icon-folder-open',
+    'label' => l10n('Update albums informations'),
+  ),
+  'images' => array(
+    'icon' => 'icon-info-circled-1',
+    'label' => l10n('Update photos information'),
+  ),
+  'delete_orphan_tags' => array(
+    'icon' => 'icon-tags',
+    'label' => l10n('Delete orphan tags'),
+  ),
+  'user_cache' => array(
+    'icon' => 'icon-user-1',
+    'label' => l10n('Purge user cache'),
+  ),
+  'history_detail' => array(
+    'icon' => 'icon-back-in-time',
+    'label' => l10n('Purge history detail'),
+  ),
+  'history_summary' => array(
+    'icon' => 'icon-back-in-time',
+    'label' => l10n('Purge history summary'),
+  ),
+  'sessions' => array(
+    'icon' => 'icon-th-list',
+    'label' => l10n('Purge sessions'),
+  ),
+  'feeds' => array(
+    'icon' => 'icon-bell',
+    'label' => l10n('Purge never used notification feeds'),
+  ),
+  'database' => array(
+    'icon' => 'icon-database',
+    'label' => l10n('Repair and optimize database'),
+  ),
+  'c13y' => array(
+    'icon' => 'icon-ok',
+    'label' => l10n('Reinitialize check integrity'),
+  ),
+  'search' => array(
+    'icon' => 'icon-search',
+    'label' => l10n('Purge search history'),
+  ),
+  'compiled-templates' => array(
+    'icon' => 'icon-file-code',
+    'label' => l10n('Purge compiled templates'),
+  ),
+); 
 
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
@@ -34,7 +100,7 @@ $my_base_url = get_root_url().'admin.php?page=';
 
 if (isset($_GET['tab']))
 {
-  check_input_parameter('tab', $_GET, false, '/^(actions|env)$/');
+  check_input_parameter('tab', $_GET, false, '/^(actions|env|sys)$/');
   $page['tab'] = $_GET['tab'];
 }
 else

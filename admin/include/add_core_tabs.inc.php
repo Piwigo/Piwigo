@@ -77,11 +77,11 @@ function add_core_tabs($sheets, $tab_id)
 
     case 'configuration':
       global $conf_link;
-      $sheets['main'] = array('caption' => l10n('General'), 'url' => $conf_link.'main');
-      $sheets['sizes'] = array('caption' => l10n('Photo sizes'), 'url' => $conf_link.'sizes');
-      $sheets['watermark'] = array('caption' => l10n('Watermark'), 'url' => $conf_link.'watermark');
-      $sheets['display'] = array('caption' => l10n('Display'), 'url' => $conf_link.'display');
-      $sheets['comments'] = array('caption' => l10n('Comments'), 'url' => $conf_link.'comments');
+      $sheets['main'] = array('caption' => '<span class="icon-cog"></span>'.l10n('General'), 'url' => $conf_link.'main');
+      $sheets['sizes'] = array('caption' => '<span class="icon-zoom-square"></span>'.l10n('Photo sizes'), 'url' => $conf_link.'sizes');
+      $sheets['watermark'] = array('caption' => '<span class="icon-file-image"></span>'.l10n('Watermark'), 'url' => $conf_link.'watermark');
+      $sheets['display'] = array('caption' => '<span class="icon-television"></span>'.l10n('Display'), 'url' => $conf_link.'display');
+      $sheets['comments'] = array('caption' => '<span class="icon-chat"></span>'.l10n('Comments'), 'url' => $conf_link.'comments');
       // $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
       break;
 
@@ -186,6 +186,7 @@ function add_core_tabs($sheets, $tab_id)
       global $my_base_url;
       $sheets['actions'] = array('caption' => '<span class="icon-tools"></span>'.l10n('Actions'), 'url' => $my_base_url.'maintenance&tab=actions');
       $sheets['env'] = array('caption' => '<span class="icon-television"></span>'.l10n('Environment'), 'url' => $my_base_url.'maintenance&tab=env');
+      $sheets['sys'] = array('caption' => '<span class="icon-pulse"></span>'.l10n('System Activities'), 'url' => $my_base_url.'maintenance&tab=sys');
       break;
   }
 
