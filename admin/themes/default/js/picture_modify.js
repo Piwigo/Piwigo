@@ -32,6 +32,26 @@ $(document).ready(function () {
   $(".related-categories-container .breadcrumb-item .remove-item").on("click", function () {
     remove_related_category($(this).attr("id"));
   })
+  // Unsaved settings message before leave this page
+  let form_unsaved = false;
+  let user_interacted = false;
+  $('#pictureModify').find(':input').on('focus', function () {
+    user_interacted = true;
+  });
+  $('#pictureModify').find(':input').on('change', function () {
+    if (user_interacted) {
+      form_unsaved = true;
+      console.log($(this)[0].name, $(this));
+    }
+  });
+  $(window).on('beforeunload', function () {
+    if (form_unsaved) {
+      return 'Somes changes are not registered';
+    }
+  });
+  $('#pictureModify').on('submit', function () {
+    form_unsaved = false;
+  });
 })
 
 function fill_results(cats) {

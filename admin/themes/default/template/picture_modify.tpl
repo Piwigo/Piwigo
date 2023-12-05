@@ -90,23 +90,6 @@ $('#action-delete-picture').on('click', function() {
 {/literal}
 
 }());
-{literal}
-  // Unsaved settings message before leave this page
-  $(document).ready(function() {
-    let form_unsaved = false;
-    $('#pictureModify').find(':input').on('change', function() {
-      form_unsaved = true;
-    });
-    $(window).on('beforeunload', function() {
-      if (form_unsaved) {
-        return 'Somes changes are not registered';
-      }
-    });
-    $('#pictureModify').on('submit', function() {
-      form_unsaved = false;
-    });
-  });
-{/literal}
 {/footer_script}
 
 {combine_script id='picture_modify' load='footer' path='admin/themes/default/js/picture_modify.js'}
