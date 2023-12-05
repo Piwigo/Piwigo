@@ -673,16 +673,22 @@ class QDateRangeScope extends QSearchScope
 
     foreach ($range as $i =>&$val)
     {
-      if (preg_match('/([0-9]{4})-?((?:1[0-2])|(?:0?[1-9]))?-?((?:(?:[1-3][0-9])|(?:0?[1-9])))?/', $val, $matches))
+      if (preg_match('/([0-9]{4})-?((?:1[0-2])|(?:0?[1-9]))?-?((?:(?:[1-3][0-9])|(?:0?[1-9])))?[ T]?((?:[0-2][0-9])|(?:0?[0-9]))?:?([0-5][0-9])?:?([0-5][0-9])?/', $val, $matches))
       {
         array_shift($matches);
         if (!isset($matches[1]))
           $matches[1] = ($i ^ $strict[$i]) ? 12 : 1;
         if (!isset($matches[2]))
           $matches[2] = ($i ^ $strict[$i]) ? 31 : 1;
-        $val = implode('-', $matches);
-        if ($i ^ $strict[$i])
-          $val .= ' 23:59:59';
+        $val = implode('-', array_slice($matches, 0, 3));
+        if (!isset($matches[3]))
+          $matches[3] = ($i ^ $strict[$i]) ? 23 : 0;
+        if (!isset($matches[4]))
+          $matches[4] = ($i ^ $strict[$i]) ? 59 : 0;
+        if (!isset($matches[5]))
+          $matches[5] = ($i ^ $strict[$i]) ? 59 : 0;
+        $val = vsprintf("%4d-%02d-%02d %02d:%02d:%02d", $matches);
+
       }
       elseif (strlen($val))
         return false;
