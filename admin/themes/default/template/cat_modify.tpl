@@ -104,7 +104,8 @@ str_root = '{'Root'|@translate}';
       {if isset($U_SYNC) }
       <div class="cat-modify-info-card">
         <span class="cat-modify-info-title">{'Directory'}</span>
-        <span class="cat-modify-info-content">{$CAT_FULL_DIR}</span>
+        <span class="cat-modify-info-content directory" title="{$CAT_DIR_NAME}">{$CAT_DIR_NAME}</span>
+        <span class="cat-modify-info-subcontent directory" title="{$CAT_FULL_DIR}">{$CAT_MIN_DIR}</span>
       </div>
       {/if}
     </div>
@@ -273,5 +274,14 @@ str_root = '{'Root'|@translate}';
 
 .warnings {
   display: none;
+}
+
+.directory {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cat-modify-infos .cat-modify-info-content.directory::first-letter {
+    text-transform: none;
 }
 </style>
