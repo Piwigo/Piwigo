@@ -150,6 +150,16 @@ ImageStdParams::load_from_db();
 session_start();
 load_plugins();
 
+if (!isset($conf['piwigo_installed_version']))
+{
+  conf_update_param('piwigo_installed_version', PHPWG_VERSION);
+}
+elseif ($conf['piwigo_installed_version'] != PHPWG_VERSION)
+{
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'autoupdate', array('from_version'=>$conf['piwigo_installed_version'], 'to_version'=>PHPWG_VERSION));
+  conf_update_param('piwigo_installed_version', PHPWG_VERSION);
+}
+
 // 2022-02-25 due to escape on "rank" (becoming a mysql keyword in version 8), the $conf['order_by'] might
 // use a "rank", even if admin/configuration.php should have removed it. We must remove it.
 // TODO remove this data update as soon as 2025 arrives
