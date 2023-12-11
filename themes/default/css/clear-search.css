@@ -270,3 +270,20 @@
 .filter-added_by-form .selectize-control.multi .selectize-input > div .remove {
   color:#000;
 }
+
+@media (max-width: 600px) {
+  .filter-form {
+    width: 101vw;
+    border-top: 1px solid #AAAAAA;
+    border-bottom: 1px solid #AAAAAA;
+  }
+
+  .arrow-border {
+    fill: transparent;
+    stroke: #AAAAAA;
+  }
+  
+  .arrow-fill {
+    fill: white;
+  }
+}
