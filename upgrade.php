@@ -6,6 +6,14 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
+// right after the overwrite of previous version files by the unzip in the administration,
+// PHP engine might still have old files in cache. We do not want to use the cache and
+// force reload of all application files. Thus we disable opcache.
+if (function_exists('ini_set'))
+{
+  @ini_set('opcache.enable', 0);
+}
+
 define('PHPWG_ROOT_PATH', './');
 
 // load config file
