@@ -461,13 +461,6 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     $page['infos_sav'] = $page['infos'];
     $page['infos'] = array();
 
-    $query = '
-REPLACE INTO '.PLUGINS_TABLE.'
-  (id, state)
-  VALUES (\'TakeATour\', \'active\')
-;';
-    pwg_query($query);
-
     $template->assign(
       array(
         'button_label' => l10n('Home'),
@@ -482,6 +475,13 @@ REPLACE INTO '.PLUGINS_TABLE.'
       
       if (file_exists(PHPWG_PLUGINS_PATH .'TakeATour/tours/'.$version_.'/config.inc.php'))
       {
+        $query = '
+REPLACE INTO '.PLUGINS_TABLE.'
+  (id, state)
+  VALUES (\'TakeATour\', \'active\')
+;';
+        pwg_query($query);
+
         // we need the secret key for get_pwg_token()
         load_conf_from_db();
         
