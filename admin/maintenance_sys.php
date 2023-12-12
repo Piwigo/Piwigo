@@ -59,7 +59,7 @@ if (is_webmaster())
       switch ($rows['object_id'])
       {
         case ACTIVITY_SYSTEM_CORE:
-          $object_icon = 'icon-heart';
+          $object_icon = 'icon-piwigo';
           $object = l10n('Core');
 
           switch ($rows['action'])

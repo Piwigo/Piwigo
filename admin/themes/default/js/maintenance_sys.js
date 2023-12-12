@@ -24,7 +24,7 @@ function line_constructor(line){
 
     // Display Username
     'System' == line.username
-    ? new_line.find('.icon_user').addClass('icon-wrench')
+    ? new_line.find('.icon_user').addClass('icon-robot-head')
     : new_line.find('.icon_user').addClass(color_icons[line.user_id % 5]).html(initial_user);
     new_line.find('.text_username').text(line.username).attr('title', line.username);
 
