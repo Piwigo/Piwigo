@@ -297,6 +297,14 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   cursor: not-allowed;
 }
 
+.resetButton{
+  background-color:transparent;
+  color:#aaa;
+  font-weight:700;
+  border:none;
+  padding: 8px 15px;
+}
+
 #formCreateAlbum input[name="virtual_name"] {border: 1px solid #D5D5D5; transition: all 125ms ease-out;}
 #formCreateAlbum input[name="virtual_name"]:hover {border-color: #3C3C3C;}
 
@@ -843,3 +851,5 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #bde5f8;
   padding: 2px 7px;
 }
+
+#wImg {background-color: #e5e5e5;}

@@ -1,3 +1,10 @@
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
+{combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
+{combine_css path="themes/default/css/search.css" order=-100}
+{combine_css path="themes/default/css/{$themeconf.colorscheme}-search.css" order=-100}
+{combine_css path="themes/default/vendor/fontello/css/fontello.css" order=-10} 
+
 {footer_script}
 {if isset($GP)}
   global_params = {$GP};
@@ -84,10 +91,10 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-word-form">
-      <div class="filter-form-title">{'Search for words'|@translate}</div>
+      <div class="filter-form-title pwg-icon-search">{'Search for words'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
       {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
       <div class="word-search-options">
@@ -105,6 +112,10 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
         <div>
           <input type="checkbox" id="file" name="file">
           <label for="file">{'File name'|@translate}</label>
+        </div>
+        <div>
+          <input type="checkbox" id="author" name="author">
+          <label for="author">{'Author'|translate}</label>
         </div>
         <div>
           <input type="checkbox" id="comment" name="comment">
@@ -129,16 +140,17 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
       </div>
     </div>
+{if isset($TAGS)}
   <div class="filter filter-tag">
     <span class="mcs-icon pwg-icon-tag filter-icon"></span>
     <span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-tag-form">
-      <div class="filter-form-title">{'Tag'|@translate}</div>
+      <div class="filter-form-title pwg-icon-tag">{'Tag'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
       <div class="search-params"> 
         <div>
@@ -163,16 +175,19 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
     </div>
   </div>
+{/if}
+
+  {if isset($DATE_POSTED)}
   <div class="filter filter-date_posted">
     <span class="mcs-icon pwg-icon-calendar-plus filter-icon"></span>
     <span class="search-words">{'Post date'|@translate}</span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-date_posted-form">
-      <div class="filter-form-title">{'Post date'|@translate}</div>
+      <div class="filter-form-title pwg-icon-calendar-plus">{'Post date'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash" title="{'Delete'|@translate}"></span>
-        <span class="clear mcs-icon pwg-icon-broom" title="{'Clear'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left" title="{'Clear'|@translate}"></span>
       </div>
 
       <div class="date_posted-option-container">
@@ -193,16 +208,18 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
     </div>
   </div>
+  {/if}
+
   <div class="filter filter-album">
     <span class="mcs-icon pwg-icon-album filter-icon"></span>
     <span class="search-words"></span>
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
-    <div class="filter-form-title">{'Album'|@translate}</div>
+    <div class="filter-form-title pwg-icon-album"> {'Album'|@translate}</div>
     <div class="filter-actions"> 
       <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-      <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+      <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
     </div>
       <div class="search-params"> 
       </div>
@@ -215,7 +232,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
       <div class="search-sub-cats">
         <input type="checkbox" id="search-sub-cats" name="search-sub-cats">
-        <label for="search-sub-cats">Search in sub-albums</label>
+        <label for="search-sub-cats">{'Search in sub-albums'|@translate}</label>
       </div>
       <div class="filter-validate">
         <i class="loading pwg-icon-spin6 animate-spin"></i>
@@ -236,10 +253,10 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
     
     <div class="filter-form filter-author-form">
-      <div class="filter-form-title">{'Author'|@translate}</div>
+      <div class="filter-form-title pwg-icon-user-edit"> {'Author'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
       <div class="form-container">
         <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
@@ -264,21 +281,29 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
-      <div class="filter-form-title">{'Added by'|@translate}</div>
+      <div class="filter-form-title pwg-icon-user">{'Added by'|translate}</div>
       <div class="filter-actions"> 
-        <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-broom">{'Clear'|@translate}</span>
+        <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
       </div>
+
       <div class="form-container">
-        <select id="added_by" placeholder="{'Type in a search term'|translate}" name="added_by[]" multiple>
-        {foreach from=$ADDED_BY item=added_by}
-          <option value="{$added_by.added_by_id|strip_tags:false|escape:html}">{$added_by.added_by_name|strip_tags:false}<span class="badge">({$added_by.counter|translate_dec:'%d photo':'%d photos'})</span></option>
+        <div class="added_by-option-container">
+        {foreach from=$ADDED_BY item=added_by key=k}
+          <div class="added_by-option">
+              <input type="checkbox" id="added_by-{$added_by.added_by_id}" name="{$added_by.added_by_id}">
+              <label for="added_by-{$added_by.added_by_id}">
+                <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+                <span class="added_by-name">{$added_by.added_by_name|strip_tags:false}</span>
+                <span class="added_by-badge">{$added_by.counter}</span>
+              </label>
+            </div>
         {/foreach}
-        </select>
-        <div class="filter-validate">
-          <i class="loading pwg-icon-spin6 animate-spin"></i>
-          <span class="validate-text">{'Validate'|@translate}</span>
         </div>
+      </div>
+      <div class="filter-validate">
+        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
   </div>
@@ -291,10 +316,10 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-filetypes-form">
-      <div class="filter-form-title">{'File type'|@translate}</div>
+      <div class="filter-form-title pwg-icon-file-image">{'File type'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
-        <span class="clear mcs-icon pwg-icon-broom tiptip" title="{'Clear'|@translate}"></span>
+        <span class="clear mcs-icon pwg-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
       </div>
       <div class="form-container">
         <div class="filetypes-option-container">
@@ -318,7 +343,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   </div>
   {/if}
   <div>
-    <span class="mcs-icon pwg-icon-broom clear-all">{'Empty filters'|@translate}</span>
+    <span class="mcs-icon pwg-icon-arrow-rotate-left clear-all">{'Empty filters'|@translate}</span>
   </div>
 </div>
 

@@ -1,0 +1,30 @@
+Font license info
+
+
+## Font Awesome
+
+   Copyright (C) 2016 by Dave Gandy
+
+   Author:    Dave Gandy
+   License:   SIL ()
+   Homepage:  http://fortawesome.github.com/Font-Awesome/
+
+
+## Typicons
+
+   (c) Stephen Hutchings 2012
+
+   Author:    Stephen Hutchings
+   License:   SIL (http://scripts.sil.org/OFL)
+   Homepage:  http://typicons.com/
+
+
+## Fontelico
+
+   Copyright (C) 2012 by Fontello project
+
+   Author:    Crowdsourced, for Fontello project
+   License:   SIL (http://scripts.sil.org/OFL)
+   Homepage:  http://fontello.com
+
+

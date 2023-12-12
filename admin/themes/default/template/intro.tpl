@@ -10,7 +10,9 @@ const str_mb_used = "{'%s MB used'|translate}";
 const str_gb = "{'%sGB'|translate}".replace(' ', '&nbsp;');
 const str_mb = "{'%sMB'|translate}".replace(' ', '&nbsp;');
 const storage_total = {$STORAGE_TOTAL};
-const storage_details = {$STORAGE_DETAILS};
+const storage_details = {$STORAGE_CHART_DATA|json_encode};
+const translate_files = "{'%d files'|translate|escape:javascript}";
+let translate_type = {};
 {literal}
 jQuery().ready(function(){
 	jQuery('.cluetip').cluetip({
@@ -58,12 +60,91 @@ jQuery().ready(function(){
   let size_nb = storage_total > 1000000 ? (storage_total / 1000000).toFixed(2) : (storage_total / 1000).toFixed(0);
   $(".chart-title-infos").html(size_info.replace("%s", size_nb));
 });
+{/literal}
+{foreach from=$STORAGE_CHART_DATA key=type_to_translate item=details}
+translate_type['{$type_to_translate}'] = "{$type_to_translate|translate}";
+{/foreach}
+{literal}
+Object.entries(storage_details).forEach(([type, infos]) => {
+  // Determine if we use MB or GB and show it correctly 
+  let size = infos.total.filesize;
+  let str_size_type_string = size > 1000000 ? str_gb : str_mb;
+  let size_nb = size > 1000000 ? (size / 1000000).toFixed(2) : (size / 1000).toFixed(0);
+  let str_size = str_size_type_string.replace("%s", size_nb);
+
+  // Display head of Tooltip
+  $('#storage-title-' + type).html('<b>'+translate_type[type]+'</b>');
+  $('#storage-size-' + type).html('<b>'+ str_size +'</b>');
+  $('#storage-files-' + type).html('<p>'+ (infos.total.nb_files ? translate_files.replace('%d', infos.total.nb_files) : "~") +'</p>');
+
+  // Display body of Tooltip
+  if (infos.details) {
+    $.each(infos.details, function(ext, data) {
+      // Determinate if we use MB or GB and show it correctly (duplicate code from total size for scaling code)
+      let detail_size = data.filesize;
+      let detail_str_size_type_string;
+      let detail_size_nb = 0;
+      if (detail_size > 1000000) {
+        detail_str_size_type_string = str_gb;
+        detail_size_nb = (detail_size / 1000000).toFixed(2);
+      } else {
+        detail_str_size_type_string = str_mb;
+        detail_size_nb =  (detail_size / 1000).toFixed(0) < 1 ? (detail_size / 1000).toFixed(2) : (detail_size / 1000).toFixed(0);
+      }
+      let detail_str_size = detail_str_size_type_string.replace("%s", detail_size_nb);
+      $('#storage-detail-' + type).append(''+
+        '<span class="tooltip-details-cont">'+
+          '<span class="tooltip-details-ext"><b>'+ ext +'</b></span>'+
+          '<span class="tooltip-details-size"><b>'+ detail_str_size +'</b></span>'+
+          '<span class="tooltip-details-files">'+ translate_files.replace('%d', data.nb_files) +'</span>'+
+        '</span>'+
+      '');
+      let ext_bg_color = $('.storage-chart span[data-type="storage-'+type+'"]').css('background-color');
+      $('#storage-'+type+' .tooltip-details-ext b').css('color', ext_bg_color);
+    });
+  } else {
+    $('#storage-'+ type +' .separated').attr('style', 'display: none !important');
+    $('#storage-' + type +' .tooltip-header').css('margin', '0');
+  }
+  
+  // Fixing storage chart tooltip bug in little screen
+  // Keep showing tooltip and his % when hovered
+  $('#storage-' + type).hover(function() {
+    $(this).css('display', 'block');
+    $('.storage-chart span[data-type="storage-'+ type +'"] p').css('opacity', '0.4');
+  }, function() {
+    $(this).css('display', 'none');
+    $('.storage-chart span[data-type="storage-'+ type +'"] p').css('opacity', '0');
+  });
+  $('.storage-chart span[data-type="storage-'+ type +'"]').hover(function() {
+    $(this).find('p').css('opacity', '0.4');
+  }, function() {
+    $(this).find('p').css('opacity', '0');
+  });
+});
 
 //Tooltip for the storage chart
 $('.storage-chart span').each(function () {
   let tooltip = $('.storage-tooltips #'+$(this).data('type'));
+  let arrow = $('.storage-tooltips #'+$(this).data("type")+' .tooltip-arrow');
   let left = $(this).position().left + $(this).width()/2 - tooltip.innerWidth()/2;
-  tooltip.css('left', left+"px")
+  // Move tooltip if he create horizontal scrollbar
+  let storage_width = $('#chart-title-storage').innerWidth();
+  if(left + tooltip.innerWidth() > storage_width){
+      let diff = (left + tooltip.innerWidth()) - storage_width;
+      left = left - diff;
+      arrow.css('left', 'calc(50% + '+ diff +'px)');
+  }
+  tooltip.css('left', left+"px");
+  // Move tooltip if he create vertical scrollbar
+  let str_chart_pos = $('.storage-chart').offset().top;
+  let str_chart_height = $('.storage-chart').innerHeight();
+  let tooltip_height = $('.storage-tooltips #'+$(this).data("type")).innerHeight() + str_chart_height;
+  let windows_height = $(window).height();
+  if (str_chart_pos + tooltip_height > windows_height) {
+    tooltip.css('bottom', 'calc(100% + '+ str_chart_height +'px)');
+    arrow.addClass('bottom');
+  }
   $(this).hover(function() {
     tooltip.toggle();
   });
@@ -72,28 +153,31 @@ $('.storage-chart span').each(function () {
 $(window).on('resize', function(){
   $('.storage-chart span').each(function () {
     let tooltip = $('.storage-tooltips #'+$(this).data('type'));
+    let arrow = $('.storage-tooltips #'+$(this).data("type")+' .tooltip-arrow');
     let left = $(this).position().left + $(this).width()/2 - tooltip.innerWidth()/2;
-    tooltip.css('left', left+"px")
+    // Move tooltip if he create horizontal scrollbar
+    let storage_width = $('#chart-title-storage').innerWidth();
+    if(left + tooltip.innerWidth() > storage_width){
+      let diff = (left + tooltip.innerWidth()) - storage_width;
+      left = left - diff;
+      arrow.css('left', 'calc(50% + '+ diff +'px)');
+    }
+    tooltip.css('left', left+"px");
+    // Move tooltip if he create vertical scrollbar
+      let str_chart_pos = $('.storage-chart').offset().top;
+      let str_chart_height = $('.storage-chart').innerHeight();
+      let tooltip_height = $('.storage-tooltips #'+$(this).data("type")).innerHeight() + str_chart_height;
+      let windows_height = $(window).height();
+      if (str_chart_pos + tooltip_height > windows_height) {
+        tooltip.css('bottom', 'calc(100% + '+ str_chart_height +'px)');
+        arrow.addClass('bottom');
+      } else {
+        tooltip.css('bottom', '');
+        arrow.removeClass('bottom');
+      }
   });
 });
-let size = 0;
-let str_size_type = "MB";
-let size_nb = 0;
-let str_size = "";
 {/literal}
-{foreach from=$STORAGE_CHART_DATA key=type item=value}
-  size = {$value};
-  str_size_type_string = size > 1000000 ? str_gb : str_mb;
-  size_nb = size > 1000000 ? (size / 1000000).toFixed(2) : (size / 1000).toFixed(0);
-  str_size = " : " + str_size_type_string.replace("%s", size_nb);
-
-  if (typeof storage_details.{$type} !== 'undefined') {
-    // str_size += " (" + storage_details.{$type} + ")";
-  }
-
-  $("#storage-{$type}").html("<b></b>" + str_size);
-  $("#storage-{$type} b").html("{$type|translate}");
-{/foreach}
 {/footer_script}
 
 {html_style}
@@ -234,19 +318,28 @@ let str_size = "";
     {/foreach}
   </div>
 
-  <div class="chart-title"> {'Storage'|translate} <span class="chart-title-infos"> {'%s MB used'|translate:(round($STORAGE_TOTAL/1000, 0))} </span></div>
+  <div id="chart-title-storage" class="chart-title"> {'Storage'|translate} <span class="chart-title-infos"> {'%s MB used'|translate:(round($STORAGE_TOTAL/1000, 0))} </span></div>
 
   <div class="storage-chart">
-    {foreach from=$STORAGE_CHART_DATA key=type item=value}
-      <span data-type="storage-{$type}" style="width:{$value/$STORAGE_TOTAL*100}%"> 
-        <p>{round($value/$STORAGE_TOTAL*100)}%</p>
+    {foreach from=$STORAGE_CHART_DATA key=type item=details}
+      <span data-type="storage-{$type}" style="width:{$details.total.filesize/$STORAGE_TOTAL*100}%"> 
+        <p>{round($details.total.filesize/$STORAGE_TOTAL*100)}%</p>
       </span>  
     {/foreach}
   </div>
 
   <div class="storage-tooltips">
     {foreach from=$STORAGE_CHART_DATA key=type item=value}
-      <p id="storage-{$type}" class="tooltip"><b>{$type|translate}</b></p>
+      <p id="storage-{$type}" class="tooltip">
+      <span class="tooltip-arrow"></span>
+        <span class="tooltip-header">
+          <span id="storage-title-{$type}" class="tooltip-title"></span>
+          <span id="storage-size-{$type}" class="tooltip-size"></span>
+          <span id="storage-files-{$type}" class="tooltip-files"></span>
+        </span>
+        <span class="separated"></span>
+        <span id="storage-detail-{$type}" class="tooltip-details"></span>
+      </p>
     {/foreach}
   </div>
 

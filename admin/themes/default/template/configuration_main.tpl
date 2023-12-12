@@ -243,6 +243,17 @@ jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
       </li>
 
       <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="upload_detect_duplicate" {if ($main.upload_detect_duplicate)}checked="checked"{/if}>
+          {'Detect and avoid duplicates during upload'|translate}
+        </label>
+
+        <span class="icon-help-circled tiptip" title="{'During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'|translate}" style="cursor:help"></span>
+      </li>
+
+
+      <li>
         <label>{'Mail theme'|translate}</label>
 
         <div class="themeBoxes font-checkbox">

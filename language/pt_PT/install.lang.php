@@ -52,3 +52,4 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Não hesite 
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Você deve entrar em contacto com o suporte do seu fornecedor de alojamento e saber como pode mudar para PHP 5.2';
 $lang['Password ']['confirm'] = 'Senha [confirme]';
 $lang['localhost or other, supplied by your host provider'] = 'hospedeiro local ou outro, fornecido pelo seu alojador';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Versão do PHP %s necessária (você está executando em PHP %s)';

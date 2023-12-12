@@ -102,11 +102,7 @@ $('#action-delete-picture').on('click', function() {
   <div id='picture-preview'>
 {/if}
     <div class='picture-preview-actions'>
-      {if isset($U_JUMPTO)}
-        <a class="icon-eye" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
-      {else}
-        <a class="icon-eye unavailable" title="{'You don\'t have access to this photo'|translate}"></a>
-      {/if}
+      <a class="preview-box icon-zoom-square" href="{$FILE_SRC}" title="{'Zoom'|translate}"></a>
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
       <a class="icon-signal" href="{$U_HISTORY}" title="{'Visit history'|translate}"></a>
       {if !url_is_remote($PATH)}
@@ -114,7 +110,13 @@ $('#action-delete-picture').on('click', function() {
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
       {/if}
     </div>
-    <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}" >
+    {if isset($U_JUMPTO)}
+      <a class="see-out" href="{$U_JUMPTO}" >
+      <p><i class="icon-left-open"></i>{'Open in gallery'|@translate}</p>
+    {else}
+      <a class="see-out disabled" href="#" >
+      <p class="tiptip" title="{'You don\'t have access to this photo'|translate}" ><i class="icon-left-open"></i>{'Open in gallery'|translate}</p>
+    {/if}
       {if $INTRO.is_svg}
       <img src="{$PATH}" alt="{'Thumbnail'|translate}" class="svg-image" style="{if $FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
       {else}

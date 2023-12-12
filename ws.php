@@ -297,6 +297,20 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.images.setCategory',
+      'ws_images_setCategory',
+      array(
+        'image_id'    => array('flags'=>WS_PARAM_FORCE_ARRAY, 'type'=>WS_TYPE_ID),
+        'category_id' => array('type'=>WS_TYPE_ID),
+        'action'      => array('default'=>'associate', 'info' => 'associate/dissociate/move'),
+        'pwg_token'   => array(),
+        ),
+      'Manage associations of images with an album. <b>action</b> can be:<ul><li><i>associate</i> : add photos to this album</li><li><i>dissociate</i> : remove photos from this album</li><li><i>move</i> : dissociate photos from any other album and adds photos to this album</li></ul>',
+      $ws_functions_root . 'pwg.images.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
       'pwg.rates.delete',
       'ws_rates_delete',
       array(
@@ -613,8 +627,9 @@ function ws_addDefaultMethods( $arr )
         'commentable' =>  array('default'=>true,
                                 'type'=>WS_TYPE_BOOL),
         'position' =>     array('default'=>null, 'info'=>'first, last'),
+        'pwg_token' => array('flags'=>WS_PARAM_OPTIONAL),
         ),
-      'Adds an album.',
+      'Adds an album.<br><br><b>pwg_token</b> required if you want to use HTML in name/comment.',
       $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true)
     );
@@ -834,11 +849,13 @@ function ws_addDefaultMethods( $arr )
                                   'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'single_value_mode' =>    array('default'=>'fill_if_empty'),
         'multiple_value_mode' =>  array('default'=>'append'),
+        'pwg_token' => array('flags'=>WS_PARAM_OPTIONAL),
         ),
       'Changes properties of an image.
 <br><b>single_value_mode</b> can be "fill_if_empty" (only use the input value if the corresponding values is currently empty) or "replace"
 (overwrite any existing value) and applies to single values properties like name/author/date_creation/comment.
-<br><b>multiple_value_mode</b> can be "append" (no change on existing values, add the new values) or "replace" and applies to multiple values properties like tag_ids/categories.',
+<br><b>multiple_value_mode</b> can be "append" (no change on existing values, add the new values) or "replace" and applies to multiple values properties like tag_ids/categories.
+<br><b>pwg_token</b> required if you want to use HTML in name/comment/author.',
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
@@ -863,8 +880,9 @@ function ws_addDefaultMethods( $arr )
         'apply_commentable_to_subalbums' =>  array('default'=>null,
                                 'flags'=>WS_PARAM_OPTIONAL,
                                 'info'=>'If true, set commentable to all sub album'),
+        'pwg_token' => array('flags'=>WS_PARAM_OPTIONAL),
         ),
-      'Changes properties of an album.',
+      'Changes properties of an album.<br><br><b>pwg_token</b> required if you want to use HTML in name/comment.',
       $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
@@ -1104,9 +1122,16 @@ function ws_addDefaultMethods( $arr )
         'order' =>      array('default'=>'id',
                               'info'=>'id, username, level, email'),
         'exclude' =>    array('flags'=>WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
-                              'type'=>WS_TYPE_ID),
+                              'type'=>WS_TYPE_ID,
+                              'info'=>'Expects a user_id as value.'),
         'display' =>    array('default'=>'basics',
                               'info'=>'Comma saparated list (see method description)'),
+        'filter' =>     array('flags'=>WS_PARAM_OPTIONAL,
+                              'info'=>'Filter by username, email, group'),
+        'min_register' => array('flags'=>WS_PARAM_OPTIONAL,
+                                 'info'=>'See method description'),
+        'max_register' => array('flags'=>WS_PARAM_OPTIONAL,
+                                'info'=>'See method description'),
         ),
       'Retrieves a list of all the users.<br>
 <br>
@@ -1115,7 +1140,8 @@ all, basics, none,<br>
 username, email, status, level, groups,<br>
 language, theme, nb_image_page, recent_period, expand, show_nb_comments, show_nb_hits,<br>
 enabled_high, registration_date, registration_date_string, registration_date_since, last_visit, last_visit_string, last_visit_since<br>
-<b>basics</b> stands for "username,email,status,level,groups"',
+<b>basics</b> stands for "username,email,status,level,groups"<br>
+<b>min_register</b> and <b>max_register</b> filter users by their registration date expecting format "YYYY" or "YYYY-mm" or "YYYY-mm-dd".',
       $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true)
     );
@@ -1369,10 +1395,13 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
     $service->addMethod(
-      'pwg.images.filteredSearch.update',
-      'ws_images_filteredSearch_update',
+      'pwg.images.filteredSearch.create',
+      'ws_images_filteredSearch_create',
       array(
-        'search_id' => array(),
+        'search_id' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'prior search_id (or search_key), if any',
+        ),
         'allwords' => array(
           'flags' => WS_PARAM_OPTIONAL,
           'info' => 'query to search by words',
@@ -1383,7 +1412,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         ),
         'allwords_fields' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
-          'info' => 'values among [name, comment, tags, file, cat-title, cat-desc]',
+          'info' => 'values among [name, comment, tags, file, author, cat-title, cat-desc]',
         ),
         'tags' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,

@@ -77,3 +77,4 @@ INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_admin
 INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_gallery','false');
 INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_button','true');
 INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_action','true');
+INSERT INTO piwigo_config (param,value) VALUES ('upload_detect_duplicate','true');

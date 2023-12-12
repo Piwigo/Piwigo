@@ -1,0 +1,19 @@
+
+.pwg-icon-tag:before { content: '\2d'; } /* '-' */
+.pwg-icon-up-open:before { content: '\e800'; } /* '' */
+.pwg-icon-user:before { content: '\e805'; } /* '' */
+.pwg-icon-menu:before { content: '\e811'; } /* '' */
+.pwg-icon-arrow-rotate-left:before { content: '\e817'; } /* '' */
+.pwg-icon-user-edit:before { content: '\e818'; } /* '' */
+.pwg-icon-album:before { content: '\e819'; } /* '' */
+.pwg-icon-calendar-plus:before { content: '\e81b'; } /* '' */
+.pwg-icon-spin6:before { content: '\e81f'; } /* '' */
+.pwg-icon-checkmark:before { content: '\e820'; } /* '' */
+.pwg-icon-selecters:before { content: '\e821'; } /* '' */
+.pwg-icon-cancel:before { content: '\e822'; } /* '' */
+.pwg-icon-trash:before { content: '\e823'; } /* '' */
+.pwg-icon-search-folder:before { content: '\e824'; } /* '' */
+.pwg-icon-broom:before { content: '\e825'; } /* '' */
+.pwg-icon-plus-circled:before { content: '\e84a'; } /* '' */
+.pwg-icon-search:before { content: '\e900'; } /* '' */
+.pwg-icon-file-image:before { content: '\f1c5'; } /* '' */

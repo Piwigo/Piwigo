@@ -40,7 +40,7 @@
 
 // picture_ext : file extensions for picture file, must be a subset of
 // file_ext
-$conf['picture_ext'] = array('jpg','jpeg','png','gif');
+$conf['picture_ext'] = array('jpg','jpeg','png','gif','webp');
 
 // file_ext : file extensions (case sensitive) authorized
 //

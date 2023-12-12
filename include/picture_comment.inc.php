@@ -107,6 +107,7 @@ SELECT
     array(
       'COMMENT_COUNT' => $row['nb_comments'],
       'navbar' => $navigation_bar,
+      'comments' => array(),
       )
     );
 

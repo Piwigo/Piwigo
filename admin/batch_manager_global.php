@@ -51,7 +51,8 @@ if (isset($_POST['nb_photos_deleted']))
 }
 else if (isset($_POST['setSelected']))
 {
-  $collection = $page['cat_elements_id'];
+  check_input_parameter('whole_set', $_POST, false, '/^\d+(,\d+)*$/');
+  $collection = explode(',', $_POST['whole_set']);
 }
 else if (isset($_POST['selection']))
 {
@@ -206,31 +207,10 @@ DELETE
 
   else if ('dissociate' == $action)
   {
-    // physical links must not be broken, so we must first retrieve image_id
-    // which create virtual links with the category to "dissociate from".
-    $query = '
-SELECT id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-    INNER JOIN '.IMAGES_TABLE.' ON image_id = id
-  WHERE category_id = '.$_POST['dissociate'].'
-    AND id IN ('.implode(',', $collection).')
-    AND (
-      category_id != storage_category_id
-      OR storage_category_id IS NULL
-    )
-;';
-    $dissociables = array_from_query($query, 'id');
+    $nb_dissociated = dissociate_images_from_category($collection, $_POST['dissociate']);
 
-    if (!empty($dissociables))
+    if ($nb_dissociated > 0)
     {
-      $query = '
-DELETE
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$_POST['dissociate'].'
-    AND image_id IN ('.implode(',', $dissociables).')
-';
-      pwg_query($query);
-
       $_SESSION['page_infos'] = array(
         l10n('Information data registered in database')
         );

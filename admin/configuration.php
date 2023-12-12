@@ -49,6 +49,7 @@ $main_checkboxes = array(
     'history_guest',
     'show_mobile_app_banner_in_gallery',
     'show_mobile_app_banner_in_admin',
+    'upload_detect_duplicate',
    );
 
 $sizes_checkboxes = array(
@@ -404,7 +405,7 @@ switch ($page['section'])
     SELECT
         id,
         name
-      FROM '.GROUPS_TABLE.'
+      FROM `'.GROUPS_TABLE.'`
     ;';
     $groups = query2array($query, 'id', 'name');
     natcasesort($groups);

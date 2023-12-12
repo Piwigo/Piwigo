@@ -47,6 +47,7 @@ class pwg_image
 
   function __construct($source_filepath, $library=null)
   {
+    global $conf;
     $this->source_filepath = $source_filepath;
 
     trigger_notify('load_image_library', array(&$this) );
@@ -58,7 +59,7 @@ class pwg_image
 
     $extension = strtolower(get_extension($source_filepath));
 
-    if (!in_array($extension, array('jpg', 'jpeg', 'png', 'gif')))
+    if (!in_array($extension, $conf['picture_ext']))
     {
       die('[Image] unsupported file extension');
     }
@@ -209,6 +210,60 @@ class pwg_image
         );
     }
     return $result;
+  }
+
+  static function webp_info($source_filepath)
+  {
+    // function based on https://stackoverflow.com/questions/61221874/detect-if-a-webp-image-is-transparent-in-php
+    //
+    // https://github.com/webmproject/libwebp/blob/master/src/dec/webp_dec.c
+    // https://developers.google.com/speed/webp/docs/riff_container
+    // https://developers.google.com/speed/webp/docs/webp_lossless_bitstream_specification
+    // https://stackoverflow.com/questions/61221874/detect-if-a-webp-image-is-transparent-in-php
+
+    $fp = fopen($source_filepath, 'rb');
+    if (!$fp) {
+        throw new Exception("webp_info(): fopen($f): Failed");
+    }
+    $buf = fread($fp, 25);
+    fclose($fp);
+
+    switch (true) {
+      case!is_string($buf):
+      case strlen($buf) < 25:
+      case substr($buf, 0, 4) != 'RIFF':
+      case substr($buf, 8, 4) != 'WEBP':
+      case substr($buf, 12, 3) != 'VP8':
+        throw new Exception("webp_info(): not a valid webp image");
+
+      case $buf[15] == ' ':
+        // Simple File Format (Lossy)
+        return array(
+          'type'            => 'VP8',
+          'has-animation'   => false,
+          'has-transparent' => false,
+        );
+
+
+      case $buf[15] == 'L':
+        // Simple File Format (Lossless)
+        return array(
+          'type'            => 'VP8L',
+          'has-animation'   => false,
+          'has-transparent' => (bool) (!!(ord($buf[24]) & 0x00000010)),
+        );
+
+      case $buf[15] == 'X':
+        // Extended File Format
+        return array(
+          'type'            => 'VP8X',
+          'has-animation'   => (bool) (!!(ord($buf[20]) & 0x00000002)),
+          'has-transparent' => (bool) (!!(ord($buf[20]) & 0x00000010)),
+        );
+
+      default:
+        throw new Exception("webp_info(): could not detect webp type");
+    }
   }
 
   static function get_rotation_angle($source_filepath)
@@ -490,6 +545,7 @@ class image_ext_imagick implements imageInterface
   var $source_filepath = '';
   var $width = '';
   var $height = '';
+  var $is_animated_webp = false;
   var $commands = array();
 
   function __construct($source_filepath)
@@ -501,6 +557,23 @@ class image_ext_imagick implements imageInterface
     if (strpos(@$_SERVER['SCRIPT_FILENAME'], '/kunden/') === 0)  // 1and1
     {
       @putenv('MAGICK_THREAD_LIMIT=1');
+    }
+
+    if ('webp' == strtolower(get_extension($source_filepath)))
+    {
+      $webp_info = pwg_image::webp_info($source_filepath);
+
+      if ($webp_info['has-animation'])
+      {
+        $this->is_animated_webp = true;
+
+        // ImageMagick "identify" returns the list of width x height for each
+        // frame, such as "400x300400x300400x300" (3 frames of 400x300), as a big
+        // string, impossible to parse :-/ So let's use the PHP embedded function
+        // getimagesize here.
+        list($this->width, $this->height) = getimagesize($source_filepath);
+        return;
+      }
     }
 
     $command = $this->imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
@@ -534,7 +607,8 @@ class image_ext_imagick implements imageInterface
     $this->width = $width;
     $this->height = $height;
 
-    $this->add_command('crop', $width.'x'.$height.'+'.$x.'+'.$y);
+    // the final "!" is added to crop the canva too, for animated picture (with WebP in mind)
+    $this->add_command('crop', $width.'x'.$height.'+'.$x.'+'.$y.'!');
     return true;
   }
 
@@ -564,6 +638,14 @@ class image_ext_imagick implements imageInterface
 
   function set_compression_quality($quality)
   {
+    if ($this->is_animated_webp)
+    {
+      // in cas of animated WebP, we need to maximize quality to 70 to avoid
+      // heavy thumbnails (or square or whatever is displayed on the thumbnails
+      // page)
+      $quality = min($quality, 70);
+    }
+
     $this->add_command('quality', $quality);
     return true;
   }

@@ -27,6 +27,8 @@ function get_search_id_pattern($candidate)
 
 function get_search_info($candidate)
 {
+  global $page;
+
   // $candidate might be a search.id or a search_uuid
   $clause_pattern = get_search_id_pattern($candidate);
 
@@ -44,6 +46,25 @@ SELECT *
 
   if (count($searches) > 0)
   {
+    // we don't want spies to be able to see the search rules of any prior search (performed
+    // by any user). We don't want them to be try index.php?/search/123 then index.php?/search/124
+    // and so on. That's why we have implemented search_uuid with random characters.
+    //
+    // We also don't want to break old search urls with only the numeric id, so we only break if
+    // there is no uuid.
+    //
+    // We also don't want to die if we're in the API.
+    if (script_basename() != 'ws' and 'id = %u' == $clause_pattern and isset($searches[0]['search_uuid']))
+    {
+      fatal_error('this search is not reachable with its id, need the search_uuid instead');
+    }
+
+    if (isset($page['section']) and 'search' == $page['section'])
+    {
+      // to be used later in pwg_log
+      $page['search_id'] = $searches[0]['id'];
+    }
+
     return $searches[0];
   }
 
@@ -66,14 +87,6 @@ function get_search_array($search_id)
   if (empty($search))
   {
     bad_request('this search identifier does not exist');
-  }
-  else
-  {
-    if (!empty($search['created_by']) and $search['created_by'] != $user['user_id'])
-    {
-      // we need to fork this search
-      save_search_and_redirect(unserialize($search['rules']), $search['id']);
-    }
   }
 
   return unserialize($search['rules']);
@@ -125,7 +138,7 @@ function get_sql_search_clause($search)
   if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0)
   {
     // 1) we search in regular fields (ie, the ones in the piwigo_images table)
-    $fields = array('file', 'name', 'comment');
+    $fields = array('file', 'name', 'comment', 'author');
 
     if (isset($search['fields']['allwords']['fields']) and count($search['fields']['allwords']['fields']) > 0)
     {
@@ -146,7 +159,7 @@ function get_sql_search_clause($search)
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
     // AND (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
     $word_clauses = array();
-    $cat_ids_by_word = array();
+    $cat_ids_by_word = $tag_ids_by_word = array();
     foreach ($search['fields']['allwords']['words'] as $word)
     {
       $field_clauses = array();
@@ -181,6 +194,25 @@ SELECT
         }
 
         $field_clauses[] = 'category_id IN ('.implode(',', $cat_ids).')';
+      }
+
+      // search_in_tags
+      if (in_array('tags', $search['fields']['allwords']['fields']))
+      {
+        $query = '
+SELECT
+    id
+  FROM '.TAGS_TABLE.'
+  WHERE name LIKE \'%'.$word.'%\'
+;';
+        $tag_ids = query2array($query, null, 'id');
+        $tag_ids_by_word[$word] = $tag_ids;
+        if (count($tag_ids) == 0)
+        {
+          $tag_ids = array(-1);
+        }
+
+        $field_clauses[] = 'tag_id IN ('.implode(',', $tag_ids).')';
       }
 
       if (count($field_clauses) > 0)
@@ -241,7 +273,34 @@ SELECT
       }
     }
 
-    // 3) the case of searching among tags is handled by search_in_tags in function get_regular_search_results
+    if (count($tag_ids_by_word) > 0)
+    {
+      $matching_tag_ids = null;
+      foreach ($tag_ids_by_word as $idx => $tag_ids)
+      {
+        if (is_null($matching_tag_ids))
+        {
+          // first iteration
+          $matching_tag_ids = $tag_ids;
+        }
+        else
+        {
+          if ('OR' == $search['fields']['allwords']['mode'])
+          {
+            $matching_tag_ids = array_merge($matching_tag_ids, $tag_ids);
+          }
+          else
+          {
+            $matching_tag_ids = array_intersect($matching_tag_ids, $tag_ids);
+          }
+        }
+      }
+
+      if ('OR' == $search['fields']['allwords']['mode'])
+      {
+        $matching_tag_ids = array_unique($matching_tag_ids);
+      }
+    }
   }
 
   foreach (array('date_available', 'date_creation') as $datefield)
@@ -329,7 +388,11 @@ SELECT
 
   $search_clause = $where_separator;
 
-  return array($search_clause, isset($matching_cat_ids) ? array_values($matching_cat_ids) : null);
+  return array(
+    $search_clause,
+    isset($matching_cat_ids) ? array_values($matching_cat_ids) : null,
+    isset($matching_tag_ids) ? array_values($matching_tag_ids) : null
+  );
 }
 
 /**
@@ -345,6 +408,8 @@ function get_regular_search_results($search, $images_where='')
 
   $logger->debug(__FUNCTION__, 'search', $search);
 
+  $has_filters_filled = false;
+
   $forbidden = get_sql_condition_FandF(
         array
           (
@@ -358,37 +423,13 @@ function get_regular_search_results($search, $images_where='')
   $items = array();
   $tag_items = array();
 
-  // starting with version 14, we no longer have $search['fields']['search_in_tags'] but 'tags'
-  // in the array $search['fields']['allwords']['fields']. Let's convert, without changing the
-  // search algorithm
-  if (!empty($search['fields']['allwords']['fields']) and in_array('tags', $search['fields']['allwords']['fields']))
-  {
-    $search['fields']['search_in_tags'] = true;
-  }
-
-  if (isset($search['fields']['search_in_tags']) and !empty($search['fields']['allwords']['words']))
-  {
-    $word_clauses = array();
-    foreach ($search['fields']['allwords']['words'] as $word)
-    {
-      $word_clauses[] = "name LIKE '%".$word."%'";
-    }
-
-    $query = '
-SELECT
-    id, name, url_name
-  FROM '.TAGS_TABLE.'
-  WHERE '.implode(' OR ', $word_clauses).'
-;';
-    $matching_tags = query2array($query, 'id');
-
-    $search_in_tags_items = get_image_ids_for_tags(array_keys($matching_tags), 'OR');
-
-    $logger->debug(__FUNCTION__.' '.count($search_in_tags_items).' items in $search_in_tags_items');
-  }
-
   if (isset($search['fields']['tags']))
   {
+    if (!empty($search['fields']['tags']['words']))
+    {
+      $has_filters_filled = true;
+    }
+
     $tag_items = get_image_ids_for_tags(
       $search['fields']['tags']['words'],
       $search['fields']['tags']['mode']
@@ -397,14 +438,17 @@ SELECT
     $logger->debug(__FUNCTION__.' '.count($tag_items).' items in $tag_items');
   }
 
-  list($search_clause, $matching_cat_ids) = get_sql_search_clause($search);
+  list($search_clause, $matching_cat_ids, $matching_tag_ids) = get_sql_search_clause($search);
 
   if (!empty($search_clause))
   {
+    $has_filters_filled = true;
+
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.' i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+    LEFT JOIN '.IMAGE_TAG_TABLE.' AS it ON id = it.image_id
   WHERE '.$search_clause;
     if (!empty($images_where))
     {
@@ -415,23 +459,6 @@ SELECT DISTINCT(id)
     $items = array_from_query($query, 'id');
 
     $logger->debug(__FUNCTION__.' '.count($items).' items in $items');
-  }
-
-  if (isset($search_in_tags_items))
-  {
-    // TODO the sorting order will not match $conf['order_by'], a solution would be
-    // to have a new SQL query 'where id in (merged ids) order by $conf[order_by]'
-    //
-    // array_values will reset the numeric keys, without changing the sorting order.
-    // picture.php relies on these keys to be sequential {0,1,2} and not {0,1,5}
-    $items = array_values(
-      array_unique(
-        array_merge(
-          $items,
-          $search_in_tags_items
-          )
-        )
-      );
   }
 
   if ( !empty($tag_items) )
@@ -465,7 +492,8 @@ SELECT DISTINCT(id)
     'items' => $items,
     'search_details' => array(
       'matching_cat_ids' => $matching_cat_ids,
-      'matching_tags' => @$matching_tags,
+      'matching_tag_ids' => $matching_tag_ids,
+      'has_filters_filled' => $has_filters_filled,
     ),
   );
 }
@@ -1721,7 +1749,7 @@ SELECT
   }
 }
 
-function save_search_and_redirect($rules, $forked_from=null)
+function save_search($rules, $forked_from=null)
 {
   global $user;
 
@@ -1735,19 +1763,18 @@ function save_search_and_redirect($rules, $forked_from=null)
       'created_on' => $dbnow,
       'created_by' => $user['user_id'],
       'search_uuid' => $search_uuid,
-      'last_seen' => $dbnow,
       'forked_from' => $forked_from,
     )
   );
 
-  redirect(
-    make_index_url(
-      array(
-        'section' => 'search',
-        'search'  => $search_uuid,
-      )
+  $url = make_index_url(
+    array(
+      'section' => 'search',
+      'search'  => $search_uuid,
     )
   );
+
+  return array($search_uuid, $url);
 }
 
 ?>

@@ -98,6 +98,10 @@ $(".icon-help-circled").tipTip({
 });
 
 $(document).ready(function() {
+  // Only webmaster can set admin or webmaster to others users
+  if (connected_user_status !== 'webmaster') {
+    $('select[name="status"] option[value="webmaster"], select[name="status"] option[value="admin"]').attr("disabled", true);
+  }
   // We set the applyAction btn click event here so plugins can add cases to the list 
   // which is not possible if this JS part is in a JS file
   // see #1571 on Github
@@ -418,7 +422,7 @@ $(document).ready(function() {
           <div id="action_group_associate" class="bulkAction">
             <div class="user-action-select-container">
               <select class="user-action-select" name="associate">
-                {html_options options=$association_options selected=$associate_selected}
+                {html_options options=$association_options}
               </select>
             </div>
           </div>
@@ -427,7 +431,7 @@ $(document).ready(function() {
           <div id="action_group_dissociate" class="bulkAction">
             <div class="user-action-select-container">
               <select class="user-action-select" name="dissociate">
-                {html_options options=$association_options selected=$dissociate_selected}
+                {html_options options=$association_options}
               </select>
             </div>
           </div>

@@ -73,6 +73,7 @@ jQuery(document).ready(function() {
         comment: $("#cat-comment").val(),
         visible: $("#cat-locked").is(":checked") ? 'false' : 'true',
         commentable: $("#cat-commentable").is(":checked") ? "true":"false",
+        pwg_token: pwg_token,
       },
       success:function(data) {
         if (data.stat == "ok") {

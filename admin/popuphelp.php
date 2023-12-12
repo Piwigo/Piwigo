@@ -20,11 +20,27 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-$page['body_id'] = 'thePopuphelpPage';
-$title = l10n('Piwigo Help');
-$page['page_banner'] = '<h1>'.$title.'</h1>';
-$page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
-include(PHPWG_ROOT_PATH.'include/page_header.php');
+if (!isset($_GET['output']) or 'content_only' != $_GET['output'])
+{
+  // Note on 2023-09-28 : calling popuphelp.php without output=content_only no longer occurs in Piwigo core. 
+  $page['body_id'] = 'thePopuphelpPage';
+  $title = l10n('Piwigo Help');
+  $page['page_banner'] = '<h1>'.$title.'</h1>';
+  $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
+
+  // set required template variables to avoid "Undefined array key" with PHP 8
+  $template->assign(
+    array(
+      'U_RETURN' => '',
+      'USERNAME' => '',
+      'U_FAQ'=> '',
+      'U_CHANGE_THEME' => '',
+      'U_LOGOUT' => '',
+    )
+  );
+
+  include(PHPWG_ROOT_PATH.'include/page_header.php');
+}
 
 if
   (

@@ -494,7 +494,7 @@ UPDATE '.USER_INFOS_TABLE.'
       $section = $page['section'];
     }
   }
-  
+
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (
@@ -504,6 +504,7 @@ INSERT INTO '.HISTORY_TABLE.'
     IP,
     section,
     category_id,
+    search_id,
     image_id,
     image_type,
     format_id,
@@ -518,6 +519,7 @@ INSERT INTO '.HISTORY_TABLE.'
     \''.$ip.'\',
     '.(isset($section) ? "'".$section."'" : 'NULL').',
     '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
+    '.(isset($page['search_id']) ? $page['search_id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
     '.(isset($format_id) ? $format_id : 'NULL').',

@@ -83,6 +83,22 @@ SELECT galleries_url
   return $row['galleries_url'];
 }
 
+function get_min_local_dir($local_dir)
+{
+  $full_dir = explode('/', $local_dir);
+  if (count($full_dir) <= 3)
+  {
+    return $local_dir;
+  }
+  else
+  {
+    $start = $full_dir[0] . '/' . $full_dir[1];
+    $end = end($full_dir);
+    $concat = $start . '/&hellip;/' . $end;
+    return $concat;
+  }
+}
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -160,7 +176,7 @@ if (!empty($category['id_uppercat']))
 }
 
 // We show or hide this warning in JS
-$page['warnings'][] = l10n('This album is currently locked, visible only to administrators.').'<span class="icon-key unlock-album">'.l10n('Unlock it').'</span>';
+$page['warnings'][] = l10n('This album is currently locked, visible only to administrators.').'<span class="icon-cone unlock-album">'.l10n('Unlock it').'</span>';
 
 $template->assign(
   array(
@@ -315,11 +331,14 @@ $template->assign(array(
 if (!$category['is_virtual'])
 {
   $category['cat_full_dir'] = get_complete_dir($_GET['cat_id']);
+  $category_full_dir = preg_replace('/\/$/', '', $category['cat_full_dir']);
   $template->assign(
     array(
-      'CAT_FULL_DIR' => preg_replace('/\/$/', '', $category['cat_full_dir'])
+      'CAT_FULL_DIR' => $category_full_dir
       )
     );
+  $template->assign('CAT_DIR_NAME', basename($category_full_dir));
+  $template->assign('CAT_MIN_DIR', get_min_local_dir($category_full_dir));
 
   if ($conf['enable_synchronization'])
   {

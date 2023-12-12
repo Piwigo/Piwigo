@@ -48,9 +48,6 @@ str_root = '{'Root'|@translate}';
     </div>
 
     <div class="cat-modify-actions">
-      {if cat_admin_access($CAT_ID)}
-        <a class="icon-eye tiptip" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
-      {/if}
 
       {if isset($U_MANAGE_ELEMENTS) }
         <a class="icon-picture tiptip" href="{$U_MANAGE_ELEMENTS}" title="{'Manage album photos'|@translate}"></a>
@@ -86,8 +83,8 @@ str_root = '{'Root'|@translate}';
     <div class="cat-modify-infos">
       <div class="cat-modify-info-card cat-creation">
         <span class="cat-modify-info-title">{'Created'|@translate}</span>
-        <span class="cat-modify-info-content">{$INFO_CREATION_SINCE}</span>
-        <span class="cat-modify-info-subcontent">{$INFO_CREATION}</span>
+        <span class="cat-modify-info-content">{if isset($INFO_CREATION_SINCE)}{$INFO_CREATION_SINCE}{else}{'unknown'|translate}{/if}</span>
+        <span class="cat-modify-info-subcontent">{if isset($INFO_CREATION)}{$INFO_CREATION}{else}{'Unknown time period'|translate}{/if}</span>
       </div>
       <div class="cat-modify-info-card cat-modification">
         <span class="cat-modify-info-title">{'Modified'|@translate}</span>
@@ -107,7 +104,8 @@ str_root = '{'Root'|@translate}';
       {if isset($U_SYNC) }
       <div class="cat-modify-info-card">
         <span class="cat-modify-info-title">{'Directory'}</span>
-        <span class="cat-modify-info-content">{$CAT_FULL_DIR}</span>
+        <span class="cat-modify-info-content directory" title="{$CAT_DIR_NAME}">{$CAT_DIR_NAME}</span>
+        <span class="cat-modify-info-subcontent directory" title="{$CAT_FULL_DIR}">{$CAT_MIN_DIR}</span>
       </div>
       {/if}
     </div>
@@ -183,10 +181,19 @@ str_root = '{'Root'|@translate}';
   </div>
 
   <div class="cat-modify-footer">
+   <div class="cat-modify-footer-start">
+    {if cat_admin_access($CAT_ID)}
+      <a class="cat-modify-footer-see-out" href="{$U_JUMPTO}"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>
+    {else}
+    <a class="tiptip cat-modify-footer-see-out disabled" title="{'ACCESS_5'|translate}" href="#"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>
+    {/if}
+   </div>
+   <div class="cat-modify-footer-end">
     <div class="info-message icon-ok">{'Album updated'|@translate}</div>
     <div class="info-error icon-cancel">{'An error has occured while saving album settings'|@translate}</div>
     <span class="buttonLike" id="cat-properties-save"><i class="icon-floppy"></i> {'Save Settings'|@translate}</span>
-    </div>
+   </div>
+  </div>
 </div>
 
 <style>
@@ -267,5 +274,14 @@ str_root = '{'Root'|@translate}';
 
 .warnings {
   display: none;
+}
+
+.directory {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cat-modify-infos .cat-modify-info-content.directory::first-letter {
+    text-transform: none;
 }
 </style>

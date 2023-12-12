@@ -648,9 +648,9 @@ function advanced_filter_hide() {
 let months = [];
 
 function getDateStr(date) {
-    let date_arr = date.split(' ');
-    let curr_month = months[parseInt(date_arr[0]) - 1];
-    return curr_month + " " + date_arr[1]
+    let date_arr = date.split('-');
+    let curr_month = months[parseInt(date_arr[1]) - 1];
+    return curr_month + " " + date_arr[0]
 }
 
 function setupRegisterDates(register_dates) {

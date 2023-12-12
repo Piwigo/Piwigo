@@ -51,3 +51,4 @@ $lang['Welcome to your new installation of Piwigo!'] = '歡迎安裝Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = '如有任何問題，請至我們的論壇提出：%s ';
 $lang['localhost or other, supplied by your host provider'] = '本地主機或其它，由你的主機提供商提供';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = '你應該聯繫你的主機管理員並向其請教如何設置PHP 5.2';
+$lang['PHP version %s required (you are running on PHP %s)'] = '需要 PHP %s 以上的版本（目前執行中的是 PHP %s）';

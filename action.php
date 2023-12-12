@@ -21,6 +21,7 @@ function guess_mime_type($ext)
     case "jpg": $ctype="image/jpeg"; break;
     case "png": $ctype="image/png"; break;
     case "gif": $ctype="image/gif"; break;
+    case "webp": $ctype="image/webp"; break;
     case "tiff":
     case "tif": $ctype="image/tiff"; break;
     case "txt": $ctype="text/plain"; break;
@@ -156,6 +157,8 @@ else if ($_GET['part'] == 'f')
 {
   pwg_log($_GET['id'], 'high', $format['format_id']);
 }
+
+trigger_notify('loc_action_before_http_headers');
 
 $http_headers = array();
 

@@ -2103,6 +2103,43 @@ SELECT
 }
 
 /**
+ * Dissociate a list of images from a category.
+ *
+ * @param int[] $images
+ * @param int $categories
+ */
+function dissociate_images_from_category($images, $category)
+{
+  // physical links must not be broken, so we must first retrieve image_id
+  // which create virtual links with the category to "dissociate from".
+  $query = '
+SELECT id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.IMAGES_TABLE.' ON image_id = id
+  WHERE category_id ='.$category.'
+    AND id IN ('.implode(',', $images).')
+    AND (
+      category_id != storage_category_id
+      OR storage_category_id IS NULL
+    )
+;';
+  $dissociables = array_from_query($query, 'id');
+
+  if (!empty($dissociables))
+  {
+    $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$category.'
+    AND image_id IN ('.implode(',', $dissociables).')
+';
+    pwg_query($query);
+  }
+
+  return count($dissociables);
+}
+
+/**
  * Dissociate images from all old categories except their storage category and
  * associate to new categories.
  * This function will preserve ranks.
@@ -2206,6 +2243,7 @@ UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\';';
     pwg_query($query);
   }
+  conf_delete_param('count_orphans');
   trigger_notify('invalidate_user_cache', $full);
 }
 
@@ -3267,6 +3305,33 @@ SELECT path
     $updates
   );
   return count($ids);
+}
+
+function count_orphans()
+{
+  if (is_null(conf_get_param('count_orphans')))
+  {
+    // we don't care about the list of image_ids, we only care about the number
+    // of orphans, so let's use a faster method than calling count(get_orphans())
+    $query = '
+SELECT
+    COUNT(*)
+  FROM '.IMAGES_TABLE.'
+;';
+    list($image_counter_all) = pwg_db_fetch_row(pwg_query($query));
+
+    $query = '
+SELECT
+    COUNT(DISTINCT(image_id))
+  FROM '.IMAGE_CATEGORY_TABLE.'
+;';
+    list($image_counter_in_categories) = pwg_db_fetch_row(pwg_query($query));
+
+    $counter = $image_counter_all - $image_counter_in_categories;
+    conf_update_param('count_orphans', $counter, true);
+  }
+
+  return conf_get_param('count_orphans');
 }
 
 /**

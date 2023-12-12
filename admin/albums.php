@@ -148,7 +148,7 @@ $template->assign("POS_PREF", $conf['newcat_default_position']); //TODO use user
 
 //Get all albums
 $query = '
-SELECT id,name,`rank`,status, uppercats, lastmodified
+SELECT id,name,`rank`,status, visible, uppercats, lastmodified
   FROM '.CATEGORIES_TABLE.'
 ;';
 
@@ -201,6 +201,7 @@ function assocToOrderedTree($assocT)
     $orderedCat['name'] = $cat['cat']['name'];
     $orderedCat['status'] = $cat['cat']['status'];
     $orderedCat['id'] = $cat['cat']['id'];
+    $orderedCat['visible'] = $cat['cat']['visible'];
     $orderedCat['nb_images'] = isset($nb_photos_in[$cat['cat']['id']]) ? $nb_photos_in[$cat['cat']['id']] : 0;
     $orderedCat['last_updates'] = $cat['cat']['lastmodified'];
     $orderedCat['has_not_access'] = isset($is_forbidden[$cat['cat']['id']]);

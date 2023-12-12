@@ -141,10 +141,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   //
   // 3) register in database
 
-  // TODO
-  // * check md5sum (already exists?)
-
-  global $conf, $user;
+  global $conf, $user, $logger;
 
   if (!is_null($original_filename))
   {
@@ -158,6 +155,33 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   else
   {
     $md5sum = md5_file($source_filepath);
+  }
+
+  // we only try to detect duplicate on a new image, not when updating an existing image
+  if (!isset($image_id) and $conf['upload_detect_duplicate'])
+  {
+    $query = '
+SELECT
+    id
+  FROM '. IMAGES_TABLE .'
+  WHERE md5sum = \''.$md5sum.'\'
+;';
+    $images_found = query2array($query);
+
+    if (count($images_found) > 0)
+    {
+      $image_id = $images_found[0]['id'];
+      $logger->info('['.__FUNCTION__.'] image already exist #'.$image_id.', we delete the newly uploaded file : '.$source_filepath);
+      unlink($source_filepath);
+
+      // if the destination category is already linked to this photo, no worry,
+      // associate_images_to_categories perfectly handles this case
+      add_uploaded_file_add_to_categories($image_id, $categories);
+
+      // TODO should we update level? If yes, then we should invalidate_user_cache
+
+      return $image_id;
+    }
   }
 
   $file_path = null;
@@ -221,6 +245,10 @@ SELECT
     {
       $file_path.= 'jpg';
     }
+    elseif (IMAGETYPE_WEBP == $type)
+    {
+      $file_path.= 'webp';
+    }
     elseif (isset($conf['upload_form_all_types']) and $conf['upload_form_all_types'])
     {
       $original_extension = strtolower(get_extension($original_filename));
@@ -258,7 +286,6 @@ SELECT
   // pwg_representative file.
   $representative_ext = trigger_change('upload_file', null, $file_path);
 
-  global $logger;
   $logger->info("Handling " . (string)$file_path . " got " . (string)$representative_ext);
   
   // If it is set to either true (the file didn't need a
@@ -356,6 +383,45 @@ SELECT
     pwg_activity('photo', $image_id, 'add');
   }
 
+  add_uploaded_file_add_to_categories($image_id, $categories);
+
+  // update metadata from the uploaded file (exif/iptc)
+  if ($conf['use_exif'] and !function_exists('exif_read_data'))
+  {
+    $conf['use_exif'] = false;
+  }
+  sync_metadata(array($image_id));
+
+  // cache a derivative
+  $query = '
+SELECT
+    id,
+    path,
+    representative_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+  $image_infos = pwg_db_fetch_assoc(pwg_query($query));
+  $src_image = new SrcImage($image_infos);
+
+  set_make_full_url();
+  // in case we are on uploadify.php, we have to replace the false path
+  $derivative_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::url(IMG_MEDIUM, $src_image));
+  unset_make_full_url();
+
+  $logger->info(__FUNCTION__.' : force cache generation, derivative_url = '.$derivative_url);
+
+  fetchRemote($derivative_url, $dest);
+
+  trigger_notify('loc_end_add_uploaded_file', $image_infos);
+
+  return $image_id;
+}
+
+function add_uploaded_file_add_to_categories($image_id, $categories)
+{
+  global $conf;
+
   if (!isset($conf['lounge_active']))
   {
     conf_update_param('lounge_active', false, true);
@@ -383,42 +449,10 @@ SELECT
     }
   }
 
-  // update metadata from the uploaded file (exif/iptc)
-  if ($conf['use_exif'] and !function_exists('exif_read_data'))
-  {
-    $conf['use_exif'] = false;
-  }
-  sync_metadata(array($image_id));
-
   if (!$conf['lounge_active'])
   {
     invalidate_user_cache();
   }
-
-  // cache a derivative
-  $query = '
-SELECT
-    id,
-    path,
-    representative_ext
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$image_id.'
-;';
-  $image_infos = pwg_db_fetch_assoc(pwg_query($query));
-  $src_image = new SrcImage($image_infos);
-
-  set_make_full_url();
-  // in case we are on uploadify.php, we have to replace the false path
-  $derivative_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::url(IMG_MEDIUM, $src_image));
-  unset_make_full_url();
-
-  $logger->info(__FUNCTION__.' : force cache generation, derivative_url = '.$derivative_url);
-
-  fetchRemote($derivative_url, $dest);
-
-  trigger_notify('loc_end_add_uploaded_file', $image_infos);
-
-  return $image_id;
 }
 
 function add_format($source_filepath, $format_ext, $format_of)

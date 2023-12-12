@@ -41,7 +41,7 @@ $search = array(
     'allwords' => array(
       'words' => $words,
       'mode' => 'AND',
-      'fields' => array('file', 'name', 'comment', 'tags', 'cat-title', 'cat-desc'),
+      'fields' => array('file', 'name', 'comment', 'tags', 'author', 'cat-title', 'cat-desc'),
     ),
     'cat' => array(
       'words' => $cat_ids,
@@ -92,5 +92,6 @@ if (count($first_author) > 0)
   );
 }
 
-save_search_and_redirect($search);
+list($search_uuid, $search_url) = save_search($search);
+redirect($search_url);
 ?>

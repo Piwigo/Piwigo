@@ -47,11 +47,11 @@ if (isset($_GET['installstatus']))
   switch ($_GET['installstatus'])
   {
     case 'ok':
-      $activate_url = get_root_url().'admin.php?page=plugins'
-        . '&amp;plugin=' . $_GET['plugin_id']
-        . '&amp;pwg_token=' . get_pwg_token()
-        . '&amp;action=activate'
-        . '&amp;filter=deactivated';
+      // since Piwigo 12, you need to be on the page of installed plugins to active a plugin with
+      // a JS action, no need to provide plugin_id in URL, just link to the page of installed
+      // plugins, filtered on deactivated plugins. The webmaster will have to find its newly
+      // installed plugin and click on the activation switch.
+      $activate_url = get_root_url().'admin.php?page=plugins&amp;filter=deactivated';
 
       $page['infos'][] = l10n('Plugin has been successfully copied');
       $page['infos'][] = '<a href="'. $activate_url . '">' . l10n('Activate it now') . '</a>';

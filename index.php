@@ -174,30 +174,63 @@ if ( empty($page['is_external']) )
     }
   }
 
-  if ('search' == $page['section'])
+  // we add isset($page['search_details']) in this condition because it only
+  // applies to regular search, not the legacy qsearch. As Piwigo 14 will still
+  // be able to show an old quicksearch result, we must check this condtion too.
+  if ('search' == $page['section'] and isset($page['search_details']))
   {
     include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
     $my_search = get_search_array($page['search']);
 
-    if (isset($my_search['fields']['tags']))
+    // we want filters to be filled with values related to current items ONLY IF we have some filters filled
+    if ($page['search_details']['has_filters_filled'])
     {
-      $available_tags = get_available_tags();
-      $available_tag_ids = array();
-
-      if (count($available_tags) > 0)
+      $search_items = array(-1);
+      if (!empty($page['items']))
       {
-        usort( $available_tags, 'tag_alpha_compare');
-        $template->assign('TAGS', $available_tags);
-
-        foreach ($available_tags as $tag)
-        {
-          $available_tag_ids[] = $tag['id'];
-        }
+        $search_items = $page['items'];
       }
 
+      $search_items_clause = 'image_id IN ('.implode(',', $search_items).')';
+    }
+    else
+    {
+      $search_items_clause = '1=1';
+    }
+
+    if (isset($my_search['fields']['tags']))
+    {
+      $filter_tags = array();
+      // TODO calling get_available_tags(), with lots of photos/albums/tags may cost time,
+      // we should reuse the result if already executed (for building the menu for example)
+      if (isset($search_items))
+      {
+        $filter_tags = get_common_tags($search_items, 0);
+
+        // the user may have started a search on 2 or more tags that have no
+        // intersection. In this case, $search_items is empty and get_common_tags
+        // returns nothing. We should still display the list of selected tags. We
+        // have to "force" them in the list.
+        $missing_tag_ids = array_diff($my_search['fields']['tags']['words'], array_column($filter_tags, 'id'));
+
+        if (count($missing_tag_ids) > 0)
+        {
+          $filter_tags = array_merge(get_available_tags($missing_tag_ids), $filter_tags);
+        }
+      }
+      else
+      {
+        $filter_tags = get_available_tags();
+        usort($filter_tags, 'tag_alpha_compare');
+      }
+
+      $template->assign('TAGS', $filter_tags);
+
+      $filter_tag_ids = count($filter_tags) > 0 ? array_column($filter_tags, 'id') : array();
+
       // in case the search has forbidden tags for current user, we need to filter the search rule
-      $my_search['fields']['tags']['words'] = array_intersect($my_search['fields']['tags']['words'], $available_tag_ids);
+      $my_search['fields']['tags']['words'] = array_intersect($my_search['fields']['tags']['words'], $filter_tag_ids);
     }
 
     if (isset($my_search['fields']['author']))
@@ -208,13 +241,14 @@ SELECT
     COUNT(DISTINCT(id)) AS counter
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
   '.get_sql_condition_FandF(
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
       'visible_images' => 'id'
       ),
-    ' WHERE '
+    ' AND '
     ).'
     AND author IS NOT NULL
   GROUP BY author
@@ -249,13 +283,14 @@ SELECT
     date_available
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
   '.get_sql_condition_FandF(
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
       'visible_images' => 'id'
       ),
-    ' WHERE '
+    ' AND '
     ).'
 ;';
     $dates = query2array($query);
@@ -305,6 +340,14 @@ SELECT
       }
     }
 
+    foreach ($counters as $key => $counter)
+    {
+      if (0 == $counter['counter'])
+      {
+        unset($counters[$key]);
+      }
+    }
+
     $template->assign('DATE_POSTED', $counters);
   }
 
@@ -316,23 +359,24 @@ SELECT
     added_by AS added_by_id
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
   '.get_sql_condition_FandF(
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
       'visible_images' => 'id'
       ),
-    ' WHERE '
+    ' AND '
     ).'
   GROUP BY added_by_id
   ORDER BY counter DESC
 ;';
       $added_by = query2array($query);
+      $user_ids = array();
 
       if (count($added_by) > 0)
       {
         // now let's find the usernames of added_by users
-        $user_ids = array();
         foreach ($added_by as $i)
         {
           $user_ids[] = $i['added_by_id'];
@@ -398,13 +442,14 @@ SELECT
     COUNT(DISTINCT(id)) AS counter
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
   '.get_sql_condition_FandF(
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
       'visible_images' => 'id'
       ),
-    ' WHERE '
+    ' AND '
     ).'
   GROUP BY ext
   ORDER BY counter DESC
@@ -428,8 +473,9 @@ SELECT
         {
           $query = '
 SELECT
-    *
-  FROM '.CATEGORIES_TABLE.'
+    c.*
+  FROM '.CATEGORIES_TABLE.' AS c
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON c.id = cat_id and user_id = '.$user['id'].'
   WHERE id IN ('.implode(',', $cat_ids).')
 ;';
           $cats = query2array($query);
@@ -444,22 +490,37 @@ SELECT
               $single_link
             );
           }
-          $template->assign('ALBUMS_FOUND', $albums_found);
+
+          if (count($albums_found) > 0)
+          {
+            $template->assign('ALBUMS_FOUND', $albums_found);
+          }
         }
       }
-      if (isset($page['search_details']['matching_tags']))
+      if (isset($page['search_details']['matching_tag_ids']))
       {
-        $tags_found = array();
-        foreach ($page['search_details']['matching_tags'] as $tag)
+        $tag_ids = $page['search_details']['matching_tag_ids'];
+
+        if (count($tag_ids) > 0)
         {
-          $url = make_index_url(
-            array(
-              'tags' => array($tag)
-            )
-          );
-          $tags_found[] = sprintf('<a href="%s">%s</a>', $url, $tag['name']);
+          $tags = get_available_tags($tag_ids);
+          usort($tags, 'tag_alpha_compare');
+          $tags_found = array();
+          foreach ($tags as $tag)
+          {
+            $url = make_index_url(
+              array(
+                'tags' => array($tag)
+              )
+            );
+            $tags_found[] = sprintf('<a href="%s">%s</a>', $url, $tag['name']);
+          }
+
+          if (count($tags_found) > 0)
+          {
+            $template->assign('TAGS_FOUND', $tags_found);
+          }
         }
-        $template->assign('TAGS_FOUND', $tags_found);
       }
     }
   }

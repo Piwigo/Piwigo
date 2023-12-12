@@ -367,6 +367,15 @@ function lineConstructor(line, id, imageDisplay) {
       newLine.find(".detail-item-1").html(str_list).addClass('icon-dice-solid');
       newLine.find(".type-id").hide();
       break;
+    case "search":
+      newLine.find(".type-name").html(line.SECTION);
+      newLine.find(".type-id").html("#" + line.SEARCH_ID);
+      if (!line.SEARCH_ID)
+      {
+        newLine.find(".type-id").hide();
+      }
+      newLine.find(".detail-item-1").hide();
+      break;
     case "favorites":
       newLine.find(".type-name").html(str_favorites);
       newLine.find(".detail-item-1").html(str_favorites).addClass('icon-heart');

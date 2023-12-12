@@ -468,7 +468,7 @@ jQuery(document).ready(function(){
     {if not $DISPLAY_FORMATS}
     <fieldset class="selectAlbum">
       <legend><span class="icon-folder-open icon-red"></span>{'Drop into album'|@translate}</legend>
-      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{$ADD_TO_ALBUM}</span></div>
+      <div class="selectedAlbum"{if !isset($ADD_TO_ALBUM)} style="display: none"{/if}><span class="icon-sitemap">{if isset($ADD_TO_ALBUM)}{$ADD_TO_ALBUM}{/if}</span></div>
       <div class="selectAlbumBlock"{if isset($ADD_TO_ALBUM)} style="display: none"{/if}>
         <span id="albumSelection">
           <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
