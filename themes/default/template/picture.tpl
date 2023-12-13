@@ -30,6 +30,8 @@ function changeImgSrc(url,typeSave,typeMap)
 		theImg.src = url;
 		theImg.useMap = "#map"+typeMap;
 	}
+	jQuery('#derivativeSwitchList .switchCheck').css('visibility','hidden');
+	jQuery('#derivativeListChecked'+typeMap).css('visibility','visible');
 	jQuery('#derivativeSwitchBox .switchCheck').css('visibility','hidden');
 	jQuery('#derivativeChecked'+typeMap).css('visibility','visible');
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
@@ -321,6 +323,26 @@ function setPrivacyLevel(id, level){
 				{/foreach}
 			</div>
 		</dd>
+	</div>
+{/if}
+
+{if $display_info.available_sizes and !empty($current.unique_derivatives)}
+	{footer_script require='jquery'}{literal}
+	{/literal}{/footer_script}
+	<div id="derivativeSwitchList" class="imageInfo">
+		<dt>Available Sizes</dt>
+		{foreach from=$current.unique_derivatives item=derivative key=derivative_type}
+			<dd>
+				<span class="switchCheck" id="derivativeListChecked{$derivative->get_type()}"
+					{if $derivative->get_type() ne $current.selected_derivative->get_type()}
+					style="visibility:hidden" {/if}>&#x2714; </span>
+				<a
+					href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')">
+					{$derivative->get_type()|@translate}<span class="derivativeSizeDetails">
+						({$derivative->get_size_hr()})</span>
+				</a>
+			</dd>
+		{/foreach}
 	</div>
 {/if}
 {/strip}

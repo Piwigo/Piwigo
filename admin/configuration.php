@@ -110,6 +110,7 @@ $display_info_checkboxes = array(
     'visits',
     'rating_score',
     'privacy_level',
+    'available_sizes',
   );
 
 // image order management
