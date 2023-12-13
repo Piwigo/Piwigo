@@ -19,8 +19,8 @@ class SmartyCompilerException extends SmartyException
     public function __construct(
         string $message = "",
         int $code = 0,
-        ?string $filename = null,
-        ?int $line = null,
+        $filename = null,
+        $line = null,
         Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
