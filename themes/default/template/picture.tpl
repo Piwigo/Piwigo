@@ -343,6 +343,9 @@ function setPrivacyLevel(id, level){
 				</a>
 			</dd>
 		{/foreach}
+		{if isset($U_ORIGINAL)}
+		  <dd><a href="javascript:phpWGOpenWindow('{$U_ORIGINAL}','xxx','scrollbars=yes,toolbar=no,status=no,resizable=yes')" rel="nofollow">{'Original'|@translate}</a></dd>
+		{/if}
 	</div>
 {/if}
 {/strip}
