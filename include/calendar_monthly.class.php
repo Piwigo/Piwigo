@@ -215,7 +215,7 @@ class CalendarMonthly extends CalendarBase
 
     assert( count($page['chronology_date']) == 0 );
     $query='
-  SELECT '.pwg_db_get_date_YYYYMM($this->date_field).' as period,
+  SELECT date_creation,'.pwg_db_get_date_YYYYMM($this->date_field).' as period,
     COUNT(distinct id) as count';
     $query.= $this->inner_sql;
     $query.= $this->get_date_where();
