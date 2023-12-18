@@ -7091,6 +7091,25 @@ color:#FF7B00;
   border-color: transparent transparent white transparent;
 }
 
+#usr-list-user,
+#usr-list-registered {
+  display: flex;
+}
+
+#usr-list-user:hover,
+#usr-list-registered:hover {
+  color: #F3A73B;
+  cursor: pointer;
+}
+
+#usr-list-user:hover #icon-usr-list-user{
+  display: block !important;
+}
+
+#usr-list-registered:hover #icon-usr-list-registered{
+  display: block !important;
+}
+
 @media (max-width: 1450px) {
   .promote-text span {
     font-size: 30px;

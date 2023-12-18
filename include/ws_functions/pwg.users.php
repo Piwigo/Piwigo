@@ -34,6 +34,15 @@ function ws_users_getList($params, &$service)
     return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid input parameter order');
   }
 
+  // Insensitive case sort order
+  if (isset($params['order']))
+  {
+    if (strpos($params['order'], "username") !== false)
+    {
+      $params['order'] = str_ireplace("username", "LOWER(username)", $params['order']);
+    }
+  }
+
   $where_clauses = array('1=1');
 
   if (!empty($params['user_id']))

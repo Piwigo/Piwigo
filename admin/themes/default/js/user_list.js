@@ -15,6 +15,7 @@ let pwg_token = '';
 let selection = [];
 let first_update = true;
 let total_users = 0
+let filter_by = 'id DESC';
 /*----------------
 Escape of pop-in
 ----------------*/
@@ -305,6 +306,49 @@ $( document ).ready(function() {
         $('.search-cancel').show();
       }
     })
+    // Filter by id (registered) and username
+    const icon_user = $('#icon-usr-list-user');
+    const icon_registered = $('#icon-usr-list-registered');
+    $('#usr-list-registered').on('click', function() {
+        icon_user.css('display', 'none');
+        icon_registered.css('display', 'block');
+        icon_user.attr('class', 'icon-down');
+        switch(filter_by) {
+            case 'id DESC':
+                icon_registered.attr('class', 'icon-down');
+                filter_by = 'id ASC';
+                break;
+            case 'id ASC':
+                icon_registered.attr('class', 'icon-up');
+                filter_by = 'id DESC';
+                break;
+            default:
+                icon_registered.attr('class', 'icon-up');
+                filter_by = 'id DESC';
+                break;
+        }
+        update_user_list();
+    });
+    $('#usr-list-user').on('click', function() {
+        icon_registered.css('display', 'none');
+        icon_user.css('display', 'block');
+        icon_registered.attr('class', 'icon-up');
+        switch(filter_by) {
+            case 'username DESC':
+                icon_user.attr('class', 'icon-down');
+                filter_by = 'username ASC';
+                break;
+            case 'username ASC':
+                icon_user.attr('class', 'icon-up');
+                filter_by = 'username DESC';
+                break;
+            default:
+                icon_user.attr('class', 'icon-down');
+                filter_by = 'username ASC'
+                break;
+        }
+        update_user_list();
+    });
 });
 
 function set_view_selector(view_type) {
@@ -993,7 +1037,7 @@ function get_formatted_date(date_str) {
     }
     let first_part = date_str.split(' ')[0];
     let formatted = first_part.split('-').join('/');
-    console.log(formatted);
+    // console.log(formatted);
     return (formatted);
 }
 
@@ -1022,7 +1066,7 @@ function set_selected_groups(groups) {
 }
 
 function fill_user_edit_summary(user_to_edit, pop_in, isGuest) {
-    console.log(isGuest);
+    // console.log(isGuest);
     if (isGuest) {
       pop_in.find('.user-property-initials span').removeClass(color_icons.join(' ')).addClass(color_icons[user_to_edit.id % 5]);
     } else {
@@ -1212,14 +1256,14 @@ function fill_ajax_data_from_properties(ajax_data, pop_in) {
     let groups_selected = pop_in.find('.user-property-group .selectize-input .item').map(function () {
         return parseInt($(this).attr('data-value'));
     } ).get();
-    console.log(groups_selected);
+    // console.log(groups_selected);
     ajax_data['email'] = pop_in.find('.user-property-email input').val();
     if (connected_user_status == "admin" && pop_in.find('.user-property-status select').val() != "webmaster" && pop_in.find('.user-property-status select').val() != "admin") {
       ajax_data['status'] = pop_in.find('.user-property-status select').val();
     } else if (connected_user_status == "webmaster"){
       ajax_data['status'] = pop_in.find('.user-property-status select').val();
     }
-    console.log(ajax_data['status']);
+    // console.log(ajax_data['status']);
     ajax_data['level'] = pop_in.find('.user-property-level select').val();
     ajax_data['group_id'] = groups_selected.length == 0 ? -1 : groups_selected;
     ajax_data['enabled_high'] = pop_in.find('.user-list-checkbox[name="hd_enabled"]').attr('data-selected') == '1' ? true : false ;
@@ -1487,7 +1531,7 @@ function update_guest_info() {
 function update_user_list() {
     let update_data = {
         display: "all",
-        order: "id DESC", // We want the most recent user first
+        order: filter_by, // We want the most recent user first
         page: actual_page - 1,
         per_page: per_page,
         exclude: [guest_id]
@@ -1513,7 +1557,7 @@ function update_user_list() {
         success: function (raw_data) {
             data = jQuery.parseJSON(raw_data);
             if (data.stat === "fail") {
-                console.log(data.message);
+                // console.log(data.message);
                 return;
             }
             total_users = data.result.total_count;

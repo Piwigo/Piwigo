@@ -314,7 +314,7 @@ $(document).ready(function() {
       </div>
       <!-- username -->
       <div class="user-header-col user-header-username">
-        <span>{'Username'|@translate}</span>
+        <span id="usr-list-user">{'Username'|@translate} <span id="icon-usr-list-user" class="icon-up" style="display: none;"></span></span>
       </div>
       <!-- status -->
       <div class="user-header-col user-header-status">
@@ -330,7 +330,7 @@ $(document).ready(function() {
       </div> *}
       <!-- registration date -->
       <div class="user-header-col user-header-registration">
-        <span>{'Registered'|@translate}</span>
+        <span id="usr-list-registered">{'Registered'|@translate} <span id="icon-usr-list-registered" class="icon-up"></span></span>
       </div>
        <!-- groups -->
        <div class="user-header-col user-header-groups">
