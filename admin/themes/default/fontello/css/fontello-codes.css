@@ -119,6 +119,8 @@
 .icon-sort-alt-up:before { content: '\f160'; } /* '' */
 .icon-sort-alt-down:before { content: '\f161'; } /* '' */
 .icon-sort-number-up:before { content: '\f162'; } /* '' */
+.icon-down:before { content: '\f175'; } /* '' */
+.icon-up:before { content: '\f176'; } /* '' */
 .icon-right:before { content: '\f178'; } /* '' */
 .icon-dot-circled:before { content: '\f192'; } /* '' */
 .icon-database:before { content: '\f1c0'; } /* '' */
