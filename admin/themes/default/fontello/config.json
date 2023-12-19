@@ -927,6 +927,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "e594fc6e5870b4ab7e49f52571d52577",
+      "css": "resize-full",
+      "code": 59534,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "3c24ee33c9487bbf18796ca6dffa1905",
+      "css": "resize-small",
+      "code": 59535,
+      "src": "fontawesome"
+    },
+    {
       "uid": "7411608e7611ffd477aeec7d239f87e9",
       "css": "dice",
       "code": 59500,
