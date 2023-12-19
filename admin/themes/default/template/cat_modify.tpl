@@ -39,7 +39,7 @@ str_album_comment_disallow = '{'Comments disallowed for sub-albums'|@translate}'
 str_root = '{'Root'|@translate}';
 {/footer_script}
 
-<div class="cat-modify">
+<div class="cat-modify" id="cat-modify">
 
   <div class="cat-modify-header">
     <div class="cat-modify-ariane">
@@ -140,8 +140,8 @@ str_root = '{'Root'|@translate}';
       </div>
 
       <div class="cat-modify-input-container">
-        <label for="cat-comment">{'Description'|@translate}</label>
-        <textarea resize="false" rows="5" name="comment" id="cat-comment">{$CAT_COMMENT}</textarea>
+        <label for="cat-comment">{'Description'|@translate} <span id="desc-zoom-square" class="icon-resize-full tiptip" title="{'Expand'|@translate}"></span></label>
+        <textarea class="sync-textarea" resize="false" rows="5" name="comment" id="cat-comment">{$CAT_COMMENT}</textarea>
       </div>
 
       <div class="cat-modify-input-container">
@@ -194,9 +194,23 @@ str_root = '{'Root'|@translate}';
     <span class="buttonLike" id="cat-properties-save"><i class="icon-floppy"></i> {'Save Settings'|@translate}</span>
    </div>
   </div>
+  <div class="desc-modal" id="desc-modal">
+    <div class="desc-modal-content">
+      <div class="desc-modal-header">
+        <p>{'Description'|@translate}</p>
+      </div>
+      <div class="desc-modal-body">
+        <textarea class="sync-textarea" name="comment-modal" id="cat-comment-modal">{$CAT_COMMENT}</textarea>
+        </div>
+      <div class="desc-modal-footer">
+        <p id="desc-modal-close" class="cat-modify-footer-see-out"><span class="icon-resize-small"></span>{'Shrink'|translate}</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
+
 .toggle-comment-option {
   cursor: pointer;
   position: relative;

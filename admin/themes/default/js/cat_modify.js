@@ -462,6 +462,29 @@ jQuery(document).ready(function() {
       }
     });
   });
+
+  // Modal description
+  let form_unsaved = false;
+  const cat_modify = $('#cat-modify');
+  const desc_modal = $('#desc-modal');
+  const textareas = $('.sync-textarea');
+  $('#desc-zoom-square, #desc-modal-close').on('click', function() {
+    desc_modal.fadeToggle();
+  });
+  textareas.keyup(function() {
+    textareas.val($(this).val());
+  });
+  $(window).on('click', function(e) {
+    if(e.target == desc_modal[0]){
+      desc_modal.fadeToggle();
+    }
+  });
+  $(document).on('keyup', function (e) {
+    // 27 is 'Escape'
+    if(e.keyCode === 27) {
+      desc_modal.fadeToggle();
+    }
+  });
 });
 
 function checkAlbumLock() {

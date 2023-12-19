@@ -1354,4 +1354,6 @@ $lang['%d files'] = "%d fichiers";
 $lang['Auto-update'] = 'Mise à jour auto';
 $lang['Core'] = 'Noyau';
 $lang['System Activities'] = 'Activités système';
+$lang['Shrink'] = 'Réduire';
+$lang['Expand'] = 'Agrandir';
 // Leave this line empty
