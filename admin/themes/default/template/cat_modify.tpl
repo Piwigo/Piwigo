@@ -28,15 +28,15 @@ const str_dont_delete_photos = '{'delete only album, not photos'|@translate|esca
 const str_delete_orphans = '{'delete album and the %d orphan photos'|@translate|escape:javascript}';
 const str_delete_all_photos = '{'delete album and all %d photos, even the %d associated to other albums'|@translate|escape:javascript}';
 
-str_albums_found = '{"<b>%d</b> albums found"|translate}';
-str_album_found = '{"<b>1</b> album found"|translate}';
+str_albums_found = '{"<b>%d</b> albums found"|translate|escape:javascript}';
+str_album_found = '{"<b>1</b> album found"|translate|escape:javascript}';
 str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
-str_orphan = '{'This photo is an orphan'|@translate}';
-str_no_search_in_progress = '{'No search in progress'|@translate}';
-str_already_in_related_cats = '{'This albums is already in related categories list'|@translate}';
-str_album_comment_allow = '{'Comments allowed for sub-albums'|@translate}';
-str_album_comment_disallow = '{'Comments disallowed for sub-albums'|@translate}';
-str_root = '{'Root'|@translate}';
+str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
+str_no_search_in_progress = '{'No search in progress'|@translate|escape:javascript}';
+str_already_in_related_cats = '{'This albums is already in related categories list'|@translate|escape:javascript}';
+str_album_comment_allow = '{'Comments allowed for sub-albums'|@translate|escape:javascript}';
+str_album_comment_disallow = '{'Comments disallowed for sub-albums'|@translate|escape:javascript}';
+str_root = '{'Root'|@translate|escape:javascript}';
 {/footer_script}
 
 <div class="cat-modify" id="cat-modify">
