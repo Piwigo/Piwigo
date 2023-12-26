@@ -155,7 +155,6 @@ $(document).ready(function () {
     }
 
     $(".filter-album .filter-actions .clear").on('click', function () {
-      $("#tag-search")[0].selectize.clear();
       $(".filter-album .search-params input[value='AND']");
       related_categories_ids = [];
       $(".selected-categories-container").empty();
