@@ -320,7 +320,7 @@ $template->assign(array(
   ),
 
   'NB_SUBCATS' => $category['nb_subcats'],
-  ),
+  )
 );
 
 $template->assign(array(
