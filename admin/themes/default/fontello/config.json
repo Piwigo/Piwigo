@@ -134,7 +134,7 @@
     },
     {
       "uid": "559647a6f430b3aeadbecd67194451dd",
-      "css": "menu-1",
+      "css": "menu",
       "code": 59401,
       "src": "fontawesome"
     },
@@ -164,7 +164,7 @@
     },
     {
       "uid": "531bc468eecbb8867d822f1c11f1e039",
-      "css": "calendar-1",
+      "css": "calendar",
       "code": 59416,
       "src": "fontawesome"
     },
