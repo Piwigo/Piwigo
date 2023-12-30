@@ -1355,3 +1355,6 @@ $lang['Remove thumbnail'] = 'Elimina miniatura';
 $lang['This album is currently locked, visible only to administrators.'] = 'Aquest àlbum està bloquejat actualment, i és visible només per als administradors.';
 $lang['Unlock it'] = 'Desbloqueja\'l';
 $lang['Unlocked album'] = 'Àlbum desbloquejat';
+$lang['%d files'] = '%d fitxers';
+$lang['Expand'] = 'Expandeix';
+$lang['Shrink'] = 'Contreu';
