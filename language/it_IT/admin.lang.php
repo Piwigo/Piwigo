@@ -1348,3 +1348,5 @@ $lang['This album is currently locked, visible only to administrators.'] = 'L\'a
 $lang['Unlock it'] = 'Sbloccalo.';
 $lang['Unlocked album'] = 'Album sbloccato.';
 $lang['%d files'] = '%d file';
+$lang['Expand'] = 'Espandi.';
+$lang['Shrink'] = 'Riduci.';
