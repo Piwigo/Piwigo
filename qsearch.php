@@ -14,10 +14,43 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_GUEST);
 
-// if (empty($_GET['q']))
-// {
-//   redirect( make_index_url() );
-// }
+if (empty($_GET['q']))
+{
+  redirect( make_index_url() );
+}
 
-redirect(get_root_url().'search.php?q='.$_GET['q']);
+$search = array();
+$search['q']=$_GET['q'];
+
+$query = '
+SElECT id FROM '.SEARCH_TABLE.'
+  WHERE rules = \''.addslashes(serialize($search)).'\'
+;';
+$search_id = array_from_query( $query, 'id');
+
+if ( !empty($search_id) )
+{
+  $search_id = $search_id[0];
+}
+else
+{
+  $query ='
+INSERT INTO '.SEARCH_TABLE.'
+  (rules)
+  VALUES
+  (\''.addslashes(serialize($search)).'\')
+;';
+  pwg_query($query);
+  $search_id = pwg_db_insert_id(SEARCH_TABLE);
+}
+
+redirect(
+  make_index_url(
+    array(
+      'section' => 'search',
+      'search'  => $search_id,
+      )
+    )
+  );
 ?>
+
