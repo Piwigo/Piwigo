@@ -242,6 +242,14 @@ $(document).ready(function() {
     $('input[name=whole_set]').val(this.checked ? all_elements.join(',') : '');
   });
 
+  {*
+    if the whole set is selected on page load (after a first action has been applied),
+    trigger a change to make sure input[name=whole_set] is updated
+  *}
+  if ($('input[name="setSelected"]').is(':checked')) {
+    $("input[name=setSelected]").trigger('change');
+  }
+
   jQuery("input[name=confirm_deletion]").change(function() {
     jQuery("#confirmDel span.errors").css("visibility", "hidden");
   });

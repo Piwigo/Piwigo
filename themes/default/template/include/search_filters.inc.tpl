@@ -91,7 +91,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-word-form">
-      <div class="filter-form-title">{'Search for words'|@translate}</div>
+      <div class="filter-form-title pwg-icon-search">{'Search for words'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
         <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
@@ -147,7 +147,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-tag-form">
-      <div class="filter-form-title">{'Tag'|@translate}</div>
+      <div class="filter-form-title pwg-icon-tag">{'Tag'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
         <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
@@ -184,7 +184,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-date_posted-form">
-      <div class="filter-form-title">{'Post date'|@translate}</div>
+      <div class="filter-form-title pwg-icon-calendar-plus">{'Post date'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash" title="{'Delete'|@translate}"></span>
         <span class="clear mcs-icon pwg-icon-arrow-rotate-left" title="{'Clear'|@translate}"></span>
@@ -216,7 +216,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
-    <div class="filter-form-title">{'Album'|@translate}</div>
+    <div class="filter-form-title pwg-icon-album"> {'Album'|@translate}</div>
     <div class="filter-actions"> 
       <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
       <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
@@ -253,7 +253,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
     
     <div class="filter-form filter-author-form">
-      <div class="filter-form-title">{'Author'|@translate}</div>
+      <div class="filter-form-title pwg-icon-user-edit"> {'Author'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
         <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
@@ -281,7 +281,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
-      <div class="filter-form-title">{'Added by'|translate}</div>
+      <div class="filter-form-title pwg-icon-user">{'Added by'|translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
         <span class="clear mcs-icon pwg-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
@@ -316,7 +316,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
     <span class="filter-arrow pwg-icon-up-open"></span>
 
     <div class="filter-form filter-filetypes-form">
-      <div class="filter-form-title">{'File type'|@translate}</div>
+      <div class="filter-form-title pwg-icon-file-image">{'File type'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
         <span class="clear mcs-icon pwg-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>

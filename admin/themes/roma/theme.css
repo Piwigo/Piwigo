@@ -2024,3 +2024,12 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 .jqtree-moving .move-cat-container .icon-green{
   opacity:60%!important;
 }
+
+/* Cat modify description modal */
+.desc-modal-content {
+  background-color: #444;
+}
+
+.desc-modal-body textarea {
+  background-color: #333 !important;
+}

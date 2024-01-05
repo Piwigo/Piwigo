@@ -607,6 +607,9 @@
 .filter-form .filter-form-title {
   font-weight: bold;
   margin-bottom: 10px;
+  display: flex;
+  gap: 1px;
+  align-items: center;
 }
 
 .filter-tag-form .selectize-control,
@@ -719,4 +722,107 @@
 .search-input{
   padding:10px;
   margin-bottom:10px;
+}
+
+
+@media (max-width: 600px) {
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .filter-form {
+    width: 100vw;
+    padding: 15px;
+    border-radius: 0;
+    box-shadow: none !important;
+    top: 37px
+  }
+  .form_mobile_arrow {
+    position: absolute;
+    bottom: 100%;
+  }
+
+  .arrow-border {
+    stroke-width: 1.5px;
+  }
+
+  .filter-actions {
+    top: 15px;
+    right: 15px;
+  }
+
+  .search-params-title,
+  .search-params {
+    display: block !important;
+  }
+
+  .word-search-options {
+    display: grid;
+  }
+
+  .filter-added_by-form .added_by-option-container {
+    width: 100%;
+  }
+
+  .filter-tag-form .form-container,
+  .filter-author-form .form-container,
+  .filter-added_by-form .form-container {
+    display: block;
+  }
+
+  .form-container .filter-validate {
+    width: fit-content;
+    margin-left: auto;
+    margin-top: 10px;
+  }
+
+  .filter-tag-form .selectize-input,
+  .filter-author-form .selectize-input,
+  .filter-added_by-form .selectize-input {
+    width: auto;
+  }
+
+  .filter-manager-popin-container,
+  .tags-found-popin-container,
+  .albums-found-popin-container {
+    width: auto;
+    max-width: 400px;
+  }
+
+  .linkedAlbumPopInContainer{
+    width: auto;
+  }
+
+  .search-result-item {
+    height: auto;
+  }
+
+  .search-result-path,
+  .link-path {
+    white-space: unset !important;
+  }
+
+  .delete,
+  .clear {
+    font-size: 0;
+  }
+
+  .delete::before,
+  .clear::before {
+    font-size: 15px;
+  }
+
+  /* disable zoom on focus in IOS Device */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  #word-search {
+    max-width: 100%;
+  }
+
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
 }

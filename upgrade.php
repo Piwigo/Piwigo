@@ -6,6 +6,14 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
+// right after the overwrite of previous version files by the unzip in the administration,
+// PHP engine might still have old files in cache. We do not want to use the cache and
+// force reload of all application files. Thus we disable opcache.
+if (function_exists('ini_set'))
+{
+  @ini_set('opcache.enable', 0);
+}
+
 define('PHPWG_ROOT_PATH', './');
 
 // load config file
@@ -356,6 +364,10 @@ SELECT id
   {
     $current_release = '12.0.0';
   }
+  else if (!in_array(170, $applied_upgrades))
+  {
+    $current_release = '13.0.0';
+  }
   else
   {
     // confirm that the database is in the same version as source code files
@@ -449,13 +461,6 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     $page['infos_sav'] = $page['infos'];
     $page['infos'] = array();
 
-    $query = '
-REPLACE INTO '.PLUGINS_TABLE.'
-  (id, state)
-  VALUES (\'TakeATour\', \'active\')
-;';
-    pwg_query($query);
-
     $template->assign(
       array(
         'button_label' => l10n('Home'),
@@ -470,6 +475,13 @@ REPLACE INTO '.PLUGINS_TABLE.'
       
       if (file_exists(PHPWG_PLUGINS_PATH .'TakeATour/tours/'.$version_.'/config.inc.php'))
       {
+        $query = '
+REPLACE INTO '.PLUGINS_TABLE.'
+  (id, state)
+  VALUES (\'TakeATour\', \'active\')
+;';
+        pwg_query($query);
+
         // we need the secret key for get_pwg_token()
         load_conf_from_db();
         

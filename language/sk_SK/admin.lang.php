@@ -1345,3 +1345,4 @@ $lang['Remove thumbnail'] = 'Odstrániť miniatúru';
 $lang['This album is currently locked, visible only to administrators.'] = 'Tento album je momentálne zamknutý a je viditeľný iba pre administrátorov.';
 $lang['Unlock it'] = 'Odomknite ho';
 $lang['Unlocked album'] = 'Odomknutý album';
+$lang['%d files'] = '%d súborov';

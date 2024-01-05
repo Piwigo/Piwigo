@@ -155,7 +155,6 @@ $(document).ready(function () {
     }
 
     $(".filter-album .filter-actions .clear").on('click', function () {
-      $("#tag-search")[0].selectize.clear();
       $(".filter-album .search-params input[value='AND']");
       related_categories_ids = [];
       $(".selected-categories-container").empty();
@@ -850,20 +849,26 @@ function reloadPage(url){
  * Replace the filter_form elements if they exceed the window
  */
 function resize_filter_form(){
+  $('.form_mobile_arrow').remove();
   $('.filter').each(function() {
     const window_width = $(window).innerWidth();
     const left_distance = $(this).offset().left;
     const filter_form = $(this).find($('.filter-form'));
     const filter_form_width = filter_form.innerWidth();
     const too_left = (left_distance + $(this).innerWidth()) - filter_form_width;
+    const is_desktop = window.matchMedia("(min-width: 600px)").matches;
     filter_form.css('left', '0px');
+    const margin_left = is_desktop ? 15 : 0;
 
     if(left_distance + filter_form_width > window_width) {
-      console.log($(this)[0].outerText + ': dépasse de ' + (window_width - left_distance) + filter_form_width + 'px');
-      
-      const check_left = too_left < 0 ? Math.abs(too_left - 5) : 0;
-      const replace_form_width = - filter_form_width + $(this).innerWidth() + check_left;
+      const check_left = too_left < 0 ? Math.abs(too_left - margin_left) : 0;
+      const mobile_marg = is_desktop ? 0 : 2;
+      const replace_form_width = - filter_form_width + $(this).innerWidth() + check_left - mobile_marg;
       filter_form.css('left', replace_form_width+'px');
+    }
+    if(!is_desktop){
+      const left_arrow = $(this).offset().left + ($(this).innerWidth() / 2);
+      filter_form.prepend('<svg width="10" height="10" viewBox="0 0 14 14" class="form_mobile_arrow" style="left:'+left_arrow+'px"><polygon class="arrow-border" points="7,0 14,14 0,14"/><polygon class="arrow-fill" points="7,1 13.5,14 0.5,14"/></svg>');
     }
   });
 }

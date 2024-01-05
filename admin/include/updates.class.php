@@ -554,6 +554,7 @@ class updates
 
             deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
             invalidate_user_cache(true);
+            conf_update_param('piwigo_installed_version', $upgrade_to);
             pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'update', array('from_version'=>PHPWG_VERSION, 'to_version'=>$upgrade_to));
 
             if ($step == 2)

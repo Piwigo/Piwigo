@@ -380,7 +380,7 @@ DELETE FROM '. PLUGINS_TABLE .'
         {
           global $user;
 
-          if ('webmaster' == $user['status'])
+          if (isset($user) and 'webmaster' == $user['status'])
           {
             $plugin['hasSettings'] = true;
           }

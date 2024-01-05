@@ -273,3 +273,20 @@
 .pwg-icon-cancel:before{
   color:black;
 }
+
+@media (max-width: 600px) {
+  .filter-form {
+    width: 100vw;
+    border-top: 1px solid #444 !important;
+    border-bottom: 1px solid #444 !important;
+  }
+
+  .arrow-border {
+    fill: transparent;
+    stroke: #444 !important;
+  }
+  
+  .arrow-fill {
+    fill: #333 !important;
+  }
+}
