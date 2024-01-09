@@ -131,4 +131,14 @@ language/en_UK/help.html
 language/en_UK/help/advanced_feature.html
 include/smarty/demo
 admin/user_list_backend.php
+themes/default/vendor/fontello/css/fontello-codes.css
+themes/default/vendor/fontello/css/fontello-embedded.css
+themes/default/vendor/fontello/css/fontello-ie7-codes.css
+themes/default/vendor/fontello/css/fontello-ie7.css
+themes/default/vendor/fontello/css/fontello.css
+themes/default/vendor/fontello/font/fontello.eot
+themes/default/vendor/fontello/font/fontello.svg
+themes/default/vendor/fontello/font/fontello.ttf
+themes/default/vendor/fontello/font/fontello.woff
+themes/default/vendor/fontello/font/fontello.woff2
 obsolete.list

@@ -1,7 +1,8 @@
 $(document).ready(function () {
   related_categories_ids = [];
 
-  $(".linkedAlbumPopInContainer .ClosePopIn").addClass("pwg-icon-cancel");
+  $(".linkedAlbumPopInContainer .ClosePopIn").addClass(prefix_icon + "cancel");
+  $(".linkedAlbumPopInContainer .searching").hide();
   $(".filter-validate").on("click", function () {
     $(this).find(".loading").css("display", "block");
     $(this).find(".validate-text").hide();
@@ -714,7 +715,7 @@ function performSearch(params, reload = false) {
   }).done(function () {
     $(".filter-validate").find(".validate-text").css("display", "block");
     $(".filter-validate").find(".loading").hide();
-    $(".remove-filter").removeClass('pwg-icon-spin6 animate-spin').addClass('pwg-icon-cancel');
+    $(".remove-filter").removeClass(prefix_icon + 'spin6 animate-spin').addClass(prefix_icon + 'cancel');
   });
 }
 
@@ -755,7 +756,7 @@ function fill_results(cats) {
 function add_related_category(cat_id, cat_link_path) {
     $(".selected-categories-container").append(
       "<div class='breadcrumb-item'>" +
-        "<span class='link-path'>" + cat_link_path + "</span><span id="+ cat_id + " class='mcs-icon pwg-icon-cancel remove-item'></span>" +
+        "<span class='link-path'>" + cat_link_path + "</span><span id="+ cat_id + " class='mcs-icon " + prefix_icon + "cancel remove-item'></span>" +
       "</div>"
     );
 
