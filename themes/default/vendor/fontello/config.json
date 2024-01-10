@@ -1,6 +1,6 @@
 {
-  "name": "fontello",
-  "css_prefix_text": "pwg-icon-",
+  "name": "gallery-icon",
+  "css_prefix_text": "gallery-icon-",
   "css_use_suffix": false,
   "hinting": true,
   "units_per_em": 1000,
