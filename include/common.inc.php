@@ -156,6 +156,7 @@ if (!isset($conf['piwigo_installed_version']))
 }
 elseif ($conf['piwigo_installed_version'] != PHPWG_VERSION)
 {
+  // Piwigo has been updated "from filesystem" and not "from the administration UI". We mark it as an autoupdate in the system activities log
   pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'autoupdate', array('from_version'=>$conf['piwigo_installed_version'], 'to_version'=>PHPWG_VERSION));
   conf_update_param('piwigo_installed_version', PHPWG_VERSION);
 }
