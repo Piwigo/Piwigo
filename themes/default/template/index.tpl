@@ -13,9 +13,9 @@
 <div class="titrePage{if isset($chronology.TITLE)} calendarTitleBar{/if}">
 	<ul class="categoryActions">
 {if isset($SEARCH_IN_SET_ACTION) and $SEARCH_IN_SET_ACTION}
-	  {combine_css path="themes/default/vendor/fontello/css/fontello.css" order=-10}
+	  {combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
     <li id="cmdSearchInSet"><a href="{$SEARCH_IN_SET_URL}" title="{'Search in this set'|translate}" class="pwg-state-default pwg-button">
-      <span class="pwg-icon-search-folder"></span><span class="pwg-button-text">{'Search in this set'|translate}</span>
+      <span class="gallery-icon-search-folder"></span><span class="pwg-button-text">{'Search in this set'|translate}</span>
     </a></li>
 {/if}
 {if !empty($image_orders)}
@@ -160,7 +160,7 @@
 {if isset($SEARCH_IN_SET_BUTTON) and $SEARCH_IN_SET_BUTTON}
 <div class="mcs-side-results search-in-set-button">
   <div>
-    <p><a href="{$SEARCH_IN_SET_URL}" class="pwg-icon-search-folder">{'Search in this set'|translate}</a></p>
+    <p><a href="{$SEARCH_IN_SET_URL}" class="gallery-icon-search-folder">{'Search in this set'|translate}</a></p>
   </div>
 </div>
 {/if}

@@ -3,7 +3,7 @@
 {combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 {combine_css path="themes/default/css/search.css" order=-100}
 {combine_css path="themes/default/css/{$themeconf.colorscheme}-search.css" order=-100}
-{combine_css path="themes/default/vendor/fontello/css/fontello.css" order=-10} 
+{combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10} 
 
 {footer_script}
 {if isset($GP)}
@@ -28,44 +28,45 @@ str_filetypes_widget_label = "{'File type'|@translate|escape:javascript}";
 str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate|escape:javascript}";
 str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate|escape:javascript}";
 
+const prefix_icon = 'gallery-icon-';
 {/footer_script}
 
 {combine_script id='mcs' load='async' require='jquery' path='themes/default/js/mcs.js'}
 <div class="mcs-container">
   <div class="filter-manager-popin">
     <div class="filter-manager-popin-container">
-      <span class="pwg-icon-cancel filter-manager-close"></span>
+      <span class="gallery-icon-cancel filter-manager-close"></span>
 
       <div class="mcs-popin-title">{'Choose filters'|@translate}</div>
 
       <div class="filter-manager-controller-container">
         <label>
           <input data-wid='word' class="filter-manager-controller word" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-search">{'Search for words'|@translate}</span>
+          <span class="mcs-icon gallery-icon-search">{'Search for words'|@translate}</span>
         </label>
         <label>
           <input data-wid='tag' class="filter-manager-controller tags" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-tag">{'Tag'|@translate}</span>
+          <span class="mcs-icon gallery-icon-tag">{'Tag'|@translate}</span>
         </label>
         <label>
           <input data-wid='date_posted' class="filter-manager-controller date_posted" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-calendar-plus">{'Post date'|@translate}</span>
+          <span class="mcs-icon gallery-icon-calendar-plus">{'Post date'|@translate}</span>
         </label>
         <label>
           <input data-wid='album' class="filter-manager-controller album" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-album">{'Album'|@translate}</span>
+          <span class="mcs-icon gallery-icon-album">{'Album'|@translate}</span>
         </label>
         <label>
           <input data-wid='authors' class="filter-manager-controller author" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-user-edit">{'Author'|@translate}</span>
+          <span class="mcs-icon gallery-icon-user-edit">{'Author'|@translate}</span>
         </label>
         <label>
           <input data-wid='added_by' class="filter-manager-controller added_by" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-user">{'Added by'|@translate}</span>
+          <span class="mcs-icon gallery-icon-user">{'Added by'|@translate}</span>
         </label>
         <label>
           <input data-wid='filetypes' class="filter-manager-controller filetypes" type="checkbox"/>
-          <span class="mcs-icon pwg-icon-file-image">{'File type'|@translate}</span>
+          <span class="mcs-icon gallery-icon-file-image">{'File type'|@translate}</span>
         </label>
       </div>
 
@@ -74,29 +75,29 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
           {'Cancel'|@translate}
         </div>
         <div class="filter-validate">
-          <i class="loading pwg-icon-spin6 animate-spin"></i>
+          <i class="loading gallery-icon-spin6 animate-spin"></i>
           <span class="validate-text">{'Validate'|@translate}</span>
         </div>
       </div>
     </div>
   </div>
   <div class="filter-manager">
-    <span class="mcs-icon pwg-icon-selecters"></span>{'Choose filters'|@translate}
+    <span class="mcs-icon gallery-icon-selecters"></span>{'Choose filters'|@translate}
   </div>
-  <i class="filter-spinner pwg-icon-spin6 animate-spin"></i>
+  <i class="filter-spinner gallery-icon-spin6 animate-spin"></i>
 
    <div class="filter filter-word">
-    <span class="mcs-icon pwg-icon-search filter-icon"></span>
+    <span class="mcs-icon gallery-icon-search filter-icon"></span>
     <span class="search-words"></span>
-    <span class="filter-arrow pwg-icon-up-open"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
 
     <div class="filter-form filter-word-form">
-      <div class="filter-form-title pwg-icon-search">{'Search for words'|@translate}</div>
+      <div class="filter-form-title gallery-icon-search">{'Search for words'|@translate}</div>
       <div class="filter-actions"> 
-        <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
+        <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
-      {* <span class="word-help"><i class="pwg-icon-help-circled"></i>Conseils de recherche</span> *}
+      {* <span class="word-help"><i class="gallery-icon-help-circled"></i>Conseils de recherche</span> *}
       <div class="word-search-options">
         <label><input type="radio" name="mode" value="AND" checked> {'Search for all terms'|@translate}</label>
         <label><input type="radio" name="mode" value="OR"> {'Search for any term'|@translate}</label>
@@ -135,22 +136,22 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
         </div>
       </div>
       <div class="filter-validate">
-        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
         <span class="validate-text">{'Validate'|@translate}</span>
       </div>
       </div>
     </div>
 {if isset($TAGS)}
   <div class="filter filter-tag">
-    <span class="mcs-icon pwg-icon-tag filter-icon"></span>
+    <span class="mcs-icon gallery-icon-tag filter-icon"></span>
     <span class="search-words"></span>
-    <span class="filter-arrow pwg-icon-up-open"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
 
     <div class="filter-form filter-tag-form">
-      <div class="filter-form-title pwg-icon-tag">{'Tag'|@translate}</div>
+      <div class="filter-form-title gallery-icon-tag">{'Tag'|@translate}</div>
       <div class="filter-actions"> 
-        <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
+        <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
       <div class="search-params"> 
         <div>
@@ -169,7 +170,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       {/foreach}
         </select>
         <div class="filter-validate">
-          <i class="loading pwg-icon-spin6 animate-spin"></i>
+          <i class="loading gallery-icon-spin6 animate-spin"></i>
           <span class="validate-text">{'Validate'|@translate}</span>
         </div>
       </div>
@@ -179,15 +180,15 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
 
   {if isset($DATE_POSTED)}
   <div class="filter filter-date_posted">
-    <span class="mcs-icon pwg-icon-calendar-plus filter-icon"></span>
+    <span class="mcs-icon gallery-icon-calendar-plus filter-icon"></span>
     <span class="search-words">{'Post date'|@translate}</span>
-    <span class="filter-arrow pwg-icon-up-open"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
 
     <div class="filter-form filter-date_posted-form">
-      <div class="filter-form-title pwg-icon-calendar-plus">{'Post date'|@translate}</div>
+      <div class="filter-form-title gallery-icon-calendar-plus">{'Post date'|@translate}</div>
       <div class="filter-actions"> 
-        <span class="delete mcs-icon pwg-icon-trash" title="{'Delete'|@translate}"></span>
-        <span class="clear mcs-icon pwg-icon-arrow-rotate-left" title="{'Clear'|@translate}"></span>
+        <span class="delete mcs-icon gallery-icon-trash" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left" title="{'Clear'|@translate}"></span>
       </div>
 
       <div class="date_posted-option-container">
@@ -195,7 +196,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
           <div class="date_posted-option">
             <input type="radio" id="date_posted-{$k}" value={$k} name="date_posted-period">
             <label for="date_posted-{$k}" id="{$k}">
-              <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+              <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
               <span class="date-period">{$date_posted.label}</span>
               <span class="date_posted-badge">{$date_posted.counter}</span>
             </label>
@@ -203,7 +204,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
         {/foreach}
       </div>
       <div class="filter-validate">
-        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
         <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
@@ -211,15 +212,15 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   {/if}
 
   <div class="filter filter-album">
-    <span class="mcs-icon pwg-icon-album filter-icon"></span>
+    <span class="mcs-icon gallery-icon-album filter-icon"></span>
     <span class="search-words"></span>
-    <span class="filter-arrow pwg-icon-up-open"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
 
     <div class="filter-form filter-album-form">
-    <div class="filter-form-title pwg-icon-album"> {'Album'|@translate}</div>
+    <div class="filter-form-title gallery-icon-album"> {'Album'|@translate}</div>
     <div class="filter-actions"> 
-      <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-      <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
+      <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
+      <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
     </div>
       <div class="search-params"> 
       </div>
@@ -227,7 +228,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
       </div>
       <div class="add-album-button">
         <label class="head-button-2 icon-add-album">
-          <p class="mcs-icon pwg-icon-plus-circled">{'Add Album'|@translate}</p>
+          <p class="mcs-icon gallery-icon-plus-circled">{'Add Album'|@translate}</p>
         </label>
       </div>
       <div class="search-sub-cats">
@@ -235,7 +236,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
         <label for="search-sub-cats">{'Search in sub-albums'|@translate}</label>
       </div>
       <div class="filter-validate">
-        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
         <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
@@ -248,15 +249,15 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   }
   {if isset($AUTHORS)}
   <div class="filter filter-authors">
-    <span class="mcs-icon pwg-icon-user-edit filter-icon"></span>
+    <span class="mcs-icon gallery-icon-user-edit filter-icon"></span>
     <span class="search-words"></span>
-    <span class="filter-arrow pwg-icon-up-open"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
     
     <div class="filter-form filter-author-form">
-      <div class="filter-form-title pwg-icon-user-edit"> {'Author'|@translate}</div>
+      <div class="filter-form-title gallery-icon-user-edit"> {'Author'|@translate}</div>
       <div class="filter-actions"> 
-        <span class="delete mcs-icon pwg-icon-trash">{'Delete'|@translate}</span>
-        <span class="clear mcs-icon pwg-icon-arrow-rotate-left">{'Clear'|@translate}</span>
+        <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
       <div class="form-container">
         <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
@@ -266,7 +267,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
         </select>
 
         <div class="filter-validate">
-          <i class="loading pwg-icon-spin6 animate-spin"></i>
+          <i class="loading gallery-icon-spin6 animate-spin"></i>
           <span class="validate-text">{'Validate'|@translate}</span>
         </div>
       </div>
@@ -276,15 +277,15 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
 
   {if isset($ADDED_BY)}
   <div class="filter filter-added_by">
-    <span class="mcs-icon pwg-icon-user filter-icon"></span>
+    <span class="mcs-icon gallery-icon-user filter-icon"></span>
     </span><span class="search-words"></span>
-    <span class="filter-arrow pwg-icon-up-open"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
 
     <div class="filter-form filter-added_by-form">
-      <div class="filter-form-title pwg-icon-user">{'Added by'|translate}</div>
+      <div class="filter-form-title gallery-icon-user">{'Added by'|translate}</div>
       <div class="filter-actions"> 
-        <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
-        <span class="clear mcs-icon pwg-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
+        <span class="delete mcs-icon gallery-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
       </div>
 
       <div class="form-container">
@@ -293,7 +294,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
           <div class="added_by-option">
               <input type="checkbox" id="added_by-{$added_by.added_by_id}" name="{$added_by.added_by_id}">
               <label for="added_by-{$added_by.added_by_id}">
-                <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+                <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
                 <span class="added_by-name">{$added_by.added_by_name|strip_tags:false}</span>
                 <span class="added_by-badge">{$added_by.counter}</span>
               </label>
@@ -302,7 +303,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
         </div>
       </div>
       <div class="filter-validate">
-        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
         <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
@@ -311,15 +312,15 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
 
   {if isset($FILETYPES)}
   <div class="filter filter-filetypes">
-    <span class="mcs-icon pwg-icon-file-image filter-icon"></span>
+    <span class="mcs-icon gallery-icon-file-image filter-icon"></span>
     </span><span class="search-words"></span>
-    <span class="filter-arrow pwg-icon-up-open"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
 
     <div class="filter-form filter-filetypes-form">
-      <div class="filter-form-title pwg-icon-file-image">{'File type'|@translate}</div>
+      <div class="filter-form-title gallery-icon-file-image">{'File type'|@translate}</div>
       <div class="filter-actions"> 
-        <span class="delete mcs-icon pwg-icon-trash tiptip" title="{'Delete'|@translate}"></span>
-        <span class="clear mcs-icon pwg-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
+        <span class="delete mcs-icon gallery-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
       </div>
       <div class="form-container">
         <div class="filetypes-option-container">
@@ -327,7 +328,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
           <div class="filetypes-option">
               <input type="checkbox" id="filetype-{$k}" name="{$k}">
               <label for="filetype-{$k}">
-                <span class="mcs-icon pwg-icon-checkmark checked-icon"></span>
+                <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
                 <span class="ext-name">{$k}</span>
                 <span class="ext-badge">{$filetypes}</span>
               </label>
@@ -336,14 +337,14 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
         </div>
       </div>
       <div class="filter-validate">
-        <i class="loading pwg-icon-spin6 animate-spin"></i>
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
         <span class="validate-text">{'Validate'|@translate}</span>
       </div>
     </div>
   </div>
   {/if}
   <div>
-    <span class="mcs-icon pwg-icon-arrow-rotate-left clear-all">{'Empty filters'|@translate}</span>
+    <span class="mcs-icon gallery-icon-arrow-rotate-left clear-all">{'Empty filters'|@translate}</span>
   </div>
 </div>
 
@@ -366,7 +367,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   {if isset($TAGS_FOUND)}
 <div class="tags-found-popin">
   <div class="tags-found-popin-container">
-    <span class="pwg-icon-cancel tags-found-close"></span>
+    <span class="gallery-icon-cancel tags-found-close"></span>
     <div class="mcs-popin-title">{'Tags found'|@translate}</div>
     <div class="mcs-popin-desc">{'Tags listed here match your search by word. Click on one to browse by tag.'|translate}</div>
     <div class="tags-found-container">
@@ -382,7 +383,7 @@ str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can 
   {if isset($ALBUMS_FOUND)}
 <div class="albums-found-popin">
   <div class="albums-found-popin-container">
-    <span class="pwg-icon-cancel albums-found-close"></span>
+    <span class="gallery-icon-cancel albums-found-close"></span>
     <div class="mcs-popin-title">{'Albums found'|@translate}</div>
     <div class="mcs-popin-desc">{'Albums listed here match your search by word. Click on one to browse by album.'|translate}</div>
     <div class="albums-found-container">
