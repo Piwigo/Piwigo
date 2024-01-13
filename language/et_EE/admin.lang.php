@@ -1192,3 +1192,5 @@ $lang['Nov'] = 'nov';
 $lang['Oct'] = 'okt';
 $lang['May'] = 'mai';
 $lang['Mar'] = 'märts';
+$lang['edit'] = 'muuda';
+$lang['Created'] = 'Loodud';
