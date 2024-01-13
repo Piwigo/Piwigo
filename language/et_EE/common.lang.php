@@ -142,7 +142,6 @@ $lang['add this photo to your favorites'] = 'lisa see foto oma lemmikutesse';
 $lang['Administration'] = 'Administreerimine';
 $lang['all'] = 'kõik';
 $lang['ascending'] = 'kasvav';
-$lang['author(s) : %s'] = 'autor(it) : %s';
 $lang['Expand all albums'] = 'Laienda kõik albumid';
 $lang['posted after %s (%s)'] = 'postitatud peale %s (%s)';
 $lang['posted before %s (%s)'] = 'postitatud enne %s (%s)';
