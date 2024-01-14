@@ -1343,3 +1343,5 @@ $lang['Allow comments for sub-albums'] = 'Alt albümler için yorumlara izin ver
 $lang['All admins'] = 'Tüm yöneticiler';
 $lang['%d including sub-albums'] = '%d alt albümler dahil';
 $lang['%d files'] = '%d dosya';
+$lang['Shrink'] = 'Daralt';
+$lang['Expand'] = 'Genişlet';
