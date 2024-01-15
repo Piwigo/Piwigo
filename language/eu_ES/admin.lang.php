@@ -1342,3 +1342,5 @@ $lang['This picture is physically linked to this album, you can\'t dissociate th
 $lang['Upload Formats'] = 'Kargatu formatuak';
 $lang['Version %s'] = '%s bertsioa';
 $lang['The original picture will be detected with the filename (without extension).'] = 'Jatorrizko irudia fitxategi-izenaren bitartez antzemango da (luzapenik gabe)';
+$lang['Shrink'] = 'Txikiagotu';
+$lang['Expand'] = 'Hedatu';
