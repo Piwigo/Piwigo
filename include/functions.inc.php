@@ -476,7 +476,10 @@ UPDATE '.USER_INFOS_TABLE.'
 
     $conf['history_sections_cache'] = safe_unserialize($conf['history_sections_cache']);
 
-    if (in_array($page['section'], $conf['history_sections_cache']))
+    if (
+      in_array($page['section'], $conf['history_sections_cache'])
+      or in_array(strtolower($page['section']), array_map('strtolower', $conf['history_sections_cache']))
+    )
     {
       $section = $page['section'];
     }
