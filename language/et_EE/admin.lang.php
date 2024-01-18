@@ -1218,3 +1218,5 @@ $lang['between %s and %s'] = '%s ja %s vahel';
 $lang['deletion'] = 'kustutamine';
 $lang['calculated'] = 'arvutatud';
 $lang['action successfully performed.'] = 'toiming edukalt sooritatud.';
+$lang['%d files'] = '%d faili';
+$lang['%d Activities'] = '%d tegevust';
