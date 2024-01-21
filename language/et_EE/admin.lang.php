@@ -1220,3 +1220,4 @@ $lang['calculated'] = 'arvutatud';
 $lang['action successfully performed.'] = 'toiming edukalt sooritatud.';
 $lang['%d files'] = '%d faili';
 $lang['%d Activities'] = '%d tegevust';
+$lang['Modified'] = 'Muudetud';
