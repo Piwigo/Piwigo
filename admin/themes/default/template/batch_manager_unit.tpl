@@ -84,7 +84,7 @@ jQuery("a.preview-box").colorbox( {
       </td>
     </tr>
     <tr>
-      <td><strong>{'Who can see this photo?'|@translate}</strong></td>
+      <td><strong>{'Who can see this photo?'|@translate}</strong><br>({'Privacy level'|translate})</td>
       <td>
         <select name="level-{$element.id}">
           {html_options options=$level_options selected=$element.LEVEL}

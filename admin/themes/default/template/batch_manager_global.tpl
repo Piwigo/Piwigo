@@ -657,7 +657,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
           <option value="author">{'Set author'|@translate}</option>
           <option value="title">{'Set title'|@translate}</option>
           <option value="date_creation">{'Set creation date'|@translate}</option>
-          <option value="level" class="icon-lock">{'Who can see these photos?'|@translate}</option>
+          <option value="level" class="icon-lock">{'Who can see these photos?'|@translate} ({'Privacy level'|translate})</option>
           <option value="metadata">{'Synchronize metadata'|@translate}</option>
       {if ($IN_CADDIE)}
           <option value="remove_from_caddie">{'Remove from caddie'|@translate}</option>
