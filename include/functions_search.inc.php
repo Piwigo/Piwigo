@@ -1767,6 +1767,11 @@ function save_search($rules, $forked_from=null)
     )
   );
 
+  if (!is_a_guest() and !is_generic())
+  {
+    userprefs_update_param('gallery_search_filters', array_keys($rules['fields'] ?? array()));
+  }
+
   $url = make_index_url(
     array(
       'section' => 'search',
