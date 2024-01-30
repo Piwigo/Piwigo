@@ -1343,3 +1343,5 @@ $lang['This album is currently locked, visible only to administrators.'] = 'Þet
 $lang['Unlock it'] = 'Aflæsa því';
 $lang['Unlocked album'] = 'Ólæst albúm';
 $lang['%d files'] = '%d skrár';
+$lang['Expand'] = 'Stækka';
+$lang['Shrink'] = 'Minnka';

@@ -1347,3 +1347,6 @@ $lang['Remove thumbnail'] = 'Odstranit náhled';
 $lang['This album is currently locked, visible only to administrators.'] = 'Toto album je v současné době uzamčené, viditelné pouze pro správce.';
 $lang['Unlock it'] = 'Odemknout';
 $lang['Unlocked album'] = 'Odemčené album';
+$lang['%d files'] = '%d souborů';
+$lang['Expand'] = 'Rozšířit';
+$lang['Shrink'] = 'Zmenšit';

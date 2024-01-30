@@ -1342,3 +1342,6 @@ $lang['Remove thumbnail'] = '移除縮圖';
 $lang['This album is currently locked, visible only to administrators.'] = '此相簿目前已鎖上，只有管理者能看得到。';
 $lang['Unlock it'] = '解鎖';
 $lang['Unlocked album'] = '已解鎖的相簿';
+$lang['%d files'] = '%d 個檔案';
+$lang['Expand'] = '擴充';
+$lang['Shrink'] = '縮小';
