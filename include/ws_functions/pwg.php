@@ -391,6 +391,12 @@ function ws_session_getStatus($params, &$service)
   $res['version'] = PHPWG_VERSION;
   $res['save_visits'] = do_log();
 
+  // Piwigo Remote Sync does not support receiving the new (version 14) output "save_visits"
+  if (isset($_SERVER['HTTP_USER_AGENT']) and preg_match('/^PiwigoRemoteSync/', $_SERVER['HTTP_USER_AGENT']))
+  {
+    unset($res['save_visits']);
+  }
+
   // Piwigo Remote Sync does not support receiving the available sizes
   $piwigo_remote_sync_agent = 'Apache-HttpClient/';
   if (!isset($_SERVER['HTTP_USER_AGENT']) or substr($_SERVER['HTTP_USER_AGENT'], 0, strlen($piwigo_remote_sync_agent)) !== $piwigo_remote_sync_agent)
