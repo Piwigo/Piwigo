@@ -481,7 +481,7 @@ jQuery(document).ready(function() {
   });
   $(document).on('keyup', function (e) {
     // 27 is 'Escape'
-    if(e.keyCode === 27) {
+    if(e.keyCode === 27 && desc_modal.is(':visible')) {
       desc_modal.fadeToggle();
     }
   });
