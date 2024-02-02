@@ -43,7 +43,7 @@ str_root = '{'Root'|@translate|escape:javascript}';
 
   <div class="cat-modify-header">
     <div class="cat-modify-ariane">
-    <a class="icon-sitemap tiptip" href="{$U_MOVE}" title="{'Manage sub-albums'|@translate}"></a>
+    <span class="icon-home"> /</span>
       {$CATEGORIES_NAV}
     </div>
 
