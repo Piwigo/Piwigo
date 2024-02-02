@@ -50,6 +50,16 @@ const str_guest = '{'guest'|@translate}';
 const str_contact_form = '{'Contact Form'|@translate}';
 const str_edit_img = '{'Edit photo'|@translate}';
 
+const str_search_details = {
+    "allwords": "{'Search for words'|@translate}",
+    "date_posted": "{'Post date'|@translate}",
+    "tags": str_tags,
+    "cat": "{'Album'|@translate}",
+    "author": "{'Author'|@translate}",
+    "added_by": "{'Added by'|@translate}",
+    "filetypes": "{'File type'|@translate}",
+};
+
 const guest_id = {$guest_id};
 {/footer_script}
 
@@ -58,6 +68,7 @@ const guest_id = {$guest_id};
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
+{combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
 
 <form class="filter" method="post" name="filter" action="">
 <fieldset class="history-filter">
@@ -470,7 +481,7 @@ jQuery(document).ready( function() {
 
 .detail-title,
 .detail-section {
-  max-width: 500px;
+  width: 500px;
   text-align: left;
   padding-left: 10px;
 }
@@ -480,7 +491,7 @@ jQuery(document).ready( function() {
   padding: 4px 8px;
   border-radius: 5px;
 
-  max-width: 250px;
+  max-width: 130px;
   height: 20px;
 
   text-align: center;
@@ -717,5 +728,14 @@ jQuery(document).ready( function() {
 
 .loading {
   font-size: 25px;
+}
+@media (min-width: 1600px) {
+  .detail-title,
+  .detail-section {
+    max-width: 500px;
+  }
+  .detail-item {
+    max-width: 170px;
+  }
 }
 </style>

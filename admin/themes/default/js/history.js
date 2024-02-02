@@ -368,13 +368,112 @@ function lineConstructor(line, id, imageDisplay) {
       newLine.find(".type-id").hide();
       break;
     case "search":
+      // for debug
+      // console.log('search n° : ', line.SEARCH_ID, ' ', line.SEARCH_DETAILS);
+      const search_details = line.SEARCH_DETAILS;
+      const search_icons = {
+        'allwords': 'gallery-icon-search',
+        'tags': 'gallery-icon-tag',
+        'date_posted': 'gallery-icon-calendar-plus',
+        'cat': 'gallery-icon-album',
+        'author': 'gallery-icon-user-edit',
+        'added_by': 'gallery-icon-user',
+        'filetypes': 'gallery-icon-file-image',
+      }
       newLine.find(".type-name").html(line.SECTION);
       newLine.find(".type-id").html("#" + line.SEARCH_ID);
       if (!line.SEARCH_ID)
       {
         newLine.find(".type-id").hide();
       }
-      newLine.find(".detail-item-1").hide();
+
+      if (!search_details) 
+      {
+        newLine.find(".detail-item-1").hide();
+        break; 
+      }
+      let active_search_details = {};
+      Object.keys(search_details).forEach(key => {
+          if (search_details[key] !== null) {
+            active_search_details[key] = search_details[key];
+          }
+      });
+      let count_item = 1;
+      const active_items = Object.keys(active_search_details);
+      if (active_items.length > 0)
+      {
+        if (active_search_details.allwords)
+        {
+          newLine.find(".detail-item-" + count_item).html(active_search_details.allwords.join(' ')).addClass(search_icons.allwords + ' tiptip');
+          newLine.find(".detail-item-" + count_item).attr('title', '<b>' + str_search_details['allwords'] + ' :</b> ' + active_search_details.allwords.join(' '));
+          count_item++;
+        }
+        if (active_search_details.cat)
+        {
+          const array_cat = Object.values(active_search_details.cat);
+          newLine.find(".detail-item-" + count_item).html(array_cat.join(' + ')).addClass(search_icons.cat + ' tiptip');
+          newLine.find(".detail-item-"+ count_item).attr('title','<b>' + str_search_details['cat'] + ' :</b> ' + array_cat.join(' + ')).removeClass("hide");
+          count_item++;
+        }
+        if (count_item <= 2 && active_search_details.tags)
+        {
+          const array_tags = Object.values(active_search_details.tags);
+          newLine.find(".detail-item-" + count_item).html(array_tags.join(' + ')).addClass(search_icons.tags + ' tiptip');
+          newLine.find(".detail-item-"+ count_item).attr('title', '<b>' + str_search_details['tags'] + ' :</b> ' + array_tags.join(' + ')).removeClass("hide");
+          count_item++;
+        }
+        if (count_item <= 2)
+        {
+          let badge_to_add = active_items.length == 1 ? 1 : count_item == 1 ? 2 : 1;
+          let badge_added = 0;
+          active_items.some(key => {
+            if (key !== 'allwords' && key !== 'cat' && key !== 'tags') {
+              let array_key;
+              if (Array.isArray(active_search_details[key]))
+              {
+                array_key = active_search_details[key];
+              }
+              else if (typeof active_search_details[key] === 'object')
+              {
+                array_key = Object.values(active_search_details[key]);
+              }
+              else
+              {
+                array_key = [active_search_details[key]];
+              }
+              newLine.find(".detail-item-" + count_item).html(array_key.join(' + ')).addClass(search_icons[key] + ' tiptip');
+              newLine.find(".detail-item-" + count_item).attr('title', '<b>' + str_search_details[key] + ' :</b> ' + array_key.join(' + ')).removeClass("hide");
+              count_item++;
+              badge_added++;
+              if (badge_added === badge_to_add) {
+                return true;
+              }
+            }
+            return false;
+          });
+        }
+      }
+      else
+      {
+        newLine.find(".detail-item-1").hide();
+      }
+      if (active_items.length >= 3) 
+      {
+        let search_details_str = Object.entries(active_search_details)
+          .map(([key, value]) => {
+            let value_str;
+            if(Array.isArray(value)) {
+              value_str = value.join(' + ');
+            } else if (typeof value === 'object') {
+              value_str = Object.entries(value).map(([k, v]) => v).join(' + ');
+            } else {
+              value_str = value;
+            }
+            return `<b>${str_search_details[key]}</b>: ${value_str}`;
+          }).join(' <br />');
+        newLine.find(".detail-item-3").html('See details').addClass('icon-info-circled-1 tiptip');
+        newLine.find(".detail-item-3").attr('title', search_details_str).removeClass('hide');
+      }
       break;
     case "favorites":
       newLine.find(".type-name").html(str_favorites);
