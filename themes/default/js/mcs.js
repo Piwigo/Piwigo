@@ -778,7 +778,7 @@ function remove_related_category(cat_id) {
     related_categories_ids.splice(cat_to_remove_index, 1);
   }
   if (related_categories_ids.length === 0) {
-    related_categories_ids = '';
+    related_categories_ids = [];
   }
 }
 
