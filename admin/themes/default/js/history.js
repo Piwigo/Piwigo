@@ -399,6 +399,7 @@ function lineConstructor(line, id, imageDisplay) {
           }
       });
       let count_item = 1;
+      let active_more = [];
       const active_items = Object.keys(active_search_details);
       if (active_items.length > 0)
       {
@@ -407,13 +408,18 @@ function lineConstructor(line, id, imageDisplay) {
           newLine.find(".detail-item-" + count_item).html(active_search_details.allwords.join(' ')).addClass(search_icons.allwords + ' tiptip');
           newLine.find(".detail-item-" + count_item).attr('title', '<b>' + str_search_details['allwords'] + ' :</b> ' + active_search_details.allwords.join(' '));
           count_item++;
+          active_more.push('allwords');
         }
         if (active_search_details.cat)
         {
           const array_cat = Object.values(active_search_details.cat);
-          newLine.find(".detail-item-" + count_item).html(array_cat.join(' + ')).addClass(search_icons.cat + ' tiptip');
-          newLine.find(".detail-item-"+ count_item).attr('title','<b>' + str_search_details['cat'] + ' :</b> ' + array_cat.join(' + ')).removeClass("hide");
+          const cat = array_cat.join(' + ');
+          let temp_div = $('<div>').html(cat);
+          let text = temp_div.text().trim();
+          newLine.find(".detail-item-" + count_item).html(cat).addClass(search_icons.cat + ' tiptip');
+          newLine.find(".detail-item-"+ count_item).attr('title','<b>' + str_search_details['cat'] + ' :</b> ' + text).removeClass("hide");
           count_item++;
+          active_more.push('cat');
         }
         if (count_item <= 2 && active_search_details.tags)
         {
@@ -421,6 +427,7 @@ function lineConstructor(line, id, imageDisplay) {
           newLine.find(".detail-item-" + count_item).html(array_tags.join(' + ')).addClass(search_icons.tags + ' tiptip');
           newLine.find(".detail-item-"+ count_item).attr('title', '<b>' + str_search_details['tags'] + ' :</b> ' + array_tags.join(' + ')).removeClass("hide");
           count_item++;
+          active_more.push('tags');
         }
         if (count_item <= 2)
         {
@@ -445,6 +452,7 @@ function lineConstructor(line, id, imageDisplay) {
               newLine.find(".detail-item-" + count_item).attr('title', '<b>' + str_search_details[key] + ' :</b> ' + array_key.join(' + ')).removeClass("hide");
               count_item++;
               badge_added++;
+              active_more.push(key);
               if (badge_added === badge_to_add) {
                 return true;
               }
@@ -459,7 +467,9 @@ function lineConstructor(line, id, imageDisplay) {
       }
       if (active_items.length >= 3) 
       {
+        let count_more = 0;
         let search_details_str = Object.entries(active_search_details)
+        .filter(([key]) => !active_more.includes(key))
           .map(([key, value]) => {
             let value_str;
             if(Array.isArray(value)) {
@@ -469,9 +479,17 @@ function lineConstructor(line, id, imageDisplay) {
             } else {
               value_str = value;
             }
-            return `<b>${str_search_details[key]}</b>: ${value_str}`;
+
+            if (key == 'cat')
+            {
+              let temp_div = $('<div>').html(value_str);
+              let text = temp_div.text().trim();
+              value_str = text;
+            }
+            count_more++;
+            return `<b>${str_search_details[key]}</b> : ${value_str}`;
           }).join(' <br />');
-        newLine.find(".detail-item-3").html('See details').addClass('icon-info-circled-1 tiptip');
+        newLine.find(".detail-item-3").html(str_and_more.replace('%d', count_more)).addClass('icon-info-circled-1 tiptip');
         newLine.find(".detail-item-3").attr('title', search_details_str).removeClass('hide');
       }
       break;
