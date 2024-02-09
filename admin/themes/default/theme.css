@@ -2237,16 +2237,20 @@ h2:lang(en) { text-transform:capitalize; }
   padding: 5px;
   font-weight:bold;
   min-height: 54px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .infos ul, .errors ul, .warnings ul, .messages ul {
-  margin-top:18px;
+  margin:1_px 0;
+  padding-left:0;
 }
 
 .infos ul {color: #3C3C3C;}
 
 .eiw-icon {
-  float: left;
   font-size: 40px;
   margin-right: 10px;
 }
