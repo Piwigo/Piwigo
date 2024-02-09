@@ -489,7 +489,7 @@ function lineConstructor(line, id, imageDisplay) {
             count_more++;
             return `<b>${str_search_details[key]}</b> : ${value_str}`;
           }).join(' <br />');
-        newLine.find(".detail-item-3").html(str_and_more.replace('%d', count_more)).addClass('icon-info-circled-1 tiptip');
+        newLine.find(".detail-item-3").html(sprintf(str_and_more, count_more)).addClass('icon-info-circled-1 tiptip');
         newLine.find(".detail-item-3").attr('title', search_details_str).removeClass('hide');
       }
       break;
