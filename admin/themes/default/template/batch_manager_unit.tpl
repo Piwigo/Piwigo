@@ -114,6 +114,7 @@ jQuery("a.preview-box").colorbox( {
 {if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 <p>
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
   <button class="buttonLike" type="submit" value="{'Submit'|@translate}" name="submit"><i class="icon-floppy"></i>{'Submit'|@translate}</button>
   <button class="resetButton" type="reset" value="{'Reset'|@translate}" name="reset">{'Reset'|@translate}</button>
 

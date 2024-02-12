@@ -32,6 +32,7 @@ trigger_notify('loc_begin_element_set_unit');
 
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
   check_input_parameter('element_ids', $_POST, false, '/^\d+(,\d+)*$/');
   $collection = explode(',', $_POST['element_ids']);
 
@@ -110,6 +111,7 @@ $template->assign(
     'F_ACTION' => $base_url.get_query_string_diff(array()),
     'level_options' => get_privacy_level_options(),
     'ADMIN_PAGE_TITLE' => l10n('Batch Manager'),
+    'PWG_TOKEN' => get_pwg_token(),
     )
   );
 

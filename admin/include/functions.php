@@ -2862,7 +2862,7 @@ function get_tag_ids($raw_tags, $allow_create=true)
     elseif ($allow_create)
     {
       // we have to create a new tag
-      $tag_ids[] = tag_id_from_tag_name($raw_tag);
+      $tag_ids[] = tag_id_from_tag_name(strip_tags($raw_tag));
     }
   }
 
