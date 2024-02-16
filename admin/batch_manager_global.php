@@ -51,8 +51,21 @@ if (isset($_POST['nb_photos_deleted']))
 }
 else if (isset($_POST['setSelected']))
 {
-  check_input_parameter('whole_set', $_POST, false, '/^\d+(,\d+)*$/');
+  // Here we don't use check_input_parameter because preg_match has a limit in
+  // the repetitive pattern. Found a limit to 3276 but may depend on memory.
+  //
+  // check_input_parameter('whole_set', $_POST, false, '/^\d+(,\d+)*$/');
+  //
+  // Instead, let's break the input parameter into pieces and check pieces one by one.
   $collection = explode(',', $_POST['whole_set']);
+
+  foreach ($collection as $id)
+  {
+    if (!preg_match('/^\d+$/', $id))
+    {
+      fatal_error('[Hacking attempt] the input parameter "whole_set" is not valid');
+    }
+  }
 }
 else if (isset($_POST['selection']))
 {
