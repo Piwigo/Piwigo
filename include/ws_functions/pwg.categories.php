@@ -1161,9 +1161,10 @@ function ws_categories_move($params, &$service)
 
   // we can't move physical categories
   $categories_in_db = array();
+  $update_cat_ids = array();
 
   $query = '
-SELECT id, name, dir
+SELECT id, name, dir, uppercats
   FROM '. CATEGORIES_TABLE .'
   WHERE id IN ('. implode(',', $category_ids) .')
 ;';
@@ -1171,6 +1172,7 @@ SELECT id, name, dir
   while ($row = pwg_db_fetch_assoc($result))
   {
     $categories_in_db[ $row['id'] ] = $row;
+    $update_cat_ids = array_merge($update_cat_ids, array_slice(explode(',', $row['uppercats']), 0, -1));
 
     // we break on error at first physical category detected
     if (!empty($row['dir']))
@@ -1241,9 +1243,40 @@ SELECT id, name, dir
       $row['uppercats'],
       'admin.php?page=album-'
     );
+    $update_cat_ids = array_merge($update_cat_ids, array_slice(explode(',', $row['uppercats']), 0, -1));
   }
 
-  return array('new_ariane_string' => $cat_display_name);
+  $query = '
+SELECT
+    category_id,
+    COUNT(*) AS nb_photos
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  GROUP BY category_id
+;';
+  
+  $nb_photos_in = query2array($query, 'category_id', 'nb_photos');
+
+  $update_cats = [];
+  foreach (array_unique($update_cat_ids) as $update_cat)
+  {
+    $nb_sub_photos = 0;
+    $sub_cat_without_parent = array_diff(get_subcat_ids(array($update_cat)), array($update_cat));
+
+    foreach ($sub_cat_without_parent as $id_sub_cat)
+    {
+      $nb_sub_photos += isset($nb_photos_in[$id_sub_cat]) ? $nb_photos_in[$id_sub_cat] : 0;
+    }
+
+    $update_cats[] = array(
+      'cat_id' => $update_cat,
+      'nb_sub_photos' => $nb_sub_photos,
+    );
+  }
+
+  return array(
+    'new_ariane_string' => $cat_display_name,
+    'updated_cats' => $update_cats,
+  );
 }
 
 /**
