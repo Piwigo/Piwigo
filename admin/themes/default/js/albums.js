@@ -152,8 +152,15 @@ $(document).ready(() => {
       },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
-        $("#cat-"+catToEdit).find(".move-cat-title-container p.move-cat-title").html($(".RenameAlbumLabelUsername input").val());
-        $("#cat-"+catToEdit).find(".move-cat-title-container p.move-cat-title").attr('title', $(".RenameAlbumLabelUsername input").val());
+        const node_id = $("#cat-"+catToEdit).find('.move-cat-toogler').attr('data-id');
+        const node = $('.tree').tree('getNodeById', node_id);
+        node.name = $(".RenameAlbumLabelUsername input").val();
+        $('.tree').tree('updateNode', node, $(".RenameAlbumLabelUsername input").val());
+        
+        $(".move-cat-title-container").on("click", function () {
+          openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
+          $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+        });
         closeRenameAlbumPopIn();
       },
       error: function(message) {
@@ -583,6 +590,7 @@ function getAllSubAlbumsFromNode(node, nb_sub_cats) {
 function setSubcatsBadge(node) {
   if (node.children.length != 0) {
     $("#cat-"+node.id).find(".nb-subcats").text(node.children.length).show(100);
+    $("#cat-"+node.id).find(".badge-dropdown").find(".nb-subcats").text(x_nb_subcats.replace('%d', node.children.length));
   } else {
     $("#cat-"+node.id).find(".nb-subcats").hide(100)
   }
@@ -758,6 +766,15 @@ function changeParent(node, parent, rank) {
         data = jQuery.parseJSON(raw_data);
         if (data.stat === "ok") {
           changeRank(node, rank)
+          const updated_cats = data.result.updated_cats;
+          if (updated_cats) 
+          {
+            updated_cats.forEach((cat) => {
+              const node = $('.tree').tree('getNodeById', cat.cat_id);
+              node.nb_sub_photos = cat.nb_sub_photos;
+              $('.tree').tree('updateNode', node, node.name);
+            });
+          }
           res();
         } else {
           rej(raw_data);
