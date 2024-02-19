@@ -638,12 +638,14 @@ class image_ext_imagick implements imageInterface
 
   function set_compression_quality($quality)
   {
+    global $conf;
+
     if ($this->is_animated_webp)
     {
       // in cas of animated WebP, we need to maximize quality to 70 to avoid
       // heavy thumbnails (or square or whatever is displayed on the thumbnails
       // page)
-      $quality = min($quality, 70);
+      $quality = min($quality, $conf['animated_webp_compression_quality']);
     }
 
     $this->add_command('quality', $quality);

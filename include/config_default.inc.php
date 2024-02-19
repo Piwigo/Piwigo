@@ -925,6 +925,10 @@ $conf['derivative_default_size'] = 'medium';
 // EXIF/IPTC... from derivative?
 $conf['derivatives_strip_metadata_threshold'] = 256000;
 
+// For animated webP files, to avoid heavy derivatives, set a specific quality,
+// different from derivatives.resize_quality
+$conf['animated_webp_compression_quality'] = 70;
+
 //Maximum Ajax requests at once, for thumbnails on-the-fly generation
 $conf['max_requests']=3;
 
