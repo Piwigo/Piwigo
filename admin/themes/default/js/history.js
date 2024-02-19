@@ -47,12 +47,16 @@ $(document).ready(() => {
   });
 
   $('.date-end').on("change", function () {
-    console.log($('.date-end input[name="end"]').attr("value"));
-    if (current_param.end != $('.date-end input[name="end"]').attr("value")) {
-      console.log("HERE");
+    const newValue = $('.date-end input[name="end"]').attr("value");
+    if (current_param.end != newValue) {
       current_param.end = $('.date-end input[name="end"]').attr("value");
       current_param.pageNumber = 0;
-      fillHistoryResult(current_param);
+      // The datepicker first fills the end-date with '1899-12-31',
+      // which triggers an unnecessary ajax request
+      // when you come to the history search page from a photo.
+      if (newValue !== '1899-12-31') {
+        fillHistoryResult(current_param);
+      }
     }
   });
 
