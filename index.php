@@ -393,7 +393,8 @@ SELECT
 
         foreach (array_keys($added_by) as $added_by_idx)
         {
-          $added_by[$added_by_idx]['added_by_name'] = $username_of[ $added_by[$added_by_idx]['added_by_id'] ];
+          $added_by_id = $added_by[$added_by_idx]['added_by_id'];
+          $added_by[$added_by_idx]['added_by_name'] = $username_of[$added_by_id] ?? 'user #'.$added_by_id.' (deleted)';
         }
       }
 
