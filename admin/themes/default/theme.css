@@ -6224,7 +6224,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #action_title .large, #action_author .large {padding: 12px 10px; border: 1px solid #787777a6;margin-bottom: 8px;}
 #action_add_tags .selectize-input.items.not-full.has-options, 
 #action_add_tags .selectize-input.items.not-full.has-options.focus.input-active.dropdown-active, .selectize-input.items.not-full, .selectize-input.items.full {
-	padding: 10px 10px; height: 45px; box-shadow: none; border-radius: 0px; border: 1px solid #787777a6;
+	padding: 10px 10px; box-shadow: none; border-radius: 0px; border: 1px solid #787777a6;
+  height: auto !important;
+  min-height: 45px;
+  max-height: 184px;
 }
 
 .pageNumberSelected {background-color: #ffaf58 !important; border: none !important; border-radius: 0 !important;}
