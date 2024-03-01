@@ -2365,6 +2365,9 @@ function get_extents($start='')
  */
 function create_tag($tag_name)
 {
+  // clean the tag, no html/js allowed in tag name
+  $tag_name = strip_tags($tag_name);
+
   // does the tag already exists?
   $query = '
 SELECT id
