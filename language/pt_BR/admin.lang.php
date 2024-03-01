@@ -1348,3 +1348,5 @@ $lang['Put at the root'] = 'Coloque na raiz';
 $lang['Remove thumbnail'] = 'Remover miniatura';
 $lang['This album is currently locked, visible only to administrators.'] = 'Este álbum está atualmente bloqueado e visível apenas para administradores.';
 $lang['Unlock it'] = 'Desbloqueie';
+$lang['Expand'] = 'Espandir';
+$lang['Shrink'] = 'Encolher';
