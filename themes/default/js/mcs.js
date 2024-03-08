@@ -742,7 +742,7 @@ function fill_results(cats) {
     if (!related_categories_ids.includes(cat.id)) {
       $("#searchResult").append(
       "<div class='search-result-item' id="+ cat.id + ">" +
-        "<span class='search-result-path'>" + cat.name +"</span><span id="+ cat.id + " class='icon-plus-circled item-add'></span>" +
+        "<span class='search-result-path'>" + cat.name +"</span><span id="+ cat.id + " class='gallery-icon-plus-circled item-add'></span>" +
       "</div>"
       );
 
