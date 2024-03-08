@@ -449,4 +449,5 @@ $lang['rating score %s'] = 'score %s';
 $lang['year %d'] = 'année %d';
 $lang['last 3 months'] = '3 derniers mois';
 $lang['last 24 hours'] = '24 dernières heures';
-
+$lang['Only the first %d albums are displayed, out of %d.'] = 'Seuls les %d premiers sont affichés, sur %d.';
+$lang['Album already selected'] = 'Album déjà sélectionné';

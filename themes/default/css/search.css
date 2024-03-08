@@ -724,6 +724,40 @@
   margin-bottom:10px;
 }
 
+.display-subcat {
+  margin-right: 2px;
+}
+
+.display-subcat:hover {
+  cursor: pointer;
+}
+
+.display-subcat::before {
+  transition: 0.5s;
+  transform: rotate(90deg);
+}
+
+.display-subcat.open::before {
+  transform: rotate(180deg);
+}
+
+.prefill-results-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.search-result-subcat-item {
+  display: none;
+}
+
+.search-result-item.already-in {
+  cursor: default;
+}
+.and-more{
+  text-align: center;
+}
 
 @media (max-width: 600px) {
   html, body {

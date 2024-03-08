@@ -271,6 +271,10 @@
   color:#000;
 }
 
+.and-more{
+  color: #777
+}
+
 @media (max-width: 600px) {
   .filter-form {
     width: 101vw;

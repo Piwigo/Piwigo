@@ -444,4 +444,6 @@ $lang['rating score %s'] = 'rating score %s';
 $lang['year %d'] = 'year %d';
 $lang['last 3 months'] = 'Last 3 months';
 $lang['last 24 hours'] = 'last 24 hours';
+$lang['Album already selected'] = 'Album already selected';
+$lang['Only the first %d albums are displayed, out of %d.'] = 'Only the first %d albums are displayed, out of %d.';
 ?>

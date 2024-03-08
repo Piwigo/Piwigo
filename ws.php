@@ -158,6 +158,10 @@ function ws_addDefaultMethods( $arr )
           'info' => implode(',', array_keys(ImageStdParams::get_defined_type_map()))
           ),
         'search' => array('default' => null),
+        'limit' => array(
+          'default' => null,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'info' => 'Parameter not compatible with recursive=true'),
         ),
       'Returns a list of categories.',
       $ws_functions_root . 'pwg.categories.php'

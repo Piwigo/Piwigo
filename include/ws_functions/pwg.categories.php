@@ -246,6 +246,12 @@ function ws_categories_getList($params, &$service)
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid thumbnail_size");
   }
 
+  if (!empty($params['limit']) and $params['recursive'])
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Cannot use both recursive and limit parameters at the same time');
+  }
+
+  $output = [];
   $where = array('1=1');
   $join_type = 'INNER';
   $join_user = $user['id'];
@@ -290,7 +296,7 @@ function ws_categories_getList($params, &$service)
   }
 
   $query = '
-SELECT
+SELECT SQL_CALC_FOUND_ROWS
     id, name, comment, permalink, status,
     uppercats, global_rank, id_uppercat,
     nb_images, count_images AS total_nb_images,
@@ -302,16 +308,40 @@ SELECT
     ON id=cat_id AND user_id='.$join_user.'
   WHERE '. implode("\n    AND ", $where);
 
-  if (isset($params["search"]) and $params['search'] != "")
+  if (isset($params['search']) and '' != $params['search'])
   {
     $query .= '
-    AND name LIKE \'%'.pwg_db_real_escape_string($params["search"]).'%\'
-  LIMIT '.$conf["linked_album_search_limit"];
+    AND name LIKE \'%'.pwg_db_real_escape_string($params['search']).'%\'';
+    if (!isset($params['limit']))
+    {
+      $query .= ' LIMIT '.$conf["linked_album_search_limit"];
+    }
+  }
+
+  if (isset($params['limit']))
+  {
+    $query .= '
+  ORDER BY rank ASC 
+  LIMIT '.($params['limit'] + ($params['cat_id'] > 0 ? 1 : 0));
   }
 
   $query.= '
 ;';
   $result = pwg_query($query);
+
+  if (isset($params['limit']))
+  {
+    list($result_count) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+    if ($params['cat_id'] > 0)
+    {
+      $result_count = $result_count - 1;
+    }
+    $output['limit'] = array(
+      'limited_to' => $params['limit'],
+      'total_cats' => intval($result_count),
+      'remaining_cats' => $result_count > $params['limit'] ? $result_count - $params['limit'] : 0,
+    );
+  }
 
   // management of the album thumbnail -- starts here
   $image_ids = array();
@@ -542,13 +572,13 @@ SELECT id, path, representative_ext
     return categories_flatlist_to_tree($cats);
   }
 
-  return array(
-    'categories' => new PwgNamedArray(
-      $cats,
-      'category',
-      ws_std_get_category_xml_attributes()
-      )
-    );
+  $output['categories'] = new PwgNamedArray(
+    $cats,
+    'category',
+    ws_std_get_category_xml_attributes()
+  );
+
+  return $output;
 }
 
 /**

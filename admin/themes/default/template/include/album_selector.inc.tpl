@@ -2,7 +2,8 @@
 {if !isset($show_root_btn)}{$show_root_btn=false}{/if}
 
 {include file='include/colorbox.inc.tpl' load_mode=$load_mode}
-{combine_script id='albumSelector' load_mode=$load_mode path='admin/themes/default/js/album_selector.js'}
+{combine_script id='albumSelector' load=$load_mode path='admin/themes/default/js/album_selector.js'}
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {footer_script}
   str_no_search_in_progress = '{'No search in progress'|@translate|escape:javascript}';
   str_albums_found = '{"<b>%d</b> albums found"|translate}';
@@ -14,6 +15,9 @@
     api_method = 'pwg.categories.getAdminList';
   {/if}
   
+  const limit_params = 50;
+  const str_plus_albums_found = "{'Only the first %d albums are displayed, out of %d.'|@translate|escape:javascript}"
+  const str_album_selected = "{'Album already selected'|@translate|escape:javascript}"
 {/footer_script}
 
 <div id="addLinkedAlbum" class="linkedAlbumPopIn">
