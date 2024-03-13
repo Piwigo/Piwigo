@@ -65,6 +65,8 @@ class updates
    */
   function get_piwigo_new_versions()
   {
+    global $conf;
+
     $new_versions = array(
       'piwigo.org-checked' => false,
       'is_dev' => true,
@@ -78,6 +80,7 @@ class updates
       $url = PHPWG_URL.'/download/all_versions.php';
       $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
       $url.= '&show_requirements';
+      $url.= '&origin_hash='.sha1($conf['secret_key'].get_absolute_root_url());
 
       if (@fetchRemote($url, $result)
           and $all_versions = @explode("\n", $result)
@@ -133,6 +136,11 @@ class updates
   function notify_piwigo_new_versions()
   {
     global $conf;
+
+    if (!pwg_is_dbconf_writeable())
+    {
+      return;
+    }
 
     $new_versions = $this->get_piwigo_new_versions();
     conf_update_param('update_notify_last_check', date('c'));
