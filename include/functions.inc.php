@@ -1422,6 +1422,29 @@ SELECT param, value
 }
 
 /**
+ * Is the config table currentable writeable?
+ *
+ * @since 14
+ *
+ * @return boolean
+ */
+function pwg_is_dbconf_writeable()
+{
+  list($param, $value) = array('pwg_is_dbconf_writeable_'.generate_key(12), date('c').' '.generate_key(20));
+
+  conf_update_param($param, $value);
+  list($dbvalue) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.CONFIG_TABLE.' WHERE param = \''.$param.'\''));
+
+  if ($dbvalue != $value)
+  {
+    return false;
+  }
+
+  conf_delete_param($param);
+  return true;
+}
+
+/**
  * Add or update a config parameter
  *
  * @param string $param
