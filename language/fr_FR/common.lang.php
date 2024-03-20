@@ -100,6 +100,7 @@ $lang['created before %s (%s)'] = 'créée avant le %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'créée entre le %s (%s) et le %s (%s)';
 $lang['created on %s'] = 'créée le %s';
 $lang['Created on'] = 'Créée le';
+$lang['Pages'] = 'Pages';
 $lang['Creation date'] = 'Date de création';
 $lang['Current password is wrong'] = 'Erreur sur le mot de passe actuel';
 $lang['customize the appareance of the gallery'] = 'personnaliser l\'apparence de la galerie';

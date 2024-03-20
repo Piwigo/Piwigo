@@ -414,6 +414,15 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 	text-align: center;
 }
 
+.pdf-too-heavy {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.pdf-too-heavy a {
+  text-decoration: underline;
+}
+
 #imageInfos {
 	position: relative; /*for IE7 positioning of "who can see this photo"*/
 	min-height: 120px;
