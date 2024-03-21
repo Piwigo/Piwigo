@@ -27,10 +27,15 @@ define('DB_RANDOM_FUNCTION', 'RAND');
  * @param string $user
  * @param string $password
  * @param string $database
+ * @param string $sslkey
+ * @param string $sslcert
+ * @param string $sslca
+ * @param string $sslcapath
+ * @param string $sslcipher
  *
  * @throws Exception
  */
-function pwg_db_connect($host, $user, $password, $database)
+function pwg_db_connect($host, $user, $password, $database, $sslkey, $sslcert, $sslca, $sslcapath, $sslcipher)
 {
   global $mysqli;
 
@@ -49,8 +54,13 @@ function pwg_db_connect($host, $user, $password, $database)
 
   $dbname = '';
   
-  $mysqli = new mysqli($host, $user, $password, $dbname, $port, $socket);
-  if (mysqli_connect_error())
+  $mysqli = mysqli_init();
+  if (!$mysqli)
+  {
+    throw new Exception("Can't initialize connection to server");
+  }
+  mysqli_ssl_set($mysqli, $sslkey, $sslcert, $sslca, $sslcapath, $sslcipher);
+  if (!$mysqli->real_connect($host, $user, $password, $dbname, $port, $socket))
   {
     throw new Exception("Can't connect to server");
   }
