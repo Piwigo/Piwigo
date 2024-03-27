@@ -1367,7 +1367,7 @@ SELECT
       && (($expr->stoken_modifiers[$i] & (QST_QUOTED|QST_WILDCARD)) == 0)
       && (($expr->stoken_modifiers[$i+1] & (QST_BREAK|QST_QUOTED|QST_WILDCARD)) == 0) )
     {
-      $common = array_intersect( $token_cat_ids[$i], $token_cat_ids[$i+1] );
+      $common = array_values(array_intersect( $token_cat_ids[$i], $token_cat_ids[$i+1] ));
       if (count($common))
       {
         $token_cat_ids[$i] = $token_cat_ids[$i+1] = $common;
