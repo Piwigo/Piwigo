@@ -50,7 +50,7 @@ str_root = '{'Root'|@translate|escape:javascript}';
     <div class="cat-modify-actions">
 
       {if isset($U_MANAGE_ELEMENTS) }
-        <a class="icon-picture tiptip" href="{$U_MANAGE_ELEMENTS}" title="{'Manage album photos'|@translate}"></a>
+        <a class="icon-th tiptip" href="{$U_MANAGE_ELEMENTS}" title="{'Manage album photos'|@translate}"></a>
       {/if}
 
       <a class="icon-plus-circled tiptip" href="{$U_ADD_PHOTOS_ALBUM}" title="{'Add Photos'|translate}"></a>
