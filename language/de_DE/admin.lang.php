@@ -837,7 +837,7 @@ $lang['The Piwigo export plugin allows you to create albums and export photos.']
 $lang['There is no group in this gallery.'] = 'Es gibt keine Gruppe in dieser Galerie.';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'Besucher müssen sich einloggen und die entsprechenden Rechte besitzen, um das Album zu sehen';
 $lang['Delete multiple size images'] = 'Mehrfache Bildgrößen entfernen';
-$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam ist ein modernes Bildverwaltungsprogramm für Linux, Windows und Mac OS X. digikam ist freie Software.';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam ist ein modernes Bildverwaltungsprogramm für Linux, Windows und Mac OS X. digiKam ist eine freie Software.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'DigiKam ist für Fotografen gedacht, die Bilder verwalten, bearbeiten, verbessern, katalogisieren und weitergeben wollen.';
 $lang['Features include gallery browsing, album creation and photo upload.'] = 'Der Leistungsumfang schließt das Durchbättern der Galerie, das Erstellen von Alben und das Hochladen von Fotos ein.';
 $lang['Generate multiple size images'] = 'Mehrfache Bildgrößen generieren';
