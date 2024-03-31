@@ -452,6 +452,14 @@ UPDATE '.USER_INFOS_TABLE.'
   if ('tags'==@$page['section'])
   {
     $tags_string = implode(',', $page['tag_ids']);
+
+    if (strlen($tags_string) > 50)
+    {
+      // we need to truncate, mysql won't accept a too long string
+      $tags_string = substr($tags_string, 0, 50);
+      // the last tag_id may have been truncated itself, so we must remove it
+      $tags_string = substr($tags_string, 0, strrpos($tags_string, ','));
+    }
   }
 
   $ip = $_SERVER['REMOTE_ADDR'];
