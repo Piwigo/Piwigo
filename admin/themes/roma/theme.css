@@ -1838,13 +1838,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   border-left: 2px solid #a9f6e3;
 }
 
-.buttonGradient:disabled {
-  padding: 8px 10px; margin-left: 5px;
-  background-size: 200% 100%;
-  background: #5d5d5d !important;
-  color: #373737 !important;
-  cursor: not-allowed;
-}
 
 .linked-albums-badge {
   background: #777;

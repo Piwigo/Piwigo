@@ -2188,10 +2188,10 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 }
 
 .themeActions a:nth-child(1) {background-color: #ffc17e; color: #222;}
-.themeActions a:nth-child(1):hover {background-color: #ff7700; color: white; text-decoration: none;}
+.themeActions a:nth-child(1):hover {background-color: #ff7700; color: white; text-decoration: none; transition-duration: 125ms;}
 
 .themeActions a:nth-child(2) {background-color: #ececec; color: #222;}
-.themeActions a:nth-child(2):hover {background-color: #ff9b32; color: #111; text-decoration: none;}
+.themeActions a:nth-child(2):hover {background-color: #ff9b32; color: #111; text-decoration: none; transition-duration: 125ms;}
 
 #themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
 .themeBoxes {min-height:0;text-align:left;}
@@ -6020,24 +6020,9 @@ fieldset#environment legend i[class*="icon-"] {
   }
 }
 
-.buttonLike, .buttonGradient, input[type="submit"], input[type="button"], input[type="reset"] {
+.buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
  font-size:12px; border:none; padding:13px 20px; margin-left:0; font-weight: bold; transition: all 125ms ease-out;
 }
-
-.buttonGradient {
-  padding: 8px 10px;
-  margin-left: 5px;
-  background: linear-gradient(135deg, rgb(255, 119, 0) 0%, rgb(249, 76, 93) 25%, rgb(201, 74, 140) 50%, rgb(249, 76, 93) 100%);  transition: 0.3s ease; 
-  cursor: pointer;
-  color: white !important;
-  background-size: 200% 100%;
-}
-
-.syncBtn .buttonGradient {
-  padding:13px 20px;
-}
-
-.buttonGradient:hover {background-position-x: 100%;}
 
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
 

@@ -291,7 +291,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   font-size:14px;
 }
 
-.buttonLike:disabled, .buttonGradient:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
+.buttonLike:disabled, input[type="submit"]:disabled, input[type="button"]:disabled, input[type="reset"]:disabled {
   background: #ECECEC !important;
   color: #D5D5D5 !important;
   cursor: not-allowed;

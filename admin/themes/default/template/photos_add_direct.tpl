@@ -168,7 +168,7 @@ jQuery(document).ready(function(){
       QueueChanged : function(up) {
         jQuery('#addFiles').addClass("addFilesButtonChanged");
         jQuery('#startUpload').prop('disabled', up.files.length == 0);
-        jQuery("#addFiles").removeClass('buttonGradient').addClass('buttonLike');
+        jQuery("#addFiles").removeClass('buttonLike').addClass('buttonLike');
 
         if (up.files.length > 0) {
           jQuery('.plupload_filelist_footer').show();
@@ -177,7 +177,7 @@ jQuery(document).ready(function(){
 
         if (up.files.length == 0) {
           jQuery('#addFiles').removeClass("addFilesButtonChanged");
-          jQuery("#addFiles").removeClass('buttonLike').addClass('buttonGradient');
+          jQuery("#addFiles").removeClass('buttonLike').addClass('buttonLike');
           jQuery('.plupload_filelist_footer').hide();
           jQuery('.plupload_filelist').css("overflow-y", "hidden");
         }
@@ -507,7 +507,7 @@ jQuery(document).ready(function(){
     <fieldset class="selectFiles">
       <legend><span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}</legend>
       <div class="selectFilesButtonBlock">
-        <button id="addFiles" class="buttonGradient">{if not $DISPLAY_FORMATS}{'Add Photos'|translate}{else}{'Add formats'|@translate}{/if}<i class="icon-plus-circled"></i></button>
+        <button id="addFiles" class="buttonLike">{if not $DISPLAY_FORMATS}{'Add Photos'|translate}{else}{'Add formats'|@translate}{/if}<i class="icon-plus-circled"></i></button>
         <div class="selectFilesinfo">
           {if isset($original_resize_maxheight)}
           <p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>
@@ -540,7 +540,7 @@ jQuery(document).ready(function(){
       <button id="cancelUpload" class="buttonLike icon-cancel-circled">{'Cancel'|translate}</button>
     </div>
 
-    <button id="startUpload" class="buttonGradient icon-upload" disabled>{'Start Upload'|translate}</button>
+    <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
 
   </form>
 

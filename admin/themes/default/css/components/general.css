@@ -41,6 +41,7 @@ or
     background: #ff7700;
     text-decoration: none !important;
     color: white;
+    transition: all 125ms ease-out;
 }
 
 .head-button-2 {
