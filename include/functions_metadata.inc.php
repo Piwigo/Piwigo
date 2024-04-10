@@ -183,11 +183,23 @@ function get_exif_data($filename, $map)
 
   if (!$conf['allow_html_in_metadata'])
   {
+    function strip_html_in_metadata(&$v, $k)
+    {
+      $v = strip_tags($v);
+    }
+
     foreach ($result as $key => $value)
     {
       // in case the origin of the photo is unsecure (user upload), we remove
       // HTML tags to avoid XSS (malicious execution of javascript)
-      $result[$key] = strip_tags($value);
+      if (is_array($value))
+      {
+        array_walk_recursive($value, 'strip_html_in_metadata');
+      }
+      else
+      {
+        $result[$key] = strip_tags($value);
+      }
     }
   }
 
