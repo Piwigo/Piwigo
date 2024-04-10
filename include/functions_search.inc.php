@@ -188,12 +188,21 @@ SELECT
 ;';
         $cat_ids = query2array($query, null, 'id');
         $cat_ids_by_word[$word] = $cat_ids;
-        if (count($cat_ids) == 0)
+        if (count($cat_ids) > 0)
         {
-          $cat_ids = array(-1);
-        }
+          $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',', $cat_ids).')
+;';
+          $cat_image_ids = query2array($query, null, 'image_id');
 
-        $field_clauses[] = 'category_id IN ('.implode(',', $cat_ids).')';
+          if (count($cat_image_ids) > 0)
+          {
+            $field_clauses[] = 'id IN ('.implode(',', $cat_image_ids).')';
+          }
+        }
       }
 
       // search_in_tags
@@ -207,12 +216,21 @@ SELECT
 ;';
         $tag_ids = query2array($query, null, 'id');
         $tag_ids_by_word[$word] = $tag_ids;
-        if (count($tag_ids) == 0)
+        if (count($tag_ids) > 0)
         {
-          $tag_ids = array(-1);
-        }
+          $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',', $tag_ids).')
+;';
+          $tag_image_ids = query2array($query, null, 'image_id');
 
-        $field_clauses[] = 'tag_id IN ('.implode(',', $tag_ids).')';
+          if (count($tag_image_ids) > 0)
+          {
+            $field_clauses[] = 'id IN ('.implode(',', $tag_image_ids).')';
+          }
+        }
       }
 
       if (count($field_clauses) > 0)
@@ -256,21 +274,11 @@ SELECT
         }
         else
         {
-          if ('OR' == $search['fields']['allwords']['mode'])
-          {
-            $matching_cat_ids = array_merge($matching_cat_ids, $cat_ids);
-          }
-          else
-          {
-            $matching_cat_ids = array_intersect($matching_cat_ids, $cat_ids);
-          }
+          $matching_cat_ids = array_merge($matching_cat_ids, $cat_ids);
         }
       }
 
-      if ('OR' == $search['fields']['allwords']['mode'])
-      {
-        $matching_cat_ids = array_unique($matching_cat_ids);
-      }
+      $matching_cat_ids = array_unique($matching_cat_ids);
     }
 
     if (count($tag_ids_by_word) > 0)
@@ -285,21 +293,11 @@ SELECT
         }
         else
         {
-          if ('OR' == $search['fields']['allwords']['mode'])
-          {
-            $matching_tag_ids = array_merge($matching_tag_ids, $tag_ids);
-          }
-          else
-          {
-            $matching_tag_ids = array_intersect($matching_tag_ids, $tag_ids);
-          }
+          $matching_tag_ids = array_merge($matching_tag_ids, $tag_ids);
         }
       }
 
-      if ('OR' == $search['fields']['allwords']['mode'])
-      {
-        $matching_tag_ids = array_unique($matching_tag_ids);
-      }
+      $matching_tag_ids = array_unique($matching_tag_ids);
     }
   }
 
