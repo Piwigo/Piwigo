@@ -1914,7 +1914,8 @@ function fill_lounge($images, $categories)
     mass_inserts(
       LOUNGE_TABLE,
       array_keys($inserts[0]),
-      $inserts
+      $inserts,
+      array('ignore'=>true)
     );
   }
 }
@@ -1941,7 +1942,7 @@ function empty_lounge($invalidate_user_cache=true)
   }
 
   $exec_id = generate_key(4);
-  $logger->debug(__FUNCTION__.', exec='.$exec_id.', begins');
+  $logger->debug(__FUNCTION__.(isset($_REQUEST['method']) ? ' (API:'.$_REQUEST['method'].')' : '').', exec='.$exec_id.', begins');
 
   // if lounge is already being emptied, skip
   $query = '
