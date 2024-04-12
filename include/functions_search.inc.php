@@ -1705,6 +1705,8 @@ function split_allwords($raw_allwords)
 {
   $words = null;
 
+  $raw_allwords = trim($raw_allwords);
+
   if (!preg_match('/^\s*$/', $raw_allwords))
   {
     $drop_char_match   = array(';','&','(',')','<','>','`','\'','"','|',',','@','?','%','.','[',']','{','}',':','\\','/','=','\'','!','*');
