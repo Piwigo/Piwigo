@@ -255,7 +255,7 @@ function tag_alpha_compare($a, $b)
 }
 
 /**
- * Exits the current script (or redirect to login page if not logged).
+ * Exits the current script.
  */
 function access_denied()
 {
@@ -265,14 +265,19 @@ function access_denied()
       get_root_url().'identification.php?redirect='
       .urlencode(urlencode($_SERVER['REQUEST_URI']));
 
+  $access_denied_html = 
+  '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'.
+  '<div style="display: flex; justify-content: center;align-items: center;height: 100vh;margin: 0;color: #3C3C3C;font-family: \'Open Sans\';font-size: 20px;font-style: normal;font-weight: 600;line-height: normal;">'.
+  '<div style="text-align:center;">'.
+  '<img src="themes/default/icon/warning-triangle.svg" alt="warning-triangle" >'.
+  '<p style="max-width: 400px; margin-top 20px;">'.l10n('You are not authorized to access the requested page').'</p>';
+  
   if ( isset($user) and !is_a_guest() )
   {
     set_status_header(401);
 
-    echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
-    echo '<div style="text-align:center;">'.l10n('You are not authorized to access the requested page').'<br>';
-    echo '<a href="'.get_root_url().'identification.php">'.l10n('Identification').'</a>&nbsp;';
-    echo '<a href="'.make_index_url().'">'.l10n('Home').'</a></div>';
+    echo $access_denied_html;
+    echo '<a href="'.make_index_url().'" style="display: inline-block;padding: 10px 20px;margin: 10px;margin-top: 50px;border-radius: 7px;cursor: pointer;width: 150px;background-color: #F77000;color: #fff;text-decoration: none;border: 2px solid #F77000;">'.l10n('Home').'</a></div></div>';
     echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
   }
@@ -282,9 +287,16 @@ function access_denied()
   }
   else
   {
-    redirect_html($login_url);
+    set_status_header(401);
+
+    echo $access_denied_html;
+    echo '<a href="'.get_root_url().'identification.php" style="display: inline-block;padding: 10px 20px;margin: 10px;margin-top: 50px;border-radius: 7px;cursor: pointer;width: 150px;background-color: #F77000;color: #fff;text-decoration: none;border: 2px solid #F77000;">'.l10n('Identification').'</a>';
+    echo '<a href="'.make_index_url().'" style="display: inline-block;padding: 10px 20px;margin: 10px;margin-top: 50px;border-radius: 7px;cursor: pointer;width: 150px;color: #F77000;text-decoration: none;border: 2px solid #F77000;">'.l10n('Home').'</a></div></div>';
+    echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
+    exit();
   }
 }
+
 
 /**
  * Exits the current script with 403 code.
