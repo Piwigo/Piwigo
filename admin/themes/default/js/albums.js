@@ -161,6 +161,12 @@ $(document).ready(() => {
           openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
           $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
         });
+
+        $(".move-cat-add").off("click").on("click", function () {
+          openAddAlbumPopIn($(this).data("aid"));
+          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+        });
+        
         closeRenameAlbumPopIn();
       },
       error: function(message) {
