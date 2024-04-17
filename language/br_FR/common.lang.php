@@ -451,3 +451,6 @@ $lang['Albums found'] = 'Rummadoù kavet';
 $lang['Album description'] = 'Deskrivadur ar rummad';
 $lang['%d visits'] = '%d gweladenn';
 $lang['Added by'] = 'Ouzhpennet gant';
+$lang['No results are available.'] = 'N\'eus disoc\'h ebet da gaout.';
+$lang['Validate'] = 'Kadarnaat';
+$lang['Search in :'] = 'Klask e-barzh:';

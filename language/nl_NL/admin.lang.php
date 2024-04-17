@@ -819,7 +819,7 @@ $lang['Shotwell is an open source digital photo organizer that runs on Linux. It
 $lang['The file or directory cannot be accessed (either it does not exist or the access is denied)'] = 'Het bestand of de map kan niet worden geopend (of het bestaat niet of de toegang wordt geweigerd)';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Met de Piwigo Publish plug-in kun je foto\'s direct vanuit Lightroom naar jouw Piwigo fotogalerie exporteren en synchroniseren.';
 $lang['Web Form'] = 'Via webformulier';
-$lang['%u users have automatic permission because they belong to a granted group.'] = '%jouw gebruikers hebben automatisch recht, omdat ze tot een groep behoren die dit recht is verleend';
+$lang['%u users have automatic permission because they belong to a granted group.'] = '%u gebruikers hebben automatisch recht, omdat ze tot een groep behoren die dit recht is verleend';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture is een krachtig gereedschap om grote hoeveelheden foto\'s te beheren en te verbeteren op een Mac.';
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Aperture is gemaakt voor professionele fotografen met iPhoto gemak.';
 $lang['Apply watermark if height is bigger than'] = 'Breng watermerk aan als de hoogte groter is dan';
