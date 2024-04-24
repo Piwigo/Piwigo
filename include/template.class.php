@@ -118,6 +118,9 @@ class Template
     $this->smarty->registerPlugin('modifier', 'ucfirst', 'ucfirst');
     $this->smarty->registerPlugin('modifier', 'strstr', 'strstr');
     $this->smarty->registerPlugin('modifier', 'stristr', 'stristr');
+    $this->smarty->registerPlugin('modifier', 'trim', 'trim');
+    $this->smarty->registerPlugin('modifier', 'md5', 'md5');
+    $this->smarty->registerPlugin('modifier', 'strtolower', 'strtolower');
     $this->smarty->registerPlugin('modifier', 'str_ireplace', 'str_ireplace');
     $this->smarty->registerPlugin('modifier', 'explode', array('Template', 'mod_explode') );
     $this->smarty->registerPlugin('modifier', 'ternary', array('Template', 'mod_ternary') );
