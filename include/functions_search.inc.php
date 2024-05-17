@@ -1705,12 +1705,14 @@ function split_allwords($raw_allwords)
 {
   $words = null;
 
-  $raw_allwords = trim($raw_allwords);
+  // we specify the list of characters to trim, to add the ".". We don't want to split words
+  // on "." but on ". ", and we have to deal with trailing dots.
+  $raw_allwords = trim($raw_allwords, " \n\r\t\v\x00.");
 
   if (!preg_match('/^\s*$/', $raw_allwords))
   {
-    $drop_char_match   = array(';','&','(',')','<','>','`','\'','"','|',',','@','?','%','.','[',']','{','}',':','\\','/','=','\'','!','*');
-    $drop_char_replace = array(' ',' ',' ',' ',' ',' ', '', '', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','' , ' ',' ',' ', ' ',' ');
+    $drop_char_match   = array(';','&','(',')','<','>','`','\'','"','|',',','@','?','%','. ','[',']','{','}',':','\\','/','=','\'','!','*');
+    $drop_char_replace = array(' ',' ',' ',' ',' ',' ', '', '', ' ',' ',' ',' ',' ',' ',' ' ,' ',' ',' ',' ',' ','' , ' ',' ',' ', ' ',' ');
 
     // Split words
     $words = array_unique(
