@@ -646,7 +646,7 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
       );
   }
 }
-if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']))
+if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']) and $user['enabled_high']=='true')
 {
   $template->append('current', array('U_DOWNLOAD' => $picture['current']['download_url']), true);
 
