@@ -116,7 +116,7 @@ const strs_privacy = {
 <div><input type="hidden" name="element_ids" value="{$ELEMENT_IDS}"></div>
 {foreach from=$elements item=element}
   {footer_script}
-  window.related_category_ids_{$element.ID} = {$element.related_category_ids|@json_encode};  
+  var related_category_ids_{$element.ID} = {$element.related_category_ids};  
   console.log(related_category_ids_{$element.ID});
   url_delete = '{$element.U_DELETE}';
   id = '{$element.ID}';

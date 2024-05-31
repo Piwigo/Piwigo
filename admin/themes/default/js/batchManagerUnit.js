@@ -34,7 +34,7 @@ $(document).ready(function () {
   })
 
   $(".related-categories-container .breadcrumb-item .remove-item").on("click", function () {
-      var pictureId = $(this).parents("fieldset").attr("id");
+      var pictureId = $(this).parents("fieldset").data("image_id")
       remove_related_category($(this).attr("id"),pictureId);
   })
 
@@ -50,56 +50,52 @@ function fill_results(cats, pictureId) {
           "</div>"
           );
           var this_related_category_ids = window["related_category_ids_" + pictureId];
-          console.log("relatedCAT "+this_related_category_ids);
-          console.log("catID "+cat.id);
-
-          if (this_related_category_ids.includes(cat.id)) {
-              $("#"+pictureId+" .search-result-item #"+ cat.id +".item-add").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
+          var catId = parseInt(cat.id);
+          if (this_related_category_ids.includes(catId)) {
+              $(".search-result-item#"+ catId +" .item-add").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
               event.preventDefault();
               });
-              $("#"+pictureId+" .search-result-item").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
-
+              $(".search-result-item").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
               event.preventDefault();
               });
           } else {
-              $("#"+pictureId+" .search-result-item#"+ cat.id).on("click", function () {
-
-              add_related_category(cat.id, cat.full_name_with_admin_links, pictureId);
+              $(".search-result-item#"+ catId+ " .item-add").on("click", function () {
+              add_related_category(catId, cat.full_name_with_admin_links, pictureId);
               });
           }
     });
   }
 
   function remove_related_category(cat_id,pictureId) {
+    var catId = parseInt(cat_id);
     var this_related_category_ids = window["related_category_ids_" + pictureId];
-
-    $("#"+pictureId+" .invisible-related-categories-select option[value="+ cat_id +"]").remove();
+    $("#"+pictureId+" .invisible-related-categories-select option[value="+ catId +"]").remove();
     $("#"+pictureId+" .invisible-related-categories-select").trigger('change');
-    $("#"+pictureId+" #" + cat_id).parent().remove();
+    $("#"+pictureId+" #" + catId).parent().remove();
   
-    cat_to_remove_index = this_related_category_ids.indexOf(cat_id);
+    cat_to_remove_index = this_related_category_ids.indexOf(catId);
     if (cat_to_remove_index > -1) {
       this_related_category_ids.splice(cat_to_remove_index, 1);
     }
-  
     check_related_categories(pictureId);
   }
   
   function add_related_category(cat_id, cat_link_path, pictureId) {
+    var catId = parseInt(cat_id);
     var this_related_category_ids = window["related_category_ids_" + pictureId];
-    if (!this_related_category_ids.includes(cat_id)) {
-      $(".related-categories-container").append(
-        "<div class='breadcrumb-item'>" +
-          "<span class='link-path'>" + cat_link_path + "</span><span id="+ cat_id + " class='icon-cancel-circled remove-item'></span>" +
+    if (!this_related_category_ids.includes(catId)) {
+      $("#"+pictureId+" .related-categories-container").append(
+        "<div class='breadcrumb-item album-listed'>" +
+          "<span class='link-path'>" + cat_link_path + "</span><span id="+ catId + " class='icon-cancel-circled remove-item'></span>" +
         "</div>"
       );
   
-      $(".search-result-item #" + cat_id).addClass("notClickable");
-      this_related_category_ids.push(cat_id);
-      $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>").trigger('change');
+      $(".search-result-item#" + catId).addClass("notClickable");
+      this_related_category_ids.push(catId);
+      $(".invisible-related-categories-select").append("<option selected value="+ catId +"></option>").trigger('change');
   
-      $("#"+ cat_id).on("click", function () {
-        remove_related_category($(this).attr("id"))
+      $("#"+ catId).on("click", function () {
+        remove_related_category(catId, pictureId);
       })
   
       linked_albums_close();
