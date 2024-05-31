@@ -26,6 +26,25 @@ const str_and_others_tags = '{'and %s others'|@translate|escape:javascript}';
 const missingConfirm = "{'You need to confirm deletion'|translate|escape:javascript}";
 const missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
 const fieldNotEmpty = "{'Name field must not be empty'|@translate|escape:javascript}"
+const noMatchPassword = "{'The passwords do not match'|@translate|escape:javascript}";
+const missingField = "{'Please complete all fields'|@translate|escape:javascript}";
+const passwordUpdated = "{'Password updated'|@translate|escape:javascript}";
+const passwordCopied = "{'Password copied'|@translate|escape:javascript}";
+const copyPassword = "{'Copy password'|@translate|escape:javascript}";
+const mailSentAt = "{'Mail sent to %s [%s].'|@translate|escape:javascript}";
+const errorMailSent = "{'Error sending email'|@translate|escape:javascript}";
+const cannotSendMail = "{'Cannot send an email to this user because he doesn\'t have an email address'|@translate|escape:javascript}";
+const mainUserContinue = "{'You are about to set %s as main user instead of %s, do you wish to continue ?'|@translate|escape:javascript}";
+const mainUserRewrite = "{'To be sure, please rewrite the word “%s” below'|@translate|escape:javascript}";
+const mainUserValidate = "{'You can now change the main user from %s to %s.'|@translate|escape:javascript}";
+const mainUserSuccess = "{'%s is the new main user'|@translate|escape:javascript}";
+const mainUserStr = "{'Main user'|@translate|escape:javascript}";
+const mainAskWebmaster = "{'You are not authorised to change the main user, please ask your webmaster'|@translate|escape:javascript}";
+const mainUserSet = "{'Set as main user'|@translate|escape:javascript}";
+const mainUserUpgradeWebmaster = "{'This user must first be defined as the webmaster before it can be upgraded to the main user'|@translate|escape:javascript}";
+const errorStr = "{'an error happened'|@translate|escape:javascript}";
+const copyLinkStr = "{'Copied link'|@translate|escape:javascript}";
+const cantCopy = "{'You cannot copy the password if the connection to this site is not secure.'|@translate|escape:javascript}";
 
 const registered_str = '{"Registered"|@translate|escape:javascript}';
 const last_visit_str = '{"Last visit"|@translate|escape:javascript}';
@@ -68,6 +87,7 @@ months = [
 connected_user = {$connected_user};
 connected_user_status = "{$connected_user_status}";
 owner_id = {$owner};
+owner_username = "{$owner_username}";
 let groups_arr_name = [{$groups_arr_name}];
 let groups_arr_id = [{$groups_arr_id}];
 groups_arr = groups_arr_id.map((elem, index) => [elem, groups_arr_name[index]]);
@@ -624,6 +644,10 @@ $(document).ready(function() {
     <div class="summary-properties-update-container">
       <div class="summary-properties-container">
         <div class="summary-container">
+          <div class="edit-user-icons">
+            <span class="icon-king tiptip" id="who_is_the_king" title="plg is the king ?"></span>
+            <span class="delete-user-button icon-trash-1"></span>
+          </div>
           <div class="user-property-initials">
             <div>
               <span class="icon-blue"><!-- Initials (JP) --></span>
@@ -634,180 +658,314 @@ $(document).ready(function() {
             <span class="edit-username-specifier"><!-- You specifire (you) --></span>
             <span class="edit-username icon-pencil"></span>
           </div>
-          <div class="user-property-username-change">
-            <div class="summary-input-container">
-              <input class="user-property-input user-property-input-username" value="" placeholder="{'Username'|@translate}" />
-            </div>
-            <span class="icon-ok edit-username-validate"></span>
-            <span class="icon-cancel-circled edit-username-cancel"></span>
-          </div>
           <div class="user-property-password-container">
             <div class="user-property-password edit-password">
-              <p class="user-property-button"><span class="icon-key user-edit-icon"> </span>{'Change Password'|@translate}</p>
-            </div>
-            <div class="user-property-password-change">
-              <div class="summary-input-container">
-              <input class="user-property-input user-property-input-password" value="" placeholder="{'Password'|@translate}" />
-              </div>
-              <span class="icon-ok edit-password-validate"></span>
-              <span class="icon-cancel-circled edit-password-cancel"></span>
+              <p class="user-property-button button-edit-password-icon head-button-2"><span class="icon-key user-edit-icon"> </span>{'Password'|@translate}</p>
             </div>
             <div class="user-property-permissions">
-              <p class="user-property-button"> <span class="icon-lock user-edit-icon"> </span><a href="#" >{'Permissions'|@translate}</a></p>
+              <a href="#" ><p class="user-property-button head-button-2"> <span class="icon-lock user-edit-icon"> </span>{'Permissions'|@translate}</p></a>
             </div>
             <div class="user-stats">
               <div class="user-property-history">
-                <p class="user-property-button"> <span class="icon-signal user-edit-icon"> </span><a href="" >{'Visit history'|@translate}</a></p>
+                <a href="" ><p class="user-property-button head-button-2"> <span class="icon-signal user-edit-icon"> </span>{'Visit history'|@translate}</p></a>
               </div>
             </div>
           </div>
           <div class="user-property-register-visit">
-            <span class="user-property-register"><!-- Registered date XX/XX/XXXX --></span>
-            <span class="icon-calendar"></span>
-            <span class="user-property-last-visit"><!-- Last Visit date XX/XX/XXXX --></span>
+            <div>
+              <span class="edit-user-register-label">{'Registered'|@translate}</span>
+              <span class="user-property-register"><!-- Registered date XX/XX/XXXX --></span>
+            </div>
+            <div>
+              <span class="edit-user-lastvisit-label">{'Last visit'|@translate}</span>
+              <span class="user-property-last-visit"><!-- Last Visit date XX/XX/XXXX --></span>
+            </div>
           </div>
         </div>
-        <div class="properties-container">
-          <div class="user-property-column-title">
-            <p>{'Properties'|@translate}</p>
+        <div class="edit-user-tab">
+          <div class="edit-user-tab-title">
+            <p class="edit-user-tabsheet selected tiptip" id="name_tab_properties" title="{'Properties'|@translate}">{'Properties'|@translate}</p>
+            <p class="edit-user-tabsheet tiptip" id="name_tab_preferences" title="{'Preferences'|@translate}">{'Preferences'|@translate}</p>
+            {* <p class="edit-user-tabsheet tiptip" id="name_tab_notifications" title="{'Notifications'|@translate}">{'Notifications'|@translate}</p> *}
           </div>
-          <div class="user-property-email">
-            <p class="user-property-label">{'Email Adress'|@translate}</p>
-            <input type="text" class="user-property-input" value="contact@jessy-pinkman.com" disabled="false"/>
-          </div>
-          <div class="user-property-status">
-            <p class="user-property-label">{'Status'|@translate}
-                <span class="icon-help-circled" 
-                  title="<div class='tooltip-status-content'>
+          <div class="edit-user-slides">
+            <!-- Pop in tabs 1 Properties -->
+            <div class="properties-container" id="tab_properties">
+              <div class="user-property-email">
+                <p class="user-property-label">{'Email Adress'|@translate}</p>
+                <input type="text" class="user-property-input" value="contact@jessy-pinkman.com" disabled="false" />
+              </div>
+              <div class="user-property-status">
+                <p class="user-property-label">{'Status'|@translate}
+                  <span class="icon-help-circled" title="<div class='tooltip-status-content'>
                     <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_webmaster'|translate}</span><span class='tooltip-col2'>{'Has access to all administration functionnalities. Can manage both configuration and content.'|translate}</span></div>
                     <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_admin'|translate}</span><span class='tooltip-col2'>{'Has access to administration. Can only manage content: photos/albums/users/tags/groups.'|translate}</span></div>
                     <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_normal'|translate}</span><span class='tooltip-col2'>{'No access to administration, can see private content with appropriate permissions.'|translate}</span></div>
                     <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_generic'|translate}</span><span class='tooltip-col2'>{'Can be shared by several individuals without conflict (they cannot change the password).'|translate}</span></div>
                     <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_guest'|translate}</span><span class='tooltip-col2'>{'Equivalent to deactivation. The user is still in the list, but can no longer log in.'|translate}</span></div>
                   </div">
-                </span>
-            </p>
-            <div class="user-property-select-container">
-              <select name="status" class="user-property-select">
-                <option value="webmaster">{'user_status_webmaster'|@translate}</option>
-                <option value="admin">{'user_status_admin'|@translate}</option>
-                <option value="normal">{'user_status_normal'|@translate}</option>
-                <option value="generic">{'user_status_generic'|@translate}</option>
-                <option value="guest">{'user_status_guest'|@translate}  ({'Deactivated'|@translate})</option>
-              </select>
-            </div>
-          </div>
-          <div class="user-property-level">
-            <p class="user-property-label">{'Privacy level'|@translate}</p>
-            <div class="user-property-select-container">
-              <select name="privacy" class="user-property-select">
-                <option value="0">{'Level 0'|@translate}</option>
-                <option value="1">{'Level 1'|@translate}</option>
-                <option value="2">{'Level 2'|@translate}</option>
-                <option value="4">{'Level 4'|@translate}</option>
-                <option value="8">{'Level 8'|@translate}</option>
-              </select>
-            </div>
-          </div>
-          <div class="user-property-group-container">
-            <p class="user-property-label">{'Groups'|@translate}</p>
-            <div class="user-property-select-container user-property-group">
-              <select class="user-property-select" data-selectize="groups" placeholder="{'Select groups or type them'|translate}" 
-                name="group_id[]" multiple style="box-sizing:border-box;"></select>
-            </div>
-          </div>
+                  </span>
+                </p>
+                <div class="user-property-select-container">
+                  <select name="status" class="user-property-select">
+                    <option value="webmaster">{'user_status_webmaster'|@translate}</option>
+                    <option value="admin">{'user_status_admin'|@translate}</option>
+                    <option value="normal">{'user_status_normal'|@translate}</option>
+                    <option value="generic">{'user_status_generic'|@translate}</option>
+                    <option value="guest">{'user_status_guest'|@translate} ({'Deactivated'|@translate})</option>
+                  </select>
+                </div>
+              </div>
+              <div class="user-property-level">
+                <p class="user-property-label">{'Privacy level'|@translate}</p>
+                <div class="user-property-select-container">
+                  <select name="privacy" class="user-property-select">
+                    <option value="0">{'Level 0'|@translate}</option>
+                    <option value="1">{'Level 1'|@translate}</option>
+                    <option value="2">{'Level 2'|@translate}</option>
+                    <option value="4">{'Level 4'|@translate}</option>
+                    <option value="8">{'Level 8'|@translate}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="user-property-group-container">
+                <p class="user-property-label">{'Groups'|@translate}</p>
+                <div class="user-property-select-container user-property-group">
+                  <select class="user-property-select" data-selectize="groups"
+                    placeholder="{'Select groups or type them'|translate}" name="group_id[]" multiple
+                    style="box-sizing:border-box;"></select>
+                  <p class="user-property-group-text">
+                    {* {'Some of these groups give access to notifications. To find out more, go to the Notifications tab.'|@translate} *}
+                  </p>
+                </div>
+              </div>
 
-          <div class="user-list-checkbox" name="hd_enabled">
-            <span class="select-checkbox">
-              <i class="icon-ok"></i>
-            </span>
-            <span class="user-list-checkbox-label">{'High definition enabled'|translate}</span>
+              <div class="user-list-checkbox" name="hd_enabled" style="margin-bottom: 35px;">
+                <span class="select-checkbox">
+                  <i class="icon-ok"></i>
+                </span>
+                <span class="user-list-checkbox-label">{'High definition enabled'|translate}</span>
+              </div>
+            </div>
+            <!-- Pop in tabs 2 Preferences -->
+            <div class="preferencies-container" id="tab_preferences">
+              <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
+                <span class="nb-img-page-infos"></span>
+                <div class="slider-bar-wrapper">
+                  <div class="slider-bar-container"></div>
+                </div>
+                <input name="recent_period" />
+              </div>
+              <div class="user-property-theme">
+                <p class="user-property-label">{'Theme'|@translate}</p>
+                <div class="user-property-select-container">
+                  <select name="privacy" class="user-property-select">
+                    {html_options options=$theme_options selected=$theme_selected}
+                  </select>
+                </div>
+              </div>
+              <div class="user-property-lang">
+                <p class="user-property-label">{'Language'|@translate}</p>
+                <div class="user-property-select-container">
+                  <select name="privacy" class="user-property-select">
+                    {html_options options=$language_options selected=$language_selected}
+                  </select>
+                </div>
+              </div>
+              <div class="user-property-label period-select-bar">{'Recent period'|translate}
+                <span class="recent_period_infos"></span>
+                <div class="slider-bar-wrapper">
+                  <div class="slider-bar-container"></div>
+                </div>
+              </div>
+
+              <div class="user-group-checkbox">
+                <div class="user-list-checkbox" name="expand_all_albums">
+                  <span class="select-checkbox">
+                    <i class="icon-ok"></i>
+                  </span>
+                  <span class="user-list-checkbox-label">{'Expand all albums'|translate}</span>
+                </div>
+                <div class="user-list-checkbox" name="show_nb_comments">
+                  <span class="select-checkbox">
+                    <i class="icon-ok"></i>
+                  </span>
+                  <span class="user-list-checkbox-label">{'Show number of comments'|translate}</span>
+                </div>
+                <div class="user-list-checkbox" name="show_nb_hits">
+                  <span class="select-checkbox">
+                    <i class="icon-ok"></i>
+                  </span>
+                  <span class="user-list-checkbox-label">{'Show number of hits'|translate}</span>
+                </div>
+              </div>
+
+            </div>
+             <!-- Pop in tabs 3 Notifications WIP-->
+            {* <div class="notifications-container" id="tab_notifications">
+              <p style="margin: 0;">Notifications tab WIP</p>
+            </div> *}
           </div>
         </div>
       </div>
-      <div class="update-container" style="display:flex;flex-direction:column">
-        <div style="display:flex;justify-content:space-between;margin-bottom: 10px;">
-          <div>
-            <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
-            <span class="close-update-button">{'Close'|@translate}</span>
-            <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
-            <span class="update-user-fail icon-cancel"></span>
-          </div>
-          <div>
-            <span class="delete-user-button icon-trash">{'Delete'|@translate}</span>
-          </div>
-        </div>
-        <div>
-        </div>
+      <div class="update-container">
+        <span class="close-update-button icon-cancel-circled">{'Close'|@translate}</span>
+        <p>
+          <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
+          <span class="update-user-fail icon-cancel"></span>
+          <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
+        </p>
       </div>
     </div>
-    <div class="preferences-container">
-      <div class="user-property-column-title">
-        <p>{'Preferences'|translate}</p>
-      </div>
-      <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
-        <span class="nb-img-page-infos"></span>
-        <div class="slider-bar-wrapper">
-          <div class="slider-bar-container"></div>
+  </div>
+
+  {* Modal edit username in pop in User *}
+  <div class="user-property-username-change">
+    <div class="user-property-username-change-content">
+      
+      <div class="user-property-username-change-input">
+        <div class="summary-input-container">
+          <input class="user-property-input user-property-input-username" value=""
+            placeholder="{'Username'|@translate}" />
         </div>
-        <input name="recent_period" />
-      </div>
-      <div class="user-property-theme" style="margin-top: 37px;">
-        <p class="user-property-label">{'Theme'|@translate}</p>
-        <div class="user-property-select-container">
-          <select name="privacy" class="user-property-select">
-            {html_options options=$theme_options selected=$theme_selected}
-          </select>
+        <div class="group-button">
+          <span class="edit-username-cancel">{'Cancel'|@translate}</span>
+          <span class="icon-floppy edit-username-validate">{'Validate'|@translate}</span>
         </div>
       </div>
-      <div class="user-property-lang">
-        <p class="user-property-label">{'Language'|@translate}</p>
-        <div class="user-property-select-container">
-          <select name="privacy" class="user-property-select">
-            {html_options options=$language_options selected=$language_selected}
-          </select>
+
+      <div class="edit-username-success" style="display: none;">
+        <div class="update-username-success icon-green">
+          <span class="icon-ok"></span>
+          <span>{'Username successfully modified'|@translate}</span>
+        </div>
+        <p class="edit-username-success-ok"><span class="icon-button icon-ok" id="close_username_success">{'Ok'|@translate}</span></p>
+      </div>
+
+    </div>
+  </div>
+  {* Modal edit password in pop in User *}
+  <div class="user-property-password-change">
+    <div class="user-property-password-change-content">
+
+      <div class="user-property-password-choice">
+        <div class="password-choice-content">
+          <p class="head-button-2" id="copy_password_link"><span class="icon-link-1"></span> {'Copy the password link'|@translate}</p>
+          <p class="head-button-2" id="send_password_link"><span class="icon-mail-alt"></span> {'Resend password link'|@translate}</p>
+          <p class="head-button-2" id="edit_modal_password"><span class="icon-pencil"></span> {'Change password'|@translate}</p>
+        </div>
+        <p class="edit-password-cancel">{'Cancel'|@translate}</p>
+      </div>
+
+      <div class="user-property-password-change-inputs" style="display: none;">
+        <div class="summary-input-container">
+          <div class="user-property-input-icon" style="margin-bottom: 10px;">
+            <input class="user-property-input user-property-input-password" value=""
+              placeholder="{'New password'|@translate}" type="password" id="edit_user_password" />
+            <span class="icon-eye icon-show-password"></span>
+          </div>
+          <div class="user-property-input-icon">
+            <input class="user-property-input user-property-input-password-conf" value=""
+              placeholder="{'Confirm Password'|@translate}" type="password" id="edit_user_conf_password" />
+            <span class="icon-eye icon-show-password"></span>
+          </div>
+        </div>
+        <div class="EditUserGenPassword">
+          <span class="icon-dice-solid"></span><span>{'Generate random password'|@translate}</span>
+        </div>
+        <div class="EditUserErrors icon-cancel">
+        </div>
+        <div class="group-button">
+          <span class="edit-password-cancel">{'Cancel'|@translate}</span>
+          <span class="icon-floppy edit-password-validate">{'Validate'|@translate}</span>
         </div>
       </div>
-      <div class="user-property-label period-select-bar">{'Recent period'|translate}
-        <span class="recent_period_infos"></span>
-        <div class="slider-bar-wrapper">
-          <div class="slider-bar-container"></div>
+
+      <div class="edit-password-success" id="edit_password_success_change" style="display: none;">
+        <div class="update-password-success icon-green">
+          <span class="icon-ok" id="password_msg_success">{'Password updated'|@translate}</span>
         </div>
+        <p class="user-property-button head-button-2" id="copy_password"><span class="icon-docs button-copy-pass">{'Copy password'|@translate}</span></p>
+        <p class="edit-password-success-ok"><span class="icon-button icon-ok" id="close_password_success">{'Ok'|@translate}</span></p>
+      </div>
+
+      <div class="edit-password-success" id="edit_password_result_mail" style="display: none;">
+        <div class="update-password-success icon-green" id="result_send_mail">
+          <span class="icon-ok" id="icon_password_msg_result_mail"></span>
+          <span id="password_msg_result_mail">text</span>
+        </div>
+        <p class="edit-password-success-ok"><span class="icon-button icon-ok" id="close_password_mail_close">{'Ok'|@translate}</span></p>
+      </div>
+
+      <div class="edit-password-success" id="edit_password_result_mail_copy" style="display: none;">
+        <div class="edit-password-success-reset-link">
+          <input class="edit-password-success-input" id="result_send_mail_copy_input" />
+          <span class="icon-docs" id="result_send_mail_copy_btn"></span>
+        </div>
+        <div class="update-password-success icon-green" id="result_send_mail_copy">
+          <span class="icon-ok" id="result_send_mail_copy_icon"></span>
+          <span id="result_send_mail_copy_msg">{'Copied link'|@translate}</span>
+        </div>
+        <p class="edit-password-success-ok"><span class="icon-button icon-ok" id="close_password_mail_send_close">{'Ok'|@translate}</span></p>
       </div>
       
-      <div class="user-list-checkbox" name="expand_all_albums">
-        <span class="select-checkbox">
-          <i class="icon-ok"></i>
-        </span>
-        <span class="user-list-checkbox-label">{'Expand all albums'|translate}</span>
+    </div>
+  </div>
+  {* Modal edit main user in pop in User *}
+  <div class="user-property-main-user-change">
+    <div class="user-property-main-user-content">
+      <div class="user-property-main-user-content-header">
+        <span class="icon-king main-user-icon"></span>
+        <span class="main-user-title">{'Changing the main user'|@translate}</span>
       </div>
-      <div class="user-list-checkbox" name="show_nb_comments">
-        <span class="select-checkbox">
-          <i class="icon-ok"></i>
-        </span>
-        <span class="user-list-checkbox-label">{'Show number of comments'|translate}</span>
+
+      <div class="user-property-main-user-body">
+        <div class="main-user-proceed">
+          <span class="main-user-proceed-desc">{'You are about to set %s as main user instead of %s, do you wish to continue?'|@translate}</span>
+          <div class="main-user-proceed-footer">
+            <span class="user-property-main-user-cancel">{'Cancel'|@translate}</span>
+            <span class="head-button-2 main-user-btn-proceed"><span class="icon-right">{'Yes, let\'s proceed'|@translate}</span></span>
+          </div>
+        </div>
+
+        <div class="main-user-rewrite" style="display: none;">
+          <span class="main-user-rewrite-desc">{'To be sure, please rewrite the word “%s” below'|@translate} :</span>
+          <div class="main-user-rewrite-footer">
+            <input type="text" id="main_user_rewrite" />
+            <span id="main_user_rewrite_icon"></span>
+          </div>
+        </div>
+
+        <div class="main-user-validate" style="display: none;">
+          <span class="main-user-validate-desc">{'You can now change the main user from %s to %s.'|@translate}</span>
+          <div class="main-user-validate-footer">
+            <span class="user-property-main-user-cancel">{'Cancel'|@translate}</span>
+            <span class="main-user-btn-validate"><span class="icon-floppy"></span> {'Validate'|@translate}</span>
+          </div>
+        </div>
+
+        <div class="main-user-success" style="display: none;">
+          <div class="update-main-user-success icon-green">
+            <span class="icon-ok"></span>
+            <span class="main-user-success-desc">{'%s is the new main user'|@translate}</span>
+          </div>
+          <span class="user-property-main-user-close"><span class="icon-button icon-ok" id="main_user_success_close">{'Ok'|@translate}</span></span>
+        </div>
       </div>
-      <div class="user-list-checkbox" name="show_nb_hits">
-        <span class="select-checkbox">
-          <i class="icon-ok"></i>
-        </span>
-        <span class="user-list-checkbox-label">{'Show number of hits'|translate}</span>
-      </div>
-    </div> 
+
+    </div>
   </div>
 </div>
-
 
 <div id="GuestUserList" class="UserListPopIn">
 
   <div class="GuestUserListPopInContainer">
 
     <a class="icon-cancel CloseUserList CloseGuestUserList"></a>
-    <div id="guest-msg" style="background-color:#B9E2F8;padding:5;border-left:3px solid blue;display:flex;align-items:center;margin-bottom:30px">
+    <div id="guest-msg" style="background-color:#B9E2F8;padding:5px;border-left:3px solid blue;display:flex;align-items:center;margin-bottom:30px">
       <span class="icon-info-circled-1" style="background-color:#B9E2F8;color:#26409D;font-size:3em"></span><span style="font-size:1.1em;color:#26409D;font-weight:bold;">{'Users not logged in will have these settings applied, these settings are used by default for new users'|@translate}</span>
     </div>
-    <div style='display:flex;'>
-      <div class="summary-properties-update-container">
+    <div class="summary-properties-update-container">
       <div class="summary-properties-container">
         <div class="summary-container">
           <div class="user-property-initials">
@@ -828,7 +986,7 @@ $(document).ready(function() {
           </div>
           <div class="user-property-password-container">
             <div class="user-property-password edit-password">
-              <p class="user-property-button unavailable"><span class="icon-key user-edit-icon"></span>{'Change Password'|@translate}</p>
+              <p class="user-property-button head-button-2 unavailable"><span class="icon-key user-edit-icon"></span>{'Change Password'|@translate}</p>
             </div>
             <div class="user-property-password-change">
               <div class="summary-input-container">
@@ -838,120 +996,126 @@ $(document).ready(function() {
               <span class="icon-cancel-circled edit-password-cancel"></span>
             </div>
             <div class="user-property-permissions">
-              <p class="user-property-button"><span class="icon-lock user-edit-icon"></span><a href="admin.php?page=user_perm&user_id={$guest_id}">{'Permissions'|@translate}</a></p>
+              <a href="admin.php?page=user_perm&user_id={$guest_id}"><p class="user-property-button head-button-2"><span class="icon-lock user-edit-icon"></span>{'Permissions'|@translate}</p></a>
             </div>
           </div>
         </div>
-        <div class="properties-container">
-          <div class="user-property-column-title">
-            <p>{'Properties'|@translate}</p>
-          </div>
-          <div class="user-property-email">
-            <p class="user-property-label">{'Email Adress'|@translate}</p>
-            <input type="text" class="user-property-input" value="N/A" readonly />
-          </div>
-          <div class="user-property-status">
-            <p class="user-property-label">{'Status'|@translate}</p>
-            <div class="user-property-select-container notClickableBefore">
-              <select name="status" class="user-property-select notClickable">
-                <option value="guest">{'Guest'|@translate}</option>
-              </select>
-            </div>
-          </div>
-          <div class="user-property-level">
-            <p class="user-property-label">{'Privacy Level'|@translate}</p>
-            <div class="user-property-select-container">
-              <select name="privacy" class="user-property-select">
-                <option value="0">{'Level 0'|@translate}</option>
-                <option value="1">{'Level 1'|@translate}</option>
-                <option value="2">{'Level 2'|@translate}</option>
-                <option value="4">{'Level 4'|@translate}</option>
-                <option value="8">{'Level 8'|@translate}</option>
-              </select>
-            </div>
-          </div>
-          <div class="user-property-group-container">
-            <p class="user-property-label">{'Groups'|@translate}</p>
-            <div class="user-property-select-container user-property-group">
-              <select class="user-property-select" data-selectize="groups" placeholder="{'Select groups or type them'|translate}" 
-                name="group_id[]" multiple style="box-sizing:border-box;"></select>
-            </div>
+        
+        <div class="guest-edit-user-tab">
+          <div class="guest-edit-user-tab-title">
+            <p class="guest-edit-user-tabsheet selected tiptip" id="name_guest_tab_properties" title="{'Properties'|@translate}">{'Properties'|@translate}</p>
+            <p class="guest-edit-user-tabsheet tiptip" id="name_guest_tab_preferences" title="{'Preferences'|@translate}">{'Preferences'|@translate}</p>
           </div>
 
-          <div class="user-list-checkbox" name="hd_enabled">
-            <span class="select-checkbox">
-              <i class="icon-ok"></i>
-            </span>
-            <span class="user-list-checkbox-label">{'High definition enabled'|translate}</span>
+          <div class="guest-edit-user-slides">
+            <div class="properties-container" id="guest_tab_properties">
+              <div class="user-property-email">
+                <p class="user-property-label">{'Email Adress'|@translate}</p>
+                <input type="text" class="user-property-input" value="N/A" readonly />
+              </div>
+              <div class="user-property-status">
+                <p class="user-property-label">{'Status'|@translate}</p>
+                <div class="user-property-select-container notClickableBefore">
+                  <select name="status" class="user-property-select notClickable">
+                    <option value="guest">{'Guest'|@translate}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="user-property-level">
+                <p class="user-property-label">{'Privacy Level'|@translate}</p>
+                <div class="user-property-select-container">
+                  <select name="privacy" class="user-property-select">
+                    <option value="0">{'Level 0'|@translate}</option>
+                    <option value="1">{'Level 1'|@translate}</option>
+                    <option value="2">{'Level 2'|@translate}</option>
+                    <option value="4">{'Level 4'|@translate}</option>
+                    <option value="8">{'Level 8'|@translate}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="user-property-group-container">
+                <p class="user-property-label">{'Groups'|@translate}</p>
+                <div class="user-property-select-container user-property-group">
+                  <select class="user-property-select" data-selectize="groups"
+                    placeholder="{'Select groups or type them'|translate}" name="group_id[]" multiple
+                    style="box-sizing:border-box;"></select>
+                </div>
+              </div>
+
+              <div class="user-list-checkbox" name="hd_enabled">
+                <span class="select-checkbox">
+                  <i class="icon-ok"></i>
+                </span>
+                <span class="user-list-checkbox-label">{'High definition enabled'|translate}</span>
+              </div>
+            </div>
+
+            <div class="preferences-container" id="guest_tab_preferences">
+              <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
+                <span class="nb-img-page-infos"></span>
+                <div class="slider-bar-wrapper">
+                  <div class="slider-bar-container"></div>
+                </div>
+                <input name="recent_period" />
+              </div>
+              <div class="user-property-theme">
+                <p class="user-property-label">{'Theme'|@translate}</p>
+                <div class="user-property-select-container">
+                  <select name="privacy" class="user-property-select">
+                    {html_options options=$theme_options selected=$theme_selected}
+                  </select>
+                </div>
+              </div>
+              <div class="user-property-lang">
+                <p class="user-property-label">{'Language'|@translate}</p>
+                <div class="user-property-select-container">
+                  <select name="privacy" class="user-property-select">
+                    {html_options options=$language_options selected=$language_selected}
+                  </select>
+                </div>
+              </div>
+              <div class="user-property-label period-select-bar">{'Recent period'|translate}
+                <span class="recent_period_infos">
+                  <!-- 7 days -->
+                </span>
+                <div class="slider-bar-wrapper">
+                  <div class="slider-bar-container"></div>
+                </div>
+              </div>
+
+              <div class="user-list-checkbox" name="expand_all_albums">
+                <span class="select-checkbox">
+                  <i class="icon-ok"></i>
+                </span>
+                <span class="user-list-checkbox-label">{'Expand all albums'|translate}</span>
+              </div>
+              <div class="user-list-checkbox" name="show_nb_comments">
+                <span class="select-checkbox">
+                  <i class="icon-ok"></i>
+                </span>
+                <span class="user-list-checkbox-label">{'Show number of comments'|translate}</span>
+              </div>
+              <div class="user-list-checkbox" name="show_nb_hits">
+                <span class="select-checkbox">
+                  <i class="icon-ok"></i>
+                </span>
+                <span class="user-list-checkbox-label">{'Show number of hits'|translate}</span>
+              </div>
+            </div>
           </div>
         </div>
+        
       </div>
+
       <div class="update-container">
-        <div style="display:flex;flex-direction:column">
-          <div style="display:flex;">
-            <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
-            <span class="close-update-button">{'Close'|@translate}</span>
-            <span class="update-user-success icon-green">{'User updated'|@translate}</span>
-            <span class="update-user-fail  icon-cancel"></span>
-          </div>
-          <div>
-          </div>
-        </div>
+        <span class="close-update-button icon-cancel-circled">{'Close'|@translate}</span>
+        <p>
+          <span class="update-user-success icon-green">{'User updated'|@translate}</span>
+          <span class="update-user-fail  icon-cancel"></span>
+          <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
+        </p>
       </div>
-      </div>
-      <div class="preferences-container">
-        <div class="user-property-column-title">
-          <p>{'Preferences'|translate}</p>
-        </div>
-        <div class="user-property-label photos-select-bar">{'Photos per page'|translate}
-          <span class="nb-img-page-infos"></span>
-          <div class="slider-bar-wrapper">
-            <div class="slider-bar-container"></div>
-          </div>
-          <input name="recent_period" />
-        </div>
-        <div class="user-property-theme">
-          <p class="user-property-label">{'Theme'|@translate}</p>
-          <div class="user-property-select-container">
-            <select name="privacy" class="user-property-select">
-              {html_options options=$theme_options selected=$theme_selected}
-            </select>
-          </div>
-        </div>
-        <div class="user-property-lang">
-          <p class="user-property-label">{'Language'|@translate}</p>
-          <div class="user-property-select-container">
-            <select name="privacy" class="user-property-select">
-              {html_options options=$language_options selected=$language_selected}
-            </select>
-          </div>
-        </div>
-        <div class="user-property-label period-select-bar">{'Recent period'|translate}
-          <span class="recent_period_infos"><!-- 7 days --></span>
-          <div class="slider-bar-wrapper">
-            <div class="slider-bar-container"></div>
-          </div>
-        </div>
 
-        <div class="user-list-checkbox" name="expand_all_albums">
-          <span class="select-checkbox">
-            <i class="icon-ok"></i>
-          </span>
-          <span class="user-list-checkbox-label">{'Expand all albums'|translate}</span>
-        </div>
-        <div class="user-list-checkbox" name="show_nb_comments">
-          <span class="select-checkbox">
-            <i class="icon-ok"></i>
-          </span>
-          <span class="user-list-checkbox-label">{'Show number of comments'|translate}</span>
-        </div>
-        <div class="user-list-checkbox" name="show_nb_hits">
-          <span class="select-checkbox">
-            <i class="icon-ok"></i>
-          </span>
-          <span class="user-list-checkbox-label">{'Show number of hits'|translate}</span>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -1031,6 +1195,19 @@ $(document).ready(function() {
 
 #template {
     display:none;
+}
+
+#the_king {
+  color: #F4AB4F;
+  margin-left: 5px;
+}
+
+.can-change:hover {
+  cursor: pointer;
+}
+
+.cannot-change:hover {
+  cursor: default;
 }
 
 /* selection mode */
@@ -1187,8 +1364,7 @@ $(document).ready(function() {
 }
 
 .user-container-username span {
-  max-width: 100%;
-
+  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1372,15 +1548,17 @@ $(document).ready(function() {
     top: 50%;
     transform:translate(-50%, -48%);
     text-align:left;
-    padding:20px;
+    padding:30px;
     display:flex;
-    width:840px
+    width:745px;
+    height: 630px;
 }
 
 .summary-properties-update-container {
     height:100%;
     display:flex;
-    flex-direction:column
+    flex-direction:column;
+    width: 100%;
 }
 
 .summary-properties-container {
@@ -1389,32 +1567,54 @@ $(document).ready(function() {
 }
 
 .summary-container {
-    width:250px;
+    width:35%;
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:5px;
-    padding-right:20px;
+    padding-right:30px;
 }
 
-.properties-container {
-    width:250px;
-    padding: 0 20px
+.edit-user-tab,
+.guest-edit-user-tab {
+  width: 65%;
+  padding-left: 30px;
+  overflow-x: auto;
 }
 
-.UserListPopInContainer .update-container {
-    padding-right:20px;
-    padding-top:30px;
+.edit-user-slides,
+.guest-edit-user-slides {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
+.edit-user-slides::-webkit-scrollbar,
+.guest-edit-user-slides::-webkit-scrollbar {
+    display: none;
+}
+
+.edit-user-slides > div,
+.guest-edit-user-slides > div {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  transform-origin: center center;
+  transform: scale(1);
+  transition: transform 0.5s;
+  position: relative;
+  width: 100%;
+  margin-right: 5px;
+  margin-top: 20px;
+}
+
+.UserListPopInContainer .update-container,
 .GuestUserListPopInContainer .update-container {
-    padding-right:20px;
-    padding-top:20px;
-}
-
-.preferences-container {
-    width:250px;
-    padding-left:20px;
+  display: flex;
+  justify-content: space-between;
+  padding-top:20px;
 }
 
 /* general pop in rules */
@@ -1428,6 +1628,124 @@ $(document).ready(function() {
     margin:0;
 }
 
+.edit-user-tab-title {
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 30px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.guest-edit-user-tab-title {
+  display: flex;
+  gap: 40px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.edit-user-tab-title .edit-user-tabsheet,
+.guest-edit-user-tab-title .guest-edit-user-tabsheet {
+  padding-bottom: 5px;
+  margin: 0;
+  border-bottom: solid 4px transparent;
+  transition: border-bottom 0.4s;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+.edit-user-tab-title p:hover,
+.guest-edit-user-tab-title p:hover {
+  cursor: pointer;
+}
+
+.tab-with-plugin {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mores-plugins {
+  cursor: pointer;
+  position: relative;
+  padding: 5px 10px;
+}
+
+.mores-plugins::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  width: 0px;
+  height: 0px;
+  border-radius: 100%;
+  transition: ease-in-out 0.2s;
+  z-index: 0;
+  opacity: 0;
+  z-index: -1;
+}
+
+.mores-plugins:hover::after {
+  width: 35px;
+  height: 35px;
+  opacity: 1;
+}
+
+.dropdown-mores-plugins {
+  display: none;
+  position: absolute;
+  width: 150px;
+  z-index: 1;
+  top: 65px;
+  right: 20px;
+  background: linear-gradient(130deg, #ff7700 0%, #ffa744 100%);
+  color: white;
+  border-radius: 10px;
+}
+
+.dropdown-mores-plugins::after {
+  content: " ";
+  position: absolute;
+  bottom: 99%;
+  left: 78%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #ff952a transparent;
+}
+
+#dropdown_mores_plugins_content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#dropdown_mores_plugins .selected,
+#dropdown_mores_plugins .edit-user-tabsheet {
+  border-bottom: unset !important;
+}
+
+#dropdown_mores_plugins .edit-user-tabsheet {
+  padding: 5px 0;
+  font-size: 13px;
+  color: white;
+}
+
+#dropdown_mores_plugins .edit-user-tabsheet::before {
+  content : "\002022";
+  padding: 0 5px;
+  opacity: 0;
+  transition: opacity 0.05s, padding 0.05s;
+}
+
+#dropdown_mores_plugins .edit-user-tabsheet.selected::before {
+  padding: 0 10px;
+  opacity: 1;
+}
+
+#dropdown_mores_plugins .edit-user-tabsheet:hover {
+  background-color: #00000012;
+}
 
 .user-property-label {
     color:#A4A4A4;
@@ -1443,6 +1761,32 @@ $(document).ready(function() {
   margin-left: 5px;
 }
 
+.user-property-input-icon {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  color: #353535;
+  background-color: #F3F3F3;
+}
+
+.user-property-input-icon .icon-show-password {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.user-property-input-icon .icon-show-password:hover {
+  color:#ffa646;
+}
+
+.user-property-input-icon .user-property-input {
+  background-color: transparent;
+  padding: 0 0 0 5px !important;
+  font-size: 16px;
+}
+
+.user-property-input-icon .user-property-input:hover {
+  background-color: transparent;
+}
 
 .user-property-input {
     width: 100%;
@@ -1460,9 +1804,19 @@ $(document).ready(function() {
     margin-top:0;
     font-size:1.1em;
     margin-bottom:15px;
-    cursor:pointer;
-    padding:8px;
+    cursor: ;
     border:none;
+    margin-right: 0;
+    font-weight: normal;
+}
+
+.button-edit-password-icon {
+  cursor: pointer;
+}
+
+.user-property-password .user-property-button {
+  display: flex;
+  align-items: center;
 }
 
 .user-property-select {
@@ -1474,13 +1828,9 @@ $(document).ready(function() {
     font-size:1.1em;
 }
 
-.user-property-select-container {
-    margin-bottom: 15px;
-}
-
 .user-property-select-container::before {
   margin-top: 10px;
-  margin-left: 220px;
+  margin-left: 418px;
 }
 
 .user-action-select-container {
@@ -1502,51 +1852,271 @@ $(document).ready(function() {
 .user-list-checkbox-label {
     margin-left: 5px;
     vertical-align:top;
-    font-size:1em;
+    font-size:14px;
     cursor:pointer;
 }
 
 /* summary section */
+.edit-user-icons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-user-icons span::before{
+  font-size: 16px;
+}
+
+.delete-user-button {
+  cursor: pointer;
+}
+
 .user-property-initials {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .user-property-initials i {
   margin-left: 5px;
 }
 
-.user-property-initials > div {
-    padding-left:10px;
-}
-
 .user-property-initials span{
     border-radius:50%;
     padding:5px;
-    width:100px;
-    height:100px;
+    width:83px;
+    height:83px;
     display:inline-block;
     text-align:center;
     font-size:4em;
-    line-height:1.9em;
+    line-height:83px;
     font-weight:bold;
 }
 
 .user-property-username {
     font-weight:bold;
-    margin-bottom:34px;
+    margin-bottom:45px;
     height:30px;
+    display: flex;
+    gap: 5px;
+    max-width: 250px;
 }
 
 .user-property-username-change {
-    justify-content:center;
-    align-items:center;
-    display:none;
-    margin-bottom:25px;
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
 }
 
-.user-property-password-change {
-  display:none;
+.user-property-username-change-content {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -48%);
+  text-align: left;
+  padding: 40px;
+  border-radius: 10px;
+  width: 280px;
+}
+
+.user-property-username-change-content .group-button,
+.user-property-password-change-content .group-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-property-username-change-content .summary-input-container {
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.user-property-password .icon-edit-pass {
+  margin-left: auto;
+  padding: 10px;
+  background-color: #ffa744;
+  color: #3c3c3c;
+}
+
+.user-property-password .icon-edit-pass:hover {
+  background-color: #ff7700;
+}
+
+.user-property-password-change,
+.user-property-main-user-change {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.user-property-password-change-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -48%);
+  text-align: left;
+  padding: 40px 40px 40px 40px;
+  border-radius: 10px;
+  width: 280px;
+}
+
+.user-property-password-change-content .summary-input-container {
+  width: 100%;
+}
+
+.user-property-password-choice .head-button-2 {
+  display: block;
+  text-align: center;
+  margin-right: 0;
   margin-bottom: 20px;
+}
+
+.user-property-password-choice .edit-password-cancel {
+  text-align: center;
+  margin: 0;
+}
+
+.edit-password-success,
+.edit-username-success {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-password-success {
+  padding-top: 30px;
+}
+
+.edit-password-success .edit-password-success-input {
+  background-color: transparent;
+  font-size: 15px;
+  border: none;
+  flex: auto;
+  padding: 0 5px;
+}
+
+.edit-password-success .edit-password-success-reset-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+  background-color: #F3F3F3;
+}
+
+.edit-password-success .edit-password-success-reset-link span {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.edit-password-success .edit-password-success-reset-link span:hover {
+  color: #ffffff;
+  background-color: #ff7700;
+}
+
+#result_send_mail_copy {
+  margin-bottom: 0px;
+}
+
+#edit_password_result_mail_copy {
+  padding-top: 0px;
+}
+
+.update-password-success,
+.update-password-fail,
+.update-main-user-success {
+  padding: 10px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#result_send_mail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#edit_password_result_mail {
+  padding-top: 20px;
+}
+
+.update-username-success {
+  display: flex;
+  padding: 10px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-password-success-ok {
+  align-self: center;
+  margin-top: 30px;
+}
+
+.edit-username-success-ok {
+  align-self: center;
+}
+
+.edit-password-success-ok .icon-button,
+.edit-username-success-ok .icon-button,
+.user-property-main-user-close .icon-button {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #E8E8E8;
+  color: #777;
+}
+
+.edit-password-success-ok .icon-button:hover,
+.edit-username-success-ok .icon-button:hover,
+.user-property-main-user-close .icon-button:hover {
+  background-color: #ddd;
+  color: #3A3A3A;
+}
+
+.edit-password-success-ok .icon-button::before,
+.edit-username-success-ok .icon-button::before,
+.user-property-main-user-close .icon-button::before {
+  margin-left: 0;
+}
+
+.button-copy-pass {
+  margin: auto;
+  color: #777;
+  font-weight: bold;
+}
+
+.EditUserGenPassword {
+  margin-top: 15px;
+  font-size: 1.1em;
+  cursor:pointer;
+}
+.EditUserGenPassword:hover, .EditUserGenPassword:active {
+  color:#ffa646;
+}
+
+.EditUserGenPassword span {
+  margin-right:10px;
+}
+
+.EditUserErrors {
+  opacity: 0;
+  padding: 7px 0;
+  border-left: solid 3px red;
+  margin: 10px 0;
+  font-weight: bold;
 }
 
 .summary-input-container {
@@ -1555,12 +2125,17 @@ $(document).ready(function() {
 }
 
 .edit-username {
-    font-size:1.4em;
+    font-size:1.2em;
     cursor:pointer;
+    color: #ffa744;
 }
 
 .edit-username-title {
     font-size:1.4em;
+    width: auto;
+    max-width: 200px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 
 .edit-username-specifier {
@@ -1568,8 +2143,8 @@ $(document).ready(function() {
     color:#A4A4A4;
 }
 
-.user-property-input.user-property-input-username {
-    border: solid 2px #ffa744;
+.user-property-input.user-property-input-username,
+.user-property-input.user-property-input-password {
     padding: 9px;
 }
 
@@ -1583,13 +2158,12 @@ $(document).ready(function() {
 .edit-username-validate,
 .edit-password-validate {
     display: block;
-    margin: auto 5px;
     cursor: pointer;
     background-color: #ffa744;
     color: #3c3c3c;
-    font-size: 17px;
+    font-size: 1.1em;
     font-weight: 700;
-    padding: 7px;
+    padding: 10px 20px;
 }
 
 .edit-username-validate:hover,
@@ -1600,52 +2174,169 @@ $(document).ready(function() {
 }
 
 .edit-username-cancel,
-.edit-password-cancel {
+.edit-password-cancel,
+.user-property-main-user-cancel {
     cursor:pointer;
-    font-size:22px;
-    padding-top: 4px;
+    font-size:1.1em;
 }
 
 .edit-username-cancel:hover,
-.edit-password-cancel:hover {
-    color: #ff7700;
-}
-
-.user-property-input.user-property-input-password {
-    border: solid 2px #ffa744;
-    padding: 9px;
+.edit-password-cancel:hover,
+.user-property-main-user-cancel:hover {
+    color: #000;
 }
 
 .user-property-register-visit {
+    width: 100%;
     color:#A4A4A4;
-    font-weight:bold;
-    font-size:1.2em;
+    font-size:1.1em;
     display:flex;
     align-items: first baseline;
-    justify-content:center;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 15px;
+    justify-content: space-between;
 }
 
 .user-property-register-visit span {
     margin:0;
 }
 
+.user-property-register-visit div {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-property-register,
+.user-property-last-visit, {
+  font-size: 11px !important;
+}
 
 .user-property-register, .user-property-last-visit {
   min-width: 80px;
+}
+
+.edit-user-register-label,
+.edit-user-lastvisit-label {
+  font-weight: 600;
+}
+
+.user-property-main-user-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-property-main-user-content-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.user-property-main-user-content-header .main-user-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  background-color: #FFECF0;
+  color: #FF0155;
+}
+
+.user-property-main-user-content-header .main-user-icon::before {
+  margin-left: .1em;
+}
+
+.user-property-main-user-content-header .main-user-title {
+  font-weight: 700;
   font-size: 14px;
 }
 
-.user-property-register-visit .icon-calendar {
-    margin:0 4px 0 0;
-    font-size: 20px;
+.user-property-main-user-body .main-user-proceed,
+.user-property-main-user-body .main-user-rewrite,
+.user-property-main-user-body .main-user-validate,
+.user-property-main-user-body .main-user-success {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-property-main-user-body .main-user-proceed-footer,
+.user-property-main-user-body .main-user-validate-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-property-main-user-body .main-user-rewrite-footer {
+  display: flex;
+}
+
+.user-property-main-user-body .main-user-rewrite-footer input {
+  width: 100%;
+}
+
+.user-property-main-user-body .main-user-rewrite-footer span {
+  background-color: transparent !important;
+}
+
+.user-property-main-user-body .main-user-proceed-desc,
+.user-property-main-user-body .main-user-rewrite-desc,
+.user-property-main-user-body .main-user-validate-desc,
+.user-property-main-user-body .update-main-user-success {
+  margin: 20px 0;
+}
+
+.user-property-main-user-body .main-user-btn-proceed {
+  margin-right: 0;
+}
+
+.user-property-main-user-body .user-property-main-user-close {
+  margin-top: 10px;
+  align-self: center;
 }
 
 /* properties */
 
-.user-property-group-container {
-  margin-bottom:20px;
+.properties-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  /* margin-top: 25px; */
 }
 
+.properties-container p {
+  margin: 0 0 5px 0;
+}
+
+.properties-container .user-list-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.properties-container .select-checkbox {
+  width: 25px;
+  height: 25px;
+}
+
+.properties-container .select-checkbox i {
+  font-size: 22px;
+}
+
+.user-property-group-text {
+  font-size: 11px;
+}
 
 .user-property-select > .selectize-input.items {
     padding:0;
@@ -1655,8 +2346,38 @@ $(document).ready(function() {
     border:none;
 }
 
+.user-property-group-container .selectize-input {
+  height: 70px !important;
+}
+
 
 /* preferences */
+
+.preferencies-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.preferencies-container p {
+  margin: 0 0 5px 0;
+}
+
+.preferences-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preferences-container .user-property-label.period-select-bar {
+  margin: 15px 0;
+}
+
+.user-group-checkbox {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
 
 .nb-img-page-infos {
     color:#353535;
@@ -1672,20 +2393,35 @@ $(document).ready(function() {
     font-weight:normal;
 }
 
+/* plugins tabsheet */
+.edit-user-tabsheet-plugins {
+  width: 435px !important;
+  height: 480px !important;
+  margin-right: 15px !important;
+  margin-top: 29px !important;
+}
+/* for firefox */
+@-moz-document url-prefix() {
+  .edit-user-tabsheet-plugins {
+    margin-top: 25px !important;
+  }
+}
+
 /* update */
 
-.update-user-button {
+.update-user-button,
+.user-property-main-user-body .main-user-btn-validate {
     cursor:pointer;
     color:#353535;
     padding:10px 20px;
     font-size:1.1em;
     font-weight:bold;
-
     background-color: #ffa744;
     color: #3c3c3c;
 }
 
-.update-user-button:hover {
+.update-user-button:hover,
+.user-property-main-user-body .main-user-btn-rewrite:hover {
     background-color: #ff7700;
 }
 
@@ -1697,16 +2433,13 @@ $(document).ready(function() {
 .close-update-button {
     cursor: pointer;
     color: #A4A4A4;
-    padding:10px 20px;
+    padding:10px 0;
     font-size:1.1em;
     font-weight:bold;
+    align-self: center;
 }
-
-.delete-user-button {
-    cursor:pointer;
-    padding:10px 20px;
-    font-size:1.1em;
-    font-weight:bold;
+.close-update-button.icon-cancel-circled::before {
+  margin-left: 0;
 }
 
 .update-user-success {
@@ -1744,10 +2477,10 @@ $(document).ready(function() {
     top: 50%;
     transform:translate(-50%, -48%);
     text-align:left;
-    display:flex;
     background-color:white;
-    padding:20px;
-    width:840px;
+    padding:30px;
+    width:745px;
+    height: 630px;
     flex-direction:column;
     border-radius:15px;
 }
@@ -2016,6 +2749,7 @@ Advanced filter
 
 .slider-bar-wrapper {
   margin-top: 12px;
+  margin-bottom: 0;
 }
 
 .advanced-filter-date {

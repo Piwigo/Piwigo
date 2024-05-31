@@ -1004,6 +1004,43 @@ function pwg_send_mail_test($success, $mail, $args)
   }
 }
 
+/**
+ * Generate content mail for reset password
+ * 
+ * Return the content mail to send
+ * @since 15
+ * @param string $username
+ * @param string $reset_password_link
+ * @param string $gallery_title
+ * @return string mail content
+ */
+function pwg_generate_reset_password_mail($username, $reset_password_link, $gallery_title)
+{
+  set_make_full_url();
+  
+  $message = l10n('Someone requested that the password be reset for the following user account:') . "\r\n\r\n";
+  $message.= l10n(
+    'Username "%s" on gallery %s',
+    $username,
+    get_gallery_home_url()
+    );
+  $message.= "\r\n\r\n";
+  $message.= l10n('To reset your password, visit the following address:') . "\r\n";
+  $message.= $reset_password_link;
+  $message.= "\r\n\r\n";
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
+
+  unset_make_full_url();
+
+  $message = trigger_change('render_lost_password_mail_content', $message);
+
+  return array(
+    'subject' => '['.$gallery_title.'] '.l10n('Password Reset'),
+    'content' => $message,
+    'email_format' => 'text/plain',
+    );
+}
+
 trigger_notify('functions_mail_included');
 
 ?>

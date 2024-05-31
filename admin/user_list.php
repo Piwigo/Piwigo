@@ -100,6 +100,15 @@ SELECT
   $password_protected_users = array_merge($password_protected_users, array_diff($admin_ids, array($user['id'])));
 }
 
+$query = '
+SELECT
+    username
+    FROM '.USERS_TABLE.'
+    WHERE id = '.$conf['webmaster_id'].'
+;';
+
+$owner_username = query2array($query, null, 'username');
+
 $template->assign(
   array(
     'U_HISTORY' => get_root_url().'admin.php?page=history&filter_user_id=',
@@ -117,7 +126,8 @@ $template->assign(
     'filter_group' => (isset($_GET['group']) ? $_GET['group'] : null),
     'connected_user' => $user["id"],
     'connected_user_status' => $user['status'],
-    'owner' => $conf['webmaster_id']
+    'owner' => $conf['webmaster_id'],
+    'owner_username' => $owner_username[0]
     )
   );
 
@@ -183,6 +193,23 @@ else
 {
   //Show 10 users by default
   $template->assign('pagination', userprefs_get_param('user-manager-pagination', 10));
+}
+
+function webmaster_id_is_local()
+{
+  $conf = array();
+  include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
+  @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
+  if (isset($conf['local_dir_site']))
+  {
+    @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
+  }
+  return $conf['webmaster_id'] ?? false;
+}
+
+if (webmaster_id_is_local())
+{
+  $page['warnings'][] = l10n('You have specified <i>$conf[\'webmaster_id\']</i> in your local configuration file, this parameter in deprecated, please remove it!');
 }
 // +-----------------------------------------------------------------------+
 // | html code display                                                     |

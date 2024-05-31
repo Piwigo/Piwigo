@@ -76,44 +76,11 @@ function process_password_request()
     return false;
   }
 
-  $activation_key = generate_key(20);
-
-  list($expire) = pwg_db_fetch_row(pwg_query('SELECT ADDDATE(NOW(), INTERVAL 1 HOUR)'));
-
-  single_update(
-    USER_INFOS_TABLE,
-    array(
-      'activation_key' => pwg_password_hash($activation_key),
-      'activation_key_expire' => $expire,
-      ),
-    array('user_id' => $user_id)
-    );
+  $generate_link = generate_reset_password_link($user_id);
   
-  $userdata['activation_key'] = $activation_key;
+  $userdata['activation_key'] = $generate_link['activation_key'];
 
-  set_make_full_url();
-  
-  $message = l10n('Someone requested that the password be reset for the following user account:') . "\r\n\r\n";
-  $message.= l10n(
-    'Username "%s" on gallery %s',
-    $userdata['username'],
-    get_gallery_home_url()
-    );
-  $message.= "\r\n\r\n";
-  $message.= l10n('To reset your password, visit the following address:') . "\r\n";
-  $message.= get_root_url().'password.php?key='.$activation_key.'-'.urlencode($userdata['email']);
-  $message.= "\r\n\r\n";
-  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
-
-  unset_make_full_url();
-
-  $message = trigger_change('render_lost_password_mail_content', $message);
-
-  $email_params = array(
-    'subject' => '['.$conf['gallery_title'].'] '.l10n('Password Reset'),
-    'content' => $message,
-    'email_format' => 'text/plain',
-    );
+  $email_params = pwg_generate_reset_password_mail($userdata['username'], $generate_link['reset_password_link'], $conf['gallery_title']);
 
   if (pwg_mail($userdata['email'], $email_params))
   {
@@ -137,54 +104,27 @@ function check_password_reset_key($reset_key)
 {
   global $page, $conf;
 
-  list($key, $email) = explode('-', $reset_key, 2);
-
+  $key = $reset_key;
   if (!preg_match('/^[a-z0-9]{20}$/i', $key))
   {
     $page['errors'][] = l10n('Invalid key');
     return false;
   }
 
-  $user_ids = array();
-  
-  $query = '
-SELECT
-  '.$conf['user_fields']['id'].' AS id
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['email'].' = \''.pwg_db_real_escape_string($email).'\'
-;';
-  $user_ids = query2array($query, null, 'id');
-
-  if (count($user_ids) == 0)
-  {
-    $page['errors'][] = l10n('Invalid username or email');
-    return false;
-  }
-
-  $user_id = null;
-  
   $query = '
 SELECT
     user_id,
     status,
-    activation_key,
-    activation_key_expire,
-    NOW() AS dbnow
+    activation_key
   FROM '.USER_INFOS_TABLE.'
-  WHERE user_id IN ('.implode(',', $user_ids).')
+  WHERE activation_key IS NOT NULL
+    AND activation_key_expire > NOW()
 ;';
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
     if (pwg_password_verify($key, $row['activation_key']))
     {
-      if (strtotime($row['dbnow']) > strtotime($row['activation_key_expire']))
-      {
-        // key has expired
-        $page['errors'][] = l10n('Invalid key');
-        return false;
-      }
-
       if (is_a_guest($row['status']) or is_generic($row['status']))
       {
         $page['errors'][] = l10n('Password reset is not allowed for this user');
@@ -192,6 +132,7 @@ SELECT
       }
 
       $user_id = $row['user_id'];
+      break;
     }
   }
 

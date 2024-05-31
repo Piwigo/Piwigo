@@ -387,7 +387,7 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     // webmaster admin user
     $inserts = array(
       array(
-        'id'           => 1,
+        'id'           => 1, // must be the same value as webmaster_id in config.sql
         'username'     => $admin_name,
         'password'     => md5($admin_pass1),
         'mail_address' => $admin_mail,

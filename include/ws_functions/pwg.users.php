@@ -961,4 +961,108 @@ SELECT
    );
 }
 
+/**
+ * API method
+ * Returns the reset password link of the current user
+ * @since 15
+ * @param mixed[] $params
+ *    @option int user_id
+ *    @option string pwg_token
+ *    @option boolean send_by_mail
+ */
+function ws_users_generate_reset_password_link($params, &$service)
+{
+  global $user, $conf;
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  // check if user exist
+  if (get_username($params['user_id']) === false)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
+  }
+
+  $user_lost = getuserdata($params['user_id']);
+
+  // Cannot perform this action for a guest or generic user
+  if (is_a_guest($user_lost['status']) or is_generic($user_lost['status']))
+  {
+    return new PwgError(403, 'Password reset is not allowed for this user');
+  }
+
+  // Only webmaster can perform this action for another webmaster  
+  if ('admin' === $user['status'] && 'webmaster' === $user_lost['status'])
+  {
+    return new PwgError(403, 'You cannot perform this action');
+  }
+
+  $generate_link = generate_reset_password_link($params['user_id']);
+  $send_by_mail_response = null;
+
+  if ($params['send_by_mail'] and !empty($user_lost['email']))
+  {
+    $email_params = pwg_generate_reset_password_mail($user_lost['username'], $generate_link['reset_password_link'], $conf['gallery_title']);
+    // Here we remove the display of errors because they prevent the response from being parsed
+    if (@pwg_mail($user_lost['email'], $email_params))
+    {
+      $send_by_mail_response = 'Mail sent at : ' . $user_lost['email'];
+    } 
+    else
+    {
+      $send_by_mail_response = false;
+    }
+  }
+  
+  return array(
+    'generated_link' => $generate_link['reset_password_link'],
+    'send_by_mail' => $send_by_mail_response,
+  );
+}
+
+/**
+ * API method
+ * Set a user as the main user
+ * @since 15
+ * @param mixed[] $params
+ *    @option int user_id
+ *    @option string pwg_token
+ */
+function ws_set_main_user($params, &$service)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  // check if not webmaster
+  if (!is_webmaster())
+  {
+    return new PwgError(403, 'You cannot perform this action');
+  }
+
+  //check pwg_token
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  // checl if user exist
+  if (get_username($params['user_id']) === false)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
+  }
+
+  $new_main_user = getuserdata($params['user_id']);
+
+  // check if the user to set as main user is not webmaster
+  if ('webmaster' !== $new_main_user['status'])
+  {
+    return new PwgError(403, 'This user cannot become a main user because he is not a webmaster.');
+  }
+
+  conf_update_param('webmaster_id', $params['user_id']);
+  return 'The main user has been changed.';
+}
 ?>

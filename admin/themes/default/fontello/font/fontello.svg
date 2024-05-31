@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2023 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2024 by original authors @ fontello.com</metadata>
 <defs>
 <font id="fontello" horiz-adv-x="1000" >
 <font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -201,6 +201,8 @@
 <glyph glyph-name="fire" unicode="&#xe85d;" d="M7 238q10 41 50 131t44 146q39-72 45-145 148 184 154 428 10-6 25-17t58-45 74-74 61-96 34-118q15 36 19 79t-9 80q15-12 41-39t56-75 56-99 31-118-9-127-72-127-152-120q64 129 25 278t-154 229q10-43-11-141t-65-150q7 63 4 102t-12 59l-10 17q-12-70-60-140-26-38-39-69t-9-80 30-105q-135 76-181 154t-24 182z" horiz-adv-x="748" />
 
 <glyph glyph-name="cone" unicode="&#xe85e;" d="M426 833c8 23 42 23 50 0l92-259c-59-43-189-52-233 1l91 258z m-127-360l-56-158c92-131 308-133 416 1l-61 173c-37-52-173-111-299-16z m148-378c141 0 269 113 252 193l172-92c36-20 37-71 2-92l-397-236c-16-10-37-10-54 0l-396 236c-35 21-34 72 2 92l166 90c-14-49 67-191 253-191z" horiz-adv-x="921" />
+
+<glyph glyph-name="king" unicode="&#xe85f;" d="M64 57h997v-46c0-89-60-161-134-161h-729c-74 0-134 72-134 161v46z m0 69l-64 526c-4 40 33 67 61 44l215-185c26-22 62-14 80 17l175 302c15 27 48 27 63 0l175-302c18-31 54-39 81-17l214 185c28 23 65-4 61-44l-64-526h-997z" horiz-adv-x="1125" />
 
 <glyph glyph-name="user-1" unicode="&#xe86c;" d="M438 350c138 0 250 112 250 250s-112 250-250 250-250-112-250-250 111-250 250-250z m175-62h-33c-43-20-92-32-142-32s-99 12-143 32h-32c-145 0-263-118-263-263v-81c0-52 42-94 94-94h687c52 0 94 42 94 94v81c0 145-118 263-262 263z" horiz-adv-x="875" />
 

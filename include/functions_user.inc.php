@@ -1734,6 +1734,41 @@ function deactivate_password_reset_key($user_id)
 }
 
 /**
+ * Generate reset password link
+ *
+ * @since 15
+ * @param int $user_id
+ * @param string $user_email
+ * @return array activation_key and reset password link 
+ */
+function generate_reset_password_link($user_id)
+{
+  $activation_key = generate_key(20);
+
+  list($expire) = pwg_db_fetch_row(pwg_query('SELECT ADDDATE(NOW(), INTERVAL 1 HOUR)'));
+
+  single_update(
+    USER_INFOS_TABLE,
+    array(
+      'activation_key' => pwg_password_hash($activation_key),
+      'activation_key_expire' => $expire,
+      ),
+    array('user_id' => $user_id)
+    );
+
+    set_make_full_url();
+
+    $reset_password_link = get_root_url().'password.php?key='.$activation_key;
+
+    unset_make_full_url();
+
+    return array(
+      'activation_key' => $activation_key,
+      'reset_password_link' => $reset_password_link,
+    );
+}
+
+/**
  * Gets the last visit (datetime) of a user, based on history table
  *
  * @since 2.9

@@ -5617,7 +5617,7 @@ input:checked + .slider:before, input:checked + .slider::after {
   position: relative;
 }
 
-.AddUserErrors, .update-user-fail, .AddAlbumErrors {
+.AddUserErrors, .update-user-fail, .AddAlbumErrors, .EditUserErrors, .update-password-fail {
   background-color: #ffcfcf;
   color: #ff5252;
   border-left:solid 3px red;
@@ -5632,7 +5632,9 @@ input:checked + .slider:before, input:checked + .slider::after {
   border-left: 2px solid #00FF00;
   color: #0a0;
 }
-.update-user-success {
+.update-user-success,
+.update-password-success,
+.update-username-success {
   border-left: 2px solid #00FF00;
 }
 #UserList .AddUserBlock p,
@@ -6588,17 +6590,51 @@ color:#FF7B00;
   color: #4c4c4c
 }
 
-.delete-user-button {
-  color:#353535;
-  background-color: #F3F3F3;
-}
-
 .slider-bar-wrapper .ui-slider-horizontal{
   background-color:#e3e3e3;
 }
 
-.preferences-container, .properties-container {
+.edit-user-tab,
+.guest-edit-user-tab {
   border-left: solid 1px #ddd;
+}
+
+.edit-user-tab-title,
+.guest-edit-user-tab-title {
+  border-bottom: solid 1px #ddd;
+}
+
+.edit-user-tab-title .selected,
+.edit-user-tab-title .selected:hover,
+.guest-edit-user-tab-title .selected,
+.guest-edit-user-tab-title .selected:hover {
+  color: #323232;
+  border-bottom: solid 4px #323232 !important;
+}
+
+.edit-user-tab-title p:hover,
+.guest-edit-user-tab-title p:hover {
+  border-color: #ddd;
+}
+
+.edit-user-icons .delete-user-button::before,
+.princes-of-this-piwigo {
+  color: #777777;
+}
+
+.edit-user-icons .icon-trash-1:hover::before,
+.king-of-this-piwigo {
+  color: #ffa646;
+}
+
+.royal-court-of-this-piwigo {
+  color: #dbdbdb;
+}
+
+.user-property-username-change-content,
+.user-property-password-change-content,
+.user-property-main-user-content {
+  background-color: white;
 }
 
 .update-container {
@@ -6610,6 +6646,11 @@ color:#FF7B00;
 }
 .user-property-input.user-property-input-password:hover {
   background-color: #f0f0f0;
+}
+
+.password-choice-content .unavailable,
+.password-choice-content .unavailable:hover {
+  color:#CBCBCB !important;
 }
 
 /* Activity Tab in user manager */

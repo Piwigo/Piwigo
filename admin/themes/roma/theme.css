@@ -998,7 +998,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .cat-modify-actions a::after,
-.cat-modify-actions .toggle-comment-option::after {
+.cat-modify-actions .toggle-comment-option::after,
+.mores-plugins::after {
   background: #111 !important;
 }
 
@@ -1650,11 +1651,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #c1c1c1
 }
 
-.delete-user-button {
-  color:#c1c1c1;
-  background-color: #333;
-}
-
 .slider-bar-wrapper .ui-slider-horizontal{
   background-color:#666;
 }
@@ -1664,8 +1660,69 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   border: 1px solid #ffa500;
 }
 
-.preferences-container, .properties-container {
+.edit-user-tab,
+.guest-edit-user-tab {
   border-left: solid 1px #333;
+}
+
+.edit-user-tab-title,
+.guest-edit-user-tab-title {
+  border-bottom: solid 1px #333;
+}
+
+.edit-user-tab-title .selected,
+.edit-user-tab-title .selected:hover,
+.guest-edit-user-tab-title .selected,
+.guest-edit-user-tab-title:hover .selected{
+  color: #c1c1c1;
+  border-bottom: solid 4px #c1c1c1 !important;
+}
+
+.edit-user-tab-title p:hover,
+.guest-edit-user-tab-title p:hover {
+  border-color: #323232;
+}
+
+.edit-user-icons .delete-user-button::before,
+.princes-of-this-piwigo {
+  color: #c1c1c1;
+}
+
+.edit-user-icons .icon-trash-1:hover::before,
+.king-of-this-piwigo {
+  color: #f70;
+}
+
+.royal-court-of-this-piwigo {
+  color: #777;
+}
+
+.user-property-username-change-content,
+.user-property-password-change-content,
+.user-property-main-user-content {
+  background-color: #444;
+}
+
+.edit-password-success-reset-link,
+.user-property-input-icon {
+  background-color: #505050 !important;
+  color: #999 !important;
+}
+
+.edit-password-success-ok .icon-button,
+.user-property-main-user-close .icon-button {
+  background-color: #333 !important;
+}
+
+.edit-password-success-ok .icon-button:hover,
+.user-property-main-user-close .icon-button:hover {
+  color: #c1c1c1 !important;
+}
+
+.main-user-proceed, 
+.main-user-rewrite, 
+.main-user-validate {
+  color: #A4A4A4 !important;
 }
 
 .update-container {
@@ -1677,6 +1734,16 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 .user-property-input.user-property-input-password:hover {
   background-color: #333;
+}
+
+.password-choice-content .unavailable,
+.password-choice-content .unavailable:hover {
+  color:#777 !important;
+}
+
+.password-choice-content .head-button-2,
+.password-choice-content .head-button-2:hover {
+  color: #CBCBCB;
 }
 
 .lineView .user-container-initials-wrapper > span {
@@ -1801,7 +1868,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #343434;
 }
 
-.AddUserErrors, .update-user-fail {
+.AddUserErrors, .update-user-fail, .EditUserErrors, .update-password-fail {
   background-color: #f22;;
   color: #ffd5dc;
   border-left:solid 3px #f22;
@@ -1834,7 +1901,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: #a9f6e3;
 }
 
-.update-user-success {
+.update-user-success,
+.update-password-success,
+.update-username-success {
   border-left: 2px solid #a9f6e3;
 }
 
