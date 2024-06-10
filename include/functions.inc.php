@@ -2741,8 +2741,6 @@ SELECT
     conf_update_param('send_piwigo_infos_last_notice', date('c'));
   }
 
-  echo '<pre>'; print_r($piwigo_infos); echo '</pre>';
-
   conf_delete_param('send_piwigo_infos_running');
   $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
 }
