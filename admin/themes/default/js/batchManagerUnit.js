@@ -1,37 +1,104 @@
 $(document).ready(function () {
+  //Detect unsaved changes
+  var user_interacted = false;
 
-    //DELETE FUNCTION
-  $('#action-delete-picture').on('click', function() {
-    var pictureId = $(this).parents("fieldset").data("image_id")
-    var this_url_delete = window["url_delete_" + pictureId];
-    console.log(pictureId + " - " + this_url_delete);
-    $.confirm({
-      title: str_are_you_sure,
-      draggable: false,
-      titleClass: "groupDeleteConfirm",
-      theme: "modern",
-      content: "",
-      animation: "zoom",
-      boxWidth: '30%',
-      useBootstrap: false,
-      type: 'red',
-      animateFromElement: false,
-      backgroundDismiss: true,
-      typeAnimated: false,
-      buttons: {
-          confirm: {
-            text: str_yes,
-            btnClass: 'btn-red',
-            action: function () {
-              window.location.href = this_url_delete.replaceAll('amp;', '');
-            }
-          },
-          cancel: {
-            text: str_no
-          }
+  $('input, textarea, select').on('focus', function() {
+      user_interacted = true;
+  });
+  $('input, textarea, select').on('change', function() {
+    if(user_interacted == true)
+      {
+        showUnsavedBadge();
+        console.log("change seen")
       }
+  });
+  function showUnsavedBadge() {
+      $('#global-unsaved-badge').css('visibility', 'visible');
+
+  }
+
+  function hideUnsavedBadge() { //Implement with validation system
+      $('#global-unsaved-badge').css('visibility', 'hidden');
+  }
+
+  $(window).on('beforeunload', function() {
+      if (user_interacted) {
+          return "You have unsaved changes, are you sure you want to leave this page ?";
+      }
+  });
+
+//DELETE
+  $('.action-delete-picture').on('click', function(event) {
+    var $fieldset = $(this).parents("fieldset");
+    var pictureId = $fieldset.data("image_id");
+
+    console.log(pictureId);
+
+    $.confirm({
+        title: str_are_you_sure,
+        draggable: false,
+        titleClass: "groupDeleteConfirm",
+        theme: "modern",
+        content: "",
+        animation: "zoom",
+        boxWidth: '30%',
+        useBootstrap: false,
+        type: 'red',
+        animateFromElement: false,
+        backgroundDismiss: true,
+        typeAnimated: false,
+        buttons: {
+            confirm: {
+                text: str_yes,
+                btnClass: 'btn-red',
+                action: function () {
+                    var image_ids = [pictureId];
+
+                    (function(ids) {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'ws.php?format=json',
+                            data: {
+                                method: "pwg.images.delete",
+                                pwg_token: jQuery("input[name=pwg_token]").val(),
+                                image_id: ids.join(',')
+                            },
+                            dataType: 'json',
+                            success: function(data) {
+                                var isOk = data.stat && data.stat === "ok";
+                                if (isOk) {
+                                    console.log("Success");
+                                    $fieldset.remove();
+                                    $('.pagination-container').css({
+                                      'pointer-events': 'none',
+                                      'opacity': '0.5'
+                                    });
+                                    $('.button-reload').css('visibility', 'visible');
+                                    $('div[data-image_id="' + pictureId + '"]').css('display', 'flex');
+                                    
+                                } else {
+                                    console.log("Not all images were deleted successfully");
+                                }
+                            },
+                            error: function(data) {
+                                console.error("Error occurred");
+                            }
+                        });
+                    })(image_ids);
+
+                    image_ids = [];
+                }
+            },
+            cancel: {
+                text: str_no
+            }
+        }
     });
-  })
+});
+
+
+
+//Categories 
 
   $(".linked-albums.add-item").on("click", function () {
       var pictureId = $(this).parents("fieldset").data("image_id")

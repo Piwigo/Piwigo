@@ -106,15 +106,20 @@ var sliders = {
 
 <form action="{$F_ACTION}" method="POST">
   <div style="margin: 30px 0; display: flex; justify-content: space-between;">
+  <div style="margin-right: 21px;" class="pagination-per-page">
+  <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
+  <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
+  <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
+  <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
+</div>
     <div style="margin-left: 22px;">
-      {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+    
+    <div class="pagination-reload">
+      {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}<div class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="visibility: hidden;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></div>{/if}
     </div>
-    <div style="margin-right: 21px;" class="pagination-per-page">
-      <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
-      <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
-      <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
-      <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
     </div>
+
+    
   </div>
   <div style="clear:both"></div>
 
@@ -326,7 +331,7 @@ var sliders = {
   {/footer_script}
 
 {debug}
-
+<div class="deleted-element" data-image_id="{$element.ID}" style="display: none;"><p>Image {$element.ID} was succesfully deleted</p></div>
 <fieldset class="elementEdit" id="picture-{$element.ID}" data-image_id="{$element.ID}">
   <div class="media-box">
     <img src="{$element.TN_SRC}" alt="imagename" class="media-box-embed" style="{if $element.FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
@@ -338,7 +343,7 @@ var sliders = {
     <a target="_blank" class="icon-pencil tiptip" href="{$element.U_EDIT}" title="{'Edit photo'|@translate}"></a>
     {if !url_is_remote($element.PATH)}
       <a class="icon-arrows-cw tiptip" href="{$element.U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
-      <a class="icon-trash tiptip" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
+      <a class="icon-trash tiptip action-delete-picture" title="{'delete photo'|@translate}"></a>
     {/if}
 
   </div>
@@ -452,7 +457,22 @@ var sliders = {
 </fieldset>
 {/foreach}
 
-{if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+<div style="margin: 30px 0; display: flex; justify-content: space-between;">
+  <div style="margin-right: 21px;" class="pagination-per-page">
+  <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
+  <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
+  <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
+  <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
+</div>
+    <div style="margin-left: 22px;">
+    
+    <div class="pagination-reload">
+      {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}<div class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="visibility: hidden;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></div>{/if}
+    </div>
+    </div>
+
+    
+  </div>
 {/if}
 <br>
 <br>
@@ -461,6 +481,7 @@ var sliders = {
 
 <div class="bottom-save-bar">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+  <div class="badge-container" id="global-unsaved-badge" style="visibility: hidden;"><p><i class="icon-attention">&#xe829;</i>You have unsaved changes</p></div>
   <button class="buttonLike" type="submit" value="{'Submit'|@translate}" name="submit" style="height:40px"><i class="icon-floppy"></i>Save all photos</button>  
 </div>
 
@@ -665,7 +686,7 @@ var sliders = {
 .calendar-input{
   display: flex;
   border-radius: 2px;
-  padding: 0 7px;
+  padding-left: 7px;
   border: 1px solid #D3D3D3;
   background: #FFF;
   align-items: center;
@@ -716,12 +737,14 @@ var sliders = {
   font-weight: bold;
 }
 .bottom-save-bar{
+  display:flex;
+  flex-direction: row;
   position: fixed;
   bottom: 0;
   right: 0;
   width: calc(100% - 205px);
   background-color: #ffffff;
-  text-align: right;
+  justify-content: flex-end;
   z-index: 101;
   border-top: 1px solid #CCCCCC;
 }
@@ -729,6 +752,35 @@ var sliders = {
 .bottom-save-bar button{
   margin: 10px 0;
   margin-right: 2%;
+}
+
+.badge-container {
+  display: inline-block;
+  text-align: right;
+  margin-right: 2%;
+}
+.badge-container p{
+  padding: 5px 10px;
+  border-radius: 100px;
+  background-color: #FADDA2;
+  color: #E18C32;
+  margin: 10px 0 !important;
+}
+
+.pagination-reload{
+  display: flex;
+  flex-direction: row;
+}
+
+.deleted-element{
+  display:flex;
+  justify-content: center;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  background-color:#3C3C3C;
+  color: #FFFFFF;
+  padding:0px;
+  margin: 1.5em !important;
+  border-radius: 4px;
 }
 
 </style>
