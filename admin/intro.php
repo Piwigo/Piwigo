@@ -109,74 +109,10 @@ if ($conf['show_newsletter_subscription'] and userprefs_get_param('show_newslett
 }
 
 
-$query = '
-SELECT COUNT(*)
-  FROM '.IMAGES_TABLE.'
-;';
-list($nb_photos) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM '.CATEGORIES_TABLE.'
-;';
-list($nb_categories) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM '.TAGS_TABLE.'
-;';
-list($nb_tags) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM '.IMAGE_TAG_TABLE.'
-;';
-list($nb_image_tag) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM '.USERS_TABLE.'
-;';
-list($nb_users) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM `'.GROUPS_TABLE.'`
-;';
-list($nb_groups) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
-  FROM '.RATE_TABLE.'
-;';
-list($nb_rates) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT
-    SUM(nb_pages)
-  FROM '.HISTORY_SUMMARY_TABLE.'
-  WHERE month IS NULL
-;';
-list($nb_views) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT
-    SUM(filesize)
-  FROM '.IMAGES_TABLE.'
-;';
-list($disk_usage) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT
-    SUM(filesize)
-  FROM '.IMAGE_FORMAT_TABLE.'
-;';
-list($formats_disk_usage) = pwg_db_fetch_row(pwg_query($query));
-
-$disk_usage+= $formats_disk_usage;
+$stats = get_pwg_general_statitics();
 
 $du_decimals = 1;
-$du_gb = $disk_usage/(1024*1024);
+$du_gb = $stats['disk_usage']/(1024*1024);
 if ($du_gb > 100)
 {
   $du_decimals = 0;
@@ -184,14 +120,14 @@ if ($du_gb > 100)
 
 $template->assign(
   array(
-    'NB_PHOTOS' => $nb_photos,
-    'NB_ALBUMS' => $nb_categories,
-    'NB_TAGS' => $nb_tags,
-    'NB_IMAGE_TAG' => $nb_image_tag,
-    'NB_USERS' => $nb_users,
-    'NB_GROUPS' => $nb_groups,
-    'NB_RATES' => $nb_rates,
-    'NB_VIEWS' => number_format_human_readable($nb_views),
+    'NB_PHOTOS' => $stats['nb_photos'],
+    'NB_ALBUMS' => $stats['nb_categories'],
+    'NB_TAGS' => $stats['nb_tags'],
+    'NB_IMAGE_TAG' => $stats['nb_image_tag'],
+    'NB_USERS' => $stats['nb_users'],
+    'NB_GROUPS' => $stats['nb_groups'],
+    'NB_RATES' => $stats['nb_rates'],
+    'NB_VIEWS' => number_format_human_readable($stats['nb_views']),
     'NB_PLUGINS' => count($pwg_loaded_plugins),
     'STORAGE_USED' => str_replace(' ', '&nbsp;', l10n('%sGB', number_format($du_gb, $du_decimals))),
     'U_QUICK_SYNC' => PHPWG_ROOT_PATH.'admin.php?page=site_update&amp;site=1&amp;quick_sync=1&amp;pwg_token='.get_pwg_token(),
