@@ -273,12 +273,6 @@ $conf['update_notify_check_period'] = 24*60*60;
 // we send it again? 0 to disable.
 $conf['update_notify_reminder_period'] = 7*24*60*60;
 
-// once a week, Piwigo *anonymously* sends technical data and general
-// statistics, such as number of photos or list of plugins used. It helps
-// piwigo.org to know better how Piwigo is used. This way developers can
-// focus on features that matter most.
-$conf['send_piwigo_infos'] = true;
-
 // should the album description be displayed on all pages (value=true) or
 // only the first page (value=false)
 $conf['album_description_on_all_pages'] = false;
