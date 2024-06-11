@@ -104,24 +104,22 @@ var sliders = {
 {combine_script id='batchManagerUnit' load='footer' require='jquery.ui.effect-blind,jquery.sort' path='admin/themes/default/js/batchManagerUnit.js'}
 
 
-<form action="{$F_ACTION}" method="POST">
-  <div style="margin: 30px 0; display: flex; justify-content: space-between;">
+<div style="margin: 30px 0; display: flex; justify-content: space-between;">
   <div style="margin-right: 21px;" class="pagination-per-page">
-  <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
-  <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
-  <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
-  <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
-</div>
-    <div style="margin-left: 22px;">
-    
+    <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
+    <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
+    <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
+    <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
+  </div>
+  <div style="margin-left: 22px;">
     <div class="pagination-reload">
-      {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}<div class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="visibility: hidden;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></div>{/if}
+      {if !empty($navbar) }<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></a>{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
     </div>
-    </div>
+  </div>
 
     
-  </div>
-  <div style="clear:both"></div>
+</div>
+<div style="clear:both"></div>
 
 {if !empty($elements) }
 <div><input type="hidden" name="element_ids" value="{$ELEMENT_IDS}"></div>
@@ -331,7 +329,7 @@ var sliders = {
   {/footer_script}
 
 {debug}
-<div class="deleted-element" data-image_id="{$element.ID}" style="display: none;"><p>Image {$element.ID} was succesfully deleted</p></div>
+<div class="deleted-element" data-image_id="{$element.ID}" style="display: none;"><i class="icon-ok">&#xe819;</i><p>Image {$element.ID} was succesfully deleted</p></div>
 <fieldset class="elementEdit" id="picture-{$element.ID}" data-image_id="{$element.ID}">
   <div class="media-box">
     <img src="{$element.TN_SRC}" alt="imagename" class="media-box-embed" style="{if $element.FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
@@ -382,12 +380,12 @@ var sliders = {
     
     <div class="half-line-info-box">
        <strong>{'Title'|@translate}</strong>
-       <input type="text" name="name-{$element.id}" value="{$element.NAME}">
+       <input type="text" name="name" id="name-{$element.id}" value="{$element.NAME}">
     </div>
     
     <div class="calendar-box">
       <strong>{'Creation date'|@translate}</strong>
-      <input type="hidden" name="date_creation-{$element.id}" value="{$element.DATE_CREATION}">
+      <input type="hidden" id="date_creation-{$element.id}" name="date_creation" value="{$element.DATE_CREATION}">
       <label class="calendar-input">
         <i class="icon-calendar"></i>
         <input type="text" data-datepicker="date_creation-{$element.id}" data-datepicker-unset="date_creation_unset-{$element.id}" readonly>
@@ -399,14 +397,14 @@ var sliders = {
     
     <div class="half-line-info-box">
       <strong>{'Author'|@translate}</strong>
-      <input type="text" name="author-{$element.id}" value="{$element.AUTHOR}">
+      <input type="text" name="author" id="author-{$element.id}" value="{$element.AUTHOR}">
     </div>
     
     <div class="half-line-info-box">
     <div class="privacy-label-container">
     <strong>Qui peut voir ?</strong> <i>Niveau de confidentialité</i>
     </div>
-    <select name="level" size="1">
+    <select name="level" id="level-{$element.id}" size="1">
       {html_options options=$level_options selected=$element.level_options_selected}
     </select>
     {* <div class="advanced-filter-item advanced-filter-privacy" >
@@ -427,9 +425,9 @@ var sliders = {
     
     <div class="full-line-tag-box">
     <strong>{'Tags'|@translate}</strong>
-    <select data-selectize="tags" data-value="{$element.TAGS|@json_encode|escape:html}"
+    <select id="tags-{$element.id}" data-selectize="tags" data-value="{$element.TAGS|@json_encode|escape:html}"
     placeholder="{'Type in a search term'|translate}"
-    data-create="true" name="tags-{$element.id}[]" multiple></select>
+    data-create="true" name="tags" id="tags-{$element.id}[]" multiple></select>
 
     </div>
     
@@ -450,9 +448,14 @@ var sliders = {
     
     <div class="full-line-description-box">
       <strong>{'Description'|@translate}</strong>
-      <textarea cols="50" rows="4" name="description" class="description-box" name="description-{$element.id}" id="description-{$element.id}">{$element.DESCRIPTION}</textarea>
+      <textarea cols="50" rows="4" name="description" class="description-box" id="description-{$element.id}">{$element.DESCRIPTION}</textarea>
     </div>
-    <div class="buttonLike save-button"><i class="icon-floppy"></i>{'Submit'|@translate}</div>
+    <div class="validation-container">
+    <div class="buttonLike action-save-picture"><i class="icon-floppy"></i>{'Submit'|@translate}</div>
+    <div class="local-unsaved-badge badge-container" style="display: none;"><p class="badge-unsaved"><i class="icon-attention">&#xe829;</i>Changes pending</p></div>
+    <div class="local-succes-badge badge-container" style="display: none;"><p class="badge-succes"><i class="icon-ok">&#xe819;</i>Changes saved</p></div>
+    <div class="local-error-badge badge-container" style="display: none;"><p class="badge-error"><i class="icon-cancel">&#xe822;</i>Error during save</p></div>
+    </div>
   </div>
 </fieldset>
 {/foreach}
@@ -467,7 +470,7 @@ var sliders = {
     <div style="margin-left: 22px;">
     
     <div class="pagination-reload">
-      {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}<div class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="visibility: hidden;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></div>{/if}
+    {if !empty($navbar) }<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></a>{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
     </div>
     </div>
 
@@ -481,11 +484,25 @@ var sliders = {
 
 <div class="bottom-save-bar">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-  <div class="badge-container" id="global-unsaved-badge" style="visibility: hidden;"><p><i class="icon-attention">&#xe829;</i>You have unsaved changes</p></div>
-  <button class="buttonLike" type="submit" value="{'Submit'|@translate}" name="submit" style="height:40px"><i class="icon-floppy"></i>Save all photos</button>  
+  <div class="badge-container global-unsaved-badge" style="display: none;">
+    <p class="badge-unsaved"><i class="icon-attention">&#xe829;</i>
+        <span id="unsaved-count"></span> image(s) contains unsaved changes
+    </p>
+  </div>
+    <div class="badge-container global-succes-badge" style="display: none;">
+    <p class="badge-succes"><i class="icon-attention">&#xe829;</i>
+      Changes saved
+    </p>
+  </div>
+    <div class="badge-container global-error-badge" style="display: none;">
+    <p class="badge-error"><i class="icon-attention">&#xe829;</i>
+      Error during save
+    </p>
+  </div>
+  <div class="buttonLike action-save-global"><i class="icon-floppy"></i>Save all photos</div>  
 </div>
 
-</form>
+
 {include file='include/album_selector.inc.tpl' 
   title={'Associate to album'|@translate}
   searchPlaceholder={'Search'|@translate}
@@ -608,6 +625,7 @@ var sliders = {
   font-weight: 700;
   line-height: normal;
   width:100px;
+  overflow-wrap: break-word;
 }
 
 .main-info-desc{
@@ -630,7 +648,7 @@ var sliders = {
   padding: 20px 0px;
   gap: 10px 0px;
   color:#7A7A7A;
-
+  text-align: left;
 }
 
 .half-line-info-box{
@@ -721,10 +739,7 @@ var sliders = {
   outline: none !important;
 }
 
-.save-button{
-  margin: 0% 10px;
-  margin-top: 20px;
-}
+
 
 .privacy-label-container{
   display: flex;
@@ -745,42 +760,68 @@ var sliders = {
   width: calc(100% - 205px);
   background-color: #ffffff;
   justify-content: flex-end;
+  align-items: center;
   z-index: 101;
   border-top: 1px solid #CCCCCC;
 }
 
-.bottom-save-bar button{
+.action-save-global{
   margin: 10px 0;
   margin-right: 2%;
 }
 
 .badge-container {
-  display: inline-block;
   text-align: right;
   margin-right: 2%;
 }
-.badge-container p{
+.badge-unsaved{
   padding: 5px 10px;
   border-radius: 100px;
   background-color: #FADDA2;
   color: #E18C32;
-  margin: 10px 0 !important;
+}
+
+.badge-succes{
+  padding: 5px 10px;
+  border-radius: 100px;
+  background-color: #D6FFCF;
+  color: #6DCE5E;
+}
+
+.badge-error{
+  padding: 5px 10px;
+  border-radius: 100px;
+  background-color: #F8D7DC;
+  color: #EB3D33;
 }
 
 .pagination-reload{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .deleted-element{
   display:flex;
+  flex-direction: row;
   justify-content: center;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-  background-color:#3C3C3C;
-  color: #FFFFFF;
+  align-items: center;
+  background-color:#D6FFCF;
+  color: #6DCE5E;
   padding:0px;
   margin: 1.5em !important;
   border-radius: 4px;
+}
+
+.validation-container{
+  margin: 20px 0 0 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;  
+  flex: 1;
+  gap: 10px;
 }
 
 </style>

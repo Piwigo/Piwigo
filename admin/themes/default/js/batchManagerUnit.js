@@ -1,101 +1,223 @@
 $(document).ready(function () {
-  //Detect unsaved changes
+  // Detect unsaved changes on any inputs
   var user_interacted = false;
 
   $('input, textarea, select').on('focus', function() {
       user_interacted = true;
   });
+
   $('input, textarea, select').on('change', function() {
-    if(user_interacted == true)
-      {
-        showUnsavedBadge();
-        console.log("change seen")
+      var pictureId = $(this).parents("fieldset").data("image_id");
+      if (user_interacted == true) {
+          showUnsavedLocalBadge(pictureId);
+          updateUnsavedGlobalBadge();
+          console.log("Change seen on " + pictureId);
       }
   });
-  function showUnsavedBadge() {
-      $('#global-unsaved-badge').css('visibility', 'visible');
 
+  function updateUnsavedGlobalBadge() {
+      var visibleLocalUnsavedCount = $(".local-unsaved-badge").filter(function() {
+          return $(this).css('display') === 'block';
+      }).length;
+
+      if (visibleLocalUnsavedCount > 0) {
+          $(".global-unsaved-badge").css('display', 'block');
+          $("#unsaved-count").text(visibleLocalUnsavedCount);
+      } else {
+          $(".global-unsaved-badge").css('display', 'none');
+          $("#unsaved-count").text('');
+      }
   }
 
-  function hideUnsavedBadge() { //Implement with validation system
-      $('#global-unsaved-badge').css('visibility', 'hidden');
+  function showUnsavedLocalBadge(pictureId) {
+      hideSuccesLocalBadge(pictureId);
+      hideErrorLocalBadge(pictureId);
+      $("#picture-" + pictureId + " .local-unsaved-badge").css('display', 'block');
+  }
+
+  function hideUnsavedLocalBadge(pictureId) {
+      $("#picture-" + pictureId + " .local-unsaved-badge").css('display', 'none');
   }
 
   $(window).on('beforeunload', function() {
       if (user_interacted) {
-          return "You have unsaved changes, are you sure you want to leave this page ?";
+          return "You have unsaved changes, are you sure you want to leave this page?";
       }
   });
+  //Error badge
+  function showErrorLocalBadge(pictureId) {
+    $("#picture-" + pictureId + " .local-error-badge").css('display', 'block');
+}
+  function hideErrorLocalBadge(pictureId) {
+    $("#picture-" + pictureId + " .local-error-badge").css('display', 'none');
+}
 
-//DELETE
-  $('.action-delete-picture').on('click', function(event) {
-    var $fieldset = $(this).parents("fieldset");
-    var pictureId = $fieldset.data("image_id");
-
-    console.log(pictureId);
-
-    $.confirm({
-        title: str_are_you_sure,
-        draggable: false,
-        titleClass: "groupDeleteConfirm",
-        theme: "modern",
-        content: "",
-        animation: "zoom",
-        boxWidth: '30%',
-        useBootstrap: false,
-        type: 'red',
-        animateFromElement: false,
-        backgroundDismiss: true,
-        typeAnimated: false,
-        buttons: {
-            confirm: {
-                text: str_yes,
-                btnClass: 'btn-red',
-                action: function () {
-                    var image_ids = [pictureId];
-
-                    (function(ids) {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'ws.php?format=json',
-                            data: {
-                                method: "pwg.images.delete",
-                                pwg_token: jQuery("input[name=pwg_token]").val(),
-                                image_id: ids.join(',')
-                            },
-                            dataType: 'json',
-                            success: function(data) {
-                                var isOk = data.stat && data.stat === "ok";
-                                if (isOk) {
-                                    console.log("Success");
-                                    $fieldset.remove();
-                                    $('.pagination-container').css({
-                                      'pointer-events': 'none',
-                                      'opacity': '0.5'
-                                    });
-                                    $('.button-reload').css('visibility', 'visible');
-                                    $('div[data-image_id="' + pictureId + '"]').css('display', 'flex');
-                                    
-                                } else {
-                                    console.log("Not all images were deleted successfully");
-                                }
-                            },
-                            error: function(data) {
-                                console.error("Error occurred");
-                            }
-                        });
-                    })(image_ids);
-
-                    image_ids = [];
-                }
-            },
-            cancel: {
-                text: str_no
-            }
-        }
+  //Succes badge
+  function showSuccesLocalBadge(pictureId) {
+    var badge = $("#picture-" + pictureId + " .local-succes-badge");
+    badge.css({
+        'display': 'block',
+        'opacity': 1
     });
-});
 
+    setTimeout(() => {
+        badge.fadeOut(1000, function() {
+            badge.css('display', 'none');
+        });
+    }, 3000);
+}
+
+function hideSuccesLocalBadge(pictureId) {
+    $("#picture-" + pictureId + " .local-succes-badge").css('display', 'none');
+}
+
+  // DELETE
+  $('.action-delete-picture').on('click', function(event) {
+      var $fieldset = $(this).parents("fieldset");
+      var pictureId = $fieldset.data("image_id");
+
+      console.log(pictureId);
+
+      $.confirm({
+          title: str_are_you_sure,
+          draggable: false,
+          titleClass: "groupDeleteConfirm",
+          theme: "modern",
+          content: "",
+          animation: "zoom",
+          boxWidth: '30%',
+          useBootstrap: false,
+          type: 'red',
+          animateFromElement: false,
+          backgroundDismiss: true,
+          typeAnimated: false,
+          buttons: {
+              confirm: {
+                  text: str_yes,
+                  btnClass: 'btn-red',
+                  action: function () {
+                      var image_ids = [pictureId];
+
+                      (function(ids) {
+                          $.ajax({
+                              type: 'POST',
+                              url: 'ws.php?format=json',
+                              data: {
+                                  method: "pwg.images.delete",
+                                  pwg_token: jQuery("input[name=pwg_token]").val(),
+                                  image_id: ids.join(',')
+                              },
+                              dataType: 'json',
+                              success: function(data) {
+                                  var isOk = data.stat && data.stat === "ok";
+                                  if (isOk) {
+                                      console.log("Success");
+                                      $fieldset.remove();
+                                      $('.pagination-container').css({
+                                          'pointer-events': 'none',
+                                          'opacity': '0.5'
+                                      });
+                                      $('.button-reload').css('display', 'block');
+                                      $('div[data-image_id="' + pictureId + '"]').css('display', 'flex');
+                                  } else {
+                                      console.log("Image was not deleted successfully");
+                                  }
+                              },
+                              error: function(data) {
+                                  console.error("Error occurred");
+                              }
+                          });
+                      })(image_ids);
+
+                      image_ids = [];
+                  }
+              },
+              cancel: {
+                  text: str_no
+              }
+          }
+      });
+  });
+
+  // VALIDATION
+  //Unit Save
+  $('.action-save-picture').on('click', function(event) {
+      var $fieldset = $(this).parents("fieldset");
+      var pictureId = $fieldset.data("image_id");
+      saveChanges(pictureId);
+  });
+
+  //Global Save
+  $('.action-save-global').on('click', function(event) {
+    saveAllChanges();
+  });
+
+  function saveChanges(pictureId) {
+      if ($("#picture-" + pictureId + " .local-unsaved-badge").css('display') === 'block') {
+          console.log("Saving changes for " + pictureId);
+
+          // Retrieve Infos
+          var name = $("#name-" + pictureId).val();
+          var author = $("#author-" + pictureId).val();
+          var date_creation = $("#date_creation-" + pictureId).val();
+          var comment = $("#description-" + pictureId).val();
+          var level = $("#level-" + pictureId + " option:selected").val();
+          
+          // Get Categories
+          var categories = [];
+          $("#picture-" + pictureId + " .remove-item").each(function() {
+              categories.push($(this).attr("id"));
+          });
+          var categoriesStr = categories.join(';');
+
+          // Get Tags
+          var tags = [];
+          $("#tags-" + pictureId + " option").each(function() {
+              var tagId = $(this).val().replace(/~~/g, '');
+              tags.push(tagId);
+          });
+          var tagsStr = tags.join(',');
+
+          $.ajax({
+              url: 'ws.php?format=json',
+              method: 'POST',
+              data: {
+                  method: 'pwg.images.setInfo',
+                  image_id: pictureId,
+                  name: name,
+                  author: author,
+                  date_creation: date_creation,
+                  comment: comment,
+                  categories: categoriesStr,
+                  tag_ids: tagsStr,
+                  level: level,
+                  single_value_mode: "replace",
+                  multiple_value_mode: "replace",
+                  pwg_token: jQuery("input[name=pwg_token]").val()
+              },
+              success: function(response) {
+                  console.log(response);
+                  hideUnsavedLocalBadge(pictureId);
+                  showSuccesLocalBadge(pictureId);
+                  updateUnsavedGlobalBadge();
+              },
+              error: function(xhr, status, error) {
+                  hideUnsavedLocalBadge(pictureId);
+                  showErrorLocalBadge(pictureId);
+                  console.error('Error:', error);
+              }
+          });
+      } else {
+          console.log("No changes to save for " + pictureId);
+      }
+  }
+  function saveAllChanges() {
+    $("fieldset").each(function() {
+        var pictureId = $(this).data("image_id");
+        saveChanges(pictureId);
+    });
+    console.log("changed all")
+}
 
 
 //Categories 
