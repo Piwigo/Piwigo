@@ -1613,6 +1613,7 @@ a.stat-box:hover {
 
 .storage-tooltips .tooltip {
   min-width: 265px;
+  max-width: 400px;
   padding: 15px 20px;
 }
 
