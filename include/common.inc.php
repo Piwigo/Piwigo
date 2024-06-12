@@ -124,6 +124,11 @@ catch (Exception $e)
 
 pwg_db_check_charset();
 
+// in Piwigo 15, configuration setting webmaster_id is moved from config files
+// to database. It may be undefined at some point, with Piwigo 15+ scripts and
+// a Piwigo 14 database schema not upgraded yet. Let's avoid any problem.
+$conf['webmaster_id'] = $conf['webmaster_id'] ?? 1;
+
 load_conf_from_db();
 
 $logger = new Logger(array(
