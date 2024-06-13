@@ -2574,7 +2574,7 @@ INSERT IGNORE
         continue;
       }
 
-      $codename = $pem_extensions[$eid]['archive_root_dir'] ?? $pllugin['id'];
+      $codename = $pem_extensions[$eid]['archive_root_dir'] ?? $plugin['id'];
 
       $piwigo_infos['plugins'][] = (empty($eid) ? 'null' : '#'.$eid).'/'.$codename.'/'.$plugin['version'];
     }
