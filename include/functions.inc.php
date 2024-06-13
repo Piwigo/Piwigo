@@ -2530,6 +2530,10 @@ INSERT IGNORE
   else
   {
     $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote on '.$url.' has failed');
+    send_piwigo_infos_retry_later(1*60*60); // 1 hour later
+    conf_delete_param('send_piwigo_infos_running');
+    $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
+    return;
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
@@ -2546,7 +2550,10 @@ INSERT IGNORE
         $uri = $plugins->fs_plugins[ $plugin['id'] ]['uri'];
         if (preg_match('/eid=(\d+)/', $uri, $matches))
         {
-          $eid = $matches[1];
+          if (isset($pem_extensions[ $matches[1] ]))
+          {
+            $eid = $matches[1];
+          }
         }
       }
 
@@ -2562,11 +2569,14 @@ INSERT IGNORE
       // * OR has un unknown plugin_id among all "Archive root directory" in PEM
       if (empty($eid))
       {
+        $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] '.$plugin['id'].' is a private plugin, not sent to piwigo.org');
         $piwigo_infos['general_stats']['nb_private_plugins']++;
         continue;
       }
 
-      $piwigo_infos['plugins'][] = (empty($eid) ? 'null' : '#'.$eid).'/'.$plugin['id'].'/'.$plugin['version'];
+      $codename = $pem_extensions[$eid]['archive_root_dir'] ?? $pllugin['id'];
+
+      $piwigo_infos['plugins'][] = (empty($eid) ? 'null' : '#'.$eid).'/'.$codename.'/'.$plugin['version'];
     }
   }
 
@@ -2588,7 +2598,10 @@ INSERT IGNORE
         $uri = $themes->fs_themes[ $theme['id'] ]['uri'];
         if (preg_match('/eid=(\d+)/', $uri, $matches))
         {
-          $eid = $matches[1];
+          if (isset($pem_extensions[ $matches[1] ]))
+          {
+            $eid = $matches[1];
+          }
         }
       }
 
@@ -2604,11 +2617,14 @@ INSERT IGNORE
       // * OR has un unknown theme_id among all "Archive root directory" in PEM
       if (empty($eid))
       {
+        $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] '.$theme['id'].' is a private theme, not sent to piwigo.org');
         $private_themes[ $theme['id'] ] = 1;
         continue;
       }
 
-      $piwigo_infos['themes'][] = (empty($eid) ? 'null' : '#'.$eid).'/'.$theme['id'].'/'.$theme['version'];
+      $codename = $pem_extensions[$eid]['archive_root_dir'] ?? $theme['id'];
+
+      $piwigo_infos['themes'][] = (empty($eid) ? 'null' : '#'.$eid).'/'.$codename.'/'.$theme['version'];
     }
   }
 
@@ -2729,12 +2745,7 @@ SELECT
   if (!fetchRemote($url, $result, $get_data, $post_data))
   {
     $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote on '.$url.' method=porg.installs.update has failed');
-
-    // let's fake a last_notice so that we only try 1 day later
-    $last_notice = isset($conf['send_piwigo_infos_last_notice']) ? strtotime($conf['send_piwigo_infos_last_notice']) : time();
-    $last_notice += 24*60*60;
-
-    conf_update_param('send_piwigo_infos_last_notice', date('c', $last_notice));
+    send_piwigo_infos_retry_later(24*60*60);
   }
   else
   {
@@ -2743,6 +2754,17 @@ SELECT
 
   conf_delete_param('send_piwigo_infos_running');
   $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
+}
+
+function send_piwigo_infos_retry_later($wait_time)
+{
+  global $conf;
+
+  // let's fake a last_notice so that we only try 1 day later
+  $last_notice = isset($conf['send_piwigo_infos_last_notice']) ? strtotime($conf['send_piwigo_infos_last_notice']) : time();
+  $last_notice += $wait_time;
+
+  conf_update_param('send_piwigo_infos_last_notice', date('c', $last_notice));
 }
 
 ?>
