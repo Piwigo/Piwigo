@@ -296,6 +296,10 @@ $conf['linked_album_search_limit'] = 100;
 // 0 to disable.
 $conf['fs_quick_check_period'] = 24*60*60;
 
+// Show the page banner (Admin -> Configuration -> Options, tab General, Page banner)
+// on picture pages.
+$conf['picture_page_banner'] = true;
+
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
 // +-----------------------------------------------------------------------+
