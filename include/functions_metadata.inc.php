@@ -35,37 +35,90 @@ function get_iptc_data($filename, $map, $array_sep=',')
     $iptc = iptcparse($imginfo['APP13']);
     if (is_array($iptc))
     {
-      $rmap = array_flip($map);
-      foreach (array_keys($rmap) as $iptc_key)
-      {
-        if (isset($iptc[$iptc_key][0]))
-        {
-          if ($iptc_key == '2#025')
-          {
-            $value = implode($array_sep,
-                             array_map('clean_iptc_value',$iptc[$iptc_key]));
-          }
-          else
-          {
-            $value = clean_iptc_value($iptc[$iptc_key][0]);
-          }
+      $rmap = array();
 
-          foreach (array_keys($map, $iptc_key) as $pwg_key)
+      foreach ($map as $pwgkey => $iptc_key)
+      {
+        if (is_array($iptc_key))
+        {
+          foreach ($iptc_key as $iptc_key_l2 => $iptc_value)
           {
-            $result[$pwg_key] = $value;
+            if (is_array($iptc_value))
+            {
+              if ($pwgkey != 'tags')
+              {
+                die('only tags can get values from several IPTC fields');
+              }
+              $rmap[$iptc_value[0]][] = array($pwgkey, $iptc_value[1]);
+            }
+            else
+            {
+              $rmap[$iptc_value][] = $pwgkey;
+            }
+          }
+        }
+        else
+        {
+          $rmap[$iptc_key][] = $pwgkey;
+        }
+      }
+
+      foreach ($iptc as $iptc_key => $iptc_value)
+      {
+        if (isset($rmap[$iptc_key]))
+        {
+          foreach ($rmap[$iptc_key] as $pwgkey)
+          {
+            $key = null;
+            $value = $iptc_value;
+
+            if (is_array($pwgkey))
+            {
+              $key = $pwgkey[0];
+              $value = $pwgkey[1].implode($iptc_value);
+            }
+            else
+            {
+              $key = $pwgkey;
+            }
+
+            if (is_array($value))
+            {
+              $value = implode($value);
+            }
+
+            if (!isset($result[$key]))
+            {
+              $result[$key] = '';
+            }
+            else
+            {
+              $result[$key] .= ',';
+            }
+            if ($iptc_key == '2#025')
+            {
+              $value = implode($array_sep,
+                               array_map('clean_iptc_value',$iptc[$iptc_key]));
+            }
+            else
+            {
+              $value = clean_iptc_value($value);
+            }
 
             if (!$conf['allow_html_in_metadata'])
             {
               // in case the origin of the photo is unsecure (user upload), we
               // remove HTML tags to avoid XSS (malicious execution of
               // javascript)
-              $result[$pwg_key] = strip_tags($result[$pwg_key]);
+              $result[$key] = strip_tags($result[$key]);
             }
+            $result[$key] .= $value;
           }
         }
       }
     }
   }
+
   return $result;
 }
 
@@ -116,6 +169,60 @@ function clean_iptc_value($value)
   return $value;
 }
 
+/*
+* returns an array of the fields
+*/
+
+function get_exif_field_array($field, $exif, $key)
+{
+  $temp = array();
+
+  foreach ($field as $key_field => $second_field)
+  {
+    if (is_array($second_field))
+    {
+      $temp_third = array();
+      if ($key != 'tags')
+      {
+        die('only tags can get values from several EXIF fields');
+      }
+      if (isset($exif[$second_field[0]]) and isset($second_field[1]))
+      {
+        $temp_third[$key_field] = $second_field[1].$exif[$second_field[0]];
+      }
+      else if (isset($exif[$second_field[0]]))
+      {
+        $temp_third[$key_field] = $exif[$second_field[0]];
+      }
+      $temp[$key_field] = implode(',', $temp_third);
+      unset($temp_third);
+      if (empty($temp[$key_field]))
+      {
+        unset($temp[$key_field]);
+      }
+    }
+    else
+    {
+      if (strpos($second_field, ';') === false)
+      {
+        if (isset($exif[$second_field]))
+        {
+          $temp[$key_field] = $exif[$second_field];
+        }
+      }
+      else
+      {
+        $second_tokens = explode(';', $second_field);
+        if (isset($exif[$second_tokens[0]][$second_tokens[1]]))
+        {
+          $temp[$key_field] = $exif[$second_tokens[0]][$second_tokens[1]];
+        }
+      }
+    }
+  }
+  return  $temp;
+}
+
 /**
  * returns informations from EXIF metadata, mapping is done in this function.
  *
@@ -149,19 +256,32 @@ function get_exif_data($filename, $map)
     // configured fields
     foreach ($map as $key => $field)
     {
-      if (strpos($field, ';') === false)
+      if (is_array($field))
       {
-        if (isset($exif[$field]))
+        $temp = get_exif_field_array($field, $exif, $key);
+        $result[$key] = implode(',' , $temp);
+        unset($temp);
+        if (empty($result[$key]))
         {
-          $result[$key] = $exif[$field];
+          unset($result[$key]);
         }
       }
       else
       {
-        $tokens = explode(';', $field);
-        if (isset($exif[$tokens[0]][$tokens[1]]))
+        if (strpos($field, ';') === false)
         {
-          $result[$key] = $exif[$tokens[0]][$tokens[1]];
+          if (isset($exif[$field]))
+          {
+            $result[$key] = $exif[$field];
+          }
+        }
+        else
+        {
+          $tokens = explode(';', $field);
+          if (isset($exif[$tokens[0]][$tokens[1]]))
+          {
+            $result[$key] = $exif[$tokens[0]][$tokens[1]];
+          }
         }
       }
     }
