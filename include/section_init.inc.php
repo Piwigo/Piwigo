@@ -305,7 +305,7 @@ SELECT id
     {
       // main query
       $query = '
-SELECT DISTINCT(image_id)
+SELECT DISTINCT image_id, date_available, file, id
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON id = image_id
   WHERE
@@ -457,7 +457,7 @@ SELECT image_id
     }
 
     $query = '
-SELECT DISTINCT(id)
+SELECT DISTINCT id, date_available, file
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE '
@@ -497,7 +497,7 @@ SELECT DISTINCT(id)
     $conf['order_by'] = ' ORDER BY hit DESC, id DESC';
 
     $query = '
-SELECT DISTINCT(id)
+SELECT DISTINCT id, date_available, hit
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE hit > 0
@@ -524,7 +524,7 @@ SELECT DISTINCT(id)
     $conf['order_by'] = ' ORDER BY rating_score DESC, id DESC';
 
     $query ='
-SELECT DISTINCT(id)
+SELECT DISTINCT id, date_available
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE rating_score IS NOT NULL
@@ -547,7 +547,7 @@ SELECT DISTINCT(id)
   else if ($page['section'] == 'list')
   {
     $query ='
-SELECT DISTINCT(id)
+SELECT DISTINCT id, date_available, file
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE image_id IN ('.implode(',', $page['list']).')

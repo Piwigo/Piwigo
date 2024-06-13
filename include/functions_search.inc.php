@@ -443,7 +443,7 @@ function get_regular_search_results($search, $images_where='')
     $has_filters_filled = true;
 
     $query = '
-SELECT DISTINCT(id)
+SELECT DISTINCT id, i.date_available, i.file
   FROM '.IMAGES_TABLE.' i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
     LEFT JOIN '.IMAGE_TAG_TABLE.' AS it ON id = it.image_id
