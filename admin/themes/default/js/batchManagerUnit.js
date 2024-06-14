@@ -11,9 +11,15 @@ $(document).ready(function () {
       if (user_interacted == true) {
           showUnsavedLocalBadge(pictureId);
           updateUnsavedGlobalBadge();
-          console.log("Change seen on " + pictureId);
       }
   });
+
+  $('.icon-cancel-circled, .item-add').on('click', function() {
+    var pictureId = $(this).parents("fieldset").data("image_id");
+    showUnsavedLocalBadge(pictureId);
+    updateUnsavedGlobalBadge();
+
+});
 
   function updateUnsavedGlobalBadge() {
       var visibleLocalUnsavedCount = $(".local-unsaved-badge").filter(function() {
@@ -71,12 +77,29 @@ function hideSuccesLocalBadge(pictureId) {
     $("#picture-" + pictureId + " .local-succes-badge").css('display', 'none');
 }
 
+function showLocalSaveIcon (pictureId) {
+  $("#picture-" + pictureId + " .local-save-icon").css('display', 'block');
+  $("#picture-" + pictureId + " .action-save-picture").css({
+    'pointer-events': 'none',
+    'opacity': '0.5'
+});
+}
+
+function hideLocalSaveIcon(pictureId) {
+  $("#picture-" + pictureId + " .local-save-icon").css('display', 'none');
+  $("#picture-" + pictureId + " .action-save-picture").css({
+    'pointer-events': 'auto',
+    'opacity': '1'
+});
+}
+
+
+
   // DELETE
   $('.action-delete-picture').on('click', function(event) {
       var $fieldset = $(this).parents("fieldset");
       var pictureId = $fieldset.data("image_id");
 
-      console.log(pictureId);
 
       $.confirm({
           title: str_are_you_sure,
@@ -97,7 +120,6 @@ function hideSuccesLocalBadge(pictureId) {
                   btnClass: 'btn-red',
                   action: function () {
                       var image_ids = [pictureId];
-
                       (function(ids) {
                           $.ajax({
                               type: 'POST',
@@ -140,6 +162,7 @@ function hideSuccesLocalBadge(pictureId) {
   });
 
   // VALIDATION
+
   //Unit Save
   $('.action-save-picture').on('click', function(event) {
       var $fieldset = $(this).parents("fieldset");
@@ -177,7 +200,7 @@ function hideSuccesLocalBadge(pictureId) {
               tags.push(tagId);
           });
           var tagsStr = tags.join(',');
-
+          showLocalSaveIcon(pictureId);
           $.ajax({
               url: 'ws.php?format=json',
               method: 'POST',
@@ -197,11 +220,13 @@ function hideSuccesLocalBadge(pictureId) {
               },
               success: function(response) {
                   console.log(response);
+                  hideLocalSaveIcon(pictureId);
                   hideUnsavedLocalBadge(pictureId);
                   showSuccesLocalBadge(pictureId);
                   updateUnsavedGlobalBadge();
               },
               error: function(xhr, status, error) {
+                  hideLocalSaveIcon(pictureId);
                   hideUnsavedLocalBadge(pictureId);
                   showErrorLocalBadge(pictureId);
                   console.error('Error:', error);
@@ -216,7 +241,6 @@ function hideSuccesLocalBadge(pictureId) {
         var pictureId = $(this).data("image_id");
         saveChanges(pictureId);
     });
-    console.log("changed all")
 }
 
 

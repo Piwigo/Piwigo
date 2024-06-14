@@ -385,7 +385,7 @@ var sliders = {
     
     <div class="calendar-box">
       <strong>{'Creation date'|@translate}</strong>
-      <input type="hidden" id="date_creation-{$element.id}" name="date_creation" value="{$element.DATE_CREATION}">
+      <input type="hidden" id="date_creation-{$element.id}" name="date_creation-{$element.id}" value="{$element.DATE_CREATION}">
       <label class="calendar-input">
         <i class="icon-calendar"></i>
         <input type="text" data-datepicker="date_creation-{$element.id}" data-datepicker-unset="date_creation_unset-{$element.id}" readonly>
@@ -452,6 +452,7 @@ var sliders = {
     </div>
     <div class="validation-container">
     <div class="buttonLike action-save-picture"><i class="icon-floppy"></i>{'Submit'|@translate}</div>
+    <i class="local-save-icon icon-spin6 animate-spin" style="display: none;">&#xe81d;</i>
     <div class="local-unsaved-badge badge-container" style="display: none;"><p class="badge-unsaved"><i class="icon-attention">&#xe829;</i>Changes pending</p></div>
     <div class="local-succes-badge badge-container" style="display: none;"><p class="badge-succes"><i class="icon-ok">&#xe819;</i>Changes saved</p></div>
     <div class="local-error-badge badge-container" style="display: none;"><p class="badge-error"><i class="icon-cancel">&#xe822;</i>Error during save</p></div>
@@ -489,16 +490,17 @@ var sliders = {
         <span id="unsaved-count"></span> image(s) contains unsaved changes
     </p>
   </div>
-    <div class="badge-container global-succes-badge" style="display: none;">
+  <div class="badge-container global-succes-badge" style="display: none;">
     <p class="badge-succes"><i class="icon-attention">&#xe829;</i>
       Changes saved
     </p>
   </div>
-    <div class="badge-container global-error-badge" style="display: none;">
+  <div class="badge-container global-error-badge" style="display: none;">
     <p class="badge-error"><i class="icon-attention">&#xe829;</i>
       Error during save
     </p>
   </div>
+  <i class="global-save-icon icon-spin6 animate-spin" style="display: none;">&#xe81d;</i>
   <div class="buttonLike action-save-global"><i class="icon-floppy"></i>Save all photos</div>  
 </div>
 

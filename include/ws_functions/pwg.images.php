@@ -2290,6 +2290,7 @@ SELECT path
  */
 function ws_images_setInfo($params, $service)
 {
+  sleep(5);
   global $conf;
 
   if (isset($params['pwg_token']) and get_pwg_token() != $params['pwg_token'])
