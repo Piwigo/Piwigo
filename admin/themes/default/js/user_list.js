@@ -1,7 +1,7 @@
 const color_icons = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
 const status_arr = ['webmaster', 'admin', 'normal', 'generic', 'guest'];
 const level_arr = ['0', '1', '2', '4', '8'];
-const king_template = '<span class="icon-king" id="the_king"></span>';
+const king_template = '<p class="icon-king" id="the_king"></p>';
 let current_users = [];
 let guest_id = 0;
 let guest_user = {};
@@ -1334,7 +1334,7 @@ function fill_container_user_info(container, user_index) {
     let registration_dates = user.registration_date.split(' ');
     container.attr('key', user_index);
     container.find(".user-container-username span").html(user.username);
-    if(user.id === owner_id) {
+    if(user.id === owner_id && !$('#the_king').length) {
         container.find(".user-container-username").append(king_template);
     }
     container.find(".user-container-initials span").html(get_initials(user.username)).addClass(color_icons[user.id % 5]);
