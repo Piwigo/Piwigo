@@ -329,7 +329,7 @@ var sliders = {
   {/footer_script}
 
 {debug}
-<div class="deleted-element" data-image_id="{$element.ID}" style="display: none;"><i class="icon-ok">&#xe819;</i><p>Image {$element.ID} was succesfully deleted</p></div>
+<div class="deleted-element" data-image_id="{$element.ID}" style="display: none;"><i class="icon-ok">&#xe819;</i><p>Image #{$element.ID} '{$element.FILE}' was succesfully deleted</p></div>
 <fieldset class="elementEdit" id="picture-{$element.ID}" data-image_id="{$element.ID}">
   <div class="media-box">
     <img src="{$element.TN_SRC}" alt="imagename" class="media-box-embed" style="{if $element.FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
@@ -451,11 +451,12 @@ var sliders = {
       <textarea cols="50" rows="4" name="description" class="description-box" id="description-{$element.id}">{$element.DESCRIPTION}</textarea>
     </div>
     <div class="validation-container">
+    <div class="save-button-container">
     <div class="buttonLike action-save-picture"><i class="icon-floppy"></i>{'Submit'|@translate}</div>
-    <i class="local-save-icon icon-spin6 animate-spin" style="display: none;">&#xe81d;</i>
-    <div class="local-unsaved-badge badge-container" style="display: none;"><p class="badge-unsaved"><i class="icon-attention">&#xe829;</i>Changes pending</p></div>
-    <div class="local-succes-badge badge-container" style="display: none;"><p class="badge-succes"><i class="icon-ok">&#xe819;</i>Changes saved</p></div>
-    <div class="local-error-badge badge-container" style="display: none;"><p class="badge-error"><i class="icon-cancel">&#xe822;</i>Error during save</p></div>
+    </div>
+    <div class="local-unsaved-badge badge-container" style="display: none;"><div class="badge-unsaved"><i class="icon-attention">&#xe829;</i>Changes pending</div></div>
+    <div class="local-succes-badge badge-container" style="display: none;"><div class="badge-succes"><i class="icon-ok">&#xe819;</i>Changes saved</div></div>
+    <div class="local-error-badge badge-container" style="display: none;"><div class="badge-error"><i class="icon-cancel">&#xe822;</i>Error during save</div></div>
     </div>
   </div>
 </fieldset>
@@ -486,21 +487,20 @@ var sliders = {
 <div class="bottom-save-bar">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
   <div class="badge-container global-unsaved-badge" style="display: none;">
-    <p class="badge-unsaved"><i class="icon-attention">&#xe829;</i>
+    <div class="badge-unsaved"><i class="icon-attention">&#xe829;</i>
         <span id="unsaved-count"></span> image(s) contains unsaved changes
-    </p>
+    </div>
   </div>
   <div class="badge-container global-succes-badge" style="display: none;">
-    <p class="badge-succes"><i class="icon-attention">&#xe829;</i>
+    <div class="badge-succes"><i class="icon-attention">&#xe829;</i>
       Changes saved
-    </p>
+    </div>
   </div>
   <div class="badge-container global-error-badge" style="display: none;">
-    <p class="badge-error"><i class="icon-attention">&#xe829;</i>
+    <div class="badge-error"><i class="icon-attention">&#xe829;</i>
       Error during save
-    </p>
+    </div>
   </div>
-  <i class="global-save-icon icon-spin6 animate-spin" style="display: none;">&#xe81d;</i>
   <div class="buttonLike action-save-global"><i class="icon-floppy"></i>Save all photos</div>  
 </div>
 
@@ -825,5 +825,19 @@ var sliders = {
   flex: 1;
   gap: 10px;
 }
+
+.save-button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 45px;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 
 </style>

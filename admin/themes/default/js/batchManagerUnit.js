@@ -59,6 +59,18 @@ $(document).ready(function () {
 }
 
   //Succes badge
+  function updateSuccesGlobalBadge() {
+    var visibleLocalSuccesCount = $(".local-succes-badge").filter(function() {
+        return $(this).css('display') === 'block';
+    }).length;
+
+    if (visibleLocalSuccesCount > 0) {
+        showSuccesGlobalBadge()
+    } else {
+        hideSuccesGlobalBadge()
+    }
+}
+
   function showSuccesLocalBadge(pictureId) {
     var badge = $("#picture-" + pictureId + " .local-succes-badge");
     badge.css({
@@ -77,20 +89,46 @@ function hideSuccesLocalBadge(pictureId) {
     $("#picture-" + pictureId + " .local-succes-badge").css('display', 'none');
 }
 
-function showLocalSaveIcon (pictureId) {
-  $("#picture-" + pictureId + " .local-save-icon").css('display', 'block');
-  $("#picture-" + pictureId + " .action-save-picture").css({
-    'pointer-events': 'none',
-    'opacity': '0.5'
-});
+function showSuccesGlobalBadge() {
+    var badge = $(".global-succes-badge");
+    badge.css({
+        'display': 'block',
+        'opacity': 1
+    });
+
+    setTimeout(() => {
+        badge.fadeOut(1000, function() {
+            badge.css('display', 'none');
+        });
+    }, 3000);
 }
 
-function hideLocalSaveIcon(pictureId) {
-  $("#picture-" + pictureId + " .local-save-icon").css('display', 'none');
-  $("#picture-" + pictureId + " .action-save-picture").css({
-    'pointer-events': 'auto',
-    'opacity': '1'
-});
+function hideSuccesGlobalBadge() {
+    $("global-succes-badge").css('display', 'none');
+}
+
+function disableLocalButton(pictureId) {
+    $("#picture-" + pictureId + " .action-save-picture").addClass("disabled");
+
+    $("#picture-" + pictureId + " .action-save-picture i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
+}
+
+function enableLocalButton(pictureId) {
+    $("#picture-" + pictureId + " .action-save-picture").removeClass("disabled");
+
+    $("#picture-" + pictureId + " .action-save-picture i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
+}
+
+function disableGlobalButton() {
+    $(".action-save-global").addClass("disabled");
+
+    $(".action-save-global i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
+}
+
+function enableGlobalButton() {
+    $(".action-save-global").removeClass("disabled");
+
+    $(".action-save-global i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
 }
 
 
@@ -177,6 +215,8 @@ function hideLocalSaveIcon(pictureId) {
 
   function saveChanges(pictureId) {
       if ($("#picture-" + pictureId + " .local-unsaved-badge").css('display') === 'block') {
+          disableGlobalButton();
+          disableLocalButton(pictureId)
           console.log("Saving changes for " + pictureId);
 
           // Retrieve Infos
@@ -200,7 +240,7 @@ function hideLocalSaveIcon(pictureId) {
               tags.push(tagId);
           });
           var tagsStr = tags.join(',');
-          showLocalSaveIcon(pictureId);
+
           $.ajax({
               url: 'ws.php?format=json',
               method: 'POST',
@@ -220,15 +260,20 @@ function hideLocalSaveIcon(pictureId) {
               },
               success: function(response) {
                   console.log(response);
-                  hideLocalSaveIcon(pictureId);
+                  enableLocalButton(pictureId);
+                  enableGlobalButton();
                   hideUnsavedLocalBadge(pictureId);
                   showSuccesLocalBadge(pictureId);
                   updateUnsavedGlobalBadge();
+                  updateSuccesGlobalBadge();
               },
               error: function(xhr, status, error) {
-                  hideLocalSaveIcon(pictureId);
+                  enableLocalButton(pictureId);
+                  enableGlobalButton();
                   hideUnsavedLocalBadge(pictureId);
                   showErrorLocalBadge(pictureId);
+                  updateUnsavedGlobalBadge();
+                  updateSuccesGlobalBadge();
                   console.error('Error:', error);
               }
           });
