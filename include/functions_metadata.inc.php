@@ -125,7 +125,7 @@ function clean_iptc_value($value)
  */
 function get_exif_data($filename, $map)
 {
-  global $conf;
+  global $conf, $logger;
   
   $result = array();
 
@@ -177,10 +177,15 @@ function get_exif_data($filename, $map)
       {
         $latitude = parse_exif_gps_data($gps_exif['GPSLatitude'], $gps_exif['GPSLatitudeRef']);
         $longitude = parse_exif_gps_data($gps_exif['GPSLongitude'], $gps_exif['GPSLongitudeRef']);
+
         if ($latitude >= -90.0  &&  $latitude <= 90.0  &&  $longitude >= -180.0  &&  $longitude <= 180.0)
         {
           $result['latitude'] = $latitude;
           $result['longitude'] = $longitude;
+        }
+        else
+        {
+          $logger->info('['.__FUNCTION__.'][filename='.$filename.'] invalid GPS coordinates, latitude='.$latitude.' longitude='.$longitude);
         }
       }
     }
