@@ -263,6 +263,7 @@ jQuery('#applyAction').click(function(e) {
   }
 
   if (jQuery('[name="selectAction"]').val() == 'metadata') {
+    e.preventDefault();
     e.stopPropagation();
     jQuery('.bulkAction').hide();
     jQuery('#regenerationText').html(lang.syncProgressMessage);
