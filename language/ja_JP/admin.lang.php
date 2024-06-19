@@ -1253,3 +1253,5 @@ $lang['Are you sure you want to unlock the gallery?'] = '本当にギャラリ�
 $lang['Place last'] = '最後尾に配置';
 $lang['Place first'] = '先頭に配置';
 $lang['Create a sub-album of "%s"'] = '"%s"のサブアルバムを作成する';
+$lang['Add as filter'] = 'フィルターとして追加';
+$lang['%d files'] = '%d個のファイル';
