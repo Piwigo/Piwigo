@@ -175,8 +175,13 @@ function get_exif_data($filename, $map)
         is_array($gps_exif['GPSLongitude']) and in_array($gps_exif['GPSLongitudeRef'], array('W', 'E'))
         )
       {
-        $result['latitude'] = parse_exif_gps_data($gps_exif['GPSLatitude'], $gps_exif['GPSLatitudeRef']);
-        $result['longitude'] = parse_exif_gps_data($gps_exif['GPSLongitude'], $gps_exif['GPSLongitudeRef']);
+        $latitude = parse_exif_gps_data($gps_exif['GPSLatitude'], $gps_exif['GPSLatitudeRef']);
+        $longitude = parse_exif_gps_data($gps_exif['GPSLongitude'], $gps_exif['GPSLongitudeRef']);
+        if ($latitude >= -90.0  &&  $latitude <= 90.0  &&  $longitude >= -180.0  &&  $longitude <= 180.0)
+        {
+          $result['latitude'] = $latitude;
+          $result['longitude'] = $longitude;
+        }
       }
     }
   }
