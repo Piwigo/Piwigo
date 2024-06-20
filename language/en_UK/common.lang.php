@@ -446,4 +446,8 @@ $lang['last 3 months'] = 'Last 3 months';
 $lang['last 24 hours'] = 'last 24 hours';
 $lang['Album already selected'] = 'Album already selected';
 $lang['Only the first %d albums are displayed, out of %d.'] = 'Only the first %d albums are displayed, out of %d.';
+$lang['Pages'] = "Pages";
+$lang['The PDF you requested is too large to display on this page.']= 'The PDF you requested is too large to display on this page.';
+$lang['Click here to display it']= 'Click here to display it';
+
 ?>

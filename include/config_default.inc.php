@@ -296,6 +296,10 @@ $conf['linked_album_search_limit'] = 100;
 // 0 to disable.
 $conf['fs_quick_check_period'] = 24*60*60;
 
+// This corresponds to the treshold where we no longer display the web browsers
+// PDF viewer. In MB (megabytes).
+$conf['pdf_viewer_filesize_threshold'] = 5;
+
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
 // +-----------------------------------------------------------------------+

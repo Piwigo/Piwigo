@@ -135,4 +135,18 @@ UPDATE
   pwg_query($query);
 }
 
+/**
+ * Returns the number of pages of a PDF file
+ *
+ * @param string $pdfPath
+ * @return int
+ */
+function count_pdf_pages($pdfPath) 
+{
+  $pdftext = file_get_contents($pdfPath);
+  $num = preg_match_all("/\/Page\W/", $pdftext, $dummy);
+
+  return $num;
+}
+
 ?>
