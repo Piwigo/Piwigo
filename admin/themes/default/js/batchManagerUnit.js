@@ -1,4 +1,73 @@
+/* ********** Filters*/
+function filter_enable(filter) {
+	/* show the filter*/
+	$("#"+filter).show();
+
+	/* check the checkbox to declare we use this filter */
+	$("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
+
+	/* forbid to select this filter in the addFilter list */
+  $("#addFilter").find("a[data-value="+filter+"]").addClass("disabled", "disabled");
+  
+  /* hide the no filter message */
+  $('.noFilter').hide();
+  $('.addFilter-button').removeClass('highlight');
+}
+
+function filter_disable(filter) {
+	/* hide the filter line */
+	$("#"+filter).hide();
+
+	/* uncheck the checkbox to declare we do not use this filter */
+	$("input[name="+filter+"_use]").prop("checked", false);
+
+	/* give the possibility to show it again */
+  $("#addFilter").find("a[data-value="+filter+"]").removeClass("disabled");
+  
+  /* show the no filter message if no filter selected */
+  if ($('#filterList li:visible').length == 0) {
+    $('.noFilter').show();
+    $('.addFilter-button').addClass('highlight');
+  }
+  
+}
+
 $(document).ready(function () {
+
+$(".removeFilter").addClass("icon-cancel-circled");
+
+$(".removeFilter").click(function () {
+	var filter = $(this).parent('li').attr("id");
+	filter_disable(filter);
+
+	return false;
+});
+
+$("#addFilter a").on('click', function () {
+	var filter = $(this).attr("data-value");
+	filter_enable(filter);
+});
+
+$("#removeFilters").click(function() {
+	$("#filterList li").each(function() {
+		var filter = $(this).attr("id");
+		filter_disable(filter);
+	});
+	return false;
+});
+
+$('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
+$('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
+$('[data-slider=ratios]').pwgDoubleSlider(sliders.ratios);
+$('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
+
+$(document).mouseup(function (e) {
+  e.stopPropagation();
+  if (!$(event.target).hasClass('addFilter-button')) {
+    $('.addFilter-dropdown').slideUp();
+  }
+});
+
   // Detect unsaved changes on any inputs
   var user_interacted = false;
 
@@ -10,128 +79,17 @@ $(document).ready(function () {
       var pictureId = $(this).parents("fieldset").data("image_id");
       if (user_interacted == true) {
           showUnsavedLocalBadge(pictureId);
-          updateUnsavedGlobalBadge();
+          
       }
   });
 
-  $('.icon-cancel-circled, .item-add').on('click', function() {
+  $('.related-categories-container .remove-item').on('click', function() {
+    user_interacted = true;
     var pictureId = $(this).parents("fieldset").data("image_id");
     showUnsavedLocalBadge(pictureId);
-    updateUnsavedGlobalBadge();
+    
 
 });
-
-  function updateUnsavedGlobalBadge() {
-      var visibleLocalUnsavedCount = $(".local-unsaved-badge").filter(function() {
-          return $(this).css('display') === 'block';
-      }).length;
-
-      if (visibleLocalUnsavedCount > 0) {
-          $(".global-unsaved-badge").css('display', 'block');
-          $("#unsaved-count").text(visibleLocalUnsavedCount);
-      } else {
-          $(".global-unsaved-badge").css('display', 'none');
-          $("#unsaved-count").text('');
-      }
-  }
-
-  function showUnsavedLocalBadge(pictureId) {
-      hideSuccesLocalBadge(pictureId);
-      hideErrorLocalBadge(pictureId);
-      $("#picture-" + pictureId + " .local-unsaved-badge").css('display', 'block');
-  }
-
-  function hideUnsavedLocalBadge(pictureId) {
-      $("#picture-" + pictureId + " .local-unsaved-badge").css('display', 'none');
-  }
-
-  $(window).on('beforeunload', function() {
-      if (user_interacted) {
-          return "You have unsaved changes, are you sure you want to leave this page?";
-      }
-  });
-  //Error badge
-  function showErrorLocalBadge(pictureId) {
-    $("#picture-" + pictureId + " .local-error-badge").css('display', 'block');
-}
-  function hideErrorLocalBadge(pictureId) {
-    $("#picture-" + pictureId + " .local-error-badge").css('display', 'none');
-}
-
-  //Succes badge
-  function updateSuccesGlobalBadge() {
-    var visibleLocalSuccesCount = $(".local-succes-badge").filter(function() {
-        return $(this).css('display') === 'block';
-    }).length;
-
-    if (visibleLocalSuccesCount > 0) {
-        showSuccesGlobalBadge()
-    } else {
-        hideSuccesGlobalBadge()
-    }
-}
-
-  function showSuccesLocalBadge(pictureId) {
-    var badge = $("#picture-" + pictureId + " .local-succes-badge");
-    badge.css({
-        'display': 'block',
-        'opacity': 1
-    });
-
-    setTimeout(() => {
-        badge.fadeOut(1000, function() {
-            badge.css('display', 'none');
-        });
-    }, 3000);
-}
-
-function hideSuccesLocalBadge(pictureId) {
-    $("#picture-" + pictureId + " .local-succes-badge").css('display', 'none');
-}
-
-function showSuccesGlobalBadge() {
-    var badge = $(".global-succes-badge");
-    badge.css({
-        'display': 'block',
-        'opacity': 1
-    });
-
-    setTimeout(() => {
-        badge.fadeOut(1000, function() {
-            badge.css('display', 'none');
-        });
-    }, 3000);
-}
-
-function hideSuccesGlobalBadge() {
-    $("global-succes-badge").css('display', 'none');
-}
-
-function disableLocalButton(pictureId) {
-    $("#picture-" + pictureId + " .action-save-picture").addClass("disabled");
-
-    $("#picture-" + pictureId + " .action-save-picture i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
-}
-
-function enableLocalButton(pictureId) {
-    $("#picture-" + pictureId + " .action-save-picture").removeClass("disabled");
-
-    $("#picture-" + pictureId + " .action-save-picture i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
-}
-
-function disableGlobalButton() {
-    $(".action-save-global").addClass("disabled");
-
-    $(".action-save-global i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
-}
-
-function enableGlobalButton() {
-    $(".action-save-global").removeClass("disabled");
-
-    $(".action-save-global i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
-}
-
-
 
   // DELETE
   $('.action-delete-picture').on('click', function(event) {
@@ -213,80 +171,7 @@ function enableGlobalButton() {
     saveAllChanges();
   });
 
-  function saveChanges(pictureId) {
-      if ($("#picture-" + pictureId + " .local-unsaved-badge").css('display') === 'block') {
-          disableGlobalButton();
-          disableLocalButton(pictureId)
-          console.log("Saving changes for " + pictureId);
 
-          // Retrieve Infos
-          var name = $("#name-" + pictureId).val();
-          var author = $("#author-" + pictureId).val();
-          var date_creation = $("#date_creation-" + pictureId).val();
-          var comment = $("#description-" + pictureId).val();
-          var level = $("#level-" + pictureId + " option:selected").val();
-          
-          // Get Categories
-          var categories = [];
-          $("#picture-" + pictureId + " .remove-item").each(function() {
-              categories.push($(this).attr("id"));
-          });
-          var categoriesStr = categories.join(';');
-
-          // Get Tags
-          var tags = [];
-          $("#tags-" + pictureId + " option").each(function() {
-              var tagId = $(this).val().replace(/~~/g, '');
-              tags.push(tagId);
-          });
-          var tagsStr = tags.join(',');
-
-          $.ajax({
-              url: 'ws.php?format=json',
-              method: 'POST',
-              data: {
-                  method: 'pwg.images.setInfo',
-                  image_id: pictureId,
-                  name: name,
-                  author: author,
-                  date_creation: date_creation,
-                  comment: comment,
-                  categories: categoriesStr,
-                  tag_ids: tagsStr,
-                  level: level,
-                  single_value_mode: "replace",
-                  multiple_value_mode: "replace",
-                  pwg_token: jQuery("input[name=pwg_token]").val()
-              },
-              success: function(response) {
-                  console.log(response);
-                  enableLocalButton(pictureId);
-                  enableGlobalButton();
-                  hideUnsavedLocalBadge(pictureId);
-                  showSuccesLocalBadge(pictureId);
-                  updateUnsavedGlobalBadge();
-                  updateSuccesGlobalBadge();
-              },
-              error: function(xhr, status, error) {
-                  enableLocalButton(pictureId);
-                  enableGlobalButton();
-                  hideUnsavedLocalBadge(pictureId);
-                  showErrorLocalBadge(pictureId);
-                  updateUnsavedGlobalBadge();
-                  updateSuccesGlobalBadge();
-                  console.error('Error:', error);
-              }
-          });
-      } else {
-          console.log("No changes to save for " + pictureId);
-      }
-  }
-  function saveAllChanges() {
-    $("fieldset").each(function() {
-        var pictureId = $(this).data("image_id");
-        saveChanges(pictureId);
-    });
-}
 
 
 //Categories 
@@ -337,7 +222,7 @@ function fill_results(cats, pictureId) {
       cats.forEach(cat => {
           $("#searchResult").append(
           "<div class='search-result-item' id="+ cat.id + ">" +
-          "<span class='search-result-path'>" + cat.fullname +"</span><span id="+ cat.id + " class='icon-plus-circled item-add'></span>" +
+          "<span class='search-result-path'>" + cat.fullname +"</span><span id="+ cat.id + " class='icon-plus-circled item-add' onclick='showUnsavedLocalBadge("+ pictureId + ")'></span>" +
           "</div>"
           );
           var this_related_category_ids = window["related_category_ids_" + pictureId];
@@ -411,7 +296,189 @@ function fill_results(cats, pictureId) {
     }
   }
 
+  function updateUnsavedGlobalBadge() {
+    var visibleLocalUnsavedCount = $(".local-unsaved-badge").filter(function() {
+        return $(this).css('display') === 'block';
+    }).length;
 
+    if (visibleLocalUnsavedCount > 0) {
+        $(".global-unsaved-badge").css('display', 'block');
+        $("#unsaved-count").text(visibleLocalUnsavedCount);
+    } else {
+        $(".global-unsaved-badge").css('display', 'none');
+        $("#unsaved-count").text('');
+    }
+}
+
+function showUnsavedLocalBadge(pictureId) {
+    hideSuccesLocalBadge(pictureId);
+    hideErrorLocalBadge(pictureId);
+    $("#picture-" + pictureId + " .local-unsaved-badge").css('display', 'block');
+    updateUnsavedGlobalBadge();
+}
+
+function hideUnsavedLocalBadge(pictureId) {
+    $("#picture-" + pictureId + " .local-unsaved-badge").css('display', 'none');
+    updateUnsavedGlobalBadge();
+}
+
+$(window).on('beforeunload', function() {
+    if (user_interacted) {
+        return "You have unsaved changes, are you sure you want to leave this page?";
+    }
+});
+//Error badge
+function showErrorLocalBadge(pictureId) {
+  $("#picture-" + pictureId + " .local-error-badge").css('display', 'block');
+}
+function hideErrorLocalBadge(pictureId) {
+  $("#picture-" + pictureId + " .local-error-badge").css('display', 'none');
+}
+
+//Succes badge
+function updateSuccessGlobalBadge() {
+  var visibleLocalSuccesCount = $(".local-succes-badge").filter(function() {
+      return $(this).css('display') === 'block';
+  }).length;
+
+  if (visibleLocalSuccesCount > 0) {
+      showSuccesGlobalBadge()
+  } else {
+      hideSuccesGlobalBadge()
+  }
+}
+
+function showSuccessLocalBadge(pictureId) {
+  var badge = $("#picture-" + pictureId + " .local-succes-badge");
+  badge.css({
+      'display': 'block',
+      'opacity': 1
+  });
+
+  setTimeout(() => {
+      badge.fadeOut(1000, function() {
+          badge.css('display', 'none');
+      });
+  }, 3000);
+}
+
+function hideSuccesLocalBadge(pictureId) {
+  $("#picture-" + pictureId + " .local-succes-badge").css('display', 'none');
+}
+
+function showSuccesGlobalBadge() {
+  var badge = $(".global-succes-badge");
+  badge.css({
+      'display': 'block',
+      'opacity': 1
+  });
+
+  setTimeout(() => {
+      badge.fadeOut(1000, function() {
+          badge.css('display', 'none');
+      });
+  }, 3000);
+}
+
+function hideSuccesGlobalBadge() {
+  $("global-succes-badge").css('display', 'none');
+}
+
+function disableLocalButton(pictureId) {
+  $("#picture-" + pictureId + " .action-save-picture").addClass("disabled");
+
+  $("#picture-" + pictureId + " .action-save-picture i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
+  disableGlobalButton();
+}
+
+function enableLocalButton(pictureId) {
+  $("#picture-" + pictureId + " .action-save-picture").removeClass("disabled");
+
+  $("#picture-" + pictureId + " .action-save-picture i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
+}
+
+function disableGlobalButton() {
+  $(".action-save-global").addClass("disabled");
+
+  $(".action-save-global i").removeClass("icon-floppy").addClass("icon-spin6 animate-spin");
+}
+
+function enableGlobalButton() {
+  $(".action-save-global").removeClass("disabled");
+
+  $(".action-save-global i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
+}
+
+function saveChanges(pictureId) {
+    if ($("#picture-" + pictureId + " .local-unsaved-badge").css('display') === 'block') {
+          disableLocalButton(pictureId)
+          console.log("Saving changes for " + pictureId);
+
+          // Retrieve Infos
+          var name = $("#name-" + pictureId).val();
+          var author = $("#author-" + pictureId).val();
+          var date_creation = $("#date_creation-" + pictureId).val();
+          var comment = $("#description-" + pictureId).val();
+          var level = $("#level-" + pictureId + " option:selected").val();
+          
+          // Get Categories
+          var categories = [];
+          $("#picture-" + pictureId + " .remove-item").each(function() {
+              categories.push($(this).attr("id"));
+          });
+          var categoriesStr = categories.join(';');
+
+          // Get Tags
+          var tags = [];
+          $("#tags-" + pictureId + " option").each(function() {
+              var tagId = $(this).val().replace(/~~/g, '');
+              tags.push(tagId);
+          });
+          var tagsStr = tags.join(',');
+
+          $.ajax({
+              url: 'ws.php?format=json',
+              method: 'POST',
+              data: {
+                  method: 'pwg.images.setInfo',
+                  image_id: pictureId,
+                  name: name,
+                  author: author,
+                  date_creation: date_creation,
+                  comment: comment,
+                  categories: categoriesStr,
+                  tag_ids: tagsStr,
+                  level: level,
+                  single_value_mode: "replace",
+                  multiple_value_mode: "replace",
+                  pwg_token: jQuery("input[name=pwg_token]").val()
+              },
+              success: function(response) {
+                  enableLocalButton(pictureId);
+                  enableGlobalButton();
+                  hideUnsavedLocalBadge(pictureId);
+                  showSuccessLocalBadge(pictureId);
+                  updateSuccessGlobalBadge();
+              },
+              error: function(xhr, status, error) {
+                  enableLocalButton(pictureId);
+                  enableGlobalButton();
+                  hideUnsavedLocalBadge(pictureId);
+                  showErrorLocalBadge(pictureId);
+                  updateSuccessGlobalBadge();
+                  console.error('Error:', error);
+              }
+          });
+      } else {
+          console.log("No changes to save for " + pictureId);
+      }
+  }
+  function saveAllChanges() {
+    $("fieldset").each(function() {
+        var pictureId = $(this).data("image_id");
+        saveChanges(pictureId);
+    });
+}
 
 //   $(function () {
 //     $('.privacy-filter-slider').each(function() {
@@ -435,71 +502,3 @@ function fill_results(cats, pictureId) {
 // }
 
 
-/* ********** Filters*/
-// function filter_enable(filter) {
-// 	/* show the filter*/
-// 	$("#"+filter).show();
-
-// 	/* check the checkbox to declare we use this filter */
-// 	$("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
-
-// 	/* forbid to select this filter in the addFilter list */
-//   $("#addFilter").find("a[data-value="+filter+"]").addClass("disabled", "disabled");
-  
-//   /* hide the no filter message */
-//   $('.noFilter').hide();
-//   $('.addFilter-button').removeClass('highlight');
-// }
-
-// function filter_disable(filter) {
-// 	/* hide the filter line */
-// 	$("#"+filter).hide();
-
-// 	/* uncheck the checkbox to declare we do not use this filter */
-// 	$("input[name="+filter+"_use]").prop("checked", false);
-
-// 	/* give the possibility to show it again */
-//   $("#addFilter").find("a[data-value="+filter+"]").removeClass("disabled");
-  
-//   /* show the no filter message if no filter selected */
-//   if ($('#filterList li:visible').length == 0) {
-//     $('.noFilter').show();
-//     $('.addFilter-button').addClass('highlight');
-//   }
-  
-// }
-
-// $(".removeFilter").addClass("icon-cancel-circled");
-
-// $(".removeFilter").click(function () {
-// 	var filter = $(this).parent('li').attr("id");
-// 	filter_disable(filter);
-
-// 	return false;
-// });
-
-// $("#addFilter a").on('click', function () {
-// 	var filter = $(this).attr("data-value");
-// 	filter_enable(filter);
-// });
-
-// $("#removeFilters").click(function() {
-// 	$("#filterList li").each(function() {
-// 		var filter = $(this).attr("id");
-// 		filter_disable(filter);
-// 	});
-// 	return false;
-// });
-
-// $('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
-// $('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
-// $('[data-slider=ratios]').pwgDoubleSlider(sliders.ratios);
-// $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
-
-
-// $(document).mouseup(function (e) {
-//   e.stopPropagation();
-//   if (!$(event.target).hasClass('addFilter-button')) {
-//     $('.addFilter-dropdown').slideUp();
-//   }
-// });

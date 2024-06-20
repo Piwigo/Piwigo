@@ -8,6 +8,7 @@
 
 {combine_script id='jquery.selectize' load='header' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
+{combine_script id='doubleSlider' load='footer' require='jquery.ui.slider' path='admin/themes/default/js/doubleSlider.js'}
 
 {combine_script id='jquery.ui.slider' require='jquery.ui' load='header' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
 {combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
@@ -16,6 +17,8 @@
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
+
+{combine_css path="admin/themes/default/fontello/css/animation.css" order=10}
 
 {footer_script}
 (function(){
@@ -61,7 +64,8 @@ const strs_privacy = {
   "3" : "{$level_options[1]}",
   "4" : "{$level_options[0]}",
 };
-{* <!-- sliders config -->
+<!-- sliders config -->
+
 var sliders = {
   widths: {
     values: [{$dimensions.widths}],
@@ -98,34 +102,24 @@ var sliders = {
     },
     text: '{'between %s and %s MB'|translate|escape:'javascript'}'
   }
-}; *}
+};
+
+
+
+console.log(sliders);
 {/footer_script}
 
 {combine_script id='batchManagerUnit' load='footer' require='jquery.ui.effect-blind,jquery.sort' path='admin/themes/default/js/batchManagerUnit.js'}
 
+<div id="batchManagerGlobal" style="margin-bottom: 80px;">
 
-<div style="margin: 30px 0; display: flex; justify-content: space-between;">
-  <div style="margin-right: 21px;" class="pagination-per-page">
-    <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
-    <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
-    <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
-    <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
-  </div>
-  <div style="margin-left: 22px;">
-    <div class="pagination-reload">
-      {if !empty($navbar) }<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></a>{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
-    </div>
-  </div>
-
-    
-</div>
 <div style="clear:both"></div>
 
-{if !empty($elements) }
-<div><input type="hidden" name="element_ids" value="{$ELEMENT_IDS}"></div>
-{* <fieldset>
-<legend><span class='icon-filter icon-green'></span>{'Filter'|@translate}</legend>
 
+<div><input type="hidden" name="element_ids" value="{$ELEMENT_IDS}"></div>
+<fieldset>
+<legend><span class='icon-filter icon-green'></span>{'Filter'|@translate}</legend>
+<form method="post" action="{$F_ACTION}" class="filter">
 <div class="filterBlock">
   <ul id="filterList">
     <li id="filter_prefilter" {if !isset($filter.prefilter)}style="display:none"{/if}>
@@ -321,16 +315,33 @@ var sliders = {
   </div>
 </div>
 
-</fieldset> *}
+</fieldset>
+</form>
+{if !empty($elements) }
+<div style="margin: 30px 0; display: flex; justify-content: space-between;">
+  <div style="margin-right: 21px;" class="pagination-per-page">
+    <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
+    <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
+    <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
+    <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
+  </div>
+  <div style="margin-left: 22px;">
+    <div class="pagination-reload">
+      {if !empty($navbar) }<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></a>{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+    </div>
+  </div>
+
+    
+</div>
 {foreach from=$elements item=element}
   {footer_script}
   var related_category_ids_{$element.ID} = {$element.related_category_ids};  
   url_delete_{$element.id} = '{$element.U_DELETE}';
   {/footer_script}
 
-{debug}
 <div class="deleted-element" data-image_id="{$element.ID}" style="display: none;"><i class="icon-ok">&#xe819;</i><p>Image #{$element.ID} '{$element.FILE}' was succesfully deleted</p></div>
 <fieldset class="elementEdit" id="picture-{$element.ID}" data-image_id="{$element.ID}">
+  <div class="pictureIdLabel">#{$element.ID}</div>
   <div class="media-box">
     <img src="{$element.TN_SRC}" alt="imagename" class="media-box-embed" style="{if $element.FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
     <div class="media-hover">
@@ -479,10 +490,6 @@ var sliders = {
     
   </div>
 {/if}
-<br>
-<br>
-<br>
-<br>
 
 <div class="bottom-save-bar">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
@@ -504,6 +511,7 @@ var sliders = {
   <div class="buttonLike action-save-global"><i class="icon-floppy"></i>Save all photos</div>  
 </div>
 
+</div>
 
 {include file='include/album_selector.inc.tpl' 
   title={'Associate to album'|@translate}
@@ -556,6 +564,7 @@ var sliders = {
 }
 
 .elementEdit{
+  position: relative;
   display:flex;
   flex-direction:row;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
@@ -563,6 +572,15 @@ var sliders = {
   padding:0px;
   margin: 1.5em !important;
   border-radius: 4px;
+}
+
+.pictureIdLabel{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color:#7A7A7A;
+  font-size: 20px;
+  padding: 10px;
 }
 
 
