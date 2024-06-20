@@ -238,7 +238,7 @@ y.callService(
     <div id="Pages" class="imageInfo">
       <dt>{'Pages'|@translate}</dt>
       <dd>{$PDF_NB_PAGES}</dd>
-    </tr>
+    </div>
   
   {/if}
   
