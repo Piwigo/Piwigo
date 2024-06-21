@@ -459,6 +459,7 @@ function saveChanges(pictureId) {
                   hideUnsavedLocalBadge(pictureId);
                   showSuccessLocalBadge(pictureId);
                   updateSuccessGlobalBadge();
+                  plugginSaveOption();
               },
               error: function(xhr, status, error) {
                   enableLocalButton(pictureId);
@@ -478,6 +479,10 @@ function saveChanges(pictureId) {
         var pictureId = $(this).data("image_id");
         saveChanges(pictureId);
     });
+}
+
+function plugginSaveOption() {
+  //call your pluggin save functions here
 }
 
 //   $(function () {

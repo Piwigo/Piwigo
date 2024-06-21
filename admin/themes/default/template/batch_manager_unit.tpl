@@ -115,8 +115,8 @@ console.log(sliders);
 
 <div style="clear:both"></div>
 
-
-<div><input type="hidden" name="element_ids" value="{$ELEMENT_IDS}"></div>
+{debug}
+{if isset($ELEMENT_IDS)}<div><input type="hidden" name="element_ids" value="{$ELEMENT_IDS}"></div>{/if}
 <fieldset>
 <legend><span class='icon-filter icon-green'></span>{'Filter'|@translate}</legend>
 <form method="post" action="{$F_ACTION}" class="filter">
@@ -317,8 +317,11 @@ console.log(sliders);
 
 </fieldset>
 </form>
+<legend style="padding: 1em;"><span class='icon-menu icon-blue'></span><span>{count($all_elements)} images sélectionnées</span></legend>
 {if !empty($elements) }
-<div style="margin: 30px 0; display: flex; justify-content: space-between;">
+
+<div style="margin: 10px 0; display: flex; justify-content: space-between; padding: 1em;">
+
   <div style="margin-right: 21px;" class="pagination-per-page">
     <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
     <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
@@ -327,7 +330,7 @@ console.log(sliders);
   </div>
   <div style="margin-left: 22px;">
     <div class="pagination-reload">
-      {if !empty($navbar) }<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></a>{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+      {if !empty($navbar) }<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw"></i></a>{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
     </div>
   </div>
 
@@ -465,15 +468,15 @@ console.log(sliders);
     <div class="save-button-container">
     <div class="buttonLike action-save-picture"><i class="icon-floppy"></i>{'Submit'|@translate}</div>
     </div>
-    <div class="local-unsaved-badge badge-container" style="display: none;"><div class="badge-unsaved"><i class="icon-attention">&#xe829;</i>Changes pending</div></div>
+    <div class="local-unsaved-badge badge-container" style="display: none;"><div class="badge-unsaved"><i class="icon-attention">&#xe829;</i>You have unsaved changes</div></div>
     <div class="local-succes-badge badge-container" style="display: none;"><div class="badge-succes"><i class="icon-ok">&#xe819;</i>Changes saved</div></div>
-    <div class="local-error-badge badge-container" style="display: none;"><div class="badge-error"><i class="icon-cancel">&#xe822;</i>Error during save</div></div>
+    <div class="local-error-badge badge-container" style="display: none;"><div class="badge-error"><i class="icon-cancel">&#xe822;</i>An error occured</div></div>
     </div>
   </div>
 </fieldset>
 {/foreach}
 
-<div style="margin: 30px 0; display: flex; justify-content: space-between;">
+<div style="margin: 30px 0; display: flex; justify-content: space-between;  padding: 1em;">
   <div style="margin-right: 21px;" class="pagination-per-page">
   <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
   <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
@@ -483,7 +486,7 @@ console.log(sliders);
     <div style="margin-left: 22px;">
     
     <div class="pagination-reload">
-    {if !empty($navbar) }<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw">&#xe80c;</i></a>{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+    {if !empty($navbar) }<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw"></i></a>{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
     </div>
     </div>
 
@@ -813,6 +816,13 @@ console.log(sliders);
   border-radius: 100px;
   background-color: #F8D7DC;
   color: #EB3D33;
+}
+
+.badge-count{
+  padding: 10px 10px;
+  border-radius: 100px;
+  background-color: #3C3C3C;
+  color: #FFFFFF;
 }
 
 .pagination-reload{
