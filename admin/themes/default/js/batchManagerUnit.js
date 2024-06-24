@@ -1,72 +1,4 @@
-/* ********** Filters*/
-function filter_enable(filter) {
-	/* show the filter*/
-	$("#"+filter).show();
-
-	/* check the checkbox to declare we use this filter */
-	$("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
-
-	/* forbid to select this filter in the addFilter list */
-  $("#addFilter").find("a[data-value="+filter+"]").addClass("disabled", "disabled");
-  
-  /* hide the no filter message */
-  $('.noFilter').hide();
-  $('.addFilter-button').removeClass('highlight');
-}
-
-function filter_disable(filter) {
-	/* hide the filter line */
-	$("#"+filter).hide();
-
-	/* uncheck the checkbox to declare we do not use this filter */
-	$("input[name="+filter+"_use]").prop("checked", false);
-
-	/* give the possibility to show it again */
-  $("#addFilter").find("a[data-value="+filter+"]").removeClass("disabled");
-  
-  /* show the no filter message if no filter selected */
-  if ($('#filterList li:visible').length == 0) {
-    $('.noFilter').show();
-    $('.addFilter-button').addClass('highlight');
-  }
-  
-}
-
 $(document).ready(function () {
-
-$(".removeFilter").addClass("icon-cancel-circled");
-
-$(".removeFilter").click(function () {
-	var filter = $(this).parent('li').attr("id");
-	filter_disable(filter);
-
-	return false;
-});
-
-$("#addFilter a").on('click', function () {
-	var filter = $(this).attr("data-value");
-	filter_enable(filter);
-});
-
-$("#removeFilters").click(function() {
-	$("#filterList li").each(function() {
-		var filter = $(this).attr("id");
-		filter_disable(filter);
-	});
-	return false;
-});
-
-$('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
-$('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
-$('[data-slider=ratios]').pwgDoubleSlider(sliders.ratios);
-$('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
-
-$(document).mouseup(function (e) {
-  e.stopPropagation();
-  if (!$(event.target).hasClass('addFilter-button')) {
-    $('.addFilter-dropdown').slideUp();
-  }
-});
 
   // Detect unsaved changes on any inputs
   var user_interacted = false;
@@ -214,6 +146,10 @@ $(document).mouseup(function (e) {
       remove_related_category($(this).attr("id"),pictureId);
   })
 
+  $('.action-sync-metadata').on('click', function() {
+    var pictureId = $(this).parents("fieldset").data("image_id");
+    syncMetadata(pictureId);
+  });
 })
 
 function fill_results(cats, pictureId) {
@@ -480,6 +416,89 @@ function saveChanges(pictureId) {
         saveChanges(pictureId);
     });
 }
+
+  function syncMetadata(pictureId){
+    $.confirm({
+      title: str_meta_warning,
+      draggable: false,
+      titleClass: "groupDeleteConfirm",
+      theme: "modern",
+      content: "",
+      animation: "zoom",
+      boxWidth: '30%',
+      useBootstrap: false,
+      type: 'red',
+      animateFromElement: false,
+      backgroundDismiss: true,
+      typeAnimated: false,
+      buttons: {
+          confirm: {
+              text: str_meta_yes,
+              btnClass: 'btn-red',
+              action: function () {
+                  (function(ids) {
+                    console.log("metadata sync");
+                      $.ajax({
+                          type: 'POST',
+                          url: 'ws.php?format=json',
+                          data: {
+                              method: "pwg.images.syncMetadata",
+                              pwg_token: jQuery("input[name=pwg_token]").val(),
+                              image_id: pictureId
+                          },
+                          dataType: 'json',
+                          success: function(data) {
+                            console.log("metadata sync done, starting update");
+                              var isOk = data.stat && data.stat === "ok";
+                              if (isOk) {
+                                  console.log("Success, now updating current block");
+                                  $.ajax({
+                                    url: 'ws.php?format=json',
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    data: {
+                                        method: 'pwg.images.getInfo',
+                                        image_id: image_Id,
+                                        format: 'json'
+                                    },
+                                    success: function(response) {
+                                        var isOk = data.stat && data.stat === "ok";
+                                        if (response.stat === 'ok') {
+                                            console.log("success");
+                                            $("#picture-" + pictureId + " #name-" + pictureId).val(response.result.name);
+                                            $("#picture-" + pictureId + " #author-" + pictureId).val(response.result.author);
+                                            $("#picture-" + pictureId + " #date_creation-" + pictureId).val(response.result.date_creation);
+                                            $("#picture-" + pictureId + " #description-" + pictureId).val(response.result.comment);
+                                            $("#picture-" + pictureId + " #level-" + pictureId).val(response.result.level);
+                                            $("#picture-" + pictureId + " #filename-" + pictureId).text(response.result.file);
+                                            $("#picture-" + pictureId + " #filesize-" + pictureId).text(response.result.filesize);
+                                            $("#picture-" + pictureId + " #dimensions-" + pictureId).text(response.result.width + "x" + response.result.height);                                          
+
+                                        } else {
+                                            console.error("Error:", response.message);
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error("Error:", status, error);
+                                    }
+                                  });
+                              } else {
+                                  console.log("Error");
+                              }
+                          },
+                          error: function(data) {
+                              console.error("Error occurred");
+                          }
+                      });
+                  })
+              }
+          },
+          cancel: {
+              text: str_meta_no
+          }
+      }
+  });
+  }
 
 function plugginSaveOption() {
   //call your pluggin save functions here
