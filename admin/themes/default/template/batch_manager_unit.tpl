@@ -113,7 +113,7 @@ const strs_privacy = {
 
 <div class="deleted-element" data-image_id="{$element.ID}" style="display: none;"><i class="icon-ok">&#xe819;</i><p>Image #{$element.ID} '{$element.FILE}' was succesfully deleted</p></div>
 <fieldset class="elementEdit" id="picture-{$element.ID}" data-image_id="{$element.ID}">
-  <div class="pictureIdLabel">#{$element.ID}</div>
+  
   <div class="media-box">
     <img src="{$element.TN_SRC}" alt="imagename" class="media-box-embed" style="{if $element.FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
     <div class="media-hover">
@@ -172,7 +172,7 @@ const strs_privacy = {
       <label class="calendar-input">
         <i class="icon-calendar"></i>
         <input type="text" data-datepicker="date_creation-{$element.id}" data-datepicker-unset="date_creation_unset-{$element.id}" readonly>
-        <a href="#" class="icon-cancel-circled unset" id="date_creation_unset-{$element.id}"></a>
+        <a href="#" class="icon-cancel-circled unset datepickerDelete" id="date_creation_unset-{$element.id}"></a>
       </label>
       
       
@@ -240,6 +240,7 @@ const strs_privacy = {
     <div class="local-unsaved-badge badge-container" style="display: none;"><div class="badge-unsaved"><i class="icon-attention">&#xe829;</i>You have unsaved changes</div></div>
     <div class="local-succes-badge badge-container" style="display: none;"><div class="badge-succes"><i class="icon-ok">&#xe819;</i>Changes saved</div></div>
     <div class="local-error-badge badge-container" style="display: none;"><div class="badge-error"><i class="icon-cancel">&#xe822;</i>An error occured</div></div>
+    <div class="pictureIdLabel">#{$element.ID}</div>
     </div>
   </div>
 </fieldset>
@@ -271,12 +272,12 @@ const strs_privacy = {
     </div>
   </div>
   <div class="badge-container global-succes-badge" style="display: none;">
-    <div class="badge-succes"><i class="icon-attention">&#xe829;</i>
+    <div class="badge-succes"><i class="icon-ok">&#xe829;</i>
       Changes saved
     </div>
   </div>
   <div class="badge-container global-error-badge" style="display: none;">
-    <div class="badge-error"><i class="icon-attention">&#xe829;</i>
+    <div class="badge-error"><i class="icon-cancel">&#xe829;</i>
       Error during save
     </div>
   </div>
@@ -347,11 +348,12 @@ const strs_privacy = {
 }
 
 .pictureIdLabel{
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  color:#7A7A7A;
-  font-size: 20px;
+  position: relative;
+  top: 0px;
+  right: 20px;
+  align-items: right;
+  color:#7a7a7a89;
+  font-size: 14px;
   padding: 10px;
 }
 
@@ -437,7 +439,7 @@ const strs_privacy = {
   flex-direction:row;
   flex-wrap:wrap;
   align-content: flex-start;
-  padding: 20px 0px;
+  padding: 20px 10px 20px 0px;
   gap: 10px 0px;
   color:#7A7A7A;
   text-align: left;

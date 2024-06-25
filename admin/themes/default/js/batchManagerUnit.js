@@ -15,7 +15,7 @@ $(document).ready(function () {
       }
   });
 
-  $('.related-categories-container .remove-item').on('click', function() {
+  $('.related-categories-container .remove-item, .datepickerDelete').on('click', function() {
     user_interacted = true;
     var pictureId = $(this).parents("fieldset").data("image_id");
     showUnsavedLocalBadge(pictureId);

@@ -139,8 +139,10 @@ $template->set_filenames(
 
 $base_url = PHPWG_ROOT_PATH.'admin.php';
 
+
 $template->assign(
   array(
+    
     'U_ELEMENTS_PAGE' => $base_url.get_query_string_diff(array('display','start')),
     'level_options' => get_privacy_level_options(),
     'ADMIN_PAGE_TITLE' => l10n('Batch Manager'),
@@ -271,6 +273,8 @@ $template->assign(
 // how many items to display on this page
 if (!empty($_GET['display']))
 {
+  // conf_update_param('batch_manager_images_per_page_unit' , intval($_GET['display']));
+  // $page['nb_images'] = $conf['batch_manager_images_per_page_unit'];
   $page['nb_images'] = intval($_GET['display']);
 }
 elseif (in_array($conf['batch_manager_images_per_page_unit'], array(5, 10, 50)))
@@ -281,7 +285,7 @@ else
 {
   $page['nb_images'] = 5;
 }
-
+$template->assign('per_page', $conf['batch_manager_images_per_page_unit']);
 
 
 if (count($page['cat_elements_id']) > 0)
@@ -466,6 +470,7 @@ SELECT
     $admin_url_start = $admin_photo_base_url.'-properties';
     $admin_url_start.= isset($row['cat_id']) ? '&amp;cat_id='.$row['cat_id'] : '';
     $selected_level = isset($row['level']) ? $row['level'] : $row['level'];
+    
 
     $template->append(
       'elements', array_merge($row,
