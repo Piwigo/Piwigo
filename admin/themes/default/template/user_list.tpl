@@ -2749,7 +2749,12 @@ Advanced filter
 
 .slider-bar-wrapper {
   margin-top: 12px;
+}
+
+#UserList .slider-bar-wrapper,
+#GuestUserList .slider-bar-wrapper {
   margin-bottom: 0;
+  padding-right: 14px;
 }
 
 .advanced-filter-date {
