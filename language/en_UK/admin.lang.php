@@ -1356,4 +1356,13 @@ $lang['Core'] = 'Core';
 $lang['System Activities'] = 'System Activities';
 $lang['Shrink'] = 'Shrink';
 $lang['Expand'] = 'Expand';
+$lang['Image'] = 'Image';
+$lang['was succesfully deleted'] = 'was succesfully deleted';
+$lang['Who can see ?'] = 'Who can see ?';
+$lang['level of confidentiality'] = 'level of confidentiality';
+$lang['You have unsaved changes'] = 'You have unsaved changes';
+$lang['Changes saved'] = 'Changes saved';
+$lang['An error has occured'] = 'An error has occured';
+$lang['image(s) contains unsaved changes'] = 'image(s) contains unsaved changes';
+$lang['Pagination has changed and needs to be reloaded !'] = 'Pagination has changed and needs to be reloaded !';
 // Leave this line empty
