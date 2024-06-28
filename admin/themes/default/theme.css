@@ -5618,7 +5618,7 @@ input:checked + .slider:before, input:checked + .slider::after {
   position: relative;
 }
 
-.AddUserErrors, .update-user-fail, .AddAlbumErrors, .EditUserErrors, .update-password-fail {
+.AddUserErrors, .update-user-fail, .AddAlbumErrors, .EditUserErrors, .update-password-fail, .icon-red-error {
   background-color: #ffcfcf;
   color: #ff5252;
   border-left:solid 3px red;
@@ -5635,7 +5635,8 @@ input:checked + .slider:before, input:checked + .slider::after {
 }
 .update-user-success,
 .update-password-success,
-.update-username-success {
+.update-username-success,
+.border-green {
   border-left: 2px solid #00FF00;
 }
 #UserList .AddUserBlock p,

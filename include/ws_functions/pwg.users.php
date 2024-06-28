@@ -392,13 +392,18 @@ function ws_users_add($params, &$service)
     }
   }
 
+  if ($params['auto_password'])
+  {
+    $params['password'] = generate_key(rand(15, 20));
+  }
+
   $user_id = register_user(
     $params['username'],
     $params['password'],
     $params['email'],
     false, // notify admin
     $errors,
-    $params['send_password_by_mail']
+    false // $params['send_password_by_mail']
     );
 
   if (!$user_id)
@@ -1006,7 +1011,15 @@ function ws_users_generate_reset_password_link($params, &$service)
 
   if ($params['send_by_mail'] and !empty($user_lost['email']))
   {
-    $email_params = pwg_generate_reset_password_mail($user_lost['username'], $generate_link['reset_password_link'], $conf['gallery_title']);
+    $first_login = first_connexion($params['user_id']);
+    if ($first_login)
+    {
+      $email_params = pwg_generate_set_password_mail($user_lost['username'], $generate_link['reset_password_link'], $conf['gallery_title']);
+    }
+    else
+    {
+      $email_params = pwg_generate_reset_password_mail($user_lost['username'], $generate_link['reset_password_link'], $conf['gallery_title']);
+    }
     // Here we remove the display of errors because they prevent the response from being parsed
     if (@pwg_mail($user_lost['email'], $email_params))
     {

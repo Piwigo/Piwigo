@@ -45,6 +45,8 @@ const mainUserUpgradeWebmaster = "{'This user must first be defined as the webma
 const errorStr = "{'an error happened'|@translate|escape:javascript}";
 const copyLinkStr = "{'Copied link'|@translate|escape:javascript}";
 const cantCopy = "{'You cannot copy the password if the connection to this site is not secure.'|@translate|escape:javascript}";
+const validLinkMail = "{'A link, valid for 3 days has already been sent. If the email fails, copy the link below and send it to the user so the password can be set.'|@translate|escape:javascript}";
+const validLinkWithoutMail = "{'Copy the link below and send it to the user so the password can be set'|@translate|escape:javascript}";
 
 const registered_str = '{"Registered"|@translate|escape:javascript}';
 const last_visit_str = '{"Last visit"|@translate|escape:javascript}';
@@ -1130,47 +1132,104 @@ $(document).ready(function() {
     <div class="AddIconTitle">
       <span>{'Add a new user'|@translate}</span>
     </div>
-    <div class="AddUserInputContainer">
-      <label class="user-property-label AddUserLabelUsername">{'Username'|@translate}
-        <input class="user-property-input" />
-      </label>
-    </div>
 
-    <div class="AddUserInputContainer">
-      <div class="AddUserPasswordWrapper">
-        <label for="AddUserPassword" class="user-property-label AddUserLabelPassword">{'Password'|@translate}</label>
-        <span id="show_password" class="icon-eye"></span>
+    <div id="AddUserFieldContainer">
+      <div class="AddUserInputContainer">
+        <label class="user-property-label AddUserLabelUsername">{'Username'|@translate}
+          <input class="user-property-input" />
+        </label>
       </div>
-      <input id="AddUserPassword" class="user-property-input" type="password"/>
 
-      <div class="AddUserGenPassword">
-        <span class="icon-dice-solid"></span><span>{'Generate random password'|@translate}</span>
+      <div class="AddUserInputContainer">
+        <label class="user-property-label AddUserLabelEmail">{'Email'|@translate}
+          <input class="user-property-input" />
+        </label>
+      </div>
+
+      <div class="AddUserInputContainer">
+        <div class="user-property-status">
+          <label class="user-property-label">{'Status'|@translate}
+            <span class="icon-help-circled" title="
+            <div class='tooltip-status-content'>
+              <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_webmaster'|translate}</span><span class='tooltip-col2'>{'Has access to all administration functionnalities. Can manage both configuration and content.'|translate}</span></div>
+              <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_admin'|translate}</span><span class='tooltip-col2'>{'Has access to administration. Can only manage content: photos/albums/users/tags/groups.'|translate}</span></div>
+              <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_normal'|translate}</span><span class='tooltip-col2'>{'No access to administration, can see private content with appropriate permissions.'|translate}</span></div>
+              <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_generic'|translate}</span><span class='tooltip-col2'>{'Can be shared by several individuals without conflict (they cannot change the password).'|translate}</span></div>
+              <div class='tooltip-status-row'><span class='tooltip-col1'>{'user_status_guest'|translate}</span><span class='tooltip-col2'>{'Equivalent to deactivation. The user is still in the list, but can no longer log in.'|translate}</span></div>
+            </div">
+            </span>
+          </label>
+          <div class="user-property-select-container">
+            <select name="status" class="user-property-select">
+              <option value="webmaster">{'user_status_webmaster'|@translate}</option>
+              <option value="admin">{'user_status_admin'|@translate}</option>
+              <option value="normal">{'user_status_normal'|@translate}</option>
+              <option value="generic">{'user_status_generic'|@translate}</option>
+              <option value="guest">{'user_status_guest'|@translate} ({'Deactivated'|@translate})</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="AddUserInputContainer">
+        <div class="user-property-level">
+          <p class="user-property-label">{'Privacy level'|@translate}</p>
+          <div class="user-property-select-container">
+            <select name="privacy" class="user-property-select">
+              <option value="0">{'Level 0'|@translate}</option>
+              <option value="1">{'Level 1'|@translate}</option>
+              <option value="2">{'Level 2'|@translate}</option>
+              <option value="4">{'Level 4'|@translate}</option>
+              <option value="8">{'Level 8'|@translate}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="AddUserInputContainer">
+        <div class="user-property-group-container">
+          <p class="user-property-label">{'Groups'|@translate}</p>
+          <div class="user-property-select-container user-property-group">
+            <select class="user-property-select" data-selectize="groups"
+              placeholder="{'Select groups or type them'|translate}" name="group_id[]" multiple
+              style="box-sizing:border-box;"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="AddUserInputContainer">
+        <div class="user-list-checkbox" name="hd_enabled">
+          <span class="select-checkbox">
+            <i class="icon-ok"></i>
+          </span>
+          <span class="user-list-checkbox-label">{'High definition enabled'|translate}</span>
+        </div>
+      </div>
+
+      <div class="AddUserErrors  icon-cancel">
+      </div>
+
+      <div class="AddUserSubmitContainer">
+        <div class="AddUserCancel">
+          <span>{'Cancel'|@translate}</span>
+        </div>
+
+        <div class="AddUserSubmit">
+          <span class="icon-plus"></span><span>{'Add User'|@translate}</span>
+        </div>
       </div>
     </div>
 
-    <div class="AddUserInputContainer">
-      <label class="user-property-label AddUserLabelEmail">{'Email'|@translate}
-        <input class="user-property-input" />
-      </label>
+    <div id="AddUserSuccessContainer" style="display: none;">
+      <p class="icon-green border-green icon-ok AddUserResult" id="AddUserUpdated"> <span id="AddUserUpdatedText">{'User updated'|@translate}</span></p>
+      <p class="AddUserTextField" id="AddUserTextField">A link, valid for 3 days has already been sent. If the email fails, copy the link below and send it to the user so the password can be set.</p>
+      <div class="AddUserPasswordInputContainer">
+        <input class="AddUserPasswordInput" id="AddUserPasswordLink" />
+        <span class="icon-docs" id="AddUserCopyPassword"></span>
+      </div>
+      <p class="icon-button" id="AddUserButton"><span class="icon-ok"></span> {'Ok'|@translate}</p>
     </div>
 
-    <div class="user-list-checkbox" name="send_by_email">
-      <span class="select-checkbox">
-        <i class="icon-ok"></i>
-      </span>
-      <span class="user-list-checkbox-label">{'Send connection settings by email'|translate}</span>
-    </div>
-
-    <div class="AddUserErrors  icon-cancel">
-    </div>
-
-    <div class="AddUserSubmit">
-      <span class="icon-plus"></span><span>{'Add User'|@translate}</span>
-    </div>
-
-    <div class="AddUserCancel" style="display:none;">
-      <span>{'Cancel'|@translate}</span>
-    </div>
   </div>
 </div>
 
@@ -1179,13 +1238,6 @@ $(document).ready(function() {
 .icon-help-circled {
   color: #777777 !important;
   cursor: help;
-}
-
-#show_password {
-  position: absolute;
-  left: 240px;
-  top: 29px;
-  z-index: 100; {*used to fix firefox auto fill input*}
 }
 
 /* general */
@@ -1754,6 +1806,10 @@ $(document).ready(function() {
     margin-bottom:5px;
 }
 
+#AddUser .user-property-label {
+  margin-top: 0;
+}
+
 .user-property-label span,
 .dates-infos {
 	color: #ff7700;
@@ -1833,6 +1889,10 @@ $(document).ready(function() {
   margin-left: 418px;
 }
 
+#AddUser .user-property-select-container::before {
+  margin-left: 328px;
+}
+
 .user-action-select-container {
   position:relative;
 }
@@ -1854,6 +1914,12 @@ $(document).ready(function() {
     vertical-align:top;
     font-size:14px;
     cursor:pointer;
+}
+
+#AddUser .user-list-checkbox {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  align-self: start;
 }
 
 /* summary section */
@@ -1975,7 +2041,8 @@ $(document).ready(function() {
   width: 100%;
 }
 
-.user-property-password-choice .head-button-2 {
+.user-property-password-choice .head-button-2,
+#AddUserSuccessContainer .head-button-2 {
   display: block;
   text-align: center;
   margin-right: 0;
@@ -1997,7 +2064,8 @@ $(document).ready(function() {
   padding-top: 30px;
 }
 
-.edit-password-success .edit-password-success-input {
+.edit-password-success .edit-password-success-input,
+.AddUserPasswordInput {
   background-color: transparent;
   font-size: 15px;
   border: none;
@@ -2005,7 +2073,8 @@ $(document).ready(function() {
   padding: 0 5px;
 }
 
-.edit-password-success .edit-password-success-reset-link {
+.edit-password-success .edit-password-success-reset-link,
+.AddUserPasswordInputContainer {
   display: flex;
   align-items: center;
   width: 100%;
@@ -2013,12 +2082,14 @@ $(document).ready(function() {
   background-color: #F3F3F3;
 }
 
-.edit-password-success .edit-password-success-reset-link span {
+.edit-password-success .edit-password-success-reset-link span,
+.AddUserPasswordInputContainer span {
   padding: 5px;
   cursor: pointer;
 }
 
-.edit-password-success .edit-password-success-reset-link span:hover {
+.edit-password-success .edit-password-success-reset-link span:hover,
+.AddUserPasswordInputContainer span:hover {
   color: #ffffff;
   background-color: #ff7700;
 }
@@ -2070,7 +2141,8 @@ $(document).ready(function() {
 
 .edit-password-success-ok .icon-button,
 .edit-username-success-ok .icon-button,
-.user-property-main-user-close .icon-button {
+.user-property-main-user-close .icon-button, 
+#AddUserSuccessContainer .icon-button {
   padding: 10px 20px;
   font-size: 1.1em;
   font-weight: bold;
@@ -2079,16 +2151,22 @@ $(document).ready(function() {
   color: #777;
 }
 
+#AddUserSuccessContainer .icon-button {
+  align-self: center;
+}
+
 .edit-password-success-ok .icon-button:hover,
 .edit-username-success-ok .icon-button:hover,
-.user-property-main-user-close .icon-button:hover {
+.user-property-main-user-close .icon-button:hover,
+#AddUserSuccessContainer .icon-button:hover {
   background-color: #ddd;
   color: #3A3A3A;
 }
 
 .edit-password-success-ok .icon-button::before,
 .edit-username-success-ok .icon-button::before,
-.user-property-main-user-close .icon-button::before {
+.user-property-main-user-close .icon-button::before,
+#AddUserSuccessContainer .icon-button::before {
   margin-left: 0;
 }
 
@@ -2509,7 +2587,32 @@ $(document).ready(function() {
     flex-direction:column;
     border-radius:15px;
     align-items:center;
-    width: 270px;
+    width: 350px;
+}
+
+#AddUserFieldContainer {
+  width: 100%;
+}
+
+#AddUserSuccessContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+}
+
+.AddUserPasswordInputContainer {
+  margin: 0;
+}
+.AddUserSubmitContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.AddUserTextField {
+  margin: 0 0 10px 0;
 }
 
 .AddIconContainer {
@@ -2533,7 +2636,7 @@ $(document).ready(function() {
 .AddUserInputContainer {
   display: flex;
   flex-direction: column;
-  margin: 20px 0px;
+  margin: 5px 0px;
   width:100%;
 }
 
@@ -2548,38 +2651,8 @@ $(document).ready(function() {
   padding: 10px 5px;
 }
 
-.AddUserPasswordWrapper {
-  display:flex;
-  justify-content:space-between;
-  position: relative;
-}
-
-.AddUserPasswordWrapper span {
-  font-size:1.3em;
-  cursor:pointer;
-}
-
-
-.AddUserPasswordWrapper:hover {
-  color:#ffa646;
-}
-
-.AddUserGenPassword {
-  margin-top: 5px;
-  font-size: 1.1em;
-  cursor:pointer;
-}
-.AddUserGenPassword:hover, .AddUserGenPassword:active {
-  color:#ffa646;
-}
-
-.AddUserGenPassword span {
-  margin-right:10px;
-}
-
 .AddUserErrors {
   visibility:hidden;
-  width:100%;
   padding:5px;
   border-left:solid 3px red;
 }
@@ -2590,29 +2663,37 @@ $(document).ready(function() {
   color: #3F3E40;
   background-color: #FFA836;
   padding: 10px;
-  margin: 20px;
+  margin-top: 5px;
   font-size:1em;
   margin-bottom:0;
 }
 
 .AddUserCancel {
-  color: #3F3E40;
+  color: #A4A4A4;
   font-weight: bold;
   cursor: pointer;
   font-size:1em;
 }
 
+.AddUserResult {
+  padding: 10px;
+  text-align: start;
+}
+
 /* Selectize Inputs (groups) */
 
 #UserList .user-property-group .selectize-input,
-#GuestUserList .user-property-group .selectize-input {
+#GuestUserList .user-property-group .selectize-input,
+#AddUser .user-property-group .selectize-input {
   overflow-y: scroll;
 }
 
 #UserList .item,
 #UserList .item.active,
 #GuestUserList .item,
-#GuestUserList .item.active {
+#GuestUserList .item.active,
+#AddUser .item,
+#AddUser .item.active {
   background-image:none;
   background-color: #ffa646;
   border-color: transparent;
@@ -2621,7 +2702,8 @@ $(document).ready(function() {
 }
 
 #UserList .item .remove,
-#GuestUserList .item .remove {
+#GuestUserList .item .remove,
+#AddUser .item .remove {
   background-color: transparent;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -2630,7 +2712,8 @@ $(document).ready(function() {
 
 }
 #UserList .item .remove:hover,
-#GuestUserList .item .remove:hover {
+#GuestUserList .item .remove:hover,
+#AddUser .item .remove:hover {
   background-color: #ff7700;
 }
 

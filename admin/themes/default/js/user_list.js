@@ -55,6 +55,7 @@ jQuery('[data-selectize=groups]').selectize({
 
 let groupSelectize = jQuery('[data-selectize=groups]')[0].selectize;
 let groupGuestSelectize = jQuery('[data-selectize=groups]')[1].selectize;
+let groupAddUserSelectize = $('[data-selectize=groups]')[2].selectize;
 
 /*-----------------
 OnClick functions
@@ -149,18 +150,6 @@ $( document ).ready(function() {
     $('.edit-guest-user-button').click(open_guest_user_list);
     $('.CloseGuestUserList').click(close_guest_user_list);
     $('#GuestUserList .close-update-button').click(close_guest_user_list);
-
-    $("#show_password").click(function() {
-        if ($(this).hasClass("icon-eye")) {
-            $(this).removeClass("icon-eye");
-            $(this).addClass("icon-eye-off");
-            $("#AddUserPassword").get(0).type = "text";
-        } else {
-            $(this).removeClass("icon-eye-off");
-            $(this).addClass("icon-eye");
-            $("#AddUserPassword").get(0).type = "password";
-        }
-    })
     /* Action */
     jQuery("[id^=action_]").hide();
 
@@ -180,10 +169,6 @@ $( document ).ready(function() {
             $(this).siblings().attr("data-selected", "0");
         }
     })
-    $(".AddUserGenPassword").on('click', function() {
-        const password = gen_password();
-        $("#AddUserPassword").val(password);
-    });
     $('.EditUserGenPassword').on('click', function() {
         const password = gen_password();
         $('#edit_user_password').val(password);
@@ -818,7 +803,10 @@ function add_user_close() {
 }
 
 function add_user_open() {
-    $('#AddUser .AddUserInput').val('');
+    $('#AddUserSuccessContainer').hide();
+    $('#AddUserFieldContainer').show();
+    $('#AddUser :input').val('');
+    fill_new_user();
     $("#AddUser").fadeIn();
     $(".AddUserLabelUsername input").first().focus();
 }
@@ -1429,7 +1417,7 @@ function fill_user_edit_summary(user_to_edit, pop_in, isGuest) {
         $('#copy_password').hide();
         $('.update-password-success').css('margin', '40px 0');
         $('#result_send_mail_copy').hide();
-        $('#result_send_mail_copy_btn')
+        $('#result_send_mail_copy_btn, #AddUserCopyPassword')
             .css({'cursor': 'not-allowed', 'background-color' : 'grey', 'color': '#ffffff'})
             .attr('title', cantCopy)
             .on('mouseenter', function() {
@@ -1678,6 +1666,27 @@ function fill_guest_edit() {
     fill_user_edit_properties(user_to_edit, pop_in);
     fill_user_edit_preferences(user_to_edit, pop_in);
     fill_user_edit_update(user_to_edit, pop_in);
+}
+
+function fill_new_user() {
+    // When you want to add an user: privacy level and groups
+    // by default are the same as Guest, not status
+    const addUserPopIn = $('#AddUser');
+    const status_index = get_status_index('normal');
+    const level_index = get_level_index(guest_user.level);
+    set_selected_groups(guest_user.groups);
+    groupAddUserSelectize.clear();
+    groupAddUserSelectize.load(function(callback) {
+        callback(groupOptions);
+    });
+    jQuery.each(jQuery.grep(groupOptions, function(group) {
+        return group.isSelected;
+    }), function(i, group) {
+        groupAddUserSelectize.addItem(group.value);
+    });
+    addUserPopIn.find(`.user-property-status select option:eq(${status_index})`).prop("selected", true);
+    addUserPopIn.find(`.user-property-level select option:eq(${level_index})`).prop("selected", true);
+    addUserPopIn.find('.user-list-checkbox[name="hd_enabled"]').attr('data-selected', guest_user.enabled_high == 'true' ? '1' : '0');
 }
 
 function fill_who_is_the_king(user_to_edit, pop_in) {
@@ -2115,17 +2124,30 @@ function update_user_list() {
 }
 
 function add_user() {
-    let ajax_data = {
-        pwg_token: pwg_token,
-    }
+    let ajax_data = {};
+    let groups_selected = $('.AddUserInputContainer .user-property-group .selectize-input .item').map(function () {
+        return parseInt($(this).attr('data-value'));
+    } ).get();
     ajax_data.username = $('.AddUserLabelUsername .user-property-input').val();
-    ajax_data.password = $('#AddUserPassword').val();
     ajax_data.email = $(".AddUserLabelEmail .user-property-input").val();
-    ajax_data.send_password_by_mail = $('.user-list-checkbox[name="send_by_email"]').attr("data-selected") == "1" ? true : false;
-    jQuery.ajax({
+    ajax_data.status = $(".AddUserInputContainer .user-property-status select").val();
+    ajax_data.level = $(".AddUserInputContainer .user-property-level select").val();
+    ajax_data.enabled_high = $(".AddUserInputContainer .user-list-checkbox[name=\"hd_enabled\"]").attr('data-selected') == '1' ? true : false;
+    ajax_data.group_id = groups_selected.length == 0 ? -1 : groups_selected;
+    ajax_data.auto_password = true;
+
+    // for debug
+    // console.log(ajax_data);
+
+    $.ajax({
         url: "ws.php?format=json&method=pwg.users.add",
         type:"POST",
-        data: ajax_data,
+        data: {
+            username: ajax_data.username,
+            auto_password: true,
+            email: ajax_data.email,
+            pwg_token
+        },
         beforeSend: function() {
             $("#AddUser .AddUserErrors").css("visibility", "hidden");
             if ($(".AddUserLabelUsername .user-property-input").val() == "") {
@@ -2138,10 +2160,39 @@ function add_user() {
             let data = jQuery.parseJSON(raw_data);
             if (data.stat == 'ok') {
                 let new_user_id = data.result.users[0].id;
+                add_infos_to_new_user(new_user_id, ajax_data);
+            }
+            else {
+                $("#AddUser .AddUserErrors").html(data.message)
+                $("#AddUser .AddUserErrors").css("visibility", "visible");
+            }
+        }
+    });
+}
+
+function add_infos_to_new_user(user_id, ajax_data) {
+    $.ajax({
+        url: 'ws.php?format=json&method=pwg.users.setInfo',
+        type: 'POST',
+        data: {
+            user_id,
+            status: ajax_data.status,
+            level: ajax_data.level,
+            group_id: ajax_data.group_id,
+            enabled_high: ajax_data.enabled_high,
+            pwg_token
+        },
+        success: function(response) {
+            const data = JSON.parse(response);
+            if (data.stat == 'ok') {
+                let new_user_id = data.result.users[0].id;
                 update_user_list();
-                add_user_close();
+                // add_user_close();
+                $('#AddUserUpdated').removeClass('icon-red icon-cancel').addClass('icon-green border-green icon-ok');
+                $('#AddUserUpdatedText').html(user_added_str.replace("%s", ajax_data.username));
+                send_new_user_password(new_user_id, ajax_data.email === '' ? false : true);
                 $("#AddUser .user-property-input").val("");
-                $("#AddUserSuccess .edit-now").unbind("click").click(() => {
+                $("#AddUserSuccess .edit-now").off("click").on("click", () => {
                     last_user_id = new_user_id;
                     last_user_index = get_container_index_from_uid(new_user_id);
                     if (last_user_index != -1) {
@@ -2159,6 +2210,53 @@ function add_user() {
                 $("#AddUser .AddUserErrors").html(data.message)
                 $("#AddUser .AddUserErrors").css("visibility", "visible");
             }
+        }
+    });
+}
+
+function send_new_user_password(user_id, send_by_mail) {
+    $.ajax({
+        url: "ws.php?format=json",
+        dataType: "json",
+        data:{
+            method: 'pwg.users.generateResetPasswordLink',
+            user_id: user_id,
+            send_by_mail: send_by_mail,
+            pwg_token: pwg_token
+        },
+        success: function(response) {
+            if('ok' === response.stat) {
+                $('#AddUserFieldContainer').hide();
+                $('#AddUserSuccessContainer').fadeIn();
+                $('#AddUserPasswordLink').val(response.result.generated_link).trigger('focus');
+                $('#AddUserTextField').html(send_by_mail ? validLinkMail : validLinkWithoutMail);
+
+                if(send_by_mail && !response.result.send_by_mail) {
+                    $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+                    $('#AddUserUpdatedText').html(errorMailSent);
+                }
+                
+                if (window.isSecureContext && navigator.clipboard) {
+                    $('#AddUserCopyPassword').off('click').on('click', function() {
+                        const successMsg = $('#AddUserUpdatedText');
+                        successMsg.fadeOut();
+                        copyToClipboard(response.result.generated_link);
+                        $('#AddUserUpdated').removeClass('icon-red icon-cancel').addClass('icon-green border-green icon-ok');
+                        successMsg.html(copyLinkStr);
+                        successMsg.fadeIn();
+                    });
+                };
+                $('#AddUserButton').off('click').on('click', function() {
+                    add_user_close();
+                });
+            } else {
+                $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+                $('#AddUserUpdatedText').html(response.message);
+            }
+        },
+        error: function(response) {
+            $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+            $('#AddUserUpdatedText').html(response.message);
         }
     });
 }

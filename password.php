@@ -224,12 +224,14 @@ if (isset($_GET['key']) and !is_a_guest())
 
 if (isset($_GET['key']) and !isset($_POST['submit']))
 {
+  $first_login = false;
   $user_id = check_password_reset_key($_GET['key']);
   if (is_numeric($user_id))
   {
     $userdata = getuserdata($user_id, false);
     $page['username'] = $userdata['username'];
     $template->assign('key', $_GET['key']);
+    $first_login = first_connexion($user_id);
 
     if (!isset($page['action']))
     {
@@ -277,6 +279,10 @@ if ('lost' == $page['action'])
   {
     $template->assign('username_or_email', htmlspecialchars(stripslashes($_POST['username_or_email'])));
   }
+}
+else if ('reset' == $page['action'] and isset($first_login) and $first_login) 
+{
+  $title = l10n('Welcome');
 }
 
 $page['body_id'] = 'thePasswordPage';

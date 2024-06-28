@@ -1155,6 +1155,11 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       'ws_users_add',
       array(
         'username' => array(),
+        'auto_password' => array(
+          'default'=>false,
+          'flags'=>WS_TYPE_BOOL, 
+          'info' => 'if true ignores password and confirm password'
+        ),
         'password' => array('default'=>null),
         'password_confirm' => array('flags'=>WS_PARAM_OPTIONAL),
         'email' =>    array('default'=>null),

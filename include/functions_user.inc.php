@@ -1905,4 +1905,26 @@ function userprefs_get_param($param, $default_value=null)
 
   return $default_value;
 }
+
+/**
+ * See if this is the first time the user has logged on
+ *
+ * @since 15
+ * @param int $user_id
+ * @return bool true if first connexion else false 
+ */
+function first_connexion($user_id)
+{
+  $query = '
+SELECT COUNT(*)
+  FROM '.ACTIVITY_TABLE.'
+  WHERE action = \'login\' and performed_by = '.$user_id.'';
+
+  list($logged_in) = pwg_db_fetch_row(pwg_query($query));
+  if ($logged_in > 0)
+  {
+    return false;
+  }
+  return true;
+}
 ?>

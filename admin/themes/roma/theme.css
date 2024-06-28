@@ -1868,7 +1868,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #343434;
 }
 
-.AddUserErrors, .update-user-fail, .EditUserErrors, .update-password-fail {
+.AddUserErrors, .update-user-fail, .EditUserErrors, .update-password-fail, .icon-red-error {
   background-color: #f22;;
   color: #ffd5dc;
   border-left:solid 3px #f22;
@@ -1903,7 +1903,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .update-user-success,
 .update-password-success,
-.update-username-success {
+.update-username-success,
+.border-green {
   border-left: 2px solid #a9f6e3;
 }
 
