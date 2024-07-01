@@ -1360,9 +1360,10 @@ $lang['Image'] = "L'image";
 $lang['was succesfully deleted'] = 'a été supprimée avec succès';
 $lang['Who can see ?'] = 'Qui peut voir ?';
 $lang['level of confidentiality'] = 'niveau de confidentialité';
-$lang['You have unsaved changes'] = 'Des changements ne sont pas sauvegardés';
+$lang['You have unsaved changes'] = 'Changements non sauvegardés';
 $lang['Changes saved'] = 'Changements enregistrés';
 $lang['An error has occured'] = 'Une erreur est survenue';
 $lang['image(s) contains unsaved changes'] = 'image(s) ne sont pas sauvegardées';
 $lang['Pagination has changed and needs to be reloaded !'] = "La pagination a changée et nécessite d'être rechargée !";
+$lang['Metadata sync complete'] = 'Méta-données synchronisées';
 // Leave this line empty

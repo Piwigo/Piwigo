@@ -1,5 +1,6 @@
 $(document).ready(function () {
-
+  //Pagination
+  
   // Detect unsaved changes on any inputs
   var user_interacted = false;
 
@@ -22,6 +23,92 @@ $(document).ready(function () {
     
 
 });
+  //METADATA SYNC
+  $('.action-sync-metadata').on('click', function(event){
+    var pictureId = $(this).parents("fieldset").data("image_id");
+    $.confirm({
+        title: str_meta_warning,
+        draggable: false,
+        titleClass: "metadataSyncConfirm",
+        theme: "modern",
+        content: "",
+        animation: "zoom",
+        boxWidth: '30%',
+        useBootstrap: false,
+        type: 'red',
+        animateFromElement: false,
+        backgroundDismiss: true,
+        typeAnimated: false,
+        buttons: {
+            confirm: {
+                text: str_meta_yes,
+                btnClass: 'btn-red',
+                action: function () {
+                    disableLocalButton(pictureId);
+                    $.ajax({
+                        type: 'POST',
+                        url: 'ws.php?format=json',
+                        data: {
+                            method: "pwg.images.syncMetadata",
+                            pwg_token: jQuery("input[name=pwg_token]").val(),
+                            image_id: pictureId
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            var isOk = data.stat && data.stat === "ok";
+                            if (isOk) {
+                                $.ajax({
+                                    url: 'ws.php?format=json',
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    data: {
+                                        method: 'pwg.images.getInfo',
+                                        image_id: pictureId,  // corrected variable name
+                                        format: 'json'
+                                    },
+                                    success: function(response) {
+                                        if (response.stat === 'ok') {
+                                            $("#picture-" + pictureId + " #name-" + pictureId).val(response.result.name);
+                                            $("#picture-" + pictureId + " #author-" + pictureId).val(response.result.author);
+                                            $("#picture-" + pictureId + " #date_creation-" + pictureId).val(response.result.date_creation);
+                                            $("#picture-" + pictureId + " #description-" + pictureId).val(response.result.comment);
+                                            $("#picture-" + pictureId + " #level-" + pictureId).val(response.result.level);
+                                            $("#picture-" + pictureId + " #filename-" + pictureId).text(response.result.file);
+                                            $("#picture-" + pictureId + " #filesize-" + pictureId).text(response.result.filesize);
+                                            $("#picture-" + pictureId + " #dimensions-" + pictureId).text(response.result.width + "x" + response.result.height);
+                                            showMetasyncSuccesBadge(pictureId);    
+                                            enableLocalButton(pictureId)                                      
+                                        } else {
+                                            console.error("Error:", response.message);
+                                            showErrorLocalBadge(pictureId);
+                                            enableLocalButton(pictureId)
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error("Error:", status, error);
+                                        showErrorLocalBadge(pictureId);
+                                        enableLocalButton(pictureId)
+                                    }
+                                });
+                            } else {
+                              showErrorLocalBadge(pictureId);
+                              enableLocalButton(pictureId)
+                            }
+                        },
+                        error: function(data) {
+                            console.error("Error occurred");
+                            enableLocalButton(pictureId)
+                        }
+                    });
+                }
+            },
+            cancel: {
+                text: str_meta_no
+            }
+        }
+    });
+});
+  
 
   // DELETE
   $('.action-delete-picture').on('click', function(event) {
@@ -61,7 +148,6 @@ $(document).ready(function () {
                               success: function(data) {
                                   var isOk = data.stat && data.stat === "ok";
                                   if (isOk) {
-                                      console.log("Success");
                                       $fieldset.remove();
                                       $('.pagination-container').css({
                                           'pointer-events': 'none',
@@ -70,7 +156,7 @@ $(document).ready(function () {
                                       $('.button-reload').css('display', 'block');
                                       $('div[data-image_id="' + pictureId + '"]').css('display', 'flex');
                                   } else {
-                                      console.log("Image was not deleted successfully");
+                                    showErrorLocalBadge(pictureId);
                                   }
                               },
                               error: function(data) {
@@ -146,10 +232,6 @@ $(document).ready(function () {
       remove_related_category($(this).attr("id"),pictureId);
   })
 
-  $('.action-sync-metadata').on('click', function() {
-    var pictureId = $(this).parents("fieldset").data("image_id");
-    syncMetadata(pictureId);
-  });
 })
 
 function fill_results(cats, pictureId) {
@@ -273,7 +355,7 @@ function hideErrorLocalBadge(pictureId) {
 
 //Succes badge
 function updateSuccessGlobalBadge() {
-  var visibleLocalSuccesCount = $(".local-succes-badge").filter(function() {
+  var visibleLocalSuccesCount = $(".local-success-badge").filter(function() {
       return $(this).css('display') === 'block';
   }).length;
 
@@ -285,7 +367,7 @@ function updateSuccessGlobalBadge() {
 }
 
 function showSuccessLocalBadge(pictureId) {
-  var badge = $("#picture-" + pictureId + " .local-succes-badge");
+  var badge = $("#picture-" + pictureId + " .local-success-badge");
   badge.css({
       'display': 'block',
       'opacity': 1
@@ -299,7 +381,7 @@ function showSuccessLocalBadge(pictureId) {
 }
 
 function hideSuccesLocalBadge(pictureId) {
-  $("#picture-" + pictureId + " .local-succes-badge").css('display', 'none');
+  $("#picture-" + pictureId + " .local-success-badge").css('display', 'none');
 }
 
 function showSuccesGlobalBadge() {
@@ -318,6 +400,20 @@ function showSuccesGlobalBadge() {
 
 function hideSuccesGlobalBadge() {
   $("global-succes-badge").css('display', 'none');
+}
+
+function showMetasyncSuccesBadge(pictureId) {
+  var badge = $("#picture-" + pictureId + " .metasync-success");
+  badge.css({
+      'display': 'block',
+      'opacity': 1
+  });
+
+  setTimeout(() => {
+      badge.fadeOut(1000, function() {
+          badge.css('display', 'none');
+      });
+  }, 3000);
 }
 
 function disableLocalButton(pictureId) {
@@ -347,8 +443,7 @@ function enableGlobalButton() {
 
 function saveChanges(pictureId) {
     if ($("#picture-" + pictureId + " .local-unsaved-badge").css('display') === 'block') {
-          disableLocalButton(pictureId)
-          console.log("Saving changes for " + pictureId);
+          disableLocalButton(pictureId);
 
           // Retrieve Infos
           var name = $("#name-" + pictureId).val();
@@ -395,7 +490,7 @@ function saveChanges(pictureId) {
                   hideUnsavedLocalBadge(pictureId);
                   showSuccessLocalBadge(pictureId);
                   updateSuccessGlobalBadge();
-                  plugginSaveOption();
+                  pluginSaveLoop(activePlugins); //call for plugin save
               },
               error: function(xhr, status, error) {
                   enableLocalButton(pictureId);
@@ -407,101 +502,74 @@ function saveChanges(pictureId) {
               }
           });
       } else {
-          console.log("No changes to save for " + pictureId);
       }
   }
-  function saveAllChanges() {
-    $("fieldset").each(function() {
-        var pictureId = $(this).data("image_id");
-        saveChanges(pictureId);
-    });
+function saveAllChanges() {
+  $("fieldset").each(function() {
+    var pictureId = $(this).data("image_id");
+    saveChanges(pictureId);
+  });
 }
 
-  function syncMetadata(pictureId){
-    $.confirm({
-      title: str_meta_warning,
-      draggable: false,
-      titleClass: "groupDeleteConfirm",
-      theme: "modern",
-      content: "",
-      animation: "zoom",
-      boxWidth: '30%',
-      useBootstrap: false,
-      type: 'red',
-      animateFromElement: false,
-      backgroundDismiss: true,
-      typeAnimated: false,
-      buttons: {
-          confirm: {
-              text: str_meta_yes,
-              btnClass: 'btn-red',
-              action: function () {
-                  (function(ids) {
-                    console.log("metadata sync");
-                      $.ajax({
-                          type: 'POST',
-                          url: 'ws.php?format=json',
-                          data: {
-                              method: "pwg.images.syncMetadata",
-                              pwg_token: jQuery("input[name=pwg_token]").val(),
-                              image_id: pictureId
-                          },
-                          dataType: 'json',
-                          success: function(data) {
-                            console.log("metadata sync done, starting update");
-                              var isOk = data.stat && data.stat === "ok";
-                              if (isOk) {
-                                  console.log("Success, now updating current block");
-                                  $.ajax({
-                                    url: 'ws.php?format=json',
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    data: {
-                                        method: 'pwg.images.getInfo',
-                                        image_id: image_Id,
-                                        format: 'json'
-                                    },
-                                    success: function(response) {
-                                        var isOk = data.stat && data.stat === "ok";
-                                        if (response.stat === 'ok') {
-                                            console.log("success");
-                                            $("#picture-" + pictureId + " #name-" + pictureId).val(response.result.name);
-                                            $("#picture-" + pictureId + " #author-" + pictureId).val(response.result.author);
-                                            $("#picture-" + pictureId + " #date_creation-" + pictureId).val(response.result.date_creation);
-                                            $("#picture-" + pictureId + " #description-" + pictureId).val(response.result.comment);
-                                            $("#picture-" + pictureId + " #level-" + pictureId).val(response.result.level);
-                                            $("#picture-" + pictureId + " #filename-" + pictureId).text(response.result.file);
-                                            $("#picture-" + pictureId + " #filesize-" + pictureId).text(response.result.filesize);
-                                            $("#picture-" + pictureId + " #dimensions-" + pictureId).text(response.result.width + "x" + response.result.height);                                          
+//PLUGINS SAVE METHOD
+var activePlugins = [];
 
-                                        } else {
-                                            console.error("Error:", response.message);
-                                        }
-                                    },
-                                    error: function(xhr, status, error) {
-                                        console.error("Error:", status, error);
-                                    }
-                                  });
-                              } else {
-                                  console.log("Error");
-                              }
-                          },
-                          error: function(data) {
-                              console.error("Error occurred");
-                          }
-                      });
-                  })
-              }
-          },
-          cancel: {
-              text: str_meta_no
-          }
+$.ajax({
+  url: 'ws.php?format=json',
+  method: 'GET',
+  data: {
+    method: 'pwg.plugins.getList',
+  },
+  success: function(response) {
+    console.log("AJAX call succeeded. Raw response: ", response);
+    console.log("Type of response: ", typeof response);
+
+    if (typeof response === 'string') {
+      try {
+        response = JSON.parse(response);
+        console.log("Parsed response: ", response);
+      } catch (e) {
+        console.error("Failed to parse response as JSON: ", e);
       }
-  });
-  }
+    }
 
-function plugginSaveOption() {
-  //call your pluggin save functions here
+    console.log("Response stat: ", response.stat);
+    console.log("Response result: ", response.result);
+    console.log("Is result an array? ", Array.isArray(response.result));
+    
+    if (response.stat === "ok" && Array.isArray(response.result)) {
+      activePlugins = response.result.filter(function(plugin) {
+        return plugin.state === "active";
+      }).map(function(plugin) {
+        return plugin.id;
+      });
+
+      console.log("Active plugins: ", activePlugins);
+
+    } else {
+      console.error("Unexpected response format or status.");
+    }
+  },
+  error: function(xhr, status, error) {
+    console.error("An error occurred: " + error);
+  }
+});
+
+function pluginSaveLoop(plugins) {
+  if (plugins.length === 0) {
+    console.log("No plugins to process in pluginSaveLoop.");
+    return;
+  }
+  plugins.forEach(function(pluginId) {
+    var functionName = pluginId + '_batchManagerSave';
+
+    if (typeof window[functionName] === 'function') {
+      window[functionName]();
+      console.log('Executed function: ' + functionName);
+    } else {
+      console.log('Function not found: ' + functionName);
+    }
+  });
 }
 
 //   $(function () {

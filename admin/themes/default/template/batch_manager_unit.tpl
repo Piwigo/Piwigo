@@ -238,8 +238,9 @@ const strs_privacy = {
     <div class="buttonLike action-save-picture"><i class="icon-floppy"></i>{'Submit'|@translate}</div>
     </div>
     <div class="local-unsaved-badge badge-container" style="display: none;"><div class="badge-unsaved"><i class="icon-attention">&#xe829;</i>{'You have unsaved changes'|@translate}</div></div>
-    <div class="local-succes-badge badge-container" style="display: none;"><div class="badge-succes"><i class="icon-ok">&#xe819;</i>{'Changes saved'|@translate}</div></div>
+    <div class="local-success-badge badge-container" style="display: none;"><div class="badge-succes"><i class="icon-ok">&#xe819;</i>{'Changes saved'|@translate}</div></div>
     <div class="local-error-badge badge-container" style="display: none;"><div class="badge-error"><i class="icon-cancel">&#xe822;</i>{'An error has occured'|@translate}</div></div>
+    <div class="metasync-success badge-container" style="display: none;"><div class="badge-succes"><i class="icon-ok">&#xe819;</i>{'Metadata sync complete'|@translate}</div></div>
     
     </div>
   </div>
@@ -247,11 +248,11 @@ const strs_privacy = {
 {/foreach}
 
 <div style="margin: 30px 0; display: flex; justify-content: space-between;  padding: 1em;">
-  <div style="margin-right: 21px;" class="pagination-per-page">
-  <span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
-  <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
-  <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
-  <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
+<div class="pagination-per-page">
+<span class="thumbnailsActionsShow" style="font-weight: bold;">{'Display'|@translate}</span>
+<a id="pagination-per-page-5">5</a>
+<a id="pagination-per-page-10">10</a>
+<a id="pagination-per-page-50">50</a>
 </div>
     <div style="margin-left: 22px;">
     
@@ -335,6 +336,4 @@ const strs_privacy = {
 .album-listed{
   background-color: #FFFFFF !important;
 }
-
-
 </style>
