@@ -40,7 +40,6 @@ var sliders = {
 {/footer_script}
 
 {combine_script id='batchManagerFilter' load='footer' path='admin/themes/default/js/batchManagerFilter.js'}
-<form method="post" action="{$F_ACTION}" class="filter">
 <fieldset>
 <legend><span class='icon-filter icon-green'></span>{'Filter'|@translate}</legend>
 <div class="filterBlock">
@@ -238,4 +237,3 @@ var sliders = {
   </div>
 </div>
 </fieldset>
-</form>

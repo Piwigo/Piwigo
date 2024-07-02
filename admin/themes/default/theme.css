@@ -2286,6 +2286,13 @@ h2:lang(en) { text-transform:capitalize; }
   border-left:4px solid #6DCE5E;
 }
 
+.metasync-success {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .badge {
   background-color:#0a0;
   color:white;
@@ -2294,6 +2301,10 @@ h2:lang(en) { text-transform:capitalize; }
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
   margin-left:5px;
+}
+
+.buttonSubmitLocal {
+  margin-left: 9px !important;
 }
 
 .infos li, .errors li, .warnings li, .messages li { list-style-type:none; }
@@ -3424,7 +3435,6 @@ LEGEND SPAN {
 
 .media-hover{
   opacity:0%;
-  background-color: #0000009c;
   position: relative;
   height: 100%;
   width: 100%;
@@ -3432,6 +3442,7 @@ LEGEND SPAN {
 
 .media-hover:hover{
   opacity: 100%;
+  transition: ease-in-out 0.3s;
 }
 
 .main-info-container{
@@ -3679,8 +3690,6 @@ LEGEND SPAN {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90px;
-  height: 45px;
 }
 
 .disabled {
@@ -3741,7 +3750,7 @@ LEGEND SPAN {
 #batchManagerGlobal #selectedMessage {padding:5px; border-radius:5px; float: right;}
 #batchManagerGlobal #applyOnDetails {text-align: center; margin-top: 8px; color: #FFA646; font-weight: bold;}
 #batchManagerGlobal .actionButtons {text-align:left; display: flex; flex-direction: column;}
-#batchManagerGlobal #filterList {padding-left:0px; display: flex; flex-wrap: wrap; align-items: start; margin-top: 0px;}
+#batchManagerGlobal #filterList {padding-left:0px; display: flex; flex-wrap: wrap; align-items: start; margin-top: 0px; margin-bottom: 10px !important;}
 #batchManagerGlobal #filterList li {
   list-style-type:none;
   background-color: #fafafa;

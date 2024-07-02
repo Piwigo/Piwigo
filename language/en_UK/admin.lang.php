@@ -1366,4 +1366,5 @@ $lang['An error has occured'] = 'An error has occured';
 $lang['image(s) contains unsaved changes'] = 'image(s) contains unsaved changes';
 $lang['Pagination has changed and needs to be reloaded !'] = 'Pagination has changed and needs to be reloaded !';
 $lang['Metadata sync complete'] = 'Metadata sync complete';
+$lang['Save'] = 'Save';
 // Leave this line empty

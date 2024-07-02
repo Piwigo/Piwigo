@@ -1366,4 +1366,5 @@ $lang['An error has occured'] = 'Une erreur est survenue';
 $lang['image(s) contains unsaved changes'] = 'image(s) ne sont pas sauvegardées';
 $lang['Pagination has changed and needs to be reloaded !'] = "La pagination a changée et nécessite d'être rechargée !";
 $lang['Metadata sync complete'] = 'Méta-données synchronisées';
+$lang['Save'] = 'Enregistrer';
 // Leave this line empty

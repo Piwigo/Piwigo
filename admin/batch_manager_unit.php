@@ -514,7 +514,8 @@ SELECT
         )
       ));
   }
-
+  
+  $template->assign('ACTIVE_PLUGINS', array_keys($pwg_loaded_plugins));
 
   $template->assign(array(
     'ELEMENT_IDS' => implode(',', $element_ids),
