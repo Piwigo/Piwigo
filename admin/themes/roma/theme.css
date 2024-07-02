@@ -925,6 +925,10 @@ table.qsearch_help_table td {
 
 .afterUploadActions a {color: #3C3C3C; font-weight: bold; background-color: #FFA646;}
 .afterUploadActions a:hover {text-decoration: none; background-color: #ff7700;}
+.afterUploadActions a.secondary_button {background-color: #333;color: #777;}
+.afterUploadActions a.secondary_button:hover {background-color: #ffa744;color: #3C3C3C;}
+
+
 .font-checkbox {color: #898888;}
 .font-checkbox:hover {color: #ffa646;}
 .with-border legend, .with-border strong {color: #c0c0c0;}

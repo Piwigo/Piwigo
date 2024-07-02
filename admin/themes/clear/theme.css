@@ -657,6 +657,9 @@ FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
 #addAlbumOpen:hover, #autoOrderOpen:hover {border: 1px solid #aaa; text-decoration: none;}
 .afterUploadActions a {color: #3C3C3C; font-weight: bold; background-color: #FFA646;}
 .afterUploadActions a:hover {text-decoration: none; background-color: #ff7700;}
+.afterUploadActions a.secondary_button {background-color: #ECECEC;}
+.afterUploadActions a.secondary_button:hover {background-color: #FFA646;}
+
 .font-checkbox:hover {color: #FFA844;}
 .font-checkbox.selected {color: #ffa646;}
 
