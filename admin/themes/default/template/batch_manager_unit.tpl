@@ -76,7 +76,7 @@ const strs_privacy = {
 
 <div id="batchManagerGlobal" style="margin-bottom: 80px;">
 	<div style="clear:both"></div>
-	{debug}{if isset($ELEMENT_IDS)}
+	{if isset($ELEMENT_IDS)}
 	<div>
 		<input type="hidden" name="element_ids" value="{$ELEMENT_IDS}">
 	</div>
