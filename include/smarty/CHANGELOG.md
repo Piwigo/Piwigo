@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3.2] - 2023-07-19
+
+### Fixed
+- `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP8 warnings for undefined properties
+
 ## [4.3.1] - 2023-03-28
 
 ### Security
