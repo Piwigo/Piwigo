@@ -208,6 +208,12 @@ jQuery('#applyAction').click(function(e) {
       });
     }
 
+    var queuedManager = jQuery.manageAjax.create('queued', {
+      queue: true,
+      cacheResponse: false,
+      maxRequests: 1
+    });
+
     progressBar_max = elements.length;
     var todo = 0;
     var syncBlockSize = Math.min(
@@ -229,7 +235,7 @@ jQuery('#applyAction').click(function(e) {
 
       (function(ids) {
         var thisBatchSize = ids.length;
-        jQuery.ajax({
+        queuedManager.add({
           url: "ws.php?format=json&method=pwg.images.syncMetadata",
           type:"POST",
           dataType: "json",
