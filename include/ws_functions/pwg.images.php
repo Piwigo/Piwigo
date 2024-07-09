@@ -2615,24 +2615,52 @@ function ws_images_syncMetadata($params, $service)
     return new PwgError(403, 'Invalid security token');
   }
 
+  if (!is_array($params['image_id']))
+  {
+    $params['image_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['image_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
+
+  $image_ids = array();
+  foreach ($params['image_id'] as $image_id)
+  {
+    $image_id = trim($image_id);
+
+    if (!preg_match(PATTERN_ID, $image_id))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid image_id "'.$image_id.'"');
+    }
+
+    $image_ids[] = $image_id;
+  }
+
+  if (empty($image_ids))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid image_id (no value after filters)');
+  }
+
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(', ', $params['image_id']).')
+  WHERE id IN ('.implode(', ', $image_ids).')
 ;';
-  $params['image_id'] = query2array($query, null, 'id');
+  $image_ids = query2array($query, null, 'id');
 
-  if (empty($params['image_id']))
+  if (empty($image_ids))
   {
     return new PwgError(403, 'No image found');
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  sync_metadata($params['image_id']);
+  sync_metadata($image_ids);
 
   return array(
-    'nb_synchronized' => count($params['image_id'])
+    'nb_synchronized' => count($image_ids)
   );
 }
 

@@ -212,7 +212,7 @@ jQuery('#applyAction').click(function(e) {
     var todo = 0;
     var syncBlockSize = Math.min(
       Number((elements.length/2).toFixed()),
-      500
+      1000
     );
     var image_ids = Array();
 
@@ -235,7 +235,7 @@ jQuery('#applyAction').click(function(e) {
           dataType: "json",
           data: {
             pwg_token: jQuery("input[name=pwg_token]").val(),
-            image_id: ids
+            image_id: ids.join(',')
           },
           success: function(data) {
             todo += thisBatchSize;

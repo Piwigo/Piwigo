@@ -567,9 +567,7 @@ function ws_addDefaultMethods( $arr )
       'pwg.images.syncMetadata',
       'ws_images_syncMetadata',
       array(
-        'image_id' => array('default'=>null,
-                            'type'=>WS_TYPE_ID|WS_TYPE_POSITIVE,
-                            'flags'=>WS_PARAM_FORCE_ARRAY),
+        'image_id' => array('flags'=>WS_PARAM_ACCEPT_ARRAY, 'info'=>'Comma separated ids or array of id'),
         'pwg_token' =>  array(),
         ),
       'Sync metadatas, by blocks. Returns how many images were synchronized',
