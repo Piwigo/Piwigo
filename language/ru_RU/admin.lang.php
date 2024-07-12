@@ -1168,7 +1168,7 @@ $lang['This picture is physically linked to this album, you can\'t dissociate th
 $lang['This photo no longer exists'] = 'Фото больше не существует';
 $lang['Tag name'] = 'Название тега';
 $lang['Picture to associate formats with'] = 'Изображение, с которым связаны форматы';
-$lang['Properties of abums'] = 'Свойства альбомов';
+$lang['Properties of albums'] = 'Свойства альбомов';
 $lang['No access to administration, can see private content with appropriate permissions.'] = 'Нет доступа к администрированию, может просматривать приватный контент с соответствующими разрешениями.';
 $lang['Has access to all administration functionnalities. Can manage both configuration and content.'] = 'Имеет доступ ко всем функциям администрирования. Может управлять как конфигурацией, так и контентом.';
 $lang['Has access to administration. Can only manage content: photos/albums/users/tags/groups.'] = 'Имеет доступ к администрированию. Может управлять только контентом: фото/альбомы/пользователи/теги/группы.';
