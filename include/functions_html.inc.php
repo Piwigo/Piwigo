@@ -702,7 +702,7 @@ function flush_page_messages()
         unset($_SESSION['page_'.$mode]);
       }
 
-      if (count($page[$mode]) != 0)
+      if (!empty($page[$mode]))
       {
         $template->assign($mode, $page[$mode]);
       }
