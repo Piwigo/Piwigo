@@ -1222,6 +1222,7 @@ function set_main_user_success() {
         king = $(king_template);
     }
     king.appendTo(new_main);
+    $('.delete-user-button').hide();
     $('.main-user-validate').hide();
     $('.main-user-success').fadeIn();
 }
