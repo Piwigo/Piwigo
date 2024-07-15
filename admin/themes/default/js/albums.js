@@ -13,18 +13,6 @@ $(document).ready(() => {
     onCanSelectNode: function(node) {return false}
   });
 
-  var url_split = window.location.href.split("cat_move");
-  var catToOpen = url_split[url_split.length-1].split("-")[1];
-
-  if(catToOpen && isNumeric(catToOpen)) {
-    nodeToGo = $('.tree').tree('getNodeById', catToOpen);
-
-    goToNode(nodeToGo, nodeToGo);
-    if (nodeToGo.children) {
-      $(".tree").tree("openNode", nodeToGo, false);
-    }
-  }
-
   $('.tree').on( 'click', '.move-cat-toogler', function(e) {
     var node_id = $(this).attr('data-id');
     var node = $('.tree').tree('getNodeById', node_id);
@@ -121,8 +109,13 @@ $(document).ready(() => {
   });
 
   if (openCat != -1) {
-    var node = $('.tree').tree('getNodeById', openCat);
-    $('.tree').tree('openNode', node);
+    nodeToGo = $('.tree').tree('getNodeById', openCat);
+
+    goToNode(nodeToGo, nodeToGo);
+    if (nodeToGo.children) {
+      $(".tree").tree("openNode", nodeToGo, false);
+    }
+
     $([document.documentElement, document.body]).animate({
       scrollTop: $("#cat-"+openCat).offset().top
     }, 500);
