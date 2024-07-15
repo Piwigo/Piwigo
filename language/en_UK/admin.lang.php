@@ -405,7 +405,7 @@ $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_m
 $lang['Inactive Languages'] = 'Inactive Languages';
 $lang['Inactive Plugins'] = 'Inactive Plugins';
 $lang['Inactive Themes'] = 'Inactive themes';
-$lang['include child albums'] = 'include child albums';
+$lang['include child albums'] = 'include sub-albums';
 $lang['Include display of recent photos grouped by dates'] = "Include display of recent photos grouped by dates";
 $lang['include photos with lower privacy level'] = 'include photos with lower privacy level';
 $lang['Information data registered in database'] = "Information data registered in database";
