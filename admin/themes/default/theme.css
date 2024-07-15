@@ -1530,17 +1530,6 @@ a.stat-box:hover {
   white-space: nowrap;
 }
 
-.intro-charts .tooltip::after {
-  content: " ";
-  position: absolute;
-  bottom: 100%;
-  left: 51%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent white transparent;
-}
-
 .activity-chart span div:hover{
   padding: 0.5vw;
 }
@@ -1588,7 +1577,8 @@ a.stat-box:hover {
   content: none;
 }
 
-.storage-tooltips .tooltip-arrow {
+.storage-tooltips .tooltip-arrow,
+.activity-chart .tooltip-arrow {
   content: " ";
   position: absolute;
   bottom: 100%;

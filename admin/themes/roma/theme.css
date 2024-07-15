@@ -262,15 +262,12 @@ a.stat-box:hover {
   box-shadow: none;
 }
 
-.intro-charts .tooltip::after {
-  border-color: transparent transparent #333333 transparent;
-}
-
 .storage-tooltips .separated {
   background: #777;
 }
 
-.storage-tooltips .tooltip-arrow {
+.storage-tooltips .tooltip-arrow,
+.activity-chart .tooltip-arrow {
   border-color: transparent transparent #333333 transparent;
 }
 
