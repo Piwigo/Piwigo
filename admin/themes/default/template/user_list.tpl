@@ -2233,6 +2233,12 @@ $(document).ready(function() {
     width:100%;
 }
 
+.user-property-permissions a:hover,
+.user-property-history a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
 .edit-username-validate,
 .edit-password-validate {
     display: block;
