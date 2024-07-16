@@ -1350,3 +1350,7 @@ $lang['%d Activity'] = '%d项记录';
 $lang['Activity'] = '访问记录';
 $lang['Activity time from'] = '访问时间从';
 $lang['Download all activities'] = '下载所有访问记录';
+$lang['and %d more'] = '还有%d个';
+$lang['Object'] = '对象';
+$lang['You have %s1 orphan : %s2'] = '您有 %s1 个未使用的标签:%s2';
+$lang['You have %s inactive plugins'] = '您有%s停用的插件';
