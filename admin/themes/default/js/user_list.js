@@ -2191,7 +2191,7 @@ function add_infos_to_new_user(user_id, ajax_data) {
                 // add_user_close();
                 $('#AddUserUpdated').removeClass('icon-red icon-cancel').addClass('icon-green border-green icon-ok');
                 $('#AddUserUpdatedText').html(user_added_str.replace("%s", ajax_data.username));
-                send_new_user_password(new_user_id, ajax_data.email === '' ? false : true);
+                send_new_user_password(new_user_id, ajax_data.email);
                 $("#AddUser .user-property-input").val("");
                 $("#AddUserSuccess .edit-now").off("click").on("click", () => {
                     last_user_id = new_user_id;
@@ -2215,7 +2215,8 @@ function add_infos_to_new_user(user_id, ajax_data) {
     });
 }
 
-function send_new_user_password(user_id, send_by_mail) {
+function send_new_user_password(user_id, mail) {
+    let send_by_mail = mail === '' ? false : true;
     $.ajax({
         url: "ws.php?format=json",
         dataType: "json",
@@ -2227,14 +2228,19 @@ function send_new_user_password(user_id, send_by_mail) {
         },
         success: function(response) {
             if('ok' === response.stat) {
+                const password_container = $('#AddUserPasswordInputContainer');
+                password_container.show();
                 $('#AddUserFieldContainer').hide();
                 $('#AddUserSuccessContainer').fadeIn();
                 $('#AddUserPasswordLink').val(response.result.generated_link).trigger('focus');
-                $('#AddUserTextField').html(send_by_mail ? validLinkMail : validLinkWithoutMail);
+                $('#AddUserTextField').html(send_by_mail ? sprintf(validLinkMail, `<b>${mail}</b>`) : validLinkWithoutMail);
 
                 if(send_by_mail && !response.result.send_by_mail) {
                     $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
                     $('#AddUserUpdatedText').html(errorMailSent);
+                    $('#AddUserTextField').html(errorMailSentMsg);
+                } else if (send_by_mail && response.result.send_by_mail) {
+                    password_container.hide();
                 }
                 
                 if (window.isSecureContext && navigator.clipboard) {
