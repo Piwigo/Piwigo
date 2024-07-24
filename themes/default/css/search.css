@@ -304,6 +304,8 @@
   display: flex;
   flex-direction: column;
   margin: 20px 0 20px 0;
+  overflow:auto;
+  max-height:250px;
 }
 
 .date_posted-option-container {
@@ -706,13 +708,6 @@
 .filetypes-option,
 .added_by-option{
   min-width:150px!important;
-}
-
-.filter-filetypes-form .form-container,
-.filter-added_by-form .form-container,
-.filter-date_posted .form-container {
-  max-height: 300px;
-  overflow-y: auto;
 }
 
 .section-search .sticky-top{
