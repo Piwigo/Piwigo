@@ -913,6 +913,7 @@ $lang['View in gallery'] = 'Voir dans la galerie';
 $lang['Number of albums per page'] = 'Nombre d\'albums par page';
 $lang['Ratio'] = 'Ratio';
 $lang['between %d and %d pixels'] = 'entre %d et %d pixels';
+$lang['between %d and %d'] = 'entre %d et %d';
 $lang['between %.2f and %.2f'] = 'entre %.2f et %.2f';
 $lang['Manage the members'] = 'Gérer les membres';
 $lang['Type here the name of the new group'] = 'Inscrivez ici le nom du nouveau groupe';

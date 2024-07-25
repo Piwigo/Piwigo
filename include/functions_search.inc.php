@@ -375,6 +375,60 @@ SELECT
     $clauses[] = $local_clause;
   }
 
+  if (!empty($search['fields']['ratios']))
+  {
+    foreach ($search['fields']['ratios'] as $r)
+    {
+      switch($r)
+      {
+        case 'portrait':
+          $clauses[] = '(FLOOR(width / height * 100) / 100) < 0.96';
+          break;
+
+        case'square':
+          $clauses[] = '(FLOOR(width / height * 100) / 100) BETWEEN 0.95 AND 1.06';
+          break;
+
+        case'landscape':
+          $clauses[] = '(FLOOR(width / height * 100) / 100) BETWEEN 1.05 AND 2.01';
+          break;
+
+        case'panorama':
+          $clauses[] = '(FLOOR(width / height * 100) / 100) > 2.01';
+          break;
+      }
+    }
+  }
+
+  if(!empty($search['fields']['ratings']))
+  {
+      foreach ($search['fields']['ratings'] as $r)
+      {
+        if (0 == $r)
+        {
+          $clauses[] = 'rating_score IS NULL';
+        }
+        else{
+          $clauses[] = 'rating_score BETWEEN '.(intval($r)-1).' AND '.$r;
+        }
+      }
+  }
+
+  if (!empty($search['fields']['filesize_min']) && !empty($search['fields']['filesize_max']))
+  {
+    $clauses[] = 'filesize BETWEEN '.$search['fields']['filesize_min'].' AND '.$search['fields']['filesize_max'];
+  }
+
+  if (!empty($search['fields']['height_min']) && !empty($search['fields']['height_max']))
+  {
+    $clauses[] = 'height BETWEEN '.$search['fields']['height_min'].' AND '.$search['fields']['height_max'];
+  }
+
+  if (!empty($search['fields']['width_min']) && !empty($search['fields']['width_max']))
+  {
+    $clauses[] = 'width BETWEEN '.$search['fields']['width_min'].' AND '.$search['fields']['width_max'];
+  }
+
   // adds brackets around where clauses
   $clauses = prepend_append_array_items($clauses, '(', ')');
 

@@ -1,3 +1,8 @@
+{combine_script id='jquery.ui'  load='async' path='themes/default/js/ui/minified/jquery.ui.core.min.js'}
+{combine_script id='jquery.ui.slider' require='jquery.ui' load='async' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
+{combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css" order=-999}
+{combine_script id='doubleSlider' load='footer' require='jquery.ui.slider' path='admin/themes/default/js/doubleSlider.js'}
+
 {combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 {combine_script id='jquery.tipTip' load='header' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
@@ -25,10 +30,62 @@ str_author_widget_label = "{'Author'|@translate|escape:javascript}";
 str_added_by_widget_label = "{'Added by'|@translate|escape:javascript}";
 str_filetypes_widget_label = "{'File type'|@translate|escape:javascript}";
 
+str_rating_widget_label = "{'Rating'|@translate|escape:javascript}";
+str_no_rating = "{'no rate'|@translate|escape:javascript}";
+str_between_rating= "{'between %d and %d'|@translate}";
+str_filesize_widget_label = "{'Filesize'|@translate|escape:javascript}";
+str_width_widget_label = "{'Width'|@translate|escape:javascript}";
+str_height_widget_label = "{'Height'|@translate|escape:javascript}";
+str_ratio_widget_label = "{'Ratio'|@translate|escape:javascript}";
+str_ratios_label = [];
+str_ratios_label['Portrait'] ="{'Portrait'|@translate|escape:javascript}";
+str_ratios_label['square'] = "{'square'|@translate|escape:javascript}";
+str_ratios_label['Landscape'] = "{'Landscape'|@translate|escape:javascript}";
+str_ratios_label['Panorama'] = "{'Panorama'|@translate|escape:javascript}";
+
 str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate|escape:javascript}";
 str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate|escape:javascript}";
 
 const prefix_icon = 'gallery-icon-';
+
+{*<!-- sliders config -->*}
+  var sliders = {
+
+    {if isset($FILESIZE)}
+    filesizes: {  
+      values: [{$FILESIZE.list}],
+      selected: {
+        min: {$FILESIZE.selected.min},
+        max: {$FILESIZE.selected.max},
+      },
+      text: '{'between %s and %s MB'|translate|escape:'javascript'}',
+    },
+    {/if}
+
+    {if isset($HEIGHT)}
+    heights: {
+      values: [{$HEIGHT.list}],
+      selected: {
+        min: {$HEIGHT.selected.min},
+        max: {$HEIGHT.selected.max},
+      },
+      text: '{'between %d and %d pixels'|translate|escape:'javascript'}',
+    },
+    {/if}
+
+    {if isset($WIDTH)}
+    widths: {
+      values: [{$WIDTH.list}],
+      selected: {
+        min: {$WIDTH.selected.min},
+        max: {$WIDTH.selected.max},
+      },
+      text: '{'between %d and %d pixels'|translate|escape:'javascript'}',
+    },
+    {/if}
+  };
+
+
 {/footer_script}
 
 {combine_script id='mcs' load='async' require='jquery' path='themes/default/js/mcs.js'}
@@ -67,6 +124,26 @@ const prefix_icon = 'gallery-icon-';
         <label>
           <input data-wid='filetypes' class="filter-manager-controller filetypes" type="checkbox"/>
           <span class="mcs-icon gallery-icon-file-image">{'File type'|@translate}</span>
+        </label>
+        <label>
+          <input data-wid='ratios' class="filter-manager-controller ratios" type="checkbox"/>
+          <span class="mcs-icon gallery-icon-crop">{'Ratio'|@translate}</span>
+        </label>
+        <label>
+          <input data-wid='ratings' class="filter-manager-controller ratings" type="checkbox"/>
+          <span class="mcs-icon gallery-icon-star-1">{'Rating'|@translate}</span>
+        </label>
+        <label>
+          <input data-wid='filesize' class="filter-manager-controller filesize" type="checkbox"/>
+          <span class="mcs-icon gallery-icon-hdd">{'Filesize'|@translate}</span>
+        </label>
+        <label>
+          <input data-wid='height' class="filter-manager-controller height" type="checkbox"/>
+          <span class="mcs-icon gallery-icon-height">{'Height'|@translate}</span>
+        </label>
+        <label>
+          <input data-wid='width' class="filter-manager-controller width" type="checkbox"/>
+          <span class="mcs-icon gallery-icon-width">{'Width'|@translate}</span>
         </label>
       </div>
 
@@ -343,6 +420,192 @@ const prefix_icon = 'gallery-icon-';
     </div>
   </div>
   {/if}
+
+  
+  {if isset($RATIOS)}
+  <div class="filter filter-ratios">
+    <span class="mcs-icon gallery-icon-crop filter-icon"></span>
+    </span><span class="search-words"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
+
+    <div class="filter-form filter-ratios-form">
+      <div class="filter-form-title gallery-icon-crop">{'Ratio'|@translate}</div>
+      <div class="filter-actions"> 
+        <span class="delete mcs-icon gallery-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
+      </div>
+      <div class="form-container">
+        <div class="ratios-option-container">
+        {foreach from=$RATIOS item=ratio key=k}
+        <div class="ratios-option {if 0 == $ratio}disabled{/if}">
+              <input type="checkbox" id="ratio-{$k}" name="{$k}" {if 0 == $ratio}disabled{/if}>
+              <label for="ratio-{$k}">
+                <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
+                <span class="ratio-name">{$k|translate}</span>
+              {if 0 != $ratio}<span class="ratio-badge">{$ratio}</span>{/if}
+              </label>
+            </div>
+        {/foreach}
+        </div>
+      </div>
+      <div class="filter-validate">
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
+    </div>
+  </div>
+  {/if}
+
+{* Add filter for rating *}
+
+  {if isset($RATING)}
+  <div class="filter filter-ratings">
+    <span class="mcs-icon mcs-icon gallery-icon-star-1 filter-icon"></span>
+    </span><span class="search-words"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
+
+    <div class="filter-form filter-ratings-form">
+      <div class="filter-form-title gallery-icon-star-1">{'Rating'|@translate}</div>
+      <div class="filter-actions"> 
+        <span class="delete mcs-icon gallery-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left tiptip" title="{'Clear'|@translate}"></span>
+      </div>
+      <div class="form-container">
+
+        <div class="ratings-option-container">
+          <form>
+          {foreach from=$RATING item=rating key=k}
+            
+          <div class="ratings-option {if 0 == $rating}disabled{/if}">
+            <input type="checkbox" id="rating-{$k}" name="{if 0 == $k}0{else}{$k}{/if}" {if 0 == $rating}disabled{/if}>
+            <label for="rating-{$k}">
+              <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
+              <span class="ratings-name">{if 0 == $k}{'no rate'|translate}{else}{'between %d and %d'|@translate:(intval($k)-1):$k|escape:'javascript'}{/if}</span>
+              {if 0 != $rating}<span class="ratings-badge">{$rating}</span>{/if}
+            </label>
+          </div>
+
+          {/foreach}
+
+          </form>
+        </div>
+      </div>
+      <div class="filter-validate">
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
+    </div>
+    
+  </div>
+  {/if}
+
+
+{* Add filter for filesize *}
+{if isset($FILESIZE)}
+  <div class="filter filter-filesize">
+    <span class="mcs-icon mcs-icon gallery-icon-hdd filter-icon"></span>
+    </span><span class="search-words"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
+
+    <div class="filter-form filter-filesize-form">
+      <div class="filter-form-title mcs-icon gallery-icon-hdd">{'Filesize'|translate}</div>
+      <div class="filter-actions"> 
+        <span class="delete mcs-icon gallery-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left tiptip" data-min="{$FILESIZE.bounds.min}" data-max="{$FILESIZE.bounds.max}" title="{'Clear'|@translate}"></span>
+      </div>
+
+      <div class="form-container">
+        <div class="filesize-option-container">
+
+          <div data-slider="filesizes">
+            <span class="slider-info"></span>
+            <div class="slider-slider"></div>
+
+            <input type="hidden" data-input="min" name="filter_filesize_min" value="{$FILESIZE.selected.min}">
+            <input type="hidden" data-input="max" name="filter_filesize_max" value="{$FILESIZE.selected.max}">
+          </div>
+
+        </div>
+      </div>
+      <div class="filter-validate">
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
+    </div>
+  </div>
+{/if}
+
+{* Add filter for Height *}
+{if isset($HEIGHT)}
+  <div class="filter filter-height">
+    <span class="mcs-icon mcs-icon gallery-icon-height"></span>
+      <span class="search-words"></span>
+      <span class="filter-arrow gallery-icon-up-open"></span>
+      <div class="filter-form filter-height-form">
+        <div  class="filter-form-title mcs-icon gallery-icon-heigh">
+          {'height'|translate}
+        </div>
+        <div class="filter-actions">
+          <span class="delete mcs-icon gallery-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+          <span class="clear mcs-icon gallery-icon-arrow-rotate-left tiptip" data-min="{$HEIGHT.bounds.min}" data-max="{$HEIGHT.bounds.max}" title="{'Reset'|@translate}"></span>
+        </div>
+        <div class="form-container">
+
+          <div class="height-option-container">
+            <div data-slider="heights">
+              <span class="slider-info"></span>
+              <div class="slider-slider"></div>
+
+              <input type="hidden" data-input="min" name="filter_height_min" value="{$HEIGHT.selected.min}">
+              <input type="hidden" data-input="max" name="filter_height_max" value="{$HEIGHT.selected.max}">
+            </div>
+          </div>
+
+        </div>
+      <div class="filter-validate">
+          <i class="loading gallery-icon-spin6 animate-spin"></i>
+          <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
+    </div>
+  </div>
+{/if}
+
+{* Add filter for Width *} 
+{if  isset($WIDTH)}
+  <div class="filter filter-width">
+    <span class="mcs-icon mcs-icon gallery-icon-width"></span>
+      <span class="search-words"></span>
+      <span class="filter-arrow gallery-icon-up-open"></span>
+      <div class="filter-form filter-width-form">
+        <div  class="filter-form-title mcs-icon gallery-icon-width">
+          {'width'|translate}
+        </div>
+        <div class="filter-actions">
+          <span class="delete mcs-icon gallery-icon-trash tiptip" title="{'Delete'|@translate}"></span>
+         <span  class="clear mcs-icon gallery-icon-arrow-rotate-left tiptip"  title="{'Clear'|@translate}"></span>
+        </div>
+        <div class="form-container">
+          
+        <div class="width-option-container">
+            <div data-slider="widths">
+              <span class="slider-info"></span>
+              <div class="slider-slider"></div>
+
+              <input type="hidden" data-input="min" name="filter_width_min" value="{$WIDTH.selected.min}">
+              <input type="hidden" data-input="max" name="filter_width_max" value="{$WIDTH.selected.max}">
+            </div>
+          </div>
+          
+        </div>
+      <div class="filter-validate">
+          <i class="loading gallery-icon-spin6 animate-spin"></i>
+          <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
+    </div>
+  </div>
+{/if}
+
+
   <div>
     <span class="mcs-icon gallery-icon-arrow-rotate-left clear-all">{'Empty filters'|@translate}</span>
   </div>

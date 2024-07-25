@@ -196,6 +196,7 @@ $lang['Basic settings'] = 'Basic settings';
 $lang['Batch Manager'] = 'Batch Manager';
 $lang['between'] = "between";
 $lang['between %d and %d pixels'] = 'between %d and %d pixels';
+$lang['between %d and %d'] = 'between %d and %d';
 $lang['between %.2f and %.2f'] = 'between %.2f and %.2f';
 $lang['bottom left corner'] = 'bottom left corner';
 $lang['bottom right corner'] = 'bottom right corner';

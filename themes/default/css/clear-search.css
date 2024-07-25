@@ -112,24 +112,42 @@
 
 .filetypes-option:nth-child(odd),
 .added_by-option:nth-child(odd),
-.date_posted-option:nth-child(odd) label {
+.date_posted-option:nth-child(odd) label,
+.ratios-option:nth-child(odd),
+.ratings-option:nth-child(odd){
   background: #f3f3f3;
 }
 
 .filetypes-option label .checked-icon,
 .added_by-option label .checked-icon,
-.date_posted-option label .checked-icon{
+.date_posted-option label .checked-icon,
+.ratios-option label .checked-icon,
+.ratings-option label .checked-icon{
   color: #ff7700;
 }
 
 .filetypes-option label .ext-badge,
 .added_by-option label .added_by-badge,
-.date_posted-option label .date_posted-badge {
+.date_posted-option label .date_posted-badge,
+.ratios-option label .ratio-badge,
+.ratings-option label .ratings-badge  {
   background: #ff7700;
   color: white;
 }
 
-.filetypes-option input:checked + label {
+.ratios-option.disabled label .ratio-badge,
+.ratings-option.disabled label .ratings-badge{
+  background-color: #888;
+}
+
+.ratios-option.disabled label .ratio-name,
+.ratings-option.disabled label .ratings-name{
+  color:#888
+}
+
+.filetypes-option input:checked + label,
+.ratios-option input:checked + label,
+.ratings-option input:checked + label {
   background: #fff5e8;
 }
 

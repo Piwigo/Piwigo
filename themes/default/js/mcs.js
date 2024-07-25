@@ -269,6 +269,183 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.filetypes);
   }
 
+  // Setup Ratio filter
+  if (global_params.fields.ratios) {
+    $(".filter-ratios").css("display", "flex");
+    $(".filter-manager-controller.ratios").prop("checked", true);
+
+    ratios_search_str = "";
+    global_params.fields.ratios.forEach(ft => {
+      ratios_search_str += str_ratios_label[ft] + ", ";
+    });
+  
+    if (global_params.fields.ratios && global_params.fields.ratios.length > 0) {
+      $(".filter-ratios").addClass("filter-filled");
+      $(".filter.filter-ratios .search-words").text(ratios_search_str.slice(0, -2));
+
+      $(".ratios-option input").each(function () {
+        if (global_params.fields.ratios.includes($(this).attr('name'))) {
+          $(this).prop('checked', true);
+        }
+      });
+    } else {
+      $(".filter.filter-ratios .search-words").text(str_ratio_widget_label);
+    }
+
+    $(".filter-ratios .filter-actions .clear").on('click', function () {
+      $(".filter-ratios .ratios-option input").prop("checked", false);
+    });
+
+    PS_params.ratios = global_params.fields.ratios.length > 0 ?  global_params.fields.ratios  : '';
+
+    empty_filters_list.push(PS_params.ratios);
+  }
+
+  // Setup rating filter
+  if (global_params.fields.ratings) {
+
+    $(".filter-ratings").css("display", "flex");
+    $(".filter-manager-controller.ratings").prop("checked", true);
+
+    ratings_search_str = "";
+    global_params.fields.ratings.forEach(function(ft){
+      if(0 == ft )
+      {
+        ratings_search_str = str_no_rating + ", ";
+      }
+      else
+      {
+        ratings_search_str = str_between_rating.split("%d");
+        ratings_search_str = ratings_search_str[0] + (ft-1) + ratings_search_str[1] + ft + ratings_search_str[2];
+      }
+    });
+  
+    if (global_params.fields.ratings && global_params.fields.ratings.length > 0) {
+      $(".filter-ratings").addClass("filter-filled");
+      $(".filter.filter-ratings .search-words").text(ratings_search_str);
+
+      $(".ratings-option input").each(function () {
+        if (global_params.fields.ratings.includes($(this).attr('name'))) {
+          $(this).prop('checked', true);
+        }
+      });
+    } else {
+      $(".filter.filter-ratings .search-words").text(str_rating_widget_label);
+    }
+
+    $(".filter-ratings .filter-actions .clear").on('click', function () {
+      $(".filter-ratings .ratings-option input").prop("checked", false);
+    });
+
+    PS_params.ratings = global_params.fields.ratings.length > 0 ?  global_params.fields.ratings  : '';
+
+    empty_filters_list.push(PS_params.ratings);
+  }
+
+  // Setup filesize filter
+  if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null) {
+
+    $(".filter-filesize").css("display", "flex");
+    $(".filter-manager-controller.filesize").prop("checked", true);
+    $(".filter.filter-filesize .slider-info").html(sprintf(sliders.filesizes.text,sliders.filesizes.selected.min,sliders.filesizes.selected.max,));
+
+    $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
+
+    if( global_params.fields.filesize_min != null && global_params.fields.filesize_max > 0) {
+      $(".filter-filesize").addClass("filter-filled");
+      $(".filter.filter-filesize .search-words").html(sprintf(sliders.filesizes.text,sliders.filesizes.selected.min,sliders.filesizes.selected.max,));
+    }
+    else 
+    {
+      $(".filter.filter-filesize .search-words").text(str_filesize_widget_label);
+    }
+
+    $(".filter-filesize .filter-actions .clear").on('click', function () {
+      updateFilters('filesize', 'add');
+      $(".filter-filesize").trigger("click");
+      $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
+      if ($(".filter-filesize").hasClass("filter-filled")) {
+        $(".filter-filesize").removeClass("filter-filled")
+        $(".filter.filter-filesize .search-words").text(str_filesize_widget_label);
+      }
+    });
+
+    PS_params.filesize_min = global_params.fields.filesize_min  != null ?  global_params.fields.filesize_min  : '';
+    PS_params.filesize_max = global_params.fields.filesize_max  != null ?  global_params.fields.filesize_max  : '';
+
+    empty_filters_list.push(PS_params.filesize_min);
+    empty_filters_list.push(PS_params.filesize_max);
+  }
+
+  // Setup Height filter
+  if (global_params.fields.height_min != null && global_params.fields.height_max != null) {
+    $(".filter-height").css("display", "flex");
+    $(".filter-manager-controller.height").prop("checked", true);
+    $(".filter.filter-height .slider-info").html(sprintf(sliders.heights.text,sliders.heights.selected.min,sliders.heights.selected.max,));
+
+    $('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
+
+    if( global_params.fields.height_min > 0 && global_params.fields.height_max > 0) {
+      $(".filter-height").addClass("filter-filled");
+      $(".filter.filter-height .search-words").html(sprintf(sliders.heights.text,sliders.heights.selected.min,sliders.heights.selected.max,));
+    }
+    else 
+    {
+      $(".filter.filter-height .search-words").text(str_height_widget_label);
+    }
+
+    $(".filter-height .filter-actions .clear").on('click', function () {
+      updateFilters('height', 'add');
+      $(".filter-height").trigger("click");
+      $('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
+      if ($(".filter-height").hasClass("filter-filled")) {
+        $(".filter-height").removeClass("filter-filled")
+        $(".filter.filter-height .search-words").text(str_height_widget_label);
+      }
+    });
+
+    PS_params.height_min = global_params.fields.height_min  != null ?  global_params.fields.height_min  : '';
+    PS_params.height_max = global_params.fields.height_max  != null ?  global_params.fields.height_max  : '';
+
+    empty_filters_list.push(PS_params.height_min);
+    empty_filters_list.push(PS_params.height_max);
+  }
+
+  // Setup Width filter
+  if (global_params.fields.width_min != null && global_params.fields.width_max != null) {
+    $(".filter-width").css("display", "flex");
+    $(".filter-manager-controller.width").prop("checked", true);
+    $(".filter.filter-width .slider-info").html(sprintf(sliders.widths.text,sliders.widths.selected.min,sliders.widths.selected.max,));
+
+    $('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
+
+    if( global_params.fields.width_min > 0 && global_params.fields.width_max > 0) {
+      $(".filter-width").addClass("filter-filled");
+      $(".filter.filter-width .search-words").html(sprintf(sliders.widths.text,sliders.widths.selected.min,sliders.widths.selected.max,));
+    }
+    else 
+    {
+      $(".filter.filter-width .search-words").text(str_width_widget_label);
+    }
+
+    $(".filter-width .filter-actions .clear").on('click', function () {
+      updateFilters('width', 'add');
+      $(".filter-width").trigger("click");
+      $('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
+      if ($(".filter-width").hasClass("filter-filled")) {
+        $(".filter-width").removeClass("filter-filled")
+        $(".filter.filter-width .search-words").text(str_width_widget_label);
+      }
+    });
+
+    PS_params.width_min = global_params.fields.width_min  != null ?  global_params.fields.width_min  : '';
+    PS_params.width_max = global_params.fields.width_max  != null ?  global_params.fields.width_max  : '';
+
+    empty_filters_list.push(PS_params.width_min);
+    empty_filters_list.push(PS_params.width_max);
+  }
+
+
   // Adapt no result message
   if ($(".filter-filled").length === 0) {
     $(".mcs-no-result .text .top").html(str_empty_search_top_alt);
@@ -691,6 +868,210 @@ $(document).ready(function () {
     }
   });
 
+  /**
+   * Ratios widget
+   */
+    $(".filter-ratios").on('click', function (e) {
+      if ($(".filter-form").has(e.target).length != 0 ||
+          $(e.target).hasClass("filter-form") ||
+          $(e.target).hasClass("remove")) {
+        return;
+      }
+      $(".filter-ratios-form").toggle(0, function () {
+        if ($(this).is(':visible')) {
+          $(".filter-ratios").addClass("show-filter-dropdown");
+        } else {
+          $(".filter-ratios").removeClass("show-filter-dropdown");
+
+          ratios_array = []
+          $(".ratios-option input:checked").each(function () {
+            ratios_array.push($(this).attr('name'));
+          });
+
+          global_params.fields.ratios = ratios_array;
+
+          PS_params.ratios = ratios_array.length > 0 ? ratios_array : '';
+        }
+      });
+    });
+
+    $(".filter-ratios .filter-validate").on("click", function () {
+      $(".filter-ratios").trigger("click");
+      performSearch(PS_params, true);
+    });
+    $(".filter-ratios .filter-actions .delete").on("click", function () {
+      updateFilters('ratios', 'del');
+      performSearch(PS_params, true);
+      if (!$(".filter-ratios").hasClass("filter-filled")) {
+        $(".filter-ratios").hide();
+        $(".filter-manager-controller.ratios").prop("checked", false);
+      }
+    });
+
+  /**
+   * Rating widget
+   */
+  $(".filter-ratings").on('click', function (e) {
+    if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+    }
+    $(".filter-ratings-form").toggle(0, function () {
+      if ($(this).is(':visible')) {
+        $(".filter-ratings").addClass("show-filter-dropdown");
+      } else {
+        $(".filter-ratings").removeClass("show-filter-dropdown");
+        ratings_array = []
+
+        $(".ratings-option input:checked").each(function () {
+          ratings_array.push($(this).attr('name'));
+        });
+
+        global_params.fields.ratings = ratings_array;
+        PS_params.ratings = ratings_array.length > 0 ? ratings_array : '';
+          
+      }
+    });
+  });
+
+  $(".filter-ratings .filter-validate").on("click", function () {
+    $(".filter-ratings").trigger("click");
+    performSearch(PS_params, true);
+  });
+  $(".filter-ratings .filter-actions .delete").on("click", function () {
+    updateFilters('ratings', 'del');
+    performSearch(PS_params, true);
+    if (!$(".filter-ratings").hasClass("filter-filled")) {
+      $(".filter-ratings").hide();
+      $(".filter-manager-controller.ratings").prop("checked", false);
+    }
+  });
+
+  /**
+   * Filesize widget
+   */
+    $(".filter-filesize").on('click', function (e) {
+      if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+      }
+      $(".filter-filesize-form").toggle(0, function () {
+        if ($(this).is(':visible')) {
+          $(".filter-filesize").addClass("show-filter-dropdown");
+        } else {
+          $(".filter-filesize").removeClass("show-filter-dropdown");
+        }
+      });
+
+    });
+    $(".filter-filesize .filter-validate").on("click", function () {
+      filesize_min = Math.floor(($('input[name=filter_filesize_min]').val())*1024)
+      filesize_max = Math.ceil(($('input[name=filter_filesize_max]').val())*1024)
+
+      global_params.fields.filesize_min = filesize_min;
+      global_params.fields.filesize_max = filesize_max;
+
+      PS_params.filesize_min = filesize_min;
+      PS_params.filesize_max = filesize_max;
+
+      $(".filter-filesize").trigger("click");
+      performSearch(PS_params, true);
+    });
+
+    $(".filter-filesize .filter-actions .delete").on("click", function () {
+      updateFilters('filesize', 'del');
+      performSearch(PS_params, true);
+      if (!$(".filter-filesize").hasClass("filter-filled")) {
+        $(".filter-filesize").hide();
+        $(".filter-manager-controller.filesize").prop("checked", false);
+      }
+    });
+
+  /**
+   * Height widget
+   */
+    $(".filter-height").on('click', function (e) {
+      if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+      }
+      $(".filter-height-form").toggle(0, function () {
+        if ($(this).is(':visible')) {
+          $(".filter-height").addClass("show-filter-dropdown");
+        } else {
+          $(".filter-height").removeClass("show-filter-dropdown");
+        }
+      });
+
+    });
+    $(".filter-height .filter-validate").on("click", function () {
+      height_min = $('input[name=filter_height_min]').val()
+      height_max = $('input[name=filter_height_max]').val()
+
+      global_params.fields.height_min = height_min;
+      global_params.fields.height_max = height_max;
+
+      PS_params.height_min = height_min;
+      PS_params.height_max = height_max;
+
+      $(".filter-height").trigger("click");
+      performSearch(PS_params, true);
+    });
+
+    $(".filter-height .filter-actions .delete").on("click", function () {
+      updateFilters('height', 'del');
+      performSearch(PS_params, true);
+      if (!$(".filter-height").hasClass("filter-filled")) {
+        $(".filter-height").hide();
+        $(".filter-manager-controller.height").prop("checked", false);
+      }
+    });
+
+  /**
+   * Width widget
+   */
+    $(".filter-width").on('click', function (e) {
+      if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+      }
+      $(".filter-width-form").toggle(0, function () {
+        if ($(this).is(':visible')) {
+          $(".filter-width").addClass("show-filter-dropdown");
+        } else {
+          $(".filter-width").removeClass("show-filter-dropdown");
+        }
+      });
+
+    });
+    $(".filter-width .filter-validate").on("click", function () {
+      width_min = $('input[name=filter_width_min]').val()
+      width_max = $('input[name=filter_width_max]').val()
+
+      global_params.fields.width_min = width_min;
+      global_params.fields.width_max = width_max;
+
+      PS_params.width_min = width_min;
+      PS_params.width_max = width_max;
+
+      $(".filter-width").trigger("click");
+      performSearch(PS_params, true);
+    });
+
+    $(".filter-width .filter-actions .delete").on("click", function () {
+      updateFilters('width', 'del');
+      performSearch(PS_params, true);
+      if (!$(".filter-width").hasClass("filter-filled")) {
+        $(".filter-width").hide();
+        $(".filter-manager-controller.width").prop("checked", false);
+      }
+    });
+
+
   /* Close dropdowns if you click on the screen */
   // $(document).mouseup(function (e) {
   //   e.stopPropagation();
@@ -923,6 +1304,57 @@ function updateFilters(filterName, mode) {
 
         delete PS_params.categories;
         delete PS_params.categories_withsubs;
+      }
+      break;
+
+    case 'filesize':
+      if (mode == 'add') {
+        global_params.fields.filesize_min = '';
+        global_params.fields.filesize_max = '';
+
+        PS_params.filesize_min = '';
+        PS_params.filesize_max = '';
+
+      } else if (mode == 'del') {
+        delete global_params.fields.filesize_min;
+        delete global_params.fields.filesize_max;
+
+        delete PS_params.filesize_min;
+        delete PS_params.filesize_max;
+      }
+      break;
+
+    case 'height':
+      if (mode == 'add') {
+        global_params.fields.height_min = '';
+        global_params.fields.height_max = '';
+  
+        PS_params.height_min = '';
+        PS_params.height_max = '';
+
+      } else if (mode == 'del') {
+        delete global_params.fields.height_min;
+        delete global_params.fields.height_max;
+
+        delete PS_params.height_min;
+        delete PS_params.height_max;
+      }
+      break;
+
+    case 'width':
+      if (mode == 'add') {
+        global_params.fields.width_min = '';
+        global_params.fields.width_max = '';
+
+        PS_params.width_min = '';
+        PS_params.width_max = '';
+
+      } else if (mode == 'del') {
+        delete global_params.fields.width_min;
+        delete global_params.fields.width_max;
+
+        delete PS_params.width_min;
+        delete PS_params.width_max;
       }
       break;
 

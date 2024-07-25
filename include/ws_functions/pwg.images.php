@@ -841,6 +841,54 @@ function ws_images_filteredSearch_create($params, $service)
     $search['fields']['date_posted'] = $params['date_posted'];
   }
 
+  if (isset($params['ratios']))
+  {
+    foreach ($params['ratios'] as $ext)
+    {
+      if (!preg_match('/^[a-z0-9]+$/i', $ext))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter ratios');
+      }
+    }
+
+    $search['fields']['ratios'] = $params['ratios'];
+  }
+
+  if (isset($params['ratings']))
+  {
+    $search['fields']['ratings'] = $params['ratings'];
+  }
+
+  if (isset($params['filesize_min']))
+  {
+    $search['fields']['filesize_min'] = $params['filesize_min'];
+  }
+
+  if (isset($params['filesize_max']))
+  {
+    $search['fields']['filesize_max'] = $params['filesize_max'];
+  }
+
+  if (isset($params['width_min']))
+  {
+    $search['fields']['width_min'] = $params['width_min'];
+  }
+
+  if (isset($params['width_max']))
+  {
+    $search['fields']['width_max'] = $params['width_max'];
+  }
+
+  if (isset($params['height_min']))
+  {
+    $search['fields']['height_min'] = $params['height_min'];
+  }
+
+  if (isset($params['height_max']))
+  {
+    $search['fields']['height_max'] = $params['height_max'];
+  }
+
   list($search_uuid, $search_url) = save_search($search, $search_info['id'] ?? null);
 
   return array(

@@ -45,6 +45,10 @@
   cursor: pointer;
 }
 
+.filter-manager-controller-container .mcs-icon:before{
+  margin-right:5px;
+}
+
 .filter-manager .mcs-icon::before {
   margin: 0 5px 0 -2px;
   transform: rotate(90deg);
@@ -229,7 +233,9 @@
 }
 
 .filter-filetypes-form .filter-actions,
-.filter-date_posted-form .filter-actions {
+.filter-date_posted-form .filter-actions,
+.filter-ratios-form .filter-actions,
+.filter-ratings-form .filter-actions{
   gap: 5px;
 }
 
@@ -248,6 +254,7 @@
 
 .word-search-options,
 .filter-tag-form .search-params,
+.filter-authors .search-params,
 .filter-album-form .search-params {
   display: flex;
   flex-direction: row;
@@ -290,17 +297,21 @@
   margin-top: 15px;
 }
 
-.filter-filetypes-form {
+.filter-filetypes-form,
+.filter-ratios-form{
   width: 200px;
 }
 
-.filter-date_posted-form {
+.filter-date_posted-form,
+.filter-ratings-form{
   width: 250px;
 }
 
 .filetypes-option-container,
 .added_by-option-container,
-.date_posted-option-container {
+.date_posted-option-container,
+.ratios-option-container
+.ratings-option-container {
   display: flex;
   flex-direction: column;
   margin: 20px 0 20px 0;
@@ -308,19 +319,29 @@
   max-height:250px;
 }
 
+
 .date_posted-option-container {
   margin: 10px 0 10px 0;
 }
 
+.height-option-container,
+.width-option-container{
+  margin-bottom:30px;
+}
+
 .filetypes-option input,
 .added_by-option input,
-.date_posted-option input {
+.date_posted-option input,
+.ratios-option input,
+.ratings-option input {
   display: none;
 }
 
 .filetypes-option label,
 .added_by-option label,
-.date_posted-option label {
+.date_posted-option label,
+.ratios-option label,
+.ratings-option label{
   display: flex;
   flex-direction: row;
   align-items: baseline;
@@ -330,7 +351,9 @@
 
 .filetypes-option label .checked-icon,
 .added_by-option label .checked-icon,
-.date_posted-option label .checked-icon{
+.date_posted-option label .checked-icon,
+.ratios-option label .checked-icon,
+.ratings-option label .checked-icon{
   display: none;
   position: absolute;
   left: 0;
@@ -344,7 +367,9 @@
 
 .filetypes-option label .ext-name,
 .added_by-option label .added_by-name,
-.date_posted-option label .date-period {
+.date_posted-option label .date-period,
+.ratios-option label .ratio-name,
+.ratings-option label .ratings-name {
   margin-left: 30px;
 }
 
@@ -359,7 +384,9 @@
 
 .filetypes-option label .ext-badge,
 .added_by-option label .added_by-badge,
-.date_posted-option label .date_posted-badge {
+.date_posted-option label .date_posted-badge,
+.ratios-option label .ratio-badge,
+.ratings-option label .ratings-badge  {
   margin-left: auto;
   border-radius: 10px;
   padding: 0 5px;
@@ -368,7 +395,9 @@
 
 .filetypes-option input:checked + label .checked-icon,
 .added_by-option input:checked + label .checked-icon,
-.date_posted-option input:checked + label .checked-icon{
+.date_posted-option input:checked + label .checked-icon,
+.ratios-option input:checked + label .checked-icon,
+.ratings-option input:checked + label .checked-icon{
   display: flex;
 }
 
@@ -379,6 +408,21 @@
 .filter-album-form .search-sub-cats {
   margin-top: 10px;
 }
+
+.filter-filesize-form,
+.filter-height-form,
+.filter-width-form{
+  width:400px;
+}
+
+.filesize-option-container,
+.ratios-option-container,
+.ratings-option-container,
+.height-option-container,
+.width-option-container{
+  margin-bottom:25px;
+}
+/*_____________________________*/
 
 .head-button-2 {
   position: relative;
@@ -706,7 +750,9 @@
 }
 
 .filetypes-option,
-.added_by-option{
+.added_by-option,
+.ratios-option,
+.ratings-option{
   min-width:150px!important;
 }
 
@@ -854,4 +900,99 @@
   *, ::after, ::before {
     box-sizing: border-box;
   }
+}
+
+/* Slider css */
+
+.slider-info
+{
+  color: #ff7700;
+  font-weight: bold;
+}
+
+.slider-choice
+{
+  color: #777;
+  border-radius: 4px;
+    padding: 2px 8px;
+    margin: 0 3px;
+}
+
+.slider-choice:hover
+{
+  text-decoration: none;
+  color: initial;
+  cursor:pointer
+}
+
+.ui-slider-horizontal
+{
+  width: 280px;
+  margin: 10px 0 10px 9px;
+  height: 2px;
+}
+
+.ui-widget-content
+{
+  border: 1px solid #EEE;
+  background: #DDD;
+}
+
+.ui-slider .ui-slider-range 
+{
+  background: rgba(255, 166, 70, 0.9);
+  margin-top: -1px;
+  border: 1px solid #ffaf58;
+}
+
+.ui-slider-range.ui-widget-header.ui-corner-all
+{
+  border: 1px solid #ffaf58;
+  padding:1px 0;
+}
+
+.ui-slider-handle.ui-state-default.ui-corner-all
+{
+  margin-top:-3px;
+  border-radius: 10px;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default
+{
+  border: 1px solid #ffaf58;
+  background: #ffaf58;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover
+{
+  background: #ffaf58
+}
+
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus
+{
+  border: 1px solid #ffaf58;
+  background: #ffaf58
+}
+
+.ui-state-active, 
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active 
+{
+  background: #ffaf58
+}
+
+.disableSlider{
+  pointer-events: none;
+  border:1px solid #ccc!important;
+  background-color:#ccc!important;
+}
+
+.ui-slider-horizontal .ui-slider-handle:hover{
+  cursor:pointer;
 }

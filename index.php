@@ -458,6 +458,234 @@ SELECT
       $template->assign('FILETYPES', query2array($query, 'ext', 'counter'));
     }
 
+    // For rating
+    if (isset($my_search['fields']['ratings']))
+    {
+      $ratings = array();
+      for ($i = 0; $i <= 5; $i++)
+      {
+        
+        $query = '
+SELECT
+    count(*) as count
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'id'
+      ),
+    ' AND '
+    );
+
+        if (0 == $i)
+        {
+          $query .='AND rating_score IS NULL';
+        }
+        else
+        {
+          $query .= ' AND rating_score BETWEEN '.($i-1).' AND '.$i;
+        }
+        $query .=';';
+
+        $result = pwg_db_fetch_assoc(pwg_query($query));
+        $ratings[$i] = $result['count'];
+      }
+
+      $template->assign('RATING', $ratings);
+    }
+
+    // For filesize
+    if (isset($my_search['fields']['filesize_min']) && isset($my_search['fields']['filesize_max']))
+    {
+    $filesizes = array();
+    $filesize = array();
+
+    $query = '
+SELECT
+    filesize
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'id'
+      ),
+    ' AND '
+    ).'
+    GROUP BY filesize
+;';
+      $result = pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($result))
+      {
+        $filesizes[] = sprintf('%.2f', $row['filesize']/1024);
+      }
+
+      if (empty($filesizes))
+      { // arbitrary values, only used when no photos on the gallery
+        $filesizes = array(0, 1, 2, 5, 8, 15);
+      }
+      $filesizes = array_unique($filesizes);
+      sort($filesizes);
+
+      // add 0.1MB to the last value, to make sure the heaviest photo will be in
+      // the result
+      $filesizes[count($filesizes)-1]+= 0.1;
+
+      $filesize['list'] = implode(',', $filesizes);
+
+      $filesize['bounds'] = array(
+        'min' => sprintf('%.2f',$filesizes[0]),
+        'max' => sprintf('%.2f',end($filesizes)),
+      );
+
+      $filesize['selected'] = array(
+        'min' => !empty($my_search['fields']['filesize_min']) ? sprintf('%.2f', $my_search['fields']['filesize_min']/1024) : sprintf('%.2f',$filesizes[0]),
+        'max' => !empty($my_search['fields']['filesize_max']) ? sprintf('%.2f', $my_search['fields']['filesize_max']/1024) : sprintf('%.2f',end($filesizes)),
+      );
+
+      $template->assign('FILESIZE', $filesize );
+    }
+    
+    // For ratio, height, width
+    //The queries need are the similar so they have been grouped together
+    if (isset($my_search['fields']['ratios']) || isset($my_search['fields']['height_min']) || isset($my_search['fields']['width_min']))
+    {
+      $widths = array();
+      $width = array();
+
+      $heights = array();
+      $height = array();
+
+      $ratios = array();
+      $ratio = array();
+      // $dimensions = array();
+
+      // get all width, height and ratios
+      $query = '
+SELECT
+  width,
+  height,
+  (FLOOR(width / height * 100) / 100) as ratio 
+    FROM '.IMAGES_TABLE.' as i
+  JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$search_items_clause.'
+    '.get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'id'
+        ),
+      ' AND '
+      ).'
+    AND width IS NOT NULL
+    AND height IS NOT NULL
+;';
+
+      $result = pwg_query($query);
+
+      if (pwg_db_num_rows($result))
+      {
+        while ($row = pwg_db_fetch_assoc($result))
+        {
+          if ($row['width']>0 && $row['height']>0)
+          {
+            $widths[] = $row['width'];
+            $heights[] = $row['height'];
+            $ratios[] = $row['ratio'] ;
+          }
+        }
+      }
+      if (empty($widths))
+      { // arbitrary values, only used when no photos on the gallery
+        $widths = array(600, 1920, 3500);
+        $heights = array(480, 1080, 2300);
+        $ratios = array(1.25, 1.52, 1.78);
+      }
+
+      $widths = array_unique($widths);
+
+      sort($widths);
+
+      $width['list'] = implode(',', $widths);
+
+      $width['bounds']= array(
+        'min' => $widths[0],
+        'max' => end($widths)+1, //Make sure the biggest is included
+      );
+
+      $width['selected'] = array(
+        'min' => !empty($my_search['fields']['width_min']) ? $my_search['fields']['width_min'] : $widths[0],
+        'max' => !empty($my_search['fields']['width_max']) ? $my_search['fields']['width_max'] : end($widths),
+      );
+
+      $heights = array_unique($heights);
+
+      sort($heights);
+
+      $height['list'] = implode(',', $heights);
+
+      $height['bounds']= array(
+        'min' => $heights[0],
+        'max' => end($heights)+1, //Make sure the biggest is included
+      );
+
+      $height['selected'] = array(
+        'min' => !empty($my_search['fields']['height_min']) ? $my_search['fields']['height_min'] : $heights[0],
+        'max' => !empty($my_search['fields']['height_max']) ? $my_search['fields']['height_max'] : end($heights),
+      );
+      
+      if(isset($my_search['fields']['ratios']))
+      {
+        // find ratio categories
+        $ratio_categories = array(
+          'Portrait' => array(),
+          'square' => array(),
+          'Landscape' => array(),
+          'Panorama' => array(),
+          );
+
+        foreach ($ratios as $r)
+        {
+          if ($r < 0.95)
+          {
+            $ratio_categories['Portrait'][] = $r;
+          }
+          else if ($r >= 0.95 and $ratio <= 1.05)
+          {
+            $ratio_categories['square'][] = $r;
+          }
+          else if ($r > 1.05 and $r < 2)
+          {
+            $ratio_categories['Landscape'][] = $r;
+          }
+          else if ($r >= 2)
+          {
+            $ratio_categories['Panorama'][] = $r;
+          }
+        }
+        foreach (array_keys($ratio_categories) as $type)
+        {
+            $ratio[$type] = count($ratio_categories[$type]);
+        }
+        $template->assign('RATIOS', $ratio);
+      }
+
+      if (isset($my_search['fields']['height_min']) && isset($my_search['fields']['height_max']))
+      {
+        $template->assign('HEIGHT', $height);
+      } 
+      if (isset($my_search['fields']['width_min']) && isset($my_search['fields']['width_max']))
+      {
+        $template->assign('WIDTH', $width);
+      }
+
+    }
+
     $template->assign(
       array(
         'GP' => json_encode($my_search),

@@ -1452,6 +1452,36 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
           'flags' => WS_PARAM_OPTIONAL,
           'info' => 'files posted within 24 hours, 7 days or 30 days or 3 months or 6 months or year NNNN. Value among 24h|7d|30d|3m|6m|yNNNN',
         ),
+        'ratios' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+        ),
+        'ratings' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+        ),
+        'filesize_min' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'filesize_max' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'height_min' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'height_max' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'width_min' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'width_max' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
       ),
       '',
       $ws_functions_root . 'pwg.images.php'
