@@ -2453,37 +2453,11 @@ function send_piwigo_infos()
     return;
   }
 
-  $exec_id = substr(sha1(random_bytes(1000)), 0, 8);
-  $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] starts now');
-
-  // we only want one send_piwigo_infos to run at once
-  if (isset($conf['send_piwigo_infos_running']))
-  { 
-    list($running_exec_id, $running_exec_start_time) = explode('-', $conf['send_piwigo_infos_running']);
-    if (time() - $running_exec_start_time > 60)
-    {
-      $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] exec='.$running_exec_id.', timeout stopped by another call to the function');
-      conf_delete_param('send_piwigo_infos_running');
-    }
-  }
-
-  $query = '
-INSERT IGNORE
-  INTO '.CONFIG_TABLE.'
-  SET param="send_piwigo_infos_running"
-    , value="'.$exec_id.'-'.time().'"
-;';
-  pwg_query($query);
-
-  list($send_piwigo_infos_running) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.CONFIG_TABLE.' WHERE param = "send_piwigo_infos_running"'));
-  list($running_exec_id,) = explode('-', $send_piwigo_infos_running);
-
-  if ($running_exec_id != $exec_id)
+  $exec_id = pwg_unique_exec_begins('send_piwigo_infos');
+  if (false === $exec_id)
   {
-    $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] skip');
     return;
   }
-  $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] wins the race and gets the token!');
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
@@ -2513,6 +2487,61 @@ INSERT IGNORE
 
   $piwigo_infos['general_stats']['installed_on'] = get_installation_date();
 
+
+  $piwigo_infos['files'] = array();
+
+  if ($piwigo_infos['general_stats']['nb_photos'] > 0)
+  {
+    $query = '
+SELECT
+    COUNT(*) AS counter
+  FROM `'.IMAGES_TABLE.'`
+  WHERE storage_category_id IS NOT NULL
+;';
+    if (query2array($query, null, 'counter')[0] > 0)
+    {
+      // slow SQL query, but necessary if you have files added by sync
+      $query = '
+SELECT
+    IF(storage_category_id IS NULL, \'api\', \'sync\') AS add_method,
+    MAX(date_available) AS last_added_on,
+    COUNT(*) AS nb_files
+  FROM `'.IMAGES_TABLE.'`
+  GROUP BY add_method
+;';
+      $piwigo_infos['files']['added_by'] = query2array($query, 'add_method');
+    }
+    else
+    {
+      // much faster SQL query, but valid only if you do not use sync to add photos
+      $query = '
+SELECT
+    date_available
+  FROM `'.IMAGES_TABLE.'`
+  ORDER BY id DESC
+  LIMIT 1
+;';
+      $images = query2array($query);
+
+      $piwigo_infos['files']['added_by'] = array(
+        'api' => array(
+          'nb_files' => $piwigo_infos['general_stats']['nb_photos'],
+          'last_added_on' => count($images) > 0 ? $images[0]['date_available'] : null,
+        )
+      );
+    }
+
+    $query = '
+SELECT
+    SUBSTRING_INDEX(path,".",-1) AS ext,
+    COUNT(*) AS counter,
+    SUM(filesize) AS filesize
+  FROM `'.IMAGES_TABLE.'`
+  GROUP BY ext
+;';
+    $piwigo_infos['files']['extensions'] = query2array($query, 'ext');
+  }
+
   // $conf['pem_plugins_category'] = 12;
   // $conf['pem_themes_category'] = 10;
   $url = PEM_URL . '/api/get_extension_list.php';
@@ -2531,7 +2560,7 @@ INSERT IGNORE
   {
     $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote on '.$url.' has failed');
     send_piwigo_infos_retry_later(1*60*60); // 1 hour later
-    conf_delete_param('send_piwigo_infos_running');
+    pwg_unique_exec_ends('send_piwigo_infos');
     $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
     return;
   }
@@ -2752,7 +2781,7 @@ SELECT
     conf_update_param('send_piwigo_infos_last_notice', date('c'));
   }
 
-  conf_delete_param('send_piwigo_infos_running');
+  pwg_unique_exec_ends('send_piwigo_infos');
   $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
 }
 
@@ -2765,6 +2794,49 @@ function send_piwigo_infos_retry_later($wait_time)
   $last_notice += $wait_time;
 
   conf_update_param('send_piwigo_infos_last_notice', date('c', $last_notice));
+}
+
+function pwg_unique_exec_begins($token_name, $timeout=60)
+{
+  global $conf, $logger;
+
+  $exec_id = substr(sha1(random_bytes(1000)), 0, 8);
+  $logger->info('['.$token_name.'][exec='.$exec_id.'] starts now');
+
+  if (isset($conf[$token_name.'_running']))
+  {
+    list($running_exec_id, $running_exec_start_time) = explode('-', $conf[$token_name.'_running']);
+    if (time() - $running_exec_start_time > $timeout)
+    {
+      $logger->info('['.$token_name.'][exec='.$exec_id.'] exec='.$running_exec_id.', timeout stopped by another call to the function');
+      pwg_unique_exec_ends($token_name);
+    }
+  }
+
+  $query = '
+INSERT IGNORE
+  INTO '.CONFIG_TABLE.'
+  SET param="'.$token_name.'_running"
+    , value="'.$exec_id.'-'.time().'"
+;';
+  pwg_query($query);
+
+  list($running_exec) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.CONFIG_TABLE.' WHERE param = "'.$token_name.'_running"'));
+  list($running_exec_id,) = explode('-', $running_exec);
+
+  if ($running_exec_id != $exec_id)
+  {
+    $logger->info('['.$token_name.'][exec='.$exec_id.'] skip');
+    return false;
+  }
+  $logger->info('['.$token_name.'][exec='.$exec_id.'] wins the race and gets the token!');
+
+  return $exec_id;
+}
+
+function pwg_unique_exec_ends($token_name)
+{
+  conf_delete_param($token_name.'_running');
 }
 
 ?>
