@@ -2486,9 +2486,9 @@ function send_piwigo_infos()
   $piwigo_infos['general_stats']['disk_usage'] = intval($piwigo_infos['general_stats']['disk_usage'] / 1024);
 
   $piwigo_infos['general_stats']['installed_on'] = get_installation_date();
-
-
-  $piwigo_infos['files'] = array();
+  $piwigo_infos['general_stats']['nb_photos_synced'] = 0;
+  $piwigo_infos['general_stats']['last_photo_synced'] = null;
+  $piwigo_infos['general_stats']['last_photo'] = null;
 
   if ($piwigo_infos['general_stats']['nb_photos'] > 0)
   {
@@ -2509,7 +2509,17 @@ SELECT
   FROM `'.IMAGES_TABLE.'`
   GROUP BY add_method
 ;';
-      $piwigo_infos['files']['added_by'] = query2array($query, 'add_method');
+      $files_added_by = query2array($query, 'add_method');
+
+      $piwigo_infos['general_stats']['nb_photos_synced'] = $files_added_by['sync']['nb_files'];
+      $piwigo_infos['general_stats']['last_photo_synced'] = $files_added_by['sync']['last_added_on'];
+
+      $method_of_last_photo = 'sync';
+      if (isset($files_added_by['api']) and strtotime($files_added_by['api']['last_added_on']) > strtotime($files_added_by['sync']['last_added_on']))
+      {
+        $method_of_last_photo = 'api';
+      }
+      $piwigo_infos['general_stats']['last_photo'] = $files_added_by[$method_of_last_photo]['last_added_on'];
     }
     else
     {
@@ -2522,13 +2532,10 @@ SELECT
   LIMIT 1
 ;';
       $images = query2array($query);
-
-      $piwigo_infos['files']['added_by'] = array(
-        'api' => array(
-          'nb_files' => $piwigo_infos['general_stats']['nb_photos'],
-          'last_added_on' => count($images) > 0 ? $images[0]['date_available'] : null,
-        )
-      );
+      if (count($images) > 0)
+      {
+        $piwigo_infos['general_stats']['last_photo'] = $images[0]['date_available'];
+      }
     }
 
     $query = '
@@ -2539,7 +2546,7 @@ SELECT
   FROM `'.IMAGES_TABLE.'`
   GROUP BY ext
 ;';
-    $piwigo_infos['files']['extensions'] = query2array($query, 'ext');
+    $piwigo_infos['file_extensions'] = query2array($query, 'ext');
   }
 
   // $conf['pem_plugins_category'] = 12;
