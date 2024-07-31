@@ -51,12 +51,7 @@ jQuery("a.preview-box").colorbox( {
 str_are_you_sure = '{'Are you sure?'|translate|escape:javascript}';
 str_yes = '{'Yes, delete'|translate|escape:javascript}';
 str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
-str_albums_found = '{"<b>%d</b> albums found"|translate|escape:javascript}';
-str_album_found = '{"<b>1</b> album found"|translate|escape:javascript}';
-str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
 str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
-str_no_search_in_progress = '{'No search in progress'|@translate|escape:javascript}';
-str_already_in_related_cats = '{'This albums is already in related categories list'|translate|escape:javascript}';
 str_meta_warning = '{'Warning ! Unsaved changes will be lost'|translate|escape:javascript}';
 str_meta_yes = '{'I want to continue'|translate|escape:javascript}'
 str_meta_no = '{'No, I have changed my mind'|translate|escape:javascript}'
@@ -69,6 +64,9 @@ const strs_privacy = {
   "3" : "{$level_options[1]}",
   "4" : "{$level_options[0]}",
 };
+const all_related_categories_ids = [];
+let related_categories_ids = [];
+let b_current_picture_id;
 {/footer_script}
 
 
@@ -107,8 +105,8 @@ const strs_privacy = {
 		</div>
 	</div>
 	{foreach from=$elements item=element}  
-    {footer_script}  
-      var related_category_ids_{$element.ID} = {$element.related_category_ids};
+    {footer_script}
+			all_related_categories_ids.push({ id: {$element.ID}, cat_ids: {$element.related_category_ids} });
       url_delete_{$element.id} = '{$element.U_DELETE}';  
     {/footer_script}
 	<div class="success deleted-badge" data-image_id="{$element.ID}" style="display: none;">
@@ -331,6 +329,7 @@ const strs_privacy = {
 {include file='include/album_selector.inc.tpl' 
   title={'Associate to album'|@translate}
   searchPlaceholder={'Search'|@translate}
+	admin_mode=true
 }
 <style>
 .selectize-input  .item,

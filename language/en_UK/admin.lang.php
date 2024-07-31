@@ -1368,4 +1368,10 @@ $lang['image(s) contains unsaved changes'] = 'image(s) contains unsaved changes'
 $lang['Pagination has changed and needs to be reloaded !'] = 'Pagination has changed and needs to be reloaded !';
 $lang['Metadata sync complete'] = 'Metadata sync complete';
 $lang['Save'] = 'Save';
+$lang['Creation mode'] = 'Creation mode';
+$lang['Create and select'] = 'Create and select';
+$lang['Add a sub-album to “%s”'] = 'Add a sub-album to “%s”';
+$lang['Activate create mode to create and select an album'] = 'Activate create mode to create and select an album';
+$lang['Name field must not be empty'] = 'Name field must not be empty';
+$lang['Create a root album'] = 'Create a root album';
 // Leave this line empty

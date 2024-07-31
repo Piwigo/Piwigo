@@ -329,8 +329,7 @@ jQuery(document).ready(function() {
   $("#cat-parent.icon-pencil").on("click", function (e) {
     // Don't open the popin if you click on the album link
     if (e.target.localName != 'a') {
-      linked_albums_open();
-      set_up_popin();
+      open_album_selector();
 
       if (parent_album != 0) {
         $(".put-to-root").removeClass("notClickable");
@@ -342,29 +341,6 @@ jQuery(document).ready(function() {
       }
     }
   });
-
-  $(".limitReached").html(str_no_search_in_progress);
-  $(".search-cancel-linked-album").hide();
-  $(".linkedAlbumPopInContainer .searching").hide();
-  $("#linkedAlbumSearch .search-input").on('input', function () {
-    if ($(this).val() != 0) {
-      $("#linkedAlbumSearch .search-cancel-linked-album").show()
-    } else {
-      $("#linkedAlbumSearch .search-cancel-linked-album").hide();
-    }
-
-    if ($(this).val().length > 0) {
-      linked_albums_search($(this).val());
-    } else {
-      $(".limitReached").html(str_no_search_in_progress);
-      $("#searchResult").empty();
-    }
-  })
-
-  $(".search-cancel-linked-album").on("click", function () {
-    $("#linkedAlbumSearch .search-input").val("");
-    $("#linkedAlbumSearch .search-input").trigger("input");
-  })
 
   $(".allow-comments").on("click", function () {
     jQuery.ajax({
@@ -497,32 +473,13 @@ function checkAlbumLock() {
 
 // Parent album popin functions
 
-function fill_results(cats) {
-  $("#searchResult").empty();
-  cats.forEach(cat => {
-    $("#searchResult").append(
-    "<div class='search-result-item' id="+ cat.id + ">" +
-      "<span class='search-result-path'>" + cat.fullname +"</span><span class='icon-plus-circled item-add'></span>" +
-    "</div>"
-    );
-
-    // If the searched albums are in the children of the current album they become unclickable
-    // Same if the album is already selected
-
-    if (parent_album == cat.id || cat.uppercats.split(',').includes(album_id+"")) {
-      $(" #"+ cat.id +".search-result-item").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
-        event.preventDefault();
-      });
-    } else {
-      $("#"+ cat.id + ".search-result-item ").on("click", function () {
-        add_related_category(cat.id, cat.full_name_with_admin_links);
-      });
-    }
-  });
-}
-
 function add_related_category(cat_id, cat_link_path) {
   if (parent_album != cat_id) {
+
+    const cat_to_remove_index = related_categories_ids.indexOf(parent_album.toString());
+    if (cat_to_remove_index > -1) {
+      related_categories_ids.splice(cat_to_remove_index, 1);
+    }
 
     $("#cat-parent").html(
       cat_link_path
@@ -530,9 +487,10 @@ function add_related_category(cat_id, cat_link_path) {
 
     $(".search-result-item #" + cat_id).addClass("notClickable");
     parent_album = cat_id;
+    related_categories_ids.push(cat_id);
     $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>");
 
-    linked_albums_close();
+    close_album_selector();
   }
 }
 

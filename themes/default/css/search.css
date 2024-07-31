@@ -463,6 +463,10 @@
 .breadcrumb-item .link-path {
   margin-right: 15px;
   white-space: nowrap;
+  max-width: 350px;
+  overflow-x: hidden;
+  direction: rtl;
+  text-overflow: ellipsis;
 }
 
 .breadcrumb-item .remove-item {
@@ -487,124 +491,6 @@
   width: min-content;
   cursor: pointer;
   transition: 0.3s;
-}
-
-#addLinkedAlbum {
-  display:none;
-}
-
-.linkedAlbumPopIn {
-  position: fixed;
-  z-index: 100;
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%;
-  overflow: auto; 
-}
-
-.linkedAlbumPopInContainer {
-  display:flex;
-  position:absolute;
-  left:50%;
-  top: 50%;
-  transform:translate(-50%, -48%);
-  text-align:left;
-  padding:20px;
-  flex-direction:column;
-  border-radius:15px;
-  align-items:center;
-  width: 400px;
-  height: 400px;
-}
-
-.linkedAlbumPopInContainer .AddIconContainer {
-  margin-top: 20px;
-}
-
-.ClosePopIn {
-  position: absolute;
-  right: -40px;
-  top: -40px;
-  font-size: 30px;
-}
-
-.ClosePopIn:hover {
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.linkedAlbumPopInContainer .AddIcon {
-  border-radius: 9999px;
-  padding: 10px;
-  font-size: 2em;
-}
-
-.AddIconTitle {
-  font-size: 1.4em;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-  margin-top: 15px;
-}
-
-#linkedAlbumSearch .search-icon {
-  position: absolute;
-  transform: translate(7px, 8px);
-  font-size: 18px;
-  top: auto;
-}
-
-.linkedAlbumPopInContainer #searchResult {
-  width: 100%;
-  overflow-y: auto;
-  max-height: 400px;
-  margin: 10px 0 0 0;
-}
-
-.search-cancel-linked-album {
-  opacity: 0.4;
-  cursor: pointer;
-  position: absolute;
-  font-size: 18px;
-  transform: translate(215px, 8px);
-}
-
-.search-cancel-linked-album:hover {
-  opacity: 1;
-}
-
-.search-result-item {
-  margin: 10px 0px;
-  padding: 5px 10px;
-  height: 25px;
-  border-radius: 5px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.search-result-path {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 80%;
-  direction: rtl;
-  text-align: left;
-}
-
-.search-result-item .gallery-icon-plus-circled{
-  margin-left: auto;
-  cursor: pointer;
-}
-
-.search-result-item .notClickable {
-  opacity: 0.3;
-}
-
-.linkedAlbumPopInContainer .searching {
-  margin-top: 10px;
 }
 
 .clear-all {
@@ -763,41 +649,6 @@
 .search-input{
   padding:10px;
   margin-bottom:10px;
-}
-
-.display-subcat {
-  margin-right: 2px;
-}
-
-.display-subcat:hover {
-  cursor: pointer;
-}
-
-.display-subcat::before {
-  transition: 0.5s;
-  transform: rotate(90deg);
-}
-
-.display-subcat.open::before {
-  transform: rotate(180deg);
-}
-
-.prefill-results-item {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.search-result-subcat-item {
-  display: none;
-}
-
-.search-result-item.already-in {
-  cursor: default;
-}
-.and-more{
-  text-align: center;
 }
 
 @media (max-width: 600px) {

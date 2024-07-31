@@ -328,21 +328,6 @@ const tiptip_locked_album = "{'Locked album'|translate|escape:javascript}";
   max-width: 700px;
 }
 
-.user-property-input {
-  width: 100%;
-  box-sizing:border-box;
-  font-size:1.1em;
-  padding:8px 16px;
-  border:none;
-}
-
-.user-property-label {
-  color:#A4A4A4;
-  font-weight:bold;
-  font-size:1.1em;
-  margin-bottom:5px;
-}
-
 .AddIconContainer, .DeleteIconContainer, .AddIconContainer {
   margin-top: 10px;
 }

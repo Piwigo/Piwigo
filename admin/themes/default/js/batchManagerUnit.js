@@ -161,101 +161,54 @@ $(document).ready(function() {
   });
   //Categories 
   $(".linked-albums.add-item").on("click", function() {
-    var pictureId = $(this).parents("fieldset").data("image_id")
-    linked_albums_open(pictureId);
-    set_up_popin();
+    b_current_picture_id = $(this).parents("fieldset").data("image_id");
+    related_categories_ids = get_related_category(b_current_picture_id);
+    open_album_selector();
   });
-  $(".limitReached").html(str_no_search_in_progress);
-  $(".search-cancel-linked-album").hide();
-  $(".linkedAlbumPopInContainer .searching").hide();
-  $("#linkedAlbumSearch .search-input").on('input', function() {
-    var pictureId = $("#linkedAlbumSearch .search-input").parents(".linkedAlbumPopInContainer").attr("id");
-    if ($(this).val() != 0) {
-      $("#linkedAlbumSearch .search-cancel-linked-album").show()
-    } else {
-      $("#linkedAlbumSearch .search-cancel-linked-album").hide();
-    }
-    // Search input value length required to start searching
-    if ($(this).val().length > 0) {
-      linked_albums_search($(this).val(), pictureId);
-    } else {
-      $(".limitReached").html(str_no_search_in_progress);
-      $("#searchResult").empty();
-    }
-  })
-  $(".search-cancel-linked-album").on("click", function() {
-    $("#linkedAlbumSearch .search-input").val("");
-    $("#linkedAlbumSearch .search-input").trigger("input");
-  })
-  $(".related-categories-container .breadcrumb-item .remove-item").on("click", function() {
-    var pictureId = $(this).parents("fieldset").data("image_id")
-    remove_related_category($(this).attr("id"), pictureId);
-  })
   pluginFunctionMapInit(activePlugins);
 })
 
-function fill_results(cats, pictureId) {
-  $("#searchResult").empty();
-  cats.forEach(cat => {
-    $("#searchResult").append(
-      "<div class='search-result-item' id=" + cat.id + ">" +
-      "<span class='search-result-path'>" + cat.fullname + "</span><span id=" + cat.id + " class='icon-plus-circled item-add' onclick='showUnsavedLocalBadge(" + pictureId + ")'></span>" +
-      "</div>"
-    );
-    var this_related_category_ids = window["related_category_ids_" + pictureId];
-    var catId = parseInt(cat.id);
-    if (this_related_category_ids.includes(catId)) {
-      $(".search-result-item#" + catId + " .item-add").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function(event) {
-        event.preventDefault();
-      });
-      $(".search-result-item").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function(event) {
-        event.preventDefault();
-      });
-    } else {
-      $(".search-result-item#" + catId + " .item-add").on("click", function() {
-        add_related_category(catId, cat.full_name_with_admin_links, pictureId);
-      });
-    }
-  });
+function get_related_category(pictureId) {
+  return all_related_categories_ids.find((c) => c.id == pictureId).cat_ids ?? [];
 }
 
 function remove_related_category(cat_id, pictureId) {
-  var catId = parseInt(cat_id);
-  var this_related_category_ids = window["related_category_ids_" + pictureId];
-  $("#" + pictureId + " .invisible-related-categories-select option[value=" + catId + "]").remove();
+  $("#" + pictureId + " .invisible-related-categories-select option[value=" + +cat_id + "]").remove();
   $("#" + pictureId + " .invisible-related-categories-select").trigger('change');
-  $("#" + pictureId + " #" + catId).parent().remove();
-  cat_to_remove_index = this_related_category_ids.indexOf(catId);
+  $("#" + pictureId + " #" + cat_id).parent().remove();
+
+  const cat_to_remove_index = all_related_categories_ids.findIndex((c) => c.id == pictureId);
   if (cat_to_remove_index > -1) {
-    this_related_category_ids.splice(cat_to_remove_index, 1);
+    all_related_categories_ids[cat_to_remove_index].cat_ids.splice(cat_to_remove_index, 1);
+    showUnsavedLocalBadge(pictureId);
   }
   check_related_categories(pictureId);
 }
 
 function add_related_category(cat_id, cat_link_path, pictureId) {
-  var catId = parseInt(cat_id);
-  var this_related_category_ids = window["related_category_ids_" + pictureId];
-  if (!this_related_category_ids.includes(catId)) {
+  related_categories_ids = get_related_category(pictureId);
+  if (!related_categories_ids.includes(cat_id)) {
     $("#" + pictureId + " .related-categories-container").append(
       "<div class='breadcrumb-item album-listed'>" +
-      "<span class='link-path'>" + cat_link_path + "</span><span id=" + catId + " class='icon-cancel-circled remove-item'></span>" +
+      "<span class='link-path'>" + cat_link_path + "</span><span id=" + cat_id + " class='icon-cancel-circled remove-item'></span>" +
       "</div>"
     );
-    $(".search-result-item#" + catId).addClass("notClickable");
-    this_related_category_ids.push(catId);
-    $(".invisible-related-categories-select").append("<option selected value=" + catId + "></option>").trigger('change');
-    $("#" + catId).on("click", function() {
-      remove_related_category(catId, pictureId);
+    $(".search-result-item#" + cat_id).addClass("notClickable");
+    related_categories_ids.push(cat_id);
+    showUnsavedLocalBadge(pictureId);
+    $(".invisible-related-categories-select").append("<option selected value=" + cat_id + "></option>").trigger('change');
+    $("#" + cat_id).on("click", function() {
+      remove_related_category(cat_id, pictureId);
     })
-    linked_albums_close();
+    close_album_selector();
   }
   check_related_categories(pictureId);
 }
 
 function check_related_categories(pictureId) {
-  var this_related_category_ids = window["related_category_ids_" + pictureId];
-  $("#picture-" + pictureId + " .linked-albums-badge").html(this_related_category_ids.length);
-  if (this_related_category_ids.length == 0) {
+  related_categories_ids = get_related_category(pictureId);
+  $("#picture-" + pictureId + " .linked-albums-badge").html(related_categories_ids.length);
+  if (related_categories_ids.length == 0) {
     $("#" + pictureId + " .linked-albums-badge").addClass("badge-red");
     $("#" + pictureId + " .add-item").addClass("highlight");
     $("#" + pictureId + " .orphan-photo").html(str_orphan).show();
@@ -393,10 +346,7 @@ function saveChanges(pictureId) {
     var comment = $("#description-" + pictureId).val();
     var level = $("#level-" + pictureId + " option:selected").val();
     // Get Categories
-    var categories = [];
-    $("#picture-" + pictureId + " .remove-item").each(function() {
-      categories.push($(this).attr("id"));
-    });
+    const categories = get_related_category(pictureId);
     var categoriesStr = categories.join(';');
     // Get Tags
     var tags = [];

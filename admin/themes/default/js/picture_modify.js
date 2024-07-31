@@ -1,37 +1,9 @@
 $(document).ready(function () {
 
   $(".linked-albums.add-item").on("click", function () {
-    linked_albums_open();
-    set_up_popin();
+    open_album_selector();
   });
 
-  $(".limitReached").html(str_no_search_in_progress);
-  $(".search-cancel-linked-album").hide();
-  $(".linkedAlbumPopInContainer .searching").hide();
-  $("#linkedAlbumSearch .search-input").on('input', function () {
-    if ($(this).val() != 0) {
-      $("#linkedAlbumSearch .search-cancel-linked-album").show()
-    } else {
-      $("#linkedAlbumSearch .search-cancel-linked-album").hide();
-    }
-
-    // Search input value length required to start searching
-    if ($(this).val().length > 0) {
-      linked_albums_search($(this).val());
-    } else {
-      $(".limitReached").html(str_no_search_in_progress);
-      $("#searchResult").empty();
-    }
-  })
-
-  $(".search-cancel-linked-album").on("click", function () {
-    $("#linkedAlbumSearch .search-input").val("");
-    $("#linkedAlbumSearch .search-input").trigger("input");
-  })
-
-  $(".related-categories-container .breadcrumb-item .remove-item").on("click", function () {
-    remove_related_category($(this).attr("id"));
-  })
   // Unsaved settings message before leave this page
   let form_unsaved = false;
   let user_interacted = false;
@@ -53,30 +25,6 @@ $(document).ready(function () {
     form_unsaved = false;
   });
 })
-
-function fill_results(cats) {
-  $("#searchResult").empty();
-  cats.forEach(cat => {
-    $("#searchResult").append(
-    "<div class='search-result-item' id="+ cat.id + ">" +
-      "<span class='search-result-path'>" + cat.fullname +"</span><span id="+ cat.id + " class='icon-plus-circled item-add'></span>" +
-    "</div>"
-    );
-
-    if (related_categories_ids.includes(cat.id)) {
-      $(".search-result-item #"+ cat.id +".item-add").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
-        event.preventDefault();
-      });
-      $(".search-result-item").addClass("notClickable").attr("title", str_already_in_related_cats).on("click", function (event) {
-        event.preventDefault();
-      });
-    } else {
-      $(".search-result-item#"+ cat.id).on("click", function () {
-        add_related_category(cat.id, cat.full_name_with_admin_links);
-      });
-    }
-  });
-}
 
 function remove_related_category(cat_id) {
   $(".invisible-related-categories-select option[value="+ cat_id +"]").remove();
@@ -107,7 +55,7 @@ function add_related_category(cat_id, cat_link_path) {
       remove_related_category($(this).attr("id"))
     })
 
-    linked_albums_close();
+    close_album_selector();
   }
 
   check_related_categories();

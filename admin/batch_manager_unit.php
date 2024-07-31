@@ -499,7 +499,7 @@ SELECT
         'STATS' => l10n('Visited %d times', $row['hit']),
         'FILE' => l10n('%s', $row['file']),
         'related_categories' => $related_categories,
-        'related_category_ids' => json_encode($related_category_ids,JSON_NUMERIC_CHECK),
+        'related_category_ids' => json_encode($related_category_ids),
         'U_JUMPTO' => (isset($url_img) and $user['level'] >= $media['image']['level']) ? $url_img : null,
         'tag_selection' => $tag_selection,
         'U_DOWNLOAD' => 'action.php?id='.$row['id'].'&amp;part=e&amp;pwg_token='.get_pwg_token().'&amp;download',

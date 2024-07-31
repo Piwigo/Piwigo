@@ -322,7 +322,6 @@ const prefix_icon = 'gallery-icon-';
     title={'Search in albums'|@translate}
     searchPlaceholder={'Search'|@translate}
     show_root_btn=false
-    api_method='pwg.categories.getList'
   }
   {if isset($AUTHORS)}
   <div class="filter filter-authors">

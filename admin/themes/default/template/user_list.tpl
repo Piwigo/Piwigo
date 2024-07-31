@@ -1845,14 +1845,6 @@ $(document).ready(function() {
   background-color: transparent;
 }
 
-.user-property-input {
-    width: 100%;
-    box-sizing:border-box;
-    font-size:1.1em;
-    padding:8px 16px;
-    border:none;
-}
-
 {* .AddUserPopInContainer .user-property-input {
   background-color: #F3F3F3;
 } *}
