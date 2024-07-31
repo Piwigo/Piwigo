@@ -304,7 +304,6 @@ function fill_results(cats) {
       return
     }
 
-    console.log(related_categories_ids)
     if (related_categories_ids.includes(cat.id)) {
       $(".search-result-item #"+ cat.id +".item-add").addClass("notClickable").attr("title", str_already_in_related_cats).off('click').on("click", function (event) {
         event.preventDefault();
