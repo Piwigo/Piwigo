@@ -603,7 +603,13 @@ function ws_addDefaultMethods( $arr )
       'pwg.categories.getAdminList',
       'ws_categories_getAdminList',
       array(
+        'cat_id' =>       array('default'=>null,
+                                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+                                'info'=>'Parent category. "0" or empty for root.'),
         'search' => array('default' => null),
+        'recursive' => array(
+          'default' => true,
+          'type' => WS_TYPE_BOOL),
         'additional_output' =>    array('default'=>null,
                               'info'=>'Comma saparated list (see method description)'),
       ),

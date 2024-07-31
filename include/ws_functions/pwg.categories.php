@@ -608,14 +608,37 @@ SELECT category_id, COUNT(*) AS counter
 
   // pwg_db_real_escape_string
 
+  $where = array('1=1');
+
+  if (!$params['recursive'])
+  {
+    if ($params['cat_id']>0)
+    {
+      $where[] = '(
+        id_uppercat = '. (int)($params['cat_id']) .'
+        OR id='.(int)($params['cat_id']).'
+      )';
+    }
+    else
+    {
+      $where[] = 'id_uppercat IS NULL';
+    }
+  }
+  elseif ($params['cat_id']>0)
+  {
+    $where[] = 'uppercats '. DB_REGEX_OPERATOR .' \'(^|,)'.
+      (int)($params['cat_id']) .'(,|$)\'';
+  }
+
   $query = '
 SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, status, image_order
-  FROM '. CATEGORIES_TABLE;
+  FROM '. CATEGORIES_TABLE .'
+  WHERE '. implode("\n    AND ", $where);
 
   if (isset($params["search"]) and $params['search'] != "") 
   {
-    $query .= '
-  WHERE name LIKE \'%'.pwg_db_real_escape_string($params["search"]).'%\'
+    $query .= ' 
+  AND name LIKE \'%'.pwg_db_real_escape_string($params["search"]).'%\'
   LIMIT '.$conf["linked_album_search_limit"];
   }
 
@@ -666,8 +689,33 @@ SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, statu
     $cats[] = $row;
   }
 
+  if (!$params['recursive'])
+  {
+    $cats_ids = array_column($cats, 'id');
+    $nb_subcats_of = array();
+    if (!empty($cats_ids))
+    {
+      $query = '
+SELECT 
+    id_uppercat, 
+    COUNT(*) AS nb_subcats
+  FROM '. CATEGORIES_TABLE .'
+  WHERE id_uppercat IN ('. implode(',', $cats_ids ) .')
+  GROUP BY id_uppercat
+';
+
+      $nb_subcats_of = query2array($query, 'id_uppercat', 'nb_subcats');
+    }
+
+    foreach ($cats as $idx => $cat)
+    {
+      $cats[$idx]['nb_categories'] = intval($nb_subcats_of[ $cat['id'] ] ?? 0);
+    }
+  }
+
   $limit_reached = false;
-  if ($counter > $conf["linked_album_search_limit"]) {
+  if ($counter > $conf["linked_album_search_limit"])
+  {
     $limit_reached = true;
   }
 
