@@ -128,7 +128,7 @@ jQuery().ready(function(){
       <div class="applicationName"> Shotwell </div> 
       <div class="applicationDesc"> {'Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'|@translate}</div> 
       <div class="applicationLink">
-        <a title="{'On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'|@translate}" class="buttonLike" href="http://yorba.org/shotwell/" target="_blank">{'Learn more'|@translate}</a>
+        <a title="{'On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'|@translate}" class="buttonLike" href="https://shotwell-project.org/doc/html/" target="_blank">{'Learn more'|@translate}</a>
       </div>
     </div>
   </div>
