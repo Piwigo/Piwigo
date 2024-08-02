@@ -571,12 +571,14 @@ if (isset($_SESSION['bulk_manager_filter']['filesize']))
   
   if (isset($_SESSION['bulk_manager_filter']['filesize']['min']))
   {
-    $where_clause[] = 'filesize >= '.$_SESSION['bulk_manager_filter']['filesize']['min']*1024;
+    // to counter the effect of converting kB to mB and rounding, we need to go slightly lower for the minimum value
+    $where_clause[] = 'filesize >= '.($_SESSION['bulk_manager_filter']['filesize']['min'] - 0.1)*1024;
   }
   
   if (isset($_SESSION['bulk_manager_filter']['filesize']['max']))
   {
-    $where_clause[] = 'filesize <= '.$_SESSION['bulk_manager_filter']['filesize']['max']*1024;
+    // to counter the effect of converting kB to mB and rounding, we need to go slightly higher for the maximum value
+    $where_clause[] = 'filesize <= '.($_SESSION['bulk_manager_filter']['filesize']['max'] + 0.1)*1024;
   }
 
   $query = '
@@ -784,10 +786,6 @@ if (empty($filesizes))
 
 $filesizes = array_unique($filesizes);
 sort($filesizes);
-
-// add 0.1MB to the last value, to make sure the heavier photo will be in
-// the result
-$filesizes[count($filesizes)-1]+= 0.1;
 
 $filesize['list'] = implode(',', $filesizes);
 

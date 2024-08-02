@@ -532,10 +532,6 @@ SELECT
       $filesizes = array_unique($filesizes);
       sort($filesizes);
 
-      // add 0.1MB to the last value, to make sure the heaviest photo will be in
-      // the result
-      $filesizes[count($filesizes)-1]+= 0.1;
-
       $filesize['list'] = implode(',', $filesizes);
 
       $filesize['bounds'] = array(
@@ -543,6 +539,9 @@ SELECT
         'max' => sprintf('%.2f',end($filesizes)),
       );
 
+      // warning: we will (hopefully) have smarter values for filters. The min/max of the
+      // current search won't always be the first/last values found. It's going to be a
+      // problem with this way to select selected values
       $filesize['selected'] = array(
         'min' => !empty($my_search['fields']['filesize_min']) ? sprintf('%.2f', $my_search['fields']['filesize_min']/1024) : sprintf('%.2f',$filesizes[0]),
         'max' => !empty($my_search['fields']['filesize_max']) ? sprintf('%.2f', $my_search['fields']['filesize_max']/1024) : sprintf('%.2f',end($filesizes)),

@@ -416,7 +416,9 @@ SELECT
 
   if (!empty($search['fields']['filesize_min']) && !empty($search['fields']['filesize_max']))
   {
-    $clauses[] = 'filesize BETWEEN '.$search['fields']['filesize_min'].' AND '.$search['fields']['filesize_max'];
+    // because of conversion from kB to mB, approximation, then conversion back to kB,
+    // we need to slightly enlarge the range for search
+    $clauses[] = 'filesize BETWEEN '.($search['fields']['filesize_min']-100).' AND '.($search['fields']['filesize_max']+100);
   }
 
   if (!empty($search['fields']['height_min']) && !empty($search['fields']['height_max']))
