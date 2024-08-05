@@ -293,7 +293,7 @@ $(document).ready(function() {
           <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_status">
               <option value="" label="" selected></option>
-              {html_options options=$pref_status_options}
+              {html_options options=$nb_users_by_status}
             </select>
           </div>
         </div>
@@ -302,7 +302,7 @@ $(document).ready(function() {
           <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_level" size="1">
               <option value="" label="" selected></option>
-              {html_options options=$level_options}
+              {html_options options=$nb_users_by_level}
             </select>
           </div>
         </div>
@@ -311,7 +311,7 @@ $(document).ready(function() {
           <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_group">
               <option value="" label="" selected></option>
-              {html_options options=$association_options}
+              {html_options options=$groups_for_filter}
             </select>
           </div>
         </div>

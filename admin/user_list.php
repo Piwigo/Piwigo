@@ -26,8 +26,10 @@ include(PHPWG_ROOT_PATH.'admin/include/user_tabs.inc.php');
 $groups = array();
 
 $query = '
-SELECT id, name
+SELECT id, name, COUNT(ug.user_id) as nb_users_of
   FROM `'.GROUPS_TABLE.'`
+    LEFT JOIN `'. USER_GROUP_TABLE .'` ug ON id = ug.group_id
+  GROUP BY name
   ORDER BY name ASC
 ;';
 $result = pwg_query($query);
@@ -35,7 +37,10 @@ $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
   $groups[$row['id']] = $row['name'];
+  $groups_for_filter[$row['id']] = $row['nb_users_of'] ? $row['name'] . ' ('. $row['nb_users_of'] .')' : $row['name'];
 }
+
+$template->assign('groups_for_filter', $groups_for_filter);
 
 // +-----------------------------------------------------------------------+
 // |                              Dates for filtering                      |
@@ -142,6 +147,23 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
   $label_of_status[$status] = l10n('user_status_'.$status);
 }
 
+$query = '
+SELECT
+    status,
+    COUNT(*) AS nb_users_of
+  FROM '. USER_INFOS_TABLE .'
+  WHERE user_id != '. $conf['guest_id'] .'
+  GROUP BY status
+';
+
+$result = pwg_query($query);
+while($row = pwg_db_fetch_assoc($result))
+{
+  $nb_users_by_status[$row['status']] = l10n('user_status_'.$row['status']) . ' ('. $row['nb_users_of'] .')';
+}
+
+$nb_users_by_status = array_merge($label_of_status, $nb_users_by_status);
+
 $pref_status_options = $label_of_status;
 
 // a simple "admin" can't set/remove statuses webmaster/admin
@@ -154,14 +176,33 @@ if ('admin' == $user['status'])
 $template->assign('label_of_status', $label_of_status);
 $template->assign('pref_status_options', $pref_status_options);
 $template->assign('pref_status_selected', 'normal');
+$template->assign('nb_users_by_status', $nb_users_by_status);
 
 // user level options
 foreach ($conf['available_permission_levels'] as $level)
 {
   $level_options[$level] = l10n(sprintf('Level %d', $level));
 }
+
+$query = '
+SELECT
+    level,
+    COUNT(*) AS nb_users_of
+  FROM '. USER_INFOS_TABLE .'
+  WHERE user_id != '. $conf['guest_id'] .'
+  GROUP BY level
+';
+
+$result = pwg_query($query);
+$nb_users_by_level = $level_options;
+while($row = pwg_db_fetch_assoc($result))
+{
+  $nb_users_by_level[$row['level']] = l10n(sprintf('Level %d', $row['level'])) . ' ('. $row['nb_users_of'] .')';
+}
+
 $template->assign('level_options', $level_options);
 $template->assign('level_selected', $default_user['level']);
+$template->assign('nb_users_by_level', $nb_users_by_level);
 
 $query = '
 SELECT id, name, is_default
