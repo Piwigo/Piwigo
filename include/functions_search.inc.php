@@ -498,7 +498,6 @@ SELECT
   //
   if (!empty($search['fields']['filesize_min']) and !empty($search['fields']['filesize_max']))
   {
-    echo 'filesize filter in action<br>';
     $has_filters_filled = true;
 
     // because of conversion from kB to mB, approximation, then conversion back to kB,
@@ -582,7 +581,14 @@ SELECT
   $items = array();
   if (!empty($image_ids_for_filter))
   {
-    $items = array_unique(array_intersect(...array_values($image_ids_for_filter)));
+    if (count($image_ids_for_filter) > 1)
+    {
+      $items = array_unique(array_intersect(...array_values($image_ids_for_filter)));
+    }
+    else
+    {
+      $items = $image_ids_for_filter[array_key_first($image_ids_for_filter)];
+    }
   }
 
   $logger->debug(__FUNCTION__.' '.count($items).' items in $unsorted_items');
