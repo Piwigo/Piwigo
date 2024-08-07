@@ -616,6 +616,74 @@ SELECT
   );
 }
 
+/**
+ * Returns the SQL WHERE clause to be used to build filter values
+ *
+ * @since 15
+ *
+ * @param string $filter_name
+ *
+ * @return string
+ */
+function get_clause_for_filter($filter_name)
+{
+  global $page;
+
+  $other_filters_items = get_items_for_filter($filter_name);
+  if (false === $other_filters_items)
+  {
+    return '1=1'.$page['search_details']['forbidden'];
+  }
+
+  return 'image_id IN ('.implode(',', $other_filters_items).')';
+}
+
+/**
+ * Returns the list of items (image_ids) to be used to build filter values
+ * for a given filter. Depends on the other filters. Use a cache to avoid
+ * computing the same large array_intersect several times.
+ *
+ * @since 15
+ *
+ * @param string $filter_name
+ *
+ * @return array of image_ids (or false)
+ */
+function get_items_for_filter($filter_name)
+{
+  global $page, $logger;
+
+  $other_filters = array_diff(array_keys($page['search_details']['image_ids_for_filter']), array($filter_name));
+
+  if (empty($other_filters))
+  {
+    return false;
+  }
+
+  $cache_key = md5(implode(',', $other_filters));
+
+  if (!isset($page['search_details'][__FUNCTION__][$cache_key]))
+  {
+    $function_start = get_moment();
+
+    $other_filters_items = $page['search_details']['image_ids_for_filter'][array_shift($other_filters)];
+    foreach ($other_filters as $other_filter)
+    {
+      $other_filters_items = array_intersect($other_filters_items, $page['search_details']['image_ids_for_filter'][$other_filter]);
+    }
+
+    $other_filters_items = array_unique($other_filters_items);
+
+    $debug_msg = '['.__FUNCTION__.'] cache computed for '.(count($other_filters)+1).' other filters';
+    $debug_msg.= ' ('.count($other_filters_items).' items)';
+    $debug_msg.= ', time = '.get_elapsed_time($function_start, get_moment());
+    $logger->debug($debug_msg);
+
+    @$page['search_details'][__FUNCTION__][$cache_key] = $other_filters_items;
+  }
+
+  return $page['search_details'][__FUNCTION__][$cache_key];
+}
 
 
 define('QST_QUOTED',         0x01);
