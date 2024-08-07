@@ -293,7 +293,13 @@ $(document).ready(function() {
           <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_status">
               <option value="" label="" selected></option>
-              {html_options options=$nb_users_by_status}
+              {foreach from=$nb_users_by_status key=status_value item=status}
+                {if isset($status.name) and isset($status.counter)}
+                  <option value="{$status_value}">{$status.name} ({$status.counter})</option>
+                {else}
+                  <option value="{$status_value}" disabled>{$status}</option>
+                {/if}
+              {/foreach}
             </select>
           </div>
         </div>
@@ -302,7 +308,13 @@ $(document).ready(function() {
           <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_level" size="1">
               <option value="" label="" selected></option>
-              {html_options options=$nb_users_by_level}
+              {foreach from=$nb_users_by_level key=level_value item=level}
+                {if isset($level.name) and isset($level.counter)}
+                  <option value="{$level_value}">{$level.name} ({$level.counter})</option>
+                {else}
+                  <option value="{$level_value}" disabled>{$level}</option>
+                {/if}
+              {/foreach}
             </select>
           </div>
         </div>
@@ -311,7 +323,11 @@ $(document).ready(function() {
           <div class="advanced-filter-select-container advanced-filter-item-container">
             <select class="user-action-select advanced-filter-select" name="filter_group">
               <option value="" label="" selected></option>
-              {html_options options=$groups_for_filter}
+              {foreach from=$groups_for_filter item=group}
+                <option value="{$group.id}" {if 0 == $group.counter}disabled{/if}>
+                  {$group.name}{if $group.counter > 0} ({$group.counter}){/if}
+                </option>
+              {/foreach}
             </select>
           </div>
         </div>

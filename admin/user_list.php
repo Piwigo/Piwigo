@@ -37,7 +37,11 @@ $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
   $groups[$row['id']] = $row['name'];
-  $groups_for_filter[$row['id']] = $row['nb_users_of'] ? $row['name'] . ' ('. $row['nb_users_of'] .')' : $row['name'];
+  $groups_for_filter[] = array(
+    'id' => $row['id'],
+    'name' => $row['name'],
+    'counter' => $row['nb_users_of']
+  );
 }
 
 $template->assign('groups_for_filter', $groups_for_filter);
@@ -159,7 +163,10 @@ SELECT
 $result = pwg_query($query);
 while($row = pwg_db_fetch_assoc($result))
 {
-  $nb_users_by_status[$row['status']] = l10n('user_status_'.$row['status']) . ' ('. $row['nb_users_of'] .')';
+  $nb_users_by_status[$row['status']] = array(
+    'name' => l10n('user_status_'.$row['status']),
+    'counter' => $row['nb_users_of'],
+  );
 }
 
 $nb_users_by_status = array_merge($label_of_status, $nb_users_by_status);
@@ -197,7 +204,10 @@ $result = pwg_query($query);
 $nb_users_by_level = $level_options;
 while($row = pwg_db_fetch_assoc($result))
 {
-  $nb_users_by_level[$row['level']] = l10n(sprintf('Level %d', $row['level'])) . ' ('. $row['nb_users_of'] .')';
+  $nb_users_by_level[$row['level']] = array(
+    'name' => l10n(sprintf('Level %d', $row['level'])),
+    'counter' => $row['nb_users_of']
+  );
 }
 
 $template->assign('level_options', $level_options);

@@ -228,17 +228,6 @@ $( document ).ready(function() {
     $(".advanced-filter-select").change(update_user_list);
     $("#user_search").on("input", update_user_list);
 
-    // disables certain status, level and group filters if they do not have users
-    $(`
-        .advanced-filter-select[name="filter_status"] option:not(:selected), 
-        .advanced-filter-select[name="filter_level"] option:not(:selected),
-        .advanced-filter-select[name="filter_group"] option:not(:selected)
-    `).each(function() {
-        if (!this.textContent.split(' ')[1]){
-            $(this).prop('disabled', true);
-        }
-    });
-
     /*View manager*/
 
     if ($("#displayCompact").is(":checked")) {
