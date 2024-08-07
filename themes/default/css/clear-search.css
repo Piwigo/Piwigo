@@ -136,11 +136,13 @@
 }
 
 .ratios-option.disabled label .ratio-badge,
+.filetypes-option.disabled label .ext-badge,
 .ratings-option.disabled label .ratings-badge{
   background-color: #888;
 }
 
 .ratios-option.disabled label .ratio-name,
+.filetypes-option.disabled label .ext-name,
 .ratings-option.disabled label .ratings-name{
   color:#888
 }

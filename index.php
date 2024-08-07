@@ -433,7 +433,27 @@ SELECT
     {
       $filter_clause = get_clause_for_filter('filetypes');
 
-      $query = '
+      // get all file extensions for this user in the gallery, whatever the current filters
+      $cache_key = $persistent_cache->make_key('file_exts'.$user['id'].$user['cache_update_time']);
+      if (!$persistent_cache->get($cache_key, $all_exts))
+      {
+        $query = '
+SELECT
+    SUBSTRING_INDEX(path, ".", -1) AS ext,
+    COUNT(DISTINCT(id)) AS counter
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE 1=1'.$page['search_details']['forbidden'].'
+  GROUP BY ext
+  ORDER BY counter DESC
+;';
+        $all_exts = query2array($query, 'ext', 'counter');
+        $persistent_cache->set($cache_key, $all_exts);
+      }
+
+      if (preg_match('/^image_id IN/', $filter_clause))
+      {
+        $query = '
 SELECT
     SUBSTRING_INDEX(path, ".", -1) AS ext,
     COUNT(DISTINCT(id)) AS counter
@@ -443,7 +463,20 @@ SELECT
   GROUP BY ext
   ORDER BY counter DESC
 ;';
-      $template->assign('FILETYPES', query2array($query, 'ext', 'counter'));
+        $filtered_exts = query2array($query, 'ext', 'counter');
+
+        $exts = array();
+        foreach ($all_exts as $ext => $counter)
+        {
+          $exts[$ext] = $filtered_exts[$ext] ?? 0;
+        }
+
+        $template->assign('FILETYPES', $exts);
+      }
+      else
+      {
+        $template->assign('FILETYPES', $all_exts);
+      }
     }
 
     // For rating

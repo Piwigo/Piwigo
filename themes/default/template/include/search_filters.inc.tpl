@@ -401,12 +401,12 @@ const prefix_icon = 'gallery-icon-';
       <div class="form-container">
         <div class="filetypes-option-container">
         {foreach from=$FILETYPES item=filetypes key=k}
-          <div class="filetypes-option">
-              <input type="checkbox" id="filetype-{$k}" name="{$k}">
+          <div class="filetypes-option {if 0 == $filetypes}disabled{/if}"">
+          <input type="checkbox" id="filetype-{$k}" name="{$k}" {if 0 == $filetypes}disabled{/if}>
               <label for="filetype-{$k}">
                 <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
                 <span class="ext-name">{$k}</span>
-                <span class="ext-badge">{$filetypes}</span>
+                {if 0 != $filetypes}<span class="ext-badge">{$filetypes}</span>{/if}
               </label>
             </div>
         {/foreach}
