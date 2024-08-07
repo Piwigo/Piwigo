@@ -2228,6 +2228,8 @@ function pwg_URL()
  */
 function invalidate_user_cache($full = true)
 {
+  global $persistent_cache;
+
   if ($full)
   {
     $query = '
@@ -2244,6 +2246,7 @@ UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\';';
     pwg_query($query);
   }
+  $persistent_cache->purge(true);
   conf_delete_param('count_orphans');
   trigger_notify('invalidate_user_cache', $full);
 }
