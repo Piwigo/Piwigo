@@ -113,9 +113,9 @@ $('#action-delete-picture').on('click', function() {
       <p class="tiptip" title="{'You don\'t have access to this photo'|translate}" ><i class="icon-left-open"></i>{'Open in gallery'|translate}</p>
     {/if}
       {if $INTRO.is_svg}
-      <img src="{$PATH}" alt="{'Thumbnail'|translate}" class="svg-image" style="{if $FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
+      <img src="{$PATH}" alt="{'Thumbnail'|translate}" class="svg-image other-image-format" style="{if $FORMAT}width:100%; max-height:100%; {else}max-width:100%; height:100%;{/if} object-fit:contain;">
       {else}
-      <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" class="other-image-format" style="{if $FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
+      <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" class="other-image-format" style="{if $FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if} object-fit:contain;">
       {/if}
     </a>
   </div>
