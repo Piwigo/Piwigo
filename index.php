@@ -259,13 +259,28 @@ SELECT
     AND author IS NOT NULL
   GROUP BY author
 ;';
-      $authors = query2array($query);
+
+      if (!preg_match('/^image_id IN/', $filter_clause))
+      {
+        // we use persistent_cache only for fetching lines filtered only by permissions
+        $cache_key = $persistent_cache->make_key('filter_author_rows'.$user['id'].$user['cache_update_time']);
+        if (!$persistent_cache->get($cache_key, $filter_rows))
+        {
+          $filter_rows = query2array($query);
+          $persistent_cache->set($cache_key, $filter_rows);
+        }
+      }
+      else
+      {
+        $filter_rows = query2array($query);
+      }
+
       $author_names = array();
-      foreach ($authors as $author)
+      foreach ($filter_rows as $author)
       {
         $author_names[] = $author['author'];
       }
-      $template->assign('AUTHORS', $authors);
+      $template->assign('AUTHORS', $filter_rows);
 
       // in case the search has forbidden authors for current user, we need to filter the search rule
       $my_search['fields']['author']['words'] = array_intersect($my_search['fields']['author']['words'], $author_names);
@@ -365,7 +380,23 @@ SELECT
   GROUP BY added_by_id
   ORDER BY counter DESC
 ;';
-      $added_by = query2array($query);
+
+      if (!preg_match('/^image_id IN/', $filter_clause))
+      {
+        // we use persistent_cache only for fetching lines filtered only by permissions
+        $cache_key = $persistent_cache->make_key('filter_added_by_rows'.$user['id'].$user['cache_update_time']);
+        if (!$persistent_cache->get($cache_key, $filter_rows))
+        {
+          $filter_rows = query2array($query);
+          $persistent_cache->set($cache_key, $filter_rows);
+        }
+      }
+      else
+      {
+        $filter_rows = query2array($query);
+      }
+
+      $added_by = $filter_rows;
       $user_ids = array();
 
       if (count($added_by) > 0)
@@ -484,9 +515,13 @@ SELECT
     {
       $filter_clause = get_clause_for_filter('ratings');
 
-      $ratings = array_fill(0, 6, 0);
+      $cache_key = $persistent_cache->make_key('filter_ratings'.$user['id'].$user['cache_update_time']);
 
-      $query = '
+      $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $ratings);
+
+      if (!isset($ratings))
+      {
+        $query = '
 SELECT
     DISTINCT id,
     rating_score
@@ -494,28 +529,40 @@ SELECT
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
   WHERE '.$filter_clause;
 
-      $result = pwg_query($query);
-      while ($row = pwg_db_fetch_assoc($result))
-      {
-        $r = 5;
+        $filter_rows = query2array($query);
 
-        if (!isset($row['rating_score']))
+        $ratings = array_fill(0, 6, 0);
+
+        foreach ($filter_rows as $row)
         {
-          $r = 0;
-        }
-        else
-        {
-          for ($i=1; $i<=4; $i++)
+          $r = 5;
+
+          if (!isset($row['rating_score']))
           {
-            if ($row['rating_score'] < $i)
+            $r = 0;
+          }
+          else
+          {
+            for ($i=1; $i<=4; $i++)
             {
-              $r = $i;
-              break;
+              if ($row['rating_score'] < $i)
+              {
+                $r = $i;
+                break;
+              }
             }
           }
+
+          $ratings[$r]++;
         }
 
-        $ratings[$r]++;
+        if ($set_persistent_cache)
+        {
+          // for this filter, we do not store in cache the $filter_rows : for a big gallery it may
+          // take more than 10MB. It is smarter to store in cache the result of the computation,
+          // which is just around 100 bytes.
+          $persistent_cache->set($cache_key, $ratings);
+        }
       }
 
       $template->assign('RATING', $ratings);
@@ -573,7 +620,13 @@ SELECT
     {
       $filter_clause = get_clause_for_filter('ratios');
 
-      $query = '
+      $cache_key = $persistent_cache->make_key('filter_ratios'.$user['id'].$user['cache_update_time']);
+
+      $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $ratios);
+
+      if (!isset($ratios))
+      {
+        $query = '
 SELECT
     DISTINCT id,
     width,
@@ -584,34 +637,46 @@ SELECT
     AND width IS NOT NULL
     AND height IS NOT NULL
 ;';
-      $ratios = array(
-        'Portrait' => 0,
-        'square' => 0,
-        'Landscape' => 0,
-        'Panorama' => 0,
-      );
 
-      $result = pwg_query($query);
-      while ($row = pwg_db_fetch_assoc($result))
-      {
-        $r = floor($row['width'] / $row['height'] * 100) / 100;
-        if ($r < 0.95)
+        $filter_rows = query2array($query);
+
+        $ratios = array(
+          'Portrait' => 0,
+          'square' => 0,
+          'Landscape' => 0,
+          'Panorama' => 0,
+        );
+
+        foreach ($filter_rows as $row)
         {
-          $ratios['Portrait']++;
+          $r = floor($row['width'] / $row['height'] * 100) / 100;
+          if ($r < 0.95)
+          {
+            $ratios['Portrait']++;
+          }
+          else if ($r >= 0.95 and $r <= 1.05)
+          {
+            $ratios['square']++;
+          }
+          else if ($r > 1.05 and $r < 2)
+          {
+            $ratios['Landscape']++;
+          }
+          else if ($r >= 2)
+          {
+            $ratios['Panorama']++;
+          }
         }
-        else if ($r >= 0.95 and $r <= 1.05)
+
+        if ($set_persistent_cache)
         {
-          $ratios['square']++;
-        }
-        else if ($r > 1.05 and $r < 2)
-        {
-          $ratios['Landscape']++;
-        }
-        else if ($r >= 2)
-        {
-          $ratios['Panorama']++;
+          // for this filter, we do not store in cache the $filter_rows : for a big gallery it may
+          // take more than 10MB. It is smarter to store in cache the result of the computation,
+          // which is just around 100 bytes.
+          $persistent_cache->set($cache_key, $ratios);
         }
       }
+
       $template->assign('RATIOS', $ratios);
     }
 
@@ -629,7 +694,23 @@ SELECT
   GROUP BY height
   ORDER BY height ASC
 ;';
-      $heights = query2array($query, null, 'height');
+
+      if (!preg_match('/^image_id IN/', $filter_clause))
+      {
+        // we use persistent_cache only for fetching lines filtered only by permissions
+        $cache_key = $persistent_cache->make_key('filter_height_rows'.$user['id'].$user['cache_update_time']);
+        if (!$persistent_cache->get($cache_key, $filter_rows))
+        {
+          $filter_rows = query2array($query, null, 'height');
+          $persistent_cache->set($cache_key, $filter_rows);
+        }
+      }
+      else
+      {
+        $filter_rows = query2array($query, null, 'height');
+      }
+
+      $heights = $filter_rows;
 
       $height = array(
         'list' => implode(',', $heights),
@@ -660,7 +741,23 @@ SELECT
   GROUP BY width
   ORDER BY width ASC
 ;';
-      $widths = query2array($query, null, 'width');
+
+      if (!preg_match('/^image_id IN/', $filter_clause))
+      {
+        // we use persistent_cache only for fetching lines filtered only by permissions
+        $cache_key = $persistent_cache->make_key('filter_width_rows'.$user['id'].$user['cache_update_time']);
+        if (!$persistent_cache->get($cache_key, $filter_rows))
+        {
+          $filter_rows = query2array($query, null, 'width');
+          $persistent_cache->set($cache_key, $filter_rows);
+        }
+      }
+      else
+      {
+        $filter_rows = query2array($query, null, 'width');
+      }
+
+      $widths = $filter_rows;
 
       $width = array(
         'list' => implode(',', $widths),

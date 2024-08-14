@@ -39,6 +39,8 @@ function get_nb_available_tags()
  */
 function get_available_tags($tag_ids=array())
 {
+  global $persistent_cache, $user;
+
   // we can find top fatter tags among reachable images
   $query = '
 SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
@@ -65,7 +67,13 @@ SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
   $query .= '
   GROUP BY tag_id
 ;';
-  $tag_counters = query2array($query, 'tag_id', 'counter');
+
+  $cache_key = $persistent_cache->make_key(__FUNCTION__.$user['id'].$user['cache_update_time']);
+  if (!$persistent_cache->get($cache_key, $tag_counters))
+  {
+    $tag_counters = query2array($query, 'tag_id', 'counter');
+    $persistent_cache->set($cache_key, $tag_counters);
+  }
 
   if ( empty($tag_counters) )
   {
