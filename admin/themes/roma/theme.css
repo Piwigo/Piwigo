@@ -417,15 +417,6 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 }
 
 /* Album edit */
-
-.orCreateAlbum{
-  background-color: #333;
-  color: #777;
-}
-.orCreateAlbum:hover {
-  text-decoration: none;
-  color: #777;
-}
 .move-cat-container:hover {
   background-color: #232323;
 }
@@ -960,6 +951,9 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #uploadForm li.plupload_droptext {background-color: #343434!important; color: #777 !important;}
 .addFilesButtonChanged {background-color: #888;}
 .addFilesButtonChanged:hover {background-color: #777;}
+.selectAlbumFirst {
+  background: #343434 !important;
+}
 .categoryBox, .addAlbum {background-color: #333 !important; box-shadow: -1px 1px 2px #1a1a1a;}
 .categoryBox.line_cat:hover {
   background: #f9852c !important;
@@ -1865,8 +1859,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .selectedAlbum span a{
   color: #777 !important;
 }
-.selectedAlbum span {
-  background-color: #343434;
+.selectedAlbum span:first-child {
+  background-color: #343434 !important;
 }
 
 .AddUserErrors, .update-user-fail, .EditUserErrors, .update-password-fail, .icon-red-error {
@@ -2090,7 +2084,8 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 }
 
 /* Cat modify description modal */
-.desc-modal-content {
+.desc-modal-content,
+.new-album-modal-content {
   background-color: #444;
 }
 

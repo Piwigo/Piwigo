@@ -1374,4 +1374,7 @@ $lang['Add a sub-album to “%s”'] = 'Add a sub-album to “%s”';
 $lang['Activate create mode to create and select an album'] = 'Activate create mode to create and select an album';
 $lang['Name field must not be empty'] = 'Name field must not be empty';
 $lang['Create a root album'] = 'Create a root album';
+$lang['Create your first album'] = 'Create your first album';
+$lang['First choose an album, then add your files'] = 'First choose an album, then add your files';
+$lang['Select or create an album'] = 'Select or create an album';
 // Leave this line empty

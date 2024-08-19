@@ -1303,7 +1303,7 @@ $lang['Discover'] = 'Découvrir';
 $lang['Latest Piwigo news'] = 'Dernière nouvelle de Piwigo';
 $lang['Understood, do not show again'] = 'Compris, ne plus afficher';
 $lang['%s pixels, %.2f MB'] = '%s pixels, %.2f Mo';
-$lang['Upload Formats'] = 'Télécharger des formats';
+$lang['Upload Formats'] = 'Ajouter des formats';
 $lang['Add formats'] = 'Ajouter des formats';
 $lang['No format for this picture'] = 'Il n\'y a pas de format pour cette photo';
 $lang['Add another set of formats'] = 'Ajouter un autre lot de formats';
@@ -1374,4 +1374,7 @@ $lang['Add a sub-album to “%s”'] = 'Ajouter un sous-album à “%s”';
 $lang['Activate create mode to create and select an album'] = 'Activer le mode création pour créer et sélectionner un album';
 $lang['Name field must not be empty'] = 'Le champ nom ne doit pas être vide';
 $lang['Create a root album'] = 'Créer un album racine';
+$lang['Create your first album'] = 'Créez votre premier album';
+$lang['First choose an album, then add your files'] = 'Choisissez d\'abord un album, puis ajoutez vos fichiers';
+$lang['Select or create an album'] = 'Sélectionner ou créer un album';
 // Leave this line empty
