@@ -649,7 +649,7 @@ SELECT
 
         foreach ($filter_rows as $row)
         {
-          $r = floor($row['width'] / $row['height'] * 100) / 100;
+          $r = $row['width'] / $row['height'];
           if ($r < 0.95)
           {
             $ratios['Portrait']++;

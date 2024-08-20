@@ -439,8 +439,8 @@ SELECT
     $has_filters_filled = true;
 
     $clause_for_ratio = array(
-      'Portrait'  => 'width/height < 0.96',
-      'square'    => 'width/height BETWEEN 0.96 AND 1.05',
+      'Portrait'  => 'width/height < 0.95',
+      'square'    => 'width/height BETWEEN 0.95 AND 1.05',
       'Landscape' => '(width/height > 1.05 AND width/height < 2)',
       'Panorama'  => 'width/height >= 2',
     );
