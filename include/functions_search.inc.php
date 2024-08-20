@@ -679,6 +679,11 @@ function get_items_for_filter($filter_name)
     $debug_msg.= ', time = '.get_elapsed_time($function_start, get_moment());
     $logger->debug($debug_msg);
 
+    if (empty($other_filters_items))
+    {
+      $other_filters_items = array(-1);
+    }
+
     @$page['search_details'][__FUNCTION__][$cache_key] = $other_filters_items;
   }
 
