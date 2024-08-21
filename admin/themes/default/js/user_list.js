@@ -2061,8 +2061,10 @@ function update_user_list() {
         per_page: per_page,
         exclude: [guest_id]
     }
-    if ($("#user_search").val().length != 0) {
-      update_data["filter"] = $("#user_search").val();
+    const userSearchVal = $("#user_search").val();
+    if (userSearchVal) {
+        const matches = userSearchVal.match(/^id:(\d+)$/);
+        update_data[matches ? "user_id" : "filter"] = matches ? matches[1] : userSearchVal;
     }
     if ($(".advanced-filter").hasClass('advanced-filter-open')) {
         update_data["status"] = $(".advanced-filter-select[name=filter_status]").val();

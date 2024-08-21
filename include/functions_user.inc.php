@@ -215,7 +215,7 @@ SELECT id
     if ($notify_admin and 'none' != $conf['email_admin_on_new_user'])
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-      $admin_url = get_absolute_root_url().'admin.php?page=user_list&username='.$login;
+      $admin_url = get_absolute_root_url().'admin.php?page=user_list&user_id='.$user_id;
 
       $keyargs_content = array(
         get_l10n_args('User: %s', stripslashes($login) ),

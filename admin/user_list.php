@@ -11,6 +11,7 @@
  */
 
 check_input_parameter('group', $_GET, false, PATTERN_ID);
+check_input_parameter('user_id', $_GET, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
@@ -133,6 +134,7 @@ $template->assign(
     'password_protected_users' => implode(',', array_unique($password_protected_users)),
     'guest_user' => $conf['guest_id'],
     'filter_group' => (isset($_GET['group']) ? $_GET['group'] : null),
+    'search_input' => (isset($_GET['user_id']) ? 'id:'.$_GET['user_id'] : null),
     'connected_user' => $user["id"],
     'connected_user_status' => $user['status'],
     'owner' => $conf['webmaster_id'],
