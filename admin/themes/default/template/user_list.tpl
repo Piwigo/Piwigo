@@ -1648,6 +1648,8 @@ $(document).ready(function() {
   width: 65%;
   padding-left: 30px;
   overflow-x: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .edit-user-slides,
@@ -1659,6 +1661,7 @@ $(document).ready(function() {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  height: 100%;
 }
 
 .edit-user-slides::-webkit-scrollbar,
@@ -2884,6 +2887,16 @@ Advanced filter
 .UserListPopInContainer .selectize-dropdown-content .option{
   font-size: 0.9em;
   margin-bottom:5px;
+}
+
+.selectize-dropdown-content {
+  overflow-y: hidden;
+}
+
+.selectize-dropdown {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #permitActionUserList #applyActionBlock {
