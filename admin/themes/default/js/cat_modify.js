@@ -467,7 +467,7 @@ function checkAlbumLock() {
   if (is_visible == 'true') {
     $(".warnings").hide();
   } else {
-    $(".warnings").show();
+    $(".warnings").css('display', 'flex');
   }
 }
 
