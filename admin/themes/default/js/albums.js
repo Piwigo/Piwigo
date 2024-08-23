@@ -1,11 +1,18 @@
 $(document).ready(() => {
-  formatedData = data;
+  const openUppercats = openCat == -1 ? [] : findAlbumById(data, openCat).uppercats.split(',');
+  const new_data = data.map((a) => {
+    const al = {...a, children: openUppercats.includes(a.id) ? a.children : []};
+    if (a.children) {
+      al.load_on_demand = openUppercats.includes(a.id) ? false : true;
+      al.haveChildren = a.children;
+    }
+    return al;
+  });
 
   $("h1").append(`<span class='badge-number'>`+nb_albums+`</span>`);
 
-  // console.log(formatedData);
   $('.tree').tree({
-    data: formatedData,
+    data: new_data,
     autoOpen : false,
     dragAndDrop: true,
     openFolderDelay: delay_autoOpen,
@@ -16,6 +23,22 @@ $(document).ready(() => {
   $('.tree').on( 'click', '.move-cat-toogler', function(e) {
     var node_id = $(this).attr('data-id');
     var node = $('.tree').tree('getNodeById', node_id);
+
+    if (node.load_on_demand && node.haveChildren) {
+      const children = node.haveChildren;
+      const formatedChild = children.map((a) => {
+        const al = {...a, children:[]};
+        if (a.children) {
+          al.load_on_demand = true;
+          al.haveChildren = a.children;
+        }
+        return al;
+      });
+
+      $('.tree').tree('loadData', formatedChild, node);
+      node.load_on_demand = false;
+    }
+
     if (node) {
       open_nodes = $('.tree').tree('getState').open_nodes;
       if (!open_nodes.includes(node_id)) {
@@ -117,7 +140,7 @@ $(document).ready(() => {
     }
 
     $([document.documentElement, document.body]).animate({
-      scrollTop: $("#cat-"+openCat).offset().top
+      scrollTop: $("#cat-"+openCat).offset().top - ($(window).height() / 2) + ($("#cat-"+openCat).outerHeight() / 2)
     }, 500);
   }
 
@@ -347,7 +370,7 @@ function createAlbumNode(node, li) {
     $(this).find(".cat-option").toggle();
   });
 
-  if (node.children.length != 0) {
+  if (node.haveChildren || node.children.length != 0) {
     open_nodes = $('.tree').tree('getState').open_nodes;
     if (open_nodes.includes(node.id)) {
       toggler = toggler_open;
@@ -367,7 +390,7 @@ function createAlbumNode(node, li) {
 
   cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
 
-  if (node.children.length != 0) {
+  if (node.haveChildren || node.children.length != 0) {
     cont.append($(icon.replace(/%icon%/g, 'icon-sitemap')));
   } else {
     cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
@@ -823,4 +846,16 @@ function getPathNode(node) {
   } else {
     return node.name;
   }
+}
+
+function findAlbumById(a, id) {
+  for (const album of a) {
+    if (album.id == id) { return album };
+
+    if (album.haveChildren && album.haveChildren.length > 0 || album.children && album.children.length > 0) {
+      const al = findAlbumById(album.haveChildren ?? album.children, id);
+      if (al) { return al };
+    }
+  }
+  return null;
 }

@@ -204,6 +204,7 @@ function assocToOrderedTree($assocT)
     $orderedCat['status'] = $cat['cat']['status'];
     $orderedCat['id'] = $cat['cat']['id'];
     $orderedCat['visible'] = $cat['cat']['visible'];
+    $orderedCat['uppercats'] = $cat['cat']['uppercats'];
     $orderedCat['nb_images'] = isset($nb_photos_in[$cat['cat']['id']]) ? $nb_photos_in[$cat['cat']['id']] : 0;
     $orderedCat['last_updates'] = $cat['cat']['lastmodified'];
     $orderedCat['has_not_access'] = isset($is_forbidden[$cat['cat']['id']]);
