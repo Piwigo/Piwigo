@@ -1280,7 +1280,6 @@ $lang['No search in progress'] = 'No search in progress';
 $lang['Create a new album at root'] = 'Create a new album at root';
 $lang['Create a sub-album of "%s"'] = 'Create a sub-album of "%s"';
 $lang['No research in progress'] = 'No research in progress';
-
 $lang['Visited'] = 'Visited';
 $lang['Downloaded'] = 'Downloaded';
 $lang['Additional filters'] = 'Additional filters';
@@ -1290,7 +1289,6 @@ $lang['Add as filter'] = 'Add as filter';
 $lang['Show plugins compatible with previous version of Piwigo'] = 'Show plugins compatible with previous version of Piwigo';
 $lang['Place first'] = 'Place first';
 $lang['Place last'] = 'Place last';
-
 $lang['Piwigo is also on mobile.'] = 'Piwigo is also on mobile.';
 $lang['Try now !'] = 'Try now!';
 $lang['Install Piwigo on mobile'] = 'Install Piwigo on mobile';
@@ -1377,4 +1375,6 @@ $lang['Create a root album'] = 'Create a root album';
 $lang['Create your first album'] = 'Create your first album';
 $lang['First choose an album, then add your files'] = 'First choose an album, then add your files';
 $lang['Select or create an album'] = 'Select or create an album';
+$lang['List'] = 'List';
+$lang['Added on %s'] = 'Added on %s';
 // Leave this line empty

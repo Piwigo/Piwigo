@@ -1911,7 +1911,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .breadcrumb-item {
   background-color: #333;
-  box-shadow: 0px 2px #00000070;
+  box-shadow: 0px 2px #000000AA;
   color: #777;
 }
 .breadcrumb-item:hover {
@@ -2091,4 +2091,80 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 
 .desc-modal-body textarea {
   background-color: #333 !important;
+}
+
+/* Batch manager, unit mode */
+
+.elementEdit{
+  background-color:#555555;
+}
+
+.main-info-block{
+  border: 1px solid #333333;
+  background: #333333;
+}
+
+.main-info-desc {
+  color: #777777;
+}
+
+.main-info-title {
+  color: #C1C1C1;
+}
+
+.bottom-save-bar{
+  background-color: #444444;
+  border-top: 1px solid #666;
+}
+
+.media-box{
+  background-color: #1C1C1C;
+}
+
+
+
+.full-line-info-box input,
+.half-line-info-box input,
+.half-line-info-box select,
+.full-line-tag-box select,
+.calendar-input,
+.description-box{
+  border: 1px solid #474747;
+  background-color: #333333 !important;
+  color: #757575;
+}
+
+.full-line-info-box,
+.half-line-info-box,
+.calendar-box,
+.full-line-description-box,
+.full-line-tag-box{
+  color: #A4A4A4;
+}
+
+.calendar-input input{
+  background-color: #333333 !important;
+}
+
+.pictureIdLabel{
+  color: #C1C1C1;
+}
+
+.badge-unsaved{
+  background-color: #FADDA2;
+  color: #E18C32;
+}
+
+.badge-succes{
+  background-color: #AAF6E4;
+  color: #4EA590;
+}
+
+.badge-error{
+  background-color: #BE4949;
+  color: #FFC8C8;
+}
+
+.first-letter-capitalize::first-letter {
+  text-transform: uppercase;
 }

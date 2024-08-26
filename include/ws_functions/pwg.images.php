@@ -29,6 +29,18 @@ function ws_add_image_category_relations($image_id, $categories_string, $replace
   $rank_on_category = array();
   $search_current_ranks = false;
 
+  if (empty($categories_string)) {
+    if ($replace_mode) {
+      $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$image_id.'
+;';
+      pwg_query($query);
+      update_category([]);
+    }
+    return true;
+  }
   $tokens = explode(';', $categories_string);
   foreach ($tokens as $token)
   {
@@ -57,9 +69,16 @@ function ws_add_image_category_relations($image_id, $categories_string, $replace
 
   if (count($cat_ids) == 0)
   {
-    return new PwgError(500,
-      '[ws_add_image_category_relations] there is no category defined in "'.$categories_string.'"'
-      );
+    if ($replace_mode) {
+      $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$image_id.'
+;';
+      pwg_query($query);
+      update_category([]);
+    }
+    return true;
   }
 
   $query = '
@@ -157,6 +176,7 @@ SELECT category_id, MAX(`rank`) AS max_rank
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   update_category($new_cat_ids);
+  return true;
 }
 
 /**

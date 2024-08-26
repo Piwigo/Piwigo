@@ -1377,4 +1377,6 @@ $lang['Create a root album'] = 'Créer un album racine';
 $lang['Create your first album'] = 'Créez votre premier album';
 $lang['First choose an album, then add your files'] = 'Choisissez d\'abord un album, puis ajoutez vos fichiers';
 $lang['Select or create an album'] = 'Sélectionner ou créer un album';
+$lang['List'] = 'Liste';
+$lang['Added on %s'] = 'Ajouté le %s';
 // Leave this line empty

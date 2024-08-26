@@ -4,17 +4,6 @@
 
 {combine_script id='jquery.sort' load='footer' path='themes/default/js/plugins/jquery.sort.js'}
 
-{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
-
-{combine_script id='jquery.selectize' load='header' path='themes/default/js/plugins/selectize.min.js'}
-{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
-{combine_script id='doubleSlider' load='footer' require='jquery.ui.slider' path='admin/themes/default/js/doubleSlider.js'}
-
-{combine_script id='jquery.ui.slider' require='jquery.ui' load='header' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
-{combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
-
-{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
-
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 
@@ -23,17 +12,46 @@
 {footer_script}
 {* <!-- PLUGINS --> *}
 var activePlugins = {$ACTIVE_PLUGINS|json_encode};
-(function(){
+{if isset($CACHE_KEYS)}
 {* <!-- TAGS --> *}
 var tagsCache = new TagsCache({
   serverKey: '{$CACHE_KEYS.tags}',
   serverId: '{$CACHE_KEYS._hash}',
   rootUrl: '{$ROOT_URL}'
 });
-
 tagsCache.selectize(jQuery('[data-selectize=tags]'), { lang: {
   'Add': '{'Create'|translate}'
 }});
+
+{* <!-- CATEGORIES --> *}
+window.categoriesCache = new CategoriesCache({
+    serverKey: '{$CACHE_KEYS.categories}',
+    serverId: '{$CACHE_KEYS._hash}',
+    rootUrl: '{$ROOT_URL}'
+  });
+  
+  var associated_categories = {$associated_categories|@json_encode};
+
+  categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
+    filter: function(categories, options) {
+      if (this.name == 'dissociate') {
+        var filtered = jQuery.grep(categories, function(cat) {
+          return !!associated_categories[cat.id];
+        });
+
+        if (filtered.length > 0) {
+          options.default = filtered[0].id;
+        }
+
+        return filtered;
+      }
+      else {
+        return categories;
+      }
+    }
+  });
+{/if}
+
 
 {* <!-- DATEPICKER --> *}
 jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
@@ -54,9 +72,7 @@ str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
 str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
 str_meta_warning = '{'Warning ! Unsaved changes will be lost'|translate|escape:javascript}';
 str_meta_yes = '{'I want to continue'|translate|escape:javascript}'
-str_meta_no = '{'No, I have changed my mind'|translate|escape:javascript}'
 
-}());
 const strs_privacy = {
   "0" : "{$level_options[8]}",
   "1" : "{$level_options[4]}",
@@ -80,22 +96,23 @@ let b_current_picture_id;
 	</div>
 	{/if}
   {*Filters*}
-	<form method="post" action="{$F_ACTION}" class="filter">
+	<form method="post" action="{$F_ACTION}">
 		{include file='include/batch_manager_filter.inc.tpl'   title={'Batch Manager Filter'|@translate}  searchPlaceholder={'Filters'|@translate}}
 	</form>
 	<legend style="padding: 1em;">
 		<span class='icon-menu icon-blue'></span>
-		Liste
+		{'List'|@translate}
 		<span class="count-badge"> {count($all_elements)}</span>
 	</legend>
 	{if !empty($elements) }
-	<div style="margin: 10px 0; display: flex; justify-content: space-between; padding: 1em;">
-		<div style="margin-right: 21px;" class="pagination-per-page">
-			<span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
-			<a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
-			<a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
-			<a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
+	<div style="margin: 10px 0; display: flex; justify-content: space-between; padding: 1em; height: 33px;">
+	  	<div style="margin-right: 21px;" class="pagination-per-page">
+      		<span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
+    		<a href="{$U_ELEMENTS_PAGE}&amp;display=5" class="{if $per_page == 5}selected-pagination{/if}">5</a>
+    		<a href="{$U_ELEMENTS_PAGE}&amp;display=10" class="{if $per_page == 10}selected-pagination{/if}">10</a>
+    		<a href="{$U_ELEMENTS_PAGE}&amp;display=50" class="{if $per_page == 50}selected-pagination{/if}">50</a>
 		</div>
+
 		<div style="margin-left: 22px;">
 			<div class="pagination-reload">
 				{if !empty($navbar) }
@@ -105,11 +122,11 @@ let b_current_picture_id;
 		</div>
 	</div>
 	{foreach from=$elements item=element}  
-    {footer_script}
-			all_related_categories_ids.push({ id: {$element.ID}, cat_ids: {$element.related_category_ids} });
+	{footer_script}
+	  all_related_categories_ids.push({ id: {$element.ID}, cat_ids: {$element.related_category_ids} });
       url_delete_{$element.id} = '{$element.U_DELETE}';  
     {/footer_script}
-	<div class="success deleted-badge" data-image_id="{$element.ID}" style="display: none;">
+	<div class="infos deleted-badge" data-image_id="{$element.ID}" style="display: none;">
 		<i class="icon-ok" style="font-size: 20px;"></i>
 		<p>
 			&nbsp;{'Image'|@translate}&nbsp;
@@ -163,16 +180,16 @@ let b_current_picture_id;
 					<div class='info-framed-icon' style="margin-right:0px;">
 						<i class='icon-picture'></i>
 					</div>
-					<span class="main-info-title" id="filename-{$element.id}">{$element.FILE}</span>
-					<span class="main-info-desc" id="dimensions-{$element.id}">{$element.DIMENSIONS}</span>
-					<span class="main-info-desc" id="filesize-{$element.id}">{$element.FILESIZE}</span>
+					<span class="main-info-title" id="filename">{$element.FILE}</span>
+					<span class="main-info-desc" id="dimensions">{$element.DIMENSIONS}</span>
+					<span class="main-info-desc" id="filesize">{$element.FILESIZE}</span>
 					<span class="main-info-desc">{$element.EXT}</span>
 				</div>
 				<div class="main-info-block">
 					<div class='info-framed-icon' style="margin-right:0px;">
 						<span class='icon-calendar'></span>
 					</div>
-					<span class="main-info-title">{$element.POST_DATE}</span>
+					<span class="main-info-title first-letter-capitalize">{$element.POST_DATE}</span>
 					<span class="main-info-desc">{$element.AGE}</span>
 					<span class="main-info-desc">{$element.ADDED_BY}</span>
 					<span class="main-info-desc">{$element.STATS}</span>
@@ -181,11 +198,11 @@ let b_current_picture_id;
 			<div class="info-container">
 				<div class="half-line-info-box">
 					<strong>{'Title'|@translate}</strong>
-					<input type="text" name="name" id="name-{$element.id}" value="{$element.NAME}">
+					<input type="text" name="name" id="name" value="{$element.NAME}">
 				</div>
 				<div class="calendar-box">
 					<strong>{'Creation date'|@translate}</strong>
-					<input type="hidden" id="date_creation-{$element.id}" name="date_creation-{$element.id}" value="{$element.DATE_CREATION}">
+					<input type="hidden" id="date_creation" name="date_creation-{$element.id}" value="{$element.DATE_CREATION}">
 					<label class="calendar-input">
 						<i class="icon-calendar"></i>
 						<input type="text" data-datepicker="date_creation-{$element.id}" data-datepicker-unset="date_creation_unset-{$element.id}" readonly>
@@ -194,14 +211,14 @@ let b_current_picture_id;
 				</div>
 				<div class="half-line-info-box">
 					<strong>{'Author'|@translate}</strong>
-					<input type="text" name="author" id="author-{$element.id}" value="{$element.AUTHOR}">
+					<input type="text" name="author" id="author" value="{$element.AUTHOR}">
 				</div>
 				<div class="half-line-info-box">
 					<div class="privacy-label-container">
 						<strong>{'Who can see ?'|@translate}</strong>
 						<i>{'level of confidentiality'|@translate}</i>
 					</div>
-					<select name="level" id="level-{$element.id}" size="1">
+					<select name="level" id="level" size="1">
 						{html_options options=$level_options selected=$element.level_options_selected}
 					</select>
 					{* 
@@ -219,11 +236,11 @@ let b_current_picture_id;
 					</div>
 					 *}
 				</div>
-				<div class="full-line-tag-box">
+				<div class="full-line-tag-box" id="action_add_tags">
 					<strong>{'Tags'|@translate}</strong>
-					<select id="tags-{$element.id}" data-selectize="tags" data-value="{$element.TAGS|@json_encode|escape:html}"placeholder="{'Type in a search term'|translate}"data-create="true" name="tags" id="tags-{$element.id}[]" multiple></select>
+					<select id="tags" data-selectize="tags" data-value="{$element.TAGS|@json_encode|escape:html}"placeholder="{'Type in a search term'|translate}"data-create="true" name="tags" id="tags-{$element.id}[]" multiple></select>
 				</div>
-				<div class="full-line-info-box" id="{$element.ID}">
+				<div class="full-line-box" id="{$element.ID}">
 					<strong>{'Linked albums'|@translate} <span class="linked-albums-badge {if $element.related_categories|@count < 1 } badge-red {/if}"> {$element.related_categories|@count} </span></strong>
 					{if $element.related_categories|@count 
 					< 1}
@@ -233,7 +250,7 @@ let b_current_picture_id;
 					{/if}
 					<div class="related-categories-container">
 						{foreach from=$element.related_categories item=$cat_path key=$key}
-						<div class="breadcrumb-item album-listed">
+						<div class="breadcrumb-item">
 							<span class="link-path">{$cat_path['name']}</span>
 							{if $cat_path['unlinkable']}
 							<span id={$key} class="icon-cancel-circled remove-item"></span>
@@ -250,8 +267,10 @@ let b_current_picture_id;
 				</div>
 				<div class="full-line-description-box">
 					<strong>{'Description'|@translate}</strong>
-					<textarea cols="50" rows="4" name="description" class="description-box" id="description-{$element.id}">{$element.DESCRIPTION}</textarea>
+					<textarea cols="50" rows="4" name="description" class="description-box" id="description">{$element.DESCRIPTION}</textarea>
 				</div>
+{if !empty($PLUGIN_BATCH_MANAGER_UNIT_PHOTO_END)}{$PLUGIN_BATCH_MANAGER_UNIT_PHOTO_END}{/if}
+				{* Plugins anchor 1 *}
 				<div class="validation-container">
 					<div class="save-button-container">
 						<div class="buttonLike action-save-picture buttonSubmitLocal">
@@ -281,21 +300,22 @@ let b_current_picture_id;
 			</div>
 		</fieldset>
 		{/foreach}
-		<div style="margin: 30px 0; display: flex; justify-content: space-between;  padding: 1em;">
-			<div class="pagination-per-page">
-				<span class="thumbnailsActionsShow" style="font-weight: bold;">{'Display'|@translate}</span>
-				<a id="pagination-per-page-5">5</a>
-				<a id="pagination-per-page-10">10</a>
-				<a id="pagination-per-page-50">50</a>
-			</div>
-			<div style="margin-left: 22px;">
-				<div class="pagination-reload">
-					{if !empty($navbar) }
-					<a class="button-reload tiptip" title="Pagination has changed and needs to be reloaded !" style="display: none;" href="{$F_ACTION}"><i class="icon-cw"></i></a>
-					{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
-				</div>
-			</div>
-		</div>
+		<div style="margin: 10px 0; display: flex; justify-content: space-between; padding: 1em; height: 33px;">
+			<div style="margin-right: 21px;" class="pagination-per-page">
+				<span style="font-weight: bold;color: unset;">{'photos per page'|@translate} :</span>
+		  		<a href="{$U_ELEMENTS_PAGE}&amp;display=5" class="{if $per_page == 5}selected-pagination{/if}">5</a>
+		  		<a href="{$U_ELEMENTS_PAGE}&amp;display=10" class="{if $per_page == 10}selected-pagination{/if}">10</a>
+		  		<a href="{$U_ELEMENTS_PAGE}&amp;display=50" class="{if $per_page == 50}selected-pagination{/if}">50</a>
+	  		</div>
+
+	  		<div style="margin-left: 22px;">
+		  		<div class="pagination-reload">
+		{if !empty($navbar) }
+			  		<a class="button-reload tiptip" title="{'Pagination has changed and needs to be reloaded !'|@translate}" style="display: none;" href="{$F_ACTION}"><i class="icon-cw"></i></a>
+		{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+		  		</div>
+	  		</div>
+  		</div>
 		{/if}
 		<div class="bottom-save-bar">
 			<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
@@ -329,41 +349,43 @@ let b_current_picture_id;
 {include file='include/album_selector.inc.tpl' 
   title={'Associate to album'|@translate}
   searchPlaceholder={'Search'|@translate}
-	admin_mode=true
+  admin_mode=true
 }
+
+{footer_script}
+var pluginFunctionNames = pluginFunctionMapInit(activePlugins);
+{/footer_script}
+
 <style>
-.selectize-input  .item,
-.selectize-input .item.active {
-  background-image:none !important;
-  background-color: #ffa646 !important;
-  border-color: transparent !important;
-  color: black !important;
-  
-
-  border-radius: 20px !important;
+#action_add_tags .item,
+#action_add_tags .item.active {
+  background-image:none;
+  background-color: #ffa646;
+  border-color: transparent;
+  color: black;
+  border-radius: 20px;
 }
 
-.selectize-input .item .remove,
-.selectize-input .item .remove {
-  background-color: transparent !important;
-  border-top-right-radius: 20px !important;
-  border-bottom-right-radius: 20px !important;
-  color: black !important;
-  
-  border-left: 1px solid transparent !important;
+#action_add_tags .item .remove,
+#action_add_tags .item .remove {
+  background-color: transparent;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: black;
+  border-left: 1px solid transparent;
 
 }
-.selectize-input .item .remove:hover,
-.selectize-input .item .remove:hover {
-  background-color: #ff7700 !important;
+#action_add_tags .item .remove:hover,
+#action_add_tags .item .remove:hover {
+  background-color: #ff7700;
 }
 
-.selectize-input.items.not-full.has-options,
+/* .selectize-input.items.not-full.has-options,
 .selectize-input.items.not-full.has-options.focus.input-active.dropdown-active,
 .selectize-input.items.not-full, 
 .selectize-input.items.full{
   border: 1px solid #D3D3D3 !important;
-}
+} */
 
 .breadcrumb-item.add-item.highlight{
   color: #3C3C3C !important;
@@ -373,7 +395,4 @@ let b_current_picture_id;
   margin: 5px 0 5px 0 !important;
 }
 
-.album-listed{
-  background-color: #FFFFFF !important;
-}
 </style>

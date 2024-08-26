@@ -1,13 +1,13 @@
 $(document).ready(function() {
   // Detect unsaved changes on any inputs
-  var user_interacted = false;
+  let user_interacted = false;
 
   $('input, textarea, select').on('focus', function() {
     user_interacted = true;
   });
 
   $('input, textarea').on('input', function() {
-    var pictureId = $(this).parents("fieldset").data("image_id");
+    const pictureId = $(this).parents("fieldset").data("image_id");
     if (user_interacted == true) {
       showUnsavedLocalBadge(pictureId);
     }
@@ -15,14 +15,14 @@ $(document).ready(function() {
 
   // Specific handler for datepicker inputs
   $('input[data-datepicker]').on('change', function() {
-    var pictureId = $(this).parents("fieldset").data("image_id");
+    const pictureId = $(this).parents("fieldset").data("image_id");
     if (user_interacted == true) {
       showUnsavedLocalBadge(pictureId);
     }
   });
 
   $('select').on('change', function() {
-    var pictureId = $(this).parents("fieldset").data("image_id");
+    const pictureId = $(this).parents("fieldset").data("image_id");
     if (user_interacted == true) {
       showUnsavedLocalBadge(pictureId);
     }
@@ -30,13 +30,13 @@ $(document).ready(function() {
 
   $('.related-categories-container .remove-item, .datepickerDelete').on('click', function() {
     user_interacted = true;
-    var pictureId = $(this).parents("fieldset").data("image_id");
+    const pictureId = $(this).parents("fieldset").data("image_id");
     showUnsavedLocalBadge(pictureId);
   });
 
   // METADATA SYNC
   $('.action-sync-metadata').on('click', function(event) {
-    var pictureId = $(this).parents("fieldset").data("image_id");
+    const pictureId = $(this).parents("fieldset").data("image_id");
     $.confirm({
       title: str_meta_warning,
       draggable: false,
@@ -66,7 +66,7 @@ $(document).ready(function() {
               },
               dataType: 'json',
               success: function(data) {
-                var isOk = data.stat && data.stat === "ok";
+                const isOk = data.stat && data.stat === "ok";
                 if (isOk) {
                   updateBlock(pictureId);
                 } else {
@@ -82,15 +82,15 @@ $(document).ready(function() {
           }
         },
         cancel: {
-          text: str_meta_no
+          text: str_no
         }
       }
     });
   });
   // DELETE
   $('.action-delete-picture').on('click', function(event) {
-    var $fieldset = $(this).parents("fieldset");
-    var pictureId = $fieldset.data("image_id");
+    const $fieldset = $(this).parents("fieldset");
+    const pictureId = $fieldset.data("image_id");
     $.confirm({
       title: str_are_you_sure,
       draggable: false,
@@ -109,7 +109,7 @@ $(document).ready(function() {
           text: str_yes,
           btnClass: 'btn-red',
           action: function() {
-            var image_ids = [pictureId];
+            const image_ids = [pictureId];
             (function(ids) {
               $.ajax({
                 type: 'POST',
@@ -121,7 +121,7 @@ $(document).ready(function() {
                 },
                 dataType: 'json',
                 success: function(data) {
-                  var isOk = data.stat && data.stat === "ok";
+                  const isOk = data.stat && data.stat === "ok";
                   if (isOk) {
                     $fieldset.remove();
                     $('.pagination-container').css({
@@ -151,8 +151,8 @@ $(document).ready(function() {
   // VALIDATION
   //Unit Save
   $('.action-save-picture').on('click', function(event) {
-    var $fieldset = $(this).parents("fieldset");
-    var pictureId = $fieldset.data("image_id");
+    const $fieldset = $(this).parents("fieldset");
+    const pictureId = $fieldset.data("image_id");
     saveChanges(pictureId);
   });
   //Global Save
@@ -220,7 +220,7 @@ function check_related_categories(pictureId) {
 }
 
 function updateUnsavedGlobalBadge() {
-  var visibleLocalUnsavedCount = $(".local-unsaved-badge").filter(function() {
+  const visibleLocalUnsavedCount = $(".local-unsaved-badge").filter(function() {
     return $(this).css('display') === 'block';
   }).length;
   if (visibleLocalUnsavedCount > 0) {
@@ -258,7 +258,7 @@ function hideErrorLocalBadge(pictureId) {
 }
 //Succes badge
 function updateSuccessGlobalBadge() {
-  var visibleLocalSuccesCount = $(".local-success-badge").filter(function() {
+  const visibleLocalSuccesCount = $(".local-success-badge").filter(function() {
     return $(this).css('display') === 'block';
   }).length;
   if (visibleLocalSuccesCount > 0) {
@@ -269,7 +269,7 @@ function updateSuccessGlobalBadge() {
 }
 
 function showSuccessLocalBadge(pictureId) {
-  var badge = $("#picture-" + pictureId + " .local-success-badge");
+  const badge = $("#picture-" + pictureId + " .local-success-badge");
   badge.css({
     'display': 'block',
     'opacity': 1
@@ -286,7 +286,7 @@ function hideSuccesLocalBadge(pictureId) {
 }
 
 function showSuccesGlobalBadge() {
-  var badge = $(".global-succes-badge");
+  const badge = $(".global-succes-badge");
   badge.css({
     'display': 'block',
     'opacity': 1
@@ -303,7 +303,7 @@ function hideSuccesGlobalBadge() {
 }
 
 function showMetasyncSuccesBadge(pictureId) {
-  var badge = $("#picture-" + pictureId + " .metasync-success");
+  const badge = $("#picture-" + pictureId + " .metasync-success");
   badge.css({
     'display': 'block',
     'opacity': 1
@@ -340,21 +340,21 @@ function saveChanges(pictureId) {
   if ($("#picture-" + pictureId + " .local-unsaved-badge").css('display') === 'block') {
     disableLocalButton(pictureId);
     // Retrieve Infos
-    var name = $("#name-" + pictureId).val();
-    var author = $("#author-" + pictureId).val();
-    var date_creation = $("#date_creation-" + pictureId).val();
-    var comment = $("#description-" + pictureId).val();
-    var level = $("#level-" + pictureId + " option:selected").val();
+    const name = $("#picture-" + pictureId +" #name").val();
+    const author = $("#picture-" + pictureId +" #author").val();
+    const date_creation = $("#picture-" + pictureId + " #date_creation").val();
+    const comment = $("#picture-" + pictureId +" #description").val();
+    const level = $("#picture-" + pictureId +" #level" + " option:selected").val();
     // Get Categories
     const categories = get_related_category(pictureId);
-    var categoriesStr = categories.join(';');
+    let categoriesStr = categories.join(';');
     // Get Tags
-    var tags = [];
-    $("#tags-" + pictureId + " option").each(function() {
-      var tagId = $(this).val().replace(/~~/g, '');
+    let tags = [];
+    $("#picture-" + pictureId +" #tags" + " option").each(function() {
+      let tagId = $(this).val().replace(/~~/g, '');
       tags.push(tagId);
     });
-    var tagsStr = tags.join(',');
+    let tagsStr = tags.join(',');
     $.ajax({
       url: 'ws.php?format=json',
       method: 'POST',
@@ -394,37 +394,39 @@ function saveChanges(pictureId) {
 
 function saveAllChanges() {
   $("fieldset").each(function() {
-    var pictureId = $(this).data("image_id");
+    const pictureId = $(this).data("image_id");
     saveChanges(pictureId);
   });
 }
 //PLUGINS SAVE METHOD
-var pluginFunctionMap = {};
+const pluginFunctionMap = {};
 
 function pluginFunctionMapInit(activePlugins) {
   activePlugins.forEach(function(pluginId) {
-    var functionName = pluginId + '_batchManagerSave';
+    const functionName = pluginId + '_batchManagerSave';
     if (typeof window[functionName] === 'function') {
       pluginFunctionMap[pluginId] = window[functionName];
-    } else {
-      console.log('Function not found during initialization: ' + functionName);
-    }
+    } 
+    // else {
+    //   console.log('Function not found during initialization: ' + functionName);
+    // }
   });
 }
 
 function pluginSaveLoop(activePlugins) {
   if (activePlugins.length === 0) {
-    console.log("No plugins to process in pluginSaveLoop.");
+    // console.log("No plugins to process in pluginSaveLoop.");
     return;
   }
   activePlugins.forEach(function(pluginId) {
-    var saveFunction = pluginFunctionMap[pluginId];
+    const saveFunction = pluginFunctionMap[pluginId];
     if (typeof saveFunction === 'function') {
       saveFunction();
-      console.log('Executed function for plugin: ' + pluginId);
-    } else {
-      console.log('Function not found for plugin: ' + pluginId);
-    }
+      // console.log('Executed function for plugin: ' + pluginId);
+    } 
+    // else {
+    //   console.log('Function not found for plugin: ' + pluginId);
+    // }
   });
 }
 //UPDATE BLOCKS (Yet to be implemented)
@@ -468,12 +470,12 @@ function updateBlock(pictureId) {
 }
 //TAGS UPDATE Yet to be implemented
 // function updateTags(tagsData, pictureId) {
-//   var $tagsUpdate = $('#tags-'+pictureId).selectize({
+//   const $tagsUpdate = $('#tags-'+pictureId).selectize({
 //     create: true,
 //     persist: false
 // });
-//   var selectizeTags = $tagsUpdate[0].selectize;    
-//   var transformedData = tagsData.map(function(item) {
+//   const selectizeTags = $tagsUpdate[0].selectize;    
+//   const transformedData = tagsData.map(function(item) {
 //       return {
 //           value: item.id,
 //           text: item.name
@@ -484,23 +486,3 @@ function updateBlock(pictureId) {
 //   selectizeTags.addOption(transformedData);
 //   selectizeTags.refreshOptions(true);
 // };
-
-//UNRELEASED LEVEL SLIDER
-//   $(function () {
-//     $('.privacy-filter-slider').each(function() {
-//         var id = $(this).attr('id');
-//         $(this).slider({
-//             range: 'min',
-//             value: $(this).attr('value'),
-//             min: 0,
-//             max: 4,
-//             slide: function (event, ui) {
-//                 updateCertificationFilterLabel(ui.value, id);
-//             }
-//         });
-//     });
-// });
-// function updateCertificationFilterLabel(value, id) {
-//     let label = strs_privacy[value];
-//     $('#' + id + ' .privacy').html(label);
-// }

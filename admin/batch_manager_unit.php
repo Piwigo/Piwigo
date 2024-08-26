@@ -149,126 +149,12 @@ $template->assign(
     'PWG_TOKEN' => get_pwg_token(),
     )
   );
-      //prefilter
-      $prefilters = array(
-        array('ID' => 'caddie', 'NAME' => l10n('Caddie')),
-        array('ID' => 'favorites', 'NAME' => l10n('Your favorites')),
-        array('ID' => 'last_import', 'NAME' => l10n('Last import')),
-        array('ID' => 'no_album', 'NAME' => l10n('With no album').' ('.l10n('Orphans').')'),
-        array('ID' => 'no_tag', 'NAME' => l10n('With no tag')),
-        array('ID' => 'duplicates', 'NAME' => l10n('Duplicates')),
-        array('ID' => 'all_photos', 'NAME' => l10n('All'))
-      );
-      
-      if ($conf['enable_synchronization'])
-      {
-        $prefilters[] = array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'));
-        $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => l10n('With no checksum'));
-      }
-      
-      function UC_name_compare($a, $b)
-      {
-        return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
-      }
-      
-      $prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);
-      
-      // Sort prefilters by localized name.
-      usort($prefilters, function ($a, $b) {
-        return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
-      });
-      
-      $template->assign(
-        array(
-          'conf_checksum_compute_blocksize' => $conf['checksum_compute_blocksize'],
-          'prefilters' => $prefilters,
-          'filter' => $_SESSION['bulk_manager_filter'],
-          'selection' => $collection,
-          'all_elements' => $page['cat_elements_id'],
-          'START' => $page['start'],
-          'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
-          'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag','filter')),
-         )
-       );
-      
-      if (isset($page['no_md5sum_number']))
-      {
-        $template->assign(
-          array(
-            'NB_NO_MD5SUM' => $page['no_md5sum_number'],
-          )
-        );
-      } else {
-        $template->assign('NB_NO_MD5SUM', '');
-      }
-      
-      
-      // privacy level
-      foreach ($conf['available_permission_levels'] as $level)
-      {
-        $level_options[$level] = l10n(sprintf('Level %d', $level));
-      
-        if (0 == $level)
-        {
-          $level_options[$level] = l10n('Everybody');
-        }
-      }
-      $template->assign(
-        array(
-          'filter_level_options'=> $level_options,
-          'filter_level_options_selected' => isset($_SESSION['bulk_manager_filter']['level'])
-          ? $_SESSION['bulk_manager_filter']['level']
-          : 0,
-          )
-        );
-      
-      // tags
-      $filter_tags = array();
-      
-      if (!empty($_SESSION['bulk_manager_filter']['tags']))
-      {
-        $query = '
-      SELECT
-          id,
-          name
-        FROM '.TAGS_TABLE.'
-        WHERE id IN ('.implode(',', $_SESSION['bulk_manager_filter']['tags']).')
-      ;';
-      
-        $filter_tags = get_taglist($query);
-      }
-      
-      $template->assign('filter_tags', $filter_tags);
-      
-      // in the filter box, which category to select by default
-      $selected_category = array();
-      
-      if (isset($_SESSION['bulk_manager_filter']['category']))
-      {
-        $selected_category = array($_SESSION['bulk_manager_filter']['category']);
-      }
-      else
-      {
-        // we need to know the category in which the last photo was added
-        $query = '
-      SELECT category_id
-        FROM '.IMAGE_CATEGORY_TABLE.'
-        ORDER BY image_id DESC
-        LIMIT 1
-      ;';
-        $result = pwg_query($query);
-        if (pwg_db_num_rows($result) > 0)
-        {
-          $row = pwg_db_fetch_assoc($result);
-          $selected_category[] = $row['category_id'];
-        }
-      }
-      
-      $template->assign('filter_category_selected', $selected_category);
-
+  include(PHPWG_ROOT_PATH.'admin/include/batch_manager_filters.inc.php');
 // +-----------------------------------------------------------------------+
 // |                        global mode thumbnails                         |
 // +-----------------------------------------------------------------------+
+
+$template->assign('ACTIVE_PLUGINS', array_keys($pwg_loaded_plugins));
 
 // how many items to display on this page
 if (!empty($_GET['display']))
@@ -285,8 +171,7 @@ else
 {
   $page['nb_images'] = 5;
 }
-$template->assign('per_page', $conf['batch_manager_images_per_page_unit']);
-
+$template->assign('per_page', $page['nb_images']);
 
 if (count($page['cat_elements_id']) > 0)
 {
@@ -345,8 +230,21 @@ SELECT *
   '.$conf['order_by'].'
   LIMIT '.$page['nb_images'].' OFFSET '.$page['start'].'
 ;';
-  $result = pwg_query($query);
-  
+  // $result = pwg_query($query);
+  $images = query2array($query);
+  $added_by_ids = array_unique(array_column($images, 'added_by'));
+  if (count($added_by_ids) > 0)
+  {
+    $query = '
+SELECT 
+    '.$conf['user_fields']['username'].' AS username,
+    '.$conf['user_fields']['id'].' AS id
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' IN ( '.implode(',', $added_by_ids).' )
+;';
+    $added_by_username_of = query2array($query, 'id', 'username');
+  }
+
   $storage_category_id = null;
   if (!empty($row['storage_category_id']))
   {
@@ -359,9 +257,9 @@ SELECT *
     "2" => "2",
     "4" => "1",
     "8" => "0",
-];
+  ];
 
-  while ($row = pwg_db_fetch_assoc($result))
+  foreach ($images as $row)
   {
     $element_ids[] = $row['id'];
 
@@ -470,7 +368,7 @@ SELECT
     $admin_url_start = $admin_photo_base_url.'-properties';
     $admin_url_start.= isset($row['cat_id']) ? '&amp;cat_id='.$row['cat_id'] : '';
     $selected_level = isset($row['level']) ? $row['level'] : $row['level'];
-    
+
 
     $template->append(
       'elements', array_merge($row,
@@ -493,9 +391,9 @@ SELECT
         'FILESIZE' => l10n('%.2f MB',$row['filesize']/1024),
         'REGISTRATION_DATE' => format_date($row['date_available']),
         'EXT' => l10n('%s file type',end($extTab)),
-        'POST_DATE' => l10n('Posted the %s', format_date($row['date_available'], array('day', 'month', 'year'))),
+        'POST_DATE' => l10n('Added on %s', format_date($row['date_available'], array('day', 'month', 'year'))),
         'AGE' => l10n(ucfirst(time_since($row['date_available'], 'year'))),
-        'ADDED_BY' => l10n('Added by %s', $row['added_by']),
+        'ADDED_BY' => l10n('Added by %s', $added_by_username_of[ $row['added_by'] ] ?? l10n('N/A')),
         'STATS' => l10n('Visited %d times', $row['hit']),
         'FILE' => l10n('%s', $row['file']),
         'related_categories' => $related_categories,
@@ -515,15 +413,14 @@ SELECT
       ));
   }
   
-  $template->assign('ACTIVE_PLUGINS', array_keys($pwg_loaded_plugins));
-
   $template->assign(array(
     'ELEMENT_IDS' => implode(',', $element_ids),
-    'CACHE_KEYS' => get_admin_client_cache_keys(array('tags')),
-    
-    ));
-    
+  ));
 }
+
+$template->assign(array(
+  'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
+));
 
 trigger_notify('loc_end_element_set_unit');
 

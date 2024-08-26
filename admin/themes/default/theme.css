@@ -921,6 +921,17 @@ LI.menuLi {
 }
 
 /* Pagination */
+.user-pagination {
+  margin: 0;
+  display: flex;
+  padding: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected-pagination {
+background: #ffd2a1;
+}
 
 .pagination-container {
   height: 40px;
@@ -3400,7 +3411,7 @@ LEGEND SPAN {
 
 .pictureIdLabel{
   position: absolute;
-  bottom: 20px;
+  bottom: 3px;
   right: 0px;
   align-items: right;
   color:#7a7a7a89;
@@ -3505,6 +3516,13 @@ LEGEND SPAN {
   height: 50px;
 }
 
+.full-line-box{
+  flex: 0 0 calc(100% - 20px);
+  margin: 0px 10px;
+  display:flex;
+  flex-direction:column;
+}
+
 .full-line-info-box{
   flex: 0 0 calc(100% - 20px);
   margin: 0px 10px;
@@ -3584,8 +3602,6 @@ LEGEND SPAN {
   outline: none !important;
 }
 
-
-
 .privacy-label-container{
   display: flex;
   flex-direction: row;
@@ -3596,6 +3612,7 @@ LEGEND SPAN {
   color: #ffa646;
   font-weight: bold;
 }
+
 .bottom-save-bar{
   display:flex;
   flex-direction: row;
@@ -3612,7 +3629,7 @@ LEGEND SPAN {
 
 .action-save-global{
   margin: 10px 0;
-  margin-right: 2%;
+  margin-right: 1.5em;
 }
 
 .badge-container {
@@ -3664,7 +3681,6 @@ LEGEND SPAN {
   align-items: center;
   padding:0px;
   margin: 1.5em !important;
-  border-radius: 4px;
 }
 
 .validation-container{
@@ -6529,7 +6545,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 #pictureModify .selectize-input.items.not-full, .elementEdit .selectize-input.items.not-full {
   height: auto !important;
-  min-height: 45px;
   max-height: 184px;
 }
 
