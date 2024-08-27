@@ -255,6 +255,7 @@ const prefix_icon = 'gallery-icon-';
   </div>
 {/if}
 
+{* For pst date *}
   {if isset($DATE_POSTED)}
   <div class="filter filter-date_posted">
     <span class="mcs-icon gallery-icon-calendar-plus filter-icon"></span>
@@ -269,20 +270,83 @@ const prefix_icon = 'gallery-icon-';
       </div>
 
       <div class="date_posted-option-container">
-        {foreach from=$DATE_POSTED item=date_posted key=k}
+        <div class="preset_posted_date">
+  {foreach from=$DATE_POSTED item=date_posted key=k}
           <div class="date_posted-option">
-            <input type="radio" id="date_posted-{$k}" value={$k} name="date_posted-period">
+            <input type="checkbox" id="date_posted-{$k}" value={$k} name="date_posted-period">
             <label for="date_posted-{$k}" id="{$k}">
               <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
               <span class="date-period">{$date_posted.label}</span>
               <span class="date_posted-badge">{$date_posted.counter}</span>
             </label>
           </div>
-        {/foreach}
+  {/foreach}
+          <div class="date_posted-option ">
+            <input type="checkbox" id="date_posted_custom" value="custom" name="date_posted-period">
+            <label for="date_posted_custom" class="custom_posted_date_toggle">
+              <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
+              <span class="date-period">{'Custom'|translate}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="custom_posted_date">
+  {foreach from=$LIST_DATE_POSTED key=y item=year}
+          <div class="date_posted-option year">
+            <div class="year_input">
+              <input type="checkbox" id="year_posted_{$y}" value={$y}>
+              <i class="gallery-icon-up-open accordion-toggle" data-type='year'></i>
+              <label for="year_posted_{$y}" id="{$y}">
+                <span class="date-period">{$year.label}</span>
+                <span class="date_posted-badge">{$year.count}</span>
+                <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
+              </label>
+            </div>
+
+          <div class="months_container">
+    {foreach from=$year.months key=m item=month}
+              <div class="date_posted-option month">
+                <div class="month_input">
+                  <input type="checkbox" id="month_posted_{$m}" value={$m}>
+                  <i class="gallery-icon-up-open accordion-toggle" data-type='month'></i>
+                  <label for="month_posted_{$m}" id="{$m}">
+                    <span class="date-period">{$month.label}</span>
+                    <span class="date_posted-badge">{$month.count}</span>
+                    <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
+                  </label>
+                </div>
+
+                <div class="days_container">
+      {foreach from=$month.days key=d item=day}
+                  <div class="date_posted-option day">
+                    <input type="checkbox" id="day_posted_{$d}" value={$d}>
+                    <label for="day_posted_{$d}" id="{$d}">
+                      <span class="date-period">{$day.label}</span>
+                      <span class="date_posted-badge">{$day.count}</span>
+                      <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
+                    </label>
+                  </div>
+      {/foreach}
+              </div>
+            </div>
+
+    {/foreach}
+            </div>
+          </div>
+  {/foreach}
+          <div class="custom_posted_date_toggle">
+            <span>{'Previous'|translate}</span>
+          </div>
+        </div>
+
       </div>
-      <div class="filter-validate">
-        <i class="loading gallery-icon-spin6 animate-spin"></i>
-        <span class="validate-text">{'Validate'|@translate}</span>
+      <div>
+
+
+        <div class="filter-validate">
+          <i class="loading gallery-icon-spin6 animate-spin"></i>
+          <span class="validate-text">{'Validate'|@translate}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -515,6 +579,17 @@ const prefix_icon = 'gallery-icon-';
 
       <div class="form-container">
         <div class="filesize-option-container">
+
+          <div class="slider_input">
+            <div class="min_input">
+              <p>Min</p>
+              <input type="number" step=".1" min="0" name="filter_filesize_min_text" value="{$FILESIZE.selected.min}">
+            </div>
+            <div class="max_input">
+              <p>Max</p>
+              <input type="number" step=".1" min="0" name="filter_filesize_max_text" value="{$FILESIZE.selected.max}">
+            </div>
+          </div>
 
           <div data-slider="filesizes">
             <span class="slider-info"></span>

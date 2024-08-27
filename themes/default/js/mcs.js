@@ -130,6 +130,64 @@ $(document).ready(function () {
       $(".date_posted-option input").prop('checked', false);
     });
 
+    // $("#date_posted_custom").change(function() {
+    //   if($(this).prop('checked') == true)
+    //   {
+    //     $('.custom_posted_date').show()
+    //     $('.preset_posted_date').hide()
+    //   }
+    // });
+    $(".custom_posted_date_toggle").on("click", function (e) {
+      $('.custom_posted_date').toggle()
+      $('.preset_posted_date').toggle()
+    });
+
+    $(".date_posted-option .accordion-toggle").on("click", function (e) {
+      var clickedOption = $(this).parent();
+      $(clickedOption).toggleClass('show-child');
+      if('year' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_posted-option.month').toggle();
+      }
+      else if('month' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_posted-option.day').toggle();
+      }
+    });
+
+    var selectedDates = [];
+
+    $(".date_posted-option input").change(function() {
+      var parentOption = $(this).parent()
+      // var selectedValue = $(this).val()
+      $(this).siblings('label').find('.checked-icon').toggle();
+      $(parentOption).toggleClass('selected')
+
+      // if ($(this).prop('checked') == true)
+      // {
+      //   selectedDates.push(selectedValue);
+      // }
+      // else if($(this).prop('checked') == false)
+      // {
+      //   selectedDates.splice($.inArray(selectedValue, selectedDates), 1 );
+      // }
+
+      var selectedAmount = selectedDates.length
+      if(0 != selectedAmount)
+      {
+        $('.selected_amount').text(selectedAmount);
+        $('.selected_amount').show();
+      }
+      else{
+        $('.selected_amount').hide();
+      }
+      // console.log(selectedDates);
+
+    });
+
+    console.log(global_params.fields);
+    console.log(PS_params);
+
     PS_params.date_posted = global_params.fields.date_posted.length > 0 ? global_params.fields.date_posted : '';
 
     empty_filters_list.push(PS_params.date_posted);
@@ -350,6 +408,16 @@ $(document).ready(function () {
     $(".filter.filter-filesize .slider-info").html(sprintf(sliders.filesizes.text,sliders.filesizes.selected.min,sliders.filesizes.selected.max,));
 
     $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
+
+    $('[data-slider=filesizes]').on("slidestop", function(event, ui) {
+      var min = $('[data-slider=filesizes]').find('[data-input=min]').val();
+      var max = $('[data-slider=filesizes]').find('[data-input=max]').val();
+      console.log($('input[name=filter_filesize_min_text]'))
+
+      $('input[name=filter_filesize_min_text]').val(min).trigger('change');
+      $('input[name=filter_filesize_max_text]').val(max).trigger('change');
+
+    });
 
     if( global_params.fields.filesize_min != null && global_params.fields.filesize_max > 0) {
       $(".filter-filesize").addClass("filter-filled");
@@ -663,9 +731,15 @@ $(document).ready(function () {
       } else {
         $(".filter-date_posted").removeClass("show-filter-dropdown");
 
-        global_params.fields.date_posted = $(".date_posted-option input:checked").val();
+        var selectedDates = [];
 
-        PS_params.date_posted = $(".date_posted-option input:checked").length > 0 ? $(".date_posted-option input:checked").val() : "";
+        $(".date_posted-option input:checked").each(function(){
+          selectedDates.push($(this).val());
+        });
+
+        global_params.fields.date_posted = selectedDates;
+
+        PS_params.date_posted = selectedDates.length > 0 ? selectedDates : "";
       }
     });
   });
@@ -826,6 +900,7 @@ $(document).ready(function () {
       }
     });
   });
+
   $(".filter-filetypes .filter-validate").on("click", function () {
     $(".filter-filetypes").trigger("click");
     performSearch(PS_params, true);

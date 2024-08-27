@@ -853,9 +853,23 @@ function ws_images_filteredSearch_create($params, $service)
 
   if (isset($params['date_posted']))
   {
-    if (!preg_match('/^(24h|7d|30d|3m|6m|y\d+|)$/', $params['date_posted']))
+    $regex_match_date_type = array("/^[0-9]{4}$/" , "/^[0-9]{4}-(0[1-9]|1[0-2])$/" , "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/");
+    $correct_format = false;
+
+    foreach ($params['date_posted'] as $date)
     {
-      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_posted');
+      foreach ($regex_match_date_type as $regex )
+      {
+        if (preg_match($regex, $date))
+        {
+          $correct_format = true;
+        }
+      }
+    }
+
+    if (false == $correct_format)
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter post_date');
     }
 
     $search['fields']['date_posted'] = $params['date_posted'];

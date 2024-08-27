@@ -128,7 +128,7 @@
 
 .filetypes-option label .ext-badge,
 .added_by-option label .added_by-badge,
-.date_posted-option label .date_posted-badge,
+.date_posted-badge,
 .ratios-option label .ratio-badge,
 .ratings-option label .ratings-badge {
   background: #ff7700bb;
@@ -149,7 +149,8 @@
 
 .added_by-option input:checked + label,
 .filetypes-option input:checked + label,
-.date_posted-option input:checked + label,
+.date_posted-option .selected label,
+.date_posted-option .selected .accordion-toggle,
 .ratios-option input:checked + label,
 .ratings-option input:checked + label{
   background: rgba(244, 171, 79, 0.17);

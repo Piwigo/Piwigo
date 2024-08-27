@@ -399,33 +399,81 @@ SELECT
   //
   if (!empty($search['fields']['date_posted']))
   {
-    $has_filters_filled = true;
 
-    $options = array(
-      '24h' => '24 HOUR',
-      '7d' => '7 DAY',
-      '30d' => '30 DAY',
-      '3m' => '3 MONTH',
-      '6m' => '6 MONTH',
-      '1y' => '1 YEAR',
-    );
+    // $has_filters_filled = true;
 
-    if (isset($options[ $search['fields']['date_posted'] ]))
+    // $options = array(
+    //   '24h' => '24 HOUR',
+    //   '7d' => '7 DAY',
+    //   '30d' => '30 DAY',
+    //   '3m' => '3 MONTH',
+    //   '6m' => '6 MONTH',
+    //   '1y' => '1 YEAR',
+    // );
+
+    // if (isset($options[ $search['fields']['date_posted'] ]))
+    // {
+    //   $date_posted_clause = 'date_available > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_posted'] ].')';
+    // }
+    // elseif (preg_match('/^y(\d+)$/', $search['fields']['date_posted'], $matches))
+    // {
+    //   // that is for y2023 = all photos posted in 2023
+    //   $date_posted_clause = 'YEAR(date_available) = '.$matches[1];
+    // }
+
+    // echo('<pre>');print_r($search['fields']['date_posted']);echo('</pre>');
+
+    $crterias_to_search = array();
+
+    foreach ($search['fields']['date_posted'] as $d)
     {
-      $date_posted_clause = 'date_available > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_posted'] ].')';
+      if (preg_match("/^[0-9]{4}$/", $d))
+      {
+        // Year
+        if (!in_array($d, $crterias_to_search))
+        {
+          array_push($crterias_to_search, $d);
+        }
+      }
+      elseif (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])$/", $d))
+      {
+        // Month
+        list($year,$month) = explode('-', $d);
+        if (!in_array($year, $crterias_to_search))
+        {
+          array_push($crterias_to_search, $d);
+        }
+// check if year already in array
+      }
+      elseif (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $d))
+      {
+        // Day
+        list($year,$month,$day) = explode('-', $d);
+        if (!in_array($year, $crterias_to_search) || !in_array($month, $crterias_to_search))
+        {
+          array_push($crterias_to_search, $d);
+        }
+// check if month or year already in array
+      }
     }
-    elseif (preg_match('/^y(\d+)$/', $search['fields']['date_posted'], $matches))
+
+    $date_posted_clause = array();
+
+    foreach ($crterias_to_search as $criteria)
     {
-      // that is for y2023 = all photos posted in 2023
-      $date_posted_clause = 'YEAR(date_available) = '.$matches[1];
+      array_push($date_posted_clause, 'date_available LIKE "' . $criteria . '%"');
     }
+
+    echo('<pre>');print_r($date_posted_clause);echo('</pre>');
+
+
 
     $query = '
 SELECT
     DISTINCT(id)
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE '.$date_posted_clause.'
+  WHERE ('.implode(' OR ', $date_posted_clause).')
   '.$forbidden.'
 ;';
     $image_ids_for_filter['date_posted'] = query2array($query, null, 'id');
