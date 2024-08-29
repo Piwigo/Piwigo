@@ -2661,12 +2661,12 @@ function ws_images_setMd5sum($params, $service)
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
-  $nb_no_md5sum = count(get_photos_no_md5sum());
+  $no_md5sum_ids = get_photos_no_md5sum();
   $added_count = 0;
 
-  if ($nb_no_md5sum > 0)
+  if (count($no_md5sum_ids) > 0)
   {
-    $md5sum_ids_to_add = array_slice(get_photos_no_md5sum(), 0, $params['block_size']);
+    $md5sum_ids_to_add = array_slice($no_md5sum_ids, 0, $params['block_size']);
     $added_count = add_md5sum($md5sum_ids_to_add);
   }
 
