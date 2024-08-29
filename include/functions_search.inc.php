@@ -416,7 +416,7 @@ SELECT
     }
     elseif ('custom' == $search['fields']['date_posted']['preset'] and isset($search['fields']['date_posted']['custom']))
     {
-      foreach ($search['fields']['date_posted'] as $date)
+      foreach ($search['fields']['date_posted']['custom'] as $date)
       {
         $date_posted_clause = 'date_available LIKE "' . $date . '%"';
       }
@@ -425,7 +425,7 @@ SELECT
       // $date_posted_clause = 'YEAR(date_available) = '.$matches[1];
     }
 
-    // echo('<pre>');print_r($search['fields']['date_posted']);echo('</pre>');
+    // echo('<pre>');print_r($search['fields']['date_posted']['custom']);echo('</pre>');
 
 //     $crterias_to_search = array();
 
