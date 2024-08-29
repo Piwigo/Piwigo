@@ -851,28 +851,70 @@ function ws_images_filteredSearch_create($params, $service)
     $search['fields']['added_by'] = $params['added_by'];
   }
 
-  if (isset($params['date_posted']))
+  if (isset($params['date_posted_preset']))
   {
-    $regex_match_date_type = array("/^[0-9]{4}$/" , "/^[0-9]{4}-(0[1-9]|1[0-2])$/" , "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/");
-    $correct_format = false;
+    if (!preg_match('/^(24h|7d|30d|3m|6m|custom|)$/', $params['date_posted_preset']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_posted_preset');
+    }
+
+    $search['fields']['date_posted'] = $params['date_posted_preset'];
+
+    if ('custom' == $search['fields']['date_posted'] and empty($params['date_posted_custom']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'date_posted_custom is missing');
+    }
+  }
+
+  if (isset($params['date_posted_custom']))
+  {
+    if (!isset($search['fields']['date_posted']) or $search['fields']['date_posted'] != 'custom')
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'date_posted_custom provided date_posted_preset is not custom');
+    }
 
     foreach ($params['date_posted'] as $date)
     {
-      foreach ($regex_match_date_type as $regex )
+      $correct_format = false;
+
+      $ymd = substr($date, 0, 1);
+      if ('y' == $ymd)
       {
-        if (preg_match($regex, $date))
+        if (preg_match('/^y(\d{4})$/', $date, $matches))
         {
           $correct_format = true;
         }
       }
-    }
+      elseif ('m' == $ymd)
+      {
+        if (preg_match('/^m(\d{4}-\d{2})$/', $date, $matches))
+        {
+          list($year, $month) = explode('-', $matches[1]);
+          if ($month >= 1 and $month <= 12)
+          {
+            $correct_format = true;
+          }
+        }
+      }
+      elseif ('d' == $ymd)
+      {
+        if (preg_match('/^d(\d{4}-\d{2}-\d{2})$/', $date, $matches))
+        {
+          list($year, $month, $day) = explode('-', $matches[1]);
+          if ($month >= 1 and $month <= 12 and $day >= 1 and $day <= cal_days_in_month(CAL_GREGORIAN, (int)$month, (int)$year))
+          {
+            $correct_format = true;
+          }
+        }
+      }
 
-    if (false == $correct_format)
-    {
-      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter post_date');
-    }
+      if (!$correct_format)
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'date_posted_custom, invalid option '.$date);
+      }
 
-    $search['fields']['date_posted'] = $params['date_posted'];
+      @$search['fields']['date_posted']['custom'][] = $date;
+    }
   }
 
   if (isset($params['ratios']))

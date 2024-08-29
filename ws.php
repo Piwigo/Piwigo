@@ -1455,12 +1455,12 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
         ),
         'date_posted_preset' => array(
-          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
-          'info' => 'files posted within 24 hours, 7 days or 30 days or 3 months or 6 months or year NNNN. Value among 24h|7d|30d|3m|6m|yNNNN. Custom date is YYYY, YYYY-mm or YYYY-mm-dd',
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'files posted within 24 hours, 7 days, 30 days, 3 months, 6 months or custom. Value among 24h|7d|30d|3m|6m|custom.',
         ),
         'date_posted_custom' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
-          'info' => 'files posted within 24 hours, 7 days or 30 days or 3 months or 6 months or year NNNN. Value among 24h|7d|30d|3m|6m|yNNNN. Custom date is YYYY, YYYY-mm or YYYY-mm-dd',
+          'info' => 'Must be provided if date_posted_preset is custom. List of yYYYY or mYYYY-MM or dYYYY-MM-DD.',
         ),
         'ratios' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
