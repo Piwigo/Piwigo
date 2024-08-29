@@ -109,6 +109,12 @@
   color: #444;
 }
 
+.date_posted-option .date_posted-option:nth-child(even) label,
+.date_posted-option .date_posted-option:nth-child(even) i,
+.date_posted-option .date_posted-option .date_posted-option:nth-child(even) label,
+.date_posted-option .date_posted-option .date_posted-option:nth-child(even) i{
+  background-color:white; 
+}
 
 .filetypes-option:nth-child(odd),
 .added_by-option:nth-child(odd),
@@ -117,6 +123,10 @@
 .ratios-option:nth-child(odd),
 .ratings-option:nth-child(odd){
   background: #f3f3f3;
+}
+
+.date_posted-option label .checked-icon.grey-icon{
+  color:#777;
 }
 
 .filetypes-option label .checked-icon,
@@ -150,7 +160,9 @@
 
 .filetypes-option input:checked + label,
 .ratios-option input:checked + label,
-.ratings-option input:checked + label {
+.ratings-option input:checked + label,
+.preset_posted_date .date_posted-option input:checked + label,
+.custom_posted_date .selected input:checked {
   background: #fff5e8;
 }
 

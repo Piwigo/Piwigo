@@ -858,9 +858,9 @@ function ws_images_filteredSearch_create($params, $service)
       return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_posted_preset');
     }
 
-    $search['fields']['date_posted'] = $params['date_posted_preset'];
+    @$search['fields']['date_posted']['preset'] = $params['date_posted_preset'];
 
-    if ('custom' == $search['fields']['date_posted'] and empty($params['date_posted_custom']))
+    if ('custom' == $search['fields']['date_posted']['preset'] and empty($params['date_posted_custom']))
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'date_posted_custom is missing');
     }
@@ -868,12 +868,12 @@ function ws_images_filteredSearch_create($params, $service)
 
   if (isset($params['date_posted_custom']))
   {
-    if (!isset($search['fields']['date_posted']) or $search['fields']['date_posted'] != 'custom')
+    if (!isset($search['fields']['date_posted']['preset']) or $search['fields']['date_posted']['preset'] != 'custom')
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'date_posted_custom provided date_posted_preset is not custom');
     }
 
-    foreach ($params['date_posted'] as $date)
+    foreach ($params['date_posted_custom'] as $date)
     {
       $correct_format = false;
 

@@ -296,8 +296,7 @@ SELECT
     SUBDATE(NOW(), INTERVAL 7 DAY) AS 7d,
     SUBDATE(NOW(), INTERVAL 30 DAY) AS 30d,
     SUBDATE(NOW(), INTERVAL 3 MONTH) AS 3m,
-    SUBDATE(NOW(), INTERVAL 6 MONTH) AS 6m,
-    SUBDATE(NOW(), INTERVAL 1 YEAR) AS 1y
+    SUBDATE(NOW(), INTERVAL 6 MONTH) AS 6m
 ;';
     $thresholds = query2array($query)[0];
 
@@ -330,7 +329,6 @@ SELECT
       '30d' => l10n('last 30 days'),
       '3m' => l10n('last 3 months'),
       '6m' => l10n('last 6 months'),
-      '1y' => l10n('last year'),
     );
 
     // pre_counters need to be deduplicated because a photo can be in several albums
@@ -343,20 +341,6 @@ SELECT
       );
     }
 
-    // $pre_counters_keys = array_keys($pre_counters);
-    // rsort($pre_counters_keys); // we want y2023 to come before y2022 in the list
-
-    // foreach ($pre_counters_keys as $key)
-    // {
-    //   if (preg_match('/^y(\d+)$/', $key, $matches))
-    //   {
-    //     $counters[$key] = array(
-    //       'label' => l10n('year %d', $matches[1]),
-    //       'counter' => count(array_keys($pre_counters[$key]))
-    //     );
-    //   }
-    // }
-
     foreach ($counters as $key => $counter)
     {
       if (0 == $counter['counter'])
@@ -368,8 +352,8 @@ SELECT
     $template->assign('DATE_POSTED', $counters);
 
     
-// Custom date
-$query = '
+    // Custom date
+    $query = '
 SELECT 
     YEAR(date_available) as year,
     EXTRACT(MONTH FROM date_available) as month,
@@ -379,37 +363,35 @@ SELECT
   WHERE '.$filter_clause.'
 ;';
 
-      $list_of_dates = array();
+    $list_of_dates = array();
 
-      $result = pwg_query($query);
-      while ($row = pwg_db_fetch_assoc($result))
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      list($date_without_time) = explode(' ', $row['date']);
+      list($y, $m) = explode('-', $date_without_time);
+
+      @$list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['count']++;
+      @$list_of_dates[$y]['months'][$y.'-'.$m]['count']++;
+      @$list_of_dates[$y]['count']++;
+
+      // Benchmark if better to put the label in another array rather than keep in this array
+
+      if (!isset($list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['label']))
       {
-        list($date_without_time) = explode(' ', $row['date']);
-        list($y, $m) = explode('-', $date_without_time);
-
-        @$list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['count']++;
-        @$list_of_dates[$y]['months'][$y.'-'.$m]['count']++;
-        @$list_of_dates[$y]['count']++;
-
-        // Benchmark if better to put the label in another array rather than keep in this array
-
-        if (!isset($list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['label']))
-        {
-          $list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['label'] = format_date($row['date']);
-        }
-
-        if (!isset($list_of_dates[$y]['months'][$m]['label']))
-        {
-          $list_of_dates[$y]['months'][$y.'-'.$m]['label'] = $lang['month'][(int)$m].' '.$y;
-        }
-
-        if (!isset($list_of_dates[$y]['label']))
-        {
-          $list_of_dates[$y]['label'] = l10n('year %d', $y);
-        }
+        $list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['label'] = format_date($row['date']);
       }
 
-      // echo('<pre>');print_r($list_of_dates);echo('</pre>');
+      if (!isset($list_of_dates[$y]['months'][$m]['label']))
+      {
+        $list_of_dates[$y]['months'][$y.'-'.$m]['label'] = $lang['month'][(int)$m].' '.$y;
+      }
+
+      if (!isset($list_of_dates[$y]['label']))
+      {
+        $list_of_dates[$y]['label'] = l10n('year %d', $y);
+      }
+    }
 
     $template->assign('LIST_DATE_POSTED', $list_of_dates);
   }

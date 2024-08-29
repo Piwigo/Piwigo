@@ -273,7 +273,7 @@ const prefix_icon = 'gallery-icon-';
         <div class="preset_posted_date">
   {foreach from=$DATE_POSTED item=date_posted key=k}
           <div class="date_posted-option">
-            <input type="checkbox" id="date_posted-{$k}" value={$k} name="date_posted-period">
+            <input type="radio" id="date_posted-{$k}" value={$k} name="date_posted-period">
             <label for="date_posted-{$k}" id="{$k}">
               <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
               <span class="date-period">{$date_posted.label}</span>
@@ -281,8 +281,8 @@ const prefix_icon = 'gallery-icon-';
             </label>
           </div>
   {/foreach}
-          <div class="date_posted-option ">
-            <input type="checkbox" id="date_posted_custom" value="custom" name="date_posted-period">
+          <div class="date_posted-option">
+            <input type="radio" id="date_posted-custom" value="custom" name="date_posted-period">
             <label for="date_posted_custom" class="custom_posted_date_toggle">
               <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
               <span class="date-period">{'Custom'|translate}</span>
@@ -292,9 +292,9 @@ const prefix_icon = 'gallery-icon-';
 
         <div class="custom_posted_date">
   {foreach from=$LIST_DATE_POSTED key=y item=year}
-          <div class="date_posted-option year">
+          <div class="date_posted-option year" id="container_{$y}">
             <div class="year_input">
-              <input type="checkbox" id="year_posted_{$y}" value={$y}>
+              <input type="checkbox" id="date_posted_{$y}" value='y{$y}'>
               <i class="gallery-icon-up-open accordion-toggle" data-type='year'></i>
               <label for="year_posted_{$y}" id="{$y}">
                 <span class="date-period">{$year.label}</span>
@@ -303,11 +303,11 @@ const prefix_icon = 'gallery-icon-';
               </label>
             </div>
 
-          <div class="months_container">
+            <div class="months_container">
     {foreach from=$year.months key=m item=month}
-              <div class="date_posted-option month">
+              <div class="date_posted-option month" id="container_{$m}">
                 <div class="month_input">
-                  <input type="checkbox" id="month_posted_{$m}" value={$m}>
+                  <input type="checkbox" id="date_posted_{$m}" value='m{$m}'>
                   <i class="gallery-icon-up-open accordion-toggle" data-type='month'></i>
                   <label for="month_posted_{$m}" id="{$m}">
                     <span class="date-period">{$month.label}</span>
@@ -318,8 +318,8 @@ const prefix_icon = 'gallery-icon-';
 
                 <div class="days_container">
       {foreach from=$month.days key=d item=day}
-                  <div class="date_posted-option day">
-                    <input type="checkbox" id="day_posted_{$d}" value={$d}>
+                  <div class="date_posted-option day" id="container_{$d}">
+                    <input type="checkbox" id="date_posted_{$d}" value='d{$d}'>
                     <label for="day_posted_{$d}" id="{$d}">
                       <span class="date-period">{$day.label}</span>
                       <span class="date_posted-badge">{$day.count}</span>
@@ -334,14 +334,14 @@ const prefix_icon = 'gallery-icon-';
             </div>
           </div>
   {/foreach}
-          <div class="custom_posted_date_toggle">
-            <span>{'Previous'|translate}</span>
-          </div>
         </div>
 
       </div>
       <div>
-
+        <div class="custom_posted_date custom_posted_date_toggle">
+          <i class="gallery-icon-up-open"></i>
+          <span>{'Previous'|translate}</span>
+        </div>
 
         <div class="filter-validate">
           <i class="loading gallery-icon-spin6 animate-spin"></i>

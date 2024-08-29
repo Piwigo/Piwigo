@@ -86,6 +86,7 @@ $(document).ready(function () {
       items: global_params.fields.tags ? global_params.fields.tags.words : null,
     });
   });
+
   if (global_params.fields.tags) {
     $(".filter-tag").css("display", "flex");
     $(".filter-manager-controller.tags").prop("checked", true);
@@ -114,35 +115,40 @@ $(document).ready(function () {
   }
 
   // Setup Date post filter
-  if (global_params.fields.hasOwnProperty('date_posted')) {
+  if (global_params.fields.date_posted) {
     $(".filter-date_posted").css("display", "flex");
     $(".filter-manager-controller.date_posted").prop("checked", true);
 
-    if (global_params.fields.date_posted != null && global_params.fields.date_posted != "") {
-      $("#date_posted-" + global_params.fields.date_posted).prop("checked", true);
+    if (global_params.fields.date_posted.preset != null && global_params.fields.date_posted.preset != "") {
+      $("#date_posted-" + global_params.fields.date_posted.preset).prop("checked", true);
 
-      date_posted_str = $('.date_posted-option label#'+global_params.fields.date_posted+' .date-period').text();
+      if (global_params.fields.date_posted.custom != null && global_params.fields.date_posted.preset != "" && 'custom' == global_params.fields.date_posted.preset)
+      {
+        $("#date_posted-" + global_params.fields.date_posted_custom).each(function( index ) {
+          $(this).prop("checked", true);
+        });
+      }
+      
+      date_posted_str = $('.date_posted-option label#'+ global_params.fields.date_posted.preset +' .date-period').text();
       $(".filter-date_posted").addClass("filter-filled");
       $(".filter.filter-date_posted .search-words").text(date_posted_str);
     }
 
     $(".filter-date_posted .filter-actions .clear").on('click', function () {
+        updateFilters('date_posted', 'add');
       $(".date_posted-option input").prop('checked', false);
+      $('.date_posted-option input').removeAttr('disabled');
+      $('.date_posted-option input').removeClass('grey-icon'); 
     });
 
-    // $("#date_posted_custom").change(function() {
-    //   if($(this).prop('checked') == true)
-    //   {
-    //     $('.custom_posted_date').show()
-    //     $('.preset_posted_date').hide()
-    //   }
-    // });
+    $("#date_posted_custom").attr('disabled', 'disabled');
+
     $(".custom_posted_date_toggle").on("click", function (e) {
       $('.custom_posted_date').toggle()
       $('.preset_posted_date').toggle()
     });
 
-    $(".date_posted-option .accordion-toggle").on("click", function (e) {
+    $(".custom_posted_date .accordion-toggle").on("click", function (e) {
       var clickedOption = $(this).parent();
       $(clickedOption).toggleClass('show-child');
       if('year' == $(this).data('type'))
@@ -155,42 +161,79 @@ $(document).ready(function () {
       }
     });
 
-    var selectedDates = [];
+    // $(".custom_posted_date .date_posted-option input").change(function() {
+      $(".date_posted-option input").change(function() {
 
-    $(".date_posted-option input").change(function() {
-      var parentOption = $(this).parent()
-      // var selectedValue = $(this).val()
+      // Toggle tick icon on selected date in custom list
       $(this).siblings('label').find('.checked-icon').toggle();
+
+      // Add class selected to selected option,
+      // We want to find which are selected to handle the others
+      var parentOption = $(this).parent()
+
+      $(this).toggleClass('selected')
       $(parentOption).toggleClass('selected')
+      $(parentOption).find('.mcs-icon').toggleClass('selected')
 
-      // if ($(this).prop('checked') == true)
+      // if this is selected then disable selecting children, and display grey tick 
+      // var selectedContainerID = $(this).parent().parent().attr('id');
+      // if ($(this).is(":checked"))
       // {
-      //   selectedDates.push(selectedValue);
+      //   $('#'+selectedContainerID+' .date_posted-option input').not('.selected').attr('disabled', 'disabled');
+      //   $('#'+selectedContainerID+' .date_posted-option .mcs-icon').not('.selected').addClass('grey-icon');
+
+      //   if($(parentOption).hasClass('year'))
+      //   {
+      //     if($(parentOption).find('label .mcs-icon').hasClass('gallery-icon-menu'))
+      //     {
+      //       $(parentOption).find('label .mcs-icon').toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
+      //     } 
+      //   }
+      //   else if($(parentOption).hasClass('month'))
+      //   {
+      //     $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
+      //   }
+      //   else if ($(parentOption).hasClass('day'))
+      //   {
+      //     $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
+      //     $(this).parents('.month').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
+      //   }
       // }
-      // else if($(this).prop('checked') == false)
+      // else
       // {
-      //   selectedDates.splice($.inArray(selectedValue, selectedDates), 1 );
+      //   $('#'+selectedContainerID+' .date_posted-option input').not('.selected').removeAttr('disabled');
+      //   $('#'+selectedContainerID+' .date_posted-option .mcs-icon').not('.selected').removeClass('grey-icon');
+
+      //   $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
+      //   $(this).parents('.month').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
+          
       // }
 
-      var selectedAmount = selectedDates.length
-      if(0 != selectedAmount)
+      if($('.custom_posted_date input:checked').length > 0)
       {
-        $('.selected_amount').text(selectedAmount);
-        $('.selected_amount').show();
+        $("#date_posted_custom").prop('checked', true);
+        $('.preset_posted_date input').attr('disabled', 'disabled');
       }
       else{
-        $('.selected_amount').hide();
+        $("#date_posted_custom").prop('checked', false);
+        $('.preset_posted_date input').removeAttr('disabled');
       }
-      // console.log(selectedDates);
 
     });
 
-    console.log(global_params.fields);
-    console.log(PS_params);
+    if($('.custom_posted_date input:checked').length > 0)
+    {
+      $("#date_posted_custom").prop('checked', true);
+    }
+    else{
+      $("#date_posted_custom").prop('checked', false);
+    }
 
-    PS_params.date_posted = global_params.fields.date_posted.length > 0 ? global_params.fields.date_posted : '';
+    PS_params.date_posted_preset = global_params.fields.date_posted_preset != '' ? global_params.fields.date_posted_preset : '';
+    PS_params.date_posted_custom = global_params.fields.date_posted_custom != '' ? global_params.fields.date_posted_custom : '';
 
-    empty_filters_list.push(PS_params.date_posted);
+    empty_filters_list.push(PS_params.date_posted_preset);
+    empty_filters_list.push(PS_params.date_posted_custom);
   }
 
   // Setup album filter
@@ -412,7 +455,6 @@ $(document).ready(function () {
     $('[data-slider=filesizes]').on("slidestop", function(event, ui) {
       var min = $('[data-slider=filesizes]').find('[data-input=min]').val();
       var max = $('[data-slider=filesizes]').find('[data-input=max]').val();
-      console.log($('input[name=filter_filesize_min_text]'))
 
       $('input[name=filter_filesize_min_text]').val(min).trigger('change');
       $('input[name=filter_filesize_max_text]').val(max).trigger('change');
@@ -726,20 +768,31 @@ $(document).ready(function () {
       return;
     }
     $(".filter-date_posted-form").toggle(0, function () {
-      if ($(this).is(':visible')) {
+      if ($(this).is(':visible'))
+      {
         $(".filter-date_posted").addClass("show-filter-dropdown");
-      } else {
+      }
+      else 
+      {
         $(".filter-date_posted").removeClass("show-filter-dropdown");
 
-        var selectedDates = [];
+        var presetValue = $(".preset_posted_date .date_posted-option input:checked").val();
 
-        $(".date_posted-option input:checked").each(function(){
-          selectedDates.push($(this).val());
-        });
+        global_params.fields.date_posted_preset = presetValue;
+        PS_params.date_posted_preset = presetValue != '' ? presetValue : "";
+        
+        if ('custom' == presetValue)
+        {
+          var customDates = [];
 
-        global_params.fields.date_posted = selectedDates;
+          $(".custom_posted_date .date_posted-option input:checked").each(function(){
+            customDates.push($(this).val());
+          });
 
-        PS_params.date_posted = selectedDates.length > 0 ? selectedDates : "";
+          global_params.fields.date_posted_custom = customDates;
+          PS_params.date_posted_custom = customDates.length > 0 ? customDates : "";
+        }
+      
       }
     });
   });
@@ -748,6 +801,7 @@ $(document).ready(function () {
     $(".filter-date_posted").trigger("click");
     performSearch(PS_params, true);
   });
+  
   $(".filter-date_posted .filter-actions .delete").on("click", function () {
     updateFilters('date_posted', 'del');
     performSearch(PS_params, true);
@@ -1234,6 +1288,23 @@ function updateFilters(filterName, mode) {
       }
       break;
 
+    case 'date_posted':
+      if (mode == 'add') {
+        global_params.fields.date_posted_preset = '';
+        global_params.fields.date_posted_custom = [];
+
+        PS_params.date_posted_preset = '';
+        PS_params.date_posted_custom = [];
+
+      } else if (mode == 'del') {
+        delete global_params.fields.date_posted_preset;
+        delete global_params.fields.date_posted_custom;
+
+        delete PS_params.date_posted_preset;
+        delete PS_params.date_posted_custom;
+      }
+      break;
+
     case 'filesize':
       if (mode == 'add') {
         global_params.fields.filesize_min = '';
@@ -1298,6 +1369,9 @@ function updateFilters(filterName, mode) {
       break;
   }
 }
+
+console.log(global_params)
+console.log(PS_params)
 
 function reloadPage(url){
   window.location.href = url;
