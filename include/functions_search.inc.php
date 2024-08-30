@@ -416,61 +416,60 @@ SELECT
     }
     elseif ('custom' == $search['fields']['date_posted']['preset'] and isset($search['fields']['date_posted']['custom']))
     {
-      foreach ($search['fields']['date_posted']['custom'] as $date)
+      $date_posted_subclauses = array();
+      $custom_dates = array_flip($search['fields']['date_posted']['custom']);
+
+      foreach (array_keys($custom_dates) as $custom_date)
       {
-        $date_posted_clause = 'date_available LIKE "' . $date . '%"';
+        // in real-life tests, we have determined "where year(date_available) = 2024" was
+        // far less (4 times less) than "where date_available between '2024-01-01 00:00:00' and '2024-12-31 23:59:59'"
+        // so let's find the begin/end for each custom date
+        // ... and also, no need to search for images of 2023-10-16 if 2023-10 is already requested
+        $begin = $end = null;
+
+        $ymd = substr($custom_date, 0, 1);
+        if ('y' == $ymd)
+        {
+          $year = substr($custom_date, 1);
+          $begin = $year.'-01-01 00:00:00';
+          $end = $year.'-12-31 23:59:59';
+        }
+        elseif ('m' == $ymd)
+        {
+          list($year, $month) = explode('-', substr($custom_date, 1));
+
+          if (!isset($custom_dates['y'.$year]))
+          {
+            $begin = $year.'-'.$month.'-01 00:00:00';
+            $end = $year.'-'.$month.'-'.cal_days_in_month(CAL_GREGORIAN, (int)$month, (int)$year).' 23:59:59';
+          }
+        }
+        elseif ('d' == $ymd)
+        {
+          list($year, $month, $day) = explode('-', substr($custom_date, 1));
+
+          if (!isset($custom_dates['y'.$year]) and !isset($custom_dates['m'.$year.'-'.$month]))
+          {
+            $begin = $year.'-'.$month.'-'.$day.' 00:00:00';
+            $end = $year.'-'.$month.'-'.$day.' 23:59:59';
+          }
+        }
+
+        if (!empty($begin))
+        {
+          $date_posted_subclauses[] = 'date_available BETWEEN "'.$begin.'" AND "'.$end.'"';
+        }
       }
 
-      //  that is for y2023 = all photos posted in 2023
-      // $date_posted_clause = 'YEAR(date_available) = '.$matches[1];
+      $date_posted_clause = '('.implode(' OR ', prepend_append_array_items($date_posted_subclauses, '(', ')')).')';
     }
-
-    // echo('<pre>');print_r($search['fields']['date_posted']['custom']);echo('</pre>');
-
-//     $crterias_to_search = array();
-
-//     foreach ($search['fields']['date_posted'] as $d)
-//     {
-//       if (preg_match("/^[0-9]{4}$/", $d))
-//       {
-//         // Year
-//         if (!in_array($d, $crterias_to_search))
-//         {
-//           array_push($crterias_to_search, $d);
-//         }
-//       }
-//       elseif (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])$/", $d))
-//       {
-//         // Month
-//         list($year,$month) = explode('-', $d);
-//         if (!in_array($year, $crterias_to_search))
-//         {
-//           array_push($crterias_to_search, $d);
-//         }
-// // check if year already in array
-//       }
-//       elseif (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $d))
-//       {
-//         // Day
-//         list($year,$month,$day) = explode('-', $d);
-//         if (!in_array($year, $crterias_to_search) || !in_array($month, $crterias_to_search))
-//         {
-//           array_push($crterias_to_search, $d);
-//         }
-// // check if month or year already in array
-//       }
-//     }
-
-//     $date_posted_clause = array();
-
-    // echo('<pre>');print_r($date_posted_clause);echo('</pre>');
 
     $query = '
 SELECT
     DISTINCT(id)
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE ('.$date_posted_clause.')
+  WHERE '.$date_posted_clause.'
   '.$forbidden.'
 ;';
 
