@@ -301,6 +301,13 @@ function remove_chunks($original_sum, $type)
  */
 function ws_images_addComment($params, $service)
 {
+  global $conf;
+
+  if (!$conf['activate_comments'])
+  {
+    return new PwgError(403, 'Comments are disabled');
+  }
+
   $query = '
 SELECT DISTINCT image_id
   FROM '. IMAGE_CATEGORY_TABLE .'
@@ -511,7 +518,8 @@ SELECT id, date, author, content
   }
 
   $comment_post_data = null;
-  if ($is_commentable and
+  if ($conf['activate_comments'] and
+      $is_commentable and
       (!is_a_guest()
         or (is_a_guest() and $conf['comments_forall'] )
       )
