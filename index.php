@@ -354,9 +354,8 @@ SELECT
     
     // Custom date
     $query = '
-SELECT 
-    YEAR(date_available) as year,
-    EXTRACT(MONTH FROM date_available) as month,
+SELECT
+    DISTINCT id,
     date_available as date
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
