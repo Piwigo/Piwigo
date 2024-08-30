@@ -243,6 +243,7 @@ SELECT DISTINCT ';
   if (isset($params['display']['total_count'])) {
     $total_count_query_result = pwg_query('SELECT FOUND_ROWS();');
     list($total_count) = pwg_db_fetch_row($total_count_query_result);
+    $total_count = (int)$total_count;
   }
   while ($row = pwg_db_fetch_assoc($result))
   {
@@ -351,12 +352,14 @@ SELECT DISTINCT ';
         array(
           'page' => $params['page'],
           'per_page' => $params['per_page'],
-          'count' => count($users)
+          'count' => count($users),
+          'total_count' => $total_count,
           )
         ),
       'users' => new PwgNamedArray(array_values($users), 'user')
     );
   }
+  // deprecated: kept for retrocompatibility
   if (isset($params['display']['total_count'])) {
     $method_result['total_count'] = $total_count;
   }

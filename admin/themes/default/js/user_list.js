@@ -2087,12 +2087,12 @@ function update_user_list() {
                 // console.log(data.message);
                 return;
             }
-            total_users = data.result.total_count;
+            total_users = data.result.paging.total_count;
             if (first_update) {
                 $("h1").append(`<span class='badge-number'>${total_users}</span>`);
                 first_update = false;
             }
-            nb_filtered_users = data.result.total_count;
+            nb_filtered_users = data.result.paging.total_count;
             update_pagination_menu();
             current_users = data.result.users;
             generate_user_list();

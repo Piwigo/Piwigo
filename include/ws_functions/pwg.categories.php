@@ -137,6 +137,7 @@ SELECT SQL_CALC_FOUND_ROWS i.*
     }
 
     list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+    $total_images = (int)$total_images;
 
     // let's take care of adding the related albums to each photo
     if (count($image_ids) > 0)
