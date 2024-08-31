@@ -718,7 +718,7 @@ array(
   'name' => 'render_category_description',
   'type' => 'trigger_change',
   'vars' => array('string', 'category_description', 'string', 'action'),
-  'files' => array('include\category_cats.inc.php', 'include\section_init.inc.php', 'include\ws_functions.inc.php (ws_categories_getList, ws_categories_getAdminList)'),
+  'files' => array('include\category_cats.inc.php', 'include\section_init.inc.php', 'include\ws_functions\pwg.categories.php (ws_categories_getList, ws_categories_getAdminList)'),
 ),
 array(
   'name' => 'render_category_literal_description',
@@ -730,7 +730,7 @@ array(
   'name' => 'render_category_name',
   'type' => 'trigger_change',
   'vars' => array('string', 'category_name', 'string', 'location'),
-  'files' => array('admin\cat_list.php', 'include\ws_functions.inc.php (ws_categories_getList, ws_categories_getAdminList, ws_categories_move)'),
+  'files' => array('admin\cat_list.php', 'include\ws_functions\pwg.categories.php (ws_categories_getList, ws_categories_getAdminList, ws_categories_move)'),
 ),
 array(
   'name' => 'render_comment_author',
@@ -920,8 +920,26 @@ array(
   'name' => 'ws_users_getList',
   'type' => 'trigger_change',
   'vars' => array('array', 'users'),
-  'files' => array('include\ws_functions\pwg.users.php'),
+  'files' => array('include\ws_functions\pwg.users.php (ws_users_getList)'),
   'infos' => 'New in 2.6.2.',
+),
+array(
+  'name' => 'ws_images_getInfo',
+  'type' => 'trigger_change',
+  'vars' => array('object', 'image'),
+  'files' => array('include\ws_functions\pwg.images.php (ws_images_getInfo)'),
+  'infos' => 'New in 15.', 
+),
+array(
+  'name' => 'ws_getImages_details',
+  'type' => 'trigger_change',
+  'vars' => array('object', 'image', 'object', 'db_row', 'object', 'params'),
+  'files' => array(
+    'include\ws_functions\pwg.categories.php (ws_categories_getImages)',
+    'include\ws_functions\pwg.images.php (ws_images_search)',
+    'include\ws_functions\pwg.tags.php (ws_tags_getImages)',
+  ),
+  'infos' => 'New in 15. Allows to expose more fields in images lists WebServices.<br><strong>WARNING:</strong> called for each image, avoid doing expensive tasks in the handler.', 
 ),
 );
 ?>

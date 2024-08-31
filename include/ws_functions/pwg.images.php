@@ -575,6 +575,8 @@ SELECT id, date, author, content
     array('id','date')
     );
 
+  $ret = trigger_change('ws_images_getInfo', $ret);
+
   if ($service->_responseFormat != 'rest')
   {
     return $ret; // for backward compatibility only
@@ -693,7 +695,7 @@ SELECT *
       }
 
       $image = array_merge($image, ws_std_get_urls($row));
-      $images[ $image_ids[ $image['id'] ] ] = $image;
+      $images[ $image_ids[ $image['id'] ] ] = trigger_change('ws_getImages_details', $image, $row, $params);
     }
     ksort($images, SORT_NUMERIC);
     $images = array_values($images);

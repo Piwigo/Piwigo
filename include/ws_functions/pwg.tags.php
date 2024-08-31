@@ -188,7 +188,7 @@ SELECT *
       }
 
       $image['tags'] = new PwgNamedArray($image_tags, 'tag', ws_std_get_tag_xml_attributes() );
-      $images[] = $image;
+      $images[] = trigger_change('ws_getImages_details', $image, $row, $params);
     }
 
     usort($images, 'rank_compare');
