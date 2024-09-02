@@ -350,7 +350,7 @@ class pwg_image
     return $matrix;
   }
 
-  private function get_resize_result($destination_filepath, $width, $height, $time=null)
+  protected function get_resize_result($destination_filepath, $width, $height, $time=null)
   {
     return array(
       'source'      => $this->source_filepath,
