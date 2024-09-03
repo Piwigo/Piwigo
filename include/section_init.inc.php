@@ -611,7 +611,7 @@ elseif ('recent_cats'==$page['section'])
 }
 elseif ('search'==$page['section'])
 {
-  $page['meta_robots']['nofollow']=1;
+  $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
 if ( $filter['enabled'] )
 {
