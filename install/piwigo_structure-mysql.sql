@@ -334,7 +334,7 @@ CREATE TABLE `piwigo_search` (
 
 DROP TABLE IF EXISTS `piwigo_sessions`;
 CREATE TABLE `piwigo_sessions` (
-  `id` varchar(255) binary NOT NULL default '',
+  `id` varchar(50) binary NOT NULL default '',
   `data` mediumtext NOT NULL,
   `expiration` datetime NOT NULL default '1970-01-01 00:00:00',
   PRIMARY KEY  (`id`)
