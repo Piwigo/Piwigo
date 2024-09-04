@@ -583,11 +583,11 @@ const prefix_icon = 'gallery-icon-';
           <div class="slider_input">
             <div class="min_input">
               <p>Min</p>
-              <input type="number" step=".1" min="0" name="filter_filesize_min_text" value="{$FILESIZE.selected.min}">
+              <input type="number" step=".1" min="0" name="filter_filesize_min_text" value="{$FILESIZE.selected.min}" disabled>
             </div>
             <div class="max_input">
               <p>Max</p>
-              <input type="number" step=".1" min="0" name="filter_filesize_max_text" value="{$FILESIZE.selected.max}">
+              <input type="number" step=".1" min="0" name="filter_filesize_max_text" value="{$FILESIZE.selected.max}" disabled>
             </div>
           </div>
 
