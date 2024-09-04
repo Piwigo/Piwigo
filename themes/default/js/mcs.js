@@ -818,7 +818,7 @@ $(document).ready(function () {
         var presetValue = $(".preset_posted_date .date_posted-option input:checked").val();
 
         global_params.fields.date_posted.preset = presetValue;
-        PS_params.date_posted_preset = presetValue != '' ? presetValue : "";
+        PS_params.date_posted_preset = presetValue != null ? presetValue : "";
         
         if ('custom' == presetValue)
         {
@@ -1211,8 +1211,6 @@ $(document).ready(function () {
     });
 })
 
-console.log(PS_params)
-
 function performSearch(params, reload = false) {
   $.ajax({
     url: "ws.php?format=json&method=pwg.images.filteredSearch.create",
@@ -1318,8 +1316,6 @@ function updateFilters(filterName, mode) {
         PS_params.date_posted_preset = '';
         PS_params.date_posted_custom = [];
 
-        console.log(global_params)
-        console.log(PS_params)
       } else if (mode == 'del') {
         delete global_params.fields.date_posted.preset;
         delete global_params.fields.date_posted.custom;
