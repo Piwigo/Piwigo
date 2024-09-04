@@ -109,13 +109,32 @@
   color: #444;
 }
 
+.date_posted-option label{
+  background-color:white;
+  border-bottom:1px solid #f3f3f3;
+}
+
+.date_posted-option i{
+  background-color:white;
+}
 
 .filetypes-option:nth-child(odd),
 .added_by-option:nth-child(odd),
-.date_posted-option:nth-child(odd) label,
+.preset_posted_date .date_posted-option:nth-child(odd) label,
+.preset_posted_date .date_posted-option:nth-child(odd) i,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input label,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input i,
+.custom_posted_date .date_posted-option:nth-child(even) .month_input label,
+.custom_posted_date .date_posted-option:nth-child(even) .month_input i,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) label,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) i,
 .ratios-option:nth-child(odd),
 .ratings-option:nth-child(odd){
   background: #f3f3f3;
+}
+
+.date_posted-option label .checked-icon.grey-icon{
+  color:#777;
 }
 
 .filetypes-option label .checked-icon,
@@ -128,7 +147,7 @@
 
 .filetypes-option label .ext-badge,
 .added_by-option label .added_by-badge,
-.date_posted-option label .date_posted-badge,
+.date_posted-badge,
 .ratios-option label .ratio-badge,
 .ratings-option label .ratings-badge  {
   background: #ff7700;
@@ -149,12 +168,10 @@
 
 .filetypes-option input:checked + label,
 .ratios-option input:checked + label,
-.ratings-option input:checked + label {
+.ratings-option input:checked + label,
+.preset_posted_date .date_posted-option input:checked + label,
+.custom_posted_date .selected input:checked {
   background: #fff5e8;
-}
-
-.date_posted-option input:checked + label {
-  background: rgba(244, 171, 79, 0.17);
 }
 
 .head-button-2 {

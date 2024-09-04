@@ -86,6 +86,7 @@ $(document).ready(function () {
       items: global_params.fields.tags ? global_params.fields.tags.words : null,
     });
   });
+
   if (global_params.fields.tags) {
     $(".filter-tag").css("display", "flex");
     $(".filter-manager-controller.tags").prop("checked", true);
@@ -114,25 +115,165 @@ $(document).ready(function () {
   }
 
   // Setup Date post filter
-  if (global_params.fields.hasOwnProperty('date_posted')) {
+  if (global_params.fields.date_posted) {
+
     $(".filter-date_posted").css("display", "flex");
     $(".filter-manager-controller.date_posted").prop("checked", true);
 
-    if (global_params.fields.date_posted != null && global_params.fields.date_posted != "") {
-      $("#date_posted-" + global_params.fields.date_posted).prop("checked", true);
+    if (global_params.fields.date_posted.preset != null && global_params.fields.date_posted.preset != "") {
+      // If filter is used and not empty check preset date option
+      $("#date_posted-" + global_params.fields.date_posted.preset).prop("checked", true);
+      date_posted_str = $('.date_posted-option label#'+ global_params.fields.date_posted.preset +' .date-period').text();
 
-      date_posted_str = $('.date_posted-option label#'+global_params.fields.date_posted+' .date-period').text();
+      // if option is custom check custom dates
+      if ('custom' == global_params.fields.date_posted.preset && global_params.fields.date_posted.custom != null)
+      {
+        date_posted_str = '';
+        var customArray = global_params.fields.date_posted.custom
+
+        $(customArray).each(function( index ) {
+          var customValue = this.substring(1, $(this).length);
+
+          $("#date_posted_"+customValue).prop("checked", true).addClass('selected');
+          $("#date_posted_"+customValue).siblings('label').find('.checked-icon').show();
+
+          date_posted_str += $('.date_posted-option label#'+ customValue +' .date-period').text()
+
+          if($(global_params.fields.date_posted.custom).length > 1 && index != $(customArray).length-1)
+          {
+            date_posted_str += ', ';
+          }
+        });
+      }
+      
+      // change badge label if filter not empty
       $(".filter-date_posted").addClass("filter-filled");
       $(".filter.filter-date_posted .search-words").text(date_posted_str);
     }
 
     $(".filter-date_posted .filter-actions .clear").on('click', function () {
+      updateFilters('date_posted', 'add');
       $(".date_posted-option input").prop('checked', false);
+      $(".date_posted-option input").trigger('change');
+
+      // $('.date_posted-option input').removeAttr('disabled');
+      // $('.date_posted-option input').removeClass('grey-icon'); 
     });
 
-    PS_params.date_posted = global_params.fields.date_posted.length > 0 ? global_params.fields.date_posted : '';
+    // Disable possiblity for user to select custom option, its gets selected programtically later on
+    $("#date_posted_custom").attr('disabled', 'disabled');
 
-    empty_filters_list.push(PS_params.date_posted);
+    // Handle toggle between preset and custom options
+    $(".custom_posted_date_toggle").on("click", function (e) {
+      $('.custom_posted_date').toggle()
+      $('.preset_posted_date').toggle()
+    });
+
+    // Handle accoridan features in custom options
+    $(".custom_posted_date .accordion-toggle").on("click", function (e) {
+      var clickedOption = $(this).parent();
+      $(clickedOption).toggleClass('show-child');
+      if('year' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_posted-option.month').toggle();
+      }
+      else if('month' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_posted-option.day').toggle();
+      }
+    });
+
+    // On custom date input select
+    $(".custom_posted_date .date_posted-option input").change(function() {
+      var parentOption = $(this).parent()
+
+      if(true == $(this).prop("checked")){
+        // Toggle tick icon on selected date in custom list
+        $(this).siblings('label').find('.checked-icon').show();
+
+        // Add class selected to selected option,
+        // We want to find which are selected to handle the others
+        $(this).addClass('selected')
+        $(parentOption).addClass('selected')
+        $(parentOption).find('.mcs-icon').addClass('selected')
+      }
+      else
+      {
+        // Toggle tick icon on selected date in custom list
+        $(this).siblings('label').find('.checked-icon').hide();
+
+        // Add class selected to selected option,
+        // We want to find which are selected to handle the others
+        $(this).removeClass('selected')
+        $(parentOption).removeClass('selected')
+        $(parentOption).find('.mcs-icon').removeClass('selected')
+      }
+
+      // TODO finish handling grey tick on child options, and having specifi icon to show children are selected 
+
+      // if this is selected then disable selecting children, and display grey tick 
+      // var selectedContainerID = $(this).parent().parent().attr('id');
+      // if ($(this).is(":checked"))
+      // {
+      //   $('#'+selectedContainerID+' .date_posted-option input').not('.selected').attr('disabled', 'disabled');
+      //   $('#'+selectedContainerID+' .date_posted-option .mcs-icon').not('.selected').addClass('grey-icon');
+
+      //   if($(parentOption).hasClass('year'))
+      //   {
+      //     if($(parentOption).find('label .mcs-icon').hasClass('gallery-icon-menu'))
+      //     {
+      //       $(parentOption).find('label .mcs-icon').toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
+      //     } 
+      //   }
+      //   else if($(parentOption).hasClass('month'))
+      //   {
+      //     $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
+      //   }
+      //   else if ($(parentOption).hasClass('day'))
+      //   {
+      //     $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
+      //     $(this).parents('.month').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
+      //   }
+      // }
+      // else
+      // {
+      //   $('#'+selectedContainerID+' .date_posted-option input').not('.selected').removeAttr('disabled');
+      //   $('#'+selectedContainerID+' .date_posted-option .mcs-icon').not('.selected').removeClass('grey-icon');
+
+      //   $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
+      //   $(this).parents('.month').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
+          
+      // }
+
+      // Used to select custom in preset list if dates are selected
+      if($('.custom_posted_date input:checked').length > 0)
+      {
+        $("#date_posted-custom").prop('checked', true);
+        $('.preset_posted_date input').attr('disabled', 'disabled');
+      }
+      else{
+        $("#date_posted-custom").prop('checked', false);
+        $('.preset_posted_date input').removeAttr('disabled');
+      }
+
+    });
+
+    // Used to select custom in preset list if dates are selected
+    if($('.custom_posted_date input:checked').length > 0)
+    {
+      $("#date_posted-custom").prop('checked', true);
+      $('.preset_posted_date input').attr('disabled', 'disabled');
+    }
+    else{
+      $("#date_posted-custom").prop('checked', false);
+      $('.preset_posted_date input').removeAttr('disabled');
+    }
+
+    PS_params.date_posted_preset = global_params.fields.date_posted.preset != '' ? global_params.fields.date_posted.preset : '';
+    PS_params.date_posted_custom = global_params.fields.date_posted.custom != '' ? global_params.fields.date_posted.custom : '';
+
+    empty_filters_list.push(PS_params.date_posted_preset);
+    empty_filters_list.push(PS_params.date_posted_custom);
   }
 
   // Setup album filter
@@ -351,6 +492,15 @@ $(document).ready(function () {
 
     $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
 
+    $('[data-slider=filesizes]').on("slidestop", function(event, ui) {
+      var min = $('[data-slider=filesizes]').find('[data-input=min]').val();
+      var max = $('[data-slider=filesizes]').find('[data-input=max]').val();
+
+      $('input[name=filter_filesize_min_text]').val(min).trigger('change');
+      $('input[name=filter_filesize_max_text]').val(max).trigger('change');
+
+    });
+
     if( global_params.fields.filesize_min != null && global_params.fields.filesize_max > 0) {
       $(".filter-filesize").addClass("filter-filled");
       $(".filter.filter-filesize .search-words").html(sprintf(sliders.filesizes.text,sliders.filesizes.selected.min,sliders.filesizes.selected.max,));
@@ -516,7 +666,6 @@ $(document).ready(function () {
         }
       } else {
         if ($(".filter.filter-" + $(this).data("wid")).is(':visible')) {
-          console.log($(this).data("wid"));
           updateFilters($(this).data("wid"), 'del');
         }
       }
@@ -658,14 +807,31 @@ $(document).ready(function () {
       return;
     }
     $(".filter-date_posted-form").toggle(0, function () {
-      if ($(this).is(':visible')) {
+      if ($(this).is(':visible'))
+      {
         $(".filter-date_posted").addClass("show-filter-dropdown");
-      } else {
+      }
+      else 
+      {
         $(".filter-date_posted").removeClass("show-filter-dropdown");
 
-        global_params.fields.date_posted = $(".date_posted-option input:checked").val();
+        var presetValue = $(".preset_posted_date .date_posted-option input:checked").val();
 
-        PS_params.date_posted = $(".date_posted-option input:checked").length > 0 ? $(".date_posted-option input:checked").val() : "";
+        global_params.fields.date_posted.preset = presetValue;
+        PS_params.date_posted_preset = presetValue != null ? presetValue : "";
+        
+        if ('custom' == presetValue)
+        {
+          var customDates = [];
+
+          $(".custom_posted_date .date_posted-option input:checked").each(function(){
+            customDates.push($(this).val());
+          });
+
+          global_params.fields.date_posted.custom = customDates;
+          PS_params.date_posted_custom = customDates.length > 0 ? customDates : "";
+        }
+      
       }
     });
   });
@@ -674,6 +840,7 @@ $(document).ready(function () {
     $(".filter-date_posted").trigger("click");
     performSearch(PS_params, true);
   });
+  
   $(".filter-date_posted .filter-actions .delete").on("click", function () {
     updateFilters('date_posted', 'del');
     performSearch(PS_params, true);
@@ -826,6 +993,7 @@ $(document).ready(function () {
       }
     });
   });
+
   $(".filter-filetypes .filter-validate").on("click", function () {
     $(".filter-filetypes").trigger("click");
     performSearch(PS_params, true);
@@ -1041,26 +1209,6 @@ $(document).ready(function () {
         $(".filter-manager-controller.width").prop("checked", false);
       }
     });
-
-
-  /* Close dropdowns if you click on the screen */
-  // $(document).mouseup(function (e) {
-  //   e.stopPropagation();
-  //   let option_is_clicked = false
-  //   $(".mcs-container .filter").each(function () {
-  //     console.log(($(this).hasClass("show-filter-dropdown")));
-  //     if (!($(this).has(e.target).length === 0)) {
-  //       option_is_clicked = true;
-  //     }
-  //   })
-  //   if (!option_is_clicked) {
-  //     $(".filter-form").hide();
-  //     if ($(".show-filter-dropdown").length != 0) {
-  //       $(".show-filter-dropdown").removeClass("show-filter-dropdown");
-  //       performSearch();
-  //     }
-  //   }
-  // });
 })
 
 function performSearch(params, reload = false) {
@@ -1076,11 +1224,11 @@ function performSearch(params, reload = false) {
     },
     error:function(e) {
       console.log(e);
+      $(".filter-form ").append('<p class="error">Error</p>')
+      $(".filter-validate").find(".validate-text").css("display", "block");
+      $(".filter-validate").find(".loading").hide();
+      $(".remove-filter").removeClass(prefix_icon + 'spin6 animate-spin').addClass(prefix_icon + 'cancel');
     },
-  }).done(function () {
-    $(".filter-validate").find(".validate-text").css("display", "block");
-    $(".filter-validate").find(".loading").hide();
-    $(".remove-filter").removeClass(prefix_icon + 'spin6 animate-spin').addClass(prefix_icon + 'cancel');
   });
 }
 
@@ -1156,6 +1304,24 @@ function updateFilters(filterName, mode) {
 
         delete PS_params.categories;
         delete PS_params.categories_withsubs;
+      }
+      break;
+
+    case 'date_posted':
+      if (mode == 'add') {
+        global_params.fields['date_posted'] = {};
+        global_params.fields.date_posted.preset = '';
+        global_params.fields.date_posted.custom = [];
+
+        PS_params.date_posted_preset = '';
+        PS_params.date_posted_custom = [];
+
+      } else if (mode == 'del') {
+        delete global_params.fields.date_posted.preset;
+        delete global_params.fields.date_posted.custom;
+
+        delete PS_params.date_posted_preset;
+        delete PS_params.date_posted_custom;
       }
       break;
 
