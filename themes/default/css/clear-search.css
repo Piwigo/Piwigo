@@ -109,17 +109,25 @@
   color: #444;
 }
 
-.date_posted-option .date_posted-option:nth-child(even) label,
-.date_posted-option .date_posted-option:nth-child(even) i,
-.date_posted-option .date_posted-option .date_posted-option:nth-child(even) label,
-.date_posted-option .date_posted-option .date_posted-option:nth-child(even) i{
-  background-color:white; 
+.date_posted-option label{
+  background-color:white;
+  border-bottom:1px solid #f3f3f3;
+}
+
+.date_posted-option i{
+  background-color:white;
 }
 
 .filetypes-option:nth-child(odd),
 .added_by-option:nth-child(odd),
-.date_posted-option:nth-child(odd) label,
-.date_posted-option:nth-child(odd) i,
+.preset_posted_date .date_posted-option:nth-child(odd) label,
+.preset_posted_date .date_posted-option:nth-child(odd) i,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input label,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input i,
+.custom_posted_date .date_posted-option:nth-child(even) .month_input label,
+.custom_posted_date .date_posted-option:nth-child(even) .month_input i,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) label,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) i,
 .ratios-option:nth-child(odd),
 .ratings-option:nth-child(odd){
   background: #f3f3f3;

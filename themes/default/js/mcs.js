@@ -116,22 +116,33 @@ $(document).ready(function () {
 
   // Setup Date post filter
   if (global_params.fields.date_posted) {
+
     $(".filter-date_posted").css("display", "flex");
     $(".filter-manager-controller.date_posted").prop("checked", true);
 
     if (global_params.fields.date_posted.preset != null && global_params.fields.date_posted.preset != "") {
       // If filter is used and not empty check preset date option
       $("#date_posted-" + global_params.fields.date_posted.preset).prop("checked", true);
-
       date_posted_str = $('.date_posted-option label#'+ global_params.fields.date_posted.preset +' .date-period').text();
 
       // if option is custom check custom dates
       if ('custom' == global_params.fields.date_posted.preset && global_params.fields.date_posted.custom != null)
       {
         date_posted_str = '';
-        $(global_params.fields.date_posted.custom).each(function( index ) {
-          $(this).prop("checked", true);
-          date_posted_str += $('.date_posted-option label#'+ global_params.fields.date_posted.custom +' .date-period').text();;
+        var customArray = global_params.fields.date_posted.custom
+
+        $(customArray).each(function( index ) {
+          var customValue = this.substring(1, $(this).length);
+
+          $("#date_posted_"+customValue).prop("checked", true).addClass('selected');
+          $("#date_posted_"+customValue).siblings('label').find('.checked-icon').show();
+
+          date_posted_str += $('.date_posted-option label#'+ customValue +' .date-period').text()
+
+          if($(global_params.fields.date_posted.custom).length > 1 && index != $(customArray).length-1)
+          {
+            date_posted_str += ', ';
+          }
         });
       }
       
@@ -141,10 +152,12 @@ $(document).ready(function () {
     }
 
     $(".filter-date_posted .filter-actions .clear").on('click', function () {
-        updateFilters('date_posted', 'add');
+      updateFilters('date_posted', 'add');
       $(".date_posted-option input").prop('checked', false);
-      $('.date_posted-option input').removeAttr('disabled');
-      $('.date_posted-option input').removeClass('grey-icon'); 
+      $(".date_posted-option input").trigger('change');
+
+      // $('.date_posted-option input').removeAttr('disabled');
+      // $('.date_posted-option input').removeClass('grey-icon'); 
     });
 
     // Disable possiblity for user to select custom option, its gets selected programtically later on
@@ -172,15 +185,29 @@ $(document).ready(function () {
 
     // On custom date input select
     $(".custom_posted_date .date_posted-option input").change(function() {
-      // Toggle tick icon on selected date in custom list
-      $(this).siblings('label').find('.checked-icon').toggle();
-
-      // Add class selected to selected option,
-      // We want to find which are selected to handle the others
       var parentOption = $(this).parent()
-      $(this).toggleClass('selected')
-      $(parentOption).toggleClass('selected')
-      $(parentOption).find('.mcs-icon').toggleClass('selected')
+
+      if(true == $(this).prop("checked")){
+        // Toggle tick icon on selected date in custom list
+        $(this).siblings('label').find('.checked-icon').show();
+
+        // Add class selected to selected option,
+        // We want to find which are selected to handle the others
+        $(this).addClass('selected')
+        $(parentOption).addClass('selected')
+        $(parentOption).find('.mcs-icon').addClass('selected')
+      }
+      else
+      {
+        // Toggle tick icon on selected date in custom list
+        $(this).siblings('label').find('.checked-icon').hide();
+
+        // Add class selected to selected option,
+        // We want to find which are selected to handle the others
+        $(this).removeClass('selected')
+        $(parentOption).removeClass('selected')
+        $(parentOption).find('.mcs-icon').removeClass('selected')
+      }
 
       // TODO finish handling grey tick on child options, and having specifi icon to show children are selected 
 
@@ -242,8 +269,8 @@ $(document).ready(function () {
       $('.preset_posted_date input').removeAttr('disabled');
     }
 
-    PS_params.date_posted_preset = global_params.fields.date_posted_preset != '' ? global_params.fields.date_posted_preset : '';
-    PS_params.date_posted_custom = global_params.fields.date_posted_custom != '' ? global_params.fields.date_posted_custom : '';
+    PS_params.date_posted_preset = global_params.fields.date_posted.preset != '' ? global_params.fields.date_posted.preset : '';
+    PS_params.date_posted_custom = global_params.fields.date_posted.custom != '' ? global_params.fields.date_posted.custom : '';
 
     empty_filters_list.push(PS_params.date_posted_preset);
     empty_filters_list.push(PS_params.date_posted_custom);
@@ -639,7 +666,6 @@ $(document).ready(function () {
         }
       } else {
         if ($(".filter.filter-" + $(this).data("wid")).is(':visible')) {
-          console.log($(this).data("wid"));
           updateFilters($(this).data("wid"), 'del');
         }
       }
@@ -1183,27 +1209,9 @@ $(document).ready(function () {
         $(".filter-manager-controller.width").prop("checked", false);
       }
     });
-
-
-  /* Close dropdowns if you click on the screen */
-  // $(document).mouseup(function (e) {
-  //   e.stopPropagation();
-  //   let option_is_clicked = false
-  //   $(".mcs-container .filter").each(function () {
-  //     console.log(($(this).hasClass("show-filter-dropdown")));
-  //     if (!($(this).has(e.target).length === 0)) {
-  //       option_is_clicked = true;
-  //     }
-  //   })
-  //   if (!option_is_clicked) {
-  //     $(".filter-form").hide();
-  //     if ($(".show-filter-dropdown").length != 0) {
-  //       $(".show-filter-dropdown").removeClass("show-filter-dropdown");
-  //       performSearch();
-  //     }
-  //   }
-  // });
 })
+
+console.log(PS_params)
 
 function performSearch(params, reload = false) {
   $.ajax({
@@ -1218,11 +1226,11 @@ function performSearch(params, reload = false) {
     },
     error:function(e) {
       console.log(e);
+      $(".filter-form ").append('<p class="error">Error</p>')
+      $(".filter-validate").find(".validate-text").css("display", "block");
+      $(".filter-validate").find(".loading").hide();
+      $(".remove-filter").removeClass(prefix_icon + 'spin6 animate-spin').addClass(prefix_icon + 'cancel');
     },
-  }).done(function () {
-    $(".filter-validate").find(".validate-text").css("display", "block");
-    $(".filter-validate").find(".loading").hide();
-    $(".remove-filter").removeClass(prefix_icon + 'spin6 animate-spin').addClass(prefix_icon + 'cancel');
   });
 }
 
@@ -1303,15 +1311,18 @@ function updateFilters(filterName, mode) {
 
     case 'date_posted':
       if (mode == 'add') {
-        global_params.fields.date_posted_preset = '';
-        global_params.fields.date_posted_custom = [];
+        global_params.fields['date_posted'] = {};
+        global_params.fields.date_posted.preset = '';
+        global_params.fields.date_posted.custom = [];
 
         PS_params.date_posted_preset = '';
         PS_params.date_posted_custom = [];
 
+        console.log(global_params)
+        console.log(PS_params)
       } else if (mode == 'del') {
-        delete global_params.fields.date_posted_preset;
-        delete global_params.fields.date_posted_custom;
+        delete global_params.fields.date_posted.preset;
+        delete global_params.fields.date_posted.custom;
 
         delete PS_params.date_posted_preset;
         delete PS_params.date_posted_custom;
