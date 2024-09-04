@@ -289,8 +289,12 @@ SELECT
     if (isset($my_search['fields']['date_posted']))
     {
       $filter_clause = get_clause_for_filter('date_posted');
+      $cache_key = $persistent_cache->make_key('filter_date_posted'.$user['id'].$user['cache_update_time']);
+      $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $date_posted);
 
-      $query = '
+      if (!isset($date_posted))
+      {
+        $query = '
 SELECT
     SUBDATE(NOW(), INTERVAL 24 HOUR) AS 24h,
     SUBDATE(NOW(), INTERVAL 7 DAY) AS 7d,
@@ -298,62 +302,9 @@ SELECT
     SUBDATE(NOW(), INTERVAL 3 MONTH) AS 3m,
     SUBDATE(NOW(), INTERVAL 6 MONTH) AS 6m
 ;';
-    $thresholds = query2array($query)[0];
+        $thresholds = query2array($query)[0];
 
-    $query = '
-SELECT
-    image_id,
-    date_available
-  FROM '.IMAGES_TABLE.' AS i
-    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
-  WHERE '.$filter_clause.'
-;';
-    $dates = query2array($query);
-    $pre_counters = array_fill_keys(array_keys($thresholds), array());
-    foreach ($dates as $date_row)
-    {
-      $year = date('Y', strtotime($date_row['date_available']));
-      @$pre_counters['y'.$year][ $date_row['image_id'] ] = 1;
-      foreach ($thresholds as $threshold => $date_limit)
-      {
-        if ($date_row['date_available'] > $date_limit)
-        {
-          @$pre_counters[$threshold][ $date_row['image_id'] ] = 1;
-        }
-      }
-    }
-
-    $label_for_threshold = array(
-      '24h' => l10n('last 24 hours'),
-      '7d' => l10n('last 7 days'),
-      '30d' => l10n('last 30 days'),
-      '3m' => l10n('last 3 months'),
-      '6m' => l10n('last 6 months'),
-    );
-
-    // pre_counters need to be deduplicated because a photo can be in several albums
-    $counters = array_fill_keys(array_keys($thresholds), array('label'=>'default label', 'counter'=>0));
-    foreach (array_keys($thresholds) as $threshold)
-    {
-      $counters[$threshold] = array(
-        'label' => $label_for_threshold[$threshold],
-        'counter' => count(array_keys($pre_counters[$threshold]))
-      );
-    }
-
-    foreach ($counters as $key => $counter)
-    {
-      if (0 == $counter['counter'])
-      {
-        unset($counters[$key]);
-      }
-    }
-
-    $template->assign('DATE_POSTED', $counters);
-
-    
-    // Custom date
-    $query = '
+        $query = '
 SELECT
     DISTINCT id,
     date_available as date
@@ -362,38 +313,82 @@ SELECT
   WHERE '.$filter_clause.'
 ;';
 
-    $list_of_dates = array();
+        $list_of_dates = array();
+        $pre_counters = array();
 
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      list($date_without_time) = explode(' ', $row['date']);
-      list($y, $m) = explode('-', $date_without_time);
+        $result = pwg_query($query);
+        while ($row = pwg_db_fetch_assoc($result))
+        {
+          foreach ($thresholds as $threshold => $date_limit)
+          {
+            if ($row['date'] > $date_limit)
+            {
+              @$pre_counters[$threshold]++;
+            }
+          }
 
-      @$list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['count']++;
-      @$list_of_dates[$y]['months'][$y.'-'.$m]['count']++;
-      @$list_of_dates[$y]['count']++;
+          list($date_without_time) = explode(' ', $row['date']);
+          list($y, $m) = explode('-', $date_without_time);
 
-      // Benchmark if better to put the label in another array rather than keep in this array
+          @$list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['count']++;
+          @$list_of_dates[$y]['months'][$y.'-'.$m]['count']++;
+          @$list_of_dates[$y]['count']++;
+        }
 
-      if (!isset($list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['label']))
-      {
-        $list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['label'] = format_date($row['date']);
+        $date_posted = array(
+          'pre_counters' => $pre_counters,
+          'list_of_dates' => $list_of_dates,
+        );
+
+        if ($set_persistent_cache)
+        {
+          // for this filter, we do not store in cache the $filter_rows : for a big gallery it may
+          // take more than 10MB. It is smarter to store in cache the result of the computation,
+          // which is just around 100 bytes.
+          $persistent_cache->set($cache_key, $date_posted);
+        }
       }
 
-      if (!isset($list_of_dates[$y]['months'][$m]['label']))
+      $label_for_threshold = array(
+        '24h' => l10n('last 24 hours'),
+        '7d' => l10n('last 7 days'),
+        '30d' => l10n('last 30 days'),
+        '3m' => l10n('last 3 months'),
+        '6m' => l10n('last 6 months'),
+      );
+
+      $counters = array();
+      foreach (array_keys($label_for_threshold) as $threshold)
       {
-        $list_of_dates[$y]['months'][$y.'-'.$m]['label'] = $lang['month'][(int)$m].' '.$y;
+        if (isset($date_posted['pre_counters'][$threshold]))
+        {
+          $counters[$threshold] = array(
+            'label' => $label_for_threshold[$threshold],
+            'counter' => $date_posted['pre_counters'][$threshold],
+          );
+        }
       }
 
-      if (!isset($list_of_dates[$y]['label']))
+      foreach (array_keys($date_posted['list_of_dates']) as $y)
       {
-        $list_of_dates[$y]['label'] = l10n('year %d', $y);
+        $date_posted['list_of_dates'][$y]['label'] = l10n('year %d', $y);
+
+        foreach (array_keys($date_posted['list_of_dates'][$y]['months']) as $ym)
+        {
+          list(,$m) = explode('-', $ym);
+          $date_posted['list_of_dates'][$y]['months'][$ym]['label'] = $lang['month'][(int)$m].' '.$y;
+
+          foreach (array_keys($date_posted['list_of_dates'][$y]['months'][$ym]['days']) as $ymd)
+          {
+            list(,,$d) = explode('-', $ymd);
+            $date_posted['list_of_dates'][$y]['months'][$ym]['days'][$ymd]['label'] = format_date($ymd);
+          }
+        }
       }
+
+      $template->assign('LIST_DATE_POSTED', $date_posted['list_of_dates']);
+      $template->assign('DATE_POSTED', $counters);
     }
-
-    $template->assign('LIST_DATE_POSTED', $list_of_dates);
-  }
 
     if (isset($my_search['fields']['added_by']))
     {
