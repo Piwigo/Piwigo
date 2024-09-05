@@ -36,20 +36,20 @@ $(document).ready(function () {
   $(".removeFilter").addClass("icon-cancel-circled");
   
   $(".removeFilter").click(function () {
-    var filter = $(this).parent('li').attr("id");
+    const filter = $(this).parent('li').attr("id");
     filter_disable(filter);
   
     return false;
   });
   
   $("#addFilter a").on('click', function () {
-    var filter = $(this).attr("data-value");
+    const filter = $(this).attr("data-value");
     filter_enable(filter);
   });
   
   $("#removeFilters").click(function() {
     $("#filterList li").each(function() {
-      var filter = $(this).attr("id");
+      const filter = $(this).attr("id");
       filter_disable(filter);
     });
     return false;
@@ -67,3 +67,4 @@ $(document).ready(function () {
     }
   });
 })
+

@@ -109,7 +109,7 @@ $(document).ready(function() {
           text: str_yes,
           btnClass: 'btn-red',
           action: function() {
-            const image_ids = [pictureId];
+            let image_ids = [pictureId];
             (function(ids) {
               $.ajax({
                 type: 'POST',
@@ -358,6 +358,7 @@ function saveChanges(pictureId) {
     $.ajax({
       url: 'ws.php?format=json',
       method: 'POST',
+      dataType: 'json',
       data: {
         method: 'pwg.images.setInfo',
         image_id: pictureId,
@@ -372,13 +373,28 @@ function saveChanges(pictureId) {
         multiple_value_mode: "replace",
         pwg_token: jQuery("input[name=pwg_token]").val()
       },
-      success: function(response) {
-        enableLocalButton(pictureId);
-        enableGlobalButton();
-        hideUnsavedLocalBadge(pictureId);
-        showSuccessLocalBadge(pictureId);
-        updateSuccessGlobalBadge();
-        // pluginSaveLoop(activePlugins); //call for plugin save
+      success: function(data) {
+        const isOk = data.stat && data.stat === 'ok';
+        if (isOk) {
+          console.log("Data saved successfully for picture " + pictureId);
+          enableLocalButton(pictureId);
+          enableGlobalButton();
+          hideUnsavedLocalBadge(pictureId);
+          showSuccessLocalBadge(pictureId);
+          updateSuccessGlobalBadge();
+          // Call for extension's save
+          // This is the first method we're implementing to validate extension's data
+          // More informations will be provided on next skeleton update
+          pluginSaveLoop(activePlugins, pictureId);
+        }
+        else {
+          console.error("Error: " + data);
+          enableLocalButton(pictureId);
+          enableGlobalButton();
+          hideUnsavedLocalBadge(pictureId);
+          showErrorLocalBadge(pictureId);
+          updateSuccessGlobalBadge();
+      }
       },
       error: function(xhr, status, error) {
         enableLocalButton(pictureId);
@@ -389,7 +405,7 @@ function saveChanges(pictureId) {
         console.error('Error:', error);
       }
     });
-  } else {}
+  }
 }
 
 function saveAllChanges() {
@@ -407,26 +423,19 @@ function pluginFunctionMapInit(activePlugins) {
     if (typeof window[functionName] === 'function') {
       pluginFunctionMap[pluginId] = window[functionName];
     } 
-    // else {
-    //   console.log('Function not found during initialization: ' + functionName);
-    // }
   });
 }
 
-function pluginSaveLoop(activePlugins) {
+function pluginSaveLoop(activePlugins, pictureId) {
   if (activePlugins.length === 0) {
-    // console.log("No plugins to process in pluginSaveLoop.");
     return;
   }
   activePlugins.forEach(function(pluginId) {
     const saveFunction = pluginFunctionMap[pluginId];
     if (typeof saveFunction === 'function') {
-      saveFunction();
-      // console.log('Executed function for plugin: ' + pluginId);
+      saveFunction(pictureId);
     } 
-    // else {
-    //   console.log('Function not found for plugin: ' + pluginId);
-    // }
+
   });
 }
 //UPDATE BLOCKS (Yet to be implemented)
