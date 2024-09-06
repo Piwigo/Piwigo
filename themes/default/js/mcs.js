@@ -608,7 +608,14 @@ $(document).ready(function () {
       exclude_params = ['search_id', 'allwords_mode', 'allwords_fields', 'tags_mode', 'categories_withsubs'];
       for (const key in PS_params) {
         if (!exclude_params.includes(key)) {
-          PS_params[key] = '';
+          if("date_posted_custom" == key)
+          {
+            PS_params[key] = [];
+          }
+          else
+          {
+            PS_params[key] = '';
+          }
         }
       }
       performSearch(PS_params, true);
