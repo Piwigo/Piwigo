@@ -505,6 +505,11 @@ SELECT
 
       foreach ($filter_rows as $row)
       {
+        if ($row['width'] <= 0 and $row['height'] <= 0)
+        {
+          continue;
+        }
+
         $r = $row['width'] / $row['height'];
         if ($r < 0.95)
         {
