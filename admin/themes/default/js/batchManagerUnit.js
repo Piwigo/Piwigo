@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() {  
   // Detect unsaved changes on any inputs
   let user_interacted = false;
 
@@ -340,51 +340,58 @@ function saveChanges(pictureId) {
   if ($("#picture-" + pictureId + " .local-unsaved-badge").css('display') === 'block') {
     disableLocalButton(pictureId);
     // Retrieve Infos
-    const name = $("#picture-" + pictureId +" #name").val();
-    const author = $("#picture-" + pictureId +" #author").val();
+    const name = $("#picture-" + pictureId + " #name").val();
+    const author = $("#picture-" + pictureId + " #author").val();
     const date_creation = $("#picture-" + pictureId + " #date_creation").val();
-    const comment = $("#picture-" + pictureId +" #description").val();
-    const level = $("#picture-" + pictureId +" #level" + " option:selected").val();
+    const comment = $("#picture-" + pictureId + " #description").val();
+    const level = $("#picture-" + pictureId + " #level option:selected").val();
     // Get Categories
     const categories = get_related_category(pictureId);
     let categoriesStr = categories.join(';');
     // Get Tags
     let tags = [];
-    $("#picture-" + pictureId +" #tags" + " option").each(function() {
+    $("#picture-" + pictureId + " #tags option").each(function () {
       let tagId = $(this).val().replace(/~~/g, '');
       tags.push(tagId);
     });
     let tagsStr = tags.join(',');
+    let ajax_data = {
+      method: 'pwg.images.setInfo',
+      image_id: pictureId,
+      name: name,
+      author: author,
+      date_creation: date_creation,
+      comment: comment,
+      categories: categoriesStr,
+      tag_ids: tagsStr,
+      level: level,
+      single_value_mode: "replace",
+      multiple_value_mode: "replace",
+      pwg_token: jQuery("input[name=pwg_token]").val()
+    };
+    
+    for (let key_index in pluginValues) {
+        let pluginValues_selector = pluginValues[key_index].selector;
+        let full_selector = $("#picture-" + pictureId + " " + pluginValues_selector);
+        let pluginValues_value = full_selector.val();
+        ajax_data[pluginValues[key_index].api_key] = pluginValues_value;
+      
+    }
+    
     $.ajax({
       url: 'ws.php?format=json',
       method: 'POST',
       dataType: 'json',
-      data: {
-        method: 'pwg.images.setInfo',
-        image_id: pictureId,
-        name: name,
-        author: author,
-        date_creation: date_creation,
-        comment: comment,
-        categories: categoriesStr,
-        tag_ids: tagsStr,
-        level: level,
-        single_value_mode: "replace",
-        multiple_value_mode: "replace",
-        pwg_token: jQuery("input[name=pwg_token]").val()
-      },
+      data: ajax_data,
       success: function(data) {
         const isOk = data.stat && data.stat === 'ok';
         if (isOk) {
-          console.log("Data saved successfully for picture " + pictureId);
           enableLocalButton(pictureId);
           enableGlobalButton();
           hideUnsavedLocalBadge(pictureId);
           showSuccessLocalBadge(pictureId);
           updateSuccessGlobalBadge();
-          // Call for extension's save
-          // This is the first method we're implementing to validate extension's data
-          // More informations will be provided on next skeleton update
+          // Method 1 for extension's save (see Skeleton extension for more details)
           pluginSaveLoop(activePlugins, pictureId);
         }
         else {
@@ -422,7 +429,7 @@ function pluginFunctionMapInit(activePlugins) {
     const functionName = pluginId + '_batchManagerSave';
     if (typeof window[functionName] === 'function') {
       pluginFunctionMap[pluginId] = window[functionName];
-    } 
+    }
   });
 }
 
@@ -438,46 +445,46 @@ function pluginSaveLoop(activePlugins, pictureId) {
 
   });
 }
-//UPDATE BLOCKS (Yet to be implemented)
-function updateBlock(pictureId) {
-  $.ajax({
-    url: 'ws.php?format=json',
-    type: 'GET',
-    dataType: 'json',
-    data: {
-      method: 'pwg.images.getInfo',
-      image_id: pictureId,
-      format: 'json'
-    },
-    success: function(response) {
-      if (response.stat === 'ok') {
-        $("#picture-" + pictureId + " #name-" + pictureId).val(response.result.name);
-        $("#picture-" + pictureId + " #author-" + pictureId).val(response.result.author);
-        $("#picture-" + pictureId + " #date_creation-" + pictureId).val(response.result.date_creation);
-        $("#picture-" + pictureId + " #description-" + pictureId).val(response.result.comment);
-        $("#picture-" + pictureId + " #level-" + pictureId).val(response.result.level);
-        $("#picture-" + pictureId + " #filename-" + pictureId).text(response.result.file);
-        $("#picture-" + pictureId + " #filesize-" + pictureId).text(response.result.filesize);
-        $("#picture-" + pictureId + " #dimensions-" + pictureId).text(response.result.width + "x" + response.result.height);
-        // updateTags(response.result.tags, pictureId); //Yet to be implemented
-        showMetasyncSuccesBadge(pictureId);
-        enableLocalButton(pictureId);
-        enableGlobalButton();
-      } else {
-        console.error("Error:", response.message);
-        showErrorLocalBadge(pictureId);
-        enableLocalButton(pictureId);
-        enableGlobalButton();
-      }
-    },
-    error: function(xhr, status, error) {
-      console.error("Error:", status, error);
-      showErrorLocalBadge(pictureId);
-      enableLocalButton(pictureId);
-    }
-  });
-}
-//TAGS UPDATE Yet to be implemented
+// UPDATE BLOCKS (Yet to be implemented)
+// function updateBlock(pictureId) {
+//   $.ajax({
+//     url: 'ws.php?format=json',
+//     type: 'GET',
+//     dataType: 'json',
+//     data: {
+//       method: 'pwg.images.getInfo',
+//       image_id: pictureId,
+//       format: 'json'
+//     },
+//     success: function(response) {
+//       if (response.stat === 'ok') {
+//         $("#picture-" + pictureId + " #name-" + pictureId).val(response.result.name);
+//         $("#picture-" + pictureId + " #author-" + pictureId).val(response.result.author);
+//         $("#picture-" + pictureId + " #date_creation-" + pictureId).val(response.result.date_creation);
+//         $("#picture-" + pictureId + " #description-" + pictureId).val(response.result.comment);
+//         $("#picture-" + pictureId + " #level-" + pictureId).val(response.result.level);
+//         $("#picture-" + pictureId + " #filename-" + pictureId).text(response.result.file);
+//         $("#picture-" + pictureId + " #filesize-" + pictureId).text(response.result.filesize);
+//         $("#picture-" + pictureId + " #dimensions-" + pictureId).text(response.result.width + "x" + response.result.height);
+//         updateTags(response.result.tags, pictureId); //Yet to be implemented
+//         showMetasyncSuccesBadge(pictureId);
+//         enableLocalButton(pictureId);
+//         enableGlobalButton();
+//       } else {
+//         console.error("Error:", response.message);
+//         showErrorLocalBadge(pictureId);
+//         enableLocalButton(pictureId);
+//         enableGlobalButton();
+//       }
+//     },
+//     error: function(xhr, status, error) {
+//       console.error("Error:", status, error);
+//       showErrorLocalBadge(pictureId);
+//       enableLocalButton(pictureId);
+//     }
+//   });
+// }
+// TAGS UPDATE Yet to be implemented
 // function updateTags(tagsData, pictureId) {
 //   const $tagsUpdate = $('#tags-'+pictureId).selectize({
 //     create: true,

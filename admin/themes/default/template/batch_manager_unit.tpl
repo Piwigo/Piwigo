@@ -83,6 +83,8 @@ const strs_privacy = {
 const all_related_categories_ids = [];
 let related_categories_ids = [];
 let b_current_picture_id;
+{* Check Skeleton extension for more details about extensibility *}
+pluginValues = [];
 {/footer_script}
 
 
@@ -221,20 +223,6 @@ let b_current_picture_id;
 					<select name="level" id="level" size="1">
 						{html_options options=$level_options selected=$element.level_options_selected}
 					</select>
-					{* 
-					<div class="advanced-filter-item advanced-filter-privacy" >
-						<div class="privacy-label-container">
-							<strong>{'Who can see this photo?'|@translate}</strong>
-							<label class="advanced-filter-item-label" for="privacy-filter" ><span class="privacy">{$level_options[$element.LEVEL]}</span></label>
-						</div>
-						<div class="advanced-filter-item-container">
-							<div id="privacy-filter" class="select-bar"></div>
-							<div class="slider-bar-wrapper">
-								<div class="slider-bar-container privacy-filter-slider" value="{$element.LEVEL_CONVERT}" id="{$element.ID}"></div>
-							</div>
-						</div>
-					</div>
-					 *}
 				</div>
 				<div class="full-line-tag-box" id="action_add_tags">
 					<strong>{'Tags'|@translate}</strong>
@@ -269,7 +257,9 @@ let b_current_picture_id;
 					<strong>{'Description'|@translate}</strong>
 					<textarea cols="50" rows="4" name="description" class="description-box" id="description">{$element.DESCRIPTION}</textarea>
 				</div>
-{if !empty($PLUGIN_BATCH_MANAGER_UNIT_PHOTO_END)}{$PLUGIN_BATCH_MANAGER_UNIT_PHOTO_END}{/if}
+{foreach from=$PLUGINS_BATCH_MANAGER_UNIT_ELEMENT_SUBTEMPLATE item=PATH}
+	{include file=$PATH}
+{/foreach}  
 				{* Plugins anchor 1 *}
 				<div class="validation-container">
 					<div class="save-button-container">
