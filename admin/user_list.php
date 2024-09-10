@@ -25,6 +25,7 @@ include(PHPWG_ROOT_PATH.'admin/include/user_tabs.inc.php');
 // +-----------------------------------------------------------------------+
 
 $groups = array();
+$groups_for_filter = array();
 
 $query = '
 SELECT id, name, COUNT(ug.user_id) as nb_users_of
