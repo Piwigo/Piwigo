@@ -238,6 +238,7 @@ SELECT DISTINCT ';
   }
   $users = array();
   $result = pwg_query($query);
+  $total_count = 0;
 
   /* GET THE RESULT OF SQL_CALC_FOUND_ROWS if display total_count is requested*/
   if (isset($params['display']['total_count'])) {
