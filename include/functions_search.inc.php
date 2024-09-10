@@ -628,7 +628,7 @@ SELECT
   {
     if (count($image_ids_for_filter) > 1)
     {
-      $items = array_unique(array_intersect(...array_values($image_ids_for_filter)));
+      $items = array_values(array_unique(array_intersect(...array_values($image_ids_for_filter))));
     }
     else
     {
