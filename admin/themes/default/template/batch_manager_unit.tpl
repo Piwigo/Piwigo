@@ -257,9 +257,11 @@ pluginValues = [];
 					<strong>{'Description'|@translate}</strong>
 					<textarea cols="50" rows="4" name="description" class="description-box" id="description">{$element.DESCRIPTION}</textarea>
 				</div>
+{if isset($PLUGINS_BATCH_MANAGER_UNIT_ELEMENT_SUBTEMPLATE)}
 {foreach from=$PLUGINS_BATCH_MANAGER_UNIT_ELEMENT_SUBTEMPLATE item=PATH}
 	{include file=$PATH}
-{/foreach}  
+{/foreach} 
+{/if} 
 				{* Plugins anchor 1 *}
 				<div class="validation-container">
 					<div class="save-button-container">
