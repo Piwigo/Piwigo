@@ -1186,7 +1186,7 @@ $lang['While restoring this plugin, it will be reset to its original parameters 
 $lang['Users not logged in will have these settings applied, these settings are used by default for new users'] = 'Os utilizadores que não entraram, terão essas configurações aplicadas, essas configurações são usadas por defeito para novos utilizadores';
 $lang['Version %s'] = 'Versão %s';
 $lang['Visited'] = 'Visitado';
-$lang['Properties of abums'] = 'Propriedades dos albuns';
+$lang['Properties of albums'] = 'Propriedades dos albuns';
 $lang['Piwigo requires an album to add photos.'] = 'Piwigo requer um álbum para adicionar fotos.';
 $lang['Place first'] = 'Colocar em primeiro';
 $lang['Place last'] = 'Colocar em último';
