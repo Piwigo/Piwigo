@@ -202,6 +202,7 @@ var sliders = {
 </strong></em>
 </div>
 {/if}
+{include file='include/search_modal.inc.tpl'}
     </li>
 
     <li id="filter_filesize" {if !isset($filter.filesize)}style="display:none"{/if}>

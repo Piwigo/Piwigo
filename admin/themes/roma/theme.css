@@ -626,7 +626,7 @@ label>p.group_select {
 /*UserList Pop in*/
 
 
-.UserListPopInContainer{
+.UserListPopInContainer, .SearchModalContainer{
   background-color:#444;
   border-radius:10px;
 
@@ -1606,7 +1606,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color:#c1c1c1;
 }
 
-.UserListPopInContainer {
+.UserListPopInContainer, .SearchModalContainer {
   background-color:#444;
 }
 

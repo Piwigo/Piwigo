@@ -5840,6 +5840,121 @@ input:checked + .slider:before, input:checked + .slider::after {
     display:block;
   }
 }
+/*Search Modal*/
+/* #HelpSearchModal{
+  display: none;
+} */
+
+.SearchModal {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SearchModalContainer {
+  width: 60%;
+  max-width: 800px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: left;
+  overflow-y: auto;
+  max-height: 60vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.SearchModalContainer::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 12px; /* Height of the scrollbar (for horizontal scrollbar) */
+}
+
+.SearchModalContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+  border-radius: 10px; /* Rounding the track */
+}
+
+.SearchModalContainer::-webkit-scrollbar-thumb {
+  background-color: #888; /* Thumb color */
+  border-radius: 10px; /* Rounding the thumb */
+  border: 3px solid #f1f1f1; /* Adds a padding effect */
+}
+
+.SearchModalContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Thumb color on hover */
+}
+
+.SearchModalContainer strong {
+  font-size: 1.25rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.SearchModalContainer legend {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.searchModalTab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-left: 10px;
+}
+
+.searchModalContent {
+  flex: 1;
+  margin-left: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.searchModalContent p {
+  font-weight: bold;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.searchModalContent code {
+  background-color: #c3c3c3;
+  padding: 2px 5px;
+  font-size: 0.95rem;
+  margin: 0 5px;
+  white-space: nowrap;
+}
+
+.searchModalContent {
+  border-left: 3px solid #eee;
+  padding-left: 15px;
+}
+
+.searchModalTab + .searchModalTab {
+  margin-top: 10px;
+}
+
+.SearchModalContainer > div {
+  margin-top: 10px;
+}
+
+.CloseSearchModal{
+  position:absolute;
+  right:-40px;
+  top:-40px;
+  font-size:30px;
+}
+
 
 /*UserList Pop in*/
 
@@ -6874,7 +6989,7 @@ color:#FF7B00;
   color:#353535;
 }
 
-.UserListPopInContainer {
+.UserListPopInContainer, .SearchModalContainer {
   background-color:white;
 }
 

@@ -418,7 +418,7 @@ label>p.group_select {
 /*UserList Pop in*/
 
 
-.UserListPopInContainer{
+.UserListPopInContainer, .SearchModalContainer{
   background-color:white;
   border-radius:10px;
 
@@ -571,7 +571,7 @@ input:focus + .slider {
 
 /*UserList Pop in*/
 
-.CloseUserList, .CloseAddAlbum, .CloseDeleteAlbum, .CloseRenameAlbum {
+.CloseUserList, .CloseAddAlbum, .CloseDeleteAlbum, .CloseRenameAlbum, .CloseSearchModal {
   color:white;
 }
 
