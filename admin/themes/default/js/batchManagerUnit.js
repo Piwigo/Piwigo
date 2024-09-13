@@ -445,45 +445,44 @@ function pluginSaveLoop(activePlugins, pictureId) {
 
   });
 }
-// UPDATE BLOCKS (Yet to be implemented)
-// function updateBlock(pictureId) {
-//   $.ajax({
-//     url: 'ws.php?format=json',
-//     type: 'GET',
-//     dataType: 'json',
-//     data: {
-//       method: 'pwg.images.getInfo',
-//       image_id: pictureId,
-//       format: 'json'
-//     },
-//     success: function(response) {
-//       if (response.stat === 'ok') {
-//         $("#picture-" + pictureId + " #name-" + pictureId).val(response.result.name);
-//         $("#picture-" + pictureId + " #author-" + pictureId).val(response.result.author);
-//         $("#picture-" + pictureId + " #date_creation-" + pictureId).val(response.result.date_creation);
-//         $("#picture-" + pictureId + " #description-" + pictureId).val(response.result.comment);
-//         $("#picture-" + pictureId + " #level-" + pictureId).val(response.result.level);
-//         $("#picture-" + pictureId + " #filename-" + pictureId).text(response.result.file);
-//         $("#picture-" + pictureId + " #filesize-" + pictureId).text(response.result.filesize);
-//         $("#picture-" + pictureId + " #dimensions-" + pictureId).text(response.result.width + "x" + response.result.height);
-//         updateTags(response.result.tags, pictureId); //Yet to be implemented
-//         showMetasyncSuccesBadge(pictureId);
-//         enableLocalButton(pictureId);
-//         enableGlobalButton();
-//       } else {
-//         console.error("Error:", response.message);
-//         showErrorLocalBadge(pictureId);
-//         enableLocalButton(pictureId);
-//         enableGlobalButton();
-//       }
-//     },
-//     error: function(xhr, status, error) {
-//       console.error("Error:", status, error);
-//       showErrorLocalBadge(pictureId);
-//       enableLocalButton(pictureId);
-//     }
-//   });
-// }
+// UPDATE BLOCKS
+function updateBlock(pictureId) {
+  $.ajax({
+    url: 'ws.php?format=json',
+    type: 'GET',
+    dataType: 'json',
+    data: {
+      method: 'pwg.images.getInfo',
+      image_id: pictureId
+    },
+    success: function(response) {
+      if (response.stat === 'ok') {
+        $("#picture-" + pictureId + " #name").val(response.result.name);
+        $("#picture-" + pictureId + " #author").val(response.result.author);
+        $("#picture-" + pictureId + " #date_creation").val(response.result.date_creation); //TODO
+        $("#picture-" + pictureId + " #description").val(response.result.comment);
+        $("#picture-" + pictureId + " #level").val(response.result.level);
+        $("#picture-" + pictureId + " #filename").text(response.result.file);
+        $("#picture-" + pictureId + " #filesize").text(response.result.filesize);
+        $("#picture-" + pictureId + " #dimensions").text(response.result.width + "x" + response.result.height);
+        // updateTags(response.result.tags, pictureId); //Yet to be implemented (TODO)
+        showMetasyncSuccesBadge(pictureId);
+        enableLocalButton(pictureId);
+        enableGlobalButton();
+      } else {
+        console.error("Error:", response.message);
+        showErrorLocalBadge(pictureId);
+        enableLocalButton(pictureId);
+        enableGlobalButton();
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error("Error:", status, error);
+      showErrorLocalBadge(pictureId);
+      enableLocalButton(pictureId);
+    }
+  });
+}
 // TAGS UPDATE Yet to be implemented
 // function updateTags(tagsData, pictureId) {
 //   const $tagsUpdate = $('#tags-'+pictureId).selectize({

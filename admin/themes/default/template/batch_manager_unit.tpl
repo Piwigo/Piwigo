@@ -157,7 +157,7 @@ pluginValues = [];
 					<a class="icon-signal tiptip" href="{$element.U_HISTORY}" title="Visit history"></a>
 					<a target="_blank" class="icon-pencil tiptip" href="{$element.U_EDIT}" title="{'Edit photo'|@translate}"></a>
 					{if !url_is_remote($element.PATH)}
-					{* <a class="icon-arrows-cw tiptip action-sync-metadata" title="{'Synchronize metadata'|@translate}"></a> *}
+					<a class="icon-arrows-cw tiptip action-sync-metadata" title="{'Synchronize metadata'|@translate}"></a>
 					<a class="icon-trash tiptip action-delete-picture" title="{'delete photo'|@translate}"></a>
 					{/if}  
 				</div>
