@@ -2836,16 +2836,6 @@ h2:lang(en) { text-transform:capitalize; }
   background: #999999;
 }
 
-.pluginContainer.line-form .pluginBox:hover .pluginContent .pluginActions a{
-  /* color: #ffffff; */
-  opacity: 1;
-}
-
-.pluginContainer.line-form .pluginBox.inactive:hover .pluginContent .pluginActions a{
-  background: transparent;
-  opacity: 0.7;
-}
-
 .pluginMiniBox.plugin-active .pluginActionsSmallIcons a span {
   background: #ffc17e !important;
   color: #3c3c3c !important;
