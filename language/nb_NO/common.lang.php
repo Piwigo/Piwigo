@@ -442,3 +442,8 @@ $lang['Pre-established filters are proposed, but you can add or remove them usin
 $lang['Search in :'] = 'Søk i:';
 $lang['Search in this set'] = 'Søk i dette settet';
 $lang['Unknown time period'] = 'Ukjent tidsperiode';
+$lang['Album already selected'] = 'Albumet er allerede valgt';
+$lang['Click here to display it'] = 'Klikk her for å vise den';
+$lang['Only the first %d albums are displayed, out of %d.'] = 'Kun de første %d albumene vises, av %d.';
+$lang['Pages'] = 'Sider';
+$lang['The PDF you requested is too large to display on this page.'] = 'PDF-en du ba om er for stor til å vises på denne siden.';
