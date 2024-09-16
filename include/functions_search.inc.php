@@ -510,7 +510,7 @@ SELECT
   //
   // ratings
   //
-  if (!empty($search['fields']['ratings']))
+  if ($conf['rate'] and !empty($search['fields']['ratings']))
   {
     $has_filters_filled = true;
 

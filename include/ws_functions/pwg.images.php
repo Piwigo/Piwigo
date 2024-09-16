@@ -724,7 +724,7 @@ SELECT *
  */
 function ws_images_filteredSearch_create($params, $service)
 {
-  global $user;
+  global $user, $conf;
 
   include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
@@ -938,7 +938,7 @@ function ws_images_filteredSearch_create($params, $service)
     $search['fields']['ratios'] = $params['ratios'];
   }
 
-  if (isset($params['ratings']))
+  if ($conf['rate'] and isset($params['ratings']))
   {
     $search['fields']['ratings'] = $params['ratings'];
   }

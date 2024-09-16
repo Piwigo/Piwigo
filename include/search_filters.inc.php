@@ -367,17 +367,21 @@ SELECT
   }
 
   // For rating
-  if (isset($my_search['fields']['ratings']))
+  if ($conf['rate'])
   {
-    $filter_clause = get_clause_for_filter('ratings');
-
-    $cache_key = $persistent_cache->make_key('filter_ratings'.$user['id'].$user['cache_update_time']);
-
-    $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $ratings);
-
-    if (!isset($ratings))
+    $template->assign('SHOW_FILTER_RATINGS', true);
+    
+    if (isset($my_search['fields']['ratings']))
     {
-      $query = '
+      $filter_clause = get_clause_for_filter('ratings');
+
+      $cache_key = $persistent_cache->make_key('filter_ratings'.$user['id'].$user['cache_update_time']);
+
+      $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $ratings);
+
+      if (!isset($ratings))
+      {
+        $query = '
 SELECT
     DISTINCT id,
     rating_score
@@ -385,43 +389,47 @@ SELECT
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
   WHERE '.$filter_clause;
 
-      $filter_rows = query2array($query);
+        $filter_rows = query2array($query);
 
-      $ratings = array_fill(0, 6, 0);
+        $ratings = array_fill(0, 6, 0);
 
-      foreach ($filter_rows as $row)
-      {
-        $r = 5;
-
-        if (!isset($row['rating_score']))
+        foreach ($filter_rows as $row)
         {
-          $r = 0;
-        }
-        else
-        {
-          for ($i=1; $i<=4; $i++)
+          $r = 5;
+
+          if (!isset($row['rating_score']))
           {
-            if ($row['rating_score'] < $i)
+            $r = 0;
+          }
+          else
+          {
+            for ($i=1; $i<=4; $i++)
             {
-              $r = $i;
-              break;
+              if ($row['rating_score'] < $i)
+              {
+                $r = $i;
+                break;
+              }
             }
           }
+
+          $ratings[$r]++;
         }
 
-        $ratings[$r]++;
+        if ($set_persistent_cache)
+        {
+          // for this filter, we do not store in cache the $filter_rows : for a big gallery it may
+          // take more than 10MB. It is smarter to store in cache the result of the computation,
+          // which is just around 100 bytes.
+          $persistent_cache->set($cache_key, $ratings);
+        }
       }
-
-      if ($set_persistent_cache)
-      {
-        // for this filter, we do not store in cache the $filter_rows : for a big gallery it may
-        // take more than 10MB. It is smarter to store in cache the result of the computation,
-        // which is just around 100 bytes.
-        $persistent_cache->set($cache_key, $ratings);
-      }
+      $template->assign('RATING', $ratings);
     }
-
-    $template->assign('RATING', $ratings);
+  }
+  else
+  {
+    $template->assign('SHOW_FILTER_RATINGS', false);
   }
 
   // For filesize

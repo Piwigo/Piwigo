@@ -85,6 +85,11 @@ const prefix_icon = 'gallery-icon-';
     {/if}
   };
 
+  {if $SHOW_FILTER_RATINGS and isset($RATING)}
+    var show_filter_ratings = true;
+  {else}
+    var show_filter_ratings = false;
+  {/if}
 
 {/footer_script}
 
@@ -129,10 +134,12 @@ const prefix_icon = 'gallery-icon-';
           <input data-wid='ratios' class="filter-manager-controller ratios" type="checkbox"/>
           <span class="mcs-icon gallery-icon-crop">{'Ratio'|@translate}</span>
         </label>
+{if $SHOW_FILTER_RATINGS and isset($SHOW_FILTER_RATINGS)}
         <label>
           <input data-wid='ratings' class="filter-manager-controller ratings" type="checkbox"/>
           <span class="mcs-icon gallery-icon-star-1">{'Rating'|@translate}</span>
         </label>
+{/if}
         <label>
           <input data-wid='filesize' class="filter-manager-controller filesize" type="checkbox"/>
           <span class="mcs-icon gallery-icon-hdd">{'Filesize'|@translate}</span>
@@ -519,9 +526,8 @@ const prefix_icon = 'gallery-icon-';
   </div>
   {/if}
 
-{* Add filter for rating *}
-
-  {if isset($RATING)}
+  {* Add filter for rating *}
+  {if $SHOW_FILTER_RATINGS and isset($RATING)}
   <div class="filter filter-ratings">
     <span class="mcs-icon mcs-icon gallery-icon-star-1 filter-icon"></span>
     </span><span class="search-words"></span>

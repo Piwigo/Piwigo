@@ -443,21 +443,29 @@ $(document).ready(function () {
   }
 
   // Setup rating filter
-  if (global_params.fields.ratings) {
+  if (global_params.fields.ratings && show_filter_ratings) {
 
     $(".filter-ratings").css("display", "flex");
     $(".filter-manager-controller.ratings").prop("checked", true);
 
     ratings_search_str = "";
-    global_params.fields.ratings.forEach(function(ft){
+    global_params.fields.ratings.forEach(function(ft, i){
       if(0 == ft )
       {
-        ratings_search_str = str_no_rating + ", ";
+        ratings_search_str += str_no_rating 
+        if(global_params.fields.ratings.length > 1)
+        {
+          ratings_search_str += ", ";
+        }
       }
       else
       {
-        ratings_search_str = str_between_rating.split("%d");
-        ratings_search_str = ratings_search_str[0] + (ft-1) + ratings_search_str[1] + ft + ratings_search_str[2];
+        str_between = str_between_rating.split("%d");
+        ratings_search_str += str_between[0] + (ft-1) + str_between[1] + ft + str_between[2];
+        if(global_params.fields.ratings.length-1 != i)
+        {
+          ratings_search_str += ", ";
+        }
       }
     });
   
@@ -481,6 +489,10 @@ $(document).ready(function () {
     PS_params.ratings = global_params.fields.ratings.length > 0 ?  global_params.fields.ratings  : '';
 
     empty_filters_list.push(PS_params.ratings);
+  }
+  else if (!show_filter_ratings)
+  {
+    updateFilters('ratings', 'add');
   }
 
   // Setup filesize filter
