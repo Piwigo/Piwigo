@@ -2,6 +2,7 @@
 .gallery-icon-tag:before { content: '\2d'; } /* '-' */
 .gallery-icon-up-open:before { content: '\e800'; } /* '' */
 .gallery-icon-user:before { content: '\e805'; } /* '' */
+.gallery-icon-list-check:before { content: '\e810'; } /* '' */
 .gallery-icon-menu:before { content: '\e811'; } /* '' */
 .gallery-icon-arrow-rotate-left:before { content: '\e817'; } /* '' */
 .gallery-icon-user-edit:before { content: '\e818'; } /* '' */
