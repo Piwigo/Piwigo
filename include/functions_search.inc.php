@@ -477,6 +477,88 @@ SELECT
   }
 
   //
+  // date_created
+  //
+  if (!empty($search['fields']['date_created']['preset']))
+  {
+
+    $has_filters_filled = true;
+
+    $options = array(
+      '24h' => '24 HOUR',
+      '7d' => '7 DAY',
+      '30d' => '30 DAY',
+      '3m' => '3 MONTH',
+      '6m' => '6 MONTH',
+    );
+
+    if (isset($options[ $search['fields']['date_created']['preset'] ]) and 'custom' != $search['fields']['date_created']['preset'])
+    {
+      $date_created_clause = 'date_creation > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_created']['preset'] ].')';
+    }
+    elseif ('custom' == $search['fields']['date_created']['preset'] and isset($search['fields']['date_created']['custom']))
+    {
+      $date_created_subclauses = array();
+      $custom_dates = array_flip($search['fields']['date_created']['custom']);
+
+      foreach (array_keys($custom_dates) as $custom_date)
+      {
+        // in real-life tests, we have determined "where year(date_creation) = 2024" was
+        // far less (4 times less) than "where date_creation between '2024-01-01 00:00:00' and '2024-12-31 23:59:59'"
+        // so let's find the begin/end for each custom date
+        // ... and also, no need to search for images of 2023-10-16 if 2023-10 is already requested
+        $begin = $end = null;
+
+        $ymd = substr($custom_date, 0, 1);
+        if ('y' == $ymd)
+        {
+          $year = substr($custom_date, 1);
+          $begin = $year.'-01-01 00:00:00';
+          $end = $year.'-12-31 23:59:59';
+        }
+        elseif ('m' == $ymd)
+        {
+          list($year, $month) = explode('-', substr($custom_date, 1));
+
+          if (!isset($custom_dates['y'.$year]))
+          {
+            $begin = $year.'-'.$month.'-01 00:00:00';
+            $end = $year.'-'.$month.'-'.cal_days_in_month(CAL_GREGORIAN, (int)$month, (int)$year).' 23:59:59';
+          }
+        }
+        elseif ('d' == $ymd)
+        {
+          list($year, $month, $day) = explode('-', substr($custom_date, 1));
+
+          if (!isset($custom_dates['y'.$year]) and !isset($custom_dates['m'.$year.'-'.$month]))
+          {
+            $begin = $year.'-'.$month.'-'.$day.' 00:00:00';
+            $end = $year.'-'.$month.'-'.$day.' 23:59:59';
+          }
+        }
+
+        if (!empty($begin))
+        {
+          $date_created_subclauses[] = 'date_creation BETWEEN "'.$begin.'" AND "'.$end.'"';
+        }
+      }
+
+      $date_created_clause = '('.implode(' OR ', prepend_append_array_items($date_created_subclauses, '(', ')')).')';
+    }
+
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE '.$date_created_clause.'
+  '.$forbidden.'
+;';
+
+    $image_ids_for_filter['date_created'] = query2array($query, null, 'id');
+  }
+
+  //
   // ratios
   //
   if (!empty($search['fields']['ratios']))

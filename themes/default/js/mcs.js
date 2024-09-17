@@ -187,7 +187,7 @@ $(document).ready(function () {
     $(".custom_posted_date .date_posted-option input").change(function() {
       var parentOption = $(this).parent()
 
-      if(true == $(this).prop("checked")){
+      if($(this).is(":checked")){
         // Toggle tick icon on selected date in custom list
         $(this).siblings('label').find('.checked-icon').show();
 
@@ -274,6 +274,133 @@ $(document).ready(function () {
 
     empty_filters_list.push(PS_params.date_posted_preset);
     empty_filters_list.push(PS_params.date_posted_custom);
+  }
+
+  // Setup Date creation filter
+
+  if (global_params.fields.date_created) {
+    $(".filter-date_created").css("display", "flex");
+    $(".filter-manager-controller.date_created").prop("checked", true);
+
+    if (global_params.fields.date_created.preset != null && global_params.fields.date_created.preset != "") {
+      // If filter is used and not empty check preset date option
+      $("#date_created-" + global_params.fields.date_created.preset).prop("checked", true);
+      date_created_str = $('.date_created-option label#'+ global_params.fields.date_created.preset +' .date-period').text();
+
+      // if option is custom check custom dates
+      if ('custom' == global_params.fields.date_created.preset && global_params.fields.date_created.custom != null)
+      {
+        date_created_str = '';
+        var customArray = global_params.fields.date_created.custom
+
+        $(customArray).each(function( index ) {
+          var customValue = this.substring(1, $(this).length);
+
+          $("#date_created_"+customValue).prop("checked", true).addClass('selected');
+          $("#date_created_"+customValue).siblings('label').find('.checked-icon').show();
+
+          date_created_str += $('.date_created-option label#'+ customValue +' .date-period').text()
+
+          if($(global_params.fields.date_created.custom).length > 1 && index != $(customArray).length-1)
+          {
+            date_created_str += ', ';
+          }
+        });
+      }
+      
+      // change badge label if filter not empty
+      $(".filter-date_created").addClass("filter-filled");
+      $(".filter.filter-date_created .search-words").text(date_created_str);
+    }
+
+    $(".filter-date_created .filter-actions .clear").on('click', function () {
+      updateFilters('date_created', 'add');
+      $(".date_created-option input").prop('checked', false);
+      $(".date_created-option input").trigger('change');
+
+      // $('.date_created-option input').removeAttr('disabled');
+      // $('.date_created-option input').removeClass('grey-icon'); 
+    });
+
+    // Disable possiblity for user to select custom option, its gets selected programtically later on
+    $("#date_created_custom").attr('disabled', 'disabled');
+
+    // Handle toggle between preset and custom options
+    $(".custom_created_date_toggle").on("click", function (e) {
+      $('.custom_created_date').toggle()
+      $('.preset_created_date').toggle()
+    });
+
+    // Handle accoridan features in custom options
+    $(".custom_created_date .accordion-toggle").on("click", function (e) {
+      var clickedOption = $(this).parent();
+      $(clickedOption).toggleClass('show-child');
+      if('year' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_created-option.month').toggle();
+      }
+      else if('month' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_created-option.day').toggle();
+      }
+    });
+
+    // On custom date input select
+    $(".custom_created_date .date_created-option input").change(function() {
+      var parentOption = $(this).parent()
+
+      if($(this).is(":checked")){
+        // Toggle tick icon on selected date in custom list
+        $(this).siblings('label').find('.checked-icon').show();
+
+        // Add class selected to selected option,
+        // We want to find which are selected to handle the others
+        $(this).addClass('selected')
+        $(parentOption).addClass('selected')
+        $(parentOption).find('.mcs-icon').addClass('selected')
+      }
+      else
+      {
+        // Toggle tick icon on selected date in custom list
+        $(this).siblings('label').find('.checked-icon').hide();
+
+        // Add class selected to selected option,
+        // We want to find which are selected to handle the others
+        $(this).removeClass('selected')
+        $(parentOption).removeClass('selected')
+        $(parentOption).find('.mcs-icon').removeClass('selected')
+      }
+      // if this is selected then disable selecting children, and display grey tick 
+
+      // Used to select custom in preset list if dates are selected
+      if($('.custom_created_date input:checked').length > 0)
+      {
+        $("#date_created-custom").prop('checked', true);
+        $('.preset_created_date input').attr('disabled', 'disabled');
+      }
+      else{
+        $("#date_created-custom").prop('checked', false);
+        $('.preset_created_date input').removeAttr('disabled');
+      }
+
+    });
+
+    // Used to select custom in preset list if dates are selected
+    if($('.custom_created_date input:checked').length > 0)
+    {
+      $("#date_created-custom").prop('checked', true);
+      $('.preset_created_date input').attr('disabled', 'disabled');
+    }
+    else{
+      $("#date_created-custom").prop('checked', false);
+      $('.preset_created_date input').removeAttr('disabled');
+    }
+
+    PS_params.date_created_preset = global_params.fields.date_created.preset != '' ? global_params.fields.date_created.preset : '';
+    PS_params.date_created_custom = global_params.fields.date_created.custom != '' ? global_params.fields.date_created.custom : '';
+
+    empty_filters_list.push(PS_params.date_created_preset);
+    empty_filters_list.push(PS_params.date_created_custom);
   }
 
   // Setup album filter
@@ -620,7 +747,7 @@ $(document).ready(function () {
       exclude_params = ['search_id', 'allwords_mode', 'allwords_fields', 'tags_mode', 'categories_withsubs'];
       for (const key in PS_params) {
         if (!exclude_params.includes(key)) {
-          if("date_posted_custom" == key)
+          if("date_posted_custom" == key || "date_created_custom" == key)
           {
             PS_params[key] = [];
           }
@@ -865,6 +992,58 @@ $(document).ready(function () {
     performSearch(PS_params, true);
     if (!$(".filter-date_posted").hasClass("filter-filled")) {
       $(".filter-date_posted").hide();
+      $(".filter-manager-controller.date").prop("checked", false);
+    }
+  });
+
+  /**
+ * Filter Date created
+ */
+  $(".filter-date_created").on("click", function (e) {
+    if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form")) {
+      return;
+    }
+    $(".filter-date_created-form").toggle(0, function () {
+      if ($(this).is(':visible'))
+      {
+        $(".filter-date_created").addClass("show-filter-dropdown");
+      }
+      else 
+      {
+        $(".filter-date_created").removeClass("show-filter-dropdown");
+
+        var presetValue = $(".preset_created_date .date_created-option input:checked").val();
+
+        global_params.fields.date_created.preset = presetValue;
+        PS_params.date_created_preset = presetValue != null ? presetValue : "";
+        
+        if ('custom' == presetValue)
+        {
+          var customDates = [];
+
+          $(".custom_created_date .date_created-option input:checked").each(function(){
+            customDates.push($(this).val());
+          });
+
+          global_params.fields.date_created.custom = customDates;
+          PS_params.date_created_custom = customDates.length > 0 ? customDates : "";
+        }
+      
+      }
+    });
+  });
+
+  $(".filter-date_created .filter-validate").on("click", function () {
+    $(".filter-date_created").trigger("click");
+    performSearch(PS_params, true);
+  });
+  
+  $(".filter-date_created .filter-actions .delete").on("click", function () {
+    updateFilters('date_created', 'del');
+    performSearch(PS_params, true);
+    if (!$(".filter-date_created").hasClass("filter-filled")) {
+      $(".filter-date_created").hide();
       $(".filter-manager-controller.date").prop("checked", false);
     }
   });
@@ -1341,6 +1520,24 @@ function updateFilters(filterName, mode) {
 
         delete PS_params.date_posted_preset;
         delete PS_params.date_posted_custom;
+      }
+      break;
+
+    case 'date_created':
+      if (mode == 'add') {
+        global_params.fields['date_created'] = {};
+        global_params.fields.date_created.preset = '';
+        global_params.fields.date_created.custom = [];
+
+        PS_params.date_created_preset = '';
+        PS_params.date_created_custom = [];
+
+      } else if (mode == 'del') {
+        delete global_params.fields.date_created.preset;
+        delete global_params.fields.date_created.custom;
+
+        delete PS_params.date_created_preset;
+        delete PS_params.date_created_custom;
       }
       break;
 

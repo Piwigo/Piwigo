@@ -222,6 +222,112 @@ SELECT
     $template->assign('DATE_POSTED', $counters);
   }
 
+  if (isset($my_search['fields']['date_created']))
+  {
+    $filter_clause = get_clause_for_filter('date_created');
+    $cache_key = $persistent_cache->make_key('filter_date_created'.$user['id'].$user['cache_update_time']);
+    $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $date_created);
+
+    if (!isset($date_created))
+    {
+      $query = '
+SELECT
+    SUBDATE(NOW(), INTERVAL 24 HOUR) AS 24h,
+    SUBDATE(NOW(), INTERVAL 7 DAY) AS 7d,
+    SUBDATE(NOW(), INTERVAL 30 DAY) AS 30d,
+    SUBDATE(NOW(), INTERVAL 3 MONTH) AS 3m,
+    SUBDATE(NOW(), INTERVAL 6 MONTH) AS 6m
+;';
+      $thresholds = query2array($query)[0];
+
+      $query = '
+SELECT
+    DISTINCT id,
+    date_creation as date
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE '.$filter_clause.'
+;';
+
+      $list_of_dates = array();
+      $pre_counters = array();
+
+      $result = pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($result))
+      {
+        if(!empty($row['date'])){
+          foreach ($thresholds as $threshold => $date_limit)
+          {
+            if ($row['date'] > $date_limit)
+            {
+              @$pre_counters[$threshold]++;
+            }
+          }
+
+          list($date_without_time) = explode(' ', $row['date']);
+          list($y, $m) = explode('-', $date_without_time);
+
+          @$list_of_dates[$y]['months'][$y.'-'.$m]['days'][$date_without_time]['count']++;
+          @$list_of_dates[$y]['months'][$y.'-'.$m]['count']++;
+          @$list_of_dates[$y]['count']++;
+        }
+      }
+
+      $date_created = array(
+        'pre_counters' => $pre_counters,
+        'list_of_dates' => $list_of_dates,
+      );
+
+      if ($set_persistent_cache)
+      {
+        // for this filter, we do not store in cache the $filter_rows : for a big gallery it may
+        // take more than 10MB. It is smarter to store in cache the result of the computation,
+        // which is just around 100 bytes.
+        $persistent_cache->set($cache_key, $date_created);
+      }
+    }
+
+    $label_for_threshold = array(
+      '24h' => l10n('last 24 hours'),
+      '7d' => l10n('last 7 days'),
+      '30d' => l10n('last 30 days'),
+      '3m' => l10n('last 3 months'),
+      '6m' => l10n('last 6 months'),
+    );
+
+    $counters = array();
+    foreach (array_keys($label_for_threshold) as $threshold)
+    {
+      if (isset($date_created['pre_counters'][$threshold]))
+      {
+        $counters[$threshold] = array(
+          'label' => $label_for_threshold[$threshold],
+          'counter' => $date_created['pre_counters'][$threshold],
+        );
+      }
+    }
+
+    foreach (array_keys($date_created['list_of_dates']) as $y)
+    {
+      $date_created['list_of_dates'][$y]['label'] = l10n('year %d', $y);
+
+      foreach (array_keys($date_created['list_of_dates'][$y]['months']) as $ym)
+      {
+        list(,$m) = explode('-', $ym);
+        $date_created['list_of_dates'][$y]['months'][$ym]['label'] = $lang['month'][(int)$m].' '.$y;
+
+        foreach (array_keys($date_created['list_of_dates'][$y]['months'][$ym]['days']) as $ymd)
+        {
+          list(,,$d) = explode('-', $ymd);
+          $date_created['list_of_dates'][$y]['months'][$ym]['days'][$ymd]['label'] = format_date($ymd);
+        }
+      }
+    }
+    $template->assign('LIST_DATE_CREATED', $date_created['list_of_dates']);
+    $template->assign('DATE_CREATED', $counters);
+  }
+
+
   if (isset($my_search['fields']['added_by']))
   {
     $filter_clause = get_clause_for_filter('added_by');

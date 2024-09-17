@@ -234,6 +234,7 @@
 
 .filter-filetypes-form .filter-actions,
 .filter-date_posted-form .filter-actions,
+.filter-date_created-form .filter-actions,
 .filter-ratios-form .filter-actions,
 .filter-ratings-form .filter-actions{
   gap: 5px;
@@ -309,6 +310,7 @@
 .filetypes-option-container,
 .added_by-option-container,
 .date_posted-option-container,
+.date_created-option-container,
 .ratios-option-container
 .ratings-option-container {
   display: flex;
@@ -319,7 +321,8 @@
 }
 
 
-.date_posted-option-container {
+.date_posted-option-container,
+.date_created-option-container {
   margin: 10px 0 10px 0;
 }
 
@@ -331,6 +334,7 @@
 .filetypes-option input,
 .added_by-option input,
 .date_posted-option input,
+.date_created-option input,
 .ratios-option input,
 .ratings-option input {
   display: none;
@@ -339,6 +343,7 @@
 .filetypes-option label,
 .added_by-option label,
 .preset_posted_date .date_posted-option label,
+.preset_created_date .date_created-option label,
 .ratios-option label,
 .ratings-option label{
   display: flex;
@@ -352,14 +357,16 @@
 .added_by-option label .checked-icon,
 .ratios-option label .checked-icon,
 .ratings-option label .checked-icon,
-.preset_posted_date .date_posted-option label .checked-icon{
+.preset_posted_date .date_posted-option label .checked-icon,
+.preset_created_date .date_created-option label .checked-icon{
   display: none;
   position: absolute;
   left: 3px;
   top: 4px;
 }
 
-.custom_posted_date .date_posted-option label .checked-icon{
+.custom_posted_date .date_posted-option label .checked-icon,
+.custom_created_date .date_created-option label .checked-icon{
   display: none;
   position: absolute;
   right: 3px;
@@ -374,6 +381,7 @@
 .added_by-option label .added_by-name,
 .ratios-option label .ratio-name,
 .preset_posted_date .date_posted-option .date-period,
+.preset_created_date .date_created-option .date-period,
 .ratings-option label .ratings-name {
   margin-left: 30px;
 }
@@ -383,7 +391,8 @@
   margin-right: 10px;
 }
 
-.custom_posted_date .date_posted-option label .date-period{
+.custom_posted_date .date_posted-option label .date-period,
+.custom_created_date .date_created-option label .date-period{
   margin-right: 30px;
 }
 
@@ -391,14 +400,16 @@
 .added_by-option label .added_by-badge,
 .ratios-option label .ratio-badge,
 .ratings-option label .ratings-badge,
-.preset_posted_date .date_posted-option label .date_posted-badge  {
+.preset_posted_date .date_posted-option label .date_posted-badge,
+.preset_created_date .date_created-option label .date_created-badge {
   margin-left: auto;
   border-radius: 10px;
   padding: 0 5px;
   font-weight: 600;
 }
 
-.custom_posted_date .date_posted-option label .date_posted-badge{
+.custom_posted_date .date_posted-option label .date_posted-badge,
+.custom_created_date .date_created-option label .date_created-badge{
   border-radius: 10px;
   padding: 0 5px;
   font-weight: 600;
@@ -408,11 +419,13 @@
 .added_by-option input:checked + label .checked-icon,
 .ratios-option input:checked + label .checked-icon,
 .ratings-option input:checked + label .checked-icon,
-.preset_posted_date .date_posted-option input:checked + label .checked-icon{
+.preset_posted_date .date_posted-option input:checked + label .checked-icon,
+.preset_created_date .date_created-option input:checked + label .checked-icon{
   display: block;
 }
 
 .filter-date_posted-form,
+.filter-date_created-form,
 .filter-album-form {
   width: 400px;
 }
@@ -440,7 +453,8 @@
   display:flex
 }
 
-.date_posted-option label{
+.date_posted-option label,
+.date_created-option label{
   display: flex;
   flex-direction: row;
   align-items: baseline;
@@ -449,35 +463,43 @@
   margin-left:-1px;
 }
 
-.custom_posted_date .date_posted-option label{
+.custom_posted_date .date_posted-option label,
+.custom_created_date .date_created-option label{
   width:100%;
 }
 
-.date_posted-option .accordion-toggle{
+.date_posted-option .accordion-toggle,
+.date_created-option .accordion-toggle{
   padding:5px;
   rotate:90deg;
 }
 
-.date_posted-option .accordion-toggle:hover{
+.date_posted-option .accordion-toggle:hover,
+.date_created-option .accordion-toggle:hover{
   color:#ff7700;
   cursor:pointer;
 }
 
-.date_posted-option.month{
+.date_posted-option.month,
+.date_created-option.month{
   margin-left:15px;
   display:none;
 }
-.date_posted-option.day{
+
+.date_posted-option.day,
+.date_created-option.day{
   margin-left:30px;
   margin-right:10px;
   display:none;
 }
 
-.date_posted-option .show-child .accordion-toggle::before {
+.date_posted-option .show-child .accordion-toggle::before,
+.date_created-option .show-child .accordion-toggle::before {
   transform: rotate(90deg);
 }
 
-.custom_posted_date{
+.custom_posted_date,
+.custom_created_date{
   display:none;
 }
 
@@ -485,21 +507,25 @@
   display:block!important;
 }
 
-.custom_posted_date_toggle{
+.custom_posted_date_toggle,
+.custom_created_date_toggle{
   cursor:pointer;
 }
 
-.date_posted-option .custom_posted_date_toggle{
+.date_posted-option .custom_posted_date_toggle,
+.date_created-option .custom_created_date_toggle{
   padding: 5px 0;
   border-top: .3px solid #aaa;
   border-bottom: .3px solid #aaa;
 }
 
-.custom_posted_date_toggle .gallery-icon-up-open:before{
+.custom_posted_date_toggle .gallery-icon-up-open:before,
+.custom_created_date_toggle .gallery-icon-up-open:before{
   rotate: -90deg;
 }
 
-.custom_posted_date.custom_posted_date_toggle{
+.custom_posted_date.custom_posted_date_toggle,
+.custom_created_date.custom_created_date_toggle{
   position:absolute;
 }
 

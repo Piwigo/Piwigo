@@ -925,6 +925,72 @@ function ws_images_filteredSearch_create($params, $service)
     }
   }
 
+  if (isset($params['date_created_preset']))
+  {
+    if (!preg_match('/^(24h|7d|30d|3m|6m|custom|)$/', $params['date_created_preset']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_created_preset');
+    }
+
+    @$search['fields']['date_created']['preset'] = $params['date_created_preset'];
+
+    if ('custom' == $search['fields']['date_created']['preset'] and empty($params['date_created_custom']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'date_created_custom is missing');
+    }
+  }
+
+  if (isset($params['date_created_custom']))
+  {
+    if (!isset($search['fields']['date_created']['preset']) or $search['fields']['date_created']['preset'] != 'custom')
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'date_created_custom provided date_created_preset is not custom');
+    }
+
+    foreach ($params['date_created_custom'] as $date)
+    {
+      $correct_format = false;
+
+      $ymd = substr($date, 0, 1);
+      if ('y' == $ymd)
+      {
+        if (preg_match('/^y(\d{4})$/', $date, $matches))
+        {
+          $correct_format = true;
+        }
+      }
+      elseif ('m' == $ymd)
+      {
+        if (preg_match('/^m(\d{4}-\d{2})$/', $date, $matches))
+        {
+          list($year, $month) = explode('-', $matches[1]);
+          if ($month >= 1 and $month <= 12)
+          {
+            $correct_format = true;
+          }
+        }
+      }
+      elseif ('d' == $ymd)
+      {
+        if (preg_match('/^d(\d{4}-\d{2}-\d{2})$/', $date, $matches))
+        {
+          list($year, $month, $day) = explode('-', $matches[1]);
+          if ($month >= 1 and $month <= 12 and $day >= 1 and $day <= cal_days_in_month(CAL_GREGORIAN, (int)$month, (int)$year))
+          {
+            $correct_format = true;
+          }
+        }
+      }
+
+      if (!$correct_format)
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'date_created_custom, invalid option '.$date);
+      }
+
+      @$search['fields']['date_created']['custom'][] = $date;
+    }
+  }
+
   if (isset($params['ratios']))
   {
     foreach ($params['ratios'] as $ext)

@@ -1462,6 +1462,14 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
           'info' => 'Must be provided if date_posted_preset is custom. List of yYYYY or mYYYY-MM or dYYYY-MM-DD.',
         ),
+        'date_created_preset' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'files created within 24 hours, 7 days, 30 days, 3 months, 6 months or custom. Value among 24h|7d|30d|3m|6m|custom.',
+        ),
+        'date_created_custom' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'info' => 'Must be provided if date_created_preset is custom. List of yYYYY or mYYYY-MM or dYYYY-MM-DD.',
+        ),
         'ratios' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
         ),
