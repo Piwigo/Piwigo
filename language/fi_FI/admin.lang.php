@@ -979,3 +979,5 @@ $lang['orphans to delete'] = 'orvot kuvat poistettavaksi';
 $lang['right now'] = 'juuri nyt';
 $lang['since the beginning'] = 'alusta alkaen';
 $lang['sub-albums'] = 'ala-albumit';
+$lang['%d in whole branch'] = '%d koko haarassa';
+$lang['%d files'] = '%d tiedostoa';
