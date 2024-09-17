@@ -280,7 +280,7 @@ $(document).ready(function() {
           <input id="user_search2" class='search-input2' type='text' placeholder='{'Search'|@translate}'> 
           <span class='icon-search search-icon'> </span>
           <span class="icon-cancel search-cancel"{if isset($search_input)} style="display:inline"{/if}></span>
-          <input id="user_search" class='search-input' type='text' placeholder='{'Search'|@translate}'{if isset($search_input)} value="{$search_input}"{/if}>
+          <input autocomplete="one-time-code" id="user_search" class='search-input' type='text' placeholder='{'Search'|@translate}'{if isset($search_input)} value="{$search_input}"{/if}>
         </div>
     <div class="advanced-filter">
       <div class="advanced-filter-header">
