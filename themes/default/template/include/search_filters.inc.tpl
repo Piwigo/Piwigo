@@ -283,12 +283,12 @@ const prefix_icon = 'gallery-icon-';
       <div class="date_posted-option-container">
         <div class="preset_posted_date">
   {foreach from=$DATE_POSTED item=date_posted key=k}
-          <div class="date_posted-option">
-            <input type="radio" id="date_posted-{$k}" value={$k} name="date_posted-period">
+          <div class="date_posted-option {if 0 == $date_posted.counter}disabled{/if}">
+            {if 0 != $date_posted.counter}<input type="radio" id="date_posted-{$k}" value={$k} name="date_posted-period">{/if}
             <label for="date_posted-{$k}" id="{$k}">
               <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
               <span class="date-period">{$date_posted.label}</span>
-              <span class="date_posted-badge">{$date_posted.counter}</span>
+              {if 0 != $date_posted.counter}<span class="date_posted-badge">{$date_posted.counter}</span>{/if}
             </label>
           </div>
   {/foreach}
@@ -575,7 +575,7 @@ const prefix_icon = 'gallery-icon-';
       <div class="form-container">
         <div class="filetypes-option-container">
         {foreach from=$FILETYPES item=filetypes key=k}
-          <div class="filetypes-option {if 0 == $filetypes}disabled{/if}"">
+          <div class="filetypes-option {if 0 == $filetypes}disabled{/if}">
           <input type="checkbox" id="filetype-{$k}" name="{$k}" {if 0 == $filetypes}disabled{/if}>
               <label for="filetype-{$k}">
                 <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>

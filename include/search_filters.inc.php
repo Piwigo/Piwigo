@@ -192,13 +192,10 @@ SELECT
     $counters = array();
     foreach (array_keys($label_for_threshold) as $threshold)
     {
-      if (isset($date_posted['pre_counters'][$threshold]))
-      {
-        $counters[$threshold] = array(
-          'label' => $label_for_threshold[$threshold],
-          'counter' => $date_posted['pre_counters'][$threshold],
-        );
-      }
+      $counters[$threshold] = array(
+        'label' => $label_for_threshold[$threshold],
+        'counter' => $date_posted['pre_counters'][$threshold] ?? 0,
+      );
     }
 
     foreach (array_keys($date_posted['list_of_dates']) as $y)
