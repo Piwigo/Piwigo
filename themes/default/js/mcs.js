@@ -144,6 +144,10 @@ $(document).ready(function () {
             date_posted_str += ', ';
           }
         });
+
+        $('.date_posted-option.year').each(function () {
+          updateDateFilters(`.custom_posted_date #${$(this).attr('id')}`);
+        });
       }
       
       // change badge label if filter not empty
@@ -155,9 +159,6 @@ $(document).ready(function () {
       updateFilters('date_posted', 'add');
       $(".date_posted-option input").prop('checked', false);
       $(".date_posted-option input").trigger('change');
-
-      // $('.date_posted-option input').removeAttr('disabled');
-      // $('.date_posted-option input').removeClass('grey-icon'); 
     });
 
     // Disable possiblity for user to select custom option, its gets selected programtically later on
@@ -183,67 +184,16 @@ $(document).ready(function () {
       }
     });
 
+    // For debug
+    // $('.date_posted-option-container').find(':input').show();
+
     // On custom date input select
     $(".custom_posted_date .date_posted-option input").change(function() {
-      var parentOption = $(this).parent()
+      const parentOption = $(this).parent();
+      const currentYear = $(this).data('year');
 
-      if($(this).is(":checked")){
-        // Toggle tick icon on selected date in custom list
-        $(this).siblings('label').find('.checked-icon').show();
-
-        // Add class selected to selected option,
-        // We want to find which are selected to handle the others
-        $(this).addClass('selected')
-        $(parentOption).addClass('selected')
-        $(parentOption).find('.mcs-icon').addClass('selected')
-      }
-      else
-      {
-        // Toggle tick icon on selected date in custom list
-        $(this).siblings('label').find('.checked-icon').hide();
-
-        // Add class selected to selected option,
-        // We want to find which are selected to handle the others
-        $(this).removeClass('selected')
-        $(parentOption).removeClass('selected')
-        $(parentOption).find('.mcs-icon').removeClass('selected')
-      }
-
-      // TODO finish handling grey tick on child options, and having specifi icon to show children are selected 
-
-      // if this is selected then disable selecting children, and display grey tick 
-      // var selectedContainerID = $(this).parent().parent().attr('id');
-      // if ($(this).is(":checked"))
-      // {
-      //   $('#'+selectedContainerID+' .date_posted-option input').not('.selected').attr('disabled', 'disabled');
-      //   $('#'+selectedContainerID+' .date_posted-option .mcs-icon').not('.selected').addClass('grey-icon');
-
-      //   if($(parentOption).hasClass('year'))
-      //   {
-      //     if($(parentOption).find('label .mcs-icon').hasClass('gallery-icon-menu'))
-      //     {
-      //       $(parentOption).find('label .mcs-icon').toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
-      //     } 
-      //   }
-      //   else if($(parentOption).hasClass('month'))
-      //   {
-      //     $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
-      //   }
-      //   else if ($(parentOption).hasClass('day'))
-      //   {
-      //     $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
-      //     $(this).parents('.month').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark').show();
-      //   }
-      // }
-      // else
-      // {
-      //   $('#'+selectedContainerID+' .date_posted-option input').not('.selected').removeAttr('disabled');
-      //   $('#'+selectedContainerID+' .date_posted-option .mcs-icon').not('.selected').removeClass('grey-icon');
-
-      //   $(this).parents('.year').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
-      //   $(this).parents('.month').find('label .mcs-icon').first().toggleClass('gallery-icon-menu gallery-icon-checkmark grey-icon');
-          
-      // }
+      const selector = `.custom_posted_date #container_${currentYear}`;
+      updateDateFilters(selector);
 
       // Used to select custom in preset list if dates are selected
       if($('.custom_posted_date input:checked').length > 0)
@@ -1608,6 +1558,82 @@ function updateFilters(filterName, mode) {
 
 function reloadPage(url){
   window.location.href = url;
+}
+
+function updateDateFilters(selector) {
+  const ctx = $(selector);
+  const inputYear = ctx.find('.year_input input');
+  const iconYear = ctx.find('.year_input .mcs-icon');
+  const allMonth = ctx.find('.months_container').children();
+  const allDays = ctx.find('.days_container').children();
+  let yearIsCheck = false;
+
+  // check year
+  // year state
+  // check => check mark
+  // uncheck with children checked => outline check mark
+  // uncheck without children checked => hide
+  if (inputYear.is(':checked')) {
+    console.log('state : Year is check')
+    yearIsCheck = true;
+    ctx.find(':input:not(:checked)').attr('disabled', true);
+    iconYear.removeClass('gallery-icon-check-outline grey-icon')
+      .addClass('gallery-icon-checkmark').show();
+  } else if (ctx.find(':input:checked').length) {
+    console.log('state :  Year is uncheck but have children', ctx.find(':input:checked'));
+    ctx.find(':input').attr('disabled', false);
+    iconYear.removeClass('gallery-icon-checkmark')
+      .addClass('gallery-icon-check-outline grey-icon').show();
+  } else {
+    console.log('state: Year is uncheck and doesnt have children');
+    ctx.find(':input').attr('disabled', false);
+    iconYear.removeClass('grey-icon').hide();
+  }
+
+  // check month and his days
+  // month state
+  // check => check mark
+  // uncheck with children check => outline check mark
+  // uncheck with no children and year is checked => grey check mark
+  // uncheck with no children => hide
+  allMonth.each(function () {
+    const monthInput = $(this).find('.month_input input');
+    const iconMonth = $(this).find('.month_input .mcs-icon');
+    const allDays = $(this).find('.days_container').children();
+    let monthIsChecked = false;
+
+    if (monthInput.is(':checked')) {
+      monthIsChecked = true;
+      allDays.find(':input:not(:checked)').attr('disabled', true);
+      iconMonth.removeClass('gallery-icon-check-outline grey-icon')
+      .addClass('gallery-icon-checkmark').show();
+    } else if (allDays.find(':input:checked').length) {
+      iconMonth.removeClass('gallery-icon-checkmark')
+        .addClass('gallery-icon-check-outline grey-icon').show();
+    } else if (yearIsCheck) {
+      iconMonth.removeClass('gallery-icon-check-outline')
+        .addClass('gallery-icon-checkmark grey-icon').show();
+    } else {
+      iconMonth.removeClass('grey-icon').hide();
+    }
+
+    // day state
+    // check => check mark
+    // uncheck with year or month checked => grey check mark
+    // uncheck without year or month checked => hide
+    allDays.each(function () {
+      const inputDay = $(this).find('input');
+      const iconDay = $(this).find('.mcs-icon');
+
+      if (inputDay.is(':checked')) {
+        iconDay.removeClass('grey-icon').show();
+      } else if (monthIsChecked || yearIsCheck) {
+        iconDay.addClass('grey-icon').show();
+      } else {
+        iconDay.removeClass('grey-icon').hide();
+      }
+    });
+  });
 }
 
 /**

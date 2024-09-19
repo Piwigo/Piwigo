@@ -305,7 +305,7 @@ const prefix_icon = 'gallery-icon-';
   {foreach from=$LIST_DATE_POSTED key=y item=year}
           <div class="date_posted-option year" id="container_{$y}">
             <div class="year_input">
-              <input type="checkbox" id="date_posted_{$y}" value='y{$y}'>
+              <input type="checkbox" id="date_posted_{$y}" value='y{$y}' data-year="{$y}">
               <i class="gallery-icon-up-open accordion-toggle" data-type='year'></i>
               <label for="date_posted_{$y}" id="{$y}">
                 <span class="date-period">{$year.label}</span>
@@ -318,7 +318,7 @@ const prefix_icon = 'gallery-icon-';
     {foreach from=$year.months key=m item=month}
               <div class="date_posted-option month" id="container_{$m}">
                 <div class="month_input">
-                  <input type="checkbox" id="date_posted_{$m}" value='m{$m}'>
+                  <input type="checkbox" id="date_posted_{$m}" value='m{$m}' data-year="{$y}">
                   <i class="gallery-icon-up-open accordion-toggle" data-type='month'></i>
                   <label for="date_posted_{$m}" id="{$m}">
                     <span class="date-period">{$month.label}</span>
@@ -330,7 +330,7 @@ const prefix_icon = 'gallery-icon-';
                 <div class="days_container">
       {foreach from=$month.days key=d item=day}
                   <div class="date_posted-option day" id="container_{$d}">
-                    <input type="checkbox" id="date_posted_{$d}" value='d{$d}'>
+                    <input type="checkbox" id="date_posted_{$d}" value='d{$d}' data-year="{$y}">
                     <label for="date_posted_{$d}" id="{$d}">
                       <span class="date-period">{$day.label}</span>
                       <span class="date_posted-badge">{$day.count}</span>
