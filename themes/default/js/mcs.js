@@ -189,7 +189,6 @@ $(document).ready(function () {
 
     // On custom date input select
     $(".custom_posted_date .date_posted-option input").change(function() {
-      const parentOption = $(this).parent();
       const currentYear = $(this).data('year');
 
       const selector = `.custom_posted_date #container_${currentYear}`;
@@ -256,6 +255,10 @@ $(document).ready(function () {
             date_created_str += ', ';
           }
         });
+
+        $('.date_created-option.year').each(function () {
+          updateDateFilters(`.custom_created_date #${$(this).attr('id')}`);
+        });
       }
       
       // change badge label if filter not empty
@@ -297,30 +300,9 @@ $(document).ready(function () {
 
     // On custom date input select
     $(".custom_created_date .date_created-option input").change(function() {
-      var parentOption = $(this).parent()
-
-      if($(this).is(":checked")){
-        // Toggle tick icon on selected date in custom list
-        $(this).siblings('label').find('.checked-icon').show();
-
-        // Add class selected to selected option,
-        // We want to find which are selected to handle the others
-        $(this).addClass('selected')
-        $(parentOption).addClass('selected')
-        $(parentOption).find('.mcs-icon').addClass('selected')
-      }
-      else
-      {
-        // Toggle tick icon on selected date in custom list
-        $(this).siblings('label').find('.checked-icon').hide();
-
-        // Add class selected to selected option,
-        // We want to find which are selected to handle the others
-        $(this).removeClass('selected')
-        $(parentOption).removeClass('selected')
-        $(parentOption).find('.mcs-icon').removeClass('selected')
-      }
-      // if this is selected then disable selecting children, and display grey tick 
+      const currentYear = $(this).data('year');
+      const selector = `.custom_created_date #container_${currentYear}`;
+      updateDateFilters(selector);
 
       // Used to select custom in preset list if dates are selected
       if($('.custom_created_date input:checked').length > 0)
