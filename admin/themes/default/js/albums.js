@@ -389,6 +389,7 @@ function createAlbumNode(node, li) {
   }
 
   cont.append($(icon.replace(/%icon%/g, 'icon-grip-vertical-solid')));
+  cont.find('.icon-grip-vertical-solid').attr('title', str_albs_drag_drop);
 
   if (node.haveChildren || node.children.length != 0) {
     cont.append($(icon.replace(/%icon%/g, 'icon-sitemap')));

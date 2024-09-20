@@ -6628,8 +6628,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
-  margin-bottom: 25px
 }
 
 .search-album-cont {
@@ -6645,7 +6643,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .search-album-num-result {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .search-album-input-container {
@@ -6663,7 +6661,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   font-size: 20px;
 }
 
-.search-album-help, .search-album-num-result {
+.search-album-help {
   position: absolute;
   right: 0;
   transform: translateX(calc(100% + 10px));
@@ -6672,6 +6670,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .search-album-ghost, .search-album-result {
   display: flex;
   flex-direction: column;
+}
+
+.search-album-result {
+  margin-top: 30px;
 }
 
 .search-album-elem, .search-album-ghost div {
@@ -6773,6 +6775,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   position: absolute;
   top: calc(50% + 200px / 2);
   display: none;
+}
+
+.limit-album-reached {
+  justify-content: center;
 }
 
 .doubleSelect {
