@@ -449,5 +449,5 @@ $lang['Only the first %d albums are displayed, out of %d.'] = 'Only the first %d
 $lang['Pages'] = "Pages";
 $lang['The PDF you requested is too large to display on this page.']= 'The PDF you requested is too large to display on this page.';
 $lang['Click here to display it']= 'Click here to display it';
-
+$lang['last 12 months'] = 'Last 12 months';
 ?>

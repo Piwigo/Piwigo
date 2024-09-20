@@ -485,11 +485,11 @@ SELECT
     $has_filters_filled = true;
 
     $options = array(
-      '24h' => '24 HOUR',
       '7d' => '7 DAY',
       '30d' => '30 DAY',
       '3m' => '3 MONTH',
       '6m' => '6 MONTH',
+      '12m' => '12 MONTH',
     );
 
     if (isset($options[ $search['fields']['date_created']['preset'] ]) and 'custom' != $search['fields']['date_created']['preset'])

@@ -229,11 +229,11 @@ SELECT
     {
       $query = '
 SELECT
-    SUBDATE(NOW(), INTERVAL 24 HOUR) AS 24h,
     SUBDATE(NOW(), INTERVAL 7 DAY) AS 7d,
     SUBDATE(NOW(), INTERVAL 30 DAY) AS 30d,
     SUBDATE(NOW(), INTERVAL 3 MONTH) AS 3m,
-    SUBDATE(NOW(), INTERVAL 6 MONTH) AS 6m
+    SUBDATE(NOW(), INTERVAL 6 MONTH) AS 6m,
+    SUBDATE(NOW(), INTERVAL 12 MONTH) AS 12m
 ;';
       $thresholds = query2array($query)[0];
 
@@ -285,23 +285,20 @@ SELECT
     }
 
     $label_for_threshold = array(
-      '24h' => l10n('last 24 hours'),
       '7d' => l10n('last 7 days'),
       '30d' => l10n('last 30 days'),
       '3m' => l10n('last 3 months'),
       '6m' => l10n('last 6 months'),
+      '12m' => l10n('last 12 months'),
     );
 
     $counters = array();
     foreach (array_keys($label_for_threshold) as $threshold)
     {
-      if (isset($date_created['pre_counters'][$threshold]))
-      {
-        $counters[$threshold] = array(
-          'label' => $label_for_threshold[$threshold],
-          'counter' => $date_created['pre_counters'][$threshold],
-        );
-      }
+      $counters[$threshold] = array(
+        'label' => $label_for_threshold[$threshold],
+        'counter' => $date_created['pre_counters'][$threshold] ?? 0,
+      );
     }
 
     foreach (array_keys($date_created['list_of_dates']) as $y)

@@ -151,6 +151,7 @@
 .ratios-option.disabled label .ratio-name,
 .filetypes-option.disabled label .ext-name,
 .date_posted-option.disabled label .date-period,
+.date_created-option.disabled label .date-period,
 .ratings-option.disabled label .ratings-name{
   color:#888
 }

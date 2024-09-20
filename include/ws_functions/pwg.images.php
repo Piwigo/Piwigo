@@ -927,7 +927,7 @@ function ws_images_filteredSearch_create($params, $service)
 
   if (isset($params['date_created_preset']))
   {
-    if (!preg_match('/^(24h|7d|30d|3m|6m|custom|)$/', $params['date_created_preset']))
+    if (!preg_match('/^(7d|30d|3m|6m|12m|custom|)$/', $params['date_created_preset']))
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_created_preset');
     }

@@ -381,12 +381,12 @@ const prefix_icon = 'gallery-icon-';
       <div class="date_created-option-container">
         <div class="preset_created_date">
   {foreach from=$DATE_CREATED item=date_created key=k}
-          <div class="date_created-option">
-            <input type="radio" id="date_created-{$k}" value={$k} name="date_created-period">
+          <div class="date_created-option {if 0 == $date_created.counter}disabled{/if}">
+            {if 0 != $date_created.counter}<input type="radio" id="date_created-{$k}" value={$k} name="date_created-period">{/if}
             <label for="date_created-{$k}" id="{$k}">
               <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
               <span class="date-period">{$date_created.label}</span>
-              <span class="date_created-badge">{$date_created.counter}</span>
+              {if 0 != $date_created.counter}<span class="date_created-badge">{$date_created.counter}</span>{/if}
             </label>
           </div>
   {/foreach}

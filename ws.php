@@ -1464,7 +1464,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         ),
         'date_created_preset' => array(
           'flags' => WS_PARAM_OPTIONAL,
-          'info' => 'files created within 24 hours, 7 days, 30 days, 3 months, 6 months or custom. Value among 24h|7d|30d|3m|6m|custom.',
+          'info' => 'files created within 7 days, 30 days, 3 months, 6 months, 12 months or custom. Value among 7d|30d|3m|6m|12m|custom.',
         ),
         'date_created_custom' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
