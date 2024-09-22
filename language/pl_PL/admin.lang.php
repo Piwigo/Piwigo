@@ -1347,3 +1347,4 @@ $lang['Unlocked album'] = 'Odblokowany album';
 $lang['%d files'] = '%d plików';
 $lang['Expand'] = 'Rozszerz';
 $lang['Shrink'] = 'Zwiń';
+$lang['Activate create mode to create and select an album'] = 'Aktywuj tryb tworzenia, aby utworzyć i wybrać album';
