@@ -11,6 +11,8 @@ class Inflector_en
   private $exceptions;
   private $pluralizers;
   private $singularizers;
+  private $er2ing;
+  private $ing2er;
 
   function __construct()
   {
