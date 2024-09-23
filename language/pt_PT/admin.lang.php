@@ -1345,3 +1345,6 @@ $lang['%d in whole branch'] = '%d em todo o ramo';
 $lang['During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'] = 'Durante o upload, se o Piwigo detectar que a foto já existe, associe a foto existente ao álbum de destino, sem duplicar o arquivo
 ';
 $lang['Put at the root'] = 'Coloque na raiz';
+$lang['Shrink'] = 'Encolher';
+$lang['Expand'] = 'Expandir';
+$lang['%d files'] = '%d ficheiros';
