@@ -34,6 +34,12 @@ $(function () {
     btnAddFirstAlbum.on('click', function () {
       add_first_album(ab.select_album.bind(ab));
     });
+
+    inputFirstAlbum.on('keyup', function(e) {
+      if (e.key === 'Enter') {
+        btnAddFirstAlbum.trigger('click');
+      }
+    });
   }
 
   const ab = new AlbumSelector({
@@ -386,6 +392,7 @@ First album functions
 function open_new_album_modal() {
   inputFirstAlbum.val('');
   modalFirstAlbum.fadeIn();
+  inputFirstAlbum.trigger('focus');
 }
 
 function close_new_album_modal() {
