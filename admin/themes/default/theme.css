@@ -6448,16 +6448,31 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   align-items: baseline;
   gap: 5px;
 }
-.selectedAlbum #selectedAlbumName {
+.selectedAlbum #selectedAlbumName,
+.selectedAlbum #selectedAlbumNameFilter {
 	padding: 10px 12px;
 	font-weight: bold;
 	text-align: center;
 	border-radius: 7px;
-  background-color:#f5f5f5
+  background-color:#f5f5f5;
 }
-.selectedAlbum #selectedAlbumEdit {
+.selectedAlbum #selectedAlbumEdit,
+.selectedAlbum #selectedAlbumEditFilter {
 	font-size: 16px;
   cursor: pointer;
+}
+
+.selectedAlbum#selectedAlbumFilter {
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.selectedAlbum #selectedAlbumNameFilter {
+  background-color:#fff;
+  border: 2px solid #7070704f !important;
+  border-radius: 0px;
+  width: 100%;
+  text-align: start;
 }
 
 .selectedAlbum span.icon-sitemap::before, .afterUploadActions a.batchLink.icon-pencil::before, .afterUploadActions a.icon-plus-circled::before {
@@ -6492,15 +6507,17 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .permitActionItem {margin-left: 30px; width: 225px;}
 .permitActionItem .selectize-control.single.plugin-remove_button {width: auto !important;}
 .permitActionItem .selectize-input.items.full.has-options.has-items {width: 500px !important; line-height: 23px;}
-#action_associate {display: flex;}
-#action_associate a:last-child {margin-left: 15px; padding: 10px;}
+#action_move {display: flex;}
+#action_move a:last-child {margin-left: 15px; padding: 10px;}
+#action_associate .head-button-2 {width: fit-content;}
+#action_associate .head-button-2 p {margin-left: 5px; background: transparent;}
 #applyAction i {margin-right: 15px;}
 #action_delete_derivatives, #action_generate_derivatives {display: flex; flex-wrap: wrap; margin-top: 0px;}
 .deleteDerivButtons a {border-radius: 4px; padding: 4px 10px; margin: 5px;}
 .deleteDerivButtons {margin-bottom: 15px; margin-right: 51px; width: 100%; text-align: center;}
 #action_delete_derivatives label, #action_generate_derivatives label {display: flex; margin-top: 4px; width: 50%;}
 #action_delete_derivatives input[name="del_derivatives_type[]"], #action_generate_derivatives input[name="generate_derivatives_type[]"] {margin-right: 3px;}
-.actionButtons:first-child::after,#filter_prefilter::before,#filter_category::before,#filter_level::before,
+.actionButtons:first-child::after,#filter_prefilter::before,#filter_level::before,
 .permitActionListButton div::before, #action_level::after, .pictureLevels::before,
 .user-property-select-container::before, .sort-by .select-container::before {
   content: '\e835'; font-size: 17px; position: absolute; font-family: "fontello"; color: #6E6E6E; pointer-events: none;
@@ -6606,6 +6623,31 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .font-checkbox.selected span:first-child::before {content: '\f192';}
 #action_delete_derivatives .font-checkbox span, #action_delete_derivatives .font-checkbox span {margin-right: 5px;}
 #action_generate_derivatives, #action_delete_derivatives {width: 320px;}
+#associate_as {margin-bottom: 10px;}
+.selected-associate-item {
+  background-color: #fafafa;
+  box-shadow: 0px 2px #00000024;
+  margin-top: 5px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selected-associate-item:hover {
+  background: #ffd7ad;
+}
+
+.selected-associate-item .remove-associate {
+  color: #000;
+}
+
+.selected-associate-item .remove-associate:hover {
+  cursor: pointer;
+  color: #ff7700;
+}
 
 /* album manager */
 .selectedAlbum.cat-list-album-path {

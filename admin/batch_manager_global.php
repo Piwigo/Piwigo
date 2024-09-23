@@ -33,7 +33,8 @@ if (!empty($_POST))
 trigger_notify('loc_begin_element_set_global');
 
 check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
-check_input_parameter('associate', $_POST, false, PATTERN_ID);
+check_input_parameter('associate', $_POST, true, PATTERN_ID);
+check_input_parameter('move', $_POST, false, PATTERN_ID);
 check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
@@ -165,7 +166,7 @@ DELETE
   {
     associate_images_to_categories(
       $collection,
-      array($_POST['associate'])
+      $_POST['associate']
       );
 
     $_SESSION['page_infos'] = array(
@@ -190,7 +191,7 @@ DELETE
 
   else if ('move' == $action)
   {
-    move_images_to_categories($collection, array($_POST['associate']));
+    move_images_to_categories($collection, array($_POST['move']));
 
     $_SESSION['page_infos'] = array(
       l10n('Information data registered in database')
@@ -204,7 +205,7 @@ DELETE
 
     else if ('no_virtual_album' == $page['prefilter'])
     {
-      $category_info = get_cat_info($_POST['associate']);
+      $category_info = get_cat_info($_POST['move']);
       if (empty($category_info['dir']))
       {
         $redirect = true;

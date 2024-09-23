@@ -44,6 +44,8 @@ var sliders = {
     text: '{'between %s and %s MB'|translate|escape:'javascript'}'
   }
 };
+
+const selected_filter_cat_ids = ["{$filter_category_selected|@json_encode|escape:html}"];
 {/footer_script}
 
 {combine_script id='batchManagerFilter' load='footer' path='admin/themes/default/js/batchManagerFilter.js'}
@@ -98,13 +100,18 @@ var sliders = {
         <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_duplicates_dimensions" {if isset($filter.duplicates_dimensions)}checked="checked"{/if}> {'width & height'|translate}</label>
       </span>
     </li>
-
+    {* categories *}
     <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>
       <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
       <p>{'Album'|@translate}</p>
       <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
-      <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
-        data-default="first" name="filter_category"></select>
+      {* <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
+        data-default="first" name="filter_category"></select> *}
+      <div class="selectedAlbum" id="selectedAlbumFilter">
+        <input type="hidden" name="filter_category" id="filterCategoryValue" value="{$filter_category_selected|@json_encode|escape:html}">
+        <span class="icon-sitemap" id="selectedAlbumNameFilter">{$filter_category_selected_name}</span>
+        <a class="icon-pencil" id="selectedAlbumEditFilter"></a>
+      </div>
       <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
     </li>
 
@@ -244,3 +251,4 @@ var sliders = {
   </div>
 </div>
 </fieldset>
+{include file='include/album_selector.inc.tpl'}

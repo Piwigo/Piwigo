@@ -69,6 +69,8 @@ var all_elements = [{if !empty($all_elements)}{','|@implode:$all_elements}{/if}]
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
+const str_add_alb_associate = "{"Add Album"|@translate}";
+const str_select_alb_associate = "{"Select an album"|@translate}";
 
 $(document).ready(function() {
   jQuery('.help-popin-search').colorbox({ width:"600px" });
@@ -134,9 +136,9 @@ $(document).ready(function() {
     $("[id^=action_]").hide();
 
     var action = $(this).prop("value");
-    if (action == 'move') {
+    {* if (action == 'move') {
       action = 'associate';
-    }
+    } *}
 
     $("#action_"+action).show();
 
@@ -447,10 +449,19 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       <div id="action_delete" class="bulkAction">
       </div>
 
-      <!-- associate -->{* also used for "move" action *}
+      <!-- associate -->
       <div id="action_associate" class="bulkAction">
-        <select data-selectize="categories" data-default="" name="associate" style="width:600px" placeholder="{'Select an album... or type it!'|@translate}"></select>
-        <a href="#" data-add-album="associate" title="{'create a new album'|@translate}" class="icon-plus"></a>
+        <div class="head-button-2 icon-plus-circled" id="associate_as">
+          <p>{"Select an album"|translate}</p>
+        </div>
+        <div class="selected-associate-action">
+        </div>
+      </div>
+
+      <!-- move -->
+      <div id="action_move" class="bulkAction">
+        <select data-selectize="categories" data-default="" name="move" style="width:600px" placeholder="{'Select an album... or type it!'|@translate}"></select>
+        <a href="#" data-add-album="move" title="{'create a new album'|@translate}" class="icon-plus"></a>
       </div>
 
       <!-- dissociate -->
@@ -566,9 +577,10 @@ UL.thumbnails SPAN.wrap2 {ldelim}
   </form>
 
 </div> <!-- #batchManagerGlobal -->
+{include file='include/album_selector.inc.tpl'}
 
 <style>
-#action_associate .selectize-input {
+#action_move .selectize-input {
   min-width: 500px;
   height: 44px;
 }

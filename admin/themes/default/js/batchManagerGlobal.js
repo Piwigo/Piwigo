@@ -42,7 +42,45 @@ jQuery(document).ready(function() {
 		});
 	}
 	$('ul.thumbnails').enableShiftClick();
+
+  const ab_action = new AlbumSelector({
+    adminMode: true,
+    selectAlbum: select_album_action,
+    removeSelectedAlbum: remove_album_action,
+  });
+
+  $('#associate_as').on('click', function () {
+    ab_action.open();
+  });
+
+  $('.selected-associate-action').on('click', (e) => {
+    if (e.target.classList.contains("remove-associate")) {
+      ab_action.remove_selected_album($(e.target).attr('id'));
+    }
+  });
+
 });
+
+/* ********** Album Selector */
+function select_album_action({ album, addSelectedAlbum, getSelectedAlbum }) {
+  $('#associate_as p').html(str_add_alb_associate);
+  $(".selected-associate-action").append(
+    `<div class="selected-associate-item">
+      <span>${album.name}</span><span id="${album.id}" class="remove-associate icon-cancel-circled"></span>
+      <input type="hidden" id="associate_input_${album.id}" name="associate[]" value="${album.id}">
+    </div>`
+  );
+  addSelectedAlbum();
+}
+
+function remove_album_action({ id_album, getSelectedAlbum }) {
+  $('.selected-associate-item').find(`#${id_album}`).parent().remove();
+  const selected = getSelectedAlbum();
+  if (!selected.length) {
+    $('#associate_as p').html(str_select_alb_associate);
+  }
+}
+
 
 jQuery("a.preview-box").colorbox( {photo: true} );
 
@@ -472,3 +510,4 @@ function delete_orphans_block(blockSize) {
     }
   });
 }
+

@@ -688,13 +688,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #checkActions a, .deleteDerivButtons a {background-color: #E8E8E8;}
 #filterList select, .pictureLevels select, #permitAction select, .sort-by select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important; outline: none !important;}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options,
-#filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
+#filter_tags .selectize-input.items.not-full, #filter_search input, #action_move .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
   border: 2px solid #7070704f !important;
   background: #FFF;
   color: #3C3C3CBD;
 }
-#action_associate a:last-child {background: #FFF; border: 1px solid #787777a6; box-shadow: none;}
+#action_move a:last-child {background: #FFF; border: 1px solid #787777a6; box-shadow: none;}
 #forbidAction, .selectionEmptyBlock, .noFilter {background-color: #f3f3f3;}
 #action_title .large, #action_author .large {background-color: #FFF; color: #4E4E4E;}
 #filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #EEE; color: #777;}

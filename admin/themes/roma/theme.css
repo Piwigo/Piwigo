@@ -1020,7 +1020,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #checkActions a, .deleteDerivButtons a {background-color: #393939;}
 #addFilter, #filterList select, .pictureLevels select, #permitAction select, .sort-by select {background-color: #444444; color: #BFBFBF}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options, 
-#filter_tags .selectize-input.items.not-full, #filter_search input, #action_associate .selectize-input.items.full.has-options.has-items,
+#filter_tags .selectize-input.items.not-full, #filter_search input, #action_move .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
   background-color: #444444;
   color: #BFBFBF;
@@ -1032,7 +1032,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background: #3C3C3C;
   color: #C0C0C0;
 }
-#action_associate a:last-child {color: #C0C0C0; background-color: #464646;}
+#action_move a:last-child {color: #C0C0C0; background-color: #464646;}
 #filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #393939;}
 #filter_dimension .slider-choice:hover, #filter_filesize .slider-choice:hover, .dimension-cancel:hover {
   text-decoration: none; background-color: #ffa646 !important; color: initial;
@@ -1069,6 +1069,22 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal #applyFilter:hover {
   background-color: #202020;
 }
+
+.selected-associate-item {
+  background-color: #333;
+  box-shadow: 0px 2px #000000AA;
+  color: #777;
+}
+
+.selected-associate-item:hover {
+  background: #f9852c;
+  color: #000;
+}
+
+.selected-associate-item .remove-associate:hover {
+  color: #ae5d1e;
+}
+
 /*Error message*/
 
 .errors {
