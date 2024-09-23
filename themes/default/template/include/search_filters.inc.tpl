@@ -297,7 +297,7 @@ const prefix_icon = 'gallery-icon-';
             <input type="radio" id="date_posted-custom" value="custom" name="date_posted-period">
             <label for="date_posted_custom" class="custom_posted_date_toggle">
               <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
-              <span class="date-period">{'Custom'|translate}</span>
+              <span class="date-period">{'Custom dates'|translate}</span>
             </label>
           </div>
         </div>
@@ -395,7 +395,7 @@ const prefix_icon = 'gallery-icon-';
             <input type="radio" id="date_created-custom" value="custom" name="date_created-period">
             <label for="date_created_custom" class="custom_created_date_toggle">
               <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
-              <span class="date-period">{'Custom'|translate}</span>
+              <span class="date-period">{'Custom dates'|translate}</span>
             </label>
           </div>
         </div>
