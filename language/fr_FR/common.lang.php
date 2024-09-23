@@ -449,3 +449,4 @@ $lang['Album already selected'] = 'Album déjà sélectionné';
 $lang['Pages'] = "Pages";
 $lang['The PDF you requested is too large to display on this page.']= 'Le PDF que vous avez demandé est trop volumineux pour être affiché sur cette page.';
 $lang['Click here to display it']= 'Cliquez ici pour le voir';
+$lang['last 12 months'] = '12 derniers mois';
