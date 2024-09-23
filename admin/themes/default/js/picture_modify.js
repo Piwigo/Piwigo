@@ -1,7 +1,20 @@
 $(document).ready(function () {
+  const ab = new AlbumSelector({
+    selectedCategoriesIds: related_categories_ids,
+    selectAlbum: add_related_category,
+    removeSelectedAlbum: remove_related_category,
+    adminMode: true,
+    modalTitle: str_assoc_album_ab,
+  });
 
   $(".linked-albums.add-item").on("click", function () {
-    open_album_selector();
+    ab.open();
+  });
+
+  $('.related-categories-container').on('click', (e) => {
+    if (e.target.classList.contains("remove-item")) {
+      ab.remove_selected_album($(e.target).attr('id'));
+    }
   });
 
   // Unsaved settings message before leave this page
@@ -26,46 +39,33 @@ $(document).ready(function () {
   });
 })
 
-function remove_related_category(cat_id) {
-  $(".invisible-related-categories-select option[value="+ cat_id +"]").remove();
+function remove_related_category({ id_album, getSelectedAlbum }) {
+  $(".invisible-related-categories-select option[value="+ id_album +"]").remove();
   $(".invisible-related-categories-select").trigger('change');
-  $("#" + cat_id).parent().remove();
-
-  cat_to_remove_index = related_categories_ids.indexOf(cat_id);
-  if (cat_to_remove_index > -1) {
-    related_categories_ids.splice(cat_to_remove_index, 1);
-  }
-
-  check_related_categories();
+  $("#" + id_album).parent().remove();
+  check_related_categories(getSelectedAlbum());
 }
 
-function add_related_category(cat_id, cat_link_path) {
-  if (!related_categories_ids.includes(cat_id)) {
+function add_related_category({ album, addSelectedAlbum, getSelectedAlbum }) {
+  if (!getSelectedAlbum().includes(album.id)) {
     $(".related-categories-container").append(
-      "<div class='breadcrumb-item'>" +
-        "<span class='link-path'>" + cat_link_path + "</span><span id="+ cat_id + " class='icon-cancel-circled remove-item'></span>" +
-      "</div>"
+      `<div class="breadcrumb-item">
+        <span class="link-path">${album.full_name_with_admin_links}</span><span id="${album.id}" class="icon-cancel-circled remove-item"></span>
+      </div>`
     );
 
-    $(".search-result-item #" + cat_id).addClass("notClickable");
-    related_categories_ids.push(cat_id);
-    $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>").trigger('change');
-
-    $("#"+ cat_id).on("click", function () {
-      remove_related_category($(this).attr("id"))
-    })
-
-    close_album_selector();
+    $(".search-result-item #" + album.id).addClass("notClickable");
+    $(".invisible-related-categories-select").append("<option selected value="+ album.id +"></option>").trigger('change');
+    addSelectedAlbum();
   }
 
-  check_related_categories();
+  check_related_categories(getSelectedAlbum());
 }
 
-function check_related_categories() {
+function check_related_categories(selected_cat) {
+  $(".linked-albums-badge").html(selected_cat.length);
 
-  $(".linked-albums-badge").html(related_categories_ids.length);
-
-  if (related_categories_ids.length == 0) {
+  if (selected_cat.length == 0) {
     $(".linked-albums-badge").addClass("badge-red");
     $(".add-item").addClass("highlight");
     $(".orphan-photo").html(str_orphan).show();

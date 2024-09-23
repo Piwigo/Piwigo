@@ -160,10 +160,25 @@ $(document).ready(function() {
     saveAllChanges();
   });
   //Categories 
+  const ab = new AlbumSelector({
+    selectedCategoriesIds: [],
+    selectAlbum: add_related_category,
+    adminMode: true,
+    modalTitle: str_title_ab,
+  });
   $(".linked-albums.add-item").on("click", function() {
     b_current_picture_id = $(this).parents("fieldset").data("image_id");
-    related_categories_ids = get_related_category(b_current_picture_id);
-    open_album_selector();
+    ab.hardUpdate(all_related_categories_ids[b_current_picture_id]);
+    ab.open();
+  });
+  $('.related-categories-container').on('click', (e) => {
+    if (e.target.classList.contains("remove-item")) {
+      const cat_id = $(e.target).attr('id');
+      const picture_id = $(e.target).parents("fieldset").data("image_id");
+
+      remove_selected_category(cat_id, picture_id);
+      check_related_categories(picture_id, all_related_categories_ids[picture_id]);
+    }
   });
   pluginFunctionMapInit(activePlugins);
 })
@@ -172,43 +187,34 @@ function get_related_category(pictureId) {
   return all_related_categories_ids.find((c) => c.id == pictureId).cat_ids ?? [];
 }
 
-function remove_related_category(cat_id, pictureId) {
-  $("#" + pictureId + " .invisible-related-categories-select option[value=" + +cat_id + "]").remove();
-  $("#" + pictureId + " .invisible-related-categories-select").trigger('change');
-  $("#" + pictureId + " #" + cat_id).parent().remove();
-
-  const cat_to_remove_index = all_related_categories_ids.findIndex((c) => c.id == pictureId);
+function remove_selected_category(cat_id, picture_id) {
+  const cat_to_remove_index = all_related_categories_ids[picture_id].indexOf(cat_id);
   if (cat_to_remove_index > -1) {
-    all_related_categories_ids[cat_to_remove_index].cat_ids.splice(cat_to_remove_index, 1);
-    showUnsavedLocalBadge(pictureId);
+    all_related_categories_ids[picture_id].splice(cat_to_remove_index, 1);
+    showUnsavedLocalBadge(picture_id);
   }
-  check_related_categories(pictureId);
+
+  $("#" + picture_id + " #" + cat_id).parent().remove();
 }
 
-function add_related_category(cat_id, cat_link_path, pictureId) {
-  related_categories_ids = get_related_category(pictureId);
-  if (!related_categories_ids.includes(cat_id)) {
-    $("#" + pictureId + " .related-categories-container").append(
-      "<div class='breadcrumb-item album-listed'>" +
-      "<span class='link-path'>" + cat_link_path + "</span><span id=" + cat_id + " class='icon-cancel-circled remove-item'></span>" +
-      "</div>"
+function add_related_category({ album, getSelectedAlbum, addSelectedAlbum }) {
+  if (!getSelectedAlbum().includes(album.id)) {
+    $("#" + b_current_picture_id + " .related-categories-container").append(
+      `<div class="breadcrumb-item album-listed">
+        <span class="link-path">${album.full_name_with_admin_links}</span><span id="${album.id}" class="icon-cancel-circled remove-item"></span>
+      </div>`
     );
-    $(".search-result-item#" + cat_id).addClass("notClickable");
-    related_categories_ids.push(cat_id);
-    showUnsavedLocalBadge(pictureId);
-    $(".invisible-related-categories-select").append("<option selected value=" + cat_id + "></option>").trigger('change');
-    $("#" + cat_id).on("click", function() {
-      remove_related_category(cat_id, pictureId);
-    })
-    close_album_selector();
+
+    showUnsavedLocalBadge(b_current_picture_id);
+    addSelectedAlbum();
+    all_related_categories_ids[b_current_picture_id].cat_ids = getSelectedAlbum();
   }
-  check_related_categories(pictureId);
+  check_related_categories(b_current_picture_id, getSelectedAlbum());
 }
 
-function check_related_categories(pictureId) {
-  related_categories_ids = get_related_category(pictureId);
-  $("#picture-" + pictureId + " .linked-albums-badge").html(related_categories_ids.length);
-  if (related_categories_ids.length == 0) {
+function check_related_categories(pictureId, selectedAlbum) {
+  $("#picture-" + pictureId + " .linked-albums-badge").html(selectedAlbum.length);
+  if (selectedAlbum.length == 0) {
     $("#" + pictureId + " .linked-albums-badge").addClass("badge-red");
     $("#" + pictureId + " .add-item").addClass("highlight");
     $("#" + pictureId + " .orphan-photo").html(str_orphan).show();
@@ -243,11 +249,11 @@ function hideUnsavedLocalBadge(pictureId) {
   $("#picture-" + pictureId + " .local-unsaved-badge").css('display', 'none');
   updateUnsavedGlobalBadge();
 }
-$(window).on('beforeunload', function() {
-  if (user_interacted) {
-    return "You have unsaved changes, are you sure you want to leave this page?";
-  }
-});
+// $(window).on('beforeunload', function() {
+//   if (user_interacted) {
+//     return "You have unsaved changes, are you sure you want to leave this page?";
+//   }
+// });
 //Error badge
 function showErrorLocalBadge(pictureId) {
   $("#picture-" + pictureId + " .local-error-badge").css('display', 'block');
@@ -346,7 +352,7 @@ function saveChanges(pictureId) {
     const comment = $("#picture-" + pictureId + " #description").val();
     const level = $("#picture-" + pictureId + " #level option:selected").val();
     // Get Categories
-    const categories = get_related_category(pictureId);
+    const categories = all_related_categories_ids[pictureId];
     let categoriesStr = categories.join(';');
     // Get Tags
     let tags = [];

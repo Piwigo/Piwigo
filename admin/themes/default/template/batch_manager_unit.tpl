@@ -8,7 +8,7 @@
 {combine_css path="themes/default/js/plugins/jquery-confirm.min.css"}
 
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10}
-
+{assign var='all_selected_album' value=[]}
 {footer_script}
 {* <!-- PLUGINS --> *}
 var activePlugins = {$ACTIVE_PLUGINS|json_encode};
@@ -72,6 +72,7 @@ str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
 str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
 str_meta_warning = '{'Warning ! Unsaved changes will be lost'|translate|escape:javascript}';
 str_meta_yes = '{'I want to continue'|translate|escape:javascript}'
+const str_title_ab = '{'Associate to album'|@translate}';
 
 const strs_privacy = {
   "0" : "{$level_options[8]}",
@@ -80,8 +81,6 @@ const strs_privacy = {
   "3" : "{$level_options[1]}",
   "4" : "{$level_options[0]}",
 };
-const all_related_categories_ids = [];
-let related_categories_ids = [];
 let b_current_picture_id;
 {* Check Skeleton extension for more details about extensibility *}
 pluginValues = [];
@@ -89,7 +88,6 @@ pluginValues = [];
 
 
 {combine_script id='batchManagerUnit' load='footer' require='jquery.ui.effect-blind,jquery.sort' path='admin/themes/default/js/batchManagerUnit.js'}
-
 <div id="batchManagerGlobal" style="margin-bottom: 80px;">
 	<div style="clear:both"></div>
 	{if isset($ELEMENT_IDS)}
@@ -123,9 +121,9 @@ pluginValues = [];
 			</div>
 		</div>
 	</div>
-	{foreach from=$elements item=element}  
+	{foreach from=$elements item=element} 
+	{$all_selected_album[$element.ID] = json_decode($element.related_category_ids)} 
 	{footer_script}
-	  all_related_categories_ids.push({ id: {$element.ID}, cat_ids: {$element.related_category_ids} });
       url_delete_{$element.id} = '{$element.U_DELETE}';  
     {/footer_script}
 	<div class="infos deleted-badge" data-image_id="{$element.ID}" style="display: none;">
@@ -338,14 +336,11 @@ pluginValues = [];
 	</div>
 
 
-{include file='include/album_selector.inc.tpl' 
-  title={'Associate to album'|@translate}
-  searchPlaceholder={'Search'|@translate}
-  admin_mode=true
-}
+{include file='include/album_selector.inc.tpl'}
 
 {footer_script}
 var pluginFunctionNames = pluginFunctionMapInit(activePlugins);
+const all_related_categories_ids = {$all_selected_album|json_encode};
 {/footer_script}
 
 <style>

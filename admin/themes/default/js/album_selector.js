@@ -1,487 +1,714 @@
-/*-------
-Variables
--------*/
-const addLinkedAlbum = $('#addLinkedAlbum');
-const closeAlbumPopIn = $('#closeAlbumPopIn');
-const searchInput = $('.search-input');
-const searchResult = $('#searchResult');
-const limitReached = $('.limitReached');
-const iconCancelInput = $(".search-cancel-linked-album");
-const relatedCategoriesDom = $('.related-categories-container .breadcrumb-item .remove-item');
-const iconSearchingSpin = $('.searching');
-const albumSelector = $('#linkedAlbumSelector');
-const albumCreate = $('#linkedAlbumCreate');
-const albumCheckBox = $('#album-create-check');
-const linkedAddAlbum = $('#linkedAddAlbum');
-const linkedModalTitle = $('#linkedModalTitle');
-const linkedAlbumSwitch = $('#linkedAlbumSwitch');
-const linkedAlbumSubTitle = $('#linkedAlbumSubtitle');
-const linkedAddNewAlbum = $('#linkedAddNewAlbum');
-const linkedAlbumInput = $('#linkedAlbumInput');
-const putToRoot = $('.put-to-root-container');
-const linkedAlbumCancel = $('#linkedAlbumCancel');
-const linkedAddAlbumErrors = $('#linkedAddAlbumErrors');
-const AddAlbumErrors = $('.AddAlbumErrors');
+let activeAlbumSelector = null;
 
-let isAlbumCreationChecked = false;
+/**
+ * Album selector instance
+ * @param {Array} selectedCategoriesIds - Array of IDs for elements already selected.
+ * @param {Function} selectAlbum - Function to handle the selection of an album.
+ * @param {Function} removeSelectedAlbum - Function to handle the removal of a selected album.
+ * @param {Boolean} showRootButton - Flag to indicate whether to show the "root" button.
+ * @param {Boolean} adminMode - Flag to indicate if the selector is in admin mode.
+ * @param {Number} limitParam - Maximum number of results to retrieve.
+ * @param {Number} currentAlbumId - ID of the currently selected album. (Only if you use ShowRootButton to keep one album always selected)
+ * @param {String} modalTitle - Custom title for the album selector modal.
+ * @param {String} modalSearchPlaceholder - Custom placeholder text for the search input in the modal.
+ */
+class AlbumSelector {
+  #in_admin_mode;
+  #methodPwg;
+  #limitParam;
+  #isAlbumCreationChecked;
+  #selectAlbum;
+  #removeSelectedAlbum;
+  #currentSelectedId;
+  #searchCat;
+  #cats;
+  #selected_categories;
+  #show_root_btn;
+  #put_to_root;
+  #current_cat;
+  #title;
+  #searchPlaceholder;
 
-/*--------------------
-Document ready / event
---------------------*/
-$(function() {
-  iconCancelInput.hide();
-  albumCreate.hide();
+  /**
+   * Selector for AlbumSelector
+   */
+  static selectors = {
+    addLinkedAlbum: $('#addLinkedAlbum'),
+    closeAlbumPopIn: $('#closeAlbumPopIn'),
+    searchInput: $('#search-input-ab'),
+    searchResult: $('#searchResult'),
+    limitReached: $('.limitReached'),
+    iconCancelInput: $('.search-cancel-linked-album'),
+    relatedCategoriesDom: $('.related-categories-container .breadcrumb-item .remove-item'),
+    iconSearchingSpin: $('.searching'),
+    albumSelector: $('#linkedAlbumSelector'),
+    albumCreate: $('#linkedAlbumCreate'),
+    albumCheckBox: $('#album-create-check'),
+    linkedAddAlbum: $('#linkedAddAlbum'),
+    linkedModalTitle: $('#linkedModalTitle'),
+    linkedAlbumSwitch: $('#linkedAlbumSwitch'),
+    linkedAlbumSubTitle: $('#linkedAlbumSubtitle'),
+    linkedAddNewAlbum: $('#linkedAddNewAlbum'),
+    linkedAlbumInput: $('#linkedAlbumInput'),
+    putToRoot: $('.put-to-root-container'),
+    linkedAlbumCancel: $('#linkedAlbumCancel'),
+    linkedAddAlbumErrors: $('#linkedAddAlbumErrors'),
+    addAlbumErrors: $('.AddAlbumErrors'),
+    putToRootBtn: $('#put-to-root'),
+    linkedAlbumPopInContainer: $('.linkedAlbumPopInContainer'),
+  };
 
-  // event close pop in
-  closeAlbumPopIn.on('click', () => {
-    close_album_selector();
-  });
+  constructor({ 
+    selectedCategoriesIds=[],
+    selectAlbum=() => {},
+    removeSelectedAlbum=() => {},
+    showRootButton=false,
+    adminMode=false,
+    limitParam=50,
+    currentAlbumId=0,
+    modalTitle='',
+    modalSearchPlaceholder='',
+  }) {
+    this.instanceId = `AlbumSelector-${Math.random().toString(36).substring(2, 9)}`;
+    this.#in_admin_mode = adminMode;
+    this.#methodPwg = adminMode ? 'pwg.categories.getAdminList' : 'pwg.categories.getList';
+    this.#limitParam = limitParam;
+    this.#selected_categories = adminMode ? [...selectedCategoriesIds] : selectedCategoriesIds.map(String);
+    this.#isAlbumCreationChecked = false;
+    this.#cats = {};
+    this.#searchCat = {};
+    this.#selectAlbum = (args) => selectAlbum.call(
+      null,
+      {
+        ...args, 
+        newSelectedAlbum: this.#newSelectedAlbum.bind(this),
+        addSelectedAlbum: this.#addSelectedAlbum.bind(this),
+        getSelectedAlbum: this.get_selected_albums.bind(this),
+      }
+    );
+    this.#removeSelectedAlbum = (args) => removeSelectedAlbum.call(
+      null,
+      {
+        ...args,
+        getSelectedAlbum: this.get_selected_albums.bind(this),
+      }
+    );
+    this.#currentSelectedId = '';
+    this.#show_root_btn = showRootButton;
+    this.#put_to_root = false;
+    this.#current_cat = currentAlbumId;
+    this.#title = modalTitle === '' ? str_album_modal_title : modalTitle;
+    this.#searchPlaceholder = modalSearchPlaceholder === '' ? 
+    str_album_modal_placeholder : modalSearchPlaceholder;
 
-  // event empty search input
-  if (iconCancelInput.length) {
-    iconCancelInput.on("click", function () {
-      searchInput.val("");
-      searchInput.trigger("input");
+    this.#init();
+  }
+
+  #init() {
+    // console.log('init id:', activeAlbumSelector.instanceId);
+    if (this.#in_admin_mode && this.#show_root_btn) {
+      AlbumSelector.selectors.linkedAlbumPopInContainer.addClass('big');
+    }
+
+    if (!this.#show_root_btn) {
+      AlbumSelector.selectors.putToRoot.remove();
+    }
+
+    if (!this.#in_admin_mode) {
+      AlbumSelector.selectors.albumCreate.remove();
+      AlbumSelector.selectors.linkedAlbumSwitch.remove();
+    }
+  }
+
+  /*-----------
+  Public method
+  -----------*/
+  open() {
+    if (activeAlbumSelector && activeAlbumSelector !== this) {
+        activeAlbumSelector.close();
+    }
+    activeAlbumSelector = this;
+    this.#open_album_selector();
+  }
+
+  close() {
+    if (activeAlbumSelector === this) {
+        activeAlbumSelector = null;
+    }
+    this.#close_album_selector();
+  }
+
+  remove_selected_album(id) {
+    if (this.#selected_categories.includes(id)) {
+      const cat_to_remove_index = this.#selected_categories.indexOf(id);
+      if (cat_to_remove_index > -1) {
+        this.#selected_categories.splice(cat_to_remove_index, 1);
+      }
+    }
+
+    this.#removeSelectedAlbum({ id_album: id });
+  }
+
+  get_selected_albums() {
+    return [...this.#selected_categories];
+  }
+
+  select_album(id) {
+    this.#selected_categories.push(id.toString());
+  }
+
+  resetAll() {
+    this.#selected_categories = [];
+    if (this.#in_admin_mode) {
+      this.#hard_reset_album_selector();
+    } else {
+      this.#reset_album_selector();
+    }
+  }
+
+  hardUpdate(cats) {
+    this.#selected_categories = cats;
+  }
+
+  /*---------------------
+  in selectAlbum() method
+  ---------------------*/
+  #newSelectedAlbum() {
+    this.#selected_categories = this.#show_root_btn && this.#put_to_root 
+    ? ['0']
+    : [this.#currentSelectedId];
+  }
+
+  #addSelectedAlbum() {
+    this.#selected_categories.push(this.#currentSelectedId);
+  }
+
+  /*----------
+  Event method
+  ----------*/
+  #loadGeneralEvent() {
+    const instanceAb = `.${this.instanceId}`;
+    // event close album selector
+    AlbumSelector.selectors.closeAlbumPopIn.off(`click${instanceAb}`).on(`click${instanceAb}`, () => {
+      this.#close_album_selector();
+    });
+
+    // event escape album selector
+    $(document).off(`keyup${instanceAb}`).on(`keyup${instanceAb}`, (e) => {
+      if (e.key === "Escape" && AlbumSelector.selectors.addLinkedAlbum.is(":visible")) {
+        this.#close_album_selector();
+      }
+    });
+
+    // event empty search input
+    if (AlbumSelector.selectors.iconCancelInput.length) {
+      AlbumSelector.selectors.iconCancelInput.off(`click${instanceAb}`).on(`click${instanceAb}`, () => {
+        this.#reset_search_input(true);
+      });
+    }
+
+    // event perform search
+    AlbumSelector.selectors.searchInput.off(`keyup${instanceAb}`).on(`keyup${instanceAb}`, (e) => {
+      const searchValue = AlbumSelector.selectors.searchInput.val();
+      if (searchValue.length > 0) {
+        AlbumSelector.selectors.iconCancelInput.show();
+      } else {
+        AlbumSelector.selectors.iconCancelInput.hide();
+      }
+      this.#perform_albums_search(searchValue);
+    });
+
+    // event in admin mode
+    if (this.#in_admin_mode) {
+      AlbumSelector.selectors.albumCheckBox.off(`change${instanceAb}`).on(`change${instanceAb}`, (e) => {
+        this.#isAlbumCreationChecked = $(e.currentTarget).is(':checked');
+        this.#switch_album_creation();
+      });
+    }
+
+    // event put root btn
+    if (this.#show_root_btn) {
+      AlbumSelector.selectors.putToRootBtn.off(`click${instanceAb}`).on(`click${instanceAb}`, (e) => {
+        if (!this.#selected_categories.includes('0')) {
+          const curr = $(e.currentTarget);
+          curr.addClass('notClickable');
+          this.#put_to_root = true;
+          this.#selectAlbum({ album: {id: 0, root: str_root} });
+          this.#close_album_selector();
+        }
+      });
+    }
+  }
+
+  #loadPickAlbumEvent() {
+    const instanceAb = `.${this.instanceId}`;
+    if (this.#isAlbumCreationChecked) {
+      $('.prefill-results-item').off(`click${instanceAb}`).on(`click${instanceAb}`, (e) => {
+        const curr = $(e.currentTarget);
+        const cat_id = curr.attr('id');
+        const cat = this.#cats[cat_id];
+        this.#switch_album_view(cat);
+      });
+    } else {
+      $('.prefill-results-item.available').off(`click${instanceAb}`).on(`click${instanceAb}`, (e) => {
+        const curr = $(e.currentTarget);
+        const cat_id = curr.attr('id');
+        const cat = this.#cats[cat_id];
+
+        this.#currentSelectedId = cat.id;
+        this.#selectAlbum({ album: cat });
+        this.#close_album_selector();
+      });
+    }
+  }
+
+  #loadSubCatEvent() {
+    const instanceAb = `.${this.instanceId}`;
+    $('.display-subcat').off(`click${instanceAb}`).on(`click${instanceAb}`, (e) => {
+      const curr = e.currentTarget;
+      const cat_id = $(curr).prop('id');
+      const cat = this.#cats[cat_id];
+
+      if ($(curr).hasClass('open')) {
+        $(curr).removeClass('open');
+        $("#subcat-" + cat.id).fadeOut();
+      } else if ($("#subcat-" + cat.id).length) {
+        $(curr).addClass('open');
+        $("#subcat-" + cat.id).fadeIn();
+      } else {
+        $("#" + cat_id + ".display-subcat").removeClass('gallery-icon-up-open').addClass('gallery-icon-spin6 animate-spin');
+        $("#" + cat_id + ".search-result-item").after(`<div id="subcat-${cat_id}" class="search-result-subcat-item"></div>`);
+        this.#prefill_search_subcats(cat_id).then(() => {
+          $("#" + cat_id + ".display-subcat").removeClass('gallery-icon-spin6 animate-spin').addClass('gallery-icon-up-open');
+          $(curr).addClass('open');
+          $("#subcat-" + cat.id).fadeIn();
+        });
+      }
     });
   }
 
-  // event perform search
-  searchInput.on('input', function () {
-    if ($(this).val() != 0) {
-      iconCancelInput.show()
-    } else {
-      iconCancelInput.hide();
-    }
-  
-    // Search input value length required to start searching
-    if ($(this).val().length > 0) {
-      perform_albums_search($(this).val());
-    } else {
-      limitReached.html(str_no_search_in_progress);
-      searchResult.empty();
-      prefill_search();
-    }
-  });
+  #loadFillResultEvent(tempSelect) {
+    const instanceAb = `.${this.instanceId}`;
 
-  // event remove category
-  relatedCategoriesDom.on("click", function () {
-    const pictureId = $(this).parents("fieldset").data("image_id");
-    if (pictureId) {
-      remove_related_category($(this).attr("id"), pictureId);
-    } else {
-      remove_related_category($(this).attr("id"));
-    }
-  });
+    AlbumSelector.selectors.searchResult.find('.search-result-item').off(`click${instanceAb}`).on(`click${instanceAb}`, (e) => {
+      const curr = $(e.currentTarget);
+      const cat_id = curr.attr('id');
+      const cat = this.#searchCat[cat_id];
 
-  // in admin mode
-  if (in_admin_mode) {
-    // toggle view
-    albumCheckBox.on('change', function () {
-      isAlbumCreationChecked = $(this).is(':checked');
-      switch_album_creation();
+      const formated_cat_id = this.#in_admin_mode ? cat.id : String(cat.id);
+      if (!tempSelect.includes(formated_cat_id)) {
+        this.#currentSelectedId = cat.id;
+        this.#selectAlbum({ album: cat });
+        this.#close_album_selector();
+      }
     });
   }
 
-  // Escape event
-  $(document).on('keyup', function(e) {
-    if (e.key === "Escape" && addLinkedAlbum.is(":visible")) {
-      close_album_selector();
+  /*--------------
+  General method
+  --------------*/
+  #setActive() {
+    if (activeAlbumSelector && activeAlbumSelector !== this) {
+      activeAlbumSelector.close();
     }
-  });
-});
-
-/*--------------
-General function
---------------*/
-function open_album_selector() {
-  if (in_admin_mode) {
-    hard_reset_album_selector();
-  } else {
-    reset_album_selector();
+    activeAlbumSelector = this;
   }
-  addLinkedAlbum.fadeIn();
-}
 
-function close_album_selector() {
-  addLinkedAlbum.fadeOut();
-}
+  #open_album_selector() {
+    this.#setActive();
+    this.#loadGeneralEvent();
 
-function reset_album_selector() {
-  prefill_search();
-  searchInput.val('');
-  searchInput.trigger("input").trigger('focus');
-  limitReached.html(str_no_search_in_progress);
-  albumSelector.show();
-}
-
-function switch_album_creation() {
-  reset_album_selector();
-  
-  if (isAlbumCreationChecked) {
-    if (putToRoot.length) {
-      putToRoot.hide();
+    if (this.#in_admin_mode) {
+        this.#hard_reset_album_selector();
+    } else {
+        this.#reset_album_selector();
     }
-    linkedModalTitle.hide();
-    linkedModalTitle.html(str_create_and_select);
-    linkedAddAlbum.fadeIn();
-    linkedModalTitle.fadeIn();
 
-    linkedAddAlbum.off('click').on('click', function() {
-      switch_album_view('root');
+    if (this.#show_root_btn && !this.#selected_categories.includes('0')) {
+        AlbumSelector.selectors.putToRootBtn.removeClass('notClickable');
+    } else {
+        AlbumSelector.selectors.putToRootBtn.addClass('notClickable');
+    }
+
+    AlbumSelector.selectors.linkedModalTitle.html(this.#title);
+    AlbumSelector.selectors.searchInput.attr('placeholder', this.#searchPlaceholder);
+    AlbumSelector.selectors.addLinkedAlbum.fadeIn();
+  }
+
+  #close_album_selector() {
+    this.#cats = {};
+    this.#searchCat = {};
+    this.#currentSelectedId = '';
+    this.#put_to_root = false;
+
+    this.#destroyEvent();
+
+    AlbumSelector.selectors.addLinkedAlbum.fadeOut();
+  }
+
+  #reset_album_selector() {
+    this.#prefill_search();
+    this.#reset_search_input(false);
+    // AlbumSelector.selectors.searchInput.val('');
+    // // AlbumSelector.selectors.searchInput.trigger("input");
+    AlbumSelector.selectors.limitReached.html(str_no_search_in_progress);
+    AlbumSelector.selectors.albumSelector.show();
+  }
+
+  #hard_reset_album_selector() {
+    AlbumSelector.selectors.albumCreate.hide();
+    this.#hide_new_album_error();
+
+    this.#reset_album_selector();
+    AlbumSelector.selectors.linkedAlbumInput.val('');
+    if (AlbumSelector.selectors.albumCheckBox.is(':checked')) {
+      AlbumSelector.selectors.albumCheckBox.trigger('click');
+    }
+    AlbumSelector.selectors.searchResult.show();
+    AlbumSelector.selectors.linkedAlbumSwitch.show();
+
+  }
+
+  #reset_search_input(prefill) {
+    AlbumSelector.selectors.searchInput.val('');
+    AlbumSelector.selectors.limitReached.show().html(str_no_search_in_progress);
+    AlbumSelector.selectors.searchResult.empty();
+    if(prefill) {
+      this.#prefill_search();
+    }
+  }
+
+  #switch_album_creation() {
+    this.#reset_album_selector();
+    const instanceAb = `.${this.instanceId}`;
+
+    if (this.#isAlbumCreationChecked) {
+      if (AlbumSelector.selectors.putToRoot.length) {
+        AlbumSelector.selectors.putToRoot.hide();
+      }
+      AlbumSelector.selectors.linkedModalTitle.hide();
+      AlbumSelector.selectors.linkedModalTitle.html(str_create_and_select);
+      AlbumSelector.selectors.linkedAddAlbum.show();
+      AlbumSelector.selectors.linkedModalTitle.fadeIn();
+
+      AlbumSelector.selectors.linkedAddAlbum.off(`click${instanceAb}`).on(`click${instanceAb}`, () => {
+        this.#switch_album_view('root');
+      });
+    } else {
+      if (AlbumSelector.selectors.putToRoot.length) {
+        AlbumSelector.selectors.putToRoot.fadeIn();
+      }
+      AlbumSelector.selectors.linkedModalTitle.hide();
+      AlbumSelector.selectors.linkedModalTitle.html(this.#title);
+      AlbumSelector.selectors.linkedModalTitle.fadeIn();
+      AlbumSelector.selectors.linkedAddAlbum.hide();
+      AlbumSelector.selectors.linkedAddAlbum.off('click');
+    }
+  }
+
+  #switch_album_view(cat) {
+    const instanceAb = `.${this.instanceId}`;
+
+    AlbumSelector.selectors.albumSelector.hide();
+    AlbumSelector.selectors.searchResult.hide();
+    AlbumSelector.selectors.linkedAlbumSwitch.hide();
+    AlbumSelector.selectors.albumCreate.fadeIn();
+
+    AlbumSelector.selectors.linkedAlbumSubTitle.html(sprintf(str_add_subcat_of, cat === 'root' ? str_root_album_select : cat.name));
+    AlbumSelector.selectors.linkedAddNewAlbum.off(`click${instanceAb}`).on(`click${instanceAb}`, () => {
+      this.#add_new_album(cat === 'root' ? cat : cat.id);
     });
-  } else {
-    if (putToRoot.length) {
-      putToRoot.fadeIn();
+
+    AlbumSelector.selectors.linkedAlbumCancel.off(`click${instanceAb}`).on(`click${instanceAb}`, () => {
+      this.#close_album_selector();
+    });
+
+    AlbumSelector.selectors.linkedAlbumInput.off(`input${instanceAb}`).on(`input${instanceAb}`, () => {
+      this.#hide_new_album_error();
+    });
+  }
+
+  #hide_new_album_error() {
+    AlbumSelector.selectors.addAlbumErrors.css('visibility', 'hidden');
+  }
+
+  #show_new_album_error(text) {
+    AlbumSelector.selectors.linkedAddAlbumErrors.html(text);
+    AlbumSelector.selectors.addAlbumErrors.css('visibility', 'visible');
+  }
+
+  #select_new_album_and_close(cat) {
+    const tempThis = this;
+    this.#currentSelectedId = cat.id;
+    this.#selectAlbum({ album: cat });
+    this.#close_album_selector();
+  }
+
+  #destroyEvent() {
+    const instanceAb = `.${this.instanceId}`;
+
+    $(document).off(`keyup${instanceAb}`);
+    $(document).off(`click${instanceAb}`);
+    $(document).off(`change${instanceAb}`);
+    $(document).off(`input${instanceAb}`);
+    AlbumSelector.selectors.searchInput.off(`keyup${instanceAb}`);
+    AlbumSelector.selectors.searchResult.find('.search-result-item').off(`click${instanceAb}`);
+    $('.prefill-results-item').off(`click${instanceAb}`);
+    $('.prefill-results-item.available').off(`click${instanceAb}`);
+  }
+
+  /*--------------
+  Dom modification
+  --------------*/
+  #prefill_results(rank, cats, limit) {
+    const isCreationMode = this.#isAlbumCreationChecked;
+    const iconAlbum = this.#isAlbumCreationChecked ? 'icon-add-album' : 'gallery-icon-plus-circled';
+    const tempSelectedCat = this.#current_cat ? [...this.#selected_categories, this.#current_cat.toString()] : [...this.#selected_categories];
+
+    this.#cats = { ...this.#cats, ...Object.fromEntries(cats.map(c => [c.id, c])) };
+    let display_div = $('#subcat-' + rank);
+    if ('root' == rank) {
+      AlbumSelector.selectors.searchResult.empty();
+      display_div = AlbumSelector.selectors.searchResult;
+    } else {
+      display_div = $('#subcat-' + rank);
     }
-    linkedModalTitle.hide();
-    linkedModalTitle.html(str_album_modal_title);
-    linkedModalTitle.fadeIn();
-    linkedAddAlbum.fadeOut();
-    linkedAddAlbum.off('click');
-  }
-}
 
-function switch_album_view(cat) {
-  albumSelector.hide();
-  searchResult.hide();
-  linkedAlbumSwitch.hide();
-  albumCreate.fadeIn();
-
-  linkedAlbumSubTitle.html(sprintf(str_add_subcat_of, cat === 'root' ? str_root_album_select : cat.name));
-  linkedAddNewAlbum.off('click').on('click', function () {
-    add_new_album(cat === 'root' ? cat : cat.id);
-  });
-
-  linkedAlbumCancel.off('click').on('click', function () {
-    close_album_selector();
-  });
-
-  linkedAlbumInput.off('input').on('input', function () {
-    hide_new_album_error();
-  });
-}
-
-function select_new_album_and_close(cat) {
-  if (typeof b_current_picture_id !== 'undefined') {
-    add_related_category(cat.id, cat.full_name_with_admin_links, b_current_picture_id);
-  } else {
-    add_related_category(cat.id, cat.full_name_with_admin_links);
-  }
-  
-  close_album_selector();
-  hard_reset_album_selector();
-}
-
-function hard_reset_album_selector() {
-  albumCreate.hide();
-  hide_new_album_error();
-
-  reset_album_selector();
-  linkedAlbumInput.val('');
-  if (albumCheckBox.is(':checked')) {
-    albumCheckBox.trigger('click');
-  }
-  searchResult.show();
-  linkedAlbumSwitch.show();
-}
-
-function hide_new_album_error() {
-  AddAlbumErrors.css('visibility', 'hidden');
-}
-
-function show_new_album_error(text) {
-  linkedAddAlbumErrors.html(text);
-  AddAlbumErrors.css('visibility', 'visible');
-}
-
-function prefill_results(rank, cats, limit) {
-  let display_div = $('#subcat-'+rank);
-  if ('root' == rank){
-    $("#searchResult").empty();
-    display_div = $('#searchResult');
-  } else {
-    display_div = $('#subcat-'+rank);
-  }
-
-  cats.forEach(cat => {
+    cats.forEach(cat => {
       let subcat = '';
       if (cat.nb_categories > 0) {
-        subcat = "<span id=" + cat.id + " class='display-subcat gallery-icon-up-open'></span>"
+        subcat = `<span id="${cat.id}" class="display-subcat gallery-icon-up-open"></span>`
       }
 
-      const iconAlbum = isAlbumCreationChecked ? 'icon-add-album' : 'gallery-icon-plus-circled';
-
-      if (!related_categories_ids.includes(cat.id) || isAlbumCreationChecked) {
+      const isNotInSelectedCat = !tempSelectedCat.includes(cat.id);
+      if (isCreationMode || isNotInSelectedCat ) {
         display_div.append(
-          "<div class='search-result-item' id="+ cat.id + ">" +
-            subcat +
-            "<div class='prefill-results-item available' id=" + cat.id + ">" +
-              "<span class='search-result-path'>" + cat.name +"</span>" + 
-              "<span id="+ cat.id + " class='" + iconAlbum + " item-add'></span>" +
-            "</div>" +
-          "</div>"
+          `<div class="search-result-item" id="${cat.id}">
+              ${subcat}
+              <div class="prefill-results-item available" id="${cat.id}">
+                <span class="search-result-path">${cat.name}</span>
+                <span id=${cat.id}" class="${iconAlbum} item-add"></span>
+              </div>
+            </div>`
         );
       } else {
         display_div.append(
-          "<div class='search-result-item already-in' id="+ cat.id + " title='" + str_album_selected + "'>" +
-            subcat +
-            "<div class='prefill-results-item' id=" + cat.id + ">" +
-              "<span class='search-result-path'>" + cat.name +"</span>" + 
-              "<span id="+ cat.id + " class='gallery-icon-plus-circled item-add notClickable' title='" + str_album_selected + "'></span>" +
-            "</div>" +
-          "</div>"
+          `<div class="search-result-item already-in" id="${cat.id}" title="${str_album_selected}">
+              ${subcat}
+              <div class="prefill-results-item" id="${cat.id}">
+                <span class="search-result-path">${cat.name}</span> 
+                <span id="${cat.id}" class="gallery-icon-plus-circled item-add notClickable" title="${str_album_selected}"></span>
+              </div>
+            </div>`
         );
       }
 
       if (rank !== 'root') {
-        const item = $("#"+rank+".search-result-item");
+        const item = $("#" + rank + ".search-result-item");
         const margin_left = parseInt(item.css('margin-left')) + 25;
-        $("#"+cat.id+".search-result-item").css('margin-left', margin_left);
-        $("#"+cat.id+".search-result-item .search-result-path").css('max-width', 400 - margin_left - 80);
+        $("#" + cat.id + ".search-result-item").css('margin-left', margin_left);
+        $("#" + cat.id + ".search-result-item .search-result-path").css('max-width', 400 - margin_left - 80);
       }
+    });
 
-      if (isAlbumCreationChecked) {
-        $('#'+ cat.id +'.prefill-results-item').off('click').on('click', function () {
-          switch_album_view(cat);
-        });
-      } else {
-        $("#"+ cat.id +".prefill-results-item.available").off('click').on('click', function () {
-          if (typeof b_current_picture_id !== 'undefined') {
-            add_related_category(cat.id, in_admin_mode ? cat.full_name_with_admin_links : cat.name, b_current_picture_id);
-          } else {
-            add_related_category(cat.id, in_admin_mode ? cat.full_name_with_admin_links : cat.name);
-          }
-        });
-      }
-      
-      $("#"+cat.id+".display-subcat").off('click').on('click', function () {
-        const cat_id = $(this).prop('id');
-
-        if($(this).hasClass('open')){
-          // CLOSING SUBCAT
-          $(this).removeClass('open');
-          $("#subcat-"+cat.id).fadeOut();
-
-        } else {
-          // OPENING SUBCAT
-          // if subcat div exist
-          if ($("#subcat-"+cat.id).length){
-            $(this).addClass('open');
-            $("#subcat-"+cat.id).fadeIn();
-          } else { // if subcat div doesn't exist
-            $("#"+cat_id+".display-subcat").removeClass('gallery-icon-up-open').addClass('gallery-icon-spin6 animate-spin');
-            $("#"+cat_id+".search-result-item").after(`<div id="subcat-${cat_id}" class="search-result-subcat-item"></div>`);
-            prefill_search_subcats(cat_id).then(() => {
-              $("#"+cat_id+".display-subcat").removeClass('gallery-icon-spin6 animate-spin').addClass('gallery-icon-up-open');
-              $(this).addClass('open');
-              $("#subcat-"+cat.id).fadeIn();
-            });
-          }
-        }
-
-      });
-    
-  });
-  // for debug
-  // console.log(limit);
-  if (limit.remaining_cats > 0) {
-    const text = sprintf(str_plus_albums_found, limit.limited_to, limit.total_cats);
-    display_div.append(
-      "<p class='and-more'>" + text + "</p>"
-    );
+    this.#loadPickAlbumEvent();
+    this.#loadSubCatEvent();
+    // for debug
+    // console.log(limit);
+    if (limit.remaining_cats > 0) {
+      const text = sprintf(str_plus_albums_found, limit.limited_to, limit.total_cats);
+      display_div.append(
+        `<p class="and-more">${text}</p>`
+      );
+    }
   }
-}
 
-function fill_results(cats) {
-  $("#searchResult").empty();
-  cats.forEach(cat => {
-    const cat_name = in_admin_mode ? cat.fullname : cat.name;
-    const iconAlbum = isAlbumCreationChecked ? 'icon-add-album' : 'gallery-icon-plus-circled';
+  #fill_results(cats) {
+    const iconAlbum = this.#isAlbumCreationChecked ? 'icon-add-album' : 'gallery-icon-plus-circled';
+    const tempSelectedCat = this.#current_cat ? [...this.#selected_categories, this.#current_cat.toString()] : [...this.#selected_categories];
 
-    $("#searchResult").append(
-    "<div class='search-result-item' id="+ cat.id + ">" +
-      "<span class='search-result-path'>" +  cat_name + "</span><span id="+ cat.id + " class='" + iconAlbum + " item-add'></span>" +
-    "</div>"
-    );
+    this.#searchCat = Object.fromEntries(cats.map(c => [c.id, c]));
+    AlbumSelector.selectors.searchResult.empty();
 
-    if (isAlbumCreationChecked) {
-      $(".search-result-item#"+ cat.id).off('click').on("click", function () {
-        switch_album_view(cat);
-      });
-      return
-    }
+    cats.forEach(cat => {
+      const cat_name = this.#in_admin_mode ? cat.fullname : cat.name;
 
-    if (related_categories_ids.includes(cat.id)) {
-      $(".search-result-item #"+ cat.id +".item-add").addClass("notClickable").attr("title", str_album_selected).off('click').on("click", function (event) {
-        event.preventDefault();
-      });
-      $("#"+cat.id+".search-result-item").addClass("notClickable").attr("title", str_album_selected).off('click').on("click", function (event) {
-        event.preventDefault();
-      });
-    } else {
-      $(".search-result-item#"+ cat.id).off('click').on("click", function () {
-        if (typeof b_current_picture_id !== 'undefined') {
-          add_related_category(cat.id, in_admin_mode ? cat.full_name_with_admin_links : cat.name, b_current_picture_id);
-        } else {
-          add_related_category(cat.id, in_admin_mode ? cat.full_name_with_admin_links : cat.name);
-        }
-      });
-    }
-  });
-}
+      AlbumSelector.selectors.searchResult.append(
+        `<div class='search-result-item' id="${cat.id}">
+        <span class="search-result-path">${cat_name}</span><span id="${cat.id}" class="${iconAlbum} item-add"></span>
+      </div>`
+      );
 
-/*-----------
-Ajax function
------------*/
+      if (this.#isAlbumCreationChecked) {
+        const instanceAb = `.${this.instanceId}`;
+        $(".search-result-item#" + cat.id).off(`click${instanceAb}`).on(`click${instanceAb}`, () => {
+          this.#switch_album_view(cat);
+        });
+        return
+      }
 
-function prefill_search() {
-  $(".linkedAlbumPopInContainer .searching").show();
-  let api_params = {
-    cat_id: 0,
-    recursive: false,
-    fullname: true,
-    limit: limit_params,
-  };
+      if (tempSelectedCat.includes(cat.id)) {
+        $(".search-result-item #" + cat.id + ".item-add").addClass("notClickable").attr("title", str_album_selected);
+        $("#" + cat.id + ".search-result-item").addClass("notClickable").attr("title", str_album_selected);
+      } 
+    });
 
-  in_admin_mode && (api_params.additional_output = 'full_name_with_admin_links');
+    !this.#isAlbumCreationChecked && this.#loadFillResultEvent(tempSelectedCat);
+  }
 
-  $.ajax({
-    url: "ws.php?format=json&method=" + methodPwg,
-    type: "POST",
-    dataType: "json",
-    data: api_params,
-    success: function (data) {
-      // for debug
-      // console.log(data);
-      $(".linkedAlbumPopInContainer .searching").hide();
-      const cats = data.result.categories;
-      const limit = data.result.limit;
-      prefill_results("root", cats, limit);
-    },
-    error: function (e) {
-      $(".linkedAlbumPopInContainer .searching").hide();
-      console.log("error : ", e.message);
-    },
-  });
-}
+  /*-----------
+  Ajax method
+  -----------*/
+  #prefill_search() {
+    $(".linkedAlbumPopInContainer .searching").show();
+    let api_params = {
+      cat_id: 0,
+      recursive: false,
+      fullname: true,
+      limit: this.#limitParam,
+    };
 
-async function prefill_search_subcats(cat_id) {
-  let api_params = {
-    cat_id: cat_id,
-    recursive: false,
-    limit: limit_params,
-  };
+    this.#in_admin_mode && (api_params.additional_output = 'full_name_with_admin_links');
 
-  in_admin_mode && (api_params.additional_output = 'full_name_with_admin_links');
-
-  try {
-    const data = await $.ajax({
-      url: "ws.php?format=json&method=" + methodPwg,
+    $.ajax({
+      url: "ws.php?format=json&method=" + this.#methodPwg,
       type: "POST",
       dataType: "json",
       data: api_params,
+      success: (data) => {
+        // for debug
+        // console.log(data);
+        $(".linkedAlbumPopInContainer .searching").hide();
+        const cats = data.result.categories;
+        const limit = data.result.limit;
+        this.#prefill_results("root", cats, limit);
+      },
+      error: function (e) {
+        $(".linkedAlbumPopInContainer .searching").hide();
+        console.log("error : ", e.message);
+      },
     });
-
-    // for debug
-    // console.log(data);
-    const cats = data.result.categories.filter((c) => c.id != cat_id);
-    const limit = data.result.limit;
-    prefill_results(cat_id, cats, limit);
-  } catch (e) {
-    console.log("error", e.message);
-  }
-}
-
-function perform_albums_search(searchText) {
-  let api_params = {
-    cat_id: 0,
-    recursive: true,
-    fullname: true,
-    search: searchText,
   }
 
-  in_admin_mode && (api_params.additional_output = 'full_name_with_admin_links');
+  async #prefill_search_subcats(cat_id) {
+    let api_params = {
+      cat_id: cat_id,
+      recursive: false,
+      limit: this.#limitParam,
+    };
 
-  iconSearchingSpin.show();
-  $.ajax({
-    url: "ws.php?format=json&method=" + methodPwg,
-    type: "POST",
-    dataType: "json",
-    data : api_params,
-    before: function () {
-      
-    },
-    success: function (raw_data) {
-      iconSearchingSpin.hide();
-      categories = raw_data.result.categories;
-      fill_results(categories);
+    this.#in_admin_mode && (api_params.additional_output = 'full_name_with_admin_links');
 
-      if (raw_data.result.limit_reached) {
-        limitReached.html(str_result_limit.replace("%d", categories.length));
-      } else {
-        if (categories.length == 1) {
-          limitReached.html(str_album_found);
+    $.ajax({
+      url: "ws.php?format=json&method=" + this.#methodPwg,
+      type: "POST",
+      dataType: "json",
+      data: api_params,
+      success: (data) => {
+        const cats = data.result.categories.filter((c) => c.id != cat_id);
+        const limit = data.result.limit;
+        this.#prefill_results(cat_id, cats, limit);
+      },
+      error: (e) => {
+        console.log('prefill search error :', e);
+      }
+    });
+  }
+
+  #perform_albums_search(searchText) {
+    if (searchText == '') {
+      this.#reset_search_input(true);
+      return;
+    }
+    let api_params = {
+      cat_id: 0,
+      recursive: true,
+      fullname: true,
+      search: searchText,
+    }
+
+    this.#in_admin_mode && (api_params.additional_output = 'full_name_with_admin_links');
+
+    AlbumSelector.selectors.iconSearchingSpin.show();
+    $.ajax({
+      url: "ws.php?format=json&method=" + this.#methodPwg,
+      type: "POST",
+      dataType: "json",
+      data: api_params,
+      success: (raw_data) => {
+        if ('ok' !== raw_data.stat) { return }
+        AlbumSelector.selectors.iconSearchingSpin.hide();
+        let categories = raw_data.result.categories;
+        this.#fill_results(categories);
+
+        if (raw_data.result.limit_reached) {
+          AlbumSelector.selectors.limitReached.html(str_result_limit.replace("%d", categories.length));
         } else {
-          limitReached.html(str_albums_found.replace("%d", categories.length));
+          if (categories.length == 1) {
+            AlbumSelector.selectors.limitReached.html(str_album_found);
+          } else {
+            AlbumSelector.selectors.limitReached.html(str_albums_found.replace("%d", categories.length));
+          }
         }
+      },
+      error: (e) => {
+        AlbumSelector.selectors.iconSearchingSpin.hide();
+        console.log(e.message);
       }
-    },
-    error: function (e) {
-      iconSearchingSpin.hide();
-      console.log(e.message);
-    }
-  })
-}
-
-function add_new_album(cat_id) {
-  const cat_name = linkedAlbumInput.val();
-  const cat_position = $("input[name=position]:checked").val();
-  const api_params = {
-    name: cat_name,
-    parent: cat_id === 'root' ? 0 : +cat_id,
-    position: cat_position,
+    });
   }
 
-  if(!cat_name || '' === cat_name) {
-    show_new_album_error(str_complete_name_field);
-    return
+  #add_new_album(cat_id) {
+    const cat_name = AlbumSelector.selectors.linkedAlbumInput.val();
+    const cat_position = $("input[name=position]:checked").val();
+    const api_params = {
+      name: cat_name,
+      parent: cat_id === 'root' ? 0 : +cat_id,
+      position: cat_position,
+    }
+  
+    if(!cat_name || '' === cat_name) {
+      this.#show_new_album_error(str_complete_name_field);
+      return
+    }
+  
+    $.ajax({
+      url: 'ws.php?format=json&method=pwg.categories.add',
+      type: 'POST',
+      dataType: 'json',
+      data: api_params,
+      success: (data) => {
+        if (data.stat === 'ok') {
+          this.#get_album_by_id(data.result.id);
+        } else {
+          this.#show_new_album_error(str_an_error_has_occured);
+        }
+      },
+      error: () => {
+        this.#show_new_album_error(str_an_error_has_occured);
+      }
+    });
   }
 
-  $.ajax({
-    url: 'ws.php?format=json&method=pwg.categories.add',
-    type: 'POST',
-    dataType: 'json',
-    data: api_params,
-    success: function (data) {
-      if (data.stat === 'ok') {
-        get_album_by_id(data.result.id);
-      } else {
-        show_new_album_error(str_an_error_has_occured);
+  #get_album_by_id(cat_id) {
+    $.ajax({
+      url: 'ws.php?format=json&method=pwg.categories.getAdminList',
+      dataType: 'json',
+      data: {
+        cat_id,
+        additional_output: 'full_name_with_admin_links',
+      },
+      success: (data) => {
+        if(data.stat === 'ok') {
+          this.#select_new_album_and_close(data.result.categories[0]);
+        } else {
+          this.#show_new_album_error(str_an_error_has_occured);
+        }
+      },
+      error: () => {
+        this.#show_new_album_error(str_an_error_has_occured);
       }
-    },
-    error: function () {
-      show_new_album_error(str_an_error_has_occured);
-    }
-  });
-}
+    });
+  }
 
-function get_album_by_id(cat_id) {
-  $.ajax({
-    url: 'ws.php?format=json&method=pwg.categories.getAdminList',
-    dataType: 'json',
-    data: {
-      cat_id,
-      additional_output: 'full_name_with_admin_links',
-    },
-    success: function(data) {
-      if(data.stat === 'ok') {
-        select_new_album_and_close(data.result.categories[0]);
-      } else {
-        show_new_album_error(str_an_error_has_occured);
-      }
-    },
-    error: function () {
-      show_new_album_error(str_an_error_has_occured);
-    }
-  });
 }

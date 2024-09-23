@@ -2,6 +2,14 @@ jQuery(document).ready(function() {
   
   activateCommentDropdown();
   checkAlbumLock();
+  const ab = new AlbumSelector({ 
+    selectedCategoriesIds: related_categories_ids,
+    selectAlbum: add_related_category,
+    showRootButton: true,
+    adminMode: true,
+    currentAlbumId: album_id,
+    modalTitle: str_modal_ab,
+  });
 
   $(".unlock-album").on('click', function () {
     jQuery.ajax({
@@ -329,16 +337,7 @@ jQuery(document).ready(function() {
   $("#cat-parent.icon-pencil").on("click", function (e) {
     // Don't open the popin if you click on the album link
     if (e.target.localName != 'a') {
-      open_album_selector();
-
-      if (parent_album != 0) {
-        $(".put-to-root").removeClass("notClickable");
-        $(".put-to-root").click(function () {
-          add_related_category(0, str_root);
-        });
-      } else {
-        $(".put-to-root").addClass("notClickable");
-      }
+      ab.open();
     }
   });
 
@@ -473,24 +472,17 @@ function checkAlbumLock() {
 
 // Parent album popin functions
 
-function add_related_category(cat_id, cat_link_path) {
-  if (parent_album != cat_id) {
-
-    const cat_to_remove_index = related_categories_ids.indexOf(parent_album.toString());
-    if (cat_to_remove_index > -1) {
-      related_categories_ids.splice(cat_to_remove_index, 1);
-    }
-
+function add_related_category({ album, newSelectedAlbum, getSelectedAlbum }) {
+  if (parent_album != album.id) {
     $("#cat-parent").html(
-      cat_link_path
+      album.full_name_with_admin_links ?? album.root
     );
 
-    $(".search-result-item #" + cat_id).addClass("notClickable");
-    parent_album = cat_id;
-    related_categories_ids.push(cat_id);
-    $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>");
+    $(".search-result-item #" + album.id).addClass("notClickable");
+    $(".invisible-related-categories-select").append("<option selected value="+ album.id +"></option>");
 
-    close_album_selector();
+    newSelectedAlbum();
+    parent_album = getSelectedAlbum()[0];
   }
 }
 

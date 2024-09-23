@@ -1,5 +1,6 @@
 $(document).ready(function () {
-  related_categories_ids = [];
+  /** @type {AlbumSelector} */
+  let ab;
 
   $(".linkedAlbumPopInContainer .ClosePopIn").addClass(prefix_icon + "cancel");
   $(".linkedAlbumPopInContainer .searching").addClass(prefix_icon + "spin6").hide();
@@ -342,9 +343,28 @@ $(document).ready(function () {
   
     album_widget_value = "";
     global_params.fields.cat.words.forEach(cat_id => {
-      add_related_category(cat_id, fullname_of_cat[cat_id]);
+      display_related_category(cat_id, fullname_of_cat[cat_id]);
       album_widget_value += fullname_of_cat[cat_id] + ", ";
     });
+
+    // Load Album Selector
+    ab = new AlbumSelector({
+      selectedCategoriesIds: global_params.fields.cat.words,
+      selectAlbum: add_related_category,
+      removeSelectedAlbum: remove_related_category,
+      modalTitle: str_search_in_ab,
+    });
+
+    $(".add-album-button").on("click", function () {
+      ab.open();
+    });
+
+    $('.selected-categories-container').on('click', (e) => {
+      if (e.target.classList.contains("remove-item")) {
+        ab.remove_selected_album($(e.target).attr('id'));
+      }
+    });
+
     if (global_params.fields.cat.words && global_params.fields.cat.words.length > 0) {
       $(".filter-album").addClass("filter-filled");
       $(".filter-album .search-words").html(album_widget_value.slice(0, -2));
@@ -358,7 +378,7 @@ $(document).ready(function () {
 
     $(".filter-album .filter-actions .clear").on('click', function () {
       $(".filter-album .search-params input[value='AND']");
-      related_categories_ids = [];
+      ab.resetAll();
       $(".selected-categories-container").empty();
       $("#search-sub-cats").prop('checked', false);
     });
@@ -995,11 +1015,11 @@ $(document).ready(function () {
       } else {
         $(".filter-album").removeClass("show-filter-dropdown");
         global_params.fields.cat = {};
-        global_params.fields.cat.words = related_categories_ids;
+        global_params.fields.cat.words = ab.get_selected_albums();
         // global_params.fields.cat.search_params = $(".filter-form.filter-album-form .search-params input:checked").val().toLowerCase();
         global_params.fields.cat.sub_inc = $("input[name='search-sub-cats']:checked").length != 0;
 
-        PS_params.categories = related_categories_ids.length > 0 ? related_categories_ids : '';
+        PS_params.categories = ab.get_selected_albums().length > 0 ? ab.get_selected_albums() : '';
         PS_params.categories_withsubs = $("input[name='search-sub-cats']:checked").length != 0;
       }
     });
@@ -1015,10 +1035,6 @@ $(document).ready(function () {
       $(".filter-album").hide();
       $(".filter-manager-controller.album").prop("checked", false);
     }
-  });
-
-  $(".add-album-button").on("click", function () {
-    open_album_selector();
   });
 
   /**
@@ -1362,33 +1378,22 @@ function performSearch(params, reload = false) {
   });
 }
 
-function add_related_category(cat_id, cat_link_path) {
-    $(".selected-categories-container").append(
-      "<div class='breadcrumb-item'>" +
-        "<span class='link-path'>" + cat_link_path + "</span><span id="+ cat_id + " class='mcs-icon " + prefix_icon + "cancel remove-item'></span>" +
-      "</div>"
-    );
-
-    related_categories_ids.push(cat_id);
-    $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>");
-
-    $("#"+ cat_id).on("click", function () {
-      remove_related_category($(this).attr("id"));
-    });
-
-    close_album_selector();
+function add_related_category({ album, addSelectedAlbum }) {
+    display_related_category(album.id, album.name);
+    $(".invisible-related-categories-select").append(`<option selected value="${album.id}"></option>`);
+    addSelectedAlbum();
 }
 
-function remove_related_category(cat_id) {
-  $("#" + cat_id).parent().remove();
+function remove_related_category({ id_album }) {
+  $("#" + id_album).parent().remove();
+}
 
-  cat_to_remove_index = related_categories_ids.indexOf(parseInt(cat_id));
-  if (cat_to_remove_index > -1) {
-    related_categories_ids.splice(cat_to_remove_index, 1);
-  }
-  if (related_categories_ids.length === 0) {
-    related_categories_ids = [];
-  }
+function display_related_category(cat_id, cat_link_path) {
+  $(".selected-categories-container").append(
+    `<div class="breadcrumb-item">
+      <span class="link-path">${cat_link_path}</span><span id="${cat_id}" class="mcs-icon ${prefix_icon}cancel remove-item"></span>
+    </div>`
+  );
 }
 
 function updateFilters(filterName, mode) {

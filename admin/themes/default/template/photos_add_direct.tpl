@@ -49,6 +49,7 @@ var str_format_warning_multiple = "{'There is multiple image in the database wit
 var str_format_warning_notFound = "{'No picture found with the following name : %s.'|translate}";
 var str_and_X_others = "{'and %d more'|translate}";
 const str_upload_in_progress = "{'Upload in progress'|translate|escape}";
+const str_drop_album_ab = '{'Drop into album'|@translate}';
 var file_ext = "{$file_exts}";
 var format_ext = "{$format_ext}"; 
 var uploadedPhotos = [];
@@ -238,8 +239,4 @@ let related_categories_ids = {$selected_category|json_encode};
   </div>
 </div>
 
-{include file='include/album_selector.inc.tpl' 
-  title={'Drop into album'|@translate}
-  searchPlaceholder={'Search'|@translate}
-  admin_mode=true
-}
+{include file='include/album_selector.inc.tpl'}

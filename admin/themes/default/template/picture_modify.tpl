@@ -51,6 +51,7 @@ str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
 url_delete = '{$U_DELETE}';
 str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
 
+
 related_categories_ids = {$related_categories_ids|@json_encode};
 
 {literal}
@@ -85,6 +86,7 @@ $('#action-delete-picture').on('click', function() {
 {/literal}
 
 }());
+const str_assoc_album_ab = '{'Associate to album'|@translate}';
 {/footer_script}
 
 {combine_script id='picture_modify' load='footer' path='admin/themes/default/js/picture_modify.js'}
@@ -230,11 +232,7 @@ $('#action-delete-picture').on('click', function() {
 
 </form>
 
-{include file='include/album_selector.inc.tpl' 
-  title={'Associate to album'|@translate}
-  searchPlaceholder={'Search'|@translate}
-  admin_mode=true
-}
+{include file='include/album_selector.inc.tpl'}
 
 <style>
 .selectize-input  .item,

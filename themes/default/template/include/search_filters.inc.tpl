@@ -45,6 +45,7 @@ str_ratios_label['Panorama'] = "{'Panorama'|@translate|escape:javascript}";
 
 str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate|escape:javascript}";
 str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate|escape:javascript}";
+const str_search_in_ab = '{'Search in albums'|@translate|escape:javascript}';
 
 const prefix_icon = 'gallery-icon-';
 
@@ -492,11 +493,7 @@ const prefix_icon = 'gallery-icon-';
       </div>
     </div>
   </div>
-  {include file='admin/themes/default/template/include/album_selector.inc.tpl' 
-    title={'Search in albums'|@translate}
-    searchPlaceholder={'Search'|@translate}
-    show_root_btn=false
-  }
+  {include file='admin/themes/default/template/include/album_selector.inc.tpl'}
   {if isset($AUTHORS)}
   <div class="filter filter-authors">
     <span class="mcs-icon gallery-icon-user-edit filter-icon"></span>

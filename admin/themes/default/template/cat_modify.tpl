@@ -32,7 +32,7 @@ const str_delete_all_photos = '{'delete album and all %d photos, even the %d ass
 str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
 str_album_comment_allow = '{'Comments allowed for sub-albums'|@translate|escape:javascript}';
 str_album_comment_disallow = '{'Comments disallowed for sub-albums'|@translate|escape:javascript}';
-str_root = '{'Root'|@translate|escape:javascript}';
+const str_modal_ab = '{'New parent album'|@translate}';
 {/footer_script}
 
 <div class="cat-modify" id="cat-modify">
@@ -145,12 +145,7 @@ str_root = '{'Root'|@translate|escape:javascript}';
         <div class="icon-pencil" id="cat-parent">{$CATEGORIES_PARENT_NAV}</div>
       </div>
 
-      {include file='include/album_selector.inc.tpl' 
-        title={'New parent album'|@translate}
-        searchPlaceholder={'Search'|@translate}
-        show_root_btn=true
-        admin_mode=true
-      }
+      {include file='include/album_selector.inc.tpl'}
 
       {if isset($CAT_COMMENTABLE)}
       <div class="cat-modify-switch-container">
