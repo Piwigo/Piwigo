@@ -162,8 +162,8 @@ TABLE.languages TR TD { padding: 7px 20px; }
 }
 
 .slider-bar-wrapper .ui-slider-horizontal .ui-slider-handle{
-    background-color:#ffaf58;
-    border: 1px solid #ffaf58;
+    background-color:#ffa646;
+    border: 1px solid #ffa646;
     border-radius:25px;
     top: -.7em !important;
     width: 1.4em;
@@ -171,7 +171,7 @@ TABLE.languages TR TD { padding: 7px 20px; }
 }
 
 .slider-bar-wrapper .ui-slider-horizontal .ui-slider-range {
-  background-color: #ffaf58;
+  background-color: #ffa646;
 }
 
 .slider-bar-wrapper .ui-slider-horizontal{
@@ -930,7 +930,7 @@ LI.menuLi {
 }
 
 .selected-pagination {
-background: #ffd2a1;
+background: #ffa646;
 }
 
 .pagination-container {
@@ -6858,7 +6858,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .AlbumViewSelector input:checked + label span,
 .UserViewSelector input:checked + label span{
-  background: orange;
+  background: #ffa646;
 }
 
 .head-button {

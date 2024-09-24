@@ -981,8 +981,9 @@ $(document).ready(function() {
   <div class="GuestUserListPopInContainer">
 
     <a class="icon-cancel CloseUserList CloseGuestUserList"></a>
-    <div id="guest-msg" style="background-color:#B9E2F8;padding:5px;border-left:3px solid blue;display:flex;align-items:center;margin-bottom:30px">
-      <span class="icon-info-circled-1" style="background-color:#B9E2F8;color:#26409D;font-size:3em"></span><span style="font-size:1.1em;color:#26409D;font-weight:bold;">{'Users not logged in will have these settings applied, these settings are used by default for new users'|@translate}</span>
+    <div id="guest-msg" class="messages">
+      <span class="eiw-icon icon-info-circled-1"></span>
+      <span>{'Users not logged in will have these settings applied, these settings are used by default for new users'|@translate}</span>
     </div>
     <div class="summary-properties-update-container">
       <div class="summary-properties-container">
@@ -1353,10 +1354,6 @@ $(document).ready(function() {
     padding: 0;
     justify-content: space-between;
     align-items: center;
-}
-
-.selected-pagination {
-  background: #ffd2a1;
 }
 
 /* User Table */
@@ -1832,7 +1829,7 @@ $(document).ready(function() {
 
 .user-property-label span,
 .dates-infos {
-	color: #ff7700;
+	color: #ffa646;
 	font-weight: bold;
   margin-left: 5px;
 }
@@ -2512,7 +2509,7 @@ $(document).ready(function() {
     padding:10px 20px;
     font-size:1.1em;
     font-weight:bold;
-    background-color: #ffa744;
+    background-color: #ffa646;
     color: #3c3c3c;
 }
 
@@ -2679,7 +2676,7 @@ $(document).ready(function() {
   cursor:pointer;
   font-weight:bold;
   color: #3F3E40;
-  background-color: #FFA836;
+  background-color: #ffa646;
   padding: 10px;
   margin-top: 5px;
   font-size:1em;

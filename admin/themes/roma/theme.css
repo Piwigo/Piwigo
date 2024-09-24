@@ -151,7 +151,7 @@ ul.actions, .content form#waiting  {text-align:center;}
 }
 
 .selected-pagination{
-  background:orange!important;
+  background:#ffa646!important;
   color:#444!important;
 }
 
@@ -678,7 +678,7 @@ label>p.group_select {
 }
 
 input:checked + .slider {
-  background-color: #ff8c27;
+  background-color: #ffa646;
 }
 
 input:focus + .slider {
@@ -707,6 +707,11 @@ input:focus + .slider {
 
 .BlackFont{
   color:black!important;
+}
+
+#checkActions a:hover {
+  background-color: #1B1B1B;
+  color: #777777;
 }
 
 /*Selection mode content*/
@@ -797,7 +802,11 @@ input:focus + .slider {
 /*UserList Pop in*/
 
 .CloseUserList, .CloseAddAlbum, #CloseDeleteAlbum{
-  color:white;
+  color: #444;
+}
+
+.CloseUserList:hover, .CloseAddAlbum:hover, #CloseDeleteAlbum:hover {
+  color: #ffa646
 }
 
 #UserList .group-name-block p{
@@ -840,6 +849,15 @@ input:focus + .slider {
 .advanced-filter-select-container::before {
   color: #4c4c4c;
 }
+
+.user-property-main-user-content-header .main-user-icon {
+  background-color: #BE4949 !important;
+  color: #FFC8C8 !important;
+}
+
+/* .UserListPopInContainer .slider-bar-wrapper .ui-slider-horizontal .ui-slider-range {
+  background-color: #ffa646;
+} */
 /*------*/
 
 .userSeparator {
@@ -1498,7 +1516,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .AlbumViewSelector input:checked + label span,
 .UserViewSelector input:checked + label span{
-  background: orange;
+  background: #ffa646;
 }
 
 .AlbumViewSelector input:checked + label .icon-th-large, 
@@ -1539,7 +1557,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .user-first-col:hover {
   box-sizing: border-box;
-  background-color:#d47f44;
+  background-color:#ffa646;
 }
 
 .user-first-col:hover .icon-pencil {
@@ -1666,11 +1684,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color:#666;
 }
 
-.slider-bar-wrapper .ui-slider-horizontal .ui-slider-handle{
-  background-color:#ffa500;
-  border: 1px solid #ffa500;
-}
-
 .edit-user-tab,
 .guest-edit-user-tab {
   border-left: solid 1px #333;
@@ -1697,11 +1710,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .edit-user-icons .delete-user-button::before,
 .princes-of-this-piwigo {
   color: #c1c1c1;
-}
-
-.edit-user-icons .icon-trash-1:hover::before,
-.king-of-this-piwigo {
-  color: #f70;
 }
 
 .royal-court-of-this-piwigo {
