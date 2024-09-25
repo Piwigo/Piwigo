@@ -483,7 +483,7 @@ function openAddAlbumPopIn(parentAlbumId) {
   }
   $("#AddAlbum").fadeIn();
   $(".AddAlbumLabelUsername .user-property-input").val('');
-  // $(".AddAlbumLabelUsername .user-property-input").focus();
+  $(".AddAlbumLabelUsername .user-property-input").trigger('focus');
 
   $("#AddAlbum").unbind('keyup');
   $("#AddAlbum").on('keyup', function (e) {
