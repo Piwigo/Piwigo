@@ -44,6 +44,19 @@ $(document).ready(() => {
       if (!open_nodes.includes(node_id)) {
         $(this).html(toggler_open);
         $('.tree').tree('openNode', node);
+        // reset event here:
+        $(".move-cat-add").off("click").on("click", function (e) {
+          e.preventDefault();
+          openAddAlbumPopIn($(this).data("aid"));
+          $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+        });
+        $(".move-cat-delete").off('click').on("click", function () {
+          triggerDeleteAlbum($(this).data("id"));
+        });
+        $(".move-cat-title-container").off("click").on("click", function () {
+          openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
+          $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+        });
       } else {
         $(this).html(toggler_close);
         $('.tree').tree('closeNode', node);
@@ -178,7 +191,8 @@ $(document).ready(() => {
           $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
         });
 
-        $(".move-cat-add").off("click").on("click", function () {
+        $(".move-cat-add").off("click").on("click", function (e) {
+          e.preventDefault();
           openAddAlbumPopIn($(this).data("aid"));
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
@@ -198,7 +212,8 @@ $(document).ready(() => {
     openAddAlbumPopIn(0);
     $(".AddAlbumSubmit").data("a-parent", 0);
   })
-  $(".move-cat-add").on("click", function () {
+  $(".move-cat-add").on("click", function (e) {
+    e.preventDefault();
     openAddAlbumPopIn($(this).data("aid"));
     $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
   })
@@ -273,7 +288,8 @@ $(document).ready(() => {
             });
           } 
           
-          $(".move-cat-add").unbind("click").on("click", function () {
+          $(".move-cat-add").off("click").on("click", function (e) {
+            e.preventDefault();
             openAddAlbumPopIn($(this).data("aid"));
             $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
           });
@@ -467,7 +483,7 @@ function openAddAlbumPopIn(parentAlbumId) {
   }
   $("#AddAlbum").fadeIn();
   $(".AddAlbumLabelUsername .user-property-input").val('');
-  $(".AddAlbumLabelUsername .user-property-input").focus();
+  // $(".AddAlbumLabelUsername .user-property-input").focus();
 
   $("#AddAlbum").unbind('keyup');
   $("#AddAlbum").on('keyup', function (e) {
@@ -562,7 +578,8 @@ function openDeleteAlbumPopIn(cat_to_delete) {
         parentOfDeletedNode = node.parent
         $('.tree').tree('removeNode', node);
 
-        $(".move-cat-add").on("click", function () {
+        $(".move-cat-add").on("click", function (e) {
+          e.preventDefault();
           openAddAlbumPopIn($(this).data("aid"));
           $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
         });
@@ -721,7 +738,8 @@ function applyMove(event) {
     setSubcatsBadge(previous_parent);
     setSubcatsBadge($('.tree').tree('getNodeById', moveParent));
 
-    $(".move-cat-add").unbind("click").on("click", function () {
+    $(".move-cat-add").off("click").on("click", function (e) {
+      e.preventDefault();
       openAddAlbumPopIn($(this).data("aid"));
       $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
     });
@@ -741,7 +759,8 @@ function applyMove(event) {
   })
     .catch(function (message) {
       console.log('An error has occured : ' + message );
-      $(".move-cat-add").unbind("click").on("click", function () {
+      $(".move-cat-add").off("click").on("click", function (e) {
+        e.preventDefault();
         openAddAlbumPopIn($(this).data("aid"));
         $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
       });
