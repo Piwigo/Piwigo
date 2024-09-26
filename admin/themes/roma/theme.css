@@ -7,6 +7,14 @@ INPUT, select, textarea { color:#999; background-color: #444; }
 option[disabled] { background-color: #999; color: #444; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 
+input:focus,
+select:focus,
+textarea:focus {
+  outline-color: #ffa646;
+  outline-width: 1px;
+  outline-style: solid;
+}
+
 
 .showInfo { color:#666; }
 .showInfo:hover { color:#999; }
