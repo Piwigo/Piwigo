@@ -39,13 +39,18 @@
 // $conf['order_by_inside_category_custom'] = $conf['order_by_custom'];
 
 // picture_ext : file extensions for picture file, must be a subset of
-// file_ext
+// file_ext.
+//
+// Specific note for SVG support: do not add 'svg' in picture_ext, have it only
+// in file_ext
 $conf['picture_ext'] = array('jpg','jpeg','png','gif','webp');
 
 // file_ext : file extensions (case sensitive) authorized
 //
 // * if you enable "eps" file extension, make sure you have this file type
 //   authorized in your ImageMagick policy
+// * do not forget to set $conf['upload_form_all_types'] = true; if you want
+//   to permit upload of file_ext files
 $conf['file_ext'] = array_merge(
   $conf['picture_ext'],
   array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf','svg', 'heic')
