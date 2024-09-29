@@ -448,3 +448,5 @@ $lang['Only the first %d albums are displayed, out of %d.'] = 'Només es mostren
 $lang['Pages'] = 'Pàgines';
 $lang['The PDF you requested is too large to display on this page.'] = 'El PDF que heu sol·licitat és massa gran per mostrar-lo en aquesta pàgina.';
 $lang['Click here to display it'] = 'Feu clic aquí per mostrar-lo';
+$lang['Custom dates'] = 'Dates personalitzades';
+$lang['last 12 months'] = 'Els darrers 12 mesos';
