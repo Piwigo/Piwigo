@@ -448,3 +448,5 @@ $lang['Click here to display it'] = 'Clicca qui per mostrarlo';
 $lang['Only the first %d albums are displayed, out of %d.'] = 'Solo i primi %d album su %d vengono mostrati';
 $lang['Pages'] = 'Pagine';
 $lang['The PDF you requested is too large to display on this page.'] = 'Il PDF che hai richiesto è troppo largo per essere mostrato in questa pagina';
+$lang['Custom dates'] = 'Date personalizzate';
+$lang['last 12 months'] = 'Ultimi 12 mesi';
