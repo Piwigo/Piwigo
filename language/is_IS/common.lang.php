@@ -448,3 +448,5 @@ $lang['Click here to display it'] = 'Smelltu hér til að birta það';
 $lang['Only the first %d albums are displayed, out of %d.'] = 'Aðeins fyrstu %d albúmin eru birt, af %d.';
 $lang['Pages'] = 'Síður';
 $lang['The PDF you requested is too large to display on this page.'] = 'PDF-skjalið sem þú baðst um er of stórt til að birta á þessari síðu.';
+$lang['Custom dates'] = 'Sérsniðnar dagsetningar';
+$lang['last 12 months'] = 'Síðustu 12 mánuðir';
