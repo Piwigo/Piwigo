@@ -451,3 +451,5 @@ $lang['Album already selected'] = 'Albumi on jo valittu';
 $lang['Albums found'] = 'Albumeita löydetty';
 $lang['Albums listed here match your search by word. Click on one to browse by album.'] = 'Tässä listatut albumit vastaavat hakusanaasi. Klikkaa sellaisesta selataksesi albumeittain.';
 $lang['Click here to display it'] = 'Klikkaa tästä näyttääksesi sen';
+$lang['last 12 months'] = 'Viimeisimmät 12 kuukautta';
+$lang['Custom dates'] = 'Tietyt päivät';
