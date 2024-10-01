@@ -2179,7 +2179,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 .themeActions {display: flex;flex-direction: column;}
 .themeActions DIV {display: table-cell; vertical-align: middle; line-height:18px;}
 .themeActions span, .themeActions a {padding: 10px; margin: 0px 10px 10px 10px; font-weight: bold; font-size: 12px;}
-.themeActions span {font-size: 11px; background-color: #ddd; opacity: 0.5; color: ;}
+.themeActions span {font-size: 11px; background-color: #ddd; opacity: 0.5;}
 
 .themeActions .pluginUnavailableAction {
   padding: 10px;
@@ -4474,12 +4474,12 @@ a#showPermissions:hover {text-decoration: none;}
 }
 
 .picture-preview-actions a {
-  color: #ffffff;
+  color: #ededed;
   padding: 5px;
 }
 
 .picture-preview-actions a.unavailable {
-  color: #ffffff48;
+  color: #ededed;
   cursor: context-menu;
 }
 

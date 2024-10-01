@@ -39,7 +39,7 @@ body {
 /* padding-top: 0; min-height: 100%; width:100%; position:absolute; left:0px; } */
 h3, .row2, .content { background-color: #222; }
 .throw, .row1 { background-color:#111; }
-.throw em { font-style: normal; color: #ff3363; }
+.throw em { font-style: normal; color: #ededed; }
 
 #menubar li:hover {
   background-color: transparent;
@@ -106,7 +106,7 @@ TEXTAREA { cursor:text; font-size: 13px; }
 ul.thumbnails input { color:#999; font-size:10px; margin:0; background-color:#444; text-align: center;}
 INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { cursor: pointer; }
 INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; }
-.throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; color: #ff3363; }
+.throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; color: #9e9e9e; }
 label { cursor:pointer }
 .menuLi { background: #333 }
 .menuLi_hidden { background: #333 !important; }
@@ -251,7 +251,7 @@ color:transparent;}
 
 /* dashboard */
 .stat-box {
-  color:#777;
+  color:#9c9c9c;
 }
 
 a.stat-box:hover {
@@ -442,7 +442,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 .move-cat-container:hover .icon-purple,
 .move-cat-container:hover .icon-blue,
 .move-cat-container:hover .icon-green{
-  opacity:60%;
+  opacity:100%;
 }
 
 .move-cat-action a:hover {
