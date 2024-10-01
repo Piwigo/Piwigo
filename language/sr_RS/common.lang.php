@@ -450,3 +450,5 @@ $lang['Only the first %d albums are displayed, out of %d.'] = 'Приказан�
 $lang['Pages'] = 'Странице';
 $lang['Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'] = 'Предложени су предодређени филтери, али их можете додати или уклонити преко дугмета „Изабери филтере“.';
 $lang['Search in :'] = 'Претражи у:';
+$lang['Custom dates'] = 'Произвољни датуми';
+$lang['last 12 months'] = 'Последњих 12 месеци';
