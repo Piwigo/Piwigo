@@ -66,13 +66,13 @@ jQuery("a.preview-box").colorbox( {
 	photo: true
 });
 
-str_are_you_sure = '{'Are you sure?'|translate|escape:javascript}';
-str_yes = '{'Yes, delete'|translate|escape:javascript}';
-str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
-str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
-str_meta_warning = '{'Warning ! Unsaved changes will be lost'|translate|escape:javascript}';
-str_meta_yes = '{'I want to continue'|translate|escape:javascript}'
-const str_title_ab = '{'Associate to album'|@translate}';
+str_are_you_sure = "{'Are you sure?'|translate|escape:javascript}";
+str_yes = "{'Yes, delete'|translate|escape:javascript}";
+str_no = "{'No, I have changed my mind'|translate|@escape:'javascript'}";
+str_orphan = "{'This photo is an orphan'|@translate|escape:javascript}";
+str_meta_warning = "{'Warning ! Unsaved changes will be lost'|translate|escape:javascript}";
+str_meta_yes = "{'I want to continue'|translate|escape:javascript}";
+const str_title_ab = "{'Associate to album'|@translate}";
 
 const strs_privacy = {
   "0" : "{$level_options[8]}",
