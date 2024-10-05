@@ -455,3 +455,5 @@ $lang['Click here to display it'] = 'Kliknutím sem ho zobrazíte';
 $lang['Only the first %d albums are displayed, out of %d.'] = 'Zobrazí sa len prvých %d albumov z %d.';
 $lang['Pages'] = 'Stránky';
 $lang['The PDF you requested is too large to display on this page.'] = 'Požadované PDF je príliš veľké na zobrazenie na tejto stránke.';
+$lang['Custom dates'] = 'Vlastné termíny';
+$lang['last 12 months'] = 'Posledných 12 mesiacov';
