@@ -638,7 +638,7 @@ SELECT
 
   if (!empty($params['language']))
   {
-    if ( !in_array($params['language'], array_keys(get_languages())) )
+    if ( !array_key_exists($params['language'], get_languages()))
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid language');
     }
@@ -647,7 +647,7 @@ SELECT
 
   if (!empty($params['theme']))
   {
-    if ( !in_array($params['theme'], array_keys(get_pwg_themes())) )
+    if ( !array_key_exists($params['theme'], get_pwg_themes()))
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid theme');
     }
