@@ -856,3 +856,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 #wImg {background-color: #e5e5e5;}
+
+.cat-move-order-popin input[name=recursiveAutoOrder] {
+  background-color: #d9d9d9;
+}
+
+.cat-move-order-popin input[name=recursiveAutoOrder]:hover {
+  background-color: #ffc17e;
+}

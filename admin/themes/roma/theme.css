@@ -221,7 +221,7 @@ INPUT[type="text"].large  { width: 317px; }
 
 .buttonLike, input[type="button"], input[type="submit"], input[type="reset"] {
   color: #3c3c3c;
-	background-color: #ffa744;
+	background-color: #FFA646;
 }
 
 .buttonLike:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
@@ -1302,6 +1302,15 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color: white;
 }
 
+.cat-move-order-popin input[name=recursiveAutoOrder] {
+  background-color: #2E2E2E;
+  color: #777777;
+}
+
+.cat-move-order-popin input[name=recursiveAutoOrder]:hover {
+  background-color: #1B1B1B;
+}
+
 /* Album search */
 .search-album-ghost div {
   background-image: linear-gradient(#333, #444);
@@ -1507,7 +1516,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 .cat-move-order-popin .close-popin{
-  color:#ccc;
+  color:#555;
 }
 
 .move-cat-container .move-cat-toogler{

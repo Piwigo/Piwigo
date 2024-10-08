@@ -991,7 +991,7 @@ background: #ffa646;
 }
 
 .pagination-per-page {
-  background-color: #f9f9f9;
+  background-color: #FAFAFA;
   border-radius: 10px;
   display: flex;
   font-size: 12px;
@@ -4901,14 +4901,6 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 .cat-move-order-popin input[type=submit] {
   width: 100%;
   margin: 10px 0px;
-}
-
-.cat-move-order-popin input[name=recursiveAutoOrder] {
-  background-color: #d9d9d9;
-}
-
-.cat-move-order-popin input[name=recursiveAutoOrder]:hover {
-  background-color: #ffc17e;
 }
 
 .cat-move-order-popin .close-popin {
