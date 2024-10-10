@@ -1228,3 +1228,4 @@ $lang['The settings for the guest are from the %s user'] = 'Vieraan asetukset ov
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Kuvan ulottuvuudet kutistetaan kokoon %dx%d.';
 $lang['The other tags will be removed'] = 'Muut tagit poistetaan';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Tagit <em>%s</em> yhdistetty tagiksi <em>%s</em>';
+$lang['Tags \{%s\} succesfully deleted'] = 'Tagit \{%s\} poistettiin onnistuneesti';
