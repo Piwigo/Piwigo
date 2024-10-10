@@ -833,7 +833,7 @@ function ws_addDefaultMethods( $arr )
         'pwg_token' => array(),
         'category_id' => array('type'=>WS_TYPE_ID),
         ),
-      'Notifiy Piwigo you have finished to upload a set of photos. It will empty the lounge, if any.',
+      'Notify Piwigo you have finished uploading a set of photos. It will empty the lounge, if any.',
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true)
     );
