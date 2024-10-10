@@ -242,7 +242,10 @@ const prefix_icon = 'gallery-icon-';
         <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
         <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
-      <div class="search-params"> 
+      {if empty($TAGS)}
+        <p class="no_filtered_photos">{'There are no tags available for the photos currently filtered'|translate}</p>
+      {/if}
+      <div class="search-params {if empty($TAGS)}mcs_hide{/if}"> 
         <div>
           <input type="radio" id="tag-all" name="tag_mode" value="AND" checked>
           <label for="tag-all">{'All tags'|@translate}</label>
@@ -252,7 +255,7 @@ const prefix_icon = 'gallery-icon-';
           <label for="tag-one">{'Any tag'|@translate}</label>
         </div>
       </div>
-      <div class="form-container">
+      <div class="form-container {if empty($TAGS)}mcs_hide{/if}">
         <select id="tag-search" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple>
       {foreach from=$TAGS item=tag}
           <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
@@ -280,7 +283,6 @@ const prefix_icon = 'gallery-icon-';
         <span class="delete mcs-icon gallery-icon-trash" title="{'Delete'|@translate}"></span>
         <span class="clear mcs-icon gallery-icon-arrow-rotate-left" title="{'Clear'|@translate}"></span>
       </div>
-
       <div class="date_posted-option-container">
         <div class="preset_posted_date">
   {foreach from=$DATE_POSTED item=date_posted key=k}
@@ -303,7 +305,7 @@ const prefix_icon = 'gallery-icon-';
         </div>
 
         <div class="custom_posted_date">
-  {foreach from=$LIST_DATE_POSTED key=y item=year}
+    {foreach from=$LIST_DATE_POSTED key=y item=year}
           <div class="date_posted-option year" id="container_{$y}">
             <div class="year_input">
               <input type="checkbox" id="date_posted_{$y}" value='y{$y}' data-year="{$y}">
@@ -316,7 +318,7 @@ const prefix_icon = 'gallery-icon-';
             </div>
 
             <div class="months_container">
-    {foreach from=$year.months key=m item=month}
+      {foreach from=$year.months key=m item=month}
               <div class="date_posted-option month" id="container_{$m}">
                 <div class="month_input">
                   <input type="checkbox" id="date_posted_{$m}" value='m{$m}' data-year="{$y}">
@@ -329,7 +331,7 @@ const prefix_icon = 'gallery-icon-';
                 </div>
 
                 <div class="days_container">
-      {foreach from=$month.days key=d item=day}
+       {foreach from=$month.days key=d item=day}
                   <div class="date_posted-option day" id="container_{$d}">
                     <input type="checkbox" id="date_posted_{$d}" value='d{$d}' data-year="{$y}">
                     <label for="date_posted_{$d}" id="{$d}">
@@ -338,7 +340,7 @@ const prefix_icon = 'gallery-icon-';
                       <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
                     </label>
                   </div>
-      {/foreach}
+       {/foreach}
               </div>
             </div>
 
@@ -373,11 +375,15 @@ const prefix_icon = 'gallery-icon-';
     <span class="filter-arrow gallery-icon-up-open"></span>
 
     <div class="filter-form filter-date_created-form">
+
       <div class="filter-form-title gallery-icon-calendar">{'Creation date'|@translate}</div>
       <div class="filter-actions"> 
         <span class="delete mcs-icon gallery-icon-trash" title="{'Delete'|@translate}"></span>
         <span class="clear mcs-icon gallery-icon-arrow-rotate-left" title="{'Clear'|@translate}"></span>
       </div>
+      {if empty($LIST_DATE_CREATED)}
+        <p class="no_filtered_photos">{'There are no creation dates available for the photos currently filtered'|translate}</p>
+      {else}
 
       <div class="date_created-option-container">
         <div class="preset_created_date">
@@ -401,7 +407,8 @@ const prefix_icon = 'gallery-icon-';
         </div>
 
         <div class="custom_created_date">
-  {foreach from=$LIST_DATE_CREATED key=y item=year}
+  {if !empty($LIST_DATE_CREATED)}
+    {foreach from=$LIST_DATE_CREATED key=y item=year}
           <div class="date_created-option year" id="container_{$y}">
             <div class="year_input">
               <input type="checkbox" id="date_created_{$y}" value='y{$y}' data-year="{$y}">
@@ -414,7 +421,7 @@ const prefix_icon = 'gallery-icon-';
             </div>
 
             <div class="months_container">
-    {foreach from=$year.months key=m item=month}
+      {foreach from=$year.months key=m item=month}
               <div class="date_created-option month" id="container_{$m}">
                 <div class="month_input">
                   <input type="checkbox" id="date_created_{$m}" value='m{$m}' data-year="{$y}">
@@ -427,7 +434,7 @@ const prefix_icon = 'gallery-icon-';
                 </div>
 
                 <div class="days_container">
-      {foreach from=$month.days key=d item=day}
+        {foreach from=$month.days key=d item=day}
                   <div class="date_created-option day" id="container_{$d}">
                     <input type="checkbox" id="date_created_{$d}" value='d{$d}' data-year="{$y}">
                     <label for="date_created_{$d}" id="{$d}">
@@ -436,14 +443,15 @@ const prefix_icon = 'gallery-icon-';
                       <span class="mcs-icon gallery-icon-checkmark checked-icon"></span>
                     </label>
                   </div>
-    {/foreach}
+      {/foreach}
               </div>
             </div>
 
-    {/foreach}
+      {/foreach}
             </div>
           </div>
-  {/foreach}
+    {/foreach}
+  {/if}
         </div>
       </div>
       <div>
@@ -457,7 +465,7 @@ const prefix_icon = 'gallery-icon-';
           <span class="validate-text">{'Validate'|@translate}</span>
         </div>
       </div>
-
+{/if}
     </div>
   
   </div>
@@ -494,6 +502,7 @@ const prefix_icon = 'gallery-icon-';
     </div>
   </div>
   {include file='admin/themes/default/template/include/album_selector.inc.tpl'}
+
   {if isset($AUTHORS)}
   <div class="filter filter-authors">
     <span class="mcs-icon gallery-icon-user-edit filter-icon"></span>
@@ -506,7 +515,10 @@ const prefix_icon = 'gallery-icon-';
         <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
         <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
       </div>
-      <div class="form-container">
+      {if empty($AUTHORS)}
+        <p class="no_filtered_photos">{'There are no authors available for the photos currently filtered'|translate}</p>
+      {/if}
+    <div class="form-container {if empty($AUTHORS)}mcs_hide{/if}">
         <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
         {foreach from=$AUTHORS item=author}
           <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>

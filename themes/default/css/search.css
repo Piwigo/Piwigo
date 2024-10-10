@@ -430,6 +430,11 @@
   width: 400px;
 }
 
+.filter-author-form,
+.filter-tag-form{
+  min-width: 400px;
+}
+
 .filter-album-form .search-sub-cats {
   margin-top: 10px;
 }
@@ -976,4 +981,15 @@
   margin:0;
   color:#656565;
   font-size:12px;
+}
+
+.no_filtered_photos {
+  font-weight:700;
+  color: #ee8800;
+  padding:30px;
+  text-align:center;
+}
+
+.mcs_hide{
+  display:none!important;
 }
