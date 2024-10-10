@@ -483,17 +483,18 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 }
 
 .AddAlbumCancel, .RenameAlbumCancel {
-  color: #3F3E40;
-  background-color: #d9d9d9;
+  color: #777777;
+  background-color: #252525;
 }
 
 .AddAlbumCancel:hover, .RenameAlbumCancel:hover {
-  background-color: #ffc17e;
+  background-color: #1B1B1B ;
+  color: #777777;
 }
 .AddAlbumSubmit,
 .RenameAlbumSubmit {
   color: #3F3E40;
-  background-color: #ffa744;
+  background-color: #FFA646;
 }
 .AddAlbumSubmit:hover,
 .RenameAlbumSubmit:hover {
@@ -883,6 +884,11 @@ input:focus + .slider {
 
 .GuestUserListPopInContainer{
   background-color:#444 !important;
+}
+
+.AddUserSubmit:hover{
+  color: #3F3E40;
+  background-color: #f70;
 }
 
 /*Edit user popin*/
@@ -1600,28 +1606,31 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 /* Selected container in userManager*/
 
 .user-container.container-selected .user-container-checkbox.user-list-checkbox .select-checkbox {
-  border: solid #c76a23 2px !important;
-  background-color: #c76a23 !important;
+  border: solid #FFA646 2px !important;
+  background-color: #FFA646 !important;
 }
 
+.user-container:hover{
+  background-color: #232323;
+}
 
 .user-container.container-selected {
   display:flex;
   width:100%;
   height:80px;
-  background-color:#f9852c;
+  background-color:#1B1B1B;
   font-weight:bold;
   border-radius:10px;
   margin-bottom:20px;
 }
 
 .user-container.container-selected .user-container-username {
-  color: #333;
+  color: #777;
 }
 
 .user-container.container-selected .user-container-status,
 .user-container.container-selected .user-container-registration-date-since{
-  color: #333 !important;
+  color: #777 !important;
 }
 
 .user-container.container-selected .user-container-initials-wrapper > span {
@@ -2065,6 +2074,23 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .cat-modify-ariane a.icon-sitemap::after {
   background-color: #111111;
 }
+
+
+.cat-modify-footer-see-out {
+  background-color: #2E2E2E;
+  color: #777777;
+}
+
+.cat-modify-footer-see-out:hover {
+  background-color: #1B1B1B;
+  color: #777777;
+}
+
+.cat-modify-footer-see-out:focus {
+  border: 2px solid #777777;
+  background: #1B1B1B;
+}
+
 
 .cat-modify-footer-see-out.disabled {
   background: #5d5d5d !important;
