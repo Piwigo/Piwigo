@@ -320,6 +320,14 @@
           {'Who can see this photo?'|translate} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
         </label>
       </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="picture_informations[available_sizes]" {if ($display.picture_informations.available_sizes)}checked="checked"{/if}>
+          {'Show available sizes?'|translate}
+        </label>
+      </li>
     </ul>
   </fieldset>
 
