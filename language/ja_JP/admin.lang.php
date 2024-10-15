@@ -1300,3 +1300,5 @@ $lang['Global Gallery Actions'] = 'ギャラリー全体に対する操作';
 $lang['Show plugins compatible with previous version of Piwigo'] = '以前のバージョンのPiwigoと互換性のあるプラグインを表示する';
 $lang['Show beta test plugins'] = 'ベータ版のテスト用プラグインを表示する';
 $lang['Create a new album at root'] = 'ルートに新しいアルバムを作成する';
+$lang['Rename "%s"'] = '「%s」をリネーム';
+$lang['Yes, rename'] = 'はい、リネームします';
