@@ -228,7 +228,8 @@ SELECT COUNT(*)
   mass_inserts(
     USER_GROUP_TABLE,
     array('group_id', 'user_id'),
-    $inserts
+    $inserts,
+    array('ignore' => true)
     );
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
