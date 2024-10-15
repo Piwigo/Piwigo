@@ -1363,3 +1363,13 @@ $lang['Added on %s'] = 'Adicionado em %s';
 $lang['An error has occured'] = 'Ocorreu um erro';
 $lang['Add a sub-album to “%s”'] = 'Adicione um sub-álbum a “%s”';
 $lang['Activate create mode to create and select an album'] = 'Ative o modo de criação para criar e selecionar um álbum';
+$lang['Save'] = 'Guardar';
+$lang['Select or create an album'] = 'Selecione ou crie um álbum
+';
+$lang['System Activities'] = 'Atividades do sistema';
+$lang['Who can see ?'] = 'Quem pode ver?';
+$lang['You have unsaved changes'] = 'Tem alterações não guardadas';
+$lang['between %d and %d'] = 'entre %d e %d';
+$lang['image(s) contains unsaved changes'] = 'imagens contêm alterações não guardadas';
+$lang['level of confidentiality'] = 'nível de confidencialidade';
+$lang['was succesfully deleted'] = 'foi eliminado com sucesso';
