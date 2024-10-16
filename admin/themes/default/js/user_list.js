@@ -1944,18 +1944,7 @@ function update_user_info() {
             if (data.stat === 'ok') {
                 let result_user = data.result.users[0];
                 if (last_user_index != -1) {
-                    current_users[last_user_index].email = result_user.email;
-                    current_users[last_user_index].enabled_high = result_user.enabled_high;
-                    current_users[last_user_index].expand = result_user.expand;
-                    current_users[last_user_index].groups = result_user.groups;
-                    current_users[last_user_index].language = result_user.language;
-                    current_users[last_user_index].level = result_user.level;
-                    current_users[last_user_index].nb_image_page = result_user.nb_image_page;
-                    current_users[last_user_index].recent_period = result_user.recent_period;
-                    current_users[last_user_index].show_nb_comments = result_user.show_nb_comments;
-                    current_users[last_user_index].show_nb_hits = result_user.show_nb_hits;
-                    current_users[last_user_index].status = result_user.status;
-                    current_users[last_user_index].theme = result_user.theme;
+                    current_users[last_user_index] = {...current_users[last_user_index], ...result_user};
                     fill_container_user_info($('#user-table-content .user-container').eq(last_user_index), last_user_index);
                 }
                 $("#UserList .update-user-success").fadeIn().delay(1500).fadeOut(2500);
