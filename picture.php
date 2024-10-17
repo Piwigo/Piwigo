@@ -971,12 +971,14 @@ SELECT id, name, permalink
   }
 }
 
-$template->assign(
-  array(
-    'PDF_VIEWER_FILESIZE_THRESHOLD' => $conf['pdf_viewer_filesize_threshold']*1024,
-    'PDF_NB_PAGES' => count_pdf_pages($picture['current']['path'])
-  )
-);
+if (in_array(strtolower(get_extension($picture['current']['file'])), array('pdf'))) {
+  $template->assign(
+    array(
+      'PDF_VIEWER_FILESIZE_THRESHOLD' => $conf['pdf_viewer_filesize_threshold']*1024,
+      'PDF_NB_PAGES' => count_pdf_pages($picture['current']['path'])
+    )
+  );
+}
 
 // maybe someone wants a special display (call it before page_header so that
 // they can add stylesheets)
