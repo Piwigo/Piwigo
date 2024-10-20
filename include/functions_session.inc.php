@@ -105,12 +105,18 @@ function get_remote_addr_session_hash()
   {
     return '';
   }
-  
-  if (strpos($_SERVER['REMOTE_ADDR'],':')===false)
+
+  $remoteAddr = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+
+  if (strpos($remoteAddr,':')===false)
   {//ipv4
+    if(strpos($remoteAddr, ',') !== false)
+    {
+      $remoteAddr = strstr($remoteAddr, ",", true);
+    }
     return vsprintf(
       "%02X%02X",
-      explode('.',$_SERVER['REMOTE_ADDR'])
+      explode('.',$remoteAddr)
     );
   }
   return ''; //ipv6 not yet
