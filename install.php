@@ -351,7 +351,7 @@ define(\'DB_COLLATE\', \'\');
 
     $query = '
 INSERT INTO '.$prefixeTable.'config (param,value,comment) 
-   VALUES (\'secret_key\',\''.sha1(random_bytes(1000)).'\'),
+   VALUES (\'secret_key\',\''.sha1(random_bytes(1000)).'\',
    \'a secret key specific to the gallery for internal use\');';
     pwg_query($query);
 
