@@ -499,6 +499,11 @@ REPLACE INTO '.PLUGINS_TABLE.'
     }
 
     // Delete cache data
+    include(PHPWG_ROOT_PATH . 'include/cache.class.php');
+
+    // invalidate_user_cache will purge persistent_cache so it needs to be instantiated first
+    $persistent_cache = new PersistentFileCache();
+
     invalidate_user_cache(true);
     $template->delete_compiled_templates();
 
