@@ -450,3 +450,5 @@ $lang['Click here to display it'] = '點擊此處顯示';
 $lang['Only the first %d albums are displayed, out of %d.'] = '只會顯示最前面的 %d 本相簿（總共有 %d 本）';
 $lang['Pages'] = '頁';
 $lang['The PDF you requested is too large to display on this page.'] = '因為您所要求的 PDF 檔太大，所以無法在此頁面中顯示。';
+$lang['Custom dates'] = '個人化日期';
+$lang['last 12 months'] = '最近 12 個月';

@@ -449,3 +449,5 @@ $lang['The PDF you requested is too large to display on this page.'] = 'İstenen
 $lang['Pages'] = 'Sayfa';
 $lang['Click here to display it'] = 'Görüntülemek için buraya tıkla';
 $lang['Album already selected'] = 'Albüm zaten seçildi';
+$lang['Custom dates'] = 'Özel tarihler';
+$lang['last 12 months'] = 'Son 12 ay';

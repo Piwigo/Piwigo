@@ -449,3 +449,5 @@ $lang['Click here to display it'] = 'Klicka här för att visa det';
 $lang['Only the first %d albums are displayed, out of %d.'] = 'Bara de första %d albumen visas, av %d.';
 $lang['Pages'] = 'Sidor';
 $lang['The PDF you requested is too large to display on this page.'] = 'PDFen du begärde är för stor för att visas på denna sida.';
+$lang['Custom dates'] = 'Egna datum';
+$lang['last 12 months'] = 'Senaste 12 månaderna';
