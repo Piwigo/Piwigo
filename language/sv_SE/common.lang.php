@@ -451,3 +451,6 @@ $lang['Pages'] = 'Sidor';
 $lang['The PDF you requested is too large to display on this page.'] = 'PDFen du begärde är för stor för att visas på denna sida.';
 $lang['Custom dates'] = 'Egna datum';
 $lang['last 12 months'] = 'Senaste 12 månaderna';
+$lang['There are no authors available for the photos currently filtered'] = 'Det finns inga författare tillgängliga för de foton som för närvarande filtreras';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Det finns inga datum för skapande för de foton som för närvarande filtreras';
+$lang['There are no tags available for the photos currently filtered'] = 'Det finns inga taggar tillgängliga för de foton som för närvarande filtreras';
