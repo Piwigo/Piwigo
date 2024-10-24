@@ -25,18 +25,7 @@ $(document).ready(() => {
     var node = $('.tree').tree('getNodeById', node_id);
 
     if (node.load_on_demand && node.haveChildren) {
-      const children = node.haveChildren;
-      const formatedChild = children.map((a) => {
-        const al = {...a, children:[]};
-        if (a.children) {
-          al.load_on_demand = true;
-          al.haveChildren = a.children;
-        }
-        return al;
-      });
-
-      $('.tree').tree('loadData', formatedChild, node);
-      node.load_on_demand = false;
+      loadOnDemand(node);
     }
 
     if (node) {
@@ -245,6 +234,10 @@ $(document).ready(() => {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         var parent_node = $('.tree').tree('getNodeById', newAlbumParent);
+        if (parent_node.load_on_demand && parent_node.haveChildren) {
+          loadOnDemand(parent_node);
+        }
+        if (parent_node) openNodeOnDemand(parent_node);
         
         if (data.stat == "ok") {
           if (newAlbumPosition == "last") {
@@ -878,4 +871,38 @@ function findAlbumById(a, id) {
     }
   }
   return null;
+}
+
+function loadOnDemand(node) {
+  const children = node.haveChildren;
+  const formatedChild = children.map((a) => {
+    const al = {...a, children:[]};
+    if (a.children) {
+      al.load_on_demand = true;
+      al.haveChildren = a.children;
+    }
+    return al;
+  });
+    
+  $('.tree').tree('loadData', formatedChild, node);
+  node.load_on_demand = false;
+}
+
+function openNodeOnDemand(node) {
+  open_nodes = $('.tree').tree('getState').open_nodes;
+  if (!open_nodes.includes(node)) {
+    $('.tree').tree('openNode', node);
+    $(".move-cat-add").off("click").on("click", function (e) {
+      e.preventDefault();
+      openAddAlbumPopIn($(this).data("aid"));
+      $(".AddAlbumSubmit").data("a-parent", $(this).data("aid"));
+    });
+    $(".move-cat-delete").off('click').on("click", function () {
+      triggerDeleteAlbum($(this).data("id"));
+    });
+    $(".move-cat-title-container").off("click").on("click", function () {
+      openRenameAlbumPopIn($(this).find(".move-cat-title").attr("title"));
+      $(".RenameAlbumSubmit").data("cat_id", $(this).attr('data-id'));
+    });
+  }
 }
