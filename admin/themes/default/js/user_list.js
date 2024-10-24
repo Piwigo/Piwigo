@@ -1219,6 +1219,8 @@ function set_main_user_success() {
     let king = $('#the_king');
     if (!king.length) {
         king = $(king_template);
+        king.attr('title', mainUserStr);
+        king.tipTip();
     }
     king.appendTo(new_main);
     $('.delete-user-button').hide();
@@ -1323,7 +1325,10 @@ function fill_container_user_info(container, user_index) {
     container.attr('key', user_index);
     container.find(".user-container-username span").html(user.username);
     if(user.id === owner_id && !$('#the_king').length) {
-        container.find(".user-container-username").append(king_template);
+        let kingToDisplay = $(king_template);
+        kingToDisplay.attr('title', mainUserStr);
+        kingToDisplay.tipTip();
+        container.find(".user-container-username").append(kingToDisplay);
     }
     container.find(".user-container-initials span").html(get_initials(user.username)).addClass(color_icons[user.id % 5]);
     container.find(".user-container-status span").html(status_to_str[user.status]);
