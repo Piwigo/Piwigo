@@ -2531,6 +2531,11 @@ $(document).ready(function() {
     font-weight:bold;
     align-self: center;
 }
+
+.close-update-button:hover{
+  color: #474747;
+}
+
 .close-update-button.icon-cancel-circled::before {
   margin-left: 0;
 }
@@ -2688,6 +2693,10 @@ $(document).ready(function() {
   font-weight: bold;
   cursor: pointer;
   font-size:1em;
+}
+
+.AddUserCancel:hover{
+  color: #474747;
 }
 
 .AddUserResult {
