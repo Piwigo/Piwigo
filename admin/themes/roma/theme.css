@@ -1400,6 +1400,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background: #888;
 }
 
+/* Popin Album Selector */
+.linkedAlbumPopInContainer .ClosePopIn{
+  color: #444;
+}
 
 .themeBox{
   box-shadow: 0 0 5px #333;
@@ -1979,6 +1983,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #444;
 }
 
+.AddUserSubmitContainer .AddUserCancel:hover{
+  color: #ededed;
+}
+
 .AddUserPopInContainer .AddIconTitle {
   color: #c1c1c1;
 }
@@ -2000,6 +2008,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #50a48f;
   border-left: 2px solid #a9f6e3;
   color: #a9f6e3;
+}
+
+.update-container .close-update-button:hover{
+  color: #ededed;
 }
 
 .update-user-success,
