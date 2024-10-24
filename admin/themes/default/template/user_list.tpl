@@ -856,7 +856,7 @@ $(document).ready(function() {
       <div class="edit-username-success" style="display: none;">
         <div class="update-username-success icon-green">
           <span class="icon-ok"></span>
-          <span>{'Username successfully modified'|@translate}</span>
+          <span>{'Username successfully modified'|@translate|escape}</span>
         </div>
         <p class="edit-username-success-ok"><span class="icon-button icon-ok" id="close_username_success">{'Ok'|@translate}</span></p>
       </div>
@@ -869,9 +869,9 @@ $(document).ready(function() {
 
       <div class="user-property-password-choice">
         <div class="password-choice-content">
-          <p class="head-button-2" id="copy_password_link"><span class="icon-link-1"></span> {'Copy the password link'|@translate}</p>
-          <p class="head-button-2" id="send_password_link"><span class="icon-mail-alt"></span> {'Resend password link'|@translate}</p>
-          <p class="head-button-2" id="edit_modal_password"><span class="icon-pencil"></span> {'Change password'|@translate}</p>
+          <p class="head-button-2" id="copy_password_link"><span class="icon-link-1"></span> {'Copy the password link'|@translate|escape}</p>
+          <p class="head-button-2" id="send_password_link"><span class="icon-mail-alt"></span> {'Resend password link'|@translate|escape}</p>
+          <p class="head-button-2" id="edit_modal_password"><span class="icon-pencil"></span> {'Change password'|@translate|escape}</p>
         </div>
         <p class="edit-password-cancel">{'Cancel'|@translate}</p>
       </div>
@@ -935,7 +935,7 @@ $(document).ready(function() {
     <div class="user-property-main-user-content">
       <div class="user-property-main-user-content-header">
         <span class="icon-king main-user-icon"></span>
-        <span class="main-user-title">{'Changing the main user'|@translate}</span>
+        <span class="main-user-title">{'Changing the main user'|@translate|escape}</span>
       </div>
 
       <div class="user-property-main-user-body">
@@ -943,12 +943,12 @@ $(document).ready(function() {
           <span class="main-user-proceed-desc">{'You are about to set %s as main user instead of %s, do you wish to continue?'|@translate}</span>
           <div class="main-user-proceed-footer">
             <span class="user-property-main-user-cancel">{'Cancel'|@translate}</span>
-            <span class="head-button-2 main-user-btn-proceed"><span class="icon-right">{'Yes, let\'s proceed'|@translate}</span></span>
+            <span class="head-button-2 main-user-btn-proceed"><span class="icon-right">{'Yes, let\'s proceed'|@translate|escape}</span></span>
           </div>
         </div>
 
         <div class="main-user-rewrite" style="display: none;">
-          <span class="main-user-rewrite-desc">{'To be sure, please rewrite the word “%s” below'|@translate} :</span>
+          <span class="main-user-rewrite-desc">{'To be sure, please rewrite the word “%s” below'|@translate|escape} :</span>
           <div class="main-user-rewrite-footer">
             <input type="text" id="main_user_rewrite" />
             <span id="main_user_rewrite_icon"></span>
@@ -956,7 +956,7 @@ $(document).ready(function() {
         </div>
 
         <div class="main-user-validate" style="display: none;">
-          <span class="main-user-validate-desc">{'You can now change the main user from %s to %s.'|@translate}</span>
+          <span class="main-user-validate-desc">{'You can now change the main user from %s to %s.'|@translate|escape}</span>
           <div class="main-user-validate-footer">
             <span class="user-property-main-user-cancel">{'Cancel'|@translate}</span>
             <span class="main-user-btn-validate"><span class="icon-floppy"></span> {'Validate'|@translate}</span>
@@ -966,7 +966,7 @@ $(document).ready(function() {
         <div class="main-user-success" style="display: none;">
           <div class="update-main-user-success icon-green">
             <span class="icon-ok"></span>
-            <span class="main-user-success-desc">{'%s is the new main user'|@translate}</span>
+            <span class="main-user-success-desc">{'%s is the new main user'|@translate|escape}</span>
           </div>
           <span class="user-property-main-user-close"><span class="icon-button icon-ok" id="main_user_success_close">{'Ok'|@translate}</span></span>
         </div>
