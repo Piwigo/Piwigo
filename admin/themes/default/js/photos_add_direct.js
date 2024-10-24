@@ -236,6 +236,7 @@ $(function () {
         $('#startUpload, .selectFilesButtonBlock').hide();
         $('#uploadingActions').show();
         $('.format-mode-group-manager').hide();
+        $('#selectedAlbumEdit').hide();
         // if (!formatMode) {
         //   var categorySelectedId = $("select[name=category] option:selected").val();
         //   var categorySelectedPath = $("select[name=category]")[0].selectize.getItem(categorySelectedId).text();
@@ -349,6 +350,7 @@ $(function () {
 
         $(".afterUploadActions").show();
         $('#uploadingActions').hide();
+        $('#selectedAlbumEdit').show();
 
         // user can safely leave page without warning
         $(window).unbind('beforeunload');
