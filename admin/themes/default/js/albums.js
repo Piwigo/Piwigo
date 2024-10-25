@@ -234,7 +234,7 @@ $(document).ready(() => {
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
         var parent_node = $('.tree').tree('getNodeById', newAlbumParent);
-        if (parent_node.load_on_demand && parent_node.haveChildren) {
+        if (parent_node && parent_node.load_on_demand && parent_node.haveChildren) {
           loadOnDemand(parent_node);
         }
         if (parent_node) openNodeOnDemand(parent_node);
