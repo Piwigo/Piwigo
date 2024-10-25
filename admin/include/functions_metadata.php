@@ -188,24 +188,24 @@ function get_sync_metadata($infos)
 
     $xmlget = simplexml_load_string($xml);
     $xmlattributes = $xmlget->attributes();
-    $width = (int) $xmlattributes->width; 
-    $height = (int) $xmlattributes->height;
+    $width = $xmlattributes->width; 
+    $height = $xmlattributes->height;
     $vb = (string) $xmlattributes->viewBox;
 
     if (isset($width) and $width != "")
     {
-      $infos['width'] = $width;
+      $infos['width'] = (int) $width;
     } elseif (isset($vb))
     {
-      $infos['width'] = explode(" ", $vb)[2];
+      $infos['width'] = round(explode(" ", $vb)[2]);
     }
 
     if (isset($height) and $height != "")
     {
-      $infos['height'] = $height;
+      $infos['height'] = (int) $height;
     } elseif (isset($vb))
     {
-      $infos['height'] = explode(" ", $vb)[3];
+      $infos['height'] = round(explode(" ", $vb)[3]);
     }
   }
 
