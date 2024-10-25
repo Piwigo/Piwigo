@@ -971,7 +971,7 @@ SELECT id, name, permalink
   }
 }
 
-if (str_ends_with(strtolower($picture['current']['file']), "pdf" )) {
+if (in_array(strtolower(get_extension($picture['current']['file'])), array('pdf'))) {
   $template->assign(
     array(
       'PDF_VIEWER_FILESIZE_THRESHOLD' => $conf['pdf_viewer_filesize_threshold']*1024,
