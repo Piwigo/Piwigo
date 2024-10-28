@@ -58,6 +58,20 @@ $cat_ids = array();
 if (isset($_GET['cat_id']))
 {
   check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
+
+  $query = '
+SELECT
+    *
+  FROM '.USER_CACHE_CATEGORIES_TABLE.'
+  WHERE cat_id = '.$_GET['cat_id'].'
+    AND user_id = '.$user['id'].'
+;';
+  $found_categories = query2array($query);
+  if (empty($found_categories))
+  {
+    page_not_found(l10n('Requested album does not exist'));
+  }
+
   $cat_ids = array($_GET['cat_id']);
 }
 
