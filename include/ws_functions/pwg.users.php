@@ -77,6 +77,11 @@ function ws_users_getList($params, &$service)
 
 
   if (!empty($params['min_register'])) {
+    if (!preg_match('/^\d\d\d\d(-\d{1,2}){0,2}$/', $params['min_register']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid input parameter min_register');
+    }
+
     $date_tokens = explode('-', $params['min_register']);
     $min_register_year = $date_tokens[0];
     $min_register_month = $date_tokens[1] ?? 1;
@@ -87,6 +92,11 @@ function ws_users_getList($params, &$service)
 
 
   if (!empty($params['max_register'])) {
+    if (!preg_match('/^\d\d\d\d(-\d{1,2}){0,2}$/', $params['max_register']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid input parameter max_register');
+    }
+
     $max_date_tokens = explode('-', $params['max_register']);
     $max_register_year = $max_date_tokens[0];
     $max_register_month = $max_date_tokens[1] ?? 12;
