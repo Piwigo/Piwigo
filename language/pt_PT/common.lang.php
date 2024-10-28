@@ -455,3 +455,6 @@ $lang['Click here to display it'] = 'Clica aqui para o mostrar';
 $lang['Album already selected'] = 'Álbum já selecionado';
 $lang['Pages'] = 'Páginas';
 $lang['last 12 months'] = 'Últimos 12 meses';
+$lang['There are no authors available for the photos currently filtered'] = 'Não há autores disponíveis para as fotos filtradas';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Não há datas de criação disponíveis para as fotos filtradas';
+$lang['There are no tags available for the photos currently filtered'] = 'Não há tags disponíveis para as fotos filtradas';
