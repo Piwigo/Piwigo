@@ -449,3 +449,6 @@ $lang['Pages'] = 'Sider';
 $lang['The PDF you requested is too large to display on this page.'] = 'PDF-en du ba om er for stor til å vises på denne siden.';
 $lang['Custom dates'] = 'Egendefinerte datoer';
 $lang['last 12 months'] = 'Siste 12 måneder';
+$lang['There are no authors available for the photos currently filtered'] = 'Det er ingen forfattere tilgjengelig for bildene som for øyeblikket er filtrert';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Det er ingen opprettelsesdatoer tilgjengelig for bildene som for øyeblikket er filtrert';
+$lang['There are no tags available for the photos currently filtered'] = 'Det er ingen etiketter tilgjengelig for bildene som for øyeblikket er filtrert';
