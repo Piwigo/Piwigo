@@ -453,3 +453,6 @@ $lang['Albums listed here match your search by word. Click on one to browse by a
 $lang['Click here to display it'] = 'Klikkaa tästä näyttääksesi sen';
 $lang['last 12 months'] = 'Viimeisimmät 12 kuukautta';
 $lang['Custom dates'] = 'Tietyt päivät';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Nykyisen suodatuksen mukaisille kuville ei ole saatavissa luomispäiviä';
+$lang['There are no tags available for the photos currently filtered'] = 'Nykyisen suodatuksen mukaisille kuville ei ole saatavissa tageja';
+$lang['There are no authors available for the photos currently filtered'] = 'Nykyisen suodatuksen mukaisille kuville ei ole saatavissa tekijätietoja';
