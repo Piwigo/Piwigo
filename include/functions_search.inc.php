@@ -380,10 +380,15 @@ SELECT
     }
     else
     {
+      // TODO we take the list of cat_ids "as is", we should check they still
+      // exist and are browseable to the user
       $cat_ids = $search['fields']['cat']['words'];
     }
 
-    $query = '
+    // in case the album would no longer exists, we consider the filter on album no longer active
+    if (!empty($cat_ids))
+    {
+      $query = '
 SELECT
     DISTINCT(id)
   FROM '.IMAGES_TABLE.' AS i
@@ -391,7 +396,8 @@ SELECT
   WHERE category_id IN ('.implode(',', $cat_ids).')
   '.$forbidden.'
 ;';
-    $image_ids_for_filter['cat'] = query2array($query, null, 'id');
+      $image_ids_for_filter['cat'] = query2array($query, null, 'id');
+    }
   }
 
   //
