@@ -452,3 +452,6 @@ $lang['Only the first %d albums are displayed, out of %d.'] = 'Απεικονί�
 $lang['Custom dates'] = 'Προσαρμοσμένες ημερομηνίες';
 $lang['Click here to display it'] = 'Κάντε κλίκ εδώ για να το δείτε';
 $lang['Album already selected'] = 'Το άλμπουμ έχει επιλεχθεί ήδη';
+$lang['There are no authors available for the photos currently filtered'] = 'Δεν υπάρχουν πρόσωπα που έχουν αναρτήσει τις φωτογραφίες με το φίλτρο που έχει επιλεγεί';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Δεν υπάρχουν ημερομηνίες δημιουργίας με το φίλτρο των φωτογραφιών που έχει επιλεγεί';
+$lang['There are no tags available for the photos currently filtered'] = 'Δεν υπάρχουν ετικέτες με το φίλτρο των φωτογραφιών που έχει επιλεγεί';
