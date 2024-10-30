@@ -417,3 +417,4 @@ $lang['Password: ********** (no copy by email)'] = 'Mot de passe : ********** (p
 $lang['Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'] = 'Des filtres préétablis vous sont proposés, mais vous pouvez aussi en ajouter ou en retirer grâce au bouton "Choisir les filtres".';
 $lang['Tags found'] = 'Mots-clés trouvés';
 $lang['Tags listed here match your search by word. Click on one to browse by tag.'] = 'Les mots-clés ci-dessous correspondent à votre recherche par mot. Cliquez sur l\'un d\'eux pour basculer en navigation par mots-clés.';
+$lang['There are no tags available for the photos currently filtered'] = 'Aucun mot-clé n\'est disponible pour les photos actuellement filtrées';
