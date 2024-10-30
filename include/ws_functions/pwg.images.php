@@ -2885,6 +2885,7 @@ function ws_images_deleteOrphans($params, $service)
 
   $orphan_ids_to_delete = array_slice(get_orphans(), 0, $params['block_size']);
   $deleted_count = delete_elements($orphan_ids_to_delete, true);
+  invalidate_user_cache();
 
   return array(
     'nb_deleted' => $deleted_count,
