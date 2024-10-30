@@ -36,7 +36,7 @@ if (is_webmaster())
   FROM '.ACTIVITY_TABLE.'
   LEFT JOIN '.USERS_TABLE.' ON performed_by = '.$conf['user_fields']['id'].'
   WHERE object = \'system\'
-  ORDER BY occured_on DESC';
+  ORDER BY activity_id DESC';
     
     // Format our data for frontend
     $result = pwg_query($query);
