@@ -33,9 +33,11 @@ function filter_disable(filter) {
 }
 // Album Selector
 function select_album_filter({ album, newSelectedAlbum, getSelectedAlbum }) {
-  $('#selectedAlbumNameFilter').html(album.full_name_with_admin_links);
+  $('#selectedAlbumNameFilter').html(album.name);
   newSelectedAlbum();
   $('#filterCategoryValue').val(+getSelectedAlbum()[0]);
+  $('#selectAlbumFilter').hide();
+  $('#selectedAlbumFilterArea').fadeIn();
 }
 $(document).ready(function () {
   const ab_filter = new AlbumSelector({
@@ -44,7 +46,7 @@ $(document).ready(function () {
     adminMode: true,
   });
 
-  $('#selectedAlbumEditFilter').on('click', function() {
+  $('#selectAlbumFilter, #selectedAlbumEditFilter').on('click', function() {
     ab_filter.open();
   });
 

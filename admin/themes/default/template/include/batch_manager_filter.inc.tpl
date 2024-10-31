@@ -44,8 +44,11 @@ var sliders = {
     text: '{'between %s and %s MB'|translate|escape:'javascript'}'
   }
 };
-
+{if isset($filter_category_selected) and $filter_category_selected}
 const selected_filter_cat_ids = ["{$filter_category_selected|@json_encode|escape:html}"];
+{else}
+const selected_filter_cat_ids = [];
+{/if}
 {/footer_script}
 
 {combine_script id='batchManagerFilter' load='footer' path='admin/themes/default/js/batchManagerFilter.js'}
@@ -107,12 +110,17 @@ const selected_filter_cat_ids = ["{$filter_category_selected|@json_encode|escape
       <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
       {* <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
         data-default="first" name="filter_category"></select> *}
-      <div class="selectedAlbum" id="selectedAlbumFilter">
-        <input type="hidden" name="filter_category" id="filterCategoryValue" value="{$filter_category_selected|@json_encode|escape:html}">
-        <span class="icon-sitemap" id="selectedAlbumNameFilter">{$filter_category_selected_name}</span>
-        <a class="icon-pencil" id="selectedAlbumEditFilter"></a>
-      </div>
-      <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
+        <div id="selectedAlbumFilterArea" {if !$filter_category_selected}style="display: none;"{/if}>
+          <div class="selectedAlbum" id="selectedAlbumFilter">
+            <input type="hidden" name="filter_category" id="filterCategoryValue" value="{$filter_category_selected|@json_encode|escape:html}">
+            <span class="icon-sitemap" id="selectedAlbumNameFilter">{$filter_category_selected_name}</span>
+            <a class="icon-pencil" id="selectedAlbumEditFilter"></a>
+          </div>
+          <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
+        </div>
+        <p class="head-button-1" id="selectAlbumFilter" {if $filter_category_selected}style="display: none;"{/if}>
+          {"Select an album"|translate}
+        </p>
     </li>
 
     <li id="filter_tags" {if !isset($filter.tags)}style="display:none"{/if}>
