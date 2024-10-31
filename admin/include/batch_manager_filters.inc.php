@@ -21,7 +21,8 @@ $prefilters = array(
   array('ID' => 'all_photos', 'NAME' => l10n('All'))
 );
 
-if ($conf['enable_synchronization']) {
+if ($conf['enable_synchronization'])
+{
   $prefilters[] = array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'));
   $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => l10n('With no checksum'));
 }
@@ -53,7 +54,8 @@ $template->assign(
   )
 );
 
-if (isset($page['no_md5sum_number'])) {
+if (isset($page['no_md5sum_number'])) 
+{
   $template->assign(
     array(
       'NB_NO_MD5SUM' => $page['no_md5sum_number'],
@@ -64,7 +66,8 @@ if (isset($page['no_md5sum_number'])) {
 }
 
 // privacy level
-foreach ($conf['available_permission_levels'] as $level) {
+foreach ($conf['available_permission_levels'] as $level)
+{
   $level_options[$level] = l10n(sprintf('Level %d', $level));
 
   if (0 == $level) {
@@ -83,7 +86,8 @@ $template->assign(
 // tags
 $filter_tags = array();
 
-if (!empty($_SESSION['bulk_manager_filter']['tags'])) {
+if (!empty($_SESSION['bulk_manager_filter']['tags']))
+{
   $query = '
 SELECT
     id,
@@ -98,36 +102,25 @@ SELECT
 $template->assign('filter_tags', $filter_tags);
 
 // in the filter box, which category to select by default
-$selected_category = array();
-if (isset($_SESSION['bulk_manager_filter']['category'])) {
-  $selected_category = $_SESSION['bulk_manager_filter']['category'];
-} else {
-  // we need to know the category in which the last photo was added
-  $query = '
-SELECT category_id
-  FROM ' . IMAGE_CATEGORY_TABLE . '
-  ORDER BY image_id DESC
-  LIMIT 1
-;';
-  $result = pwg_query($query);
-  if (pwg_db_num_rows($result) > 0) {
-    $row = pwg_db_fetch_assoc($result);
-    $selected_category = $row['category_id'];
-  }
-}
+$selected_category = null;
+$selected_category_name = '';
 
-$selected_category_name = get_cat_display_name_from_id(
-  $selected_category,
-);
+if (isset($_SESSION['bulk_manager_filter']['category']))
+{
+  $selected_category = intval($_SESSION['bulk_manager_filter']['category']);
+  $selected_category_name = get_cat_display_name_from_id($selected_category);
+} 
+
 $template->assign('filter_category_selected_name', strip_tags($selected_category_name));
-$template->assign('filter_category_selected', intval($selected_category));
+$template->assign('filter_category_selected', $selected_category);
 
 // Dissociate from a category : categories listed for dissociation can only
 // represent virtual links. We can't create orphans. Links to physical
 // categories can't be broken.
 $associated_categories = array();
 
-if (count($page['cat_elements_id']) > 0) {
+if (count($page['cat_elements_id']) > 0)
+{
   $query = '
 SELECT
     DISTINCT(category_id) AS id
