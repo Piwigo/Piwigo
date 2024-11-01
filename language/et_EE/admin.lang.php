@@ -1291,3 +1291,5 @@ $lang['Plugin "%s" has been activated!'] = 'Plugin "%s" on aktiveeritud!';
 $lang['Plugin "%s" deleted!'] = 'Plugin "%s" on kustutatud!';
 $lang['Place last'] = 'Viimane koht';
 $lang['Place first'] = 'Esimene koht';
+$lang['Added on %s'] = 'Lisatud %s';
+$lang['Activate create mode to create and select an album'] = 'Albumi loomiseks ja valimiseks aktiveerige loomisrežiim';
