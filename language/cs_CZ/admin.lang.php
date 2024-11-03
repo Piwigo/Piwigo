@@ -1374,3 +1374,6 @@ $lang['Select or create an album'] = 'Vyberte nebo vytvořte nové album';
 $lang['System Activities'] = 'Systémové aktivity';
 $lang['Who can see ?'] = 'Kdo si může zobrazit?';
 $lang['You have unsaved changes'] = 'Máte neuložené změny';
+$lang['You cannot copy the password if the connection to this site is not secure.'] = 'Nemůžete kopírovat heslo pokud není přípojení k tomuto webu bezpečné.';
+$lang['You are not authorised to change the main user, please ask your webmaster'] = 'Nemáte oprávnění měnit hlavního uživatele, zeptejte se prosím svého webmastera';
+$lang['You can now change the main user from %s to %s.'] = 'Nyní můžete změnit hlavního uživatele z %s na %s.';
