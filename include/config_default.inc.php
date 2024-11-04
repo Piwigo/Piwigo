@@ -319,6 +319,11 @@ $conf['mail_sender_name'] = '';
 // define the email of sender mail: if value is empty, webmaster email is used
 $conf['mail_sender_email'] = '';
 
+// set true to always use mail_sender_name and mail_sender_email, if set,
+// for the From address.
+// the original From values will be used as Reply-To
+$conf['mail_always_from_mail_sender'] = false;
+
 // set true to allow text/html emails
 $conf['mail_allow_html'] = true;
 
