@@ -463,14 +463,11 @@ UPDATE '.USER_INFOS_TABLE.'
   }
 
   $ip = $_SERVER['REMOTE_ADDR'];
-  // In case of "too long" ipv6 address, we take only the 15 first chars.
-  //
-  // It would be "cleaner" to increase length of history.IP to 50 chars, but
-  // the alter table is very long on such a big table. We should plan this
-  // for a future version, once history table is kept "smaller".
-  if (strpos($ip,':') !== false and strlen($ip) > 15)
+  // IPv6 should not be longer than 39 chars, and that is the maximum length of
+  // the column in the database, but in case it would be longer, let's truncate it.
+  if (strlen($ip) > 39)
   {
-    $ip = substr($ip, 0, 15);
+    $ip = substr($ip, 0, 39);
   }
 
   // If plugin developers add their own sections, Piwigo will automatically add it in the history.section enum column
