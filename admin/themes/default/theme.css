@@ -6472,6 +6472,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   text-align: start;
 }
 
+#selectAlbumFilter {
+  width: fit-content;
+}
+
 .selectedAlbum span.icon-sitemap::before, .afterUploadActions a.batchLink.icon-pencil::before, .afterUploadActions a.icon-plus-circled::before {
 	margin-right: 12px;
 }
