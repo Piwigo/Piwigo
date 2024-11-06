@@ -1393,3 +1393,6 @@ $lang['An activation link valid for 1 hour was created but could not be sent. Yo
 $lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Virkjunartengill sem gildir í 1 klukkustund hefur verið sendur á "%s". Ef notandinn fær ekki hlekkinn geturðu útbúið og afritað nýjan með því að breyta notandanum og stjórna lykilorðinu hans.';
 $lang['%s is the new main user'] = '
 %s er nýi aðalnotandinn';
+$lang['Ok, got it!'] = 'Í lagi, náði því!';
+$lang['Read the release note'] = 'Lestu útgáfuskýrsluna';
+$lang['What\'s new in version %s'] = 'Hvað er nýtt í útgáfu %s?';
