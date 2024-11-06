@@ -139,7 +139,7 @@ pluginValues = [];
 	<fieldset class="elementEdit" id="picture-{$element.ID}" data-image_id="{$element.ID}">
 		<div class="metasync-success badge-container" style="display: none;">
 			<div class="badge-succes">
-				<i class="icon-ok">&#xe819;</i>
+				<i class="icon-ok"></i>
 				{'Metadata sync complete'|@translate}
 			</div>
 		</div>
@@ -270,19 +270,19 @@ pluginValues = [];
 					</div>
 					<div class="local-unsaved-badge badge-container" style="display: none;">
 						<div class="badge-unsaved">
-							<i class="icon-attention">&#xe829;</i>
+							<i class="icon-attention"></i>
 							{'You have unsaved changes'|@translate}
 						</div>
 					</div>
 					<div class="local-success-badge badge-container" style="display: none;">
 						<div class="badge-succes">
-							<i class="icon-ok">&#xe819;</i>
+							<i class="icon-ok"></i>
 							{'Changes saved'|@translate}
 						</div>
 					</div>
 					<div class="local-error-badge badge-container" style="display: none;">
 						<div class="badge-error">
-							<i class="icon-cancel">&#xe822;</i>
+							<i class="icon-cancel"></i>
 							{'An error has occured'|@translate}
 						</div>
 					</div>
@@ -311,20 +311,20 @@ pluginValues = [];
 			<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 			<div class="badge-container global-unsaved-badge" style="display: none;">
 				<div class="badge-unsaved">
-					<i class="icon-attention">&#xe829;</i>
+					<i class="icon-attention"></i>
 					<span id="unsaved-count"></span>
 					 {'image(s) contains unsaved changes'|@translate}
 				</div>
 			</div>
 			<div class="badge-container global-succes-badge" style="display: none;">
 				<div class="badge-succes">
-					<i class="icon-ok">&#xe829;</i>
+					<i class="icon-ok"></i>
 					{'Changes saved'|@translate}
 				</div>
 			</div>
 			<div class="badge-container global-error-badge" style="display: none;">
 				<div class="badge-error">
-					<i class="icon-cancel">&#xe829;</i>
+					<i class="icon-cancel"></i>
 					{'An error has occured'|@translate}
 				</div>
 			</div>
