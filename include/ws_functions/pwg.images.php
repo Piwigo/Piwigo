@@ -2630,6 +2630,20 @@ SELECT *
         );
     }
   }
+ 
+  // Temporary use of the batch manager's unit mode, 
+  // not to be used by an external application, 
+  // as this code bellow will be deleted when a tag selector is added.
+  if (isset($_REQUEST['tag_list']))
+  {
+    if (isset($params['tag_ids']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Do not use tag_list and tag_ids at the same time.');
+    }
+
+    $tag_list = get_tag_ids($_REQUEST['tag_list']);
+    set_tags($tag_list, $params['image_id']);
+  }  
 
   invalidate_user_cache();
 }

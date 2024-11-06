@@ -357,7 +357,7 @@ function saveChanges(pictureId) {
     // Get Tags
     let tags = [];
     $("#picture-" + pictureId + " #tags option").each(function () {
-      let tagId = $(this).val().replace(/~~/g, '');
+      let tagId = $(this).val();
       tags.push(tagId);
     });
     let tagsStr = tags.join(',');
@@ -369,7 +369,8 @@ function saveChanges(pictureId) {
       date_creation: date_creation,
       comment: comment,
       categories: categoriesStr,
-      tag_ids: tagsStr,
+      // tag_ids: tagsStr,
+      tag_list: tags,
       level: level,
       single_value_mode: "replace",
       multiple_value_mode: "replace",
