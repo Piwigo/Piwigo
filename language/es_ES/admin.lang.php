@@ -1394,3 +1394,6 @@ $lang['You cannot copy the password if the connection to this site is not secure
 $lang['%s is the new main user'] = '%s es el nuevo usuario principal';
 $lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Se ha enviado un enlace de activación válido por 1 hora a "%s". Si el usuario no recibe el enlace, puede generar y copiar uno nuevo editando el usuario y administrando su contraseña.';
 $lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Se creó un enlace de activación válido por 1 hora pero no se pudo enviar. Puede copiar el enlace a continuación y enviárselo al usuario.';
+$lang['Ok, got it!'] = '¡De acuerdo, entendido!';
+$lang['Read the release note'] = 'Leer las notas de la versión';
+$lang['What\'s new in version %s'] = '¿Qué hay de nuevo en la versión %s?';
