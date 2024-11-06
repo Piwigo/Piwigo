@@ -1395,3 +1395,6 @@ $lang['To be sure, please rewrite the word “%s” below'] = 'För att vara sä
 $lang['Username successfully modified'] = 'Användarnamnet har ändrats';
 $lang['Yes, let\'s proceed'] = 'Ja, låt oss fortsätta';
 $lang['You are about to set %s as main user instead of %s, do you wish to continue ?'] = 'Du är på väg att ställa in %s som huvudanvändare istället för %s, vill du fortsätta?';
+$lang['Ok, got it!'] = 'Okej, förstår!';
+$lang['Read the release note'] = 'Läs ändringsloggen';
+$lang['What\'s new in version %s'] = 'Vad är nytt i version %s?';
