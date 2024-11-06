@@ -1369,3 +1369,5 @@ $lang['Select or create an album'] = '選擇或建立相簿';
 $lang['System Activities'] = '系統活動';
 $lang['Who can see ?'] = '誰可以看到？';
 $lang['You have unsaved changes'] = '您有未儲存的變更';
+$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = '已將啟用連結（有效期限：一小時）寄給 "%s"。如果使用者沒有收到，您可以透過編輯使用者、管理使用者的密碼，產生新的連結，再複製給使用者。';
+$lang['%s is the new main user'] = '%s 是新的主要使用者';
