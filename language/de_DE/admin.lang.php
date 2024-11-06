@@ -1399,3 +1399,6 @@ $lang['An activation link valid for 1 hour has been sent to "%s". If the user do
 $lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Ein für 1 Stunde gültiger Aktivierungslink wurde erstellt, konnte aber nicht gesendet werden. Sie können nun den unten stehenden Link kopieren und an den Benutzer senden.';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = 'Kann keine E-Mail an diesen Benutzer senden, da er keine E-Mail-Adresse hat';
 $lang['Changing the main user'] = 'Ändern des Hauptbenutzers';
+$lang['Ok, got it!'] = 'Okay, verstanden!';
+$lang['Read the release note'] = 'Lesen Sie die Freigabemitteilung';
+$lang['What\'s new in version %s'] = 'Was ist neu in der Version %s?';
