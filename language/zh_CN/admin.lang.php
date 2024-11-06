@@ -1401,3 +1401,6 @@ $lang['To be sure, please rewrite the word “%s” below'] = '为确保无误�
 $lang['Username successfully modified'] = '用户名修改成功';
 $lang['Yes, let\'s proceed'] = '是的，我们继续吧';
 $lang['You are about to set %s as main user instead of %s, do you wish to continue ?'] = '您即将将 %s 设置为主用户，而不是 %s，您确定要继续吗？';
+$lang['Ok, got it!'] = '好的，明白了！';
+$lang['Read the release note'] = '阅读发布说明';
+$lang['What\'s new in version %s'] = '版本%s中有什么新功能？';
