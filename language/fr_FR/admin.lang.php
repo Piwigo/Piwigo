@@ -1402,4 +1402,7 @@ $lang['Resend password link'] = 'Renvoyer le lien du mot de passe';
 $lang['Username successfully modified'] = 'Nom d\'utilisateur modifié avec succès';
 $lang['Changing the main user'] = 'Changer l\'utilisateur principal';
 $lang['Yes, let\'s proceed'] = 'Oui, continuons';
+$lang['What\'s new in version %s'] = 'Quoi de neuf dans Piwigo %s';
+$lang['Read the release note'] = 'Lire la note de version';
+$lang['Ok, got it!'] = 'Ok, j\'ai compris!';
 // Leave this line empty
