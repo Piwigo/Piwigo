@@ -1400,7 +1400,7 @@ $lang['Resend password link'] = 'Resend password link';
 $lang['Username successfully modified'] = 'Username successfully modified';
 $lang['Changing the main user'] = 'Changing the main user';
 $lang['Yes, let\'s proceed'] = 'Yes, let\'s proceed';
-$lang['What\'s new in version %s'] = 'What\'s new in version %s';
+$lang['What\'s new in version %s'] = 'What\'s new in version %s?';
 $lang['Read the release note'] = 'Read the release note';
 $lang['Ok, got it!'] = 'Ok, got it!';
 // Leave this line empty
