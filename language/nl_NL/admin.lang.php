@@ -1397,3 +1397,6 @@ $lang['Cannot send an email to this user because he doesn\'t have an email addre
 $lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Er is een activeringslink gemaakt die 1 uur geldig is, maar deze kon niet worden verzonden. U kunt nu de onderstaande link kopiëren en naar de gebruiker verzenden.';
 $lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Er is een activeringslink verzonden naar "%s". Als de gebruiker de link niet ontvangt, kunt u een nieuwe link genereren en kopiëren door de gebruiker te bewerken en zijn wachtwoord te beheren.';
 $lang['%s is the new main user'] = '%s is de nieuwe hoofdgebruiker';
+$lang['Ok, got it!'] = 'Oké, begrepen!';
+$lang['Read the release note'] = 'Lees de release-opmerking';
+$lang['What\'s new in version %s'] = 'Wat is er nieuw in versie %s?';
