@@ -1393,3 +1393,6 @@ $lang['To be sure, please rewrite the word “%s” below'] = 'For å være sikk
 $lang['Username successfully modified'] = 'Brukernavn ble endret';
 $lang['Yes, let\'s proceed'] = 'Ja, la oss fortsette';
 $lang['You are about to set %s as main user instead of %s, do you wish to continue ?'] = 'Du er i ferd med å sette %s som hovedbruker i stedet for %s, vil du fortsette?';
+$lang['Ok, got it!'] = 'Ok, skjønner det!';
+$lang['Read the release note'] = 'Les utgivelsesnotatet';
+$lang['What\'s new in version %s'] = 'Hva er nytt i versjon %s?';
