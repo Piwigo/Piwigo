@@ -1405,3 +1405,6 @@ $lang['You are about to set %s as main user instead of %s, do you wish to contin
 $lang['You are not authorised to change the main user, please ask your webmaster'] = 'No teniu autorització per canviar l\'usuari principal, demaneu-ho al vostre administrador web';
 $lang['You can now change the main user from %s to %s.'] = 'Ja podeu canviar l\'usuari principal de %s a %s.';
 $lang['You cannot copy the password if the connection to this site is not secure.'] = 'No podeu copiar la contrasenya si la connexió a aquest lloc no és segura.';
+$lang['Ok, got it!'] = 'D\'acord, entesos!';
+$lang['Read the release note'] = 'Llegiu les notes de la versió';
+$lang['What\'s new in version %s'] = 'Quines novetats hi ha a la versió %s?';
