@@ -3806,6 +3806,12 @@ SELECT
 
 function get_installation_date()
 {
+  $candidate = null;
+
+  // Piwigo first beta versions were created in septembre 2001, so it's not possible
+  // to have an installation prior to this "origin of times"
+  $piwigo_origins = '2001-09-01 00:00:00';
+
   $query = '
 SELECT
     registration_date
@@ -3815,8 +3821,40 @@ SELECT
   $users = query2array($query);
   if (count($users) > 0)
   {
-    return $users[0]['registration_date'];
+    $candidate = $users[0]['registration_date'];
   }
 
-  return null;
+  if (empty($candidate) or strtotime($candidate) < strtotime($piwigo_origins))
+  {
+    $query = '
+SELECT
+    MIN(registration_date) AS min_registration_date
+  FROM '.USER_INFOS_TABLE.'
+  WHERE registration_date > \''.$piwigo_origins.'\'
+;';
+    $users = query2array($query);
+    if (count($users) > 0)
+    {
+      $candidate = $users[0]['min_registration_date'];
+    }
+  }
+
+  if (empty($candidate) or strtotime($candidate) < strtotime($piwigo_origins))
+  {
+    // let's find another candidate
+    $query = '
+SELECT
+    date_available
+  FROM '.IMAGES_TABLE.'
+  ORDER BY id ASC
+  LIMIT 1
+;';
+    $images = query2array($query);
+    if (count($images) > 0)
+    {
+      $candidate = $images[0]['date_available'];
+    }
+  }
+
+  return $candidate;
 }
