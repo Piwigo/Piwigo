@@ -720,7 +720,7 @@ SELECT
     }
     else
     {
-      $items = $image_ids_for_filter[array_key_first($image_ids_for_filter)];
+      $items = $image_ids_for_filter[ array_keys($image_ids_for_filter)[0] ];
     }
   }
 
