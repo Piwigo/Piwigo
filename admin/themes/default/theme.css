@@ -7556,3 +7556,133 @@ color:#FF7B00;
     width: 100px;
   }
 }
+
+/* Css for whats new popin */
+#whats_new{
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#whats_new_popin{
+  width: 40%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  padding: 30px;
+  border-radius: 10px;
+  max-height:90%;
+}
+
+.close_whats_new{
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  font-size: 30px;
+  transition: all 125ms ease-out;
+}
+
+#whats_new h3{
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 25.87px;
+  text-align: center;
+  background-color:transparent;
+  margin-top:0px;
+}
+
+#whats_new h4{
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 20.43px;
+  text-align: left;
+  margin:0;
+  margin-bottom:15px;
+}
+
+#whats_new .whats_new_block_container{
+  display:flex;
+}
+
+#whats_new .whats_new_block{
+  border-radius:13px;
+  padding:15px;
+  padding-bottom:0px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  margin:7px;
+}
+
+#whats_new .whats_new_block:hover{
+  scale:115%;
+  transition:.6s;
+}
+
+#whats_new .whats_new_block.icon-yellow:hover{
+  transform-origin: top left;
+}
+
+#whats_new .whats_new_block.icon-green:hover{
+  transform-origin: top right;
+}
+
+#whats_new .whats_new_block.icon-blue:hover{
+  transform-origin: bottom left;
+}
+
+#whats_new .whats_new_block.icon-purple:hover{
+  transform-origin: bottom right;
+}
+
+#whats_new .whats_new_block.icon-yellow,
+#whats_new .whats_new_block.icon-purple{
+  width:40%;
+}
+
+#whats_new .whats_new_block.icon-green,
+.whats_new_block.icon-blue{
+  width:60%;
+}
+
+
+#whats_new .whats_new_block img{
+    width:100%;
+    height:auto;
+}
+
+#whats_new .whats_new_buttons{
+  display:flex;
+  margin-top:15px;
+  justify-content:space-between;
+}
+
+#whats_new button{
+  padding: 9px 10px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border:none;
+  cursor:pointer;
+  transition: all 125ms ease-out;
+}
+
+#whats_new_notification{
+  border-radius: 15px;
+  top: 2px;
+  position: absolute;
+  right: 42px;
+  padding: 1px;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  font-size: 10px;
+}
