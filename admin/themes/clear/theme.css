@@ -864,3 +864,24 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .cat-move-order-popin input[name=recursiveAutoOrder]:hover {
   background-color: #ffc17e;
 }
+
+#whats_new_popin{
+  background-color: white;
+}
+
+.close_whats_new{
+  color:white
+}
+
+#whats_new h3{
+  color: #3C3C3C;
+}
+
+#whats_new button{
+  background-color: #ECECEC;
+  color: #3C3C3C;
+}
+
+#whats_new button:hover{
+  background-color:#FFA646;
+}

@@ -2307,3 +2307,24 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 .first-letter-capitalize::first-letter {
   text-transform: uppercase;
 }
+
+#whats_new_popin{
+  background-color: #3C3C3C;
+}
+
+.close_whats_new{
+  color:#3C3C3C;
+}
+
+#whats_new h3{
+  color: #CCCCCC;
+}
+
+#whats_new button{
+  background-color:#2E2E2E;
+  color:#777777;
+}
+
+#whats_new button:hover{
+  background-color:#1B1B1B;
+}

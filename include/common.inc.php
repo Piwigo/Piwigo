@@ -166,6 +166,12 @@ elseif ($conf['piwigo_installed_version'] != PHPWG_VERSION)
   conf_update_param('piwigo_installed_version', PHPWG_VERSION);
 }
 
+if (!isset($conf['last_major_update']))
+{
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+  conf_update_param('last_major_update', $dbnow, true);
+}
+
 // 2022-02-25 due to escape on "rank" (becoming a mysql keyword in version 8), the $conf['order_by'] might
 // use a "rank", even if admin/configuration.php should have removed it. We must remove it.
 // TODO remove this data update as soon as 2025 arrives
@@ -222,6 +228,8 @@ load_language('common.lang');
 if ( is_admin() || (defined('IN_ADMIN') and IN_ADMIN) )
 {
   load_language('admin.lang');
+  // Add language for temporary strings for new popup, from piwigo 15
+  load_language('whats_new_'.get_branch_from_version(PHPWG_VERSION).'.lang');
 }
 trigger_notify('loading_lang');
 load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );

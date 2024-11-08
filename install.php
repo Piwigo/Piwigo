@@ -486,6 +486,8 @@ else
     
     $user = build_user(1, true);
     log_user($user['id'], false);
+
+    $user['preferences']['show_whats_new_'.get_branch(PHPWG_VERSION)] = false;
     
     // newsletter subscription
     if ($is_newsletter_subscribe)
@@ -497,8 +499,10 @@ else
         array('origin' => 'installation')
         );
 
-      userprefs_update_param('show_newsletter_subscription', false);
+      $user['preferences']['show_newsletter_subscription'] = false;
     }
+
+    userprefs_save();
 
     // email notification
     if (isset($_POST['send_credentials_by_mail']))
