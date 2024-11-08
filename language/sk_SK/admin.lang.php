@@ -1394,3 +1394,6 @@ $lang['To be sure, please rewrite the word “%s” below'] = 'Pre istotu prepí
 $lang['Username successfully modified'] = 'Úspešne upravené používateľské meno';
 $lang['Yes, let\'s proceed'] = 'Áno, pokračovať';
 $lang['You are about to set %s as main user instead of %s, do you wish to continue ?'] = 'Chystáte sa nastaviť %s ako hlavného používateľa namiesto %s, chcete pokračovať?';
+$lang['Ok, got it!'] = 'Ok, mám to!';
+$lang['Read the release note'] = 'Prečítajte si poznámku k vydaniu';
+$lang['What\'s new in version %s'] = 'Čo je nové vo verzii %s?';
