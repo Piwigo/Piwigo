@@ -459,3 +459,6 @@ $lang['Pages'] = 'Páginas';
 $lang['The PDF you requested is too large to display on this page.'] = 'El PDF que ha solicitado es demasiado grande para mostrarlo en esta página';
 $lang['Custom dates'] = 'Fechas personalizadas';
 $lang['last 12 months'] = 'Los últimos 12 meses';
+$lang['There are no authors available for the photos currently filtered'] = 'No hay autores disponibles para las fotos filtradas actualmente';
+$lang['There are no creation dates available for the photos currently filtered'] = 'No hay fechas de creación disponibles para las fotos filtradas actualmente';
+$lang['There are no tags available for the photos currently filtered'] = 'No hay etiquetas disponibles para las fotos filtradas actualmente';

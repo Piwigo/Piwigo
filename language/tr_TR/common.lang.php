@@ -451,3 +451,6 @@ $lang['Click here to display it'] = 'Görüntülemek için buraya tıkla';
 $lang['Album already selected'] = 'Albüm zaten seçildi';
 $lang['Custom dates'] = 'Özel tarihler';
 $lang['last 12 months'] = 'Son 12 ay';
+$lang['There are no authors available for the photos currently filtered'] = 'Şu anda filtrelenen fotoğraflar için yazar bulunamadı';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Şu anda filtrelenen fotoğraflar için herhangi bir oluşturma tarihi mevcut değil';
+$lang['There are no tags available for the photos currently filtered'] = 'Şu anda filtrelenen fotoğraflar için kullanılabilir etiket yok';

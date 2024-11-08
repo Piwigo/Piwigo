@@ -450,3 +450,6 @@ $lang['The PDF you requested is too large to display on this page.'] = 'El PDF q
 $lang['Click here to display it'] = 'Feu clic aquí per mostrar-lo';
 $lang['Custom dates'] = 'Dates personalitzades';
 $lang['last 12 months'] = 'Els darrers 12 mesos';
+$lang['There are no authors available for the photos currently filtered'] = 'No hi ha autors disponibles per a les fotos filtrades actualment';
+$lang['There are no creation dates available for the photos currently filtered'] = 'No hi ha dates de creació disponibles per a les fotos filtrades actualment';
+$lang['There are no tags available for the photos currently filtered'] = 'No hi ha etiquetes disponibles per a les fotos filtrades actualment';

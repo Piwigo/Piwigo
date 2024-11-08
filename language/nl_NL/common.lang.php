@@ -470,3 +470,6 @@ $lang['Pages'] = 'Pagina\'s';
 $lang['The PDF you requested is too large to display on this page.'] = 'De door u opgevraagde PDF is te groot om op deze pagina weer te geven.';
 $lang['last 12 months'] = 'Laatste 12 maanden';
 $lang['Custom dates'] = 'Aangepaste data';
+$lang['There are no authors available for the photos currently filtered'] = 'Er zijn momenteel geen auteurs beschikbaar voor de gefilterde foto\'s';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Er zijn momenteel geen aanmaakdata beschikbaar voor de gefilterde foto\'s';
+$lang['There are no tags available for the photos currently filtered'] = 'Er zijn momenteel geen tags beschikbaar voor de gefilterde foto\'s';
