@@ -68,7 +68,7 @@
     },
     {
       "uid": "44e04715aecbca7f266a17d5a7863c68",
-      "css": "plus",
+      "css": "plus-1",
       "code": 59427,
       "src": "fontawesome"
     },
@@ -951,6 +951,12 @@
       "search": [
         "vector"
       ]
+    },
+    {
+      "uid": "5e2ab018e3044337bcef5f7e94098ea1",
+      "css": "thumbs-up",
+      "code": 61796,
+      "src": "fontawesome"
     },
     {
       "uid": "7411608e7611ffd477aeec7d239f87e9",

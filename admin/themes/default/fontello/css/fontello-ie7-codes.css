@@ -37,7 +37,7 @@
 .icon-check-empty { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe820;&nbsp;'); }
 .icon-cancel-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe821;&nbsp;'); }
 .icon-cancel { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe822;&nbsp;'); }
-.icon-plus { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe823;&nbsp;'); }
+.icon-plus-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe823;&nbsp;'); }
 .icon-ok-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe824;&nbsp;'); }
 .icon-heart-broken { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe825;&nbsp;'); }
 .icon-download { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe826;&nbsp;'); }
@@ -122,6 +122,7 @@
 .icon-sort-alt-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf160;&nbsp;'); }
 .icon-sort-alt-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf161;&nbsp;'); }
 .icon-sort-number-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf162;&nbsp;'); }
+.icon-thumbs-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf164;&nbsp;'); }
 .icon-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf175;&nbsp;'); }
 .icon-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf176;&nbsp;'); }
 .icon-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf178;&nbsp;'); }

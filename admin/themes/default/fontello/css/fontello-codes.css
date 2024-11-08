@@ -37,7 +37,7 @@
 .icon-check-empty:before { content: '\e820'; } /* '' */
 .icon-cancel-circled:before { content: '\e821'; } /* '' */
 .icon-cancel:before { content: '\e822'; } /* '' */
-.icon-plus:before { content: '\e823'; } /* '' */
+.icon-plus-1:before { content: '\e823'; } /* '' */
 .icon-ok-circled:before { content: '\e824'; } /* '' */
 .icon-heart-broken:before { content: '\e825'; } /* '' */
 .icon-download:before { content: '\e826'; } /* '' */
@@ -122,6 +122,7 @@
 .icon-sort-alt-up:before { content: '\f160'; } /* '' */
 .icon-sort-alt-down:before { content: '\f161'; } /* '' */
 .icon-sort-number-up:before { content: '\f162'; } /* '' */
+.icon-thumbs-up:before { content: '\f164'; } /* '' */
 .icon-down:before { content: '\f175'; } /* '' */
 .icon-up:before { content: '\f176'; } /* '' */
 .icon-right:before { content: '\f178'; } /* '' */
