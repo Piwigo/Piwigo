@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?11029234');
-  src: url('../font/fontello.eot?11029234#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?11029234') format('woff2'),
-       url('../font/fontello.woff?11029234') format('woff'),
-       url('../font/fontello.ttf?11029234') format('truetype'),
-       url('../font/fontello.svg?11029234#fontello') format('svg');
+  src: url('../font/fontello.eot?78376652');
+  src: url('../font/fontello.eot?78376652#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?78376652') format('woff2'),
+       url('../font/fontello.woff?78376652') format('woff'),
+       url('../font/fontello.ttf?78376652') format('truetype'),
+       url('../font/fontello.svg?78376652#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?11029234#fontello') format('svg');
+    src: url('../font/fontello.svg?78376652#fontello') format('svg');
   }
 }
 */
@@ -92,7 +92,7 @@
 .icon-check-empty:before { content: '\e820'; } /* '' */
 .icon-cancel-circled:before { content: '\e821'; } /* '' */
 .icon-cancel:before { content: '\e822'; } /* '' */
-.icon-plus-1:before { content: '\e823'; } /* '' */
+.icon-plus:before { content: '\e823'; } /* '' */
 .icon-ok-circled:before { content: '\e824'; } /* '' */
 .icon-heart-broken:before { content: '\e825'; } /* '' */
 .icon-download:before { content: '\e826'; } /* '' */
