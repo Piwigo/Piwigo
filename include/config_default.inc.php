@@ -373,6 +373,10 @@ $conf['use_iptc_mapping'] = array(
   'comment'         => '2#120'
   );
 
+// exiftool_path: Location of exiftool binary. Must be set if not within $PATH 
+// or when specific version is required. Example '\var\lib\Image\ExifTool-10.75\exiftool'
+$conf['exiftool_path'] = 'exiftool';
+
 // show_exif: Show EXIF metadata on picture.php (table or line presentation
 // available)
 $conf['show_exif'] = true;
