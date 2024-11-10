@@ -64,7 +64,7 @@ if (($conf['show_exif']) and (function_exists('exif_read_data')))
   }
 }
 
-if ($conf['show_iptc'])
+if ($conf['show_iptc'] && is_admin())
 {
   $iptc = get_iptc_data($picture['current']['src_image']->get_path(), $conf['show_iptc_mapping'], ', ');
 
