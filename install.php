@@ -487,7 +487,7 @@ else
     $user = build_user(1, true);
     log_user($user['id'], false);
 
-    $user['preferences']['show_whats_new_'.get_branch(PHPWG_VERSION)] = false;
+    $user['preferences']['show_whats_new_'.get_branch_from_version(PHPWG_VERSION)] = false;
     
     // newsletter subscription
     if ($is_newsletter_subscribe)
