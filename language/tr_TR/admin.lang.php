@@ -1392,3 +1392,6 @@ $lang['To be sure, please rewrite the word “%s” below'] = 'Emin olmak için 
 $lang['Username successfully modified'] = 'Kullanıcı adı başarıyla değiştirildi';
 $lang['Yes, let\'s proceed'] = 'Evet, devam edelim';
 $lang['You are about to set %s as main user instead of %s, do you wish to continue ?'] = '%s yerine %s\'yi ana kullanıcı olarak ayarlamak üzeresiniz, devam etmek istiyor musunuz?';
+$lang['Read the release note'] = 'Sürüm notunu okuyun';
+$lang['What\'s new in version %s'] = 'Versiyon %s\'de neler yeni?';
+$lang['Ok, got it!'] = 'Tamamdır, anlaşıldı!';
