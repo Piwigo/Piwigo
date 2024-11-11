@@ -2641,6 +2641,12 @@ SELECT *
       return new PwgError(WS_ERR_INVALID_PARAM, 'Do not use tag_list and tag_ids at the same time.');
     }
 
+    // clean user input
+    foreach ($_REQUEST['tag_list'] as $idx => $tag_candidate)
+    {
+      $_REQUEST['tag_list'][$idx] = pwg_db_real_escape_string(strip_tags(stripslashes($tag_candidate)));
+    }
+
     $tag_list = get_tag_ids($_REQUEST['tag_list']);
     set_tags($tag_list, $params['image_id']);
   }  
