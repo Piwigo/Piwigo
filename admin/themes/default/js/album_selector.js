@@ -486,7 +486,7 @@ class AlbumSelector {
           `<div class="search-result-item" id="${cat.id}">
               ${subcat}
               <div class="prefill-results-item available" id="${cat.id}">
-                <span class="search-result-path">${cat.name}</span>
+                <span class="search-result-path"><span class="search-result-path-name">${cat.name}</span></span>
                 <span id=${cat.id}" class="${iconAlbum} item-add"></span>
               </div>
             </div>`
@@ -496,7 +496,7 @@ class AlbumSelector {
           `<div class="search-result-item already-in" id="${cat.id}" title="${str_album_selected}">
               ${subcat}
               <div class="prefill-results-item" id="${cat.id}">
-                <span class="search-result-path">${cat.name}</span> 
+                <span class="search-result-path"><span class="search-result-path-name">${cat.name}</span></span> 
                 <span id="${cat.id}" class="gallery-icon-plus-circled item-add notClickable" title="${str_album_selected}"></span>
               </div>
             </div>`
