@@ -103,7 +103,13 @@ function get_sync_exif_data($file)
     {
       $exif[$pwg_key] = metadata_normalize_keywords_string($exif[$pwg_key]);
     }
-    
+
+    if (empty($exif[$pwg_key]))
+    {
+      unset($exif[$pwg_key]);
+      continue;
+    }
+
     $exif[$pwg_key] = addslashes($exif[$pwg_key]);
   }
 
