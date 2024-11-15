@@ -214,6 +214,7 @@ SELECT
         }
       }
     }
+    krsort($date_posted['list_of_dates']);
 
     $template->assign('LIST_DATE_POSTED', $date_posted['list_of_dates']);
     $template->assign('DATE_POSTED', $counters);
@@ -317,6 +318,8 @@ SELECT
         }
       }
     }
+    krsort($date_created['list_of_dates']);
+
     $template->assign('LIST_DATE_CREATED', $date_created['list_of_dates']);
     $template->assign('DATE_CREATED', $counters);
   }
