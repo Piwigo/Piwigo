@@ -13,7 +13,7 @@
 
 {footer_script}
 const str_confirm_msg = "{"Yes, I am sure"|@translate}";
-const str_cancel_msg = "{"No, I have chaged my mind"|@translate}";
+const str_cancel_msg = "{"No, I have changed my mind"|@translate}";
 const str_install_title = "{'Are you sure you want to install the plugin "%s"?'|@translate|@escape:'javascript'}";
 const strs_certification = {
   "-1" : "{'This plugin is incompatible with your version'|@translate}",
