@@ -716,6 +716,10 @@ function applyMove(event) {
   } else if (event.move_info.position == 'inside') {
     if (getId(previous_parent) != getId(target)) {
       moveParent = getId(target);
+      const currentNode = $('.tree').tree('getNodeById', moveParent);
+      if (currentNode && currentNode.load_on_demand && currentNode.haveChildren) {
+        loadOnDemand(currentNode);
+      }
     }
     moveRank = 1;
   } else if (event.move_info.position == 'before') {
