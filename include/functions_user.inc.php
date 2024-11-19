@@ -724,6 +724,8 @@ SELECT *
       unset($cache['default_user']['user_id']);
       unset($cache['default_user']['status']);
       unset($cache['default_user']['registration_date']);
+      unset($cache['default_user']['last_visit']);
+      unset($cache['default_user']['last_visit_from_history']);
     }
     else
     {
