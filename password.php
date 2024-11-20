@@ -76,11 +76,11 @@ function process_password_request()
     return false;
   }
 
-  $generate_link = generate_reset_password_link($user_id);
+  $generate_link = generate_password_link($user_id);
   
-  $userdata['activation_key'] = $generate_link['activation_key'];
+  // $userdata['activation_key'] = $generate_link['activation_key'];
 
-  $email_params = pwg_generate_reset_password_mail($userdata['username'], $generate_link['reset_password_link'], $conf['gallery_title']);
+  $email_params = pwg_generate_reset_password_mail($userdata['username'], $generate_link['password_link'], $conf['gallery_title'], $generate_link['time_validation']);
 
   if (pwg_mail($userdata['email'], $email_params))
   {

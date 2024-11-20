@@ -1506,8 +1506,8 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
     $service->addMethod(
-      'pwg.users.generateResetPasswordLink',
-      'ws_users_generate_reset_password_link',
+      'pwg.users.generatePasswordLink',
+      'ws_users_generate_password_link',
       array(
         'user_id' => array(
           'type'=>WS_TYPE_ID
@@ -1522,7 +1522,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       'Return the reset password link <br />
        (Only webmaster can perform this action for another webmaster)',
       $ws_functions_root . 'pwg.users.php',
-      array('admin_only'=>true)
+      array('admin_only'=>true, 'post_only'=>true)
     );
 
     $service->addMethod(

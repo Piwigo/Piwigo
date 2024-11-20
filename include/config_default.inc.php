@@ -599,6 +599,14 @@ $conf['browser_language'] = true;
 // If false it'll be redirected from index.php to identification.php
 $conf['guest_access'] = true;
 
+// password_reset_duration : defines the validity duration (in seconds) of a 
+// password reset link. Default value is one hour (3600 seconds).
+$conf['password_reset_duration'] = 60*60;
+
+// password_activation_duration : defines the validity duration (in seconds) 
+// of an password activation link. Default value is 72 hours (259200 seconds).
+$conf['password_activation_duration'] = 3*24*60*60;
+
 // +-----------------------------------------------------------------------+
 // |                               history                                 |
 // +-----------------------------------------------------------------------+
