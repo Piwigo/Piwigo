@@ -231,7 +231,7 @@ if (isset($_GET['key']) and !isset($_POST['submit']))
     $userdata = getuserdata($user_id, false);
     $page['username'] = $userdata['username'];
     $template->assign('key', $_GET['key']);
-    $first_login = is_first_connection($user_id);
+    $first_login = has_already_logged_in($user_id);
 
     if (!isset($page['action']))
     {

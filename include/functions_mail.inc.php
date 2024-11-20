@@ -1039,7 +1039,7 @@ function pwg_generate_reset_password_mail($username, $password_link, $gallery_ti
   return array(
     'subject' => '['.$gallery_title.'] '.l10n('Password Reset'),
     'content' => $message,
-    'email_format' => 'text/plain',
+    'content_format' => 'text/plain',
     );
 }
 
@@ -1078,7 +1078,7 @@ function pwg_generate_set_password_mail($username, $set_password_link, $gallery_
   return array(
     'subject' => l10n('Welcome to ') . '['.$gallery_title.']',
     'content' => $message,
-    'email_format' => 'text/plain',
+    'content_format' => 'text/plain',
     );
 }
 

@@ -1927,7 +1927,7 @@ function userprefs_get_param($param, $default_value=null)
  * @param int $user_id
  * @return bool true if first connexion else false 
  */
-function is_first_connection($user_id)
+function has_already_logged_in($user_id)
 {
   $query = '
 SELECT COUNT(*)
