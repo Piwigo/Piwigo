@@ -1439,6 +1439,7 @@ $(document).ready(function() {
 .user-container-status {
     width:10%;
     max-width: 110px;
+    width: auto;
 }
 
 .user-header-email,
