@@ -1378,3 +1378,7 @@ $lang['An error has occured'] = '发生了错误';
 $lang['Added on %s'] = '添加到%s';
 $lang['Add a sub-album to “%s”'] = '在“%s”中添加子相册';
 $lang['Activate create mode to create and select an album'] = '激活创建模式以创建和选择相册';
+$lang['Rename album'] = '重命名相册';
+$lang['Preview'] = '预览';
+$lang['Privacy Level'] = '隐私等级';
+$lang['Photographers...'] = '摄影团队'; 
