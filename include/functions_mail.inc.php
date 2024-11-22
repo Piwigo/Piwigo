@@ -48,6 +48,7 @@ function get_mail_sender_email()
  * - smtp_secure
  * - email_webmaster
  * - name_webmaster
+ * - mail_always_from_mail_sender
  *
  * @return array
  */
@@ -66,6 +67,7 @@ function get_mail_configuration()
     'smtp_secure' => $conf['smtp_secure'],
     'email_webmaster' => get_mail_sender_email(),
     'name_webmaster' => get_mail_sender_name(),
+    'mail_always_from_mail_sender' => $conf['mail_always_from_mail_sender'],
     );
 
   return $conf_mail;
@@ -642,19 +644,23 @@ function pwg_mail($to, $args=array(), $tpl=array())
   // Compute root_path in order have complete path
   set_make_full_url();
 
-  if (empty($args['from']))
+  // assume no 'from' in $args
+  $reply_to = $from = array(
+    'email' => $conf_mail['email_webmaster'],
+    'name' => $conf_mail['name_webmaster'],
+    );
+
+  if (!empty($args['from']))
   {
-    $from = array(
-      'email' => $conf_mail['email_webmaster'],
-      'name' => $conf_mail['name_webmaster'],
-      );
+    $reply_to = unformat_email($args['from']);
+    if (!$conf_mail['mail_always_from_mail_sender'])
+    {
+      $from = $reply_to;
+    }
   }
-  else
-  {
-    $from = unformat_email($args['from']);
-  }
+
   $mail->setFrom($from['email'], $from['name']);
-  $mail->addReplyTo($from['email'], $from['name']);
+  $mail->addReplyTo($reply_to['email'], $reply_to['name']);
 
   // Subject
   if (empty($args['subject']))
