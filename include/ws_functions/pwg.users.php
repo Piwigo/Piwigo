@@ -1020,7 +1020,7 @@ function ws_users_generate_password_link($params, &$service)
     return new PwgError(403, 'You cannot perform this action');
   }
 
-  $first_login = is_first_connection($params['user_id']);
+  $first_login = has_already_logged_in($params['user_id']);
   $generate_link = generate_password_link($params['user_id'], $first_login);
   $send_by_mail_response = null;
 
