@@ -1413,6 +1413,10 @@ $(document).ready(function() {
     width:70px;
 }
 
+.user-container-initials .small {
+  font-size: 1em !important;
+}
+
 .user-header-username{
   width: 20%;
   max-width: 195px;
@@ -1966,6 +1970,10 @@ $(document).ready(function() {
     font-weight:bold;
 }
 
+.user-property-initials .small {
+  font-size: 3em !important;
+}
+
 .user-property-username {
     font-weight:bold;
     margin-bottom:45px;
@@ -2223,6 +2231,7 @@ $(document).ready(function() {
     max-width: 200px;
     overflow-x: hidden;
     text-overflow: ellipsis;
+    text-wrap: nowrap;
 }
 
 .edit-username-specifier {

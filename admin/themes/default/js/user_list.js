@@ -1330,7 +1330,14 @@ function fill_container_user_info(container, user_index) {
         kingToDisplay.tipTip();
         container.find(".user-container-username").append(kingToDisplay);
     }
-    container.find(".user-container-initials span").html(get_initials(user.username)).addClass(color_icons[user.id % 5]);
+    const initial_to_fill = get_initials(user.username);
+    const initialSpan = container.find(".user-container-initials span");
+    initialSpan.html(initial_to_fill).addClass(color_icons[user.id % 5]);
+    if (initial_to_fill.length > 1) {
+        initialSpan.addClass('small');
+    } else {
+        initialSpan.removeClass('small');
+    }
     container.find(".user-container-status span").html(status_to_str[user.status]);
     container.find(".user-container-email span").html(user.email);
     generate_groups(container, user.groups);
@@ -1397,10 +1404,16 @@ function fill_user_edit_summary(user_to_edit, pop_in, isGuest) {
     if (isGuest) {
       pop_in.find('.user-property-initials span').removeClass(color_icons.join(' ')).addClass(color_icons[user_to_edit.id % 5]);
     } else {
-      pop_in.find('.user-property-initials span').html(get_initials(user_to_edit.username)).removeClass(color_icons.join(' ')).addClass(color_icons[user_to_edit.id % 5]);
+        const initial_to_fill = get_initials(user_to_edit.username);
+        const initialSpan = pop_in.find('.user-property-initials span');
+        initialSpan.html(initial_to_fill).removeClass(color_icons.join(' ')).addClass(color_icons[user_to_edit.id % 5]);
+        if (initial_to_fill.length > 1) {
+            initialSpan.addClass('small');
+        } else {
+            initialSpan.removeClass('small');
+        }
     }
-    pop_in.find('.user-property-username span:first').html(user_to_edit.username); 
-    
+    pop_in.find('.user-property-username span:first').html(user_to_edit.username).tipTip({content: user_to_edit.username});
     
     if (user_to_edit.id === connected_user || user_to_edit.id === 1) {
         pop_in.find('.user-property-username .edit-username-specifier').show();
