@@ -1405,5 +1405,5 @@ $lang['Read the release note'] = 'Read the release note';
 $lang['Ok, got it!'] = 'Ok, got it!';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'This link is valid for %s. After this time, you will need to request a new link.';
 $lang['To set your password, visit the following address:'] = 'To set your password, visit the following address:';
-$lang['Someone requested that the password be set for the following user account:'] = 'Someone requested that the password be set for the following user account:';
+$lang['A photo library administrator has created the following account for you:'] = 'A photo library administrator has created the following account for you:';
 // Leave this line empty

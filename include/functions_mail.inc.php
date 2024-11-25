@@ -1019,18 +1019,15 @@ function pwg_generate_reset_password_mail($username, $password_link, $gallery_ti
 {
   set_make_full_url();
   
-  $message = l10n('Someone requested that the password be reset for the following user account:') . "\r\n\r\n";
-  $message.= l10n(
-    'Username "%s" on gallery %s',
-    $username,
-    get_gallery_home_url()
-    );
-  $message.= "\r\n\r\n";
-  $message.= l10n('To reset your password, visit the following address:') . "\r\n";
-  $message.= $password_link . "\r\n";
+  $message = '<p style="margin: 20px 0">';
+  $message = l10n('Someone requested that the password be reset for the following user account:')." ".$username.'</p>';
+  $message.= '<p style="margin: 20px 0">'.l10n('To reset your password, visit the following address:');
+  $message.= ' <a href="'.$password_link.'">'.l10n('Change my password').'</a></p>';
+  $message.= '<p style="text-align: center; font-size: 70%;">'.$password_link.'</p>';
+  $message.= '<p style="margin: 20px 0;">';
   $message.= l10n('This link is valid for %s. After this time, you will need to request a new link.', $remaining_time);
-  $message.= "\r\n\r\n";
-  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
+  $message.= " ";
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.').'</p>';
 
   unset_make_full_url();
 
@@ -1039,7 +1036,7 @@ function pwg_generate_reset_password_mail($username, $password_link, $gallery_ti
   return array(
     'subject' => '['.$gallery_title.'] '.l10n('Password Reset'),
     'content' => $message,
-    'content_format' => 'text/plain',
+    'content_format' => 'text/html',
     );
 }
 
@@ -1058,18 +1055,15 @@ function pwg_generate_set_password_mail($username, $set_password_link, $gallery_
 {
   set_make_full_url();
   
-  $message = l10n('Someone requested that the password be set for the following user account:') . "\r\n\r\n";
-  $message.= l10n(
-    'Username "%s" on gallery %s',
-    $username,
-    get_gallery_home_url()
-    );
-  $message.= "\r\n\r\n";
-  $message.= l10n('To set your password, visit the following address:') . "\r\n";
-  $message.= $set_password_link . "\r\n";
+  $message = '<p style="margin: 20px 0">';
+  $message.= l10n('A photo library administrator has created the following account for you:')." ".$username.'</p>';
+  $message.= '<p style="margin: 20px 0">'.l10n('To set your password, visit the following address:');
+  $message.= ' <a href="'.$set_password_link.'">'.l10n('Activate').'</a></p>';
+  $message.= '<p style="text-align: center; font-size: 70%; margin: 20px 0;">'.$set_password_link.'</p>';
+  $message.= '<p style="margin: 20px 0;">';
   $message.= l10n('This link is valid for %s. After this time, you will need to request a new link.', $remaining_time);
-  $message.= "\r\n\r\n";
-  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
+  $message.= " ";
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.') . '</p>';
 
   unset_make_full_url();
 
@@ -1078,7 +1072,7 @@ function pwg_generate_set_password_mail($username, $set_password_link, $gallery_
   return array(
     'subject' => l10n('Welcome to ') . '['.$gallery_title.']',
     'content' => $message,
-    'content_format' => 'text/plain',
+    'content_format' => 'text/html',
     );
 }
 
