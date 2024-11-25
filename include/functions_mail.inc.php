@@ -1010,11 +1010,12 @@ function pwg_send_mail_test($success, $mail, $args)
  * Return the content mail to send
  * @since 15
  * @param string $username
- * @param string $reset_password_link
+ * @param string $password_link
  * @param string $gallery_title
- * @return string mail content
+ * @param string $remaining_time
+ * @return array mail content
  */
-function pwg_generate_reset_password_mail($username, $reset_password_link, $gallery_title)
+function pwg_generate_reset_password_mail($username, $password_link, $gallery_title, $remaining_time)
 {
   set_make_full_url();
   
@@ -1026,7 +1027,8 @@ function pwg_generate_reset_password_mail($username, $reset_password_link, $gall
     );
   $message.= "\r\n\r\n";
   $message.= l10n('To reset your password, visit the following address:') . "\r\n";
-  $message.= $reset_password_link;
+  $message.= $password_link . "\r\n";
+  $message.= l10n('This link is valid for %s. After this time, you will need to request a new link.', $remaining_time);
   $message.= "\r\n\r\n";
   $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
 
@@ -1047,11 +1049,12 @@ function pwg_generate_reset_password_mail($username, $reset_password_link, $gall
  * Return the content mail to send
  * @since 15
  * @param string $username
- * @param string $reset_password_link
+ * @param string $password_link
  * @param string $gallery_title
- * @return string mail content
+ * @param string $remaining_time
+ * @return array mail content
  */
-function pwg_generate_set_password_mail($username, $set_password_link, $gallery_title)
+function pwg_generate_set_password_mail($username, $set_password_link, $gallery_title, $remaining_time)
 {
   set_make_full_url();
   
@@ -1063,7 +1066,8 @@ function pwg_generate_set_password_mail($username, $set_password_link, $gallery_
     );
   $message.= "\r\n\r\n";
   $message.= l10n('To set your password, visit the following address:') . "\r\n";
-  $message.= $set_password_link;
+  $message.= $set_password_link . "\r\n";
+  $message.= l10n('This link is valid for %s. After this time, you will need to request a new link.', $remaining_time);
   $message.= "\r\n\r\n";
   $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
 

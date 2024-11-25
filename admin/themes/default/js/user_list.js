@@ -2215,8 +2215,9 @@ function send_new_user_password(user_id, mail) {
     $.ajax({
         url: "ws.php?format=json",
         dataType: "json",
+        type: "POST",
         data:{
-            method: 'pwg.users.generateResetPasswordLink',
+            method: 'pwg.users.generatePasswordLink',
             user_id: user_id,
             send_by_mail: send_by_mail,
             pwg_token: pwg_token
@@ -2228,12 +2229,14 @@ function send_new_user_password(user_id, mail) {
                 $('#AddUserFieldContainer').hide();
                 $('#AddUserSuccessContainer').fadeIn();
                 $('#AddUserPasswordLink').val(response.result.generated_link).trigger('focus');
-                $('#AddUserTextField').html(send_by_mail ? sprintf(validLinkMail, `<b>${mail}</b>`) : validLinkWithoutMail);
+                $('#AddUserTextField').html(send_by_mail 
+                    ? sprintf(validLinkMail, response.result.time_validation, `<b>${mail}</b>`) 
+                    : sprintf(validLinkWithoutMail, response.result.time_validation));
 
                 if(send_by_mail && !response.result.send_by_mail) {
                     $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
                     $('#AddUserUpdatedText').html(errorMailSent);
-                    $('#AddUserTextField').html(errorMailSentMsg);
+                    $('#AddUserTextField').html(sprintf(errorMailSentMsg, response.result.time_validation));
                 } else if (send_by_mail && response.result.send_by_mail) {
                     password_container.hide();
                 }
@@ -2316,8 +2319,9 @@ function send_link_password(email, username, user_id, send_by_mail) {
     $.ajax({
         url: "ws.php?format=json",
         dataType: "json",
+        type: "POST",
         data: {
-            method: 'pwg.users.generateResetPasswordLink',
+            method: 'pwg.users.generatePasswordLink',
             user_id: user_id,
             send_by_mail: send_by_mail,
             pwg_token: pwg_token

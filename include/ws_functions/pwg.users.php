@@ -989,7 +989,7 @@ SELECT
  *    @option string pwg_token
  *    @option boolean send_by_mail
  */
-function ws_users_generate_reset_password_link($params, &$service)
+function ws_users_generate_password_link($params, &$service)
 {
   global $user, $conf;
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -1020,19 +1020,19 @@ function ws_users_generate_reset_password_link($params, &$service)
     return new PwgError(403, 'You cannot perform this action');
   }
 
-  $generate_link = generate_reset_password_link($params['user_id']);
+  $first_login = first_connexion($params['user_id']);
+  $generate_link = generate_password_link($params['user_id'], $first_login);
   $send_by_mail_response = null;
 
   if ($params['send_by_mail'] and !empty($user_lost['email']))
   {
-    $first_login = first_connexion($params['user_id']);
     if ($first_login)
     {
-      $email_params = pwg_generate_set_password_mail($user_lost['username'], $generate_link['reset_password_link'], $conf['gallery_title']);
+      $email_params = pwg_generate_set_password_mail($user_lost['username'], $generate_link['password_link'], $conf['gallery_title'], $generate_link['time_validation']);
     }
     else
     {
-      $email_params = pwg_generate_reset_password_mail($user_lost['username'], $generate_link['reset_password_link'], $conf['gallery_title']);
+      $email_params = pwg_generate_reset_password_mail($user_lost['username'], $generate_link['password_link'], $conf['gallery_title'], $generate_link['time_validation']);
     }
     // Here we remove the display of errors because they prevent the response from being parsed
     if (@pwg_mail($user_lost['email'], $email_params))
@@ -1046,8 +1046,9 @@ function ws_users_generate_reset_password_link($params, &$service)
   }
   
   return array(
-    'generated_link' => $generate_link['reset_password_link'],
+    'generated_link' => $generate_link['password_link'],
     'send_by_mail' => $send_by_mail_response,
+    'time_validation' => $generate_link['time_validation'],
   );
 }
 
