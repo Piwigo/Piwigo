@@ -839,7 +839,7 @@ input:focus + .slider {
 
 /*UserList Pop in*/
 
-.CloseUserList, .CloseAddAlbum, #CloseDeleteAlbum{
+.CloseUserList, .CloseAddAlbum, #CloseDeleteAlbum, .close-modal{
   color: #444;
 }
 
