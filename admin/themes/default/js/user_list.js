@@ -2346,7 +2346,10 @@ function send_link_password(email, username, user_id, send_by_mail) {
                     if(response.result.send_by_mail) {
                         $('#result_send_mail').removeClass('update-password-fail icon-red').addClass('update-password-success icon-green');
                         $('#icon_password_msg_result_mail').removeClass('icon-cancel').addClass('icon-ok');
-                        $('#password_msg_result_mail').html(sprintf(mailSentAt, username, email));
+                        const curr_mail = $('.user-property-email .user-property-input').val().length 
+                            ? $('.user-property-email .user-property-input').val() 
+                            : email;
+                        $('#password_msg_result_mail').html(sprintf(mailSentAt, username, curr_mail));
                     } else {
                         $('#result_send_mail').removeClass('update-password-success icon-green').addClass('update-password-fail icon-red');
                         $('#icon_password_msg_result_mail').removeClass('icon-ok').addClass('icon-cancel');
