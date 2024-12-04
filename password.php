@@ -80,9 +80,12 @@ function process_password_request()
   
   // $userdata['activation_key'] = $generate_link['activation_key'];
 
+  switch_lang_to($userdata['language']);
   $email_params = pwg_generate_reset_password_mail($userdata['username'], $generate_link['password_link'], $conf['gallery_title'], $generate_link['time_validation']);
+  $send_email = pwg_mail($userdata['email'], $email_params);
+  switch_lang_back();
 
-  if (pwg_mail($userdata['email'], $email_params))
+  if ($send_email)
   {
     $page['infos'][] = l10n('Check your email for the confirmation link');
     return true;
