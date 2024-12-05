@@ -2587,7 +2587,7 @@ $(document).ready(function() {
     background-color:white;
     padding:30px;
     width:745px;
-    height: 630px;
+    height: 635px;
     flex-direction:column;
     border-radius:15px;
 }

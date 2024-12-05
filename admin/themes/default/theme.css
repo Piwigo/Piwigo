@@ -6195,6 +6195,11 @@ a.group_users {
 .preview-box.icon-zoom-in:hover img {
   opacity:0.5;
 }
+
+#GuestUserList .messages {
+  margin: 0 0 15px 0;
+}
+
 /* See in the gallery - Photo page */
 .see-out{
   display: block;
