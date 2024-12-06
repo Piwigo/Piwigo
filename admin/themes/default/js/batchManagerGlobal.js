@@ -224,6 +224,14 @@ function selectDelDerivNone() {
 	$('#action_delete_derivatives input[name="del_derivatives_type[]"]').prop("checked", false).trigger("change");
 }
 
+// Trigger action click on pressing enter and if the value of applyAction is not equal to -1
+$(window).on('keypress', function(e) {
+  if (e.key === "Enter" && $("select[name='selectAction']").val() != -1) {
+    e.preventDefault();
+    $('#applyAction').trigger('click');
+  }
+});
+
 /* sync metadatas or delete photos by blocks, with progress bar */
 jQuery('#applyAction').click(function(e) {
   if (typeof(elements) != "undefined") {
