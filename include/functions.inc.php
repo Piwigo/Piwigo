@@ -603,6 +603,23 @@ function pwg_activity($object, $object_id, $action, $details=array())
     $user_agent = strip_tags($_SERVER['HTTP_USER_AGENT']);
   }
 
+  // we want to know if the login is automatic with remember_me (auto_login)
+  // or with an authentication key provided in the URL (auth_key_login)
+  if ('user' == $object and 'login' == $action)
+  {
+    if (function_exists('debug_backtrace'))
+    {
+      $called_functions = array_flip(array_column(debug_backtrace(), 'function'));
+      foreach (array('auto_login', 'auth_key_login') as $auth_function)
+      {
+        if (isset($called_functions[$auth_function]))
+        {
+          $details['auth_function'] = $auth_function;
+        }
+      }
+    }
+  }
+
   if ('photo' == $object and 'add' == $action and !isset($details['sync']))
   {
     $details['added_with'] = 'app';
