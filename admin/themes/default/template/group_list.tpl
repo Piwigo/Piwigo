@@ -181,7 +181,7 @@ usersCache.selectize(jQuery('select.UserSearch'));
         <fieldset>
            <div class="addGroupFormLabelAndInput">
             <label class="addGroupLabel" for="addGroupNameInput">{'Group name'|translate}</label>
-            <input type="text" id="addGroupNameInput" name="groupname" maxlength="50" size="20" placeholder="Photographers...">
+            <input type="text" id="addGroupNameInput" name="groupname" maxlength="50" size="20" placeholder="{'Photographers...'|translate}">
           </div>
           <div class="actionButtons">
             <button name="submit" type="submit" class="buttonLike">

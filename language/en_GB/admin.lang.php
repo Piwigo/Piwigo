@@ -233,3 +233,7 @@ $lang['%d users deleted'] = '%d users deleted';
 $lang['%d users were not updated.'] = '%d users not updated.';
 $lang['%d users were updated.'] = '%d users updated.';
 $lang['%d waiting for validation'] = '%d waiting for validation';
+$lang['Rename album'] = 'Rename album';
+$lang['Preview'] = 'Preview';
+$lang['Privacy Level'] = 'Privacy Level';
+$lang['Photographers...'] = 'Photographers...';

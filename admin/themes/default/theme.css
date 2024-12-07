@@ -7218,7 +7218,7 @@ color:#FF7B00;
 }
 
 .breadcrumb-item.add-item {
-  width: min-content;
+  width: fit-content;
   cursor: pointer;
   color: #777;
   transition: 0.3s;
