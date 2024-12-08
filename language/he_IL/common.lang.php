@@ -457,3 +457,5 @@ $lang['Fill in the filters to start a search'] = 'מלא את המסננים כ�
 $lang['Filters'] = 'מסננים';
 $lang['No results are available.'] = 'אין תוצאות זמינות.';
 $lang['Only the first %d albums are displayed, out of %d.'] = 'רק %d האלבומים הראשונים מוצגים, מתוך %d.';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'שם אלבום, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'שם אלבום, 100 &rarr; 10 &rarr; 5 &rarr; 1';
