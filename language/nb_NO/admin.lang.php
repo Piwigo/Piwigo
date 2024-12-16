@@ -1374,8 +1374,6 @@ $lang['You are not authorised to change the main user, please ask your webmaster
 $lang['You can now change the main user from %s to %s.'] = 'Du kan nå endre hovedbrukeren fra %s til %s.';
 $lang['You cannot copy the password if the connection to this site is not secure.'] = 'Du kan ikke kopiere passordet hvis tilkoblingen til denne siden ikke er sikker.';
 $lang['%s is the new main user'] = '%s er den nye hovedbrukeren';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'En aktiveringslenke gyldig i 1 time er sendt til "%s". Hvis brukeren ikke mottar lenken, kan du generere og kopiere en ny ved å redigere brukeren og administrere passordet deres.';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'En aktiveringslenke gyldig i 1 time ble opprettet, men kunne ikke sendes. Du kan nå kopiere lenken nedenfor og sende den til brukeren.';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = 'Kan ikke sende en e-post til denne brukeren fordi han ikke har en e-postadresse';
 $lang['Changing the main user'] = 'Endre hovedbruker';
 $lang['Copied link'] = 'Kopiere lenke';
@@ -1396,3 +1394,8 @@ $lang['You are about to set %s as main user instead of %s, do you wish to contin
 $lang['Ok, got it!'] = 'Ok, skjønner det!';
 $lang['Read the release note'] = 'Les utgivelsesnotatet';
 $lang['What\'s new in version %s'] = 'Hva er nytt i versjon %s?';
+$lang['A photo library administrator has created the following account for you:'] = 'En bildebiblioteksadministrator har opprettet følgende konto for deg:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'En aktiveringslenke gyldig for %s er sendt til "%s". Hvis brukeren ikke mottar lenken, kan du generere og kopiere en ny ved å redigere brukeren og administrere passordet.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'En aktiveringslenke gyldig for %s ble opprettet, men kunne ikke sendes. Du kan nå kopiere lenken nedenfor og sende den til brukeren.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Denne lenken er gyldig for %s. Etter dette tidspunktet må du be om en ny lenke.';
+$lang['To set your password, visit the following address:'] = 'For å angi passordet ditt, besøk følgende adresse:';
