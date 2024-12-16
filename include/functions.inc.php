@@ -2761,6 +2761,32 @@ SELECT
     @$piwigo_infos['activities'][ $activity['object'] ][ $label_for_system_object_id[ $activity['object_id'] ] ?? 'undefined' ][ $activity['action'] ] = $activity['counter'];
   }
 
+  $query = '
+SELECT
+    action,
+    occured_on,
+    details
+  FROM '.ACTIVITY_TABLE.'
+  WHERE object = \'system\'
+    AND object_id = '.ACTIVITY_SYSTEM_CORE.'
+    AND action IN (\'update\', \'autoupdate\')
+  ORDER BY activity_id ASC
+;';
+  $updates = query2array($query);
+  foreach ($updates as $update)
+  {
+    $details = safe_unserialize($update['details']);
+    if (isset($details['from_version']) and isset($details['to_version']))
+    {
+      @$piwigo_infos['updates'][] = array(
+        'action' => $update['action'],
+        'occured_on' => $update['occured_on'],
+        'from_version' => $details['from_version'],
+        'to_version' => $details['to_version'],
+      );
+    }
+  }
+
   $watermark = ImageStdParams::get_watermark();
 
   $piwigo_infos['features'] = array(
