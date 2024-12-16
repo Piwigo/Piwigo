@@ -1389,10 +1389,13 @@ $lang['Main user'] = 'Aðalnotandi';
 $lang['Password copied'] = 'Lykilorð afritað';
 $lang['Please complete all fields'] = 'Vinsamlega fylltu út alla reiti';
 $lang['Resend password link'] = 'Senda lykilorðstengil aftur';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Virkjunartengill sem gilti í 1 klukkustund var útbúinn en ekki var hægt að senda hann. Þú getur nú afritað hlekkinn hér að neðan og sent til notandans.';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Virkjunartengill sem gildir í 1 klukkustund hefur verið sendur á "%s". Ef notandinn fær ekki hlekkinn geturðu útbúið og afritað nýjan með því að breyta notandanum og stjórna lykilorðinu hans.';
 $lang['%s is the new main user'] = '
 %s er nýi aðalnotandinn';
 $lang['Ok, got it!'] = 'Í lagi, náði því!';
 $lang['Read the release note'] = 'Lestu útgáfuskýrsluna';
 $lang['What\'s new in version %s'] = 'Hvað er nýtt í útgáfu %s?';
+$lang['A photo library administrator has created the following account for you:'] = 'Stjórnandi myndasafns hefur útbúið eftirfarandi notandareikning fyrir þig:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Virkjunarhlekkur sem gildir fyrir %s hefur verið sendur á "%s". Ef notandinn fær ekki hlekkinn geturðu útbúið og afritað nýjan með því að breyta notandanum og stjórna lykilorðinu hans.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Virkjunarhlekkur sem gildir fyrir %s var útbúinn en ekki var hægt að senda hann. Þú getur núna afritað hlekkinn hér að neðan og sent til notandans.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Þessi hlekkur gildir fyrir %s. Eftir þennan tíma þarftu að biðja um nýjan hlekk.';
+$lang['To set your password, visit the following address:'] = 'Til að stilla lykilorðið þitt skaltu fara á eftirfarandi veffang:';
