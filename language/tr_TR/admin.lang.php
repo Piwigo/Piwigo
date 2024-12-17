@@ -1373,8 +1373,6 @@ $lang['You are not authorised to change the main user, please ask your webmaster
 $lang['You can now change the main user from %s to %s.'] = 'Artık ana kullanıcıyı %s\'den %s\'ye değiştirebilirsiniz.';
 $lang['You cannot copy the password if the connection to this site is not secure.'] = 'Bu siteye bağlantı güvenli değilse şifreyi kopyalayamazsınız.';
 $lang['%s is the new main user'] = '%s yeni ana kullanıcıdır';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = '"%s" adresine 1 saat geçerli bir aktivasyon linki gönderildi. Kullanıcı bağlantıyı almazsa, kullanıcıyı düzenleyerek ve parolasını yöneterek yeni bir bağlantı oluşturabilir ve kopyalayabilirsiniz.';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = '1 saat geçerli bir aktivasyon bağlantısı oluşturuldu ancak gönderilemedi. Artık aşağıdaki bağlantıyı kopyalayabilir ve kullanıcıya gönderebilirsiniz.';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = 'E-posta adresi olmadığı için bu kullanıcıya e-posta gönderilemiyor';
 $lang['Changing the main user'] = 'Ana kullanıcıyı değiştirme';
 $lang['Copied link'] = 'Kopyalandı bağlantı';
@@ -1395,3 +1393,8 @@ $lang['You are about to set %s as main user instead of %s, do you wish to contin
 $lang['Read the release note'] = 'Sürüm notunu okuyun';
 $lang['What\'s new in version %s'] = 'Versiyon %s\'de neler yeni?';
 $lang['Ok, got it!'] = 'Tamamdır, anlaşıldı!';
+$lang['A photo library administrator has created the following account for you:'] = 'Bir fotoğraf kütüphanesi yöneticisi sizin için aşağıdaki hesabı oluşturdu:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = '%s için geçerli bir etkinleştirme bağlantısı "%s" adresine gönderildi. Kullanıcı bağlantıyı almazsa, kullanıcıyı düzenleyerek ve parolasını yöneterek yeni bir tane oluşturabilir ve kopyalayabilirsiniz.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Bu bağlantı %s için geçerlidir. Bu süreden sonra yeni bir bağlantı talep etmeniz gerekecektir.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = '%s için geçerli bir aktivasyon bağlantısı oluşturuldu ancak gönderilemedi. Şimdi aşağıdaki bağlantıyı kopyalayıp kullanıcıya gönderebilirsiniz.';
+$lang['To set your password, visit the following address:'] = 'Şifrenizi belirlemek için şu adresi ziyaret edin:';
