@@ -1375,8 +1375,6 @@ $lang['You are not authorised to change the main user, please ask your webmaster
 $lang['You can now change the main user from %s to %s.'] = 'Teraz môžete zmeniť hlavného používateľa z %s na %s.';
 $lang['You cannot copy the password if the connection to this site is not secure.'] = 'Heslo nemôžete skopírovať, ak pripojenie k tejto stránke nie je zabezpečené.';
 $lang['%s is the new main user'] = '%s je nový hlavný používateľ';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Na adresu "%s" bol odoslaný aktivačný odkaz platný 1 hodinu. Ak používateľ odkaz nedostane, môžete vygenerovať a skopírovať nový odkaz úpravou používateľa a správou jeho hesla.';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Aktivačný odkaz platný 1 hodinu bol vytvorený, ale nepodarilo sa ho odoslať. Teraz môžete skopírovať nižšie uvedený odkaz a poslať ho používateľovi.';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = 'Tomuto používateľovi nemožno poslať e-mail, pretože nemá e-mailovú adresu';
 $lang['Changing the main user'] = 'Zmena hlavného používateľa';
 $lang['Copied link'] = 'Skopírovaný odkaz';
@@ -1397,3 +1395,8 @@ $lang['You are about to set %s as main user instead of %s, do you wish to contin
 $lang['Ok, got it!'] = 'Ok, mám to!';
 $lang['Read the release note'] = 'Prečítajte si poznámku k vydaniu';
 $lang['What\'s new in version %s'] = 'Čo je nové vo verzii %s?';
+$lang['A photo library administrator has created the following account for you:'] = 'Správca fotoknižnice pre vás vytvoril nasledujúce konto:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Aktivačný link platný pre %s bol odoslaný na adresu "%s". Ak používateľ odkaz nedostane, môžete vygenerovať a skopírovať nový link úpravou používateľa a správou jeho hesla.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Bol vytvorený aktivačný link platný pre %s, ale nepodarilo sa ho odoslať. Teraz môžete skopírovať nižšie uvedený link a poslať ho používateľovi.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Tonto link je platný pre %s. Po uplynutí tohto času budete musieť požiadať o nový link.';
+$lang['To set your password, visit the following address:'] = 'Ak chcete nastaviť heslo, navštívte túto adresu:';
