@@ -124,16 +124,6 @@ add_event_handler('render_element_content', 'default_picture_content');
 // add default event handler for rendering element description
 add_event_handler('render_element_description', 'pwg_nl2br');
 
-/**
- * pwg_nl2br is useful for PHP 5.2 which doesn't accept more than 1
- * parameter on nl2br() (and anyway the second parameter of nl2br does not
- * match what Piwigo gives.
- */
-function pwg_nl2br($string)
-{
-  return nl2br($string);
-}
-
 trigger_notify('loc_begin_picture');
 
 // this is the default handler that generates the display for the element
