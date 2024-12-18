@@ -327,7 +327,7 @@ if (isset($conf['header_notes']))
 add_event_handler('render_category_literal_description', 'render_category_literal_description');
 if ( !$conf['allow_html_descriptions'] )
 {
-  add_event_handler('render_category_description', 'nl2br');
+  add_event_handler('render_category_description', 'pwg_nl2br');
 }
 add_event_handler('render_comment_content', 'render_comment_content');
 add_event_handler('render_comment_author', 'strip_tags');

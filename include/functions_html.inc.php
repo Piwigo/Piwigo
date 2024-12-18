@@ -710,4 +710,19 @@ function flush_page_messages()
   }
 }
 
+/**
+ * pwg_nl2br is useful for PHP 5.2 which doesn't accept more than 1
+ * parameter on nl2br() (and anyway the second parameter of nl2br does not
+ * match what Piwigo gives.
+ */
+function pwg_nl2br($string)
+{
+  if (empty($string))
+  {
+    return $string;
+  }
+
+  return nl2br($string);
+}
+
 ?>
