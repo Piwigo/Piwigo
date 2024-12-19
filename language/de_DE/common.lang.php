@@ -453,3 +453,4 @@ $lang['last 12 months'] = 'Letzte 12 Monate';
 $lang['There are no authors available for the photos currently filtered'] = 'Derzeit sind keine Autoren für die gefilterten Fotos verfügbar';
 $lang['There are no creation dates available for the photos currently filtered'] = 'Es sind keine Erstellungsdaten für die derzeit gefilterten Fotos verfügbar';
 $lang['There are no tags available for the photos currently filtered'] = 'Es sind keine Tags für die derzeit gefilterten Fotos verfügbar';
+$lang['Welcome to your Piwigo photo gallery!'] = 'Willkommen in Ihrer Piwigo-Fotogalerie!';
