@@ -1068,9 +1068,10 @@ function pwg_generate_set_password_mail($username, $set_password_link, $gallery_
   unset_make_full_url();
 
   $message = trigger_change('render_lost_password_mail_content', $message);
+  $subject = l10n('Welcome to %s', $gallery_title);
 
   return array(
-    'subject' => l10n('Welcome to ') . '['.$gallery_title.']',
+    'subject' => $subject,
     'content' => $message,
     'content_format' => 'text/html',
     );

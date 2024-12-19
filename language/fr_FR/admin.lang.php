@@ -1408,4 +1408,5 @@ $lang['Ok, got it!'] = 'Ok, j\'ai compris!';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Ce lien est valide pendant %s. Passé ce délai, vous devrez demander un nouveau lien.';
 $lang['To set your password, visit the following address:'] = 'Pour définir votre mot de passe, rendez-vous à l\'adresse suivante :';
 $lang['A photo library administrator has created the following account for you:'] = 'Un administrateur de la photothèque vous a créé le compte suivant :';
+$lang['Welcome to %s'] = 'Bienvenue sur %s';
 // Leave this line empty
