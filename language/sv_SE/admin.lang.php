@@ -1376,8 +1376,6 @@ $lang['You are not authorised to change the main user, please ask your webmaster
 $lang['You can now change the main user from %s to %s.'] = 'Du kan nu ändra huvudanvändaren från %s till %s.';
 $lang['You cannot copy the password if the connection to this site is not secure.'] = 'Du kan inte kopiera lösenordet om anslutningen till denna webbplats inte är säker.';
 $lang['%s is the new main user'] = '%s är den nya huvudanvändaren';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'En aktiveringslänk som är giltig i 1 timme har skickats till "%s". Om användaren inte får länken kan du skapa och kopiera en ny genom att redigera användaren och hantera dennes lösenord.';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'En aktiveringslänk giltig i 1 timme skapades men kunde inte skickas. Du kan nu kopiera länken nedan och skicka den till användaren.';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = 'Kan ej skicka ett mejl till denna användare, för denne har ingen e-postadress';
 $lang['Changing the main user'] = 'Ändrar huvudanvändaren';
 $lang['Copied link'] = 'Kopierade länken';
@@ -1398,3 +1396,8 @@ $lang['You are about to set %s as main user instead of %s, do you wish to contin
 $lang['Ok, got it!'] = 'Okej, förstår!';
 $lang['Read the release note'] = 'Läs ändringsloggen';
 $lang['What\'s new in version %s'] = 'Vad är nytt i version %s?';
+$lang['A photo library administrator has created the following account for you:'] = 'En bildbiblioteksadministratör har skapat följande konto åt dig:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'En aktiveringslänk som är giltig för %s har skickats till "%s". Om länken inte tas emot kan en ny genereras och kopieras genom att redigera användaren och hantera deras lösenord.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'En aktiveringslänk som är giltig för %s skapades men kunde inte skickas. Du kan nu kopiera länken nedan och skicka den till användaren.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Denna länk är giltig för %s. Efter denna tid måste du begära en ny länk.';
+$lang['To set your password, visit the following address:'] = 'För att ställa in ditt lösenord, besök följande adress:';
