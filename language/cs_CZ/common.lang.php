@@ -454,3 +454,6 @@ $lang['Pages'] = 'Stránky';
 $lang['The PDF you requested is too large to display on this page.'] = 'Požadované PDF je pro zobrazení na této stránce příliš velké.';
 $lang['last 12 months'] = 'Posledních 12 měsíců';
 $lang['Custom dates'] = 'Vlastní data';
+$lang['There are no authors available for the photos currently filtered'] = 'Pro aktuálně filtrované fotografie nejsou k dispozici žádní autoři';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Pro aktuálně filtrované fotografie nejsou k dispozici žádná data vytvoření';
+$lang['There are no tags available for the photos currently filtered'] = 'Pro aktuálně filtrované fotografie nejsou k dispozici žádné štítky';

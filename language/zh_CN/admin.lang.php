@@ -1382,8 +1382,6 @@ $lang['You are not authorised to change the main user, please ask your webmaster
 $lang['You can now change the main user from %s to %s.'] = '您现在可以将主用户从 %s 更改为 %s。';
 $lang['You cannot copy the password if the connection to this site is not secure.'] = '如果与此站点的连接不安全，您无法复制密码。';
 $lang['%s is the new main user'] = '%s是新的主用户';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = '一个有效期为1小时的激活链接已发送到"%s"。如果用户没有收到链接，您可以通过编辑用户并管理他的密码来生成并复制一个新的链接。';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = '一个有效期为1小时的激活链接已创建但无法发送。您现在可以复制以下链接并将其发送给用户。';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = '无法向此用户发送电子邮件，因为他没有电子邮件地址';
 $lang['Changing the main user'] = '更改主用户';
 $lang['Copied link'] = '链接已复制';
@@ -1404,3 +1402,8 @@ $lang['You are about to set %s as main user instead of %s, do you wish to contin
 $lang['Ok, got it!'] = '好的，明白了！';
 $lang['Read the release note'] = '阅读发布说明';
 $lang['What\'s new in version %s'] = '版本%s中有什么新功能？';
+$lang['A photo library administrator has created the following account for you:'] = '照片库管理员已为您创建以下帐户：';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = '有效期为 %s 的激活链接已发送到 “%s”。如果用户未收到链接，您可以通过编辑用户并管理其密码来生成并复制一个新链接。';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = '已创建有效期为 %s 的激活链接，但无法发送。您现在可以复制以下链接并将其发送给用户。';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = '此链接有效期为 %s。过了这个时间，您需要请求一个新链接。';
+$lang['To set your password, visit the following address:'] = '要设置您的密码，请访问以下地址：';

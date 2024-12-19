@@ -1383,8 +1383,6 @@ $lang['image(s) contains unsaved changes'] = 'Una o més imatges contenen canvis
 $lang['level of confidentiality'] = 'nivell de confidencialitat';
 $lang['was succesfully deleted'] = 's\'ha suprimit amb èxit';
 $lang['%s is the new main user'] = '%s és el nou usuari principal';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'S\'ha enviat un enllaç d\'activació vàlid durant 1 hora a "%s". Si l\'usuari no rep l\'enllaç, podeu generar-ne un de nou i copiar-lo editant l\'usuari i gestionant la seva contrasenya.';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'S\'ha creat un enllaç d\'activació vàlid durant 1 hora, però no s\'ha pogut enviar. Podeu copiar l\'enllaç següent i enviar-lo a l\'usuari.';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = 'No es pot enviar un correu electrònic a aquest usuari perquè no té cap adreça electrònica';
 $lang['Changing the main user'] = 'Canvi d\'usuari principal';
 $lang['Copied link'] = 'Enllaç copiat';
@@ -1408,3 +1406,8 @@ $lang['You cannot copy the password if the connection to this site is not secure
 $lang['Ok, got it!'] = 'D\'acord, entesos!';
 $lang['Read the release note'] = 'Llegiu les notes de la versió';
 $lang['What\'s new in version %s'] = 'Quines novetats hi ha a la versió %s?';
+$lang['A photo library administrator has created the following account for you:'] = 'Un administrador de la biblioteca fotogràfica us ha creat el següent compte:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'S\'ha enviat un enllaç d\'activació vàlid per %s a "%s". Si l\'usuari no rep l\'enllaç, podeu generar i copiar-ne un de nou editant l\'usuari i gestionant la seva contrasenya.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'S\'ha creat un enllaç d\'activació vàlid per a %s però no s\'ha pogut enviar. Podeu copiar l\'enllaç següent i enviar-lo a l\'usuari.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'L\'enllaç és vàlid per %s. Passat aquest temps, haureu de sol·licitar-ne un de nou.';
+$lang['To set your password, visit the following address:'] = 'Per definir la vostra contrasenya, visiteu l\'adreça següent:';
