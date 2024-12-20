@@ -10,39 +10,6 @@
  * @package functions\session
  */
 
- // see https://php.watch/versions/8.4/session_set_save_handler-alt-signature-deprecated
- class PwgSession implements SessionHandlerInterface {
-  public function open(string $path, string $name): bool
-  {
-    return pwg_session_open($path, $name);
-  }
-
-  public function close(): bool
-  {
-    return pwg_session_close();
-  }
-
-  public function read(string $id): string
-  {
-    return pwg_session_read($id);
-  }
-
-  public function write(string $id, string $data): bool
-  {
-    return pwg_session_write($id, $data);
-  }
-
-  public function destroy(string $id): bool
-  {
-    return pwg_session_destroy($id);
-  }
-
-  public function gc(int $max_lifetime): int
-  {
-    return pwg_session_gc();
-  }
-}
-
 if (isset($conf['session_save_handler'])
   and ($conf['session_save_handler'] == 'db')
   and defined('PHPWG_INSTALLED'))
@@ -50,6 +17,17 @@ if (isset($conf['session_save_handler'])
   // In PHP 8.4+ calling session_set_save_handler with
   // two parameters is deprecated. To correct this, 
   // we pass a SessionHandlerInterface instance.
+  // https://github.com/Piwigo/Piwigo/issues/2296
+  // Depending on the PHP version, we include the appropriate
+  // session handler class file. 
+  if (version_compare(PHP_VERSION, '8.0.0') < 0)
+  {
+    include_once(PHPWG_ROOT_PATH.'/include/pwgsession_php7.class.php');
+  }
+  else
+  {
+    include_once(PHPWG_ROOT_PATH.'/include/pwgsession.class.php');
+  }
   session_set_save_handler(new PwgSession());
 
   if (function_exists('ini_set'))
