@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  piwigo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - type: bind
+        source: ./ 
+        target: /var/www/html
+        bind:
+          create_host_path: true
+    depends_on:
+      - db
+    environment:
+      - PIWIGO_DB_HOST=db
+      - PIWIGO_DB_NAME=piwigo
+      - PIWIGO_DB_USER=piwigo
+      - PIWIGO_DB_PASSWORD=piwigo_password
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=piwigo
+      - MYSQL_USER=piwigo
+      - MYSQL_PASSWORD=piwigo_password
+      - MYSQL_ROOT_PASSWORD=root_password
+    #ports:
+    #  - "3306:3306"  # HOST_PORT:CONTAINER_PORT
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
