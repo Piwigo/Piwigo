@@ -13,6 +13,7 @@ services:
         target: /var/www/html
         bind:
           create_host_path: true
+      - /var/www/html/.git/ # Ignore .git directory
     depends_on:
       - db
     environment:
@@ -20,6 +21,11 @@ services:
       - PIWIGO_DB_NAME=piwigo
       - PIWIGO_DB_USER=piwigo
       - PIWIGO_DB_PASSWORD=piwigo_password
+
+    # command: >
+    #   bash -c "
+    #     chown -R www-data:www-data /var/www/html
+    #   "
 
   db:
     image: mysql:8.0
