@@ -12,9 +12,9 @@
   {/if}
     <li>
   {if isset($cat.TITLE)}
-      <a href="{if isset($cat.url)}{$cat.url}{/if}" title="{$cat.TITLE}">{$cat.name}</a>
+      <a href="{if isset($cat.url)}{$cat.url}{/if}" title="{$cat.TITLE}" rel="nofollow">{$cat.name}</a>
   {else}
-      <a href="{if isset($cat.url)}{$cat.url}{/if}">{$cat.name}</a>
+      <a href="{if isset($cat.url)}{$cat.url}{/if}" rel="nofollow">{$cat.name}</a>
   {/if}
   {if isset($cat.count_images) and $cat.count_images > 0}
       <span class="badge" title="{$cat.count_images|translate_dec:'%d photo':'%d photos'}">{$cat.count_images}</span>
