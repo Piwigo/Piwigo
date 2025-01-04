@@ -1397,3 +1397,8 @@ $lang['An activation link valid for 1 hour has been sent to "%s". If the user do
 $lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Un link d\'attivazione valido un\'ora è stato generato, tuttavia non è stato possibile inviarlo. Ora puoi copiare il collegamento sottostante ed inviarlo all\'utente.';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = 'Non posso inviare un\'email a questo utente in quanto non ';
 $lang['Changing the main user'] = 'Cambiare l\'utente principale';
+$lang['A photo library administrator has created the following account for you:'] = 'Un amministratore della galleria fotografica ha creato per te il seguente account:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'È stato inviato a "%s" un link d\'attivazione valido per %s. Qualora l\'utente non ricevesse il link, puoi generarne e poi copiarne uno nuovo modificando l\'utente e gestendone la password.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'È stato creato un link d\'attivazione valido per %s, ma non è stato possibile inviarlo. Ora puoi copiare il link sottostante ed inviarlo all\'utente.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Il link è valido per %s. trascorso tale intervallo, dovrai richiedere un nuovo link.';
+$lang['To set your password, visit the following address:'] = 'Per impostare la password, visita il seguente indirizzo:';
