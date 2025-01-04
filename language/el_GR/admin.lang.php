@@ -1391,9 +1391,12 @@ $lang['Copy the link below and send it to the user so the password can be set.']
 $lang['Copied link'] = 'Αντιγραμμένος σύνδεσμος';
 $lang['Changing the main user'] = 'Αλλάζω τον Κύριο Χρήστη';
 $lang['Cannot send an email to this user because he doesn\'t have an email address'] = 'Δεν είναι δυνατόν να σταλεί μήνημα σε αυτό τον χρήστη επειδή δεν έχει διεύθυνση.';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Ένας σύνδεσμος ενεργοποίησης που ισχύει για 1 ώρα δημιουργήθηκε αλλά δεν στάθηκε δυνατό να αποσταλεί. Μπορείτε τώρα να αντιγράψετε τον παρακάτω σύνδεσμο και να τον στείλετε στον χρήστη.';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Ένας σύνδεσμος ενεργοποίησης στάλθηκε στον "%s" που ισχύει για 1 ώρα. Αν ο χρήστης δεν λάβει τον σύνδεσμο, μπορείτε να δημιουργήσετε και να αντιγράψετε έναν νέο, με το να επεξεργαστείτε τον χρήστη και να δημιουργήσετε ένα καινούριο κωδικό.';
 $lang['%s is the new main user'] = '%s είναι ο νέος Κύριος Χρήστης';
 $lang['Ok, got it!'] = 'Εντάξει, το \'πιασα!';
 $lang['Read the release note'] = 'Διαβάστε την ανακοίνωση';
 $lang['What\'s new in version %s'] = 'Τί νέο υπάρχει στην έκδοση %s;';
+$lang['A photo library administrator has created the following account for you:'] = 'Ένας διαχειριστής της φωτογραφικής βιβλιοθήκης δημιούργησε για εσάς τον ακόλουθο λογαριασμό:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Ένας σύνδεσμος ενεργοποίησης που αφορά το %s, έχει αποσταλεί στο "%s". Αν ο σύνδεσμος δεν παραληφθεί ένας νέος μπορεί να δημιουργηθεί και ν\' αντιγραφεί με την επεξεργασία του χρήστη και του κωδικού του.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Δημιουργήθηκε ένας σύνδεσμος ενεργοποίησης για %s αλλά δεν μπόρεσε να αποσταλεί. Μπορείτε τώρα να αντιγράψετε τον παρακάτω σύνδεσμο και να τον στείλετε στον χρήστη.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Αυτός ο σύνδεσμος είναι ενεργός για %s. Μετά από αυτό το χρόνο, θα χρειαστεί να ζητήσετε ένα καινούριο.';
+$lang['To set your password, visit the following address:'] = 'Για να δημιουργήσετε τον κωδικό σας, επισκεφθείτε αυτή την διεύθυνση:';

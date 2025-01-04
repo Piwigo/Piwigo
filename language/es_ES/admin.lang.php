@@ -1392,8 +1392,11 @@ $lang['You are not authorised to change the main user, please ask your webmaster
 $lang['You can now change the main user from %s to %s.'] = 'Ya puede cambiar el usuario principal de %s a %s.';
 $lang['You cannot copy the password if the connection to this site is not secure.'] = 'No puede copiar la contraseña si la conexión a este sitio no es segura.';
 $lang['%s is the new main user'] = '%s es el nuevo usuario principal';
-$lang['An activation link valid for 1 hour has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Se ha enviado un enlace de activación válido por 1 hora a "%s". Si el usuario no recibe el enlace, puede generar y copiar uno nuevo editando el usuario y administrando su contraseña.';
-$lang['An activation link valid for 1 hour was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Se creó un enlace de activación válido por 1 hora pero no se pudo enviar. Puede copiar el enlace a continuación y enviárselo al usuario.';
 $lang['Ok, got it!'] = '¡De acuerdo, entendido!';
 $lang['Read the release note'] = 'Leer las notas de la versión';
 $lang['What\'s new in version %s'] = '¿Qué hay de nuevo en la versión %s?';
+$lang['A photo library administrator has created the following account for you:'] = 'Un administrador de la biblioteca fotográfica le ha creado la cuenta siguiente:';
+$lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Se ha enviado un enlace de activación válido por %s a "%s". Si el usuario no recibe el enlace, puede generar y copiar uno nuevo editando el usuario y gestionando su contraseña.';
+$lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Se ha creado un enlace de activación válido para %s pero no se ha podido enviar. Puede copiar el enlace mostrado a continuación y enviárselo al usuario.';
+$lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Este enlace es válido por %s. Después tendrá que solicitar otro.';
+$lang['To set your password, visit the following address:'] = 'Para definir su contraseña, visite la dirección siguiente:';
