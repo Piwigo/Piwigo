@@ -36,7 +36,7 @@ if (is_webmaster())
   FROM '.ACTIVITY_TABLE.'
   LEFT JOIN '.USERS_TABLE.' ON performed_by = '.$conf['user_fields']['id'].'
   WHERE object = \'system\'
-  ORDER BY occured_on DESC';
+  ORDER BY activity_id DESC';
     
     // Format our data for frontend
     $result = pwg_query($query);
@@ -167,7 +167,11 @@ if (is_webmaster())
 
         case ACTIVITY_SYSTEM_PLUGIN:
           $object_icon = 'icon-puzzle';
-          $object = str_replace(['_', '-'], ' ', $details['plugin_id']);
+          $object = 'plugin';
+          if (isset($details['plugin_id']))
+          {
+            $object = str_replace(['_', '-'], ' ', $details['plugin_id']);
+          }
           switch ($rows['action'])
           {
             case 'install':
@@ -244,7 +248,11 @@ if (is_webmaster())
 
         case ACTIVITY_SYSTEM_THEME:
           $object_icon = 'icon-brush';
-          $object = str_replace(['_', '-'], ' ', $details['theme_id']);
+          $object = 'theme';
+          if (isset($details['theme_id']))
+          {
+            $object = str_replace(['_', '-'], ' ', $details['theme_id']);
+          }
 
           switch ($rows['action'])
           {

@@ -1004,6 +1004,79 @@ function pwg_send_mail_test($success, $mail, $args)
   }
 }
 
+/**
+ * Generate content mail for reset password
+ * 
+ * Return the content mail to send
+ * @since 15
+ * @param string $username
+ * @param string $password_link
+ * @param string $gallery_title
+ * @param string $remaining_time
+ * @return array mail content
+ */
+function pwg_generate_reset_password_mail($username, $password_link, $gallery_title, $remaining_time)
+{
+  set_make_full_url();
+  
+  $message = '<p style="margin: 20px 0">';
+  $message = l10n('Someone requested that the password be reset for the following user account:')." ".$username.'</p>';
+  $message.= '<p style="margin: 20px 0">'.l10n('To reset your password, visit the following address:');
+  $message.= ' <a href="'.$password_link.'">'.l10n('Change my password').'</a></p>';
+  $message.= '<p style="text-align: center; font-size: 70%;">'.$password_link.'</p>';
+  $message.= '<p style="margin: 20px 0;">';
+  $message.= l10n('This link is valid for %s. After this time, you will need to request a new link.', $remaining_time);
+  $message.= " ";
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.').'</p>';
+
+  unset_make_full_url();
+
+  $message = trigger_change('render_lost_password_mail_content', $message);
+
+  return array(
+    'subject' => '['.$gallery_title.'] '.l10n('Password Reset'),
+    'content' => $message,
+    'content_format' => 'text/html',
+    );
+}
+
+/**
+ * Generate content mail for set password
+ * 
+ * Return the content mail to send
+ * @since 15
+ * @param string $username
+ * @param string $password_link
+ * @param string $gallery_title
+ * @param string $remaining_time
+ * @return array mail content
+ */
+function pwg_generate_set_password_mail($username, $set_password_link, $gallery_title, $remaining_time)
+{
+  set_make_full_url();
+  
+  $message = '<p style="margin: 20px 0">';
+  $message.= l10n('A photo library administrator has created the following account for you:')." ".$username.'</p>';
+  $message.= '<p style="margin: 20px 0">'.l10n('To set your password, visit the following address:');
+  $message.= ' <a href="'.$set_password_link.'">'.l10n('Activate').'</a></p>';
+  $message.= '<p style="text-align: center; font-size: 70%; margin: 20px 0;">'.$set_password_link.'</p>';
+  $message.= '<p style="margin: 20px 0;">';
+  $message.= l10n('This link is valid for %s. After this time, you will need to request a new link.', $remaining_time);
+  $message.= " ";
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.') . '</p>';
+
+  unset_make_full_url();
+
+  $message = trigger_change('render_lost_password_mail_content', $message);
+  $subject = l10n('Welcome to %s', $gallery_title);
+
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+    );
+}
+
 trigger_notify('functions_mail_included');
 
 ?>

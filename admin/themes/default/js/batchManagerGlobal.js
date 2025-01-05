@@ -1,73 +1,3 @@
-
-/* ********** Filters*/
-function filter_enable(filter) {
-	/* show the filter*/
-	$("#"+filter).show();
-
-	/* check the checkbox to declare we use this filter */
-	$("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
-
-	/* forbid to select this filter in the addFilter list */
-  $("#addFilter").find("a[data-value="+filter+"]").addClass("disabled", "disabled");
-  
-  /* hide the no filter message */
-  $('.noFilter').hide();
-  $('.addFilter-button').removeClass('highlight');
-}
-
-function filter_disable(filter) {
-	/* hide the filter line */
-	$("#"+filter).hide();
-
-	/* uncheck the checkbox to declare we do not use this filter */
-	$("input[name="+filter+"_use]").prop("checked", false);
-
-	/* give the possibility to show it again */
-  $("#addFilter").find("a[data-value="+filter+"]").removeClass("disabled");
-  
-  /* show the no filter message if no filter selected */
-  if ($('#filterList li:visible').length == 0) {
-    $('.noFilter').show();
-    $('.addFilter-button').addClass('highlight');
-  }
-  
-}
-
-$(".removeFilter").addClass("icon-cancel-circled");
-
-$(".removeFilter").click(function () {
-	var filter = $(this).parent('li').attr("id");
-	filter_disable(filter);
-
-	return false;
-});
-
-$("#addFilter a").on('click', function () {
-	var filter = $(this).attr("data-value");
-	filter_enable(filter);
-});
-
-$("#removeFilters").click(function() {
-	$("#filterList li").each(function() {
-		var filter = $(this).attr("id");
-		filter_disable(filter);
-	});
-	return false;
-});
-
-$('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
-$('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
-$('[data-slider=ratios]').pwgDoubleSlider(sliders.ratios);
-$('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
-
-
-$(document).mouseup(function (e) {
-  e.stopPropagation();
-  if (!$(event.target).hasClass('addFilter-button')) {
-    $('.addFilter-dropdown').slideUp();
-  }
-});
-
 /* ********** Thumbs */
 
 /* Shift-click: select all photos between the click and the shift+click */
@@ -112,7 +42,45 @@ jQuery(document).ready(function() {
 		});
 	}
 	$('ul.thumbnails').enableShiftClick();
+
+  const ab_action = new AlbumSelector({
+    adminMode: true,
+    selectAlbum: select_album_action,
+    removeSelectedAlbum: remove_album_action,
+  });
+
+  $('#associate_as').on('click', function () {
+    ab_action.open();
+  });
+
+  $('.selected-associate-action').on('click', (e) => {
+    if (e.target.classList.contains("remove-associate")) {
+      ab_action.remove_selected_album($(e.target).attr('id'));
+    }
+  });
+
 });
+
+/* ********** Album Selector */
+function select_album_action({ album, addSelectedAlbum, getSelectedAlbum }) {
+  $('#associate_as p').html(str_add_alb_associate);
+  $(".selected-associate-action").append(
+    `<div class="selected-associate-item">
+      <span>${album.name}</span><span id="${album.id}" class="remove-associate icon-cancel-circled"></span>
+      <input type="hidden" id="associate_input_${album.id}" name="associate[]" value="${album.id}">
+    </div>`
+  );
+  addSelectedAlbum();
+}
+
+function remove_album_action({ id_album, getSelectedAlbum }) {
+  $('.selected-associate-item').find(`#${id_album}`).parent().remove();
+  const selected = getSelectedAlbum();
+  if (!selected.length) {
+    $('#associate_as p').html(str_select_alb_associate);
+  }
+}
+
 
 jQuery("a.preview-box").colorbox( {photo: true} );
 
@@ -256,6 +224,14 @@ function selectDelDerivNone() {
 	$('#action_delete_derivatives input[name="del_derivatives_type[]"]').prop("checked", false).trigger("change");
 }
 
+// Trigger action click on pressing enter and if the value of applyAction is not equal to -1
+$(window).on('keypress', function(e) {
+  if (e.key === "Enter" && $("select[name='selectAction']").val() != -1) {
+    e.preventDefault();
+    $('#applyAction').trigger('click');
+  }
+});
+
 /* sync metadatas or delete photos by blocks, with progress bar */
 jQuery('#applyAction').click(function(e) {
   if (typeof(elements) != "undefined") {
@@ -263,6 +239,7 @@ jQuery('#applyAction').click(function(e) {
   }
 
   if (jQuery('[name="selectAction"]').val() == 'metadata') {
+    e.preventDefault();
     e.stopPropagation();
     jQuery('.bulkAction').hide();
     jQuery('#regenerationText').html(lang.syncProgressMessage);
@@ -276,6 +253,12 @@ jQuery('#applyAction').click(function(e) {
         elements.push(jQuery(this).val());
       });
     }
+
+    var queuedManager = jQuery.manageAjax.create('queued', {
+      queue: true,
+      cacheResponse: false,
+      maxRequests: 1
+    });
 
     progressBar_max = elements.length;
     var todo = 0;
@@ -298,13 +281,13 @@ jQuery('#applyAction').click(function(e) {
 
       (function(ids) {
         var thisBatchSize = ids.length;
-        jQuery.ajax({
+        queuedManager.add({
           url: "ws.php?format=json&method=pwg.images.syncMetadata",
           type:"POST",
           dataType: "json",
           data: {
             pwg_token: jQuery("input[name=pwg_token]").val(),
-            image_id: ids
+            image_id: ids.join(',')
           },
           success: function(data) {
             todo += thisBatchSize;
@@ -535,3 +518,4 @@ function delete_orphans_block(blockSize) {
     }
   });
 }
+

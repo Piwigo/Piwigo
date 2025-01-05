@@ -301,33 +301,10 @@ $template->assign(
   );
 
 // graphics library
-switch (pwg_image::get_library())
+$graphics_library = get_graphics_library_label();
+if (!empty($graphics_library))
 {
-  case 'imagick':
-    $library = 'ImageMagick';
-    $img = new Imagick();
-    $version = $img->getVersion();
-    if (preg_match('/ImageMagick \d+\.\d+\.\d+-?\d*/', $version['versionString'], $match))
-    {
-      $library = $match[0];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
-  case 'ext_imagick':
-    $library = 'External ImageMagick';
-    exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
-    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
-    {
-      $library .= ' ' . $match[1];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
-  case 'gd':
-    $gd_info = gd_info();
-    $template->assign('GRAPHICS_LIBRARY', 'GD '.@$gd_info['GD Version']);
-    break;
+  $template->assign('GRAPHICS_LIBRARY', $graphics_library);
 }
 
 if ($conf['gallery_locked'])
@@ -347,26 +324,15 @@ else
     );
 }
 
-$query = '
-SELECT
-    registration_date
-  FROM '.USER_INFOS_TABLE.'
-  WHERE user_id = 2
-;';
-$users = query2array($query);
-if (count($users) > 0)
+$installed_on = get_installation_date();
+if (!empty($installed_on))
 {
-  $installed_on = $users[0]['registration_date'];
-
-  if (!empty($installed_on))
-  {
-    $template->assign(
-      array(
-        'INSTALLED_ON' => format_date($installed_on, array('day', 'month', 'year')),
-        'INSTALLED_SINCE' => time_since($installed_on, 'day'),
-      )
-    );
-  }
+  $template->assign(
+    array(
+      'INSTALLED_ON' => format_date($installed_on, array('day', 'month', 'year')),
+      'INSTALLED_SINCE' => time_since($installed_on, 'day'),
+    )
+  );
 }
 
 // +-----------------------------------------------------------------------+

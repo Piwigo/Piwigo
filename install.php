@@ -351,7 +351,7 @@ define(\'DB_COLLATE\', \'\');
 
     $query = '
 INSERT INTO '.$prefixeTable.'config (param,value,comment) 
-   VALUES (\'secret_key\',md5('.pwg_db_cast_to_text(DB_RANDOM_FUNCTION.'()').'),
+   VALUES (\'secret_key\',\''.sha1(random_bytes(1000)).'\',
    \'a secret key specific to the gallery for internal use\');';
     pwg_query($query);
 
@@ -387,7 +387,7 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     // webmaster admin user
     $inserts = array(
       array(
-        'id'           => 1,
+        'id'           => 1, // must be the same value as webmaster_id in config.sql
         'username'     => $admin_name,
         'password'     => md5($admin_pass1),
         'mail_address' => $admin_mail,
@@ -466,13 +466,8 @@ else
   }
   else
   {
-    session_set_save_handler('pwg_session_open',
-      'pwg_session_close',
-      'pwg_session_read',
-      'pwg_session_write',
-      'pwg_session_destroy',
-      'pwg_session_gc'
-    );
+    // See include/functions_session.inc.php
+    session_set_save_handler(new PwgSession());
     if ( function_exists('ini_set') )
     {
       ini_set('session.use_cookies', $conf['session_use_cookies']);
@@ -486,6 +481,8 @@ else
     
     $user = build_user(1, true);
     log_user($user['id'], false);
+
+    $user['preferences']['show_whats_new_'.get_branch_from_version(PHPWG_VERSION)] = false;
     
     // newsletter subscription
     if ($is_newsletter_subscribe)
@@ -497,8 +494,10 @@ else
         array('origin' => 'installation')
         );
 
-      userprefs_update_param('show_newsletter_subscription', false);
+      $user['preferences']['show_newsletter_subscription'] = false;
     }
+
+    userprefs_save();
 
     // email notification
     if (isset($_POST['send_credentials_by_mail']))

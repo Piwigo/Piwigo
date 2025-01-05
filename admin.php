@@ -338,6 +338,66 @@ if (
   invalidate_user_cache();
 }
 
+$show_whats_new = false;
+
+$whats_new_major_version = get_branch_from_version(PHPWG_VERSION);
+
+if (userprefs_get_param('show_whats_new_'.$whats_new_major_version, true) and pwg_is_dbconf_writeable())
+{
+  if ($user['registration_date'] > $conf['last_major_update'])
+  {
+    userprefs_update_param('show_whats_new_'.$whats_new_major_version, false);
+  }
+  else
+  {
+    // purge old whats_new_*
+    if (isset($user['preferences']))
+    {
+      $userprefs_params_to_delete = array();
+
+      foreach (array_keys($user['preferences']) as $pref_param)
+      {
+        if (preg_match('/^whats_new_/', $pref_param))
+        {
+          $userprefs_params_to_delete[] = $pref_param;
+        }
+      }
+
+      if (count($userprefs_params_to_delete) > 0)
+      {
+        userprefs_delete_param($userprefs_params_to_delete);
+      }
+    }
+
+    $show_whats_new = true;
+  }
+}
+
+$release_note_url = PHPWG_URL.'/releases/'.$whats_new_major_version.'.0.0';
+
+$whats_new_imgs = array(
+  '1' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-58ded6af.png',
+  '2' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-9d651969.png',
+  '3' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171643-d659d017.png',
+  '4' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-1109101f.png',
+);
+
+$display_bell = false;
+if (strtotime($conf['last_major_update']) > strtotime('1 month ago'))
+{
+  $display_bell = true;
+}
+
+$template->assign(
+  array(
+  'SHOW_WHATS_NEW' => $show_whats_new,
+  'WHATS_NEW_MAJOR_VERSION' => $whats_new_major_version,
+  'RELEASE_NOTE_URL' => $release_note_url,
+  'WHATS_NEW_IMGS' => $whats_new_imgs,
+  'DISPLAY_BELL' => $display_bell,
+  )
+);
+
 // +-----------------------------------------------------------------------+
 // | Include specific page                                                 |
 // +-----------------------------------------------------------------------+
@@ -363,4 +423,5 @@ flush_page_messages();
 $template->pparse('admin');
 
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
+
 ?>

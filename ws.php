@@ -158,6 +158,10 @@ function ws_addDefaultMethods( $arr )
           'info' => implode(',', array_keys(ImageStdParams::get_defined_type_map()))
           ),
         'search' => array('default' => null),
+        'limit' => array(
+          'default' => null,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'info' => 'Parameter not compatible with recursive=true'),
         ),
       'Returns a list of categories.',
       $ws_functions_root . 'pwg.categories.php'
@@ -563,9 +567,7 @@ function ws_addDefaultMethods( $arr )
       'pwg.images.syncMetadata',
       'ws_images_syncMetadata',
       array(
-        'image_id' => array('default'=>null,
-                            'type'=>WS_TYPE_ID|WS_TYPE_POSITIVE,
-                            'flags'=>WS_PARAM_FORCE_ARRAY),
+        'image_id' => array('flags'=>WS_PARAM_ACCEPT_ARRAY, 'info'=>'Comma separated ids or array of id'),
         'pwg_token' =>  array(),
         ),
       'Sync metadatas, by blocks. Returns how many images were synchronized',
@@ -601,7 +603,13 @@ function ws_addDefaultMethods( $arr )
       'pwg.categories.getAdminList',
       'ws_categories_getAdminList',
       array(
+        'cat_id' =>       array('default'=>null,
+                                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+                                'info'=>'Parent category. "0" or empty for root.'),
         'search' => array('default' => null),
+        'recursive' => array(
+          'default' => true,
+          'type' => WS_TYPE_BOOL),
         'additional_output' =>    array('default'=>null,
                               'info'=>'Comma saparated list (see method description)'),
       ),
@@ -825,7 +833,7 @@ function ws_addDefaultMethods( $arr )
         'pwg_token' => array(),
         'category_id' => array('type'=>WS_TYPE_ID),
         ),
-      'Notifiy Piwigo you have finished to upload a set of photos. It will empty the lounge, if any.',
+      'Notify Piwigo you have finished uploading a set of photos. It will empty the lounge, if any.',
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true)
     );
@@ -1151,6 +1159,11 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       'ws_users_add',
       array(
         'username' => array(),
+        'auto_password' => array(
+          'default'=>false,
+          'flags'=>WS_TYPE_BOOL, 
+          'info' => 'if true ignores password and confirm password'
+        ),
         'password' => array('default'=>null),
         'password_confirm' => array('flags'=>WS_PARAM_OPTIONAL),
         'email' =>    array('default'=>null),
@@ -1441,13 +1454,91 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'filetypes' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
         ),
-        'date_posted' => array(
+        'date_posted_preset' => array(
           'flags' => WS_PARAM_OPTIONAL,
-          'info' => 'files posted within 24 hours, 7 days or 30 days or 3 months or 6 months or year NNNN. Value among 24h|7d|30d|3m|6m|yNNNN',
+          'info' => 'files posted within 24 hours, 7 days, 30 days, 3 months, 6 months or custom. Value among 24h|7d|30d|3m|6m|custom.',
+        ),
+        'date_posted_custom' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'info' => 'Must be provided if date_posted_preset is custom. List of yYYYY or mYYYY-MM or dYYYY-MM-DD.',
+        ),
+        'date_created_preset' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'files created within 7 days, 30 days, 3 months, 6 months, 12 months or custom. Value among 7d|30d|3m|6m|12m|custom.',
+        ),
+        'date_created_custom' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'info' => 'Must be provided if date_created_preset is custom. List of yYYYY or mYYYY-MM or dYYYY-MM-DD.',
+        ),
+        'ratios' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+        ),
+        'ratings' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+        ),
+        'filesize_min' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'filesize_max' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'height_min' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'height_max' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'width_min' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'width_max' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE,
         ),
       ),
       '',
       $ws_functions_root . 'pwg.images.php'
+    );
+
+    $service->addMethod(
+      'pwg.users.generatePasswordLink',
+      'ws_users_generate_password_link',
+      array(
+        'user_id' => array(
+          'type'=>WS_TYPE_ID
+        ),
+        'pwg_token' => array(),
+        'send_by_mail' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'type' => WS_TYPE_BOOL,
+          'default' => false,
+        ),
+      ),
+      'Return the reset password link <br />
+       (Only webmaster can perform this action for another webmaster)',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.users.setMainUser',
+      'ws_set_main_user',
+      array(
+        'user_id' => array(
+          'type'=>WS_TYPE_ID
+        ),
+        'pwg_token' => array(),
+      ),
+      'Update the main user (owner) <br />
+        - To be the main user, the user must have the status "webmaster".<br />
+        - Only a webmaster can perform this action',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>true, 'post_only'=>true)
     );
 }
 

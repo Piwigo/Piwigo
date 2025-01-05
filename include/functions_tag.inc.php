@@ -39,6 +39,10 @@ function get_nb_available_tags()
  */
 function get_available_tags($tag_ids=array())
 {
+  global $persistent_cache, $user;
+
+  $use_persistent_cache = true;
+
   // we can find top fatter tags among reachable images
   $query = '
 SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
@@ -57,6 +61,8 @@ SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
 
   if (is_array($tag_ids) and count($tag_ids) > 0)
   {
+    $use_persistent_cache = false;
+
     $query .= '
     AND tag_id IN ('.implode(',', $tag_ids).')
 ';
@@ -65,7 +71,20 @@ SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
   $query .= '
   GROUP BY tag_id
 ;';
-  $tag_counters = query2array($query, 'tag_id', 'counter');
+
+  if ($use_persistent_cache)
+  {
+    $cache_key = $persistent_cache->make_key(__FUNCTION__.$user['id'].$user['cache_update_time']);
+    if (!$persistent_cache->get($cache_key, $tag_counters))
+    {
+      $tag_counters = query2array($query, 'tag_id', 'counter');
+      $persistent_cache->set($cache_key, $tag_counters);
+    }
+  }
+  else
+  {
+    $tag_counters = query2array($query, 'tag_id', 'counter');
+  }
 
   if ( empty($tag_counters) )
   {
@@ -75,15 +94,21 @@ SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
   $query = '
 SELECT *
   FROM '.TAGS_TABLE;
+
+  if (count($tag_counters) < 1000)
+  {
+    $query .= '
+  WHERE id IN ('.implode(',', array_keys($tag_counters)).')
+';
+  }
   $result = pwg_query($query);
 
   $tags = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $counter = intval(@$tag_counters[ $row['id'] ]);
-    if ( $counter )
+    if (isset($tag_counters[ $row['id'] ]))
     {
-      $row['counter'] = $counter;
+      $row['counter'] = intval($tag_counters[ $row['id'] ]);
       $row['name'] = trigger_change('render_tag_name', $row['name'], $row);
       $tags[] = $row;
     }

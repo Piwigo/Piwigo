@@ -1,8 +1,10 @@
 $(document).ready(function () {
-  related_categories_ids = [];
+  /** @type {AlbumSelector} */
+  let ab;
 
   $(".linkedAlbumPopInContainer .ClosePopIn").addClass(prefix_icon + "cancel");
-  $(".linkedAlbumPopInContainer .searching").hide();
+  $(".linkedAlbumPopInContainer .searching").addClass(prefix_icon + "spin6").hide();
+  $(".AddIconContainer").css('display', 'none');
   $(".filter-validate").on("click", function () {
     $(this).find(".loading").css("display", "block");
     $(this).find(".validate-text").hide();
@@ -85,6 +87,7 @@ $(document).ready(function () {
       items: global_params.fields.tags ? global_params.fields.tags.words : null,
     });
   });
+
   if (global_params.fields.tags) {
     $(".filter-tag").css("display", "flex");
     $(".filter-manager-controller.tags").prop("checked", true);
@@ -113,25 +116,224 @@ $(document).ready(function () {
   }
 
   // Setup Date post filter
-  if (global_params.fields.hasOwnProperty('date_posted')) {
+  if (global_params.fields.date_posted) {
+
     $(".filter-date_posted").css("display", "flex");
     $(".filter-manager-controller.date_posted").prop("checked", true);
 
-    if (global_params.fields.date_posted != null && global_params.fields.date_posted != "") {
-      $("#date_posted-" + global_params.fields.date_posted).prop("checked", true);
+    if (global_params.fields.date_posted.preset != null && global_params.fields.date_posted.preset != "") {
+      // If filter is used and not empty check preset date option
+      $("#date_posted-" + global_params.fields.date_posted.preset).prop("checked", true);
+      date_posted_str = $('.date_posted-option label#'+ global_params.fields.date_posted.preset +' .date-period').text();
 
-      date_posted_str = $('.date_posted-option label#'+global_params.fields.date_posted+' .date-period').text();
+      // if option is custom check custom dates
+      if ('custom' == global_params.fields.date_posted.preset && global_params.fields.date_posted.custom != null)
+      {
+        date_posted_str = '';
+        var customArray = global_params.fields.date_posted.custom
+
+        $(customArray).each(function( index ) {
+          var customValue = this.substring(1, $(this).length);
+
+          $("#date_posted_"+customValue).prop("checked", true).addClass('selected');
+          $("#date_posted_"+customValue).siblings('label').find('.checked-icon').show();
+
+          date_posted_str += $('.date_posted-option label#'+ customValue +' .date-period').text()
+
+          if($(global_params.fields.date_posted.custom).length > 1 && index != $(customArray).length-1)
+          {
+            date_posted_str += ', ';
+          }
+        });
+
+        $('.date_posted-option.year').each(function () {
+          updateDateFilters(`.custom_posted_date #${$(this).attr('id')}`);
+        });
+      }
+      
+      // change badge label if filter not empty
       $(".filter-date_posted").addClass("filter-filled");
       $(".filter.filter-date_posted .search-words").text(date_posted_str);
     }
 
     $(".filter-date_posted .filter-actions .clear").on('click', function () {
+      updateFilters('date_posted', 'add');
       $(".date_posted-option input").prop('checked', false);
+      $(".date_posted-option input").trigger('change');
     });
 
-    PS_params.date_posted = global_params.fields.date_posted.length > 0 ? global_params.fields.date_posted : '';
+    // Disable possiblity for user to select custom option, its gets selected programtically later on
+    $("#date_posted_custom").attr('disabled', 'disabled');
 
-    empty_filters_list.push(PS_params.date_posted);
+    // Handle toggle between preset and custom options
+    $(".custom_posted_date_toggle").on("click", function (e) {
+      $('.custom_posted_date').toggle()
+      $('.preset_posted_date').toggle()
+    });
+
+    // Handle accoridan features in custom options
+    $(".custom_posted_date .accordion-toggle").on("click", function (e) {
+      var clickedOption = $(this).parent();
+      $(clickedOption).toggleClass('show-child');
+      if('year' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_posted-option.month').toggle();
+      }
+      else if('month' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_posted-option.day').toggle();
+      }
+    });
+
+    // For debug
+    // $('.date_posted-option-container').find(':input').show();
+
+    // On custom date input select
+    $(".custom_posted_date .date_posted-option input").change(function() {
+      const currentYear = $(this).data('year');
+
+      const selector = `.custom_posted_date #container_${currentYear}`;
+      updateDateFilters(selector);
+
+      // Used to select custom in preset list if dates are selected
+      if($('.custom_posted_date input:checked').length > 0)
+      {
+        $("#date_posted-custom").prop('checked', true);
+        $('.preset_posted_date input').attr('disabled', 'disabled');
+      }
+      else{
+        $("#date_posted-custom").prop('checked', false);
+        $('.preset_posted_date input').removeAttr('disabled');
+      }
+
+    });
+
+    // Used to select custom in preset list if dates are selected
+    if($('.custom_posted_date input:checked').length > 0)
+    {
+      $("#date_posted-custom").prop('checked', true);
+      $('.preset_posted_date input').attr('disabled', 'disabled');
+    }
+    else{
+      $("#date_posted-custom").prop('checked', false);
+      $('.preset_posted_date input').removeAttr('disabled');
+    }
+
+    PS_params.date_posted_preset = global_params.fields.date_posted.preset != '' ? global_params.fields.date_posted.preset : '';
+    PS_params.date_posted_custom = global_params.fields.date_posted.custom != '' ? global_params.fields.date_posted.custom : '';
+
+    empty_filters_list.push(PS_params.date_posted_preset);
+    empty_filters_list.push(PS_params.date_posted_custom);
+  }
+
+  // Setup Date creation filter
+
+  if (global_params.fields.date_created) {
+    $(".filter-date_created").css("display", "flex");
+    $(".filter-manager-controller.date_created").prop("checked", true);
+
+    if (global_params.fields.date_created.preset != null && global_params.fields.date_created.preset != "") {
+      // If filter is used and not empty check preset date option
+      $("#date_created-" + global_params.fields.date_created.preset).prop("checked", true);
+      date_created_str = $('.date_created-option label#'+ global_params.fields.date_created.preset +' .date-period').text();
+
+      // if option is custom check custom dates
+      if ('custom' == global_params.fields.date_created.preset && global_params.fields.date_created.custom != null)
+      {
+        date_created_str = '';
+        var customArray = global_params.fields.date_created.custom
+
+        $(customArray).each(function( index ) {
+          var customValue = this.substring(1, $(this).length);
+
+          $("#date_created_"+customValue).prop("checked", true).addClass('selected');
+          $("#date_created_"+customValue).siblings('label').find('.checked-icon').show();
+
+          date_created_str += $('.date_created-option label#'+ customValue +' .date-period').text()
+
+          if($(global_params.fields.date_created.custom).length > 1 && index != $(customArray).length-1)
+          {
+            date_created_str += ', ';
+          }
+        });
+
+        $('.date_created-option.year').each(function () {
+          updateDateFilters(`.custom_created_date #${$(this).attr('id')}`);
+        });
+      }
+      
+      // change badge label if filter not empty
+      $(".filter-date_created").addClass("filter-filled");
+      $(".filter.filter-date_created .search-words").text(date_created_str);
+    }
+
+    $(".filter-date_created .filter-actions .clear").on('click', function () {
+      updateFilters('date_created', 'add');
+      $(".date_created-option input").prop('checked', false);
+      $(".date_created-option input").trigger('change');
+
+      // $('.date_created-option input').removeAttr('disabled');
+      // $('.date_created-option input').removeClass('grey-icon'); 
+    });
+
+    // Disable possiblity for user to select custom option, its gets selected programtically later on
+    $("#date_created_custom").attr('disabled', 'disabled');
+
+    // Handle toggle between preset and custom options
+    $(".custom_created_date_toggle").on("click", function (e) {
+      $('.custom_created_date').toggle()
+      $('.preset_created_date').toggle()
+    });
+
+    // Handle accoridan features in custom options
+    $(".custom_created_date .accordion-toggle").on("click", function (e) {
+      var clickedOption = $(this).parent();
+      $(clickedOption).toggleClass('show-child');
+      if('year' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_created-option.month').toggle();
+      }
+      else if('month' == $(this).data('type'))
+      {
+        $(clickedOption).parent().find('.date_created-option.day').toggle();
+      }
+    });
+
+    // On custom date input select
+    $(".custom_created_date .date_created-option input").change(function() {
+      const currentYear = $(this).data('year');
+      const selector = `.custom_created_date #container_${currentYear}`;
+      updateDateFilters(selector);
+
+      // Used to select custom in preset list if dates are selected
+      if($('.custom_created_date input:checked').length > 0)
+      {
+        $("#date_created-custom").prop('checked', true);
+        $('.preset_created_date input').attr('disabled', 'disabled');
+      }
+      else{
+        $("#date_created-custom").prop('checked', false);
+        $('.preset_created_date input').removeAttr('disabled');
+      }
+
+    });
+
+    // Used to select custom in preset list if dates are selected
+    if($('.custom_created_date input:checked').length > 0)
+    {
+      $("#date_created-custom").prop('checked', true);
+      $('.preset_created_date input').attr('disabled', 'disabled');
+    }
+    else{
+      $("#date_created-custom").prop('checked', false);
+      $('.preset_created_date input').removeAttr('disabled');
+    }
+
+    PS_params.date_created_preset = global_params.fields.date_created.preset != '' ? global_params.fields.date_created.preset : '';
+    PS_params.date_created_custom = global_params.fields.date_created.custom != '' ? global_params.fields.date_created.custom : '';
+
+    empty_filters_list.push(PS_params.date_created_preset);
+    empty_filters_list.push(PS_params.date_created_custom);
   }
 
   // Setup album filter
@@ -141,9 +343,28 @@ $(document).ready(function () {
   
     album_widget_value = "";
     global_params.fields.cat.words.forEach(cat_id => {
-      add_related_category(cat_id, fullname_of_cat[cat_id]);
+      display_related_category(cat_id, fullname_of_cat[cat_id]);
       album_widget_value += fullname_of_cat[cat_id] + ", ";
     });
+
+    // Load Album Selector
+    ab = new AlbumSelector({
+      selectedCategoriesIds: global_params.fields.cat.words,
+      selectAlbum: add_related_category,
+      removeSelectedAlbum: remove_related_category,
+      modalTitle: str_search_in_ab,
+    });
+
+    $(".add-album-button").on("click", function () {
+      ab.open();
+    });
+
+    $('.selected-categories-container').on('click', (e) => {
+      if (e.target.classList.contains("remove-item")) {
+        ab.remove_selected_album($(e.target).attr('id'));
+      }
+    });
+
     if (global_params.fields.cat.words && global_params.fields.cat.words.length > 0) {
       $(".filter-album").addClass("filter-filled");
       $(".filter-album .search-words").html(album_widget_value.slice(0, -2));
@@ -157,7 +378,7 @@ $(document).ready(function () {
 
     $(".filter-album .filter-actions .clear").on('click', function () {
       $(".filter-album .search-params input[value='AND']");
-      related_categories_ids = [];
+      ab.resetAll();
       $(".selected-categories-container").empty();
       $("#search-sub-cats").prop('checked', false);
     });
@@ -268,6 +489,204 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.filetypes);
   }
 
+  // Setup Ratio filter
+  if (global_params.fields.ratios) {
+    $(".filter-ratios").css("display", "flex");
+    $(".filter-manager-controller.ratios").prop("checked", true);
+
+    ratios_search_str = "";
+    global_params.fields.ratios.forEach(ft => {
+      ratios_search_str += str_ratios_label[ft] + ", ";
+    });
+  
+    if (global_params.fields.ratios && global_params.fields.ratios.length > 0) {
+      $(".filter-ratios").addClass("filter-filled");
+      $(".filter.filter-ratios .search-words").text(ratios_search_str.slice(0, -2));
+
+      $(".ratios-option input").each(function () {
+        if (global_params.fields.ratios.includes($(this).attr('name'))) {
+          $(this).prop('checked', true);
+        }
+      });
+    } else {
+      $(".filter.filter-ratios .search-words").text(str_ratio_widget_label);
+    }
+
+    $(".filter-ratios .filter-actions .clear").on('click', function () {
+      $(".filter-ratios .ratios-option input").prop("checked", false);
+    });
+
+    PS_params.ratios = global_params.fields.ratios.length > 0 ?  global_params.fields.ratios  : '';
+
+    empty_filters_list.push(PS_params.ratios);
+  }
+
+  // Setup rating filter
+  if (global_params.fields.ratings && show_filter_ratings) {
+
+    $(".filter-ratings").css("display", "flex");
+    $(".filter-manager-controller.ratings").prop("checked", true);
+
+    ratings_search_str = "";
+    global_params.fields.ratings.forEach(function(ft, i){
+      if(0 == ft )
+      {
+        ratings_search_str += str_no_rating 
+        if(global_params.fields.ratings.length > 1)
+        {
+          ratings_search_str += ", ";
+        }
+      }
+      else
+      {
+        str_between = str_between_rating.split("%d");
+        ratings_search_str += str_between[0] + (ft-1) + str_between[1] + ft + str_between[2];
+        if(global_params.fields.ratings.length-1 != i)
+        {
+          ratings_search_str += ", ";
+        }
+      }
+    });
+  
+    if (global_params.fields.ratings && global_params.fields.ratings.length > 0) {
+      $(".filter-ratings").addClass("filter-filled");
+      $(".filter.filter-ratings .search-words").text(ratings_search_str);
+
+      $(".ratings-option input").each(function () {
+        if (global_params.fields.ratings.includes($(this).attr('name'))) {
+          $(this).prop('checked', true);
+        }
+      });
+    } else {
+      $(".filter.filter-ratings .search-words").text(str_rating_widget_label);
+    }
+
+    $(".filter-ratings .filter-actions .clear").on('click', function () {
+      $(".filter-ratings .ratings-option input").prop("checked", false);
+    });
+
+    PS_params.ratings = global_params.fields.ratings.length > 0 ?  global_params.fields.ratings  : '';
+
+    empty_filters_list.push(PS_params.ratings);
+  }
+  else if (!show_filter_ratings)
+  {
+    updateFilters('ratings', 'add');
+  }
+
+  // Setup filesize filter
+  if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null) {
+
+    $(".filter-filesize").css("display", "flex");
+    $(".filter-manager-controller.filesize").prop("checked", true);
+    $(".filter.filter-filesize .slider-info").html(sprintf(sliders.filesizes.text,sliders.filesizes.selected.min,sliders.filesizes.selected.max,));
+
+    $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
+
+    $('[data-slider=filesizes]').on("slidestop", function(event, ui) {
+      var min = $('[data-slider=filesizes]').find('[data-input=min]').val();
+      var max = $('[data-slider=filesizes]').find('[data-input=max]').val();
+
+      $('input[name=filter_filesize_min_text]').val(min).trigger('change');
+      $('input[name=filter_filesize_max_text]').val(max).trigger('change');
+
+    });
+
+    if( global_params.fields.filesize_min != null && global_params.fields.filesize_max > 0) {
+      $(".filter-filesize").addClass("filter-filled");
+      $(".filter.filter-filesize .search-words").html(sprintf(sliders.filesizes.text,sliders.filesizes.selected.min,sliders.filesizes.selected.max,));
+    }
+    else 
+    {
+      $(".filter.filter-filesize .search-words").text(str_filesize_widget_label);
+    }
+
+    $(".filter-filesize .filter-actions .clear").on('click', function () {
+      updateFilters('filesize', 'add');
+      $(".filter-filesize").trigger("click");
+      $('[data-slider=filesizes]').pwgDoubleSlider(sliders.filesizes);
+      if ($(".filter-filesize").hasClass("filter-filled")) {
+        $(".filter-filesize").removeClass("filter-filled")
+        $(".filter.filter-filesize .search-words").text(str_filesize_widget_label);
+      }
+    });
+
+    PS_params.filesize_min = global_params.fields.filesize_min  != null ?  global_params.fields.filesize_min  : '';
+    PS_params.filesize_max = global_params.fields.filesize_max  != null ?  global_params.fields.filesize_max  : '';
+
+    empty_filters_list.push(PS_params.filesize_min);
+    empty_filters_list.push(PS_params.filesize_max);
+  }
+
+  // Setup Height filter
+  if (global_params.fields.height_min != null && global_params.fields.height_max != null) {
+    $(".filter-height").css("display", "flex");
+    $(".filter-manager-controller.height").prop("checked", true);
+    $(".filter.filter-height .slider-info").html(sprintf(sliders.heights.text,sliders.heights.selected.min,sliders.heights.selected.max,));
+
+    $('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
+
+    if( global_params.fields.height_min > 0 && global_params.fields.height_max > 0) {
+      $(".filter-height").addClass("filter-filled");
+      $(".filter.filter-height .search-words").html(sprintf(sliders.heights.text,sliders.heights.selected.min,sliders.heights.selected.max,));
+    }
+    else 
+    {
+      $(".filter.filter-height .search-words").text(str_height_widget_label);
+    }
+
+    $(".filter-height .filter-actions .clear").on('click', function () {
+      updateFilters('height', 'add');
+      $(".filter-height").trigger("click");
+      $('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
+      if ($(".filter-height").hasClass("filter-filled")) {
+        $(".filter-height").removeClass("filter-filled")
+        $(".filter.filter-height .search-words").text(str_height_widget_label);
+      }
+    });
+
+    PS_params.height_min = global_params.fields.height_min  != null ?  global_params.fields.height_min  : '';
+    PS_params.height_max = global_params.fields.height_max  != null ?  global_params.fields.height_max  : '';
+
+    empty_filters_list.push(PS_params.height_min);
+    empty_filters_list.push(PS_params.height_max);
+  }
+
+  // Setup Width filter
+  if (global_params.fields.width_min != null && global_params.fields.width_max != null) {
+    $(".filter-width").css("display", "flex");
+    $(".filter-manager-controller.width").prop("checked", true);
+    $(".filter.filter-width .slider-info").html(sprintf(sliders.widths.text,sliders.widths.selected.min,sliders.widths.selected.max,));
+
+    $('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
+
+    if( global_params.fields.width_min > 0 && global_params.fields.width_max > 0) {
+      $(".filter-width").addClass("filter-filled");
+      $(".filter.filter-width .search-words").html(sprintf(sliders.widths.text,sliders.widths.selected.min,sliders.widths.selected.max,));
+    }
+    else 
+    {
+      $(".filter.filter-width .search-words").text(str_width_widget_label);
+    }
+
+    $(".filter-width .filter-actions .clear").on('click', function () {
+      updateFilters('width', 'add');
+      $(".filter-width").trigger("click");
+      $('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
+      if ($(".filter-width").hasClass("filter-filled")) {
+        $(".filter-width").removeClass("filter-filled")
+        $(".filter.filter-width .search-words").text(str_width_widget_label);
+      }
+    });
+
+    PS_params.width_min = global_params.fields.width_min  != null ?  global_params.fields.width_min  : '';
+    PS_params.width_max = global_params.fields.width_max  != null ?  global_params.fields.width_max  : '';
+
+    empty_filters_list.push(PS_params.width_min);
+    empty_filters_list.push(PS_params.width_max);
+  }
+
+
   // Adapt no result message
   if ($(".filter-filled").length === 0) {
     $(".mcs-no-result .text .top").html(str_empty_search_top_alt);
@@ -280,7 +699,14 @@ $(document).ready(function () {
       exclude_params = ['search_id', 'allwords_mode', 'allwords_fields', 'tags_mode', 'categories_withsubs'];
       for (const key in PS_params) {
         if (!exclude_params.includes(key)) {
-          PS_params[key] = '';
+          if("date_posted_custom" == key || "date_created_custom" == key)
+          {
+            PS_params[key] = [];
+          }
+          else
+          {
+            PS_params[key] = '';
+          }
         }
       }
       performSearch(PS_params, true);
@@ -338,7 +764,6 @@ $(document).ready(function () {
         }
       } else {
         if ($(".filter.filter-" + $(this).data("wid")).is(':visible')) {
-          console.log($(this).data("wid"));
           updateFilters($(this).data("wid"), 'del');
         }
       }
@@ -480,14 +905,31 @@ $(document).ready(function () {
       return;
     }
     $(".filter-date_posted-form").toggle(0, function () {
-      if ($(this).is(':visible')) {
+      if ($(this).is(':visible'))
+      {
         $(".filter-date_posted").addClass("show-filter-dropdown");
-      } else {
+      }
+      else 
+      {
         $(".filter-date_posted").removeClass("show-filter-dropdown");
 
-        global_params.fields.date_posted = $(".date_posted-option input:checked").val();
+        var presetValue = $(".preset_posted_date .date_posted-option input:checked").val();
 
-        PS_params.date_posted = $(".date_posted-option input:checked").length > 0 ? $(".date_posted-option input:checked").val() : "";
+        global_params.fields.date_posted.preset = presetValue;
+        PS_params.date_posted_preset = presetValue != null ? presetValue : "";
+        
+        if ('custom' == presetValue)
+        {
+          var customDates = [];
+
+          $(".custom_posted_date .date_posted-option input:checked").each(function(){
+            customDates.push($(this).val());
+          });
+
+          global_params.fields.date_posted.custom = customDates;
+          PS_params.date_posted_custom = customDates.length > 0 ? customDates : "";
+        }
+      
       }
     });
   });
@@ -496,11 +938,64 @@ $(document).ready(function () {
     $(".filter-date_posted").trigger("click");
     performSearch(PS_params, true);
   });
+  
   $(".filter-date_posted .filter-actions .delete").on("click", function () {
     updateFilters('date_posted', 'del');
     performSearch(PS_params, true);
     if (!$(".filter-date_posted").hasClass("filter-filled")) {
       $(".filter-date_posted").hide();
+      $(".filter-manager-controller.date").prop("checked", false);
+    }
+  });
+
+  /**
+ * Filter Date created
+ */
+  $(".filter-date_created").on("click", function (e) {
+    if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form")) {
+      return;
+    }
+    $(".filter-date_created-form").toggle(0, function () {
+      if ($(this).is(':visible'))
+      {
+        $(".filter-date_created").addClass("show-filter-dropdown");
+      }
+      else 
+      {
+        $(".filter-date_created").removeClass("show-filter-dropdown");
+
+        var presetValue = $(".preset_created_date .date_created-option input:checked").val();
+
+        global_params.fields.date_created.preset = presetValue;
+        PS_params.date_created_preset = presetValue != null ? presetValue : "";
+        
+        if ('custom' == presetValue)
+        {
+          var customDates = [];
+
+          $(".custom_created_date .date_created-option input:checked").each(function(){
+            customDates.push($(this).val());
+          });
+
+          global_params.fields.date_created.custom = customDates;
+          PS_params.date_created_custom = customDates.length > 0 ? customDates : "";
+        }
+      
+      }
+    });
+  });
+
+  $(".filter-date_created .filter-validate").on("click", function () {
+    $(".filter-date_created").trigger("click");
+    performSearch(PS_params, true);
+  });
+  
+  $(".filter-date_created .filter-actions .delete").on("click", function () {
+    updateFilters('date_created', 'del');
+    performSearch(PS_params, true);
+    if (!$(".filter-date_created").hasClass("filter-filled")) {
+      $(".filter-date_created").hide();
       $(".filter-manager-controller.date").prop("checked", false);
     }
   });
@@ -520,11 +1015,11 @@ $(document).ready(function () {
       } else {
         $(".filter-album").removeClass("show-filter-dropdown");
         global_params.fields.cat = {};
-        global_params.fields.cat.words = related_categories_ids;
+        global_params.fields.cat.words = ab.get_selected_albums();
         // global_params.fields.cat.search_params = $(".filter-form.filter-album-form .search-params input:checked").val().toLowerCase();
         global_params.fields.cat.sub_inc = $("input[name='search-sub-cats']:checked").length != 0;
 
-        PS_params.categories = related_categories_ids.length > 0 ? related_categories_ids : '';
+        PS_params.categories = ab.get_selected_albums().length > 0 ? ab.get_selected_albums() : '';
         PS_params.categories_withsubs = $("input[name='search-sub-cats']:checked").length != 0;
       }
     });
@@ -541,27 +1036,6 @@ $(document).ready(function () {
       $(".filter-manager-controller.album").prop("checked", false);
     }
   });
-
-  $(".add-album-button").on("click", function () {
-    linked_albums_open();
-    set_up_popin();
-  });
-
-  $("#linkedAlbumSearch .search-input").on('input', function () {
-    if ($(this).val() != 0) {
-      $("#linkedAlbumSearch .search-cancel-linked-album").show();
-    } else {
-      $("#linkedAlbumSearch .search-cancel-linked-album").hide();
-    }
-
-    // Search input value length required to start searching
-    if ($(this).val().length > 0) {
-      linked_albums_search($(this).val());
-    } else {
-      $(".limitReached").html(str_no_search_in_progress);
-      $("#searchResult").empty();
-    }
-  })
 
   /**
    * Author Widget
@@ -665,6 +1139,7 @@ $(document).ready(function () {
       }
     });
   });
+
   $(".filter-filetypes .filter-validate").on("click", function () {
     $(".filter-filetypes").trigger("click");
     performSearch(PS_params, true);
@@ -678,24 +1153,208 @@ $(document).ready(function () {
     }
   });
 
-  /* Close dropdowns if you click on the screen */
-  // $(document).mouseup(function (e) {
-  //   e.stopPropagation();
-  //   let option_is_clicked = false
-  //   $(".mcs-container .filter").each(function () {
-  //     console.log(($(this).hasClass("show-filter-dropdown")));
-  //     if (!($(this).has(e.target).length === 0)) {
-  //       option_is_clicked = true;
-  //     }
-  //   })
-  //   if (!option_is_clicked) {
-  //     $(".filter-form").hide();
-  //     if ($(".show-filter-dropdown").length != 0) {
-  //       $(".show-filter-dropdown").removeClass("show-filter-dropdown");
-  //       performSearch();
-  //     }
-  //   }
-  // });
+  /**
+   * Ratios widget
+   */
+    $(".filter-ratios").on('click', function (e) {
+      if ($(".filter-form").has(e.target).length != 0 ||
+          $(e.target).hasClass("filter-form") ||
+          $(e.target).hasClass("remove")) {
+        return;
+      }
+      $(".filter-ratios-form").toggle(0, function () {
+        if ($(this).is(':visible')) {
+          $(".filter-ratios").addClass("show-filter-dropdown");
+        } else {
+          $(".filter-ratios").removeClass("show-filter-dropdown");
+
+          ratios_array = []
+          $(".ratios-option input:checked").each(function () {
+            ratios_array.push($(this).attr('name'));
+          });
+
+          global_params.fields.ratios = ratios_array;
+
+          PS_params.ratios = ratios_array.length > 0 ? ratios_array : '';
+        }
+      });
+    });
+
+    $(".filter-ratios .filter-validate").on("click", function () {
+      $(".filter-ratios").trigger("click");
+      performSearch(PS_params, true);
+    });
+    $(".filter-ratios .filter-actions .delete").on("click", function () {
+      updateFilters('ratios', 'del');
+      performSearch(PS_params, true);
+      if (!$(".filter-ratios").hasClass("filter-filled")) {
+        $(".filter-ratios").hide();
+        $(".filter-manager-controller.ratios").prop("checked", false);
+      }
+    });
+
+  /**
+   * Rating widget
+   */
+  $(".filter-ratings").on('click', function (e) {
+    if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+    }
+    $(".filter-ratings-form").toggle(0, function () {
+      if ($(this).is(':visible')) {
+        $(".filter-ratings").addClass("show-filter-dropdown");
+      } else {
+        $(".filter-ratings").removeClass("show-filter-dropdown");
+        ratings_array = []
+
+        $(".ratings-option input:checked").each(function () {
+          ratings_array.push($(this).attr('name'));
+        });
+
+        global_params.fields.ratings = ratings_array;
+        PS_params.ratings = ratings_array.length > 0 ? ratings_array : '';
+          
+      }
+    });
+  });
+
+  $(".filter-ratings .filter-validate").on("click", function () {
+    $(".filter-ratings").trigger("click");
+    performSearch(PS_params, true);
+  });
+  $(".filter-ratings .filter-actions .delete").on("click", function () {
+    updateFilters('ratings', 'del');
+    performSearch(PS_params, true);
+    if (!$(".filter-ratings").hasClass("filter-filled")) {
+      $(".filter-ratings").hide();
+      $(".filter-manager-controller.ratings").prop("checked", false);
+    }
+  });
+
+  /**
+   * Filesize widget
+   */
+    $(".filter-filesize").on('click', function (e) {
+      if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+      }
+      $(".filter-filesize-form").toggle(0, function () {
+        if ($(this).is(':visible')) {
+          $(".filter-filesize").addClass("show-filter-dropdown");
+        } else {
+          $(".filter-filesize").removeClass("show-filter-dropdown");
+        }
+      });
+
+    });
+    $(".filter-filesize .filter-validate").on("click", function () {
+      filesize_min = Math.floor(($('input[name=filter_filesize_min]').val())*1024)
+      filesize_max = Math.ceil(($('input[name=filter_filesize_max]').val())*1024)
+
+      global_params.fields.filesize_min = filesize_min;
+      global_params.fields.filesize_max = filesize_max;
+
+      PS_params.filesize_min = filesize_min;
+      PS_params.filesize_max = filesize_max;
+
+      $(".filter-filesize").trigger("click");
+      performSearch(PS_params, true);
+    });
+
+    $(".filter-filesize .filter-actions .delete").on("click", function () {
+      updateFilters('filesize', 'del');
+      performSearch(PS_params, true);
+      if (!$(".filter-filesize").hasClass("filter-filled")) {
+        $(".filter-filesize").hide();
+        $(".filter-manager-controller.filesize").prop("checked", false);
+      }
+    });
+
+  /**
+   * Height widget
+   */
+    $(".filter-height").on('click', function (e) {
+      if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+      }
+      $(".filter-height-form").toggle(0, function () {
+        if ($(this).is(':visible')) {
+          $(".filter-height").addClass("show-filter-dropdown");
+        } else {
+          $(".filter-height").removeClass("show-filter-dropdown");
+        }
+      });
+
+    });
+    $(".filter-height .filter-validate").on("click", function () {
+      height_min = $('input[name=filter_height_min]').val()
+      height_max = $('input[name=filter_height_max]').val()
+
+      global_params.fields.height_min = height_min;
+      global_params.fields.height_max = height_max;
+
+      PS_params.height_min = height_min;
+      PS_params.height_max = height_max;
+
+      $(".filter-height").trigger("click");
+      performSearch(PS_params, true);
+    });
+
+    $(".filter-height .filter-actions .delete").on("click", function () {
+      updateFilters('height', 'del');
+      performSearch(PS_params, true);
+      if (!$(".filter-height").hasClass("filter-filled")) {
+        $(".filter-height").hide();
+        $(".filter-manager-controller.height").prop("checked", false);
+      }
+    });
+
+  /**
+   * Width widget
+   */
+    $(".filter-width").on('click', function (e) {
+      if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+      }
+      $(".filter-width-form").toggle(0, function () {
+        if ($(this).is(':visible')) {
+          $(".filter-width").addClass("show-filter-dropdown");
+        } else {
+          $(".filter-width").removeClass("show-filter-dropdown");
+        }
+      });
+
+    });
+    $(".filter-width .filter-validate").on("click", function () {
+      width_min = $('input[name=filter_width_min]').val()
+      width_max = $('input[name=filter_width_max]').val()
+
+      global_params.fields.width_min = width_min;
+      global_params.fields.width_max = width_max;
+
+      PS_params.width_min = width_min;
+      PS_params.width_max = width_max;
+
+      $(".filter-width").trigger("click");
+      performSearch(PS_params, true);
+    });
+
+    $(".filter-width .filter-actions .delete").on("click", function () {
+      updateFilters('width', 'del');
+      performSearch(PS_params, true);
+      if (!$(".filter-width").hasClass("filter-filled")) {
+        $(".filter-width").hide();
+        $(".filter-manager-controller.width").prop("checked", false);
+      }
+    });
 })
 
 function performSearch(params, reload = false) {
@@ -711,75 +1370,30 @@ function performSearch(params, reload = false) {
     },
     error:function(e) {
       console.log(e);
+      $(".filter-form ").append('<p class="error">Error</p>')
+      $(".filter-validate").find(".validate-text").css("display", "block");
+      $(".filter-validate").find(".loading").hide();
+      $(".remove-filter").removeClass(prefix_icon + 'spin6 animate-spin').addClass(prefix_icon + 'cancel');
     },
-  }).done(function () {
-    $(".filter-validate").find(".validate-text").css("display", "block");
-    $(".filter-validate").find(".loading").hide();
-    $(".remove-filter").removeClass(prefix_icon + 'spin6 animate-spin').addClass(prefix_icon + 'cancel');
   });
 }
 
-function set_up_popin() {
-  $(".ClosePopIn").on('click', function () {
-    linked_albums_close();
-  });
-
-  $("#addLinkedAlbum").on('keyup', function (e) {
-    // 27 is 'Escape'
-    if(e.keyCode === 27) {
-      linked_albums_close();
-    }
-  })
+function add_related_category({ album, addSelectedAlbum }) {
+    display_related_category(album.id, album.name);
+    $(".invisible-related-categories-select").append(`<option selected value="${album.id}"></option>`);
+    addSelectedAlbum();
 }
 
-function linked_albums_close() {
-  $("#addLinkedAlbum").fadeOut();
+function remove_related_category({ id_album }) {
+  $("#" + id_album).parent().remove();
 }
 
-function fill_results(cats) {
-  $("#searchResult").empty();
-  cats.forEach(cat => {
-    if (!related_categories_ids.includes(cat.id)) {
-      $("#searchResult").append(
-      "<div class='search-result-item' id="+ cat.id + ">" +
-        "<span class='search-result-path'>" + cat.name +"</span><span id="+ cat.id + " class='icon-plus-circled item-add'></span>" +
-      "</div>"
-      );
-
-      $(".search-result-item#"+ cat.id).on("click", function () {
-        add_related_category(cat.id, cat.name);
-      });
-    }
-  });
-}
-
-function add_related_category(cat_id, cat_link_path) {
-    $(".selected-categories-container").append(
-      "<div class='breadcrumb-item'>" +
-        "<span class='link-path'>" + cat_link_path + "</span><span id="+ cat_id + " class='mcs-icon " + prefix_icon + "cancel remove-item'></span>" +
-      "</div>"
-    );
-
-    related_categories_ids.push(cat_id);
-    $(".invisible-related-categories-select").append("<option selected value="+ cat_id +"></option>");
-
-    $("#"+ cat_id).on("click", function () {
-      remove_related_category($(this).attr("id"));
-    });
-
-    linked_albums_close();
-}
-
-function remove_related_category(cat_id) {
-  $("#" + cat_id).parent().remove();
-
-  cat_to_remove_index = related_categories_ids.indexOf(parseInt(cat_id));
-  if (cat_to_remove_index > -1) {
-    related_categories_ids.splice(cat_to_remove_index, 1);
-  }
-  if (related_categories_ids.length === 0) {
-    related_categories_ids = [];
-  }
+function display_related_category(cat_id, cat_link_path) {
+  $(".selected-categories-container").append(
+    `<div class="breadcrumb-item">
+      <span class="link-path">${cat_link_path}</span><span id="${cat_id}" class="mcs-icon ${prefix_icon}cancel remove-item"></span>
+    </div>`
+  );
 }
 
 function updateFilters(filterName, mode) {
@@ -828,6 +1442,93 @@ function updateFilters(filterName, mode) {
       }
       break;
 
+    case 'date_posted':
+      if (mode == 'add') {
+        global_params.fields['date_posted'] = {};
+        global_params.fields.date_posted.preset = '';
+        global_params.fields.date_posted.custom = [];
+
+        PS_params.date_posted_preset = '';
+        PS_params.date_posted_custom = [];
+
+      } else if (mode == 'del') {
+        delete global_params.fields.date_posted.preset;
+        delete global_params.fields.date_posted.custom;
+
+        delete PS_params.date_posted_preset;
+        delete PS_params.date_posted_custom;
+      }
+      break;
+
+    case 'date_created':
+      if (mode == 'add') {
+        global_params.fields['date_created'] = {};
+        global_params.fields.date_created.preset = '';
+        global_params.fields.date_created.custom = [];
+
+        PS_params.date_created_preset = '';
+        PS_params.date_created_custom = [];
+
+      } else if (mode == 'del') {
+        delete global_params.fields.date_created.preset;
+        delete global_params.fields.date_created.custom;
+
+        delete PS_params.date_created_preset;
+        delete PS_params.date_created_custom;
+      }
+      break;
+
+    case 'filesize':
+      if (mode == 'add') {
+        global_params.fields.filesize_min = '';
+        global_params.fields.filesize_max = '';
+
+        PS_params.filesize_min = '';
+        PS_params.filesize_max = '';
+
+      } else if (mode == 'del') {
+        delete global_params.fields.filesize_min;
+        delete global_params.fields.filesize_max;
+
+        delete PS_params.filesize_min;
+        delete PS_params.filesize_max;
+      }
+      break;
+
+    case 'height':
+      if (mode == 'add') {
+        global_params.fields.height_min = '';
+        global_params.fields.height_max = '';
+  
+        PS_params.height_min = '';
+        PS_params.height_max = '';
+
+      } else if (mode == 'del') {
+        delete global_params.fields.height_min;
+        delete global_params.fields.height_max;
+
+        delete PS_params.height_min;
+        delete PS_params.height_max;
+      }
+      break;
+
+    case 'width':
+      if (mode == 'add') {
+        global_params.fields.width_min = '';
+        global_params.fields.width_max = '';
+
+        PS_params.width_min = '';
+        PS_params.width_max = '';
+
+      } else if (mode == 'del') {
+        delete global_params.fields.width_min;
+        delete global_params.fields.width_max;
+
+        delete PS_params.width_min;
+        delete PS_params.width_max;
+      }
+      break;
+
     default:
       if (mode == 'add') {
         global_params.fields[filterName] = {};
@@ -844,6 +1545,82 @@ function updateFilters(filterName, mode) {
 
 function reloadPage(url){
   window.location.href = url;
+}
+
+function updateDateFilters(selector) {
+  const ctx = $(selector);
+  const inputYear = ctx.find('.year_input input');
+  const iconYear = ctx.find('.year_input .mcs-icon');
+  const allMonth = ctx.find('.months_container').children();
+  const allDays = ctx.find('.days_container').children();
+  let yearIsCheck = false;
+
+  // check year
+  // year state
+  // check => check mark
+  // uncheck with children checked => outline check mark
+  // uncheck without children checked => hide
+  if (inputYear.is(':checked')) {
+    console.log('state : Year is check')
+    yearIsCheck = true;
+    ctx.find(':input:not(:checked)').attr('disabled', true);
+    iconYear.removeClass('gallery-icon-check-outline grey-icon')
+      .addClass('gallery-icon-checkmark').show();
+  } else if (ctx.find(':input:checked').length) {
+    console.log('state :  Year is uncheck but have children', ctx.find(':input:checked'));
+    ctx.find(':input').attr('disabled', false);
+    iconYear.removeClass('gallery-icon-checkmark')
+      .addClass('gallery-icon-check-outline grey-icon').show();
+  } else {
+    console.log('state: Year is uncheck and doesnt have children');
+    ctx.find(':input').attr('disabled', false);
+    iconYear.removeClass('grey-icon').hide();
+  }
+
+  // check month and his days
+  // month state
+  // check => check mark
+  // uncheck with children check => outline check mark
+  // uncheck with no children and year is checked => grey check mark
+  // uncheck with no children => hide
+  allMonth.each(function () {
+    const monthInput = $(this).find('.month_input input');
+    const iconMonth = $(this).find('.month_input .mcs-icon');
+    const allDays = $(this).find('.days_container').children();
+    let monthIsChecked = false;
+
+    if (monthInput.is(':checked')) {
+      monthIsChecked = true;
+      allDays.find(':input:not(:checked)').attr('disabled', true);
+      iconMonth.removeClass('gallery-icon-check-outline grey-icon')
+      .addClass('gallery-icon-checkmark').show();
+    } else if (allDays.find(':input:checked').length) {
+      iconMonth.removeClass('gallery-icon-checkmark')
+        .addClass('gallery-icon-check-outline grey-icon').show();
+    } else if (yearIsCheck) {
+      iconMonth.removeClass('gallery-icon-check-outline')
+        .addClass('gallery-icon-checkmark grey-icon').show();
+    } else {
+      iconMonth.removeClass('grey-icon').hide();
+    }
+
+    // day state
+    // check => check mark
+    // uncheck with year or month checked => grey check mark
+    // uncheck without year or month checked => hide
+    allDays.each(function () {
+      const inputDay = $(this).find('input');
+      const iconDay = $(this).find('.mcs-icon');
+
+      if (inputDay.is(':checked')) {
+        iconDay.removeClass('grey-icon').show();
+      } else if (monthIsChecked || yearIsCheck) {
+        iconDay.addClass('grey-icon').show();
+      } else {
+        iconDay.removeClass('grey-icon').hide();
+      }
+    });
+  });
 }
 
 /**

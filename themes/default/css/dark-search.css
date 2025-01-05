@@ -112,26 +112,56 @@
 
 .filetypes-option:nth-child(odd),
 .added_by-option:nth-child(odd),
-.date_posted-option:nth-child(odd) label {
+.preset_posted_date .date_posted-option:nth-child(odd) label,
+.preset_posted_date .date_posted-option:nth-child(odd) i,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input label,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input i,
+.custom_posted_date .date_posted-option:nth-child(even) .month_input label,
+.custom_posted_date .date_posted-option:nth-child(even) .month_input i,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) label,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) i,
+.ratios-option:nth-child(odd),
+.ratings-option:nth-child(odd){
   background: #444;
 }
 
 .filetypes-option label .checked-icon,
 .added_by-option label .checked-icon,
-.date_posted-option label .checked-icon{
+.date_posted-option label .checked-icon,
+.ratios-option label .checked-icon,
+.ratings-option label .checked-icon{
   color: white;
 }
 
 .filetypes-option label .ext-badge,
 .added_by-option label .added_by-badge,
-.date_posted-option label .date_posted-badge {
+.date_posted-badge,
+.ratios-option label .ratio-badge,
+.ratings-option label .ratings-badge {
   background: #ff7700bb;
   color: white;
 }
 
+.ratios-option.disabled label .ratio-badge,
+.filetypes-option.disabled label .ext-badge,
+.ratings-option.disabled label .ratings-badge{
+  background-color: #888;
+}
+
+.ratios-option.disabled label .ratio-name,
+.filetypes-option.disabled label .ext-name,
+.date_posted-option.disabled label .date-period,
+.date_created-option.disabled label .date-period,
+.ratings-option.disabled label .ratings-name{
+  color:#888
+}
+
 .added_by-option input:checked + label,
 .filetypes-option input:checked + label,
-.date_posted-option input:checked + label {
+.date_posted-option .selected label,
+.date_posted-option .selected .accordion-toggle,
+.ratios-option input:checked + label,
+.ratings-option input:checked + label{
   background: rgba(244, 171, 79, 0.17);
 }
 
@@ -164,10 +194,6 @@
 
 .breadcrumb-item .icon-cancel-circled:hover {
   color: #ff7700bb;
-}
-
-.linkedAlbumPopIn {
-  background-color: rgba(0,0,0,0.7);
 }
 
 .linkedAlbumPopInContainer {
@@ -272,6 +298,10 @@
 .breadcrumb-item .link-path,
 .pwg-icon-cancel:before{
   color:black;
+}
+
+.and-more{
+  color: #777
 }
 
 @media (max-width: 600px) {

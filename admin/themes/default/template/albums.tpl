@@ -19,7 +19,14 @@ var x_nb_subcats = "{'%d sub-albums'|@translate}";
 var x_nb_images = "{'%d photos'|@translate}";
 var x_nb_sub_photos = "{'%d pictures in sub-albums'|@translate}";
 
+var str_albums_found = '{"<b>%d</b> albums found"|translate}';
+var str_album_found = '{"<b>1</b> album found"|translate}';
+var str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
+const str_albs_drag_drop = '{"Drag and drop to reorder albums"|translate}';
+
 var delay_autoOpen = {$delay_before_autoOpen}
+
+const categoriesforSearch = Object.values(data);
 {/footer_script}
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
@@ -54,6 +61,7 @@ const tiptip_locked_album = "{'Locked album'|translate|escape:javascript}";
 
 {combine_script id='jquery.tipTip' load='footer' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 
+{combine_script id='cat_search' load='footer' path='admin/themes/default/js/cat_search.js'}
 {combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
 
 <div class="cat-move-order-popin">
@@ -129,7 +137,19 @@ const tiptip_locked_album = "{'Locked album'|translate|escape:javascript}";
       <p>{'Automatic sort order'|@translate}</p>
     </label>
   </div>
-  <div class="cat-move-info icon-help-circled"> {'Drag and drop to reorder albums'|@translate}</div>
+  {* <div class="cat-move-info icon-help-circled"> {'Drag and drop to reorder albums'|@translate}</div> *}
+  <div class="cat-move-info search-album">
+    <div class="search-album-cont">
+      {* <div class="search-album-label">{'Search albums'|@translate}</div> *}
+      <span class="search-album-num-result"></span>
+      <div class="search-album-input-container" style="position:relative">
+        <span class="icon-search search-icon"></span>
+        <span class="icon-cancel search-cancel"></span>
+        <input id="cat_search_input" class='search-input' type="text" placeholder="{"Search"|@translate}">
+      </div>
+      <span class="search-album-help icon-help-circled" title="{'Enter a term to search for album'|@translate}"></span>
+    </div>
+  </div>
 </div>
 
 <div id="AddAlbum" class="AddAlbumPopIn">
@@ -246,6 +266,26 @@ const tiptip_locked_album = "{'Locked album'|translate|escape:javascript}";
 
 <div class='tree'> </div>
 
+<div class="album-search-result-container" style="display: none;">
+  <div class="search-album-result"></div>
+  <div class="search-album-elem limit-album-reached" style="display: none;"></div>
+
+  <div class="search-album-noresult">
+    {'No albums found'|translate}
+  </div>
+</div>
+
+<div class="search-album-elem-template" style="display:none">
+  <div class="search-album-elem" style="display:none">
+    <span class='search-album-icon'></span>
+    <p class='search-album-name'></p>
+    <div class="search-album-action-cont">
+      <div class="search-album-action">
+        <a class="icon-pencil search-album-edit">{'Edit album'|translate}</a>
+      </div>
+    </div>
+  </div>
+</div>
 <style>
 
 .animateFocus {
@@ -326,21 +366,6 @@ const tiptip_locked_album = "{'Locked album'|translate|escape:javascript}";
   width: auto;
   min-width: 270px;
   max-width: 700px;
-}
-
-.user-property-input {
-  width: 100%;
-  box-sizing:border-box;
-  font-size:1.1em;
-  padding:8px 16px;
-  border:none;
-}
-
-.user-property-label {
-  color:#A4A4A4;
-  font-weight:bold;
-  font-size:1.1em;
-  margin-bottom:5px;
 }
 
 .AddIconContainer, .DeleteIconContainer, .AddIconContainer {

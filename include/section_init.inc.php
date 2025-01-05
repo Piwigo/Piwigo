@@ -611,8 +611,16 @@ elseif ('recent_cats'==$page['section'])
 }
 elseif ('search'==$page['section'])
 {
-  $page['meta_robots']['nofollow']=1;
+  $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
+elseif ('categories' == $page['section'])
+{
+  if (isset($page['combined_categories']))
+  {
+    $page['meta_robots'] = array('noindex'=>1, 'nofollow'=>1);
+  }
+}
+
 if ( $filter['enabled'] )
 {
   $page['meta_robots']['noindex']=1;

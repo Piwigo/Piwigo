@@ -452,17 +452,22 @@ UPDATE '.USER_INFOS_TABLE.'
   if ('tags'==@$page['section'])
   {
     $tags_string = implode(',', $page['tag_ids']);
+
+    if (strlen($tags_string) > 50)
+    {
+      // we need to truncate, mysql won't accept a too long string
+      $tags_string = substr($tags_string, 0, 50);
+      // the last tag_id may have been truncated itself, so we must remove it
+      $tags_string = substr($tags_string, 0, strrpos($tags_string, ','));
+    }
   }
 
   $ip = $_SERVER['REMOTE_ADDR'];
-  // In case of "too long" ipv6 address, we take only the 15 first chars.
-  //
-  // It would be "cleaner" to increase length of history.IP to 50 chars, but
-  // the alter table is very long on such a big table. We should plan this
-  // for a future version, once history table is kept "smaller".
-  if (strpos($ip,':') !== false and strlen($ip) > 15)
+  // IPv6 should not be longer than 39 chars, and that is the maximum length of
+  // the column in the database, but in case it would be longer, let's truncate it.
+  if (strlen($ip) > 39)
   {
-    $ip = substr($ip, 0, 15);
+    $ip = substr($ip, 0, 39);
   }
 
   // If plugin developers add their own sections, Piwigo will automatically add it in the history.section enum column
@@ -596,6 +601,23 @@ function pwg_activity($object, $object_id, $action, $details=array())
   if ('user' == $object and 'login' == $action and isset($_SERVER['HTTP_USER_AGENT']))
   {
     $user_agent = strip_tags($_SERVER['HTTP_USER_AGENT']);
+  }
+
+  // we want to know if the login is automatic with remember_me (auto_login)
+  // or with an authentication key provided in the URL (auth_key_login)
+  if ('user' == $object and 'login' == $action)
+  {
+    if (function_exists('debug_backtrace'))
+    {
+      $called_functions = array_flip(array_column(debug_backtrace(), 'function'));
+      foreach (array('auto_login', 'auth_key_login') as $auth_function)
+      {
+        if (isset($called_functions[$auth_function]))
+        {
+          $details['auth_function'] = $auth_function;
+        }
+      }
+    }
   }
 
   if ('photo' == $object and 'add' == $action and !isset($details['sync']))
@@ -1419,6 +1441,29 @@ SELECT param, value
   }
 
   trigger_notify('load_conf', $condition);
+}
+
+/**
+ * Is the config table currentable writeable?
+ *
+ * @since 14
+ *
+ * @return boolean
+ */
+function pwg_is_dbconf_writeable()
+{
+  list($param, $value) = array('pwg_is_dbconf_writeable_'.generate_key(12), date('c').' '.generate_key(20));
+
+  conf_update_param($param, $value);
+  list($dbvalue) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.CONFIG_TABLE.' WHERE param = \''.$param.'\''));
+
+  if ($dbvalue != $value)
+  {
+    return false;
+  }
+
+  conf_delete_param($param);
+  return true;
 }
 
 /**
@@ -2379,6 +2424,466 @@ SELECT
       empty_lounge();
     }
   }
+}
+
+/**
+ * Piwigo *anonymously* sends technical data and general statistics, such as number
+ * of photos or list of plugins used. It helps piwigo.org to know better how Piwigo
+ * is used. This way developers can focus on features that matter most.
+ *
+ * @since 15
+ */
+function send_piwigo_infos()
+{
+  global $logger, $conf;
+
+  $start_time = get_moment();
+
+  if (!$conf['send_piwigo_infos'])
+  {
+    return;
+  }
+
+  $do_send = false;
+  if (isset($conf['send_piwigo_infos_last_notice']))
+  {
+    if (strtotime($conf['send_piwigo_infos_last_notice']) < strtotime(conf_get_param('send_piwigo_infos_period', 7*24*60*60).' second ago'))
+    {
+      $do_send = true;
+    }
+  }
+  else
+  {
+    $do_send = true;
+  }
+
+  if (!$do_send)
+  {
+    return;
+  }
+
+  if (!pwg_is_dbconf_writeable())
+  {
+    return;
+  }
+
+  $exec_id = pwg_unique_exec_begins('send_piwigo_infos');
+  if (false === $exec_id)
+  {
+    return;
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  list($db_current_date) = pwg_db_fetch_row(pwg_query('SELECT now();'));
+
+  if (!isset($conf['send_piwigo_infos_origin_hash']))
+  {
+    conf_update_param('send_piwigo_infos_origin_hash', sha1(random_bytes(1000)), true);
+  }
+
+  $piwigo_infos = array(
+    'origin_hash' => $conf['send_piwigo_infos_origin_hash'],
+    'technical' => array(
+      'php_version' => PHP_VERSION,
+      'piwigo_version' => PHPWG_VERSION,
+      'os_version' => PHP_OS,
+      'db_version' => pwg_get_db_version(),
+      'php_datetime' => date("Y-m-d H:i:s"),
+      'db_datetime' => $db_current_date,
+      'graphics_library' => get_graphics_library(),
+    ),
+    'general_stats' => get_pwg_general_statitics(),
+  );
+
+  // convert disk_usage from kB to mB
+  $piwigo_infos['general_stats']['disk_usage'] = intval($piwigo_infos['general_stats']['disk_usage'] / 1024);
+
+  $piwigo_infos['general_stats']['installed_on'] = get_installation_date();
+  $piwigo_infos['general_stats']['nb_photos_synced'] = 0;
+  $piwigo_infos['general_stats']['last_photo_synced'] = null;
+  $piwigo_infos['general_stats']['last_photo'] = null;
+
+  if ($piwigo_infos['general_stats']['nb_photos'] > 0)
+  {
+    $query = '
+SELECT
+    COUNT(*) AS counter
+  FROM `'.IMAGES_TABLE.'`
+  WHERE storage_category_id IS NOT NULL
+;';
+    if (query2array($query, null, 'counter')[0] > 0)
+    {
+      // slow SQL query, but necessary if you have files added by sync
+      $query = '
+SELECT
+    IF(storage_category_id IS NULL, \'api\', \'sync\') AS add_method,
+    MAX(date_available) AS last_added_on,
+    COUNT(*) AS nb_files
+  FROM `'.IMAGES_TABLE.'`
+  GROUP BY add_method
+;';
+      $files_added_by = query2array($query, 'add_method');
+
+      $piwigo_infos['general_stats']['nb_photos_synced'] = $files_added_by['sync']['nb_files'];
+      $piwigo_infos['general_stats']['last_photo_synced'] = $files_added_by['sync']['last_added_on'];
+
+      $method_of_last_photo = 'sync';
+      if (isset($files_added_by['api']) and strtotime($files_added_by['api']['last_added_on']) > strtotime($files_added_by['sync']['last_added_on']))
+      {
+        $method_of_last_photo = 'api';
+      }
+      $piwigo_infos['general_stats']['last_photo'] = $files_added_by[$method_of_last_photo]['last_added_on'];
+    }
+    else
+    {
+      // much faster SQL query, but valid only if you do not use sync to add photos
+      $query = '
+SELECT
+    date_available
+  FROM `'.IMAGES_TABLE.'`
+  ORDER BY id DESC
+  LIMIT 1
+;';
+      $images = query2array($query);
+      if (count($images) > 0)
+      {
+        $piwigo_infos['general_stats']['last_photo'] = $images[0]['date_available'];
+      }
+    }
+
+    $query = '
+SELECT
+    SUBSTRING_INDEX(path,".",-1) AS ext,
+    COUNT(*) AS counter,
+    SUM(filesize) AS filesize
+  FROM `'.IMAGES_TABLE.'`
+  GROUP BY ext
+;';
+    $piwigo_infos['file_extensions'] = query2array($query, 'ext');
+  }
+
+  // $conf['pem_plugins_category'] = 12;
+  // $conf['pem_themes_category'] = 10;
+  $url = PEM_URL . '/api/get_extension_list.php';
+  if (fetchRemote($url, $result) and $pem_extensions = @unserialize($result))
+  {
+    $official_exts = array();
+    foreach ($pem_extensions as $eid => $ext)
+    {
+      if (!empty($ext['archive_root_dir']))
+      {
+        @$official_exts[ $ext['idx_category'] ][ $ext['archive_root_dir'] ] = $eid;
+      }
+    }
+  }
+  else
+  {
+    $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote on '.$url.' has failed');
+    send_piwigo_infos_retry_later(1*60*60); // 1 hour later
+    pwg_unique_exec_ends('send_piwigo_infos');
+    $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
+    return;
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+  $plugins = new plugins();
+  $piwigo_infos['general_stats']['nb_private_plugins'] = 0;
+  $piwigo_infos['plugins'] = array();
+  foreach ($plugins->db_plugins_by_id as $plugin)
+  {
+    if ('active' == $plugin['state'])
+    {
+      $eid = null;
+      if (isset($plugins->fs_plugins[ $plugin['id'] ]))
+      {
+        $uri = $plugins->fs_plugins[ $plugin['id'] ]['uri'];
+        if (preg_match('/eid=(\d+)/', $uri, $matches))
+        {
+          if (isset($pem_extensions[ $matches[1] ]))
+          {
+            $eid = $matches[1];
+          }
+        }
+      }
+
+      if (empty($eid))
+      {
+        // let's search in the data fetched from PEM
+        $eid = $official_exts[ $conf['pem_plugins_category'] ][ $plugin['id'] ] ?? null;
+      }
+
+      // we must exclude "private extensions". A private extension :
+      //
+      // * has no eid
+      // * OR has un unknown plugin_id among all "Archive root directory" in PEM
+      if (empty($eid))
+      {
+        $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] '.$plugin['id'].' is a private plugin, not sent to piwigo.org');
+        $piwigo_infos['general_stats']['nb_private_plugins']++;
+        continue;
+      }
+
+      $codename = $pem_extensions[$eid]['archive_root_dir'] ?? $plugin['id'];
+
+      $piwigo_infos['plugins'][] = (empty($eid) ? 'null' : '#'.$eid).'/'.$codename.'/'.$plugin['version'];
+    }
+  }
+
+  $piwigo_infos['general_stats']['nb_plugins'] = $piwigo_infos['general_stats']['nb_private_plugins'] + count($piwigo_infos['plugins']);
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
+  $themes = new themes();
+  $piwigo_infos['general_stats']['nb_private_themes'] = 0;
+  $piwigo_infos['themes'] = array();
+  $private_themes = array();
+  foreach ($themes->db_themes_by_id as $theme)
+  {
+    $theme['state'] = 'active';
+    if ('active' == $theme['state'])
+    {
+      $eid = null;
+      if (isset($themes->fs_themes[ $theme['id'] ]))
+      {
+        $uri = $themes->fs_themes[ $theme['id'] ]['uri'];
+        if (preg_match('/eid=(\d+)/', $uri, $matches))
+        {
+          if (isset($pem_extensions[ $matches[1] ]))
+          {
+            $eid = $matches[1];
+          }
+        }
+      }
+
+      if (empty($eid))
+      {
+        // let's search in the data fetched from PEM
+        $eid = $official_exts[ $conf['pem_themes_category'] ][ $theme['id'] ] ?? null;
+      }
+
+      // we must exclude "private extensions". A private extension :
+      //
+      // * has no eid
+      // * OR has un unknown theme_id among all "Archive root directory" in PEM
+      if (empty($eid))
+      {
+        $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] '.$theme['id'].' is a private theme, not sent to piwigo.org');
+        $private_themes[ $theme['id'] ] = 1;
+        continue;
+      }
+
+      $codename = $pem_extensions[$eid]['archive_root_dir'] ?? $theme['id'];
+
+      $piwigo_infos['themes'][] = (empty($eid) ? 'null' : '#'.$eid).'/'.$codename.'/'.$theme['version'];
+    }
+  }
+
+  $piwigo_infos['general_stats']['nb_private_themes'] = count(array_keys($private_themes));
+  $piwigo_infos['general_stats']['nb_themes'] = $piwigo_infos['general_stats']['nb_private_themes'] + count($piwigo_infos['themes']);
+
+  $default_theme = get_default_theme();
+  if (isset($private_themes[$default_theme]))
+  {
+    $default_theme = 'private theme';
+  }
+  $piwigo_infos['general_stats']['default_theme'] = $default_theme;
+
+  $piwigo_infos['themes_usage'] = array();
+  $query = '
+SELECT
+    theme,
+    COUNT(*) AS theme_counter
+  FROM '.USER_INFOS_TABLE.'
+  GROUP BY theme
+  ORDER BY theme
+;';
+  $themes_used = query2array($query, 'theme', 'theme_counter');
+  foreach ($themes_used as $theme_used => $counter)
+  {
+    if (isset($private_themes[$theme_used]))
+    {
+      $theme_used = 'private theme';
+    }
+
+    @$piwigo_infos['themes_usage'][$theme_used] += $counter;
+  }
+
+  $piwigo_infos['general_stats']['default_language'] = get_default_language();
+
+  $query = '
+SELECT
+    language,
+    COUNT(*) AS language_counter
+  FROM '.USER_INFOS_TABLE.'
+  GROUP BY language
+  ORDER BY language
+;';
+  $piwigo_infos['languages_usage'] = query2array($query, 'language', 'language_counter');
+
+  $piwigo_infos['activities'] = array();
+  $piwigo_infos['general_stats']['nb_activities'] = 0;
+
+  $query = '
+SELECT
+    object,
+    action,
+    COUNT(*) AS counter
+  FROM '.ACTIVITY_TABLE.'
+  WHERE object != \'system\'
+  GROUP BY object, action
+;';
+  $activities = query2array($query);
+  foreach ($activities as $activity)
+  {
+    $piwigo_infos['general_stats']['nb_activities'] += $activity['counter'];
+    @$piwigo_infos['activities'][ $activity['object'] ][ $activity['action'] ] = $activity['counter'];
+  }
+
+  $label_for_system_object_id = array(
+    1 => 'core',
+    2 => 'plugin',
+    3 => 'theme',
+  );
+
+  $query = '
+SELECT
+    object,
+    object_id,
+    action,
+    COUNT(*) AS counter
+  FROM '.ACTIVITY_TABLE.'
+  WHERE object = \'system\'
+  GROUP BY object, object_id, action
+;';
+  $activities = query2array($query);
+  foreach ($activities as $activity)
+  {
+    @$piwigo_infos['activities'][ $activity['object'] ][ $label_for_system_object_id[ $activity['object_id'] ] ?? 'undefined' ][ $activity['action'] ] = $activity['counter'];
+  }
+
+  $query = '
+SELECT
+    action,
+    occured_on,
+    details
+  FROM '.ACTIVITY_TABLE.'
+  WHERE object = \'system\'
+    AND object_id = '.ACTIVITY_SYSTEM_CORE.'
+    AND action IN (\'update\', \'autoupdate\')
+  ORDER BY activity_id ASC
+;';
+  $updates = query2array($query);
+  foreach ($updates as $update)
+  {
+    $details = safe_unserialize($update['details']);
+    if (isset($details['from_version']) and isset($details['to_version']))
+    {
+      @$piwigo_infos['updates'][] = array(
+        'action' => $update['action'],
+        'occured_on' => $update['occured_on'],
+        'from_version' => $details['from_version'],
+        'to_version' => $details['to_version'],
+      );
+    }
+  }
+
+  $watermark = ImageStdParams::get_watermark();
+
+  $piwigo_infos['features'] = array(
+    'use_watermark' => !empty($watermark->file) ? 'yes' : 'no',
+  );
+
+  $features = array(
+    'activate_comments',
+    'rate',
+    'log',
+    'history_guest',
+    'history_admin',
+  );
+
+  foreach ($features as $feature)
+  {
+    $piwigo_infos['features'][$feature] = $conf[$feature] ? 'yes' : 'no';
+  }
+
+  $url = conf_get_param('send_piwigo_infos_update_url', PHPWG_URL).'/ws.php';
+
+  $get_data = array(
+    'format' => 'php',
+    'method' => 'porg.installs.update',
+    'origin_hash' => $piwigo_infos['origin_hash'],
+    );
+
+  $post_data = array(
+    'data' => json_encode($piwigo_infos)
+    );
+
+  if (!fetchRemote($url, $result, $get_data, $post_data))
+  {
+    $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote on '.$url.' method=porg.installs.update has failed');
+    send_piwigo_infos_retry_later(24*60*60);
+  }
+  else
+  {
+    conf_update_param('send_piwigo_infos_last_notice', date('c'));
+  }
+
+  pwg_unique_exec_ends('send_piwigo_infos');
+  $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
+}
+
+function send_piwigo_infos_retry_later($wait_time)
+{
+  global $conf;
+
+  // let's fake a last_notice so that we only try 1 day later
+  $last_notice = isset($conf['send_piwigo_infos_last_notice']) ? strtotime($conf['send_piwigo_infos_last_notice']) : time();
+  $last_notice += $wait_time;
+
+  conf_update_param('send_piwigo_infos_last_notice', date('c', $last_notice));
+}
+
+function pwg_unique_exec_begins($token_name, $timeout=60)
+{
+  global $conf, $logger;
+
+  $exec_id = substr(sha1(random_bytes(1000)), 0, 8);
+  $logger->info('['.$token_name.'][exec='.$exec_id.'] starts now');
+
+  if (isset($conf[$token_name.'_running']))
+  {
+    list($running_exec_id, $running_exec_start_time) = explode('-', $conf[$token_name.'_running']);
+    if (time() - $running_exec_start_time > $timeout)
+    {
+      $logger->info('['.$token_name.'][exec='.$exec_id.'] exec='.$running_exec_id.', timeout stopped by another call to the function');
+      pwg_unique_exec_ends($token_name);
+    }
+  }
+
+  $query = '
+INSERT IGNORE
+  INTO '.CONFIG_TABLE.'
+  SET param="'.$token_name.'_running"
+    , value="'.$exec_id.'-'.time().'"
+;';
+  pwg_query($query);
+
+  list($running_exec) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.CONFIG_TABLE.' WHERE param = "'.$token_name.'_running"'));
+  list($running_exec_id,) = explode('-', $running_exec);
+
+  if ($running_exec_id != $exec_id)
+  {
+    $logger->info('['.$token_name.'][exec='.$exec_id.'] skip');
+    return false;
+  }
+  $logger->info('['.$token_name.'][exec='.$exec_id.'] wins the race and gets the token!');
+
+  return $exec_id;
+}
+
+function pwg_unique_exec_ends($token_name)
+{
+  conf_delete_param($token_name.'_running');
 }
 
 ?>

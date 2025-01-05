@@ -125,7 +125,7 @@ function clean_iptc_value($value)
  */
 function get_exif_data($filename, $map)
 {
-  global $conf;
+  global $conf, $logger;
   
   $result = array();
 
@@ -175,8 +175,18 @@ function get_exif_data($filename, $map)
         is_array($gps_exif['GPSLongitude']) and in_array($gps_exif['GPSLongitudeRef'], array('W', 'E'))
         )
       {
-        $result['latitude'] = parse_exif_gps_data($gps_exif['GPSLatitude'], $gps_exif['GPSLatitudeRef']);
-        $result['longitude'] = parse_exif_gps_data($gps_exif['GPSLongitude'], $gps_exif['GPSLongitudeRef']);
+        $latitude = parse_exif_gps_data($gps_exif['GPSLatitude'], $gps_exif['GPSLatitudeRef']);
+        $longitude = parse_exif_gps_data($gps_exif['GPSLongitude'], $gps_exif['GPSLongitudeRef']);
+
+        if ($latitude >= -90.0  &&  $latitude <= 90.0  &&  $longitude >= -180.0  &&  $longitude <= 180.0)
+        {
+          $result['latitude'] = $latitude;
+          $result['longitude'] = $longitude;
+        }
+        else
+        {
+          $logger->info('['.__FUNCTION__.'][filename='.$filename.'] invalid GPS coordinates, latitude='.$latitude.' longitude='.$longitude);
+        }
       }
     }
   }
@@ -187,13 +197,24 @@ function get_exif_data($filename, $map)
     {
       // in case the origin of the photo is unsecure (user upload), we remove
       // HTML tags to avoid XSS (malicious execution of javascript)
-      $result[$key] = strip_tags($value);
+      if (is_array($value))
+      {
+        array_walk_recursive($value, 'strip_html_in_metadata');
+      }
+      else
+      {
+        $result[$key] = strip_tags($value);
+      }
     }
   }
 
   return $result;
 }
 
+function strip_html_in_metadata(&$v, $k)
+{
+  $v = strip_tags($v);
+}
 
 /**
  * Converts EXIF GPS format to a float value.

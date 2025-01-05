@@ -25,6 +25,8 @@ list($albums_counter) = pwg_db_fetch_row(pwg_query($query));
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+check_input_parameter('parent_id', $_GET, false, PATTERN_ID);
+
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
 // +-----------------------------------------------------------------------+
@@ -36,7 +38,7 @@ include(PHPWG_ROOT_PATH.'admin/include/albums_tab.inc.php');
 // |                         categories auto order                         |
 // +-----------------------------------------------------------------------+
 
-$open_cat = -1;
+$open_cat = $_GET['parent_id'] ?? -1;
 
 $sort_orders = array(
   'name ASC',
@@ -202,6 +204,7 @@ function assocToOrderedTree($assocT)
     $orderedCat['status'] = $cat['cat']['status'];
     $orderedCat['id'] = $cat['cat']['id'];
     $orderedCat['visible'] = $cat['cat']['visible'];
+    $orderedCat['uppercats'] = $cat['cat']['uppercats'];
     $orderedCat['nb_images'] = isset($nb_photos_in[$cat['cat']['id']]) ? $nb_photos_in[$cat['cat']['id']] : 0;
     $orderedCat['last_updates'] = $cat['cat']['lastmodified'];
     $orderedCat['has_not_access'] = isset($is_forbidden[$cat['cat']['id']]);

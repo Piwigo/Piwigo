@@ -124,16 +124,6 @@ add_event_handler('render_element_content', 'default_picture_content');
 // add default event handler for rendering element description
 add_event_handler('render_element_description', 'pwg_nl2br');
 
-/**
- * pwg_nl2br is useful for PHP 5.2 which doesn't accept more than 1
- * parameter on nl2br() (and anyway the second parameter of nl2br does not
- * match what Piwigo gives.
- */
-function pwg_nl2br($string)
-{
-  return nl2br($string);
-}
-
 trigger_notify('loc_begin_picture');
 
 // this is the default handler that generates the display for the element
@@ -646,7 +636,7 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
       );
   }
 }
-if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']))
+if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']) and $user['enabled_high']=='true')
 {
   $template->append('current', array('U_DOWNLOAD' => $picture['current']['download_url']), true);
 
@@ -969,6 +959,15 @@ SELECT id, name, permalink
     }
     $template->append('related_categories', get_cat_display_name($cats) );
   }
+}
+
+if (in_array(strtolower(get_extension($picture['current']['file'])), array('pdf'))) {
+  $template->assign(
+    array(
+      'PDF_VIEWER_FILESIZE_THRESHOLD' => $conf['pdf_viewer_filesize_threshold']*1024,
+      'PDF_NB_PAGES' => count_pdf_pages($picture['current']['path'])
+    )
+  );
 }
 
 // maybe someone wants a special display (call it before page_header so that

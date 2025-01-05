@@ -141,4 +141,6 @@ themes/default/vendor/fontello/font/fontello.svg
 themes/default/vendor/fontello/font/fontello.ttf
 themes/default/vendor/fontello/font/fontello.woff
 themes/default/vendor/fontello/font/fontello.woff2
+admin/cat_search.php
+admin/themes/default/template/cat_search.tpl
 obsolete.list

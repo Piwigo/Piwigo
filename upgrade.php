@@ -368,6 +368,10 @@ SELECT id
   {
     $current_release = '13.0.0';
   }
+  else if (!in_array(174, $applied_upgrades))
+  {
+    $current_release = '14.0.0';
+  }
   else
   {
     // confirm that the database is in the same version as source code files
@@ -495,6 +499,11 @@ REPLACE INTO '.PLUGINS_TABLE.'
     }
 
     // Delete cache data
+    include(PHPWG_ROOT_PATH . 'include/cache.class.php');
+
+    // invalidate_user_cache will purge persistent_cache so it needs to be instantiated first
+    $persistent_cache = new PersistentFileCache();
+
     invalidate_user_cache(true);
     $template->delete_compiled_templates();
 

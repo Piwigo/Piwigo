@@ -59,6 +59,7 @@ const str_search_details = {
     "added_by": "{'Added by'|@translate}",
     "filetypes": "{'File type'|@translate}",
 };
+const str_and_more = "{'and %d more'|@translate}"
 
 const guest_id = {$guest_id};
 {/footer_script}

@@ -93,50 +93,39 @@ function get_search_array($search_id)
 }
 
 /**
- * Returns the SQL clause for a search.
- * Transforms the array returned by get_search_array() into SQL sub-query.
+ * Returns the list of items corresponding to the advanced search array.
  *
  * @param array $search
- * @return string
+ * @param string $images_where optional additional restriction on images table
+ * @return array
  */
-function get_sql_search_clause($search)
+function get_regular_search_results($search, $images_where='')
 {
-  // SQL where clauses are stored in $clauses array during query
-  // construction
-  $clauses = array();
+  global $conf, $logger;
 
-  foreach (array('file','name','comment','author') as $textfield)
-  {
-    if (isset($search['fields'][$textfield]))
-    {
-      $local_clauses = array();
-      foreach ($search['fields'][$textfield]['words'] as $word)
-      {
-        if ('author' == $textfield)
-        {
-          $local_clauses[] = $textfield."='".$word."'";
-        }
-        else
-        {
-          $local_clauses[] = $textfield." LIKE '%".$word."%'";
-        }
-      }
+  $logger->debug(__FUNCTION__, 'search', $search);
 
-      if (count($local_clauses) > 0)
-      {
-        // adds brackets around where clauses
-        $local_clauses = prepend_append_array_items($local_clauses, '(', ')');
+  $has_filters_filled = false;
 
-        $clauses[] = implode(
-          ' '.$search['fields'][$textfield]['mode'].' ',
-          $local_clauses
-        );
-      }
-    }
-  }
+  $forbidden = get_sql_condition_FandF(
+        array
+          (
+            'forbidden_categories' => 'category_id',
+            'visible_categories' => 'category_id',
+            'visible_images' => 'id'
+          ),
+        "\n  AND"
+    );
 
+  $image_ids_for_filter = array();
+
+  //
+  // allwords
+  //
   if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0)
   {
+    $has_filters_filled = true;
+
     // 1) we search in regular fields (ie, the ones in the piwigo_images table)
     $fields = array('file', 'name', 'comment', 'author');
 
@@ -151,7 +140,7 @@ function get_sql_search_clause($search)
     );
     $cat_fields = array_intersect(array_keys($cat_fields_dictionnary), $search['fields']['allwords']['fields']);
 
-    // in the OR mode, request bust be :
+    // in the OR mode, request must be :
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
     // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
     //
@@ -188,12 +177,21 @@ SELECT
 ;';
         $cat_ids = query2array($query, null, 'id');
         $cat_ids_by_word[$word] = $cat_ids;
-        if (count($cat_ids) == 0)
+        if (count($cat_ids) > 0)
         {
-          $cat_ids = array(-1);
-        }
+          $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',', $cat_ids).')
+;';
+          $cat_image_ids = query2array($query, null, 'image_id');
 
-        $field_clauses[] = 'category_id IN ('.implode(',', $cat_ids).')';
+          if (count($cat_image_ids) > 0)
+          {
+            $field_clauses[] = 'id IN ('.implode(',', $cat_image_ids).')';
+          }
+        }
       }
 
       // search_in_tags
@@ -207,12 +205,21 @@ SELECT
 ;';
         $tag_ids = query2array($query, null, 'id');
         $tag_ids_by_word[$word] = $tag_ids;
-        if (count($tag_ids) == 0)
+        if (count($tag_ids) > 0)
         {
-          $tag_ids = array(-1);
-        }
+          $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',', $tag_ids).')
+;';
+          $tag_image_ids = query2array($query, null, 'image_id');
 
-        $field_clauses[] = 'tag_id IN ('.implode(',', $tag_ids).')';
+          if (count($tag_image_ids) > 0)
+          {
+            $field_clauses[] = 'id IN ('.implode(',', $tag_image_ids).')';
+          }
+        }
       }
 
       if (count($field_clauses) > 0)
@@ -239,10 +246,20 @@ SELECT
       $search['fields']['allwords']['mode'] = 'AND';
     }
 
-    $clauses[] = "\n         ".implode(
+    $filter_clause = "\n         ".implode(
       "\n         ". $search['fields']['allwords']['mode']. "\n         ",
       $word_clauses
     );
+
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE '.$filter_clause.'
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['allwords'] = query2array($query, null, 'id');
 
     if (count($cat_ids_by_word) > 0)
     {
@@ -256,21 +273,11 @@ SELECT
         }
         else
         {
-          if ('OR' == $search['fields']['allwords']['mode'])
-          {
-            $matching_cat_ids = array_merge($matching_cat_ids, $cat_ids);
-          }
-          else
-          {
-            $matching_cat_ids = array_intersect($matching_cat_ids, $cat_ids);
-          }
+          $matching_cat_ids = array_merge($matching_cat_ids, $cat_ids);
         }
       }
 
-      if ('OR' == $search['fields']['allwords']['mode'])
-      {
-        $matching_cat_ids = array_unique($matching_cat_ids);
-      }
+      $matching_cat_ids = array_unique($matching_cat_ids);
     }
 
     if (count($tag_ids_by_word) > 0)
@@ -285,84 +292,87 @@ SELECT
         }
         else
         {
-          if ('OR' == $search['fields']['allwords']['mode'])
-          {
-            $matching_tag_ids = array_merge($matching_tag_ids, $tag_ids);
-          }
-          else
-          {
-            $matching_tag_ids = array_intersect($matching_tag_ids, $tag_ids);
-          }
+          $matching_tag_ids = array_merge($matching_tag_ids, $tag_ids);
         }
       }
 
-      if ('OR' == $search['fields']['allwords']['mode'])
-      {
-        $matching_tag_ids = array_unique($matching_tag_ids);
-      }
+      $matching_tag_ids = array_unique($matching_tag_ids);
     }
   }
 
-  foreach (array('date_available', 'date_creation') as $datefield)
+  //
+  // author
+  //
+  if (isset($search['fields']['author']) and count($search['fields']['author']['words']) > 0)
   {
-    if (isset($search['fields'][$datefield]))
+    $has_filters_filled = true;
+
+    $author_clauses = array();
+    foreach ($search['fields']['author']['words'] as $word)
     {
-      $clauses[] = $datefield." = '".$search['fields'][$datefield]['date']."'";
+      $author_clauses[] = "author = '".$word."'";
     }
 
-    foreach (array('after','before') as $suffix)
-    {
-      $key = $datefield.'-'.$suffix;
-
-      if (isset($search['fields'][$key]))
-      {
-        $clauses[] = $datefield.
-          ($suffix == 'after'             ? ' >' : ' <').
-          ($search['fields'][$key]['inc'] ? '='  : '').
-          " '".$search['fields'][$key]['date']."'";
-      }
-    }
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE ('.implode(' OR ', $author_clauses).')
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['author'] = query2array($query, null, 'id');
   }
 
-  if (!empty($search['fields']['date_posted']))
-  {
-    $options = array(
-      '24h' => '24 HOUR',
-      '7d' => '7 DAY',
-      '30d' => '30 DAY',
-      '3m' => '3 MONTH',
-      '6m' => '6 MONTH',
-      '1y' => '1 YEAR',
-    );
-
-    if (isset($options[ $search['fields']['date_posted'] ]))
-    {
-      $clauses[] = 'date_available > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_posted'] ].')';
-    }
-    elseif (preg_match('/^y(\d+)$/', $search['fields']['date_posted'], $matches))
-    {
-      // that is for y2023 = all photos posted in 2022
-      $clauses[] = 'YEAR(date_available) = '.$matches[1];
-    }
-  }
-
+  //
+  // filetypes
+  //
   if (!empty($search['fields']['filetypes']))
   {
+    $has_filters_filled = true;
+
     $filetypes_clauses = array();
     foreach ($search['fields']['filetypes'] as $ext)
     {
       $filetypes_clauses[] = 'path LIKE \'%.'.$ext.'\'';
     }
-    $clauses[] = implode(' OR ', $filetypes_clauses);
+
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE ('.implode(' OR ', $filetypes_clauses).')
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['filetypes'] = query2array($query, null, 'id');
   }
 
+  //
+  // added_by
+  //
   if (!empty($search['fields']['added_by']))
   {
-    $clauses[] = 'added_by IN ('.implode(',', $search['fields']['added_by']).')';
+    $has_filters_filled = true;
+
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE added_by IN ('.implode(',', $search['fields']['added_by']).')
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['added_by'] = query2array($query, null, 'id');
   }
 
+  //
+  // cat
+  //
   if (isset($search['fields']['cat']) and !empty($search['fields']['cat']['words']))
   {
+    $has_filters_filled = true;
+
     if ($search['fields']['cat']['sub_inc'])
     {
       // searching all the categories id of sub-categories
@@ -370,134 +380,448 @@ SELECT
     }
     else
     {
+      // TODO we take the list of cat_ids "as is", we should check they still
+      // exist and are browseable to the user
       $cat_ids = $search['fields']['cat']['words'];
     }
 
-    $local_clause = 'category_id IN ('.implode(',', $cat_ids).')';
-    $clauses[] = $local_clause;
+    // in case the album would no longer exists, we consider the filter on album no longer active
+    if (!empty($cat_ids))
+    {
+      $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE category_id IN ('.implode(',', $cat_ids).')
+  '.$forbidden.'
+;';
+      $image_ids_for_filter['cat'] = query2array($query, null, 'id');
+    }
   }
 
-  // adds brackets around where clauses
-  $clauses = prepend_append_array_items($clauses, '(', ')');
+  //
+  // date_posted
+  //
+  if (!empty($search['fields']['date_posted']['preset']))
+  {
 
-  $where_separator =
-    implode(
-      "\n    ".$search['mode'].' ',
-      $clauses
-      );
+    $has_filters_filled = true;
 
-  $search_clause = $where_separator;
-
-  return array(
-    $search_clause,
-    isset($matching_cat_ids) ? array_values($matching_cat_ids) : null,
-    isset($matching_tag_ids) ? array_values($matching_tag_ids) : null
-  );
-}
-
-/**
- * Returns the list of items corresponding to the advanced search array.
- *
- * @param array $search
- * @param string $images_where optional additional restriction on images table
- * @return array
- */
-function get_regular_search_results($search, $images_where='')
-{
-  global $conf, $logger;
-
-  $logger->debug(__FUNCTION__, 'search', $search);
-
-  $has_filters_filled = false;
-
-  $forbidden = get_sql_condition_FandF(
-        array
-          (
-            'forbidden_categories' => 'category_id',
-            'visible_categories' => 'category_id',
-            'visible_images' => 'id'
-          ),
-        "\n  AND"
+    $options = array(
+      '24h' => '24 HOUR',
+      '7d' => '7 DAY',
+      '30d' => '30 DAY',
+      '3m' => '3 MONTH',
+      '6m' => '6 MONTH',
     );
 
-  $items = array();
-  $tag_items = array();
-
-  if (isset($search['fields']['tags']))
-  {
-    if (!empty($search['fields']['tags']['words']))
+    if (isset($options[ $search['fields']['date_posted']['preset'] ]) and 'custom' != $search['fields']['date_posted']['preset'])
     {
-      $has_filters_filled = true;
+      $date_posted_clause = 'date_available > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_posted']['preset'] ].')';
+    }
+    elseif ('custom' == $search['fields']['date_posted']['preset'] and isset($search['fields']['date_posted']['custom']))
+    {
+      $date_posted_subclauses = array();
+      $custom_dates = array_flip($search['fields']['date_posted']['custom']);
+
+      foreach (array_keys($custom_dates) as $custom_date)
+      {
+        // in real-life tests, we have determined "where year(date_available) = 2024" was
+        // far less (4 times less) than "where date_available between '2024-01-01 00:00:00' and '2024-12-31 23:59:59'"
+        // so let's find the begin/end for each custom date
+        // ... and also, no need to search for images of 2023-10-16 if 2023-10 is already requested
+        $begin = $end = null;
+
+        $ymd = substr($custom_date, 0, 1);
+        if ('y' == $ymd)
+        {
+          $year = substr($custom_date, 1);
+          $begin = $year.'-01-01 00:00:00';
+          $end = $year.'-12-31 23:59:59';
+        }
+        elseif ('m' == $ymd)
+        {
+          list($year, $month) = explode('-', substr($custom_date, 1));
+
+          if (!isset($custom_dates['y'.$year]))
+          {
+            $begin = $year.'-'.$month.'-01 00:00:00';
+            $end = $year.'-'.$month.'-'.cal_days_in_month(CAL_GREGORIAN, (int)$month, (int)$year).' 23:59:59';
+          }
+        }
+        elseif ('d' == $ymd)
+        {
+          list($year, $month, $day) = explode('-', substr($custom_date, 1));
+
+          if (!isset($custom_dates['y'.$year]) and !isset($custom_dates['m'.$year.'-'.$month]))
+          {
+            $begin = $year.'-'.$month.'-'.$day.' 00:00:00';
+            $end = $year.'-'.$month.'-'.$day.' 23:59:59';
+          }
+        }
+
+        if (!empty($begin))
+        {
+          $date_posted_subclauses[] = 'date_available BETWEEN "'.$begin.'" AND "'.$end.'"';
+        }
+      }
+
+      $date_posted_clause = '('.implode(' OR ', prepend_append_array_items($date_posted_subclauses, '(', ')')).')';
     }
 
-    $tag_items = get_image_ids_for_tags(
-      $search['fields']['tags']['words'],
-      $search['fields']['tags']['mode']
-      );
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE '.$date_posted_clause.'
+  '.$forbidden.'
+;';
 
-    $logger->debug(__FUNCTION__.' '.count($tag_items).' items in $tag_items');
+    $image_ids_for_filter['date_posted'] = query2array($query, null, 'id');
   }
 
-  list($search_clause, $matching_cat_ids, $matching_tag_ids) = get_sql_search_clause($search);
+  //
+  // date_created
+  //
+  if (!empty($search['fields']['date_created']['preset']))
+  {
 
-  if (!empty($search_clause))
+    $has_filters_filled = true;
+
+    $options = array(
+      '7d' => '7 DAY',
+      '30d' => '30 DAY',
+      '3m' => '3 MONTH',
+      '6m' => '6 MONTH',
+      '12m' => '12 MONTH',
+    );
+
+    if (isset($options[ $search['fields']['date_created']['preset'] ]) and 'custom' != $search['fields']['date_created']['preset'])
+    {
+      $date_created_clause = 'date_creation > SUBDATE(NOW(), INTERVAL '.$options[ $search['fields']['date_created']['preset'] ].')';
+    }
+    elseif ('custom' == $search['fields']['date_created']['preset'] and isset($search['fields']['date_created']['custom']))
+    {
+      $date_created_subclauses = array();
+      $custom_dates = array_flip($search['fields']['date_created']['custom']);
+
+      foreach (array_keys($custom_dates) as $custom_date)
+      {
+        // in real-life tests, we have determined "where year(date_creation) = 2024" was
+        // far less (4 times less) than "where date_creation between '2024-01-01 00:00:00' and '2024-12-31 23:59:59'"
+        // so let's find the begin/end for each custom date
+        // ... and also, no need to search for images of 2023-10-16 if 2023-10 is already requested
+        $begin = $end = null;
+
+        $ymd = substr($custom_date, 0, 1);
+        if ('y' == $ymd)
+        {
+          $year = substr($custom_date, 1);
+          $begin = $year.'-01-01 00:00:00';
+          $end = $year.'-12-31 23:59:59';
+        }
+        elseif ('m' == $ymd)
+        {
+          list($year, $month) = explode('-', substr($custom_date, 1));
+
+          if (!isset($custom_dates['y'.$year]))
+          {
+            $begin = $year.'-'.$month.'-01 00:00:00';
+            $end = $year.'-'.$month.'-'.cal_days_in_month(CAL_GREGORIAN, (int)$month, (int)$year).' 23:59:59';
+          }
+        }
+        elseif ('d' == $ymd)
+        {
+          list($year, $month, $day) = explode('-', substr($custom_date, 1));
+
+          if (!isset($custom_dates['y'.$year]) and !isset($custom_dates['m'.$year.'-'.$month]))
+          {
+            $begin = $year.'-'.$month.'-'.$day.' 00:00:00';
+            $end = $year.'-'.$month.'-'.$day.' 23:59:59';
+          }
+        }
+
+        if (!empty($begin))
+        {
+          $date_created_subclauses[] = 'date_creation BETWEEN "'.$begin.'" AND "'.$end.'"';
+        }
+      }
+
+      $date_created_clause = '('.implode(' OR ', prepend_append_array_items($date_created_subclauses, '(', ')')).')';
+    }
+
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE '.$date_created_clause.'
+  '.$forbidden.'
+;';
+
+    $image_ids_for_filter['date_created'] = query2array($query, null, 'id');
+  }
+
+  //
+  // ratios
+  //
+  if (!empty($search['fields']['ratios']))
+  {
+    $has_filters_filled = true;
+
+    $clause_for_ratio = array(
+      'Portrait'  => 'width/height < 0.95',
+      'square'    => 'width/height BETWEEN 0.95 AND 1.05',
+      'Landscape' => '(width/height > 1.05 AND width/height < 2)',
+      'Panorama'  => 'width/height >= 2',
+    );
+
+    $ratios_clauses = array();
+    foreach ($search['fields']['ratios'] as $r)
+    {
+      $ratios_clauses[] = $clause_for_ratio[$r];
+    }
+
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE ('.implode(' OR ', $ratios_clauses).')
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['ratios'] = query2array($query, null, 'id');
+  }
+
+  //
+  // ratings
+  //
+  if ($conf['rate'] and !empty($search['fields']['ratings']))
+  {
+    $has_filters_filled = true;
+
+    $filter_clauses = array();
+    foreach ($search['fields']['ratings'] as $r)
+    {
+      if (0 == $r)
+      {
+        $filter_clauses[] = 'rating_score IS NULL';
+      }
+      else
+      {
+        $filter_clauses[] = '(rating_score >= '.(intval($r)-1).' AND rating_score < '.$r.')';
+      }
+    }
+
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE ('.implode(' OR ', $filter_clauses).')
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['ratings'] = query2array($query, null, 'id');
+  }
+
+  //
+  // filesize
+  //
+  if (!empty($search['fields']['filesize_min']) and !empty($search['fields']['filesize_max']))
+  {
+    $has_filters_filled = true;
+
+    // because of conversion from kB to mB, approximation, then conversion back to kB,
+    // we need to slightly enlarge the range for search
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE filesize BETWEEN '.($search['fields']['filesize_min']-100).' AND '.($search['fields']['filesize_max']+100).'
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['filesize'] = query2array($query, null, 'id');
+  }
+
+  //
+  // height
+  //
+  if (!empty($search['fields']['height_min']) and !empty($search['fields']['height_max']))
   {
     $has_filters_filled = true;
 
     $query = '
-SELECT DISTINCT(id)
-  FROM '.IMAGES_TABLE.' i
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-    LEFT JOIN '.IMAGE_TAG_TABLE.' AS it ON id = it.image_id
-  WHERE '.$search_clause;
-    if (!empty($images_where))
-    {
-      $query .= "\n  AND ".$images_where;
-    }
-    $query .= $forbidden.'
-  '.$conf['order_by'];
-    $items = array_from_query($query, 'id');
-
-    $logger->debug(__FUNCTION__.' '.count($items).' items in $items');
+  WHERE height BETWEEN '.$search['fields']['height_min'].' AND '.$search['fields']['height_max'].'
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['height'] = query2array($query, null, 'id');
   }
 
-  if ( !empty($tag_items) )
+  //
+  // width
+  //
+  if (!empty($search['fields']['width_min']) and !empty($search['fields']['width_max']))
   {
-    switch ($search['mode'])
+    $has_filters_filled = true;
+
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE width BETWEEN '.$search['fields']['width_min'].' AND '.$search['fields']['width_max'].'
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['width'] = query2array($query, null, 'id');
+  }
+
+  //
+  // tags
+  //
+  if (isset($search['fields']['tags']) and !empty($search['fields']['tags']['words']))
+  {
+    $has_filters_filled = true;
+
+    $image_ids_for_filter['tags'] = get_image_ids_for_tags(
+      $search['fields']['tags']['words'],
+      $search['fields']['tags']['mode']
+      );
+  }
+
+  //
+  // custom search
+  //
+  if (!empty($images_where))
+  {
+    $query = '
+SELECT
+    DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE '.$images_where.'
+  '.$forbidden.'
+;';
+    $image_ids_for_filter['custom'] = query2array($query, null, 'id');
+  }
+
+  $items = array();
+  if (!empty($image_ids_for_filter))
+  {
+    if (count($image_ids_for_filter) > 1)
     {
-      case 'AND':
-        if (empty($search_clause) and !isset($search_in_tags_items))
-        {
-          $items = $tag_items;
-        }
-        else
-        {
-          $items = array_values( array_intersect($items, $tag_items) );
-        }
-        break;
-      case 'OR':
-        $items = array_values(
-          array_unique(
-            array_merge(
-              $items,
-              $tag_items
-              )
-            )
-          );
-        break;
+      $items = array_values(array_unique(array_intersect(...array_values($image_ids_for_filter))));
     }
+    else
+    {
+      $items = $image_ids_for_filter[ array_keys($image_ids_for_filter)[0] ];
+    }
+  }
+
+  $logger->debug(__FUNCTION__.' '.count($items).' items in $unsorted_items');
+
+  if (count($items) > 1)
+  {
+    $query = '
+SELECT
+    id
+  FROM '.IMAGES_TABLE.' i
+  WHERE id IN ('.implode(',', $items).')
+  '.$conf['order_by'];
+
+    $items = array_from_query($query, 'id');
   }
 
   return array(
     'items' => $items,
     'search_details' => array(
-      'matching_cat_ids' => $matching_cat_ids,
-      'matching_tag_ids' => $matching_tag_ids,
+      'matching_cat_ids' => isset($matching_cat_ids) ? array_values($matching_cat_ids) : null,
+      'matching_tag_ids' => isset($matching_tag_ids) ? array_values($matching_tag_ids) : null,
       'has_filters_filled' => $has_filters_filled,
+      'image_ids_for_filter' => $image_ids_for_filter,
     ),
   );
 }
 
+/**
+ * Returns the SQL WHERE clause to be used to build filter values
+ *
+ * @since 15
+ *
+ * @param string $filter_name
+ *
+ * @return string
+ */
+function get_clause_for_filter($filter_name)
+{
+  global $page;
+
+  $other_filters_items = get_items_for_filter($filter_name);
+  if (false === $other_filters_items)
+  {
+    return '1=1'.$page['search_details']['forbidden'];
+  }
+
+  return 'image_id IN ('.implode(',', $other_filters_items).')';
+}
+
+/**
+ * Returns the list of items (image_ids) to be used to build filter values
+ * for a given filter. Depends on the other filters. Use a cache to avoid
+ * computing the same large array_intersect several times.
+ *
+ * @since 15
+ *
+ * @param string $filter_name
+ *
+ * @return array of image_ids (or false)
+ */
+function get_items_for_filter($filter_name)
+{
+  global $page, $logger;
+
+  $other_filters = array_diff(array_keys($page['search_details']['image_ids_for_filter']), array($filter_name));
+
+  if (empty($other_filters))
+  {
+    return false;
+  }
+
+  $cache_key = md5(implode(',', $other_filters));
+
+  if (!isset($page['search_details'][__FUNCTION__][$cache_key]))
+  {
+    $function_start = get_moment();
+
+    $other_filters_items = $page['search_details']['image_ids_for_filter'][array_shift($other_filters)];
+    foreach ($other_filters as $other_filter)
+    {
+      $other_filters_items = array_intersect($other_filters_items, $page['search_details']['image_ids_for_filter'][$other_filter]);
+    }
+
+    $other_filters_items = array_unique($other_filters_items);
+
+    $debug_msg = '['.__FUNCTION__.'] cache computed for '.(count($other_filters)+1).' other filters';
+    $debug_msg.= ' ('.count($other_filters_items).' items)';
+    $debug_msg.= ', time = '.get_elapsed_time($function_start, get_moment());
+    $logger->debug($debug_msg);
+
+    if (empty($other_filters_items))
+    {
+      $other_filters_items = array(-1);
+    }
+
+    @$page['search_details'][__FUNCTION__][$cache_key] = $other_filters_items;
+  }
+
+  return $page['search_details'][__FUNCTION__][$cache_key];
+}
 
 
 define('QST_QUOTED',         0x01);
@@ -1707,10 +2031,14 @@ function split_allwords($raw_allwords)
 {
   $words = null;
 
+  // we specify the list of characters to trim, to add the ".". We don't want to split words
+  // on "." but on ". ", and we have to deal with trailing dots.
+  $raw_allwords = trim($raw_allwords, " \n\r\t\v\x00.");
+
   if (!preg_match('/^\s*$/', $raw_allwords))
   {
-    $drop_char_match   = array('^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
-    $drop_char_replace = array(' ',' ',' ',' ',' ',' ',' ',' ',' ','', '',  ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','' , ' ',' ',' ', ' ',' ');
+    $drop_char_match   = array(';','&','(',')','<','>','`','\'','"','|',',','@','?','%','. ','[',']','{','}',':','\\','/','=','\'','!','*');
+    $drop_char_replace = array(' ',' ',' ',' ',' ',' ', '', '', ' ',' ',' ',' ',' ',' ',' ' ,' ',' ',' ',' ',' ','' , ' ',' ',' ', ' ',' ');
 
     // Split words
     $words = array_unique(

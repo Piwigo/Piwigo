@@ -34,7 +34,8 @@ if (($conf['show_exif']) and (function_exists('exif_read_data')))
     {
       if (strpos($field, ';') === false)
       {
-        if (isset($exif[$field]))
+        // template cannot deal with an array as value, we skip it
+        if (isset($exif[$field]) and !is_array($exif[$field]))
         {
           $key = $field;
           if (isset($lang['exif_field_'.$field]))
@@ -47,7 +48,8 @@ if (($conf['show_exif']) and (function_exists('exif_read_data')))
       else
       {
         $tokens = explode(';', $field);
-        if (isset($exif[$field]))
+        // template cannot deal with an array as value, we skip it
+        if (isset($exif[$field]) and !is_array($exif[$field]))
         {
           $key = $tokens[1];
           if (isset($lang['exif_field_'.$key]))

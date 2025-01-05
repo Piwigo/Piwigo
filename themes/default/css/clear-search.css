@@ -109,32 +109,84 @@
   color: #444;
 }
 
+.date_posted-option label{
+  background-color:white;
+  border-bottom:1px solid #f3f3f3;
+}
+
+.date_posted-option i{
+  background-color:white;
+}
 
 .filetypes-option:nth-child(odd),
 .added_by-option:nth-child(odd),
-.date_posted-option:nth-child(odd) label {
+.preset_posted_date .date_posted-option:nth-child(odd) label,
+.preset_posted_date .date_posted-option:nth-child(odd) i,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input label,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input i,
+.custom_posted_date .months_container .date_posted-option:nth-child(even) .month_input label,
+.custom_posted_date .months_container .date_posted-option:nth-child(even) .month_input i,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) label,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) i,
+.preset_created_date .date_created-option:nth-child(odd) label,
+.preset_created_date .date_created-option:nth-child(odd) i,
+.custom_created_date .date_created-option:nth-child(odd) .year_input label,
+.custom_created_date .date_created-option:nth-child(odd) .year_input i,
+.custom_created_date .months_container .date_created-option:nth-child(even) .month_input label,
+.custom_created_date .months_container .date_created-option:nth-child(even) .month_input i,
+.custom_created_date .days_container .date_created-option:nth-child(odd) label,
+.custom_created_date .days_container .date_created-option:nth-child(odd) i,
+.ratios-option:nth-child(odd),
+.ratings-option:nth-child(odd){
   background: #f3f3f3;
+}
+
+.date_posted-option label .checked-icon.grey-icon,
+.date_created-option label .checked-icon.grey-icon{
+  color:#777;
 }
 
 .filetypes-option label .checked-icon,
 .added_by-option label .checked-icon,
-.date_posted-option label .checked-icon{
+.date_posted-option label .checked-icon,
+.date_created-option label .checked-icon,
+.ratios-option label .checked-icon,
+.ratings-option label .checked-icon{
   color: #ff7700;
 }
 
 .filetypes-option label .ext-badge,
 .added_by-option label .added_by-badge,
-.date_posted-option label .date_posted-badge {
+.date_posted-badge,
+.date_created-badge,
+.ratios-option label .ratio-badge,
+.ratings-option label .ratings-badge  {
   background: #ff7700;
   color: white;
 }
 
-.filetypes-option input:checked + label {
-  background: #fff5e8;
+.ratios-option.disabled label .ratio-badge,
+.filetypes-option.disabled label .ext-badge,
+.ratings-option.disabled label .ratings-badge{
+  background-color: #888;
 }
 
-.date_posted-option input:checked + label {
-  background: rgba(244, 171, 79, 0.17);
+.ratios-option.disabled label .ratio-name,
+.filetypes-option.disabled label .ext-name,
+.date_posted-option.disabled label .date-period,
+.date_created-option.disabled label .date-period,
+.ratings-option.disabled label .ratings-name{
+  color:#888
+}
+
+.filetypes-option input:checked + label,
+.ratios-option input:checked + label,
+.ratings-option input:checked + label,
+.preset_posted_date .date_posted-option input:checked + label,
+.custom_posted_date .selected input:checked,
+.preset_created_date .date_created-option input:checked + label,
+.custom_created_date .selected input:checked  {
+  background: #fff5e8;
 }
 
 .head-button-2 {
@@ -170,10 +222,6 @@
 
 .breadcrumb-item .icon-cancel-circled:hover {
   color: #ff7700;
-}
-
-.linkedAlbumPopIn { 
-  background-color: rgba(0,0,0,0.7);
 }
 
 .linkedAlbumPopInContainer {
@@ -269,6 +317,10 @@
 .filter-author-form .selectize-control.multi .selectize-input > div .remove,
 .filter-added_by-form .selectize-control.multi .selectize-input > div .remove {
   color:#000;
+}
+
+.and-more{
+  color: #777
 }
 
 @media (max-width: 600px) {

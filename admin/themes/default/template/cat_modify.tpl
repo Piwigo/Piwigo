@@ -18,6 +18,7 @@ const nb_sub_albums = {$NB_SUBCATS}
 const pwg_token = '{$PWG_TOKEN}'
 const u_delete = '{$U_DELETE}'
 var is_visible = '{$IS_VISIBLE}'
+let related_categories_ids = ["{$CAT_ID}", "{$PARENT_CAT_ID}"];
 
 const str_cancel = '{'No, I have changed my mind'|@translate|@escape}'
 const str_delete_album = '{'Delete album'|@translate|escape:javascript}'
@@ -28,15 +29,10 @@ const str_dont_delete_photos = '{'delete only album, not photos'|@translate|esca
 const str_delete_orphans = '{'delete album and the %d orphan photos'|@translate|escape:javascript}';
 const str_delete_all_photos = '{'delete album and all %d photos, even the %d associated to other albums'|@translate|escape:javascript}';
 
-str_albums_found = '{"<b>%d</b> albums found"|translate|escape:javascript}';
-str_album_found = '{"<b>1</b> album found"|translate|escape:javascript}';
-str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
 str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
-str_no_search_in_progress = '{'No search in progress'|@translate|escape:javascript}';
-str_already_in_related_cats = '{'This albums is already in related categories list'|@translate|escape:javascript}';
 str_album_comment_allow = '{'Comments allowed for sub-albums'|@translate|escape:javascript}';
 str_album_comment_disallow = '{'Comments disallowed for sub-albums'|@translate|escape:javascript}';
-str_root = '{'Root'|@translate|escape:javascript}';
+const str_modal_ab = '{'New parent album'|@translate}';
 {/footer_script}
 
 <div class="cat-modify" id="cat-modify">
@@ -50,7 +46,7 @@ str_root = '{'Root'|@translate|escape:javascript}';
     <div class="cat-modify-actions">
 
       {if isset($U_MANAGE_ELEMENTS) }
-        <a class="icon-picture tiptip" href="{$U_MANAGE_ELEMENTS}" title="{'Manage album photos'|@translate}"></a>
+        <a class="icon-th tiptip" href="{$U_MANAGE_ELEMENTS}" title="{'Manage album photos'|@translate}"></a>
       {/if}
 
       <a class="icon-plus-circled tiptip" href="{$U_ADD_PHOTOS_ALBUM}" title="{'Add Photos'|translate}"></a>
@@ -149,11 +145,7 @@ str_root = '{'Root'|@translate|escape:javascript}';
         <div class="icon-pencil" id="cat-parent">{$CATEGORIES_PARENT_NAV}</div>
       </div>
 
-      {include file='include/album_selector.inc.tpl' 
-        title={'New parent album'|@translate}
-        searchPlaceholder={'Search'|@translate}
-        show_root_btn=true
-      }
+      {include file='include/album_selector.inc.tpl'}
 
       {if isset($CAT_COMMENTABLE)}
       <div class="cat-modify-switch-container">
@@ -266,19 +258,6 @@ str_root = '{'Root'|@translate|escape:javascript}';
   background-color: #00000012;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
-
-.put-to-root {
-  width: 220px;
-  margin-top: 5px;
-}
-.put-to-root p {
-  margin: 0  auto;
-}
-
-.notClickable {
-  opacity: 0.5;
-  pointer-events: none;
 }
 
 .cat-modify-footer .spinner {

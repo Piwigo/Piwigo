@@ -124,6 +124,11 @@ catch (Exception $e)
 
 pwg_db_check_charset();
 
+// in Piwigo 15, configuration setting webmaster_id is moved from config files
+// to database. It may be undefined at some point, with Piwigo 15+ scripts and
+// a Piwigo 14 database schema not upgraded yet. Let's avoid any problem.
+$conf['webmaster_id'] = $conf['webmaster_id'] ?? 1;
+
 load_conf_from_db();
 
 $logger = new Logger(array(
@@ -159,6 +164,12 @@ elseif ($conf['piwigo_installed_version'] != PHPWG_VERSION)
   // Piwigo has been updated "from filesystem" and not "from the administration UI". We mark it as an autoupdate in the system activities log
   pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'autoupdate', array('from_version'=>$conf['piwigo_installed_version'], 'to_version'=>PHPWG_VERSION));
   conf_update_param('piwigo_installed_version', PHPWG_VERSION);
+}
+
+if (!isset($conf['last_major_update']))
+{
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+  conf_update_param('last_major_update', $dbnow, true);
 }
 
 // 2022-02-25 due to escape on "rank" (becoming a mysql keyword in version 8), the $conf['order_by'] might
@@ -217,6 +228,8 @@ load_language('common.lang');
 if ( is_admin() || (defined('IN_ADMIN') and IN_ADMIN) )
 {
   load_language('admin.lang');
+  // Add language for temporary strings for new popup, from piwigo 15
+  load_language('whats_new_'.get_branch_from_version(PHPWG_VERSION).'.lang');
 }
 trigger_notify('loading_lang');
 load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );
@@ -314,7 +327,7 @@ if (isset($conf['header_notes']))
 add_event_handler('render_category_literal_description', 'render_category_literal_description');
 if ( !$conf['allow_html_descriptions'] )
 {
-  add_event_handler('render_category_description', 'nl2br');
+  add_event_handler('render_category_description', 'pwg_nl2br');
 }
 add_event_handler('render_comment_content', 'render_comment_content');
 add_event_handler('render_comment_author', 'strip_tags');

@@ -49,6 +49,8 @@ if ($conf['update_notify_check_period'] > 0)
   }
 }
 
+send_piwigo_infos();
+
 //------------------------------------------------------------- generation time
 $debug_vars = array();
 
