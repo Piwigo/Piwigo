@@ -250,7 +250,7 @@ SELECT id
         get_l10n_args('', ''),
         get_l10n_args('Link: %s', get_absolute_root_url()),
         get_l10n_args('Username: %s', stripslashes($login)),
-        get_l10n_args('Password: %s', stripslashes($password)),
+        get_l10n_args('Password: %s', str_repeat("*", strlen(stripslashes($password)))),
         get_l10n_args('Email: %s', $mail_address),
         get_l10n_args('', ''),
         get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
