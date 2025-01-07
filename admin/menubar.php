@@ -136,7 +136,12 @@ UPDATE '.CONFIG_TABLE.'
   ';
   pwg_query($query);
 
-  $page['infos'][] = l10n('Order of menubar items has been updated successfully.');
+  $template->assign(
+    array(
+      'save_success' => l10n('Order of menubar items has been updated successfully.'),
+    )
+  );
+
 }
 
 make_consecutive( $mb_conf );

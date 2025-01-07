@@ -61,10 +61,21 @@ jQuery(document).ready(function(){
     </li>
     {/foreach}
   </ul>
-  <p class="menuSubmit">
-    <button name="submit" type="submit" class="buttonLike" {if $isWebmaster != 1}disabled{/if}>
-      <i class="icon-floppy"></i> {'Save Settings'|@translate}
-    </button>
-  </p>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+    </div>
+    <div class="savebar-footer-end">
+    {if isset($save_success)}
+        <div class="savebar-footer-block">
+          <div class="badge info-message">
+            <i class="icon-ok"></i>{$save_success}
+          </div>
+        </div>
+    {/if}
+        <div class="savebar-footer-block">
+          <button class="buttonLike"  type="submit" name="submit" {if $isWebmaster != 1}disabled{/if}><i class="icon-floppy"></i> {'Save Settings'|@translate}</button>
+        </div>
+      </div>
+  </div>
 
 </form>
