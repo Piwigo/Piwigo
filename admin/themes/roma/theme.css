@@ -1044,7 +1044,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   color :  #c1c1c1 !important
 }
 
-.cat-modify-footer {
+.cat-modify-footer,
+.savebar-footer {
   border-color: rgba(0, 0, 0, 0.2);
   background: #444444;
 }
@@ -2140,12 +2141,15 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 
 
-.cat-modify-footer-see-out {
+.cat-modify-footer-see-out,
+.savebar-see-out,
+.buttonSecond {
   background-color: #2E2E2E;
   color: #777777;
 }
 
-.cat-modify-footer-see-out:hover {
+.cat-modify-footer-see-out:hover,
+.savebar-see-out:hover {
   background-color: #1B1B1B;
   color: #777777;
 }
@@ -2157,12 +2161,12 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 
 .cat-modify-footer-see-out.disabled {
-  background: #5d5d5d !important;
-  color: #373737 !important;
+  background: #5d5d5d;
+  color: #373737;
 }
 
 .see-out.disabled p {
-  background-color: #5d5d5d !important;;
+  background-color: #5d5d5d !important;
   color: #373737 !important;
 }
 

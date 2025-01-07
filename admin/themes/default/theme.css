@@ -705,54 +705,70 @@ LI.menuLi {
   flex-wrap: wrap;
 }
 
-.cat-modify-footer {
+.cat-modify-footer,
+.savebar-footer
+{
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid #ececec;
+  border-top: 1px solid;
   padding: 12px;
   position: fixed;
   bottom: 0;
   right: 0;
   width: 100%;
-  background: white;
-  }
+  z-index:1;
+  align-items:center;
+}
 
-.cat-modify-footer-see-out {
+.cat-modify-footer-see-out,
+.savebar-see-out,
+.buttonSecond
+{
   display: flex;
-  background-color: #ECECEC;
-  color: #3C3C3C;
   padding: 9px 10px;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  border:none;
+  cursor:pointer;
 }
 
-.cat-modify-footer-see-out:hover {
-  background-color: #F29F4B;
-  color: #3C3C3C;
+.savebar-footer-block .badge{
+  border-radius:15px; 
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:700;
+  display:block;
+  height:auto;
+}
+
+.cat-modify-footer-see-out:hover,
+.savebar-see-out:hover
+{
   text-decoration: none;
 }
 
-.cat-modify-footer-see-out:focus {
-  border: 2px solid #F4AB4F;
-  background: #ECECEC;
-}
-
-.cat-modify-footer-start {
+.cat-modify-footer-start,
+.savebar-footer-start
+{
   margin-left: 230px;
 }
 
-.cat-modify-footer-end {
+.cat-modify-footer-end,
+.savebar-footer-end
+{
   display: flex;
 }
 
-.cat-modify-footer-see-out.disabled{
-  background-color: #ECECEC;
-  color: #B8B8B8;
+.cat-modify-footer-see-out.disabled,
+.savebar-see-out.disabled
+{
   cursor: not-allowed;
 }
-.cat-modify-footer-see-out.disabled:focus {
+
+.cat-modify-footer-see-out.disabled:focus,
+.savebar-see-out.disabled:focus{
   border: none;
 
 }
@@ -772,6 +788,25 @@ LI.menuLi {
 
 .cat-delete-modes input {
   margin: 5px 3px 0 0;
+}
+
+.savebar-footer-block{
+  margin-right:15px;
+  align-self:center;
+  display: flex;
+  align-items: center;
+}
+
+/* Add padding bottom so nothing gets hidden by bottom save bar */
+#picture-content,
+#configContent,
+#menuOrdering,
+#categoryPermissions,
+#element_set_ranks,
+#update,
+#pendingComments,
+#action{
+  padding-bottom:62px!important;
 }
 
 /* Search bar */

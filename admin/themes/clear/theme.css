@@ -885,3 +885,31 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #whats_new button:hover{
   background-color:#FFA646;
 }
+
+.cat-modify-footer,
+.savebar-footer {
+  border-color: #ececec;
+  background: white;
+}
+
+.cat-modify-footer-see-out,
+.savebar-see-out,
+.buttonSecond {
+  background-color: #ECECEC;
+  color: #3C3C3C;
+}
+
+.cat-modify-footer-see-out:hover {
+  background-color: #F29F4B;
+  color: #3C3C3C;
+}
+
+.cat-modify-footer-see-out:focus {
+  border: 2px solid #F4AB4F;
+  background: #ECECEC;
+}
+
+.cat-modify-footer-see-out.disabled {
+  background-color: #ECECEC;
+  color: #B8B8B8;
+}
