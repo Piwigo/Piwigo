@@ -168,17 +168,33 @@ jQuery("#selectStatus").change(function() {
 *}
 </fieldset>
 
-  <p style="margin:12px;text-align:left;">
-    <button name="submit" type="submit" class="buttonLike">
-      <i class="icon-floppy"></i> {'Save Settings'|@translate}
-    </button>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+      <div class="savebar-footer-block">
+        <div class="switch-input">
+          <label class="switch">
+            <input type="checkbox" name="apply_on_sub" id="apply_on_sub" {if $INHERIT}checked="true"{/if}>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <label class="switch-label" for="apply_on_sub"><span>{'Apply to sub-albums'|@translate}</span></label>
+      </div>
+    </div>
+    <div class="savebar-footer-end">
 
-    <label id="applytoSubAction" class="font-checkbox">
-      <span class="icon-check"></span>
-      <input type="checkbox" name="apply_on_sub" {if $INHERIT}checked="checked"{/if}>
-      {'Apply to sub-albums'|@translate}
-    </label>
-  </p>
+{if isset($save_success)}
+      <div class="savebar-footer-block">
+        <div class="badge info-message">
+          <i class="icon-ok"></i>{$save_success}
+        </div>
+      </div>
+{/if}
+    
+      <div class="savebar-footer-block">
+        <button class="buttonLike"  type="submit" name="submit"><i class="icon-floppy"></i> {'Save Settings'|@translate}</button>
+      </div>
+    </div>
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+  </div>
 
-<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>
