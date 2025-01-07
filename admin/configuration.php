@@ -306,7 +306,12 @@ WHERE param = \''.$row['param'].'\'
         pwg_query($query);
       }
     }
-    $page['infos'][] = l10n('Your configuration settings are saved');
+    $template->assign(
+      array(
+        'save_success' => l10n('Your configuration settings are saved'),
+      )
+    );
+
     pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section']));
   }
 
@@ -321,7 +326,12 @@ if ('sizes' == $page['section'] and isset($_GET['action']) and 'restore_settings
   pwg_query('DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'');
   clear_derivative_cache();
 
-  $page['infos'][] = l10n('Your configuration settings are saved');
+  $template->assign(
+    array(
+      'save_success' => l10n('Your configuration settings are saved'),
+    )
+  );
+  
   pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section'],'config_action'=>$_GET['action']));
 }
 
