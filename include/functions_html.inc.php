@@ -287,13 +287,7 @@ function access_denied()
   }
   else
   {
-    set_status_header(401);
-
-    echo $access_denied_html;
-    echo '<a href="'.get_root_url().'identification.php" style="display: inline-block;padding: 10px 20px;margin: 10px;margin-top: 50px;border-radius: 7px;cursor: pointer;width: 150px;background-color: #F77000;color: #fff;text-decoration: none;border: 2px solid #F77000;">'.l10n('Identification').'</a>';
-    echo '<a href="'.make_index_url().'" style="display: inline-block;padding: 10px 20px;margin: 10px;margin-top: 50px;border-radius: 7px;cursor: pointer;width: 150px;color: #F77000;text-decoration: none;border: 2px solid #F77000;">'.l10n('Home').'</a></div></div>';
-    echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
-    exit();
+    redirect_html($login_url);
   }
 }
 
