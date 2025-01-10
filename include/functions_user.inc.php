@@ -327,7 +327,7 @@ function build_user($user_id, $use_cache=true)
  */
 function getuserdata($user_id, $use_cache=false)
 {
-  global $conf;
+  global $conf, $logger;
 
   // retrieve basic user data
   $query = '
@@ -407,10 +407,64 @@ SELECT
 
   if ($use_cache)
   {
+    $generate_user_cache = false;
+    $cache_generation_token_name = 'generate_user_cache-u'.$userdata['id'];
+    $exec_code = substr(sha1(random_bytes(1000)), 0, 4);
+    $logger_msg_prefix = '['.__FUNCTION__.'][exec_code='.$exec_code.'][user_id='.$userdata['id'].'] ';
+
     if (!isset($userdata['need_update'])
         or !is_bool($userdata['need_update'])
         or $userdata['need_update'] == true)
     {
+      $logger->info($logger_msg_prefix.'needs user_cache to be rebuilt');
+
+      $exec_id = pwg_unique_exec_begins($cache_generation_token_name);
+      if (false === $exec_id)
+      {
+        $logger->info($logger_msg_prefix.'starts to wait for another request to build user_cache');
+        $user_cache_waiting_start_time = get_moment();
+        for ($k = 0; $k < 10; $k++)
+        {
+          sleep(1);
+
+          $query = '
+SELECT
+   COUNT(*)
+  FROM '.USER_CACHE_TABLE.'
+  WHERE user_id='.$userdata['id'].'
+;';
+          list($nb_cache_lines) = pwg_db_fetch_row(pwg_query($query));
+
+          $logger_msg = $logger_msg_prefix.'user_cache generation waiting k='.$k.' ';
+
+          if ($nb_cache_lines > 0)
+          {
+            $logger->info($logger_msg.'user_cache rebuilt, after waiting '.get_elapsed_time($user_cache_waiting_start_time, get_moment()));
+            return getuserdata($user_id, false);
+          }
+          else
+          {
+            $logger->info($logger_msg.'user_cache not ready yet, after waiting '.get_elapsed_time($user_cache_waiting_start_time, get_moment()));
+          }
+        }
+
+        $logger->info($logger_msg_prefix.'user_cache generation waiting has timed out after '.get_elapsed_time($user_cache_waiting_start_time, get_moment()));
+        set_status_header(503, 'Service Unavailable');
+        @header('Retry-After: 900');
+        header('Content-Type: text/html; charset='.get_pwg_charset());
+        echo l10n('Rebuilding user cache takes long. Please, come back later.');
+        echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
+        exit();
+      }
+      else
+      {
+        $generate_user_cache = true;
+      }
+    }
+
+    if ($generate_user_cache)
+    {
+      $user_cache_generation_start_time = get_moment();
       $userdata['cache_update_time'] = time();
 
       // Set need update are done
@@ -510,6 +564,9 @@ INSERT IGNORE INTO '.USER_CACHE_TABLE.'
   (empty($userdata['last_photo_date']) ? 'NULL': '\''.$userdata['last_photo_date'].'\'').
   ',\''.$userdata['image_access_type'].'\',\''.$userdata['image_access_list'].'\')';
       pwg_query($query);
+
+      pwg_unique_exec_ends($cache_generation_token_name);
+      $logger->info($logger_msg_prefix.'user_cache generated, executed in '.get_elapsed_time($user_cache_generation_start_time, get_moment()));
     }
   }
 
