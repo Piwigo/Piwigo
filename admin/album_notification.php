@@ -232,7 +232,7 @@ else
 {
   if ('private' == $category['status'])
   {
-    // $template->assign('permission_url', $admin_album_base_url.'-permissions');
+    $template->assign('permission_url', $admin_album_base_url.'-permissions');
 
     $query = '
 SELECT
