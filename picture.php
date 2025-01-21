@@ -799,7 +799,6 @@ if (is_admin())
       );
   }
 
-  $template->assign('available_permission_levels', get_privacy_level_options());
 }
 
 // favorite manipulation

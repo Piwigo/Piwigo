@@ -313,13 +313,6 @@
         </label>
       </li>
 
-      <li>
-        <label class="font-checkbox">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="picture_informations[privacy_level]" {if ($display.picture_informations.privacy_level)}checked="checked"{/if}>
-          {'Who can see this photo?'|translate} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
-        </label>
-      </li>
     </ul>
   </fieldset>
 
