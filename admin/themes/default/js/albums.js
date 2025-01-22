@@ -475,8 +475,14 @@ function openAddAlbumPopIn(parentAlbumId) {
     $("#AddAlbum .AddIconTitle span").html(add_album_root_title)
   }
   $("#AddAlbum").fadeIn();
-  $(".AddAlbumLabelUsername .user-property-input").val('');
-  $(".AddAlbumLabelUsername .user-property-input").trigger('focus');
+  const modalInput = $(".AddAlbumLabelUsername .user-property-input");
+  modalInput.val('');
+  modalInput.trigger('focus');
+  modalInput.off('keyup').on('keyup', function () {
+    if ($(this).val() !== '') {
+      $(".AddAlbumErrors").hide();
+    }
+  });
 
   $("#AddAlbum").unbind('keyup');
   $("#AddAlbum").on('keyup', function (e) {
@@ -492,7 +498,9 @@ function openAddAlbumPopIn(parentAlbumId) {
 }
 
 function closeAddAlbumPopIn() {
-  $("#AddAlbum").fadeOut();
+  $("#AddAlbum").fadeOut(function() {
+    $(".AddAlbumErrors").hide();
+  });
 }
 
 function openRenameAlbumPopIn(replacedAlbumName) {
