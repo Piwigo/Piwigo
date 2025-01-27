@@ -228,7 +228,9 @@ function selectDelDerivNone() {
 $(window).on('keypress', function(e) {
   const selected = $("select[name='selectAction']").val();
   const haveTextarea = $(`#action_${selected} textarea`).length;
-  if (e.key === "Enter" && selected != -1 && !haveTextarea) {
+  const haveAlbumSelector = $('#addLinkedAlbum').is(':visible');
+  
+  if (e.key === "Enter" && selected != -1 && !haveTextarea && !haveAlbumSelector) {
     e.preventDefault();
     $('#applyAction').trigger('click');
   }
