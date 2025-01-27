@@ -454,3 +454,4 @@ $lang['Custom dates'] = 'Dates personnalisées';
 $lang['There are no tags available for the photos currently filtered'] = 'Aucun tag n\'est disponible pour les photos actuellement filtrées';
 $lang['There are no creation dates available for the photos currently filtered'] = 'Aucune date de création n\'est disponible pour les photos actuellement filtrées';
 $lang['There are no authors available for the photos currently filtered'] = 'Aucun auteur n\'est disponible pour les photos actuellement filtrées';
+$lang['Set your password below.'] = 'Définissez votre mot de passe ci-dessous.';

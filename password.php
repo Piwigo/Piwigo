@@ -286,6 +286,7 @@ if ('lost' == $page['action'])
 else if ('reset' == $page['action'] and isset($first_login) and $first_login) 
 {
   $title = l10n('Welcome');
+  $template->assign('is_first_login', true);
 }
 
 $page['body_id'] = 'thePasswordPage';
