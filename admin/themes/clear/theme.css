@@ -274,19 +274,6 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 #pwgMain {padding-left:0}
 
-.buttonLike:hover {color: #3C3C3C;}
-
-.buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
-  background-color:#FFA646;
-  color:#3C3C3C;
-}
-
-.buttonLike:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-	cursor: pointer;
-  background-color: #ff7700;
-	text-decoration: none;
-}
-
 .buttonLike i {
   font-size:14px;
 }
@@ -581,6 +568,10 @@ input:focus + .slider {
 
 .UsernameBlock{
   background-color:#f9f9f9;
+}
+
+.UsernameBlock.success_message{
+  border:2px solid #c2f5c2;
 }
 
 .Tooltip p.TooltipText{
