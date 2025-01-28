@@ -987,7 +987,7 @@ background: #ffa646;
   border-radius: 15px;
   pointer-events: none;
   padding: 0px 7px;
-  color: #333
+  color: #493C21;
 }
 
 .pagination-per-page {
@@ -2710,9 +2710,10 @@ h2:lang(en) { text-transform:capitalize; }
   padding: 2px 10px;
   border-radius: 5px;
 }
+
 .pluginActionLevel1:hover {
   background-color: #ff7700; 
-  color: white; 
+  color:#493C21; 
   text-decoration: none;
 }
 
@@ -5643,6 +5644,9 @@ input:checked + .slider:before, input:checked + .slider::after {
 .jconfirm-buttons .btn {
   text-transform: none !important;
 }
+.jconfirm.jconfirm-modern .jconfirm-box .jconfirm-buttons button{
+  border-radius:0!important;
+}
 /*Group checkbox*/
 
 .Group-checkbox{
@@ -5999,6 +6003,9 @@ input:checked + .slider:before, input:checked + .slider::after {
   border-radius:25px;
 }
 
+.UsernameBlock.success_message{
+  margin-right:0px;
+}
 
 .UsersInGroupListContainer{
   max-height:315px;
@@ -6090,8 +6097,12 @@ input:checked + .slider:before, input:checked + .slider::after {
 
 .LinkUserManager{
   text-align:center;
+  padding:40px;
+}
+
+.LinkUserManager a{
   font-weight:700;
-  padding-top:20px;
+  padding:13px 20px;
 }
 
 .AddUserSubmit:hover{
@@ -6257,6 +6268,7 @@ a.group_users {
 }
 .see-out.disabled {
   cursor: not-allowed;
+  opacity:1;
 }
 .see-out.disabled p {
   background-color: #ECECEC;
@@ -6347,7 +6359,18 @@ fieldset#environment legend i[class*="icon-"] {
 }
 
 .buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
- font-size:12px; border:none; padding:13px 20px; margin-left:0; font-weight: bold; transition: all 125ms ease-out;
+ font-size:12px; 
+ border:none; 
+ padding:13px 20px; 
+ margin-left:0; font-weight: bold; transition: all 125ms ease-out;
+ color:#493C21;
+ background-color:#FFA646;
+}
+
+.buttonLike:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+	cursor: pointer;
+  background-color: #ff7700;
+	text-decoration: none;
 }
 
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
@@ -6900,11 +6923,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   font-weight:bold;
   border-radius:10px;
   margin-bottom:20px;
-}
-
-.user-container.container-selected .user-container-initials-wrapper > span {
-background-color: #FF7B00;
-color:#FEE7BD;
 }
 
 .user-container.container-selected .user-groups,

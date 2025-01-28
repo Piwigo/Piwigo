@@ -920,7 +920,7 @@ $(".AddUserBlock button").on("click", function () {
           
           dissociateUserInfo.fadeOut()
           
-          $(".UsernameBlock:first").css("margin-right", "0px").css("border", "2px solid #c2f5c2");
+          $(".UsernameBlock:first").addClass('success_message');
           $(".UsernameBlock").slice(1).css("margin-right", "10px").css("border", "none");
           associateUserInfo.remove()
           associateUserInfo.insertAfter(userBlock);
