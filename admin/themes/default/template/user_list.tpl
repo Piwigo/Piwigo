@@ -1415,6 +1415,7 @@ $(document).ready(function() {
 
 .user-container-initials .small {
   font-size: 1em !important;
+  line-height: 30px;
 }
 
 .user-header-username{
