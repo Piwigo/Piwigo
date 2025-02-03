@@ -3287,22 +3287,24 @@ SELECT id
 function add_md5sum($ids)
 {
   $query = '
-SELECT path
+SELECT
+    id,
+    path
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(', ',$ids).')
 ;';
-  $paths = query2array($query, null, 'path');
-  $imgs_ids_paths = array_combine($ids, $paths);
+  $path_for_id = query2array($query, 'id', 'path');
+
   $updates = array();
-  foreach ($ids as $id)
+
+  foreach ($path_for_id as $id => $path)
   {
-    $file = PHPWG_ROOT_PATH.$imgs_ids_paths[$id];
-    $md5sum = md5_file($file);
     $updates[] = array(
       'id' => $id,
-      'md5sum' => $md5sum,
+      'md5sum' => md5_file(PHPWG_ROOT_PATH.$path),
     );
   }
+
   mass_updates(
     IMAGES_TABLE,
     array(
@@ -3311,7 +3313,8 @@ SELECT path
       ),
     $updates
   );
-  return count($ids);
+
+  return count($path_for_id);
 }
 
 function count_orphans()
