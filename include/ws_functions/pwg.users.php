@@ -1021,11 +1021,12 @@ function ws_users_generate_password_link($params, &$service)
   }
 
   $first_login = has_already_logged_in($params['user_id']);
-  $generate_link = generate_password_link($params['user_id'], $first_login);
   $send_by_mail_response = null;
   $lang_to_use = $first_login ? get_default_language() : $user_lost['language'];
 
   switch_lang_to($lang_to_use);
+  $generate_link = generate_password_link($params['user_id'], $first_login);
+
   if ($params['send_by_mail'] and !empty($user_lost['email']))
   {
     if ($first_login)
