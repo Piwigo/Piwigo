@@ -1407,3 +1407,7 @@ $lang['An activation link valid for %s has been sent to "%s". If the user doesn\
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = '已创建有效期为 %s 的激活链接，但无法发送。您现在可以复制以下链接并将其发送给用户。';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = '此链接有效期为 %s。过了这个时间，您需要请求一个新链接。';
 $lang['To set your password, visit the following address:'] = '要设置您的密码，请访问以下地址：';
+$lang['Rename album'] = '重命名相册';
+$lang['Preview'] = '预览';
+$lang['Privacy Level'] = '隐私等级';
+$lang['Photographers...'] = '摄影团队'; 
