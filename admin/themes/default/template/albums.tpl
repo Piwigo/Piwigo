@@ -1,28 +1,28 @@
 {footer_script}
 var data = {json_encode($album_data)};
 var pwg_token = "{$PWG_TOKEN}";
-var str_show_sub = "{'Show sub-albums'|@translate}";
-var str_hide_sub = "{'Hide sub-albums'|@translate}";
-var str_manage_sub_album = "{'Manage sub-albums'|@translate}";
-var str_apply_order_raw = "{'apply automatic sort order'|translate}";
+var str_show_sub = "{'Show sub-albums'|@translate|escape:javascript}";
+var str_hide_sub = "{'Hide sub-albums'|@translate|escape:javascript}";
+var str_manage_sub_album = "{'Manage sub-albums'|@translate|escape:javascript}";
+var str_apply_order_raw = "{'apply automatic sort order'|translate|escape:javascript}";
 var str_apply_order = str_apply_order_raw.charAt(0).toUpperCase() + str_apply_order_raw.slice(1);
-var str_edit = "{'Edit album'|@translate}";
-var str_are_you_sure = "{'The status of the album \'%s\' and its sub-albums will change to private. Are you sure?'|@translate}";
-var str_yes_change_parent = "{'Yes change parent anyway'|@translate}";
-var str_no_change_parent = "{'No, don\'t move this album here'|@translate}";
-var str_root = "{'Root'|@translate}";
+var str_edit = "{'Edit album'|@translate|escape:javascript}";
+var str_are_you_sure = "{'The status of the album \'%s\' and its sub-albums will change to private. Are you sure?'|@translate|escape:javascript}";
+var str_yes_change_parent = "{'Yes change parent anyway'|@translate|escape:javascript}";
+var str_no_change_parent = "{'No, don\'t move this album here'|@translate|escape:javascript}";
+var str_root = "{'Root'|@translate|escape:javascript}";
 var openCat = {$open_cat};
 var nb_albums = {$nb_albums};
 var light_album_manager = {$light_album_manager};
 
-var x_nb_subcats = "{'%d sub-albums'|@translate}";
-var x_nb_images = "{'%d photos'|@translate}";
-var x_nb_sub_photos = "{'%d pictures in sub-albums'|@translate}";
+var x_nb_subcats = "{'%d sub-albums'|@translate|escape:javascript}";
+var x_nb_images = "{'%d photos'|@translate|escape:javascript}";
+var x_nb_sub_photos = "{'%d pictures in sub-albums'|@translate|escape:javascript}";
 
-var str_albums_found = '{"<b>%d</b> albums found"|translate}';
-var str_album_found = '{"<b>1</b> album found"|translate}';
+var str_albums_found = '{"<b>%d</b> albums found"|translate|escape:javascript}';
+var str_album_found = '{"<b>1</b> album found"|translate|escape:javascript}';
 var str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
-const str_albs_drag_drop = '{"Drag and drop to reorder albums"|translate}';
+const str_albs_drag_drop = '{"Drag and drop to reorder albums"|translate|escape:javascript}';
 
 var delay_autoOpen = {$delay_before_autoOpen}
 

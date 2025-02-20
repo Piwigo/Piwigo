@@ -12,8 +12,8 @@
   const str_album_selected = "{'Album already selected'|@translate|escape:javascript}"
   const str_already_in_related_cats = '{'This albums is already in related categories list'|translate|escape:javascript}';
   const str_no_search_in_progress = '{'No search in progress'|@translate|escape:javascript}';
-  const str_albums_found = '{"<b>%d</b> albums found"|translate}';
-  const str_album_found = '{"<b>1</b> album found"|translate}';
+  const str_albums_found = '{"<b>%d</b> albums found"|translate|escape:javascript}';
+  const str_album_found = '{"<b>1</b> album found"|translate|escape:javascript}';
   const str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
   const str_add_subcat_of = '{"Add a sub-album to “%s”"|translate|escape:javascript}';
   const str_create_and_select = '{"Create and select"|translate|escape:javascript}';
