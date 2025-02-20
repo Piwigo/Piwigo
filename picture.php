@@ -606,7 +606,7 @@ $metadata_showable = trigger_change(
   $picture['current']
   );
 
-if ( $metadata_showable and pwg_get_session_var('show_metadata') )
+if ( isset($_GET['metadata']) )
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
@@ -676,11 +676,9 @@ SELECT *
       
       $format['filesize'] = sprintf('%.1fMB', $format['filesize']/1024);
     }
-
     $template->append('current', array('formats' => $formats), true);
   }
 }
-
 
 if ($page['slideshow'])
 {
