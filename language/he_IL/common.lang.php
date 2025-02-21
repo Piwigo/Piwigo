@@ -461,3 +461,4 @@ $lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'שם אלבום, 1 &rarr
 $lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'שם אלבום, 100 &rarr; 10 &rarr; 5 &rarr; 1';
 $lang['Empty filters'] = 'נקה סינון';
 $lang['Validate'] = 'אמת';
+$lang['Set your password below.'] = 'הגדירו סיסמתכם מטה.';
