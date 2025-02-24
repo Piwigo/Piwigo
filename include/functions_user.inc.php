@@ -242,6 +242,7 @@ SELECT id
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
+      $length = rand(10, 15);
       $keyargs_content = array(
         get_l10n_args('Hello %s,', stripslashes($login)),
         get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
@@ -250,7 +251,7 @@ SELECT id
         get_l10n_args('', ''),
         get_l10n_args('Link: %s', get_absolute_root_url()),
         get_l10n_args('Username: %s', stripslashes($login)),
-        get_l10n_args('Password: %s', str_repeat("*", strlen(stripslashes($password)))),
+        get_l10n_args('Password: %s', str_repeat("*", $length)),
         get_l10n_args('Email: %s', $mail_address),
         get_l10n_args('', ''),
         get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
