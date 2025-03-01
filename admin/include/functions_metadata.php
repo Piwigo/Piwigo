@@ -220,7 +220,6 @@ function get_sync_metadata($infos)
           $infos['height'] = round(explode(" ", $vb)[3]);
         }
       }
-      // Only get image size for images. This cuts significant time with large videos.
       if ($image_size = @getimagesize($file))
       {
         $infos['width'] = $image_size[0];
