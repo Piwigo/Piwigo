@@ -2881,6 +2881,19 @@ INSERT IGNORE
   return $exec_id;
 }
 
+function pwg_unique_exec_is_running($token_name)
+{
+  $query = '
+SELECT
+    COUNT(*)
+  FROM '.CONFIG_TABLE.'
+  WHERE param = "'.$token_name.'_running"
+;';
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
+
+  return $counter > 0;
+}
+
 function pwg_unique_exec_ends($token_name)
 {
   conf_delete_param($token_name.'_running');

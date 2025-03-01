@@ -437,15 +437,21 @@ SELECT
           list($nb_cache_lines) = pwg_db_fetch_row(pwg_query($query));
 
           $logger_msg = $logger_msg_prefix.'user_cache generation waiting k='.$k.' ';
+          $waiting_time = get_elapsed_time($user_cache_waiting_start_time, get_moment());
 
           if ($nb_cache_lines > 0)
           {
-            $logger->info($logger_msg.'user_cache rebuilt, after waiting '.get_elapsed_time($user_cache_waiting_start_time, get_moment()));
+            $logger->info($logger_msg.'user_cache rebuilt, after waiting '.$waiting_time);
             return getuserdata($user_id, false);
+          }
+          elseif (!pwg_unique_exec_is_running($cache_generation_token_name))
+          {
+            $logger->info($logger_msg.'user_cache rebuilt but has been reset since, give it another try, after waiting '.$waiting_time);
+            return getuserdata($user_id, true);
           }
           else
           {
-            $logger->info($logger_msg.'user_cache not ready yet, after waiting '.get_elapsed_time($user_cache_waiting_start_time, get_moment()));
+            $logger->info($logger_msg.'user_cache not ready yet, after waiting '.$waiting_time);
           }
         }
 
