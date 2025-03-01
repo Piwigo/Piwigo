@@ -188,37 +188,45 @@ function get_sync_metadata($infos)
     $file = original_to_representative($file, $infos['representative_ext']);
   }
 
-  if (function_exists('mime_content_type') && in_array(mime_content_type($file), array('image/svg+xml', 'image/svg')))
+  if (function_exists('mime_content_type'))
   {
-    $xml = file_get_contents($file);
+    $mime_type = mime_content_type($file);
 
-    $xmlget = simplexml_load_string($xml);
-    $xmlattributes = $xmlget->attributes();
-    $width = $xmlattributes->width; 
-    $height = $xmlattributes->height;
-    $vb = (string) $xmlattributes->viewBox;
+    if (str_starts_with($mime_type, 'image/'))
+    {
+      if (in_array($mime_type, array('image/svg+xml', 'image/svg')))
+      {
+        $xml = file_get_contents($file);
 
-    if (isset($width) and $width != "")
-    {
-      $infos['width'] = (int) $width;
-    } elseif (isset($vb))
-    {
-      $infos['width'] = round(explode(" ", $vb)[2]);
+        $xmlget = simplexml_load_string($xml);
+        $xmlattributes = $xmlget->attributes();
+        $width = $xmlattributes->width; 
+        $height = $xmlattributes->height;
+        $vb = (string) $xmlattributes->viewBox;
+
+        if (isset($width) and $width != "")
+        {
+          $infos['width'] = (int) $width;
+        } elseif (isset($vb))
+        {
+          $infos['width'] = round(explode(" ", $vb)[2]);
+        }
+
+        if (isset($height) and $height != "")
+        {
+          $infos['height'] = (int) $height;
+        } elseif (isset($vb))
+        {
+          $infos['height'] = round(explode(" ", $vb)[3]);
+        }
+      }
+      // Only get image size for images. This cuts significant time with large videos.
+      if ($image_size = @getimagesize($file))
+      {
+        $infos['width'] = $image_size[0];
+        $infos['height'] = $image_size[1];
+      }
     }
-
-    if (isset($height) and $height != "")
-    {
-      $infos['height'] = (int) $height;
-    } elseif (isset($vb))
-    {
-      $infos['height'] = round(explode(" ", $vb)[3]);
-    }
-  }
-
-  if ($image_size = @getimagesize($file))
-  {
-    $infos['width'] = $image_size[0];
-    $infos['height'] = $image_size[1];
   }
 
   if ($is_tiff)
