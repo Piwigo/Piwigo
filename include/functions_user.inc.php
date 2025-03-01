@@ -424,7 +424,7 @@ SELECT
       {
         $logger->info($logger_msg_prefix.'starts to wait for another request to build user_cache');
         $user_cache_waiting_start_time = get_moment();
-        for ($k = 0; $k < 10; $k++)
+        for ($k = 0; $k < 20; $k++)
         {
           sleep(1);
 
