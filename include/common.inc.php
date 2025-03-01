@@ -109,6 +109,8 @@ include(PHPWG_ROOT_PATH . 'include/template.class.php');
 include(PHPWG_ROOT_PATH . 'include/cache.class.php');
 include(PHPWG_ROOT_PATH . 'include/Logger.class.php');
 
+$page['execution_uuid'] = generate_key(10);
+
 $persistent_cache = new PersistentFileCache();
 
 // Database connection

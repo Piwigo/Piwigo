@@ -2228,7 +2228,9 @@ function pwg_URL()
  */
 function invalidate_user_cache($full = true)
 {
-  global $persistent_cache;
+  global $persistent_cache, $logger;
+
+  $logger->info(__FUNCTION__.' starts');
 
   if ($full)
   {
@@ -2249,6 +2251,7 @@ UPDATE '.USER_CACHE_TABLE.'
   $persistent_cache->purge(true);
   conf_delete_param('count_orphans');
   trigger_notify('invalidate_user_cache', $full);
+  $logger->info(__FUNCTION__.' ends');
 }
 
 /**

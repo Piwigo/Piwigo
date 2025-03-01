@@ -340,11 +340,13 @@ class Logger
    */
   private function formatMessage($level, $message, $cat, $context)
   {
+    global $page;
+
     if (!empty($context))
     {
       $message.= "\n" . $this->indent($this->contextToString($context));
     }
-    $line = "[" . $this->getTimestamp() . "]\t[" . self::levelToCode($level) . "]\t";
+    $line = "[" . $this->getTimestamp() . '][exec='.($page['execution_uuid']??'unkonwn')."]\t[" . self::levelToCode($level) . "]\t";
     if ($cat != null)
     {
       $line.= "[" . $cat . "]\t";
