@@ -70,6 +70,7 @@ const status_to_str = {
 
 const view_selector = '{$view_selector}';
 const pagination = '{$pagination}';
+per_page = parseInt(pagination);
 
 months = [
   "{'Jan'|@translate}",
