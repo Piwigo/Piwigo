@@ -303,7 +303,8 @@ $( document ).ready(function() {
         break;
     }
 
-    $("#pagination-per-page-"+pagination).trigger('click');
+    
+    //$("#pagination-per-page-"+pagination).trigger('click');
 
     if (has_group) {
       advanced_filter_button_click();
