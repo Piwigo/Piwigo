@@ -35,10 +35,24 @@ function filter_disable(filter) {
 function select_album_filter({ album, newSelectedAlbum, getSelectedAlbum }) {
   $('#selectedAlbumNameFilter').html(album.name);
   newSelectedAlbum();
+  hide_filters_error(str_select_album);
   $('#filterCategoryValue').val(+getSelectedAlbum()[0]);
   $('#selectAlbumFilter').hide();
   $('#selectedAlbumFilterArea').fadeIn();
 }
+
+// Tags and Albums validation
+function show_filters_error(message) {
+  errorFilters = message;
+  $('#errorFilter').html(`<p>${message}</p>`).fadeIn();
+}
+
+function hide_filters_error(message) {
+  if (message === errorFilters) {
+    $('#errorFilter').hide();
+  }
+}
+
 $(document).ready(function () {
   const ab_filter = new AlbumSelector({
     selectedCategoriesIds: selected_filter_cat_ids,
@@ -81,6 +95,38 @@ $(document).ready(function () {
     e.stopPropagation();
     if (!$(event.target).hasClass('addFilter-button')) {
       $('.addFilter-dropdown').slideUp();
+    }
+  });
+
+
+  // Filter JS Validation
+  $('.filterBlock select[data-selectize="tags"]').on('change', function() {
+    if ($(this).val()) {
+      hide_filters_error(str_select_tag);
+    }
+  })
+
+  $('#applyFilter').on('click', function(e) {
+    if ($('#filter_tags').is(':visible')) {
+      const tags = $('.filterBlock select[data-selectize="tags"]');
+      if (!tags.val()) {
+        e.preventDefault();
+        show_filters_error(str_select_tag);
+        $('#filter_tags .removeFilter').off('click.apply').on('click.apply', function() {
+          hide_filters_error(str_select_tag);
+        });
+      }
+    }
+
+    if ($('#filter_category').is(':visible')) {
+      const albums = ab_filter.get_selected_albums();
+      if (albums.length === 0) {
+        e.preventDefault();
+        show_filters_error(str_select_album);
+        $('#filter_category .removeFilter').off('click.apply').on('click.apply', function() {
+          hide_filters_error(str_select_album);
+        });
+      }
     }
   });
 })
