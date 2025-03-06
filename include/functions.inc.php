@@ -2444,6 +2444,11 @@ function send_piwigo_infos()
     return;
   }
 
+  // $conf['send_piwigo_infos_last_notice'] has been loaded in include/common, maybe
+  // a few seconds earlier, we need a refreshed value from the database. Another
+  // concurrent execution might have already performed send_piwigo_infos 3 seconds ago.
+  load_conf_from_db('param = "send_piwigo_infos_last_notice"');
+
   $do_send = false;
   if (isset($conf['send_piwigo_infos_last_notice']))
   {
