@@ -4356,7 +4356,12 @@ a#showPermissions:hover {text-decoration: none;}
   width: auto;
   min-width: 270px;
   max-width: 700px;
-  background-color: white;
+}
+
+.RenameTagPopInContainer .ClosePopIn{
+  top:15px;
+  right:15px;
+  position:absolute;
 }
 
 .AddIcon {

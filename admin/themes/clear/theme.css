@@ -876,3 +876,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #whats_new button:hover{
   background-color:#FFA646;
 }
+
+.RenameTagPopInContainer {
+  background-color:#fff;
+}
