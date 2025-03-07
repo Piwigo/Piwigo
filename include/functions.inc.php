@@ -2467,14 +2467,18 @@ function send_piwigo_infos()
     return;
   }
 
+  $logger->info('['.__FUNCTION__.'] current conf.send_piwigo_infos_last_notice='.($conf['send_piwigo_infos_last_notice'] ?? 'notFound').' => lets do it');
+
   if (!pwg_is_dbconf_writeable())
   {
+    $logger->info('['.__FUNCTION__.'] conf is not writeable, abort');
     return;
   }
 
   $exec_id = pwg_unique_exec_begins('send_piwigo_infos');
   if (false === $exec_id)
   {
+    $logger->info('['.__FUNCTION__.'] another execution is running, abort');
     return;
   }
 
@@ -2830,7 +2834,9 @@ SELECT
   }
   else
   {
-    conf_update_param('send_piwigo_infos_last_notice', date('c'));
+    $last_notice = date('c');
+    conf_update_param('send_piwigo_infos_last_notice', $last_notice, true);
+    $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote success, new send_piwigo_infos_last_notice='.$conf['send_piwigo_infos_last_notice']);
   }
 
   pwg_unique_exec_ends('send_piwigo_infos');
@@ -2839,13 +2845,14 @@ SELECT
 
 function send_piwigo_infos_retry_later($wait_time)
 {
-  global $conf;
+  global $conf, $logger;
 
   // let's fake a last_notice so that we only try 1 day later
   $last_notice = isset($conf['send_piwigo_infos_last_notice']) ? strtotime($conf['send_piwigo_infos_last_notice']) : time();
   $last_notice += $wait_time;
 
-  conf_update_param('send_piwigo_infos_last_notice', date('c', $last_notice));
+  conf_update_param('send_piwigo_infos_last_notice', date('c', $last_notice), true);
+  $logger->info('['.__FUNCTION__.'] new send_piwigo_infos_last_notice='.$conf['send_piwigo_infos_last_notice']);
 }
 
 function pwg_unique_exec_begins($token_name, $timeout=60)
