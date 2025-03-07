@@ -2369,3 +2369,7 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 .certification[data-certification="-1"] {
   background-image: url("images/certification/CertificationWarningDM.svg")!important;
 }
+
+.RenameTagPopInContainer {
+  background-color:#444;
+}
