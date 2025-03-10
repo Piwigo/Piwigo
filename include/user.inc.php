@@ -79,7 +79,6 @@ if (defined('IN_ADMIN') and IN_ADMIN)
 }
 elseif (
   isset($_REQUEST['method'])
-  and 'pwg.images.setInfo' == $_REQUEST['method']
   and isset($_SERVER['HTTP_REFERER'])
   and preg_match('/\/admin\.php\?page=/', $_SERVER['HTTP_REFERER'])
 )
