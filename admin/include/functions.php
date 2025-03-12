@@ -2230,7 +2230,10 @@ function invalidate_user_cache($full = true)
 {
   global $persistent_cache, $logger;
 
-  $logger->info(__FUNCTION__.' starts');
+  if (isset($logger) and gettype($logger) == 'object' and get_class($logger) == 'Logger')
+  {
+    $logger->info(__FUNCTION__.' called');
+  }
 
   if ($full)
   {
@@ -2251,7 +2254,6 @@ UPDATE '.USER_CACHE_TABLE.'
   $persistent_cache->purge(true);
   conf_delete_param('count_orphans');
   trigger_notify('invalidate_user_cache', $full);
-  $logger->info(__FUNCTION__.' ends');
 }
 
 /**
