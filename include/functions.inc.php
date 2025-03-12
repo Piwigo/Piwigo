@@ -1409,7 +1409,7 @@ SELECT '.$conf['user_fields']['email'].'
  * @param string $condition SQL condition
  * @return void
  */
-function load_conf_from_db($condition = '')
+function load_conf_from_db($condition = '', $die_on_condition_with_no_result=true)
 {
   global $conf;
 
@@ -1420,7 +1420,7 @@ SELECT param, value
 ;';
   $result = pwg_query($query);
 
-  if ((pwg_db_num_rows($result) == 0) and !empty($condition))
+  if ((pwg_db_num_rows($result) == 0) and !empty($condition) and $die_on_condition_with_no_result)
   {
     fatal_error('No configuration data');
   }
@@ -2447,7 +2447,7 @@ function send_piwigo_infos()
   // $conf['send_piwigo_infos_last_notice'] has been loaded in include/common, maybe
   // a few seconds earlier, we need a refreshed value from the database. Another
   // concurrent execution might have already performed send_piwigo_infos 3 seconds ago.
-  load_conf_from_db('param = "send_piwigo_infos_last_notice"');
+  load_conf_from_db('param = "send_piwigo_infos_last_notice"', false);
 
   $do_send = false;
   if (isset($conf['send_piwigo_infos_last_notice']))
