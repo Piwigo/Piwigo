@@ -1403,3 +1403,4 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Een activeringslink geldig voor %s is aangemaakt maar kon niet verzonden worden. U kunt de link hieronder Kopiëren en naar de gebruiker zenden.';
 $lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Een activeringslink geldig voor %s is verzonden naar "%s". Als de link niet toekomt, kan een nieuwe link gegenereerd en gekopieerd worden door de gebruiker te editeren en het wachtwoord te beheren.';
 $lang['A photo library administrator has created the following account for you:'] = 'Een beheerder van een fotobibliotheek heeft volgend account voor u aangemaakt:';
+$lang['Welcome to %s'] = 'Wlkom bij %s';
