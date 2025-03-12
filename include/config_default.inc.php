@@ -1000,6 +1000,11 @@ $conf['checksum_compute_blocksize'] = 50;
 // _data/cache directory
 $conf['quick_search_include_sub_albums'] = false;
 
+// Search split words: Split words in a search query.
+// For example, if search is "red tomatoes", then we only display photos
+// with "red tomatoes" and not "red", "tomatoes" in the fields
+$conf['search_split_words'] = true;
+
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |
 // +-----------------------------------------------------------------------+
