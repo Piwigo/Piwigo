@@ -2029,6 +2029,7 @@ function get_search_results($search_id, $super_order_by, $images_where='')
 
 function split_allwords($raw_allwords)
 {
+  global $conf;
   $words = null;
 
   // we specify the list of characters to trim, to add the ".". We don't want to split words
@@ -2041,16 +2042,15 @@ function split_allwords($raw_allwords)
     $drop_char_replace = array(' ',' ',' ',' ',' ',' ', '', '', ' ',' ',' ',' ',' ',' ',' ' ,' ',' ',' ',' ',' ','' , ' ',' ',' ', ' ',' ');
 
     // Split words
-    $words = array_unique(
-      preg_split(
-        '/\s+/',
-        str_replace(
-          $drop_char_match,
-          $drop_char_replace,
-          $raw_allwords
-        )
-      )
-    );
+    $processed_words = str_replace($drop_char_match, $drop_char_replace, $raw_allwords);
+    if ($conf['search_split_words']) 
+    {
+      return array_unique(preg_split('/\s+/', $processed_words));
+    } 
+    else 
+    {
+      return array($processed_words);
+    }
   }
 
   return $words;
