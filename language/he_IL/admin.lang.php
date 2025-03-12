@@ -1405,3 +1405,4 @@ $lang['An activation link valid for %s has been sent to "%s". If the user doesn\
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'קישור להפעלה בתוקף ל-%s נוצר אך לא נשלח. כעת תוכל להעתיק את הקישור למטה ולשלוח אותו למשתמש.';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'הקישור הזה תקף למשך %s. לאחר מכן, תצטרך לבקש קישור חדש.';
 $lang['To set your password, visit the following address:'] = 'כדי להגדיר את הסיסמה שלך, בקר בכתובת הבאה:';
+$lang['Welcome to %s'] = 'ברוכים הבאים ל %s';

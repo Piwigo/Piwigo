@@ -1402,3 +1402,4 @@ $lang['On %d rating(s)'] = '%d hinnangul';
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Loodi %s kehtiv aktiveerimislink, kuid seda ei saanud saata. Nüüd saate kopeerida alloleva lingi ja saata selle kasutajale.';
 $lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Kehtiv aktiveerimislink %s jaoks on saadetud aadressile "%s". Kui linki ei saa, saab kasutajat muutes ja parooli haldades uue genereerida ja kopeerida.';
 $lang['A photo library administrator has created the following account for you:'] = 'Fototeegi administraator on loonud teile järgmise konto:';
+$lang['Welcome to %s'] = 'Tere tulemast %s';

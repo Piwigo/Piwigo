@@ -475,3 +475,4 @@ $lang['Only the first %d albums are displayed, out of %d.'] = 'Kuvatakse ainult 
 $lang['Custom dates'] = 'Kohandatud kuupäevad';
 $lang['Click here to display it'] = 'Selle kuvamiseks klõpsake siin';
 $lang['Album already selected'] = 'Album on juba valitud';
+$lang['Set your password below.'] = 'Määrake allpool oma parool.';
