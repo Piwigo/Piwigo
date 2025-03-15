@@ -2029,31 +2029,38 @@ function get_search_results($search_id, $super_order_by, $images_where='')
 
 function split_allwords($raw_allwords)
 {
-  global $conf;
-  $words = null;
+    global $conf;
+    $words = null;
 
-  // we specify the list of characters to trim, to add the ".". We don't want to split words
-  // on "." but on ". ", and we have to deal with trailing dots.
-  $raw_allwords = trim($raw_allwords, " \n\r\t\v\x00.");
+    // Trim unwanted characters, including trailing dots
+    $raw_allwords = trim($raw_allwords, " \n\r\t\v\x00.");
 
-  if (!preg_match('/^\s*$/', $raw_allwords))
-  {
-    $drop_char_match   = array(';','&','(',')','<','>','`','\'','"','|',',','@','?','%','. ','[',']','{','}',':','\\','/','=','\'','!','*');
-    $drop_char_replace = array(' ',' ',' ',' ',' ',' ', '', '', ' ',' ',' ',' ',' ',' ',' ' ,' ',' ',' ',' ',' ','' , ' ',' ',' ', ' ',' ');
+    if (!preg_match('/^\s*$/', $raw_allwords)) {
+        $drop_char_match   = array(';', '&', '(', ')', '<', '>', '`', '|', ',', '@', '?', '%', '. ', '[', ']', '{', '}', ':', '\\', '/', '=', '!', '*');
+        $drop_char_replace = array(' ', ' ', ' ', ' ', ' ', ' ', '', '', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '', ' ', ' ', ' ', ' ', ' ');
 
-    // Split words
-    $processed_words = str_replace($drop_char_match, $drop_char_replace, $raw_allwords);
-    if ($conf['search_split_words']) 
-    {
-      return array_unique(preg_split('/\s+/', $processed_words));
-    } 
-    else 
-    {
-      return array($processed_words);
+        // Replace unwanted characters
+        $processed_words = str_replace($drop_char_match, $drop_char_replace, $raw_allwords);
+
+        // Remove extra spaces introduced during replacement
+        $processed_words = preg_replace('/\s+/', ' ', $processed_words);
+        $processed_words = trim($processed_words);
+
+        // Use a regular expression to split words while respecting quoted text
+        $pattern = '/"([^"]+)"|\'([^\']+)\'|(\S+)/';
+        preg_match_all($pattern, $processed_words, $matches);
+
+        // Extract matches and flatten the array
+        $result = array_merge(
+            array_filter($matches[1]), // Double-quoted phrases
+            array_filter($matches[2]), // Single-quoted phrases
+            array_filter($matches[3])  // Unquoted words
+        );
+
+        return array_unique($result);
     }
-  }
 
-  return $words;
+    return $words;
 }
 
 function get_available_search_uuid()
