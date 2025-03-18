@@ -79,3 +79,4 @@ INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_button','fa
 INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_action','true');
 INSERT INTO piwigo_config (param,value) VALUES ('upload_detect_duplicate','true');
 INSERT INTO piwigo_config (param,value) VALUES ('webmaster_id','1');
+INSERT INTO piwigo_config (param,value) VALUES ('use_standard_pages','true');

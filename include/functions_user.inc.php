@@ -1048,6 +1048,29 @@ function log_user($user_id, $remember_me)
 {
   global $conf, $user;
 
+  //New default login and register pages, if users changes languages and succesfully logs in
+  //we want to update the userpref language stored in a cookie
+
+  //TODO check value of cookie
+
+  if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
+  {
+    if (!array_key_exists($_COOKIE['lang'], get_languages()))
+    {
+      fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
+    }
+
+    single_update(
+      USER_INFOS_TABLE,
+      array('language' => $_COOKIE['lang']),
+      array('user_id' => $user_id)
+    );
+
+    // We unset the lang cookie, if user has changed their language using interface we don't want to keep setting it back 
+    // to what was chosen using standard pages lang switch
+    setcookie("lang", "", time() - 3600);
+  }
+
   if ($remember_me and $conf['authorize_remembering'])
   {
     $now = time();

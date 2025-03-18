@@ -40,7 +40,7 @@ if ( !empty($_GET['redirect']) )
   $redirect_to = urldecode($_GET['redirect']);
   if ( $conf['guest_access'] and !isset($_GET['hide_redirect_error']))
   {
-    $page['errors'][] = l10n('You are not authorized to access the requested page');
+    $page['errors']['login_page_error'][] = l10n('You are not authorized to access the requested page');
   }
 }
 
@@ -48,7 +48,7 @@ if (isset($_POST['login']))
 {
   if (!isset($_COOKIE[session_name()]))
   {
-    $page['errors'][] = l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.');
+    $page['errors']['login_page_error'][] = l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.');
   }
   else
   {
@@ -82,7 +82,7 @@ if (isset($_POST['login']))
     }
     else
     {
-      $page['errors'][] = l10n('Invalid username or password!');
+      $page['errors']['login_form_error'] = l10n('Invalid username or password!');
     }
   }
 }
@@ -120,6 +120,41 @@ if (!$conf['gallery_locked'] && (!isset($themeconf['hide_menu_on']) OR !in_array
 {
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }
+
+//Load language if cookie is set from login/register/password pages
+if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
+{
+  if (!array_key_exists($_COOKIE['lang'], get_languages()))
+  {
+    fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
+  }
+  
+  $user['language'] = $_COOKIE['lang'];
+  load_language('common.lang', '', array('language'=>$user['language']));
+}
+
+//Get list of languages
+foreach (get_languages() as $language_code => $language_name)
+{
+  $language_options[$language_code] = $language_name;
+}
+
+$template->assign(array(
+  'language_options' => $language_options,
+  'current_language' => $user['language']
+));
+
+//Get link to doc
+if ('fr' == substr($user['language'], 0, 2))
+{
+  $help_link = "https://doc-fr.piwigo.org/les-utilisateurs/se-connecter-a-piwigo";
+}
+else
+{
+  $help_link = "https://doc.piwigo.org/managing-users/log-in-to-piwigo";
+}
+
+$template->assign('HELP_LINK', $help_link);
 
 //----------------------------------------------------------- html code display
 include(PHPWG_ROOT_PATH.'include/page_header.php');

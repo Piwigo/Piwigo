@@ -59,7 +59,7 @@ $tpl_themes = array();
 
 foreach ($themes->fs_themes as $theme_id => $fs_theme)
 {
-  if ($theme_id == 'default')
+  if ($theme_id == 'default' or $theme_id == 'standard_pages')
   {
     continue;
   }

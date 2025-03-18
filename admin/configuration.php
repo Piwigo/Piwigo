@@ -50,6 +50,7 @@ $main_checkboxes = array(
     'show_mobile_app_banner_in_gallery',
     'show_mobile_app_banner_in_admin',
     'upload_detect_duplicate',
+    'use_standard_pages',
    );
 
 $sizes_checkboxes = array(
