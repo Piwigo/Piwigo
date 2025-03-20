@@ -455,7 +455,6 @@ $lang['There are no tags available for the photos currently filtered'] = 'There 
 $lang['There are no creation dates available for the photos currently filtered'] = 'There are no creation dates available for the photos currently filtered';
 $lang['There are no authors available for the photos currently filtered'] = 'There are no authors available for the photos currently filtered';
 $lang['Set your password below.'] = 'Set your password below.';
-$lang['Use standard Piwigo template for common pages.'] = 'Use standard Piwigo template for common pages.';
 $lang['When enabled, a common template is used for the login and registration pages, regardless of the theme.'] = 'When enabled, a common template is used for the login and registration pages, regardless of the theme.';
 $lang['Don\'t have an account yet ?'] = 'Don\'t have an account yet ?';
 $lang['Create an account'] = 'Create an account';
