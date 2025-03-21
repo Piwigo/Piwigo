@@ -906,8 +906,8 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .cat-modify-footer-see-out.disabled {
   background-color: #ECECEC;
   color: #B8B8B8;
+}
 
 .RenameTagPopInContainer {
   background-color:#fff;
-
 }
