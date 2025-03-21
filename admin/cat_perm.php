@@ -158,8 +158,13 @@ DELETE
       add_permission_on_category($page['cat'], $grant_users);
     }
   }
+  
+  $template->assign(
+    array(
+      'save_success' =>l10n('Album updated successfully'),
+    )
+  );
 
-  $page['infos'][] = l10n('Album updated successfully');
 }
 
 // +-----------------------------------------------------------------------+

@@ -69,10 +69,7 @@ jQuery(document).ready(function(){
     </table>
   </fieldset>
 
-  <p>
-    <input type="submit" value="{'Submit'|@translate}" name="param_submit">
-    <input type="reset" value="{'Reset'|@translate}" name="param_reset">
-  </p>
+
   {/if}{* isset $param*}
 
   {if isset($subscribe)}
@@ -140,5 +137,36 @@ jQuery(document).ready(function(){
     </p>
     {/if}
   {/if}{* isset $send*}
+
+  {if isset($param)}
+    <div class="savebar-footer">
+      <div class="savebar-footer-start">
+        <div class="savebar-footer-block">
+          <button class="savebar-see-out" type="reset" name="param_reset">{'Reset'|@translate}</button>
+        </div>
+    
+      </div>
+      <div class="savebar-footer-end">
+      {if isset($save_success)}
+        <div class="savebar-footer-block">
+          <div class="badge info-message">
+            <i class="icon-ok"></i>{$save_success}
+          </div>
+        </div>
+      {/if}
+      {if isset($save_error)}
+        <div class="savebar-footer-block">
+          <div class="badge info-warning">
+            <i class="icon-attention"></i>{$save_error}
+          </div>
+        </div>
+      {/if}
+    
+        <div class="savebar-footer-block">
+          <button class="buttonLike" type="submit" name="param_submit"><i class="icon-floppy"></i>{'Submit'|@translate}</button>
+        </div>
+      </div>
+    </div>
+    {/if}    
 
 </form>

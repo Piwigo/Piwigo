@@ -117,12 +117,24 @@ span.errors {
   </p>
 {/if}
 
-  <p class="actionButtons">
-    <button name="submitEmail" type="submit" class="buttonLike">
-      <i class="icon-mail"></i> {'Send'|translate}
-    </button>
-    <span class="errors" style="display:none">&#x2718; {'No recipient selected'|translate}</span>
-  </p>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+    </div>
+    <div class="savebar-footer-end">
+
+{if isset($save_success)}
+      <div class="savebar-footer-block">
+        <div class="badge info-message">
+          <i class="icon-ok"></i>{$save_success}
+        </div>
+      </div>
+{/if}
+    
+      <div class="savebar-footer-block">
+        <button class="buttonLike" type="submit" name="submitEmail"><i class="icon-mail"></i> {'Send'|@translate}</button>
+      </div>
+    </div>
+  </div>
 
 </fieldset>
 

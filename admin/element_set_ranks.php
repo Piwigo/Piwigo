@@ -47,8 +47,6 @@ if (isset($_POST['submit']))
       $page['category_id'],
       array_keys($_POST['rank_of_image'])
       );
-
-    $page['infos'][] = l10n('Images manual order was saved');
   }
 
   if (!empty($_POST['image_order_choice'])
@@ -56,6 +54,8 @@ if (isset($_POST['submit']))
   {
     $image_order_choice = $_POST['image_order_choice'];
   }
+
+  $message = l10n('Album updated successfully');
 
   $image_order = null;
   if ($image_order_choice=='user_define')
@@ -72,6 +72,8 @@ if (isset($_POST['submit']))
   elseif ($image_order_choice=='rank')
   {
     $image_order = '`rank` ASC';
+
+    $message = l10n('Images manual order was saved');
   }
   $query = '
 UPDATE '.CATEGORIES_TABLE.' 
@@ -90,7 +92,11 @@ UPDATE '.CATEGORIES_TABLE.'
     pwg_query($query);
   }
 
-  $page['infos'][] = l10n('Your configuration settings are saved');
+  $template->assign(
+    array(
+      'save_success' => $message,
+    )
+  );
 }
 
 // +-----------------------------------------------------------------------+

@@ -80,10 +80,38 @@ jQuery(document).ready(function(){
     <a href="#" id="commentSelectInvert">{'Invert'|@translate}</a>
   </p>
 
-  <p class="bottomButtons">
-    <input type="submit" name="validate" value="{'Validate'|@translate}">
-    <input type="submit" name="reject" value="{'Reject'|@translate}">
-  </p>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+    </div>
+    <div class="savebar-footer-end">
+{if isset($save_success)}
+      <div class="savebar-footer-block">
+        <div class="badge info-message">
+          <i class="icon-ok"></i>{$save_success}
+        </div>
+      </div>
+{/if}
+{if isset($save_error)}
+      <div class="savebar-footer-block">
+        <div class="badge info-error">
+          <i class="icon-cancel-circled"></i>{$save_error}
+        </div>
+      </div>
+{/if}
+{if isset($save_warning)}
+  <div class="savebar-footer-block">
+    <div class="badge info-warning">
+      <i class="icon-attention"></i>{$save_warning}
+    </div>
+  </div>
+{/if}
+      <div class="savebar-footer-block">
+        <button class="buttonSecond"  type="submit" name="reject" value="{'Reject'|@translate}"><i class="icon-floppy"></i> {'Reject'|@translate}</button>
+        <button class="buttonLike"  type="submit" name="validate" value="{'Validate'|@translate}"><i class="icon-floppy"></i> {'Validate'|@translate}</button>
+      </div>
+    </div>
+  </div>
+
 
 </form>
 {/if}

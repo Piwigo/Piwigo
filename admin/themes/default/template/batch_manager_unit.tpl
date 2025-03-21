@@ -330,7 +330,7 @@ pluginValues = [];
 			</div>
 			<div class="buttonLike action-save-global">
 				<i class="icon-floppy"></i>
-				Save all photos
+				{'Save all photos'|translate}
 			</div>
 		</div>
 	</div>

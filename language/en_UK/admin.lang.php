@@ -1407,6 +1407,8 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = 'To set your password, visit the following address:';
 $lang['A photo library administrator has created the following account for you:'] = 'A photo library administrator has created the following account for you:';
 $lang['Welcome to %s'] = 'Welcome to %s';
+$lang['Save all photos'] = 'Save all photos';
 $lang['Use standard Piwigo template for common pages.'] = 'Use standard Piwigo template for common pages.';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option';
+
 // Leave this line empty

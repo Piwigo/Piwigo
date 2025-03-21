@@ -150,7 +150,11 @@ SELECT
     $message = l10n_dec('%d mail was sent.', '%d mails were sent.', count($users));
     $message.= ' ('.implode(', ', $usernames).')';
     
-    $page['infos'][] = $message;
+    $template->assign(
+      array(
+        'save_success' =>$message,
+      )
+    );
   }
   elseif ('group' == $_POST['who'] and !empty($_POST['group']))
   {
@@ -166,7 +170,11 @@ SELECT
 ;';
     list($group_name) = pwg_db_fetch_row(pwg_query($query));
 
-    $page['infos'][] = l10n('An information email was sent to group "%s"', $group_name);
+    $template->assign(
+      array(
+        'save_success' =>l10n('An information email was sent to group "%s"', $group_name),
+      )
+    );
   }
 
   unset_make_full_url();
@@ -224,6 +232,8 @@ else
 {
   if ('private' == $category['status'])
   {
+    $template->assign('permission_url', $admin_album_base_url.'-permissions');
+
     $query = '
 SELECT
     group_id
@@ -231,11 +241,6 @@ SELECT
   WHERE cat_id = '.$category['id'].'
 ;';
     $group_ids = array_from_query($query, 'group_id');
-
-    if (count($group_ids) == 0)
-    {
-      $template->assign('permission_url', $admin_album_base_url.'-permissions');
-    }
   }
   else
   {

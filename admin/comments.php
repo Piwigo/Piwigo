@@ -36,7 +36,11 @@ if (!empty($_POST))
 {
   if (empty($_POST['comments']))
   {
-    $page['errors'][] = l10n('Select at least one comment');
+    $template->assign(
+      array(
+        'save_warning' => l10n('Select at least one comment')
+      )
+    );
   }
   else
   {
@@ -47,20 +51,28 @@ if (!empty($_POST))
     {
       validate_user_comment($_POST['comments']);
 
-      $page['infos'][] = l10n_dec(
-        '%d user comment validated', '%d user comments validated',
-        count($_POST['comments'])
-        );
+      $template->assign(
+        array(
+          'save_success' => l10n_dec(
+            '%d user comment validated', '%d user comments validated',
+            count($_POST['comments'])
+          )
+        )
+      );
     }
 
     if (isset($_POST['reject']))
     {
       delete_user_comment($_POST['comments']);
 
-      $page['infos'][] = l10n_dec(
-        '%d user comment rejected', '%d user comments rejected',
-        count($_POST['comments'])
-        );
+      $template->assign(
+        array(
+          'save_error' => l10n_dec(
+            '%d user comment rejected', '%d user comments rejected',
+            count($_POST['comments'])
+          )
+        )
+      );
     }
   }
 }

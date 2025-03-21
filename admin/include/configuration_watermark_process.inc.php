@@ -194,8 +194,13 @@ if (count($errors) == 0)
   {
     clear_derivative_cache($changed_types);
   }
+  
+  $template->assign(
+    array(
+      'save_success' => l10n('Your configuration settings are saved'),
+    )
+  );
 
-  $page['infos'][] = l10n('Your configuration settings are saved');
   pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>'watermark'));
 }
 else
