@@ -479,7 +479,9 @@ else
     session_set_cookie_params(0, cookie_path());
     register_shutdown_function('session_write_close');
     
-    $user = build_user(1, true);
+    // we don't load user cache because since Piwigo 15.4.0 the calculation of user
+    // cache requires $logger which is not instanciated
+    $user = build_user(1, false);
     log_user($user['id'], false);
 
     $user['preferences']['show_whats_new_'.get_branch_from_version(PHPWG_VERSION)] = false;

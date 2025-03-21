@@ -374,10 +374,6 @@ const all_related_categories_ids = {$all_selected_album|json_encode};
   border: 1px solid #D3D3D3 !important;
 } */
 
-.breadcrumb-item.add-item.highlight{
-  color: #3C3C3C !important;
-}
-
 .breadcrumb-item{
   margin: 5px 0 5px 0 !important;
 }

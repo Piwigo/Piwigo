@@ -70,6 +70,7 @@ const status_to_str = {
 
 const view_selector = '{$view_selector}';
 const pagination = '{$pagination}';
+per_page = parseInt(pagination);
 
 months = [
   "{'Jan'|@translate}",
@@ -1415,6 +1416,7 @@ $(document).ready(function() {
 
 .user-container-initials .small {
   font-size: 1em !important;
+  line-height: 30px;
 }
 
 .user-header-username{
@@ -1443,6 +1445,7 @@ $(document).ready(function() {
 .user-container-status {
     width:10%;
     max-width: 110px;
+    width: auto;
 }
 
 .user-header-email,
@@ -1543,12 +1546,12 @@ $(document).ready(function() {
 .user-container-initials-wrapper > span {
     border-radius:50%;
     padding:5px;
-    width:40px;
-    height:40px;
+    width:30px;
+    height:30px;
     display:inline-block;
     text-align:center;
     font-size:1.5em;
-    line-height:1.9em;
+    margin-left:7px;
 }
 
 .user-container-status {
@@ -3113,12 +3116,6 @@ Advanced filter
   margin-bottom: 35px;
 }
 
-.compactView .user-container-initials-wrapper > span {
-  height: 40px;
-  width: 40px;
-}
-
-
 .compactView .user-container {
   height: 50px;
   padding: 0 50px 0 0;
@@ -3154,8 +3151,8 @@ Advanced filter
   position: absolute;
   right: 0px;
 
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
 
   display: flex;
@@ -3290,7 +3287,7 @@ Advanced filter
   justify-content: center;
 
   font-size: 10px;
-  padding: 1px 6px;
+  padding: 2px 6px;
   color: black;
 
   margin:0 4px 0 7px;

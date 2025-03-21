@@ -252,6 +252,17 @@ jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
         <span class="icon-help-circled tiptip" title="{'During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'|translate}" style="cursor:help"></span>
       </li>
 
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="use_standard_pages" {if ($main.use_standard_pages)}checked="checked"{/if}>
+            {'Use standard Piwigo template for common pages.'|translate}
+        </label>
+
+        <span class="icon-help-circled tiptip" title="{'When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'|translate}" style="cursor:help"></span>
+      </li>
+
+
 
       <li>
         <label>{'Mail theme'|translate}</label>

@@ -297,40 +297,6 @@ y.callService(
 	</div>
 {/if}
 
-{if $display_info.privacy_level and isset($available_permission_levels)}
-	<div id="Privacy" class="imageInfo">
-		<dt>{'Who can see this photo?'|@translate}</dt>
-		<dd>
-			<div>
-				<a id="privacyLevelLink" href>{$available_permission_levels[$current.level]}</a>
-			</div>
-{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
-{footer_script require='jquery'}{strip}
-function setPrivacyLevel(id, level){
-(new PwgWS('{$ROOT_URL}')).callService(
-	"pwg.images.setPrivacyLevel", { image_id:id, level:level},
-	{
-		method: "POST",
-		onFailure: function(num, text) { alert(num + " " + text); },
-		onSuccess: function(result) {
-			  jQuery('#privacyLevelBox .switchCheck').css('visibility','hidden');
-				jQuery('#switchLevel'+level).prev('.switchCheck').css('visibility','visible');
-				jQuery('#privacyLevelLink').text(jQuery('#switchLevel'+level).text());
-		}
-	}
-	);
-}
-(window.SwitchBox=window.SwitchBox||[]).push("#privacyLevelLink", "#privacyLevelBox");
-{/strip}{/footer_script}
-			<div id="privacyLevelBox" class="switchBox" style="display:none">
-				{foreach from=$available_permission_levels item=label key=level}
-					<span class="switchCheck"{if $level != $current.level} style="visibility:hidden"{/if}>&#x2714; </span>
-					<a id="switchLevel{$level}" href="javascript:setPrivacyLevel({$current.id},{$level})">{$label}</a><br>
-				{/foreach}
-			</div>
-		</dd>
-	</div>
-{/if}
 {/strip}
 </dl>
 

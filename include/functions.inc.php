@@ -1409,7 +1409,7 @@ SELECT '.$conf['user_fields']['email'].'
  * @param string $condition SQL condition
  * @return void
  */
-function load_conf_from_db($condition = '')
+function load_conf_from_db($condition = '', $die_on_condition_with_no_result=true)
 {
   global $conf;
 
@@ -1420,7 +1420,7 @@ SELECT param, value
 ;';
   $result = pwg_query($query);
 
-  if ((pwg_db_num_rows($result) == 0) and !empty($condition))
+  if ((pwg_db_num_rows($result) == 0) and !empty($condition) and $die_on_condition_with_no_result)
   {
     fatal_error('No configuration data');
   }
@@ -2444,6 +2444,11 @@ function send_piwigo_infos()
     return;
   }
 
+  // $conf['send_piwigo_infos_last_notice'] has been loaded in include/common, maybe
+  // a few seconds earlier, we need a refreshed value from the database. Another
+  // concurrent execution might have already performed send_piwigo_infos 3 seconds ago.
+  load_conf_from_db('param = "send_piwigo_infos_last_notice"', false);
+
   $do_send = false;
   if (isset($conf['send_piwigo_infos_last_notice']))
   {
@@ -2462,14 +2467,18 @@ function send_piwigo_infos()
     return;
   }
 
+  $logger->info('['.__FUNCTION__.'] current conf.send_piwigo_infos_last_notice='.($conf['send_piwigo_infos_last_notice'] ?? 'notFound').' => lets do it');
+
   if (!pwg_is_dbconf_writeable())
   {
+    $logger->info('['.__FUNCTION__.'] conf is not writeable, abort');
     return;
   }
 
   $exec_id = pwg_unique_exec_begins('send_piwigo_infos');
   if (false === $exec_id)
   {
+    $logger->info('['.__FUNCTION__.'] another execution is running, abort');
     return;
   }
 
@@ -2825,7 +2834,9 @@ SELECT
   }
   else
   {
-    conf_update_param('send_piwigo_infos_last_notice', date('c'));
+    $last_notice = date('c');
+    conf_update_param('send_piwigo_infos_last_notice', $last_notice, true);
+    $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote success, new send_piwigo_infos_last_notice='.$conf['send_piwigo_infos_last_notice']);
   }
 
   pwg_unique_exec_ends('send_piwigo_infos');
@@ -2834,13 +2845,14 @@ SELECT
 
 function send_piwigo_infos_retry_later($wait_time)
 {
-  global $conf;
+  global $conf, $logger;
 
   // let's fake a last_notice so that we only try 1 day later
   $last_notice = isset($conf['send_piwigo_infos_last_notice']) ? strtotime($conf['send_piwigo_infos_last_notice']) : time();
   $last_notice += $wait_time;
 
-  conf_update_param('send_piwigo_infos_last_notice', date('c', $last_notice));
+  conf_update_param('send_piwigo_infos_last_notice', date('c', $last_notice), true);
+  $logger->info('['.__FUNCTION__.'] new send_piwigo_infos_last_notice='.$conf['send_piwigo_infos_last_notice']);
 }
 
 function pwg_unique_exec_begins($token_name, $timeout=60)
@@ -2879,6 +2891,19 @@ INSERT IGNORE
   $logger->info('['.$token_name.'][exec='.$exec_id.'] wins the race and gets the token!');
 
   return $exec_id;
+}
+
+function pwg_unique_exec_is_running($token_name)
+{
+  $query = '
+SELECT
+    COUNT(*)
+  FROM '.CONFIG_TABLE.'
+  WHERE param = "'.$token_name.'_running"
+;';
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
+
+  return $counter > 0;
 }
 
 function pwg_unique_exec_ends($token_name)

@@ -86,10 +86,8 @@ const prefix_icon = 'gallery-icon-';
     {/if}
   };
 
-  {if $SHOW_FILTER_RATINGS and isset($RATING)}
-    var show_filter_ratings = true;
-  {else}
-    var show_filter_ratings = false;
+  {if isset($SHOW_FILTER_RATINGS)}
+  var show_filter_ratings = {if $SHOW_FILTER_RATINGS}{$SHOW_FILTER_RATINGS}{else}false{/if};
   {/if}
 
 {/footer_script}

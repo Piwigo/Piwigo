@@ -198,7 +198,7 @@ function pwg_db_changes()
 
 function pwg_db_num_rows($result) 
 {
-  return $result->num_rows;
+  return $result->num_rows ?? 0;
 }
 
 function pwg_db_fetch_array($result)

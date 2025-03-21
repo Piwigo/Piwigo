@@ -491,14 +491,14 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
       <!-- author -->
       <div id="action_author" class="bulkAction">
-      <input type="text" class="large" name="author" placeholder="{'Type here the author name'|@translate}">
       <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="remove_author"> {'remove author'|@translate}</label>
+      <input type="text" class="large" name="author" placeholder="{'Type here the author name'|@translate}">
       </div>
 
       <!-- title -->
       <div id="action_title" class="bulkAction">
-      <input type="text" class="large" name="title" placeholder="{'Type here the title'|@translate}">
       <label class="font-checkbox"><span class="icon-check"></span><input type="checkbox" name="remove_title"> {'remove title'|@translate}</label>
+      <input type="text" class="large" name="title" placeholder="{'Type here the title'|@translate}">
       </div>
 
       <!-- date_creation -->

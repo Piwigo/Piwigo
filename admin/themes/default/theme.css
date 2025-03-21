@@ -1022,7 +1022,7 @@ background: #ffa646;
   border-radius: 15px;
   pointer-events: none;
   padding: 0px 7px;
-  color: #333
+  color: #493C21;
 }
 
 .pagination-per-page {
@@ -2224,11 +2224,11 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
   background: #ebebeb;
 }
 
-.themeActions a:nth-child(1) {background-color: #ffc17e; color: #222;}
-.themeActions a:nth-child(1):hover {background-color: #ff7700; color: white; text-decoration: none; transition-duration: 125ms;}
+.themeActions a:nth-child(1) {background-color: #ffc17e; color: #493C21;}
+.themeActions a:nth-child(1):hover {background-color: #ff7700; color: #493C21; text-decoration: none; transition-duration: 125ms;}
 
-.themeActions a:nth-child(2) {background-color: #ececec; color: #222;}
-.themeActions a:nth-child(2):hover {background-color: #ff9b32; color: #111; text-decoration: none; transition-duration: 125ms;}
+.themeActions a:nth-child(2) {background-color: #ececec; color: #3c3c3c;}
+.themeActions a:nth-child(2):hover {background-color: #ff9b32; color: #3c3c3c; text-decoration: none; transition-duration: 125ms;}
 
 #themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
 .themeBoxes {min-height:0;text-align:left;}
@@ -2745,9 +2745,10 @@ h2:lang(en) { text-transform:capitalize; }
   padding: 2px 10px;
   border-radius: 5px;
 }
+
 .pluginActionLevel1:hover {
   background-color: #ff7700; 
-  color: white; 
+  color:#493C21; 
   text-decoration: none;
 }
 
@@ -4390,7 +4391,12 @@ a#showPermissions:hover {text-decoration: none;}
   width: auto;
   min-width: 270px;
   max-width: 700px;
-  background-color: white;
+}
+
+.RenameTagPopInContainer .ClosePopIn{
+  top:15px;
+  right:15px;
+  position:absolute;
 }
 
 .AddIcon {
@@ -5678,6 +5684,9 @@ input:checked + .slider:before, input:checked + .slider::after {
 .jconfirm-buttons .btn {
   text-transform: none !important;
 }
+.jconfirm.jconfirm-modern .jconfirm-box .jconfirm-buttons button{
+  border-radius:0!important;
+}
 /*Group checkbox*/
 
 .Group-checkbox{
@@ -6034,6 +6043,9 @@ input:checked + .slider:before, input:checked + .slider::after {
   border-radius:25px;
 }
 
+.UsernameBlock.success_message{
+  margin-right:0px;
+}
 
 .UsersInGroupListContainer{
   max-height:315px;
@@ -6125,8 +6137,12 @@ input:checked + .slider:before, input:checked + .slider::after {
 
 .LinkUserManager{
   text-align:center;
+  padding:40px;
+}
+
+.LinkUserManager a{
   font-weight:700;
-  padding-top:20px;
+  padding:13px 20px;
 }
 
 .AddUserSubmit:hover{
@@ -6292,6 +6308,7 @@ a.group_users {
 }
 .see-out.disabled {
   cursor: not-allowed;
+  opacity:1;
 }
 .see-out.disabled p {
   background-color: #ECECEC;
@@ -6381,16 +6398,20 @@ fieldset#environment legend i[class*="icon-"] {
   }
 }
 
-.buttonLike,
-input[type="submit"],
-input[type="button"],
-input[type="reset"] {
-  font-size:12px;
-  border:none;
-  padding:13px 20px;
-  margin-left:0;
-  font-weight: bold;
-  transition: all 125ms ease-out;
+.buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
+ font-size:12px; 
+ border:none; 
+ padding:13px 20px; 
+ margin-left:0; font-weight: bold; transition: all 125ms ease-out;
+ color:#493C21;
+ background-color:#FFA646;
+}
+
+.buttonLike:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+	cursor: pointer;
+  background-color: #ff7700;
+	text-decoration: none;
+  color:#493C21;
 }
 
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
@@ -6943,11 +6964,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   margin-bottom:20px;
 }
 
-.user-container.container-selected .user-container-initials-wrapper > span {
-background-color: #FF7B00;
-color:#FEE7BD;
-}
-
 .user-container.container-selected .user-groups,
 .user-container.container-selected .registration-clock {
 background-color: #FEE7C8;
@@ -7259,7 +7275,7 @@ color:#FF7B00;
 }
 
 .breadcrumb-item.add-item {
-  width: min-content;
+  width: fit-content;
   cursor: pointer;
   color: #777;
   transition: 0.3s;

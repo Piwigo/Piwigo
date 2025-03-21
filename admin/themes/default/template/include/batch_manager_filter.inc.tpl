@@ -49,6 +49,10 @@ const selected_filter_cat_ids = ["{$filter_category_selected|@json_encode|escape
 {else}
 const selected_filter_cat_ids = [];
 {/if}
+
+const str_select_album = "{'Select at least one album'|@translate|escape:javascript}";
+const str_select_tag = "{'Select at least one tag'|@translate|escape:javascript}";
+let errorFilters = '';
 {/footer_script}
 
 {combine_script id='batchManagerFilter' load='footer' path='admin/themes/default/js/batchManagerFilter.js'}
@@ -256,6 +260,8 @@ const selected_filter_cat_ids = [];
     <button id="applyFilter" name="submitFilter" type="submit">
       <i class="icon-arrows-cw"></i> {'Refresh photo set'|@translate}
     </button>
+
+    <div id="errorFilter" class="icon-red-error" style="display: none; margin-left: 10px;"></div>
   </div>
 </div>
 </fieldset>

@@ -226,7 +226,11 @@ function selectDelDerivNone() {
 
 // Trigger action click on pressing enter and if the value of applyAction is not equal to -1
 $(window).on('keypress', function(e) {
-  if (e.key === "Enter" && $("select[name='selectAction']").val() != -1) {
+  const selected = $("select[name='selectAction']").val();
+  const haveTextarea = $(`#action_${selected} textarea`).length;
+  const haveAlbumSelector = $('#addLinkedAlbum').is(':visible');
+  
+  if (e.key === "Enter" && selected != -1 && !haveTextarea && !haveAlbumSelector) {
     e.preventDefault();
     $('#applyAction').trigger('click');
   }

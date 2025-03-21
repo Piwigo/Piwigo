@@ -303,7 +303,8 @@ $( document ).ready(function() {
         break;
     }
 
-    $("#pagination-per-page-"+pagination).trigger('click');
+    
+    //$("#pagination-per-page-"+pagination).trigger('click');
 
     if (has_group) {
       advanced_filter_button_click();
@@ -2142,7 +2143,7 @@ function add_user() {
     ajax_data.status = $(".AddUserInputContainer .user-property-status select").val();
     ajax_data.level = $(".AddUserInputContainer .user-property-level select").val();
     ajax_data.enabled_high = $(".AddUserInputContainer .user-list-checkbox[name=\"hd_enabled\"]").attr('data-selected') == '1' ? true : false;
-    ajax_data.group_id = groups_selected.length == 0 ? -1 : groups_selected;
+    ajax_data.group_id = groups_selected;
     ajax_data.auto_password = true;
 
     // for debug
@@ -2169,6 +2170,8 @@ function add_user() {
             let data = jQuery.parseJSON(raw_data);
             if (data.stat == 'ok') {
                 let new_user_id = data.result.users[0].id;
+                const default_group = data.result.users[0].groups ?? [];
+                ajax_data.group_id = ajax_data.group_id.concat(default_group);
                 add_infos_to_new_user(new_user_id, ajax_data);
             }
             else {

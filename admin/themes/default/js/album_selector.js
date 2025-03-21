@@ -1,5 +1,12 @@
 let activeAlbumSelector = null;
 
+$(window).on('keypress', function(e) {
+  const haveAlbumSelector = $('#addLinkedAlbum').is(':visible');
+  if (haveAlbumSelector && e.key === "Enter") {
+    e.preventDefault();
+  }
+});
+
 /**
  * Album selector instance
  * @param {Array} selectedCategoriesIds - Array of IDs for elements already selected.
@@ -28,6 +35,7 @@ class AlbumSelector {
   #current_cat;
   #title;
   #searchPlaceholder;
+  #loading_add;
 
   /**
    * Selector for AlbumSelector
@@ -100,6 +108,7 @@ class AlbumSelector {
     this.#title = modalTitle === '' ? str_album_modal_title : modalTitle;
     this.#searchPlaceholder = modalSearchPlaceholder === '' ? 
     str_album_modal_placeholder : modalSearchPlaceholder;
+    this.#loading_add = false;
 
     this.#init();
   }
@@ -197,6 +206,12 @@ class AlbumSelector {
     $(document).off(`keyup${instanceAb}`).on(`keyup${instanceAb}`, (e) => {
       if (e.key === "Escape" && AlbumSelector.selectors.addLinkedAlbum.is(":visible")) {
         this.#close_album_selector();
+      }
+
+      if (e.key === 'Enter' && AlbumSelector.selectors.addLinkedAlbum.is(":visible")) {
+        if ($('#linkedAddNewAlbum').is(':visible')) {
+          AlbumSelector.selectors.linkedAddNewAlbum.trigger(`click${instanceAb}`);
+        }
       }
     });
 
@@ -340,6 +355,7 @@ class AlbumSelector {
     this.#searchCat = {};
     this.#currentSelectedId = '';
     this.#put_to_root = false;
+    this.#loading_add = false;
 
     this.#destroyEvent();
 
@@ -659,6 +675,8 @@ class AlbumSelector {
   }
 
   #add_new_album(cat_id) {
+    if (this.#loading_add) return;
+    this.#loading_add = true;
     const cat_name = AlbumSelector.selectors.linkedAlbumInput.val();
     const cat_position = $("input[name=position]:checked").val();
     const api_params = {

@@ -242,6 +242,7 @@ SELECT id
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
+      $length = rand(10, 15);
       $keyargs_content = array(
         get_l10n_args('Hello %s,', stripslashes($login)),
         get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
@@ -250,7 +251,7 @@ SELECT id
         get_l10n_args('', ''),
         get_l10n_args('Link: %s', get_absolute_root_url()),
         get_l10n_args('Username: %s', stripslashes($login)),
-        get_l10n_args('Password: %s', str_repeat("*", strlen(stripslashes($password)))),
+        get_l10n_args('Password: %s', str_repeat("*", $length)),
         get_l10n_args('Email: %s', $mail_address),
         get_l10n_args('', ''),
         get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
@@ -327,7 +328,7 @@ function build_user($user_id, $use_cache=true)
  */
 function getuserdata($user_id, $use_cache=false)
 {
-  global $conf;
+  global $conf, $logger;
 
   // retrieve basic user data
   $query = '
@@ -407,10 +408,70 @@ SELECT
 
   if ($use_cache)
   {
+    $generate_user_cache = false;
+    $cache_generation_token_name = 'generate_user_cache-u'.$userdata['id'];
+    $exec_code = substr(sha1(random_bytes(1000)), 0, 4);
+    $logger_msg_prefix = '['.__FUNCTION__.'][exec_code='.$exec_code.'][user_id='.$userdata['id'].'] ';
+
     if (!isset($userdata['need_update'])
         or !is_bool($userdata['need_update'])
         or $userdata['need_update'] == true)
     {
+      $logger->info($logger_msg_prefix.'needs user_cache to be rebuilt');
+
+      $exec_id = pwg_unique_exec_begins($cache_generation_token_name);
+      if (false === $exec_id)
+      {
+        $logger->info($logger_msg_prefix.'starts to wait for another request to build user_cache');
+        $user_cache_waiting_start_time = get_moment();
+        for ($k = 0; $k < 20; $k++)
+        {
+          sleep(1);
+
+          $query = '
+SELECT
+   COUNT(*)
+  FROM '.USER_CACHE_TABLE.'
+  WHERE user_id='.$userdata['id'].'
+;';
+          list($nb_cache_lines) = pwg_db_fetch_row(pwg_query($query));
+
+          $logger_msg = $logger_msg_prefix.'user_cache generation waiting k='.$k.' ';
+          $waiting_time = get_elapsed_time($user_cache_waiting_start_time, get_moment());
+
+          if ($nb_cache_lines > 0)
+          {
+            $logger->info($logger_msg.'user_cache rebuilt, after waiting '.$waiting_time);
+            return getuserdata($user_id, false);
+          }
+          elseif (!pwg_unique_exec_is_running($cache_generation_token_name))
+          {
+            $logger->info($logger_msg.'user_cache rebuilt but has been reset since, give it another try, after waiting '.$waiting_time);
+            return getuserdata($user_id, true);
+          }
+          else
+          {
+            $logger->info($logger_msg.'user_cache not ready yet, after waiting '.$waiting_time);
+          }
+        }
+
+        $logger->info($logger_msg_prefix.'user_cache generation waiting has timed out after '.get_elapsed_time($user_cache_waiting_start_time, get_moment()));
+        set_status_header(503, 'Service Unavailable');
+        @header('Retry-After: 900');
+        header('Content-Type: text/html; charset='.get_pwg_charset());
+        echo l10n('Rebuilding user cache takes long. Please, come back later.');
+        echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
+        exit();
+      }
+      else
+      {
+        $generate_user_cache = true;
+      }
+    }
+
+    if ($generate_user_cache)
+    {
+      $user_cache_generation_start_time = get_moment();
       $userdata['cache_update_time'] = time();
 
       // Set need update are done
@@ -510,6 +571,9 @@ INSERT IGNORE INTO '.USER_CACHE_TABLE.'
   (empty($userdata['last_photo_date']) ? 'NULL': '\''.$userdata['last_photo_date'].'\'').
   ',\''.$userdata['image_access_type'].'\',\''.$userdata['image_access_list'].'\')';
       pwg_query($query);
+
+      pwg_unique_exec_ends($cache_generation_token_name);
+      $logger->info($logger_msg_prefix.'user_cache generated, executed in '.get_elapsed_time($user_cache_generation_start_time, get_moment()));
     }
   }
 
@@ -983,6 +1047,29 @@ WHERE '.$conf['user_fields']['id'].' = '.$user_id;
 function log_user($user_id, $remember_me)
 {
   global $conf, $user;
+
+  //New default login and register pages, if users changes languages and succesfully logs in
+  //we want to update the userpref language stored in a cookie
+
+  //TODO check value of cookie
+
+  if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
+  {
+    if (!array_key_exists($_COOKIE['lang'], get_languages()))
+    {
+      fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
+    }
+
+    single_update(
+      USER_INFOS_TABLE,
+      array('language' => $_COOKIE['lang']),
+      array('user_id' => $user_id)
+    );
+
+    // We unset the lang cookie, if user has changed their language using interface we don't want to keep setting it back 
+    // to what was chosen using standard pages lang switch
+    setcookie("lang", "", time() - 3600);
+  }
 
   if ($remember_me and $conf['authorize_remembering'])
   {

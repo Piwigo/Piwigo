@@ -150,10 +150,10 @@ $(document).ready(function() {
   });
   // VALIDATION
   //Unit Save
-  $('.action-save-picture').on('click', function(event) {
+  $('.action-save-picture').on('click', async function(event) {
     const $fieldset = $(this).parents("fieldset");
     const pictureId = $fieldset.data("image_id");
-    saveChanges(pictureId);
+    await saveChanges(pictureId);
   });
   //Global Save
   $('.action-save-global').on('click', function(event) {
@@ -342,7 +342,7 @@ function enableGlobalButton() {
   $(".action-save-global i").removeClass("icon-spin6 animate-spin").addClass("icon-floppy");
 }
 
-function saveChanges(pictureId) {
+async function saveChanges(pictureId) {
   if ($("#picture-" + pictureId + " .local-unsaved-badge").css('display') === 'block') {
     disableLocalButton(pictureId);
     // Retrieve Infos
@@ -385,7 +385,7 @@ function saveChanges(pictureId) {
       
     }
     
-    $.ajax({
+    await $.ajax({
       url: 'ws.php?format=json',
       method: 'POST',
       dataType: 'json',
@@ -422,11 +422,12 @@ function saveChanges(pictureId) {
   }
 }
 
-function saveAllChanges() {
-  $("fieldset").each(function() {
-    const pictureId = $(this).data("image_id");
-    saveChanges(pictureId);
-  });
+async function saveAllChanges() {
+  const allField = $("fieldset").toArray();
+  for (let field of allField) {
+    const pictureId = $(field).data("image_id");
+    await saveChanges(pictureId);
+  }
 }
 //PLUGINS SAVE METHOD
 const pluginFunctionMap = {};

@@ -181,9 +181,20 @@ class Template
    */
   function set_theme($root, $theme, $path, $load_css=true, $load_local_head=true, $colorscheme='dark')
   {
-    $this->set_template_dir($root.'/'.$theme.'/'.$path);
-
     $themeconf = $this->load_themeconf($root.'/'.$theme);
+
+    // We loop over the theme and the parent theme, so if we exclude default, 
+    // standard pages can't get the header to load the html header
+    if (
+      'default' != $theme 
+      and in_array(script_basename(), array('identification', 'register', 'password')) 
+      and (($themeconf['use_standard_pages'] ?? false) or conf_get_param('use_standard_pages', false))
+    )
+    {
+      $theme = 'standard_pages';
+    }
+
+    $this->set_template_dir($root.'/'.$theme.'/'.$path);
 
     if (isset($themeconf['parent']) and $themeconf['parent'] != $theme)
     {

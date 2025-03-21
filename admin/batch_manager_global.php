@@ -164,27 +164,32 @@ DELETE
 
   if ('associate' == $action)
   {
-    associate_images_to_categories(
-      $collection,
-      $_POST['associate']
-      );
-
-    $_SESSION['page_infos'] = array(
-      l10n('Information data registered in database')
-      );
-
-    // let's refresh the page because we the current set might be modified
-    if ('no_album' == $page['prefilter'])
+    if (empty($_POST['associate']))
     {
-      $redirect = true;
-    }
-
-    else if ('no_virtual_album' == $page['prefilter'])
-    {
-      $category_info = get_cat_info($_POST['associate']);
-      if (empty($category_info['dir']))
+      $page['errors'][] = l10n('Select at least one album');
+    } else {
+      associate_images_to_categories(
+        $collection,
+        $_POST['associate']
+        );
+  
+      $_SESSION['page_infos'] = array(
+        l10n('Information data registered in database')
+        );
+  
+      // let's refresh the page because we the current set might be modified
+      if ('no_album' == $page['prefilter'])
       {
         $redirect = true;
+      }
+  
+      else if ('no_virtual_album' == $page['prefilter'])
+      {
+        $category_info = get_cat_info($_POST['associate']);
+        if (empty($category_info['dir']))
+        {
+          $redirect = true;
+        }
       }
     }
   }

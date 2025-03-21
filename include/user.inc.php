@@ -72,9 +72,22 @@ if (
   }
 }
 
-$user = build_user( $user['id'],
-          ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
-         );
+$page['user_use_cache'] = true;
+if (defined('IN_ADMIN') and IN_ADMIN)
+{
+  $page['user_use_cache'] = false;
+}
+elseif (
+  isset($_REQUEST['method'])
+  and isset($_SERVER['HTTP_REFERER'])
+  and preg_match('/\/admin\.php\?page=/', $_SERVER['HTTP_REFERER'])
+)
+{
+  $page['user_use_cache'] = false;
+}
+
+$user = build_user( $user['id'], $page['user_use_cache']);
+
 if ($conf['browser_language'] and (is_a_guest() or is_generic()) and $language = get_browser_language())
 {
   $user['language'] = $language;
