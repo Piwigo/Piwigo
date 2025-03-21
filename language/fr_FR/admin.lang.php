@@ -1409,4 +1409,5 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = 'Pour définir votre mot de passe, rendez-vous à l\'adresse suivante :';
 $lang['A photo library administrator has created the following account for you:'] = 'Un administrateur de la photothèque vous a créé le compte suivant :';
 $lang['Welcome to %s'] = 'Bienvenue sur %s';
+$lang['Save all photos'] = 'Enregistrer toutes les photos';
 // Leave this line empty
