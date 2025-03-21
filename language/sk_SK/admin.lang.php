@@ -1400,3 +1400,4 @@ $lang['An activation link valid for %s has been sent to "%s". If the user doesn\
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Bol vytvorený aktivačný link platný pre %s, ale nepodarilo sa ho odoslať. Teraz môžete skopírovať nižšie uvedený link a poslať ho používateľovi.';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Tonto link je platný pre %s. Po uplynutí tohto času budete musieť požiadať o nový link.';
 $lang['To set your password, visit the following address:'] = 'Ak chcete nastaviť heslo, navštívte túto adresu:';
+$lang['Welcome to %s'] = 'Vitajte v %s';
