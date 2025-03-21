@@ -6381,8 +6381,16 @@ fieldset#environment legend i[class*="icon-"] {
   }
 }
 
-.buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
- font-size:12px; border:none; padding:13px 20px; margin-left:0; font-weight: bold; transition: all 125ms ease-out;
+.buttonLike,
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  font-size:12px;
+  border:none;
+  padding:13px 20px;
+  margin-left:0;
+  font-weight: bold;
+  transition: all 125ms ease-out;
 }
 
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
@@ -6544,7 +6552,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #permitAction {display: flex;}
 #permitAction select {padding: 12px 10px; width: 280px; -webkit-appearance: none;}
 .permitActionItem select { margin-bottom: 25px;}
-#applyAction {padding: 10px 18px; margin-left: 0;}
 .permitActionItem {margin-left: 30px; width: 225px;}
 .permitActionItem .selectize-control.single.plugin-remove_button {width: auto !important;}
 .permitActionItem .selectize-input.items.full.has-options.has-items {width: 500px !important; line-height: 23px;}
@@ -6552,7 +6559,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #action_move a:last-child {margin-left: 15px; padding: 10px;}
 #action_associate .head-button-2 {width: fit-content;}
 #action_associate .head-button-2 p {margin-left: 5px; background: transparent;}
-#applyAction i {margin-right: 15px;}
 #action_delete_derivatives, #action_generate_derivatives {display: flex; flex-wrap: wrap; margin-top: 0px;}
 .deleteDerivButtons a {border-radius: 4px; padding: 4px 10px; margin: 5px;}
 .deleteDerivButtons {margin-bottom: 15px; margin-right: 51px; width: 100%; text-align: center;}
