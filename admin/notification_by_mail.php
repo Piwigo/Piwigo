@@ -526,10 +526,14 @@ switch ($page['mode'])
         }
       }
 
-      $page['infos'][] = l10n_dec(
-        '%d parameter was updated.', '%d parameters were updated.',
-        $updated_param_count
-        );
+      $template->assign(
+        array(
+          'save_success' => l10n_dec(
+            '%d parameter was updated.', '%d parameters were updated.',
+            $updated_param_count
+          )
+        )
+      );
     }
   }
   case 'subscribe' :
