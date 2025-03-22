@@ -1411,3 +1411,4 @@ $lang['An activation link valid for %s has been sent to "%s". If the user doesn\
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'S\'ha creat un enllaç d\'activació vàlid per a %s però no s\'ha pogut enviar. Podeu copiar l\'enllaç següent i enviar-lo a l\'usuari.';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'L\'enllaç és vàlid per %s. Passat aquest temps, haureu de sol·licitar-ne un de nou.';
 $lang['To set your password, visit the following address:'] = 'Per definir la vostra contrasenya, visiteu l\'adreça següent:';
+$lang['Welcome to %s'] = 'Benvinguts a %s';
