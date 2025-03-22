@@ -457,3 +457,4 @@ $lang['Custom dates'] = 'Vlastní data';
 $lang['There are no authors available for the photos currently filtered'] = 'Pro aktuálně filtrované fotografie nejsou k dispozici žádní autoři';
 $lang['There are no creation dates available for the photos currently filtered'] = 'Pro aktuálně filtrované fotografie nejsou k dispozici žádná data vytvoření';
 $lang['There are no tags available for the photos currently filtered'] = 'Pro aktuálně filtrované fotografie nejsou k dispozici žádné štítky';
+$lang['Set your password below.'] = 'Zadejte heslo níže.';
