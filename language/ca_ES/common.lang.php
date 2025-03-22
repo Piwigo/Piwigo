@@ -453,3 +453,4 @@ $lang['last 12 months'] = 'Els darrers 12 mesos';
 $lang['There are no authors available for the photos currently filtered'] = 'No hi ha autors disponibles per a les fotos filtrades actualment';
 $lang['There are no creation dates available for the photos currently filtered'] = 'No hi ha dates de creació disponibles per a les fotos filtrades actualment';
 $lang['There are no tags available for the photos currently filtered'] = 'No hi ha etiquetes disponibles per a les fotos filtrades actualment';
+$lang['Set your password below.'] = 'Definiu la vostra contrasenya aquí sota.';
