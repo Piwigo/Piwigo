@@ -452,3 +452,4 @@ $lang['last 12 months'] = 'Siste 12 måneder';
 $lang['There are no authors available for the photos currently filtered'] = 'Det er ingen forfattere tilgjengelig for bildene som for øyeblikket er filtrert';
 $lang['There are no creation dates available for the photos currently filtered'] = 'Det er ingen opprettelsesdatoer tilgjengelig for bildene som for øyeblikket er filtrert';
 $lang['There are no tags available for the photos currently filtered'] = 'Det er ingen etiketter tilgjengelig for bildene som for øyeblikket er filtrert';
+$lang['Set your password below.'] = 'Angi passordet ditt nedenfor.';
