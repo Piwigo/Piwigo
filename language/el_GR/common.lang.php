@@ -455,3 +455,4 @@ $lang['Album already selected'] = 'Το άλμπουμ έχει επιλεχθε
 $lang['There are no authors available for the photos currently filtered'] = 'Δεν υπάρχουν πρόσωπα που έχουν αναρτήσει τις φωτογραφίες με το φίλτρο που έχει επιλεγεί';
 $lang['There are no creation dates available for the photos currently filtered'] = 'Δεν υπάρχουν ημερομηνίες δημιουργίας με το φίλτρο των φωτογραφιών που έχει επιλεγεί';
 $lang['There are no tags available for the photos currently filtered'] = 'Δεν υπάρχουν ετικέτες με το φίλτρο των φωτογραφιών που έχει επιλεγεί';
+$lang['Set your password below.'] = 'Αλλάξτε τον κωδικό σας παρακάτω';
