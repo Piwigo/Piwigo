@@ -1400,3 +1400,4 @@ $lang['An activation link valid for %s has been sent to "%s". If the user doesn\
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'Δημιουργήθηκε ένας σύνδεσμος ενεργοποίησης για %s αλλά δεν μπόρεσε να αποσταλεί. Μπορείτε τώρα να αντιγράψετε τον παρακάτω σύνδεσμο και να τον στείλετε στον χρήστη.';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Αυτός ο σύνδεσμος είναι ενεργός για %s. Μετά από αυτό το χρόνο, θα χρειαστεί να ζητήσετε ένα καινούριο.';
 $lang['To set your password, visit the following address:'] = 'Για να δημιουργήσετε τον κωδικό σας, επισκεφθείτε αυτή την διεύθυνση:';
+$lang['Welcome to %s'] = 'Καλώς ήλθατε στο %s';
