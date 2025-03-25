@@ -456,3 +456,4 @@ $lang['Custom dates'] = 'Tietyt päivät';
 $lang['There are no creation dates available for the photos currently filtered'] = 'Nykyisen suodatuksen mukaisille kuville ei ole saatavissa luomispäiviä';
 $lang['There are no tags available for the photos currently filtered'] = 'Nykyisen suodatuksen mukaisille kuville ei ole saatavissa tageja';
 $lang['There are no authors available for the photos currently filtered'] = 'Nykyisen suodatuksen mukaisille kuville ei ole saatavissa tekijätietoja';
+$lang['Set your password below.'] = 'Aseta salasana alla.';
