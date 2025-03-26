@@ -99,6 +99,15 @@ h1 i{
   line-height:25px;
 } 
 
+input:-webkit-autofill {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+input:-webkit-autofill::first-line {
+  color: inherit !important;
+}
+
 .input-container input:focus{
   border:none;
   outline:none;
@@ -133,6 +142,7 @@ h1 i{
   font-family: sans-serif;
   font-size: 16px;
   margin-bottom:5px;
+  margin-left:20px;
 }
 
 .gallery-icon-checkmark {
@@ -169,6 +179,7 @@ input[type="checkbox"]#remember_me:checked + .gallery-icon-checkmark::before {
 label{
 margin-bottom:5px;
 font-size:15px;
+font-weight:700;
 }
 
 p.form-instructions{
@@ -395,6 +406,14 @@ p.error-message{
   border:1px solid #F0F0F0;
 }
 
+.light .input-container input:is(:-webkit-autofill, :autofill)
+{
+  box-shadow: 0 0 0 100px #F0F0F0 inset;
+  -webkit-box-shadow: 0 0 0px 1000px #F0F0F0 inset !important;
+  -webkit-text-fill-color: #3C3C3C;
+  color:#3C3C3C;
+}
+
 .light #separator{
   border-bottom:1px solid #D8D8D8;
 }
@@ -451,6 +470,14 @@ p.error-message{
 .dark .input-container{
   background-color:#303030;
   border:1px solid #303030;
+}
+
+.dark .input-container input:is(:-webkit-autofill, :autofill)
+{
+  box-shadow: 0 0 0 100px #303030 inset;
+  -webkit-box-shadow: 0 0 0px 1000px #303030 inset !important;
+  -webkit-text-fill-color: #D6D6D6;
+  color:#D6D6D6;
 }
 
 .dark #separator{

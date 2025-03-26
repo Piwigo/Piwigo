@@ -3,6 +3,17 @@ if("" != modeCookie)
 {
   toggle_mode(modeCookie);
 }
+else
+{
+  let prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  console.log(prefersDark)
+  toggle_mode(prefersDark ? "dark" : "light");
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+  let newMode = event.matches ? "dark" : "light";
+  toggle_mode(newMode);
+});
 
 jQuery( document ).ready(function() {
   jQuery("#selected-language").textContent = selected_language;
