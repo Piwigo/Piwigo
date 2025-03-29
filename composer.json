@@ -1,0 +1,19 @@
+{
+  "name": "piwigo/piwigo",
+  "description": "A full featured open source photo gallery for the web.",
+  "license": "GPL-2.0-only",
+  "require-dev": {
+    "php-parallel-lint/php-parallel-lint": "^1.0"
+  },
+  "config": {
+    "platform": {
+      "php": "5.6"
+    }
+  },
+  "scripts": {
+    "test": [
+      "composer validate",
+      "parallel-lint . --exclude vendor/ --exclude include/random_compat/"
+    ]
+  }
+}
