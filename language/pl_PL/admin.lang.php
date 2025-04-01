@@ -1400,3 +1400,4 @@ $lang['Resend password link'] = 'Wyślij ponownie link do hasła';
 $lang['Set as main user'] = 'Ustaw jako użytkownika głównego';
 $lang['The passwords do not match'] = 'Hasła nie pasują';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Ten link jest ważny %s. Po tym czasie będziesz musiał poprosić o nowy link.';
+$lang['Welcome to %s'] = 'Witamy w %s';
