@@ -29,7 +29,7 @@ if (isset($_POST['submit']))
   if (!verify_ephemeral_key(@$_POST['key']))
   {
 		set_status_header(403);
-    $page['errors']['register_page_error'][] = l10n('Invalid/expired form key');
+    $page['errors']['register_page_error'] = l10n('Invalid/expired form key');
   }
 
   if(empty($_POST['password']))
