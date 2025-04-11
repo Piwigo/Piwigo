@@ -125,10 +125,20 @@ $('.tag-box').each(function() {
 $(".TagSubmit").on('click', function () {
   $('.TagSubmit').hide();
   $('.TagLoading').show();
-  renameTag($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"), $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
+  let tagboxid = ($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"))
+  renameTag(tagboxid, $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     rename_tag_close();
+    $('.TagChanged > *').unwrap();
+    $('.Checkmark').remove();
+    $('[data-id='+tagboxid+']').wrap('<div class="TagChanged"></div>');
+    if($('.tag-box').css('background-color')=="rgb(51, 51, 51)"){
+      $('.TagChanged').prepend('<img class="Checkmark" src="admin/themes/roma/icon/checkmark-dark.png" />');
+    }
+    else{
+      $('.TagChanged').prepend('<img class="Checkmark" src="admin/themes/default/icon/checkmark-light.png" />');
+    }
   }).catch((message) => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
