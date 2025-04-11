@@ -4465,8 +4465,11 @@ a#showPermissions:hover {text-decoration: none;}
   font-size: 1em;
   font-weight: bold;
 }
-.Checkmark{
+.tag-checkmark{
   position: absolute;
+  padding: 15px;
+  background-image: url('icon/checkmark-light.png');
+  background-repeat: no-repeat;
   z-index: 1;
 }
 

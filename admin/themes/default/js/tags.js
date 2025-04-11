@@ -125,20 +125,15 @@ $('.tag-box').each(function() {
 $(".TagSubmit").on('click', function () {
   $('.TagSubmit').hide();
   $('.TagLoading').show();
-  let tagboxid = ($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"))
-  renameTag(tagboxid, $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
+  $tagboxid = ($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"))
+  renameTag($tagboxid, $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     rename_tag_close();
-    $('.TagChanged > *').unwrap();
-    $('.Checkmark').remove();
-    $('[data-id='+tagboxid+']').wrap('<div class="TagChanged"></div>');
-    if($('.tag-box').css('background-color')=="rgb(51, 51, 51)"){
-      $('.TagChanged').prepend('<img class="Checkmark" src="admin/themes/roma/icon/checkmark-dark.png" />');
-    }
-    else{
-      $('.TagChanged').prepend('<img class="Checkmark" src="admin/themes/default/icon/checkmark-light.png" />');
-    }
+    $('.tag-changed > *').unwrap();
+    $('.tag-checkmark').remove();
+    $('[data-id='+$tagboxid+']').wrap('<div class="tag-changed"></div>');
+    $('.tag-changed').prepend('<div class="tag-checkmark"></div>');
   }).catch((message) => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
