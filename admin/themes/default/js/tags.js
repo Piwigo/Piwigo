@@ -977,6 +977,8 @@ function updatePage() {
     newPage = actualPage;
     dataToDisplay = tagToDisplay();
     tagBoxes = $('.tag-box');
+    $('.tag-changed > *').unwrap();
+    $('.tag-checkmark').remove();
     $('.pageLoad').fadeIn();;
     $('.tag-box').animate({opacity:0}, 500).promise().then(() => {
 
