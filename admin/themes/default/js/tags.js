@@ -130,8 +130,7 @@ $(".TagSubmit").on('click', function () {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     rename_tag_close();
-    $('.tag-changed > *').unwrap();
-    $('.tag-checkmark').remove();
+    cleanCheckmark();
     $('[data-id='+$tagboxid+']').wrap('<div class="tag-changed"></div>');
     $('.tag-changed').prepend('<div class="tag-checkmark"></div>');
   }).catch((message) => {
@@ -140,6 +139,11 @@ $(".TagSubmit").on('click', function () {
     console.error(message)
   })
 });
+
+function cleanCheckmark(){
+  $('.tag-changed > *').unwrap();
+  $('.tag-checkmark').remove();
+}
 
 /*-------
  Add a tag
@@ -977,8 +981,7 @@ function updatePage() {
     newPage = actualPage;
     dataToDisplay = tagToDisplay();
     tagBoxes = $('.tag-box');
-    $('.tag-changed > *').unwrap();
-    $('.tag-checkmark').remove();
+    cleanCheckmark();
     $('.pageLoad').fadeIn();;
     $('.tag-box').animate({opacity:0}, 500).promise().then(() => {
 
