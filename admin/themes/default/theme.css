@@ -4467,10 +4467,16 @@ a#showPermissions:hover {text-decoration: none;}
 }
 .tag-checkmark{
   position: absolute;
-  padding: 15px;
-  background-image: url('icon/checkmark-light.png');
-  background-repeat: no-repeat;
+  transform: scale(1.5);
+  padding: 2.5px 0px;
+  color: #6ccd5d;
   z-index: 1;
+}
+.tag-checkmark-fill{
+  position: absolute;
+  padding: 2.75px 0px;
+  color: white;
+  z-index: 2;
 }
 
 

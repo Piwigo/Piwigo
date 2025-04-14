@@ -132,7 +132,8 @@ $(".TagSubmit").on('click', function () {
     rename_tag_close();
     cleanCheckmark();
     $('[data-id='+$tagboxid+']').wrap('<div class="tag-changed"></div>');
-    $('.tag-changed').prepend('<div class="tag-checkmark"></div>');
+    $('.tag-changed').prepend('<i class="icon-ok-circled tag-checkmark"></i>');
+    $('.tag-changed').prepend('<i class="icon-ok tag-checkmark-fill"></i>');
   }).catch((message) => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
@@ -143,6 +144,7 @@ $(".TagSubmit").on('click', function () {
 function cleanCheckmark(){
   $('.tag-changed > *').unwrap();
   $('.tag-checkmark').remove();
+  $('.tag-checkmark-fill').remove();
 }
 
 /*-------

@@ -1356,7 +1356,7 @@ background:#6C2D2D!important;
 }
 
 .tag-checkmark{
-  background-image: url('icon/checkmark-dark.png') !important;
+  color: #4da48f !important;
 }
 
 /* Album Move (and album search) */
