@@ -125,16 +125,27 @@ $('.tag-box').each(function() {
 $(".TagSubmit").on('click', function () {
   $('.TagSubmit').hide();
   $('.TagLoading').show();
-  renameTag($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"), $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
+  $tagboxid = ($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"))
+  renameTag($tagboxid, $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     rename_tag_close();
+    cleanCheckmark();
+    $('[data-id='+$tagboxid+']').wrap('<div class="tag-changed"></div>');
+    $('.tag-changed').prepend('<i class="icon-ok-circled tag-checkmark"></i>');
+    $('.tag-changed').prepend('<i class="icon-ok tag-checkmark-fill"></i>');
   }).catch((message) => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     console.error(message)
   })
 });
+
+function cleanCheckmark(){
+  $('.tag-changed > *').unwrap();
+  $('.tag-checkmark').remove();
+  $('.tag-checkmark-fill').remove();
+}
 
 /*-------
  Add a tag
@@ -972,6 +983,7 @@ function updatePage() {
     newPage = actualPage;
     dataToDisplay = tagToDisplay();
     tagBoxes = $('.tag-box');
+    cleanCheckmark();
     $('.pageLoad').fadeIn();;
     $('.tag-box').animate({opacity:0}, 500).promise().then(() => {
 

@@ -4465,6 +4465,21 @@ a#showPermissions:hover {text-decoration: none;}
   font-size: 1em;
   font-weight: bold;
 }
+.tag-checkmark{
+  position: absolute;
+  transform: scale(1.5);
+  padding: 2.5px 0px;
+  color: #6ccd5d;
+  z-index: 1;
+}
+.tag-checkmark-fill{
+  position: absolute;
+  padding: 2.5px 0px;
+  color: white;
+  opacity: 0;
+  z-index: 2;
+}
+
 
 /* Picture Edit */
 #pictureModify {
