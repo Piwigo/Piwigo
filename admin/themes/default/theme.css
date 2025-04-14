@@ -4474,8 +4474,9 @@ a#showPermissions:hover {text-decoration: none;}
 }
 .tag-checkmark-fill{
   position: absolute;
-  padding: 2.75px 0px;
+  padding: 2.5px 0px;
   color: white;
+  opacity: 0;
   z-index: 2;
 }
 

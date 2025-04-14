@@ -1359,6 +1359,10 @@ background:#6C2D2D!important;
   color: #4da48f !important;
 }
 
+.tag-checkmark-fill{
+  opacity: 1 !important;
+}
+
 /* Album Move (and album search) */
 .move-cat-container, .search-album-elem {
   background-color: #333;
