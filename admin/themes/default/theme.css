@@ -4467,11 +4467,12 @@ a#showPermissions:hover {text-decoration: none;}
 }
 .tag-checkmark{
   position: absolute;
-  scale: 0.8;
-  padding: 3px 1px;
+  padding: 1px;
   border-radius: 50%;
-  background-color: #6ccd5d;
-  color: white;
+  margin : 4px 5px 0 0;
+  font-size: 80%;
+  background-color: #6DCE5E;
+  color: #D6FFCF;
   z-index: 1;
 }
 
