@@ -4467,19 +4467,13 @@ a#showPermissions:hover {text-decoration: none;}
 }
 .tag-checkmark{
   position: absolute;
-  transform: scale(1.5);
-  padding: 2.5px 0px;
-  color: #6ccd5d;
+  scale: 0.8;
+  padding: 3px 1px;
+  border-radius: 50%;
+  background-color: #6ccd5d;
+  color: white;
   z-index: 1;
 }
-.tag-checkmark-fill{
-  position: absolute;
-  padding: 2.5px 0px;
-  color: white;
-  opacity: 0;
-  z-index: 2;
-}
-
 
 /* Picture Edit */
 #pictureModify {

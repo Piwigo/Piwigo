@@ -1356,11 +1356,7 @@ background:#6C2D2D!important;
 }
 
 .tag-checkmark{
-  color: #4da48f !important;
-}
-
-.tag-checkmark-fill{
-  opacity: 1 !important;
+  background-color: #4da48f !important;
 }
 
 /* Album Move (and album search) */
