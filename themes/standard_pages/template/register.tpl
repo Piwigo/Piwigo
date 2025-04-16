@@ -1,4 +1,4 @@
-{combine_css id='identification_register' path="themes/standard_pages/css/identification_register.css" order=100}
+{combine_css id='standard_pages_css' path="themes/standard_pages/css/standard_pages.css" order=100}
 {combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
 
 <script>
@@ -6,7 +6,7 @@
   var url_logo_light = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo.svg`;
   var url_logo_dark = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo_dark.svg`;
 </script>
-{combine_script id='identification_register' load='async' require='jquery' path='themes/standard_pages/js/identification_register.js'}
+{combine_script id='standard_pages_js' load='async' require='jquery' path='themes/standard_pages/js/standard_pages.js'}
 
 <container id="mode" class="light">
 
