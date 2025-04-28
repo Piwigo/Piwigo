@@ -1893,6 +1893,30 @@ img.ui-datepicker-trigger {
   padding-right: 5px;
 }
 
+.upload-options{
+  cursor: pointer;
+  align-items: center;
+  background-color: #f5f5f5;
+  margin-left: 25px;
+  padding: 2.5px 10px 7.5px 5px;
+  display: flex;
+  color: #777777;
+}
+
+.upload-options-content{
+  display: flex;
+  position: relative;
+  background-color: #f5f5f5;
+  font-weight: normal;
+  padding : 23px 0px 22px 24px;
+  width: 100vw;
+  max-width: 81vw;
+}
+
+.upload-options-icon{
+  transform: rotate(90deg);
+}
+
 #uploadFormSettings input[type="text"] {
   text-align:right;
 }
@@ -5285,6 +5309,11 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   vertical-align:middle;
 }
 
+.switch.small {
+  width: 40px;
+  height: 23px;
+}
+
 .format-mode-group-manager p, .selection-mode-group-manager p{
   display:inline-block;
   padding:0 5px;
@@ -5318,6 +5347,15 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   transition: .4s;
 }
 
+.slider.small::before{
+  height: 19px;
+  width: 19px;
+  left: 2.5px;
+  bottom: 2.5px;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
 .slider::after {
   content: "\E81D";
   font-family: 'fontello';
@@ -5338,8 +5376,18 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   }
 }
 
+input:checked + .slider.small::before {
+  -webkit-transform: translateX(12px);
+  -ms-transform: translateX(12px);
+  transform: translateX(12px);
+}
+
 input:checked + .slider:before, input:checked + .slider::after {
   margin-left: 33px;
+}
+
+input:checked + .slider.small:before, input:checked + .slider.small::after {
+  margin-left: 0px;
 }
 
 .slider.loading::before {

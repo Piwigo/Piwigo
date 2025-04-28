@@ -500,6 +500,11 @@ function ws_addDefaultMethods( $arr )
           'type' => WS_TYPE_ID,
           'info' => 'id of the extended image (name/category/level are not used if format_of is provided)',
           ),
+        'update_mode' => array(
+          'default' => false,
+          'type' => WS_TYPE_BOOL,
+          'info' => 'true if the update mode is active',
+        ),
         'pwg_token' => array(),
         ),
       'Add an image.

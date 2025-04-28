@@ -265,6 +265,8 @@ $(function () {
           options.name = file.name;
         }
 
+        options.update_mode = updateMode;
+
         up.setOption('multipart_params', options);
       },
 

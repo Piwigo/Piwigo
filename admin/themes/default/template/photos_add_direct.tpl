@@ -33,6 +33,7 @@
 {footer_script}
 
 const formatMode = {if $DISPLAY_FORMATS}true{else}false{/if};
+const updateMode = {if $UPDATE_IMAGES}true{else}false{/if};
 const haveFormatsOriginal = {if $HAVE_FORMATS_ORIGINAL}true{else}false{/if};
 const originalImageId = haveFormatsOriginal? '{if isset($FORMATS_ORIGINAL_INFO['id'])} {$FORMATS_ORIGINAL_INFO['id']} {else} -1 {/if}' : -1;
 const nb_albums = {$NB_ALBUMS|escape:javascript};
@@ -55,6 +56,14 @@ var format_ext = "{$format_ext}";
 var uploadedPhotos = [];
 var uploadCategory = null;
 let related_categories_ids = {$selected_category|json_encode};
+
+if(!updateMode)
+  $("#uploadOptionsContent").hide();
+$("#uploadOptions").on("click", function(){
+  $("#uploadOptionsContent").slideToggle();
+  $(".moxie-shim-html5").css("display", "none");
+})
+
 
 {/footer_script}
 
@@ -103,7 +112,7 @@ let related_categories_ids = {$selected_category|json_encode};
 
   {if $ENABLE_FORMATS and $can_upload}
     <div class="format-mode-group-manager">
-    <label class="switch" onClick="window.location.replace('{$SWITCH_MODE_URL}'); $('.switch .slider').addClass('loading');">
+    <label class="switch" onClick="window.location.replace('{$SWITCH_FORMAT_MODE_URL}'); $('.switch .slider').addClass('loading');">
       <input type="checkbox" id="toggleFormatMode" {if $DISPLAY_FORMATS}checked{/if}>
       <span class="slider round"></span>
     </label>
@@ -171,7 +180,29 @@ let related_categories_ids = {$selected_category|json_encode};
     </fieldset>
 *}
     <fieldset class="selectFiles">
-      <legend><span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}</legend>
+
+      <legend>
+        <div style="display:flex;align-items: center;">
+          <span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}
+          <div id="uploadOptions" class="upload-options">
+            <span class="icon-equalizer upload-options-icon"></span>{'Options'|@translate}
+          </div>
+        </div>
+      <div class="upload-options-content" id="uploadOptionsContent">
+        <label class="switch small" onClick="window.location.replace('{$SWITCH_UPDATE_IMAGES_MODE_URL}'); $('.switch .slider').addClass('loading');">
+          <input type="checkbox" id="toggleUpdateMode" {if $UPDATE_IMAGES}checked{/if}>
+          <span class="slider small round"></span>
+        </label>
+        <div style="margin-left: 6px;">
+        {if !$DISPLAY_FORMATS}
+          <p>{'Update the already existing images in the album'|@translate}</p>
+        {else}
+          <p>{'Update the already existing formats'|@translate}</p>
+        {/if}
+        </div>
+      </div>
+      </legend>
+
       <div class="selectFilesButtonBlock">
         <button id="addFiles" class="buttonLike icon-plus-circled" {if !$can_upload}disabled{/if}>
           {if not $DISPLAY_FORMATS}{'Add Photos'|translate}{else}{'Add formats'|@translate}{/if}

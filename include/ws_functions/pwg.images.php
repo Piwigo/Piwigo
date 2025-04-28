@@ -1813,12 +1813,30 @@ SELECT *
         );
     }
 
+    $name = pwg_db_real_escape_string(stripslashes($params['name']));
+    $id_image = null; //null by default
+
+    if ($params['update_mode'])
+    {
+      $query = '
+SELECT 
+  id
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' as ic ON ic.image_id = i.id
+  WHERE i.file = \''.$name.'\'
+  AND ic.category_id = '.$params['category'][0].'
+;';
+      $images = query2array($query);
+      if($images != null)
+        $id_image = $images[0]['id']; //take the id of the already existing image to replace it
+    }
+
     $image_id = add_uploaded_file(
       $filePath,
-      stripslashes($params['name']), // function add_uploaded_file will secure before insert
+      $name, // function add_uploaded_file will secure before insert
       $params['category'],
       $params['level'],
-      null // image_id = not provided, this is a new photo
+      $id_image
       );
 
     $query = '
