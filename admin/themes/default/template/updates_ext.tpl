@@ -103,6 +103,34 @@ function updateExtension(type, id, revision) {
   });
 };
 
+const targetNode = document.getElementById("theAdminPage");
+
+const config = { attributes: false, childList: true, subtree: true };
+
+const callback = (mutationList, observer) => {
+  for (const mutation of mutationList) {
+    if (mutation.type === "childList") {
+      let popup = jQuery("#jGrowl").children();
+      for (let i = 0; i < popup.length; i++){
+        if ((jQuery(popup[i])).hasClass("success")){
+          if (! ((jQuery(popup[i]).children(":first")).hasClass("jGrowl-popup-icon icon-ok"))){
+            jQuery(popup[i]).prepend('<div class="jGrowl-popup-icon icon-ok"></div>')
+          }
+        };
+
+        if ((jQuery(popup[i])).hasClass("error")){
+          if (! ((jQuery(popup[i]).children(":first")).hasClass("jGrowl-popup-icon icon-cancel"))){
+            jQuery(popup[i]).prepend('<div class="jGrowl-popup-icon icon-cancel"></div>')
+          }
+        }
+      };
+    }
+  }
+};
+
+const observer = new MutationObserver(callback);
+observer.observe(targetNode, config);
+
 function ignoreExtension(type, id) {
   queuedManager.add({
     type: 'GET',
