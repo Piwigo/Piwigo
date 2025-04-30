@@ -2332,7 +2332,8 @@ div.jGrowl div.jGrowl-notification.success{
   opacity: 				1;
   text-align: 			left;
   font-family: 'Open Sans'; 
-  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1)
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1);
+  margin-bottom: 1em;
 }
 div.success .jGrowl-popup-icon{
   color: #4CA530;
@@ -2347,7 +2348,8 @@ div.jGrowl div.jGrowl-notification.error{
   opacity: 				1;
   text-align: 			left;
   font-family: 'Open Sans';
-  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1)
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1);
+  margin-bottom: 1em;
 }
 div.error .jGrowl-popup-icon{
   color: #BE4949;
@@ -2363,8 +2365,15 @@ div.jGrowl div.jGrowl-notification div.jGrowl-header {
   margin: 5% 0% 2% 28%;
 }
 div.success div.jGrowl-close, div.error div.jGrowl-close {
-	font-size: 				1.2em !important;
+	font-size: 				2em !important;
   font-weight: 1000 !important;
+  position: relative;
+  top: -7px;
+  right: 1px;
+}
+
+div.jGrowl div.jGrowl-closer {
+	visibility: hidden;
 }
 
 div.jGrowl div.jGrowl-notification{
