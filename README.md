@@ -1,3 +1,5 @@
+This is my horrible fork of piwigo, I add the changes I make to my piwigo instance here.
+Use at your own risk.
 <img src="https://piwigo.org/plugins/piwigo-piwigodotorg/images/piwigo.org.svg" width="200" alt="Piwigo logo">
 
 Manage your photo library. Piwigo is open source photo gallery software for the web. Designed for organisations, teams and individuals.
