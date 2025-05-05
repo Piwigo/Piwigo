@@ -3,13 +3,15 @@ html{
 }
 
 #theHeader,
-#copyright{
+#copyright,
+.template-section{
   display:none;
 }
 
 #theIdentificationPage,
 #theRegisterPage,
-#thePasswordPage{
+#thePasswordPage,
+#theProfilePage{
   width:100%;
   height:100%;
   min-height:100vh;
@@ -19,7 +21,8 @@ html{
 
 #theIdentificationPage #the_page,
 #theRegisterPage #the_page,
-#thePasswordPage #the_page{
+#thePasswordPage #the_page,
+#theProfilePage #the_page{
   min-height:100vh;
   height:100%;
 }
@@ -34,7 +37,8 @@ html{
 
 #login-form,
 #register-form,
-#password-form{
+#password-form,
+.profile-section{
   border-radius:15px;
   width:400px;
   margin:0 auto;
@@ -74,7 +78,8 @@ h1 i{
   flex-direction:column;
 }
 
-#password-form p{
+#password-form p,
+.profile-section p{
   text-align:center;
   font-size:15px;
   font-weight:500;
@@ -92,12 +97,18 @@ h1 i{
   flex-wrap:nowrap;
 }
 
-.input-container input{
+.input-container input,
+.input-container select,
+.input-container textarea{
   background-color:transparent;
   border:none;
   width:100%;
   line-height:25px;
 } 
+
+.input-container textarea {
+  resize: none;
+}
 
 input:-webkit-autofill {
   background-color: transparent !important;
@@ -108,9 +119,19 @@ input:-webkit-autofill::first-line {
   color: inherit !important;
 }
 
-.input-container input:focus{
+input[type='radio'] {
+  accent-color: #ff7700;
+}
+
+.input-container input:focus,
+.input-container select:focus,
+.input-container textarea:focus{
   border:none;
   outline:none;
+}
+
+select {
+  padding: 5px 0;
 }
 
 .input-container:focus-within{
@@ -133,7 +154,6 @@ input:-webkit-autofill::first-line {
   flex-direction:row;
   align-items:center;
 }
-
 
 .remember-me-container {
   display: flex;
@@ -196,6 +216,11 @@ p.form-instructions{
   text-decoration:none!important;
 }
 
+.btn-secondary {
+  background-color: #ECECEC!important;
+  color: #3C3C3C!important;
+}
+
 a.btn-main{
   display:block;
   text-align:center;
@@ -214,13 +239,15 @@ a.btn-main{
 
 #theIdentificationPage a,
 #theRegisterPage a,
-#thePasswordPage a{
+#thePasswordPage a,
+#theProfilePage a{
   text-decoration:underline;
 }
 
 #theIdentificationPage a:hover,
 #theRegisterPage a:hover,
-#thePasswordPage a:hover{
+#thePasswordPage a:hover,
+#theProfilePage a:hover{
   border-bottom:none;
 }
 
@@ -243,7 +270,8 @@ a.btn-main{
   padding:15px;
 }
 
-#theIdentificationPage #header-options .toggle-mode{
+#theIdentificationPage #header-options .toggle-mode,
+#theProfilePage #header-options .toggle-mode{
   cursor:pointer;
 }
 
@@ -361,37 +389,197 @@ p.error-message{
   margin-bottom:15px;
 }
 
+.profile-section {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+#account-section {
+  margin-top: 25px;
+}
+
+.profile-section .title {
+  position: relative;
+}
+
+.profile-section .title p {
+  margin-bottom: 10px;
+}
+
+.profile-section .form {
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+.profile-section .form.open {
+  overflow: hidden;
+}
+
+.profile-section .reset {
+  display: flex;
+  justify-content: space-between;
+  /* gap: 15px; */
+}
+
+.profile-section .save {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+} 
+
+.profile-section .save .btn-main,
+.profile-section .reset .btn-main {
+  padding: 10px 35px;
+}
+
+.profile-section h1 {
+  margin-bottom: 10px;
+}
+
+.gallery-icon-up-open {
+  position: absolute;
+  top: 50%;
+  cursor: pointer;
+  right: 0;
+  transition: transform 0.5s ease;
+}
+
+.gallery-icon-up-open.close {
+  transform: rotate(180deg);
+}
+
+.profile-section .username {
+  width: fit-content;
+  cursor: not-allowed;
+}
+
+.profile-section .input-container.radio {
+  gap: 10px;
+}
+
+.profile-section .input-container.radio label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 5px 0;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.profile-section .preferences-options {
+  gap: 20px;
+  padding: 20px;
+  margin-top: 5px;
+}
+
+.profile-section .preferences-options .option {
+  gap: 15px;
+}
+
+/* The switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+label.switch {
+  margin-bottom: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+input:checked + .slider:before, input:checked + .slider::after {
+  margin-left: 10px;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
 /* Light */
 #theIdentificationPage .light,
 #theRegisterPage .light,
-#thePasswordPage .light{
+#thePasswordPage .light,
+#theProfilePage .light{
   background: linear-gradient(75.69deg, #FFEACF 7.64%, #FFFAF3 77.87%);
 }
 
 .light #login-form,
 .light #register-form,
 .light #password-form,
-.light #lang-select #other-languages {
+.light #lang-select #other-languages,
+.light .profile-section,
+.light .slider:before {
   background-color:#ffffff;
 }
 
 #theIdentificationPage .light a,
 #theRegisterPage .light a,
 #thePasswordPage .light a,
+#theProfilePage .light a,
 .light h1,
 .light .input-container input,
+.light .input-container select,
+.light .input-container textarea,
 .light .secondary-links,
 .light .properties label,
+.light .profile-section label,
 .light .properties i,
+.light .profile-section i,
 .light #password-form p,
+.light .profile-section p,
 .light #lang-select #other-languages span{
   color:#3C3C3C;
 }
 
 #theIdentificationPage .light a:hover,
 #theRegisterPage .light a:hover,
-#thePasswordPage .light a:hover{
+#thePasswordPage .light a:hover,
+#theProfilePage .light a:hover{
   color:#ff7700;
 }
 
@@ -428,28 +616,48 @@ p.error-message{
   border-left: 4px solid #6DCE5E;
 }
 
+.light input:checked + .slider {
+  background-color: #FFA646;
+}
+
+.light input:focus + .slider {
+  box-shadow: 0 0 1px #FFA646;
+}
+
+.light .slider {
+  background-color: #CCCCCC;
+}
+
 /* Dark */
 #theIdentificationPage .dark,
 #theRegisterPage .dark,
-#thePasswordPage .dark{
+#thePasswordPage .dark,
+#theProfilePage .dark{
   background: linear-gradient(75.69deg, #1B1B1D 7.64%, #2F2F2F 77.87%);
 }
 
 .dark #login-form,
 .dark #register-form,
-.dark #password-form{
+.dark #password-form,
+.dark .profile-section{
   background-color:#3C3C3C;
 }
 
 #theIdentificationPage .dark a,
 #theRegisterPage .dark a,
 #thePasswordPage .dark a,
+#theProfilePage .dark a,
 .dark h1,
 .dark .input-container input,
+.dark .input-container select,
+.dark .input-container textarea,
 .dark .secondary-links,
 .dark .properties label,
+.dark .profile-section label,
 .dark .properties i,
+.dark .profile-section i,
 .dark #password-form p,
+.dark .profile-section p,
 .dark #lang-select #other-languages span{
   color:#D6D6D6;
 }
@@ -457,6 +665,7 @@ p.error-message{
 #theIdentificationPage .dark a:hover,
 #theRegisterPage .dark a:hover,
 #thePasswordPage .dark a:hover,
+#theProfilePage .dark a:hover,
 .dark #lang-select #other-languages span{
   color:#ff7700;
 }
@@ -488,7 +697,9 @@ p.error-message{
   color:#898989;
 }
 
-.dark #lang-select #other-languages {
+.dark #lang-select #other-languages,
+.dark .slider,
+.dark input:checked + .slider:before {
   background-color: #3C3C3C;
 }
 
@@ -496,6 +707,23 @@ p.error-message{
   background-color: #4EA590;
   color: #AAF6E4;
   border-left: 4px solid #AAF6E4;
+}
+
+.dark .btn-secondary {
+  background-color: #202020!important;
+  color: white!important;
+}
+
+.dark input:checked + .slider {
+  background-color: #FFA646;
+}
+
+.dark input:focus + .slider {
+  box-shadow: 0 0 1px #FFA646;
+}
+
+.dark .slider:before {
+  background-color: #777777;
 }
 
 /*Responsive display*/
