@@ -455,6 +455,8 @@ p.error-message{
 .profile-section .username {
   width: fit-content;
   cursor: not-allowed;
+  background-color: transparent !important;
+  border: none !important;
 }
 
 .profile-section .input-container.radio {

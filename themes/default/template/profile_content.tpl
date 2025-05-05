@@ -84,6 +84,17 @@
   </fieldset>
 {/if}
 
+{if isset($PLUGINS_PROFILE)}
+  {foreach from=$PLUGINS_PROFILE item=plugin_block}
+    <fieldset>
+      <legend>{$plugin_block.name}</legend>
+      <div class="plugins fields">
+        {include file=$plugin_block.template}
+      </div>
+    </fieldset>
+  {/foreach}
+{/if}
+
   <p class="bottomButtons">
     <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     <input class="submit" type="submit" name="validate" value="{'Submit'|@translate}">

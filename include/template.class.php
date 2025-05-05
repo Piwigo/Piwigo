@@ -187,7 +187,7 @@ class Template
     // standard pages can't get the header to load the html header
     if (
       'default' != $theme 
-      and in_array(script_basename(), array('identification', 'register', 'password')) 
+      and in_array(script_basename(), array('identification', 'register', 'password', 'profile')) 
       and (($themeconf['use_standard_pages'] ?? false) or conf_get_param('use_standard_pages', false))
     )
     {
