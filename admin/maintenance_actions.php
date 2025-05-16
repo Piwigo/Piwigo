@@ -318,17 +318,6 @@ $template->assign(
 // graphics library
 switch (pwg_image::get_library())
 {
-  case 'imagick':
-    $library = 'ImageMagick';
-    $img = new Imagick();
-    $version = $img->getVersion();
-    if (preg_match('/ImageMagick \d+\.\d+\.\d+-?\d*/', $version['versionString'], $match))
-    {
-      $library = $match[0];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
   case 'ext_imagick':
     $library = 'External ImageMagick';
     exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
@@ -339,6 +328,17 @@ switch (pwg_image::get_library())
     $template->assign('GRAPHICS_LIBRARY', $library);
     break;
 
+  case 'imagick':
+    $library = 'ImageMagick';
+    $img = new Imagick();
+    $version = $img->getVersion();
+    if (preg_match('/ImageMagick \d+\.\d+\.\d+-?\d*/', $version['versionString'], $match))
+    {
+      $library = $match[0];
+    }
+    $template->assign('GRAPHICS_LIBRARY', $library);
+    break;
+    
   case 'gd':
     $gd_info = gd_info();
     $template->assign('GRAPHICS_LIBRARY', 'GD '.@$gd_info['GD Version']);

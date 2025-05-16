@@ -406,15 +406,15 @@ class pwg_image
     switch (strtolower($library))
     {
       case 'auto':
-      case 'imagick':
-        if ($extension != 'gif' and self::is_imagick())
-        {
-          return 'imagick';
-        }
       case 'ext_imagick':
         if ($extension != 'gif' and self::is_ext_imagick())
         {
           return 'ext_imagick';
+        }
+      case 'imagick':
+        if ($extension != 'gif' and self::is_imagick())
+        {
+          return 'imagick';
         }
       case 'gd':
         if (self::is_gd())
