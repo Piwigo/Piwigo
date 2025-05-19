@@ -3727,7 +3727,7 @@ function get_graphics_library()
   switch (pwg_image::get_library())
   {
     case 'ext_imagick':
-      exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
+      exec($conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command().' -version', $returnarray);
       if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
       {
         $library.= '/'.$match[1];

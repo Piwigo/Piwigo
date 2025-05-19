@@ -590,7 +590,7 @@ function upload_file_pdf($representative_ext, $file_path)
   $representative_file_path = original_to_representative($file_path, $ext);
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
   if ('jpg' == $ext)
   {
     $exec.= ' -quality '.$jpg_quality;
@@ -639,7 +639,7 @@ function upload_file_heic($representative_ext, $file_path)
 
   list($w,$h) = get_optimal_dimensions_for_representative();
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
   $exec.= ' -sampling-factor 4:2:0 -quality 85 -interlace JPEG -colorspace sRGB -auto-orient +repage -resize "'.$w.'x'.$h.'>"';
   $exec.= ' "'.realpath($file_path).'"';
   $exec.= ' "'.$representative_file_path.'"';
@@ -689,7 +689,7 @@ function upload_file_tiff($representative_ext, $file_path)
 
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
 
   if ('jpg' == $conf['tiff_representative_ext'])
   {
@@ -836,7 +836,7 @@ function upload_file_psd($representative_ext, $file_path)
 
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
 
   $exec .= ' "'.realpath($file_path).'"';
 
@@ -898,7 +898,7 @@ function upload_file_eps($representative_ext, $file_path)
 
   // convert -density 300 image.eps -resize 2048x2048 image.png
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
   $exec.= ' -density 300';
   $exec.= ' "'.realpath($file_path).'"';
   $exec.= ' -resize 2048x2048';
