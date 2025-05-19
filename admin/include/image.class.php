@@ -368,6 +368,29 @@ class pwg_image
     return (extension_loaded('imagick') and class_exists('Imagick'));
   }
 
+  static function get_ext_imagick_command()
+  {
+    global $page, $conf;
+
+    if (!isset($page['ext_imagick_command']))
+    {
+      $retval=null;
+      $cmd_out=null;
+      // check if magick is in path
+      exec('command -v '.$conf['ext_imagick_dir'].'magick', $cmd_out , $retval );
+      if (0 == $retval)
+      {
+        $page['ext_imagick_command'] = $cmd_out[0];
+      }
+      else
+      {
+        $page['ext_imagick_command'] = $conf['ext_imagick_dir'].'convert';
+      }
+    }
+    
+    return $page['ext_imagick_command'];
+  }
+
   static function is_ext_imagick()
   {
     global $conf;
@@ -376,7 +399,8 @@ class pwg_image
     {
       return false;
     }
-    @exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
+
+    @exec($conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command().' -version', $returnarray);
     if (is_array($returnarray) and !empty($returnarray[0]) and preg_match('/ImageMagick/i', $returnarray[0]))
     {
       if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
@@ -704,7 +728,7 @@ class image_ext_imagick implements imageInterface
       $this->add_command('sampling-factor', '4:2:2' );
     }
 
-    $exec = $this->imagickdir.'convert';
+    $exec = $this->imagickdir.pwg_image::get_ext_imagick_command();
     $exec .= ' "'.realpath($this->source_filepath).'"';
 
     foreach ($this->commands as $command => $params)
