@@ -15,7 +15,7 @@ $upgrade_description = 'add config parameter to override Theme Login & Registrat
 
 // we set it to false in this upgrade script, as opposed to the default value
 // for a new installation, because it was the default behavior before Piwigo 16
-conf_update_param('use_standard_pages', false);
+conf_update_param('use_standard_pages', true);
 
 echo "\n".$upgrade_description."\n";
 
