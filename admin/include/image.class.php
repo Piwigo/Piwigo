@@ -731,6 +731,12 @@ class image_ext_imagick implements imageInterface
     $exec = $this->imagickdir.pwg_image::get_ext_imagick_command();
     $exec .= ' "'.realpath($this->source_filepath).'"';
 
+    // If the image is animated webp add a filter to avoid breaking the animation
+    if ($this->is_animated_webp)
+    {
+      $exec .= ' -layers coalesce ';
+    }
+
     foreach ($this->commands as $command => $params)
     {
       $exec .= ' -'.$command;
@@ -739,7 +745,6 @@ class image_ext_imagick implements imageInterface
         $exec .= ' '.$params;
       }
     }
-
     $dest = pathinfo($destination_filepath);
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
     $logger->debug($exec, 'i.php');
