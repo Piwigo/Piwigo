@@ -104,6 +104,7 @@ if ($conf['show_newsletter_subscription'] and userprefs_get_param('show_newslett
     array(
       'EMAIL' => $user['email'],
       'SUBSCRIBE_BASE_URL' => get_newsletter_subscribe_base_url($user['language']),
+      'OLD_NEWSLETTERS_URL' => get_old_newsletters_base_url($user['language']),
       )
     );
 }
