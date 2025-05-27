@@ -2028,4 +2028,359 @@ SELECT COUNT(*)
   }
   return true;
 }
+
+/**
+ * Check all user infos and save parameters
+ *
+ * @since 16
+ * @param mixed[] $params
+ *    @option string username (optional)
+ *    @option string password (optional)
+ *    @option string email (optional)
+ *    @option string status (optional)
+ *    @option int level (optional)
+ *    @option string language (optional)
+ *    @option string theme (optional)
+ *    @option int nb_image_page (optional)
+ *    @option int recent_period (optional)
+ *    @option bool expand (optional)
+ *    @option bool show_nb_comments (optional)
+ *    @option bool show_nb_hits (optional)
+ *    @option bool enabled_high (optional)
+ */
+function check_and_save_user_infos($params)
+{
+  if (isset($params['username']) and strlen(str_replace( " ", "",  $params['username'])) == 0)
+  {
+    // return new PwgError(WS_ERR_INVALID_PARAM, 'Name field must not be empty');
+    return array(
+      'error' => array(
+        'code' => WS_ERR_INVALID_PARAM,
+        'message' => 'Name field must not be empty'
+      )
+    );
+  }
+
+  global $conf, $user, $service;
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $updates = $updates_infos = array();
+  $update_status = null;
+
+  if (count($params['user_id']) == 1)
+  {
+    if (get_username($params['user_id'][0]) === false)
+    {
+      // return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
+      return array(
+        'error' => array(
+          'code' => WS_ERR_INVALID_PARAM,
+          'message' => 'This user does not exist.'
+        )
+      );
+    }
+
+    if (!empty($params['username']))
+    {
+      $user_id = get_userid($params['username']);
+      if ($user_id and $user_id != $params['user_id'][0])
+      {
+        // return new PwgError(WS_ERR_INVALID_PARAM, l10n('this login is already used'));
+        return array(
+          'error' => array(
+            'code' => WS_ERR_INVALID_PARAM,
+            'message' => l10n('this login is already used')
+          )
+        );
+      }
+      if ($params['username'] != strip_tags($params['username']))
+      {
+        // return new PwgError(WS_ERR_INVALID_PARAM, l10n('html tags are not allowed in login'));
+        return array(
+          'error' => array(
+            'code' => WS_ERR_INVALID_PARAM,
+            'message' => l10n('html tags are not allowed in login')
+          )
+        );
+      }
+      $updates[ $conf['user_fields']['username'] ] = $params['username'];
+    }
+
+    if (!empty($params['email']))
+    {
+      if ( ($error = validate_mail_address($params['user_id'][0], $params['email'])) != '')
+      {
+        // return new PwgError(WS_ERR_INVALID_PARAM, $error);
+        return array(
+          'error' => array(
+            'code' => WS_ERR_INVALID_PARAM,
+            'message' => $error
+          )
+        );
+      }
+      $updates[ $conf['user_fields']['email'] ] = $params['email'];
+    }
+
+    if (!empty($params['password']))
+    {
+      if (!is_webmaster())
+      {
+        $password_protected_users = array($conf['guest_id']);
+
+        $query = '
+SELECT
+    user_id
+  FROM '.USER_INFOS_TABLE.'
+  WHERE status IN (\'webmaster\', \'admin\')
+;';
+        $admin_ids = query2array($query, null, 'user_id');
+
+        // we add all admin+webmaster users BUT the user herself
+        $password_protected_users = array_merge($password_protected_users, array_diff($admin_ids, array($user['id'])));
+
+        if (in_array($params['user_id'][0], $password_protected_users))
+        {
+          // return new PwgError(403, 'Only webmasters can change password of other "webmaster/admin" users');
+          return array(
+            'error' => array(
+              'code' => 403,
+              'message' => 'Only webmasters can change password of other "webmaster/admin" users'
+            )
+          );
+        }
+      }
+
+      $updates[ $conf['user_fields']['password'] ] = $conf['password_hash']($params['password']);
+    }
+  }
+
+  if (!empty($params['status']))
+  {
+    if (in_array($params['status'], array('webmaster', 'admin')) and !is_webmaster() )
+    {
+      // return new PwgError(403, 'Only webmasters can grant "webmaster/admin" status');
+      return array(
+        'error' => array(
+          'code '=> 403,
+          'message' => 'Only webmasters can grant "webmaster/admin" status'
+        )
+      );
+    }
+    
+    if ( !in_array($params['status'], array('guest','generic','normal','admin','webmaster')) )
+    {
+      // return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid status');
+      return array(
+        'error' => array(
+          'code' => WS_ERR_INVALID_PARAM,
+          'message' => 'Invalid status'
+        )
+      );
+    }
+
+    $protected_users = array(
+      $user['id'],
+      $conf['guest_id'],
+      $conf['webmaster_id'],
+      );
+
+    // an admin can't change status of other admin/webmaster
+    if ('admin' == $user['status'])
+    {
+      $query = '
+SELECT
+    user_id
+  FROM '.USER_INFOS_TABLE.'
+  WHERE status IN (\'webmaster\', \'admin\')
+;';
+      $protected_users = array_merge($protected_users, query2array($query, null, 'user_id'));
+    }
+
+    // status update query is separated from the rest as not applying to the same
+    // set of users (current, guest and webmaster can't be changed)
+    $params['user_id_for_status'] = array_diff($params['user_id'], $protected_users);
+
+    $update_status = $params['status'];
+  }
+
+  if (!empty($params['level']) or @$params['level']===0)
+  {
+    if ( !in_array($params['level'], $conf['available_permission_levels']) )
+    {
+      // return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid level');
+      return array(
+        'error' => array(
+          'code' => WS_ERR_INVALID_PARAM,
+          'message' => 'Invalid level'
+        )
+      );
+    }
+    $updates_infos['level'] = $params['level'];
+  }
+
+  if (!empty($params['language']))
+  {
+    if ( !in_array($params['language'], array_keys(get_languages())) )
+    {
+      // return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid language');
+      return array(
+        'error' => array(
+          'code' => WS_ERR_INVALID_PARAM,
+          'message' => 'Invalid language'
+        )
+      );
+    }
+    $updates_infos['language'] = $params['language'];
+  }
+
+  if (!empty($params['theme']))
+  {
+    if ( !in_array($params['theme'], array_keys(get_pwg_themes())) )
+    {
+      // return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid theme');
+      return array(
+        'error' => array(
+          'code' => WS_ERR_INVALID_PARAM,
+          'message' => 'Invalid theme'
+        )
+      );
+    }
+    $updates_infos['theme'] = $params['theme'];
+  }
+
+  if (!empty($params['nb_image_page']))
+  {
+    $updates_infos['nb_image_page'] = $params['nb_image_page'];
+  }
+
+  if (!empty($params['recent_period']) or @$params['recent_period']===0)
+  {
+    $updates_infos['recent_period'] = $params['recent_period'];
+  }
+
+  if (!empty($params['expand']) or @$params['expand']===false)
+  {
+    $updates_infos['expand'] = boolean_to_string($params['expand']);
+  }
+
+  if (!empty($params['show_nb_comments']) or @$params['show_nb_comments']===false)
+  {
+    $updates_infos['show_nb_comments'] = boolean_to_string($params['show_nb_comments']);
+  }
+
+  if (!empty($params['show_nb_hits']) or @$params['show_nb_hits']===false)
+  {
+    $updates_infos['show_nb_hits'] = boolean_to_string($params['show_nb_hits']);
+  }
+
+  if (!empty($params['enabled_high']) or @$params['enabled_high']===false)
+  {
+    $updates_infos['enabled_high'] = boolean_to_string($params['enabled_high']);
+  }
+
+  // perform updates
+  single_update(
+    USERS_TABLE,
+    $updates,
+    array($conf['user_fields']['id'] => $params['user_id'][0])
+    );
+
+  if (isset($updates[ $conf['user_fields']['password'] ]))
+  {
+    deactivate_user_auth_keys($params['user_id'][0]);
+  }
+
+  if (isset($updates[ $conf['user_fields']['email'] ]))
+  {
+    deactivate_password_reset_key($params['user_id'][0]);
+  }
+
+  if (isset($update_status) and count($params['user_id_for_status']) > 0)
+  {
+    $query = '
+UPDATE '. USER_INFOS_TABLE .' SET
+    status = "'. $update_status .'"
+  WHERE user_id IN('. implode(',', $params['user_id_for_status']) .')
+;';
+    pwg_query($query);
+
+    // we delete sessions, ie disconnect, for users if status becomes "guest".
+    // It's like deactivating the user.
+    if ('guest' == $update_status)
+    {
+      foreach ($params['user_id_for_status'] as $user_id_for_status)
+      {
+        delete_user_sessions($user_id_for_status);
+      }
+    }
+  }
+
+  if (count($updates_infos) > 0)
+  {
+    $query = '
+UPDATE '. USER_INFOS_TABLE .' SET ';
+
+    $first = true;
+    foreach ($updates_infos as $field => $value)
+    {
+      if (!$first) $query.= ', ';
+      else $first = false;
+      $query.= $field .' = "'. $value .'"';
+    }
+
+    $query.= '
+  WHERE user_id IN('. implode(',', $params['user_id']) .')
+;';
+    pwg_query($query);
+  }
+
+  // manage association to groups
+  if (!empty($params['group_id']))
+  {
+    $query = '
+DELETE
+  FROM '.USER_GROUP_TABLE.'
+  WHERE user_id IN ('.implode(',', $params['user_id']).')
+;';
+    pwg_query($query);
+
+    // we remove all provided groups that do not really exist
+    $query = '
+SELECT
+    id
+  FROM `'.GROUPS_TABLE.'`
+  WHERE id IN ('.implode(',', $params['group_id']).')
+;';
+    $group_ids = array_from_query($query, 'id');
+
+    // if only -1 (a group id that can't exist) is in the list, then no
+    // group is associated
+    
+    if (count($group_ids) > 0)
+    {
+      $inserts = array();
+      
+      foreach ($group_ids as $group_id)
+      {
+        foreach ($params['user_id'] as $user_id)
+        {
+          $inserts[] = array('user_id' => $user_id, 'group_id' => $group_id);
+        }
+      }
+
+      mass_inserts(USER_GROUP_TABLE, array_keys($inserts[0]), $inserts);
+    }
+  }
+
+  invalidate_user_cache();
+
+  pwg_activity('user', $params['user_id'], 'edit');
+
+  return array(
+    'user_id' => $params['user_id'],
+    'infos' => $updates_infos,
+    'account' => $updates
+  );
+}
 ?>

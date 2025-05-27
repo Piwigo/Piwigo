@@ -30,22 +30,24 @@ if (!defined('PHPWG_ROOT_PATH'))
 
   trigger_notify('loc_begin_profile');
 
-// Reset to default (Guest) custom settings
-  if (isset($_POST['reset_to_default']))
-  {
-    $fields = array(
-      'nb_image_page', 'expand',
-      'show_nb_comments', 'show_nb_hits', 'recent_period', 'show_nb_hits'
-      );
+  $fields = array(
+    'nb_image_page', 'expand',
+    'show_nb_comments', 'show_nb_hits', 'recent_period', 'show_nb_hits'
+    );
 
-    // Get the Guest custom settings
-    $query = '
+  // Get the Guest custom settings
+  $query = '
 SELECT '.implode(',', $fields).'
   FROM '.USER_INFOS_TABLE.'
   WHERE user_id = '.$conf['default_user_id'].'
 ;';
-    $result = pwg_query($query);
-    $default_user = pwg_db_fetch_assoc($result);
+  $result = pwg_query($query);
+  $default_user = pwg_db_fetch_assoc($result);
+  $template->assign('DEFAULT_USER_VALUES', $default_user);
+
+// Reset to default (Guest) custom settings
+  if (isset($_POST['reset_to_default']))
+  {
     $userdata = array_merge($userdata, $default_user);
   }
 
@@ -68,10 +70,49 @@ SELECT '.implode(',', $fields).'
   $themeconf = $template->get_template_vars('themeconf');
   if (!isset($themeconf['hide_menu_on']) OR !in_array('theProfilePage', $themeconf['hide_menu_on']))
   {
-    include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+    if ($themeconf['id'] !== 'standard_pages')
+    {
+      include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+    } 
   }
   
   include(PHPWG_ROOT_PATH.'include/page_header.php');
+
+  //Load language if cookie is set from login/register/password pages
+  if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
+  {
+    if (!array_key_exists($_COOKIE['lang'], get_languages()))
+    {
+      fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
+    }
+
+    $user['language'] = $_COOKIE['lang'];
+    load_language('common.lang', '', array('language'=>$user['language']));
+  }
+
+  //Get list of languages
+  foreach (get_languages() as $language_code => $language_name)
+  {
+    $language_options[$language_code] = $language_name;
+  }
+
+  $template->assign(array(
+    'language_options' => $language_options,
+    'current_language' => $user['language']
+  ));
+
+  //Get link to doc
+  if ('fr' == substr($user['language'], 0, 2))
+  {
+    $help_link = "https://doc-fr.piwigo.org/les-utilisateurs/se-connecter-a-piwigo";
+  }
+  else
+  {
+    $help_link = "https://doc.piwigo.org/managing-users/log-in-to-piwigo";
+  }
+
+  $template->assign('HELP_LINK', $help_link);
+
   trigger_notify('loc_end_profile');
   flush_page_messages();
   $template->pparse('profile');
