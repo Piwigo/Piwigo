@@ -421,6 +421,16 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   background: #3c3939;
 }
 
+/* Picture add */
+
+.upload-options, .upload-options-content {
+  background-color: #343434;
+}
+
+.upload-options-content .switch .slider {
+  background-color: #444444
+}
+
 /* Picture edit */
 #picture-content input[type=text], #picture-content textarea, #picture-content .selectize-input, #picture-content select {
   background-color: #444444;
@@ -710,7 +720,7 @@ input:checked + .slider::after{
 }
 
 input:checked + .slider {
-  background-color: #ffa646;
+  background-color: #ffa646 !important;
 }
 
 input:focus + .slider {
@@ -998,6 +1008,8 @@ a#showPermissions:hover {border-color: #A5A5A5;}
 .plupload_filelist_footer {background-color: #3c3939!important; border: 0!important; color: #A5A5A5!important}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
+li.plupload_delete a span {background: #444444;}
+li.plupload_delete a:hover span {background: #444444;}
 
 .addAlbumEmpty {color: #c1c1c1;}
 .buttonSeparator {color: #c1c1c1;}

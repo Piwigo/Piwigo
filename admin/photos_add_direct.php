@@ -86,6 +86,7 @@ $update_images = isset($_GET['update']);
 
 $have_formats_original = false;
 $formats_original_info = array();
+$formats_ext_info = null;
 
 // If URL parameter isn't empty
 if ($display_formats && $_GET['formats']) 
@@ -110,13 +111,16 @@ SELECT *
     if (!empty($formats))
     {
       $format_strings = array();
+      $formats_exts = array();
       
       foreach ($formats as $format)
       {
         $format_strings[] = sprintf('%s (%.2fMB)', $format['ext'], $format['filesize']/1024);
+        $formats_exts[] = strtolower($format['ext']);
       }
 
       $formats_original_info['formats'] = l10n('Formats: %s', implode(', ', $format_strings));
+      $formats_ext_info = json_encode($formats_exts);
     }
 
     $extTab = explode('.',$formats_original_info['file']);
@@ -152,8 +156,9 @@ $template->assign(array(
   'UPDATE_IMAGES' => $update_images,
   'HAVE_FORMATS_ORIGINAL' => $have_formats_original,
   'FORMATS_ORIGINAL_INFO' => $formats_original_info,
-  'SWITCH_FORMAT_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($display_formats ? '':'&formats').($update_images ? '&update' : ''),
-  'SWITCH_UPDATE_IMAGES_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($display_formats ? '&formats':'').($update_images ? '' : '&update'),
+  'FORMATS_EXT_INFO' => $formats_ext_info,
+  'SWITCH_FORMAT_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($display_formats ? '':'&formats'),
+  'SWITCH_UPDATE_IMAGES_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($update_images ? '' : '&update'),
   'format_ext' =>  implode(',', $conf['format_ext']),
   'str_format_ext' =>  implode(', ', $conf['format_ext']),
 ));

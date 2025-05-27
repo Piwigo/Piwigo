@@ -1780,6 +1780,7 @@ function ws_images_upload($params, $service)
   @fclose($out);
   @fclose($in);
 
+  $add_status = "add";
   // Check if file has been uploaded
   if (!$chunks || $chunk == $chunks - 1)
   {
@@ -1803,14 +1804,15 @@ SELECT *
 
       $image = $images[0];
 
-      add_format($filePath, $format_ext, $image['id']);
+      $add_status = add_format($filePath, $format_ext, $image['id']);
 
       return array(
         'image_id' => $image['id'],
         'src' => DerivativeImage::thumb_url($image),
         'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image),
         'name' => $image['name'],
-        );
+        'add_status' => $add_status,
+      );
     }
 
     $name = pwg_db_real_escape_string(stripslashes($params['name']));
@@ -1827,8 +1829,11 @@ SELECT
   AND ic.category_id = '.$params['category'][0].'
 ;';
       $images = query2array($query);
-      if($images != null)
+      if ($images != null)
+      {
         $id_image = $images[0]['id']; //take the id of the already existing image to replace it
+        $add_status = "update";
+      }
     }
 
     $image_id = add_uploaded_file(
@@ -1863,6 +1868,7 @@ SELECT
     COUNT(*)
   FROM '.LOUNGE_TABLE.'
   WHERE category_id = '.$params['category'][0].'
+  AND image_id NOT IN (Select image_id from '.IMAGE_CATEGORY_TABLE.')
 ;';
     list($nb_photos_lounge) = pwg_db_fetch_row(pwg_query($query));
 
@@ -1877,7 +1883,8 @@ SELECT
         'id' => $params['category'][0],
         'nb_photos' => $category_infos['nb_photos'] + $nb_photos_lounge,
         'label' => $category_name,
-        )
+      ),
+      'add_status' => $add_status
       );
   }
 }
@@ -2238,7 +2245,6 @@ SELECT id, file
  * 
  * @since 13
  * @param mixed[] $params
- *    @option string category_id (optional)
  *    @option string filename_list
  */
 function ws_images_formats_searchImage($params, $service)
@@ -2269,6 +2275,19 @@ SELECT
     return strlen($b) - strlen($a);
   });
 
+  $query = '
+SELECT
+    image_id,
+    ext
+  FROM '.IMAGE_FORMAT_TABLE.'
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $format_image_id = $row['image_id'];
+    @$format_db[ $format_image_id ][] = $row['ext'];
+  }
+
   $result = array();
 
   foreach ($candidates as $format_external_id => $format_filename)
@@ -2293,8 +2312,17 @@ SELECT
         $result[$format_external_id] = array('status' => 'multiple');
         continue;
       }
-
-      $result[$format_external_id] = array('status' => 'found', 'image_id' => $unique_filenames_db[$candidate_filename_wo_ext][0]);
+      $img_id = $unique_filenames_db[$candidate_filename_wo_ext][0];
+      $mult_form = false;
+      if (isset($format_db[$img_id]))
+      {
+        $format_ext = pathinfo($format_filename, PATHINFO_EXTENSION);
+        if (array_search($format_ext, $format_db[$img_id])!==false)
+        {
+          $mult_form = true;
+        }
+      }
+      $result[$format_external_id] = array('status' => 'found', 'image_id' => $img_id, 'format_exist' => $mult_form);
       continue;
     }
 

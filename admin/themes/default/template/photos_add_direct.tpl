@@ -36,12 +36,16 @@ const formatMode = {if $DISPLAY_FORMATS}true{else}false{/if};
 const updateMode = {if $UPDATE_IMAGES}true{else}false{/if};
 const haveFormatsOriginal = {if $HAVE_FORMATS_ORIGINAL}true{else}false{/if};
 const originalImageId = haveFormatsOriginal? '{if isset($FORMATS_ORIGINAL_INFO['id'])} {$FORMATS_ORIGINAL_INFO['id']} {else} -1 {/if}' : -1;
+const imageFormatsExtensions = '{$FORMATS_EXT_INFO}';
 const nb_albums = {$NB_ALBUMS|escape:javascript};
 const chunk_size = '{$chunk_size}kb';
 const max_file_size = '{$max_file_size}mb';
+const format_update_warning = "{'This format already exists for this file, it will be overwritten !'|translate}";
 var pwg_token = '{$pwg_token}';
-var photosUploaded_label = "{'%d photos uploaded'|translate|escape:javascript}";
-var formatsUploaded_label = "{'%d formats uploaded for %d photos'|translate|escape:javascript}";
+var photosAdded_label = "{'%d photos uploaded'|translate|escape:javascript}";
+var photosUpdated_label = "{'%d photos updated'|translate|escape:javascript}";
+var formatsAdded_label = "{'%d formats added for %d photos'|translate|escape:javascript}";
+var formatsUpdated_label = "{'%d formats updated for %d photos'|translate|escape:javascript}";
 var batch_Label = "{'Manage this set of %d photos'|translate|escape:javascript}";
 var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape:javascript}";
 var str_format_warning = "{'Error when trying to detect formats'|translate|escape:javascript}";
@@ -55,6 +59,8 @@ var file_ext = "{$file_exts}";
 var format_ext = "{$format_ext}"; 
 var uploadedPhotos = [];
 var uploadCategory = null;
+var addedPhotos = [];
+var updatedPhotos = [];
 let related_categories_ids = {$selected_category|json_encode};
 
 if(!updateMode)
@@ -184,23 +190,23 @@ $("#uploadOptions").on("click", function(){
       <legend>
         <div style="display:flex;align-items: center;">
           <span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}
+          {if !$DISPLAY_FORMATS}
           <div id="uploadOptions" class="upload-options">
-            <span class="icon-equalizer upload-options-icon"></span>{'Options'|@translate}
+            <span class="icon-equalizer rotate-element"></span>{'Options'|@translate}
           </div>
+          {/if}
         </div>
+      {if !$DISPLAY_FORMATS}
       <div class="upload-options-content" id="uploadOptionsContent">
-        <label class="switch small" onClick="window.location.replace('{$SWITCH_UPDATE_IMAGES_MODE_URL}'); $('.switch .slider').addClass('loading');">
+        <label class="switch" onClick="window.location.replace('{$SWITCH_UPDATE_IMAGES_MODE_URL}'); $('.switch .slider').addClass('loading');">
           <input type="checkbox" id="toggleUpdateMode" {if $UPDATE_IMAGES}checked{/if}>
-          <span class="slider small round"></span>
+          <span class="slider round"></span>
         </label>
         <div style="margin-left: 6px;">
-        {if !$DISPLAY_FORMATS}
-          <p>{'Update the already existing images in the album'|@translate}</p>
-        {else}
-          <p>{'Update the already existing formats'|@translate}</p>
-        {/if}
+          <p>{'If file already exists, update it'|@translate}</p>
         </div>
       </div>
+      {/if}
       </legend>
 
       <div class="selectFilesButtonBlock">

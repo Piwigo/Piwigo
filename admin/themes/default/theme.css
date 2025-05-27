@@ -1913,7 +1913,11 @@ img.ui-datepicker-trigger {
   max-width: 81vw;
 }
 
-.upload-options-icon{
+#toggleUpdateMode + .slider.round{
+  margin-right: 0;
+}
+
+.rotate-element{
   transform: rotate(90deg);
 }
 
@@ -1923,6 +1927,10 @@ img.ui-datepicker-trigger {
 
 #uploadFormSettings TH {
   width:50%;
+}
+
+.update-warning{
+  color:#ED5F59;
 }
 
 html, body {height:100; min-height: 100%; margin:0; padding:0;}
@@ -5309,11 +5317,6 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   vertical-align:middle;
 }
 
-.switch.small {
-  width: 40px;
-  height: 23px;
-}
-
 .format-mode-group-manager p, .selection-mode-group-manager p{
   display:inline-block;
   padding:0 5px;
@@ -5343,15 +5346,6 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   width: 16px;
   left: 6px;
   bottom: 4px;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider.small::before{
-  height: 19px;
-  width: 19px;
-  left: 2.5px;
-  bottom: 2.5px;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -6506,6 +6500,8 @@ fieldset#environment legend i[class*="icon-"] {
 .plupload_filelist li {background: none!important; font-weight: bold;}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover !important; width: 10px; height: 10px; margin-top: 3px;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover !important;}
+li.plupload_delete a span {background: #FFF;}
+li.plupload_delete a:hover span {background: #FFF;}
 .plupload_file_status {margin-right: 45px;}
 .plupload_file_size {margin-right: 25px;}
 .plupload_total_file_size {margin-right: -8px;}

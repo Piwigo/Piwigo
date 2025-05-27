@@ -262,7 +262,6 @@ function ws_addDefaultMethods( $arr )
       'pwg.images.formats.searchImage',
       'ws_images_formats_searchImage',
       array(
-        'category_id' => array('type'=>WS_TYPE_ID, 'default'=>null),
         'filename_list' => array(),
         ),
       'Search for image ids matching the provided filenames. <b>filename_list</b> must be a JSON encoded associative array of unique_id:filename.<br><br>The method returns a list of unique_id:image_id.',
