@@ -18,6 +18,12 @@ class Smarty_Internal_ErrorHandler
     public $allowUndefinedVars = true;
 
     /**
+     * Allows {$foo->propName} where propName is undefined.
+     * @var bool
+     */
+    public $allowUndefinedProperties = true;
+
+    /**
      * Allows {$foo.bar} where bar is unset and {$foo.bar1.bar2} where either bar1 or bar2 is unset.
      * @var bool
      */
@@ -75,6 +81,13 @@ class Smarty_Internal_ErrorHandler
 
         if ($this->allowUndefinedVars && preg_match(
                 '/^(Attempt to read property "value" on null|Trying to get property (\'value\' )?of non-object)/',
+                $errstr
+            )) {
+            return; // suppresses this error
+        }
+
+        if ($this->allowUndefinedProperties && preg_match(
+                '/^(Undefined property)/',
                 $errstr
             )) {
             return; // suppresses this error
