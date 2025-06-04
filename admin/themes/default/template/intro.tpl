@@ -13,6 +13,9 @@ const storage_total = {$STORAGE_TOTAL};
 const storage_details = {$STORAGE_CHART_DATA|json_encode};
 const translate_files = "{'%d files'|translate|escape:javascript}";
 let translate_type = {};
+{if isset($SUBSCRIBE_BASE_URL)}
+  const newsletter_base_url = "{$SUBSCRIBE_BASE_URL}";
+{/if}
 {literal}
 jQuery().ready(function(){
 	jQuery('.cluetip').cluetip({
@@ -42,10 +45,37 @@ jQuery().ready(function(){
     }
   });
 {/if}
+
+{if isset($SUBSCRIBE_BASE_URL)}
+  jQuery(".eiw").prepend(`
+  <div class="promote-newsletter">
+    <div class="promote-content">
+      
+      <img class="promote-image" src="admin/themes/default/images/promote-newsletter.png">
+
+      <div class="promote-newsletter-content">
+        <span class="promote-newsletter-title">{"Subscribe to our newsletter and stay updated!"|@translate|escape:javascript}</span>
+        <div class="promote-content subscribe-newsletter">
+          <input type="text" id="newsletterSubscribeInput" value="{$EMAIL}" class="left-side">
+          <a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribeLink" class="right-side go-to-porg icon-thumbs-up newsletter-hide">{"Sign up to the newsletter"|@translate|escape:javascript}</a>
+        </div>
+        <a href="{$OLD_NEWSLETTERS_URL}" class="promote-link">{"See previous newsletters"|@translate|escape:javascript}</a>
+      </div>
+
+    </div>
+    <a href="#" class="dont-show-again icon-cancel tiptip newsletter-hide" title="{'Understood, do not show again'|translate|escape:javascript}"></a>
+  </div>`);
+  
+{/if}
+
 {literal}
 
-  jQuery('.newsletter-subscription a').click(function() {
-    jQuery('.newsletter-subscription').hide();
+  jQuery("#newsletterSubscribeInput").change(function(){
+    jQuery("#newsletterSubscribeLink").attr("href", newsletter_base_url + jQuery("#newsletterSubscribeInput").val())
+  })
+
+  jQuery('.newsletter-hide').click(function() {
+    jQuery('.promote-newsletter').hide();
 
     jQuery.ajax({
       type: 'GET',
@@ -247,7 +277,4 @@ translate_type['{$type_to_translate}'] = "{$type_to_translate|translate}";
 {/if}
 
 
-{if isset($SUBSCRIBE_BASE_URL)}
-  <br><span class="newsletter-subscription"><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribe" class="externalLink cluetip icon-mail-alt" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a> <a href="#" class="newsletter-hide">{'... or hide this link'|translate}</a></span>
-{/if}
 </p>

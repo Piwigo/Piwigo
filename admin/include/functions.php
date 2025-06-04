@@ -2735,6 +2735,17 @@ function get_newsletter_subscribe_base_url($language='en_UK')
 }
 
 /**
+ * Get url on piwigo.org for old newsletters
+ *
+ * @param string $language (unused)
+ * @return string
+ */
+function get_old_newsletters_base_url($language='en_UK')
+{
+  return PHPWG_URL.'/newsletter';
+}
+
+/**
  * Return admin menu id for accordion.
  *
  * @param string $menu_page
