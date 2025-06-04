@@ -2317,10 +2317,79 @@ h2:lang(en) { text-transform:capitalize; }
   border-left:4px solid #00529b;
 }
 
+.jGrowl-popup-icon{
+  position: absolute;
+  font-size: 4em;
+  left: -25px;
+}
+
 .success {
-  color: #6DCE5E;
-  background-color:#D6FFCF;
-  border-left:4px solid #6DCE5E;
+  color: #3C3C3C;
+}
+div.jGrowl div.jGrowl-notification.success{
+  background: none;
+  background-color: #D6FFCF;
+  opacity: 1;
+  text-align: left;
+  font-family: 'Open Sans'; 
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1);
+  margin-bottom: 1em;
+}
+div.success .jGrowl-popup-icon{
+  color: #4CA530;
+}
+
+.error{
+  color: #3C3C3C;
+}
+div.jGrowl div.jGrowl-notification.error{
+  background: none;
+  background-color: #FFC8C8;
+  opacity: 1;
+  text-align: left;
+  font-family: 'Open Sans';
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1);
+  margin-bottom: 1em;
+}
+div.error .jGrowl-popup-icon{
+  color: #BE4949;
+}
+
+div.jGrowl div.jGrowl-notification div.jGrowl-message {
+  font-size: 1.2em !important;
+  margin: 0% 0% 0% 28%;
+}
+div.jGrowl div.jGrowl-notification div.jGrowl-header {
+  font-size: 1.2em !important;
+	font-weight: 800 !important;
+  margin: 5% 0% 2% 28%;
+}
+div.success div.jGrowl-close, div.error div.jGrowl-close {
+	font-size: 2em !important;
+  font-weight: 1000 !important;
+  position: relative;
+  top: -7px;
+  right: 1px;
+}
+
+div.jGrowl div.jGrowl-closer {
+	visibility: hidden;
+}
+
+div.jGrowl div.jGrowl-notification{
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85); 
+	zoom: 1;
+	width: 21vw;
+  height: 100%;
+	padding: 18%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 1em;
+	
+	display: none;
+  border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 .metasync-success {
