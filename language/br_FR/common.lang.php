@@ -454,3 +454,4 @@ $lang['Added by'] = 'Ouzhpennet gant';
 $lang['No results are available.'] = 'N\'eus disoc\'h ebet da gaout.';
 $lang['Validate'] = 'Kadarnaat';
 $lang['Search in :'] = 'Klask e-barzh:';
+$lang['Pages'] = 'Pajennoù';
