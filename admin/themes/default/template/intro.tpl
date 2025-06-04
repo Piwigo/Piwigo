@@ -13,7 +13,9 @@ const storage_total = {$STORAGE_TOTAL};
 const storage_details = {$STORAGE_CHART_DATA|json_encode};
 const translate_files = "{'%d files'|translate|escape:javascript}";
 let translate_type = {};
-const newsletter_base_url = "{$SUBSCRIBE_BASE_URL}";
+{if isset($SUBSCRIBE_BASE_URL)}
+  const newsletter_base_url = "{$SUBSCRIBE_BASE_URL}";
+{/if}
 {literal}
 jQuery().ready(function(){
 	jQuery('.cluetip').cluetip({
@@ -55,7 +57,7 @@ jQuery().ready(function(){
         <span class="promote-newsletter-title">{"Subscribe to our newsletter and stay updated!"|@translate|escape:javascript}</span>
         <div class="promote-content subscribe-newsletter">
           <input type="text" id="newsletterSubscribeInput" value="{$EMAIL}" class="left-side">
-          <a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribeLink" class="right-side go-to-porg icon-thumbs-up">{"Sign up to the newsletter"|@translate|escape:javascript}</a>
+          <a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribeLink" class="right-side go-to-porg icon-thumbs-up newsletter-hide">{"Sign up to the newsletter"|@translate|escape:javascript}</a>
         </div>
         <a href="{$OLD_NEWSLETTERS_URL}" class="promote-link">{"See previous newsletters"|@translate|escape:javascript}</a>
       </div>
@@ -72,7 +74,7 @@ jQuery().ready(function(){
     jQuery("#newsletterSubscribeLink").attr("href", newsletter_base_url + jQuery("#newsletterSubscribeInput").val())
   })
 
-  jQuery('.promote-newsletter a').click(function() {
+  jQuery('.newsletter-hide').click(function() {
     jQuery('.promote-newsletter').hide();
 
     jQuery.ajax({
