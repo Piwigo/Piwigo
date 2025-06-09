@@ -1567,6 +1567,58 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+
+    $service->addMethod(
+      'pwg.users.api_key.create',
+      'ws_create_api_key',
+      array(
+        'key_name' => array(),
+        'duration' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'info' => 'Number of days',
+        ),
+        'pwg_token' => array(),
+      ),
+      'Create a new api key for the user in the current session',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>false, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.users.api_key.revoke',
+      'ws_revoke_api_key',
+      array(
+        'pkid' => array(),
+        'pwg_token' => array(),
+      ),
+      'Revoke a api key for the user in the current session',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>false, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.users.api_key.edit',
+      'ws_edit_api_key',
+      array(
+        'key_name' => array(),
+        'pkid' => array(),
+        'pwg_token' => array(),
+      ),
+      'Edit a api key for the user in the current session',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>false, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.users.api_key.get',
+      'ws_get_api_key',
+      array(
+        'pwg_token' => array(),
+      ),
+      'Get all api key for the user in the current session',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>false, 'post_only'=>true)
+    );
 }
 
 ?>

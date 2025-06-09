@@ -3,21 +3,39 @@
 {combine_css path="admin/themes/default/fontello/css/fontello.css" order=-11}
 
 <script>
-  var selected_language = `{$language_options[$current_language]}`;
+var selected_language = `{$language_options[$current_language]}`;
   var url_logo_light = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo.svg`;
   var url_logo_dark = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo_dark.svg`;
 </script>
 {combine_script id='standard_pages_js' load='async' require='jquery' path='themes/standard_pages/js/standard_pages.js'}
 {combine_script id='standard_profile_js' load='async' require='jquery' path='themes/standard_pages/js/profile.js'}
+{combine_script id='common' load='footer' require='jquery' path='admin/themes/default/js/common.js'}
 {footer_script}
 const standardSaveSelector = [];
 const preferencesDefaultValues = {
-  nb_image_page: {$DEFAULT_USER_VALUES['nb_image_page']},
-  recent_period: {$DEFAULT_USER_VALUES['recent_period']},
-  opt_album: {$DEFAULT_USER_VALUES['expand']},
-  opt_comment: {$DEFAULT_USER_VALUES['show_nb_comments']},
-  opt_hits: {$DEFAULT_USER_VALUES['show_nb_hits']},
+nb_image_page: {$DEFAULT_USER_VALUES['nb_image_page']},
+recent_period: {$DEFAULT_USER_VALUES['recent_period']},
+opt_album: {$DEFAULT_USER_VALUES['expand']},
+opt_comment: {$DEFAULT_USER_VALUES['show_nb_comments']},
+opt_hits: {$DEFAULT_USER_VALUES['show_nb_hits']},
 };
+const selected_date = "{$API_SELECTED_EXPIRATION}";
+const can_manage_api = {($API_CAN_MANAGE) ? "true" : "false"};
+
+const str_copy_key_id = "{"Public key copied."|translate|escape:javascript}";
+const str_copy_key_secret = "{"Secret key copied. Keep it in a safe place."|translate|escape:javascript}";
+const str_cant_copy = "{"Impossible to copy automatically. Please copy manually."|translate|escape:javascript}";
+const str_api_added = "{"The api key has been successfully created."|translate|escape:javascript}";
+const str_revoked = "{"Revoked"|translate|escape:javascript}";
+const str_show_expired = "{"Show expired keys"|translate|escape:javascript}";
+const str_hide_expired = "{"Hide expired keys"|translate|escape:javascript}";
+const str_handle_error = "{"An error has occured"|translate|escape:javascript}";
+const str_expires_in = "{"Expires in"|translate|escape:javascript}";
+const str_expires_on = "{"Expired on"|translate|escape:javascript}";
+const str_revoke_key = "{'Do you really want to revoke the "%s" API key?'|translate|escape:javascript}";
+const str_api_revoked = "{"API Key has been successfully revoked."|translate|escape:javascript}";
+const str_api_edited = "{"API Key has been successfully edited."|translate|escape:javascript}";
+const no_time_elapsed = "{"right now"|translate|escape:javascript}";
 {/footer_script}
 
 <container id="mode" class="light">
@@ -28,7 +46,6 @@ const preferencesDefaultValues = {
     </div>
     <div>
       <a href="{$HELP_LINK}" target="_blank">{'Help'|translate}</a>
-      {include file='toaster.tpl'}
     </div>
   </section>
 
@@ -49,7 +66,7 @@ const preferencesDefaultValues = {
     </div>
     <div class="form" id="account-display">
       <div class="column-flex first">
-        <label for="username">{'Username'|translate}</label>
+        <label>{'Username'|translate}</label>
         <div class="row-flex input-container username">
           <i class="gallery-icon-user"></i>
           <p>{$USERNAME}</p>
@@ -57,9 +74,9 @@ const preferencesDefaultValues = {
         </div>
       </div>
       <div class="column-flex">
-        <label for="mail_address">{'Email address'|translate}</label>
+        <label for="email">{'Email address'|translate}</label>
         <div class="row-flex input-container">
-          <i class="gallery-icon-user"></i>
+          <i class="icon-mail-alt"></i>
           <input type="email" name="mail_address" id="email" value="{$EMAIL}" />
         </div>
         <p id="email_error" class="error-message"><i class="gallery-icon-attention-circled"></i>
@@ -94,7 +111,7 @@ const preferencesDefaultValues = {
         </div>
 
         <div class="column-flex">
-          <label for="theme">{'Theme'|translate}</label>
+          <label>{'Theme'|translate}</label>
           <div class="row-flex input-container">
             <i class="icon-brush"></i>
             {html_options name=theme options=$template_options selected=$template_selection}
@@ -103,7 +120,7 @@ const preferencesDefaultValues = {
         </div>
 
         <div class="column-flex">
-          <label for="language">{'Language'|translate}</label>
+          <label>{'Language'|translate}</label>
           <div class="row-flex input-container">
             <i class="icon-language"></i>
             {html_options name=language options=$language_options selected=$language_selection}
@@ -212,6 +229,205 @@ const preferencesDefaultValues = {
     </section>
   {/if}
 
+  {* API KEY *}
+  <section id="apikey-section" class="profile-section">
+    <div class="title">
+      <div class="column-flex">
+        <h1>{'API Keys'|translate}</h1>
+        <p>{'Create API Keys to secure your acount'|translate}</p>
+      </div>
+      <i class="gallery-icon-up-open display-btn close" data-display="apikey-display"></i>
+    </div>
+
+    <div class="form" id="apikey-display">
+      <div class="api-cant-manage" id="cant_manage_api">
+        <p>{'To manage your API keys, please log in with your username/password.'|translate|escape:html}</p>
+      </div>
+
+      <div class="new-apikey can-manage">
+        <button class="btn btn-main" id="new_apikey">{'New API Key'|translate}</button>
+      </div>
+      <div class="api-list can-manage">
+        <div class="api-list-head api-tab">
+          <div aria-hidden="true"></div>
+          <p>{'API Key name'|translate}</p>
+          <p>{'Created at'|translate}</p>
+          <p>{'Last use'|translate}</p>
+          <p id="api_expires_in">{'Expires in'|translate}</p>
+          <div aria-hidden="true"></div>
+        </div>
+        <div class="api-list-body" id="api_key_list">
+
+          <div class="api-tab-line border-line template-api" id="api_line">
+            <div class="api-icon-collapse">
+              <i class="gallery-icon-up-open icon-collapse close" data-api=""></i>
+            </div>
+            <p class="api_name"></p>
+            <p class="api_creation"></p>
+            <p class="api_last_use"></p>
+            <p class="api_expiration"></p>
+            <div class="api-icon-action row-flex" data-api="" data-pkid="">
+              <i class="icon-pencil edit-mode"></i>
+              <i class="icon-trash-1 delete-mode"></i>
+            </div>
+          </div>
+          <div class="api-tab-collapse border-line template-api" style="display: none;" id="api_collapse">
+            <div aria-hidden="true"></div>
+            <div class="keys">
+              <div class="row-flex key">
+                <i class="gallery-icon-hash"></i>
+                <p class="api_key"></p>
+                <i class="icon-clone" data-copy="" data-success=""></i>
+                <p id="" class="api-copy api-hide success-message">{"Public key copied."|translate|escape:html}</p>
+              </div>
+              <div class="row-flex key">
+                <i class="icon-key"></i>
+                <p>{"The secret key can no longer be displayed."|translate}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="new-apikey">
+          <button class="btn btn-link" id="show_expired_list" data-show="false">{'Show expired keys'|translate}</button>
+        </div>
+        <div class="api-list-body" id="api_key_list_expired">
+        </div>
+
+      </div>
+    </div>
+
+    {* API KEY MODAL *}
+    <div class="bg-modal" id="api_modal">
+      <div class="body-modal">
+        <a class="icon-cancel close-modal" id="close_api_modal"></a>
+
+        <div id="generate_keyapi">
+          <div class="head-modal">
+            <p class="title-modal">{'Generate API Key'|translate}</p>
+            <p class="subtitle-modal">{'Create a new API key to secure your account.'|translate}</p>
+          </div>
+
+          <div>
+            <div class="column-flex first">
+              <label for="api_key_name">{'API Key name'|translate}</label>
+              <div class="row-flex input-container">
+                <i class="icon-key"></i>
+                <input type="text" id="api_key_name" />
+              </div>
+              <p id="error_api_key_name" class="error-message"><i class="gallery-icon-attention-circled"></i>
+                {'must not be empty'|translate}</p>
+            </div>
+
+            <div class="row-flex section-expiration">
+              <div class="column-flex">
+                <label>{'Duration'|translate}</label>
+                <div class="row-flex input-container api-expiration">
+                  <i class="gallery-icon-calendar"></i>
+                  {html_options name=api_expiration options=$API_EXPIRATION}
+                </div>
+                <p id="error_api_key_date" class="error-message"><i class="gallery-icon-attention-circled"></i>
+                  {'you must choose a date'|translate}</p>
+              </div>
+
+              <div class="column-flex" id="api_custom_date">
+                <label for="api_expiration_date">{'Custom date'|translate}</label>
+                <div class="row-flex input-container api-expiration">
+                  <input type="date" id="api_expiration_date" name="api_expiration_custom" min="{$API_CURRENT_DATE}" />
+                </div>
+              </div>
+            </div>
+
+            <p class="api-mail-infos">{$API_EMAIL_INFOS}</p>
+
+            <div class="save">
+              <button class="btn btn-cancel" id="cancel_apikey">{'Cancel'|translate}</button>
+              <button class="btn btn-main" id="save_apikey">{'Generate key'|translate}</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="retrieves_keyapi">
+          <div class="head-modal">
+            <p class="title-modal">{'Generate API Key'|translate}</p>
+            <p class="subtitle-modal">{'Save your secret Key and ID'|translate}</p>
+            <p class="modal-secret">{'This will not be displayed again. You must copy it to continue.'|translate}
+            <p>
+          </div>
+
+          <div class="modal-input-keys">
+            <p id="api_id_copy_success" class="api-copy api-hide success-message">
+              {"Public key copied."|translate|escape:html}</p>
+          </div>
+          <div class="input-modal input-modal-id row-flex">
+            <i class="gallery-icon-hash"></i>
+            <input type="text" id="api_id_key" />
+            <i class="icon-clone" id="api_id_copy"></i>
+          </div>
+
+          <div class="modal-input-keys">
+            <p id="api_key_copy_success" class="modal-input-key api-copy api-hide success-message">
+              {"Secret key copied. Keep it in a safe place."|translate|escape:html}</p>
+          </div>
+          <div class="input-modal input-modal-key row-flex">
+            <i class="icon-key"></i>
+            <input type="text" id="api_secret_key" />
+            <i class="icon-clone" id="api_secret_copy"></i>
+          </div>
+
+          <div class="save">
+            <button class="btn btn-main" id="done_apikey" disabled>{'Done'|translate}</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    {* API KEY MODAL EDIT *}
+    <div class="bg-modal" id="api_modal_edit">
+      <div class="body-modal">
+        <a class="icon-cancel close-modal" id="close_api_modal_edit"></a>
+
+        <div>
+          <div class="head-modal">
+            <p class="title-modal">{'Edit API Key'|translate}</p>
+          </div>
+
+          <div class="column-flex first">
+            <label for="api_key_edit">{'API Key name'|translate}</label>
+            <div class="row-flex input-container">
+              <i class="icon-key"></i>
+              <input type="text" id="api_key_edit" />
+            </div>
+            <p id="error_api_key_edit" class="error-message"><i class="gallery-icon-attention-circled"></i>
+              {'must not be empty'|translate}</p>
+          </div>
+
+          <div class="save">
+            <button class="btn btn-main" id="save_api_edit">{'Save'|translate}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {* API KEY MODAL REVOKE *}
+    <div class="bg-modal" id="api_modal_revoke">
+      <div class="body-modal">
+        <a class="icon-cancel close-modal" id="close_api_modal_revoke"></a>
+
+        <div>
+          <div class="head-modal">
+            <p class="title-modal" id="api_modal_revoke_title"></p>
+          </div>
+
+          <div class="save">
+            <button class="btn btn-cancel" id="cancel_api_revoke">{'Cancel'|translate}</button>
+            <button class="btn btn-main btn-revoked" id="revoke_api_key">{'Revoke'|translate}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   {if isset($PLUGINS_PROFILE)}
     {foreach from=$PLUGINS_PROFILE item=plugin_block key=k_block}
       <section id="{$k_block}-section" class="profile-section">
@@ -225,12 +441,12 @@ const preferencesDefaultValues = {
         <div class="form plugins" id="{$k_block}-display">
           {include file=$plugin_block.template}
           {if $plugin_block.standard_show_save}
-          <div class="save">
-            <button class="btn btn-main" id="save_{$k_block}">{'Submit'|translate}</button>
-          </div>
-          {footer_script}
+            <div class="save">
+              <button class="btn btn-main" id="save_{$k_block}">{'Submit'|translate}</button>
+            </div>
+            {footer_script}
             standardSaveSelector.push('#save_{$k_block}');
-          {/footer_script}
+            {/footer_script}
           {/if}
         </div>
       </section>
@@ -252,4 +468,5 @@ const preferencesDefaultValues = {
       </div>
     </section>
   {/if}
+  {include file='toaster.tpl'}
 </container>
