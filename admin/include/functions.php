@@ -1929,7 +1929,7 @@ function fill_lounge($images, $categories)
  */
 function empty_lounge($invalidate_user_cache=true)
 {
-  global $logger;
+  global $logger, $conf;
 
   if (isset($conf['empty_lounge_running']))
   {
