@@ -2382,3 +2382,37 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 .RenameTagPopInContainer {
   background-color:#444;
 }
+
+.comment-box, .comment-box:focus{
+  background-color: #333;
+  color: #777;
+  border-color: #777;
+}
+
+.comment-box .comment{
+  color : #777;
+}
+
+.comment-select-checkbox, .comment-select-checkbox:focus{
+  background-color: #686868;
+}
+
+.commentFilterSelected, .commentFilterSelected:hover {
+  color: #FFFFFF;
+  background-color: #FFA500;
+  border-bottom: solid #D18800;
+}
+.commentFilterUnselected, .commentFilterUnselected:hover {
+    color: #F3F3F3;
+    background-color: #898989;
+    border-bottom: solid #DBDBDB;
+}
+
+.buttonSecondary {
+  background-color: #2E2E2E;
+  color: #777777;
+}
+.buttonSecondary:hover {
+  background-color: #1B1B1B;
+  color: #777777;
+}
