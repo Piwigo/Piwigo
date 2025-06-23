@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <meta charset="UTF-8">
+  <style>
+    html {
+      font-size: 100%;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    a:focus {
+      outline: thin dotted #333;
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+    a:hover,
+    a:active {
+      outline: 0;
+    }
+    input {
+      margin: 0;
+      font-size: 100%;
+      vertical-align: middle;
+      *overflow: visible;
+      line-height: normal;
+    }
+    input::-moz-focus-inner {
+      padding: 0;
+      border: 0;
+    }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 20px;
+      color: #333;
+      background-color: #fff;
+    }
+    a {
+      color: #08c;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #005580;
+      text-decoration: underline;
+    }
+    .row {
+      margin-left: -20px;
+      *zoom: 1;
+    }
+    .row:before,
+    .row:after {
+      display: table;
+      content: "";
+      line-height: 0;
+    }
+    .row:after {
+      clear: both;
+    }
+    .span3 {
+      float: left;
+      min-height: 1px;
+      margin-left: 20px;
+      width: 220px;
+    }
+    .container {
+      width: 940px;
+      margin-right: auto;
+      margin-left: auto;
+      *zoom: 1;
+    }
+    .container:before,
+    .container:after {
+      display: table;
+      content: "";
+      line-height: 0;
+    }
+    .container:after {
+      clear: both;
+    }
+    small {
+      font-size: 85%;
+    }
+    h1 {
+      margin: 10px 0;
+      font-family: inherit;
+      font-weight: bold;
+      line-height: 20px;
+      color: inherit;
+      text-rendering: optimizelegibility;
+      line-height: 40px;
+      font-size: 38.5px;
+    }
+    h1 small {
+      font-weight: normal;
+      line-height: 1;
+      color: #999;
+      font-size: 24.5px;
+    }
+
+    body {
+      margin-top: 90px;
+    }
+    .header {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      margin-left: -480px;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      padding-top: 10px;
+      z-index: 10;
+    }
+    .footer {
+      color: #ddd;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .footer a {
+      color: #ccc;
+      text-decoration: underline;
+    }
+    .the-icons {
+      font-size: 14px;
+      line-height: 24px;
+    }
+    .switch {
+      position: absolute;
+      right: 0;
+      bottom: 10px;
+      color: #666;
+    }
+    .switch input {
+      margin-right: 0.3em;
+    }
+    .codesOn .i-name {
+      display: none;
+    }
+    .codesOn .i-code {
+      display: inline;
+    }
+    .i-code {
+      display: none;
+    }
+    @font-face {
+      font-family: 'modus';
+      src: url('./font/modus.eot?27823081');
+      src: url('./font/modus.eot?27823081#iefix') format('embedded-opentype'),
+           url('./font/modus.woff?27823081') format('woff'),
+           url('./font/modus.ttf?27823081') format('truetype'),
+           url('./font/modus.svg?27823081#modus') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+    .demo-icon {
+      font-family: "modus";
+      font-style: normal;
+      font-weight: normal;
+      speak: never;
+     
+      display: inline-block;
+      text-decoration: inherit;
+      width: 1em;
+      margin-right: .2em;
+      text-align: center;
+      /* opacity: .8; */
+     
+      /* For safety - reset parent styles, that can break glyph codes*/
+      font-variant: normal;
+      text-transform: none;
+     
+      /* fix buttons height, for twitter bootstrap */
+      line-height: 1em;
+     
+      /* Animation center compensation - margins should be symmetric */
+      /* remove if not needed */
+      margin-left: .2em;
+     
+      /* You can be more comfortable with increased icons size */
+      /* font-size: 120%; */
+     
+      /* Font smoothing. That was taken from TWBS */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+     
+      /* Uncomment for 3D effect */
+      /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+    }
+    </style>
+    <link rel="stylesheet" href="css/animation.css"><!--[if IE 7]><link rel="stylesheet" href="css/" + font.fontname + "-ie7.css"><![endif]-->
+    <script>
+      function toggleCodes(on) {
+        var obj = document.getElementById('icons');
+      
+        if (on) {
+          obj.className += ' codesOn';
+        } else {
+          obj.className = obj.className.replace(' codesOn', '');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container header">
+      <h1>modus <small>font demo</small></h1>
+      <label class="switch">
+        <input type="checkbox" onclick="toggleCodes(this.checked)">show codes
+      </label>
+    </div>
+    <div class="container" id="icons">
+      <div class="row">
+        <div class="span3" title="Code: 0x2d">
+          <i class="demo-icon pwg-icon-tag">&#x2d;</i> <span class="i-name">pwg-icon-tag</span><span class="i-code">0x2d</span>
+        </div>
+        <div class="span3" title="Code: 0x2026">
+          <i class="demo-icon pwg-icon-ellipsis">&#x2026;</i> <span class="i-name">pwg-icon-ellipsis</span><span class="i-code">0x2026</span>
+        </div>
+        <div class="span3" title="Code: 0xe800">
+          <i class="demo-icon pwg-icon-pause">&#xe800;</i> <span class="i-name">pwg-icon-pause</span><span class="i-code">0xe800</span>
+        </div>
+        <div class="span3" title="Code: 0xe801">
+          <i class="demo-icon pwg-icon-minus">&#xe801;</i> <span class="i-name">pwg-icon-minus</span><span class="i-code">0xe801</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe802">
+          <i class="demo-icon pwg-icon-close">&#xe802;</i> <span class="i-name">pwg-icon-close</span><span class="i-code">0xe802</span>
+        </div>
+        <div class="span3" title="Code: 0xe803">
+          <i class="demo-icon pwg-icon-favorite-add">&#xe803;</i> <span class="i-name">pwg-icon-favorite-add</span><span class="i-code">0xe803</span>
+        </div>
+        <div class="span3" title="Code: 0xe804">
+          <i class="demo-icon pwg-icon-camera-calendar">&#xe804;</i> <span class="i-name">pwg-icon-camera-calendar</span><span class="i-code">0xe804</span>
+        </div>
+        <div class="span3" title="Code: 0xe805">
+          <i class="demo-icon pwg-icon-user">&#xe805;</i> <span class="i-name">pwg-icon-user</span><span class="i-code">0xe805</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe806">
+          <i class="demo-icon pwg-icon-category-view-flat">&#xe806;</i> <span class="i-name">pwg-icon-category-view-flat</span><span class="i-code">0xe806</span>
+        </div>
+        <div class="span3" title="Code: 0xe807">
+          <i class="demo-icon pwg-icon-category-edit">&#xe807;</i> <span class="i-name">pwg-icon-category-edit</span><span class="i-code">0xe807</span>
+        </div>
+        <div class="span3" title="Code: 0xe808">
+          <i class="demo-icon pwg-icon-arrow-w">&#xe808;</i> <span class="i-name">pwg-icon-arrow-w</span><span class="i-code">0xe808</span>
+        </div>
+        <div class="span3" title="Code: 0xe809">
+          <i class="demo-icon pwg-icon-arrow-e">&#xe809;</i> <span class="i-name">pwg-icon-arrow-e</span><span class="i-code">0xe809</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe80a">
+          <i class="demo-icon pwg-icon-arrow-n">&#xe80a;</i> <span class="i-name">pwg-icon-arrow-n</span><span class="i-code">0xe80a</span>
+        </div>
+        <div class="span3" title="Code: 0xe80b">
+          <i class="demo-icon pwg-icon-representative">&#xe80b;</i> <span class="i-name">pwg-icon-representative</span><span class="i-code">0xe80b</span>
+        </div>
+        <div class="span3" title="Code: 0xe80d">
+          <i class="demo-icon pwg-icon-map">&#xe80d;</i> <span class="i-name">pwg-icon-map</span><span class="i-code">0xe80d</span>
+        </div>
+        <div class="span3" title="Code: 0xe80e">
+          <i class="demo-icon pwg-icon-save">&#xe80e;</i> <span class="i-name">pwg-icon-save</span><span class="i-code">0xe80e</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe80f">
+          <i class="demo-icon pwg-icon-help">&#xe80f;</i> <span class="i-name">pwg-icon-help</span><span class="i-code">0xe80f</span>
+        </div>
+        <div class="span3" title="Code: 0xe810">
+          <i class="demo-icon pwg-icon-edit">&#xe810;</i> <span class="i-name">pwg-icon-edit</span><span class="i-code">0xe810</span>
+        </div>
+        <div class="span3" title="Code: 0xe811">
+          <i class="demo-icon pwg-icon-menu">&#xe811;</i> <span class="i-name">pwg-icon-menu</span><span class="i-code">0xe811</span>
+        </div>
+        <div class="span3" title="Code: 0xe812">
+          <i class="demo-icon pwg-icon-caddie-add">&#xe812;</i> <span class="i-name">pwg-icon-caddie-add</span><span class="i-code">0xe812</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe813">
+          <i class="demo-icon pwg-icon-sizes">&#xe813;</i> <span class="i-name">pwg-icon-sizes</span><span class="i-code">0xe813</span>
+        </div>
+        <div class="span3" title="Code: 0xe814">
+          <i class="demo-icon pwg-icon-globe">&#xe814;</i> <span class="i-name">pwg-icon-globe</span><span class="i-code">0xe814</span>
+        </div>
+        <div class="span3" title="Code: 0xe815">
+          <i class="demo-icon pwg-icon-cloud">&#xe815;</i> <span class="i-name">pwg-icon-cloud</span><span class="i-code">0xe815</span>
+        </div>
+        <div class="span3" title="Code: 0xe816">
+          <i class="demo-icon pwg-icon-letters">&#xe816;</i> <span class="i-name">pwg-icon-letters</span><span class="i-code">0xe816</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe817">
+          <i class="demo-icon pwg-icon-home">&#xe817;</i> <span class="i-name">pwg-icon-home</span><span class="i-code">0xe817</span>
+        </div>
+        <div class="span3" title="Code: 0xe818">
+          <i class="demo-icon pwg-icon-user-edit">&#xe818;</i> <span class="i-name">pwg-icon-user-edit</span><span class="i-code">0xe818</span>
+        </div>
+        <div class="span3" title="Code: 0xe819">
+          <i class="demo-icon pwg-icon-album">&#xe819;</i> <span class="i-name">pwg-icon-album</span><span class="i-code">0xe819</span>
+        </div>
+        <div class="span3" title="Code: 0xe81a">
+          <i class="demo-icon pwg-icon-help-circled">&#xe81a;</i> <span class="i-name">pwg-icon-help-circled</span><span class="i-code">0xe81a</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe81b">
+          <i class="demo-icon pwg-icon-calendar-plus">&#xe81b;</i> <span class="i-name">pwg-icon-calendar-plus</span><span class="i-code">0xe81b</span>
+        </div>
+        <div class="span3" title="Code: 0xe81c">
+          <i class="demo-icon pwg-icon-calendar">&#xe81c;</i> <span class="i-name">pwg-icon-calendar</span><span class="i-code">0xe81c</span>
+        </div>
+        <div class="span3" title="Code: 0xe81d">
+          <i class="demo-icon pwg-icon-height">&#xe81d;</i> <span class="i-name">pwg-icon-height</span><span class="i-code">0xe81d</span>
+        </div>
+        <div class="span3" title="Code: 0xe81e">
+          <i class="demo-icon pwg-icon-width">&#xe81e;</i> <span class="i-name">pwg-icon-width</span><span class="i-code">0xe81e</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe81f">
+          <i class="demo-icon pwg-icon-spin6 animate-spin">&#xe81f;</i> <span class="i-name">pwg-icon-spin6</span><span class="i-code">0xe81f</span>
+        </div>
+        <div class="span3" title="Code: 0xe820">
+          <i class="demo-icon pwg-icon-checkmark">&#xe820;</i> <span class="i-name">pwg-icon-checkmark</span><span class="i-code">0xe820</span>
+        </div>
+        <div class="span3" title="Code: 0xe821">
+          <i class="demo-icon pwg-icon-selecters">&#xe821;</i> <span class="i-name">pwg-icon-selecters</span><span class="i-code">0xe821</span>
+        </div>
+        <div class="span3" title="Code: 0xe822">
+          <i class="demo-icon pwg-icon-cancel">&#xe822;</i> <span class="i-name">pwg-icon-cancel</span><span class="i-code">0xe822</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe823">
+          <i class="demo-icon pwg-icon-trash">&#xe823;</i> <span class="i-name">pwg-icon-trash</span><span class="i-code">0xe823</span>
+        </div>
+        <div class="span3" title="Code: 0xe824">
+          <i class="demo-icon pwg-icon-search-folder">&#xe824;</i> <span class="i-name">pwg-icon-search-folder</span><span class="i-code">0xe824</span>
+        </div>
+        <div class="span3" title="Code: 0xe825">
+          <i class="demo-icon pwg-icon-broom">&#xe825;</i> <span class="i-name">pwg-icon-broom</span><span class="i-code">0xe825</span>
+        </div>
+        <div class="span3" title="Code: 0xe826">
+          <i class="demo-icon pwg-icon-arrow-rotate-left">&#xe826;</i> <span class="i-name">pwg-icon-arrow-rotate-left</span><span class="i-code">0xe826</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe827">
+          <i class="demo-icon pwg-icon-down-open">&#xe827;</i> <span class="i-name">pwg-icon-down-open</span><span class="i-code">0xe827</span>
+        </div>
+        <div class="span3" title="Code: 0xe828">
+          <i class="demo-icon pwg-icon-left-open">&#xe828;</i> <span class="i-name">pwg-icon-left-open</span><span class="i-code">0xe828</span>
+        </div>
+        <div class="span3" title="Code: 0xe829">
+          <i class="demo-icon pwg-icon-right-open">&#xe829;</i> <span class="i-name">pwg-icon-right-open</span><span class="i-code">0xe829</span>
+        </div>
+        <div class="span3" title="Code: 0xe830">
+          <i class="demo-icon pwg-icon-up-open">&#xe830;</i> <span class="i-name">pwg-icon-up-open</span><span class="i-code">0xe830</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe831">
+          <i class="demo-icon pwg-icon-favorite-del">&#xe831;</i> <span class="i-name">pwg-icon-favorite-del</span><span class="i-code">0xe831</span>
+        </div>
+        <div class="span3" title="Code: 0xe832">
+          <i class="demo-icon pwg-icon-slideshow">&#xe832;</i> <span class="i-name">pwg-icon-slideshow</span><span class="i-code">0xe832</span>
+        </div>
+        <div class="span3" title="Code: 0xe833">
+          <i class="demo-icon pwg-icon-camera-info">&#xe833;</i> <span class="i-name">pwg-icon-camera-info</span><span class="i-code">0xe833</span>
+        </div>
+        <div class="span3" title="Code: 0xe834">
+          <i class="demo-icon pwg-icon-cloud-download">&#xe834;</i> <span class="i-name">pwg-icon-cloud-download</span><span class="i-code">0xe834</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe847">
+          <i class="demo-icon pwg-icon-star">&#xe847;</i> <span class="i-name">pwg-icon-star</span><span class="i-code">0xe847</span>
+        </div>
+        <div class="span3" title="Code: 0xe84a">
+          <i class="demo-icon pwg-icon-plus-circled">&#xe84a;</i> <span class="i-name">pwg-icon-plus-circled</span><span class="i-code">0xe84a</span>
+        </div>
+        <div class="span3" title="Code: 0xe84f">
+          <i class="demo-icon pwg-icon-pencil">&#xe84f;</i> <span class="i-name">pwg-icon-pencil</span><span class="i-code">0xe84f</span>
+        </div>
+        <div class="span3" title="Code: 0xe852">
+          <i class="demo-icon pwg-icon-cog">&#xe852;</i> <span class="i-name">pwg-icon-cog</span><span class="i-code">0xe852</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xe900">
+          <i class="demo-icon pwg-icon-search">&#xe900;</i> <span class="i-name">pwg-icon-search</span><span class="i-code">0xe900</span>
+        </div>
+        <div class="span3" title="Code: 0xf0a0">
+          <i class="demo-icon pwg-icon-hdd">&#xf0a0;</i> <span class="i-name">pwg-icon-hdd</span><span class="i-code">0xf0a0</span>
+        </div>
+        <div class="span3" title="Code: 0xf0e8">
+          <i class="demo-icon pwg-icon-category-view-normal">&#xf0e8;</i> <span class="i-name">pwg-icon-category-view-normal</span><span class="i-code">0xf0e8</span>
+        </div>
+        <div class="span3" title="Code: 0xf133">
+          <i class="demo-icon pwg-icon-camera-calendar-1">&#xf133;</i> <span class="i-name">pwg-icon-camera-calendar-1</span><span class="i-code">0xf133</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3" title="Code: 0xf15d">
+          <i class="demo-icon pwg-icon-sort">&#xf15d;</i> <span class="i-name">pwg-icon-sort</span><span class="i-code">0xf15d</span>
+        </div>
+        <div class="span3" title="Code: 0xf1c5">
+          <i class="demo-icon pwg-icon-file-image">&#xf1c5;</i> <span class="i-name">pwg-icon-file-image</span><span class="i-code">0xf1c5</span>
+        </div>
+      </div>
+    </div>
+    <div class="container footer">Generated by <a href="https://fontello.com">fontello.com</a></div>
+  </body>
+</html>

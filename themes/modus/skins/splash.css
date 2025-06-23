@@ -1,0 +1,725 @@
+body{  
+  background-color:white;
+  color:black;
+}
+
+#theHeader div.banner,
+#theHeader div.banner:hover{
+  color:black;
+}
+
+#copyright{
+  color:#666;
+  background-color:#f2f2f2;
+}
+
+#copyright A:hover{
+  color:#0b6aff;
+  font-weight:normal;
+}
+
+#copyright A{
+  color:#8e8e93;
+}
+
+.infos{
+  background:#096a09 url(../../default/icon/infos.png) no-repeat center right;
+  color:black;
+}
+  
+h2{
+  color:black;
+  background-color:white;
+}
+
+.browsePath h2{
+  background-color:transparent;
+}
+
+.albLegend,
+.albLegend:hover{
+  color:white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.albSymbol{
+  color:#0b6aff;
+}
+
+.albLegendRight .albSymbol{
+  color:white;
+}
+
+H3, label{
+  color:#8e8e93;
+}
+
+A{
+  color:#0b6aff;
+}
+
+a:hover{
+  text-decoration:none;
+  font-weight:normal;
+  color:#0b6aff;
+}
+
+#menubar{
+  background-color:#f2f2f2;
+  border-radius:5px;
+}
+
+#menubar UL{
+  border-radius:5px;
+}
+
+#menubar dt A:hover{
+  color:#0b6aff;
+}
+
+#menubar dt A{
+  color:black;
+}
+
+#comentAdd INPUT[type="text"],
+INPUT[type="password"],
+#comentAdd SELECT,
+#comentAdd TEXTAREA,
+#comments input[type="text"],
+#comments TEXTAREA{
+  background-color:#f2f2f2;
+  color:black;
+}
+
+::placeholder,
+#commentAdd ::placeholder {
+  color:#717175;
+}
+
+#qsearchInput{
+  background-color:#e8e8ea;
+}
+
+#qsearchInput:placeholder{
+  color:#717175;
+}
+
+.search_results a,
+.search_results a:hover{
+  color:#0b6aff;
+}
+
+.selectize-control.multi .selectize-input [data-value].active, .selectize-control.multi .selectize-input > div{
+  background-color:#777;
+}
+
+.selectize-control .plugin-remove_button [data-value] .remove{
+  border-left-color:#333333;
+}
+
+#menubar DD{
+  background-color:#e8e8ea;
+  color:black;
+  border-radius:5px;
+}
+
+#menubar DD A{
+  color:black;
+}
+
+#menubar DD A:hover{
+  color:#0b6aff;
+}
+
+#menubar INPUT{
+  background-color:#e8e8ea!important;
+  border-radius:5px;
+}
+
+INPUT[type="button"],
+INPUT[type="submit"],
+INPUT[type="reset"],
+INPUT[type="button"]:hover,
+INPUT[type="submit"]:hover,
+INPUT[type="reset"]:hover{
+  border-radius:5px;
+  color: black;
+  background-color:#e8e8ea;
+}
+
+.wide #imageToolBar{
+  background-color:white;
+}
+
+#imageToolBar{
+  background-color:white;
+}
+
+.switchBox{
+  background-color:#e8e8ea;
+  border-radius:5px;
+}
+
+.switchCheck {
+  color:#0b6aff;
+}
+
+.badge{
+  background-color: #0b6aff;
+  border-radius: 20px;
+  color:#e8e8ea;
+}
+
+#menubar LI.selected>A{
+  color:#0b6aff;
+}
+
+.wide .imageInfoTable,
+.wide #imageInfos{
+  background-color:#f2f2f2;
+  border-radius: 5px;
+}
+
+.imageInfoTable h3{
+  color:black;
+}
+
+.imageInfoTable a,
+.imageInfoTable a:hover{
+  color:#0b6aff;
+}
+
+.wide .imageInfoTable,
+.wide #imageInfos h3{
+  color:black;
+}
+
+.wide #imageInfos a,
+.wide #imageInfos a:hover {
+  color:#0b6aff;
+  font-weight:normal;
+}
+
+.wide .imageInfo DT{
+  color:#8e8e93;
+}
+
+#imageInfos{
+  background-color:#f2f2f2;
+  color:black;
+}
+
+#imageHeaderBar .imageNumber{
+  color:black;
+}
+
+A .pwg-icon,A .pwg-icon:hover {
+  color:#0b6aff;
+}
+
+.pwg-state-disabled .pwg-icon{
+  color:#8e8e93;
+}
+
+.pwg-state-default .pwg-button{
+  border-radius: 5px;
+}
+
+fieldset h3,
+fieldset label {
+  color:black;
+}
+
+#quickconnect input,
+.properties input {
+  color:black;
+}
+
+.properties fieldset legend{
+  color:black;
+}
+
+dt, dd{
+  color:black;
+}
+
+.titrePage{
+  background-color:white;
+  color:black;
+}
+
+#imageHeaderBar H2{
+  color:black;
+  text-shadow:none;
+}
+
+.titrePage H2 A:hover {
+  color:#0b6aff;
+}
+
+.titrePage H2 A {
+  color:black;
+  text-shadow: none;
+}
+
+.titrePage A, .titrePage A:hover{
+  color:#0b6aff;
+  font-weight:normal;
+}
+
+.titrePage H2 span.badge {
+  background-color: #0b6aff;
+  border-radius: 20px;
+  color: #e8e8ea;
+}
+
+.titrePage .switchBox{
+  color:#0b6aff;
+  padding:10px;
+}
+
+.titrePage .switchBox A{
+  color:black;
+}
+
+.titrePage .switchBox A:hover{
+  color:#0b6aff;
+}
+
+.browsePath{
+  color:black;
+}
+
+#thePicturePage .titrePage{
+ background-color: #f2f2f2;
+}
+
+#thePicturePage .titrePage h2,  #thePicturePage .browsePath{
+  color:black;
+}
+
+#thePicturePage .titrePage A{
+  color:black;
+}
+
+#thePicturePage .titrePage A:hover{
+  color:#0b6aff;
+}
+
+.overDesc{
+  color:black;
+  background-color: rgba(232, 232, 234,0.6);
+}
+
+#derivativeSwitchBox,
+#sortOrderBox{
+  border-radius:5px;
+}
+
+#derivativeSwitchBox A{
+  color:black;
+}
+
+.switchCheck{
+  color:#0b6aff;
+}
+
+.derivativeSizeDetails{
+  color:#8e8e93;
+}
+
+.switchBoxTitle{
+  border-bottom: solid 2px #bfbfc2;
+  color:black;
+}
+
+.switchBox{
+  padding:20px;
+}
+
+#profile,
+#profile fieldset h3,
+#profile fieldset label  {
+  color:black;
+}
+
+#comments input[type='text'],
+#comments textarea{
+  background-color:#e8e8ea;
+  color:black;
+}
+
+#thumbnails>li,
+.albThumbs>li,
+.navThumb img {
+  border-radius:5px;
+}
+
+.properties fieldset span label{
+  color:black;
+}
+
+.imageInfo DT{
+  color:#8e8e93;
+}
+
+.commentsList{
+  color:black;  
+}
+
+.commentsList a{
+  color:#0b6aff;
+}
+
+.commentElement{
+  background-color:#e7e7e7;
+  border-radius:5px;
+}
+
+hr{
+  border-bottom: 2px solid #bfbfc2;
+}
+  
+#menuTagCloud a{
+  color:#0b6aff;
+}
+
+#theSearchPage fieldset legend{
+  color:black;
+}
+
+.filter fieldset label{
+  color:black;
+}
+
+.selectize-input > input,
+INPUT[type="text"],
+INPUT[type="password"],
+SELECT,
+TEXTAREA{
+  background-color:#e8e8ea;
+  border-radius:5px;
+  color:black;
+}
+
+.selectize-input,
+.selectize-input.focus,
+.selectize-dropdown,
+.selectize-input input{
+  background-color:#e8e8ea;
+  color:black;
+}
+
+.date_today{
+  font-weight:normal;
+  color:black;
+}
+
+.date_today:hover{
+  font-weight:normal;
+  color:#0b6aff;
+}
+  
+#start_day,
+#start_month,
+#end_day,
+#end_month {
+  background-color: #e8e8ea;
+  border-radius: 5px;
+  color:black;
+}
+
+.filter select{
+  background-color: #e8e8ea;
+  border-radius: 5px;
+  color:black;
+}
+
+.contact input[type="text"],
+.contact textarea,
+.contact select{
+  border-radius:5px;
+  background-color:#e8e8ea;
+  color:black;
+}
+  
+.wide .thumbHover:hover{
+  text-decoration:none;
+}
+
+.calItem{
+  border:1px solid #0b6aff;
+}
+
+.calItem a, .calItem:hover{
+  color:#0b6aff;
+}
+
+.content .navigationBar,
+SPAN.calItem,
+TD.calDayCellEmpty,
+.content .navigationBar:hover,
+SPAN.calItem:hover,
+TD.calDayCellEmpty:hover{
+  color:#8e8e93;
+  border:none;
+}
+
+DIV.thumbHover,
+DIV.thumbHover:hover{
+  color:black;
+  border-radius:5px;
+}
+
+#fullTagCloud span a{
+  margin-left:5px;
+  color:black; 
+}
+
+#fullTagCloud span a:hover{
+  text-decoration:none;
+  color:#0b6aff;
+}
+
+LEGEND.tagLetterLegend, FIELDSET.tagLetter{
+  border:none;
+  color:black;
+}
+
+.tagLine td a{
+  color:black;
+}
+
+.tagLine td a:hover{
+color:#0b6aff;
+}
+
+
+.tagLevel5{
+  color:#0b6aff!important;
+}
+
+td .nbEntries{
+  background-color:#fff;
+  border:solid 1px #eee;
+  color:#bbb ;
+}
+
+.totalImages{
+  border-top:solid 2px #bfbfc2;
+}
+
+.selectize-control.plugin-remove_button [data-value] .remove {
+  border-left:solid 1px #333333;
+}
+
+.message{
+  background-color:#e8e8ea;
+}
+
+.notification a{
+  text-decoration:none;
+  color:black;
+  font-weight:normal;
+}
+
+.notification a:hover{
+  color:#0b6aff;
+}
+
+form.properties a{
+  border:solid 1px ;
+  border-radius:5px;
+  padding:2px 5px 5px 2px;
+  margin: 0 5px;
+}
+
+#t4u-update-tags .t4u-disabled{
+  color:black!important;
+}
+
+#lostPassword fieldset .message{
+  color:black;
+}
+
+@media screen and (max-width: 640px){
+  #menubar{
+    border-radius:5px;
+  }
+  #copyright a{
+    color:#0b6aff;
+  }
+  #derivativeSwitchLink .pwg-icon pwg-icon-sizes{
+    color:black;
+  }
+  #albumActionsSwitcher + .categoryActions .pwg-button-text, #imageToolBar .actionButtons .pwg-button-text{
+    color:black !important;
+  }
+  #albumActionsSwitcher + .categoryActions{
+    border-radius:5px;
+    box-shadow:0px 0px transparent;
+  }
+  .categoryActions a .pwg-icon{
+    color:#0b6aff;
+  }
+  #theTagsPage A .pwg-icon, #theTagsPage A:hover .pwg-icon{
+    color:#0b6aff;
+  }  
+}
+
+.thumbnailCategory {
+  background-color:#e8e8ea;
+}
+
+/* Search colors */
+.mcs-container .filter,
+.filter .filter-icon{
+  color:#888;
+}
+
+.filter-manager-popin .mcs-popin-title,
+.tags-found-popin .mcs-popin-title,
+.albums-found-popin .mcs-popin-title,
+.filetypes-option label .checked-icon,
+.added_by-option label .checked-icon,
+.date_posted-option label .checked-icon,
+.date_created-option label .checked-icon,
+.breadcrumb-item .icon-cancel-circled:hover,
+.clear-all.clickable,
+.mcs-no-result .text span:first-child,
+.filter-form .filter-form-title,
+.ratios-option label .checked-icon,
+.ratings-option label .checked-icon{
+  color: #0b6aff!important;
+}
+
+.tags-found-container .tag-item,
+.albums-found-container .album-item,
+.breadcrumb-item,
+.filter-tag-form .selectize-control.multi .selectize-input > div,
+.filter-tag-form .selectize-control.multi .selectize-input [data-value].active,
+.filter-author-form .selectize-control.multi .selectize-input > div,
+.filter-author-form .selectize-control.multi .selectize-input [data-value].active,
+.filter-added_by-form .selectize-control.multi .selectize-input > div,
+.filter-added_by-form .selectize-control.multi .selectize-input [data-value].active,
+.mcs-container .filter-filled{
+  background: #f2f2f2!important;
+}
+
+.filetypes-option label,
+.added_by-option label,
+.preset_posted_date .date_posted-option label,
+.preset_created_date .date_created-option label,
+.custom_posted_date .date_posted-option label,
+.custom_created_date .date_created-option label,
+.ratios-option label, .ratings-option label{
+  color:#000; 
+}
+
+.added_by-option input:checked + label,
+.filetypes-option input:checked + label,
+.date_posted-option .selected label, 
+.date_posted-option .selected .accordion-toggle,
+.date_created-option .selected label,
+.date_created-option .selected .accordion-toggle,
+.preset_posted_date .date_posted-option input:checked + label,
+.preset_created_date .date_created-option input:checked + label,
+.custom_posted_date .date_posted-option input:checked + label,
+.custom_created_date .date_created-option input:checked + label,
+.ratios-option input:checked + label,
+.ratings-option input:checked + label{
+  background:#c7d3e1!important;
+}
+
+.filter-manager,
+.filter-validate,
+.filter-manager:hover,
+.filter-validate:hover,
+.filetypes-option label .ext-badge,
+.added_by-option label .added_by-badge,
+.date_posted-option label .date_posted-badge,
+.date_created-option label .date_created-badge,
+.mcs-side-results .mcs-side-badge,
+.ratios-option label .ratio-badge, 
+.ratings-option label .ratings-badge{
+  background: #0b6aff!important;
+  color:#fff!important;
+}
+
+.mcs-container .filter-filled {
+  border: 1px solid #888 !important;
+}
+
+
+.mcs-container .filter-filled .filter-icon,
+.mcs-container .filter-filled .search-words,
+.mcs-container .filter-filled .filter-arrow 
+{
+  color:#000!important;
+}
+
+.ratings-option:nth-child(odd),
+.ratios-option:nth-child(odd),
+.preset_posted_date .date_posted-option:nth-child(odd) label,
+.preset_posted_date .date_posted-option:nth-child(odd) i,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input label,
+.custom_posted_date .date_posted-option:nth-child(odd) .year_input i,
+.custom_posted_date .date_posted-option:nth-child(even) .month_input label,
+.custom_posted_date .date_posted-option:nth-child(even) .month_input i,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) label,
+.custom_posted_date .days_container .date_posted-option:nth-child(odd) i,
+.preset_created_date .date_created-option:nth-child(odd) label,
+.preset_created_date .date_created-option:nth-child(odd) i,
+.custom_created_date .date_created-option:nth-child(odd) .year_input label,
+.custom_created_date .date_created-option:nth-child(odd) .year_input i,
+.custom_created_date .date_created-option:nth-child(even) .month_input label,
+.custom_created_date .date_created-option:nth-child(even) .month_input i,
+.custom_created_date .days_container .date_created-option:nth-child(odd) label,
+.custom_created_date .days_container .date_created-option:nth-child(odd) i,
+.filetypes-option:nth-child(odd),
+.added_by-option:nth-child(odd){
+  background: #e8e8ea!important;
+}
+
+
+.date_posted-option .accordion-toggle:hover,
+.date_created-option .accordion-toggle:hover {
+  color:#000;
+}
+
+.mcs-container div .slider_input p,
+.slider-info,
+.no_filtered_photos{
+  color:#000;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-slider-range.ui-widget-header.ui-corner-all{
+  border: 1px solid #c7d3e1;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default{
+  background-color:#c7d3e1;
+}
+
+.ui-slider .ui-slider-range{
+  background: #c7d3e1;
+}
+
+.mcs-container input[type="number"],
+.mcs-container input[type="number"]:focus{
+  background-color:#f2f2f2 !important;
+  color:#c7d3e1 !important;
+  border-radius: 0px !important;
+}
+
+#downloadSwitchLink,
+#derivativeSwitchLink,
+#sortOrderLink,
+.uc-icon-star-filled,
+.uc-icon-star{
+  color:#0b6aff!important;
+}

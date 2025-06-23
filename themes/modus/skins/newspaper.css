@@ -1,0 +1,370 @@
+body {
+  background-color:white;
+  color:black;
+}
+
+#theHeader div.banner, #theHeader div.banner:hover{
+  color:white;
+}
+
+#copyright{
+  color:#666;
+  background-color:#f9f9f9;
+}
+
+#copyright A{
+  color:#666;
+}
+
+.infos{
+  background:#096a09 url(../../default/icon/infos.png) no-repeat center right;
+  color:white;
+}
+
+h2{
+  color:black;
+}
+
+.albLegend{
+  color:white;
+}
+
+H3, label{
+  color:#000000;
+}
+
+A{
+  color:#000000;
+}
+
+a:hover{
+  text-decoration:underline;
+  font-weight:normal;
+  color:black;
+}
+
+#menubar{
+  background-color:#2D2D2D;
+}
+
+#comentAdd INPUT[type="text"], INPUT[type="password"], #comentAdd SELECT, #comentAdd TEXTAREA, #comments input[type="text"], #comments TEXTAREA{
+  background-color:#2D2D2D;
+  color:white;
+}
+
+::placeholder, #commentAdd ::placeholder {
+  color:#d6d6d6;
+}
+
+#qsearchInput{
+  border:1px solid #fff;
+  color:white;
+}
+
+.selectize-control.multi .selectize-input [data-value].active,
+.selectize-control.multi .selectize-input > div{
+  background-color:#777 ;
+  color:#ddd;
+}
+
+.selectize-input{
+  background-color: #363636;
+  color: white;
+  border:none;
+  border-radius:0;
+}
+
+.selectize-control .plugin-remove_button [data-value] .remove{
+  border-left-color:#333333;
+}
+
+#menubar DT,
+#menubar DT A,
+#thePicturePage .titrePage h2,
+#thePicturePage .titrePage A,
+#thePicturePage .browsePath,
+fieldset h3,
+dt,
+dd,
+.switchBox,
+.switchBox a,
+.imageInfoTable a,
+.imageInfoTable a:hover,
+.wide .imageInfoTable,
+.wide #imageInfos a,
+.wide #imageInfos h3,
+#imageHeaderBar .imageNumber {
+  color:white;
+}
+
+fieldset label{
+  color:black;
+}
+
+#menubar DD{
+  background-color:#383838;
+  color:white;
+  box-shadow:none;
+}
+
+#menubar DD A{
+  color:white;
+  text-decoration:none;
+  font-size:15px;
+}
+
+#menubar DD A:hover{
+  text-decoration:underline;
+}
+
+INPUT[type="button"],
+INPUT[type="submit"],
+INPUT[type="reset"],
+#menubar INPUT{
+  color:white;
+}
+
+INPUT[type="submit"] {
+  background-color: #383838;
+  color: white;
+}
+
+.wide #imageToolBar{
+  background-color:white;
+}
+
+.badge{
+  background-color: #777;
+  border-radius:0px!important;
+  color:#ddd;
+}
+
+.wide .imageInfoTable,
+.wide #imageInfos{
+  background-color:#2D2D2D;
+}
+
+#imageInfos{
+  background-color:#2D2D2D;
+  color:white;
+}
+
+A .pwg-icon {
+  color:#000000;
+}
+
+#quickconnect input:focus,
+#quickconnect input,
+.properties input,
+.properties input:focus {
+  color:white;
+  background-color:#2d2d2d;
+}
+
+.properties input, .properties input:focus {
+  background-color:#2D2D2D;
+  color:white;
+}
+
+fieldset legend{
+  color:white;
+}
+
+.titrePage{
+  background-color:white;
+  color:black;
+}
+
+.titrePage H2 A,
+#imageHeaderBar H2{
+  color:black;
+  text-shadow:none;
+}
+
+
+.titrePage H2 span.badge {
+  background-color: #777;
+  color: #fff;
+}
+
+.titrePage A{
+  color:white;
+}
+
+#calendarViewSwitchLink,
+.browsePath,
+#profile,
+#profile fieldset h3,
+#profile fieldset label,
+.properties fieldset span label {
+  color:black;
+}
+
+#thePicturePage .titrePage{
+ background-color: #2D2D2D;
+}
+
+.switchBoxTitle{
+  border-bottom: 2px solid #555;
+}
+
+#comments input[type='text'],
+#comments textarea{
+  background-color:#2D2D2D;
+  color:white;
+}
+
+.overDesc{
+  background-color:rgba(0,0,0,0.6)
+}
+
+.commentsList,
+.commentsList a {
+  color:black;
+}
+
+.commentElement{
+  background-color:#e7e7e7;
+}
+
+hr{
+  border-bottom: 2px solid #555;
+}
+
+#theSearchPage fieldset legend {
+  color:black;
+}
+
+
+.filter input,
+.filter input:focus,
+.selectize-input > input,
+INPUT[type="text"],
+INPUT[type="password"],
+SELECT,
+TEXTAREA{
+  background-color:#363636 ;
+  color:white;
+}
+
+.date_today:hover{
+  color:black;
+}
+
+#start_day,
+#start_month,
+#end_day,
+#end_month {
+  background-color: #363636;
+  color:white;
+}
+
+.filter select{
+  background-color: #363636;
+  color:white;
+}
+
+.contact input[type="text"],
+.contact textarea,
+.contact select{
+  background-color:#383838;
+  color:white;
+}
+
+.calItem,
+.calItem:hover{
+  color:black;
+  border:1px solid black;
+}
+
+.content .navigationBar,
+SPAN.calItem,
+TD.calDayCellEmpty,
+content .navigationBar:hover,
+SPAN.calItem:hover,
+TD.calDayCellEmpty:hover{
+  color:#777;
+  border:1px solid #777;
+}
+
+.content .navigationBar,
+.content .navigationBar:hover {
+  border: none;
+}
+
+DIV.thumbHover{
+  color:white;
+  border: 1px solid white;
+}
+
+#fullTagCloud span a{
+  color:black;
+}
+
+#fullTagCloud span a:hover{
+  text-decoration:underline;
+}
+
+LEGEND.tagLetterLegend,
+FIELDSET.tagLetter{
+  border:none;
+  color:black;
+}
+
+td .nbEntries{
+  background-color:#fff;
+  border:solid 1px #eee;
+  color:#bbb ;
+}
+
+.totalImages{
+  border-top:solid 2px #555;
+}
+
+.selectize-control.plugin-remove_button [data-value] .remove {
+  border-left:solid 1px #333333;
+}
+
+.message{
+  background-color:#363636;
+}
+
+.notification a{
+  text-decoration:underline;
+}
+
+.categoryActions .pwg-button{
+  color:#363636;
+}
+
+@media screen and (max-width: 640px){
+  #derivativeSwitchLink .pwg-icon pwg-icon-sizes{
+    color:white;
+  }
+  #albumActionsSwitcher + .categoryActions .pwg-button-text,
+  #imageToolBar .actionButtons .pwg-button-text,
+   .actionButtons A .pwg-icon,
+   .actionButtons A .pwg-icon:hover {
+    color:white;
+  }
+  .categoryActions a .pwg-icon{
+    color:white ;
+  }
+
+  #theTagsPage A .pwg-icon,
+  #theTagsPage A:hover .pwg-icon{
+    color:black ;
+  }
+}
+
+.gallery-icon-search-folder:before {
+  font-size: 19px;
+}
+
+#downloadSwitchLink,
+#derivativeSwitchLink,
+#sortOrderLink,
+.uc-icon-star-filled,
+.uc-icon-star{
+  color:black!important;
+}

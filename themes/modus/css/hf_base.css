@@ -1,0 +1,870 @@
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Open Sans', sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  box-shadow:none;
+  border:0px;
+}
+
+html, body {
+  height: 100%;
+}
+
+#theHeader div.banner, #theHeader div.banner:hover{
+  text-shadow:none;
+}
+
+#menubar .menuInfoCat::before {
+  content:'';
+}
+#menubar .menuInfoCat::after {
+  content:'';
+}
+#content {flex: 1 0 auto;}
+#copyright{flex-shrink: 0;}
+
+.stuffs_block.content{
+  min-height:auto;
+}
+
+#rateForm INPUT[type="button"] {
+  padding:0;
+}
+
+#copyright{
+  display:inline-block;
+  font-size:12px;
+  padding:15px 0;
+  margin-top: auto;
+  margin-bottom:0;
+  width:100%;
+}
+
+.infos{
+  margin:0;
+}
+
+.infos ul{
+  padding-left:6px;
+}
+
+.errors{
+  border:none;
+  background:#ffc4bf url(../../default/icon/errors.png) no-repeat center right;
+  font-family: 'Open Sans', sans-serif;
+  margin:0;
+  font-weight:bold;
+  border-left: 3px solid #d31100;
+}
+
+h2{
+  padding:2px 5px 0px 0px;
+  font-size:17px;
+}
+
+.albLegend{
+  height:45px;
+  padding:5px 0;
+  font-weight: normal;
+}
+
+.albSymbol{
+  padding:5px;
+}
+
+#menubar{
+  background-image:none;
+  padding-top: 20px;
+  padding-bottom:20px;
+  padding-left:16px;
+  font-weight:normal;
+  width:auto;
+  border-radius:0px;  
+}
+
+#menubar dt A{
+  font-weight:normal;
+}
+
+#menubar dt A:hover{
+  font-weight:normal;
+}
+
+#menubar DT, #menubar DT A{
+  padding-right:1.25em;
+}
+
+#menubar dl:last-child dd{
+  display:none!important;
+}
+
+#comentAdd INPUT[type="text"], INPUT[type="password"], #comentAdd SELECT, #comentAdd TEXTAREA, #comments input[type="text"], #comments TEXTAREA{
+  border-color:transparent;
+  font-family:'Open Sans', sans-serif;
+  padding:10px;
+  cursor:pointer
+}
+
+INPUT:focus,TEXTAREA:focus{
+  outline:none;
+  box-shadow:none;
+  cursor:pointer
+}
+
+#qsearchInput{
+  padding:5px ;
+  margin:0;
+  background-color:transparent;
+  font-weight:normal;
+  cursor:pointer
+}
+
+.filter input[name="search_allwords"]{
+  margin-bottom:10px;
+  padding:10px ;
+  cursor:pointer
+}
+
+.search_results a,
+.search_results a:hover{
+  font-weight:normal;
+}
+
+#theSearchPage .selectize-control.multi .selectize-input [data-value].active,
+#theSearchPage .selectize-control.multi .selectize-input > div{
+  background-image:none ;
+  border:0;
+  box-shadow:none;
+}
+
+#menubar DD{
+  box-shadow:none;
+}
+
+#menubar DD A{
+  text-decoration:none;
+  font-size:15px;
+  font-weight:normal;
+}
+
+#menubar DD A:hover{
+  font-size:15px;
+  font-weight:normal;
+}
+
+li, #mbCategories UL{
+  list-style-type:none;
+  padding-left:0;
+}
+
+INPUT[type="button"],
+INPUT[type="submit"],
+INPUT[type="reset"],
+INPUT[type="button"]:hover,
+INPUT[type="submit"]:hover,
+INPUT[type="reset"]:hover,
+#menubar INPUT{
+  font-family: 'Open Sans', sans-serif;
+  background-image:none;
+  box-shadow:none;
+  /*
+  padding: 10px 20px;
+  margin-top: 10px;*/
+  cursor:pointer;
+}
+
+INPUT[type="submit"]{
+  border:0;
+}
+
+.contact INPUT[type="submit"]{
+  margin-right:5px;
+  cursor:pointer;
+}
+
+.wide #imageToolBar{
+  padding:15px 5px 10px 5px;
+}
+
+#imageToolBar{
+  padding:10px 6px;
+}
+
+.imageInfoTable{
+  font-family: 'Open Sans', sans-serif;
+}
+
+.switchBox{
+  box-shadow:none;
+}
+
+.pwg-state-default .pwg-button{
+  border: solid 1px;
+  padding: 5px;
+}
+
+.badge{
+	font-size: 90%;
+	border-radius: 20px;
+  margin-left: 5px;
+  padding: 2px 5px!important;
+  font-size: 12px;
+  font-weight:normal!important;
+}
+
+#menubar li,
+#mbCategories p{
+  padding:5px;
+}
+
+#menubar LI.selected>A{
+  font-weight: normal;
+  text-decoration: underline;
+}
+
+#menubar DL{
+  margin:0;
+  padding-top:2px;
+  padding-left:0;
+}
+
+.wide .imageInfoTable,
+.wide #imageInfos{
+  border-radius: 0px;
+  padding:0px;
+}
+
+.wide .imageInfo DT{
+  font-weight:bold;
+  display:table-cell;
+}
+
+.wide #imageInfos{
+  margin-left:75%;
+  margin-right:0;
+  padding:20px;
+}
+
+.imageInfoTable h3{
+  margin-top:0;
+  padding-top:1em;
+}
+
+#imageInfos{
+  padding-bottom:15px;
+}
+
+#commentAdd{
+  padding:0px;
+}
+
+#quickconnect fieldset{
+  margin:0;
+  padding:0;
+  margin-top:10px;
+}
+
+fieldset{
+  border:none;
+  margin-bottom:0;
+}
+
+#quickconnect input:focus,
+#quickconnect input,
+.properties input,
+.properties input:focus {
+  border-color:transparent;
+  padding: 10px;
+  border:0px;
+  box-shadow:none;
+  cursor:pointer;
+  margin:0;
+}
+
+.filter fieldset label,
+fieldset legend{
+  font-weight:normal;
+}
+
+.properties li{
+  line-height:30px;
+  margin:15px 0;
+}
+
+.properties P{
+  margin-top:0;
+  margin-bottom:50px;
+}
+
+.titrePage{
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:16px;
+  height:auto;
+  background-image:none;
+}
+
+.titrePage H2 span.badge::before,
+.titrePage H2 span.badge::after  {
+  content:'';
+}
+
+.titrePage H2 span.badge {
+  margin-left: 5px;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.titrePage .switchBox A,
+.titrePage .switchBox{
+  padding:10px;
+}
+
+#thePicturePage #comments{
+  margin:45px;
+  padding:0;
+}
+
+#thePicturePage #pictureCommentList{
+  width: 49%;
+  float:right;
+  padding-top:15px;
+}
+
+.overDesc{
+  text-shadow:none;
+  font-weight:normal;
+  padding:5px;
+  font-size:14.5px;
+}
+
+#derivativeSwitchBox,
+.switchBox{
+  padding:20px;
+}
+
+#thePicturePage #derivativeSwitchBox A:last-child{
+  padding:15px 10px;
+}
+
+#sortOrderBox{
+  min-width:190px;
+  padding:20px;
+  border-radius:0px;
+}
+
+#derivativeSwitchBox A,
+#derivativeSwitchBox span,
+#sortOrderBox span,
+#sortOrderBox a{
+  padding:5px;
+  display:inline-block;
+  font-weight:normal;
+}
+
+#comments input[type='text'],
+#comments textarea{
+  border:none;
+  padding:10px;
+  cursor:pointer
+}
+
+.imageInfoTable ul{
+  padding:0;
+}
+
+#thumbnails{
+  margin-left:0!important ;
+  margin-bottom:0;
+}
+
+#menubar dt a:first-child,
+#menubar dt a:last-child{
+  padding-right:0;
+}
+
+#comments{
+  padding-left:15px;
+  padding-top:15px;
+}
+
+.imageInfo DT{
+  font-size:15px;
+  font-weight:normal;
+}
+
+.commentElement{
+  border-radius:0;
+  margin:15px 0;
+  clear:both;
+  padding:20px;
+  width:auto;
+}
+
+.description{
+  padding:0;
+}
+
+.albLegend H4{
+  font-weight:normal;
+  font-size:15px;
+  margin-bottom:0;
+  margin-top:5px;
+}
+
+.login{
+  width:200px;
+}
+
+hr{
+  border: none;
+}
+
+#menuTagCloud a{
+  display:list-item;
+  list-style:none;
+  padding:5px 0;
+}
+
+#theCommentsPage .filter, #theCommentsPage #comments{
+  max-width:1000px;
+  margin:0 auto;
+  padding-bottom:15px;
+}
+
+#theSearchPage .filter{
+  max-width:1000px;
+  margin:20px auto;
+}
+
+#pictureComments #commentAdd{
+  width:49%;
+}
+
+#theSearchPage .filter input,
+#theSearchPage .filter input:focus,
+#theSearchPage .selectize-input > input,
+INPUT[type="text"],
+INPUT[type="password"],
+SELECT,s
+TEXTAREA{
+  border-radius:0 ;
+  border:0;
+  padding:10px;
+  cursor:pointer
+}
+
+#theSearchPage .selectize-input,
+#theSearchPage .selectize-input.focus,
+#theSearchPage .selectize-dropdown,
+#theSearchPage .selectize-input input{
+  border-radius:0;
+  box-shadow:none;
+  border:0;
+  padding:10px;
+  cursor:pointer
+}
+
+INPUT,
+SELECT{
+  font-size:13px;
+  padding:10px;
+  cursor:pointer
+}
+
+#start_day,
+#start_month,
+#end_day,
+#end_month {
+  padding: 10px;
+  border-radius: 0;
+}
+
+#theIdentificationPage legend{
+  display:none;
+}
+
+.filter select{
+  padding: 10px;
+  border-radius: 0;
+  border:0;
+}
+
+.contact input[type="text"],
+.contact textarea,
+.contact select{
+  border-radius:0;
+  padding:10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.contact table td,
+.contact table td.title,
+.contact table td.title,
+.contact table tbody tr:first-child td:nth-child(2),
+.contact table tbody tr:nth-child(2) td:nth-child(2){
+  padding-top:10px;
+}
+
+.contact INPUT[type="submit"]{
+  margin-right:5px;
+}
+
+.properties SPAN.property{
+  padding: 0 10px 0 0;
+}
+
+.properties fieldset ul li:nth-child(3) span,
+.properties fieldset ul li:nth-child(4) span,
+.properties fieldset ul li:nth-child(5) span{
+  padding-top:5px;
+}
+
+.wide #theImage{
+  margin-bottom:5px;
+}
+
+#theImage{
+  padding-bottom:20px;
+}
+
+.wide .navThumb img,
+.wide .navThumb,
+.wide .thumbHover,
+.navThumb img{
+  width:100px ;
+  height:auto ;
+}
+
+.wide .navThumbs{
+  min-width: 215px;
+}
+
+h2 .calendarTitle{
+  margin:0 15px;
+  display:block;
+}
+
+.titrePage .calendarTitleBar{
+  height:auto;
+}
+
+.calendarBar{
+  display:inline-block;
+}
+
+.content .navigationBar,
+.content .additional_info,
+.content .calendarBar{
+  padding:15px 16px;
+  display:block;
+  margin:auto;
+  text-align:center;
+}
+
+.calItem,
+.calItem:hover{
+  padding:10px;
+  font-weight:bold;
+  text-shadow:none;
+  display:inline-block;
+  margin: 2px 0;
+}
+
+.calItem:hover{
+  text-decoration:underline ;
+}
+
+.content .navigationBar,
+TD.calDayCellEmpty,
+content .navigationBar:hover,
+TD.calDayCellEmpty:hover{
+  padding:20px;
+  text-decoration:none ;
+}
+
+SPAN.calItem,
+SPAN.calItem:hover{
+  padding:10px;
+  text-decoration:none;
+}
+
+.content .pageNumberSelected{
+  font-style:normal;
+ }
+ 
+ .albThumbs{
+   margin-top:0;
+ }
+ 
+#linkPrev,
+#linkNext{
+  margin:5px;
+}
+
+.commentsList {
+  margin:0;
+}
+
+DIV.thumbHover{
+  height:100px ;
+  width:100px;
+  font-weight:normal;
+  border-radius:0px;
+  text-shadow:none;
+  padding:10px;
+  text-align:center;
+}
+
+.thumbnailCategory{
+  border:none;
+  background-color:rgba(0,0,0,0.2);
+}
+
+/* Track */
+.thumbnailCategory .description::-webkit-scrollbar {
+  background: rgba(0,0,0, 0.2); 
+  border-radius:15px;
+}
+
+/* Handle */
+.thumbnailCategory .description::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0, 0.4); 
+  border-radius:15px;
+}
+
+#fullTagCloud{
+  max-width:1000px;
+  margin:0 auto;
+  padding-bottom:15px;
+  text-align:center;
+  padding-top:50px;
+  position:relative;
+}
+
+#fullTagCloud span a{
+  margin-left:5px;
+  padding:5px;
+}
+
+FIELDSET.tagLetter{
+  padding:15px 10px;
+  width:180px;
+  margin:15px;
+}
+
+LEGEND.tagLetterLegend{
+  padding:0;
+  font-weight:bold;
+  font-size:30px;
+}
+
+TABLE.tagLetterContent{
+  border-collapse:separate;
+  border-spacing: 4px;
+  margin-top:-10px;
+}
+
+.tagLine td a{
+  font-size:12px;
+}
+
+.tagLevel1{
+  font-size:75% ;
+}
+
+.tagLevel2{
+  font-size:100% ;
+}
+.tagLevel3{
+  font-size:125% ;
+}
+.tagLevel4{
+  font-size:150% ;
+}
+
+.tagLevel5{
+  font-size:175% ;
+}
+
+td .nbEntries{
+  width:50px;
+  border:none;
+  padding: 0;
+  margin:5px;
+  text-align:center;
+}
+
+#thePopuphelpPage{
+  margin:0 15px;
+}
+
+#thumbnails>li, 
+.albThumbs>li,
+.navThumb img {
+  overflow:hidden;
+}
+
+#lostPassword,
+.notification{
+  max-width:1000px;
+  margin:0 auto;
+}
+
+.calForeDate,
+.calBackDate{
+  padding:20px;
+}
+
+#piwigoAbout{
+  max-width:1000px;
+  margin:0 auto;
+}
+
+@media screen and (max-width: 1100px){
+  #fullTagCloud{
+    transform: none;
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    padding:15px;
+  }
+}
+
+@media screen and (max-height: 490px){
+   #fullTagCloud{
+    transform: none;
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    padding:15px;
+  }
+}
+
+@media screen and (max-width: 640px){ 
+  #menubar{
+    box-shadow:none;
+    padding:20px;
+  }
+  #mbCategories dd:onclick{
+    display:block;
+  }
+  .pwg-icon pwg-icon-ellipsis{
+    display:none;
+    color:transparent;
+    opacity:0;
+  }
+  #copyright a{
+    display:block;
+  }
+  #menuSwitcher{
+    padding-top:22px;
+    padding-left:10px;
+  }
+  #thumbnails>li{
+    display:block ;
+  }
+  fieldset ul{
+    display:block;
+    float:none;
+  }
+  #thePicturePage #pictureCommentList{
+    float:left;
+    width:100%;
+  }
+  #pictureComments #commentAdd{
+    width:100%;
+  }
+  #menubar dl{
+    padding:5px 0;
+  }
+  DIV.thumbHover{
+    height :auto ;
+    font-size:10px;
+  }
+  #profile{
+    text-align:center;
+  }
+  .properties SPAN.property{
+    width:40%;
+  }
+  .calItem{
+    padding-bottom: 10px;
+    display: inline-block;
+    width: 70px;
+  }
+  #fullTagCloud{
+    transform: none;
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    padding:15px;
+  }
+  .pwg-icon{
+    font-size:20px;
+  }
+  .actionButtonsWrapper .actionButtons{
+    box-shadow:none;
+  }
+  .imageInfoTable{
+    padding:5px;
+  }
+}
+
+.albThumbs .path-ext-svg a img,
+.albThumbs .file-ext-svg a img {
+  left: 0 !important;
+  top: 0px !important;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+img.file-ext-svg,
+img.path-ext-svg {
+  min-width: 100px;
+  min-height: 100px;
+}
+
+li.file-ext-svg a img,
+li.path-ext-svg a img {
+  min-width: 100px;
+  min-height: 100px;
+}
+
+@media screen and (max-width: 800px), screen and (-webkit-min-device-pixel-ratio: 1.3){
+  .navThumb, .thumbHover {
+      width: 100px !important;
+      height: 100px !important;
+  }
+}
+  
+@media screen and (max-width: 640px){
+   .navThumb, .thumbHover {
+      width: auto !important;
+      height: auto !important;
+   }
+}
+
+.mcs-container,
+.mcs-side-results.search-in-set-button{
+	margin-top:0;
+}
+
+@media screen {
+.wide #theImage {
+	width: 75%; /*min default picture derivative width*/
+}
+}
+
+.gallery-icon-search-folder:before{
+  font-size:17px;
+}
+
+.categoryActions LI{
+  margin-left:5px;
+}

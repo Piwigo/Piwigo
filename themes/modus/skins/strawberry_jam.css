@@ -1,0 +1,609 @@
+body {
+  background-color:white;
+  color:black;
+}
+
+#theHeader div.banner,
+#theHeader div.banner:hover{
+  color:white;  
+}
+
+#copyright{
+  color:#666;
+  background-color:#f9f9f9;
+}
+
+#copyright A{
+  color:#666;
+}
+
+#copyright A:hover{
+  color:#BF0D08;
+}
+
+.albThumbs LI{
+  border-radius:0;
+}
+
+#thumbnails>li,
+.albThumbs>li,
+.navThumb img{
+  border-radius:0!important;
+}
+
+.infos{
+  background:#096a09 url(../../default/icon/infos.png) no-repeat center right;
+  color:white;
+ }
+
+h2{
+  color:black;
+}
+
+.albLegend{
+  color:white;
+}
+
+H3, label{
+  color:#7F0906;
+}
+
+A{
+  color:#7F0906;
+}
+
+a:hover{
+  text-decoration:underline;
+  color:black;
+}
+
+#menubar{
+  background-color:#BF0D08;
+}
+
+#menubar li:hover a{
+  text-decoration:none;
+  color:white!important;
+}
+
+#menubar LI.selected>A{
+  color:#7F0906;
+}
+
+#menubar li:hover{
+  background-color:#BF0D08;
+  color:white;
+}
+
+#menubar li:hover span:nth-child(even){
+  background-color:#7F0906;
+  color:#D2D2D2;
+}
+
+
+#comentAdd INPUT[type="text"],
+INPUT[type="password"],
+#comentAdd SELECT,
+#comentAdd TEXTAREA,
+#comments input[type="text"],
+#comments TEXTAREA{
+  background-color:#2D2D2D;
+  color:white;
+}
+
+::placeholder, #commentAdd ::placeholder {
+  color:#d6d6d6;
+}
+
+#qsearchInput{
+  border:1px solid #fff;
+  color:white;
+}
+
+.selectize-control.multi .selectize-input [data-value].active, .selectize-control.multi .selectize-input > div{
+  background-color:#7F0906!important;
+  color:#ddd;
+}
+
+.selectize-control .plugin-remove_button [data-value] .remove{
+  border-left-color:#333333;
+}
+
+#menubar DT, #menubar DT A{
+  color:white;
+}
+
+#menubar DT:hover, #menubar DT A:hover{
+  color:white;
+}
+
+#menubar DD{
+  background-color:white;
+  color:#7F0906;
+  box-shadow: 5px 5px 10px black;
+  border-radius:0;
+}
+
+#menubar DD A{
+  color:#7F0906;
+}
+
+#menubar DD A:hover{
+  background-color:#BF0D08;
+  color:white;
+}
+
+INPUT[type="button"],
+INPUT[type="submit"],
+INPUT[type="reset"],
+#menubar INPUT{
+  color:white;
+}
+
+#menubar INPUT{
+  background-color:transparent !important;
+}
+
+INPUT[type="submit"] {
+  background-color: #400403;
+  border: none;
+  color: white;
+}
+
+INPUT[type="submit"]:hover{
+  background-color: #400403;
+  border: none;
+  color: white;
+}
+
+.wide #imageToolBar{
+  background-color:white;
+}
+
+.switchBox{
+  background-color:white;
+}
+
+.badge{
+  font-weight:600;
+  background-color: #BF0D08;
+  color:white;
+  border-radius:10px;
+}
+
+.wide .imageInfoTable,
+.wide #imageInfos{
+  background-color:#323232;
+}
+
+.imageInfoTable h3{
+  color:#EAEAEA;
+}
+
+.imageInfoTable a,
+.imageInfoTable a:hover{
+  color:#D2D2D2;
+}
+
+.wide .imageInfoTable,
+.wide #imageInfos a,
+.wide #imageInfos h3{
+  color:#D2D2D2;
+}
+
+#imageInfos a:hover,
+.wide #imageInfos a:hover{
+  color:#D2D2D2;
+}
+
+#imageInfos{
+  background-color:#323232;
+  color:#D2D2D2;
+}
+
+#imageHeaderBar .imageNumber{
+  color:white;
+}
+
+A .pwg-icon,
+.pwg-icon-calendar:before,
+.pwg-icon-camera-calendar:before {
+  color:#7F0906;
+}
+
+A .pwg-icon:hover{
+  color:#BF0D08;
+}
+
+fieldset h3,
+fieldset label {
+  color:white;
+}
+
+#quickconnect input:focus, #quickconnect input, .properties input, .properties input:focus {
+  padding: 10px;
+  color:white;
+  box-shadow:none;
+  background-color:#7F0906!important;
+}
+
+.properties input, .properties input:focus {
+  background-color:#7F0906;
+  color:white;
+}
+
+fieldset legend{
+  color:white;
+}
+
+dt, dd{
+  color:#D2D2D2;
+}
+
+.titrePage{
+  background-color:white;
+  color:black;
+}
+
+.titrePage H2 span.badge{
+  background-color:#BF0D08;
+  color:white;
+}
+
+.titrePage A, .titrePage A:hover, .titrePage H2 A, .titrePage H2 A:hover{
+  color:#7F0906;
+}
+
+#calendarViewSwitchLink{
+  color:#7F0906;
+}
+
+.titrePage .switchBox A{
+  color:#7F0906;
+}
+
+.titrePage .switchBox{
+  color:#7F0906;
+}
+
+.titrePage .switchBox{
+   box-shadow: 5px 5px 10px black;
+}
+
+.titrePage .switchBox A:hover{
+  background-color:#BF0D08;
+  color:white;
+}
+
+.browsePath{
+  color:black;
+}
+
+#thePicturePage .titrePage{
+ background-color: #BF0D08;
+}
+
+#thePicturePage .titrePage h2,  #thePicturePage .titrePage A,  #thePicturePage .browsePath{
+  color:white;
+}
+
+#thePicturePage .titrePage h2:hover,  #thePicturePage .titrePage A:hover,  #thePicturePage .browsePath:hover{
+  color:white;
+}
+
+#derivativeSwitchBox{
+  box-shadow: 5px 5px 10px black;
+  background-color:white !important;
+  border-radius:0;
+}
+
+#derivativeSwitchBox A:hover{
+  color:white;
+  background-color:#BF0D08;
+  text-decoration:none;
+}
+
+#derivativeSwitchBox A:hover span{
+  color:white;
+}
+
+#sortOrderBox{
+  background-color:white;
+  border-radius:0;
+}
+
+#sortOrderBox a:hover{
+  color:white;
+  background-color:#BF0D08;
+  text-decoration:none;
+}
+
+#derivativeSwitchBox span{
+  color:#7F0906;
+}
+
+.switchBoxTitle{
+  border-bottom: 2px solid #400403;
+  color:#7F0906;
+}
+
+#profile, #profile fieldset h3, #profile fieldset label  {
+  color:black;
+}
+
+#comments input[type='text'], #comments textarea{
+  background-color:#2D2D2D;
+  color:white;
+}
+
+.overDesc{
+  background-color:rgba(229, 16, 10,0.6);
+  color:white;
+}
+
+.properties fieldset span label{
+  color:black;
+}
+
+.commentsList, .commentsList a {
+  color:#BF0D08;  
+}
+
+.commentElement{
+  background-color: #2D2D2D;
+  color: white;
+}
+
+hr{
+  border: none;
+  border-bottom: 2px solid #E5100A;
+}  
+
+#theSearchPage fieldset legend{
+  color:black;
+}
+
+.filter fieldset label{
+  color:black;
+}
+
+.filter input, .filter input:focus, .selectize-input > input,INPUT[type="text"], INPUT[type="password"], SELECT, TEXTAREA{
+  background-color:#BF0D08;
+  border-radius:0;
+  color:white;
+}
+
+.selectize-input, .selectize-input.focus, .selectize-dropdown, .selectize-input input{
+  background-color:#BF0D08;
+}
+
+.date_today:hover{
+  color:black;
+}  
+#start_day, #start_month, #end_day, #end_month {
+  background-color: #363636;
+  border-radius: 0;
+  color:white;
+}
+
+ 
+.filter select{
+  background-color: #363636;
+  padding: 10px;
+  border-radius: 0;
+  color:white;
+}
+
+.contact input[type="text"], .contact textarea, .contact select{
+  border-radius:0;
+  padding:10px;
+  background-color:#383838;
+  color:white;
+}
+
+.calItem, .calItem:hover{
+  padding:10px;
+  color:black;
+  font-weight:bold;
+  border:1px solid black;
+}
+
+.calItem:hover{
+  text-decoration:underline !important;
+}
+
+.content .navigationBar, SPAN.calItem, TD.calDayCellEmpty, .content .navigationBar:hover, SPAN.calItem:hover, TD.calDayCellEmpty:hover{
+  color:#777;
+  padding:10px;
+  text-decoration:none !important;
+  border:1px solid transparent;
+}
+
+
+DIV.thumbHover{
+  color:white;
+  height:100px !important;
+  width:100px;
+  font-weight:normal;
+  border-radius:0px;
+  border: 1px solid white;
+  text-shadow:none;
+  padding:10px;
+}
+
+#fullTagCloud span a{
+  color:black; 
+}
+
+#fullTagCloud span a:hover{
+  text-decoration:underline;
+  color:#BF0D08;
+}
+
+LEGEND.tagLetterLegend, FIELDSET.tagLetter{
+  border:none;
+  color:#E5100A;
+}
+
+td .nbEntries{
+  background-color:#fff;
+  border:solid 1px #eee;
+  color:#bbb ;
+}
+
+.totalImages{
+  border-top:solid 2px #400403;
+}
+
+.selectize-control.plugin-remove_button [data-value] .remove {
+  border-left:solid 1px #333333;
+}
+
+.message{
+  background-color:#363636;
+}
+
+#t4u-update-tags .t4u-disabled{
+  background-color:#400403;
+  color:white!important;
+}
+
+@media screen and (max-width: 640px){
+  #menubar{
+    box-shadow:none;
+    padding:20px;
+  }
+  
+  #derivativeSwitchLink .pwg-icon .pwg-icon-sizes{
+    color:white;
+  }
+  #albumActionsSwitcher + .categoryActions .pwg-button-text, #imageToolBar .actionButtons .pwg-button-text {
+    color:black;
+  }
+  #albumActionsSwitcher + .categoryActions{
+    background-color: white;
+    color: #7F0906;
+    box-shadow: 5px 5px 10px black;
+  }
+  
+  #theTagsPage A .pwg-icon, #theTagsPage A:hover .pwg-icon{
+    color:black ;
+  }
+}
+
+.thumbnailCategory {
+  background-color:#e8e8ea;
+}
+
+/*Search*/
+
+.filter-manager-popin .mcs-popin-title,
+.tags-found-popin .mcs-popin-title,
+.albums-found-popin .mcs-popin-title,
+.mcs-container .filter-filled .filter-icon,
+.filetypes-option label .checked-icon,
+.added_by-option label .checked-icon,
+.date_posted-option label .checked-icon,
+.date_created-option label .checked-icon,
+.mcs-container .filter-filled,
+.breadcrumb-item .icon-cancel-circled:hover,
+.clear-all.clickable,
+.mcs-no-result .text span:first-child,
+.filter-form .filter-form-title,
+.filter-form .filter-form-title,
+.ratios-option label .checked-icon,
+.ratings-option label .checked-icon{
+  color: #BF0D08!important;
+}
+
+.tags-found-container .tag-item,
+.albums-found-container .album-item,
+.breadcrumb-item,
+.filter-tag-form .selectize-control.multi .selectize-input > div,
+.filter-tag-form .selectize-control.multi .selectize-input [data-value].active,
+.filter-author-form .selectize-control.multi .selectize-input > div,
+.filter-author-form .selectize-control.multi .selectize-input [data-value].active,
+.filter-added_by-form .selectize-control.multi .selectize-input > div,
+.filter-added_by-form .selectize-control.multi .selectize-input [data-value].active,
+.mcs-container .filter-filled{
+  background: #f8e6e6!important;
+}
+
+.filetypes-option label,
+.added_by-option label,
+.preset_posted_date .date_posted-option label,
+.preset_created_date .date_created-option label,
+.ratios-option label, .ratings-option label{
+  color:#000; 
+}
+
+.added_by-option input:checked + label,
+.filetypes-option input:checked + label,
+.date_posted-option .selected label, 
+.date_posted-option .selected .accordion-toggle,
+.date_created-option .selected label,
+.date_created-option .selected .accordion-toggle,
+.preset_posted_date .date_posted-option input:checked + label,
+.preset_created_date .date_created-option input:checked + label,
+.ratios-option input:checked + label,
+.ratings-option input:checked + label{
+  background: #f8e6e6!important;
+}
+
+.filter-manager,
+.filter-validate,
+.filter-manager:hover,
+.filter-validate:hover,
+.filetypes-option label .ext-badge,
+.added_by-option label .added_by-badge,
+.date_posted-option label .date_posted-badge,
+.date_created-option label .date_created-badge,
+.mcs-side-results .mcs-side-badge,
+.ratios-option label .ratio-badge, 
+.ratings-option label .ratings-badge{
+  background: #BF0D08!important;
+}
+
+.mcs-container .filter-filled {
+  border: 1px solid #7F0906 !important;
+}
+
+.mcs-container .selectize-input,
+.mcs-container .selectize-input.focus,
+.mcs-container .selectize-dropdown,
+.mcs-container .selectize-input input{
+  background-color:#eee;
+  border-radius:0;
+}
+
+.date_posted-option .accordion-toggle:hover,
+.date_created-option .accordion-toggle:hover {
+  color: #000;
+}
+
+.mcs-container div .slider_input p,
+.slider-info,
+.no_filtered_photos{
+  color:#000;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-slider-range.ui-widget-header.ui-corner-all{
+  border: 1px solid #BF0D08;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-slider .ui-slider-range{
+  background: #BF0D08;
+}
+
+#downloadSwitchLink,
+#derivativeSwitchLink,
+#sortOrderLink,
+.uc-icon-star-filled,
+.uc-icon-star{
+  color:#7F0906!important;
+}

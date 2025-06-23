@@ -1,0 +1,61 @@
+#fullTagCloud {
+	font-size: 120%;
+	text-align: justify;
+	padding: 0;
+	margin: 1em 5px;
+}
+
+#fullTagCloud SPAN {
+	white-space: nowrap;
+	margin: 0 2px;
+}
+
+
+.tagLevel5 { font-size: 150% !important; }
+.tagLevel4 { font-size: 140% !important; }
+.tagLevel3 { font-size: 120% !important; }
+.tagLevel2 { font-size: 100% !important; }
+.tagLevel1 { font-size: 90%  !important; }
+
+TR.tagLine {
+	border-bottom: 1px solid #ddd;
+}
+TD.nbEntries {
+	text-align: right;
+	font-style: italic;
+	font-size: 90%;
+}
+
+FIELDSET.tagLetter {
+	border: 1px solid #d3d3d3;
+	width: 200px;
+	margin: 0.5em;
+	padding: 10px;
+}
+
+LEGEND.tagLetterLegend {
+	border: 1px solid #d3d3d3;
+	font-size:120%;
+	font-weight: bold;
+	padding: 0 5px;
+	font-style: normal;
+}
+
+TABLE.tagLetterContent {
+	width:100%;
+	font-size:80%;
+	border-collapse : collapse;
+}
+
+
+.tag-actevt {color: #f88 }
+.tag-ani-0, .tag-ani-1, .tag-ani-2 { color: skyblue;}
+.tag-built-0, .tag-built-1 {color: #ccc }
+.tag-concept-0, .tag-concept-1 {color: #f11 }
+.tag-flora-0, .tag-flora-1 {color: #6f6 }
+.tag-nature-0,.tag-nature-1 {color: palegreen;}
+.tag-natph {color: #f7f }
+.tag-people {color: #0ff }
+.tag-place-0, .tag-place-1 { color: yellow;}
+.tag-priv { color: orange;}
+.tag-style {color: #8bf }

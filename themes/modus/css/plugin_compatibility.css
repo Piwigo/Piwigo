@@ -1,0 +1,80 @@
+/* User Collections */
+#thumbnails .addCollection {
+    font-size: 12px !important;
+    height: 22px !important;
+    text-align: center !important;
+}
+
+.thumbnailCategories LI {
+    width: 31% !important;
+    margin-left: 15px !important;
+}
+
+.thumbnailCategory {
+    position: relative;
+    background: #00000065;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    height: 120px !important;
+}
+
+.thumbnailCategory .illustration, .thumbnailCategory .description {
+    margin-left: 10px;
+}
+
+.thumbnailCategory .illustration {
+    width: 100px !important;
+    height: 100px !important;
+    overflow: hidden;
+    position: relative;
+}
+
+.thumbnailCategory .illustration img {
+    height: 120px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.content .thumbnailCategory .description {
+    height: auto !important;
+}
+
+.thumbnailCategory .collectionActions {
+    display: none;
+    position: absolute;
+    top: 50% !important;
+    right: 10px !important;
+    transform: translateY(-50%);
+    align-items: center;
+}
+
+.thumbnailCategory:hover .collectionActions {
+    display: flex !important;
+}
+
+.thumbnailCategory .collectionActions a {
+    margin: 10px;
+    opacity: 0.5;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.thumbnailCategory .collectionActions a:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+
+.pwg-button.addCollection i {
+    font-size: 17px !important;
+}
+
+@media (max-width: 576px) {
+  .thumbnailCategories LI {
+    width: 75% !important;
+    margin:0 auto!important;
+    float:unset;
+  }
+}

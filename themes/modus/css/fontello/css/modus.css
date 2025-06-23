@@ -1,0 +1,114 @@
+@font-face {
+  font-family: 'modus';
+  src: url('../font/modus.eot?35104528');
+  src: url('../font/modus.eot?35104528#iefix') format('embedded-opentype'),
+       url('../font/modus.woff2?35104528') format('woff2'),
+       url('../font/modus.woff?35104528') format('woff'),
+       url('../font/modus.ttf?35104528') format('truetype'),
+       url('../font/modus.svg?35104528#modus') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'modus';
+    src: url('../font/modus.svg?35104528#modus') format('svg');
+  }
+}
+*/
+[class^="pwg-icon-"]:before, [class*=" pwg-icon-"]:before {
+  font-family: "modus";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.pwg-icon-tag:before { content: '\2d'; } /* '-' */
+.pwg-icon-ellipsis:before { content: '\2026'; } /* '…' */
+.pwg-icon-pause:before { content: '\e800'; } /* '' */
+.pwg-icon-minus:before { content: '\e801'; } /* '' */
+.pwg-icon-close:before { content: '\e802'; } /* '' */
+.pwg-icon-favorite-add:before { content: '\e803'; } /* '' */
+.pwg-icon-camera-calendar:before { content: '\e804'; } /* '' */
+.pwg-icon-user:before { content: '\e805'; } /* '' */
+.pwg-icon-category-view-flat:before { content: '\e806'; } /* '' */
+.pwg-icon-category-edit:before { content: '\e807'; } /* '' */
+.pwg-icon-arrow-w:before { content: '\e808'; } /* '' */
+.pwg-icon-arrow-e:before { content: '\e809'; } /* '' */
+.pwg-icon-arrow-n:before { content: '\e80a'; } /* '' */
+.pwg-icon-representative:before { content: '\e80b'; } /* '' */
+.pwg-icon-map:before { content: '\e80d'; } /* '' */
+.pwg-icon-save:before { content: '\e80e'; } /* '' */
+.pwg-icon-help:before { content: '\e80f'; } /* '' */
+.pwg-icon-edit:before { content: '\e810'; } /* '' */
+.pwg-icon-menu:before { content: '\e811'; } /* '' */
+.pwg-icon-caddie-add:before { content: '\e812'; } /* '' */
+.pwg-icon-sizes:before { content: '\e813'; } /* '' */
+.pwg-icon-globe:before { content: '\e814'; } /* '' */
+.pwg-icon-cloud:before { content: '\e815'; } /* '' */
+.pwg-icon-letters:before { content: '\e816'; } /* '' */
+.pwg-icon-home:before { content: '\e817'; } /* '' */
+.pwg-icon-user-edit:before { content: '\e818'; } /* '' */
+.pwg-icon-album:before { content: '\e819'; } /* '' */
+.pwg-icon-help-circled:before { content: '\e81a'; } /* '' */
+.pwg-icon-calendar-plus:before { content: '\e81b'; } /* '' */
+.pwg-icon-calendar:before { content: '\e81c'; } /* '' */
+.pwg-icon-height:before { content: '\e81d'; } /* '' */
+.pwg-icon-width:before { content: '\e81e'; } /* '' */
+.pwg-icon-spin6:before { content: '\e81f'; } /* '' */
+.pwg-icon-checkmark:before { content: '\e820'; } /* '' */
+.pwg-icon-selecters:before { content: '\e821'; } /* '' */
+.pwg-icon-cancel:before { content: '\e822'; } /* '' */
+.pwg-icon-trash:before { content: '\e823'; } /* '' */
+.pwg-icon-search-folder:before { content: '\e824'; } /* '' */
+.pwg-icon-broom:before { content: '\e825'; } /* '' */
+.pwg-icon-arrow-rotate-left:before { content: '\e826'; } /* '' */
+.pwg-icon-down-open:before { content: '\e827'; } /* '' */
+.pwg-icon-left-open:before { content: '\e828'; } /* '' */
+.pwg-icon-right-open:before { content: '\e829'; } /* '' */
+.pwg-icon-up-open:before { content: '\e830'; } /* '' */
+.pwg-icon-favorite-del:before { content: '\e831'; } /* '' */
+.pwg-icon-slideshow:before { content: '\e832'; } /* '' */
+.pwg-icon-camera-info:before { content: '\e833'; } /* '' */
+.pwg-icon-cloud-download:before { content: '\e834'; } /* '' */
+.pwg-icon-star:before { content: '\e847'; } /* '' */
+.pwg-icon-plus-circled:before { content: '\e84a'; } /* '' */
+.pwg-icon-pencil:before { content: '\e84f'; } /* '' */
+.pwg-icon-cog:before { content: '\e852'; } /* '' */
+.pwg-icon-search:before { content: '\e900'; } /* '' */
+.pwg-icon-hdd:before { content: '\f0a0'; } /* '' */
+.pwg-icon-category-view-normal:before { content: '\f0e8'; } /* '' */
+.pwg-icon-camera-calendar-1:before { content: '\f133'; } /* '' */
+.pwg-icon-sort:before { content: '\f15d'; } /* '' */
+.pwg-icon-file-image:before { content: '\f1c5'; } /* '' */
