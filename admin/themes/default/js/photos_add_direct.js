@@ -16,7 +16,8 @@ const selectedAlbumEdit = $('#selectedAlbumEdit');
 const btnAddFiles = $('#addFiles');
 const chooseAlbumFirst = $('#chooseAlbumFirst');
 const uploaderPhotos = $('#uploader');
-var formatsUpdated = []
+var formatsUpdated = [];
+var formats = [];
 
 /*--------------
 On DOM load
@@ -161,8 +162,14 @@ $(function () {
         });
 
         if (formatMode) {
-          formatsUpdated.forEach((formsUpd) => {
-            $("#"+formsUpd[0]+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${formsUpd[1].trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a>`);
+          formats.forEach((forms) => {
+            $("#"+forms[0]+" > .plupload_file_name").append(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${forms[1].trim()}-properties\"><span class=\"icon-eye\"></span></a>`);
+            if(formatsUpdated.includes(forms[0])){
+              $("#"+forms[0]+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${forms[1].trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a><a class="remove-format" id=\"remove_${forms[0]}\">${format_remove} <span class = \"icon-cancel-circled\"></span></a>`);
+              $("#remove_"+forms[0]).on("click", function(){
+                up.removeFile(forms[0]);
+              });
+            }
           });
           
           // If no original image is specified
@@ -189,10 +196,15 @@ $(function () {
               const search = images_search[f.id];
               if (search.status == "found"){
                 f.format_of = search.image_id;
+                formats.push([f.id,f.format_of]);
+                $("#"+f.id+" > .plupload_file_name").append(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${f.format_of.trim()}-properties\"><span class=\"icon-eye\"></span></a>`);
                 if (search.format_exist)
                 {
-                  $("#"+f.id+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${f.format_of.trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a>`);
-                  formatsUpdated.push([f.id,f.format_of])
+                  $("#"+f.id+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${f.format_of.trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a><a class="remove-format" id=\"remove_${f.id}\">${format_remove}<span class = \"icon-cancel-circled\"></span></a>`);
+                  formatsUpdated.push(f.id);
+                  $("#remove_"+f.id).on("click", function(){
+                    up.removeFile(f.id);
+                  });
                 }
               }
               else {
@@ -240,10 +252,15 @@ $(function () {
             }
             files.forEach((f) => {
               f.format_of = originalImageId;
+              formats.push([f.id,f.format_of]);
+              $("#"+f.id+" > .plupload_file_name").append(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${f.format_of.trim()}-properties\"><span class=\"icon-eye\"></span></a>`);
               if ($forms_exts.indexOf(exts[f.id]) != -1)
               {
-                $("#"+f.id+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${originalImageId.trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a>`);
-                formatsUpdated.push([f.id,f.format_of])
+                $("#"+f.id+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${originalImageId.trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a><a class="remove-format" id=\"remove_${f.id}\">${format_remove} <span class = \"icon-cancel-circled\"></span></a>`);
+                formatsUpdated.push(f.id);
+                $("#remove_"+f.id).on("click", function(){
+                  up.removeFile(f.id);
+                });
               }
             })
           }
@@ -251,8 +268,14 @@ $(function () {
       },
 
       FilesRemoved: function(up, file){ 
-        formatsUpdated.forEach((formsUpd) => {
-          $("#"+formsUpd[0]+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${formsUpd[1].trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a>`);
+        formats.forEach((forms) => {
+          $("#"+forms[0]+" > .plupload_file_name").append(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${forms[1].trim()}-properties\"><span class=\"icon-eye\"></span></a>`);
+          if(formatsUpdated.includes(forms[0])){
+            $("#"+forms[0]+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${forms[1].trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a><a class="remove-format" id=\"remove_${forms[0]}\">${format_remove} <span class = \"icon-cancel-circled\"></span></a>`);
+            $("#remove_"+forms[0]).on("click", function(){
+              up.removeFile(forms[0]);
+            });
+          }
         });
       },
 

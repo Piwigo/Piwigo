@@ -1929,8 +1929,30 @@ img.ui-datepicker-trigger {
   width:50%;
 }
 
+.plupload_file_name a{
+  margin-left: 5px;
+}
+
 .update-warning{
+  margin-right: 5px;
   color:#ED5F59;
+  text-decoration: underline;
+}
+
+.update-warning:hover{
+  color:#BE4949;
+}
+
+li.plupload_delete a.remove-format{
+  margin-left: 5px;
+  background: none !important;
+  color: #A4A4A4;
+}
+
+li.plupload_delete a.remove-format:hover{
+  background: none !important;
+  color: #474747;
+  text-decoration: none;
 }
 
 html, body {height:100; min-height: 100%; margin:0; padding:0;}
