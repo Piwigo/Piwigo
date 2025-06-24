@@ -2419,7 +2419,7 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 }
 
 .comment-select-checkbox, .comment-select-checkbox:focus{
-  background-color: #686868;
+  background-color: #333;
 }
 
 .commentFilterSelected, .commentFilterSelected:hover {
