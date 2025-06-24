@@ -5,13 +5,14 @@
 }
 
 .toaster {
-  position: absolute;
+  position: fixed;
   right: 15px;
   max-width: 300px;
   top: 40px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  z-index: 9999;
 }
 
 .toast {
@@ -29,14 +30,24 @@
   font-size: 33px;
 }
 
-.toast.success {
-  background-color:#4CA530;
-  color:#D6FFCF;
+.light .toast.success {
+  background-color: #D6FFCF;
+  color: #4CA530;
 }
 
-.toast.error {
-  background-color:#BE4949;
-  color:#FFC8C8;
+.light .toast.error {
+  background-color: #F8D7DC;
+  color: #EB3D33;
+}
+
+.dark .toast.success {
+  background-color: #4EA590;
+  color: #AAF6E4;
+}
+
+.dark .toast.error {
+  background-color: #BE4949;
+  color: #FFC8C8;
 }
 {/html_style}
 <div class="toaster" id="pwg_toaster">

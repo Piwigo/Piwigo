@@ -342,7 +342,7 @@ function save_profile_from_post($userdata, &$errors)
  */
 function load_profile_in_template($url_action, $url_redirect, $userdata, $template_prefixe=null)
 {
-  global $template, $conf;
+  global $template, $conf, $user;
 
   $template->assign('radio_options',
     array(
@@ -381,6 +381,47 @@ function load_profile_in_template($url_action, $url_redirect, $userdata, $templa
   $special_user = in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']));
   $template->assign('SPECIAL_USER', $special_user);
   $template->assign('IN_ADMIN', defined('IN_ADMIN'));
+
+  // api key expiration choice
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT ADDDATE(NOW(), INTERVAL 1 DAY);'));
+  $template->assign('API_CURRENT_DATE', explode(' ', $dbnow)[0]);
+
+  $duration = array();
+  $display_duration = array();
+  $has_custom = false;
+  foreach ($conf['api_key_duration'] as $day)
+  {
+    if ('custom' === $day) 
+    {
+      $has_custom = true;
+      continue;
+    }
+    $duration[] = 'ADDDATE(NOW(), INTERVAL '.$day.' DAY) as `'.$day.'`';
+  }
+
+  $query = '
+SELECT
+  '.implode(', ', $duration).'
+;';
+  $result = query2array($query)[0];
+  foreach ($result as $day => $date)
+  {
+    $display_duration[ $day ] = l10n('%d days', $day) . ' (' . format_date($date, array('day', 'month', 'year')) . ')';
+  }
+
+  if ($has_custom)
+  {
+    $display_duration['custom'] = l10n('Custom date');
+  }
+  $template->assign('API_EXPIRATION', $display_duration);
+  $template->assign('API_SELECTED_EXPIRATION', array_key_first($display_duration));
+  $template->assign('API_CAN_MANAGE', 'pwg_ui' ===  ($_SESSION['connected_with'] ?? null));
+
+  $email_notifications_infos = $user['email'] ?
+    l10n('The email <em>%s</em> will be used to notify you when your API key is about to expire.', $user['email'])
+    : l10n('You have no email address, so you will not be notified when your API key is about to expire.');
+  $template->assign('API_EMAIL_INFOS', $email_notifications_infos);
+
 
   // allow plugins to add their own form data to content
   trigger_notify( 'load_profile_in_template', $userdata );

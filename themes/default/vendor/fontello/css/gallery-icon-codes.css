@@ -32,6 +32,8 @@
 .gallery-icon-eye:before { content: '\e84d'; } /* '' */
 .gallery-icon-pencil-1:before { content: '\e84f'; } /* '' */
 .gallery-icon-search:before { content: '\e900'; } /* '' */
+.gallery-icon-hash:before { content: '\e943'; } /* '' */
+.gallery-icon-skull:before { content: '\e944'; } /* '' */
 .gallery-icon-hdd:before { content: '\f0a0'; } /* '' */
 .gallery-icon-star-half-alt:before { content: '\f123'; } /* '' */
 .gallery-icon-crop:before { content: '\f125'; } /* '' */

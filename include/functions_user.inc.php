@@ -1661,14 +1661,28 @@ function get_recent_photos_sql($db_field)
  *
  * @return bool
  */
-function auth_key_login($auth_key)
+function auth_key_login($auth_key, $connection_by_header=false)
 {
   global $conf, $user, $page;
 
-  if (!preg_match('/^[a-z0-9]{30}$/i', $auth_key))
+  $valid_key = false;
+  $secret_key = null;
+  if (preg_match('/^[a-z0-9]{30}$/i', $auth_key))
   {
-    return false;
+    $valid_key = 'auth_key';
   }
+  else if (
+    preg_match('/^pkid-\d{8}-[a-z0-9]{20}:[a-z0-9]{40}$/i', $auth_key)
+    and $connection_by_header
+    )
+  {
+    $valid_key = 'api_key';
+    $tmp_key = explode(':', $auth_key);
+    $auth_key = $tmp_key[0];
+    $secret_key = $tmp_key[1];
+  }
+
+  if (!$valid_key) return false;
 
   $query = '
 SELECT
@@ -1689,6 +1703,22 @@ SELECT
   
   $key = $keys[0];
 
+  // the key is an api_key
+  if ('api_key' === $valid_key)
+  {
+    // check secret
+    if (!pwg_password_verify($secret_key, $key['apikey_secret']))
+    {
+      return false;
+    }
+
+    // is the key is revoked?
+    if (null != $key['revoked_on'])
+    {
+      return false;
+    }
+  }
+
   // is the key still valid?
   if (strtotime($key['expired_on']) < strtotime($key['dbnow']))
   {
@@ -1697,12 +1727,34 @@ SELECT
   }
 
   // admin/webmaster/guest can't get connected with authentication keys
-  if (!in_array($key['status'], array('normal','generic')))
+  if ('auth_key' === $valid_key and !in_array($key['status'], array('normal','generic')))
   {
     return false;
   }
 
   $user['id'] = $key['user_id'];
+
+  // update last used key 
+  single_update(
+    USER_AUTH_KEYS_TABLE,
+    array('last_used_on' => $key['dbnow']),
+    array(
+      'user_id' => $user['id'],
+      'auth_key' => $key['auth_key']
+    ),   
+  );
+
+  // set the type of connection
+  $_SESSION['connected_with'] = $valid_key;
+
+  // if the connection is made via an API key in the header,
+  // access is authenticated without creating a persistent user session
+  // this enables stateless authentication for API calls
+  if ($connection_by_header)
+  {
+    return true;
+  }
+
   log_user($user['id'], false);
   trigger_notify('login_success', $key['username']);
 
@@ -1771,6 +1823,7 @@ SELECT
       'created_on' => $now,
       'duration' => $conf['auth_key_duration'],
       'expired_on' => $expiration,
+      'key_type' => 'auth_key',
       );
     
     single_insert(USER_AUTH_KEYS_TABLE, $key);
@@ -1799,6 +1852,7 @@ UPDATE '.USER_AUTH_KEYS_TABLE.'
   SET expired_on = NOW()
   WHERE user_id = '.$user_id.'
     AND expired_on > NOW()
+    AND key_type = \'auth_key\'
 ;';
   pwg_query($query);
 }
@@ -2382,5 +2436,201 @@ SELECT
     'infos' => $updates_infos,
     'account' => $updates
   );
+}
+
+/**
+ * Create a new api_key
+ *
+ * @since 16
+ * @param int $user_id
+ * @param int|null $duration
+ * @param string $key_name
+ * @return array auth_key / apikey_secret / apikey_name / 
+ * user_id / created_on / duration / expired_on / key_type
+ */
+function create_api_key($user_id, $duration, $key_name)
+{
+  $key_id = 'pkid-'.date('Ymd').'-'.generate_key(20);
+  $key_secret = generate_key(40);
+
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+
+  $key = array(
+    'auth_key' => $key_id,
+    'apikey_secret' => pwg_password_hash($key_secret),
+    'apikey_name' => $key_name,
+    'user_id' => $user_id,
+    'created_on' => $dbnow,
+    'key_type' => 'api_key'
+  );
+
+  if (!empty($duration))
+  {
+    $query = '
+SELECT
+  ADDDATE(NOW(), INTERVAL '.($duration * 60 * 60 * 24).' SECOND)
+;';
+    list($expiration) = pwg_db_fetch_row(pwg_query($query));
+    $key['duration'] = $duration;
+  }
+  $key['expired_on'] = $expiration;
+  
+  single_insert(USER_AUTH_KEYS_TABLE, $key);
+
+  $key['apikey_secret'] = $key_secret;
+  return $key;
+}
+
+/**
+ * Revoke a api_key
+ *
+ * @since 16
+ * @param int $user_id
+ * @param string $pkid
+ * @return string|bool
+ */
+function revoke_api_key($user_id, $pkid)
+{
+  $query = '
+SELECT 
+  COUNT(*),
+  NOW()
+  FROM `'.USER_AUTH_KEYS_TABLE.'`
+  WHERE auth_key = "'.$pkid.'"
+  AND user_id = '.$user_id.'
+;';
+
+  list($key, $now) = pwg_db_fetch_row(pwg_query($query));
+  if ($key == 0)
+  {
+    return l10n('API Key not found');
+  }
+
+  single_update(
+    USER_AUTH_KEYS_TABLE,
+    array('revoked_on' => $now),
+    array(
+      'auth_key' => $pkid,
+      'user_id' => $user_id
+    )
+  );
+
+  return true;
+}
+
+/**
+ * Edit a api_key
+ *
+ * @since 16
+ * @param int $user_id
+ * @param string $pkid
+ * @return string|bool
+ */
+function edit_api_key($user_id, $pkid, $api_name)
+{
+  $query = '
+SELECT 
+  COUNT(*)
+  FROM `'.USER_AUTH_KEYS_TABLE.'`
+  WHERE auth_key = "'.$pkid.'"
+  AND user_id = '.$user_id.'
+;';
+
+  list($key) = pwg_db_fetch_row(pwg_query($query));
+  if ($key == 0)
+  {
+    return l10n('API Key not found');
+  }
+
+  single_update(
+    USER_AUTH_KEYS_TABLE,
+    array('apikey_name' => $api_name),
+    array(
+      'auth_key' => $pkid,
+      'user_id' => $user_id
+    )
+  );
+
+  return true;
+}
+
+/**
+ * Get all api_key
+ *
+ * @since 16
+ * @param string $user_id
+ * @return array|false
+ */
+function get_api_key($user_id)
+{
+  $query = '
+SELECT *
+  FROM `'.USER_AUTH_KEYS_TABLE.'`
+  WHERE user_id = '.$user_id.'
+  AND key_type = "api_key"
+;';
+
+  $api_keys = query2array($query);
+  if (!$api_keys) return false;
+
+  $query = '
+SELECT
+  NOW()
+;';
+  list($now) = pwg_db_fetch_row(pwg_query($query));
+
+  foreach ($api_keys as $i => $api_key)
+  {
+    $api_key['apikey_secret'] = str_repeat("*", 40);
+    unset($api_key['auth_key_id'], $api_key['user_id'], $api_key['key_type']);
+
+    $api_key['created_on_format'] = format_date($api_key['created_on'], array('day', 'month', 'year'));
+    $api_key['expired_on_format'] = format_date($api_key['expired_on'], array('day', 'month', 'year'));
+    $api_key['last_used_on_since'] = 
+      $api_key['last_used_on']
+      ? time_since($api_key['last_used_on'], 'day') 
+      : l10n('Never');
+
+    $expired_on = str2DateTime($api_key['expired_on']);
+    $now = str2DateTime($now);
+    
+    $api_key['is_expired'] = $expired_on < $now;
+    if ($api_key['is_expired'])
+    {
+      $api_key['expiration'] = l10n('Expired');
+    }
+    else
+    {
+      $diff = dateDiff($now, $expired_on);
+      if ($diff->days > 0)
+      {
+        $api_key['expiration'] = l10n('%d days', $diff->days);
+      }
+      elseif ($diff->h > 0)
+      {
+        $api_key['expiration'] = l10n('%d hours', $diff->h);
+      }
+      else
+      {
+        $api_key['expiration'] = l10n('%d minutes', $diff->i);
+      }
+    }
+      
+    $api_key['expired_on_since'] = time_since($api_key['expired_on'], 'day');
+
+    $api_key['revoked_on_since'] = 
+      $api_key['revoked_on']
+      ? time_since($api_key['revoked_on'], 'day') 
+      : null;
+
+    $api_key['revoked_on_message'] =
+      $api_key['revoked_on']
+      ? l10n('This API key was manually revoked on %s', format_date($api_key['revoked_on'], array('day', 'month', 'year')))
+      : null;
+
+    $api_keys[$i] = $api_key;
+  }
+
+  return $api_keys;
 }
 ?>

@@ -347,8 +347,24 @@ DELETE FROM '. RATE_TABLE .'
  */
 function ws_session_login($params, &$service)
 {
-  if (try_log_user($params['username'], $params['password'], false))
+  if (defined('PWG_API_KEY_REQUEST'))
   {
+    return new PwgError(401, 'Cannot use this method with an api key');
+  }
+
+  if (preg_match('/^pkid-\d{8}-[a-z0-9]{20}$/i', $params['username']))
+  {
+    $secret = pwg_db_real_escape_string($params['password']);
+    $authenticate = auth_key_login($params['username'].':'.$secret);
+    if ($authenticate)
+    {
+      $_SESSION['connected_with'] = 'ws_session_login_api_key';
+      return true;
+    }
+  }
+  else if (try_log_user($params['username'], $params['password'], false))
+  {
+    $_SESSION['connected_with'] = 'ws_session_login';
     return true;
   }
   return new PwgError(999, 'Invalid username/password');
@@ -362,6 +378,11 @@ function ws_session_login($params, &$service)
  */
 function ws_session_logout($params, &$service)
 {
+  if (defined('PWG_API_KEY_REQUEST'))
+  {
+    return new PwgError(401, 'Cannot use this method with an api key');
+  }
+
   if (!is_a_guest())
   {
     logout_user();
@@ -390,11 +411,13 @@ function ws_session_getStatus($params, &$service)
   $res['current_datetime'] = $dbnow;
   $res['version'] = PHPWG_VERSION;
   $res['save_visits'] = do_log();
+  $res['connected_with'] = $_SESSION['connected_with'] ?? null;
 
   // Piwigo Remote Sync does not support receiving the new (version 14) output "save_visits"
   if (isset($_SERVER['HTTP_USER_AGENT']) and preg_match('/^PiwigoRemoteSync/', $_SERVER['HTTP_USER_AGENT']))
   {
     unset($res['save_visits']);
+    unset($res['connected_with']);
   }
 
   // Piwigo Remote Sync does not support receiving the available sizes
@@ -1151,4 +1174,5 @@ SELECT
     'summary' => $search_summary
   );
 }
+
 ?>

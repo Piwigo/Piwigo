@@ -629,6 +629,8 @@ SELECT '.$conf['user_fields']['password'].' AS password
     $params['password'] = $params['new_password'];
   }
 
+
+  // Unset admin field also new and conf password
   unset(
     $params['new_password'],
     $params['conf_new_password'],
@@ -948,5 +950,159 @@ function ws_set_main_user($params, &$service)
 
   conf_update_param('webmaster_id', $params['user_id']);
   return 'The main user has been changed.';
+}
+
+/**
+ * API method
+ * Create a new api key for the current user
+ * @since 15
+ * @param mixed[] $params
+ */
+function ws_create_api_key($params, &$service)
+{
+  global $user, $logger;
+
+  if (is_a_guest() OR !can_manage_api_key()) return new PwgError(401, 'Acces Denied');
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  if ($params['duration'] < 1 OR $params['duration'] > 999999)
+  {
+    return new PwgError(400, 'Invalid duration max days is 999999');
+  }
+
+  if (strlen($params['key_name']) > 100)
+  {
+    return new PwgError(400, 'Key name is too long');
+  }
+
+  $key_name = pwg_db_real_escape_string($params['key_name']);
+  $duration = 0 == $params['duration'] ? 1 : $params['duration'];
+
+  $secret = create_api_key($user['id'], $duration, $key_name);
+
+  $logger->info('[api_key][user_id='.$user['id'].'][action=create][key_name='.$params['key_name'].']');
+
+  return $secret;
+}
+
+/**
+ * API method
+ * Revoke a api key for the current user
+ * @since 15
+ * @param mixed[] $params
+ */
+function ws_revoke_api_key($params, &$service)
+{
+  global $user, $logger;
+
+  if (is_a_guest() OR !can_manage_api_key()) return new PwgError(401, 'Acces Denied');
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, l10n('Invalid security token'));
+  }
+
+  if (!preg_match('/^pkid-\d{8}-[a-z0-9]{20}$/i', $params['pkid']))
+  {
+    return new PwgError(403, l10n('Invalid pkid format'));
+  }
+
+  $revoked_key = revoke_api_key($user['id'], $params['pkid']);
+
+  if (true !== $revoked_key)
+  {
+    return new PwgError(403, $revoked_key);
+  }
+
+  $logger->info('[api_key][user_id='.$user['id'].'][action=revoke][pkid='.$params['pkid'].']');
+
+  return l10n('API Key has been successfully revoked.');
+}
+
+/**
+ * API method
+ * Edit a api key for the current user
+ * @since 15
+ * @param mixed[] $params
+ */
+function ws_edit_api_key($params, &$service)
+{
+  global $user, $logger;
+
+  if (is_a_guest())
+  {
+    return new PwgError(401, 'Acces Denied');
+  }
+
+  if (!can_manage_api_key())
+  {
+    return new PwgError(401, 'Acces Denied');
+  }
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, l10n('Invalid security token'));
+  }
+
+  if (!preg_match('/^pkid-\d{8}-[a-z0-9]{20}$/i', $params['pkid']))
+  {
+    return new PwgError(403, l10n('Invalid pkid format'));
+  }
+
+  $key_name = pwg_db_real_escape_string($params['key_name']);
+  $edited_key = edit_api_key($user['id'], $params['pkid'], $key_name);
+
+  if (true !== $edited_key)
+  {
+    return new PwgError(403, $edited_key);
+  }
+
+  $logger->info('[api_key][user_id='.$user['id'].'][action=edit][pkid='.$params['pkid'].'][new_name='.$key_name.']');
+
+  return l10n('API Key has been successfully edited.');
+}
+
+/**
+ * API method
+ * Get all api key for the current user
+ * @since 15
+ * @param mixed[] $params
+ */
+function ws_get_api_key($params, &$service)
+{
+  global $user;
+
+  if (is_a_guest())
+  {
+    return new PwgError(401, 'Acces Denied');
+  }
+
+  if (!can_manage_api_key())
+  {
+    return new PwgError(401, 'Acces Denied');
+  }
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $api_keys = get_api_key($user['id']);
+
+  return $api_keys ?? l10n('No API key found');
+}
+
+function can_manage_api_key()
+{
+  // You can manage your api key only if you are connected via identification.php
+  if (isset($_SESSION['connected_with']) and 'pwg_ui' === $_SESSION['connected_with'])
+  {
+    return true;
+  }
+  return false;
 }
 ?>
