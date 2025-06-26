@@ -1929,8 +1929,20 @@ img.ui-datepicker-trigger {
   width:50%;
 }
 
+.plupload_file_name span:not(.icon-eye){
+  max-width: 180px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+}
+
 .plupload_file_name a{
   margin-left: 5px;
+}
+
+.plupload_file_name + a{
+  margin-left: 15%;
 }
 
 .update-warning{
