@@ -6,6 +6,9 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
+$filters_views = unserialize($conf['filters_views']);
+$template->assign('display_filter', $filters_views);
+
 // we add isset($page['search_details']) in this condition because it only
 // applies to regular search, not the legacy qsearch. As Piwigo 14 will still
 // be able to show an old quicksearch result, we must check this condtion too.
@@ -40,8 +43,14 @@ if ('search' == $page['section'] and isset($page['search_details']))
     $search_items_clause = '1=1';
   }
 
+  if (isset($my_search['fields']['allwords']))
+  {
+    $my_search['fields']['allwords']["access"] = $filters_views["words"]["access"];
+  }
+
   if (isset($my_search['fields']['tags']))
   {
+    $my_search['fields']['tags']["access"] = $filters_views["tags"]["access"];
     $filter_tags = array();
 
     // TODO calling get_available_tags(), with lots of photos/albums/tags may cost time,
@@ -79,6 +88,7 @@ if ('search' == $page['section'] and isset($page['search_details']))
 
   if (isset($my_search['fields']['author']))
   {
+    $my_search['fields']['author']["access"] = $filters_views["author"]["access"];
     $filter_clause = get_clause_for_filter('author');
 
     $query = '
@@ -120,6 +130,7 @@ SELECT
 
   if (isset($my_search['fields']['date_posted']))
   {
+    $my_search['fields']['date_posted']["access"] = $filters_views["post_date"]["access"];
     $filter_clause = get_clause_for_filter('date_posted');
     $cache_key = $persistent_cache->make_key('filter_date_posted'.$user['id'].$user['cache_update_time']);
     $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $date_posted);
@@ -222,6 +233,7 @@ SELECT
 
   if (isset($my_search['fields']['date_created']))
   {
+    $my_search['fields']['date_created']["access"] = $filters_views["creation_date"]["access"];
     $filter_clause = get_clause_for_filter('date_created');
     $cache_key = $persistent_cache->make_key('filter_date_created'.$user['id'].$user['cache_update_time']);
     $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $date_created);
@@ -327,6 +339,7 @@ SELECT
 
   if (isset($my_search['fields']['added_by']))
   {
+    $my_search['fields']['added_by']["access"] = $filters_views["added_by"]["access"];
     $filter_clause = get_clause_for_filter('added_by');
 
     $query = '
@@ -385,14 +398,19 @@ SELECT
     $template->assign('ADDED_BY', $added_by);
 
     // in case the search has forbidden added_by users for current user, we need to filter the search rule
-    $my_search['fields']['added_by'] = array_intersect($my_search['fields']['added_by'], $user_ids);
+    $my_search['fields']['added_by']['data'] = array_intersect($my_search['fields']['added_by']['data'], $user_ids);
   }
 
-  if (isset($my_search['fields']['cat']) and !empty($my_search['fields']['cat']['words']))
+  if (isset($my_search['fields']['cat']))
   {
-    $fullname_of = array();
+    $my_search['fields']['cat']["access"] = $filters_views["album"]["access"];
+    
+    if (!empty($my_search['fields']['cat']['words']))
+    {
+      $my_search['fields']['cat']["access"] = "hahaha";
+      $fullname_of = array();
 
-    $query = '
+      $query = '
 SELECT
     id, 
     uppercats
@@ -400,27 +418,29 @@ SELECT
     INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id = cat_id AND user_id = '.$user['id'].'
   WHERE id IN ('.implode(',', $my_search['fields']['cat']['words']).')
 ;';
-    $result = pwg_query($query);
+      $result = pwg_query($query);
 
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $cat_display_name = get_cat_display_name_cache(
-        $row['uppercats'],
-        'admin.php?page=album-' // TODO not sure it's relevant to link to admin pages
-      );
-      $row['fullname'] = strip_tags($cat_display_name);
+      while ($row = pwg_db_fetch_assoc($result))
+      {
+        $cat_display_name = get_cat_display_name_cache(
+          $row['uppercats'],
+          'admin.php?page=album-' // TODO not sure it's relevant to link to admin pages
+        );
+        $row['fullname'] = strip_tags($cat_display_name);
 
-      $fullname_of[$row['id']] = $row['fullname'];
+        $fullname_of[$row['id']] = $row['fullname'];
+      }
+
+      $template->assign('fullname_of', json_encode($fullname_of));
+
+      // in case the search has forbidden albums for current user, we need to filter the search rule
+      $my_search['fields']['cat']['words'] = array_intersect($my_search['fields']['cat']['words'], array_keys($fullname_of));
     }
-
-    $template->assign('fullname_of', json_encode($fullname_of));
-
-    // in case the search has forbidden albums for current user, we need to filter the search rule
-    $my_search['fields']['cat']['words'] = array_intersect($my_search['fields']['cat']['words'], array_keys($fullname_of));
   }
 
   if (isset($my_search['fields']['filetypes']))
   {
+    $my_search['fields']['filetypes']["access"] = $filters_views["file_type"]["access"];
     $filter_clause = get_clause_for_filter('filetypes');
 
     // get all file extensions for this user in the gallery, whatever the current filters
@@ -476,6 +496,7 @@ SELECT
     
     if (isset($my_search['fields']['ratings']))
     {
+      $my_search['fields']['ratings']["access"] = $filters_views["rating"]["access"];
       $filter_clause = get_clause_for_filter('ratings');
 
       $cache_key = $persistent_cache->make_key('filter_ratings'.$user['id'].$user['cache_update_time']);
@@ -538,6 +559,8 @@ SELECT
   // For filesize
   if (isset($my_search['fields']['filesize_min']) && isset($my_search['fields']['filesize_max']))
   {
+    $my_search['fields']['filesize_min']["access"] = $filters_views["file_size"]["access"];
+    $my_search['fields']['filesize_max']["access"] = $filters_views["file_size"]["access"];
     $filter_clause = get_clause_for_filter('filesize');
 
     $filesizes = array();
@@ -576,8 +599,8 @@ SELECT
     // current search won't always be the first/last values found. It's going to be a
     // problem with this way to select selected values
     $filesize['selected'] = array(
-      'min' => !empty($my_search['fields']['filesize_min']) ? sprintf('%.1f', $my_search['fields']['filesize_min']/1024) : $unique_filesizes[0],
-      'max' => !empty($my_search['fields']['filesize_max']) ? sprintf('%.1f', $my_search['fields']['filesize_max']/1024) : end($unique_filesizes),
+      'min' => !empty($my_search['fields']['filesize_min']['data']) ? sprintf('%.1f', $my_search['fields']['filesize_min']['data']/1024) : $unique_filesizes[0],
+      'max' => !empty($my_search['fields']['filesize_max']['data']) ? sprintf('%.1f', $my_search['fields']['filesize_max']['data']/1024) : end($unique_filesizes),
     );
 
     $template->assign('FILESIZE', $filesize );
@@ -585,6 +608,7 @@ SELECT
   
   if (isset($my_search['fields']['ratios']))
   {
+    $my_search['fields']['ratios']["access"] = $filters_views["ratio"]["access"];
     $filter_clause = get_clause_for_filter('ratios');
 
     $cache_key = $persistent_cache->make_key('filter_ratios'.$user['id'].$user['cache_update_time']);
@@ -654,6 +678,8 @@ SELECT
 
   if (isset($my_search['fields']['height_min']) and isset($my_search['fields']['height_max']))
   {
+    $my_search['fields']['height_min']["access"] = $filters_views["height"]["access"];
+    $my_search['fields']['height_max']["access"] = $filters_views["height"]["access"];
     $filter_clause = get_clause_for_filter('height');
 
     $query = '
@@ -691,8 +717,8 @@ SELECT
         'max' => end($heights),
       ),
       'selected' => array(
-        'min' => !empty($my_search['fields']['height_min']) ? $my_search['fields']['height_min'] : $heights[0],
-        'max' => !empty($my_search['fields']['height_max']) ? $my_search['fields']['height_max'] : end($heights),
+        'min' => !empty($my_search['fields']['height_min']['data']) ? $my_search['fields']['height_min']['data'] : $heights[0],
+        'max' => !empty($my_search['fields']['height_max']['data']) ? $my_search['fields']['height_max']['data'] : end($heights),
       )
     );
 
@@ -701,6 +727,8 @@ SELECT
 
   if (isset($my_search['fields']['width_min']) and isset($my_search['fields']['width_max']))
   {
+    $my_search['fields']['width_min']["access"] = $filters_views["width"]["access"];
+    $my_search['fields']['width_max']["access"] = $filters_views["width"]["access"];
     $filter_clause = get_clause_for_filter('width');
 
     $query = '
@@ -738,8 +766,8 @@ SELECT
         'max' => end($widths),
       ),
       'selected' => array(
-        'min' => !empty($my_search['fields']['width_min']) ? $my_search['fields']['width_min'] : $widths[0],
-        'max' => !empty($my_search['fields']['width_max']) ? $my_search['fields']['width_max'] : end($widths),
+        'min' => !empty($my_search['fields']['width_min']['data']) ? $my_search['fields']['width_min']['data'] : $widths[0],
+        'max' => !empty($my_search['fields']['width_max']['data']) ? $my_search['fields']['width_max']['data'] : end($widths),
       )
     );
 

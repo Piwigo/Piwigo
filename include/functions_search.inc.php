@@ -119,10 +119,12 @@ function get_regular_search_results($search, $images_where='')
 
   $image_ids_for_filter = array();
 
+  $display_filters = unserialize($conf["filters_views"]);
+
   //
   // allwords
   //
-  if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0)
+  if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0 and ($display_filters["words"]["access"] == "everybody" or ($display_filters["words"]["access"] == "admins-only" and is_admin()) or ($display_filters["words"]["access"] == "registered-users" and is_classic_user())))
   {
     $has_filters_filled = true;
 
@@ -327,12 +329,12 @@ SELECT
   //
   // filetypes
   //
-  if (!empty($search['fields']['filetypes']))
+  if (!empty($search['fields']['filetypes']['data']))
   {
     $has_filters_filled = true;
 
     $filetypes_clauses = array();
-    foreach ($search['fields']['filetypes'] as $ext)
+    foreach ($search['fields']['filetypes']['data'] as $ext)
     {
       $filetypes_clauses[] = 'path LIKE \'%.'.$ext.'\'';
     }
@@ -351,7 +353,7 @@ SELECT
   //
   // added_by
   //
-  if (!empty($search['fields']['added_by']))
+  if (!empty($search['fields']['added_by']['data']))
   {
     $has_filters_filled = true;
 
@@ -360,7 +362,7 @@ SELECT
     DISTINCT(id)
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE added_by IN ('.implode(',', $search['fields']['added_by']).')
+  WHERE added_by IN ('.implode(',', $search['fields']['added_by']['data']).')
   '.$forbidden.'
 ;';
     $image_ids_for_filter['added_by'] = query2array($query, null, 'id');
@@ -567,7 +569,7 @@ SELECT
   //
   // ratios
   //
-  if (!empty($search['fields']['ratios']))
+  if (!empty($search['fields']['ratios']['data']))
   {
     $has_filters_filled = true;
 
@@ -579,7 +581,7 @@ SELECT
     );
 
     $ratios_clauses = array();
-    foreach ($search['fields']['ratios'] as $r)
+    foreach ($search['fields']['ratios']['data'] as $r)
     {
       $ratios_clauses[] = $clause_for_ratio[$r];
     }
@@ -598,12 +600,12 @@ SELECT
   //
   // ratings
   //
-  if ($conf['rate'] and !empty($search['fields']['ratings']))
+  if ($conf['rate'] and !empty($search['fields']['ratings']['data']))
   {
     $has_filters_filled = true;
 
     $filter_clauses = array();
-    foreach ($search['fields']['ratings'] as $r)
+    foreach ($search['fields']['ratings']['data'] as $r)
     {
       if (0 == $r)
       {
@@ -629,7 +631,7 @@ SELECT
   //
   // filesize
   //
-  if (!empty($search['fields']['filesize_min']) and !empty($search['fields']['filesize_max']))
+  if (!empty($search['fields']['filesize_min']['data']) and !empty($search['fields']['filesize_max']['data']))
   {
     $has_filters_filled = true;
 
@@ -640,7 +642,7 @@ SELECT
     DISTINCT(id)
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE filesize BETWEEN '.($search['fields']['filesize_min']-100).' AND '.($search['fields']['filesize_max']+100).'
+  WHERE filesize BETWEEN '.($search['fields']['filesize_min']['data']-100).' AND '.($search['fields']['filesize_max']['data']+100).'
   '.$forbidden.'
 ;';
     $image_ids_for_filter['filesize'] = query2array($query, null, 'id');
@@ -649,7 +651,7 @@ SELECT
   //
   // height
   //
-  if (!empty($search['fields']['height_min']) and !empty($search['fields']['height_max']))
+  if (!empty($search['fields']['height_min']['data']) and !empty($search['fields']['height_max']['data']))
   {
     $has_filters_filled = true;
 
@@ -658,7 +660,7 @@ SELECT
     DISTINCT(id)
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE height BETWEEN '.$search['fields']['height_min'].' AND '.$search['fields']['height_max'].'
+  WHERE height BETWEEN '.$search['fields']['height_min']['data'].' AND '.$search['fields']['height_max']['data'].'
   '.$forbidden.'
 ;';
     $image_ids_for_filter['height'] = query2array($query, null, 'id');
@@ -667,7 +669,7 @@ SELECT
   //
   // width
   //
-  if (!empty($search['fields']['width_min']) and !empty($search['fields']['width_max']))
+  if (!empty($search['fields']['width_min']['data']) and !empty($search['fields']['width_max']['data']))
   {
     $has_filters_filled = true;
 
@@ -676,7 +678,7 @@ SELECT
     DISTINCT(id)
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE width BETWEEN '.$search['fields']['width_min'].' AND '.$search['fields']['width_max'].'
+  WHERE width BETWEEN '.$search['fields']['width_min']['data'].' AND '.$search['fields']['width_max']['data'].'
   '.$forbidden.'
 ;';
     $image_ids_for_filter['width'] = query2array($query, null, 'id');

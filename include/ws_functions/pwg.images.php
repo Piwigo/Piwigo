@@ -843,7 +843,7 @@ function ws_images_filteredSearch_create($params, $service)
       }
     }
 
-    $search['fields']['filetypes'] = $params['filetypes'];
+    $search['fields']['filetypes']['data'] = $params['filetypes'];
   }
 
   if (isset($params['added_by']))
@@ -856,7 +856,7 @@ function ws_images_filteredSearch_create($params, $service)
       }
     }
 
-    $search['fields']['added_by'] = $params['added_by'];
+    $search['fields']['added_by']['data'] = $params['added_by'];
   }
 
   if (isset($params['date_posted_preset']))
@@ -1001,42 +1001,42 @@ function ws_images_filteredSearch_create($params, $service)
       }
     }
 
-    $search['fields']['ratios'] = $params['ratios'];
+    $search['fields']['ratios']['data'] = $params['ratios'];
   }
 
   if ($conf['rate'] and isset($params['ratings']))
   {
-    $search['fields']['ratings'] = $params['ratings'];
+    $search['fields']['ratings']['data'] = $params['ratings'];
   }
 
   if (isset($params['filesize_min']))
   {
-    $search['fields']['filesize_min'] = $params['filesize_min'];
+    $search['fields']['filesize_min']['data'] = $params['filesize_min'];
   }
 
   if (isset($params['filesize_max']))
   {
-    $search['fields']['filesize_max'] = $params['filesize_max'];
+    $search['fields']['filesize_max']['data'] = $params['filesize_max'];
   }
 
   if (isset($params['width_min']))
   {
-    $search['fields']['width_min'] = $params['width_min'];
+    $search['fields']['width_min']['data'] = $params['width_min'];
   }
 
   if (isset($params['width_max']))
   {
-    $search['fields']['width_max'] = $params['width_max'];
+    $search['fields']['width_max']['data'] = $params['width_max'];
   }
 
   if (isset($params['height_min']))
   {
-    $search['fields']['height_min'] = $params['height_min'];
+    $search['fields']['height_min']['data'] = $params['height_min'];
   }
 
   if (isset($params['height_max']))
   {
-    $search['fields']['height_max'] = $params['height_max'];
+    $search['fields']['height_max']['data'] = $params['height_max'];
   }
 
   list($search_uuid, $search_url) = save_search($search, $search_info['id'] ?? null);

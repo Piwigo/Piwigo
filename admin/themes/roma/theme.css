@@ -224,7 +224,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-buttonpane .ui-state-error:hover { background: #7e3030;}
 INPUT[type="text"].large  { width: 317px; }
 
-.buttonLike:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
+.buttonLike:disabled, .filters-icon-check:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
 	color:#555;
 	border-color:#666;
   cursor:not-allowed;
@@ -2381,4 +2381,26 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 
 .RenameTagPopInContainer {
   background-color:#444;
+}
+
+/* Filters options */
+.select-views{
+  background-color: #444444;
+  color: #898888;
+  border: 1px solid #666;
+}
+
+.filter-manager-options-container{
+  background-color: #333;
+  color: #aaa;
+  border-color: #333;
+}
+
+.filter-manager-options-container.selected-filter-container{
+  background-color: #777777;
+  color: #FFFFFF;
+}
+
+label:has(> .filters-icon-check:disabled){
+  color:#555;
 }

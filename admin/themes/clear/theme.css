@@ -629,7 +629,6 @@ table.dataTable thead th, table.dataTable.no-footer {
   background: #3C3C3C;
 }
 
-.font-checkbox [class*=icon-check]:before { color:#444; }
 
 #watermarkPositionBox {
   border:2px solid #ccc;
@@ -651,7 +650,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
 .afterUploadActions a.secondary_button {background-color: #ECECEC;}
 .afterUploadActions a.secondary_button:hover {background-color: #FFA646;}
 
-.font-checkbox:hover {color: #FFA844;}
+.font-checkbox:hover {color: #3C3C3C;}
 .font-checkbox.selected {color: #ffa646;}
 
 LEGEND {color: #3C3C3C;}
@@ -910,4 +909,10 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .RenameTagPopInContainer {
   background-color:#fff;
+}
+
+/* Filters options */
+label:has(> .filters-icon-check:disabled), span:has(+ .filters-icon-check:disabled){
+  color: #D5D5D5 !important;
+  cursor: not-allowed;
 }
