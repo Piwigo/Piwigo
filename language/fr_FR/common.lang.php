@@ -515,3 +515,5 @@ $lang['This API key was manually revoked on %s'] = 'Cette clé API a été révo
 $lang['Edit API Key'] = 'Modifier la clé API';
 $lang['Do you really want to revoke the "%s" API key?'] = 'Voulez-vous vraiment révoquer la clé API "%s" ?';
 $lang['To manage your API keys, please log in with your username/password.'] = 'Pour gérer vos clés API, veuillez vous connecter avec votre nom d\'utilisateur/mot de passe.';
+$lang['3xlarge'] = '3XL - très énorme';
+$lang['4xlarge'] = '4XL - gigantesque';
