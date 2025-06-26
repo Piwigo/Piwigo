@@ -24,6 +24,7 @@
   font-size: 15px;
   width: fit-content;
   align-self: flex-end;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
 .toast i:before {
