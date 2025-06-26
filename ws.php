@@ -173,7 +173,7 @@ function ws_addDefaultMethods( $arr )
       array_merge(array(
         'types' =>        array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY,
-                                'info'=>'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge'),
+                                'info'=>'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge, 3xlarge, 4xlarge'),
         'ids' =>          array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY,
                                 'type'=>WS_TYPE_ID),
