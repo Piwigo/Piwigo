@@ -407,7 +407,6 @@ SELECT
     
     if (!empty($my_search['fields']['cat']['words']))
     {
-      $my_search['fields']['cat']["access"] = "hahaha";
       $fullname_of = array();
 
       $query = '
