@@ -30,22 +30,24 @@ if (!defined('PHPWG_ROOT_PATH'))
 
   trigger_notify('loc_begin_profile');
 
-// Reset to default (Guest) custom settings
-  if (isset($_POST['reset_to_default']))
-  {
-    $fields = array(
-      'nb_image_page', 'expand',
-      'show_nb_comments', 'show_nb_hits', 'recent_period', 'show_nb_hits'
-      );
+  $fields = array(
+    'nb_image_page', 'expand',
+    'show_nb_comments', 'show_nb_hits', 'recent_period', 'show_nb_hits'
+    );
 
-    // Get the Guest custom settings
-    $query = '
+  // Get the Guest custom settings
+  $query = '
 SELECT '.implode(',', $fields).'
   FROM '.USER_INFOS_TABLE.'
   WHERE user_id = '.$conf['default_user_id'].'
 ;';
-    $result = pwg_query($query);
-    $default_user = pwg_db_fetch_assoc($result);
+  $result = pwg_query($query);
+  $default_user = pwg_db_fetch_assoc($result);
+  $template->assign('DEFAULT_USER_VALUES', $default_user);
+
+// Reset to default (Guest) custom settings
+  if (isset($_POST['reset_to_default']))
+  {
     $userdata = array_merge($userdata, $default_user);
   }
 
@@ -68,10 +70,49 @@ SELECT '.implode(',', $fields).'
   $themeconf = $template->get_template_vars('themeconf');
   if (!isset($themeconf['hide_menu_on']) OR !in_array('theProfilePage', $themeconf['hide_menu_on']))
   {
-    include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+    if ($themeconf['id'] !== 'standard_pages')
+    {
+      include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+    } 
   }
   
   include(PHPWG_ROOT_PATH.'include/page_header.php');
+
+  //Load language if cookie is set from login/register/password pages
+  if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
+  {
+    if (!array_key_exists($_COOKIE['lang'], get_languages()))
+    {
+      fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
+    }
+
+    $user['language'] = $_COOKIE['lang'];
+    load_language('common.lang', '', array('language'=>$user['language']));
+  }
+
+  //Get list of languages
+  foreach (get_languages() as $language_code => $language_name)
+  {
+    $language_options[$language_code] = $language_name;
+  }
+
+  $template->assign(array(
+    'language_options' => $language_options,
+    'current_language' => $user['language']
+  ));
+
+  //Get link to doc
+  if ('fr' == substr($user['language'], 0, 2))
+  {
+    $help_link = "https://doc-fr.piwigo.org/les-utilisateurs/se-connecter-a-piwigo";
+  }
+  else
+  {
+    $help_link = "https://doc.piwigo.org/managing-users/log-in-to-piwigo";
+  }
+
+  $template->assign('HELP_LINK', $help_link);
+
   trigger_notify('loc_end_profile');
   flush_page_messages();
   $template->pparse('profile');
@@ -301,7 +342,7 @@ function save_profile_from_post($userdata, &$errors)
  */
 function load_profile_in_template($url_action, $url_redirect, $userdata, $template_prefixe=null)
 {
-  global $template, $conf;
+  global $template, $conf, $user;
 
   $template->assign('radio_options',
     array(
@@ -340,6 +381,47 @@ function load_profile_in_template($url_action, $url_redirect, $userdata, $templa
   $special_user = in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']));
   $template->assign('SPECIAL_USER', $special_user);
   $template->assign('IN_ADMIN', defined('IN_ADMIN'));
+
+  // api key expiration choice
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT ADDDATE(NOW(), INTERVAL 1 DAY);'));
+  $template->assign('API_CURRENT_DATE', explode(' ', $dbnow)[0]);
+
+  $duration = array();
+  $display_duration = array();
+  $has_custom = false;
+  foreach ($conf['api_key_duration'] as $day)
+  {
+    if ('custom' === $day) 
+    {
+      $has_custom = true;
+      continue;
+    }
+    $duration[] = 'ADDDATE(NOW(), INTERVAL '.$day.' DAY) as `'.$day.'`';
+  }
+
+  $query = '
+SELECT
+  '.implode(', ', $duration).'
+;';
+  $result = query2array($query)[0];
+  foreach ($result as $day => $date)
+  {
+    $display_duration[ $day ] = l10n('%d days', $day) . ' (' . format_date($date, array('day', 'month', 'year')) . ')';
+  }
+
+  if ($has_custom)
+  {
+    $display_duration['custom'] = l10n('Custom date');
+  }
+  $template->assign('API_EXPIRATION', $display_duration);
+  $template->assign('API_SELECTED_EXPIRATION', array_key_first($display_duration));
+  $template->assign('API_CAN_MANAGE', 'pwg_ui' ===  ($_SESSION['connected_with'] ?? null));
+
+  $email_notifications_infos = $user['email'] ?
+    l10n('The email <em>%s</em> will be used to notify you when your API key is about to expire.', $user['email'])
+    : l10n('You have no email address, so you will not be notified when your API key is about to expire.');
+  $template->assign('API_EMAIL_INFOS', $email_notifications_infos);
+
 
   // allow plugins to add their own form data to content
   trigger_notify( 'load_profile_in_template', $userdata );

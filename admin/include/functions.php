@@ -1929,7 +1929,7 @@ function fill_lounge($images, $categories)
  */
 function empty_lounge($invalidate_user_cache=true)
 {
-  global $logger;
+  global $logger, $conf;
 
   if (isset($conf['empty_lounge_running']))
   {
@@ -2732,6 +2732,17 @@ SELECT '.$conf['user_fields']['username'].'
 function get_newsletter_subscribe_base_url($language='en_UK')
 {
   return PHPWG_URL.'/announcement/subscribe/';
+}
+
+/**
+ * Get url on piwigo.org for old newsletters
+ *
+ * @param string $language (unused)
+ * @return string
+ */
+function get_old_newsletters_base_url($language='en_UK')
+{
+  return PHPWG_URL.'/newsletter';
 }
 
 /**

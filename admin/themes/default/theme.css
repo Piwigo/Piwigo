@@ -2317,10 +2317,79 @@ h2:lang(en) { text-transform:capitalize; }
   border-left:4px solid #00529b;
 }
 
+.jGrowl-popup-icon{
+  position: absolute;
+  font-size: 4em;
+  left: -25px;
+}
+
 .success {
-  color: #6DCE5E;
-  background-color:#D6FFCF;
-  border-left:4px solid #6DCE5E;
+  color: #3C3C3C;
+}
+div.jGrowl div.jGrowl-notification.success{
+  background: none;
+  background-color: #D6FFCF;
+  opacity: 1;
+  text-align: left;
+  font-family: 'Open Sans'; 
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1);
+  margin-bottom: 1em;
+}
+div.success .jGrowl-popup-icon{
+  color: #4CA530;
+}
+
+.error{
+  color: #3C3C3C;
+}
+div.jGrowl div.jGrowl-notification.error{
+  background: none;
+  background-color: #FFC8C8;
+  opacity: 1;
+  text-align: left;
+  font-family: 'Open Sans';
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1);
+  margin-bottom: 1em;
+}
+div.error .jGrowl-popup-icon{
+  color: #BE4949;
+}
+
+div.jGrowl div.jGrowl-notification div.jGrowl-message {
+  font-size: 1.2em !important;
+  margin: 0% 0% 0% 28%;
+}
+div.jGrowl div.jGrowl-notification div.jGrowl-header {
+  font-size: 1.2em !important;
+	font-weight: 800 !important;
+  margin: 5% 0% 2% 28%;
+}
+div.success div.jGrowl-close, div.error div.jGrowl-close {
+	font-size: 2em !important;
+  font-weight: 1000 !important;
+  position: relative;
+  top: -7px;
+  right: 1px;
+}
+
+div.jGrowl div.jGrowl-closer {
+	visibility: hidden;
+}
+
+div.jGrowl div.jGrowl-notification{
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85); 
+	zoom: 1;
+	width: 21vw;
+  height: 100%;
+	padding: 18%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 1em;
+	
+	display: none;
+  border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 .metasync-success {
@@ -7364,7 +7433,7 @@ color:#FF7B00;
   color: black !important;
 }
 
-.promote-apps {
+.promote-apps{
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -7377,6 +7446,71 @@ color:#FF7B00;
   position: relative;
 
   box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1)
+}
+
+.promote-newsletter{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  border-radius: 5px;
+  margin: 0 20px 15px 20px;
+
+  background: #f5d8b0;
+  position: relative;
+
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1)
+}
+
+.promote-newsletter-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 2;
+
+  margin-left: 8.45%;
+  margin-right: 16.32%;
+}
+
+.promote-link {
+  color: #E18C32;
+  font-size: 15px;
+  margin-block: 3.5%;
+  font-weight: 700;
+}
+
+.promote-newsletter-title{
+  font-size: 24px;
+  font-weight: 700;
+  text-align: left;
+  margin-top: 3.5%;
+  margin-bottom: 1.75%;
+  color: #493C21;
+}
+
+.subscribe-newsletter{
+  font-size: 15px;
+  max-height: 17.5%;
+  display: flex;
+  gap: 4.64%;
+  margin-block: 1.75%;
+}
+
+.promote-image{
+  height: auto;
+  width: 25%;
+  object-fit: contain;
+}
+
+#newsletterSubscribeInput{
+  font-weight: 700;
+  background-color: #FFFFFF;
+  color: #000000;
+  padding-inline: 4%;
+  padding-block: 2%;
+  border-radius: 2px;
+  border-width: 2px;
+  border-color: #D3D3D3;
 }
 
 .close-apps {
@@ -7434,7 +7568,7 @@ color:#FF7B00;
   flex-direction: column;
   font-size: 30px;
   font-weight: 700;
-  color: #000;
+  color: #493C21;
   justify-content: center;
   flex: 2;
 }
@@ -7452,17 +7586,20 @@ color:#FF7B00;
 .go-to-porg {
   cursor: pointer;
   padding: 7px 14px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
-  background-color: #ffa744;
+  max-width: 41.06%;
+  background-color: #f4ab4f;
   color: #3c3c3c;
-  width: 150px;
   text-align: center;
   white-space: nowrap;
 }
 
 .go-to-porg::before {
   margin-right: 10px;
+}
+.go-to-porg:hover {
+  color: #3c3c3c;
 }
 
 .promote-content .right-side .promote-text {
@@ -7636,6 +7773,40 @@ color:#FF7B00;
 
   .promote-content .left-side img {
     width: 100px;
+  }
+}
+
+@media (max-width: 393px) {
+  .promote-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15%;
+    flex: 2;
+  }
+
+  .promote-newsletter-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 2;
+    margin-inline: 3.8%;
+  }
+
+  .promote-image{
+    height: auto;
+    width: 77%;
+    object-fit: contain;
+    align-self: center;
+  }
+
+  .go-to-porg{
+    max-width: 100%;
+    margin-top: 5%;
+  }
+
+  .promote-link{
+    margin-block: 10%;
   }
 }
 

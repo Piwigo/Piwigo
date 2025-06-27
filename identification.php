@@ -74,6 +74,8 @@ if (isset($_POST['login']))
       // {redirect (final) = http://localhost/piwigo/git/admin.php}
       $root_url = get_absolute_root_url();
 
+      $_SESSION['connected_with'] = 'pwg_ui';
+
       redirect(
         empty($redirect_to)
           ? get_gallery_home_url()

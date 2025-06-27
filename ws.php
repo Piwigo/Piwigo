@@ -173,7 +173,7 @@ function ws_addDefaultMethods( $arr )
       array_merge(array(
         'types' =>        array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY,
-                                'info'=>'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge'),
+                                'info'=>'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge, 3xlarge, 4xlarge'),
         'ids' =>          array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY,
                                 'type'=>WS_TYPE_ID),
@@ -1238,6 +1238,33 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
+
+  $service->addMethod(
+    'pwg.users.setMyInfo',
+    'ws_users_setMyInfo',
+    array(
+      'email' =>            array('flags'=>WS_PARAM_OPTIONAL),
+      'nb_image_page' =>    array('flags'=>WS_PARAM_OPTIONAL,
+                                  'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL),
+      'theme' =>            array('flags'=>WS_PARAM_OPTIONAL),
+      'language' =>         array('flags'=>WS_PARAM_OPTIONAL),
+      'recent_period' =>    array('flags'=>WS_PARAM_OPTIONAL,
+                                  'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+      'expand' =>           array('flags'=>WS_PARAM_OPTIONAL,
+                                  'type'=>WS_TYPE_BOOL),
+      'show_nb_comments' => array('flags'=>WS_PARAM_OPTIONAL,
+                                  'type'=>WS_TYPE_BOOL),
+      'show_nb_hits' =>     array('flags'=>WS_PARAM_OPTIONAL,
+                                  'type'=>WS_TYPE_BOOL),
+      'password' =>         array('flags'=>WS_PARAM_OPTIONAL),
+      'new_password' =>         array('flags'=>WS_PARAM_OPTIONAL),
+      'conf_new_password' =>         array('flags'=>WS_PARAM_OPTIONAL),
+      'pwg_token' => array(),
+    ),
+    '',
+    $ws_functions_root . 'pwg.users.php',
+    array('admin_only'=>false, 'post_only'=>true)
+  );
     
   $service->addMethod(
       'pwg.permissions.getList',
@@ -1539,6 +1566,58 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         - Only a webmaster can perform this action',
       $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.users.api_key.create',
+      'ws_create_api_key',
+      array(
+        'key_name' => array(),
+        'duration' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'info' => 'Number of days',
+        ),
+        'pwg_token' => array(),
+      ),
+      'Create a new api key for the user in the current session',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>false, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.users.api_key.revoke',
+      'ws_revoke_api_key',
+      array(
+        'pkid' => array(),
+        'pwg_token' => array(),
+      ),
+      'Revoke a api key for the user in the current session',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>false, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.users.api_key.edit',
+      'ws_edit_api_key',
+      array(
+        'key_name' => array(),
+        'pkid' => array(),
+        'pwg_token' => array(),
+      ),
+      'Edit a api key for the user in the current session',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>false, 'post_only'=>true)
+    );
+
+    $service->addMethod(
+      'pwg.users.api_key.get',
+      'ws_get_api_key',
+      array(
+        'pwg_token' => array(),
+      ),
+      'Get all api key for the user in the current session',
+      $ws_functions_root . 'pwg.users.php',
+      array('admin_only'=>false, 'post_only'=>true)
     );
 }
 
