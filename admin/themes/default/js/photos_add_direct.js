@@ -163,9 +163,23 @@ $(function () {
 
         if (formatMode) {
           formats.forEach((forms) => {
-            $("#"+forms[0]+" > .plupload_file_name").append(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${forms[1].trim()}-properties\"><span class=\"icon-eye\"></span></a>`);
+            $("#"+forms[0]+" > .plupload_file_name").append(`
+            <a target=\"_blank\" href=\"admin.php?page=photo-${forms[1].trim()}-properties\">
+              <span class=\"icon-eye\">
+              </span>
+            </a>`);
             if(formatsUpdated.includes(forms[0])){
-              $("#"+forms[0]+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${forms[1].trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a><a class="remove-format" id=\"remove_${forms[0]}\"><span class = \"icon-cancel-circled\"></span>${format_remove}</a>`);
+              $("#"+forms[0]+" > .plupload_file_name").after(`
+              <a target=\"_blank\" href=\"admin.php?page=photo-${forms[1].trim()}-formats\">
+                <span class=\"icon-attention update-warning\">
+                  ${format_update_warning}
+                </span>
+              </a>
+              <a class="remove-format" id=\"remove_${forms[0]}\">
+                <span class = \"icon-cancel-circled\">
+                </span>
+                ${format_remove}
+              </a>`);
               $("#remove_"+forms[0]).on("click", function(){
                 up.removeFile(forms[0]);
               });
@@ -197,10 +211,24 @@ $(function () {
               if (search.status == "found"){
                 f.format_of = search.image_id;
                 formats.push([f.id,f.format_of]);
-                $("#"+f.id+" > .plupload_file_name").append(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${f.format_of.trim()}-properties\"><span class=\"icon-eye\"></span></a>`);
+                $("#"+f.id+" > .plupload_file_name").append(`
+                <a target=\"_blank\" href=\"admin.php?page=photo-${f.format_of.trim()}-properties\">
+                  <span class=\"icon-eye\">
+                  </span>
+                </a>`);
                 if (search.format_exist)
                 {
-                  $("#"+f.id+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${f.format_of.trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a><a class="remove-format" id=\"remove_${f.id}\"><span class = \"icon-cancel-circled\"></span>${format_remove}</a>`);
+                  $("#"+f.id+" > .plupload_file_name").after(`
+                  <a target=\"_blank\" href=\"admin.php?page=photo-${f.format_of.trim()}-formats\">
+                    <span class=\"icon-attention update-warning\">
+                      ${format_update_warning}
+                    </span>
+                  </a>
+                  <a class="remove-format" id=\"remove_${f.id}\">
+                    <span class = \"icon-cancel-circled\">
+                    </span>
+                    ${format_remove}
+                  </a>`);
                   formatsUpdated.push(f.id);
                   $("#remove_"+f.id).on("click", function(){
                     up.removeFile(f.id);
@@ -253,10 +281,24 @@ $(function () {
             files.forEach((f) => {
               f.format_of = originalImageId;
               formats.push([f.id,f.format_of]);
-              $("#"+f.id+" > .plupload_file_name").append(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${f.format_of.trim()}-properties\"><span class=\"icon-eye\"></span></a>`);
+              $("#"+f.id+" > .plupload_file_name").append(`
+              <a target=\"_blank\" href=\"admin.php?page=photo-${f.format_of.trim()}-properties\">
+                <span class=\"icon-eye\">
+                </span>
+              </a>`);
               if ($forms_exts.indexOf(exts[f.id]) != -1)
               {
-                $("#"+f.id+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${originalImageId.trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a><a class="remove-format" id=\"remove_${f.id}\"><span class = \"icon-cancel-circled\"></span>${format_remove}</a>`);
+                $("#"+f.id+" > .plupload_file_name").after(`
+                <a target=\"_blank\" href=\"admin.php?page=photo-${originalImageId.trim()}-formats\">
+                  <span class=\"icon-attention update-warning\">
+                    ${format_update_warning}
+                  </span>
+                </a>
+                <a class="remove-format" id=\"remove_${f.id}\">
+                  <span class = \"icon-cancel-circled\">
+                  </span>
+                  ${format_remove}
+                </a>`);
                 formatsUpdated.push(f.id);
                 $("#remove_"+f.id).on("click", function(){
                   up.removeFile(f.id);
@@ -269,9 +311,23 @@ $(function () {
 
       FilesRemoved: function(up, file){ 
         formats.forEach((forms) => {
-          $("#"+forms[0]+" > .plupload_file_name").append(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${forms[1].trim()}-properties\"><span class=\"icon-eye\"></span></a>`);
+          $("#"+forms[0]+" > .plupload_file_name").append(`
+          <a target=\"_blank\" href=\"admin.php?page=photo-${forms[1].trim()}-properties\">
+            <span class=\"icon-eye\">
+            </span>
+          </a>`);
           if(formatsUpdated.includes(forms[0])){
-            $("#"+forms[0]+" > .plupload_file_name").after(`<a target=\"_blank\" href=\"/piwigo/admin.php?page=photo-${forms[1].trim()}-formats\"><span class=\"icon-attention update-warning\">${format_update_warning}</span></a><a class="remove-format" id=\"remove_${forms[0]}\"><span class = \"icon-cancel-circled\"></span>${format_remove}</a>`);
+            $("#"+forms[0]+" > .plupload_file_name").after(`
+            <a target=\"_blank\" href=\"admin.php?page=photo-${forms[1].trim()}-formats\">
+              <span class=\"icon-attention update-warning\">
+                ${format_update_warning}
+              </span>
+            </a>
+            <a class="remove-format" id=\"remove_${forms[0]}\">
+              <span class = \"icon-cancel-circled\">
+              </span>
+              ${format_remove}
+            </a>`);
             $("#remove_"+forms[0]).on("click", function(){
               up.removeFile(forms[0]);
             });

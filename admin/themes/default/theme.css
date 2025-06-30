@@ -1939,6 +1939,8 @@ img.ui-datepicker-trigger {
 
 .plupload_file_name a{
   margin-left: 5px;
+  position: relative;
+  bottom: 3px;
 }
 
 .plupload_file_name + a{
