@@ -133,7 +133,9 @@ y.callService(
 {$ELEMENT_CONTENT}
 
 {if isset($COMMENT_IMG)}
-<p class="imageComment">{$COMMENT_IMG}</p>
+<div class="imageComment markdown-body" style="text-align:left;margin:45px;">
+{$COMMENT_IMG}
+</div>
 {/if}
 {if isset($U_SLIDESHOW_STOP)}
 <p>
