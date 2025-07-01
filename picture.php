@@ -122,7 +122,7 @@ if ( isset($_GET['metadata']) )
 // add default event handler for rendering element content
 add_event_handler('render_element_content', 'default_picture_content');
 // add default event handler for rendering element description
-add_event_handler('render_element_description', 'pwg_nl2br');
+add_event_handler('render_element_description', 'pwg_md2html');
 
 trigger_notify('loc_begin_picture');
 

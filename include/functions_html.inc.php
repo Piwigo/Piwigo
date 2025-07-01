@@ -719,4 +719,17 @@ function pwg_nl2br($string)
   return nl2br($string);
 }
 
+function pwg_md2html($string)
+{
+  require_once 'vendor/autoload.php';
+  $parser = new Parsedown();
+  
+  if (empty($string))
+  {
+    return $string;
+  }
+
+  return $parser->text($string);
+}
+
 ?>
