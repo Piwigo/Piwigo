@@ -1733,6 +1733,27 @@ function ws_images_upload($params, $service)
     $fileName = uniqid("file_");
   }
 
+  if (isset($_REQUEST["note"]))
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+    $image_id = add_uploaded_file(
+      $conf['upload_dir'].DIRECTORY_SEPARATOR.$conf['note_icon'],
+      $fileName,
+      $params['category'],
+      $params['level'],
+      null,
+      md5($fileName)
+      );
+
+    return array(
+      'image_id' => $image_id,
+      'name' => $fileName,
+      'category' => array(
+        'id' => $params['category'][0],
+      )
+    );
+  }
+
   // change the name of the file in the buffer to avoid any unexpected
   // extension. Function add_uploaded_file will eventually clean the mess.
   $fileName = md5($fileName);

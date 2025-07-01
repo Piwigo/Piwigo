@@ -218,4 +218,13 @@ if (!isset($_SESSION['upload_hide_warnings']))
     );
 }
 
+if (isset($conf['note_icon']))
+{
+  $template->assign(
+    array(
+        'enable_create_note' => true,
+      )
+    );
+}
+
 ?>

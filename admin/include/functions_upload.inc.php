@@ -276,6 +276,10 @@ SELECT
   {
     move_uploaded_file($source_filepath, $file_path);
   }
+  elseif (isset($conf['note_icon']) && basename($source_filepath) == $conf['note_icon'])
+  {
+    $file_path = $source_filepath;
+  }
   else
   {
     rename($source_filepath, $file_path);

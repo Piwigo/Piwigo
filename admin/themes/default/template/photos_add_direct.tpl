@@ -42,6 +42,7 @@ var pwg_token = '{$pwg_token}';
 var photosUploaded_label = "{'%d photos uploaded'|translate|escape:javascript}";
 var formatsUploaded_label = "{'%d formats uploaded for %d photos'|translate|escape:javascript}";
 var batch_Label = "{'Manage this set of %d photos'|translate|escape:javascript}";
+var batch_note_Label = "{'Manage this note'|translate|escape:javascript}";
 var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape:javascript}";
 var str_format_warning = "{'Error when trying to detect formats'|translate|escape:javascript}";
 var str_ok = "{'Ok'|translate|escape:javascript}";
@@ -55,6 +56,7 @@ var format_ext = "{$format_ext}";
 var uploadedPhotos = [];
 var uploadCategory = null;
 let related_categories_ids = {$selected_category|json_encode};
+let noteMode = false;
 
 {/footer_script}
 
@@ -211,6 +213,8 @@ let related_categories_ids = {$selected_category|json_encode};
     </div>
 
     <button id="startUpload" class="buttonLike icon-upload" disabled>{'Start Upload'|translate}</button>
+
+    <button id="createNote" class="buttonLike icon-book"{if !isset($enable_create_note)} style="display:none"{/if}>{'Create Note'|translate}</button>
 
   </form>
 

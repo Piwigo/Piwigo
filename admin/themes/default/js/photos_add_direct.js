@@ -122,6 +122,33 @@ $(function () {
           up.start();
         });
 
+        $('#createNote').on('click', function (e) {
+	        noteMode = true;
+          e.preventDefault();
+          $.ajax({
+            url: "ws.php?format=json&method=pwg.images.upload",
+            type: "POST",
+            data: {
+              pwg_token: pwg_token,
+              category: ab.get_selected_albums()[0],
+              note: 1,
+            },
+	    success: function (result) {
+	      let data = JSON.parse(result);
+	      if (data.stat === 'ok') {
+	        uploadedPhotos.push(parseInt(data.result.image_id));
+		      uploadCategory = data.result.category;
+	        up.start();
+	      } else {
+	        console.error('An error has occurred');
+	      }
+	    },
+	    error: function() {
+	      console.error('An error has occurred');
+	    }
+          });
+        });
+
         $('#cancelUpload').on('click', function (e) {
           e.preventDefault();
           up.stop();
@@ -135,6 +162,7 @@ $(function () {
       QueueChanged: function (up) {
         $('#addFiles').addClass("addFilesButtonChanged");
         $('#startUpload').prop('disabled', up.files.length == 0);
+        $('#createNote').prop('disabled', up.files.length > 0);
         $("#addFiles").removeClass('buttonLike').addClass('buttonLike');
 
         if (up.files.length > 0) {
@@ -234,6 +262,7 @@ $(function () {
       BeforeUpload: function (up, file) {
         // hide buttons
         $('#startUpload, .selectFilesButtonBlock').hide();
+        $('#createNote, .selectFilesButtonBlock').hide();
         $('#uploadingActions').show();
         $('.format-mode-group-manager').hide();
         $('#selectedAlbumEdit').hide();
@@ -329,7 +358,7 @@ $(function () {
         $(".infos").append('<ul><li>' + infoText + '</li></ul>');
 
 
-        if (!formatMode) {
+        if (!formatMode && !noteMode) {
           html = sprintf(
             albumSummary_label,
             '<a href="admin.php?page=album-' + uploadCategory.id + '">' + uploadCategory.label + '</a>',
@@ -345,8 +374,13 @@ $(function () {
         // pwg.caddie.add(uploadedPhotos) instead of relying on huge GET parameter
         // (and remove useless code from admin/photos_add_direct.php)
 
-        $(".batchLink").attr("href", "admin.php?page=photos_add&section=direct&batch=" + uploadedPhotos.join(","));
-        $(".batchLink").html(sprintf(batch_Label, uploadedPhotos.length));
+	if (!noteMode) {
+          $(".batchLink").attr("href", "admin.php?page=photos_add&section=direct&batch=" + uploadedPhotos.join(","));
+          $(".batchLink").html(sprintf(batch_Label, uploadedPhotos.length));
+        } else {
+          $(".batchLink").attr("href", "admin.php?page=photo-" + uploadedPhotos.join(","));
+          $(".batchLink").html(sprintf(batch_note_Label));
+        }
 
         $(".afterUploadActions").show();
         $('#uploadingActions').hide();

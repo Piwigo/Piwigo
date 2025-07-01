@@ -223,6 +223,11 @@ SELECT
     {
       foreach ($files as $path)
       {
+        if (isset($conf['note_icon']) && basename($path) == $conf['note_icon'])
+        {
+          // skip delete note origin
+          continue;
+        }
         if (is_file($path) and !unlink($path))
         {
           $ok = false;

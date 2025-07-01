@@ -223,9 +223,17 @@ $image_file = $row['file'];
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
+if (isset($conf['note_icon']) && basename($row['path']) == $conf['note_icon'])
+{
+  $picture_modify = 'note_modify.tpl';
+}
+else
+{
+  $picture_modify = 'picture_modify.tpl';
+}
 $template->set_filenames(
   array(
-    'picture_modify' => 'picture_modify.tpl'
+    'picture_modify' => $picture_modify
     )
   );
 

@@ -215,6 +215,7 @@ function modus_thumbs($x, $smarty)
 
 	$new_icon = " <span class=albSymbol title=\"".l10n('posted on %s')."\">".MODUS_STR_RECENT.'</span>';
 
+	$notes = array();
 	foreach($smarty->getTemplateVars('thumbnails') as $item)
 	{
 		$src_image = $item['src_image'];
@@ -234,13 +235,27 @@ function modus_thumbs($x, $smarty)
 			$a_style=' style="top:'.floor(($row_height-$csize[1])/2).'px"';
 		elseif ($csize[1] > $row_height)
 			$csize = $c->get_scaled_size(9999, $row_height);
-		if ($do_over) {?>
+		if (isset($conf['note_icon']) && basename($c->get_url()) == $conf['note_icon']) {
+			$a_style=' style="top:'.floor(($row_height-$csize[1])/2).'px;display:flex;"';
+			$notes[] = "<li class='path-ext-{$item["path_ext"]} file-ext-{$item["file_ext"]}' style='width:auto !important;height:auto;overflow:visible;'>"
+					 . "<a href='{$item['URL']}'{$a_style}>"
+					 . "<img src='{$c->get_url()}' width='{$csize[0]}' height='{$csize[1]}' alt='{$item['TN_ALT']}'>"
+					 . "<div>{$item['NAME']}</div></a></li>";
+        } elseif ($do_over) {?>
 <li class="path-ext-<?=$item["path_ext"]?> file-ext-<?=$item["file_ext"]?>" style=width:<?=$csize[0]?>px;height:<?=$row_height?>px><a href="<?=$item['URL']?>"<?=$a_style?>><img src="<?=$c->get_url()?>" width=<?=$csize[0]?> height=<?=$csize[1]?> alt="<?=$item['TN_ALT']?>"></a><div class=overDesc><?=$item['NAME']?><?=$new?></div></li>
 <?php
 		} else {?>
 <li class="path-ext-<?=$item["path_ext"]?> file-ext-<?=$item["file_ext"]?>" style=width:<?=$csize[0]?>px;height:<?=$row_height?>px><a href="<?=$item['URL']?>"<?=$a_style?>><img src="<?=$c->get_url()?>" width=<?=$csize[0]?> height=<?=$csize[1]?> alt="<?=$item['TN_ALT']?>"></a></li>
 <?php
 		}
+	}
+
+	if (!empty($notes)) {?>
+</ul>
+<h1>Note</h1>
+<ul class="thumbnails" id="notes">
+<?=implode("\n", $notes);?>
+<?php
 	}
 
 	$template->block_html_style(null,
