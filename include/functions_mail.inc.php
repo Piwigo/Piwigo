@@ -769,7 +769,8 @@ function pwg_mail($to, $args=array(), $tpl=array())
           'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
           'PHPWG_URL' => defined('PHPWG_URL') ? PHPWG_URL : '',
           'CONTENT_ENCODING' => get_pwg_charset(),
-          'CONTACT_MAIL' => $conf_mail['email_webmaster'],
+          //TBD
+          //'CONTACT_MAIL' => $conf_mail['email_webmaster'],
           )
         );
 

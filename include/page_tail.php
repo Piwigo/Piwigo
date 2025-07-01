@@ -17,7 +17,9 @@ $template->assign(
 
 //--------------------------------------------------------------------- contact
 
-if (!is_a_guest())
+//TBD
+//if (!is_a_guest())
+if (false)
 {
   $template->assign(
     'CONTACT_MAIL', get_webmaster_mail_address()
