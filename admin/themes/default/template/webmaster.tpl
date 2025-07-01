@@ -58,6 +58,13 @@ jQuery(document).ready(function() {
 {/if}
 				<li><a href="{$U_TAGS}"><i class="icon-tags"></i>{'Tags'|@translate}</a></li>
 				<li><a href="{$U_RECENT_SET}"><i class="icon-clock"></i>{'Recent photos'|@translate}</a></li>
+				<li><a href="{$U_BATCH}"><i class="icon-th"></i>{'Batch Manager'|@translate}</a></li>
+{if $NB_PHOTOS_IN_CADDIE > 0}
+				<li><a href="{$U_CADDIE}"><i class="icon-flag"></i>{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
+{/if}
+{if $NB_ORPHANS > 0}
+				<li><a href="{$U_ORPHANS}"><i class="icon-heart-broken"></i>{'Orphans'|@translate}<span class="adminMenubarCounter">{$NB_ORPHANS}</span></a></li>
+{/if}
 			</ul>
 		</dd>
   </dl>
@@ -70,11 +77,59 @@ jQuery(document).ready(function() {
       </ul>
     </dd>
   </dl>
+  <dl>
+		<dt><i class="icon-users"> </i><span>{'Users'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
+		<dd>
+      <ul>
+        <li><a href="{$U_USERS}"><i class="icon-user-add"></i>{'Manage'|@translate}</a></li>
+        <li><a href="{$U_GROUPS}"><i class="icon-group"></i>{'Groups'|@translate}</a></li>
+				<li><a href="{$U_NOTIFICATION_BY_MAIL}"><i class="icon-mail-1"></i>{'Notification'|@translate}</a></li>
+      </ul>
+		</dd>
+  </dl>
+  <dl>
+		<dt><a href="{$U_PLUGINS}" class="admin-main"><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span></a></dt>
+  </dl>
+  <dl>
+		<dt><i class="icon-wrench"> </i><span>{'Tools'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
+		<dd>
+      <ul>
+{if $ENABLE_SYNCHRONIZATION}
+        <li><a href="{$U_CAT_UPDATE}"><i class="icon-exchange"></i>{'Synchronize'|@translate}</a></li>
+{/if}
+				<li><a href="{$U_HISTORY_STAT}"><i class="icon-signal"></i>{'History'|@translate}</a></li>
+				<li><a href="{$U_MAINTENANCE}"><i class="icon-tools"></i>{'Maintenance'|@translate}</a></li>
+{if isset($U_COMMENTS)}
+				<li><a href="{$U_COMMENTS}"><i class="icon-chat"></i>{'Comments'|@translate}
+        {if isset($NB_PENDING_COMMENTS) and $NB_PENDING_COMMENTS > 0}
+          <span class="adminMenubarCounter" title="{'%d waiting for validation'|translate:$NB_PENDING_COMMENTS}">{$NB_PENDING_COMMENTS}</span>
+        {/if}</a></li>
+{/if}
+{if isset($U_UPDATES)}
+        <li><a href="{$U_UPDATES}"><i class="icon-arrows-cw"></i>{'Updates'|@translate}</a></li>
+{/if}
+      </ul>
+		</dd>
+  </dl>
+  <dl>
+		<dt><i class="icon-cog"> </i><span>{'Configuration'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
+		<dd>
+      <ul>
+        <li><a href="{$U_CONFIG_GENERAL}"><i class="icon-cog-alt"></i>{'Options'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_MENUBAR}"><i class="icon-menu"></i>{'Menu Management'|@translate}</a></li>
+        {if {$U_SHOW_TEMPLATE_TAB}}
+          <li><a href="{$U_CONFIG_EXTENTS}"><i class="icon-code"></i>{'Templates'|@translate}</a></li>
+        {/if}
+				<li><a href="{$U_CONFIG_LANGUAGES}"><i class="icon-language"></i>{'Languages'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_THEMES}"><i class="icon-brush"></i>{'Themes'|@translate}</a></li>
+      </ul>
+    </dd>
+  </dl>
 </div> <!-- menubar -->
 
 <div id="content" class="content">
 
-  <h1>{$ADMIN_PAGE_TITLE} - admin<span class="admin-object-id">{$ADMIN_PAGE_OBJECT_ID}</span></h1>
+  <h1>{$ADMIN_PAGE_TITLE} - webmaster<span class="admin-object-id">{$ADMIN_PAGE_OBJECT_ID}</span></h1>
 
   {if isset($TABSHEET)}
   {$TABSHEET}
@@ -118,6 +173,17 @@ jQuery(document).ready(function() {
     <ul>
       {foreach from=$warnings item=warning}
       <li>{$warning}</li>
+      {/foreach}
+    </ul>
+  </div>
+  {/if}
+
+  {if isset($messages)}
+  <div class="messages">
+    <i class="eiw-icon icon-info-circled-1"></i>
+    <ul>
+      {foreach from=$messages item=message}
+      <li>{$message}</li>
       {/foreach}
     </ul>
   </div>

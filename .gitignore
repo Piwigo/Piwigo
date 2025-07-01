@@ -22,3 +22,10 @@
 # Eclipse
 .settings
 .project
+
+# composer
+composer.lock
+/vendor
+
+# workfile
+*.bak

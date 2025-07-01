@@ -133,6 +133,9 @@ function add_core_tabs($sheets, $tab_id)
 
     case 'photos_add':
       $sheets['direct'] = array('caption' => '<span class="icon-upload"></span>'.l10n('Web Form'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=direct');
+      if (isset($conf['simple_mode']) && $conf['simple_mode']) {
+        break;
+      }
       $sheets['applications'] = array('caption' => '<span class="icon-network"></span>'.l10n('Applications'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=applications');
       if ($conf['enable_synchronization'])
         $sheets['ftp'] = array('caption' => '<span class="icon-exchange"></span>'.l10n('FTP + Synchronization'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=ftp');

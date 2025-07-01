@@ -193,7 +193,11 @@ $title = l10n('Piwigo Administration'); // for include/page_header.php
 $page['page_banner'] = '<h1>'.l10n('Piwigo Administration').'</h1>';
 $page['body_id'] = 'theAdminPage';
 
-$template->set_filenames(array('admin' => 'admin.tpl'));
+if (isset($conf['simple_mode']) && $conf['simple_mode'] && !is_webmaster()) {
+  $template->set_filenames(array('admin' => 'admin.tpl'));
+} else {
+  $template->set_filenames(array('admin' => 'webmaster.tpl'));
+}
 
 $template->assign(
   array(
