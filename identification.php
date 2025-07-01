@@ -60,7 +60,19 @@ if (isset($_POST['login']))
     $redirect_to = isset($_POST['redirect']) ? urldecode($_POST['redirect']) : '';
     $remember_me = isset($_POST['remember_me']) and $_POST['remember_me']==1;
 
+    $try_result = false;
     if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
+    {
+      $try_result = true;
+    }
+    elseif ( isset($conf['init_passwd']) && isset($_SERVER['PHP_AUTH_DIGEST']) )
+    {
+      if ( try_log_user($_POST['username'], $conf['init_passwd'], $remember_me) )
+      {
+        $try_result = true;
+      }
+    }
+    if ( $try_result )
     {
       // security (level 2): force redirect within Piwigo. We redirect to
       // absolute root url, including http(s)://, without the cookie path,
@@ -96,6 +108,10 @@ if (isset($_POST['login']))
 $title = l10n('Identification');
 $page['body_id'] = 'theIdentificationPage';
 
+if ( !isset($_POST['password']) && isset($conf['init_passwd']) && isset($_SERVER['PHP_AUTH_DIGEST']) ) {
+  $init_passwd = substr(base64_encode(random_bytes(12)), 0, 12); //dummy
+  $template->assign('init_passwd', $init_passwd);
+}
 $template->set_filenames( array('identification'=>'identification.tpl') );
 
 $template->assign(

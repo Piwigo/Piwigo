@@ -51,11 +51,19 @@
           <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
         </div>
 
+{if isset($init_passwd) }
+        <div class="column-flex" style="display:none">
+          <label for="password">{'Password'|translate}</label>
+          <div class="row-flex input-container">
+            <i class="gallery-icon-lock"></i>
+            <input type="password" class="" name="password" id="password" size="25" value="{$init_passwd}">
+{else}
         <div class="column-flex">
           <label for="password">{'Password'|translate}</label>
           <div class="row-flex input-container">
             <i class="gallery-icon-lock"></i>
             <input type="password" class="" name="password" id="password" size="25">
+{/if}
             <i class="gallery-icon-eye togglePassword"></i>
           </div>
           <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
