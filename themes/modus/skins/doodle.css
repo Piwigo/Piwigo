@@ -1,0 +1,567 @@
+body {
+  background-color:white;
+  color:black;
+}
+
+#theHeader div.banner, #theHeader div.banner:hover{
+  color:white;
+}
+
+#copyright{
+  color:#666;
+  background-color:#f9f9f9;
+}
+
+#copyright A{
+  color:#666;
+}
+
+.infos{
+  background:#096a09 url(../../default/icon/infos.png) no-repeat center right;
+  color:white;
+}
+
+h2{
+  color:black;
+}
+
+.albLegend{
+  color:white;
+}
+
+H3, label{
+  color:#000000;
+}
+
+A{
+  color:#000000;
+}
+
+a:hover{
+  text-decoration:underline;
+  font-weight:normal;
+  color:black;
+}
+
+#menubar{
+  background-color:#6F4F28;
+}
+
+#comentAdd INPUT[type="text"], INPUT[type="password"], #comentAdd SELECT, #comentAdd TEXTAREA, #comments input[type="text"], #comments TEXTAREA{
+  background-color:#6F4F28;
+  color:white;
+}
+
+::placeholder, #commentAdd ::placeholder {
+  color:#d6d6d6;
+}
+
+#qsearchInput{
+  border:1px solid #fff;
+  color:white;
+}
+
+.selectize-control.multi .selectize-input [data-value].active,
+.selectize-control.multi .selectize-input > div{
+  background-color:#777 ;
+  color:#ddd;
+}
+
+.selectize-input{
+  background-color: #363636;
+  color: white;
+  border:none;
+  border-radius:0;
+}
+
+.selectize-control .plugin-remove_button [data-value] .remove{
+  border-left-color:#333333;
+}
+
+#menubar DT,
+#menubar DT A,
+#thePicturePage .titrePage h2,
+#thePicturePage .titrePage A,
+#thePicturePage .browsePath,
+fieldset h3,
+dt,
+dd,
+.switchBox,
+.switchBox a,
+.imageInfoTable a,
+.imageInfoTable a:hover,
+.wide .imageInfoTable,
+.wide #imageInfos a,
+.wide #imageInfos h3,
+#imageHeaderBar .imageNumber {
+  color:white;
+}
+
+fieldset label{
+  color:black;
+}
+
+#menubar DD{
+  background-color:#383838;
+  color:white;
+  box-shadow:none;
+}
+
+#menubar DD A{
+  color:white;
+  text-decoration:none;
+  font-size:15px;
+}
+
+#menubar DD A:hover{
+  text-decoration:underline;
+}
+
+INPUT[type="button"],
+INPUT[type="submit"],
+INPUT[type="reset"],
+#menubar INPUT{
+  color:white;
+}
+
+INPUT[type="submit"] {
+  background-color: #383838;
+  color: white;
+}
+
+.wide #imageToolBar{
+  background-color:white;
+}
+
+.badge{
+  background-color: #777;
+  border-radius:0px!important;
+  color:#ddd;
+}
+
+.wide .imageInfoTable,
+.wide #imageInfos{
+  background-color:#6F4F28;
+}
+
+#imageInfos{
+  background-color:#6F4F28;
+  color:white;
+}
+
+A .pwg-icon {
+  color:#000000;
+}
+
+#quickconnect input:focus,
+#quickconnect input,
+.properties input,
+.properties input:focus {
+  color:white;
+  background-color:#6F4F28;
+}
+
+.properties input, .properties input:focus {
+  background-color:#6F4F28;
+  color:white;
+}
+
+fieldset legend{
+  color:white;
+}
+
+.titrePage{
+  background-color:white;
+  color:black;
+}
+
+.titrePage H2 A,
+#imageHeaderBar H2{
+  color:black;
+  text-shadow:none;
+}
+
+
+.titrePage H2 span.badge {
+  background-color: #777;
+  color: #fff;
+}
+
+.titrePage A{
+  color:white;
+}
+
+#calendarViewSwitchLink,
+.browsePath,
+#profile,
+#profile fieldset h3,
+#profile fieldset label,
+.properties fieldset span label {
+  color:black;
+}
+
+#thePicturePage .titrePage{
+ background-color: #6F4F28;
+}
+
+.switchBoxTitle{
+  border-bottom: 2px solid #555;
+}
+
+#comments input[type='text'],
+#comments textarea{
+  background-color:#6F4F28;
+  color:white;
+}
+
+.overDesc{
+  background-color:rgba(0,0,0,0.6)
+}
+
+.commentsList,
+.commentsList a {
+  color:black;
+}
+
+.commentElement{
+  background-color:#e7e7e7;
+}
+
+hr{
+  border-bottom: 2px solid #555;
+}
+
+#theSearchPage fieldset legend {
+  color:black;
+}
+
+
+.filter input,
+.filter input:focus,
+.selectize-input > input,
+INPUT[type="text"],
+INPUT[type="password"],
+SELECT,
+TEXTAREA{
+  background-color:#363636 ;
+  color:white;
+}
+
+.date_today:hover{
+  color:black;
+}
+
+#start_day,
+#start_month,
+#end_day,
+#end_month {
+  background-color: #363636;
+  color:white;
+}
+
+.filter select{
+  background-color: #363636;
+  color:white;
+}
+
+.contact input[type="text"],
+.contact textarea,
+.contact select{
+  background-color:#383838;
+  color:white;
+}
+
+.calItem,
+.calItem:hover{
+  color:black;
+  border:1px solid black;
+}
+
+.content .navigationBar,
+SPAN.calItem,
+TD.calDayCellEmpty,
+content .navigationBar:hover,
+SPAN.calItem:hover,
+TD.calDayCellEmpty:hover{
+  color:#777;
+  border:1px solid #777;
+}
+
+.content .navigationBar,
+.content .navigationBar:hover {
+  border: none;
+}
+
+DIV.thumbHover{
+  color:white;
+  border: 1px solid white;
+}
+
+#fullTagCloud span a{
+  color:black;
+}
+
+#fullTagCloud span a:hover{
+  text-decoration:underline;
+}
+
+LEGEND.tagLetterLegend,
+FIELDSET.tagLetter{
+  border:none;
+  color:black;
+}
+
+td .nbEntries{
+  background-color:#fff;
+  border:solid 1px #eee;
+  color:#bbb ;
+}
+
+.totalImages{
+  border-top:solid 2px #555;
+}
+
+.selectize-control.plugin-remove_button [data-value] .remove {
+  border-left:solid 1px #333333;
+}
+
+.message{
+  background-color:#363636;
+}
+
+.notification a{
+  text-decoration:underline;
+}
+
+.categoryActions .pwg-button{
+  color:#363636;
+}
+
+@media screen and (max-width: 640px){
+  #derivativeSwitchLink .pwg-icon pwg-icon-sizes{
+    color:white;
+  }
+  #albumActionsSwitcher + .categoryActions .pwg-button-text,
+  #imageToolBar .actionButtons .pwg-button-text,
+   .actionButtons A .pwg-icon,
+   .actionButtons A .pwg-icon:hover {
+    color:white;
+  }
+  .categoryActions a .pwg-icon{
+    color:white ;
+  }
+
+  #theTagsPage A .pwg-icon,
+  #theTagsPage A:hover .pwg-icon{
+    color:black ;
+  }
+}
+
+.gallery-icon-search-folder:before {
+  font-size: 19px;
+}
+
+#downloadSwitchLink,
+#derivativeSwitchLink,
+#sortOrderLink,
+.uc-icon-star-filled,
+.uc-icon-star{
+  color:black!important;
+}
+
+/*
+ * サムネ枠
+ */
+.albThumbs li {
+  /* 背景を少しクリーム色にして、古いアルバムの紙っぽさを出す */
+  background-color: #f8f8f0; 
+  /* 枠線は少し太めの鉛筆で描いたような線 */
+  border: 4px solid #a0a0a0;
+  border-left: 12px solid #666;
+  /* 角を少しだけ丸くして、やわらかい印象に */
+  border-radius: 5px;
+  /* 影をつけて、少し浮き上がって見えるように */
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  /* 内側に余白を持たせて、写真と枠の間にスペースを作る */
+  padding: 8px; 
+  /* 写真がはみ出さないように */
+  overflow: visible;
+  /* 配置の調整（必要であれば） */
+  display: inline-block; /* 横並びにする場合 */
+  margin: 10px; /* アイテム間の余白 */
+  vertical-align: top; /* 上端を揃える */
+}
+
+.albThumbs li img {
+  /* 写真が枠に収まるように */
+  max-width: 100%;
+  height: auto;
+  /* 写真の周りに少し余白を持たせて、貼り付けた感じを出す */
+  margin-bottom: 5px; 
+  /* 写真に薄い影をつけて、貼り付けた紙のようにも見せる */
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+/*
+ * Markdown
+ */
+.markdown-body {
+  font-family: 'Segoe UI', 'BIZ UDGothic', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  color: #333333;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.markdown-body h1, h2, h3, h4, h5, h6 {
+  padding: 0.5em 0.5em 0.25em;
+  margin: 1em 0 0.5em;
+}
+
+.markdown-body h1 {
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
+  background: #708269;
+  border-left: 8px solid #708269;
+  border-radius: 10px 10px 0 0;
+}
+
+.markdown-body h2 {
+  font-size: x-large;
+  font-weight: bold;
+  border-left: 8px solid #708269;
+}
+
+.markdown-body h3 {
+  font-size: large;
+  font-weight: bold;
+  border-left: 8px solid #708269;
+}
+
+.markdown-body h4 {
+  font-size: medium;
+  font-weight: bold;
+  border-left: 8px dashed #708269;
+}
+
+.markdown-body h5 {
+  font-size: medium;
+  font-weight: normal;
+  border-left: 8px double #708269;
+}
+
+.markdown-body h6 {
+  font-size: small;
+  font-weight: normal;
+  border-left: 8px double #708269;
+}
+
+/* 段落 */
+.markdown-body p {
+  margin-bottom: 0.8em; /* 段落の下の余白を減らす */
+}
+
+/* リンク */
+.markdown-body a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+/* リスト */
+.markdown-body ol li {
+  list-style-type: space-counter;
+  margin-bottom: 0.5em;
+}
+
+.markdown-body ul li {
+  list-style-type: circle;
+  margin-bottom: 0.5em;
+}
+
+/* コードブロック */
+.markdown-body pre {
+  background-color: #f6f8fa;
+  border: 1px solid #e0e0e0;
+  padding: 0.8em; /* パディングを少し減らす */
+  border-radius: 3px; /* 角を少し丸く */
+  overflow-x: auto;
+  margin-bottom: 0.8em;
+}
+
+/* インラインコード */
+.markdown-body code {
+  font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.85em; /* フォントサイズを少し小さく */
+  color: #c7254e;
+  background-color: #f9f2f4;
+  padding: 0.15em 0.3em; /* パディングを少し減らす */
+  border-radius: 2px;
+}
+
+/* コードブロック内のコード (pre code) */
+.markdown-body pre code {
+  color: #333333;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* 引用 (blockquote) */
+.markdown-body blockquote {
+  border-left: 3px solid #ced4da; /* 左側の線を少し細く */
+  padding: 0.4em 0.8em; /* パディングを減らす */
+  margin: 0 0 0.8em 0;
+  color: #6a737d;
+  background-color: #f7f7f7;
+}
+
+/* テーブル */
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.8em;
+  font-size: 0.9em; /* テーブルのフォントサイズを少し小さく */
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid #e0e0e0;
+  padding: 0.6em; /* パディングを減らす */
+  text-align: left;
+}
+
+.markdown-body th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+/* 画像 */
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.8em auto; /* 上下の余白を減らす */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* 影を控えめに */
+  border-radius: 3px;
+}
+
+/* 水平線 */
+.markdown-body hr {
+  border: none;
+  border-top: 1px solid #f0f0f0; /* 薄い線 */
+  margin: 1.5em 0; /* 上下の余白を減らす */
+}
+
+/* 太字と斜体 */
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body em {
+  font-style: italic;
+}
