@@ -3976,8 +3976,8 @@ a#showPermissions {padding: 5px 10px; font-size: 11px; font-weight: bold; margin
 a#showPermissions:hover {text-decoration: none;}
 
 #uploadForm .plupload_buttons, #uploadForm .plupload_progress { display:none !important; }
-#uploadForm #startUpload { margin:5px 0 15px 25px; padding:8px 10px; font-size:1.1em; }
-#uploadForm #startUpload:before,
+#uploadForm #startUpload #createNote { margin:5px 0 15px 25px; padding:8px 10px; font-size:1.1em; }
+#uploadForm #startUpload #createNote:before,
 #uploadForm #btnPhotosAS:before,
 #uploadForm #addFiles:before {
   margin-right:0.5em;
@@ -7928,4 +7928,37 @@ color:#FF7B00;
   cursor: pointer;
   box-shadow: 0px 4px 4px 0px #00000040;
   font-size: 10px;
+}
+
+/*
+ * Note modify
+ */
+#picture-content.note-modify-content {
+  max-width: 90%;
+  min-width: 400px;
+}
+
+/* その子孫要素へのスタイルも、このセレクタを基準に指定 */
+#picture-content.note-modify-content #picture-infos {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+}
+
+#picture-content.note-modify-content #picture-preview {
+  width: 100%;
+  position: relative;
+  background-color: #3c3c3c;
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  margin-left: 30px;
+  max-width: 100%;
+}
+
+#picture-content.note-modify-content .info-framed {
+  max-width: 100%;
+}
+
+#picture-content.note-modify-content .info-framed-container {
+  max-width: 100%;
 }
