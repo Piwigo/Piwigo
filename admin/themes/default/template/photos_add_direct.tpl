@@ -33,14 +33,20 @@
 {footer_script}
 
 const formatMode = {if $DISPLAY_FORMATS}true{else}false{/if};
+const updateMode = {if $UPDATE_IMAGES}true{else}false{/if};
 const haveFormatsOriginal = {if $HAVE_FORMATS_ORIGINAL}true{else}false{/if};
 const originalImageId = haveFormatsOriginal? '{if isset($FORMATS_ORIGINAL_INFO['id'])} {$FORMATS_ORIGINAL_INFO['id']} {else} -1 {/if}' : -1;
+const imageFormatsExtensions = '{$FORMATS_EXT_INFO}';
 const nb_albums = {$NB_ALBUMS|escape:javascript};
 const chunk_size = '{$chunk_size}kb';
 const max_file_size = '{$max_file_size}mb';
+const format_update_warning = "{'This format already exists, it will be overwritten !'|translate}";
+const format_remove = "{'Remove'|translate}";
 var pwg_token = '{$pwg_token}';
-var photosUploaded_label = "{'%d photos uploaded'|translate|escape:javascript}";
-var formatsUploaded_label = "{'%d formats uploaded for %d photos'|translate|escape:javascript}";
+var photosAdded_label = "{'%d photos uploaded'|translate|escape:javascript}";
+var photosUpdated_label = "{'%d photos updated'|translate|escape:javascript}";
+var formatsAdded_label = "{'%d formats added for %d photos'|translate|escape:javascript}";
+var formatsUpdated_label = "{'%d formats updated for %d photos'|translate|escape:javascript}";
 var batch_Label = "{'Manage this set of %d photos'|translate|escape:javascript}";
 var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape:javascript}";
 var str_format_warning = "{'Error when trying to detect formats'|translate|escape:javascript}";
@@ -54,7 +60,17 @@ var file_ext = "{$file_exts}";
 var format_ext = "{$format_ext}"; 
 var uploadedPhotos = [];
 var uploadCategory = null;
+var addedPhotos = [];
+var updatedPhotos = [];
 let related_categories_ids = {$selected_category|json_encode};
+
+if(!updateMode)
+  $("#uploadOptionsContent").hide();
+$("#uploadOptions").on("click", function(){
+  $("#uploadOptionsContent").slideToggle();
+  $(".moxie-shim-html5").css("display", "none");
+})
+
 
 {/footer_script}
 
@@ -103,7 +119,7 @@ let related_categories_ids = {$selected_category|json_encode};
 
   {if $ENABLE_FORMATS and $can_upload}
     <div class="format-mode-group-manager">
-    <label class="switch" onClick="window.location.replace('{$SWITCH_MODE_URL}'); $('.switch .slider').addClass('loading');">
+    <label class="switch" onClick="window.location.replace('{$SWITCH_FORMAT_MODE_URL}'); $('.switch .slider').addClass('loading');">
       <input type="checkbox" id="toggleFormatMode" {if $DISPLAY_FORMATS}checked{/if}>
       <span class="slider round"></span>
     </label>
@@ -171,7 +187,29 @@ let related_categories_ids = {$selected_category|json_encode};
     </fieldset>
 *}
     <fieldset class="selectFiles">
-      <legend><span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}</legend>
+
+      <legend>
+        <div style="display:flex;align-items: center;">
+          <span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}
+          {if !$DISPLAY_FORMATS}
+          <div id="uploadOptions" class="upload-options">
+            <span class="icon-equalizer rotate-element"></span>{'Options'|@translate}
+          </div>
+          {/if}
+        </div>
+      {if !$DISPLAY_FORMATS}
+      <div class="upload-options-content" id="uploadOptionsContent">
+        <label class="switch" onClick="window.location.replace('{$SWITCH_UPDATE_IMAGES_MODE_URL}'); $('.switch .slider').addClass('loading');">
+          <input type="checkbox" id="toggleUpdateMode" {if $UPDATE_IMAGES}checked{/if}>
+          <span class="slider round"></span>
+        </label>
+        <div style="margin-left: 6px;">
+          <p>{'If file already exists, update it'|@translate}</p>
+        </div>
+      </div>
+      {/if}
+      </legend>
+
       <div class="selectFilesButtonBlock">
         <button id="addFiles" class="buttonLike icon-plus-circled" {if !$can_upload}disabled{/if}>
           {if not $DISPLAY_FORMATS}{'Add Photos'|translate}{else}{'Add formats'|@translate}{/if}
