@@ -2,7 +2,22 @@
 
 {footer_script}
 
-filters_names = ["words","tags","post_date","creation_date","album","author","added_by","file_type","ratio","rating","file_size","height","width"];
+filters_names = 
+[
+  'words',
+  'tags',
+  'post_date',
+  'creation_date',
+  'album',
+  'author',
+  'added_by',
+  'file_type',
+  'ratio',
+  'rating',
+  'file_size',
+  'height',
+  'width'
+];
 
 for(const filter_name of filters_names){
   if(!$("input#"+filter_name+"Filters").is(':checked')){
@@ -66,7 +81,14 @@ for(const filter_name of filters_names){
       <li class="filters-grid">
         <label class="font-checkbox">
           <span class="icon-check"></span>
-          <input type="checkbox" class="filters-icon-check" name="filters_views_box[{$filter_name}]" id="{$filter_name}Filters" {if ($search.filters_views.$filter_name.access != "nobody" and !($filter_name == "rating" and !$SHOW_FILTER_RATINGS))}checked="checked"{/if} {if ($filter_name == "rating" and !$SHOW_FILTER_RATINGS)}disabled{/if}>
+          <input type="checkbox" class="filters-icon-check" name="filters_views_box[{$filter_name}]" id="{$filter_name}Filters" 
+          {if ($search.filters_views.$filter_name.access != 'nobody' and !($filter_name == 'rating' and !$SHOW_FILTER_RATINGS))}
+            checked="checked"
+          {/if} 
+          {if ($filter_name == 'rating' and !$SHOW_FILTER_RATINGS)}
+            disabled
+          {/if}
+          >
           {ucfirst(str_replace('_', ' ', $filter_name))|translate}
         </label>
         <div class='select-views-arrow icon-down-open' id="{$filter_name}Arrow"> </div>
@@ -95,55 +117,107 @@ for(const filter_name of filters_names){
 
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options gallery-icon-search">{'Words'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[words][default]" id="default_words" {if ($search.filters_views.words.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[words][default]" id="default_words" 
+      {if ($search.filters_views.words.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options gallery-icon-tag">{'Tags'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[tags][default]" id="default_tags" {if ($search.filters_views.tags.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[tags][default]" id="default_tags" 
+      {if ($search.filters_views.tags.default)}
+        checked="checked"
+        {/if} 
+        hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options gallery-icon-calendar-plus">{'Post date'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[post_date][default]" id="default_post_date" {if ($search.filters_views.post_date.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[post_date][default]" id="default_post_date" 
+      {if ($search.filters_views.post_date.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options gallery-icon-calendar">{'Creation date'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[creation_date][default]" id="default_creation_date" {if ($search.filters_views.creation_date.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[creation_date][default]" id="default_creation_date" 
+      {if ($search.filters_views.creation_date.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options gallery-icon-album">{'Album'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[album][default]" id="default_album" {if ($search.filters_views.album.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[album][default]" id="default_album" 
+      {if ($search.filters_views.album.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options gallery-icon-user-edit">{'Author'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[author][default]" id="default_author" {if ($search.filters_views.author.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[author][default]" id="default_author" 
+      {if ($search.filters_views.author.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options icon-user-1">{'Added by'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[added_by][default]" id="default_added_by" {if ($search.filters_views.added_by.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[added_by][default]" id="default_added_by" 
+      {if ($search.filters_views.added_by.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options icon-file-image">{'File type'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[file_type][default]" id="default_file_type" {if ($search.filters_views.file_type.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[file_type][default]" id="default_file_type" 
+      {if ($search.filters_views.file_type.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options icon-crop">{'Ratio'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[ratio][default]" id="default_ratio" {if ($search.filters_views.ratio.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[ratio][default]" id="default_ratio" 
+      {if ($search.filters_views.ratio.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options icon-star">{'Rating'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[rating][default]" id="default_rating" {if ($search.filters_views.rating.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[rating][default]" id="default_rating" 
+      {if ($search.filters_views.rating.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options icon-hdd">{'Filesize'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[file_size][default]" id="default_file_size" {if ($search.filters_views.file_size.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[file_size][default]" id="default_file_size" 
+      {if ($search.filters_views.file_size.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options gallery-icon-height">{'Height'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[height][default]" id="default_height" {if ($search.filters_views.height.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[height][default]" id="default_height" 
+      {if ($search.filters_views.height.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
     <label class="filter-manager-options-container">
       <span class="mcs-icon-options gallery-icon-width">{'Width'|translate}</span>
-      <input type="checkbox" class="filter-manager-options-check" name="filters_views[width][default]" id="default_width" {if ($search.filters_views.width.default)}checked="checked"{/if} hidden/>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[width][default]" id="default_width" 
+      {if ($search.filters_views.width.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
     </label>
 
   </fieldset>

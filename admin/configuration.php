@@ -113,19 +113,19 @@ $display_info_checkboxes = array(
   );
 
 $filters_names_checkboxes = array(
-  "words",
-  "tags",
-  "post_date",
-  "creation_date",
-  "album",
-  "author",
-  "added_by",
-  "file_type",
-  "ratio",
-  "rating",
-  "file_size",
-  "height",
-  "width"
+  'words',
+  'tags',
+  'post_date',
+  'creation_date',
+  'album',
+  'author',
+  'added_by',
+  'file_type',
+  'ratio',
+  'rating',
+  'file_size',
+  'height',
+  'width'
 );
 
 // image order management

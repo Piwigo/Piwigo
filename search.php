@@ -32,19 +32,37 @@ $search = array(
 //import the conf for the filters
 $filters_conf = unserialize($conf['filters_views']);
 //change the name of the keys so that they can be used with this part of the program
-$filters_conf = array_combine(array("allwords", "tags", "date_posted", "date_created", "cat", "author", "added_by", "filetypes", "ratios", "ratings", "filesize", "height", "width", "last_filters_conf"), $filters_conf);
+$filters_conf = array_combine
+(
+  array('allwords',
+  'tags',
+  'date_posted',
+  'date_created',
+  'cat',
+  'author',
+  'added_by',
+  'filetypes',
+  'ratios',
+  'ratings',
+  'filesize',
+  'height',
+  'width',
+  'last_filters_conf'
+  ),
+  $filters_conf
+);
 
 //get all default filters
 $default_fields = array();
 foreach($filters_conf as $filt_name => $filt_conf){
-  if(isset($filt_conf["default"])){
-    if($filt_conf["default"] == true){
+  if(isset($filt_conf['default'])){
+    if($filt_conf['default'] == true){
       $default_fields[] = $filt_name;
     }
   }
 }
 
-if (is_a_guest() or is_generic() or $filters_conf["last_filters_conf"]==false)
+if (is_a_guest() or is_generic() or $filters_conf['last_filters_conf']==false)
 {
   $fields = $default_fields;
 }
@@ -149,7 +167,7 @@ foreach (array('added_by', 'filetypes', 'ratios', 'ratings') as $field)
 {
   if (in_array($field, $fields))
   {
-    $search['fields'][$field]["data"] = array();
+    $search['fields'][$field]['data'] = array();
   }
 }
 
@@ -166,7 +184,7 @@ foreach (array('filesize_min', 'filesize_max', 'width_min', 'width_max', 'height
 {
   if (in_array($field, $fields))
   {
-    $search['fields'][$field]["data"] = '';
+    $search['fields'][$field]['data'] = '';
   }
 }
 

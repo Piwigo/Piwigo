@@ -120,11 +120,24 @@ function get_regular_search_results($search, $images_where='')
   $image_ids_for_filter = array();
 
   $display_filters = unserialize($conf["filters_views"]);
+  foreach($display_filters as $filt_name => $filt_conf){
+    if(isset($filt_conf['access']))
+    {
+      if ($filt_conf['access'] == 'everybody' or ($filt_conf['access'] == 'admins-only' and is_admin()) or ($filt_conf['access'] == 'registered-users' and is_classic_user()))
+      {
+        $display_filters[$filt_name]['access'] = true;
+      }
+      else
+      {
+        $display_filters[$filt_name]['access'] = false;
+      }
+    }
+  }
 
   //
   // allwords
   //
-  if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0 and ($display_filters["words"]["access"] == "everybody" or ($display_filters["words"]["access"] == "admins-only" and is_admin()) or ($display_filters["words"]["access"] == "registered-users" and is_classic_user())))
+  if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0 and $display_filters['words']['access'])
   {
     $has_filters_filled = true;
 
@@ -305,7 +318,7 @@ SELECT
   //
   // author
   //
-  if (isset($search['fields']['author']) and count($search['fields']['author']['words']) > 0)
+  if (isset($search['fields']['author']) and count($search['fields']['author']['words']) > 0 and $display_filters['author']['access'])
   {
     $has_filters_filled = true;
 
@@ -329,7 +342,7 @@ SELECT
   //
   // filetypes
   //
-  if (!empty($search['fields']['filetypes']['data']))
+  if (!empty($search['fields']['filetypes']['data']) and $display_filters['file_type']['access'])
   {
     $has_filters_filled = true;
 
@@ -353,7 +366,7 @@ SELECT
   //
   // added_by
   //
-  if (!empty($search['fields']['added_by']['data']))
+  if (!empty($search['fields']['added_by']['data']) and $display_filters['added_by']['access'])
   {
     $has_filters_filled = true;
 
@@ -371,7 +384,7 @@ SELECT
   //
   // cat
   //
-  if (isset($search['fields']['cat']) and !empty($search['fields']['cat']['words']))
+  if (isset($search['fields']['cat']) and !empty($search['fields']['cat']['words']) and $display_filters['album']['access'])
   {
     $has_filters_filled = true;
 
@@ -405,7 +418,7 @@ SELECT
   //
   // date_posted
   //
-  if (!empty($search['fields']['date_posted']['preset']))
+  if (!empty($search['fields']['date_posted']['preset']) and $display_filters['post_date']['access'])
   {
 
     $has_filters_filled = true;
@@ -487,7 +500,7 @@ SELECT
   //
   // date_created
   //
-  if (!empty($search['fields']['date_created']['preset']))
+  if (!empty($search['fields']['date_created']['preset']) and $display_filters['creation_date']['access'])
   {
 
     $has_filters_filled = true;
@@ -569,7 +582,7 @@ SELECT
   //
   // ratios
   //
-  if (!empty($search['fields']['ratios']['data']))
+  if (!empty($search['fields']['ratios']['data']) and $display_filters['ratio']['access'])
   {
     $has_filters_filled = true;
 
@@ -600,7 +613,7 @@ SELECT
   //
   // ratings
   //
-  if ($conf['rate'] and !empty($search['fields']['ratings']['data']))
+  if ($conf['rate'] and !empty($search['fields']['ratings']['data']) and $display_filters['rating']['access'])
   {
     $has_filters_filled = true;
 
@@ -631,7 +644,7 @@ SELECT
   //
   // filesize
   //
-  if (!empty($search['fields']['filesize_min']['data']) and !empty($search['fields']['filesize_max']['data']))
+  if (!empty($search['fields']['filesize_min']['data']) and !empty($search['fields']['filesize_max']['data']) and $display_filters['file_size']['access'])
   {
     $has_filters_filled = true;
 
@@ -651,7 +664,7 @@ SELECT
   //
   // height
   //
-  if (!empty($search['fields']['height_min']['data']) and !empty($search['fields']['height_max']['data']))
+  if (!empty($search['fields']['height_min']['data']) and !empty($search['fields']['height_max']['data']) and $display_filters['height']['access'])
   {
     $has_filters_filled = true;
 
@@ -669,7 +682,7 @@ SELECT
   //
   // width
   //
-  if (!empty($search['fields']['width_min']['data']) and !empty($search['fields']['width_max']['data']))
+  if (!empty($search['fields']['width_min']['data']) and !empty($search['fields']['width_max']['data']) and $display_filters['width']['access'])
   {
     $has_filters_filled = true;
 
@@ -687,7 +700,7 @@ SELECT
   //
   // tags
   //
-  if (isset($search['fields']['tags']) and !empty($search['fields']['tags']['words']))
+  if (isset($search['fields']['tags']) and !empty($search['fields']['tags']['words']) and $display_filters['tags']['access'])
   {
     $has_filters_filled = true;
 

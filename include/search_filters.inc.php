@@ -45,12 +45,12 @@ if ('search' == $page['section'] and isset($page['search_details']))
 
   if (isset($my_search['fields']['allwords']))
   {
-    $my_search['fields']['allwords']["access"] = $filters_views["words"]["access"];
+    $my_search['fields']['allwords']['access'] = $filters_views['words']['access'];
   }
 
   if (isset($my_search['fields']['tags']))
   {
-    $my_search['fields']['tags']["access"] = $filters_views["tags"]["access"];
+    $my_search['fields']['tags']['access'] = $filters_views['tags']['access'];
     $filter_tags = array();
 
     // TODO calling get_available_tags(), with lots of photos/albums/tags may cost time,
@@ -88,7 +88,7 @@ if ('search' == $page['section'] and isset($page['search_details']))
 
   if (isset($my_search['fields']['author']))
   {
-    $my_search['fields']['author']["access"] = $filters_views["author"]["access"];
+    $my_search['fields']['author']['access'] = $filters_views['author']['access'];
     $filter_clause = get_clause_for_filter('author');
 
     $query = '
@@ -130,7 +130,7 @@ SELECT
 
   if (isset($my_search['fields']['date_posted']))
   {
-    $my_search['fields']['date_posted']["access"] = $filters_views["post_date"]["access"];
+    $my_search['fields']['date_posted']['access'] = $filters_views['post_date']['access'];
     $filter_clause = get_clause_for_filter('date_posted');
     $cache_key = $persistent_cache->make_key('filter_date_posted'.$user['id'].$user['cache_update_time']);
     $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $date_posted);
@@ -233,7 +233,7 @@ SELECT
 
   if (isset($my_search['fields']['date_created']))
   {
-    $my_search['fields']['date_created']["access"] = $filters_views["creation_date"]["access"];
+    $my_search['fields']['date_created']['access'] = $filters_views['creation_date']['access'];
     $filter_clause = get_clause_for_filter('date_created');
     $cache_key = $persistent_cache->make_key('filter_date_created'.$user['id'].$user['cache_update_time']);
     $set_persistent_cache = !preg_match('/^image_id IN/', $filter_clause) and !$persistent_cache->get($cache_key, $date_created);
@@ -339,7 +339,7 @@ SELECT
 
   if (isset($my_search['fields']['added_by']))
   {
-    $my_search['fields']['added_by']["access"] = $filters_views["added_by"]["access"];
+    $my_search['fields']['added_by']['access'] = $filters_views['added_by']['access'];
     $filter_clause = get_clause_for_filter('added_by');
 
     $query = '
@@ -403,7 +403,7 @@ SELECT
 
   if (isset($my_search['fields']['cat']))
   {
-    $my_search['fields']['cat']["access"] = $filters_views["album"]["access"];
+    $my_search['fields']['cat']['access'] = $filters_views['album']['access'];
     
     if (!empty($my_search['fields']['cat']['words']))
     {
@@ -439,7 +439,7 @@ SELECT
 
   if (isset($my_search['fields']['filetypes']))
   {
-    $my_search['fields']['filetypes']["access"] = $filters_views["file_type"]["access"];
+    $my_search['fields']['filetypes']['access'] = $filters_views['file_type']['access'];
     $filter_clause = get_clause_for_filter('filetypes');
 
     // get all file extensions for this user in the gallery, whatever the current filters
@@ -495,7 +495,7 @@ SELECT
     
     if (isset($my_search['fields']['ratings']))
     {
-      $my_search['fields']['ratings']["access"] = $filters_views["rating"]["access"];
+      $my_search['fields']['ratings']['access'] = $filters_views['rating']['access'];
       $filter_clause = get_clause_for_filter('ratings');
 
       $cache_key = $persistent_cache->make_key('filter_ratings'.$user['id'].$user['cache_update_time']);
@@ -558,8 +558,8 @@ SELECT
   // For filesize
   if (isset($my_search['fields']['filesize_min']) && isset($my_search['fields']['filesize_max']))
   {
-    $my_search['fields']['filesize_min']["access"] = $filters_views["file_size"]["access"];
-    $my_search['fields']['filesize_max']["access"] = $filters_views["file_size"]["access"];
+    $my_search['fields']['filesize_min']['access'] = $filters_views['file_size']['access'];
+    $my_search['fields']['filesize_max']['access'] = $filters_views['file_size']['access'];
     $filter_clause = get_clause_for_filter('filesize');
 
     $filesizes = array();
@@ -607,7 +607,7 @@ SELECT
   
   if (isset($my_search['fields']['ratios']))
   {
-    $my_search['fields']['ratios']["access"] = $filters_views["ratio"]["access"];
+    $my_search['fields']['ratios']['access'] = $filters_views['ratio']['access'];
     $filter_clause = get_clause_for_filter('ratios');
 
     $cache_key = $persistent_cache->make_key('filter_ratios'.$user['id'].$user['cache_update_time']);
@@ -677,8 +677,8 @@ SELECT
 
   if (isset($my_search['fields']['height_min']) and isset($my_search['fields']['height_max']))
   {
-    $my_search['fields']['height_min']["access"] = $filters_views["height"]["access"];
-    $my_search['fields']['height_max']["access"] = $filters_views["height"]["access"];
+    $my_search['fields']['height_min']['access'] = $filters_views['height']['access'];
+    $my_search['fields']['height_max']['access'] = $filters_views['height']['access'];
     $filter_clause = get_clause_for_filter('height');
 
     $query = '
@@ -726,8 +726,8 @@ SELECT
 
   if (isset($my_search['fields']['width_min']) and isset($my_search['fields']['width_max']))
   {
-    $my_search['fields']['width_min']["access"] = $filters_views["width"]["access"];
-    $my_search['fields']['width_max']["access"] = $filters_views["width"]["access"];
+    $my_search['fields']['width_min']['access'] = $filters_views['width']['access'];
+    $my_search['fields']['width_max']['access'] = $filters_views['width']['access'];
     $filter_clause = get_clause_for_filter('width');
 
     $query = '

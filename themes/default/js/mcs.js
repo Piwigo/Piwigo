@@ -22,9 +22,21 @@ $(document).ready(function () {
   });
 
   global_params.search_id = search_id;
+  filt_perms = {};
 
   if (!global_params.fields) {
     global_params.fields = {};
+  }
+  else{
+    for(var filter_name in global_params.fields){
+      if (global_params.fields[filter_name]['access'] == 'everybody' || (global_params.fields[filter_name]['access'] == 'admins-only' && user_rank == 'admin') || (global_params.fields[filter_name]['access'] == 'registered-users' && user_rank == 'user'))
+      {
+        filt_perms[filter_name] = true;
+      }
+      else{
+        filt_perms[filter_name] = false;
+      }
+    }
   }
 
   // Declare params sent to pwg.images.filteredSearch.update
@@ -36,7 +48,7 @@ $(document).ready(function () {
   filters_to_remove = [];
 
   // Setup word filter
-  if (global_params.fields.allwords  && (global_params.fields.allwords.access == "everybody" || (global_params.fields.allwords.access == "admins-only" && user_rank == "admin") || (global_params.fields.allwords.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.allwords  && filt_perms['allwords']) {
     $(".filter-word").css("display", "flex");
     $(".filter-manager-controller.word").prop("checked", true);
 
@@ -79,10 +91,10 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.allwords);
   }
 
-  else if (global_params.fields.allwords  && !(global_params.fields.allwords.access == "everybody" || (global_params.fields.allwords.access == "admins-only" && user_rank == "admin") || (global_params.fields.allwords.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.allwords  && !(filt_perms['allwords']))
   {
     updateFilters('word', 'del');
-    filters_to_remove.push("allwords");
+    filters_to_remove.push('allwords');
   }
 
   //Hide filter spinner
@@ -97,7 +109,7 @@ $(document).ready(function () {
     });
   });
   
-  if (global_params.fields.tags && (global_params.fields.tags.access == "everybody" || (global_params.fields.tags.access == "admins-only" && user_rank == "admin") || (global_params.fields.tags.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.tags && filt_perms['tags']) {
     $(".filter-tag").css("display", "flex");
     $(".filter-manager-controller.tags").prop("checked", true);
     $(".filter-tag-form .search-params input[value=" + global_params.fields.tags.mode + "]").prop("checked", true);
@@ -124,14 +136,14 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.tags);
   }
 
-  else if (global_params.fields.tags && !(global_params.fields.tags.access == "everybody" || (global_params.fields.tags.access == "admins-only" && user_rank == "admin") || (global_params.fields.tags.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.tags && !(filt_perms['tags']))
   {
     updateFilters('tag', 'del');
-    filters_to_remove.push("tags");
+    filters_to_remove.push('tags');
   }
 
   // Setup Date post filter
-  if (global_params.fields.date_posted && (global_params.fields.date_posted.access == "everybody" || (global_params.fields.date_posted.access == "admins-only" && user_rank == "admin") || (global_params.fields.date_posted.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.date_posted && filt_perms['date_posted']) {
 
     $(".filter-date_posted").css("display", "flex");
     $(".filter-manager-controller.date_posted").prop("checked", true);
@@ -241,15 +253,15 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.date_posted_custom);
   }
 
-  else if (global_params.fields.date_posted && !(global_params.fields.date_posted.access == "everybody" || (global_params.fields.date_posted.access == "admins-only" && user_rank == "admin") || (global_params.fields.date_posted.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.date_posted && !(filt_perms['date_posted']))
   {
     updateFilters('date_posted', 'del');
-    filters_to_remove.push("date_posted");
+    filters_to_remove.push('date_posted');
   }
 
   // Setup Date creation filter
 
-  if (global_params.fields.date_created && (global_params.fields.date_created.access == "everybody" || (global_params.fields.date_created.access == "admins-only" && user_rank == "admin") || (global_params.fields.date_created.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.date_created && filt_perms['date_created']) {
     $(".filter-date_created").css("display", "flex");
     $(".filter-manager-controller.date_created").prop("checked", true);
 
@@ -357,14 +369,14 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.date_created_custom);
   }
 
-  else if (global_params.fields.date_created && !(global_params.fields.date_created.access == "everybody" || (global_params.fields.date_created.access == "admins-only" && user_rank == "admin") || (global_params.fields.date_created.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.date_created && !(filt_perms['date_created']))
   {
     updateFilters('date_created', 'del');
-    filters_to_remove.push("date_created");
+    filters_to_remove.push('date_created');
   }
 
   // Setup album filter
-  if (global_params.fields.cat && (global_params.fields.cat.access == "everybody" || (global_params.fields.cat.access == "admins-only" && user_rank == "admin") || (global_params.fields.cat.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.cat && filt_perms['cat']) {
     $(".filter-album").css("display", "flex");
     $(".filter-manager-controller.album").prop("checked", true);
   
@@ -416,10 +428,10 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.categories);
   }
 
-  else if (global_params.fields.cat && !(global_params.fields.cat.access == "everybody" || (global_params.fields.cat.access == "admins-only" && user_rank == "admin") || (global_params.fields.cat.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.cat && !(filt_perms['cat']))
   {
     updateFilters('album', 'del');
-    filters_to_remove.push("cat");
+    filters_to_remove.push('cat');
   }
   
   // Setup author filter
@@ -429,7 +441,7 @@ $(document).ready(function () {
       maxOptions:$(this).find("option").length,
       items: global_params.fields.author ? global_params.fields.author.words : null,
     });
-    if (global_params.fields.author && (global_params.fields.author.access == "everybody" || (global_params.fields.author.access == "admins-only" && user_rank == "admin") || (global_params.fields.author.access == "registered-users" && user_rank == "user"))) {
+    if (global_params.fields.author && filt_perms['author']) {
       $(".filter-authors").css("display", "flex");
       $(".filter-manager-controller.author").prop("checked", true);
 
@@ -454,15 +466,15 @@ $(document).ready(function () {
       empty_filters_list.push(PS_params.authors);
     }
 
-    else if (global_params.fields.author && !(global_params.fields.author.access == "everybody" || (global_params.fields.author.access == "admins-only" && user_rank == "admin") || (global_params.fields.author.access == "registered-users" && user_rank == "user")))
+    else if (global_params.fields.author && !(filt_perms['author']))
     {
       updateFilters('author', 'del');
-      filters_to_remove.push("author");
+      filters_to_remove.push('author');
     }
   });
 
   // Setup added_by filter
-  if (global_params.fields.added_by && (global_params.fields.added_by.access == "everybody" || (global_params.fields.added_by.access == "admins-only" && user_rank == "admin") || (global_params.fields.added_by.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.added_by && filt_perms['added_by']) {
     $(".filter-added_by").css("display", "flex");
     $(".filter-manager-controller.added_by").prop("checked", true);
 
@@ -496,14 +508,14 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.added_by);
   }
 
-  else if (global_params.fields.added_by && !(global_params.fields.added_by.access == "everybody" || (global_params.fields.added_by.access == "admins-only" && user_rank == "admin") || (global_params.fields.added_by.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.added_by && !(filt_perms['added_by']))
   {
     updateFilters('added_by', 'del');
-    filters_to_remove.push("added_by");
+    filters_to_remove.push('added_by');
   }
 
   // Setup filetypes filter
-  if (global_params.fields.filetypes && (global_params.fields.filetypes.access == "everybody" || (global_params.fields.filetypes.access == "admins-only" && user_rank == "admin") || (global_params.fields.filetypes.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.filetypes && filt_perms['filetypes']) {
     $(".filter-filetypes").css("display", "flex");
     $(".filter-manager-controller.filetypes").prop("checked", true);
 
@@ -534,14 +546,14 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.filetypes);
   }
 
-  else if (global_params.fields.filetypes && !(global_params.fields.filetypes.access == "everybody" || (global_params.fields.filetypes.access == "admins-only" && user_rank == "admin") || (global_params.fields.filetypes.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.filetypes && !(filt_perms['filetypes']))
   {
     updateFilters('filetypes', 'del');
-    filters_to_remove.push("filetypes");
+    filters_to_remove.push('filetypes');
   }
 
   // Setup Ratio filter
-  if (global_params.fields.ratios && (global_params.fields.ratios.access == "everybody" || (global_params.fields.ratios.access == "admins-only" && user_rank == "admin") || (global_params.fields.ratios.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.ratios && filt_perms['ratios']) {
     $(".filter-ratios").css("display", "flex");
     $(".filter-manager-controller.ratios").prop("checked", true);
 
@@ -572,14 +584,14 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.ratios);
   }
 
-  else if (global_params.fields.ratios && !(global_params.fields.ratios.access == "everybody" || (global_params.fields.ratios.access == "admins-only" && user_rank == "admin") || (global_params.fields.ratios.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.ratios && !(filt_perms['ratios']))
   {
     updateFilters('ratios', 'del');
-    filters_to_remove.push("ratios");
+    filters_to_remove.push('ratios');
   }
 
   // Setup rating filter
-  if (global_params.fields.ratings && show_filter_ratings && (global_params.fields.ratings.access == "everybody" || (global_params.fields.ratings.access == "admins-only" && user_rank == "admin") || (global_params.fields.ratings.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.ratings && show_filter_ratings && filt_perms['ratings']) {
 
     $(".filter-ratings").css("display", "flex");
     $(".filter-manager-controller.ratings").prop("checked", true);
@@ -626,14 +638,14 @@ $(document).ready(function () {
 
     empty_filters_list.push(PS_params.ratings);
   }
-  else if (global_params.fields.ratings && (!show_filter_ratings || global_params.fields.ratings && !(global_params.fields.ratings.access == "everybody" || (global_params.fields.ratings.access == "admins-only" && user_rank == "admin") || (global_params.fields.ratings.access == "registered-users" && user_rank == "user"))))
+  else if (global_params.fields.ratings && (!show_filter_ratings || global_params.fields.ratings && !(filt_perms['ratings'])))
   {
     updateFilters('ratings', 'del');
-    filters_to_remove.push("ratings");
+    filters_to_remove.push('ratings');
   }
 
   // Setup filesize filter
-  if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null && (global_params.fields.filesize_min.access == "everybody" || (global_params.fields.filesize_min.access == "admins-only" && user_rank == "admin") || (global_params.fields.filesize_min.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null && filt_perms['filesize_min']) {
 
     $(".filter-filesize").css("display", "flex");
     $(".filter-manager-controller.filesize").prop("checked", true);
@@ -676,14 +688,14 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.filesize_max);
   }
 
-  else if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null && !(global_params.fields.filesize_min.access == "everybody" || (global_params.fields.filesize_min.access == "admins-only" && user_rank == "admin") || (global_params.fields.filesize_min.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null && !(filt_perms['filesize_min']))
   {
     updateFilters('filesize', 'del');
-    filters_to_remove.push("filesize");
+    filters_to_remove.push('filesize');
   }
 
   // Setup Height filter
-  if (global_params.fields.height_min != null && global_params.fields.height_max != null && (global_params.fields.height_min.access == "everybody" || (global_params.fields.height_min.access == "admins-only" && user_rank == "admin") || (global_params.fields.height_min.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.height_min != null && global_params.fields.height_max != null && filt_perms['height_min']) {
     $(".filter-height").css("display", "flex");
     $(".filter-manager-controller.height").prop("checked", true);
     $(".filter.filter-height .slider-info").html(sprintf(sliders.heights.text,sliders.heights.selected.min,sliders.heights.selected.max));
@@ -716,14 +728,14 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.height_max);
   }
 
-  else if (global_params.fields.height_min != null && global_params.fields.height_max != null && !(global_params.fields.height_min.access == "everybody" || (global_params.fields.height_min.access == "admins-only" && user_rank == "admin") || (global_params.fields.height_min.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.height_min != null && global_params.fields.height_max != null && !(filt_perms['height_min']))
   {
     updateFilters('height', 'del');
-    filters_to_remove.push("height");
+    filters_to_remove.push('height');
   }
 
   // Setup Width filter
-  if (global_params.fields.width_min != null && global_params.fields.width_max != null && (global_params.fields.width_min.access == "everybody" || (global_params.fields.width_min.access == "admins-only" && user_rank == "admin") || (global_params.fields.width_min.access == "registered-users" && user_rank == "user"))) {
+  if (global_params.fields.width_min != null && global_params.fields.width_max != null && filt_perms['width_min']) {
     $(".filter-width").css("display", "flex");
     $(".filter-manager-controller.width").prop("checked", true);
     $(".filter.filter-width .slider-info").html(sprintf(sliders.widths.text,sliders.widths.selected.min,sliders.widths.selected.max));
@@ -756,10 +768,10 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.width_max);
   }
 
-  else if (global_params.fields.width_min != null && global_params.fields.width_max != null && !(global_params.fields.width_min.access == "everybody" || (global_params.fields.width_min.access == "admins-only" && user_rank == "admin") || (global_params.fields.width_min.access == "registered-users" && user_rank == "user")))
+  else if (global_params.fields.width_min != null && global_params.fields.width_max != null && !(filt_perms['width_min']))
   {
     updateFilters('width', 'del');
-    filters_to_remove.push("width");
+    filters_to_remove.push('width');
   }
 
   if(filters_to_remove.length > 0){
