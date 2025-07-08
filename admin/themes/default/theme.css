@@ -6605,8 +6605,6 @@ fieldset#environment legend i[class*="icon-"] {
 .plupload_filelist li {background: none!important; font-weight: bold;}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover !important; width: 10px; height: 10px; margin-top: 3px;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover !important;}
-li.plupload_delete a span {background: #FFF;}
-li.plupload_delete a:hover span {background: #FFF;}
 .plupload_file_status {margin-right: 45px;}
 .plupload_file_size {margin-right: 25px;}
 .plupload_total_file_size {margin-right: -8px;}

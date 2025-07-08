@@ -665,6 +665,8 @@ a#showPermissions:hover {border-color: #A5A5A5;}
 .plupload_filelist_footer {background-color: #F5F5F5!important;}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
+li.plupload_delete a span {background: #FFF;}
+li.plupload_delete a:hover span {background: #FFF;}
 
 .addAlbumEmpty {color: #3C3C3C;}
 #permitAction p {background: #FFF;}
