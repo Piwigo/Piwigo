@@ -1965,7 +1965,6 @@ li.plupload_delete a.remove-format{
 
 li.plupload_delete a.remove-format:hover{
   background: none !important;
-  color: #474747;
   text-decoration: none;
 }
 
