@@ -961,8 +961,6 @@ table.qsearch_help_table td {
 	border-color: #444;
 }
 
-.font-checkbox [class*=icon-check]:before { color:#aaa; }
-
 #cboxLoadedContent { background-color:#333 !important; }
 
 #watermarkPositionBox {
@@ -983,6 +981,8 @@ table.qsearch_help_table td {
 
 .font-checkbox {color: #898888;}
 .font-checkbox:hover {color: #ededed;}
+.font-checkbox:hover .icon-check-empty, .font-checkbox:hover .icon-check {color: #FF7700;}
+.font-checkbox .icon-check {color: #FFA646;}
 .with-border legend, .with-border strong {color: #c0c0c0;}
 .font-checkbox.selected {color: #ffa646;}
 
@@ -2396,9 +2396,17 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   border-color: #333;
 }
 
+.filter-manager-options-container:hover{
+  background-color: #5D5D5D;
+}
+
 .filter-manager-options-container.selected-filter-container{
   background-color: #777777;
-  color: #FFFFFF;
+  color: #ddd;
+}
+
+.filter-manager-options-container.selected-filter-container:hover{
+  background-color: #aaa;
 }
 
 label:has(> .filters-icon-check:disabled){

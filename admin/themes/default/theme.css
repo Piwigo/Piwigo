@@ -6452,14 +6452,6 @@ table.qsearch_help_table td {
   left:-1px;
 }
 
-.font-checkbox:hover .icon-check-empty, .font-checkbox:hover .icon-check {
-  color: #FF7700;
-}
-
-.font-checkbox .icon-check {
-  color: #FFA646;
-}
-
 .font-checkbox input[type=checkbox], .font-checkbox input[type=radio] {
   display:none;
 }
@@ -7941,15 +7933,6 @@ color:#FF7B00;
 }
 
 /* Filters options */
-.filters-check::before{
-  margin-right: 5px !important;
-  font-size: 145% !important;
-}
-.filters-checked-orange::before{
-  margin-right: 5px !important;
-  color: #ffa646 !important;
-  font-size: 145% !important;
-}
 .filters-grid{
   display: grid;
   grid-template-columns: 150px 118px 25px;
@@ -7984,26 +7967,12 @@ color:#FF7B00;
   display: inline-block;
   font-size: 11px;
   font-weight: normal !important;
-  color: #474747;
   border: 1px solid #777;
   border-radius: 20px;
   padding: 4px 10px;
   cursor: pointer;
   margin-right: 7.5px;
   margin-bottom: 7.5px;
-}
-
-.filter-manager-options-container:hover{
-  background-color: #EDEDED;
-}
-
-.filter-manager-options-container.selected-filter-container{
-  background-color: #777777;
-  color: #FFFFFF;
-}
-
-.filter-manager-options-container.selected-filter-container:hover{
-  background-color: #5D5D5D;
 }
 
 .mcs-icon-options::before{

@@ -22,21 +22,9 @@ $(document).ready(function () {
   });
 
   global_params.search_id = search_id;
-  filt_perms = {};
 
   if (!global_params.fields) {
     global_params.fields = {};
-  }
-  else{
-    for(var filter_name in global_params.fields){
-      if (global_params.fields[filter_name]['access'] == 'everybody' || (global_params.fields[filter_name]['access'] == 'admins-only' && user_rank == 'admin') || (global_params.fields[filter_name]['access'] == 'registered-users' && user_rank == 'user'))
-      {
-        filt_perms[filter_name] = true;
-      }
-      else{
-        filt_perms[filter_name] = false;
-      }
-    }
   }
 
   // Declare params sent to pwg.images.filteredSearch.update
@@ -48,7 +36,7 @@ $(document).ready(function () {
   filters_to_remove = [];
 
   // Setup word filter
-  if (global_params.fields.allwords  && filt_perms['allwords']) {
+  if (global_params.fields.allwords) {
     $(".filter-word").css("display", "flex");
     $(".filter-manager-controller.word").prop("checked", true);
 
@@ -91,12 +79,6 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.allwords);
   }
 
-  else if (global_params.fields.allwords  && !(filt_perms['allwords']))
-  {
-    updateFilters('word', 'del');
-    filters_to_remove.push('allwords');
-  }
-
   //Hide filter spinner
   $(".filter-spinner").hide();
 
@@ -109,7 +91,7 @@ $(document).ready(function () {
     });
   });
   
-  if (global_params.fields.tags && filt_perms['tags']) {
+  if (global_params.fields.tags) {
     $(".filter-tag").css("display", "flex");
     $(".filter-manager-controller.tags").prop("checked", true);
     $(".filter-tag-form .search-params input[value=" + global_params.fields.tags.mode + "]").prop("checked", true);
@@ -136,14 +118,8 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.tags);
   }
 
-  else if (global_params.fields.tags && !(filt_perms['tags']))
-  {
-    updateFilters('tag', 'del');
-    filters_to_remove.push('tags');
-  }
-
   // Setup Date post filter
-  if (global_params.fields.date_posted && filt_perms['date_posted']) {
+  if (global_params.fields.date_posted) {
 
     $(".filter-date_posted").css("display", "flex");
     $(".filter-manager-controller.date_posted").prop("checked", true);
@@ -253,15 +229,9 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.date_posted_custom);
   }
 
-  else if (global_params.fields.date_posted && !(filt_perms['date_posted']))
-  {
-    updateFilters('date_posted', 'del');
-    filters_to_remove.push('date_posted');
-  }
-
   // Setup Date creation filter
 
-  if (global_params.fields.date_created && filt_perms['date_created']) {
+  if (global_params.fields.date_created) {
     $(".filter-date_created").css("display", "flex");
     $(".filter-manager-controller.date_created").prop("checked", true);
 
@@ -369,14 +339,8 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.date_created_custom);
   }
 
-  else if (global_params.fields.date_created && !(filt_perms['date_created']))
-  {
-    updateFilters('date_created', 'del');
-    filters_to_remove.push('date_created');
-  }
-
   // Setup album filter
-  if (global_params.fields.cat && filt_perms['cat']) {
+  if (global_params.fields.cat) {
     $(".filter-album").css("display", "flex");
     $(".filter-manager-controller.album").prop("checked", true);
   
@@ -427,12 +391,6 @@ $(document).ready(function () {
 
     empty_filters_list.push(PS_params.categories);
   }
-
-  else if (global_params.fields.cat && !(filt_perms['cat']))
-  {
-    updateFilters('album', 'del');
-    filters_to_remove.push('cat');
-  }
   
   // Setup author filter
   $("#authors").each(function() {
@@ -441,7 +399,7 @@ $(document).ready(function () {
       maxOptions:$(this).find("option").length,
       items: global_params.fields.author ? global_params.fields.author.words : null,
     });
-    if (global_params.fields.author && filt_perms['author']) {
+    if (global_params.fields.author) {
       $(".filter-authors").css("display", "flex");
       $(".filter-manager-controller.author").prop("checked", true);
 
@@ -465,20 +423,14 @@ $(document).ready(function () {
 
       empty_filters_list.push(PS_params.authors);
     }
-
-    else if (global_params.fields.author && !(filt_perms['author']))
-    {
-      updateFilters('author', 'del');
-      filters_to_remove.push('author');
-    }
   });
 
   // Setup added_by filter
-  if (global_params.fields.added_by && filt_perms['added_by']) {
+  if (global_params.fields.added_by) {
     $(".filter-added_by").css("display", "flex");
     $(".filter-manager-controller.added_by").prop("checked", true);
 
-    if (global_params.fields.added_by && global_params.fields.added_by.data.length > 0) {
+    if (global_params.fields.added_by && global_params.fields.added_by.length > 0) {
       $(".filter-added_by").addClass("filter-filled");
 
       added_by_names = [];
@@ -487,7 +439,7 @@ $(document).ready(function () {
         input = $(this).find('input');
         added_by_id = parseInt(input.attr('name'));
 
-        if (jQuery.inArray(added_by_id, global_params.fields.added_by.data) >= 0) {
+        if (jQuery.inArray(added_by_id, global_params.fields.added_by) >= 0) {
           input.prop('checked', true);
           added_by_names.push($(this).find('.added_by-name').text());
         }
@@ -503,33 +455,27 @@ $(document).ready(function () {
       $(".filter-added_by .added_by-option input").prop("checked", false);
     });
 
-    PS_params.added_by = global_params.fields.added_by.data.length > 0 ? global_params.fields.added_by.data : '';
+    PS_params.added_by = global_params.fields.added_by.length > 0 ? global_params.fields.added_by : '';
 
     empty_filters_list.push(PS_params.added_by);
   }
 
-  else if (global_params.fields.added_by && !(filt_perms['added_by']))
-  {
-    updateFilters('added_by', 'del');
-    filters_to_remove.push('added_by');
-  }
-
   // Setup filetypes filter
-  if (global_params.fields.filetypes && filt_perms['filetypes']) {
+  if (global_params.fields.filetypes) {
     $(".filter-filetypes").css("display", "flex");
     $(".filter-manager-controller.filetypes").prop("checked", true);
 
     filetypes_search_str = "";
-    global_params.fields.filetypes.data.forEach(ft => {
+    global_params.fields.filetypes.forEach(ft => {
       filetypes_search_str += ft + ", ";
     });
   
-    if (global_params.fields.filetypes && global_params.fields.filetypes.data.length > 0) {
+    if (global_params.fields.filetypes && global_params.fields.filetypes.length > 0) {
       $(".filter-filetypes").addClass("filter-filled");
       $(".filter.filter-filetypes .search-words").text(filetypes_search_str.toUpperCase().slice(0, -2));
 
       $(".filetypes-option input").each(function () {
-        if (global_params.fields.filetypes.data.includes($(this).attr('name'))) {
+        if (global_params.fields.filetypes.includes($(this).attr('name'))) {
           $(this).prop('checked', true);
         }
       });
@@ -541,33 +487,27 @@ $(document).ready(function () {
       $(".filter-filetypes .filetypes-option input").prop("checked", false);
     });
 
-    PS_params.filetypes = global_params.fields.filetypes.data.length > 0 ? global_params.fields.filetypes.data : '';
+    PS_params.filetypes = global_params.fields.filetypes.length > 0 ? global_params.fields.filetypes : '';
 
     empty_filters_list.push(PS_params.filetypes);
   }
 
-  else if (global_params.fields.filetypes && !(filt_perms['filetypes']))
-  {
-    updateFilters('filetypes', 'del');
-    filters_to_remove.push('filetypes');
-  }
-
   // Setup Ratio filter
-  if (global_params.fields.ratios && filt_perms['ratios']) {
+  if (global_params.fields.ratios) {
     $(".filter-ratios").css("display", "flex");
     $(".filter-manager-controller.ratios").prop("checked", true);
 
     ratios_search_str = "";
-    global_params.fields.ratios.data.forEach(ft => {
+    global_params.fields.ratios.forEach(ft => {
       ratios_search_str += str_ratios_label[ft] + ", ";
     });
   
-    if (global_params.fields.ratios && global_params.fields.ratios.data.length > 0) {
+    if (global_params.fields.ratios && global_params.fields.ratios.length > 0) {
       $(".filter-ratios").addClass("filter-filled");
       $(".filter.filter-ratios .search-words").text(ratios_search_str.slice(0, -2));
 
       $(".ratios-option input").each(function () {
-        if (global_params.fields.ratios.data.includes($(this).attr('name'))) {
+        if (global_params.fields.ratios.includes($(this).attr('name'))) {
           $(this).prop('checked', true);
         }
       });
@@ -579,29 +519,23 @@ $(document).ready(function () {
       $(".filter-ratios .ratios-option input").prop("checked", false);
     });
 
-    PS_params.ratios = global_params.fields.ratios.data.length > 0 ?  global_params.fields.ratios.data  : '';
+    PS_params.ratios = global_params.fields.ratios.length > 0 ?  global_params.fields.ratios  : '';
 
     empty_filters_list.push(PS_params.ratios);
   }
 
-  else if (global_params.fields.ratios && !(filt_perms['ratios']))
-  {
-    updateFilters('ratios', 'del');
-    filters_to_remove.push('ratios');
-  }
-
   // Setup rating filter
-  if (global_params.fields.ratings && show_filter_ratings && filt_perms['ratings']) {
+  if (global_params.fields.ratings && show_filter_ratings) {
 
     $(".filter-ratings").css("display", "flex");
     $(".filter-manager-controller.ratings").prop("checked", true);
 
     ratings_search_str = "";
-    global_params.fields.ratings.data.forEach(function(ft, i){
+    global_params.fields.ratings.forEach(function(ft, i){
       if(0 == ft )
       {
         ratings_search_str += str_no_rating 
-        if(global_params.fields.ratings.data.length > 1)
+        if(global_params.fields.ratings.length > 1)
         {
           ratings_search_str += ", ";
         }
@@ -610,19 +544,19 @@ $(document).ready(function () {
       {
         str_between = str_between_rating.split("%d");
         ratings_search_str += str_between[0] + (ft-1) + str_between[1] + ft + str_between[2];
-        if(global_params.fields.ratings.data.length-1 != i)
+        if(global_params.fields.ratings.length-1 != i)
         {
           ratings_search_str += ", ";
         }
       }
     });
   
-    if (global_params.fields.ratings && global_params.fields.ratings.data.length > 0) {
+    if (global_params.fields.ratings && global_params.fields.ratings.length > 0) {
       $(".filter-ratings").addClass("filter-filled");
       $(".filter.filter-ratings .search-words").text(ratings_search_str);
 
       $(".ratings-option input").each(function () {
-        if (global_params.fields.ratings.data.includes($(this).attr('name'))) {
+        if (global_params.fields.ratings.includes($(this).attr('name'))) {
           $(this).prop('checked', true);
         }
       });
@@ -634,18 +568,13 @@ $(document).ready(function () {
       $(".filter-ratings .ratings-option input").prop("checked", false);
     });
 
-    PS_params.ratings = global_params.fields.ratings.data.length > 0 ?  global_params.fields.ratings.data  : '';
+    PS_params.ratings = global_params.fields.ratings.length > 0 ?  global_params.fields.ratings  : '';
 
     empty_filters_list.push(PS_params.ratings);
   }
-  else if (global_params.fields.ratings && (!show_filter_ratings || global_params.fields.ratings && !(filt_perms['ratings'])))
-  {
-    updateFilters('ratings', 'del');
-    filters_to_remove.push('ratings');
-  }
 
   // Setup filesize filter
-  if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null && filt_perms['filesize_min']) {
+  if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null) {
 
     $(".filter-filesize").css("display", "flex");
     $(".filter-manager-controller.filesize").prop("checked", true);
@@ -662,7 +591,7 @@ $(document).ready(function () {
 
     });
 
-    if( global_params.fields.filesize_min.data != null && global_params.fields.filesize_max.data > 0) {
+    if( global_params.fields.filesize_min != null && global_params.fields.filesize_max > 0) {
       $(".filter-filesize").addClass("filter-filled");
       $(".filter.filter-filesize .search-words").html(sprintf(sliders.filesizes.text,sliders.filesizes.selected.min,sliders.filesizes.selected.max));
     }
@@ -681,28 +610,22 @@ $(document).ready(function () {
       }
     });
 
-    PS_params.filesize_min = global_params.fields.filesize_min.data  != null ?  global_params.fields.filesize_min.data  : '';
-    PS_params.filesize_max = global_params.fields.filesize_max.data  != null ?  global_params.fields.filesize_max.data  : '';
+    PS_params.filesize_min = global_params.fields.filesize_min  != null ?  global_params.fields.filesize_min  : '';
+    PS_params.filesize_max = global_params.fields.filesize_max  != null ?  global_params.fields.filesize_max  : '';
 
     empty_filters_list.push(PS_params.filesize_min);
     empty_filters_list.push(PS_params.filesize_max);
   }
 
-  else if (global_params.fields.filesize_min != null && global_params.fields.filesize_max != null && !(filt_perms['filesize_min']))
-  {
-    updateFilters('filesize', 'del');
-    filters_to_remove.push('filesize');
-  }
-
   // Setup Height filter
-  if (global_params.fields.height_min != null && global_params.fields.height_max != null && filt_perms['height_min']) {
+  if (global_params.fields.height_min != null && global_params.fields.height_max != null) {
     $(".filter-height").css("display", "flex");
     $(".filter-manager-controller.height").prop("checked", true);
     $(".filter.filter-height .slider-info").html(sprintf(sliders.heights.text,sliders.heights.selected.min,sliders.heights.selected.max));
 
     $('[data-slider=heights]').pwgDoubleSlider(sliders.heights);
 
-    if( global_params.fields.height_min.data > 0 && global_params.fields.height_max.data > 0) {
+    if( global_params.fields.height_min > 0 && global_params.fields.height_max > 0) {
       $(".filter-height").addClass("filter-filled");
       $(".filter.filter-height .search-words").html(sprintf(sliders.heights.text,sliders.heights.selected.min,sliders.heights.selected.max));
     }
@@ -721,28 +644,22 @@ $(document).ready(function () {
       }
     });
 
-    PS_params.height_min = global_params.fields.height_min.data  != null ?  global_params.fields.height_min.data  : '';
-    PS_params.height_max = global_params.fields.height_max.data  != null ?  global_params.fields.height_max.data  : '';
+    PS_params.height_min = global_params.fields.height_min  != null ?  global_params.fields.height_min  : '';
+    PS_params.height_max = global_params.fields.height_max  != null ?  global_params.fields.height_max  : '';
 
     empty_filters_list.push(PS_params.height_min);
     empty_filters_list.push(PS_params.height_max);
   }
 
-  else if (global_params.fields.height_min != null && global_params.fields.height_max != null && !(filt_perms['height_min']))
-  {
-    updateFilters('height', 'del');
-    filters_to_remove.push('height');
-  }
-
   // Setup Width filter
-  if (global_params.fields.width_min != null && global_params.fields.width_max != null && filt_perms['width_min']) {
+  if (global_params.fields.width_min != null && global_params.fields.width_max != null) {
     $(".filter-width").css("display", "flex");
     $(".filter-manager-controller.width").prop("checked", true);
     $(".filter.filter-width .slider-info").html(sprintf(sliders.widths.text,sliders.widths.selected.min,sliders.widths.selected.max));
 
     $('[data-slider=widths]').pwgDoubleSlider(sliders.widths);
 
-    if( global_params.fields.width_min.data > 0 && global_params.fields.width_max.data > 0) {
+    if( global_params.fields.width_min > 0 && global_params.fields.width_max > 0) {
       $(".filter-width").addClass("filter-filled");
       $(".filter.filter-width .search-words").html(sprintf(sliders.widths.text,sliders.widths.selected.min,sliders.widths.selected.max));
     }
@@ -761,17 +678,11 @@ $(document).ready(function () {
       }
     });
 
-    PS_params.width_min = global_params.fields.width_min.data  != null ?  global_params.fields.width_min.data  : '';
-    PS_params.width_max = global_params.fields.width_max.data  != null ?  global_params.fields.width_max.data  : '';
+    PS_params.width_min = global_params.fields.width_min  != null ?  global_params.fields.width_min  : '';
+    PS_params.width_max = global_params.fields.width_max  != null ?  global_params.fields.width_max  : '';
 
     empty_filters_list.push(PS_params.width_min);
     empty_filters_list.push(PS_params.width_max);
-  }
-
-  else if (global_params.fields.width_min != null && global_params.fields.width_max != null && !(filt_perms['width_min']))
-  {
-    updateFilters('width', 'del');
-    filters_to_remove.push('width');
   }
 
   if(filters_to_remove.length > 0){
@@ -1265,7 +1176,7 @@ $(document).ready(function () {
             ratios_array.push($(this).attr('name'));
           });
 
-          global_params.fields.ratios.data = ratios_array;
+          global_params.fields.ratios = ratios_array;
 
           PS_params.ratios = ratios_array.length > 0 ? ratios_array : '';
         }

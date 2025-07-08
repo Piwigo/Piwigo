@@ -167,7 +167,7 @@ foreach (array('added_by', 'filetypes', 'ratios', 'ratings') as $field)
 {
   if (in_array($field, $fields))
   {
-    $search['fields'][$field]['data'] = array();
+    $search['fields'][$field] = array();
   }
 }
 
@@ -184,7 +184,7 @@ foreach (array('filesize_min', 'filesize_max', 'width_min', 'width_max', 'height
 {
   if (in_array($field, $fields))
   {
-    $search['fields'][$field]['data'] = '';
+    $search['fields'][$field] = '';
   }
 }
 
