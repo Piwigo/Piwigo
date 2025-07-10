@@ -87,7 +87,13 @@ $(function () {
     return false;
   });
 
-  $("#uploader").pluploadQueue({
+  $("#uploadOptionsContent").hide();
+  $("#uploadOptions").on("click", function(){
+    $("#uploadOptionsContent").slideToggle();
+    $(".moxie-shim-html5").css("display", "none");
+  })
+
+  var uploader = $("#uploader").pluploadQueue({
     // General settings
     browse_button: 'addFiles',
     container: 'uploadForm',
@@ -374,7 +380,7 @@ $(function () {
           options.name = file.name;
         }
 
-        options.update_mode = updateMode;
+        options.update_mode = $('#toggleUpdateMode').is(':checked');
 
         up.setOption('multipart_params', options);
       },
@@ -485,6 +491,10 @@ $(function () {
       }
     }
   });
+
+  $("#toggleUpdateMode").on("click", function () {
+    uploader = $("#uploader").pluploadQueue({});
+  })
 
 });
 

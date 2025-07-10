@@ -1896,21 +1896,18 @@ img.ui-datepicker-trigger {
 .upload-options{
   cursor: pointer;
   align-items: center;
-  background-color: #f5f5f5;
   margin-left: 25px;
   padding: 2.5px 10px 7.5px 5px;
   display: flex;
-  color: #777777;
 }
 
 .upload-options-content{
   display: flex;
   position: relative;
-  background-color: #f5f5f5;
   font-weight: normal;
   padding : 23px 0px 22px 24px;
-  width: 100vw;
-  max-width: 81vw;
+  width: calc(101vw - 100%);
+  margin-right: 1em;
 }
 
 #toggleUpdateMode + .slider.round{

@@ -33,7 +33,6 @@
 {footer_script}
 
 const formatMode = {if $DISPLAY_FORMATS}true{else}false{/if};
-const updateMode = {if $UPDATE_IMAGES}true{else}false{/if};
 const haveFormatsOriginal = {if $HAVE_FORMATS_ORIGINAL}true{else}false{/if};
 const originalImageId = haveFormatsOriginal? '{if isset($FORMATS_ORIGINAL_INFO['id'])} {$FORMATS_ORIGINAL_INFO['id']} {else} -1 {/if}' : -1;
 const imageFormatsExtensions = '{$FORMATS_EXT_INFO}';
@@ -63,14 +62,6 @@ var uploadCategory = null;
 var addedPhotos = [];
 var updatedPhotos = [];
 let related_categories_ids = {$selected_category|json_encode};
-
-if(!updateMode)
-  $("#uploadOptionsContent").hide();
-$("#uploadOptions").on("click", function(){
-  $("#uploadOptionsContent").slideToggle();
-  $(".moxie-shim-html5").css("display", "none");
-})
-
 
 {/footer_script}
 
@@ -199,8 +190,8 @@ $("#uploadOptions").on("click", function(){
         </div>
       {if !$DISPLAY_FORMATS}
       <div class="upload-options-content" id="uploadOptionsContent">
-        <label class="switch" onClick="window.location.replace('{$SWITCH_UPDATE_IMAGES_MODE_URL}'); $('.switch .slider').addClass('loading');">
-          <input type="checkbox" id="toggleUpdateMode" {if $UPDATE_IMAGES}checked{/if}>
+        <label class="switch">
+          <input type="checkbox" id="toggleUpdateMode">
           <span class="slider round"></span>
         </label>
         <div style="margin-left: 6px;">

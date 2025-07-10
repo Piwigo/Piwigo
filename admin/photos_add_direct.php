@@ -82,7 +82,6 @@ $template->assign('PHPWG_URL', PHPWG_URL);
 // +-----------------------------------------------------------------------+
 
 $display_formats = $conf['enable_formats'] && isset($_GET['formats']);
-$update_images = isset($_GET['update']);
 
 $have_formats_original = false;
 $formats_original_info = array();
@@ -153,12 +152,10 @@ trigger_notify('loc_end_photo_add_direct');
 $template->assign(array(
   'ENABLE_FORMATS' => $conf['enable_formats'],
   'DISPLAY_FORMATS' => $display_formats,
-  'UPDATE_IMAGES' => $update_images,
   'HAVE_FORMATS_ORIGINAL' => $have_formats_original,
   'FORMATS_ORIGINAL_INFO' => $formats_original_info,
   'FORMATS_EXT_INFO' => $formats_ext_info,
   'SWITCH_FORMAT_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($display_formats ? '':'&formats'),
-  'SWITCH_UPDATE_IMAGES_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($update_images ? '' : '&update'),
   'format_ext' =>  implode(',', $conf['format_ext']),
   'str_format_ext' =>  implode(', ', $conf['format_ext']),
 ));
