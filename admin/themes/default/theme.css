@@ -1897,8 +1897,13 @@ img.ui-datepicker-trigger {
   cursor: pointer;
   align-items: center;
   margin-left: 25px;
-  padding: 2.5px 10px 7.5px 5px;
+  padding: 2.5px 10px 7.5px 0;
   display: flex;
+}
+
+.upload-options-icon{
+  margin-right: 0 !important;
+  padding-top: 0 !important;
 }
 
 .upload-options-content{

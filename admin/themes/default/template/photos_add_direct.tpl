@@ -42,25 +42,25 @@ const max_file_size = '{$max_file_size}mb';
 const format_update_warning = "{'This format already exists, it will be overwritten !'|translate}";
 const format_remove = "{'Remove'|translate}";
 var pwg_token = '{$pwg_token}';
-var photosAdded_label = "{'%d photos uploaded'|translate|escape:javascript}";
-var photosUpdated_label = "{'%d photos updated'|translate|escape:javascript}";
-var formatsAdded_label = "{'%d formats added for %d photos'|translate|escape:javascript}";
-var formatsUpdated_label = "{'%d formats updated for %d photos'|translate|escape:javascript}";
-var batch_Label = "{'Manage this set of %d photos'|translate|escape:javascript}";
-var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape:javascript}";
-var str_format_warning = "{'Error when trying to detect formats'|translate|escape:javascript}";
-var str_ok = "{'Ok'|translate|escape:javascript}";
-var str_format_warning_multiple = "{'There is multiple image in the database with the following names : %s.'|translate|escape:javascript}";
-var str_format_warning_notFound = "{'No picture found with the following name : %s.'|translate|escape:javascript}";
-var str_and_X_others = "{'and %d more'|translate|escape:javascript}";
+const photosAdded_label = "{'%d photos uploaded'|translate|escape:javascript}";
+const photosUpdated_label = "{'%d photos updated'|translate|escape:javascript}";
+const formatsAdded_label = "{'%d formats added for %d photos'|translate|escape:javascript}";
+const formatsUpdated_label = "{'%d formats updated for %d photos'|translate|escape:javascript}";
+const batch_Label = "{'Manage this set of %d photos'|translate|escape:javascript}";
+const albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape:javascript}";
+const str_format_warning = "{'Error when trying to detect formats'|translate|escape:javascript}";
+const str_ok = "{'Ok'|translate|escape:javascript}";
+const str_format_warning_multiple = "{'There is multiple image in the database with the following names : %s.'|translate|escape:javascript}";
+const str_format_warning_notFound = "{'No picture found with the following name : %s.'|translate|escape:javascript}";
+const str_and_X_others = "{'and %d more'|translate|escape:javascript}";
 const str_upload_in_progress = "{'Upload in progress'|translate|escape:javascript}";
 const str_drop_album_ab = '{'Drop into album'|@translate|escape:javascript}';
-var file_ext = "{$file_exts}";
-var format_ext = "{$format_ext}"; 
-var uploadedPhotos = [];
-var uploadCategory = null;
-var addedPhotos = [];
-var updatedPhotos = [];
+const file_ext = "{$file_exts}";
+const format_ext = "{$format_ext}"; 
+const uploadedPhotos = [];
+let uploadCategory = null;
+const addedPhotos = [];
+const updatedPhotos = [];
 let related_categories_ids = {$selected_category|json_encode};
 
 {/footer_script}
@@ -184,7 +184,7 @@ let related_categories_ids = {$selected_category|json_encode};
           <span class="icon-file-image icon-yellow"></span>{'Select files'|@translate}
           {if !$DISPLAY_FORMATS}
           <div id="uploadOptions" class="upload-options">
-            <span class="icon-equalizer rotate-element"></span>{'Options'|@translate}
+            <span class="icon-equalizer rotate-element upload-options-icon"></span>{'Options'|@translate}
           </div>
           {/if}
         </div>

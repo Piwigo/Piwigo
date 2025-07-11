@@ -16,8 +16,8 @@ const selectedAlbumEdit = $('#selectedAlbumEdit');
 const btnAddFiles = $('#addFiles');
 const chooseAlbumFirst = $('#chooseAlbumFirst');
 const uploaderPhotos = $('#uploader');
-var formatsUpdated = [];
-var formats = [];
+const formatsUpdated = [];
+const formats = [];
 
 /*--------------
 On DOM load
@@ -93,7 +93,7 @@ $(function () {
     $(".moxie-shim-html5").css("display", "none");
   })
 
-  var uploader = $("#uploader").pluploadQueue({
+  $("#uploader").pluploadQueue({
     // General settings
     browse_button: 'addFiles',
     container: 'uploadForm',
@@ -491,11 +491,6 @@ $(function () {
       }
     }
   });
-
-  $("#toggleUpdateMode").on("click", function () {
-    uploader = $("#uploader").pluploadQueue({});
-  })
-
 });
 
 /*--------------
