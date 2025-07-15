@@ -227,7 +227,7 @@ SELECT
 
     // compute file path
     $date_string = preg_replace('/[^\d]/', '', $dbnow);
-    $random_string = substr($md5sum, 0, 8);
+    $random_string = substr($md5sum, 0, 4).'%s';
     $filename_wo_ext = $date_string.'-'.$random_string;
     $file_path = $upload_dir.'/'.$filename_wo_ext.'.';
 
@@ -270,6 +270,16 @@ SELECT
     }
 
     prepare_directory($upload_dir);
+
+    $file_path_pattern = $file_path;
+    do
+    {
+      // we generate a random string for each upload. If the user uploads
+      // the same photo twice at the same time (same timestamp, same md5sum)
+      // we still want the path to be unique.
+      $file_path = sprintf($file_path_pattern, substr(bin2hex(random_bytes(4)), 0, 4));
+    }
+    while (file_exists($file_path));
   }
 
   if (is_uploaded_file($source_filepath))
