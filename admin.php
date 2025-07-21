@@ -65,11 +65,14 @@ if (isset($_GET['plugins_new_order']))
   exit;
 }
 
+$admin_theme = userprefs_get_param('admin_theme', 'clear');
+// echo('<pre>');print_r($admin_theme);echo('</pre>');
+
 // theme changer
 if (isset($_GET['change_theme']))
 {
   $admin_themes = array('roma', 'clear');
-  $admin_theme_array = array(userprefs_get_param('admin_theme', 'clear'));
+  $admin_theme_array = array($admin_theme);
   $result = array_diff(
       $admin_themes,
       $admin_theme_array
@@ -114,15 +117,23 @@ if ($conf['external_authentification'])
 // +-----------------------------------------------------------------------+
 
 $change_theme_url = PHPWG_ROOT_PATH.'admin.php?';
-$test_get = $_GET;
-unset($test_get['page']);
-unset($test_get['section']);
-unset($test_get['tag']);
-if (count($test_get) == 0 and !empty($_SERVER['QUERY_STRING']))
+
+//Check if we are on another admin page to be able to redirect user to same page
+if (count($_GET) != 0 and !empty($_SERVER['QUERY_STRING']))
 {
   $change_theme_url.= str_replace('&', '&amp;', $_SERVER['QUERY_STRING']).'&amp;';
 }
-$change_theme_url.= 'change_theme=1';
+
+//Set them to light unless we find preference
+$change_theme_url_light = $change_theme_url.'change_theme=clear';
+$change_theme_url_dark= $change_theme_url.'change_theme=roma';
+
+if(isset($_COOKIE["prefersDark"]) and $_COOKIE["prefersDark"]){
+  $change_theme_auto = $change_theme_url_dark;
+}
+else{
+  $change_theme_auto = $change_theme_url_light;
+}
 
 // ?page=plugin-community-pendings is an clean alias of
 // ?page=plugin&section=community/admin.php&tab=pendings
@@ -198,6 +209,7 @@ $template->set_filenames(array('admin' => 'admin.tpl'));
 $template->assign(
   array(
     'USERNAME' => $user['username'],
+    'USER_EMAIL' => $user['email'],
     'ENABLE_SYNCHRONIZATION' => $conf['enable_synchronization'],
     'U_SITE_MANAGER'=> $link_start.'site_manager',
     'U_HISTORY_STAT'=> $link_start.'stats&amp;year='.date('Y').'&amp;month='.date('n'),
@@ -227,11 +239,20 @@ $template->assign(
     'U_LOGOUT'=> PHPWG_ROOT_PATH.'index.php?act=logout',
     'U_PLUGINS'=> $link_start.'plugins',
     'U_ADD_PHOTOS' => $link_start.'photos_add',
-    'U_CHANGE_THEME' => $change_theme_url,
     'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
     'ADMIN_PAGE_OBJECT_ID' => '',
     'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
     'SHOW_RATING' => $conf['rate'],
+    'PHPWG_URL' => defined('PHPWG_URL') ? str_replace('http:', 'https:', PHPWG_URL) : '',
+    'ACTIVE_PAGE' => isset($_GET['page']) ? $_GET['page'] : 'dashboard',
+    'U_PERMALINKS'=> $link_start.'permalinks',
+    'U_ACTIVITY' => $link_start.'user_activity',
+    'U_PROFILE' => get_root_url().'profile.php',
+    'U_PREF_THEME' => userprefs_get_param('admin_theme', 'clear'),
+    'U_CHANGE_THEME_LIGHT' => $change_theme_url_light,
+    'U_CHANGE_THEME_DARK' => $change_theme_url_dark,
+    'U_CHANGE_THEME_AUTO' => $change_theme_auto,
+    'ADMIN_THEME'=> $admin_theme,
     )
   );
 

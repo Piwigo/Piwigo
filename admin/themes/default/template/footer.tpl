@@ -17,14 +17,14 @@
 {/if}
 
 <div id="footer">
-  <div>
+  {* <div>
     <a class="externalLink tiptip piwigo-logo" href="{$PHPWG_URL}" title="{'Visit Piwigo project website'|translate}"><img src="admin/themes/default/images/piwigo-grey.svg"></a>
     {if isset($DISPLAY_BELL) and $DISPLAY_BELL}
     <span id="whats_new_notification" class="icon-blue tiptip" onclick="show_user_whats_new()" title="{'What\'s new in version %s'|translate:$WHATS_NEW_MAJOR_VERSION}">
       <i class="icon-bell"></i>
     </span>
     {/if}
-  </div>
+  </div> *}
   <div id="pageInfos">
     {if isset($debug.TIME) }
     {'Page generated in'|translate} {$debug.TIME} ({$debug.NB_QUERIES} {'SQL queries in'|translate} {$debug.SQL_TIME}) -

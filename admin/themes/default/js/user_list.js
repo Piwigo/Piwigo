@@ -1310,16 +1310,6 @@ function generate_groups(container, groups) {
     }
 }
 
-function get_initials(username) {
-    let words = username.toUpperCase().split(" ");
-    let res = words[0][0];
-
-    if (words.length > 1 && words[1][0] !== undefined ) {
-        res += words[1][0];
-    }
-    return res;
-}
-
 function fill_container_user_info(container, user_index) {
     let user = current_users[user_index];
     let registration_dates = user.registration_date.split(' ');

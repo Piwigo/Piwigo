@@ -41,10 +41,6 @@ h3, .row2, .content { background-color: #222; }
 .throw, .row1 { background-color:#111; }
 .throw em { font-style: normal; color: #ededed; }
 
-#menubar li:hover {
-  background-color: transparent;
-}
-
 #content {
   background-color: #444444;
 }
@@ -126,7 +122,7 @@ a { color:#777; }
 a:hover, a:active { color: #ffa646; cursor: pointer; }
 ul.actions, .content form#waiting  {text-align:center;}
 
-#adminHome A, #menubar li A, #menubar dt {
+#adminHome A{
   color: #8d8d8d;
 }
 

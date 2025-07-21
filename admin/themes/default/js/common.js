@@ -333,3 +333,90 @@ jQuery.fn.pwg_jconfirm_follow_href = function({
     return (false);
   });
 }
+
+function get_initials(username) {
+  let words = username.toUpperCase().split(" ");
+  let res = words[0][0];
+
+  if (words.length > 1 && words[1][0] !== undefined ) {
+      res += words[1][0];
+  }
+  return res;
+}
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  if (cname == "lang")
+  {
+    location.reload();
+  }
+}
+
+
+//Script to handle menu
+
+
+$('document').ready(function(){
+  // {* Get the first letter of user name and fill the green circle span 
+  const initial_to_fill = get_initials(username);
+
+    const initialSpan = $('#menubar').find(".user-container-initials-wrapper span");
+    initialSpan.html(initial_to_fill);
+
+
+  // on hover of menu display menu subitems for desktop
+
+  $('.page-link').mouseenter(function (e) {
+    const current_link = $(this);
+    // Add a 2ms delay before displaying menu subitems 
+    current_link.data('timeout', setTimeout(function () {
+      // Hide user options 
+      hide_user_options(e)
+      current_link.children('.sub-link-container').css('display','block');
+      current_link.children('span').children('.hover').children('.icon-down-open').css('rotate','-90deg');
+    }, 300));
+  }).mouseleave(function () {
+    // when mouse leaves element reset the timeout so it doesn't display the sub elements because it's not the one the user wants to display 
+    const current_link = $(this);
+    current_link.children('.sub-link-container').css('display','none');
+    current_link.children('span').children('.hover').children('.icon-down-open').css('rotate','0deg');
+    clearTimeout(current_link.data('timeout'));
+  });
+
+  // On click of user name display sub menu 
+  $('.user-actions').click(function () {
+    const current_link = $(this);
+    current_link.children('.user-sub-link-container').toggle();
+    current_link.children('.icon-left-open').toggle();
+    $('#menubar .user-actions').toggleClass('active');
+  })
+
+  // Outside of user options block if we click hide it 
+  $(document).click(function (e) {
+    hide_user_options(e)
+  });
+  
+  // Hide the use options block 
+  function hide_user_options(e){
+    if (!$(e.target).closest('.user-actions').length) {
+      $('.user-sub-link-container').hide();
+      $('.icon-left-open').show();
+      $('#menubar .user-actions').removeClass('active');
+    }
+  }
+
+  // Check user preference for light or dark mode, set the preference in the cookie 
+  let prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setCookie("prefersDark",prefersDark,30);
+  
+  // Reduce and enlarge menu
+  $('#reduce-enlarge').click(function () {
+    $('#menubar').toggleClass('enlarged').toggleClass('reduced');
+    $('#content').toggleClass('reduced');
+  });
+
+
+})

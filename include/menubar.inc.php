@@ -377,6 +377,12 @@ function initialize_menu()
   {
     $block->template = 'menubar_identification.tpl';
   }
+  //Assign standard_pages variable to template to be able to use it in themes
+  if (conf_get_param('use_standard_pages', false))
+  {
+    $template->assign('use_standard_pages', true);
+  }
+  
   $menu->apply('MENUBAR',  'menubar.tpl' );
 }
 

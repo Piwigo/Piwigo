@@ -44,7 +44,7 @@
 {/if}
 </head>
 
-<body id="{$BODY_ID}">
+<body id="{$BODY_ID}" class="{$ACTIVE_PAGE}">
 
 <div id="the_page">
 
@@ -56,17 +56,17 @@
 </div>
 {/if}
 
-<div id="pwgHead">
+{* <div id="pwgHead">
   <a href="{$U_RETURN}" class="visit-gallery tiptip" title="{'Visit Gallery'|translate}"><i class="icon-left-open"></i>{'Visit'|translate}</a>
   <div class="pwgHead-gallery-title">{$GALLERY_TITLE}</div>
 
   <div id="headActions">
-    <span class="admin-head-username"><i class="icon-user"></i>{$USERNAME}</span>
+    <span class="admin-head-username"><i class="icon-user"></i>{$USERNAME}</span> *}
 {*
     <a href="{$U_RETURN}" title="{'Visit Gallery'|translate}"><i class="icon-eye"></i><span>{'Visit Gallery'|translate}</span></a>
 *}
 
-{strip}
+{* {strip}
     <a href="{$U_CHANGE_THEME}" class="tiptip" title="{'Switch to clear or dark colors for administration'|translate}">
 {if $theme_id eq "clear"}
       <i class="icon-moon-inv"></i><span>Dark</span>
@@ -79,7 +79,7 @@
     <a class="tiptip" href="{$U_FAQ}" title="{'Instructions to use Piwigo'|@translate}"><i class="icon-help-circled"></i><span>{'Help Me'|translate}</span></a>
     <a href="{$U_LOGOUT}"><i class="icon-logout"></i><span>{'Logout'|translate}</span></a>
   </div>
-</div>
+</div> *}
 
 <div style="clear:both;"></div>
 
