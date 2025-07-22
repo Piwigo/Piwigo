@@ -483,6 +483,7 @@ else
     // cache requires $logger which is not instanciated
     $user = build_user(1, false);
     log_user($user['id'], false);
+    $_SESSION['connected_with'] = 'pwg_ui';
 
     $user['preferences']['show_whats_new_'.get_branch_from_version(PHPWG_VERSION)] = false;
     
