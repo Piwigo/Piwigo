@@ -664,15 +664,12 @@ LI.menuLi {
   padding: 0em 1em 0em 0em;
 }
 
-.comment-box a{
-  margin-right: 3%;
-  object-fit: fill;
-}
-
 .comment-box a img{
     object-fit: cover;
     height: 11.7em;
     width: 11.7em;
+    margin-top: 0.3em;
+    margin-right: 3%;
 }
 
 .comment-box .comment{

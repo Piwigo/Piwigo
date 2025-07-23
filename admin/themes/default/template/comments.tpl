@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
   $("h1").append("<span class='badge-number'>"+{$nb_total}+"</span>");
 
   function highlighComments() {
-    jQuery(".checkComment").each(function() {
+    jQuery(".comment").each(function() {
       var parent = jQuery(this).parent('tr');
       if (jQuery(this).children("input[type=checkbox]").is(':checked')) {
         jQuery(parent).addClass('selectedComment'); 
@@ -17,6 +17,53 @@ jQuery(document).ready(function(){
     });
   }
 
+  if ("{$filter}" == "pending"){
+    $("#seeWaiting").prop('checked', true);
+  }
+  if ("{$filter}" == "validated"){
+    $("#seeValidated").prop('checked', true);
+  }
+
+  $("#seeAll").on("change", function(){
+    if ($("#seeAll").prop('checked') == true){
+      window.location.replace("{$F_ACTION}&filter=all&status={$displayed_status}");
+    }
+  });
+
+  $("#seeWaiting").on("change", function(){
+    if ($("#seeWaiting").prop('checked') == true){
+      window.location.replace("{$F_ACTION}&filter=pending&status={$displayed_status}");
+    }
+  });
+
+  $("#seeValidated").on("change", function(){
+    if ($("#seeValidated").prop('checked') == true){
+      window.location.replace("{$F_ACTION}&filter=validated&status={$displayed_status}");
+    }
+  });
+
+  $("#statusFilter").on("change", function(){
+    switch ($("#statusFilter").find(":selected").val()){
+      case ("all") :
+        window.location.replace("{$F_ACTION}&filter={$filter}&status=all");
+        break;
+      case ("webmaster") :
+        window.location.replace("{$F_ACTION}&filter={$filter}&status=webmaster");
+        break;
+      case ("admin") :
+        window.location.replace("{$F_ACTION}&filter={$filter}&status=admin");
+        break;
+      case ("normal") :
+        window.location.replace("{$F_ACTION}&filter={$filter}&status=normal");
+        break;
+      case ("guest") :
+        window.location.replace("{$F_ACTION}&filter={$filter}&status=guest");
+        break;
+    }
+  });
+
+  $("#statusFilter").val("{$displayed_status}");
+
   jQuery(".checkComment").click(function(event) {
     var checkbox = jQuery(this).children("input[type=checkbox]");
     if (event.target.type !== 'checkbox') {
@@ -26,21 +73,24 @@ jQuery(document).ready(function(){
   });
 
   jQuery("#commentSelectAll").click(function () {
-    jQuery(".checkComment input[type=checkbox]").prop('checked', true);
+    $(".comment-select-checkbox").prop('checked', true);
+    $(".comment-select-checkbox").trigger("change");
     highlighComments();
     return false;
   });
 
   jQuery("#commentSelectNone").click(function () {
-    jQuery(".checkComment input[type=checkbox]").prop('checked', false);
+    $(".comment-select-checkbox").prop('checked', false);
+    $(".comment-select-checkbox").trigger("change");
     highlighComments();
     return false;
   });
 
   jQuery("#commentSelectInvert").click(function () {
-    jQuery(".checkComment input[type=checkbox]").each(function() {
+    $(".comment-select-checkbox").each(function() {
       jQuery(this).prop('checked', !$(this).prop('checked'));
     });
+    $(".comment-select-checkbox").trigger("change");
     highlighComments();
     return false;
   });
@@ -63,6 +113,10 @@ jQuery(document).ready(function(){
       $(".comment-selection-content").hide();
       $(".comment-container").css("margin-inline-end", "0em")
       $("#advanced-filter-menu").css("margin-inline", "23px 10px")
+
+      $(".comment-select-checkbox").prop('checked', false);
+      $(".comment-select-checkbox").trigger("change");
+      highlighComments();
     }
     else {
       $(".comment-select-checkbox").css("visibility", "visible");
@@ -96,6 +150,20 @@ jQuery(document).ready(function(){
     $(".commentFilter .advanced-filter-btn").css("height", "27px")
   })
 
+  $(".delete-comment, #commentDeleteSelected").on("click", function() {
+    jQuery(this).parent().parent().children("input[type=checkbox]").prop('checked', true);
+    $("#pendingComments").trigger("submit")
+  })
+
+  $(".approve-comment, #commentValidateSelected").on("click", function() {
+    jQuery(this).parent().parent().children("input[type=checkbox]").prop('checked', true);
+    $("#pendingComments").trigger("submit")
+  })
+
+  $("#commentValidateSelected, #commentDeleteSelected").on("click", function() {
+    $("#pendingComments").trigger("submit")
+  })
+
 });
 {/footer_script}
 
@@ -103,7 +171,7 @@ jQuery(document).ready(function(){
 
   <div class="pluginTypeFilter">
     <input type="radio" name="p-filter" class="filter" id="seeAll" checked=""><label for="seeAll" href="{$F_ACTION}&amp;filter=all">{'All'|@translate}<span class="filter-badge">{$nb_total}</span></label>
-    <input type="radio" name="p-filter" class="filter" id="seeValidated"><label class="filterLabel" for="seeValidated" href="{$F_ACTION}&amp;filter=validated">{'Validated'|@translate}<span class="filter-badge">{$nb_total}</span></label>
+    <input type="radio" name="p-filter" class="filter" id="seeValidated"><label class="filterLabel" for="seeValidated" href="{$F_ACTION}&amp;filter=validated">{'Validated'|@translate}<span class="filter-badge">{$nb_validated}</span></label>
     <input type="radio" name="p-filter" class="filter" id="seeWaiting"><label class="filterLabel" for="seeWaiting" href="{$F_ACTION}&amp;filter=pending">{'Waiting'|@translate}<span class="filter-badge">{$nb_pending}</span></label>
   </div>
 
@@ -143,17 +211,14 @@ jQuery(document).ready(function(){
   <div class="advanced-filter-container">
     
     <div class="advanced-filter-item advanced-filter-author-status">
-      <label class="advanced-filter-item-label" for="author-filter">{'Status'|@translate}</label>
+      <label class="advanced-filter-item-label" for="author-filter">{'Status'|@translate} {currentStatusDisplayed == "all"}</label>
       <div class="advanced-filter-item-container">
-          <select class="user-action-select advanced-filter-select doubleSelect" name="filter_status">
-            <option value="" label="" selected></option>
-            {foreach from=$nb_users_by_status key=status_value item=status}
-              {if isset($status.name) and isset($status.counter)}
-                <option value="{$status_value}">{$status.name} ({$status.counter})</option>
-              {else}
-                <option value="{$status_value}" disabled>{$status}</option>
-              {/if}
-            {/foreach}
+          <select id="statusFilter" class="user-action-select advanced-filter-select doubleSelect" name="filter_status">
+            <option value="all" selected>{'All'|@translate}</option>
+            <option value="webmaster">{'Webmaster'|@translate}</option>
+            <option value="admin">{'Administrator'|@translate}</option>
+            <option value="normal">{'User'|@translate}</option>
+            <option value="guest">{'Guest'|@translate}</option>
           </select>
         </div>
     </div>
@@ -220,12 +285,25 @@ jQuery(document).ready(function(){
       <input type="checkbox" name="comments[]" value="{$comment.ID}" class="comment-select-checkbox icon-circle-empty">
       <blockquote> " {$comment.CONTENT} "</blockquote>
       {if $comment.IS_PENDING}<span class="pendingFlag">{'Waiting'|@translate}</span>{/if}
-      <strong>  <span id="badge-user" class="badge-user icon-king"></span> {$comment.AUTHOR}</strong>
+      <strong>  
+        {if $comment.AUTHOR_STATUS == "webmaster"}
+          <span id="badge-user" class="badge-main-user icon-king"></span> 
+        {elseif $comment.AUTHOR_STATUS == "admin"}
+          <span id="badge-user" class="badge-admin icon-king"></span> 
+        {elseif $comment.AUTHOR_STATUS == "normal"}
+          <span id="badge-user" class="badge-user-1 icon-user"></span> 
+        {elseif $comment.AUTHOR_STATUS == "guest"}
+          <span id="badge-user" class="badge-guest icon-user-secret"></span> 
+        {/if}
+        {$comment.AUTHOR} 
+      </strong>
       <p> <span class="icon-calendar"></span> {$comment.DATE}</p>
 
       <div class="comment-buttons-container">
-        <button class="approve-comment"  type="submit" name="validate" value="{'Validate'|@translate}"><i class="icon-ok"></i> {'Validate'|@translate}</button>
-        <button class="delete-comment"  type="submit" name="reject" value="{'Reject'|@translate}"><i class="icon-trash-1"></i> {'Reject'|@translate}</button>
+        {if $comment.IS_PENDING}
+        <button class="approve-comment" name="validate" value="{'Validate'|@translate}"><i class="icon-ok"></i> {'Validate'|@translate}</button>
+        {/if}
+        <button class="delete-comment" name="reject" value="{'Reject'|@translate}"><i class="icon-trash-1"></i> {'Delete'|@translate}</button>
       </div>
     </div>
     
@@ -247,8 +325,8 @@ jQuery(document).ready(function(){
   <p class="checkActions">
     <span class="badge-red icon-cog"></span> {'Action:'|@translate}
   </p>
-  <a href="#" id="commentSelectAll" class="selectButton2 icon-ok">{'Validate'|@translate}</a>
-  <a href="#" id="commentSelectInvert" class="selectButton2 icon-trash-1">{'Delete'|@translate}</a>
+  <button id="commentValidateSelected" name="validate" value="{'Validate'|@translate}" class="selectButton2 icon-ok">{'Validate'|@translate}</a>
+  <button id="commentDeleteSelected" name="reject" value="{'Reject'|@translate}" class="selectButton2 icon-trash-1">{'Delete'|@translate}</a>
 
 
   <div class="savebar-footer">
