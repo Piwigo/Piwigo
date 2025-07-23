@@ -9,6 +9,8 @@
 <meta name="apple-itunes-app" content="app-id=472225196">
 {/if}
 <meta charset="{$CONTENT_ENCODING}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
 <link rel="icon" type="image/svg+xml" href="{$ROOT_URL}{$themeconf.icon_dir}/piwigo.org-icon 1.svg">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/fonts/open-sans/open-sans.css">

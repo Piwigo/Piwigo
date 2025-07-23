@@ -127,7 +127,7 @@ let username = '{$USERNAME}'
         </div>
       </div>
       <div>
-        <a class="gallery-link" href="{$U_RETURN}"><i class="icon-home"></i><span class="reduced-hidden">{'Gallery'|@translate}&nbsp;</span></a>
+        <a class="gallery-link mobile-hidden" href="{$U_RETURN}"><i class="icon-home"></i><span class="reduced-hidden">{'Gallery'|@translate}&nbsp;</span></a>
       </div>
     </div>
 

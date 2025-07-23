@@ -2049,7 +2049,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 }
 
 #menubar #user-actions-container{
-  padding:0 15px;
+  padding:0 20px;
   margin:30px 0;
   position:relative;
 }
@@ -2060,6 +2060,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   padding:5px;
   cursor:pointer;
   border-radius: 25px;
+  position:relative;
 }
 
 #menubar.enlarged .user-actions.active::after {
@@ -2081,7 +2082,10 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 }
 
 #menubar .user-actions .icon-left-open{
-  margin-top:10px;
+  position:absolute;
+  right:-12px;
+  top:50%;
+  transform:translateY(-50%);
 }
 
 #menubar .user-actions .icon-left-open::before{
@@ -2096,8 +2100,8 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 
 #menubar .page-link{
   position:relative;
-  margin-bottom:5px;
-  padding:10px 20px;
+  margin-bottom: 3px;
+  padding: 7px 15px;
 }
 
 #menubar .page-link,
@@ -2112,7 +2116,12 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 }
 
 #menubar .page-link i{
-  margin-right:5px;
+  margin-right:10px;
+  font-size:20px;
+}
+
+#menubar .page-link .sub-link-container i{
+  font-size:11px;
 }
 
 #menubar .page-link .icon-down-open{
@@ -2164,8 +2173,8 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   border-radius:25px;
   margin-right:5px;
   padding: 0px;
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2191,7 +2200,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   border-radius:12px;
   font-weight:700;
   font-size:15px;
-  padding:5px 0;
+  padding:0;
 }
 
 #menubar .gallery-link i{
@@ -2208,10 +2217,16 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 }
 
 #menubar #reduce-enlarge{
+  margin-left:15px;
   margin-bottom:15px;
   display:block;
   cursor:pointer;
-  text-align:center;
+  text-align:left;
+}
+
+#menubar #reduce-enlarge span{
+  font-weight:bold;
+  font-size:14px;
 }
 
 #menubar #reduce-enlarge i{
@@ -2291,9 +2306,11 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 
 #menubar a.externalLink img{
   width:auto;
-  height:40px;
+  height:24px;
   display:block;
-  margin:8px auto;
+  margin-left:15px;
+  margin-bottom:36px;
+  margin-top:24px;
 }
 
 .adminMenubarCounter {
@@ -2320,7 +2337,11 @@ This is for large menu
 *****/
 
 #menubar.reduced{
-  width:90px;
+  width:60px;
+}
+
+#menubar.reduced #user-actions-container{
+  padding:0 7px;
 }
 
 #menubar.reduced .reduced-hidden{
@@ -2340,25 +2361,41 @@ This is for large menu
   text-align:center;
 }
 
+#menubar.reduced #reduce-enlarge{
+  text-align:center;
+  margin-left:unset;
+}
+
+#menubar.reduced a.externalLink img{
+  margin:0 auto;
+  margin-bottom:40px;
+
+}
+
 /*****
 Mobile Menu
 *****/
-/* @media (max-width: 1400px) { ... }
-@media (max-width: 1200px) { ... }
-@media (max-width: 992px) { ... }
-@media (max-width: 768px) { ... } */
+
 #mobile-menu-footer{
   display:none;
 }
 
-@media (max-width: 576px) {
+@media only screen and (max-width: 768px) {
+  .mobile-hidden,
+  #dekstop-menu-footer{
+    display:none!important;
+  }
+
+  #menubar{
+    max-height:100vh;
+    max-width:100vw;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+  }
+
   #menubar.enlarged,
   #menubar.reduced{
     width:100%;
-  }
-
-  #dekstop-menu-footer{
-    display:none;
   }
 
   #mobile-menu-footer {
@@ -2369,6 +2406,9 @@ Mobile Menu
   #mobile-menu-footer i{
     font-size:30px;
   }
+}
+
+@media only screen and (max-width: 480px) {
 }
 
 
@@ -2432,11 +2472,12 @@ This is for the light mode
 #menubar .gallery-link,
 #menubar .user-sub-link-container,
 #menubar .user-sub-link-container a,
-#menubar #menu-username{
+#menubar #menu-username,
+#menubar #reduce-enlarge span{
   color:#AAAAAA;
 }
 
-#menubar .page-link.active,
+#menubar .page-link.active a,
 #menubar .sub-link-container a.sub-link:hover
 .user-sub-link-container .user-infos p,
 .adminMenubarCounter{

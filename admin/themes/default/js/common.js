@@ -414,9 +414,17 @@ $('document').ready(function(){
   
   // Reduce and enlarge menu
   $('#reduce-enlarge').click(function () {
-    $('#menubar').toggleClass('enlarged').toggleClass('reduced');
-    $('#content').toggleClass('reduced');
+    //We make sure that we are using a desktop to enable enlarged and reduced
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (!isMobile) {
+      $('#menubar').toggleClass('enlarged').toggleClass('reduced');
+      $('#content').toggleClass('reduced');
+    }
+
   });
+
+  //Save in user pref/or cookie in the menu is reduce or enlarged
 
 
 })
