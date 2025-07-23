@@ -277,6 +277,7 @@ jQuery(document).ready(function(){
   
 <div class="comment-container">
   {foreach from=$comments item=comment name=comment}
+  {if $displayed_status == "all" || $displayed_status == $comment.AUTHOR_STATUS}
   <div valign="top" class="comment-box">
     
     <a class="illustration" href="{$comment.U_PICTURE}"><img src="{$comment.TN_SRC}"></a>
@@ -308,6 +309,7 @@ jQuery(document).ready(function(){
     </div>
     
   </div>
+  {/if}
   {/foreach}
 
 </div>
