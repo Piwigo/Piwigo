@@ -1398,3 +1398,4 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = '若您想修改密碼，請前往以下的地址：';
 $lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = '給 %s 的啟用連結已經寄到 "%s" 了。如果該使用者沒有收到，您可以編輯使用者資訊、管理他的密碼，便能重新產生新的連結，然後再複製給他。';
 $lang['A photo library administrator has created the following account for you:'] = '照片庫的管理員為您建立了以下的帳號：';
+$lang['Welcome to %s'] = '歡迎來到 %s';

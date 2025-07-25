@@ -1399,3 +1399,4 @@ $lang['An activation link valid for %s has been sent to "%s". If the user doesn\
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = 'En aktiveringslenke gyldig for %s ble opprettet, men kunne ikke sendes. Du kan nå kopiere lenken nedenfor og sende den til brukeren.';
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Denne lenken er gyldig for %s. Etter dette tidspunktet må du be om en ny lenke.';
 $lang['To set your password, visit the following address:'] = 'For å angi passordet ditt, besøk følgende adresse:';
+$lang['Welcome to %s'] = 'Velkommen til %s';

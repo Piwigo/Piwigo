@@ -457,3 +457,4 @@ $lang['Custom dates'] = '自定义日期';
 $lang['There are no authors available for the photos currently filtered'] = '当前筛选的照片没有可用的作者信息';
 $lang['There are no creation dates available for the photos currently filtered'] = '当前筛选的照片没有可用的创建日期';
 $lang['There are no tags available for the photos currently filtered'] = '当前筛选的照片没有可用的标签';
+$lang['Set your password below.'] = '请在下方的输入框中设置密码。';

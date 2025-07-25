@@ -1398,3 +1398,4 @@ $lang['An activation link valid for %s has been sent to "%s". If the user doesn\
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Bu bağlantı %s için geçerlidir. Bu süreden sonra yeni bir bağlantı talep etmeniz gerekecektir.';
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = '%s için geçerli bir aktivasyon bağlantısı oluşturuldu ancak gönderilemedi. Şimdi aşağıdaki bağlantıyı kopyalayıp kullanıcıya gönderebilirsiniz.';
 $lang['To set your password, visit the following address:'] = 'Şifrenizi belirlemek için şu adresi ziyaret edin:';
+$lang['Welcome to %s'] = '%s\'ye Hoş Geldiniz';

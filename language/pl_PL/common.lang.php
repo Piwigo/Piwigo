@@ -476,3 +476,4 @@ $lang['last 12 months'] = 'Ostatnie 12 miesięcy';
 $lang['There are no authors available for the photos currently filtered'] = 'Brak dostępnych autorów dla aktualnie filtrowanych zdjęć';
 $lang['There are no creation dates available for the photos currently filtered'] = 'Brak dostępnych dat utworzenia dla aktualnie filtrowanych zdjęć';
 $lang['There are no tags available for the photos currently filtered'] = 'Brak dostępnych tagów dla aktualnie filtrowanych zdjęć';
+$lang['Set your password below.'] = 'Ustaw poniżej swoje hasło.';
