@@ -377,7 +377,7 @@ $('document').ready(function(){
       hide_user_options(e)
       current_link.children('.sub-link-container').css('display','block');
       current_link.children('span').children('.hover').children('.icon-down-open').css('rotate','-90deg');
-    }, 300));
+    }, 250));
   }).mouseleave(function () {
     // when mouse leaves element reset the timeout so it doesn't display the sub elements because it's not the one the user wants to display 
     const current_link = $(this);

@@ -72,9 +72,9 @@ let username = '{$USERNAME}'
             <span class="icon-green"><!-- initials --></span>
           </div>
           <span id="menu-username" class="reduced-hidden">{$USERNAME}</span>
-        </div>
 
-          <i class="icon-left-open reduced-hidden"></i>
+        </div>
+                  <i class="icon-left-open reduced-hidden"></i>
      
         <div class="user-sub-link-container">
           <div class="user-infos">

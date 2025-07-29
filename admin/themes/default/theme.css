@@ -2066,10 +2066,10 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 #menubar.enlarged .user-actions.active::after {
   content: "";
   width: 57px;
-  height: 45px;
+  height: 40px;
   position: absolute;
   top: 0;
-  right: 0;
+  right: -20px;;
 }
 
 #menubar.reduced .user-actions.active::after {
@@ -2081,11 +2081,8 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   right: 0;
 }
 
-#menubar .user-actions .icon-left-open{
-  position:absolute;
-  right:-12px;
-  top:50%;
-  transform:translateY(-50%);
+#menubar .user-actions .icon-left-open:before{
+  margin-top:8px;
 }
 
 #menubar .user-actions .icon-left-open::before{
@@ -2121,7 +2118,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 }
 
 #menubar .page-link .sub-link-container i{
-  font-size:11px;
+  font-size:15px;
 }
 
 #menubar .page-link .icon-down-open{
@@ -2204,8 +2201,9 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 }
 
 #menubar .gallery-link i{
-  font-size:35px;
-  margin-right:10px
+  font-size:30px;
+  margin-right:10px;
+  padding:5px 0;
 }
 
 #menubar .gallery-link i::before{
@@ -2217,11 +2215,9 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 }
 
 #menubar #reduce-enlarge{
-  margin-left:15px;
-  margin-bottom:15px;
   display:block;
   cursor:pointer;
-  text-align:left;
+  text-align:center;
 }
 
 #menubar #reduce-enlarge span{
@@ -2233,6 +2229,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   padding:5px;
   border-radius:5px;
   display:inline-block;
+  font-size:15px;
 }
 
 #menubar .icon-reduce{
@@ -2255,7 +2252,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 
 #menubar .sub-link-container .sub-link{
   display:flex;
-  padding:8px 15px;
+  padding:5px 15px;
 }
 
 #menubar .sub-link-container a.sub-link{
@@ -2269,7 +2266,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 #menubar .user-sub-link-container{
   display:none;
   position: absolute;
-  right: -225px;
+  right: -245px;
   top: 0;
   width: 205px;
   border-radius: 0 15px 15px 15px;
@@ -2308,7 +2305,7 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
   width:auto;
   height:24px;
   display:block;
-  margin-left:15px;
+  margin:0 auto;
   margin-bottom:36px;
   margin-top:24px;
 }
@@ -2369,7 +2366,13 @@ This is for large menu
 #menubar.reduced a.externalLink img{
   margin:0 auto;
   margin-bottom:40px;
+  margin-top:20px;
 
+}
+
+#menubar.reduced  .page-link .icon-down-open{
+  margin:0;
+  z-index:10;
 }
 
 /*****
@@ -2473,7 +2476,9 @@ This is for the light mode
 #menubar .user-sub-link-container,
 #menubar .user-sub-link-container a,
 #menubar #menu-username,
-#menubar #reduce-enlarge span{
+#menubar #reduce-enlarge span,
+#menubar .gallery-link,
+#menubar #reduce-enlarge i{
   color:#AAAAAA;
 }
 
