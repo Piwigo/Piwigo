@@ -26,43 +26,35 @@ jQuery(document).ready(function(){
 
   $("#seeAll").on("change", function(){
     if ($("#seeAll").prop('checked') == true){
-      window.location.replace("{$F_ACTION}&filter=all&status={$displayed_status}");
+      window.location.replace("{$F_ACTION}&filter=all&status={$displayed_status}&author={$displayed_author}");
     }
   });
 
   $("#seeWaiting").on("change", function(){
     if ($("#seeWaiting").prop('checked') == true){
-      window.location.replace("{$F_ACTION}&filter=pending&status={$displayed_status}");
+      window.location.replace("{$F_ACTION}&filter=pending&status={$displayed_status}&author={$displayed_author}");
     }
   });
 
   $("#seeValidated").on("change", function(){
     if ($("#seeValidated").prop('checked') == true){
-      window.location.replace("{$F_ACTION}&filter=validated&status={$displayed_status}");
+      window.location.replace("{$F_ACTION}&filter=validated&status={$displayed_status}&author={$displayed_author}");
     }
   });
 
-  $("#statusFilter").on("change", function(){
-    switch ($("#statusFilter").find(":selected").val()){
-      case ("all") :
-        window.location.replace("{$F_ACTION}&filter={$filter}&status=all");
-        break;
-      case ("webmaster") :
-        window.location.replace("{$F_ACTION}&filter={$filter}&status=webmaster");
-        break;
-      case ("admin") :
-        window.location.replace("{$F_ACTION}&filter={$filter}&status=admin");
-        break;
-      case ("normal") :
-        window.location.replace("{$F_ACTION}&filter={$filter}&status=normal");
-        break;
-      case ("guest") :
-        window.location.replace("{$F_ACTION}&filter={$filter}&status=guest");
-        break;
-    }
+  $("#status_filter").on("change", function(){
+    let location = "{$F_ACTION}&filter={$filter}&status=" + $("#status_filter").find(":selected").val().toString() + "&author={$displayed_author}";
+    window.location.replace(location);
   });
 
-  $("#statusFilter").val("{$displayed_status}");
+  $("#status_filter").val("{$displayed_status}");
+
+  $("#author_filter").on("change", function(){
+    let location = "{$F_ACTION}&filter={$filter}&status={$displayed_status}&author=" + $("#author_filter").find(":selected").val().toString();
+    window.location.replace(location);
+  });
+
+  $("#author_filter").val("{$displayed_author}");
 
   jQuery(".checkComment").click(function(event) {
     var checkbox = jQuery(this).children("input[type=checkbox]");
@@ -213,7 +205,7 @@ jQuery(document).ready(function(){
     <div class="advanced-filter-item advanced-filter-author-status">
       <label class="advanced-filter-item-label" for="author-filter">{'Status'|@translate} {currentStatusDisplayed == "all"}</label>
       <div class="advanced-filter-item-container">
-          <select id="statusFilter" class="user-action-select advanced-filter-select doubleSelect" name="filter_status">
+          <select id="status_filter" class="user-action-select advanced-filter-select doubleSelect" name="filter_status">
             <option value="all" selected>{'All'|@translate}</option>
             <option value="webmaster">{'Webmaster'|@translate}</option>
             <option value="admin">{'Administrator'|@translate}</option>
@@ -226,34 +218,28 @@ jQuery(document).ready(function(){
     <div class="advanced-filter-item advanced-filter-author">
       <label class="advanced-filter-item-label" for="tag-filter">{'Comment author'|@translate}</label>
       <div class="advanced-filter-item-container">
-          <select class="user-action-select advanced-filter-select doubleSelect" name="filter_status">
-            <option value="" label="" selected></option>
-            {foreach from=$nb_users_by_status key=status_value item=status}
-              {if isset($status.name) and isset($status.counter)}
-                <option value="{$status_value}">{$status.name} ({$status.counter})</option>
-              {else}
-                <option value="{$status_value}" disabled>{$status}</option>
-              {/if}
+          <select id="author_filter" class="user-action-select advanced-filter-select doubleSelect" name="filter_status">
+            <option value="all" label="" selected>{'All'|@translate}</option>
+            {if !empty($comments) }
+            {foreach from=$comments item=comment name=comment}
+              <option value="{$comment.AUTHOR}">{$comment.AUTHOR}</option>
             {/foreach}
+            {/if}
           </select>
         </div>
     </div>
 
+    <!--
     <div class="advanced-filter-item advanced-filter-mentions">
       <label class="advanced-filter-item-label" for="tag-filter">{'Mentions'|@translate}</label>
       <div class="advanced-filter-item-container">
-          <select class="user-action-select advanced-filter-select doubleSelect" name="filter_status">
-            <option value="" label="" selected></option>
-            {foreach from=$nb_users_by_status key=status_value item=status}
-              {if isset($status.name) and isset($status.counter)}
-                <option value="{$status_value}">{$status.name} ({$status.counter})</option>
-              {else}
-                <option value="{$status_value}" disabled>{$status}</option>
-              {/if}
-            {/foreach}
-          </select>
-        </div>
+        <select class="user-action-select advanced-filter-select doubleSelect" name="filter_status">
+          <option value="" label="" selected></option>
+          
+        </select>
+      </div>
     </div>
+    -->
 
     <div class="advanced-filter-item advanced-filter-revision-date">
         <label class="advanced-filter-item-label" for="revision-date-filter">
@@ -277,14 +263,15 @@ jQuery(document).ready(function(){
   
 <div class="comment-container">
   {foreach from=$comments item=comment name=comment}
-  {if $displayed_status == "all" || $displayed_status == $comment.AUTHOR_STATUS}
+  {if $displayed_status == "all" or $displayed_status == $comment.AUTHOR_STATUS}
+  {if $displayed_author == "all" or $comment.AUTHOR == $displayed_author}
   <div valign="top" class="comment-box">
     
     <a class="illustration" href="{$comment.U_PICTURE}"><img src="{$comment.TN_SRC}"></a>
 
     <div class="comment">
       <input type="checkbox" name="comments[]" value="{$comment.ID}" class="comment-select-checkbox icon-circle-empty">
-      <blockquote> " {$comment.CONTENT} "</blockquote>
+      <blockquote class="comment_content"> " {$comment.CONTENT} "</blockquote>
       {if $comment.IS_PENDING}<span class="pendingFlag">{'Waiting'|@translate}</span>{/if}
       <strong>  
         {if $comment.AUTHOR_STATUS == "webmaster"}
@@ -309,6 +296,7 @@ jQuery(document).ready(function(){
     </div>
     
   </div>
+  {/if}
   {/if}
   {/foreach}
 

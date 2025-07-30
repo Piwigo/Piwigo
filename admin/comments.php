@@ -153,6 +153,16 @@ else
   $displayed_status = 'all';
 }
 
+if (isset($_GET['author']))
+{
+  $author = $_GET['author'];
+}
+else 
+{
+  $author = 'all';
+}
+
+
 $template->assign(
   array(
     'nb_total' => $nb_total,
@@ -160,6 +170,7 @@ $template->assign(
     'nb_validated' => $nb_validated,
     'filter' => $page['filter'],
     'displayed_status' => $displayed_status,
+    'displayed_author' => $author,
     )
   );
 
