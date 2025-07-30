@@ -26,7 +26,7 @@ ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
 .content div.comment blockquote {
   margin-right: 0.5em; overflow: visible; /*avoid a very strange margin behaviour (all browsers) */ }
 
-.comment .pendingFlag {font-style:italic;color:red;}
+.comment .pendingFlag {font-style:italic;color:red;margin-left: 0.5em;}
 
 /* not used but should be */
 #thePopuphelpPage .content { margin: 1em; }
@@ -684,7 +684,7 @@ LI.menuLi {
 .comment-box .comment blockquote{
   align-self: flex-start;
   font-style: italic;
-  margin : 0% 2% 0% 0%;
+  margin : -1em 2% 0% 0%;
   align-self: flex-start;
   min-height: 0em;
 }
