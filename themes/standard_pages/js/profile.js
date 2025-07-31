@@ -21,7 +21,9 @@ $(function() {
     }
   });
 
-  $('#account-section .display-btn').trigger('click');
+  setTimeout(() => {
+    $('#account-section .display-btn').trigger('click');
+  }, 100);
 
   $('#save_account').on('click', function() {
     const mail = $('#email').val();
@@ -32,48 +34,71 @@ $(function() {
     setInfos({ email: mail });
   });
 
-  $('#save_preferences').on('click', function() {
-    const values = {
-      nb_image_page: $('#nb_image_page').val(),
-      theme: $('select[name="theme"]').val(),
-      language: $('select[name="language"]').val(),
-      recent_period: $('#recent_period').val(),
-      expand: $('#opt_album').is(':checked'),
-      show_nb_comments: $('#opt_comment').is(':checked'),
-      show_nb_hits: $('#opt_hits').is(':checked')
-    }
+  if (canUpdatePreferences) {
+    $('#save_preferences').on('click', function () {
+      const values = {
+        nb_image_page: $('#nb_image_page').val(),
+        theme: $('select[name="theme"]').val(),
+        language: $('select[name="language"]').val(),
+        recent_period: $('#recent_period').val(),
+        expand: $('#opt_album').is(':checked'),
+        show_nb_comments: $('#opt_comment').is(':checked'),
+        show_nb_hits: $('#opt_hits').is(':checked')
+      }
 
-    if (values.nb_image_page == '') {
-      $('#error_nb_image').show();
-      return;
-    }
+      if (values.nb_image_page == '') {
+        $('#error_nb_image').show();
+        return;
+      }
 
-    if (values.recent_period == '') {
-      $('#error_period').show();
-      return;
-    }
+      if (values.recent_period == '') {
+        $('#error_period').show();
+        return;
+      }
 
-    setInfos({...values});
-  });
+      setInfos({ ...values });
+    });
 
-  $('#save_password').on('click', function() {
-    const passwords = {
-      password: $('#password').val(),
-      new_password: $('#password_new').val(),
-      conf_new_password: $('#password_conf').val(),
-    }
-    if (passwords.password  == '' || passwords.new_password == '' || passwords.conf_new_password == '') {
-      $('#password-section input').each((i, element) => {
-        const el = $(element);
-        if (el.val() == '') {
-          el.parent().siblings().show();
-        }
-      });
-      return;
-    }
-    setInfos({...passwords});
-    $('#password-section input').val('');
-  });
+    $('#reset_preferences').on('click', function () {
+      $('input[name="nb_image_page"]').val(user.nb_image_page);
+      $('select[name="theme"]').val(user.theme);
+      $('select[name="language"]').val(user.language);
+      $('input[name="recent_period"]').val(user.recent_period);
+      $('#opt_album').prop('checked', user.opt_album);
+      $('#opt_comment').prop('checked', user.opt_comment);
+      $('#opt_hits').prop('checked', user.opt_hits);
+    });
+
+    $('#default_preferences').on('click', function () {
+      $('input[name="nb_image_page"]').val(preferencesDefaultValues.nb_image_page);
+      $('input[name="recent_period"]').val(preferencesDefaultValues.recent_period);
+      $('#opt_album').prop('checked', preferencesDefaultValues.opt_album);
+      $('#opt_comment').prop('checked', preferencesDefaultValues.opt_comment);
+      $('#opt_hits').prop('checked', preferencesDefaultValues.opt_hits);
+    });
+  }
+
+  if (canUpdatePassword) {
+    $('#save_password').on('click', function () {
+      const passwords = {
+        password: $('#password').val(),
+        new_password: $('#password_new').val(),
+        conf_new_password: $('#password_conf').val(),
+      }
+      if (passwords.password == '' || passwords.new_password == '' || passwords.conf_new_password == '') {
+        $('#password-section input').each((i, element) => {
+          const el = $(element);
+          if (el.val() == '') {
+            el.parent().siblings().show();
+          }
+        });
+        return;
+      }
+      setInfos({ ...passwords });
+      $('#password-section input').val('');
+    });
+  }
+  
 
   standardSaveSelector.forEach((selector, i) => {
     $(selector).on('click', function() {
@@ -86,35 +111,6 @@ $(function() {
       });
       setInfos({...values});
     });
-  });
-
-
-  const userDefaultValues = {
-    nb_image_page: $('input[name="nb_image_page"]').val(),
-    theme: $('select[name="theme"]').val(),
-    language: $('select[name="language"]').val(),
-    recent_period: $('input[name="recent_period"]').val(),
-    opt_album: $('#opt_album').is(':checked'),
-    opt_comment: $('#opt_comment').is(':checked'),
-    opt_hits: $('#opt_hits').is(':checked'),
-  }
-
-  $('#reset_preferences').on('click', function() {
-    $('input[name="nb_image_page"]').val(userDefaultValues.nb_image_page);
-    $('select[name="theme"]').val(userDefaultValues.theme);
-    $('select[name="language"]').val(userDefaultValues.language);
-    $('input[name="recent_period"]').val(userDefaultValues.recent_period);
-    $('#opt_album').prop('checked', userDefaultValues.opt_album);
-    $('#opt_comment').prop('checked', userDefaultValues.opt_comment);
-    $('#opt_hits').prop('checked', userDefaultValues.opt_hits);
-  });
-
-  $('#default_preferences').on('click', function() {
-    $('input[name="nb_image_page"]').val(preferencesDefaultValues.nb_image_page);
-    $('input[name="recent_period"]').val(preferencesDefaultValues.recent_period);
-    $('#opt_album').prop('checked', preferencesDefaultValues.opt_album);
-    $('#opt_comment').prop('checked', preferencesDefaultValues.opt_comment);
-    $('#opt_hits').prop('checked', preferencesDefaultValues.opt_hits);
   });
 
   // API KEY BELOW
@@ -202,24 +198,26 @@ function setInfos(params, method='pwg.users.setMyInfo', callback=null, errCallba
     data: all_params,
     success: (data) => {
       if (data.stat == 'ok') {
+        user = {...user, ...params};
         if (typeof callback === 'function') {
           callback(data.result);
           return;
         };
         pwgToaster({ text: data.result, icon: 'success' });
+        return;
       } else if (data.stat == 'fail') {
         pwgToaster({ text: data.message, icon: 'error' });
       } else {
         pwgToaster({ text: str_handle_error, icon: 'error' });
       }
-      if (typeof callback === 'function') {
+      if (typeof errCallback === 'function') {
         errCallback(data);
         return;
       }
     },
     error: function (e) {
       pwgToaster({ text: e.responseJSON?.message ?? str_handle_error, icon: 'error' });
-      if (typeof callback === 'function') {
+      if (typeof errCallback === 'function') {
         errCallback(e);
         return;
       }
@@ -237,7 +235,7 @@ function getAllApiKeys(reset = false) {
     },
     success: function(res) {
       if (res.stat == 'ok') {
-        if (typeof res.result === 'string') {
+        if (typeof res.result === 'string' || res.result === false) {
           // No keys
         } else {
           AddApiLine(res.result, reset);

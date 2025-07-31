@@ -8,9 +8,23 @@ var selected_language = `{$language_options[$current_language]}`;
   var url_logo_dark = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo_dark.svg`;
 </script>
 {combine_script id='standard_pages_js' load='async' require='jquery' path='themes/standard_pages/js/standard_pages.js'}
-{combine_script id='standard_profile_js' load='async' require='jquery' path='themes/standard_pages/js/profile.js'}
+{combine_script id='standard_profile_js' load='footer' require='jquery' path='themes/standard_pages/js/profile.js'}
 {combine_script id='common' load='footer' require='jquery' path='admin/themes/default/js/common.js'}
 {footer_script}
+let user = {
+  username: "{$USERNAME}",
+  email: "{$EMAIL}",
+  nb_image_page: $('input[name="nb_image_page"]').val(),
+  theme: $('select[name="theme"]').val(),
+  language: $('select[name="language"]').val(),
+  recent_period: $('input[name="recent_period"]').val(),
+  opt_album: $('#opt_album').is(':checked'),
+  opt_comment: $('#opt_comment').is(':checked'),
+  opt_hits: $('#opt_hits').is(':checked')
+}
+
+const canUpdatePreferences = {if $ALLOW_USER_CUSTOMIZATION}true{else}false{/if};
+const canUpdatePassword = {if not $SPECIAL_USER}true{else}false{/if};
 const standardSaveSelector = [];
 const preferencesDefaultValues = {
 nb_image_page: {$DEFAULT_USER_VALUES['nb_image_page']},
@@ -36,6 +50,7 @@ const str_revoke_key = "{'Do you really want to revoke the "%s" API key?'|transl
 const str_api_revoked = "{"API Key has been successfully revoked."|translate|escape:javascript}";
 const str_api_edited = "{"API Key has been successfully edited."|translate|escape:javascript}";
 const no_time_elapsed = "{"right now"|translate|escape:javascript}";
+const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
 {/footer_script}
 
 <container id="mode" class="light">
@@ -69,7 +84,7 @@ const no_time_elapsed = "{"right now"|translate|escape:javascript}";
         <label>{'Username'|translate}</label>
         <div class="row-flex input-container username">
           <i class="gallery-icon-user"></i>
-          <p>{$USERNAME}</p>
+          <p id="username">{$USERNAME}</p>
           <input id="pwg_token" type="hidden" value="{$PWG_TOKEN}" />
         </div>
       </div>

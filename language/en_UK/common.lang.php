@@ -517,4 +517,4 @@ $lang['Edit API Key'] = 'Edit API Key';
 $lang['Do you really want to revoke the "%s" API key?'] = 'Do you really want to revoke the "%s" API key?';
 $lang['To manage your API keys, please log in with your username/password.'] = 'To manage your API keys, please log in with your username/password.';
 $lang['3xlarge'] = '3XL - extra huge';
-$lang['4xlarge'] = '4XL - gigantique';
+$lang['4xlarge'] = '4XL - gigantic';

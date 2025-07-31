@@ -666,6 +666,9 @@ a#showPermissions:hover {border-color: #A5A5A5;}
 .plupload_filelist_footer {background-color: #F5F5F5!important;}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
+li.plupload_delete a span {background: #FFF;}
+li.plupload_delete a:hover span {background: #FFF;}
+li.plupload_delete a.remove-format:hover{color: #474747;}
 
 .addAlbumEmpty {color: #3C3C3C;}
 #permitAction p {background: #FFF;}
@@ -714,6 +717,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58;}
 #batchManagerGlobal .font-checkbox.selected {color: #777;}
+
+/* Picture add */
+
+.upload-options, .upload-options-content {
+  background-color: #f5f5f5;
+  color: #777777;
+}
 
 /* Category List */
 .categoryContainer {
