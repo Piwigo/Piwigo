@@ -1920,6 +1920,7 @@ img.ui-datepicker-trigger {
 }
 
 .rotate-element{
+  display: inline-block;
   transform: rotate(90deg);
 }
 
