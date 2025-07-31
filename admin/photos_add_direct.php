@@ -26,7 +26,7 @@ DELETE FROM '.CADDIE_TABLE.'
   pwg_query($query);
 
   $inserts = array();
-  foreach (explode(',', $_GET['batch']) as $image_id)
+  foreach (array_unique(explode(',', $_GET['batch'])) as $image_id)
   {
     $inserts[] = array(
       'user_id' => $user['id'],
