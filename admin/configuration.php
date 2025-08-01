@@ -112,6 +112,22 @@ $display_info_checkboxes = array(
     'rating_score',
   );
 
+$filters_names_checkboxes = array(
+  'words',
+  'tags',
+  'post_date',
+  'creation_date',
+  'album',
+  'author',
+  'added_by',
+  'file_type',
+  'ratio',
+  'rating',
+  'file_size',
+  'height',
+  'width'
+);
+
 // image order management
 $sort_fields = array(
   ''                    => '',
@@ -276,6 +292,23 @@ if (isset($_POST['submit']))
       }
       $_POST['picture_informations'] = addslashes(serialize($_POST['picture_informations']));
       break;
+    }
+    case 'search' :
+    {
+      foreach( $filters_names_checkboxes as $checkbox)
+      {
+        if (empty($_POST['filters_views_box'][$checkbox])){
+          $_POST['filters_views'][$checkbox]['access'] = 'nobody';
+          $_POST['filters_views'][$checkbox]['default'] = false;
+        }
+        else{
+          $_POST['filters_views'][$checkbox]['default'] =
+            empty($_POST['filters_views'][$checkbox]['default'])? false : true;
+        }
+      }
+      $_POST['filters_views']['last_filters_conf'] =
+        empty($_POST['filters_views']['last_filters_conf'])? false : true;
+      $_POST['filters_views'] = addslashes(serialize($_POST['filters_views']));
     }
   }
 
@@ -659,6 +692,18 @@ switch ($page['section'])
     }
 
     break;
+  }
+  case 'search':
+  {
+    $filters_names = $filters_names_checkboxes;
+    $template->assign(
+      'search',
+        array(
+          'filters_views' => unserialize($conf['filters_views']),
+          'filters_names' => $filters_names,
+        ),
+    );
+    $template->assign('SHOW_FILTER_RATINGS', $conf['rate']);
   }
 }
 

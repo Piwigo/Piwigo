@@ -23,6 +23,14 @@ fullname_of_cat = {$fullname_of};
 search_id = '{$SEARCH_ID}';
 {/if}
 
+{if is_admin()}
+user_rank = "admin";
+{elseif is_classic_user()}
+user_rank = "user";
+{else}
+user_rank = "none";
+{/if}
+
 str_word_widget_label = "{'Search for words'|@translate|escape:javascript}";
 str_tags_widget_label = "{'Tag'|@translate|escape:javascript}";
 str_album_widget_label = "{'Album'|@translate|escape:javascript}";
@@ -101,60 +109,86 @@ const prefix_icon = 'gallery-icon-';
       <div class="mcs-popin-title">{'Choose filters'|@translate}</div>
 
       <div class="filter-manager-controller-container">
+        {if $display_filter.words.access == 'everybody' or ($display_filter.words.access == 'admins-only' and is_admin()) or ($display_filter.words.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='word' class="filter-manager-controller word" type="checkbox"/>
           <span class="mcs-icon gallery-icon-search">{'Search for words'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.tags.access == 'everybody' or ($display_filter.tags.access == 'admins-only' and is_admin()) or ($display_filter.tags.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='tag' class="filter-manager-controller tags" type="checkbox"/>
           <span class="mcs-icon gallery-icon-tag">{'Tag'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.post_date.access == 'everybody' or ($display_filter.post_date.access == 'admins-only' and is_admin()) or ($display_filter.post_date.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='date_posted' class="filter-manager-controller date_posted" type="checkbox"/>
           <span class="mcs-icon gallery-icon-calendar-plus">{'Post date'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.creation_date.access == 'everybody' or ($display_filter.creation_date.access == 'admins-only' and is_admin()) or ($display_filter.creation_date.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='date_created' class="filter-manager-controller date_created" type="checkbox"/>
           <span class="mcs-icon gallery-icon-calendar">{'Creation date'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.album.access == 'everybody' or ($display_filter.album.access == 'admins-only' and is_admin()) or ($display_filter.album.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='album' class="filter-manager-controller album" type="checkbox"/>
           <span class="mcs-icon gallery-icon-album">{'Album'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.author.access == 'everybody' or ($display_filter.author.access == 'admins-only' and is_admin()) or ($display_filter.author.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='authors' class="filter-manager-controller author" type="checkbox"/>
           <span class="mcs-icon gallery-icon-user-edit">{'Author'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.added_by.access == 'everybody' or ($display_filter.added_by.access == 'admins-only' and is_admin()) or ($display_filter.added_by.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='added_by' class="filter-manager-controller added_by" type="checkbox"/>
           <span class="mcs-icon gallery-icon-user">{'Added by'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.file_type.access == 'everybody' or ($display_filter.file_type.access == 'admins-only' and is_admin()) or ($display_filter.file_type.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='filetypes' class="filter-manager-controller filetypes" type="checkbox"/>
           <span class="mcs-icon gallery-icon-file-image">{'File type'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.ratio.access == 'everybody' or ($display_filter.ratio.access == 'admins-only' and is_admin()) or ($display_filter.ratio.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='ratios' class="filter-manager-controller ratios" type="checkbox"/>
           <span class="mcs-icon gallery-icon-crop">{'Ratio'|@translate}</span>
         </label>
+        {/if}
 {if $SHOW_FILTER_RATINGS and isset($SHOW_FILTER_RATINGS)}
+  {if $display_filter.rating.access == 'everybody' or ($display_filter.rating.access == 'admins-only' and is_admin()) or ($display_filter.rating.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='ratings' class="filter-manager-controller ratings" type="checkbox"/>
           <span class="mcs-icon gallery-icon-star-1">{'Rating'|@translate}</span>
         </label>
+  {/if}  
 {/if}
+        {if $display_filter.file_size.access == 'everybody' or ($display_filter.file_size.access == 'admins-only' and is_admin()) or ($display_filter.file_size.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='filesize' class="filter-manager-controller filesize" type="checkbox"/>
           <span class="mcs-icon gallery-icon-hdd">{'Filesize'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.height.access == 'everybody' or ($display_filter.height.access == 'admins-only' and is_admin()) or ($display_filter.height.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='height' class="filter-manager-controller height" type="checkbox"/>
           <span class="mcs-icon gallery-icon-height">{'Height'|@translate}</span>
         </label>
+        {/if}
+        {if $display_filter.width.access == 'everybody' or ($display_filter.width.access == 'admins-only' and is_admin()) or ($display_filter.width.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='width' class="filter-manager-controller width" type="checkbox"/>
           <span class="mcs-icon gallery-icon-width">{'Width'|@translate}</span>
         </label>
+        {/if}
       </div>
 
       <div class="filter-manager-actions">

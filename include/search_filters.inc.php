@@ -6,11 +6,38 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
+if (isset($conf['filters_views']))
+{
+  $filters_views = unserialize($conf['filters_views']);
+}
+else
+{
+  $filters_views = unserialize('a:14:{s:5:"words";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:4:"tags";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"post_date";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:13:"creation_date";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:5:"album";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:6:"author";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:8:"added_by";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"file_type";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:5:"ratio";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:6:"rating";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"file_size";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:6:"height";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:5:"width";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:17:"last_filters_conf";b:1;}');
+}
+
+$template->assign('display_filter', $filters_views);
+
 // we add isset($page['search_details']) in this condition because it only
 // applies to regular search, not the legacy qsearch. As Piwigo 14 will still
 // be able to show an old quicksearch result, we must check this condtion too.
 if ('search' == $page['section'] and isset($page['search_details']))
 {
+  $display_filters = $filters_views;
+
+  foreach($filters_views as $filt_name => $filt_conf){
+    if(isset($filt_conf['access']))
+    {
+      if ($filt_conf['access'] == 'everybody' or ($filt_conf['access'] == 'admins-only' and is_admin()) or ($filt_conf['access'] == 'registered-users' and is_classic_user()))
+      {
+        $display_filters[$filt_name]['access'] = true;
+      }
+      else
+      {
+        $display_filters[$filt_name]['access'] = false;
+      }
+    }
+  }
+
   include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
   $my_search = get_search_array($page['search']);
@@ -40,7 +67,12 @@ if ('search' == $page['section'] and isset($page['search_details']))
     $search_items_clause = '1=1';
   }
 
-  if (isset($my_search['fields']['tags']))
+  if (isset($my_search['fields']['allwords']) and !($display_filters['words']['access']))
+  {
+    unset($my_search['fields']['allwords']);
+  }
+
+  if (isset($my_search['fields']['tags']) and $display_filters['tags']['access'])
   {
     $filter_tags = array();
 
@@ -77,7 +109,12 @@ if ('search' == $page['section'] and isset($page['search_details']))
     $my_search['fields']['tags']['words'] = array_intersect($my_search['fields']['tags']['words'], $filter_tag_ids);
   }
 
-  if (isset($my_search['fields']['author']))
+  else if (isset($my_search['fields']['tags']) and !($display_filters['tags']['access']))
+  {
+    unset($my_search['fields']['tags']);
+  }
+
+  if (isset($my_search['fields']['author']) and $display_filters['author']['access'])
   {
     $filter_clause = get_clause_for_filter('author');
 
@@ -118,7 +155,12 @@ SELECT
     $my_search['fields']['author']['words'] = array_intersect($my_search['fields']['author']['words'], $author_names);
   }
 
-  if (isset($my_search['fields']['date_posted']))
+  else if (isset($my_search['fields']['author']) and !($display_filters['author']['access']))
+  {
+    unset($my_search['fields']['author']);
+  }
+
+  if (isset($my_search['fields']['date_posted']) and $display_filters['post_date']['access'])
   {
     $filter_clause = get_clause_for_filter('date_posted');
     $cache_key = $persistent_cache->make_key('filter_date_posted'.$user['id'].$user['cache_update_time']);
@@ -220,7 +262,12 @@ SELECT
     $template->assign('DATE_POSTED', $counters);
   }
 
-  if (isset($my_search['fields']['date_created']))
+  else if (isset($my_search['fields']['date_posted']) and !($display_filters['post_date']['access']))
+  {
+    unset($my_search['fields']['date_posted']);
+  }
+
+  if (isset($my_search['fields']['date_created']) and $display_filters['creation_date']['access'])
   {
     $filter_clause = get_clause_for_filter('date_created');
     $cache_key = $persistent_cache->make_key('filter_date_created'.$user['id'].$user['cache_update_time']);
@@ -324,8 +371,12 @@ SELECT
     $template->assign('DATE_CREATED', $counters);
   }
 
+  else if (isset($my_search['fields']['date_created']) and !($display_filters['creation_date']['access']))
+  {
+    unset($my_search['fields']['date_created']);
+  }
 
-  if (isset($my_search['fields']['added_by']))
+  if (isset($my_search['fields']['added_by']) and $display_filters['added_by']['access'])
   {
     $filter_clause = get_clause_for_filter('added_by');
 
@@ -388,11 +439,18 @@ SELECT
     $my_search['fields']['added_by'] = array_intersect($my_search['fields']['added_by'], $user_ids);
   }
 
-  if (isset($my_search['fields']['cat']) and !empty($my_search['fields']['cat']['words']))
+  else if (isset($my_search['fields']['added_by']) and !($display_filters['added_by']['access']))
   {
-    $fullname_of = array();
+    unset($my_search['fields']['added_by']);
+  }
 
-    $query = '
+  if (isset($my_search['fields']['cat']) and $display_filters['album']['access'])
+  {
+    if (!empty($my_search['fields']['cat']['words']))
+    {
+      $fullname_of = array();
+
+      $query = '
 SELECT
     id, 
     uppercats
@@ -400,26 +458,32 @@ SELECT
     INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id = cat_id AND user_id = '.$user['id'].'
   WHERE id IN ('.implode(',', $my_search['fields']['cat']['words']).')
 ;';
-    $result = pwg_query($query);
+      $result = pwg_query($query);
 
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $cat_display_name = get_cat_display_name_cache(
-        $row['uppercats'],
-        'admin.php?page=album-' // TODO not sure it's relevant to link to admin pages
-      );
-      $row['fullname'] = strip_tags($cat_display_name);
+      while ($row = pwg_db_fetch_assoc($result))
+      {
+        $cat_display_name = get_cat_display_name_cache(
+          $row['uppercats'],
+          'admin.php?page=album-' // TODO not sure it's relevant to link to admin pages
+        );
+        $row['fullname'] = strip_tags($cat_display_name);
 
-      $fullname_of[$row['id']] = $row['fullname'];
+        $fullname_of[$row['id']] = $row['fullname'];
+      }
+
+      $template->assign('fullname_of', json_encode($fullname_of));
+
+      // in case the search has forbidden albums for current user, we need to filter the search rule
+      $my_search['fields']['cat']['words'] = array_intersect($my_search['fields']['cat']['words'], array_keys($fullname_of));
     }
-
-    $template->assign('fullname_of', json_encode($fullname_of));
-
-    // in case the search has forbidden albums for current user, we need to filter the search rule
-    $my_search['fields']['cat']['words'] = array_intersect($my_search['fields']['cat']['words'], array_keys($fullname_of));
   }
 
-  if (isset($my_search['fields']['filetypes']))
+  else if (isset($my_search['fields']['cat']) and !($display_filters['album']['access']))
+  {
+    unset($my_search['fields']['cat']);
+  }
+
+  if (isset($my_search['fields']['filetypes']) and $display_filters['file_type']['access'])
   {
     $filter_clause = get_clause_for_filter('filetypes');
 
@@ -469,12 +533,17 @@ SELECT
     }
   }
 
+  else if (isset($my_search['fields']['filetypes']) and !($display_filters['file_type']['access']))
+  {
+    unset($my_search['fields']['filetypes']);
+  }
+
   // For rating
   if ($conf['rate'])
   {
     $template->assign('SHOW_FILTER_RATINGS', true);
     
-    if (isset($my_search['fields']['ratings']))
+    if (isset($my_search['fields']['ratings']) and $display_filters['rating']['access'])
     {
       $filter_clause = get_clause_for_filter('ratings');
 
@@ -529,14 +598,22 @@ SELECT
       }
       $template->assign('RATING', $ratings);
     }
+    else if (isset($my_search['fields']['ratings']) and !($display_filters['rating']['access']))
+    {
+      unset($my_search['fields']['ratings']);
+    }
   }
   else
   {
     $template->assign('SHOW_FILTER_RATINGS', false);
+    if (isset($my_search['fields']['ratings']))
+    {
+      unset($my_search['fields']['ratings']);
+    }
   }
 
   // For filesize
-  if (isset($my_search['fields']['filesize_min']) && isset($my_search['fields']['filesize_max']))
+  if (isset($my_search['fields']['filesize_min']) && isset($my_search['fields']['filesize_max']) and $display_filters['file_size']['access'])
   {
     $filter_clause = get_clause_for_filter('filesize');
 
@@ -582,8 +659,14 @@ SELECT
 
     $template->assign('FILESIZE', $filesize );
   }
+
+  else if (isset($my_search['fields']['filesize_min']) && isset($my_search['fields']['filesize_max']) and !($display_filters['file_size']['access']))
+  {
+    unset($my_search['fields']['filesize_min']);
+    unset($my_search['fields']['filesize_max']);
+  }
   
-  if (isset($my_search['fields']['ratios']))
+  if (isset($my_search['fields']['ratios']) and $display_filters['ratio']['access'])
   {
     $filter_clause = get_clause_for_filter('ratios');
 
@@ -648,11 +731,15 @@ SELECT
         $persistent_cache->set($cache_key, $ratios);
       }
     }
-
     $template->assign('RATIOS', $ratios);
   }
 
-  if (isset($my_search['fields']['height_min']) and isset($my_search['fields']['height_max']))
+  else if (isset($my_search['fields']['ratios']) and !($display_filters['ratio']['access']))
+  {
+    unset($my_search['fields']['ratios']);
+  }
+
+  if (isset($my_search['fields']['height_min']) and isset($my_search['fields']['height_max']) and $display_filters['height']['access'])
   {
     $filter_clause = get_clause_for_filter('height');
 
@@ -699,7 +786,13 @@ SELECT
     $template->assign('HEIGHT', $height);
   }
 
-  if (isset($my_search['fields']['width_min']) and isset($my_search['fields']['width_max']))
+  else if (isset($my_search['fields']['height_min']) && isset($my_search['fields']['height_max']) and !($display_filters['height']['access']))
+  {
+    unset($my_search['fields']['height_min']);
+    unset($my_search['fields']['height_max']);
+  }
+
+  if (isset($my_search['fields']['width_min']) and isset($my_search['fields']['width_max']) and $display_filters['width']['access'])
   {
     $filter_clause = get_clause_for_filter('width');
 
@@ -744,6 +837,12 @@ SELECT
     );
 
     $template->assign('WIDTH', $width);
+  }
+
+  else if (isset($my_search['fields']['width_min']) && isset($my_search['fields']['width_max']) and !($display_filters['width']['access']))
+  {
+    unset($my_search['fields']['width_min']);
+    unset($my_search['fields']['width_max']);
   }
 
   $template->assign(

@@ -81,6 +81,7 @@ function add_core_tabs($sheets, $tab_id)
       $sheets['watermark'] = array('caption' => '<span class="icon-file-image"></span>'.l10n('Watermark'), 'url' => $conf_link.'watermark');
       $sheets['display'] = array('caption' => '<span class="icon-television"></span>'.l10n('Display'), 'url' => $conf_link.'display');
       $sheets['comments'] = array('caption' => '<span class="icon-chat"></span>'.l10n('Comments'), 'url' => $conf_link.'comments');
+      $sheets['search'] = array('caption' => '<span class="icon-search"></span>'.l10n('Search'), 'url' => $conf_link.'search');
       // $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
       break;
 
