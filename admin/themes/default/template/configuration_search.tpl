@@ -89,7 +89,13 @@ for(const filter_name of filters_names){
             disabled
           {/if}
           >
-          {ucfirst(str_replace('_', ' ', $filter_name))|translate}
+          {if $filter_name == 'words'}
+            {'Search for words'|translate}
+          {else if $filter_name == 'file_size'}
+            {'Filesize'|translate}
+          {else}
+            {ucfirst(str_replace('_', ' ', $filter_name))|translate}
+          {/if}
         </label>
         <div class='select-views-arrow icon-down-open' id="{$filter_name}Arrow"> </div>
         <select name="filters_views[{$filter_name}][access]" id="f{$filter_name}Select" class="select-views">
@@ -116,7 +122,7 @@ for(const filter_name of filters_names){
     </div>
 
     <label class="filter-manager-options-container">
-      <span class="mcs-icon-options gallery-icon-search">{'Words'|translate}</span>
+      <span class="mcs-icon-options gallery-icon-search">{'Search for words'|translate}</span>
       <input type="checkbox" class="filter-manager-options-check" name="filters_views[words][default]" id="default_words" 
       {if ($search.filters_views.words.default)}
         checked="checked"
