@@ -60,8 +60,42 @@ jQuery(document).ready(function(){
     $("#start_date").val("");
   });
 
+  $("#start_date").on("focus", function(){
+    $(this).data('previous', $(this).val());
+  });
+
+  $("#start_date").on("change", function(){
+    if ($("#end_date").val() != "")
+    {
+      var previous = $(this).data('previous');
+      var current = new Date($(this).val());
+      var max = new Date($("#end_date").val());
+      if (current > max){
+        $(this).val(previous);
+      }
+      $(this).data('previous', $(this).val());
+    }
+  });
+
   $("#end_unset").on("click", function(){
     $("#end_date").val("");
+  });
+
+  $("#end_date").on("focus", function(){
+    $(this).data('previous', $(this).val());
+  });
+
+  $("#end_date").on("change", function(){
+    if ($("#start_date").val() != "")
+    {
+      var previous = $(this).data('previous');
+      var current = new Date($(this).val());
+      var min = new Date($("#start_date").val());
+      if (current < min){
+        $(this).val(previous);
+      }
+      $(this).data('previous', $(this).val());
+    }
   });
 
   jQuery(".checkComment").click(function(event) {
