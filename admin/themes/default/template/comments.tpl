@@ -56,6 +56,14 @@ jQuery(document).ready(function(){
 
   $("#author_filter").val("{$displayed_author}");
 
+  $("#start_unset").on("click", function(){
+    $("#start_date").val("");
+  });
+
+  $("#end_unset").on("click", function(){
+    $("#end_date").val("");
+  });
+
   jQuery(".checkComment").click(function(event) {
     var checkbox = jQuery(this).children("input[type=checkbox]");
     if (event.target.type !== 'checkbox') {
@@ -134,6 +142,10 @@ jQuery(document).ready(function(){
       $(".commentFilter .advanced-filter-btn").css("height", "27px")
     }
   })
+
+  if ("{$displayed_status}" != "all" || "{$displayed_author}" != "all"){
+    $(".advanced-filter-btn").trigger( "click" );
+  }
 
   $(".advanced-filter-close").on("click", function() {
     $("#advanced-filter-menu").css("display", "none")
@@ -229,6 +241,28 @@ jQuery(document).ready(function(){
         </div>
     </div>
 
+    <div class="advanced-filter-item advanced-filter-author">
+      <label class="advanced-filter-item-label" for="tag-filter">{'Start-Date'|@translate}</label>
+      <div class="advanced-filter-item-container">
+        <input type="hidden" name="start" value="{$START}">
+        <label>
+          <input id="start_date" type="date">
+        </label>
+      </div>
+      <a href="#" class="icon-cancel-circled" id="start_unset">{'unset'|translate}</a>
+    </div>
+
+    <div class="advanced-filter-item advanced-filter-author">
+      <label class="advanced-filter-item-label" for="tag-filter">{'End-Date'|@translate}</label>
+      <div class="advanced-filter-item-container">
+        <input type="hidden" name="end" value="{$END}">
+        <label>
+          <input id="end_date" type="date">
+        </label>
+      </div>
+      <a href="#" class="icon-cancel-circled" id="end_unset">{'unset'|translate}</a>
+    </div>
+
     <!--
     <div class="advanced-filter-item advanced-filter-mentions">
       <label class="advanced-filter-item-label" for="tag-filter">{'Mentions'|@translate}</label>
@@ -241,7 +275,7 @@ jQuery(document).ready(function(){
     </div>
     -->
 
-    <div class="advanced-filter-item advanced-filter-revision-date">
+    <!--<div class="advanced-filter-item advanced-filter-revision-date">
         <label class="advanced-filter-item-label" for="revision-date-filter">
             {'Date of comment'|@translate}<span class="revision-date">{}</span>
         </label>
@@ -251,7 +285,7 @@ jQuery(document).ready(function(){
                 <div class="slider-bar-container revision-date-filter-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"><div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 0%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a></div>
             </div>
         </div>
-    </div>
+    </div>-->
   </div>
 </div>
 
@@ -265,19 +299,18 @@ jQuery(document).ready(function(){
   {foreach from=$comments item=comment name=comment}
   {if $displayed_status == "all" or $displayed_status == $comment.AUTHOR_STATUS}
   {if $displayed_author == "all" or $comment.AUTHOR == $displayed_author}
-  <div valign="top" class="comment-box">
+  <div valign="top" class={if $comment.IS_PENDING}"comment-box comment-box-validated"{else}"comment-box"{/if}>
     
     <a class="illustration" href="{$comment.U_PICTURE}"><img src="{$comment.TN_SRC}"></a>
 
     <div class="comment">
       <input type="checkbox" name="comments[]" value="{$comment.ID}" class="comment-select-checkbox icon-circle-empty">
       <blockquote class="comment_content"> " {$comment.CONTENT} "</blockquote>
-      {if $comment.IS_PENDING}<span class="pendingFlag">{'Waiting'|@translate}</span>{/if}
       <strong>  
         {if $comment.AUTHOR_STATUS == "webmaster"}
           <span id="badge-user" class="badge-main-user icon-king"></span> 
         {elseif $comment.AUTHOR_STATUS == "admin"}
-          <span id="badge-user" class="badge-admin icon-king"></span> 
+          <span id="badge-user" class="badge-admin icon-star"></span> 
         {elseif $comment.AUTHOR_STATUS == "normal"}
           <span id="badge-user" class="badge-user-1 icon-user"></span> 
         {elseif $comment.AUTHOR_STATUS == "guest"}

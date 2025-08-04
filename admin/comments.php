@@ -162,6 +162,16 @@ else
   $author = 'all';
 }
 
+// by default, no filter by date is active
+$start = $end = "";
+
+if (isset($_GET['start_date'])){
+  $start = $_GET['start_date'];
+}
+
+if (isset($_GET['end_date'])){
+  $end = $_GET['end_date'];
+}
 
 $template->assign(
   array(
@@ -171,6 +181,8 @@ $template->assign(
     'filter' => $page['filter'],
     'displayed_status' => $displayed_status,
     'displayed_author' => $author,
+    'START' => $start,
+    'END' => $end,
     )
   );
 
