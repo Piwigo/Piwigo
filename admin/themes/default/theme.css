@@ -644,6 +644,10 @@ LI.menuLi {
   display : flex;
 }
 
+.comment-box-validated, .comment-box-validated:focus{
+  border-color: #FFC17E !important;
+}
+
 .comment-box, .comment-box:focus{
   background-color: #FAFAFA;
 
@@ -2735,6 +2739,10 @@ div.jGrowl div.jGrowl-notification{
 .revision-date {
   color: #f70;
   margin-left: 5px;
+}
+
+.advanced-filter-item{
+  text-align: left;
 }
 
 .advanced-filter-revision-date .advanced-filter-item-label {
