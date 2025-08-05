@@ -193,7 +193,7 @@ jQuery(document).ready(function(){
     }
   })
 
-  if ("{$displayed_status}" != "all" || "{$displayed_author}" != "all"){
+  if ("{$displayed_status}" != "all" || "{$displayed_author}" != "all" || "{$START}" != "" || "{$END}" != ""){
     $(".advanced-filter-btn").trigger( "click" );
   }
 
