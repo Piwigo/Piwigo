@@ -26,31 +26,31 @@ jQuery(document).ready(function(){
 
   $("#seeAll").on("change", function(){
     if ($("#seeAll").prop('checked') == true){
-      window.location.replace("{$F_ACTION}&filter=all&status={$displayed_status}&author={$displayed_author}");
+      window.location.replace("{$F_ACTION}&filter=all&status={$displayed_status}&author={$displayed_author}&start_date={$START}&end_date={$END}");
     }
   });
 
   $("#seeWaiting").on("change", function(){
     if ($("#seeWaiting").prop('checked') == true){
-      window.location.replace("{$F_ACTION}&filter=pending&status={$displayed_status}&author={$displayed_author}");
+      window.location.replace("{$F_ACTION}&filter=pending&status={$displayed_status}&author={$displayed_author}&start_date={$START}&end_date={$END}");
     }
   });
 
   $("#seeValidated").on("change", function(){
     if ($("#seeValidated").prop('checked') == true){
-      window.location.replace("{$F_ACTION}&filter=validated&status={$displayed_status}&author={$displayed_author}");
+      window.location.replace("{$F_ACTION}&filter=validated&status={$displayed_status}&author={$displayed_author}&start_date={$START}&end_date={$END}");
     }
   });
 
   $("#status_filter").on("change", function(){
-    let location = "{$F_ACTION}&filter={$filter}&status=" + $("#status_filter").find(":selected").val().toString() + "&author={$displayed_author}";
+    let location = "{$F_ACTION}&filter={$filter}&status=" + $("#status_filter").find(":selected").val().toString() + "&author={$displayed_author}&start_date={$START}&end_date={$END}";
     window.location.replace(location);
   });
 
   $("#status_filter").val("{$displayed_status}");
 
   $("#author_filter").on("change", function(){
-    let location = "{$F_ACTION}&filter={$filter}&status={$displayed_status}&author=" + $("#author_filter").find(":selected").val().toString();
+    let location = "{$F_ACTION}&filter={$filter}&status={$displayed_status}&author=" + $("#author_filter").find(":selected").val().toString() + "&start_date={$START}&end_date={$END}";
     window.location.replace(location);
   });
 
@@ -58,11 +58,15 @@ jQuery(document).ready(function(){
 
   $("#start_unset").on("click", function(){
     $("#start_date").val("");
+    let location = "{$F_ACTION}&filter={$filter}&status={$displayed_status}&author={$displayed_author}&start_date=&end_date={$END}";
+    window.location.replace(location);
   });
 
   $("#start_date").on("focus", function(){
     $(this).data('previous', $(this).val());
   });
+
+  $("#start_date").val("{$START}".replaceAll("_", "-"));  
 
   $("#start_date").on("change", function(){
     if ($("#end_date").val() != "")
@@ -72,18 +76,26 @@ jQuery(document).ready(function(){
       var max = new Date($("#end_date").val());
       if (current > max){
         $(this).val(previous);
+        $(this).data('previous', $(this).val());
+        return
       }
-      $(this).data('previous', $(this).val());
     }
+    $(this).data('previous', $(this).val());
+    let location = "{$F_ACTION}&filter={$filter}&status={$displayed_status}&author={$displayed_author}&start_date=" + $(this).val().replaceAll("-", "_") + "&end_date={$END}";
+    window.location.replace(location);
   });
 
   $("#end_unset").on("click", function(){
     $("#end_date").val("");
+    let location = "{$F_ACTION}&filter={$filter}&status={$displayed_status}&author={$displayed_author}&start_date={$START}&end_date=";
+    window.location.replace(location);
   });
 
   $("#end_date").on("focus", function(){
     $(this).data('previous', $(this).val());
   });
+
+  $("#end_date").val("{$END}".replaceAll("_", "-"));
 
   $("#end_date").on("change", function(){
     if ($("#start_date").val() != "")
@@ -93,9 +105,13 @@ jQuery(document).ready(function(){
       var min = new Date($("#start_date").val());
       if (current < min){
         $(this).val(previous);
+        $(this).data('previous', $(this).val());
+        return
       }
-      $(this).data('previous', $(this).val());
     }
+    $(this).data('previous', $(this).val());
+    let location = "{$F_ACTION}&filter={$filter}&status={$displayed_status}&author={$displayed_author}&start_date={$START}&end_date=" + $(this).val().replaceAll("-", "_");
+    window.location.replace(location);
   });
 
   jQuery(".checkComment").click(function(event) {
