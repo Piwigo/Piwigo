@@ -181,13 +181,6 @@ jQuery(document).ready(function(){
     $(".advanced-filter-btn").trigger( "click" );
   }
 
-  $(".advanced-filter-close").on("click", function() {
-    $("#advanced-filter-menu").css("display", "none")
-    $("#advanced-filter-menu").css("margin-bottom", "0.2em")
-    $(".commentFilter").css("margin-bottom", "1em")
-    $(".commentFilter .advanced-filter-btn").css("height", "27px")
-  })
-
   $(".delete-comment, #commentDeleteSelected").on("click", function() {
     jQuery(this).parent().parent().children("input[type=checkbox]").prop('checked', true);
     $("#pendingComments").trigger("submit")
@@ -241,10 +234,6 @@ jQuery(document).ready(function(){
 </div>
 
 <div id="advanced-filter-menu" class="advanced-filter advanced-filter-new-plugin advanced-filter-open" style="display: none; margin-inline: 23px 10px;">
-  <div class="advanced-filter-header">
-    <span class="advanced-filter-title"></span>
-    <span class="advanced-filter-close icon-cancel"></span>
-  </div>
 
   <div class="advanced-filter-container">
     
