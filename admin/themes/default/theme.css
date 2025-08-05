@@ -747,12 +747,11 @@ LI.menuLi {
 }
 
 .comment div {
-  align-self: flex-end;
-  position: relative;
-  bottom: -30px;
   text-align: end;
   min-height: 18%;
   min-width: 100%;
+  margin-top: auto;
+  margin-bottom: 0.8em;
 }
 
 .comment-buttons-container{
