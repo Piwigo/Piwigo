@@ -459,12 +459,77 @@ function ws_getActivityList($param, &$service)
   
   $output_lines = array();
   $current_key = '';
-  $page_size = 100000; //We will fetch X lines in database =/= lines displayed due to line concatenation
-  $page_offset = $param['page']*$page_size;
+  $page_size = 100; //We will fetch X lines in database =/= lines displayed due to line concatenation
+  //$page_offset = $param['page']*$page_size;
+  $page_offset = $param['offset'];
 
   $user_ids = array();
 
-  $query = '
+  $line_id = 0;
+
+  
+
+  if (!empty($param['date_min'])) {
+    $min = date_format(date_create($param['date_min']), "Y-m-d H:i:s");
+    $max = date_format(date_create($param['date_max']), "Y-m-d 23:59:59");
+  }
+
+  if (!empty($param['date_max'])) {
+    $max = date_format(date_create($param['date_max']), "Y-m-d 23:59:59");
+  }
+
+  if (isset($param['uid'])) {
+    $query = '
+  SELECT
+      count(*)
+    FROM '.ACTIVITY_TABLE.'
+    WHERE object != \'system\'
+    AND performed_by = '.$param['uid'];
+  } else {
+    $query = '
+  SELECT
+      count(*)
+    FROM '.ACTIVITY_TABLE.'
+    WHERE object != \'system\'';
+  }
+
+  if (isset($param['action']))
+  {
+    $query .= '
+    AND action = "'.$param['action'].'"';
+  }
+
+  if (isset($param['object']))
+  {
+    $query .= '
+    AND object = "'.$param['object'].'"';
+  }
+
+  if (!empty($param['date_min']))
+  {
+    $query .= '
+    AND occured_on >= "'.$min.'"';
+  }
+
+  if (!empty($param['date_max']))
+  {
+    $query .= '
+    AND occured_on <= "'.$max.'"';
+  }
+
+  if (!empty($param['id']))
+  {
+    $query .= '
+    AND object_id = '.$param['id'];
+  }
+
+  $query .= ';';
+
+  $max_line = (pwg_db_fetch_row(pwg_query($query))[0]);
+  
+  while(sizeof($output_lines) < $page_size and !($page_offset >= $max_line))
+  {
+    $query = '
 SELECT
     activity_id,
     performed_by,
@@ -479,11 +544,43 @@ SELECT
   FROM '.ACTIVITY_TABLE.'
   WHERE object != \'system\'';
 
-  if (isset($param['uid']))
+    if (isset($param['uid']))
+    {
+      $query.= '
+      AND performed_by = '.$param['uid'];
+    }
+
+    if (isset($param['action']))
+    {
+      $query .= '
+      AND action = "'.$param['action'].'"';
+    }
+
+    if (isset($param['object']))
+    {
+      $query .= '
+      AND object = "'.$param['object'].'"';
+    }
+
+  if (!empty($param['date_min']))
   {
-    $query.= '
-    AND performed_by = '.$param['uid'];
+    $query .= '
+    AND occured_on >= "'.$min.'"';
   }
+
+  if (!empty($param['date_max']))
+  {
+    $query .= '
+    AND occured_on <= "'.$max.'"';
+  }
+
+  if (!empty($param['id']))
+  {
+    $id = pwg_db_real_escape_string(stripslashes($param['id']));
+    $query .= '
+    AND object_id = '.$id;
+  }
+
   elseif ('none' == $conf['activity_display_connections'])
   {
     $query.= '
@@ -496,67 +593,77 @@ SELECT
     AND NOT (action IN (\'login\', \'logout\') AND object_id NOT IN ('.implode(',', get_admins()).'))';
   }
 
-  $query.= '
+    $query.= '
   ORDER BY activity_id DESC
-  LIMIT '.$page_size.' OFFSET '.$page_offset.'
+  LIMIT '.($page_size * 5).' OFFSET '.$page_offset.'
 ;';
 
-  $line_id = 0;
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $row['details'] = str_replace('`groups`', 'groups', $row['details']);
-    $row['details'] = str_replace('`rank`', 'rank', $row['details']);
-    $details = @unserialize($row['details']);
+    $result = pwg_query($query);
 
-    if (isset($row['user_agent']))
+    while ($row = pwg_db_fetch_assoc($result))
     {
-      $details['agent'] = $row['user_agent'];
-    }
-
-    if (isset($details['method']))
-    {
-      $detailsType = 'method';
-    }
-    if (isset($details['script']))
-    {
-      $detailsType = 'script';
-    }
-
-    $line_key = $row['session_idx'].'~'.$row['object'].'~'.$row['action'].'~'; // idx~photo~add
-  
-    if ($line_key === $current_key)
-    {
-      // I increment the counter of the previous line
-      $output_lines[count($output_lines)-1]['counter']++;
-      $output_lines[count($output_lines)-1]['object_id'][] = $row['object_id'];
-    }
-    else
-    {
-      list($date, $hour) = explode(' ', $row['occured_on']);
-      // New line
-      $output_lines[] = array(
-        'id' => $line_id,
-        'object' => $row['object'],
-        'object_id' => array($row['object_id']),
-        'action' => $row['action'],
-        'ip_address' => $row['ip_address'],
-        'date' => format_date($date),
-        'hour' => $hour,
-        'user_id' => $row['performed_by'],
-        'detailsType' => $detailsType,
-        'details' => $details,
-        'counter' => 1, 
-      );
-
-      $user_ids[ $row['performed_by'] ] = 1;
-      if ('user' == $row['object'])
+      if (sizeof($output_lines) < $page_size)
       {
-        $user_ids[ $row['object_id'] ] = 1;
-      }
+        $page_offset++;
 
-      $current_key = $line_key;
-      $line_id++;
+        $row['details'] = str_replace('`groups`', 'groups', $row['details']);
+        $row['details'] = str_replace('`rank`', 'rank', $row['details']);
+        $details = @unserialize($row['details']);
+
+        if (isset($row['user_agent']))
+        {
+          $details['agent'] = $row['user_agent'];
+        }
+
+        if (isset($details['method']))
+        {
+          $detailsType = 'method';
+        }
+        if (isset($details['script']))
+        {
+          $detailsType = 'script';
+        }
+
+        $line_key = $row['session_idx'].'~'.$row['object'].'~'.$row['action'].'~'; // idx~photo~add
+  
+        if ($line_key === $current_key)
+        {
+          // I increment the counter of the previous line
+          $output_lines[count($output_lines)-1]['counter']++;
+          $output_lines[count($output_lines)-1]['object_id'][] = $row['object_id'];
+        }
+        else
+        {
+          list($date, $hour) = explode(' ', $row['occured_on']);
+          // New line
+          $output_lines[] = array(
+            'id' => $line_id,
+            'object' => $row['object'],
+            'object_id' => array($row['object_id']),
+            'action' => $row['action'],
+            'ip_address' => $row['ip_address'],
+            'date' => format_date($date),
+            'hour' => $hour,
+            'user_id' => $row['performed_by'],
+            'detailsType' => $detailsType,
+            'details' => $details,
+            'counter' => 1, 
+          );
+
+          $user_ids[ $row['performed_by'] ] = 1;
+          if ('user' == $row['object'])
+          {
+            $user_ids[ $row['object_id'] ] = 1;
+          }
+
+          $current_key = $line_key;
+          $line_id++;
+        }
+      }
+      else
+      {
+        break;
+      }
     }
   }
 
@@ -596,27 +703,11 @@ SELECT
     }
   }
 
-  if (isset($param['uid'])) {
-    $query = '
-  SELECT
-      count(*)
-    FROM '.ACTIVITY_TABLE.'
-    WHERE performed_by = '.$param['uid'].'
-  ;';
-  } else {
-    $query = '
-  SELECT
-      count(*)
-    FROM '.ACTIVITY_TABLE.'
-  ;';
-  }
-
-  $result = (pwg_db_fetch_row(pwg_query($query))[0])/$page_size;
-
   return array(
     'result_lines' => $output_lines,
-    'max_page' => floor($result),
-    'params' => $param,
+    'page_offset' => $page_offset,
+    'end_page' => ($page_offset >= $max_line),
+    'params' => $param
   );
 }
 

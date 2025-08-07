@@ -1902,21 +1902,26 @@ background:#6C2D2D!important;
 
 /* Activity Tab in user manager */
 
-.select-user {
-  background: #555555;
-  height: 50%;
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 20px;
-
-  box-shadow: 0px 2px 4px #00000024;
-  border-radius: 5px;
+.activity-more-filters, .activity-more-filters-content {
+  background-color: #343434 !important;
 }
 
-.select-user-title {
+.selectize-control.user-selecter.single .selectize-input, .selectize-control.action-selecter.single .selectize-input {
+  border-color: #555555 !important;
+}
+
+.activity-select-title {
   color: #bbbbbb;
+}
+
+.activity-date-selecter {
+  background-color: #555555;
+  color: #D5D5D5;
+}
+
+.activity-filter-container{
+  background-color: #555555;
+  color: #D5D5D5;
 }
 
 .start-date, 
@@ -1926,12 +1931,6 @@ background:#6C2D2D!important;
     border-radius: 50px;
     margin: 5px;
     color: #bbbbbb;
-}
-
-.acivity-time-text {
-  font-size: 13px;
-  font-weight: bold;
-  color: #bbbbbb;
 }
 
 /* Strange why this is different from light mode */
@@ -1975,7 +1974,6 @@ background:#6C2D2D!important;
 }
 
 .download_csv {
-  margin-left: auto;
   height: 25px;
   width: 30px;
   background: #555555;

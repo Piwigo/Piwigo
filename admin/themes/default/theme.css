@@ -7171,17 +7171,16 @@ color:#FF7B00;
 
 /* Activity Tab in user manager */
 
-.select-user {
-  background: #fafafa;
+.activity-select {
   height: 50%;
+  text-align: left;
+  margin-right: 20px;
+}
 
-  display: flex;
-  align-items: center;
-
-  padding: 0 20px;
-
-  box-shadow: 0px 2px 4px #00000024;
-  border-radius: 5px;
+.activity-filter-container{
+    border-radius: 20px;
+    padding: 4px 10px;
+    margin-right: 6px;
 }
 
 .start-date, 
@@ -7191,11 +7190,6 @@ color:#FF7B00;
     border-radius: 50px;
     margin: 5px;
     white-space: nowrap;
-}
-
-.acivity-time-text {
-  font-size: 13px;
-  font-weight: bold;
 }
 
 .line {
@@ -7229,7 +7223,6 @@ color:#FF7B00;
 }
 
 .download_csv {
-  margin-left: auto;
   height: 25px;
   width: 30px;
   background: #dddddd;

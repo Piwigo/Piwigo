@@ -811,7 +811,7 @@ $conf['dashboard_activity_nb_weeks'] = 4;
 // 'all' = do not filter, display all
 // 'admins_only' = only display connections of admin users
 // 'none' = don't even display connections of admin users
-$conf['activity_display_connections'] = 'admins_only';
+$conf['activity_display_connections'] = 'all';
 
 // On album mover page, number of seconds before auto openning album when
 // dragging an album. In milliseconds. 3 seconds by default.
