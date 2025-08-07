@@ -584,6 +584,7 @@ LI.menuLi {
 .advanced-filter-date div input{
   height: 100%;
   width: 83%;
+  border-color: #D4D4D4;
 }
 
 .commentFilter .userActions{
