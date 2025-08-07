@@ -43,6 +43,7 @@ SELECT
     '.$conf['user_fields']['username'].' AS username
   FROM '.ACTIVITY_TABLE.'
     JOIN '.USERS_TABLE.' AS u ON performed_by = u.'.$conf['user_fields']['id'].'
+    WHERE object = \'user\'
   ORDER BY activity_id DESC
 ;';
 
@@ -74,7 +75,7 @@ SELECT
 
   $f = fopen('php://output', 'w');  
       foreach ($output_lines as $line) { 
-          fputcsv($f, $line, ";"); 
+          fputcsv($f, $line, ";", '"', '\\'); 
       }
   fclose($f);
   

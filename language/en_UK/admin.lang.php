@@ -1410,5 +1410,6 @@ $lang['Welcome to %s'] = 'Welcome to %s';
 $lang['Save all photos'] = 'Save all photos';
 $lang['Use standard Piwigo template for common pages.'] = 'Use standard Piwigo template for common pages.';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'We have found %d duplicate paths. Details provided by plugin Check Uploads';
 
 // Leave this line empty

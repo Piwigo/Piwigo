@@ -3636,6 +3636,30 @@ SELECT
       return;
     }
   }
+
+  // search for duplicate paths
+  $query = '
+SELECT
+    path
+  FROM '.IMAGES_TABLE.'
+  GROUP BY path
+  HAVING COUNT(*) > 1
+;';
+  $duplicate_paths = query2array($query);
+
+  if (count($duplicate_paths) > 0)
+  {
+    global $template;
+
+    $template->assign(
+      'header_msgs',
+      array(
+        l10n('We have found %d duplicate paths. Details provided by plugin Check Uploads', count($duplicate_paths)),
+      )
+    );
+
+    return;
+  }
 }
 
 /**

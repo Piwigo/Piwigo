@@ -962,7 +962,7 @@ function ws_create_api_key($params, &$service)
 {
   global $user, $logger;
 
-  if (is_a_guest() OR !can_manage_api_key()) return new PwgError(401, 'Acces Denied');
+  if (is_a_guest() OR !connected_with_pwg_ui()) return new PwgError(401, 'Acces Denied');
 
   if (get_pwg_token() != $params['pwg_token'])
   {
@@ -999,7 +999,7 @@ function ws_revoke_api_key($params, &$service)
 {
   global $user, $logger;
 
-  if (is_a_guest() OR !can_manage_api_key()) return new PwgError(401, 'Acces Denied');
+  if (is_a_guest() OR !connected_with_pwg_ui()) return new PwgError(401, 'Acces Denied');
 
   if (get_pwg_token() != $params['pwg_token'])
   {
@@ -1038,7 +1038,7 @@ function ws_edit_api_key($params, &$service)
     return new PwgError(401, 'Acces Denied');
   }
 
-  if (!can_manage_api_key())
+  if (!connected_with_pwg_ui())
   {
     return new PwgError(401, 'Acces Denied');
   }
@@ -1081,7 +1081,7 @@ function ws_get_api_key($params, &$service)
     return new PwgError(401, 'Acces Denied');
   }
 
-  if (!can_manage_api_key())
+  if (!connected_with_pwg_ui())
   {
     return new PwgError(401, 'Acces Denied');
   }
@@ -1094,15 +1094,5 @@ function ws_get_api_key($params, &$service)
   $api_keys = get_api_key($user['id']);
 
   return $api_keys ?? l10n('No API key found');
-}
-
-function can_manage_api_key()
-{
-  // You can manage your api key only if you are connected via identification.php
-  if (isset($_SESSION['connected_with']) and 'pwg_ui' === $_SESSION['connected_with'])
-  {
-    return true;
-  }
-  return false;
 }
 ?>

@@ -394,7 +394,7 @@ $template->assign(
   'WHATS_NEW_MAJOR_VERSION' => $whats_new_major_version,
   'RELEASE_NOTE_URL' => $release_note_url,
   'WHATS_NEW_IMGS' => $whats_new_imgs,
-  'DISPLAY_BELL' => $display_bell,
+  'DISPLAY_BELL' => false, // $display_bell,
   )
 );
 

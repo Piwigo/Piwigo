@@ -1127,6 +1127,12 @@ function auto_login()
       $key = calculate_auto_login_key( $cookie[0], $cookie[1], $username );
       if ($key!==false and $key===$cookie[2])
       {
+        // Since Piwigo 16, 'connected_with' in the session defines the authentication context (UI, API, etc).
+        // Auto-login via remember-me may miss this, so we set it to 'pwg_ui' for UI logins (not API).
+        if (script_basename() != 'ws')
+        {
+          $_SESSION['connected_with'] = 'pwg_ui';
+        }
         log_user($cookie[0], true);
         trigger_notify('login_success', stripslashes($username));
         return true;
@@ -2632,5 +2638,21 @@ SELECT
   }
 
   return $api_keys;
+}
+
+/**
+ * Is connected with pwg_ui (identification.php)
+ *
+ * @since 16
+ * @return bool
+ */
+function connected_with_pwg_ui()
+{
+  // You can manage your api key only if you are connected via identification.php
+  if (isset($_SESSION['connected_with']) and 'pwg_ui' === $_SESSION['connected_with'])
+  {
+    return true;
+  }
+  return false;
 }
 ?>
