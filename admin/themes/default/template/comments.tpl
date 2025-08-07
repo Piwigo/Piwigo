@@ -280,26 +280,20 @@ jQuery(document).ready(function(){
         </div>
     </div>
 
-    <div class="advanced-filter-item advanced-filter-author">
+    <div class="advanced-filter-item advanced-filter-date">
       <label class="advanced-filter-item-label" for="tag-filter">{'Start-Date'|@translate}</label>
       <div class="advanced-filter-item-container">
-        <input type="hidden" name="start" value="{$START}">
-        <label>
-          <input id="start_date" type="date">
-        </label>
+        <input id="start_date" type="date" class="hasDatepicker">
+        <a href="#" class="icon-cancel-circled" id="start_unset"></a>
       </div>
-      <a href="#" class="icon-cancel-circled" id="start_unset">{'unset'|translate}</a>
     </div>
 
-    <div class="advanced-filter-item advanced-filter-author">
+    <div class="advanced-filter-item advanced-filter-date">
       <label class="advanced-filter-item-label" for="tag-filter">{'End-Date'|@translate}</label>
       <div class="advanced-filter-item-container">
-        <input type="hidden" name="end" value="{$END}">
-        <label>
-          <input id="end_date" type="date">
-        </label>
+        <input id="end_date" type="date" class="hasDatepicker">
+        <a href="#" class="icon-cancel-circled" id="end_unset"></a>
       </div>
-      <a href="#" class="icon-cancel-circled" id="end_unset">{'unset'|translate}</a>
     </div>
 
     <!--

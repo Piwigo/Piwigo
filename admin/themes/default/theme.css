@@ -572,6 +572,20 @@ LI.menuLi {
   margin: 4px;
 }
 
+.advanced-filter-date{
+  display: flex;
+  flex-direction: column;
+}
+
+.advanced-filter-date div {
+  flex: 1;
+}
+
+.advanced-filter-date div input{
+  height: 100%;
+  width: 83%;
+}
+
 .commentFilter .userActions{
   align-self: center;
   z-index: 99;
