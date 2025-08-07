@@ -251,6 +251,7 @@ while ($row = pwg_db_fetch_assoc($result))
       'CONTENT' => trigger_change('render_comment_content',$row['content']),
       'IS_PENDING' => ('false' == $row['validated']),
       'IP' => $row['anonymous_id'],
+      'NUMERICAL_DATE' => $row['date'],
       )
     );
 

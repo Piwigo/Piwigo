@@ -338,6 +338,8 @@ jQuery(document).ready(function(){
   {foreach from=$comments item=comment name=comment}
   {if $displayed_status == "all" or $displayed_status == $comment.AUTHOR_STATUS}
   {if $displayed_author == "all" or $comment.AUTHOR == $displayed_author}
+  {if $START == "" or (date_timestamp_get(DateTime::createFromFormat("Y-m-d H:i:s", $comment.NUMERICAL_DATE))) >= (date_timestamp_get(DateTime::createFromFormat("Y_m_d", $START)))}
+  {if $END == "" or (date_timestamp_get(DateTime::createFromFormat("Y-m-d H:i:s", $comment.NUMERICAL_DATE))) <= (date_timestamp_get(DateTime::createFromFormat("Y_m_d", $END)))}
   <div valign="top" class={if $comment.IS_PENDING}"comment-box comment-box-validated"{else}"comment-box"{/if}>
     
     <a class="illustration" href="{$comment.U_PICTURE}"><img src="{$comment.TN_SRC}"></a>
@@ -368,6 +370,8 @@ jQuery(document).ready(function(){
     </div>
     
   </div>
+  {/if}
+  {/if}
   {/if}
   {/if}
   {/foreach}
