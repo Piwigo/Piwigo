@@ -28,9 +28,49 @@ $search = array(
 );
 
 // list of filters in user preferences
-// allwords, cat, tags, author, added_by, filetypes, date_posted
-$default_fields = array('allwords', 'cat', 'tags', 'author');
-if (is_a_guest() or is_generic())
+// allwords, cat, tags, author, added_by, filetypes, date_posted, date_created, ratios, ratings (if rating is allowed in this Piwigo), height, width
+//import the conf for the filters
+if (isset($conf['filters_views']))
+{
+  $filters_conf = unserialize($conf['filters_views']);
+}
+else
+{
+  $filters_conf = unserialize('a:14:{s:5:"words";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:4:"tags";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"post_date";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:13:"creation_date";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:5:"album";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:6:"author";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:8:"added_by";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"file_type";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:5:"ratio";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:6:"rating";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"file_size";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:6:"height";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:5:"width";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:17:"last_filters_conf";b:1;}');
+}
+
+//change the name of the keys so that they can be used with this part of the program
+$filters_conf = array_combine
+(
+  array('allwords',
+  'tags',
+  'date_posted',
+  'date_created',
+  'cat',
+  'author',
+  'added_by',
+  'filetypes',
+  'ratios',
+  'ratings',
+  'filesize',
+  'height',
+  'width',
+  'last_filters_conf'
+  ),
+  $filters_conf
+);
+
+//get all default filters
+$default_fields = array();
+foreach($filters_conf as $filt_name => $filt_conf){
+  if(isset($filt_conf['default'])){
+    if($filt_conf['default'] == true){
+      $default_fields[] = $filt_name;
+    }
+  }
+}
+
+if (is_a_guest() or is_generic() or $filters_conf['last_filters_conf']==false)
 {
   $fields = $default_fields;
 }
@@ -131,11 +171,28 @@ SELECT
   }
 }
 
-foreach (array('added_by', 'filetypes', 'date_posted') as $field)
+foreach (array('added_by', 'filetypes', 'ratios', 'ratings') as $field)
 {
   if (in_array($field, $fields))
   {
     $search['fields'][$field] = array();
+  }
+}
+
+foreach (array('date_posted', 'date_created') as $field){
+  if (in_array($field, $fields))
+  {
+    $search['fields'][$field] = array(
+      'preset' => ''
+    );
+  }
+}
+
+foreach (array('filesize_min', 'filesize_max', 'width_min', 'width_max', 'height_min', 'height_max') as $field)
+{
+  if (in_array($field, $fields))
+  {
+    $search['fields'][$field] = '';
   }
 }
 

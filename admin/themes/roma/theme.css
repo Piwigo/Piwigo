@@ -224,7 +224,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-buttonpane .ui-state-error:hover { background: #7e3030;}
 INPUT[type="text"].large  { width: 317px; }
 
-.buttonLike:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
+.buttonLike:disabled, .filters-icon-check:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
 	color:#555;
 	border-color:#666;
   cursor:not-allowed;
@@ -971,8 +971,6 @@ table.qsearch_help_table td {
 	border-color: #444;
 }
 
-.font-checkbox [class*=icon-check]:before { color:#aaa; }
-
 #cboxLoadedContent { background-color:#333 !important; }
 
 #watermarkPositionBox {
@@ -993,6 +991,8 @@ table.qsearch_help_table td {
 
 .font-checkbox {color: #898888;}
 .font-checkbox:hover {color: #ededed;}
+.font-checkbox:hover .icon-check-empty, .font-checkbox:hover .icon-check {color: #FF7700;}
+.font-checkbox .icon-check {color: #FFA646;}
 .with-border legend, .with-border strong {color: #c0c0c0;}
 .font-checkbox.selected {color: #ffa646;}
 
@@ -2394,4 +2394,34 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 
 .RenameTagPopInContainer {
   background-color:#444;
+}
+
+/* Filters options */
+.select-views{
+  background-color: #444444;
+  color: #898888;
+  border: 1px solid #666;
+}
+
+.filter-manager-options-container{
+  background-color: #333;
+  color: #aaa;
+  border-color: #333;
+}
+
+.filter-manager-options-container:hover{
+  background-color: #5D5D5D;
+}
+
+.filter-manager-options-container.selected-filter-container{
+  background-color: #777777;
+  color: #ddd;
+}
+
+.filter-manager-options-container.selected-filter-container:hover{
+  background-color: #aaa;
+}
+
+label:has(> .filters-icon-check:disabled){
+  color:#555;
 }
