@@ -173,7 +173,7 @@ jQuery(document).ready(function(){
       $(".comment-buttons-container").css("visibility", "hidden");
       $(".comment-selection-content").css("display", "flex")
       $(".comment-container").css("margin-inline-end", "5em")
-      $("#advanced-filter-menu").css("margin-inline", "23px 260px")
+      $("#advanced-filter-menu").css("margin-inline", "23px 270px")
     }
   })
 
@@ -189,7 +189,7 @@ jQuery(document).ready(function(){
       $("#advanced-filter-menu").css("display", "none")
       $("#advanced-filter-menu").css("margin-bottom", "0.2em")
       $(".commentFilter").css("margin-bottom", "1em")
-      $(".commentFilter .advanced-filter-btn").css("height", "27px")
+      $(".commentFilter .advanced-filter-btn").css("height", "20px")
     }
   })
 

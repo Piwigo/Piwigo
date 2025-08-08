@@ -567,9 +567,11 @@ LI.menuLi {
 }
 
 .commentFilter .advanced-filter-btn{
-  height: 27px;
-  padding: 10px 10px 3px 10px;
+  height: 20px;
+  padding: 10px 10px 5px 10px;
   margin: 4px;
+  position: relative;
+  left: 3.17em;
 }
 
 .advanced-filter-date{
@@ -583,8 +585,9 @@ LI.menuLi {
 
 .advanced-filter-date div input{
   height: 100%;
-  width: 83%;
+  width: 74%;
   border-color: #D4D4D4;
+  padding-inline: 1em;
 }
 
 .commentFilter .userActions{
@@ -1067,7 +1070,7 @@ LI.menuLi {
 /* Search bar */
 
 .search-input{
-  padding: 10px;
+  padding: 10px 10px 6px 10px;
   box-shadow: 0px 2px #00000024;
   border: none;
   background-color: #fafafa !important;
