@@ -84,6 +84,21 @@
   
   
         <form id="methodWrapper" style="display:none;">
+          <div class="card">
+            <h3 class="card-title"><i class="icon-cog-alt"></i>Authenticate with API Key (Header)</h3>
+            <div class="card-content">
+              <p class="header-description"> Introduced in Piwigo 16, you can now use an API key in the HTTP header 
+                to perform authenticated requests without a user session.
+                For more details, check out our <a href="https://github.com/Piwigo/Piwigo/wiki/Piwigo-Web-API#api-key-authentication" target="_blank">documentation</a>.
+              </p>
+              <p class="header-warning">Doesn't work when you use "INVOKE (new window)"</p>
+              <div class="header-setting">
+                <p>Authorization:</p>
+                <input type="text" id="apiKey" placeholder="pkid-xxxxxxxx-xxxxxxxxxxxxxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+              </div>
+            </div>
+          </div> <!-- methodHeader -->
+
           <div class="card" id="methodDescription" style="display:none;">
             <h3 class="card-title"><i class="icon-book"></i>Description</h3>
             <blockquote>
@@ -134,7 +149,7 @@
                     <div class="select">
                       <select id="responseFormat">
                         <option value="json" selected>JSON</option>
-                        <option value="rest" selected>REST (xml)</option>
+                        <option value="rest">REST (xml)</option>
                         <option value="php">PHP serial</option>
                         <option value="xmlrpc">XML RPC</option>
                       </select>
@@ -187,7 +202,7 @@
   </div> <!-- the_container --> 
   
   <div id="the_footer">
-    Copyright &copy; 2002-2021 <a href="http://piwigo.org">Piwigo Team</a>
+    Copyright &copy; 2002-2025 <a href="http://piwigo.org">Piwigo Team</a>
   </div> <!-- the_footer -->
 </div>
 

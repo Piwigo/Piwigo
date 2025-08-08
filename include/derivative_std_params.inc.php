@@ -20,6 +20,8 @@ define('IMG_MEDIUM', 'medium');
 define('IMG_LARGE', 'large');
 define('IMG_XLARGE', 'xlarge');
 define('IMG_XXLARGE', 'xxlarge');
+define('IMG_3XLARGE', '3xlarge');
+define('IMG_4XLARGE', '4xlarge');
 define('IMG_CUSTOM', 'custom');
 
 
@@ -53,7 +55,7 @@ final class ImageStdParams
   /** @var string[] */
   private static $all_types = array(
     IMG_SQUARE, IMG_THUMB, IMG_XXSMALL, IMG_XSMALL, IMG_SMALL,
-    IMG_MEDIUM, IMG_LARGE, IMG_XLARGE, IMG_XXLARGE
+    IMG_MEDIUM, IMG_LARGE, IMG_XLARGE, IMG_XXLARGE, IMG_3XLARGE, IMG_4XLARGE
     );
   /** @var DerivativeParams[] */
   private static $all_type_map = array();
@@ -214,6 +216,8 @@ final class ImageStdParams
       IMG_LARGE => new DerivativeParams( SizingParams::classic(1008,756) ),
       IMG_XLARGE => new DerivativeParams( SizingParams::classic(1224,918) ),
       IMG_XXLARGE => new DerivativeParams( SizingParams::classic(1656,1242) ),
+      IMG_3XLARGE => new DerivativeParams( SizingParams::classic(2232,1674) ),
+      IMG_4XLARGE => new DerivativeParams( SizingParams::classic(3000,2250) ),
     );
     $now = time();
     foreach($arr as $params)

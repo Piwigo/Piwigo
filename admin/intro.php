@@ -100,12 +100,41 @@ fs_quick_check();
 $template->set_filenames(array('intro' => 'intro.tpl'));
 
 if ($conf['show_newsletter_subscription'] and userprefs_get_param('show_newsletter_subscription', true)) {
-  $template->assign(
-    array(
-      'EMAIL' => $user['email'],
-      'SUBSCRIBE_BASE_URL' => get_newsletter_subscribe_base_url($user['language']),
-      )
-    );
+    $query = '
+  SELECT registration_date 
+    FROM '.USER_INFOS_TABLE.'
+    WHERE registration_date IS NOT NULL  
+    ORDER BY user_id ASC
+    LIMIT 1
+  ;';
+    list($register_date) = pwg_db_fetch_row(pwg_query($query));
+
+    $query = '
+  SELECT COUNT(*)
+    FROM '.CATEGORIES_TABLE.'
+  ;';
+    list($nb_cats) = pwg_db_fetch_row(pwg_query($query));
+
+    $query = '
+  SELECT COUNT(*)
+    FROM '.IMAGES_TABLE.'
+  ;';
+    list($nb_images) = pwg_db_fetch_row(pwg_query($query));
+
+    include_once(PHPWG_ROOT_PATH.'include/mdetect.php');
+    $uagent_obj = new uagent_info();
+    // To see the newsletter promote, the account must have 2 weeks ancient, 3 albums created and 30 photos uploaded
+
+    if (!$uagent_obj->DetectIos() and strtotime($register_date) < strtotime('2 weeks ago') and $nb_cats >= 3 and $nb_images >= 30){
+      $template->assign(
+      array(
+        'EMAIL' => $user['email'],
+        'SUBSCRIBE_BASE_URL' => get_newsletter_subscribe_base_url($user['language']),
+        'OLD_NEWSLETTERS_URL' => get_old_newsletters_base_url($user['language']),
+        )
+      );
+    }
+
 }
 
 

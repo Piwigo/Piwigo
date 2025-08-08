@@ -16,6 +16,8 @@ const selectedAlbumEdit = $('#selectedAlbumEdit');
 const btnAddFiles = $('#addFiles');
 const chooseAlbumFirst = $('#chooseAlbumFirst');
 const uploaderPhotos = $('#uploader');
+const formatsUpdated = [];
+const formats = [];
 
 /*--------------
 On DOM load
@@ -85,6 +87,12 @@ $(function () {
     return false;
   });
 
+  $("#uploadOptionsContent").hide();
+  $("#uploadOptions").on("click", function(){
+    $("#uploadOptionsContent").slideToggle();
+    $(".moxie-shim-html5").css("display", "none");
+  })
+
   $("#uploader").pluploadQueue({
     // General settings
     browse_button: 'addFiles',
@@ -153,11 +161,37 @@ $(function () {
       FilesAdded: async function (up, files) {
         // Création de la liste avec plupload_id : image_name
         fileNames = {};
+        exts = {};
         files.forEach((file) => {
           fileNames[file.id] = file.name;
+          exts[file.id] = file.name.substr(file.name.lastIndexOf('.') + 1);
         });
 
         if (formatMode) {
+          formats.forEach((forms) => {
+            $("#"+forms[0]+" > .plupload_file_name").append(`
+            <a target=\"_blank\" href=\"admin.php?page=photo-${forms[1].trim()}-properties\">
+              <span class=\"icon-eye\">
+              </span>
+            </a>`);
+            if(formatsUpdated.includes(forms[0])){
+              $("#"+forms[0]+" > .plupload_file_name").after(`
+              <a target=\"_blank\" href=\"admin.php?page=photo-${forms[1].trim()}-formats\">
+                <span class=\"icon-attention update-warning\">
+                  ${format_update_warning}
+                </span>
+              </a>
+              <a class="remove-format" id=\"remove_${forms[0]}\">
+                <span class = \"icon-cancel-circled\">
+                </span>
+                ${format_remove}
+              </a>`);
+              $("#remove_"+forms[0]).on("click", function(){
+                up.removeFile(forms[0]);
+              });
+            }
+          });
+          
           // If no original image is specified
           if (!haveFormatsOriginal) {
             const images_search = await new Promise((res, rej) => {
@@ -166,8 +200,6 @@ $(function () {
                 url: "ws.php?format=json&method=pwg.images.formats.searchImage",
                 type: "POST",
                 data: {
-                  //  category_id: $("select[name=category] option:selected").val(), // id category to modify
-                  category_id: ab.get_selected_albums()[0],
                   filename_list: JSON.stringify(fileNames),
                 },
                 success: function (result) {
@@ -182,8 +214,33 @@ $(function () {
 
             files.forEach((f) => {
               const search = images_search[f.id];
-              if (search.status == "found")
+              if (search.status == "found"){
                 f.format_of = search.image_id;
+                formats.push([f.id,f.format_of]);
+                $("#"+f.id+" > .plupload_file_name").append(`
+                <a target=\"_blank\" href=\"admin.php?page=photo-${f.format_of.trim()}-properties\">
+                  <span class=\"icon-eye\">
+                  </span>
+                </a>`);
+                if (search.format_exist)
+                {
+                  $("#"+f.id+" > .plupload_file_name").after(`
+                  <a target=\"_blank\" href=\"admin.php?page=photo-${f.format_of.trim()}-formats\">
+                    <span class=\"icon-attention update-warning\">
+                      ${format_update_warning}
+                    </span>
+                  </a>
+                  <a class="remove-format" id=\"remove_${f.id}\">
+                    <span class = \"icon-cancel-circled\">
+                    </span>
+                    ${format_remove}
+                  </a>`);
+                  formatsUpdated.push(f.id);
+                  $("#remove_"+f.id).on("click", function(){
+                    up.removeFile(f.id);
+                  });
+                }
+              }
               else {
                 if (search.status == "multiple")
                   multiple.push(f.name);
@@ -218,12 +275,70 @@ $(function () {
                 ...jConfirm_warning_options
               })
             }
-          } else { //If an original image is specified
+          } else {
+            if (imageFormatsExtensions)
+            {
+              $forms_exts = JSON.parse(imageFormatsExtensions);
+            }
+            else
+            {
+              $forms_exts = [];
+            }
             files.forEach((f) => {
               f.format_of = originalImageId;
+              formats.push([f.id,f.format_of]);
+              $("#"+f.id+" > .plupload_file_name").append(`
+              <a target=\"_blank\" href=\"admin.php?page=photo-${f.format_of.trim()}-properties\">
+                <span class=\"icon-eye\">
+                </span>
+              </a>`);
+              if ($forms_exts.indexOf(exts[f.id]) != -1)
+              {
+                $("#"+f.id+" > .plupload_file_name").after(`
+                <a target=\"_blank\" href=\"admin.php?page=photo-${originalImageId.trim()}-formats\">
+                  <span class=\"icon-attention update-warning\">
+                    ${format_update_warning}
+                  </span>
+                </a>
+                <a class="remove-format" id=\"remove_${f.id}\">
+                  <span class = \"icon-cancel-circled\">
+                  </span>
+                  ${format_remove}
+                </a>`);
+                formatsUpdated.push(f.id);
+                $("#remove_"+f.id).on("click", function(){
+                  up.removeFile(f.id);
+                });
+              }
             })
           }
         }
+      },
+
+      FilesRemoved: function(up, file){ 
+        formats.forEach((forms) => {
+          $("#"+forms[0]+" > .plupload_file_name").append(`
+          <a target=\"_blank\" href=\"admin.php?page=photo-${forms[1].trim()}-properties\">
+            <span class=\"icon-eye\">
+            </span>
+          </a>`);
+          if(formatsUpdated.includes(forms[0])){
+            $("#"+forms[0]+" > .plupload_file_name").after(`
+            <a target=\"_blank\" href=\"admin.php?page=photo-${forms[1].trim()}-formats\">
+              <span class=\"icon-attention update-warning\">
+                ${format_update_warning}
+              </span>
+            </a>
+            <a class="remove-format" id=\"remove_${forms[0]}\">
+              <span class = \"icon-cancel-circled\">
+              </span>
+              ${format_remove}
+            </a>`);
+            $("#remove_"+forms[0]).on("click", function(){
+              up.removeFile(forms[0]);
+            });
+          }
+        });
       },
 
       UploadProgress: function (up, file) {
@@ -265,6 +380,8 @@ $(function () {
           options.name = file.name;
         }
 
+        options.update_mode = $('#toggleUpdateMode').is(':checked');
+
         up.setOption('multipart_params', options);
       },
 
@@ -289,6 +406,12 @@ $(function () {
         // do not remove file, or it will reset the progress bar :-/
         // up.removeFile(file);
         uploadedPhotos.push(parseInt(data.result.image_id));
+        if(data.result.add_status=="add"){
+          addedPhotos.push(parseInt(data.result.image_id));
+        }
+        else{
+          updatedPhotos.push(parseInt(data.result.image_id));
+        }
         if (!formatMode)
           uploadCategory = data.result.category;
       },
@@ -322,12 +445,23 @@ $(function () {
 
         $("#uploadForm, #permissions, .showFieldset").hide();
 
-        const infoText = formatMode ?
-          sprintf(formatsUploaded_label, uploadedPhotos.length, [...new Set(files.map(f => f.format_of))].length)
-          : sprintf(photosUploaded_label, uploadedPhotos.length)
+        const infoTextAdd = formatMode ?
+          sprintf(formatsAdded_label, addedPhotos.length, [...new Set(addedPhotos)].length)
+          : sprintf(photosAdded_label, addedPhotos.length);
 
-        $(".infos").append('<ul><li>' + infoText + '</li></ul>');
+        const infoTextUpdate = formatMode ?
+          sprintf(formatsUpdated_label, updatedPhotos.length, [...new Set(updatedPhotos)].length)
+          : sprintf(photosUpdated_label, updatedPhotos.length);
 
+        if (addedPhotos.length && updatedPhotos.length)
+        {
+          $(".infos").append( '<ul><li>' + infoTextAdd + ', ' + infoTextUpdate + '</li></ul>');
+        }
+        else
+        {
+          const infoText = addedPhotos.length ? infoTextAdd : infoTextUpdate;
+          $(".infos").append('<ul><li>' + infoText + '</li></ul>');
+        }
 
         if (!formatMode) {
           html = sprintf(
@@ -345,7 +479,7 @@ $(function () {
         // pwg.caddie.add(uploadedPhotos) instead of relying on huge GET parameter
         // (and remove useless code from admin/photos_add_direct.php)
 
-        $(".batchLink").attr("href", "admin.php?page=photos_add&section=direct&batch=" + uploadedPhotos.join(","));
+        $(".batchLink").attr("href", "admin.php?page=photos_add&section=direct&batch=" + [...new Set(uploadedPhotos)].join(","));
         $(".batchLink").html(sprintf(batch_Label, uploadedPhotos.length));
 
         $(".afterUploadActions").show();
@@ -357,7 +491,6 @@ $(function () {
       }
     }
   });
-
 });
 
 /*--------------

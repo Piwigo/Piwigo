@@ -110,14 +110,29 @@ p.release .errors {margin:0}
   {'This is a minor update, with only bug corrections.'|@translate}
 </p>
 <form action="" method="post">
-<p>
-  <input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}"{if isset($MINOR_RELEASE_PHP_REQUIRED)} disabled{/if}>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+      <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
+
+    </div>
+    <div class="savebar-footer-end">
+
 {if isset($MINOR_RELEASE_PHP_REQUIRED)}
-  <span class="errors icon-block">{'Requires PHP %s'|translate:$MINOR_RELEASE_PHP_REQUIRED}</span>
+      <div class="savebar-footer-block">
+        <div class="badge info-error">
+          <i class="icon-cancel-circled"></i>{'Requires PHP %s'|translate:$MINOR_RELEASE_PHP_REQUIRED}
+        </div>
+      </div>
 {/if}
-</p>
-<p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
-<p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
+
+    
+      <div class="savebar-footer-block">
+        <button class="buttonLike"  type="submit" name="submit" {if isset($MINOR_RELEASE_PHP_REQUIRED)} disabled{/if}><i class="icon-floppy"></i>{'Update to Piwigo %s'|@translate:$UPGRADE_TO}</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}">
 </form>
 {/if}
 
@@ -156,14 +171,31 @@ p.release .errors {margin:0}
   {if !empty($missing.plugins) or !empty($missing.themes)}
   <p><label><input type="checkbox" name="understand"> &nbsp;{'I decide to update anyway'|@translate}</label></p>
   {/if}
-  <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}" {if !empty($missing.plugins) or !empty($missing.themes) or isset($MAJOR_RELEASE_PHP_REQUIRED)}disabled="disabled"{/if}>
-{if isset($MAJOR_RELEASE_PHP_REQUIRED)}
-  <span class="errors icon-block">{'Requires PHP %s'|translate:$MAJOR_RELEASE_PHP_REQUIRED}</span>
-{/if}
-  </p>
-  <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
-</fieldset>
 
-<p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
+
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+      <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
+
+    </div>
+    <div class="savebar-footer-end">
+
+{if isset($MAJOR_RELEASE_PHP_REQUIRED)}
+      <div class="savebar-footer-block">
+        <div class="badge info-error">
+          <i class="icon-cancel-circled"></i>{'Requires PHP %s'|translate:$MAJOR_RELEASE_PHP_REQUIRED}
+        </div>
+      </div>
+{/if}
+
+    
+      <div class="savebar-footer-block">
+        <button class="buttonLike"  type="submit" name="submit" {if !empty($missing.plugins) or !empty($missing.themes) or isset($MAJOR_RELEASE_PHP_REQUIRED)}disabled="disabled"{/if}><i class="icon-floppy"></i>{'Update to Piwigo %s'|@translate:$UPGRADE_TO}</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}">
+
 </form>
 {/if}

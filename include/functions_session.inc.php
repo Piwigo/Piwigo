@@ -153,6 +153,13 @@ SELECT data
  */
 function pwg_session_write($session_id, $data)
 {
+  // when the request is authenticated via api_key (PWG_API_KEY_REQUEST),
+  // you do not want the session to be written to the database (no user session persistence)
+  // this avoids polluting the session table with stateless API accesses
+  if (defined('PWG_API_KEY_REQUEST'))
+  {
+    return true;
+  }
   $query = '
 REPLACE INTO '.SESSIONS_TABLE.'
   (id,data,expiration)

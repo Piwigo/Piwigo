@@ -250,7 +250,7 @@ function setupTagbox(tagBox) {
 
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
-    set_up_popin(tagBox.data('id'), tagBox.find('.tag-name').data('rawname'), tagBox.find('.tag-name').html());
+    set_up_popin(tagBox.data('id'), tagBox.find('.tag-name').html());
     rename_tag_open()
   })
 
@@ -276,14 +276,14 @@ function setupTagbox(tagBox) {
 
   //Duplicate Tag
   tagBox.find('.dropdown-option.duplicate').on('click', function () {
-    duplicateTag(tagBox.data('id'), tagBox.find('.tag-name').data('rawname')).then((data) => {
+    duplicateTag(tagBox.data('id'), tagBox.find('.tag-name').html()).then((data) => {
       showMessage(str_tag_created.replace('%s',data.result.name))
     })
   })
 
 }
 
-function set_up_popin(id, tagRawName, tagName) {
+function set_up_popin(id, tagName) {
 
   $(".RenameTagPopInContainer").find(".tag-property-input").attr("id", id);
 
@@ -292,7 +292,7 @@ function set_up_popin(id, tagRawName, tagName) {
     rename_tag_close()
   });
   $(".TagSubmit").html(str_yes_rename_confirmation);
-  $(".RenameTagPopInContainer").find(".tag-property-input").val(tagRawName);
+  $(".RenameTagPopInContainer").find(".tag-property-input").val(tagName);
 }
 
 function rename_tag_close() {

@@ -234,7 +234,7 @@ function parse_request()
     {
       ierror('Invalid crop', 400);
     }
-    $greatest = ImageStdParams::get_by_type(IMG_XXLARGE);
+    $greatest = ImageStdParams::get_by_type(IMG_4XLARGE);
 
     $key = array();
     $params->add_url_tokens($key);

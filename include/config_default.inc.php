@@ -461,6 +461,34 @@ $conf['session_use_ip_address'] = true;
 $conf['session_gc_probability'] = 1;
 
 // +-----------------------------------------------------------------------+
+// |                               api key                                 |
+// +-----------------------------------------------------------------------+
+
+// api_key_duration: available duration options (in days) for API key creation.
+// Array of predefined durations that will be displayed in the select dropdown
+// when creating a new API key. Use 'custom' to allow users to set a specific
+// expiration date with a date picker input.
+$conf['api_key_duration'] = ['30', '90', '180', '365', 'custom'];
+
+// The following API methods are prohibited when making requests with an API key.
+// These restrictions are in place for security reasons and to prevent unauthorized
+// access to sensitive operations that require higher-level authentication.
+$conf['api_key_forbidden_methods'] = array(
+  // users
+  'pwg.users.generatePasswordLink',
+  'pwg.users.getAuthKey',
+  'pwg.users.setMainUser',
+  'pwg.users.setInfo',
+  // plugins
+  'pwg.plugins.performAction',
+  // themes
+  'pwg.themes.performAction',
+  // extensions
+  'pwg.extensions.ignoreUpdate',
+  'pwg.extensions.update',
+);
+
+// +-----------------------------------------------------------------------+
 // |                            debug/performance                          |
 // +-----------------------------------------------------------------------+
 

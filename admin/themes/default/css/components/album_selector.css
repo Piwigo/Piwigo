@@ -164,6 +164,11 @@
   text-align: left;
 }
 
+.search-result-path.not-rtl {
+  direction: ltr !important;
+  text-overflow: unset !important;
+}
+
 .search-result-path-name {
   unicode-bidi: plaintext;
 }
