@@ -247,6 +247,7 @@ $template->assign(
     'U_SYNC' => $admin_url_start.'&amp;sync_metadata=1',
     'U_DELETE' => $admin_url_start.'&amp;delete=1&amp;pwg_token='.get_pwg_token(),
     'U_HISTORY' => get_root_url().'admin.php?page=history&amp;filter_image_id='.$_GET['image_id'],
+    'U_ACTIVITY' => get_root_url().'admin.php?page=user_activity&photo='.$_GET['image_id'],
 
     'PATH'=>$row['path'],
 

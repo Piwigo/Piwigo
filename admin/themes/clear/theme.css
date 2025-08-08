@@ -442,6 +442,23 @@ label>p.group_select {
   color:#3c3c3c;
 }
 
+/* Activity Tab in user manager */
+
+.activity-date-selecter{
+  background-color: #f9f9f9;
+  color : #3C3C3C;
+  border: 2px solid #D3D3D3;
+}
+
+.activity-filter-container{
+  color: #777777;
+  background-color: #FFFFFF;
+}
+
+.selectize-control.user-selecter.single .selectize-input, .selectize-control.action-selecter.single .selectize-input{
+    border-color: #D3D3D3 !important;
+}
+
 /* Selection mode */
 
 .slider {

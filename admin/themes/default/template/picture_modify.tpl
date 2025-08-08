@@ -102,6 +102,7 @@ const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
       <a class="preview-box icon-zoom-square" href="{$FILE_SRC}" title="{'Zoom'|translate}"></a>
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
       <a class="icon-signal" href="{$U_HISTORY}" title="{'Visit history'|translate}"></a>
+      <a class="icon-pulse" href="{$U_ACTIVITY}" title="{'Activity'|translate}"></a>
       {if !url_is_remote($PATH)}
       <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>

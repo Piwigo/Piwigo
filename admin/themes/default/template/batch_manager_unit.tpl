@@ -150,9 +150,10 @@ pluginValues = [];
 			<img src="{$element.TN_SRC}" alt="imagename" class="media-box-embed" style="{if $element.FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
 			<div class="media-hover">
 				<div class='picture-preview-actions'>
-					<a class="preview-box icon-zoom-square tiptip" href="{$element.FILE_SRC}" title="Zoom"></a>
-					<a class="icon-download tiptip" href="{$element.U_DOWNLOAD}" title="Download"></a>
-					<a class="icon-signal tiptip" href="{$element.U_HISTORY}" title="Visit history"></a>
+					<a class="preview-box icon-zoom-square tiptip" href="{$element.FILE_SRC}" title="{'Zoom'|@translate}"></a>
+					<a class="icon-download tiptip" href="{$element.U_DOWNLOAD}" title="{'Download'|@translate}"></a>
+					<a class="icon-signal tiptip" href="{$element.U_HISTORY}" title="{'Visit history'|@translate}"></a>
+					<a class="icon-pulse tiptip" href="{$element.U_ACTIVITY}" title="{'Activity'|@translate}"></a>
 					<a target="_blank" class="icon-pencil tiptip" href="{$element.U_EDIT}" title="{'Edit photo'|@translate}"></a>
 					{if !url_is_remote($element.PATH)}
 					<a class="icon-arrows-cw tiptip action-sync-metadata" title="{'Synchronize metadata'|@translate}"></a>

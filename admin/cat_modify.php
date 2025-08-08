@@ -199,6 +199,7 @@ $template->assign(
     'U_ADD_PHOTOS_ALBUM' => $base_url.'photos_add&amp;album='.$category['id'],
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
     'U_MOVE' => $base_url.'albums&amp;parent_id='.$category['id'],
+    'U_ACTIVITY' => get_root_url().'admin.php?page=user_activity&album='.$category['id'],
     )
   );
  

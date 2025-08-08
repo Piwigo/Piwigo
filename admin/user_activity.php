@@ -142,6 +142,105 @@ SELECT COUNT(*)
 list($nb_users) = pwg_db_fetch_row(pwg_query($query));
 $template->assign('nb_users', $nb_users);
 
+$query = '
+SELECT
+    occured_on
+  FROM '.ACTIVITY_TABLE.'
+  WHERE object != \'system\'
+  ;';
+
+$result = query2array($query);
+
+$dates = array();
+
+foreach($result as $time){
+  list($date, $hour) = explode(' ', $time['occured_on']);
+  $dates[] = date_format(date_create($date),"Y-m-d");
+}
+
+$dates = array_unique($dates);
+$list_dates['allDates'] = implode(',',$dates);
+$list_dates['min'] = $dates[0];
+$list_dates['max'] = end($dates);
+
+$template->assign('ACTIVITY_DATES', $list_dates);
+
+$additional_filt_type = false;
+$additional_filt_name = null;
+$additional_filt_value = null;
+
+if(isset($_GET['photo']))
+{
+  $query = '
+  SELECT
+    name
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$_GET['photo'].';';
+
+  $additional_filt_type = 'photo';
+  $additional_filt_name = query2array($query)[0]['name'];
+  $additional_filt_value = $_GET['photo'];
+}
+else if (isset($_GET['album']))
+{
+  $query = '
+  SELECT
+    name
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$_GET['album'].';';
+
+  $additional_filt_type = 'album';
+  $additional_filt_name = query2array($query)[0]['name'];
+  $additional_filt_value = $_GET['album'];
+}
+else if (isset($_GET['group']))
+{
+  $query = '
+  SELECT
+    name
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.$_GET['group'].';';
+
+  $additional_filt_type = 'group';
+  $additional_filt_name = query2array($query)[0]['name'];
+  $additional_filt_value = $_GET['group'];
+}
+
+$template->assign('ADDITIONAL_FILT', array(
+  'type' => $additional_filt_type,
+  'name' => $additional_filt_name,
+  'value' => $additional_filt_value
+));
+
+$query = '
+SELECT
+    object, 
+    action, 
+    count(*) AS counter
+  FROM '.ACTIVITY_TABLE.'
+  WHERE object != \'system\'';
+
+  if ($additional_filt_type)
+  {
+    $query .= '
+    AND object = "'.$additional_filt_type.'"';
+  }
+
+  $query .= '
+  GROUP BY 
+    action,
+    object
+  ORDER BY object ASC
+  ;';
+
+
+$actions = query2array($query);
+foreach($actions as &$action){
+  $action['value'] = $action['object'].'/'.$action['action'];
+}
+
+$template->assign('ACTIONS', $actions);
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'user_activity');
 
 ?>
