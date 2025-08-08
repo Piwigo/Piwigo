@@ -26,8 +26,7 @@ ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
 .content div.comment blockquote {
   margin-right: 0.5em; overflow: visible; /*avoid a very strange margin behaviour (all browsers) */ }
 
-.commentFilterSelected {color:#666;text-decoration:underline;}
-.comment .pendingFlag {font-style:italic;color:red;}
+.comment .pendingFlag {font-style:italic;color:red;margin-left: 0.5em;}
 
 /* not used but should be */
 #thePopuphelpPage .content { margin: 1em; }
@@ -547,6 +546,265 @@ LI.menuLi {
   transform: translate(calc(-50% - 4px), -50%);
 }
 
+.comment-container{
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  gap: 1.5em;
+}
+
+.commentFilter{
+  margin-bottom: 1em;
+  padding-inline: 1.5em;
+  display: flex;
+  flex-direction: row;
+}
+
+.commentFilter .commentFilter {
+  margin-inline-start: auto;
+  gap: 1em;
+}
+
+.commentFilter .advanced-filter-btn{
+  height: 20px;
+  padding: 10px 10px 5px 10px;
+  margin: 4px;
+  position: relative;
+  left: 3.17em;
+}
+
+.advanced-filter-date{
+  display: flex;
+  flex-direction: column;
+}
+
+.advanced-filter-date div {
+  flex: 1;
+}
+
+.advanced-filter-date div input{
+  height: 100%;
+  width: 74%;
+  border-color: #D4D4D4;
+  padding-inline: 1em;
+}
+
+.commentFilter .userActions{
+  align-self: center;
+  z-index: 99;
+}
+
+.commentFilter .pluginTypeFilter{
+  transform: none;
+  position: unset;
+  margin: 4px;
+}
+
+.commentFilter #search-comment{
+  padding-inline-end: 4em;
+}
+
+#search-comment .search-icon{
+  position: relative;
+  left: 37px;
+  top: 2px;
+}
+
+.comment-selection-content{
+  background-color: rgb(250, 250, 250);
+  border-left: 1px solid rgb(230, 230, 230);
+  position: absolute;
+  right: 0px;
+  width: 223px;
+  min-height: calc(87% - 171px);
+  top: 169.5px;
+  z-index: 10;
+  padding: 7em 1em 0em 1em;
+  display: none;
+  flex-direction: column;
+}
+
+.selectButton {
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  color: #777;
+  font-weight: bold;
+  margin: 4px;
+  border-radius: 5px;
+}
+
+.selectButton:hover {
+  background-color: #ddd;
+  color: #3A3A3A;
+  text-decoration: none !important;
+}
+
+.selectButton2 {
+  text-align: center;
+  padding: 10px;
+  color: #3C3C3C;
+  font-weight: bold;
+  margin: 4px;
+  border: solid;
+  border-width: 1px;
+  border-color: #E7E7E7;
+}
+
+.selectButton2:hover {
+  background-color: #ddd;
+  color: #000000;
+  text-decoration: none !important;
+}
+
+.comment-form{
+  display : flex;
+}
+
+.comment-box-validated, .comment-box-validated:focus{
+  border-color: #FFC17E !important;
+}
+
+.comment-box, .comment-box:focus{
+  background-color: #FAFAFA;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 5px;
+
+  border-radius: 4px;
+  border-left: solid;
+  border-color: #999999;
+  border-width: 6px;
+
+  width: 29.8em;
+  height: 11.7em;
+
+  padding: 0em 1em 0em 0em;
+}
+
+.comment-box a img{
+    object-fit: cover;
+    height: 11.7em;
+    width: 11.7em;
+    margin-top: 0.3em;
+    margin-right: 3%;
+}
+
+.comment-box .comment{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  color: #3C3C3C;
+  font-weight: 600;
+}
+
+.comment-box .comment blockquote{
+  align-self: flex-start;
+  font-style: italic;
+  margin : -1em 2% 0% 0%;
+  align-self: flex-start;
+  min-height: 0em;
+}
+
+.comment-box .comment strong, .comment-box .comment p{
+  align-self: flex-end;
+  text-align: right;
+  margin: 0% 2% 0% 0%;
+}
+
+.badge-grey{
+  padding-inline : 5px;
+  color: #898989;
+  background-color: #DBDBDB;
+  border-radius: 20px;
+}
+.badge-red{
+  color: #FF5252;
+  background-color: #FFCFCF;
+  border-radius: 20px;
+}
+.badge-guest{
+  color: #2883C3;
+  background-color: #CFEBFF;
+  border-radius: 20px;
+}
+.badge-user{
+  color: #FFA646;
+  background-color: #FFE9CF;
+  border-radius: 20px;
+}
+.badge-admin{
+  color: #896AF3;
+  background-color: #E0DAF4;
+  border-radius: 20px;
+}
+.badge-main-user{
+  color: #896AF3;
+  background-color: #E0DAF4;
+  border-radius: 20px;
+}
+
+.comment-select-checkbox, .comment-select-checkbox:focus{
+  appearance: none;
+  visibility: hidden;
+  outline: none;
+
+  position: relative;
+  top: 5px;
+  right: -85%;
+  width: 7%;
+  height: 10%;
+  color: #FFA646;
+  font-size: 2em;
+  background-color: #FAFAFA;
+}
+
+.comment div {
+  text-align: end;
+  min-height: 18%;
+  min-width: 100%;
+  margin-top: auto;
+  margin-bottom: 0.8em;
+}
+
+.comment-buttons-container{
+  visibility: visible;
+}
+
+.delete-comment{
+  border-width: 0px;
+  border-radius: 6px;
+  background-color: #EEEEEE;
+  color: #3C3C3C;
+  height: 100%;
+  font-weight: bold;
+  font-size: 12px;
+}
+.delete-comment:hover{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.approve-comment{
+  border-width: 0px;
+  border-radius: 6px;
+  background-color: #FFC17E;
+  color : #3C3C3C;
+  height: 100%;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 3%;
+}
+.approve-comment:hover{
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .cat-modify-content {
   display: grid;
   grid-template-rows: 70px 380px;
@@ -812,7 +1070,7 @@ LI.menuLi {
 /* Search bar */
 
 .search-input{
-  padding: 10px;
+  padding: 10px 10px 6px 10px;
   box-shadow: 0px 2px #00000024;
   border: none;
   background-color: #fafafa !important;
@@ -2568,6 +2826,10 @@ div.jGrowl div.jGrowl-notification{
 .revision-date {
   color: #f70;
   margin-left: 5px;
+}
+
+.advanced-filter-item{
+  text-align: left;
 }
 
 .advanced-filter-revision-date .advanced-filter-item-label {
@@ -4859,7 +5121,6 @@ a#showPermissions:hover {text-decoration: none;}
   margin-left: 25px;
 }
 
-.commentFilter {text-align:left;margin:5px 1em;}
 
 FORM#categoryOrdering p.albumTitle {margin:0; margin-left: 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-bottom: 4px;}
 FORM#categoryOrdering p.albumTitle a {font-size: 14px; font-weight: 600;}
@@ -6575,6 +6836,23 @@ fieldset#environment legend i[class*="icon-"] {
   color:#493C21;
 }
 
+.buttonSecondary{
+ font-size:12px; 
+ border:none; 
+ padding:13px 20px; 
+ margin-left:0; font-weight: bold; transition: all 125ms ease-out;
+ color:#3C3C3C;
+ background-color:#ECECEC;
+}
+
+.buttonSecondary:hover{
+	cursor: pointer;
+  background-color: #FFA646;
+	text-decoration: none;
+  color:#3C3C3C;
+}
+
+
 #cboxLoadedContent input[type="submit"] {margin-bottom: 20px; float: none;}
 
 #permissions, #uploadForm fieldset {border: 0;}
@@ -6597,7 +6875,7 @@ fieldset#environment legend i[class*="icon-"] {
 .icon-plus.cboxElement:hover {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);}
 #albumSelection {margin-right: 20px;}
 .selectize-control.single .selectize-input {border-radius: 0; font-weight: bold;font-size: 12px;}
-.buttonLike {padding: 8px 10px; margin-left: 5px;}
+.buttonLike, .buttonSecondary {padding: 8px 10px; margin-left: 5px;}
 .changeUsername .buttonLike {padding: 1px 10px;}
 .changePassword .buttonLike {padding: 1px 10px;}
 .selectFilesButtonBlock {display: flex; margin-top: 10px;}

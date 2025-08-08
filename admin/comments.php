@@ -108,6 +108,7 @@ $tabsheet->assign();
 
 $nb_total = 0;
 $nb_pending = 0;
+$nb_validated = 0;
 
 $query = '
 SELECT
@@ -127,6 +128,8 @@ while ($row = pwg_db_fetch_assoc($result))
   }
 }
 
+$nb_validated = $nb_total - $nb_pending;
+
 if (!isset($_GET['filter']) and $nb_pending > 0)
 {
   $page['filter'] = 'pending';
@@ -136,16 +139,50 @@ else
   $page['filter'] = 'all';
 }
 
-if (isset($_GET['filter']) and 'pending' == $_GET['filter'])
+if (isset($_GET['filter']) and ('pending' == $_GET['filter'] or 'validated' == $_GET['filter']))
 {
   $page['filter'] = $_GET['filter'];
+}
+
+if (isset($_GET['status']))
+{
+  $displayed_status = $_GET['status'];
+}
+else
+{
+  $displayed_status = 'all';
+}
+
+if (isset($_GET['author']))
+{
+  $author = $_GET['author'];
+}
+else 
+{
+  $author = 'all';
+}
+
+// by default, no filter by date is active
+$start = $end = "";
+
+if (isset($_GET['start_date'])){
+  $start = $_GET['start_date'];
+}
+
+if (isset($_GET['end_date'])){
+  $end = $_GET['end_date'];
 }
 
 $template->assign(
   array(
     'nb_total' => $nb_total,
     'nb_pending' => $nb_pending,
+    'nb_validated' => $nb_validated,
     'filter' => $page['filter'],
+    'displayed_status' => $displayed_status,
+    'displayed_author' => $author,
+    'START' => $start,
+    'END' => $end,
     )
   );
 
@@ -155,6 +192,10 @@ if ('pending' == $page['filter'])
 {
   $where_clauses[] = 'validated=\'false\'';
 }
+if ('validated' == $page['filter'])
+{
+  $where_clauses[] = 'validated=\'true\'';
+}
 
 $query = '
 SELECT
@@ -163,6 +204,7 @@ SELECT
     c.date,
     c.author,
     '.$conf['user_fields']['username'].' AS username,
+    ui.status,
     c.content,
     i.path,
     i.representative_ext,
@@ -173,6 +215,8 @@ SELECT
       ON i.id = c.image_id
     LEFT JOIN '.USERS_TABLE.' AS u
       ON u.'.$conf['user_fields']['id'].' = c.author_id
+    LEFT JOIN '.USER_INFOS_TABLE.' AS ui
+      ON ui.user_id = c.author_id
   WHERE '.implode(' AND ', $where_clauses).'
   ORDER BY c.date DESC
   LIMIT '.$page['start'].', '.$conf['comments_page_nb_comments'].'
@@ -202,10 +246,12 @@ while ($row = pwg_db_fetch_assoc($result))
       'ID' => $row['id'],
       'TN_SRC' => $thumb,
       'AUTHOR' => trigger_change('render_comment_author', $author_name),
+      'AUTHOR_STATUS' => $row['status'],
       'DATE' => format_date($row['date'], array('day_name','day','month','year','time')),
       'CONTENT' => trigger_change('render_comment_content',$row['content']),
       'IS_PENDING' => ('false' == $row['validated']),
       'IP' => $row['anonymous_id'],
+      'NUMERICAL_DATE' => $row['date'],
       )
     );
 
