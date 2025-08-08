@@ -2178,6 +2178,7 @@ img.ui-datepicker-trigger {
 }
 
 .rotate-element{
+  display: inline-block;
   transform: rotate(90deg);
 }
 
@@ -6783,13 +6784,15 @@ table.qsearch_help_table td {
 .font-checkbox [class*=icon-check]:before {
   font-size:16px;
   line-height:16px;
-  margin-right:0;
+  margin-right:5px;
   margin-left:0;
+  font-size: 145%;
 }
 .font-checkbox .icon-check-empty {
   position:relative;
   left:-1px;
 }
+
 .font-checkbox input[type=checkbox], .font-checkbox input[type=radio] {
   display:none;
 }
@@ -7528,17 +7531,16 @@ color:#FF7B00;
 
 /* Activity Tab in user manager */
 
-.select-user {
-  background: #fafafa;
+.activity-select {
   height: 50%;
+  text-align: left;
+  margin-right: 20px;
+}
 
-  display: flex;
-  align-items: center;
-
-  padding: 0 20px;
-
-  box-shadow: 0px 2px 4px #00000024;
-  border-radius: 5px;
+.activity-filter-container{
+    border-radius: 20px;
+    padding: 4px 10px;
+    margin-right: 6px;
 }
 
 .start-date, 
@@ -7548,11 +7550,6 @@ color:#FF7B00;
     border-radius: 50px;
     margin: 5px;
     white-space: nowrap;
-}
-
-.acivity-time-text {
-  font-size: 13px;
-  font-weight: bold;
 }
 
 .line {
@@ -7586,7 +7583,6 @@ color:#FF7B00;
 }
 
 .download_csv {
-  margin-left: auto;
   height: 25px;
   width: 30px;
   background: #dddddd;
@@ -8285,4 +8281,51 @@ color:#FF7B00;
   cursor: pointer;
   box-shadow: 0px 4px 4px 0px #00000040;
   font-size: 10px;
+}
+
+/* Filters options */
+.filters-grid{
+  display: grid;
+  grid-template-columns: 200px 118px 25px;
+  margin-bottom: 0px !important;
+}
+.select-views{
+  background-color: #f3f3f3;
+  font-size: 11px;
+  border: none;
+  height: 16px;
+  margin-top: 4.5px;
+  padding-left: 10px;
+}
+.select-views-arrow{
+  display: flex;
+  position: absolute;
+  margin-left: 299.9px;
+  margin-top: 5px;
+  pointer-events: none;
+}
+.select-views-admin{
+  margin-left: 3px;
+}
+
+.last-filters{
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.filter-manager-options-container{
+  display: inline-block;
+  font-size: 11px;
+  font-weight: normal !important;
+  border: 1px solid #777;
+  border-radius: 20px;
+  padding: 4px 10px;
+  cursor: pointer;
+  margin-right: 7.5px;
+  margin-bottom: 7.5px;
+}
+
+.mcs-icon-options::before{
+  margin-right: 5px;
 }

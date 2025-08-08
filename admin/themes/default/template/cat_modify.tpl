@@ -45,6 +45,8 @@ const str_modal_ab = '{'New parent album'|@translate}';
 
     <div class="cat-modify-actions">
 
+      <a class="icon-pulse tiptip" href="{$U_ACTIVITY}" title="{'Activity'|@translate}"></a>
+
       {if isset($U_MANAGE_ELEMENTS) }
         <a class="icon-th tiptip" href="{$U_MANAGE_ELEMENTS}" title="{'Manage album photos'|@translate}"></a>
       {/if}

@@ -224,7 +224,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-buttonpane .ui-state-error:hover { background: #7e3030;}
 INPUT[type="text"].large  { width: 317px; }
 
-.buttonLike:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
+.buttonLike:disabled, .filters-icon-check:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
 	color:#555;
 	border-color:#666;
   cursor:not-allowed;
@@ -971,8 +971,6 @@ table.qsearch_help_table td {
 	border-color: #444;
 }
 
-.font-checkbox [class*=icon-check]:before { color:#aaa; }
-
 #cboxLoadedContent { background-color:#333 !important; }
 
 #watermarkPositionBox {
@@ -993,6 +991,8 @@ table.qsearch_help_table td {
 
 .font-checkbox {color: #898888;}
 .font-checkbox:hover {color: #ededed;}
+.font-checkbox:hover .icon-check-empty, .font-checkbox:hover .icon-check {color: #FF7700;}
+.font-checkbox .icon-check {color: #FFA646;}
 .with-border legend, .with-border strong {color: #c0c0c0;}
 .font-checkbox.selected {color: #ffa646;}
 
@@ -1915,21 +1915,26 @@ background:#6C2D2D!important;
 
 /* Activity Tab in user manager */
 
-.select-user {
-  background: #555555;
-  height: 50%;
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 20px;
-
-  box-shadow: 0px 2px 4px #00000024;
-  border-radius: 5px;
+.activity-more-filters, .activity-more-filters-content {
+  background-color: #343434 !important;
 }
 
-.select-user-title {
+.selectize-control.user-selecter.single .selectize-input, .selectize-control.action-selecter.single .selectize-input {
+  border-color: #555555 !important;
+}
+
+.activity-select-title {
   color: #bbbbbb;
+}
+
+.activity-date-selecter {
+  background-color: #555555;
+  color: #D5D5D5;
+}
+
+.activity-filter-container{
+  background-color: #555555;
+  color: #D5D5D5;
 }
 
 .start-date, 
@@ -1939,12 +1944,6 @@ background:#6C2D2D!important;
     border-radius: 50px;
     margin: 5px;
     color: #bbbbbb;
-}
-
-.acivity-time-text {
-  font-size: 13px;
-  font-weight: bold;
-  color: #bbbbbb;
 }
 
 /* Strange why this is different from light mode */
@@ -1988,7 +1987,6 @@ background:#6C2D2D!important;
 }
 
 .download_csv {
-  margin-left: auto;
   height: 25px;
   width: 30px;
   background: #555555;
@@ -2453,4 +2451,33 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 .buttonSecondary:hover {
   background-color: #1B1B1B;
   color: #777777;
+
+/* Filters options */
+.select-views{
+  background-color: #444444;
+  color: #898888;
+  border: 1px solid #666;
+}
+
+.filter-manager-options-container{
+  background-color: #333;
+  color: #aaa;
+  border-color: #333;
+}
+
+.filter-manager-options-container:hover{
+  background-color: #5D5D5D;
+}
+
+.filter-manager-options-container.selected-filter-container{
+  background-color: #777777;
+  color: #ddd;
+}
+
+.filter-manager-options-container.selected-filter-container:hover{
+  background-color: #aaa;
+}
+
+label:has(> .filters-icon-check:disabled){
+  color:#555;
 }
