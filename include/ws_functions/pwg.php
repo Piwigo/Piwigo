@@ -478,52 +478,63 @@ function ws_getActivityList($param, &$service)
     $max = date_format(date_create($param['date_max']), "Y-m-d 23:59:59");
   }
 
-  if (isset($param['uid'])) {
-    $query = '
-  SELECT
-      count(*)
-    FROM '.ACTIVITY_TABLE.'
-    WHERE object != \'system\'
+  $where = 'WHERE object != \'system\'';
+
+  if (isset($param['uid']))
+  {
+    $where .= '
     AND performed_by = '.$param['uid'];
-  } else {
-    $query = '
-  SELECT
-      count(*)
-    FROM '.ACTIVITY_TABLE.'
-    WHERE object != \'system\'';
   }
 
   if (isset($param['action']))
   {
-    $query .= '
+    $where .= '
     AND action = "'.$param['action'].'"';
   }
 
   if (isset($param['object']))
   {
-    $query .= '
+    $where .= '
     AND object = "'.$param['object'].'"';
   }
 
   if (!empty($param['date_min']))
   {
-    $query .= '
+    $where .= '
     AND occured_on >= "'.$min.'"';
   }
 
   if (!empty($param['date_max']))
   {
-    $query .= '
+    $where .= '
     AND occured_on <= "'.$max.'"';
   }
 
   if (!empty($param['id']))
   {
-    $query .= '
+    $where .= '
     AND object_id = '.$param['id'];
   }
 
-  $query .= ';';
+  if ('none' == $conf['activity_display_connections'])
+  {
+    $where .= '
+    AND action NOT IN (\'login\', \'logout\')';
+  }
+  elseif ('admins_only' == $conf['activity_display_connections'])
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    $where .= '
+    AND NOT (action IN (\'login\', \'logout\') AND object_id NOT IN ('.implode(',', get_admins()).'))';
+  }
+
+  $query = '
+SELECT
+    count(*)
+  FROM '.ACTIVITY_TABLE.'
+  '.$where.'
+;';
+  //echo $query."\n";
 
   $max_line = (pwg_db_fetch_row(pwg_query($query))[0]);
   
@@ -542,61 +553,11 @@ SELECT
     details,
     user_agent
   FROM '.ACTIVITY_TABLE.'
-  WHERE object != \'system\'';
-
-    if (isset($param['uid']))
-    {
-      $query.= '
-      AND performed_by = '.$param['uid'];
-    }
-
-    if (isset($param['action']))
-    {
-      $query .= '
-      AND action = "'.$param['action'].'"';
-    }
-
-    if (isset($param['object']))
-    {
-      $query .= '
-      AND object = "'.$param['object'].'"';
-    }
-
-  if (!empty($param['date_min']))
-  {
-    $query .= '
-    AND occured_on >= "'.$min.'"';
-  }
-
-  if (!empty($param['date_max']))
-  {
-    $query .= '
-    AND occured_on <= "'.$max.'"';
-  }
-
-  if (!empty($param['id']))
-  {
-    $id = pwg_db_real_escape_string(stripslashes($param['id']));
-    $query .= '
-    AND object_id = '.$id;
-  }
-
-  elseif ('none' == $conf['activity_display_connections'])
-  {
-    $query.= '
-    AND action NOT IN (\'login\', \'logout\')';
-  }
-  elseif ('admins_only' == $conf['activity_display_connections'])
-  {
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    $query.= '
-    AND NOT (action IN (\'login\', \'logout\') AND object_id NOT IN ('.implode(',', get_admins()).'))';
-  }
-
-    $query.= '
+  '.$where.'
   ORDER BY activity_id DESC
-  LIMIT '.($page_size * 5).' OFFSET '.$page_offset.'
+  LIMIT '.($page_size * 10).' OFFSET '.$page_offset.'
 ;';
+// echo $query."\n";
 
     $result = pwg_query($query);
 
