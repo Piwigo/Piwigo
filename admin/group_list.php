@@ -102,8 +102,6 @@ SELECT u.'. $conf['user_fields']['username'].' AS username
       )
     );
 
-  $template->assign('U_ACTIVITY', get_root_url().'admin.php?page=user_activity&group='.$row['id']);
-
   $group_counter++;
 }
 

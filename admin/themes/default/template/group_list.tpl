@@ -87,7 +87,7 @@ usersCache.selectize(jQuery('select.UserSearch'));
           <div class="icon-docs dropdown-option" id="GroupDuplicate" value="duplicate">{'Duplicate'|@translate}</div>
           <div class="icon-trash dropdown-option" id="GroupDelete" value="delete">{'Delete'|@translate}</div>
           <div class="icon-star dropdown-option" id="GroupDefault" value="delete"></div>
-          <a class="icon-pulse dropdown-option" href="{$U_ACTIVITY}">{'Activity'|@translate}</a>
+          <a class="icon-pulse dropdown-option" href="admin.php?page=user_activity&group={$grp_id}">{'Activity'|@translate}</a>
         </div>
       </div>
 
