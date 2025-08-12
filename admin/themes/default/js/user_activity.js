@@ -652,6 +652,7 @@ $(document).ready(function () {
     });
 
     $('#date_min_activity').on('change', function(user) {
+        page_reset();
         if ($('#date_min_activity').val()=='')
         {
             document.getElementById('date_max_activity').setAttribute("min", date_min);
@@ -664,6 +665,7 @@ $(document).ready(function () {
     })
     
     $('#date_max_activity').on('change', function(user) {
+        page_reset();
         if ($('#date_max_activity').val()=='')
         {
             document.getElementById('date_min_activity').setAttribute("max", date_max);
