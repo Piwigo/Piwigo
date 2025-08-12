@@ -462,12 +462,11 @@ function ws_getActivityList($param, &$service)
   $page_size = 100; //We will fetch X lines in database =/= lines displayed due to line concatenation
   //$page_offset = $param['page']*$page_size;
   $page_offset = $param['offset'];
+  $nb_rows_to_fetch = 10000;
 
   $user_ids = array();
 
   $line_id = 0;
-
-  
 
   if (!empty($param['date_min'])) {
     $min = date_format(date_create($param['date_min']), "Y-m-d H:i:s");
@@ -528,17 +527,9 @@ function ws_getActivityList($param, &$service)
     AND NOT (action IN (\'login\', \'logout\') AND object_id NOT IN ('.implode(',', get_admins()).'))';
   }
 
-  $query = '
-SELECT
-    count(*)
-  FROM '.ACTIVITY_TABLE.'
-  '.$where.'
-;';
-  //echo $query."\n";
-
-  $max_line = (pwg_db_fetch_row(pwg_query($query))[0]);
+  $more_rows_available = true;
   
-  while(sizeof($output_lines) < $page_size and !($page_offset >= $max_line))
+  while (count($output_lines) < $page_size and $more_rows_available)
   {
     $query = '
 SELECT
@@ -555,35 +546,20 @@ SELECT
   FROM '.ACTIVITY_TABLE.'
   '.$where.'
   ORDER BY activity_id DESC
-  LIMIT '.($page_size * 10).' OFFSET '.$page_offset.'
+  LIMIT '.$nb_rows_to_fetch.' OFFSET '.$page_offset.'
 ;';
-// echo $query."\n";
+    $rows = query2array($query);
 
-    $result = pwg_query($query);
-
-    while ($row = pwg_db_fetch_assoc($result))
+    if (count($rows) < $nb_rows_to_fetch)
     {
-      if (sizeof($output_lines) < $page_size)
+      $more_rows_available = false;
+    }
+
+    foreach ($rows as $row)
+    {
+      if (count($output_lines) < $page_size)
       {
         $page_offset++;
-
-        $row['details'] = str_replace('`groups`', 'groups', $row['details']);
-        $row['details'] = str_replace('`rank`', 'rank', $row['details']);
-        $details = @unserialize($row['details']);
-
-        if (isset($row['user_agent']))
-        {
-          $details['agent'] = $row['user_agent'];
-        }
-
-        if (isset($details['method']))
-        {
-          $detailsType = 'method';
-        }
-        if (isset($details['script']))
-        {
-          $detailsType = 'script';
-        }
 
         $line_key = $row['session_idx'].'~'.$row['object'].'~'.$row['action'].'~'; // idx~photo~add
   
@@ -595,6 +571,25 @@ SELECT
         }
         else
         {
+          $row['details'] = str_replace('`groups`', 'groups', $row['details']);
+          $row['details'] = str_replace('`rank`', 'rank', $row['details']);
+          $details = @unserialize($row['details']);
+
+          if (isset($row['user_agent']))
+          {
+            $details['agent'] = $row['user_agent'];
+          }
+
+          if (isset($details['method']))
+          {
+            $detailsType = 'method';
+          }
+       
+          if (isset($details['script']))
+          {
+            $detailsType = 'script';
+          }
+
           list($date, $hour) = explode(' ', $row['occured_on']);
           // New line
           $output_lines[] = array(
@@ -623,6 +618,7 @@ SELECT
       }
       else
       {
+        $more_rows_available = true;
         break;
       }
     }
@@ -667,7 +663,7 @@ SELECT
   return array(
     'result_lines' => $output_lines,
     'page_offset' => $page_offset,
-    'end_page' => ($page_offset >= $max_line),
+    'end_page' => !$more_rows_available,
     'params' => $param
   );
 }
