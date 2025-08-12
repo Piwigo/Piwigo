@@ -16,7 +16,12 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+
 check_status(ACCESS_ADMINISTRATOR);
+
+check_input_parameter('photo', $_GET, false, PATTERN_ID);
+check_input_parameter('album', $_GET, false, PATTERN_ID);
+check_input_parameter('group', $_GET, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
@@ -172,41 +177,35 @@ $additional_filt_type = false;
 $additional_filt_name = null;
 $additional_filt_value = null;
 
-if(isset($_GET['photo']))
-{
-  $query = '
-  SELECT
-    name
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$_GET['photo'].';';
+$additional_filters = array(
+  'photo' => IMAGES_TABLE,
+  'album' => CATEGORIES_TABLE,
+  'group' => GROUPS_TABLE,
+);
 
-  $additional_filt_type = 'photo';
-  $additional_filt_name = query2array($query)[0]['name'];
-  $additional_filt_value = $_GET['photo'];
-}
-else if (isset($_GET['album']))
+foreach ($additional_filters as $filter_key => $filter_table)
 {
-  $query = '
-  SELECT
+  if (isset($_GET[$filter_key]))
+  {
+    $query = '
+SELECT
     name
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$_GET['album'].';';
+  FROM '.$filter_table.'
+  WHERE id = '.$_GET[$filter_key].'
+;';
+    $rows = query2array($query);
 
-  $additional_filt_type = 'album';
-  $additional_filt_name = query2array($query)[0]['name'];
-  $additional_filt_value = $_GET['album'];
-}
-else if (isset($_GET['group']))
-{
-  $query = '
-  SELECT
-    name
-  FROM '.GROUPS_TABLE.'
-  WHERE id = '.$_GET['group'].';';
+    if (count($rows) == 0)
+    {
+      fatal_error($filter_key.' #'.$_GET[$filter_key].' does not exist');
+    }
 
-  $additional_filt_type = 'group';
-  $additional_filt_name = query2array($query)[0]['name'];
-  $additional_filt_value = $_GET['group'];
+    $additional_filt_type = $filter_key;
+    $additional_filt_name = $rows[0]['name'];
+    $additional_filt_value = $_GET[$filter_key];
+
+    break;
+  }
 }
 
 $template->assign('ADDITIONAL_FILT', array(
