@@ -146,24 +146,27 @@ $query = '
 SELECT
     occured_on
   FROM '.ACTIVITY_TABLE.'
-  WHERE object != \'system\'
-  ;';
+  ORDER BY activity_id ASC
+  LIMIT 1
+;';
+list($min_date) = pwg_db_fetch_row(pwg_query($query));
 
-$result = query2array($query);
+$query = '
+SELECT
+    occured_on
+  FROM '.ACTIVITY_TABLE.'
+  ORDER BY activity_id DESC
+  LIMIT 1
+;';
+list($max_date) = pwg_db_fetch_row(pwg_query($query));
 
-$dates = array();
-
-foreach($result as $time){
-  list($date, $hour) = explode(' ', $time['occured_on']);
-  $dates[] = date_format(date_create($date),"Y-m-d");
-}
-
-$dates = array_unique($dates);
-$list_dates['allDates'] = implode(',',$dates);
-$list_dates['min'] = $dates[0];
-$list_dates['max'] = end($dates);
-
-$template->assign('ACTIVITY_DATES', $list_dates);
+$template->assign(
+  'ACTIVITY_DATES',
+  array(
+    'min' => empty($min_date) ? '' : substr($min_date, 0, 10),
+    'max' => empty($max_date) ? '' : substr($max_date, 0, 10),
+  )
+);
 
 $additional_filt_type = false;
 $additional_filt_name = null;

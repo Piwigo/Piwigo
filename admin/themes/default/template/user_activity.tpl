@@ -176,9 +176,9 @@ var actionInfos_tags_moved = "{'%d tags moved'|translate}";
                     class="activity-date-selecter"
                     type="date"
                     id="date_min_activity"
-                    value={$ACTIVITY_DATES.min}
-                    min={$ACTIVITY_DATES.min}
-                    max={$ACTIVITY_DATES.max}
+                    value="{$ACTIVITY_DATES.min}"
+                    min="{$ACTIVITY_DATES.min}"
+                    max="{$ACTIVITY_DATES.max}"
                 />
             </div>
 
@@ -188,9 +188,9 @@ var actionInfos_tags_moved = "{'%d tags moved'|translate}";
                     class="activity-date-selecter"
                     type="date"
                     id="date_max_activity"
-                    value={$ACTIVITY_DATES.max}
-                    min={$ACTIVITY_DATES.min}
-                    max={$ACTIVITY_DATES.max}
+                    value="{$ACTIVITY_DATES.max}"
+                    min="{$ACTIVITY_DATES.min}"
+                    max="{$ACTIVITY_DATES.max}"
                 />
             </div>
 
