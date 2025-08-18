@@ -1402,3 +1402,4 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Denna länk är giltig för %s. Efter denna tid måste du begära en ny länk.';
 $lang['To set your password, visit the following address:'] = 'För att ställa in ditt lösenord, besök följande adress:';
 $lang['Welcome to %s'] = 'Välkommen till %s';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Vi har hittat %d dubbletter av sökvägar. Detaljer tillhandahållna av plugin\'et Kontrollera uppladdningar (Check Uploads)';
