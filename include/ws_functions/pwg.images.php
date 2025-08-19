@@ -2565,6 +2565,8 @@ SELECT *
     'author',
     'comment',
     'level',
+    'latitude',
+    'longitude',
     'date_creation',
     );
 
