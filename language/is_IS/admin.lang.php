@@ -1400,3 +1400,4 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Þessi hlekkur gildir fyrir %s. Eftir þennan tíma þarftu að biðja um nýjan hlekk.';
 $lang['To set your password, visit the following address:'] = 'Til að stilla lykilorðið þitt skaltu fara á eftirfarandi veffang:';
 $lang['Welcome to %s'] = 'Velkomin í %s';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Við fundum %d tvíteknar slóðir. Upplýsingar frá viðbótinni Check Uploads';
