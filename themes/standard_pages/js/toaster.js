@@ -20,11 +20,11 @@ function pwgToaster(info) {
   template.find('.toast_icon').addClass(info.icon === 'success' ? 'icon-ok' : 'icon-cancel');
   template.addClass(info.icon === 'success' ? info.icon : 'error');
 
-  template.removeClass('template');
+  template.removeClass('template-pwg-toaster');
   template.appendTo('#pwg_toaster');
 
   const time = info.time ?? 3600;
-  setInterval(() => {
+  setTimeout(() => {
     template.fadeOut(() => {
       template.remove();
     })
