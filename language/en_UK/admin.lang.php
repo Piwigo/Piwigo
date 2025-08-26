@@ -1416,5 +1416,6 @@ $lang['No comments selected, no actions possible.'] = 'No comments selected, no 
 $lang['The comment has been validated.'] = 'The comment has been validated.';
 $lang['The comments have been validated.'] = 'The comments have been validated.';
 $lang['Are you sure you want to delete "%d" comments?'] = 'Are you sure you want to delete "%d" comments?';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'If a photo in this album has the same filename, update the file without changing the photo\'s properties';
 
 // Leave this line empty

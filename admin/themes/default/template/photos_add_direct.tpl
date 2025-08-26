@@ -195,7 +195,7 @@ let related_categories_ids = {$selected_category|json_encode};
           <span class="slider round"></span>
         </label>
         <div style="margin-left: 6px;">
-          <p>{'If file already exists, update it'|@translate}</p>
+          <p>{'If a photo in this album has the same filename, update the file without changing the photo\'s properties'|@translate}</p>
         </div>
       </div>
       {/if}

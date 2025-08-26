@@ -1418,4 +1418,5 @@ $lang['No comments selected, no actions possible.'] = 'Aucun commentaire sélect
 $lang['The comment has been validated.'] = 'Le commentaire a été validé.';
 $lang['The comments have been validated.'] = 'Les commentaires ont été validés.';
 $lang['Are you sure you want to delete "%d" comments?'] = 'Êtes-vous sûr de vouloir supprimer "%d" commentaires ?';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Si une photo de cet album a le même nom de fichier, mettre à jour le fichier sans changer les propriétés de la photo';
 // Leave this line empty
