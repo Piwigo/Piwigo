@@ -481,7 +481,8 @@ input:focus + .slider {
   box-shadow: 0 0 1px #ffa646;
 }
 
-#selection-mode-block{
+#selection-mode-block,
+.selection-mode {
   background-color: #FAFAFA;
   border-left:1px solid #e6e6e6;
 }
@@ -505,12 +506,14 @@ input:focus + .slider {
   color:#a0a0a0;
 }
 
-#selection-mode-block button{
+#selection-mode-block button,
+#commentsSelection button{
   border: 1px solid #e7e7e7;
 }
 
 
-#selection-mode-block button:hover{
+#selection-mode-block button:hover,
+#commentsSelection button:hover {
   background-color: #ffa744;
   border: 1px solid #ffa744;
 }

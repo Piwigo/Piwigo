@@ -727,7 +727,8 @@ input:focus + .slider {
   box-shadow: 0 0 1px #FFC27F;
 }
 
-#selection-mode-block{
+#selection-mode-block, 
+.selection-mode {
   background-color: #232323;
   border-left:1px solid #1a1a1a;
 }
@@ -762,13 +763,15 @@ input:focus + .slider {
   color:#c0c0c0;
 }
 
-#selection-mode-block button{
+#selection-mode-block button,
+#commentsSelection button {
   border: 1px solid #e7e7e7;
   color:#c0c0c0;
 }
 
 
-#selection-mode-block button:hover{
+#selection-mode-block button:hover,
+#commentsSelection button:hover {
   background-color: #ffa744;
   border: 1px solid #ffa744;
   color:#3c3c3c;
@@ -1301,7 +1304,8 @@ background:#6C2D2D!important;
 /* Tag Manager */
 
 .tag-box,
-.tag-header .selection-controller a{
+.tag-header .selection-controller a,
+.comments-selection-controller .comments-selection-btn {
   background-color: #333 !important;
 }
 
@@ -1494,6 +1498,7 @@ background:#6C2D2D!important;
   transform: translateY(13px);
 }
 
+.tab-filters label,
 .pluginTypeFilter label {
   display: flex;
   flex-direction: row;
@@ -1509,25 +1514,30 @@ background:#6C2D2D!important;
   box-shadow: 0px 2px #00000066;
 }
 
+.tab-filters label:hover,
 .pluginTypeFilter label:hover{
   background: #1B1B1B;
 }
 
+.tab-filters input:checked + label,
 .pluginTypeFilter input:checked + label{
   background: #ffa646;
   color: #444444;
   box-shadow: 0 2px #925f00;
 }
 
+.tab-filters input:checked:hover + label,
 .pluginTypeFilter input:checked:hover + label{
   background: #ffc17e;
 }
 
+.tab-filters input:checked + label .filter-badge,
 .pluginTypeFilter input:checked + label .filter-badge {
   background-color: #d18800;
   color: #444;
 }
 
+.tab-filters input + label .filter-badge,
 .pluginTypeFilter input + label .filter-badge {
   background-color: #3f3f3f;
   color: #bababa;
@@ -2275,7 +2285,46 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   opacity:60%!important;
 }
 
+.comment-container {
+  background-color: #333;
+  border-color: #ffa646;
+}
+
+.comment-validated {
+  border-color: #232323 !important;
+}
+
+.comment-author,
+.comment-date {
+  color: #aaa;
+}
+
+.comment-validate {
+  background-color: #ffa646;
+}
+
+.comment-delete {
+  background-color: #232323;
+}
+
+.comment-delete:hover {
+  background-color: #111;
+}
+
+.comments-advanced-filters {
+  background-color: #333;
+}
+
+.comment.comment-selected .comment-content {
+  background-color: #1B1B1B;
+}
+
+.comments-container.active .comment-content:hover {
+  background-color: #1B1B1B;
+}
+
 /* Cat modify description modal */
+.modal-content,
 .desc-modal-content,
 .new-album-modal-content {
   background-color: #444;
@@ -2394,64 +2443,6 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   background-color:#444;
 }
 
-.comment-box, .comment-box:focus{
-  background-color: #333;
-  color: #777;
-  border-color: #777;
-}
-
-.comment-box .comment{
-  color : #777;
-}
-
-.comment-selection-content{
-  background-color: rgb(51, 51, 51);
-  border-left: 1px solid #3A3A3A;
-}
-
-.badge-grey{
-  background-color: rgb(63, 63, 63);
-  color: rgb(186, 186, 186);
-}
-
-.selectButton{
-  background-color: rgb(85, 85, 85);
-  color: rgb(193, 193, 193);
-}
-
-.selectButton2{
-  border-color: rgb(85, 85, 85);
-  color: #C1C1C1;
-}
-
-.delete-comment{
-  background-color: rgb(85, 85, 85);
-  color: rgb(193, 193, 193);
-}
-
-.comment-select-checkbox, .comment-select-checkbox:focus{
-  background-color: #333;
-}
-
-.commentFilterSelected, .commentFilterSelected:hover {
-  color: #FFFFFF;
-  background-color: #FFA500;
-  border-bottom: solid #D18800;
-}
-.commentFilterUnselected, .commentFilterUnselected:hover {
-    color: #F3F3F3;
-    background-color: #898989;
-    border-bottom: solid #DBDBDB;
-}
-
-.buttonSecondary {
-  background-color: #2E2E2E;
-  color: #777777;
-}
-.buttonSecondary:hover {
-  background-color: #1B1B1B;
-  color: #777777;
-
 /* Filters options */
 .select-views{
   background-color: #444444;
@@ -2480,4 +2471,20 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 
 label:has(> .filters-icon-check:disabled){
   color:#555;
+}
+
+.comments-advanced-filter .advanced-filter-btn {
+  box-shadow: 0px 2px #333;
+}
+
+.comments-search {
+  background-color: #333 !important;
+}
+
+.comments-search:hover {
+  background-color: #222 !important
+}
+
+.comments-search input:focus {
+  outline: none;
 }

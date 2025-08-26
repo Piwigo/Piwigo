@@ -1411,5 +1411,8 @@ $lang['Save all photos'] = 'Save all photos';
 $lang['Use standard Piwigo template for common pages.'] = 'Use standard Piwigo template for common pages.';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'We have found %d duplicate paths. Details provided by plugin Check Uploads';
+$lang['Are you sure you want to delete comment "%s"?'] = 'Are you sure you want to delete comment "%s"?';
+$lang['No comments selected, no actions possible.'] = 'No comments selected, no actions possible.';
+$lang['The comment has been validated.'] = 'The comment has been validated.';
 
 // Leave this line empty
