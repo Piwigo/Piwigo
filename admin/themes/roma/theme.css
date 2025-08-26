@@ -2323,6 +2323,16 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   background-color: #1B1B1B;
 }
 
+.buttonSecondary {
+  color: #3C3C3C;
+  background-color: #232323;
+}
+
+.buttonSecondary:hover {
+  color: #3C3C3C;
+  background-color: #111;
+}
+
 /* Cat modify description modal */
 .modal-content,
 .desc-modal-content,

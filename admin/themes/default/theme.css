@@ -4855,7 +4855,8 @@ a#showPermissions:hover {text-decoration: none;}
 .comments-selection,
 .comment-validate,
 .comments-selections,
-.comment-template {
+.comment-template,
+.comments-modal-validate {
   display: none;
 }
 
@@ -5240,6 +5241,10 @@ a#showPermissions:hover {text-decoration: none;}
   max-height: 200px;
   overflow-y: auto;
   margin: 15px 0;
+}
+
+.comments-modal-footer {
+  justify-self: end;
 }
 
 .bottomButtons.syncBtn {

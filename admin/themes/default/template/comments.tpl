@@ -5,11 +5,13 @@
 {footer_script}
 const str_yes_delete_confirmation = "{'Yes, delete'|@translate|@escape:'javascript'}"
 const str_no_delete_confirmation = "{"No, I have changed my mind"|@translate|@escape:'javascript'}"
-const str_delete = "{'Are you sure you want to delete comment "%s"?'|@translate|@escape:'javascript'}"
+const str_delete = "{'Are you sure you want to delete comment #%s?'|@translate|@escape:'javascript'}"
+const str_deletes = "{'Are you sure you want to delete "%d" comments?'|@translate|@escape:'javascript'}"
 const str_no_comments_selected = "{'No comments selected, no actions possible.'|@translate|@escape:'javascript'}"
 const pwg_token = "{$PWG_TOKEN}"
 const str_an_error_has = "{"An error has occured"|@translate|@escape:'javascript'}"
 const str_comment_validated = "{"The comment has been validated."|@translate|@escape:'javascript'}"
+const str_comments_validated = "{"The comments have been validated."|@translate|@escape:'javascript'}"
 const str_and_others = "{"and %s others"|@translate}"
 {/footer_script}
 <style>
@@ -171,7 +173,8 @@ const str_and_others = "{"and %s others"|@translate}"
       </div>
 
       <div class="comments-modal-footer">
-
+        <button class="comments-modal-delete buttonLike buttonSecondary" type="button" id="commentsModalDelete"><i class="icon-trash-1"></i> {"Delete"|translate}</button>
+        <button class="comments-modal-validate buttonLike" type="button" id="commentsModalValidate"><i class="icon-ok"></i> {"Validate"|translate}</button>
       </div>
 
     </div>

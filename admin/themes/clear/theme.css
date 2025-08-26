@@ -247,9 +247,15 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   font-weight: bold;
 }
 
-#batchManagerGlobal #applyFilter,#batchManagerGlobal .addFilter-button {
+#batchManagerGlobal #applyFilter,#batchManagerGlobal .addFilter-button,
+.buttonSecondary {
   color: #3C3C3C;
   background-color: #ececec;
+}
+
+.buttonSecondary:hover {
+  color: #3C3C3C;
+  background-color: #aaa;
 }
 
 #batchManagerGlobal #applyFilter:hover, #batchManagerGlobal .addFilter-button:hover {

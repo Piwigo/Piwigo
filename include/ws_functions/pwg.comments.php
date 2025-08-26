@@ -136,7 +136,7 @@ SELECT
       )
     )->get_url();
     
-    if (empty($row['author_id']))
+    if (empty($row['author_id']) or $row['author_id'] == $conf['guest_id'])
     {
       $author_name = $row['author'];
     }

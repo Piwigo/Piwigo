@@ -110,6 +110,12 @@ $(function() {
     commentsClearFilters();
   });
 
+  $(window).on('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeModalViewComment();
+    }
+  });
+
   // get comments and set display
   commentsParams.per_page = window.localStorage.getItem('adminCommentsNB') ?? 5
   updateNbComments(commentsParams.per_page);
@@ -320,8 +326,8 @@ function commentsDisplayFilters(filters) {
   // reset here to let decide filterAuthor onChange
   updateAuthorId = true;
 
-  const minDate = filters.started_at.split(' ')[0] ?? '';
-  const maxDate = filters.ended_at.split(' ')[0] ?? ''
+  const minDate = filters.started_at?.split(' ')[0] ?? '';
+  const maxDate = filters.ended_at?.split(' ')[0] ?? ''
   filterDateStart.val(minDate).attr({ 'min': minDate, 'max': maxDate });
   filterDateEnd.val(maxDate).attr({ 'max': maxDate, 'min': minDate });
 
@@ -404,14 +410,34 @@ function showModalViewComment(id) {
   `);
   modalViewComment.find('.comments-modal-body').html(comment.content)
   
+  const validBtn = modalViewComment.find('.comments-modal-validate');
+  if (comment.is_pending) {
+    validBtn.show();
+    $('#commentsModalValidate').off('click').on('click', function() {
+      validateComment([id]);
+      closeModalViewComment();
+    });
+  } else {
+    validBtn.hide();
+  }
+  
+  $('#commentsModalDelete').off('click').on('click', function() {
+    deleteComment([id]);
+    closeModalViewComment();
+  });
+
   modalViewComment.fadeIn();
 }
 
 function closeModalViewComment() {
   modalViewComment.fadeOut();
+  $('#commentsModalValidate').off('click');
+  $('#commentsModalDelete').off('click')
 }
 
 function validateComment(id) {
+  const idLenght = id.length ?? 1;
+
   $.ajax({
     url: 'ws.php?format=json&method=pwg.userComments.validate',
     type: 'POST',
@@ -424,7 +450,7 @@ function validateComment(id) {
       if (res.stat === 'ok') {
         $.alert({
           ...{
-            title: str_comment_validated,
+            title: idLenght > 1 ? str_comments_validated : str_comment_validated,
             content: "",
           },
           ...jConfirm_alert_options
@@ -454,8 +480,10 @@ function validateComment(id) {
 }
 
 function deleteComment(id) {
+  const idLenght = id.length ?? 1;
+
   $.confirm({
-    title: str_delete.replace("%s", id),
+    title: idLenght > 1 ? str_deletes.replace("%d", idLenght) : str_delete.replace("%s", id),
     draggable: false,
     titleClass: "jconfirmDeleteConfirm",
     theme: "modern",
