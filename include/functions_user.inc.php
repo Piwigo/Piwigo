@@ -1271,7 +1271,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 ;';
 
   $row = pwg_db_fetch_assoc(pwg_query($query));
-  if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
+  if (isset($row['id']) and $conf['password_verify'](stripslashes($password), $row['password'], $row['id']))
   {
     $user_found = true;
   }
@@ -1287,7 +1287,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     ;';
 
     $row = pwg_db_fetch_assoc(pwg_query($query));
-    if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
+    if (isset($row['id']) and $conf['password_verify'](stripslashes($password), $row['password'], $row['id']))
     {
       $user_found = true;
     }
