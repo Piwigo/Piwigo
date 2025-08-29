@@ -3,7 +3,7 @@
 {combine_css path="admin/themes/default/fontello/css/fontello.css" order=-11}
 
 <script>
-var selected_language = `{$language_options[$current_language]}`;
+  var selected_language = `{$language_options[$language_selection]}`;
   var url_logo_light = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo.svg`;
   var url_logo_dark = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo_dark.svg`;
 </script>
@@ -478,7 +478,7 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
         </span>
         <div id="selected-language-container">
           <i class="gallery-icon-left-chevron"></i><span
-            id="selected-language">{$language_options[$current_language]}</span>
+            id="selected-language">{$language_options[$language_selection]}</span>
         </div>
       </div>
     </section>

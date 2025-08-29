@@ -87,6 +87,16 @@ SELECT '.implode(',', $fields).'
     }
 
     $user['language'] = $_COOKIE['lang'];
+    single_update(
+      USER_INFOS_TABLE,
+      array(
+        'language' => $_COOKIE['lang']
+      ),
+      array(
+        'user_id' => $user['id']
+      )
+    );
+    
     load_language('common.lang', '', array('language'=>$user['language']));
   }
 
@@ -98,7 +108,7 @@ SELECT '.implode(',', $fields).'
 
   $template->assign(array(
     'language_options' => $language_options,
-    'current_language' => $user['language']
+    'language_selection' => $user['language']
   ));
 
   //Get link to doc
@@ -366,17 +376,6 @@ function load_profile_in_template($url_action, $url_redirect, $userdata, $templa
 
   $template->assign('template_selection', $userdata['theme']);
   $template->assign('template_options', get_pwg_themes());
-
-  foreach (get_languages() as $language_code => $language_name)
-  {
-    if (isset($_POST['submit']) or $userdata['language'] == $language_code)
-    {
-      $template->assign('language_selection', $language_code);
-    }
-    $language_options[$language_code] = $language_name;
-  }
-
-  $template->assign('language_options', $language_options);
 
   $special_user = in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']));
   $template->assign('SPECIAL_USER', $special_user);
