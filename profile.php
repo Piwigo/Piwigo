@@ -377,6 +377,17 @@ function load_profile_in_template($url_action, $url_redirect, $userdata, $templa
   $template->assign('template_selection', $userdata['theme']);
   $template->assign('template_options', get_pwg_themes());
 
+  foreach (get_languages() as $language_code => $language_name)
+  {
+    if (isset($_POST['submit']) or $userdata['language'] == $language_code)
+    {
+      $template->assign('language_selection', $language_code);
+    }
+    $language_options[$language_code] = $language_name;
+  }
+
+  $template->assign('language_options', $language_options);
+
   $special_user = in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']));
   $template->assign('SPECIAL_USER', $special_user);
   $template->assign('IN_ADMIN', defined('IN_ADMIN'));
