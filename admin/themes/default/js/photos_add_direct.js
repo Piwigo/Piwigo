@@ -90,6 +90,7 @@ $(function () {
   $("#uploadOptionsContent").hide();
   $("#uploadOptions").on("click", function(){
     $("#uploadOptionsContent").slideToggle();
+    $("#uploadOptions").toggleClass('options-open');
     $(".moxie-shim-html5").css("display", "none");
   })
 
