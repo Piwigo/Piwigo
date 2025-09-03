@@ -423,7 +423,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 
 /* Picture add */
 
-.upload-options, .upload-options-content {
+.upload-options, .upload-options-content, .options-open::after{
   background-color: #343434;
 }
 

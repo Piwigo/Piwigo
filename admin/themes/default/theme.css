@@ -1909,7 +1909,6 @@ img.ui-datepicker-trigger {
   height: 27px;
   position: absolute;
   bottom: -24px;
-  background-color: #343434;
   left: 0;
   transition:height 8s;
 }

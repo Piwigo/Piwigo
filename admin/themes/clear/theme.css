@@ -746,7 +746,7 @@ li.plupload_delete a.remove-format:hover{color: #474747;}
 
 /* Picture add */
 
-.upload-options, .upload-options-content {
+.upload-options, .upload-options-content, .options-open::after {
   background-color: #f5f5f5;
   color: #777777;
 }
