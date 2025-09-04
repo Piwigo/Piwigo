@@ -792,15 +792,14 @@ function str2DateTime($original, $format=null)
 }
 
 /**
- * returns a formatted and localized date for display
+ * returns a formatted and localized date for display (LEGACY use format_date)
  *
  * @param int|string timestamp or datetime string
  * @param array $show list of components displayed, default is ['day_name', 'day', 'month', 'year']
- *    THIS PARAMETER IS PLANNED TO CHANGE
  * @param string $format input format respecting date() syntax
  * @return string
  */
-function format_date($original, $show=null, $format=null)
+function format_date_legacy($original, $show=null, $format=null)
 {
   global $lang;
 
@@ -815,8 +814,6 @@ function format_date($original, $show=null, $format=null)
   {
     $show = array('day_name', 'day', 'month', 'year');
   }
-
-  // TODO use IntlDateFormatter for proper i18n
 
   $print = '';
   if (in_array('day_name', $show))
@@ -841,6 +838,53 @@ function format_date($original, $show=null, $format=null)
   }
 
   return trim($print);
+}
+
+/**
+ * returns a formatted and localized date for display
+ *
+ * @param int|string timestamp or datetime string
+ * @param array $show list of components displayed, default is ['day_name', 'day', 'month', 'year']
+ *    THIS PARAMETER IS PLANNED TO CHANGE
+ * @param string $format input format respecting date() syntax
+ * @return string
+ * @since 16
+ */
+function format_date($original, $show=null, $format=null)
+{
+  global $user;
+
+  $date = str2DateTime($original, $format);
+
+  if (!$date)
+  {
+    return l10n('N/A');
+  }
+
+  if ($show === null || $show === true)
+  {
+    $show = array('day_name', 'day', 'month', 'year');
+  }
+
+  // use IntlDateFormatter for proper i18n need pkg php-intl
+  if (class_exists('IntlDateFormatter')
+    and in_array('year', $show)
+    and in_array('month', $show)
+  )
+  {
+    $timeType = in_array('time', $show) ? IntlDateFormatter::MEDIUM : IntlDateFormatter::NONE;
+    $dateType = IntlDateFormatter::FULL;
+
+    if (!in_array('day_name', $show))
+    {
+      $dateType = IntlDateFormatter::LONG;
+    }
+
+    $fmt = new IntlDateFormatter($user['language'], $dateType, $timeType);
+    return $fmt->format($date);
+  }
+
+  return format_date_legacy($original, $show, $format);
 }
 
 /**
