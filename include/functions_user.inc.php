@@ -1694,7 +1694,10 @@ function auth_key_login($auth_key, $connection_by_header=false)
 SELECT
     *,
     '.$conf['user_fields']['username'].' AS username,
-    NOW() AS dbnow
+    '.$conf['user_fields']['email'].' AS email,
+    NOW() AS dbnow,
+    DATEDIFF(uak.expired_on, NOW()) AS days_left,
+    SUBDATE(NOW(), INTERVAL 48 HOUR) AS 48h_ago
   FROM '.USER_AUTH_KEYS_TABLE.' AS uak
     JOIN '.USER_INFOS_TABLE.' AS ui ON uak.user_id = ui.user_id
     JOIN '.USERS_TABLE.' AS u ON u.'.$conf['user_fields']['id'].' = ui.user_id
@@ -1708,6 +1711,19 @@ SELECT
   }
   
   $key = $keys[0];
+
+  // is the key still valid?
+  if (strtotime($key['expired_on']) < strtotime($key['dbnow']))
+  {
+    $page['auth_key_invalid'] = true;
+    return false;
+  }
+
+  // admin/webmaster/guest can't get connected with authentication keys
+  if ('auth_key' === $valid_key and !in_array($key['status'], array('normal','generic')))
+  {
+    return false;
+  }
 
   // the key is an api_key
   if ('api_key' === $valid_key)
@@ -1723,19 +1739,24 @@ SELECT
     {
       return false;
     }
-  }
 
-  // is the key still valid?
-  if (strtotime($key['expired_on']) < strtotime($key['dbnow']))
-  {
-    $page['auth_key_invalid'] = true;
-    return false;
-  }
-
-  // admin/webmaster/guest can't get connected with authentication keys
-  if ('auth_key' === $valid_key and !in_array($key['status'], array('normal','generic')))
-  {
-    return false;
+    // check if we need to notificate the user
+    $days_left = intval($key['days_left']);
+    if (
+      $days_left <= 7 // the key expire in max 7 days
+      and !empty($key['email']) // the user have an email
+      and (
+        null === $key['last_notified_on'] // we never send an email for this key
+        or strtotime($key['last_notified_on']) < strtotime($key['48h_ago']) // OR when the last email was sent more than 48 hours ago
+      )
+    )
+    {
+      $page['notify_api_key_expiration'] = array(
+        'days_left' => $days_left,
+        'dbnow' => $key['dbnow'],
+        'auth_key' => $key['auth_key']
+      );
+    }
   }
 
   $user['id'] = $key['user_id'];
@@ -2654,5 +2675,37 @@ function connected_with_pwg_ui()
     return true;
   }
   return false;
+}
+
+/**
+ * Notify an user when his api key is about to expire
+ *
+ * @since 16
+ * @return bool
+ */
+function notification_api_key_expiration($username, $email, $days_left)
+{
+  global $conf;
+
+  include_once(PHPWG_ROOT_PATH . 'include/functions_mail.inc.php');
+  $days_left_str = $days_left <= 1 ? 
+    l10n('Your API key will expire in %d day.', $days_left)
+    : l10n('Your API key will expire in %d days.', $days_left);
+
+  $message = '<p style="margin: 20px 0">' . l10n('Hello %s,', $username) . '</p>';
+  $message .= '<p style="margin: 20px 0">' . $days_left_str . '</p>';
+  $message .= '<p style="margin: 20px 0">' . l10n('To continue using the API, please renew your key before it expires.') . '</p>';
+  $message .= '<p style="margin: 20px 0">' . l10n('You can manage your API keys in your <a href="%s">account settings.</a>', get_absolute_root_url().'profile.php') . '</p>';
+
+  $result = @pwg_mail(
+    $email,
+    array(
+      'subject' => '[' . $conf['gallery_title'] . '] ' . l10n('Your API key will expire soon'),
+      'content' => $message,
+      'content_format' => 'text/html',
+    )
+  );
+
+  return $result;
 }
 ?>

@@ -517,3 +517,8 @@ $lang['Do you really want to revoke the "%s" API key?'] = 'Voulez-vous vraiment 
 $lang['To manage your API keys, please log in with your username/password.'] = 'Pour gérer vos clés API, veuillez vous connecter avec votre nom d\'utilisateur/mot de passe.';
 $lang['3xlarge'] = '3XL - très énorme';
 $lang['4xlarge'] = '4XL - gigantesque';
+$lang['Your API key will expire soon'] = 'Votre clé API va bientôt expirer';
+$lang['Your API key will expire in %d day.'] = 'Votre clé API expirera dans %d jour.';
+$lang['Your API key will expire in %d days.'] = 'Votre clé API expirera dans %d jours.';
+$lang['To continue using the API, please renew your key before it expires.'] = 'Pour continuer à utiliser l\'API, veuillez renouveler votre clé avant son expiration.';
+$lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'Vous pouvez gérer vos clés API dans les <a href="%s">paramètres de votre compte.</a>';

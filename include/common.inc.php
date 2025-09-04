@@ -253,6 +253,30 @@ if (isset($page['auth_key_invalid']) and $page['auth_key_invalid'])
     ;
 }
 
+// check if we need to notified user about api_key expiration
+if (isset($page['notify_api_key_expiration']) and is_array($page['notify_api_key_expiration']))
+{
+  $is_mail_send = notification_api_key_expiration(
+    $user['username'],
+    $user['email'],
+    $page['notify_api_key_expiration']['days_left']
+  );
+
+  if ($is_mail_send)
+  {
+    single_update(
+      USER_AUTH_KEYS_TABLE,
+      array('last_notified_on' => $page['notify_api_key_expiration']['dbnow']),
+      array(
+        'user_id' => $user['id'],
+        'auth_key' => $page['notify_api_key_expiration']['auth_key']
+      ),   
+    );
+  }
+
+  unset($page['notify_api_key_expiration']);
+}
+
 // template instance
 if (defined('IN_ADMIN') and IN_ADMIN )
 {// Admin template

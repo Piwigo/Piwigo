@@ -518,3 +518,8 @@ $lang['Do you really want to revoke the "%s" API key?'] = 'Do you really want to
 $lang['To manage your API keys, please log in with your username/password.'] = 'To manage your API keys, please log in with your username/password.';
 $lang['3xlarge'] = '3XL - extra huge';
 $lang['4xlarge'] = '4XL - gigantic';
+$lang['Your API key will expire soon'] = 'Your API key will expire soon';
+$lang['Your API key will expire in %d day.'] = 'Your API key will expire in %d day.';
+$lang['Your API key will expire in %d days.'] = 'Your API key will expire in %d days.';
+$lang['To continue using the API, please renew your key before it expires.'] = 'To continue using the API, please renew your key before it expires.';
+$lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'You can manage your API keys in your <a href="%s">account settings.</a>';
