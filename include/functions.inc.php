@@ -2540,7 +2540,7 @@ function send_piwigo_infos()
     'technical' => array(
       'php_version' => PHP_VERSION,
       'piwigo_version' => PHPWG_VERSION,
-      'os_version' => PHP_OS,
+      'os_version' => PHP_OS.((is_in_container()) ? ' (container)' : ''),
       'db_version' => pwg_get_db_version(),
       'php_datetime' => date("Y-m-d H:i:s"),
       'db_datetime' => $db_current_date,
@@ -2953,6 +2953,44 @@ SELECT
 function pwg_unique_exec_ends($token_name)
 {
   conf_delete_param($token_name.'_running');
+}
+
+/**
+ *
+ * Detect if Piwigo is running in a containerized environment
+ * Assume all containers are Linux based
+ * Doesn't differentiate between VMs and bare metal installs
+ *
+ * @since 16
+ *
+ * @return bool
+ */
+function is_in_container()
+{
+	if (strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX')
+	{
+		if (file_exists('/proc/2/sched')) // Check if PID2 exist
+		{
+			$line = file_get_contents('/proc/2/sched'); // Read PID2 name
+			if (false == $line )
+			{
+				return false;
+			}
+			else
+			{
+				// If PID2 name is not kthreadd, piwigo is running in a container
+				return !('kthreadd' === substr( $line, 0, 8 ));
+			}
+		}
+		else
+		{
+			return true;
+		}
+	}
+	else
+	{
+		return false;
+	}
 }
 
 ?>

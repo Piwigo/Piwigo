@@ -288,7 +288,7 @@ $template->assign(
     'PHPWG_URL' => PHPWG_URL,
     'PWG_VERSION' => PHPWG_VERSION,
     'U_CHECK_UPGRADE' => sprintf($url_format, 'check_upgrade'),
-    'OS' => PHP_OS,
+    'OS' => PHP_OS.((is_in_container()) ? ' (container)' : ''),
     'PHP_VERSION' => phpversion(),
     'DB_ENGINE' => 'MySQL',
     'DB_VERSION' => $db_version,
