@@ -439,8 +439,6 @@ var actionInfos_tags_moved = "{'%d tags moved'|translate}";
 .activity-header {
     display: flex;
     flex-direction: row;
-
-    margin-top: 38px;
     width: 100%;
 }
 
@@ -477,12 +475,12 @@ div:has(> .activity-header) {
 
 .activity-more-filters{
     margin-left: 14px;
-    padding: 4px 16px 4px 16px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
     cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    width:70px;
 }
 
 .activity-more-filters.extend-padding{

@@ -7714,16 +7714,16 @@ color:#FF7B00;
 }
 
 .download_csv {
-  height: 25px;
-  width: 30px;
+  min-width: 35px;
   background: #dddddd;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   color:black;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 15px;
+  margin-bottom: 3px;
 }
 
 .download_csv:hover {
