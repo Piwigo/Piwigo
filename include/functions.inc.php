@@ -2496,7 +2496,7 @@ function send_piwigo_infos()
     'technical' => array(
       'php_version' => PHP_VERSION,
       'piwigo_version' => PHPWG_VERSION,
-      'os_version' => PHP_OS.((is_in_container()) ? " (container)" : ""),
+      'os_version' => PHP_OS.((is_in_container()) ? ' (container)' : ''),
       'db_version' => pwg_get_db_version(),
       'php_datetime' => date("Y-m-d H:i:s"),
       'db_datetime' => $db_current_date,
