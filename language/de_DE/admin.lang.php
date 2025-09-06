@@ -1406,3 +1406,4 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Dieser Link ist für %s gültig. Nach Ablauf dieser Zeit müssen Sie einen neuen Link anfordern.';
 $lang['To set your password, visit the following address:'] = 'Um Ihr Passwort festzulegen, besuchen Sie die folgende Adresse:';
 $lang['Welcome to %s'] = 'Willkommen bei %s';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Wir haben %d doppelte Pfade gefunden. Details bereitgestellt vom Plugin „Check Uploads“';
