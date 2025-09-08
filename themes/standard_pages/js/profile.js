@@ -1,10 +1,11 @@
 let PWG_TOKEN;
 $(function() {
   PWG_TOKEN = $('#pwg_token').val();
-  $('.profile-section .display-btn').on('click', function () {
+  $('.profile-section .display-section').on('click', function() {
     const display = $(this).data('display');
     const selector = $(`#${display}`);
     const element = selector.get(0);
+    const arrow = $(this).find('.display-btn');
   
     if (selector.hasClass('open')) {
       // close
@@ -12,17 +13,17 @@ $(function() {
       void element.offsetHeight;
       element.style.maxHeight = '1px';
       selector.removeClass('open');
-      $(this).addClass('close');
+      arrow.addClass('close');
     } else {
       // open
       selector.addClass('open');
       resetSection(display);
-      $(this).removeClass('close');
+      arrow.removeClass('close');
     }
   });
 
   setTimeout(() => {
-    $('#account-section .display-btn').trigger('click');
+    $('#account-section .display-section').trigger('click');
   }, 100);
 
   $('#save_account').on('click', function() {
@@ -283,6 +284,7 @@ function AddApiLine(lines, reset) {
       api_list.append(api_line);
       api_line.after(api_collapse);
     } else {
+      $('#show_expired_list').show();
       api_list_expired.append(api_line);
       api_line.after(api_collapse);
       api_line.find('.api-icon-action').remove();

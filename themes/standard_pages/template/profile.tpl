@@ -72,12 +72,12 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
 
   {* ACCOUNT *}
   <section id="account-section" class="profile-section">
-    <div class="title">
+    <div class="title display-section" data-display="account-display">
       <div class="column-flex">
         <h1>{'Account'|translate}</h1>
         <p>{'Manage your account'|translate}</p>
       </div>
-      <i class="gallery-icon-up-open display-btn close" data-display="account-display"></i>
+      <i class="gallery-icon-up-open display-btn close"></i>
     </div>
     <div class="form" id="account-display">
       <div class="column-flex first">
@@ -106,12 +106,12 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
   {* PREFERENCES *}
   {if $ALLOW_USER_CUSTOMIZATION}
     <section id="preferences-section" class="profile-section">
-      <div class="title">
+      <div class="title display-section" data-display="preferences-display">
         <div class="column-flex">
           <h1>{'Preferences'|translate}</h1>
           <p>{'Choose how you want to see your gallery'|translate}</p>
         </div>
-        <i class="gallery-icon-up-open display-btn close" data-display="preferences-display"></i>
+        <i class="gallery-icon-up-open display-btn close" ></i>
       </div>
       <div class="form" id="preferences-display">
         <div class="column-flex first">
@@ -199,12 +199,12 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
   {* PASSWORD *}
   {if not $SPECIAL_USER}
     <section id="password-section" class="profile-section">
-      <div class="title">
+      <div class="title display-section" data-display="password-display">
         <div class="column-flex">
           <h1>{'Password'|translate}</h1>
           <p>{'Change your password'|translate}</p>
         </div>
-        <i class="gallery-icon-up-open display-btn close" data-display="password-display"></i>
+        <i class="gallery-icon-up-open display-btn close" ></i>
       </div>
       <div class="form" id="password-display">
         <div class="column-flex">
@@ -246,12 +246,12 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
 
   {* API KEY *}
   <section id="apikey-section" class="profile-section">
-    <div class="title">
+    <div class="title display-section" data-display="apikey-display">
       <div class="column-flex">
         <h1>{'API Keys'|translate}</h1>
         <p>{'Create API Keys to secure your acount'|translate}</p>
       </div>
-      <i class="gallery-icon-up-open display-btn close" data-display="apikey-display"></i>
+      <i class="gallery-icon-up-open display-btn close"></i>
     </div>
 
     <div class="form" id="apikey-display">
@@ -446,12 +446,12 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
   {if isset($PLUGINS_PROFILE)}
     {foreach from=$PLUGINS_PROFILE item=plugin_block key=k_block}
       <section id="{$k_block}-section" class="profile-section">
-        <div class="title">
+        <div class="title display-section" data-display="{$k_block}-display">
           <div class="column-flex">
             <h1>{$plugin_block.name}</h1>
             <p>{$plugin_block.desc}</p>
           </div>
-          <i class="gallery-icon-up-open display-btn close" data-display="{$k_block}-display"></i>
+          <i class="gallery-icon-up-open display-btn close" ></i>
         </div>
         <div class="form plugins" id="{$k_block}-display">
           {include file=$plugin_block.template}
