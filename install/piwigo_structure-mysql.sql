@@ -419,6 +419,7 @@ CREATE TABLE `piwigo_user_auth_keys` (
   `key_type` VARCHAR(40) DEFAULT NULL,
   `revoked_on`  datetime DEFAULT NULL,
   `last_used_on` datetime DEFAULT NULL,
+  `last_notified_on` datetime DEFAULT NULL,
   PRIMARY KEY (`auth_key_id`)
 ) ENGINE=MyISAM;
 
