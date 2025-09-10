@@ -243,7 +243,7 @@ function get_sync_metadata($infos)
   {
     if (isset($infos[$single_line_field]))
     {
-      foreach (array("\r\n", "\n") as $to_replace_string)
+      foreach (array("\r\n", "\n", "\r") as $to_replace_string)
       {
         $infos[$single_line_field] = str_replace($to_replace_string, ' ', $infos[$single_line_field]);
       }
@@ -411,7 +411,7 @@ function metadata_normalize_keywords_string($keywords_string)
   
   $keywords_string = preg_replace($conf['metadata_keyword_separator_regex'], ',', $keywords_string);
   // new lines are always considered as keyword separators
-  $keywords_string = str_replace(array("\r\n", "\n"), ',', $keywords_string);
+  $keywords_string = str_replace(array("\r\n", "\n", "\r"), ',', $keywords_string);
   $keywords_string = preg_replace('/,+/', ',', $keywords_string);
   $keywords_string = preg_replace('/^,+|,+$/', '', $keywords_string);
       
