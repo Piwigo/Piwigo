@@ -129,5 +129,13 @@ $(document).ready(function () {
       }
     }
   });
+
+  $('.help-popin-search').on('click', function() {
+    $('#modalQuickSearch').fadeIn();
+  });
+
+  $('#closeModalQuickSearch').on('click', function() {
+    $('#modalQuickSearch').fadeOut();
+  });
 })
 

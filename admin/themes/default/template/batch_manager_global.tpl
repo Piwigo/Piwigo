@@ -73,8 +73,6 @@ const str_add_alb_associate = "{"Add Album"|@translate}";
 const str_select_alb_associate = "{"Select an album"|@translate}";
 
 $(document).ready(function() {
-  jQuery('.help-popin-search').colorbox({ width:"600px" });
-
   function checkPermitAction() {
     var nbSelected = 0;
     if ($("input[name=setSelected]").is(':checked')) {

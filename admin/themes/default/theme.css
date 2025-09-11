@@ -4028,6 +4028,42 @@ LEGEND SPAN {
   opacity: 0.5;
 }
 
+.help-popin-search {
+  cursor: pointer;
+  font-weight: normal !important;
+}
+
+.help-popin-search:hover span,
+.help-popin-search:hover .icon-help-circled::before {
+  color: #3C3C3C !important;
+}
+
+#modalQuickSearch p {
+  margin: 0;
+}
+
+#modalQuickSearch .modal-content {
+  max-height: 400px;
+  height: 100%;
+  width: 500px;
+  gap:20px;
+}
+
+.quick-search-content {
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.quick-search-header {
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #order_filters a.removeFilter {font-weight:normal;}
 #order_filters span.property span.filter:first-child a.removeFilter {display:none;} /* can't delete the first field */
 #order_filters span.filter {display:block;margin-left:20px;}
@@ -8177,7 +8213,7 @@ color:#FF7B00;
 .bg-modal {
   display: none;
   position: fixed;
-  z-index: 100;
+  z-index: 999;
   left: 0;
   top: 0;
   width: 100%;

@@ -1156,6 +1156,11 @@ li.plupload_delete a.remove-format:hover{color: #c0c0c0;}
 #batchManagerGlobal .ui-slider .ui-slider-range {background-color: #aaaaaa;}
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58; background-color: #ffaf58;}
 
+.help-popin-search:hover span,
+.help-popin-search:hover .icon-help-circled::before {
+  color: #ededed !important;
+}
+
 .selected-associate-item {
   background-color: #333;
   box-shadow: 0px 2px #000000AA;

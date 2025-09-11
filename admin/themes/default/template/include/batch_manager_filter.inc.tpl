@@ -209,7 +209,10 @@ let errorFilters = '';
       <p>{'Search'|@translate}</p>
       <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
       <input name="q" size=40 value="{if isset($filter.search)} {$filter.search.q|stripslashes|htmlspecialchars}{/if}">
-      <a href="admin/popuphelp.php?page=quick_search&amp;output=content_only" title="{'Help'|@translate}" class="help-popin-search"><span class="icon-help-circled">{'Search tips'|translate}</span></a>
+      <p title="{'Help'|@translate}" class="help-popin-search">
+        <i class="icon-help-circled"></i>
+        <span>{'Search tips'|translate}</span>
+      </p>
       {combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 {if (isset($no_search_results))}
 <div>{'No results for'|@translate} :
@@ -265,4 +268,22 @@ let errorFilters = '';
   </div>
 </div>
 </fieldset>
+
+<div class="bg-modal" id="modalQuickSearch">
+  <div class="modal-content">
+    <a class="icon-cancel close-modal" id="closeModalQuickSearch"></a>
+
+    <div class="quick-search-content">
+      <div class="quick-search-header">
+        <div class="AddIconContainer">
+          <span class="AddIcon icon-blue icon-search"></span>
+        </div>
+      </div>
+      <div class="quick-search-syntax">
+        {assign var=is_dark_mode value=$themeconf.colorscheme == 'dark'}
+        {include file='themes/default/template/help/quick_search.tpl' dark_mode=$is_dark_mode}
+      </div>
+    </div>
+  </div>
+</div>
 {include file='include/album_selector.inc.tpl'}
