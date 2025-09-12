@@ -116,6 +116,47 @@ if ($conf['external_authentification'])
 // | Variables init                                                        |
 // +-----------------------------------------------------------------------+
 
+//Active_page is used for the menu and showing to the user which section is active
+$active_page = 'dashboard';
+
+//To display which section is active for the menu we need to know what pages correspond to which section
+//Map array of all the possibilites for the $_GET['page'] for the different sections
+$sections = array(
+  'photo' => array('photos_add','batch_manager','tags'),
+  'album' => array('albums','cat_options', 'permalinks'),
+  'user' => array('user_list','user_activity', 'group_list','group_perm','notification_by_mail'),
+  'plugin' => array('plugins'),
+  'tool' => array('site_update','stats', 'maintenance','comments','updates'),
+  'configuration' => array('configuration','menubar', 'languages','themes'),
+);
+
+if (isset($_GET['page'])) 
+{
+  $active_page_name = $_GET['page'];
+
+  // Special cases for photos and albums that can have the id in the url
+  if (preg_match('/^photo-\d+$/', $active_page_name)) 
+  {
+    $active_page = 'photo';
+  } 
+  else if (preg_match('/^album-\d+$/', $active_page_name)) 
+  {
+    $active_page = 'album';
+  } 
+  else 
+  {
+    // loop through our different sections and check which section the page matches
+    foreach ($sections as $sectionName => $sectionList) 
+    {
+      if (in_array($active_page_name, $sectionList))
+      {
+        $active_page = $sectionName;
+        break;
+      }
+    }
+  }
+}
+
 $change_theme_url = PHPWG_ROOT_PATH.'admin.php?';
 
 //Check if we are on another admin page to be able to redirect user to same page
@@ -244,7 +285,7 @@ $template->assign(
     'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
     'SHOW_RATING' => $conf['rate'],
     'PHPWG_URL' => defined('PHPWG_URL') ? str_replace('http:', 'https:', PHPWG_URL) : '',
-    'ACTIVE_PAGE' => isset($_GET['page']) ? $_GET['page'] : 'dashboard',
+    'ACTIVE_PAGE' => $active_page,
     'U_PERMALINKS'=> $link_start.'permalinks',
     'U_ACTIVITY' => $link_start.'user_activity',
     'U_PROFILE' => get_root_url().'profile.php',

@@ -139,7 +139,7 @@ let username = '{$USERNAME}'
       </div>
       
       {* Photos section *}
-      <div class="page-link">
+      <div class="page-link {if "photo" == $ACTIVE_PAGE}active{/if}" title="{'Photos'|translate}">
         <span>
           <i class="icon-picture"></i><span class="reduced-hidden">{'Photos'|@translate}&nbsp;</span>
           <span class="hover">
@@ -166,7 +166,7 @@ let username = '{$USERNAME}'
       </div>
 
       {* Albums section *}
-      <div class="page-link">
+      <div class="page-link {if "album" == $ACTIVE_PAGE}active{/if}">
         <span>
           <i class="icon-sitemap"></i><span class="reduced-hidden">{'Albums'|@translate}&nbsp;</span>
           <span class="hover">
@@ -183,7 +183,7 @@ let username = '{$USERNAME}'
       </div>
 
       {* Users section *}
-      <div class="page-link">
+      <div class="page-link {if "user" == $ACTIVE_PAGE}active{/if}">
         <span>
           <i class="icon-users"></i><span class="reduced-hidden">{'Users'|@translate}&nbsp;</span>
           <span class="hover">
@@ -201,14 +201,14 @@ let username = '{$USERNAME}'
       </div>
 
       {* Plugins section *}
-      <div class="page-link">
+      <div class="page-link {if "plugin" == $ACTIVE_PAGE}active{/if}">
         <span class="active-border"></span>
         <a href="{$U_PLUGINS}"><i class="icon-puzzle"></i><span class="reduced-hidden">{'Plugins'|@translate}&nbsp;</span></a>
         <span class="hover"></span>
       </div>
 
       {* Tools section *}
-      <div class="page-link">
+      <div class="page-link {if "tool" == $ACTIVE_PAGE}active{/if}">
         <span>
           <i class="icon-wrench"></i><span class="reduced-hidden">{'Tools'|@translate}&nbsp;</span>
           <span class="hover">
@@ -238,7 +238,7 @@ let username = '{$USERNAME}'
       </div>
 
       {* Configuration section *}
-      <div class="page-link">
+      <div class="page-link {if "configuration" == $ACTIVE_PAGE}active{/if}">
         <span>
           <i class="icon-cog"></i><span class="reduced-hidden">{'Configuration'|@translate}&nbsp;</span>
           <span class="hover">
