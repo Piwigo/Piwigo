@@ -105,6 +105,14 @@
   color: #888;
 }
 
+.help-popin-search {
+  color:#ccc;
+}
+
+.help-popin-search:hover {
+  color:#fff;
+}
+
 #word-search {
   background: #777;
   color: #eee;
@@ -302,6 +310,10 @@
 
 .and-more{
   color: #777
+}
+
+.modal-content {
+  background-color: #444;
 }
 
 @media (max-width: 600px) {

@@ -50,6 +50,7 @@ str_ratios_label['Portrait'] ="{'Portrait'|@translate|escape:javascript}";
 str_ratios_label['square'] = "{'square'|@translate|escape:javascript}";
 str_ratios_label['Landscape'] = "{'Landscape'|@translate|escape:javascript}";
 str_ratios_label['Panorama'] = "{'Panorama'|@translate|escape:javascript}";
+str_expert_widget_label = "{'Expert mode'|@translate|escape:javascript}";
 
 str_empty_search_top_alt = "{'Fill in the filters to start a search'|@translate|escape:javascript}";
 str_empty_search_bot_alt = "{'Pre-established filters are proposed, but you can add or remove them using the "Choose filters" button.'|@translate|escape:javascript}";
@@ -189,6 +190,12 @@ const prefix_icon = 'gallery-icon-';
           <span class="mcs-icon gallery-icon-width">{'Width'|@translate}</span>
         </label>
         {/if}
+
+        <label>
+          <input data-wid='expert' class="filter-manager-controller expert" type="checkbox"/>
+          <span class="mcs-icon gallery-icon-skull">{'Expert mode'|translate}</span>
+        </label>
+
       </div>
 
       <div class="filter-manager-actions">
@@ -829,9 +836,48 @@ const prefix_icon = 'gallery-icon-';
   </div>
 {/if}
 
+  <div class="filter filter-expert">
+    <span class="mcs-icon gallery-icon-skull filter-icon"></span>
+    <span class="search-words"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
+    
+    <div class="filter-form filter-expert-form">
+      <div class="filter-form-title gallery-icon-skull"> {'Expert mode'|@translate}</div>
+      <div class="filter-actions">
+        <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
+      </div>
+
+      <input type="text" id="expert-search" name="expert">
+
+      <p title="{'Help'|@translate}" class="help-popin-search">
+        <i class="gallery-icon-selecters"></i>
+        <span>{'Search tips'|translate}</span>
+      </p>
+
+      <div class="filter-validate">
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
+    </div>
+  </div>
+
 
   <div>
     <span class="mcs-icon gallery-icon-arrow-rotate-left clear-all">{'Empty filters'|@translate}</span>
+  </div>
+</div>
+
+<div class="bg-modal" id="modalQuickSearch">
+  <div class="modal-content">
+    <a class="gallery-icon-cancel close-modal" id="closeModalQuickSearch"></a>
+
+    <div class="quick-search-content">
+      <div class="quick-search-syntax">
+        {assign var=is_dark_mode value=$themeconf.colorscheme == 'dark'}
+        {include file='themes/default/template/help/quick_search.tpl' dark_mode=$is_dark_mode}
+      </div>
+    </div>
   </div>
 </div>
 

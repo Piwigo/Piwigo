@@ -523,3 +523,4 @@ $lang['Your API key will expire in %d day.'] = 'Your API key will expire in %d d
 $lang['Your API key will expire in %d days.'] = 'Your API key will expire in %d days.';
 $lang['To continue using the API, please renew your key before it expires.'] = 'To continue using the API, please renew your key before it expires.';
 $lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'You can manage your API keys in your <a href="%s">account settings.</a>';
+$lang['Expert mode'] = 'Expert mode';

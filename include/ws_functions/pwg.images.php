@@ -1004,6 +1004,11 @@ function ws_images_filteredSearch_create($params, $service)
     $search['fields']['ratios'] = $params['ratios'];
   }
 
+  if (isset($params['expert']))
+  {
+    $search['fields']['expert'] = array('string' => $params['expert']);
+  }
+
   if ($conf['rate'] and isset($params['ratings']))
   {
     $search['fields']['ratings'] = $params['ratings'];

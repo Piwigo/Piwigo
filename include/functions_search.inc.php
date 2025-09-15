@@ -144,6 +144,16 @@ function get_regular_search_results($search, $images_where='')
   }
 
   //
+  // expert
+  //
+  if (isset($search['fields']['expert']) and !empty($search['fields']['expert']['string']))
+  {
+    $has_filters_filled = true;
+
+    $image_ids_for_filter['expert'] = get_quick_search_results($search['fields']['expert']['string'], array())['items'];
+  }
+
+  //
   // allwords
   //
   if (isset($search['fields']['allwords']) and !empty($search['fields']['allwords']['words']) and count($search['fields']['allwords']['fields']) > 0 and $display_filters['words']['access'])

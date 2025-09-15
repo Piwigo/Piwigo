@@ -109,6 +109,11 @@
   color: #444;
 }
 
+#expert-search {
+  background: #eee;
+  color: #444;
+}
+
 .date_posted-option label{
   background-color:white;
   border-bottom:1px solid #f3f3f3;
