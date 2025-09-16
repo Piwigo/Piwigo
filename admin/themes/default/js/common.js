@@ -334,6 +334,8 @@ jQuery.fn.pwg_jconfirm_follow_href = function({
   });
 }
 
+//Get username initials
+//Used in menu and user list page
 function get_initials(username) {
   let words = username.toUpperCase().split(" ");
   let res = words[0][0];
@@ -344,31 +346,114 @@ function get_initials(username) {
   return res;
 }
 
+//Set any cookie
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
   let expires = "expires="+ d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  if (cname == "lang")
+}
+
+//Get the value of any cookie with its name
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+//Toggle light or dark mode in admin
+function toggle_admin_mode(mode) {
+  if ("roma" == mode)
   {
-    location.reload();
+    //Dark mode
+    $('#theAdminPage').addClass('roma');
+  }
+  else
+  {
+    //Light mode
+    $('#theAdminPage').addClass('clear');
   }
 }
 
+//Function to handle admin mode change, used on click of inputs in menu
+function checkModeSelection() {
+  //Get the check radio
+  const selectedMode = document.querySelector('input[name="appearance"]:checked');
 
-//Script to handle menu
+  let autoMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let userPref = selectedMode.value;
+
+  if('auto' == userPref){
+    if(autoMode){
+      userPref = 'roma';
+    }
+    else if( !autoMode){
+      userPref = 'clear';
+    }
+    setCookie("autoAdminMode",true,30);
+  }
+  else{
+    setCookie("autoAdminMode",false,30);
+  }
 
 
-$('document').ready(function(){
-  // {* Get the first letter of user name and fill the green circle span 
+  toggle_admin_mode(selectedMode.value);
+  setCookie("adminMode",userPref,30);
+  
+  //update userpref 
+  $.ajax({
+    url: "ws.php?format=json&method=pwg.users.preferences.set",
+    type: "POST",
+    dataType: "JSON",
+    data: {
+      param: 'admin_theme',
+      value: userPref,
+    },
+    success: function (res) {
+      //We refresh at the moment due to how the swicth for themes used to be handled.
+      //The css for roma and clear are in two different themes loaded in two seperate files
+      //Until we change how the admin css is, aka all moved to one theme/One file we need to refresh
+      window.location.replace(window.location.pathname + window.location.search);
+    }
+  })
+}
+
+// Hide the user options block when we click outisde of it
+function hide_user_options(e){
+  if (!$(e.target).closest('.user-actions').length) {
+    $('.user-sub-link-container').hide();
+    $('.icon-left-open').show();
+    $('#menubar .user-actions').removeClass('active');
+  }
+}
+
+// Check user system preference for light or dark mode, 
+// set the preference in the cookie and change theme accordingly
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+  let newMode = event.matches ? "roma" : "clear";
+  toggle_admin_mode(newMode);
+});
+
+$('document').ready(function()
+{
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  // Get the first letter of user name and fill the green circle span 
   const initial_to_fill = get_initials(username);
-
-    const initialSpan = $('#menubar').find(".user-container-initials-wrapper span");
-    initialSpan.html(initial_to_fill);
-
+  const initialSpan = $('#menubar').find(".user-container-initials-wrapper span");
+  initialSpan.html(initial_to_fill);
 
   // on hover of menu display menu subitems for desktop
-
   $('.page-link').mouseenter(function (e) {
     const current_link = $(this);
     // Add a 2ms delay before displaying menu subitems 
@@ -398,33 +483,67 @@ $('document').ready(function(){
   $(document).click(function (e) {
     hide_user_options(e)
   });
-  
-  // Hide the use options block 
-  function hide_user_options(e){
-    if (!$(e.target).closest('.user-actions').length) {
-      $('.user-sub-link-container').hide();
-      $('.icon-left-open').show();
-      $('#menubar .user-actions').removeClass('active');
-    }
+
+  //On document load check if adminMode cookie is set if not set auto preference
+  let adminModeCookie = getCookie("adminMode"); 
+  let menuSizePreferenceCookie = getCookie("menuSizePreference")
+
+  //Adapt menu size to user cookie
+  if ("reduced" == menuSizePreferenceCookie)
+  {
+    $('#menubar').toggleClass('enlarged').toggleClass('reduced');
+    $('#content').toggleClass('reduced');
   }
 
-  // Check user preference for light or dark mode, set the preference in the cookie 
-  let prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  setCookie("prefersDark",prefersDark,30);
-  
-  // Reduce and enlarge menu
+  //Check if adminMode cookie has been set and check the option that corresponds
+  if("" != adminModeCookie)
+  {
+    if (getCookie("autoAdminMode")){
+      adminModeCookie = 'auto'
+    }
+
+    toggle_admin_mode()
+    $('input[name="appearance"]').each(function(){
+        if(adminModeCookie == $( this ).val()){
+          $(this).parent('label').addClass('selected');
+          $(this).siblings('span').toggleClass('icon-circle-empty icon-dot-circled');
+        }
+    });
+  }
+
+  //Reduce and enlarge menu
+  //Save the user preferences in the cookies
   $('#reduce-enlarge').click(function () {
     //We make sure that we are using a desktop to enable enlarged and reduced
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
     if (!isMobile) {
       $('#menubar').toggleClass('enlarged').toggleClass('reduced');
       $('#content').toggleClass('reduced');
+      //Set cookie to be used in user pref for enlarged or reduced menu
+      if($('#menubar').hasClass('enlarged'))
+      {
+        setCookie("menuSizePreference",'enlarged',30);
+      }
+      else if($('#menubar').hasClass('reduced'))
+      {
+        setCookie("menuSizePreference",'reduced',30);
+      }
     }
-
   });
 
-  //Save in user pref/or cookie in the menu is reduce or enlarged
+  // //Actions are for mobile
+  // if (isMobile){
+  //   //Toggle slide up of menu
+  //   $('#menu-toggle').click(function () {
+  //     $('#menubar').toggleClass('open');
+  //   });
 
+  //   //Toggle menu sub items on mobile touch
+  //   $('.page-link').on('pointerdown', function(e) {
+  //     if (e.pointerType === 'touch') {  // only trigger for touch aka mobile
+  //       let child = $(this).find('.sub-link-container');
+  //       child.slideToggle();
+  //     }
+  //   });
+  // } 
 
 })

@@ -63,76 +63,64 @@ let username = '{$USERNAME}'
 
 
 <div id="menubar" class="enlarged">
-  <div>
+  <div id="menubar-content">
   
     <div id="user-actions-container" class="menu-block">
       <div class="user-actions">
         <div class="username-container">
-          <div class="user-container-initials-wrapper">
-            <span class="icon-green"><!-- initials --></span>
-          </div>
-          <span id="menu-username" class="reduced-hidden">{$USERNAME}</span>
-
+          <span>
+            <div class="user-container-initials-wrapper">
+              <span class="icon-green"><!-- initials --></span>
+            </div>
+            <span id="menu-username" class="reduced-hidden">{$USERNAME}</span>
+          </span>
+          <i class="icon-left-open reduced-hidden"></i>
         </div>
-                  <i class="icon-left-open reduced-hidden"></i>
+
      
         <div class="user-sub-link-container">
           <div class="user-infos">
             <p id="dropdown-username" class="username">{$USERNAME}</p>
             <p class="">{$USER_EMAIL}</p>
           </div>
-          <p  class="tiptip" title="{'Switch to clear or dark colors for administration'|translate}">
-            {if $theme_id eq "clear"}
-                  <i class="icon-moon-inv"></i>
-            {elseif $theme_id eq "roma"}
-                  <i class="icon-sun-inv"></i>
-            {/if}
-              Apperance
-          </p>
+          <div id="apperance-switch-controller">
+            <p><i class="icon-moon-inv"></i>Apperance</p>
+          
             <span>
-              <div id="apperance-switch">
-
-              <a href="{$U_CHANGE_THEME_AUTO}">
-                <label class="font-checkbox no-bold {if $ADMIN_THEME=="auto"}active{/if}">
-                  <span class="icon-circle-empty"></span>
-                  <span type="radio" name="apperance" value="apperance-auto" checked="checked">
+              <div id="apperance-switch" class="tiptip" title="{'Switch to clear or dark colors for administration'|translate}">
+                  <label class="font-checkbox no-bold">
+                    <span class="icon-dot-circled"></span>
+                    <input type="radio" name="appearance" value="auto" onclick="checkModeSelection()">
                     Automatic
-                  </span>
-                </label>
-              </a>
-              
-              <a {if $ADMIN_THEME!="clear"}href="{$U_CHANGE_THEME_LIGHT}" {/if}>
-                <label class="font-checkbox no-bold {if $ADMIN_THEME=="clear"}active{/if}">
-                  <span class="icon-circle-empty"></span>
-                  <span type="radio" name="apperance" value="apperance-light">
-                    Light
-                  </span>
-                </label>
-              </a>
+                  </label>
 
-              <a {if $ADMIN_THEME!="roma"}href="{$U_CHANGE_THEME_DARK}" {/if}>                
-                <label class="font-checkbox no-bold {if $ADMIN_THEME=="roma"}active{/if}">
-                  <span class="icon-circle-empty"></span>
-                  <span type="radio" name="apperance" value="apperance-dark">
+                  <label class="font-checkbox no-bold">
+                    <span class="icon-dot-circled"></span>
+                    <input type="radio" name="appearance" value="clear" onclick="checkModeSelection()">
+                    Light
+                  </label>
+
+                  <label class="font-checkbox no-bold">
+                    <span class="icon-dot-circled"></span>
+                    <input type="radio" name="appearance" value="roma" onclick="checkModeSelection()">
                     Dark
-                  </span>
-                </label>
-              </a>
+                  </label>
 
               </div>
             </span>
+          </div>
           <a href="{$U_PROFILE}"><i class="icon-brush"></i>Edit my profil</a>
           <a href="{$U_FAQ}"><i class="icon-help-circled"></i>Help me</a>
           <a id="log-out"><i class="icon-logout"></i>Log out</a>
         </div>
       </div>
-      <div>
+      <div class="tiptip" title="{'Gallery'|translate}">
         <a class="gallery-link mobile-hidden" href="{$U_RETURN}"><i class="icon-home"></i><span class="reduced-hidden">{'Gallery'|@translate}&nbsp;</span></a>
       </div>
     </div>
 
     <div id="admin-pages" class="menu-block">
-      <div id="adminHome" class="page-link {if "dashboard" == $ACTIVE_PAGE}active{/if}">
+      <div id="adminHome" class="page-link {if "dashboard" == $ACTIVE_PAGE}active{/if}" title="{'Dashboard'|translate}">
         <span class="active-border"></span>
         <a href="{$U_ADMIN}"><i class="icon-television"></i><span class="reduced-hidden">{'Dashboard'|@translate}&nbsp;</span></a>
         <span class="hover"></span>
@@ -288,10 +276,10 @@ let username = '{$USERNAME}'
     <a class="gallery-link" href="{$U_RETURN}"><i class="icon-home"></i></a>
     <div>
       <span class="mobile-reduced">
-      <i class="icon-menu"></i>
+        <i class="icon-menu" id="menu-toggle"></i>
       </span>
-      <span class="mobile-reduced">
-      <i class="icon-cross"></i>
+      <span class="">
+        <i class="icon-cross"></i>
       </span>
     </div>
   </div>

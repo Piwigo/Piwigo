@@ -65,43 +65,6 @@ if (isset($_GET['plugins_new_order']))
   exit;
 }
 
-$admin_theme = userprefs_get_param('admin_theme', 'clear');
-// echo('<pre>');print_r($admin_theme);echo('</pre>');
-
-// theme changer
-if (isset($_GET['change_theme']))
-{
-  $admin_themes = array('roma', 'clear');
-  $admin_theme_array = array($admin_theme);
-  $result = array_diff(
-      $admin_themes,
-      $admin_theme_array
-    );
-
-  $new_admin_theme = array_pop(
-      $result
-    );
-
-  userprefs_update_param('admin_theme', $new_admin_theme);
-
-  $url_params = array();
-  foreach (array('page', 'tab', 'section') as $url_param)
-  {
-    if (isset($_GET[$url_param]))
-    {
-      $url_params[] = $url_param.'='.$_GET[$url_param];
-    }
-  }
-  
-  $redirect_url = 'admin.php';
-  if (count($url_params) > 0)
-  {
-    $redirect_url.= '?'.implode('&amp;', $url_params);
-  }
-
-  redirect($redirect_url);
-}
-
 // +-----------------------------------------------------------------------+
 // | Synchronize user informations                                         |
 // +-----------------------------------------------------------------------+
@@ -166,15 +129,8 @@ if (count($_GET) != 0 and !empty($_SERVER['QUERY_STRING']))
 }
 
 //Set them to light unless we find preference
-$change_theme_url_light = $change_theme_url.'change_theme=clear';
-$change_theme_url_dark= $change_theme_url.'change_theme=roma';
-
-if(isset($_COOKIE["prefersDark"]) and $_COOKIE["prefersDark"]){
-  $change_theme_auto = $change_theme_url_dark;
-}
-else{
-  $change_theme_auto = $change_theme_url_light;
-}
+// $change_theme_url_light = $change_theme_url.'change_theme=clear';
+// $change_theme_url_dark= $change_theme_url.'change_theme=roma';
 
 // ?page=plugin-community-pendings is an clean alias of
 // ?page=plugin&section=community/admin.php&tab=pendings
@@ -289,11 +245,11 @@ $template->assign(
     'U_PERMALINKS'=> $link_start.'permalinks',
     'U_ACTIVITY' => $link_start.'user_activity',
     'U_PROFILE' => get_root_url().'profile.php',
-    'U_PREF_THEME' => userprefs_get_param('admin_theme', 'clear'),
-    'U_CHANGE_THEME_LIGHT' => $change_theme_url_light,
-    'U_CHANGE_THEME_DARK' => $change_theme_url_dark,
-    'U_CHANGE_THEME_AUTO' => $change_theme_auto,
-    'ADMIN_THEME'=> $admin_theme,
+    // 'U_PREF_THEME' => userprefs_get_param('admin_theme', 'clear'),
+    // 'U_CHANGE_THEME_LIGHT' => $change_theme_url_light,
+    // 'U_CHANGE_THEME_DARK' => $change_theme_url_dark,
+    // 'U_CHANGE_THEME_AUTO' => $change_theme_auto,
+    // 'ADMIN_THEME'=> $admin_theme,
     )
   );
 
