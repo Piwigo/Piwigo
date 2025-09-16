@@ -2027,378 +2027,343 @@ html, body {height:100; min-height: 100%; margin:0; padding:0;}
 	}
 }
 
-/* menubar is on all admin pages => No specific css file */
 
-/* This is for the enlarged menu */
-#menubar{
-  display:flex;
-  flex-direction:column;
+/* ===========================
+   MENUBAR BASE (all admin pages)
+   =========================== */
+
+#menubar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  position:fixed;
-  height:100%;
+  height: 100%;
   text-align: left;
-  z-index:999;
 }
 
-#menubar .menu-block{
-  height:fit-content;
-}
+#menubar .menu-block { height: fit-content; }
 
-#menubar a:hover{
-  text-decoration:none;
-}
+#menubar a:hover { text-decoration: none; }
 
-#menubar #user-actions-container{
-  padding:0 20px;
-  margin:30px 0;
-  position:relative;
-}
+#apperance-switch label,
+#apperance-switch-controller:hover #apperance-switch { display: block; }
 
-#menubar .user-actions{
-  display:flex;
-  justify-content: space-between;
-  padding:5px;
-  cursor:pointer;
-  border-radius: 25px;
-  position:relative;
-}
+/* ===========================
+   MENU PAGE LINKS
+   =========================== */
 
-#menubar.enlarged .user-actions.active::after {
-  content: "";
-  width: 57px;
-  height: 40px;
-  position: absolute;
-  top: 0;
-  right: -20px;;
-}
-
-#menubar.reduced .user-actions.active::after {
-  content: "";
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-#menubar .user-actions .icon-left-open:before{
-  margin-top:8px;
-}
-
-#menubar .user-actions .icon-left-open::before{
-  rotate: 180deg;
-}
-
-#menubar .user-actions #apperance-switch{
-  display:flex;
-  flex-direction:column;
-  margin: 0 23px;
-}
-
-#menubar .page-link{
-  position:relative;
+#menubar .page-link {
+  position: relative;
   margin-bottom: 3px;
   padding: 7px 15px;
-}
-
-#menubar .page-link,
-#menubar .page-link > a{
   font-weight: 700;
   font-size: 14px;
+  cursor: pointer;
 }
 
-#menubar .page-link > a{
-  width: 100%;
+#menubar .page-link > a {
   display: block;
+  width: 100%;
+  font-weight: inherit;
 }
 
-#menubar .page-link i{
-  margin-right:10px;
-  font-size:20px;
+#menubar .page-link i {
+  margin-right: 10px;
+  font-size: 20px;
 }
 
-#menubar .page-link .sub-link-container i{
-  font-size:15px;
+#menubar .page-link .sub-link-container i { font-size: 15px; }
+
+#menubar .page-link .icon-down-open {
+  font-size: 10px;
+  align-content: center;
 }
 
-#menubar .page-link .icon-down-open{
-  font-size:10px;
-  align-content:center;
-}
-
-#menubar .page-link:hover{
-  cursor:pointer;
-}
-
-#menubar .page-link .hover{
-  display:none;
-  width: fit-content;
-  height: 100%;
-  border-radius: 0 7px 7px 0;
+#menubar .page-link .hover {
   position: absolute;
-  right: -8px;
   top: 0;
+  right: -8px;
+  display: none;
+  height: 100%;
+  width: fit-content;
   padding: 0 4px;
+  border-radius: 0 7px 7px 0;
 }
 
-#menubar .page-link:hover .hover{
-  display: flex;
-}
+#menubar .page-link:hover .hover { display: flex; }
 
-#menubar .page-link.active{
-  position:relative;
-}
-
-#menubar .page-link.active::before{
+#menubar .page-link.active::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
   width: 5px;
   height: 100%;
-  border-radius: 0 15px 15px 0;
-  position: absolute;
-  display: block;
   content: '';
-  left: 0;
-  top: 0;
+  border-radius: 0 15px 15px 0;
 }
 
-#menubar .username-container{
-  display:flex;
+/* ===========================
+   MENU USER INFO
+   =========================== */
+
+#menubar .username-container {
+  display: flex;
+  justify-content: space-between;
+  width:100%;
+}
+
+#menubar .username-container span {
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
 
-#menubar .user-container-initials-wrapper span{
-  border-radius:25px;
-  margin-right:5px;
-  padding: 0px;
-  height: 30px;
-  width: 30px;
+#menubar .username-container i{
+  z-index:9;
+}
+
+#menubar .user-container-initials-wrapper span {
+  position: relative;
+  z-index: 99;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  border-radius: 25px;
   font-weight: 700;
   font-size: 20px;
-  z-index:99;
-  position:relative;
-}
-
-#menubar #menu-username{
-  font-weight:700;
-  font-size: 14px;
-  text-transform:capitalize;
-}
-
-#menubar .gallery-link{
-  height:fit-content;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content: center;
-  align-items:center;
-  margin-top:10px;
-  border-radius:12px;
-  font-weight:700;
-  font-size:15px;
-  padding:0;
-}
-
-#menubar .gallery-link i{
-  font-size:30px;
-  margin-right:10px;
-  padding:5px 0;
-}
-
-#menubar .gallery-link i::before{
-  margin:0;
-}
-
-#menubar.reduced .gallery-link i{
-  margin:0;
-}
-
-#menubar #reduce-enlarge{
-  display:block;
-  cursor:pointer;
-  text-align:center;
-}
-
-#menubar #reduce-enlarge span{
-  font-weight:bold;
-  font-size:14px;
-}
-
-#menubar #reduce-enlarge i{
-  padding:5px;
-  border-radius:5px;
-  display:inline-block;
-  font-size:15px;
-}
-
-#menubar .icon-reduce{
-  margin-right:10px;
-}
-
-#menubar #reduce-enlarge i::before{
-  width:fit-content;
-}
-
-#menubar .sub-link-container{
-  display:none;
-  position: absolute;
-  right: -205px;
-  top: 0;
-  width: 205px;
-  border-radius: 0 15px 15px 0;
-  padding:5px 0;
-}
-
-#menubar .sub-link-container .sub-link{
-  display:flex;
-  padding:5px 15px;
-}
-
-#menubar .sub-link-container a.sub-link{
-  font-weight:400;
-}
-
-#menubar #user-actions-sub-container{
-  position:absolute;
-}
-
-#menubar .user-sub-link-container{
-  display:none;
-  position: absolute;
-  right: -245px;
-  top: 0;
-  width: 205px;
-  border-radius: 0 15px 15px 15px;
-  padding:10px;
-}
-
-#menubar .user-sub-link-container a{
-  display:block;
-  padding:7px;
-}
-
-#menubar #log-out{
-  margin-top:15px;
-}
-.user-sub-link-container .user-infos{
-  margin-bottom:15px;
-}
-
-.user-sub-link-container .user-infos p{
-  text-align:center;
-  margin:2px 0;
-}
-
-.user-sub-link-container p.username{
-  font-weight:700;
-}
-
-/* Menu footer */
-
-/* #menubar a.externalLink{
-  display:block;
-  text-align:center;
-} */
-
-#menubar a.externalLink img{
-  width:auto;
-  height:24px;
-  display:block;
-  margin:0 auto;
-  margin-bottom:36px;
-  margin-top:24px;
-}
-
-.adminMenubarCounter {
-  background-color:#666;
-  color:white;
-  padding:2px 8px;
-  border-radius:25px;
-  margin-left:5px;
-}
-
-/*****
-This is for large menu
-*****/
-#menubar.enlarged{
-  width:205px;
-}
-
-#menubar.enlarged .enlarged-hidden{
-  display:none!important;/*Hide element in enlarged menu*/
-}
-
-/*****
- This is for the reduced menu
-*****/
-
-#menubar.reduced{
-  width:60px;
-}
-
-#menubar.reduced #user-actions-container{
-  padding:0 7px;
-}
-
-#menubar.reduced .reduced-hidden{
-  display:none!important;/*Hide element in reduced menu*/
-}
-
-#menubar.reduced .user-actions{
-  margin:0 auto;
-  width:fit-content;
-}
-
-#menubar.reduced .user-container-initials-wrapper span{
-  margin:0;
-}
-
-#menubar.reduced .page-link{
-  text-align:center;
-}
-
-#menubar.reduced #reduce-enlarge{
-  text-align:center;
+  padding:unset;
   margin-left:unset;
 }
 
-#menubar.reduced a.externalLink img{
-  margin:0 auto;
-  margin-bottom:40px;
-  margin-top:20px;
+#menubar .user-container-initials-wrapper{ padding:unset; }
 
+#menubar #menu-username {
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: capitalize;
 }
 
-#menubar.reduced  .page-link .icon-down-open{
-  margin:0;
-  z-index:10;
+/* User actions */
+#menubar #user-actions-container {
+  position: relative;
+  margin: 30px 0;
+  padding: 0 20px;
 }
 
-/*****
-Mobile Menu
-*****/
-
-#mobile-menu-footer{
-  display:none;
+#menubar .user-actions {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 25px;
+  cursor: pointer;
 }
 
-@media only screen and (max-width: 768px) {
+#menubar .user-actions.active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+}
+
+#menubar.enlarged .user-actions.active::after {
+  right: -20px;
+  width: 57px;
+  height: 40px;
+}
+
+#menubar.reduced .user-actions.active::after {
+  right: 0;
+  width: 45px;
+  height: 45px;
+}
+
+#menubar .user-actions .icon-left-open:before {
+  margin-top: 8px;
+  rotate: 180deg;
+}
+
+/* Appearance switch */
+#menubar .user-actions #apperance-switch {
+  display: none;
+  flex-direction: column;
+  margin: 0 23px;
+}
+
+/* ===========================
+   MENU GALLERY LINK
+   =========================== */
+
+#menubar .gallery-link {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  padding: 0;
+  height: fit-content;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+#menubar .gallery-link i {
+  margin-right: 10px;
+  padding: 5px 0;
+  font-size: 30px;
+}
+
+#menubar .gallery-link i::before { margin: 0; }
+#menubar.reduced .gallery-link i { margin: 0; }
+
+/* ===========================
+   MENU REDUCE / ENLARGE CONTROL
+   =========================== */
+
+#menubar #reduce-enlarge {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}
+
+#menubar #reduce-enlarge span { 
+  font-weight: 700;
+  font-size: 14px;
+}
+
+#menubar #reduce-enlarge i {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+#menubar #reduce-enlarge i::before { width: fit-content; }
+#menubar .icon-reduce { margin-right: 10px; }
+
+/* ===========================
+   SUBLINKS
+   =========================== */
+
+#menubar .sub-link-container,
+#menubar .user-sub-link-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  border-radius: 0 15px 15px 0;
+}
+
+#menubar .sub-link-container {
+  right: -205px;
+  width: 205px;
+  padding: 5px 0;
+}
+
+#menubar .sub-link-container .sub-link {
+  display: flex;
+  padding: 5px 15px;
+  font-weight: 400;
+}
+
+#menubar .user-sub-link-container {
+  right: -245px;
+  width: 205px;
+  padding: 10px;
+  border-radius: 0 15px 15px 15px;
+}
+
+#menubar .user-sub-link-container a,
+#apperance-switch-controller {
+  display: block;
+  padding: 7px;
+}
+
+#apperance-switch-controller p { margin: 0; }
+
+#menubar #log-out { margin-top: 15px; }
+
+.user-sub-link-container .user-infos { margin-bottom: 15px; }
+.user-sub-link-container .user-infos p {
+  margin: 2px 0;
+  text-align: center;
+}
+.user-sub-link-container p.username { font-weight: 700; }
+
+/* ===========================
+   MENU FOOTER
+   =========================== */
+
+#menubar a.externalLink img {
+  display: block;
+  width: auto;
+  height: 24px;
+  margin: 24px auto 36px;
+}
+
+.adminMenubarCounter {
+  margin-left: 5px;
+  padding: 2px 8px;
+  border-radius: 25px;
+  background: #666;
+  color: #fff;
+}
+
+/* ===========================
+   ENLARGED MENU
+   =========================== */
+
+#menubar.enlarged { width: 205px; }
+#menubar.enlarged .enlarged-hidden { display: none !important; }
+
+/* ===========================
+   REDUCED MENU
+   =========================== */
+
+#menubar.reduced { width: 60px; }
+#menubar.reduced #user-actions-container { padding: 0 7px; }
+#menubar.reduced .reduced-hidden { display: none !important; }
+#menubar.reduced .user-actions {
+  margin: 0 auto;
+  width: fit-content;
+}
+#menubar.reduced .user-container-initials-wrapper span { margin: 0; }
+#menubar.reduced .page-link { text-align: center; }
+#menubar.reduced #reduce-enlarge { margin-left: unset; }
+#menubar.reduced a.externalLink img { margin: 20px auto 40px; }
+#menubar.reduced .page-link .icon-down-open {
+  margin: 0;
+  z-index: 10;
+}
+
+/* ===========================
+   MOBILE MENU
+   =========================== */
+
+#mobile-menu-footer { display: none; }
+/*
+@media (max-width: 768px) {
   .mobile-hidden,
-  #dekstop-menu-footer{
-    display:none!important;
+  #dekstop-menu-footer { display: none !important; }
+
+  #menubar {
+    position: fixed;
+    inset: 0;
+    min-width: 100dvmin;
+    height: 90dvh;
   }
 
-  #menubar{
-    max-height:100vh;
-    max-width:100vw;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-  }
+  #menubar-content { display: none; }
+  #menubar.open #menubar-content { display: block; }
 
   #menubar.enlarged,
-  #menubar.reduced{
-    width:100%;
+  #menubar.reduced {
+    width: 100vw;
+    width: 100dvw;
   }
 
   #mobile-menu-footer {
@@ -2406,29 +2371,38 @@ Mobile Menu
     justify-content: space-between;
   }
 
-  #mobile-menu-footer i{
-    font-size:30px;
+  #mobile-menu-footer i { font-size: 30px; }
+
+  #menubar .gallery-link { margin-top: 0; }
+
+  #menubar .sub-link-container,
+  #menubar .user-sub-link-container {
+    position: relative;
+    top: unset;
+    right: unset;
+    width: 100%;
+    border-radius: unset;
+  }
+
+  #menubar.enlarged .user-actions.active::after {
+    content: unset;
+    all: unset;
+  }
+
+  #menubar .user-actions { flex-direction: column; }
+
+  #menubar .user-sub-link-container {
+    padding: 0;
+    background: transparent !important;
   }
 }
 
-@media only screen and (max-width: 480px) {
-}
+@media (max-width: 480px) { }
+ */
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*****
-This is for the light mode
-*****/
+/* ===========================
+   MENUBAR COLORS
+   =========================== */
 #menubar{
   background-color:#3C3C3C;
 }
@@ -2482,8 +2456,7 @@ This is for the light mode
   color:#AAAAAA;
 }
 
-#menubar .page-link.active a,
-#menubar .sub-link-container a.sub-link:hover
+#menubar .page-link:hover .sub-link:hover,
 .user-sub-link-container .user-infos p,
 .adminMenubarCounter{
   color:#ffffff;
@@ -2493,75 +2466,7 @@ This is for the light mode
   background-color:#666;
 }
 
-/*****
-This is for the dark mode
-*****/
-
-/* This is for the auto mode */
-
-@media (prefers-color-scheme: light) {
-/* custom css */
-}
-
-@media (prefers-color-scheme: dark) {
-/* custom css */
-}
-
-/* #menubar .page-link:hover > .sub-link-container{
-  display:block;
-} */
-
-/* #menubar {
-  padding:0; width:205px; z-index:99; text-align: left;
-  margin-left:0;
-}
-
-#menubar ul.scroll { overflow-y:auto; max-height:500px; scrollbar-color: #666 #3c3c3c;}
-#menubar dl { width: 205px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:0; border-left:none; }
-#menubar dd { margin: 0; padding: 10px 0; }
-#menubar dt {
-	margin: 0; display: block; font-weight:bold;
-	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #aaa;
-	cursor:pointer;
-  line-height: 25px;
-}
-#menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0;  }
-#menubar dl:last-of-type { border-radius:0;  }
-#menubar li { margin: 0; padding-left:20px; }
-#menubar li A { display:block; color:#ccc }
-#menubar li A:hover {color:#eee; text-decoration:none}
-#menubar li:hover {background-color:#222;}
-#menubar ul { color: #ccc; margin:0; line-height: 25px;
-  list-style-type: none; list-style-position: inside; padding: 0; }
-
-#menubar i.open-menu {
-  font-size: 14px;
-  color: #666;
-  float: right;
-  margin-right: 5px;
-  margin-top: 2px;
-}
-
-@media all and (max-height: 920px) {
-  #menubar ul.scroll {
-    max-height: 400px;
-  }
-}
-
-@media all and (max-height: 830px) {
-  #menubar ul.scroll {
-    max-height: 300px;
-  }
-}
-
-@media all and (max-height: 700px) {
-  #menubar ul.scroll {
-    max-height: 200px;
-  }
-  #theAdminPage #footer {
-    display: none;
-  }
-} */
+/* =========================== */
 
 /* tabsheets are often used in admin  pages => No specific css files */
 #tabsheet {
@@ -2626,7 +2531,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 }
 
 #content.reduced{
-  margin-left:91px;
+  margin-left:60px;
 }
 
 #thePopuphelpPage {
