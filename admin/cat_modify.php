@@ -187,6 +187,7 @@ $template->assign(
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
     'IS_VISIBLE'          => boolean_to_string($category['visible']),
+    'CAT_ADMIN_ACCESS'   => cat_admin_access($category['id']),
 
     'U_DELETE' => $base_url.'albums',
 

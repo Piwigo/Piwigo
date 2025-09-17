@@ -236,7 +236,7 @@ pluginValues = [];
 					<span class="orphan-photo"></span>
 					{/if}
 					<div class="related-categories-container">
-						{foreach from=$element.related_categories item=$cat_path key=$key}
+						{foreach from=$element.related_categories item=cat_path key=key}
 						<div class="breadcrumb-item">
 							<span class="link-path">{$cat_path['name']}</span>
 							{if $cat_path['unlinkable']}

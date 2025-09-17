@@ -174,12 +174,12 @@ const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
       {/if}
       <br>
       <select class="invisible-related-categories-select" name="associate[]" multiple>
-      {foreach from=$related_categories item=$cat_path key=$key}
+      {foreach from=$related_categories item=cat_path key=key}
         <option selected value="{$key}"></option>
       {/foreach}
       </select>
       <div class="related-categories-container">
-      {foreach from=$related_categories item=$cat_path key=$key}
+      {foreach from=$related_categories item=cat_path key=key}
       <div class="breadcrumb-item"><span class="link-path">{$cat_path['name']}</span>{if $cat_path['unlinkable']}<span id={$key} class="icon-cancel-circled remove-item"></span>{else}<span id={$key} class="icon-help-circled help-item tiptip" title="{'This picture is physically linked to this album, you can\'t dissociate them'|translate}"></span>{/if}</div>
       {/foreach}
       </div>

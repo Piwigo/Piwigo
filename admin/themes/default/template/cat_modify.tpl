@@ -176,7 +176,7 @@ const str_modal_ab = '{'New parent album'|@translate}';
 
   <div class="cat-modify-footer">
    <div class="cat-modify-footer-start">
-    {if cat_admin_access($CAT_ID)}
+    {if $CAT_ADMIN_ACCESS}
       <a class="cat-modify-footer-see-out" href="{$U_JUMPTO}"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>
     {else}
     <a class="tiptip cat-modify-footer-see-out disabled" title="{'ACCESS_5'|translate}" href="#"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>

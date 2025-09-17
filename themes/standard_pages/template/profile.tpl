@@ -472,7 +472,7 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
     <section id="language-switch">
       <div id="lang-select">
         <span id="other-languages">
-          {foreach from=$language_options key=$code item=$lang}
+          {foreach from=$language_options key=code item=lang}
             <span id="lang={$code}" onclick="setCookie('lang','{$code}',30)">{$lang}</span>
           {/foreach}
         </span>

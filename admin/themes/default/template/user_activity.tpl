@@ -135,7 +135,7 @@ var actionInfos_tags_moved = "{'%d tags moved'|translate}";
                     <option value="none">
                         <span class='username_filter'>---</span>
                     </option>
-                    {foreach from=$ulist item=$user}
+                    {foreach from=$ulist item=user}
                         <option value="{$user.id}">
                             <span class='username_filter'>{$user.username}</span>
                             <span class='nb_lines_str'>
@@ -153,7 +153,7 @@ var actionInfos_tags_moved = "{'%d tags moved'|translate}";
                     <option value="none">
                         <span class='action_filter'>---</span>
                     </option>
-                    {foreach from=$ACTIONS item=$action}
+                    {foreach from=$ACTIONS item=action}
                         <option value="{$action.value}">
                             <span class='action_filter'>
                                 {ucfirst($action.object)|translate}

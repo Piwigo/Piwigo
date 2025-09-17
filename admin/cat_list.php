@@ -326,7 +326,8 @@ foreach ($categories as $category)
       'U_ADD_PHOTOS_ALBUM' => $base_url.'photos_add&amp;album='.$category['id'],
       'U_MOVE' => $base_url.'albums#cat-'.$category['id'],
 
-      'IS_VIRTUAL' => empty($category['dir'])
+      'IS_VIRTUAL' => empty($category['dir']),
+      'CAT_ADMIN_ACCESS' => cat_admin_access($category['id']),
     );
 
   if (empty($category['dir']))

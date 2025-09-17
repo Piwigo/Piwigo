@@ -77,7 +77,7 @@ for(const filter_name of filters_names){
   <fieldset class="searchConf">
     <legend><span class="icon-equalizer icon-blue rotate-element"></span>{'Filters'|translate}</legend>
     <ul>
-      {foreach from=$search.filters_names item=$filter_name}
+      {foreach from=$search.filters_names item=filter_name}
       <li class="filters-grid">
         <label class="font-checkbox">
           <span class="icon-check"></span>
