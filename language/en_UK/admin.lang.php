@@ -1417,5 +1417,8 @@ $lang['The comment has been validated.'] = 'The comment has been validated.';
 $lang['The comments have been validated.'] = 'The comments have been validated.';
 $lang['Are you sure you want to delete "%d" comments?'] = 'Are you sure you want to delete "%d" comments?';
 $lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'If a photo in this album has the same filename, update the file without changing the photo\'s properties';
+$lang['Empty lounge'] = 'Empty lounge';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'There is currently %d photos in the lounge (upload buffer)';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d photos were moved from the upload lounge to their albums';
 
 // Leave this line empty

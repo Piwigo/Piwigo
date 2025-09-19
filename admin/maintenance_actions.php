@@ -159,6 +159,12 @@ DELETE
     $page['infos'][] = sprintf('%s : %s', l10n('Reinitialize check integrity'), l10n('action successfully performed.'));
     break;
   }
+  case 'empty_lounge':
+  {
+    $rows = empty_lounge();
+    $page['infos'][] = sprintf('%d photos were moved from the upload lounge to their albums', count($rows));
+    break;
+  }
   case 'search' :
   {
     $query = '
@@ -360,6 +366,23 @@ else
       'U_MAINT_LOCK_GALLERY' => sprintf($url_format, 'lock_gallery'),
       )
     );
+}
+
+$query = '
+SELECT
+    COUNT(*)
+  FROM '.LOUNGE_TABLE.'
+;';
+list($nb_lounge) = pwg_db_fetch_row(pwg_query($query));
+
+if ($nb_lounge > 0)
+{
+  $template->assign(
+    array(
+      'U_EMPTY_LOUNGE' => sprintf($url_format, 'empty_lounge'),
+      'LOUNGE_COUNTER' => $nb_lounge,
+    )
+  );
 }
 
 $template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
