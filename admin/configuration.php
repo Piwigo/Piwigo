@@ -355,9 +355,11 @@ WHERE param = \''.$row['param'].'\'
 // restore default derivatives settings
 if ('sizes' == $page['section'] and isset($_GET['action']) and 'restore_settings' == $_GET['action'])
 {
-  ImageStdParams::set_and_save( ImageStdParams::get_default_sizes() );
-  pwg_query('DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'');
+  ImageStdParams::restore_default();
   clear_derivative_cache();
+
+  // reset conf
+  load_conf_from_db();
 
   $template->assign(
     array(
@@ -569,7 +571,7 @@ switch ($page['section'])
 
       // derivatives = multiple size
       $enabled = ImageStdParams::get_defined_type_map();
-      $disabled = @unserialize(@$conf['disabled_derivatives']);
+      $disabled = safe_unserialize(ImageStdParams::get_disabled_type_map());
       if ($disabled === false)
       {
         $disabled = array();

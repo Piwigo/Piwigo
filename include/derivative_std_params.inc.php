@@ -57,10 +57,14 @@ final class ImageStdParams
     IMG_SQUARE, IMG_THUMB, IMG_XXSMALL, IMG_XSMALL, IMG_SMALL,
     IMG_MEDIUM, IMG_LARGE, IMG_XLARGE, IMG_XXLARGE, IMG_3XLARGE, IMG_4XLARGE
     );
+  /** @var string[] */
+  private static $disabled_types_by_default = array(IMG_3XLARGE, IMG_4XLARGE);
   /** @var DerivativeParams[] */
   private static $all_type_map = array();
   /** @var DerivativeParams[] */
   private static $type_map = array();
+  /** @var DerivativeParams[] */
+  private static $disabled_type_map = array();
   /** @var DerivativeParams[] */
   private static $undefined_type_map = array();
   /** @var WatermarkParams */
@@ -92,6 +96,18 @@ final class ImageStdParams
   static function get_defined_type_map()
   {
     return self::$type_map;
+  }
+
+  /**
+   * @return DerivativeParams[]
+   */
+  static function get_disabled_type_map()
+  {
+    if (count(self::$disabled_type_map))
+    {
+      return self::$disabled_type_map;
+    }
+    return conf_get_param('disabled_derivatives', array());
   }
 
   /**
@@ -161,7 +177,8 @@ final class ImageStdParams
     else
     {
       self::$watermark = new WatermarkParams();
-      self::$type_map = self::get_default_sizes();
+      self::$type_map = self::get_enabled_default_sizes();
+      self::$disabled_type_map = self::get_disabled_default_sizes();
       self::save();
     }
     self::build_maps();
@@ -199,6 +216,39 @@ final class ImageStdParams
       'c' => self::$custom,
       ) );
     conf_update_param('derivatives', addslashes($ser) );
+
+    self::save_disabled();
+  }
+
+  /**
+   * Saves the disabled configuration in database.
+   */
+  static function save_disabled()
+  {
+    if (count(self::$disabled_type_map) > 0)
+    {
+      $disabled = addslashes(serialize(self::$disabled_type_map));
+      conf_update_param('disabled_derivatives', $disabled);
+    }
+    else
+    {
+      $query='DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'';
+      pwg_query($query);
+    }
+  }
+
+  static function set_and_save_disabled($map)
+  {
+    self::$disabled_type_map = $map;
+    self::save_disabled();
+  }
+
+  static function restore_default()
+  {
+    self::$type_map = self::get_enabled_default_sizes();
+    self::$disabled_type_map = self::get_disabled_default_sizes();
+    self::save();
+    self::build_maps();
   }
 
   /**
@@ -225,6 +275,29 @@ final class ImageStdParams
       $params->last_mod_time = $now;
     }
     return $arr;
+  }
+
+  /**
+   * @return DerivativeParams[]
+   */
+  static function get_enabled_default_sizes()
+  {
+    $default_sizes = self::get_default_sizes();
+    foreach (self::$disabled_types_by_default as $type)
+    {
+      unset($default_sizes[$type]);
+    }
+    return $default_sizes;
+  }
+
+  /**
+   * @return DerivativeParams[]
+   */
+  static function get_disabled_default_sizes()
+  {
+    $all = self::get_default_sizes();
+    $disabled_sizes = array_intersect_key($all, array_flip(self::$disabled_types_by_default));
+    return $disabled_sizes;
   }
 
   /**

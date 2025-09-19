@@ -1105,7 +1105,7 @@ function get_optimal_dimensions_for_representative()
   global $conf;
 
   $enabled = ImageStdParams::get_defined_type_map();
-  $disabled = @unserialize(@$conf['disabled_derivatives']);
+  $disabled = safe_unserialize(ImageStdParams::get_disabled_type_map());
   if ($disabled === false)
   {
     $disabled = array();
