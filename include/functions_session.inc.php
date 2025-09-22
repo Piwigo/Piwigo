@@ -54,17 +54,7 @@ if (isset($conf['session_save_handler'])
  */
 function generate_key($size)
 {
-  include_once(PHPWG_ROOT_PATH.'include/random_compat/random.php');
-
-  try
-  {
-    $bytes = random_bytes($size+10);
-  }
-  catch (Exception $ex)
-  {
-    include_once(PHPWG_ROOT_PATH.'include/srand.php');
-    $bytes = secure_random_bytes($size+10);
-  }
+  $bytes = random_bytes($size+10);
 
   return substr(
     str_replace(
