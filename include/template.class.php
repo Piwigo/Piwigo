@@ -2056,10 +2056,15 @@ final class FileCombiner
   private static function process_css($css, $file, &$header)
   {
     $css = self::process_css_rec($css, dirname($file), $header);
-    if (strpos($file, '.min')===false and version_compare(PHP_VERSION, '5.2.4', '>='))
+    if (strpos($file, '.min')===false)
     {
-      require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
-      $css = CssMin::minify($css, array('Variables'=>false));
+      require_once(PHPWG_ROOT_PATH.'include/minify/src/Minify.php');
+      require_once(PHPWG_ROOT_PATH.'include/minify/src/CSS.php');
+      require_once(PHPWG_ROOT_PATH.'include/minify/path-converter/src/ConverterInterface.php');
+      require_once(PHPWG_ROOT_PATH.'include/minify/path-converter/src/Converter.php');
+      require_once(PHPWG_ROOT_PATH.'include/minify/path-converter/src/NoConverter.php');
+      $minifier = new \MatthiasMullie\Minify\CSS($css);
+      $css = $minifier->minify();
     }
     $css = trigger_change('combined_css_postfilter', $css);
     return $css;
