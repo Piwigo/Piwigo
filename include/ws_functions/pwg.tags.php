@@ -341,7 +341,11 @@ SELECT
   WHERE id = '.$tag_id.'
 ;';
 
-  return query2array($query)[0];
+  $tag = query2array($query)[0];
+  $tag['raw_name'] = $tag['name'];
+  $tag['name'] = trigger_change('render_tag_name', $tag['raw_name'], $tag);
+  $tag['alt_names'] = trigger_change('get_tag_alt_names', array(), $tag['raw_name']);
+  return $tag;
 }
 
 
