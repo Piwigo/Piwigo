@@ -411,42 +411,25 @@ function get_tags_content_title()
 
   for ($i=0; $i<count($page['tags']); $i++)
   {
-    $title.= $i>0 ? ' + ' : '';
 
-    $title.=
-      '<a href="'
-      .make_index_url(
-        array(
-          'tags' => array( $page['tags'][$i] )
-          )
-        )
-      .'" title="'
-      .l10n('display photos linked to this tag')
-      .'">'
-      .trigger_change('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
-      .'</a>';
-
-    if (count($page['tags']) > 1)
+    if (1 == count($page['tags']))
     {
-      $other_tags = $page['tags'];
-      unset($other_tags[$i]);
-      $remove_url = make_index_url(
-        array(
-          'tags' => $other_tags
-          )
-        );
-
       $title.=
-        '<a id="TagsGroupRemoveTag" href="'.$remove_url.'" style="border:none;" title="'
-        .l10n('remove this tag from the list')
-        .'"><img src="'
-          .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-        .'" alt="x" style="vertical-align:bottom;" >'
-        .'<span class="pwg-icon pwg-icon-close" ></span>'
-        .'<i class="fas fa-plus" aria-hidden="true"></i>'
+        '<a href="'
+        .make_index_url(
+          array(
+            'tags' => array( $page['tags'][$i] )
+            )
+          )
+        .'" title="'
+        .l10n('display photos linked to this tag')
+        .'">'
+        .trigger_change('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
         .'</a>';
     }
   }
+
+
   return $title;
 }
 
@@ -557,7 +540,7 @@ function register_default_menubar_blocks($menu_ref_arr)
     return;
   $menu->register_block( new RegisteredBlock( 'mbLinks', 'Links', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbCategories', 'Albums', 'piwigo'));
-  $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbTags', 'Tags', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbRelatedCategories', 'Related albums', 'piwigo') );

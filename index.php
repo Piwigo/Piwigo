@@ -189,11 +189,45 @@ if ( empty($page['is_external']) )
 
   if (isset($page['body_data']['tag_ids']))
   {
+    //get tags for related tags "button", with the possibility to combine them
+    $tags = get_common_tags(
+      $page['items'],
+      $conf['menubar_tag_cloud_items_number'],
+      $page['tag_ids']
+    );
+
+    $tags = add_level_to_tags($tags);
+
+    $related_tags = array();
+
+    foreach ($tags as $tag)
+    {
+      $related_tags[] = array_merge(
+        $tag,
+        array(
+          'U_ADD' => make_index_url(
+            array(
+              'tags' => array_merge(
+                $page['tags'],
+                array($tag)
+                )
+              )
+            ),
+          'URL' => make_index_url( array( 'tags' => array($tag) )
+            ),
+          )
+        );
+    }
+
+    include_once(PHPWG_ROOT_PATH.'include/selected_tags.inc.php');
+
     $template->assign(
       array(
         'SEARCH_IN_SET_BUTTON' => $conf['index_search_in_set_button'],
         'SEARCH_IN_SET_ACTION' => $conf['index_search_in_set_action'],
         'SEARCH_IN_SET_URL' => get_root_url().'search.php?tag_id='.implode(',', $page['body_data']['tag_ids']),
+        'RELATED_TAGS_BUTTON' => $conf['index_related_tags_button'],
+        'RELATED_TAGS' => $related_tags,
       )
     );
   }
@@ -359,6 +393,31 @@ if ( empty($page['is_external']) )
     {
       $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
     }
+  }
+
+  //We want all pages that display thumbnails, except on the tags page
+  //Fill related tags action
+  if(!empty($page['items']) and 'tags' != $page['body_data']['section'])
+  {
+    $selection = array_slice( $page['items'], $page['start'], $page['nb_image_page'] );
+    $tags = add_level_to_tags( get_common_tags($selection, $conf['content_tag_cloud_items_number']) );
+    $related_tags = array();
+    foreach ($tags as $tag)
+    {
+      $related_tags[] =
+      array_merge( $tag,
+        array(
+          'URL' => make_index_url( array( 'tags' => array($tag) ) ),
+        )
+      );
+    } 
+
+    $template->assign(
+      array(
+      'RELATED_TAGS_ACTION' => true,
+      'RELATED_TAGS' => $related_tags,
+      )
+    );
   }
 }
 
