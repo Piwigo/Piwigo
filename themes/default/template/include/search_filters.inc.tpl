@@ -193,7 +193,7 @@ const prefix_icon = 'gallery-icon-';
 
         <label>
           <input data-wid='expert' class="filter-manager-controller expert" type="checkbox"/>
-          <span class="mcs-icon gallery-icon-skull">{'Expert mode'|translate}</span>
+          <span class="mcs-icon gallery-icon-chemistry">{'Expert mode'|translate}</span>
         </label>
 
       </div>
@@ -837,12 +837,12 @@ const prefix_icon = 'gallery-icon-';
 {/if}
 
   <div class="filter filter-expert">
-    <span class="mcs-icon gallery-icon-skull filter-icon"></span>
+    <span class="mcs-icon gallery-icon-chemistry filter-icon"></span>
     <span class="search-words"></span>
     <span class="filter-arrow gallery-icon-up-open"></span>
     
     <div class="filter-form filter-expert-form">
-      <div class="filter-form-title gallery-icon-skull"> {'Expert mode'|@translate}</div>
+      <div class="filter-form-title gallery-icon-chemistry"> {'Expert mode'|@translate}</div>
       <div class="filter-actions">
         <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
         <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
@@ -851,7 +851,7 @@ const prefix_icon = 'gallery-icon-';
       <input type="text" id="expert-search" name="expert">
 
       <p title="{'Help'|@translate}" class="help-popin-search">
-        <i class="gallery-icon-selecters"></i>
+        <i class="gallery-icon-help-circled"></i>
         <span>{'Search tips'|translate}</span>
       </p>
 
