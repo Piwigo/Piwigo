@@ -192,9 +192,7 @@
   </div>
 {/if}
 
-{if isset($RELATED_TAGS_BUTTON) and $RELATED_TAGS_BUTTON}
-  {include file='include/related_tags.inc.tpl'}
-{/if}
+{include file='include/related_tags.inc.tpl'}
 
 </div>
 
