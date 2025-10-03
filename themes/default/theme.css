@@ -987,11 +987,11 @@ span.related-tags .tag-counter{
   background-color:#FAFAFA;
   border-bottom: 1px solid #D0D2D5;
   border-radius:5px;
-  margin:0 10px;
+  margin:0 5px 0 15px;
   font-weight:900;
   font-size:20px;
   padding:0 5px;
-    color:#777777;
+  color:#777777;
 }
 
 #breadcrumb{
