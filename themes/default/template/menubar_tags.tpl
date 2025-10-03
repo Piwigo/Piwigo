@@ -1,4 +1,4 @@
-<dt>{if $IS_RELATED}{'Related tags'|@translate}{else}{'Tags'|@translate}{/if}</dt>
+<dt>{'Tags'|@translate}</dt>
 <dd>
 	<div id="menuTagCloud">
 		{foreach from=$block->data item=tag}
