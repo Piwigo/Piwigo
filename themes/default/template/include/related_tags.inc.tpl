@@ -1,10 +1,6 @@
-<div class="mcs-side-results search-in-set-button" id="related-tags-toggle">
-  <div>
-    <p>{'Related tags'|translate}<i class="gallery-icon-up-open rotated"></i></p>
-  </div>
-</div>
+<h3 class="related-tags-title">{'Related tags'|translate}</h3>
 
-{foreach from=$RELATED_TAGS item=tag}
+{foreach from=$COMBINABLE_TAGS item=tag}
 <span class="related-tags {if isset($RELATED_TAGS_DISPLAY) and $RELATED_TAGS_DISPLAY == false} hide{/if}">{strip}
   <a class="tagLevel {if isset($tag.level)}{$tag.level}{/if}" href=
   {if isset($tag.U_ADD)}
@@ -12,16 +8,5 @@
   {else}
     "{$tag.URL}" title="{'display photos linked to this tag'|@translate}">
   {/if}
-    + {$tag.name}</a><div class="tag-counter">{$tag.counter}</div></span>{/strip}
+    + {$tag.name}<div class="tag-counter">{$tag.counter}</div></a></span>{/strip}
 {/foreach}
-
-{footer_script require='jquery'}
-
-$(document).ready(function () { 
-  $('#related-tags-toggle').on("click", function (e) { 
-    $('.related-tags').toggle();
-    $('#related-tags-toggle .gallery-icon-up-open').toggleClass('rotated'); 
-  }); 
-});
-
-{/footer_script}

@@ -59,14 +59,6 @@
       <li>
         <label class="font-checkbox">
           <span class="icon-check"></span>
-          <input type="checkbox" name="index_related_tags_display" {if ($display.index_related_tags_display)}checked="checked"{/if}>
-          {'Display related tags by default'|translate}
-        </label>
-      </li>
-
-      <li>
-        <label class="font-checkbox">
-          <span class="icon-check"></span>
           <input type="checkbox" name="index_sort_order_input" {if ($display.index_sort_order_input)}checked="checked"{/if}>
           {'Activate icon "%s"'|translate:('Sort order'|translate)}
         </label>

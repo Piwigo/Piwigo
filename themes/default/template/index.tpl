@@ -192,8 +192,9 @@
   </div>
 {/if}
 
+{if isset($COMBINABLE_TAGS)}
 {include file='include/related_tags.inc.tpl'}
-
+{/if}
 </div>
 
 {if !empty($CONTENT_DESCRIPTION)}

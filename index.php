@@ -226,8 +226,7 @@ if ( empty($page['is_external']) )
         'SEARCH_IN_SET_BUTTON' => $conf['index_search_in_set_button'],
         'SEARCH_IN_SET_ACTION' => $conf['index_search_in_set_action'],
         'SEARCH_IN_SET_URL' => get_root_url().'search.php?tag_id='.implode(',', $page['body_data']['tag_ids']),
-        'RELATED_TAGS_DISPLAY' => $conf['index_related_tags_display'],
-        'RELATED_TAGS' => $related_tags,
+        'COMBINABLE_TAGS' => $related_tags,
       )
     );
   }
