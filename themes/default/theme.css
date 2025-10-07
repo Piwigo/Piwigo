@@ -968,6 +968,10 @@ span.related-tags .tag-counter{
   margin-right:15px;
 }
 
+#selected-tags-container .selected-related-tag.unique-tag{
+  padding:2px 10px;
+}
+
 #selected-tags-container .selected-related-tag a{
   font-weight: 700;
   font-style: Bold;

@@ -409,27 +409,6 @@ function get_tags_content_title()
     . l10n( count($page['tags']) > 1 ? 'Tags' : 'Tag' )
     . '</a> ';
 
-  for ($i=0; $i<count($page['tags']); $i++)
-  {
-
-    if (1 == count($page['tags']))
-    {
-      $title.=
-        '<a href="'
-        .make_index_url(
-          array(
-            'tags' => array( $page['tags'][$i] )
-            )
-          )
-        .'" title="'
-        .l10n('display photos linked to this tag')
-        .'">'
-        .trigger_change('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
-        .'</a>';
-    }
-  }
-
-
   return $title;
 }
 
