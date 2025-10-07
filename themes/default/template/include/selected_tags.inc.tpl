@@ -8,7 +8,8 @@
     <a class="selected-related-tag-remove" href="{$TAG.remove_url}" style="border:none;" title="{'remove this tag from the list'|translate}">
       <i class="gallery-icon-cancel"></i>
     </a>
-  </span>{if !$TAG@last}<span class="related-tag-condition">+</span>{/if}
+  </span>
+{* {if !$TAG@last}<span class="related-tag-condition">+</span>{/if} *}
 {/foreach}
 
 </span>

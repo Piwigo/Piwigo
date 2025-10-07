@@ -219,6 +219,12 @@ if ( empty($page['is_external']) )
         );
     }
 
+    //We sort the array here because we want them sorted by counter and not alphabetically like before.
+    usort($related_tags, function($a, $b) {
+      return $b['counter'] <=> $a['counter'];
+    });
+
+
     include_once(PHPWG_ROOT_PATH.'include/selected_tags.inc.php');
 
     $template->assign(
