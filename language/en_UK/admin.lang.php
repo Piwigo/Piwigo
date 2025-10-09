@@ -1407,5 +1407,18 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = 'To set your password, visit the following address:';
 $lang['A photo library administrator has created the following account for you:'] = 'A photo library administrator has created the following account for you:';
 $lang['Welcome to %s'] = 'Welcome to %s';
+$lang['Save all photos'] = 'Save all photos';
+$lang['Use standard Piwigo template for common pages.'] = 'Use standard Piwigo template for common pages.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'We have found %d duplicate paths. Details provided by plugin Check Uploads';
+$lang['Are you sure you want to delete comment #%s?'] = 'Are you sure you want to delete comment #%s?';
+$lang['No comments selected, no actions possible.'] = 'No comments selected, no actions possible.';
+$lang['The comment has been validated.'] = 'The comment has been validated.';
+$lang['The comments have been validated.'] = 'The comments have been validated.';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Are you sure you want to delete "%d" comments?';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'If a photo in this album has the same filename, update the file without changing the photo\'s properties';
+$lang['Empty lounge'] = 'Empty lounge';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'There is currently %d photos in the lounge (upload buffer)';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d photos were moved from the upload lounge to their albums';
+
 // Leave this line empty
