@@ -1404,3 +1404,4 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Odkaz je validní po dobu %s. Po uplynutí tohoto času je potřeba vygenerovat nový odkaz.';
 $lang['To set your password, visit the following address:'] = 'Pro nastavení hesla klikněte na následující odkaz:';
 $lang['Welcome to %s'] = 'Vítejte na %s';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Nalezli jsme %d duplicitních cest. Detaily posktyuje plugin Kontrola uploadů Check Uploads';
