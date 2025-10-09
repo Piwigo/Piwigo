@@ -458,3 +458,7 @@ $lang['Only the first %d albums are displayed, out of %d.'] = '%d (e)tik, lehene
 $lang['Pages'] = 'Orriak';
 $lang['The PDF you requested is too large to display on this page.'] = 'Eskatuko PDFa handiegia da orrian erakusteko';
 $lang['last 12 months'] = 'Azkenengo 12 hilabeteak';
+$lang['Set your password below.'] = 'Ezarri pasahitza behealdean';
+$lang['There are no authors available for the photos currently filtered'] = 'Ez dago egilerik eskuragarri iragazitako argazkientarako';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Ez dago sortze-datarik eskuragarri iragazitako argazkietarako';
+$lang['There are no tags available for the photos currently filtered'] = 'Ez dago etiketarik eskuragarri iragazitako argazkietarako';

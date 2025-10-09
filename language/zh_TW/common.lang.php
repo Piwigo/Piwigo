@@ -452,3 +452,7 @@ $lang['Pages'] = '頁';
 $lang['The PDF you requested is too large to display on this page.'] = '因為您所要求的 PDF 檔太大，所以無法在此頁面中顯示。';
 $lang['Custom dates'] = '個人化日期';
 $lang['last 12 months'] = '最近 12 個月';
+$lang['There are no authors available for the photos currently filtered'] = '符合目前篩選條件的照片並無作者資訊';
+$lang['There are no creation dates available for the photos currently filtered'] = '符合目前篩選條件的照片並無建立日期資訊';
+$lang['There are no tags available for the photos currently filtered'] = '符合目前篩選條件的照片並無任何標籤';
+$lang['Set your password below.'] = '請在下方設定您的密碼。';

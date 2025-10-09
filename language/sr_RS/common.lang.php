@@ -452,3 +452,7 @@ $lang['Pre-established filters are proposed, but you can add or remove them usin
 $lang['Search in :'] = 'Претражи у:';
 $lang['Custom dates'] = 'Произвољни датуми';
 $lang['last 12 months'] = 'Последњих 12 месеци';
+$lang['There are no authors available for the photos currently filtered'] = 'Нема аутора за фотографије које су тренутно изфилтриране';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Нема датума настанка за фотографије које су тренутно изфилтриране';
+$lang['There are no tags available for the photos currently filtered'] = 'Нема ознака за фотографије које су тренутно изфилтриране';
+$lang['Set your password below.'] = 'Поставите вашу лозинку испод.';

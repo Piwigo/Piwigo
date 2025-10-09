@@ -450,3 +450,7 @@ $lang['Pages'] = 'Síður';
 $lang['The PDF you requested is too large to display on this page.'] = 'PDF-skjalið sem þú baðst um er of stórt til að birta á þessari síðu.';
 $lang['Custom dates'] = 'Sérsniðnar dagsetningar';
 $lang['last 12 months'] = 'Síðustu 12 mánuðir';
+$lang['There are no authors available for the photos currently filtered'] = 'Það eru engir höfundar tiltækir fyrir síuðu myndirnar';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Það eru engar sköpunardagsetningar í boði fyrir síuðu myndirnar';
+$lang['There are no tags available for the photos currently filtered'] = 'Það eru engin merki tiltæk fyrir síuðu myndirnar';
+$lang['Set your password below.'] = 'Stilltu lykilorðið þitt hér að neðan.';
