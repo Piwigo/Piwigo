@@ -1412,3 +1412,16 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'L\'enllaç és vàlid per %s. Passat aquest temps, haureu de sol·licitar-ne un de nou.';
 $lang['To set your password, visit the following address:'] = 'Per definir la vostra contrasenya, visiteu l\'adreça següent:';
 $lang['Welcome to %s'] = 'Benvinguts a %s';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Hem trobat %d camins d\'accés duplicats. Els detalls els proporciona el connector Check Uploads (Comprovar Pujades)';
+$lang['%d photos were moved from the upload lounge to their albums'] = 'S\'han mogut %d fotos del vestíbul de pujada als seus àlbums.';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Segur que voleu suprimir "%d" comentaris?';
+$lang['Are you sure you want to delete comment #%s?'] = 'Segur que voleu suprimir el comentari número %s?';
+$lang['Empty lounge'] = 'El vestíbul és buit';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Si una foto d\'aquest àlbum té el mateix nom de fitxer, actualitza el fitxer sense canviar les propietats de la foto';
+$lang['No comments selected, no actions possible.'] = 'No s\'ha seleccionat cap comentari, no hi ha accions possibles';
+$lang['Save all photos'] = 'Desa totes les fotos';
+$lang['The comment has been validated.'] = 'El comentari s\'ha validat.';
+$lang['The comments have been validated.'] = 'Els comentaris s\'han validat.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Actualment hi ha %d fotos al vestíbul (memòria temporal de pujada)';
+$lang['Use standard Piwigo template for common pages.'] = 'Utilitza la plantilla estàndard de Piwigo per a les pàgines comunes.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Quan s\'habilita, s\'utilitza una plantilla comú per a les pàgines d\'inici de sessió, de registre i de contrasenya oblidada, independentment del tema. És possible que alguns temes utilitzin aquestes plantilles fins i tot si es desactiva aquesta opció.';
