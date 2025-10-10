@@ -1401,3 +1401,16 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Este enlace es válido por %s. Después tendrá que solicitar otro.';
 $lang['To set your password, visit the following address:'] = 'Para definir su contraseña, visite la dirección siguiente:';
 $lang['Welcome to %s'] = 'Bienvenidos a %s';
+$lang['%d photos were moved from the upload lounge to their albums'] = 'Se han movido %d fotos del vestíbulo de subida a sus álbumes.';
+$lang['Are you sure you want to delete "%d" comments?'] = '¿Está seguro de que desea suprimir "%d" comentarios?';
+$lang['Are you sure you want to delete comment #%s?'] = '¿Está seguro de que desea el comentario nº %s?';
+$lang['Empty lounge'] = 'El vestíbulo está vacío';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Si una foto de este álbum tiene el mismo nombre de archivo, actualizar el archivo sin cambiar las propiedades de la foto';
+$lang['No comments selected, no actions possible.'] = 'No se han seleccionado comentarios, no hay acciones posibles';
+$lang['Save all photos'] = 'Guardar todas las fotos';
+$lang['The comment has been validated.'] = 'El comentario se ha validado.';
+$lang['The comments have been validated.'] = 'Los comentarios se han validado.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Actualmente hay %d fotos en el vestíbulo (memoria temporal de subida)';
+$lang['Use standard Piwigo template for common pages.'] = 'Utilizar la plantilla estándar de Piwigo para las páginas comunes.';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Hemos encontrado %d vías de acceso duplicadas. Los detalles los proporciona el plugin Check Uploads (Comprobar Subidas)';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Cuando se habilita, se utiliza una plantilla común para las páginas de inicio de sesión, de registro y de contraseña olvidada, independientemente del tema. Es posible que algunos temas utilicen esas plantillas incluso si se desactiva esta opción.';
