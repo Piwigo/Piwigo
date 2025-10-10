@@ -1407,3 +1407,15 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = 'Um Ihr Passwort festzulegen, besuchen Sie die folgende Adresse:';
 $lang['Welcome to %s'] = 'Willkommen bei %s';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Wir haben %d doppelte Pfade gefunden. Details bereitgestellt vom Plugin „Check Uploads“';
+$lang['Save all photos'] = 'Alle Fotos speichern';
+$lang['The comment has been validated.'] = 'Der Kommentar wurde validiert.';
+$lang['The comments have been validated.'] = 'Die Kommentare wurden validiert.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Derzeit befinden sich %d Fotos in der Lounge (Upload-Puffer).';
+$lang['Use standard Piwigo template for common pages.'] = 'Verwenden Sie die Standardvorlage von Piwigo für allgemeine Seiten.';
+$lang['No comments selected, no actions possible.'] = 'Keine Kommentare ausgewählt, keine Aktionen möglich.';
+$lang['Empty lounge'] = 'Leere Lounge';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Wenn ein Foto in diesem Album denselben Dateinamen hat, aktualisieren Sie die Datei, ohne die Eigenschaften des Fotos zu ändern.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Wenn diese Option aktiviert ist, wird unabhängig vom Theme eine gemeinsame Vorlage für die Seiten „Anmelden“, „Registrieren“ und „Passwort vergessen“ verwendet. Einige Themes verwenden diese Vorlagen möglicherweise auch dann, wenn Sie diese Option deaktivieren.';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d Fotos wurden aus der Upload-Lounge in ihre Alben verschoben.';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Möchten Sie wirklich „%d“ Kommentare löschen?';
+$lang['Are you sure you want to delete comment #%s?'] = 'Möchten Sie den Kommentar #%s wirklich löschen?';
