@@ -1407,3 +1407,15 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = 'כדי להגדיר את הסיסמה שלך, בקר בכתובת הבאה:';
 $lang['Welcome to %s'] = 'ברוכים הבאים ל %s';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'נמצאו %d נתיבים כפולים. פרטים ניתנו על ידי התוסף Check Uploads';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d תמונות הועברו מחדר ההעלאות לאלבומים שלהן';
+$lang['Are you sure you want to delete "%d" comments?'] = 'האם אתה בטוח שברצונך למחוק "%d" תגובות?';
+$lang['Are you sure you want to delete comment #%s?'] = 'האם אתה בטוח שברצונך למחוק את התגובה מספר #%s?';
+$lang['Empty lounge'] = 'חדר ההעלאות ריק';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'אם יש תמונה באלבום זה עם אותו שם קובץ, עדכן את הקובץ ללא שינוי תכונות התמונה';
+$lang['No comments selected, no actions possible.'] = 'לא נבחרו תגובות, אין אפשרות לבצע פעולות.';
+$lang['Save all photos'] = 'שמור את כל התמונות';
+$lang['The comment has been validated.'] = 'התגובה אושרה.';
+$lang['The comments have been validated.'] = 'התגובות אושרו.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'כרגע יש %d תמונות בחדר ההעלאות (מטמון העלאה)';
+$lang['Use standard Piwigo template for common pages.'] = 'השתמש בתבנית פיוויגו הסטנדרטית לדפים משותפים.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'כאשר מופעל, תבנית משותפת משמשת לדפי התחברות, הרשמה ושחזור סיסמה, ללא קשר לערכת הנושא. ייתכן שחלק מהערכות ישתמשו בתבניות אלו גם אם אתה מבטל את האפשרות הזו.';
