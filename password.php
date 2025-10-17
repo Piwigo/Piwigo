@@ -22,7 +22,7 @@ check_status(ACCESS_FREE);
 
 trigger_notify('loc_begin_password');
 
-check_input_parameter('action', $_GET, false, '/^(lost|reset|none)$/');
+check_input_parameter('action', $_GET, false, '/^(lost|reset|lost_code|none)$/');
 
 // +-----------------------------------------------------------------------+
 // | Functions                                                             |
@@ -30,71 +30,160 @@ check_input_parameter('action', $_GET, false, '/^(lost|reset|none)$/');
 
 /**
  * checks the validity of input parameters, fills $page['errors'] and
- * $page['infos'] and send an email with confirmation link
+ * $page['infos'] and send an email with the verification code
+ *
+ * @return bool
+ */
+function process_verification_code()
+{
+  global $page, $conf, $logger;
+  
+  if (isset($_SESSION['reset_password_code']))
+  {
+    return true;
+  }
+  
+  // empty param
+  $username_or_email = trim($_POST['username_or_email']);
+  if (empty($username_or_email))
+  {
+    $page['errors']['password_form_error'] = l10n('Invalid username or email');
+    return false;
+  }
+
+  // retrievies user by email is not try by username
+  $user_id = get_userid_by_email($username_or_email);
+
+  if (!is_numeric($user_id))
+  {
+    $user_id = get_userid($username_or_email);
+  }
+
+  // when no user is found, we assign guest_id instead of stopping.
+  // this lets the function behave identically for unknown users,
+  // preventing username/email enumeration through timing or responses.
+  $is_user_founded = is_numeric($user_id);
+  if (!$is_user_founded)
+  {
+    $user_id = $conf['guest_id'];
+  }
+
+  $userdata = getuserdata($user_id, false);
+
+  // check if we want to skip email sending
+  // if user is guest, generic or doesn't have email
+  $status = $userdata['status'];
+  $skip_mail = !$is_user_founded or is_a_guest($status) or is_generic($status) or empty($userdata['email']);
+
+  // send mail with verification code to user
+  switch_lang_to($userdata['language']);
+  $user_code = generate_user_code();
+  $template_mail = pwg_generate_code_verification_mail($user_code['code']);
+  if (!$skip_mail)
+  {
+    $mail_send = pwg_mail($userdata['email'], $template_mail);
+    // pwg_activity('user', $userdata['id'], 'reset_password_code', array(
+    //   'ip' => $_SERVER['REMOTE_ADDR'], 
+    //   'agent' => $_SERVER['HTTP_USER_AGENT'],
+    //   'is_mail_sent' => $mail_send
+    // ));
+  }
+  switch_lang_back();
+
+  $_SESSION['reset_password_code'] = [
+      'secret' => $user_code['secret'],
+      'attempts' => 0,
+      'user_id' => $is_user_founded ? $user_id : null,
+      'created_at' => time(),
+      'ttl' => min($conf['password_reset_code_duration'], 900) // max 15 min
+    ];
+
+  return true;
+}
+
+/**
+ * checks the validity of input parameters, fills $page['errors'] and
+ * $page['infos'] and send an email with reset link
  *
  * @return bool (true if email was sent, false otherwise)
  */
 function process_password_request()
 {
   global $page, $conf;
-  
-  if (empty($_POST['username_or_email']))
+
+  $state = $_SESSION['reset_password_code'] ?? null;
+  if (!$state)
   {
-    $page['errors'][] = l10n('Invalid username or email');
+    return true; // fallback line 366
+  }
+
+  // check expired
+  if (time() > $state['created_at'] + $state['ttl'])
+  {
+    unset($_SESSION['reset_password_code']);
+    $page['errors']['password_form_error'] = l10n('Code expired');
     return false;
   }
-  
-  $user_id = get_userid_by_email($_POST['username_or_email']);
+
+  $_SESSION['reset_password_code']['attempts']++;
     
-  if (!is_numeric($user_id))
+  $is_valid = true;
+  $user_code = trim($_POST['user_code'] ?? '');
+
+  if (
+    empty($user_code) // empty user code
+    || !preg_match('/^\d{6}$/', $user_code) // check digit 6
+    || !verify_user_code($state['secret'], $user_code)) // verify user code
   {
-    $user_id = get_userid($_POST['username_or_email']);
+    $is_valid = false;
   }
 
-  if (!is_numeric($user_id))
+  if (!$is_valid)
   {
-    $page['errors'][] = l10n('Invalid username or email');
+    if ($_SESSION['reset_password_code']['attempts'] >= 3)
+    {
+      unset($_SESSION['reset_password_code']);
+      $page['errors']['login_page_error'] = l10n('Too many attempts');
+      return false;
+    }
+
+    $page['errors']['password_form_error'] = l10n('Invalid verification code');
     return false;
   }
 
-  $userdata = getuserdata($user_id, false);
+  // verify code success
+  $user_id = $state['user_id'];
+  unset($_SESSION['reset_password_code']);
 
-  // password request is not possible for guest/generic users
-  $status = $userdata['status'];
-  if (is_a_guest($status) or is_generic($status))
+  if (empty($user_id))
   {
-    $page['errors'][] = l10n('Password reset is not allowed for this user');
+    $page['errors']['password_form_error'] = l10n('Invalid verification code');
     return false;
   }
 
-  if (empty($userdata['email']))
+  $userdata = getuserdata($user_id);
+  $status = $userdata['status'] ?? null;
+
+  // fallback check: don't send mail when user is guest, generic or doesn't have email
+  if (is_a_guest($status) || is_generic($status) || empty($userdata['email']))
   {
-    $page['errors'][] = l10n(
-      'User "%s" has no email address, password reset is not possible',
-      $userdata['username']
-      );
+    $page['errors']['password_form_error'] = l10n('Password reset is not allowed for this user');
     return false;
   }
 
   $generate_link = generate_password_link($user_id);
-  
-  // $userdata['activation_key'] = $generate_link['activation_key'];
-
   switch_lang_to($userdata['language']);
   $email_params = pwg_generate_reset_password_mail($userdata['username'], $generate_link['password_link'], $conf['gallery_title'], $generate_link['time_validation']);
   $send_email = pwg_mail($userdata['email'], $email_params);
   switch_lang_back();
 
-  if ($send_email)
-  {
-    $page['infos'][] = l10n('Check your email for the confirmation link');
-    return true;
-  }
-  else
-  {
-    $page['errors'][] = l10n('Error sending email');
-    return false;
-  }
+  // pwg_activity('user', $userdata['id'], 'reset_password_link', array(
+  //   'ip' => $_SERVER['REMOTE_ADDR'], 
+  //   'agent' => $_SERVER['HTTP_USER_AGENT'],
+  //   'is_mail_sent' => $send_email
+  // ));
+
+  return true;
 }
 
 /**
@@ -200,8 +289,18 @@ if (isset($_POST['submit']))
   
   if ('lost' == $_GET['action'])
   {
+    if (process_verification_code())
+    {
+      $page['infos'][] = l10n('An email has been sent with a verification code');
+      $page['action'] = 'lost_code';
+    }
+  }
+
+  if ('lost_code' == $_GET['action'])
+  {
     if (process_password_request())
     {
+      $page['infos'][] = l10n('An email has been sent with a link to reset your password');
       $page['action'] = 'none';
     }
   }
@@ -253,7 +352,7 @@ if (!isset($page['action']))
   {
     $page['action'] = 'lost';
   }
-  elseif (in_array($_GET['action'], array('lost', 'reset', 'none')))
+  elseif (in_array($_GET['action'], array('lost', 'lost_code', 'reset', 'none')))
   {
     $page['action'] = $_GET['action'];
   }
@@ -267,6 +366,16 @@ if ('reset' == $page['action'] and !isset($_GET['key']) and (is_a_guest() or is_
 if ('lost' == $page['action'] and !is_a_guest())
 {
   redirect(get_gallery_home_url());
+}
+
+if ('lost_code' == $page['action'] and !isset($_SESSION['reset_password_code']))
+{
+  redirect(get_gallery_home_url(). 'identification.php');
+}
+
+if ('lost' == $page['action'] and isset($_SESSION['reset_password_code']))
+{
+  $page['action'] = 'lost_code';
 }
 
 // +-----------------------------------------------------------------------+
