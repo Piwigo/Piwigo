@@ -37,14 +37,14 @@
   <section id="password-form">
     <div class="">
 
-{if $action eq 'lost' or $action eq 'reset'}
+{if $action eq 'lost' or $action eq 'reset' or $action eq 'lost_code'}
 <h1 class="">{if !isset($is_first_login)}{'Forgot your password?'|translate}{else}{'Welcome !'|translate}<br>{'It\'s your first login !'|translate}{/if}</h1>
     <form id="lostPassword" class="properties" action="{$form_action}?action={$action}{if isset($key)}&amp;key={$key}{/if}" method="post">
 
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
   {if $action eq 'lost'}
 
-      <p class="form-instructions">{'Please enter your username or email address.'|@translate}<br>{'You will receive a link to create a new password via email.'|@translate}</p>
+      <p class="form-instructions">{'Please enter your username or email address.'|@translate} {'You will receive a link to create a new password via email.'|@translate}</p>
 
       <div class="column-flex">
         <label for="username">{'Username or email'|@translate}</label>
@@ -105,6 +105,24 @@
       <input tabindex="4" type="submit" name="submit" {if !isset($is_first_login)}value="{'Confirm my new password'|@translate}"{else}value="{'Set my password'|@translate}"{/if} class="btn btn-main ">
     </div>
 
+  {elseif $action eq 'lost_code'}
+    <span class="success-message"><i class="gallery-icon-ok-circled"></i>{'An email has been sent with a verification code'|translate}</span>
+    <div class="column-flex">
+      <label for="user_code">{'Verification code'|@translate}</label>
+      <div class="row-flex input-container">
+        <i class="gallery-icon-user-2"></i>
+        <input type="text" id="user_code" name="user_code" size="100" maxlength="100" autofocus>
+      </div>
+      <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
+    </div>
+
+    <div class="column-flex">
+      <input tabindex="4" type="submit" name="submit" value="{'Verify'|@translate}" class="btn btn-main">
+      {if isset($errors['password_form_error'])}
+      <p class="error-message" style="display:block;bottom:-20px;"><i class="gallery-icon-attention-circled"></i> {$errors['password_form_error']}</p>
+      {/if}
+      <p style="font-size: 12px;">{"If you do not receive the email, please contact your webmaster."|translate}</p>
+    </div>
   {/if}
       </form>
 

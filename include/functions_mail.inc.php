@@ -1077,6 +1077,33 @@ function pwg_generate_set_password_mail($username, $set_password_link, $gallery_
     );
 }
 
+/**
+ * Generate content mail for user code verification
+ * 
+ * Return the content mail to send
+ * @since 16
+ * @param string $code
+ * @return array mail content
+ */
+function pwg_generate_code_verification_mail($code)
+{
+  global $conf;
+  set_make_full_url();
+  $message = '<p style="margin: 20px 0">';
+  $message.= l10n('Here is your verification code:').' <br />';
+  $message.= '<span style="font-size: 16px">'. $code .'</span></p>';
+  $message.= '<p style="margin: 20px 0;">';
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.') . '</p>';
+  unset_make_full_url();
+
+  $subject = '['.$conf['gallery_title'].'] '.l10n('Your verification code');
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+  );
+}
+
 trigger_notify('functions_mail_included');
 
 ?>

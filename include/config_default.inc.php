@@ -635,6 +635,11 @@ $conf['password_reset_duration'] = 60*60;
 // of an password activation link. Default value is 72 hours (259200 seconds).
 $conf['password_activation_duration'] = 3*24*60*60;
 
+// password_reset_code_duration: defines the validity duration (in seconds)
+// for the verification code sent before genrating the reset link.
+// Default value is 5 minutes (max = 15 minutes)
+$conf['password_reset_code_duration'] = 5 * 60;
+
 // +-----------------------------------------------------------------------+
 // |                               history                                 |
 // +-----------------------------------------------------------------------+

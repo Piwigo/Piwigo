@@ -2708,4 +2708,40 @@ function notification_api_key_expiration($username, $email, $days_left)
 
   return $result;
 }
+
+/**
+ * Generate an user code for verification
+ *
+ * @since 16
+ * @return array [$secret, $code]
+ */
+function generate_user_code()
+{
+  global $conf;
+  
+  require_once(PHPWG_ROOT_PATH . 'include/totp.class.php');
+  $secret = PwgTOTP::generateSecret();
+  $code = PwgTOTP::generateCode($secret, min($conf['password_reset_code_duration'], 900)); // max 15 minutes
+
+  return array(
+    'secret' => $secret,
+    'code' => $code
+  );
+}
+
+/**
+ * Verify user code
+ *
+ * @since 16
+ * @param string $secret
+ * @param string $code
+ * @return bool
+ */
+function verify_user_code($secret, $code)
+{
+  global $conf;
+
+  require_once(PHPWG_ROOT_PATH . 'include/totp.class.php');
+  return PwgTOTP::verifyCode($code, $secret, min($conf['password_reset_code_duration'], 900), 1);
+}
 ?>

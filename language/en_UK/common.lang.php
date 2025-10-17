@@ -524,3 +524,8 @@ $lang['Your API key will expire in %d days.'] = 'Your API key will expire in %d 
 $lang['To continue using the API, please renew your key before it expires.'] = 'To continue using the API, please renew your key before it expires.';
 $lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'You can manage your API keys in your <a href="%s">account settings.</a>';
 $lang['Expert mode'] = 'Expert mode';
+$lang['An email has been sent with a verification code'] = 'An email has been sent with a verification code';
+$lang['If you do not receive the email, please contact your webmaster.'] = 'If you do not receive the email, please contact your webmaster.';
+$lang['Verification code'] = 'Verification code';
+$lang['Verify'] = 'Verify';
+$lang['Invalid verification code'] = 'Invalid verification code';
