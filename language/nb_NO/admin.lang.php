@@ -1400,3 +1400,16 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Denne lenken er gyldig for %s. Etter dette tidspunktet må du be om en ny lenke.';
 $lang['To set your password, visit the following address:'] = 'For å angi passordet ditt, besøk følgende adresse:';
 $lang['Welcome to %s'] = 'Velkommen til %s';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d bilder ble flyttet fra opplastingsloungen til albumene deres';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Er du sikker på at du vil slette kommentarer «%d»?';
+$lang['Are you sure you want to delete comment #%s?'] = 'Er du sikker på at du vil slette kommentar #%s?';
+$lang['Empty lounge'] = 'Tom lounge';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Hvis et bilde i dette albumet har samme filnavn, oppdater filen uten å endre bildets egenskaper.';
+$lang['No comments selected, no actions possible.'] = 'Ingen kommentarer er valgt, ingen handlinger mulige.';
+$lang['Save all photos'] = 'Lagre alle bildene';
+$lang['The comment has been validated.'] = 'Kommentaren er bekreftet.';
+$lang['The comments have been validated.'] = 'Kommentarene er bekreftet.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Det er for øyeblikket %d bilder i loungen (opplastingsbuffer)';
+$lang['Use standard Piwigo template for common pages.'] = 'Bruk standard Piwigo-mal for vanlige sider.';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Vi har funnet %d dupliserte stier. Detaljer levert av programtillegget Sjekk Opplastinger';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Når dette alternativet er aktivert, brukes en felles mal for innlogging, registrering og glemt passord-sider, uavhengig av tema. Noen temaer kan bruke disse malene selv om du fjerner merket for dette alternativet.';

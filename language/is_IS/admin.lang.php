@@ -1400,3 +1400,16 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Þessi hlekkur gildir fyrir %s. Eftir þennan tíma þarftu að biðja um nýjan hlekk.';
 $lang['To set your password, visit the following address:'] = 'Til að stilla lykilorðið þitt skaltu fara á eftirfarandi veffang:';
 $lang['Welcome to %s'] = 'Velkomin í %s';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Við fundum %d tvíteknar slóðir. Upplýsingar frá viðbótinni Check Uploads';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d myndir voru færðar úr upphleðslustofunni í viðeigandi albúm';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Ertu viss um að þú viljir eyða "%d" athugasemdum?';
+$lang['Are you sure you want to delete comment #%s?'] = 'Ertu viss um að þú viljir eyða athugasemd #%s?';
+$lang['Empty lounge'] = 'Tæma setustofu';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Ef mynd í þessu albúmi hefur sama skráarnafn, uppfærðu skrána án þess að breyta eiginleikum myndarinnar.';
+$lang['No comments selected, no actions possible.'] = 'Engar athugasemdir valdar, engar aðgerðir mögulegar.';
+$lang['Save all photos'] = 'Vista allar myndir';
+$lang['The comment has been validated.'] = 'Athugasemdin hefur verið staðfest.';
+$lang['The comments have been validated.'] = 'Athugasemdirnar hafa verið staðfestar.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Það eru %d myndir í setustofunni núna (upphleðslubiðminni)';
+$lang['Use standard Piwigo template for common pages.'] = 'Notið staðlað Piwigo sniðmát fyrir algengar síður.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Þegar þetta er virkjað er sameiginlegt sniðmát notað fyrir síðurnar innskráning, skráning og gleymd lykilorð óháð þema. Sum þemu gætu notað þessi sniðmát jafnvel þótt þú hakir ekki við þennan valkost.';

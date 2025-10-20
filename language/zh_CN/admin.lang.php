@@ -1408,3 +1408,4 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = '此链接有效期为 %s。过了这个时间，您需要请求一个新链接。';
 $lang['To set your password, visit the following address:'] = '要设置您的密码，请访问以下地址：';
 $lang['Welcome to %s'] = '欢迎访问%s';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = '我们发现存在 %d 个重复路径，详情由 Check Uploads 插件提供。';

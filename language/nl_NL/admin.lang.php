@@ -1404,3 +1404,4 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['An activation link valid for %s has been sent to "%s". If the user doesn\'t receive the link, you can generate and copy a new one by editing the user and managing her password.'] = 'Een activeringslink geldig voor %s is verzonden naar "%s". Als de link niet toekomt, kan een nieuwe link gegenereerd en gekopieerd worden door de gebruiker te editeren en het wachtwoord te beheren.';
 $lang['A photo library administrator has created the following account for you:'] = 'Een beheerder van een fotobibliotheek heeft volgend account voor u aangemaakt:';
 $lang['Welcome to %s'] = 'Welkom bij %s';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'We hebben %d dubbele paden gevonden. Details worden geleverd door de plugin Check Uploads';
