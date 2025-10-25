@@ -1405,3 +1405,15 @@ $lang['An activation link valid for %s has been sent to "%s". If the user doesn\
 $lang['A photo library administrator has created the following account for you:'] = 'Een beheerder van een fotobibliotheek heeft volgend account voor u aangemaakt:';
 $lang['Welcome to %s'] = 'Welkom bij %s';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'We hebben %d dubbele paden gevonden. Details worden geleverd door de plugin Check Uploads';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Er zijn momenteel %d foto\'s in de buffer(uploadbuffer)';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Indien ingeschakeld, wordt een gemeenschappelijke sjabloon gebruikt voor de inlog-, registratie- en wachtwoord-vergeten pagina\'s, ongeacht het thema. Sommige thema\'s gebruiken deze sjablonen mogelijk zelfs als u deze optie uitschakelt.';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Als een foto in dit album dezelfde bestandsnaam heeft, werk het bestand bij zonder de foto\'s eigenschappen te wijzigen. ';
+$lang['Use standard Piwigo template for common pages.'] = 'Gebruik de standaard Piwigo sjabloon voor gemeenschappelijke pagina\'s';
+$lang['No comments selected, no actions possible.'] = 'Geen opmerkingen geselecteerd, geen acties mogelijk. ';
+$lang['The comment has been validated.'] = 'De opmerkingen is goedgekeurd';
+$lang['The comments have been validated.'] = 'De opmerkingen zijn goedgekeurd';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d foto\'s werden verplaatst van de upload buffer naar hun fotoalbums';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Weet je zeker dat je %d opmerkingen wil verwijderen? ';
+$lang['Are you sure you want to delete comment #%s?'] = 'Weet je zeker dat je opmerking #%s wil verwijderen? ';
+$lang['Empty lounge'] = 'Leeg buffer';
+$lang['Save all photos'] = 'Bewaar alle foto\'s';
