@@ -112,21 +112,12 @@ $display_info_checkboxes = array(
     'rating_score',
   );
 
-$filters_names_checkboxes = array(
-  'words',
-  'tags',
-  'post_date',
-  'creation_date',
-  'album',
-  'author',
-  'added_by',
-  'file_type',
-  'ratio',
-  'rating',
-  'file_size',
-  'height',
-  'width'
-);
+if (!isset($conf['filters_views']))
+{
+  conf_update_param('filters_views', $conf['default_filters_views'], true);
+}
+
+$filters_names_checkboxes = array_diff(array_keys(safe_unserialize($conf['filters_views'])), array('last_filters_conf'));
 
 // image order management
 $sort_fields = array(
@@ -701,7 +692,7 @@ switch ($page['section'])
     $template->assign(
       'search',
         array(
-          'filters_views' => unserialize($conf['filters_views']),
+          'filters_views' => safe_unserialize($conf['filters_views']),
           'filters_names' => $filters_names,
         ),
     );
