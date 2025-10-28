@@ -191,11 +191,12 @@ const prefix_icon = 'gallery-icon-';
         </label>
         {/if}
 
+{if $display_filter.expert.access == 'everybody' or ($display_filter.expert.access == 'admins-only' and is_admin()) or ($display_filter.expert.access == 'registered-users' and is_classic_user())}
         <label>
           <input data-wid='expert' class="filter-manager-controller expert" type="checkbox"/>
           <span class="mcs-icon gallery-icon-chemistry">{'Expert mode'|translate}</span>
         </label>
-
+{/if}
       </div>
 
       <div class="filter-manager-actions">

@@ -1420,5 +1420,6 @@ $lang['If a photo in this album has the same filename, update the file without c
 $lang['Empty lounge'] = 'Empty lounge';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'There is currently %d photos in the lounge (upload buffer)';
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d photos were moved from the upload lounge to their albums';
+$lang['Admins only'] = 'Admins only';
 
 // Leave this line empty

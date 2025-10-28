@@ -28,37 +28,27 @@ $search = array(
 );
 
 // list of filters in user preferences
-// allwords, cat, tags, author, added_by, filetypes, date_posted, date_created, ratios, ratings (if rating is allowed in this Piwigo), height, width
-//import the conf for the filters
-if (isset($conf['filters_views']))
-{
-  $filters_conf = unserialize($conf['filters_views']);
-}
-else
-{
-  $filters_conf = unserialize('a:14:{s:5:"words";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:4:"tags";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"post_date";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:13:"creation_date";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:5:"album";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:1;}s:6:"author";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:8:"added_by";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"file_type";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:5:"ratio";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:6:"rating";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:9:"file_size";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:6:"height";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:5:"width";a:2:{s:6:"access";s:9:"everybody";s:7:"default";b:0;}s:17:"last_filters_conf";b:1;}');
-}
+$filters_views = safe_unserialize(conf_get_param('filters_views', $conf['default_filters_views']));
 
 //change the name of the keys so that they can be used with this part of the program
-$filters_conf = array_combine
-(
-  array('allwords',
-  'tags',
-  'date_posted',
-  'date_created',
-  'cat',
-  'author',
-  'added_by',
-  'filetypes',
-  'ratios',
-  'ratings',
-  'filesize',
-  'height',
-  'width',
-  'last_filters_conf'
-  ),
-  $filters_conf
+$filter_rename_for = array(
+  'words'          => 'allwords',
+  'post_date'      => 'date_posted',
+  'creation_date'  => 'date_created',
+  'album'          => 'cat',
+  'file_type'      => 'filetypes',
+  'ratio'          => 'ratios',
+  'rating'         => 'ratings',
+  'file_size'      => 'filesize',
 );
+
+$filters_conf = array();
+foreach ($filters_views as $filter_name => $filter_value)
+{
+  $key = isset($filter_rename_for[$filter_name]) ? $filter_rename_for[$filter_name] : $filter_name;
+
+  $filters_conf[$key] = $filter_value;
+}
 
 //get all default filters
 $default_fields = array();

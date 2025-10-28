@@ -8454,7 +8454,7 @@ color:#FF7B00;
 /* Filters options */
 .filters-grid{
   display: grid;
-  grid-template-columns: 200px 118px 25px;
+  grid-template-columns: 200px 150px 25px;
   margin-bottom: 0px !important;
 }
 .select-views{
@@ -8468,7 +8468,7 @@ color:#FF7B00;
 .select-views-arrow{
   display: flex;
   position: absolute;
-  margin-left: 299.9px;
+  margin-left: 333px;
   margin-top: 5px;
   pointer-events: none;
 }

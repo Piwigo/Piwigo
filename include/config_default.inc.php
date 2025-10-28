@@ -1054,6 +1054,7 @@ $conf['default_filters_views'] = array(
   'file_size'      => ['access'=>'everybody', 'default'=>false],
   'height'         => ['access'=>'everybody', 'default'=>false],
   'width'          => ['access'=>'everybody', 'default'=>false],
+  'expert'         => ['access'=>'everybody', 'default'=>false],
 
   'last_filters_conf' => true,
 );

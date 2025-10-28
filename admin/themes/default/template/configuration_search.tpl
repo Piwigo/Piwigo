@@ -2,22 +2,7 @@
 
 {footer_script}
 
-filters_names = 
-[
-  'words',
-  'tags',
-  'post_date',
-  'creation_date',
-  'album',
-  'author',
-  'added_by',
-  'file_type',
-  'ratio',
-  'rating',
-  'file_size',
-  'height',
-  'width'
-];
+const filters_names = {$search.filters_names|json_encode};
 
 for(const filter_name of filters_names){
   if(!$("input#"+filter_name+"Filters").is(':checked')){
@@ -91,6 +76,8 @@ for(const filter_name of filters_names){
           >
           {if $filter_name == 'words'}
             {'Search for words'|translate}
+          {else if $filter_name == 'expert'}
+            {'Expert mode'|translate}
           {else if $filter_name == 'file_size'}
             {'Filesize'|translate}
           {else}
@@ -100,7 +87,7 @@ for(const filter_name of filters_names){
         <div class='select-views-arrow icon-down-open' id="{$filter_name}Arrow"> </div>
         <select name="filters_views[{$filter_name}][access]" id="f{$filter_name}Select" class="select-views">
           <option value="everybody" {if ($search.filters_views.$filter_name.access == "everybody")}selected{/if}>{'Everybody'|translate}</option>
-          <option value="registered-users" {if ($search.filters_views.$filter_name.access == "registered-users")}selected{/if}>{'Registered users'|translate}</option>
+          <option value="registered-users" {if ($search.filters_views.$filter_name.access == "registered-users")}selected{/if}>{'registered users'|translate|ucfirst}</option>
           <option value="admins-only" id="{$filter_name}Admin" {if ($search.filters_views.$filter_name.access == "admins-only")}selected{/if}>{'Admins only'|translate}</option>
         </select>
         <div class='icon-users select-views-admin' id="{$filter_name}AdminIcon"> </div>
@@ -225,7 +212,14 @@ for(const filter_name of filters_names){
       {/if} 
       hidden/>
     </label>
-
+    <label class="filter-manager-options-container">
+      <span class="mcs-icon-options gallery-icon-chemistry">{'Expert mode'|translate}</span>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[expert][default]" id="default_expert" 
+      {if ($search.filters_views.expert.default)}
+        checked="checked"
+      {/if} 
+      hidden/>
+    </label>
   </fieldset>
 
 </div>

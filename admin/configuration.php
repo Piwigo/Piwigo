@@ -117,7 +117,7 @@ if (!isset($conf['filters_views']))
   conf_update_param('filters_views', $conf['default_filters_views'], true);
 }
 
-$filters_names_checkboxes = array_diff(array_keys(safe_unserialize($conf['filters_views'])), array('last_filters_conf'));
+$filters_names_checkboxes = array_values(array_diff(array_keys(safe_unserialize($conf['filters_views'])), array('last_filters_conf')));
 
 // image order management
 $sort_fields = array(
@@ -688,12 +688,11 @@ switch ($page['section'])
   }
   case 'search':
   {
-    $filters_names = $filters_names_checkboxes;
     $template->assign(
       'search',
         array(
           'filters_views' => safe_unserialize($conf['filters_views']),
-          'filters_names' => $filters_names,
+          'filters_names' => $filters_names_checkboxes,
         ),
     );
     $template->assign('SHOW_FILTER_RATINGS', $conf['rate']);

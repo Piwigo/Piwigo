@@ -109,7 +109,14 @@ if ('search' == $page['section'] and isset($page['search_details']))
 
   if (isset($my_search['fields']['expert']))
   {
-    load_language('help_quick_search.lang');
+    if (!$display_filters['expert']['access'])
+    {
+      unset($my_search['fields']['expert']);
+    }
+    else
+    {
+      load_language('help_quick_search.lang');
+    }
   }
 
   if (isset($my_search['fields']['author']) and $display_filters['author']['access'])
