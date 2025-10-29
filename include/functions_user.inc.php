@@ -2608,6 +2608,8 @@ SELECT
     $api_key['apikey_secret'] = str_repeat("*", 40);
     unset($api_key['auth_key_id'], $api_key['user_id'], $api_key['key_type']);
 
+    $api_key['apikey_name'] = stripslashes($api_key['apikey_name']);
+
     $api_key['created_on_format'] = format_date($api_key['created_on'], array('day', 'month', 'year'));
     $api_key['expired_on_format'] = format_date($api_key['expired_on'], array('day', 'month', 'year'));
     $api_key['last_used_on_since'] = 
