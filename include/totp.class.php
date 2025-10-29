@@ -2,6 +2,7 @@
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
 require_once(PHPWG_ROOT_PATH . 'include/base32.class.php');
+require_once(PHPWG_ROOT_PATH . 'include/phpqrcode.php');
 
 class PwgTOTP
 {
@@ -62,14 +63,13 @@ class PwgTOTP
    */
   public static function getQrCode($secret)
   {
-    // require_once(TF_REALPATH . 'include/phpqrcode.php');
-    // $otp_url = self::getOtpAuthUrl($secret);
+    $otp_url = self::getOtpAuthUrl($secret);
     
-    // ob_start();
-    // QRcode::png($otp_url);    
-    // $qrcode_image = ob_get_clean();
-    // $base64_qrcode = base64_encode($qrcode_image);
-    // return 'data:image/png;base64,' . $base64_qrcode;
+    ob_start();
+    QRcode::png($otp_url);    
+    $qrcode_image = ob_get_clean();
+    $base64_qrcode = base64_encode($qrcode_image);
+    return 'data:image/png;base64,' . $base64_qrcode;
   }
 
   /**
