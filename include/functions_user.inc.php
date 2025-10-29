@@ -1677,10 +1677,7 @@ function auth_key_login($auth_key, $connection_by_header=false)
   {
     $valid_key = 'auth_key';
   }
-  else if (
-    preg_match('/^pkid-\d{8}-[a-z0-9]{20}:[a-z0-9]{40}$/i', $auth_key)
-    and $connection_by_header
-    )
+  else if (preg_match('/^pkid-\d{8}-[a-z0-9]{20}:[a-z0-9]{40}$/i', $auth_key))
   {
     $valid_key = 'api_key';
     $tmp_key = explode(':', $auth_key);
