@@ -350,14 +350,11 @@ input[type="text"] {
 }
 
 .header-setting {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .header-setting input {
-    max-width: 580px;
-    width: 100%;
+    width: 98%;
 }
 
 .header-description {
@@ -368,8 +365,12 @@ input[type="text"] {
 .header-warning {
     margin: 0;
     color: red;
-    font-size: 12px;
+    font-size: 10px;
     font-style: italic;
+}
+
+.header-label {
+    margin-bottom: 0;
 }
 
 /* #requestResultDisplay {
