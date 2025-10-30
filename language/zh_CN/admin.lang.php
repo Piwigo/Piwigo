@@ -1409,3 +1409,15 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = '要设置您的密码，请访问以下地址：';
 $lang['Welcome to %s'] = '欢迎访问%s';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = '我们发现存在 %d 个重复路径，详情由 Check Uploads 插件提供。';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d张照片已从上传暂存区移至其相册';
+$lang['Are you sure you want to delete "%d" comments?'] = '你确定要删除"%d"条评论吗？';
+$lang['Are you sure you want to delete comment #%s?'] = '你确定要删除评论#%s吗？';
+$lang['Empty lounge'] = '清空上传暂存区';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = '如果此相册中的照片具有相同的文件名，则更新文件而不更改照片的属性';
+$lang['No comments selected, no actions possible.'] = '未选择任何评论，无法执行操作。';
+$lang['Save all photos'] = '保存所有照片';
+$lang['The comment has been validated.'] = '该评论已通过验证。';
+$lang['The comments have been validated.'] = '这些评论已通过验证。';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = '当前暂存区（上传缓冲区）中有%d张照片';
+$lang['Use standard Piwigo template for common pages.'] = '为通用页面使用标准Piwigo模板。';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = '启用后，登录、注册和忘记密码页面将使用通用模板，无论使用何种主题。某些主题即使取消选中此选项，也可能会使用这些模板。';
