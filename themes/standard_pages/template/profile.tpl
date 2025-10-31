@@ -36,8 +36,8 @@ opt_hits: {$DEFAULT_USER_VALUES['show_nb_hits']},
 const selected_date = "{$API_SELECTED_EXPIRATION}";
 const can_manage_api = {($API_CAN_MANAGE) ? "true" : "false"};
 
-const str_copy_key_id = "{"Public key copied."|translate|escape:javascript}";
-const str_copy_key_secret = "{"Secret key copied. Keep it in a safe place."|translate|escape:javascript}";
+const str_copy_key_id = "{"ID copied."|translate|escape:javascript}";
+const str_copy_key_secret = "{"Secret copied. Keep it in a safe place."|translate|escape:javascript}";
 const str_cant_copy = "{"Impossible to copy automatically. Please copy manually."|translate|escape:javascript}";
 const str_api_added = "{"The api key has been successfully created."|translate|escape:javascript}";
 const str_revoked = "{"Revoked"|translate|escape:javascript}";
@@ -293,10 +293,10 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
                 <i class="gallery-icon-hash"></i>
                 <p class="api_key"></p>
                 <i class="icon-clone" data-copy="" data-success=""></i>
-                <p id="" class="api-copy api-hide success-message">{"Public key copied."|translate|escape:html}</p>
+                <p id="" class="api-copy api-hide success-message">{"ID copied."|translate|escape:html}</p>
               </div>
               <div class="row-flex key">
-                <i class="icon-key"></i>
+                <i class="icon-user-secret"></i>
                 <p>{"The secret key can no longer be displayed."|translate}</p>
               </div>
             </div>
@@ -365,14 +365,14 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
         <div id="retrieves_keyapi">
           <div class="head-modal">
             <p class="title-modal">{'Generate API Key'|translate}</p>
-            <p class="subtitle-modal">{'Save your secret Key and ID'|translate}</p>
-            <p class="modal-secret">{'This will not be displayed again. You must copy it to continue.'|translate}
+            <p class="subtitle-modal">{'Save your ID and secret'|translate}</p>
+            <p class="modal-secret">{'The secret will no longer be displayed. You must copy it to continue.'|translate}
             <p>
           </div>
 
           <div class="modal-input-keys">
             <p id="api_id_copy_success" class="api-copy api-hide success-message">
-              {"Public key copied."|translate|escape:html}</p>
+              {"ID copied."|translate|escape:html}</p>
           </div>
           <div class="input-modal input-modal-id row-flex">
             <i class="gallery-icon-hash"></i>
@@ -382,10 +382,10 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
 
           <div class="modal-input-keys">
             <p id="api_key_copy_success" class="modal-input-key api-copy api-hide success-message">
-              {"Secret key copied. Keep it in a safe place."|translate|escape:html}</p>
+              {"Secret copied. Keep it in a safe place."|translate|escape:html}</p>
           </div>
           <div class="input-modal input-modal-key row-flex">
-            <i class="icon-key"></i>
+            <i class="icon-user-secret"></i>
             <input type="text" id="api_secret_key" />
             <i class="icon-clone" id="api_secret_copy"></i>
           </div>
