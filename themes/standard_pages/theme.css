@@ -382,7 +382,8 @@ a.btn-main{
   text-decoration:underline;
 }
 
-.success-message{
+.success-message,
+.infos-message {
   width: calc(100% - 34px);
   display: block;
   padding: 15px;
@@ -950,6 +951,12 @@ input:checked + .slider:before, input:checked + .slider::after {
   border-left: 4px solid #6DCE5E;
 }
 
+.light .infos-message{
+  background-color: #bde5f8;
+  color: #00529b !important;
+  border-left: 4px solid #00529b;
+}
+
 .light input:checked + .slider {
   background-color: #FFA646;
 }
@@ -1075,6 +1082,12 @@ input:checked + .slider:before, input:checked + .slider::after {
   background-color: #4EA590;
   color: #AAF6E4 !important;
   border-left: 4px solid #AAF6E4;
+}
+
+.dark .infos-message{
+  background-color: #4f71a4;
+  color: #bad6ff !important;
+  border-left: 4px solid #bad6ff;
 }
 
 .dark .btn-secondary {
