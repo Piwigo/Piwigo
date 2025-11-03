@@ -2743,4 +2743,52 @@ function verify_user_code($secret, $code)
   require_once(PHPWG_ROOT_PATH . 'include/totp.class.php');
   return PwgTOTP::verifyCode($code, $secret, min($conf['password_reset_code_duration'], 900), 1);
 }
+
+/**
+ * Register in the user session, the "context" of the last 10 viewed images.
+ *
+ * @since 16
+ */
+function save_edit_context()
+{
+  global $page;
+
+  if (!is_admin() or !isset($page['section_url']) or !isset($page['image_id']))
+  {
+    return;
+  }
+
+  $_SESSION['edit_context'] ??= [];
+
+  // the $page['section_url'] is set in the include/section_init script. It
+  // contains the URL describing the "context" of the photo. Examples:
+  //
+  // * /198/list/2,69,198
+  // * /198/category/18801-yes_man
+  // * /198/tags/27-city_nantes/28-city_rennes
+  // * /198/search/psk-20251103-lqCHHAFSZY/posted-monthly-list-2025-3
+  //
+  // same photo #198 in different context. We need it to propose the best
+  // return page on the photo edit page in the administration.
+
+  // let's add the item on top of previous registered values and keep only the last 10 values
+  $_SESSION['edit_context'] = array_slice(array($page['image_id'] => $page['section_url']) + $_SESSION['edit_context'], 0, 10, true);
+}
+
+/**
+ * Returns the "context" of the requested image.
+ *
+ * @since 16
+ * @param int $image_id
+ * @return string|bool
+ */
+function get_edit_context($image_id)
+{
+  if (!isset($_SESSION['edit_context'][$image_id]))
+  {
+    return false;
+  }
+
+  return preg_replace('/^\/'.$image_id.'\//', '', $_SESSION['edit_context'][$image_id]);
+}
 ?>

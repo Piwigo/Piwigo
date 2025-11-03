@@ -19,7 +19,6 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);
-check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 
 // retrieving direct information about picture. This may have been already
 // done on admin/photo.php but this page can also be accessed without
@@ -54,37 +53,11 @@ if (isset($_GET['delete']))
   // 2. else use the first reachable linked category
   // 3. redirect to gallery root
 
-  if (isset($_GET['cat_id']) and !empty($_GET['cat_id']))
+  if ($custom_context = get_edit_context($_GET['image_id']))
   {
-    redirect(
-      make_index_url(
-        array(
-          'category' => get_cat_info($_GET['cat_id'])
-          )
-        )
-      );
-  }
-
-  $query = '
-SELECT category_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE image_id = '.$_GET['image_id'].'
-;';
-
-  $authorizeds = array_diff(
-    array_from_query($query, 'category_id'),
-    explode(',', calculate_permissions($user['id'], $user['status']))
-    );
-
-  foreach ($authorizeds as $category_id)
-  {
-    redirect(
-      make_index_url(
-        array(
-          'category' => get_cat_info($category_id)
-          )
-        )
-      );
+    // considering we have a context available, we fake one to build the url
+    // and we replace it with the context found in the session for this image_id
+    redirect(str_replace('list/1,2', $custom_context, make_index_url(array('list'=>array(1,2)))));
   }
 
   redirect(make_index_url());
@@ -230,7 +203,6 @@ $template->set_filenames(
   );
 
 $admin_url_start = $admin_photo_base_url.'-properties';
-$admin_url_start.= isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '';
 
 $src_image = new SrcImage($row);
 
@@ -396,42 +368,34 @@ $template->assign('related_categories_ids', $related_categories_ids);
 
 // jump to link
 //
-// 1. find all linked categories that are reachable for the current user.
-// 2. if a category is available in the URL, use it if reachable
-// 3. if URL category not available or reachable, use the first reachable
-//    linked category
-// 4. if no category reachable, no jumpto link
-// 5. if level is too high for current user, no jumpto link
+// 1. if an edit_context is available, we use it (without checking permissions)
+// 2. else if user level is higher than image level, randomly find an authorized category
+// 3. else no jumpto link
 
-$query = '
+if ($custom_context = get_edit_context($_GET['image_id']))
+{
+  $template->assign('U_JUMPTO', make_picture_url(array('image_id' => $_GET['image_id'])).'/'.$custom_context);
+}
+elseif ($user['level'] >= $page['image']['level'])
+{
+  $query = '
 SELECT category_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$_GET['image_id'].'
 ;';
 
-$authorizeds = array_diff(
-  array_from_query($query, 'category_id'),
-  explode(
-    ',',
-    calculate_permissions($user['id'], $user['status'])
-    )
-  );
-
-if (isset($_GET['cat_id'])
-    and in_array($_GET['cat_id'], $authorizeds))
-{
-  $url_img = make_picture_url(
-    array(
-      'image_id' => $_GET['image_id'],
-      'image_file' => $image_file,
-      'category' => $cache['cat_names'][ $_GET['cat_id'] ],
+  $authorizeds = array_diff(
+    array_from_query($query, 'category_id'),
+    explode(
+      ',',
+      calculate_permissions($user['id'], $user['status'])
       )
     );
-}
-else
-{
-  foreach ($authorizeds as $category)
+
+  if (count($authorizeds) > 0)
   {
+    $category = $authorizeds[array_rand($authorizeds)];
+
     $url_img = make_picture_url(
       array(
         'image_id' => $_GET['image_id'],
@@ -439,13 +403,9 @@ else
         'category' => $cache['cat_names'][ $category ],
         )
       );
-    break;
-  }
-}
 
-if (isset($url_img) and $user['level'] >= $page['image']['level'])
-{
-  $template->assign( 'U_JUMPTO', $url_img ); 
+    $template->assign('U_JUMPTO', $url_img);
+  }
 }
 
 // associate to albums
