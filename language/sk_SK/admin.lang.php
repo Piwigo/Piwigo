@@ -1401,3 +1401,16 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Tonto link je platný pre %s. Po uplynutí tohto času budete musieť požiadať o nový link.';
 $lang['To set your password, visit the following address:'] = 'Ak chcete nastaviť heslo, navštívte túto adresu:';
 $lang['Welcome to %s'] = 'Vitajte v %s';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d fotografií bolo presunutých z odovzdávacej miestnosti do ich albumov';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Naozaj chcete odstrániť "%d" komentárov?';
+$lang['Are you sure you want to delete comment #%s?'] = 'Naozaj chcete odstrániť komentár #%s?';
+$lang['Empty lounge'] = 'Prázdna miestnosť';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Ak má fotografia v tomto albume rovnaký názov súboru, aktualizujte súbor bez zmeny vlastností fotografie.';
+$lang['No comments selected, no actions possible.'] = 'Žiadne komentáre neboli vybrané, žiadne akcie nie sú možné.';
+$lang['Save all photos'] = 'Uložiť všetky fotografie';
+$lang['The comment has been validated.'] = 'Komentár bol overený.';
+$lang['The comments have been validated.'] = 'Komentáre boli overené.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'V súčasnosti je v miestnosti (vyrovnávacia pamäť na nahratie) %d fotografií.';
+$lang['Use standard Piwigo template for common pages.'] = 'Použite štandardnú šablónu Piwigo pre bežné stránky.';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Našli sme %d duplicitných ciest. Podrobnosti poskytol plugin Check Uploads.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Ak je táto možnosť povolená, pre stránky prihlásenia, registrácie a zabudnutého hesla sa používa spoločná šablóna, bez ohľadu na tému. Niektoré témy môžu používať tieto šablóny aj v prípade, že túto možnosť zrušíte.';
