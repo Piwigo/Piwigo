@@ -205,7 +205,7 @@ const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
     <p>
       <strong>{'Description'|@translate}</strong>
       <br>
-      <textarea name="description" id="description" class="description">{$DESCRIPTION}</textarea>
+      <textarea name="comment" id="description" class="description">{$DESCRIPTION}</textarea>
     </p>
 
     <p>

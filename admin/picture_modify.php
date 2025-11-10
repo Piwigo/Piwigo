@@ -19,6 +19,8 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);
+check_input_parameter('level', $_POST, false, '/^\d+$/');
+check_input_parameter('date_creation', $_POST, false, '/^\d\d\d\d-\d\d-\d\d( \d\d:\d\d:\d\d)?$/');
 
 // retrieving direct information about picture. This may have been already
 // done on admin/photo.php but this page can also be accessed without
@@ -80,17 +82,12 @@ if (isset($_POST['submit']))
 
   $data = array();
   $data['id'] = $_GET['image_id'];
-  $data['name'] = $_POST['name'];
-  $data['author'] = $_POST['author'];
   $data['level'] = $_POST['level'];
 
-  if ($conf['allow_html_descriptions'])
+  $to_sanitize_fields = array('name', 'author', 'comment');
+  foreach ($to_sanitize_fields as $field)
   {
-    $data['comment'] = @$_POST['description'];
-  }
-  else
-  {
-    $data['comment'] = strip_tags(@$_POST['description']);
+    $data[$field] = $conf['allow_html_descriptions'] ? @$_POST[$field] : strip_tags(@$_POST[$field]);
   }
 
   if (!empty($_POST['date_creation']))
@@ -249,8 +246,8 @@ $template->assign(
     'DATE_CREATION' => $row['date_creation'],
 
     'DESCRIPTION' =>
-      htmlspecialchars( isset($_POST['description']) ?
-        stripslashes($_POST['description']) : (empty($row['comment']) ? '' : $row['comment'])),
+      htmlspecialchars( isset($_POST['comment']) ?
+        stripslashes($_POST['comment']) : (empty($row['comment']) ? '' : $row['comment'])),
 
     'F_ACTION' =>
         get_root_url().'admin.php'
