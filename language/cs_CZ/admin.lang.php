@@ -1405,3 +1405,15 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = 'Pro nastavení hesla klikněte na následující odkaz:';
 $lang['Welcome to %s'] = 'Vítejte na %s';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Nalezli jsme %d duplicitních cest. Detaily posktyuje plugin Kontrola uploadů Check Uploads';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'V současné době je v salonku (vyrovnávací paměti pro nahrávání) %d fotografií.';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d fotografií bylo přesunuto z nahrávacího salonku do jejich alb.';
+$lang['Empty lounge'] = 'Prázdný salónek';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Pokud má fotografie v tomto albu stejný název souboru, aktualizuj soubor, aniž by se změnily vlastnosti fotografie.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Pokud je tato možnost povolena, použije se společná šablona pro stránky přihlášení, registrace a zapomenutého hesla, bez ohledu na zvolenou šablonu vzhledu. Některé šablony mohou tyto stránky používat i v případě, že tuto volbu vypnete.';
+$lang['No comments selected, no actions possible.'] = 'Nejsou vybrané komentáře, není možné provést akce.';
+$lang['The comments have been validated.'] = 'Komentáře byly schváleny.';
+$lang['Use standard Piwigo template for common pages.'] = 'Použít standardní Piwigo šablonu pro obecné stránky.';
+$lang['The comment has been validated.'] = 'Komentář byl schválen.';
+$lang['Save all photos'] = 'Uložit všechny fotky';
+$lang['Are you sure you want to delete comment #%s?'] = 'Jste si jistí že chcete smazat komentář #%s?';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Opravdu chcete smazat "%d" komentáře?';
