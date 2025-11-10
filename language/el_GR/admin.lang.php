@@ -1401,3 +1401,16 @@ $lang['An activation link valid for %s was created but could not be sent. You ca
 $lang['This link is valid for %s. After this time, you will need to request a new link.'] = 'Αυτός ο σύνδεσμος είναι ενεργός για %s. Μετά από αυτό το χρόνο, θα χρειαστεί να ζητήσετε ένα καινούριο.';
 $lang['To set your password, visit the following address:'] = 'Για να δημιουργήσετε τον κωδικό σας, επισκεφθείτε αυτή την διεύθυνση:';
 $lang['Welcome to %s'] = 'Καλώς ήλθατε στο %s';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d φωτογραφίες μετακινήθηκαν από το χώρο αναμονής στα λευκώματά τους';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Είστε σίγουρος/η ότι θέλετε να διαγράψετε "%d" παρατηρήσεις;';
+$lang['Are you sure you want to delete comment #%s?'] = 'Είστε σίγουρος/η ότι θέλετε να διαγράψετε την παρατήρηση #%s;';
+$lang['Empty lounge'] = 'Κενός χώρος αναμονής';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Αν μια φωτογραφία σε αυτό το λεύκωμα έχει το ίδιο όνομα αρχείου, ενημερώστε το αρχείο χωρίς να αλλάξετε τα χαρακτηριστικά της φωτογραφίας';
+$lang['No comments selected, no actions possible.'] = 'Δεν έχουν επιλεχθεί παρατηρήσεις, αδύνατη η εφαρμογή.';
+$lang['Save all photos'] = 'Σώσε όλες τις φωτογραφίες';
+$lang['The comment has been validated.'] = 'Η παρατήρηση έχει επικυρωθεί.';
+$lang['The comments have been validated.'] = 'Οι παρατηρήσεις έχουν επικυρωθεί.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Αυτή τη στιγμή υπάρχουν %d φωτογραφίες στο χώρο αναμονής (προσωρινή μνήμη μεταφόρτωσης)';
+$lang['Use standard Piwigo template for common pages.'] = 'Χρησιμοποίησε το τυπικό σχηματισμό του Piwigo για τις κοινές σελίδες.';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Βρήκαμε %d διπλότυπες διαδρομές. Λεπτομέρειες παρήχθησαν από το πρόσθετο "Check Uploads"';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Όταν είναι ενεργοποιημένο, ένας κοινός σχηματισμός χρησιμοποιείται για τις σελίδες σύνδεσης, εγγραφής και ξεχασμένου κωδικού, ανεξάρτητα από το θέμα. Μερικά θέματα μπορεί να χρησιμοποιήσουν αυτούς τους σχηματισμούς ακόμη και αν αποεπιλέξετε αυτή την επιλογή';
