@@ -1422,4 +1422,5 @@ $lang['If a photo in this album has the same filename, update the file without c
 $lang['Empty lounge'] = 'Vider le lounge';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Il y a actuellement %d photos dans le lounge (salle d\'attente des transferts)';
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d photos ont été déplacées du lounge vers leurs albums respectifs';
+$lang['Admins only'] = 'Admins uniquement';
 // Leave this line empty
