@@ -50,3 +50,4 @@ $lang['It appears your webhost is currently running PHP %s.'] = 'Изглежд�
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo може да се опита да превключите вашата конфигурация към PHP 5.2 като създаде или промени .htaccess файла.';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Обърнете се към вашия хостинг доставчик и вижте как можете да преминете към PHP 5.2.';
 $lang['localhost or other, supplied by your host provider'] = 'localhost или друг, предоставен от вашият хост доставчик';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Необходима е PHP версия %s (в момента сте на PHP %s)';

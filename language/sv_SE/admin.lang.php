@@ -1403,3 +1403,15 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['To set your password, visit the following address:'] = 'För att ställa in ditt lösenord, besök följande adress:';
 $lang['Welcome to %s'] = 'Välkommen till %s';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Vi har hittat %d dubbletter av sökvägar. Detaljer tillhandahållna av plugin\'et Kontrollera uppladdningar (Check Uploads)';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d foton flyttades från uppladdningsloungen till deras album';
+$lang['Are you sure you want to delete "%d" comments?'] = 'Är du säker att du vill radera "%d" kommentarer?';
+$lang['Are you sure you want to delete comment #%s?'] = 'Är du säker att du vill radera kommentar #%s?';
+$lang['Empty lounge'] = 'Tom lounge';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Om ett foto i det här albumet har samma filnamn, uppdatera filen utan att ändra fotots egenskaper.';
+$lang['No comments selected, no actions possible.'] = 'Inga kommentarer valda, inga åtgärder möjliga.';
+$lang['Save all photos'] = 'Spara alla foton';
+$lang['The comment has been validated.'] = 'Kommentaren har validerats.';
+$lang['The comments have been validated.'] = 'Kommentarerna har validerats.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Det finns för närvarande %d foton i loungen (uppladdningsbuffert)';
+$lang['Use standard Piwigo template for common pages.'] = 'Använd standardmall för Piwigo för vanliga sidor.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'När den är aktiverad används en gemensam mall för sidorna för inloggning, registrering och glömt lösenord, oavsett tema. Vissa teman kan använda dessa mallar även om du avmarkerar det här alternativet.';

@@ -456,10 +456,10 @@ $lang['There are no creation dates available for the photos currently filtered']
 $lang['There are no authors available for the photos currently filtered'] = 'There are no authors available for the photos currently filtered';
 $lang['Set your password below.'] = 'Set your password below.';
 $lang['When enabled, a common template is used for the login and registration pages, regardless of the theme.'] = 'When enabled, a common template is used for the login and registration pages, regardless of the theme.';
-$lang['Don\'t have an account yet ?'] = 'Don\'t have an account yet ?';
+$lang['Don\'t have an account yet ?'] = 'Don\'t have an account yet?';
 $lang['Create an account'] = 'Create an account';
 $lang['Return to the gallery'] = 'Return to the gallery';
-$lang['Already have an account ?'] = 'Already have an account ?';
+$lang['Already have an account ?'] = 'Already have an account?';
 $lang['An email has been sent with a link to reset your password'] = 'An email has been sent with a link to reset your password';
 $lang['Check your inbox'] = 'Check your inbox';
 $lang['Your password was successfully set'] = 'Your password was successfully set';

@@ -1399,3 +1399,16 @@ $lang['This link is valid for %s. After this time, you will need to request a ne
 $lang['An activation link valid for %s was created but could not be sent. You can now copy the link below and send it to the user.'] = '%s için geçerli bir aktivasyon bağlantısı oluşturuldu ancak gönderilemedi. Şimdi aşağıdaki bağlantıyı kopyalayıp kullanıcıya gönderebilirsiniz.';
 $lang['To set your password, visit the following address:'] = 'Şifrenizi belirlemek için şu adresi ziyaret edin:';
 $lang['Welcome to %s'] = '%s\'ye Hoş Geldiniz';
+$lang['The comment has been validated.'] = 'Yorum doğrulandı.';
+$lang['The comments have been validated.'] = 'Yorumlar doğrulandı.';
+$lang['There is currently %d photos in the lounge (upload buffer)'] = 'Şu anda salonda %d fotoğraf var (yükleme arabelleği)';
+$lang['Use standard Piwigo template for common pages.'] = 'Yaygın sayfalar için standart Piwigo şablonunu kullanın.';
+$lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = '%d adet yinelenen yol bulduk. Ayrıntılar Check Uploads eklentisi tarafından sağlandı.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Etkinleştirildiğinde, temadan bağımsız olarak oturum açma, kayıt ve unutulan parola sayfaları için ortak bir şablon kullanılır. Bazı temalar, bu seçeneğin işaretini kaldırsanız bile bu şablonları kullanabilir.';
+$lang['Save all photos'] = 'Tüm fotoğrafları kaydet';
+$lang['No comments selected, no actions possible.'] = 'Hiçbir yorum seçilmedi, hiçbir eylem mümkün değil.';
+$lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Bu albümdeki bir fotoğrafın dosya adı aynıysa, fotoğrafın özelliklerini değiştirmeden dosyayı güncelleyin';
+$lang['Empty lounge'] = 'Alanı boşalt';
+$lang['Are you sure you want to delete comment #%s?'] = '#%s yorumunu silmek istediğinizden emin misiniz?';
+$lang['%d photos were moved from the upload lounge to their albums'] = '%d fotoğraf yükleme alanından albümlerine taşındı';
+$lang['Are you sure you want to delete "%d" comments?'] = '"%d" yorumu silmek istediğinizden emin misiniz?';
