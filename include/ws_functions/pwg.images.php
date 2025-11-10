@@ -390,6 +390,22 @@ LIMIT 1
   $image_row = pwg_db_fetch_assoc($result);
   $image_row = array_merge($image_row, ws_std_get_urls($image_row));
 
+  $image_row['name_raw'] = $image_row['name'];
+  $image_row['name'] = strip_tags(
+    trigger_change(
+      'render_element_name',
+      $image_row['name'],
+      __FUNCTION__
+    )
+  );
+
+  $image_row['comment_raw'] = $image_row['comment'];
+  $image_row['comment'] = trigger_change(
+    'render_element_description',
+    $image_row['comment'],
+    __FUNCTION__
+  );
+
   //-------------------------------------------------------- related categories
   $query = '
 SELECT id, name, permalink, uppercats, global_rank, commentable
@@ -428,6 +444,15 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
       );
 
     $row['id']=(int)$row['id'];
+
+    $row['name'] = strip_tags(
+      trigger_change(
+        'render_category_name',
+        $row['name'],
+        __FUNCTION__
+        )
+      );
+
     $related_categories[] = $row;
   }
   usort($related_categories, 'global_rank_compare');
@@ -691,6 +716,9 @@ SELECT *
       {
         $image[$k] = $row[$k];
       }
+
+      $image['name'] = strip_tags(trigger_change('render_element_name', $image['name'], __FUNCTION__));
+      $image['comment'] = trigger_change('render_element_description', $image['comment'], __FUNCTION__);
 
       $image = array_merge($image, ws_std_get_urls($row));
       $images[ $image_ids[ $image['id'] ] ] = $image;

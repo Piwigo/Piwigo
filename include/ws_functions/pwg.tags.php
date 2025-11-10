@@ -160,6 +160,10 @@ SELECT *
       {
         $image[$k] = $row[$k];
       }
+
+      $image['name'] = strip_tags(trigger_change('render_element_name', $image['name'], __FUNCTION__));
+      $image['comment'] = trigger_change('render_element_description', $image['comment'], __FUNCTION__);
+
       $image = array_merge( $image, ws_std_get_urls($row) );
 
       $image_tag_ids = ($params['tag_mode_and']) ? $tag_ids : $image_tag_map[$image['id']];
