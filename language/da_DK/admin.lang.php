@@ -1418,3 +1418,4 @@ $lang['The comments have been validated.'] = 'Kommentarerne er godkendt';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Der er i øjeblikket %d fotografier i loungen (uploadbuffer)';
 $lang['Use standard Piwigo template for common pages.'] = 'Anvend Piwigos standardskabelon til fællessider';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Når aktiveret, anvendes en fælles skabelon til siderne login, kontooprettelse og glemt adgangskode, uanset om der er et tema eller ej. Nogle temaer kan anvende disse skabeloner, selv hvis du fravælger muligheden her.';
+$lang['Admins only'] = 'Kun administratorer';
