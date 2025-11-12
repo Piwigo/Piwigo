@@ -43,25 +43,25 @@
       <h3>{'What\'s new in version %s'|translate:$WHATS_NEW_MAJOR_VERSION}</h3>
       <div>
         <div class="whats_new_block_container">
-          <div class="whats_new_block icon-yellow">
-            <h4>{'A new interface for user management'|translate}</h4>
+          <div class="whats_new_block icon-blue whats_new_block_w_60">
+            <h4>Brand new login & preferences with Standard pages !</h4>
             <a href="{$RELEASE_NOTE_URL}" target="_blank"><img src="{$WHATS_NEW_IMGS.1}"></a>
           </div>
-          <div class="whats_new_block icon-green">
-            <h4>{'Brand new features : Activities logs and PDF reader'|translate}</h4>
+          <div class="whats_new_block icon-purple whats_new_block_w_40">
+            <h4>Two factor authentication is here</h4>
             <a href="{$RELEASE_NOTE_URL}" target="_blank"><img src="{$WHATS_NEW_IMGS.2}"></a>
           </div>
         </div>
         <div class="whats_new_block_container">
-          <div class="whats_new_block icon-blue">
-            <h4>{'Enhanced interface for batch manager and album selector'|translate}</h4>
+          <div class="whats_new_block icon-green whats_new_block_w_100">
+            <h4>UI redesigns that make a difference</h4>
             <a href="{$RELEASE_NOTE_URL}" target="_blank"><img src="{$WHATS_NEW_IMGS.3}"></a>
           </div>
-          <div class="whats_new_block icon-purple">
+          {* <div class="whats_new_block icon-yellow">
             <h4>{'Even more filters for the gallery search engine'|translate}</h4>
             <a href="{$RELEASE_NOTE_URL}" target="_blank"><img src="{$WHATS_NEW_IMGS.4}"></a>
           </div>
-        </div>
+        </div> *}
       </div>
       <div class="whats_new_buttons">
         <button onClick="hide_user_whats_new()"><i class="icon-thumbs-up"></i> {'Ok, got it!'|translate}</button>

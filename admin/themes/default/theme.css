@@ -8396,7 +8396,7 @@ color:#FF7B00;
 }
 
 #whats_new .whats_new_block.icon-green:hover{
-  transform-origin: top right;
+  transform-origin: top center;
 }
 
 #whats_new .whats_new_block.icon-blue:hover{
@@ -8407,20 +8407,22 @@ color:#FF7B00;
   transform-origin: bottom right;
 }
 
-#whats_new .whats_new_block.icon-yellow,
-#whats_new .whats_new_block.icon-purple{
+#whats_new .whats_new_block_w_40{
   width:40%;
 }
 
-#whats_new .whats_new_block.icon-green,
-.whats_new_block.icon-blue{
+#whats_new .whats_new_block_w_60{
   width:60%;
 }
 
+#whats_new .whats_new_block_w_100{
+  width:100%;
+}
 
 #whats_new .whats_new_block img{
     width:100%;
     height:auto;
+    margin-bottom:-4px;
 }
 
 #whats_new .whats_new_buttons{
