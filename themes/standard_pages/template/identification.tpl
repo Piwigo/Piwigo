@@ -73,6 +73,7 @@
 {/if}
             
         <div class="column-flex">
+          <input type="hidden" name="redirect" value="{$U_REDIRECT|@urlencode}">
           <input tabindex="4" type="submit" name="login" value="{'Login'|translate}" class="btn btn-main ">
 {if isset($errors['login_form_error'])}
           <p class="error-message" style="display:block;bottom:-20px;"><i class="gallery-icon-attention-circled"></i> {$errors['login_form_error']}</p>
