@@ -1419,3 +1419,4 @@ $lang['When enabled, a common template is used for the login, registration and f
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d Fotos wurden aus der Upload-Lounge in ihre Alben verschoben.';
 $lang['Are you sure you want to delete "%d" comments?'] = 'Möchten Sie wirklich „%d“ Kommentare löschen?';
 $lang['Are you sure you want to delete comment #%s?'] = 'Möchten Sie den Kommentar #%s wirklich löschen?';
+$lang['Admins only'] = 'Nur für Administratoren';
