@@ -1330,6 +1330,7 @@ function pwg_login($success, $username, $password, $remember_me)
     log_user($user_found['id'], $remember_me);
   }
 
+  clear_fake_user_cache();
   trigger_notify('login_success', stripslashes($username));
   return true;
 }
@@ -1407,6 +1408,17 @@ function generate_fake_user()
   }
 
   return $_SESSION['fake_user_cache'];
+}
+
+/**
+ * Clear current session fake user cache
+ * 
+ * @since 16
+ * @return void
+ */
+function clear_fake_user_cache()
+{
+  unset($_SESSION['fake_user_cache']);
 }
 
 /**
