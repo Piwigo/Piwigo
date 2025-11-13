@@ -102,10 +102,19 @@ if (
   and isset($_POST['password'])
 )
 {
-  if (!try_log_user($_POST['username'], $_POST['password'], false))
+  include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
+  include_once(PHPWG_ROOT_PATH.'include/ws_functions/pwg.php');
+
+  $credentials = array(
+    'username' => $_POST['username'],
+    'password' => $_POST['password']
+  );
+
+  $login = ws_session_login($credentials, $service);
+  
+  if (true !== $login)
   {
-    include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
-    $service->sendResponse(new PwgError(999, 'Invalid username/password'));
+    $service->sendResponse($login);
     exit();
   }
   $_SESSION['connected_with'] = 'pwg.images.uploadAsync';

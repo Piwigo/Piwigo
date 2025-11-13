@@ -517,8 +517,8 @@ function ws_addDefaultMethods( $arr )
     'pwg.images.uploadAsync',
     'ws_images_uploadAsync',
     array(
-        'username' => array(),
-        'password' => array('default'=>null),
+        'username' => array('flags'=>WS_PARAM_OPTIONAL),
+        'password' => array('default'=>null, 'flags'=>WS_PARAM_OPTIONAL),
         'chunk' => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'chunk_sum' => array(),
         'chunks' => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
@@ -538,7 +538,7 @@ function ws_addDefaultMethods( $arr )
 <br>Start with chunk 0 (zero).
 <br>Set the form encoding to "form-data".
 <br>You can update an existing photo if you define an existing image_id.
-<br>Requires <b>admin</b> credentials.',
+<br>Requires <b>admin</b> credentials: either with username/password or header authorization with api key.',
       $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
