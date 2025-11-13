@@ -272,6 +272,9 @@ function lineConstructor(line) {
             default:
             newLine.find(".action-type").addClass("icon-purple");
             newLine.find(".user-pic").addClass(color_icons[line.user_id % 5]);
+            newLine.find(".action-section").addClass("icon-user-1");
+            newLine.find(".action-name").html(line.action);
+            final_albumInfos = 'x' + line.counter;
             break;
         }
     } else {
@@ -456,6 +459,9 @@ function lineConstructor(line) {
             default:
             newLine.find(".action-type").addClass("icon-purple");
             newLine.find(".user-pic").addClass(color_icons[line.user_id % 5]);
+            newLine.find(".action-section").addClass("icon-user-1");
+            newLine.find(".action-name").html(line.action);
+            final_albumInfos = 'x' + line.counter;
             break;
         }
     }
@@ -488,9 +494,10 @@ function lineConstructor(line) {
     if (line.details.agent) {
         newLine.find(".detail-item-3").html(line.details.agent);
         newLine.find(".detail-item-3").attr('title', line.details.agent);
-    } else if (line.details.users_string && line.action != "logout" && line.action != "login") {
-        newLine.find(".detail-item-3").html(line.details.users_string);
-        newLine.find(".detail-item-3").attr('title', users_key + ": " +line.details.users_string);
+    } else if (line.details.users && line.action != "logout" && line.action != "login") {
+        const user_string = [...new Set(line.details.users)].toString();
+        newLine.find(".detail-item-3").html(user_string);
+        newLine.find(".detail-item-3").attr('title', users_key + ": " + user_string);
     } else {
         newLine.find(".detail-item-3").remove();
     }
