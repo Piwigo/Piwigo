@@ -1419,3 +1419,4 @@ $lang['The comments have been validated.'] = 'התגובות אושרו.';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'כרגע יש %d תמונות בחדר ההעלאות (מטמון העלאה)';
 $lang['Use standard Piwigo template for common pages.'] = 'השתמש בתבנית פיוויגו הסטנדרטית לדפים משותפים.';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'כאשר מופעל, תבנית משותפת משמשת לדפי התחברות, הרשמה ושחזור סיסמה, ללא קשר לערכת הנושא. ייתכן שחלק מהערכות ישתמשו בתבניות אלו גם אם אתה מבטל את האפשרות הזו.';
+$lang['Admins only'] = 'רק מנהלים';
