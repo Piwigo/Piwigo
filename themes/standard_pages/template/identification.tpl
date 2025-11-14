@@ -45,8 +45,8 @@
         <div class="column-flex">
           <label for="username">{'Username'|translate}</label>
           <div class="row-flex input-container">
-            <i class="gallery-icon-user-2"></i>
-            <input type="text" class="" type="text" name="username" id="username" size="25" autofocus>
+            <i class="gallery-icon-user"></i>
+            <input type="text" class="" type="text" name="username" id="username" size="25" autofocus data-required="true">
           </div>
           <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
         </div>

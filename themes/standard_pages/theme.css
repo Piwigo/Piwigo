@@ -388,6 +388,7 @@ a.btn-main{
   display: block;
   padding: 15px;
   margin-bottom:15px;
+  font-weight:700;
 }
 
 .error-message{
@@ -951,6 +952,10 @@ input:checked + .slider:before, input:checked + .slider::after {
   border-left: 4px solid #6DCE5E;
 }
 
+.light .success-message i{
+  color:#6DCE5E;
+}
+
 .light .infos-message{
   background-color: #bde5f8;
   color: #00529b !important;
@@ -1082,6 +1087,10 @@ input:checked + .slider:before, input:checked + .slider::after {
   background-color: #4EA590;
   color: #AAF6E4 !important;
   border-left: 4px solid #AAF6E4;
+}
+
+.dark .success-message i{
+  color: #AAF6E4;
 }
 
 .dark .infos-message{

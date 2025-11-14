@@ -50,7 +50,7 @@
         <label for="username">{'Username or email'|@translate}</label>
         <div class="row-flex input-container">
           <i class="gallery-icon-user-2"></i>
-          <input type="text" id="username_or_email" name="username_or_email" size="100" maxlength="100"{if isset($username_or_email)} value="{$username_or_email}"{/if} autofocus>
+          <input type="text" id="username_or_email" name="username_or_email" size="100" maxlength="100"{if isset($username_or_email)} value="{$username_or_email}"{/if} autofocus data-required="true">
         </div>
         <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
       </div>
