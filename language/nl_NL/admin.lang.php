@@ -1417,3 +1417,4 @@ $lang['Are you sure you want to delete "%d" comments?'] = 'Weet je zeker dat je 
 $lang['Are you sure you want to delete comment #%s?'] = 'Weet je zeker dat je opmerking #%s wil verwijderen? ';
 $lang['Empty lounge'] = 'Leeg buffer';
 $lang['Save all photos'] = 'Bewaar alle foto\'s';
+$lang['Admins only'] = 'Alleen beheerders';
