@@ -1414,3 +1414,4 @@ $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Αυτή 
 $lang['Use standard Piwigo template for common pages.'] = 'Χρησιμοποίησε το τυπικό σχηματισμό του Piwigo για τις κοινές σελίδες.';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Βρήκαμε %d διπλότυπες διαδρομές. Λεπτομέρειες παρήχθησαν από το πρόσθετο "Check Uploads"';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Όταν είναι ενεργοποιημένο, ένας κοινός σχηματισμός χρησιμοποιείται για τις σελίδες σύνδεσης, εγγραφής και ξεχασμένου κωδικού, ανεξάρτητα από το θέμα. Μερικά θέματα μπορεί να χρησιμοποιήσουν αυτούς τους σχηματισμούς ακόμη και αν αποεπιλέξετε αυτή την επιλογή';
+$lang['Admins only'] = 'Μόνον διαχειριστές';
