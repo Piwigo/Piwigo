@@ -1410,3 +1410,4 @@ $lang['The comments have been validated.'] = 'Athugasemdirnar hafa verið staðf
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Núna eru %d myndir á biðsvæðinu (biðminni innsendinga)';
 $lang['Use standard Piwigo template for common pages.'] = 'Notið staðlað Piwigo sniðmát fyrir algengar síður.';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Þegar þetta er virkjað er sameiginlegt sniðmát notað fyrir síðurnar innskráning, skráning og gleymd lykilorð óháð þema. Sum þemu gætu notað þessi sniðmát jafnvel þótt þú hakir ekki við þennan valkost.';
+$lang['Admins only'] = 'Aðeins stjórnendur';
