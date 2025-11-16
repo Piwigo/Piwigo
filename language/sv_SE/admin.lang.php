@@ -1415,3 +1415,4 @@ $lang['The comments have been validated.'] = 'Kommentarerna har validerats.';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Det finns för närvarande %d foton i loungen (uppladdningsbuffert)';
 $lang['Use standard Piwigo template for common pages.'] = 'Använd standardmall för Piwigo för vanliga sidor.';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'När den är aktiverad används en gemensam mall för sidorna för inloggning, registrering och glömt lösenord, oavsett tema. Vissa teman kan använda dessa mallar även om du avmarkerar det här alternativet.';
+$lang['Admins only'] = 'Endast administratörer';
