@@ -2760,6 +2760,31 @@ SELECT
 }
 
 /**
+ * Get all available api_key
+ *
+ * @since 16
+ * @param string $user_id
+ * @return array|false
+ */
+function get_available_api_key($user_id)
+{
+  $api_keys = get_api_key($user_id);
+
+  if (!$api_keys) return false;
+
+  $available = array();
+  foreach($api_keys as $api_key)
+  {
+    if (!$api_key['is_expired'] && empty($api_key['revoked_on']))
+    {
+      $available[] = $api_key;
+    }
+  }
+
+  return count($available) > 0 ? $available : false;
+}
+
+/**
  * Is connected with pwg_ui (identification.php)
  *
  * @since 16

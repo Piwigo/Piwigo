@@ -528,3 +528,9 @@ $lang['The secret will no longer be displayed. You must copy it to continue.'] =
 $lang['ID copied.'] = 'ID copied.';
 $lang['Secret copied. Keep it in a safe place.'] = 'Secret copied. Keep it in a safe place.';
 $lang['edit user preferences'] = 'edit user preferences';
+$lang['Here is your verification code:'] = 'Here is your verification code:';
+$lang['Your verification code'] = 'Your verification code';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'If this wasn\'t you, please change your password immediately or contact your webmaster.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.';
+$lang['Too many attempts, please try later..'] = 'Too many attempts, please try later..';
+$lang['Verification successful! You can now choose a new password.'] = 'Verification successful! You can now choose a new password.';
