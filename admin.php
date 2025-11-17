@@ -382,6 +382,7 @@ $whats_new_imgs = array(
   // '4' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-1109101f.png',
 );
 
+//If last major update conf is less than a month old then display bell for whats new popin
 $display_bell = false;
 if (strtotime($conf['last_major_update']) > strtotime('1 month ago'))
 {
@@ -394,7 +395,7 @@ $template->assign(
   'WHATS_NEW_MAJOR_VERSION' => $whats_new_major_version,
   'RELEASE_NOTE_URL' => $release_note_url,
   'WHATS_NEW_IMGS' => $whats_new_imgs,
-  'DISPLAY_BELL' => false, // $display_bell,
+  'DISPLAY_BELL' => $display_bell,
   )
 );
 

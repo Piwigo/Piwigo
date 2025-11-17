@@ -37,6 +37,7 @@
 </div>{* <!-- footer --> *}
 </div>{* <!-- the_page --> *}
 
+{if (isset($SHOW_WHATS_NEW) and $SHOW_WHATS_NEW) or (isset($DISPLAY_BELL) and $DISPLAY_BELL)}
 <div id="whats_new">
     <div id="whats_new_popin">
       <a class="icon-cancel close_whats_new" onClick="hide_user_whats_new()"></a>
@@ -44,17 +45,17 @@
       <div>
         <div class="whats_new_block_container">
           <div class="whats_new_block icon-blue whats_new_block_w_60">
-            <h4>Brand new login & preferences with Standard pages !</h4>
+            <h4>{'Brand new login & preferences with Standard pages !'|translate}</h4>
             <a href="{$RELEASE_NOTE_URL}" target="_blank"><img src="{$WHATS_NEW_IMGS.1}"></a>
           </div>
           <div class="whats_new_block icon-purple whats_new_block_w_40">
-            <h4>Two factor authentication is here</h4>
+            <h4>{'Two factor authentication is here'|translate}</h4>
             <a href="{$RELEASE_NOTE_URL}" target="_blank"><img src="{$WHATS_NEW_IMGS.2}"></a>
           </div>
         </div>
         <div class="whats_new_block_container">
           <div class="whats_new_block icon-green whats_new_block_w_100">
-            <h4>UI redesigns that make a difference</h4>
+            <h4>{'UI redesigns that make a difference'|translate}</h4>
             <a href="{$RELEASE_NOTE_URL}" target="_blank"><img src="{$WHATS_NEW_IMGS.3}"></a>
           </div>
           {* <div class="whats_new_block icon-yellow">
@@ -69,6 +70,7 @@
       </div>
     </div>
 </div>
+{/if}
 
 <style>
 

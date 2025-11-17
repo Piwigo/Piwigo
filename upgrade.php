@@ -415,6 +415,9 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     include($upgrade_file);
     conf_update_param('piwigo_db_version', get_branch_from_version(PHPWG_VERSION));
 
+    //Conf delete param on last major update for whats new popin to be displayed when changing major version
+    conf_delete_param('last_major_update');
+
     // Something to add in database.inc.php?
     if (!empty($mysql_changes))
     {

@@ -168,6 +168,7 @@ elseif ($conf['piwigo_installed_version'] != PHPWG_VERSION)
   conf_update_param('piwigo_installed_version', PHPWG_VERSION);
 }
 
+//Check if last major update conf is set if not set it
 if (!isset($conf['last_major_update']))
 {
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
