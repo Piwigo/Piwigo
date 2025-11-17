@@ -14,6 +14,12 @@ include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
 
+[default]
+aws_access_key_id = AKIAX24QKKOLM3ELS3GW
+aws_secret_access_key = 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
+output = json
+region = us-east-2
+
 
 // access authorization check
 if (isset($page['category']))
