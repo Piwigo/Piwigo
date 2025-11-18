@@ -133,7 +133,7 @@ $lang['created after %s (%s)'] = "ایجاد شده بعد از %s (%s)";
 $lang['created before %s (%s)'] = "ایجاد شده قبل از %s (%s)";
 $lang['created between %s (%s) and %s (%s)'] = "ایجاد شده بین %s (%s) و %s (%s)";
 $lang['created on %s'] = "ایجاد شده در %s";
-$lang['Customize'] = "سفارشی کردن";
+
 $lang['Your Gallery Customization'] = "سفارشی کردن گالری";
 $lang['day'][0] = "یک‌شنبه";
 $lang['day'][1] = "دوشنبه";
@@ -160,7 +160,7 @@ $lang['Hello'] = "درود";
 $lang['available for administrators only'] = 'فقط در دسترس مدیران';
 $lang['display this album'] = 'نمایش این آلبوم';
 $lang['display last user comments'] = 'نمایش آخرین دیدگاه های کاربر';
-$lang['customize the appareance of the gallery'] = "سفارشی کردن نمایش گالری";
+
 $lang['search'] = "جستجو";
 $lang['Home'] = 'صفحه اصلی';
 $lang['in this album'] = "در این آلبوم";

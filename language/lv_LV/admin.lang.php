@@ -361,7 +361,7 @@ $lang['User status'] = 'Lietotāja statuss';
 $lang['user_status_admin'] = 'Administrators';
 $lang['user_status_generic'] = 'Vispārējais';
 $lang['user_status_guest'] = 'Viesis';
-$lang['user_status_normal'] = 'Lietotājs';
+
 $lang['user_status_webmaster'] = 'Webmāsters';
 $lang['Virtual album'] = 'Virtuālais albūms';
 $lang['Waiting'] = 'Gaidīšana';

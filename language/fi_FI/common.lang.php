@@ -132,8 +132,8 @@ $lang['Comments'] = 'Kommentit';
 $lang['Contact'] = 'Ota yhteyttä';
 $lang['created before %s (%s)'] = 'luotu ennen %s (%s)';
 $lang['created on %s'] = 'Luotu %s';
-$lang['Customize'] = 'Muokkaa';
-$lang['customize the appareance of the gallery'] = 'muokkaa gallerian ulkoasua';
+
+
 $lang['Delete'] = 'Poista';
 $lang['delete all photos from your favorites'] = 'poista kaikki kuvat suosikeista';
 $lang['descending'] = 'laskeva';

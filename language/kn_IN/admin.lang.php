@@ -396,7 +396,7 @@ $lang['sub-albums'] = 'ಉಪ-ಸಂಪುಟಗಳು';
 $lang['status'] = 'ಸ್ಥಿತಿಗತಿ';
 $lang['user_status_webmaster'] = 'ವೆಬ್ ಮಾಸ್ಟರ್';
 $lang['user_status_guest'] = 'ಅತಿಥಿ';
-$lang['user_status_normal'] = 'ಬಳಕೆದಾರರು';
+
 $lang['width & height'] = 'ಉದ್ದ & ಎತ್ತರ';
 $lang['wrong filename'] = 'ತಪ್ಪಾದ ಕಡತದ ಹೆಸರು';
 $lang['Representative'] = 'ಭಾವಚಿತ್ರ';

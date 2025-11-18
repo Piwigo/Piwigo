@@ -135,7 +135,7 @@ $lang['created after %s (%s)'] = 'созданы после %s (%s)';
 $lang['created before %s (%s)'] = 'созданы до %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'созданы между %s (%s) и %s (%s)';
 $lang['created on %s'] = 'созданы %s';
-$lang['Customize'] = 'Настройка';
+
 $lang['Your Gallery Customization'] = 'Настройка галереи ';
 $lang['day'][0] = 'Вс';
 $lang['day'][1] = 'Пн';
@@ -164,7 +164,7 @@ $lang['Hello'] = 'Привет';
 $lang['available for administrators only'] = 'доступно только для администратора';
 $lang['display this album'] = 'показать этот альбом';
 $lang['display last user comments'] = 'Просмотр последних комментариев';
-$lang['customize the appareance of the gallery'] = 'настройка оформления';
+
 $lang['search'] = 'поиск';
 $lang['Home'] = 'Начало';
 $lang['Identification'] = 'Вход';

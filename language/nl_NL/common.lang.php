@@ -135,7 +135,7 @@ $lang['created after %s (%s)'] = 'Aangemaakt na %s (%s)';
 $lang['created before %s (%s)'] = 'Aangemaakt voor %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'Aangemaakt tussen %s (%s) en %s (%s)';
 $lang['created on %s'] = 'Aangemaakt op %s';
-$lang['Customize'] = 'Aanpassen';
+
 $lang['Your Gallery Customization'] = 'Jouw galerie-aanpassingen';
 $lang['day'][0] = 'Zondag';
 $lang['day'][1] = 'Maandag';
@@ -164,7 +164,7 @@ $lang['Hello'] = 'Hallo';
 $lang['available for administrators only'] = 'Alleen toegankelijk voor beheerders';
 $lang['display this album'] = 'Toon dit album';
 $lang['display last user comments'] = 'Toon de meest recente gebruikersreacties';
-$lang['customize the appareance of the gallery'] = 'Pas de opmaak van de galerie aan';
+
 $lang['search'] = 'zoek';
 $lang['Home'] = 'Startpagina';
 $lang['Identification'] = 'Administratie';

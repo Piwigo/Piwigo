@@ -189,7 +189,7 @@ $lang['created after %s (%s)'] = 'har skapats efter %s (%s)';
 $lang['created before %s (%s)'] = 'har skapats före %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'har skapats mellan %s (%s) och %s (%s)';
 $lang['created on %s'] = 'har skapats den %s';
-$lang['Customize'] = 'Anpassa';
+
 $lang['Your Gallery Customization'] = 'Din gallerianpassning';
 $lang['Default'] = 'Standard';
 $lang['delete this photo from your favorites'] = 'ta bort bilden från dina favoriter';
@@ -211,7 +211,7 @@ $lang['Hello'] = 'Hej';
 $lang['available for administrators only'] = 'endast för administratörer';
 $lang['display this album'] = 'visa detta album';
 $lang['display last user comments'] = 'visa de senaste användarkommentarerna';
-$lang['customize the appareance of the gallery'] = 'anpassa galleriets utseende';
+
 $lang['search'] = 'sök';
 $lang['Home'] = 'Hem';
 $lang['in this album'] = 'i detta album';

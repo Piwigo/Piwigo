@@ -136,7 +136,7 @@ $lang['created after %s (%s)'] = 'ստեղծվել է %s (%s)-ից հետո';
 $lang['created before %s (%s)'] = 'ստեղծվել է %s (%s)-ից առաջ';
 $lang['created between %s (%s) and %s (%s)'] = 'ստեղծվել է %s (%s)-ից մինչև %s (%s)';
 $lang['created on %s'] = 'ստեղծվել է %s-ին';
-$lang['customize the appareance of the gallery'] = 'Անհատականացնել պատկերասրահի տեսքը';
+
 $lang['day']['0'] = 'Կիրակի';
 $lang['day']['1'] = 'Երկուշաբթի';
 $lang['day']['2'] = 'Երեքշաբթի';
@@ -363,7 +363,7 @@ $lang['Create a new account'] = 'Ստեղծել նոր հաշիվ';
 $lang['Created on'] = 'Ստեղծվել է';
 $lang['Creation date'] = 'Ստեղծման ամսաթիվը';
 $lang['Current password is wrong'] = 'Ընթացիկ գաղտնաբառը սխալ է';
-$lang['Customize'] = 'Կարգավորել';
+
 $lang['Date'] = 'Ամսաթիվ';
 $lang['Date created, new &rarr; old'] = 'Ստեղծման ամսաթիվ, նոր &rarr; հին';
 $lang['Date created, old &rarr; new'] = 'Ստեղծման ամսաթիվ, հին &rarr; նոր';

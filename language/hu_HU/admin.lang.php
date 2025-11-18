@@ -355,7 +355,7 @@ $lang['User status'] = 'Felhasználói státusz';
 $lang['user_status_admin'] = 'Adminisztrátor';
 $lang['user_status_generic'] = 'Átlagos';
 $lang['user_status_guest'] = 'Vendég';
-$lang['user_status_normal'] = 'Felhasználó';
+
 $lang['user_status_webmaster'] = 'Webmester';
 $lang['Virtual album'] = 'Virtuális album';
 $lang['Waiting'] = 'Várakozó elemek';

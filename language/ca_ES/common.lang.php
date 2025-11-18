@@ -133,7 +133,7 @@ $lang['created after %s (%s)'] = 'creat després %s (%s)';
 $lang['created before %s (%s)'] = 'creat abans %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'creat entre %s (%s) i %s (%s)';
 $lang['created on %s'] = 'creada el %s';
-$lang['Customize'] = 'Perfil';
+
 $lang['Your Gallery Customization'] = 'Personalització de la galeria';
 $lang['day'][0] = 'Diumenge';
 $lang['day'][1] = 'Dilluns';
@@ -159,7 +159,7 @@ $lang['Hello'] = 'Hola';
 $lang['available for administrators only'] = 'disponible només per a administradors';
 $lang['display this album'] = 'Visualitza el contingut d\'aquest àlbum';
 $lang['display last user comments'] = 'visualitza els últims comentaris dels usuaris';
-$lang['customize the appareance of the gallery'] = 'personalitzar l\'aparença de la galeria';
+
 $lang['search'] = 'cerca';
 $lang['in this album'] = 'en aquest àlbum';
 $lang['in %d sub-album'] = 'en %d sub-àlbum';

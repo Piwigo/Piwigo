@@ -881,7 +881,7 @@ $lang['unset'] = 'tühista';
 $lang['update the database from files'] = 'uuenda andmebaas failidega';
 $lang['user "%s" added'] = 'kasutaja "%s" lisati';
 $lang['user_status_generic'] = 'Üldine';
-$lang['user_status_normal'] = 'Kasutaja';
+
 $lang['width must be a number superior to'] = 'laius peab olema suurem kui';
 $lang['wrong filename'] = 'vigane failinimi';
 $lang['Albums authorized thanks to group associations'] = 'Autoriseeritud ligipääs kaustadele kuna oled grupiliige';

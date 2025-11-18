@@ -355,7 +355,7 @@ $lang['User status'] = 'Gebruikersstatus';
 $lang['user_status_admin'] = 'Beheerder';
 $lang['user_status_generic'] = 'Algemeen';
 $lang['user_status_guest'] = 'Gast';
-$lang['user_status_normal'] = 'Gebruiker';
+
 $lang['user_status_webmaster'] = 'Webbeheerder';
 $lang['Virtual album'] = 'Virtueel album';
 $lang['Waiting'] = 'In behandeling';

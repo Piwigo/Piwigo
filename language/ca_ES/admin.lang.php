@@ -344,7 +344,7 @@ $lang['User status'] = 'Estat de l\'usuari';
 $lang['user_status_admin'] = 'Administrador';
 $lang['user_status_generic'] = 'Genèric';
 $lang['user_status_guest'] = 'Visitant';
-$lang['user_status_normal'] = 'Usuari';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Users'] = 'Usuaris';
 $lang['Virtual album'] = 'Àlbum virtual';

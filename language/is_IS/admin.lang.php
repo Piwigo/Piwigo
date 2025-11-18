@@ -1137,7 +1137,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['user_status_admin'] = 'Stjórnandi';
 $lang['user_status_generic'] = 'Almennt';
 $lang['user_status_guest'] = 'Gestur';
-$lang['user_status_normal'] = 'Notandi';
+
 $lang['user_status_webmaster'] = 'Vefstjóri';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'gestir þurfa að skrá sig inn og hafa viðeigandi heimildir til að sjá þetta albúm';
 $lang['width & height'] = 'breidd og hæð';

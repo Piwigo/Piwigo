@@ -133,7 +133,7 @@ $lang['created after %s (%s)'] = 'נוצר אחרי %s (%s)';
 $lang['created before %s (%s)'] = 'נוצר לפני %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'נוצר בין %s (%s) ל %s (%s)';
 $lang['created on %s'] = 'נוצר ב %s';
-$lang['Customize'] = 'התאמה אישית';
+
 $lang['Your Gallery Customization'] = 'התאמה אישית של הגלריה שלך';
 $lang['day'][0] = "יום ראשון";
 $lang['day'][1] = "יום שני";
@@ -162,7 +162,7 @@ $lang['Hello'] = 'שלום';
 $lang['available for administrators only'] = 'זמין לאדמינים בלבד';
 $lang['display this album'] = 'הצג אלבום זה';
 $lang['display last user comments'] = 'הצג את תגובות המשתמשים האחרונות';
-$lang['customize the appareance of the gallery'] = 'התאם אישית את מראה הגלריה';
+
 $lang['search'] = 'חפש';
 $lang['Home'] = 'בית';
 $lang['Identification'] = "הזדהה";

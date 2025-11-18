@@ -136,7 +136,7 @@ $lang['created after %s (%s)'] = '创建于 %s (%s) 之后';
 $lang['created before %s (%s)'] = '创建于 %s (%s) 之前';
 $lang['created between %s (%s) and %s (%s)'] = '创建于 %s (%s) 和 le %s (%s) 之间';
 $lang['created on %s'] = '创建于 %s';
-$lang['Customize'] = '自定义';
+
 $lang['Your Gallery Customization'] = '自定义页标题';
 $lang['day'][0] = '星期日';
 $lang['day'][1] = '星期一';
@@ -165,7 +165,7 @@ $lang['Hello'] = '您好';
 $lang['available for administrators only'] = '需要管理员权限';
 $lang['display this album'] = '显示此相册根目录下的图片';
 $lang['display last user comments'] = '显示最新用户评论';
-$lang['customize the appareance of the gallery'] = '界面个性化设置';
+
 $lang['search'] = '搜索';
 $lang['Home'] = '主页';
 $lang['in this album'] = '在此相册里';

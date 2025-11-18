@@ -122,7 +122,7 @@ $lang['created after %s (%s)'] = 'creado después de %s (%s)';
 $lang['created before %s (%s)'] = 'creado antes de %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'creado entre %s (%s) y %s (%s)';
 $lang['created on %s'] = 'creado el %s';
-$lang['customize the appareance of the gallery'] = 'personalizar el aspecto de la galería';
+
 $lang['delete all photos from your favorites'] = 'eliminar todas las fotos de tus favoritas';
 $lang['delete this photo from your favorites'] = 'eliminar esta foto de tus favoritas';
 $lang['descending'] = 'descendente';
@@ -337,7 +337,7 @@ $lang['Create a new account'] = 'Crear una nueva cuenta';
 $lang['Created on'] = 'Creada el';
 $lang['Creation date'] = 'Fecha de creación';
 $lang['Current password is wrong'] = 'La contraseña usada es incorrecta';
-$lang['Customize'] = 'Personalizar';
+
 $lang['Date created, new &rarr; old'] = 'Fecha de creación, nueva &rarr; antigua';
 $lang['Date created, old &rarr; new'] = 'Fecha de creación, antigua &rarr; nueva';
 $lang['Date posted, new &rarr; old'] = 'Fecha de publicación, nueva &rarr; antigua';

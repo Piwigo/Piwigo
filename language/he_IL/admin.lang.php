@@ -357,7 +357,7 @@ $lang['User status'] = 'מצב משתמש';
 $lang['user_status_admin'] = 'אדמין';
 $lang['user_status_generic'] = 'כללי';
 $lang['user_status_guest'] = 'אורח';
-$lang['user_status_normal'] = 'משתמש';
+
 $lang['user_status_webmaster'] = 'מנהל האתר';
 $lang['Virtual album'] = 'אלבום וירטואלי';
 $lang['Waiting'] = 'בהמתנה';

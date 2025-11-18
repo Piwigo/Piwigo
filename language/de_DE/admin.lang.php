@@ -358,7 +358,7 @@ $lang['User status'] = 'Status des Benutzers';
 $lang['user_status_admin'] = 'Administrator';
 $lang['user_status_generic'] = 'Allgemein';
 $lang['user_status_guest'] = 'Gast';
-$lang['user_status_normal'] = 'Benutzer';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Virtual album'] = 'Virtuelles Album';
 $lang['Waiting'] = 'Freizugebende Kommentare';

@@ -359,7 +359,7 @@ $lang['User status'] = '用戶狀態';
 $lang['user_status_admin'] = '管理員';
 $lang['user_status_generic'] = '一般用戶';
 $lang['user_status_guest'] = '訪客';
-$lang['user_status_normal'] = '使用者';
+
 $lang['user_status_webmaster'] = '網管';
 $lang['Virtual album'] = '虛擬相冊';
 $lang['Waiting'] = '等待';

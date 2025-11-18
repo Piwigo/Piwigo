@@ -191,7 +191,7 @@ $lang['created after %s (%s)'] = 'opprettet etter %s(%s)';
 $lang['created before %s (%s)'] = 'opprettet før %s(%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'opprettet mellom %s(%s)og%s(%s)';
 $lang['created on %s'] = 'opprettet den %s';
-$lang['Customize'] = 'Tilpass';
+
 $lang['Your Gallery Customization'] = 'Innstillinger for ditt galleri';
 $lang['Default'] = 'Standard';
 $lang['delete this photo from your favorites'] = 'slett dette bildet fra favorittene dine';
@@ -213,7 +213,7 @@ $lang['Hello'] = 'Hallo';
 $lang['available for administrators only'] = 'kun tilgjengelig for administrator';
 $lang['display this album'] = 'vis dette albumet';
 $lang['display last user comments'] = 'vis siste bruker kommentarer';
-$lang['customize the appareance of the gallery'] = 'egentilpasse utseendet til galleriet';
+
 $lang['search'] = 'søk';
 $lang['Home'] = 'Hjem';
 $lang['in this album'] = 'i dette albumet';

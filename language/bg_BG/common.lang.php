@@ -210,7 +210,7 @@ $lang['created after %s (%s)'] = 'добавени след %s (%s)';
 $lang['created before %s (%s)'] = 'добавени преди %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'добавени между %s (%s) и %s (%s)';
 $lang['created on %s'] = 'добавени на %s';
-$lang['Customize'] = 'Персонализирай';
+
 $lang['Your Gallery Customization'] = 'Персонализиране на галерията';
 $lang['Default'] = 'По подразбиране';
 $lang['delete this photo from your favorites'] = 'изтрий тази снимка от любими';
@@ -232,7 +232,7 @@ $lang['Hello'] = 'Здравей';
 $lang['available for administrators only'] = 'само за администратори';
 $lang['display this album'] = 'показване на този албум';
 $lang['display last user comments'] = 'показване на последните коментари';
-$lang['customize the appareance of the gallery'] = 'персонализиране на външния вид на галерията';
+
 $lang['search'] = 'търси';
 $lang['Home'] = 'Начало';
 $lang['in this album'] = 'в този албум';

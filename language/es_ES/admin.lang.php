@@ -353,7 +353,7 @@ $lang['User status'] = 'Estado del usuario';
 $lang['user_status_admin'] = 'Administrador';
 $lang['user_status_generic'] = 'Genérico';
 $lang['user_status_guest'] = 'Invitado';
-$lang['user_status_normal'] = 'Visitante';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Virtual album'] = 'Álbum virtual';
 $lang['Waiting'] = 'En espera';

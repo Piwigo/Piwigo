@@ -292,7 +292,7 @@ $lang['Date posted, new &rarr; old'] = 'Data de publicación, nova &rarr; antiga
 $lang['Date posted, old &rarr; new'] = 'Data de publicación, antiga &rarr; nova';
 $lang['Default'] = 'Predeterminado';
 $lang['Current password is wrong'] = 'A clave actual é incorrecta';
-$lang['Customize'] = 'Personalizar';
+
 $lang['Created on'] = 'Creado en';
 $lang['Creation date'] = 'Data de creación';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cuquis bloqueadas ou non compatibles co teu navegador. Tes que activar as cuquis para identificarte. ';
@@ -369,7 +369,7 @@ $lang['delete all photos from your favorites'] = 'eliminar todas as fotos de fav
 $lang['delete this photo from your favorites'] = 'eliminar esta foto de favoritas';
 $lang['descending'] = 'descendente';
 $lang['display a calendar by creation date'] = 'amosar un calendario por data de creación';
-$lang['customize the appareance of the gallery'] = 'Personalizar a aparencia da galería';
+
 $lang['created after %s (%s)'] = 'creado despois do %s (%s)';
 $lang['created before %s (%s)'] = 'creado antes do %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'creado entre o %s (%s) e o %s (%s)';

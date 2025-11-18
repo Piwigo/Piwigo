@@ -279,7 +279,7 @@ $lang['Plugins which need upgrade'] = 'Lugantoù da hizivaat';
 $lang['Themes which need upgrade'] = 'Temoù o deus ezhomm un hizivadur';
 $lang['Unable to check for upgrade.'] = 'Ne oa ket posubl degas an hizivadur';
 $lang['user_status_guest'] = 'Ostiziad ';
-$lang['user_status_normal'] = 'Implijer';
+
 $lang['user_status_webmaster'] = 'Mestr-gwiad';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Diarunusted uc\'hek arnes: %dM piksel (%dx%d piksel).';
 $lang['Can\'t download archive.'] = 'Ne oa ket posubl pellgargañ an diell.';

@@ -199,7 +199,7 @@ $lang['default values'] = 'oletusarvot';
 $lang['unknown'] = 'tuntematon';
 $lang['user_status_admin'] = 'Ylläpitäjä';
 $lang['user_status_guest'] = 'Vieras';
-$lang['user_status_normal'] = 'Käyttäjä';
+
 $lang['Create'] = 'Luo';
 $lang['Change password'] = 'Vaihda salasana';
 $lang['Change username'] = 'Vaihda käyttäjätunnus';

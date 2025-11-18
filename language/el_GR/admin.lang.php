@@ -882,7 +882,7 @@ $lang['user "%s" added'] = 'Ο χρήστης "%s" προστέθηκε';
 $lang['user_status_admin'] = 'Διαχειριστής';
 $lang['user_status_generic'] = 'Γενικός';
 $lang['user_status_guest'] = 'Επισκέπτης';
-$lang['user_status_normal'] = 'Χρήστης';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'οι επισκέπτες πρέπει να συνδεθεθούν και να έχουν τα κατάλληλα δικαιώματα για να δουν αυτό το λεύκωμα';
 $lang['width must be a number superior to'] = 'πλάτος πρέπει να είναι ένας αριθμός μεγαλύτερο από ό, τι';

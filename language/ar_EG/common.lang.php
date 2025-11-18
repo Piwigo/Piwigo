@@ -252,7 +252,7 @@ $lang['Date posted, new &rarr; old'] = 'قديم &rarr; تاريخ النشر، 
 $lang['Date created, old &rarr; new'] = 'حديث &rarr; تاريخ الأنشاء، قديم';
 $lang['Date created, new &rarr; old'] = 'قديم &rarr; تاريخ الأنشاء، جديد';
 $lang['Date'] = 'تاريخ';
-$lang['Customize'] = 'تعديل';
+
 $lang['Current password is wrong'] = 'كلمة المرور الحالية خاطئة';
 $lang['Creation date'] = 'تاريخ الإنشاء';
 $lang['Created on'] = 'تم إنشاؤها فى';
@@ -373,7 +373,7 @@ $lang['included'] = 'مضمونة';
 $lang['large'] = 'L - كبير';
 $lang['last %d days'] = 'ايام %d آخر';
 $lang['created on %s'] = '%s تم إنشاؤها فى';
-$lang['customize the appareance of the gallery'] = 'تعديل مظهر المعرض';
+
 $lang['day']['0'] = 'الأحد';
 $lang['day']['1'] = 'الاثنين';
 $lang['day']['2'] = 'الثلاثاء';

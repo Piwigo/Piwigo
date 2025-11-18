@@ -135,7 +135,7 @@ $lang['created after %s (%s)'] = 'erstellt nach dem %s (%s)';
 $lang['created before %s (%s)'] = 'erstellt vor dem %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'erstellt zwischen %s (%s) und %s (%s)';
 $lang['created on %s'] = 'erstellt am %s';
-$lang['Customize'] = 'Anpassen';
+
 $lang['Your Gallery Customization'] = 'Galerie-Anpassung';
 $lang['day'][0] = 'Sonntag';
 $lang['day'][1] = 'Montag';
@@ -164,7 +164,7 @@ $lang['Hello'] = 'Hallo';
 $lang['available for administrators only'] = 'Administrationsmenü';
 $lang['display this album'] = 'Dieses Album anzeigen';
 $lang['display last user comments'] = 'Die neuesten Kommentare anzeigen';
-$lang['customize the appareance of the gallery'] = 'Anpassungen vornehmen';
+
 $lang['search'] = 'Suchen';
 $lang['Home'] = 'Startseite';
 $lang['Identification'] = 'Identifikation';
