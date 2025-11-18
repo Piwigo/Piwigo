@@ -481,7 +481,7 @@ function lineConstructor(line) {
 
     /* Detail_section */
     newLine.find(".detail-item-1").html(line.ip_address);
-    newLine.find(".detail-item-1").attr("title", "IP");
+    newLine.find(".detail-item-1").attr("title", "IP: " + line.ip_address);
 
     if (line.detailsType == "script") {
         newLine.find(".detail-item-2").html(line.details.script);
@@ -492,8 +492,10 @@ function lineConstructor(line) {
     }   
     
     if (line.details.agent) {
-        newLine.find(".detail-item-3").html(line.details.agent);
-        newLine.find(".detail-item-3").attr('title', line.details.agent);
+        const api_key = line.details.connected_with ? 'API Key, ' : '';
+        const details = line.details.connected_with ? '<i class="icon-key"></i>' + line.details.agent : line.details.agent; 
+        newLine.find(".detail-item-3").html(details);
+        newLine.find(".detail-item-3").attr('title', api_key + 'User-Agent: ' + line.details.agent);
     } else if (line.details.users && line.action != "logout" && line.action != "login") {
         const user_string = [...new Set(line.details.users)].toString();
         newLine.find(".detail-item-3").html(user_string);

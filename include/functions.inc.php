@@ -603,6 +603,12 @@ function pwg_activity($object, $object_id, $action, $details=array())
     $user_agent = strip_tags($_SERVER['HTTP_USER_AGENT']);
   }
 
+  if (isset($_SESSION['connected_with']) and 'api_key' === $_SESSION['connected_with'] and isset($_SERVER['HTTP_USER_AGENT']))
+  {
+    $details['connected_with'] = 'api_key';
+    $user_agent = strip_tags($_SERVER['HTTP_USER_AGENT']);
+  }
+
   // we want to know if the login is automatic with remember_me (auto_login)
   // or with an authentication key provided in the URL (auth_key_login)
   if ('user' == $object and 'login' == $action)
