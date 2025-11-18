@@ -135,6 +135,7 @@ $lang['created after %s (%s)'] = 'creat după %s (%s)';
 $lang['created before %s (%s)'] = 'create înainte de %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'creat între %s (%s) şi %s (%s)';
 $lang['created on %s'] = 'creat pe %s';
+
 $lang['Your Gallery Customization'] = 'Personalizarea Galeriei dvs.';
 $lang['Default'] = 'În mod implicit';
 $lang['delete this photo from your favorites'] = 'şterge această poză din favorite';
@@ -163,6 +164,7 @@ $lang['Hello'] = 'Bună ziua';
 $lang['available for administrators only'] = 'disponibil numai pentru administratori';
 $lang['display this album'] = 'afişează acest album';
 $lang['display last user comments'] = 'Vezi cele mai recente comentarii ale utilizatorilor';
+
 $lang['search'] = 'căutare';
 $lang['Home'] = 'Prima pagină';
 $lang['in this album'] = 'în aceat album';

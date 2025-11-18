@@ -136,6 +136,7 @@ $lang['created after %s (%s)'] = 'направљен након %s (%s)';
 $lang['created before %s (%s)'] = 'направљен прије %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'направљен између %s (%s) и %s (%s)';
 $lang['created on %s'] = 'направљен на %s';
+
 $lang['Your Gallery Customization'] = 'Подешавање Ваше Галерије ';
 $lang['day'][0] = 'Недеља';
 $lang['day'][1] = 'Понедељак';
@@ -164,6 +165,7 @@ $lang['Hello'] = 'Поздрав';
 $lang['available for administrators only'] = 'доступно само администраторима';
 $lang['display this album'] = 'приказује слике у главној категорији';
 $lang['display last user comments'] = 'Преглед задњих корисничких коментара';
+
 $lang['search'] = 'претражи';
 $lang['Home'] = 'Почетна';
 $lang['in this album'] = 'у овој категорији';

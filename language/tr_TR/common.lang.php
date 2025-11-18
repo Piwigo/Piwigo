@@ -100,6 +100,8 @@ $lang['created on %s'] = '%s \'de oluşturulanlar';
 $lang['Created on'] = 'Oluşturuldu';
 $lang['Creation date'] = 'Oluşturulma Tarihi';
 $lang['Current password is wrong'] = 'Şimdiki parola yanlış';
+
+
 $lang['Date'] = 'Tarih';
 $lang['day'][0] = 'Pazar';
 $lang['day'][1] = 'Pazartesi';

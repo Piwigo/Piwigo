@@ -135,6 +135,7 @@ $lang['created after %s (%s)'] = '%s (%s) 以降に作成';
 $lang['created before %s (%s)'] = '%s (%s) 以前に作成';
 $lang['created between %s (%s) and %s (%s)'] = '%s (%s) から %s (%s) の間に作成';
 $lang['created on %s'] = '%s に作成';
+
 $lang['Your Gallery Customization'] = 'あなたのギャラリーのカスタマイズ ';
 $lang['day'][0] = '日曜日';
 $lang['day'][1] = '月曜日';
@@ -163,6 +164,7 @@ $lang['Hello'] = 'こんにちは';
 $lang['available for administrators only'] = '管理者のみ利用可能';
 $lang['display this album'] = 'このアルバムのルートのイメージを表示する';
 $lang['display last user comments'] = '最新のユーザコメントを表示する';
+
 $lang['search'] = '検索';
 $lang['Home'] = 'ホーム';
 $lang['in this album'] = '- このアルバム';

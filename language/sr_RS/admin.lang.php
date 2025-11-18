@@ -360,7 +360,7 @@ $lang['User status'] = 'Стање корисника';
 $lang['user_status_admin'] = 'Администратор';
 $lang['user_status_generic'] = 'Општи';
 $lang['user_status_guest'] = 'Гост';
-$lang['user_status_normal'] = 'Корисник';
+
 $lang['user_status_webmaster'] = 'Мајстор интернет страница';
 $lang['Virtual album'] = 'Виртуелна кетегорија';
 $lang['Waiting'] = 'Чекање';

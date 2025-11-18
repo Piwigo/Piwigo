@@ -722,7 +722,7 @@ $lang['User'] = 'kullanıcı';
 $lang['user_status_admin'] = 'Yönetici';
 $lang['user_status_generic'] = 'Genel';
 $lang['user_status_guest'] = 'Misafir';
-$lang['user_status_normal'] = 'Kullanıcı';
+
 $lang['user_status_webmaster'] = 'Site Yöneticisi';
 $lang['Users'] = 'Kullanıcılar';
 $lang['Validate'] = 'Onayla';

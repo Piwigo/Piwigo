@@ -100,6 +100,8 @@ $lang['created on %s'] = 'creata il %s';
 $lang['Created on'] = 'Creato il';
 $lang['Creation date'] = 'Data di creazione';
 $lang['Current password is wrong'] = 'La password non è corretta';
+
+
 $lang['Date'] = 'Data';
 $lang['day'][0] = 'Domenica';
 $lang['day'][1] = 'Lunedì';
@@ -463,7 +465,6 @@ $lang['You have no email address, so you will not be notified when your API key 
 $lang['Your API key will expire in %d day.'] = 'La tua chiave API scadrà tra %d giorni.';
 $lang['Your API key will expire in %d days.'] = 'La tua chiave API scadrà tra %d ore.';
 $lang['Your API key will expire soon'] = 'La tua chiave API è in scadenza.';
-$lang['This will not be displayed again. You must copy it to continue.'] = 'La chiave segreta non verrà più visualizzata. È necessario copiarla per continuare.';
 $lang['The api key has been successfully created.'] = 'La chiave API è stata creata con successo.';
 $lang['The email %s will be used to notify you when your API key is about to expire.'] = 'L\'email %s verrà utilizzata per avvisarti quando la tua chiave API sta per scadere.';
 $lang['The secret key can no longer be displayed.'] = 'La chiave segreta non può più essere mostrata.';
@@ -471,13 +472,10 @@ $lang['This API key was manually revoked on %s'] = 'La chiave API è stata revoc
 $lang['To continue using the API, please renew your key before it expires.'] = 'Per continuare ad utilizzare le API, prego rinnova la tua chiave prima della scadenza.';
 $lang['To manage your API keys, please log in with your username/password.'] = 'Per gestire le tue chiavi API, prego collegarsi con il proprio nome utente e password.';
 $lang['Options'] = 'Opzioni';
-$lang['Public key copied.'] = 'Chiave pubblica copiata';
 $lang['Return to <a href="identification.php" title="Sign in">Sign in</a>'] = 'Ritorna a <a href="identification.php" title="Sign in">Registrazione</a>';
 $lang['Return to the gallery'] = 'Ritorna alla galleria';
 $lang['Revoke'] = 'Revoca';
 $lang['Revoked'] = 'Revocata';
-$lang['Save your secret Key and ID'] = 'Salva la tua chiave segreta e l\'ID';
-$lang['Secret key copied. Keep it in a safe place.'] = 'Chiave segreta copiata. Tienila in un posto sicuro.';
 $lang['Set my password'] = 'Imposta la mia password';
 $lang['Show expired keys'] = 'Mostra le chiavi scadute';
 $lang['Custom date'] = 'Data personalizzata';
@@ -520,3 +518,12 @@ $lang['Create API Keys to secure your acount'] = 'Crea una chiave API per metter
 $lang['Create a new API key to secure your account.'] = 'Crea una nuova chiave API per mettere in sicurezza il tuo account';
 $lang['Create an account'] = 'Crea un account';
 $lang['Created at'] = 'Creato a';
+$lang['An email has been sent with a verification code'] = 'Inviata email con codice di verifica';
+$lang['ID copied.'] = 'ID copiato';
+$lang['If you do not receive the email, please contact your webmaster.'] = 'Se non hai ricevuto l\'email, prego contattare il tuo webmaster';
+$lang['Invalid verification code'] = 'Codice di verifica errato';
+$lang['Save your ID and secret'] = 'Salva il tuo ID e chiave segreta';
+$lang['Secret copied. Keep it in a safe place.'] = 'Chiave segreta copiata. Conservala in un luogo sicuro.';
+$lang['The secret will no longer be displayed. You must copy it to continue.'] = 'La chiave segreta non verrà più mostrata. Devi copiartela per poter continuare';
+$lang['Verification code'] = 'Codice di verifica';
+$lang['Verify'] = 'Verifica';

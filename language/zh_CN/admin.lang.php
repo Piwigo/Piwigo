@@ -359,7 +359,7 @@ $lang['User status'] = '用户身份';
 $lang['user_status_admin'] = '管理员';
 $lang['user_status_generic'] = '公共帐户';
 $lang['user_status_guest'] = '游客';
-$lang['user_status_normal'] = '个人帐户';
+
 $lang['user_status_webmaster'] = '站长';
 $lang['Virtual album'] = '虚拟相册';
 $lang['Waiting'] = '等待';
@@ -1421,3 +1421,4 @@ $lang['The comments have been validated.'] = '这些评论已通过验证。';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = '当前暂存区（上传缓冲区）中有%d张照片';
 $lang['Use standard Piwigo template for common pages.'] = '为通用页面使用标准Piwigo模板。';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = '启用后，登录、注册和忘记密码页面将使用通用模板，无论使用何种主题。某些主题即使取消选中此选项，也可能会使用这些模板。';
+$lang['Admins only'] = '仅限管理员';

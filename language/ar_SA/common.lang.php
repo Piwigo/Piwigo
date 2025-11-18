@@ -142,6 +142,7 @@ $lang['created after %s (%s)'] = 'انشأ قبل %s (%s)';
 $lang['created before %s (%s)'] = 'اُنشأ بعد %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'اُنشأ بين %s (%s) و %s (%s)';
 $lang['created on %s'] = 'تاريخ الإنشاء %s';
+
 $lang['Your Gallery Customization'] = 'تخصيص المعرض ';
 $lang['day'][0] = 'الاحد';
 $lang['day'][1] = 'الاثنين';
@@ -169,6 +170,7 @@ $lang['Hello'] = 'مرحبا';
 $lang['available for administrators only'] = 'متاح للأدارين فقط';
 $lang['display this album'] = 'عرض  جميع صور هذا الألبوم';
 $lang['display last user comments'] = 'شاهد آخر التعليقات';
+
 $lang['search'] = 'بحث';
 $lang['Home'] = 'الرئيسية';
 $lang['Identification'] = 'إدارة المستخدمين';

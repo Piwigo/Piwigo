@@ -27,6 +27,8 @@ $lang['All tags'] = 'All tags';
 $lang['About Piwigo'] = 'About Piwigo';
 $lang['An administrator must authorize your comment before it is visible.'] = "An administrator must authorise your comment before it becomes visible.";
 $lang['Any tag'] = 'Any tag';
+
+
 $lang['delete all photos from your favorites'] = "delete all photos from your favourites";
 $lang['delete this photo from your favorites'] = "delete this photo from your favourites";
 $lang['Favorites'] = "Favourites";

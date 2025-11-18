@@ -847,7 +847,7 @@ $lang['wrong filename'] = 'nome de ficheiro incorrecto';
 $lang['user_status_admin'] = 'Administrador';
 $lang['user_status_generic'] = 'Xenérico';
 $lang['user_status_guest'] = 'Invitado';
-$lang['user_status_normal'] = 'Usuario';
+
 $lang['user_status_webmaster'] = 'Administrador web';
 $lang['user "%s" added'] = 'engadido o usuario "%s"';
 $lang['update the database from files'] = 'actualizar a base de datos a partir dos ficheiros';

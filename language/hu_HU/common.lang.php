@@ -136,6 +136,7 @@ $lang['created after %s (%s)'] = 'létrehozva %s (%s) után';
 $lang['created before %s (%s)'] = 'létrehozva %s (%s) előtt';
 $lang['created between %s (%s) and %s (%s)'] = 'létrehozva %s (%s) és %s (%s) között';
 $lang['created on %s'] = 'létrehozva %s';
+
 $lang['Your Gallery Customization'] = 'A Galéria Testreszabása ';
 $lang['day'][0] = 'Vasárnap';
 $lang['day'][1] = 'Hétfő';
@@ -164,6 +165,7 @@ $lang['Hello'] = 'Üdvözlet';
 $lang['available for administrators only'] = 'Csak adminisztrátoroknak';
 $lang['display this album'] = 'album képeinek, belső albumainak megjelenítése';
 $lang['display last user comments'] = 'Utolsó hozzászólások megjelenítése';
+
 $lang['search'] = 'Keresés';
 $lang['Home'] = 'Főoldal';
 $lang['Identification'] = 'Azonosító';

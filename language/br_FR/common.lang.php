@@ -112,6 +112,7 @@ $lang['Date posted, new &rarr; old'] = 'Deiziad ouzhpennañ, nevez &rarr; kozh';
 $lang['Date posted, old &rarr; new'] = 'Deiziad ouzhpennañ, kozh &rarr; nevez';
 $lang['Date created, new &rarr; old'] = 'Deiziad krouiñ, nevez &rarr; kozh';
 $lang['Date created, old &rarr; new'] = 'Deiziad krouiñ, kozh &rarr; nevez';
+
 $lang['Creation date'] = 'Deiziad krouiñ';
 $lang['Current password is wrong'] = 'Fazi gant ar ger-tremen a vremañ';
 $lang['Created on'] = 'Krouet d\'an';
@@ -150,6 +151,7 @@ $lang['delete all photos from your favorites'] = 'Dilemel an holl luc\'hskeudenn
 $lang['delete this photo from your favorites'] = 'Dilemel al luc\'hskeudenn-mañ eus ho pennrolloù';
 $lang['The gallery is locked for maintenance. Please, come back later.'] = 'Prennet eo ar palier evit trezalc\'h. Deuit en-dro diwezhatoc\'h.';
 $lang['Go through the gallery as a visitor'] = 'Dedreuziñ ar palier evel un implijer';
+
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Demat %s, ho palier luc\'hskeudennoù Piwigo a zo goullo !';
 $lang['Welcome to your Piwigo photo gallery!'] = 'Degemer mat war ho palier-luc\'hskeudennoù Piwigo !';
 $lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'Gwazh RSS a kemenn an darvoudoù ar palier : luc\'hskeudennoù nevez, rummadoù hizivaet, evezhiadennoù nevez an implijerien. Da vezañ implijet gant ul lenner-gwazhioù RSS.';

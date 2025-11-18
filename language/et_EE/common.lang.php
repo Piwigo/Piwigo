@@ -170,6 +170,7 @@ $lang['created after %s (%s)'] = 'loodud peale %s (%s)';
 $lang['created before %s (%s)'] = 'loodud enne %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'loodud %s (%s) ja %s (%s) vahel';
 $lang['created on %s'] = 'loodud %s';
+
 $lang['Your Gallery Customization'] = 'Sinu galerii kohandamine';
 $lang['Default'] = 'Vaikimisi';
 $lang['delete this photo from your favorites'] = 'eemalda see foto oma lemmikutest';
@@ -191,6 +192,7 @@ $lang['Hello'] = 'Tere';
 $lang['available for administrators only'] = 'saadaval vaid administraatoritele';
 $lang['display this album'] = 'kuva see album';
 $lang['display last user comments'] = 'kuva viimased kasutajate kommentaarid';
+
 $lang['search'] = 'otsi';
 $lang['Home'] = 'Avaleht';
 $lang['in this album'] = 'selles albumis';

@@ -135,6 +135,7 @@ $lang['created after %s (%s)'] = 'Aangemaakt na %s (%s)';
 $lang['created before %s (%s)'] = 'Aangemaakt voor %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'Aangemaakt tussen %s (%s) en %s (%s)';
 $lang['created on %s'] = 'Aangemaakt op %s';
+
 $lang['Your Gallery Customization'] = 'Jouw galerie-aanpassingen';
 $lang['day'][0] = 'Zondag';
 $lang['day'][1] = 'Maandag';
@@ -162,6 +163,8 @@ $lang['guest'] = 'Gast';
 $lang['Hello'] = 'Hallo';
 $lang['available for administrators only'] = 'Alleen toegankelijk voor beheerders';
 $lang['display this album'] = 'Toon dit album';
+$lang['display last user comments'] = 'Toon de meest recente gebruikersreacties';
+
 $lang['search'] = 'zoek';
 $lang['Home'] = 'Startpagina';
 $lang['Identification'] = 'Administratie';
@@ -475,8 +478,6 @@ $lang['When enabled, a common template is used for the login and registration pa
 $lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'U kunt uw API-key\'s beheren in uw <a href="%s">accountinstellingen.</a>';
 $lang['Return to <a href="identification.php" title="Sign in">Sign in</a>'] = 'Ga terug naar<a href="identification.php" title="Log in">Log in</a>';
 $lang['The email %s will be used to notify you when your API key is about to expire.'] = 'De email %s zal worden gebruikt om je te waarschuwen wanneer je API key gaat verlopen.';
-$lang['Save your secret Key and ID'] = 'Bewaar je geheime Key en ID';
-$lang['Secret key copied. Keep it in a safe place.'] = 'Geheime key gekopieerd. Bewaar het op een veilige plaats.';
 $lang['Set my password'] = 'Stel mijn wachtwoord in';
 $lang['This API key was manually revoked on %s'] = 'Deze API key is handmatig ingetrokken op %s';
 $lang['To manage your API keys, please log in with your username/password.'] = 'Om je API key\'s te beheren, log in met je gebruikersnaam/wachtwoord';
@@ -488,14 +489,12 @@ $lang['Your password was successfully reset'] = 'Je wachtwoord is met success ge
 $lang['Return to the gallery'] = 'Ga terug naar de galerij';
 $lang['The api key has been successfully created.'] = 'De API key is met succes gemaakt.';
 $lang['The secret key can no longer be displayed.'] = 'De geheime key kan niet langer worden getoond. ';
-$lang['This will not be displayed again. You must copy it to continue.'] = 'Dit wordt niet nogmaals getoond. Je moet het kopieren om verder te gaan.';
 $lang['To continue using the API, please renew your key before it expires.'] = 'Om de API te gebruiken, ';
 $lang['Your changes have been applied.'] = 'je wijzigingen zijn doorgevoerd';
 $lang['Your password was successfully set'] = 'Je wachtwoord is met succes gewijzigd';
 $lang['must not be empty'] = 'mag niet leeg zijn';
 $lang['you must choose a date'] = 'je moet een datum kiezen';
 $lang['Options'] = 'Opties';
-$lang['Public key copied.'] = 'Public key gekopieerd.';
 $lang['Revoke'] = 'Intrekken';
 $lang['Revoked'] = 'Ingetrokken';
 $lang['Show expired keys'] = 'Toon verlopen Keys';
@@ -539,3 +538,12 @@ $lang['Create API Keys to secure your acount'] = 'Maak API key\'s om je account 
 $lang['Create a new API key to secure your account.'] = 'Maak een nieuwe API key om je account te beveiligen';
 $lang['Create an account'] = 'Maak een account';
 $lang['Created at'] = 'Gemaakt op';
+$lang['An email has been sent with a verification code'] = 'Er is een e-mail verzonden met een verificatiecode';
+$lang['ID copied.'] = 'ID gekopieerd.';
+$lang['If you do not receive the email, please contact your webmaster.'] = 'Als u de e-mail niet ontvangt, neem dan contact op met uw webmaster.';
+$lang['Invalid verification code'] = 'Ongeldige verificatiecode';
+$lang['Save your ID and secret'] = 'Bewaar uw ID en geheime code';
+$lang['Secret copied. Keep it in a safe place.'] = 'Geheime code gekopieerd. Bewaar het op een veilige plaats.';
+$lang['The secret will no longer be displayed. You must copy it to continue.'] = 'De geheime code wordt niet meer weergegeven. U moet het kopiëren om verder te gaan.';
+$lang['Verification code'] = 'Verificatie code';
+$lang['Verify'] = 'Verifieer';

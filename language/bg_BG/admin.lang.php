@@ -224,7 +224,7 @@ $lang['bottom right corner'] = 'долен десен ъгъл';
 $lang['top left corner'] = 'горен ляв ъгъл';
 $lang['top right corner'] = 'горен десен ъгъл';
 $lang['user_status_guest'] = 'Гост';
-$lang['user_status_normal'] = 'Потребител';
+
 $lang['user_status_webmaster'] = 'Уебмастър';
 $lang['%s must be to set to false in your local/config/config.inc.php file'] = '%s трябва да се зададе като "false" във файл local/config/config.inc.php';
 $lang['%s photos can not be regenerated'] = '%s снимки не могат да бъдат регенерирани';

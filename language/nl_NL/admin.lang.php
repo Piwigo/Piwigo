@@ -355,7 +355,7 @@ $lang['User status'] = 'Gebruikersstatus';
 $lang['user_status_admin'] = 'Beheerder';
 $lang['user_status_generic'] = 'Algemeen';
 $lang['user_status_guest'] = 'Gast';
-$lang['user_status_normal'] = 'Gebruiker';
+
 $lang['user_status_webmaster'] = 'Webbeheerder';
 $lang['Virtual album'] = 'Virtueel album';
 $lang['Waiting'] = 'In behandeling';
@@ -1417,3 +1417,4 @@ $lang['Are you sure you want to delete "%d" comments?'] = 'Weet je zeker dat je 
 $lang['Are you sure you want to delete comment #%s?'] = 'Weet je zeker dat je opmerking #%s wil verwijderen? ';
 $lang['Empty lounge'] = 'Leeg buffer';
 $lang['Save all photos'] = 'Bewaar alle foto\'s';
+$lang['Admins only'] = 'Alleen beheerders';

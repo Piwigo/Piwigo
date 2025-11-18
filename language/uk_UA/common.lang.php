@@ -182,6 +182,7 @@ $lang['created after %s (%s)'] = 'створено після %s (%s)';
 $lang['created before %s (%s)'] = 'створено до %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'створено між %s (%s) і %s (%s)';
 $lang['created on %s'] = 'створено в %s';
+
 $lang['Your Gallery Customization'] = 'Налаштування вашої галереї';
 $lang['Default'] = 'За замовчуванням';
 $lang['delete this photo from your favorites'] = 'видалити це зображення з обраних';
@@ -203,6 +204,7 @@ $lang['Hello'] = 'Привіт';
 $lang['available for administrators only'] = 'доступно тільки для адміністраторів';
 $lang['display this album'] = 'показати цей альбом';
 $lang['display last user comments'] = 'показати останні коментарі користувачів';
+
 $lang['search'] = 'пошук';
 $lang['Home'] = 'Домашня сторінка';
 $lang['in this album'] = 'в цьому альбомі';

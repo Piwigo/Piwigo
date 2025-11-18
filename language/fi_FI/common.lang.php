@@ -132,6 +132,8 @@ $lang['Comments'] = 'Kommentit';
 $lang['Contact'] = 'Ota yhteyttä';
 $lang['created before %s (%s)'] = 'luotu ennen %s (%s)';
 $lang['created on %s'] = 'Luotu %s';
+
+
 $lang['Delete'] = 'Poista';
 $lang['delete all photos from your favorites'] = 'poista kaikki kuvat suosikeista';
 $lang['descending'] = 'laskeva';

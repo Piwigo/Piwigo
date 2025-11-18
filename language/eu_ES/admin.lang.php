@@ -171,7 +171,7 @@ $lang['user "%s" added'] = '"%s" erabiltzailea gehitua izan da';
 $lang['user_status_admin'] = 'Kudeatzailea';
 $lang['user_status_generic'] = 'Generikoa';
 $lang['user_status_guest'] = 'Gonbidatua';
-$lang['user_status_normal'] = 'Erabiltzailea';
+
 $lang['user_status_webmaster'] = 'Webmasterra';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'Bisitariak saio hasi eta dagokion baimenak behar ditu album hau ikusteko';
 $lang['width & height'] = 'zabalera eta altuera';

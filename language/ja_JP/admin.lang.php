@@ -358,7 +358,7 @@ $lang['User status'] = 'ユーザーステータス';
 $lang['user_status_admin'] = '管理者';
 $lang['user_status_generic'] = '一般';
 $lang['user_status_guest'] = 'ゲスト';
-$lang['user_status_normal'] = 'ユーザー';
+
 $lang['user_status_webmaster'] = 'サイト管理者';
 $lang['Virtual album'] = 'バーチャルアルバム';
 $lang['Waiting'] = '承認待ち';

@@ -360,7 +360,7 @@ $lang['User status'] = 'Stav uživatele';
 $lang['user_status_admin'] = 'Administrátor';
 $lang['user_status_generic'] = 'Generic';
 $lang['user_status_guest'] = 'Host';
-$lang['user_status_normal'] = 'Uživatel';
+
 $lang['user_status_webmaster'] = 'Administrátor';
 $lang['Virtual album'] = 'Virtuální album';
 $lang['Waiting'] = 'Ke schválení';

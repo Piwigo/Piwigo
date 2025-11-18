@@ -138,6 +138,7 @@ $lang['created after %s (%s)'] = "sukurtas po %s (%s)";
 $lang['created before %s (%s)'] = 'sukurtas prieš %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = "sukurta tarp %s (%s) ir %s (%s)";
 $lang['created on %s'] = "sukurta %s";
+
 $lang['Your Gallery Customization'] = 'Jūsų galerijos nustatymai';
 $lang['day'][0] = "Sekmadienis";
 $lang['day'][1] = "Pirmadienis";
@@ -159,6 +160,7 @@ $lang['Page generated in'] = "Puslapis atidarytas per";
 $lang['guest'] = 'svečias';
 $lang['Hello'] = "Sveiki";
 $lang['available for administrators only'] = "tik administracijai";
+
 $lang['search'] = 'ieškoti';
 $lang['Home'] = 'Pradžia';
 $lang['Identification'] = "Identifikacija";

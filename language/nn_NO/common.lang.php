@@ -53,6 +53,7 @@ $lang['I want to add photos'] = 'Eg ynskjer å legge til bilete';
 $lang['IP: %s'] = 'IP: %s';
 $lang['IPTC Metadata'] = 'IPTC Medadata';
 $lang['Keyword'] = 'Nøkkelord';
+
 $lang['Expand all albums'] = 'Utvid album';
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Hei %s, ditt Piwigo biletgalleri er tomt!';
 $lang['Connection settings'] = 'Innstillingar for pålogging';
@@ -113,6 +114,7 @@ $lang['Your comment has been registered'] = 'Kommentaren din er registrera';
 $lang['Your favorites'] = 'Mine favorittar';
 $lang['Your password has been reset'] = 'Passordet er nullstilt';
 $lang['add this photo to your favorites'] = 'legg dette bilete til favorittliste';
+
 $lang['delete all photos from your favorites'] = 'fjern alle bilete frå favorittliste';
 $lang['delete this photo from your favorites'] = 'fjern dette biletet frå favorittliste';
 $lang['all'] = 'alle';

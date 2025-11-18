@@ -136,6 +136,7 @@ $lang['created after %s (%s)'] = 'vytvořeno po %s (%s)';
 $lang['created before %s (%s)'] = 'vytvořeno před %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'vytvořeno mezi %s (%s) a %s (%s)';
 $lang['created on %s'] = 'vytvořeno %s';
+
 $lang['Your Gallery Customization'] = 'Přizpůsobit galerii ';
 $lang['day'][0] = 'Neděle';
 $lang['day'][1] = 'Pondělí';
@@ -164,6 +165,7 @@ $lang['Hello'] = 'Přihlášen jako';
 $lang['available for administrators only'] = 'Přístupné pouze adminitrátorům';
 $lang['display this album'] = 'Zobrazí fotky z tohoto alba';
 $lang['display last user comments'] = 'Zobrazit nejnovější komentáře uživatelů';
+
 $lang['search'] = 'Hledat';
 $lang['Home'] = 'Úvodní stránka';
 $lang['Identification'] = 'Identifikace';

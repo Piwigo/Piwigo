@@ -359,7 +359,7 @@ $lang['User status'] = 'Bruker status';
 $lang['user_status_admin'] = 'Administrator';
 $lang['user_status_generic'] = 'Generisk';
 $lang['user_status_guest'] = 'Gjest';
-$lang['user_status_normal'] = 'Bruker';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Virtual album'] = 'Virtuelt album';
 $lang['Waiting'] = 'Avventer';

@@ -137,6 +137,7 @@ $lang['created after %s (%s)'] = 'kreita post la %s (%s)';
 $lang['created before %s (%s)'] = 'kreita antaŭ la %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'kreita antaŭ la %s (%s) kaj la %s (%s)';
 $lang['created on %s'] = 'kreita la %s';
+
 $lang['Your Gallery Customization'] = 'Personigado de via galerio ';
 $lang['day'][0] = 'Dimanĉo';
 $lang['day'][1] = 'Lundo';
@@ -163,6 +164,7 @@ $lang['Hello'] = 'Saluton';
 $lang['available for administrators only'] = 'disponeblaj nur por la administrantoj';
 $lang['display this album'] = 'montri tiun fotaron';
 $lang['display last user comments'] = 'Montri la lasatjn komentoj';
+
 $lang['search'] = 'serĉi';
 $lang['Home'] = 'Akceptejo';
 $lang['in this album'] = 'en tiu fotaro';

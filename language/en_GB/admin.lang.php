@@ -207,7 +207,7 @@ $lang['between'] = 'between';
 $lang['between %.2f and %.2f'] = 'between %.2f and %.2f';
 $lang['between %d and %d pixels'] = 'between %d and %d pixels';
 $lang['user_status_guest'] = 'Guest';
-$lang['user_status_normal'] = 'User';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'visitors need to login and have the appropriate permissions to see this album';
 $lang['width & height'] = 'width & height';

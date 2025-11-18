@@ -489,7 +489,7 @@ $lang['user "%s" added'] = 'uporabnik "%s" dodan';
 $lang['user_status_admin'] = 'Administrator';
 $lang['user_status_generic'] = 'Splošen';
 $lang['user_status_guest'] = 'Gost';
-$lang['user_status_normal'] = 'Uporabnik';
+
 $lang['user_status_webmaster'] = 'Skrbnik';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'obiskovalci se morajo vpisati in imeti ustrezna dovoljenja za ogled tega albuma';
 $lang['width must be a number superior to'] = 'širina mora biti število večje od';

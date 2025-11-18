@@ -100,6 +100,8 @@ $lang['created on %s'] = "%s ರಂದು ತೆರೆಯಲಾಗಿದೆ";
 $lang['Created on'] = "ರಂದು ರಚಿಸಲಾಗಿದೆ";
 $lang['Creation date'] = "ರಚಿಸಲಾದ ದಿನಾಂಕ";
 $lang['Current password is wrong'] = "ಈಗಿನ ಗುಪ್ತಪದ ತಪ್ಪಾಗಿದೆ";
+
+
 $lang['Date created, new &rarr; old'] = 'ರಚಿಸಲಾದ ದಿನಾಂಕ, ಹೊಸ &rarr; ಹಳೆಯ';
 $lang['Date created, old &rarr; new'] = 'ರಚಿಸಲಾದ ದಿನಾಂಕ, ಹಳೆಯ &rarr; ಹೊಸ';
 $lang['Date posted, new &rarr; old'] = 'ದಿನಾಂಕ, ಹೊಸ &rarr; ಹಳೆಯ';

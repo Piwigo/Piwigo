@@ -358,7 +358,7 @@ $lang['User status'] = 'Status des Benutzers';
 $lang['user_status_admin'] = 'Administrator';
 $lang['user_status_generic'] = 'Allgemein';
 $lang['user_status_guest'] = 'Gast';
-$lang['user_status_normal'] = 'Benutzer';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Virtual album'] = 'Virtuelles Album';
 $lang['Waiting'] = 'Freizugebende Kommentare';
@@ -1419,3 +1419,4 @@ $lang['When enabled, a common template is used for the login, registration and f
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d Fotos wurden aus der Upload-Lounge in ihre Alben verschoben.';
 $lang['Are you sure you want to delete "%d" comments?'] = 'Möchten Sie wirklich „%d“ Kommentare löschen?';
 $lang['Are you sure you want to delete comment #%s?'] = 'Möchten Sie den Kommentar #%s wirklich löschen?';
+$lang['Admins only'] = 'Nur für Administratoren';

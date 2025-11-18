@@ -355,7 +355,7 @@ $lang['User status'] = 'Stav používateľa';
 $lang['user_status_admin'] = 'Administrátor';
 $lang['user_status_generic'] = 'Všeobecný';
 $lang['user_status_guest'] = 'Hosť';
-$lang['user_status_normal'] = 'Používateľ';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Virtual album'] = 'Virtuálny album';
 $lang['Waiting'] = 'Na schválenie';
