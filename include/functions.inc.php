@@ -2852,6 +2852,59 @@ SELECT
     'use_watermark' => !empty($watermark->file) ? 'yes' : 'no',
   );
 
+  // which remote apps have been used?
+  $remote_apps_start_time = get_moment();
+
+  $query = '
+SELECT
+    user_agent,
+    COUNT(*) AS counter,
+    MIN(occured_on) AS first_encounter,
+    MAX(occured_on) AS last_encounter
+  FROM '.ACTIVITY_TABLE.'
+  WHERE user_agent NOT LIKE \'Mozilla/5%\'
+  GROUP BY user_agent
+;';
+  $activities = query2array($query);
+  $apps = array();
+
+  $apps_pattern = array(
+    'Piwigo iOS' => '/^Piwigo\/\d+ CFNetwork/',
+    'Piwigo NG' => '/^Dart\/[\d\.]+ \(dart:io\)$/',
+    'Piwigo Android' => '/^Piwigo-Android/',
+    'Lightroom' => '/Lightroom/',
+    'Piwigo Remote Sync' => '/(PiwigoRemoteSync|Apache-HttpClient)/',
+    'darktable' => '/darktable/',
+    'Piwigo Client' => '/PiwigoClient/',
+    'Aperture' => '/ApertureToPiwigoPlugIn/',
+    'MacShare' => '/MacShareToPiwigo/',
+    'WordPress' => '/WordPress/',
+    'pLoader' => '/pLoader/',
+  );
+
+  foreach ($activities as $activity)
+  {
+    foreach ($apps_pattern as $app_name => $pattern)
+    {
+      if (preg_match($pattern, $activity['user_agent']))
+      {
+        @$apps[$app_name]['counter'] += $activity['counter'];
+
+        if (!isset($apps[$app_name]['first_encounter']) or strtotime($apps[$app_name]['first_encounter']) > strtotime($activity['first_encounter']))
+        {
+          $apps[$app_name]['first_encounter'] = $activity['first_encounter'];
+        }
+
+        if (!isset($apps[$app_name]['last_encounter']) or strtotime($apps[$app_name]['last_encounter']) < strtotime($activity['last_encounter']))
+        {
+          $apps[$app_name]['last_encounter'] = $activity['last_encounter'];
+        }
+      }
+    }
+  }
+
+  $piwigo_infos['apps'] = $apps;
+
   $features = array(
     'activate_comments',
     'rate',
