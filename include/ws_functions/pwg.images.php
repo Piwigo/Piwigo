@@ -396,7 +396,7 @@ LIMIT 1
       'render_element_name',
       $image_row['name'],
       __FUNCTION__
-    )
+    ) ?? ''
   );
 
   $image_row['comment_raw'] = $image_row['comment'];
@@ -717,7 +717,7 @@ SELECT *
         $image[$k] = $row[$k];
       }
 
-      $image['name'] = strip_tags(trigger_change('render_element_name', $image['name'], __FUNCTION__));
+      $image['name'] = strip_tags(trigger_change('render_element_name', $image['name'], __FUNCTION__) ?? '');
       $image['comment'] = trigger_change('render_element_description', $image['comment'], __FUNCTION__);
 
       $image = array_merge($image, ws_std_get_urls($row));
