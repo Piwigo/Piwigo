@@ -74,13 +74,6 @@ str_meta_warning = "{'Warning ! Unsaved changes will be lost'|translate|escape:j
 str_meta_yes = "{'I want to continue'|translate|escape:javascript}";
 const str_title_ab = "{'Associate to album'|@translate}";
 
-const strs_privacy = {
-  "0" : "{$level_options[8]}",
-  "1" : "{$level_options[4]}",
-  "2" : "{$level_options[2]}", 
-  "3" : "{$level_options[1]}",
-  "4" : "{$level_options[0]}",
-};
 let b_current_picture_id;
 {* Check Skeleton extension for more details about extensibility *}
 pluginValues = [];

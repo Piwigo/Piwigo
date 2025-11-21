@@ -251,14 +251,6 @@ SELECT
     $storage_category_id = $row['storage_category_id'];
   }
 
-  $level_convert = [
-    "0" => "4",
-    "1" => "3",
-    "2" => "2",
-    "4" => "1",
-    "8" => "0",
-  ];
-
   foreach ($images as $row)
   {
     $element_ids[] = $row['id'];
@@ -406,7 +398,6 @@ SELECT
         'U_DELETE' => $admin_url_start.'&amp;delete=1&amp;pwg_token='.get_pwg_token(),
         'U_SYNC' => $admin_url_start.'&amp;sync_metadata=1',
         'PATH'=>$row['path'],
-        'LEVEL_CONVERT' => $level_convert[!empty($row['level'])?$row['level']:'0'],
         'level_options_selected' => array($selected_level)
 
 
