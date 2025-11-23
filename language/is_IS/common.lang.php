@@ -527,3 +527,10 @@ $lang['Secret copied. Keep it in a safe place.'] = 'Leyndarmálið afritað. Gey
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'Leyndarmálið verður ekki lengur birt. Þú verður að afrita það til að halda áfram.';
 $lang['Verification code'] = 'Staðfestingarkóði';
 $lang['Verify'] = 'Staðfesta';
+$lang['Here is your verification code:'] = 'Hér er staðfestingarkóðinn þinn:';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Ef þetta varst ekki þú, vinsamlegast breyttu lykilorðinu þínu strax eða hafðu samband við vefstjórann þinn.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Ef þú breyttir lykilorðinu þínu vegna þess að þú telur að það hafi verið stolið, mælum við með að þú afturkallir %d API lykla <a href="%s">í prófílnum þínum</a>.';
+$lang['Too many attempts, please try later..'] = 'Of margar tilraunir, vinsamlegast reynið síðar..';
+$lang['Verification successful! You can now choose a new password.'] = 'Staðfesting tókst! Þú getur nú valið nýtt lykilorð.';
+$lang['Your verification code'] = 'Staðfestingarkóðinn þinn';
+$lang['edit user preferences'] = 'breyta notandastillingum';
