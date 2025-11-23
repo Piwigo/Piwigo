@@ -1418,3 +1418,4 @@ $lang['Are you sure you want to delete comment #%s?'] = 'Weet je zeker dat je op
 $lang['Empty lounge'] = 'Leeg buffer';
 $lang['Save all photos'] = 'Bewaar alle foto\'s';
 $lang['Admins only'] = 'Alleen beheerders';
+$lang['user_status_normal'] = 'Basis';
