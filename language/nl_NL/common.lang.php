@@ -547,3 +547,10 @@ $lang['Secret copied. Keep it in a safe place.'] = 'Geheime code gekopieerd. Bew
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'De geheime code wordt niet meer weergegeven. U moet het kopiëren om verder te gaan.';
 $lang['Verification code'] = 'Verificatie code';
 $lang['Verify'] = 'Verifieer';
+$lang['Here is your verification code:'] = 'Hier is uw verificatiecode:';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Als u het niet wass, wijzig dan onmiddellijk uw wachtwoord of neem contact op met uw webmaster.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Als u uw wachtwoord heeft gewijzigd omdat u denkt dat het is gestolen, raden wij u aan uw %d API-sleutels <a href="%s">in uw profiel</a> in te trekken.';
+$lang['Too many attempts, please try later..'] = 'Teveel pogingen, probeer het later.';
+$lang['Verification successful! You can now choose a new password.'] = 'Verificatie succesvol! U kunt nu een nieuw wachtwoord kiezen.';
+$lang['Your verification code'] = 'Uw verificatiecode';
+$lang['edit user preferences'] = 'Bewerk gebruiker voorkeuren';
