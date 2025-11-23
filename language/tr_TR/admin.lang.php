@@ -1412,3 +1412,5 @@ $lang['Empty lounge'] = 'Alanı boşalt';
 $lang['Are you sure you want to delete comment #%s?'] = '#%s yorumunu silmek istediğinizden emin misiniz?';
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d fotoğraf yükleme alanından albümlerine taşındı';
 $lang['Are you sure you want to delete "%d" comments?'] = '"%d" yorumu silmek istediğinizden emin misiniz?';
+$lang['Admins only'] = 'Yalnızca yöneticiler';
+$lang['user_status_normal'] = 'Temel';
