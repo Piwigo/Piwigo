@@ -531,3 +531,10 @@ $lang['Secret copied. Keep it in a safe place.'] = '密钥已复制。请将其�
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = '密钥将不再显示。您必须复制它才能继续操作。';
 $lang['Verification code'] = '验证码';
 $lang['Verify'] = '验证';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = '如果您因认为密码被盗而更改了密码，我们建议您在<a href="%s">个人资料</a> 中撤销您的%d个API 密钥。';
+$lang['Here is your verification code:'] = '这是您的验证码：';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = '如果不是您本人操作，请立即更改密码或联系网站管理员。';
+$lang['Too many attempts, please try later..'] = '尝试次数过多，请稍后再试。';
+$lang['Verification successful! You can now choose a new password.'] = '验证成功！您现在可以选择一个新密码。';
+$lang['Your verification code'] = '您的验证码';
+$lang['edit user preferences'] = '编辑用户偏好设置';
