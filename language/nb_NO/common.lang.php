@@ -526,3 +526,10 @@ $lang['Secret copied. Keep it in a safe place.'] = 'Din private info er kopiert.
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'Din private info vil ikke lenger vises. Du må kopiere den for å fortsette.';
 $lang['Verification code'] = 'Verifiseringskode';
 $lang['Verify'] = 'Verifisere';
+$lang['Here is your verification code:'] = 'Her er bekreftelseskoden din:';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Hvis dette ikke var deg, må du endre passordet ditt umiddelbart eller kontakte nettansvarlig.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Hvis du endret passordet ditt fordi du tror det ble stjålet, anbefaler vi at du tilbakekaller %d API-nøkler <a href="%s">i profilen din</a>.';
+$lang['Too many attempts, please try later..'] = 'For mange forsøk, prøv senere.';
+$lang['Verification successful! You can now choose a new password.'] = 'Verifiseringen er vellykket! Du kan nå velge et nytt passord.';
+$lang['Your verification code'] = 'Bekreftelseskoden din';
+$lang['edit user preferences'] = 'rediger brukerpreferanser';
