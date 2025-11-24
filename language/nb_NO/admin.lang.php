@@ -1413,3 +1413,5 @@ $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Det er fo
 $lang['Use standard Piwigo template for common pages.'] = 'Bruk standard Piwigo-mal for vanlige sider.';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Vi har funnet %d dupliserte stier. Detaljer levert av programtillegget Sjekk Opplastinger';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Når dette alternativet er aktivert, brukes en felles mal for innlogging, registrering og glemt passord-sider, uavhengig av tema. Noen temaer kan bruke disse malene selv om du fjerner merket for dette alternativet.';
+$lang['Admins only'] = 'Kun administratorer';
+$lang['user_status_normal'] = 'Grunnleggende';

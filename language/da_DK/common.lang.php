@@ -530,3 +530,10 @@ $lang['Secret copied. Keep it in a safe place.'] = 'Hemnmelighed kopieret. Opbev
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'Hemmeligheden vil ikke længere blive vist. Du skal kopiere den for at fortsætte.';
 $lang['Verification code'] = 'Verifikationskode';
 $lang['Verify'] = 'Verificér';
+$lang['Here is your verification code:'] = 'Her er din verifikationskode';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Hvis det ikke var dig, så skift omgående din adgangskode eller kontakt din webmaster.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Hvis du ændrede din adgangskode, fordi du tror at den er blevet stjålet, anbefaler vi at trække dine %d API-nøgler tilbage <a href="%s">i din profil</a>.';
+$lang['Too many attempts, please try later..'] = 'For mange forsøg, prøv igen senere.';
+$lang['Verification successful! You can now choose a new password.'] = 'Verifikation bekræftet! Du kan nu vælge en ny adgangskode.';
+$lang['Your verification code'] = 'Din verifikationskode';
+$lang['edit user preferences'] = 'rediger brugerindstillinger';

@@ -528,3 +528,10 @@ $lang['An email has been sent with a verification code'] = 'Eine E-Mail mit eine
 $lang['ID copied.'] = 'ID kopiert.';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'Wenn Sie die E-Mail nicht erhalten, wenden Sie sich bitte an Ihren Webmaster.';
 $lang['Invalid verification code'] = 'Ungültiger Bestätigungscode';
+$lang['Your verification code'] = 'Ihr Bestätigungscode';
+$lang['edit user preferences'] = 'Benutzereinstellungen bearbeiten';
+$lang['Too many attempts, please try later..'] = 'Zu viele Versuche, bitte versuchen Sie es später erneut.';
+$lang['Verification successful! You can now choose a new password.'] = 'Überprüfung erfolgreich! Sie können nun ein neues Passwort wählen.';
+$lang['Here is your verification code:'] = 'Hier ist Ihr Bestätigungscode:';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Wenn Sie das nicht waren, ändern Sie bitte sofort Ihr Passwort oder wenden Sie sich an Ihren Webmaster.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Wenn Sie Ihr Passwort geändert haben, weil Sie glauben, dass es gestohlen wurde, empfehlen wir Ihnen, Ihre %d API-Schlüssel <a href="%s">in Ihrem Profil</a> zu widerrufen.';

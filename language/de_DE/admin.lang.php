@@ -1420,3 +1420,4 @@ $lang['%d photos were moved from the upload lounge to their albums'] = '%d Fotos
 $lang['Are you sure you want to delete "%d" comments?'] = 'Möchten Sie wirklich „%d“ Kommentare löschen?';
 $lang['Are you sure you want to delete comment #%s?'] = 'Möchten Sie den Kommentar #%s wirklich löschen?';
 $lang['Admins only'] = 'Nur für Administratoren';
+$lang['user_status_normal'] = 'Grundlegend';
