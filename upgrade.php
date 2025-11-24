@@ -505,6 +505,11 @@ REPLACE INTO '.PLUGINS_TABLE.'
       }
     }
 
+    if (!isset($_SESSION['connected_with']))
+    {
+      $_SESSION['connected_with'] = 'pwg_ui';
+    }
+
     // Delete cache data
     include(PHPWG_ROOT_PATH . 'include/cache.class.php');
 
