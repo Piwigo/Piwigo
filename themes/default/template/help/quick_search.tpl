@@ -1,7 +1,7 @@
 {combine_css path="themes/default/css/help/quick_search.css"}
 
 <div class="quick-search-headers">
-  <span>{"Search using extended syntax"|translate}</span>
+  <span class="mcs-popin-title">{"Search using extended syntax"|translate}</span>
 </div>
 <div class="quick-search-infos">
   <p>

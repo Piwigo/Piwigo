@@ -1,9 +1,7 @@
 .quick-search-headers {
-  font-size: 1.4em;
+  font-size: 19px;
   font-weight: bold;
-  text-align: center;
   margin-bottom: 10px;
-  margin-top: 15px;
 }
 
 .quick-search-infos p {
