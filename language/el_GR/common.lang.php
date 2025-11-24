@@ -529,3 +529,10 @@ $lang['Secret copied. Keep it in a safe place.'] = 'Η μυστική σας λ�
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'Η μυστική σας λέξη δεν θα είναι πλέον ορατή. Πρέπει να την αντιγράψετε για να συνεχίσετε.';
 $lang['Verification code'] = 'Κωδικός επαλήθευσης';
 $lang['Verify'] = 'Επαλήθευσε';
+$lang['Here is your verification code:'] = 'Ορίστε ο κωδικός σας επαλήθευσης:';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Αν δεν είσασταν εσείς, παρακαλώ αλλάξτε αμέσως τον κωδικό σας ή επικοινωνήστε με τον Διαχειριστή της Σελίδας.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Εαν αλλάξατε τον κωδικό σας επειδή πιστεύετε ότι κλάπηκε, σας συνιστούμε να αναιρέσετε τα %d κλειδιά ΑΡΙ <a href="%s">στο προφίλ σας</a>.';
+$lang['Too many attempts, please try later..'] = 'Υπερβολικά πολλές προσπάθειες, παρακαλώ προσπαθείστε αργότερα...';
+$lang['Verification successful! You can now choose a new password.'] = 'Η επαλήθευση ήταν επιτυχής! Μπορείτε τώρα να επιλέξετε ένα καινούριο κωδικό.';
+$lang['Your verification code'] = 'Ο κωδικός σας επαλήθευσης';
+$lang['edit user preferences'] = 'επεξεργασία προτιμήσεων χρήστη';
