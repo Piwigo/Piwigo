@@ -535,3 +535,10 @@ $lang['Secret copied. Keep it in a safe place.'] = 'הסוד הועתק. שמו�
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'הסוד לא יוצג יותר. עליך להעתיק אותו כדי להמשיך.';
 $lang['Verification code'] = 'קוד אימות';
 $lang['Verify'] = 'אמת';
+$lang['Here is your verification code:'] = 'הנה קוד האימות שלך:';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'אם זה לא היית אתה, אנא שנה את סיסמתך מיד או צור קשר עם מנהל האתר שלך.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'אם שינית את סיסמתך מפני שחשבת שהיא נגנבה, אנו ממליצים לבטל את מפתחות ה-API שלך במספר %d<a href="%s">בפרופיל שלך</a>.';
+$lang['Too many attempts, please try later..'] = 'נעשו יותר מדי ניסיונות, אנא נסה שוב מאוחר יותר.';
+$lang['Verification successful! You can now choose a new password.'] = 'אימות הצליח! כעת תוכל לבחור סיסמה חדשה.';
+$lang['Your verification code'] = 'קוד האימות שלך';
+$lang['edit user preferences'] = 'ערוך העדפות משתמש';
