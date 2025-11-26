@@ -92,6 +92,10 @@ else
 }
 $template->assign('U_CANONICAL', $canonical_url);
 
+// Standard Pages
+// Some themes will want to use standard pages so this will let them know
+$template->assign('use_standard_pages', conf_get_param('use_standard_pages', false));
+
 //-------------------------------------------------------------- page title
 $title = $page['title'];
 $template_title = $page['section_title'];
