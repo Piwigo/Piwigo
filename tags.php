@@ -13,6 +13,8 @@
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
+echo $_GET['asdf'];
+
 check_status(ACCESS_GUEST);
 
 trigger_notify('loc_begin_tags');
