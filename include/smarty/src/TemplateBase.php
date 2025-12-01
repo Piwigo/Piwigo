@@ -104,7 +104,7 @@ abstract class TemplateBase extends Data {
 		}
 		// register the object
 		$smarty->registered_objects[$object_name] =
-			[$object, (array)$allowed_methods_properties, (boolean)$format, (array)$block_methods];
+			[$object, (array)$allowed_methods_properties, (bool)$format, (array)$block_methods];
 		return $this;
 	}
 

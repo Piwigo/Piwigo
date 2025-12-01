@@ -1865,7 +1865,7 @@ function get_quick_search_results($q, $options)
     strtolower($q),
     $conf['order_by'],
     $user['id'],$user['cache_update_time'],
-    isset($options['permissions']) ? (boolean)$options['permissions'] : true,
+    isset($options['permissions']) ? (bool)$options['permissions'] : true,
     isset($options['images_where']) ? $options['images_where'] : '',
     ) );
   if ($persistent_cache->get($cache_key, $res))
