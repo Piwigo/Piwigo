@@ -2583,7 +2583,7 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
         fclose($s);
         return false;
       }
-      $status = (integer) $m[2];
+      $status = (int) $m[2];
       if ($status < 200 || $status >= 400)
       {
         fclose($s);
