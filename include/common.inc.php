@@ -66,7 +66,8 @@ $filter = array();
 
 foreach(
   array(
-    'gzopen'
+    'gzopen',
+    'str_starts_with'
     ) as $func)
 {
   if (!function_exists($func))
