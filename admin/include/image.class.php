@@ -380,11 +380,11 @@ class pwg_image
       exec('command -v '.$conf['ext_imagick_dir'].'magick', $cmd_out , $retval );
       if (0 == $retval)
       {
-        $page['ext_imagick_command'] = $cmd_out[0];
+        $page['ext_imagick_command'] = 'magick';
       }
       else
       {
-        $page['ext_imagick_command'] = $conf['ext_imagick_dir'].'convert';
+        $page['ext_imagick_command'] = 'convert';
       }
     }
     
