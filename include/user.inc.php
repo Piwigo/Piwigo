@@ -59,12 +59,12 @@ if (isset($_GET['auth']))
 // HTTP_AUTHORIZATION api_key
 if (
   defined('IN_WS')
-  and isset($_SERVER['HTTP_AUTHORIZATION'])
-  and !empty($_SERVER['HTTP_AUTHORIZATION']) 
+  and isset($_SERVER['HTTP_X_PIWIGO_API'])
+  and !empty($_SERVER['HTTP_X_PIWIGO_API']) 
   and isset($_REQUEST['method'])
 )
 {
-  $auth_header = pwg_db_real_escape_string($_SERVER['HTTP_AUTHORIZATION']) ?? null;
+  $auth_header = pwg_db_real_escape_string($_SERVER['HTTP_X_PIWIGO_API']) ?? null;
   
   if ($auth_header)
   {
