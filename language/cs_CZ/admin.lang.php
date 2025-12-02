@@ -1418,3 +1418,4 @@ $lang['Save all photos'] = 'Uložit všechny fotky';
 $lang['Are you sure you want to delete comment #%s?'] = 'Jste si jistí že chcete smazat komentář #%s?';
 $lang['Are you sure you want to delete "%d" comments?'] = 'Opravdu chcete smazat "%d" komentáře?';
 $lang['Admins only'] = 'Pouze administrátoři';
+$lang['user_status_normal'] = 'Základní';

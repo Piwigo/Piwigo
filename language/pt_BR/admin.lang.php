@@ -1417,3 +1417,5 @@ $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Faltam %d
 $lang['If a photo in this album has the same filename, update the file without changing the photo\'s properties'] = 'Se uma foto neste álbum tiver o mesmo nome-de-arquivo, atualize o arquivo sem alterar as propriedades da foto';
 $lang['Empty lounge'] = 'Relação de upload vazia';
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d fotos da relação de upload para seus álbuns';
+$lang['Admins only'] = 'Apenas para administradores';
+$lang['user_status_normal'] = 'Básico';

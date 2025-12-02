@@ -531,3 +531,10 @@ $lang['Secret copied. Keep it in a safe place.'] = 'Tajný klíč zkopírován. 
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'Tajný klíč už nebude znovu zobrazen. Abyste mohli pokračovat, musíte si ho zkopírovat.';
 $lang['Verification code'] = 'Ověřovací kód';
 $lang['Verify'] = 'Ověřit';
+$lang['Here is your verification code:'] = 'Váš ověřovací kód:';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Pokud jste to nebyli vy, neprodleně si změňte heslo nebo kontaktujte svého webmastera.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Pokud jste si změnil/a heslo, doporučujeme revokovat vaše %d API klíče <a href="%s">ve vašem profilu</a>.';
+$lang['Too many attempts, please try later..'] = 'Příliš mnoho pokusů, zkuste to prosím později.';
+$lang['Verification successful! You can now choose a new password.'] = 'Ověření proběhlo úspěšně! Nyní si zvolte nové heslo.';
+$lang['Your verification code'] = 'Váš ověřovací kód';
+$lang['edit user preferences'] = 'upravit uživatelské předvolby';

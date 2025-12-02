@@ -529,3 +529,10 @@ $lang['Secret copied. Keep it in a safe place.'] = '密鑰已複製。請妥善�
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = '該密鑰將無法再顯示。您必須將它複製下來才能繼續。';
 $lang['Verification code'] = '驗證碼';
 $lang['Verify'] = '驗證';
+$lang['Here is your verification code:'] = '這是您的驗證碼：';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = '如果這不是您，請立刻變更您的密碼，或與網站管理員聯繫。';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = '如果您是因為懷疑密碼外洩而變更密碼，我們建議您在<a href="%s">個人設定</a>中，註銷現有的 %d 筆 API 密鑰。';
+$lang['Too many attempts, please try later..'] = '嘗試次數太多，請稍後再試。';
+$lang['Verification successful! You can now choose a new password.'] = '驗證成功！現在您可以設定新的密碼。';
+$lang['Your verification code'] = '您的碼證碼';
+$lang['edit user preferences'] = '編輯使用者偏好設定';
