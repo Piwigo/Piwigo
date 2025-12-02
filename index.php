@@ -423,7 +423,7 @@ if ( empty($page['is_external']) )
 
     $template->assign(
       array(
-      'RELATED_TAGS_ACTION' => true,
+      'RELATED_TAGS_ACTION' => !empty($related_tags) ? true : false,
       'RELATED_TAGS' => $related_tags,
       )
     );
