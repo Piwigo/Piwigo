@@ -1414,3 +1414,5 @@ $lang['The comments have been validated.'] = 'Komentarze zostały zweryfikowane.
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Obecnie w poczekalni znajduje się %d zdjęć (bufor do przesyłania)';
 $lang['Use standard Piwigo template for common pages.'] = 'Użyj standardowego szablonu Piwigo dla wspólnych stron.';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Po włączeniu, wspólny szablon jest używany dla stron logowania, rejestracji i obsługi zapomnianego hasła, niezależnie od motywu. Niektóre motywy mogą używać tych szablonów, nawet jeśli odznaczysz tę opcję';
+$lang['user_status_normal'] = 'Podstawowe';
+$lang['Admins only'] = 'Tylko dla administratorów';
