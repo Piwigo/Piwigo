@@ -1414,3 +1414,5 @@ $lang['There is currently %d photos in the lounge (upload buffer)'] = 'V súčas
 $lang['Use standard Piwigo template for common pages.'] = 'Použite štandardnú šablónu Piwigo pre bežné stránky.';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Našli sme %d duplicitných ciest. Podrobnosti poskytol plugin Check Uploads.';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Ak je táto možnosť povolená, pre stránky prihlásenia, registrácie a zabudnutého hesla sa používa spoločná šablóna, bez ohľadu na tému. Niektoré témy môžu používať tieto šablóny aj v prípade, že túto možnosť zrušíte.';
+$lang['Admins only'] = 'Iba pre administrátorov';
+$lang['user_status_normal'] = 'Základné';
