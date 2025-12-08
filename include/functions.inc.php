@@ -3026,7 +3026,7 @@ function pwg_unique_exec_ends($token_name)
  */
 function is_in_container()
 {
-	if (strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX')
+	if (strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX' and empty(ini_get('open_basedir')))
 	{
 		if (file_exists('/proc/2/sched')) // Check if PID2 exist
 		{
