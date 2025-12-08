@@ -1412,3 +1412,5 @@ $lang['There is currently %d photos in the lounge (upload buffer)'] = '目前在
 $lang['Use standard Piwigo template for common pages.'] = '套用標準的 Piwigo 模板至一般頁面。';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = '我們發現 %d 個重覆的路徑。Check Uploads 插件將提供更詳細的資訊';
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = '啟用此功能後，登入、註冊及忘記密碼頁面將採用共通模板，不受主題設定影響。部分主題即使您取消勾選此選項，仍可能使用這些模板。';
+$lang['Admins only'] = '系統管理員專用';
+$lang['user_status_normal'] = '基本';
