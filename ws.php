@@ -834,7 +834,6 @@ function ws_addDefaultMethods( $arr )
       'ws_images_uploadCompleted',
       array(
         'image_id' => array('default'=>null, 'flags'=>WS_PARAM_ACCEPT_ARRAY),
-        'pwg_token' => array(),
         'category_id' => array('type'=>WS_TYPE_ID),
         ),
       'Notify Piwigo you have finished uploading a set of photos. It will empty the lounge, if any.',
