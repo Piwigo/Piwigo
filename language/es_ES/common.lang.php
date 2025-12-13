@@ -536,3 +536,10 @@ $lang['Secret copied. Keep it in a safe place.'] = 'Secreto copiado. Manténgalo
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'El secreto ya no se mostrará más. Debe copiarlo para continuar.';
 $lang['Verification code'] = 'Código de verificación';
 $lang['Verify'] = 'Verificar';
+$lang['Here is your verification code:'] = 'Aquí tiene su código de verificación:';
+$lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Si no es usted, cambie inmediatamente su contraseña o póngase en contacto con el administrador.';
+$lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Si ha cambiado su contraseña porque cree que se la han robado, le recomendamos revocar sus %d claves de API <a href="%s">en su perfil</a>.';
+$lang['Too many attempts, please try later..'] = 'Demasiados intentos, pruebe más tarde.';
+$lang['Verification successful! You can now choose a new password.'] = 'La verificación ha tenido éxito. Puede elegir una nueva contraseña.';
+$lang['Your verification code'] = 'Su código de verificación';
+$lang['edit user preferences'] = 'Editar las preferencias de usuario';
