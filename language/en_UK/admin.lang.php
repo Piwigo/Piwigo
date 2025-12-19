@@ -1421,5 +1421,17 @@ $lang['Empty lounge'] = 'Empty lounge';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'There is currently %d photos in the lounge (upload buffer)';
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d photos were moved from the upload lounge to their albums';
 $lang['Admins only'] = 'Admins only';
+$lang['Standard pages'] = 'Standard pages';
+$lang['Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:'] ='Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:' ;
+$lang['Standard pages header'] = 'Standard pages header';
+$lang['Use Piwigo logo'] = 'Use Piwigo logo';
+$lang['Use custom logo (png, jpeg or svg)'] = 'Use custom logo (png, jpeg or svg)';
+$lang['Display Gallery title'] = 'Display Gallery title';
+$lang['Select a color theme for standard pages'] = 'Select a color theme for standard pages';
+$lang['Light mode'] = 'Light mode';
+$lang['Dark mode'] = 'Dark mode';
+$lang['Personalization settings'] ='Personalization settings';
+$lang['Change logo'] = 'Change logo';
+
 
 // Leave this line empty

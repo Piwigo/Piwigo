@@ -67,9 +67,15 @@ html{
   padding-top:50px;
 }
 
+#logo-section h1{
+  margin:0;
+}
+
 #logo-section img{
-  width:100%;
-  min-width:300px;
+  width: 100%;
+  min-width: 300px;
+  max-height: 200px;
+  object-fit: contain;
 }
 
 h1{
@@ -135,10 +141,6 @@ input:-webkit-autofill::first-line {
   color: inherit !important;
 }
 
-input[type='radio'] {
-  accent-color: #ff7700;
-}
-
 .input-container input:focus,
 .input-modal input:focus,
 .profile-section .api-tab-line.edit input:focus,
@@ -150,11 +152,6 @@ input[type='radio'] {
 
 select {
   padding: 5px 0;
-}
-
-.input-container:focus-within,
-.input-modal:focus-within{
-  border:1px solid #ff7700!important;
 }
 
 .input-container i,
@@ -188,7 +185,6 @@ select {
 .gallery-icon-checkmark {
   width: 18px;
   height: 18px;
-  border: 1px solid #777;
   border-radius: 2px;
   display: inline-block;
   margin-right: 8px;
@@ -227,18 +223,11 @@ p.form-instructions{
 }
  
 .btn-main{
-  background-color:#ff7700!important;
-  color:white!important;
   border:none;
   padding:15px;
   margin-top:15px;
   cursor:pointer;
   text-decoration:none!important;
-}
-
-.btn-secondary {
-  background-color: #ECECEC!important;
-  color: #3C3C3C!important;
 }
 
 .btn-cancel,
@@ -266,8 +255,6 @@ a.btn-main{
 }
 
 .btn-main:disabled {
-  background-color:#aaaaaa!important;
-  color: #3C3C3C !important;
   cursor: not-allowed;
 }
 
@@ -298,7 +285,6 @@ a.btn-main{
 
 #separator{
   width:300px;
-  border-bottom:1px solid #D8D8D8;
   display:block;
   margin: 15px auto;
 }
@@ -365,7 +351,6 @@ a.btn-main{
 }
 
 #lang-select #other-languages span:hover{
-  color:#ff7700; 
   cursor:pointer;
 }
 
@@ -598,12 +583,6 @@ p.error-message,
   justify-self: center;
 }
 
-.profile-section .api-icon-action i:hover,
-.close-modal:hover,
-.profile-section .icon-clone:hover  {
-  color: #ff7700;
-}
-
 .profile-section .api-tab-line,
 .profile-section .api-tab-collapse {
   padding: 10px 0;
@@ -626,9 +605,6 @@ p.error-message,
   cursor: pointer;
 }
 
-.profile-section div.api-tab-line:nth-child(even) {
-  background-color: #303030;
-}
 .profile-section .api-tab-collapse .key {
   gap: 10px;
   padding: 5px 0;
@@ -661,10 +637,6 @@ p.error-message,
   border: 1px solid transparent !important;
 }
 
-.profile-section #api_key_list .edit {
-  border: 1px solid #ff7700 !important;
-}
-
 .profile-section .api-list-head > p{
   text-align: start !important;
 }
@@ -684,7 +656,6 @@ p.error-message,
 }
 
 .profile-section .new-apikey .btn-link{
-  color: #9A9A9A !important;
   font-weight: 700;
 }
 
@@ -729,7 +700,6 @@ p.error-message,
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.7);
 }
 
 .close-modal {
@@ -820,7 +790,6 @@ label.switch {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -832,7 +801,6 @@ label.switch {
   width: 16px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -870,7 +838,7 @@ input:checked + .slider:before, input:checked + .slider::after {
 }
 
 /* Light */
-#theIdentificationPage .light,
+/* #theIdentificationPage .light,
 #theRegisterPage .light,
 #thePasswordPage .light,
 #theProfilePage .light{
@@ -1001,10 +969,10 @@ input:checked + .slider:before, input:checked + .slider::after {
 
 .light .btn-revoked {
   background-color: #EB3223 !important;
-}
+} */
 
 /* Dark */
-#theIdentificationPage .dark,
+/* #theIdentificationPage .dark,
 #theRegisterPage .dark,
 #thePasswordPage .dark,
 #theProfilePage .dark{
@@ -1140,7 +1108,7 @@ input:checked + .slider:before, input:checked + .slider::after {
 
 .dark .btn-revoked {
   background-color: #BE4949 !important;
-}
+} */
 
 /*Responsive display*/
 @media (max-width: 768px) {

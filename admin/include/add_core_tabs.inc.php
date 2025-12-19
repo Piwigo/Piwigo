@@ -162,6 +162,7 @@ function add_core_tabs($sheets, $tab_id)
         $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
         $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Theme'), 'url' => $my_base_url.'&amp;tab=new');
       }
+      $sheets['standard_pages'] = array('caption' => '<span class="icon-cog-alt"></span>'.l10n('Standard pages'), 'url' => $my_base_url.'&amp;tab=standard_pages');
       break;
 
     case 'updates':

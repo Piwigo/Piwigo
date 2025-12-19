@@ -197,6 +197,7 @@ class Template
    */
   function set_theme($root, $theme, $path, $load_css=true, $load_local_head=true, $colorscheme='dark')
   {
+    //we need themeconf before std_pgs to see what themes use_standard_pages
     $themeconf = $this->load_themeconf($root.'/'.$theme);
 
     // We loop over the theme and the parent theme, so if we exclude default, 
@@ -208,6 +209,7 @@ class Template
     )
     {
       $theme = 'standard_pages';
+      $themeconf = $this->load_themeconf($root.'/'.$theme);
     }
 
     $this->set_template_dir($root.'/'.$theme.'/'.$path);
@@ -237,7 +239,7 @@ class Template
     {
       $themeconf['colorscheme'] = $colorscheme;
     }
-    
+
     $this->smarty->append('themes', $tpl_var);
     $this->smarty->append('themeconf', $themeconf, true);
   }
