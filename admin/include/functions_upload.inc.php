@@ -640,8 +640,8 @@ function upload_file_heic($representative_ext, $file_path)
   list($w,$h) = get_optimal_dimensions_for_representative();
 
   $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
-  $exec.= ' -sampling-factor 4:2:0 -quality 85 -interlace JPEG -colorspace sRGB -auto-orient +repage -resize "'.$w.'x'.$h.'>"';
   $exec.= ' "'.realpath($file_path).'"';
+  $exec.= ' -sampling-factor 4:2:0 -quality 85 -interlace JPEG -colorspace sRGB -auto-orient +repage -resize "'.$w.'x'.$h.'>"';
   $exec.= ' "'.$representative_file_path.'"';
   $exec.= ' 2>&1';
 
