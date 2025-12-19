@@ -1410,8 +1410,8 @@ $lang['To set your password, visit the following address:'] = 'Pour définir vot
 $lang['A photo library administrator has created the following account for you:'] = 'Un administrateur de la photothèque vous a créé le compte suivant :';
 $lang['Welcome to %s'] = 'Bienvenue sur %s';
 $lang['Save all photos'] = 'Enregistrer toutes les photos';
-$lang['Use standard Piwigo template for common pages.'] = 'Utiliser le modèle standard de Piwigo pour les pages courantes.';
-$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Lorsque cette option est activée, un modèle commun est utilisé pour les pages de connexion, d\'inscription et de mot de passe oublié, quel que soit le thème. Certains thèmes peuvent utiliser ces modèles même si cette option est décochée.';
+$lang['Use standard Piwigo template for common pages.'] = 'Utiliser les pages standard de Piwigo pour les pages courantes.';
+$lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Lorsque cette option est activée, un thème commun est utilisé pour les pages de connexion, d\'inscription et de mot de passe oublié, quel que soit le thème. Certains thèmes peuvent utiliser ce design même si cette option est décochée.';
 $lang['We have found %d duplicate paths. Details provided by plugin Check Uploads'] = 'Nous avons trouvé %d chemins anormalement dupliqués. À contrôler avec le plugin Check Uploads.';
 $lang['Are you sure you want to delete comment #%s?'] = 'Êtes-vous sûr de vouloir supprimer le commentaire #%s ?';
 $lang['No comments selected, no actions possible.'] = 'Aucun commentaire sélectionné, aucune action possible.';
@@ -1423,4 +1423,17 @@ $lang['Empty lounge'] = 'Vider le lounge';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Il y a actuellement %d photos dans le lounge (salle d\'attente des transferts)';
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d photos ont été déplacées du lounge vers leurs albums respectifs';
 $lang['Admins only'] = 'Admins uniquement';
+$lang['Standard pages'] = 'Pages standard';
+$lang['Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:'] ='Les pages standard ne sont pas activées, mais vous avez %d thèmes actifs qui les utiliseront. Ces thèmes sont :' ;
+$lang['Standard pages header'] = 'En-tête des pages standards';
+$lang['Use Piwigo logo'] = 'Utiliser le logo Piwigo';
+$lang['Use custom logo (png, jpeg or svg)'] = 'Utiliser un logo personnalisé (png, jpeg ou svg)';
+$lang['Display Gallery title'] = 'Afficher le titre de la galerie';
+$lang['Select a color theme for standard pages'] = 'Choisissez un jeu de couleurs pour les pages standard';
+$lang['Light mode'] = 'Mode claire';
+$lang['Dark mode'] = 'Mode sombre';
+$lang['Personalization settings'] ='Paramètres de personnalisation';
+$lang['Change logo'] = 'Changer le logo';
+
+
 // Leave this line empty

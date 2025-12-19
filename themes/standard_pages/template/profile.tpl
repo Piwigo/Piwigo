@@ -1,4 +1,4 @@
-{combine_css id='standard_pages_css' path="themes/standard_pages/css/standard_pages.css" order=100}
+{combine_css id='standard_pages_css' path="themes/standard_pages/skins/{$STD_PGS_SELECTED_SKIN}.css" order=100}
 {combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
 {combine_css path="admin/themes/default/fontello/css/fontello.css" order=-11}
 
@@ -64,9 +64,17 @@ const str_must_not_empty = "{'must not be empty'|translate|escape:javascript}";
     </div>
   </section>
 
+{if 'none' != $STD_PGS_SELECTED_LOGO}
   <section id="logo-section">
+  {if 'piwigo_logo' == $STD_PGS_SELECTED_LOGO}
     <img id="piwigo-logo" src="{$ROOT_URL}themes/standard_pages/images/piwigo_logo.svg">
-  </section>
+  {else if 'custom_logo' == $STD_PGS_SELECTED_LOGO}
+    <img id="custom-logo" src="{$STD_PGS_SELECTED_LOGO_PATH}">
+  {else if 'gallery_title'}
+    <h1>{$GALLERY_TITLE}</h1>
+  {/if}
+    </section>
+{/if}
 
   <a href="{$U_HOME}" id="return-to-gallery"><i class="gallery-icon-left"></i> {'Return to the gallery'|translate}</a>
 
