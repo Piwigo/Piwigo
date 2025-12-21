@@ -1022,3 +1022,7 @@ $lang['Cannot send an email to this user because he doesn\'t have an email addre
 $lang['%d photos were moved from the upload lounge to their albums'] = '%d photos ont été déplacées de la salle d\'attente vers leurs albums respectifs';
 $lang['Empty lounge'] = 'Vide la salle d\'attente';
 $lang['There is currently %d photos in the lounge (upload buffer)'] = 'Il y a actuellement %d photos dans salle d\'attente des transferts (lounge)';
+$lang['Light mode'] = 'Mode clair';
+$lang['Select a color theme for standard pages'] = 'Choisissez un jeu de couleurs pour les pages standards';
+$lang['Standard pages'] = 'Pages standards';
+$lang['Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:'] = 'Les pages standards ne sont pas activées, mais vous avez %d thèmes actifs qui les utiliseront. Ces thèmes sont :';
