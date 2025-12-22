@@ -1416,3 +1416,14 @@ $lang['We have found %d duplicate paths. Details provided by plugin Check Upload
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Ak je táto možnosť povolená, pre stránky prihlásenia, registrácie a zabudnutého hesla sa používa spoločná šablóna, bez ohľadu na tému. Niektoré témy môžu používať tieto šablóny aj v prípade, že túto možnosť zrušíte.';
 $lang['Admins only'] = 'Iba pre administrátorov';
 $lang['user_status_normal'] = 'Základné';
+$lang['Change logo'] = 'Zmeniť logo';
+$lang['Dark mode'] = 'Tmavý režim';
+$lang['Display Gallery title'] = 'Zobraziť názov galérie';
+$lang['Light mode'] = 'Svetlý režim';
+$lang['Personalization settings'] = 'Nastavenia personalizácie';
+$lang['Select a color theme for standard pages'] = 'Vyberte farebnú tému pre štandardné stránky';
+$lang['Standard pages'] = 'Štandardné stránky';
+$lang['Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:'] = 'Štandardné stránky nie sú aktivované, avšak máte %d aktívnych tém, ktoré ich budú naďalej používať. Tieto témy sú:';
+$lang['Standard pages header'] = 'Štandardná hlavička stránok';
+$lang['Use Piwigo logo'] = 'Použite logo Piwigo';
+$lang['Use custom logo (png, jpeg or svg)'] = 'Použite vlastné logo (png, jpeg alebo svg)';
