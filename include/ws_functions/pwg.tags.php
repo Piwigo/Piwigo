@@ -508,6 +508,7 @@ SELECT image_id
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+  trigger_notify('merge_tags', $params['destination_tag_id'], $merge_tag);
   delete_tags($merge_tag);
 
   $image_in_merged = array_merge($image_in_dest, $image_to_add);
