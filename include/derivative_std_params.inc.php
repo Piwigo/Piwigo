@@ -103,11 +103,13 @@ final class ImageStdParams
    */
   static function get_disabled_type_map()
   {
+    global $conf;
+
     if (count(self::$disabled_type_map))
     {
       return self::$disabled_type_map;
     }
-    return conf_get_param('disabled_derivatives', array());
+    return $conf['disabled_derivatives'] ?? array();
   }
 
   /**
@@ -178,9 +180,16 @@ final class ImageStdParams
     {
       self::$watermark = new WatermarkParams();
       self::$type_map = self::get_enabled_default_sizes();
-      self::$disabled_type_map = self::get_disabled_default_sizes();
-      self::save();
+      self::save(false);
     }
+
+    self::$disabled_type_map = safe_unserialize(self::get_disabled_type_map());
+    if (empty(self::$disabled_type_map))
+    {
+      self::$disabled_type_map = self::get_disabled_default_sizes();
+      self::save_disabled();
+    }
+    
     self::build_maps();
   }
 
@@ -200,14 +209,14 @@ final class ImageStdParams
   static function set_and_save($map)
   {
     self::$type_map = $map;
-    self::save();
+    self::save(false);
     self::build_maps();
   }
 
   /**
    * Saves the configuration in database.
    */
-  static function save()
+  static function save($save_disabled = true)
   {
     $ser = serialize( array(
       'd' => self::$type_map,
@@ -217,7 +226,10 @@ final class ImageStdParams
       ) );
     conf_update_param('derivatives', addslashes($ser) );
 
-    self::save_disabled();
+    if ($save_disabled)
+    {
+      self::save_disabled();
+    }
   }
 
   /**

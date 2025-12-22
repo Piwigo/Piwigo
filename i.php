@@ -365,6 +365,15 @@ function send_derivative($expires)
   fclose($fp);
 }
 
+function safe_unserialize($value)
+{
+  if (is_string($value))
+  {
+    return unserialize($value);
+  }
+  return $value;
+}
+
 $page=array();
 $begin = $step = microtime(true);
 $timing=array();
@@ -388,7 +397,17 @@ catch (Exception $e)
 }
 pwg_db_check_charset();
 
-list($conf['derivatives']) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.$prefixeTable.'config WHERE param=\'derivatives\''));
+$query = '
+SELECT param, value
+  FROM '.$prefixeTable.'config
+  WHERE param IN (\'derivatives\', \'disabled_derivatives\')
+;';
+
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $conf[ $row['param'] ] = $row['value'];
+}
 ImageStdParams::load_from_db();
 
 
