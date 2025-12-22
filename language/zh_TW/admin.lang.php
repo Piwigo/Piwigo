@@ -1414,3 +1414,14 @@ $lang['We have found %d duplicate paths. Details provided by plugin Check Upload
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = '啟用此功能後，登入、註冊及忘記密碼頁面將採用共通模板，不受主題設定影響。部分主題即使您取消勾選此選項，仍可能使用這些模板。';
 $lang['Admins only'] = '系統管理員專用';
 $lang['user_status_normal'] = '基本';
+$lang['Change logo'] = '更換標誌';
+$lang['Dark mode'] = '深色模式';
+$lang['Display Gallery title'] = '顯示藝廊標題';
+$lang['Light mode'] = '淺色模式';
+$lang['Personalization settings'] = '個人化設定';
+$lang['Select a color theme for standard pages'] = '選擇標準頁面的色彩主題';
+$lang['Standard pages'] = '標準頁面';
+$lang['Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:'] = '尚未啟用標準頁面，不過您有 %d 個使用中的佈景主題仍會用到標準頁面。這些佈景主題是：';
+$lang['Standard pages header'] = '標準頁面檔頭';
+$lang['Use Piwigo logo'] = '使用 Piwigo 的標誌';
+$lang['Use custom logo (png, jpeg or svg)'] = '使用自訂的標註（PNG, JPEG 或 SVG 檔案）';
