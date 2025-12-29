@@ -946,6 +946,13 @@ function prepare_directory($directory)
 
 function need_resize($image_filepath, $max_width, $max_height)
 {
+  global $conf, $logger;
+
+  if (!in_array(strtolower(get_extension($image_filepath)), $conf['picture_ext']))
+  {
+    return false;
+  }
+
   // TODO : the resize check should take the orientation into account. If a
   // rotation must be applied to the resized photo, then we should test
   // invert width and height.
@@ -953,6 +960,7 @@ function need_resize($image_filepath, $max_width, $max_height)
 
   if ($width > $max_width or $height > $max_height)
   {
+    $logger->info(__FUNCTION__.' '.(string)$image_filepath.' is too big (current='.$width.'x'.$height.'px Vs max='.$max_width.'x'.$max_height.'px)');
     return true;
   }
 
