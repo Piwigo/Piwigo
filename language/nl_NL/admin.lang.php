@@ -1419,3 +1419,16 @@ $lang['Empty lounge'] = 'Leeg buffer';
 $lang['Save all photos'] = 'Bewaar alle foto\'s';
 $lang['Admins only'] = 'Alleen beheerders';
 $lang['user_status_normal'] = 'Basis';
+$lang['Display Gallery title'] = 'Toon Galerie titel';
+$lang['Select a color theme for standard pages'] = 'Selecteer een kleuren thema voor standaard pagina\'s ';
+$lang['Standard pages'] = 'Standaard pagina\'s';
+$lang['Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:'] = 'Standaard pagina\'s zijn niet geactiveerd, hoewel je %d actieve thema\'s hebt die ze gebruiken. 
+Deze thema\'s zijn: 
+';
+$lang['Standard pages header'] = 'Standaard pagina\'s kop. ';
+$lang['Change logo'] = 'Logo aanpassen';
+$lang['Dark mode'] = 'Donkere mode';
+$lang['Light mode'] = 'lichte mode';
+$lang['Personalization settings'] = 'Personalisatie instellingen';
+$lang['Use Piwigo logo'] = 'Gebruik het Piwigo logo';
+$lang['Use custom logo (png, jpeg or svg)'] = 'Gebruik aangepast logo(png, jpeg of svg)';

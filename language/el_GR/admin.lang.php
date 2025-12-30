@@ -1416,3 +1416,15 @@ $lang['We have found %d duplicate paths. Details provided by plugin Check Upload
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Όταν είναι ενεργοποιημένο, ένας κοινός σχηματισμός χρησιμοποιείται για τις σελίδες σύνδεσης, εγγραφής και ξεχασμένου κωδικού, ανεξάρτητα από το θέμα. Μερικά θέματα μπορεί να χρησιμοποιήσουν αυτούς τους σχηματισμούς ακόμη και αν αποεπιλέξετε αυτή την επιλογή';
 $lang['Admins only'] = 'Μόνον διαχειριστές';
 $lang['user_status_normal'] = 'Βασικό';
+$lang['Change logo'] = 'Άλλαξε το λογότυπο';
+$lang['Dark mode'] = 'Σκούρα ρύθμιση';
+$lang['Display Gallery title'] = 'Δείξε τον τίτλο της πινακοθήκης';
+$lang['Light mode'] = 'Ανοιχτόχρωμη ρύθμιση';
+$lang['Personalization settings'] = 'Προσωπικές ρυθμίσεις';
+$lang['Select a color theme for standard pages'] = 'Επιλέξτε ένα συνδυασμό χρώματος για τις τυπικές σελίδες';
+$lang['Standard pages'] = 'Τυπικές σελίδες';
+$lang['Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:'] = 'Οι τυπικές σελίδες δεν είναι ενεργοποιημένες, όμως έχετε %d ενεργά θέματα που θα τις χρησιμοποιήσουν.
+Αυτά τα θέματα είναι:';
+$lang['Standard pages header'] = 'Επικεφαλίδα τυπικών σελίδων';
+$lang['Use Piwigo logo'] = 'Χρησιμοποίησε το λογότυπο του Piwigo';
+$lang['Use custom logo (png, jpeg or svg)'] = 'Χρησιμοποίησε λογότυπο δικής σου επιλογής (png, jpeg ή svg)';

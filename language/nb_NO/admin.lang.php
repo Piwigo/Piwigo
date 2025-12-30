@@ -1415,3 +1415,14 @@ $lang['We have found %d duplicate paths. Details provided by plugin Check Upload
 $lang['When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'] = 'Når dette alternativet er aktivert, brukes en felles mal for innlogging, registrering og glemt passord-sider, uavhengig av tema. Noen temaer kan bruke disse malene selv om du fjerner merket for dette alternativet.';
 $lang['Admins only'] = 'Kun administratorer';
 $lang['user_status_normal'] = 'Grunnleggende';
+$lang['Change logo'] = 'Endre logo';
+$lang['Dark mode'] = 'Mørk modus';
+$lang['Display Gallery title'] = 'Vis galleritittel';
+$lang['Light mode'] = 'Lys modus';
+$lang['Personalization settings'] = 'Personaliseringsinnstillinger';
+$lang['Select a color theme for standard pages'] = 'Velg et fargetema for standardsider';
+$lang['Standard pages'] = 'Standardsider';
+$lang['Standard pages aren\'t activated, however you have %d active themes that will still use them. These themes are:'] = 'Standardsider er ikke aktivert, men du har %d aktive temaer som fortsatt vil bruke dem. Disse temaene er:';
+$lang['Standard pages header'] = 'Standard sideoverskrift';
+$lang['Use Piwigo logo'] = 'Bruk Piwigo-logoen';
+$lang['Use custom logo (png, jpeg or svg)'] = 'Bruk en egendefinert logo (png, jpeg eller svg)';
