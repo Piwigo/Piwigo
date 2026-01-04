@@ -3011,7 +3011,10 @@ SELECT
 
 function pwg_unique_exec_ends($token_name)
 {
+  global $logger;
+
   conf_delete_param($token_name.'_running');
+  $logger->info('['.$token_name.'] ends now');
 }
 
 /**
