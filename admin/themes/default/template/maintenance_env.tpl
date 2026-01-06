@@ -17,6 +17,9 @@ const unit_MB = "{"%s MB"|@translate}"
     <li>{'Installed on %s, %s'|translate:$INSTALLED_ON:$INSTALLED_SINCE}</li>
 {/if}
     <li>{'Operating system'|@translate}: {$OS}</li>
+    {if {$CONTAINER_INFO} neq 'none'}
+      <li>{'Container info'}: {$CONTAINER_INFO}</li>
+    {/if}
     <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" class="externalLink">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
     <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>
     {if isset($GRAPHICS_LIBRARY)}

@@ -2541,12 +2541,15 @@ function send_piwigo_infos()
     conf_update_param('send_piwigo_infos_origin_hash', sha1(random_bytes(1000)), true);
   }
 
+  list($container_type, $container_version) = getContainerInfo();
+
   $piwigo_infos = array(
     'origin_hash' => $conf['send_piwigo_infos_origin_hash'],
     'technical' => array(
       'php_version' => PHP_VERSION,
       'piwigo_version' => PHPWG_VERSION,
-      'os_version' => PHP_OS.((is_in_container()) ? ' (container)' : ''),
+      'os_version' => PHP_OS,
+      'container_type' => $container_type,
       'db_version' => pwg_get_db_version(),
       'php_datetime' => date("Y-m-d H:i:s"),
       'db_datetime' => $db_current_date,
@@ -2554,6 +2557,12 @@ function send_piwigo_infos()
     ),
     'general_stats' => get_pwg_general_statitics(),
   );
+
+  // If using official container 
+  if ('Official' === $container_type)
+  {
+    $piwigo_infos['container_version'] = $container_version;
+  }
 
   // convert disk_usage from kB to mB
   $piwigo_infos['general_stats']['disk_usage'] = intval($piwigo_infos['general_stats']['disk_usage'] / 1024);
@@ -3017,39 +3026,54 @@ function pwg_unique_exec_ends($token_name)
 /**
  *
  * Detect if Piwigo is running in a containerized environment
- * Assume all containers are Linux based
- * Doesn't differentiate between VMs and bare metal installs
+ * Assume all containers are Linux based and don't enforce php open_basedir rules 
+ * Doesn't differentiate between VMs, Mutual hosting and bare metal installs
+ * 
+ * If not in a container return 'none',null
+ * Only return a version if using the official container
  *
- * @since 16
+ * @since 16.3
  *
- * @return bool
+ * @return array(string,?string)
  */
-function is_in_container()
-{
-	if (strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX' and empty(ini_get('open_basedir')))
-	{
-		if (file_exists('/proc/2/sched')) // Check if PID2 exist
-		{
-			$line = file_get_contents('/proc/2/sched'); // Read PID2 name
-			if (false == $line )
-			{
-				return false;
-			}
-			else
-			{
-				// If PID2 name is not kthreadd, piwigo is running in a container
-				return !('kthreadd' === substr( $line, 0, 8 ));
-			}
-		}
-		else
-		{
-			return true;
-		}
-	}
-	else
-	{
-		return false;
-	}
+function getContainerInfo()
+{ // Check if OS is Linux and PHP doesn't restrict opening files
+  if ((strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX' and empty(ini_get('open_basedir'))))
+  {
+    if (file_exists('/proc/2/sched')) // Check if PID2 exist
+    {
+      $file = file_get_contents('/proc/2/sched'); // Read PID2 name
+      if ($file and 'kthreadd' === substr( $file, 0, 8 ))
+      { // If PID 2 is kthreadd PHP is not running in a container
+        return array('none',null);
+      }
+    }
+    // PHP is running in a container, trying to determine container type
+    if (file_exists('/var/www/html/piwigo-docker.info')) 
+    { // Check for official container tagfile
+      $file = file_get_contents('/var/www/html/piwigo-docker.info');
+      if (true == $file and 'Official Piwigo container' === substr( $file, 0, 25))
+      {
+        $data = file('/var/www/html/piwigo-docker.info');
+        // Take the last line and remove prefix (Build Version)
+        return array('Official',preg_replace('/^Build Version /', '', $data[count($data)-1]));
+      }
+    }
+    elseif (file_exists('/build_version'))
+    { // Check for LinuxServer tagfile
+      $file = file_get_contents('/build_version');
+      if (true == $file and 'Linuxserver.io' === substr($file, 0, 14))
+      {
+        return array('LinuxServer.io',null);
+      }
+    }
+    // If no tagfile are found, default to unkown
+    return array('Unknown',null);
+  }
+  else
+  {
+    return array('none',null);
+  }
 }
 
 ?>
