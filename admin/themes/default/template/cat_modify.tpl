@@ -101,7 +101,7 @@ const str_modal_ab = '{'New parent album'|@translate}';
       </div>
       {if isset($U_SYNC) }
       <div class="cat-modify-info-card">
-        <span class="cat-modify-info-title">{'Directory'}</span>
+        <span class="cat-modify-info-title">{'Directory'|@translate}</span>
         <span class="cat-modify-info-content directory" title="{$CAT_DIR_NAME}">{$CAT_DIR_NAME}</span>
         <span class="cat-modify-info-subcontent directory" title="{$CAT_FULL_DIR}">{$CAT_MIN_DIR}</span>
       </div>

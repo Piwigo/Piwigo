@@ -1434,6 +1434,10 @@ $lang['Light mode'] = 'Mode clair';
 $lang['Dark mode'] = 'Mode sombre';
 $lang['Personalization settings'] ='Paramètres de personnalisation';
 $lang['Change logo'] = 'Changer le logo';
-
+$lang['Posted the %s'] = 'Publié le %s';
+$lang['Subscribe to our newsletter and stay updated!'] = 'Abonnez-vous à notre newsletter et restez informé !';
+$lang['Sign up to the newsletter'] = 'Inscrivez-vous à la newsletter';
+$lang['See previous newsletters'] = 'Consultez les newsletters précédentes';
+$lang['Understood, do not show again'] = 'Compris, ne plus afficher';
 
 // Leave this line empty
