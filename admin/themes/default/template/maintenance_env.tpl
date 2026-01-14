@@ -18,7 +18,7 @@ const unit_MB = "{"%s MB"|@translate}"
 {/if}
     <li>{'Operating system'|@translate}: {$OS}</li>
     {if {$CONTAINER_INFO} neq 'none'}
-      <li>{'Container info'}: {$CONTAINER_INFO}</li>
+      <li>{'Container info'|translate}: {$CONTAINER_INFO}</li>
     {/if}
     <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" class="externalLink">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
     <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>
