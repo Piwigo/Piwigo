@@ -142,7 +142,7 @@ SELECT
     }
     else
     {
-      $author_name = stripslashes($row['username']);
+      $author_name = stripslashes($row['username'] ?? $row['author'] ?? l10n('guest'));
     }
 
     $list[] = array(
