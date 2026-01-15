@@ -135,7 +135,7 @@ $('#syncFiles label').click(function () {
 {/if}
     
       <div class="savebar-footer-block">
-        <button class="buttonLike"  type="submit" name="submit"><i class="icon-floppy"></i> {'Save Settings'|@translate}</button>
+        <button class="buttonLike"  type="submit" name="submit"><i class="icon-exchange"></i> {'Synchronize'|@translate}</button>
       </div>
   </div>
 
