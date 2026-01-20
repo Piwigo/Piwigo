@@ -826,7 +826,7 @@ function format_date_legacy($original, $show=null, $format=null)
     $print.= $lang['day'][ $date->format('w') ].' ';
 
   if (in_array('day', $show))
-    $print.= $date->format('j').' ';
+    $print.= $date->format('j').'. ';
 
   if (in_array('month', $show))
     $print.= $lang['month'][ $date->format('n') ].' ';
