@@ -1779,7 +1779,7 @@ function ws_images_upload($params, $service)
   // file_put_contents('/tmp/plupload.log', "[".date('c')."] ".__FUNCTION__.', '.$fileName.' '.($chunk+1).'/'.$chunks."\n", FILE_APPEND);
 
   // Open temp file
-  if (!$out = @fopen("{$filePath}.part", $chunks ? "ab" : "wb"))
+  if (!$out = @fopen("{$filePath}.part", $chunks && $chunk != 0 ? "ab" : "wb"))
   {
     die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream."}, "id" : "id"}');
   }
