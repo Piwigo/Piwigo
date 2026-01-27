@@ -1179,27 +1179,31 @@ li.plupload_delete a.remove-format:hover{color: #c0c0c0;}
 /*Error message*/
 
 .errors {
-    color: #fec6c7;
-    background-color: #bc4b4a;
-    border-left: 4px solid #fec6c7;
+  color: #FFE4E4;
+  background-color: #AE3A3A;
+  border-left: 6px solid #FFE4E4;
 }
 
-.errors li{
-    color: #ffffff;
+.errors i{
+  color: #FFC8C8;
 }
 
 .errors a{
-    background-color: #6b3030;
-    padding: 2px 7px;
-    color: #ffffff;
+  background-color: #8A2C2C;
+  border:1px solid #FFC8C8;
+  color: #FFE4E4;
+}
+
+.errors a:hover{
+  color: #FFE4E4;
 }
 
 /*Success message*/
 
 .infos {
-    color: #b8feee;
-    background-color: #50a48f;
-    border-left: 4px solid #b8feee;
+  color: #F3FFFC;
+  background-color: #50a48f;
+  border-left: 6px solid #C4FFF1;
 }
 
 .AddPluginSuccess label, .DeactivatePluginSuccess label, .RestorePluginSuccess label{
@@ -1211,14 +1215,18 @@ li.plupload_delete a.remove-format:hover{color: #c0c0c0;}
   color: #b8feee;
 }
 
-.infos li{
-    color: #ffffff;
+.infos i{
+  color: #C4FFF1;
 }
 
 .infos a{
-    background-color: #28554a;
-    padding: 2px 7px;
-    color: #ffffff;
+  background-color: #237B66;
+  color: #F3FFFC;
+  border:1px solid #C4FFF1;
+}
+
+.infos a:hover{
+  color: #F3FFFC;
 }
 
 /*Warning message*/

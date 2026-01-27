@@ -3,8 +3,8 @@
 {combine_script id='jquery.cluetip' load='async' require='jquery' path='themes/default/js/plugins/jquery.cluetip.js'}
 
 {footer_script require='jquery.cluetip'}
-var piwigo_need_update_msg = '<a href="admin.php?page=updates">{'A new version of Piwigo is available.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
-var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
+var piwigo_need_update_msg = '{'A new version of Piwigo is available.'|@translate|@escape:"javascript"}<a href="admin.php?page=updates">{'Latest update'|@translate|@escape:"javascript"}<i class="icon-right"></i></a>';
+var ext_need_update_msg = '{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"}<a href="admin.php?page=updates&amp;tab=ext">{'See available updates'|@translate|@escape:"javascript"}<i class="icon-right"></i></a>';
 const str_gb_used = "{'%s GB used'|translate}";
 const str_mb_used = "{'%s MB used'|translate}";
 const str_gb = "{'%sGB'|translate}".replace(' ', '&nbsp;');
@@ -37,11 +37,11 @@ jQuery().ready(function(){
       piwigo_update = data['result']['piwigo_need_update'];
       ext_update = data['result']['ext_need_update']
       if ((piwigo_update || ext_update) && !jQuery(".warnings").is('div'))
-        jQuery(".eiw").prepend('<div class="warnings"><i class="eiw-icon icon-attention"></i><ul></ul></div>');
+        jQuery(".eiw").prepend('<div class="warnings"><ul></ul></div>');
       if (piwigo_update)
-        jQuery(".warnings ul").append('<li>'+piwigo_need_update_msg+'</li>');
+        jQuery(".warnings ul").append('<li><i class="eiw-icon icon-attention"></i>'+piwigo_need_update_msg+'</li>');
       if (ext_update)
-        jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
+        jQuery(".warnings ul").append('<li><i class="eiw-icon icon-attention"></i>'+ext_need_update_msg+'</li>');
     }
   });
 {/if}

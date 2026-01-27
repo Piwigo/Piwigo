@@ -456,22 +456,22 @@ $(function () {
 
         if (addedPhotos.length && updatedPhotos.length)
         {
-          $(".infos").append( '<ul><li>' + infoTextAdd + ', ' + infoTextUpdate + '</li></ul>');
+          $(".infos").append( '<ul><li><i class="eiw-icon icon-ok-circled"></i>' + infoTextAdd + ', ' + infoTextUpdate + '</li></ul>');
         }
         else
         {
           const infoText = addedPhotos.length ? infoTextAdd : infoTextUpdate;
-          $(".infos").append('<ul><li>' + infoText + '</li></ul>');
+          $(".infos").append('<ul><li><i class="eiw-icon icon-ok-circled"></i>' + infoText + '</li></ul>');
         }
 
         if (!formatMode) {
           html = sprintf(
             albumSummary_label,
-            '<a href="admin.php?page=album-' + uploadCategory.id + '">' + uploadCategory.label + '</a>',
+            '<a href="admin.php?page=album-' + uploadCategory.id + '"> <i class="icon-folder-open"></i>' + uploadCategory.label + '</a>',
             parseInt(uploadCategory.nb_photos)
           );
 
-          $(".infos ul").append('<li>' + html + '</li>');
+          $(".infos ul").append('<li><i class="eiw-icon icon-ok-circled"></i>' + html + '</li>');
         }
 
         $(".infos").show();

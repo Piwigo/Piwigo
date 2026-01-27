@@ -46,8 +46,8 @@ $tabsheet->assign();
 
 if (isset($page['nb_pending_comments']))
 {
-  $message = l10n('User comments').' <i class="icon-chat"></i> ';
-  $message.= '<a href="'.$link_start.'comments">';
+  $message = l10n('User comments');
+  $message.= '<a href="'.$link_start.'comments"><i class="icon-chat"></i>';
   $message.= l10n('%d waiting for validation', $page['nb_pending_comments']);
   $message.= ' <i class="icon-right"></i></a>';
   
@@ -183,7 +183,7 @@ if ($conf['show_piwigo_latest_news'])
   if (isset($latest_news['id']) and $latest_news['posted_on'] > time()-60*60*24*30)
   {
     $page['messages'][] = sprintf(
-      '%s <a href="%s" title="%s" target="_blank"><i class="icon-bell"></i> %s</a>',
+      '%s <a href="%s" title="%s" target="_blank"><i class="icon-bell"></i>%s</a>',
       l10n('Latest Piwigo news'),
       $latest_news['url'],
       time_since($latest_news['posted_on'], 'year').' ('.$latest_news['posted'].')',

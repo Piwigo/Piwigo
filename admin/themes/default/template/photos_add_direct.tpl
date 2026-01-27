@@ -47,7 +47,7 @@ const photosUpdated_label = "{'%d photos updated'|translate|escape:javascript}";
 const formatsAdded_label = "{'%d formats added for %d photos'|translate|escape:javascript}";
 const formatsUpdated_label = "{'%d formats updated for %d photos'|translate|escape:javascript}";
 const batch_Label = "{'Manage this set of %d photos'|translate|escape:javascript}";
-const albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape:javascript}";
+const albumSummary_label = "{'Album %s now contains %d photos'|translate|escape:javascript}";
 const str_format_warning = "{'Error when trying to detect formats'|translate|escape:javascript}";
 const str_ok = "{'Ok'|translate|escape:javascript}";
 const str_format_warning_multiple = "{'There is multiple image in the database with the following names : %s.'|translate|escape:javascript}";
@@ -128,8 +128,8 @@ let related_categories_ids = {$selected_category|json_encode};
   </div>
   {/if}
 
-<div class="infos" style="display:none"><i class="eiw-icon icon-ok"></i></div>
-<div class="errors" style="display:none"><i class="eiw-icon icon-cancel"></i><ul></ul></div>
+<div class="infos" style="display:none"></div>
+<div class="errors" style="display:none"><ul></ul></div>
 
 <p class="afterUploadActions" style="margin:10px; display:none;"> 
   {if !$DISPLAY_FORMATS}

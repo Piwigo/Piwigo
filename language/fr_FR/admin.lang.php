@@ -1439,5 +1439,7 @@ $lang['Subscribe to our newsletter and stay updated!'] = 'Abonnez-vous à notre 
 $lang['Sign up to the newsletter'] = 'Inscrivez-vous à la newsletter';
 $lang['See previous newsletters'] = 'Consultez les newsletters précédentes';
 $lang['Understood, do not show again'] = 'Compris, ne plus afficher';
+$lang['Latest update'] = 'Dernière mise à jour';
+$lang['See available updates'] = 'Voir les mises à jour disponibles';
 
 // Leave this line empty

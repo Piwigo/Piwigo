@@ -2336,53 +2336,50 @@ h2:lang(en) { text-transform:capitalize; }
 /**
  * Informations box in administration
  */
-.infos, .errors, .warnings, .messages {
+.infos, .errors, .warnings, .messages, #photosAddContent .infos {
   text-align: left;
   margin: 20px;
-  padding: 5px;
-  font-weight:bold;
-  min-height: 54px;
+  padding: 0 5px;
+  font-weight:600;
   flex-direction: row;
   display: flex;
   align-items: center;
   justify-content: start;
 }
 
-.infos ul, .errors ul, .warnings ul, .messages ul {
-  margin:1_px 0;
+.infos ul, .errors ul, .warnings ul, .messages ul, #photosAddContent .infos ul{
+  margin:10px 0;
   padding-left:0;
 }
 
-.infos ul {color: #3C3C3C;}
+#photosAddContent .infos ul li,
+.eiw ul li{
+  padding:2px;
+  margin-bottom:2px;
+  display:flex;
+  align-items:center;
+}
+
+#photosAddContent .infos ul li:not(:last-child),
+.eiw ul li:not(:last-child){
+  margin-bottom:10px;
+}
+
+#photosAddContent .infos ul li a,
+.eiw ul li a{
+  border-radius:4px;
+  margin:0 5px;
+  padding: 2px 7px;
+}
+
+#photosAddContent .infos ul li a i,
+.eiw ul li a i{
+  margin-right:5px;
+}
 
 .eiw-icon {
-  font-size: 40px;
-  margin-right: 10px;
-}
-
-.infos {
-  color: #0a0;
-  background-color:#c2f5c2;
-}
-
-.infos a {color: #3C3C3C;}
-
-.errors {
-  color: #f22;
-  background-color: #ffd5dc;
-  border-left: 4px solid #f22;
-}
-
-.warnings {
-  color: #ee8800;
-  background-color:#ffdd99;
-  border-left:4px solid #ee8800;
-}
-
-.messages {
-  color: #00529b;
-  background-color:#bde5f8;
-  border-left:4px solid #00529b;
+  font-size: 16px;
+  margin-right: 5px;
 }
 
 .jGrowl-popup-icon{
@@ -2394,6 +2391,7 @@ h2:lang(en) { text-transform:capitalize; }
 .success {
   color: #3C3C3C;
 }
+
 div.jGrowl div.jGrowl-notification.success{
   background: none;
   background-color: #D6FFCF;

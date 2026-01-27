@@ -1432,6 +1432,8 @@ $lang['Light mode'] = 'Light mode';
 $lang['Dark mode'] = 'Dark mode';
 $lang['Personalization settings'] ='Personalization settings';
 $lang['Change logo'] = 'Change logo';
+$lang['Latest update'] = 'Latest update';
+$lang['See available updates'] = 'See available updates';
 
 
 // Leave this line empty

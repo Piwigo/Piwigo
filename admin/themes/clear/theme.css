@@ -877,12 +877,6 @@ li.plupload_delete a.remove-format:hover{color: #474747;}
   background-color: #f98100;
 }
 
-.eiw .messages a {
-  background-color: #00529b;
-  color: #bde5f8;
-  padding: 2px 7px;
-}
-
 #wImg {background-color: #e5e5e5;}
 
 .cat-move-order-popin input[name=recursiveAutoOrder] {
@@ -974,4 +968,92 @@ label:has(> .filters-icon-check:disabled), span:has(+ .filters-icon-check:disabl
 
 .filter-manager-options-container.selected-filter-container:hover{
   background-color: #5D5D5D;
+}
+
+/*Success message*/
+
+.infos {
+  color: #254520;
+  background-color:#EEFFEB;
+  border-left:6px solid #6DCE5E;
+}
+
+.infos i{
+  color:#6DCE5E;
+}
+
+.infos a {
+  color: #3C3C3C;
+  background-color: #F6FFF4;
+  border:1px solid #6DCE5E;
+}
+
+.infos a:hover{
+  color: #3C3C3C;
+}
+
+/*Error message*/
+
+.errors {
+  color: #502421;
+  background-color: #FFE7EB;
+  border-left: 6px solid #EB3D33;
+}
+
+.errors i{
+  color: #EB3D33;
+}
+
+.errors a{
+  color: #502421;
+  background-color: #FFF5F7;
+  border:1px solid #EB3D33;
+}
+
+.errors a:hover{
+  color: #502421;
+}
+
+/*Warning message*/
+
+.warnings {
+  color: #563F26;
+  background-color:#FFF3DB;
+  border-left:6px solid #E18C32;
+}
+
+.warnings i {
+  color: #E18C32;
+}
+
+.warnings a{
+  color: #563F26;
+  background-color: #FFFAEF;
+  border:1px solid #E18C32;
+}
+
+.warnings a:hover{
+  color: #563F26;
+}
+
+/*announcement message*/
+
+.messages {
+  color: #274159;
+  background-color:#E3F5FF;
+  border-left:6px solid #4182BE;
+}
+
+.messages i{
+  color: #4182BE;
+}
+
+.messages a{
+  color: #274159;
+  background-color: #F5FBFF;
+  border:1px solid #4182BE;
+}
+
+.messages a:hover{
+  color: #274159;
 }
