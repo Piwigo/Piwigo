@@ -342,6 +342,8 @@ a.btn-main{
   position:absolute;
   bottom:40px;
   right:0;
+  max-height:50vh;
+  overflow:auto;
 }
 
 #lang-select #other-languages span{
