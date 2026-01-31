@@ -1077,8 +1077,7 @@ $lang['Zoom'] = '확대';
 $lang['Your selection'] = '선택 항목';
 $lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = '애플리케이션의 모든 기능을 활용하려면 시스템을 업그레이드해야 합니다. 그렇지 않으면 애플리케이션이 제대로 작동하지 않거나 아예 작동하지 않을 수 있습니다';
 $lang['You need to confirm deletion'] = '삭제 확인이 필요합니다.';
-$lang['You have subscribed to receiving notifications by mail.'] = '이메일 알림 수신을 구독하셨습니다.
-';
+$lang['You have subscribed to receiving notifications by mail.'] = '이메일 알림 수신을 구독하셨습니다.';
 $lang['You have unsubscribed from receiving notifications by mail.'] = '이메일 알림 수신을 구독 해제하셨습니다.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = '로컬 설정 파일에서 <i>$conf[\'order_by\']</i>를 지정하셨습니다. 이 매개변수는 더 이상 사용되지 않으므로 삭제하거나 <i>$conf[\'order_by_custom\']</i>로 이름을 변경해 주세요!';
 $lang['You have %s1 orphan : %s2'] = '%s1 개의 미사용 항목이 있습니다: %s2';
@@ -1126,8 +1125,7 @@ $lang['To subscribe'] = '구독하기';
 $lang['To unsubscribe'] = '구독 취소하기';
 $lang['To send ?'] = '보내기?';
 $lang['This plugin has no recent update'] = '이 플러그인은 최근 업데이트가 없습니다';
-$lang['This plugin have been updated recently'] = '이 플러그인은 최근 업데이트되었습니다
-';
+$lang['This plugin have been updated recently'] = '이 플러그인은 최근 업데이트되었습니다';
 $lang['This plugin have no update since 3 years ! It may be outdated'] = '이 플러그인은 3년 동안 업데이트되지 않았습니다! 구식일 수 있습니다';
 $lang['This plugin is incompatible with your version'] = '이 플러그인은 귀하의 버전과 호환되지 않습니다';
 $lang['To be sure, please rewrite the word “%s” below'] = '확인을 위해 아래의 "%s" 단어를 다시 입력하세요';
@@ -1156,8 +1154,7 @@ $lang['The version of %s [%s] installed is not compatible with the version requi
 $lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = '업로드된 파일이 php.ini의 post_max_size를 초과합니다: %sB';
 $lang['The uploaded file was only partially uploaded'] = '업로드된 파일이 부분적으로만 업로드되었습니다.';
 $lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = '업로드된 파일이 HTML 형식에 지정된 MAX_FILE_SIZE를 초과합니다.';
-$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = '업로드된 파일이 php.ini의 upload_max_filesize를 초과합니다: %sB
-';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = '업로드된 파일이 php.ini의 upload_max_filesize를 초과합니다: %sB';
 $lang['The settings for the guest are from the %s user'] = '방문자 설정은 %s 사용자의 설정에서 가져옵니다.';
 $lang['The original picture will be detected with the filename (without extension).'] = '원본 사진은 파일명(확장자 제외)으로 감지됩니다.';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = '사진 크기는 %dx%d 픽셀로 축소됩니다.';
