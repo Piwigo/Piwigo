@@ -461,8 +461,7 @@ $lang['must not be empty'] = '비어 있어서는 안 됩니다';
 $lang['rating score %s'] = '평점 점수 %s';
 $lang['year %d'] = '%d 년';
 $lang['you must choose a date'] = '날짜를 선택해야 합니다';
-$lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = '<a href="%s">계정 설정</a>에서 API 키를 관리할 수 있습니다.
-';
+$lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = '<a href="%s">계정 설정</a>에서 API 키를 관리할 수 있습니다.';
 $lang['You can try to edit your filters and perform a new search.'] = '필터를 수정하고 새 검색을 시도해 보세요.';
 $lang['You have no email address, so you will not be notified when your API key is about to expire.'] = '이메일 주소가 등록되어 있지 않아 API 키 만료 시 알림을 받지 못합니다.';
 $lang['Your API key will expire in %d day.'] = 'API 키가 %d 일 후에 만료됩니다.';
@@ -499,8 +498,7 @@ $lang['Set your password below.'] = '아래에 비밀번호를 설정하세요.'
 $lang['Show expired keys'] = '만료된 키 표시';
 $lang['Tags found'] = '태그 검색됨';
 $lang['Tags listed here match your search by word. Click on one to browse by tag.'] = '여기에 나열된 태그는 검색어와 일치합니다. 태그를 클릭하면 해당 태그로 분류된 콘텐츠를 볼 수 있습니다.';
-$lang['The PDF you requested is too large to display on this page.'] = '요청하신 PDF 파일은 이 페이지에 표시하기에는 너무 큽니다.
-';
+$lang['The PDF you requested is too large to display on this page.'] = '요청하신 PDF 파일은 이 페이지에 표시하기에는 너무 큽니다.';
 $lang['The api key has been successfully created.'] = 'API 키가 성공적으로 생성되었습니다.';
 $lang['Only the first %d albums are displayed, out of %d.'] = '처음 %d 개 (총 %d 개) 앨범만 표시됩니다.';
 $lang['Options'] = '옵션';
