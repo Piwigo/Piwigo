@@ -33,6 +33,7 @@ $page['cat'] = $category['id'];
 // info by email to an access granted group of category informations
 if (isset($_POST['submitEmail']))
 {
+  check_pwg_token();
   set_make_full_url();
 
   $img = array();

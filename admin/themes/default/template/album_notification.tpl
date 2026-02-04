@@ -61,6 +61,7 @@ span.errors {
 {/html_style}
 
 <form action="{$F_ACTION}" method="post" id="categoryNotify">
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
 <fieldset id="emailCatInfo">
   <legend><span class="icon-mail-1 icon-green"></span>{'Send mail to users'|@translate}</legend>
