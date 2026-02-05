@@ -17,7 +17,7 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = '필요하시
 $lang['Visitors will be able to contact site administrator with this mail'] = '방문객이 이 이메일 주소로 사이트 관리자에게 연락 할 것입니다.';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = '데이터베이스 테이블 이름 앞에 추가됩니다 (데이터베이스 테이블을 잘 관리할 수 있도록 해 줍니다)';
 $lang['verification'] = '확인';
-$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = '도움이 필요하신가요? <a href="%s">Piwigo message board</a>에 물어보세요.';
+$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = '도움이 필요하신가요? <a href="%s">Piwigo 포럼</a>에 문의해 주세요.';
 $lang['Piwigo was not able to configure PHP 5.'] = 'PHP 5.3 설정에 실패했습니다';
 $lang['Try to configure PHP 5'] = 'PHP 5.3 설정 시도중';
 $lang['Welcome to my photo gallery'] = '사진 갤러리에 오신 것을 환영합니다';
@@ -25,9 +25,9 @@ $lang['please enter your password again'] = '암호를 다시 입력하십시오
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = '또다른 방법으로는 위의 텍스트 상자에 있는 문장을 복사하여 "local/config/database.inc.php"에 복사하는 방법입니다.
 (경고: database.inc.php는 줄바꿈이나 스페이스 없이 위 텍스트 상자에 있는 내용만 포함해야 합니다. ';
 $lang['Congratulations, Piwigo installation is completed'] = '축하합니다, Piwigo 설치가 끝났습니다';
-$lang['Default gallery language'] = '기본 언어';
+$lang['Default gallery language'] = '기본 갤러리 언어';
 $lang['PHP 5 is required'] = 'PHP 5.3이 필요합니다';
-$lang['Password ']['confirm'] = '암호 [확인]';
+$lang['Password ']['confirm'] = '비밀번호 [확인]';
 $lang['Sorry!'] = '죄송합니다!';
 $lang['Start Install'] = '설치 시작';
 $lang['User'] = '사용자';
@@ -45,9 +45,9 @@ $lang['It appears your webhost is currently running PHP %s.'] = '웹서버가 PH
 $lang['Hope to see you back soon.'] = '곧 다시 만나기를 바랍니다.';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = '방문자에게 표시됩니다. 웹사이트 관리를 위해서 필요합니다.';
 $lang['Just another Piwigo gallery'] = '또 하나의 Piwigo 갤러리';
-$lang['Keep it confidential, it enables you to access administration panel'] = '기밀 유지 하십시오. 관리자 패널에 접근할 수 있습니다.';
+$lang['Keep it confidential, it enables you to access administration panel'] = '비밀로 유지해 주세요, 이걸로 관리자 패널에 접속할 수 있습니다';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo는 .htaccess 파일을 생성하거나 수정하여 PHP 5.3 구성으로 전환하려고 시도 할 수 있습니다.';
-$lang['Welcome to your new installation of Piwigo!'] = '새로 설치된 Piwigo에 오신 것을 환영합니다.';
+$lang['Welcome to your new installation of Piwigo!'] = '새로 설치하신 Piwigo에 오신 것을 환영합니다!';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = '호스팅 제공 업체의 지원 내용을 참고하여 직접 PHP 5.2로 전환하는 방법을 찾아야 합니다.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = '참고 : 직접 구성을 변경한 다음 Piwigo를 다시 시작할 수 있습니다.';
 $lang['PHP version %s required (you are running on PHP %s)'] = 'php %s 버전이 필수입니다.(php %s 버전이 설치돼 있습니다)';
