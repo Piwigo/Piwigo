@@ -45,7 +45,7 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = '创建 local/config/database.inc.php 配置文件失败。';
 $lang['Download the config file'] = '下载配置文件';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = '您可以下载配置文件，并上传到 local/config 目录以完成您的安装。';
-$lang['Welcome to my photo gallery'] = '欢迎来到我的相册';
+$lang['Welcome to my photo gallery'] = '欢迎来到我的图库';
 $lang['Just another Piwigo gallery'] = '一个崭新的 Piwigo 图库';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = '欢迎来我们的论坛咨询任何 Piwigo 相关问题：%s';
 $lang['Welcome to your new installation of Piwigo!'] = '欢迎安装 Piwigo！';
