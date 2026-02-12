@@ -114,7 +114,7 @@
     </div>
 
   {elseif $action eq 'lost_code'}
-    <span class="success-message"><i class="gallery-icon-ok-circled"></i>{'An email has been sent with a verification code'|translate}</span>
+    <span class="success-message"><i class="gallery-icon-ok-circled"></i>{'If your account exists, a verification code has been sent to your email address.'|translate}</span>
     <div class="column-flex">
       <label for="user_code">{'Verification code'|@translate}</label>
       <div class="row-flex input-container">

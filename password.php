@@ -360,7 +360,7 @@ if (isset($_POST['submit']))
   {
     if (process_verification_code())
     {
-      $page['infos'][] = l10n('An email has been sent with a verification code');
+      $page['infos'][] = l10n('If your account exists, a verification code has been sent to your email address.');
       $page['action'] = 'lost_code';
     }
   }

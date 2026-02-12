@@ -517,7 +517,6 @@ $lang['Your API key will expire in %d days.'] = 'Votre clé API expirera dans %d
 $lang['To continue using the API, please renew your key before it expires.'] = 'Pour continuer à utiliser l\'API, veuillez renouveler votre clé avant son expiration.';
 $lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'Vous pouvez gérer vos clés API dans les <a href="%s">paramètres de votre compte.</a>';
 $lang['Expert mode'] = 'Mode expert';
-$lang['An email has been sent with a verification code'] = 'Un e-mail contenant un code de vérification vous a été envoyé';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'Si vous ne recevez pas cet e-mail, veuillez contacter votre webmaster.';
 $lang['Verification code'] = 'Code de vérification';
 $lang['Verify'] = 'Vérifier';
@@ -533,3 +532,4 @@ $lang['If this wasn\'t you, please change your password immediately or contact y
 $lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Si vous avez changé votre mot de passe car vous pensez qu\'il a été volé, nous vous recommandons de révoquer vos %d clefs d\'API <a href="%s">sur votre profil</a>.';
 $lang['Too many attempts, please try later..'] = 'Trop de tentatives, veuillez réessayer plus tard..';
 $lang['Verification successful! You can now choose a new password.'] = 'Vérification réussie ! Vous pouvez maintenant choisir un nouveau mot de passe.';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Si votre compte existe, un code de vérification a été envoyé à votre adresse email.';
