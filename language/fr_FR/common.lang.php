@@ -515,7 +515,6 @@ $lang['Your API key will expire in %d days.'] = 'Votre clé API expirera dans %d
 $lang['To continue using the API, please renew your key before it expires.'] = 'Pour continuer à utiliser l\'API, veuillez renouveler votre clé avant son expiration.';
 $lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'Vous pouvez gérer vos clés API dans les <a href="%s">paramètres de votre compte.</a>';
 $lang['Expert mode'] = 'Mode expert';
-$lang['An email has been sent with a verification code'] = 'Un e-mail contenant un code de vérification vous a été envoyé';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'Si vous ne recevez pas cet e-mail, veuillez contacter votre webmaster.';
 $lang['Verification code'] = 'Code de vérification';
 $lang['Verify'] = 'Vérifier';
@@ -534,3 +533,4 @@ $lang['Verification successful! You can now choose a new password.'] = 'Vérific
 $lang['Check your inbox'] = 'Vérifiez votre boîte de réception.';
 $lang['The email %s will be used to notify you when your API key is about to expire.'] = 'L\'adresse e-mail %s sera utilisée pour vous avertir lorsque votre clé API sera sur le point d\'expirer.';
 $lang['When enabled, a common template is used for the login and registration pages, regardless of the theme.'] = 'Lorsque cette option est activée, un gabarit commun est utilisé pour les pages de connexion et d\'inscription, quel que soit le thème.';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Si votre compte existe, un code de vérification a été envoyé à votre adresse email.';
