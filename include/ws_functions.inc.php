@@ -34,6 +34,16 @@ function ws_isInvokeAllowed($res, $methodName, $params)
  */
 function ws_std_image_sql_filter( $params, $tbl_name='' )
 {
+  foreach (array('f_min_date_available', 'f_max_date_available', 'f_min_date_created', 'f_max_date_created') as $datefield)
+  {
+    if (isset($params[$datefield]) and !is_valid_mysql_datetime($params[$datefield]))
+    {
+      global $service;
+      $service->sendResponse(new PwgError(WS_ERR_INVALID_PARAM, 'Invalid '.$datefield));
+      exit;
+    }
+  }
+
   $clauses = array();
   if ( is_numeric($params['f_min_rate']) )
   {
