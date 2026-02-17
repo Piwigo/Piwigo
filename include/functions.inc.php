@@ -3095,4 +3095,34 @@ function get_container_info()
   }
 }
 
+/**
+ * Checks if the provided string is valid for a comparison test with a datetime field in MySQL
+ *
+ * Possible values : YYYY-MM-DD HH-MM-SS or YYYY-MM-DD
+ *
+ * @since 16.3
+ * @param string $datetime
+ * @return bool
+ */
+function is_valid_mysql_datetime(string $datetime)
+{
+  // first we check the full date+time
+  $format = 'Y-m-d H:i:s';
+  $date = DateTime::createFromFormat($format, $datetime);
+  if ($date and $date->format($format) === $datetime)
+  {
+    return true;
+  }
+
+  // in case it fails, let's check with only date and no time
+  $format = 'Y-m-d';
+  $date = DateTime::createFromFormat($format, $datetime);
+  if ($date and $date->format($format) === $datetime)
+  {
+    return true;
+  }
+
+  return false;
+}
+
 ?>
