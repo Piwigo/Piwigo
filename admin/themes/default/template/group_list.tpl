@@ -76,8 +76,8 @@ usersCache.selectize(jQuery('select.UserSearch'));
       {$grp_color}
     {/if}">
         </div>
-        <div class="groupMessage icon-ok icon-green"></div>
-        <div class="groupError icon-cancel"></div>
+        <div class="groupMessage icon-ok-circled icon-green"></div>
+        <div class="groupError icon-cancel-circled"></div>
       </div>
 
       <div class="icon-star not-in-selection-mode is-default-token{if !$grp_is_default} deactivate{/if}" ></div> 
@@ -173,7 +173,7 @@ usersCache.selectize(jQuery('select.UserSearch'));
   <div class="groups">
 
     <div id="addGroupForm" class="GroupContainer">
-      <div class="groupError icon-cancel"></div>
+      <div class="groupError icon-cancel-circled"></div>
       <div class="addGroupBlock">
         <div class="icon-plus-circled icon-blue icon-blue-full"></div>
         <p id="addGroup">{'Add group'|translate}</p>

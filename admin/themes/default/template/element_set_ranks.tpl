@@ -109,7 +109,7 @@ jQuery('.thumbnail').tipTip({
 {if isset($save_success)}
     <div class="savebar-footer-block">
       <div class="badge info-message">
-        <i class="icon-ok"></i>{$save_success}
+        <i class="icon-ok-circled"></i>{$save_success}
       </div>
     </div>
 {/if}

@@ -832,11 +832,11 @@ $(document).ready(function() {
       </div>
       <div class="update-container">
         <span class="close-update-button icon-cancel-circled">{'Close'|@translate}</span>
-        <p>
-          <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
-          <span class="update-user-fail icon-cancel"></span>
+        <div>
+          <span class="update-user-success"><i class="icon-ok-circled"></i>{'User updated'|@translate}</span>
+          <span class="update-user-fail icon-cancel-circled"></span>
           <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
-        </p>
+        </div>
       </div>
     </div>
   </div>
@@ -1133,8 +1133,8 @@ $(document).ready(function() {
       <div class="update-container">
         <span class="close-update-button icon-cancel-circled">{'Close'|@translate}</span>
         <p>
-          <span class="update-user-success icon-green">{'User updated'|@translate}</span>
-          <span class="update-user-fail  icon-cancel"></span>
+          <span class="update-user-success icon-ok-circled">{'User updated'|@translate}</span>
+          <span class="update-user-fail icon-cancel-circled"></span>
           <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
         </p>
       </div>
@@ -1245,7 +1245,7 @@ $(document).ready(function() {
         </div>
       </div>
 
-      <div class="AddUserErrors  icon-cancel">
+      <div class="AddUserErrors icon-cancel-circled">
       </div>
 
       <div class="AddUserSubmitContainer">
@@ -1260,7 +1260,7 @@ $(document).ready(function() {
     </div>
 
     <div id="AddUserSuccessContainer" style="display: none;">
-      <p class="icon-green border-green icon-ok AddUserResult" id="AddUserUpdated"> <span id="AddUserUpdatedText">{'User updated'|@translate}</span></p>
+      <p class="icon-ok-circled AddUserResult" id="AddUserUpdated"> <span id="AddUserUpdatedText">{'User updated'|@translate}</span></p>
       <p class="AddUserTextField" id="AddUserTextField"></p>
       <div class="AddUserPasswordInputContainer" id="AddUserPasswordInputContainer">
         <input class="AddUserPasswordInput" id="AddUserPasswordLink" />

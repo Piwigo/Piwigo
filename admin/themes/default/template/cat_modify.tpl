@@ -183,8 +183,8 @@ const str_modal_ab = '{'New parent album'|@translate}';
     {/if}
    </div>
    <div class="cat-modify-footer-end">
-    <div class="info-message icon-ok">{'Album updated'|@translate}</div>
-    <div class="info-error icon-cancel">{'An error has occured while saving album settings'|@translate}</div>
+    <div class="info-message icon-ok-circled">{'Album updated'|@translate}</div>
+    <div class="info-error icon-cancel-circled">{'An error has occured while saving album settings'|@translate}</div>
     <span class="buttonLike" id="cat-properties-save"><i class="icon-floppy"></i> {'Save Settings'|@translate}</span>
    </div>
   </div>

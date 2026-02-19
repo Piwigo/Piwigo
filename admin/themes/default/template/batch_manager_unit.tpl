@@ -132,7 +132,7 @@ pluginValues = [];
 	<fieldset class="elementEdit" id="picture-{$element.ID}" data-image_id="{$element.ID}">
 		<div class="metasync-success badge-container" style="display: none;">
 			<div class="badge-succes">
-				<i class="icon-ok"></i>
+				<i class="icon-ok-circled"></i>
 				{'Metadata sync complete'|@translate}
 			</div>
 		</div>
@@ -270,7 +270,7 @@ pluginValues = [];
 					</div>
 					<div class="local-success-badge badge-container" style="display: none;">
 						<div class="badge-succes">
-							<i class="icon-ok"></i>
+							<i class="icon-ok-circled"></i>
 							{'Changes saved'|@translate}
 						</div>
 					</div>
@@ -312,7 +312,7 @@ pluginValues = [];
 			</div>
 			<div class="badge-container global-succes-badge" style="display: none;">
 				<div class="badge-succes">
-					<i class="icon-ok"></i>
+					<i class="icon-ok-circled"></i>
 					{'Changes saved'|@translate}
 				</div>
 			</div>

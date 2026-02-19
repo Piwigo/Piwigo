@@ -2244,7 +2244,7 @@ function add_infos_to_new_user(user_id, ajax_data) {
                 let new_user_id = data.result.users[0].id;
                 update_user_list();
                 // add_user_close();
-                $('#AddUserUpdated').removeClass('icon-red icon-cancel').addClass('icon-green border-green icon-ok');
+                $('#AddUserUpdated').removeClass('icon-red icon-cancel-circled').addClass('icon-green icon-ok-circled');
                 $('#AddUserUpdatedText').html(user_added_str.replace("%s", ajax_data.username));
                 const status = ['webmaster', 'admin', 'normal'];
                 if (status.includes(ajax_data.status)) {
@@ -2299,7 +2299,7 @@ function send_new_user_password(user_id, mail) {
                     : sprintf(validLinkWithoutMail, response.result.time_validation));
 
                 if(send_by_mail && !response.result.send_by_mail) {
-                    $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+                    $('#AddUserUpdated').removeClass('icon-green icon-ok-circled').addClass('icon-red-error icon-cancel-circled');
                     $('#AddUserUpdatedText').html(errorMailSent);
                     $('#AddUserTextField').html(sprintf(errorMailSentMsg, response.result.time_validation));
                 } else if (send_by_mail && response.result.send_by_mail) {
@@ -2311,7 +2311,7 @@ function send_new_user_password(user_id, mail) {
                         const successMsg = $('#AddUserUpdatedText');
                         successMsg.fadeOut();
                         copyToClipboard(response.result.generated_link);
-                        $('#AddUserUpdated').removeClass('icon-red icon-cancel').addClass('icon-green border-green icon-ok');
+                        $('#AddUserUpdated').removeClass('icon-red icon-cancel-circled').addClass('icon-green icon-ok-circled');
                         successMsg.html(copyLinkStr);
                         successMsg.fadeIn();
                     });
@@ -2320,12 +2320,12 @@ function send_new_user_password(user_id, mail) {
                     add_user_close();
                 });
             } else {
-                $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+                $('#AddUserUpdated').removeClass('icon-green icon-ok-circled').addClass('icon-red-error icon-cancel-circled');
                 $('#AddUserUpdatedText').html(response.message);
             }
         },
         error: function(response) {
-            $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+            $('#AddUserUpdated').removeClass('icon-green icon-ok-circled').addClass('icon-red-error icon-cancel-circled');
             $('#AddUserUpdatedText').html(response.message);
         }
     });

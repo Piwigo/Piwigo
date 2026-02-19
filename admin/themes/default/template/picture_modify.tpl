@@ -232,7 +232,7 @@ const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
 {if isset($save_success)}
         <div class="savebar-footer-block">
           <div class="badge info-message">
-            <i class="icon-ok"></i>{$save_success}
+            <i class="icon-ok-circled"></i>{$save_success}
           </div>
         </div>
 {/if}

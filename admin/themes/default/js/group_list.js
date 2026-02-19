@@ -722,11 +722,11 @@ var usersInGroup = [];
 var maxOffsetUserCont = 322;
 
 var dissociateUserInfo = $("<div class='ValidationUserDissociated'>"
-  + "<p class='icon-ok'></p>"
+  + "<i class='icon-ok-circled'></i><p></p>"
   + "</div>").appendTo(".group-name-block").hide();
 
 var associateUserInfo = $("<div class='ValidationUserAssociated'>"
-+ "<p class='icon-ok'></p>"
++ "<i class='icon-ok-circled'></i><p></p>"
 + "</div>");
 
 // Setup the user research bar
