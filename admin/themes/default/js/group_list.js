@@ -105,7 +105,7 @@ jQuery(document).ready(function () {
             updateBadge();
           } else {
             $("#addGroupForm .groupError").html(str_name_not_empty);
-            $("#addGroupForm .groupError").fadeIn();
+            $("#addGroupForm .groupError").css('display','flex').fadeIn();
             $("#addGroupForm .groupError").delay(DELAY_FEEDBACK).fadeOut();
           }
         },
@@ -116,7 +116,7 @@ jQuery(document).ready(function () {
     } else {
       loadState.reverse();
       $("#addGroupForm .groupError").html(str_name_not_empty);
-      $("#addGroupForm .groupError").fadeIn();
+      $("#addGroupForm .groupError").css('display','flex').fadeIn();
       $("#addGroupForm .groupError").delay(DELAY_FEEDBACK).fadeOut();
     }
   });
@@ -349,7 +349,7 @@ var renameGroup = function(id, newName) {
         } else {
           //Display error message
           $("#group-" + id).find(".groupError").html(str_name_taken);
-          $("#group-" + id).find(".groupError").fadeIn();
+          $("#group-" + id).find(".groupError").css('display','flex').fadeIn();
           $("#group-" + id).find(".groupError").delay(DELAY_FEEDBACK).fadeOut();
         }
       },
@@ -360,7 +360,7 @@ var renameGroup = function(id, newName) {
   } else {
     loadState.reverse();
     $("#group-" + id).find(".groupError").html(str_name_not_empty);
-    $("#group-" + id).find(".groupError").fadeIn();
+    $("#group-" + id).find(".groupError").css('display','flex').fadeIn();
     $("#group-" + id).find(".groupError").delay(DELAY_FEEDBACK).fadeOut();
   }
 }

@@ -1343,12 +1343,6 @@ $(document).ready(function() {
   cursor: default;
 }
 
-#AddUserSuccess .edit-now {
-  color: #3a3a3a;
-  cursor: pointer;
-  margin-left:10px;
-}
-
 .user-header-button {
   position:relative;
 }
@@ -1711,6 +1705,7 @@ $(document).ready(function() {
   display: flex;
   justify-content: space-between;
   padding-top:20px;
+  align-items:center;
 }
 
 /* general pop in rules */
@@ -2161,15 +2156,6 @@ $(document).ready(function() {
   padding-top: 20px;
 }
 
-.update-username-success {
-  display: flex;
-  padding: 10px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  align-items: center;
-  gap: 10px;
-}
-
 .edit-password-success-ok {
   align-self: center;
   margin-top: 30px;
@@ -2550,6 +2536,7 @@ $(document).ready(function() {
     font-weight:bold;
     background-color: #ffa646;
     color: #3c3c3c;
+    margin-left:10px;
 }
 
 .update-user-button:hover,
@@ -2579,13 +2566,8 @@ $(document).ready(function() {
   margin-left: 0;
 }
 
-.update-user-success {
-    padding:10px;
-    display:none;
-}
-
-.update-user-fail {
-    padding:11px;
+.update-user-success,
+.update-user-fail{
     display:none;
 }
 
@@ -2716,8 +2698,6 @@ $(document).ready(function() {
 
 .AddUserErrors {
   visibility:hidden;
-  padding:5px;
-  border-left:solid 3px red;
 }
 
 .AddUserSubmit {

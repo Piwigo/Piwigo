@@ -596,10 +596,6 @@ input:focus + .slider {
   background-color:#f9f9f9;
 }
 
-.UsernameBlock.success_message{
-  border:2px solid #c2f5c2;
-}
-
 .Tooltip p.TooltipText{
 
   background-color:#f3f3f3;
@@ -608,12 +604,13 @@ input:focus + .slider {
 }
 
 .ValidationUserAssociated, .ValidationUserDissociated{
-  color:#00aa00 !important;
-  background-color:#c2f5c2;
+  color:#6DCE5E !important;
+  background-color:#EEFFEB;
+  border:1px solid #6DCE5E;
 }
 
 .ValidationUserAssociated p, .ValidationUserDissociated p {
-  color:#00aa00 !important;
+  color:#254520 !important;
 }
 
 /*------*/
@@ -970,19 +967,63 @@ label:has(> .filters-icon-check:disabled), span:has(+ .filters-icon-check:disabl
   background-color: #5D5D5D;
 }
 
-/*Success message*/
+/* -------------
+Info
+-------------*/
 
-.infos {
+/*Success message*/
+.infos,
+.info-message,
+.update-user-success,
+#AddUserUpdated,
+#AddUserSuccess label,
+.groupMessage,
+div.jGrowl div.jGrowl-notification.success,
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label,
+.update-user-success,
+.update-password-success,
+.update-username-success{
   color: #254520;
   background-color:#EEFFEB;
-  border-left:6px solid #6DCE5E;
 }
 
-.infos i{
+.infos,
+#AddUserSuccess label,
+#AddUserUpdated {
+  border-left:4px solid #6DCE5E; /*Banner*/
+}
+
+.info-message,
+.update-user-success,
+.groupMessage,
+div.jGrowl div.jGrowl-notification.success,
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label,
+.UsernameBlock.success_message,
+.update-user-success,
+.update-password-success,
+.update-username-success{
+  border:1px solid #6DCE5E; /*Rounded*/
+}
+
+.infos i,
+.info-message i,
+.update-user-success i,
+.groupMessage::before,
+.info-message::before,
+div.success .jGrowl-popup-icon,
+.AddPluginSuccess label::before,
+.DeactivatePluginSuccess  label::before,
+.RestorePluginSuccess label::before,
+.update-username-success .icon-ok{
   color:#6DCE5E;
 }
 
-.infos a {
+.infos a,
+#AddUserSuccess .edit-now {
   color: #3C3C3C;
   background-color: #F6FFF4;
   border:1px solid #6DCE5E;
@@ -992,15 +1033,54 @@ label:has(> .filters-icon-check:disabled), span:has(+ .filters-icon-check:disabl
   color: #3C3C3C;
 }
 
-/*Error message*/
-
-.errors {
-  color: #502421;
-  background-color: #FFE7EB;
-  border-left: 6px solid #EB3D33;
+.AddPluginSuccess span,
+.RestorePluginSuccess span,
+.DeactivatePluginSuccess span {
+  color: #254520;
 }
 
-.errors i{
+/*Error message*/
+
+.errors,
+.info-error,
+.AddUserErrors,
+.groupError,
+div.jGrowl div.jGrowl-notification.error,
+.PluginActionError label,
+.update-user-fail,
+.AddAlbumErrors, 
+.EditUserErrors, 
+.update-password-fail, 
+.icon-red-error {
+  color: #502421;
+  background-color: #FFE7EB;
+}
+
+.errors,
+.AddUserErrors,
+.AddAlbumErrors{
+  border-left: 6px solid #EB3D33; /*Banner*/
+}
+
+.info-error,
+.groupError,
+div.jGrowl div.jGrowl-notification.error,
+.PluginActionError label
+.update-user-fail,
+.EditUserErrors,
+.update-password-fail, 
+.icon-red-error,
+.update-user-fail,
+.AddAlbumErrors{
+  border:1px solid #EB3D33; /*Rounded*/
+}
+
+.errors i,
+.AddUserErrors:before,
+.groupError::before,
+div.error .jGrowl-popup-icon,
+.PluginActionError label::before,
+.AddAlbumErrors::before {
   color: #EB3D33;
 }
 
@@ -1010,28 +1090,42 @@ label:has(> .filters-icon-check:disabled), span:has(+ .filters-icon-check:disabl
   border:1px solid #EB3D33;
 }
 
+.info-error a:hover
+.PluginActionError span,
 .errors a:hover{
   color: #502421;
 }
 
 /*Warning message*/
 
-.warnings {
+.warnings,
+.info-warning {
+  background-color: #FFF3DB;
   color: #563F26;
-  background-color:#FFF3DB;
+}
+
+.warnings {
   border-left:6px solid #E18C32;
 }
 
+.info-warning {
+  border:1px solid #E18C32;
+}
+
+.info-warning::before,
+.info-warning a::before,
 .warnings i {
   color: #E18C32;
 }
 
-.warnings a{
+.warnings a,
+.info-warning a{
   color: #563F26;
   background-color: #FFFAEF;
   border:1px solid #E18C32;
 }
 
+.info-warning a:hover,
 .warnings a:hover{
   color: #563F26;
 }
@@ -1054,6 +1148,7 @@ label:has(> .filters-icon-check:disabled), span:has(+ .filters-icon-check:disabl
   border:1px solid #4182BE;
 }
 
+.info-message a:hover,
 .messages a:hover{
   color: #274159;
 }

@@ -2336,100 +2336,44 @@ h2:lang(en) { text-transform:capitalize; }
 /**
  * Informations box in administration
  */
-.infos, .errors, .warnings, .messages, #photosAddContent .infos {
-  text-align: left;
-  margin: 20px;
-  padding: 0 5px;
-  font-weight:600;
-  flex-direction: row;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-}
-
-.infos ul, .errors ul, .warnings ul, .messages ul, #photosAddContent .infos ul{
-  margin:10px 0;
-  padding-left:0;
-}
-
-#photosAddContent .infos ul li,
-.eiw ul li{
-  padding:2px;
-  margin-bottom:2px;
-  display:flex;
-  align-items:center;
-}
-
-#photosAddContent .infos ul li:not(:last-child),
-.eiw ul li:not(:last-child){
-  margin-bottom:10px;
-}
-
-#photosAddContent .infos ul li a,
-.eiw ul li a{
-  border-radius:4px;
-  margin:0 5px;
-  padding: 2px 7px;
-}
-
-#photosAddContent .infos ul li a i,
-.eiw ul li a i{
-  margin-right:5px;
-}
-
-.eiw-icon {
-  font-size: 16px;
-  margin-right: 5px;
-}
 
 .jGrowl-popup-icon{
   position: absolute;
-  font-size: 4em;
+  font-size: 15px;
   left: -25px;
-}
-
-.success {
-  color: #3C3C3C;
+  margin-top:10px;
 }
 
 div.jGrowl div.jGrowl-notification.success{
   background: none;
-  background-color: #D6FFCF;
   opacity: 1;
   text-align: left;
   font-family: 'Open Sans'; 
   box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1);
   margin-bottom: 1em;
 }
-div.success .jGrowl-popup-icon{
-  color: #4CA530;
-}
 
-.error{
-  color: #3C3C3C;
-}
 div.jGrowl div.jGrowl-notification.error{
   background: none;
-  background-color: #FFC8C8;
   opacity: 1;
   text-align: left;
   font-family: 'Open Sans';
   box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.1);
   margin-bottom: 1em;
 }
-div.error .jGrowl-popup-icon{
-  color: #BE4949;
-}
 
 div.jGrowl div.jGrowl-notification div.jGrowl-message {
   font-size: 1.2em !important;
-  margin: 0% 0% 0% 28%;
+  margin-bottom:10px;
+  margin-right:20px;
 }
+
 div.jGrowl div.jGrowl-notification div.jGrowl-header {
   font-size: 1.2em !important;
 	font-weight: 800 !important;
-  margin: 5% 0% 2% 28%;
+  margin-top:10px;
 }
+
 div.success div.jGrowl-close, div.error div.jGrowl-close {
 	font-size: 2em !important;
   font-weight: 1000 !important;
@@ -2439,7 +2383,7 @@ div.success div.jGrowl-close, div.error div.jGrowl-close {
 }
 
 div.jGrowl div.jGrowl-closer {
-	visibility: hidden;
+	visibility: visible;
 }
 
 div.jGrowl div.jGrowl-notification{
@@ -2447,11 +2391,10 @@ div.jGrowl div.jGrowl-notification{
 	zoom: 1;
 	width: 21vw;
   height: 100%;
-	padding: 18%;
+	padding: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	font-size: 1em;
-	
 	display: none;
   border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -3049,37 +2992,14 @@ div.jGrowl div.jGrowl-notification{
   opacity: 0.5;
 } 
 
-
-.AddPluginSuccess span,
-.RestorePluginSuccess span,
-.DeactivatePluginSuccess span {
-  color: #0a0;
+.PluginOptionsBlock{
+  display:none;
+  position:absolute;
+  right: 0;
+  top: 40px;
+  z-index: 2;
+  transform: translateX(calc(50% - 19px));
 }
-
-.AddPluginSuccess label,
-.DeactivatePluginSuccess label,
-.RestorePluginSuccess label {
-  background-color:  #c2f5c2;
-  color: #0a0;
-}
-
-.PluginActionError span {
-  color: rgb(170, 0, 0);
-}
-
-.PluginActionError label {
-  background-color:  #f5c2c2;
-  color: rgb(170, 0, 0);
-}
-
- .PluginOptionsBlock{
-    display:none;
-    position:absolute;
-    right: 0;
-    top: 40px;
-    z-index: 2;
-    transform: translateX(calc(50% - 19px));
-  }
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
 .deactivate_all {font-size: 11px;font-weight: normal; margin-top: -5px; margin-bottom: 5px; font-weight: bold;opacity: 0.6;}
@@ -3306,32 +3226,20 @@ legend {text-align:left;}
   white-space: nowrap;
 }
 
-.AddPluginSuccess span,
-.RestorePluginSuccess span,
-.DeactivatePluginSuccess span {
-  color: #0a0;
-}
-
 .AddPluginSuccess label,
 .DeactivatePluginSuccess label,
-.RestorePluginSuccess label {
-  padding: 10px;
-  background-color:  #c2f5c2;
+.RestorePluginSuccess label,
+.PluginActionError label{
+  padding: 5px;
   cursor: default;
-  color: #0a0;
   border-radius: 30px;
 }
 
-.PluginActionError span {
-  color: rgb(170, 0, 0);
-}
-
-.PluginActionError label {
-  padding: 10px;
-  background-color:  #f5c2c2;
-  cursor: default;
-  color: rgb(170, 0, 0);
-  border-radius: 30px;
+.AddPluginSuccess span,
+.DeactivatePluginSuccess span,
+.RestorePluginSuccess span,
+.PluginActionError span{
+  padding-right:3px;
 }
 
 /* Line view */
@@ -3808,12 +3716,18 @@ LEGEND SPAN {
   text-align: right;
   margin-right: 2%;
 }
+
 .badge-unsaved{
   padding: 5px 10px;
   border-radius: 100px;
   font-weight: bold;
-  background-color: #FADDA2;
-  color: #E18C32;
+  background-color: #FFF3DB;
+  color: #563F26;
+  border:1px solid #E18C32;
+}
+
+.badge-unsaved i{
+ color:#E18C32; 
 }
 
 .badge-succes{
@@ -3821,6 +3735,11 @@ LEGEND SPAN {
   border-radius: 100px;
   font-weight: bold;
   background-color: #D6FFCF;
+  color: #254520;
+  border:1px solid #6DCE5E;
+}
+
+.badge-succes i{
   color: #6DCE5E;
 }
 
@@ -3828,7 +3747,11 @@ LEGEND SPAN {
   padding: 5px 10px;
   border-radius: 100px;
   font-weight: bold;
-  background-color: #F8D7DC;
+  background-color: #FFE7EB;
+  color: #502421;
+}
+
+.badge-error i{
   color: #EB3D33;
 }
 
@@ -4659,7 +4582,7 @@ a#showPermissions:hover {text-decoration: none;}
   margin : 4px 5px 0 0;
   font-size: 80%;
   background-color: #6DCE5E;
-  color: #D6FFCF;
+  color: #EEFFEB;
   z-index: 1;
 }
 
@@ -5808,33 +5731,20 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   transition: 0.4s ease;
 }
 
-.groupMessage {
-  display: none;
-  position: absolute;
-  min-height: 20px;
-  padding: 10px;
-  border-radius: 30px;
-  top: -17px;
-  font-size: 12px;
-  right: 52px;
-  width: 110px;
-  text-align: center;
-}
-
+.groupMessage,
 .groupError {
   z-index: 2;
   display: none;
   position: absolute;
-  color: #f22;
-  background-color: #ffd5dc;
-  min-height: 17px;
   padding: 10px;
   border-radius: 30px;
   top: -17px;
   font-size: 12px;
-  right: 29px;
-  width: 143px;
   text-align: center;
+  max-width: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+  width:max-content;
 }
 
 .groups .addGroupFormTitle{
@@ -6576,27 +6486,10 @@ input:checked + .slider.small:before, input:checked + .slider.small::after {
   position: relative;
 }
 
-.AddUserErrors, .update-user-fail, .AddAlbumErrors, .EditUserErrors, .update-password-fail, .icon-red-error {
-  background-color: #ffcfcf;
-  color: #ff5252;
-  border-left:solid 3px red;
-}
-
-#AddUserSuccess span {
-  color: #0a0;
-}
-
-#AddUserSuccess label {
-  background-color: #c2f5c2;
-  border-left: 2px solid #00FF00;
-  color: #0a0;
-}
-.update-user-success,
-.update-password-success,
-.update-username-success,
 .border-green {
-  border-left: 2px solid #00FF00;
+  border-left: 1px solid #6DCE5E;
 }
+
 #UserList .AddUserBlock p,
 #UserList .AddUserBlock select,
 #UserList .AddUserBlock button{
@@ -6643,10 +6536,6 @@ input:checked + .slider.small:before, input:checked + .slider.small::after {
   position:relative;
   padding:0 10px;
   border-radius:25px;
-}
-
-.UsernameBlock.success_message{
-  margin-right:0px;
 }
 
 .UsersInGroupListContainer{
@@ -6703,17 +6592,18 @@ input:checked + .slider.small:before, input:checked + .slider.small::after {
   font-size:12px;
   text-align:left;
   padding: 4px 6px;
-  border-top-right-radius:10px;
-  border-bottom-right-radius:10px;
+  border-top-right-radius:15px;
+  border-bottom-right-radius:15px;
   margin-left:-5px;
   margin-right:10px;
 }
 
 .ValidationUserAssociated p{
   margin:0;
+  font-weight:700;
 }
 
-.ValidationUserDissociated{
+/* .ValidationUserDissociated{
   display:inline-block;
   text-align:left;
   padding: 6px;
@@ -6724,8 +6614,8 @@ input:checked + .slider.small:before, input:checked + .slider.small::after {
 .ValidationUserDissociated p{
   margin:0 !important;
   font-size:12px !important;
-  font-weight: 500 !important;
-}
+  font-weight: 700 !important;
+} */
 
 
 #UserList .FilterUserBlock .AmountOfUsersShown {
@@ -6807,7 +6697,6 @@ a.group_users {
 .popinWait {
   padding-top:200px;
 }
-
 
 .preview-box.icon-zoom-in {
   display:block;

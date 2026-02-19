@@ -863,10 +863,6 @@ input:focus + .slider {
   color:#9e9e9e;
 }
 
-.UsernameBlock.success_message{
-  border:2px solid #AAF6E4;
-}
-
 .Tooltip p.TooltipText{
 
   color:#f3f3f3;
@@ -1176,87 +1172,6 @@ li.plupload_delete a.remove-format:hover{color: #c0c0c0;}
   color: #ae5d1e;
 }
 
-/*Error message*/
-
-.errors {
-  color: #FFE4E4;
-  background-color: #AE3A3A;
-  border-left: 6px solid #FFE4E4;
-}
-
-.errors i{
-  color: #FFC8C8;
-}
-
-.errors a{
-  background-color: #8A2C2C;
-  border:1px solid #FFC8C8;
-  color: #FFE4E4;
-}
-
-.errors a:hover{
-  color: #FFE4E4;
-}
-
-/*Success message*/
-
-.infos {
-  color: #F3FFFC;
-  background-color: #50a48f;
-  border-left: 6px solid #C4FFF1;
-}
-
-.AddPluginSuccess label, .DeactivatePluginSuccess label, .RestorePluginSuccess label{
-  color: #b8feee;
-  background-color: #50a48f;
-}
-
-.AddPluginSuccess span, .RestorePluginSuccess span,.DeactivatePluginSuccess span {
-  color: #b8feee;
-}
-
-.infos i{
-  color: #C4FFF1;
-}
-
-.infos a{
-  background-color: #237B66;
-  color: #F3FFFC;
-  border:1px solid #C4FFF1;
-}
-
-.infos a:hover{
-  color: #F3FFFC;
-}
-
-/*Warning message*/
-
-.warnings {
-    color: #fedac0;
-    background-color: #d47f44;
-    border-left: 4px solid #fedac0;
-}
-
-.warnings a{
-    background-color: #734627;
-    padding: 2px 7px;
-    color: #ffffff;
-}
-
-/*announcement message*/
-
-.messages {
-    color: #bad6ff;
-    background-color: #4f71a4;
-    border-left: 4px solid #bad6ff;
-}
-
-.eiw .messages a {
-    background-color: #273d5f;
-    color: #ffffff;
-    padding: 2px 7px;
-}
-
 /* Popin Jconfirm*/
 
 .jconfirm .jconfirm-box {
@@ -1369,25 +1284,6 @@ background:#6C2D2D!important;
 .tag-select-message a {
   background-color: #bce5f7;
   color: #0051a5;
-}
-
-.info-warning {
-  background-color: #d47f44;
-  color: #fedac0;
-}
-
-.info-warning a, .info-message a, .info-error a {
-  color: white;
-}
-
-.info-error {
-  color: #ffd5dc;
-  background-color:#f22;
-}
-
-.tag-checkmark{
-  color: #AAF6E4 !important;
-  background-color: #4EA590 !important;
 }
 
 /* Album Move (and album search) */
@@ -1604,15 +1500,6 @@ background:#6C2D2D!important;
 .pluginBox.active .pluginActionsSmallIcons a span:hover {
   background: #ff7700;
   color: #111;
-}
-
-.PluginActionError span {
-  color: #ffd5dc
-}
-
-.PluginActionError label {
-  background-color:  #f22;
-  color: #ffd5dc
 }
 
 .pluginTags > span {
@@ -2038,12 +1925,6 @@ background:#6C2D2D!important;
   background-color: #343434 !important;
 }
 
-.AddUserErrors, .update-user-fail, .EditUserErrors, .update-password-fail, .icon-red-error {
-  background-color: #f22;;
-  color: #ffd5dc;
-  border-left:solid 3px #f22;
-}
-
 .AddUserPopInContainer {
   background-color: #444;
 }
@@ -2079,9 +1960,6 @@ background:#6C2D2D!important;
   color: #ededed;
 }
 
-.update-user-success,
-.update-password-success,
-.update-username-success,
 .border-green {
   border-left: 2px solid #a9f6e3;
 }
@@ -2510,4 +2388,186 @@ label:has(> .filters-icon-check:disabled){
 
 .comments-search input:focus {
   outline: none;
+}
+
+/* -------------
+Infos
+-------------*/
+
+/*Success message*/
+.infos,
+.info-message,
+.update-user-success,
+#AddUserUpdated,
+#AddUserSuccess label,
+.groupMessage,
+div.jGrowl div.jGrowl-notification.success,
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label,
+.update-user-success,
+.update-password-success,
+.update-username-success{
+  color: #F3FFFC;
+  background-color:#348F79;
+}
+
+.infos,
+#AddUserSuccess label,
+#AddUserUpdated {
+  border-left:4px solid #AAF6E4; /*Banner*/
+}
+
+.info-message,
+.update-user-success,
+.groupMessage,
+div.jGrowl div.jGrowl-notification.success,
+.AddPluginSuccess label,
+.RestorePluginSuccess label,
+.DeactivatePluginSuccess label,
+.UsernameBlock.success_message,
+.update-user-success,
+.update-password-success,
+.update-username-success{
+  border:1px solid #AAF6E4; /*Rounded*/
+}
+
+.infos i,
+.info-message i,
+.update-user-success i,
+.groupMessage::before,
+.info-message::before,
+div.success .jGrowl-popup-icon,
+.AddPluginSuccess label::before,
+.DeactivatePluginSuccess  label::before,
+.RestorePluginSuccess label::before,
+.update-username-success .icon-ok{
+  color:#C4FFF1;
+}
+
+.infos a,
+#AddUserSuccess .edit-now {
+  color: #F3FFFC;
+  background-color: #237B66;
+  border:1px solid #C4FFF1;
+}
+
+.infos a:hover{
+  color: #F3FFFC;
+}
+
+.AddPluginSuccess span,
+.RestorePluginSuccess span,
+.DeactivatePluginSuccess span {
+  color: #F3FFFC;
+}
+
+/*Error message*/
+
+.errors,
+.info-error,
+.AddUserErrors,
+.groupError,
+div.jGrowl div.jGrowl-notification.error,
+.PluginActionError label,
+.update-user-fail,
+.AddAlbumErrors, 
+.EditUserErrors, 
+.update-password-fail, 
+.icon-red-error  {
+  color: #FFE4E4;
+  background-color: #AE3A3A;
+}
+
+.errors,
+.AddUserErrors,
+.AddAlbumErrors{
+  border-left: 6px solid #FFC8C8; /*Banner*/
+}
+
+.info-error,
+.groupError,
+div.jGrowl div.jGrowl-notification.error,
+.PluginActionError label
+.update-user-fail,
+.EditUserErrors,
+.update-password-fail, 
+.icon-red-error,
+.update-user-fail,
+.AddAlbumErrors{
+  border:1px solid #FFC8C8; /*Rounded*/
+}
+
+.errors i,
+.AddUserErrors:before,
+.groupError::before,
+div.error .jGrowl-popup-icon,
+.PluginActionError label::before {
+  color: #FFC8C8;
+}
+
+.errors a{
+  color: #FFE4E4;
+  background-color: #FFF5F7;
+  border:1px solid #FFC8C8;
+}
+
+.PluginActionError span,
+.errors a:hover{
+  color: #FFE4E4;
+}
+
+/*Warning message*/
+
+.warnings,
+.info-warning {
+  background-color: #C87030;
+  color: #FFFBF7;
+}
+
+.warnings {
+  border-left:6px solid #FFE3CE;
+}
+
+.info-warning {
+  border:1px solid #FFE3CE;
+}
+
+.info-warning::before,
+.info-warning a::before,
+.warnings i {
+  color: #FFE3CE;
+}
+
+.warnings a,
+.info-warning a{
+  color: #FFFBF7;
+  background-color: #A85E28;
+  border:1px solid #FFE3CE;
+}
+
+.warnings a:hover{
+  color: #FFFBF7;
+}
+
+/*announcement message*/
+
+.messages {
+  color: #E4EEFF;
+  background-color:#41659A;
+  border-left:6px solid #A0C0F1;
+}
+
+.messages i{
+  color: #C8DEFF;
+}
+
+.messages a{
+  color: #E4EEFF;
+  background-color: #35578A;
+  border:1px solid #C8DEFF;
+}
+
+.messages a:hover{
+  color: #E4EEFF;
 }
