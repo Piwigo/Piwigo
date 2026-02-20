@@ -1434,6 +1434,6 @@ $lang['Personalization settings'] ='Personalization settings';
 $lang['Change logo'] = 'Change logo';
 $lang['Latest update'] = 'Latest update';
 $lang['See available updates'] = 'See available updates';
-
+$lang['You are about to delete %s groups, are you sure?'] = 'You are about to delete %s groups, are you sure?';
 
 // Leave this line empty

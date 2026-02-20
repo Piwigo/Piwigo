@@ -1441,5 +1441,6 @@ $lang['See previous newsletters'] = 'Consultez les newsletters précédentes';
 $lang['Understood, do not show again'] = 'Compris, ne plus afficher';
 $lang['Latest update'] = 'Dernière mise à jour';
 $lang['See available updates'] = 'Voir les mises à jour disponibles';
+$lang['You are about to delete %s groups, are you sure?'] = 'Vous êtes sur le point de supprimer %s groupes, êtes-vous sûr ?';
 
 // Leave this line empty
