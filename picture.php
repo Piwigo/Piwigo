@@ -32,7 +32,7 @@ if ( !isset($page['rank_of'][$page['image_id']]) )
 SELECT id, file, level
   FROM '.IMAGES_TABLE.'
   WHERE ';
-  if ($page['image_id']>0)
+  if (is_int($page['image_id']))
   {
     $query .= 'id = '.$page['image_id'];
   }
