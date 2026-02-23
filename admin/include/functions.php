@@ -605,20 +605,25 @@ function get_fs_directories($path, $recursive = true)
 
   if (is_dir($path))
   {
-    if ($contents = opendir($path))
+    $remaining = array($path);
+    $dirs[] = $path;
+    while ($path = array_shift($remaining))
     {
-      while (($node = readdir($contents)) !== false)
+      if ($contents = opendir($path))
       {
-        if (is_dir($path.'/'.$node) and !isset($exclude_folders[$node]))
+        while (($node = readdir($contents)) !== false)
         {
-          $dirs[] = $path.'/'.$node;
-          if ($recursive)
+          if (!isset($exclude_folders[$node]) and is_dir($path.'/'.$node))
           {
-            $dirs = array_merge($dirs, get_fs_directories($path.'/'.$node));
+            $dirs[] = $path.'/'.$node;
+            if ($recursive)
+            {
+              array_unshift($remaining, $path.'/'.$node);
+            }
           }
         }
+        closedir($contents);
       }
-      closedir($contents);
     }
   }
 
