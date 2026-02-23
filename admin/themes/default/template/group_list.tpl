@@ -160,7 +160,7 @@ usersCache.selectize(jQuery('select.UserSearch'));
  
 
    <div id="ConfirmGroupAction">
-    <p>You are about to delete <span class="number-Selected">0</span> groups, are you sure?</p>
+    <p>{'You are about to delete %s groups, are you sure?'|translate:'<span class="number-Selected">0</span>'}</p>
     <button class="icon-ok ConfirmDeleteButton">{'Yes, delete'|@translate}</button>
     <a id="CancelDelete" onclick="updateSelectionPanel('Selection')">{"No, I have changed my mind"|@translate}</a>
     </div>

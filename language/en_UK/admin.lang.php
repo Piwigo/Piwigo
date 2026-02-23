@@ -1432,6 +1432,7 @@ $lang['Light mode'] = 'Light mode';
 $lang['Dark mode'] = 'Dark mode';
 $lang['Personalization settings'] ='Personalization settings';
 $lang['Change logo'] = 'Change logo';
+$lang['You are about to delete %s groups, are you sure?'] = 'You are about to delete %s groups, are you sure?';
 
 
 // Leave this line empty
