@@ -8,6 +8,8 @@
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
+include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
+
 class updates
 {
   var $types = array();
@@ -72,14 +74,18 @@ class updates
       'is_dev' => true,
       );
     
+    list($env, $build_version) = get_container_info();
     if (preg_match('/^(\d+\.\d+)\.(\d+)$/', PHPWG_VERSION))
     {
       $new_versions['is_dev'] = false;
-      $actual_branch = get_branch_from_version(PHPWG_VERSION);
-
+      $actual_branch = get_branch_from_version(('Official' === $env)
+        ? substr($build_version, 0, -1)
+        : PHPWG_VERSION
+      );
+      
       $url = PHPWG_URL.'/download/all_versions.php';
       $url.= '?rand='.md5(uniqid(rand(), true)); // Avoid server cache
-      $url.= '&show_requirements';
+      $url .= ('Official' === $env) ? '&docker' : '&show_requirements'; // Check docker version if in container
       $url.= '&origin_hash='.sha1($conf['secret_key'].get_absolute_root_url());
 
       if (@fetchRemote($url, $result)
@@ -88,36 +94,66 @@ class updates
       {
         $new_versions['piwigo.org-checked'] = true;
         $last_version = trim($all_versions[0]);
-        list($last_version_number, $last_version_php) = explode('/', trim($all_versions[0]));
-
-        if (version_compare(PHPWG_VERSION, $last_version_number, '<'))
+        if ('Official' === $env)
         {
-          $last_branch = get_branch_from_version($last_version_number);
-
-          if ($last_branch == $actual_branch)
+          if ($this->container_version_compare($build_version, $last_version))
           {
-            $new_versions['minor'] = $last_version_number;
-            $new_versions['minor_php'] = $last_version_php;
-          }
-          else
-          {
-            $new_versions['major'] = $last_version_number;
-            $new_versions['major_php'] = $last_version_php;
-
-            // Check if new version exists in same branch
-            foreach ($all_versions as $version)
+            $last_branch = get_branch_from_version(substr($last_version, 0, -1));
+            if ($last_branch == $actual_branch)
             {
-              list($version_number, $version_php) = explode('/', trim($version));
-              $branch = get_branch_from_version($version_number);
-
-              if ($branch == $actual_branch)
+              $new_versions['minor'] = $last_version;
+            }
+            else
+            {
+              $new_versions['major'] = $last_version;
+              foreach ($all_versions as $version)
               {
-                if (version_compare(PHPWG_VERSION, $version_number, '<'))
+                $branch = get_branch_from_version(substr($version, 0, -1));
+                if ($branch == $actual_branch)
                 {
-                  $new_versions['minor'] = $version_number;
-                  $new_versions['minor_php'] = $version_php;
+                  if ($this->container_version_compare($build_version, $version))
+                  {
+                    $new_versions['minor'] = $version;
+                  }
+                  break;
                 }
-                break;
+              }
+            }
+          }
+        }
+        else
+        {
+          list($last_version_number, $last_version_php) = explode('/', trim($all_versions[0]));
+
+          if (version_compare(PHPWG_VERSION, $last_version_number, '<'))
+          {
+            $last_branch = get_branch_from_version($last_version_number);
+
+            if ($last_branch == $actual_branch)
+            {
+              $new_versions['minor'] = $last_version_number;
+              $new_versions['minor_php'] = $last_version_php;
+            }
+            else
+            {
+              $new_versions['major'] = $last_version_number;
+              $new_versions['major_php'] = $last_version_php;
+
+              // Check if new version exists in same branch
+              foreach ($all_versions as $version)
+              {
+                list($version_number, $version_php) = explode('/', trim($version));
+                $branch = get_branch_from_version($version_number);
+
+                if ($branch == $actual_branch)
+                {
+                  if (version_compare(PHPWG_VERSION, $version_number, '<'))
+                  {
+                    $new_versions['minor'] = $version_number;
+                    $new_versions['minor_php'] = $version_php;
+                  }
+                  break;
+                }
               }
             }
           }
@@ -605,6 +641,27 @@ class updates
         $page['errors'][] = l10n('Piwigo cannot retrieve upgrade file from server');
       }
     }
+  }
+
+  // Compare version number with a letter suffix
+  // Similar to version_compare with "<" sign
+  function container_version_compare($v1,$v2)
+  {
+    // Split 16.2.0d into "16.2.0" as semantic_ver and "d" as sub_ver
+    $v1_semantic_ver = substr($v1, 0, -1);
+    $v1_sub_ver = substr($v1, -1);
+    $v2_semantic_ver = substr($v2, 0, -1);
+    $v2_sub_ver = substr($v2, -1);
+
+    $res = version_compare($v1_semantic_ver, $v2_semantic_ver);
+
+    // Return for any
+    if ($res === 0)
+    {
+      return strcmp($v1_sub_ver, $v2_sub_ver) < 0;
+    }
+
+    return $res;
   }
 }
 
