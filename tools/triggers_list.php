@@ -929,6 +929,13 @@ array(
   'files' => array('include\ws_functions\pwg.users.php'),
   'infos' => 'New in 2.6.2.',
 ),
+array(
+  'name' => 'ws_getConfig',
+  'type' => 'trigger_change',
+  'vars' => array('object', 'returned_config'),
+  'files' => array('include\ws_functions\pwg.php'),
+  'infos' => 'New in 15. Allows to expose more configuration elements in pwg.getConfig WebService.', 
+),
 );
 ?>
 <!DOCTYPE html>
