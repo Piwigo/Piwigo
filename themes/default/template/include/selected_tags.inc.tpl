@@ -7,7 +7,7 @@
     </a>
     {if count($SELECT_RELATED_TAGS) > 1}
     <a class="selected-related-tag-remove" href="{$TAG.remove_url}" style="border:none;" title="{'remove this tag from the list'|translate}">
-      <i class="gallery-icon-cancel"></i>
+      <i class="gallery-icon-cancel fas fa-plus"></i>
     </a>
     {/if}
   </span>
