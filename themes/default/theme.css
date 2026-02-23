@@ -1003,3 +1003,85 @@ span.related-tags .tag-counter{
     flex-direction:column;
   }
 }
+
+
+#standard.imageInfoTable {
+    display: flex !important;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    gap: 60px;
+}
+
+.imageInfoColumn {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+.imageInfo {
+    display: flex !important;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.imageInfo dt {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    margin-right: 15px;
+    padding: 0;
+}
+
+.imageInfo dt svg {
+    width: 20px;
+    height: 20px;
+    fill: #777; /*just in case*/
+}
+
+.imageInfo dd {
+    display: block !important;
+    margin: 0;
+    color: #444;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+#datepost dd, 
+#Categories dd,
+#Categories dd ul li {
+    color: #ff9d4d !important;
+    font-weight: 500;
+}
+
+#Tags dd {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    white-space: normal;
+}
+
+.imageInfo dd a.tagBorder {
+    display: inline-block;
+    background-color: #d1d1d1;
+    color: #444 !important;
+    padding: 4px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 13px;
+    border: none;
+}
+
+.imageInfo dd a.tagBorder:hover {
+    background-color: #c0c0c0;
+}
+
+/*just in case*/
+.imageInfo dd ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
