@@ -371,7 +371,9 @@ function ws_addDefaultMethods( $arr )
       array_merge(array(
         'tag_id' =>       array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY,
-                                'type'=>WS_TYPE_ID),
+                                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'untagged_only' => array('default'=>false,
+                                'type'=>WS_TYPE_BOOL),
         'tag_url_name' => array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY),
         'tag_name' =>     array('default'=>null,
