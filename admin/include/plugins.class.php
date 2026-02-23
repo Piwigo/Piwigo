@@ -72,7 +72,8 @@ class plugins
   private static function build_maintain_class($plugin_id)
   {
     $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain';
-    $classname = $plugin_id.'_maintain';
+    $sanitized = preg_replace('[^a-zA-Z0-9_\x7f-\xff]','_',$plugin_id);
+    $classname = $sanitized.'_maintain';
 
     // piwigo-videojs and piwigo-openstreetmap unfortunately have a "-" in their folder
     // name (=plugin_id) and a class name can't have a "-". So we have to replace with a "_"
