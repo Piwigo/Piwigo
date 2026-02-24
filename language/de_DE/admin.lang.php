@@ -1432,3 +1432,6 @@ $lang['Change logo'] = 'Logo ändern';
 $lang['Dark mode'] = 'Dunkler Modus';
 $lang['Display Gallery title'] = 'Titel der Galerie anzeigen';
 $lang['Light mode'] = 'Hellmodus';
+$lang['Follow the update guide'] = 'Befolgen Sie die Update-Anleitung';
+$lang['Two container updates are available'] = 'Zwei Container-Updates sind verfügbar';
+$lang['You are about to delete %s groups, are you sure?'] = 'Sie sind dabei, %s Gruppen zu löschen. Sind Sie sicher?';
