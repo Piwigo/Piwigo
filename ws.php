@@ -1435,7 +1435,8 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
       <br> <strong>Types </strong> can be : \'none\', \'picture\', \'high\', \'other\' 
       <br> <strong>Date format</strong> is yyyy-mm-dd
       <br> <strong>display_thumbnail</strong> can be : \'no_display_thumbnail\', \'display_thumbnail_classic\', \'display_thumbnail_hoverbox\'',
-      $ws_functions_root . 'pwg.php'
+      $ws_functions_root . 'pwg.php',
+      array('admin_only'=>true)
     );
 
     $service->addMethod(
