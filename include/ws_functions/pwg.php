@@ -454,8 +454,13 @@ function ws_getActivityList($param, &$service)
 {
   global $conf;
 
-  /* Test Lantency */ 
-  // sleep(1);
+  foreach (array('date_min', 'date_max') as $datefield)
+  {
+    if (!empty($param[$datefield]) and !is_valid_mysql_datetime($param[$datefield]))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid '.$datefield);
+    }
+  }
   
   $output_lines = array();
   $current_key = '';
@@ -488,13 +493,13 @@ function ws_getActivityList($param, &$service)
   if (isset($param['action']))
   {
     $where .= '
-    AND action = "'.$param['action'].'"';
+    AND action = "'.pwg_db_real_escape_string($param['action']).'"';
   }
 
   if (isset($param['object']))
   {
     $where .= '
-    AND object = "'.$param['object'].'"';
+    AND object = "'.pwg_db_real_escape_string($param['object']).'"';
   }
 
   if (!empty($param['date_min']))
