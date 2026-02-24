@@ -518,7 +518,6 @@ $lang['Your API key will expire in %d days.'] = 'Your API key will expire in %d 
 $lang['To continue using the API, please renew your key before it expires.'] = 'To continue using the API, please renew your key before it expires.';
 $lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'You can manage your API keys in your <a href="%s">account settings.</a>';
 $lang['Expert mode'] = 'Expert mode';
-$lang['An email has been sent with a verification code'] = 'An email has been sent with a verification code';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'If you do not receive the email, please contact your webmaster.';
 $lang['Verification code'] = 'Verification code';
 $lang['Verify'] = 'Verify';
@@ -534,3 +533,4 @@ $lang['If this wasn\'t you, please change your password immediately or contact y
 $lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.';
 $lang['Too many attempts, please try later..'] = 'Too many attempts, please try later..';
 $lang['Verification successful! You can now choose a new password.'] = 'Verification successful! You can now choose a new password.';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'If your account exists, a verification code has been sent to your email address.';

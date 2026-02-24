@@ -720,6 +720,8 @@ $lang['Following themes may not be compatible with the new version of Piwigo:'] 
 $lang['I decide to update anyway'] = 'Je décide de migrer quand même';
 $lang['Update to Piwigo %s'] = 'Mettre à jour vers Piwigo %s';
 $lang['Two updates are available'] = 'Deux mises à jour sont disponibles';
+$lang['Follow the update guide'] = 'Suivre le guide de mise à jour';
+$lang['Two container updates are available'] = 'Deux mises à jour de conteneur sont disponibles';
 $lang['This is a minor update, with only bug corrections.'] = 'Ceci est une mise à jour mineure, avec uniquement des corrections de bugs.';
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Ceci est une mise à jour majeure, qui contient <a href="%s">un tas de nouveautés</a>.';
 $lang['Some themes and plugins may be not available yet.'] = 'Certains thèmes ou plugins ne sont peut-être pas encore disponibles.';
@@ -1430,10 +1432,11 @@ $lang['Use Piwigo logo'] = 'Utiliser le logo Piwigo';
 $lang['Use custom logo (png, jpeg or svg)'] = 'Utiliser un logo personnalisé (png, jpeg ou svg)';
 $lang['Display Gallery title'] = 'Afficher le titre de la galerie';
 $lang['Select a color theme for standard pages'] = 'Choisissez un jeu de couleurs pour les pages standard';
-$lang['Light mode'] = 'Mode claire';
+$lang['Light mode'] = 'Mode clair';
 $lang['Dark mode'] = 'Mode sombre';
 $lang['Personalization settings'] ='Paramètres de personnalisation';
 $lang['Change logo'] = 'Changer le logo';
+$lang['You are about to delete %s groups, are you sure?'] = 'Vous êtes sur le point de supprimer %s groupes, êtes-vous sûr ?';
 
 
 // Leave this line empty

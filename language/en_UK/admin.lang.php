@@ -852,6 +852,8 @@ $lang['Update in progress... Please wait.'] = 'Update in progress... Please wait
 $lang['Update photos information'] = 'Update photos\' information';
 $lang['update the database from files'] = "update the database with files";
 $lang['Update to Piwigo %s'] = 'Update to Piwigo %s';
+$lang['Follow the update guide'] = 'Follow the update guide';
+$lang['Two container updates are available'] = 'Two container updates are available';
 $lang['Updates'] = 'Updates';
 $lang['Upload Photos'] = 'Upload Photos';
 $lang['Upload'] = "Upload";
@@ -1432,6 +1434,7 @@ $lang['Light mode'] = 'Light mode';
 $lang['Dark mode'] = 'Dark mode';
 $lang['Personalization settings'] ='Personalization settings';
 $lang['Change logo'] = 'Change logo';
+$lang['You are about to delete %s groups, are you sure?'] = 'You are about to delete %s groups, are you sure?';
 
 
 // Leave this line empty
