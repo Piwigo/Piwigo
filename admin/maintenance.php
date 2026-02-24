@@ -49,6 +49,10 @@ $maint_actions = array(
     'icon' => 'icon-info-circled-1',
     'label' => l10n('Update photos information'),
   ),
+  'empty_lounge' => array(
+    'icon' => 'icon-thumbs-up',
+    'label' => l10n('Empty lounge'),
+  ),
   'delete_orphan_tags' => array(
     'icon' => 'icon-tags',
     'label' => l10n('Delete orphan tags'),

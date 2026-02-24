@@ -24,6 +24,8 @@ if (!is_a_guest())
 
 trigger_notify('loc_begin_identification');
 
+unset($_SESSION['reset_password_code']);
+
 //-------------------------------------------------------------- identification
 
 // security (level 1): the redirect must occur within Piwigo, so the

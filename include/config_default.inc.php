@@ -635,6 +635,11 @@ $conf['password_reset_duration'] = 60*60;
 // of an password activation link. Default value is 72 hours (259200 seconds).
 $conf['password_activation_duration'] = 3*24*60*60;
 
+// password_reset_code_duration: defines the validity duration (in seconds)
+// for the verification code sent before genrating the reset link.
+// Default value is 5 minutes (max = 15 minutes)
+$conf['password_reset_code_duration'] = 5 * 60;
+
 // +-----------------------------------------------------------------------+
 // |                               history                                 |
 // +-----------------------------------------------------------------------+
@@ -811,7 +816,7 @@ $conf['dashboard_activity_nb_weeks'] = 4;
 // 'all' = do not filter, display all
 // 'admins_only' = only display connections of admin users
 // 'none' = don't even display connections of admin users
-$conf['activity_display_connections'] = 'admins_only';
+$conf['activity_display_connections'] = 'all';
 
 // On album mover page, number of seconds before auto openning album when
 // dragging an album. In milliseconds. 3 seconds by default.
@@ -1022,11 +1027,37 @@ $conf['batch_manager_images_per_page_unit'] = 5;
 // how many missing md5sum should Piwigo compute at once.
 $conf['checksum_compute_blocksize'] = 50;
 
+// +-----------------------------------------------------------------------+
+// | Search                                                                |
+// +-----------------------------------------------------------------------+
+
 // quicksearch engine: include all photos from sub-albums of any matching
 // album. For example, if search is "bear", then we display photos from
 // "bear/grizzly". When value changed, delete database cache files in
 // _data/cache directory
 $conf['quick_search_include_sub_albums'] = false;
+
+// default configuration for search filters. It will then be configurable
+// with the configuration page. Having this setting in this file avoids to
+// duplicate it in several files
+$conf['default_filters_views'] = array(
+  'words'          => ['access'=>'everybody', 'default'=>true],
+  'tags'           => ['access'=>'everybody', 'default'=>false],
+  'post_date'      => ['access'=>'everybody', 'default'=>false],
+  'creation_date'  => ['access'=>'everybody', 'default'=>true],
+  'album'          => ['access'=>'everybody', 'default'=>true],
+  'author'         => ['access'=>'everybody', 'default'=>false],
+  'added_by'       => ['access'=>'everybody', 'default'=>false],
+  'file_type'      => ['access'=>'everybody', 'default'=>false],
+  'ratio'          => ['access'=>'everybody', 'default'=>false],
+  'rating'         => ['access'=>'everybody', 'default'=>false],
+  'file_size'      => ['access'=>'everybody', 'default'=>false],
+  'height'         => ['access'=>'everybody', 'default'=>false],
+  'width'          => ['access'=>'everybody', 'default'=>false],
+  'expert'         => ['access'=>'everybody', 'default'=>false],
+
+  'last_filters_conf' => true,
+);
 
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |

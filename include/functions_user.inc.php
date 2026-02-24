@@ -1261,65 +1261,164 @@ function pwg_login($success, $username, $password, $remember_me)
 
   global $conf;
 
-  $user_found = false;
-  // retrieving the encrypted password of the login submitted
+  // Find user by username or email (if it exists)
+  $user_found = find_user_by_username_or_email($username);
+
+  // SECURITY: Constant-time authentication to prevent timing attacks
+  // 
+  // We always perform password verification, even when the user doesn't exist,
+  // to prevent attackers from distinguishing between:
+  //  - "user exists, wrong password" (slow: runs password_verify)
+  //  - "user doesn't exist" (fast: would skip verification)
+  // 
+  // This timing difference could allow user enumeration. By using a fake user
+  // with a pre-generated hash, we ensure consistent execution time regardless
+  // of whether the account exists or not.
+  $fake_user = generate_fake_user();
+
+  // Verify password with fallback to fake user
+  $password_verify = $conf['password_verify'](
+    $password,
+    $user_found['password'] ?? $fake_user['password'],
+    $user_found['id'] ?? $fake_user['id']
+  );
+
+  // If the user was not found, is a guest, or the password is incorrect
+  if (empty($user_found) || 'guest' === $user_found['status'] || !$password_verify)
+  {
+    if (!empty($user_found) && !$password_verify)
+    {
+      pwg_activity('user', $user_found['id'], 'login_failure_wrong_password');
+    }
+    trigger_notify('login_failure', stripslashes($username));
+    return false;
+  }
+
+  // PLUGIN HOOK: Allow plugins to intercept authentication before log_user()
+  // 
+  // Expected $state array structure:
+  //  - 'can_login' (bool): Set to false to block login
+  //  - 'reason' (string|null): Custom activity log reason if login blocked
+  //  - 'authenticated' (bool): Set to true if plugin handles log_user() itself
+  // 
+  // Example plugin implementation:
+  //   add_event_handler('finalize_login', 'my_2fa_check');
+  //   function my_2fa_check($state, $user, $remember_me) {
+  //     if (!verify_2fa_code()) {
+  //       $state['can_login'] = false;
+  //       $state['reason'] = '2fa_failed';
+  //     }
+  //     return $state;
+  //   }
+  $state = array(
+    'can_login' => true,
+    'reason' => null,
+    'authenticated' => false,
+  );
+  $state = trigger_change('finalize_login', $state, $user_found, $remember_me);
+
+  if (!$state['can_login'])
+  {
+    pwg_activity('user', $user_found['id'], $state['reason'] ?? 'login_failure_before_log_user');
+    trigger_notify('login_failure_before_log_user', stripslashes($username));
+    return false;
+  }
+
+  // If plugin handled authentication, skip log_user()
+  if (!$state['authenticated'])
+  {
+    log_user($user_found['id'], $remember_me);
+  }
+
+  clear_fake_user_cache();
+  trigger_notify('login_success', stripslashes($username));
+  return true;
+}
+
+
+/**
+ * Find user by username or email
+ * search by username first then email
+ *
+ * @since 16
+ * @param string $username_or_email
+ * @return array|null
+ */
+function find_user_by_username_or_email($username_or_email)
+{
+  global $conf;
+
+  $username_or_email = pwg_db_real_escape_string($username_or_email);
+
   $query = '
-SELECT '.$conf['user_fields']['id'].' AS id,
-       '.$conf['user_fields']['password'].' AS password
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
-;';
+SELECT 
+  '.$conf['user_fields']['id'].' AS id,
+  '.$conf['user_fields']['username'].' AS username,
+  '.$conf['user_fields']['email'].' AS email,
+  '.$conf['user_fields']['password'].' AS password,
+  status
+FROM '.USERS_TABLE.' AS u
+  LEFT JOIN '.USER_INFOS_TABLE.' AS i
+    ON u.'.$conf['user_fields']['id'].' = i.user_id
+  WHERE ';
 
-  $row = pwg_db_fetch_assoc(pwg_query($query));
-  if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
+  $where_username = $conf['user_fields']['username'].' = \'' . $username_or_email . '\'';
+  $where_email = $conf['user_fields']['email'].' = \'' . $username_or_email . '\'';
+
+  $user = pwg_db_fetch_assoc(pwg_query($query.$where_username))
+    ?: pwg_db_fetch_assoc(pwg_query($query.$where_email));
+  
+  if (!empty($user))
   {
-    $user_found = true;
-  }
-
-  // If we didn't find a matching user name, we search for email address
-  if (!$user_found)
-  {
-    $query = '
-  SELECT '.$conf['user_fields']['id'].' AS id,
-         '.$conf['user_fields']['password'].' AS password
-    FROM '.USERS_TABLE.'
-    WHERE '.$conf['user_fields']['email'].' = \''.pwg_db_real_escape_string($username).'\'
-    ;';
-
-    $row = pwg_db_fetch_assoc(pwg_query($query));
-    if (isset($row['id']) and $conf['password_verify']($password, $row['password'], $row['id']))
-    {
-      $user_found = true;
-    }
-  }
-
-  if ($user_found)
-  {
-    // if user status is "guest" then she should not be granted to log in.
     // The user may not exist in the user_infos table, so we consider it's a "normal" user by default
-    $status = 'normal';
-
-    $query = '
-SELECT
-    *
-  FROM '.USER_INFOS_TABLE.'
-  WHERE user_id = '.$row['id'].'
-;';
-    $result = pwg_query($query);
-    while ($user_infos_row = pwg_db_fetch_assoc($result))
-    {
-      $status = $user_infos_row['status'];
-    }
-
-    if ('guest' != $status)
-    {
-      log_user($row['id'], $remember_me);
-      trigger_notify('login_success', stripslashes($username));
-      return true;
-    }
+    $user['status'] = $user['status'] ?? 'normal';
+    return $user;
   }
-  trigger_notify('login_failure', stripslashes($username));
-  return false;
+
+  return null;
+}
+
+/**
+ * Generate a fake user with hashed password (with the current algo)
+ * 
+ * SECURITY: This function is used for timing attack mitigation in pwg_login().
+ * The fake user hash is cached per session to avoid repeated hashing overhead
+ * while maintaining constant-time authentication behavior.
+ * 
+ * @since 16
+ * @return array id and password
+ */
+function generate_fake_user()
+{
+  global $conf;
+
+  // Check if password_hash or password_verify has been changed
+  $is_verify_hash_changed = 'pwg_password_hash' !== $conf['password_hash']
+    || 'pwg_password_verify' !== $conf['password_verify'];
+
+  // Generate once per session to avoid repeated hashing overhead.
+  // Uses current password_hash algorithm to match real user verification costs.
+  if (!isset($_SESSION['fake_user_cache']) || $is_verify_hash_changed)
+  {
+    $fake_password = bin2hex(random_bytes(10));
+    $_SESSION['fake_user_cache'] = array(
+      'id' => null,
+      'password' => $conf['password_hash']($fake_password)
+    );
+  }
+
+  return $_SESSION['fake_user_cache'];
+}
+
+/**
+ * Clear current session fake user cache
+ * 
+ * @since 16
+ * @return void
+ */
+function clear_fake_user_cache()
+{
+  unset($_SESSION['fake_user_cache']);
 }
 
 /**
@@ -1677,10 +1776,7 @@ function auth_key_login($auth_key, $connection_by_header=false)
   {
     $valid_key = 'auth_key';
   }
-  else if (
-    preg_match('/^pkid-\d{8}-[a-z0-9]{20}:[a-z0-9]{40}$/i', $auth_key)
-    and $connection_by_header
-    )
+  else if (preg_match('/^pkid-\d{8}-[a-z0-9]{20}:[a-z0-9]{40}$/i', $auth_key))
   {
     $valid_key = 'api_key';
     $tmp_key = explode(':', $auth_key);
@@ -1694,7 +1790,10 @@ function auth_key_login($auth_key, $connection_by_header=false)
 SELECT
     *,
     '.$conf['user_fields']['username'].' AS username,
-    NOW() AS dbnow
+    '.$conf['user_fields']['email'].' AS email,
+    NOW() AS dbnow,
+    DATEDIFF(uak.expired_on, NOW()) AS days_left,
+    SUBDATE(NOW(), INTERVAL 48 HOUR) AS 48h_ago
   FROM '.USER_AUTH_KEYS_TABLE.' AS uak
     JOIN '.USER_INFOS_TABLE.' AS ui ON uak.user_id = ui.user_id
     JOIN '.USERS_TABLE.' AS u ON u.'.$conf['user_fields']['id'].' = ui.user_id
@@ -1708,6 +1807,19 @@ SELECT
   }
   
   $key = $keys[0];
+
+  // is the key still valid?
+  if (strtotime($key['expired_on']) < strtotime($key['dbnow']))
+  {
+    $page['auth_key_invalid'] = true;
+    return false;
+  }
+
+  // admin/webmaster/guest can't get connected with authentication keys
+  if ('auth_key' === $valid_key and !in_array($key['status'], array('normal','generic')))
+  {
+    return false;
+  }
 
   // the key is an api_key
   if ('api_key' === $valid_key)
@@ -1723,19 +1835,24 @@ SELECT
     {
       return false;
     }
-  }
 
-  // is the key still valid?
-  if (strtotime($key['expired_on']) < strtotime($key['dbnow']))
-  {
-    $page['auth_key_invalid'] = true;
-    return false;
-  }
-
-  // admin/webmaster/guest can't get connected with authentication keys
-  if ('auth_key' === $valid_key and !in_array($key['status'], array('normal','generic')))
-  {
-    return false;
+    // check if we need to notificate the user
+    $days_left = intval($key['days_left']);
+    if (
+      $days_left <= 7 // the key expire in max 7 days
+      and !empty($key['email']) // the user have an email
+      and (
+        null === $key['last_notified_on'] // we never send an email for this key
+        or strtotime($key['last_notified_on']) < strtotime($key['48h_ago']) // OR when the last email was sent more than 48 hours ago
+      )
+    )
+    {
+      $page['notify_api_key_expiration'] = array(
+        'days_left' => $days_left,
+        'dbnow' => $key['dbnow'],
+        'auth_key' => $key['auth_key']
+      );
+    }
   }
 
   $user['id'] = $key['user_id'];
@@ -2590,6 +2707,8 @@ SELECT
     $api_key['apikey_secret'] = str_repeat("*", 40);
     unset($api_key['auth_key_id'], $api_key['user_id'], $api_key['key_type']);
 
+    $api_key['apikey_name'] = stripslashes($api_key['apikey_name']);
+
     $api_key['created_on_format'] = format_date($api_key['created_on'], array('day', 'month', 'year'));
     $api_key['expired_on_format'] = format_date($api_key['expired_on'], array('day', 'month', 'year'));
     $api_key['last_used_on_since'] = 
@@ -2641,6 +2760,31 @@ SELECT
 }
 
 /**
+ * Get all available api_key
+ *
+ * @since 16
+ * @param string $user_id
+ * @return array|false
+ */
+function get_available_api_key($user_id)
+{
+  $api_keys = get_api_key($user_id);
+
+  if (!$api_keys) return false;
+
+  $available = array();
+  foreach($api_keys as $api_key)
+  {
+    if (!$api_key['is_expired'] && empty($api_key['revoked_on']))
+    {
+      $available[] = $api_key;
+    }
+  }
+
+  return count($available) > 0 ? $available : false;
+}
+
+/**
  * Is connected with pwg_ui (identification.php)
  *
  * @since 16
@@ -2654,5 +2798,121 @@ function connected_with_pwg_ui()
     return true;
   }
   return false;
+}
+
+/**
+ * Notify an user when his api key is about to expire
+ *
+ * @since 16
+ * @return bool
+ */
+function notification_api_key_expiration($username, $email, $days_left)
+{
+  global $conf;
+
+  include_once(PHPWG_ROOT_PATH . 'include/functions_mail.inc.php');
+  $days_left_str = $days_left <= 1 ? 
+    l10n('Your API key will expire in %d day.', $days_left)
+    : l10n('Your API key will expire in %d days.', $days_left);
+
+  $message = '<p style="margin: 20px 0">' . l10n('Hello %s,', $username) . '</p>';
+  $message .= '<p style="margin: 20px 0">' . $days_left_str . '</p>';
+  $message .= '<p style="margin: 20px 0">' . l10n('To continue using the API, please renew your key before it expires.') . '</p>';
+  $message .= '<p style="margin: 20px 0">' . l10n('You can manage your API keys in your <a href="%s">account settings.</a>', get_absolute_root_url().'profile.php') . '</p>';
+
+  $result = @pwg_mail(
+    $email,
+    array(
+      'subject' => '[' . $conf['gallery_title'] . '] ' . l10n('Your API key will expire soon'),
+      'content' => $message,
+      'content_format' => 'text/html',
+    )
+  );
+
+  return $result;
+}
+
+/**
+ * Generate an user code for verification
+ *
+ * @since 16
+ * @return array [$secret, $code]
+ */
+function generate_user_code()
+{
+  global $conf;
+  
+  require_once(PHPWG_ROOT_PATH . 'include/totp.class.php');
+  $secret = PwgTOTP::generateSecret();
+  $code = PwgTOTP::generateCode($secret, min($conf['password_reset_code_duration'], 900)); // max 15 minutes
+
+  return array(
+    'secret' => $secret,
+    'code' => $code
+  );
+}
+
+/**
+ * Verify user code
+ *
+ * @since 16
+ * @param string $secret
+ * @param string $code
+ * @return bool
+ */
+function verify_user_code($secret, $code)
+{
+  global $conf;
+
+  require_once(PHPWG_ROOT_PATH . 'include/totp.class.php');
+  return PwgTOTP::verifyCode($code, $secret, min($conf['password_reset_code_duration'], 900), 1);
+}
+
+/**
+ * Register in the user session, the "context" of the last 10 viewed images.
+ *
+ * @since 16
+ */
+function save_edit_context()
+{
+  global $page;
+
+  if (!is_admin() or !isset($page['section_url']) or !isset($page['image_id']))
+  {
+    return;
+  }
+
+  $_SESSION['edit_context'] ??= [];
+
+  // the $page['section_url'] is set in the include/section_init script. It
+  // contains the URL describing the "context" of the photo. Examples:
+  //
+  // * /198/list/2,69,198
+  // * /198/category/18801-yes_man
+  // * /198/tags/27-city_nantes/28-city_rennes
+  // * /198/search/psk-20251103-lqCHHAFSZY/posted-monthly-list-2025-3
+  //
+  // same photo #198 in different context. We need it to propose the best
+  // return page on the photo edit page in the administration.
+
+  // let's add the item on top of previous registered values and keep only the last 10 values
+  $_SESSION['edit_context'] = array_slice(array($page['image_id'] => $page['section_url']) + $_SESSION['edit_context'], 0, 10, true);
+}
+
+/**
+ * Returns the "context" of the requested image.
+ *
+ * @since 16
+ * @param int $image_id
+ * @return string|bool
+ */
+function get_edit_context($image_id)
+{
+  if (!isset($_SESSION['edit_context'][$image_id]))
+  {
+    return false;
+  }
+
+  return preg_replace('/^\/'.$image_id.'\//', '', $_SESSION['edit_context'][$image_id]);
 }
 ?>

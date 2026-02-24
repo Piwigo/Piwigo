@@ -1077,6 +1077,73 @@ function pwg_generate_set_password_mail($username, $set_password_link, $gallery_
     );
 }
 
+/**
+ * Generate content mail for user code verification
+ * 
+ * Return the content mail to send
+ * @since 16
+ * @param string $code
+ * @return array mail content
+ */
+function pwg_generate_code_verification_mail($code)
+{
+  global $conf;
+  set_make_full_url();
+  $message = '<p style="margin: 20px 0">';
+  $message.= l10n('Here is your verification code:').' <br />';
+  $message.= '<span style="font-size: 16px">'. $code .'</span></p>';
+  $message.= '<p style="margin: 20px 0;">';
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.') . '</p>';
+  unset_make_full_url();
+
+  $subject = '['.$conf['gallery_title'].'] '.l10n('Your verification code');
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+  );
+}
+
+/**
+ * Generate content mail for reset password success
+ * 
+ * Return the content mail to send
+ * @since 16
+ * @param string $code
+ * @return array mail content
+ */
+function pwg_generate_success_reset_password_mail($username, $nb_of_apikeys)
+{
+  global $conf;
+  set_make_full_url();
+  $profile_url = get_root_url().'profile.php';
+
+  $message  = '<p style="margin-top: 20px;">'.l10n('Hello %s,', $username).'</p>';
+  $message .= '<p style="margin-bottom: 20px;">'.l10n('Your password was successfully reset').'.</p>';
+  $message .= '<p>';
+  $message .= l10n('If this wasn\'t you, please change your password immediately or contact your webmaster.');
+  $message .= '</p>';
+
+  if ($nb_of_apikeys > 0)
+  {
+    $message .= '<p style="margin: 20px 0;">';
+    $message .= l10n(
+      'If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.',
+      $nb_of_apikeys,
+      $profile_url
+    );
+    $message .= '</p>';
+  }
+  unset_make_full_url();
+
+  $subject = '['.$conf['gallery_title'].'] '.l10n('Your password has been reset');
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+  );
+}
+
 trigger_notify('functions_mail_included');
 
 ?>

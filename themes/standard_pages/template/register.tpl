@@ -1,4 +1,4 @@
-{combine_css id='standard_pages_css' path="themes/standard_pages/css/standard_pages.css" order=100}
+{combine_css id='standard_pages_css' path="themes/standard_pages/skins/{$STD_PGS_SELECTED_SKIN}.css" order=100}
 {combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
 
 <script>
@@ -29,9 +29,17 @@
 {/if}
   </section>
 
+{if 'none' != $STD_PGS_SELECTED_LOGO}
   <section id="logo-section">
+  {if 'piwigo_logo' == $STD_PGS_SELECTED_LOGO}
     <img id="piwigo-logo" src="{$ROOT_URL}themes/standard_pages/images/piwigo_logo.svg">
-  </section>
+  {else if 'custom_logo' == $STD_PGS_SELECTED_LOGO}
+    <img id="custom-logo" src="{$STD_PGS_SELECTED_LOGO_PATH}">
+  {else if 'gallery_title'}
+    <h1>{$GALLERY_TITLE}</h1>
+  {/if}
+    </section>
+{/if}
 
 
   <section id="register-form">
@@ -43,10 +51,10 @@
       <form class="properties" method="post" action="{$F_ACTION}" name="register_form" autocomplete="off">
 
         <div class="column-flex">
-          <label for="mail_address">{'Email address'|translate}</label>
+          <label for="mail_address">{'Email address'|translate}{if not $obligatory_user_mail_address} ({'useful when password forgotten'|@translate}){/if}</label>
           <div class="row-flex input-container">
             <i class="gallery-icon-user-2"></i>
-            <input type="email" name="mail_address" id="login" value="{$F_EMAIL}">
+            <input type="email" name="mail_address" id="login" value="{$F_EMAIL}"{if $obligatory_user_mail_address}data-required="true"{/if}>
           </div>
           <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
         </div>
@@ -55,7 +63,7 @@
           <label for="username">{'Username'|translate}</label>
           <div class="row-flex input-container">
             <i class="gallery-icon-user-2"></i>
-            <input type="text" name="login" id="login" value="{$F_LOGIN}">
+            <input type="text" name="login" id="login" value="{$F_LOGIN}" data-required="true">
           </div>
           <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
         </div>
@@ -64,7 +72,7 @@
           <label for="password">{'Password'|translate}</label>
           <div class="row-flex input-container">
             <i class="gallery-icon-lock"></i>
-            <input type="password" class="" name="password" id="password" size="25">
+            <input type="password" class="" name="password" id="password" size="25" data-required="true">
             <i class="gallery-icon-eye togglePassword"></i>
           </div>
           <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
@@ -74,7 +82,7 @@
           <label for="password">{'Confirm Password'|translate}</label>
           <div class="row-flex input-container">
             <i class="gallery-icon-lock"></i>
-            <input type="password" class="" name="password_conf" id="password_conf" size="25">
+            <input type="password" class="" name="password_conf" id="password_conf" size="25" data-required="true">
             <i class="gallery-icon-eye togglePassword"></i>
           </div>
           <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
@@ -102,7 +110,7 @@
   <section id="language-switch">
     <div id="lang-select">
       <span id="other-languages">
-  {foreach from=$language_options key=$code item=$lang}
+  {foreach from=$language_options key=code item=lang}
           <span id="lang={$code}" onclick="setCookie('lang','{$code}',30)">{$lang}</span>
   {/foreach}
       </span>

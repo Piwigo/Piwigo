@@ -11,7 +11,7 @@
  */
 
 require_once( PHPWG_ROOT_PATH .'include/smarty/libs/Smarty.class.php');
-
+use Smarty\Smarty;
 
 /** default rank for buttons */
 define('BUTTONS_RANK_NEUTRAL', 50);
@@ -63,11 +63,12 @@ class Template
   {
     global $conf, $lang_info;
 
-    SmartyException::$escape = false;
+    // \Smarty\Exception::$escape = false;
 
     $this->scriptLoader = new ScriptLoader;
     $this->cssLoader = new CssLoader;
     $this->smarty = new Smarty;
+    $this->smarty->escape_html = false;
     $this->smarty->debugging = $conf['debug_template'];
     if (!$this->smarty->debugging)
     {
@@ -111,6 +112,7 @@ class Template
     $this->smarty->registerPlugin('modifier', 'file_exists', 'file_exists');
     $this->smarty->registerPlugin('modifier', 'constant', 'constant');
     $this->smarty->registerPlugin('modifier', 'json_encode', 'json_encode');
+    $this->smarty->registerPlugin('modifier', 'json_decode', 'json_decode');
     $this->smarty->registerPlugin('modifier', 'htmlspecialchars', 'htmlspecialchars');
     $this->smarty->registerPlugin('modifier', 'implode', 'implode');
     $this->smarty->registerPlugin('modifier', 'stripslashes', 'stripslashes');
@@ -134,6 +136,20 @@ class Template
     $this->smarty->registerPlugin('compiler', 'get_combined_css', array($this, 'func_get_combined_css') );
     $this->smarty->registerPlugin('block', 'footer_script', array($this, 'block_footer_script') );
     $this->smarty->registerFilter('pre', array('Template', 'prefilter_white_space') );
+    $this->smarty->registerPlugin('modifier', 'url_is_remote', 'url_is_remote');
+    $this->smarty->registerPlugin('modifier', 'is_null', 'is_null');
+    $this->smarty->registerPlugin('modifier', 'l10n', 'l10n');
+    $this->smarty->registerPlugin('modifier', 'str_replace', 'str_replace');
+    $this->smarty->registerPlugin('modifier', 'is_admin', 'is_admin');
+    $this->smarty->registerPlugin('modifier', 'is_classic_user', 'is_classic_user');
+    $this->smarty->registerPlugin('modifier', 'get_device', 'get_device');
+    $this->smarty->registerPlugin('modifier', 'is_file', 'is_file');
+    $this->smarty->registerPlugin('modifier', 'strpos', 'strpos');
+    $this->smarty->registerPlugin('modifier', 'preg_match', 'preg_match');
+    $this->smarty->registerPlugin('modifier', 'get_gallery_home_url', 'get_gallery_home_url');
+    $this->smarty->registerPlugin('modifier', 'sizeOf', 'sizeOf');
+    $this->smarty->registerPlugin('modifier', 'array_key_exists', 'array_key_exists');
+
     if ( $conf['compiled_template_cache_language'] )
     {
       $this->smarty->registerFilter('post', array('Template', 'postfilter_language') );
@@ -181,6 +197,7 @@ class Template
    */
   function set_theme($root, $theme, $path, $load_css=true, $load_local_head=true, $colorscheme='dark')
   {
+    //we need themeconf before std_pgs to see what themes use_standard_pages
     $themeconf = $this->load_themeconf($root.'/'.$theme);
 
     // We loop over the theme and the parent theme, so if we exclude default, 
@@ -192,6 +209,7 @@ class Template
     )
     {
       $theme = 'standard_pages';
+      $themeconf = $this->load_themeconf($root.'/'.$theme);
     }
 
     $this->set_template_dir($root.'/'.$theme.'/'.$path);
@@ -221,7 +239,7 @@ class Template
     {
       $themeconf['colorscheme'] = $colorscheme;
     }
-    
+
     $this->smarty->append('themes', $tpl_var);
     $this->smarty->append('themeconf', $themeconf, true);
   }
@@ -1082,8 +1100,10 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    */
   static function prefilter_white_space($source, $smarty)
   {
-    $ld = $smarty->left_delimiter;
-    $rd = $smarty->right_delimiter;
+    $ld = $smarty->getLeftDelimiter();
+    $rd = $smarty->getRightDelimiter();
+    // $ld = $smarty->left_delimiter;
+    // $rd = $smarty->right_delimiter;
     $ldq = preg_quote($ld, '#');
     $rdq = preg_quote($rd, '#');
 
@@ -2038,10 +2058,15 @@ final class FileCombiner
   private static function process_css($css, $file, &$header)
   {
     $css = self::process_css_rec($css, dirname($file), $header);
-    if (strpos($file, '.min')===false and version_compare(PHP_VERSION, '5.2.4', '>='))
+    if (strpos($file, '.min')===false)
     {
-      require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
-      $css = CssMin::minify($css, array('Variables'=>false));
+      require_once(PHPWG_ROOT_PATH.'include/minify/src/Minify.php');
+      require_once(PHPWG_ROOT_PATH.'include/minify/src/CSS.php');
+      require_once(PHPWG_ROOT_PATH.'include/minify/path-converter/src/ConverterInterface.php');
+      require_once(PHPWG_ROOT_PATH.'include/minify/path-converter/src/Converter.php');
+      require_once(PHPWG_ROOT_PATH.'include/minify/path-converter/src/NoConverter.php');
+      $minifier = new \MatthiasMullie\Minify\CSS($css);
+      $css = $minifier->minify();
     }
     $css = trigger_change('combined_css_postfilter', $css);
     return $css;

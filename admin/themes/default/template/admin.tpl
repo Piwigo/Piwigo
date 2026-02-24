@@ -412,10 +412,9 @@ let username = '{$USERNAME}'
 <div class="eiw">
   {if isset($errors)}
   <div class="errors">
-    <i class="eiw-icon icon-cancel"></i>
     <ul>
       {foreach from=$errors item=error}
-      <li>{$error}</li>
+      <li><i class="eiw-icon icon-cancel"></i>{$error}</li>
       {/foreach}
     </ul>
   </div>
@@ -423,10 +422,9 @@ let username = '{$USERNAME}'
 
   {if isset($infos)}
   <div class="infos">
-    <i class="eiw-icon icon-ok"></i>
     <ul>
       {foreach from=$infos item=info}
-      <li>{$info}</li>
+      <li><i class="eiw-icon icon-ok-circled"></i>{$info}</li>
       {/foreach}
     </ul>
   </div>
@@ -434,10 +432,9 @@ let username = '{$USERNAME}'
 
   {if isset($warnings)}
   <div class="warnings">
-    <i class="eiw-icon icon-attention"></i>
     <ul>
       {foreach from=$warnings item=warning}
-      <li>{$warning}</li>
+      <li><i class="eiw-icon icon-attention"></i>{$warning}</li>
       {/foreach}
     </ul>
   </div>
@@ -445,10 +442,9 @@ let username = '{$USERNAME}'
 
   {if isset($messages)}
   <div class="messages">
-    <i class="eiw-icon icon-info-circled-1"></i>
     <ul>
       {foreach from=$messages item=message}
-      <li>{$message}</li>
+          <li><i class="eiw-icon icon-info-circled-1"></i>{$message}</li>
       {/foreach}
     </ul>
   </div>

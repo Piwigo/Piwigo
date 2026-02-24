@@ -175,6 +175,11 @@ $( document ).ready(function() {
         $('#edit_user_conf_password').val(password);
         hide_error_edit_user();
     });
+    $('.AddUserGenPassword span').on('click', function() {
+        const password = gen_password();
+        $('#add_user_pass').val(password);
+        $('#add_user_confpass').val(password);
+    });
     $('.AddUserSubmit').click(add_user);
     $('.AddUserCancel').click(add_user_close);
     $(".CloseAddUser").click(add_user_close);   
@@ -806,9 +811,19 @@ function add_user_open() {
     $('#AddUserSuccessContainer').hide();
     $('#AddUserFieldContainer').show();
     $('#AddUser :input').val('');
+    $('#add_user_password').hide();
     fill_new_user();
     $("#AddUser").fadeIn();
     $(".AddUserLabelUsername input").first().focus();
+    $('#AddUser .user-property-status .user-property-select').off('change').on('change', function() {
+        const status = $(this).val();
+        $('#add_user_pass ,#add_user_confpass').val('');
+        if ('generic' === status) {
+            $('#add_user_password').show();
+            return;
+        }
+        $('#add_user_password').hide();
+    });
 }
 
 /*------------------
@@ -1650,6 +1665,8 @@ function fill_user_edit(user_to_edit) {
     fill_user_edit_update(user_to_edit, pop_in);
     fill_user_edit_permissions(user_to_edit, pop_in);
     fill_who_is_the_king(user_to_edit, pop_in);
+
+    // show/hide password button depending on permissions
     
     // plugins get function
     if (Object.keys(plugins_get_functions).length > 0) {
@@ -2134,26 +2151,53 @@ function add_user() {
     ajax_data.level = $(".AddUserInputContainer .user-property-level select").val();
     ajax_data.enabled_high = $(".AddUserInputContainer .user-list-checkbox[name=\"hd_enabled\"]").attr('data-selected') == '1' ? true : false;
     ajax_data.group_id = groups_selected;
-    ajax_data.auto_password = true;
 
     // for debug
     // console.log(ajax_data);
 
+    const data = {
+        username: ajax_data.username,
+        email: ajax_data.email,
+        pwg_token,
+    }
+
+    if ('generic' === ajax_data.status) {
+        data.password = $('#add_user_pass').val();
+        data.password_confirm = $('#add_user_confpass').val();
+    } else {
+        data.auto_password = true;
+    }
+
     $.ajax({
         url: "ws.php?format=json&method=pwg.users.add",
         type:"POST",
-        data: {
-            username: ajax_data.username,
-            auto_password: true,
-            email: ajax_data.email,
-            pwg_token
-        },
+        data: data,
         beforeSend: function() {
             $("#AddUser .AddUserErrors").css("visibility", "hidden");
             if ($(".AddUserLabelUsername .user-property-input").val() == "") {
                 $("#AddUser .AddUserErrors").html(missingUsername);
                 $("#AddUser .AddUserErrors").css("visibility", "visible");
                 return false;
+            }
+            if ('generic' === ajax_data.status) {
+                const pass = $('#add_user_pass').val();
+                const confPass = $('#add_user_confpass').val();
+                if ('' == pass) {
+                    $("#AddUser .AddUserErrors").html(missingPassword);
+                    $("#AddUser .AddUserErrors").css("visibility", "visible");
+                    return false;
+                }
+                if ('' == confPass) {
+                    $("#AddUser .AddUserErrors").html(missingConfPassword);
+                    $("#AddUser .AddUserErrors").css("visibility", "visible");
+                    return false;
+                }
+                if (pass !== confPass) {
+                    $("#AddUser .AddUserErrors").html(noMatchPassword);
+                    $("#AddUser .AddUserErrors").css("visibility", "visible");
+                    return false;
+                }
+                
             }
         },
         success: (raw_data) => {
@@ -2190,9 +2234,14 @@ function add_infos_to_new_user(user_id, ajax_data) {
                 let new_user_id = data.result.users[0].id;
                 update_user_list();
                 // add_user_close();
-                $('#AddUserUpdated').removeClass('icon-red icon-cancel').addClass('icon-green border-green icon-ok');
+                $('#AddUserUpdated').removeClass('icon-red icon-cancel-circled').addClass('icon-green icon-ok-circled');
                 $('#AddUserUpdatedText').html(user_added_str.replace("%s", ajax_data.username));
-                send_new_user_password(new_user_id, ajax_data.email);
+                const status = ['webmaster', 'admin', 'normal'];
+                if (status.includes(ajax_data.status)) {
+                    send_new_user_password(new_user_id, ajax_data.email);
+                } else {
+                    add_user_close();
+                }
                 $("#AddUser .user-property-input").val("");
                 $("#AddUserSuccess .edit-now").off("click").on("click", () => {
                     last_user_id = new_user_id;
@@ -2240,7 +2289,7 @@ function send_new_user_password(user_id, mail) {
                     : sprintf(validLinkWithoutMail, response.result.time_validation));
 
                 if(send_by_mail && !response.result.send_by_mail) {
-                    $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+                    $('#AddUserUpdated').removeClass('icon-green icon-ok-circled').addClass('icon-red-error icon-cancel-circled');
                     $('#AddUserUpdatedText').html(errorMailSent);
                     $('#AddUserTextField').html(sprintf(errorMailSentMsg, response.result.time_validation));
                 } else if (send_by_mail && response.result.send_by_mail) {
@@ -2252,7 +2301,7 @@ function send_new_user_password(user_id, mail) {
                         const successMsg = $('#AddUserUpdatedText');
                         successMsg.fadeOut();
                         copyToClipboard(response.result.generated_link);
-                        $('#AddUserUpdated').removeClass('icon-red icon-cancel').addClass('icon-green border-green icon-ok');
+                        $('#AddUserUpdated').removeClass('icon-red icon-cancel-circled').addClass('icon-green icon-ok-circled');
                         successMsg.html(copyLinkStr);
                         successMsg.fadeIn();
                     });
@@ -2261,12 +2310,12 @@ function send_new_user_password(user_id, mail) {
                     add_user_close();
                 });
             } else {
-                $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+                $('#AddUserUpdated').removeClass('icon-green icon-ok-circled').addClass('icon-red-error icon-cancel-circled');
                 $('#AddUserUpdatedText').html(response.message);
             }
         },
         error: function(response) {
-            $('#AddUserUpdated').removeClass('icon-green border-green icon-ok').addClass('icon-red-error icon-cancel');
+            $('#AddUserUpdated').removeClass('icon-green icon-ok-circled').addClass('icon-red-error icon-cancel-circled');
             $('#AddUserUpdatedText').html(response.message);
         }
     });

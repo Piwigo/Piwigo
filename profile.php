@@ -87,6 +87,16 @@ SELECT '.implode(',', $fields).'
     }
 
     $user['language'] = $_COOKIE['lang'];
+    single_update(
+      USER_INFOS_TABLE,
+      array(
+        'language' => $_COOKIE['lang']
+      ),
+      array(
+        'user_id' => $user['id']
+      )
+    );
+    
     load_language('common.lang', '', array('language'=>$user['language']));
   }
 
@@ -98,7 +108,7 @@ SELECT '.implode(',', $fields).'
 
   $template->assign(array(
     'language_options' => $language_options,
-    'current_language' => $user['language']
+    'language_selection' => $user['language']
   ));
 
   //Get link to doc

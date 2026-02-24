@@ -26,7 +26,7 @@ DELETE FROM '.CADDIE_TABLE.'
   pwg_query($query);
 
   $inserts = array();
-  foreach (explode(',', $_GET['batch']) as $image_id)
+  foreach (array_unique(explode(',', $_GET['batch'])) as $image_id)
   {
     $inserts[] = array(
       'user_id' => $user['id'],
@@ -85,6 +85,7 @@ $display_formats = $conf['enable_formats'] && isset($_GET['formats']);
 
 $have_formats_original = false;
 $formats_original_info = array();
+$formats_ext_info = null;
 
 // If URL parameter isn't empty
 if ($display_formats && $_GET['formats']) 
@@ -109,13 +110,16 @@ SELECT *
     if (!empty($formats))
     {
       $format_strings = array();
+      $formats_exts = array();
       
       foreach ($formats as $format)
       {
         $format_strings[] = sprintf('%s (%.2fMB)', $format['ext'], $format['filesize']/1024);
+        $formats_exts[] = strtolower($format['ext']);
       }
 
       $formats_original_info['formats'] = l10n('Formats: %s', implode(', ', $format_strings));
+      $formats_ext_info = json_encode($formats_exts);
     }
 
     $extTab = explode('.',$formats_original_info['file']);
@@ -150,7 +154,8 @@ $template->assign(array(
   'DISPLAY_FORMATS' => $display_formats,
   'HAVE_FORMATS_ORIGINAL' => $have_formats_original,
   'FORMATS_ORIGINAL_INFO' => $formats_original_info,
-  'SWITCH_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($display_formats ? '':'&formats'),
+  'FORMATS_EXT_INFO' => $formats_ext_info,
+  'SWITCH_FORMAT_MODE_URL' => get_root_url().'admin.php?page=photos_add'.($display_formats ? '':'&formats'),
   'format_ext' =>  implode(',', $conf['format_ext']),
   'str_format_ext' =>  implode(', ', $conf['format_ext']),
 ));

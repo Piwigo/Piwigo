@@ -135,7 +135,7 @@ $lang['created after %s (%s)'] = '%s (%s) 以降に作成';
 $lang['created before %s (%s)'] = '%s (%s) 以前に作成';
 $lang['created between %s (%s) and %s (%s)'] = '%s (%s) から %s (%s) の間に作成';
 $lang['created on %s'] = '%s に作成';
-$lang['Customize'] = 'カスタマイズ';
+
 $lang['Your Gallery Customization'] = 'あなたのギャラリーのカスタマイズ ';
 $lang['day'][0] = '日曜日';
 $lang['day'][1] = '月曜日';
@@ -164,7 +164,7 @@ $lang['Hello'] = 'こんにちは';
 $lang['available for administrators only'] = '管理者のみ利用可能';
 $lang['display this album'] = 'このアルバムのルートのイメージを表示する';
 $lang['display last user comments'] = '最新のユーザコメントを表示する';
-$lang['customize the appareance of the gallery'] = 'ギャラリーの表示をカスタマイズする';
+
 $lang['search'] = '検索';
 $lang['Home'] = 'ホーム';
 $lang['in this album'] = '- このアルバム';
@@ -427,3 +427,6 @@ $lang['Album description'] = 'アルバムの説明';
 $lang['Album title'] = 'アルバムのタイトル';
 $lang['Clear'] = '条件を初期化';
 $lang['Search in :'] = '以下から検索する';
+$lang['Empty filters'] = 'フィルターをクリア';
+$lang['You can try to edit your filters and perform a new search.'] = 'フィルターを変更して新たに検索を行うことができます。';
+$lang['No results are available.'] = '見つかりませんでした。';

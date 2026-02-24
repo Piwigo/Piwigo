@@ -365,6 +365,15 @@ function send_derivative($expires)
   fclose($fp);
 }
 
+function safe_unserialize($value)
+{
+  if (is_string($value))
+  {
+    return unserialize($value);
+  }
+  return $value;
+}
+
 $page=array();
 $begin = $step = microtime(true);
 $timing=array();
@@ -388,7 +397,17 @@ catch (Exception $e)
 }
 pwg_db_check_charset();
 
-list($conf['derivatives']) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.$prefixeTable.'config WHERE param=\'derivatives\''));
+$query = '
+SELECT param, value
+  FROM '.$prefixeTable.'config
+  WHERE param IN (\'derivatives\', \'disabled_derivatives\')
+;';
+
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $conf[ $row['param'] ] = $row['value'];
+}
 ImageStdParams::load_from_db();
 
 
@@ -598,7 +617,14 @@ if ($d_size[0]*$d_size[1] < $conf['derivatives_strip_metadata_threshold'])
   $image->strip();
 }
 
-$image->set_compression_quality( ImageStdParams::$quality );
+$compression_quality = ImageStdParams::$quality;
+
+// for big sizing never go beyond 75 quality
+if (in_array($page['derivative_type'], [IMG_4XLARGE, IMG_3XLARGE]))
+{
+  $compression_quality = min(ImageStdParams::$quality, 75);
+}
+
 $image->write( $page['derivative_path'] );
 $image->destroy();
 @chmod($page['derivative_path'], 0644);
@@ -618,5 +644,6 @@ if ($logger->severity() >= Logger::DEBUG)
     'd_size' => $d_size[0] . ' ' . $d_size[1] . ' ' . ($d_size[0]*$d_size[1]),
     'mem_usage' => function_exists('memory_get_peak_usage') ? round( memory_get_peak_usage()/(1024*1024), 1) : '',
     'timing' => $timing,
+    'quality' => $compression_quality,
     ));
 }

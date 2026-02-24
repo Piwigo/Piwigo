@@ -113,14 +113,14 @@ const callback = (mutationList, observer) => {
       let popup = jQuery("#jGrowl").children();
       for (let i = 0; i < popup.length; i++){
         if ((jQuery(popup[i])).hasClass("success")){
-          if (! ((jQuery(popup[i]).children(":first")).hasClass("jGrowl-popup-icon icon-ok"))){
-            jQuery(popup[i]).prepend('<div class="jGrowl-popup-icon icon-ok"></div>')
+          if (! ((jQuery(popup[i]).children(":first")).hasClass("jGrowl-popup-icon icon-ok-circled"))){
+            jQuery(popup[i]).prepend('<div class="jGrowl-popup-icon icon-ok-circled"></div>')
           }
         };
 
         if ((jQuery(popup[i])).hasClass("error")){
-          if (! ((jQuery(popup[i]).children(":first")).hasClass("jGrowl-popup-icon icon-cancel"))){
-            jQuery(popup[i]).prepend('<div class="jGrowl-popup-icon icon-cancel"></div>')
+          if (! ((jQuery(popup[i]).children(":first")).hasClass("jGrowl-popup-icon icon-cancel-circled"))){
+            jQuery(popup[i]).prepend('<div class="jGrowl-popup-icon icon-cancel-circled"></div>')
           }
         }
       };

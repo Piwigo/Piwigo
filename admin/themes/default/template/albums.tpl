@@ -187,7 +187,7 @@ const tiptip_locked_album = "{'Locked album'|translate|escape:javascript}";
     </div>
     
 
-    <div class="AddAlbumErrors icon-cancel">
+    <div class="AddAlbumErrors icon-warning-circled">
     </div>
 
     <div class="AddAlbumFormValidation">

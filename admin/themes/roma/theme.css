@@ -220,7 +220,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-buttonpane .ui-state-error:hover { background: #7e3030;}
 INPUT[type="text"].large  { width: 317px; }
 
-.buttonLike:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
+.buttonLike:disabled, .filters-icon-check:disabled, input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled {
 	color:#555;
 	border-color:#666;
   cursor:not-allowed;
@@ -415,6 +415,16 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 
 .big-progressbar {
   background: #3c3939;
+}
+
+/* Picture add */
+
+.upload-options, .upload-options-content, .options-open::after{
+  background-color: #343434;
+}
+
+.upload-options-content .switch .slider {
+  background-color: #444444
 }
 
 /* Picture edit */
@@ -706,14 +716,15 @@ input:checked + .slider::after{
 }
 
 input:checked + .slider {
-  background-color: #ffa646;
+  background-color: #ffa646 !important;
 }
 
 input:focus + .slider {
   box-shadow: 0 0 1px #FFC27F;
 }
 
-#selection-mode-block{
+#selection-mode-block, 
+.selection-mode {
   background-color: #232323;
   border-left:1px solid #1a1a1a;
 }
@@ -748,13 +759,15 @@ input:focus + .slider {
   color:#c0c0c0;
 }
 
-#selection-mode-block button{
+#selection-mode-block button,
+#commentsSelection button {
   border: 1px solid #e7e7e7;
   color:#c0c0c0;
 }
 
 
-#selection-mode-block button:hover{
+#selection-mode-block button:hover,
+#commentsSelection button:hover {
   background-color: #ffa744;
   border: 1px solid #ffa744;
   color:#3c3c3c;
@@ -844,10 +857,6 @@ input:focus + .slider {
 .UsernameBlock{
   background-color:#393939;
   color:#9e9e9e;
-}
-
-.UsernameBlock.success_message{
-  border:2px solid #AAF6E4;
 }
 
 .Tooltip p.TooltipText{
@@ -957,8 +966,6 @@ table.qsearch_help_table td {
 	border-color: #444;
 }
 
-.font-checkbox [class*=icon-check]:before { color:#aaa; }
-
 #cboxLoadedContent { background-color:#333 !important; }
 
 #watermarkPositionBox {
@@ -979,6 +986,8 @@ table.qsearch_help_table td {
 
 .font-checkbox {color: #898888;}
 .font-checkbox:hover {color: #ededed;}
+.font-checkbox:hover .icon-check-empty, .font-checkbox:hover .icon-check {color: #FF7700;}
+.font-checkbox .icon-check {color: #FFA646;}
 .with-border legend, .with-border strong {color: #c0c0c0;}
 .font-checkbox.selected {color: #ffa646;}
 
@@ -994,6 +1003,9 @@ a#showPermissions:hover {border-color: #A5A5A5;}
 .plupload_filelist_footer {background-color: #3c3939!important; border: 0!important; color: #A5A5A5!important}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
+li.plupload_delete a span {background: #444444;}
+li.plupload_delete a:hover span {background: #444444;}
+li.plupload_delete a.remove-format:hover{color: #c0c0c0;}
 
 .addAlbumEmpty {color: #c1c1c1;}
 .buttonSeparator {color: #c1c1c1;}
@@ -1136,6 +1148,11 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #batchManagerGlobal .ui-slider .ui-slider-range {background-color: #aaaaaa;}
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58; background-color: #ffaf58;}
 
+.help-popin-search:hover span,
+.help-popin-search:hover .icon-help-circled::before {
+  color: #ededed !important;
+}
+
 .selected-associate-item {
   background-color: #333;
   box-shadow: 0px 2px #000000AA;
@@ -1149,79 +1166,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .selected-associate-item .remove-associate:hover {
   color: #ae5d1e;
-}
-
-/*Error message*/
-
-.errors {
-    color: #fec6c7;
-    background-color: #bc4b4a;
-    border-left: 4px solid #fec6c7;
-}
-
-.errors li{
-    color: #ffffff;
-}
-
-.errors a{
-    background-color: #6b3030;
-    padding: 2px 7px;
-    color: #ffffff;
-}
-
-/*Success message*/
-
-.infos {
-    color: #b8feee;
-    background-color: #50a48f;
-    border-left: 4px solid #b8feee;
-}
-
-.AddPluginSuccess label, .DeactivatePluginSuccess label, .RestorePluginSuccess label{
-  color: #b8feee;
-  background-color: #50a48f;
-}
-
-.AddPluginSuccess span, .RestorePluginSuccess span,.DeactivatePluginSuccess span {
-  color: #b8feee;
-}
-
-.infos li{
-    color: #ffffff;
-}
-
-.infos a{
-    background-color: #28554a;
-    padding: 2px 7px;
-    color: #ffffff;
-}
-
-/*Warning message*/
-
-.warnings {
-    color: #fedac0;
-    background-color: #d47f44;
-    border-left: 4px solid #fedac0;
-}
-
-.warnings a{
-    background-color: #734627;
-    padding: 2px 7px;
-    color: #ffffff;
-}
-
-/*announcement message*/
-
-.messages {
-    color: #bad6ff;
-    background-color: #4f71a4;
-    border-left: 4px solid #bad6ff;
-}
-
-.eiw .messages a {
-    background-color: #273d5f;
-    color: #ffffff;
-    padding: 2px 7px;
 }
 
 /* Popin Jconfirm*/
@@ -1284,7 +1228,8 @@ background:#6C2D2D!important;
 /* Tag Manager */
 
 .tag-box,
-.tag-header .selection-controller a{
+.tag-header .selection-controller a,
+.comments-selection-controller .comments-selection-btn {
   background-color: #333 !important;
 }
 
@@ -1335,25 +1280,6 @@ background:#6C2D2D!important;
 .tag-select-message a {
   background-color: #bce5f7;
   color: #0051a5;
-}
-
-.info-warning {
-  background-color: #d47f44;
-  color: #fedac0;
-}
-
-.info-warning a, .info-message a, .info-error a {
-  color: white;
-}
-
-.info-error {
-  color: #ffd5dc;
-  background-color:#f22;
-}
-
-.tag-checkmark{
-  color: #AAF6E4 !important;
-  background-color: #4EA590 !important;
 }
 
 /* Album Move (and album search) */
@@ -1477,6 +1403,7 @@ background:#6C2D2D!important;
   transform: translateY(13px);
 }
 
+.tab-filters label,
 .pluginTypeFilter label {
   display: flex;
   flex-direction: row;
@@ -1492,25 +1419,30 @@ background:#6C2D2D!important;
   box-shadow: 0px 2px #00000066;
 }
 
+.tab-filters label:hover,
 .pluginTypeFilter label:hover{
   background: #1B1B1B;
 }
 
+.tab-filters input:checked + label,
 .pluginTypeFilter input:checked + label{
   background: #ffa646;
   color: #444444;
   box-shadow: 0 2px #925f00;
 }
 
+.tab-filters input:checked:hover + label,
 .pluginTypeFilter input:checked:hover + label{
   background: #ffc17e;
 }
 
+.tab-filters input:checked + label .filter-badge,
 .pluginTypeFilter input:checked + label .filter-badge {
   background-color: #d18800;
   color: #444;
 }
 
+.tab-filters input + label .filter-badge,
 .pluginTypeFilter input + label .filter-badge {
   background-color: #3f3f3f;
   color: #bababa;
@@ -1564,15 +1496,6 @@ background:#6C2D2D!important;
 .pluginBox.active .pluginActionsSmallIcons a span:hover {
   background: #ff7700;
   color: #111;
-}
-
-.PluginActionError span {
-  color: #ffd5dc
-}
-
-.PluginActionError label {
-  background-color:  #f22;
-  color: #ffd5dc
 }
 
 .pluginTags > span {
@@ -1898,21 +1821,26 @@ background:#6C2D2D!important;
 
 /* Activity Tab in user manager */
 
-.select-user {
-  background: #555555;
-  height: 50%;
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 20px;
-
-  box-shadow: 0px 2px 4px #00000024;
-  border-radius: 5px;
+.activity-more-filters, .activity-more-filters-content {
+  background-color: #343434 !important;
 }
 
-.select-user-title {
+.selectize-control.user-selecter.single .selectize-input, .selectize-control.action-selecter.single .selectize-input {
+  border-color: #555555 !important;
+}
+
+.activity-select-title {
   color: #bbbbbb;
+}
+
+.activity-date-selecter {
+  background-color: #555555;
+  color: #D5D5D5;
+}
+
+.activity-filter-container{
+  background-color: #555555;
+  color: #D5D5D5;
 }
 
 .start-date, 
@@ -1922,12 +1850,6 @@ background:#6C2D2D!important;
     border-radius: 50px;
     margin: 5px;
     color: #bbbbbb;
-}
-
-.acivity-time-text {
-  font-size: 13px;
-  font-weight: bold;
-  color: #bbbbbb;
 }
 
 /* Strange why this is different from light mode */
@@ -1971,7 +1893,6 @@ background:#6C2D2D!important;
 }
 
 .download_csv {
-  margin-left: auto;
   height: 25px;
   width: 30px;
   background: #555555;
@@ -1998,12 +1919,6 @@ background:#6C2D2D!important;
 }
 .selectedAlbum span:first-child {
   background-color: #343434 !important;
-}
-
-.AddUserErrors, .update-user-fail, .EditUserErrors, .update-password-fail, .icon-red-error {
-  background-color: #f22;;
-  color: #ffd5dc;
-  border-left:solid 3px #f22;
 }
 
 .AddUserPopInContainer {
@@ -2041,9 +1956,6 @@ background:#6C2D2D!important;
   color: #ededed;
 }
 
-.update-user-success,
-.update-password-success,
-.update-username-success,
 .border-green {
   border-left: 2px solid #a9f6e3;
 }
@@ -2260,7 +2172,56 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   opacity:60%!important;
 }
 
+.comment-container {
+  background-color: #333;
+  border-color: #ffa646;
+}
+
+.comment-validated {
+  border-color: #232323 !important;
+}
+
+.comment-author,
+.comment-date {
+  color: #aaa;
+}
+
+.comment-validate {
+  background-color: #ffa646;
+}
+
+.comment-delete {
+  background-color: #232323;
+}
+
+.comment-delete:hover {
+  background-color: #111;
+}
+
+.comments-advanced-filters {
+  background-color: #333;
+}
+
+.comment.comment-selected .comment-content {
+  background-color: #1B1B1B;
+}
+
+.comments-container.active .comment-content:hover {
+  background-color: #1B1B1B;
+}
+
+.buttonSecondary {
+  color: #3C3C3C;
+  background-color: #232323;
+}
+
+.buttonSecondary:hover {
+  color: #3C3C3C;
+  background-color: #111;
+}
+
 /* Cat modify description modal */
+.modal-content,
 .desc-modal-content,
 .new-album-modal-content {
   background-color: #444;
@@ -2377,4 +2338,232 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
 
 .RenameTagPopInContainer {
   background-color:#444;
+}
+
+/* Filters options */
+.select-views{
+  background-color: #444444;
+  color: #898888;
+  border: 1px solid #666;
+}
+
+.filter-manager-options-container{
+  background-color: #333;
+  color: #aaa;
+  border-color: #333;
+}
+
+.filter-manager-options-container:hover{
+  background-color: #5D5D5D;
+}
+
+.filter-manager-options-container.selected-filter-container{
+  background-color: #777777;
+  color: #ddd;
+}
+
+.filter-manager-options-container.selected-filter-container:hover{
+  background-color: #aaa;
+}
+
+label:has(> .filters-icon-check:disabled){
+  color:#555;
+}
+
+.comments-advanced-filter .advanced-filter-btn {
+  box-shadow: 0px 2px #333;
+}
+
+.comments-search {
+  background-color: #333 !important;
+}
+
+.comments-search:hover {
+  background-color: #222 !important
+}
+
+.comments-search input:focus {
+  outline: none;
+}
+
+/* -------------
+Infos
+-------------*/
+
+/*Success message*/
+.infos,
+.info-message,
+.update-user-success,
+#AddUserUpdated,
+#AddUserSuccess label,
+.groupMessage,
+div.jGrowl div.jGrowl-notification.success,
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label,
+.update-user-success,
+.update-password-success,
+.update-username-success{
+  color: #F3FFFC;
+  background-color:#348F79;
+}
+
+.infos,
+#AddUserSuccess label,
+#AddUserUpdated {
+  border-left:4px solid #AAF6E4; /*Banner*/
+}
+
+.info-message,
+.update-user-success,
+.groupMessage,
+div.jGrowl div.jGrowl-notification.success,
+.AddPluginSuccess label,
+.RestorePluginSuccess label,
+.DeactivatePluginSuccess label,
+.UsernameBlock.success_message,
+.update-user-success,
+.update-password-success,
+.update-username-success{
+  border:1px solid #AAF6E4; /*Rounded*/
+}
+
+.infos i,
+.info-message i,
+.update-user-success i,
+.groupMessage::before,
+.info-message::before,
+div.success .jGrowl-popup-icon,
+.AddPluginSuccess label::before,
+.DeactivatePluginSuccess  label::before,
+.RestorePluginSuccess label::before,
+.update-username-success .icon-ok{
+  color:#C4FFF1;
+}
+
+.infos a,
+#AddUserSuccess .edit-now {
+  color: #F3FFFC;
+  background-color: #237B66;
+  border:1px solid #C4FFF1;
+}
+
+.infos a:hover{
+  color: #F3FFFC;
+}
+
+.AddPluginSuccess span,
+.RestorePluginSuccess span,
+.DeactivatePluginSuccess span {
+  color: #F3FFFC;
+}
+
+/*Error message*/
+
+.errors,
+.info-error,
+.AddUserErrors,
+.groupError,
+div.jGrowl div.jGrowl-notification.error,
+.PluginActionError label,
+.update-user-fail,
+.AddAlbumErrors, 
+.EditUserErrors, 
+.update-password-fail, 
+.icon-red-error  {
+  color: #FFE4E4;
+  background-color: #AE3A3A;
+}
+
+.errors,
+.AddUserErrors,
+.AddAlbumErrors{
+  border-left: 6px solid #FFC8C8; /*Banner*/
+}
+
+.info-error,
+.groupError,
+div.jGrowl div.jGrowl-notification.error,
+.PluginActionError label
+.update-user-fail,
+.EditUserErrors,
+.update-password-fail, 
+.icon-red-error,
+.update-user-fail,
+.AddAlbumErrors{
+  border:1px solid #FFC8C8; /*Rounded*/
+}
+
+.errors i,
+.AddUserErrors:before,
+.groupError::before,
+div.error .jGrowl-popup-icon,
+.PluginActionError label::before {
+  color: #FFC8C8;
+}
+
+.errors a{
+  color: #FFE4E4;
+  background-color: #FFF5F7;
+  border:1px solid #FFC8C8;
+}
+
+.PluginActionError span,
+.errors a:hover{
+  color: #FFE4E4;
+}
+
+/*Warning message*/
+
+.warnings,
+.info-warning {
+  background-color: #C87030;
+  color: #FFFBF7;
+}
+
+.warnings {
+  border-left:6px solid #FFE3CE;
+}
+
+.info-warning {
+  border:1px solid #FFE3CE;
+}
+
+.info-warning::before,
+.info-warning a::before,
+.warnings i {
+  color: #FFE3CE;
+}
+
+.warnings a,
+.info-warning a{
+  color: #FFFBF7;
+  background-color: #A85E28;
+  border:1px solid #FFE3CE;
+}
+
+.warnings a:hover{
+  color: #FFFBF7;
+}
+
+/*announcement message*/
+
+.messages {
+  color: #E4EEFF;
+  background-color:#41659A;
+  border-left:6px solid #A0C0F1;
+}
+
+.messages i{
+  color: #C8DEFF;
+}
+
+.messages a{
+  color: #E4EEFF;
+  background-color: #35578A;
+  border:1px solid #C8DEFF;
+}
+
+.messages a:hover{
+  color: #E4EEFF;
 }

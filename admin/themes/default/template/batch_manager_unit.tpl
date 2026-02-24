@@ -74,13 +74,6 @@ str_meta_warning = "{'Warning ! Unsaved changes will be lost'|translate|escape:j
 str_meta_yes = "{'I want to continue'|translate|escape:javascript}";
 const str_title_ab = "{'Associate to album'|@translate}";
 
-const strs_privacy = {
-  "0" : "{$level_options[8]}",
-  "1" : "{$level_options[4]}",
-  "2" : "{$level_options[2]}", 
-  "3" : "{$level_options[1]}",
-  "4" : "{$level_options[0]}",
-};
 let b_current_picture_id;
 {* Check Skeleton extension for more details about extensibility *}
 pluginValues = [];
@@ -139,7 +132,7 @@ pluginValues = [];
 	<fieldset class="elementEdit" id="picture-{$element.ID}" data-image_id="{$element.ID}">
 		<div class="metasync-success badge-container" style="display: none;">
 			<div class="badge-succes">
-				<i class="icon-ok"></i>
+				<i class="icon-ok-circled"></i>
 				{'Metadata sync complete'|@translate}
 			</div>
 		</div>
@@ -150,9 +143,10 @@ pluginValues = [];
 			<img src="{$element.TN_SRC}" alt="imagename" class="media-box-embed" style="{if $element.FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if}">
 			<div class="media-hover">
 				<div class='picture-preview-actions'>
-					<a class="preview-box icon-zoom-square tiptip" href="{$element.FILE_SRC}" title="Zoom"></a>
-					<a class="icon-download tiptip" href="{$element.U_DOWNLOAD}" title="Download"></a>
-					<a class="icon-signal tiptip" href="{$element.U_HISTORY}" title="Visit history"></a>
+					<a class="preview-box icon-zoom-square tiptip" href="{$element.FILE_SRC}" title="{'Zoom'|@translate}"></a>
+					<a class="icon-download tiptip" href="{$element.U_DOWNLOAD}" title="{'Download'|@translate}"></a>
+					<a class="icon-signal tiptip" href="{$element.U_HISTORY}" title="{'Visit history'|@translate}"></a>
+					<a class="icon-pulse tiptip" href="{$element.U_ACTIVITY}" title="{'Activity'|@translate}"></a>
 					<a target="_blank" class="icon-pencil tiptip" href="{$element.U_EDIT}" title="{'Edit photo'|@translate}"></a>
 					{if !url_is_remote($element.PATH)}
 					<a class="icon-arrows-cw tiptip action-sync-metadata" title="{'Synchronize metadata'|@translate}"></a>
@@ -235,7 +229,7 @@ pluginValues = [];
 					<span class="orphan-photo"></span>
 					{/if}
 					<div class="related-categories-container">
-						{foreach from=$element.related_categories item=$cat_path key=$key}
+						{foreach from=$element.related_categories item=cat_path key=key}
 						<div class="breadcrumb-item">
 							<span class="link-path">{$cat_path['name']}</span>
 							{if $cat_path['unlinkable']}
@@ -276,7 +270,7 @@ pluginValues = [];
 					</div>
 					<div class="local-success-badge badge-container" style="display: none;">
 						<div class="badge-succes">
-							<i class="icon-ok"></i>
+							<i class="icon-ok-circled"></i>
 							{'Changes saved'|@translate}
 						</div>
 					</div>
@@ -318,7 +312,7 @@ pluginValues = [];
 			</div>
 			<div class="badge-container global-succes-badge" style="display: none;">
 				<div class="badge-succes">
-					<i class="icon-ok"></i>
+					<i class="icon-ok-circled"></i>
 					{'Changes saved'|@translate}
 				</div>
 			</div>

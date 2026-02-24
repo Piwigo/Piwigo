@@ -368,6 +368,29 @@ class pwg_image
     return (extension_loaded('imagick') and class_exists('Imagick'));
   }
 
+  static function get_ext_imagick_command()
+  {
+    global $page, $conf;
+
+    if (!isset($page['ext_imagick_command']))
+    {
+      $retval=null;
+      $cmd_out=null;
+      // check if magick is in path
+      exec('command -v '.$conf['ext_imagick_dir'].'magick', $cmd_out , $retval );
+      if (0 == $retval)
+      {
+        $page['ext_imagick_command'] = 'magick';
+      }
+      else
+      {
+        $page['ext_imagick_command'] = 'convert';
+      }
+    }
+    
+    return $page['ext_imagick_command'];
+  }
+
   static function is_ext_imagick()
   {
     global $conf;
@@ -376,7 +399,8 @@ class pwg_image
     {
       return false;
     }
-    @exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
+
+    @exec($conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command().' -version', $returnarray);
     if (is_array($returnarray) and !empty($returnarray[0]) and preg_match('/ImageMagick/i', $returnarray[0]))
     {
       if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
@@ -406,15 +430,15 @@ class pwg_image
     switch (strtolower($library))
     {
       case 'auto':
-      case 'imagick':
-        if ($extension != 'gif' and self::is_imagick())
-        {
-          return 'imagick';
-        }
       case 'ext_imagick':
         if ($extension != 'gif' and self::is_ext_imagick())
         {
           return 'ext_imagick';
+        }
+      case 'imagick':
+        if ($extension != 'gif' and self::is_imagick())
+        {
+          return 'imagick';
         }
       case 'gd':
         if (self::is_gd())
@@ -704,8 +728,14 @@ class image_ext_imagick implements imageInterface
       $this->add_command('sampling-factor', '4:2:2' );
     }
 
-    $exec = $this->imagickdir.'convert';
+    $exec = $this->imagickdir.pwg_image::get_ext_imagick_command();
     $exec .= ' "'.realpath($this->source_filepath).'"';
+
+    // If the image is animated webp add a filter to avoid breaking the animation
+    if ($this->is_animated_webp)
+    {
+      $exec .= ' -layers coalesce ';
+    }
 
     foreach ($this->commands as $command => $params)
     {
@@ -715,7 +745,6 @@ class image_ext_imagick implements imageInterface
         $exec .= ' '.$params;
       }
     }
-
     $dest = pathinfo($destination_filepath);
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
     $logger->debug($exec, 'i.php');

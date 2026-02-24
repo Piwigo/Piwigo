@@ -250,7 +250,11 @@ function setupTagbox(tagBox) {
 
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
-    set_up_popin(tagBox.data('id'), tagBox.find('.tag-name').html());
+    const id = $(this).closest('.tag-box').data('id');
+    const tagIndex = dataTags.findIndex((tag) => tag.id == id);
+    const tagRawName = dataTags[tagIndex].raw_name ?? tagBox.find('.tag-name').data('rawname');
+    const tagName = dataTags[tagIndex].name ?? tagBox.find('.tag-name').html();
+    set_up_popin(tagBox.data('id'), tagRawName, tagName);
     rename_tag_open()
   })
 
@@ -276,14 +280,14 @@ function setupTagbox(tagBox) {
 
   //Duplicate Tag
   tagBox.find('.dropdown-option.duplicate').on('click', function () {
-    duplicateTag(tagBox.data('id'), tagBox.find('.tag-name').html()).then((data) => {
+    duplicateTag(tagBox.data('id'), tagBox.find('.tag-name').data('rawname')).then((data) => {
       showMessage(str_tag_created.replace('%s',data.result.name))
     })
   })
 
 }
 
-function set_up_popin(id, tagName) {
+function set_up_popin(id, tagRawName, tagName) {
 
   $(".RenameTagPopInContainer").find(".tag-property-input").attr("id", id);
 
@@ -292,7 +296,7 @@ function set_up_popin(id, tagName) {
     rename_tag_close()
   });
   $(".TagSubmit").html(str_yes_rename_confirmation);
-  $(".RenameTagPopInContainer").find(".tag-property-input").val(tagName);
+  $(".RenameTagPopInContainer").find(".tag-property-input").val(tagRawName);
 }
 
 function rename_tag_close() {
@@ -348,16 +352,17 @@ function renameTag(id, new_name) {
       },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
-        console.log(data);
         if (data.stat === "ok") {
           $('.tag-box[data-id='+id+'] p, .tag-box[data-id='+id+'] .tag-dropdown-header b').html(data.result.name);
           $('.tag-box[data-id='+id+'] .tag-name-editable').attr('value', data.result.name);
+          $('.tag-box[data-id='+id+'] .tag-name').attr('data-rawname', data.result.raw_name);
           let u_view = 'index.php?/tags/'+id+'-'+data.result.url_name;
           $('.dropdown-option.view').attr('href', u_view);
 
           //Update the data
           index = dataTags.findIndex((tag) => tag.id == id);
           dataTags[index].name = data.result.name;
+          dataTags[index].raw_name = data.result.raw_name;
           dataTags[index].url_name = data.result.url_name;
 
           resolve(data);

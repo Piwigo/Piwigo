@@ -187,7 +187,7 @@ $lang['created after %s (%s)'] = "geskep na %s (%s)";
 $lang['created before %s (%s)'] = "geskep voor %s (%s)";
 $lang['created between %s (%s) and %s (%s)'] = "geskep tussen %s (%s) en %s (%s)";
 $lang['created on %s'] = "geskep op %s";
-$lang['Customize'] = "Verander na smaak";
+
 $lang['Your Gallery Customization'] = "Verander U gallery na smaak";
 $lang['day'][0] = "Sondag";
 $lang['day'][1] = "Maandag";
@@ -216,7 +216,7 @@ $lang['Hello'] = "Hallo";
 $lang['available for administrators only'] = "slegs vir administrateur beskikbaar";
 $lang['display this album'] = "vertoon hierdie album";
 $lang['display last user comments'] = "vertoon die laaste gebruiker se kommentaar";
-$lang['customize the appareance of the gallery'] = "Verander die voorkoms van die gallery";
+
 $lang['search'] = "soek";
 $lang['Home'] = "Tuis";
 $lang['in this album'] = "in hierdie album";

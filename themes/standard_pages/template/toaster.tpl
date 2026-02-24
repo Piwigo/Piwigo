@@ -1,6 +1,6 @@
 {combine_script id='toaster_js' load='async' require='jquery' path='themes/standard_pages/js/toaster.js'}
 {html_style}
-.toast.template {
+.toast.template-pwg-toaster {
   display: none;
 }
 
@@ -52,7 +52,7 @@
 }
 {/html_style}
 <div class="toaster" id="pwg_toaster">
-  <div class="toast template" id="toast_template">
+  <div class="toast template-pwg-toaster" id="toast_template">
     <i class="toast_icon"></i>
     <p class="toast_text"></p>
   </div>

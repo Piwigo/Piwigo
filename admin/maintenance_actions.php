@@ -159,6 +159,12 @@ DELETE
     $page['infos'][] = sprintf('%s : %s', l10n('Reinitialize check integrity'), l10n('action successfully performed.'));
     break;
   }
+  case 'empty_lounge':
+  {
+    $rows = empty_lounge();
+    $page['infos'][] = sprintf('%d photos were moved from the upload lounge to their albums', count($rows));
+    break;
+  }
   case 'search' :
   {
     $query = '
@@ -318,6 +324,16 @@ $template->assign(
 // graphics library
 switch (pwg_image::get_library())
 {
+  case 'ext_imagick':
+    $library = 'External ImageMagick';
+    exec($conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command().' -version', $returnarray);
+    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
+    {
+      $library .= ' ' . $match[1];
+    }
+    $template->assign('GRAPHICS_LIBRARY', $library);
+    break;
+
   case 'imagick':
     $library = 'ImageMagick';
     $img = new Imagick();
@@ -328,17 +344,7 @@ switch (pwg_image::get_library())
     }
     $template->assign('GRAPHICS_LIBRARY', $library);
     break;
-
-  case 'ext_imagick':
-    $library = 'External ImageMagick';
-    exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
-    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
-    {
-      $library .= ' ' . $match[1];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
+    
   case 'gd':
     $gd_info = gd_info();
     $template->assign('GRAPHICS_LIBRARY', 'GD '.@$gd_info['GD Version']);
@@ -360,6 +366,23 @@ else
       'U_MAINT_LOCK_GALLERY' => sprintf($url_format, 'lock_gallery'),
       )
     );
+}
+
+$query = '
+SELECT
+    COUNT(*)
+  FROM '.LOUNGE_TABLE.'
+;';
+list($nb_lounge) = pwg_db_fetch_row(pwg_query($query));
+
+if ($nb_lounge > 0)
+{
+  $template->assign(
+    array(
+      'U_EMPTY_LOUNGE' => sprintf($url_format, 'empty_lounge'),
+      'LOUNGE_COUNTER' => $nb_lounge,
+    )
+  );
 }
 
 $template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);

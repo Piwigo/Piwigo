@@ -75,6 +75,11 @@
               This page lists all API methods available on your Piwigo installation, part of the Piwigo core or added by third-party plugins.
               For each method you can consult required and optional parameters, and even test them in direct live!
             </p>
+
+            <p class="header-description"> Introduced in Piwigo 16, you can now use an API key in the HTTP header 
+              to perform authenticated requests without a user session.
+              For more details, check out our <a href="https://github.com/Piwigo/Piwigo/wiki/Piwigo-Web-API#api-key-authentication" target="_blank">documentation</a>.
+            </p>
     
             <p>
               For more information you can consult our Wiki <a href="https://github.com/Piwigo/Piwigo/wiki#web-api" target="_blank">Piwigo Web API</a> and <a href="https://piwigo.org/forum" target="_blank">our forums</a>.
@@ -84,21 +89,6 @@
   
   
         <form id="methodWrapper" style="display:none;">
-          <div class="card">
-            <h3 class="card-title"><i class="icon-cog-alt"></i>Authenticate with API Key (Header)</h3>
-            <div class="card-content">
-              <p class="header-description"> Introduced in Piwigo 16, you can now use an API key in the HTTP header 
-                to perform authenticated requests without a user session.
-                For more details, check out our <a href="https://github.com/Piwigo/Piwigo/wiki/Piwigo-Web-API#api-key-authentication" target="_blank">documentation</a>.
-              </p>
-              <p class="header-warning">Doesn't work when you use "INVOKE (new window)"</p>
-              <div class="header-setting">
-                <p>Authorization:</p>
-                <input type="text" id="apiKey" placeholder="pkid-xxxxxxxx-xxxxxxxxxxxxxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
-              </div>
-            </div>
-          </div> <!-- methodHeader -->
-
           <div class="card" id="methodDescription" style="display:none;">
             <h3 class="card-title"><i class="icon-book"></i>Description</h3>
             <blockquote>
@@ -133,6 +123,12 @@
               <div class="card" id="testForm">
                 <h3 class="card-title"><i class="icon-wrench"></i>Test</h3>
                 <div class="card-content">
+
+                  <div class="header-setting">
+                    <p class="header-label">X-PIWIGO-API:</p>
+                    <p class="header-warning">Doesn't work when you use "INVOKE (new window)"</p>
+                    <input type="text" id="apiKey" placeholder="pkid-xxxxxxxx-xxxxxxxxxxxxxxxxxxxx:yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" />
+                  </div>
     
                   <div class="select-group">
                     <label for='requestFormat'>Request format</label>

@@ -13,12 +13,26 @@ var usersCache = new UsersCache({
   serverId: '{$CACHE_KEYS._hash}',
   rootUrl: '{$ROOT_URL}'
 });
+const nb_users = {$nb_users};
+
+const additional_filt_type = '{$ADDITIONAL_FILT.type}';
+const additional_filt_value = {if $ADDITIONAL_FILT.type} {$ADDITIONAL_FILT.value} {else} null {/if};
 
 const color_icons = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
 var activity_page = 1;
+let current_page_offset = 0;
+let page_offsets = [0];
 let actual_page = 1;
-let max_page = 1;
+let end_page = false;
 let uid_filter;
+let action_filter;
+let object_filter;
+let date_min_filter = '{$ACTIVITY_DATES.min}';
+let date_max_filter = '{$ACTIVITY_DATES.max}';
+
+const date_min = '{$ACTIVITY_DATES.min}';
+const date_max = '{$ACTIVITY_DATES.max}';
+
 const page_ellipsis = '<span>...</span>'
 const page_item = '<a data-page="%d">%d</a>';
 var create_selecter = true;
@@ -677,35 +691,107 @@ $(document).ready(function () {
 
 {/footer_script}
 
+{combine_script id='user_activity' load='async' require='jquery' path='admin/themes/default/js/user_activity.js'}
 <div class="container"> 
+    <div>
+        <div class="activity-header">
+            <div class="user_activity_end_options">
+                <a class="download_csv tiptip" title="{'Download all activities'|translate}" href="admin.php?page=user_activity&type=download_logs"> 
+                    <i class="icon-download"> </i>
+                </a>
+                <div id="activityMoreFilters" class="activity-more-filters">
+                    <span class="icon-filter"></span>{'Filters'|@translate}
+                </div>
+            </div>
+        </div>
+        <div id="activityMoreFiltersContent" class="activity-more-filters-content">
+            <div class="activity-select">
+                <span class="activity-select"> {'User'|translate} </span>
+            
+                <select class="user-selecter" placeholder="---" single>
+                    <option value="none">
+                        <span class='username_filter'>---</span>
+                    </option>
+                    {foreach from=$ulist item=user}
+                        <option value="{$user.id}">
+                            <span class='username_filter'>{$user.username}</span>
+                            <span class='nb_lines_str'>
+                                {'(%d)'|translate:$user.nb_lines}
+                            </span>
+                        </option>
+                    {/foreach}
+                </select>
+            </div>
 
-    <div class="activity-header">
-        <div class="select-user">
-            <span class="select-user-title"> {'Selected user'|translate} </span>
+            <div class="activity-select">
+                <span class="activity-select"> {'Action'|translate} </span>
             
-            <select class="user-selecter" placeholder="{'none'|translate}" single style="width:250px; height: 10px;">
-            {foreach from=$ulist item=$user}
-            <option value="{$user.id}"> <span class='username_filter'>{$user.username}</span><span class='nb_lines_str'> ({if $user.nb_lines == 1}{'%d Activity'|translate:$user.nb_lines}{else}{'%d Activities'|translate:$user.nb_lines}{/if}) </span></option>
-            {/foreach}
-            </select>
+                <select class="action-selecter" placeholder="---" single>
+                    <option value="none">
+                        <span class='action_filter'>---</span>
+                    </option>
+                    {foreach from=$ACTIONS item=action}
+                        <option value="{$action.value}">
+                            <span class='action_filter'>
+                                {ucfirst($action.object)|translate}
+                                /
+                                {if $action.action == 'delete'}
+                                    {'deletion'|translate : $action.object}
+                                {else}
+                                    {$action.action|translate}
+                                {/if}
+                                {' (%d)'|translate : $action.counter}
+                            </span>
+                        </option>
+                    {/foreach}
+                </select>
+            </div>
             
-            <span class="icon-cancel cancel-icon"> </span>
+            <div class="activity-select">
+                <span class="activity-select">{'Start-Date'|translate}</span>
+                <input 
+                    class="activity-date-selecter"
+                    type="date"
+                    id="date_min_activity"
+                    value="{$ACTIVITY_DATES.min}"
+                    min="{$ACTIVITY_DATES.min}"
+                    max="{$ACTIVITY_DATES.max}"
+                />
+            </div>
+
+            <div class="activity-select">
+                <span class="activity-select">{'End-Date'|translate}</span>
+                <input 
+                    class="activity-date-selecter"
+                    type="date"
+                    id="date_max_activity"
+                    value="{$ACTIVITY_DATES.max}"
+                    min="{$ACTIVITY_DATES.min}"
+                    max="{$ACTIVITY_DATES.max}"
+                />
+            </div>
+
+            {if $ADDITIONAL_FILT.type}
+            <div class="additional-filters-section">
+                <div class="additional-filters-info">
+                    {'Additional filters'|translate}
+                </div>
+                <div class="additional-filters">
+                    <div class="activity-filter-container">
+                    {if $ADDITIONAL_FILT.type == 'photo'}
+                        <span class="icon-picture">{$ADDITIONAL_FILT.name}</span>
+                    {else if $ADDITIONAL_FILT.type == 'album'}
+                        <span class="icon-folder-open">{$ADDITIONAL_FILT.name}</span>
+                    {else}
+                        <span class="icon-group">{$ADDITIONAL_FILT.name}</span>
+                    {/if}
+                    </div>
+                </div>
+            </div>
+            {/if}
         </div>
-        <div class="acivity-time">
-            <span class="acivity-time-text"> {'Activity time from'|translate}</span>
-            <span class="start-date">
-                <span class="icon-spin6 animate-spin"></span>
-            </span>
-            <span class="acivity-time-text"> {'to'|translate}</span>
-            <span class="end-date">
-                <span class="icon-spin6 animate-spin"></span>
-            </span>
-        </div>
-        <a class="download_csv tiptip" title="{'Download all activities'|translate}" href="admin.php?page=user_activity&type=download_logs"> 
-            <i class="icon-download"> </i>
-        </a>
     </div>
-{if max_page != 1}
+
   <div class="pagination-container">
       <div class="pagination-arrow left">
         <span class="icon-left-open"></span>
@@ -717,7 +803,11 @@ $(document).ready(function () {
         <span class="icon-left-open"></span>
       </div>
     </div>
-{/if}
+
+    <div class="activity-noresult">
+        {'No results'|translate}
+    </div>
+
     
 
     <div class="tab-title">
@@ -926,31 +1016,104 @@ $(document).ready(function () {
 .activity-header {
     display: flex;
     flex-direction: row;
-
-    align-items: center;
-
-    height: 100px;
     width: 100%;
 }
 
-.select-user span {
+div:has(> .activity-header) {
+    margin-bottom: 38px;
+}
+
+.activity-select span {
     font-size: 15px;
     font-weight: bold;
-
-    margin-right: 20px;
 }
 
-.acivity-time {
-    margin: 0 25px;
+.user-selecter, .action-selecter {
+    width: 230px;
+    margin-top: 10px;
 }
 
-.user-selecter {
-    width: 150px;
+.actions-filters{
+    margin-left: 25%;
 }
 
+.user_activity_end_options{
+    margin-left: auto;
+    display: flex;
+}
+
+.activity-noresult{
+    opacity: 0.3;
+    text-align: center;
+    font-weight: bold;
+    font-size: 32px;
+    display: none;
+}
+
+.activity-more-filters{
+    margin-left: 14px;
+    justify-content: center;
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    width:70px;
+}
+
+.activity-more-filters.extend-padding{
+    padding-bottom: 10px;
+}
+
+.activity-more-filters, .activity-more-filters-content{
+    background-color: #F3F3F3;
+}
+
+.activity-more-filters-content{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    font-weight: normal;
+    padding : 23px 0px 22px 24px;
+    width: auto;
+}
+
+.activity-period-info{
+    margin-bottom : 30px;
+    font-weight: bold;
+}
+
+.additional-filters-section{
+    margin-left: 5%;
+}
+
+.additional-filters-info{
+    margin-bottom : 18px;
+    font-weight: bold;
+}
+
+.additional-filters{
+    display: flex;
+}
+
+.activity-filter-container span::before{
+    margin-right: 6px;
+}
+
+.activity-filter-container .icon-cancel{
+    margin-left: 5px;
+}
+
+.activity-date-selecter{
+    display: block;
+    height: 25.5px;
+    width: 130px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
 
 /* Selectize */
-.selectize-control.single.user-selecter {
+.selectize-control.single.user-selecter, .selectize-control.single.action-selecter {
     height: 30px;
 }
 

@@ -10,6 +10,7 @@ html{
 #theHeader,
 #copyright,
 #api_custom_date,
+#cant_manage_api,
 #retrieves_keyapi,
 .template-section,
 .template-api,
@@ -46,6 +47,8 @@ html{
   height:100%;
   min-height:100vh;
   overflow-y:auto;
+  max-width:100vw;
+  overflow-x:hidden;
 }
 
 #login-form,
@@ -53,7 +56,8 @@ html{
 #password-form,
 .profile-section{
   border-radius:15px;
-  width:400px;
+  max-width:400px;
+  width:75%;
   margin:0 auto;
   margin-top:50px;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
@@ -66,9 +70,15 @@ html{
   padding-top:50px;
 }
 
+#logo-section h1{
+  margin:0;
+}
+
 #logo-section img{
-  width:100%;
-  min-width:300px;
+  width: 100%;
+  min-width: 300px;
+  max-height: 200px;
+  object-fit: contain;
 }
 
 h1{
@@ -134,10 +144,6 @@ input:-webkit-autofill::first-line {
   color: inherit !important;
 }
 
-input[type='radio'] {
-  accent-color: #ff7700;
-}
-
 .input-container input:focus,
 .input-modal input:focus,
 .profile-section .api-tab-line.edit input:focus,
@@ -149,11 +155,6 @@ input[type='radio'] {
 
 select {
   padding: 5px 0;
-}
-
-.input-container:focus-within,
-.input-modal:focus-within{
-  border:1px solid #ff7700!important;
 }
 
 .input-container i,
@@ -187,7 +188,6 @@ select {
 .gallery-icon-checkmark {
   width: 18px;
   height: 18px;
-  border: 1px solid #777;
   border-radius: 2px;
   display: inline-block;
   margin-right: 8px;
@@ -226,18 +226,11 @@ p.form-instructions{
 }
  
 .btn-main{
-  background-color:#ff7700!important;
-  color:white!important;
   border:none;
   padding:15px;
   margin-top:15px;
   cursor:pointer;
   text-decoration:none!important;
-}
-
-.btn-secondary {
-  background-color: #ECECEC!important;
-  color: #3C3C3C!important;
 }
 
 .btn-cancel,
@@ -265,8 +258,6 @@ a.btn-main{
 }
 
 .btn-main:disabled {
-  background-color:#aaaaaa!important;
-  color: #3C3C3C !important;
   cursor: not-allowed;
 }
 
@@ -297,7 +288,6 @@ a.btn-main{
 
 #separator{
   width:300px;
-  border-bottom:1px solid #D8D8D8;
   display:block;
   margin: 15px auto;
 }
@@ -355,6 +345,8 @@ a.btn-main{
   position:absolute;
   bottom:40px;
   right:0;
+  max-height:50vh;
+  overflow:auto;
 }
 
 #lang-select #other-languages span{
@@ -364,7 +356,6 @@ a.btn-main{
 }
 
 #lang-select #other-languages span:hover{
-  color:#ff7700; 
   cursor:pointer;
 }
 
@@ -381,11 +372,13 @@ a.btn-main{
   text-decoration:underline;
 }
 
-.success-message{
+.success-message,
+.infos-message {
   width: calc(100% - 34px);
   display: block;
   padding: 15px;
   margin-bottom:15px;
+  font-weight:700;
 }
 
 .error-message{
@@ -595,12 +588,6 @@ p.error-message,
   justify-self: center;
 }
 
-.profile-section .api-icon-action i:hover,
-.close-modal:hover,
-.profile-section .icon-clone:hover  {
-  color: #ff7700;
-}
-
 .profile-section .api-tab-line,
 .profile-section .api-tab-collapse {
   padding: 10px 0;
@@ -623,9 +610,6 @@ p.error-message,
   cursor: pointer;
 }
 
-.profile-section div.api-tab-line:nth-child(even) {
-  background-color: #303030;
-}
 .profile-section .api-tab-collapse .key {
   gap: 10px;
   padding: 5px 0;
@@ -645,6 +629,10 @@ p.error-message,
   overflow: hidden;
 }
 
+.profile-section #show_expired_list {
+  display: none;
+}
+
 .profile-section #api_key_list_expired .api_expiration {
   text-overflow: unset;
   max-width: unset;
@@ -652,10 +640,6 @@ p.error-message,
 
 .profile-section #api_key_list .border-line {
   border: 1px solid transparent !important;
-}
-
-.profile-section #api_key_list .edit {
-  border: 1px solid #ff7700 !important;
 }
 
 .profile-section .api-list-head > p{
@@ -677,7 +661,6 @@ p.error-message,
 }
 
 .profile-section .new-apikey .btn-link{
-  color: #9A9A9A !important;
   font-weight: 700;
 }
 
@@ -707,6 +690,10 @@ p.error-message,
   font-family: monospace !important;
 }
 
+.profile-section .display-section {
+  cursor: pointer;
+}
+
 /* Modal */
 
 .bg-modal {
@@ -718,7 +705,6 @@ p.error-message,
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.7);
 }
 
 .close-modal {
@@ -809,7 +795,6 @@ label.switch {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -821,7 +806,6 @@ label.switch {
   width: 16px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -858,264 +842,18 @@ input:checked + .slider:before, input:checked + .slider::after {
     box-shadow: 0px 10px 33px #3333332e;
 }
 
-/* Light */
-#theIdentificationPage .light,
-#theRegisterPage .light,
-#thePasswordPage .light,
-#theProfilePage .light{
-  background: linear-gradient(75.69deg, #FFEACF 7.64%, #FFFAF3 77.87%);
-}
-
-.light #login-form,
-.light #register-form,
-.light #password-form,
-.light #lang-select #other-languages,
-.light .profile-section,
-.light .slider:before,
-.light .body-modal,
-.light [data-tooltip]:hover::after {
-  background-color:#ffffff;
-}
-
-#theIdentificationPage .light a,
-#theRegisterPage .light a,
-#thePasswordPage .light a,
-#theProfilePage .light a:not(.close-modal),
-.light h1,
-.light .input-container input,
-.light .input-modal input,
-.light .input-container select,
-.light .input-container textarea,
-.light .secondary-links,
-.light .properties label,
-.light .profile-section label,
-.light .properties i,
-.light .profile-section i,
-.light #password-form p,
-.light .profile-section p,
-.light #lang-select #other-languages span,
-.light .btn-cancel,
-.light .btn-link {
-  color:#3C3C3C;
-}
-
-#theIdentificationPage .light a:hover,
-#theRegisterPage .light a:hover,
-#thePasswordPage .light a:hover,
-#theProfilePage .light a:hover{
-  color:#ff7700;
-}
-
-.light #header-options a,
-.light #header-options .toggle-mode,
-.light #selected-language-container{
-  color:#ff7700;
-}
-
-.light .input-container,
-.light .input-modal,
-.light .api-list-head {
-  background-color:#F0F0F0;
-  border:1px solid #F0F0F0;
-}
-
-.light .input-container input:is(:-webkit-autofill, :autofill)
-{
-  box-shadow: 0 0 0 100px #F0F0F0 inset;
-  -webkit-box-shadow: 0 0 0px 1000px #F0F0F0 inset !important;
-  -webkit-text-fill-color: #3C3C3C;
-  color:#3C3C3C;
-}
-
-.light #separator{
-  border-bottom:1px solid #D8D8D8;
-}
-
-.light .gallery-icon-eye{
-  color:#898989;
-}
-
-.light .success-message{
-  background-color: #DBF6D7;
-  color: #6DCE5E !important;
-  border-left: 4px solid #6DCE5E;
-}
-
-.light input:checked + .slider {
-  background-color: #FFA646;
-}
-
-.light input:focus + .slider {
-  box-shadow: 0 0 1px #FFA646;
-}
-
-.light .slider {
-  background-color: #CCCCCC;
-}
-
-.light .api-list-body > div:nth-child(4n+1),
-.light .api-list-body > div:nth-child(4n+2) {
-  background-color: #F8F8F8;
-}
-
-.light .api-tab-line p,
-.light .api-icon-action i,
-.light .keys p:not(.api-copy),
-.light .keys i,
-.light #api_key_list_expired .api-skull {
-  color: #656565;
-}
-
-.light .close-modal {
-  color: #ffffff;
-}
-
-.light input[type="date"] {
-  color-scheme: light;
-}
-
-.light input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0);
-}
-
-.light .btn-revoked {
-  background-color: #EB3223 !important;
-}
-
-/* Dark */
-#theIdentificationPage .dark,
-#theRegisterPage .dark,
-#thePasswordPage .dark,
-#theProfilePage .dark{
-  background: linear-gradient(75.69deg, #1B1B1D 7.64%, #2F2F2F 77.87%);
-}
-
-.dark #login-form,
-.dark #register-form,
-.dark #password-form,
-.dark .profile-section, 
-.dark .body-modal {
-  background-color:#3C3C3C;
-}
-
-#theIdentificationPage .dark a,
-#theRegisterPage .dark a,
-#thePasswordPage .dark a,
-#theProfilePage .dark a:not(.close-modal),
-.dark h1,
-.dark .input-container input,
-.dark .input-modal input,
-.dark .input-container select,
-.dark .input-container textarea,
-.dark .secondary-links,
-.dark .properties label,
-.dark .profile-section label,
-.dark .properties i,
-.dark .profile-section i,
-.dark #password-form p,
-.dark .profile-section p,
-.dark #lang-select #other-languages span,
-.dark .btn-cancel,
-.dark .btn-link {
-  color:#D6D6D6;
-}
-
-#theIdentificationPage .dark a:hover,
-#theRegisterPage .dark a:hover,
-#thePasswordPage .dark a:hover,
-#theProfilePage .dark a:hover,
-.dark #lang-select #other-languages span{
-  color:#ff7700;
-}
-
-.dark #header-options a,
-.dark #header-options .toggle-mode,
-.dark #selected-language-container{
-  color:#FFEBD0;
-}
-
-.dark .input-container,
-.dark .input-modal {
-  background-color:#303030;
-  border:1px solid #303030;
-}
-
-.dark .input-container input:is(:-webkit-autofill, :autofill)
-{
-  box-shadow: 0 0 0 100px #303030 inset;
-  -webkit-box-shadow: 0 0 0px 1000px #303030 inset !important;
-  -webkit-text-fill-color: #D6D6D6;
-  color:#D6D6D6;
-}
-
-.dark #separator{
-  border-bottom:1px solid #303030;
-}
-
-.dark .gallery-icon-eye{
-  color:#898989;
-}
-
-.dark #lang-select #other-languages,
-.dark .slider,
-.dark input:checked + .slider:before {
-  background-color: #3C3C3C;
-}
-
-.dark .success-message{
-  background-color: #4EA590;
-  color: #AAF6E4 !important;
-  border-left: 4px solid #AAF6E4;
-}
-
-.dark .btn-secondary {
-  background-color: #202020!important;
-  color: white!important;
-}
-
-.dark input:checked + .slider {
-  background-color: #FFA646;
-}
-
-.dark .slider:before {
-  background-color: #777777;
-}
-
-.dark .api-list-head,
-.dark [data-tooltip]:hover::after{
-  background-color: #2A2A2A;
-}
-
-.dark .api-list-body > div:nth-child(4n+1),
-.dark .api-list-body > div:nth-child(4n+2) {
-  background-color: #333333;
-}
-
-.dark .icon-collapse {
-  color: white !important;
-}
-
-.dark .close-modal {
-  color: #3C3C3C;
-}
-
-.dark input[type="date"] {
-  color-scheme: dark;
-}
-
-.dark input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0);
-}
-
-.dark .btn-revoked {
-  background-color: #BE4949 !important;
-}
-
 /*Responsive display*/
-@media (max-width: 768px) {
-  #login-form,
-  #register-form,
-  #password-form{
+@media only screen and (max-width: 768px) {
+  #login-form, #register-form, #password-form, .profile-section{
     max-width:300px;
+    width:50vw;
+  }
+
+  #separator{
+    width:100%;
+  }
+
+  #language-switch{
+    position:unset;
   }
 }

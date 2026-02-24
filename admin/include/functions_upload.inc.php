@@ -520,8 +520,36 @@ SELECT
     'filesize' => $file_infos['filesize'],
   );
 
-  single_insert(IMAGE_FORMAT_TABLE, $insert);
-  $format_id = pwg_db_insert_id(IMAGE_FORMAT_TABLE);
+
+  $query = '
+SELECT
+  format_id
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id = '.$format_of.'
+  AND ext = "'.$format_ext.'"
+;';
+
+  $formats = query2array($query);
+  if($formats)
+  {
+    $set_fields = array(
+      'filesize' => $file_infos['filesize'],
+    );
+    $where_fields = array(
+      'format_id' => $formats[0]['format_id'],
+      'image_id' => $format_of,
+      'ext' => $format_ext,
+    );
+    single_update(IMAGE_FORMAT_TABLE, $set_fields, $where_fields);
+    $format_id = $formats[0]['format_id'];
+    $add_status = "update";
+  }
+  else
+  {
+    single_insert(IMAGE_FORMAT_TABLE, $insert);
+    $format_id = pwg_db_insert_id(IMAGE_FORMAT_TABLE);
+    $add_status = "add";
+  }
 
   pwg_activity('photo', $format_of, 'edit', array('action'=>'add format', 'format_ext'=>$format_ext, 'format_id'=>$format_id));
 
@@ -530,7 +558,7 @@ SELECT
 
   trigger_notify('loc_end_add_format', $format_infos);
 
-  return $format_id;
+  return $add_status;
 }
 
 add_event_handler('upload_file', 'upload_file_pdf');
@@ -562,12 +590,12 @@ function upload_file_pdf($representative_ext, $file_path)
   $representative_file_path = original_to_representative($file_path, $ext);
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
+  $exec.= ' "'.realpath($file_path).'"[0]';
   if ('jpg' == $ext)
   {
     $exec.= ' -quality '.$jpg_quality;
   }
-  $exec.= ' "'.realpath($file_path).'"[0]';
   $exec.= ' "'.$representative_file_path.'"';
   $exec.= ' 2>&1';
   @exec($exec, $returnarray);
@@ -611,9 +639,9 @@ function upload_file_heic($representative_ext, $file_path)
 
   list($w,$h) = get_optimal_dimensions_for_representative();
 
-  $exec = $conf['ext_imagick_dir'].'convert';
-  $exec.= ' -sampling-factor 4:2:0 -quality 85 -interlace JPEG -colorspace sRGB -auto-orient +repage -resize "'.$w.'x'.$h.'>"';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
   $exec.= ' "'.realpath($file_path).'"';
+  $exec.= ' -sampling-factor 4:2:0 -quality 85 -interlace JPEG -colorspace sRGB -auto-orient +repage -resize "'.$w.'x'.$h.'>"';
   $exec.= ' "'.$representative_file_path.'"';
   $exec.= ' 2>&1';
 
@@ -661,14 +689,13 @@ function upload_file_tiff($representative_ext, $file_path)
 
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
+  $exec .= ' "'.realpath($file_path).'"';
 
   if ('jpg' == $conf['tiff_representative_ext'])
   {
     $exec .= ' -quality 98';
   }
-
-  $exec .= ' "'.realpath($file_path).'"';
 
   $dest = pathinfo($representative_file_path);
   $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
@@ -808,7 +835,7 @@ function upload_file_psd($representative_ext, $file_path)
 
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
 
   $exec .= ' "'.realpath($file_path).'"';
 
@@ -870,9 +897,9 @@ function upload_file_eps($representative_ext, $file_path)
 
   // convert -density 300 image.eps -resize 2048x2048 image.png
 
-  $exec = $conf['ext_imagick_dir'].'convert';
-  $exec.= ' -density 300';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
   $exec.= ' "'.realpath($file_path).'"';
+  $exec.= ' -density 300';
   $exec.= ' -resize 2048x2048';
   $exec.= ' "'.$representative_file_path.'"';
   $exec.= ' 2>&1';
@@ -919,6 +946,13 @@ function prepare_directory($directory)
 
 function need_resize($image_filepath, $max_width, $max_height)
 {
+  global $conf, $logger;
+
+  if (!in_array(strtolower(get_extension($image_filepath)), $conf['picture_ext']))
+  {
+    return false;
+  }
+
   // TODO : the resize check should take the orientation into account. If a
   // rotation must be applied to the resized photo, then we should test
   // invert width and height.
@@ -926,6 +960,7 @@ function need_resize($image_filepath, $max_width, $max_height)
 
   if ($width > $max_width or $height > $max_height)
   {
+    $logger->info(__FUNCTION__.' '.(string)$image_filepath.' is too big (current='.$width.'x'.$height.'px Vs max='.$max_width.'x'.$max_height.'px)');
     return true;
   }
 
@@ -1077,7 +1112,7 @@ function get_optimal_dimensions_for_representative()
   global $conf;
 
   $enabled = ImageStdParams::get_defined_type_map();
-  $disabled = @unserialize(@$conf['disabled_derivatives']);
+  $disabled = safe_unserialize(ImageStdParams::get_disabled_type_map());
   if ($disabled === false)
   {
     $disabled = array();

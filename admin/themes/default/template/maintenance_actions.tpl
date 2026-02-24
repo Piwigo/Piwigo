@@ -132,6 +132,9 @@ $(".delete-size-check").click( function () {
     <a href="{$U_MAINT_IMAGES}" class="{$maint_actions['images']['icon']} maintenance-action">{$maint_actions['images']['label']}</a>
     <a href="{$U_MAINT_DATABASE}" class="{$maint_actions['database']['icon']} maintenance-action">{$maint_actions['database']['label']}</a>
     <a href="{$U_MAINT_C13Y}" class="{$maint_actions['c13y']['icon']} maintenance-action">{$maint_actions['c13y']['label']}</a>
+{if (isset($U_EMPTY_LOUNGE))}
+    <a href="{$U_EMPTY_LOUNGE}" class="{$maint_actions['empty_lounge']['icon']} maintenance-action tiptip" title="{'There is currently %d photos in the lounge (upload buffer)'|translate:$LOUNGE_COUNTER}">{$maint_actions['empty_lounge']['label']}<span class="multiple-pictures-sizes">{$LOUNGE_COUNTER}</span></a>
+{/if}
   </div>
 </fieldset>
 <fieldset class="">
@@ -198,7 +201,7 @@ $(".delete-size-check").click( function () {
     </span>
     <div class="delete-check-container">
 {foreach from=$purge_derivatives key=name item=url name=loop}
-      <div class="delete-size-check" title="{if isset($cache_sizes)}{"%s MB"|@translate:{round($cache_sizes[1]['value'][$url]/1024/1024, 2)}}{else}{'N/A'|translate}{/if}" data-selected="0" name="{$url}">
+      <div class="delete-size-check" title="{if isset($cache_sizes) and isset($cache_sizes[1]['value'][$url])}{"%s MB"|@translate:{round($cache_sizes[1]['value'][$url]/1024/1024, 2)}}{else}{'N/A'|translate}{/if}" data-selected="0" name="{$url}">
           <span class="select-checkbox"><i class="icon-ok" style="margin-left:8px"></i></span>
           <span class="picture-deletion-size" style="font-size:14px;margin-left:5px;padding-top:2px;">{$name}</span>
       </div>

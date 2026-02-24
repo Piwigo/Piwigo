@@ -247,9 +247,15 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   font-weight: bold;
 }
 
-#batchManagerGlobal #applyFilter,#batchManagerGlobal .addFilter-button {
+#batchManagerGlobal #applyFilter,#batchManagerGlobal .addFilter-button,
+.buttonSecondary {
   color: #3C3C3C;
   background-color: #ececec;
+}
+
+.buttonSecondary:hover {
+  color: #3C3C3C;
+  background-color: #aaa;
 }
 
 #batchManagerGlobal #applyFilter:hover, #batchManagerGlobal .addFilter-button:hover {
@@ -442,6 +448,23 @@ label>p.group_select {
   color:#3c3c3c;
 }
 
+/* Activity Tab in user manager */
+
+.activity-date-selecter{
+  background-color: #f9f9f9;
+  color : #3C3C3C;
+  border: 2px solid #D3D3D3;
+}
+
+.activity-filter-container{
+  color: #777777;
+  background-color: #FFFFFF;
+}
+
+.selectize-control.user-selecter.single .selectize-input, .selectize-control.action-selecter.single .selectize-input{
+    border-color: #D3D3D3 !important;
+}
+
 /* Selection mode */
 
 .slider {
@@ -464,7 +487,8 @@ input:focus + .slider {
   box-shadow: 0 0 1px #ffa646;
 }
 
-#selection-mode-block{
+#selection-mode-block,
+.selection-mode {
   background-color: #FAFAFA;
   border-left:1px solid #e6e6e6;
 }
@@ -488,12 +512,14 @@ input:focus + .slider {
   color:#a0a0a0;
 }
 
-#selection-mode-block button{
+#selection-mode-block button,
+#commentsSelection button{
   border: 1px solid #e7e7e7;
 }
 
 
-#selection-mode-block button:hover{
+#selection-mode-block button:hover,
+#commentsSelection button:hover {
   background-color: #ffa744;
   border: 1px solid #ffa744;
 }
@@ -570,10 +596,6 @@ input:focus + .slider {
   background-color:#f9f9f9;
 }
 
-.UsernameBlock.success_message{
-  border:2px solid #c2f5c2;
-}
-
 .Tooltip p.TooltipText{
 
   background-color:#f3f3f3;
@@ -582,12 +604,13 @@ input:focus + .slider {
 }
 
 .ValidationUserAssociated, .ValidationUserDissociated{
-  color:#00aa00 !important;
-  background-color:#c2f5c2;
+  color:#6DCE5E !important;
+  background-color:#EEFFEB;
+  border:1px solid #6DCE5E;
 }
 
 .ValidationUserAssociated p, .ValidationUserDissociated p {
-  color:#00aa00 !important;
+  color:#254520 !important;
 }
 
 /*------*/
@@ -629,7 +652,6 @@ table.dataTable thead th, table.dataTable.no-footer {
   background: #3C3C3C;
 }
 
-.font-checkbox [class*=icon-check]:before { color:#444; }
 
 #watermarkPositionBox {
   border:2px solid #ccc;
@@ -651,8 +673,10 @@ FORM#categoryOrdering p.albumActions .userSeparator {border: 1px solid #E1E1E1;}
 .afterUploadActions a.secondary_button {background-color: #ECECEC;}
 .afterUploadActions a.secondary_button:hover {background-color: #FFA646;}
 
-.font-checkbox:hover {color: #FFA844;}
+.font-checkbox:hover {color: #3C3C3C;}
 .font-checkbox.selected {color: #ffa646;}
+.font-checkbox:hover .icon-check-empty, .font-checkbox:hover .icon-check {color: #FF7700;}
+.font-checkbox .icon-check {color: #FFA646;}
 
 LEGEND {color: #3C3C3C;}
 a#showPermissions {color: #5B5B5B; border: 1px solid #D6D6D6; background-color: #FAFAFA;}
@@ -665,6 +689,9 @@ a#showPermissions:hover {border-color: #A5A5A5;}
 .plupload_filelist_footer {background-color: #F5F5F5!important;}
 li.plupload_delete a {background: url("images/cancel.svg")!important; background-size: cover!important;}
 li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important; background-size: cover!important;}
+li.plupload_delete a span {background: #FFF;}
+li.plupload_delete a:hover span {background: #FFF;}
+li.plupload_delete a.remove-format:hover{color: #474747;}
 
 .addAlbumEmpty {color: #3C3C3C;}
 #permitAction p {background: #FFF;}
@@ -713,6 +740,13 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 }
 #batchManagerGlobal .ui-slider-range.ui-widget-header.ui-corner-all {border: 1px solid #ffaf58;}
 #batchManagerGlobal .font-checkbox.selected {color: #777;}
+
+/* Picture add */
+
+.upload-options, .upload-options-content, .options-open::after {
+  background-color: #f5f5f5;
+  color: #777777;
+}
 
 /* Category List */
 .categoryContainer {
@@ -840,12 +874,6 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   background-color: #f98100;
 }
 
-.eiw .messages a {
-  background-color: #00529b;
-  color: #bde5f8;
-  padding: 2px 7px;
-}
-
 #wImg {background-color: #e5e5e5;}
 
 .cat-move-order-popin input[name=recursiveAutoOrder] {
@@ -910,4 +938,217 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 
 .RenameTagPopInContainer {
   background-color:#fff;
+}
+
+/* Filters options */
+label:has(> .filters-icon-check:disabled), span:has(+ .filters-icon-check:disabled){
+  color: #D5D5D5 !important;
+  cursor: not-allowed;
+}
+
+.select-views{
+  background-color: #f3f3f3;
+}
+
+.filter-manager-options-container{
+  color: #474747;
+}
+
+.filter-manager-options-container:hover{
+  background-color: #EDEDED;
+}
+
+.filter-manager-options-container.selected-filter-container{
+  background-color: #777777;
+  color: #FFFFFF;
+}
+
+.filter-manager-options-container.selected-filter-container:hover{
+  background-color: #5D5D5D;
+}
+
+/* -------------
+Info
+-------------*/
+
+/*Success message*/
+.infos,
+.info-message,
+.update-user-success,
+#AddUserUpdated,
+#AddUserSuccess label,
+.groupMessage,
+div.jGrowl div.jGrowl-notification.success,
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label,
+.update-user-success,
+.update-password-success,
+.update-username-success{
+  color: #254520;
+  background-color:#EEFFEB;
+}
+
+.infos,
+#AddUserSuccess label,
+#AddUserUpdated {
+  border-left:4px solid #6DCE5E; /*Banner*/
+}
+
+.info-message,
+.update-user-success,
+.groupMessage,
+div.jGrowl div.jGrowl-notification.success,
+.AddPluginSuccess label,
+.DeactivatePluginSuccess label,
+.RestorePluginSuccess label,
+.UsernameBlock.success_message,
+.update-user-success,
+.update-password-success,
+.update-username-success{
+  border:1px solid #6DCE5E; /*Rounded*/
+}
+
+.infos i,
+.info-message i,
+.update-user-success i,
+.groupMessage::before,
+.info-message::before,
+div.success .jGrowl-popup-icon,
+.AddPluginSuccess label::before,
+.DeactivatePluginSuccess  label::before,
+.RestorePluginSuccess label::before,
+.update-username-success .icon-ok{
+  color:#6DCE5E;
+}
+
+.infos a,
+#AddUserSuccess .edit-now {
+  color: #3C3C3C;
+  background-color: #F6FFF4;
+  border:1px solid #6DCE5E;
+}
+
+.infos a:hover{
+  color: #3C3C3C;
+}
+
+.AddPluginSuccess span,
+.RestorePluginSuccess span,
+.DeactivatePluginSuccess span {
+  color: #254520;
+}
+
+/*Error message*/
+
+.errors,
+.info-error,
+.AddUserErrors,
+.groupError,
+div.jGrowl div.jGrowl-notification.error,
+.PluginActionError label,
+.update-user-fail,
+.AddAlbumErrors, 
+.EditUserErrors, 
+.update-password-fail, 
+.icon-red-error {
+  color: #502421;
+  background-color: #FFE7EB;
+}
+
+.errors,
+.AddUserErrors,
+.AddAlbumErrors{
+  border-left: 6px solid #EB3D33; /*Banner*/
+}
+
+.info-error,
+.groupError,
+div.jGrowl div.jGrowl-notification.error,
+.PluginActionError label
+.update-user-fail,
+.EditUserErrors,
+.update-password-fail, 
+.icon-red-error,
+.update-user-fail,
+.AddAlbumErrors{
+  border:1px solid #EB3D33; /*Rounded*/
+}
+
+.errors i,
+.AddUserErrors:before,
+.groupError::before,
+div.error .jGrowl-popup-icon,
+.PluginActionError label::before,
+.AddAlbumErrors::before {
+  color: #EB3D33;
+}
+
+.errors a{
+  color: #502421;
+  background-color: #FFF5F7;
+  border:1px solid #EB3D33;
+}
+
+.info-error a:hover
+.PluginActionError span,
+.errors a:hover{
+  color: #502421;
+}
+
+/*Warning message*/
+
+.warnings,
+.info-warning {
+  background-color: #FFF3DB;
+  color: #563F26;
+}
+
+.warnings {
+  border-left:6px solid #E18C32;
+}
+
+.info-warning {
+  border:1px solid #E18C32;
+}
+
+.info-warning::before,
+.info-warning a::before,
+.warnings i {
+  color: #E18C32;
+}
+
+.warnings a,
+.info-warning a{
+  color: #563F26;
+  background-color: #FFFAEF;
+  border:1px solid #E18C32;
+}
+
+.info-warning a:hover,
+.warnings a:hover{
+  color: #563F26;
+}
+
+/*announcement message*/
+
+.messages {
+  color: #274159;
+  background-color:#E3F5FF;
+  border-left:6px solid #4182BE;
+}
+
+.messages i{
+  color: #4182BE;
+}
+
+.messages a{
+  color: #274159;
+  background-color: #F5FBFF;
+  border:1px solid #4182BE;
+}
+
+.info-message a:hover,
+.messages a:hover{
+  color: #274159;
 }

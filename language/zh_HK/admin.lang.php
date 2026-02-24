@@ -91,7 +91,7 @@ $lang['user "%s" added'] = '用戶"%s"已增加';
 $lang['user_status_admin'] = '管理員';
 $lang['user_status_generic'] = '基本';
 $lang['user_status_guest'] = '嘉賓';
-$lang['user_status_normal'] = '用戶';
+
 $lang['user_status_webmaster'] = '網主';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = '訪客需要登入及指定權限才看到相簿';
 $lang['width must be a number superior to'] = '闊度一定要大過';

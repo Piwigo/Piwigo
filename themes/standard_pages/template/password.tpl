@@ -1,4 +1,4 @@
-{combine_css id='standard_pages_css' path="themes/standard_pages/css/standard_pages.css" order=100}
+{combine_css id='standard_pages_css' path="themes/standard_pages/skins/{$STD_PGS_SELECTED_SKIN}.css" order=100}
 {combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
 
 <script>
@@ -29,28 +29,36 @@
 {/if}
   </section>
 
+{if 'none' != $STD_PGS_SELECTED_LOGO}
   <section id="logo-section">
+  {if 'piwigo_logo' == $STD_PGS_SELECTED_LOGO}
     <img id="piwigo-logo" src="{$ROOT_URL}themes/standard_pages/images/piwigo_logo.svg">
-  </section>
+  {else if 'custom_logo' == $STD_PGS_SELECTED_LOGO}
+    <img id="custom-logo" src="{$STD_PGS_SELECTED_LOGO_PATH}">
+  {else if 'gallery_title'}
+    <h1>{$GALLERY_TITLE}</h1>
+  {/if}
+    </section>
+{/if}
 
 
   <section id="password-form">
     <div class="">
 
-{if $action eq 'lost' or $action eq 'reset'}
+{if $action eq 'lost' or $action eq 'reset' or $action eq 'lost_code'}
 <h1 class="">{if !isset($is_first_login)}{'Forgot your password?'|translate}{else}{'Welcome !'|translate}<br>{'It\'s your first login !'|translate}{/if}</h1>
     <form id="lostPassword" class="properties" action="{$form_action}?action={$action}{if isset($key)}&amp;key={$key}{/if}" method="post">
 
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
   {if $action eq 'lost'}
 
-      <p class="form-instructions">{'Please enter your username or email address.'|@translate}<br>{'You will receive a link to create a new password via email.'|@translate}</p>
+      <p class="form-instructions">{'Please enter your username or email address.'|@translate} {'You will receive a link to create a new password via email.'|@translate}</p>
 
       <div class="column-flex">
         <label for="username">{'Username or email'|@translate}</label>
         <div class="row-flex input-container">
           <i class="gallery-icon-user-2"></i>
-          <input type="text" id="username_or_email" name="username_or_email" size="100" maxlength="100"{if isset($username_or_email)} value="{$username_or_email}"{/if} autofocus>
+          <input type="text" id="username_or_email" name="username_or_email" size="100" maxlength="100"{if isset($username_or_email)} value="{$username_or_email}"{/if} autofocus data-required="true">
         </div>
         <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
       </div>
@@ -105,6 +113,24 @@
       <input tabindex="4" type="submit" name="submit" {if !isset($is_first_login)}value="{'Confirm my new password'|@translate}"{else}value="{'Set my password'|@translate}"{/if} class="btn btn-main ">
     </div>
 
+  {elseif $action eq 'lost_code'}
+    <span class="success-message"><i class="gallery-icon-ok-circled"></i>{'If your account exists, a verification code has been sent to your email address.'|translate}</span>
+    <div class="column-flex">
+      <label for="user_code">{'Verification code'|@translate}</label>
+      <div class="row-flex input-container">
+        <i class="gallery-icon-user-2"></i>
+        <input type="text" id="user_code" name="user_code" size="100" maxlength="100" autofocus>
+      </div>
+      <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
+    </div>
+
+    <div class="column-flex">
+      <input tabindex="4" type="submit" name="submit" value="{'Verify'|@translate}" class="btn btn-main">
+      {if isset($errors['password_form_error'])}
+      <p class="error-message" style="display:block;bottom:-20px;"><i class="gallery-icon-attention-circled"></i> {$errors['password_form_error']}</p>
+      {/if}
+      <p style="font-size: 12px;">{"If you do not receive the email, please contact your webmaster."|translate}</p>
+    </div>
   {/if}
       </form>
 
@@ -139,7 +165,7 @@
   <section id="language-switch">
     <div id="lang-select">
       <span id="other-languages">
-  {foreach from=$language_options key=$code item=$lang}
+  {foreach from=$language_options key=code item=lang}
           <span id="lang={$code}" onclick="setCookie('lang','{$code}',30)">{$lang}</span>
   {/foreach}
       </span>

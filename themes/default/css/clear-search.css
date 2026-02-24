@@ -23,7 +23,8 @@
 
 .filter-manager-popin .mcs-popin-title,
 .tags-found-popin .mcs-popin-title,
-.albums-found-popin .mcs-popin-title {
+.albums-found-popin .mcs-popin-title,
+.quick-search-headers .mcs-popin-title {
   color: #ff7700;
 }
 
@@ -78,7 +79,7 @@
 
 .filter-form {
   background: white;
-  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.6);
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
   color: black;
 }
 
@@ -105,6 +106,11 @@
 }
 
 #word-search {
+  background: #eee;
+  color: #444;
+}
+
+#expert-search {
   background: #eee;
   color: #444;
 }

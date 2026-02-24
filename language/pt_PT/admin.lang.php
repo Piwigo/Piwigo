@@ -359,7 +359,7 @@ $lang['User status'] = 'Status do utilizador';
 $lang['user_status_admin'] = 'Administrador';
 $lang['user_status_generic'] = 'Genérico';
 $lang['user_status_guest'] = 'Visitante';
-$lang['user_status_normal'] = 'Utilizador';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Virtual album'] = 'Album virtual';
 $lang['Waiting'] = 'Pendente';

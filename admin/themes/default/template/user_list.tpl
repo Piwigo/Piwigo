@@ -25,6 +25,8 @@ const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
 const str_and_others_tags = '{'and %s others'|@translate|escape:javascript}';
 const missingConfirm = "{'You need to confirm deletion'|translate|escape:javascript}";
 const missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
+const missingPassword = "{'Password is missing. Please enter the password.'|translate|escape:javascript}";
+const missingConfPassword = "{'Password confirmation is missing. Please confirm the chosen password.'|translate|escape:javascript}";
 const fieldNotEmpty = "{'Name field must not be empty'|@translate|escape:javascript}"
 const noMatchPassword = "{'The passwords do not match'|@translate|escape:javascript}";
 const missingField = "{'Please complete all fields'|@translate|escape:javascript}";
@@ -830,11 +832,11 @@ $(document).ready(function() {
       </div>
       <div class="update-container">
         <span class="close-update-button icon-cancel-circled">{'Close'|@translate}</span>
-        <p>
-          <span class="update-user-success icon-green icon-ok">{'User updated'|@translate}</span>
-          <span class="update-user-fail icon-cancel"></span>
+        <div>
+          <span class="update-user-success"><i class="icon-ok-circled"></i>{'User updated'|@translate}</span>
+          <span class="update-user-fail icon-cancel-circled"></span>
           <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
-        </p>
+        </div>
       </div>
     </div>
   </div>
@@ -1131,8 +1133,8 @@ $(document).ready(function() {
       <div class="update-container">
         <span class="close-update-button icon-cancel-circled">{'Close'|@translate}</span>
         <p>
-          <span class="update-user-success icon-green">{'User updated'|@translate}</span>
-          <span class="update-user-fail  icon-cancel"></span>
+          <span class="update-user-success icon-ok-circled">{'User updated'|@translate}</span>
+          <span class="update-user-fail icon-cancel-circled"></span>
           <span class="update-user-button"><i class='icon-floppy'></i>{'Update'|@translate}</span>
         </p>
       </div>
@@ -1184,9 +1186,27 @@ $(document).ready(function() {
               <option value="admin">{'user_status_admin'|@translate}</option>
               <option value="normal">{'user_status_normal'|@translate}</option>
               <option value="generic">{'user_status_generic'|@translate}</option>
-              <option value="guest">{'user_status_guest'|@translate} ({'Deactivated'|@translate})</option>
             </select>
           </div>
+        </div>
+      </div>
+
+      <div id="add_user_password" style="display: none;">
+        <div class="AddUserGenPassword">
+          <label for="add_user_pass" class="user-property-label AddUserLabelPassword">{'Password'|@translate}</label>
+          <span class="icon-dice-solid"> {'Generate random password'|@translate}</span>
+        </div>
+        <div class="user-property-input-icon" style="margin-bottom: 5px;">
+          <input id="add_user_pass" class="user-property-input user-property-input-password" value=""
+            placeholder="{'Password'|@translate}" type="password" />
+          <span class="icon-eye icon-show-password"></span>
+        </div>
+
+        <label for="add_user_confpass" class="user-property-label AddUserLabelPasswordConf">{'Confirm Password'|@translate}</label>
+        <div class="user-property-input-icon" style="margin-bottom: 5px;">
+          <input id="add_user_confpass" class="user-property-input user-property-input-password-conf" value=""
+            placeholder="{'Confirm Password'|@translate}" type="password" />
+          <span class="icon-eye icon-show-password"></span>
         </div>
       </div>
 
@@ -1225,7 +1245,7 @@ $(document).ready(function() {
         </div>
       </div>
 
-      <div class="AddUserErrors  icon-cancel">
+      <div class="AddUserErrors icon-cancel-circled">
       </div>
 
       <div class="AddUserSubmitContainer">
@@ -1240,7 +1260,7 @@ $(document).ready(function() {
     </div>
 
     <div id="AddUserSuccessContainer" style="display: none;">
-      <p class="icon-green border-green icon-ok AddUserResult" id="AddUserUpdated"> <span id="AddUserUpdatedText">{'User updated'|@translate}</span></p>
+      <p class="icon-ok-circled AddUserResult" id="AddUserUpdated"> <span id="AddUserUpdatedText">{'User updated'|@translate}</span></p>
       <p class="AddUserTextField" id="AddUserTextField"></p>
       <div class="AddUserPasswordInputContainer" id="AddUserPasswordInputContainer">
         <input class="AddUserPasswordInput" id="AddUserPasswordLink" />
@@ -1321,12 +1341,6 @@ $(document).ready(function() {
 #AddUserSuccess label {
   padding: 10px;
   cursor: default;
-}
-
-#AddUserSuccess .edit-now {
-  color: #3a3a3a;
-  cursor: pointer;
-  margin-left:10px;
 }
 
 .user-header-button {
@@ -1691,6 +1705,7 @@ $(document).ready(function() {
   display: flex;
   justify-content: space-between;
   padding-top:20px;
+  align-items:center;
 }
 
 /* general pop in rules */
@@ -2141,15 +2156,6 @@ $(document).ready(function() {
   padding-top: 20px;
 }
 
-.update-username-success {
-  display: flex;
-  padding: 10px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  align-items: center;
-  gap: 10px;
-}
-
 .edit-password-success-ok {
   align-self: center;
   margin-top: 30px;
@@ -2196,17 +2202,24 @@ $(document).ready(function() {
   font-weight: bold;
 }
 
-.EditUserGenPassword {
+.EditUserGenPassword,
+.AddUserGenPassword {
   margin-top: 15px;
   font-size: 1.1em;
   cursor:pointer;
 }
-.EditUserGenPassword:hover, .EditUserGenPassword:active {
+.EditUserGenPassword:hover, .EditUserGenPassword:active,
+.AddUserGenPassword span:hover {
   color:#ffa646;
 }
 
-.EditUserGenPassword span {
+.EditUserGenPassword span,
+.AddUserGenPassword span {
   margin-right:10px;
+}
+
+.AddUserGenPassword span {
+  font-size: 12px;
 }
 
 .EditUserErrors {
@@ -2523,6 +2536,7 @@ $(document).ready(function() {
     font-weight:bold;
     background-color: #ffa646;
     color: #3c3c3c;
+    margin-left:10px;
 }
 
 .update-user-button:hover,
@@ -2552,13 +2566,8 @@ $(document).ready(function() {
   margin-left: 0;
 }
 
-.update-user-success {
-    padding:10px;
-    display:none;
-}
-
-.update-user-fail {
-    padding:11px;
+.update-user-success,
+.update-user-fail{
     display:none;
 }
 
@@ -2606,6 +2615,10 @@ $(document).ready(function() {
 
 #AddUser {
   display:none;
+}
+
+.hide-user-property-password {
+  display: none !important;
 }
 
 .AddUserPopInContainer{
@@ -2685,8 +2698,6 @@ $(document).ready(function() {
 
 .AddUserErrors {
   visibility:hidden;
-  padding:5px;
-  border-left:solid 3px red;
 }
 
 .AddUserSubmit {

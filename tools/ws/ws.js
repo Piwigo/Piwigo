@@ -346,7 +346,7 @@ $(() => {
         if (!useCookie) {
             fetchOption.credentials = 'omit';
             fetchOption.headers = {
-                Authorization: authorization
+                "X-PIWIGO-API": authorization
             }
         }
 

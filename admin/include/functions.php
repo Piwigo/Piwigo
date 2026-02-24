@@ -2583,7 +2583,7 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
         fclose($s);
         return false;
       }
-      $status = (integer) $m[2];
+      $status = (int) $m[2];
       if ($status < 200 || $status >= 400)
       {
         fclose($s);
@@ -3636,6 +3636,30 @@ SELECT
       return;
     }
   }
+
+  // search for duplicate paths
+  $query = '
+SELECT
+    path
+  FROM '.IMAGES_TABLE.'
+  GROUP BY path
+  HAVING COUNT(*) > 1
+;';
+  $duplicate_paths = query2array($query);
+
+  if (count($duplicate_paths) > 0)
+  {
+    global $template;
+
+    $template->assign(
+      'header_msgs',
+      array(
+        l10n('We have found %d duplicate paths. Details provided by plugin Check Uploads', count($duplicate_paths)),
+      )
+    );
+
+    return;
+  }
 }
 
 /**
@@ -3702,20 +3726,20 @@ function get_graphics_library()
 
   switch (pwg_image::get_library())
   {
+    case 'ext_imagick':
+      exec($conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command().' -version', $returnarray);
+      if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
+      {
+        $library.= '/'.$match[1];
+      }
+      break;
+
     case 'imagick':
       $img = new Imagick();
       $version = $img->getVersion();
       if (preg_match('/ImageMagick \d+\.\d+\.\d+-?\d*/', $version['versionString'], $match))
       {
         $library.= '/'.$match[0];
-      }
-      break;
-
-    case 'ext_imagick':
-      exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
-      if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
-      {
-        $library.= '/'.$match[1];
       }
       break;
 

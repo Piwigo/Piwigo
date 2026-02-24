@@ -19,10 +19,16 @@ jQuery( document ).ready(function() {
   jQuery("#selected-language").textContent = selected_language;
 
   //Override empty input message
-    jQuery("form").on("submit", function (e) {
-      let isValid = true;
-  
-      jQuery(".column-flex").each(function () {
+  jQuery("form").on("submit", function (e) {
+    let isValid = true;
+
+    jQuery(".column-flex").each(function (i) {
+      // Because we overid the default browser error message 
+      // we need to distinguish which fields are now required
+      // To do this we use data-required="true" on the input
+      let input = $(this).find("input");
+      if($(input).data("required") == true)
+      {
         let input = jQuery(this).find("input");
         let errorMessage = jQuery(this).find(".error-message");
         if (!input.val().trim()) {
@@ -35,10 +41,11 @@ jQuery( document ).ready(function() {
           input[0].setCustomValidity("");
           errorMessage.hide();
         }
-      });
-  
-      return isValid;
+      }
     });
+  
+    return isValid;
+  });
   
     // Hide error message and reset validation on input
     jQuery(".column-flex input").on("input", function () {

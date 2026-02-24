@@ -64,7 +64,7 @@ jQuery(document).ready(function() {
 var nb_thumbs_page = {$nb_thumbs_page};
 var nb_thumbs_set = {$nb_thumbs_set};
 var applyOnDetails_pattern = "{'on the %d selected photos'|@translate}";
-var all_elements = [{if !empty($all_elements)}{','|@implode:$all_elements}{/if}];
+var all_elements = [{if !empty($all_elements)}{$all_elements|join:","}{/if}];
 
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
@@ -73,8 +73,6 @@ const str_add_alb_associate = "{"Add Album"|@translate}";
 const str_select_alb_associate = "{"Select an album"|@translate}";
 
 $(document).ready(function() {
-  jQuery('.help-popin-search').colorbox({ width:"600px" });
-
   function checkPermitAction() {
     var nbSelected = 0;
     if ($("input[name=setSelected]").is(':checked')) {

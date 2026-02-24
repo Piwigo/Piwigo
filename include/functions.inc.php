@@ -603,6 +603,12 @@ function pwg_activity($object, $object_id, $action, $details=array())
     $user_agent = strip_tags($_SERVER['HTTP_USER_AGENT']);
   }
 
+  if (isset($_SESSION['connected_with']) and 'api_key' === $_SESSION['connected_with'] and isset($_SERVER['HTTP_USER_AGENT']))
+  {
+    $details['connected_with'] = 'api_key';
+    $user_agent = strip_tags($_SERVER['HTTP_USER_AGENT']);
+  }
+
   // we want to know if the login is automatic with remember_me (auto_login)
   // or with an authentication key provided in the URL (auth_key_login)
   if ('user' == $object and 'login' == $action)
@@ -792,15 +798,14 @@ function str2DateTime($original, $format=null)
 }
 
 /**
- * returns a formatted and localized date for display
+ * returns a formatted and localized date for display (LEGACY use format_date)
  *
  * @param int|string timestamp or datetime string
  * @param array $show list of components displayed, default is ['day_name', 'day', 'month', 'year']
- *    THIS PARAMETER IS PLANNED TO CHANGE
  * @param string $format input format respecting date() syntax
  * @return string
  */
-function format_date($original, $show=null, $format=null)
+function format_date_legacy($original, $show=null, $format=null)
 {
   global $lang;
 
@@ -815,8 +820,6 @@ function format_date($original, $show=null, $format=null)
   {
     $show = array('day_name', 'day', 'month', 'year');
   }
-
-  // TODO use IntlDateFormatter for proper i18n
 
   $print = '';
   if (in_array('day_name', $show))
@@ -841,6 +844,53 @@ function format_date($original, $show=null, $format=null)
   }
 
   return trim($print);
+}
+
+/**
+ * returns a formatted and localized date for display
+ *
+ * @param int|string timestamp or datetime string
+ * @param array $show list of components displayed, default is ['day_name', 'day', 'month', 'year']
+ *    THIS PARAMETER IS PLANNED TO CHANGE
+ * @param string $format input format respecting date() syntax
+ * @return string
+ * @since 16
+ */
+function format_date($original, $show=null, $format=null)
+{
+  global $user;
+
+  $date = str2DateTime($original, $format);
+
+  if (!$date)
+  {
+    return l10n('N/A');
+  }
+
+  if ($show === null || $show === true)
+  {
+    $show = array('day_name', 'day', 'month', 'year');
+  }
+
+  // use IntlDateFormatter for proper i18n need pkg php-intl
+  if (class_exists('IntlDateFormatter')
+    and in_array('year', $show)
+    and in_array('month', $show)
+  )
+  {
+    $timeType = in_array('time', $show) ? IntlDateFormatter::MEDIUM : IntlDateFormatter::NONE;
+    $dateType = IntlDateFormatter::FULL;
+
+    if (!in_array('day_name', $show))
+    {
+      $dateType = IntlDateFormatter::LONG;
+    }
+
+    $fmt = new IntlDateFormatter($user['language'], $dateType, $timeType);
+    return $fmt->format($date);
+  }
+
+  return format_date_legacy($original, $show, $format);
 }
 
 /**
@@ -2491,12 +2541,16 @@ function send_piwigo_infos()
     conf_update_param('send_piwigo_infos_origin_hash', sha1(random_bytes(1000)), true);
   }
 
+  list($container_type, $container_version) = get_container_info();
+
   $piwigo_infos = array(
     'origin_hash' => $conf['send_piwigo_infos_origin_hash'],
     'technical' => array(
       'php_version' => PHP_VERSION,
       'piwigo_version' => PHPWG_VERSION,
       'os_version' => PHP_OS,
+      'container_type' => $container_type,
+      'container_version' => $container_version,
       'db_version' => pwg_get_db_version(),
       'php_datetime' => date("Y-m-d H:i:s"),
       'db_datetime' => $db_current_date,
@@ -2504,6 +2558,7 @@ function send_piwigo_infos()
     ),
     'general_stats' => get_pwg_general_statitics(),
   );
+
 
   // convert disk_usage from kB to mB
   $piwigo_infos['general_stats']['disk_usage'] = intval($piwigo_infos['general_stats']['disk_usage'] / 1024);
@@ -2802,6 +2857,59 @@ SELECT
     'use_watermark' => !empty($watermark->file) ? 'yes' : 'no',
   );
 
+  // which remote apps have been used?
+  $remote_apps_start_time = get_moment();
+
+  $query = '
+SELECT
+    user_agent,
+    COUNT(*) AS counter,
+    MIN(occured_on) AS first_encounter,
+    MAX(occured_on) AS last_encounter
+  FROM '.ACTIVITY_TABLE.'
+  WHERE user_agent NOT LIKE \'Mozilla/5%\'
+  GROUP BY user_agent
+;';
+  $activities = query2array($query);
+  $apps = array();
+
+  $apps_pattern = array(
+    'Piwigo iOS' => '/^Piwigo\/\d+ CFNetwork/',
+    'Piwigo NG' => '/^Dart\/[\d\.]+ \(dart:io\)$/',
+    'Piwigo Android' => '/^Piwigo-Android/',
+    'Lightroom' => '/Lightroom/',
+    'Piwigo Remote Sync' => '/(PiwigoRemoteSync|Apache-HttpClient)/',
+    'darktable' => '/darktable/',
+    'Piwigo Client' => '/PiwigoClient/',
+    'Aperture' => '/ApertureToPiwigoPlugIn/',
+    'MacShare' => '/MacShareToPiwigo/',
+    'WordPress' => '/WordPress/',
+    'pLoader' => '/pLoader/',
+  );
+
+  foreach ($activities as $activity)
+  {
+    foreach ($apps_pattern as $app_name => $pattern)
+    {
+      if (preg_match($pattern, $activity['user_agent']))
+      {
+        @$apps[$app_name]['counter'] += $activity['counter'];
+
+        if (!isset($apps[$app_name]['first_encounter']) or strtotime($apps[$app_name]['first_encounter']) > strtotime($activity['first_encounter']))
+        {
+          $apps[$app_name]['first_encounter'] = $activity['first_encounter'];
+        }
+
+        if (!isset($apps[$app_name]['last_encounter']) or strtotime($apps[$app_name]['last_encounter']) < strtotime($activity['last_encounter']))
+        {
+          $apps[$app_name]['last_encounter'] = $activity['last_encounter'];
+        }
+      }
+    }
+  }
+
+  $piwigo_infos['apps'] = $apps;
+
   $features = array(
     'activate_comments',
     'rate',
@@ -2908,7 +3016,113 @@ SELECT
 
 function pwg_unique_exec_ends($token_name)
 {
+  global $logger;
+
   conf_delete_param($token_name.'_running');
+  $logger->info('['.$token_name.'] ends now');
+}
+
+/**
+ *
+ * Detect if Piwigo is running in a containerized environment
+ * Assume all containers are Linux based and don't enforce php open_basedir rules 
+ * Doesn't differentiate between VMs, Mutual hosting and bare metal installs
+ * 
+ * Possible values :
+ *  ('none',null)                 => PHP is not running in a container
+ *  ('Official',<VersionCode>)    => PHP is running in a official container
+ *  ('LinuxServer',<VersionCode>) => PHP is running in a LinuxServer container
+ *  ('Unknown',null)              => PHP is running in a non-identified container
+ *
+ * @since 16.3
+ *
+ * @return array(string, ?string)
+ */
+function get_container_info()
+{
+  // Check if OS is Linux and PHP doesn't restrict opening files
+  if ((strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX' and empty(ini_get('open_basedir'))))
+  {
+    if (file_exists('/proc/2/sched')) // Check if PID2 exist
+    {
+      $file = file_get_contents('/proc/2/sched'); // Read PID2 name
+      if ($file and 'kthreadd' === substr( $file, 0, 8 ))
+      { // If PID 2 is kthreadd PHP is not running in a container
+        return array('none', null);
+      }
+    }
+
+    // PHP is running in a container, trying to determine container type
+    $info_file_path = '/var/www/html/piwigo-docker.info';
+    $info_file_linuxserver = '/build_version';
+
+    // Check for official container tagfile
+    if (is_readable($info_file_path)) 
+    {
+      $file_lines = @file($info_file_path);
+      if (is_array($file_lines) and 'Official Piwigo container' === trim($file_lines[0]))
+      {
+        $container_version = null;
+        // Take the last line and remove prefix (Build Version)
+        if (preg_match('/^Build Version (.*)$/', $file_lines[count($file_lines)-1], $matches))
+        {
+          $container_version = $matches[1];
+        }
+        return array('Official', $container_version);
+      }
+    }
+    // Check for LinuxServer tagfile
+    elseif (is_readable($info_file_linuxserver))
+    { 
+      $file_lines = file($info_file_linuxserver);
+      if (is_array($file_lines) and 'Linuxserver.io' === substr($file_lines[0], 0, 14))
+      {
+        $container_version = null;
+        if (preg_match('/version:\s*(.*)$/', $file_lines[0], $matches))
+        {
+          $container_version = $matches[1];
+        }
+        return array('LinuxServer.io', $container_version);
+      }
+    }
+    // If no tagfile are found, default to unkown
+    return array('Unknown', null);
+  }
+  else
+  {
+    // If the OS is not Linux or PHP basedir are enforced, assume PHP is not in a container
+    return array('none', null);
+  }
+}
+
+/**
+ * Checks if the provided string is valid for a comparison test with a datetime field in MySQL
+ *
+ * Possible values : YYYY-MM-DD HH-MM-SS or YYYY-MM-DD
+ *
+ * @since 16.3
+ * @param string $datetime
+ * @return bool
+ */
+function is_valid_mysql_datetime(string $datetime)
+{
+  // first we check the full date+time
+  $format = 'Y-m-d H:i:s';
+  $date = DateTime::createFromFormat($format, $datetime);
+  if ($date and $date->format($format) === $datetime)
+  {
+    return true;
+  }
+
+  // in case it fails, let's check with only date and no time
+  $format = 'Y-m-d';
+  $date = DateTime::createFromFormat($format, $datetime);
+  if ($date and $date->format($format) === $datetime)
+  {
+    return true;
+  }
+
+  return false;
 }
 
 ?>

@@ -1,4 +1,4 @@
-{combine_css id='standard_pages_css' path="themes/standard_pages/css/standard_pages.css" order=100}
+{combine_css id='standard_pages_css' path="themes/standard_pages/skins/{$STD_PGS_SELECTED_SKIN}.css" order=100}
 {combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
 
 <script>
@@ -30,9 +30,17 @@
     </div>
   </section>
 
+{if 'none' != $STD_PGS_SELECTED_LOGO}
   <section id="logo-section">
+  {if 'piwigo_logo' == $STD_PGS_SELECTED_LOGO}
     <img id="piwigo-logo" src="{$ROOT_URL}themes/standard_pages/images/piwigo_logo.svg">
-  </section>
+  {else if 'custom_logo' == $STD_PGS_SELECTED_LOGO}
+    <img id="custom-logo" src="{$STD_PGS_SELECTED_LOGO_PATH}">
+  {else if 'gallery_title'}
+    <h1>{$GALLERY_TITLE}</h1>
+  {/if}
+    </section>
+{/if}
 
   <section id="login-form">
     <div class="">
@@ -45,8 +53,8 @@
         <div class="column-flex">
           <label for="username">{'Username'|translate}</label>
           <div class="row-flex input-container">
-            <i class="gallery-icon-user-2"></i>
-            <input type="text" class="" type="text" name="username" id="username" size="25" autofocus>
+            <i class="gallery-icon-user"></i>
+            <input type="text" class="" type="text" name="username" id="username" size="25" autofocus data-required="true">
           </div>
           <p class="error-message"><i class="gallery-icon-attention-circled"></i> {'must not be empty'|translate}</p>
         </div>
@@ -73,6 +81,7 @@
 {/if}
             
         <div class="column-flex">
+          <input type="hidden" name="redirect" value="{$U_REDIRECT|@urlencode}">
           <input tabindex="4" type="submit" name="login" value="{'Login'|translate}" class="btn btn-main ">
 {if isset($errors['login_form_error'])}
           <p class="error-message" style="display:block;bottom:-20px;"><i class="gallery-icon-attention-circled"></i> {$errors['login_form_error']}</p>
@@ -99,7 +108,7 @@
   <section id="language-switch">
     <div id="lang-select">
       <span id="other-languages">
-  {foreach from=$language_options key=$code item=$lang}
+  {foreach from=$language_options key=code item=lang}
           <span id="lang={$code}" onclick="setCookie('lang','{$code}',30)">{$lang}</span>
   {/foreach}
       </span>

@@ -410,10 +410,16 @@ DROP TABLE IF EXISTS `piwigo_user_auth_keys`;
 CREATE TABLE `piwigo_user_auth_keys` (
   `auth_key_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `auth_key` varchar(255) NOT NULL,
+  `apikey_secret` VARCHAR(255) DEFAULT NULL,
   `user_id` mediumint(8) unsigned NOT NULL,
   `created_on` datetime NOT NULL,
   `duration` int(11) unsigned DEFAULT NULL,
   `expired_on` datetime NOT NULL,
+  `apikey_name` VARCHAR(100) DEFAULT NULL,
+  `key_type` VARCHAR(40) DEFAULT NULL,
+  `revoked_on`  datetime DEFAULT NULL,
+  `last_used_on` datetime DEFAULT NULL,
+  `last_notified_on` datetime DEFAULT NULL,
   PRIMARY KEY (`auth_key_id`)
 ) ENGINE=MyISAM;
 

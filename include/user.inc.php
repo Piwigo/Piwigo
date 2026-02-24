@@ -59,12 +59,12 @@ if (isset($_GET['auth']))
 // HTTP_AUTHORIZATION api_key
 if (
   defined('IN_WS')
-  and isset($_SERVER['HTTP_AUTHORIZATION'])
-  and !empty($_SERVER['HTTP_AUTHORIZATION']) 
+  and isset($_SERVER['HTTP_X_PIWIGO_API'])
+  and !empty($_SERVER['HTTP_X_PIWIGO_API']) 
   and isset($_REQUEST['method'])
 )
 {
-  $auth_header = pwg_db_real_escape_string($_SERVER['HTTP_AUTHORIZATION']) ?? null;
+  $auth_header = pwg_db_real_escape_string($_SERVER['HTTP_X_PIWIGO_API']) ?? null;
   
   if ($auth_header)
   {
@@ -102,10 +102,19 @@ if (
   and isset($_POST['password'])
 )
 {
-  if (!try_log_user($_POST['username'], $_POST['password'], false))
+  include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
+  include_once(PHPWG_ROOT_PATH.'include/ws_functions/pwg.php');
+
+  $credentials = array(
+    'username' => $_POST['username'],
+    'password' => $_POST['password']
+  );
+
+  $login = ws_session_login($credentials, $service);
+  
+  if (true !== $login)
   {
-    include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
-    $service->sendResponse(new PwgError(999, 'Invalid username/password'));
+    $service->sendResponse($login);
     exit();
   }
   $_SESSION['connected_with'] = 'pwg.images.uploadAsync';

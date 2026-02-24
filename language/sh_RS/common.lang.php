@@ -141,7 +141,7 @@ $lang['created after %s (%s)'] = 'napravljen nakon %s (%s)';
 $lang['created before %s (%s)'] = 'napravljen prije %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'napravljen između %s (%s) i %s (%s)';
 $lang['created on %s'] = 'napravljen na %s';
-$lang['Customize'] = 'Podesi';
+
 $lang['Your Gallery Customization'] = 'Podešavanje Vaše Galerije ';
 $lang['day'][0] = 'Nedelja';
 $lang['day'][1] = 'Ponedjeljak';
@@ -170,7 +170,7 @@ $lang['Hello'] = 'Pozdrav';
 $lang['available for administrators only'] = 'dostupno samo administratorima';
 $lang['display this album'] = 'prikazuje slike u glavnoj kategoriji';
 $lang['display last user comments'] = 'Pregled zadnjih korisničkih komentara';
-$lang['customize the appareance of the gallery'] = 'podesite izgled vaše galerije';
+
 $lang['search'] = 'pretraži';
 $lang['Home'] = 'Početna';
 $lang['in this album'] = 'u ovoj kategoriji';

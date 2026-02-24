@@ -172,7 +172,7 @@ $lang['Comments'] = 'Сэтгэгдэл';
 $lang['Connection settings'] = 'Холбогдох тохиргоо';
 $lang['Create a new account'] = 'Шинээр бүртгүүлэх';
 $lang['Current password is wrong'] = 'Нууц үг буруу байна';
-$lang['Customize'] = 'Бүртгэл/Тохиргоо';
+
 $lang['Delete'] = 'Устгах';
 $lang['Contact'] = 'Холбоо барих';
 $lang['Contact webmaster'] = 'Вебмастертай холбогдох';
@@ -193,7 +193,7 @@ $lang['the beginning'] = 'эхнээс нь';
 $lang['the username must be given'] = 'хэрэглэгчийн нэр заавал шаардлагатай';
 $lang['created after %s (%s)'] = '%s (%s)-с хойш авсан';
 $lang['created before %s (%s)'] = '%s (%s)-с өмнө авсан';
-$lang['customize the appareance of the gallery'] = 'галерейн харагдах байдлыг засах';
+
 $lang['created on %s'] = '%s-нд авсан';
 $lang['created between %s (%s) and %s (%s)'] = '%s (%s)-с %s (%s)-н хооронд авсан';
 $lang['all'] = 'бүх';

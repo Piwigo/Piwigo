@@ -112,6 +112,13 @@ $display_info_checkboxes = array(
     'rating_score',
   );
 
+if (!isset($conf['filters_views']))
+{
+  conf_update_param('filters_views', $conf['default_filters_views'], true);
+}
+
+$filters_names_checkboxes = array_values(array_diff(array_keys(safe_unserialize($conf['filters_views'])), array('last_filters_conf')));
+
 // image order management
 $sort_fields = array(
   ''                    => '',
@@ -277,6 +284,23 @@ if (isset($_POST['submit']))
       $_POST['picture_informations'] = addslashes(serialize($_POST['picture_informations']));
       break;
     }
+    case 'search' :
+    {
+      foreach( $filters_names_checkboxes as $checkbox)
+      {
+        if (empty($_POST['filters_views_box'][$checkbox])){
+          $_POST['filters_views'][$checkbox]['access'] = 'nobody';
+          $_POST['filters_views'][$checkbox]['default'] = false;
+        }
+        else{
+          $_POST['filters_views'][$checkbox]['default'] =
+            empty($_POST['filters_views'][$checkbox]['default'])? false : true;
+        }
+      }
+      $_POST['filters_views']['last_filters_conf'] =
+        empty($_POST['filters_views']['last_filters_conf'])? false : true;
+      $_POST['filters_views'] = addslashes(serialize($_POST['filters_views']));
+    }
   }
 
   // updating configuration if no error found
@@ -322,9 +346,11 @@ WHERE param = \''.$row['param'].'\'
 // restore default derivatives settings
 if ('sizes' == $page['section'] and isset($_GET['action']) and 'restore_settings' == $_GET['action'])
 {
-  ImageStdParams::set_and_save( ImageStdParams::get_default_sizes() );
-  pwg_query('DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'');
+  ImageStdParams::restore_default();
   clear_derivative_cache();
+
+  // reset conf
+  load_conf_from_db();
 
   $template->assign(
     array(
@@ -536,7 +562,7 @@ switch ($page['section'])
 
       // derivatives = multiple size
       $enabled = ImageStdParams::get_defined_type_map();
-      $disabled = @unserialize(@$conf['disabled_derivatives']);
+      $disabled = safe_unserialize(ImageStdParams::get_disabled_type_map());
       if ($disabled === false)
       {
         $disabled = array();
@@ -659,6 +685,17 @@ switch ($page['section'])
     }
 
     break;
+  }
+  case 'search':
+  {
+    $template->assign(
+      'search',
+        array(
+          'filters_views' => safe_unserialize($conf['filters_views']),
+          'filters_names' => $filters_names_checkboxes,
+        ),
+    );
+    $template->assign('SHOW_FILTER_RATINGS', $conf['rate']);
   }
 }
 

@@ -373,7 +373,6 @@ SELECT
             'mobile' => false,
             );
           $theme_data = implode('', file($path.'/themeconf.inc.php'));
-
           if (preg_match("|Theme Name:\\s*(.+)|", $theme_data, $val))
           {
             $theme['name'] = trim( $val[1] );
@@ -418,6 +417,10 @@ SELECT
           if (preg_match('/["\']mobile["\'].*?(true|false)/i', $theme_data, $val))
           {
             $theme['mobile'] = get_boolean($val[1]);
+          }
+          if (preg_match('/["\']use_standard_pages["\'].*?(true|false)/i', $theme_data, $val))
+          {
+            $theme['use_standard_pages'] = get_boolean($val[1]);
           }
 
           // screenshot

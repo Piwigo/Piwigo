@@ -160,6 +160,10 @@ SELECT *
       {
         $image[$k] = $row[$k];
       }
+
+      $image['name'] = strip_tags(trigger_change('render_element_name', $image['name'], __FUNCTION__));
+      $image['comment'] = trigger_change('render_element_description', $image['comment'], __FUNCTION__);
+
       $image = array_merge( $image, ws_std_get_urls($row) );
 
       $image_tag_ids = ($params['tag_mode_and']) ? $tag_ids : $image_tag_map[$image['id']];
@@ -341,7 +345,11 @@ SELECT
   WHERE id = '.$tag_id.'
 ;';
 
-  return query2array($query)[0];
+  $tag = query2array($query)[0];
+  $tag['raw_name'] = $tag['name'];
+  $tag['name'] = trigger_change('render_tag_name', $tag['raw_name'], $tag);
+  $tag['alt_names'] = trigger_change('get_tag_alt_names', array(), $tag['raw_name']);
+  return $tag;
 }
 
 
@@ -500,6 +508,7 @@ SELECT image_id
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+  trigger_notify('merge_tags', $params['destination_tag_id'], $merge_tag);
   delete_tags($merge_tag);
 
   $image_in_merged = array_merge($image_in_dest, $image_to_add);
