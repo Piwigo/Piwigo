@@ -524,7 +524,6 @@ $lang['Secret copied. Keep it in a safe place.'] = 'Geheimnis kopiert. Bewahren 
 $lang['The secret will no longer be displayed. You must copy it to continue.'] = 'Das Geheimnis wird nicht mehr angezeigt. Sie müssen es kopieren, um fortzufahren.';
 $lang['Verification code'] = 'Bestätigungscode';
 $lang['Verify'] = 'Überprüfen';
-$lang['An email has been sent with a verification code'] = 'Eine E-Mail mit einem Bestätigungscode wurde versendet.';
 $lang['ID copied.'] = 'ID kopiert.';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'Wenn Sie die E-Mail nicht erhalten, wenden Sie sich bitte an Ihren Webmaster.';
 $lang['Invalid verification code'] = 'Ungültiger Bestätigungscode';
@@ -535,3 +534,4 @@ $lang['Verification successful! You can now choose a new password.'] = 'Überpr�
 $lang['Here is your verification code:'] = 'Hier ist Ihr Bestätigungscode:';
 $lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Wenn Sie das nicht waren, ändern Sie bitte sofort Ihr Passwort oder wenden Sie sich an Ihren Webmaster.';
 $lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Wenn Sie Ihr Passwort geändert haben, weil Sie glauben, dass es gestohlen wurde, empfehlen wir Ihnen, Ihre %d API-Schlüssel <a href="%s">in Ihrem Profil</a> zu widerrufen.';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Wenn Ihr Konto existiert, wurde ein Bestätigungscode an Ihre E-Mail-Adresse gesendet.';
