@@ -16,6 +16,7 @@ if (!$conf['enable_core_update'])
   die('Piwigo core update system is disabled');
 }
 
+include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
 
@@ -28,8 +29,24 @@ STEP:
 */
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 
-check_input_parameter('to', $_GET, false, '/^\d+\.\d+\.\d+$/');
-$upgrade_to = isset($_GET['to']) ? $_GET['to'] : '';
+[$ct_env, $ct_build_version] = get_container_info();
+
+if( 'Official' === $ct_env)
+{
+  $template->assign([
+    'CONTAINER_VERSION' => $ct_build_version,
+    'DOCKER_UPDATE_GUIDE_URL' => PHPWG_URL . '/guide-update-docker'
+  ]);
+  // Remove optional ? on [a-z]? since it will only be available on piwigo 16.3
+  // Docker images started to use letter suffix in 16.2
+  check_input_parameter('to', $_GET, false, '/^\d+\.\d+\.\d+[a-z]?$/');
+  $upgrade_to = isset($_GET['to']) ? preg_replace('/[a-z]$/','',$_GET['to']) : '';
+}
+else
+{
+  check_input_parameter('to', $_GET, false, '/^\d+\.\d+\.\d+$/');
+  $upgrade_to = isset($_GET['to']) ? $_GET['to'] : '';
+}
 
 $updates = new updates();
 $new_versions = $updates->get_piwigo_new_versions();
@@ -40,19 +57,19 @@ $new_versions = $updates->get_piwigo_new_versions();
 if ($step == 0)
 {
   if (isset($new_versions['minor']) and isset($new_versions['major']))
-  {
-    $step = 1;
-    $upgrade_to = $new_versions['major'];
+{
+      $step = 1;
+      $upgrade_to = $new_versions['major'];
   }
   elseif (isset($new_versions['minor']))
-  {
-    $step = 2;
-    $upgrade_to = $new_versions['minor'];
+{
+      $step = 2;
+      $upgrade_to = $new_versions['minor'];
   }
   elseif (isset($new_versions['major']))
-  {
-    $step = 3;
-    $upgrade_to = $new_versions['major'];
+{
+      $step = 3;
+      $upgrade_to = $new_versions['major'];
   }
 
   $template->assign('CHECK_VERSION', $new_versions['piwigo.org-checked']);
@@ -73,7 +90,7 @@ if ($step == 1)
 if ($step == 2 and is_webmaster())
 {
   if (isset($_POST['submit']) and isset($_POST['upgrade_to']))
-  {
+{
     updates::upgrade_to($_POST['upgrade_to'], $step);
   }
 }
@@ -84,7 +101,7 @@ if ($step == 2 and is_webmaster())
 if ($step == 3 and is_webmaster())
 {
   if (isset($_POST['submit']) and isset($_POST['upgrade_to']))
-  {
+{
     updates::upgrade_to($_POST['upgrade_to'], $step);
   }
 
@@ -126,9 +143,12 @@ $template->assign(array(
 if (isset($new_versions['minor']))
 {
   $template->assign(
-    array(
+  array(
       'MINOR_VERSION' => $new_versions['minor'],
-      'MINOR_RELEASE_URL' => PHPWG_URL.'/releases/'.$new_versions['minor'],
+      'MINOR_RELEASE_URL' => (('Official' === $ct_env)
+        ?  'https://github.com/Piwigo/piwigo-docker/wiki/Changelog#' . preg_replace('/\./','',$new_versions['minor'])
+        :  PHPWG_URL . '/releases/' . $new_versions['minor']
+      ),
     )
   );
 }
@@ -138,8 +158,11 @@ if (isset($new_versions['major']))
   $template->assign(
     array(
       'MAJOR_VERSION' => $new_versions['major'],
-      'MAJOR_RELEASE_URL' => PHPWG_URL.'/releases/'.$new_versions['major'],
-    )
+      'MAJOR_RELEASE_URL' =>   PHPWG_URL . '/releases/' . 
+        ( ('Official' === $ct_env) ? substr($new_versions['major'], 0, -1) : $new_versions['major']),
+      'MAJOR_DOCKER_RELEASE_URL' => 'https://github.com/Piwigo/piwigo-docker/wiki/Changelog#' . preg_replace('/\./','',$new_versions['major']),
+      'MAJOR_VERSION_PWG' => preg_replace('/[a-z]$/','',$new_versions['major']) // Remove container build ver
+  )
   );
 }
 

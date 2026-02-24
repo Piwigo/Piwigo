@@ -720,6 +720,8 @@ $lang['Following themes may not be compatible with the new version of Piwigo:'] 
 $lang['I decide to update anyway'] = 'Je décide de migrer quand même';
 $lang['Update to Piwigo %s'] = 'Mettre à jour vers Piwigo %s';
 $lang['Two updates are available'] = 'Deux mises à jour sont disponibles';
+$lang['Follow the update guide'] = 'Suivre le guide de mise à jour';
+$lang['Two container updates are available'] = 'Deux mises à jour de conteneur sont disponibles';
 $lang['This is a minor update, with only bug corrections.'] = 'Ceci est une mise à jour mineure, avec uniquement des corrections de bugs.';
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Ceci est une mise à jour majeure, qui contient <a href="%s">un tas de nouveautés</a>.';
 $lang['Some themes and plugins may be not available yet.'] = 'Certains thèmes ou plugins ne sont peut-être pas encore disponibles.';
