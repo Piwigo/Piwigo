@@ -58,7 +58,7 @@ function ws_users_getList($params, &$service)
   $filtered_groups = array();
   if (!empty($params['filter']))
   {
-    $filter_query = 'SELECT id FROM `'. GROUPS_TABLE .'` WHERE name LIKE \'%'. $params['filter'] . '%\';';
+    $filter_query = 'SELECT id FROM `'. GROUPS_TABLE .'` WHERE name LIKE \'%'. pwg_db_real_escape_string($params['filter']) . '%\';';
     $filtered_groups_res = pwg_query($filter_query);
     while ($row = pwg_db_fetch_assoc($filtered_groups_res))
     {
