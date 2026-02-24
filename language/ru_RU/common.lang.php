@@ -537,3 +537,4 @@ $lang['API Key not found'] = 'Ключ API не найден';
 $lang['API Key name'] = 'Имя ключа API';
 $lang['API Key has been successfully edited.'] = 'Ключ API был успешно отредактирован';
 $lang['4xlarge'] = '4XL - гигантский';
+$lang['3xlarge'] = '3XL - громадный';
