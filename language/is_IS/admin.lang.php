@@ -1423,3 +1423,6 @@ $lang['Standard pages aren\'t activated, however you have %d active themes that 
 $lang['Standard pages header'] = 'Haus fyrir staðlaðar síður';
 $lang['Use Piwigo logo'] = 'Nota Piwigo lógóið';
 $lang['Use custom logo (png, jpeg or svg)'] = 'Notið sérsniðið lógó (png, jpeg eða svg)';
+$lang['Follow the update guide'] = 'Fylgdu uppfærsluleiðbeiningunum';
+$lang['Two container updates are available'] = 'Tvö sett af uppfærslum eru í boði';
+$lang['You are about to delete %s groups, are you sure?'] = 'Þú ert að fara að eyða %s hópum, ertu viss?';
