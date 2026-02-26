@@ -1422,3 +1422,6 @@ $lang['Portrait'] = '세로 모드';
 $lang['Rating greater than'] = '다음보다 높은 평점';
 $lang['to'] = '까지';
 $lang['on'] = '시간: ';
+$lang['Follow the update guide'] = '업데이트 가이드를 따르세요';
+$lang['Two container updates are available'] = '두 개의 컨테이너 업데이트가 가능합니다';
+$lang['You are about to delete %s groups, are you sure?'] = '%s 그룹을 삭제하려 합니다. 정말로 삭제하시겠습니까?';
