@@ -232,7 +232,10 @@ SELECT
     $file_path = $upload_dir.'/'.$filename_wo_ext.'.';
 
     list($width, $height, $type) = getimagesize($source_filepath);
-    
+
+    // adjust file type for wrongly detected extensions (jps stereo image format is detected as jpg...)
+    $type = trigger_change('update_type', $type, $original_filename);
+
     if (IMAGETYPE_PNG == $type)
     {
       $file_path.= 'png';
