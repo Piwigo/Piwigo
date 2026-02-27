@@ -1434,3 +1434,6 @@ $lang['Standard pages aren\'t activated, however you have %d active themes that 
 $lang['Standard pages header'] = '标准页面头部';
 $lang['Use Piwigo logo'] = '使用 Piwigo 标识';
 $lang['Use custom logo (png, jpeg or svg)'] = '使用自定义标识（支持 PNG、JPEG、SVG 格式）';
+$lang['Follow the update guide'] = '参考更新指南';
+$lang['Two container updates are available'] = '有2项容器更新待处理';
+$lang['You are about to delete %s groups, are you sure?'] = '你即将删除%s个分组，确定要执行此操作吗？';
