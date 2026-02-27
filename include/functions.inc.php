@@ -506,11 +506,11 @@ UPDATE '.USER_INFOS_TABLE.'
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (
-    date,
-    time,
+    `date`,
+    `time`,
     user_id,
     IP,
-    section,
+    `section`,
     category_id,
     search_id,
     image_id,
