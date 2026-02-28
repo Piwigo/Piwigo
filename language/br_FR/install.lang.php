@@ -49,3 +49,4 @@ $lang['Database table prefix'] = 'Rakger taolennoù an diaz roadennoù';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'Ar rakger-mañ a vo ouzhpennet da anvioù taolennoù an diaz roadennoù (Gwelloc\'h e vo mererezh ho taolennoù)';
 $lang['Database name'] = 'Anv an diaz roadennoù';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Kevreet mat ouzh ar servijer omp, met ne oa ket posubl kevreañ ouzh an diaz roadennoù.';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Stumm PHP %s rekis (war PHP %s emaoc\'h o vont en-dro)';
