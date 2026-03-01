@@ -518,7 +518,6 @@ $lang['Create API Keys to secure your acount'] = 'Crea una chiave API per metter
 $lang['Create a new API key to secure your account.'] = 'Crea una nuova chiave API per mettere in sicurezza il tuo account';
 $lang['Create an account'] = 'Crea un account';
 $lang['Created at'] = 'Creato a';
-$lang['An email has been sent with a verification code'] = 'Inviata email con codice di verifica';
 $lang['ID copied.'] = 'ID copiato';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'Se non hai ricevuto l\'email, prego contattare il tuo webmaster';
 $lang['Invalid verification code'] = 'Codice di verifica errato';
@@ -534,3 +533,4 @@ $lang['Too many attempts, please try later..'] = 'Troppi tentativi, riprova piu 
 $lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Se hai cambiato la tua password perchè pensi che sia stata rubata, ti raccomandiamo di revocare le tue %d API keys presenti <a href="%s">nel tuo profilo</a>.';
 $lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Se non sei stato tu, per favore cambia immediatamente la tua password o contatta il tuo webmaster.';
 $lang['Here is your verification code:'] = 'Questo è il tuo codice di verifica:';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Se il tuo account esiste, un codice di verifica è stato inviato al tuo indirizzo di posta elettronica.';
