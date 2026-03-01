@@ -527,7 +527,6 @@ $lang['Choose how you want to see your gallery'] = 'Выберите, как В�
 $lang['Change your password'] = 'Изменить Ваш пароль';
 $lang['Check your inbox'] = 'Проверьте Вашу входящую почту';
 $lang['An error has occured please got back to <a href="identification.php" title="Sign in">Sign in</a> or <a href="register.php">Register</a>'] = 'Произошла ошибка, пожалуйста, вернитесь к <a href="identification.php" title="Войти">Войти</a> или <a href="register.php">Зарегистрироваться</a>';
-$lang['An email has been sent with a verification code'] = 'Письмо было отправлено с проверочным кодом';
 $lang['An email has been sent with a link to reset your password'] = 'Письмо было отправлено со ссылкой для переустановки пароля';
 $lang['Already have an account ?'] = 'Уже есть учетная запись?';
 $lang['Account'] = 'Учетная запись';
@@ -538,3 +537,4 @@ $lang['API Key name'] = 'Имя ключа API';
 $lang['API Key has been successfully edited.'] = 'Ключ API был успешно отредактирован';
 $lang['4xlarge'] = '4XL - гигантский';
 $lang['3xlarge'] = '3XL - громадный';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Если у Вас есть аккаунт, проверочный код был выслан на Ваш почтовый адрес.';
