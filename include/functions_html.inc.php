@@ -655,4 +655,32 @@ function flush_page_messages()
   }
 }
 
+/**
+ * Convert newlines to <br> tags, but only if the content does not
+ * already contain HTML tags. This respects the intent: if a user writes
+ * plain text with paragraphs (newlines), they should be preserved in
+ * the output. If they explicitly use HTML, we don't add extra <br>.
+ *
+ * @param string $string
+ * @return string
+ */
+function should_convert_nl2br($string)
+{
+  if (empty($string))
+  {
+    return $string;
+  }
+
+  // Check if content already contains HTML tags
+  // Match opening tags like <p>, <br>, <div>, etc.
+  if (preg_match('/<[a-z][\w-]*(?:\s[^>]*)?>/i', $string))
+  {
+    // Content has HTML, don't add <br>
+    return $string;
+  }
+
+  // No HTML detected, convert newlines to <br>
+  return nl2br($string);
+}
+
 ?>
