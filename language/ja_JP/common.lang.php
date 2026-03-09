@@ -430,3 +430,5 @@ $lang['Search in :'] = '以下から検索する';
 $lang['Empty filters'] = 'フィルターをクリア';
 $lang['You can try to edit your filters and perform a new search.'] = 'フィルターを変更して新たに検索を行うことができます。';
 $lang['No results are available.'] = '見つかりませんでした。';
+$lang['An email has been sent with a link to reset your password'] = 'パスワードリセット用のリンクがメールで送信されました。';
+$lang['Set your password below.'] = '下部にパスワードを設定してください。';
