@@ -594,6 +594,8 @@ SELECT
  * @param string|array $to
  * @param array $args
  *       o from: sender [default value webmaster email]
+ *       o reply_to_mail_address: reply-to can be different of the "from" (new 16.4.0) [default value empty]
+ *       o reply_to_name: reply-to can be different of the "from" (new 16.4.0) [default value empty]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
  *       o Bcc: array of blind carbon copy receivers of the mail. [default value empty]
  *       o subject [default value 'Piwigo']
@@ -654,7 +656,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
     $from = unformat_email($args['from']);
   }
   $mail->setFrom($from['email'], $from['name']);
-  $mail->addReplyTo($from['email'], $from['name']);
+  $mail->addReplyTo($args['reply_to_mail_address'] ?? $from['email'], $args['reply_to_name'] ?? $from['name']);
 
   // Subject
   if (empty($args['subject']))
