@@ -334,6 +334,168 @@ jQuery.fn.pwg_jconfirm_follow_href = function({
   });
 }
 
+/**********
+Admin menu
+**********/
+
+// Check user system preference for light or dark mode, 
+// set the preference in the cookie and change theme accordingly
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+  //Exit if user hasn't selected auto
+  if (getCookie("autoAdminMode") !== "true") return;
+
+  let newMode = event.matches ? "roma" : "clear";
+  toggle_admin_mode(newMode);
+  setCookie("adminMode",newMode,30);
+});
+
+$(document).ready(function()
+{
+  //check if adminMode cookie is set it is either clear or roma
+  //Check if autoMode is active
+  let adminModeCookie = getCookie("adminMode");
+
+  //Check if adminMode cookie has been set and check the option that corresponds
+  if("" != adminModeCookie)
+  {
+    //if autoAdminMode is set the the light or dark setting was choosen by the browser
+    if ("true" == getCookie("autoAdminMode")){
+      adminModeCookie = 'auto'
+    }
+
+    $('input[name="appearance"]').each(function(){
+      if(adminModeCookie == $( this ).val()){
+        $(this).prop('checked', true);
+        $(this).parent('label').addClass('selected');
+        $(this).siblings('span').toggleClass('icon-circle-empty icon-dot-circled');
+      }
+    });
+  }
+  else
+  {
+    //This means no cookie is set, we always want a cookie, even if its auto
+    //So we will set auto
+    let browserMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? "roma" : "clear";
+    setCookie("adminMode",browserMode,30);
+    setCookie("autoAdminMode",'true',30);
+
+    $('input[name="appearance"]').each(function(){
+        if('auto' == $( this ).val()){
+          $(this).prop('checked', true);
+          $(this).parent('label').addClass('selected');
+          $(this).siblings('span').toggleClass('icon-circle-empty icon-dot-circled');
+        }
+    });
+  }
+
+  //update adminMode on click
+  $('input[name="appearance"]').on('change', function () {
+    checkModeSelection();
+  });
+
+  // Get the first letter of user name and fill the green circle span 
+  const initial_to_fill = get_initials(username);
+  const initialSpan = $('#menubar').find(".user-container-initials-wrapper span");
+  initialSpan.html(initial_to_fill);
+
+  // on hover of menu display menu subitems for desktop
+  $('.page-link').mouseenter(function (e) {
+    const current_link = $(this);
+    // Add a 2ms delay before displaying menu subitems 
+    current_link.data('timeout', setTimeout(function () {
+      // Hide user options 
+      hide_user_options(e)
+      current_link.children('.sub-link-container').css('display','block');
+      current_link.children('span').children('.hover').children('.icon-down-open').css('rotate','-90deg');
+    }, 250));
+  }).mouseleave(function () {
+    // when mouse leaves element reset the timeout so it doesn't display the sub elements because it's not the one the user wants to display 
+    const current_link = $(this);
+    current_link.children('.sub-link-container').css('display','none');
+    current_link.children('span').children('.hover').children('.icon-down-open').css('rotate','0deg');
+    clearTimeout(current_link.data('timeout'));
+  });
+
+  // On click of user name display sub menu 
+  $('.username-container').click(function (e) {
+    const current_link = $(this);
+    current_link.siblings('.user-sub-link-container').toggle();
+    current_link.siblings('.icon-left-open').toggle();
+    $('#menubar .user-actions').toggleClass('active');
+    //We stop propagation so that the user actions container doesn't close
+    e.stopPropagation();
+  })
+
+  //Display appereance switch on click
+  $('#apperance-switch-controller').click(function (e) {
+    $('#apperance-switch').toggle();
+    //We stop propagation so that the user actions container doesn't close
+    e.stopPropagation();
+  });
+
+  //Close user actions dropdown when user clicks outside of it
+  $(document).click(function() {
+    // Hide user submenu
+    $('.user-sub-link-container').hide();
+    $('.icon-left-open').show();
+    $('#menubar .user-actions').removeClass('active');
+
+    // Hide appearance switch dropdown
+    $('#apperance-switch').hide();
+  });
+
+  $('.user-actions, #apperance-switch').click(function(e){
+    //We stop propagation so that the user actions container doesn't close
+    e.stopPropagation();
+  });
+
+  //Adapt menu size to user cookie
+    let menuSizePreferenceCookie = getCookie("menuSizePreference")
+  if ("reduced" == menuSizePreferenceCookie)
+  {
+    $('#menubar').toggleClass('enlarged').toggleClass('reduced');
+    $('#content').toggleClass('reduced');
+  }
+
+  //Reduce and enlarge menu
+  //Save the user preferences in the cookies
+  $('#reduce-enlarge').click(function () {
+    //We make sure that we are using a desktop to enable enlarged and reduced
+    if (!isMobile) {
+      $('#menubar').toggleClass('enlarged').toggleClass('reduced');
+      $('#content').toggleClass('reduced');
+      //Set cookie to be used in user pref for enlarged or reduced menu
+      if($('#menubar').hasClass('enlarged'))
+      {
+        setCookie("menuSizePreference",'enlarged',30);
+      }
+      else if($('#menubar').hasClass('reduced'))
+      {
+        setCookie("menuSizePreference",'reduced',30);
+      }
+    }
+  });
+
+  //Actions are for mobile
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile){
+    //Toggle slide up of menu
+    $('#menu-toggle').click(function () {
+      $('#menubar').toggleClass('open');
+    });
+
+    //Toggle menu sub items on mobile touch
+    $('.page-link').click(function(e) {
+
+        let child = $(this).find('.sub-link-container');
+        child.slideToggle();
+      
+    });
+  } 
+})
+
+
 //Get username initials
 //Used in menu and user list page
 function get_initials(username) {
@@ -437,113 +599,3 @@ function hide_user_options(e){
   }
 }
 
-// Check user system preference for light or dark mode, 
-// set the preference in the cookie and change theme accordingly
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-  let newMode = event.matches ? "roma" : "clear";
-  toggle_admin_mode(newMode);
-});
-
-$('document').ready(function()
-{
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-  // Get the first letter of user name and fill the green circle span 
-  const initial_to_fill = get_initials(username);
-  const initialSpan = $('#menubar').find(".user-container-initials-wrapper span");
-  initialSpan.html(initial_to_fill);
-
-  // on hover of menu display menu subitems for desktop
-  $('.page-link').mouseenter(function (e) {
-    const current_link = $(this);
-    // Add a 2ms delay before displaying menu subitems 
-    current_link.data('timeout', setTimeout(function () {
-      // Hide user options 
-      hide_user_options(e)
-      current_link.children('.sub-link-container').css('display','block');
-      current_link.children('span').children('.hover').children('.icon-down-open').css('rotate','-90deg');
-    }, 250));
-  }).mouseleave(function () {
-    // when mouse leaves element reset the timeout so it doesn't display the sub elements because it's not the one the user wants to display 
-    const current_link = $(this);
-    current_link.children('.sub-link-container').css('display','none');
-    current_link.children('span').children('.hover').children('.icon-down-open').css('rotate','0deg');
-    clearTimeout(current_link.data('timeout'));
-  });
-
-  // On click of user name display sub menu 
-  $('.user-actions').click(function () {
-    const current_link = $(this);
-    current_link.children('.user-sub-link-container').toggle();
-    current_link.children('.icon-left-open').toggle();
-    $('#menubar .user-actions').toggleClass('active');
-  })
-
-  // Outside of user options block if we click hide it 
-  $(document).click(function (e) {
-    hide_user_options(e)
-  });
-
-  //On document load check if adminMode cookie is set if not set auto preference
-  let adminModeCookie = getCookie("adminMode"); 
-  let menuSizePreferenceCookie = getCookie("menuSizePreference")
-
-  //Adapt menu size to user cookie
-  if ("reduced" == menuSizePreferenceCookie)
-  {
-    $('#menubar').toggleClass('enlarged').toggleClass('reduced');
-    $('#content').toggleClass('reduced');
-  }
-
-  //Check if adminMode cookie has been set and check the option that corresponds
-  if("" != adminModeCookie)
-  {
-    if (getCookie("autoAdminMode")){
-      adminModeCookie = 'auto'
-    }
-
-    toggle_admin_mode()
-    $('input[name="appearance"]').each(function(){
-        if(adminModeCookie == $( this ).val()){
-          $(this).parent('label').addClass('selected');
-          $(this).siblings('span').toggleClass('icon-circle-empty icon-dot-circled');
-        }
-    });
-  }
-
-  //Reduce and enlarge menu
-  //Save the user preferences in the cookies
-  $('#reduce-enlarge').click(function () {
-    //We make sure that we are using a desktop to enable enlarged and reduced
-    if (!isMobile) {
-      $('#menubar').toggleClass('enlarged').toggleClass('reduced');
-      $('#content').toggleClass('reduced');
-      //Set cookie to be used in user pref for enlarged or reduced menu
-      if($('#menubar').hasClass('enlarged'))
-      {
-        setCookie("menuSizePreference",'enlarged',30);
-      }
-      else if($('#menubar').hasClass('reduced'))
-      {
-        setCookie("menuSizePreference",'reduced',30);
-      }
-    }
-  });
-
-  // //Actions are for mobile
-  // if (isMobile){
-  //   //Toggle slide up of menu
-  //   $('#menu-toggle').click(function () {
-  //     $('#menubar').toggleClass('open');
-  //   });
-
-  //   //Toggle menu sub items on mobile touch
-  //   $('.page-link').on('pointerdown', function(e) {
-  //     if (e.pointerType === 'touch') {  // only trigger for touch aka mobile
-  //       let child = $(this).find('.sub-link-container');
-  //       child.slideToggle();
-  //     }
-  //   });
-  // } 
-
-})
