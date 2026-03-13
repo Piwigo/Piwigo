@@ -656,17 +656,30 @@ function flush_page_messages()
 }
 
 /**
- * pwg_nl2br is useful for PHP 5.2 which doesn't accept more than 1
- * parameter on nl2br() (and anyway the second parameter of nl2br does not
- * match what Piwigo gives.
+ * Convert newlines to <br> tags, but only if the content does not
+ * already contain HTML tags. This respects the intent: if a user writes
+ * plain text with paragraphs (newlines), they should be preserved in
+ * the output. If they explicitly use HTML, we don't add extra <br>.
+ *
+ * @param string $string
+ * @return string
  */
-function pwg_nl2br($string)
+function should_convert_nl2br($string)
 {
   if (empty($string))
   {
     return $string;
   }
 
+  // Check if content already contains HTML tags
+  // Match opening tags like <p>, <br>, <div>, etc.
+  if (preg_match('/<[a-z][\w-]*(?:\s[^>]*)?>/i', $string))
+  {
+    // Content has HTML, don't add <br>
+    return $string;
+  }
+
+  // No HTML detected, convert newlines to <br>
   return nl2br($string);
 }
 
