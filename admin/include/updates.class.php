@@ -96,7 +96,8 @@ class updates
         $last_version = trim($all_versions[0]);
         if ('Official' === $env)
         {
-          if ($this->container_version_compare($build_version, $last_version))
+          // Check if build_version is lower than the latest version
+          if ($this->container_version_compare($build_version, $last_version) == '-1')
           {
             $last_branch = get_branch_from_version(substr($last_version, 0, -1));
             if ($last_branch == $actual_branch)
@@ -111,7 +112,7 @@ class updates
                 $branch = get_branch_from_version(substr($version, 0, -1));
                 if ($branch == $actual_branch)
                 {
-                  if ($this->container_version_compare($build_version, $version))
+                  if ($this->container_version_compare($build_version, $version) == '-1')
                   {
                     $new_versions['minor'] = $version;
                   }
