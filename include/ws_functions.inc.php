@@ -169,7 +169,7 @@ function ws_std_get_urls($image_row)
   $ret['download_url'] = null;
   if ($provide_download_url)
   {
-    $ret['download_url'] = str_replace('&amp;', '&', get_action_url($image_row['id'], 'e', true));
+    $ret['download_url'] = get_action_url($image_row['id'], 'e', true);
   }
 
   $derivatives = DerivativeImage::get_all($src_image);
