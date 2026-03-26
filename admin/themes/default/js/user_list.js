@@ -804,7 +804,9 @@ function gen_password() {
 }
 
 function add_user_close() {
-    $("#AddUser").fadeOut();
+    $("#AddUser").fadeOut(() => {
+        $("#AddUser .AddUserErrors").css("visibility", "hidden");
+    });
 }
 
 function add_user_open() {

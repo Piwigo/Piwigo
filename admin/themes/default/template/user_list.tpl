@@ -1146,7 +1146,7 @@ $(document).ready(function() {
 <div id="AddUser" class="UserListPopIn">
   <div class="AddUserPopInContainer">
     <a class="icon-cancel CloseUserList CloseAddUser"></a>
-    
+    <div class="AddUserScrollableContent">
     <div class="AddIconContainer">
       <span class="AddIcon icon-blue icon-plus-circled"></span>
     </div>
@@ -1267,6 +1267,7 @@ $(document).ready(function() {
         <span class="icon-docs" id="AddUserCopyPassword"></span>
       </div>
       <p class="icon-button" id="AddUserButton"><span class="icon-ok"></span> {'Ok'|@translate}</p>
+    </div>
     </div>
 
   </div>
@@ -1920,8 +1921,12 @@ $(document).ready(function() {
   margin-left: 418px;
 }
 
+#AddUser .user-property-select-container {
+  position: relative;
+}
 #AddUser .user-property-select-container::before {
-  margin-left: 328px;
+  margin-left: 0;
+  right: 10px;
 }
 
 .user-action-select-container {
@@ -1951,6 +1956,10 @@ $(document).ready(function() {
   margin-top: 5px;
   margin-bottom: 5px;
   align-self: start;
+}
+
+#AddUser .select-checkbox {
+  position: relative;
 }
 
 /* summary section */
@@ -2633,6 +2642,18 @@ $(document).ready(function() {
     border-radius:15px;
     align-items:center;
     width: 350px;
+    max-height: 85vh;
+}
+
+.AddUserScrollableContent {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #AddUserFieldContainer {
