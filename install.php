@@ -266,6 +266,15 @@ if (isset($_POST['install']))
 
   pwg_db_check_charset();
 
+  if (
+    strlen($prefixeTable) > 20
+    or preg_match('/^\d/', $prefixeTable)
+    or !preg_match('/^[a-zA-Z0-9_$]*$/u', $prefixeTable)
+  )
+  {
+    $errors[] = 'invalid table prefix';
+  }
+
   $webmaster = trim(preg_replace('/\s{2,}/', ' ', $admin_name));
   if (empty($webmaster))
   {
