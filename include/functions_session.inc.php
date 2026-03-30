@@ -103,7 +103,8 @@ function get_remote_addr_session_hash()
     return '';
   }
   
-  if (strpos($_SERVER['REMOTE_ADDR'],':')===false)
+  // REMOTE_ADDR could be '/srv/mp/socket' on virtualized environment => be sure the IP contains some dot without port
+  if (strpos($_SERVER['REMOTE_ADDR'],':')===false && strpos($_SERVER['REMOTE_ADDR'],'.'))
   {//ipv4
     return vsprintf(
       "%02X%02X",
