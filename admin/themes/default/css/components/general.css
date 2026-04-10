@@ -331,10 +331,11 @@ Info
 .messages a,
 #photosAddContent .infos ul li a,
 .eiw ul li a{
-  border-radius:4px;
+  border-radius:25px;
   margin:0 5px;
   padding: 2px 7px;
   cursor:pointer;
+  margin-right:-2px;
 }
 
 .info.hide {
@@ -357,7 +358,7 @@ Info
 .update-username-success {
   overflow: hidden;
   border-radius: 30px;
-  padding: 10px 15px;
+  padding:4px 8px 4px 3px;
   font-weight: bold;
   align-items: start;
   text-align:left;
@@ -370,6 +371,7 @@ Info
 .update-user-fail{
   display: flex;
   margin-left: 10px;
+  align-items:center;
 }
 
 .update-username-success{
@@ -382,6 +384,8 @@ Info
   white-space: nowrap;
   text-overflow: ellipsis;
   text-align: initial;
+  display: flex;
+  align-items: center;
 }
 
 .info-message::before,
