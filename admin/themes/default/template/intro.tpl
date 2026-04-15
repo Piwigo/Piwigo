@@ -240,8 +240,8 @@ translate_type['{$type_to_translate}'] = "{$type_to_translate|translate}";
 
   <div class="storage-chart">
     {foreach from=$STORAGE_CHART_DATA key=type item=details}
-      <span data-type="storage-{$type}" style="width:{$details.total.filesize/$STORAGE_TOTAL*100}%"> 
-        <p>{round($details.total.filesize/$STORAGE_TOTAL*100)}%</p>
+      <span data-type="storage-{$type}" style="width:{if $STORAGE_TOTAL > 0}{$details.total.filesize/$STORAGE_TOTAL*100}{else}0{/if}%">
+        <p>{if $STORAGE_TOTAL > 0}{round($details.total.filesize/$STORAGE_TOTAL*100)}{else}0{/if}%</p>
       </span>  
     {/foreach}
   </div>
