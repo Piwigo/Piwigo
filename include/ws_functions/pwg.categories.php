@@ -326,7 +326,7 @@ SELECT SQL_CALC_FOUND_ROWS
   if (isset($params['limit']))
   {
     $query .= '
-  ORDER BY `rank` ASC 
+  ORDER BY `global_rank` ASC 
   LIMIT '.($params['limit'] + ($params['cat_id'] > 0 ? 1 : 0));
   }
 
