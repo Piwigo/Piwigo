@@ -325,8 +325,12 @@ SELECT SQL_CALC_FOUND_ROWS
 
   if (isset($params['limit']))
   {
+    # The `cat_id` in question will always be first.
+    # Without this it will be inserted somewhere arbitrary into the rank of its child categories (based on its own rank within its uppercat, the grand-uppercat of the rest of the rows)
+    $uppercat_order = ($params['cat_id'] > 0) ? '(`id`='.(int)($params['cat_id']).') DESC, ':'';
+
     $query .= '
-  ORDER BY `global_rank` ASC 
+  ORDER BY '.$uppercat_order.'`rank` ASC 
   LIMIT '.($params['limit'] + ($params['cat_id'] > 0 ? 1 : 0));
   }
 
