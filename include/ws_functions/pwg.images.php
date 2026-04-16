@@ -555,7 +555,7 @@ SELECT id, date, author, content
   }
 
   $ret = $image_row;
-  foreach (array('id','width','height','hit','filesize', 'rotation') as $k)
+  foreach (array('id','width','height','rotation','hit','filesize') as $k)
   {
     if (isset($ret[$k]))
     {
