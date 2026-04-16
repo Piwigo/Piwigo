@@ -555,7 +555,7 @@ SELECT id, date, author, content
   }
 
   $ret = $image_row;
-  foreach (array('id','width','height','hit','filesize') as $k)
+  foreach (array('id','width','height','hit','filesize', 'rotation') as $k)
   {
     if (isset($ret[$k]))
     {
@@ -705,7 +705,7 @@ SELECT *
     {
       $image = array();
       $image['is_favorite'] = isset($favorite_ids[ $row['id'] ]);
-      foreach (array('id', 'width', 'height', 'hit') as $k)
+      foreach (array('id', 'width', 'height', 'rotation', 'hit') as $k)
       {
         if (isset($row[$k]))
         {
