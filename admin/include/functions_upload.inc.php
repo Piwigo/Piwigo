@@ -253,6 +253,24 @@ SELECT
     {
       $original_extension = strtolower(get_extension($original_filename));
 
+      $finfo = finfo_open(FILEINFO_MIME_TYPE);
+      $finfo_type = finfo_file($finfo, $source_filepath);
+      finfo_close($finfo);
+
+      if (in_array($finfo_type, ['image/svg', 'image/svg+xml']) and $original_extension != 'svg')
+      {
+        unlink($source_filepath);
+        $error_msg = 'File extension "'.$original_extension.'" for file "'.$original_filename.'" does not match file MIME type "'.$finfo_type.'"';
+        if (defined('IN_WS'))
+        {
+          global $service;
+          $service->sendResponse(new PwgError(415, $error_msg));
+          exit;
+        }
+
+        die($error_msg);
+      }
+
       if (in_array($original_extension, $conf['file_ext']))
       {
         $file_path.= $original_extension;
