@@ -3663,6 +3663,31 @@ SELECT
 }
 
 /**
+ * Displays a page warning if no MIME type is defined for an upload-authorized file extension
+ *
+ * @since 17.0.0
+ */
+function check_authorized_file_extension_mime_types()
+{
+  global $conf, $page;
+
+  if (!is_webmaster())
+  {
+    return;
+  }
+
+  $authorized_file_extensions = $conf['upload_form_all_types'] ? $conf['file_ext'] : $conf['picture_ext'];
+
+  foreach ($authorized_file_extensions as $ext)
+  {
+    if (!isset($conf['mime_types_for_ext'][$ext]))
+    {
+      $page['warnings'][] = 'File extension "'.$ext.'" is authorized for upload but there is no $conf[\'mime_types_for_ext\'][\''.$ext.'\'] defined. Fix this.';
+    }
+  }
+}
+
+/**
  * Return latest news from piwigo.org.
  *
  * @since 13

@@ -56,6 +56,63 @@ $conf['file_ext'] = array_merge(
   array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf','svg', 'heic')
   );
 
+// mime_types_for_ext : list of valid/expected MIME types for each file extension.
+// 
+// Every permitted file extension authorized for upload should be listed.
+// Otherwise Piwigo won't be able to check.
+$conf['mime_types_for_ext'] = array(
+  '3gp'   => ['video/3gpp', 'audio/3gpp'],
+  'ai'    => ['application/postscript'],
+  'avi'   => ['video/x-msvideo'],
+  'avif'  => ['image/avif'],
+  'bmp'   => ['image/bmp'],
+  'cr2'   => ['image/x-canon-cr2'],
+  'dng'   => ['image/x-adobe-dng'],
+  'doc'   => ['application/msword'],
+  'docx'  => ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+  'eps'   => ['application/postscript'],
+  'flv'   => ['video/x-flv'],
+  'gif'   => ['image/gif'],
+  'gp3'   => ['video/3gpp'],
+  'gp4'   => ['video/3gpp'],
+  'gpx'   => ['application/gpx+xml'],
+  'heic'  => ['image/heic', 'image/heif'],
+  'ico'   => ['image/x-icon'],
+  'indd'  => ['application/x-indesign'],
+  'jpeg'  => ['image/jpeg'],
+  'jpg'   => ['image/jpeg'],
+  'm4a'   => ['audio/mp4', 'audio/x-m4a'],
+  'm4v'   => ['video/x-m4v'],
+  'mkv'   => ['video/x-matroska'],
+  'mov'   => ['video/quicktime'],
+  'mp3'   => ['audio/mpeg'],
+  'mp4'   => ['video/mp4'],
+  'mpeg'  => ['video/mpeg'],
+  'mpg'   => ['video/mpeg'],
+  'nef'   => ['image/x-nikon-nef'],
+  'odt'   => ['application/vnd.oasis.opendocument.text'],
+  'ogg'   => ['audio/ogg', 'application/ogg'],
+  'ogv'   => ['video/ogg'],
+  'pdf'   => ['application/pdf'],
+  'png'   => ['image/png'],
+  'ppt'   => ['application/vnd.ms-powerpoint'],
+  'pptx'  => ['application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+  'psd'   => ['image/vnd.adobe.photoshop'],
+  'rar'   => ['application/x-rar-compressed', 'application/vnd.rar'],
+  'strm'  => ['application/x-ms-wmp'],
+  'svg'   => ['image/svg', 'image/svg+xml'],
+  'tif'   => ['image/tiff'],
+  'tiff'  => ['image/tiff'],
+  'txt'   => ['text/plain'],
+  'wav'   => ['audio/wav', 'audio/x-wav'],
+  'webm'  => ['video/webm'],
+  'webp'  => ['image/webp'],
+  'wmv'   => ['video/x-ms-wmv'],
+  'xls'   => ['application/vnd.ms-excel'],
+  'xlsx'  => ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  'zip'   => ['application/zip'],
+);
+
 // enable_formats: should Piwigo search for multiple formats?
 $conf['enable_formats'] = false;
 

@@ -92,6 +92,7 @@ if ($locked_album > 0)
 }
 
 fs_quick_check();
+check_authorized_file_extension_mime_types();
 
 // +-----------------------------------------------------------------------+
 // |                             template init                             |

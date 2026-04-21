@@ -160,5 +160,7 @@ $template->assign(array(
   'str_format_ext' =>  implode(', ', $conf['format_ext']),
 ));
 
+check_authorized_file_extension_mime_types();
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'photos_add');
 ?>

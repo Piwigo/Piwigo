@@ -231,43 +231,33 @@ SELECT
     $filename_wo_ext = $date_string.'-'.$random_string;
     $file_path = $upload_dir.'/'.$filename_wo_ext.'.';
 
-    list($width, $height, $type) = getimagesize($source_filepath);
-    
-    if (IMAGETYPE_PNG == $type)
-    {
-      $file_path.= 'png';
-    }
-    elseif (IMAGETYPE_GIF == $type)
-    {
-      $file_path.= 'gif';
-    }
-    elseif (IMAGETYPE_JPEG == $type)
-    {
-      $file_path.= 'jpg';
-    }
-    elseif (IMAGETYPE_WEBP == $type)
-    {
-      $file_path.= 'webp';
-    }
-    elseif (isset($conf['upload_form_all_types']) and $conf['upload_form_all_types'])
-    {
-      $original_extension = strtolower(get_extension($original_filename));
+    $authorized_file_extensions = $conf['upload_form_all_types'] ? $conf['file_ext'] : $conf['picture_ext'];
 
-      if (in_array($original_extension, $conf['file_ext']))
-      {
-        $file_path.= $original_extension;
-      }
-      else
-      {
-        unlink($source_filepath);
-        die('unexpected file type');
-      }
-    }
-    else
+    $original_extension = strtolower(get_extension($original_filename));
+
+    if (!in_array($original_extension, $authorized_file_extensions))
     {
       unlink($source_filepath);
-      die('forbidden file type');
+
+      $error_msg = 'forbidden file type';
+
+      if (defined('IN_WS'))
+      {
+        global $service;
+        $service->sendResponse(new PwgError(415, $error_msg));
+        exit;
+      }
+
+      die($error_msg);
     }
+
+    pwg_check_real_extension($source_filepath, $original_filename, true);
+
+    $file_extension_replace_by = array(
+      'jpeg' => 'jpg',
+    );
+
+    $file_path .= $file_extension_replace_by[$original_extension] ?? $original_extension;
 
     prepare_directory($upload_dir);
 
@@ -977,6 +967,51 @@ function pwg_image_infos($path)
     'height' => $height,
     'filesize' => $filesize,
     );
+}
+
+function pwg_check_real_extension($source_filepath, $original_filename, $die_on_error=true)
+{
+  global $conf, $logger;
+
+  $finfo = finfo_open(FILEINFO_MIME_TYPE);
+  $finfo_type = finfo_file($finfo, $source_filepath);
+  finfo_close($finfo);
+
+  $original_extension = strtolower(get_extension($original_filename));
+
+  if (!isset($conf['mime_types_for_ext'][$original_extension]))
+  {
+    // not a situation we like: the extension is authorized for upload but
+    // not listed for MIME type check. See function check_authorized_file_extension_mime_types
+    return true;
+  }
+
+  if (!in_array($finfo_type, $conf['mime_types_for_ext'][$original_extension]))
+  {
+    $error_msg = 'File extension "'.$original_extension.'" for file "'.$original_filename.'" does not match file MIME type "'.$finfo_type.'"';
+
+    $logger->info(__FUNCTION__.' '.$error_msg);
+
+    if ($die_on_error)
+    {
+      unlink($source_filepath);
+
+      if (defined('IN_WS'))
+      {
+        global $service;
+        $service->sendResponse(new PwgError(415, $error_msg));
+        exit;
+      }
+
+      die($error_msg);
+    }
+
+    return false;
+  }
+
+  $logger->info(__FUNCTION__.' file_ext='.$original_extension.' Vs finfo_type='.$finfo_type);
+
+  return true;
 }
 
 function is_valid_image_extension($extension)
