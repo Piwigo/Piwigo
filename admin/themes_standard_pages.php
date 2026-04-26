@@ -16,7 +16,11 @@ if( !defined("PHPWG_ROOT_PATH") )
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-global $template, $conf;
+if (!is_webmaster())
+{
+  $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
+}
+
 // +-----------------------------------------------------------------------+
 // | Update standard pages configuration                                   |
 // +-----------------------------------------------------------------------+
@@ -42,7 +46,7 @@ $std_pgs_skin_options = array(
   "teal",
 );
 
-if (isset($_POST['submit']) and !empty($_POST))
+if (isset($_POST['submit']) and !empty($_POST) and is_webmaster())
 {
   check_pwg_token();
 
@@ -65,46 +69,36 @@ if (isset($_POST['submit']) and !empty($_POST))
 //Handle logo upload, allow png, jpg and svg
 if (isset($_FILES['std_pgs_logo']) and !empty($_FILES['std_pgs_logo']['tmp_name']))
 {
-  // if (function_exists('mime_content_type'))
-  // {
-    $mime_type = mime_content_type($_FILES['std_pgs_logo']['tmp_name']);
-    
-    // Allowed MIME types
-    $allowed_mimes = array(
-      'image/png',
-      'image/jpeg',
-      'image/svg+xml',
-      'image/svg'
+  $finfo = finfo_open(FILEINFO_MIME_TYPE);
+  $mime_type = finfo_file($finfo, $_FILES['std_pgs_logo']['tmp_name']);
+  finfo_close($finfo);
+
+  // Allowed MIME types
+  $allowed_mimes = array(
+    'image/png' => 'png',
+    'image/jpeg' => 'jpg',
+    'image/svg+xml' => 'svg',
+    'image/svg' => 'svg',
+    'image/webp' => 'webp',
+  );
+
+  if (!in_array($mime_type, array_keys($allowed_mimes)))
+  {
+    $template->assign(
+      array(
+        'save_error' => 'Invalid image file.',
+      )
     );
-
-    // Only get image size for raster images aka png and jpg, 
-    // exclude svg because getimagesize dones't work on svg
-    if ($mime_type !== 'image/svg+xml' && $mime_type !== 'image/svg')
-    {
-      $image_info = getimagesize($_FILES['std_pgs_logo']['tmp_name']);
-      if ($image_info === false)
-      {
-        $template->assign(array(
-          'save_error' => l10n('Invalid image file.')
-        ));
-        return;
-      }
-
-      list($width, $height, $type) = $image_info;
-    }
-    
+  }
+  else
+  {
     $upload_dir = PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'logo';
     if (mkgetdir($upload_dir, MKGETDIR_DEFAULT & ~MKGETDIR_DIE_ON_ERROR))
     {
       $pathinfo = pathinfo($_FILES['std_pgs_logo']['name']);
 
-      $filename  = str2url($pathinfo['filename']);
-      $extension = strtolower($pathinfo['extension']);
+      $file_path = $upload_dir . '/' . str2url($pathinfo['filename']) . '.' . $allowed_mimes[ $mime_type ];
 
-      $new_name = $filename . '.' . $extension;
-      $file_path = $upload_dir . '/' . $new_name;
-
-      //Save logo path to conf
       conf_update_param('standard_pages_selected_logo_path', $file_path, true);
 
       if (move_uploaded_file($_FILES['std_pgs_logo']['tmp_name'], $file_path))
@@ -113,20 +107,24 @@ if (isset($_FILES['std_pgs_logo']) and !empty($_FILES['std_pgs_logo']['tmp_name'
       }
       else
       {
-        $template->assign(array(
-          'save_error' => "$file_path " . l10n('no write access'),
-        ));
+        $template->assign(
+          array(
+            'save_error' => "$file_path " . l10n('no write access'),
+          )
+        );
       }
-    // }
-  }
-  else
-  {
-    $template->assign(array(
-      'save_error' => sprintf(
-        l10n('Add write access to the "%s" directory'),
-        $upload_dir
-      ),
-    ));
+    }
+    else
+    {
+      $template->assign(
+        array(
+          'save_error' => sprintf(
+            l10n('Add write access to the "%s" directory'),
+            $upload_dir
+          ),
+        )
+      );
+    }
   }
 }
 
