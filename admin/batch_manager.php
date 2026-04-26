@@ -256,6 +256,7 @@ elseif (isset($_GET['filter']))
       break;
 
     case 'dimension':
+      // filter=dimension-w10..1000-h100..5000-r0.70..2
       $dim_map = array('w'=>'width','h'=>'height','r'=>'ratio');
       foreach (explode('-', $value) as $part)
       {
@@ -263,19 +264,54 @@ elseif (isset($_GET['filter']))
         if (isset($dim_map[$part[0]]))
         {
           $type = $dim_map[$part[0]];
-          list(
-            $_SESSION['bulk_manager_filter']['dimension']['min_'.$type],
-            $_SESSION['bulk_manager_filter']['dimension']['max_'.$type]
-          ) = $values;
+
+          $filter_to_validate_for_type = array(
+            'width' => FILTER_VALIDATE_INT,
+            'height' => FILTER_VALIDATE_INT,
+            'ratio' => FILTER_VALIDATE_FLOAT,
+          );
+
+          $valid = true;
+          foreach ($values as $value)
+          {
+            if (filter_var($value, $filter_to_validate_for_type[$type]) === false)
+            {
+              $valid = false;
+            }
+          }
+
+          if ($valid)
+          {
+            list(
+              $_SESSION['bulk_manager_filter']['dimension']['min_'.$type],
+              $_SESSION['bulk_manager_filter']['dimension']['max_'.$type]
+            ) = $values;
+          }
         }
       }
       break;
 
     case 'filesize':
-      list(
-        $_SESSION['bulk_manager_filter']['filesize']['min'],
-        $_SESSION['bulk_manager_filter']['filesize']['max']
-      ) = explode('..', $value);
+      // filter=filesize-1..10
+      $values = explode('..', $value);
+
+      $valid = true;
+      foreach ($values as $value)
+      {
+        if (filter_var($value, FILTER_VALIDATE_FLOAT) === false)
+        {
+          $valid = false;
+        }
+      }
+
+      if ($valid)
+      {
+        list(
+          $_SESSION['bulk_manager_filter']['filesize']['min'],
+          $_SESSION['bulk_manager_filter']['filesize']['max']
+        ) = $values;
+      }
+
       break;
 
     default:
