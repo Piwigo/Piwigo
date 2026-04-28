@@ -702,6 +702,23 @@ DELETE FROM '. PLUGINS_TABLE .'
                                        PCLZIP_OPT_REMOVE_PATH, $root,
                                        PCLZIP_OPT_REPLACE_NEWER))
             {
+              // opcache may certainly have loaded the maintain.class.php of the previous
+              // version of the plugin. We're going to need it right after the zip extract
+              // to perform an update action. We need to make sure the PHP files of the
+              // new version of the plugin are reload. Thus we need to remove old files
+              // from opcache.
+              if (function_exists('opcache_invalidate'))
+              {
+                foreach ($result as $file)
+                {
+                  if (!preg_match('{/language/}', $file['filename']) and preg_match('/\.php$/', $file['filename']))
+                  {
+                    opcache_invalidate($file['filename'], true);
+                    $logger->debug(__FUNCTION__.' extracted file = '.$file['filename'].', opcache_invalidate performed');
+                  }
+                }
+              }
+
               foreach ($result as $file)
               {
                 if ($file['stored_filename'] == $main_filepath)
