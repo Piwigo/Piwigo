@@ -835,11 +835,19 @@ input:checked + .slider:before, input:checked + .slider::after {
     animation: fadeIn 100ms cubic-bezier(0.42, 0, 0.62, 1.32) forwards;
     animation-delay: 100ms;
     border-radius: 5px;
-    max-width: 100%;
+    max-width: min(250px, calc(100vw - 20px));
+    width: max-content;
+    white-space: normal;
+    word-wrap: break-word;
     text-align: center;
     font-size: 12px;
     padding: 5px 10px;
     box-shadow: 0px 10px 33px #3333332e;
+}
+
+[data-tooltip].tooltip-flip:hover::after {
+    left: auto;
+    right: 5px;
 }
 
 /*Responsive display*/
