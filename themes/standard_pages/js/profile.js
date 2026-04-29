@@ -181,7 +181,14 @@ $(function() {
   $('#api_expiration_date').on('change', function() {
     $('#error_api_key_date').hide();
   });
-  
+
+  $(document).on('mouseenter', '[data-tooltip]', function() {
+    const rect = this.getBoundingClientRect();
+    const tooltipMaxWidth = 250;
+    const margin = 10;
+    $(this).toggleClass('tooltip-flip', rect.left + tooltipMaxWidth + margin > window.innerWidth);
+  });
+
   getAllApiKeys();
 });
 
@@ -265,7 +272,7 @@ function AddApiLine(lines, reset) {
     api_line.attr('id', `api_${tmp_id}`);
     api_line.find('.icon-collapse').data('api', tmp_id);
     api_line.find('.api_name').text(line.apikey_name).attr('title', line.apikey_name);
-    api_line.find('.api_creation').text(line.created_on_format);
+    api_line.find('.api_creation').text(line.created_on_format).attr('data-tooltip', line.created_on_format);
     api_line.find('.api_last_use').text(line.last_used_on_since).attr('title', line.last_used_on_since);
     api_line.find('.api_expiration').text(line.expiration);
     api_line.find('.api-icon-action').attr('data-api', `api_${tmp_id}`);
