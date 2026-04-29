@@ -1483,6 +1483,15 @@ function fill_user_edit_properties(user_to_edit, pop_in) {
         current_group_selectize.addItem(group.value);
     });
     pop_in.find('.user-list-checkbox[name="hd_enabled"]').attr('data-selected', user_to_edit.enabled_high == 'true' ? '1' : '0');
+
+    // by default show copy_password_link and send_password_link
+    // but if the user status is generic just hide because these users
+    // aren't allowed to change their password by link
+    toggle_send_copy_password(user_to_edit.status);
+    $('#tab_properties .user-property-status .user-property-select').off('change').on('change', function() {
+        const status = $(this).val();
+        toggle_send_copy_password(status);
+    });
 }
 
 function fill_user_edit_preferences(user_to_edit, pop_in) {
@@ -2472,4 +2481,12 @@ function set_main_user(user_id, new_username) {
             console.log(err);
         }
     });
+}
+
+function toggle_send_copy_password(status) {
+    if ('generic' === status) {
+        $('#copy_password_link, #send_password_link').hide();
+    } else {
+        $('#copy_password_link, #send_password_link').show();
+    }
 }
