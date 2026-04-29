@@ -786,6 +786,10 @@ class image_gd implements imageInterface
     {
       $this->image = imagecreatefromgif($source_filepath);
     }
+    elseif ($extension == 'webp' and $gd_info['WebP Support'])
+    {
+      $this->image = imagecreatefromwebp($source_filepath);
+    }
     else
     {
       die('[Image GD] unsupported file extension');
@@ -910,6 +914,10 @@ class image_gd implements imageInterface
     elseif ($extension == 'gif')
     {
       imagegif($this->image, $destination_filepath);
+    }
+    elseif ($extension == 'webp')
+    {
+      imagewebp($this->image, $destination_filepath, $this->quality);
     }
     else
     {
