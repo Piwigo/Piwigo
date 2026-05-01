@@ -1057,7 +1057,7 @@ function log_user($user_id, $remember_me)
   {
     if (!array_key_exists($_COOKIE['lang'], get_languages()))
     {
-      fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
+      fatal_error('[Hacking attempt] the input parameter "'.htmlspecialchars($_COOKIE['lang']).'" is not valid');
     }
 
     single_update(
