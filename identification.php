@@ -125,17 +125,7 @@ if (!$conf['gallery_locked'] && (!isset($themeconf['hide_menu_on']) OR !in_array
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }
 
-//Load language if cookie is set from login/register/password pages
-if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
-{
-  if (!array_key_exists($_COOKIE['lang'], get_languages()))
-  {
-    fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
-  }
-  
-  $user['language'] = $_COOKIE['lang'];
-  load_language('common.lang', '', array('language'=>$user['language']));
-}
+load_cookie_language();
 
 //Get list of languages
 foreach (get_languages() as $language_code => $language_name)

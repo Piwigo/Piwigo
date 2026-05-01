@@ -78,27 +78,7 @@ SELECT '.implode(',', $fields).'
   
   include(PHPWG_ROOT_PATH.'include/page_header.php');
 
-  //Load language if cookie is set from login/register/password pages
-  if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
-  {
-    if (!array_key_exists($_COOKIE['lang'], get_languages()))
-    {
-      fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
-    }
-
-    $user['language'] = $_COOKIE['lang'];
-    single_update(
-      USER_INFOS_TABLE,
-      array(
-        'language' => $_COOKIE['lang']
-      ),
-      array(
-        'user_id' => $user['id']
-      )
-    );
-    
-    load_language('common.lang', '', array('language'=>$user['language']));
-  }
+  load_cookie_language(true, true);
 
   //Get list of languages
   foreach (get_languages() as $language_code => $language_name)
