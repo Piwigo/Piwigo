@@ -102,13 +102,8 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theRegisterPage', $themecon
 }
 
 //Load language if cookie is set from login/register/password pages
-if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
+if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'] and array_key_exists($_COOKIE['lang'], get_languages()))
 {
-  if (!array_key_exists($_COOKIE['lang'], get_languages()))
-  {
-    fatal_error('[Hacking attempt] the input parameter "'.htmlspecialchars($_COOKIE['lang']).'" is not valid');
-  }
-  
   $user['language'] = $_COOKIE['lang'];
   load_language('common.lang', '', array('language'=>$user['language']));
 }
