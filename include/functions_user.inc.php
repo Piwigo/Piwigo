@@ -1050,16 +1050,8 @@ function log_user($user_id, $remember_me)
 
   //New default login and register pages, if users changes languages and succesfully logs in
   //we want to update the userpref language stored in a cookie
-
-  //TODO check value of cookie
-
-  if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
+  if (isset($_COOKIE['lang']) and array_key_exists($_COOKIE['lang'], get_languages()))
   {
-    if (!array_key_exists($_COOKIE['lang'], get_languages()))
-    {
-      fatal_error('[Hacking attempt] the input parameter "'.htmlspecialchars($_COOKIE['lang']).'" is not valid');
-    }
-
     single_update(
       USER_INFOS_TABLE,
       array('language' => $_COOKIE['lang']),
