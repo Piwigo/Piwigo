@@ -9,71 +9,25 @@
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 
-// @set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
-//
-// addslashes to vars if magic_quotes_gpc is off this is a security
-// precaution to prevent someone trying to break out of a SQL statement.
-//
-if(function_exists('get_magic_quotes_gpc') && !@get_magic_quotes_gpc() )
+// copied from include/common.inc.php
+if (!function_exists('get_magic_quotes_gpc') or !@get_magic_quotes_gpc() )
 {
-  if( is_array($_POST) )
+  function sanitize_mysql_kv(&$v, $k)
   {
-    foreach($_POST as $k => $v)
-    {
-      if( is_array($_POST[$k]) )
-      {
-        foreach($_POST[$k] as $k2 => $v2)
-        {
-          $_POST[$k][$k2] = addslashes($v2);
-        }
-        @reset($_POST[$k]);
-      }
-      else
-      {
-        $_POST[$k] = addslashes($v);
-      }
-    }
-    @reset($_POST);
+    $v = addslashes($v);
   }
 
-  if( is_array($_GET) )
+  if( is_array( $_GET ) )
   {
-    foreach($_GET as $k => $v )
-    {
-      if( is_array($_GET[$k]) )
-      {
-        foreach($_GET[$k] as $k2 => $v2)
-        {
-          $_GET[$k][$k2] = addslashes($v2);
-        }
-        @reset($_GET[$k]);
-      }
-      else
-      {
-        $_GET[$k] = addslashes($v);
-      }
-    }
-    @reset($_GET);
+    array_walk_recursive( $_GET, 'sanitize_mysql_kv' );
   }
-
-  if( is_array($_COOKIE) )
+  if( is_array( $_POST ) )
   {
-    foreach($_COOKIE as $k => $v)
-    {
-      if( is_array($_COOKIE[$k]) )
-      {
-        foreach($_COOKIE[$k] as $k2 => $v2)
-        {
-          $_COOKIE[$k][$k2] = addslashes($v2);
-        }
-        @reset($_COOKIE[$k]);
-      }
-      else
-      {
-        $_COOKIE[$k] = addslashes($v);
-      }
-    }
-    @reset($_COOKIE);
+    array_walk_recursive( $_POST, 'sanitize_mysql_kv' );
+  }
+  if( is_array( $_COOKIE ) )
+  {
+    array_walk_recursive( $_COOKIE, 'sanitize_mysql_kv' );
   }
 }
 
