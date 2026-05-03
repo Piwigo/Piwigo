@@ -1427,3 +1427,6 @@ $lang['Standard pages aren\'t activated, however you have %d active themes that 
 $lang['Standard pages header'] = 'Štandardná hlavička stránok';
 $lang['Use Piwigo logo'] = 'Použite logo Piwigo';
 $lang['Use custom logo (png, jpeg or svg)'] = 'Použite vlastné logo (png, jpeg alebo svg)';
+$lang['Follow the update guide'] = 'Postupujte podľa pokynov v sprievodcovi aktualizáciou';
+$lang['Two container updates are available'] = 'K dispozícii sú dve aktualizácie kontajnerov';
+$lang['You are about to delete %s groups, are you sure?'] = 'Chystáte sa odstrániť %s skupín, ste si istý?';

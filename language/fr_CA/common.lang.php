@@ -421,5 +421,5 @@ $lang['There are no tags available for the photos currently filtered'] = 'Aucun 
 $lang['You have no email address, so you will not be notified when your API key is about to expire.'] = 'Vous n\'avez pas d\'adresse courriel, vous ne serez donc pas notifié lorsque votre clé API sera sur le point d\'expirer.';
 $lang['An email has been sent with a link to reset your password'] = 'Un courriel a été envoyé avec un lien pour réinitialiser votre mot de passe.';
 $lang['Check your inbox'] = 'Vérifiez votre boîte de courriel';
-$lang['An email has been sent with a verification code'] = 'Un courriel contenant un code de vérification vous a été envoyé';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'Si vous ne recevez pas ce courriel, veuillez contacter votre webmestre.';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Si votre compte existe, un code de vérification a été envoyé à votre adresse courriel.';

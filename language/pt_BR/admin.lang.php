@@ -1430,3 +1430,6 @@ $lang['Light mode'] = 'Modo claro';
 $lang['Display Gallery title'] = 'Exibir Título da Galeria';
 $lang['Dark mode'] = 'Modo escuro';
 $lang['Change logo'] = 'Change logo';
+$lang['Follow the update guide'] = 'Siga o guia de atualização';
+$lang['Two container updates are available'] = 'Duas atualizações de contêiner estão disponíveis';
+$lang['You are about to delete %s groups, are you sure?'] = 'Você está prestes a excluir %s grupos, tem certeza?';

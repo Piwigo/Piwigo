@@ -1430,3 +1430,6 @@ $lang['Use custom logo (png, jpeg or svg)'] = 'Použít vlastní logo (png, jpeg
 $lang['Change logo'] = 'Změna loga';
 $lang['Dark mode'] = 'Tmavý motiv';
 $lang['Display Gallery title'] = 'Zobrazit nadpis Galerie';
+$lang['Follow the update guide'] = 'Postupujte podle pokynů pro aktualizaci';
+$lang['Two container updates are available'] = 'K dispozici jdou dvě aktualizace kontejnerů';
+$lang['You are about to delete %s groups, are you sure?'] = 'Chcete odstranit %s skupin, skutečně to potřebujete?';

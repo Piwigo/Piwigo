@@ -1438,3 +1438,6 @@ $lang['Standard pages header'] = 'Capçalera de pàgines estàndard';
 $lang['Use Piwigo logo'] = 'Utilitza el logotip de Piwigo';
 $lang['Use custom logo (png, jpeg or svg)'] = 'Utilitza un logotip personalitzat (png, jpeg o svg)';
 $lang['user_status_normal'] = 'Bàsic';
+$lang['Follow the update guide'] = 'Seguiu la guia d\'actualització';
+$lang['Two container updates are available'] = 'Hi ha disponibles dues actualitzacions de contenidor';
+$lang['You are about to delete %s groups, are you sure?'] = 'Esteu a punt de suprimir %s grups; segur que voleu fer-ho?';

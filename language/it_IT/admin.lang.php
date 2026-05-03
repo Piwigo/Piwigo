@@ -414,7 +414,7 @@ $lang['Correction applied with error'] = 'Correzione applicata con errori';
 $lang['%d anomaly has been detected.'] = 'individuata %d anomalia.';
 $lang['%d anomalies have been detected.'] = 'individuate %d anomalie.';
 $lang['%d anomaly has been corrected.'] = '%d anomalia corretta.';
-$lang['%d anomalies have been detected corrected.'] = '%d anomalie corrette.';
+$lang['%d anomalies have been detected corrected.'] = '%d anomalie individuate e corrette.';
 $lang['%d anomaly has not been corrected.'] = 'non è stato possibile correggere %d anomalia.';
 $lang['%d anomalies have not been corrected.'] = 'non è stato possibile correggere %d anomalie.';
 $lang['Go to %s or %s for more informations'] = 'Andare su %s o %s per avere più informazioni';
@@ -1430,3 +1430,6 @@ $lang['Standard pages aren\'t activated, however you have %d active themes that 
 $lang['Standard pages header'] = 'Intestazione delle pagine standard';
 $lang['Use Piwigo logo'] = 'Utilizza il logo di Piwigo';
 $lang['Use custom logo (png, jpeg or svg)'] = 'Utilizza logo personalizzato (png, jpeg o svg)';
+$lang['Follow the update guide'] = 'Segui la guida sull\'aggiornamento';
+$lang['Two container updates are available'] = 'Sono disponibili due aggiornamenti del container';
+$lang['You are about to delete %s groups, are you sure?'] = 'Stai per eliminare %s gruppi, sei sicuro?';

@@ -1432,3 +1432,6 @@ $lang['Standard pages aren\'t activated, however you have %d active themes that 
 $lang['Standard pages header'] = 'כותרת דפים רגילים';
 $lang['Use Piwigo logo'] = 'השתמש בלוגו של Piwigo';
 $lang['Use custom logo (png, jpeg or svg)'] = 'השתמש בלוגו מותאם (png, jpeg או svg)';
+$lang['Follow the update guide'] = 'עקבו אחר מדריך העדכון';
+$lang['Two container updates are available'] = 'שני עדכוני מכולות זמינים';
+$lang['You are about to delete %s groups, are you sure?'] = 'אתם עומדים למחוק %s קבוצות, האם אתם בטוחים?';

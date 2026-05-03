@@ -522,7 +522,6 @@ $lang['To manage your API keys, please log in with your username/password.'] = '
 $lang['When enabled, a common template is used for the login and registration pages, regardless of the theme.'] = 'Po aktivaci, je použita výchozí šablona nastavení pro přihlášení a registraci, bez ohledu na zvolený vzhled aplikace.';
 $lang['You can manage your API keys in your <a href="%s">account settings.</a>'] = 'Můžete spravovat vaše API klíče ve vašem <a href="%s">nastavení účtu.</a>';
 $lang['You have no email address, so you will not be notified when your API key is about to expire.'] = 'Bez nastavení e-mail adresy vám nemůže být zasíláno upozornění na expirující API klíče.';
-$lang['An email has been sent with a verification code'] = 'Emaily byl odeslán s ověřovacím kódem';
 $lang['ID copied.'] = 'ID zkopírováno.';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'Pokud jste neobdrželi email, prosíme kontaktujte svého správce.';
 $lang['Invalid verification code'] = 'Chybný ověřovací kód';
@@ -538,3 +537,4 @@ $lang['Too many attempts, please try later..'] = 'Příliš mnoho pokusů, zkust
 $lang['Verification successful! You can now choose a new password.'] = 'Ověření proběhlo úspěšně! Nyní si zvolte nové heslo.';
 $lang['Your verification code'] = 'Váš ověřovací kód';
 $lang['edit user preferences'] = 'upravit uživatelské předvolby';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Pokud váš účet existuje tak na váš email byl právě odeslán kód pro ověření.';

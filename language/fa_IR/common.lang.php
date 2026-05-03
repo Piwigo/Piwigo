@@ -455,3 +455,7 @@ $lang['Album description'] = 'توضیحات آلبوم';
 $lang['Album already selected'] = 'آلبوم انتخاب شده';
 $lang['Added by'] = 'افزوده شده توسط';
 $lang['%d visits'] = '%d بازدید';
+$lang['3xlarge'] = 'بسیار بزرگ';
+$lang['4xlarge'] = 'غول‌پیکر ';
+$lang['API Key has been successfully edited.'] = 'کلید API با موفقیت ویرایش شد';
+$lang['API Key has been successfully revoked.'] = 'کلید API با موفقیت لغو شد';
