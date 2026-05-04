@@ -2321,7 +2321,7 @@ SELECT
       // return new PwgError(403, 'Only webmasters can grant "webmaster/admin" status');
       return array(
         'error' => array(
-          'code '=> 403,
+          'code' => 403,
           'message' => 'Only webmasters can grant "webmaster/admin" status'
         )
       );
