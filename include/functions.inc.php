@@ -1942,21 +1942,17 @@ function load_cookie_language($load_language=true, $update_user=false, $unset_co
   global $user;
 
   // Load language if cookie is set from login/register/password pages
-  if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
+  if (pwg_get_cookie_var('lang') and array_key_exists(pwg_get_cookie_var('lang'), get_languages()))
   {
-    if (!array_key_exists($_COOKIE['lang'], get_languages()))
-    {
-      fatal_error('[Hacking attempt] the input parameter "'.htmlspecialchars($_COOKIE['lang']).'" is not valid');
-    }
-  
-    $user['language'] = $_COOKIE['lang'];
+
+    $user['language'] = pwg_get_cookie_var('lang');
 
     if ($update_user)
     {
       single_update(
         USER_INFOS_TABLE,
         array(
-          'language' => $_COOKIE['lang']
+          'language' => pwg_get_cookie_var('lang')
         ),
         array(
           'user_id' => $user_id ?? $user['id']
@@ -1974,7 +1970,7 @@ function load_cookie_language($load_language=true, $update_user=false, $unset_co
       // We unset the lang cookie, if user has changed their language using interface
       // we don't want to keep setting it back to what was chosen using standard
       // pages lang switch
-      setcookie("lang", "", time() - 3600);
+      setcookie("pwg_lang", "", time() - 3600);
     }
   }
 }

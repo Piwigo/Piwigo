@@ -88,8 +88,8 @@ function setCookie(cname, cvalue, exdays) {
   const d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
   let expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  if (cname == "lang")
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path="+cookie_path;
+  if (cname == "pwg_lang")
   {
     location.reload();
   }
@@ -125,9 +125,9 @@ jQuery(".togglePassword").click(function(e){
 
 jQuery("#other-languages a").click(function(e){
   let clickedUrl = new URL(jQuery(e.target).attr('href'));
-  let selectedLang = clickedUrl.searchParams.get("lang");
+  let selectedLang = clickedUrl.searchParams.get("pwg_lang");
 
   if (selectedLang) {
-    setCookie('lang',selectedLang,1);
+    setCookie('pwg_lang',selectedLang,1);
   }
 });

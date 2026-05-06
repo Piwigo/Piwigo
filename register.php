@@ -112,6 +112,7 @@ foreach (get_languages() as $language_code => $language_name)
 $template->assign(array(
   'language_options' => $language_options,
   'current_language' => $user['language'],
+  'COOKIE_PATH' => cookie_path(),
 ));
 
 //Get link to doc
