@@ -45,6 +45,7 @@ function pwg_db_connect($host, $user, $password, $database)
   elseif (strpos($host, ':') !== false)
   {
     list($host, $port) = explode(':', $host);
+    $port = (int) $port;
   }
 
   $dbname = '';
