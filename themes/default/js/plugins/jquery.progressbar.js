@@ -77,7 +77,8 @@ USAGE:
 						config.running_value	= 0;
 						config.image			= getBarImage(config);
 						
-						var numeric = ['steps', 'stepDuration', 'max', 'width', 'height', 'running_value', 'value'];
+						var numeric = ['steps', 'stepDuration', 'max', 'width', 'height', 
+							'rotation', 'running_value', 'value'];
 						for (var i=0; i<numeric.length; i++) 
 							config[numeric[i]] = parseInt(config[numeric[i]]);
 						

@@ -800,7 +800,7 @@ SELECT
   {
     $image = array();
 
-    foreach (array('id', 'width', 'height', 'hit') as $k)
+    foreach (array('id', 'width', 'height', 'rotation', 'hit') as $k)
     {
       if (isset($row[$k]))
       {
