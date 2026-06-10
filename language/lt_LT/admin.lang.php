@@ -552,7 +552,7 @@ $lang['user "%s" added'] = 'vartotojas "%s" pridėtas';
 $lang['user_status_admin'] = 'Administratorius';
 $lang['user_status_generic'] = 'Bendro pobūdžio';
 $lang['user_status_guest'] = 'Svečias';
-$lang['user_status_normal'] = 'Vartotojas';
+
 $lang['user_status_webmaster'] = 'Webmasteris';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'Vartotojai norėdami matyti šį albumą turi prisijungti ir turėti atitinkamus leidimus';
 $lang['width must be a number superior to'] = 'plotis turi būti didesnis už';

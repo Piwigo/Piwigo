@@ -107,5 +107,5 @@ echo '</pre>';
 ob_end_clean();
 
 // TODO now we upgrade from 15.0.0
-// include_once(PHPWG_ROOT_PATH.'install/upgrade_15.0.0.php');
+include_once(PHPWG_ROOT_PATH.'install/upgrade_15.0.0.php');
 ?>

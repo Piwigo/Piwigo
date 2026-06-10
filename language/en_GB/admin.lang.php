@@ -207,7 +207,7 @@ $lang['between'] = 'between';
 $lang['between %.2f and %.2f'] = 'between %.2f and %.2f';
 $lang['between %d and %d pixels'] = 'between %d and %d pixels';
 $lang['user_status_guest'] = 'Guest';
-$lang['user_status_normal'] = 'User';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'visitors need to login and have the appropriate permissions to see this album';
 $lang['width & height'] = 'width & height';
@@ -237,3 +237,8 @@ $lang['Rename album'] = 'Rename album';
 $lang['Preview'] = 'Preview';
 $lang['Privacy Level'] = 'Privacy Level';
 $lang['Photographers...'] = 'Photographers...';
+$lang['Posted the %s'] = 'Posted the %s';
+$lang['Subscribe to our newsletter and stay updated!'] = 'Subscribe to our newsletter and stay updated!';
+$lang['Sign up to the newsletter'] = 'Sign up to the newsletter';
+$lang['See previous newsletters'] = 'See previous newsletters';
+$lang['Understood, do not show again'] = 'Understood, do not show again';

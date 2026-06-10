@@ -166,14 +166,14 @@ $lang['created after %s (%s)'] = 'បានបង្កើត​បន្ទា�
 $lang['created before %s (%s)'] = 'បាន​បង្កើត​មុន​ពេល​ %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'បាន​បង្កើត​ចន្លោះ %s (%s) និង %s (%s)';
 $lang['created on %s'] = 'បាន​បង្កើត​នៅ​ %s';
-$lang['Customize'] = 'រៀប​ចំ​កែ​សំរួល​';
+
 $lang['Your Gallery Customization'] = 'ការ​កែ​ប្រែ​សៀវ​ភៅ​រូប​ថត​របស់​អ្នក​';
 $lang['Default'] = 'លំនាំដើម​';
 $lang['delete this photo from your favorites'] = 'លុប​រូ​ប​ថត​នេះ​ចេញពី​ចំណូល​ចិត្ត​របស់​អ្នក​';
 $lang['available for administrators only'] = ' សំរាប់​តែ​អ្នក​គ្រប់​គ្រង​ប៉ុណ្ណោះ​';
 $lang['display this album'] = 'បង្ហាញ​សៀវ​ភៅ​រូប​ថត​នេះ​';
 $lang['display last user comments'] = 'បង្ហាញ​មតិ​របស់​អ្នក​ប្រើ​ប្រាស់​ចុង​ក្រោយ​';
-$lang['customize the appareance of the gallery'] = 'កែ​សំរួល​ទំរង់​បង្ហាញ​នៃ​វិចិត្រ​សាល​';
+
 $lang['search'] = 'ស្វែង​រក​';
 $lang['Home'] = 'ទំព័រ​ដើម​';
 $lang['in this album'] = 'ក្នុង​សៀវ​ភៅ​រូប​ថត​នេះ​';

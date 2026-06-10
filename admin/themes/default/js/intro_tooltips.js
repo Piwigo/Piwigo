@@ -1,9 +1,9 @@
 $(function() {
   Object.entries(storage_details).forEach(([type, infos]) => {
-    // Determine if we use MB or GB and show it correctly 
+    // Determine if we use MB or GB and show it correctly
     let size = infos.total.filesize;
-    let str_size_type_string = size > 1000000 ? str_gb : str_mb;
-    let size_nb = size > 1000000 ? (size / 1000000).toFixed(2) : (size / 1000).toFixed(0);
+    let str_size_type_string = size > 1048576 ? str_gb : str_mb;
+    let size_nb = size > 1048576 ? (size / 1048576).toFixed(2) : (size / 1024).toFixed(0);
     let str_size = str_size_type_string.replace("%s", size_nb);
   
     // Display head of Tooltip
@@ -18,12 +18,12 @@ $(function() {
         let detail_size = data.filesize;
         let detail_str_size_type_string;
         let detail_size_nb = 0;
-        if (detail_size > 1000000) {
+        if (detail_size > 1048576) {
           detail_str_size_type_string = str_gb;
-          detail_size_nb = (detail_size / 1000000).toFixed(2);
+          detail_size_nb = (detail_size / 1048576).toFixed(2);
         } else {
           detail_str_size_type_string = str_mb;
-          detail_size_nb =  (detail_size / 1000).toFixed(0) < 1 ? (detail_size / 1000).toFixed(2) : (detail_size / 1000).toFixed(0);
+          detail_size_nb =  (detail_size / 1024).toFixed(0) < 1 ? (detail_size / 1024).toFixed(2) : (detail_size / 1024).toFixed(0);
         }
         let detail_str_size = detail_str_size_type_string.replace("%s", detail_size_nb);
         $('#storage-detail-' + type).append(''+

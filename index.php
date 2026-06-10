@@ -92,6 +92,10 @@ else
 }
 $template->assign('U_CANONICAL', $canonical_url);
 
+// Standard Pages
+// Some themes will want to use standard pages so this will let them know
+$template->assign('use_standard_pages', conf_get_param('use_standard_pages', false));
+
 //-------------------------------------------------------------- page title
 $title = $page['title'];
 $template_title = $page['section_title'];
@@ -189,11 +193,50 @@ if ( empty($page['is_external']) )
 
   if (isset($page['body_data']['tag_ids']))
   {
+    //get tags for related tags "button", with the possibility to combine them
+    $tags = get_common_tags(
+      $page['items'],
+      $conf['menubar_tag_cloud_items_number'],
+      $page['tag_ids']
+    );
+
+    $tags = add_level_to_tags($tags);
+
+    $related_tags = array();
+
+    foreach ($tags as $tag)
+    {
+      $related_tags[] = array_merge(
+        $tag,
+        array(
+          'U_ADD' => make_index_url(
+            array(
+              'tags' => array_merge(
+                $page['tags'],
+                array($tag)
+                )
+              )
+            ),
+          'URL' => make_index_url( array( 'tags' => array($tag) )
+            ),
+          )
+        );
+    }
+
+    //We sort the array here because we want them sorted by counter and not alphabetically like before.
+    usort($related_tags, function($a, $b) {
+      return $b['counter'] <=> $a['counter'];
+    });
+
+
+    include_once(PHPWG_ROOT_PATH.'include/selected_tags.inc.php');
+
     $template->assign(
       array(
         'SEARCH_IN_SET_BUTTON' => $conf['index_search_in_set_button'],
         'SEARCH_IN_SET_ACTION' => $conf['index_search_in_set_action'],
         'SEARCH_IN_SET_URL' => get_root_url().'search.php?tag_id='.implode(',', $page['body_data']['tag_ids']),
+        'COMBINABLE_TAGS' => $related_tags,
       )
     );
   }
@@ -359,6 +402,31 @@ if ( empty($page['is_external']) )
     {
       $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
     }
+  }
+
+  //We want all pages that display thumbnails, except on the tags page
+  //Fill related tags action
+  if(!empty($page['items']) and 'tags' != $page['body_data']['section'])
+  {
+    $selection = array_slice( $page['items'], $page['start'], $page['nb_image_page'] );
+    $tags = add_level_to_tags( get_common_tags($selection, $conf['content_tag_cloud_items_number']) );
+    $related_tags = array();
+    foreach ($tags as $tag)
+    {
+      $related_tags[] =
+      array_merge( $tag,
+        array(
+          'URL' => make_index_url( array( 'tags' => array($tag) ) ),
+        )
+      );
+    } 
+
+    $template->assign(
+      array(
+      'RELATED_TAGS_ACTION' => !empty($related_tags) ? true : false,
+      'RELATED_TAGS' => $related_tags,
+      )
+    );
   }
 }
 

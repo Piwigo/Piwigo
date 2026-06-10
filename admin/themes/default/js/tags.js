@@ -126,16 +126,25 @@ $('.tag-box').each(function() {
 $(".TagSubmit").on('click', function () {
   $('.TagSubmit').hide();
   $('.TagLoading').show();
-  renameTag($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"), $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
+  $tagboxid = ($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"))
+  renameTag($tagboxid, $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     rename_tag_close();
+    cleanCheckmark();
+    $('[data-id='+$tagboxid+']').wrap('<div class="tag-changed"></div>');
+    $('.tag-changed').prepend('<i class="icon-ok tag-checkmark"></i>');
   }).catch((message) => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     console.error(message)
   })
 });
+
+function cleanCheckmark(){
+  $('.tag-changed > *').unwrap();
+  $('.tag-checkmark').remove();
+}
 
 /*-------
  Add a tag
@@ -242,7 +251,11 @@ function setupTagbox(tagBox) {
 
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
-    set_up_popin(tagBox.data('id'), tagBox.find('.tag-name').data('rawname'), tagBox.find('.tag-name').html());
+    const id = $(this).closest('.tag-box').data('id');
+    const tagIndex = dataTags.findIndex((tag) => tag.id == id);
+    const tagRawName = dataTags[tagIndex].raw_name ?? tagBox.find('.tag-name').data('rawname');
+    const tagName = dataTags[tagIndex].name ?? tagBox.find('.tag-name').html();
+    set_up_popin(tagBox.data('id'), tagRawName, tagName);
     rename_tag_open()
   })
 
@@ -340,16 +353,17 @@ function renameTag(id, new_name) {
       },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
-        console.log(data);
         if (data.stat === "ok") {
           $('.tag-box[data-id='+id+'] p, .tag-box[data-id='+id+'] .tag-dropdown-header b').html(data.result.name);
           $('.tag-box[data-id='+id+'] .tag-name-editable').attr('value', data.result.name);
+          $('.tag-box[data-id='+id+'] .tag-name').attr('data-rawname', data.result.raw_name);
           let u_view = 'index.php?/tags/'+id+'-'+data.result.url_name;
           $('.dropdown-option.view').attr('href', u_view);
 
           //Update the data
           index = dataTags.findIndex((tag) => tag.id == id);
           dataTags[index].name = data.result.name;
+          dataTags[index].raw_name = data.result.raw_name;
           dataTags[index].url_name = data.result.url_name;
 
           resolve(data);
@@ -973,6 +987,7 @@ function updatePage() {
     newPage = actualPage;
     dataToDisplay = tagToDisplay();
     tagBoxes = $('.tag-box');
+    cleanCheckmark();
     $('.pageLoad').fadeIn();;
     $('.tag-box').animate({opacity:0}, 500).promise().then(() => {
 

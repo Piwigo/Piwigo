@@ -102,6 +102,12 @@ array(
   'files' => array('admin\include\functions.inc.php (delete_tags)')
 ),
 array(
+  'name' => 'merge_tags',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'destination_tag_id', 'array', 'merge_tag'),
+  'files' => array('admin\include\ws_functions/pwg.tags.php (merge_tags)')
+),
+array(
   'name' => 'delete_user',
   'type' => 'trigger_notify',
   'vars' => array('int', 'user_id'),

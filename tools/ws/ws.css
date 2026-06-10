@@ -349,6 +349,30 @@ input[type="text"] {
     position: relative;
 }
 
+.header-setting {
+    margin-bottom: 10px;
+}
+
+.header-setting input {
+    width: 98%;
+}
+
+.header-description {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.header-warning {
+    margin: 0;
+    color: red;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.header-label {
+    margin-bottom: 0;
+}
+
 /* #requestResultDisplay {
     background: white;
 } */

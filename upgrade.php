@@ -372,6 +372,10 @@ SELECT id
   {
     $current_release = '14.0.0';
   }
+  else if (!in_array(181, $applied_upgrades))
+  {
+    $current_release = '15.0.0';
+  }
   else
   {
     // confirm that the database is in the same version as source code files
@@ -414,6 +418,9 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
     conf_update_param('piwigo_db_version', get_branch_from_version(PHPWG_VERSION));
+
+    //Conf delete param on last major update for whats new popin to be displayed when changing major version
+    conf_delete_param('last_major_update');
 
     // Something to add in database.inc.php?
     if (!empty($mysql_changes))
@@ -496,6 +503,11 @@ REPLACE INTO '.PLUGINS_TABLE.'
             )
           );
       }
+    }
+
+    if (!isset($_SESSION['connected_with']))
+    {
+      $_SESSION['connected_with'] = 'pwg_ui';
     }
 
     // Delete cache data

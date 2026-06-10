@@ -346,7 +346,7 @@ class Logger
     {
       $message.= "\n" . $this->indent($this->contextToString($context));
     }
-    $line = "[" . $this->getTimestamp() . '][exec='.($page['execution_uuid']??'unkonwn')."]\t[" . self::levelToCode($level) . "]\t";
+    $line = "[" . $this->getTimestamp() . '][exec='.($page['execution_uuid']??'unknown')."]\t[" . self::levelToCode($level) . "]\t";
     if ($cat != null)
     {
       $line.= "[" . $cat . "]\t";

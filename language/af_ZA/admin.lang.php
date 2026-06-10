@@ -348,7 +348,7 @@ $lang['user "%s" added'] = 'gebruiker "%s" bygevoeg';
 $lang['user_status_admin'] = 'Administrateur';
 $lang['user_status_generic'] = 'Generies';
 $lang['user_status_guest'] = 'Gas';
-$lang['user_status_normal'] = 'Gebruiker';
+
 $lang['user_status_webmaster'] = 'Webmeester';
 $lang['width must be a number superior to'] = 'wydte moet \'n getal groter wees as';
 $lang['wrong filename'] = 'verkeerde lêernaam';

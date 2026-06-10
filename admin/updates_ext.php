@@ -56,6 +56,12 @@ foreach ($autoupdate->types as $type)
       continue;
     }
 
+    // In dev mode, do not show update actions
+    if ('auto' === $fs_ext['version'])
+    {
+      continue;
+    }    
+
     $ext_info = $server_ext[$fs_ext['extension']];
 
     if (!safe_version_compare($fs_ext['version'], $ext_info['revision_name'], '>='))

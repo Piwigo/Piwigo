@@ -93,7 +93,8 @@ $(() => {
             url: ws_url,
             data: { format: "json", method: "reflection.getMethodList" }
         }).done(function (result) {
-            console.log(result);
+            // for debug
+            //console.log(result);
             result = parsePwgJSON(result);
 
             if (result != null) {
@@ -328,12 +329,26 @@ $(() => {
     // invoke method
     function invokeMethod(methodName, newWindow) {
 
+        $('#json-viewer').jsonViewer({});
+
         $('#requestURLDisplay').show();
         $('#requestResultDisplay').show();
 
         let method = cachedMethods[methodName];
 
         let reqUrl = ws_url + "?format=" + $("#responseFormat").val();
+
+        const isJson = $("#responseFormat").val() === 'json';
+        const authorization = $('#apiKey').val();
+        const useCookie = '' === authorization;
+
+        let fetchOption = {};
+        if (!useCookie) {
+            fetchOption.credentials = 'omit';
+            fetchOption.headers = {
+                "X-PIWIGO-API": authorization
+            }
+        }
 
         // GET
         if ($("#requestFormat").val() == 'get') {
@@ -361,19 +376,11 @@ $(() => {
                 window.open(reqUrl);
             }
             else {
-                if ($("#responseFormat").val() === 'json') {
-                    $("#invokeFrame").hide();
-                    $('#json-viewer').show();
-                    fetch(reqUrl)
-                    .then(data => data.json())
-                    .then(json => {
-                        $('#json-viewer').jsonViewer(json);
-                    })
-                } else {
-                    $("#invokeFrame").show();
-                    $('#json-viewer').hide();
-                    $("#invokeFrame").attr('src', reqUrl);
-                }
+                fetch(reqUrl, fetchOption)
+                .then(data => data.text())
+                .then(data => {
+                    showResponseData(data);
+                })
             }
 
             $('#requestURLDisplay').find('.url').html(reqUrl).end()
@@ -411,22 +418,30 @@ $(() => {
                 }
             }
 
-
-            if (!newWindow && $("#responseFormat").val() === 'json') {
+            if (!newWindow) {
                 $("#invokeFrame").hide();
                 $('#json-viewer').show();
-                jQuery.ajax({
-                    url: reqUrl,
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        "method": methodName,
-                        ...params
-                    },
-                    success : function(data) {
-                        $('#json-viewer').jsonViewer(data);
-                    }
+
+                const formData = new URLSearchParams();
+                formData.append('method', methodName);
+                for (const key in params) {
+                    formData.append(key, params[key]);
+                }
+
+                fetchOption.headers ??= {};
+                fetchOption.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+                fetch(reqUrl, {
+                    ...fetchOption,
+                    method: 'POST', 
+                    body: formData
                 })
+                .then(data => {
+                    return data.text();
+                })
+                .then(data => {
+                    showResponseData(data);
+                });
             } else {
                 $("#invokeFrame").show();
                 $('#json-viewer').hide();
@@ -491,3 +506,35 @@ $(() => {
         }
     })
 })
+
+function showResponseData(data) {
+    const isJson = $("#responseFormat").val() === 'json';
+    if (isJson) {
+        try {
+            const json = JSON.parse(data);
+            $('#json-viewer').jsonViewer(json);
+            $("#invokeFrame").hide();
+            $('#json-viewer').show();
+        } catch (error) {
+            const iframe = $('#invokeFrame');
+            const iframeDoc = iframe[0].contentDocument || iframe[0].contentWindow.document;
+
+            iframeDoc.open();
+            iframeDoc.write(`<pre>${data}</pre>`);
+            iframeDoc.close();
+            $("#invokeFrame").show();
+            $('#json-viewer').hide();
+        }
+        return;
+    }
+    const iframe = $('#invokeFrame');
+    const iframeDoc = iframe[0].contentDocument || iframe[0].contentWindow.document;
+
+    iframeDoc.open();
+    iframeDoc.write(data);
+    iframeDoc.close();
+
+    $("#invokeFrame").show();
+    $('#json-viewer').hide();
+                
+}

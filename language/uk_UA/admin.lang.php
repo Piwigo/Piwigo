@@ -728,7 +728,7 @@ $lang['Users'] = 'Користувачі';
 $lang['user_status_admin'] = 'Адміністратор';
 $lang['user_status_generic'] = 'Загальний';
 $lang['user_status_guest'] = 'Гість';
-$lang['user_status_normal'] = 'Користувач';
+
 $lang['user_status_webmaster'] = 'Веб-майстер';
 $lang['Validate'] = 'Підтвердження';
 $lang['Validation'] = 'Перевірка';

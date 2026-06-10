@@ -111,7 +111,7 @@ $lang['Cookies are blocked or not supported by your browser. You must enable coo
 $lang['Create a new account'] = 'Kontu berria sortzea';
 $lang['Creation date'] = 'Kreazio data';
 $lang['Current password is wrong'] = 'Pasahitza okerra';
-$lang['Customize'] = 'Profila';
+
 $lang['Complete RSS feed (photos, comments)'] = 'RSS osoa (argazkiak eta iruzkinak)';
 $lang['Comments'] = 'Iruzkinak';
 $lang['Confirm Password'] = 'Pasahitza beretsi';
@@ -362,7 +362,7 @@ $lang['Thumbnails'] = 'Diapositibak';
 $lang['created before %s (%s)'] = '%s(%s)-etatik baino lehenago sortuta';
 $lang['created between %s (%s) and %s (%s)'] = '%s(%s)-etatik eta %s(%s)-etara artean sortuta';
 $lang['created on %s'] = '%s sortuta';
-$lang['customize the appareance of the gallery'] = 'Itxura neurrira egitea';
+
 $lang['Username modification'] = 'Erabiltzaile izena aldatzea';
 $lang['Username'] = 'Eraibiltzaile izena';
 $lang['Username "%s" on gallery %s'] = 'Eraibiltzaile izena "%s" galerian %s';
@@ -458,3 +458,7 @@ $lang['Only the first %d albums are displayed, out of %d.'] = '%d (e)tik, lehene
 $lang['Pages'] = 'Orriak';
 $lang['The PDF you requested is too large to display on this page.'] = 'Eskatuko PDFa handiegia da orrian erakusteko';
 $lang['last 12 months'] = 'Azkenengo 12 hilabeteak';
+$lang['Set your password below.'] = 'Ezarri pasahitza behealdean';
+$lang['There are no authors available for the photos currently filtered'] = 'Ez dago egilerik eskuragarri iragazitako argazkientarako';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Ez dago sortze-datarik eskuragarri iragazitako argazkietarako';
+$lang['There are no tags available for the photos currently filtered'] = 'Ez dago etiketarik eskuragarri iragazitako argazkietarako';

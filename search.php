@@ -28,9 +28,39 @@ $search = array(
 );
 
 // list of filters in user preferences
-// allwords, cat, tags, author, added_by, filetypes, date_posted
-$default_fields = array('allwords', 'cat', 'tags', 'author');
-if (is_a_guest() or is_generic())
+$filters_views = safe_unserialize(conf_get_param('filters_views', $conf['default_filters_views']));
+
+//change the name of the keys so that they can be used with this part of the program
+$filter_rename_for = array(
+  'words'          => 'allwords',
+  'post_date'      => 'date_posted',
+  'creation_date'  => 'date_created',
+  'album'          => 'cat',
+  'file_type'      => 'filetypes',
+  'ratio'          => 'ratios',
+  'rating'         => 'ratings',
+  'file_size'      => 'filesize',
+);
+
+$filters_conf = array();
+foreach ($filters_views as $filter_name => $filter_value)
+{
+  $key = isset($filter_rename_for[$filter_name]) ? $filter_rename_for[$filter_name] : $filter_name;
+
+  $filters_conf[$key] = $filter_value;
+}
+
+//get all default filters
+$default_fields = array();
+foreach($filters_conf as $filt_name => $filt_conf){
+  if(isset($filt_conf['default'])){
+    if($filt_conf['default'] == true){
+      $default_fields[] = $filt_name;
+    }
+  }
+}
+
+if (is_a_guest() or is_generic() or $filters_conf['last_filters_conf']==false)
 {
   $fields = $default_fields;
 }
@@ -131,11 +161,28 @@ SELECT
   }
 }
 
-foreach (array('added_by', 'filetypes', 'date_posted') as $field)
+foreach (array('added_by', 'filetypes', 'ratios', 'ratings') as $field)
 {
   if (in_array($field, $fields))
   {
     $search['fields'][$field] = array();
+  }
+}
+
+foreach (array('date_posted', 'date_created') as $field){
+  if (in_array($field, $fields))
+  {
+    $search['fields'][$field] = array(
+      'preset' => ''
+    );
+  }
+}
+
+foreach (array('filesize_min', 'filesize_max', 'width_min', 'width_max', 'height_min', 'height_max') as $field)
+{
+  if (in_array($field, $fields))
+  {
+    $search['fields'][$field] = '';
   }
 }
 

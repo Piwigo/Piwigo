@@ -551,7 +551,7 @@ class AlbumSelector {
 
       AlbumSelector.selectors.searchResult.append(
         `<div class='search-result-item' id="${cat.id}">
-        <span class="search-result-path">${cat_name}</span><span id="${cat.id}" class="${iconAlbum} item-add"></span>
+        <span class="search-result-path not-rtl">${this.#getEllipsisName(cat_name)}</span><span id="${cat.id}" class="${iconAlbum} item-add"></span>
       </div>`
       );
 
@@ -572,6 +572,10 @@ class AlbumSelector {
     !this.#isAlbumCreationChecked && this.#loadFillResultEvent(tempSelectedCat);
   }
 
+  #getEllipsisName(str, lenght = 50) {
+    if (str.length <= lenght) return str;
+    return '...' + str.slice(-lenght).trim();
+  } 
   /*-----------
   Ajax method
   -----------*/

@@ -267,6 +267,13 @@ $php_current_timestamp = date("Y-m-d H:i:s");
 $db_version = pwg_get_db_version();
 list($db_current_date) = pwg_db_fetch_row(pwg_query('SELECT now();'));
 
+list($container_name,$container_version) = get_container_info();
+
+if (!in_array($container_name, ['Official','none']))
+{
+  $container_name = '(unofficial) '.$container_name;
+}
+
 $template->assign(
   array(
     'U_MAINT_CATEGORIES' => sprintf($url_format, 'categories'),
@@ -289,6 +296,7 @@ $template->assign(
     'PWG_VERSION' => PHPWG_VERSION,
     'U_CHECK_UPGRADE' => sprintf($url_format, 'check_upgrade'),
     'OS' => PHP_OS,
+    'CONTAINER_INFO' => $container_name.(!empty($container_version) ? ' '.$container_version : ''),
     'PHP_VERSION' => phpversion(),
     'DB_ENGINE' => 'MySQL',
     'DB_VERSION' => $db_version,

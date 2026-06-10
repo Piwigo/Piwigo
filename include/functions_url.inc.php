@@ -104,6 +104,11 @@ function add_url_params($url, $params, $arg_separator='&amp;' )
 {
   if ( !empty($params) )
   {
+    if (defined('IN_WS') and '&amp;' === $arg_separator)
+    {
+      $arg_separator = '&';
+    }
+
     assert( is_array($params) );
     $is_first = true;
     foreach($params as $param=>$val)

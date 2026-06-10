@@ -21,7 +21,7 @@
     </div>
 
     <div class="formats-list" {if (count($FORMATS) == 0)}style="display:none"{/if}>
-        {foreach from=$FORMATS item=$format}
+        {foreach from=$FORMATS item=format}
             <div class="format-card" data-id="{$format["format_id"]}" style="background-image: url('{$IMG_SQUARE_SRC}')">
                 <span class="format-card-size">{'%s MB'|@translate:$format["filesize"]}</span>
                 <div class="format-card-ext"><span>{$format["label"]}</span></div>

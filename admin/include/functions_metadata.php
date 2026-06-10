@@ -188,37 +188,44 @@ function get_sync_metadata($infos)
     $file = original_to_representative($file, $infos['representative_ext']);
   }
 
-  if (function_exists('mime_content_type') && in_array(mime_content_type($file), array('image/svg+xml', 'image/svg')))
+  if (function_exists('mime_content_type'))
   {
-    $xml = file_get_contents($file);
+    $mime_type = mime_content_type($file);
 
-    $xmlget = simplexml_load_string($xml);
-    $xmlattributes = $xmlget->attributes();
-    $width = $xmlattributes->width; 
-    $height = $xmlattributes->height;
-    $vb = (string) $xmlattributes->viewBox;
+    if (str_starts_with($mime_type, 'image/'))
+    {
+      if (in_array($mime_type, array('image/svg+xml', 'image/svg')))
+      {
+        $xml = file_get_contents($file);
 
-    if (isset($width) and $width != "")
-    {
-      $infos['width'] = (int) $width;
-    } elseif (isset($vb))
-    {
-      $infos['width'] = round(explode(" ", $vb)[2]);
+        $xmlget = simplexml_load_string($xml);
+        $xmlattributes = $xmlget->attributes();
+        $width = $xmlattributes->width; 
+        $height = $xmlattributes->height;
+        $vb = (string) $xmlattributes->viewBox;
+
+        if (isset($width) and $width != "")
+        {
+          $infos['width'] = (int) $width;
+        } elseif (isset($vb))
+        {
+          $infos['width'] = round(explode(" ", $vb)[2]);
+        }
+
+        if (isset($height) and $height != "")
+        {
+          $infos['height'] = (int) $height;
+        } elseif (isset($vb))
+        {
+          $infos['height'] = round(explode(" ", $vb)[3]);
+        }
+      }
+      if ($image_size = @getimagesize($file))
+      {
+        $infos['width'] = $image_size[0];
+        $infos['height'] = $image_size[1];
+      }
     }
-
-    if (isset($height) and $height != "")
-    {
-      $infos['height'] = (int) $height;
-    } elseif (isset($vb))
-    {
-      $infos['height'] = round(explode(" ", $vb)[3]);
-    }
-  }
-
-  if ($image_size = @getimagesize($file))
-  {
-    $infos['width'] = $image_size[0];
-    $infos['height'] = $image_size[1];
   }
 
   if ($is_tiff)
@@ -243,7 +250,7 @@ function get_sync_metadata($infos)
   {
     if (isset($infos[$single_line_field]))
     {
-      foreach (array("\r\n", "\n") as $to_replace_string)
+      foreach (array("\r\n", "\n", "\r") as $to_replace_string)
       {
         $infos[$single_line_field] = str_replace($to_replace_string, ' ', $infos[$single_line_field]);
       }
@@ -411,7 +418,7 @@ function metadata_normalize_keywords_string($keywords_string)
   
   $keywords_string = preg_replace($conf['metadata_keyword_separator_regex'], ',', $keywords_string);
   // new lines are always considered as keyword separators
-  $keywords_string = str_replace(array("\r\n", "\n"), ',', $keywords_string);
+  $keywords_string = str_replace(array("\r\n", "\n", "\r"), ',', $keywords_string);
   $keywords_string = preg_replace('/,+/', ',', $keywords_string);
   $keywords_string = preg_replace('/^,+|,+$/', '', $keywords_string);
       

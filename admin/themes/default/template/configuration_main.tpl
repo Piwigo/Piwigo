@@ -253,18 +253,6 @@ jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
       </li>
 
       <li>
-        <label class="font-checkbox">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="use_standard_pages" {if ($main.use_standard_pages)}checked="checked"{/if}>
-            {'Use standard Piwigo template for common pages.'|translate}
-        </label>
-
-        <span class="icon-help-circled tiptip" title="{'When enabled, a common template is used for the login, registration and forgotten password pages, regardless of the theme. Some themes might use these templates even if you uncheck this option'|translate}" style="cursor:help"></span>
-      </li>
-
-
-
-      <li>
         <label>{'Mail theme'|translate}</label>
 
         <div class="themeBoxes font-checkbox">
@@ -298,7 +286,7 @@ jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
 {if isset($save_success)}
     <div class="savebar-footer-block">
       <div class="badge info-message">
-        <i class="icon-ok"></i>{$save_success}
+        <i class="icon-ok-circled"></i>{$save_success}
       </div>
     </div>
 {/if}

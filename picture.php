@@ -11,6 +11,8 @@ include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 
+save_edit_context();
+
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
 
@@ -781,12 +783,7 @@ if (is_admin())
 
   if ($conf['picture_edit_icon'])
   {
-    $url_admin =
-      get_root_url().'admin.php?page=photo-'.$page['image_id']
-      .(isset($page['category']) ? '&amp;cat_id='.$page['category']['id'] : '')
-      ;
-
-    $template->assign('U_PHOTO_ADMIN', $url_admin);
+    $template->assign('U_PHOTO_ADMIN', get_root_url().'admin.php?page=photo-'.$page['image_id']);
   }
 
   if ($conf['picture_caddie_icon'])

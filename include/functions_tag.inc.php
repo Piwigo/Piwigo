@@ -109,6 +109,7 @@ SELECT *
     if (isset($tag_counters[ $row['id'] ]))
     {
       $row['counter'] = intval($tag_counters[ $row['id'] ]);
+      $row['name_raw'] = $row['name'];
       $row['name'] = trigger_change('render_tag_name', $row['name'], $row);
       $tags[] = $row;
     }
@@ -131,6 +132,7 @@ SELECT *
   $tags = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
+    $row['name_raw'] = $row['name'];
     $row['name'] = trigger_change('render_tag_name', $row['name'], $row);
     $tags[] = $row;
   }

@@ -360,7 +360,7 @@ $lang['User status'] = "وضعیت کاربر";
 $lang['user_status_admin'] = 'مدیر';
 $lang['user_status_generic'] = "عمومی";
 $lang['user_status_guest'] = 'مهمان';
-$lang['user_status_normal'] = "کاربر";
+
 $lang['user_status_webmaster'] = 'مدیرکل';
 $lang['Virtual album'] = 'آلبوم مجازی';
 $lang['Waiting'] = "در انتظار";

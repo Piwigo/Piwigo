@@ -59,6 +59,8 @@ if ( strncmp($page['root_path'], './', 2) == 0 )
   $page['root_path'] = substr($page['root_path'], 2);
 }
 
+$page['section_url'] = $rewritten;
+
 // deleting first "/" if displayed
 $tokens = explode('/', ltrim($rewritten, '/') );
 // $tokens = array(

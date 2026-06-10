@@ -136,7 +136,7 @@ $lang['created after %s (%s)'] = 'vytvorené po %s (%s)';
 $lang['created before %s (%s)'] = 'vytvorené pred %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'vytvorené medzi %s (%s) a %s (%s)';
 $lang['created on %s'] = 'vytvorené %s';
-$lang['Customize'] = 'Upraviť';
+
 $lang['Your Gallery Customization'] = 'Prispôsobiť galériu ';
 $lang['day'][0] = 'Nedeľa';
 $lang['day'][1] = 'Pondelok';
@@ -165,7 +165,7 @@ $lang['Hello'] = 'Prihlásený ako';
 $lang['available for administrators only'] = 'prístupné len adminitrátorom';
 $lang['display this album'] = 'ukazuje fotografie v koreňovom adresári tohto albumu';
 $lang['display last user comments'] = 'Zobraziť najnovšie komentáre používateľov';
-$lang['customize the appareance of the gallery'] = 'prispôsobiť vzhľad galérie';
+
 $lang['search'] = 'hľadať';
 $lang['Home'] = 'Úvodná stránka';
 $lang['Identification'] = 'Identifikácia';
@@ -457,3 +457,7 @@ $lang['Pages'] = 'Stránky';
 $lang['The PDF you requested is too large to display on this page.'] = 'Požadované PDF je príliš veľké na zobrazenie na tejto stránke.';
 $lang['Custom dates'] = 'Vlastné termíny';
 $lang['last 12 months'] = 'Posledných 12 mesiacov';
+$lang['There are no authors available for the photos currently filtered'] = 'V súčasnosti nie sú k dispozícii žiadni autori vyfiltrovaných fotografií';
+$lang['There are no creation dates available for the photos currently filtered'] = 'V súčasnosti nie sú k dispozícii žiadne dátumy vytvorenia vyfiltrovaných fotografií';
+$lang['There are no tags available for the photos currently filtered'] = 'Pre aktuálne vyfiltrované fotografie nie sú k dispozícii žiadne značky';
+$lang['Set your password below.'] = 'Nižšie nastavte svoje heslo.';

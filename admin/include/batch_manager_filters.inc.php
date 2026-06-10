@@ -137,3 +137,5 @@ SELECT
 }
 
 $template->assign('associated_categories', $associated_categories);
+
+load_language('help_quick_search.lang');

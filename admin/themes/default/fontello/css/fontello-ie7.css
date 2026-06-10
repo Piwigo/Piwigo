@@ -134,6 +134,7 @@
 .icon-sort-alt-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf161;&nbsp;'); }
 .icon-sort-number-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf162;&nbsp;'); }
 .icon-thumbs-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf164;&nbsp;'); }
+.icon-warning-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf165;&nbsp;'); }
 .icon-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf175;&nbsp;'); }
 .icon-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf176;&nbsp;'); }
 .icon-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf178;&nbsp;'); }

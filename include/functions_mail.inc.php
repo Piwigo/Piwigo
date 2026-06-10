@@ -594,6 +594,8 @@ SELECT
  * @param string|array $to
  * @param array $args
  *       o from: sender [default value webmaster email]
+ *       o reply_to_mail_address: reply-to can be different of the "from" (new 16.4.0) [default value empty]
+ *       o reply_to_name: reply-to can be different of the "from" (new 16.4.0) [default value empty]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
  *       o Bcc: array of blind carbon copy receivers of the mail. [default value empty]
  *       o subject [default value 'Piwigo']
@@ -654,7 +656,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
     $from = unformat_email($args['from']);
   }
   $mail->setFrom($from['email'], $from['name']);
-  $mail->addReplyTo($from['email'], $from['name']);
+  $mail->addReplyTo($args['reply_to_mail_address'] ?? $from['email'], $args['reply_to_name'] ?? $from['name']);
 
   // Subject
   if (empty($args['subject']))
@@ -1075,6 +1077,73 @@ function pwg_generate_set_password_mail($username, $set_password_link, $gallery_
     'content' => $message,
     'content_format' => 'text/html',
     );
+}
+
+/**
+ * Generate content mail for user code verification
+ * 
+ * Return the content mail to send
+ * @since 16
+ * @param string $code
+ * @return array mail content
+ */
+function pwg_generate_code_verification_mail($code)
+{
+  global $conf;
+  set_make_full_url();
+  $message = '<p style="margin: 20px 0">';
+  $message.= l10n('Here is your verification code:').' <br />';
+  $message.= '<span style="font-size: 16px">'. $code .'</span></p>';
+  $message.= '<p style="margin: 20px 0;">';
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.') . '</p>';
+  unset_make_full_url();
+
+  $subject = '['.$conf['gallery_title'].'] '.l10n('Your verification code');
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+  );
+}
+
+/**
+ * Generate content mail for reset password success
+ * 
+ * Return the content mail to send
+ * @since 16
+ * @param string $code
+ * @return array mail content
+ */
+function pwg_generate_success_reset_password_mail($username, $nb_of_apikeys)
+{
+  global $conf;
+  set_make_full_url();
+  $profile_url = get_root_url().'profile.php';
+
+  $message  = '<p style="margin-top: 20px;">'.l10n('Hello %s,', $username).'</p>';
+  $message .= '<p style="margin-bottom: 20px;">'.l10n('Your password was successfully reset').'.</p>';
+  $message .= '<p>';
+  $message .= l10n('If this wasn\'t you, please change your password immediately or contact your webmaster.');
+  $message .= '</p>';
+
+  if ($nb_of_apikeys > 0)
+  {
+    $message .= '<p style="margin: 20px 0;">';
+    $message .= l10n(
+      'If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.',
+      $nb_of_apikeys,
+      $profile_url
+    );
+    $message .= '</p>';
+  }
+  unset_make_full_url();
+
+  $subject = '['.$conf['gallery_title'].'] '.l10n('Your password has been reset');
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+  );
 }
 
 trigger_notify('functions_mail_included');

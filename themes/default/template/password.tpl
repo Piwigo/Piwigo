@@ -27,6 +27,17 @@
   </p>
 
   <p class="bottomButtons"><input type="submit" name="submit" value="{'Change my password'|@translate}"></p>
+  {elseif $action eq 'lost_code'}
+    <div>
+      <div class="message">{"If you do not receive the email, please contact your webmaster."|translate}</div>
+      <label>
+        {'Verification code'|@translate}
+        <br>
+        <input type="text" id="user_code" name="user_code" size="100" />
+      </label>
+
+    <p class="bottomButtons"><input type="submit" name="submit" value="{'Verify'|@translate}"></p>
+    </div>
   {elseif $action eq 'reset'}
 
   <div class="message">
@@ -60,6 +71,8 @@
 {literal}try{document.getElementById('username_or_email').focus();}catch(e){}{/literal}
 {elseif $action eq 'reset'}
 {literal}try{document.getElementById('use_new_pwd').focus();}catch(e){}{/literal}
+{elseif $action eq 'lost_code'}
+{literal}try{document.getElementById('user_code').focus();}catch(e){}{/literal}
 {/if}
 </script>
 

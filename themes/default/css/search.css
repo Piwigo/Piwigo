@@ -56,7 +56,8 @@
 
 .filter-manager-popin .mcs-popin-title,
 .tags-found-popin .mcs-popin-title,
-.albums-found-popin .mcs-popin-title {
+.albums-found-popin .mcs-popin-title,
+.quick-search-headers .mcs-popin-title{
   width: 100%;
   font-size: 19px;
   font-weight: 700;
@@ -534,6 +535,10 @@
   position:absolute;
 }
 
+#expert-search {
+  width:350px;
+}
+
 /*_____________________________*/
 
 .head-button-2 {
@@ -992,4 +997,74 @@
 
 .mcs_hide{
   display:none!important;
+}
+
+/* expert mode : search tips modal */
+.bg-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.close-modal {
+  color: white;
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  position: absolute;
+  border-radius: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -48%);
+  text-align: left;
+  padding: 30px;
+  width: 400px;
+}
+
+.help-popin-search {
+  cursor: pointer;
+  font-weight: normal !important;
+}
+
+.help-popin-search:hover span,
+.help-popin-search:hover .icon-help-circled::before {
+  color: #3C3C3C !important;
+}
+
+#modalQuickSearch p {
+  margin: 0;
+}
+
+#modalQuickSearch .modal-content {
+  max-height: 400px;
+  height: 100%;
+  width: 500px;
+  gap:20px;
+}
+
+.quick-search-content {
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

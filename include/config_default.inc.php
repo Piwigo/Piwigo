@@ -56,6 +56,63 @@ $conf['file_ext'] = array_merge(
   array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf','svg', 'heic')
   );
 
+// mime_types_for_ext : list of valid/expected MIME types for each file extension.
+// 
+// Every permitted file extension authorized for upload should be listed.
+// Otherwise Piwigo won't be able to check.
+$conf['mime_types_for_ext'] = array(
+  '3gp'   => ['video/3gpp', 'audio/3gpp'],
+  'ai'    => ['application/postscript'],
+  'avi'   => ['video/x-msvideo'],
+  'avif'  => ['image/avif'],
+  'bmp'   => ['image/bmp'],
+  'cr2'   => ['image/x-canon-cr2'],
+  'dng'   => ['image/x-adobe-dng'],
+  'doc'   => ['application/msword'],
+  'docx'  => ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+  'eps'   => ['application/postscript'],
+  'flv'   => ['video/x-flv'],
+  'gif'   => ['image/gif'],
+  'gp3'   => ['video/3gpp'],
+  'gp4'   => ['video/3gpp'],
+  'gpx'   => ['application/gpx+xml'],
+  'heic'  => ['image/heic', 'image/heif'],
+  'ico'   => ['image/x-icon'],
+  'indd'  => ['application/x-indesign'],
+  'jpeg'  => ['image/jpeg'],
+  'jpg'   => ['image/jpeg'],
+  'm4a'   => ['audio/mp4', 'audio/x-m4a'],
+  'm4v'   => ['video/x-m4v'],
+  'mkv'   => ['video/x-matroska'],
+  'mov'   => ['video/quicktime'],
+  'mp3'   => ['audio/mpeg'],
+  'mp4'   => ['video/mp4'],
+  'mpeg'  => ['video/mpeg'],
+  'mpg'   => ['video/mpeg'],
+  'nef'   => ['image/x-nikon-nef'],
+  'odt'   => ['application/vnd.oasis.opendocument.text'],
+  'ogg'   => ['audio/ogg', 'application/ogg'],
+  'ogv'   => ['video/ogg'],
+  'pdf'   => ['application/pdf'],
+  'png'   => ['image/png'],
+  'ppt'   => ['application/vnd.ms-powerpoint'],
+  'pptx'  => ['application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+  'psd'   => ['image/vnd.adobe.photoshop'],
+  'rar'   => ['application/x-rar-compressed', 'application/vnd.rar'],
+  'strm'  => ['application/x-ms-wmp'],
+  'svg'   => ['image/svg', 'image/svg+xml'],
+  'tif'   => ['image/tiff'],
+  'tiff'  => ['image/tiff'],
+  'txt'   => ['text/plain'],
+  'wav'   => ['audio/wav', 'audio/x-wav'],
+  'webm'  => ['video/webm'],
+  'webp'  => ['image/webp'],
+  'wmv'   => ['video/x-ms-wmv'],
+  'xls'   => ['application/vnd.ms-excel'],
+  'xlsx'  => ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  'zip'   => ['application/zip'],
+);
+
 // enable_formats: should Piwigo search for multiple formats?
 $conf['enable_formats'] = false;
 
@@ -461,6 +518,34 @@ $conf['session_use_ip_address'] = true;
 $conf['session_gc_probability'] = 1;
 
 // +-----------------------------------------------------------------------+
+// |                               api key                                 |
+// +-----------------------------------------------------------------------+
+
+// api_key_duration: available duration options (in days) for API key creation.
+// Array of predefined durations that will be displayed in the select dropdown
+// when creating a new API key. Use 'custom' to allow users to set a specific
+// expiration date with a date picker input.
+$conf['api_key_duration'] = ['30', '90', '180', '365', 'custom'];
+
+// The following API methods are prohibited when making requests with an API key.
+// These restrictions are in place for security reasons and to prevent unauthorized
+// access to sensitive operations that require higher-level authentication.
+$conf['api_key_forbidden_methods'] = array(
+  // users
+  'pwg.users.generatePasswordLink',
+  'pwg.users.getAuthKey',
+  'pwg.users.setMainUser',
+  'pwg.users.setInfo',
+  // plugins
+  'pwg.plugins.performAction',
+  // themes
+  'pwg.themes.performAction',
+  // extensions
+  'pwg.extensions.ignoreUpdate',
+  'pwg.extensions.update',
+);
+
+// +-----------------------------------------------------------------------+
 // |                            debug/performance                          |
 // +-----------------------------------------------------------------------+
 
@@ -606,6 +691,11 @@ $conf['password_reset_duration'] = 60*60;
 // password_activation_duration : defines the validity duration (in seconds) 
 // of an password activation link. Default value is 72 hours (259200 seconds).
 $conf['password_activation_duration'] = 3*24*60*60;
+
+// password_reset_code_duration: defines the validity duration (in seconds)
+// for the verification code sent before genrating the reset link.
+// Default value is 5 minutes (max = 15 minutes)
+$conf['password_reset_code_duration'] = 5 * 60;
 
 // +-----------------------------------------------------------------------+
 // |                               history                                 |
@@ -783,7 +873,7 @@ $conf['dashboard_activity_nb_weeks'] = 4;
 // 'all' = do not filter, display all
 // 'admins_only' = only display connections of admin users
 // 'none' = don't even display connections of admin users
-$conf['activity_display_connections'] = 'admins_only';
+$conf['activity_display_connections'] = 'all';
 
 // On album mover page, number of seconds before auto openning album when
 // dragging an album. In milliseconds. 3 seconds by default.
@@ -994,11 +1084,37 @@ $conf['batch_manager_images_per_page_unit'] = 5;
 // how many missing md5sum should Piwigo compute at once.
 $conf['checksum_compute_blocksize'] = 50;
 
+// +-----------------------------------------------------------------------+
+// | Search                                                                |
+// +-----------------------------------------------------------------------+
+
 // quicksearch engine: include all photos from sub-albums of any matching
 // album. For example, if search is "bear", then we display photos from
 // "bear/grizzly". When value changed, delete database cache files in
 // _data/cache directory
 $conf['quick_search_include_sub_albums'] = false;
+
+// default configuration for search filters. It will then be configurable
+// with the configuration page. Having this setting in this file avoids to
+// duplicate it in several files
+$conf['default_filters_views'] = array(
+  'words'          => ['access'=>'everybody', 'default'=>true],
+  'tags'           => ['access'=>'everybody', 'default'=>false],
+  'post_date'      => ['access'=>'everybody', 'default'=>false],
+  'creation_date'  => ['access'=>'everybody', 'default'=>true],
+  'album'          => ['access'=>'everybody', 'default'=>true],
+  'author'         => ['access'=>'everybody', 'default'=>false],
+  'added_by'       => ['access'=>'everybody', 'default'=>false],
+  'file_type'      => ['access'=>'everybody', 'default'=>false],
+  'ratio'          => ['access'=>'everybody', 'default'=>false],
+  'rating'         => ['access'=>'everybody', 'default'=>false],
+  'file_size'      => ['access'=>'everybody', 'default'=>false],
+  'height'         => ['access'=>'everybody', 'default'=>false],
+  'width'          => ['access'=>'everybody', 'default'=>false],
+  'expert'         => ['access'=>'everybody', 'default'=>false],
+
+  'last_filters_conf' => true,
+);
 
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |

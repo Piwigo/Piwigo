@@ -3,8 +3,8 @@
 {combine_script id='jquery.cluetip' load='async' require='jquery' path='themes/default/js/plugins/jquery.cluetip.js'}
 
 {footer_script require='jquery.cluetip'}
-var piwigo_need_update_msg = '<a href="admin.php?page=updates">{'A new version of Piwigo is available.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
-var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"} <i class="icon-right"></i></a>';
+var piwigo_need_update_msg = '{'A new version of Piwigo is available.'|@translate|@escape:"javascript"}<a href="admin.php?page=updates">{'Latest update'|@translate|@escape:"javascript"}<i class="icon-right"></i></a>';
+var ext_need_update_msg = '{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"}<a href="admin.php?page=updates&amp;tab=ext">{'See available updates'|@translate|@escape:"javascript"}<i class="icon-right"></i></a>';
 const str_gb_used = "{'%s GB used'|translate}";
 const str_mb_used = "{'%s MB used'|translate}";
 const str_gb = "{'%sGB'|translate}".replace(' ', '&nbsp;');
@@ -13,6 +13,9 @@ const storage_total = {$STORAGE_TOTAL};
 const storage_details = {$STORAGE_CHART_DATA|json_encode};
 const translate_files = "{'%d files'|translate|escape:javascript}";
 let translate_type = {};
+{if isset($SUBSCRIBE_BASE_URL)}
+  const newsletter_base_url = "{$SUBSCRIBE_BASE_URL}";
+{/if}
 {literal}
 jQuery().ready(function(){
 	jQuery('.cluetip').cluetip({
@@ -34,18 +37,45 @@ jQuery().ready(function(){
       piwigo_update = data['result']['piwigo_need_update'];
       ext_update = data['result']['ext_need_update']
       if ((piwigo_update || ext_update) && !jQuery(".warnings").is('div'))
-        jQuery(".eiw").prepend('<div class="warnings"><i class="eiw-icon icon-attention"></i><ul></ul></div>');
+        jQuery(".eiw").prepend('<div class="warnings"><ul></ul></div>');
       if (piwigo_update)
-        jQuery(".warnings ul").append('<li>'+piwigo_need_update_msg+'</li>');
+        jQuery(".warnings ul").append('<li><i class="eiw-icon icon-attention"></i>'+piwigo_need_update_msg+'</li>');
       if (ext_update)
-        jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
+        jQuery(".warnings ul").append('<li><i class="eiw-icon icon-attention"></i>'+ext_need_update_msg+'</li>');
     }
   });
 {/if}
+
+{if isset($SUBSCRIBE_BASE_URL)}
+  jQuery(".eiw").prepend(`
+  <div class="promote-newsletter">
+    <div class="promote-content">
+      
+      <img class="promote-image" src="admin/themes/default/images/promote-newsletter.png">
+
+      <div class="promote-newsletter-content">
+        <span class="promote-newsletter-title">{"Subscribe to our newsletter and stay updated!"|@translate|escape:javascript}</span>
+        <div class="promote-content subscribe-newsletter">
+          <input type="text" id="newsletterSubscribeInput" value="{$EMAIL}" class="left-side">
+          <a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribeLink" class="right-side go-to-porg icon-thumbs-up newsletter-hide">{"Sign up to the newsletter"|@translate|escape:javascript}</a>
+        </div>
+        <a href="{$OLD_NEWSLETTERS_URL}" class="promote-link">{"See previous newsletters"|@translate|escape:javascript}</a>
+      </div>
+
+    </div>
+    <a href="#" class="dont-show-again icon-cancel tiptip newsletter-hide" title="{'Understood, do not show again'|translate|escape:javascript}"></a>
+  </div>`);
+  
+{/if}
+
 {literal}
 
-  jQuery('.newsletter-subscription a').click(function() {
-    jQuery('.newsletter-subscription').hide();
+  jQuery("#newsletterSubscribeInput").change(function(){
+    jQuery("#newsletterSubscribeLink").attr("href", newsletter_base_url + jQuery("#newsletterSubscribeInput").val())
+  })
+
+  jQuery('.newsletter-hide').click(function() {
+    jQuery('.promote-newsletter').hide();
 
     jQuery.ajax({
       type: 'GET',
@@ -210,8 +240,8 @@ translate_type['{$type_to_translate}'] = "{$type_to_translate|translate}";
 
   <div class="storage-chart">
     {foreach from=$STORAGE_CHART_DATA key=type item=details}
-      <span data-type="storage-{$type}" style="width:{$details.total.filesize/$STORAGE_TOTAL*100}%"> 
-        <p>{round($details.total.filesize/$STORAGE_TOTAL*100)}%</p>
+      <span data-type="storage-{$type}" style="width:{if $STORAGE_TOTAL > 0}{$details.total.filesize/$STORAGE_TOTAL*100}{else}0{/if}%">
+        <p>{if $STORAGE_TOTAL > 0}{round($details.total.filesize/$STORAGE_TOTAL*100)}{else}0{/if}%</p>
       </span>  
     {/foreach}
   </div>
@@ -247,7 +277,4 @@ translate_type['{$type_to_translate}'] = "{$type_to_translate|translate}";
 {/if}
 
 
-{if isset($SUBSCRIBE_BASE_URL)}
-  <br><span class="newsletter-subscription"><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" id="newsletterSubscribe" class="externalLink cluetip icon-mail-alt" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a> <a href="#" class="newsletter-hide">{'... or hide this link'|translate}</a></span>
-{/if}
 </p>

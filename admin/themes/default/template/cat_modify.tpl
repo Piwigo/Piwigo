@@ -45,6 +45,8 @@ const str_modal_ab = '{'New parent album'|@translate}';
 
     <div class="cat-modify-actions">
 
+      <a class="icon-pulse tiptip" href="{$U_ACTIVITY}" title="{'Activity'|@translate}"></a>
+
       {if isset($U_MANAGE_ELEMENTS) }
         <a class="icon-th tiptip" href="{$U_MANAGE_ELEMENTS}" title="{'Manage album photos'|@translate}"></a>
       {/if}
@@ -99,7 +101,7 @@ const str_modal_ab = '{'New parent album'|@translate}';
       </div>
       {if isset($U_SYNC) }
       <div class="cat-modify-info-card">
-        <span class="cat-modify-info-title">{'Directory'}</span>
+        <span class="cat-modify-info-title">{'Directory'|@translate}</span>
         <span class="cat-modify-info-content directory" title="{$CAT_DIR_NAME}">{$CAT_DIR_NAME}</span>
         <span class="cat-modify-info-subcontent directory" title="{$CAT_FULL_DIR}">{$CAT_MIN_DIR}</span>
       </div>
@@ -174,15 +176,15 @@ const str_modal_ab = '{'New parent album'|@translate}';
 
   <div class="cat-modify-footer">
    <div class="cat-modify-footer-start">
-    {if cat_admin_access($CAT_ID)}
+    {if $CAT_ADMIN_ACCESS}
       <a class="cat-modify-footer-see-out" href="{$U_JUMPTO}"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>
     {else}
     <a class="tiptip cat-modify-footer-see-out disabled" title="{'ACCESS_5'|translate}" href="#"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>
     {/if}
    </div>
    <div class="cat-modify-footer-end">
-    <div class="info-message icon-ok">{'Album updated'|@translate}</div>
-    <div class="info-error icon-cancel">{'An error has occured while saving album settings'|@translate}</div>
+    <div class="info-message icon-ok-circled">{'Album updated'|@translate}</div>
+    <div class="info-error icon-cancel-circled">{'An error has occured while saving album settings'|@translate}</div>
     <span class="buttonLike" id="cat-properties-save"><i class="icon-floppy"></i> {'Save Settings'|@translate}</span>
    </div>
   </div>

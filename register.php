@@ -29,7 +29,7 @@ if (isset($_POST['submit']))
   if (!verify_ephemeral_key(@$_POST['key']))
   {
 		set_status_header(403);
-    $page['errors']['register_page_error'][] = l10n('Invalid/expired form key');
+    $page['errors']['register_page_error'] = l10n('Invalid/expired form key');
   }
 
   if(empty($_POST['password']))
@@ -101,17 +101,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theRegisterPage', $themecon
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }
 
-//Load language if cookie is set from login/register/password pages
-if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
-{
-  if (!array_key_exists($_COOKIE['lang'], get_languages()))
-  {
-    fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
-  }
-  
-  $user['language'] = $_COOKIE['lang'];
-  load_language('common.lang', '', array('language'=>$user['language']));
-}
+load_cookie_language();
 
 //Get list of languages
 foreach (get_languages() as $language_code => $language_name)
@@ -122,6 +112,7 @@ foreach (get_languages() as $language_code => $language_name)
 $template->assign(array(
   'language_options' => $language_options,
   'current_language' => $user['language'],
+  'COOKIE_PATH' => cookie_path(),
 ));
 
 //Get link to doc

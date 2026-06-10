@@ -1,4 +1,5 @@
 {combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
+{combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
 
 {$MENUBAR}
 
@@ -13,11 +14,29 @@
 <div class="titrePage{if isset($chronology.TITLE)} calendarTitleBar{/if}">
 	<ul class="categoryActions">
 {if isset($SEARCH_IN_SET_ACTION) and $SEARCH_IN_SET_ACTION}
-	  {combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
     <li id="cmdSearchInSet"><a href="{$SEARCH_IN_SET_URL}" title="{'Search in this set'|translate}" class="pwg-state-default pwg-button" rel="nofollow">
       <span class="gallery-icon-search-folder"></span><span class="pwg-button-text">{'Search in this set'|translate}</span>
     </a></li>
 {/if}
+
+{* We want the related tags action icon on all pages except the index and tag pages*}
+{if isset($RELATED_TAGS_ACTION) and $RELATED_TAGS_ACTION}
+    <li>{strip}<a id="cmdRelatedTags" title="{'Related tags'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon gallery-icon-tag"></span><span class="pwg-button-text">{'Related tags'|@translate}</span>
+		</a>
+		<div id="relatedTagsBox" class="switchBox">
+			<div class="switchBoxTitle">{'Related tags'|@translate}</div>
+	{foreach from=$RELATED_TAGS item=tag}
+			<a href=
+				"{$tag.URL}" title="{'display photos linked to this tag'|@translate}">
+				{$tag.name}
+      </a>
+	{/foreach}
+		</div>
+		{footer_script}(window.SwitchBox=window.SwitchBox||[]).push("#cmdRelatedTags", "#relatedTagsBox");{/footer_script}
+		{/strip}</li>
+{/if}
+
 {if !empty($image_orders)}
 		<li>{strip}<a id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sort"></span><span class="pwg-button-text">{'Sort order'|@translate}</span>
@@ -97,7 +116,13 @@
 {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
 	</ul>
 
-<h2>{$TITLE} {if $NB_ITEMS > 0}<span class="badge nb_items">{$NB_ITEMS}</span>{/if}</h2>
+<div id="breadcrumb">
+  <h2>{$TITLE}
+    {if $NB_ITEMS > 0}<span class="badge nb_items">{$NB_ITEMS}</span>{/if}
+  </h2>
+
+{$SELECTED_TAGS_TEMPLATE}
+</div>
 
 {if isset($chronology_views)}
 <div class="calendarViews">{'View'|@translate}:
@@ -157,13 +182,20 @@
 {include file=$FILE_CHRONOLOGY_VIEW}
 {/if}
 
+<div class="action-buttons">
+
 {if isset($SEARCH_IN_SET_BUTTON) and $SEARCH_IN_SET_BUTTON}
-<div class="mcs-side-results search-in-set-button">
-  <div>
-    <p><a href="{$SEARCH_IN_SET_URL}" class="gallery-icon-search-folder" rel="nofollow">{'Search in this set'|translate}</a></p>
+  <div class="mcs-side-results search-in-set-button">
+    <div>
+      <p><a href="{$SEARCH_IN_SET_URL}" class="gallery-icon-search-folder" rel="nofollow">{'Search in this set'|translate}</a></p>
+    </div>
   </div>
-</div>
 {/if}
+
+{if isset($COMBINABLE_TAGS)}
+{include file='include/related_tags.inc.tpl'}
+{/if}
+</div>
 
 {if !empty($CONTENT_DESCRIPTION)}
 <div class="additional_info">

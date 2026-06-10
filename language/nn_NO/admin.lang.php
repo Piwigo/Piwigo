@@ -210,7 +210,7 @@ $lang['user "%s" added'] = 'brukar "%s" er lagt til';
 $lang['user_status_admin'] = 'Administrator';
 $lang['user_status_generic'] = 'Generell';
 $lang['user_status_guest'] = 'Gjest';
-$lang['user_status_normal'] = 'Brukar';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'dei som vitjar galleriet må logge på og ha naudsynte rettar for å sjå dette albumet';
 $lang['width must be a number superior to'] = 'breidde må vera eit tal større enn';

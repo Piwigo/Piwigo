@@ -359,7 +359,7 @@ $lang['User status'] = 'Trạng thái của thành viên';
 $lang['user_status_admin'] = 'Quản trị';
 $lang['user_status_generic'] = 'Chung';
 $lang['user_status_guest'] = 'Khách';
-$lang['user_status_normal'] = 'Thành viên';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Virtual album'] = 'Đề mục ảo';
 $lang['Waiting'] = 'Đang đợi';

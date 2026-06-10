@@ -547,7 +547,7 @@ $lang['unknown'] = 'necunoscut';
 $lang['user "%s" added'] = 'utilizatorul "%s" a fost adăgat';
 $lang['user_status_admin'] = 'Administrator';
 $lang['user_status_guest'] = 'Oaspete';
-$lang['user_status_normal'] = 'Utilizator';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['width must be a number superior to'] = 'lățimea trebuie să fie mai mare de';
 $lang['wrong filename'] = 'nume de fișier greșit';

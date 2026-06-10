@@ -135,7 +135,7 @@ $lang['created after %s (%s)'] = '%s 이후 생성됨 (%s)';
 $lang['created before %s (%s)'] = '%s 이전 생성됨(%s)';
 $lang['created between %s (%s) and %s (%s)'] = '%s (%s) 에서 %s (%s) 사이에 생성됨';
 $lang['created on %s'] = '%s 에 생성됨';
-$lang['Customize'] = '개인화';
+
 $lang['Your Gallery Customization'] = '갤러리 개인화';
 $lang['Default'] = '기본값';
 $lang['delete this photo from your favorites'] = '이 사진을 즐겨찾기에서 삭제';
@@ -157,7 +157,7 @@ $lang['Hello'] = '안녕하세요!';
 $lang['available for administrators only'] = '관리자만 사용 가능합니다';
 $lang['display this album'] = '이 앨범을 표시';
 $lang['display last user comments'] = '마지막 사용자 댓글을 표시';
-$lang['customize the appareance of the gallery'] = '갤러리 외형을 개인화합니다';
+
 $lang['search'] = '검색';
 $lang['Home'] = '홈';
 $lang['day'][0] = '일요일';

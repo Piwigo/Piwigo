@@ -376,12 +376,13 @@ if (userprefs_get_param('show_whats_new_'.$whats_new_major_version, true) and pw
 $release_note_url = PHPWG_URL.'/releases/'.$whats_new_major_version.'.0.0';
 
 $whats_new_imgs = array(
-  '1' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-58ded6af.png',
-  '2' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-9d651969.png',
-  '3' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171643-d659d017.png',
-  '4' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-1109101f.png',
+  '1' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2025/11/12/20251112112645-7e309b67.png',
+  '2' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2025/11/12/20251112112645-61f2fcd0.png',
+  '3' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2025/11/12/20251112112646-b322153b.png',
+  // '4' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-1109101f.png',
 );
 
+//If last major update conf is less than a month old then display bell for whats new popin
 $display_bell = false;
 if (strtotime($conf['last_major_update']) > strtotime('1 month ago'))
 {

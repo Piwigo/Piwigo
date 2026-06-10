@@ -65,7 +65,7 @@ function activate_core_themes()
   $themes = new themes();
   foreach ($themes->fs_themes as $theme_id => $fs_theme)
   {
-    if (in_array($theme_id, array('modus', 'smartpocket')))
+    if (in_array($theme_id, array('modus')))
     {
       $themes->perform_action('activate', $theme_id);
     }

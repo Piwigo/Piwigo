@@ -261,34 +261,23 @@ function access_denied()
 {
   global $user, $conf;
 
-  $login_url =
-      get_root_url().'identification.php?redirect='
-      .urlencode(urlencode($_SERVER['REQUEST_URI']));
-
-  $access_denied_html = 
-  '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'.
-  '<div style="display: flex; justify-content: center;align-items: center;height: 100vh;margin: 0;color: #3C3C3C;font-family: \'Open Sans\', sans-serif;font-size: 20px;font-style: normal;font-weight: 600;line-height: normal;">'.
-  '<div style="text-align:center;">'.
-  '<img src="themes/default/icon/warning-triangle.svg" alt="warning-triangle" >'.
-  '<p style="max-width: 400px; margin-top 20px;">'.l10n('You are not authorized to access the requested page').'</p>';
-  
   if ( isset($user) and !is_a_guest() )
   {
     set_status_header(401);
 
-    echo $access_denied_html;
-    echo '<a href="'.make_index_url().'" style="display: inline-block;padding: 10px 20px;margin: 10px;margin-top: 50px;border-radius: 7px;cursor: pointer;width: 150px;background-color: #F77000;color: #fff;text-decoration: none;border: 2px solid #F77000;">'.l10n('Home').'</a></div></div>';
-    echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="shortcut icon" type="image/x-icon" href="themes/default/icon/favicon.ico">
+<div style="display: flex; justify-content: center;align-items: center;height: 100vh;margin: 0;color: #3C3C3C;font-family: \'Open Sans\', sans-serif;font-size: 20px;font-style: normal;font-weight: 600;line-height: normal;">
+  <div style="text-align:center;">
+    <img src="themes/default/icon/warning-triangle.svg" alt="warning-triangle" >
+    <p style="max-width: 400px; margin-top 20px;">'.l10n('You are not authorized to access the requested page').'</p>
+    <a href="'.make_index_url().'" style="display: inline-block;padding: 10px 20px;margin: 10px;margin-top: 50px;border-radius: 7px;cursor: pointer;width: 150px;background-color: #F77000;color: #fff;text-decoration: none;border: 2px solid #F77000;">'.l10n('Home').'</a>
+  </div>
+</div>';
     exit();
   }
-  elseif (!$conf['guest_access'] and is_a_guest())
-  {
-    redirect_http($login_url);
-  }
-  else
-  {
-    redirect_html($login_url);
-  }
+
+  redirect_http(get_root_url().'identification.php?redirect='.urlencode(urlencode($_SERVER['REQUEST_URI'])));
 }
 
 
@@ -408,44 +397,6 @@ function get_tags_content_title()
     . l10n( count($page['tags']) > 1 ? 'Tags' : 'Tag' )
     . '</a> ';
 
-  for ($i=0; $i<count($page['tags']); $i++)
-  {
-    $title.= $i>0 ? ' + ' : '';
-
-    $title.=
-      '<a href="'
-      .make_index_url(
-        array(
-          'tags' => array( $page['tags'][$i] )
-          )
-        )
-      .'" title="'
-      .l10n('display photos linked to this tag')
-      .'">'
-      .trigger_change('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
-      .'</a>';
-
-    if (count($page['tags']) > 1)
-    {
-      $other_tags = $page['tags'];
-      unset($other_tags[$i]);
-      $remove_url = make_index_url(
-        array(
-          'tags' => $other_tags
-          )
-        );
-
-      $title.=
-        '<a id="TagsGroupRemoveTag" href="'.$remove_url.'" style="border:none;" title="'
-        .l10n('remove this tag from the list')
-        .'"><img src="'
-          .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-        .'" alt="x" style="vertical-align:bottom;" >'
-        .'<span class="pwg-icon pwg-icon-close" ></span>'
-        .'<i class="fas fa-plus" aria-hidden="true"></i>'
-        .'</a>';
-    }
-  }
   return $title;
 }
 
@@ -556,7 +507,7 @@ function register_default_menubar_blocks($menu_ref_arr)
     return;
   $menu->register_block( new RegisteredBlock( 'mbLinks', 'Links', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbCategories', 'Albums', 'piwigo'));
-  $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbTags', 'Tags', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbRelatedCategories', 'Related albums', 'piwigo') );
@@ -696,7 +647,7 @@ function flush_page_messages()
         unset($_SESSION['page_'.$mode]);
       }
 
-      if (count($page[$mode]) != 0)
+      if (!empty($page[$mode]))
       {
         $template->assign($mode, $page[$mode]);
       }

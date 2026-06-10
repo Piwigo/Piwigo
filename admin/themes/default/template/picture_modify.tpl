@@ -102,6 +102,7 @@ const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
       <a class="preview-box icon-zoom-square" href="{$FILE_SRC}" title="{'Zoom'|translate}"></a>
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
       <a class="icon-signal" href="{$U_HISTORY}" title="{'Visit history'|translate}"></a>
+      <a class="icon-pulse" href="{$U_ACTIVITY}" title="{'Activity'|translate}"></a>
       {if !url_is_remote($PATH)}
       <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
@@ -173,12 +174,12 @@ const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
       {/if}
       <br>
       <select class="invisible-related-categories-select" name="associate[]" multiple>
-      {foreach from=$related_categories item=$cat_path key=$key}
+      {foreach from=$related_categories item=cat_path key=key}
         <option selected value="{$key}"></option>
       {/foreach}
       </select>
       <div class="related-categories-container">
-      {foreach from=$related_categories item=$cat_path key=$key}
+      {foreach from=$related_categories item=cat_path key=key}
       <div class="breadcrumb-item"><span class="link-path">{$cat_path['name']}</span>{if $cat_path['unlinkable']}<span id={$key} class="icon-cancel-circled remove-item"></span>{else}<span id={$key} class="icon-help-circled help-item tiptip" title="{'This picture is physically linked to this album, you can\'t dissociate them'|translate}"></span>{/if}</div>
       {/foreach}
       </div>
@@ -204,7 +205,7 @@ const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
     <p>
       <strong>{'Description'|@translate}</strong>
       <br>
-      <textarea name="description" id="description" class="description">{$DESCRIPTION}</textarea>
+      <textarea name="comment" id="description" class="description">{$DESCRIPTION}</textarea>
     </p>
 
     <p>
@@ -231,7 +232,7 @@ const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
 {if isset($save_success)}
         <div class="savebar-footer-block">
           <div class="badge info-message">
-            <i class="icon-ok"></i>{$save_success}
+            <i class="icon-ok-circled"></i>{$save_success}
           </div>
         </div>
 {/if}

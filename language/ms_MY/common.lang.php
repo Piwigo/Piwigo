@@ -111,7 +111,7 @@ $lang['Create a new account'] = 'Membuat akun baru';
 $lang['Created on'] = 'Dibuat';
 $lang['Creation date'] = 'Tanggal pembuatan';
 $lang['Current password is wrong'] = 'Kata sandi sekarang keliru';
-$lang['Customize'] = 'Kostumisasi';
+
 $lang['Date'] = 'Tanggal';
 $lang['Date created, new &rarr; old'] = 'Tanggal pembuatan, baru &rarr; lama';
 $lang['Date created, old &rarr; new'] = 'Tanggal pembuatan, lama &rarr; baru';

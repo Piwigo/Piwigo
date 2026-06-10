@@ -139,7 +139,7 @@ const str_from_begining = "{"since the beginning"|@translate}";
   data-revision="{$plugin.REVISION_DATE}"
   data-downloads="{$plugin.DOWNLOADS}"
   data-author="{$plugin.AUTHOR}"
-  data-tags="{implode(', ', $plugin.TAGS)}"
+  data-tags="{$plugin.TAGS|join:", "}"
 >
   <div class="pluginContent">
     <div class="pluginImage">
@@ -193,7 +193,7 @@ const str_from_begining = "{"since the beginning"|@translate}";
       </div>
     </div>
     <div class="pluginMoreInfo">
-      <div class="pluginTags tiptip" title="{'Tags'|@translate} : {implode(', ', $plugin.TAGS)}">
+      <div class="pluginTags tiptip" title="{'Tags'|@translate} : {$plugin.TAGS|join:", "}">
       {foreach from=$plugin.TAGS key=tag_id item=tag_label}
         <span data-id="{$tag_id}">{$tag_label}</span>
       {/foreach}

@@ -358,7 +358,7 @@ $lang['User status'] = 'ユーザーステータス';
 $lang['user_status_admin'] = '管理者';
 $lang['user_status_generic'] = '一般';
 $lang['user_status_guest'] = 'ゲスト';
-$lang['user_status_normal'] = 'ユーザー';
+
 $lang['user_status_webmaster'] = 'サイト管理者';
 $lang['Virtual album'] = 'バーチャルアルバム';
 $lang['Waiting'] = '承認待ち';
@@ -1302,3 +1302,7 @@ $lang['Show beta test plugins'] = 'ベータ版のテスト用プラグインを
 $lang['Create a new album at root'] = 'ルートに新しいアルバムを作成する';
 $lang['Rename "%s"'] = '「%s」をリネーム';
 $lang['Yes, rename'] = 'はい、リネームします';
+$lang['Locked albums are disabled for maintenance. Only administrators can view them in the gallery. Lock this album will also lock his Sub-albums'] = 'ロックされたアルバムはメンテナンスのため使用不可にされています。管理者のみがギャラリー上でこのアルバムを閲覧できます。このアルバムをロックすることでアルバム内のサブアルバムもロックされます。';
+$lang['Modified'] = '編集時期';
+$lang['Created'] = '作成時期';
+$lang['This album is currently locked, visible only to administrators.'] = 'このアルバムは現在ロックされており、管理者のみ閲覧できます。';

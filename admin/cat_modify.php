@@ -187,6 +187,7 @@ $template->assign(
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
     'IS_VISIBLE'          => boolean_to_string($category['visible']),
+    'CAT_ADMIN_ACCESS'   => cat_admin_access($category['id']),
 
     'U_DELETE' => $base_url.'albums',
 
@@ -199,6 +200,7 @@ $template->assign(
     'U_ADD_PHOTOS_ALBUM' => $base_url.'photos_add&amp;album='.$category['id'],
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
     'U_MOVE' => $base_url.'albums&amp;parent_id='.$category['id'],
+    'U_ACTIVITY' => get_root_url().'admin.php?page=user_activity&album='.$category['id'],
     )
   );
  

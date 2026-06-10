@@ -651,7 +651,7 @@ $lang['Users'] = "ผู้ใช้งาน";
 $lang['user_status_admin'] = "ผู้ดูแลระบบ";
 $lang['user_status_generic'] = "ผู้ใช้งานทั่วไป";
 $lang['user_status_guest'] = "ผู้เยี่ยมชม";
-$lang['user_status_normal'] = "ผู้ใช้งาน";
+
 $lang['user_status_webmaster'] = "เว็บมาสเตอร์";
 $lang['Validate'] = "ตรวจสอบ";
 $lang['Validation'] = "การตรวจสอบ";

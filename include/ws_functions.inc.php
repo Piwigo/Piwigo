@@ -34,6 +34,16 @@ function ws_isInvokeAllowed($res, $methodName, $params)
  */
 function ws_std_image_sql_filter( $params, $tbl_name='' )
 {
+  foreach (array('f_min_date_available', 'f_max_date_available', 'f_min_date_created', 'f_max_date_created') as $datefield)
+  {
+    if (isset($params[$datefield]) and !is_valid_mysql_datetime($params[$datefield]))
+    {
+      global $service;
+      $service->sendResponse(new PwgError(WS_ERR_INVALID_PARAM, 'Invalid '.$datefield));
+      exit;
+    }
+  }
+
   $clauses = array();
   if ( is_numeric($params['f_min_rate']) )
   {
@@ -159,7 +169,7 @@ function ws_std_get_urls($image_row)
   $ret['download_url'] = null;
   if ($provide_download_url)
   {
-    $ret['download_url'] = str_replace('&amp;', '&', get_action_url($image_row['id'], 'e', true));
+    $ret['download_url'] = get_action_url($image_row['id'], 'e', true);
   }
 
   $derivatives = DerivativeImage::get_all($src_image);
@@ -168,7 +178,7 @@ function ws_std_get_urls($image_row)
   {
     $size = $derivative->get_size();
     $size != null or $size=array(null,null);
-    $derivatives_arr[$type] = array('url' => $derivative->get_url(), 'width'=>$size[0], 'height'=>$size[1] );
+    $derivatives_arr[$type] = array('url' => $derivative->get_url(), 'width'=>(int)$size[0], 'height'=>(int)$size[1] );
   }
   $ret['derivatives'] = $derivatives_arr;;
   return $ret;

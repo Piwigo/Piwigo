@@ -150,14 +150,14 @@ jQuery(document).ready(function(){
       {if isset($save_success)}
         <div class="savebar-footer-block">
           <div class="badge info-message">
-            <i class="icon-ok"></i>{$save_success}
+            <i class="icon-ok-circled"></i>{$save_success}
           </div>
         </div>
       {/if}
       {if isset($save_error)}
         <div class="savebar-footer-block">
           <div class="badge info-warning">
-            <i class="icon-attention"></i>{$save_error}
+            <i class=" icon-warning-circled"></i>{$save_error}
           </div>
         </div>
       {/if}

@@ -131,6 +131,10 @@ SELECT SQL_CALC_FOUND_ROWS i.*
       {
         $image[$k] = $row[$k];
       }
+
+      $image['name'] = strip_tags(trigger_change('render_element_name', $image['name'], __FUNCTION__) ?? '');
+      $image['comment'] = trigger_change('render_element_description', $image['comment'], __FUNCTION__);
+
       $image = array_merge($image, ws_std_get_urls($row));
 
       $images[] = $image;
@@ -369,6 +373,8 @@ SELECT SQL_CALC_FOUND_ROWS
     }
     else
     {
+      $row['name_raw'] = $row['name'];
+
       $row['name'] = strip_tags(
         trigger_change(
           'render_category_name',
@@ -378,13 +384,13 @@ SELECT SQL_CALC_FOUND_ROWS
         );
     }
 
-    $row['comment'] = strip_tags(
-      (string) trigger_change(
-        'render_category_description',
-        $row['comment'],
-        'ws_categories_getList'
-        )
-      );
+    $row['comment_raw'] = $row['comment'];
+
+    $row['comment'] = (string) trigger_change(
+      'render_category_description',
+      $row['comment'],
+      'ws_categories_getList'
+    );
 
     // management of the album thumbnail -- starts here
     //
@@ -660,6 +666,8 @@ SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, statu
       'admin.php?page=album-'
     );
 
+    $row['name_raw'] = $row['name'];
+
     $row['name'] = strip_tags(
       trigger_change(
         'render_category_name',
@@ -668,14 +676,13 @@ SELECT SQL_CALC_FOUND_ROWS id, name, comment, uppercats, global_rank, dir, statu
         )
       );
     $row['fullname'] = strip_tags($cat_display_name);
-    isset($row['comment']) ? false : $row['comment'] = "";
-    $row['comment'] = strip_tags(
-      trigger_change(
-        'render_category_description',
-        $row['comment'],
-        'ws_categories_getAdminList'
-        )
-      );
+
+    $row['comment_raw'] = $row['comment'];
+    $row['comment'] = trigger_change(
+      'render_category_description',
+      $row['comment'] ?? '',
+      'ws_categories_getAdminList'
+    );
 
     if (empty($row['image_order']))
     {

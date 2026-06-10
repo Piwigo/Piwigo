@@ -8,6 +8,7 @@
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
+include_once(PHPWG_ROOT_PATH.'include/svg-sanitizer.php');
 
 // add default event handler for image and thumbnail resize
 add_event_handler('upload_image_resize', 'pwg_image_resize');
@@ -227,49 +228,67 @@ SELECT
 
     // compute file path
     $date_string = preg_replace('/[^\d]/', '', $dbnow);
-    $random_string = substr($md5sum, 0, 8);
+    $random_string = substr($md5sum, 0, 4).'%s';
     $filename_wo_ext = $date_string.'-'.$random_string;
     $file_path = $upload_dir.'/'.$filename_wo_ext.'.';
 
-    list($width, $height, $type) = getimagesize($source_filepath);
-    
-    if (IMAGETYPE_PNG == $type)
-    {
-      $file_path.= 'png';
-    }
-    elseif (IMAGETYPE_GIF == $type)
-    {
-      $file_path.= 'gif';
-    }
-    elseif (IMAGETYPE_JPEG == $type)
-    {
-      $file_path.= 'jpg';
-    }
-    elseif (IMAGETYPE_WEBP == $type)
-    {
-      $file_path.= 'webp';
-    }
-    elseif (isset($conf['upload_form_all_types']) and $conf['upload_form_all_types'])
-    {
-      $original_extension = strtolower(get_extension($original_filename));
+    $authorized_file_extensions = $conf['upload_form_all_types'] ? $conf['file_ext'] : $conf['picture_ext'];
 
-      if (in_array($original_extension, $conf['file_ext']))
-      {
-        $file_path.= $original_extension;
-      }
-      else
-      {
-        unlink($source_filepath);
-        die('unexpected file type');
-      }
-    }
-    else
+    $original_extension = strtolower(get_extension($original_filename));
+
+    if (!in_array($original_extension, $authorized_file_extensions))
     {
       unlink($source_filepath);
-      die('forbidden file type');
+
+      $error_msg = 'forbidden file type';
+
+      if (defined('IN_WS'))
+      {
+        global $service;
+        $service->sendResponse(new PwgError(415, $error_msg));
+        exit;
+      }
+
+      die($error_msg);
     }
 
+    pwg_check_real_extension($source_filepath, $original_filename, true);
+
+    if ('svg' == $original_extension)
+    {
+      // Check for malicious code inside the svg
+      $issues = validate_svg(file_get_contents($source_filepath));
+      if ($issues != '')
+      {
+        $error_msg = 'Invalid SVG "'.htmlspecialchars($original_filename).'" '.$issues;
+        unlink($source_filepath);
+        if (defined('IN_WS'))
+        {
+          global $service;
+          $service->sendResponse(new PwgError(415, $error_msg));
+          exit;
+        }
+        die($error_msg);
+      }
+    }
+
+    $file_extension_replace_by = array(
+      'jpeg' => 'jpg',
+    );
+
+    $file_path .= $file_extension_replace_by[$original_extension] ?? $original_extension;
+
     prepare_directory($upload_dir);
+
+    $file_path_pattern = $file_path;
+    do
+    {
+      // we generate a random string for each upload. If the user uploads
+      // the same photo twice at the same time (same timestamp, same md5sum)
+      // we still want the path to be unique.
+      $file_path = sprintf($file_path_pattern, substr(bin2hex(random_bytes(4)), 0, 4));
+    }
+    while (file_exists($file_path));
   }
 
   if (is_uploaded_file($source_filepath))
@@ -510,8 +529,36 @@ SELECT
     'filesize' => $file_infos['filesize'],
   );
 
-  single_insert(IMAGE_FORMAT_TABLE, $insert);
-  $format_id = pwg_db_insert_id(IMAGE_FORMAT_TABLE);
+
+  $query = '
+SELECT
+  format_id
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE image_id = '.$format_of.'
+  AND ext = "'.$format_ext.'"
+;';
+
+  $formats = query2array($query);
+  if($formats)
+  {
+    $set_fields = array(
+      'filesize' => $file_infos['filesize'],
+    );
+    $where_fields = array(
+      'format_id' => $formats[0]['format_id'],
+      'image_id' => $format_of,
+      'ext' => $format_ext,
+    );
+    single_update(IMAGE_FORMAT_TABLE, $set_fields, $where_fields);
+    $format_id = $formats[0]['format_id'];
+    $add_status = "update";
+  }
+  else
+  {
+    single_insert(IMAGE_FORMAT_TABLE, $insert);
+    $format_id = pwg_db_insert_id(IMAGE_FORMAT_TABLE);
+    $add_status = "add";
+  }
 
   pwg_activity('photo', $format_of, 'edit', array('action'=>'add format', 'format_ext'=>$format_ext, 'format_id'=>$format_id));
 
@@ -520,7 +567,7 @@ SELECT
 
   trigger_notify('loc_end_add_format', $format_infos);
 
-  return $format_id;
+  return $add_status;
 }
 
 add_event_handler('upload_file', 'upload_file_pdf');
@@ -552,12 +599,12 @@ function upload_file_pdf($representative_ext, $file_path)
   $representative_file_path = original_to_representative($file_path, $ext);
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
+  $exec.= ' "'.realpath($file_path).'"[0]';
   if ('jpg' == $ext)
   {
     $exec.= ' -quality '.$jpg_quality;
   }
-  $exec.= ' "'.realpath($file_path).'"[0]';
   $exec.= ' "'.$representative_file_path.'"';
   $exec.= ' 2>&1';
   @exec($exec, $returnarray);
@@ -601,9 +648,9 @@ function upload_file_heic($representative_ext, $file_path)
 
   list($w,$h) = get_optimal_dimensions_for_representative();
 
-  $exec = $conf['ext_imagick_dir'].'convert';
-  $exec.= ' -sampling-factor 4:2:0 -quality 85 -interlace JPEG -colorspace sRGB -auto-orient +repage -resize "'.$w.'x'.$h.'>"';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
   $exec.= ' "'.realpath($file_path).'"';
+  $exec.= ' -sampling-factor 4:2:0 -quality 85 -interlace JPEG -colorspace sRGB -auto-orient +repage -resize "'.$w.'x'.$h.'>"';
   $exec.= ' "'.$representative_file_path.'"';
   $exec.= ' 2>&1';
 
@@ -651,14 +698,13 @@ function upload_file_tiff($representative_ext, $file_path)
 
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
+  $exec .= ' "'.realpath($file_path).'"';
 
   if ('jpg' == $conf['tiff_representative_ext'])
   {
     $exec .= ' -quality 98';
   }
-
-  $exec .= ' "'.realpath($file_path).'"';
 
   $dest = pathinfo($representative_file_path);
   $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
@@ -798,7 +844,7 @@ function upload_file_psd($representative_ext, $file_path)
 
   prepare_directory(dirname($representative_file_path));
 
-  $exec = $conf['ext_imagick_dir'].'convert';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
 
   $exec .= ' "'.realpath($file_path).'"';
 
@@ -860,9 +906,9 @@ function upload_file_eps($representative_ext, $file_path)
 
   // convert -density 300 image.eps -resize 2048x2048 image.png
 
-  $exec = $conf['ext_imagick_dir'].'convert';
-  $exec.= ' -density 300';
+  $exec = $conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command();
   $exec.= ' "'.realpath($file_path).'"';
+  $exec.= ' -density 300';
   $exec.= ' -resize 2048x2048';
   $exec.= ' "'.$representative_file_path.'"';
   $exec.= ' 2>&1';
@@ -909,6 +955,13 @@ function prepare_directory($directory)
 
 function need_resize($image_filepath, $max_width, $max_height)
 {
+  global $conf, $logger;
+
+  if (!in_array(strtolower(get_extension($image_filepath)), $conf['picture_ext']))
+  {
+    return false;
+  }
+
   // TODO : the resize check should take the orientation into account. If a
   // rotation must be applied to the resized photo, then we should test
   // invert width and height.
@@ -916,6 +969,7 @@ function need_resize($image_filepath, $max_width, $max_height)
 
   if ($width > $max_width or $height > $max_height)
   {
+    $logger->info(__FUNCTION__.' '.(string)$image_filepath.' is too big (current='.$width.'x'.$height.'px Vs max='.$max_width.'x'.$max_height.'px)');
     return true;
   }
 
@@ -932,6 +986,51 @@ function pwg_image_infos($path)
     'height' => $height,
     'filesize' => $filesize,
     );
+}
+
+function pwg_check_real_extension($source_filepath, $original_filename, $die_on_error=true)
+{
+  global $conf, $logger;
+
+  $finfo = finfo_open(FILEINFO_MIME_TYPE);
+  $finfo_type = finfo_file($finfo, $source_filepath);
+  finfo_close($finfo);
+
+  $original_extension = strtolower(get_extension($original_filename));
+
+  if (!isset($conf['mime_types_for_ext'][$original_extension]))
+  {
+    // not a situation we like: the extension is authorized for upload but
+    // not listed for MIME type check. See function check_authorized_file_extension_mime_types
+    return true;
+  }
+
+  if (!in_array($finfo_type, $conf['mime_types_for_ext'][$original_extension]))
+  {
+    $error_msg = 'File extension "'.$original_extension.'" for file "'.$original_filename.'" does not match file MIME type "'.$finfo_type.'"';
+
+    $logger->info(__FUNCTION__.' '.$error_msg);
+
+    if ($die_on_error)
+    {
+      unlink($source_filepath);
+
+      if (defined('IN_WS'))
+      {
+        global $service;
+        $service->sendResponse(new PwgError(415, $error_msg));
+        exit;
+      }
+
+      die($error_msg);
+    }
+
+    return false;
+  }
+
+  $logger->info(__FUNCTION__.' file_ext='.$original_extension.' Vs finfo_type='.$finfo_type);
+
+  return true;
 }
 
 function is_valid_image_extension($extension)
@@ -1067,7 +1166,7 @@ function get_optimal_dimensions_for_representative()
   global $conf;
 
   $enabled = ImageStdParams::get_defined_type_map();
-  $disabled = @unserialize(@$conf['disabled_derivatives']);
+  $disabled = safe_unserialize(ImageStdParams::get_disabled_type_map());
   if ($disabled === false)
   {
     $disabled = array();

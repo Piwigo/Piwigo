@@ -1,0 +1,337 @@
+input[type='radio'] {
+  accent-color: #ff7700;
+}
+
+.input-container:focus-within,
+.input-modal:focus-within{
+  border:1px solid #ff7700!important;
+}
+
+.gallery-icon-checkmark {
+    border: 1px solid #777;
+}
+
+.btn-main{
+  background-color:#ff7700!important;
+  color:white!important;
+}
+
+.btn-secondary {
+  background-color: #ECECEC!important;
+  color: #3C3C3C!important;
+}
+
+.btn-main:disabled {
+  background-color:#aaaaaa!important;
+  color: #3C3C3C !important;
+}
+
+#separator{
+  border-bottom:1px solid #D8D8D8;
+}
+
+#lang-select #other-languages span:hover{
+  color:#ff7700; 
+}
+
+.profile-section .api-icon-action i:hover,
+.close-modal:hover,
+.profile-section .icon-clone:hover  {
+  color: #ff7700;
+}
+
+.profile-section div.api-tab-line:nth-child(even) {
+  background-color: #303030;
+}
+
+.profile-section #api_key_list .edit {
+  border: 1px solid #ff7700 !important;
+}
+
+.profile-section .new-apikey .btn-link{
+  color: #9A9A9A !important;
+}
+
+.bg-modal {
+  background-color: rgba(0,0,0,0.7);
+}
+
+.slider {
+  background-color: #ccc;
+}
+
+.slider:before {
+  background-color: white;
+}
+
+/* Light */
+#theIdentificationPage .light,
+#theRegisterPage .light,
+#thePasswordPage .light,
+#theProfilePage .light{
+  background: linear-gradient(75.69deg, #FFEACF 7.64%, #FFFAF3 77.87%);
+}
+
+.light #login-form,
+.light #register-form,
+.light #password-form,
+.light #lang-select #other-languages,
+.light .profile-section,
+.light .slider:before,
+.light .body-modal,
+.light [data-tooltip]:hover::after {
+  background-color:#ffffff;
+}
+
+#theIdentificationPage .light a,
+#theRegisterPage .light a,
+#thePasswordPage .light a,
+#theProfilePage .light a:not(.close-modal),
+.light h1,
+.light .input-container input,
+.light .input-modal input,
+.light .input-container select,
+.light .input-container textarea,
+.light .secondary-links,
+.light .properties label,
+.light .profile-section label,
+.light .properties i,
+.light .profile-section i,
+.light #password-form p,
+.light .profile-section p,
+.light #lang-select #other-languages span,
+.light .btn-cancel,
+.light .btn-link {
+  color:#3C3C3C;
+}
+
+#theIdentificationPage .light a:hover,
+#theRegisterPage .light a:hover,
+#thePasswordPage .light a:hover,
+#theProfilePage .light a:hover{
+  color:#ff7700;
+}
+
+.light #header-options a,
+.light #header-options .toggle-mode,
+.light #selected-language-container{
+  color:#ff7700;
+}
+
+.light .input-container,
+.light .input-modal,
+.light .api-list-head {
+  background-color:#F0F0F0;
+  border:1px solid #F0F0F0;
+}
+
+.light .input-container input:is(:-webkit-autofill, :autofill)
+{
+  box-shadow: 0 0 0 100px #F0F0F0 inset;
+  -webkit-box-shadow: 0 0 0px 1000px #F0F0F0 inset !important;
+  -webkit-text-fill-color: #3C3C3C;
+  color:#3C3C3C;
+}
+
+.light #separator{
+  border-bottom:1px solid #D8D8D8;
+}
+
+.light .gallery-icon-eye{
+  color:#898989;
+}
+
+.light .success-message{
+  background-color: #DBF6D7;
+  color: #6DCE5E !important;
+  border-left: 4px solid #6DCE5E;
+}
+
+.light .success-message i{
+  color:#6DCE5E;
+}
+
+.light .infos-message{
+  background-color: #bde5f8;
+  color: #00529b !important;
+  border-left: 4px solid #00529b;
+}
+
+.light input:checked + .slider {
+  background-color: #FFA646;
+}
+
+.light input:focus + .slider {
+  box-shadow: 0 0 1px #FFA646;
+}
+
+.light .slider {
+  background-color: #CCCCCC;
+}
+
+.light .api-list-body > div:nth-child(4n+1),
+.light .api-list-body > div:nth-child(4n+2) {
+  background-color: #F8F8F8;
+}
+
+.light .api-tab-line p,
+.light .api-icon-action i,
+.light .keys p:not(.api-copy),
+.light .keys i,
+.light #api_key_list_expired .api-skull {
+  color: #656565;
+}
+
+.light .close-modal {
+  color: #ffffff;
+}
+
+.light input[type="date"] {
+  color-scheme: light;
+}
+
+.light input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}
+
+.light .btn-revoked {
+  background-color: #EB3223 !important;
+}
+
+/* Dark */
+#theIdentificationPage .dark,
+#theRegisterPage .dark,
+#thePasswordPage .dark,
+#theProfilePage .dark{
+  background: linear-gradient(75.69deg, #1B1B1D 7.64%, #2F2F2F 77.87%);
+}
+
+.dark #login-form,
+.dark #register-form,
+.dark #password-form,
+.dark .profile-section, 
+.dark .body-modal {
+  background-color:#3C3C3C;
+}
+
+#theIdentificationPage .dark a,
+#theRegisterPage .dark a,
+#thePasswordPage .dark a,
+#theProfilePage .dark a:not(.close-modal).dark #header-options a,
+.dark #header-options .toggle-mode,
+.dark #selected-language-container{
+  color:#FFEBD0;
+}
+
+.dark h1,
+.dark .input-container input,
+.dark .input-modal input,
+.dark .input-container select,
+.dark .input-container textarea,
+.dark .secondary-links,
+.dark .properties label,
+.dark .profile-section label,
+.dark .properties i,
+.dark .profile-section i,
+.dark #password-form p,
+.dark .profile-section p,
+.dark #lang-select #other-languages span,
+.dark .btn-cancel,
+.dark .btn-link {
+  color:#D6D6D6;
+}
+
+#theIdentificationPage .dark a:hover,
+#theRegisterPage .dark a:hover,
+#thePasswordPage .dark a:hover,
+#theProfilePage .dark a:hover,
+.dark #lang-select #other-languages span{
+  color:#ff7700;
+}
+
+.dark .input-container,
+.dark .input-modal {
+  background-color:#303030;
+  border:1px solid #303030;
+}
+
+.dark .input-container input:is(:-webkit-autofill, :autofill)
+{
+  box-shadow: 0 0 0 100px #303030 inset;
+  -webkit-box-shadow: 0 0 0px 1000px #303030 inset !important;
+  -webkit-text-fill-color: #D6D6D6;
+  color:#D6D6D6;
+}
+
+.dark #separator{
+  border-bottom:1px solid #303030;
+}
+
+.dark .gallery-icon-eye{
+  color:#898989;
+}
+
+.dark #lang-select #other-languages,
+.dark .slider,
+.dark input:checked + .slider:before {
+  background-color: #3C3C3C;
+}
+
+.dark .success-message{
+  background-color: #4EA590;
+  color: #AAF6E4 !important;
+  border-left: 4px solid #AAF6E4;
+}
+
+.dark .success-message i{
+  color: #AAF6E4;
+}
+
+.dark .infos-message{
+  background-color: #4f71a4;
+  color: #bad6ff !important;
+  border-left: 4px solid #bad6ff;
+}
+
+.dark .btn-secondary {
+  background-color: #202020!important;
+  color: white!important;
+}
+
+.dark input:checked + .slider {
+  background-color: #FFA646;
+}
+
+.dark .slider:before {
+  background-color: #777777;
+}
+
+.dark .api-list-head,
+.dark [data-tooltip]:hover::after{
+  background-color: #2A2A2A;
+}
+
+.dark .api-list-body > div:nth-child(4n+1),
+.dark .api-list-body > div:nth-child(4n+2) {
+  background-color: #333333;
+}
+
+.dark .icon-collapse {
+  color: white !important;
+}
+
+.dark .close-modal {
+  color: #3C3C3C;
+}
+
+.dark input[type="date"] {
+  color-scheme: dark;
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}
+
+.dark .btn-revoked {
+  background-color: #BE4949 !important;
+}

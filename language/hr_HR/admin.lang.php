@@ -357,7 +357,7 @@ $lang['User status'] = 'Stanje korisnika';
 $lang['user_status_admin'] = 'Upravnik';
 $lang['user_status_generic'] = 'Općenit';
 $lang['user_status_guest'] = 'Gost';
-$lang['user_status_normal'] = 'Korisnik';
+
 $lang['user_status_webmaster'] = 'Webmaster';
 $lang['Virtual album'] = 'Nestvarna skupina';
 $lang['Waiting'] = 'Čekanje';

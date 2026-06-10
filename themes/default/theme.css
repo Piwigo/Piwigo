@@ -840,19 +840,12 @@ LEGEND {
     padding: 0px 5px !important;
 }
 
-#TagsGroupRemoveTag span,
-#TagsGroupRemoveTag i{
-  display:none;
-}
-
 /* Search in this set button CSS, 
-Needs to be loaded herre because we don't use it on the search pages but on other pages
+Needs to be loaded here because we don't use it on the search pages but on other pages
 it won't be loaded if it goes in the search specific css
 because of this it needs to specifically be added to each theme */
-.mcs-side-results.search-in-set-button {
-  /* margin-top:-15px; */
-  margin-bottom: 30px;
-}
+
+/*the related tags button also uses this css*/
 .mcs-side-results.search-in-set-button p {
   margin:0;
 }
@@ -873,7 +866,7 @@ because of this it needs to specifically be added to each theme */
   display: flex;
   flex-direction: row;
   gap: 5px;
-  margin: 15px 0 0 15px;
+
 }
 
 .mcs-side-results > div {
@@ -886,7 +879,7 @@ because of this it needs to specifically be added to each theme */
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 15px;
   color: #ccc;
   width: fit-content;
 }
@@ -914,4 +907,99 @@ because of this it needs to specifically be added to each theme */
   padding: 2px 5px!important;
   font-size: 10px;
   background: #777;
+}
+
+.action-buttons{
+  display:flex;
+  align-items:start;
+  flex-wrap:wrap;
+  margin-bottom: 20px;
+  padding:0 15px;
+}
+
+h3.related-tags-title{
+  margin:4px 0;
+  margin-right:10px;
+  font-weight:400;
+}
+
+span.related-tags{
+  padding:4px 12px;
+  margin:3px;
+  border-radius:15px;
+  background-color:#f5f5f5
+}
+
+span.related-tags a{
+  font-weight:700;
+  color:#787878;
+  text-decoration:none;
+}
+
+span.related-tags:hover{
+  background-color:#e5e5e5;
+}
+
+span.related-tags .tag-counter{
+  display: inline-block;
+  margin-left:9px;
+  color:#ACACAC;
+  font-weight:700;
+}
+
+#relatedTagsBox.switchBox A {
+  padding:unset;
+  display:block;
+}
+
+#selected-tags-container{
+  margin:0 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#selected-tags-container .selected-related-tag {
+  background-color: #FCEAD2;
+  border:1px solid #FF7700;
+  color:#ff7700;
+  border-radius:15px;
+  padding:2px 10px;
+  padding-right:5px;
+  margin-right:15px;
+}
+
+#selected-tags-container .selected-related-tag.unique-tag{
+  padding:2px 10px;
+}
+
+#selected-tags-container .selected-related-tag a{
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 12px;
+  color:#ff7700;
+  }
+
+#selected-tags-container .selected-related-tag a.selected-related-tag-remove:hover{
+  text-decoration:none;
+  color:#000;
+}
+
+.related-tag-condition{
+  border-radius:5px;
+  margin:2px 5px 0 15px;
+  font-weight:900;
+  font-size:20px;
+  padding:0 5px;
+  color:#777777;
+}
+
+#breadcrumb{
+  display:flex;
+  align-items: baseline;
+}
+
+@media (max-width: 600px) {
+  #breadcrumb{
+    flex-direction:column;
+  }
 }

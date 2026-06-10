@@ -90,25 +90,25 @@ let plugin_filter = searchParams.get('filter');
 <div id="{$plugin.ID}" class="pluginBox pluginMiniBox {$plugin.STATE} plugin-{$plugin.STATE}">
 
     <div class="AddPluginSuccess pluginNotif">
-      <label class="icon-ok">
+      <label class="icon-ok-circled">
         <span>{'Plugin activated'|@translate}</span>
       </label>
     </div>
 
     <div class="DeactivatePluginSuccess pluginNotif">
-      <label class="icon-ok">
+      <label class="icon-ok-circled">
         <span>{'Plugin deactivated'|@translate}</span>
       </label>
     </div>
 
     <div class="RestorePluginSuccess pluginNotif">
-      <label class="icon-ok">
+      <label class="icon-ok-circled">
         <span>{'Plugin deactivated'|@translate}</span>
       </label>
     </div>
 
     <div class="PluginActionError pluginNotif">
-      <label class="icon-cancel">
+      <label class="icon-warning-circled">
         <span>{'Plugin deactivated'|@translate}</span>
       </label>
     </div>

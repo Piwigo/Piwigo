@@ -113,9 +113,9 @@ SELECT
 
 $query = '
 SELECT
-    username
+    '.$conf['user_fields']['username'].' AS username
     FROM '.USERS_TABLE.'
-    WHERE id = '.$conf['webmaster_id'].'
+    WHERE '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].'
 ;';
 
 $owner_username = query2array($query, null, 'username');

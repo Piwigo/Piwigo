@@ -16,7 +16,12 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+
 check_status(ACCESS_ADMINISTRATOR);
+
+check_input_parameter('photo', $_GET, false, PATTERN_ID);
+check_input_parameter('album', $_GET, false, PATTERN_ID);
+check_input_parameter('group', $_GET, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
@@ -43,6 +48,7 @@ SELECT
     '.$conf['user_fields']['username'].' AS username
   FROM '.ACTIVITY_TABLE.'
     JOIN '.USERS_TABLE.' AS u ON performed_by = u.'.$conf['user_fields']['id'].'
+    WHERE object = \'user\'
   ORDER BY activity_id DESC
 ;';
 
@@ -74,7 +80,7 @@ SELECT
 
   $f = fopen('php://output', 'w');  
       foreach ($output_lines as $line) { 
-          fputcsv($f, $line, ";"); 
+          fputcsv($f, $line, ";", '"', '\\'); 
       }
   fclose($f);
   
@@ -140,6 +146,102 @@ SELECT COUNT(*)
 
 list($nb_users) = pwg_db_fetch_row(pwg_query($query));
 $template->assign('nb_users', $nb_users);
+
+$query = '
+SELECT
+    occured_on
+  FROM '.ACTIVITY_TABLE.'
+  ORDER BY activity_id ASC
+  LIMIT 1
+;';
+list($min_date) = pwg_db_fetch_row(pwg_query($query));
+
+$query = '
+SELECT
+    occured_on
+  FROM '.ACTIVITY_TABLE.'
+  ORDER BY activity_id DESC
+  LIMIT 1
+;';
+list($max_date) = pwg_db_fetch_row(pwg_query($query));
+
+$template->assign(
+  'ACTIVITY_DATES',
+  array(
+    'min' => empty($min_date) ? '' : substr($min_date, 0, 10),
+    'max' => empty($max_date) ? '' : substr($max_date, 0, 10),
+  )
+);
+
+$additional_filt_type = false;
+$additional_filt_name = null;
+$additional_filt_value = null;
+
+$additional_filters = array(
+  'photo' => IMAGES_TABLE,
+  'album' => CATEGORIES_TABLE,
+  'group' => GROUPS_TABLE,
+);
+
+foreach ($additional_filters as $filter_key => $filter_table)
+{
+  if (isset($_GET[$filter_key]))
+  {
+    $query = '
+SELECT
+    name
+  FROM '.$filter_table.'
+  WHERE id = '.$_GET[$filter_key].'
+;';
+    $rows = query2array($query);
+
+    if (count($rows) == 0)
+    {
+      fatal_error($filter_key.' #'.$_GET[$filter_key].' does not exist');
+    }
+
+    $additional_filt_type = $filter_key;
+    $additional_filt_name = $rows[0]['name'];
+    $additional_filt_value = $_GET[$filter_key];
+
+    break;
+  }
+}
+
+$template->assign('ADDITIONAL_FILT', array(
+  'type' => $additional_filt_type,
+  'name' => $additional_filt_name,
+  'value' => $additional_filt_value
+));
+
+$query = '
+SELECT
+    object, 
+    action, 
+    count(*) AS counter
+  FROM '.ACTIVITY_TABLE.'
+  WHERE object != \'system\'';
+
+  if ($additional_filt_type)
+  {
+    $query .= '
+    AND object = "'.$additional_filt_type.'"';
+  }
+
+  $query .= '
+  GROUP BY 
+    action,
+    object
+  ORDER BY object ASC
+  ;';
+
+
+$actions = query2array($query);
+foreach($actions as &$action){
+  $action['value'] = $action['object'].'/'.$action['action'];
+}
+
+$template->assign('ACTIONS', $actions);
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'user_activity');
 

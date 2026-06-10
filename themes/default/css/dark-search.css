@@ -23,7 +23,8 @@
 
 .filter-manager-popin .mcs-popin-title,
 .tags-found-popin .mcs-popin-title,
-.albums-found-popin .mcs-popin-title {
+.albums-found-popin .mcs-popin-title,
+.quick-search-headers .mcs-popin-title {
   color: #ff7700bb;
 }
 
@@ -79,7 +80,7 @@
 
 .filter-form {
   background: #333;
-  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.6);
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
   color: #bbb;
 }
 
@@ -103,6 +104,14 @@
 
 .word-help {
   color: #888;
+}
+
+.help-popin-search {
+  color:#ccc;
+}
+
+.help-popin-search:hover {
+  color:#fff;
 }
 
 #word-search {
@@ -302,6 +311,10 @@
 
 .and-more{
   color: #777
+}
+
+.modal-content {
+  background-color: #444;
 }
 
 @media (max-width: 600px) {

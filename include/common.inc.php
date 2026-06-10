@@ -66,7 +66,8 @@ $filter = array();
 
 foreach(
   array(
-    'gzopen'
+    'gzopen',
+    'str_starts_with'
     ) as $func)
 {
   if (!function_exists($func))
@@ -168,6 +169,7 @@ elseif ($conf['piwigo_installed_version'] != PHPWG_VERSION)
   conf_update_param('piwigo_installed_version', PHPWG_VERSION);
 }
 
+//Check if last major update conf is set if not set it
 if (!isset($conf['last_major_update']))
 {
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
@@ -251,6 +253,30 @@ if (isset($page['auth_key_invalid']) and $page['auth_key_invalid'])
     l10n('Your authentication key is no longer valid.')
     .sprintf(' <a href="%s">%s</a>', get_root_url().'identification.php', l10n('Login'))
     ;
+}
+
+// check if we need to notified user about api_key expiration
+if (isset($page['notify_api_key_expiration']) and is_array($page['notify_api_key_expiration']))
+{
+  $is_mail_send = notification_api_key_expiration(
+    $user['username'],
+    $user['email'],
+    $page['notify_api_key_expiration']['days_left']
+  );
+
+  if ($is_mail_send)
+  {
+    single_update(
+      USER_AUTH_KEYS_TABLE,
+      array('last_notified_on' => $page['notify_api_key_expiration']['dbnow']),
+      array(
+        'user_id' => $user['id'],
+        'auth_key' => $page['notify_api_key_expiration']['auth_key']
+      ),   
+    );
+  }
+
+  unset($page['notify_api_key_expiration']);
 }
 
 // template instance

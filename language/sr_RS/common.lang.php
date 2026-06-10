@@ -136,7 +136,7 @@ $lang['created after %s (%s)'] = 'направљен након %s (%s)';
 $lang['created before %s (%s)'] = 'направљен прије %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'направљен између %s (%s) и %s (%s)';
 $lang['created on %s'] = 'направљен на %s';
-$lang['Customize'] = 'Подеси';
+
 $lang['Your Gallery Customization'] = 'Подешавање Ваше Галерије ';
 $lang['day'][0] = 'Недеља';
 $lang['day'][1] = 'Понедељак';
@@ -165,7 +165,7 @@ $lang['Hello'] = 'Поздрав';
 $lang['available for administrators only'] = 'доступно само администраторима';
 $lang['display this album'] = 'приказује слике у главној категорији';
 $lang['display last user comments'] = 'Преглед задњих корисничких коментара';
-$lang['customize the appareance of the gallery'] = 'подесите изглед ваше галерије';
+
 $lang['search'] = 'претражи';
 $lang['Home'] = 'Почетна';
 $lang['in this album'] = 'у овој категорији';
@@ -452,3 +452,7 @@ $lang['Pre-established filters are proposed, but you can add or remove them usin
 $lang['Search in :'] = 'Претражи у:';
 $lang['Custom dates'] = 'Произвољни датуми';
 $lang['last 12 months'] = 'Последњих 12 месеци';
+$lang['There are no authors available for the photos currently filtered'] = 'Нема аутора за фотографије које су тренутно изфилтриране';
+$lang['There are no creation dates available for the photos currently filtered'] = 'Нема датума настанка за фотографије које су тренутно изфилтриране';
+$lang['There are no tags available for the photos currently filtered'] = 'Нема ознака за фотографије које су тренутно изфилтриране';
+$lang['Set your password below.'] = 'Поставите вашу лозинку испод.';

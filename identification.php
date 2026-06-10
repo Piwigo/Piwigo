@@ -24,6 +24,8 @@ if (!is_a_guest())
 
 trigger_notify('loc_begin_identification');
 
+unset($_SESSION['reset_password_code']);
+
 //-------------------------------------------------------------- identification
 
 // security (level 1): the redirect must occur within Piwigo, so the
@@ -40,7 +42,7 @@ if ( !empty($_GET['redirect']) )
   $redirect_to = urldecode($_GET['redirect']);
   if ( $conf['guest_access'] and !isset($_GET['hide_redirect_error']))
   {
-    $page['errors']['login_page_error'][] = l10n('You are not authorized to access the requested page');
+    $page['errors']['login_page_error'] = l10n('You are not authorized to access the requested page');
   }
 }
 
@@ -48,7 +50,7 @@ if (isset($_POST['login']))
 {
   if (!isset($_COOKIE[session_name()]))
   {
-    $page['errors']['login_page_error'][] = l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.');
+    $page['errors']['login_page_error'] = l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.');
   }
   else
   {
@@ -73,6 +75,8 @@ if (isset($_POST['login']))
       // {host = http://localhost}
       // {redirect (final) = http://localhost/piwigo/git/admin.php}
       $root_url = get_absolute_root_url();
+
+      $_SESSION['connected_with'] = 'pwg_ui';
 
       redirect(
         empty($redirect_to)
@@ -121,17 +125,7 @@ if (!$conf['gallery_locked'] && (!isset($themeconf['hide_menu_on']) OR !in_array
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }
 
-//Load language if cookie is set from login/register/password pages
-if (isset($_COOKIE['lang']) and $user['language'] != $_COOKIE['lang'])
-{
-  if (!array_key_exists($_COOKIE['lang'], get_languages()))
-  {
-    fatal_error('[Hacking attempt] the input parameter "'.$_COOKIE['lang'].'" is not valid');
-  }
-  
-  $user['language'] = $_COOKIE['lang'];
-  load_language('common.lang', '', array('language'=>$user['language']));
-}
+load_cookie_language();
 
 //Get list of languages
 foreach (get_languages() as $language_code => $language_name)
@@ -141,7 +135,8 @@ foreach (get_languages() as $language_code => $language_name)
 
 $template->assign(array(
   'language_options' => $language_options,
-  'current_language' => $user['language']
+  'current_language' => $user['language'],
+  'COOKIE_PATH' => cookie_path(),
 ));
 
 //Get link to doc
