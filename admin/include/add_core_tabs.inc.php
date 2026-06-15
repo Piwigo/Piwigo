@@ -23,6 +23,12 @@ function add_core_tabs($sheets, $tab_id)
       $sheets[''] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'tags');
       break;
 
+    case 'people':
+      global $my_base_url;
+      $sheets['people'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'people');
+      //$sheets['people_settings'] = array('caption' => '<span class="icon-cog"></span>'.l10n('Settings'), 'url' => $my_base_url.'people_settings');
+      break;
+
     case 'album':
       global $admin_album_base_url;
       $sheets['properties'] = array('caption' => '<span class="icon-pencil"></span>'.l10n('Properties'), 'url' => $admin_album_base_url.'-properties');
@@ -130,6 +136,7 @@ function add_core_tabs($sheets, $tab_id)
       {
         $sheets['formats'] = array('caption' => '<span class="icon-docs"></span>'.l10n('Formats'), 'url' => $admin_photo_base_url.'-formats');
       }
+      $sheets['people'] = array('caption' => '<span class="icon-user-1""></span>'.l10n('People'), 'url' => $admin_photo_base_url.'-people');
       break;
 
     case 'photos_add':

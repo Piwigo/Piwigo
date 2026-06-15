@@ -1044,6 +1044,7 @@ div.success .jGrowl-popup-icon,
 .errors,
 .info-error,
 .AddUserErrors,
+.modal-footer-error,
 .groupError,
 div.jGrowl div.jGrowl-notification.error,
 .PluginActionError label,
@@ -1058,6 +1059,7 @@ div.jGrowl div.jGrowl-notification.error,
 
 .errors,
 .AddUserErrors,
+.modal-footer-error,
 .AddAlbumErrors{
   border-left: 6px solid #EB3D33; /*Banner*/
 }
@@ -1077,6 +1079,7 @@ div.jGrowl div.jGrowl-notification.error,
 
 .errors i,
 .AddUserErrors:before,
+.modal-footer-error::before,
 .groupError::before,
 div.error .jGrowl-popup-icon,
 .PluginActionError label::before,

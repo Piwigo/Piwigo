@@ -220,6 +220,7 @@ $template->assign(
     'U_RECENT_SET'=> $link_start.'batch_manager&amp;filter=prefilter-last_import',
     'U_BATCH'=> $link_start.'batch_manager',
     'U_TAGS'=> $link_start.'tags',
+    'U_PEOPLE' => $link_start.'people',
     'U_USERS'=> $link_start.'user_list',
     'U_GROUPS'=> $link_start.'group_list',
     'U_RETURN'=> get_gallery_home_url(),
