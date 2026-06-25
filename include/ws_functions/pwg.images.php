@@ -1039,6 +1039,14 @@ function ws_images_filteredSearch_create($params, $service)
 
   if ($conf['rate'] and isset($params['ratings']))
   {
+    foreach ($params['ratings'] as $rate)
+    {
+      if (!preg_match('/^\d+$/i', $rate))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter ratings');
+      }
+    }
+
     $search['fields']['ratings'] = $params['ratings'];
   }
 

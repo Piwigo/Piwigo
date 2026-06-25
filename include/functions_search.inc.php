@@ -637,7 +637,7 @@ SELECT
       }
       else
       {
-        $filter_clauses[] = '(rating_score >= '.(intval($r)-1).' AND rating_score < '.$r.')';
+        $filter_clauses[] = '(rating_score >= '.(intval($r)-1).' AND rating_score < '.intval($r).')';
       }
     }
 
