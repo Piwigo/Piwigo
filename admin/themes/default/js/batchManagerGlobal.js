@@ -98,7 +98,9 @@ jQuery('[data-datepicker]').pwgDatepicker({
 	cancelButton: lang.Cancel
 });
 
-jQuery('[data-add-album]').pwgAddAlbum();
+jQuery(function() {
+	jQuery('[data-add-album]').pwgAddAlbum();
+});
 
 $("input[name=remove_author]").click(function () {
 	if ($(this).is(':checked')) {
