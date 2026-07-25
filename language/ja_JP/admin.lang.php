@@ -1334,3 +1334,4 @@ $lang['Unlock it'] = 'ロックを解除する';
 $lang['Use Piwigo logo'] = 'Piwigoのロゴを使用する';
 $lang['Use custom logo (png, jpeg or svg)'] = 'カスタムロゴを使用する (png、jpegまたはsvg)';
 $lang['Username successfully modified'] = 'ユーザー名の変更に成功しました';
+$lang['%d including sub-albums'] = 'サブアルバム内を含めて%d枚';
