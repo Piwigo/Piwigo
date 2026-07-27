@@ -80,7 +80,7 @@ if (count($words) > 0 or in_array('allwords', $fields))
   $search['fields']['allwords'] = array(
     'words' => $words,
     'mode' => 'AND',
-    'fields' => array('file', 'name', 'comment', 'tags', 'author', 'cat-title', 'cat-desc'),
+    'fields' => array('file', 'name', 'comment', 'ai_description', 'ocr', 'tags', 'author', 'cat-title', 'cat-desc'),
   );
 }
 

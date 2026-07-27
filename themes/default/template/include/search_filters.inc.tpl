@@ -252,6 +252,14 @@ const prefix_icon = 'gallery-icon-';
           <label for="comment">{'Photo description'|@translate}</label>
         </div>
         <div>
+          <input type="checkbox" id="ai_description" name="ai_description">
+          <label for="ai_description">{'AI description'|@translate}</label>
+        </div>
+        <div>
+          <input type="checkbox" id="ocr" name="ocr">
+          <label for="ocr">{'OCR'|@translate}</label>
+        </div>
+        <div>
           <input type="checkbox" id="tags" name="tags">
           <label for="tags">{'Tags'|@translate}</label>
         </div>

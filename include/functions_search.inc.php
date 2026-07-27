@@ -153,7 +153,7 @@ function get_regular_search_results($search, $images_where='')
     $has_filters_filled = true;
 
     // 1) we search in regular fields (ie, the ones in the piwigo_images table)
-    $fields = array('file', 'name', 'comment', 'author');
+    $fields = array('file', 'name', 'comment', 'ai_description', 'ocr', 'author');
 
     if (isset($search['fields']['allwords']['fields']) and count($search['fields']['allwords']['fields']) > 0)
     {
