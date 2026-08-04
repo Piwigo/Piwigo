@@ -51,3 +51,4 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Kérdése va
 $lang['Welcome to your new installation of Piwigo!'] = 'Köszönt a frissen telepített Piwigo galéria!';
 $lang['localhost or other, supplied by your host provider'] = 'localhost vagy egyéb, a fogadó szolgáltató által megadott';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Lehet, hogy a tárhely szolgáltató támogatja a PHP 5.2-öt. A bekapcsoláshoz keresse meg őket.';
+$lang['PHP version %s required (you are running on PHP %s)'] = '%s PHP verzió szükséges (a tiéd: %s)';

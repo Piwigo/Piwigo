@@ -76,17 +76,18 @@ usersCache.selectize(jQuery('select.UserSearch'));
       {$grp_color}
     {/if}">
         </div>
-        <div class="groupMessage icon-ok"></div>
-        <div class="groupError icon-cancel"></div>
+        <div class="groupMessage icon-ok-circled icon-green"></div>
+        <div class="groupError icon-cancel-circled"></div>
       </div>
 
       <div class="icon-star not-in-selection-mode is-default-token{if !$grp_is_default} deactivate{/if}" ></div> 
      
       <div class="icon-ellipsis-vert group-dropdown-options not-in-selection-mode">
         <div id="GroupOptions" class="dropdown">
-          <option class="icon-docs dropdown-option" id="GroupDuplicate" value="duplicate">{'Duplicate'|@translate}</option>
-          <option class="icon-trash dropdown-option" id="GroupDelete" value="delete">{'Delete'|@translate}</option>
-          <option class="icon-star dropdown-option" id="GroupDefault" value="delete"></option>
+          <div class="icon-docs dropdown-option" id="GroupDuplicate" value="duplicate">{'Duplicate'|@translate}</div>
+          <div class="icon-trash dropdown-option" id="GroupDelete" value="delete">{'Delete'|@translate}</div>
+          <div class="icon-star dropdown-option" id="GroupDefault" value="delete"></div>
+          <a class="icon-pulse dropdown-option" href="admin.php?page=user_activity&group={$grp_id}">{'Activity'|@translate}</a>
         </div>
       </div>
 
@@ -153,13 +154,13 @@ usersCache.selectize(jQuery('select.UserSearch'));
       </select>
     </div>
     
-    <button class="icon-ok ConfirmMergeButton">Confirm merge</button>
-    <a id="CancelMerge" onclick="updateSelectionPanel('Selection')">Cancel</a>
+    <button class="icon-ok ConfirmMergeButton">{'Confirm merge'|@translate}</button>
+    <a id="CancelMerge" onclick="updateSelectionPanel('Selection')">{'Cancel'|@translate}</a>
    </div>
  
 
    <div id="ConfirmGroupAction">
-    <p>You are about to delete <span class="number-Selected">0</span> groups, are you sure?</p>
+    <p>{'You are about to delete %s groups, are you sure?'|translate:'<span class="number-Selected">0</span>'}</p>
     <button class="icon-ok ConfirmDeleteButton">{'Yes, delete'|@translate}</button>
     <a id="CancelDelete" onclick="updateSelectionPanel('Selection')">{"No, I have changed my mind"|@translate}</a>
     </div>
@@ -172,7 +173,7 @@ usersCache.selectize(jQuery('select.UserSearch'));
   <div class="groups">
 
     <div id="addGroupForm" class="GroupContainer">
-      <div class="groupError icon-cancel"></div>
+      <div class="groupError icon-cancel-circled"></div>
       <div class="addGroupBlock">
         <div class="icon-plus-circled icon-blue icon-blue-full"></div>
         <p id="addGroup">{'Add group'|translate}</p>
@@ -181,7 +182,7 @@ usersCache.selectize(jQuery('select.UserSearch'));
         <fieldset>
            <div class="addGroupFormLabelAndInput">
             <label class="addGroupLabel" for="addGroupNameInput">{'Group name'|translate}</label>
-            <input type="text" id="addGroupNameInput" name="groupname" maxlength="50" size="20" placeholder="Photographers...">
+            <input type="text" id="addGroupNameInput" name="groupname" maxlength="50" size="20" placeholder="{'Photographers...'|translate}">
           </div>
           <div class="actionButtons">
             <button name="submit" type="submit" class="buttonLike">

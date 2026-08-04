@@ -8,21 +8,21 @@
 
 
 
-$lang['Upgrade'] = 'بروز رسانی';
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'پیشنهاد می‌شود که با استفاده از این صفحه بانک اطلاعاتی نگارش قدیمی Piwigo خود را به نگارش تازه ی آن ارتقا دهید. سیستم آپگرید نگارش کنونی گالری شما را <strong>نگارش %s </strong> تشخیص داده است.';
-$lang['Upgrade from version %s to %s'] = 'بروزرسانی از نگارش %s به نگارش %s';
+$lang['Upgrade'] = 'به‌روزرسانی';
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'پیشنهاد می‌شود که با استفاده از این صفحه، دیتابیس نسخه‌ی قدیمی Piwigo خود را به نسخه‌ی جدید ارتقا دهید. سیستم به‌روزرسانی، نسخه‌ی کنونی گالری شما را <strong>%s</strong> تشخیص داده است.';
+$lang['Upgrade from version %s to %s'] = 'به‌روزرسانی از نسخه‌ی %s به نسخه‌ی %s';
 $lang['Statistics'] = "آمار";
-$lang['total upgrade time'] = 'زمان کل بروز رسانی';
-$lang['total SQL time'] = 'زمان کل SQL';
-$lang['SQL queries'] = 'کوئری(Query) های SQL';
-$lang['Upgrade informations'] = 'اطلاعات بروز رسانی';
-$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'اگر به مشکلی برخوردید به [مدیریت > ابزار ها > نگهداری] مراجعه نمایید.';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'هشدار، پلاگین های زیر در حال حاضر از کار افتاده اند. برای امنیت بیشتر، قبل از فعال کردن دوباره ی آن ها باید آپگرید های تازه آنها را بررسی کنید:';
-$lang['Only administrator can run upgrade: please sign in below.'] = 'فقط مدیران می توانند سیستم را بروز رسانی کنند.';
-$lang['You do not have access rights to run upgrade'] = 'شما دسترسی لازم برای بروز رسانی را ندارید';
-$lang['All sub-albums of private albums become private'] = 'تمام زیرآلبوم های مربوط به آلبوم های شخصی، شخصی شدند';
-$lang['User permissions and group permissions have been erased'] = 'مجوز های کاربران و گروه ها پاک شد';
-$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'فقط پیشوند عکس های بندانگشتی و آدرس ایمیل مدیرکل از تنظیمات قدیمی باقی خواهد ماند';
-$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'در <i>%s</i>, قبل از <b>?></b>, اضافه کنید:';
-$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'هشدار، قالب های زیر در حال حاضر از کار افتاده اند!!. برای امنیت بیشتر، قبل از فعال کردن دوباره ی آن ها باید بروزرسانی تازه آنها را بررسی کنید:';
-$lang['Discover what\'s new in Piwigo %s'] = 'دریافت می کنید piwgo چیز جدید در  %s';
+$lang['total upgrade time'] = 'مجموع زمان اجرای به‌روزرسانی';
+$lang['total SQL time'] = 'مجموع زمان اجرای SQLها';
+$lang['SQL queries'] = 'کوئری‌های SQL';
+$lang['Upgrade informations'] = 'اطلاعات به‌روزرسانی';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'در صورت بروز مشکل، از مسیر [مدیریت > ابزارها > نگهداری]، یک بررسی نگهداری انجام بدهید.';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'جهت جلوگیری از بروز مشکل، پلاگین‌های زیر غیرفعال شدند. لطفا قبل از فعال کردن دوباره‌ی آن‌ها، بررسی کنید که نسخه‌ی جدیدی برایشان وجود دارد یا خیر:';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'فقط مدیران می‌توانند سیستم را به‌روزرسانی کنند: لطفا با فرم زیر وارد حساب خود شوید.';
+$lang['You do not have access rights to run upgrade'] = 'شما دسترسی لازم برای به‌روزرسانی را ندارید';
+$lang['All sub-albums of private albums become private'] = 'تمام زیرآلبوم‌های مربوط به آلبوم‌های خصوصی نیز خصوصی شدند';
+$lang['User permissions and group permissions have been erased'] = 'مجوزهای کاربران و گروه‌ها پاک شدند';
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'از تنظیمات قبلی، فقط پیشوند عکس‌های بندانگشتی و آدرس ایمیل مدیرکل ذخیره شدند';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'موارد زیر را در <i>%s</i>، قبل از <b>?></b>، اضافه کنید:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'جهت جلوگیری از بروز مشکل، قالب‌های زیر غیرفعال شدند. لطفا قبل از فعال کردن دوباره‌ی آن‌ها، بررسی کنید که نسخه‌ی جدیدی برایشان وجود دارد یا خیر:';
+$lang['Discover what\'s new in Piwigo %s'] = 'موارد جدید Piwigo نسخه‌ی %s';

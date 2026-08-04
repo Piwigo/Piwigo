@@ -11,6 +11,8 @@ include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 
+save_edit_context();
+
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
 
@@ -123,16 +125,6 @@ if ( isset($_GET['metadata']) )
 add_event_handler('render_element_content', 'default_picture_content');
 // add default event handler for rendering element description
 add_event_handler('render_element_description', 'pwg_nl2br');
-
-/**
- * pwg_nl2br is useful for PHP 5.2 which doesn't accept more than 1
- * parameter on nl2br() (and anyway the second parameter of nl2br does not
- * match what Piwigo gives.
- */
-function pwg_nl2br($string)
-{
-  return nl2br($string);
-}
 
 trigger_notify('loc_begin_picture');
 
@@ -430,14 +422,7 @@ else
 // don't increment if adding a comment
 if (trigger_change('allow_increment_element_hit_count', $inc_hit_count, $page['image_id'] ) )
 {
-  // avoiding auto update of "lastmodified" field
-  $query = '
-UPDATE
-  '.IMAGES_TABLE.'
-  SET hit = hit+1, lastmodified = lastmodified
-  WHERE id = '.$page['image_id'].'
-;';
-  pwg_query($query);
+  increase_image_visit_counter($page['image_id']);
 }
 
 //---------------------------------------------------------- related categories
@@ -506,6 +491,10 @@ while ($row = pwg_db_fetch_assoc($result))
 
   $row['src_image'] = new SrcImage($row);
   $row['derivatives'] = DerivativeImage::get_all($row['src_image']);
+
+  $extTab = explode('.',$row['path']);
+  $row['path_ext'] = strtolower(get_extension($row['path']));
+  $row['file_ext'] = strtolower(get_extension($row['file']));
 
   if ($i=='current')
   {
@@ -619,7 +608,7 @@ $metadata_showable = trigger_change(
   $picture['current']
   );
 
-if ( $metadata_showable and pwg_get_session_var('show_metadata') )
+if ( isset($_GET['metadata']) )
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
@@ -649,7 +638,7 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
       );
   }
 }
-if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']))
+if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']) and $user['enabled_high']=='true')
 {
   $template->append('current', array('U_DOWNLOAD' => $picture['current']['download_url']), true);
 
@@ -689,11 +678,9 @@ SELECT *
       
       $format['filesize'] = sprintf('%.1fMB', $format['filesize']/1024);
     }
-
     $template->append('current', array('formats' => $formats), true);
   }
 }
-
 
 if ($page['slideshow'])
 {
@@ -796,12 +783,7 @@ if (is_admin())
 
   if ($conf['picture_edit_icon'])
   {
-    $url_admin =
-      get_root_url().'admin.php?page=photo-'.$page['image_id']
-      .(isset($page['category']) ? '&amp;cat_id='.$page['category']['id'] : '')
-      ;
-
-    $template->assign('U_PHOTO_ADMIN', $url_admin);
+    $template->assign('U_PHOTO_ADMIN', get_root_url().'admin.php?page=photo-'.$page['image_id']);
   }
 
   if ($conf['picture_caddie_icon'])
@@ -812,7 +794,6 @@ if (is_admin())
       );
   }
 
-  $template->assign('available_permission_levels', get_privacy_level_options());
 }
 
 // favorite manipulation
@@ -972,6 +953,15 @@ SELECT id, name, permalink
     }
     $template->append('related_categories', get_cat_display_name($cats) );
   }
+}
+
+if (in_array(strtolower(get_extension($picture['current']['file'])), array('pdf'))) {
+  $template->assign(
+    array(
+      'PDF_VIEWER_FILESIZE_THRESHOLD' => $conf['pdf_viewer_filesize_threshold']*1024,
+      'PDF_NB_PAGES' => count_pdf_pages($picture['current']['path'])
+    )
+  );
 }
 
 // maybe someone wants a special display (call it before page_header so that

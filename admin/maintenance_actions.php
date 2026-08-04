@@ -6,11 +6,14 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
+fs_quick_check();
+
 // +-----------------------------------------------------------------------+
 // |                                actions                                |
 // +-----------------------------------------------------------------------+
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
+$register_activity = true;
 
 switch ($action)
 {
@@ -22,6 +25,7 @@ switch ($action)
   case 'lock_gallery' :
   {
     conf_update_param('gallery_locked', 'true');
+    pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'maintenance', array('maintenance_action'=>$action));
     redirect(get_root_url().'admin.php?page=maintenance');
     break;
   }
@@ -29,6 +33,7 @@ switch ($action)
   {
     conf_update_param('gallery_locked', 'false');
     $_SESSION['page_infos'] = array(l10n('Gallery unlocked'));
+    pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'maintenance', array('maintenance_action'=>$action));
     redirect(get_root_url().'admin.php?page=maintenance');
     break;
   }
@@ -154,6 +159,12 @@ DELETE
     $page['infos'][] = sprintf('%s : %s', l10n('Reinitialize check integrity'), l10n('action successfully performed.'));
     break;
   }
+  case 'empty_lounge':
+  {
+    $rows = empty_lounge();
+    $page['infos'][] = sprintf('%d photos were moved from the upload lounge to their albums', count($rows));
+    break;
+  }
   case 'search' :
   {
     $query = '
@@ -241,10 +252,15 @@ DELETE
 
   default :
   {
+    $register_activity = false;
     break;
   }
 }
 
+if ($register_activity)
+{
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'maintenance', array('maintenance_action'=>$action));
+}
 
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
@@ -272,6 +288,7 @@ list($db_current_date) = pwg_db_fetch_row(pwg_query('SELECT now();'));
 
 $template->assign(
   array(
+    'maint_actions' => $maint_actions,
     'U_MAINT_CATEGORIES' => sprintf($url_format, 'categories'),
     'U_MAINT_IMAGES' => sprintf($url_format, 'images'),
     'U_MAINT_ORPHAN_TAGS' => sprintf($url_format, 'delete_orphan_tags'),
@@ -307,6 +324,16 @@ $template->assign(
 // graphics library
 switch (pwg_image::get_library())
 {
+  case 'ext_imagick':
+    $library = 'External ImageMagick';
+    exec($conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command().' -version', $returnarray);
+    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
+    {
+      $library .= ' ' . $match[1];
+    }
+    $template->assign('GRAPHICS_LIBRARY', $library);
+    break;
+
   case 'imagick':
     $library = 'ImageMagick';
     $img = new Imagick();
@@ -317,17 +344,7 @@ switch (pwg_image::get_library())
     }
     $template->assign('GRAPHICS_LIBRARY', $library);
     break;
-
-  case 'ext_imagick':
-    $library = 'External ImageMagick';
-    exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
-    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
-    {
-      $library .= ' ' . $match[1];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
+    
   case 'gd':
     $gd_info = gd_info();
     $template->assign('GRAPHICS_LIBRARY', 'GD '.@$gd_info['GD Version']);
@@ -349,6 +366,23 @@ else
       'U_MAINT_LOCK_GALLERY' => sprintf($url_format, 'lock_gallery'),
       )
     );
+}
+
+$query = '
+SELECT
+    COUNT(*)
+  FROM '.LOUNGE_TABLE.'
+;';
+list($nb_lounge) = pwg_db_fetch_row(pwg_query($query));
+
+if ($nb_lounge > 0)
+{
+  $template->assign(
+    array(
+      'U_EMPTY_LOUNGE' => sprintf($url_format, 'empty_lounge'),
+      'LOUNGE_COUNTER' => $nb_lounge,
+    )
+  );
 }
 
 $template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);

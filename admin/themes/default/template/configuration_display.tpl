@@ -43,6 +43,22 @@
       <li>
         <label class="font-checkbox">
           <span class="icon-check"></span>
+          <input type="checkbox" name="index_search_in_set_button" {if ($display.index_search_in_set_button)}checked="checked"{/if}>
+          {'Activate button "%s"'|translate:('Search in this set'|translate)}
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="index_search_in_set_action" {if ($display.index_search_in_set_action)}checked="checked"{/if}>
+          {'Activate icon "%s"'|translate:('Search in this set'|translate)}
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
           <input type="checkbox" name="index_sort_order_input" {if ($display.index_sort_order_input)}checked="checked"{/if}>
           {'Activate icon "%s"'|translate:('Sort order'|translate)}
         </label>
@@ -297,23 +313,28 @@
         </label>
       </li>
 
-      <li>
-        <label class="font-checkbox">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="picture_informations[privacy_level]" {if ($display.picture_informations.privacy_level)}checked="checked"{/if}>
-          {'Who can see this photo?'|translate} <span class="adminOnlyIcon tiptip" title="{'available for administrators only'|translate}"><i class="icon-users"></i> {'administrators'}</span>
-        </label>
-      </li>
     </ul>
   </fieldset>
 
 </div> <!-- configContent -->
 
-<p class="formButtons">
-  <button name="submit" type="submit" class="buttonLike" {if $isWebmaster != 1}disabled{/if}>
-    <i class="icon-floppy"></i> {'Save Settings'|@translate}
-  </button>
-</p>
+<div class="savebar-footer">
+  <div class="savebar-footer-start">
+  </div>
+  <div class="savebar-footer-end">
+{if isset($save_success)}
+    <div class="savebar-footer-block">
+      <div class="badge info-message">
+        <i class="icon-ok-circled"></i>{$save_success}
+      </div>
+    </div>
+{/if}
+    <div class="savebar-footer-block">
+      <button class="buttonLike"  type="submit" name="submit" {if $isWebmaster != 1}disabled{/if}><i class="icon-floppy"></i> {'Save Settings'|@translate}</button>
+    </div>
+  </div>
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+</div>
 
-<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
 </form>

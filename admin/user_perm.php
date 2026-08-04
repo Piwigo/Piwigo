@@ -67,6 +67,11 @@ elseif (isset($_POST['trueify'])
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
+if ($page['user'] == $conf['guest_id'])
+{
+  $page['warnings'][] = l10n('Users not logged in will have these permissions applied. Grant access to private albums only with great caution.');
+}
+
 $template->set_filenames(
   array(
     'user_perm' => 'user_perm.tpl',

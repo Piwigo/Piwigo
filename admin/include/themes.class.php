@@ -88,6 +88,11 @@ class themes
   {
     global $conf;
 
+    if (!$conf['enable_extensions_install'] and 'delete' == $action)
+    {
+      die('Piwigo extensions install/update/delete system is disabled');
+    }
+
     if (isset($this->db_themes_by_id[$theme_id]))
     {
       $crt_db_theme = $this->db_themes_by_id[$theme_id];
@@ -96,6 +101,7 @@ class themes
     $theme_maintain = self::build_maintain_class($theme_id);
 
     $errors = array();
+    $activity_details = array('theme_id'=>$theme_id);
 
     switch ($action)
     {
@@ -143,6 +149,8 @@ INSERT INTO '.THEMES_TABLE.'
          \''.$this->fs_themes[$theme_id]['name'].'\')
 ;';
           pwg_query($query);
+
+          $activity_details['version'] = $this->fs_themes[$theme_id]['version'];
 
           if ($this->fs_themes[$theme_id]['mobile'])
           {
@@ -236,6 +244,9 @@ DELETE
         $this->set_default_theme($theme_id);
         break;
     }
+
+    pwg_activity('system', ACTIVITY_SYSTEM_THEME, $action, $activity_details);
+
     return $errors;
   }
 
@@ -362,7 +373,6 @@ SELECT
             'mobile' => false,
             );
           $theme_data = implode('', file($path.'/themeconf.inc.php'));
-
           if (preg_match("|Theme Name:\\s*(.+)|", $theme_data, $val))
           {
             $theme['name'] = trim( $val[1] );
@@ -407,6 +417,10 @@ SELECT
           if (preg_match('/["\']mobile["\'].*?(true|false)/i', $theme_data, $val))
           {
             $theme['mobile'] = get_boolean($val[1]);
+          }
+          if (preg_match('/["\']use_standard_pages["\'].*?(true|false)/i', $theme_data, $val))
+          {
+            $theme['use_standard_pages'] = get_boolean($val[1]);
           }
 
           // screenshot
@@ -577,7 +591,7 @@ SELECT
    * @param string - remote revision identifier (numeric)
    * @param string - theme id or extension id
    */
-  function extract_theme_files($action, $revision, $dest)
+  function extract_theme_files($action, $revision, $dest, &$theme_id=null)
   {
     global $logger;
 
@@ -614,13 +628,13 @@ SELECT
             $root = dirname($main_filepath); // main.inc.php path in archive
             if ($action == 'upgrade')
             {
-              $extract_path = PHPWG_THEMES_PATH . $dest;
+              $theme_id = $dest;
             }
             else
             {
-              $extract_path = PHPWG_THEMES_PATH . ($root == '.' ? 'extension_' . $dest : basename($root));
+              $theme_id = ($root == '.' ? 'extension_' . $dest : basename($root));
             }
-
+            $extract_path = PHPWG_THEMES_PATH . $theme_id;
             $logger->debug(__FUNCTION__.', $extract_path = '.$extract_path);
 
             if (

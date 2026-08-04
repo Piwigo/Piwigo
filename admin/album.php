@@ -55,8 +55,14 @@ $tabsheet->assign();
 // | Load the tab                                                          |
 // +-----------------------------------------------------------------------+
 
+$category_name = trigger_change(
+  'render_category_name',
+  $category['name'],
+  'get_cat_display_name_cache'
+  );
 $template->assign(array(
-  'ADMIN_PAGE_TITLE' => l10n('Edit album'),
+  'ADMIN_PAGE_TITLE' => l10n('Edit album').' <strong>'.$category_name.'</strong>',
+  'ADMIN_PAGE_OBJECT_ID' => '#'.$category['id'],
 ));
 
 if ('properties' == $page['tab'])

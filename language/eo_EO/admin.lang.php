@@ -118,7 +118,7 @@ $lang['user "%s" added'] = 'uzanto "%s" aldonita';
 $lang['user_status_admin'] = 'Administranto';
 $lang['user_status_generic'] = 'Komuna';
 $lang['user_status_guest'] = 'Gasto';
-$lang['user_status_normal'] = 'Uzanto';
+
 $lang['user_status_webmaster'] = 'Retestro';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'vizitantoj bezonas ensaluti kaj havas la taŭgajn permesojn por vidi tiun fotaron';
 $lang['width must be a number superior to'] = 'larĝeco devas esti nombro pli granda ol';

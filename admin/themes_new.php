@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!$conf['enable_extensions_install'])
+{
+  die('Piwigo extensions install/update system is disabled');
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
 
 $base_url = get_root_url().'admin.php?page='.$page['page'].'&tab='.$page['tab'];
@@ -44,10 +49,11 @@ if (isset($_GET['revision']) and isset($_GET['extension']))
     $install_status = $themes->extract_theme_files(
       'install',
       $_GET['revision'],
-      $_GET['extension']
+      $_GET['extension'],
+      $theme_id
       );
     
-    redirect($base_url.'&installstatus='.$install_status);
+    redirect($base_url.'&installstatus='.$install_status.'&theme_id='.$theme_id);
   }
 }
 
@@ -61,6 +67,19 @@ if (isset($_GET['installstatus']))
   {
     case 'ok':
       $page['infos'][] = l10n('Theme has been successfully installed');
+
+      if (isset($themes->fs_themes[$_GET['theme_id']]))
+      {
+        pwg_activity(
+          'system',
+          ACTIVITY_SYSTEM_THEME,
+          'install',
+          array(
+            'theme_id' => $_GET['theme_id'],
+            'version' => $themes->fs_themes[$_GET['theme_id']]['version'],
+          )
+        );
+      }
       break;
 
     case 'temp_path_error':

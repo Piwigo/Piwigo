@@ -12,7 +12,7 @@
 {if $action ne 'none'}
 <form id="lostPassword" action="{$form_action}?action={$action}{if isset($key)}&amp;key={$key}{/if}" method="post">
 <fieldset>
-	<legend>{'Forgot your password?'|translate}</legend>
+  {if !isset($is_first_login)}<legend>{'Forgot your password?'|translate}</legend>{/if}
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   {if $action eq 'lost'}
@@ -27,13 +27,26 @@
   </p>
 
   <p class="bottomButtons"><input type="submit" name="submit" value="{'Change my password'|@translate}"></p>
+  {elseif $action eq 'lost_code'}
+    <div>
+      <div class="message">{"If you do not receive the email, please contact your webmaster."|translate}</div>
+      <label>
+        {'Verification code'|@translate}
+        <br>
+        <input type="text" id="user_code" name="user_code" size="100" />
+      </label>
+
+    <p class="bottomButtons"><input type="submit" name="submit" value="{'Verify'|@translate}"></p>
+    </div>
   {elseif $action eq 'reset'}
 
-  <div class="message">{'Hello'|@translate} <em>{$username}</em>. {'Enter your new password below.'|@translate}</div>
+  <div class="message">
+  {'Hello'|@translate} <em>{$username}</em>. {if !isset($is_first_login)}{'Enter your new password below.'|@translate}{else}{'Set your password below.'|translate}{/if}
+  </div>
 
   <p>
     <label>
-      {'New password'|@translate}
+        {if !isset($is_first_login)}{'New password'|@translate}{else}{'Password'|translate}{/if}
       <br>
       <input type="password" name="use_new_pwd" id="use_new_pwd" value="">
     </label>
@@ -58,6 +71,8 @@
 {literal}try{document.getElementById('username_or_email').focus();}catch(e){}{/literal}
 {elseif $action eq 'reset'}
 {literal}try{document.getElementById('use_new_pwd').focus();}catch(e){}{/literal}
+{elseif $action eq 'lost_code'}
+{literal}try{document.getElementById('user_code').focus();}catch(e){}{/literal}
 {/if}
 </script>
 

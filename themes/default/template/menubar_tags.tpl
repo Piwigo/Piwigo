@@ -1,9 +1,9 @@
-<dt>{if $IS_RELATED}{'Related tags'|@translate}{else}{'Tags'|@translate}{/if}</dt>
+<dt>{'Tags'|@translate}</dt>
 <dd>
 	<div id="menuTagCloud">
 		{foreach from=$block->data item=tag}
 		<span>{strip}
-			<a class="tagLevel{$tag.level}" href=
+			<a class="tagLevel {if isset($tag.level)}{$tag.level}{/if}" href=
 			{if isset($tag.U_ADD)}
 				"{$tag.U_ADD}" title="{$tag.counter|@translate_dec:'%d photo is also linked to current tags':'%d photos are also linked to current tags'}" rel="nofollow">+
 			{else}

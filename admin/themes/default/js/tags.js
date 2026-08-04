@@ -5,8 +5,8 @@ var dataTags = $('.tag-container').data('tags');
 $('#select-100').prop('checked', true)
 
 //Orphan tags
-$('.tag-warning p a').on('click', () => {
-  let url = $('.tag-warning p a').data('url');
+$('.info-warning p a').on('click', () => {
+  let url = $('.info-warning p a').data('url');
   let tags = orphan_tag_names;
   let str_orphans = str_orphan_tags.replace('%s1', tags.length).replace('%s2', tags.join(', '));
   $.confirm({
@@ -32,7 +32,7 @@ $('.tag-warning p a').on('click', () => {
       keep : {
         text:str_keep_them,
         action: function() {
-          $('.tag-warning').hide();
+          $('.info-warning').hide();
         }
       }
     }
@@ -41,14 +41,21 @@ $('.tag-warning p a').on('click', () => {
 
 
 //Create and recycle tag box
-function createTagBox(id, name, url_name, count) {
+function createTagBox(id, name, url_name, count, raw_name = null) {
+  if(raw_name === null) {
+    raw_name = name
+  }
   let u_edit = 'admin.php?page=batch_manager&filter=tag-'+id;
   let u_view = 'index.php?/tags/'+id+'-'+url_name;
   let html = $('.tag-template').html()
     .replace(/%name%/g, unescape(name))
     .replace('%U_VIEW%', u_view)
     .replace('%U_EDIT%', u_edit)
-  newTag = $('<div class="tag-box" data-id='+id+' data-selected="0">'+html+'</div>');
+    .replace('%raw_name%', raw_name)
+    if(name == raw_name) {
+      html = html.replace('icon-globe', '');
+    }
+  newTag = $('<div class="tag-box test" data-id='+id+' data-selected="0">'+html+'</div>');
   if ($("#toggleSelectionMode").is(":checked")) {
     newTag.addClass('selection');
     newTag.find(".in-selection-mode").show();
@@ -62,12 +69,16 @@ function createTagBox(id, name, url_name, count) {
   return newTag;
 }
 
-function recycleTagBox(tagBox, id, name, url_name, count) {
+function recycleTagBox(tagBox, id, name, url_name, count, raw_name = null) {
+  if(raw_name === null) {
+    raw_name = name
+  }
   tagBox = tagBox.first();
   tagBox.attr('data-id', id);
   tagBox.find('.tag-name, .tag-dropdown-header b').html(name);
   tagBox.find('.tag-name-editable').val(name)
   tagBox.attr('data-selected', 0)
+  tagBox.find('.tag-name').data('rawname', raw_name);
 
   //Dropdown
   let u_edit = 'admin.php?page=batch_manager&filter=tag-'+id;
@@ -114,16 +125,25 @@ $('.tag-box').each(function() {
 $(".TagSubmit").on('click', function () {
   $('.TagSubmit').hide();
   $('.TagLoading').show();
-  renameTag($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"), $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
+  $tagboxid = ($(".RenameTagPopInContainer").find(".tag-property-input").attr("id"))
+  renameTag($tagboxid, $(".RenameTagPopInContainer").find(".tag-property-input").val()).then(() => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     rename_tag_close();
+    cleanCheckmark();
+    $('[data-id='+$tagboxid+']').wrap('<div class="tag-changed"></div>');
+    $('.tag-changed').prepend('<i class="icon-ok tag-checkmark"></i>');
   }).catch((message) => {
     $('.TagSubmit').show();
     $('.TagLoading').hide();
     console.error(message)
   })
 });
+
+function cleanCheckmark(){
+  $('.tag-changed > *').unwrap();
+  $('.tag-checkmark').remove();
+}
 
 /*-------
  Add a tag
@@ -174,6 +194,7 @@ function addTag(name) {
           //Update the data
           dataTags.unshift({
             name:data.result.name,
+            raw_name:data.result.name,
             id:data.result.id,
             url_name:data.result.url_name
           });
@@ -229,8 +250,11 @@ function setupTagbox(tagBox) {
 
   //Edit Name
   tagBox.find('.dropdown-option.edit').on('click', function() {
-    console.log('SALUT');
-    set_up_popin(tagBox.data('id'), tagBox.find('.tag-name').html());
+    const id = $(this).closest('.tag-box').data('id');
+    const tagIndex = dataTags.findIndex((tag) => tag.id == id);
+    const tagRawName = dataTags[tagIndex].raw_name ?? tagBox.find('.tag-name').data('rawname');
+    const tagName = dataTags[tagIndex].name ?? tagBox.find('.tag-name').html();
+    set_up_popin(tagBox.data('id'), tagRawName, tagName);
     rename_tag_open()
   })
 
@@ -256,23 +280,23 @@ function setupTagbox(tagBox) {
 
   //Duplicate Tag
   tagBox.find('.dropdown-option.duplicate').on('click', function () {
-    duplicateTag(tagBox.data('id'), tagBox.find('.tag-name').html()).then((data) => {
+    duplicateTag(tagBox.data('id'), tagBox.find('.tag-name').data('rawname')).then((data) => {
       showMessage(str_tag_created.replace('%s',data.result.name))
     })
   })
 
 }
 
-function set_up_popin(id, tagName) {
+function set_up_popin(id, tagRawName, tagName) {
 
   $(".RenameTagPopInContainer").find(".tag-property-input").attr("id", id);
 
   $(".AddIconTitle span").html(str_tag_rename.replace("%s", tagName))
-  $(".ClosePopIn").on('click', function () {
+  $(".ClosePopIn, .TagCancel").on('click', function () {
     rename_tag_close()
   });
   $(".TagSubmit").html(str_yes_rename_confirmation);
-  $(".RenameTagPopInContainer").find(".tag-property-input").val(tagName);
+  $(".RenameTagPopInContainer").find(".tag-property-input").val(tagRawName);
 }
 
 function rename_tag_close() {
@@ -328,16 +352,17 @@ function renameTag(id, new_name) {
       },
       success: function (raw_data) {
         data = jQuery.parseJSON(raw_data);
-        console.log(data);
         if (data.stat === "ok") {
           $('.tag-box[data-id='+id+'] p, .tag-box[data-id='+id+'] .tag-dropdown-header b').html(data.result.name);
           $('.tag-box[data-id='+id+'] .tag-name-editable').attr('value', data.result.name);
+          $('.tag-box[data-id='+id+'] .tag-name').attr('data-rawname', data.result.raw_name);
           let u_view = 'index.php?/tags/'+id+'-'+data.result.url_name;
           $('.dropdown-option.view').attr('href', u_view);
 
           //Update the data
           index = dataTags.findIndex((tag) => tag.id == id);
           dataTags[index].name = data.result.name;
+          dataTags[index].raw_name = data.result.raw_name;
           dataTags[index].url_name = data.result.url_name;
 
           resolve(data);
@@ -810,7 +835,7 @@ function isSearched(tagBox, stringSearch) {
 }
 
 function isDataSearched(tagObj) {
-  let name = tagObj.name.toLowerCase();
+  let name = tagObj.raw_name.toLowerCase();
   let stringSearch = $("#search-tag .search-input").val();
   if (name.includes(stringSearch.toLowerCase())) {
     return true;
@@ -823,17 +848,17 @@ function isDataSearched(tagObj) {
  Show Info
 -------*/
 function showError(message) {
-  $('.tag-error p').html(message);
-  $('.tag-error').attr('title', message)
-  $('.tag-info').hide()
-  $('.tag-error').css('display', 'flex');
+  $('.info-error p').html(message);
+  $('.info-error').attr('title', message)
+  $('.info-info').hide()
+  $('.info-error').css('display', 'flex');
 }
 
 function showMessage(message) {
-  $('.tag-message p').html(message);
-  $('.tag-message').attr('title', message)
-  $('.tag-info').hide()
-  $('.tag-message').css('display', 'flex');
+  $('.info-message p').html(message);
+  $('.info-message').attr('title', message)
+  $('.info-info').hide()
+  $('.info-message').css('display', 'flex');
 }
 
 
@@ -961,6 +986,7 @@ function updatePage() {
     newPage = actualPage;
     dataToDisplay = tagToDisplay();
     tagBoxes = $('.tag-box');
+    cleanCheckmark();
     $('.pageLoad').fadeIn();;
     $('.tag-box').animate({opacity:0}, 500).promise().then(() => {
 
@@ -969,7 +995,7 @@ function updatePage() {
 
         for (let i = 0; i < boxToRecycle; i++) {
           let tag = dataToDisplay[i];
-          recycleTagBox($(tagBoxes[i]), tag.id, tag.name, tag.url_name, tag.counter)
+          recycleTagBox($(tagBoxes[i]), tag.id, tag.name, tag.url_name, tag.counter, tag.raw_name)
         }
 
         if (dataToDisplay.length < tagBoxes.length) {
@@ -979,7 +1005,7 @@ function updatePage() {
         } else if (dataToDisplay.length > tagBoxes.length) {
           for (let j = boxToRecycle; j < dataToDisplay.length; j++) {
             let tag = dataToDisplay[j];
-            newTag = createTagBox(tag.id, tag.name, tag.url_name, tag.counter);
+            newTag = createTagBox(tag.id, tag.name, tag.url_name, tag.counter, tag.raw_name);
             newTag.css('opacity', 0);
             $('.tag-container').append(newTag);
             setupTagbox(newTag);

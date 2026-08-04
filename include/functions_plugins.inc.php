@@ -385,6 +385,9 @@ function autoupdate_plugin(&$plugin)
         safe_version_compare($plugin['version'], $fs_version, '<')
       )
   ) {
+    $old_version = $plugin['version'];
+    $new_version = $fs_version;
+
     $plugin['version'] = $fs_version;
 
     $maintain_file = PHPWG_PLUGINS_PATH.$plugin['id'].'/maintain.class.php';
@@ -407,8 +410,9 @@ function autoupdate_plugin(&$plugin)
       $plugin_maintain->update($plugin['version'], $fs_version, $page['errors']);
     }
 
-    // update database (only on production)
-    if ($plugin['version'] != 'auto')
+    // update database (only on production). We want to avoid registering an "auto" to "auto" update,
+    // which happens for each "version=auto" plugin on each page load.
+    if ($new_version != $old_version)
     {
       $query = '
 UPDATE '. PLUGINS_TABLE .'
@@ -416,6 +420,8 @@ UPDATE '. PLUGINS_TABLE .'
   WHERE id = "'. $plugin['id'] .'"
 ;';
       pwg_query($query);
+
+      pwg_activity('system', ACTIVITY_SYSTEM_PLUGIN, 'autoupdate', array('plugin_id'=>$plugin['id'], 'from_version'=>$old_version, 'to_version'=>$new_version));
     }
   }
 }

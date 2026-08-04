@@ -9,71 +9,25 @@
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 
-// @set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
-//
-// addslashes to vars if magic_quotes_gpc is off this is a security
-// precaution to prevent someone trying to break out of a SQL statement.
-//
-if(function_exists('get_magic_quotes_gpc') && !@get_magic_quotes_gpc() )
+// copied from include/common.inc.php
+if (!function_exists('get_magic_quotes_gpc') or !@get_magic_quotes_gpc() )
 {
-  if( is_array($_POST) )
+  function sanitize_mysql_kv(&$v, $k)
   {
-    foreach($_POST as $k => $v)
-    {
-      if( is_array($_POST[$k]) )
-      {
-        foreach($_POST[$k] as $k2 => $v2)
-        {
-          $_POST[$k][$k2] = addslashes($v2);
-        }
-        @reset($_POST[$k]);
-      }
-      else
-      {
-        $_POST[$k] = addslashes($v);
-      }
-    }
-    @reset($_POST);
+    $v = addslashes($v);
   }
 
-  if( is_array($_GET) )
+  if( is_array( $_GET ) )
   {
-    foreach($_GET as $k => $v )
-    {
-      if( is_array($_GET[$k]) )
-      {
-        foreach($_GET[$k] as $k2 => $v2)
-        {
-          $_GET[$k][$k2] = addslashes($v2);
-        }
-        @reset($_GET[$k]);
-      }
-      else
-      {
-        $_GET[$k] = addslashes($v);
-      }
-    }
-    @reset($_GET);
+    array_walk_recursive( $_GET, 'sanitize_mysql_kv' );
   }
-
-  if( is_array($_COOKIE) )
+  if( is_array( $_POST ) )
   {
-    foreach($_COOKIE as $k => $v)
-    {
-      if( is_array($_COOKIE[$k]) )
-      {
-        foreach($_COOKIE[$k] as $k2 => $v2)
-        {
-          $_COOKIE[$k][$k2] = addslashes($v2);
-        }
-        @reset($_COOKIE[$k]);
-      }
-      else
-      {
-        $_COOKIE[$k] = addslashes($v);
-      }
-    }
-    @reset($_COOKIE);
+    array_walk_recursive( $_POST, 'sanitize_mysql_kv' );
+  }
+  if( is_array( $_COOKIE ) )
+  {
+    array_walk_recursive( $_COOKIE, 'sanitize_mysql_kv' );
   }
 }
 
@@ -258,7 +212,22 @@ include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 if (isset($_POST['install']))
 {
   install_db_connect($infos, $errors);
+
+  if (count($errors) > 0)
+  {
+    print_r($errors);
+  }
+
   pwg_db_check_charset();
+
+  if (
+    strlen($prefixeTable) > 20
+    or preg_match('/^\d/', $prefixeTable)
+    or !preg_match('/^[a-zA-Z0-9_$]*$/u', $prefixeTable)
+  )
+  {
+    $errors[] = 'invalid table prefix';
+  }
 
   $webmaster = trim(preg_replace('/\s{2,}/', ' ', $admin_name));
   if (empty($webmaster))
@@ -345,7 +314,7 @@ define(\'DB_COLLATE\', \'\');
 
     $query = '
 INSERT INTO '.$prefixeTable.'config (param,value,comment) 
-   VALUES (\'secret_key\',md5('.pwg_db_cast_to_text(DB_RANDOM_FUNCTION.'()').'),
+   VALUES (\'secret_key\',\''.sha1(random_bytes(1000)).'\',
    \'a secret key specific to the gallery for internal use\');';
     pwg_query($query);
 
@@ -381,7 +350,7 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     // webmaster admin user
     $inserts = array(
       array(
-        'id'           => 1,
+        'id'           => 1, // must be the same value as webmaster_id in config.sql
         'username'     => $admin_name,
         'password'     => md5($admin_pass1),
         'mail_address' => $admin_mail,
@@ -414,18 +383,6 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
       array_keys($datas[0]),
       $datas
       );
-
-    if ($is_newsletter_subscribe)
-    {
-      fetchRemote(
-        get_newsletter_subscribe_base_url($language).$admin_mail,
-        $result,
-        array(),
-        array('origin' => 'installation')
-        );
-
-      conf_update_param('show_newsletter_subscription', 'false');
-    }
   }
 }
 
@@ -463,6 +420,7 @@ if ($step == 1)
 }
 else
 {
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'install', array('version'=>PHPWG_VERSION));
   $infos[] = l10n('Congratulations, Piwigo installation is completed');
 
   if (isset($error_copy))
@@ -471,13 +429,8 @@ else
   }
   else
   {
-    session_set_save_handler('pwg_session_open',
-      'pwg_session_close',
-      'pwg_session_read',
-      'pwg_session_write',
-      'pwg_session_destroy',
-      'pwg_session_gc'
-    );
+    // See include/functions_session.inc.php
+    session_set_save_handler(new PwgSession());
     if ( function_exists('ini_set') )
     {
       ini_set('session.use_cookies', $conf['session_use_cookies']);
@@ -489,9 +442,29 @@ else
     session_set_cookie_params(0, cookie_path());
     register_shutdown_function('session_write_close');
     
-    $user = build_user(1, true);
+    // we don't load user cache because since Piwigo 15.4.0 the calculation of user
+    // cache requires $logger which is not instanciated
+    $user = build_user(1, false);
     log_user($user['id'], false);
+    $_SESSION['connected_with'] = 'pwg_ui';
+
+    $user['preferences']['show_whats_new_'.get_branch_from_version(PHPWG_VERSION)] = false;
     
+    // newsletter subscription
+    if ($is_newsletter_subscribe)
+    {
+      fetchRemote(
+        get_newsletter_subscribe_base_url($language).$admin_mail,
+        $result,
+        array(),
+        array('origin' => 'installation')
+        );
+
+      $user['preferences']['show_newsletter_subscription'] = false;
+    }
+
+    userprefs_save();
+
     // email notification
     if (isset($_POST['send_credentials_by_mail']))
     {

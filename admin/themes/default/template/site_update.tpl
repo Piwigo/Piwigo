@@ -113,8 +113,31 @@ $('#syncFiles label').click(function () {
     </ul>
   </fieldset>
 
-  <p class="bottomButtons syncBtn">
-    <button class="icon-exchange buttonGradient" type="submit" value="" name="submit"> {'Synchronize'|@translate} </button>
-  </p>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+
+    </div>
+    <div class="savebar-footer-end">
+
+{if isset($save_success)}
+      <div class="savebar-footer-block">
+        <div class="badge info-message">
+          <i class="icon-ok-circled"></i>{$save_success}
+        </div>
+      </div>
+{/if}
+{if isset($save_error)}
+      <div class="savebar-footer-block">
+        <div class="badge info-warning">
+          <i class="icon-warning-circled"></i>{$save_error}
+        </div>
+      </div>
+{/if}
+    
+      <div class="savebar-footer-block">
+        <button class="buttonLike"  type="submit" name="submit"><i class="icon-exchange"></i> {'Synchronize'|@translate}</button>
+      </div>
+  </div>
+
 </form>
 {/if}{*isset $introduction*}

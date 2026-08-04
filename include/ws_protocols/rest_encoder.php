@@ -140,6 +140,7 @@ class PwgXmlWriter
 
 class PwgRestEncoder extends PwgResponseEncoder
 {
+  private $_writer;
   function encodeResponse($response)
   {
     if ($response instanceof PwgError)

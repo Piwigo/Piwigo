@@ -139,7 +139,7 @@ $lang['created after %s (%s)'] = 'creada después del %s (%s)';
 $lang['created before %s (%s)'] = 'creada antes del %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'creada entre el %s (%s) y el %s (%s)';
 $lang['created on %s'] = 'creada el %s';
-$lang['Customize'] = 'Personalizar';
+
 $lang['Your Gallery Customization'] = 'Personalización de su interfaz gráfica ';
 $lang['day'][0] = 'Domingo';
 $lang['day'][1] = 'Lunes';
@@ -168,7 +168,7 @@ $lang['Hello'] = '¡Hola!';
 $lang['available for administrators only'] = 'sólo disponible para administradores';
 $lang['display this album'] = 'mostrar este álbum';
 $lang['display last user comments'] = 'Ver los últimos comentarios de usuarios';
-$lang['customize the appareance of the gallery'] = 'personalizar la apariencia de la galería';
+
 $lang['search'] = 'búsqueda';
 $lang['Home'] = 'Inicio';
 $lang['Identification'] = 'Identificación';
@@ -418,3 +418,5 @@ $lang['Password: ********** (no copy by email)'] = 'Contraseña: ********** (sin
 $lang['Related albums'] = 'Albumes relacionados';
 $lang['Your authentication key is no longer valid.'] = 'Su clave de autenticación ya no es válida';
 $lang['generate random password'] = 'generar contraseña aleatoria';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Nombre del álbum, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Nombre del álbum, 100 &rarr; 10 &rarr; 5 &rarr; 1';

@@ -39,6 +39,8 @@ const nothing_found = '{'No plugins found'|@translate|@escape:'javascript'}';
 const x_plugins_found = '{'%s plugins found'|@translate|@escape:'javascript'}';
 const plugin_found = '{'%s plugin found'|@translate|@escape:'javascript'}';
 const isWebmaster = {$isWebmaster};
+const view_selector = '{$view_selector}';
+const str_restore_def = '{'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'|@translate|@escape:'javascript'}';
 
 const show_details = {if $show_details} true {else} false {/if};
 
@@ -64,10 +66,10 @@ let plugin_filter = searchParams.get('filter');
 </div>
 
 <div class="AlbumViewSelector">
-    <input type="radio" name="layout" class="switchLayout" id="displayClassic" {if $smarty.cookies.pwg_plugin_manager_view == 'classic' || !$smarty.cookies.pwg_plugin_manager_view}checked{/if}/><label for="displayClassic"><span class="icon-pause firstIcon tiptip" title="{'Classic View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayLine" {if $smarty.cookies.pwg_plugin_manager_view == 'line'}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $smarty.cookies.pwg_plugin_manager_view == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
+    <input type="radio" name="layout" class="switchLayout" id="displayClassic" {if $view_selector == 'classic'}checked{/if}/><label for="displayClassic"><span class="icon-pause firstIcon tiptip" title="{'Classic View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayLine" {if $view_selector== 'line'}checked{/if}/><label for="displayLine"><span class="icon-th-list tiptip" title="{'Line View'|translate}"></span></label><input type="radio" name="layout" class="switchLayout" id="displayCompact" {if $view_selector == 'compact'}checked{/if}/><label for="displayCompact"><span class="icon-th-large lastIcon tiptip" title="{'Compact View'|translate}"></span></label>
 </div>  
 
-<div class="pluginContainer {if $smarty.cookies.pwg_plugin_manager_view == 'classic-form'} classic-form {elseif $smarty.cookies.pwg_plugin_manager_view == 'line-form'} line-form {elseif $smarty.cookies.pwg_plugin_manager_view == 'compact-form'} compact-form {else} {/if}">
+<div class="pluginContainer {if $view_selector == 'classic'} classic-form {elseif $view_selector == 'line'} line-form {elseif $view_selector == 'compact'} compact-form {else} {/if}">
 
 {foreach from=$plugins item=plugin name=plugins_loop}
 
@@ -88,25 +90,25 @@ let plugin_filter = searchParams.get('filter');
 <div id="{$plugin.ID}" class="pluginBox pluginMiniBox {$plugin.STATE} plugin-{$plugin.STATE}">
 
     <div class="AddPluginSuccess pluginNotif">
-      <label class="icon-ok">
+      <label class="icon-ok-circled">
         <span>{'Plugin activated'|@translate}</span>
       </label>
     </div>
 
     <div class="DeactivatePluginSuccess pluginNotif">
-      <label class="icon-ok">
+      <label class="icon-ok-circled">
         <span>{'Plugin deactivated'|@translate}</span>
       </label>
     </div>
 
     <div class="RestorePluginSuccess pluginNotif">
-      <label class="icon-ok">
+      <label class="icon-ok-circled">
         <span>{'Plugin deactivated'|@translate}</span>
       </label>
     </div>
 
     <div class="PluginActionError pluginNotif">
-      <label class="icon-cancel">
+      <label class="icon-warning-circled">
         <span>{'Plugin deactivated'|@translate}</span>
       </label>
     </div>
@@ -149,7 +151,7 @@ let plugin_filter = searchParams.get('filter');
           <div class="tiptip" title="{'Uninstall'|@translate}">
             <a class="uninstall-plugin-button">{'Uninstall'|@translate}</a>
           </div>
-        {elseif $plugin.STATE == 'merged'}
+        {elseif $plugin.STATE == 'merged' and $CONF_ENABLE_EXTENSIONS_INSTALL}
           <div class="tiptip" title="{'Delete'|@translate}">
             <a class="" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
           </div>
@@ -161,8 +163,10 @@ let plugin_filter = searchParams.get('filter');
         <div class="pluginDescCompact">
           {$plugin.DESC}
         </div>
-          <a class="dropdown-option icon-back-in-time plugin-restore separator-top">{'Restore'|@translate}</a>
+          <a class="dropdown-option icon-back-in-time plugin-restore separator-top tiptip" title="{'While restoring this plugin, it will be reset to its original parameters and associated data is going to be reset'|@translate}">{'Restore'|@translate}</a>
+  {if $CONF_ENABLE_EXTENSIONS_INSTALL}
           <a class="dropdown-option icon-trash delete-plugin-button separator-top">{'Delete'|@translate}</a>
+  {/if}
       </div>
       <div class="pluginName" data-title="{$plugin.NAME}">
         {$plugin.NAME}
@@ -185,7 +189,7 @@ let plugin_filter = searchParams.get('filter');
           {/if}
         {elseif $plugin.STATE == 'missing'}
           <a class="pluginActionLevel3 uninstall-plugin-button">{'Uninstall'|@translate}</a>
-        {elseif $plugin.STATE == 'merged'}
+        {elseif $plugin.STATE == 'merged' and $CONF_ENABLE_EXTENSIONS_INSTALL}
           <a class="pluginActionLevel3" href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
         {/if}                     
       </div>

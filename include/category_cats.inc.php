@@ -15,7 +15,7 @@
 
 // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
 $query = '
-SELECT
+SELECT SQL_CALC_FOUND_ROWS
     c.*,
     user_representative_picture_id,
     nb_images,
@@ -27,17 +27,19 @@ SELECT
   FROM '.CATEGORIES_TABLE.' c
     INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc
     ON id = cat_id
-    AND user_id = '.$user['id'];
+    AND user_id = '.$user['id'].'
+  WHERE count_images > 0
+';
 
 if ('recent_cats' == $page['section'])
 {
   $query.= '
-  WHERE '.get_recent_photos_sql('date_last');
+  AND '.get_recent_photos_sql('date_last');
 }
 else
 {
   $query.= '
-  WHERE id_uppercat '.(!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']);
+  AND id_uppercat '.(!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']);
 }
 
 $query.= '
@@ -46,13 +48,26 @@ $query.= '
         'AND'
         );
 
+// special string to let plugins modify this query at this exact position
+$query.= '
+-- after conditions
+';
+
 if ('recent_cats' != $page['section'])
 {
   $query.= '
   ORDER BY `rank`';
 }
 
+$query.= '
+  LIMIT '.$conf['nb_categories_page'].' OFFSET '.($page['startcat'] ?? 0).'
+;';
+
+$query = trigger_change('loc_begin_index_category_thumbnails_query', $query);
+
 $result = pwg_query($query);
+list($page['total_categories']) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+
 $categories = array();
 $category_ids = array();
 $image_ids = array();
@@ -74,7 +89,7 @@ while ($row = pwg_db_fetch_assoc($result))
   { // searching a random representant among elements in sub-categories
     $image_id = get_random_image_in_category($row);
   }
-  elseif ($row['count_categories']>0 and $row['count_images']>0)
+  elseif ($row['count_categories']>0 and $row['count_images']>0) // at this point, $row['count_images'] should always be >0 (used as condition in SQL)
   { // searching a random representant among representant of sub-categories
     $query = '
 SELECT representative_picture_id
@@ -112,6 +127,16 @@ SELECT representative_picture_id
     $image_ids[] = $image_id;
     $categories[] = $row;
     $category_ids[] = $row['id'];
+  }
+  else
+  {
+    $logger->info(
+      sprintf(
+        '[%s] category #%u was listed in SQL but no image_id found, so it was skipped',
+        basename(__FILE__),
+        $row['id']
+      )
+    );
   }
   unset($image_id);
 }
@@ -330,13 +355,7 @@ if (count($categories) > 0)
   }
 
   // pagination
-  $page['total_categories'] = count($tpl_thumbnails_var);
-
-  $tpl_thumbnails_var_selection = array_slice(
-    $tpl_thumbnails_var,
-    $page['startcat'],
-    $conf['nb_categories_page']
-    );
+  $tpl_thumbnails_var_selection = $tpl_thumbnails_var;
 
   $derivative_params = trigger_change('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
   $tpl_thumbnails_var_selection = trigger_change('loc_end_index_category_thumbnails', $tpl_thumbnails_var_selection);

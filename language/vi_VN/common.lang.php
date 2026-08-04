@@ -138,7 +138,7 @@ $lang['created after %s (%s)'] = 'đã tạo sau %s (%s)';
 $lang['created before %s (%s)'] = 'đã tạo trước %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'đã tạo giữa %s (%s) và %s (%s)';
 $lang['created on %s'] = 'đã tạo vào %s';
-$lang['Customize'] = 'Tùy chọn';
+
 $lang['Your Gallery Customization'] = 'Tuỳ chọn cho Gallery của bạn ';
 $lang['day'][0] = 'Chủ Nhật';
 $lang['day'][1] = 'Thứ Hai';
@@ -167,7 +167,7 @@ $lang['Hello'] = 'Xin chào';
 $lang['available for administrators only'] = 'chỉ dành cho Quản trị';
 $lang['display this album'] = 'hiện hình này ở phía trên của đề mục';
 $lang['display last user comments'] = 'Xem bình luận gần nhất';
-$lang['customize the appareance of the gallery'] = 'tuỳ chọn giao diện hiển thị của gallery';
+
 $lang['search'] = 'tìm kiếm';
 $lang['Home'] = 'Trang chủ';
 $lang['in this album'] = 'trong mục này';
@@ -414,3 +414,8 @@ $lang['Link: %s'] = 'Liên kết: %s';
 $lang['Your authentication key is no longer valid.'] = 'Khóa xác thực của bạn không còn hợp lệ nữa.';
 $lang['generate random password'] = 'phát sinh mật khẩu ngẫu nhiên';
 $lang['Invalid username or password!'] = 'Sai tên người dùng hoặc mật khẩu';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Tên album, 1&rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Tên album, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Password: ********** (no copy by email)'] = 'Mật khẩu: ********** (không sao chép vào email)';
+$lang['Related albums'] = 'Album có liên quan';
+$lang['Start-Date'] = 'Ngày bắt đầu';

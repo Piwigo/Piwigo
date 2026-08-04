@@ -10,6 +10,8 @@ add_event_handler('tabsheet_before_select', 'add_core_tabs', 0);
 
 function add_core_tabs($sheets, $tab_id)
 {
+  global $conf;
+
   switch($tab_id)
   {
     case 'admin_home':
@@ -33,13 +35,12 @@ function add_core_tabs($sheets, $tab_id)
       global $my_base_url;
       $sheets['list'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'albums');
       $sheets['permalinks'] = array('caption' => '<span class="icon-link-1"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
-      $sheets['search'] = array('caption' => '<span class="icon-search"></span>'.l10n('Search'), 'url' => $my_base_url.'cat_search');
       break;
     
     case 'users':
       global $my_base_url;
       $sheets['user_list'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'user_list');
-      $sheets['user_activity'] = array('caption' => '<span class="icon-eye"></span>'.l10n('Activity'), 'url' => $my_base_url.'user_activity');
+      $sheets['user_activity'] = array('caption' => '<span class="icon-pulse"></span>'.l10n('Activity'), 'url' => $my_base_url.'user_activity');
       break;
 
     case 'batch_manager':
@@ -49,7 +50,7 @@ function add_core_tabs($sheets, $tab_id)
       break;
 
     case 'cat_options':
-      global $link_start, $conf;
+      global $link_start;
       $sheets['status'] = array('caption' => '<span class="icon-lock"></span>'.l10n('Public / Private'), 'url' => $link_start.'cat_options&amp;section=status');
       $sheets['visible'] = array('caption' => '<span class="icon-block"></span>'.l10n('Lock'), 'url' => $link_start.'cat_options&amp;section=visible');
       if ($conf['activate_comments'])
@@ -75,11 +76,12 @@ function add_core_tabs($sheets, $tab_id)
 
     case 'configuration':
       global $conf_link;
-      $sheets['main'] = array('caption' => l10n('General'), 'url' => $conf_link.'main');
-      $sheets['sizes'] = array('caption' => l10n('Photo sizes'), 'url' => $conf_link.'sizes');
-      $sheets['watermark'] = array('caption' => l10n('Watermark'), 'url' => $conf_link.'watermark');
-      $sheets['display'] = array('caption' => l10n('Display'), 'url' => $conf_link.'display');
-      $sheets['comments'] = array('caption' => l10n('Comments'), 'url' => $conf_link.'comments');
+      $sheets['main'] = array('caption' => '<span class="icon-cog"></span>'.l10n('General'), 'url' => $conf_link.'main');
+      $sheets['sizes'] = array('caption' => '<span class="icon-zoom-square"></span>'.l10n('Photo sizes'), 'url' => $conf_link.'sizes');
+      $sheets['watermark'] = array('caption' => '<span class="icon-file-image"></span>'.l10n('Watermark'), 'url' => $conf_link.'watermark');
+      $sheets['display'] = array('caption' => '<span class="icon-television"></span>'.l10n('Display'), 'url' => $conf_link.'display');
+      $sheets['comments'] = array('caption' => '<span class="icon-chat"></span>'.l10n('Comments'), 'url' => $conf_link.'comments');
+      $sheets['search'] = array('caption' => '<span class="icon-search"></span>'.l10n('Search'), 'url' => $conf_link.'search');
       // $sheets['default'] = array('caption' => l10n('Guest Settings'), 'url' => $conf_link.'default');
       break;
 
@@ -101,8 +103,11 @@ function add_core_tabs($sheets, $tab_id)
     case 'languages':
       global $my_base_url;
       $sheets['installed'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
+      if ($conf['enable_extensions_install'])
+      {
+        $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+        $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
+      }
       break;
 
     case 'menus':
@@ -118,13 +123,16 @@ function add_core_tabs($sheets, $tab_id)
       break;
 
     case 'photo':
-      global $admin_photo_base_url;
+      global $admin_photo_base_url, $conf;
       $sheets['properties'] = array('caption' => '<span class="icon-file-image"></span>'.l10n('Properties'), 'url' => $admin_photo_base_url.'-properties');
       $sheets['coi'] = array('caption' => '<span class="icon-crop"></span>'.l10n('Center of interest'), 'url' => $admin_photo_base_url.'-coi');
+      if ($conf['enable_formats'])
+      {
+        $sheets['formats'] = array('caption' => '<span class="icon-docs"></span>'.l10n('Formats'), 'url' => $admin_photo_base_url.'-formats');
+      }
       break;
 
     case 'photos_add':
-      global $conf;
       $sheets['direct'] = array('caption' => '<span class="icon-upload"></span>'.l10n('Web Form'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=direct');
       $sheets['applications'] = array('caption' => '<span class="icon-network"></span>'.l10n('Applications'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=applications');
       if ($conf['enable_synchronization'])
@@ -134,8 +142,11 @@ function add_core_tabs($sheets, $tab_id)
     case 'plugins':
       global $my_base_url;
       $sheets['installed'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Plugin'), 'url' => $my_base_url.'&amp;tab=new');
+      if ($conf['enable_extensions_install'])
+      {
+        $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+        $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Plugin'), 'url' => $my_base_url.'&amp;tab=new');
+      }
       break;
 
     case 'rating':
@@ -146,14 +157,26 @@ function add_core_tabs($sheets, $tab_id)
     case 'themes':
       global $my_base_url;
       $sheets['installed'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Theme'), 'url' => $my_base_url.'&amp;tab=new');
+      if ($conf['enable_extensions_install'])
+      {
+        $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+        $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Theme'), 'url' => $my_base_url.'&amp;tab=new');
+      }
+      $sheets['standard_pages'] = array('caption' => '<span class="icon-cog-alt"></span>'.l10n('Standard pages'), 'url' => $my_base_url.'&amp;tab=standard_pages');
       break;
 
     case 'updates':
       global $my_base_url;
-      $sheets['pwg'] = array('caption' => l10n('Piwigo core'), 'url' => $my_base_url);
-      $sheets['ext'] = array('caption' => l10n('Extensions'), 'url' => $my_base_url.'&amp;tab=ext');
+
+      if ($conf['enable_core_update'])
+      {
+        $sheets['pwg'] = array('caption' => l10n('Piwigo core'), 'url' => $my_base_url);
+      }
+
+      if ($conf['enable_extensions_install'])
+      {
+        $sheets['ext'] = array('caption' => l10n('Extensions'), 'url' => $my_base_url.'&amp;tab=ext');
+      }
       break;
     case 'site_update':
       global $my_base_url;
@@ -164,6 +187,7 @@ function add_core_tabs($sheets, $tab_id)
       global $my_base_url;
       $sheets['actions'] = array('caption' => '<span class="icon-tools"></span>'.l10n('Actions'), 'url' => $my_base_url.'maintenance&tab=actions');
       $sheets['env'] = array('caption' => '<span class="icon-television"></span>'.l10n('Environment'), 'url' => $my_base_url.'maintenance&tab=env');
+      $sheets['sys'] = array('caption' => '<span class="icon-pulse"></span>'.l10n('System Activities'), 'url' => $my_base_url.'maintenance&tab=sys');
       break;
   }
 

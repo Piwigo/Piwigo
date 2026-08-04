@@ -6,11 +6,309 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.5.2] - 2025-08-26
+
+
+- Fixed escaping of array/object keys in debug_print_var
+
+## [5.5.1] - 2025-05-19
+- Fix missing support for loading modifiercompilers from plugin dir in BCPluginsAdapter [#1132](https://github.com/smarty-php/smarty/pull/1132)
+
+
+## [5.5.0] - 2025-05-03
+- Support trailing comma in array [#1013](https://github.com/smarty-php/smarty/issues/1013)
+
+
+## [5.4.5] - 2025-04-15
+- Fixed deprecation notice in StringEval in PHP8.4 [#1119](https://github.com/smarty-php/smarty/issues/1119)
+
+
+## [5.4.4] - 2025-04-13
+- Fix syntax error occurring when registering a function plugin that ends with the string 'close' [#1122](https://github.com/smarty-php/smarty/issues/1122)
+- Replace SMARTY_VERSION constant with $smarty.version in debug.tpl [#1073](https://github.com/smarty-php/smarty/issues/1073)
+
+
+## [5.4.3] - 2024-12-23
+- Fix PHP backtraces by qualifying/replacing `call_user_func_array` calls [#1074](https://github.com/smarty-php/smarty/issues/1074)
+
+
+## [5.4.2] - 2024-11-20
+
+
+- Support the deprecations introduced in PHP 8.4 and added tests for PHP 8.4 [#1043](https://github.com/smarty-php/smarty/pull/1043)
+
+## [5.4.1] - 2024-08-29
+
+
+- Enable (and fix) unit tests for Windows [#1046](https://github.com/smarty-php/smarty/pull/1046)
+- Fix the use of "extends:" to define the inheritance tree on Windows [#1018](https://github.com/smarty-php/smarty/issues/1018)
+
+## [5.4.0] - 2024-08-14
+- Fixing forced OpCache invalidation on every template include, which is resulting in fast raising wasted OpCache memory [#1007](https://github.com/smarty-php/smarty/issues/1007) 
+- Improvement of auto-escaping [#1030](https://github.com/smarty-php/smarty/pull/1030)
+
+
+## [5.3.1] - 2024-06-16
+- Fixed error when using section with nocache [#1034](https://github.com/smarty-php/smarty/issues/1034)
+
+
+## [5.3.0] - 2024-05-30
+- Fix warning when calling hasVariable for an undefined variable [#977](https://github.com/smarty-php/smarty/issues/977)
+- Added `$smarty->prependTemplateDir()` method [#1022](https://github.com/smarty-php/smarty/issues/1022)
+
+
+## [5.2.0] - 2024-05-28
+- Fixed a code injection vulnerability in extends-tag. This addresses CVE-2024-35226.
+- Added `$smarty->setCacheModifiedCheck()` setter for cache_modified_check
+- Added a PSR-4 loading script to allow Smarty to be used without Composer [#1017](https://github.com/smarty-php/smarty/pull/1017)
+
+
+## [5.1.0] - 2024-04-22
+- Prevent deprecation notices during compilation in PHP8.3 [#996](https://github.com/smarty-php/smarty/issues/996)
+- Fix that getTemplateVars would return an array of objects instead of the assigned variables values [#994](https://github.com/smarty-php/smarty/issues/994)
+- Fix Smarty::assign() not returning $this when called with an array as first parameter [#972](https://github.com/smarty-php/smarty/pull/972)
+- Documented support for `{if $element is in $array}` syntax [#937](https://github.com/smarty-php/smarty/issues/937)
+- Added support for `{if $element is not in $array}` syntax [#937](https://github.com/smarty-php/smarty/issues/937)
+- Using stream variables in templates now throws a deprecation notice [#933](https://github.com/smarty-php/smarty/pull/933)
+- Internal compiler classes always return a string (the internal has_code flag has been removed for simplicity) [#918](https://github.com/smarty-php/smarty/pull/918)
+- Fix invalid classnames in Runtime code for foreach [#1000](https://github.com/smarty-php/smarty/issues/1000)
+
+## [5.0.2] - 2024-03-28
+- Fix Smarty::assign() not returning $this when called with an array as first parameter [#972](https://github.com/smarty-php/smarty/pull/972)
+
+## [5.0.1] - 2024-03-27
+- Fix error in Smarty\Smarty::compileAllTemplates() by including missing FilesystemIterator class [#966](https://github.com/smarty-php/smarty/issues/966)  
+
+## [5.0.0] - 2024-03-25
+- Fixed that scoped variables would overwrite parent scope [#952](https://github.com/smarty-php/smarty/issues/952)
+- Removed publicly accessible `$tpl->_var_stack` variable
+
+### Fixed
+- Too many shorthand attributes error when using a modifier as a function with more than 3 parameters in an expression [#949](https://github.com/smarty-php/smarty/issues/949)
+
+### Removed
+- Dropped support for undocumented `{time()}` added in v5.0.0 since we already have the documented `{$smarty.now}`
+
+## [5.0.0-rc3] - 2024-02-26
+
+### Added
+- PHP8.3 support [#925](https://github.com/smarty-php/smarty/issues/925)
+- Backlink to GitHub in docs
+- Explain how to do escaping and set-up auto-escaping in docs [#865](https://github.com/smarty-php/smarty/issues/865)
+- Link to variable scope page in the documentation for the assign tag [#878](https://github.com/smarty-php/smarty/issues/878)
+- Add support for implode, substr and json_encode as modifiers/functions in templates [#939](https://github.com/smarty-php/smarty/issues/939)
+- Add template path to CompilerException to enable rich debug features [#935](https://github.com/smarty-php/smarty/issues/935)
+
+### Fixed
+- The {debug} tag was broken in v5 [#922](https://github.com/smarty-php/smarty/issues/922)
+- Documentation on `{if $x is even by $y}` syntax
+- Fix incorrect compilation of expressions when escape_html=true [#930](https://github.com/smarty-php/smarty/pull/930)
+
+## [5.0.0-rc2] - 2023-11-11
+
+### Fixed
+- Registered output filters wouldn't run [#899](https://github.com/smarty-php/smarty/issues/899)
+- Use of negative numbers in {math} equations [#895](https://github.com/smarty-php/smarty/issues/895)
+- Do not auto-html-escape custom function results [#906](https://github.com/smarty-php/smarty/issues/906)
+- Fix case-sensitive tag names [#907](https://github.com/smarty-php/smarty/issues/907)
+
+### Removed
+- Removed `$smarty->registered_filters` array
+
+## [5.0.0-rc1] - 2023-08-08
+
+### Added
+- Added support for PHP8.2
+- Added a new way to extend Smarty functionality using `Smarty::addExtension()` or `Smarty::setExtensions()`. Please see the docs for more information.
+- Custom tags can accept positional parameters, so you can write a block compiler that support this: `{trans "Jack" "dull boy"}All work and no play makes %s a %s.{/trans}` [#164](https://github.com/smarty-php/smarty/issues/164)
+- Full support for ternary operator: `{$test ? $a : $b}` and `{$var ?: $value_if_falsy}` [#881](https://github.com/smarty-php/smarty/issues/881)
+- Full support for null coalescing operator: `{$var ?? $value_if_null}` [#882](https://github.com/smarty-php/smarty/issues/882)
+
+### Changed
+- All Smarty code is now in the \Smarty namespace. For simple use-cases, you only need to add
+  `use \Smarty\Smarty;` to your script and everything will work. If you extend Smarty or use
+  Smarty plug-ins, please review your code to see if they assume specific class or method names.
+  E.g.: `Smarty_Internal_Template` is now `\Smarty\Template\`, `SmartyException` is now `\Smarty\Exception`.
+- Template variable scope bubbling has been simplified and made more consistent. 
+  The global scope now equals the Smarty scope in order to avoid global state side effects. Please read
+  the documentation for more details.
+- Lexers and Parsers PHP files are reliably generated from sources (.y and .plex) using the make file 
+- Smarty now always runs in multibyte mode, using `symfony/polyfill-mbstring` if required. Please use the
+  multibyte extension for optimal performance.
+- Smarty no longer calls `mb_internal_encoding()` and doesn't check for deprecated `mbstring.func_overload` ini directive [#480](https://github.com/smarty-php/smarty/issues/480)
+- Generated `<script>` tags lo longer have deprecated `type="text/javascript"` or `language="Javascript"` attributes [#815](https://github.com/smarty-php/smarty/issues/815)
+- Smarty will throw a compiler exception instead of silently ignoring a modifier on a function call, like this: `{include|dot:"x-template-id" file="included.dot.tpl"}` [#526](https://github.com/smarty-php/smarty/issues/526) 
+- The documentation was largely rewritten
+
+### Deprecated
+- `$smarty->getPluginsDir()`
+- `$smarty->loadFilter()`
+- `$smarty->setPluginsDir()`
+- `$smarty->assignGlobal()`
+- Using `$smarty->registerFilter()` for registering variable filters will trigger a notice.
+
+### Removed
+- Dropped support for PHP7.1
+- Removed `$smarty->left_delimiter` and `$smarty->right_delimiter`, use `$smarty->getLeftDelimiter()`/`$smarty->setLeftDelimiter()` and `$smarty->getRightDelimiter()`/`$smarty->setRightDelimiter()`
+- Removed support for the `$cache_attrs` parameter for registered plugins
+- Removed support for undocumented `{make_nocache}` tag
+- Removed support for deprecated `{insert}` tag, the 'insert' plugin type and the associated $smarty->trusted_dir variable
+- Removed the undocumented `{block_parent}` and `{parent}` alternatives to `{$smarty.block.parent}`
+- Removed the undocumented `{block_child}` and `{child}` alternatives to `{$smarty.block.child}`
+- Removed support for loading config files into a non-local scope using `{config_load}` from a template 
+- Removed `$smarty->autoload_filters` in favor of `$smarty->registerFilter()`
+- Removed `$smarty->trusted_dir` and `$smarty->allow_php_templates` since support for executing php scripts from templates has been dropped  
+- Removed `$smarty->php_functions` and `$smarty->php_modifiers`. 
+- You can no longer use native PHP-functions or userland functions in your templates without registering them. If you need a function in your templates,
+  register it first.
+- Removed support for `$smarty->getTags()`
+- Removed the abandoned `$smarty->direct_access_security` setting
+- Dropped support for `$smarty->plugins_dir` and `$smarty->use_include_path`. If you must, use `$smarty->addPluginsDir()` instead,
+  but it's better to use Smarty::addExtension() to add an extension or Smarty::registerPlugin to
+  quickly register a plugin using a callback function.
+- Removed constants such as SMARTY_DIR to prevent global side effects.
+- Removed direct access to `$smarty->template_dir`. Use `$smarty->setTemplateDir()`.
+- Removed direct access to `$smarty->cache_dir`. Use `$smarty->setCacheDir()`.
+- Removed direct access to `$smarty->compile_dir`. Use `$smarty->setCompileDir()`.
+- Removed `$smarty->loadPlugin()`, use `$smarty->registerPlugin()` instead.
+- Removed `$smarty->appendByRef()` and `$smarty->assignByRef()`.
+- Removed `$smarty->_current_file`
+- Removed `$smarty->allow_ambiguous_resources` (ambiguous resources handlers should still work)
+
+### Fixed
+- `|strip_tags` does not work if the input is 0 [#890](https://github.com/smarty-php/smarty/issues/890)
+
+## [4.3.2] - 2023-07-19
+
+### Fixed
+- `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP8 warnings for undefined properties
+
+## [4.3.1] - 2023-03-28
+
+### Security
+- Fixed Cross site scripting vulnerability in Javascript escaping. This addresses CVE-2023-28447.
+
+### Fixed
+- `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP7 notices for undefined array indexes [#736](https://github.com/smarty-php/smarty/issues/736)
+- `$smarty->muteUndefinedOrNullWarnings()` now treats undefined vars and array access of a null or false variables 
+  equivalent across all supported PHP versions
+- `$smarty->muteUndefinedOrNullWarnings()` now allows dereferencing of non-objects across all supported PHP versions [#831](https://github.com/smarty-php/smarty/issues/831)
+- PHP 8.1 deprecation warnings on null strings in modifiers [#834](https://github.com/smarty-php/smarty/pull/834)
+
+## [4.3.0] - 2022-11-22
+
+### Added
+- PHP8.2 compatibility [#775](https://github.com/smarty-php/smarty/pull/775)
+
+### Changed
+- Include docs and demo in the releases [#799](https://github.com/smarty-php/smarty/issues/799)
+- Using PHP functions as modifiers now triggers a deprecation notice because we will drop support for this in the next major release [#813](https://github.com/smarty-php/smarty/issues/813) 
+- Dropped remaining references to removed PHP-support in Smarty 4 from docs, lexer and security class. [#816](https://github.com/smarty-php/smarty/issues/816)
+- Support umask when writing (template) files and set dir permissions to 777 [#548](https://github.com/smarty-php/smarty/issues/548) [#819](https://github.com/smarty-php/smarty/issues/819) 
+ 
+### Fixed
+- Output buffer is now cleaned for internal PHP errors as well, not just for Exceptions [#514](https://github.com/smarty-php/smarty/issues/514)
+- Fixed recursion and out of memory errors when caching in complicated template set-ups using inheritance and includes [#801](https://github.com/smarty-php/smarty/pull/801)
+- Fixed PHP8.1 deprecation errors in strip_tags 
+- Fix Variable Usage in Exception message when unable to load subtemplate [#808](https://github.com/smarty-php/smarty/pull/808)
+- Fixed PHP8.1 deprecation notices for strftime [#672](https://github.com/smarty-php/smarty/issues/672)
+- Fixed PHP8.1 deprecation errors passing null to parameter in trim [#807](https://github.com/smarty-php/smarty/pull/807)
+- Adapt Smarty upper/lower functions to be codesafe (e.g. for Turkish locale) [#586](https://github.com/smarty-php/smarty/pull/586)
+- Bug fix for underscore and limited length in template name in custom resources [#581](https://github.com/smarty-php/smarty/pull/581)
+
+## [4.2.1] - 2022-09-14
+
+### Security
+- Applied appropriate javascript and html escaping in mailto plugin to counter injection attacks [#454](https://github.com/smarty-php/smarty/issues/454)
+
+### Fixed
+- Fixed PHP8.1 deprecation notices in modifiers (upper, explode, number_format and replace) [#755](https://github.com/smarty-php/smarty/pull/755) and [#788](https://github.com/smarty-php/smarty/pull/788)
+- Fixed PHP8.1 deprecation notices in capitalize modifier [#789](https://github.com/smarty-php/smarty/issues/789)
+- Fixed use of `rand()` without a parameter in math function [#794](https://github.com/smarty-php/smarty/issues/794)
+- Fixed unselected year/month/day not working in html_select_date [#395](https://github.com/smarty-php/smarty/issues/395)
+
+## [4.2.0] - 2022-08-01
+
+### Fixed
+- Fixed problems with smarty_mb_str_replace [#549](https://github.com/smarty-php/smarty/issues/549)
+- Fixed second parameter of unescape modifier not working [#777](https://github.com/smarty-php/smarty/issues/777)
+
+### Changed
+- Updated HTML of the debug template [#599](https://github.com/smarty-php/smarty/pull/599)
+
+## [4.1.1] - 2022-05-17
+
+### Security
+- Prevent PHP injection through malicious block name or include file name. This addresses CVE-2022-29221
+
+### Fixed
+- Exclude docs and demo from export and composer [#751](https://github.com/smarty-php/smarty/pull/751)
+- PHP 8.1 deprecation notices in demo/plugins/cacheresource.pdo.php [#706](https://github.com/smarty-php/smarty/issues/706)
+- PHP 8.1 deprecation notices in truncate modifier [#699](https://github.com/smarty-php/smarty/issues/699)
+- Math equation `max(x, y)` didn't work anymore [#721](https://github.com/smarty-php/smarty/issues/721)
+- Fix PHP 8.1 deprecated warning when calling rtrim [#743](https://github.com/smarty-php/smarty/pull/743)
+- PHP 8.1: fix deprecation in escape modifier [#727](https://github.com/smarty-php/smarty/pull/727)
+
+## [4.1.0] - 2022-02-06
+
+### Added
+- PHP8.1 compatibility [#713](https://github.com/smarty-php/smarty/pull/713)
+
+## [4.0.4] - 2022-01-18
+
+### Fixed
+- Fixed illegal characters bug in math function security check [#702](https://github.com/smarty-php/smarty/issues/702)
+
+## [4.0.3] - 2022-01-10
+
+### Security
+- Prevent evasion of the `static_classes` security policy. This addresses CVE-2021-21408
+
+## [4.0.2] - 2022-01-10
+
+### Security
+- Prevent arbitrary PHP code execution through maliciously crafted expression for the math function. This addresses CVE-2021-29454
+
+## [4.0.1] - 2022-01-09
+
+### Security
+- Rewrote the mailto function to not use `eval` when encoding with javascript
+
+## [4.0.0] - 2021-11-25
+
+## [4.0.0-rc.0] - 2021-10-13
+
+### Added
+- You can now use `$smarty->muteUndefinedOrNullWarnings()` to activate convert warnings about undefined or null template vars to notices when running PHP8
+
+### Changed
+- Switch CI from Travis to Github CI
+- Updated unit tests to avoid skipped and risky test warnings
+
+### Removed
+- Dropped support for PHP7.0 and below, so Smarty now requires PHP >=7.1
+- Dropped support for php asp tags in templates (removed from php since php7.0)
+- Dropped deprecated API calls that where only accessible through SmartyBC
+- Dropped support for {php} and {include_php} tags and embedded PHP in templates. Embedded PHP will now be passed through as is.
+- Removed all PHP_VERSION_ID and compare_version checks and conditional code blocks that are now no longer required
+- Dropped deprecated SMARTY_RESOURCE_CHAR_SET and SMARTY_RESOURCE_DATE_FORMAT constants
+- Dropped deprecated Smarty::muteExpectedErrors and Smarty::unmuteExpectedErrors API methods
+- Dropped deprecated $smarty->getVariable() method. Use $smarty->getTemplateVars() instead.
+- $smarty->registerResource() no longer accepts an array of callback functions
+
+## [3.1.40] - 2021-10-13
+
+### Changed
+- modifier escape now triggers a E_USER_NOTICE when an unsupported escape type is used https://github.com/smarty-php/smarty/pull/649
+
+### Security
+- More advanced javascript escaping to handle https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements thanks to m-haritonov
+
 ## [3.1.39] - 2021-02-17
 
 ### Security
-- Prevent access to `$smarty.template_object` in sandbox mode
-- Fixed code injection vulnerability by using illegal function names in `{function name='blah'}{/function}` 
+- Prevent access to `$smarty.template_object` in sandbox mode. This addresses CVE-2021-26119.
+- Fixed code injection vulnerability by using illegal function names in `{function name='blah'}{/function}`. This addresses CVE-2021-26120.
 
 ## [3.1.38] - 2021-01-08
 
@@ -1661,7 +1959,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 27.09.2011
 - bugfix possible warning "attempt to modify property of non-object" in {section} (issue #34)
-- added chaining to Smarty_Internal_Data so $smarty->assign('a',1)->assign('b',2); is possible now
+- added chaining to \Smarty\Data so $smarty->assign('a',1)->assign('b',2); is possible now
 - bugfix remove race condition when a custom resource did change timestamp during compilation
 - bugfix variable property did not work on objects variable in template
 - bugfix smarty_make_timestamp() failed to process DateTime objects properly
@@ -1996,7 +2294,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - optimize smarty_modified_escape for hex, hexentity, decentity.
 
 28/12/2010
-- changed $tpl_vars, $config_vars and $parent to belong to Smarty_Internal_Data
+- changed $tpl_vars, $config_vars and $parent to belong to \Smarty\Data
 - added Smarty::registerCacheResource() for dynamic cache resource object registration
 
 27/12/2010

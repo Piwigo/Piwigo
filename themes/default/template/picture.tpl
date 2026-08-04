@@ -149,7 +149,7 @@ y.callService(
 		{if isset($previous)}
 			<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE_ESC}" rel="prev">
 				<span class="thumbHover prevThumbHover"></span>
-				<img src="{$previous.derivatives.square->get_url()}" alt="{$previous.TITLE_ESC}">
+        <img class="{if (isset($previous.path_ext) and $previous.path_ext == 'svg')}svgImg{/if}" src="{if (isset($previous.path_ext) and $previous.path_ext == 'svg')}{$previous.path}{else}{$previous.derivatives.square->get_url()}{/if}" alt="{$previous.TITLE_ESC}">
 			</a>
 		{elseif isset($U_UP)}
 			<a class="navThumb" id="linkPrev" href="{$U_UP}" title="{'Thumbnails'|@translate}">
@@ -159,7 +159,7 @@ y.callService(
 		{if isset($next)}
 			<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE_ESC}" rel="next">
 				<span class="thumbHover nextThumbHover"></span>
-				<img src="{$next.derivatives.square->get_url()}" alt="{$next.TITLE_ESC}">
+				<img class="{if (isset($next.path_ext) and $next.path_ext == 'svg')}svgImg{/if}" src="{if (isset($next.path_ext) and $next.path_ext == 'svg')}{$next.path}{else}{$next.derivatives.square->get_url()}{/if}" alt="{$next.TITLE_ESC}">
 			</a>
 		{elseif isset($U_UP)}
 			<a class="navThumb" id="linkNext"  href="{$U_UP}"  title="{'Thumbnails'|@translate}">
@@ -207,7 +207,7 @@ y.callService(
 		<dd>{$INFO_FILESIZE}</dd>
 	</div>
 	{/if}
-	{if $display_info.tags and isset($related_tags)}
+	{if ($display_info.tags and isset($related_tags))}
 	<div id="Tags" class="imageInfo">
 		<dt>{'Tags'|@translate}</dt>
 		<dd>
@@ -234,6 +234,14 @@ y.callService(
 	</div>
 	{/if}
 
+  {if isset($PDF_NB_PAGES) and $current.path_ext=="pdf" }
+    <div id="Pages" class="imageInfo">
+      <dt>{'Pages'|@translate}</dt>
+      <dd>{$PDF_NB_PAGES}</dd>
+    </div>
+  
+  {/if}
+  
 {if $display_info.rating_score and isset($rate_summary)}
 	<div id="Average" class="imageInfo">
 		<dt>{'Rating score'|@translate}</dt>
@@ -289,40 +297,6 @@ y.callService(
 	</div>
 {/if}
 
-{if $display_info.privacy_level and isset($available_permission_levels)}
-	<div id="Privacy" class="imageInfo">
-		<dt>{'Who can see this photo?'|@translate}</dt>
-		<dd>
-			<div>
-				<a id="privacyLevelLink" href>{$available_permission_levels[$current.level]}</a>
-			</div>
-{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
-{footer_script require='jquery'}{strip}
-function setPrivacyLevel(id, level){
-(new PwgWS('{$ROOT_URL}')).callService(
-	"pwg.images.setPrivacyLevel", { image_id:id, level:level},
-	{
-		method: "POST",
-		onFailure: function(num, text) { alert(num + " " + text); },
-		onSuccess: function(result) {
-			  jQuery('#privacyLevelBox .switchCheck').css('visibility','hidden');
-				jQuery('#switchLevel'+level).prev('.switchCheck').css('visibility','visible');
-				jQuery('#privacyLevelLink').text(jQuery('#switchLevel'+level).text());
-		}
-	}
-	);
-}
-(window.SwitchBox=window.SwitchBox||[]).push("#privacyLevelLink", "#privacyLevelBox");
-{/strip}{/footer_script}
-			<div id="privacyLevelBox" class="switchBox" style="display:none">
-				{foreach from=$available_permission_levels item=label key=level}
-					<span class="switchCheck"{if $level != $current.level} style="visibility:hidden"{/if}>&#x2714; </span>
-					<a id="switchLevel{$level}" href="javascript:setPrivacyLevel({$current.id},{$level})">{$label}</a><br>
-				{/foreach}
-			</div>
-		</dd>
-	</div>
-{/if}
 {/strip}
 </dl>
 

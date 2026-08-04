@@ -45,18 +45,14 @@ jQuery("a.preview-box").colorbox({
 	photo: true
 });
 
-str_are_you_sure = '{'Are you sure?'|translate}';
-str_yes = '{'Yes, delete'|translate}';
+str_are_you_sure = '{'Are you sure?'|translate|escape:javascript}';
+str_yes = '{'Yes, delete'|translate|escape:javascript}';
 str_no = '{'No, I have changed my mind'|translate|@escape:'javascript'}';
 url_delete = '{$U_DELETE}';
-str_albums_found = '{"<b>%d</b> albums found"|translate}';
-str_album_found = '{"<b>1</b> album found"|translate}';
-str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
-str_orphan = '{'This photo is an orphan'|@translate}';
-str_no_search_in_progress = '{'No search in progress'|@translate}';
+str_orphan = '{'This photo is an orphan'|@translate|escape:javascript}';
+
 
 related_categories_ids = {$related_categories_ids|@json_encode};
-str_already_in_related_cats = '{'This albums is already in related categories list'|translate}';
 
 {literal}
 $('#action-delete-picture').on('click', function() {
@@ -90,28 +86,33 @@ $('#action-delete-picture').on('click', function() {
 {/literal}
 
 }());
+const str_assoc_album_ab = '{'Associate to album'|translate|escape:javascript}';
 {/footer_script}
 
 {combine_script id='picture_modify' load='footer' path='admin/themes/default/js/picture_modify.js'}
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 
 <form action="{$F_ACTION}" method="post" id="pictureModify">
+{if $INTRO.is_svg}
+  <div id='picture-preview' class="svg-container">
+{else}
   <div id='picture-preview'>
+{/if}
     <div class='picture-preview-actions'>
-      {if isset($U_JUMPTO)}
-        <a class="icon-eye" href="{$U_JUMPTO}" title="{'Open in gallery'|@translate}"></a>
-      {else}
-        <a class="icon-eye unavailable" title="{'You don\'t have access to this photo'|translate}"></a>
-      {/if}
+      <a class="preview-box icon-zoom-square" href="{$FILE_SRC}" title="{'Zoom'|translate}"></a>
       <a class="icon-download" href="{$U_DOWNLOAD}" title="{'Download'|translate}"></a>
+      <a class="icon-signal" href="{$U_HISTORY}" title="{'Visit history'|translate}"></a>
+      <a class="icon-pulse" href="{$U_ACTIVITY}" title="{'Activity'|translate}"></a>
       {if !url_is_remote($PATH)}
       <a class="icon-arrows-cw" href="{$U_SYNC}" title="{'Synchronize metadata'|@translate}"></a>
       <a class="icon-trash" title="{'delete photo'|@translate}" id='action-delete-picture'></a>
       {/if}
     </div>
-    <a href="{$FILE_SRC}" class="preview-box icon-zoom-in" title="{$TITLE|htmlspecialchars}" style="{if $FORMAT}width{else}height{/if}:35vw">
-      <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" style="{if $FORMAT}width{else}height{/if}:100%">
-    </a>
+      {if $INTRO.is_svg}
+      <img src="{$PATH}" alt="{'Thumbnail'|translate}" class="svg-image other-image-format" style="{if $FORMAT}width:100%; max-height:100%; {else}max-width:100%; height:100%;{/if} object-fit:contain;">
+      {else}
+      <img src="{$TN_SRC}" alt="{'Thumbnail'|translate}" class="other-image-format" style="{if $FORMAT}width:100%; max-height:100%;{else}max-width:100%; height:100%;{/if} object-fit:contain;">
+      {/if}
   </div>
   <div id='picture-content'>
     <div id='picture-infos'>
@@ -173,13 +174,13 @@ $('#action-delete-picture').on('click', function() {
       {/if}
       <br>
       <select class="invisible-related-categories-select" name="associate[]" multiple>
-      {foreach from=$related_categories item=$cat_path key=$key}
+      {foreach from=$related_categories item=cat_path key=key}
         <option selected value="{$key}"></option>
       {/foreach}
       </select>
       <div class="related-categories-container">
-      {foreach from=$related_categories item=$cat_path key=$key}
-        <div class="breadcrumb-item"><span class="link-path">{$cat_path}</span><span id={$key} class="icon-cancel-circled remove-item"></span></div>
+      {foreach from=$related_categories item=cat_path key=key}
+      <div class="breadcrumb-item"><span class="link-path">{$cat_path['name']}</span>{if $cat_path['unlinkable']}<span id={$key} class="icon-cancel-circled remove-item"></span>{else}<span id={$key} class="icon-help-circled help-item tiptip" title="{'This picture is physically linked to this album, you can\'t dissociate them'|translate}"></span>{/if}</div>
       {/foreach}
       </div>
       <div class="breadcrumb-item linked-albums add-item {if $related_categories|@count < 1 } highlight {/if}"><span class="icon-plus-circled"></span>{'Add'|translate}</div>
@@ -204,11 +205,11 @@ $('#action-delete-picture').on('click', function() {
     <p>
       <strong>{'Description'|@translate}</strong>
       <br>
-      <textarea name="description" id="description" class="description">{$DESCRIPTION}</textarea>
+      <textarea name="comment" id="description" class="description">{$DESCRIPTION}</textarea>
     </p>
 
     <p>
-      <strong>{'Who can see this photo?'|@translate}</strong>
+      <strong>{'Who can see this photo?'|@translate}</strong> ({'Privacy level'|translate})
       <br>
       <div class='select-icon icon-down-open'> </div>
       <select name="level" size="1">
@@ -216,38 +217,38 @@ $('#action-delete-picture').on('click', function() {
       </select>
    </p>
 
-    <p>
+   <div class="savebar-footer">
+      <div class="savebar-footer-start">
+        <div class="savebar-footer-block">
+{if isset($U_JUMPTO)}
+          <a class="savebar-see-out" href="{$U_JUMPTO}" ><i class="icon-left-open"></i>{'Open in gallery'|@translate}</a>
+{else}
+          <a class="savebar-see-out tiptip disabled" href="#" title="{'You don\'t have access to this photo'|translate}"><i class="icon-left-open"></i>{'Open in gallery'|translate}</a>
+{/if}
+        </div>
+      </div>
+      <div class="savebar-footer-end">
+
+{if isset($save_success)}
+        <div class="savebar-footer-block">
+          <div class="badge info-message">
+            <i class="icon-ok-circled"></i>{$save_success}
+          </div>
+        </div>
+{/if}
+
+        <div class="savebar-footer-block">
+          <button class="buttonLike"  type="submit" name="submit"><i class="icon-floppy"></i> {'Save Settings'|@translate}</button>
+        </div>
+      </div>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-      <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
-    </p>
+    </div>
+    
   </div>
 
 </form>
 
-<div id="addLinkedAlbum" class="linkedAlbumPopIn">
-  <div class="linkedAlbumPopInContainer">
-    <a class="icon-cancel ClosePopIn"></a>
-    
-    <div class="AddIconContainer">
-      <span class="AddIcon icon-blue icon-plus-circled"></span>
-    </div>
-    <div class="AddIconTitle">
-      <span>{'Associate to album'|@translate}</span>
-    </div>
-
-    <div id="linkedAlbumSearch">
-      <span class='icon-search search-icon'> </span>
-      <span class="icon-cancel search-cancel-linked-album"></span>
-      <input class='search-input' type='text' placeholder='{'Search'|@translate}'>
-    </div>
-    <div class="limitReached"></div>
-    <div class="noSearch"></div>
-    <div class="searching icon-spin6 animate-spin"> </div>
-
-    <div id="searchResult">
-    </div>
-  </div>
-</div>
+{include file='include/album_selector.inc.tpl'}
 
 <style>
 .selectize-input  .item,

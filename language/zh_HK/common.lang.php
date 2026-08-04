@@ -91,7 +91,7 @@ $lang['Create a new account'] = '建立新用戶';
 $lang['Created on'] = '建立在';
 $lang['Creation date'] = '建立日期';
 $lang['Current password is wrong'] = '現在的密碼是錯誤';
-$lang['Customize'] = '自定';
+
 $lang['Date created, new &rarr; old'] = '建立日期, 新 &rarr; 舊';
 $lang['Date created, old &rarr; new'] = '建立日期, 舊 &rarr; 新';
 $lang['Date posted, new &rarr; old'] = '發佈日期, 新 &rarr; 舊';
@@ -327,7 +327,7 @@ $lang['created after %s (%s)'] = '建立於 %s (%s) 之後';
 $lang['created before %s (%s)'] = '建立於 %s (%s) 之前';
 $lang['created between %s (%s) and %s (%s)'] = '建立於 %s (%s) 和 %s (%s) 之間';
 $lang['created on %s'] = '建立於 %s';
-$lang['customize the appareance of the gallery'] = '設定相簿的外觀';
+
 $lang['day']['0'] = '星期日';
 $lang['day']['1'] = '星期一';
 $lang['day']['2'] = '星期二';
@@ -414,3 +414,8 @@ $lang['Link: %s'] = '連結: %s';
 $lang['Your authentication key is no longer valid.'] = '您的認證密鑰已失效。';
 $lang['generate random password'] = '產生隨機密碼';
 $lang['Invalid username or password!'] = '無效的用戶名或密碼！';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = '相簿名稱，1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = '相簿名稱，100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Password: ********** (no copy by email)'] = '密碼：**********（不複製自電郵）';
+$lang['Start-Date'] = '開始日期';
+$lang['Related albums'] = '相關相簿';

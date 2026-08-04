@@ -2,7 +2,6 @@ function setDisplayClassic() {
     $(".pluginContainer").removeClass("line-form").removeClass("compact-form").addClass("classic-form");
 
     $(".pluginDesc").show();
-    $(".pluginDescCompact").hide();
     $(".pluginActions").show();
     $(".pluginActionsSmallIcons").hide();
 
@@ -15,7 +14,6 @@ function setDisplayCompact() {
     $(".pluginContainer").removeClass("line-form").addClass("compact-form").removeClass("classic-form");
 
     $(".pluginDesc").hide();
-    $(".pluginDescCompact").show();
     $(".pluginActions").hide();
     $(".pluginActionsSmallIcons").show();
 
@@ -28,7 +26,6 @@ function setDisplayLine() {
     $(".pluginContainer").addClass("line-form").removeClass("compact-form").removeClass("classic-form");
 
     $(".pluginDesc").show();
-    $(".pluginDescCompact").hide();
     $(".pluginActions").show();
     $(".pluginActionsSmallIcons").hide();
     // normalTitle();
@@ -226,10 +223,6 @@ function uninstallPlugin(id) {
 $(document).ready(function () {
     actualizeFilter();
 
-    if (!$.cookie("pwg_plugin_manager_view")) {
-        $.cookie("pwg_plugin_manager_view", "classic");
-    }
-
     if ($("#displayClassic").is(":checked")) {
         setDisplayClassic();
     };
@@ -244,17 +237,17 @@ $(document).ready(function () {
 
     $("#displayClassic").change(function () {
         setDisplayClassic();
-        $.cookie("pwg_plugin_manager_view", "classic");
+        set_view_selector('classic');
     })
 
     $("#displayCompact").change(function () {
         setDisplayCompact();
-        $.cookie("pwg_plugin_manager_view", "compact");
+        set_view_selector('compact');
     })
 
     $("#displayLine").change(function () {
         setDisplayLine();
-        $.cookie("pwg_plugin_manager_view", "line");
+        set_view_selector('line');
     })
 
     /* Plugin Filters */
@@ -384,6 +377,7 @@ $(document).ready(function () {
         let plugin_id = $(this).closest(".pluginContent").parent().attr("id");
         $.confirm({
           title: restore_plugin_msg.replace('%s', plugin_name),
+          content: str_restore_def,
           buttons: {
             confirm: {
               text: confirm_msg,
@@ -425,6 +419,18 @@ $(document).ready(function () {
       })
 })
 
+function set_view_selector(view_type) {
+  $.ajax({
+    url: "ws.php?format=json&method=pwg.users.preferences.set",
+    type: "POST",
+    dataType: "JSON",
+    data: {
+      param: 'plugin-manager-view',
+      value: view_type,
+    }
+  })
+}
+
 // TPL part :
 
 const queuedManager = jQuery.manageAjax.create("queued", {
@@ -449,6 +455,7 @@ function actualizeFilter() {
   $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
   $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
   $(".filterLabel").show();
+  
   $(".pluginMiniBox").each(function () {
     if (nb_plugin.active == 0) {
       $("label[for='seeActive']").hide();
@@ -497,38 +504,34 @@ function performPluginDeactivate(id) {
 /* group action */
 
 jQuery(document).ready(function () {
-    jQuery(".pluginBox").each(function (index) {
-        $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
-        $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
-        $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+    $("label[for='seeActive'] .filter-badge").html(nb_plugin.active);
+    $("label[for='seeInactive'] .filter-badge").html(nb_plugin.inactive);
+    $("label[for='seeOther'] .filter-badge").html(nb_plugin.other);
+    $(".filterLabel").show(); 
 
-        $(".filterLabel").show();
-        $(".pluginMiniBox").each(function () {
-            if (nb_plugin.active == 0) {
-                $("label[for='seeActive']").hide();
-                if ($("#seeActive").is(":checked")) {
-                $("#seeAll").trigger("click");
-                }
+    $(".pluginBox").each(function () {
+        if (nb_plugin.active == 0) {
+            $("label[for='seeActive']").hide();
+            if ($("#seeActive").is(":checked")) {
+            $("#seeAll").trigger("click");
             }
-            if (nb_plugin.inactive == 0) {
-                $("label[for='seeInactive']").hide();
-                if ($("#seeInactive").is(":checked")) {
-                $("#seeAll").trigger("click");
-                }
+        }
+        if (nb_plugin.inactive == 0) {
+            $("label[for='seeInactive']").hide();
+            if ($("#seeInactive").is(":checked")) {
+            $("#seeAll").trigger("click");
             }
-            if (nb_plugin.other == 0) {
-                $("label[for='seeOther']").hide();
-                if ($("#seeOther").is(":checked")) {
-                $("#seeAll").trigger("click");
-                }
+        }
+        if (nb_plugin.other == 0) {
+            $("label[for='seeOther']").hide();
+            if ($("#seeOther").is(":checked")) {
+            $("#seeAll").trigger("click");
             }
-        });
-    });
+        }
 
-    jQuery(".pluginBox").each(function (index) {
         let myplugin = jQuery(this);
         myplugin.find(".showOptions").click(function () {
-        myplugin.find(".PluginOptionsBlock").toggle();
+            myplugin.find(".PluginOptionsBlock").toggle();
         });
     });
 

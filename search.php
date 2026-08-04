@@ -9,6 +9,7 @@
 //--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -17,196 +18,124 @@ check_status(ACCESS_GUEST);
 
 trigger_notify('loc_begin_search');
 
-//------------------------------------------------------------------ form check
-$search = array();
-if (isset($_POST['submit']))
+// +-----------------------------------------------------------------------+
+// | Create a default search                                               |
+// +-----------------------------------------------------------------------+
+
+$search = array(
+  'mode' => 'AND',
+  'fields' => array()
+);
+
+// list of filters in user preferences
+$filters_views = safe_unserialize(conf_get_param('filters_views', $conf['default_filters_views']));
+
+//change the name of the keys so that they can be used with this part of the program
+$filter_rename_for = array(
+  'words'          => 'allwords',
+  'post_date'      => 'date_posted',
+  'creation_date'  => 'date_created',
+  'album'          => 'cat',
+  'file_type'      => 'filetypes',
+  'ratio'          => 'ratios',
+  'rating'         => 'ratings',
+  'file_size'      => 'filesize',
+);
+
+$filters_conf = array();
+foreach ($filters_views as $filter_name => $filter_value)
 {
-  foreach ($_POST as $post_key => $post_value)
-  {
-    if (!is_array($post_value))
-    {
-      $_POST[$post_key] = pwg_db_real_escape_string($post_value);
+  $key = isset($filter_rename_for[$filter_name]) ? $filter_rename_for[$filter_name] : $filter_name;
+
+  $filters_conf[$key] = $filter_value;
+}
+
+//get all default filters
+$default_fields = array();
+foreach($filters_conf as $filt_name => $filt_conf){
+  if(isset($filt_conf['default'])){
+    if($filt_conf['default'] == true){
+      $default_fields[] = $filt_name;
     }
-  }  
-  
-  if (isset($_POST['search_allwords'])
-      and !preg_match('/^\s*$/', $_POST['search_allwords']))
-  {
-    check_input_parameter('mode', $_POST, false, '/^(OR|AND)$/');
-    check_input_parameter('fields', $_POST, true, '/^(name|comment|file)$/');
-
-    $drop_char_match = array(
-      '-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_',
-      '?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
-    $drop_char_replace = array(
-      ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','','',' ',' ',' ',' ','',' ',
-      ' ',' ',' ',' ',' ',' ',' ',' ','' ,' ',' ',' ',' ',' ');
-
-    // Split words
-    $search['fields']['allwords'] = array(
-      'words' => array_unique(
-        preg_split(
-          '/\s+/',
-          str_replace(
-            $drop_char_match,
-            $drop_char_replace,
-            $_POST['search_allwords']
-            )
-          )
-        ),
-      'mode' => $_POST['mode'],
-      'fields' => $_POST['fields'],
-      );
-
-    if (isset($_POST['search_in_tags']))
-    {
-      $search['fields']['search_in_tags'] = true;
-    }
-  }
-
-  if (isset($_POST['tags']))
-  {
-    check_input_parameter('tags', $_POST, true, PATTERN_ID);
-    check_input_parameter('tag_mode', $_POST, false, '/^(OR|AND)$/');
-    
-    $search['fields']['tags'] = array(
-      'words' => $_POST['tags'],
-      'mode'  => $_POST['tag_mode'],
-      );
-  }
-
-  if (isset($_POST['authors']) and is_array($_POST['authors']) and count($_POST['authors']) > 0)
-  {
-    $authors = array();
-
-    foreach ($_POST['authors'] as $author)
-    {
-      $authors[] = strip_tags($author);
-    }
-    
-    $search['fields']['author'] = array(
-      'words' => $authors,
-      'mode' => 'OR',
-      );
-  }
-
-  if (isset($_POST['cat']))
-  {
-    check_input_parameter('cat', $_POST, true, PATTERN_ID);
-    
-    $search['fields']['cat'] = array(
-      'words'   => $_POST['cat'],
-      'sub_inc' => ($_POST['subcats-included'] == 1) ? true : false,
-      );
-  }
-
-  // dates
-  check_input_parameter('date_type', $_POST, false, '/^date_(creation|available)$/');
-  
-  $type_date = $_POST['date_type'];
-
-  if (!empty($_POST['start_year']))
-  {
-    $search['fields'][$type_date.'-after'] = array(
-      'date' => sprintf(
-        '%d-%02d-%02d 00:00:00',
-        $_POST['start_year'],
-        $_POST['start_month'] != 0 ? $_POST['start_month'] : '01',
-        $_POST['start_day']   != 0 ? $_POST['start_day']   : '01'
-        ),
-      'inc' => true,
-      );
-  }
-
-  if (!empty($_POST['end_year']))
-  {
-    $search['fields'][$type_date.'-before'] = array(
-      'date' => sprintf(
-        '%d-%02d-%02d 23:59:59',
-        $_POST['end_year'],
-        $_POST['end_month'] != 0 ? $_POST['end_month'] : '12',
-        $_POST['end_day']   != 0 ? $_POST['end_day']   : '31'
-      ),
-      'inc' => true,
-      );
-  }
-
-  if (!empty($search))
-  {
-    // default search mode : each clause must be respected
-    $search['mode'] = 'AND';
-
-    // register search rules in database, then they will be available on
-    // thumbnails page and picture page.
-    $query ='
-INSERT INTO '.SEARCH_TABLE.'
-  (rules, last_seen)
-  VALUES
-  (\''.pwg_db_real_escape_string(serialize($search)).'\', NOW())
-;';
-    pwg_query($query);
-
-    $search_id = pwg_db_insert_id(SEARCH_TABLE);
-  }
-  else
-  {
-    $page['errors'][] = l10n('Empty query. No criteria has been entered.');
   }
 }
-//----------------------------------------------------------------- redirection
-if (isset($_POST['submit']) and count($page['errors']) == 0)
+
+if (is_a_guest() or is_generic() or $filters_conf['last_filters_conf']==false)
 {
-  redirect(
-    make_index_url(
-      array(
-        'section' => 'search',
-        'search'  => $search_id,
-        )
-      )
-    );
+  $fields = $default_fields;
 }
-//----------------------------------------------------- template initialization
+else
+{
+  $fields = userprefs_get_param('gallery_search_filters', $default_fields);
+}
 
-//
-// Start output of page
-//
-$title= l10n('Search');
-$page['body_id'] = 'theSearchPage';
+$words = array();
+if (!empty($_GET['q']))
+{
+  $words = split_allwords($_GET['q']);
+}
 
-$template->set_filename('search' ,'search.tpl' );
-
-$month_list = $lang['month'];
-$month_list[0]='------------';
-ksort($month_list);
-
-$template->assign(
-  array(
-    'F_SEARCH_ACTION' => 'search.php',
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=search',
-
-    'month_list' => $month_list,
-    'START_DAY_SELECTED' => @$_POST['start_day'],
-    'START_MONTH_SELECTED' => @$_POST['start_month'],
-    'END_DAY_SELECTED' => @$_POST['end_day'],
-    'END_MONTH_SELECTED' => @$_POST['end_month'],
-    )
+if (count($words) > 0 or in_array('allwords', $fields))
+{
+  $search['fields']['allwords'] = array(
+    'words' => $words,
+    'mode' => 'AND',
+    'fields' => array('file', 'name', 'comment', 'tags', 'author', 'cat-title', 'cat-desc'),
   );
-
-$available_tags = get_available_tags();
-
-if (count($available_tags) > 0)
-{
-  usort( $available_tags, 'tag_alpha_compare');
-
-  $template->assign('TAGS', $available_tags);
 }
 
-// authors
-$authors = array();
+$cat_ids = array();
+if (isset($_GET['cat_id']))
+{
+  check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 
-$query = '
+  $query = '
 SELECT
-    author,
+    *
+  FROM '.USER_CACHE_CATEGORIES_TABLE.'
+  WHERE cat_id = '.$_GET['cat_id'].'
+    AND user_id = '.$user['id'].'
+;';
+  $found_categories = query2array($query);
+  if (empty($found_categories))
+  {
+    page_not_found(l10n('Requested album does not exist'));
+  }
+
+  $cat_ids = array($_GET['cat_id']);
+}
+
+if (count($cat_ids) > 0 or in_array('cat', $fields))
+{
+  $search['fields']['cat'] = array(
+    'words' => $cat_ids,
+    'sub_inc' => true,
+  );
+}
+
+if (count(get_available_tags()) > 0)
+{
+  $tag_ids = array();
+  if (isset($_GET['tag_id']))
+  {
+    check_input_parameter('tag_id', $_GET, false, '/^\d+(,\d+)*$/');
+    $tag_ids = explode(',', $_GET['tag_id']);
+  }
+
+  if (count($tag_ids) > 0 or in_array('tags', $fields))
+  {
+    $search['fields']['tags'] = array(
+      'words' => $tag_ids,
+      'mode'  => 'AND',
+    );
+  }
+}
+
+if (in_array('author', $fields))
+{
+  // does this Piwigo has authors for current user?
+  $query = '
+SELECT
     id
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
@@ -219,58 +148,44 @@ SELECT
     ' WHERE '
     ).'
     AND author IS NOT NULL
-  GROUP BY author, id
-  ORDER BY author
+    LIMIT 1
 ;';
-$author_counts = array();
-$result = pwg_query($query);
-while ($row = pwg_db_fetch_assoc($result))
-{
-  if (!isset($author_counts[ $row['author'] ]))
+  $first_author = query2array($query);
+
+  if (count($first_author) > 0)
   {
-    $author_counts[ $row['author'] ] = 0;
-  }
-  
-  $author_counts[ $row['author'] ]++;
-}
-
-foreach ($author_counts as $author => $counter)
-{
-  $authors[] = array(
-    'author' => $author,
-    'counter' => $counter,
+    $search['fields']['author'] = array(
+      'words' => array(),
+      'mode' => 'OR',
     );
+  }
 }
 
-$template->assign('AUTHORS', $authors);
-
-//------------------------------------------------------------- categories form
-$query = '
-SELECT id,name,global_rank,uppercats
-  FROM '.CATEGORIES_TABLE.'
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'forbidden_categories' => 'id',
-        'visible_categories' => 'id'
-      ),
-    'WHERE'
-  ).'
-;';
-display_select_cat_wrapper($query, array(), 'category_options', true);
-
-// include menubar
-$themeconf = $template->get_template_vars('themeconf');
-if (!isset($themeconf['hide_menu_on']) OR !in_array('theSearchPage', $themeconf['hide_menu_on']))
+foreach (array('added_by', 'filetypes', 'ratios', 'ratings') as $field)
 {
-  include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+  if (in_array($field, $fields))
+  {
+    $search['fields'][$field] = array();
+  }
 }
 
-//------------------------------------------------------------ html code display
-include(PHPWG_ROOT_PATH.'include/page_header.php');
-trigger_notify('loc_end_search');
-flush_page_messages();
-$template->pparse('search');
-include(PHPWG_ROOT_PATH.'include/page_tail.php');
+foreach (array('date_posted', 'date_created') as $field){
+  if (in_array($field, $fields))
+  {
+    $search['fields'][$field] = array(
+      'preset' => ''
+    );
+  }
+}
+
+foreach (array('filesize_min', 'filesize_max', 'width_min', 'width_max', 'height_min', 'height_max') as $field)
+{
+  if (in_array($field, $fields))
+  {
+    $search['fields'][$field] = '';
+  }
+}
+
+list($search_uuid, $search_url) = save_search($search);
+redirect($search_url);
 ?>

@@ -1,20 +1,32 @@
 {footer_script}
 var data = {json_encode($album_data)};
 var pwg_token = "{$PWG_TOKEN}";
-var str_show_sub = "{'Show sub-albums'|@translate}";
-var str_hide_sub = "{'Hide sub-albums'|@translate}";
-var str_manage_sub_album = "{'Manage sub-albums'|@translate}";
-var str_apply_order_raw = "{'apply automatic sort order'|translate}";
+var str_show_sub = "{'Show sub-albums'|@translate|escape:javascript}";
+var str_hide_sub = "{'Hide sub-albums'|@translate|escape:javascript}";
+var str_manage_sub_album = "{'Manage sub-albums'|@translate|escape:javascript}";
+var str_apply_order_raw = "{'apply automatic sort order'|translate|escape:javascript}";
 var str_apply_order = str_apply_order_raw.charAt(0).toUpperCase() + str_apply_order_raw.slice(1);
-var str_edit = "{'Edit album'|@translate}";
-var str_are_you_sure = "{'The status of the album \'%s\' and its sub-albums will change to private. Are you sure?'|@translate}";
-var str_yes_change_parent = "{'Yes change parent anyway'|@translate}";
-var str_no_change_parent = "{'No, don\'t move this album here'|@translate}";
-var str_root = "{'Root'|@translate}";
+var str_edit = "{'Edit album'|@translate|escape:javascript}";
+var str_are_you_sure = "{'The status of the album \'%s\' and its sub-albums will change to private. Are you sure?'|@translate|escape:javascript}";
+var str_yes_change_parent = "{'Yes change parent anyway'|@translate|escape:javascript}";
+var str_no_change_parent = "{'No, don\'t move this album here'|@translate|escape:javascript}";
+var str_root = "{'Root'|@translate|escape:javascript}";
 var openCat = {$open_cat};
 var nb_albums = {$nb_albums};
+var light_album_manager = {$light_album_manager};
+
+var x_nb_subcats = "{'%d sub-albums'|@translate|escape:javascript}";
+var x_nb_images = "{'%d photos'|@translate|escape:javascript}";
+var x_nb_sub_photos = "{'%d pictures in sub-albums'|@translate|escape:javascript}";
+
+var str_albums_found = '{"<b>%d</b> albums found"|translate|escape:javascript}';
+var str_album_found = '{"<b>1</b> album found"|translate|escape:javascript}';
+var str_result_limit = '{"<b>%d+</b> albums found, try to refine the search"|translate|escape:javascript}';
+const str_albs_drag_drop = '{"Drag and drop to reorder albums"|translate|escape:javascript}';
 
 var delay_autoOpen = {$delay_before_autoOpen}
+
+const categoriesforSearch = Object.values(data);
 {/footer_script}
 
 {combine_script id='jquery.confirm' load='footer' require='jquery' path='themes/default/js/plugins/jquery-confirm.min.js'}
@@ -38,13 +50,18 @@ const str_add_photo = '{'Add Photos'|@translate|escape:javascript}';
 const str_visit_gallery = '{'Visit Gallery'|@translate|escape:javascript}';
 const str_sort_order = '{'Automatic sort order'|@translate|escape:javascript}';
 const str_delete_album = '{'Delete album'|@translate|escape:javascript}';
+const str_root_order = '{'Apply to root albums'|@translate|escape:javascript}';
+str_sub_album_order = '{'Apply to direct sub-albums'|@translate|escape:javascript}';
+str_album_name_empty = '{'Album name must not be empty'|@translate|escape:javascript}'
 
 const add_album_root_title = '{'Create a new album at root'|@translate|escape:javascript}';
 const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javascript}';
+const tiptip_locked_album = "{'Locked album'|translate|escape:javascript}";
 {/footer_script}
 
 {combine_script id='jquery.tipTip' load='footer' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 
+{combine_script id='cat_search' load='footer' path='admin/themes/default/js/cat_search.js'}
 {combine_script id='albums' load='footer' path='admin/themes/default/js/albums.js'}
 
 <div class="cat-move-order-popin">
@@ -111,7 +128,7 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 
 <div class="cat-move-header"> 
   <div class="add-album-button">
-    <label class="head-button-2 icon-plus-circled">
+    <label class="head-button-2 icon-add-album">
       <p>{'Add Album'|@translate}</p>
     </label>
   </div>
@@ -120,7 +137,19 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
       <p>{'Automatic sort order'|@translate}</p>
     </label>
   </div>
-  <div class="cat-move-info icon-help-circled"> {'Drag and drop to reorder albums'|@translate}</div>
+  {* <div class="cat-move-info icon-help-circled"> {'Drag and drop to reorder albums'|@translate}</div> *}
+  <div class="cat-move-info search-album">
+    <div class="search-album-cont">
+      {* <div class="search-album-label">{'Search albums'|@translate}</div> *}
+      <span class="search-album-num-result"></span>
+      <div class="search-album-input-container" style="position:relative">
+        <span class="icon-search search-icon"></span>
+        <span class="icon-cancel search-cancel"></span>
+        <input id="cat_search_input" class='search-input' type="text" placeholder="{"Search"|@translate}">
+      </div>
+      <span class="search-album-help icon-help-circled" title="{'Enter a term to search for album'|@translate}"></span>
+    </div>
+  </div>
 </div>
 
 <div id="AddAlbum" class="AddAlbumPopIn">
@@ -128,7 +157,7 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
     <a class="icon-cancel CloseAddAlbum"></a>
     
     <div class="AddIconContainer">
-      <span class="AddIcon icon-blue icon-plus-circled"></span>
+      <span class="AddIcon icon-blue icon-add-album"></span>
     </div>
     <div class="AddIconTitle">
       <span></span>
@@ -147,18 +176,18 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
         <div class="AddAlbumRadioInput">
           <input type="radio" id="place-start"
           name="position" value="first" {if "first" == {$POS_PREF}} checked {/if}>
-          <label for="place-start">{'Placer au début'|translate}</label>
+          <label for="place-start">{'Place first'|translate}</label>
         </div>
         <div class="AddAlbumRadioInput">
           <input type="radio" id="place-end"
           name="position" value="last" {if "last" == {$POS_PREF}} checked {/if}>
-          <label for="place-end">{'Placer à la fin'|translate}</label>
+          <label for="place-end">{'Place last'|translate}</label>
         </div>
       </div>
     </div>
     
 
-    <div class="AddAlbumErrors icon-cancel">
+    <div class="AddAlbumErrors icon-warning-circled">
     </div>
 
     <div class="AddAlbumFormValidation">
@@ -237,6 +266,26 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
 
 <div class='tree'> </div>
 
+<div class="album-search-result-container" style="display: none;">
+  <div class="search-album-result"></div>
+  <div class="search-album-elem limit-album-reached" style="display: none;"></div>
+
+  <div class="search-album-noresult">
+    {'No albums found'|translate}
+  </div>
+</div>
+
+<div class="search-album-elem-template" style="display:none">
+  <div class="search-album-elem" style="display:none">
+    <span class='search-album-icon'></span>
+    <p class='search-album-name'></p>
+    <div class="search-album-action-cont">
+      <div class="search-album-action">
+        <a class="icon-pencil search-album-edit">{'Edit album'|translate}</a>
+      </div>
+    </div>
+  </div>
+</div>
 <style>
 
 .animateFocus {
@@ -276,6 +325,10 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
   }
 }
 
+.add-album-button label::before {
+  margin-right: 7px;
+}
+
 #AddAlbum, #DeleteAlbum, #RenameAlbum {
   display: none;
 }
@@ -313,21 +366,6 @@ const add_sub_album_of = '{'Create a sub-album of "%s"'|@translate|escape:javasc
   width: auto;
   min-width: 270px;
   max-width: 700px;
-}
-
-.user-property-input {
-  width: 100%;
-  box-sizing:border-box;
-  font-size:1.1em;
-  padding:8px 16px;
-  border:none;
-}
-
-.user-property-label {
-  color:#A4A4A4;
-  font-weight:bold;
-  font-size:1.1em;
-  margin-bottom:5px;
 }
 
 .AddIconContainer, .DeleteIconContainer, .AddIconContainer {
@@ -521,31 +559,52 @@ input[name="position"] {
 
 .dragging .move-cat-container .move-cat-toogler,
 .dragging .move-cat-container .move-cat-action-cont a,
-.dragging .move-cat-container .move-cat-title-container,
-.dragging .move-cat-action-small {
+.dragging .move-cat-container .move-cat-title-container{
   pointer-events: all;
 }
 
-.move-cat-action-small {
-  display: none;
-  position: relative;
-  right: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transform: scale(1.2);
-  padding: 20px 10px;
-}
-
-#catOptionsSmall .dropdown-option {
-  font-size: 10px;
-  font-weight: bold;
-}
-#catOptionsSmall .dropdown-option::before{
-  margin: 0 6px 0 -2px;
-}
 
 .last-update {
     display: none;
+}
+
+.badge-container:hover .badge-dropdown {
+  display: flex;
+}
+
+.badge-dropdown {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  right: 50%;
+  top: 30px;
+  width: max-content;
+  border-radius: 10px;
+  z-index: 10;
+  transform: translateX(48%);
+  box-shadow: 0px 3px 3px 1px rgba(0,0,0,0.2);
+  padding: 10px 20px;
+}
+
+.badge-dropdown:after {
+  content: " ";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: rotate(0);
+  border-width: 5px;
+  border-style: solid;
+}
+
+.badge-dropdown span {
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 5px 0;
+}
+.badge-dropdown span::before {
+  margin: 0 8px 0 0;
+  width: 20px;
 }
 
 @media (max-width: 1415px) { 
@@ -569,22 +628,24 @@ input[name="position"] {
     display: none;
   }
 
-  .move-cat-action {
-    display: none;
-  }
-
-  .move-cat-action-small {
-    display: flex;
+  ul.jqtree-tree ul.jqtree_common {
+    margin-left: 20px !important;
   }
 
   .move-cat-title-container {
-    max-width: 80%;
+    max-width: 60%;
+  }
+}
+
+@media (max-width: 1100px) { 
+  .move-cat-title-container {
+    max-width: 50%;
   }
 }
 
 @media (max-width: 850px) { 
   .move-cat-title-container {
-    max-width: 60%;
+    max-width: 40%;
   }
 }
 

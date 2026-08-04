@@ -59,6 +59,8 @@ if ( strncmp($page['root_path'], './', 2) == 0 )
   $page['root_path'] = substr($page['root_path'], 2);
 }
 
+$page['section_url'] = $rewritten;
+
 // deleting first "/" if displayed
 $tokens = explode('/', ltrim($rewritten, '/') );
 // $tokens = array(
@@ -362,10 +364,15 @@ else
     include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
 
     $search_result = get_search_results($page['search'], @$page['super_order_by'] );
+
     //save the details of the query search
     if ( isset($search_result['qs']) )
     {
       $page['qsearch_details'] = $search_result['qs'];
+    }
+    else if (isset($search_result['search_details']))
+    {
+      $page['search_details'] = $search_result['search_details'];
     }
 
     $page = array_merge(
@@ -606,8 +613,16 @@ elseif ('recent_cats'==$page['section'])
 }
 elseif ('search'==$page['section'])
 {
-  $page['meta_robots']['nofollow']=1;
+  $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
+elseif ('categories' == $page['section'])
+{
+  if (isset($page['combined_categories']))
+  {
+    $page['meta_robots'] = array('noindex'=>1, 'nofollow'=>1);
+  }
+}
+
 if ( $filter['enabled'] )
 {
   $page['meta_robots']['noindex']=1;

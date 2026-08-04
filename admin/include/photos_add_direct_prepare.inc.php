@@ -14,6 +14,7 @@ $template->assign(
     array(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
       'chunk_size' => $conf['upload_form_chunk_size'],
+      'max_file_size' => $conf['upload_form_max_file_size'],
       'ADMIN_PAGE_TITLE' => l10n('Upload Photos'),
     )
   );
@@ -113,7 +114,7 @@ else
 {
   // we need to know the category in which the last photo was added
   $query = '
-SELECT category_id
+SELECT category_id, c.uppercats
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = i.id
     JOIN '.CATEGORIES_TABLE.' AS c ON category_id = c.id
@@ -126,6 +127,8 @@ SELECT category_id
   {
     $row = pwg_db_fetch_assoc($result);
     $selected_category = array($row['category_id']);
+    $selected_category_name = get_cat_display_name_cache($row['uppercats'], null);
+    $template->assign('selected_category_name', $selected_category_name);
   }
 }
 

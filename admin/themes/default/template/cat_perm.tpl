@@ -5,6 +5,7 @@
 {combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 
 {footer_script}
+const cat_nav = '{$CATEGORIES_NAV|escape:javascript}';
 (function(){
 {* <!-- GROUPS --> *}
 var groupsCache = new GroupsCache({
@@ -48,9 +49,6 @@ jQuery("#selectStatus").change(function() {
 {/if}
 }());
 
-$(document).ready(function () {
-  $("h1").append(' <span style="letter-spacing:0">{$CATEGORIES_NAV}</span>');
-})
 {/footer_script}
 
 <form action="{$F_ACTION}" method="post" id="categoryPermissions">
@@ -170,17 +168,33 @@ $(document).ready(function () {
 *}
 </fieldset>
 
-  <p style="margin:12px;text-align:left;">
-    <button name="submit" type="submit" class="buttonLike">
-      <i class="icon-floppy"></i> {'Save Settings'|@translate}
-    </button>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+      <div class="savebar-footer-block">
+        <div class="switch-input">
+          <label class="switch">
+            <input type="checkbox" name="apply_on_sub" id="apply_on_sub" {if $INHERIT}checked="true"{/if}>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <label class="switch-label" for="apply_on_sub"><span>{'Apply to sub-albums'|@translate}</span></label>
+      </div>
+    </div>
+    <div class="savebar-footer-end">
 
-    <label id="applytoSubAction" class="font-checkbox">
-      <span class="icon-check"></span>
-      <input type="checkbox" name="apply_on_sub" {if $INHERIT}checked="checked"{/if}>
-      {'Apply to sub-albums'|@translate}
-    </label>
-  </p>
+{if isset($save_success)}
+      <div class="savebar-footer-block">
+        <div class="badge info-message">
+          <i class="icon-ok-circled"></i>{$save_success}
+        </div>
+      </div>
+{/if}
+    
+      <div class="savebar-footer-block">
+        <button class="buttonLike"  type="submit" name="submit"><i class="icon-floppy"></i> {'Save Settings'|@translate}</button>
+      </div>
+    </div>
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+  </div>
 
-<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

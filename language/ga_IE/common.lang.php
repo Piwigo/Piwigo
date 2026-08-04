@@ -65,4 +65,10 @@ $lang['square'] = 'Cearnóg';
 $lang['the beginning'] = 'an tús';
 $lang['small'] = 'B - beag';
 $lang['today'] = 'inniu';
-?>
+$lang['(!) This comment requires validation'] = '(!) teastaíonn bailíochtú ón trácht seo';
+$lang['%d comment'] = '%d trácht';
+$lang['%d comment to validate'] = '%d trácht le bailíochtú';
+$lang['%d comments'] = '%d tuairimí';
+$lang['%d comments to validate'] = '%d tuairimí le bailíochtú';
+$lang['%d new comment'] = '%d trácht nua';
+$lang['%d new comments'] = '%d tuairimí nua';

@@ -263,6 +263,8 @@ class DisplayBlock
   /** @var string */
   public $raw_content;
 
+  public $id;
+
   /**
    * @param RegisteredBlock $block
    */

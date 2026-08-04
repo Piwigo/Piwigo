@@ -4,7 +4,7 @@
 {footer_script}
 
 
-const title_msg = '{'Are you sure you want to restore to default settings?'|@translate|@escape}';
+const title_msg = '{'Are you sure you want to restore to default settings?'|@translate|@escape:javascript}';
 const confirm_msg = '{'Yes, I am sure'|@translate|@escape}';
 const cancel_msg = '{'No, I have changed my mind'|@translate|@escape}';
 
@@ -85,7 +85,7 @@ $(".restore-settings-button").each(function() {
 
   <fieldset id="sizesConf">
     <legend><span class="icon-picture icon-red"></span>{'Original Size'|translate}</legend>
-  {if $is_gd}
+  {if (isset($is_gd) and $is_gd)}
     <div>
       {'Resize after upload disabled due to the use of GD as graphic library'|translate}
       <input type="checkbox" name="original_resize"disabled="disabled" style="visibility: hidden">
@@ -97,7 +97,7 @@ $(".restore-settings-button").each(function() {
     <div>
       <label class="font-checkbox">
         <span class="icon-check"></span>
-        <input type="checkbox" name="original_resize" {if ($sizes.original_resize)}checked="checked"{/if}>
+        <input type="checkbox" name="original_resize" {if (isset($sizes.original_resize) and $sizes.original_resize)}checked="checked"{/if}>
         {'Resize after upload'|translate}
       </label>
     </div>
@@ -207,15 +207,36 @@ $(".restore-settings-button").each(function() {
       </tr>
     {/foreach}
     </table>
+
+  <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
+    {'Image Quality'|translate}
+    <input type="text" name="resize_quality" value="{$resize_quality}" size="3" maxlength="3"{if isset($ferrors.resize_quality)} class="dError"{/if}> %
+    {if isset($ferrors.resize_quality)}<span class="dErrorDesc" title="{$ferrors.resize_quality}">!</span>{/if}
+  </p>
+  <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
+    <a href="{$F_ACTION}&action=restore_settings" class="restore-settings-button">{'Reset to default values'|translate}</a>
+  </p>
+
   </fieldset>
 
 </div> <!-- configContent -->
 
-<p class="formButtons">
-  <button name="submit" type="submit" class="buttonLike" {if $isWebmaster != 1}disabled{/if}>
-    <i class="icon-floppy"></i> {'Save Settings'|@translate}
-  </button>
-</p>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+    </div>
+    <div class="savebar-footer-end">
+{if isset($save_success)}
+      <div class="savebar-footer-block">
+        <div class="badge info-message">
+          <i class="icon-ok-circled"></i>{$save_success}
+        </div>
+      </div>
+{/if}
+      <div class="savebar-footer-block">
+        <button class="buttonLike"  type="submit" name="submit" {if $isWebmaster != 1}disabled{/if}><i class="icon-floppy"></i> {'Save Settings'|@translate}</button>
+      </div>    
+    </div>
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+  </div>
 
-<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

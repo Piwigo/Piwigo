@@ -50,3 +50,4 @@ $lang['Welcome to my photo gallery'] = 'Добро пожаловать в мо�
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Не стесняйтесь консультироваться на наших форумах для получения любой помощи, %s';
 $lang['Welcome to your new installation of Piwigo!'] = 'Добро пожаловать в новую установку Piwigo!';
 $lang['localhost or other, supplied by your host provider'] = 'localhost или другой, который указан провайдером';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Требуется версия PHP %s (ваша версия %s)';

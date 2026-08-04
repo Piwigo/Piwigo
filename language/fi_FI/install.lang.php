@@ -50,3 +50,4 @@ $lang['You can download the config file and upload it to local/config directory 
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Sinun tulee kääntyä hosting -palveluntarjoajasi puoleen ja kysyä kuinka voit vaihtaa PHP 5.2 :seen itse.';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'se tulee tietokannan taulun nimen etuliitteeksi (mahdollistaa taulujen helpomman hallinnan)';
 $lang['verification'] = 'vahvistus';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP-versio %s vaaditaan. (sinulla on PHP-versio %s)';

@@ -1,0 +1,291 @@
+#addLinkedAlbum {
+  display:none;
+}
+
+.linkedAlbumPopIn {
+  position: fixed;
+  z-index: 102;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.7);
+}
+
+.linkedAlbumPopInContainer {
+  display:flex;
+  position:absolute;
+  left:50%;
+  top: 50%;
+  transform:translate(-50%, -48%);
+  text-align:left;
+  padding:20px;
+  flex-direction:column;
+  border-radius:15px;
+  align-items:center;
+  width: 460px;
+  height: 400px;
+}
+
+.linkedAlbumPopInContainer.big {
+  height: 500px;
+}
+
+.ClosePopIn {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  font-size: 30px;
+  color: #FFF;
+}
+
+.ClosePopIn:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.linkedAlbumPopInContainer .AddIconContainer {
+  margin-top: 20px;
+}
+
+.linkedAlbumPopInContainer .AddIcon {
+  border-radius: 9999px;
+  padding: 10px;
+  font-size: 2em;
+}
+
+.linkedAlbumPopInContainer .AddIconTitle {
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+#linkedAlbumSearch .search-icon {
+  position: absolute;
+  transform: translate(7px, 8px);
+  font-size: 18px;
+  top: auto;
+}
+
+.search-cancel-linked-album {
+  opacity: 0.4;
+  cursor: pointer;
+  position: absolute;
+  font-size: 18px;
+  transform: translate(215px, 8px);
+}
+
+.search-cancel-linked-album:hover {
+  opacity: 1;
+}
+
+.linkedAlbumPopInContainer .searching {
+  margin-top: 10px;
+}
+
+.linkedAlbumPopInContainer #searchResult {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 400px;
+  margin: 10px 0 0 0;
+}
+
+.put-to-root {
+  width: 220px;
+  margin-top: 5px;
+}
+.put-to-root p {
+  margin: 0  auto;
+}
+
+/* Prefill */
+.display-subcat {
+  margin-right: 2px;
+}
+
+.display-subcat:hover {
+  cursor: pointer;
+}
+
+.display-subcat::before {
+  transition: 0.5s;
+  transform: rotate(90deg);
+}
+
+.display-subcat.open::before {
+  transform: rotate(180deg);
+}
+
+.search-result-item {
+  margin: 10px 0px;
+  padding: 5px 10px;
+  height: 25px;
+  border-radius: 5px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.search-result-item .item-add {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.notClickable {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.notClickable:hover {
+  cursor: default;
+}
+
+.search-result-item.already-in {
+  cursor: default;
+}
+
+.prefill-results-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.search-result-path {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 350px;
+  direction: rtl;
+  text-align: left;
+}
+
+.search-result-path.not-rtl {
+  direction: ltr !important;
+  text-overflow: unset !important;
+}
+
+.search-result-path-name {
+  unicode-bidi: plaintext;
+}
+
+.search-result-subcat-item {
+  display: none;
+}
+
+.and-more{
+  text-align: center;
+}
+
+/* Album selector View */
+.album-create {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.album-selector,
+.album-create {
+  text-align: center;
+}
+
+.linked-album-subtitle {
+  margin: 0 0 30px 0;
+}
+
+.linked-album-subtitle p {
+  margin: 0;
+  font-style: italic;
+  font-weight: 700;
+  color: #AAAAAA;
+}
+
+.linked-add-album {
+  display: none;
+  margin: 0px;
+}
+
+.album-switch-bottom {
+  width: 100%;
+  margin-top: auto;
+}
+
+.album-switch-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.switch-input {
+  display: flex;
+  align-items: center;
+}
+
+.linked-album-input-container {
+  width: 100%;
+  text-align: start;
+}
+
+.linked-album-input-container.album-name {
+  margin-bottom: 20px;
+}
+
+.linked-album-input-container .user-property-input,
+.linked-add-radio-input {
+  margin-top: 10px;
+}
+
+.linked-add-radio-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.linked-add-radio-input input {
+  margin-right: 5px;
+}
+
+.linked-add-radio-input label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.linked-album-create-btn {
+  display: flex;
+  margin-top: auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.linked-album-create-btn p {
+  margin: 0;
+}
+
+.linked-button-cancel {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.linked-button-cancel:hover {
+  color: #000;
+}
+
+.AddAlbumErrors {
+  visibility: hidden;
+}
+
+#linkedAddAlbumErrors {
+  margin: 0;
+  text-align: start;
+  padding: 10px;
+}

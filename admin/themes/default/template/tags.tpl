@@ -44,13 +44,19 @@ $(document).ready(function() {
 {combine_script id='tags' load='footer' path='admin/themes/default/js/tags.js'}
 {combine_script id='jquery.cookie' path='themes/default/js/jquery.cookie.js' load='footer'}
 
+{footer_script}
+if (!$.cookie("pwg_tags_per_page")) {
+  $.cookie("pwg_tags_per_page", "100");
+}
+{/footer_script}
+
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
 <meta http-equiv='pragma' content='no-cache'>
 
 {function name=tagContent}
 {function tagContent}
-    <p class='tag-name'>{$tag_name}</p>
+    <p class='tag-name {($tag_raw_name !== $tag_name) ? 'icon-globe' : ''}' data-rawname="{$tag_raw_name}">{$tag_name}</p>
     <a class="icon-ellipsis-vert showOptions"></a>
     <div class="tag-dropdown-block dropdown">
       <div class="dropdown-content">
@@ -133,10 +139,10 @@ $(document).ready(function() {
     <a id="selectInvert">{'Invert'|@translate}</a> 
   </div>
   {if $warning_tags != ""}
-  <div class='tag-warning tag-info icon-attention not-in-selection-mode'><p> {$warning_tags} </p></div>
+  <div class='info-warning tag-info icon-attention not-in-selection-mode'><p> {$warning_tags} </p></div>
   {/if}
-  <div class='tag-message tag-info icon-ok not-in-selection-mode' {if $message_tags != ""}style='display:flex'{/if}> <p> {$message_tags} </p> </div>
-  <div class='tag-error tag-info icon-cancel not-in-selection-mode'> <p> </p> </div>
+  <div class='info-message tag-info  icon-ok not-in-selection-mode' {if $message_tags != ""}style='display:flex'{/if}> <p> {$message_tags} </p> </div>
+  <div class='info-error tag-info icon-cancel not-in-selection-mode'> <p> </p> </div>
 </div>
 <div class="pageLoad">
   <i class='icon-spin6 animate-spin'> </i>
@@ -191,6 +197,7 @@ $(document).ready(function() {
         tag_U_EDIT = 'admin.php?page=batch_manager&amp;filter=tag-%s'|@sprintf:$tag['id']
         has_image = ($tag.counter > 0)
         tag_count = $tag.counter
+        tag_raw_name = $tag.raw_name
       }
   {else}
     {tagContent 
@@ -199,6 +206,7 @@ $(document).ready(function() {
         tag_U_EDIT = 'admin.php?page=batch_manager&amp;filter=tag-%s'|@sprintf:$tag['id']
         has_image = false
         tag_count = 0
+        tag_raw_name = $tag.raw_name
       }
   {/if}
 
@@ -210,22 +218,22 @@ $(document).ready(function() {
   <div class="pagination-per-page">
     <span class="thumbnailsActionsShow" style="font-weight: bold;">{'Display'|@translate}</span>
     <a id="100"
-  {if $smarty.cookies.pwg_tags_per_page == 100 || !$smarty.cookies.pwg_tags_per_page} 
+  {if !isset($smarty.cookies.pwg_tags_per_page) || !$smarty.cookies.pwg_tags_per_page || $smarty.cookies.pwg_tags_per_page == 100} 
     class="selected"
   {/if}
     >100</a>
     <a id="200"
-  {if $smarty.cookies.pwg_tags_per_page == 200} 
+  {if isset($smarty.cookies.pwg_tags_per_page) && $smarty.cookies.pwg_tags_per_page == 200} 
     class="selected"
   {/if}
     >200</a>
     <a id="500"
-  {if $smarty.cookies.pwg_tags_per_page == 500} 
+  {if isset($smarty.cookies.pwg_tags_per_page) && $smarty.cookies.pwg_tags_per_page == 500} 
     class="selected"
   {/if}
     >500</a>
     <a id="1000"
-  {if $smarty.cookies.pwg_tags_per_page == 1000} 
+  {if isset($smarty.cookies.pwg_tags_per_page) && $smarty.cookies.pwg_tags_per_page == 1000} 
     class="selected"
   {/if}
     >1000</a>
@@ -250,5 +258,6 @@ $(document).ready(function() {
     tag_U_EDIT='%U_EDIT%'
     has_image=false
     tag_count='%count%'
+    tag_raw_name = '%raw_name%'
   }
 </div> 

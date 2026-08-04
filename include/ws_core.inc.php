@@ -517,6 +517,11 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       return new PwgError(401, 'Access denied');
     }
 
+    if (!$this->isAuthorizedMethodForAPIKEY())
+    {
+      return new PwgError(401, 'Access denied');
+    }
+
     // parameter check and data correction
     $signature = $method['signature'];
     $missing_params = array();
@@ -678,6 +683,28 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       $res['params'][] = $param_data;
     }
     return $res;
+  }
+
+  function isAuthorizedMethodForAPIKEY()
+  {
+    global $conf;
+
+    // if the request is made with an API key (via header or session API key),
+    // we check whether the requested method is on the 
+    // list of prohibited methods ($conf['api_key_forbidden_methods']) for API keys
+    // if it is, access is refused (false)
+    if (
+      defined('PWG_API_KEY_REQUEST')
+      OR (isset($_SESSION['connected_with']) AND 'ws_session_login_api_key' === $_SESSION['connected_with'])
+    )
+    {
+      if (in_array($_REQUEST['method'], $conf['api_key_forbidden_methods']))
+      {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 ?>

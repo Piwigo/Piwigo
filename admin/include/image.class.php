@@ -47,6 +47,7 @@ class pwg_image
 
   function __construct($source_filepath, $library=null)
   {
+    global $conf;
     $this->source_filepath = $source_filepath;
 
     trigger_notify('load_image_library', array(&$this) );
@@ -58,7 +59,7 @@ class pwg_image
 
     $extension = strtolower(get_extension($source_filepath));
 
-    if (!in_array($extension, array('jpg', 'jpeg', 'png', 'gif')))
+    if (!in_array($extension, $conf['picture_ext']))
     {
       die('[Image] unsupported file extension');
     }
@@ -211,6 +212,60 @@ class pwg_image
     return $result;
   }
 
+  static function webp_info($source_filepath)
+  {
+    // function based on https://stackoverflow.com/questions/61221874/detect-if-a-webp-image-is-transparent-in-php
+    //
+    // https://github.com/webmproject/libwebp/blob/master/src/dec/webp_dec.c
+    // https://developers.google.com/speed/webp/docs/riff_container
+    // https://developers.google.com/speed/webp/docs/webp_lossless_bitstream_specification
+    // https://stackoverflow.com/questions/61221874/detect-if-a-webp-image-is-transparent-in-php
+
+    $fp = fopen($source_filepath, 'rb');
+    if (!$fp) {
+        throw new Exception("webp_info(): fopen($f): Failed");
+    }
+    $buf = fread($fp, 25);
+    fclose($fp);
+
+    switch (true) {
+      case!is_string($buf):
+      case strlen($buf) < 25:
+      case substr($buf, 0, 4) != 'RIFF':
+      case substr($buf, 8, 4) != 'WEBP':
+      case substr($buf, 12, 3) != 'VP8':
+        throw new Exception("webp_info(): not a valid webp image");
+
+      case $buf[15] == ' ':
+        // Simple File Format (Lossy)
+        return array(
+          'type'            => 'VP8',
+          'has-animation'   => false,
+          'has-transparent' => false,
+        );
+
+
+      case $buf[15] == 'L':
+        // Simple File Format (Lossless)
+        return array(
+          'type'            => 'VP8L',
+          'has-animation'   => false,
+          'has-transparent' => (bool) (!!(ord($buf[24]) & 0x00000010)),
+        );
+
+      case $buf[15] == 'X':
+        // Extended File Format
+        return array(
+          'type'            => 'VP8X',
+          'has-animation'   => (bool) (!!(ord($buf[20]) & 0x00000002)),
+          'has-transparent' => (bool) (!!(ord($buf[20]) & 0x00000010)),
+        );
+
+      default:
+        throw new Exception("webp_info(): could not detect webp type");
+    }
+  }
+
   static function get_rotation_angle($source_filepath)
   {
     list($width, $height, $type) = getimagesize($source_filepath);
@@ -295,7 +350,7 @@ class pwg_image
     return $matrix;
   }
 
-  private function get_resize_result($destination_filepath, $width, $height, $time=null)
+  protected function get_resize_result($destination_filepath, $width, $height, $time=null)
   {
     return array(
       'source'      => $this->source_filepath,
@@ -313,6 +368,29 @@ class pwg_image
     return (extension_loaded('imagick') and class_exists('Imagick'));
   }
 
+  static function get_ext_imagick_command()
+  {
+    global $page, $conf;
+
+    if (!isset($page['ext_imagick_command']))
+    {
+      $retval=null;
+      $cmd_out=null;
+      // check if magick is in path
+      exec('command -v '.$conf['ext_imagick_dir'].'magick', $cmd_out , $retval );
+      if (0 == $retval)
+      {
+        $page['ext_imagick_command'] = 'magick';
+      }
+      else
+      {
+        $page['ext_imagick_command'] = 'convert';
+      }
+    }
+    
+    return $page['ext_imagick_command'];
+  }
+
   static function is_ext_imagick()
   {
     global $conf;
@@ -321,7 +399,8 @@ class pwg_image
     {
       return false;
     }
-    @exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
+
+    @exec($conf['ext_imagick_dir'].pwg_image::get_ext_imagick_command().' -version', $returnarray);
     if (is_array($returnarray) and !empty($returnarray[0]) and preg_match('/ImageMagick/i', $returnarray[0]))
     {
       if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
@@ -351,15 +430,15 @@ class pwg_image
     switch (strtolower($library))
     {
       case 'auto':
-      case 'imagick':
-        if ($extension != 'gif' and self::is_imagick())
-        {
-          return 'imagick';
-        }
       case 'ext_imagick':
         if ($extension != 'gif' and self::is_ext_imagick())
         {
           return 'ext_imagick';
+        }
+      case 'imagick':
+        if ($extension != 'gif' and self::is_imagick())
+        {
+          return 'imagick';
         }
       case 'gd':
         if (self::is_gd())
@@ -490,6 +569,7 @@ class image_ext_imagick implements imageInterface
   var $source_filepath = '';
   var $width = '';
   var $height = '';
+  var $is_animated_webp = false;
   var $commands = array();
 
   function __construct($source_filepath)
@@ -501,6 +581,23 @@ class image_ext_imagick implements imageInterface
     if (strpos(@$_SERVER['SCRIPT_FILENAME'], '/kunden/') === 0)  // 1and1
     {
       @putenv('MAGICK_THREAD_LIMIT=1');
+    }
+
+    if ('webp' == strtolower(get_extension($source_filepath)))
+    {
+      $webp_info = pwg_image::webp_info($source_filepath);
+
+      if ($webp_info['has-animation'])
+      {
+        $this->is_animated_webp = true;
+
+        // ImageMagick "identify" returns the list of width x height for each
+        // frame, such as "400x300400x300400x300" (3 frames of 400x300), as a big
+        // string, impossible to parse :-/ So let's use the PHP embedded function
+        // getimagesize here.
+        list($this->width, $this->height) = getimagesize($source_filepath);
+        return;
+      }
     }
 
     $command = $this->imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
@@ -534,7 +631,8 @@ class image_ext_imagick implements imageInterface
     $this->width = $width;
     $this->height = $height;
 
-    $this->add_command('crop', $width.'x'.$height.'+'.$x.'+'.$y);
+    // the final "!" is added to crop the canva too, for animated picture (with WebP in mind)
+    $this->add_command('crop', $width.'x'.$height.'+'.$x.'+'.$y.'!');
     return true;
   }
 
@@ -564,6 +662,16 @@ class image_ext_imagick implements imageInterface
 
   function set_compression_quality($quality)
   {
+    global $conf;
+
+    if ($this->is_animated_webp)
+    {
+      // in cas of animated WebP, we need to maximize quality to 70 to avoid
+      // heavy thumbnails (or square or whatever is displayed on the thumbnails
+      // page)
+      $quality = min($quality, $conf['animated_webp_compression_quality']);
+    }
+
     $this->add_command('quality', $quality);
     return true;
   }
@@ -620,8 +728,14 @@ class image_ext_imagick implements imageInterface
       $this->add_command('sampling-factor', '4:2:2' );
     }
 
-    $exec = $this->imagickdir.'convert';
+    $exec = $this->imagickdir.pwg_image::get_ext_imagick_command();
     $exec .= ' "'.realpath($this->source_filepath).'"';
+
+    // If the image is animated webp add a filter to avoid breaking the animation
+    if ($this->is_animated_webp)
+    {
+      $exec .= ' -layers coalesce ';
+    }
 
     foreach ($this->commands as $command => $params)
     {
@@ -631,7 +745,6 @@ class image_ext_imagick implements imageInterface
         $exec .= ' '.$params;
       }
     }
-
     $dest = pathinfo($destination_filepath);
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
     $logger->debug($exec, 'i.php');
@@ -672,6 +785,10 @@ class image_gd implements imageInterface
     elseif ($extension == 'gif' and $gd_info['GIF Read Support'] and $gd_info['GIF Create Support'])
     {
       $this->image = imagecreatefromgif($source_filepath);
+    }
+    elseif ($extension == 'webp' and $gd_info['WebP Support'])
+    {
+      $this->image = imagecreatefromwebp($source_filepath);
     }
     else
     {
@@ -797,6 +914,10 @@ class image_gd implements imageInterface
     elseif ($extension == 'gif')
     {
       imagegif($this->image, $destination_filepath);
+    }
+    elseif ($extension == 'webp')
+    {
+      imagewebp($this->image, $destination_filepath, $this->quality);
     }
     else
     {

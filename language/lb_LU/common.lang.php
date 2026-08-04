@@ -240,7 +240,7 @@ $lang['Edit a comment'] = 'beaarbecht ee Kommentar';
 $lang['Enter your new password below.'] = 'Neit Passwuert ënnen agin';
 $lang['Expand all albums'] = 'Den Albumsbam komplett erausklappen';
 $lang['Current password is wrong'] = 'Aktuellt Passwuerd ass falsch';
-$lang['Customize'] = 'Benotzerdaten/Layout';
+
 $lang['Date created, new &rarr; old'] = 'Datum erstallt,nei&rarr;al';
 $lang['Date created, old &rarr; new'] = 'Datum erstallt,al&rarr;nei';
 $lang['Default'] = 'Standard';
@@ -392,7 +392,7 @@ $lang['posted between %s (%s) and %s (%s)'] = 'presentéiert tëschent %s (%s) a
 $lang['remove this tag from the list'] = 'Dëse Mot-clé aus der Lëscht eraushuelen';
 $lang['representative'] = 'Virschäibild vum Album';
 $lang['return to normal view mode'] = 'Zréck bei den normalen Affichage';
-$lang['customize the appareance of the gallery'] = 'Upasse vum initiale Bild vun der Galerie';
+
 $lang['display a set of random photos'] = 'Fotoe am Zoufallsmodus uweisen';
 $lang['display available tags'] = 'All déi disponibel Mot-clée weisen';
 $lang['display each day with photos, month per month'] = 'All Dag mat de Fottoe weisen, opgelëscht no Mount';

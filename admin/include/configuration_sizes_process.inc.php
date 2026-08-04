@@ -134,7 +134,7 @@ if (count($errors) == 0)
   ImageStdParams::$quality = intval($_POST['resize_quality']);
 
   $enabled = ImageStdParams::get_defined_type_map();
-  $disabled = @unserialize( @$conf['disabled_derivatives'] );
+  $disabled = safe_unserialize(ImageStdParams::get_disabled_type_map());
   if ($disabled === false)
   {
     $disabled = array();
@@ -228,23 +228,20 @@ if (count($errors) == 0)
   }
 
   ImageStdParams::set_and_save($enabled_by);
-  if (count($disabled) == 0)
-  {
-    $query='DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'';
-    pwg_query($query);
-  }
-  else
-  {
-    conf_update_param('disabled_derivatives', addslashes(serialize($disabled)) );
-  }
-  $conf['disabled_derivatives'] = serialize($disabled);
+  ImageStdParams::set_and_save_disabled($disabled);
 
   if (count($changed_types))
   {
     clear_derivative_cache($changed_types);
   }
+  
+  $template->assign(
+    array(
+      'save_success' => l10n('Your configuration settings are saved'),
+    )
+  );
 
-  $page['infos'][] = l10n('Your configuration settings are saved');
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>'sizes'));
 }
 else
 {

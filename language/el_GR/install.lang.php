@@ -50,3 +50,4 @@ $lang['also given by your host provider'] = 'Επίσης, δίνεται από
 $lang['user login given by your host provider'] = 'Όνομα χρήστη που έχει λάβει από το φορέα υποδοχής σας';
 $lang['user password given by your host provider'] = 'Κωδικός προσβασης χρήστη που έχει λάβει από το φορέα υποδοχής σας';
 $lang['localhost or other, supplied by your host provider'] = 'localhost ή άλλο, που σας παρέχεται από τον πάροχο φιλοξενίας σας';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Απαιτείται έκδοση %s PHP (εκτελείτε έκδοση %s σε PHP)';

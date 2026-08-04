@@ -46,7 +46,7 @@ var statGraph = new Chart(ctx, {
 //Line options
 var displayOptions = {
   backgroundColor: gradient(255, 119, 0),
-  borderColor: 'rgba(255,119,0,1)',
+  borderColor: '#FFA646 ',
   lineTension : 0.2
 }
 

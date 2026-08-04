@@ -103,7 +103,13 @@ function get_sync_exif_data($file)
     {
       $exif[$pwg_key] = metadata_normalize_keywords_string($exif[$pwg_key]);
     }
-    
+
+    if (empty($exif[$pwg_key]))
+    {
+      unset($exif[$pwg_key]);
+      continue;
+    }
+
     $exif[$pwg_key] = addslashes($exif[$pwg_key]);
   }
 
@@ -177,16 +183,49 @@ function get_sync_metadata($infos)
         // for width/height (to compute the multiple size dimensions)
         $is_tiff = true;
       }
-
     }
 
     $file = original_to_representative($file, $infos['representative_ext']);
   }
 
-  if ($image_size = @getimagesize($file))
+  if (function_exists('mime_content_type'))
   {
-    $infos['width'] = $image_size[0];
-    $infos['height'] = $image_size[1];
+    $mime_type = mime_content_type($file);
+
+    if (str_starts_with($mime_type, 'image/'))
+    {
+      if (in_array($mime_type, array('image/svg+xml', 'image/svg')))
+      {
+        $xml = file_get_contents($file);
+
+        $xmlget = simplexml_load_string($xml);
+        $xmlattributes = $xmlget->attributes();
+        $width = $xmlattributes->width; 
+        $height = $xmlattributes->height;
+        $vb = (string) $xmlattributes->viewBox;
+
+        if (isset($width) and $width != "")
+        {
+          $infos['width'] = (int) $width;
+        } elseif (isset($vb))
+        {
+          $infos['width'] = round(explode(" ", $vb)[2]);
+        }
+
+        if (isset($height) and $height != "")
+        {
+          $infos['height'] = (int) $height;
+        } elseif (isset($vb))
+        {
+          $infos['height'] = round(explode(" ", $vb)[3]);
+        }
+      }
+      if ($image_size = @getimagesize($file))
+      {
+        $infos['width'] = $image_size[0];
+        $infos['height'] = $image_size[1];
+      }
+    }
   }
 
   if ($is_tiff)
@@ -205,6 +244,17 @@ function get_sync_metadata($infos)
   {
     $iptc = get_sync_iptc_data($file);
     $infos = array_merge($infos, $iptc);
+  }
+
+  foreach (array('name', 'author') as $single_line_field)
+  {
+    if (isset($infos[$single_line_field]))
+    {
+      foreach (array("\r\n", "\n", "\r") as $to_replace_string)
+      {
+        $infos[$single_line_field] = str_replace($to_replace_string, ' ', $infos[$single_line_field]);
+      }
+    }
   }
 
   return $infos;
@@ -244,7 +294,7 @@ SELECT id, path, representative_ext
     {
       continue;
     }
-
+    // print_r($data);
     $id = $data['id'];
     foreach (array('keywords', 'tags') as $key)
     {
@@ -367,6 +417,8 @@ function metadata_normalize_keywords_string($keywords_string)
   global $conf;
   
   $keywords_string = preg_replace($conf['metadata_keyword_separator_regex'], ',', $keywords_string);
+  // new lines are always considered as keyword separators
+  $keywords_string = str_replace(array("\r\n", "\n", "\r"), ',', $keywords_string);
   $keywords_string = preg_replace('/,+/', ',', $keywords_string);
   $keywords_string = preg_replace('/^,+|,+$/', '', $keywords_string);
       

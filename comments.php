@@ -285,8 +285,8 @@ $template->set_filenames(array('comments'=>'comments.tpl', 'comment_list'=>'comm
 $template->assign(
   array(
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
-    'F_KEYWORD'=> htmlspecialchars(stripslashes(@$_GET['keyword'])),
-    'F_AUTHOR'=> htmlspecialchars(stripslashes(@$_GET['author'])),
+    'F_KEYWORD'=> isset($_GET['keyword']) ? htmlspecialchars(stripslashes($_GET['keyword'])) : "",
+    'F_AUTHOR'=> isset($_GET['author']) ? htmlspecialchars(stripslashes($_GET['author'])) : "",
     )
   );
 

@@ -30,6 +30,31 @@ check_input_parameter('page', $_GET, false, '/^[a-zA-Z\d_-]+$/');
 check_input_parameter('section', $_GET, false, '/^[a-z]+[a-z_\/-]*(\.php)?$/i');
 
 // +-----------------------------------------------------------------------+
+// | Filesystem checks                                                     |
+// +-----------------------------------------------------------------------+
+
+if ($conf['fs_quick_check_period'] > 0)
+{
+  $perform_fsqc = false;
+  if (isset($conf['fs_quick_check_last_check']))
+  {
+    if (strtotime($conf['fs_quick_check_last_check']) < strtotime($conf['fs_quick_check_period'].' seconds ago'))
+    {
+      $perform_fsqc = true;
+    }
+  }
+  else
+  {
+    $perform_fsqc = true;
+  }
+
+  if ($perform_fsqc)
+  {
+    fs_quick_check();
+  }
+}
+
+// +-----------------------------------------------------------------------+
 // | Direct actions                                                        |
 // +-----------------------------------------------------------------------+
 
@@ -203,13 +228,18 @@ $template->assign(
     'U_PLUGINS'=> $link_start.'plugins',
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => $change_theme_url,
-    'U_UPDATES' => $link_start.'updates',
     'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
+    'ADMIN_PAGE_OBJECT_ID' => '',
     'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
     'SHOW_RATING' => $conf['rate'],
     )
   );
-  
+
+if ($conf['enable_core_update'])
+{
+  $template->assign('U_UPDATES', $link_start.'updates');
+}
+
 if ($conf['activate_comments'])
 {
   $template->assign('U_COMMENTS', $link_start.'comments');
@@ -265,25 +295,21 @@ if (in_array($page['page'], array('site_update', 'batch_manager')))
   }
 }
 
-// any orphan photo?
-$nb_orphans = count(get_orphans());
+// only calculate number of orphans on all pages if the number of images is "not huge"
+$page['nb_orphans'] = 0;
 
-if ($nb_orphans > 0)
+list($page['nb_photos_total']) = pwg_db_fetch_row(pwg_query('SELECT COUNT(*) FROM '.IMAGES_TABLE));
+if ($page['nb_photos_total'] < 100000) // 100k is already a big gallery
 {
-  $template->assign(
-    array(
-      'NB_ORPHANS' => $nb_orphans,
-      'U_ORPHANS' => $link_start.'batch_manager&amp;filter=prefilter-no_album',
-      )
-    );
-} else {
-  $template->assign(
-    array(
-      'NB_ORPHANS' => 0,
-      'U_ORPHANS' => '',
-      )
-    );
+  $page['nb_orphans'] = count_orphans();
 }
+
+$template->assign(
+  array(
+    'NB_ORPHANS' => $page['nb_orphans'],
+    'U_ORPHANS' => $link_start.'batch_manager&amp;filter=prefilter-no_album',
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // | Refresh permissions                                                   |
@@ -312,6 +338,67 @@ if (
   invalidate_user_cache();
 }
 
+$show_whats_new = false;
+
+$whats_new_major_version = get_branch_from_version(PHPWG_VERSION);
+
+if (userprefs_get_param('show_whats_new_'.$whats_new_major_version, true) and pwg_is_dbconf_writeable())
+{
+  if ($user['registration_date'] > $conf['last_major_update'])
+  {
+    userprefs_update_param('show_whats_new_'.$whats_new_major_version, false);
+  }
+  else
+  {
+    // purge old whats_new_*
+    if (isset($user['preferences']))
+    {
+      $userprefs_params_to_delete = array();
+
+      foreach (array_keys($user['preferences']) as $pref_param)
+      {
+        if (preg_match('/^whats_new_/', $pref_param))
+        {
+          $userprefs_params_to_delete[] = $pref_param;
+        }
+      }
+
+      if (count($userprefs_params_to_delete) > 0)
+      {
+        userprefs_delete_param($userprefs_params_to_delete);
+      }
+    }
+
+    $show_whats_new = true;
+  }
+}
+
+$release_note_url = PHPWG_URL.'/releases/'.$whats_new_major_version.'.0.0';
+
+$whats_new_imgs = array(
+  '1' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2025/11/12/20251112112645-7e309b67.png',
+  '2' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2025/11/12/20251112112645-61f2fcd0.png',
+  '3' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2025/11/12/20251112112646-b322153b.png',
+  // '4' =>'https://ressources.piwigo.com/uploads/c/v/7/cv7jpz6hf8//2024/11/07/20241107171642-1109101f.png',
+);
+
+//If last major update conf is less than a month old then display bell for whats new popin
+$display_bell = false;
+if (strtotime($conf['last_major_update']) > strtotime('1 month ago'))
+{
+  $display_bell = true;
+}
+
+$template->assign(
+  array(
+  'SHOW_WHATS_NEW' => $show_whats_new,
+  'WHATS_NEW_MAJOR_VERSION' => $whats_new_major_version,
+  'RELEASE_NOTE_URL' => $release_note_url,
+  'WHATS_NEW_IMGS' => $whats_new_imgs,
+  'DISPLAY_BELL' => $display_bell,
+  )
+);
+
 // +-----------------------------------------------------------------------+
 // | Include specific page                                                 |
 // +-----------------------------------------------------------------------+
@@ -337,4 +424,5 @@ flush_page_messages();
 $template->pparse('admin');
 
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
+
 ?>

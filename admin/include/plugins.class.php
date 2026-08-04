@@ -107,6 +107,13 @@ class plugins
    */
   function perform_action($action, $plugin_id, $options=array())
   {
+    global $conf;
+
+    if (!$conf['enable_extensions_install'] and 'delete' == $action)
+    {
+      die('Piwigo extensions install/update/delete system is disabled');
+    }
+
     if (isset($this->db_plugins_by_id[$plugin_id]))
     {
       $crt_db_plugin = $this->db_plugins_by_id[$plugin_id];
@@ -116,6 +123,8 @@ class plugins
     { // wait for files to be updated
       $plugin_maintain = self::build_maintain_class($plugin_id);
     }
+
+    $activity_details = array('plugin_id'=>$plugin_id);
 
     $errors = array();
 
@@ -128,6 +137,7 @@ class plugins
         }
 
         $plugin_maintain->install($this->fs_plugins[$plugin_id]['version'], $errors);
+        $activity_details['version'] = $this->fs_plugins[$plugin_id]['version'];
 
         if (empty($errors))
         {
@@ -137,16 +147,22 @@ INSERT INTO '. PLUGINS_TABLE .' (id,version)
 ;';
           pwg_query($query);
         }
+        else
+        {
+          $activity_details['result'] = 'error';
+        }
         break;
 
       case 'update':
         $previous_version = $this->fs_plugins[$plugin_id]['version'];
+        $activity_details['from_version'] = $previous_version;
         $errors[0] = $this->extract_plugin_files('upgrade', $options['revision'], $plugin_id);
 
         if ($errors[0] === 'ok')
         {
           $this->get_fs_plugin($plugin_id); // refresh plugins list
           $new_version = $this->fs_plugins[$plugin_id]['version'];
+          $activity_details['to_version'] = $new_version;
 
           $plugin_maintain = self::build_maintain_class($plugin_id);
           $plugin_maintain->update($previous_version, $new_version, $errors);
@@ -161,6 +177,11 @@ UPDATE '. PLUGINS_TABLE .'
             pwg_query($query);
           }
         }
+        else
+        {
+          $activity_details['result'] = 'error';
+        }
+
 
         break;
 
@@ -179,6 +200,7 @@ UPDATE '. PLUGINS_TABLE .'
         if (empty($errors))
         {
           $plugin_maintain->activate($crt_db_plugin['version'], $errors);
+          $activity_details['version'] = $crt_db_plugin['version'];
         }
 
         if (empty($errors))
@@ -190,11 +212,16 @@ UPDATE '. PLUGINS_TABLE .'
 ;';
           pwg_query($query);
         }
+        else
+        {
+          $activity_details['result'] = 'error';
+        }
         break;
 
       case 'deactivate':
         if (!isset($crt_db_plugin) or $crt_db_plugin['state'] != 'active')
         {
+          $activity_details['result'] = 'error';
           break;
         }
 
@@ -206,13 +233,27 @@ UPDATE '. PLUGINS_TABLE .'
         pwg_query($query);
 
         $plugin_maintain->deactivate();
+
+        if (isset($crt_db_plugin['version']))
+        {
+          $activity_details['version'] = $crt_db_plugin['version'];
+        }
+
         break;
 
       case 'uninstall':
         if (!isset($crt_db_plugin))
         {
+          $activity_details['result'] = 'error';
+          $activity_details['error'] = 'plugin not installed';
           break;
         }
+
+        if (isset($crt_db_plugin['version']))
+        {
+          $activity_details['version'] = $crt_db_plugin['version'];
+        }
+
         if ($crt_db_plugin['state'] == 'active')
         {
           $this->perform_action('deactivate', $plugin_id);
@@ -236,16 +277,28 @@ DELETE FROM '. PLUGINS_TABLE .'
       case 'delete':
         if (!empty($crt_db_plugin))
         {
+          if (isset($crt_db_plugin['version']))
+          {
+            $activity_details['db_version'] = $crt_db_plugin['version'];
+          }
+
           $this->perform_action('uninstall', $plugin_id);
         }
         if (!isset($this->fs_plugins[$plugin_id]))
         {
           break;
         }
+        else
+        {
+          $activity_details['fs_version'] = $this->fs_plugins[$plugin_id]['version'];
+        }
+
         include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
         deltree(PHPWG_PLUGINS_PATH . $plugin_id, PHPWG_PLUGINS_PATH . 'trash');
         break;
     }
+
+    pwg_activity('system', ACTIVITY_SYSTEM_PLUGIN, $action, $activity_details);
 
     return $errors;
   }
@@ -327,7 +380,7 @@ DELETE FROM '. PLUGINS_TABLE .'
         {
           global $user;
 
-          if ('webmaster' == $user['status'])
+          if (isset($user) and 'webmaster' == $user['status'])
           {
             $plugin['hasSettings'] = true;
           }
@@ -649,6 +702,23 @@ DELETE FROM '. PLUGINS_TABLE .'
                                        PCLZIP_OPT_REMOVE_PATH, $root,
                                        PCLZIP_OPT_REPLACE_NEWER))
             {
+              // opcache may certainly have loaded the maintain.class.php of the previous
+              // version of the plugin. We're going to need it right after the zip extract
+              // to perform an update action. We need to make sure the PHP files of the
+              // new version of the plugin are reload. Thus we need to remove old files
+              // from opcache.
+              if (function_exists('opcache_invalidate'))
+              {
+                foreach ($result as $file)
+                {
+                  if (!preg_match('{/language/}', $file['filename']) and preg_match('/\.php$/', $file['filename']))
+                  {
+                    opcache_invalidate($file['filename'], true);
+                    $logger->debug(__FUNCTION__.' extracted file = '.$file['filename'].', opcache_invalidate performed');
+                  }
+                }
+              }
+
               foreach ($result as $file)
               {
                 if ($file['stored_filename'] == $main_filepath)

@@ -52,3 +52,4 @@ $lang['Welcome to your new installation of Piwigo!'] = '欢迎安装 Piwigo！';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = '您需要联系您的主机供应商，向其咨询如何自行切换为 PHP 5.3。';
 $lang['localhost or other, supplied by your host provider'] = '数据库服务器的地址，由主机供应商提供';
 $lang['Password ']['confirm'] = '密码确认';
+$lang['PHP version %s required (you are running on PHP %s)'] = '需要 PHP %s 以上的版本（目前使用的是 PHP %s）';

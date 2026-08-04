@@ -130,6 +130,7 @@ zip -q -r $name-nochmod.zip piwigo
 # | permissions + zip 2                                                      |
 # +--------------------------------------------------------------------------+
 
+chmod -R g-w piwigo
 chmod -R a+w piwigo/local
 chmod a+w piwigo/_data
 chmod a+w piwigo/upload

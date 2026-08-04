@@ -1,8 +1,9 @@
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {footer_script require='jquery.ui.sortable'}
-jQuery(document).ready(function() {
-  $("h1").append(' <span style="letter-spacing:0">{$CATEGORIES_NAV}</span>');
 
+const cat_nav = '{$CATEGORIES_NAV|escape:javascript}';
+
+jQuery(document).ready(function() {
   function checkOrderOptions() {
     jQuery("#image_order_user_define_options").hide();
     if (jQuery("input[name=image_order_choice]:checked").val() == "user_define") {
@@ -40,9 +41,8 @@ jQuery('.thumbnail').tipTip({
 }); 
 {/footer_script}
 
-<form action="{$F_ACTION}" method="post">
+<form action="{$F_ACTION}" method="post" id="element_set_ranks">
 {if !empty($thumbnails)}
-  <p><input type="submit" value="{'Submit'|@translate}" name="submit"></p>
   <fieldset>
     <legend><span class="icon-sort-alt-down icon-blue"></span>{'Manual order'|@translate}</legend>
     {if !empty($thumbnails)}
@@ -91,15 +91,33 @@ jQuery('.thumbnail').tipTip({
       {/foreach}
       </div>
   </fieldset>
-  <p>
-    <button name="submit" type="submit" class="buttonLike">
-      <i class="icon-floppy"></i> {'Save Settings'|@translate}
-    </button>
 
-    <label class="font-checkbox">
-      <span class="icon-check"></span>
-      <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
-      {'Apply to sub-albums'|@translate}
-    </label>
-  </p>
+  <div class="savebar-footer">
+    <div class="savebar-footer-start">
+      <div class="savebar-footer-block">
+        <div class="switch-input">
+          <label class="switch">
+            <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <label class="switch-label" for="apply_on_sub"><span>{'Apply to sub-albums'|@translate}</span></label>
+      </div>
+    </div>
+    <div class="savebar-footer-end">
+
+{if isset($save_success)}
+    <div class="savebar-footer-block">
+      <div class="badge info-message">
+        <i class="icon-ok-circled"></i>{$save_success}
+      </div>
+    </div>
+{/if}
+  
+    <div class="savebar-footer-block">
+      <button id="applyAction" class="buttonLike" type="submit" name="submit"><i class="icon-floppy"></i>{'Save order'|@translate}</button>
+    </div>
+  </div>
+</div>
+
 </form>

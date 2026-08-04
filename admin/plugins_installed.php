@@ -47,8 +47,17 @@ $plugins = new plugins();
 //--------------------------------------------------------Incompatible Plugins
 if (isset($_GET['incompatible_plugins']))
 {
+  $incompatible_plugins_raw = $plugins->get_incompatible_plugins();
+
+  if (false === $incompatible_plugins_raw)
+  {
+    echo json_encode(array());
+    exit;
+  }
+
   $incompatible_plugins = array();
-  foreach ($plugins->get_incompatible_plugins() as $plugin => $version)
+
+  foreach ($incompatible_plugins_raw as $plugin => $version)
   {
     if ($plugin == '~~expire~~') continue;
     $incompatible_plugins[] = $plugin;
@@ -104,10 +113,16 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     }
   }
 
+  $url_to_replace = array(
+    'http://piwigo.org/ext',
+    'https://piwigo.org/ext'
+  );
+  $visit_url = str_replace($url_to_replace, PEM_URL, $fs_plugin['uri']);
+
   $tpl_plugin = array(
     'ID' => $plugin_id,
     'NAME' => $fs_plugin['name'],
-    'VISIT_URL' => $fs_plugin['uri'],
+    'VISIT_URL' => $visit_url,
     'VERSION' => $fs_plugin['version'],
     'DESC' => $fs_plugin['description'],
     'AUTHOR' => $fs_plugin['author'],
@@ -195,6 +210,8 @@ $template->assign(
     'max_inactive_before_hide' => isset($_GET['show_inactive']) ? 999 : 8,
     'isWebmaster' => (is_webmaster()) ? 1 : 0,
     'ADMIN_PAGE_TITLE' => l10n('Plugins'),
+    'view_selector' => userprefs_get_param('plugin-manager-view', 'classic'),
+    'CONF_ENABLE_EXTENSIONS_INSTALL' => $conf['enable_extensions_install'],
     )
   );
 

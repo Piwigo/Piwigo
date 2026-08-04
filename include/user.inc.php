@@ -56,6 +56,44 @@ if (isset($_GET['auth']))
   auth_key_login($_GET['auth']);
 }
 
+// HTTP_AUTHORIZATION api_key
+if (
+  defined('IN_WS')
+  and isset($_SERVER['HTTP_X_PIWIGO_API'])
+  and !empty($_SERVER['HTTP_X_PIWIGO_API']) 
+  and isset($_REQUEST['method'])
+)
+{
+  $auth_header = pwg_db_real_escape_string($_SERVER['HTTP_X_PIWIGO_API']) ?? null;
+  
+  if ($auth_header)
+  {
+    $authenticate = auth_key_login($auth_header, true);
+    if (!$authenticate)
+    {
+      include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
+      $service->sendResponse(new PwgError(401, 'Invalid api_key'));
+      exit;
+    }
+    define('PWG_API_KEY_REQUEST', true);
+
+    // set pwg_token for api_key request
+    // same logic as PwgServer::isPost()
+    if (!empty($_POST))
+    {
+      $_POST['pwg_token'] = get_pwg_token();
+    }
+    else
+    {
+      $_GET['pwg_token'] = get_pwg_token();
+    }
+
+    // logger
+    global $logger;
+    $logger->info('[api_key][pkid='.explode(':', $auth_header)[0].'][method='.$_REQUEST['method'].']');
+  }
+}
+
 if (
   defined('IN_WS')
   and isset($_REQUEST['method'])
@@ -64,17 +102,40 @@ if (
   and isset($_POST['password'])
 )
 {
-  if (!try_log_user($_POST['username'], $_POST['password'], false))
+  include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
+  include_once(PHPWG_ROOT_PATH.'include/ws_functions/pwg.php');
+
+  $credentials = array(
+    'username' => $_POST['username'],
+    'password' => $_POST['password']
+  );
+
+  $login = ws_session_login($credentials, $service);
+  
+  if (true !== $login)
   {
-    include_once(PHPWG_ROOT_PATH.'include/ws_init.inc.php');
-    $service->sendResponse(new PwgError(999, 'Invalid username/password'));
+    $service->sendResponse($login);
     exit();
   }
+  $_SESSION['connected_with'] = 'pwg.images.uploadAsync';
 }
 
-$user = build_user( $user['id'],
-          ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
-         );
+$page['user_use_cache'] = true;
+if (defined('IN_ADMIN') and IN_ADMIN)
+{
+  $page['user_use_cache'] = false;
+}
+elseif (
+  isset($_REQUEST['method'])
+  and isset($_SERVER['HTTP_REFERER'])
+  and preg_match('/\/admin\.php\?page=/', $_SERVER['HTTP_REFERER'])
+)
+{
+  $page['user_use_cache'] = false;
+}
+
+$user = build_user( $user['id'], $page['user_use_cache']);
+
 if ($conf['browser_language'] and (is_a_guest() or is_generic()) and $language = get_browser_language())
 {
   $user['language'] = $language;

@@ -39,6 +39,10 @@ $display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
 
 check_status(ACCESS_ADMINISTRATOR);
 
+check_input_parameter('filter_ip', $_GET, false, '/^[0-9.]+$/');
+check_input_parameter('filter_image_id', $_GET, false, '/^\d+$/');
+check_input_parameter('filter_user_id', $_GET, false, '/^\d+$/');
+
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
@@ -100,11 +104,34 @@ else
     pwg_get_cookie_var('display_thumbnail', 'no_display_thumbnail');
 }
 
+$form_param['ip'] = isset($_GET['filter_ip']) ? $_GET['filter_ip'] : @$form['ip'];
+$form_param['image_id'] = isset($_GET['filter_image_id']) ? $_GET['filter_image_id'] : @$form['image_id'];
+$form_param['user_id'] = isset($_GET['filter_user_id']) ? $_GET['filter_user_id'] : "-1";
+
+if (isset($_GET['filter_ip']) or isset($_GET['filter_image_id']) or isset($_GET['filter_user_id']))
+{
+  $form['start'] = '';
+}
+
+if ($form_param['user_id'] != "-1") {
+  $query = '
+  SELECT
+      username
+    FROM '.USERS_TABLE.'
+    WHERE id = '.$form_param['user_id'].'
+  ;';
+
+  list($form_param['user_name']) = pwg_db_fetch_row(pwg_query($query));
+  $form_param['user_id'] = empty(pwg_db_fetch_row(pwg_query($query))) ? "-1" : $form_param['user_id'];
+}
+
 $template->assign(
   array(
-    'IMAGE_ID' => @$form['image_id'],
+    'USER_ID' => $form_param['user_id'],
+    'USER_NAME' => @$form_param['user_name'],
+    'IMAGE_ID' => $form_param['image_id'],
     'FILENAME' => @$form['filename'],
-    'IP' => @$form['ip'],
+    'IP' => $form_param['ip'],
     'START' => @$form['start'],
     'END' => @$form['end'],
     )

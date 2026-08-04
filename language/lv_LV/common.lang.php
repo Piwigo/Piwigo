@@ -138,7 +138,7 @@ $lang['created after %s (%s)'] = "izveidots pēc %s (%s)";
 $lang['created before %s (%s)'] = "izveidots pirms %s (%s)";
 $lang['created between %s (%s) and %s (%s)'] = "izveidots starp %s (%s) and %s (%s)";
 $lang['created on %s'] = "izveidots %s";
-$lang['Customize'] = "Pielāgot";
+
 $lang['Your Gallery Customization'] = "Jūs Galerijas pielāgošana";
 $lang['day'][0] = "Svētdiena";
 $lang['day'][1] = "Pirmdiena";
@@ -167,7 +167,7 @@ $lang['Hello'] = "Sveiki";
 $lang['available for administrators only'] = "pieeja tikai administratoriem";
 $lang['display this album'] = 'rādīt šo albūmu';
 $lang['display last user comments'] = "Apskatīt pēdējos lietotāju komentārus";
-$lang['customize the appareance of the gallery'] = "pielāgot galerijas izskatu";
+
 $lang['search'] = "meklēt";
 $lang['Home'] = "Sākums";
 $lang['in this album'] = 'šajā albūmā';
@@ -416,3 +416,5 @@ $lang['generate random password'] = 'ģenerēt gadījumveida paroli';
 $lang['Invalid username or password!'] = 'Nepareizs lietotjvārds vai parole';
 $lang['Password: ********** (no copy by email)'] = 'Parole: ********** (ne e-pasta kopija)';
 $lang['Related albums'] = 'Saistītie albūmi';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Aibūma nosaukums,1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Aibūma nosaukums, 100 &rarr; 10 &rarr; 5 &rarr; 1';

@@ -223,12 +223,12 @@ jQuery().ready(function(){ldelim}
   <table class="table2">
     <tr>
       <td style="width: 30%;" class="fieldname">{'Host'|@translate}</td>
-      <td><input type="text" name="dbhost" value="{$F_DB_HOST}"></td>
+      <td><input type="text" name="dbhost" value="{$F_DB_HOST}" required></td>
       <td class="fielddesc">{'localhost or other, supplied by your host provider'|@translate}</td>
     </tr>
     <tr>
       <td class="fieldname">{'User'|@translate}</td>
-      <td><input type="text" name="dbuser" value="{$F_DB_USER}"></td>
+      <td><input type="text" name="dbuser" value="{$F_DB_USER}" required></td>
       <td class="fielddesc">{'user login given by your host provider'|@translate}</td>
     </tr>
     <tr>
@@ -238,7 +238,7 @@ jQuery().ready(function(){ldelim}
     </tr>
     <tr>
       <td class="fieldname">{'Database name'|@translate}</td>
-      <td><input type="text" name="dbname" value="{$F_DB_NAME}"></td>
+      <td><input type="text" name="dbname" value="{$F_DB_NAME}" required></td>
       <td class="fielddesc">{'also given by your host provider'|@translate}</td>
     </tr>
     <tr>
@@ -255,22 +255,22 @@ jQuery().ready(function(){ldelim}
   <table class="table2">
     <tr>
       <td style="width: 30%;" class="fieldname">{'Username'|@translate}</td>
-      <td><input type="text" name="admin_name" value="{$F_ADMIN}"></td>
+      <td><input type="text" name="admin_name" value="{$F_ADMIN}" required></td>
       <td class="fielddesc">{'It will be shown to the visitors. It is necessary for website administration'|@translate}</td>
     </tr>
     <tr>
       <td class="fieldname">{'Password'|@translate}</td>
-      <td><input type="password" name="admin_pass1" value=""></td>
+      <td><input type="password" name="admin_pass1" value="" required></td>
       <td class="fielddesc">{'Keep it confidential, it enables you to access administration panel'|@translate}</td>
     </tr>
     <tr>
       <td class="fieldname">{'Password [confirm]'|@translate}</td>
-      <td><input type="password" name="admin_pass2" value=""></td>
+      <td><input type="password" name="admin_pass2" value="" required></td>
       <td class="fielddesc">{'verification'|@translate}</td>
     </tr>
     <tr>
       <td class="fieldname">{'Email address'|@translate}</td>
-      <td><input type="text" name="admin_mail" id="admin_mail" value="{$F_ADMIN_EMAIL}"></td>
+      <td><input type="text" name="admin_mail" id="admin_mail" value="{$F_ADMIN_EMAIL}" required></td>
       <td class="fielddesc">{'Visitors will be able to contact site administrator with this mail'|@translate}</td>
     </tr>
     <tr>

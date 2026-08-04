@@ -47,7 +47,7 @@ function pwg_db_connect($host, $user, $password, $database)
     list($host, $port) = explode(':', $host);
   }
 
-  $dbname = null;
+  $dbname = '';
   
   $mysqli = new mysqli($host, $user, $password, $dbname, $port, $socket);
   if (mysqli_connect_error())
@@ -198,7 +198,7 @@ function pwg_db_changes()
 
 function pwg_db_num_rows($result) 
 {
-  return $result->num_rows;
+  return $result->num_rows ?? 0;
 }
 
 function pwg_db_fetch_array($result)
@@ -230,7 +230,7 @@ function pwg_db_real_escape_string($s)
 {
   global $mysqli;
   
-  return $mysqli->real_escape_string($s);
+  return isset($s) ? $mysqli->real_escape_string($s) : null;
 }
 
 function pwg_db_insert_id()

@@ -55,7 +55,7 @@ $tabsheet->assign();
 
 $template->assign(
   array(
-    'ADMIN_PAGE_TITLE' => l10n('Edit photo <span class="image-id">#%s</span>', $_GET['image_id']),
+    'ADMIN_PAGE_TITLE' => l10n('Edit photo').' <span class="image-id">#'.$_GET['image_id'].'</span>',
     )
   );
 
@@ -70,6 +70,10 @@ if ('properties' == $page['tab'])
 elseif ('coi' == $page['tab'])
 {
   include(PHPWG_ROOT_PATH.'admin/picture_coi.php');
+}
+elseif ('formats' == $page['tab'] && $conf['enable_formats'])
+{
+  include(PHPWG_ROOT_PATH.'admin/picture_formats.php');
 }
 else
 {

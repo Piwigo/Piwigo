@@ -1,0 +1,101 @@
+<h2>Konfiguracija</h2>
+
+<p>Ta zaslon omogoča skrbniku, da opravi osnovno konfiguracijo galerije. Dejansko ta zaslon prikazuje le preproste konfiguracijske parametre, ki bi morali zadostovati za veliko večino skrbnikov. Če želite videti druge številne (in napredne) konfiguracijske parametre, preberite privzeto konfiguracijsko datoteko <span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Zaslon je razdeljen na različne dele, ki združujejo konfiguracijske parametre po temah.</p>
+
+
+<h3>Glavni</h3>
+<ul>
+  <li><strong>Naslov galerije</strong>: uporablja v viru RSS in obvestilih po e-pošti.</li>
+
+  <li><strong>Pasica strani</strong>: prikazano na vrhu vsake javne strani.</li>
+
+  <li><strong>URL galerije</strong>: uporablja za vir RSS.</li>
+
+  <li><strong>Zaklepanje galerije</strong>: Zaklenite celotno galerijo za vzdrževanje. Do galerije bodo lahko dostopali samo administratorji.</li>
+
+  <li><strong>Ocena</strong>: Funkcija ocenjevanja slik je omogočena.</li>
+
+  <li><strong>Ocena gostov</strong>: Tudi neregistrirani uporabniki lahko ocenjujejo slike.</li>
+
+  <li><strong>Dovoli registracijo uporabnika</strong>: Registrira se lahko vsak.</li>
+
+  <li><strong>E-poštni naslov je obvezen za vse uporabnike</strong>: poštni naslov bo preverjen ob registraciji ali posodobitvi profila, razen če dejanje izvede skrbnik.</li>
+
+  <li><strong>E-mail administratorjem, ko se registrira nov uporabnik </strong>: skrbniki bodo o vsaki registraciji obveščeni po pošti.</li>
+  
+  <li><strong>Privzeti vrstni red fotografij</strong>: lahko definirate prilagojeno naročilo s temi spustnimi meniji.</li>
+
+</ul>
+
+<h3>Zgodovina</h3>
+
+  <p>Obiski na straneh <span
+  class="pwgScreen">category.php</span> in <span
+  class="pwgScreen">picture.php</span> bo shranjena v tabeli <code>history</code>.</p>
+  
+  <p>Obiski bodo prikazani v <span  class="pwgScreen">Administracija &raquo; Orodja &raquo; Zgodovina</span>.</p>
+
+<ul>
+  <li><strong>Shranite obiske strani s strani gostov</strong>: obiski strani gostov bodo zabeleženi.</li>
+
+  <li><strong>Shranite obiske strani s strani uporabnikov</strong>: obiski registriranih uporabnikov bodo zabeleženi.</li>
+
+  <li><strong>Shranite obiske strani s strani skrbnikov</strong>: obiski strani s strani skrbnikov bodo zabeleženi.</li>
+
+</ul>
+
+<h3>Komentarji</h3>
+<ul>
+
+  <li><strong>Komentarji za vse</strong>: Tudi neregistrirani gost lahko objavlja komentarje.</li>
+
+  <li><strong>Število komentarjev na stran</strong>.</li>
+
+  <li><strong>Potrditev</strong>: skrbnik mora potrditi komentarje uporabnikov, preden postanejo vidni na spletnem mestu. Potrditev komentarjev uporabnikov
+   poteka na zaslonu <span class="pwgScreen">Administracija &raquo; Orodja &raquo; Čakajoči komentarji</span>.</li>
+
+  <li><strong>Pošlji e-pošto skrbnikom, ko je vpisan veljaven komentar</strong>: Pošlje e-pošto skrbnikom, ko uporabnik vnese komentar in je ta komentar potrjen.</li>
+
+  <li><strong>Skrbnikom pošljite e-pošto, ko komentar zahteva potrditev</strong>:
+Pošlje e-pošto skrbnikom, ko uporabnik vnese komentar, ki ga mora skrbnik potrditi.
+Potrjevanje komentarjev uporabnikov poteka na zaslonu <span class="pwgScreen">Administracija &raquo; Orodja &raquo; Čakajoči komentarji</span>.</li>
+
+</ul>
+
+<h3>Privzeti zaslon</h3>
+
+<p>Tukaj lahko spremenite možnosti prikaza, ki jih uporablja gost, privzeti uporabnik, ki ni povezan. Ko se povežejo, te možnosti preglasijo lastne možnosti uporabnika
+(mogoče spremeniti v <span class="pwgScreen">profilu</span>).</p>
+
+<p>Možno je spremeniti možnosti prikaza za vse obstoječe uporabnike na <span class="pwgScreen">Administracija &raquo;
+Uporabniki &raquo; Upravljaj</span> zaslon, kjer lahko izberete seznam uporabnikov.</p>
+
+<ul>
+
+  <li><strong>Jezik</strong>: Velja samo za nalepke Piwigo. Imena albumov, imena slik in vsa polja z opisi niso lokalizirana.</li>
+
+  <li><strong>Število slik na vrstico</strong></li>
+
+  <li><strong>Število vrstic na stran</strong></li>
+
+  <li><strong>Tema vmesnika</strong></li>
+
+  <li><strong>Zadnje obdobje</strong>: Po dnevih. Obdobje, v katerem je slika prikazana kot nova. Biti mora daljši od 1 dneva.</li>
+
+  <li><strong>Razširite vse albume</strong>: Razširite vse albume za
+   privzeto v meniju <em>Opozorilo</em>: ta možnost zahteva veliko virov in lahko ustvari ogromen meni, če vaše drevo albumov vsebuje veliko albumov.</li>
+
+  <li><strong>Pokaži število komentarjev</strong>: Pokažite število komentarjev za vsako fotografijo na strani s sličicami. Intenzivna sredstva.</li>
+
+  <li><strong>Prikaži število zadetkov</strong>: Prikaz zadetkov, opaženih na fotografiji, tik pod njeno sličico na strani s sličicami. Samo, če je napredni konfiguracijski parameter: <br>
+  $conf['show_nb_hits'] = true; <br>
+  Opomba: false je privzeto.</li>
+
+  <li><strong>Največja širina slik</strong>: največja prikazana širina. Slike, večje od te nastavitve, bodo na zaslonu spremenjene. Namesto da bi izbrali to možnost, lahko razmislite o spremembi širine svojih fotografij; to bi bila boljša praksa.</li>
+
+  <li><strong>Največja višina slik</strong>: Enako kot pri nastavitvi največje širine.</li>
+
+</ul>

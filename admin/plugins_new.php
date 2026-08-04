@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!$conf['enable_extensions_install'])
+{
+  die('Piwigo extensions install/update system is disabled');
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_new.tpl'));
@@ -42,14 +47,27 @@ if (isset($_GET['installstatus']))
   switch ($_GET['installstatus'])
   {
     case 'ok':
-      $activate_url = get_root_url().'admin.php?page=plugins'
-        . '&amp;plugin=' . $_GET['plugin_id']
-        . '&amp;pwg_token=' . get_pwg_token()
-        . '&amp;action=activate'
-        . '&amp;filter=deactivated';
+      // since Piwigo 12, you need to be on the page of installed plugins to active a plugin with
+      // a JS action, no need to provide plugin_id in URL, just link to the page of installed
+      // plugins, filtered on deactivated plugins. The webmaster will have to find its newly
+      // installed plugin and click on the activation switch.
+      $activate_url = get_root_url().'admin.php?page=plugins&amp;filter=deactivated';
 
       $page['infos'][] = l10n('Plugin has been successfully copied');
       $page['infos'][] = '<a href="'. $activate_url . '">' . l10n('Activate it now') . '</a>';
+
+      if (isset($plugins->fs_plugins[$_GET['plugin_id']]))
+      {
+        pwg_activity(
+          'system',
+          ACTIVITY_SYSTEM_PLUGIN,
+          'install',
+          array(
+            'plugin_id' => $_GET['plugin_id'],
+            'version' => $plugins->fs_plugins[$_GET['plugin_id']]['version'],
+          )
+        );
+      }
       break;
 
     case 'temp_path_error':
@@ -161,7 +179,7 @@ if ($plugins->get_server_plugins(true, $beta_test))
       'BIG_DESC' => $ext_desc,
       'VERSION' => $plugin['revision_name'],
       'REVISION_DATE' => preg_replace('/[^0-9]/', '', strtotime($plugin['revision_date'])),
-      'REVISION_FORMATED_DATE' => format_date($plugin['revision_date'], array('day','month','year')),
+      'REVISION_FORMATED_DATE' => format_date($plugin['revision_date'], array('day','month','year')).", ".time_since($plugin['revision_date'], "day"),
       'AUTHOR' => $plugin['author_name'],
       'DOWNLOADS' => $plugin['extension_nb_downloads'],
       'URL_INSTALL' => $url_auto_install,
@@ -171,8 +189,6 @@ if ($plugins->get_server_plugins(true, $beta_test))
       'SCREENSHOT' => (key_exists('screenshot_url', $plugin)) ? $plugin['screenshot_url']:'',
       'TAGS' => $plugin["tags"],
     ));
-
-    $template->assign('BETA_TEST', $beta_test);
   }
 
   
@@ -187,6 +203,6 @@ if (!$beta_test and preg_match('/(beta|RC)/', PHPWG_VERSION))
   $template->assign('BETA_URL', $base_url.'&amp;beta-test=true');
 }
 $template->assign('ADMIN_PAGE_TITLE', l10n('Plugins'));
-
+$template->assign('BETA_TEST', $beta_test);
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>

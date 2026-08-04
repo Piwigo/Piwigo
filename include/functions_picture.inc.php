@@ -115,4 +115,38 @@ function encode_slideshow_params($decode_params=array())
   return $result;
 }
 
+/**
+ * Increase the number of visits for a given photo.
+ * 
+ * Code moved from picture.php to be used by both the API and picture.php
+ * 
+ * @since 14
+ * @param int $image_id
+ */
+function increase_image_visit_counter($image_id)
+{
+  // avoiding auto update of "lastmodified" field
+  $query = '
+UPDATE
+  '.IMAGES_TABLE.'
+  SET hit = hit+1, lastmodified = lastmodified
+  WHERE id = '.$image_id.'
+;';
+  pwg_query($query);
+}
+
+/**
+ * Returns the number of pages of a PDF file
+ *
+ * @param string $pdfPath
+ * @return int
+ */
+function count_pdf_pages($pdfPath) 
+{
+  $pdftext = file_get_contents($pdfPath);
+  $num = preg_match_all("/\/Page\W/", $pdftext, $dummy);
+
+  return $num;
+}
+
 ?>

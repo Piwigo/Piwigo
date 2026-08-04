@@ -43,13 +43,13 @@ $main_checkboxes = array(
     'obligatory_user_mail_address',
     'rate',
     'rate_anonymous',
-    'email_admin_on_new_user',
     'allow_user_customization',
     'log',
     'history_admin',
     'history_guest',
     'show_mobile_app_banner_in_gallery',
     'show_mobile_app_banner_in_admin',
+    'upload_detect_duplicate',
    );
 
 $sizes_checkboxes = array(
@@ -73,6 +73,8 @@ $comments_checkboxes = array(
 
 $display_checkboxes = array(
     'menubar_filter_icon',
+    'index_search_in_set_button',
+    'index_search_in_set_action',
     'index_sort_order_input',
     'index_flat_icon',
     'index_posted_date_icon',
@@ -107,8 +109,14 @@ $display_info_checkboxes = array(
     'categories',
     'visits',
     'rating_score',
-    'privacy_level',
   );
+
+if (!isset($conf['filters_views']))
+{
+  conf_update_param('filters_views', $conf['default_filters_views'], true);
+}
+
+$filters_names_checkboxes = array_values(array_diff(array_keys(safe_unserialize($conf['filters_views'])), array('last_filters_conf')));
 
 // image order management
 $sort_fields = array(
@@ -199,6 +207,26 @@ if (isset($_POST['submit']))
         }
       }
 
+      if (empty($_POST['email_admin_on_new_user']))
+      {
+        $_POST['email_admin_on_new_user'] = 'none';
+      }
+      elseif ('all' == $_POST['email_admin_on_new_user_filter'])
+      {
+        $_POST['email_admin_on_new_user'] = 'all';
+      }
+      else
+      {
+        if (empty($_POST['email_admin_on_new_user_filter_group']))
+        {
+          $_POST['email_admin_on_new_user'] = 'all';
+        }
+        else
+        {
+          $_POST['email_admin_on_new_user'] = 'group:'.$_POST['email_admin_on_new_user_filter_group'];
+        }
+      }
+
       foreach( $main_checkboxes as $checkbox)
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
@@ -255,6 +283,23 @@ if (isset($_POST['submit']))
       $_POST['picture_informations'] = addslashes(serialize($_POST['picture_informations']));
       break;
     }
+    case 'search' :
+    {
+      foreach( $filters_names_checkboxes as $checkbox)
+      {
+        if (empty($_POST['filters_views_box'][$checkbox])){
+          $_POST['filters_views'][$checkbox]['access'] = 'nobody';
+          $_POST['filters_views'][$checkbox]['default'] = false;
+        }
+        else{
+          $_POST['filters_views'][$checkbox]['default'] =
+            empty($_POST['filters_views'][$checkbox]['default'])? false : true;
+        }
+      }
+      $_POST['filters_views']['last_filters_conf'] =
+        empty($_POST['filters_views']['last_filters_conf'])? false : true;
+      $_POST['filters_views'] = addslashes(serialize($_POST['filters_views']));
+    }
   }
 
   // updating configuration if no error found
@@ -284,7 +329,13 @@ WHERE param = \''.$row['param'].'\'
         pwg_query($query);
       }
     }
-    $page['infos'][] = l10n('Information data registered in database');
+    $template->assign(
+      array(
+        'save_success' => l10n('Your configuration settings are saved'),
+      )
+    );
+
+    pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section']));
   }
 
   //------------------------------------------------------ $conf reinitialization
@@ -294,11 +345,19 @@ WHERE param = \''.$row['param'].'\'
 // restore default derivatives settings
 if ('sizes' == $page['section'] and isset($_GET['action']) and 'restore_settings' == $_GET['action'])
 {
-  ImageStdParams::set_and_save( ImageStdParams::get_default_sizes() );
-  pwg_query('DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'');
+  ImageStdParams::restore_default();
   clear_derivative_cache();
 
-  $page['infos'][] = l10n('Your configuration settings are saved');
+  // reset conf
+  load_conf_from_db();
+
+  $template->assign(
+    array(
+      'save_success' => l10n('Your configuration settings are saved'),
+    )
+  );
+  
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'config', array('config_section'=>$page['section'],'config_action'=>$_GET['action']));
 }
 
 //----------------------------------------------------- template initialization
@@ -327,6 +386,8 @@ switch ($page['section'])
 
     function order_by_is_local()
     {
+      $conf = array();
+      include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
       @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
       if (isset($conf['local_dir_site']))
       {
@@ -368,6 +429,25 @@ switch ($page['section'])
         'mail_theme_options' => $mail_themes,
         'order_by' => $order_by,
         'order_by_options' => $sort_fields,
+        'email_admin_on_new_user' => 'none' != $conf['email_admin_on_new_user'],
+        'email_admin_on_new_user_filter' => in_array($conf['email_admin_on_new_user'], array('none', 'all')) ? 'all' : 'group',
+        'email_admin_on_new_user_filter_group' => preg_match('/^group:(\d+)$/', $conf['email_admin_on_new_user'], $matches) ? $matches[1] : -1,
+        )
+      );
+
+    // list of groups
+    $query = '
+    SELECT
+        id,
+        name
+      FROM `'.GROUPS_TABLE.'`
+    ;';
+    $groups = query2array($query, 'id', 'name');
+    natcasesort($groups);
+
+    $template->assign(
+      array(
+        'group_options' => $groups,
         )
       );
 
@@ -481,7 +561,7 @@ switch ($page['section'])
 
       // derivatives = multiple size
       $enabled = ImageStdParams::get_defined_type_map();
-      $disabled = @unserialize(@$conf['disabled_derivatives']);
+      $disabled = safe_unserialize(ImageStdParams::get_disabled_type_map());
       if ($disabled === false)
       {
         $disabled = array();
@@ -523,13 +603,13 @@ switch ($page['section'])
       $template->assign('derivatives', $tpl_vars);
       $template->assign('resize_quality', ImageStdParams::$quality);
 
-      // $tpl_vars = array();
-      // $now = time();
-      // foreach(ImageStdParams::$custom as $custom=>$time)
-      // {
-      //   $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
-      // }
-      // $template->assign('custom_derivatives', $tpl_vars);
+      $tpl_vars = array();
+      $now = time();
+      foreach(ImageStdParams::$custom as $custom=>$time)
+      {
+        $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
+      }
+      $template->assign('custom_derivatives', $tpl_vars);
     }
 
     break;
@@ -604,6 +684,17 @@ switch ($page['section'])
     }
 
     break;
+  }
+  case 'search':
+  {
+    $template->assign(
+      'search',
+        array(
+          'filters_views' => safe_unserialize($conf['filters_views']),
+          'filters_names' => $filters_names_checkboxes,
+        ),
+    );
+    $template->assign('SHOW_FILTER_RATINGS', $conf['rate']);
   }
 }
 

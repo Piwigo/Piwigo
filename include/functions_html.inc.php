@@ -111,7 +111,8 @@ SELECT id, name, permalink
   $output = '';
   if ($single_link)
   {
-    $single_url = add_url_params(get_root_url().$url.array_pop(explode(',', $uppercats)), $add_url_params);
+    $uppercats_array = explode(',', $uppercats);
+    $single_url = add_url_params(get_root_url().$url.array_pop($uppercats_array), $add_url_params);
     $output.= '<a href="'.$single_url.'"';
     if (isset($link_class))
     {
@@ -136,7 +137,7 @@ SELECT id, name, permalink
     }
     else
     {
-      $output.= $conf['level_separator'];
+      $output.= '<span>'.$conf['level_separator'].'</span>';
     }
 
     if ( !isset($url) or $single_link )
@@ -254,36 +255,31 @@ function tag_alpha_compare($a, $b)
 }
 
 /**
- * Exits the current script (or redirect to login page if not logged).
+ * Exits the current script.
  */
 function access_denied()
 {
   global $user, $conf;
 
-  $login_url =
-      get_root_url().'identification.php?redirect='
-      .urlencode(urlencode($_SERVER['REQUEST_URI']));
-
   if ( isset($user) and !is_a_guest() )
   {
     set_status_header(401);
 
-    echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
-    echo '<div style="text-align:center;">'.l10n('You are not authorized to access the requested page').'<br>';
-    echo '<a href="'.get_root_url().'identification.php">'.l10n('Identification').'</a>&nbsp;';
-    echo '<a href="'.make_index_url().'">'.l10n('Home').'</a></div>';
-    echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="shortcut icon" type="image/x-icon" href="themes/default/icon/favicon.ico">
+<div style="display: flex; justify-content: center;align-items: center;height: 100vh;margin: 0;color: #3C3C3C;font-family: \'Open Sans\', sans-serif;font-size: 20px;font-style: normal;font-weight: 600;line-height: normal;">
+  <div style="text-align:center;">
+    <img src="themes/default/icon/warning-triangle.svg" alt="warning-triangle" >
+    <p style="max-width: 400px; margin-top 20px;">'.l10n('You are not authorized to access the requested page').'</p>
+    <a href="'.make_index_url().'" style="display: inline-block;padding: 10px 20px;margin: 10px;margin-top: 50px;border-radius: 7px;cursor: pointer;width: 150px;background-color: #F77000;color: #fff;text-decoration: none;border: 2px solid #F77000;">'.l10n('Home').'</a>
+  </div>
+</div>';
     exit();
   }
-  elseif (!$conf['guest_access'] and is_a_guest())
-  {
-    redirect_http($login_url);
-  }
-  else
-  {
-    redirect_html($login_url);
-  }
+
+  redirect_http(get_root_url().'identification.php?redirect='.urlencode(urlencode($_SERVER['REQUEST_URI'])));
 }
+
 
 /**
  * Exits the current script with 403 code.
@@ -401,44 +397,6 @@ function get_tags_content_title()
     . l10n( count($page['tags']) > 1 ? 'Tags' : 'Tag' )
     . '</a> ';
 
-  for ($i=0; $i<count($page['tags']); $i++)
-  {
-    $title.= $i>0 ? ' + ' : '';
-
-    $title.=
-      '<a href="'
-      .make_index_url(
-        array(
-          'tags' => array( $page['tags'][$i] )
-          )
-        )
-      .'" title="'
-      .l10n('display photos linked to this tag')
-      .'">'
-      .trigger_change('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
-      .'</a>';
-
-    if (count($page['tags']) > 1)
-    {
-      $other_tags = $page['tags'];
-      unset($other_tags[$i]);
-      $remove_url = make_index_url(
-        array(
-          'tags' => $other_tags
-          )
-        );
-
-      $title.=
-        '<a id="TagsGroupRemoveTag" href="'.$remove_url.'" style="border:none;" title="'
-        .l10n('remove this tag from the list')
-        .'"><img src="'
-          .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-        .'" alt="x" style="vertical-align:bottom;" >'
-        .'<span class="pwg-icon pwg-icon-close" ></span>'
-        .'<i class="fas fa-plus" aria-hidden="true"></i>'
-        .'</a>';
-    }
-  }
   return $title;
 }
 
@@ -532,6 +490,7 @@ function set_status_header($code, $text='')
  */
 function render_category_literal_description($desc)
 {
+  !isset($desc) ? $desc = "" : false;
   return strip_tags($desc, '<span><p><a><br><b><i><small><big><strong><em>');
 }
 
@@ -548,7 +507,7 @@ function register_default_menubar_blocks($menu_ref_arr)
     return;
   $menu->register_block( new RegisteredBlock( 'mbLinks', 'Links', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbCategories', 'Albums', 'piwigo'));
-  $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbTags', 'Tags', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbRelatedCategories', 'Related albums', 'piwigo') );
@@ -572,7 +531,7 @@ function render_element_name($info)
 {
   if (!empty($info['name']))
   {
-    return trigger_change('render_element_name', $info['name']);
+    return trigger_change('render_element_name', $info['name'], $info);
   }
   return get_name_from_file($info['file']);
 }
@@ -609,12 +568,12 @@ function get_thumbnail_title($info, $title, $comment='')
 
   if (!empty($info['hit']))
   {
-    $details[] = $info['hit'].' '.strtolower(l10n('Visits'));
+    $details[] = l10n('%d visits', $info['hit']);
   }
 
   if ($conf['rate'] and !empty($info['rating_score']))
   {
-    $details[] = strtolower(l10n('Rating score')).' '.$info['rating_score'];
+    $details[] = l10n('rating score %s', $info['rating_score']);
   }
 
   if (isset($info['nb_comments']) and $info['nb_comments'] != 0)
@@ -688,12 +647,27 @@ function flush_page_messages()
         unset($_SESSION['page_'.$mode]);
       }
 
-      if (count($page[$mode]) != 0)
+      if (!empty($page[$mode]))
       {
         $template->assign($mode, $page[$mode]);
       }
     }
   }
+}
+
+/**
+ * pwg_nl2br is useful for PHP 5.2 which doesn't accept more than 1
+ * parameter on nl2br() (and anyway the second parameter of nl2br does not
+ * match what Piwigo gives.
+ */
+function pwg_nl2br($string)
+{
+  if (empty($string))
+  {
+    return $string;
+  }
+
+  return nl2br($string);
 }
 
 ?>

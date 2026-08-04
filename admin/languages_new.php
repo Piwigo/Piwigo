@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!$conf['enable_extensions_install'])
+{
+  die('Piwigo extensions install/update system is disabled');
+}
+
 include_once(PHPWG_ROOT_PATH.'admin/include/languages.class.php');
 
 $template->set_filenames(array('languages' => 'languages_new.tpl'));
@@ -109,6 +114,7 @@ else
   $page['errors'][] = l10n('Can\'t connect to server.');
 }
 $template->assign('ADMIN_PAGE_TITLE', l10n('Languages'));
+$template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'languages');
 ?>

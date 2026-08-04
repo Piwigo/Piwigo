@@ -17,7 +17,11 @@ $t2 = microtime(true);
 // addslashes to vars if magic_quotes_gpc is off this is a security
 // precaution to prevent someone trying to break out of a SQL statement.
 //
-if(function_exists('get_magic_quotes_gpc') && !@get_magic_quotes_gpc() )
+// The magic quote feature has been disabled since php 5.4
+// but function get_magic_quotes_gpc was always replying false.
+// Since php 8 the function get_magic_quotes_gpc is also removed
+// but we stil want to sanitize user input variables.
+if(!function_exists('get_magic_quotes_gpc') or !@get_magic_quotes_gpc() )
 {
   function sanitize_mysql_kv(&$v, $k)
   {
@@ -62,7 +66,8 @@ $filter = array();
 
 foreach(
   array(
-    'gzopen'
+    'gzopen',
+    'str_starts_with'
     ) as $func)
 {
   if (!function_exists($func))
@@ -87,7 +92,10 @@ include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php
 if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
 {
   @ini_set('error_reporting', $conf['show_php_errors']);
-  @ini_set('display_errors', true);
+  if($conf['show_php_errors_on_frontend'])
+  {
+    @ini_set('display_errors', true);
+  }
 }
 
 if ($conf['session_gc_probability'] > 0)
@@ -101,6 +109,8 @@ include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.class.php');
 include(PHPWG_ROOT_PATH . 'include/cache.class.php');
 include(PHPWG_ROOT_PATH . 'include/Logger.class.php');
+
+$page['execution_uuid'] = generate_key(10);
 
 $persistent_cache = new PersistentFileCache();
 
@@ -116,6 +126,11 @@ catch (Exception $e)
 }
 
 pwg_db_check_charset();
+
+// in Piwigo 15, configuration setting webmaster_id is moved from config files
+// to database. It may be undefined at some point, with Piwigo 15+ scripts and
+// a Piwigo 14 database schema not upgraded yet. Let's avoid any problem.
+$conf['webmaster_id'] = $conf['webmaster_id'] ?? 1;
 
 load_conf_from_db();
 
@@ -142,6 +157,24 @@ ImageStdParams::load_from_db();
 
 session_start();
 load_plugins();
+
+if (!isset($conf['piwigo_installed_version']))
+{
+  conf_update_param('piwigo_installed_version', PHPWG_VERSION);
+}
+elseif ($conf['piwigo_installed_version'] != PHPWG_VERSION)
+{
+  // Piwigo has been updated "from filesystem" and not "from the administration UI". We mark it as an autoupdate in the system activities log
+  pwg_activity('system', ACTIVITY_SYSTEM_CORE, 'autoupdate', array('from_version'=>$conf['piwigo_installed_version'], 'to_version'=>PHPWG_VERSION));
+  conf_update_param('piwigo_installed_version', PHPWG_VERSION);
+}
+
+//Check if last major update conf is set if not set it
+if (!isset($conf['last_major_update']))
+{
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+  conf_update_param('last_major_update', $dbnow, true);
+}
 
 // 2022-02-25 due to escape on "rank" (becoming a mysql keyword in version 8), the $conf['order_by'] might
 // use a "rank", even if admin/configuration.php should have removed it. We must remove it.
@@ -199,6 +232,8 @@ load_language('common.lang');
 if ( is_admin() || (defined('IN_ADMIN') and IN_ADMIN) )
 {
   load_language('admin.lang');
+  // Add language for temporary strings for new popup, from piwigo 15
+  load_language('whats_new_'.get_branch_from_version(PHPWG_VERSION).'.lang');
 }
 trigger_notify('loading_lang');
 load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );
@@ -218,6 +253,30 @@ if (isset($page['auth_key_invalid']) and $page['auth_key_invalid'])
     l10n('Your authentication key is no longer valid.')
     .sprintf(' <a href="%s">%s</a>', get_root_url().'identification.php', l10n('Login'))
     ;
+}
+
+// check if we need to notified user about api_key expiration
+if (isset($page['notify_api_key_expiration']) and is_array($page['notify_api_key_expiration']))
+{
+  $is_mail_send = notification_api_key_expiration(
+    $user['username'],
+    $user['email'],
+    $page['notify_api_key_expiration']['days_left']
+  );
+
+  if ($is_mail_send)
+  {
+    single_update(
+      USER_AUTH_KEYS_TABLE,
+      array('last_notified_on' => $page['notify_api_key_expiration']['dbnow']),
+      array(
+        'user_id' => $user['id'],
+        'auth_key' => $page['notify_api_key_expiration']['auth_key']
+      ),   
+    );
+  }
+
+  unset($page['notify_api_key_expiration']);
 }
 
 // template instance
@@ -296,7 +355,7 @@ if (isset($conf['header_notes']))
 add_event_handler('render_category_literal_description', 'render_category_literal_description');
 if ( !$conf['allow_html_descriptions'] )
 {
-  add_event_handler('render_category_description', 'nl2br');
+  add_event_handler('render_category_description', 'pwg_nl2br');
 }
 add_event_handler('render_comment_content', 'render_comment_content');
 add_event_handler('render_comment_author', 'strip_tags');

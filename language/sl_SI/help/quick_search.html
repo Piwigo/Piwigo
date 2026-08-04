@@ -1,0 +1,141 @@
+<h2>Iskanje</h2>
+
+<p>Privzeto se morajo vsi iskani izrazi ujemati. Iskanja niso občutljiva na velike in male črke.</p>
+
+<table class="qsearch_help_table">
+<tr>
+<td>citirani stavek<br>
+<q>"iskanje"</q>
+</td>
+<td>Za iskanje točno določene besede ali fraze uporabite narekovaje.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>bodisi izraz<br>
+<q>ALI iskanje</q><br>
+</td>
+<td>Dodajte ALI med besedami.<br>
+<q>john ALI bill</q></td>
+</tr>
+
+
+<tr>
+<td>izključiti<br>
+<q>NE išči</q><br>
+<q>-iskanje</q>
+</td>
+<td>Dodajte pomišljaj (-) ali NE pred besedo, da jo izključite iz iskanja. Upoštevajte, da NE deluje kot operater filtriranja, zato ne morete imeti iskanja, ki vsebuje samo operatorje NE. Ne morete kombinirati ALI z NE (<q>Janez ALI NE račun</q> ni veljaven) <br>
+<q>george washington NE bush</q></td>
+</tr>
+
+<tr>
+<td>združevanje v skupine<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mati ALI oče) IN (hčer ALI sin)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table class="qsearch_help_table">
+
+<tr>
+<td><q>oznaka:</q><br>
+<q>oznake:</q>
+</td>
+<td>Išče samo v imenih oznak, ne da bi gledal naslove ali opise fotografij.<br>
+<q>oznaka:john</q>, <q>oznaka:(john ALI bill)</q></td>
+</tr>
+
+<tr>
+<td><q>slika:</q><br>
+<q>slike:</q>
+</td>
+<td>Išče samo fotografije z danimi besedami v naslovu ali opisu.<br>
+<q>slika:John</q></td>
+</tr>
+
+<tr>
+<td><q>datoteka:</q>
+</td>
+<td>Išče po imenu datoteke.<br>
+<q>datoteka:DSC_</q></td>
+</tr>
+
+<tr>
+<td><q>avtor:</q>
+</td>
+<td>Išči po avtorju.<br>
+<q>avtor:John</q></td>
+</tr>
+
+<tr>
+<td><q>Ustvarjena:</q><br>
+<q>posneta:</q>
+<q>strel:</q>
+</td>
+<td>Išče slike po datumu posnetka.<br>
+<q>posneta:2003</q> slike posnete v 2003<br>
+<q>posneta:20035</q>,<q>posneta:2003-5</q>,<q>posneta:2003-05</q> slike iz maja 2003<br>
+<q>posneta:2003..2008</q> slike od 2003 do 2008<br>
+<q>posneta:&gt;2008</q>,<q>posneta:2008*</q>,<q>posneta:2008..</q> slike po 1. jan 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>objavljeno:</q>
+</td>
+<td>Išče slike po datumu objave.</td>
+</tr>
+
+<tr>
+<td><q>širina:</q><br>
+<q>višina:</q>
+</td>
+<td>Išče slike z dano širino ali višino.</td>
+</tr>
+<tr>
+<td><q>velikost:</q>
+</td>
+<td>Išče slike po velikosti v slikovnih pikah (pixels)<br>
+<q>velikost:5m</q> vrne slike velikosti 5 milijonov slikovnih pik (megapixels)<br>
+<q>velikost:>12m</q> vrne slike velikosti 12 milijonov slikovnih pik (megapixels) ali več<br></td>
+</tr>
+<tr>
+<td><q>razmerje:</q>
+</td>
+<td>Išče slike po razmerju širine/višine.<br>
+<q>razmerje:3/4 ALI razmerje:4/3</q> najde slike iz kompaktnih fotoaparatov v pokončnem ali ležečem načinu
+<q>razmerje:>16/9</q> najde panorame
+</td>
+</tr>
+<tr>
+<td><q>zadetkov:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>rezultat:</q><br>
+<q>ocena:</q>
+</td>
+<td>Namig: <q>rezultat:*</q> vam bo dal vse slike z vsaj enim glasom. <q>rezultat:</q> vam bo dal slike brez glasov.</td>
+</tr>
+<tr>
+<td><q>velikost datoteke:</q>
+</td>
+<td>Išče slike po velikosti datoteke <br>
+<q>velikost datoteke:1m..10m</q> najde datoteke med 1 MB in 10 MB.</td>
+</tr>
+<tr>
+<td><q>id:</q>
+</td>
+<td>Išče slike po številčnem identifikatorju v Piwigu<br>
+<q>id:123..126</q> najde sliko od 123 do 126 (lahko najde med 0 in 4 slik, ker je sliko mogoče izbrisati).</td>
+</tr>
+
+</table>

@@ -230,6 +230,9 @@ DELETE
       else if (version_compare($versions['current'], $versions['latest']) < 0)
       {
         $page['infos'][] = l10n('A new version of Piwigo is available.');
+
+        $update_url = PHPWG_ROOT_PATH.'admin.php?page=updates';
+        $page['infos'][] = '<a href="'. $update_url . '">' . l10n('Update to Piwigo %s', $versions['latest']) . '</a>';
       }
       else
       {
@@ -264,6 +267,13 @@ $php_current_timestamp = date("Y-m-d H:i:s");
 $db_version = pwg_get_db_version();
 list($db_current_date) = pwg_db_fetch_row(pwg_query('SELECT now();'));
 
+list($container_name,$container_version) = get_container_info();
+
+if (!in_array($container_name, ['Official','none']))
+{
+  $container_name = '(unofficial) '.$container_name;
+}
+
 $template->assign(
   array(
     'U_MAINT_CATEGORIES' => sprintf($url_format, 'categories'),
@@ -286,6 +296,7 @@ $template->assign(
     'PWG_VERSION' => PHPWG_VERSION,
     'U_CHECK_UPGRADE' => sprintf($url_format, 'check_upgrade'),
     'OS' => PHP_OS,
+    'CONTAINER_INFO' => $container_name.(!empty($container_version) ? ' '.$container_version : ''),
     'PHP_VERSION' => phpversion(),
     'DB_ENGINE' => 'MySQL',
     'DB_VERSION' => $db_version,
@@ -298,33 +309,10 @@ $template->assign(
   );
 
 // graphics library
-switch (pwg_image::get_library())
+$graphics_library = get_graphics_library_label();
+if (!empty($graphics_library))
 {
-  case 'imagick':
-    $library = 'ImageMagick';
-    $img = new Imagick();
-    $version = $img->getVersion();
-    if (preg_match('/ImageMagick \d+\.\d+\.\d+-?\d*/', $version['versionString'], $match))
-    {
-      $library = $match[0];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
-  case 'ext_imagick':
-    $library = 'External ImageMagick';
-    exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
-    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
-    {
-      $library .= ' ' . $match[1];
-    }
-    $template->assign('GRAPHICS_LIBRARY', $library);
-    break;
-
-  case 'gd':
-    $gd_info = gd_info();
-    $template->assign('GRAPHICS_LIBRARY', 'GD '.@$gd_info['GD Version']);
-    break;
+  $template->assign('GRAPHICS_LIBRARY', $graphics_library);
 }
 
 if ($conf['gallery_locked'])
@@ -342,6 +330,17 @@ else
       'U_MAINT_LOCK_GALLERY' => sprintf($url_format, 'lock_gallery'),
       )
     );
+}
+
+$installed_on = get_installation_date();
+if (!empty($installed_on))
+{
+  $template->assign(
+    array(
+      'INSTALLED_ON' => format_date($installed_on, array('day', 'month', 'year')),
+      'INSTALLED_SINCE' => time_since($installed_on, 'day'),
+    )
+  );
 }
 
 // +-----------------------------------------------------------------------+

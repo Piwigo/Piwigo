@@ -29,6 +29,18 @@ function ws_add_image_category_relations($image_id, $categories_string, $replace
   $rank_on_category = array();
   $search_current_ranks = false;
 
+  if (empty($categories_string)) {
+    if ($replace_mode) {
+      $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$image_id.'
+;';
+      pwg_query($query);
+      update_category([]);
+    }
+    return true;
+  }
   $tokens = explode(';', $categories_string);
   foreach ($tokens as $token)
   {
@@ -57,9 +69,16 @@ function ws_add_image_category_relations($image_id, $categories_string, $replace
 
   if (count($cat_ids) == 0)
   {
-    return new PwgError(500,
-      '[ws_add_image_category_relations] there is no category defined in "'.$categories_string.'"'
-      );
+    if ($replace_mode) {
+      $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$image_id.'
+;';
+      pwg_query($query);
+      update_category([]);
+    }
+    return true;
   }
 
   $query = '
@@ -157,6 +176,7 @@ SELECT category_id, MAX(`rank`) AS max_rank
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   update_category($new_cat_ids);
+  return true;
 }
 
 /**
@@ -281,6 +301,13 @@ function remove_chunks($original_sum, $type)
  */
 function ws_images_addComment($params, $service)
 {
+  global $conf;
+
+  if (!$conf['activate_comments'])
+  {
+    return new PwgError(403, 'Comments are disabled');
+  }
+
   $query = '
 SELECT DISTINCT image_id
   FROM '. IMAGE_CATEGORY_TABLE .'
@@ -363,6 +390,22 @@ LIMIT 1
   $image_row = pwg_db_fetch_assoc($result);
   $image_row = array_merge($image_row, ws_std_get_urls($image_row));
 
+  $image_row['name_raw'] = $image_row['name'];
+  $image_row['name'] = strip_tags(
+    trigger_change(
+      'render_element_name',
+      $image_row['name'],
+      __FUNCTION__
+    ) ?? ''
+  );
+
+  $image_row['comment_raw'] = $image_row['comment'];
+  $image_row['comment'] = trigger_change(
+    'render_element_description',
+    $image_row['comment'],
+    __FUNCTION__
+  );
+
   //-------------------------------------------------------- related categories
   $query = '
 SELECT id, name, permalink, uppercats, global_rank, commentable
@@ -401,6 +444,15 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
       );
 
     $row['id']=(int)$row['id'];
+
+    $row['name'] = strip_tags(
+      trigger_change(
+        'render_category_name',
+        $row['name'],
+        __FUNCTION__
+        )
+      );
+
     $related_categories[] = $row;
   }
   usort($related_categories, 'global_rank_compare');
@@ -491,7 +543,8 @@ SELECT id, date, author, content
   }
 
   $comment_post_data = null;
-  if ($is_commentable and
+  if ($conf['activate_comments'] and
+      $is_commentable and
       (!is_a_guest()
         or (is_a_guest() and $conf['comments_forall'] )
       )
@@ -664,6 +717,9 @@ SELECT *
         $image[$k] = $row[$k];
       }
 
+      $image['name'] = strip_tags(trigger_change('render_element_name', $image['name'], __FUNCTION__) ?? '');
+      $image['comment'] = trigger_change('render_element_description', $image['comment'], __FUNCTION__);
+
       $image = array_merge($image, ws_std_get_urls($row));
       $images[ $image_ids[ $image['id'] ] ] = $image;
     }
@@ -686,6 +742,350 @@ SELECT *
       ws_std_get_image_xml_attributes()
       )
     );
+}
+
+/**
+ * API method
+ * Registers a new search
+ * @param mixed[] $params
+ *    @option string query
+ */
+function ws_images_filteredSearch_create($params, $service)
+{
+  global $user, $conf;
+
+  include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
+
+  // * check the search exists
+  if (isset($params['search_id']))
+  {
+    if (empty(get_search_id_pattern($params['search_id'])))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid search_id input parameter.');
+    }
+
+    $search_info = get_search_info($params['search_id']);
+    if (empty($search_info))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'This search does not exist.');
+    }
+  }
+
+  $search = array('mode' => 'AND');
+
+  // * check all parameters
+  if (isset($params['allwords']))
+  {
+    $search['fields']['allwords'] = array();
+
+    if (!isset($params['allwords_mode']))
+    {
+      $params['allwords_mode'] = 'AND';
+    }
+    if (!preg_match('/^(OR|AND)$/', $params['allwords_mode']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter allwords_mode');
+    }
+    $search['fields']['allwords']['mode'] = $params['allwords_mode'];
+
+    $allwords_fields_available = array('name', 'comment', 'file', 'author', 'tags', 'cat-title', 'cat-desc');
+    if (!isset($params['allwords_fields']))
+    {
+      $params['allwords_fields'] = $allwords_fields_available;
+    }
+    foreach ($params['allwords_fields'] as $field)
+    {
+      if (!in_array($field, $allwords_fields_available))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter allwords_fields');
+      }
+    }
+    $search['fields']['allwords']['fields'] = $params['allwords_fields'];
+
+    $search['fields']['allwords']['words'] = split_allwords($params['allwords']);
+  }
+
+  if (isset($params['tags']))
+  {
+    foreach ($params['tags'] as $tag_id)
+    {
+      if (!preg_match('/^\d+$/', $tag_id))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter tags');
+      }
+    }
+
+    if (!isset($params['tags_mode']))
+    {
+      $params['tags_mode'] = 'AND';
+    }
+    if (!preg_match('/^(OR|AND)$/', $params['tags_mode']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter tags_mode');
+    }
+
+    $search['fields']['tags'] = array(
+      'words' => $params['tags'],
+      'mode'  => $params['tags_mode'],
+    );
+  }
+
+  if (isset($params['categories']))
+  {
+    foreach ($params['categories'] as $cat_id)
+    {
+      if (!preg_match('/^\d+$/', $cat_id))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter categories');
+      }
+    }
+
+    $search['fields']['cat'] = array(
+      'words'   => $params['categories'],
+      'sub_inc' => $params['categories_withsubs'] ?? false,
+    );
+  }
+
+  if (isset($params['authors']))
+  {
+    $authors = array();
+
+    foreach ($params['authors'] as $author)
+    {
+      $authors[] = strip_tags($author);
+    }
+
+    $search['fields']['author'] = array(
+      'words' => $authors,
+      'mode' => 'OR',
+    );
+  }
+
+  if (isset($params['filetypes']))
+  {
+    foreach ($params['filetypes'] as $ext)
+    {
+      if (!preg_match('/^[a-z0-9]+$/i', $ext))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter filetypes');
+      }
+    }
+
+    $search['fields']['filetypes'] = $params['filetypes'];
+  }
+
+  if (isset($params['added_by']))
+  {
+    foreach ($params['added_by'] as $user_id)
+    {
+      if (!preg_match('/^\d+$/', $user_id))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter added_by');
+      }
+    }
+
+    $search['fields']['added_by'] = $params['added_by'];
+  }
+
+  if (isset($params['date_posted_preset']))
+  {
+    if (!preg_match('/^(24h|7d|30d|3m|6m|custom|)$/', $params['date_posted_preset']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_posted_preset');
+    }
+
+    @$search['fields']['date_posted']['preset'] = $params['date_posted_preset'];
+
+    if ('custom' == $search['fields']['date_posted']['preset'] and empty($params['date_posted_custom']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'date_posted_custom is missing');
+    }
+  }
+
+  if (isset($params['date_posted_custom']))
+  {
+    if (!isset($search['fields']['date_posted']['preset']) or $search['fields']['date_posted']['preset'] != 'custom')
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'date_posted_custom provided date_posted_preset is not custom');
+    }
+
+    foreach ($params['date_posted_custom'] as $date)
+    {
+      $correct_format = false;
+
+      $ymd = substr($date, 0, 1);
+      if ('y' == $ymd)
+      {
+        if (preg_match('/^y(\d{4})$/', $date, $matches))
+        {
+          $correct_format = true;
+        }
+      }
+      elseif ('m' == $ymd)
+      {
+        if (preg_match('/^m(\d{4}-\d{2})$/', $date, $matches))
+        {
+          list($year, $month) = explode('-', $matches[1]);
+          if ($month >= 1 and $month <= 12)
+          {
+            $correct_format = true;
+          }
+        }
+      }
+      elseif ('d' == $ymd)
+      {
+        if (preg_match('/^d(\d{4}-\d{2}-\d{2})$/', $date, $matches))
+        {
+          list($year, $month, $day) = explode('-', $matches[1]);
+          if ($month >= 1 and $month <= 12 and $day >= 1 and $day <= cal_days_in_month(CAL_GREGORIAN, (int)$month, (int)$year))
+          {
+            $correct_format = true;
+          }
+        }
+      }
+
+      if (!$correct_format)
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'date_posted_custom, invalid option '.$date);
+      }
+
+      @$search['fields']['date_posted']['custom'][] = $date;
+    }
+  }
+
+  if (isset($params['date_created_preset']))
+  {
+    if (!preg_match('/^(7d|30d|3m|6m|12m|custom|)$/', $params['date_created_preset']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter date_created_preset');
+    }
+
+    @$search['fields']['date_created']['preset'] = $params['date_created_preset'];
+
+    if ('custom' == $search['fields']['date_created']['preset'] and empty($params['date_created_custom']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'date_created_custom is missing');
+    }
+  }
+
+  if (isset($params['date_created_custom']))
+  {
+    if (!isset($search['fields']['date_created']['preset']) or $search['fields']['date_created']['preset'] != 'custom')
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'date_created_custom provided date_created_preset is not custom');
+    }
+
+    foreach ($params['date_created_custom'] as $date)
+    {
+      $correct_format = false;
+
+      $ymd = substr($date, 0, 1);
+      if ('y' == $ymd)
+      {
+        if (preg_match('/^y(\d{4})$/', $date, $matches))
+        {
+          $correct_format = true;
+        }
+      }
+      elseif ('m' == $ymd)
+      {
+        if (preg_match('/^m(\d{4}-\d{2})$/', $date, $matches))
+        {
+          list($year, $month) = explode('-', $matches[1]);
+          if ($month >= 1 and $month <= 12)
+          {
+            $correct_format = true;
+          }
+        }
+      }
+      elseif ('d' == $ymd)
+      {
+        if (preg_match('/^d(\d{4}-\d{2}-\d{2})$/', $date, $matches))
+        {
+          list($year, $month, $day) = explode('-', $matches[1]);
+          if ($month >= 1 and $month <= 12 and $day >= 1 and $day <= cal_days_in_month(CAL_GREGORIAN, (int)$month, (int)$year))
+          {
+            $correct_format = true;
+          }
+        }
+      }
+
+      if (!$correct_format)
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'date_created_custom, invalid option '.$date);
+      }
+
+      @$search['fields']['date_created']['custom'][] = $date;
+    }
+  }
+
+  if (isset($params['ratios']))
+  {
+    foreach ($params['ratios'] as $ext)
+    {
+      if (!preg_match('/^[a-z0-9]+$/i', $ext))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter ratios');
+      }
+    }
+
+    $search['fields']['ratios'] = $params['ratios'];
+  }
+
+  if (isset($params['expert']))
+  {
+    $search['fields']['expert'] = array('string' => $params['expert']);
+  }
+
+  if ($conf['rate'] and isset($params['ratings']))
+  {
+    foreach ($params['ratings'] as $rate)
+    {
+      if (!preg_match('/^\d+$/i', $rate))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter ratings');
+      }
+    }
+
+    $search['fields']['ratings'] = $params['ratings'];
+  }
+
+  if (isset($params['filesize_min']))
+  {
+    $search['fields']['filesize_min'] = $params['filesize_min'];
+  }
+
+  if (isset($params['filesize_max']))
+  {
+    $search['fields']['filesize_max'] = $params['filesize_max'];
+  }
+
+  if (isset($params['width_min']))
+  {
+    $search['fields']['width_min'] = $params['width_min'];
+  }
+
+  if (isset($params['width_max']))
+  {
+    $search['fields']['width_max'] = $params['width_max'];
+  }
+
+  if (isset($params['height_min']))
+  {
+    $search['fields']['height_min'] = $params['height_min'];
+  }
+
+  if (isset($params['height_max']))
+  {
+    $search['fields']['height_max'] = $params['height_max'];
+  }
+
+  list($search_uuid, $search_url) = save_search($search, $search_info['id'] ?? null);
+
+  return array(
+    'search_id' => $search_uuid,
+    'search_url' => $search_url,
+  );
 }
 
 /**
@@ -1421,6 +1821,7 @@ function ws_images_upload($params, $service)
   @fclose($out);
   @fclose($in);
 
+  $add_status = "add";
   // Check if file has been uploaded
   if (!$chunks || $chunk == $chunks - 1)
   {
@@ -1444,22 +1845,44 @@ SELECT *
 
       $image = $images[0];
 
-      add_format($filePath, $format_ext, $image['id']);
+      $add_status = add_format($filePath, $format_ext, $image['id']);
 
       return array(
         'image_id' => $image['id'],
         'src' => DerivativeImage::thumb_url($image),
         'square_src' => DerivativeImage::url(ImageStdParams::get_by_type(IMG_SQUARE), $image),
         'name' => $image['name'],
-        );
+        'add_status' => $add_status,
+      );
+    }
+
+    $name = pwg_db_real_escape_string(stripslashes($params['name']));
+    $id_image = null; //null by default
+
+    if ($params['update_mode'])
+    {
+      $query = '
+SELECT 
+  id
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' as ic ON ic.image_id = i.id
+  WHERE i.file = \''.$name.'\'
+  AND ic.category_id = '.$params['category'][0].'
+;';
+      $images = query2array($query);
+      if ($images != null)
+      {
+        $id_image = $images[0]['id']; //take the id of the already existing image to replace it
+        $add_status = "update";
+      }
     }
 
     $image_id = add_uploaded_file(
       $filePath,
-      stripslashes($params['name']), // function add_uploaded_file will secure before insert
+      $name, // function add_uploaded_file will secure before insert
       $params['category'],
       $params['level'],
-      null // image_id = not provided, this is a new photo
+      $id_image
       );
 
     $query = '
@@ -1486,6 +1909,7 @@ SELECT
     COUNT(*)
   FROM '.LOUNGE_TABLE.'
   WHERE category_id = '.$params['category'][0].'
+  AND image_id NOT IN (Select image_id from '.IMAGE_CATEGORY_TABLE.')
 ;';
     list($nb_photos_lounge) = pwg_db_fetch_row(pwg_query($query));
 
@@ -1500,7 +1924,8 @@ SELECT
         'id' => $params['category'][0],
         'nb_photos' => $category_infos['nb_photos'] + $nb_photos_lounge,
         'label' => $category_name,
-        )
+      ),
+      'add_status' => $add_status
       );
   }
 }
@@ -1803,7 +2228,7 @@ function ws_images_exist($params, $service)
     // search among photos the list of photos already added, based on md5sum list
     $md5sums = preg_split(
       $split_pattern,
-      $params['md5sum_list'],
+      (string) $params['md5sum_list'],
       -1,
       PREG_SPLIT_NO_EMPTY
     );
@@ -1861,7 +2286,6 @@ SELECT id, file
  * 
  * @since 13
  * @param mixed[] $params
- *    @option string category_id (optional)
  *    @option string filename_list
  */
 function ws_images_formats_searchImage($params, $service)
@@ -1892,6 +2316,19 @@ SELECT
     return strlen($b) - strlen($a);
   });
 
+  $query = '
+SELECT
+    image_id,
+    ext
+  FROM '.IMAGE_FORMAT_TABLE.'
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $format_image_id = $row['image_id'];
+    @$format_db[ $format_image_id ][] = $row['ext'];
+  }
+
   $result = array();
 
   foreach ($candidates as $format_external_id => $format_filename)
@@ -1916,8 +2353,17 @@ SELECT
         $result[$format_external_id] = array('status' => 'multiple');
         continue;
       }
-
-      $result[$format_external_id] = array('status' => 'found', 'image_id' => $unique_filenames_db[$candidate_filename_wo_ext][0]);
+      $img_id = $unique_filenames_db[$candidate_filename_wo_ext][0];
+      $mult_form = false;
+      if (isset($format_db[$img_id]))
+      {
+        $format_ext = pathinfo($format_filename, PATHINFO_EXTENSION);
+        if (array_search($format_ext, $format_db[$img_id])!==false)
+        {
+          $mult_form = true;
+        }
+      }
+      $result[$format_external_id] = array('status' => 'found', 'image_id' => $img_id, 'format_exist' => $mult_form);
       continue;
     }
 
@@ -1925,6 +2371,125 @@ SELECT
   }
 
   return $result;
+}
+
+/**
+ * API method
+ * Remove a formats from the database and the file system
+ * 
+ * @since 13
+ * @param mixed[] $params
+ *    @option int format_id
+ *    @option string pwg_token
+ */
+function ws_images_formats_delete($params, $service) {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  if (!is_array($params['format_id']))
+  {
+    $params['format_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['format_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
+  $params['format_id'] = array_map('intval', $params['format_id']);
+
+  $format_ids = array();
+  foreach ($params['format_id'] as $format_id)
+  {
+    if ($format_id >= 0)
+    {
+      $format_ids[] = $format_id;
+    }
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $image_ids = array();
+  $formats_of = array();
+
+  //Delete physical file
+  $ok = true;
+  
+  $query = '
+SELECT
+    image_id,
+    ext
+  FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE format_id IN ('.implode(',', $format_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+
+    if (!isset($formats_of[ $row['image_id'] ]))
+    {
+      $image_ids[] = $row['image_id'];
+      $formats_of[ $row['image_id'] ] = array();
+    }
+
+    $formats_of[ $row['image_id'] ][] = $row['ext'];
+  }
+
+  if (count($image_ids) == 0)
+  {
+    return new PwgError(404, 'No format found for the id(s) given');
+  }
+
+  $query = '
+SELECT
+    id,
+    path,
+    representative_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $image_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if (url_is_remote($row['path']))
+    {
+      continue;
+    }
+
+    $files = array();
+    $image_path = get_element_path($row);
+
+    if (isset($formats_of[ $row['id'] ]))
+    {
+      foreach ($formats_of[ $row['id'] ] as $format_ext)
+      {
+        $files[] = original_to_format($image_path, $format_ext);
+      }
+    }
+
+    foreach ($files as $path)
+    {
+      if (is_file($path) and !unlink($path))
+      {
+        $ok = false;
+        trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
+        break;
+      }
+    }
+  }
+
+
+  //Delete format in the database
+  $query = '
+DELETE FROM '.IMAGE_FORMAT_TABLE.'
+  WHERE format_id IN ('.implode(',', $format_ids).')
+;';
+  pwg_query($query);
+
+  invalidate_user_cache();
+
+  return $ok;
 }
 
 /**
@@ -2012,6 +2577,11 @@ function ws_images_setInfo($params, $service)
 {
   global $conf;
 
+  if (isset($params['pwg_token']) and get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   $query='
@@ -2043,13 +2613,10 @@ SELECT *
   {
     if (isset($params[$key]))
     {
-      if (!$conf['allow_html_descriptions'])
+      if (!$conf['allow_html_descriptions'] or !isset($params['pwg_token']))
       {
         $params[$key] = strip_tags($params[$key], '<b><strong><em><i>');
       }
-
-      // TODO do not strip tags if pwg_token is provided (and valid)
-      $params[$key] = strip_tags($params[$key]);
 
       if ('fill_if_empty' == $params['single_value_mode'])
       {
@@ -2150,6 +2717,26 @@ SELECT *
         );
     }
   }
+ 
+  // Temporary use of the batch manager's unit mode, 
+  // not to be used by an external application, 
+  // as this code bellow will be deleted when a tag selector is added.
+  if (isset($_REQUEST['tag_list']))
+  {
+    if (isset($params['tag_ids']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Do not use tag_list and tag_ids at the same time.');
+    }
+
+    // clean user input
+    foreach ($_REQUEST['tag_list'] as $idx => $tag_candidate)
+    {
+      $_REQUEST['tag_list'][$idx] = pwg_db_real_escape_string(strip_tags(stripslashes($tag_candidate)));
+    }
+
+    $tag_list = get_tag_ids($_REQUEST['tag_list']);
+    set_tags($tag_list, $params['image_id']);
+  }  
 
   invalidate_user_cache();
 }
@@ -2311,8 +2898,14 @@ function ws_images_setMd5sum($params, $service)
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
-  $md5sum_ids_to_add = array_slice(get_photos_no_md5sum(), 0, $params['block_size']);
-  $added_count = add_md5sum($md5sum_ids_to_add);
+  $no_md5sum_ids = get_photos_no_md5sum();
+  $added_count = 0;
+
+  if (count($no_md5sum_ids) > 0)
+  {
+    $md5sum_ids_to_add = array_slice($no_md5sum_ids, 0, $params['block_size']);
+    $added_count = add_md5sum($md5sum_ids_to_add);
+  }
 
   return array(
     'nb_added' => $added_count,
@@ -2333,24 +2926,52 @@ function ws_images_syncMetadata($params, $service)
     return new PwgError(403, 'Invalid security token');
   }
 
+  if (!is_array($params['image_id']))
+  {
+    $params['image_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['image_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
+
+  $image_ids = array();
+  foreach ($params['image_id'] as $image_id)
+  {
+    $image_id = trim($image_id);
+
+    if (!preg_match(PATTERN_ID, $image_id))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid image_id "'.$image_id.'"');
+    }
+
+    $image_ids[] = $image_id;
+  }
+
+  if (empty($image_ids))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid image_id (no value after filters)');
+  }
+
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(', ', $params['image_id']).')
+  WHERE id IN ('.implode(', ', $image_ids).')
 ;';
-  $params['image_id'] = query2array($query, null, 'id');
+  $image_ids = query2array($query, null, 'id');
 
-  if (empty($params['image_id']))
+  if (empty($image_ids))
   {
     return new PwgError(403, 'No image found');
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  sync_metadata($params['image_id']);
+  sync_metadata($image_ids);
 
   return array(
-    'nb_synchronized' => count($params['image_id'])
+    'nb_synchronized' => count($image_ids)
   );
 }
 
@@ -2371,10 +2992,61 @@ function ws_images_deleteOrphans($params, $service)
 
   $orphan_ids_to_delete = array_slice(get_orphans(), 0, $params['block_size']);
   $deleted_count = delete_elements($orphan_ids_to_delete, true);
+  invalidate_user_cache();
 
   return array(
     'nb_deleted' => $deleted_count,
     'nb_orphans' => count(get_orphans()),
     );
+}
+
+/**
+ * API method
+ * Associate/Dissociate/Move photos with an album.
+ * 
+ * @since 14
+ * @param mixed[] $params
+ *    @option int[] image_id
+ *    @option int category_id
+ *    @option string action
+ *    @option string pwg_token
+ */
+function ws_images_setCategory($params, $service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  // does the category really exist?
+  $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$params['category_id'].'
+;';
+  $categories = query2array($query);
+
+  if (count($categories) == 0)
+  {
+    return new PwgError(404, 'category_id not found');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  if ('associate' == $params['action'])
+  {
+    associate_images_to_categories($params['image_id'], array($params['category_id']));
+  }
+  elseif ('dissociate' == $params['action'])
+  {
+    dissociate_images_from_category($params['image_id'], $params['category_id']);
+  }
+  elseif ('move' == $params['action'])
+  {
+    move_images_to_categories($params['image_id'], array($params['category_id']));
+  }
+
+  invalidate_user_cache();
 }
 ?>

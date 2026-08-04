@@ -5,7 +5,8 @@
 (function(){
   var targets = {
     'input[name="rate"]' : '#rate_anonymous',
-    'input[name="allow_user_registration"]' : '#email_admin_on_new_user'
+    'input[name="allow_user_registration"]' : '#email_admin_on_new_user',
+    'input[name="email_admin_on_new_user"]' : '#email_admin_on_new_user_filter'
   };
 
   for (selector in targets) {
@@ -67,6 +68,12 @@ jQuery("input[name='mail_theme']").change(function() {
   jQuery("input[name='mail_theme']").parents(".themeSelect").removeClass("themeDefault");
   jQuery(this).parents(".themeSelect").addClass("themeDefault");
 });
+
+jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
+  var val = jQuery("input[name='email_admin_on_new_user_filter']:checked").val();
+
+  jQuery('#email_admin_on_new_user_filter_group_options').toggle('group' == val);
+});
 {/footer_script}
 
 <form method="post" action="{$F_ACTION}" class="properties">
@@ -119,11 +126,13 @@ jQuery("input[name='mail_theme']").change(function() {
           {'Allow rating'|translate}
         </label>
 
-        <label id="rate_anonymous" class="font-checkbox no-bold">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="rate_anonymous" {if ($main.rate_anonymous)}checked="checked"{/if}>
-          {'Rating by guests'|translate}
-        </label>
+        <div id="rate_anonymous" class="sub-setting">
+          <label class="font-checkbox no-bold">
+            <span class="icon-check"></span>
+            <input type="checkbox" name="rate_anonymous" {if ($main.rate_anonymous)}checked="checked"{/if}>
+            {'Rating by guests'|translate}
+          </label>
+        </div>
       </li>
 
       <li>
@@ -133,11 +142,38 @@ jQuery("input[name='mail_theme']").change(function() {
           {'Allow user registration'|translate}
         </label>
 
-        <label id="email_admin_on_new_user" class="font-checkbox no-bold">
-          <span class="icon-check"></span>
-          <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
-          {'Email admins when a new user registers'|translate}
-        </label>
+        <div id="email_admin_on_new_user" class="sub-setting">
+          <label class="font-checkbox no-bold">
+            <span class="icon-check"></span>
+            <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
+            {'Email admins when a new user registers'|translate}
+          </label>
+
+          <div id="email_admin_on_new_user_filter" class="sub-setting"{if (!$main.email_admin_on_new_user)} style="display:none"{/if}>
+            <label class="font-checkbox no-bold">
+              <span class="icon-dot-circled"></span>
+              <input type="radio" name="email_admin_on_new_user_filter" value="all" {if ($main.email_admin_on_new_user_filter eq 'all')}checked{/if}>
+              {'All admins'|translate}
+            </label>
+<br>
+            <label class="font-checkbox no-bold">
+              <span class="icon-dot-circled"></span>
+              <input type="radio" name="email_admin_on_new_user_filter" value="group" {if ($main.email_admin_on_new_user_filter eq 'group')}checked{/if}>
+              {'Only admins in a specific group'|translate}
+            </label>
+
+            <span id="email_admin_on_new_user_filter_group_options"{if ($main.email_admin_on_new_user_filter ne 'group')} style="display:none"{/if}>
+{if count($group_options) > 0}
+            <select name="email_admin_on_new_user_filter_group">
+              {html_options options=$group_options selected=$main.email_admin_on_new_user_filter_group}
+            </select>
+{else}
+    {'There is no group in this gallery.'|@translate} <a href="admin.php?page=group_list" class="externalLink">{'Group management'|@translate}</a>
+{/if}
+            </span>
+
+          </div>
+        </div>
       </li>
 
       <li>
@@ -207,6 +243,16 @@ jQuery("input[name='mail_theme']").change(function() {
       </li>
 
       <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="upload_detect_duplicate" {if ($main.upload_detect_duplicate)}checked="checked"{/if}>
+          {'Detect and avoid duplicates during upload'|translate}
+        </label>
+
+        <span class="icon-help-circled tiptip" title="{'During upload, if Piwigo detects the photo already exists, associate the existing photo to the destination album, without duplicating file'|translate}" style="cursor:help"></span>
+      </li>
+
+      <li>
         <label>{'Mail theme'|translate}</label>
 
         <div class="themeBoxes font-checkbox">
@@ -233,11 +279,22 @@ jQuery("input[name='mail_theme']").change(function() {
 
 </div> <!-- configContent -->
 
-<p class="formButtons">
-  <button name="submit" type="submit" class="buttonLike" {if $isWebmaster != 1}disabled{/if}>
-    <i class="icon-floppy"></i> {'Save Settings'|@translate}
-  </button>
-</p>
+<div class="savebar-footer">
+  <div class="savebar-footer-start">
+  </div>
+  <div class="savebar-footer-end">
+{if isset($save_success)}
+    <div class="savebar-footer-block">
+      <div class="badge info-message">
+        <i class="icon-ok-circled"></i>{$save_success}
+      </div>
+    </div>
+{/if}
+    <div class="savebar-footer-block">
+      <button class="buttonLike"  type="submit" name="submit" {if $isWebmaster != 1}disabled{/if}><i class="icon-floppy"></i> {'Save Settings'|@translate}</button>
+    </div>
+  </div>
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+</div>
 
-<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

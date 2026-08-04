@@ -50,3 +50,5 @@ $lang['also given by your host provider'] = 'веб байршуулж буй г
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Хэрэглэгчдэд харагдана. Вебсайтын админд шаардлагатай.';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Өөр нэгэн арга бол тухайн текстийг "local/config/database.inc.php"-д хуулж буулгах юм.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo нь .htaccess файлыг үүсгэх/засах замаар Таны PHP 5.2-н тохиргоог өөрчлөхийг оролдлх болно.';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP-н %s хувилбар шаардлагатай (Таны ашиглаж буй PHP хувилбар: %s)
+';

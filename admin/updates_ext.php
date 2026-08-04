@@ -11,6 +11,11 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+if (!$conf['enable_extensions_install'])
+{
+  die('Piwigo extensions install/update system is disabled');
+}
+
 if (!is_webmaster())
 {
   $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
@@ -50,6 +55,12 @@ foreach ($autoupdate->types as $type)
     {
       continue;
     }
+
+    // In dev mode, do not show update actions
+    if ('auto' === $fs_ext['version'])
+    {
+      continue;
+    }    
 
     $ext_info = $server_ext[$fs_ext['extension']];
 

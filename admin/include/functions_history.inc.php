@@ -142,6 +142,7 @@ SELECT
     IP,
     section,
     category_id,
+    search_id,
     tag_ids,
     image_id,
     image_type

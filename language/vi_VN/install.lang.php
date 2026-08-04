@@ -51,3 +51,4 @@ $lang['Welcome to your new installation of Piwigo!'] = 'Chào mừng bạn đế
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Đừng do dự  thảo luận tại diễn đàn của chúng tôi để được trợ giúp: %s';
 $lang['localhost or other, supplied by your host provider'] = 'localhost hoặc tên máy chủ cấp bởi nhà cung cấp host';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Bạn nên yêu cầu hỗ trợ từ nhà cung cấp máy chủ và tìm hiểu xem nếu có thể tự chuyển được sang phiên bản PHP 5.2';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'Cần phiên bản PHP %s (phiên bản bạn đang dùng: %s)';

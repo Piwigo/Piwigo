@@ -7,7 +7,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '13.0.0RC1');
+define('PHPWG_VERSION', '17.0.0beta1');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 
 // this constant is only used in the upgrade process, the true default theme
@@ -20,7 +20,7 @@ defined('PWG_COMBINED_DIR') or define('PWG_COMBINED_DIR', $conf['data_location']
 defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_location'].'i/');
 
 // Required versions
-define('REQUIRED_PHP_VERSION', '7.0.0');
+define('REQUIRED_PHP_VERSION', '7.4.0');
 
 // Access codes
 define('ACCESS_FREE', 0);
@@ -30,8 +30,14 @@ define('ACCESS_ADMINISTRATOR', 3);
 define('ACCESS_WEBMASTER', 4);
 define('ACCESS_CLOSED', 5);
 
+// System activities
+define('ACTIVITY_SYSTEM_CORE', 1);
+define('ACTIVITY_SYSTEM_PLUGIN', 2);
+define('ACTIVITY_SYSTEM_THEME', 3);
+
 // Sanity checks
 define('PATTERN_ID', '/^\d+$/');
+define('PATTERN_ORDER', '/^(rand(om)?|[a-z_]+(\s+(asc|desc))?)(\s*,\s*(rand(om)?|[a-z_]+(\s+(asc|desc))?))*$/i');
 
 // Table names
 if (!defined('CATEGORIES_TABLE'))

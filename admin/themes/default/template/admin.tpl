@@ -26,23 +26,7 @@ $('#menubar').lightAccordion({
   active: {$ACTIVE_MENU}
 });
 
-/* in case we have several infos/errors/warnings display bullets */
-jQuery(document).ready(function() {
-  var eiw = ["infos","erros","warnings", "messages"];
 
-  for (var i = 0; i < eiw.length; i++) {
-    var boxType = eiw[i];
-
-    if (jQuery("."+boxType+" ul li").length > 1) {
-      jQuery("."+boxType+" ul li").css("list-style-type", "square");
-      jQuery("."+boxType+" .eiw-icon").css("margin-right", "20px");
-    }
-  }
-
-  if (jQuery('h2').length > 0) {
-    jQuery('h1').html(jQuery('h2').html());
-  }
-});
 {/footer_script}
 
 <div id="menubar">
@@ -105,7 +89,9 @@ jQuery(document).ready(function() {
           <span class="adminMenubarCounter" title="{'%d waiting for validation'|translate:$NB_PENDING_COMMENTS}">{$NB_PENDING_COMMENTS}</span>
         {/if}</a></li>
 {/if}
+{if isset($U_UPDATES)}
         <li><a href="{$U_UPDATES}"><i class="icon-arrows-cw"></i>{'Updates'|@translate}</a></li>
+{/if}
       </ul>
 		</dd>
   </dl>
@@ -127,7 +113,7 @@ jQuery(document).ready(function() {
 
 <div id="content" class="content">
 
-  <h1>{$ADMIN_PAGE_TITLE}</h1>
+  <h1>{$ADMIN_PAGE_TITLE}<span class="admin-object-id">{$ADMIN_PAGE_OBJECT_ID}</span></h1>
 
   {if isset($TABSHEET)}
   {$TABSHEET}
@@ -145,10 +131,9 @@ jQuery(document).ready(function() {
 <div class="eiw">
   {if isset($errors)}
   <div class="errors">
-    <i class="eiw-icon icon-cancel"></i>
     <ul>
       {foreach from=$errors item=error}
-      <li>{$error}</li>
+      <li><i class="eiw-icon icon-cancel"></i>{$error}</li>
       {/foreach}
     </ul>
   </div>
@@ -156,10 +141,9 @@ jQuery(document).ready(function() {
 
   {if isset($infos)}
   <div class="infos">
-    <i class="eiw-icon icon-ok"></i>
     <ul>
       {foreach from=$infos item=info}
-      <li>{$info}</li>
+      <li><i class="eiw-icon icon-ok-circled"></i>{$info}</li>
       {/foreach}
     </ul>
   </div>
@@ -167,10 +151,9 @@ jQuery(document).ready(function() {
 
   {if isset($warnings)}
   <div class="warnings">
-    <i class="eiw-icon icon-attention"></i>
     <ul>
       {foreach from=$warnings item=warning}
-      <li>{$warning}</li>
+      <li><i class="eiw-icon icon-attention"></i>{$warning}</li>
       {/foreach}
     </ul>
   </div>
@@ -178,10 +161,9 @@ jQuery(document).ready(function() {
 
   {if isset($messages)}
   <div class="messages">
-    <i class="eiw-icon icon-info-circled-1"></i>
     <ul>
       {foreach from=$messages item=message}
-      <li>{$message}</li>
+          <li><i class="eiw-icon icon-info-circled-1"></i>{$message}</li>
       {/foreach}
     </ul>
   </div>

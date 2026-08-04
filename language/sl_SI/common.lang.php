@@ -124,7 +124,7 @@ $lang['created after %s (%s)'] = 'kreirano po %s (%s)';
 $lang['created before %s (%s)'] = 'kreirano pred %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'kreirano med %s (%s) in %s (%s)';
 $lang['created on %s'] = 'kreirano na %s';
-$lang['Customize'] = 'Prilagodi';
+
 $lang['Your Gallery Customization'] = 'Prilagodi svojo galerijo';
 $lang['Related tags'] = 'Sorodne oznake';
 $lang['Reset'] = 'Ponastavi';
@@ -159,7 +159,7 @@ $lang['Hello'] = 'Pozdravljen';
 $lang['available for administrators only'] = 'dovoljeno samo za administratorje';
 $lang['display this album'] = 'prikaži slike na najvišjem nivoju te kategorije';
 $lang['display last user comments'] = 'Prikaži zadnje komentarje uporabnika';
-$lang['customize the appareance of the gallery'] = 'prilagodi izgled galerije';
+
 $lang['search'] = 'išči';
 $lang['Home'] = 'Domov';
 $lang['in this album'] = 'v tem albumu';
@@ -414,3 +414,6 @@ $lang['Invalid username or password!'] = 'Napačno uporabniško ime ali geslo!';
 $lang['generate random password'] = 'generiraj naključno geslo';
 $lang['Password: ********** (no copy by email)'] = 'Geslo: ********** (brez kopije po e-pošti)';
 $lang['Related albums'] = 'Sorodni albumi';
+$lang['Album name, 1 &rarr; 5 &rarr; 10 &rarr; 100'] = 'Ime albuma, 1 &rarr; 5 &rarr; 10 &rarr; 100';
+$lang['Album name, 100 &rarr; 10 &rarr; 5 &rarr; 1'] = 'Ime albuma, 100 &rarr; 10 &rarr; 5 &rarr; 1';
+$lang['Start-Date'] = 'Začetni datum';

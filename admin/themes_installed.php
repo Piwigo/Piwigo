@@ -59,7 +59,7 @@ $tpl_themes = array();
 
 foreach ($themes->fs_themes as $theme_id => $fs_theme)
 {
-  if ($theme_id == 'default')
+  if ($theme_id == 'default' or $theme_id == 'standard_pages')
   {
     continue;
   }
@@ -151,7 +151,7 @@ function cmp($a, $b)
   if($a['STATE'] == $b['STATE'])
     return strcasecmp($a['NAME'], $b['NAME']); 
   else
-    return ($s[$a['STATE']] >= $s[$b['STATE']] ? 1 : 0);
+    return ($s[$a['STATE']] >= $s[$b['STATE']] ? 1 : -1);
 }
 usort($tpl_themes, 'cmp');
 
@@ -170,6 +170,7 @@ trigger_notify('loc_end_themes_installed');
 
 $template->assign('isWebmaster', (is_webmaster()) ? 1 : 0);
 $template->assign('ADMIN_PAGE_TITLE', l10n('Themes'));
+$template->assign('CONF_ENABLE_EXTENSIONS_INSTALL', $conf['enable_extensions_install']);
 
 $template->set_filenames(array('themes' => 'themes_installed.tpl'));
 $template->assign_var_from_handle('ADMIN_CONTENT', 'themes');

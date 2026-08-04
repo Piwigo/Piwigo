@@ -33,7 +33,8 @@ if (!empty($_POST))
 trigger_notify('loc_begin_element_set_global');
 
 check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
-check_input_parameter('associate', $_POST, false, PATTERN_ID);
+check_input_parameter('associate', $_POST, true, PATTERN_ID);
+check_input_parameter('move', $_POST, false, PATTERN_ID);
 check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
@@ -51,7 +52,21 @@ if (isset($_POST['nb_photos_deleted']))
 }
 else if (isset($_POST['setSelected']))
 {
-  $collection = $page['cat_elements_id'];
+  // Here we don't use check_input_parameter because preg_match has a limit in
+  // the repetitive pattern. Found a limit to 3276 but may depend on memory.
+  //
+  // check_input_parameter('whole_set', $_POST, false, '/^\d+(,\d+)*$/');
+  //
+  // Instead, let's break the input parameter into pieces and check pieces one by one.
+  $collection = explode(',', $_POST['whole_set']);
+
+  foreach ($collection as $id)
+  {
+    if (!preg_match('/^\d+$/', $id))
+    {
+      fatal_error('[Hacking attempt] the input parameter "whole_set" is not valid');
+    }
+  }
 }
 else if (isset($_POST['selection']))
 {
@@ -149,34 +164,39 @@ DELETE
 
   if ('associate' == $action)
   {
-    associate_images_to_categories(
-      $collection,
-      array($_POST['associate'])
-      );
-
-    $_SESSION['page_infos'] = array(
-      l10n('Information data registered in database')
-      );
-
-    // let's refresh the page because we the current set might be modified
-    if ('no_album' == $page['prefilter'])
+    if (empty($_POST['associate']))
     {
-      $redirect = true;
-    }
-
-    else if ('no_virtual_album' == $page['prefilter'])
-    {
-      $category_info = get_cat_info($_POST['associate']);
-      if (empty($category_info['dir']))
+      $page['errors'][] = l10n('Select at least one album');
+    } else {
+      associate_images_to_categories(
+        $collection,
+        $_POST['associate']
+        );
+  
+      $_SESSION['page_infos'] = array(
+        l10n('Information data registered in database')
+        );
+  
+      // let's refresh the page because we the current set might be modified
+      if ('no_album' == $page['prefilter'])
       {
         $redirect = true;
+      }
+  
+      else if ('no_virtual_album' == $page['prefilter'])
+      {
+        $category_info = get_cat_info($_POST['associate']);
+        if (empty($category_info['dir']))
+        {
+          $redirect = true;
+        }
       }
     }
   }
 
   else if ('move' == $action)
   {
-    move_images_to_categories($collection, array($_POST['associate']));
+    move_images_to_categories($collection, array($_POST['move']));
 
     $_SESSION['page_infos'] = array(
       l10n('Information data registered in database')
@@ -190,7 +210,7 @@ DELETE
 
     else if ('no_virtual_album' == $page['prefilter'])
     {
-      $category_info = get_cat_info($_POST['associate']);
+      $category_info = get_cat_info($_POST['move']);
       if (empty($category_info['dir']))
       {
         $redirect = true;
@@ -206,31 +226,10 @@ DELETE
 
   else if ('dissociate' == $action)
   {
-    // physical links must not be broken, so we must first retrieve image_id
-    // which create virtual links with the category to "dissociate from".
-    $query = '
-SELECT id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-    INNER JOIN '.IMAGES_TABLE.' ON image_id = id
-  WHERE category_id = '.$_POST['dissociate'].'
-    AND id IN ('.implode(',', $collection).')
-    AND (
-      category_id != storage_category_id
-      OR storage_category_id IS NULL
-    )
-;';
-    $dissociables = array_from_query($query, 'id');
+    $nb_dissociated = dissociate_images_from_category($collection, $_POST['dissociate']);
 
-    if (!empty($dissociables))
+    if ($nb_dissociated > 0)
     {
-      $query = '
-DELETE
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$_POST['dissociate'].'
-    AND image_id IN ('.implode(',', $dissociables).')
-';
-      pwg_query($query);
-
       $_SESSION['page_infos'] = array(
         l10n('Information data registered in database')
         );
@@ -437,156 +436,16 @@ $template->set_filenames(array('batch_manager_global' => 'batch_manager_global.t
 
 $base_url = get_root_url().'admin.php';
 
-$prefilters = array(
-  array('ID' => 'caddie', 'NAME' => l10n('Caddie')),
-  array('ID' => 'favorites', 'NAME' => l10n('Your favorites')),
-  array('ID' => 'last_import', 'NAME' => l10n('Last import')),
-  array('ID' => 'no_album', 'NAME' => l10n('With no album').' ('.l10n('Orphans').')'),
-  array('ID' => 'no_tag', 'NAME' => l10n('With no tag')),
-  array('ID' => 'duplicates', 'NAME' => l10n('Duplicates')),
-  array('ID' => 'all_photos', 'NAME' => l10n('All'))
-);
-
-if ($conf['enable_synchronization'])
-{
-  $prefilters[] = array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'));
-  $prefilters[] = array('ID' => 'no_sync_md5sum', 'NAME' => l10n('With no checksum'));
-}
-
-function UC_name_compare($a, $b)
-{
-  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
-}
-
-$prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);
-
-// Sort prefilters by localized name.
-usort($prefilters, function ($a, $b) {
-  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
-});
-
-$template->assign(
-  array(
-    'conf_checksum_compute_blocksize' => $conf['checksum_compute_blocksize'],
-    'prefilters' => $prefilters,
-    'filter' => $_SESSION['bulk_manager_filter'],
-    'selection' => $collection,
-    'all_elements' => $page['cat_elements_id'],
-    'START' => $page['start'],
-    'PWG_TOKEN' => get_pwg_token(),
-    'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
-    'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag','filter')),
-    'ADMIN_PAGE_TITLE' => l10n('Batch Manager'),
-   )
- );
-
-if (isset($page['no_md5sum_number']))
-{
-  $template->assign(
-    array(
-      'NB_NO_MD5SUM' => $page['no_md5sum_number'],
-    )
-  );
-} else {
-  $template->assign('NB_NO_MD5SUM', '');
-}
+include(PHPWG_ROOT_PATH.'admin/include/batch_manager_filters.inc.php');
 
 // +-----------------------------------------------------------------------+
 // |                            caddie options                             |
 // +-----------------------------------------------------------------------+
 $template->assign('IN_CADDIE', 'caddie' == $page['prefilter']);
 
-
 // +-----------------------------------------------------------------------+
 // |                           global mode form                            |
 // +-----------------------------------------------------------------------+
-
-// privacy level
-foreach ($conf['available_permission_levels'] as $level)
-{
-  $level_options[$level] = l10n(sprintf('Level %d', $level));
-
-  if (0 == $level)
-  {
-    $level_options[$level] = l10n('Everybody');
-  }
-}
-$template->assign(
-  array(
-    'filter_level_options'=> $level_options,
-    'filter_level_options_selected' => isset($_SESSION['bulk_manager_filter']['level'])
-    ? $_SESSION['bulk_manager_filter']['level']
-    : 0,
-    )
-  );
-
-// tags
-$filter_tags = array();
-
-if (!empty($_SESSION['bulk_manager_filter']['tags']))
-{
-  $query = '
-SELECT
-    id,
-    name
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.implode(',', $_SESSION['bulk_manager_filter']['tags']).')
-;';
-
-  $filter_tags = get_taglist($query);
-}
-
-$template->assign('filter_tags', $filter_tags);
-
-// in the filter box, which category to select by default
-$selected_category = array();
-
-if (isset($_SESSION['bulk_manager_filter']['category']))
-{
-  $selected_category = array($_SESSION['bulk_manager_filter']['category']);
-}
-else
-{
-  // we need to know the category in which the last photo was added
-  $query = '
-SELECT category_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  ORDER BY image_id DESC
-  LIMIT 1
-;';
-  $result = pwg_query($query);
-  if (pwg_db_num_rows($result) > 0)
-  {
-    $row = pwg_db_fetch_assoc($result);
-    $selected_category[] = $row['category_id'];
-  }
-}
-
-$template->assign('filter_category_selected', $selected_category);
-
-// Dissociate from a category : categories listed for dissociation can only
-// represent virtual links. We can't create orphans. Links to physical
-// categories can't be broken.
-$associated_categories = array();
-
-if (count($page['cat_elements_id']) > 0)
-{
-  $query = '
-SELECT
-    DISTINCT(category_id) AS id
-  FROM '.IMAGE_CATEGORY_TABLE.' AS ic
-    JOIN '.IMAGES_TABLE.' AS i ON i.id = ic.image_id
-  WHERE ic.image_id IN ('.implode(',', $page['cat_elements_id']).')
-    AND (
-      ic.category_id != i.storage_category_id
-      OR i.storage_category_id IS NULL
-    )
-;';
-
-  $associated_categories = query2array($query, 'id', 'id');
-}
-
-$template->assign('associated_categories', $associated_categories);
 
 if (count($page['cat_elements_id']) > 0)
 {

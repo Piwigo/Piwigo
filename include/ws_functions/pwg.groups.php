@@ -15,6 +15,11 @@
  */
 function ws_groups_getList($params, &$service)
 {
+  if (!preg_match(PATTERN_ORDER, $params['order']))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid input parameter order');
+  }
+
   $where_clauses = array('1=1');
 
   if (!empty($params['name']))
@@ -223,7 +228,8 @@ SELECT COUNT(*)
   mass_inserts(
     USER_GROUP_TABLE,
     array('group_id', 'user_id'),
-    $inserts
+    $inserts,
+    array('ignore' => true)
     );
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');

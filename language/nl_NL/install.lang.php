@@ -50,3 +50,4 @@ $lang['Welcome to my photo gallery'] = 'Welkom bij mijn fotogalerie';
 $lang['Welcome to your new installation of Piwigo!'] = 'Welkom bij jouw nieuwe installatie van Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Aarzel niet om onze forums te raadplegen voor hulp: %s';
 $lang['localhost or other, supplied by your host provider'] = 'localhost of andere, geleverd door je provider';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP-versie %s vereist (je draait op PHP %s)';

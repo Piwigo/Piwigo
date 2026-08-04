@@ -48,7 +48,9 @@ $(".delete-lang-button").each(function() {
 
       {if $language_state == 'inactive'}
       <a href="{$language.u_action}&amp;action=activate" class="tiptip" title="{'Make this language available to users'|@translate}">{'Activate'|@translate}</a>
+        {if $CONF_ENABLE_EXTENSIONS_INSTALL}
       | <a href="{$language.u_action}&amp;action=delete" class="tiptip delete-lang-button" title="{'Delete this language'|@translate}">{'Delete'|@translate}</a>
+        {/if}
       {/if}
       </div>
     </div> <!-- languageActions -->

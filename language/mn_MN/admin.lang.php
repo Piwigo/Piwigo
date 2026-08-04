@@ -37,7 +37,7 @@ $lang['top right corner'] = 'баруун дээд булан';
 $lang['total time'] = 'нийт хугацаа';
 $lang['user_status_admin'] = 'Админ';
 $lang['user_status_guest'] = 'Зочин';
-$lang['user_status_normal'] = 'Хэрэглэгч';
+
 $lang['user_status_webmaster'] = 'Вэбмастер';
 $lang['wrong filename'] = 'файлын нэр буруу байна';
 $lang['User'] = 'Хэрэглэгч';

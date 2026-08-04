@@ -28,7 +28,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('nbm_send_mail_as','','S
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nbm_send_detailed_content','true','Send detailed content for notification by mail');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nbm_complementary_mail_content','','Complementary mail content for notification by mail');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nbm_send_recent_post_dates','true','Send recent post by dates for notification by mail');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('email_admin_on_new_user','false','Send an email to theadministrators when a user registers');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('email_admin_on_new_user','none','Send an email to theadministrators when a user registers');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('email_admin_on_comment','false','Send an email to the administrators when a valid comment is entered');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('email_admin_on_comment_validation','true','Send an email to the administrators when a comment requires validation');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('obligatory_user_mail_address','false','Mail address is obligatory for users');
@@ -75,3 +75,8 @@ INSERT INTO piwigo_config (param,value) VALUES ('picture_caddie_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('picture_representative_icon','true');
 INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_admin','true');
 INSERT INTO piwigo_config (param,value) VALUES ('show_mobile_app_banner_in_gallery','false');
+INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_button','false');
+INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_action','true');
+INSERT INTO piwigo_config (param,value) VALUES ('upload_detect_duplicate','true');
+INSERT INTO piwigo_config (param,value) VALUES ('webmaster_id','1');
+INSERT INTO piwigo_config (param,value) VALUES ('use_standard_pages','true');

@@ -18,6 +18,25 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+$sort_fields = array(
+  ''                    => '',
+  'file ASC'            => l10n('File name, A &rarr; Z'),
+  'file DESC'           => l10n('File name, Z &rarr; A'),
+  'name ASC'            => l10n('Photo title, A &rarr; Z'),
+  'name DESC'           => l10n('Photo title, Z &rarr; A'),
+  'date_creation DESC'  => l10n('Date created, new &rarr; old'),
+  'date_creation ASC'   => l10n('Date created, old &rarr; new'),
+  'date_available DESC' => l10n('Date posted, new &rarr; old'),
+  'date_available ASC'  => l10n('Date posted, old &rarr; new'),
+  'rating_score DESC'   => l10n('Rating score, high &rarr; low'),
+  'rating_score ASC'    => l10n('Rating score, low &rarr; high'),
+  'hit DESC'            => l10n('Visits, high &rarr; low'),
+  'hit ASC'             => l10n('Visits, low &rarr; high'),
+  'id ASC'              => l10n('Numeric identifier, 1 &rarr; 9'),
+  'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
+  'rank ASC'            => l10n('Manual sort order'),
+  );
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -47,8 +66,6 @@ if (isset($_POST['submit']))
       $page['category_id'],
       array_keys($_POST['rank_of_image'])
       );
-
-    $page['infos'][] = l10n('Images manual order was saved');
   }
 
   if (!empty($_POST['image_order_choice'])
@@ -57,12 +74,14 @@ if (isset($_POST['submit']))
     $image_order_choice = $_POST['image_order_choice'];
   }
 
+  $message = l10n('Album updated successfully');
+
   $image_order = null;
   if ($image_order_choice=='user_define')
   {
     for ($i=0; $i<3; $i++)
     {
-      if (!empty($_POST['image_order'][$i]))
+      if (!empty($_POST['image_order'][$i]) and in_array($_POST['image_order'][$i], array_keys($sort_fields)))
       {
         if (!empty($image_order)) $image_order.= ',';
         $image_order.= $_POST['image_order'][$i];
@@ -72,6 +91,8 @@ if (isset($_POST['submit']))
   elseif ($image_order_choice=='rank')
   {
     $image_order = '`rank` ASC';
+
+    $message = l10n('Images manual order was saved');
   }
   $query = '
 UPDATE '.CATEGORIES_TABLE.' 
@@ -90,7 +111,11 @@ UPDATE '.CATEGORIES_TABLE.'
     pwg_query($query);
   }
 
-  $page['infos'][] = l10n('Your configuration settings are saved');
+  $template->assign(
+    array(
+      'save_success' => $message,
+    )
+  );
 }
 
 // +-----------------------------------------------------------------------+
@@ -182,28 +207,9 @@ if (pwg_db_num_rows($result) > 0)
 	}
 }
 // image order management
-$sort_fields = array(
-  ''                    => '',
-  'file ASC'            => l10n('File name, A &rarr; Z'),
-  'file DESC'           => l10n('File name, Z &rarr; A'),
-  'name ASC'            => l10n('Photo title, A &rarr; Z'),
-  'name DESC'           => l10n('Photo title, Z &rarr; A'),
-  'date_creation DESC'  => l10n('Date created, new &rarr; old'),
-  'date_creation ASC'   => l10n('Date created, old &rarr; new'),
-  'date_available DESC' => l10n('Date posted, new &rarr; old'),
-  'date_available ASC'  => l10n('Date posted, old &rarr; new'),
-  'rating_score DESC'   => l10n('Rating score, high &rarr; low'),
-  'rating_score ASC'    => l10n('Rating score, low &rarr; high'),
-  'hit DESC'            => l10n('Visits, high &rarr; low'),
-  'hit ASC'             => l10n('Visits, low &rarr; high'),
-  'id ASC'              => l10n('Numeric identifier, 1 &rarr; 9'),
-  'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
-  'rank ASC'            => l10n('Manual sort order'),
-  );
-
 $template->assign('image_order_options', $sort_fields);
 
-$image_order = explode(',', $category['image_order']);
+$image_order = explode(',', isset($category['image_order']) ? $category['image_order'] : "");
 
 for ($i=0; $i<3; $i++) // 3 fields
 {

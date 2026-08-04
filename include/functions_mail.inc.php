@@ -351,7 +351,7 @@ function switch_lang_back()
  * @param boolean $send_technical_details - send user IP and browser
  * @return boolean
  */
-function pwg_mail_notification_admins($subject, $content, $send_technical_details=true)
+function pwg_mail_notification_admins($subject, $content, $send_technical_details=true, $group_id=null)
 {
   if (empty($subject) or empty($content))
   {
@@ -397,7 +397,10 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
     array(
       'filename' => 'notification_admin',
       'assign' => $tpl_vars,
-      )
+      ),
+    true, // exclude_current_user
+    false, // only_webmasters
+    $group_id
     );
 }
 
@@ -411,7 +414,7 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
  * @param array $tpl - as in pwg_mail()
  * @return boolean
  */
-function pwg_mail_admins($args=array(), $tpl=array(), $exclude_current_user=true, $only_webmasters=false)
+function pwg_mail_admins($args=array(), $tpl=array(), $exclude_current_user=true, $only_webmasters=false, $group_id=null)
 {
   if (empty($args['content']) and empty($tpl))
   {
@@ -430,13 +433,29 @@ function pwg_mail_admins($args=array(), $tpl=array(), $exclude_current_user=true
   // get admins (except ourself)
   $query = '
 SELECT
+    i.user_id,
     u.'.$conf['user_fields']['username'].' AS name,
     u.'.$conf['user_fields']['email'].' AS email
   FROM '.USERS_TABLE.' AS u
     JOIN '.USER_INFOS_TABLE.' AS i
-    ON i.user_id =  u.'.$conf['user_fields']['id'].'
+    ON i.user_id =  u.'.$conf['user_fields']['id'];
+
+  if (!is_null($group_id))
+  {
+    $query.= '
+    JOIN '.USER_GROUP_TABLE.' AS ug
+      ON ug.user_id = i.user_id';
+  }
+
+  $query.= '
   WHERE i.status in (\''.implode("','", $user_statuses).'\')
     AND u.'.$conf['user_fields']['email'].' IS NOT NULL';
+
+  if (!is_null($group_id))
+  {
+    $query.= '
+    AND group_id = '.intval($group_id);
+  }
 
   if ($exclude_current_user)
   {
@@ -575,6 +594,8 @@ SELECT
  * @param string|array $to
  * @param array $args
  *       o from: sender [default value webmaster email]
+ *       o reply_to_mail_address: reply-to can be different of the "from" (new 16.4.0) [default value empty]
+ *       o reply_to_name: reply-to can be different of the "from" (new 16.4.0) [default value empty]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
  *       o Bcc: array of blind carbon copy receivers of the mail. [default value empty]
  *       o subject [default value 'Piwigo']
@@ -635,7 +656,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
     $from = unformat_email($args['from']);
   }
   $mail->setFrom($from['email'], $from['name']);
-  $mail->addReplyTo($from['email'], $from['name']);
+  $mail->addReplyTo($args['reply_to_mail_address'] ?? $from['email'], $args['reply_to_name'] ?? $from['name']);
 
   // Subject
   if (empty($args['subject']))
@@ -983,6 +1004,146 @@ function pwg_send_mail_test($success, $mail, $args)
     fwrite($file, $mail->getSentMIMEMessage());
     fclose($file);
   }
+}
+
+/**
+ * Generate content mail for reset password
+ * 
+ * Return the content mail to send
+ * @since 15
+ * @param string $username
+ * @param string $password_link
+ * @param string $gallery_title
+ * @param string $remaining_time
+ * @return array mail content
+ */
+function pwg_generate_reset_password_mail($username, $password_link, $gallery_title, $remaining_time)
+{
+  set_make_full_url();
+  
+  $message = '<p style="margin: 20px 0">';
+  $message = l10n('Someone requested that the password be reset for the following user account:')." ".$username.'</p>';
+  $message.= '<p style="margin: 20px 0">'.l10n('To reset your password, visit the following address:');
+  $message.= ' <a href="'.$password_link.'">'.l10n('Change my password').'</a></p>';
+  $message.= '<p style="text-align: center; font-size: 70%;">'.$password_link.'</p>';
+  $message.= '<p style="margin: 20px 0;">';
+  $message.= l10n('This link is valid for %s. After this time, you will need to request a new link.', $remaining_time);
+  $message.= " ";
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.').'</p>';
+
+  unset_make_full_url();
+
+  $message = trigger_change('render_lost_password_mail_content', $message);
+
+  return array(
+    'subject' => '['.$gallery_title.'] '.l10n('Password Reset'),
+    'content' => $message,
+    'content_format' => 'text/html',
+    );
+}
+
+/**
+ * Generate content mail for set password
+ * 
+ * Return the content mail to send
+ * @since 15
+ * @param string $username
+ * @param string $password_link
+ * @param string $gallery_title
+ * @param string $remaining_time
+ * @return array mail content
+ */
+function pwg_generate_set_password_mail($username, $set_password_link, $gallery_title, $remaining_time)
+{
+  set_make_full_url();
+  
+  $message = '<p style="margin: 20px 0">';
+  $message.= l10n('A photo library administrator has created the following account for you:')." ".$username.'</p>';
+  $message.= '<p style="margin: 20px 0">'.l10n('To set your password, visit the following address:');
+  $message.= ' <a href="'.$set_password_link.'">'.l10n('Activate').'</a></p>';
+  $message.= '<p style="text-align: center; font-size: 70%; margin: 20px 0;">'.$set_password_link.'</p>';
+  $message.= '<p style="margin: 20px 0;">';
+  $message.= l10n('This link is valid for %s. After this time, you will need to request a new link.', $remaining_time);
+  $message.= " ";
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.') . '</p>';
+
+  unset_make_full_url();
+
+  $message = trigger_change('render_lost_password_mail_content', $message);
+  $subject = l10n('Welcome to %s', $gallery_title);
+
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+    );
+}
+
+/**
+ * Generate content mail for user code verification
+ * 
+ * Return the content mail to send
+ * @since 16
+ * @param string $code
+ * @return array mail content
+ */
+function pwg_generate_code_verification_mail($code)
+{
+  global $conf;
+  set_make_full_url();
+  $message = '<p style="margin: 20px 0">';
+  $message.= l10n('Here is your verification code:').' <br />';
+  $message.= '<span style="font-size: 16px">'. $code .'</span></p>';
+  $message.= '<p style="margin: 20px 0;">';
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.') . '</p>';
+  unset_make_full_url();
+
+  $subject = '['.$conf['gallery_title'].'] '.l10n('Your verification code');
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+  );
+}
+
+/**
+ * Generate content mail for reset password success
+ * 
+ * Return the content mail to send
+ * @since 16
+ * @param string $code
+ * @return array mail content
+ */
+function pwg_generate_success_reset_password_mail($username, $nb_of_apikeys)
+{
+  global $conf;
+  set_make_full_url();
+  $profile_url = get_root_url().'profile.php';
+
+  $message  = '<p style="margin-top: 20px;">'.l10n('Hello %s,', $username).'</p>';
+  $message .= '<p style="margin-bottom: 20px;">'.l10n('Your password was successfully reset').'.</p>';
+  $message .= '<p>';
+  $message .= l10n('If this wasn\'t you, please change your password immediately or contact your webmaster.');
+  $message .= '</p>';
+
+  if ($nb_of_apikeys > 0)
+  {
+    $message .= '<p style="margin: 20px 0;">';
+    $message .= l10n(
+      'If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.',
+      $nb_of_apikeys,
+      $profile_url
+    );
+    $message .= '</p>';
+  }
+  unset_make_full_url();
+
+  $subject = '['.$conf['gallery_title'].'] '.l10n('Your password has been reset');
+  return array(
+    'subject' => $subject,
+    'content' => $message,
+    'content_format' => 'text/html',
+  );
 }
 
 trigger_notify('functions_mail_included');

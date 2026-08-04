@@ -39,6 +39,9 @@ or
 
 .head-button-1:hover {
     background: #ff7700;
+    text-decoration: none !important;
+    color: white;
+    transition: all 125ms ease-out;
 }
 
 .head-button-2 {
@@ -47,7 +50,8 @@ or
 }
 
 .head-button-2:hover {
-    background: #eee;
+    text-decoration: none !important;
+    color: inherit !important;
 }
 
 /* -------------
@@ -251,4 +255,189 @@ a.info-framed:hover {
 .info-framed-title {
     color: #3c3c3c;
     font-weight: bold;
+}
+
+/* -------------
+Info
+------------- 
+
+.info, .errors, .warnings, .messages
+.info-message.icon-*, .info-warning.icon-*, .info-error.icon-*
+    p
+        (a)
+*/
+
+/***Banner messages***/
+.infos,
+.errors,
+.warnings,
+.messages,
+#photosAddContent .infos,
+.AddUserErrors,
+.AddAlbumErrors, 
+.EditUserErrors, 
+.update-password-fail, 
+.icon-red-error {
+  text-align: left;
+  margin: 20px;
+  padding: 10px 5px;
+  font-weight:600;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  border-radius:0px;
+}
+
+.AddUserErrors{
+  margin:10px 0;
+}
+
+.AddAlbumErrors{
+  margin:0;
+}
+
+.infos ul, 
+.errors ul, 
+.warnings ul, 
+.messages ul, 
+#photosAddContent .infos ul{
+  margin:10px 0;
+  padding-left:0;
+}
+
+#photosAddContent .infos ul li,
+.eiw ul li{
+  padding:2px;
+  margin-bottom:2px;
+  display:flex;
+  align-items:center;
+}
+
+.eiw ul li p,
+.UsernameBlock.success_message{
+  margin-right:0px;
+  margin:0;
+}
+
+#photosAddContent .infos ul li:not(:last-child),
+.eiw ul li:not(:last-child){
+  margin-bottom:10px;
+}
+
+.info-message a,
+.info-warning a,
+.info-error a,
+.messages a,
+#photosAddContent .infos ul li a,
+.eiw ul li a{
+  border-radius:25px;
+  margin:0 5px;
+  padding: 2px 7px;
+  cursor:pointer;
+}
+
+.info.hide {
+  display: none;
+}
+
+/***Rounded messages***/
+
+.info-message,
+.info-warning,
+.info-error,
+.update-user-success,
+.update-user-fail,
+.groupError,
+.AddAlbumErrors,
+.ValidationUserDissociated
+.ValidationUserAssociated,
+.update-user-success,
+.update-password-success,
+.update-username-success {
+  overflow: hidden;
+  border-radius: 30px;
+  padding:4px 8px 4px 3px;
+  font-weight: bold;
+  align-items: start;
+  text-align:left;
+}
+
+.info-message,
+.info-warning,
+.info-error,
+.update-user-success,
+.update-user-fail{
+  display: flex;
+  margin-left: 10px;
+  align-items:center;
+}
+
+.update-username-success{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.info-message p, .info-warning p, .info-error p {
+  margin: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: initial;
+  display: flex;
+  align-items: center;
+}
+
+.info-message::before,
+.info-warning::before,
+.info-error::before {
+  font-size: 16px;
+}
+
+.info-message {
+  display: none;
+}
+
+.info-error{
+  display: none;
+  animation-name: info-error-appear ;
+  animation-duration: 0.4s;
+  animation-timing-function: ease;
+}
+
+@keyframes info-error-appear {
+  25% { transform: translateX(-10px)}
+  50% { transform: translateX(10px)}
+  75% { transform: translateX(-10px)}
+  100% { transform: translateX(0px)}
+}
+
+/*** Message Icons ***/
+
+.eiw-icon,
+#photosAddContent .infos ul li a i,
+.AddAlbumErrors::before,
+.groupError::before,
+.ValidationUserDissociated i,
+.ValidationUserAssociated i{
+  margin-right:10px;
+  font-size: 16px;
+}
+
+.eiw ul li a i{
+  margin-right:0;
+}
+
+.eiw ul li a.no-margin{
+  margin:0;
+}
+
+.AddAlbumErrors::before,
+.groupError::before{
+  margin-top: 3px;
+}
+
+/***/
+
+.tree .badge-container i.icon-imagefolder-01.nb-sub-photos:before{
+    margin-right:0.5em!important;
 }

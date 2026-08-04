@@ -256,6 +256,7 @@ elseif (isset($_GET['filter']))
       break;
 
     case 'dimension':
+      // filter=dimension-w10..1000-h100..5000-r0.70..2
       $dim_map = array('w'=>'width','h'=>'height','r'=>'ratio');
       foreach (explode('-', $value) as $part)
       {
@@ -263,19 +264,54 @@ elseif (isset($_GET['filter']))
         if (isset($dim_map[$part[0]]))
         {
           $type = $dim_map[$part[0]];
-          list(
-            $_SESSION['bulk_manager_filter']['dimension']['min_'.$type],
-            $_SESSION['bulk_manager_filter']['dimension']['max_'.$type]
-          ) = $values;
+
+          $filter_to_validate_for_type = array(
+            'width' => FILTER_VALIDATE_INT,
+            'height' => FILTER_VALIDATE_INT,
+            'ratio' => FILTER_VALIDATE_FLOAT,
+          );
+
+          $valid = true;
+          foreach ($values as $value)
+          {
+            if (filter_var($value, $filter_to_validate_for_type[$type]) === false)
+            {
+              $valid = false;
+            }
+          }
+
+          if ($valid)
+          {
+            list(
+              $_SESSION['bulk_manager_filter']['dimension']['min_'.$type],
+              $_SESSION['bulk_manager_filter']['dimension']['max_'.$type]
+            ) = $values;
+          }
         }
       }
       break;
 
     case 'filesize':
-      list(
-        $_SESSION['bulk_manager_filter']['filesize']['min'],
-        $_SESSION['bulk_manager_filter']['filesize']['max']
-      ) = explode('..', $value);
+      // filter=filesize-1..10
+      $values = explode('..', $value);
+
+      $valid = true;
+      foreach ($values as $value)
+      {
+        if (filter_var($value, FILTER_VALIDATE_FLOAT) === false)
+        {
+          $valid = false;
+        }
+      }
+
+      if ($valid)
+      {
+        list(
+          $_SESSION['bulk_manager_filter']['filesize']['min'],
+          $_SESSION['bulk_manager_filter']['filesize']['max']
+        ) = $values;
+      }
+
       break;
 
     default:
@@ -571,12 +607,14 @@ if (isset($_SESSION['bulk_manager_filter']['filesize']))
   
   if (isset($_SESSION['bulk_manager_filter']['filesize']['min']))
   {
-    $where_clause[] = 'filesize >= '.$_SESSION['bulk_manager_filter']['filesize']['min']*1024;
+    // to counter the effect of converting kB to mB and rounding, we need to go slightly lower for the minimum value
+    $where_clause[] = 'filesize >= '.($_SESSION['bulk_manager_filter']['filesize']['min'] - 0.1)*1024;
   }
   
   if (isset($_SESSION['bulk_manager_filter']['filesize']['max']))
   {
-    $where_clause[] = 'filesize <= '.$_SESSION['bulk_manager_filter']['filesize']['max']*1024;
+    // to counter the effect of converting kB to mB and rounding, we need to go slightly higher for the maximum value
+    $where_clause[] = 'filesize <= '.($_SESSION['bulk_manager_filter']['filesize']['max'] + 0.1)*1024;
   }
 
   $query = '
@@ -784,10 +822,6 @@ if (empty($filesizes))
 
 $filesizes = array_unique($filesizes);
 sort($filesizes);
-
-// add 0.1MB to the last value, to make sure the heavier photo will be in
-// the result
-$filesizes[count($filesizes)-1]+= 0.1;
 
 $filesize['list'] = implode(',', $filesizes);
 

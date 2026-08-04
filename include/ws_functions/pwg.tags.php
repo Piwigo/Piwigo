@@ -160,6 +160,10 @@ SELECT *
       {
         $image[$k] = $row[$k];
       }
+
+      $image['name'] = strip_tags(trigger_change('render_element_name', $image['name'], __FUNCTION__));
+      $image['comment'] = trigger_change('render_element_description', $image['comment'], __FUNCTION__);
+
       $image = array_merge( $image, ws_std_get_urls($row) );
 
       $image_tag_ids = ($params['tag_mode_and']) ? $tag_ids : $image_tag_map[$image['id']];
@@ -288,7 +292,7 @@ function ws_tags_rename($params, &$service)
   }
 
   $tag_id = $params['tag_id'];
-  $tag_name = $params['new_name'];
+  $tag_name = strip_tags(stripslashes($params['new_name']));
 
   // does the tag exist ?
   $query = '
@@ -318,7 +322,7 @@ SELECT name
   else if (!empty($tag_name))
   {
     $update = array(
-      'name' => addslashes($tag_name),
+      'name' => pwg_db_real_escape_string($tag_name),
       'url_name' => trigger_change('render_tag_url', $tag_name),
     );
 
@@ -332,11 +336,20 @@ SELECT name
     array('id' => $tag_id)
     );
 
-  return array(
-    'id' => $tag_id,
-    'name' => addslashes($tag_name),
-    'url_name' => trigger_change('render_tag_url', $tag_name)
-  );
+  $query = '
+SELECT
+    id,
+    name,
+    url_name
+  FROM '.TAGS_TABLE.'
+  WHERE id = '.$tag_id.'
+;';
+
+  $tag = query2array($query)[0];
+  $tag['raw_name'] = $tag['name'];
+  $tag['name'] = trigger_change('render_tag_name', $tag['raw_name'], $tag);
+  $tag['alt_names'] = trigger_change('get_tag_alt_names', array(), $tag['raw_name']);
+  return $tag;
 }
 
 
@@ -495,6 +508,7 @@ SELECT image_id
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+  trigger_notify('merge_tags', $params['destination_tag_id'], $merge_tag);
   delete_tags($merge_tag);
 
   $image_in_merged = array_merge($image_in_dest, $image_to_add);

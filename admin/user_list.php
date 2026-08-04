@@ -11,6 +11,7 @@
  */
 
 check_input_parameter('group', $_GET, false, PATTERN_ID);
+check_input_parameter('user_id', $_GET, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
@@ -24,10 +25,13 @@ include(PHPWG_ROOT_PATH.'admin/include/user_tabs.inc.php');
 // +-----------------------------------------------------------------------+
 
 $groups = array();
+$groups_for_filter = array();
 
 $query = '
-SELECT id, name
+SELECT id, name, COUNT(ug.user_id) as nb_users_of
   FROM `'.GROUPS_TABLE.'`
+    LEFT JOIN `'. USER_GROUP_TABLE .'` ug ON id = ug.group_id
+  GROUP BY name
   ORDER BY name ASC
 ;';
 $result = pwg_query($query);
@@ -35,7 +39,14 @@ $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
   $groups[$row['id']] = $row['name'];
+  $groups_for_filter[] = array(
+    'id' => $row['id'],
+    'name' => $row['name'],
+    'counter' => $row['nb_users_of']
+  );
 }
+
+$template->assign('groups_for_filter', $groups_for_filter);
 
 // +-----------------------------------------------------------------------+
 // |                              Dates for filtering                      |
@@ -53,7 +64,7 @@ $result = pwg_query($query);
 $register_dates = array();
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $register_dates[] = $row['registration_month'].' '.$row['registration_year'];
+  $register_dates[] = $row['registration_year'].'-'.sprintf('%02u', $row['registration_month']);
 }
 
 $template->assign('register_dates', implode(',' , $register_dates));
@@ -100,8 +111,18 @@ SELECT
   $password_protected_users = array_merge($password_protected_users, array_diff($admin_ids, array($user['id'])));
 }
 
+$query = '
+SELECT
+    '.$conf['user_fields']['username'].' AS username
+    FROM '.USERS_TABLE.'
+    WHERE '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].'
+;';
+
+$owner_username = query2array($query, null, 'username');
+
 $template->assign(
   array(
+    'U_HISTORY' => get_root_url().'admin.php?page=history&filter_user_id=',
     'PWG_TOKEN' => get_pwg_token(),
     'NB_IMAGE_PAGE' => $default_user['nb_image_page'],
     'RECENT_PERIOD' => $default_user['recent_period'],
@@ -114,9 +135,11 @@ $template->assign(
     'password_protected_users' => implode(',', array_unique($password_protected_users)),
     'guest_user' => $conf['guest_id'],
     'filter_group' => (isset($_GET['group']) ? $_GET['group'] : null),
+    'search_input' => (isset($_GET['user_id']) ? 'id:'.$_GET['user_id'] : null),
     'connected_user' => $user["id"],
     'connected_user_status' => $user['status'],
-    'owner' => $conf['webmaster_id']
+    'owner' => $conf['webmaster_id'],
+    'owner_username' => $owner_username[0]
     )
   );
 
@@ -131,6 +154,26 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
   $label_of_status[$status] = l10n('user_status_'.$status);
 }
 
+$query = '
+SELECT
+    status,
+    COUNT(*) AS nb_users_of
+  FROM '. USER_INFOS_TABLE .'
+  WHERE user_id != '. $conf['guest_id'] .'
+  GROUP BY status
+';
+
+$result = pwg_query($query);
+while($row = pwg_db_fetch_assoc($result))
+{
+  $nb_users_by_status[$row['status']] = array(
+    'name' => l10n('user_status_'.$row['status']),
+    'counter' => $row['nb_users_of'],
+  );
+}
+
+$nb_users_by_status = array_merge($label_of_status, $nb_users_by_status);
+
 $pref_status_options = $label_of_status;
 
 // a simple "admin" can't set/remove statuses webmaster/admin
@@ -143,14 +186,36 @@ if ('admin' == $user['status'])
 $template->assign('label_of_status', $label_of_status);
 $template->assign('pref_status_options', $pref_status_options);
 $template->assign('pref_status_selected', 'normal');
+$template->assign('nb_users_by_status', $nb_users_by_status);
 
 // user level options
 foreach ($conf['available_permission_levels'] as $level)
 {
   $level_options[$level] = l10n(sprintf('Level %d', $level));
 }
+
+$query = '
+SELECT
+    level,
+    COUNT(*) AS nb_users_of
+  FROM '. USER_INFOS_TABLE .'
+  WHERE user_id != '. $conf['guest_id'] .'
+  GROUP BY level
+';
+
+$result = pwg_query($query);
+$nb_users_by_level = $level_options;
+while($row = pwg_db_fetch_assoc($result))
+{
+  $nb_users_by_level[$row['level']] = array(
+    'name' => l10n(sprintf('Level %d', $row['level'])),
+    'counter' => $row['nb_users_of']
+  );
+}
+
 $template->assign('level_options', $level_options);
 $template->assign('level_selected', $default_user['level']);
+$template->assign('nb_users_by_level', $nb_users_by_level);
 
 $query = '
 SELECT id, name, is_default
@@ -171,6 +236,35 @@ $template->assign('groups_arr_id', implode(',', $groups_arr_id));
 $template->assign('groups_arr_name', implode(',', $groups_arr_name));
 $template->assign('guest_id', $conf["guest_id"]);
 
+$template->assign('view_selector', userprefs_get_param('user-manager-view', 'line'));
+
+if (userprefs_get_param('user-manager-view', 'line') == 'line') 
+{
+  //Show 5 users by default
+  $template->assign('pagination', userprefs_get_param('user-manager-pagination', 5));
+}
+else
+{
+  //Show 10 users by default
+  $template->assign('pagination', userprefs_get_param('user-manager-pagination', 10));
+}
+
+function webmaster_id_is_local()
+{
+  $conf = array();
+  include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
+  @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
+  if (isset($conf['local_dir_site']))
+  {
+    @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
+  }
+  return $conf['webmaster_id'] ?? false;
+}
+
+if (webmaster_id_is_local())
+{
+  $page['warnings'][] = l10n('You have specified <i>$conf[\'webmaster_id\']</i> in your local configuration file, this parameter in deprecated, please remove it!');
+}
 // +-----------------------------------------------------------------------+
 // | html code display                                                     |
 // +-----------------------------------------------------------------------+

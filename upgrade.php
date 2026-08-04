@@ -6,6 +6,14 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
+// right after the overwrite of previous version files by the unzip in the administration,
+// PHP engine might still have old files in cache. We do not want to use the cache and
+// force reload of all application files. Thus we disable opcache.
+if (function_exists('ini_set'))
+{
+  @ini_set('opcache.enable', 0);
+}
+
 define('PHPWG_ROOT_PATH', './');
 
 // load config file
@@ -352,6 +360,22 @@ SELECT id
   {
     $current_release = '11.0.0';
   }
+  else if (!in_array(164, $applied_upgrades))
+  {
+    $current_release = '12.0.0';
+  }
+  else if (!in_array(170, $applied_upgrades))
+  {
+    $current_release = '13.0.0';
+  }
+  else if (!in_array(174, $applied_upgrades))
+  {
+    $current_release = '14.0.0';
+  }
+  else if (!in_array(181, $applied_upgrades))
+  {
+    $current_release = '15.0.0';
+  }
   else
   {
     // confirm that the database is in the same version as source code files
@@ -394,6 +418,9 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
     conf_update_param('piwigo_db_version', get_branch_from_version(PHPWG_VERSION));
+
+    //Conf delete param on last major update for whats new popin to be displayed when changing major version
+    conf_delete_param('last_major_update');
 
     // Something to add in database.inc.php?
     if (!empty($mysql_changes))
@@ -445,13 +472,6 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     $page['infos_sav'] = $page['infos'];
     $page['infos'] = array();
 
-    $query = '
-REPLACE INTO '.PLUGINS_TABLE.'
-  (id, state)
-  VALUES (\'TakeATour\', \'active\')
-;';
-    pwg_query($query);
-
     $template->assign(
       array(
         'button_label' => l10n('Home'),
@@ -466,6 +486,13 @@ REPLACE INTO '.PLUGINS_TABLE.'
       
       if (file_exists(PHPWG_PLUGINS_PATH .'TakeATour/tours/'.$version_.'/config.inc.php'))
       {
+        $query = '
+REPLACE INTO '.PLUGINS_TABLE.'
+  (id, state)
+  VALUES (\'TakeATour\', \'active\')
+;';
+        pwg_query($query);
+
         // we need the secret key for get_pwg_token()
         load_conf_from_db();
         
@@ -478,7 +505,17 @@ REPLACE INTO '.PLUGINS_TABLE.'
       }
     }
 
+    if (!isset($_SESSION['connected_with']))
+    {
+      $_SESSION['connected_with'] = 'pwg_ui';
+    }
+
     // Delete cache data
+    include(PHPWG_ROOT_PATH . 'include/cache.class.php');
+
+    // invalidate_user_cache will purge persistent_cache so it needs to be instantiated first
+    $persistent_cache = new PersistentFileCache();
+
     invalidate_user_cache(true);
     $template->delete_compiled_templates();
 

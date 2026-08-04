@@ -39,14 +39,79 @@
 // $conf['order_by_inside_category_custom'] = $conf['order_by_custom'];
 
 // picture_ext : file extensions for picture file, must be a subset of
-// file_ext
-$conf['picture_ext'] = array('jpg','jpeg','png','gif');
+// file_ext.
+//
+// Specific note for SVG support: do not add 'svg' in picture_ext, have it only
+// in file_ext
+$conf['picture_ext'] = array('jpg','jpeg','png','gif','webp');
 
 // file_ext : file extensions (case sensitive) authorized
+//
+// * if you enable "eps" file extension, make sure you have this file type
+//   authorized in your ImageMagick policy
+// * do not forget to set $conf['upload_form_all_types'] = true; if you want
+//   to permit upload of file_ext files
 $conf['file_ext'] = array_merge(
   $conf['picture_ext'],
-  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf')
+  array('tiff', 'tif', 'mpg','zip','avi','mp3','ogg','pdf','svg', 'heic')
   );
+
+// mime_types_for_ext : list of valid/expected MIME types for each file extension.
+// 
+// Every permitted file extension authorized for upload should be listed.
+// Otherwise Piwigo won't be able to check.
+$conf['mime_types_for_ext'] = array(
+  '3gp'   => ['video/3gpp', 'audio/3gpp'],
+  'ai'    => ['application/postscript'],
+  'avi'   => ['video/x-msvideo'],
+  'avif'  => ['image/avif'],
+  'bmp'   => ['image/bmp'],
+  'cr2'   => ['image/x-canon-cr2'],
+  'dng'   => ['image/x-adobe-dng'],
+  'doc'   => ['application/msword'],
+  'docx'  => ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+  'eps'   => ['application/postscript'],
+  'flv'   => ['video/x-flv'],
+  'gif'   => ['image/gif'],
+  'gp3'   => ['video/3gpp'],
+  'gp4'   => ['video/3gpp'],
+  'gpx'   => ['application/gpx+xml'],
+  'heic'  => ['image/heic', 'image/heif'],
+  'ico'   => ['image/x-icon'],
+  'indd'  => ['application/x-indesign'],
+  'jpeg'  => ['image/jpeg'],
+  'jpg'   => ['image/jpeg'],
+  'm4a'   => ['audio/mp4', 'audio/x-m4a'],
+  'm4v'   => ['video/x-m4v'],
+  'mkv'   => ['video/x-matroska'],
+  'mov'   => ['video/quicktime'],
+  'mp3'   => ['audio/mpeg'],
+  'mp4'   => ['video/mp4'],
+  'mpeg'  => ['video/mpeg'],
+  'mpg'   => ['video/mpeg'],
+  'nef'   => ['image/x-nikon-nef'],
+  'odt'   => ['application/vnd.oasis.opendocument.text'],
+  'ogg'   => ['audio/ogg', 'application/ogg'],
+  'ogv'   => ['video/ogg'],
+  'pdf'   => ['application/pdf'],
+  'png'   => ['image/png'],
+  'ppt'   => ['application/vnd.ms-powerpoint'],
+  'pptx'  => ['application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+  'psd'   => ['image/vnd.adobe.photoshop'],
+  'rar'   => ['application/x-rar-compressed', 'application/vnd.rar'],
+  'strm'  => ['application/x-ms-wmp'],
+  'svg'   => ['image/svg', 'image/svg+xml'],
+  'tif'   => ['image/tiff'],
+  'tiff'  => ['image/tiff'],
+  'txt'   => ['text/plain'],
+  'wav'   => ['audio/wav', 'audio/x-wav'],
+  'webm'  => ['video/webm'],
+  'webp'  => ['image/webp'],
+  'wmv'   => ['video/x-ms-wmv'],
+  'xls'   => ['application/vnd.ms-excel'],
+  'xlsx'  => ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  'zip'   => ['application/zip'],
+);
 
 // enable_formats: should Piwigo search for multiple formats?
 $conf['enable_formats'] = false;
@@ -97,6 +162,9 @@ $conf['newcat_default_status'] = 'public';
 
 // newcat_default_position : at creation, should the album appear at the first or last position ?
 $conf['newcat_default_position'] = 'first';
+
+// above which number of albums should Piwigo use the lighter album manager
+$conf['light_album_manager_threshold'] = 10000;
 
 // level_separator : character string used for separating a category level
 // to the sub level. Suggestions : ' / ', ' &raquo; ', ' &rarr; ', ' - ',
@@ -267,6 +335,12 @@ $conf['update_notify_check_period'] = 24*60*60;
 // we send it again? 0 to disable.
 $conf['update_notify_reminder_period'] = 7*24*60*60;
 
+// once a week, Piwigo *anonymously* sends technical data and general
+// statistics, such as number of photos or list of plugins used. It helps
+// piwigo.org to know better how Piwigo is used. This way developers can
+// focus on features that matter most.
+$conf['send_piwigo_infos'] = true;
+
 // should the album description be displayed on all pages (value=true) or
 // only the first page (value=false)
 $conf['album_description_on_all_pages'] = false;
@@ -276,6 +350,17 @@ $conf['stat_compare_year_displayed'] = 5;
 
 // Limit for linked albums search
 $conf['linked_album_search_limit'] = 100;
+
+// how often should we check for missing photos in the filesystem. Only in the
+// administration. Consider the fs_quick_check is always performed on
+// dashboard and maintenance pages. This setting is only for any other
+// administration page.
+// 0 to disable.
+$conf['fs_quick_check_period'] = 24*60*60;
+
+// This corresponds to the treshold where we no longer display the web browsers
+// PDF viewer. In MB (megabytes).
+$conf['pdf_viewer_filesize_threshold'] = 5;
 
 // +-----------------------------------------------------------------------+
 // |                                 email                                 |
@@ -433,6 +518,34 @@ $conf['session_use_ip_address'] = true;
 $conf['session_gc_probability'] = 1;
 
 // +-----------------------------------------------------------------------+
+// |                               api key                                 |
+// +-----------------------------------------------------------------------+
+
+// api_key_duration: available duration options (in days) for API key creation.
+// Array of predefined durations that will be displayed in the select dropdown
+// when creating a new API key. Use 'custom' to allow users to set a specific
+// expiration date with a date picker input.
+$conf['api_key_duration'] = ['30', '90', '180', '365', 'custom'];
+
+// The following API methods are prohibited when making requests with an API key.
+// These restrictions are in place for security reasons and to prevent unauthorized
+// access to sensitive operations that require higher-level authentication.
+$conf['api_key_forbidden_methods'] = array(
+  // users
+  'pwg.users.generatePasswordLink',
+  'pwg.users.getAuthKey',
+  'pwg.users.setMainUser',
+  'pwg.users.setInfo',
+  // plugins
+  'pwg.plugins.performAction',
+  // themes
+  'pwg.themes.performAction',
+  // extensions
+  'pwg.extensions.ignoreUpdate',
+  'pwg.extensions.update',
+);
+
+// +-----------------------------------------------------------------------+
 // |                            debug/performance                          |
 // +-----------------------------------------------------------------------+
 
@@ -489,6 +602,13 @@ $conf['template_combine_files'] = true;
 // for possible values)
 // gives an empty value '' to deactivate
 $conf['show_php_errors'] = E_ALL;
+
+// This sets the display_errors php option to true, so php errors and warning
+// messages are shown in the browser. If this is false, the error messages are 
+// available in the php log of the server if show_php_errors has any set.
+// If the below is turned off in local config and errors are still shown on 
+// frontend, check for display_errors setting server's php config
+$conf['show_php_errors_on_frontend'] = true;
 
 
 // +-----------------------------------------------------------------------+
@@ -559,13 +679,23 @@ $conf['default_user_id'] = $conf['guest_id'];
 // if language isn't available PHPWG_DEFAULT_LANGUAGE is used as previously
 $conf['browser_language'] = true;
 
-// webmaster_id : webmaster'id.
-$conf['webmaster_id'] = 1;
-
 // does the guest have access ?
 // (not a security feature, set your categories "private" too)
 // If false it'll be redirected from index.php to identification.php
 $conf['guest_access'] = true;
+
+// password_reset_duration : defines the validity duration (in seconds) of a 
+// password reset link. Default value is one hour (3600 seconds).
+$conf['password_reset_duration'] = 60*60;
+
+// password_activation_duration : defines the validity duration (in seconds) 
+// of an password activation link. Default value is 72 hours (259200 seconds).
+$conf['password_activation_duration'] = 3*24*60*60;
+
+// password_reset_code_duration: defines the validity duration (in seconds)
+// for the verification code sent before genrating the reset link.
+// Default value is 5 minutes (max = 15 minutes)
+$conf['password_reset_code_duration'] = 5 * 60;
 
 // +-----------------------------------------------------------------------+
 // |                               history                                 |
@@ -598,7 +728,7 @@ $conf['gallery_url'] = null;
 // (depends on the server AcceptPathInfo directive configuration)
 $conf['question_mark_in_urls'] = true;
 
-// php_extension_in_urls : if true, the urls generated for picture and
+// php_extension_in_urls : if false, the urls generated for picture and
 // category will not contain the .php extension. This will work only if
 // .htaccess defines Options +MultiViews parameter or url rewriting rules
 // are active.
@@ -620,6 +750,12 @@ $conf['picture_url_style'] = 'id';
 // Note that if you choose 'tag' and the url (ascii) representation of your
 // tags is not unique, all tags with the same url representation will be shown
 $conf['tag_url_style'] = 'id-tag';
+
+// force an explicit port in the url (like ":80" or ":443")
+// * 'none' : do not add any port, whatever protocol is detected
+// * 'auto' : tries to smartly add a port based on $_SERVER variables
+// * 123 : adds ":123" next to url host
+$conf['url_port'] = 'none';
 
 // +-----------------------------------------------------------------------+
 // |                                 tags                                  |
@@ -733,6 +869,12 @@ $conf['dashboard_check_for_updates'] = true;
 // Number Weeks displayed on activity chart on the dashboard
 $conf['dashboard_activity_nb_weeks'] = 4;
 
+// On the Admin>Users>Activity page, should we display the connection/disconnections?
+// 'all' = do not filter, display all
+// 'admins_only' = only display connections of admin users
+// 'none' = don't even display connections of admin users
+$conf['activity_display_connections'] = 'all';
+
 // On album mover page, number of seconds before auto openning album when
 // dragging an album. In milliseconds. 3 seconds by default.
 $conf['album_move_delay_before_auto_opening'] = 3*1000;
@@ -824,6 +966,12 @@ $conf['themes_dir'] = PHPWG_ROOT_PATH.'themes';
 // enable the synchronization method for adding photos
 $conf['enable_synchronization'] = true;
 
+// enable the update of Piwigo core from administration pages
+$conf['enable_core_update'] = true;
+
+// enable install/update of plugins/themes/languages from administration pages
+$conf['enable_extensions_install'] = true;
+
 // Permitted characters for files/directories during synchronization.
 // Do not add the ' U+0027 single quote apostrophe character, it WILL make some
 // SQL queries fail. URI reserved characters (see
@@ -887,6 +1035,10 @@ $conf['derivative_default_size'] = 'medium';
 // EXIF/IPTC... from derivative?
 $conf['derivatives_strip_metadata_threshold'] = 256000;
 
+// For animated webP files, to avoid heavy derivatives, set a specific quality,
+// different from derivatives.resize_quality
+$conf['animated_webp_compression_quality'] = 70;
+
 //Maximum Ajax requests at once, for thumbnails on-the-fly generation
 $conf['max_requests']=3;
 
@@ -913,6 +1065,9 @@ $conf['upload_form_all_types'] = false;
 // performances with high values, such as 5000.
 $conf['upload_form_chunk_size'] = 500;
 
+// Maximum size for a file in the upload form, in megabytes.
+$conf['upload_form_max_file_size'] = 1000;
+
 // If we try to generate a pwg_representative for a video we use ffmpeg. If
 // "ffmpeg" is not visible by the web user, you can define the full path of
 // the directory where "ffmpeg" executable is.
@@ -929,11 +1084,37 @@ $conf['batch_manager_images_per_page_unit'] = 5;
 // how many missing md5sum should Piwigo compute at once.
 $conf['checksum_compute_blocksize'] = 50;
 
+// +-----------------------------------------------------------------------+
+// | Search                                                                |
+// +-----------------------------------------------------------------------+
+
 // quicksearch engine: include all photos from sub-albums of any matching
 // album. For example, if search is "bear", then we display photos from
 // "bear/grizzly". When value changed, delete database cache files in
 // _data/cache directory
 $conf['quick_search_include_sub_albums'] = false;
+
+// default configuration for search filters. It will then be configurable
+// with the configuration page. Having this setting in this file avoids to
+// duplicate it in several files
+$conf['default_filters_views'] = array(
+  'words'          => ['access'=>'everybody', 'default'=>true],
+  'tags'           => ['access'=>'everybody', 'default'=>false],
+  'post_date'      => ['access'=>'everybody', 'default'=>false],
+  'creation_date'  => ['access'=>'everybody', 'default'=>true],
+  'album'          => ['access'=>'everybody', 'default'=>true],
+  'author'         => ['access'=>'everybody', 'default'=>false],
+  'added_by'       => ['access'=>'everybody', 'default'=>false],
+  'file_type'      => ['access'=>'everybody', 'default'=>false],
+  'ratio'          => ['access'=>'everybody', 'default'=>false],
+  'rating'         => ['access'=>'everybody', 'default'=>false],
+  'file_size'      => ['access'=>'everybody', 'default'=>false],
+  'height'         => ['access'=>'everybody', 'default'=>false],
+  'width'          => ['access'=>'everybody', 'default'=>false],
+  'expert'         => ['access'=>'everybody', 'default'=>false],
+
+  'last_filters_conf' => true,
+);
 
 // +-----------------------------------------------------------------------+
 // |                                 log                                   |

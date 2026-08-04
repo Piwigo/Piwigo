@@ -295,6 +295,14 @@ input[type="text"] {
     grid-template-columns: 66% 34%;
 }
 
+#methodDescription blockquote ul {
+  margin-top: 10px;
+}
+
+#methodDescription blockquote ul li {
+  list-style-type: disc;
+}
+
 .card, .card-2 {
     margin: 10px;
     background-color: var(--color-bg-secondary);
@@ -339,6 +347,30 @@ input[type="text"] {
 .card .card-content {
     padding: 10px;
     position: relative;
+}
+
+.header-setting {
+    margin-bottom: 10px;
+}
+
+.header-setting input {
+    width: 98%;
+}
+
+.header-description {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.header-warning {
+    margin: 0;
+    color: red;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.header-label {
+    margin-bottom: 0;
 }
 
 /* #requestResultDisplay {

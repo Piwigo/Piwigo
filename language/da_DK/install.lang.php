@@ -52,3 +52,4 @@ $lang['Welcome to your new installation of Piwigo!'] = 'Velkommen til din nye Pi
 $lang['Password ']['confirm'] = 'Adgangskode [bekræft]';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Du henvises til din webhosts support for at finde ud af, om du selv kan skifte til PHP 5.2';
 $lang['localhost or other, supplied by your host provider'] = 'localhost eller andet, oplyst af din hostingleverandør';
+$lang['PHP version %s required (you are running on PHP %s)'] = 'PHP version %s krævet (du kører PHP %s)';

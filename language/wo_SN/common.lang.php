@@ -39,4 +39,4 @@ $lang['month'][6] = 'Baraxlou';
 $lang['month'][7] = 'Kôr';
 $lang['month'][8] = 'Kori';
 $lang['month'][9] = 'Digui Tabaski';
-?>
+$lang['All'] = 'toute 2';
