@@ -164,6 +164,24 @@ function get_exif_data($filename, $map)
           $result[$key] = $exif[$tokens[0]][$tokens[1]];
         }
       }
+      $rotation = 0;
+      if (isset($exif['Orientation']) and preg_match('/^\s*(\d)/', $exif['Orientation'], $matches))
+      {
+        $orientation = $matches[1];
+        if (in_array($orientation, array(3, 4)))
+        {
+          $rotation = 2;
+        }
+        elseif (in_array($orientation, array(5, 6)))
+        {
+          $rotation = 3;
+        }
+        elseif (in_array($orientation, array(7, 8)))
+        {
+          $rotation = 1;
+        }
+      }
+      $result['rotation'] = $rotation;
     }
 
     // GPS data
