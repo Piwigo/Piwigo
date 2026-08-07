@@ -52,6 +52,7 @@ function createTagBox(id, name, url_name, count, raw_name = null) {
     .replace('%U_VIEW%', u_view)
     .replace('%U_EDIT%', u_edit)
     .replace('%raw_name%', raw_name)
+    .replace('%count%', count)
     if(name == raw_name) {
       html = html.replace('icon-globe', '');
     }
@@ -69,13 +70,13 @@ function createTagBox(id, name, url_name, count, raw_name = null) {
   return newTag;
 }
 
-function recycleTagBox(tagBox, id, name, url_name, count, raw_name = null) {
+function recycleTagBox(tagBox, id, name, url_name, count = 0, raw_name = null) {
   if(raw_name === null) {
     raw_name = name
   }
   tagBox = tagBox.first();
   tagBox.attr('data-id', id);
-  tagBox.find('.tag-name, .tag-dropdown-header b').html(name);
+  tagBox.find('.tag-name, .tag-dropdown-header b').html(`${name} (${count})`);
   tagBox.find('.tag-name-editable').val(name)
   tagBox.attr('data-selected', 0)
   tagBox.find('.tag-name').data('rawname', raw_name);

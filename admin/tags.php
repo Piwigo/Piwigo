@@ -111,16 +111,9 @@ $template->assign('message_tags', $message_tags);
 // +-----------------------------------------------------------------------+
 $per_page = 100;
 
-// tag counters
-$query = '
-SELECT tag_id, COUNT(image_id) AS counter
-  FROM '.IMAGE_TAG_TABLE.'
-  GROUP BY tag_id';
-$tag_counters = simple_hash_from_query($query, 'tag_id', 'counter');
-
 // all tags
 $query = '
-SELECT name, id, url_name
+SELECT name, id, url_name, (SELECT COUNT(image_id) FROM '.IMAGE_TAG_TABLE.' WHERE tag_id = id) AS counter
   FROM '.TAGS_TABLE.'
 ;';
 $result = pwg_query($query);
@@ -130,11 +123,6 @@ while ($tag = pwg_db_fetch_assoc($result))
   $raw_name = $tag['name'];
   $tag['raw_name'] = $raw_name;
   $tag['name'] = trigger_change('render_tag_name', $raw_name, $tag);
-  $counter = intval(@$tag_counters[ $tag['id'] ]);
-  if ($counter > 0) 
-  {
-    $tag['counter'] = intval(@$tag_counters[ $tag['id'] ]);
-  }
 
   $alt_names = trigger_change('get_tag_alt_names', array(), $raw_name);
   $alt_names = array_diff( array_unique($alt_names), array($tag['name']) );
