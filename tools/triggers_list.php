@@ -218,6 +218,13 @@ array(
   'files' => array('include\functions_picture.inc.php (get_image_location)'),
 ),
 array(
+  'name' => 'get_search_allwords_fields',
+  'type' => 'trigger_change',
+  'vars' => array('array', 'fields'),
+  'files' => array('search.php', 'include\functions_search.inc.php (get_regular_search_results)', 'include\ws_functions\pwg.images.php (ws_images_filteredSearch_create)'),
+  'infos' => 'New in 17.0.',
+),
+array(
   'name' => 'get_popup_help_content',
   'type' => 'trigger_change',
   'vars' => array('string', 'help_content', 'string', 'page'),

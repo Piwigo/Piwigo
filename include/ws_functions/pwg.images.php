@@ -788,7 +788,11 @@ function ws_images_filteredSearch_create($params, $service)
     }
     $search['fields']['allwords']['mode'] = $params['allwords_mode'];
 
-    $allwords_fields_available = array('name', 'comment', 'file', 'author', 'tags', 'cat-title', 'cat-desc');
+    $allwords_fields_available = trigger_change(
+      'get_search_allwords_fields',
+      array('name', 'comment', 'file', 'author', 'tags', 'cat-title', 'cat-desc')
+    );
+
     if (!isset($params['allwords_fields']))
     {
       $params['allwords_fields'] = $allwords_fields_available;

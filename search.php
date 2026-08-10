@@ -80,7 +80,10 @@ if (count($words) > 0 or in_array('allwords', $fields))
   $search['fields']['allwords'] = array(
     'words' => $words,
     'mode' => 'AND',
-    'fields' => array('file', 'name', 'comment', 'tags', 'author', 'cat-title', 'cat-desc'),
+    'fields' => trigger_change(
+      'get_search_allwords_fields',
+      array('file', 'name', 'comment', 'tags', 'author', 'cat-title', 'cat-desc')
+    ),
   );
 }
 
