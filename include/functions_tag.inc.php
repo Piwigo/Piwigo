@@ -125,7 +125,7 @@ SELECT *
 function get_all_tags()
 {
   $query = '
-SELECT *
+SELECT id, name, url_name
   FROM '.TAGS_TABLE.'
 ;';
   $result = pwg_query($query);

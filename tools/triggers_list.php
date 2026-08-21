@@ -78,6 +78,20 @@ array(
   'files' => array('include\template.class.php (Template::make_script_src)'),
 ),
 array(
+  'name' => 'create_tag',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'tag'),
+  'files' => array('admin\include\functions.php (tag_id_from_tag_name, create_tag)'),
+  'infos' => 'New in 17.0.',
+),
+array(
+  'name' => 'duplicate_tag',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'tag'),
+  'files' => array('include\ws_functions\pwg.tags.php (ws_tags_duplicate)'),
+  'infos' => 'New in 17.0.',
+),
+array(
   'name' => 'delete_categories',
   'type' => 'trigger_notify',
   'vars' => array('array', 'ids'),

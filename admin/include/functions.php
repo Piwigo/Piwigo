@@ -1760,6 +1760,11 @@ SELECT id
 
         $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id(TAGS_TABLE);
 
+        trigger_notify('create_tag', array(
+          'id' => $page['tag_id_from_tag_name_cache'][$tag_name],
+          'name' => $tag_name,
+          ));
+
         invalidate_user_cache_nb_tags();
 
         return $page['tag_id_from_tag_name_cache'][$tag_name];
@@ -2396,6 +2401,11 @@ SELECT id
       );
 
     $inserted_id = pwg_db_insert_id(TAGS_TABLE);
+
+    trigger_notify('create_tag', array(
+      'id' => $inserted_id,
+      'name' => $tag_name,
+      ));
 
     return array(
       'info' => l10n('Tag "%s" was added', stripslashes($tag_name)),

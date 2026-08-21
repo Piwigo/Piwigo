@@ -399,6 +399,11 @@ SELECT COUNT(*)
   );
   $destination_tag_id = pwg_db_insert_id(TAGS_TABLE);
 
+  trigger_notify('duplicate_tag', array(
+    'id' => $destination_tag_id,
+    'name' => $copy_name,
+    ));
+
   pwg_activity('tag', $destination_tag_id, 'add', array('action'=>'duplicate', 'source_tag'=>$tag_id));
 
   $query = '
