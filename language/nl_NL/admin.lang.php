@@ -1432,3 +1432,6 @@ $lang['Light mode'] = 'lichte mode';
 $lang['Personalization settings'] = 'Personalisatie instellingen';
 $lang['Use Piwigo logo'] = 'Gebruik het Piwigo logo';
 $lang['Use custom logo (png, jpeg or svg)'] = 'Gebruik aangepast logo(png, jpeg of svg)';
+$lang['Follow the update guide'] = 'Volg de handleiding om te updaten';
+$lang['Two container updates are available'] = 'Twee container updates zijn beschikbaar';
+$lang['You are about to delete %s groups, are you sure?'] = 'U gaat nu %s groepen verwijderen. Weet u dat zeker?';
