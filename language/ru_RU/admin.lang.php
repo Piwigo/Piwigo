@@ -1431,3 +1431,5 @@ $lang['Select a color theme for standard pages'] = 'Выбрать цветов�
 $lang['Save all photos'] = 'Сохранить все фотографии';
 $lang['Save'] = 'Сохранить';
 $lang['Activate create mode to create and select an album'] = 'Активировать режим создания, чтобы создать и выбрать альбом';
+$lang['Creation mode'] = 'Режим создания';
+$lang['Welcome to %s'] = 'Приветствуем в %s';
