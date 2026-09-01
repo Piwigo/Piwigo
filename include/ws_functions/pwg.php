@@ -196,6 +196,45 @@ function ws_getInfos($params, &$service)
 
 /**
  * API method
+ * Returns generic configuration elements
+ *
+ * @since 15
+ */
+function ws_getConfig()
+{
+  global $conf;
+
+  $ret = array();
+
+  $copy_fields = array(
+    'gallery_locked',
+    'gallery_title',
+    'week_starts_on',
+
+    'activate_comments',
+    'comments_forall',
+    'comments_order',
+    'comments_author_mandatory',
+    'comments_email_mandatory',
+    'comments_enable_website',
+    'user_can_delete_comment',
+    'user_can_edit_comment',
+
+    'rate',
+    'rate_anonymous',
+    'rate_items',
+  );
+
+  foreach ($copy_fields as $field)
+  {
+    $ret[$field] = $conf[$field];
+  }
+
+  return trigger_change('ws_getConfig', $ret);
+}
+
+/**
+ * API method
  * Calculates and returns the size of the cache
  *
  * @since 12
