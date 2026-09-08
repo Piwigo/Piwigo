@@ -114,6 +114,8 @@ SELECT SQL_CALC_FOUND_ROWS i.*
 ;';
     $result = pwg_query($query);
 
+    list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+
     while ($row = pwg_db_fetch_assoc($result))
     {
       $image_ids[] = $row['id'];
@@ -222,7 +224,7 @@ SELECT
         'page' => $params['page'],
         'per_page' => $params['per_page'],
         'count' => count($images),
-        'total_count' => $total_images
+        'total_count' => (int) $total_images
         )
       ),
     'images' => new PwgNamedArray(
