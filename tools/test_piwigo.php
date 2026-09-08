@@ -261,7 +261,8 @@ function add_picture($option, $cookies, $pwg_token)
   ;';
 
   $res = $mysqli->query($query);
-  if (($row = $res->fetch_row())[0] > 0) {
+  $row = $res->fetch_row();
+  if ($row[0] > 0) {
     echo "Add a Picture OK!\n";
   }
   else {
