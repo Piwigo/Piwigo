@@ -153,6 +153,7 @@ WHERE '.$where.'
  */
 function get_cat_info($id)
 {
+  $id = is_array($id) ? $id[0] : $id;
   $query = '
 SELECT *
   FROM '.CATEGORIES_TABLE.'
