@@ -185,10 +185,13 @@ DELETE
   
       else if ('no_virtual_album' == $page['prefilter'])
       {
-        $category_info = get_cat_info($_POST['associate']);
-        if (empty($category_info['dir']))
+        foreach ($_POST['associate'] as $associate_cat_id)
         {
-          $redirect = true;
+          $category_info = get_cat_info($associate_cat_id);
+          if (empty($category_info['dir']))
+          {
+            $redirect = true;
+          }
         }
       }
     }
