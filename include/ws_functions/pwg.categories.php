@@ -137,7 +137,7 @@ SELECT SQL_CALC_FOUND_ROWS i.*
 
       $image = array_merge($image, ws_std_get_urls($row));
 
-      $images[] = $image;
+      $images[] = trigger_change('ws_getImages_details', $image, $row, $params);
     }
 
     list($total_images) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
