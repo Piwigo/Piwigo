@@ -765,7 +765,7 @@ function upload_file_video($representative_ext, $file_path)
   // Get duration of video and determine time of poster
   exec('ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1'." '$file_path'", $O, $S);
 
-  if (!empty($O[0]))
+  if (!empty($O[0]) && is_numeric($O[0]))
   {
     $second = min(floor($O[0]*10)/10, 2);
   }
