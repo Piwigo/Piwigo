@@ -103,7 +103,8 @@ SELECT '.implode(',', $fields).'
 
   $template->assign(array(
     'language_options' => $language_options,
-    'language_selection' => $user['language']
+    'language_selection' => $user['language'],
+    'COOKIE_PATH' => cookie_path(),
   ));
 
   //Get link to doc
