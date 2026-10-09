@@ -369,7 +369,7 @@ function safe_unserialize($value)
 {
   if (is_string($value))
   {
-    return unserialize($value);
+    return unserialize($value, ['allowed_classes' => false]);
   }
   return $value;
 }
