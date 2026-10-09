@@ -353,10 +353,7 @@ if (isset($conf['header_notes']))
 
 // default event handlers
 add_event_handler('render_category_literal_description', 'render_category_literal_description');
-if ( !$conf['allow_html_descriptions'] )
-{
-  add_event_handler('render_category_description', 'pwg_nl2br');
-}
+add_event_handler('render_category_description', 'should_convert_nl2br');
 add_event_handler('render_comment_content', 'render_comment_content');
 add_event_handler('render_comment_author', 'strip_tags');
 add_event_handler('render_tag_url', 'str2url');
