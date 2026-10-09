@@ -6,6 +6,7 @@
   var selected_language = `{$language_options[$language_selection]}`;
   var url_logo_light = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo.svg`;
   var url_logo_dark = `{$ROOT_URL}themes/standard_pages/images/piwigo_logo_dark.svg`;
+  var cookie_path = '{$COOKIE_PATH|@escape:'javascript'}';
 </script>
 {combine_script id='standard_pages_js' load='async' require='jquery' path='themes/standard_pages/js/standard_pages.js'}
 {combine_script id='standard_profile_js' load='footer' require='jquery' path='themes/standard_pages/js/profile.js'}
