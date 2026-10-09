@@ -133,7 +133,7 @@ function get_sync_metadata_attributes()
       array_merge(
         $update_fields,
         array_keys($conf['use_exif_mapping']),
-        array('latitude', 'longitude')
+        array('latitude', 'longitude', 'rotation')
         );
   }
 
