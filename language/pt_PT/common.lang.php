@@ -539,3 +539,6 @@ $lang['Your verification code'] = 'O seu código de verificação';
 $lang['edit user preferences'] = 'editar preferências do utilizador';
 $lang['must not be empty'] = 'não pode estar vazio';
 $lang['you must choose a date'] = 'deve escolher uma data';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Se a sua conta existir, foi enviado um código de verificação para o seu endereço de e-mail.
+
+';
