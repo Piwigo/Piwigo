@@ -704,7 +704,7 @@ li.plupload_delete a.remove-format:hover{color: #474747;}
 .addFilesButtonChanged:hover {background-color: #BBB;}
 
 #checkActions a, .deleteDerivButtons a {background-color: #E8E8E8;}
-#filterList select, .pictureLevels select, #permitAction select, .sort-by select {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important; outline: none !important;}
+#filterList select, .pictureLevels select, #permitAction select, .sort-by select, #batchManagerGlobal #filterList li#filter_filetype .custom-select-title {background-color: #FFF; color: #4E4E4E; border: 2px solid #7070704f !important; outline: none !important;}
 #filter_category .selectize-input.items.full.has-options.has-items, #filter_tags .selectize-input.items.not-full.has-options,
 #filter_tags .selectize-input.items.not-full, #filter_search input, #action_move .selectize-input.items.full.has-options.has-items,
 #action_dissociate .selectize-input.items.full.has-options.has-items {
@@ -715,8 +715,8 @@ li.plupload_delete a.remove-format:hover{color: #474747;}
 #action_move a:last-child {background: #FFF; border: 1px solid #787777a6; box-shadow: none;}
 #forbidAction, .selectionEmptyBlock, .noFilter {background-color: #f3f3f3;}
 #action_title .large, #action_author .large {background-color: #FFF; color: #4E4E4E;}
-#filter_dimension .slider-choice, #filter_filesize .slider-choice {background-color: #EEE; color: #777;}
-#filter_dimension .slider-choice:hover, #filter_filesize .slider-choice:hover, .dimension-cancel:hover {
+#filter_dimension .slider-choice, #filter_filesize .slider-choice, #filter_date_posted .slider-choice, #filter_date_created .slider-choice {background-color: #EEE; color: #777;}
+#filter_dimension .slider-choice:hover, #filter_filesize .slider-choice:hover, .dimension-cancel:hover, #filter_date_posted .slider-choice:hover, #filter_date_created .slider-choice:hover, #filter_date_posted .slider-choice.active, #filter_date_created .slider-choice.active {
   text-decoration: none; background-color: #ffa646 !important; color: initial;
 }
 #filterList .ui-slider .ui-slider-range {background: rgba(255,166,70, 0.9); margin-top: -1px; border: 1px solid #ffaf58;}

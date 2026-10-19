@@ -699,6 +699,8 @@ $lang['Select at least one comment'] = 'Select at least one comment';
 $lang['Select at least one photo'] = "Select at least one photo";
 $lang['Select at least one user'] = "Select at least one user";
 $lang['Select at least one tag'] = "Select at least one tag";
+$lang['Select at least one date'] = "Select at least one date";
+$lang['Select at least one type'] = "Select at least one type";
 $lang['Select at least two tags for merging'] = 'Select at least two tags for merging';
 $lang['Select files'] = 'Select files';
 $lang['Select groups...'] = 'Select groups...';
@@ -1438,5 +1440,7 @@ $lang['Latest update'] = 'Latest update';
 $lang['See available updates'] = 'See available updates';
 $lang['You are about to delete %s groups, are you sure?'] = 'You are about to delete %s groups, are you sure?';
 $lang['Users not logged in will have these permissions applied. Grant access to private albums only with great caution.'] = 'Users not logged in will have these permissions applied. Grant access to private albums only with great caution.';
+$lang['single day'] = 'Single day';
+$lang['period'] = 'Period';
 
 // Leave this line empty

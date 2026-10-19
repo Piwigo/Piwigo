@@ -98,13 +98,117 @@ $(document).ready(function () {
     }
   });
 
+  // Filetype filter
+  $(document).on('click', function(e) {
+    if (!$(e.target).closest('#filter_filetype .custom-select-dropdown').length) {
+      $('#filter_filetype .custom-select-dropdown').removeAttr('open');
+    }
+  });
 
+  function updateFiletypeSelectedText() {
+    const checked = $('#filter_filetype input[name="filter_filetype[]"]:checked');
+    const label = $('#filter_filetype .selected-text');
+    const defaultPlaceholder = label.data('placeholder');
+
+    if (checked.length === 0) {
+      label.text(defaultPlaceholder);
+    } else {
+      const selectedTypes = checked.map(function() {
+        return $(this).closest('label').text().trim().split(' ')[0];
+      }).get();
+
+      label.text(selectedTypes.join(', '));
+    }
+  }
+
+  $('#filter_filetype').on('change', 'input[name="filter_filetype[]"]', function() {
+    updateFiletypeSelectedText();
+  });
+  
+  updateFiletypeSelectedText();
+
+  // Date posted filter
+  $('#date_posted_min_date, #date_posted_max_date').on('click', function() {
+    if (typeof this.showPicker === 'function') {
+      this.showPicker();
+    }
+  });
+
+  $('#filter_date_posted').on('click', '.slider-choice', function(e) {
+    e.preventDefault();
+
+    const $choice = $(this);
+    const $parent = $choice.closest('li');
+    const isSingle = $choice.data('value') == 1;
+
+    $parent.find('.slider-choice').removeClass('active');
+    $choice.addClass('active');
+
+    $parent.find('#filter_date_posted_single').val(isSingle ? '1' : '0');
+
+    if (isSingle) {
+      $parent.find('.date-label-between-posted, .date-label-and-posted, #date_posted_max_date').hide();
+      $parent.find('.date-label-single-posted').show();
+      $parent.find('#date_posted_max_date').val('');
+    } else {
+      $parent.find('.date-label-single-posted').hide();
+      $parent.find('.date-label-between-posted, .date-label-and-posted, #date_posted_max_date').show();
+    }
+  });
+
+  // Date created filter
+  $('#date_created_min_date, #date_created_max_date').on('click', function() {
+    if (typeof this.showPicker === 'function') {
+      this.showPicker();
+    }
+  });
+
+  $('#filter_date_created').on('click', '.slider-choice', function(e) {
+    e.preventDefault();
+
+    const $choice = $(this);
+    const $parent = $choice.closest('li');
+    const isSingle = $choice.data('value') == 1;
+
+    $parent.find('.slider-choice').removeClass('active');
+    $choice.addClass('active');
+
+    $parent.find('#filter_date_created_single').val(isSingle ? '1' : '0');
+
+    if (isSingle) {
+      $parent.find('.date-label-between-created, .date-label-and-created, #date_created_max_date').hide();
+      $parent.find('.date-label-single-created').show();
+      $parent.find('#date_created_max_date').val('');
+    } else {
+      $parent.find('.date-label-single-created').hide();
+      $parent.find('.date-label-between-created, .date-label-and-created, #date_created_max_date').show();
+    }
+  });
+  
   // Filter JS Validation
   $('.filterBlock select[data-selectize="tags"]').on('change', function() {
     if ($(this).val()) {
       hide_filters_error(str_select_tag);
     }
   })
+
+  $('#date_posted_min_date, #date_posted_max_date').on('change input', function() {
+    if ($('#date_posted_min_date').val() || $('#date_posted_max_date').val()) {
+      hide_filters_error(str_select_date);
+    }
+  });
+
+  $('#date_created_min_date, #date_created_max_date').on('change input', function() {
+    if ($('#date_created_min_date').val() || $('#date_created_max_date').val()) {
+      hide_filters_error(str_select_date);
+    }
+  });
+  
+  $('#filter_filetype').on('change', 'input[name="filter_filetype[]"]', function() {
+    if ($('#filter_filetype input[name="filter_filetype[]"]:checked').length > 0) {
+      hide_filters_error(str_select_filetype);
+    }
+  });
 
   $('#applyFilter').on('click', function(e) {
     if ($('#filter_tags').is(':visible')) {
@@ -125,6 +229,51 @@ $(document).ready(function () {
         show_filters_error(str_select_album);
         $('#filter_category .removeFilter').off('click.apply').on('click.apply', function() {
           hide_filters_error(str_select_album);
+        });
+      }
+    }
+    
+    if ($('#filter_filetype').is(':visible')) {
+      const checkedFiletypes = $('#filter_filetype input[name="filter_filetype[]"]:checked');
+      const isValid = checkedFiletypes.length > 0;
+
+      if (!isValid) {
+        e.preventDefault();
+        show_filters_error(str_select_filetype);
+        $('#filter_filetype .removeFilter').off('click.apply').on('click.apply', function() {
+          hide_filters_error(str_select_filetype);
+        });
+      }
+    }
+    
+    if ($('#filter_date_posted').is(':visible')) {
+      const minDate = $('#date_posted_min_date').val();
+      const maxDate = $('#date_posted_max_date').val();
+      const isSingle = $('#filter_date_posted_single').val() === '1';
+
+      const isValid = isSingle ? !!minDate : (!!minDate || !!maxDate);
+
+      if (!isValid) {
+        e.preventDefault();
+        show_filters_error(str_select_date);
+        $('#filter_date_posted .removeFilter').off('click.apply').on('click.apply', function() {
+          hide_filters_error(str_select_date);
+        });
+      }
+    }
+
+    if ($('#filter_date_created').is(':visible')) {
+      const minDate = $('#date_created_min_date').val();
+      const maxDate = $('#date_created_max_date').val();
+      const isSingle = $('#filter_date_created_single').val() === '1';
+
+      const isValid = isSingle ? !!minDate : (!!minDate || !!maxDate);
+
+      if (!isValid) {
+        e.preventDefault();
+        show_filters_error(str_select_date);
+        $('#filter_date_created .removeFilter').off('click.apply').on('click.apply', function() {
+          hide_filters_error(str_select_date);
         });
       }
     }

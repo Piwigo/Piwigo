@@ -4,6 +4,7 @@
 {combine_script id='jquery.ui.slider' require='jquery.ui' load='async' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
 {combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
 {combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
+{combine_script id='jquery.ui.datepicker' require='jquery.ui' load='footer' path='themes/default/js/ui/minified/jquery.ui.datepicker.min.js'}
 
 {footer_script}
 <!-- sliders config -->
@@ -52,6 +53,8 @@ const selected_filter_cat_ids = [];
 
 const str_select_album = "{'Select at least one album'|@translate|escape:javascript}";
 const str_select_tag = "{'Select at least one tag'|@translate|escape:javascript}";
+const str_select_date = "{'Select at least one date'|@translate|escape:javascript}";
+const str_select_filetype = "{'Select at least one type'|@translate|escape:javascript}";
 let errorFilters = '';
 {/footer_script}
 
@@ -241,6 +244,114 @@ let errorFilters = '';
         </div>
       </blockquote>
     </li>
+
+    <li id="filter_filetype" {if !isset($filter.filetype)}style="display:none"{/if}>
+      <input type="checkbox" name="filter_filetype_use" class="useFilterCheckbox" {if isset($filter.filetype)}checked="checked"{/if}>
+      <p>{'File type'|translate}</p>
+      <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
+
+      <details class="custom-select-dropdown">
+        <summary class="custom-select-title">
+          <span class="selected-text" data-placeholder="&nbsp;">&nbsp;</span>
+        </summary>
+
+        <div class="custom-select-options">
+          {foreach from=$filetype.all key=type item=count}
+            {assign var='is_checked' value=(isset($filter.filetype) && in_array($type, $filter.filetype))}
+            <label class="custom-option">
+              <input type="checkbox" 
+                    name="filter_filetype[]" 
+                    value="{$type}" 
+                    {if $is_checked}checked="checked"{/if}>
+              <span class="icon-check-custom"></span>
+              <span class="option-label">{$type|upper} ({$count})</span>
+            </label>
+          {/foreach}
+        </div>
+      </details>
+    </li>
+
+    <li id="filter_date_posted" {if !isset($filter.date_posted)}style="display:none"{/if}>
+      <input type="checkbox" name="filter_date_posted_use" class="useFilterCheckbox" {if isset($filter.date_posted)}checked="checked"{/if}>
+      <p>{'Post date'|@translate}</p>
+      <a href="#" class="removeFilter" title="{'remove this filter'|@translate}"><span>[x]</span></a>
+
+      <div style="margin-top: 10px;">
+        <input type="hidden" name="filter_date_posted_single" id="filter_date_posted_single" value="{if $date_posted.selected.single}1{else}0{/if}">
+        <a class="slider-choice {if !$date_posted.selected.single}active{/if}" data-value="0">{'period'|@translate}</a>
+        <a class="slider-choice {if $date_posted.selected.single}active{/if}" data-value="1">{'single day'|@translate}</a>
+      </div>
+
+      <table class="filter-date-container" style="margin: 10px 0 0;">
+        <tr>
+          <td>
+            <span class="date-label-between-posted" {if $date_posted.selected.single}style="display:none;"{/if} style="margin-right:5px">{'Start-Date'|@translate}</span>
+          </td>
+
+          <td>
+            <input type="date" 
+                  name="filter_date_posted_min_date" 
+                  id="date_posted_min_date" 
+                  value="{$date_posted.selected.min_date}">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="date-label-and-posted" {if $date_posted.selected.single}style="display:none;"{/if} style="margin-right:5px">{'End-Date'|@translate}</span>
+          </td>
+          <td>
+            <input type="date" 
+                  name="filter_date_posted_max_date" 
+                  id="date_posted_max_date" 
+                  {if $date_posted.selected.single}style="display:none;"{/if}
+                  value="{$date_posted.selected.max_date}"
+                  style="margin-top: 10px;">
+          </td>
+
+        </tr>
+      </table>
+    </li>
+
+    <li id="filter_date_created" {if !isset($filter.date_created)}style="display:none"{/if}>
+      <input type="checkbox" name="filter_date_created_use" class="useFilterCheckbox" {if isset($filter.date_created)}checked="checked"{/if}>
+      <p>{'Creation date'|@translate}</p>
+      <a href="#" class="removeFilter" title="{'remove this filter'|@translate}"><span>[x]</span></a>
+
+      <div style="margin-top: 10px;">
+        <input type="hidden" name="filter_date_created_single" id="filter_date_created_single" value="{if $date_created.selected.single}1{else}0{/if}">
+        <a class="slider-choice {if !$date_created.selected.single}active{/if}" data-value="0">{'period'|@translate}</a>
+        <a class="slider-choice {if $date_created.selected.single}active{/if}" data-value="1">{'single day'|@translate}</a>
+      </div>
+
+      <table class="filter-date-container" style="margin: 10px 0 0;">
+        <tr>
+          <td>
+            <span class="date-label-between-created" {if $date_created.selected.single}style="display:none;"{/if} style="margin-right:5px">{'Start-Date'|@translate}</span>
+          </td>
+
+          <td>
+            <input type="date" 
+                  name="filter_date_created_min_date" 
+                  id="date_created_min_date" 
+                  value="{$date_created.selected.min_date}">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="date-label-and-created" {if $date_created.selected.single}style="display:none;"{/if} style="margin-right:5px">{'End-Date'|@translate}</span>
+          </td>
+          <td>
+            <input type="date" 
+                  name="filter_date_created_max_date" 
+                  id="date_created_max_date" 
+                  {if $date_created.selected.single}style="display:none;"{/if}
+                  value="{$date_created.selected.max_date}"
+                  style="margin-top: 10px;">
+          </td>
+
+        </tr>
+      </table>
+    </li>
   </ul>
 
   <div class='noFilter'>{'No filter, add one'|@translate}</div>
@@ -255,6 +366,9 @@ let errorFilters = '';
         <a data-value="filter_level" {if isset($filter.level)}class="disabled"{/if}>{'Privacy level'|@translate}</a>
         <a data-value="filter_dimension" {if isset($filter.dimension)}class="disabled"{/if}>{'Dimensions'|@translate}</a>
         <a data-value="filter_filesize" {if isset($filter.filesize)}class="disabled"{/if}>{'Filesize'|@translate}</a>
+        <a data-value="filter_filetype"{if isset($filter.filetype)} class="disabled"{/if}>{'File type'|@translate}</a>
+        <a data-value="filter_date_posted"{if isset($filter.date_posted)} class="disabled"{/if}>{'Post date'|@translate}</a>
+        <a data-value="filter_date_created"{if isset($filter.date_created)} class="disabled"{/if}>{'Creation date'|@translate}</a>
         <a data-value="filter_search"{if isset($filter.search)} class="disabled"{/if}>{'Search'|@translate}</a>
       </div>
       <a id="removeFilters" class="icon-cancel" style="display: none;">{'Remove all filters'|@translate}</a>

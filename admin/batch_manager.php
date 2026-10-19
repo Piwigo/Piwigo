@@ -189,6 +189,73 @@ if (isset($_POST['submitFilter']))
     }
   }
 
+  if (isset($_POST['filter_filetype_use']) && !empty($_POST['filter_filetype']))
+  {
+
+    check_input_parameter('filter_filetype', $_POST, true, '/^[a-z0-9]+$/');
+    $_SESSION['bulk_manager_filter']['filetype'] = array_map('trim', $_POST['filter_filetype']);
+  }
+
+  if (isset($_POST['filter_date_posted_use']))
+  {
+    foreach (array('min_date', 'max_date') as $bound)
+    {
+      $field = 'filter_date_posted_'.$bound;
+      if (!empty($_POST[$field]) and !is_valid_mysql_datetime($_POST[$field]))
+      {
+        fatal_error('[Hacking attempt] the input parameter "'.$field.'" is not valid');
+      }
+    }
+
+    $min_date = $_POST['filter_date_posted_min_date'];
+    $max_date   = $_POST['filter_date_posted_max_date'];
+
+    if (!empty($_POST['filter_date_posted_single']) && $_POST['filter_date_posted_single'] == '1')
+    {
+      $_SESSION['bulk_manager_filter']['date_posted'] = array(
+        'single' => true,
+        'min_date'  => $min_date,
+      );
+    }
+    else
+    {
+      $_SESSION['bulk_manager_filter']['date_posted'] = array(
+        'min_date' => $min_date,
+        'max_date'   => $max_date,
+      );
+    }
+  }
+
+  if (isset($_POST['filter_date_created_use']))
+  {
+    foreach (array('min_date', 'max_date') as $bound)
+    {
+      $field = 'filter_date_created_'.$bound;
+      if (!empty($_POST[$field]) and !is_valid_mysql_datetime($_POST[$field]))
+      {
+        fatal_error('[Hacking attempt] the input parameter "'.$field.'" is not valid');
+      }
+    }
+
+    $min_date = $_POST['filter_date_created_min_date'];
+    $max_date   = $_POST['filter_date_created_max_date'];
+
+    if (!empty($_POST['filter_date_created_single']) && $_POST['filter_date_created_single'] == '1')
+    {
+      $_SESSION['bulk_manager_filter']['date_created'] = array(
+        'single' => true,
+        'min_date'  => $min_date,
+      );
+    }
+    else
+    {
+      $_SESSION['bulk_manager_filter']['date_created'] = array(
+        'min_date' => $min_date,
+        'max_date'   => $max_date,
+      );
+    }
+  }
+
   if (isset($_POST['filter_search_use']))
   {
     $_SESSION['bulk_manager_filter']['search']['q'] = $_POST['q'];
@@ -626,6 +693,104 @@ SELECT id
   $filter_sets[] = query2array($query, null, 'id');
 }
 
+if (isset($_SESSION['bulk_manager_filter']['filetype']))
+{
+  $where_clauses = array();
+  foreach ($_SESSION['bulk_manager_filter']['filetype'] as $ext)
+  {
+    $where_clauses[] = 'path LIKE \'%.'.$ext.'\'';
+  }
+
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.' AS i
+  WHERE ('.implode(' OR ', $where_clauses).')
+  '.$conf['order_by'].'
+;';
+
+  $filter_sets[] = query2array($query, null, 'id');
+}
+
+if (isset($_SESSION['bulk_manager_filter']['date_posted']))
+{
+  $filter = $_SESSION['bulk_manager_filter']['date_posted'];
+  $min_date = pwg_db_real_escape_string($filter['min_date'] ?? null);
+  $max_date = pwg_db_real_escape_string($filter['max_date'] ?? null);
+  $where_clauses = array();
+
+  if (!empty($filter['single']))
+  {
+    if (!empty($min_date))
+    {
+      $where_clauses[] = 'date_available >= \''.$min_date.' 00:00:00\'';
+      $where_clauses[] = 'date_available <= \''.$min_date.' 23:59:59\'';
+    }
+  }
+  else
+  {
+    if (!empty($min_date))
+    {
+      $where_clauses[] = 'date_available >= \''.$min_date.' 00:00:00\'';
+    }
+    if (!empty($max_date))
+    {
+      $where_clauses[] = 'date_available <= \''.$max_date.' 23:59:59\'';
+    }
+  }
+
+  if (!empty($where_clauses))
+  {
+    $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE '.implode(' AND ', $where_clauses).'
+  '.$conf['order_by'].'
+;';
+
+    $filter_sets[] = query2array($query, null, 'id');
+  }
+}
+
+if (isset($_SESSION['bulk_manager_filter']['date_created']))
+{
+  $filter = $_SESSION['bulk_manager_filter']['date_created'];
+  $min_date = pwg_db_real_escape_string($filter['min_date'] ?? null);
+  $max_date = pwg_db_real_escape_string($filter['max_date'] ?? null);
+  $where_clauses = array();
+
+  if (!empty($filter['single']))
+  {
+    if (!empty($min_date))
+    {
+      $where_clauses[] = 'date_creation >= \''.$min_date.' 00:00:00\'';
+      $where_clauses[] = 'date_creation <= \''.$min_date.' 23:59:59\'';
+    }
+  }
+  else
+  {
+    if (!empty($min_date))
+    {
+      $where_clauses[] = 'date_creation >= \''.$min_date.' 00:00:00\'';
+    }
+    if (!empty($max_date))
+    {
+      $where_clauses[] = 'date_creation <= \''.$max_date.' 23:59:59\'';
+    }
+  }
+
+  if (!empty($where_clauses))
+  {
+    $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE '.implode(' AND ', $where_clauses).'
+  '.$conf['order_by'].'
+;';
+
+    $filter_sets[] = query2array($query, null, 'id');
+  }
+}
+
 if (isset($_SESSION['bulk_manager_filter']['search']) && 
     strlen($_SESSION['bulk_manager_filter']['search']['q']))
 {
@@ -840,6 +1005,115 @@ foreach (array_keys($filesize['bounds']) as $type)
 }
 
 $template->assign('filesize', $filesize);
+
+// +-----------------------------------------------------------------------+
+// | filetype                                                              |
+// +-----------------------------------------------------------------------+
+
+$filetype = array(
+  'all' => array(),
+  'selected' => array()
+);
+
+$query = '
+SELECT
+    LOWER(SUBSTRING_INDEX(path, ".", -1)) AS ext,
+    COUNT(id) AS counter
+  FROM '.IMAGES_TABLE.'
+  WHERE path IS NOT NULL AND path != ""
+  GROUP BY ext
+  ORDER BY counter DESC
+;';
+
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $filetype['all'][$row['ext']] = $row['counter'];
+}
+
+if (isset($_SESSION['bulk_manager_filter']['filetype']))
+{
+  $filetype['selected'] = $_SESSION['bulk_manager_filter']['filetype'];
+}
+
+$template->assign('filetype', $filetype);
+
+// +-----------------------------------------------------------------------+
+// | date_posted                                                           |
+// +-----------------------------------------------------------------------+
+
+$date_posted = array(
+  'bounds'   => array('min_date' => '', 'max_date' => ''),
+  'selected' => array('min_date' => '', 'max_date' => '', 'single' => false),
+);
+
+$query = '
+SELECT
+    MIN(date_available) AS min_date,
+    MAX(date_available) AS max_date
+  FROM '.IMAGES_TABLE.'
+;';
+
+$row = pwg_db_fetch_assoc(pwg_query($query));
+
+if ($row)
+{
+  $date_posted['bounds']['min_date'] = substr($row['min_date'], 0, 10);
+  $date_posted['bounds']['max_date']   = substr($row['max_date'], 0, 10);
+}
+
+$date_posted['selected']['min_date'] = isset($_SESSION['bulk_manager_filter']['date_posted']['min_date'])
+  ? $_SESSION['bulk_manager_filter']['date_posted']['min_date']
+  : $date_posted['bounds']['min_date'];
+
+$date_posted['selected']['max_date'] = isset($_SESSION['bulk_manager_filter']['date_posted']['max_date'])
+  ? $_SESSION['bulk_manager_filter']['date_posted']['max_date']
+  : $date_posted['bounds']['max_date'];
+
+$date_posted['selected']['single'] = isset($_SESSION['bulk_manager_filter']['date_posted']['single'])
+  ? $_SESSION['bulk_manager_filter']['date_posted']['single']
+  : false;
+
+$template->assign('date_posted', $date_posted);
+
+// +-----------------------------------------------------------------------+
+// | date_created                                                          |
+// +-----------------------------------------------------------------------+
+
+$date_created = array(
+  'bounds'   => array('min_date' => '', 'max_date' => ''),
+  'selected' => array('min_date' => '', 'max_date' => '', 'single' => false),
+);
+
+$query = '
+SELECT
+    MIN(date_creation) AS min_date,
+    MAX(date_creation) AS max_date
+  FROM '.IMAGES_TABLE.'
+  WHERE date_creation IS NOT NULL
+;';
+
+$row = pwg_db_fetch_assoc(pwg_query($query));
+
+if ($row)
+{
+  $date_created['bounds']['min_date'] = substr($row['min_date'], 0, 10);
+  $date_created['bounds']['max_date']   = substr($row['max_date'], 0, 10);
+}
+
+$date_created['selected']['min_date'] = isset($_SESSION['bulk_manager_filter']['date_created']['min_date'])
+  ? $_SESSION['bulk_manager_filter']['date_created']['min_date']
+  : $date_created['bounds']['min_date'];
+
+$date_created['selected']['max_date'] = isset($_SESSION['bulk_manager_filter']['date_created']['max_date'])
+  ? $_SESSION['bulk_manager_filter']['date_created']['max_date']
+  : $date_created['bounds']['max_date'];
+
+$date_created['selected']['single'] = isset($_SESSION['bulk_manager_filter']['date_created']['single'])
+  ? $_SESSION['bulk_manager_filter']['date_created']['single']
+  : false;
+
+$template->assign('date_created', $date_created);
 
 // +-----------------------------------------------------------------------+
 // |                         open specific mode                            |

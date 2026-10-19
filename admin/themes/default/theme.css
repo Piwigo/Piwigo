@@ -7048,7 +7048,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .filterBlock {display: flex; flex-direction: column;}
 .filterBlock li {width: 300px; height: auto;}
 #filter_dimension {width: 600px;}
-#filter_dimension .slider-choice, #filter_filesize .slider-choice {border-radius: 4px; padding: 2px 8px; margin: 0 3px;}
+#filter_dimension .slider-choice, #filter_filesize .slider-choice, #filter_date_posted .slider-choice, #filter_date_created .slider-choice {border-radius: 4px; padding: 2px 8px; margin: 0 3px;}
 #checkActions a {background-color: #f0f0f0;padding: 10px;color: #777;font-weight: bold;margin: 4px;border-radius: 5px;}
 #checkActions a:hover {background-color: #ddd;color: #3A3A3A;text-decoration: none !important;}
 #checkActions span {font-weight: bold;color: #555555;}
@@ -7078,7 +7078,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .deleteDerivButtons {margin-bottom: 15px; margin-right: 51px; width: 100%; text-align: center;}
 #action_delete_derivatives label, #action_generate_derivatives label {display: flex; margin-top: 4px; width: 50%;}
 #action_delete_derivatives input[name="del_derivatives_type[]"], #action_generate_derivatives input[name="generate_derivatives_type[]"] {margin-right: 3px;}
-.actionButtons:first-child::after,#filter_prefilter::before,#filter_level::before,
+.actionButtons:first-child::after,#filter_prefilter::before,#filter_level::before,#filter_filetype .custom-select-title::before,
 .permitActionListButton div::before, #action_level::after, .pictureLevels::before,
 .user-property-select-container::before, .sort-by .select-container::before {
   content: '\e835'; font-size: 17px; position: absolute; font-family: "fontello"; color: #6E6E6E; pointer-events: none;
@@ -7094,8 +7094,34 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 #filter_category::before {margin-left: 565px;margin-top: 33px; z-index: 2;}
 #filter_level::before {margin-top: 34px; margin-left: 260px;}
 #batchManagerGlobal #action_level::after {margin-top: -56px; margin-left: 254px;}
+#batchManagerGlobal #filterList li#filter_filetype .custom-select-title {display: block; padding: 10px 18px; margin-bottom: 5px; width: 252px;}
+#batchManagerGlobal #filterList li#filter_filetype .custom-select-title::-webkit-details-marker {display: none;}
+#batchManagerGlobal #filterList li#filter_filetype .custom-select-options {
+  position: absolute;
+  top: 82%;
+  left: 10px;
+  right: 20px;
+  max-height: 180px;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #666666;
+  z-index: 1;
+}
+#batchManagerGlobal #filterList li#filter_filetype .custom-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  color: #666666;
+}
+#batchManagerGlobal #filterList li#filter_filetype .custom-option:hover {background-color: #fff5e8;}
+#batchManagerGlobal #filterList li#filter_filetype .custom-option input[type="checkbox"] {display: none;}
+#batchManagerGlobal #filterList li#filter_filetype .custom-option input[type="checkbox"] + .icon-check-custom::before {content: "\e820";}
+#batchManagerGlobal #filterList li#filter_filetype .custom-option input[type="checkbox"]:checked + .icon-check-custom::before {content: "\e81f"; color: #FFA646;}
+#batchManagerGlobal #filterList li#filter_filetype .selected-text {color: #4E4E4E; width: 240px; display: inline-block;}
+#filter_filetype .custom-select-title::before {margin-left: 242px; top: 50%;}
 #filter_search input {width: 300px; box-sizing: border-box; padding: 11px 18px;}
-#applyFilter, #addFilter,#filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select, #permitAction select, .sort-by select{
+#applyFilter, #addFilter,#filterList select, #filter_tags .selectize-input.items.not-full.has-options, .pictureLevels select, #permitAction select, .sort-by select, #batchManagerGlobal #filterList li#filter_filetype .selected-text {
 	font-family: "Open Sans", "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	-webkit-appearance: none;
 	font-weight: 700;
