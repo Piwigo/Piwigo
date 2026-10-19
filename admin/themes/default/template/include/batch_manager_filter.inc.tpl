@@ -378,7 +378,7 @@ let errorFilters = '';
       <i class="icon-arrows-cw"></i> {'Refresh photo set'|@translate}
     </button>
 
-    <div id="errorFilter" class="icon-red-error" style="display: none; margin-left: 10px;"></div>
+    <div id="errorFilter" class="icon-red-error" style="display: none; margin: 0 10px;"></div>
   </div>
 </div>
 </fieldset>

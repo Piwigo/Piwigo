@@ -44,7 +44,7 @@ function select_album_filter({ album, newSelectedAlbum, getSelectedAlbum }) {
 // Tags and Albums validation
 function show_filters_error(message) {
   errorFilters = message;
-  $('#errorFilter').html(`<p>${message}</p>`).fadeIn();
+  $('#errorFilter').html(`<p style="margin: 0 10px;">${message}</p>`).fadeIn();
 }
 
 function hide_filters_error(message) {
