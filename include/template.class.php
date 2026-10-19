@@ -181,7 +181,7 @@ class Template
 
     if (!defined('IN_ADMIN') and isset($conf['extents_for_templates']))
     {
-      $tpl_extents = unserialize($conf['extents_for_templates']);
+      $tpl_extents = unserialize($conf['extents_for_templates'], ['allowed_classes' => false]);
       $this->set_extents($tpl_extents, './template-extension/', true, $theme);
     }
   }
