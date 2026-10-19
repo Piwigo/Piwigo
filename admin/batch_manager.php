@@ -635,34 +635,34 @@ if (isset($_SESSION['bulk_manager_filter']['dimension']))
   $where_clauses = array();
   if (isset($_SESSION['bulk_manager_filter']['dimension']['min_width']))
   {
-    $where_clause[] = 'width >= '.$_SESSION['bulk_manager_filter']['dimension']['min_width'];
+    $where_clauses[] = 'width >= '.$_SESSION['bulk_manager_filter']['dimension']['min_width'];
   }
   if (isset($_SESSION['bulk_manager_filter']['dimension']['max_width']))
   {
-    $where_clause[] = 'width <= '.$_SESSION['bulk_manager_filter']['dimension']['max_width'];
+    $where_clauses[] = 'width <= '.$_SESSION['bulk_manager_filter']['dimension']['max_width'];
   }
   if (isset($_SESSION['bulk_manager_filter']['dimension']['min_height']))
   {
-    $where_clause[] = 'height >= '.$_SESSION['bulk_manager_filter']['dimension']['min_height'];
+    $where_clauses[] = 'height >= '.$_SESSION['bulk_manager_filter']['dimension']['min_height'];
   }
   if (isset($_SESSION['bulk_manager_filter']['dimension']['max_height']))
   {
-    $where_clause[] = 'height <= '.$_SESSION['bulk_manager_filter']['dimension']['max_height'];
+    $where_clauses[] = 'height <= '.$_SESSION['bulk_manager_filter']['dimension']['max_height'];
   }
   if (isset($_SESSION['bulk_manager_filter']['dimension']['min_ratio']))
   {
-    $where_clause[] = 'width/height >= '.$_SESSION['bulk_manager_filter']['dimension']['min_ratio'];
+    $where_clauses[] = 'width/height >= '.$_SESSION['bulk_manager_filter']['dimension']['min_ratio'];
   }
   if (isset($_SESSION['bulk_manager_filter']['dimension']['max_ratio']))
   {
     // max_ratio is a floor value, so must be a bit increased
-    $where_clause[] = 'width/height < '.($_SESSION['bulk_manager_filter']['dimension']['max_ratio']+0.01);
+    $where_clauses[] = 'width/height < '.($_SESSION['bulk_manager_filter']['dimension']['max_ratio']+0.01);
   }
 
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE '.implode(' AND ',$where_clause).'
+  WHERE '.implode(' AND ',$where_clauses).'
   '.$conf['order_by'];
 
   $filter_sets[] = query2array($query, null, 'id');
@@ -675,19 +675,19 @@ if (isset($_SESSION['bulk_manager_filter']['filesize']))
   if (isset($_SESSION['bulk_manager_filter']['filesize']['min']))
   {
     // to counter the effect of converting kB to mB and rounding, we need to go slightly lower for the minimum value
-    $where_clause[] = 'filesize >= '.($_SESSION['bulk_manager_filter']['filesize']['min'] - 0.1)*1024;
+    $where_clauses[] = 'filesize >= '.($_SESSION['bulk_manager_filter']['filesize']['min'] - 0.1)*1024;
   }
   
   if (isset($_SESSION['bulk_manager_filter']['filesize']['max']))
   {
     // to counter the effect of converting kB to mB and rounding, we need to go slightly higher for the maximum value
-    $where_clause[] = 'filesize <= '.($_SESSION['bulk_manager_filter']['filesize']['max'] + 0.1)*1024;
+    $where_clauses[] = 'filesize <= '.($_SESSION['bulk_manager_filter']['filesize']['max'] + 0.1)*1024;
   }
 
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE '.implode(' AND ',$where_clause).'
+  WHERE '.implode(' AND ',$where_clauses).'
   '.$conf['order_by'];
 
   $filter_sets[] = query2array($query, null, 'id');
