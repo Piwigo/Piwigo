@@ -1457,5 +1457,15 @@ $lang['people per page'] = 'people per page';
 $lang['You don\'t have any people yet. Please create one.'] = 'You don\'t have any people yet. Please create one.';
 $lang['<b>%d</b> people found'] = '<b>%d</b> people found';
 $lang['<b>%d</b> person found'] = '<b>%d</b> person found';
+$lang['No people associated with this photo.'] = 'No people associated with this photo.';
+$lang['Already associated'] = 'Already associated';
+$lang['Activate create mode to create and select a person'] = 'Activate create mode to create and select a person';
+$lang['Identify'] = 'Identify';
+$lang['Identify a person'] = 'Identify a person';
+$lang['Adjust the frame on the face'] = 'Adjust the frame on the face';
+$lang['Associate without identifying'] = 'Associate without identifying';
+$lang['Set as cover'] = 'Set as cover';
+$lang['Cover'] = 'Cover';
+$lang['Dissociate'] = 'Dissociate';
 
 // Leave this line empty

@@ -21,10 +21,15 @@ check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 
 $curr_image = $page['image'] ?? get_image_infos($_GET['image_id'], true);
 $src_image = new SrcImage($curr_image);
+$image_persons = get_image_people($curr_image['id']);
 
 $template->assign(array(
   'MEDIUM_SRC' => DerivativeImage::url(IMG_MEDIUM, $src_image),
   'FORMAT' => ($curr_image['width'] >= $curr_image['height'])? 1:0,
+  'IMAGE_ID' => $curr_image['id'],
+  'IMG_WIDTH' => $curr_image['width'],
+  'IMG_HEIGHT' => $curr_image['height'],
+  "IMAGE_PERSONS" => $image_persons,
   'PWG_TOKEN' => get_pwg_token(),
 ));
 

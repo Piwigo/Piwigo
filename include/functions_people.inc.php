@@ -282,8 +282,6 @@ SELECT id
     return array('code' => 404, 'error' => 'Image not found.');
   }
 
-  $validated_data = array();
-
   // source
   $source = $data['source'] ?? 'manual';
   if (!validate_people_source($source))
@@ -291,37 +289,10 @@ SELECT id
     return array('code' => 403, 'error' => 'source must be: manual, auto or imported.');
   }
 
-  // box, in pixels of the image at image_width x image_height
-  $box_keys = array('box_x1', 'box_y1', 'box_x2', 'box_y2', 'image_width', 'image_height');
-  $box = array();
-  foreach ($box_keys as $key)
+  $validated_data = validate_image_person_box($data);
+  if (isset($validated_data['error']))
   {
-    if (isset($data[$key]))
-    {
-      if (!preg_match('/^\d+$/', $data[$key]) or $data[$key] > 65535)
-      {
-        return array('code' => 403, 'error' => $key.' must be an integer between 0 and 65535.');
-      }
-      $box[$key] = $data[$key];
-    }
-  }
-
-  if (count($box) > 0)
-  {
-    if (count($box) != count($box_keys))
-    {
-      return array('code' => 403, 'error' => 'box needs box_x1, box_y1, box_x2, box_y2, image_width and image_height.');
-    }
-
-    if ($box['box_x1'] >= $box['box_x2']
-      or $box['box_y1'] >= $box['box_y2']
-      or $box['box_x2'] > $box['image_width']
-      or $box['box_y2'] > $box['image_height'])
-    {
-      return array('code' => 403, 'error' => 'box must be inside the image, with x1 < x2 and y1 < y2.');
-    }
-
-    $validated_data = array_merge($validated_data, $box);
+    return $validated_data;
   }
 
   $query = '
@@ -406,6 +377,124 @@ DELETE
   update_images_lastmodified(array($image_person['image_id']));
 
   trigger_notify('dissociate_person_from_image', $image_person);
+  return true;
+}
+
+/**
+ * Replace the people of an image, like set_tags. Everything is checked
+ * before writing, so an invalid list changes nothing.
+ *
+ * @param int $image_id
+ * @param array $people list of [person_id, box_x1, box_y1, box_x2, box_y2,
+ *   image_width, image_height, is_cover], box fields null for no box
+ * @return true|array ['code', 'error']
+ */
+function set_image_people(int $image_id, array $people)
+{
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+  if (pwg_db_num_rows(pwg_query($query)) == 0)
+  {
+    return array('code' => 404, 'error' => 'Image not found.');
+  }
+
+  // check everything before writing
+  $person_ids = array();
+  $cover_person_id = null;
+  foreach ($people as $person)
+  {
+    if (!is_array($person) or !isset($person['person_id']) or !preg_match('/^\d+$/', $person['person_id']))
+    {
+      return array('code' => 403, 'error' => 'person_id must be a digit.');
+    }
+
+    if (in_array($person['person_id'], $person_ids))
+    {
+      return array('code' => 403, 'error' => 'A person is given twice.');
+    }
+
+    $box = validate_image_person_box($person);
+    if (isset($box['error']))
+    {
+      return $box;
+    }
+
+    if (isset($person['is_cover']) and in_array($person['is_cover'], array(true, 'true'), true))
+    {
+      if (null !== $cover_person_id)
+      {
+        return array('code' => 403, 'error' => 'Only one cover by image.');
+      }
+      $cover_person_id = $person['person_id'];
+    }
+
+    $person_ids[] = $person['person_id'];
+  }
+
+  if (count($person_ids) > 0)
+  {
+    $query = '
+SELECT COUNT(*)
+  FROM '.PERSONS_TABLE.'
+  WHERE id IN ('.implode(',', $person_ids).')
+;';
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    if ($count != count($person_ids))
+    {
+      return array('code' => 404, 'error' => 'Person not found.');
+    }
+  }
+
+  // dissociate the people no longer on the image
+  $query = '
+SELECT
+    person_id,
+    id
+  FROM '.IMAGE_PERSON_TABLE.'
+  WHERE image_id = '.$image_id.'
+;';
+  $existing = query2array($query, 'person_id', 'id');
+
+  foreach ($existing as $person_id => $image_person_id)
+  {
+    if (!in_array($person_id, $person_ids))
+    {
+      dissociate_person_from_image($image_person_id);
+    }
+  }
+
+  // associate the new people, update the box of the others
+  $image_person_ids = array();
+  foreach ($people as $person)
+  {
+    $association = associate_person_to_image($image_id, $person['person_id'], $person);
+    if (isset($association['error']))
+    {
+      return $association;
+    }
+    $image_person_ids[$person['person_id']] = $association['id'];
+  }
+
+  // the people whose cover was on this image lose it, except the new cover
+  $covers_to_unset = $image_person_ids;
+  if (null !== $cover_person_id)
+  {
+    unset($covers_to_unset[$cover_person_id]);
+  }
+  unset_people_cover(array_values($covers_to_unset));
+
+  if (null !== $cover_person_id)
+  {
+    $person = get_person_by_id($cover_person_id);
+    if ($person['cover_image_person_id'] != $image_person_ids[$cover_person_id])
+    {
+      edit_person($cover_person_id, array('cover_image_person_id' => $image_person_ids[$cover_person_id]));
+    }
+  }
+
   return true;
 }
 
@@ -548,6 +637,51 @@ UPDATE '.PERSONS_TABLE.'
 }
 
 // utils
+
+/**
+ * Validate a box, in pixels of the image at image_width x image_height.
+ * box_x1, box_y1, box_x2, box_y2, image_width and image_height: all or none.
+ *
+ * @param array $data
+ * @return array the box, empty if there is none, or ['code', 'error']
+ */
+function validate_image_person_box(array $data)
+{
+  $box_keys = array('box_x1', 'box_y1', 'box_x2', 'box_y2', 'image_width', 'image_height');
+  $box = array();
+  foreach ($box_keys as $key)
+  {
+    if (isset($data[$key]))
+    {
+      if (!preg_match('/^\d+$/', $data[$key]) or $data[$key] > 65535)
+      {
+        return array('code' => 403, 'error' => $key.' must be an integer between 0 and 65535.');
+      }
+      $box[$key] = $data[$key];
+    }
+  }
+
+  if (count($box) == 0)
+  {
+    return $box;
+  }
+
+  if (count($box) != count($box_keys))
+  {
+    return array('code' => 403, 'error' => 'box needs box_x1, box_y1, box_x2, box_y2, image_width and image_height.');
+  }
+
+  if ($box['box_x1'] >= $box['box_x2']
+    or $box['box_y1'] >= $box['box_y2']
+    or $box['box_x2'] > $box['image_width']
+    or $box['box_y2'] > $box['image_height'])
+  {
+    return array('code' => 403, 'error' => 'box must be inside the image, with x1 < x2 and y1 < y2.');
+  }
+
+  return $box;
+}
+
 function validate_people_source(string $source)
 {
   if (!in_array($source, ['manual', 'imported', 'auto']))

@@ -2,6 +2,11 @@
   display: none !important;
 }
 
+/* the card must look the same on every admin page, whatever their p rules */
+.people-card p {
+  margin: 0;
+}
+
 .people-card {
   width: 100px;
   position: relative;

@@ -303,3 +303,36 @@ function ws_people_getImages($params, &$service)
 
   return $images;
 }
+
+/**
+ * API method
+ * Replace the people of an image
+ * @param mixed[] $params
+ *    @option int image_id
+ *    @option string people JSON list of [person_id, box_x1, box_y1, box_x2,
+ *      box_y2, image_width, image_height, is_cover]
+ */
+function ws_people_setImagePeople($params, &$service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $people = json_decode(stripslashes($params['people']), true);
+  if (!is_array($people))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'people must be a JSON list.');
+  }
+
+  $is_set = set_image_people($params['image_id'], $people);
+
+  if (isset($is_set['error']))
+  {
+    return new PwgError($is_set['code'], $is_set['error']);
+  }
+
+  return array(
+    'people' => get_image_people($params['image_id']),
+  );
+}

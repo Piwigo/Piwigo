@@ -1930,6 +1930,27 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'admin_only' => true,
       )
     );
+
+    $service->addMethod(
+      'pwg.people.setImagePeople',
+      'ws_people_setImagePeople',
+      array(
+        'image_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'people' => array(
+          'info' => 'JSON list of {person_id, box_x1, box_y1, box_x2, box_y2, image_width, image_height, is_cover}, box fields null for no box. [] removes everyone.',
+        ),
+        'pwg_token' => array(),
+      ),
+      'Replace the people of an image. The list is checked before writing, an invalid list changes nothing.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
 }
 
 ?>
