@@ -483,7 +483,8 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 .AddUserPopInContainer .AddIconTitle,
 .AddAlbumPopInContainer .AddIconTitle,
 .DeleteAlbumPopInContainer .DeleteIconTitle,
-.RenameAlbumPopInContainer .RenameAlbumTitle  {
+.RenameAlbumPopInContainer .RenameAlbumTitle,
+.modal-title-header  {
   color: #777;
 }
 .AddUserPopInContainer .AddUserInput,
@@ -2235,6 +2236,13 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   background-color: #333 !important;
 }
 
+/* Modal */
+
+.modal-input {
+  color: #777;
+  background-color: #252525 !important;
+}
+
 /* Batch manager, unit mode */
 
 .elementEdit{
@@ -2467,6 +2475,7 @@ div.success .jGrowl-popup-icon,
 .errors,
 .info-error,
 .AddUserErrors,
+.modal-footer-error,
 .groupError,
 div.jGrowl div.jGrowl-notification.error,
 .PluginActionError label,
@@ -2481,6 +2490,7 @@ div.jGrowl div.jGrowl-notification.error,
 
 .errors,
 .AddUserErrors,
+.modal-footer-error,
 .AddAlbumErrors{
   border-left: 6px solid #FFC8C8; /*Banner*/
 }
@@ -2500,6 +2510,7 @@ div.jGrowl div.jGrowl-notification.error,
 
 .errors i,
 .AddUserErrors:before,
+.modal-footer-error::before,
 .groupError::before,
 div.error .jGrowl-popup-icon,
 .PluginActionError label::before {

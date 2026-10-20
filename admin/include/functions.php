@@ -2766,6 +2766,8 @@ function get_active_menu($menu_page)
     case 'photos_add':
     case 'rating':
     case 'tags':
+    case 'people':
+    // case 'people_settings':
     case 'batch_manager':
       return 0;
 
