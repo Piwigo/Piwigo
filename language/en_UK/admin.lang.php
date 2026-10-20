@@ -1442,5 +1442,20 @@ $lang['You are about to delete %s groups, are you sure?'] = 'You are about to de
 $lang['Users not logged in will have these permissions applied. Grant access to private albums only with great caution.'] = 'Users not logged in will have these permissions applied. Grant access to private albums only with great caution.';
 $lang['single day'] = 'Single day';
 $lang['period'] = 'Period';
+$lang['People'] = 'People';
+$lang['Add a person'] = 'Add a person';
+$lang['Add new person'] = 'Add new person';
+$lang['Edit person'] = 'Edit person';
+$lang['Associate'] = 'Associate';
+$lang['Associate people'] = 'Associate people';
+$lang['Select one or more people'] = 'Select one or more people';
+$lang['Show in gallery'] = 'Show in gallery';
+$lang['Show in the gallery'] = 'Show in the gallery';
+$lang['Don\'t show in gallery'] = 'Don\'t show in gallery';
+$lang['Don\'t show in the gallery'] = 'Don\'t show in the gallery';
+$lang['people per page'] = 'people per page';
+$lang['You don\'t have any people yet. Please create one.'] = 'You don\'t have any people yet. Please create one.';
+$lang['<b>%d</b> people found'] = '<b>%d</b> people found';
+$lang['<b>%d</b> person found'] = '<b>%d</b> person found';
 
 // Leave this line empty

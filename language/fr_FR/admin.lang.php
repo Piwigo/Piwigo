@@ -1449,5 +1449,20 @@ $lang['You are about to delete %s groups, are you sure?'] = 'Vous êtes sur le p
 $lang['Users not logged in will have these permissions applied. Grant access to private albums only with great caution.'] = 'Ces permissions s\'appliqueront aux utilisateurs non connectés. Faites ainsi preuve de la plus grande précaution en accordant l\'accès aux albums privés.';
 $lang['single day'] = 'Jour unique';
 $lang['period'] = 'Période';
+$lang['People'] = 'Personnes';
+$lang['Add a person'] = 'Ajouter une personne';
+$lang['Add new person'] = 'Ajouter une nouvelle personne';
+$lang['Edit person'] = 'Éditer la personne';
+$lang['Associate'] = 'Associer';
+$lang['Associate people'] = 'Associer des personnes';
+$lang['Select one or more people'] = 'Sélectionnez une ou plusieurs personnes';
+$lang['Show in gallery'] = 'Afficher dans la galerie';
+$lang['Show in the gallery'] = 'Afficher dans la galerie';
+$lang['Don\'t show in gallery'] = 'Ne pas afficher dans la galerie';
+$lang['Don\'t show in the gallery'] = 'Ne pas afficher dans la galerie';
+$lang['people per page'] = 'personnes par page';
+$lang['You don\'t have any people yet. Please create one.'] = 'Vous n\'avez encore aucune personne. Créez-en une.';
+$lang['<b>%d</b> people found'] = '<b>%d</b> personnes trouvées';
+$lang['<b>%d</b> person found'] = '<b>%d</b> personne trouvée';
 
 // Leave this line empty
