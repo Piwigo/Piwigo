@@ -1709,6 +1709,117 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'post_only'=>true
         )
     );
+
+    $service->addMethod(
+      'pwg.people.getAdminList',
+      'ws_people_getAdminList',
+      array(
+        'search' => array(
+          'default' => null,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'is_visible' => array(
+          'type' => WS_TYPE_BOOL,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'per_page' => array(
+          'default' => 50,
+          'maxValue' => 1000,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'page' => array(
+          'default' => 0,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+      ),
+      '<b>Admin only.</b>',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden'    => false,
+        'post_only' => false,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.add',
+      'ws_people_add',
+      array(
+        'name' => array(),
+        'is_visible' => array(
+          'type' => WS_TYPE_BOOL,
+        ),
+        'source' => array(
+          'default' => 'manual',
+          'info' => 'manual,auto,imported'
+        ),
+        'pwg_token' => array(),
+      ),
+      'Add a new person.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden'    => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.edit',
+      'ws_people_edit',
+      array(
+        'person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'name' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'is_visible' => array(
+          'type' => WS_TYPE_BOOL,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'source' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'manual,auto,imported'
+        ),
+        'user_id' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => '0 to dissociate the user',
+        ),
+        'cover_image_person_id' => array(
+          'type' => WS_TYPE_ID,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'pwg_token' => array(),
+      ),
+      'Edit a person.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden'    => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.delete',
+      'ws_people_delete',
+      array(
+        'people_ids' => array(
+          'type' => WS_TYPE_ID,
+          'flags' => WS_PARAM_FORCE_ARRAY,
+        ),
+        'pwg_token' => array(),
+        ),
+      'Delete people by ID.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden'    => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
 }
 
 ?>
