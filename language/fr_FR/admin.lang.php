@@ -1163,6 +1163,7 @@ $lang['Compact View'] = 'Affichage compact';
 $lang['Tile View'] = 'Affichage tuiles';
 $lang['Line View'] = 'Affichage lignes';
 $lang['Add Album'] = 'Ajouter un album';
+$lang['Add sub-album'] = 'Ajouter un sous-album';
 $lang['Name field must not be empty'] = 'Le nom ne doit pas être vide';
 $lang['Drag and drop to reorder albums'] = 'Réorganisez les albums par glisser/déposer';
 $lang['Apply an automatic order to root albums'] = 'Appliquer un tri automatique sur les albums racines';

@@ -1165,6 +1165,7 @@ $lang['Compact View'] = 'Compact View';
 $lang['Tile View'] = 'Tile View';
 $lang['Line View'] = 'Line View';
 $lang['Add Album'] = 'Add Album';
+$lang['Add sub-album'] = 'Add sub-album';
 $lang['Name field must not be empty'] = 'Name field must not be empty';
 $lang['Drag and drop to reorder albums'] = 'Drag and drop to reorder albums';
 $lang['Apply an automatic order to root albums'] = 'Apply an automatic order to root albums';

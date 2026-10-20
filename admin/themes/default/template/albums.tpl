@@ -44,7 +44,7 @@ const has_images_becomming_orphans = '{'delete album and the %d orphan photos'|@
 const has_images_recursives = '{'delete only album, not photos'|@translate|escape:javascript}';
 const rename_item = '{'Rename "%s"'|@translate|escape:javascript}';
 
-const str_add_album = '{'Add Album'|@translate|escape:javascript}';
+const str_add_album = '{'Add sub-album'|@translate|escape:javascript}';
 const str_edit_album = '{'Edit album'|@translate|escape:javascript}';
 const str_add_photo = '{'Add Photos'|@translate|escape:javascript}';
 const str_visit_gallery = '{'Visit Gallery'|@translate|escape:javascript}';
