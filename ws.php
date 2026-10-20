@@ -1820,6 +1820,116 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'admin_only' => true,
       )
     );
+
+    $service->addMethod(
+      'pwg.people.associate',
+      'ws_people_associate',
+      array(
+        'image_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'box_x1' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'box_y1' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'box_x2' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'box_y2' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'image_width' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'image_height' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'source' => array(
+          'default' => 'manual',
+          'info' => 'manual,auto,imported'
+        ),
+        'pwg_token' => array(),
+      ),
+      'Associate a person to an image, or update the box of the association. The box is optional, all or none of box_x1, box_y1, box_x2, box_y2, image_width and image_height.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.dissociate',
+      'ws_people_dissociate',
+      array(
+        'image_person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'pwg_token' => array(),
+      ),
+      'Dissociate a person from an image.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.getByImage',
+      'ws_people_getByImage',
+      array(
+        'image_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+      ),
+      '<b>Admin only.</b> Returns the people of an image.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => false,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.getImages',
+      'ws_people_getImages',
+      array(
+        'person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'per_page' => array(
+          'default' => 100,
+          'maxValue' => $conf['ws_max_images_per_page'],
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'page' => array(
+          'default' => 0,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+      ),
+      '<b>Admin only.</b> Returns the images of a person.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => false,
+        'admin_only' => true,
+      )
+    );
 }
 
 ?>

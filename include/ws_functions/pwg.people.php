@@ -208,11 +208,98 @@ SELECT COUNT(*)
 
 
 
-  if (count($people_ids) > 0) 
+  if (count($people_ids) > 0)
   {
     delete_people($people_ids);
     return array( 'id' => $people_ids );
   } else {
     return array( 'id' => array() );
   }
+}
+
+/**
+ * API method
+ * Associate a person to an image, or update the box of the association
+ * @param mixed[] $params
+ *    @option int image_id
+ *    @option int person_id
+ *    @option int box_x1, box_y1, box_x2, box_y2, image_width, image_height (optional, all or none)
+ *    @option string source
+ */
+function ws_people_associate($params, &$service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $association = associate_person_to_image($params['image_id'], $params['person_id'], $params);
+
+  if (isset($association['error']))
+  {
+    return new PwgError($association['code'], $association['error']);
+  }
+
+  return array(
+    'image_person_id' => $association['id'],
+    'created' => $association['created'],
+  );
+}
+
+/**
+ * API method
+ * Dissociate a person from an image
+ * @param mixed[] $params
+ *    @option int image_person_id
+ */
+function ws_people_dissociate($params, &$service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $is_dissociated = dissociate_person_from_image($params['image_person_id']);
+
+  if (isset($is_dissociated['error']))
+  {
+    return new PwgError($is_dissociated['code'], $is_dissociated['error']);
+  }
+
+  return array(
+    'image_person_id' => $params['image_person_id'],
+  );
+}
+
+/**
+ * API method
+ * Returns the people of an image
+ * @param mixed[] $params
+ *    @option int image_id
+ */
+function ws_people_getByImage($params, &$service)
+{
+  return array(
+    'people' => get_image_people($params['image_id']),
+  );
+}
+
+/**
+ * API method
+ * Returns the images of a person
+ * @param mixed[] $params
+ *    @option int person_id
+ *    @option int per_page
+ *    @option int page
+ */
+function ws_people_getImages($params, &$service)
+{
+  $images = get_person_images($params['person_id'], $params['per_page'], $params['page']);
+
+  if (isset($images['error']))
+  {
+    return new PwgError($images['code'], $images['error']);
+  }
+
+  return $images;
 }
