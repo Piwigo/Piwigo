@@ -5306,7 +5306,7 @@ FORM#categoryOrdering p.albumActions .userSeparator {margin:0 5px;}
 
 .move-cat-container .icon-lock {
   font-size: 16px;
-  margin-left: 0px;
+  margin-left: 5px;
 }
 
 .move-cat-container .move-cat-title {
