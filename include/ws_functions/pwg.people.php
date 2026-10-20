@@ -57,6 +57,60 @@ SELECT
 
   $people = query2array($query);
 
+  // cover of each person, the face is cropped from the image by the front
+  $cover_ids = array();
+  foreach ($people as $person)
+  {
+    if (!empty($person['cover_image_person_id']))
+    {
+      $cover_ids[] = $person['cover_image_person_id'];
+    }
+  }
+
+  $covers = array();
+  if (count($cover_ids) > 0)
+  {
+    $query = '
+SELECT
+    ip.id AS image_person_id,
+    ip.box_x1,
+    ip.box_y1,
+    ip.box_x2,
+    ip.box_y2,
+    ip.image_width,
+    ip.image_height,
+    i.id,
+    i.path,
+    i.file,
+    i.representative_ext,
+    i.width,
+    i.height,
+    i.rotation
+  FROM '.IMAGE_PERSON_TABLE.' AS ip
+    INNER JOIN '.IMAGES_TABLE.' AS i ON i.id = ip.image_id
+  WHERE ip.id IN ('.implode(',', $cover_ids).')
+;';
+    $result = pwg_query($query);
+
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $covers[ $row['image_person_id'] ] = array(
+        'src' => DerivativeImage::url(IMG_MEDIUM, new SrcImage($row)),
+        'box_x1' => $row['box_x1'],
+        'box_y1' => $row['box_y1'],
+        'box_x2' => $row['box_x2'],
+        'box_y2' => $row['box_y2'],
+        'image_width' => $row['image_width'],
+        'image_height' => $row['image_height'],
+      );
+    }
+  }
+
+  foreach ($people as $i => $person)
+  {
+    $people[$i]['cover'] = $covers[ $person['cover_image_person_id'] ] ?? null;
+  }
+
   $query = '
 SELECT COUNT(*) AS nb
   FROM ' . PERSONS_TABLE .' AS p
@@ -291,10 +345,11 @@ function ws_people_getByImage($params, &$service)
  *    @option int person_id
  *    @option int per_page
  *    @option int page
+ *    @option bool identified
  */
 function ws_people_getImages($params, &$service)
 {
-  $images = get_person_images($params['person_id'], $params['per_page'], $params['page']);
+  $images = get_person_images($params['person_id'], $params['per_page'], $params['page'], $params['identified']);
 
   if (isset($images['error']))
   {
@@ -310,7 +365,7 @@ function ws_people_getImages($params, &$service)
  * @param mixed[] $params
  *    @option int image_id
  *    @option string people JSON list of [person_id, box_x1, box_y1, box_x2,
- *      box_y2, image_width, image_height, is_cover]
+ *      box_y2, image_width, image_height]
  */
 function ws_people_setImagePeople($params, &$service)
 {

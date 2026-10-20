@@ -9,6 +9,8 @@
   let str_add_new_people = "{'Add new person'|translate|escape:javascript}";
   let str_edit_people = "{'Edit person'|translate|escape:javascript}";
   let str_people_error_occured = "{"An error has occured"|translate|escape:javascript}";
+  let str_people_choose_cover = "{'Choose the cover'|translate|escape:javascript}";
+  let str_people_no_identified_photo = "{'No identified photo for this person.'|translate|escape:javascript}";
 {/footer_script}
 
 <div class="people-main">
@@ -94,6 +96,10 @@
   'show' => [ 'class' => 'icon-lock show', 'text' => 'Show in gallery'],
   'hide' => [ 'class' => 'icon-lock hide', 'text' => 'Don\'t show in gallery'],
   'edit' => [ 'class' => 'icon-pencil edit', 'text' => 'Edit'],
+  'cover' => [ 'class' => 'icon-picture cover', 'text' => 'Change the cover'],
   'delete' => [ 'class' => 'icon-trash delete', 'text' => 'Delete'],
 ]}
 {include file='include/person_card.inc.tpl' options=$options}
+
+{* PICTURE SELECTOR *}
+{include file='include/picture_selector.inc.tpl' load_mode='footer'}

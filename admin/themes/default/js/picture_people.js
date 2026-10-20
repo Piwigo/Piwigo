@@ -21,7 +21,6 @@ $(function() {
         is_visible: person.is_visible,
         photos: person.photos,
         source: 'manual',
-        is_cover: 'false',
         ...(people_pending_box ?? {}),
       });
       people_pending_box = null;
@@ -86,15 +85,6 @@ $(function() {
     people_identify_open(people_picture_card_index(this));
   });
 
-  $('#people_picture_list').on('click', '.dropdown-option.cover', function() {
-    const index = people_picture_card_index(this);
-    $.each(people_picture, (i, p) => {
-      p.is_cover = i === index ? 'true' : 'false';
-    });
-    people_picture_set_unsaved();
-    people_picture_render();
-  });
-
   $('#people_picture_list').on('click', '.dropdown-option.dissociate', function() {
     people_picture.splice(people_picture_card_index(this), 1);
     people_picture_set_unsaved();
@@ -148,7 +138,6 @@ function people_picture_save() {
     box_y2: p.box_y2 ?? null,
     image_width: p.image_width ?? null,
     image_height: p.image_height ?? null,
-    is_cover: p.is_cover,
   }));
 
   const show_error = (message) => {
@@ -207,15 +196,6 @@ function people_picture_render() {
       const face = people_face_css(people_picture_medium_src, person, 95);
       if (face) {
         template.find('.people-card-picture').css(face).find('i').hide();
-      }
-
-      if ('true' == person.is_cover) {
-        template.find('.dropdown-option.cover').hide();
-        $('<i class="people-card-header people-card-cover icon-star"></i>')
-          .toggleClass('with-lock', 'true' != person.is_visible)
-          .attr('title', str_people_cover)
-          .tipTip(people_tiptip_config)
-          .prependTo(template);
       }
     });
   });

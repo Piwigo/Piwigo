@@ -59,6 +59,12 @@ function people_render_card(selector, person, index = null, dropdown_func = null
     template.attr('data-index', index);
   }
 
+  // face of the cover, the grey icon stays when the cover has no box
+  const face = person.cover ? people_face_css(person.cover.src, person.cover, 95) : null;
+  if (face) {
+    template.find('.people-card-picture').css(face).find('i').hide();
+  }
+
   if (typeof dropdown_func === 'function') {
     dropdown_func(template, person);
   }

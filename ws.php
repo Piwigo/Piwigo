@@ -1921,6 +1921,11 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
           'default' => 0,
           'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
         ),
+        'identified' => array(
+          'default' => false,
+          'type' => WS_TYPE_BOOL,
+          'info' => 'only the images where the face is identified',
+        ),
       ),
       '<b>Admin only.</b> Returns the images of a person.',
       $ws_functions_root . 'pwg.people.php',
@@ -1939,7 +1944,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
           'type' => WS_TYPE_ID,
         ),
         'people' => array(
-          'info' => 'JSON list of {person_id, box_x1, box_y1, box_x2, box_y2, image_width, image_height, is_cover}, box fields null for no box. [] removes everyone.',
+          'info' => 'JSON list of {person_id, box_x1, box_y1, box_x2, box_y2, image_width, image_height}, box fields null for no box. [] removes everyone.',
         ),
         'pwg_token' => array(),
       ),

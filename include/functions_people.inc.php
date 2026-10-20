@@ -254,7 +254,8 @@ function merge_people() {}
 
 /**
  * Associate a person to an image, or update the box of the existing
- * association. The source is set on creation only.
+ * association. The source is set on creation only. A person without cover
+ * gets this association as cover, if the face is identified.
  *
  * @param int $image_id
  * @param int $person_id
@@ -267,7 +268,8 @@ function associate_person_to_image(int $image_id, int $person_id, array $data = 
 {
   global $user;
 
-  if (!get_person_by_id($person_id))
+  $person = get_person_by_id($person_id);
+  if (!$person)
   {
     return array('code' => 404, 'error' => 'Person not found.');
   }
@@ -305,11 +307,14 @@ SELECT *
 
   if ($existing)
   {
+    $image_person_id = $existing['id'];
+
     // already associated, nothing to update
     if (count($validated_data) == 0)
     {
+      set_person_cover_if_none($person, $image_person_id);
       return array(
-        'id' => $existing['id'],
+        'id' => $image_person_id,
         'created' => false,
       );
     }
@@ -317,9 +322,8 @@ SELECT *
     single_update(
       IMAGE_PERSON_TABLE,
       $validated_data,
-      array('id' => $existing['id'])
+      array('id' => $image_person_id)
     );
-    $image_person_id = $existing['id'];
   }
   else
   {
@@ -338,6 +342,8 @@ SELECT *
     $image_person_id = pwg_db_insert_id();
   }
 
+  set_person_cover_if_none($person, $image_person_id);
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   update_images_lastmodified(array($image_id));
 
@@ -351,7 +357,8 @@ SELECT *
 }
 
 /**
- * Delete an association. If it was the cover of the person, the cover is unset.
+ * Delete an association. If it was the cover of the person, the most recent
+ * identified association of the person becomes the cover.
  *
  * @param int $image_person_id
  * @return true|array ['code', 'error']
@@ -372,6 +379,7 @@ DELETE
   pwg_query($query);
 
   unset_people_cover(array($image_person_id));
+  refresh_people_cover(array($image_person['person_id']));
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   update_images_lastmodified(array($image_person['image_id']));
@@ -386,7 +394,7 @@ DELETE
  *
  * @param int $image_id
  * @param array $people list of [person_id, box_x1, box_y1, box_x2, box_y2,
- *   image_width, image_height, is_cover], box fields null for no box
+ *   image_width, image_height], box fields null for no box
  * @return true|array ['code', 'error']
  */
 function set_image_people(int $image_id, array $people)
@@ -403,7 +411,6 @@ SELECT id
 
   // check everything before writing
   $person_ids = array();
-  $cover_person_id = null;
   foreach ($people as $person)
   {
     if (!is_array($person) or !isset($person['person_id']) or !preg_match('/^\d+$/', $person['person_id']))
@@ -420,15 +427,6 @@ SELECT id
     if (isset($box['error']))
     {
       return $box;
-    }
-
-    if (isset($person['is_cover']) and in_array($person['is_cover'], array(true, 'true'), true))
-    {
-      if (null !== $cover_person_id)
-      {
-        return array('code' => 403, 'error' => 'Only one cover by image.');
-      }
-      $cover_person_id = $person['person_id'];
     }
 
     $person_ids[] = $person['person_id'];
@@ -467,31 +465,12 @@ SELECT
   }
 
   // associate the new people, update the box of the others
-  $image_person_ids = array();
   foreach ($people as $person)
   {
     $association = associate_person_to_image($image_id, $person['person_id'], $person);
     if (isset($association['error']))
     {
       return $association;
-    }
-    $image_person_ids[$person['person_id']] = $association['id'];
-  }
-
-  // the people whose cover was on this image lose it, except the new cover
-  $covers_to_unset = $image_person_ids;
-  if (null !== $cover_person_id)
-  {
-    unset($covers_to_unset[$cover_person_id]);
-  }
-  unset_people_cover(array_values($covers_to_unset));
-
-  if (null !== $cover_person_id)
-  {
-    $person = get_person_by_id($cover_person_id);
-    if ($person['cover_image_person_id'] != $image_person_ids[$cover_person_id])
-    {
-      edit_person($cover_person_id, array('cover_image_person_id' => $image_person_ids[$cover_person_id]));
     }
   }
 
@@ -533,15 +512,17 @@ SELECT
 }
 
 /**
- * Returns the images of a person, with the association fields and the
- * thumbnail url. Admin view: photo permissions are not taken into account.
+ * Returns the images of a person, with the association fields, the thumbnail
+ * url and the medium url (to crop the face). Admin view: photo permissions
+ * are not taken into account.
  *
  * @param int $person_id
  * @param int $per_page
  * @param int $page starts at 0
+ * @param bool $identified only the images where the face is identified (with a box)
  * @return array ['paging', 'images'] or ['code', 'error']
  */
-function get_person_images(int $person_id, int $per_page = 100, int $page = 0)
+function get_person_images(int $person_id, int $per_page = 100, int $page = 0, bool $identified = false)
 {
   if (!get_person_by_id($person_id))
   {
@@ -553,6 +534,12 @@ function get_person_images(int $person_id, int $per_page = 100, int $page = 0)
 
   $where_sql = '
   WHERE ip.person_id = '.$person_id;
+
+  if ($identified)
+  {
+    $where_sql.= '
+    AND ip.box_x1 IS NOT NULL';
+  }
 
   $query = '
 SELECT
@@ -585,6 +572,7 @@ SELECT
       'width' => $row['width'],
       'height' => $row['height'],
       'tn_url' => DerivativeImage::thumb_url($row),
+      'medium_url' => DerivativeImage::url(IMG_MEDIUM, new SrcImage($row)),
       'image_person_id' => $row['image_person_id'],
       'box_x1' => $row['box_x1'],
       'box_y1' => $row['box_y1'],
@@ -614,6 +602,78 @@ SELECT COUNT(*)
     ),
     'images' => $images,
   );
+}
+
+/**
+ * A person without cover gets this association as cover, if the face is
+ * identified (the association has a box).
+ *
+ * @param array $person row of the persons table
+ * @param int $image_person_id
+ */
+function set_person_cover_if_none(array $person, $image_person_id)
+{
+  if (!empty($person['cover_image_person_id']))
+  {
+    return;
+  }
+
+  // only an identified face can be a cover
+  $image_person = get_person_in_image_by_id($image_person_id);
+  if (!$image_person or null === $image_person['box_x1'])
+  {
+    return;
+  }
+
+  single_update(
+    PERSONS_TABLE,
+    array('cover_image_person_id' => $image_person_id),
+    array('id' => $person['id'])
+  );
+}
+
+/**
+ * People without cover get their most recent identified association as cover.
+ * Called after a cover is removed, so the person keeps a face if possible.
+ *
+ * @param int[] $person_ids
+ */
+function refresh_people_cover(array $person_ids)
+{
+  if (count($person_ids) == 0)
+  {
+    return;
+  }
+
+  $query = '
+SELECT id
+  FROM '.PERSONS_TABLE.'
+  WHERE id IN ('.implode(',', $person_ids).')
+    AND cover_image_person_id IS NULL
+;';
+  $people_without_cover = query2array($query, null, 'id');
+
+  foreach ($people_without_cover as $person_id)
+  {
+    $query = '
+SELECT id
+  FROM '.IMAGE_PERSON_TABLE.'
+  WHERE person_id = '.$person_id.'
+    AND box_x1 IS NOT NULL
+  ORDER BY tagged_on DESC, id DESC
+  LIMIT 1
+;';
+    $image_person_ids = query2array($query, null, 'id');
+
+    if (count($image_person_ids) > 0)
+    {
+      single_update(
+        PERSONS_TABLE,
+        array('cover_image_person_id' => $image_person_ids[0]),
+        array('id' => $person_id)
+      );
+    }
+  }
 }
 
 /**

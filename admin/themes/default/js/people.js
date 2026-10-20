@@ -116,6 +116,14 @@ function load_people_events() {
     edit_people(data);
   });
 
+  // change the cover
+  $('.dropdown-option.cover').off('click').on('click', function() {
+    const person = get_card_person(this);
+    if (!person) return;
+    $('.people-card-dropdown').hide();
+    show_people_cover_selector(person);
+  });
+
   // delete person
   $('.dropdown-option.delete').off('click').on('click', function() {
     const person = get_card_person(this);
@@ -233,6 +241,60 @@ function close_people_modal() {
 function show_people_modal() {
   people_modal_person.fadeIn();
   people_modal_name_input.trigger('focus');
+}
+
+function show_people_cover_selector(person) {
+  const selector = new PictureSelector({
+    title: str_people_choose_cover,
+    selectedId: person.cover_image_person_id,
+    emptyText: str_people_no_identified_photo,
+    loadPictures: ({ page }) => new Promise((resolve, reject) => {
+      $.ajax({
+        url: 'ws.php?format=json&method=pwg.people.getImages',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          person_id: person.id,
+          identified: true,
+          per_page: 40,
+          page: page,
+        },
+        success: (res) => {
+          if ('ok' !== res.stat) return reject(res.message);
+
+          resolve({
+            total: res.result.paging.total,
+            pictures: res.result.images.map((image) => ({
+              id: image.image_person_id,
+              src: image.tn_url,
+              css: (size) => people_face_css(image.medium_url, image, size),
+            })),
+          });
+        },
+        error: () => reject(),
+      });
+    }),
+    onSave: (picture) => new Promise((resolve, reject) => {
+      $.ajax({
+        url: 'ws.php?format=json&method=pwg.people.edit',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          person_id: person.id,
+          cover_image_person_id: picture.id,
+          pwg_token: PWG_TOKEN,
+        },
+        success: (res) => {
+          if ('ok' !== res.stat) return reject(res.message);
+          load_people();
+          resolve();
+        },
+        error: () => reject(),
+      });
+    }),
+  });
+
+  selector.open();
 }
 
 function reset_people_modal() {

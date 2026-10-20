@@ -13,7 +13,6 @@ const people_picture_image_height = {$IMG_HEIGHT};
 const people_picture_people = {$IMAGE_PERSONS|@json_encode};
 const str_people_identify = "{'Identify'|translate|escape:javascript}";
 const str_people_identify_person = "{'Identify a person'|translate|escape:javascript}";
-const str_people_cover = "{'Cover'|translate|escape:javascript}";
 const str_people_picture_error = "{'An error has occured'|translate|escape:javascript}";
 {/footer_script}
 
@@ -86,7 +85,6 @@ const str_people_picture_error = "{'An error has occured'|translate|escape:javas
 {* TEMPLATE, included before the selector so the cards of the tab get their menu *}
 {assign var="options" value=[
   'identify' => [ 'class' => 'icon-crop identify', 'text' => 'Identify'],
-  'cover' => [ 'class' => 'icon-picture cover', 'text' => 'Set as cover'],
   'dissociate' => [ 'class' => 'icon-cancel dissociate', 'text' => 'Dissociate'],
 ]}
 {include file='include/person_card.inc.tpl' options=$options load_mode='footer'}

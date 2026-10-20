@@ -36,15 +36,6 @@
   white-space: nowrap;
 }
 
-/* cover star, in the left margin of the card, under the lock when there is one */
-.people-card .people-card-cover {
-  left: 2px;
-  color: #FFA646;
-}
-
-.people-card .people-card-cover.with-lock {
-  top: 27px;
-}
 
 /* Identify modal */
 #people_identify_modal .modal-content {

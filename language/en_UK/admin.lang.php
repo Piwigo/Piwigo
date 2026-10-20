@@ -1464,8 +1464,10 @@ $lang['Identify'] = 'Identify';
 $lang['Identify a person'] = 'Identify a person';
 $lang['Adjust the frame on the face'] = 'Adjust the frame on the face';
 $lang['Associate without identifying'] = 'Associate without identifying';
-$lang['Set as cover'] = 'Set as cover';
-$lang['Cover'] = 'Cover';
 $lang['Dissociate'] = 'Dissociate';
+$lang['Change the cover'] = 'Change the cover';
+$lang['Choose the cover'] = 'Choose the cover';
+$lang['No identified photo for this person.'] = 'No identified photo for this person.';
+$lang['Random'] = 'Random';
 
 // Leave this line empty
