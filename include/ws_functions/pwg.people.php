@@ -7,6 +7,76 @@
 // +-----------------------------------------------------------------------+
 
 /**
+ * Returns all people for ws functions.
+ * helper func for people ws function not used directly in ws.php
+ *
+ * @param array $params
+ *  - string search (optional)
+ *  - is_visible (optional)
+ *  - per_page
+ *  - page
+ * @return array [id, name, url_name]
+ */
+function ws_get_people(array $params)
+{
+  $where_clauses = array();
+  
+  // build where clauses
+  if (isset($params['is_visible']))
+  {
+    $where_clauses[] = 'p.is_visible = \'' . boolean_to_string($params['is_visible']) . '\'';
+  }
+
+  if (!empty($params['search']))
+  {
+    $where_clauses[] = 'p.name LIKE \'%'.pwg_db_real_escape_string($params['search']).'%\'';
+  }
+
+  $where_sql = count($where_clauses) > 0
+    ? 'WHERE ' . implode(' AND ', $where_clauses)
+    : '';
+
+  // build pagination
+  $per_page = intval($params['per_page']);
+  $page = intval($params['page']);
+  $offset = $page * $per_page;
+
+  // queries
+  $query = '
+SELECT 
+    p.*,
+    COUNT(ip.image_id) AS photos
+  FROM '.PERSONS_TABLE.' AS p
+  LEFT JOIN '.IMAGE_PERSON_TABLE.' AS ip ON ip.person_id = p.id
+    '. $where_sql .'
+  GROUP BY p.id
+  ORDER BY p.id DESC
+  LIMIT ' . $per_page . '
+  OFFSET ' . $offset . '
+;';
+
+  $people = query2array($query);
+
+  $query = '
+SELECT COUNT(*) AS nb
+  FROM ' . PERSONS_TABLE .' AS p
+  '. $where_sql .'
+;';
+  $count_result = pwg_db_fetch_assoc(pwg_query($query));
+  $total_count = intval($count_result['nb']);
+
+  return array(
+    'paging' => array(
+      'page' => $page,
+      'per_page' => $per_page,
+      'total' => $total_count,
+      'total_pages' => ceil($total_count / $per_page),
+    ),
+    'people' => $people,
+  );
+}
+
+/**
  * API method
  * Returns a list of people
  * @param mixed[] $params

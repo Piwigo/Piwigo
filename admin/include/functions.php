@@ -304,6 +304,20 @@ DELETE FROM '.IMAGE_TAG_TABLE.'
 ;';
   pwg_query($query);
 
+  // destruction of the links between images and people, covers included
+  $query = '
+SELECT id
+  FROM '.IMAGE_PERSON_TABLE.'
+  WHERE image_id IN ('. $ids_str .')
+;';
+  unset_people_cover(query2array($query, null, 'id'));
+
+  $query = '
+DELETE FROM '.IMAGE_PERSON_TABLE.'
+  WHERE image_id IN ('. $ids_str .')
+;';
+  pwg_query($query);
+
   // destruction of the favorites associated with the picture
   $query = '
 DELETE FROM '.FAVORITES_TABLE.'

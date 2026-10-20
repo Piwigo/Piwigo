@@ -108,6 +108,41 @@ array(
   'files' => array('admin\include\ws_functions/pwg.tags.php (merge_tags)')
 ),
 array(
+  'name' => 'create_person',
+  'type' => 'trigger_notify',
+  'vars' => array('int', 'person_id'),
+  'files' => array('include\functions_people.inc.php (create_person)'),
+  'infos' => 'New in 17',
+),
+array(
+  'name' => 'edit_person',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'person', 'array', 'person_before_edit'),
+  'files' => array('include\functions_people.inc.php (edit_person)'),
+  'infos' => 'New in 17',
+),
+array(
+  'name' => 'delete_people',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'people_ids'),
+  'files' => array('include\functions_people.inc.php (delete_people)'),
+  'infos' => 'New in 17',
+),
+array(
+  'name' => 'associate_person_to_image',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'image_person', 'bool', 'created'),
+  'files' => array('include\functions_people.inc.php (associate_person_to_image)'),
+  'infos' => 'New in 17',
+),
+array(
+  'name' => 'dissociate_person_from_image',
+  'type' => 'trigger_notify',
+  'vars' => array('array', 'image_person'),
+  'files' => array('include\functions_people.inc.php (dissociate_person_from_image)'),
+  'infos' => 'New in 17',
+),
+array(
   'name' => 'delete_user',
   'type' => 'trigger_notify',
   'vars' => array('int', 'user_id'),
@@ -791,6 +826,13 @@ array(
   'type' => 'trigger_change',
   'vars' => array('string', 'tag_name'),
   'files' => array('admin\include\functions.php (tag_id_from_tag_name, create_tag)', 'admin\tags.php'),
+),
+array(
+  'name' => 'render_person_url',
+  'type' => 'trigger_change',
+  'vars' => array('string', 'person_name'),
+  'files' => array('include\functions_people.inc.php (create_person, edit_person)'),
+  'infos' => 'New in 17',
 ),
 array(
   'name' => 'save_profile_from_post',

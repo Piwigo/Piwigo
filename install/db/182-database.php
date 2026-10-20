@@ -43,8 +43,6 @@ CREATE TABLE `'.PREFIX_TABLE.'image_person` (
   `image_width` smallint(5) unsigned DEFAULT NULL,
   `image_height` smallint(5) unsigned DEFAULT NULL,
   `source` enum(\'manual\',\'auto\', \'imported\') NOT NULL DEFAULT \'manual\',
-  `confidence` decimal(4,3) unsigned NULL,
-  `status` enum(\'pending\',\'confirmed\',\'rejected\') NOT NULL DEFAULT \'confirmed\',
   `tagged_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `tagger_user_id` mediumint(8) unsigned NULL,
   PRIMARY KEY (`id`),
