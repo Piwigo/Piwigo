@@ -23,12 +23,16 @@ $curr_image = $page['image'] ?? get_image_infos($_GET['image_id'], true);
 $src_image = new SrcImage($curr_image);
 $image_persons = get_image_people($curr_image['id']);
 
+// boxes are in pixels of the original as displayed, so after the EXIF
+// rotation: width and height are swapped for a 90° rotation
+list($displayed_width, $displayed_height) = $src_image->get_size();
+
 $template->assign(array(
   'MEDIUM_SRC' => DerivativeImage::url(IMG_MEDIUM, $src_image),
-  'FORMAT' => ($curr_image['width'] >= $curr_image['height'])? 1:0,
+  'FORMAT' => ($displayed_width >= $displayed_height)? 1:0,
   'IMAGE_ID' => $curr_image['id'],
-  'IMG_WIDTH' => $curr_image['width'],
-  'IMG_HEIGHT' => $curr_image['height'],
+  'IMG_WIDTH' => $displayed_width,
+  'IMG_HEIGHT' => $displayed_height,
   "IMAGE_PERSONS" => $image_persons,
   'PWG_TOKEN' => get_pwg_token(),
 ));

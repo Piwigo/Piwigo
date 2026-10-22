@@ -1861,7 +1861,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         ),
         'pwg_token' => array(),
       ),
-      'Associate a person to an image, or update the box of the association. The box is optional, all or none of box_x1, box_y1, box_x2, box_y2, image_width and image_height.',
+      'Associate a person to an image, or update the box of the association. The box is optional, all or none of box_x1, box_y1, box_x2, box_y2, image_width and image_height. It is in pixels of the image as displayed, after the EXIF rotation, at image_width x image_height.',
       $ws_functions_root . 'pwg.people.php',
       array(
         'hidden' => false,
@@ -1944,7 +1944,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
           'type' => WS_TYPE_ID,
         ),
         'people' => array(
-          'info' => 'JSON list of {person_id, box_x1, box_y1, box_x2, box_y2, image_width, image_height}, box fields null for no box. [] removes everyone.',
+          'info' => 'JSON list of {person_id, box_x1, box_y1, box_x2, box_y2, image_width, image_height}, box fields null for no box, in pixels of the image as displayed (after the EXIF rotation). [] removes everyone.',
         ),
         'pwg_token' => array(),
       ),
