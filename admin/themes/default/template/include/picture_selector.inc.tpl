@@ -1,6 +1,7 @@
 {if !$smarty.capture.inc_picture_selector}
 {capture name="inc_picture_selector"}1{/capture}
 {combine_css path="admin/themes/default/css/components/picture_selector.css"}
+{if 'dark' == $themeconf.colorscheme}{combine_css path="admin/themes/`$themeconf.name`/css/components/picture_selector.css" order=1}{/if}
 {combine_script id='picture_selector' load=$load_mode path='admin/themes/default/js/picture_selector.js'}
 {footer_script}
   let str_picture_selector_error = '{'An error has occured'|translate|escape:javascript}';

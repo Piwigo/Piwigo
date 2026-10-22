@@ -1469,5 +1469,16 @@ $lang['Change the cover'] = 'Change the cover';
 $lang['Choose the cover'] = 'Choose the cover';
 $lang['No identified photo for this person.'] = 'No identified photo for this person.';
 $lang['Random'] = 'Random';
+$lang['No people selected, no actions possible.'] = 'No people selected, no actions possible.';
+$lang['At least 2 selected people are needed to merge'] = 'At least 2 selected people are needed to merge';
+$lang['Choose which person to merge these people into'] = 'Choose which person to merge these people into';
+$lang['The other people will be removed'] = 'The other people will be removed';
+$lang['Person added'] = 'Person added';
+$lang['Person updated'] = 'Person updated';
+$lang['Person deleted'] = 'Person deleted';
+$lang['%d people deleted'] = '%d people deleted';
+$lang['People merged into "%s"'] = 'People merged into "%s"';
+$lang['Cover updated'] = 'Cover updated';
+$lang['Delete person "%s"?'] = 'Delete person "%s"?';
 
 // Leave this line empty

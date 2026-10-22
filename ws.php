@@ -1956,6 +1956,28 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'admin_only' => true,
       )
     );
+
+    $service->addMethod(
+      'pwg.people.merge',
+      'ws_people_merge',
+      array(
+        'destination_person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'merge_person_id' => array(
+          'type' => WS_TYPE_ID,
+          'flags' => WS_PARAM_FORCE_ARRAY,
+        ),
+        'pwg_token' => array(),
+      ),
+      'Merge people into a destination person, then delete them. The destination keeps its name, visibility and cover, and gets the user of a merged person if it has none.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
 }
 
 ?>

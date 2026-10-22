@@ -31,12 +31,12 @@
   font-size: 33px;
 }
 
-.light .toast.success {
+.toast.success {
   background-color: #D6FFCF;
   color: #4CA530;
 }
 
-.light .toast.error {
+.toast.error {
   background-color: #F8D7DC;
   color: #EB3D33;
 }
@@ -51,7 +51,8 @@
   color: #FFC8C8;
 }
 {/html_style}
-<div class="toaster" id="pwg_toaster">
+{* toaster_mode: optional, "dark" outside of a .dark container (e.g. the admin) *}
+<div class="toaster{if !empty($toaster_mode)} {$toaster_mode}{/if}" id="pwg_toaster">
   <div class="toast template-pwg-toaster" id="toast_template">
     <i class="toast_icon"></i>
     <p class="toast_text"></p>

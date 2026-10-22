@@ -1,6 +1,7 @@
 {if !$smarty.capture.inc_person_card}
 {capture name="inc_person_card"}1{/capture}
 {combine_css path="admin/themes/default/css/components/person_card.css"}
+{if 'dark' == $themeconf.colorscheme}{combine_css path="admin/themes/`$themeconf.name`/css/components/person_card.css" order=1}{/if}
 {combine_css path="themes/default/vendor/fontello/css/gallery-icon.css" order=-10}
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='person_card' load=$load_mode path='admin/themes/default/js/person_card.js'}

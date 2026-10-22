@@ -129,6 +129,13 @@ array(
   'infos' => 'New in 17',
 ),
 array(
+  'name' => 'merge_people',
+  'type' => 'trigger_notify',
+  'vars' => array('int', 'destination_person_id', 'array', 'merged_person_ids'),
+  'files' => array('include\functions_people.inc.php (merge_people)'),
+  'infos' => 'New in 17',
+),
+array(
   'name' => 'associate_person_to_image',
   'type' => 'trigger_notify',
   'vars' => array('array', 'image_person', 'bool', 'created'),

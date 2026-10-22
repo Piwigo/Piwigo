@@ -4,6 +4,9 @@ let people_current_page = 0;
 let people_search_value = '';
 let people_search_timeout;
 let people = [];
+// selection mode: selected people by id, kept across pages and searches
+let people_selection_mode = false;
+let people_selected = {};
 
 const people_container = $('#people_container');
 const people_loading = $('#people_loading');
@@ -37,10 +40,23 @@ $(function() {
     close_people_modal();
   });
 
+  // delete modal
+  $('#people_modal_delete_close, #people_modal_delete_cancel').on('click', function() {
+    close_delete_people_modal();
+  });
+
+  $('#people_modal_delete_confirm').on('click', function() {
+    if (people_to_delete) {
+      delete_people([people_to_delete.id]);
+    }
+    close_delete_people_modal();
+  });
+
   // general keydown event (e.g espace to close modal)
   $(document).on('keydown', function (e) {
     if (e.key === 'Escape') {
       close_people_modal();
+      close_delete_people_modal();
     }
 
     if (e.key === 'Enter' && people_modal_person.is(':visible')) {
@@ -66,7 +82,125 @@ $(function() {
       load_people();
     }, 300);
   });
+
+  // selection mode
+  $('#people_selection_toggle').on('change', function() {
+    people_selection_switch($(this).is(':checked'));
+  });
+
+  people_container.on('click', '.people-card', function(e) {
+    if (!people_selection_mode || $(e.target).closest('.people-card-menu, .people-card-dropdown').length) {
+      return;
+    }
+
+    const person = people[$(this).data('index')];
+    if (!person) return;
+
+    if (undefined === people_selected[person.id]) {
+      people_selected[person.id] = person.name;
+    } else {
+      delete people_selected[person.id];
+    }
+    people_selection_refresh();
+  });
+
+  $('#people_selection_controller').on('click', 'a', function() {
+    const action = $(this).data('select');
+    $.each(people, function(i, person) {
+      const is_selected = undefined !== people_selected[person.id];
+      if ('all' === action || ('invert' === action && !is_selected)) {
+        people_selected[person.id] = person.name;
+      } else {
+        delete people_selected[person.id];
+      }
+    });
+    people_selection_refresh();
+  });
+
+  $('#people_selection_list').on('click', '.people-selection-remove', function() {
+    delete people_selected[$(this).data('id')];
+    people_selection_refresh();
+  });
+
+  $('#people_selection_delete').on('click', function() {
+    const ids = Object.keys(people_selected);
+    if (ids.length === 0) return;
+
+    delete_people(ids, function() {
+      people_selected = {};
+      people_selection_refresh();
+    });
+  });
+
+  $('#people_selection_merge').on('click', function() {
+    people_selection_merge_open();
+  });
+
+  $('#people_selection_merge_cancel').on('click', function() {
+    people_selection_merge_close();
+  });
+
+  $('#people_selection_merge_confirm').on('click', function() {
+    merge_people();
+  });
 });
+
+// SELECTION MODE
+function people_selection_switch(is_on) {
+  people_selection_mode = is_on;
+  people_selected = {};
+
+  $('.people-page').toggleClass('people-selection-on', is_on);
+  $('#people_selection, #people_selection_controller').toggle(is_on);
+  add_person_btn.toggle(!is_on);
+  $('.people-card-dropdown').hide();
+
+  people_selection_merge_close();
+}
+
+function people_selection_refresh() {
+  const ids = Object.keys(people_selected);
+
+  people_container.find('.people-card').each(function() {
+    const person = people[$(this).data('index')];
+    const is_selected = person && undefined !== people_selected[person.id];
+    $(this).toggleClass('GroupBackgroudSelected people-card-selected', is_selected);
+  });
+
+  const list = $('#people_selection_list').empty();
+  $.each(ids, function(i, id) {
+    list.append(
+      $('<div class="people-selection-item"></div>')
+        .append($('<a class="people-selection-remove icon-cancel"></a>').attr('data-id', id))
+        .append($('<p></p>').text(people_selected[id]))
+    );
+  });
+
+  $('#people_selection_merge').toggleClass('unavailable', ids.length < 2);
+
+  if (!$('#people_selection_merge_block').is(':visible')) {
+    $('#people_selection_nothing').toggle(ids.length === 0);
+    $('#people_selection_actions').toggle(ids.length > 0);
+  }
+}
+
+function people_selection_merge_open() {
+  const ids = Object.keys(people_selected);
+  if (ids.length < 2) return;
+
+  const choice = $('#people_selection_merge_choice').empty();
+  $.each(ids, function(i, id) {
+    choice.append($('<option></option>').val(id).text(people_selected[id]));
+  });
+
+  $('#people_selection_actions, #people_selection_nothing, #people_selection_error').hide();
+  $('#people_selection_merge_block').show();
+}
+
+function people_selection_merge_close() {
+  $('#people_selection_merge_block, #people_selection_error').hide();
+  people_selection_refresh();
+}
 
 // FUNCTIONS
 function get_card_person(el) {
@@ -124,11 +258,12 @@ function load_people_events() {
     show_people_cover_selector(person);
   });
 
-  // delete person
+  // delete person, after a confirmation
   $('.dropdown-option.delete').off('click').on('click', function() {
     const person = get_card_person(this);
     if (!person) return;
-    delete_people([person.id]);
+    $('.people-card-dropdown').hide();
+    show_delete_people_modal(person);
   });
 
   // hide all dropdown on click everywhere
@@ -232,6 +367,19 @@ function show_edit_people_modal(person) {
   show_people_modal();
 }
 
+let people_to_delete = null;
+
+function show_delete_people_modal(person) {
+  people_to_delete = person;
+  $('#people_modal_delete_title').text(sprintf(str_delete_person, person.name));
+  $('#people_modal_delete').fadeIn();
+}
+
+function close_delete_people_modal() {
+  people_to_delete = null;
+  $('#people_modal_delete').fadeOut();
+}
+
 function close_people_modal() {
   people_modal_person.fadeOut(function() {
     reset_people_modal();
@@ -286,6 +434,7 @@ function show_people_cover_selector(person) {
         },
         success: (res) => {
           if ('ok' !== res.stat) return reject(res.message);
+          people_toast(str_cover_updated);
           load_people();
           resolve();
         },
@@ -359,11 +508,15 @@ function load_people(is_init = false) {
           } else {
             template.find('.dropdown-option.hide').hide();
           }
+
+          // only shown in selection mode
+          template.append('<span class="people-card-check icon-ok"></span>');
         });
       });
 
       // load events
       load_people_events();
+      people_selection_refresh();
 
       // build pagination
       render_people_footer(paging);
@@ -373,6 +526,25 @@ function load_people(is_init = false) {
       people_error.show();
     }
   });
+}
+
+// toast of the standard pages toaster, it inserts html so the text is escaped
+function people_toast(text, is_error = false) {
+  if (typeof pwgToaster !== 'function') return;
+  pwgToaster({
+    text: $('<div></div>').text(text).html(),
+    icon: is_error ? 'error' : 'success',
+  });
+}
+
+// error in the add/edit modal when it is open, in a toast otherwise
+function people_show_error(message) {
+  const text = message ?? str_people_error_occured;
+  if (people_modal_person.is(':visible')) {
+    people_modal_error.text(text).show();
+  } else {
+    people_toast(text, true);
+  }
 }
 
 function add_people(data) {
@@ -386,14 +558,15 @@ function add_people(data) {
     success: function(res) {
       if (res.stat === 'ok') {
         close_people_modal();
+        people_toast(str_person_added);
         people_current_page = 0;
         return load_people();
       }
 
-      people_modal_error.text(res.message ?? str_people_error_occured).show();
+      people_show_error(res.message);
     },
     error: function(e) {
-      people_modal_error.text(str_people_error_occured).show();
+      people_show_error();
     }
   });
 }
@@ -408,18 +581,49 @@ function edit_people(data) {
     success: function(res) {
       if (res.stat === 'ok') {
         close_people_modal();
+        people_toast(str_person_updated);
         return load_people();
       }
 
-      people_modal_error.text(res.message ?? str_people_error_occured).show();
+      people_show_error(res.message);
     },
     error: function(e) {
-      people_modal_error.text(str_people_error_occured).show();
+      people_show_error();
     }
   });
 }
 
-function delete_people(ids) {
+function merge_people() {
+  const destination_id = $('#people_selection_merge_choice').val();
+  const destination_name = people_selected[destination_id];
+  const merge_ids = Object.keys(people_selected).filter((id) => id !== destination_id);
+
+  $.ajax({
+    url: 'ws.php?format=json&method=pwg.people.merge',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      destination_person_id: destination_id,
+      merge_person_id: merge_ids,
+      pwg_token: PWG_TOKEN,
+    },
+    success: function(res) {
+      if (res.stat !== 'ok') {
+        return $('#people_selection_error').text(res.message ?? str_people_error_occured).show();
+      }
+
+      people_selected = {};
+      people_selection_merge_close();
+      people_toast(sprintf(str_people_merged, destination_name));
+      load_people();
+    },
+    error: function() {
+      $('#people_selection_error').text(str_people_error_occured).show();
+    }
+  });
+}
+
+function delete_people(ids, on_success = null) {
   const data = {
     pwg_token: PWG_TOKEN,
     people_ids: ids,
@@ -432,13 +636,15 @@ function delete_people(ids) {
     data: data,
     success: function(res) {
       if (res.stat === 'ok') {
+        if (typeof on_success === 'function') on_success();
+        people_toast(1 === ids.length ? str_person_deleted : sprintf(str_people_deleted, ids.length));
         return load_people();
       }
 
-      // TODO: toaster
+      people_toast(res.message ?? str_people_error_occured, true);
     },
     error: function(e) {
-      // TODO: toaster
+      people_toast(str_people_error_occured, true);
     }
   });
 }

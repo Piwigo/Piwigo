@@ -108,7 +108,9 @@ SELECT
 
   foreach ($people as $i => $person)
   {
-    $people[$i]['cover'] = $covers[ $person['cover_image_person_id'] ] ?? null;
+    $people[$i]['cover'] = $person['cover_image_person_id']
+    ? ($covers[ $person['cover_image_person_id'] ] ?? null)
+    : null;
   }
 
   $query = '
@@ -389,5 +391,31 @@ function ws_people_setImagePeople($params, &$service)
 
   return array(
     'people' => get_image_people($params['image_id']),
+  );
+}
+/**
+ * API method
+ * Merge people into a destination person
+ * @param mixed[] $params
+ *    @option int destination_person_id
+ *    @option int[] merge_person_id
+ */
+function ws_people_merge($params, &$service)
+{
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $is_merged = merge_people($params['destination_person_id'], $params['merge_person_id']);
+
+  if (isset($is_merged['error']))
+  {
+    return new PwgError($is_merged['code'], $is_merged['error']);
+  }
+
+  return array(
+    'destination_person_id' => $params['destination_person_id'],
+    'deleted_person_ids' => array_values(array_diff($params['merge_person_id'], array($params['destination_person_id']))),
   );
 }

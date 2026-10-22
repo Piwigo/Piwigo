@@ -1,13 +1,12 @@
 {combine_css path="admin/themes/default/fontello/css/animation.css" order=10} {* order 10 is required, see issue 1080 *}
 {combine_css path="themes/default/js/plugins/cropper.min.css"}
-{combine_css path="admin/themes/default/css/components/picture_people.css"}
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='cropper' load='footer' path='themes/default/js/plugins/cropper.min.js'}
 {combine_script id='picture_people' load='footer' require='jquery' path='admin/themes/default/js/picture_people.js'}
 {footer_script}
 const PWG_TOKEN = "{$PWG_TOKEN}";
 const people_picture_image_id = {$IMAGE_ID};
-const people_picture_medium_src = "{$MEDIUM_SRC|escape:javascript}";
+const people_picture_medium_src = "{$MEDIUM_SRC|unescape:'html'|escape:javascript}";
 const people_picture_image_width = {$IMG_WIDTH};
 const people_picture_image_height = {$IMG_HEIGHT};
 const people_picture_people = {$IMAGE_PERSONS|@json_encode};

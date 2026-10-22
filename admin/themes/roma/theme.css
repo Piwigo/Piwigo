@@ -2243,6 +2243,10 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   background-color: #252525 !important;
 }
 
+.modal-footer-close:hover {
+  color: #e0e0e0;
+}
+
 /* Batch manager, unit mode */
 
 .elementEdit{
@@ -2581,4 +2585,40 @@ div.error .jGrowl-popup-icon,
 
 .messages a:hover{
   color: #E4EEFF;
+}
+
+/* People */
+
+.people-page .people-selection-controller a {
+  background-color: #333;
+}
+
+.people-page .people-selection-controller p {
+  color: #c1c1c1;
+}
+
+.people-page .people-card-selected .people-card-name,
+.people-page .people-card-selected i.people-card-header {
+  color: #3c3c3c;
+}
+
+.people-page .people-card-selected .people-card-check {
+  background-color: #c76a23;
+  border-color: #c76a23;
+}
+
+/* same colors as the selection panel of the tags */
+.people-page .people-selection-list,
+.people-page .people-selection-button,
+.people-page .people-selection-cancel {
+  color: #c0c0c0;
+}
+
+.people-page .people-selection-button:hover {
+  color: #3c3c3c;
+}
+
+.people-page .people-selection-merge select {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 2px #c5c5c5;
 }

@@ -39,6 +39,8 @@ $template->assign('ADMIN_PAGE_TITLE', l10n('People'));
 
 $template->assign(array(
   'PWG_TOKEN' => get_pwg_token(),
+  // toaster of the standard pages, reused here
+  'PWG_TOASTER_TPL' => realpath(PHPWG_ROOT_PATH.'themes/standard_pages/template/toaster.tpl'),
   ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'people');

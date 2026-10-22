@@ -1476,5 +1476,16 @@ $lang['Change the cover'] = 'Changer la couverture';
 $lang['Choose the cover'] = 'Choix de la couverture';
 $lang['No identified photo for this person.'] = 'Aucune photo identifiée pour cette personne.';
 $lang['Random'] = 'Aléatoire';
+$lang['No people selected, no actions possible.'] = 'Aucune personne sélectionnée, aucune action possible.';
+$lang['At least 2 selected people are needed to merge'] = 'Il faut au moins 2 personnes sélectionnées pour fusionner';
+$lang['Choose which person to merge these people into'] = 'Choisissez dans quelle personne vont être fusionnées les personnes';
+$lang['The other people will be removed'] = 'Les autres personnes seront supprimées';
+$lang['Person added'] = 'Personne ajoutée';
+$lang['Person updated'] = 'Personne mise à jour';
+$lang['Person deleted'] = 'Personne supprimée';
+$lang['%d people deleted'] = '%d personnes supprimées';
+$lang['People merged into "%s"'] = 'Personnes fusionnées dans « %s »';
+$lang['Cover updated'] = 'Couverture mise à jour';
+$lang['Delete person "%s"?'] = 'Supprimer la personne « %s » ?';
 
 // Leave this line empty

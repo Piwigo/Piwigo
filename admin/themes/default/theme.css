@@ -8628,4 +8628,328 @@ color:#FF7B00;
   justify-content: space-between;
 }
 
+.people-page {
+  position: relative;
+  display: flex;
+  min-height: calc(100vh - 190px);
+}
+
+.people-page .people-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.people-global-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* top right of the page, so at the top of the selection panel when it is open */
+.people-selection-toggle {
+  position: absolute;
+  top: 9px;
+  right: 20px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* room for the toggle when the panel is closed */
+.people-page:not(.people-selection-on) .people-header {
+  padding-right: 200px;
+}
+
+.people-selection-toggle label[for] {
+  cursor: pointer;
+}
+
+/* Select: all / none / invert */
+.people-selection-controller {
+  display: flex;
+  align-items: baseline;
+  color: #777;
+  font-weight: bold;
+}
+
+.people-selection-controller p {
+  margin-right: 10px !important;
+  color: #555;
+}
+
+.people-selection-controller a {
+  margin: 4px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #777;
+  cursor: pointer;
+}
+
+.people-selection-controller a:hover {
+  background-color: #ddd;
+  color: #3A3A3A;
+  text-decoration: none;
+}
+
+/* Cards */
+.people-card-check {
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #FFA646;
+  border-radius: 100%;
+  color: transparent;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.people-card-check:before {
+  margin: 0 !important;
+}
+
+.people-selection-on .people-card-check {
+  display: block;
+}
+
+.people-selection-on .people-card-menu,
+.people-selection-on .people-card-dropdown {
+  display: none !important;
+}
+
+.people-selection-on .people-card {
+  cursor: pointer;
+}
+
+.people-card-selected .people-card-check {
+  background-color: #FFA646;
+  color: white;
+}
+
+/* Panels */
+.people-selection {
+  width: 223px;
+  flex-shrink: 0;
+  margin-top: -20px;
+  padding: 70px 20px 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.people-selection p {
+  margin: 0;
+}
+
+.people-selection-nothing {
+  margin: 10px !important;
+}
+
+.people-selection-title {
+  margin: 20px 0 10px !important;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.people-selection-list {
+  max-height: 40vh;
+  overflow-y: auto;
+  text-align: start;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.people-selection-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 10px;
+}
+
+.people-selection-item p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.people-selection-remove {
+  cursor: pointer;
+}
+
+.people-selection-button {
+  display: block;
+  width: 180px;
+  margin: 20px auto;
+  padding: 13px 30px;
+  border: 1px solid #e7e7e7;
+  background-color: transparent;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.people-selection-button:hover {
+  border-color: #ffa744;
+  background-color: #ffa744;
+  color: #3c3c3c;
+}
+
+.people-selection-button.unavailable {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.people-selection-info {
+  margin-bottom: 30px !important;
+  font-style: italic;
+}
+
+.people-selection-merge select {
+  width: 100%;
+  padding: 8px;
+}
+
+.people-selection-cancel {
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.people-selection-error {
+  margin-top: 10px !important;
+  font-weight: bold;
+}
+
+/* People tab of the photo edit page */
+.people-picture {
+  margin: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.people-picture-preview {
+  margin-left: unset !important;
+  max-width: unset !important;
+}
+
+.people-picture-infos {
+  display: flex;
+  flex-direction: column;
+}
+
+.associate-people {
+  width: fit-content;
+}
+
+.people-picture-empty {
+  margin-top: 20px;
+  font-style: italic;
+}
+
+.people-picture-list {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#people_picture_unsaved .badge-unsaved {
+  white-space: nowrap;
+}
+
+
+/* Identify modal */
+#people_identify_modal .modal-content {
+  width: 500px;
+  max-width: calc(100vw - 100px);
+}
+
+.people-identify-help {
+  text-align: center;
+  margin-bottom: 10px !important;
+}
+
+.people-identify-image {
+  max-height: 60vh;
+}
+
+.people-identify-image img {
+  display: block;
+  max-width: 100%;
+  max-height: 60vh;
+}
+
+.people-identify-skip {
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-right: 15px !important;
+}
+
+/* Cropper frame, Piwigo orange with thick lines and square handles */
+#people_identify_modal .cropper-view-box {
+  outline: 3px solid #FFA646;
+  outline-color: #FFA646;
+}
+
+#people_identify_modal .cropper-line {
+  background-color: #FFA646;
+}
+
+#people_identify_modal .cropper-point {
+  background-color: #FFA646;
+  width: 10px;
+  height: 10px;
+  opacity: 1;
+}
+
+#people_identify_modal .cropper-point.point-n {
+  top: -5px;
+  margin-left: -5px;
+}
+
+#people_identify_modal .cropper-point.point-s {
+  bottom: -5px;
+  margin-left: -5px;
+}
+
+#people_identify_modal .cropper-point.point-e {
+  right: -5px;
+  margin-top: -5px;
+}
+
+#people_identify_modal .cropper-point.point-w {
+  left: -5px;
+  margin-top: -5px;
+}
+
+#people_identify_modal .cropper-point.point-ne {
+  top: -5px;
+  right: -5px;
+}
+
+#people_identify_modal .cropper-point.point-nw {
+  top: -5px;
+  left: -5px;
+}
+
+#people_identify_modal .cropper-point.point-se {
+  bottom: -5px;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  opacity: 1;
+}
+
+#people_identify_modal .cropper-point.point-sw {
+  bottom: -5px;
+  left: -5px;
+}
+
 /* END PEOPLE */

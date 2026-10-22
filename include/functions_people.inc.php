@@ -215,9 +215,17 @@ function delete_people($people_ids)
     $people_ids = array($people_ids);
   }
 
-  if (!is_array($people_ids))
+  if (!is_array($people_ids) or count($people_ids) == 0)
   {
     return false;
+  }
+
+  foreach ($people_ids as $person_id)
+  {
+    if (!preg_match('/^\d+$/', $person_id))
+    {
+      return false;
+    }
   }
 
   // we need the list of impacted images, to update their lastmodified like tags
@@ -250,7 +258,167 @@ DELETE
   return true;
 }
 
-function merge_people() {}
+/**
+ * Merge people into a destination person, then delete them. Their photos go
+ * to the destination. On a photo where several of them are, one association
+ * is kept: the destination one first, then one with a box. The destination
+ * keeps its name, visibility and cover, and gets the user of a source if it
+ * has none.
+ *
+ * @param int $destination_id
+ * @param int[] $source_ids
+ * @return true|array ['code', 'error']
+ */
+function merge_people(int $destination_id, array $source_ids)
+{
+  foreach ($source_ids as $source_id)
+  {
+    if (!preg_match('/^\d+$/', $source_id))
+    {
+      return array('code' => 403, 'error' => 'Person ids must be digits.');
+    }
+  }
+
+  $source_ids = array_values(array_diff(array_unique($source_ids), array($destination_id)));
+  if (count($source_ids) == 0)
+  {
+    return array('code' => 403, 'error' => 'No person to merge.');
+  }
+
+  $all_ids = array_merge(array($destination_id), $source_ids);
+  $query = '
+SELECT *
+  FROM '.PERSONS_TABLE.'
+  WHERE id IN ('.implode(',', $all_ids).')
+;';
+  $people = query2array($query, 'id');
+  if (count($people) != count($all_ids))
+  {
+    return array('code' => 404, 'error' => 'Person not found.');
+  }
+
+  // the sources lose their cover and user first, both are unique keys
+  $query = '
+UPDATE '.PERSONS_TABLE.'
+  SET cover_image_person_id = NULL,
+    user_id = NULL
+  WHERE id IN ('.implode(',', $source_ids).')
+;';
+  pwg_query($query);
+
+  // the destination gets the user of the first source that has one
+  if (empty($people[$destination_id]['user_id']))
+  {
+    $user_id = null;
+    foreach ($source_ids as $source_id)
+    {
+      if (!empty($people[$source_id]['user_id']))
+      {
+        $user_id = $people[$source_id]['user_id'];
+        break;
+      }
+    }
+
+    if (null !== $user_id)
+    {
+      single_update(
+        PERSONS_TABLE,
+        array('user_id' => $user_id),
+        array('id' => $destination_id)
+      );
+    }
+  }
+
+  // one association by photo: the destination one first, then one with a box
+  $query = '
+SELECT *
+  FROM '.IMAGE_PERSON_TABLE.'
+  WHERE person_id IN ('.implode(',', $all_ids).')
+  ORDER BY image_id, (person_id = '.$destination_id.') DESC, (box_x1 IS NULL), id
+;';
+  $associations_by_image = array();
+  foreach (query2array($query) as $association)
+  {
+    $associations_by_image[ $association['image_id'] ][] = $association;
+  }
+
+  $box_keys = array('box_x1', 'box_y1', 'box_x2', 'box_y2', 'image_width', 'image_height');
+  $to_delete = array();
+  $to_move = array();
+  $box_updates = array();
+  foreach ($associations_by_image as $associations)
+  {
+    $kept = array_shift($associations);
+
+    if ($kept['person_id'] != $destination_id)
+    {
+      $to_move[] = $kept['id'];
+    }
+
+    // the destination had no box on this photo, a source had one
+    if (null === $kept['box_x1'])
+    {
+      foreach ($associations as $association)
+      {
+        if (null !== $association['box_x1'])
+        {
+          $box_updates[] = array_merge(
+            array('id' => $kept['id']),
+            array_intersect_key($association, array_flip($box_keys))
+          );
+          break;
+        }
+      }
+    }
+
+    foreach ($associations as $association)
+    {
+      $to_delete[] = $association['id'];
+    }
+  }
+
+  if (count($to_delete) > 0)
+  {
+    $query = '
+DELETE
+  FROM '.IMAGE_PERSON_TABLE.'
+  WHERE id IN ('.implode(',', $to_delete).')
+;';
+    pwg_query($query);
+  }
+
+  if (count($to_move) > 0)
+  {
+    $query = '
+UPDATE '.IMAGE_PERSON_TABLE.'
+  SET person_id = '.$destination_id.'
+  WHERE id IN ('.implode(',', $to_move).')
+;';
+    pwg_query($query);
+  }
+
+  if (count($box_updates) > 0)
+  {
+    mass_updates(
+      IMAGE_PERSON_TABLE,
+      array(
+        'primary' => array('id'),
+        'update' => $box_keys,
+      ),
+      $box_updates
+    );
+  }
+
+  trigger_notify('merge_people', $destination_id, $source_ids);
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  delete_people($source_ids);
+  refresh_people_cover(array($destination_id));
+  update_images_lastmodified(array_keys($associations_by_image));
+  pwg_activity('people', $destination_id, 'edit', array('action' => 'merge', 'merged' => $source_ids));
+
+  return true;
+}
 
 /**
  * Associate a person to an image, or update the box of the existing
