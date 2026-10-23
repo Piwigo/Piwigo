@@ -149,7 +149,7 @@ SELECT *
       $image['rank'] = $rank_of[ $row['id'] ];
       $image['is_favorite'] = isset($favorite_ids[ $row['id'] ]);
 
-      foreach (array('id', 'width', 'height', 'hit') as $k)
+      foreach (array('id', 'width', 'height', 'rotation', 'hit') as $k)
       {
         if (isset($row[$k]))
         {
