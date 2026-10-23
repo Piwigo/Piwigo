@@ -15,6 +15,8 @@ var lang = {
 	deleteProgressMessage: "{'Deletion in progress'|translate|escape:'javascript'}",
 	syncProgressMessage: "{'Synchronization in progress'|translate|escape:'javascript'}",
 	AreYouSure: "{'Are you sure?'|translate|escape:'javascript'}",
+	confirmDeletion: "{'You need to confirm deletion'|translate|escape:'javascript'}",
+	selectField: "{'Select at least one field'|translate|escape:'javascript'}",
   generateMsg: "{'Generate multiple size images'|@translate}"
 };
 
@@ -242,7 +244,7 @@ $(document).ready(function() {
   }
 
   jQuery("input[name=confirm_deletion]").change(function() {
-    jQuery("#confirmDel span.errors").css("visibility", "hidden");
+    hideError("form");
   });
 
   jQuery('#applyAction').click(function() {
@@ -251,7 +253,10 @@ $(document).ready(function() {
 			let d_count = $('#confirmDel input[type=checkbox]').filter(':checked').length
 			let e_count = $('input[name="setSelected"]').is(':checked') ? nb_thumbs_set : $('.thumbnails input[type=checkbox]').filter(':checked').length;
       if (!jQuery("#confirmDel input[name=confirm_deletion]").is(':checked')) {
-        jQuery("#confirmDel span.errors").css("visibility", "visible");
+        displayError(
+          "form",
+          lang.confirmDeletion
+        );
         return false;
       } else {
         return true;
@@ -420,6 +425,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       {/if}
     		<option value="delete_derivatives">{'Delete multiple size images'|@translate}</option>
     		<option value="generate_derivatives">{'Generate multiple size images'|@translate}</option>
+    		<option value="multi_fields">{'Multi-fields edition'|@translate}</option>
       {if !empty($element_set_global_plugins_actions)}
         {foreach from=$element_set_global_plugins_actions item=action}
           <option value="{$action.ID}">{$action.NAME}</option>
@@ -432,7 +438,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
           <span class="icon-check"></span>
           <input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</input>
         </label><br/><br/>
-        <span class="errors" style="visibility:hidden;margin:0;">{"You need to confirm deletion"|translate}</span>
+        <span class="errors" data-error="form" style="display:block;min-height:1.2em;visibility:hidden;margin:0;"></span>
       </p>
       <p id="applyActionBlock" style="display:none;margin:1em 0 0 0;" class="actionButtons">
         <button id="applyAction" name="submit" type="submit" class="buttonLike">
@@ -546,6 +552,76 @@ UL.thumbnails SPAN.wrap2 {ldelim}
         {/foreach}
       </div>
 
+      <!-- multi_fields -->
+      <div id="action_multi_fields" class="bulkAction">
+        {* tplhook_admin_bulkmanager_multifieldsedition_begin *}
+        <div class="mf-row" data-field="title">
+          <label class="switch"><input type="checkbox" name="mf_enable[]" value="title"><span class="slider round"></span></label>
+          <span class="mf-label">{'Title'|@translate}</span>
+          <div class="mf-modes">
+            <label><input type="radio" name="mf_title_mode" value="replace" checked> {'Replace'|@translate}</label>
+            <label><input type="radio" name="mf_title_mode" value="empty"> {'Empty'|@translate}</label>
+          </div>
+          <div class="mf-content">
+            <input type="text" class="large" name="mf_title">
+          </div>
+        </div>
+        {* tplhook_admin_bulkmanager_multifieldsedition_under_title *}
+        <div class="mf-row" data-field="author">
+          <label class="switch"><input type="checkbox" name="mf_enable[]" value="author"><span class="slider round"></span></label>
+          <span class="mf-label">{'Author'|@translate}</span>
+          <div class="mf-modes">
+            <label><input type="radio" name="mf_author_mode" value="replace" checked> {'Replace'|@translate}</label>
+            <label><input type="radio" name="mf_author_mode" value="empty"> {'Empty'|@translate}</label>
+          </div>
+          <div class="mf-content">
+            <input type="text" class="large" name="mf_author">
+          </div>
+        </div>
+        {* tplhook_admin_bulkmanager_multifieldsedition_under_author *}
+        <div class="mf-row" data-field="albums">
+          <label class="switch"><input type="checkbox" name="mf_enable[]" value="albums"><span class="slider round"></span></label>
+          <span class="mf-label">{'Linked albums'|@translate}</span>
+          <div class="mf-modes">
+            <label><input type="radio" name="mf_albums_mode" value="associate" checked> {'Associate'|@translate}</label>
+            <label><input type="radio" name="mf_albums_mode" value="dissociate"> {'Dissociate'|@translate}</label>
+          </div>
+          <div class="mf-content">
+            <div class="head-button-2 icon-plus-circled" id="multi_fields_select_album">
+              <p>{"Add"|translate}</p>
+            </div>
+            <div class="multi-fields-selected-albums"></div>
+          </div>
+        </div>
+        {* tplhook_admin_bulkmanager_multifieldsedition_under_albums *}
+        <div class="mf-row" data-field="tags">
+          <label class="switch"><input type="checkbox" name="mf_enable[]" value="tags"><span class="slider round"></span></label>
+          <span class="mf-label">{'Tags'|@translate}</span>
+          <div class="mf-modes">
+            <label><input type="radio" name="mf_tags_mode" value="add" checked> {'Add'|@translate}</label>
+            <label><input type="radio" name="mf_tags_mode" value="replace"> {'Replace'|@translate}</label>
+            <label><input type="radio" name="mf_tags_mode" value="remove"> {'Remove'|@translate}</label>
+            <label><input type="radio" name="mf_tags_mode" value="empty"> {'Empty'|@translate}</label>
+          </div>
+          <div class="mf-content">
+            <select data-selectize="tags" data-create="true" name="mf_tags[]" multiple class="large" placeholder="{'Type in a search term'|translate}"></select>
+          </div>
+        </div>
+        {* tplhook_admin_bulkmanager_multifieldsedition_under_tags *}
+        <div class="mf-row" data-field="comment">
+          <label class="switch"><input type="checkbox" name="mf_enable[]" value="comment"><span class="slider round"></span></label>
+          <span class="mf-label">{'Description'|@translate}</span>
+          <div class="mf-modes">
+            <label><input type="radio" name="mf_comment_mode" value="replace" checked> {'Replace'|@translate}</label>
+            <label><input type="radio" name="mf_comment_mode" value="empty"> {'Empty'|@translate}</label>
+          </div>
+          <div class="mf-content">
+            <textarea name="mf_comment" rows="4"></textarea>
+          </div>
+        </div>
+        {* tplhook_admin_bulkmanager_multifieldsedition_end *}
+      </div>
+
       <!-- plugins -->
   {if !empty($element_set_global_plugins_actions)}
     {foreach from=$element_set_global_plugins_actions item=action}
@@ -584,27 +660,41 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 }
 
 #action_add_tags .item,
-#action_add_tags .item.active {
+#action_add_tags .item.active,
+#action_multi_fields .selectize-input .item,
+#action_multi_fields .selectize-input .item.active {
   background-image:none;
   background-color: #ffa646;
-  border-color: transparent;
-  color: black;
-
+  border: 0px;
+  color: #3C3C3C;
+  margin: -1px 8px -1px 0;
   border-radius: 20px;
+  padding: 4px 20px 4px 7px;
+  font-family: "Open Sans";
+  font-weight: 600;
+  line-height: 100%;
+  position: relative;
 }
 
 #action_add_tags .item .remove,
-#action_add_tags .item .remove {
-  background-color: transparent;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  color: black;
-  
-  border-left: 1px solid transparent;
-
+#action_multi_fields .selectize-input .item .remove {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 15px;
+  color: #3C3C3C;
+  border: 0;
 }
 #action_add_tags .item .remove:hover,
-#action_add_tags .item .remove:hover {
+#action_multi_fields .selectize-input .item .remove:hover {
   background-color: #ff7700;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 </style>

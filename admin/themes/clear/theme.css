@@ -834,7 +834,9 @@ li.plupload_delete a.remove-format:hover{color: #474747;}
   background-color: #fafafa;
   box-shadow: 0px 2px #00000024;
 }
-.breadcrumb-item:hover {
+.breadcrumb-item:hover,
+#batchManagerGlobal .head-button-2:hover,
+#batchManagerGlobal .head-button-2:hover p {
   background: #ffd7ad;
 }
 .breadcrumb-item .icon-cancel-circled:hover {

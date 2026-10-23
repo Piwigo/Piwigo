@@ -36,6 +36,7 @@ check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
 check_input_parameter('associate', $_POST, true, PATTERN_ID);
 check_input_parameter('move', $_POST, false, PATTERN_ID);
 check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
+check_input_parameter('mf_albums', $_POST, true, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
 // |                            current selection                          |
@@ -416,6 +417,186 @@ DELETE
     if ($_POST['regenerateError'] != '0')
     {
       $page['warnings'][] = l10n('%s photos can not be regenerated', $_POST['regenerateError']);
+    }
+  }
+
+  else if ('multi_fields' == $action)
+  {
+    $enabled = isset($_POST['mf_enable']) ? $_POST['mf_enable'] : array();
+    $enabled = array_flip($enabled);
+
+    if (count($enabled) == 0)
+    {
+      $page['errors'][] = l10n('Select at least one field');
+    }
+    else
+    {
+      $base = array(
+        'title'   => array('col' => 'name',    'post' => 'mf_title',   'mode' => 'mf_title_mode'),
+        'author'  => array('col' => 'author',  'post' => 'mf_author',  'mode' => 'mf_author_mode'),
+        'comment' => array('col' => 'comment', 'post' => 'mf_comment', 'mode' => 'mf_comment_mode'),
+      );
+
+      $update_cols = array();
+      foreach ($base as $key => $def)
+      {
+        if (isset($enabled[$key]))
+        {
+          $update_cols[] = $def['col'];
+        }
+      }
+
+      if (count($update_cols) > 0)
+      {
+        $datas = array();
+        foreach ($collection as $image_id)
+        {
+          $row = array('id' => $image_id);
+          foreach ($base as $key => $def)
+          {
+            if (isset($enabled[$key]))
+            {
+              $mode = $_POST[$def['mode']];
+              if ('empty' == $mode)
+              {
+                $row[$def['col']] = null;
+              }
+              else
+              {
+                $value = $_POST[$def['post']];
+                $row[$def['col']] = ($value === '') ? null : $value;
+              }
+            }
+          }
+          $datas[] = $row;
+        }
+
+        mass_updates(
+          IMAGES_TABLE,
+          array('primary' => array('id'), 'update' => $update_cols),
+          $datas
+          );
+      }
+
+      if (isset($enabled['albums']))
+      {
+        check_input_parameter('mf_albums_mode', $_POST, false, '/^(associate|dissociate)$/');
+        $mode = $_POST['mf_albums_mode'];
+
+        if (empty($_POST['mf_albums']))
+        {
+          $page['errors'][] = l10n('Select at least one album');
+        }
+        else
+        {
+          $album_ids = $_POST['mf_albums'];
+
+          if ('dissociate' == $mode)
+          {
+            foreach ($album_ids as $album_id)
+            {
+              dissociate_images_from_category($collection, $album_id);
+            }
+            $redirect = true;
+          }
+          else if ('associate' == $mode)
+          {
+            associate_images_to_categories($collection, $album_ids);
+          }
+        }
+      }
+
+      if (isset($enabled['tags']))
+      {
+        check_input_parameter('mf_tags_mode', $_POST, false, '/^(replace|add|empty|remove)$/');
+        $mode = $_POST['mf_tags_mode'];
+
+        if ('empty' == $mode)
+        {
+          $tags_of = array();
+          foreach ($collection as $image_id)
+          {
+            $tags_of[$image_id] = array();
+          }
+          set_tags_of($tags_of);
+        }
+        else if (empty($_POST['mf_tags']))
+        {
+          $page['errors'][] = l10n('Select at least one tag');
+        }
+        else
+        {
+          if ('remove' == $mode)
+          {
+            check_input_parameter('mf_tags', $_POST, true, PATTERN_ID);
+            $tag_ids = $_POST['mf_tags'];
+          }
+          else
+          {
+            $tag_ids = get_tag_ids($_POST['mf_tags']);
+          }
+          if ('replace' == $mode)
+          {
+            $tags_of = array();
+            foreach ($collection as $image_id)
+            {
+              $tags_of[$image_id] = $tag_ids;
+            }
+            set_tags_of($tags_of);
+          }
+          else if ('remove' == $mode)
+          {
+            $taglist_before = get_image_tag_ids($collection);
+
+            $query = '
+DELETE
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id IN ('.implode(',', $collection).')
+    AND tag_id IN ('.implode(',', $tag_ids).')
+;';
+            pwg_query($query);
+
+            $taglist_after = get_image_tag_ids($collection);
+            $images_to_update = compare_image_tag_lists($taglist_before, $taglist_after);
+            update_images_lastmodified($images_to_update);
+
+            if (isset($_SESSION['bulk_manager_filter']['tags'])
+              && count(array_intersect($_SESSION['bulk_manager_filter']['tags'], $tag_ids)))
+            {
+              $redirect = true;
+            }
+          }
+          else if ('add' == $mode)
+          {
+            add_tags($tag_ids, $collection);
+          }
+        }
+      }
+
+      $mode_rules = array(
+        'title'   => array('post' => 'mf_title_mode',   'allowed' => array('replace', 'empty'),                'default' => 'replace'),
+        'author'  => array('post' => 'mf_author_mode',  'allowed' => array('replace', 'empty'),                'default' => 'replace'),
+        'comment' => array('post' => 'mf_comment_mode', 'allowed' => array('replace', 'empty'),                'default' => 'replace'),
+        'albums'  => array('post' => 'mf_albums_mode',  'allowed' => array('associate', 'dissociate'),         'default' => 'associate'),
+        'tags'    => array('post' => 'mf_tags_mode',    'allowed' => array('add', 'replace', 'empty', 'remove'),         'default' => 'add'),
+      );
+
+      $activity_fields = array();
+      foreach ($mode_rules as $field => $rule)
+      {
+        if (isset($enabled[$field]))
+        {
+          $mode = isset($_POST[$rule['post']]) ? $_POST[$rule['post']] : $rule['default'];
+          $activity_fields[$field] = in_array($mode, $rule['allowed'], true) ? $mode : $rule['default'];
+        }
+      }
+
+      pwg_activity('photo', $collection, 'edit', array('action' => 'multi_fields', 'fields' => $activity_fields));
+
+      if (empty($page['errors']))
+      {
+        $page['infos'][] = l10n('Information data registered in database');
+      }
     }
   }
 

@@ -534,3 +534,7 @@ $lang['If you changed your password because you think it was stolen, we recommen
 $lang['Too many attempts, please try later..'] = 'Too many attempts, please try later..';
 $lang['Verification successful! You can now choose a new password.'] = 'Verification successful! You can now choose a new password.';
 $lang['If your account exists, a verification code has been sent to your email address.'] = 'If your account exists, a verification code has been sent to your email address.';
+$lang['Replace'] = 'Replace';
+$lang['Empty'] = 'Empty';
+$lang['Associate'] = 'Associate';
+$lang['Dissociate'] = 'Dissociate';

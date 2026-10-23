@@ -1443,5 +1443,7 @@ $lang['You are about to delete %s groups, are you sure?'] = 'You are about to de
 $lang['Users not logged in will have these permissions applied. Grant access to private albums only with great caution.'] = 'Users not logged in will have these permissions applied. Grant access to private albums only with great caution.';
 $lang['single day'] = 'Single day';
 $lang['period'] = 'Period';
+$lang['Multi-fields edition']='Multi-fields edition';
+$lang['Select at least one field']='Select at least one field';
 
 // Leave this line empty

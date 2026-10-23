@@ -19,6 +19,10 @@ or
 	align-items: baseline;
 	cursor: pointer;
     margin-right: 10px;
+    transition: all 125ms ease-out;
+}
+.head-button-2 p {
+  transition: all 125ms ease-out;
 }
 
 .head-button-1:active, .head-button-2:active {

@@ -7221,6 +7221,7 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
 }
 
 .selected-associate-item:hover {
@@ -7234,6 +7235,119 @@ li.plupload_delete a:hover {background: url("images/cancelhover.svg")!important;
 .selected-associate-item .remove-associate:hover {
   cursor: pointer;
   color: #ff7700;
+}
+
+.permitActionItem:has(#action_multi_fields[style="display: block;"]) {
+  width: 100%;
+  max-width: 650px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+#action_multi_fields {
+  width: 100%;
+  box-sizing: border-box;
+}
+#action_multi_fields .mf-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+#action_multi_fields .mf-label {
+  flex: 1 1 0;
+  min-width: 0;
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 13px;
+  color: #323232;
+}
+#action_multi_fields .mf-modes {
+  display: flex;
+  flex: 0 0 auto;
+  margin-left: auto;
+  gap: 0;
+}
+#action_multi_fields .mf-modes label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 3px 10px 2px;
+  background: #F3F3F3;
+  border-bottom: 2px solid #DBDBDB;
+  color: #898989;
+}
+#action_multi_fields .mf-modes label:has(input:checked) {
+  background: #F4A83C;
+  border-bottom: 2px solid #C88A2F;
+  color: #FFFFFF;
+}
+#action_multi_fields .mf-modes input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  margin-bottom: -2px;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid #898989;
+  position: relative;
+  background-color: transparent;
+}
+#action_multi_fields .mf-modes input[type="radio"]:checked {
+  border-color: #493C21;
+  background: radial-gradient(circle at center, #493C21 0, #493C21 2.5px, transparent 3px);
+}
+#action_multi_fields .mf-content {
+  display: flex;
+  flex: 1 1 100%;
+  min-width: 0;
+  margin-left: 70px;
+  max-width: calc(100% - 70px);
+  box-sizing: border-box;
+}
+#action_multi_fields .mf-content select,
+#action_multi_fields .mf-content .selectize-control,
+#action_multi_fields .mf-content input[type="text"],
+#action_multi_fields .mf-content textarea {
+  width: 100%;
+}
+#action_multi_fields input[type="text"],
+#action_multi_fields textarea,
+#action_multi_fields .selectize-input {
+  padding: 6px 8px;
+  box-shadow: none;
+  border: 2px solid #D3D3D3;
+  background: #ffffff;
+  border-radius: 5px;
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 13px;
+  color: #3C3C3C;
+  box-sizing: border-box;
+}
+#action_multi_fields .head-button-1,
+#action_multi_fields .head-button-1 p {
+  color: #3C3C3C;
+  background: #ffa646;
+}
+#action_multi_fields .mf-row[data-field="albums"] .mf-content {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+#action_multi_fields .multi-fields-selected-albums {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+#action_multi_fields .mf-hidden {
+  display: none !important;
 }
 
 /* album manager */

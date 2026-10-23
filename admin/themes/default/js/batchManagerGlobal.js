@@ -59,6 +59,22 @@ jQuery(document).ready(function() {
     }
   });
 
+  const ab_multi_fields = new AlbumSelector({
+    adminMode: true,
+    selectAlbum: select_multi_fields_album,
+    removeSelectedAlbum: remove_multi_fields_album,
+  });
+
+  $('#multi_fields_select_album').on('click', function () {
+    ab_multi_fields.open();
+  });
+
+  $('.multi-fields-selected-albums').on('click', (e) => {
+    if (e.target.classList.contains("remove-associate")) {
+      ab_multi_fields.remove_selected_album($(e.target).attr('id'));
+    }
+  });
+
 });
 
 /* ********** Album Selector */
@@ -81,6 +97,47 @@ function remove_album_action({ id_album, getSelectedAlbum }) {
   }
 }
 
+function select_multi_fields_album({ album, addSelectedAlbum }) {
+  $('#multi_fields_select_album p').html(str_add_alb_associate);
+  $('.multi-fields-selected-albums').append(
+    `<div class="selected-associate-item">
+      <span>${album.name}</span><span id="${album.id}" class="remove-associate icon-cancel-circled"></span>
+      <input type="hidden" name="mf_albums[]" value="${album.id}">
+    </div>`
+  );
+  hideError("form");
+  update_multi_fields_album_button();
+  addSelectedAlbum();
+}
+
+function remove_multi_fields_album({ id_album, getSelectedAlbum }) {
+  $('.multi-fields-selected-albums').find(`#${id_album}`).parent().remove();
+  const selected = getSelectedAlbum();
+  if (!selected.length) {
+    $('#multi_fields_select_album p').html(str_select_alb_associate);
+  }
+  if (selected.length) {
+    hideError("form");
+  }
+  update_multi_fields_album_button();
+}
+
+function update_multi_fields_album_button() {
+  const hasSelectedAlbums = $('.multi-fields-selected-albums').children().length > 0;
+  $('#multi_fields_select_album')
+    .toggleClass('head-button-2', !hasSelectedAlbums)
+    .toggleClass('head-button-1', hasSelectedAlbums);
+}
+
+function displayError(error, text) {
+  var $error = $("[data-error='" + error + "']");
+  $error.text(text).css("visibility", "visible");
+}
+
+function hideError(error) {
+  $("[data-error='" + error + "']").css("visibility", "hidden");
+}
+
 
 jQuery("a.preview-box").colorbox( {photo: true} );
 
@@ -100,6 +157,112 @@ jQuery('[data-datepicker]').pwgDatepicker({
 
 jQuery(function() {
 	jQuery('[data-add-album]').pwgAddAlbum();
+});
+
+jQuery(function() {
+  $("#action_multi_fields .mf-row").each(function() {
+    var $row = $(this);
+    var $toggle = $row.find(".switch input");
+    var $mode = $row.find(".mf-modes input[type=radio]");
+    var $content = $row.find(".mf-content");
+    var $tagSelect = $content.find("select[name='mf_tags[]']");
+    var tagsMode = null;
+    var selectizeCreate;
+
+    function switchTagsList(mode) {
+      var selectize = $tagSelect[0] && $tagSelect[0].selectize;
+      if (!selectize) return;
+
+      if (selectizeCreate === undefined) {
+        selectizeCreate = selectize.settings.create;
+      }
+
+      var isRemove = (mode === "remove");
+      if (tagsMode === isRemove) return;
+      tagsMode = isRemove;
+
+      selectize.clear(true);
+
+      if (isRemove) {
+        if (!selectize._allOptions) {
+          selectize._allOptions = $.extend(true, {}, selectize.options);
+        }
+        selectize.clearOptions();
+        selectize.settings.create = false;
+        var delTagsSelectize = $("select[name='del_tags[]']")[0];
+        var removeOptions = delTagsSelectize && delTagsSelectize.selectize
+          ? delTagsSelectize.selectize.options
+          : {};
+        $.each(removeOptions, function (id, tag) {
+          selectize.addOption(tag);
+        });
+      } else {
+        if (selectize._allOptions) {
+          selectize.clearOptions();
+          $.each(selectize._allOptions, function (id, opt) {
+            selectize.addOption(opt);
+          });
+        }
+        selectize.settings.create = selectizeCreate;
+      }
+      selectize.refreshOptions(false);
+    }
+
+    function resetRow() {
+      $content.find("input[type=text], textarea").val("");
+      $row.find(".multi-fields-selected-albums").empty();
+      update_multi_fields_album_button();
+
+      $content.find("select").each(function() {
+        if (this.selectize) {
+          this.selectize.clear();
+        } else {
+          $(this).val(null);
+        }
+      });
+
+      $mode.each(function() {
+        this.checked = this.defaultChecked;
+      });
+      tagsMode = null;
+      switchTagsList($mode.filter(":checked").val());
+    }
+
+    function refresh() {
+      var on = $toggle.is(":checked");
+      var mode = $mode.filter(":checked").val();
+      $row.toggleClass("mf-active", on);
+      $row.find(".mf-modes").toggle(on);
+      $content.toggle(on && mode !== "empty");
+      if ($row.data("field") === "tags") {
+        switchTagsList(mode);
+      }
+    }
+
+    $toggle.on("change", function() {
+      hideError("form");
+      if (!this.checked) {
+        resetRow();
+      }
+      refresh();
+    });
+
+    $mode.on("change", function() {
+      if ($row.data("field") === "tags" && $(this).val() === "empty") {
+        hideError("form");
+      }
+      refresh();
+    });
+
+    $tagSelect.on("change", function() {
+      var selectedTags = $(this).val();
+      if (selectedTags && selectedTags.length) {
+        hideError("form");
+      }
+    });
+
+    refresh();
+  });
 });
 
 $("input[name=remove_author]").click(function () {
@@ -244,7 +407,35 @@ jQuery('#applyAction').click(function(e) {
     return true;
   }
 
-  if (jQuery('[name="selectAction"]').val() == 'metadata') {
+  var action = jQuery('[name="selectAction"]').val();
+  if (action == 'multi_fields') {
+    var $enabledFields = jQuery('input[name="mf_enable[]"]:checked');
+    var $tagsField = jQuery('input[name="mf_enable[]"][value="tags"]');
+    var tagsMode = jQuery('input[name="mf_tags_mode"]:checked').val();
+
+    if (!$enabledFields.length) {
+      displayError("form", lang.selectField);
+      e.preventDefault();
+      return false;
+    }
+    if (jQuery('input[name="mf_enable[]"][value="albums"]').is(':checked')
+      && !jQuery('input[name="mf_albums[]"]').length) {
+      displayError("form", str_select_album);
+      e.preventDefault();
+      return false;
+    }
+    var selectedTags = jQuery('select[name="mf_tags[]"]').val();
+    if ($tagsField.is(':checked')
+      && tagsMode !== 'empty'
+      && (!selectedTags || !selectedTags.length)) {
+      displayError("form", str_select_tag);
+      e.preventDefault();
+      return false;
+    }
+  }
+  hideError("form");
+
+  if (action == 'metadata') {
     e.preventDefault();
     e.stopPropagation();
     jQuery('.bulkAction').hide();
@@ -318,7 +509,10 @@ jQuery('#applyAction').click(function(e) {
 
   if (jQuery('[name="selectAction"]').val() == 'delete') {
     if (!jQuery("#confirmDel input[name=confirm_deletion]").is(':checked')) {
-      jQuery("#confirmDel span.errors").css("visibility", "visible");
+      displayError(
+        "form",
+        lang.confirmDeletion
+      );
       return false;
     }
     e.stopPropagation();
@@ -422,7 +616,7 @@ function progress_bar(val, max, success) {
 }
 
 jQuery("#confirmDel input[name=confirm_deletion]").change(function() {
-  jQuery("#confirmDel span.errors").css("visibility", "hidden");
+  hideError("form");
 });
 
 jQuery('#sync_md5sum').click(function(e) {
@@ -524,4 +718,3 @@ function delete_orphans_block(blockSize) {
     }
   });
 }
-
