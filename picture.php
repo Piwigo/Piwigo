@@ -892,7 +892,8 @@ $infos['INFO_VISITS'] = $picture['current']['hit'];
 $infos['INFO_FILE'] = $picture['current']['file'];
 
 $template->assign($infos);
-$template->assign('display_info', unserialize($conf['picture_informations']));
+$display_info = unserialize($conf['picture_informations']);
+$template->assign('display_info', $display_info);
 
 // related tags
 $tags = get_common_tags( array($page['image_id']), -1);
@@ -918,6 +919,21 @@ if ( count($tags) )
           )
         )
       );
+  }
+}
+
+// related people
+if (!empty($display_info['people']) and can_see_people())
+{
+  $people = get_image_visible_people($page['image_id']);
+  if (count($people))
+  {
+    foreach ($people as $i => $person)
+    {
+      $people[$i]['face'] = get_person_face_background($person);
+      $people[$i]['initial'] = mb_strtoupper(mb_substr($person['name'], 0, 1));
+    }
+    $template->assign('related_people', $people);
   }
 }
 

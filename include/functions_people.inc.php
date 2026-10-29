@@ -809,6 +809,67 @@ SELECT
 }
 
 /**
+ * People of an image shown in the gallery.
+ */
+function get_image_visible_people(int $image_id)
+{
+  $query = '
+SELECT
+    p.id,
+    p.name,
+    p.url_name,
+    ip.box_x1,
+    ip.box_y1,
+    ip.box_x2,
+    ip.box_y2,
+    ip.image_width,
+    ip.image_height
+  FROM '.IMAGE_PERSON_TABLE.' AS ip
+    INNER JOIN '.PERSONS_TABLE.' AS p ON p.id = ip.person_id
+  WHERE ip.image_id = '.$image_id.'
+    AND p.is_visible = \'true\'
+  ORDER BY p.name
+;';
+
+  return query2array($query);
+}
+
+/**
+ * Background size and position (%) showing the face of an image_person in a square.
+ */
+function get_person_face_background(array $image_person)
+{
+  if (!isset($image_person['box_x1']) or empty($image_person['image_width']) or empty($image_person['image_height']))
+  {
+    return null;
+  }
+
+  $side = min(
+    $image_person['box_x2'] - $image_person['box_x1'],
+    $image_person['box_y2'] - $image_person['box_y1']
+  );
+  if ($side <= 0)
+  {
+    return null;
+  }
+
+  $position = function($center, $image_size) use ($side)
+  {
+    if ($image_size <= $side)
+    {
+      return 50;
+    }
+    return max(0, min(100, ($center - $side / 2) / ($image_size - $side) * 100));
+  };
+
+  return array(
+    'size' => sprintf('%.2F', $image_person['image_width'] / $side * 100),
+    'x' => sprintf('%.2F', $position(($image_person['box_x1'] + $image_person['box_x2']) / 2, $image_person['image_width'])),
+    'y' => sprintf('%.2F', $position(($image_person['box_y1'] + $image_person['box_y2']) / 2, $image_person['image_height'])),
+  );
+}
+
+/**
  * Returns the images of a person, with the association fields, the thumbnail
  * url and the medium url (to crop the face). Admin view: photo permissions
  * are not taken into account.

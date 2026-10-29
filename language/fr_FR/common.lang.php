@@ -533,3 +533,5 @@ $lang['If you changed your password because you think it was stolen, we recommen
 $lang['Too many attempts, please try later..'] = 'Trop de tentatives, veuillez réessayer plus tard..';
 $lang['Verification successful! You can now choose a new password.'] = 'Vérification réussie ! Vous pouvez maintenant choisir un nouveau mot de passe.';
 $lang['If your account exists, a verification code has been sent to your email address.'] = 'Si votre compte existe, un code de vérification a été envoyé à votre adresse email.';
+$lang['People'] = 'Personnes';
+$lang['Click to highlight on the photo'] = 'Cliquer pour repérer sur la photo';

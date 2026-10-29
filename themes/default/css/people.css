@@ -1,0 +1,89 @@
+.people-avatars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 3px 0;
+}
+
+.people-avatar {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #999999;
+  background-color: #cccccc;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.people-avatar:focus {
+  outline: none;
+}
+
+.people-avatar:hover,
+.people-avatar:focus,
+.people-avatar-selected {
+  border-color: #FFA646;
+}
+
+.people-avatar-empty {
+  cursor: default;
+  color: #555555;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 36px;
+  text-align: center;
+}
+
+.people-avatar-empty:hover {
+  border-color: #ffffff;
+}
+
+.people-tooltip {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + 8px);
+  left: 0;
+  padding: 6px 10px;
+  background: #e0e0e0;
+  color: #222222;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  line-height: 18px;
+  font-size: 13px;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.people-tooltip b,
+.people-tooltip i {
+  display: block;
+}
+
+.people-avatar:hover .people-tooltip,
+.people-avatar:focus .people-tooltip {
+  display: block;
+}
+
+.people-frame {
+  position: absolute;
+  z-index: 50;
+  border: 3px solid #FFA646;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.people-frame-name {
+  position: absolute;
+  bottom: 100%;
+  left: -3px;
+  padding: 0 6px;
+  background: #FFA646;
+  color: #493C21;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 20px;
+  white-space: nowrap;
+}
