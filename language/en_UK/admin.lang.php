@@ -1480,5 +1480,6 @@ $lang['%d people deleted'] = '%d people deleted';
 $lang['People merged into "%s"'] = 'People merged into "%s"';
 $lang['Cover updated'] = 'Cover updated';
 $lang['Delete person "%s"?'] = 'Delete person "%s"?';
+$lang['People updated'] = 'People updated';
 
 // Leave this line empty

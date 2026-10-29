@@ -8780,44 +8780,76 @@ color:#FF7B00;
   cursor: pointer;
 }
 
-.people-selection-button {
-  display: block;
-  width: 180px;
-  margin: 20px auto;
-  padding: 13px 30px;
-  border: 1px solid #e7e7e7;
-  background-color: transparent;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
+.people-selection-action {
+  margin-top: 30px;
+  text-align: left;
 }
 
-.people-selection-button:hover {
-  border-color: #ffa744;
-  background-color: #ffa744;
-  color: #3c3c3c;
+.people-selection-action-title {
+  margin-bottom: 10px !important;
+  font-weight: bold;
+  font-size: 15px;
 }
 
-.people-selection-button.unavailable {
-  opacity: 0.3;
-  pointer-events: none;
+.people-selection-action .user-action-select-container {
+  position: relative;
+}
+
+.people-selection-action .user-action-select {
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 5px 10px;
+}
+
+.people-selection-action .bulkAction {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.people-selection-action .bulkAction p {
+  margin-bottom: 10px !important;
 }
 
 .people-selection-info {
-  margin-bottom: 30px !important;
+  margin-top: 10px !important;
   font-style: italic;
 }
 
-.people-selection-merge select {
-  width: 100%;
-  padding: 8px;
+.people-selection-action .user-list-checkbox {
+  user-select: none;
+  cursor: pointer;
 }
 
-.people-selection-cancel {
+.people-selection-action .user-list-checkbox i {
+  margin-left: 0;
+}
+
+.people-selection-action .user-list-checkbox-label {
+  margin-left: 5px;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.people-selection-action .yes_no_radio .user-list-checkbox .user-list-checkbox-label {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.people-selection-apply {
+  display: block;
+  width: 100%;
+  margin-top: 30px;
+  padding: 13px;
+  border: none;
+  background-color: #ffa744;
+  color: #3c3c3c;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.people-selection-apply:hover {
+  background-color: #ff7700;
 }
 
 .people-selection-error {

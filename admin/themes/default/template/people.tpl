@@ -13,6 +13,7 @@
   let str_people_no_identified_photo = "{'No identified photo for this person.'|translate|escape:javascript}";
   let str_person_added = "{'Person added'|translate|escape:javascript}";
   let str_person_updated = "{'Person updated'|translate|escape:javascript}";
+  let str_people_updated = "{'People updated'|translate|escape:javascript}";
   let str_person_deleted = "{'Person deleted'|translate|escape:javascript}";
   let str_people_deleted = "{'%d people deleted'|translate|escape:javascript}";
   let str_people_merged = "{"People merged into \"%s\""|translate|escape:javascript}";
@@ -88,17 +89,51 @@
   <div id="people_selection_actions" style="display: none;">
     <p class="people-selection-title">{'Your selection'|translate}</p>
     <div class="people-selection-list" id="people_selection_list"></div>
-    <button type="button" class="people-selection-button icon-object-group" id="people_selection_merge" title="{'At least 2 selected people are needed to merge'|translate}">{'Merge'|translate}</button>
-    <button type="button" class="people-selection-button icon-trash-1" id="people_selection_delete">{'Delete'|translate}</button>
-  </div>
 
-  <div class="people-selection-merge" id="people_selection_merge_block" style="display: none;">
-    <p class="people-selection-title">{'Choose which person to merge these people into'|translate}</p>
-    <p class="people-selection-info">{'The other people will be removed'|translate}</p>
-    <select id="people_selection_merge_choice"></select>
-    <button type="button" class="people-selection-button icon-ok" id="people_selection_merge_confirm">{'Confirm merge'|translate}</button>
-    <a class="people-selection-cancel" id="people_selection_merge_cancel">{'Cancel'|translate}</a>
-    <p class="people-selection-error" id="people_selection_error" style="display: none;"></p>
+    {* same action block as the selection panel of the users *}
+    <div class="people-selection-action">
+      <p class="people-selection-action-title">{'Action'|translate}</p>
+      <div class="user-action-select-container">
+        <select class="user-action-select" id="people_selection_action_choice">
+          <option value="">{'Choose an action'|translate}</option>
+          <option value="merge" title="{'At least 2 selected people are needed to merge'|translate}">{'Merge'|translate}</option>
+          <option value="delete">{'Delete'|translate}</option>
+          <option value="visibility">{'Show in gallery'|translate}</option>
+        </select>
+      </div>
+
+      {* merge *}
+      <div class="bulkAction" id="people_selection_action_merge" style="display: none;">
+        <p>{'Choose which person to merge these people into'|translate}</p>
+        <div class="user-action-select-container">
+          <select class="user-action-select" id="people_selection_merge_choice"></select>
+        </div>
+        <p class="people-selection-info">{'The other people will be removed'|translate}</p>
+      </div>
+
+      {* delete *}
+      <div class="bulkAction" id="people_selection_action_delete" style="display: none;">
+        <span class="user-list-checkbox" data-name="confirm_delete">
+          <span class="select-checkbox"><i class="icon-ok"></i></span>
+          <span class="user-list-checkbox-label">{'Are you sure?'|translate}</span>
+        </span>
+      </div>
+
+      {* show in gallery *}
+      <div class="bulkAction yes_no_radio" id="people_selection_action_visibility" style="display: none;">
+        <span class="user-list-checkbox" data-name="visible_yes" data-selected="1">
+          <span class="select-checkbox"><i class="icon-ok"></i></span>
+          <span class="user-list-checkbox-label">{'Yes'|translate}</span>
+        </span>
+        <span class="user-list-checkbox" data-name="visible_no">
+          <span class="select-checkbox"><i class="icon-ok"></i></span>
+          <span class="user-list-checkbox-label">{'No'|translate}</span>
+        </span>
+      </div>
+
+      <button type="button" class="people-selection-apply" id="people_selection_apply" style="display: none;">{'Apply action'|translate}</button>
+      <p class="people-selection-error" id="people_selection_error" style="display: none;"></p>
+    </div>
   </div>
 </div>
 </div>

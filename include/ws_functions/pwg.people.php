@@ -221,8 +221,25 @@ function ws_people_edit($params, &$service)
   {
     return new PwgError(403, 'Invalid security token');
   }
-  
-  $is_edited = edit_person($params['person_id'], $params);
+
+  $person_ids = array_values(array_unique($params['person_id']));
+
+  if (count($person_ids) == 1)
+  {
+    $is_edited = edit_person($person_ids[0], $params);
+  }
+  else
+  {
+    foreach (array('name', 'user_id', 'cover_image_person_id') as $field)
+    {
+      if (isset($params[$field]))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, $field.' can only be set for one person.');
+      }
+    }
+
+    $is_edited = edit_people($person_ids, $params);
+  }
 
   if (isset($is_edited['error']))
   {
@@ -230,7 +247,7 @@ function ws_people_edit($params, &$service)
   }
 
   return array(
-    'id' => $params['person_id'],
+    'id' => $person_ids,
   );
 }
 

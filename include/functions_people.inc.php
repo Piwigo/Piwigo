@@ -205,6 +205,92 @@ function edit_person(int $id, array $data)
 }
 
 /**
+ * Set the same values to several people, only the fields they can share.
+ * The edit_person event is triggered for each person, like in edit_person().
+ *
+ * @param int[] $person_ids
+ * @param array $data
+ *  - bool is_visible (optional)
+ *  - string source (optional)
+ * @return true|array ['code', 'error']
+ */
+function edit_people(array $person_ids, array $data)
+{
+  $person_ids = array_values(array_unique($person_ids));
+  if (count($person_ids) == 0)
+  {
+    return array('code' => 403, 'error' => 'No person given.');
+  }
+
+  foreach ($person_ids as $person_id)
+  {
+    if (!preg_match('/^\d+$/', $person_id))
+    {
+      return array('code' => 403, 'error' => 'Person ids must be digits.');
+    }
+  }
+
+  $validated_data = array();
+
+  if (isset($data['is_visible']))
+  {
+    if (!is_bool($data['is_visible']))
+    {
+      return array('code' => 403, 'error' => 'is_visible must be: true or false.');
+    }
+    $validated_data['is_visible'] = boolean_to_string($data['is_visible']);
+  }
+
+  if (!empty($data['source']))
+  {
+    if (!validate_people_source($data['source']))
+    {
+      return array('code' => 403, 'error' => 'source must be: manual, auto or imported.');
+    }
+    $validated_data['source'] = $data['source'];
+  }
+
+  $query_people = '
+SELECT *
+  FROM '.PERSONS_TABLE.'
+  WHERE id IN ('.implode(',', $person_ids).')
+;';
+  $people_before = query2array($query_people, 'id');
+
+  if (count($people_before) != count($person_ids))
+  {
+    return array('code' => 404, 'error' => 'Person not found.');
+  }
+
+  if (count($validated_data) == 0)
+  {
+    return true;
+  }
+
+  $set = array();
+  foreach ($validated_data as $field => $value)
+  {
+    $set[] = $field.' = \''.$value.'\'';
+  }
+
+  $query = '
+UPDATE '.PERSONS_TABLE.'
+  SET '.implode(', ', $set).'
+  WHERE id IN ('.implode(',', $person_ids).')
+;';
+  pwg_query($query);
+
+  pwg_activity('people', $person_ids, 'edit');
+
+  foreach (query2array($query_people, 'id') as $person_id => $person)
+  {
+    trigger_notify('edit_person', $person, $people_before[$person_id]);
+  }
+
+  return true;
+}
+
+/**
  * @param int[]|int $people_ids
  * @return bool
  */

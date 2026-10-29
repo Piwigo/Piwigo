@@ -2607,18 +2607,7 @@ div.error .jGrowl-popup-icon,
   border-color: #c76a23;
 }
 
-/* same colors as the selection panel of the tags */
-.people-page .people-selection-list,
-.people-page .people-selection-button,
-.people-page .people-selection-cancel {
+/* same color as the selection list of the tags */
+.people-page .people-selection-list {
   color: #c0c0c0;
-}
-
-.people-page .people-selection-button:hover {
-  color: #3c3c3c;
-}
-
-.people-page .people-selection-merge select {
-  background-color: #1a1a1a;
-  box-shadow: 0 0 2px #c5c5c5;
 }

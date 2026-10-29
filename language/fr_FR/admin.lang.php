@@ -1487,5 +1487,6 @@ $lang['%d people deleted'] = '%d personnes supprimées';
 $lang['People merged into "%s"'] = 'Personnes fusionnées dans « %s »';
 $lang['Cover updated'] = 'Couverture mise à jour';
 $lang['Delete person "%s"?'] = 'Supprimer la personne « %s » ?';
+$lang['People updated'] = 'Personnes mises à jour';
 
 // Leave this line empty

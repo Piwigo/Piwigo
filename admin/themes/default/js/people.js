@@ -122,26 +122,48 @@ $(function() {
     people_selection_refresh();
   });
 
-  $('#people_selection_delete').on('click', function() {
+  // action on the selection: the options shown depend on the chosen action
+  $('#people_selection_action_choice').on('change', function() {
+    people_selection_action_show($(this).val());
+  });
+
+  // yes/no and confirmation checkboxes, same as the selection panel of the users
+  $('#people_selection').on('click', '.user-list-checkbox', function() {
+    const box = $(this);
+    if (box.closest('.yes_no_radio').length) {
+      box.siblings('.user-list-checkbox').removeAttr('data-selected');
+      box.attr('data-selected', '1');
+    } else {
+      box.attr('data-selected', '1' === box.attr('data-selected') ? null : '1');
+    }
+  });
+
+  $('#people_selection_apply').on('click', function() {
     const ids = Object.keys(people_selected);
     if (ids.length === 0) return;
+    $('#people_selection_error').hide();
 
-    delete_people(ids, function() {
-      people_selected = {};
-      people_selection_refresh();
-    });
-  });
+    switch ($('#people_selection_action_choice').val()) {
+      case 'merge':
+        merge_people();
+        break;
 
-  $('#people_selection_merge').on('click', function() {
-    people_selection_merge_open();
-  });
+      case 'delete':
+        if ('1' !== $('#people_selection_action_delete .user-list-checkbox').attr('data-selected')) return;
+        delete_people(ids, function() {
+          people_selected = {};
+          people_selection_action_reset();
+          people_selection_refresh();
+        });
+        break;
 
-  $('#people_selection_merge_cancel').on('click', function() {
-    people_selection_merge_close();
-  });
-
-  $('#people_selection_merge_confirm').on('click', function() {
-    merge_people();
+      case 'visibility':
+        edit_selected_people({
+          person_id: ids,
+          is_visible: '1' === $('#people_selection_action_visibility [data-name=visible_yes]').attr('data-selected'),
+        });
+        break;
+    }
   });
 });
 
@@ -155,7 +177,8 @@ function people_selection_switch(is_on) {
   add_person_btn.toggle(!is_on);
   $('.people-card-dropdown').hide();
 
-  people_selection_merge_close();
+  people_selection_action_reset();
+  people_selection_refresh();
 }
 
 function people_selection_refresh() {
@@ -176,30 +199,40 @@ function people_selection_refresh() {
     );
   });
 
-  $('#people_selection_merge').toggleClass('unavailable', ids.length < 2);
+  // merge needs at least 2 people, its destination list follows the selection
+  const choice = $('#people_selection_action_choice');
+  choice.find('option[value=merge]').prop('disabled', ids.length < 2);
+  if ('merge' === choice.val()) {
+    ids.length < 2 ? people_selection_action_reset() : people_selection_merge_fill();
+  }
 
-  if (!$('#people_selection_merge_block').is(':visible')) {
-    $('#people_selection_nothing').toggle(ids.length === 0);
-    $('#people_selection_actions').toggle(ids.length > 0);
+  $('#people_selection_nothing').toggle(ids.length === 0);
+  $('#people_selection_actions').toggle(ids.length > 0);
+}
+
+function people_selection_action_show(action) {
+  $('.people-selection-action .bulkAction, #people_selection_error').hide();
+  if ('' !== action) {
+    $('#people_selection_action_' + action).show();
+  }
+  $('#people_selection_apply').toggle('' !== action);
+
+  if ('merge' === action) {
+    people_selection_merge_fill();
   }
 }
 
-function people_selection_merge_open() {
-  const ids = Object.keys(people_selected);
-  if (ids.length < 2) return;
-
-  const choice = $('#people_selection_merge_choice').empty();
-  $.each(ids, function(i, id) {
-    choice.append($('<option></option>').val(id).text(people_selected[id]));
-  });
-
-  $('#people_selection_actions, #people_selection_nothing, #people_selection_error').hide();
-  $('#people_selection_merge_block').show();
+function people_selection_action_reset() {
+  $('#people_selection_action_choice').val('');
+  $('#people_selection_action_delete .user-list-checkbox').removeAttr('data-selected');
+  people_selection_action_show('');
 }
 
-function people_selection_merge_close() {
-  $('#people_selection_merge_block, #people_selection_error').hide();
-  people_selection_refresh();
+function people_selection_merge_fill() {
+  const choice = $('#people_selection_merge_choice').empty();
+  $.each(Object.keys(people_selected), function(i, id) {
+    choice.append($('<option></option>').val(id).text(people_selected[id]));
+  });
 }
 
 // FUNCTIONS
@@ -593,6 +626,29 @@ function edit_people(data) {
   });
 }
 
+// same values for all the selected people, the selection is kept
+function edit_selected_people(data) {
+  data.pwg_token = PWG_TOKEN;
+
+  $.ajax({
+    url: 'ws.php?format=json&method=pwg.people.edit',
+    type: 'POST',
+    dataType: 'json',
+    data: data,
+    success: function(res) {
+      if (res.stat !== 'ok') {
+        return people_toast(res.message ?? str_people_error_occured, true);
+      }
+
+      people_toast(1 === data.person_id.length ? str_person_updated : str_people_updated);
+      load_people();
+    },
+    error: function() {
+      people_toast(str_people_error_occured, true);
+    }
+  });
+}
+
 function merge_people() {
   const destination_id = $('#people_selection_merge_choice').val();
   const destination_name = people_selected[destination_id];
@@ -613,7 +669,8 @@ function merge_people() {
       }
 
       people_selected = {};
-      people_selection_merge_close();
+      people_selection_action_reset();
+      people_selection_refresh();
       people_toast(sprintf(str_people_merged, destination_name));
       load_people();
     },
