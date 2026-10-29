@@ -1964,6 +1964,17 @@ function ws_images_uploadAsync($params, &$service)
     return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid original_sum');
   }
 
+  // the number of chunks is used as a loop bound and formatted on 3 digits
+  if (!preg_match('/^\d+$/', (string)$params['chunks']) or $params['chunks'] < 1 or $params['chunks'] > 999)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid chunks');
+  }
+
+  if (!preg_match('/^\d+$/', (string)$params['chunk']) or $params['chunk'] >= $params['chunks'])
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid chunk');
+  }
+
   if ($params['image_id'] > 0)
   {
     $query='
@@ -1993,30 +2004,59 @@ SELECT COUNT(*)
   }
   secure_directory(dirname($chunkfile_path));
 
-  // move uploaded file
-  move_uploaded_file($_FILES['file']['tmp_name'], $chunkfile_path);
-  $logger->debug(__FUNCTION__.' uploaded '.$chunkfile_path);
+  // did the upload itself succeed?
+  if (!isset($_FILES['file']) or UPLOAD_ERR_OK != $_FILES['file']['error'])
+  {
+    $upload_error = isset($_FILES['file']) ? $_FILES['file']['error'] : 'no file received';
+    $logger->error(__FUNCTION__.' upload error "'.$upload_error.'" for '.$chunkfile_path);
+    return new PwgError(500, 'chunk upload failed (error '.$upload_error.')');
+  }
+
+  // the chunk is stored under a private name and only published once it is
+  // complete and verified: another request must never find a half written
+  // chunk, count it in the series and merge it. move_uploaded_file() is only
+  // atomic when the PHP temporary directory sits on the same filesystem as
+  // the buffer directory, which is not guaranteed.
+  $chunkfile_part = $chunkfile_path.'.'.getmypid().'.part';
+
+  if (!move_uploaded_file($_FILES['file']['tmp_name'], $chunkfile_part))
+  {
+    $logger->error(__FUNCTION__.' unable to store '.$chunkfile_part);
+    return new PwgError(500, 'unable to store chunk '.($params['chunk']+1));
+  }
+  $logger->debug(__FUNCTION__.' uploaded '.$chunkfile_part);
 
   // MD5 checksum
-  $chunk_md5 = md5_file($chunkfile_path);
+  $chunk_md5 = md5_file($chunkfile_part);
   if ($chunk_md5 != $params['chunk_sum'])
   {
-    unlink($chunkfile_path);
+    unlink($chunkfile_part);
     $logger->error(__FUNCTION__.' '.$chunkfile_path.' MD5 checksum mismatched');
     return new PwgError(500, "MD5 checksum chunk file mismatched");
   }
 
-  // are all chunks uploaded?
-  $chunk_ids_uploaded = array();
-  for ($i = 1; $i <= $params['chunks']; $i++)
+  // publish the chunk, atomically within the buffer directory
+  if (!rename($chunkfile_part, $chunkfile_path))
   {
-    $chunkfile = sprintf($chunkfile_path_pattern, $i, $params['chunks']);
-    if ( file_exists($chunkfile) && ($fp = fopen($chunkfile, "rb"))!==false )
+    unlink($chunkfile_part);
+    $logger->error(__FUNCTION__.' unable to publish '.$chunkfile_path);
+    return new PwgError(500, 'unable to store chunk '.($params['chunk']+1));
+  }
+
+  // are all chunks uploaded?
+  // a single directory read: testing each chunk with file_exists() and then
+  // opening it was a check-then-act. The request which merges the series
+  // deletes the chunks in between, and PHP then wrote a "failed to open
+  // stream" warning in the body of the response, ahead of the JSON.
+  $chunk_ids_uploaded = array();
+  foreach (glob(sprintf('%s-*of%03u.chunk', $output_filepath_prefix, $params['chunks'])) as $chunkfile)
+  {
+    if (preg_match('/-(\d+)of\d+\.chunk$/', $chunkfile, $matches))
     {
-      $chunk_ids_uploaded[] = $i;
-      fclose($fp);
+      $chunk_ids_uploaded[] = (int)$matches[1];
     }
   }
+  sort($chunk_ids_uploaded, SORT_NUMERIC);
 
   if ($params['chunks'] != count($chunk_ids_uploaded))
   {
@@ -2029,52 +2069,61 @@ SELECT COUNT(*)
   $logger->debug(__FUNCTION__.' '.$params['original_sum'].' '.$params['chunks'].' chunks available, try now to get lock for merging');
   $output_filepath = $output_filepath_prefix.'.merged';
   
-  // chunks already being merged?
-  if ( file_exists($output_filepath) && ($fp = fopen($output_filepath, "rb"))!==false )
-  {
-    // merge file already exists
-    fclose($fp);
-    $logger->error(__FUNCTION__.' '.$output_filepath.' already exists, another merge is under process');
-    return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
-  }
-  
-  // create merged and open it for writing only
-  $fp = fopen($output_filepath, "wb");
+  // create the merged file without truncating it: the lock has to be acquired
+  // before anything destructive happens. Testing the existence of the file and
+  // then opening it with "wb" was a check-then-act, two requests which both
+  // find the series complete passed the test and truncated each other's file,
+  // which produced a corrupted merge or a checksum mismatch. It also left any
+  // file abandoned by an interrupted merge blocking that upload for a week.
+  $fp = fopen($output_filepath, 'c+b');
   if ( !$fp )
   {
-    // unable to create file and open it for writing only
-    $logger->error(__FUNCTION__.' '.$chunkfile_path.' unable to create merge file');
-    return new PwgError(500, 'error while creating merged '.$chunkfile_path);
+    // unable to create file and open it for writing
+    $logger->error(__FUNCTION__.' '.$output_filepath.' unable to create merge file');
+    return new PwgError(500, 'error while creating merged '.$output_filepath);
   }
 
-  // acquire an exclusive lock and keep it until merge completes
-  // this postpones another uploadAsync task running in another thread
-  if (!flock($fp, LOCK_EX))
+  // acquire an exclusive lock and keep it until merge completes.
+  // Another uploadAsync request merging this very series holds the lock until
+  // it is done: give up at once instead of keeping a PHP worker waiting.
+  if (!flock($fp, LOCK_EX | LOCK_NB))
   {
-    // unable to obtain lock
     fclose($fp);
-    $logger->error(__FUNCTION__.' '.$chunkfile_path.' unable to obtain lock');
-    return new PwgError(500, 'error while locking merged '.$chunkfile_path);
+    $logger->debug(__FUNCTION__.' '.$output_filepath.' is being merged by another request');
+    return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
   }
+
+  // the lock is held, whatever an interrupted merge may have left is dropped
+  ftruncate($fp, 0);
+  rewind($fp);
 
   $logger->debug(__FUNCTION__.' lock obtained to merge chunks');
 
   // loop over all chunks
+  // the checksum of the merged file is computed while the chunks are appended,
+  // which spares reading the whole file a second time with md5_file()
+  $merged_md5_context = hash_init('md5');
+
   foreach ($chunk_ids_uploaded as $chunk_id)
   {
     $chunkfile_path = sprintf($chunkfile_path_pattern, $chunk_id, $params['chunks']);
 
     // chunk deleted by preceding merge?
-    if (!file_exists($chunkfile_path))
+    $chunk_data = @file_get_contents($chunkfile_path);
+    if (false === $chunk_data)
     {
       // cancel merge
-      $logger->error(__FUNCTION__.' '.$chunkfile_path.' already merged');
+      $logger->error(__FUNCTION__.' '.$chunkfile_path.' not available anymore');
       flock($fp, LOCK_UN);
       fclose($fp);
+      @unlink($output_filepath);
       return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
     }
 
-    if (!fwrite($fp, file_get_contents($chunkfile_path)))
+    hash_update($merged_md5_context, $chunk_data);
+
+    // an empty chunk writes 0 byte, which is not a failure
+    if (false === fwrite($fp, $chunk_data))
     {
       // could not append chunk
       $logger->error(__FUNCTION__.' error merging chunk '.$chunkfile_path);
@@ -2087,9 +2136,6 @@ SELECT COUNT(*)
     }
 
     $logger->debug(__FUNCTION__.' original_sum='.$params['original_sum'].', chunk '.$chunk_id.'/'.$params['chunks'].' merged');
-
-    // delete chunk and clear cache
-    unlink($chunkfile_path);
   }
 
   // flush output before releasing lock
@@ -2098,9 +2144,9 @@ SELECT COUNT(*)
   fclose($fp);
 
   $logger->debug(__FUNCTION__.' merged file '.$output_filepath.' saved');
-  
+
   // MD5 checksum
-  $merged_md5 = md5_file($output_filepath);
+  $merged_md5 = hash_final($merged_md5_context);
 
   if ($merged_md5 != $params['original_sum'])
   {
@@ -2110,6 +2156,14 @@ SELECT COUNT(*)
   }
 
   $logger->debug(__FUNCTION__.' '.$output_filepath.' MD5 checksum OK');
+
+  // the merge is verified, the chunks can go. Deleting them only now keeps an
+  // interrupted merge retryable: the client does not have to send the file
+  // again, the next chunk request merges the series anew.
+  foreach ($chunk_ids_uploaded as $chunk_id)
+  {
+    @unlink(sprintf($chunkfile_path_pattern, $chunk_id, $params['chunks']));
+  }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 
@@ -2169,37 +2223,21 @@ SELECT COUNT(*)
     $user['level'] = $params['level'];
   }
 
-  // delete chunks older than a week
-  $now = time();
-  foreach (glob($conf['upload_dir'].'/buffer/'."*.chunk") as $file)
+  // delete leftovers older than a week
+  // the buffer directory is read entirely here, so this must not run on every
+  // single upload: a batch of 100 photos used to scan it 200 times
+  if (1 == mt_rand(1, 100))
   {
-    if (is_file($file))
+    $now = time();
+    foreach (array('*.chunk', '*.part', '*.merged') as $leftover_pattern)
     {
-      if ($now - filemtime($file) >= 60 * 60 * 24 * 7) // 7 days
+      foreach (glob($conf['upload_dir'].'/buffer/'.$leftover_pattern) as $file)
       {
-        $logger->info(__FUNCTION__.' delete '.$file);
-        unlink($file);
-      }
-      else
-      {
-        $logger->debug(__FUNCTION__.' keep '.$file);
-      }
-    }
-  }
-
-  // delete merged older than a week
-  foreach (glob($conf['upload_dir'].'/buffer/'."*.merged") as $file)
-  {
-    if (is_file($file))
-    {
-      if ($now - filemtime($file) >= 60 * 60 * 24 * 7) // 7 days
-      {
-        $logger->info(__FUNCTION__.' delete '.$file);
-        unlink($file);
-      }
-      else
-      {
-        $logger->debug(__FUNCTION__.' keep '.$file);
+        if (is_file($file) and $now - filemtime($file) >= 60 * 60 * 24 * 7) // 7 days
+        {
+          $logger->info(__FUNCTION__.' delete '.$file);
+          unlink($file);
+        }
       }
     }
   }
