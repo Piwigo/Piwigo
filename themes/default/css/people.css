@@ -5,9 +5,12 @@
   padding: 3px 0;
 }
 
-.people-avatar {
+.people-person {
   position: relative;
-  display: inline-block;
+}
+
+.people-avatar {
+  display: block;
   width: 36px;
   height: 36px;
   border: 3px solid #ffffff;
@@ -16,29 +19,26 @@
   background-color: #cccccc;
   background-repeat: no-repeat;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .people-avatar:focus {
   outline: none;
 }
 
-.people-avatar:hover,
-.people-avatar:focus,
-.people-avatar-selected {
+.people-avatar:focus-visible,
+.people-person-selected .people-avatar {
   border-color: #FFA646;
 }
 
-.people-avatar-empty {
-  cursor: default;
+.people-avatar-empty,
+.people-avatar-empty:hover {
   color: #555555;
   font-weight: bold;
   font-size: 16px;
   line-height: 36px;
   text-align: center;
-}
-
-.people-avatar-empty:hover {
-  border-color: #ffffff;
+  text-decoration: none;
 }
 
 .people-tooltip {
@@ -57,14 +57,51 @@
   text-align: left;
 }
 
+.people-tooltip::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8px;
+  height: 8px;
+}
+
 .people-tooltip b,
-.people-tooltip i {
+.people-tooltip i,
+.people-tooltip a {
   display: block;
 }
 
-.people-avatar:hover .people-tooltip,
-.people-avatar:focus .people-tooltip {
+.people-tooltip a,
+.people-tooltip a:hover {
+  margin-top: 4px;
+  color: #a34a00;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.people-person:focus-within .people-tooltip {
   display: block;
+}
+
+@media (hover: hover) {
+  .people-person:hover .people-avatar {
+    border-color: #FFA646;
+  }
+
+  .people-person:hover .people-tooltip {
+    display: block;
+  }
+}
+
+@media (hover: none) {
+  .people-person-selected .people-tooltip {
+    display: block;
+  }
+
+  .people-tooltip i {
+    display: none;
+  }
 }
 
 .people-frame {

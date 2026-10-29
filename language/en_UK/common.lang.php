@@ -536,3 +536,5 @@ $lang['Verification successful! You can now choose a new password.'] = 'Verifica
 $lang['If your account exists, a verification code has been sent to your email address.'] = 'If your account exists, a verification code has been sent to your email address.';
 $lang['People'] = 'People';
 $lang['Click to highlight on the photo'] = 'Click to highlight on the photo';
+$lang['Requested person does not exist'] = 'Requested person does not exist';
+$lang['See all the photos'] = 'See all the photos';

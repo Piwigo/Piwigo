@@ -357,6 +357,47 @@ else
       );
   }
 // +-----------------------------------------------------------------------+
+// |                           people section                              |
+// +-----------------------------------------------------------------------+
+  else if ($page['section'] == 'people')
+  {
+    $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+  WHERE id IN (
+    SELECT image_id
+      FROM '.IMAGE_PERSON_TABLE.'
+      WHERE person_id = '.$page['person']['id'].'
+  )
+'.get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'id'
+        ),
+      '  AND'
+      ).'
+  GROUP BY id
+  '.$conf['order_by'].'
+;';
+    $items = query2array($query, null, 'id');
+
+    if (count($items) == 0)
+    {
+      page_not_found(l10n('Requested person does not exist'), get_root_url());
+    }
+
+    $page = array_merge(
+      $page,
+      array(
+        'title' => l10n('People').$conf['level_separator']
+                    .'<a href="'.duplicate_index_url(array('start'=>0)).'">'.$page['person']['name'].'</a>',
+        'items' => $items,
+        )
+      );
+  }
+// +-----------------------------------------------------------------------+
 // |                           search section                              |
 // +-----------------------------------------------------------------------+
   else if ($page['section'] == 'search')
@@ -691,6 +732,11 @@ elseif (isset($page['tags']))
     array_push($page['body_data']['tag_ids'], $tag['id']);
   }
   
+}
+elseif (isset($page['person']))
+{
+  array_push($page['body_classes'], 'person-'.$page['person']['id']);
+  $page['body_data']['person_id'] = $page['person']['id'];
 }
 elseif (isset($page['search']))
 {

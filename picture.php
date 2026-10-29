@@ -932,6 +932,7 @@ if (!empty($display_info['people']) and can_see_people())
     {
       $people[$i]['face'] = get_person_face_background($person);
       $people[$i]['initial'] = mb_strtoupper(mb_substr($person['name'], 0, 1));
+      $people[$i]['URL'] = make_index_url(array('person' => $person));
     }
     $template->assign('related_people', $people);
   }

@@ -1,15 +1,15 @@
 jQuery(function($) {
-  const $avatars = $('.people-avatar[data-box]');
-  if (!$avatars.length) {
+  const $people = $('.people-person');
+  if (!$people.length) {
     return;
   }
 
   const $frame = $('<div class="people-frame"><span class="people-frame-name"></span></div>').hide().appendTo('body');
   let $selected = null;
 
-  function show_frame($avatar) {
+  function show_frame($person) {
     const img = document.getElementById('theMainImage');
-    if (!img || img.hasAttribute('data-src')) {
+    if (!$person || !$person.data('box') || !img || img.hasAttribute('data-src')) {
       $frame.hide();
       return;
     }
@@ -20,8 +20,8 @@ jQuery(function($) {
       return;
     }
 
-    const box = String($avatar.data('box')).split(',').map(Number);
-    const scale = rect.width / Number($avatar.data('width'));
+    const box = String($person.data('box')).split(',').map(Number);
+    const scale = rect.width / Number($person.data('width'));
 
     $frame.css({
       left: rect.left + window.scrollX + box[0] * scale,
@@ -29,43 +29,47 @@ jQuery(function($) {
       width: (box[2] - box[0]) * scale,
       height: (box[3] - box[1]) * scale,
     });
-    $frame.find('.people-frame-name').text($avatar.data('name'));
+    $frame.find('.people-frame-name').text($person.data('name'));
     $frame.show();
   }
 
   function refresh_frame() {
-    if ($selected) {
-      show_frame($selected);
-    }
-    else {
-      $frame.hide();
-    }
+    show_frame($selected);
   }
 
-  $avatars
-    .on('mouseenter focus', function() {
+  function select_person($person) {
+    $people.removeClass('people-person-selected');
+    $selected = $person;
+    if ($selected) {
+      $selected.addClass('people-person-selected');
+    }
+    refresh_frame();
+  }
+
+  $people
+    .on('mouseenter', function() {
       show_frame($(this));
     })
-    .on('mouseleave blur', refresh_frame)
-    .on('click keydown', function(e) {
-      if ('keydown' == e.type && 'Enter' != e.key && ' ' != e.key) {
-        return;
-      }
-      e.preventDefault();
+    .on('mouseleave', refresh_frame);
 
-      const $avatar = $(this);
-      $avatars.removeClass('people-avatar-selected');
+  $people.find('.people-avatar').on('click', function(e) {
+    if (e.ctrlKey || e.metaKey || e.shiftKey) {
+      return;
+    }
+    e.preventDefault();
 
-      if ($selected && $selected.is($avatar)) {
-        $selected = null;
-      }
-      else {
-        $selected = $avatar;
-        $avatar.addClass('people-avatar-selected');
-      }
+    const $person = $(this).closest('.people-person');
+    select_person($selected && $selected.is($person) ? null : $person);
+    if (e.detail) {
+      $(this).trigger('blur');
+    }
+  });
 
-      show_frame($avatar);
-    });
+  $(document).on('click', function(e) {
+    if ($selected && !$(e.target).closest('.people-person').length) {
+      select_person(null);
+    }
+  });
 
   $(window).on('resize', refresh_frame);
   $('#theMainImage').on('load', refresh_frame);
