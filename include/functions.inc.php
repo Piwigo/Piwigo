@@ -3001,9 +3001,49 @@ function send_piwigo_infos_retry_later($wait_time)
   $logger->info('['.__FUNCTION__.'] new send_piwigo_infos_last_notice='.$conf['send_piwigo_infos_last_notice']);
 }
 
+/**
+ * Ensures that only one execution of a given task runs at a time.
+ *
+ * A lock token named "<token_name>_running" is inserted in the config
+ * table with an INSERT IGNORE, which makes the insertion atomic: when
+ * several requests compete, only the first one gets the token, the
+ * others give up. If an existing token is older than $timeout seconds,
+ * it is considered stale (crashed or abandoned execution) and is removed
+ * before trying to get the token.
+ *
+ * The caller must release the token with pwg_unique_exec_ends() once the
+ * task is done.
+ *
+ * Example:
+ *   if ($exec_id = pwg_unique_exec_begins('my_task'))
+ *   {
+ *     // do the work
+ *     pwg_unique_exec_ends('my_task');
+ *   }
+ *
+ * @since 15
+ * @param string $token_name max 32 characters: the token is stored in
+ *   config.param (varchar(40)) with the "_running" suffix (8 characters).
+ *   A longer name gets truncated in the database, the token is never found
+ *   back and the function always returns false.
+ * @param int $timeout in seconds, age after which a running token is
+ *   considered stale
+ * @return string|false execution id (8 hexadecimal characters) if the
+ *   token was obtained, false if another execution is already running
+ */
 function pwg_unique_exec_begins($token_name, $timeout=60)
 {
   global $conf, $logger;
+
+  if (strlen($token_name.'_running') > 40)
+  {
+    trigger_error(
+      __FUNCTION__.', token_name "'.$token_name.'" is too long (max 32 characters)',
+      E_USER_WARNING
+    );
+
+    return false;
+  }
 
   $exec_id = substr(sha1(random_bytes(1000)), 0, 8);
   $logger->info('['.$token_name.'][exec='.$exec_id.'] starts now');
