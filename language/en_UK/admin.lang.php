@@ -1481,5 +1481,7 @@ $lang['People merged into "%s"'] = 'People merged into "%s"';
 $lang['Cover updated'] = 'Cover updated';
 $lang['Delete person "%s"?'] = 'Delete person "%s"?';
 $lang['People updated'] = 'People updated';
+$lang['Show people in the gallery'] = 'Show people in the gallery';
+$lang['Only users in specific groups'] = 'Only users in specific groups';
 
 // Leave this line empty

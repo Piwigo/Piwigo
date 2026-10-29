@@ -106,6 +106,7 @@ $display_info_checkboxes = array(
     'file',
     'filesize',
     'tags',
+    'people',
     'categories',
     'visits',
     'rating_score',
@@ -226,6 +227,31 @@ if (isset($_POST['submit']))
           $_POST['email_admin_on_new_user'] = 'group:'.$_POST['email_admin_on_new_user_filter_group'];
         }
       }
+
+      if (empty($_POST['people_access_enabled']))
+      {
+        $_POST['people_access'] = 'nobody';
+      }
+      elseif (!isset($_POST['people_access']) or !in_array($_POST['people_access'], array('everybody', 'registered-users', 'groups'), true))
+      {
+        $_POST['people_access'] = 'registered-users';
+      }
+
+      $people_access_groups = array();
+      if (isset($_POST['people_access_groups']) and is_array($_POST['people_access_groups']))
+      {
+        $people_access_groups = array_values(array_filter(
+          $_POST['people_access_groups'],
+          function($group_id) { return is_string($group_id) and preg_match('/^\d+$/', $group_id); }
+        ));
+      }
+
+      if ('groups' == $_POST['people_access'] and empty($people_access_groups))
+      {
+        $_POST['people_access'] = 'registered-users';
+      }
+
+      $_POST['people_access_groups'] = addslashes(serialize($people_access_groups));
 
       foreach( $main_checkboxes as $checkbox)
       {
@@ -432,6 +458,8 @@ switch ($page['section'])
         'email_admin_on_new_user' => 'none' != $conf['email_admin_on_new_user'],
         'email_admin_on_new_user_filter' => in_array($conf['email_admin_on_new_user'], array('none', 'all')) ? 'all' : 'group',
         'email_admin_on_new_user_filter_group' => preg_match('/^group:(\d+)$/', $conf['email_admin_on_new_user'], $matches) ? $matches[1] : -1,
+        'people_access' => $conf['people_access'] ?? 'nobody',
+        'people_access_groups' => safe_unserialize($conf['people_access_groups'] ?? array()),
         )
       );
 

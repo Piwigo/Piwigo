@@ -5534,6 +5534,47 @@ ul.jqtree-tree .jqtree-element {
   margin: 10px 0 10px 20px;
 }
 
+#people_access_groups_options {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+#people_access_groups_options .selectize-control {
+  display: inline-block;
+  min-width: 250px;
+  max-width: 600px;
+}
+
+#people_access_groups_options .selectize-input {
+  padding: 4px 6px;
+  min-height: 0;
+}
+
+#people_access_groups_options .selectize-input.focus {
+  border-color: #FFA646;
+  box-shadow: none;
+}
+
+#people_access_groups_options .selectize-control.multi .selectize-input > div {
+  margin: 1px 3px 1px 0;
+  background: #FFA646;
+  color: #493C21;
+  border: 1px solid #ff7700;
+  font-weight: bold;
+}
+
+#people_access_groups_options .selectize-control.multi .selectize-input > div.active {
+  background: #ff7700;
+  color: #493C21;
+  border-color: #ff7700;
+}
+
+#people_access_groups_options .selectize-control.plugin-remove_button [data-value] .remove,
+#people_access_groups_options .selectize-control.plugin-remove_button [data-value].active .remove {
+  border-left-color: #ff7700;
+}
+
 /* watermark configuration screen */
 #watermarkPositionBox {
   width:500px;

@@ -1,12 +1,15 @@
 {include file='include/colorbox.inc.tpl'}
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.{$themeconf.colorscheme}.css"}
 
 {footer_script require='jquery'}
 (function(){
   var targets = {
     'input[name="rate"]' : '#rate_anonymous',
     'input[name="allow_user_registration"]' : '#email_admin_on_new_user',
-    'input[name="email_admin_on_new_user"]' : '#email_admin_on_new_user_filter'
+    'input[name="email_admin_on_new_user"]' : '#email_admin_on_new_user_filter',
+    'input[name="people_access_enabled"]' : '#people_access'
   };
 
   for (selector in targets) {
@@ -73,6 +76,14 @@ jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
   var val = jQuery("input[name='email_admin_on_new_user_filter']:checked").val();
 
   jQuery('#email_admin_on_new_user_filter_group_options').toggle('group' == val);
+});
+
+jQuery('#people_access_groups').selectize({
+  plugins: ['remove_button']
+});
+
+jQuery("input[name='people_access']").change(function() {
+  jQuery('#people_access_groups_options').toggle('groups' == jQuery("input[name='people_access']:checked").val());
 });
 {/footer_script}
 
@@ -190,6 +201,44 @@ jQuery("input[name='email_admin_on_new_user_filter']").change(function() {
           <input type="checkbox" name="obligatory_user_mail_address" {if ($main.obligatory_user_mail_address)}checked="checked"{/if}>
           {'Mail address is mandatory for registration'|translate}
         </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
+          <input type="checkbox" name="people_access_enabled" {if $main.people_access ne 'nobody'}checked="checked"{/if}>
+          {'Show people in the gallery'|translate}
+        </label>
+
+        <div id="people_access" class="sub-setting">
+          <label class="font-checkbox no-bold">
+            <span class="icon-dot-circled"></span>
+            <input type="radio" name="people_access" value="everybody" {if $main.people_access eq 'everybody'}checked{/if}>
+            {'Everybody'|translate}
+          </label>
+<br>
+          <label class="font-checkbox no-bold">
+            <span class="icon-dot-circled"></span>
+            <input type="radio" name="people_access" value="registered-users" {if $main.people_access eq 'registered-users' or $main.people_access eq 'nobody'}checked{/if}>
+            {'registered users'|translate|ucfirst}
+          </label>
+<br>
+          <label class="font-checkbox no-bold">
+            <span class="icon-dot-circled"></span>
+            <input type="radio" name="people_access" value="groups" {if $main.people_access eq 'groups'}checked{/if}>
+            {'Only users in specific groups'|translate}
+          </label>
+
+          <span id="people_access_groups_options"{if $main.people_access ne 'groups'} style="display:none"{/if}>
+{if count($group_options) > 0}
+            <select name="people_access_groups[]" id="people_access_groups" multiple>
+              {html_options options=$group_options selected=$main.people_access_groups}
+            </select>
+{else}
+            {'There is no group in this gallery.'|@translate} <a href="admin.php?page=group_list" class="externalLink">{'Group management'|@translate}</a>
+{/if}
+          </span>
+        </div>
       </li>
     </ul>
   </fieldset>

@@ -11,7 +11,7 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-$upgrade_description = 'add persons table';
+$upgrade_description = 'add persons tables and people settings';
 
 $query = '
 CREATE TABLE `'.PREFIX_TABLE.'persons` (
@@ -51,6 +51,22 @@ CREATE TABLE `'.PREFIX_TABLE.'image_person` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 ;';
 pwg_query($query);
+
+load_conf_from_db();
+
+conf_update_param('people_access', 'registered-users');
+conf_update_param('people_access_groups', array());
+
+if (isset($conf['picture_informations']))
+{
+  $picture_informations = safe_unserialize($conf['picture_informations']);
+
+  if (!isset($picture_informations['people']))
+  {
+    $picture_informations['people'] = true;
+    conf_update_param('picture_informations', $picture_informations);
+  }
+}
 
 echo "\n".$upgrade_description."\n";
 

@@ -72,6 +72,49 @@ SELECT COUNT(*) as nb
 }
 
 /**
+ * Can the current user see and search people in the gallery.
+ */
+function can_see_people()
+{
+  global $conf, $user;
+
+  switch ($conf['people_access'] ?? 'nobody')
+  {
+    case 'everybody':
+      return true;
+
+    case 'registered-users':
+      return is_classic_user();
+
+    case 'groups':
+      $group_ids = safe_unserialize($conf['people_access_groups'] ?? array());
+      if (!is_array($group_ids))
+      {
+        return false;
+      }
+
+      $group_ids = array_filter($group_ids, function($group_id) { return preg_match('/^\d+$/', $group_id); });
+      if (empty($group_ids))
+      {
+        return false;
+      }
+
+      $query = '
+SELECT COUNT(*)
+  FROM '.USER_GROUP_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND group_id IN ('.implode(',', $group_ids).')
+;';
+      list($nb_groups) = pwg_db_fetch_row(pwg_query($query));
+
+      return $nb_groups > 0;
+
+    default:
+      return false;
+  }
+}
+
+/**
  * Create a person.
  */
 function create_person(string $name, ?int $user_id = null, bool $is_visible = true, string $source = 'manual')
