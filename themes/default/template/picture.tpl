@@ -224,7 +224,7 @@ y.callService(
 		{foreach from=$related_people item=person}
 			<div class="people-person"{if isset($person.face)} data-name="{$person.name|escape:html}" data-box="{$person.box_x1},{$person.box_y1},{$person.box_x2},{$person.box_y2}" data-width="{$person.image_width}"{/if}>
 				{if isset($person.face)}
-				<a class="people-avatar" href="{$person.URL}" style="background-image:url('{$current.selected_derivative->get_url()}');background-size:{$person.face.size}% auto;background-position:{$person.face.x}% {$person.face.y}%;"></a>
+				<a class="people-avatar" href="{$person.URL}" style="background-size:{$person.face.size}% auto;background-position:{$person.face.x}% {$person.face.y}%;"></a>
 				{else}
 				<a class="people-avatar people-avatar-empty" href="{$person.URL}">{$person.initial}</a>
 				{/if}

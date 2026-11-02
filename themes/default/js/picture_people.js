@@ -7,9 +7,13 @@ jQuery(function($) {
   const $frame = $('<div class="people-frame"><span class="people-frame-name"></span></div>').hide().appendTo('body');
   let $selected = null;
 
+  function is_photo_loaded(img) {
+    return img && (img.currentSrc || img.src) && !(img.currentSrc || img.src).includes('ajax_loader');
+  }
+
   function show_frame($person) {
     const img = document.getElementById('theMainImage');
-    if (!$person || !$person.data('box') || !img || img.hasAttribute('data-src')) {
+    if (!$person || !$person.data('box') || !is_photo_loaded(img)) {
       $frame.hide();
       return;
     }
@@ -35,6 +39,13 @@ jQuery(function($) {
 
   function refresh_frame() {
     show_frame($selected);
+  }
+
+  function refresh_faces() {
+    const img = document.getElementById('theMainImage');
+    if (is_photo_loaded(img)) {
+      $people.filter('[data-box]').find('.people-avatar').css('background-image', `url("${img.currentSrc || img.src}")`);
+    }
   }
 
   function select_person($person) {
@@ -71,6 +82,11 @@ jQuery(function($) {
     }
   });
 
+  refresh_faces();
+
   $(window).on('resize', refresh_frame);
-  $('#theMainImage').on('load', refresh_frame);
+  $('#theMainImage').on('load', function() {
+    refresh_faces();
+    refresh_frame();
+  });
 });
