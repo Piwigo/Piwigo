@@ -538,3 +538,6 @@ $lang['People'] = 'People';
 $lang['Click to highlight on the photo'] = 'Click to highlight on the photo';
 $lang['Requested person does not exist'] = 'Requested person does not exist';
 $lang['See all the photos'] = 'See all the photos';
+$lang['There are no people available for the photos currently filtered'] = 'There are no people available for the photos currently filtered';
+$lang['All people'] = 'All people';
+$lang['Any person'] = 'Any person';

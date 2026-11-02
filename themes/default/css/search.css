@@ -255,6 +255,7 @@
 }
 
 .word-search-options,
+.filter-people-form .search-params,
 .filter-tag-form .search-params,
 .filter-authors .search-params,
 .filter-album-form .search-params {
@@ -432,6 +433,7 @@
 }
 
 .filter-author-form,
+.filter-people-form,
 .filter-tag-form{
   min-width: 400px;
 }
@@ -661,12 +663,14 @@
   align-items: center;
 }
 
+.filter-people-form .selectize-control,
 .filter-tag-form .selectize-control,
 .filter-author-form .selectize-control,
 .filter-added_by-form .selectize-control {
   margin-top: 10px;
 }
 
+.filter-people-form .selectize-input,
 .filter-tag-form .selectize-input,
 .filter-author-form .selectize-input,
 .filter-added_by-form .selectize-input {
@@ -679,6 +683,7 @@
   gap: 5px;
 }
 
+.filter-people-form .selectize-input input,
 .filter-tag-form .selectize-input input,
 .filter-author-form .selectize-input input,
 .filter-added_by-form .selectize-input input {
@@ -689,12 +694,15 @@
 }
 .filter-author-form .selectize-input input:focus-visible,
 .filter-added_by-form .selectize-input input:focus-visible,
+.filter-people-form .selectize-input input:focus-visible,
 .filter-tag-form .selectize-input input:focus-visible{
   border:none;
   outline:none!important;
 }
 
+.filter-people-form .selectize-control.multi .selectize-input > div,
 .filter-tag-form .selectize-control.multi .selectize-input > div,
+.filter-people-form .selectize-control.multi .selectize-input [data-value].active,
 .filter-tag-form .selectize-control.multi .selectize-input [data-value].active,
 .filter-author-form .selectize-control.multi .selectize-input > div,
 .filter-author-form .selectize-control.multi .selectize-input [data-value].active,
@@ -707,6 +715,7 @@
   height: fit-content;
 }
 
+.filter-people-form .selectize-control.multi .selectize-input > div .remove,
 .filter-tag-form .selectize-control.multi .selectize-input > div .remove,
 .filter-author-form .selectize-control.multi .selectize-input > div .remove,
 .filter-added_by-form .selectize-control.multi .selectize-input > div .remove {
@@ -715,6 +724,7 @@
   margin: 0 0 0 10px;
 }
 
+.filter-people-form .selectize-dropdown,
 .filter-tag-form .selectize-dropdown,
 .filter-author-form .selectize-dropdown,
 .filter-added_by-form .selectize-dropdown {
@@ -724,18 +734,21 @@
   position: absolute;
 }
 
+.filter-people-form .selectize-dropdown .option,
 .filter-tag-form .selectize-dropdown .option,
 .filter-author-form .selectize-dropdown .option,
 .filter-added_by-form .selectize-dropdown .option {
   padding: 0 5px;
 }
 
+.filter-people-form .selectize-dropdown .option.active,
 .filter-tag-form .selectize-dropdown .option.active,
 .filter-author-form .selectize-dropdown .option.active,
 .filter-added_by-form .selectize-dropdown .option.active {
   border-radius: 5px;
 }
 
+.filter-people-form .form-container,
 .filter-tag-form .form-container,
 .filter-author-form .form-container,
 .filter-added_by-form .form-container {
@@ -808,6 +821,7 @@
     width: 100%;
   }
 
+  .filter-people-form .form-container,
   .filter-tag-form .form-container,
   .filter-author-form .form-container,
   .filter-added_by-form .form-container {
@@ -820,6 +834,7 @@
     margin-top: 10px;
   }
 
+  .filter-people-form .selectize-input,
   .filter-tag-form .selectize-input,
   .filter-author-form .selectize-input,
   .filter-added_by-form .selectize-input {

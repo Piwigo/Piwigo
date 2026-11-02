@@ -131,6 +131,14 @@ if (count(get_available_tags()) > 0)
   }
 }
 
+if (in_array('people', $fields) && can_see_people() && count(get_available_people()) > 0)
+{
+  $search['fields']['people'] = array(
+    'words' => array(),
+    'mode'  => 'AND',
+  );
+}
+
 if (in_array('author', $fields))
 {
   // does this Piwigo has authors for current user?

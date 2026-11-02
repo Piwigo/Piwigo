@@ -722,6 +722,19 @@ SELECT
   }
 
   //
+  // people
+  //
+  if (!empty($search['fields']['people']['words']) && !empty($display_filters['people']['access']) && can_see_people())
+  {
+    $has_filters_filled = true;
+
+    $image_ids_for_filter['people'] = get_image_ids_for_people(
+      $search['fields']['people']['words'],
+      $search['fields']['people']['mode']
+      );
+  }
+
+  //
   // custom search
   //
   if (!empty($images_where))

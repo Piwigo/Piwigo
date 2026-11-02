@@ -835,6 +835,113 @@ SELECT
 }
 
 /**
+ * Images of the given people the current user can see.
+ *
+ * @param int[] $person_ids
+ * @param string $mode AND (images with all the people) or OR (images with any of them)
+ * @return int[]
+ */
+function get_image_ids_for_people(array $person_ids, string $mode = 'AND')
+{
+  if (empty($person_ids))
+  {
+    return array();
+  }
+
+  $query = '
+SELECT i.id
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id = ic.image_id
+    INNER JOIN '.IMAGE_PERSON_TABLE.' AS ip ON i.id = ip.image_id
+    INNER JOIN '.PERSONS_TABLE.' AS p ON p.id = ip.person_id
+  WHERE ip.person_id IN ('.implode(',', $person_ids).')
+    AND p.is_visible = \'true\'
+'.get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'ic.category_id',
+        'visible_categories' => 'ic.category_id',
+        'visible_images' => 'i.id',
+      ),
+      '    AND'
+    ).'
+  GROUP BY i.id';
+
+  if ('AND' == $mode && count($person_ids) > 1)
+  {
+    $query.= '
+  HAVING COUNT(DISTINCT ip.person_id) = '.count($person_ids);
+  }
+
+  $query.= '
+;';
+
+  return query2array($query, null, 'id');
+}
+
+/**
+ * Visible people of the given images.
+ *
+ * @param int[] $image_ids
+ * @return array
+ */
+function get_common_people(array $image_ids)
+{
+  if (empty($image_ids))
+  {
+    return array();
+  }
+
+  $query = '
+SELECT p.id, p.name, p.url_name, COUNT(*) AS counter
+  FROM '.IMAGE_PERSON_TABLE.' AS ip
+    INNER JOIN '.PERSONS_TABLE.' AS p ON p.id = ip.person_id
+  WHERE ip.image_id IN ('.implode(',', $image_ids).')
+    AND p.is_visible = \'true\'
+  GROUP BY p.id
+  ORDER BY p.name
+;';
+
+  return query2array($query);
+}
+
+/**
+ * Visible people with at least one image the current user can see.
+ *
+ * @param int[] $person_ids restrict to these people
+ * @return array
+ */
+function get_available_people(array $person_ids = array())
+{
+  $query = '
+SELECT p.id, p.name, p.url_name, COUNT(DISTINCT ip.image_id) AS counter
+  FROM '.IMAGE_CATEGORY_TABLE.' AS ic
+    INNER JOIN '.IMAGE_PERSON_TABLE.' AS ip ON ic.image_id = ip.image_id
+    INNER JOIN '.PERSONS_TABLE.' AS p ON p.id = ip.person_id
+  WHERE p.is_visible = \'true\'
+'.get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'ic.category_id',
+        'visible_categories' => 'ic.category_id',
+        'visible_images' => 'ic.image_id',
+      ),
+      '    AND'
+    );
+
+  if (!empty($person_ids))
+  {
+    $query.= '
+    AND p.id IN ('.implode(',', $person_ids).')';
+  }
+
+  $query.= '
+  GROUP BY p.id
+  ORDER BY p.name
+;';
+
+  return query2array($query);
+}
+
+/**
  * Background size and position (%) showing the face of an image_person in a square.
  */
 function get_person_face_background(array $image_person)

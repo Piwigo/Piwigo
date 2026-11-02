@@ -2362,6 +2362,9 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   color: #898888;
   border: 1px solid #666;
 }
+.filters-grid-note{
+  color: #aaa;
+}
 
 .filter-manager-options-container{
   background-color: #333;

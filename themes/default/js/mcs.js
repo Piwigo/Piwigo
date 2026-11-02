@@ -118,6 +118,42 @@ $(document).ready(function () {
     empty_filters_list.push(PS_params.tags);
   }
 
+  // Setup people filter
+  $("#people-search").each(function() {
+    $(this).selectize({
+      plugins: ['remove_button'],
+      maxOptions:$(this).find("option").length,
+      items: global_params.fields.people ? global_params.fields.people.words : null,
+    });
+  });
+
+  if (global_params.fields.people) {
+    $(".filter-people").css("display", "flex");
+    $(".filter-manager-controller.people").prop("checked", true);
+    $(".filter-people-form .search-params input[value=" + global_params.fields.people.mode + "]").prop("checked", true);
+
+    people_search_str = "";
+    $("#people-search")[0].selectize.getValue().forEach(id => {
+      people_search_str += $("#people-search")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
+    });
+    if (global_params.fields.people.words && global_params.fields.people.words.length > 0) {
+      $(".filter-people").addClass("filter-filled");
+      $(".filter.filter-people .search-words").text(people_search_str.slice(0, -2));
+    } else {
+      $(".filter.filter-people .search-words").text(str_people_widget_label);
+    }
+
+    $(".filter-people .filter-actions .clear").on('click', function () {
+      $("#people-search")[0].selectize.clear();
+      $(".filter-people .search-params input[value='AND']").prop('checked', true);
+    });
+
+    PS_params.people = global_params.fields.people.words.length > 0 ? global_params.fields.people.words : '';
+    PS_params.people_mode = global_params.fields.people.mode;
+
+    empty_filters_list.push(PS_params.people);
+  }
+
   // Setup Date post filter
   if (global_params.fields.date_posted) {
 
@@ -723,7 +759,7 @@ $(document).ready(function () {
   if (!empty_filters_list.every(param => param === "" || param === null || (typeof param == 'undefined'))) {
     $(".clear-all").addClass("clickable");
     $(".clear-all.clickable").on('click', function () {
-      exclude_params = ['search_id', 'allwords_mode', 'allwords_fields', 'tags_mode', 'categories_withsubs'];
+      exclude_params = ['search_id', 'allwords_mode', 'allwords_fields', 'tags_mode', 'people_mode', 'categories_withsubs'];
       for (const key in PS_params) {
         if (!exclude_params.includes(key)) {
           if("date_posted_custom" == key || "date_created_custom" == key)
@@ -921,6 +957,42 @@ $(document).ready(function () {
     if (!$(".filter-tag").hasClass("filter-filled")) {
       $(".filter-tag").hide();
       $(".filter-manager-controller.tags").prop("checked", false);
+    }
+  });
+
+  /**
+   * Filter People
+   */
+  $(".filter-people").on("click", function (e) {
+    if ($(".filter-form").has(e.target).length != 0 ||
+        $(e.target).hasClass("filter-form") ||
+        $(e.target).hasClass("remove")) {
+      return;
+    }
+    $(".filter-people-form").toggle(0, function () {
+      if ($(this).is(':visible')) {
+        $(".filter-people").addClass("show-filter-dropdown");
+      } else {
+        $(".filter-people").removeClass("show-filter-dropdown");
+        global_params.fields.people = {};
+        global_params.fields.people.mode = $(".filter-people-form .search-params input:checked").val();
+        global_params.fields.people.words = $("#people-search")[0].selectize.getValue();
+
+        PS_params.people = $("#people-search")[0].selectize.getValue().length > 0 ? $("#people-search")[0].selectize.getValue() : '';
+        PS_params.people_mode = $(".filter-people-form .search-params input:checked").val();
+      }
+    });
+  });
+  $(".filter-people .filter-validate").on("click", function () {
+    $(".filter-people").trigger("click");
+    performSearch(PS_params, true);
+  });
+  $(".filter-people .filter-actions .delete").on("click", function () {
+    updateFilters('people', 'del');
+    performSearch(PS_params, true);
+    if (!$(".filter-people").hasClass("filter-filled")) {
+      $(".filter-people").hide();
+      $(".filter-manager-controller.people").prop("checked", false);
     }
   });
 
@@ -1487,6 +1559,20 @@ function updateFilters(filterName, mode) {
 
         delete PS_params.tags;
         delete PS_params.tags_mode;
+      }
+      break;
+
+    case 'people':
+      if (mode == 'add') {
+        global_params.fields.people = {};
+
+        PS_params.people = '';
+        PS_params.people_mode = 'AND';
+      } else if (mode == 'del') {
+        delete global_params.fields.people;
+
+        delete PS_params.people;
+        delete PS_params.people_mode;
       }
       break;
 

@@ -8479,7 +8479,7 @@ color:#FF7B00;
 /* Filters options */
 .filters-grid{
   display: grid;
-  grid-template-columns: 200px 150px 25px;
+  grid-template-columns: 200px 150px 25px auto;
   margin-bottom: 0px !important;
 }
 .select-views{
@@ -8499,6 +8499,15 @@ color:#FF7B00;
 }
 .select-views-admin{
   margin-left: 3px;
+}
+.filters-grid-note{
+  grid-column: 4;
+  grid-row: 1;
+  align-self: center;
+  margin: 0;
+  color: #777;
+  font-size: 11px;
+  text-align: left;
 }
 
 .last-filters{

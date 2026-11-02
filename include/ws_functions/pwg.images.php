@@ -830,6 +830,31 @@ function ws_images_filteredSearch_create($params, $service)
     );
   }
 
+  if (isset($params['people']))
+  {
+    foreach ($params['people'] as $person_id)
+    {
+      if (!preg_match('/^\d+$/', $person_id))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter people');
+      }
+    }
+
+    if (!isset($params['people_mode']))
+    {
+      $params['people_mode'] = 'AND';
+    }
+    if (!preg_match('/^(OR|AND)$/', $params['people_mode']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid parameter people_mode');
+    }
+
+    $search['fields']['people'] = array(
+      'words' => $params['people'],
+      'mode'  => $params['people_mode'],
+    );
+  }
+
   if (isset($params['categories']))
   {
     foreach ($params['categories'] as $cat_id)

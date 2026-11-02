@@ -68,6 +68,17 @@ if (isset($conf['picture_informations']))
   }
 }
 
+if (isset($conf['filters_views']))
+{
+  $filters_views = safe_unserialize($conf['filters_views']);
+
+  if (!isset($filters_views['people']))
+  {
+    $filters_views['people'] = $conf['default_filters_views']['people'];
+    conf_update_param('filters_views', $filters_views);
+  }
+}
+
 echo "\n".$upgrade_description."\n";
 
 ?>

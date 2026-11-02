@@ -1483,5 +1483,6 @@ $lang['Delete person "%s"?'] = 'Delete person "%s"?';
 $lang['People updated'] = 'People updated';
 $lang['Show people in the gallery'] = 'Show people in the gallery';
 $lang['Only users in specific groups'] = 'Only users in specific groups';
+$lang['Limited by the People permission in General'] = 'Limited by the People permission in General';
 
 // Leave this line empty

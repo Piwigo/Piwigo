@@ -723,6 +723,7 @@ switch ($page['section'])
         ),
     );
     $template->assign('SHOW_FILTER_RATINGS', $conf['rate']);
+    $template->assign('PEOPLE_ACCESS', $conf['people_access'] ?? 'nobody');
   }
 }
 

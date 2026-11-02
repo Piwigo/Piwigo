@@ -537,3 +537,6 @@ $lang['People'] = 'Personnes';
 $lang['Click to highlight on the photo'] = 'Cliquer pour repérer sur la photo';
 $lang['Requested person does not exist'] = 'La personne demandée n\'existe pas';
 $lang['See all the photos'] = 'Voir toutes ses photos';
+$lang['There are no people available for the photos currently filtered'] = 'Aucune personne n\'est disponible pour les photos actuellement filtrées';
+$lang['All people'] = 'Toutes les personnes';
+$lang['Any person'] = 'N\'importe quelle personne';
