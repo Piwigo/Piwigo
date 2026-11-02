@@ -1755,7 +1755,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'per_page' => array(
           'default' => 50,
           'maxValue' => 1000,
-          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL,
         ),
         'page' => array(
           'default' => 0,
@@ -1947,7 +1947,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'per_page' => array(
           'default' => 100,
           'maxValue' => $conf['ws_max_images_per_page'],
-          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL,
         ),
         'page' => array(
           'default' => 0,

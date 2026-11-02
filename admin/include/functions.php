@@ -3457,7 +3457,7 @@ function update_images_lastmodified($image_ids)
 {
   if (!is_array($image_ids) and is_int($image_ids))
   {
-    $images_ids = array($image_ids);
+    $image_ids = array($image_ids);
   }
   
   if (count($image_ids) == 0)
