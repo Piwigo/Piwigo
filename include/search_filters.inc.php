@@ -112,21 +112,7 @@ if ('search' == $page['section'] and isset($page['search_details']))
 
   if (isset($my_search['fields']['people']) && $display_filters['people']['access'])
   {
-    $other_filters_items = get_items_for_filter('people');
-    if (false === $other_filters_items)
-    {
-      $filter_people = get_available_people();
-    }
-    else
-    {
-      $filter_people = get_common_people($other_filters_items);
-
-      $missing_person_ids = array_diff($my_search['fields']['people']['words'], array_column($filter_people, 'id'));
-      if (count($missing_person_ids) > 0)
-      {
-        $filter_people = array_merge(get_available_people($missing_person_ids), $filter_people);
-      }
-    }
+    $filter_people = empty($my_search['fields']['people']['words']) ? array() : get_available_people($my_search['fields']['people']['words']);
 
     $template->assign('PEOPLE', $filter_people);
 

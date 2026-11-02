@@ -4,10 +4,14 @@ let activePeopleSelector = null;
  * People selector instance, single selection: picking a person closes it.
  * @param {Function} selectPerson - Called with { person } when a person is picked or created.
  * @param {Number} perPage - Number of people loaded at once.
+ * @param {Boolean} adminMode - False in the gallery: public list and no creation.
+ * @param {String} modalTitle - Title of the modal, the template one by default.
  */
 class PeopleSelector {
   #select_person;
   #per_page;
+  #in_admin_mode;
+  #method_pwg;
   #people;
   #selected_people_ids;
   #search_timeout;
@@ -38,14 +42,30 @@ class PeopleSelector {
   constructor({
     selectPerson = () => {},
     perPage = 50,
+    adminMode = true,
+    modalTitle = '',
   } = {}) {
     this.instanceId = `PeopleSelector-${Math.random().toString(36).substring(2, 9)}`;
     this.#select_person = selectPerson;
     this.#per_page = perPage;
+    this.#in_admin_mode = adminMode;
+    this.#method_pwg = adminMode ? 'pwg.people.getAdminList' : 'pwg.people.getList';
     this.#people = [];
     this.#selected_people_ids = [];
     this.#is_creation_mode = false;
     this.#loading_create = false;
+
+    if (!adminMode) {
+      const s = PeopleSelector.selectors;
+      s.people_selector_create.remove();
+      s.people_selector_create_check.closest('.people-selector-switch').remove();
+      s.people_selector_icon.closest('.modal-icon-container').remove();
+      s.people_selector_empty.text(str_people_selector_no_result);
+    }
+
+    if ('' !== modalTitle) {
+      $('#people_selector_title p').text(modalTitle);
+    }
   }
 
   /*-----------
@@ -158,7 +178,7 @@ class PeopleSelector {
     this.#people = [];
     this.#loading_create = false;
     s.people_selector_search.val('');
-    s.people_selector_search_status.html(str_no_search_in_progress);
+    s.people_selector_search_status.html(str_people_no_search_in_progress);
     s.people_selector_list.empty();
     s.people_selector_empty.hide();
     s.people_selector_error.hide();
@@ -208,12 +228,12 @@ class PeopleSelector {
       people_render_card(s.people_selector_list, person, i, (template, p) => {
         template.find('.people-card-menu, .people-card-dropdown').remove();
 
-        if ('true' == p.is_visible) {
+        if ('false' !== p.is_visible) {
           template.find('.people-card-lock').hide();
         }
 
         if (this.#selected_people_ids.includes(String(p.id))) {
-          template.addClass('notClickable').attr('title', str_people_already_associated);
+          template.addClass('notClickable').attr('title', this.#in_admin_mode ? str_people_already_associated : str_people_person_already_selected);
         }
       });
     });
@@ -245,7 +265,7 @@ class PeopleSelector {
     }
 
     $.ajax({
-      url: 'ws.php?format=json&method=pwg.people.getAdminList',
+      url: 'ws.php?format=json&method=' + this.#method_pwg,
       type: 'GET',
       dataType: 'json',
       data: data,
@@ -261,12 +281,12 @@ class PeopleSelector {
         this.#render_people();
 
         if ('' === search) {
-          s.people_selector_search_status.html(str_no_search_in_progress);
+          s.people_selector_search_status.html(str_people_no_search_in_progress);
           this.#people.length === 0 ? s.people_selector_empty.show() : s.people_selector_empty.hide();
         } else {
           s.people_selector_empty.hide();
           const total = res.result.paging.total;
-          s.people_selector_search_status.html(sprintf(1 == total ? str_person_found : str_people_found, total));
+          s.people_selector_search_status.html(sprintf(1 == total ? str_people_person_found : str_people_found, total));
         }
       },
       error: () => {

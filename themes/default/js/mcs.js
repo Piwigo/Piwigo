@@ -1,6 +1,9 @@
 $(document).ready(function () {
   /** @type {AlbumSelector} */
   let ab;
+  /** @type {PeopleSelector} */
+  let people_selector;
+  let selected_people_ids = [];
 
   $(".linkedAlbumPopInContainer .ClosePopIn").addClass(prefix_icon + "cancel");
   $(".linkedAlbumPopInContainer .searching").addClass(prefix_icon + "spin6").hide();
@@ -119,32 +122,45 @@ $(document).ready(function () {
   }
 
   // Setup people filter
-  $("#people-search").each(function() {
-    $(this).selectize({
-      plugins: ['remove_button'],
-      maxOptions:$(this).find("option").length,
-      items: global_params.fields.people ? global_params.fields.people.words : null,
-    });
-  });
-
   if (global_params.fields.people) {
     $(".filter-people").css("display", "flex");
     $(".filter-manager-controller.people").prop("checked", true);
     $(".filter-people-form .search-params input[value=" + global_params.fields.people.mode + "]").prop("checked", true);
 
-    people_search_str = "";
-    $("#people-search")[0].selectize.getValue().forEach(id => {
-      people_search_str += $("#people-search")[0].selectize.getItem(id).text().replace(/\(\d+ \w+\)×/, '').trim() + ", ";
+    selected_people_of_search.forEach(person => {
+      selected_people_ids.push(String(person.id));
+      display_selected_person(person.id, person.name);
     });
-    if (global_params.fields.people.words && global_params.fields.people.words.length > 0) {
+
+    if (selected_people_of_search.length > 0) {
       $(".filter-people").addClass("filter-filled");
-      $(".filter.filter-people .search-words").text(people_search_str.slice(0, -2));
+      $(".filter.filter-people .search-words").text(selected_people_of_search.map(person => person.name).join(", "));
     } else {
       $(".filter.filter-people .search-words").text(str_people_widget_label);
     }
 
+    people_selector = new PeopleSelector({
+      adminMode: false,
+      modalTitle: str_add_a_person,
+      selectPerson: ({ person }) => {
+        selected_people_ids.push(String(person.id));
+        display_selected_person(person.id, person.name);
+      },
+    });
+
+    $(".add-person-button").on("click", function () {
+      people_selector.open({ selectedPeopleIds: selected_people_ids });
+    });
+
+    $(".selected-people-container").on("click", ".remove-item", function () {
+      const person_id = String($(this).data("person-id"));
+      selected_people_ids = selected_people_ids.filter(id => id !== person_id);
+      $(this).parent().remove();
+    });
+
     $(".filter-people .filter-actions .clear").on('click', function () {
-      $("#people-search")[0].selectize.clear();
+      selected_people_ids = [];
+      $(".selected-people-container").empty();
       $(".filter-people .search-params input[value='AND']").prop('checked', true);
     });
 
@@ -966,7 +982,7 @@ $(document).ready(function () {
   $(".filter-people").on("click", function (e) {
     if ($(".filter-form").has(e.target).length != 0 ||
         $(e.target).hasClass("filter-form") ||
-        $(e.target).hasClass("remove")) {
+        $(e.target).hasClass("remove-item")) {
       return;
     }
     $(".filter-people-form").toggle(0, function () {
@@ -976,9 +992,9 @@ $(document).ready(function () {
         $(".filter-people").removeClass("show-filter-dropdown");
         global_params.fields.people = {};
         global_params.fields.people.mode = $(".filter-people-form .search-params input:checked").val();
-        global_params.fields.people.words = $("#people-search")[0].selectize.getValue();
+        global_params.fields.people.words = selected_people_ids;
 
-        PS_params.people = $("#people-search")[0].selectize.getValue().length > 0 ? $("#people-search")[0].selectize.getValue() : '';
+        PS_params.people = selected_people_ids.length > 0 ? selected_people_ids : '';
         PS_params.people_mode = $(".filter-people-form .search-params input:checked").val();
       }
     });
@@ -1528,6 +1544,15 @@ function display_related_category(cat_id, cat_link_path) {
       <span class="link-path">${cat_link_path}</span><span id="${cat_id}" class="mcs-icon ${prefix_icon}cancel remove-item"></span>
     </div>`
   );
+}
+
+function display_selected_person(person_id, person_name) {
+  const item = $(`<div class="breadcrumb-item">
+      <span class="link-path"></span><span class="mcs-icon ${prefix_icon}cancel remove-item"></span>
+    </div>`);
+  item.find(".link-path").text(person_name);
+  item.find(".remove-item").attr("data-person-id", person_id);
+  $(".selected-people-container").append(item);
 }
 
 function updateFilters(filterName, mode) {

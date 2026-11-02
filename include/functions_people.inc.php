@@ -879,32 +879,6 @@ SELECT i.id
 }
 
 /**
- * Visible people of the given images.
- *
- * @param int[] $image_ids
- * @return array
- */
-function get_common_people(array $image_ids)
-{
-  if (empty($image_ids))
-  {
-    return array();
-  }
-
-  $query = '
-SELECT p.id, p.name, p.url_name, COUNT(*) AS counter
-  FROM '.IMAGE_PERSON_TABLE.' AS ip
-    INNER JOIN '.PERSONS_TABLE.' AS p ON p.id = ip.person_id
-  WHERE ip.image_id IN ('.implode(',', $image_ids).')
-    AND p.is_visible = \'true\'
-  GROUP BY p.id
-  ORDER BY p.name
-;';
-
-  return query2array($query);
-}
-
-/**
  * Visible people with at least one image the current user can see.
  *
  * @param int[] $person_ids restrict to these people

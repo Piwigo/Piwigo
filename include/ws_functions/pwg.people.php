@@ -108,10 +108,11 @@ function ws_people_getList($params, &$service)
   foreach ($people as $i => $person)
   {
     $people[$i]['url'] = make_index_url(array('person' => $person));
+    $people[$i]['photos'] = $person['counter'];
     $people[$i]['cover'] = $person['cover_image_person_id']
     ? ($covers[ $person['cover_image_person_id'] ] ?? null)
     : null;
-    unset($people[$i]['cover_image_person_id']);
+    unset($people[$i]['cover_image_person_id'], $people[$i]['counter']);
   }
 
   return array(

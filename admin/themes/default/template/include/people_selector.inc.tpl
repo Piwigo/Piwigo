@@ -3,19 +3,21 @@
 {combine_css path="admin/themes/default/css/components/people_selector.css"}
 {combine_script id='people_selector' load=$load_mode path='admin/themes/default/js/people_selector.js'}
 {footer_script}
-  let str_no_search_in_progress = '{'No search in progress'|translate|escape:javascript}';
+  let str_people_no_search_in_progress = '{'No search in progress'|translate|escape:javascript}';
   let str_people_found = '{'<b>%d</b> people found'|translate|escape:javascript}';
-  let str_person_found = '{'<b>%d</b> person found'|translate|escape:javascript}';
+  let str_people_person_found = '{'<b>%d</b> person found'|translate|escape:javascript}';
   let str_people_already_associated = '{'Already associated'|translate|escape:javascript}';
   let str_people_selector_error = '{'An error has occured'|translate|escape:javascript}';
+  let str_people_person_already_selected = '{'Person already selected'|translate|escape:javascript}';
+  let str_people_selector_no_result = '{'No results'|translate|escape:javascript}';
 {/footer_script}
 
 <div class="bg-modal" id="people_selector_modal" style="display: none;">
   <div class="modal-content">
-    <a class="close-modal icon-cancel" id="people_selector_close"></a>
+    <a class="close-modal gallery-icon-cancel" id="people_selector_close"></a>
 
     <div class="modal-icon-container">
-      <span id="people_selector_icon" class="modal-icon-header icon-blue icon-user-1"></span>
+      <span id="people_selector_icon" class="modal-icon-header icon-blue gallery-icon-user"></span>
       <div class="people-selector-face" id="people_selector_face" style="display: none;"></div>
     </div>
     <div class="modal-title-header" id="people_selector_title">
@@ -27,7 +29,7 @@
       {* PEOPLE SELECTOR SEARCH *}
       <div class="people-selector-search-container" id="people_selector_search_container">
         <div class="people-search">
-          <span class="icon-search search-icon"></span>
+          <span class="gallery-icon-search search-icon"></span>
           <input id="people_selector_search" class="search-input people-selector-search" type="text" placeholder="{'Search'|translate}" />
         </div>
 
@@ -64,5 +66,5 @@
 
   </div>
 </div>
-{include file='include/person_card.inc.tpl'}
+{include file='admin/themes/default/template/include/person_card.inc.tpl'}
 {/if}

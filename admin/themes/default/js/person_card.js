@@ -52,7 +52,7 @@ function people_render_card(selector, person, index = null, dropdown_func = null
   template.find('.people-card-lock').tipTip(people_tiptip_config);
 
   template.find('.people-dropdown-photos').text(
-    photos === 0 ? '~' : sprintf(str_x_photos, Number(person.photos))
+    photos === 0 ? '~' : sprintf(str_people_x_photos, Number(person.photos))
   );
 
   if (typeof index === 'number') {
