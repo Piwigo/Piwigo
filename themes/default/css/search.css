@@ -255,6 +255,7 @@
 }
 
 .word-search-options,
+.filter-people-form .search-params,
 .filter-tag-form .search-params,
 .filter-authors .search-params,
 .filter-album-form .search-params {
@@ -432,6 +433,7 @@
 }
 
 .filter-author-form,
+.filter-people-form,
 .filter-tag-form{
   min-width: 400px;
 }
@@ -748,8 +750,80 @@
   display: none;
 }
 
-.filter-album-form .add-album-button {
+.filter-album-form .add-album-button,
+.filter-people-form .add-person-button {
   width: fit-content;
+}
+
+.selected-people-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.filter-people-form .add-person-button {
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+#people_selector_modal .modal-icon-container {
+  align-self: center;
+}
+
+#people_selector_modal .modal-icon-header {
+  padding: 10px;
+  font-size: 2em;
+}
+
+#people_selector_modal .modal-title-header {
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: center;
+  margin: 15px 0 10px 0;
+}
+
+#people_selector_modal .modal-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#people_selector_modal .modal-footer {
+  width: 100%;
+  margin-top: 20px;
+}
+
+#people_selector_modal .people-search {
+  position: relative;
+}
+
+#people_selector_modal .search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translate(8px, -50%);
+  font-size: 16px;
+}
+
+#people_selector_modal .search-input {
+  padding: 10px 10px 10px 32px;
+  margin-bottom: 0;
+}
+
+#tiptip_holder {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+}
+
+#tiptip_content {
+  font-size: 11px;
+  color: #fff;
+  padding: 4px 8px;
+  background-color: rgba(25,25,25,0.92);
+  border-radius: 3px;
 }
 
 .filetypes-option,

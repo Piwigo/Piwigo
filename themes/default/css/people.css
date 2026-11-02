@@ -1,0 +1,126 @@
+.people-avatars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 3px 0;
+}
+
+.people-person {
+  position: relative;
+}
+
+.people-avatar {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #999999;
+  background-color: #cccccc;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.people-avatar:focus {
+  outline: none;
+}
+
+.people-avatar:focus-visible,
+.people-person-selected .people-avatar {
+  border-color: #FFA646;
+}
+
+.people-avatar-empty,
+.people-avatar-empty:hover {
+  color: #555555;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 36px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.people-tooltip {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + 8px);
+  left: 0;
+  padding: 6px 10px;
+  background: #e0e0e0;
+  color: #222222;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  line-height: 18px;
+  font-size: 13px;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.people-tooltip::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8px;
+  height: 8px;
+}
+
+.people-tooltip b,
+.people-tooltip i,
+.people-tooltip a {
+  display: block;
+}
+
+.people-tooltip a,
+.people-tooltip a:hover {
+  margin-top: 4px;
+  color: #a34a00;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.people-person:focus-within .people-tooltip {
+  display: block;
+}
+
+@media (hover: hover) {
+  .people-person:hover .people-avatar {
+    border-color: #FFA646;
+  }
+
+  .people-person:hover .people-tooltip {
+    display: block;
+  }
+}
+
+@media (hover: none) {
+  .people-person-selected .people-tooltip {
+    display: block;
+  }
+
+  .people-tooltip i {
+    display: none;
+  }
+}
+
+.people-frame {
+  position: absolute;
+  z-index: 50;
+  border: 3px solid #FFA646;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.people-frame-name {
+  position: absolute;
+  bottom: 100%;
+  left: -3px;
+  padding: 0 6px;
+  background: #FFA646;
+  color: #493C21;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 20px;
+  white-space: nowrap;
+}

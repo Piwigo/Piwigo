@@ -1112,6 +1112,7 @@ $conf['default_filters_views'] = array(
   'height'         => ['access'=>'everybody', 'default'=>false],
   'width'          => ['access'=>'everybody', 'default'=>false],
   'expert'         => ['access'=>'everybody', 'default'=>false],
+  'people'         => ['access'=>'everybody', 'default'=>false],
 
   'last_filters_conf' => true,
 );

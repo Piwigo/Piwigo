@@ -31,6 +31,9 @@ if ('search' == $page['section'] and isset($page['search_details']))
     }
   }
 
+  $display_filters['people']['access'] = !empty($display_filters['people']['access']) && can_see_people();
+  $template->assign('SHOW_PEOPLE_FILTER', $display_filters['people']['access']);
+
   include_once(PHPWG_ROOT_PATH.'include/functions_search.inc.php');
 
   $my_search = get_search_array($page['search']);
@@ -105,6 +108,19 @@ if ('search' == $page['section'] and isset($page['search_details']))
   else if (isset($my_search['fields']['tags']) and !($display_filters['tags']['access']))
   {
     unset($my_search['fields']['tags']);
+  }
+
+  if (isset($my_search['fields']['people']) && $display_filters['people']['access'])
+  {
+    $filter_people = empty($my_search['fields']['people']['words']) ? array() : get_available_people($my_search['fields']['people']['words']);
+
+    $template->assign('PEOPLE', $filter_people);
+
+    $my_search['fields']['people']['words'] = array_values(array_intersect($my_search['fields']['people']['words'], array_column($filter_people, 'id')));
+  }
+  else if (isset($my_search['fields']['people']))
+  {
+    unset($my_search['fields']['people']);
   }
 
   if (isset($my_search['fields']['expert']))

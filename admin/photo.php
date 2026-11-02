@@ -75,6 +75,10 @@ elseif ('formats' == $page['tab'] && $conf['enable_formats'])
 {
   include(PHPWG_ROOT_PATH.'admin/picture_formats.php');
 }
+elseif ('people' == $page['tab'])
+{
+  include(PHPWG_ROOT_PATH.'admin/picture_people.php');
+}
 else
 {
   include(PHPWG_ROOT_PATH.'admin/photo_'.$page['tab'].'.php');

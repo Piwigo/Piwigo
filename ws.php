@@ -1473,6 +1473,14 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
           'flags' => WS_PARAM_OPTIONAL,
           'info' => 'AND (by default) | OR',
         ),
+        'people' => array(
+          'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
+          'type' => WS_TYPE_ID,
+        ),
+        'people_mode' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'AND (by default) | OR',
+        ),
         'categories' => array(
           'flags' => WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY,
           'type' => WS_TYPE_ID,
@@ -1708,6 +1716,299 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'admin_only'=>true,
         'post_only'=>true
         )
+    );
+
+    $service->addMethod(
+      'pwg.people.getList',
+      'ws_people_getList',
+      array(
+        'search' => array(
+          'default' => null,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'per_page' => array(
+          'default' => 50,
+          'maxValue' => 1000,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL,
+        ),
+        'page' => array(
+          'default' => 0,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+      ),
+      'Retrieves the visible people with at least one photo available to the current user.',
+      $ws_functions_root . 'pwg.people.php'
+    );
+
+    $service->addMethod(
+      'pwg.people.getAdminList',
+      'ws_people_getAdminList',
+      array(
+        'search' => array(
+          'default' => null,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'is_visible' => array(
+          'type' => WS_TYPE_BOOL,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'per_page' => array(
+          'default' => 50,
+          'maxValue' => 1000,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL,
+        ),
+        'page' => array(
+          'default' => 0,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+      ),
+      '<b>Admin only.</b>',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden'    => false,
+        'post_only' => false,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.add',
+      'ws_people_add',
+      array(
+        'name' => array(),
+        'is_visible' => array(
+          'type' => WS_TYPE_BOOL,
+        ),
+        'source' => array(
+          'default' => 'manual',
+          'info' => 'manual,auto,imported'
+        ),
+        'pwg_token' => array(),
+      ),
+      'Add a new person.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden'    => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.edit',
+      'ws_people_edit',
+      array(
+        'person_id' => array(
+          'type' => WS_TYPE_ID,
+          'flags' => WS_PARAM_FORCE_ARRAY,
+          'info' => 'several ids only for is_visible and source',
+        ),
+        'name' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'is_visible' => array(
+          'type' => WS_TYPE_BOOL,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'source' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'manual,auto,imported'
+        ),
+        'user_id' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => '0 to dissociate the user',
+        ),
+        'cover_image_person_id' => array(
+          'type' => WS_TYPE_ID,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'pwg_token' => array(),
+      ),
+      'Edit a person.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden'    => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.delete',
+      'ws_people_delete',
+      array(
+        'people_ids' => array(
+          'type' => WS_TYPE_ID,
+          'flags' => WS_PARAM_FORCE_ARRAY,
+        ),
+        'pwg_token' => array(),
+        ),
+      'Delete people by ID.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden'    => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.associate',
+      'ws_people_associate',
+      array(
+        'image_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'box_x1' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'box_y1' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'box_x2' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'box_y2' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'image_width' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'image_height' => array(
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'source' => array(
+          'default' => 'manual',
+          'info' => 'manual,auto,imported'
+        ),
+        'pwg_token' => array(),
+      ),
+      'Associate a person to an image, or update the box of the association. The box is optional, all or none of box_x1, box_y1, box_x2, box_y2, image_width and image_height. It is in pixels of the image as displayed, after the EXIF rotation, at image_width x image_height.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.dissociate',
+      'ws_people_dissociate',
+      array(
+        'image_person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'pwg_token' => array(),
+      ),
+      'Dissociate a person from an image.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.getByImage',
+      'ws_people_getByImage',
+      array(
+        'image_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+      ),
+      '<b>Admin only.</b> Returns the people of an image.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => false,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.getImages',
+      'ws_people_getImages',
+      array(
+        'person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'per_page' => array(
+          'default' => 100,
+          'maxValue' => $conf['ws_max_images_per_page'],
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL,
+        ),
+        'page' => array(
+          'default' => 0,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+        'identified' => array(
+          'default' => false,
+          'type' => WS_TYPE_BOOL,
+          'info' => 'only the images where the face is identified',
+        ),
+      ),
+      '<b>Admin only.</b> Returns the images of a person.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => false,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.setImagePeople',
+      'ws_people_setImagePeople',
+      array(
+        'image_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'people' => array(
+          'info' => 'JSON list of {person_id, box_x1, box_y1, box_x2, box_y2, image_width, image_height}, box fields null for no box, in pixels of the image as displayed (after the EXIF rotation). [] removes everyone.',
+        ),
+        'pwg_token' => array(),
+      ),
+      'Replace the people of an image. The list is checked before writing, an invalid list changes nothing.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
+    );
+
+    $service->addMethod(
+      'pwg.people.merge',
+      'ws_people_merge',
+      array(
+        'destination_person_id' => array(
+          'type' => WS_TYPE_ID,
+        ),
+        'merge_person_id' => array(
+          'type' => WS_TYPE_ID,
+          'flags' => WS_PARAM_FORCE_ARRAY,
+        ),
+        'pwg_token' => array(),
+      ),
+      'Merge people into a destination person, then delete them. The destination keeps its name, visibility and cover, and gets the user of a merged person if it has none.',
+      $ws_functions_root . 'pwg.people.php',
+      array(
+        'hidden' => false,
+        'post_only' => true,
+        'admin_only' => true,
+      )
     );
 }
 

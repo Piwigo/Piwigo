@@ -67,10 +67,10 @@ for(const filter_name of filters_names){
         <label class="font-checkbox">
           <span class="icon-check"></span>
           <input type="checkbox" class="filters-icon-check" name="filters_views_box[{$filter_name}]" id="{$filter_name}Filters" 
-          {if ($search.filters_views.$filter_name.access != 'nobody' and !($filter_name == 'rating' and !$SHOW_FILTER_RATINGS))}
+          {if ($search.filters_views.$filter_name.access != 'nobody' and !($filter_name == 'rating' and !$SHOW_FILTER_RATINGS) and !($filter_name == 'people' and $PEOPLE_ACCESS == 'nobody'))}
             checked="checked"
-          {/if} 
-          {if ($filter_name == 'rating' and !$SHOW_FILTER_RATINGS)}
+          {/if}
+          {if ($filter_name == 'rating' and !$SHOW_FILTER_RATINGS) or ($filter_name == 'people' and $PEOPLE_ACCESS == 'nobody')}
             disabled
           {/if}
           >
@@ -91,6 +91,9 @@ for(const filter_name of filters_names){
           <option value="admins-only" id="{$filter_name}Admin" {if ($search.filters_views.$filter_name.access == "admins-only")}selected{/if}>{'Admins only'|translate}</option>
         </select>
         <div class='icon-users select-views-admin' id="{$filter_name}AdminIcon"> </div>
+        {if $filter_name == 'people' and ($PEOPLE_ACCESS == 'registered-users' or $PEOPLE_ACCESS == 'groups')}
+        <p class="filters-grid-note">{'Limited by the People permission in General'|translate}</p>
+        {/if}
       </li>
       {/foreach}
     </ul>
@@ -217,7 +220,15 @@ for(const filter_name of filters_names){
       <input type="checkbox" class="filter-manager-options-check" name="filters_views[expert][default]" id="default_expert" 
       {if ($search.filters_views.expert.default)}
         checked="checked"
-      {/if} 
+      {/if}
+      hidden/>
+    </label>
+    <label class="filter-manager-options-container">
+      <span class="mcs-icon-options gallery-icon-user">{'People'|translate}</span>
+      <input type="checkbox" class="filter-manager-options-check" name="filters_views[people][default]" id="default_people"
+      {if ($search.filters_views.people.default)}
+        checked="checked"
+      {/if}
       hidden/>
     </label>
   </fieldset>

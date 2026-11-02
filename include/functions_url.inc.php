@@ -327,6 +327,7 @@ function make_section_in_url($params)
     $section_of = array(
       'category' => 'categories',
       'tags'     => 'tags',
+      'person'   => 'people',
       'list'     => 'list',
       'search'   => 'search',
       );
@@ -425,6 +426,16 @@ function make_section_in_url($params)
               $section_string.= '-'.$tag['url_name'];
             }
         }
+      }
+
+      break;
+    }
+    case 'people' :
+    {
+      $section_string.= '/people/'.$params['person']['id'];
+      if (!empty($params['person']['url_name']))
+      {
+        $section_string.= '-'.$params['person']['url_name'];
       }
 
       break;
@@ -622,6 +633,25 @@ function parse_section_url( $tokens, &$next_token)
     {
       page_not_found(l10n('Requested tag does not exist'), get_root_url().'tags.php' );
     }
+  }
+  elseif ( 'people' == @$tokens[$next_token] )
+  {
+    $next_token++;
+
+    if (!isset($tokens[$next_token]) or !preg_match('/^(\d+)(?:-.*)?$/', $tokens[$next_token], $matches))
+    {
+      bad_request('a person id is required');
+    }
+    $next_token++;
+
+    $person = get_person_by_id($matches[1]);
+    if (!can_see_people() or empty($person) or 'true' != $person['is_visible'])
+    {
+      page_not_found(l10n('Requested person does not exist'), get_root_url());
+    }
+
+    $page['section'] = 'people';
+    $page['person'] = $person;
   }
   elseif ( 'favorites' == @$tokens[$next_token] )
   {

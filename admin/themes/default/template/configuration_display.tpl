@@ -292,6 +292,14 @@
       <li>
         <label class="font-checkbox">
           <span class="icon-check"></span>
+          <input type="checkbox" name="picture_informations[people]" {if !empty($display.picture_informations.people)}checked="checked"{/if}>
+          {'People'|translate}
+        </label>
+      </li>
+
+      <li>
+        <label class="font-checkbox">
+          <span class="icon-check"></span>
           <input type="checkbox" name="picture_informations[categories]" {if ($display.picture_informations.categories)}checked="checked"{/if}>
           {'Albums'|translate}
         </label>

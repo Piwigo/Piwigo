@@ -304,6 +304,26 @@ DELETE FROM '.IMAGE_TAG_TABLE.'
 ;';
   pwg_query($query);
 
+  // destruction of the links between images and people, covers included,
+  // the people who lose their cover get another identified photo
+  $query = '
+SELECT
+    id,
+    person_id
+  FROM '.IMAGE_PERSON_TABLE.'
+  WHERE image_id IN ('. $ids_str .')
+;';
+  $image_people = query2array($query);
+  unset_people_cover(array_column($image_people, 'id'));
+
+  $query = '
+DELETE FROM '.IMAGE_PERSON_TABLE.'
+  WHERE image_id IN ('. $ids_str .')
+;';
+  pwg_query($query);
+
+  refresh_people_cover(array_unique(array_column($image_people, 'person_id')));
+
   // destruction of the favorites associated with the picture
   $query = '
 DELETE FROM '.FAVORITES_TABLE.'
@@ -2766,6 +2786,7 @@ function get_active_menu($menu_page)
     case 'photos_add':
     case 'rating':
     case 'tags':
+    case 'people':
     case 'batch_manager':
       return 0;
 
@@ -2782,7 +2803,7 @@ function get_active_menu($menu_page)
     case 'group_list':
     case 'group_perm':
     case 'notification_by_mail':
-    case 'user_activity';
+    case 'user_activity':
       return 2;
 
     case 'site_manager':
@@ -3435,7 +3456,7 @@ function update_images_lastmodified($image_ids)
 {
   if (!is_array($image_ids) and is_int($image_ids))
   {
-    $images_ids = array($image_ids);
+    $image_ids = array($image_ids);
   }
   
   if (count($image_ids) == 0)

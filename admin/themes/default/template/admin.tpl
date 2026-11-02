@@ -41,6 +41,7 @@ $('#menubar').lightAccordion({
         <li><a href="{$U_RATING}"><i class="icon-star"></i>{'Rating'|@translate}</a></li>
 {/if}
 				<li><a href="{$U_TAGS}"><i class="icon-tags"></i>{'Tags'|@translate}</a></li>
+				<li><a href="{$U_PEOPLE}"><i class="icon-user-1"></i>{'People'|@translate}</a></li>
 				<li><a href="{$U_RECENT_SET}"><i class="icon-clock"></i>{'Recent photos'|@translate}</a></li>
 				<li><a href="{$U_BATCH}"><i class="icon-th"></i>{'Batch Manager'|@translate}</a></li>
 {if $NB_PHOTOS_IN_CADDIE > 0}

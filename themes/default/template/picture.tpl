@@ -215,6 +215,29 @@ y.callService(
 		</dd>
 	</div>
 	{/if}
+	{if isset($related_people)}
+	{combine_css path="themes/default/css/people.css"}
+	{combine_script id='picture_people' load='footer' require='jquery' path='themes/default/js/picture_people.js'}
+	<div id="People" class="imageInfo">
+		<dt>{'People'|@translate}</dt>
+		<dd><div class="people-avatars">
+		{foreach from=$related_people item=person}
+			<div class="people-person"{if isset($person.face)} data-name="{$person.name|escape:html}" data-box="{$person.box_x1},{$person.box_y1},{$person.box_x2},{$person.box_y2}" data-width="{$person.image_width}"{/if}>
+				{if isset($person.face)}
+				<a class="people-avatar" href="{$person.URL}" style="background-size:{$person.face.size}% auto;background-position:{$person.face.x}% {$person.face.y}%;"></a>
+				{else}
+				<a class="people-avatar people-avatar-empty" href="{$person.URL}">{$person.initial|escape:html}</a>
+				{/if}
+				<div class="people-tooltip">
+					<b>{$person.name|escape:html}</b>
+					{if isset($person.face)}<i>{'Click to highlight on the photo'|@translate}</i>{/if}
+					<a href="{$person.URL}">{'See all the photos'|@translate}</a>
+				</div>
+			</div>
+		{/foreach}
+		</div></dd>
+	</div>
+	{/if}
 	{if $display_info.categories and isset($related_categories)}
 	<div id="Categories" class="imageInfo">
 		<dt>{'Albums'|@translate}</dt>

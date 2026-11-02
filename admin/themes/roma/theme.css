@@ -483,7 +483,8 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 .AddUserPopInContainer .AddIconTitle,
 .AddAlbumPopInContainer .AddIconTitle,
 .DeleteAlbumPopInContainer .DeleteIconTitle,
-.RenameAlbumPopInContainer .RenameAlbumTitle  {
+.RenameAlbumPopInContainer .RenameAlbumTitle,
+.modal-title-header  {
   color: #777;
 }
 .AddUserPopInContainer .AddUserInput,
@@ -2246,6 +2247,17 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   background-color: #333 !important;
 }
 
+/* Modal */
+
+.modal-input {
+  color: #777;
+  background-color: #252525 !important;
+}
+
+.modal-footer-close:hover {
+  color: #e0e0e0;
+}
+
 /* Batch manager, unit mode */
 
 .elementEdit{
@@ -2360,6 +2372,9 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
   background-color: #444444;
   color: #898888;
   border: 1px solid #666;
+}
+.filters-grid-note{
+  color: #aaa;
 }
 
 .filter-manager-options-container{
@@ -2478,6 +2493,7 @@ div.success .jGrowl-popup-icon,
 .errors,
 .info-error,
 .AddUserErrors,
+.modal-footer-error,
 .groupError,
 div.jGrowl div.jGrowl-notification.error,
 .PluginActionError label,
@@ -2492,6 +2508,7 @@ div.jGrowl div.jGrowl-notification.error,
 
 .errors,
 .AddUserErrors,
+.modal-footer-error,
 .AddAlbumErrors{
   border-left: 6px solid #FFC8C8; /*Banner*/
 }
@@ -2511,6 +2528,7 @@ div.jGrowl div.jGrowl-notification.error,
 
 .errors i,
 .AddUserErrors:before,
+.modal-footer-error::before,
 .groupError::before,
 div.error .jGrowl-popup-icon,
 .PluginActionError label::before {
@@ -2581,4 +2599,29 @@ div.error .jGrowl-popup-icon,
 
 .messages a:hover{
   color: #E4EEFF;
+}
+
+/* People */
+
+.people-page .people-selection-controller a {
+  background-color: #333;
+}
+
+.people-page .people-selection-controller p {
+  color: #c1c1c1;
+}
+
+.people-page .people-card-selected .people-card-name,
+.people-page .people-card-selected i.people-card-header {
+  color: #3c3c3c;
+}
+
+.people-page .people-card-selected .people-card-check {
+  background-color: #c76a23;
+  border-color: #c76a23;
+}
+
+/* same color as the selection list of the tags */
+.people-page .people-selection-list {
+  color: #c0c0c0;
 }

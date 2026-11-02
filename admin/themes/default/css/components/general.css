@@ -278,6 +278,7 @@ Info
 .messages,
 #photosAddContent .infos,
 .AddUserErrors,
+.modal-footer-error,
 .AddAlbumErrors, 
 .EditUserErrors, 
 .update-password-fail, 
@@ -293,7 +294,8 @@ Info
   border-radius:0px;
 }
 
-.AddUserErrors{
+.AddUserErrors,
+.modal-footer-error{
   margin:10px 0;
 }
 

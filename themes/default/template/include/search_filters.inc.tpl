@@ -33,6 +33,9 @@ user_rank = "none";
 
 str_word_widget_label = "{'Search for words'|@translate|escape:javascript}";
 str_tags_widget_label = "{'Tag'|@translate|escape:javascript}";
+str_people_widget_label = "{'People'|@translate|escape:javascript}";
+str_add_a_person = "{'Add a person'|@translate|escape:javascript}";
+{if isset($PEOPLE)}selected_people_of_search = {$PEOPLE|@json_encode};{/if}
 str_album_widget_label = "{'Album'|@translate|escape:javascript}";
 str_author_widget_label = "{'Author'|@translate|escape:javascript}";
 str_added_by_widget_label = "{'Added by'|@translate|escape:javascript}";
@@ -120,6 +123,12 @@ const prefix_icon = 'gallery-icon-';
         <label>
           <input data-wid='tag' class="filter-manager-controller tags" type="checkbox"/>
           <span class="mcs-icon gallery-icon-tag">{'Tag'|@translate}</span>
+        </label>
+        {/if}
+        {if !empty($SHOW_PEOPLE_FILTER)}
+        <label>
+          <input data-wid='people' class="filter-manager-controller people" type="checkbox"/>
+          <span class="mcs-icon gallery-icon-user">{'People'|@translate}</span>
         </label>
         {/if}
         {if $display_filter.post_date.access == 'everybody' or ($display_filter.post_date.access == 'admins-only' and is_admin()) or ($display_filter.post_date.access == 'registered-users' and is_classic_user())}
@@ -308,6 +317,43 @@ const prefix_icon = 'gallery-icon-';
       </div>
     </div>
   </div>
+{/if}
+
+{if isset($PEOPLE)}
+  <div class="filter filter-people">
+    <span class="mcs-icon gallery-icon-user filter-icon"></span>
+    <span class="search-words"></span>
+    <span class="filter-arrow gallery-icon-up-open"></span>
+
+    <div class="filter-form filter-people-form">
+      <div class="filter-form-title gallery-icon-user">{'People'|@translate}</div>
+      <div class="filter-actions">
+        <span class="delete mcs-icon gallery-icon-trash">{'Delete'|@translate}</span>
+        <span class="clear mcs-icon gallery-icon-arrow-rotate-left">{'Clear'|@translate}</span>
+      </div>
+      <div class="search-params">
+        <div>
+          <input type="radio" id="people-all" name="people_mode" value="AND" checked>
+          <label for="people-all">{'All people'|@translate}</label>
+        </div>
+        <div>
+          <input type="radio" id="people-one" name="people_mode" value="OR">
+          <label for="people-one">{'Any person'|@translate}</label>
+        </div>
+      </div>
+      <div class="selected-people-container"></div>
+      <div class="add-person-button">
+        <label class="head-button-2">
+          <p class="mcs-icon gallery-icon-plus-circled">{'Add a person'|@translate}</p>
+        </label>
+      </div>
+      <div class="filter-validate">
+        <i class="loading gallery-icon-spin6 animate-spin"></i>
+        <span class="validate-text">{'Validate'|@translate}</span>
+      </div>
+    </div>
+  </div>
+  {include file='admin/themes/default/template/include/people_selector.inc.tpl' load_mode='footer'}
 {/if}
 
 {* For post date *}

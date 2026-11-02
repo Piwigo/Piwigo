@@ -108,5 +108,9 @@ if (!defined('ACTIVITY_TABLE'))
   define('ACTIVITY_TABLE', $prefixeTable.'activity');
 if (!defined('LOUNGE_TABLE'))
   define('LOUNGE_TABLE', $prefixeTable.'lounge');
+if (!defined('PERSONS_TABLE'))
+  define('PERSONS_TABLE', $prefixeTable.'persons');
+if (!defined('IMAGE_PERSON_TABLE'))
+  define('IMAGE_PERSON_TABLE', $prefixeTable.'image_person');
 
 ?>

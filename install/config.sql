@@ -52,7 +52,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_menu','false','
 INSERT INTO piwigo_config (param,value,comment)
   VALUES (
     'picture_informations',
-    'a:11:{s:6:"author";b:1;s:10:"created_on";b:1;s:9:"posted_on";b:1;s:10:"dimensions";b:0;s:4:"file";b:0;s:8:"filesize";b:0;s:4:"tags";b:1;s:10:"categories";b:1;s:6:"visits";b:1;s:12:"rating_score";b:1;s:13:"privacy_level";b:1;}',
+    'a:12:{s:6:"author";b:1;s:10:"created_on";b:1;s:9:"posted_on";b:1;s:10:"dimensions";b:0;s:4:"file";b:0;s:8:"filesize";b:0;s:4:"tags";b:1;s:6:"people";b:1;s:10:"categories";b:1;s:6:"visits";b:1;s:12:"rating_score";b:1;s:13:"privacy_level";b:1;}',
     'Information displayed on picture page'
   );
 INSERT INTO piwigo_config (param,value,comment) VALUES ('week_starts_on','monday','Monday may not be the first day of the week');
@@ -80,3 +80,5 @@ INSERT INTO piwigo_config (param,value) VALUES ('index_search_in_set_action','tr
 INSERT INTO piwigo_config (param,value) VALUES ('upload_detect_duplicate','true');
 INSERT INTO piwigo_config (param,value) VALUES ('webmaster_id','1');
 INSERT INTO piwigo_config (param,value) VALUES ('use_standard_pages','true');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('people_access','registered-users','Who can see people in the gallery: nobody, everybody, registered-users or groups');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('people_access_groups','a:0:{}','Groups allowed to see people when people_access is groups');

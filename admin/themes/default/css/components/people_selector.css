@@ -1,0 +1,64 @@
+#people_selector_modal .modal-content {
+  width: 500px;
+  max-width: calc(100vw - 100px);
+}
+
+.people-selector-face {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  margin: 0 auto;
+}
+
+.people-selector-search {
+  width: 100%;
+  margin: unset;
+  box-sizing: border-box;
+}
+
+.people-selector-search-container {
+  text-align: center;
+}
+
+.people-selector-empty {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.people-selector-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 10px;
+  max-height: 340px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.people-selector-list .people-card {
+  cursor: pointer;
+}
+
+.people-selector-list .people-card.notClickable {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.people-selector-create {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.people-selector-create .buttonLike {
+  align-self: flex-end;
+}
+
+.people-selector-switch {
+  display: flex;
+  align-items: center;
+}
