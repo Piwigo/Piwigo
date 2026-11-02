@@ -1719,6 +1719,28 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
     );
 
     $service->addMethod(
+      'pwg.people.getList',
+      'ws_people_getList',
+      array(
+        'search' => array(
+          'default' => null,
+          'flags' => WS_PARAM_OPTIONAL,
+        ),
+        'per_page' => array(
+          'default' => 50,
+          'maxValue' => 1000,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL,
+        ),
+        'page' => array(
+          'default' => 0,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE,
+        ),
+      ),
+      'Retrieves the visible people with at least one photo available to the current user.',
+      $ws_functions_root . 'pwg.people.php'
+    );
+
+    $service->addMethod(
       'pwg.people.getAdminList',
       'ws_people_getAdminList',
       array(

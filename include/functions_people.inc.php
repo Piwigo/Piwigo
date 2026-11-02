@@ -908,12 +908,13 @@ SELECT p.id, p.name, p.url_name, COUNT(*) AS counter
  * Visible people with at least one image the current user can see.
  *
  * @param int[] $person_ids restrict to these people
+ * @param string $search restrict to the names containing this text
  * @return array
  */
-function get_available_people(array $person_ids = array())
+function get_available_people(array $person_ids = array(), string $search = '')
 {
   $query = '
-SELECT p.id, p.name, p.url_name, COUNT(DISTINCT ip.image_id) AS counter
+SELECT p.id, p.name, p.url_name, p.cover_image_person_id, COUNT(DISTINCT ip.image_id) AS counter
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.IMAGE_PERSON_TABLE.' AS ip ON ic.image_id = ip.image_id
     INNER JOIN '.PERSONS_TABLE.' AS p ON p.id = ip.person_id
@@ -933,12 +934,95 @@ SELECT p.id, p.name, p.url_name, COUNT(DISTINCT ip.image_id) AS counter
     AND p.id IN ('.implode(',', $person_ids).')';
   }
 
+  if ('' !== $search)
+  {
+    $query.= '
+    AND p.name LIKE \'%'.pwg_db_real_escape_string($search).'%\'';
+  }
+
   $query.= '
   GROUP BY p.id
   ORDER BY p.name
 ;';
 
   return query2array($query);
+}
+
+/**
+ * Faces used as covers, the front crops them from the image.
+ *
+ * @param int[] $image_person_ids
+ * @param bool $use_permissions only the covers on images the current user can see
+ * @return array covers by image_person id
+ */
+function get_people_covers(array $image_person_ids, bool $use_permissions = false)
+{
+  $image_person_ids = array_filter($image_person_ids);
+  if (empty($image_person_ids))
+  {
+    return array();
+  }
+
+  $query = '
+SELECT
+    ip.id AS image_person_id,
+    ip.box_x1,
+    ip.box_y1,
+    ip.box_x2,
+    ip.box_y2,
+    ip.image_width,
+    ip.image_height,
+    i.id,
+    i.path,
+    i.file,
+    i.representative_ext,
+    i.width,
+    i.height,
+    i.rotation
+  FROM '.IMAGE_PERSON_TABLE.' AS ip
+    INNER JOIN '.IMAGES_TABLE.' AS i ON i.id = ip.image_id';
+
+  if ($use_permissions)
+  {
+    $query.= '
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id = ic.image_id';
+  }
+
+  $query.= '
+  WHERE ip.id IN ('.implode(',', $image_person_ids).')';
+
+  if ($use_permissions)
+  {
+    $query.= get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'ic.category_id',
+        'visible_categories' => 'ic.category_id',
+        'visible_images' => 'i.id',
+      ),
+      "\n    AND"
+    );
+  }
+
+  $query.= '
+;';
+
+  $covers = array();
+  $result = pwg_query($query);
+
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $covers[ $row['image_person_id'] ] = array(
+      'src' => DerivativeImage::url(IMG_MEDIUM, new SrcImage($row)),
+      'box_x1' => $row['box_x1'],
+      'box_y1' => $row['box_y1'],
+      'box_x2' => $row['box_x2'],
+      'box_y2' => $row['box_y2'],
+      'image_width' => $row['image_width'],
+      'image_height' => $row['image_height'],
+    );
+  }
+
+  return $covers;
 }
 
 /**

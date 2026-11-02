@@ -57,54 +57,7 @@ SELECT
 
   $people = query2array($query);
 
-  // cover of each person, the face is cropped from the image by the front
-  $cover_ids = array();
-  foreach ($people as $person)
-  {
-    if (!empty($person['cover_image_person_id']))
-    {
-      $cover_ids[] = $person['cover_image_person_id'];
-    }
-  }
-
-  $covers = array();
-  if (count($cover_ids) > 0)
-  {
-    $query = '
-SELECT
-    ip.id AS image_person_id,
-    ip.box_x1,
-    ip.box_y1,
-    ip.box_x2,
-    ip.box_y2,
-    ip.image_width,
-    ip.image_height,
-    i.id,
-    i.path,
-    i.file,
-    i.representative_ext,
-    i.width,
-    i.height,
-    i.rotation
-  FROM '.IMAGE_PERSON_TABLE.' AS ip
-    INNER JOIN '.IMAGES_TABLE.' AS i ON i.id = ip.image_id
-  WHERE ip.id IN ('.implode(',', $cover_ids).')
-;';
-    $result = pwg_query($query);
-
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $covers[ $row['image_person_id'] ] = array(
-        'src' => DerivativeImage::url(IMG_MEDIUM, new SrcImage($row)),
-        'box_x1' => $row['box_x1'],
-        'box_y1' => $row['box_y1'],
-        'box_x2' => $row['box_x2'],
-        'box_y2' => $row['box_y2'],
-        'image_width' => $row['image_width'],
-        'image_height' => $row['image_height'],
-      );
-    }
-  }
+  $covers = get_people_covers(array_column($people, 'cover_image_person_id'));
 
   foreach ($people as $i => $person)
   {
@@ -134,25 +87,42 @@ SELECT COUNT(*) AS nb
 
 /**
  * API method
- * Returns a list of people
+ * Returns the people the current user can see
  * @param mixed[] $params
- *    @option int[] user_id (optional)
- *    @option string username (optional)
- *    @option string[] status (optional)
- *    @option int min_level (optional)
- *    @option int max_level (optional)
- *    @option int[] group_id (optional)
+ *    @option string search (optional)
  *    @option int per_page
  *    @option int page
- *    @option string order
- *    @option string display
- *    @option string filter
- *    @option int[] exclude (optional)
- *    @option string min_register
- *    @option string max_register
  */
 function ws_people_getList($params, &$service)
 {
+  if (!can_see_people())
+  {
+    return new PwgError(403, 'Forbidden');
+  }
+
+  $available = get_available_people(array(), $params['search'] ?? '');
+  $people = array_slice($available, $params['page'] * $params['per_page'], $params['per_page']);
+
+  $covers = get_people_covers(array_column($people, 'cover_image_person_id'), true);
+
+  foreach ($people as $i => $person)
+  {
+    $people[$i]['url'] = make_index_url(array('person' => $person));
+    $people[$i]['cover'] = $person['cover_image_person_id']
+    ? ($covers[ $person['cover_image_person_id'] ] ?? null)
+    : null;
+    unset($people[$i]['cover_image_person_id']);
+  }
+
+  return array(
+    'paging' => array(
+      'page' => $params['page'],
+      'per_page' => $params['per_page'],
+      'total' => count($available),
+      'total_pages' => ceil(count($available) / $params['per_page']),
+    ),
+    'people' => $people,
+  );
 }
 
 /**
