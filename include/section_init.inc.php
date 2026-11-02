@@ -392,7 +392,7 @@ SELECT id
       $page,
       array(
         'title' => l10n('People').$conf['level_separator']
-                    .'<a href="'.duplicate_index_url(array('start'=>0)).'">'.$page['person']['name'].'</a>',
+                    .'<a href="'.duplicate_index_url(array('start'=>0)).'">'.htmlspecialchars($page['person']['name']).'</a>',
         'items' => $items,
         )
       );

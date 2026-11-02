@@ -46,7 +46,7 @@ function people_render_card(selector, person, index = null, dropdown_func = null
   template.attr('id', 'person_' + person.id);
   template.find('.people-dropdown-name').text(person.name);
   template.find('.people-card-name')
-    .attr('title', person.name)
+    .attr('title', $('<div></div>').text(person.name).html())
     .tipTip(people_tiptip_config)
     .text(person.name);
   template.find('.people-card-lock').tipTip(people_tiptip_config);

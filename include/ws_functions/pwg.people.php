@@ -29,7 +29,7 @@ function ws_get_people(array $params)
 
   if (!empty($params['search']))
   {
-    $where_clauses[] = 'p.name LIKE \'%'.pwg_db_real_escape_string($params['search']).'%\'';
+    $where_clauses[] = 'p.name LIKE \'%'.pwg_db_real_escape_string(stripslashes($params['search'])).'%\'';
   }
 
   $where_sql = count($where_clauses) > 0
@@ -100,7 +100,7 @@ function ws_people_getList($params, &$service)
     return new PwgError(403, 'Forbidden');
   }
 
-  $available = get_available_people(array(), $params['search'] ?? '');
+  $available = get_available_people(array(), stripslashes($params['search'] ?? ''));
   $people = array_slice($available, $params['page'] * $params['per_page'], $params['per_page']);
 
   $covers = get_people_covers(array_column($people, 'cover_image_person_id'), true);
@@ -168,7 +168,7 @@ function ws_people_add($params, &$service)
   }
 
   $new_person = create_person(
-    $params['name'],
+    stripslashes($params['name']),
     null, // not a created_by user_id but associated with user_id
     $params['is_visible'],
     $params['source']
@@ -194,6 +194,11 @@ function ws_people_edit($params, &$service)
   }
 
   $person_ids = array_values(array_unique($params['person_id']));
+
+  if (isset($params['name']))
+  {
+    $params['name'] = stripslashes($params['name']);
+  }
 
   if (count($person_ids) == 1)
   {

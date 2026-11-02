@@ -226,10 +226,10 @@ y.callService(
 				{if isset($person.face)}
 				<a class="people-avatar" href="{$person.URL}" style="background-size:{$person.face.size}% auto;background-position:{$person.face.x}% {$person.face.y}%;"></a>
 				{else}
-				<a class="people-avatar people-avatar-empty" href="{$person.URL}">{$person.initial}</a>
+				<a class="people-avatar people-avatar-empty" href="{$person.URL}">{$person.initial|escape:html}</a>
 				{/if}
 				<div class="people-tooltip">
-					<b>{$person.name}</b>
+					<b>{$person.name|escape:html}</b>
 					{if isset($person.face)}<i>{'Click to highlight on the photo'|@translate}</i>{/if}
 					<a href="{$person.URL}">{'See all the photos'|@translate}</a>
 				</div>

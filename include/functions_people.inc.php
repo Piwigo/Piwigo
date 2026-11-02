@@ -81,7 +81,7 @@ function can_see_people()
   switch ($conf['people_access'] ?? 'nobody')
   {
     case 'everybody':
-      return true;
+      return is_autorize_status(ACCESS_GUEST);
 
     case 'registered-users':
       return is_classic_user();
