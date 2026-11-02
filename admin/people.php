@@ -43,4 +43,6 @@ $template->assign(array(
   'PWG_TOASTER_TPL' => realpath(PHPWG_ROOT_PATH.'themes/standard_pages/template/toaster.tpl'),
   ));
 
+trigger_notify('loc_end_people');
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'people');

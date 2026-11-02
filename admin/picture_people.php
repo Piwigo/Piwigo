@@ -37,5 +37,7 @@ $template->assign(array(
 
 $template->set_filename('picture_people', 'picture_people.tpl');
 
+trigger_notify('loc_end_picture_people');
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'picture_people');
 ?>

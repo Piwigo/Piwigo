@@ -538,7 +538,7 @@ UPDATE '.IMAGE_PERSON_TABLE.'
     );
   }
 
-  trigger_notify('merge_people', $destination_id, $source_ids);
+  trigger_notify('merge_people', $destination_id, $source_ids, $to_delete);
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   delete_people($source_ids);
@@ -558,7 +558,9 @@ UPDATE '.IMAGE_PERSON_TABLE.'
  * @param int $person_id
  * @param array $data (all optional)
  *  - int box_x1, box_y1, box_x2, box_y2, image_width, image_height (all or none)
- *  - string source manual|auto|imported, default manual
+ *  - string source manual|auto|imported, default manual. A manual change of
+ *    the box makes the association manual, the other sources never change a
+ *    manual association.
  * @return array ['id' => image_person_id, 'created' => bool] or ['code', 'error']
  */
 function associate_person_to_image(int $image_id, int $person_id, array $data = array())
@@ -606,8 +608,17 @@ SELECT *
   {
     $image_person_id = $existing['id'];
 
-    // already associated, nothing to update
-    if (count($validated_data) == 0)
+    $updates = array();
+    foreach ($validated_data as $field => $value)
+    {
+      if ($existing[$field] != $value)
+      {
+        $updates[$field] = $value;
+      }
+    }
+
+    // nothing changed, or another source trying to overwrite a manual association
+    if (count($updates) == 0 || ('manual' != $source && 'manual' == $existing['source']))
     {
       set_person_cover_if_none($person, $image_person_id);
       return array(
@@ -616,9 +627,15 @@ SELECT *
       );
     }
 
+    if ('manual' == $source)
+    {
+      $updates['source'] = 'manual';
+      $updates['tagger_user_id'] = $user['id'];
+    }
+
     single_update(
       IMAGE_PERSON_TABLE,
-      $validated_data,
+      $updates,
       array('id' => $image_person_id)
     );
   }

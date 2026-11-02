@@ -131,7 +131,7 @@ array(
 array(
   'name' => 'merge_people',
   'type' => 'trigger_notify',
-  'vars' => array('int', 'destination_person_id', 'array', 'merged_person_ids'),
+  'vars' => array('int', 'destination_person_id', 'array', 'merged_person_ids', 'array', 'deleted_image_person_ids'),
   'files' => array('include\functions_people.inc.php (merge_people)'),
   'infos' => 'New in 17',
 ),
@@ -833,6 +833,20 @@ array(
   'type' => 'trigger_change',
   'vars' => array('string', 'tag_name'),
   'files' => array('admin\include\functions.php (tag_id_from_tag_name, create_tag)', 'admin\tags.php'),
+),
+array(
+  'name' => 'loc_end_picture_people',
+  'type' => 'trigger_notify',
+  'vars' => array(),
+  'files' => array('admin\picture_people.php'),
+  'infos' => 'New in 17',
+),
+array(
+  'name' => 'loc_end_people',
+  'type' => 'trigger_notify',
+  'vars' => array(),
+  'files' => array('admin\people.php'),
+  'infos' => 'New in 17',
 ),
 array(
   'name' => 'render_person_url',
