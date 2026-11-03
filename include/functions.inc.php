@@ -1562,8 +1562,12 @@ INSERT INTO
  * @since 2.6
  *
  * @param string|string[] $params
+ * @param string $condition (optional, @since 15) SQL condition added to the
+ *   WHERE clause with an AND, for example 'value = "..."'. Not escaped: the
+ *   caller is responsible for its content.
+ * @return int number of deleted rows
  */
-function conf_delete_param($params)
+function conf_delete_param($params, $condition=null)
 {
   global $conf;
 
@@ -1573,19 +1577,30 @@ function conf_delete_param($params)
   }
   if (empty($params))
   {
-    return;
+    return 0;
   }
 
   $query = '
 DELETE FROM '.CONFIG_TABLE.'
-  WHERE param IN(\''. implode('\',\'', $params) .'\')
+  WHERE param IN(\''. implode('\',\'', $params) .'\')';
+  if (!empty($condition))
+  {
+    $query.= '
+    AND '.$condition;
+  }
+  $query.= '
 ;';
   pwg_query($query);
+  $nb_deleted = pwg_db_changes();
 
+  // even when the condition matched nothing, the value we had in $conf is
+  // outdated: the row does not exist anymore or holds another value
   foreach ($params as $param)
   {
     unset($conf[$param]);
   }
+
+  return $nb_deleted;
 }
 
 /**
