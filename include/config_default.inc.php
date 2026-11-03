@@ -1062,8 +1062,11 @@ $conf['tiff_representative_ext'] = 'png';
 $conf['upload_form_all_types'] = false;
 
 // Size of chunks, in kilobytes. Fast connections will have better
-// performances with high values, such as 5000.
-$conf['upload_form_chunk_size'] = 500;
+// performances with high values, such as 5000. Must be smaller than the PHP
+// setting upload_max_filesize (2M by default). Each chunk is a request, and
+// each request reads the upload buffer directory: bigger chunks mean much
+// less work for the server on large files.
+$conf['upload_form_chunk_size'] = 2000;
 
 // Maximum size for a file in the upload form, in megabytes.
 $conf['upload_form_max_file_size'] = 1000;
