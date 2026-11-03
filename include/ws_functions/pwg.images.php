@@ -1989,8 +1989,9 @@ function ws_images_uploadAsync($params, &$service)
     return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid original_sum');
   }
 
-  // the number of chunks is used as a loop bound and formatted on 3 digits
-  if (!preg_match('/^\d+$/', (string)$params['chunks']) or $params['chunks'] < 1 or $params['chunks'] > 999)
+  // no upper bound: %03u is a minimum width, a series of more than 999
+  // chunks is valid (a 5GB video makes 10,000+ chunks of 500kB)
+  if (!preg_match('/^\d+$/', (string)$params['chunks']) or $params['chunks'] < 1)
   {
     return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid chunks');
   }
@@ -2145,8 +2146,10 @@ SELECT COUNT(*)
 
     hash_update($merged_md5_context, $chunk_data);
 
-    // an empty chunk writes 0 byte, which is not a failure
-    if (false === fwrite($fp, $chunk_data))
+    // a partial write (disk full) is a failure too: the checksum is computed
+    // on the data read, it would not detect a truncated merged file. An
+    // empty chunk writes 0 byte, which is not a failure.
+    if (strlen($chunk_data) !== fwrite($fp, $chunk_data))
     {
       // could not append chunk
       $logger->error(__FUNCTION__.' error merging chunk '.$chunkfile_path);
@@ -2160,8 +2163,14 @@ SELECT COUNT(*)
     $logger->debug(__FUNCTION__.' original_sum='.$params['original_sum'].', chunk '.$chunk_id.'/'.$params['chunks'].' merged');
   }
 
-  fflush($fp);
-  fclose($fp);
+  $saved = fflush($fp);
+  $saved = fclose($fp) && $saved;
+  if (!$saved)
+  {
+    $logger->error(__FUNCTION__.' error while saving '.$output_filepath);
+    @unlink($output_filepath);
+    return new PwgError(500, 'error while saving merged file');
+  }
 
   $logger->debug(__FUNCTION__.' merged file '.$output_filepath.' saved');
 
@@ -2251,7 +2260,7 @@ SELECT COUNT(*)
     $now = time();
     foreach (array('*.chunk', '*.part', '*.merged') as $leftover_pattern)
     {
-      foreach (glob($conf['upload_dir'].'/buffer/'.$leftover_pattern) as $file)
+      foreach (@glob($conf['upload_dir'].'/buffer/'.$leftover_pattern) ?: array() as $file)
       {
         if (is_file($file) and $now - filemtime($file) >= 60 * 60 * 24 * 7) // 7 days
         {
@@ -2289,7 +2298,10 @@ DELETE
 function ws_images_uploadAsync_get_chunk_ids($output_filepath_prefix, $nb_chunks)
 {
   $chunk_ids = array();
-  foreach (glob(sprintf('%s-*of%03u.chunk', $output_filepath_prefix, $nb_chunks)) as $chunkfile)
+  // glob() returns false on error (open_basedir, unreadable directory): its
+  // warning would land in the body of the response, ahead of the JSON
+  $chunkfiles = @glob(sprintf('%s-*of%03u.chunk', $output_filepath_prefix, $nb_chunks));
+  foreach ($chunkfiles ?: array() as $chunkfile)
   {
     if (preg_match('/-(\d+)of\d+\.chunk$/', $chunkfile, $matches))
     {
