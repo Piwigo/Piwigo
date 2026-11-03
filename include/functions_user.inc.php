@@ -572,7 +572,7 @@ INSERT IGNORE INTO '.USER_CACHE_TABLE.'
   ',\''.$userdata['image_access_type'].'\',\''.$userdata['image_access_list'].'\')';
       pwg_query($query);
 
-      pwg_unique_exec_ends($cache_generation_token_name);
+      pwg_unique_exec_ends($cache_generation_token_name, $exec_id);
       $logger->info($logger_msg_prefix.'user_cache generated, executed in '.get_elapsed_time($user_cache_generation_start_time, get_moment()));
     }
   }

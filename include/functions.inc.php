@@ -2699,7 +2699,7 @@ SELECT
   {
     $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote on '.$url.' has failed');
     send_piwigo_infos_retry_later(1*60*60); // 1 hour later
-    pwg_unique_exec_ends('send_piwigo_infos');
+    pwg_unique_exec_ends('send_piwigo_infos', $exec_id);
     $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
     return;
   }
@@ -3001,7 +3001,7 @@ SELECT
     $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] fetchRemote success, new send_piwigo_infos_last_notice='.$conf['send_piwigo_infos_last_notice']);
   }
 
-  pwg_unique_exec_ends('send_piwigo_infos');
+  pwg_unique_exec_ends('send_piwigo_infos', $exec_id);
   $logger->info('['.__FUNCTION__.'][exec='.$exec_id.'] executed in '.get_elapsed_time($start_time, get_moment()));
 }
 
@@ -3034,7 +3034,7 @@ function send_piwigo_infos_retry_later($wait_time)
  *   if ($exec_id = pwg_unique_exec_begins('my_task'))
  *   {
  *     // do the work
- *     pwg_unique_exec_ends('my_task');
+ *     pwg_unique_exec_ends('my_task', $exec_id);
  *   }
  *
  * @since 15
@@ -3070,7 +3070,13 @@ function pwg_unique_exec_begins($token_name, $timeout=60)
     if (time() - $running_exec_start_time > $timeout)
     {
       $logger->info('['.$token_name.'][exec='.$exec_id.'] exec='.$running_exec_id.', timeout stopped by another call to the function');
-      pwg_unique_exec_ends($token_name);
+
+      // only remove the stale token we have seen: $conf was loaded at the
+      // beginning of the request and another call may have replaced it since
+      conf_delete_param(
+        $token_name.'_running',
+        'value = "'.$conf[$token_name.'_running'].'"'
+      );
     }
   }
 
@@ -3082,10 +3088,11 @@ INSERT IGNORE
 ;';
   pwg_query($query);
 
-  list($running_exec) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.CONFIG_TABLE.' WHERE param = "'.$token_name.'_running"'));
-  list($running_exec_id,) = explode('-', $running_exec);
-
-  if ($running_exec_id != $exec_id)
+  // the INSERT IGNORE affects 1 row if we got the token, 0 if another
+  // execution holds it. Reading the token back with a SELECT was a race: the
+  // holder could release it between our INSERT and the SELECT, which then
+  // returned no row.
+  if (pwg_db_changes() != 1)
   {
     $logger->info('['.$token_name.'][exec='.$exec_id.'] skip');
     return false;
@@ -3108,12 +3115,31 @@ SELECT
   return $counter > 0;
 }
 
-function pwg_unique_exec_ends($token_name)
+/**
+ * Releases the token obtained with pwg_unique_exec_begins().
+ *
+ * @param string $token_name
+ * @param string $exec_id (optional, @since 15) execution id returned by
+ *   pwg_unique_exec_begins(). If given, the token is released only if it is
+ *   still ours: an execution which exceeded the timeout may have seen its
+ *   token taken by another call, it must not release the new holder's token.
+ */
+function pwg_unique_exec_ends($token_name, $exec_id=null)
 {
   global $logger;
 
-  conf_delete_param($token_name.'_running');
-  $logger->info('['.$token_name.'] ends now');
+  $condition = null;
+  if (isset($exec_id))
+  {
+    $condition = 'value LIKE "'.$exec_id.'-%"';
+  }
+
+  if (0 == conf_delete_param($token_name.'_running', $condition) and isset($exec_id))
+  {
+    $logger->info('['.$token_name.'][exec='.$exec_id.'] token was not ours anymore (timeout exceeded?)');
+  }
+
+  $logger->info('['.$token_name.']'.(isset($exec_id) ? '[exec='.$exec_id.']' : '').' ends now');
 }
 
 /**
